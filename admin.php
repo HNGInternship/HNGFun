@@ -123,7 +123,7 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
     }?>
 
     <?php if($success) {
-        echo "<div class='alert alert-success'>Successful! Click here to view your profile</div>";
+        echo "<div class='alert alert-success'>Successful! Click <a href='profiles/". $username . ".php'>here</a> to view your profile</div>";
     }?>
 
     <form action="admin.php" method="post" enctype="multipart/form-data">
