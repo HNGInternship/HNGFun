@@ -12,7 +12,7 @@
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="site-heading">
               <h1>HNG Internship</h1>
-              <span class="subheading">A Blog Theme by Start Bootstrap</span>
+              <span class="subheading">Test Autodeploy on staging server</span>
             </div>
           </div>
         </div>
