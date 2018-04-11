@@ -12,7 +12,7 @@
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="site-heading">
               <h1>HNG Internship</h1>
-              <span class="subheading">Test Autodeploy on staging server</span>
+              <span class="subheading">Test Autodeploy on staging server 1</span>
             </div>
           </div>
         </div>
