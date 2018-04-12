@@ -119,7 +119,7 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
     </div>
 </header>
 
-   <div  align="center">
+   <div  class="row" align="center">
 <form class="col-md-3">
     
 
@@ -129,7 +129,7 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
     <br>
 
     <label for="defaultFormRegisterEmailEx" class="grey-text">Slack Username</label>
-    <input type="email" id="defaultFormRegisterEmailEx" class="form-control">
+    <input type="text" id="defaultFormRegisterEmailEx" class="form-control">
     
     <br>
 
