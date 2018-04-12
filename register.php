@@ -123,18 +123,21 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
 <form class="col-md-4 mx-auto">
     
 
-    <label for="defaultFormRegisterNameEx" class="grey-text">Name</label>
-    <input type="text" id="defaultFormRegisterNameEx" class="form-control">
+    <label for="name">Name:</label>
+    <input required type="text" name="name" class="form-control"  id="name" placeholder="Surname First">
+    <?php if($nameError != "") { echo "<div class='alert alert-danger'>$nameError</div>"; }?>
     
     <br>
 
-    <label for="defaultFormRegisterEmailEx" class="grey-text">Slack Username</label>
-    <input type="text" id="defaultFormRegisterEmailEx" class="form-control">
+    <label for="username">Slack Username:</label>
+    <input required type="text" name="username" class="form-control"  id="username" placeholder="username">
+    <?php if($usernameError != "") { echo "<div class='alert alert-danger'>$usernameError</div>"; }?>
     
     <br>
 
-    <label for="file">Profile Picture <small>(max-size: 500kb):</small></label>
-    <input type="file" name="file" class="form-control-file" id="file" >
+    <label for="key">Key Code:</label>
+    <input required type="text" name="key" class="form-control"  id="key" placeholder="key code">
+    <?php if($keyError != "") { echo "<div class='alert alert-danger'>$keyError</div>"; }?>
 
     <div class="text-center mt-4">
        <input type="submit" name="submit" class="btn btn-primary">
