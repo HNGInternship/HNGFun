@@ -6,22 +6,31 @@ require 'db.php';
 // Initializing Error Variables To Null.
 $nameError ="";
 $usernameError = "";
-
+$keyError="";
 $uploadError = "";
 
 $imageSuccess = false;
 $success = false;
+$key = "1n73rn@Hng";
 
 if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
 
-    //Data Sanitization and Vslidation
+    //Data Sanitization and Validation
     if($_POST['name'] != ""){
         $_POST['name'] = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
         if ($_POST['name'] == ""){
             $nameError = "<span class='invalid'>Please enter a valid name.</span>";
         }
     }
+    // key
+    if($_POST['key'] != ""){
+        
+        if ($_POST['key'] != "1n73rn@Hng "){
+            $keyError = "<span class='invalid'>Please enter a valid key code.</span>";
+        }
+    }
 
+    // key valid ends
     if($_POST['username'] != ""){
         $_POST['username'] = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
         if($_POST['username'] == ""){
@@ -39,7 +48,7 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
     }
 
     //Upload File and Insert Data into Database
-    if ($nameError == "" && $usernameError == "") {
+    if ($nameError == "" && $usernameError == "" && $keyError == "") {
         //Upload file
         $max_size = 500 * 1024; // 500 KB
         $destination_directory = "images/";
@@ -117,14 +126,13 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
     </div>
 </header>
 
-<div class="container">
-    <?php if($nameError != "" || $usernameError != "" || $uploadError != "") {
+<div class="container" id="container">
+    <?php if($nameError != "" || $keyError != ""|| $usernameError != "" || $uploadError != "") {
         echo "<div class='alert alert-danger'>Error found, please try again!</div>";
     }?>
 
     <?php if($success) {
-        echo "<div class='alert alert-success'>Successful! Click <a href='profile.php?id=". $username . "'>
-          <button class='btn btn-success'>Here</button></a> to view your profile</div>";
+        echo "<div class='alert alert-success'>Successful! Click <a href='profiles/". $username . ".php'>here</a> to view your profile</div>";
     }?>
 
     <form action="admin.php" method="post" enctype="multipart/form-data">
@@ -154,6 +162,14 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
                 </div>
                 <?php if($uploadError != "") { echo "<div class='alert alert-danger'>$uploadError</div>"; }?>
             </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="key">Key Code:</label>
+                    <input required type="text" name="key" class="form-control"  id="key" placeholder="key code">
+                    <?php if($keyError != "") { echo "<div class='alert alert-danger'>$keyError</div>"; }?>
+                </div>
+            </div>
+        </div>
         </div>
 
 
