@@ -120,7 +120,7 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
 </header>
 
    <div  align="center">
-<form class="col-md-5">
+<form class="col-md-3">
     
 
     <label for="defaultFormRegisterNameEx" class="grey-text">Name</label>
