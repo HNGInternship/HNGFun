@@ -30,20 +30,20 @@ include_once("header.php");
           </div><!-- /.col-lg-4 -->
 		  
           <div class="col-lg-4">
-            <img class="rounded-circle" src="images/iam__dharmy.png" alt="iam__dharmy image" width="140" height="140">
+            <img class="rounded-circle" src="images/iam__dharmy.PNG" alt="iam__dharmy image" width="140" height="140">
             <h2>iam__dharmy</h2>
             <p>This internship has been WOW,  I've been able to greatly improve my html/css and design skills, and I now know how to use github.</p>
           </div><!-- /.col-lg-4 -->
 		  
 		   <div class="col-lg-4">
-            <img class="rounded-circle" src="images/Osawaru.png" alt="Osawaru image" width="140" height="140">
+            <img class="rounded-circle" src="images/Osawaru.PNG" alt="Osawaru image" width="140" height="140">
             <h2>Osawaru</h2>
             <p> I got to work with Figma for first time. As a designer, this is definitely a nice tool to add to my toolbox. Been a challenging and good experience so far. looking forward to more.
 			</p>
           </div><!-- /.col-lg-4 -->
 		  
 		  <div class="col-lg-4">
-            <img class="rounded-circle" src="images/Dtechtor.png" alt="Dtechtor image" width="140" height="140">
+            <img class="rounded-circle" src="images/Dtechtor.PNG" alt="Dtechtor image" width="140" height="140">
             <h2>D'techtor</h2>
             <p> I wrote my first php code and I've had github but never used it or bothered to learn, thanks to this internship for the push out of my comfort zone, now I can make use of github and implement a php file.
 
@@ -51,7 +51,7 @@ include_once("header.php");
           </div><!-- /.col-lg-4  -->
 		  
 		  <div class="col-lg-4">
-            <img class="rounded-circle" src="images/TechHajiya.png" alt="TechHajiya image" width="140" height="140">
+            <img class="rounded-circle" src="images/TechHajiya.PNG" alt="TechHajiya image" width="140" height="140">
             <h2>TechHajiya</h2>
             <p> It's been a great opportunity working with different people and using various tools in accomplishing the tasks given. Thanks to hng internship I can now use Figma for designs and TeamViewer also. Looking forward to more of such experiences.
 
@@ -59,7 +59,7 @@ include_once("header.php");
           </div><!-- /.col-lg-4 -->
 		  
           <div class="col-lg-4">
-            <img class="rounded-circle" src="images/Fotes.png" alt="Fotes image" width="140" height="140">
+            <img class="rounded-circle" src="images/Fotes.PNG" alt="Fotes image" width="140" height="140">
             <h2>Fotes</h2>
             <p>Phew!!! Learnt how to ask specific questions. Thanks to all who have helped me thus far </p>
           </div><!-- /.col-lg-4 -->
