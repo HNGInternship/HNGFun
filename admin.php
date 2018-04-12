@@ -170,8 +170,6 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
                 </div>
             </div>
         </div>
-        </div>
-
 
         <input type="submit" name="submit" class="btn btn-primary">
     </form>

@@ -23,14 +23,17 @@
       <link href="css/style2.css" rel="stylesheet">
       <link href="css/style1.css" rel="stylesheet">
       <link href="css/style.css" rel="stylesheet">
+      <link href="css/learn.css" rel="stylesheet">
 <!--	  <link href="css/carousel.css" rel="stylesheet">-->
+      <link href="css/landing-page.min.css" rel="stylesheet">
+
 
   </head>
 
   <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top" id="mainNav">
       <div class="container">
         <a class="navbar-brand" href="index.php">HNG FUN</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
