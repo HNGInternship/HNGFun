@@ -3,13 +3,15 @@ web:
     ports:
         - "8080:80"
     volumes:
-        - /var/www/HNGFun:/var/www/
+        - /var/www/html/HNGFun:/var/www/
         - ./site.conf:/etc/nginx/conf.d/site.conf
     links:
     	- php
+    ports:
+    	-"8080:80"
 
 php:
 	image: php:7-fpm
 
 	volumes:
-        - /var/www/HNGFun:/var/www/
+        - /var/www/html/HNGFun:/var/www/
