@@ -67,7 +67,7 @@ $time = date('G:i');
         }
     </style>
 </head>
-
+<body>
 <div class="container">
     <div class="offset-md-3 col-md-6">
         <div class="main"><span class="text">Oluwamelody Tech</span></div>
@@ -78,5 +78,5 @@ $time = date('G:i');
     </div>
 </div>
 <hr>
-
+</body>
 
