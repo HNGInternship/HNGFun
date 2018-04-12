@@ -49,7 +49,7 @@
               <a class="nav-link" href="listing.php">Interns</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="admin.php">Register</a>
+              <a class="nav-link" href="register.php">Register</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="testimonies.php">Testimonies</a>
