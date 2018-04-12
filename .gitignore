@@ -1,2 +1,3 @@
 config.php
 docker-compose.yml
+deploy.php
