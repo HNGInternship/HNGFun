@@ -33,7 +33,7 @@ $data = $q->fetchAll();
       width=160px height="100px">
       <h5 class="align-middle"><?= $list['name']?></h5>
       <span class="align-middle">
-        <a href="profiles/<?=$list['username']?>.php">
+        <a href="profile.php?id=<?=$list['username']?>">
           <button class="btn btn-success">View Profile</button>
         </a>
       </span>        

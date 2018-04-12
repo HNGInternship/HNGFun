@@ -52,7 +52,6 @@
 			echo "The time is </br>" . date("h:i:sa");
 		?> 
 	</p>
-    
+
 </body>
-</html>
 

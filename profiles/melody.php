@@ -7,8 +7,11 @@ $time = date('G:i');
 <html>
 <head>
     <link href='https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra SC|Romanesco' rel='stylesheet'>
-    <link href="../HNGStage1/style.css" rel="stylesheet" type="text/css">
     <style type="text/css">
+        .container{
+            width: 100%;
+            min-height: 100%
+        }
         html, body {
             height: 100%;
             background-image: url('https://wallup.net/wp-content/uploads/2016/01/155420-water-dark-calm-nature.jpg');
@@ -16,36 +19,13 @@ $time = date('G:i');
             background-size:cover;
             margin: 0px;
         }
-        .container {
-            width: 100%;
-            min-height: 100%
-        }
-        .header {
-            width: 100%;
-            height: 60px;
-            background-color: rgba(148, 148, 148, 0.39);
-        }
-        .header-text {
-            position: absolute;
-            height: 60px;
-            font-family: Almendra SC;
-            line-height: 60px;
-            font-size: 18px;
-            text-align: center;
-            color: #FFFFFF;
-        }
+
         span {
             display: inline-block;
             vertical-align: middle;
             line-height: normal;
         }
-        .title {
-            width: 204px;
-        }
-        .about {
-            right: 0;
-            width: 100px;
-        }
+
         .main {
             position: absolute;
             top:20px;
@@ -89,11 +69,7 @@ $time = date('G:i');
 </head>
 <body>
 <div class="container">
-    <div id=a class="header">
-        <div class="header-text title"><span>HNG Internship 4</span></div>
-        <div class="header-text about">About</div>
-    </div>
-    <div class="body">
+    <div class="offset-md-3 col-md-6">
         <div class="main"><span class="text">Oluwamelody Tech</span></div>
         <div class="under"><span>Lagos | NG</span></div>
     </div>
@@ -101,8 +77,6 @@ $time = date('G:i');
         <span><?= $date ?> <br/> <?= $time ?></span>
     </div>
 </div>
-
+<hr>
 </body>
-</html>
-
 
