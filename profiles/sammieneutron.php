@@ -22,7 +22,7 @@
     }
 
     #about {
-      color: #ffffff;
+      color: black;
     }
 
     #hello {
@@ -81,47 +81,72 @@
 </head>
 
 <body>
-  <div id="main">
-    <div id="about">
-      <div class="text-center">
-       <div class="profile_pic">
-          <div class="pic"><img src="http://res.cloudinary.com/webcoupers/image/upload/v1523626904/me.jpg" alt="Samson Samuels"/></div>
-       </div>
-       
-       <h3 class="name">Samson Samuels</h3>
-       <h4 style="text-align:center; font-size:1em;">Lagos, Nigeria</h4>
-        <h4 class="designation">Software Developer</h4>
 
-       
-        
-          <div id="social">
-            <ul class="nav nav-pills">
-              <li>
-                <a href="https://github.com/sammieneutron" target="_blank" target="_blank" target="_blank">
-                  <img class="social-icons" src="http://res.cloudinary.com/eskye/image/upload/c_scale,w_150/v1523623556/github.svg" />
-                </a>
-              </li>
-              <li>
-                <a href="https://twitter.com/sammie_neutron" target="_blank" target="_blank">
-                  <img class="social-icons" src="http://res.cloudinary.com/eskye/image/upload/c_scale,w_100/v1523623465/twitter.svg" />
-                </a>
-              </li>
-              <li>
-                <a href="https://facebook.com/adgboyega.samson" target="_blank" target="_blank">
-                  <img class="social-icons" src="http://res.cloudinary.com/eskye/image/upload/c_scale,w_512/v1523623281/facebook.png" />
-                </a>
-              </li>
-              <li>
-                <a href="https://www.linkedin.com/in/sammieneutron" target="_blank" target="_blank">
-                  <img class="social-icons" src="http://res.cloudinary.com/eskye/image/upload/c_scale,w_200/v1523624207/linkedin-icon.png" />
-                </a>
-              </li>
-            </ul>
-          </div>
+  <div class="row">
+
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6">
+
+
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+            <h2 style="color: black; text-align: center;">My Profile </h2>
         </div>
-      </div>
+
+        <div class="panel-body">
+          <div id="main">
+            <div id="about">
+              <div class="text-center">
+               <div class="profile_pic">
+                  <div class="pic"><img src="http://res.cloudinary.com/webcoupers/image/upload/v1523626904/me.jpg" alt="Samson Samuels"/></div>
+               </div>
+               
+               <h3 class="name">Samson Samuels</h3>
+               <h4 style="text-align:center; font-size:1em;">Lagos, Nigeria</h4>
+                <h4 class="designation">Software Developer</h4>
+               </div>
+
+             </div>
+
+           </div>
+
+         </div>
+                <div class="panel-footer">
+                  <div id="social">
+                    <ul class="nav nav-pills">
+                      <li>
+                        <a href="https://github.com/sammieneutron" target="_blank" target="_blank" target="_blank">
+                          <img class="social-icons" src="http://res.cloudinary.com/eskye/image/upload/c_scale,w_150/v1523623556/github.svg" />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://twitter.com/sammie_neutron" target="_blank" target="_blank">
+                          <img class="social-icons" src="http://res.cloudinary.com/eskye/image/upload/c_scale,w_100/v1523623465/twitter.svg" />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://facebook.com/adgboyega.samson" target="_blank" target="_blank">
+                          <img class="social-icons" src="http://res.cloudinary.com/eskye/image/upload/c_scale,w_512/v1523623281/facebook.png" />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://www.linkedin.com/in/sammieneutron" target="_blank" target="_blank">
+                          <img class="social-icons" src="http://res.cloudinary.com/eskye/image/upload/c_scale,w_200/v1523624207/linkedin-icon.png" />
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+        
+        </div>
+
     </div>
-  </div>
+
+    <div class="col-md-3"></div>
+    </div>
+  
 </body>
 
 </html>
