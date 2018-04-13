@@ -7,11 +7,11 @@
 
     <style media="screen">
       body {
-        font-family: 'ubuntu';
         background-color: #eee;
       }
 
-      .container {
+      #t-container {
+        font-family: 'ubuntu';
         width: 400px;
         margin: auto;
         margin-top: 150px;
@@ -32,7 +32,7 @@
         border-radius: 50%;
       }
 
-      .desc {
+      #t-desc {
         text-align: center;
       }
 
@@ -41,7 +41,7 @@
         color: #fff
       }
 
-      .social-media {
+      #t-social-media {
         margin-bottom: 20px;
       }
 
@@ -71,11 +71,11 @@
 
   </head>
   <body>
-    <div class="container">
+    <div id="t-container">
       <div id="t-image">
         <img src="http://res.cloudinary.com/toriboi/image/upload/v1523624432/toriboi.jpg" alt="" width="200" height="200">
       </div>
-      <div class="desc">
+      <div id="t-desc">
         <h1>Faith Odonghanro</h1>
         <h2>HNG 4.0 Intern</h2>
         <p>
@@ -84,7 +84,7 @@
           I love playing games, expecially soccer.
         </p>
 
-        <div class="social-media">
+        <div id="t-social-media">
           <span><a href="https://twitter.com/toriiboy" class="fa fa-twitter"></a></span>
           <span><a href="https://web.facebook.com/toriboi" class="fa fa-facebook"></a></span>
           <span><a href="https://github.com/toriboi" class="fa fa-github"></a></span>
