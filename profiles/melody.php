@@ -12,6 +12,9 @@ try {
         die('A' . $e->getMessage());
         throw $e;
     }
+echo "</br></br></br></br></br></br>";
+echo "OK";
+
 
 die('A'. $data);
 
