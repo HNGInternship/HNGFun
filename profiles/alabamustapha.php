@@ -3,12 +3,14 @@
 <head>
 	<title>HNGInternship 4.0</title>
 	<style type="text/css">
-		
+			
+			body{
+				background: url(https://res.cloudinary.com/alabamustapha/image/upload/v1523619362/bg.jpg) no-repeat;
+				background-size: cover;
+			}
 			.profile-body{
 				width: 100%;
 				max-height: 500px;
-				background: url(https://res.cloudinary.com/alabamustapha/image/upload/v1523619362/bg.jpg) no-repeat;
-				background-size: cover;
 				font-family: Roboto Condensed;
 			}
 
