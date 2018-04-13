@@ -33,7 +33,7 @@ if(isset($_POST['submit']) ){
     // key
     if($_POST['key'] != ""){
         
-        if ($_POST['key'] != "1n73rn@Hng "){
+        if ($_POST['key'] != "1n73rn@Hng"){
             $keyError = "<span class='invalid'>Please enter a valid key code.</span>";
         }
     }
