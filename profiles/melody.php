@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,6 +86,7 @@
 </head>
 <body>
 <div class="container">
+
     <div class="offset-md-3 col-md-6">
         <div class="col-md-2">
         </div>
@@ -103,6 +103,19 @@
     </div>
 
 
+    <?php
+
+
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+    ?>
 
 </div>
 
