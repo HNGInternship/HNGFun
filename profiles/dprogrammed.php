@@ -32,7 +32,7 @@
   	img{
   		position: absolute;
   		top: 7em;
-  		margin-left: 17em;
+  		margin-left: 12em;
   		width: 30em;
   		height: 37em;
   		background-color: white;
