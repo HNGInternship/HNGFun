@@ -1,10 +1,9 @@
 
 <head>
-    <title>Dahunsi Fehintoluwa</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
     <style type="text/css">
         body{
-            background-color: #9C27B0;
+            background-color: #4CAF50;
             font-family: Raleway, "sans-serif"
 
         }
@@ -14,16 +13,16 @@
         .main{
             width: 50vw;
             height: 50vh;
-            background-color: #F3E5F5;
-            margin: auto;
+            background-color: #E8F5E9;
+            margin: 100px auto;
             text-align: center;
             box-shadow: 2px 2px 4px;
 
         }
         .clock{
             border-radius: 50%;
-            width: 200px;
-            height: 200px;
+            width: 150px;
+            height: 150px;
             margin: auto;
             color: #fff;
             text-align: center;
@@ -36,11 +35,10 @@
 
 <div class="main">
 
-    <h1 class="header">Dahunsi Fehinti</h1>
-
     <img class="clock img-fluid" src="https://res.cloudinary.com/iceblaze/image/upload/v1523624386/DSC_1101.jpg"
          alt="Dahunsi Fehintoluwa">
     <div>
+    	<p><strong>Names:</strong> Dahunsi Fehintoluwa Damilola</p>
         <p><strong>Hobbies:</strong> Programming, Reading, Weightlifting </p>
         <p><b>Summary:</b> Full stack web dev, all round code junkie<br>
         <a href="#" class="btn btn-primary">Hug me</a>
