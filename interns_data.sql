@@ -20,6 +20,6 @@ INSERT INTO `interns_data` (`intern_id`, `name`, `username`, `image_filename`) V
 (13, 'John Ayeni', 'johnayeni', 'johnayeni.jpg'),
 (14, 'Ekpang Michael Etta', 'mike', 'mikeetta.jpg'),
 (15, 'Charles Katuri', 'charlek', 'charlek.jpg'),
-(15, 'John Odey', 'john', 'john.jpg');
+(16, 'John Odey', 'john', 'john.jpg');
 
 -- 2018-04-13 06:08:02
