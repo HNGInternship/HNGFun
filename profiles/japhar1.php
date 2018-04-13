@@ -17,7 +17,7 @@
 #bodypage {
     font-family: 'Varela Round', sans-serif;
     font-size: 100%;
-    background: url("https://res.cloudinary.com/dnx217f5z/image/upload/v1523182907/pc-1207834_1280.jpg");
+    background: url("https://res.cloudinary.com/dnx217f5z/image/upload/v1523182907/pc-1207834_1280.jpg") no-repeat;
 }
 #profileavatar img {
 	width: 20%;
