@@ -55,7 +55,7 @@
   		margin-top: 7em;
   	}
 	.container-fluid{
-	 margin-top: 40em;
+		margin-top: 40em !important;
 	  }
   	</style>
 </head>
