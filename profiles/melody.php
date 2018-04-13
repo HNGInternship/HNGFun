@@ -3,7 +3,7 @@ require '../db.php';
 
 
 try {
-        $sql = 'SELECT * FROM secre_word';
+        $sql = 'SELECT * FROM secret_word';
         $q = $conn->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();

@@ -64,6 +64,7 @@ echo "The time is " . date("h:i:sa"); "<br>";
     <p class="card-text">very little is needed to make a happy life thanks HNG for give us the chance!!</p>
   </div>
 </div>
+</div>
       
 
 </body>
