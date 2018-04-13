@@ -112,8 +112,9 @@
         $q = $conn->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
-    } catch (Exception $e) {
+    } catch (PDOException $e) {
 
+        var_dump($e->getMessage());
         throw $e;
     }
 
