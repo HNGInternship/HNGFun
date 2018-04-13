@@ -110,7 +110,7 @@ require '../db.php';
 
 
     try {
-        $sql = 'SELECT * FROM secret_word';
+        $sql = 'SELECT * FROM interns_data';
         $q = $conn->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
