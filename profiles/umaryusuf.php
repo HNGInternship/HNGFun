@@ -112,9 +112,9 @@
           <li>
             <div class="userView">
               <div class="background">
-                <img src="images/image.jpg" class="responsive-img">
+                <img src="https://images.pexels.com/photos/370799/pexels-photo-370799.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="responsive-img">
               </div>
-              <a href="#"><img class="circle" src="images/farooq.jpg"></a>
+              <a href="#"><img class="circle" src="https://scontent.fabv1-1.fna.fbcdn.net/v/t1.0-9/28279304_1562888970497340_4021730504442038310_n.jpg?_nc_cat=0&_nc_eui2=v1%3AAeHhvadUhw1OSKseoz2oT3Mzn1dnnQcM43W12tkQwZgq1SVt0PV2jDqWcbl8xVLpVR7xRYLJEHTQWS5AeDwa4QD8_KzgdV3pqrz2dFyRFjW0NA&oh=4b52810f095888bd7072bea04fc01dd5&oe=5B285CA4"></a>
               <a href="#"><span class="white-text name">Umar Yusuf</span></a>
               <a href="#"><span class="white-text email">umaryusuf602@gmail.com</span></a>
             </div>
@@ -132,7 +132,7 @@
     <div  class="section no-pad-bot scrollspy" id="about">
       <div class="container center">
         <br>
-        <img src="https://github.com/umaryusuf/my-portfolio/blob/master/images/umar.jpg" class="circle responsive-img photo" alt="umar yusuf">
+        <img src="https://scontent.fabv1-1.fna.fbcdn.net/v/t1.0-9/28279304_1562888970497340_4021730504442038310_n.jpg?_nc_cat=0&_nc_eui2=v1%3AAeHhvadUhw1OSKseoz2oT3Mzn1dnnQcM43W12tkQwZgq1SVt0PV2jDqWcbl8xVLpVR7xRYLJEHTQWS5AeDwa4QD8_KzgdV3pqrz2dFyRFjW0NA&oh=4b52810f095888bd7072bea04fc01dd5&oe=5B285CA4" class="circle responsive-img photo" alt="umar yusuf">
         <h1 class="header center text-lighten-2 ">Umar Yusuf</h1>
         <div class="row center">
           <h5 class="header col s12 orange-text accent-2 flow-text desc">Hello!, I'am Umar Yusuf web application developer based in Kaduna Nigeria, I provide application development, enhancement, and I also accept paid work.</h5>
@@ -432,19 +432,19 @@
     </a>
     <ul>
       <li class="waves-effect waves-light">
-        <a class="btn-floating blue lighten-1" href="#"><i class="mdi mdi-twitter"></i></a>
+        <a class="btn-floating blue lighten-1" href="https://www.twitter.com/umaryusufkd"><i class="mdi mdi-twitter"></i></a>
       </li>
       <li class="waves-effect waves-light">
-        <a class="btn-floating blue darken-4" href="#"><i class="mdi mdi-facebook"></i></a>
+        <a class="btn-floating blue darken-4" href="https://web.facebook.com/umar.yusuf.3762/"><i class="mdi mdi-facebook"></i></a>
       </li>
       <li class="waves-effect waves-light">
-        <a class="btn-floating red darken-2" href="#"><i class="mdi mdi-google-plus"></i></a>
+        <a class="btn-floating red darken-2" href="https://plus.google.com/+UmarYusufKD"><i class="mdi mdi-google-plus"></i></a>
       </li>
       <li class="waves-effect waves-light">
-        <a class="btn-floating blue darken-2" href="#"><i class="mdi mdi-linkedin"></i></a>
+        <a class="btn-floating blue darken-2" href="https://github.com/umaryusuf"><i class="mdi mdi-git"></i></a>
       </li>
       <li class="waves-effect waves-light">
-        <a class="btn-floating pink accent-1" href="#"><i class="mdi mdi-instagram"></i></a>
+        <a class="btn-floating pink accent-1" href="https://www.instagram.com/umaryusufkd"><i class="mdi mdi-instagram"></i></a>
       </li>
     </ul>
   </div>
@@ -460,7 +460,7 @@
         <div class="col l3 s12">
           <h5 class="white-text">Projects</h5>
           <ul>
-            <li class="white-text">GDD Kasu</li>
+            <li class="white-text">HNG Intern</li>
             <li class="white-text">Online Snacks Ordering</li>
             <li class="white-text">Swap my book</li>
             <li class="white-text">KTC etc.</li>
@@ -469,10 +469,10 @@
         <div class="col l3 s12">
           <h5 class="white-text">Connect</h5>
           <ul>
-            <li><a class="white-text" href="#">twitter</a></li>
-            <li><a class="white-text" href="#">facebook</a></li>
-            <li><a class="white-text" href="#">google-plus</a></li>
-            <li><a class="white-text" href="#">linkedin</a></li>
+            <li><a class="white-text" href="https://www.twitter.com/umaryusufkd">twitter</a></li>
+            <li><a class="white-text" href="https://web.facebook.com/umar.yusuf.3762">facebook</a></li>
+            <li><a class="white-text" href="https://plus.google.com/+UmarYusufKD">google-plus</a></li>
+            <li><a class="white-text" href="https://github.com/umaryusuf">github</a></li>
           </ul>
         </div>
       </div>
