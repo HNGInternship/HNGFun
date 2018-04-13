@@ -13,11 +13,11 @@
     padding: 0;
     box-sizing: border-box;
 }
-body {
+#bodypage {
     font-family: 'Varela Round', sans-serif;
     font-size: 100%;
 }
-.container {
+#mainbox {
     background: url("https://res.cloudinary.com/dnx217f5z/image/upload/v1523182907/pc-1207834_1280.jpg") no-repeat;
     position: absolute;
     height: 100%;
@@ -33,19 +33,19 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
-.personal img {
+#profileavatar img {
 	width: 20%;
 	border-radius: 50%;
 	margin: auto;
 	margin-top: 10%;
 }
-.content {
+#innercontent {
     background-color: rgba(255,255,255,0.2);
     width: 60%;
     margin: auto;
     /*margin-top: 25%;*/
 }
-.content p{
+#innercontent p{
     text-align: center;
     line-height: 2em;
     color: #fff;
@@ -56,12 +56,12 @@ body {
         </style>
 	</head>
 
-	<body>
-        <div class="container">
-        	<figure class="personal">
+	<body id="bodypage">
+        <div id="mainbox">
+        	<figure id="profileavatar">
         		<img class="img-responsive text-center" src="https://res.cloudinary.com/dnx217f5z/image/upload/v1523621896/IMG-20180410-WA0000.jpg">
         	</figure>
-            <div class="content">
+            <div id="innercontent">
                 <p>User - @japhar1 | Name: Balogun Olusegun</p>
                 <p>HNG Internship 4.0 - Web Dev Intern</p>
                 <?php
