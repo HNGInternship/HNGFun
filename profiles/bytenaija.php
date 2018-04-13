@@ -35,7 +35,7 @@
 
 header{
     width: 100%;
-    margin-top : 2rem;
+    margin-top : 4rem;
     text-align: center;
     font-family: 'Ubuntu';
     background-color: #632F2F;
@@ -116,7 +116,7 @@ section h2:first-child{
 .me p{
    box-shadow: 1px 1px .5rem aqua;
     width: 20rem;
-    margin: 1rem 5rem;
+    margin: 1rem 2rem;
     background-color: white;
     font-size: 200%;
 }
@@ -126,6 +126,7 @@ section h2:first-child{
     transition: transform 1s  ease-in-out;
     cursor: pointer;
     position: relative;
+    padding:.5rem;
 
 
 }
@@ -168,7 +169,7 @@ section h2:first-child{
 
 .me .right p{
    transform: skew(20deg);
-   top: -200%;
+
 }
 
 .me .left p{
