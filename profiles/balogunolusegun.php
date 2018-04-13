@@ -52,13 +52,14 @@ body {
         <div class="container">
             <div class="content">
                 <p>User - @japhar1</p>
-                <p>HNG Internship 4.0</p>
+		<p>Name: Balogun Olusegun</p>
+                <p>HNG Internship 4.0 Intern</p>
                 <?php
                 $time = time();
                 $actual_time = date('F jS Y h:i a' );
                 ?>
                <p><?php echo 'Date/Time: '.$actual_time;?></p>
-                <p>Task - Stage 1</p>
+                <p>Task - Stage 4</p>
             </div>
         </div>
 
