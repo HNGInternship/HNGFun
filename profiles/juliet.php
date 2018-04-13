@@ -24,11 +24,7 @@
       <link href="../css/style1.css" rel="stylesheet">
       <link href="../css/style.css" rel="stylesheet">
 	  <link href="../css/carousel.css" rel="stylesheet">
-      <style>
-      img{
-        transform: rotate(90deg);
-        }
-      </style>
+    
 
   </head>
 
@@ -77,7 +73,7 @@
       <div class="row">
 
         <div class="col-md-8">
-          <img class="img-fluid" src="../images/juliet.jpg" alt="juliet">
+          <img class="img-fluid" src="http://res.cloudinary.com/julietezekwe/image/upload/v1523620041/juliet.jpg" alt="juliet">
         </div>
 
         <div class="col-md-4">
@@ -100,42 +96,7 @@
     </div>
     <!-- /.container -->
 
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            <ul class="list-inline text-center">
-              <li class="list-inline-item">
-                <a href="#">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-            </ul>
-            <p class="copyright text-muted">Copyright &copy; HNG FUN <?= date("Y")?></p>
-          </div>
-        </div>
-      </div>
-    </footer>
+
 
     <!-- Bootstrap core JavaScript -->
     <script src="../vendor/jquery/jquery.min.js"></script>
