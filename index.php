@@ -1,7 +1,7 @@
 <?php
 include_once("header.php");
 ?>
-    
+
     <header class="masthead text-white text-center">
       <div class="overlay"></div>
       <div class="container">
@@ -18,7 +18,7 @@ include_once("header.php");
       </div>
     </header>
 
-   
+
     <section class="features-icons bg-light text-center">
       <div class="container">
         <div class="row">
@@ -91,7 +91,7 @@ include_once("header.php");
           <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('img/bg-showcase-1.jpg');"></div>
           <div class="col-lg-6 order-lg-1 my-auto showcase-text">
             <h2>Internship 003 | The Exceptionals</h2>
-            <p class="lead mb-0">We were invited by the Akwa Ibom State government to focus on interns from the state as a way to kickstart the local eco-system. 
+            <p class="lead mb-0">We were invited by the Akwa Ibom State government to focus on interns from the state as a way to kickstart the local eco-system.
 
             1100 coders started, with 100 finalists.
             SInce then, the Uyo tech eco-system has been bussing with activity.</p>
