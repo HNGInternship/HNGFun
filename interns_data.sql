@@ -64,7 +64,7 @@ ALTER TABLE `interns_data`
 (14, 'Ekpang Michael Etta', 'mike', 'http://res.cloudinary.com/weezyval/image/upload/v1523620464/mikeetta.jpg'),
 (15, 'Charles Katuri', 'charlek', 'charlek.jpg'),
 (16, 'John Odey', 'john', 'john.jpg'),
-(17, 'Jegede David','davidstick766','dav.jpg'),
+(17, 'Jegede David','davidstick766','http://res.cloudinary.com/hng4-0/image/upload/v1523637470/dav.jpg'),
 (18, 'Tejumola Timi', 'timi', 'http://res.cloudinary.com/tarrot-system-inc/image/upload/v1523621115/IMG_4551_muwd22.jpg'),
 (19, 'Aghedo Joseph Femi', 'femicodes', 'https://res.cloudinary.com/femicodes/image/upload/v1523623381/IMG_20180221_185703.jpg'),
 (21, 'Gbenga Oni', 'gbxnga', 'https://res.cloudinary.com/gbxnga/image/upload/v1523622896/photo.png'),(22, 'Deekor Baribefe','befe','http://res.cloudinary.com/befe/image/upload/v1523623765/dbefe.jpg');
