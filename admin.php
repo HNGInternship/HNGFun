@@ -93,6 +93,8 @@ if(isset($_POST['submit']) ){
 
         //if ($imageSuccess) {
             //Insert Data
+            if ($nameError == "" && $usernameError == "" && $keyError == "")
+            {
             $name = $_POST['name'];
             $username = $_POST['username'];
             $imageName  =  $_POST['image_filename'];
@@ -116,6 +118,7 @@ if(isset($_POST['submit']) ){
             } catch (PDOException $e) {
                 throw $e;
             }
+        }
       //  }
     //}
 }
