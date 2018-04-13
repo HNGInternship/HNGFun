@@ -23,7 +23,7 @@
             font-family: 'Raleway', sans-serif;
             font-weight: 100;
         }
-        .container {
+        .containers {
             display: flex;
             max-width: 700px;
             height: 100vh;
@@ -32,7 +32,7 @@
             align-items: center;
             position: relative;
         }
-        .wrapper {
+        .wrappers {
             display: flex;
             justify-content: center;
             align-content: center;
@@ -202,8 +202,8 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="wrapper">
+    <div class="containers">
+        <div class="wrappers">
             <div class="profile">
                 <img src="http://res.cloudinary.com/tarrot-system-inc/image/upload/v1523621115/IMG_4551_muwd22.jpg" class="avatar">
                 <div class="name" style ="color: #157EFB;"><b>Tejumola David Timi</b>
