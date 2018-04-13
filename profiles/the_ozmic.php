@@ -5,9 +5,6 @@
 <div class="time-container">
   <div>Hello, my name is Michael and I'm interning at Hotels.ng</div>
   <div class="time"><?php echo $date_time->format('g:i:s a'); ?></div>
-  <div class="profile-img">
-    <img src="https://res.cloudinary.com/theozmic/image/upload/v1523626681/meagain.jpg"/>
-  </div>
 </div>
 <div class="background day"></div>
 <style>
