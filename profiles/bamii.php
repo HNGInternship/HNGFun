@@ -298,7 +298,7 @@
   </div>
   <div class="header-container">
     <div class="img-container">
-      <img class="profile-image" src="https://enqfwg.dm2301.livefilestore.com/y4mpL1KI_dZXAn_E9l08Kend2kFZN1eLYmzVl3VuAjX8ytC8_-DZ35NHa1m9l4cgZ0FamHdoynjEmmX5HQBvmlVXRVzmKm-DSPhhH4DogXWPFsXI0x7zjT7JGaUmEVSqJuXlmUQj94quBLrITj9UnWa2cZBuk6Xy_aFefN1O5Uvf2PXtuF0IEls-D7FcGOtxIQoL03IY_OHCJPenaRTOdZ06Q?width=536&height=539&cropmode=none"/>
+      <img class="profile-image" src="http://res.cloudinary.com/bambam/image/upload/v1523622325/16966438.jpg"/>
     </div>
     <div class="my-details">
       <h1> Ayobami Ayo-Salami </h1>

@@ -35,11 +35,8 @@
 
 header{
     width: 100%;
-<<<<<<< HEAD
     
-=======
     margin-top : 4rem;
->>>>>>> 6c05a62353856974fa9bb4b017dc182e42761364
     text-align: center;
     font-family: 'Ubuntu';
     background-color: #632F2F;
@@ -49,11 +46,8 @@ header{
 }
 
 section{
-<<<<<<< HEAD
     background: url("https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=940") no-repeat center center;
-=======
     background: url("http://res.cloudinary.com/bytenaija/image/upload/v1523620935/pexels-photo-248797.jpg") no-repeat center center;
->>>>>>> 6c05a62353856974fa9bb4b017dc182e42761364
     background-attachment: fixed;
     background-size: cover;
     color: #330505;
@@ -130,8 +124,12 @@ section h2:first-child{
 =======
     margin: 1rem 2rem;
     background-color: white;
+<<<<<<< HEAD
     font-size: 200%;
 >>>>>>> 6c05a62353856974fa9bb4b017dc182e42761364
+=======
+    font-size: 150%;
+>>>>>>> fb21eb94235aa8e74cac7adc7b552d6a48afcb5f
 }
 
 
