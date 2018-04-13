@@ -117,7 +117,7 @@ if(isset($_POST['submit']) ){
                 throw $e;
             }
       //  }
-    }
+    //}
 }
 ?>
 <header class="masthead" style="background-image: url('img/home-bg.jpg')">
