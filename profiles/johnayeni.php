@@ -60,17 +60,17 @@
             <ul class="nav nav-pills">
               <li>
                 <a href="https://codepen.io/johnayeni" target="_blank">
-                  <i class="fab fa-codepen fa-3x"></i>
+                  <i class="fa fa-codepen fa-3x"></i>
                 </a>
               </li>
               <li>
                 <a href="https://github.com/johnayeni" target="_blank" target="_blank" target="_blank">
-                <i class="fab fa-github fa-3x"></i>
+                <i class="fa fa-github fa-3x"></i>
                 </a>
               </li>
               <li>
                 <a href="https://twitter.com/johnayeni_" target="_blank" target="_blank">
-                  <i class="fab fa-twitter fa-3x"></i>
+                  <i class="fa fa-twitter fa-3x"></i>
                 </a>
               </li>
             </ul>
