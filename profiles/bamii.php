@@ -9,6 +9,10 @@
 	<!-- link to main stylesheet -->
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
     <style>
+	profile {
+		height: 0;
+		width: 0;
+	    }
         div.page-container {
         padding-top: 15px;
         width: 500px;
