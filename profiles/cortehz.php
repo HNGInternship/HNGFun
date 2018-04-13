@@ -796,40 +796,9 @@
             </div>
 		</header>
 
-		<div id="fh5co-about" class="animate-box">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-						<h2>About Me</h2>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4">
-						<ul class="info">
-							<li>
-								<span class="first-block">Full Name:</span>
-								<span class="second-block">Samuel Enyi Omanchi</span>
-							</li>
-							<li>
-								<span class="first-block">Phone:</span>
-								<span class="second-block">+2347056098786</span>
-							</li>
-							<li>
-								<span class="first-block">Email:</span>
-								<span class="second-block">omanchis@gmail.com</span>
-							</li>
-							<li>
-								<span class="first-block">Website:</span>
-								<span class="second-block">cortehz.github.io</span>
-							</li>
-							<li>
-								<span class="first-block">Address:</span>
-								<span class="second-block">Abuja, Nigeria.</span>
-							</li>
-						</ul>
-					</div>
-					<div class="col-md-8">
-						<h2>Hello There!</h2>
+		
+					<div class="col-md-12">
+						<h2 class="text-center">Hello There!</h2>
 						<p>I am a Web Developer in constant awe of the web. I want to contribute to build the future of the web. Making the web
 							accessible to everybody.
 						</p>
