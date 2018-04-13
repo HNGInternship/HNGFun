@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +25,19 @@
       <link href="../css/style1.css" rel="stylesheet">
       <link href="../css/style.css" rel="stylesheet">
 	  <link href="../css/carousel.css" rel="stylesheet">
-    
+      <style>
+      body {
+			background-image: url("../images/iam__dharmy.png");
+			background-size: cover;
+		}
+		p{ color:white
+		
+		}
+		h1{ color: blue
+		}
+		h3{ color: blue
+		}
+      </style>
 
   </head>
 
@@ -61,50 +74,43 @@
     </nav>
 
 
-    <!-- Page Content -->
-    <div class="container">
+<!-- Main Content -->
 
-      <!-- Portfolio Item Heading -->
-      <h1 class="my-4">Chidimma Juliet Ezekwe
-        <small>Wed Developer</small>
-      </h1>
+<div class="container">
 
-      <!-- Portfolio Item Row -->
-      <div class="row">
-
-        <div class="col-md-8">
-          <img class="img-fluid" src="http://res.cloudinary.com/julietezekwe/image/upload/v1523620041/juliet.jpg" alt="juliet">
+    <div class="testimonial">
+        <div class="col-lg-10 col-md-10 mx-auto">
+		<br/><br/>
+		<h1>Welcome to iam__dharmy profile</h1>
+		<br/><br/>
+		
+		
+            <h3>Here is a little about me</h3>
+            <p>I am an effective, creative and proactive individual, with a personal objective to build a career in an Information Technology company with a continuous improvement Environment</p>
+            <p>And so far HNG Internship has been helping in developing my IT skills in order for me to be able to achieve this objective.</p>
         </div>
-
-        <div class="col-md-4">
-          <h3 class="my-3">Description</h3>
-          <p>An Innovative web deveploper inter at HngInternship<sup>4</sup></p>
-          <h3 class="my-3">Details</h3>
-          <ul>
-            <li>Creative</li>
-            <li>Innovative</li>
-            <li>Team player</li>
-            <li>Result oriented and time conscious</li>
-          </ul>
-        </div>
-
-      </div>
-      <!-- /.row -->
-
-    
-
     </div>
-    <!-- /.container -->
-
-
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom scripts for this template -->
-    <script src="../js/hng.min.js"></script>
-
-  </body>
-
+	<div class="testimonial">
+                                    <!--Avatar-->
+                                    <div class="avatar mx-auto">
+                                        <img src="../images/iam__dharmy.PNG" class="rounded-circle img-fluid">
+                                    </div>
+                                    <!--Content-->
+                                    <h4>iam__dharmy</h4>
+                                    <h6 class="blue-text font-weight-bold">Intern - HNG Internship 4</h6>
+                                    <p>
+                                        <i class="fa fa-quote-left"></i> This internship has been WOW.
+                                        I've been able to greatly improve my html/css and design skills, and I have learnt the use of github, figma, MySQL, Pivotal Tracker, Dropbox Paper and so many other tools.</p>
+                                </div>
+</div>
+ <footer>
+<div>
+				<a href="https://github.com/iam-dharmy"><i class="fa fa-github"></i></i></a>
+				<a href="https://twitter.com/iam@dharmy"><i class="fa fa-twitter"></i></i></a>
+				<a href="https://medium.com/@damis"><i class="fa fa-medium"></i></i></a>
+				<a href="https://web.facebook.com/soyombo.damilola"><i class="fa fa-facebook"></i></i></a>	
+			</div>
+</footer>
+</body>
 </html>
+
