@@ -22,8 +22,8 @@
         }
         .clock{
             border-radius: 50%;
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             margin: auto;
             color: #fff;
             text-align: center;
@@ -38,7 +38,7 @@
 
     <h1 class="header">Dahunsi Fehinti</h1>
 
-    <img class="clock" src="https://res.cloudinary.com/iceblaze/image/upload/v1523624386/DSC_1101.jpg"
+    <img class="clock img-fluid" src="https://res.cloudinary.com/iceblaze/image/upload/v1523624386/DSC_1101.jpg"
          alt="Dahunsi Fehintoluwa">
     <div>
         <p><strong>Hobbies:</strong> Programming, Reading, Weightlifting </p>
