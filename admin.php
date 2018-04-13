@@ -168,7 +168,7 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
                     <label for="file">Profile Picture <small>(max-size: 500kb):</small></label>
                     <input type="text" name="image_filename" class="form-control" id="image_filename" >
                 </div>
-                <?php if($uploadError != "") { echo "<div class='alert alert-danger'>$uploadError</div>"; }?>
+                <?php if($filenameError != "") { echo "<div class='alert alert-danger'>$filenameError</div>"; }?>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
