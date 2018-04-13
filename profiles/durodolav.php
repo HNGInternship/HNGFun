@@ -1,65 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<style type="text/css">
-		
-		body{
-			background-color: #ffffff;
-			margin: 0;
-			overflow: hidden;
-		}
-		img { max-width: 100%; height: auto; }
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		div.me{
-			
-			padding: 0 0;
-			text-align: center;
-		    margin-top: 200px;
-		    color: #000;
-}
-		}
-
-		p{
-			font-size: : 26px;
-		}
-
-		.fontsa{
-			color: #0093ff;
-			padding-top: 10px;
-		}
-
-		.fab{
-			padding-right: 5px;
-		}
-
-	</style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-</head>
-<body>
+    <title>my profile</title>
+    <style type="text/css">
+      body{
+        background-color: #fff;
+        text-align: center;
+      }
+      .pix{
+        max-width: 300px;
+      }
 
-	<div style="width: 50%; float:left">
-	   <img src="http://res.cloudinary.com/tosin/image/upload/v1523625647/tosin_i7yr3o.jpg">
-	</div>
+      .up{
+      	padding-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="up">Hello,</h1>
+    <div>
+      <img class="pix" src="http://res.cloudinary.com/tosin/image/upload/v1523625647/tosin_i7yr3o.jpg">
+    </div>
+    			<h1>Am Durodola Oluwatosin</h1>
+                <p class="you">a web developer  in Lagos Nigeria</p>
+                <div class="fontsa">
+                  <i class="fab fa-facebook-square fa-3x"></i>
+                  <i class="fab fa-twitter-square fa-3x"></i>
+                  <i class="fab fa-instagram fa-3x"></i>
+                  <i class="fab fa-google-plus-square fa-3x"></i>
+                  <i class="fab fa-github-square fa-3x"></i>
+                </div>
 
-	<div  class="me" style="width: 50%; float:right">
-	  
-	   		<h1>Hi am Durodola Oluwatosin</h1>
-	   		<p class="you">a web developer  from Nigeria</p>
-	   		<div class="fontsa">
-	   			<i class="fab fa-facebook-square fa-3x"></i>
-	   			<i class="fab fa-twitter-square fa-3x"></i>
-	   			<i class="fab fa-instagram fa-3x"></i>
-	   			<i class="fab fa-google-plus-square fa-3x"></i>
-	   			<i class="fab fa-github-square fa-3x"></i>
-	   		</div>
-
-	  
-	</div>
-	
-
-
-</body>
-
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
 </html>
