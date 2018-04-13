@@ -57,9 +57,10 @@ $data = $q->fetchAll();
                 </div>
 
             </div>
-         <?php } ?>
+
 
       </div>
+    <?php } ?>
 
    </section>
    <!--Section: Testimonials v.1-->
