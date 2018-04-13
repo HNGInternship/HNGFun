@@ -115,10 +115,10 @@ section h2:first-child{
 
 .me p{
    box-shadow: 1px 1px .5rem aqua;
-    width: 10rem;
+    width: 20rem;
     margin: 1rem 5rem;
     background-color: white;
-    font-size: 100%;
+    font-size: 200%;
 }
 
 
@@ -143,15 +143,15 @@ section h2:first-child{
     }
 
     25%{
-        top: -400px;
+        top: -225px;
         
     }
 
      50%{
-        top: -200px;
+        top: -150px;
     }
     75%{
-        top: -50px;
+        top: -75px;
     }
     100%{
         top: 0px;
