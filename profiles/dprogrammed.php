@@ -57,22 +57,7 @@
   	</style>
 </head>
 <body>
-
-<nav class="navbar head">
-  <div class="container">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="https://hng.fun/index.php" >HNG FUN</a>
-    </div>
-    <ul class="nav navbar-nav move">
-      <li class="active"><a href="https://hng.fun/index.php"  class="bar">Home</a></li>
-      <li><a href="https://hng.fun/learn.php" class="bar">LEARN</a></li>
-      <li><a href="https://hng.fun/listing.php"  class="bar">INTERNS</a></li>
-      <li><a href="https://hng.fun/admin.php"  class="bar">REGISTER</a></li>
-      <li><a href="https://hng.fun/testimonies.php"  class="bar">TESTIMONIES</a></li>
-    </ul>
-  </div>
-</nav>
-<div class="container-fluid">
+<div class="container">
 	<div class="text ">
 		<img class="img-rounded" src="http://res.cloudinary.com/dprogrammed/image/upload/v1523620736/Profile.jpg">
 	</div>
