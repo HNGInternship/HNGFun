@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `interns_data` (
 --
 
 INSERT INTO `interns_data` (`intern_id`, `name`, `username`, `image_filename`) VALUES
-(0, 'ThankGod Egbo', 'Tha Truth', 'http://res.cloudinary.com/tech-18/image/upload/v1516110766/IMG_20170803_224355_268_ji75r2.jpg'),
+(0, 'ThankGod Egbo', 'ThaTruth', 'http://res.cloudinary.com/tech-18/image/upload/v1516110766/IMG_20170803_224355_268_ji75r2.jpg'),
 (9, 'Okunuga melody', 'melody', 'Screenshot-2018-3-21 Twitter.png'),
 (11, 'ikpe mercy michael', 'mercyikpe', 'IMG-20180322-WA0010.jpg'),
 (12, 'Mbah Clinton', 'mclint_', 'mclint_.jpg'),
