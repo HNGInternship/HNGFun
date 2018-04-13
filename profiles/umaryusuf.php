@@ -112,9 +112,9 @@
           <li>
             <div class="userView">
               <div class="background">
-                <img src="images/image.jpg" class="responsive-img">
+                <img src="https://images.pexels.com/photos/370799/pexels-photo-370799.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="responsive-img">
               </div>
-              <a href="#"><img class="circle" src="images/farooq.jpg"></a>
+              <a href="#"><img class="circle" src="https://scontent.fabv1-1.fna.fbcdn.net/v/t1.0-9/28279304_1562888970497340_4021730504442038310_n.jpg?_nc_cat=0&_nc_eui2=v1%3AAeHhvadUhw1OSKseoz2oT3Mzn1dnnQcM43W12tkQwZgq1SVt0PV2jDqWcbl8xVLpVR7xRYLJEHTQWS5AeDwa4QD8_KzgdV3pqrz2dFyRFjW0NA&oh=4b52810f095888bd7072bea04fc01dd5&oe=5B285CA4"></a>
               <a href="#"><span class="white-text name">Umar Yusuf</span></a>
               <a href="#"><span class="white-text email">umaryusuf602@gmail.com</span></a>
             </div>
