@@ -9,16 +9,14 @@ $data = $q->fetchAll();
 
 
 ?>
-    <header class="masthead" style="background-image: url('img/about-bg.jpg')">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto">
-                    <div class="page-heading">
-                        <h1>Meet our Interns</h1>
-                        <span class="subheading">Intern Gallery</span>
-                    </div>
-                </div>
+<header class="masthead" style="background-image: url('img/about-bg.jpg')">
+   <div class="overlay"></div>
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="page-heading">
+               <h1>Meet our Interns</h1>
+               <span class="subheading">Intern Gallery</span>
             </div>
         </div>
     </header>
@@ -60,16 +58,13 @@ $data = $q->fetchAll();
                     </div>
 
             </div>
-            <!--Card-->
+         <?php } ?>
 
-        </div>
-        <?php } ?>
+      </div>
 
-    </div>
+   </section>
+   <!--Section: Testimonials v.1-->
 
-</section>
-<!--Section: Testimonials v.1-->
-                
 
 </div>
 
