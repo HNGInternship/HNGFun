@@ -28,14 +28,14 @@
             width: 700px;
         }
 
-        header{
+        h1{
             float:center;
             text-align: center;
             font-size: 2rem;
             font-weight: bold;
         
         }
-        h1{
+        h2{
             font-weight: bold;
         }
 
@@ -52,8 +52,8 @@
             <img src="http://res.cloudinary.com/dlcog1d0c/image/upload/v1523616263/Oluyemi.jpg" alt="Profile Picture">
         </div>
         <div class="profile">
-            <header>About Oluyemi Adebayo</header>
-            <h1>Daylight Hustle</h1>
+            <h1>About Oluyemi Adebayo</h1>
+            <h2>Daylight Hustle</h2>
             <p>During the day, I wake up as early as 5am to beat Lasgidi traffic for my sojourn to the centre of all corporate headquaters(Lagos Island) with location just after Obalende. The days starts with spooling the different collection accounts for clients' inflow and identifing what belongs to who and waht their account IDs are.Oh!I forgot to tell you that I work with an Investment Bank. Want to know what we do? <a href="#">Read More</a></p>
             <p> At night, I try to learn the art of coding, I'm still a long way from the destination but I will surely see this through...
         </div>
