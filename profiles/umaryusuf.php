@@ -449,42 +449,6 @@
     </ul>
   </div>
 
-  <footer class="page-footer teal">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">About Me</h5>
-          <p class="grey-text text-lighten-4">Hello!, I'am Umar Yusuf web application developer based in Kaduna Nigeria, I provide application development, enhancement, and I also accept paid work.</p>
-
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Projects</h5>
-          <ul>
-            <li class="white-text">HNG Intern</li>
-            <li class="white-text">Online Snacks Ordering</li>
-            <li class="white-text">Swap my book</li>
-            <li class="white-text">KTC etc.</li>
-          </ul>
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
-          <ul>
-            <li><a class="white-text" href="https://www.twitter.com/umaryusufkd">twitter</a></li>
-            <li><a class="white-text" href="https://web.facebook.com/umar.yusuf.3762">facebook</a></li>
-            <li><a class="white-text" href="https://plus.google.com/+UmarYusufKD">google-plus</a></li>
-            <li><a class="white-text" href="https://github.com/umaryusuf">github</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-      Made by <a class="brown-text text-lighten-3" href="#">Umar Yusuf</a>
-      </div>
-    </div>
-  </footer>
-
-
   <!--  Scripts-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>

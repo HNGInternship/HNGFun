@@ -13,11 +13,14 @@ h1{
 font-family: Cursive ;
 font-size: 100px;
 text-align: center;
-padding-top: 150px;
 padding-left: 100px;
 padding-right: 100px;
 }
-
+h3{
+font-family: Cursive ;
+font-size: 40px;
+text-align: center;	
+}
 h1{
 	animation: blink 1s 1s ease-in-out forwards infinite;
 }
@@ -42,8 +45,10 @@ h1{
     </head>
 
 <body>
+<h3>Welcome to</h3>
 <h1>HNG Internship 4.0</h1>
- 
+<h3><a href="https://twitter.com/tieemusiq">I am Ogunmoyela Toluwalope @Fotes</a></h3>
+
  <div class="time">
  <?php date_default_timezone_set("Africa/Lagos");
    echo 'The future is now_'  . date("h:i:sa") ;

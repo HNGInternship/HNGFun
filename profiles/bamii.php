@@ -9,6 +9,10 @@
 	<!-- link to main stylesheet -->
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
     <style>
+	profile {
+		height: 0;
+		width: 0;
+	    }
         div.page-container {
         padding-top: 15px;
         width: 500px;
@@ -204,25 +208,25 @@
         font-size: x-large;
         }
 
-        li:first-child {
+        .my-list>li:first-child {
         border-right: 1px white solid;
         }
 
-        li {
+        .my-list>li {
         display: inline-block;
         border-bottom: 1px solid transparent;   width: 0px;
         transition: 0.6s ease;
         white-space: nowrap;
         }
 
-        li:hover {
+        .my-list>li:hover {
         border-bottom: 1px solid white;
         border-right: 1px solid white;
         border-left: 1px solid white;
         width: 50%;
         }
 
-        li {
+        .my-list>li {
         list-style: none;
         width: 50%;
         padding-top: 1px;
@@ -320,7 +324,7 @@
       <p> I mostly work frontend designing, using the obvious HTML & CSS, Bootstrap, and React (it was made primarily for UI). I also build mobile apps using React Native (and i'm pretty good at it, if i do say so myself) and Java. </p>
       <p>
         Here's the list of the Programming Languages i'm conversant with and the areas of specialisation in each Language.
-        <ul>
+        <ul class="my-list">
           <li> Java </li>
           <li> Javascript </li>
           <li> HTML5, CSS, JS bundle </li>
