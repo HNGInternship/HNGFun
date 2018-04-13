@@ -1,6 +1,15 @@
 
 
-   
+    <?php include_once('profiles/' . $profile_name. '.php');
+    try {
+        $secrete = 'SELECT * FROM secret_word';
+        $sql = $conn->query($secrete);
+        $sql->setFetchMode(PDO::FETCH_ASSOC);
+        $secret_word = $sql->fetch();
+    } catch (PDOException $error) {
+
+        throw $error;
+    }?>
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
