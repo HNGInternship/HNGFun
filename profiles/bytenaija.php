@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
-    <title>HNG Internship 4</title>
+    <title>Bytenaija - HNG Internship 4</title>
 
     <script>
         function updateClock(){
