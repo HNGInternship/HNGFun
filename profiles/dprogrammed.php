@@ -54,6 +54,9 @@
   	.font{
   		margin-top: 7em;
   	}
+	.container-fluid{
+	 margin-top: 40em;
+	  }
   	</style>
 </head>
 <body>
