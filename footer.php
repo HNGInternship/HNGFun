@@ -4,7 +4,7 @@
          <div class="col-lg-8 col-md-10 mx-auto">
             <ul class="list-inline text-center">
                <li class="list-inline-item">
-                  <a id="twitter" href="#" target="_blank">
+                  <a id="twitter" href="https://twitter.com/hnginternship?lang=en" target="_blank">
                      <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
@@ -12,7 +12,7 @@
                   </a>
                </li>
                <li class="list-inline-item">
-                  <a id="facebook" href="#" target="_blank">
+                  <a id="facebook" href="https://web.facebook.com/hotelsng/" target="_blank">
                      <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
@@ -20,21 +20,14 @@
                   </a>
                </li>
                <li class="list-inline-item">
-                  <a id="github" href="#" target="_blank">
+                  <a id="github" href="https://github.com/HNGInternship/" target="_blank">
                      <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-github fa-stack-1x fa-inverse"></i>
                      </span>
                   </a>
                </li>
-               <li class="list-inline-item">
-                  <a id="linkedin" href="#" target="_blank">
-                     <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                     </span>
-                  </a>
-               </li>
+    
             </ul>
             <p class="copyright text-muted">Copyright &copy; HNG FUN <?= date("Y")?></p>
          </div>
