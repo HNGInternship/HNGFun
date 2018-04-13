@@ -7,13 +7,13 @@ require 'db.php';
 $nameError ="";
 $usernameError = "";
 $keyError="";
-$uploadError = "";
+$filenameError = "";
 
 //$imageSuccess = false;
-$success = false;
+//$success = false;
 $key = "1n73rn@Hng";
 
-if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
+if(isset($_POST['submit']) ){
 
     //Data Sanitization and Validation
     if($_POST['name'] != ""){
@@ -33,7 +33,7 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
     // key
     if($_POST['key'] != ""){
         
-        if ($_POST['key'] != "1n73rn@Hng "){
+        if ($_POST['key'] != "1n73rn@Hng"){
             $keyError = "<span class='invalid'>Please enter a valid key code.</span>";
         }
     }
@@ -93,9 +93,11 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
 
         //if ($imageSuccess) {
             //Insert Data
+            if ($nameError == "" && $usernameError == "" && $keyError == "")
+            {
             $name = $_POST['name'];
             $username = $_POST['username'];
-            $mageName  =  $_POST['image_filename'];
+            $imageName  =  $_POST['image_filename'];
 
             $intern_data = array(':name' => $name,
                 ':username' => $username,
@@ -116,8 +118,9 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
             } catch (PDOException $e) {
                 throw $e;
             }
+        }
       //  }
-    }
+    //}
 }
 ?>
 <header class="masthead" style="background-image: url('img/home-bg.jpg')">
@@ -135,7 +138,7 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
 </header>
 
 <div class="container" id="container">
-    <?php if($nameError != "" || $keyError != ""|| $usernameError != "" || $uploadError != "") {
+    <?php if($nameError != "" || $keyError != ""|| $usernameError != "" || $filenameError != "") {
         echo "<div class='alert alert-danger'>Error found, please try again!</div>";
     }?>
 
@@ -165,7 +168,7 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="file">Profile Picture <small>(max-size: 500kb):</small></label>
+                    <label for="file">Profile Picture</label>
                     <input type="text" name="image_filename" class="form-control" id="image_filename" >
                 </div>
                 <?php if($filenameError != "") { echo "<div class='alert alert-danger'>$filenameError</div>"; }?>
@@ -188,7 +191,3 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
 <?php
 include_once("footer.php");
 ?>
-
-
-
-
