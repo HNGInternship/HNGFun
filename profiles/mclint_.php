@@ -61,6 +61,33 @@
     .social-icons:hover {
       transform: scale(1.2, 1.2);
     }
+
+    #profile-pic {
+      object-fit: cover;
+      height: 250px;
+      width: 250px;
+      border-radius: 50%;
+      border: 10px solid var(--accent-color);
+    }
+
+    @media (max-width: 575px) {
+      #hello {
+        font-size: 90px;
+      }
+
+      #profile-pic {
+        width: 150px;
+        height: 150px;
+      }
+
+      #about h4 {
+        font-size: 24px;
+      }
+
+      #about h5 {
+        font-size: 12px;
+      }
+    }
   </style>
 </head>
 
@@ -68,6 +95,7 @@
   <div id="main">
     <div id="about">
       <div class="text-center">
+        <img id="profile-pic" src="https://res.cloudinary.com/mclint-cdn/image/upload/v1523622051/mclint_.jpg" />
         <h1 id="hello">Hello!</h1>
         <h4>I'm Mbah Clinton</h4>
         <h5>A FREELANCE WEB & MOBILE DEVELOPER BASED IN GHANA</h5>

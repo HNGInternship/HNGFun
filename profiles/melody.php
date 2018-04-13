@@ -26,7 +26,7 @@
             position: absolute;
             top:20px;
             width: 100%;
-            padding-top: 350px;
+            padding-top: 300px;
             height: 130px;
             font-family: "Romanesco";
             line-height: 130px;
@@ -40,8 +40,19 @@
         }
         .under {
             position: absolute;
-            top:500px;
+            top:450px;
             height: 50px;
+            width: 100%;
+            font-family: "Alegreya";
+            line-height: normal;
+            font-size: 32px;
+            text-align: center;
+            color: #000830;
+        }
+        .under1 {
+            position: absolute;
+            top:500px;
+            height: 40px;
             width: 100%;
             font-family: "Alegreya";
             line-height: normal;
@@ -51,7 +62,7 @@
         }
         .under2 {
             position: absolute;
-            top:550px;
+            top:540px;
             height: 49.71px;
             width: 100%;
             font-family: "Alegreya";
@@ -79,11 +90,19 @@
     <div class="offset-md-3 col-md-6">
         <div class="col-md-2">
         </div>
-        <img class="img-fluid rounded" style="padding-top: 50px" src="https://res.cloudinary.com/melody/image/upload/v1523619250/Melody.jpg" >
+        <img class="img-fluid rounded" style="padding-top: 10px" onerror="this.src='images/default.jpg'" src="https://res.cloudinary.com/melody/image/upload/v1523619250/Melody.jpg" >
         <div class="main"><span class="text">Okunuga Melody</span></div>
         <div class="under"><span>Full Stack Web Developer</span></div>
+        <div class="under1"><span><a href="https://github.com/mokunuga">
+                <img style="width:40px; height: 40px;" src="https://cdn1.iconfinder.com/data/icons/logotypes/32/github-512.png">
+            </a><a href="https://linkedin.com/in/mokunuga">
+                <img style="width:40px; height: 40px;" src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-social-media/256/Linkedin-icon.png">
+                </a></span></div>
         <div class="under2"><span>Lagos | NG</span></div>
+
     </div>
+
+
 
 </div>
 
