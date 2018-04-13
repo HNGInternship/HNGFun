@@ -1,5 +1,8 @@
 <?php
 require '../db.php';
+
+die($conn);
+
 ?>
 <!DOCTYPE html>
 <html>
