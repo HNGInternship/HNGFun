@@ -31,11 +31,12 @@ $data = $q->fetchAll();
 
    
     <div class="row">
-
-    <?php foreach($data as $list){ ?>
-       
         <!--Grid column-->
         <div class="col-lg-4 col-md-12 mb-4">
+
+            <?php foreach($data as $list){ ?>
+       
+
 
             <!--Card-->
             <div class="card testimonial-card" height=300px>
@@ -44,18 +45,17 @@ $data = $q->fetchAll();
                 <div class="card-up deep-purple lighten-2"></div>
                 <div class="card-body">
                 <!--Avatar-->
-                <div class="avatar mx-auto white"><img style="width: 400px; height: 300px" src="<?= $list['image_filename'] ?>" onerror="this.src='images/default.jpg'" alt="avatar mx-auto white" class="rounded-circle img-fluid">
-               </div>
+                <div class="avatar mx-auto white"><img style="width: 400px; height: 300px" src="<?= $list['image_filename'] ?>" onerror="this.src='images/default.jpg'" alt="avatar mx-auto white" class="rounded-circle img-fluid"></div>
                 
                     <!--Name-->
                     <h4 class="card-title mt-1"><?= $list['name']?></h4>
                     <hr>
                     <span class="align-middle">
-        <a href="profile.php?id=<?=$list['username']?>">
-          <button class="btn btn-success">View Profile</button>
-        </a>
-      </span>
-                    </div>
+                    <a href="profile.php?id=<?=$list['username']?>">
+                      <button class="btn btn-success">View Profile</button>
+                    </a>
+                  </span>
+                </div>
 
             </div>
          <?php } ?>
