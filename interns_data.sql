@@ -68,7 +68,7 @@ ALTER TABLE `interns_data`
 (18, 'Tejumola Timi', 'timi', 'http://res.cloudinary.com/tarrot-system-inc/image/upload/v1523621115/IMG_4551_muwd22.jpg'),
 (19, 'Aghedo Joseph Femi', 'femicodes', 'https://res.cloudinary.com/femicodes/image/upload/v1523623381/IMG_20180221_185703.jpg'),
 (21, 'Gbenga Oni', 'gbxnga', 'https://res.cloudinary.com/gbxnga/image/upload/v1523622896/photo.png'),(22, 'Deekor Baribefe','befe','http://res.cloudinary.com/befe/image/upload/v1523623765/dbefe.jpg');
->>>>>>> 1ebfe9a43f8294993275cabedcc014ac17380c8c
+>>>>>>> 1ebfe9a43f8294993275cabedcc014ac17380c8c),
 
 --
 -- AUTO_INCREMENT for table `interns_data`
@@ -78,3 +78,4 @@ MODIFY `intern_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+(22, 'Abraham Enyo-one Musa', 'Abseejp', 'http://res.cloudinary.com/abseejp/image/upload/v1523617182/abbb.jpg');
