@@ -56,7 +56,7 @@ include_once("header.php");
                                     <h4>MacAnthony</h4>
                                     <h6 class="blue-text font-weight-bold">Intern - HNG Internship 4</h6>
                                     <p>
-                                        <i class="fa fa-quote-left"></i>My name is Anthony, i am a fullstack developer with a passion for Technology.
+                                        <i class="fa fa-quote-left"></i>My name is Anthony and i love to code, i am a fullstack developer with a passion for Technology.
                                         The Hotels.ng internship has been very interesting, i was so excited when i heard about it, and since i signup; i have improved my skill-set 
                                     considerably. its really been fun.                                    </p>
                                 </div>
