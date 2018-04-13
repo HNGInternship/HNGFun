@@ -73,7 +73,7 @@ body {
                 <p>Task - Stage 4</p>
             </div>
         </div>
-       <script type="text/javascript" src="http://yourjavascript.com/02113087411/date-time.js"></script>
+       <script type="text/javascript" src="https://cdn.rawgit.com/japhar1/japhar1.github.io/95e8eb17/date_time.js"></script>
        <script type="text/javascript">window.onload = date_time('date_time');</script>
 	</body>
 </html>
