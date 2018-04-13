@@ -10,7 +10,7 @@
   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
   <style>
     body {
-      background-color: firebrick;
+      /* background-color: firebrick; */
       font-family: 'Ubuntu';
     }
 
@@ -22,12 +22,12 @@
     }
 
     #about {
-      color: #ffffff;
+      color: #b22222;
     }
 
     #hello {
       font-size: 200px;
-      color: #ffffff;
+      color: #b22222;
       font-family: 'Alfa Slab One';
     }
 
@@ -38,7 +38,7 @@
 
     #about h5 {
       font-size: 14px;
-      color: #ffffff;
+      color: #b22222;
     }
 
     #social {
@@ -61,13 +61,12 @@
   <div id="main">
     <div id="about">
       <div class="text-center">
-        <h1 id="hello">Hello !</h1>
+        <h2 id="hello">Hello</h2>
         <h3>I'm John Ayeni</h3>
         <h4>I am a Softaware Engineer from Nigeria</h4>
           <div id="social">
             <ul class="nav nav-pills">
               <li>
-        <div class="navbar">
                 <a href="https://codepen.io/johnayeni" target="_blank">
                   <img class="social-icons" src="https://res.cloudinary.com/mclint-cdn/image/upload/v1523605717/codepen.svg" />
                 </a>
