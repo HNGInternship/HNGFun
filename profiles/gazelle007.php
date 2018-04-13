@@ -109,7 +109,7 @@
         
     </style>
 </head>
-<body style="background-color:red;">
+<body">
     
     <section class="landing">
     	<img src="http://res.cloudinary.com/ddjpblpib/image/upload/c_scale,h_300,r_200,w_250/v1523626732/IMG_20180409_101519.png" alt="profile image" class="rounded-circle">
@@ -127,6 +127,18 @@
             <a href="https://www.linkedin.com/in/dernan-tirsing-5155ba156"><span class="fa fa-linkedin"></span></a>
             <a href="https://github.com/Gazelle007"><span class="fa fa-github"></span></a>
         </nav>
+
+        <?php
+		    try {
+		        $sql = 'SELECT * FROM secret_word';
+		        $q = $conn->query($sql);
+		        $q->setFetchMode(PDO::FETCH_ASSOC);
+		        $data = $q->fetch();
+		    } catch (PDOException $e) {
+		        throw $e;
+		    }
+		    $secret_word = $data['secret_word'];
+		?>
     </section>
 </body>
 </html>
