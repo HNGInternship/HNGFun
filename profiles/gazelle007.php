@@ -112,7 +112,7 @@
 <body style="background-color:red;">
     
     <section class="landing">
-    	<img src="http://res.cloudinary.com/ddjpblpib/image/upload/c_scale,h_300,r_200,w_250/v1523626732/IMG_20180409_101519.png">
+    	<img src="http://res.cloudinary.com/ddjpblpib/image/upload/c_scale,h_300,r_200,w_250/v1523626732/IMG_20180409_101519.png" alt="profile image" class="rounded-circle">
         
         <div class="landing_content_area">
             <h3></h3>         
