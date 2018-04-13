@@ -139,7 +139,8 @@ section h2:first-child{
 
 @keyframes mymove{
     0%{
-        display: block;
+        top: -300px;
+        
     }
 
     25%{
