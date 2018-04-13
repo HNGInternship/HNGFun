@@ -61,7 +61,7 @@
   <div id="main">
     <div id="about">
       <div class="text-center">
-        <h1 id="hello">Hello World</h1>
+        <h1 id="hello">Hello !</h1>
         <h3>I'm John Ayeni</h3>
         <h4>I am a Softaware Engineer from Nigeria</h4>
           <div id="social">
