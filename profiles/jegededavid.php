@@ -36,7 +36,7 @@
 				font-size: 70px;
 			}
 			#socialMedia {
-				padding-top: 30px;
+				padding-top: 40px;
 				font-size: 30px;
 				text-align: center;
 			}
