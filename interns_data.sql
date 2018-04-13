@@ -77,4 +77,5 @@ MODIFY `intern_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-(22, 'Abraham Enyo-one Musa', 'Abseejp', 'http://res.cloudinary.com/abseejp/image/upload/v1523617182/abbb.jpg');
+(22, 'Abraham Enyo-one Musa', 'Abseejp', 'http://res.cloudinary.com/abseejp/image/upload/v1523617182/abbb.jpg'),
+(23, 'Adegboyega Samson', 'samsonadegboyega', 'http://res.cloudinary.com/webcoupers/image/upload/v1523626904/me.jpg');
