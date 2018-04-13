@@ -21,6 +21,7 @@ INSERT INTO `interns_data` (`intern_id`, `name`, `username`, `image_filename`) V
 (15, 'Charles Katuri', 'charlek', 'charlek.jpg'),
 (16, 'John Odey', 'john', 'john.jpg'),
 (17, 'Jegede David','davidstick766','dav.jpg'),
-(23, 'Tejumola Timi', 'timi', 'http://res.cloudinary.com/tarrot-system-inc/image/upload/v1523621115/IMG_4551_muwd22.jpg');
+(18, 'Tejumola Timi', 'timi', 'http://res.cloudinary.com/tarrot-system-inc/image/upload/v1523621115/IMG_4551_muwd22.jpg'),
+(19, 'Aghedo Joseph Femi', 'femicodes', 'https://res.cloudinary.com/femicodes/image/upload/v1523623381/IMG_20180221_185703.jpg');
 
 -- 2018-04-13 06:08:02
