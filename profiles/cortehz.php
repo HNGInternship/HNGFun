@@ -793,6 +793,7 @@
 					</div>
 				</div>
 			</div>
+            </div>
 		</header>
 
 		<div id="fh5co-about" class="animate-box">
