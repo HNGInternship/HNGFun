@@ -200,7 +200,7 @@ include_once("header.php");
                                 <div class="testimonial">
                                     <!--Avatar-->
                                     <div class="avatar mx-auto">
-                                        <img src="images/default.jpg" class="rounded-circle img-fluid">
+                                        <img src="images/charlek.jpg" class="rounded-circle img-fluid">
                                     </div>
                                     <!--Content-->
                                     <h4>charlek</h4>

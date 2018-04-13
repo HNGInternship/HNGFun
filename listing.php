@@ -46,9 +46,8 @@ $data = $q->fetchAll();
                 <div class="card-up deep-purple lighten-2"></div>
                 <div class="card-body">
                 <!--Avatar-->
-                <div class="avatar mx-auto white"><img src="images/<?= $list['image_filename'] ?>"  alt="avatar mx-auto white" class="rounded-circle img-fluid">
-                </div>
-
+                <div class="avatar mx-auto white"><img style="width: 400px; height: 350px" src="<?= $list['image_filename'] ?>" alt="avatar mx-auto white" class="rounded-circle img-fluid">
+               </div>
                 
                     <!--Name-->
                     <h4 class="card-title mt-1"><?= $list['name']?></h4>
