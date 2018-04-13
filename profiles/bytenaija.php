@@ -118,7 +118,7 @@ section h2:first-child{
     width: 20rem;
     margin: 1rem 2rem;
     background-color: white;
-    font-size: 200%;
+    font-size: 150%;
 }
 
 
