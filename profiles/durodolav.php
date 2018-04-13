@@ -19,7 +19,7 @@
       }
 
       .up{
-      	padding-top: 49px;
+      	padding-top: 50px;
       }
     </style>
   </head>
