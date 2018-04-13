@@ -15,7 +15,11 @@
 		.fa:hover {
     		color: #536DFE;
 		}
-
+		
+		.title {
+			  color: grey;
+			  font-size: 18px;
+			}
 		.fa {
 			float: right;
 			font-size: 25px;
@@ -38,20 +42,13 @@
 
 
 	
-    
-	<p id="clock">
-		<?php
-			echo "The time is </br>" . date("h:i:sa");
-		?> 
-	</p>
-<footer>
-			<div>
+    <h1>Tochukwu Franklin Ene</h1>
+	  <p class="title">Software Developer</p>
+	  <div>
 				<a href="https://github.com/TeeXee19"><i class="fa fa-github"></i></i></a>
 				<a href="https://twitter.com/TochukwuFE"><i class="fa fa-twitter"></i></i></a>
 				<a href="https://medium.com/@teec3000"><i class="fa fa-medium"></i></i></a>
 				<a href="https://web.facebook.com/franktochukwu.eneh"><i class="fa fa-facebook"></i></i></a>	
 			</div>
-		
-	</footer>
+	
 </body>
-
