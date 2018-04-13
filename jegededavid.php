@@ -55,9 +55,9 @@
 			<section id="socialMedia">
 				<div>Social Media</div>
 				<div id="socialicons">
-					<a href="https://facebook.com/akintola.moronfoluwar"><i class="fa fa-facebook"></i></a>
-					<a href="https://instagram.com/fantastic_foluwa"><i class="fa fa-instagram"></i></a>
-					<a href="https://twitter.com/fantasticfoluwa"><i class="fa fa-twitter"></i></a>
+					<a href="https://facebook.com/"><i class="fa fa-facebook"></i></a>
+					<a href="https://instagram.com/"><i class="fa fa-instagram"></i></a>
+					<a href="https://twitter.com/"><i class="fa fa-twitter"></i></a>
 				</div>
 			</section>
 		</main>
