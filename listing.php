@@ -31,12 +31,11 @@ $data = $q->fetchAll();
 
    
     <div class="row">
+
+    <?php foreach($data as $list){ ?>
+       
         <!--Grid column-->
         <div class="col-lg-4 col-md-12 mb-4">
-
-            <?php foreach($data as $list){ ?>
-       
-
 
             <!--Card-->
             <div class="card testimonial-card" height=300px>
