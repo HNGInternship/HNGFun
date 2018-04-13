@@ -1,4 +1,24 @@
-<!DOCTYPE html>
+<?php 
+	require_once('../db.php');
+
+
+	$sql = "SELECT * FROM `interns_data` WHERE `username`='alabamustapha' LIMIT 1";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+
+    $details = $q->fetchAll();
+    
+    $detail =  array_shift($details);
+
+    $image_url = 'https://res.cloudinary.com/alabamustapha/image/upload/v1523619685/me.jpg';
+	$name = "Alaba Mustapha O.";
+
+    
+	    if($detail) {
+	                $image_url = $detail['image_filename'];
+	                $name = $detail['name'];
+	            }   
+?><!DOCTYPE html>
 <html>
 <head>
 	<title>HNGInternship 4.0</title>
@@ -18,7 +38,8 @@
 				height: 219px;
 				border-radius: 50%;
 				margin: 0 auto;
-				background: #56CCF2;
+				background: url(<?php echo $image_url; ?>) no-repeat;
+
 			}
 
 			div.time{
@@ -52,6 +73,9 @@
 				display: table-cell;
   				vertical-align: middle;
 			}
+			.text-center{
+				text-align: center;
+			}
 
 	</style>
 </head>
@@ -66,7 +90,8 @@
 				</div>
 			</div>
 
-			<h1 class="intro">Being Kind is better than being right</h1>
+			<h1 class="intro"><?php echo $name; ?></h1>
+			<h3 class="text-center">Being Kind is better than being right</h3>
 		</div>	
 	</section>
 </body>
