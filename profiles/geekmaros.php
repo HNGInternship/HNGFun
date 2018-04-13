@@ -5,14 +5,12 @@
 	<style type="text/css">
 			
 			body{
-				background: url(https://res.cloudinary.com/alabamustapha/image/upload/v1523619362/bg.jpg) no-repeat;
+				background: url(http://res.cloudinary.com/geekmaros/image/upload/v1523630188/sunset.jpg) no-repeat;
 				background-size: cover;
 			}
 			.profile-body{
 				width: 100%;
 				max-height: 500px;
-				/*background: url(https://res.cloudinary.com/alabamustapha/image/upload/v1523619362/bg.jpg) no-repeat;*/
-				background-size: cover;
 				font-family: Roboto Condensed;
 			}
 
@@ -22,7 +20,7 @@
 				height: 219px;
 				border-radius: 50%;
 				margin: 0 auto;
-				background: url(https://res.cloudinary.com/alabamustapha/image/upload/v1523619685/me.jpg) no-repeat;
+				background: url(http://res.cloudinary.com/geekmaros/image/upload/v1523630004/maros.jpg) no-repeat;
 
 			}
 
@@ -43,42 +41,42 @@
 				font-weight: bold;
 				line-height: normal;
 				font-size: 48px;
-				color: #000000;
+				color: #30140d;
+				padding-top: 120px;
 			}
 
 			.main{
 				 display: table;
-				 padding-top: 30px;
-				 box-sizing: border-box;
-				 /*position: absolute;*/
+				 position: absolute;
 				 height: 100%;
 				 width: 100%;
 			}
 
-			.profile-container{
+			.container{
 				display: table-cell;
   				vertical-align: middle;
 			}
 			.text-center{
 				text-align: center;
 			}
+
 	</style>
 </head>
 <body>
 	<div class="profile-body">
 		<section class="main">
-			<div class="profile-container">
+			<div class="container">
 				
-				<div class="time-circle">
-					<div class="time">
-						<!-- <?php echo date('h:iA'); ?> -->
-					</div>
-				</div>
+				
+				
 
-				<h1 class="intro">Alaba Mustapha O.</h1>
-				<h3 class="text-center">Being Kind is better than being right</h3>
+				<h1 class="intro">geekmaros</h1>
+				<h3 class="text-center" style="color: #30140d; padding-bottom: 200px;">A Developing Developer</h3>
 			</div>	
 		</section>
 	</div>
 </body>
+
+
+
 </html>

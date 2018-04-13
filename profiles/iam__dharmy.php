@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>HNG FUN</title>
+    <title>iam__dharmy</title>
 
     <!-- Bootstrap core CSS -->
       <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -27,7 +27,7 @@
 	  <link href="../css/carousel.css" rel="stylesheet">
       <style>
       body {
-			background-image: url("../images/iam__dharmy.png");
+			
 			background-size: cover;
 		}
 		p{ color:white
@@ -41,38 +41,9 @@
 
   </head>
 
-  <body>
+  <body style = "background-image:url(http://res.cloudinary.com/iamdharmy/image/upload/v1523622015/iam__dharmy.png)">
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand" href="index.php">HNG FUN</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          Menu
-          <i class="fa fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="../index.php">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../learn.php">Learn</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../listing.php">Interns</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../admin.php">Register</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../testimonies.php">Testimonies</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
+  
 
 <!-- Main Content -->
 
@@ -93,7 +64,7 @@
 	<div class="testimonial">
                                     <!--Avatar-->
                                     <div class="avatar mx-auto">
-                                        <img src="../images/iam__dharmy.PNG" class="rounded-circle img-fluid">
+                                        <img src="http://res.cloudinary.com/iamdharmy/image/upload/v1523622015/iam__dharmy.png" class="rounded-circle img-fluid">
                                     </div>
                                     <!--Content-->
                                     <h4>iam__dharmy</h4>
