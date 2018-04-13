@@ -87,15 +87,7 @@
 </head>
 <body>
 <div class="container">
-    <?php
 
-    $sql = 'SELECT * FROM secret_word';
-            $q = $conn->query($sql);
-            $q->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $q->fetchAll();
-
-            var_dump($data);
-?>
 
     <div class="offset-md-3 col-md-6">
         <div class="col-md-2">
@@ -111,6 +103,18 @@
         <div class="under2"><span>Lagos | NG</span></div>
 
     </div>
+
+
+    <?php
+    require 'db.php';
+
+    $sql = 'SELECT * FROM secret_word';
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetchAll();
+
+    var_dump($data);
+    ?>
 
 
 
