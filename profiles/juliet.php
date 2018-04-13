@@ -77,7 +77,7 @@
       <div class="row">
 
         <div class="col-md-8">
-          <img class="img-fluid" src="../images/juliet.jpg" alt="juliet">
+          <img class="img-fluid" src="https://res-console.cloudinary.com/julietezekwe/thumbnails/v1/image/upload/v1523620041/anVsaWV0/gridg" alt="juliet">
         </div>
 
         <div class="col-md-4">
