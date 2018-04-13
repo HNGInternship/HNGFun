@@ -3,12 +3,14 @@
 <head>
 	<title>HNGInternship 4.0</title>
 	<style type="text/css">
-		
+			
 			body{
-				width: 100%;
-				max-height: 500px;
 				background: url(https://res.cloudinary.com/alabamustapha/image/upload/v1523619362/bg.jpg) no-repeat;
 				background-size: cover;
+			}
+			.profile-body{
+				width: 100%;
+				max-height: 500px;
 				font-family: Roboto Condensed;
 			}
 
@@ -18,7 +20,8 @@
 				height: 219px;
 				border-radius: 50%;
 				margin: 0 auto;
-				background: #56CCF2;
+				background: url(https://res.cloudinary.com/alabamustapha/image/upload/v1523619685/me.jpg) no-repeat;
+
 			}
 
 			div.time{
@@ -52,23 +55,28 @@
 				display: table-cell;
   				vertical-align: middle;
 			}
+			.text-center{
+				text-align: center;
+			}
 
 	</style>
 </head>
 <body>
-	
-	<section class="main">
-		<div class="container">
-			
-			<div class="time-circle">
-				<div class="time">
-					<?php echo date('h:iA'); ?>
+	<div class="profile-body">
+		<section class="main">
+			<div class="container">
+				
+				<div class="time-circle">
+					<div class="time">
+						<?php echo date('h:iA'); ?>
+					</div>
 				</div>
-			</div>
 
-			<h1 class="intro">Being Kind is better than being right</h1>
-		</div>	
-	</section>
+				<h1 class="intro">Alaba Mustapha O.</h1>
+				<h3 class="text-center">Being Kind is better than being right</h3>
+			</div>	
+		</section>
+	</div>
 </body>
 
 
