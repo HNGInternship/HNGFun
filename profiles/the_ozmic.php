@@ -37,7 +37,6 @@
   function updateTime() {
     var date = new Date();
     time = date.toLocaleString('en-NG', options).split(",")[1].trim();
-    console.log(time)
     document.querySelector(".time").innerHTML = time;
   }
   setInterval(updateTime, 60);
