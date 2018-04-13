@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS `interns_data` (
 --
 
 INSERT INTO `interns_data` (`intern_id`, `name`, `username`, `image_filename`) VALUES
+<<<<<<< HEAD
 (9, 'Okunuga melody', 'melody', 'Screenshot-2018-3-21 Twitter.png'),
 (11, 'ikpe mercy michael', 'mercyikpe', 'IMG-20180322-WA0010.jpg'),
 (12, 'Mbah Clinton', 'mclint_', 'mclint_.jpg'),
@@ -57,6 +58,17 @@ ALTER TABLE `interns_data`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+=======
+(9,	'Okunuga melody',	'melody',	'Screenshot-2018-3-21 Twitter.png'),
+(11,	'ikpe mercy michael',	'mercyikpe',	'IMG-20180322-WA0010.jpg'),
+(14, 'Ekpang Michael Etta', 'mike', 'http://res.cloudinary.com/weezyval/image/upload/v1523620464/mikeetta.jpg'),
+(15, 'Charles Katuri', 'charlek', 'charlek.jpg'),
+(16, 'John Odey', 'john', 'john.jpg'),
+(17, 'Jegede David','davidstick766','dav.jpg'),
+(18, 'Tejumola Timi', 'timi', 'http://res.cloudinary.com/tarrot-system-inc/image/upload/v1523621115/IMG_4551_muwd22.jpg'),
+(19, 'Aghedo Joseph Femi', 'femicodes', 'https://res.cloudinary.com/femicodes/image/upload/v1523623381/IMG_20180221_185703.jpg'),
+(21, 'Gbenga Oni', 'gbxnga', 'https://res.cloudinary.com/gbxnga/image/upload/v1523622896/photo.png'),(22, 'Deekor Baribefe','befe','http://res.cloudinary.com/befe/image/upload/v1523623765/dbefe.jpg');
+>>>>>>> 1ebfe9a43f8294993275cabedcc014ac17380c8c
 
 --
 -- AUTO_INCREMENT for table `interns_data`

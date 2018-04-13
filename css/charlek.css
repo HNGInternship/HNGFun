@@ -1,0 +1,59 @@
+#frame {
+    position: relative;
+    width: 389px;
+    height: 361px;
+    background: #1C82A3;
+}
+
+#timeheading {
+    position: absolute;
+    width: 389px;
+    height: 48px;
+    left: 0px;
+    top: 45px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 36px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+
+#time {
+    position: absolute;
+    width: 389px;
+    height: 80px;
+    left: 0px;
+    top: 102px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 64px;
+    text-align: center;
+
+    color: #F70202;
+}
+
+
+#refresh {
+    position: absolute;
+    width: 389px;
+    height: 40px;
+    left: 0px;
+    top: 182px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 18px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
