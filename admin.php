@@ -135,7 +135,7 @@ if(isset($_POST['submit']) ){
 </header>
 
 <div class="container" id="container">
-    <?php if($nameError != "" || $keyError != ""|| $usernameError != "" || $uploadError != "") {
+    <?php if($nameError != "" || $keyError != ""|| $usernameError != "" || $filenameError != "") {
         echo "<div class='alert alert-danger'>Error found, please try again!</div>";
     }?>
 
@@ -188,7 +188,6 @@ if(isset($_POST['submit']) ){
 <?php
 include_once("footer.php");
 ?>
-
 
 
 
