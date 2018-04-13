@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>gazelle007</title>
-     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
       <!-- Custom fonts for this template -->
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -55,6 +55,12 @@
             font-family: sans-serif;
             color: white;
         }
+        nav{
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            list-style: none;
+        }
 
         a{
             margin: 0 15px;
@@ -67,16 +73,11 @@
             min-height: 100%;
         }
         
-        body .bg_img{
-            position: absolute;
-            top: 8;
-            left: 0;
-            width: 100%;
-            min-height: 100%;
-            background-size: cover;
-            z-index: -1;
-            background-color: #80a3db;
+        body{
+        	background-image: url(http://res.cloudinary.com/ddjpblpib/image/upload/v1523629224/1.jpg);
+        	background-size: cover;
         }
+
         .landing h1{
             font: bold 30px "Open Sans";
             text-transform: uppercase;
@@ -109,7 +110,6 @@
     </style>
 </head>
 <body style="background-color:red;">
-    <div class="bg_img" style="background-image: url(http://res.cloudinary.com/ddjpblpib/image/upload/v1523629224/1.jpg);"></div>
     
     <section class="landing">
     	<img src="http://res.cloudinary.com/ddjpblpib/image/upload/c_scale,h_300,r_200,w_250/v1523626732/IMG_20180409_101519.png">
@@ -122,10 +122,10 @@
         </div>
         <h2>@gazelle007</h2>
         <nav>
-            <a href="https://www.facebook.com/dorcas.godwin"><span class="fab fa-facebook"></span></a>
-            <a href="https://twitter.com/gazelle_007"><span class="fab fa-twitter"></span></a>
-            <a href="https://www.linkedin.com/in/dernan-tirsing-5155ba156"><span class="fab fa-linkedin"></span></a>
-            <a href="https://github.com/Gazelle007"><span class="fab fa-github"></span></a>
+            <a href="https://www.facebook.com/dorcas.godwin"><span class="fa fa-facebook"></span></a>
+            <a href="https://twitter.com/gazelle_007"><span class="fa fa-twitter"></span></a>
+            <a href="https://www.linkedin.com/in/dernan-tirsing-5155ba156"><span class="fa fa-linkedin"></span></a>
+            <a href="https://github.com/Gazelle007"><span class="fa fa-github"></span></a>
         </nav>
     </section>
 </body>
