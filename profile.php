@@ -3,6 +3,15 @@
 include_once("header.php");
 
 $profile_name = $_GET['id'];
+require 'db.php';
+
+$sql = 'SELECT * FROM interns_data';
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$data = $q->fetchAll();
+
+var_dump($data);
+
 ?>
 <!-- Page Content -->
 <body class = 'profile'>
