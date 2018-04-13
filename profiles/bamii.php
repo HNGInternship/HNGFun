@@ -252,6 +252,12 @@
         cursor: pointer;
         }
 
+        .portfolio-close:hover {
+            background: white;
+            color: black;
+            border: 1px solid black;
+        }
+
         .portfolio-item-container {
         height: 300px;
         width: 100%;
@@ -311,13 +317,16 @@
     
     <div id="stack" class="my-stack" onClick="open2()"> My Stack </div>
     <div id="second" class="second-paragraph">
-      <p> I mostly work frontend designing, using the obvious HTML & CSS, Bootstrap, and React (it was made primarily for UI). I also build mobile apps using React (and i'm pretty good at it, if i do say so myself) and Java. </p>
+      <p> I mostly work frontend designing, using the obvious HTML & CSS, Bootstrap, and React (it was made primarily for UI). I also build mobile apps using React Native (and i'm pretty good at it, if i do say so myself) and Java. </p>
       <p>
         Here's the list of the Programming Languages i'm conversant with and the areas of specialisation in each Language.
         <ul>
           <li> Java </li>
           <li> Javascript </li>
           <li> HTML5, CSS, JS bundle </li>
+          <li> React </li>
+          <li> ExpressJS </li>
+          <li> KnockoutJS </li>
         </ul>
       </p>
     </div>
