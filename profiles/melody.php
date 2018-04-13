@@ -1,7 +1,7 @@
 <?php
-require '../db.php';
+//require '../db.php';
 
-die($conn);
+//die($conn);
 
 ?>
 <!DOCTYPE html>
