@@ -29,7 +29,6 @@
     background-color: rgba(255,255,255,0.2);
     width: 60%;
     margin: auto;
-    /*margin-top: 25%;*/
 }
 #innercontent p{
     text-align: center;
@@ -47,7 +46,7 @@
         		<img class="img-responsive text-center" src="https://res.cloudinary.com/dnx217f5z/image/upload/v1523621896/IMG-20180410-WA0000.jpg">
         	</figure>
             <div id="innercontent">
-                <p>Balogun Olusegun | @japhar1</p>
+                <p class="firstp">Balogun Olusegun | @japhar1</p>
                 <p>HNG 4.0 Intern | Web/Front-End Dev</p>
                 <p><a href="https://www.facebook.com/balowtelly"><span class="fa fa-facebook"></span></a> | <a href="#"><span class="fa fa-instagram"></span></a> | <a href="https//www.twitter.com/balo_telly"><span class="fa fa-twitter"></a> </p>
                 <?php
