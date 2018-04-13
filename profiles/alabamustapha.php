@@ -7,7 +7,7 @@
 			body{
 				width: 100%;
 				max-height: 500px;
-				background: url(../images/bg.jpeg) no-repeat;
+				background: url(https://res.cloudinary.com/alabamustapha/image/upload/v1523619362/bg.jpg) no-repeat;
 				background-size: cover;
 				font-family: Roboto Condensed;
 			}

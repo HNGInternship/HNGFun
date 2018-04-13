@@ -24,11 +24,7 @@
       <link href="../css/style1.css" rel="stylesheet">
       <link href="../css/style.css" rel="stylesheet">
 	  <link href="../css/carousel.css" rel="stylesheet">
-      <style>
-      img{
-        transform: rotate(90deg);
-        }
-      </style>
+    
 
   </head>
 
@@ -77,7 +73,7 @@
       <div class="row">
 
         <div class="col-md-8">
-          <img class="img-fluid" src="../images/juliet.jpg" alt="juliet">
+          <img class="img-fluid" src="https://res-console.cloudinary.com/julietezekwe/thumbnails/v1/image/upload/v1523620041/anVsaWV0/grid" alt="juliet">
         </div>
 
         <div class="col-md-4">
