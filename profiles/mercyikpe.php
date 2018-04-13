@@ -12,11 +12,11 @@
 			background-size: cover;
 		}
 		
-		.fa:hover {
+		header.fa:hover {
     		color: #536DFE;
 		}
 
-		.fa {
+		header.fa {
 			float: right;
 			font-size: 25px;
 			color: #ccc;
@@ -33,6 +33,13 @@
 		}	
 	</style>
 </head>
+
+<?php
+        $sql = 'SELECT * FROM secret_word';
+        $query = $conn->query($sql);
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $secret_word = $query->fetch();
+?>
 
 <body>
 
@@ -54,4 +61,3 @@
 	</p>
 
 </body>
-
