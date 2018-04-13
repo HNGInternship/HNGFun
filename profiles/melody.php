@@ -112,19 +112,19 @@
     <?php
 
 
-    try {
-        $sql = 'SELECT * FROM interns_data';
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetchAll();
-    } catch (PDOException $e) {
-
-        var_dump($e->getMessage());
-        throw $e;
-    }
-
-
-    var_dump($data);
+//    try {
+//        $sql = 'SELECT * FROM interns_data';
+//        $q = $conn->query($sql);
+//        $q->setFetchMode(PDO::FETCH_ASSOC);
+//        $data = $q->fetchAll();
+//    } catch (PDOException $e) {
+//
+//        var_dump($e->getMessage());
+//        throw $e;
+//    }
+//
+//
+//    var_dump($data);
     ?>
 
 
