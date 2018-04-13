@@ -11,7 +11,7 @@
     <title>Orie Chinedu</title>
 
     <!-- Bootstrap core CSS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
       <!-- Custom fonts for this template -->
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -37,22 +37,22 @@
                         </div>
                     <div class="row">
                         <div class="col-md-2">
-                            <a href="https://slack.com/hnginternship4/@oriechinedu"><span class="fab fa-slack" style="color: blue; font-size: 48px;"></span></a>
+                            <a href="https://slack.com/hnginternship4/@oriechinedu"><span class="fa fa-slack" style="color: blue; font-size: 48px;"></span></a>
                         </div>
                         <div class="col-md-2">
-                            <a href="https://facebook.com/orie.chinedu"><span class="fab fa-facebook" style="color: blue;font-size: 48px;"></span></a>
+                            <a href="https://facebook.com/orie.chinedu"><span class="fa fa-facebook" style="color: blue;font-size: 48px;"></span></a>
                         </div>
                         <div class="col-md-2">
-                            <a href="https://medium.com/@oriechinedu"><span class="fab fa-medium" style="color: blue; font-size: 48px;"></span></a>
+                            <a href="https://medium.com/@oriechinedu"><span class="fa fa-medium" style="color: blue; font-size: 48px;"></span></a>
                         </div>
                         <div class="col-md-2">
-                            <a href="https://twitter.com/@orie.chinedu"><span class="fab fa-twitter" style="color: blue; font-size: 48px;"></span></a>
+                            <a href="https://twitter.com/@orie.chinedu"><span class="fa fa-twitter" style="color: blue; font-size: 48px;"></span></a>
                         </div>
                         <div class="col-md-2">
-                            <a href="https://linkedin.com/in/chinedu-emmanuel-orie-b8484b147/"><span class="fab fa-linkedin" style="color: blue; font-size: 48px;"></span></a>
+                            <a href="https://linkedin.com/in/chinedu-emmanuel-orie-b8484b147/"><span class="fa fa-linkedin" style="color: blue; font-size: 48px;"></span></a>
                         </div>
                         <div class="col-md-2">
-                            <a href="https://github.com/oiechinedu"><span class="fab fa-github" style="color: blue; font-size: 48px;"></span></a>
+                            <a href="https://github.com/oiechinedu"><span class="fa fa-github" style="color: blue; font-size: 48px;"></span></a>
                         </div>
                 </div>
                     </div>   
