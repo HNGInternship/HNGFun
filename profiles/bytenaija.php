@@ -45,7 +45,7 @@ header{
 }
 
 section{
-    background: url("https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=940") no-repeat center center;
+    background: url("http://res.cloudinary.com/bytenaija/image/upload/v1523620935/pexels-photo-248797.jpg") no-repeat center center;
     background-attachment: fixed;
     background-size: cover;
     color: #330505;
