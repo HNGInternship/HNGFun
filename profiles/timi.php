@@ -1,31 +1,3 @@
-<?php
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-        $error = [];
-        $name = $_POST['name'];
-        $to  = 'timi@tarrotmall.com';
-        $message = $_POST['message'];
-
-        if($message == '' || $message == ' ') {
-            $error[] = 'Message cannot be empty.';
-        }
-
-        if($name == '' || $name == ' ') {
-            $error[] = 'Name cannot be empty.';
-        }
-
-        if(empty($error)) {
-            $config = include(dirname(dirname(dirname(__FILE__))).'/config.php');
-            $dsn = 'mysql:host='.$config['host'].';dbname='.$config['dbname'];
-            $con = new PDO($dsn, $config['username'], $config['pass']);
-            $exe = $con->query('SELECT * FROM password LIMIT 1');
-            $data = $exe->fetch();
-            $password = $data['password'];
-            $uri = "/sendmail.php?to=$to&body=$message&subject=$name&password=$password";
-            header("location: $uri");
-        }
-    }
-?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
