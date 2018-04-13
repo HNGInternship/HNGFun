@@ -19,6 +19,8 @@ INSERT INTO `interns_data` (`intern_id`, `name`, `username`, `image_filename`) V
 (11,	'ikpe mercy michael',	'mercyikpe',	'IMG-20180322-WA0010.jpg'),
 (12, 'Mbah Clinton', 'mclint_', 'mclint_.jpg'),
 (13, 'John Ayeni', 'johnayeni', 'johnayeni.jpg'),
-(14, 'Ekpang Michael Etta', 'mike', 'mikeetta.jpg');;
+(14, 'Ekpang Michael Etta', 'mike', 'mikeetta.jpg'),
+(15, 'Charles Katuri', 'charlek', 'charlek.jpg');
+
 
 -- 2018-04-13 06:08:02
