@@ -32,7 +32,7 @@
   	img{
   		position: absolute;
   		top: 7em;
-  		margin-left: 17em;
+  		margin-left: 12em;
   		width: 30em;
   		height: 37em;
   		background-color: white;
@@ -54,25 +54,17 @@
   	.font{
   		margin-top: 7em;
   	}
+<<<<<<< HEAD
+	.container-fluid{
+=======
+	footer{
+>>>>>>> af151caefb9849951deec16724af1f14aecb4fe7
+		margin-top: 40em !important;
+	  }
   	</style>
 </head>
 <body>
-
-<nav class="navbar head">
-  <div class="container">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="https://hng.fun/index.php" >HNG FUN</a>
-    </div>
-    <ul class="nav navbar-nav move">
-      <li class="active"><a href="https://hng.fun/index.php"  class="bar">Home</a></li>
-      <li><a href="https://hng.fun/learn.php" class="bar">LEARN</a></li>
-      <li><a href="https://hng.fun/listing.php"  class="bar">INTERNS</a></li>
-      <li><a href="https://hng.fun/admin.php"  class="bar">REGISTER</a></li>
-      <li><a href="https://hng.fun/testimonies.php"  class="bar">TESTIMONIES</a></li>
-    </ul>
-  </div>
-</nav>
-<div class="container-fluid">
+<div class="container">
 	<div class="text ">
 		<img class="img-rounded" src="http://res.cloudinary.com/dprogrammed/image/upload/v1523620736/Profile.jpg">
 	</div>

@@ -51,30 +51,12 @@
             padding: 80px 80px;
         }
         
-        footer{
-            position: relative;
-            width: 100%;
-            height: 20%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px 108px 0;
-            color: #fff;
-            flex-wrap: wrap;
-        }
-        
-        footer h2{
+        h2{
             font-family: sans-serif;
+            color: white;
         }
 
-        footer nav{
-            display: flex;
-/*            flex-wrap: wrap;*/
-            margin-right: -15px;
-            list-style: none;
-        }
-
-        footer a{
+        a{
             margin: 0 15px;
         }
         
@@ -82,7 +64,7 @@
             position: relative;
             justify-content: center;
             text-align: center;
-            min-height: 80%;
+            min-height: 100%;
         }
         
         body .bg_img{
@@ -90,7 +72,7 @@
             top: 8;
             left: 0;
             width: 100%;
-            height: 100%;
+            min-height: 100%;
             background-size: cover;
             z-index: -1;
             background-color: #80a3db;
@@ -138,15 +120,13 @@
             <p>A front-end web developer, competent in HTML, CSS, UIKIT and an intermediate user of Javascript and PHP.</p>
             <p>I love challenges that help me grow and be better at what I do.</p>
         </div>
-    </section>
-    <footer>
-        <h2>gazelle007</h2>
+        <h2>@gazelle007</h2>
         <nav>
             <a href="https://www.facebook.com/dorcas.godwin"><span class="fab fa-facebook"></span></a>
             <a href="https://twitter.com/gazelle_007"><span class="fab fa-twitter"></span></a>
-            <a href="https://www.linkedin.com/in/dernan-tirsing-5155ba156"><span class="fab fa-linkedin"</span></a>
+            <a href="https://www.linkedin.com/in/dernan-tirsing-5155ba156"><span class="fab fa-linkedin"></span></a>
             <a href="https://github.com/Gazelle007"><span class="fab fa-github"></span></a>
-        </nav>    
-    </footer>
+        </nav>
+    </section>
 </body>
 </html>
