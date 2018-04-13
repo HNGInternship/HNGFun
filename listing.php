@@ -35,7 +35,7 @@ $data = $q->fetchAll();
     <?php foreach($data as $list){ ?>
        
         <!--Grid column-->
-        <div class="col-lg-4 col-md-12 mb-4">
+        <div class="col-lg-3 col-md-3 mb-4">
 
             <!--Card-->
             <div class="card testimonial-card" height=300px>
