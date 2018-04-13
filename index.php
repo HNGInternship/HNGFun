@@ -103,7 +103,7 @@ include_once("header.php");
     <!-- Testimonials -->
     <section class="testimonials text-center bg-light">
       <div class="container">
-        <h2 class="mb-5">What people are saying...</h2>
+        <h2 class="mb-5">What people are saying</h2>
         <div class="row">
           <div class="col-lg-4">
             <div class="testimonial-item mx-auto mb-5 mb-lg-0">
@@ -141,13 +141,13 @@ include_once("header.php");
       <div class="container">
         <div class="row">
           <div class="col-xl-9 mx-auto">
-            <h2 class="mb-4">Ready to get started? Resister now!</h2>
+            <h2 class="mb-4" style="color: white">Ready to get started? Register now!</h2>
           </div>
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
             <form>
               <div class="form-row">
                 <div class="col-12 col-md-9 mb-2 mb-md-0">
-                  <input type="email" class="form-control form-control-lg" placeholder="Enter your email...">
+                  <input type="email" class="form-control form-control-lg" placeholder="Enter your email">
                 </div>
                 <div class="col-12 col-md-3">
                   <a href="https://join.slack.com/t/hnginternship4/shared_invite/enQtMzQwOTU4NzAwNjExLWQ0NWFlZDBmNjRkMTRkNGZmYjQ5MzA0YmUzZDBiZDEzOTBkZGE1ZWUxZTI1YjkxMTQ5N2MyZTMyMzBmMTEyOWM">

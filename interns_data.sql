@@ -16,6 +16,7 @@ CREATE TABLE `interns_data` (
 
 INSERT INTO `interns_data` (`intern_id`, `name`, `username`, `image_filename`) VALUES
 (9,	'Okunuga melody',	'melody',	'Screenshot-2018-3-21 Twitter.png'),
-(11,	'ikpe mercy michael',	'mercyikpe',	'IMG-20180322-WA0010.jpg');
+(11,	'ikpe mercy michael',	'mercyikpe',	'IMG-20180322-WA0010.jpg'),
+(12, 'Mbah Clinton', 'mclint_', 'mclint_.jpg');
 
 -- 2018-04-13 06:08:02
