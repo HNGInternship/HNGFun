@@ -7,13 +7,13 @@ require 'db.php';
 $nameError ="";
 $usernameError = "";
 $keyError="";
-$uploadError = "";
+$filenameError = "";
 
-$imageSuccess = false;
+//$imageSuccess = false;
 $success = false;
 $key = "1n73rn@Hng";
 
-if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
+if(isset($_POST['submit']) ){
 
     //Data Sanitization and Validation
     if($_POST['name'] != ""){
@@ -22,10 +22,18 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
             $nameError = "<span class='invalid'>Please enter a valid name.</span>";
         }
     }
+    
+  if($_POST['image_filename'] != ""){
+      $_POST['image_filename'] = filter_var($_POST['image_filename'], FILTER_SANITIZE_URL);
+      if ($_POST['image_filename'] == ""){
+          $filenameError = "<span class='invalid'>Please enter a proper file URL .</span>";
+      }
+  }
+    
     // key
     if($_POST['key'] != ""){
         
-        if ($_POST['key'] != "1n73rn@Hng "){
+        if ($_POST['key'] != "1n73rn@Hng"){
             $keyError = "<span class='invalid'>Please enter a valid key code.</span>";
         }
     }
@@ -47,7 +55,7 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
         }
     }
 
-    //Upload File and Insert Data into Database
+    /** Upload File and Insert Data into Database
     if ($nameError == "" && $usernameError == "" && $keyError == "") {
         //Upload file
         $max_size = 500 * 1024; // 500 KB
@@ -81,13 +89,13 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
         }
         else {
             $uploadError = "Invalid image format. Allowed formats: JPG, JPEG, PNG.";
-        }
+        } **/
 
-        if ($imageSuccess) {
+        //if ($imageSuccess) {
             //Insert Data
             $name = $_POST['name'];
             $username = $_POST['username'];
-            $imageName = $_FILES['file']['name'];
+            $mageName  =  $_POST['image_filename'];
 
             $intern_data = array(':name' => $name,
                 ':username' => $username,
@@ -108,8 +116,8 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
             } catch (PDOException $e) {
                 throw $e;
             }
-        }
-    }
+      //  }
+    //}
 }
 ?>
 <header class="masthead" style="background-image: url('img/home-bg.jpg')">
@@ -127,7 +135,7 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
 </header>
 
 <div class="container" id="container">
-    <?php if($nameError != "" || $keyError != ""|| $usernameError != "" || $uploadError != "") {
+    <?php if($nameError != "" || $keyError != ""|| $usernameError != "" || $filenameError != "") {
         echo "<div class='alert alert-danger'>Error found, please try again!</div>";
     }?>
 
@@ -158,9 +166,9 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="file">Profile Picture <small>(max-size: 500kb):</small></label>
-                    <input type="file" name="file" class="form-control-file" id="file" >
+                    <input type="text" name="image_filename" class="form-control" id="image_filename" >
                 </div>
-                <?php if($uploadError != "") { echo "<div class='alert alert-danger'>$uploadError</div>"; }?>
+                <?php if($filenameError != "") { echo "<div class='alert alert-danger'>$filenameError</div>"; }?>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
@@ -180,7 +188,6 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
 <?php
 include_once("footer.php");
 ?>
-
 
 
 
