@@ -35,7 +35,7 @@
 
 header{
     width: 100%;
-    margin-top : 2rem;
+    margin-top : 4rem;
     text-align: center;
     font-family: 'Ubuntu';
     background-color: #632F2F;
@@ -118,7 +118,7 @@ section h2:first-child{
     width: 20rem;
     margin: 1rem 2rem;
     background-color: white;
-    font-size: 200%;
+    font-size: 150%;
 }
 
 
