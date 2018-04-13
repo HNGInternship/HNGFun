@@ -9,16 +9,14 @@ $data = $q->fetchAll();
 
 
 ?>
-    <header class="masthead" style="background-image: url('img/about-bg.jpg')">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto">
-                    <div class="page-heading">
-                        <h1>Meet our Interns</h1>
-                        <span class="subheading">Intern Gallery</span>
-                    </div>
-                </div>
+<header class="masthead" style="background-image: url('img/about-bg.jpg')">
+   <div class="overlay"></div>
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="page-heading">
+               <h1>Meet our Interns</h1>
+               <span class="subheading">Intern Gallery</span>
             </div>
         </div>
     </header>
@@ -46,9 +44,8 @@ $data = $q->fetchAll();
                 <div class="card-up deep-purple lighten-2"></div>
                 <div class="card-body">
                 <!--Avatar-->
-                <div class="avatar mx-auto white"><img src="images/<?= $list['image_filename'] ?>"  alt="avatar mx-auto white" class="rounded-circle img-fluid">
-                </div>
-
+                <div class="avatar mx-auto white"><img style="width: 400px; height: 300px" src="<?= $list['image_filename'] ?>" onerror="this.src='images/default.jpg'" alt="avatar mx-auto white" class="rounded-circle img-fluid">
+               </div>
                 
                     <!--Name-->
                     <h4 class="card-title mt-1"><?= $list['name']?></h4>
@@ -61,16 +58,13 @@ $data = $q->fetchAll();
                     </div>
 
             </div>
-            <!--Card-->
+         <?php } ?>
 
-        </div>
-        <?php } ?>
+      </div>
 
-    </div>
+   </section>
+   <!--Section: Testimonials v.1-->
 
-</section>
-<!--Section: Testimonials v.1-->
-                
 
 </div>
 
