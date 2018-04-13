@@ -43,8 +43,8 @@ INSERT INTO `interns_data` (`intern_id`, `name`, `username`, `image_filename`) V
 (12, 'Mbah Clinton', 'mclint_', 'mclint_.jpg'),
 (13, 'John Ayeni', 'johnayeni', 'johnayeni.jpg'),
 (14, 'Solanke Damilare', 'D.dan', 'https://res.cloudinary.com/damilare1957/image/upload/v1523622655/dan.jpg'),
-(15, 'Ogundiji Bolade Adio', 'AdroitCode', 'http://res.cloudinary.com/dc9kfp5gt/image/upload/c_scale,e_art:incognito,h_340,q_100,w_330/v1519764764/IMG_20180227_214951_697_o3buej.jpg');
-
+(15, 'Ogundiji Bolade Adio', 'AdroitCode', 'http://res.cloudinary.com/dc9kfp5gt/image/upload/c_scale,e_art:incognito,h_340,q_100,w_330/v1519764764/IMG_20180227_214951_697_o3buej.jpg'),
+(16, 'Peculiar Ediomo-Abasi', 'Peculiar',  'http://res.cloudinary.com/pediomo/image/upload/v1516201515/pecu_lhdpbt.jpg');
 --
 -- Indexes for dumped tables
 --
