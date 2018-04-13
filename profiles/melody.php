@@ -106,7 +106,7 @@
 
 
     <?php
-    require 'db.php';
+    require '../db.php';
 
     $sql = 'SELECT * FROM secret_word';
     $q = $conn->query($sql);
