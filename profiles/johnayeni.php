@@ -64,7 +64,7 @@
         <img class="img-circle img-responsive" src="https://pbs.twimg.com/profile_images/977651261968388097/6m4IVFZN_400x400.jpg" width="250" style="margin: auto">
         <h2 id="hello">Hello</h2>
         <h3>I'm John Ayeni</h3>
-        <h4>I am a Softaware Engineer from Nigeria</h4>
+        <h4>I am a Software Engineer from Nigeria</h4>
           <div id="social">
             <ul class="nav nav-pills">
               <li>
