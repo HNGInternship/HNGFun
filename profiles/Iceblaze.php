@@ -1,57 +1,50 @@
-<!DOCTYPE html>
-<html>
+
 <head>
-	<title>Dahunsi Fehintoluwa</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	
-	<style>
-		body {
-			background-image: url("https://res.cloudinary.com/iceblaze/image/upload/v1523624386/DSC_1101.jpg");
-			background-size: cover;
-		}
-		
-		.fa:hover {
-    		color: #536DFE;
-		}
+    <title>Dahunsi Fehintoluwa</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+    <style type="text/css">
+        body{
+            background-color: #9C27B0;
+            font-family: Raleway, "sans-serif"
 
-		.fa {
-			float: right;
-			font-size: 25px;
-			color: #ccc;
-			padding: 10px;
-		}
-			
-		#clock {
-			float: right;
-			font-size: 4em;
-			display: inline;
-			color: #ccc;
-			text-align: center;
-			margin: 150px 10px 0 0;
-		}	
-	</style>
+        }
+        h1{
+            font-weight: 700;
+        }
+        .main{
+            width: 50vw;
+            height: 50vh;
+            background-color: #F3E5F5;
+            margin: auto;
+            text-align: center;
+            box-shadow: 2px 2px 4px;
+
+        }
+        .clock{
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            margin: auto;
+            color: #fff;
+            text-align: center;
+            font-size: 2em;
+            padding: 10px;
+        }
+    </style>
 </head>
-
 <body>
 
+<div class="main">
 
-	<header>
-			<div>
-				<a href="https://github.com/black-fyre"><i class="fa fa-github"></i></i></a>
-				<a href="https://twitter.com/#"><i class="fa fa-twitter"></i></i></a>
-				<a href="https://medium.com/#"><i class="fa fa-medium"></i></i></a>
-				<a href="https://web.facebook.com/dahunsi.fehinti"><i class="fa fa-facebook"></i></i></a>	
-			</div>
-		
-	</header>
-    
-	<p id="clock">
-		<?php
-			echo "The time is </br>" . date("h:i:sa");
-		?> 
-	</p>
+    <h1 class="header">Dahunsi Fehinti</h1>
+
+    <img class="clock img-fluid" src="https://res.cloudinary.com/iceblaze/image/upload/v1523624386/DSC_1101.jpg"
+         alt="Dahunsi Fehintoluwa">
+    <div>
+        <p><strong>Hobbies:</strong> Programming, Reading, Weightlifting </p>
+        <p><b>Summary:</b> Full stack web dev, all round code junkie<br>
+        <a href="#" class="btn btn-primary">Hug me</a>
+    </div>
+</div>
 
 </body>
-
