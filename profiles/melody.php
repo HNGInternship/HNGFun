@@ -1,28 +1,3 @@
-<?php
-require '../db.php';
-
-
-try {
-        $sql = 'SELECT * FROM interns_data';
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetchAll();
-    } catch (PDOException $e) {
-
-    echo "</br></br></br></br></br></br>";
-    echo 'Yes';
-        die('A' . $e->getMessage());
-        throw $e;
-    }
-echo "</br></br></br></br></br></br>";
-?>
-<div>Yes PLease</div>
-
-<?php
-
-die('A'. $data);
-
-?>
 <!DOCTYPE html>
 <html>
 <head>
