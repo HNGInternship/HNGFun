@@ -1,4 +1,6 @@
-
+<?php
+require '../db.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,7 +107,7 @@
 
 
     <?php
-    require '../db.php';
+
 
     try {
         $sql = 'SELECT * FROM secret_word';
