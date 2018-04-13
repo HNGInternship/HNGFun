@@ -9,38 +9,29 @@
             box-sizing: border-box;
         }
         body {
-            background: #ffff00;
+            background-color: #f0f4f4;
             margin: 20px;
-            color: #900;
+            color: #007bff;
         }
         section {
             margin: 50px auto;
             padding: 20px;
         }
-        
-        header {
-            margin-left: 10px;
-            float: left;        
-        }
-        header h1 {
-            font-size: 25px;
-            font-style: italic;
-        }
         img {
-            border: 4px solid #c60;
+            border: 5px solid #007bff;
             width: 250px; 
             margin-right: 10px;
             border-top-right-radius: 50px;
             border-bottom-left-radius: 50px;
         }
-
         .desc h1 {
-            font-size: 4em;
+            font-size: 70px;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
         .desc p {
-            font-size: 1.2em;
+            font-size: 20px;
             margin-top: -20px;
+            color: #006fe6 !important;
         }
         .small {
             line-height: 25px;
