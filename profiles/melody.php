@@ -1,8 +1,4 @@
-<?php
-date_default_timezone_set('Africa/Lagos');
-$date = date('l, M d, Y');
-$time = date('G:i');
-?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +26,7 @@ $time = date('G:i');
             position: absolute;
             top:20px;
             width: 100%;
-            padding-top: 150px;
+            padding-top: 350px;
             height: 130px;
             font-family: "Romanesco";
             line-height: 130px;
@@ -44,7 +40,18 @@ $time = date('G:i');
         }
         .under {
             position: absolute;
-            top:300px;
+            top:500px;
+            height: 50px;
+            width: 100%;
+            font-family: "Alegreya";
+            line-height: normal;
+            font-size: 32px;
+            text-align: center;
+            color: #000830;
+        }
+        .under2 {
+            position: absolute;
+            top:550px;
             height: 49.71px;
             width: 100%;
             font-family: "Alegreya";
@@ -70,13 +77,15 @@ $time = date('G:i');
 <body>
 <div class="container">
     <div class="offset-md-3 col-md-6">
-        <div class="main"><span class="text">Oluwamelody Tech</span></div>
-        <div class="under"><span>Lagos | NG</span></div>
+        <div class="col-md-2">
+        </div>
+        <img class="img-fluid rounded" style="padding-top: 50px" src="https://res.cloudinary.com/melody/image/upload/v1523619250/Melody.jpg" >
+        <div class="main"><span class="text">Okunuga Melody</span></div>
+        <div class="under"><span>Full Stack Web Developer</span></div>
+        <div class="under2"><span>Lagos | NG</span></div>
     </div>
-    <div class="footer">
-        <span><?= $date ?> <br/> <?= $time ?></span>
-    </div>
+
 </div>
-<hr>
+
 </body>
 

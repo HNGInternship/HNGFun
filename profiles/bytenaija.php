@@ -35,7 +35,7 @@
 
 header{
     width: 100%;
-    
+    margin-top : 4rem;
     text-align: center;
     font-family: 'Ubuntu';
     background-color: #632F2F;
@@ -45,7 +45,7 @@ header{
 }
 
 section{
-    background: url("https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=940") no-repeat center center;
+    background: url("http://res.cloudinary.com/bytenaija/image/upload/v1523620935/pexels-photo-248797.jpg") no-repeat center center;
     background-attachment: fixed;
     background-size: cover;
     color: #330505;
@@ -116,8 +116,9 @@ section h2:first-child{
 .me p{
    box-shadow: 1px 1px .5rem aqua;
     width: 20rem;
-    margin: 1rem 5rem;
+    margin: 1rem 2rem;
     background-color: white;
+    font-size: 150%;
 }
 
 
@@ -125,6 +126,7 @@ section h2:first-child{
     transition: transform 1s  ease-in-out;
     cursor: pointer;
     position: relative;
+    padding:.5rem;
 
 
 }
@@ -138,19 +140,20 @@ section h2:first-child{
 
 @keyframes mymove{
     0%{
-        display: block;
+        top: -300px;
+        
     }
 
     25%{
-        top: -400px;
+        top: -225px;
         
     }
 
      50%{
-        top: -200px;
+        top: -150px;
     }
     75%{
-        top: -50px;
+        top: -75px;
     }
     100%{
         top: 0px;
@@ -166,7 +169,7 @@ section h2:first-child{
 
 .me .right p{
    transform: skew(20deg);
-   top: -200%;
+
 }
 
 .me .left p{
