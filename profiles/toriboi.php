@@ -45,27 +45,28 @@
         margin-bottom: 20px;
       }
 
-      .fa {
+      .t {
         font-size: 40px;
         margin: 10px;
         text-decoration: none;
         width: 50px;
       }
 
-      .fa-twitter {
+      .t-twitter {
         color: #1DA1F2;
       }
 
-      .fa-facebook {
+      .t-facebook {
         color: #3B5998;
       }
 
-      .fa-github {
+      .t-github {
         color: #333;
       }
 
-      .fa:hover {
+      .t:hover {
         box-shadow: 5px 5px 5px #333;
+        text-decoration: none;
       }
     </style>
 
@@ -85,9 +86,9 @@
         </p>
 
         <div id="t-social-media">
-          <span><a href="https://twitter.com/toriiboy" class="fa fa-twitter"></a></span>
-          <span><a href="https://web.facebook.com/toriboi" class="fa fa-facebook"></a></span>
-          <span><a href="https://github.com/toriboi" class="fa fa-github"></a></span>
+          <span><a href="https://twitter.com/toriiboy" class="fa fa-twitter t-twitter t"></a></span>
+          <span><a href="https://web.facebook.com/toriboi" class="fa fa-facebook t-facebook t"></a></span>
+          <span><a href="https://github.com/toriboi" class="fa fa-github t-github t"></a></span>
         </div>
       </div>
     </div>
