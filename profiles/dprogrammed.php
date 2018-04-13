@@ -32,7 +32,7 @@
   	img{
   		position: absolute;
   		top: 7em;
-  		margin-left: 17em;
+  		margin-left: 12em;
   		width: 30em;
   		height: 37em;
   		background-color: white;
@@ -54,10 +54,17 @@
   	.font{
   		margin-top: 7em;
   	}
+<<<<<<< HEAD
+	.container-fluid{
+=======
+	footer{
+>>>>>>> af151caefb9849951deec16724af1f14aecb4fe7
+		margin-top: 40em !important;
+	  }
   	</style>
 </head>
 <body>
-<div class="container-fluid">
+<div class="container">
 	<div class="text ">
 		<img class="img-rounded" src="http://res.cloudinary.com/dprogrammed/image/upload/v1523620736/Profile.jpg">
 	</div>
