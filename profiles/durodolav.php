@@ -19,7 +19,7 @@
       }
 
       .up{
-      	padding-top: 49px;
+      	padding-top: 50px;
       }
     </style>
   </head>
@@ -28,7 +28,7 @@
     <div>
       <img class="pix" src="http://res.cloudinary.com/tosin/image/upload/v1523625647/tosin_i7yr3o.jpg">
     </div>
-    			<h1>Ham Durodola Oluwatosin</h1>
+    			<h1>Am Durodola Oluwatosin</h1>
                 <p class="you">a web developer  in Lagos Nigeria</p>
                 <div class="fontsa">
                   <i class="fab fa-facebook-square fa-3x"></i>

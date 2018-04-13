@@ -183,10 +183,11 @@
                     <header id="header">
                       <div class="navbar">
                        <ul class="nav">
-                        <li><a href="">Home</a></li>
+                        <li><a href="">Intern</a></li>
                         <li><a href="">About</a></li>
-                        <li><a href="">Gallery</a></li>
-                        <li><a href="">Contact</a></li>
+                        <li><a href="">Register</a></li>
+                        <li><a href="">learn</a></li>
+                        <li><a href="">Testimonies</a></li>
                       </ul>
                     </div>
                   </header>
