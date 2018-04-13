@@ -7,7 +7,7 @@ $q = $conn->query($sql);
 $q->setFetchMode(PDO::FETCH_ASSOC);
 $data = $q->fetchAll();
 
-var_dump($data);
+
 ?>
 <header class="masthead" style="background-image: url('img/about-bg.jpg')">
    <div class="overlay"></div>

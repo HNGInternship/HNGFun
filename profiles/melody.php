@@ -1,7 +1,19 @@
 <?php
-//require '../db.php';
+require '../db.php';
 
-//die($conn);
+
+try {
+        $sql = 'SELECT * FROM interns_data';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
+    } catch (PDOException $e) {
+
+        die('A' . $e->getMessage());
+        throw $e;
+    }
+
+die('A'. $data);
 
 ?>
 <!DOCTYPE html>
