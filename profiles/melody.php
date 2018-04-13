@@ -9,11 +9,14 @@ try {
         $data = $q->fetchAll();
     } catch (PDOException $e) {
 
+    echo "</br></br></br></br></br></br>";
+    echo 'Yes';
         die('A' . $e->getMessage());
         throw $e;
     }
 echo "</br></br></br></br></br></br>";
-echo "OK";
+?>
+<div>Yes PLease</div>
 
 
 die('A'. $data);
