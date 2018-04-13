@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Profie | Nedy</title>
-  <meta name="theme-color" content="#2f3061">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -13,43 +12,11 @@
       font-family: 'Ubuntu';
     }
 
-    .main {
-    }
-
     .card{
       box-shadow: 0px 0px 10px #b4b4b4;
       width: 50%;
     }
 
-    #hello {
-      font-size: 200px;
-      color: #b22222;
-      font-family: 'Alfa Slab One';
-    }
-
-    #about h4 {
-      font-size: 40px;
-      font-weight: bold;
-    }
-
-    #about h5 {
-      font-size: 14px;
-      color: #b22222;
-    }
-
-    #social {
-      margin: 0 auto;
-      width: 198px;
-    }
-
-    .social-icons {
-      width: 18px;
-      transition: all 700ms;
-    }
-
-    .social-icons:hover {
-      transform: scale(1.2, 1.2);
-    }
   </style>
 </head>
 
