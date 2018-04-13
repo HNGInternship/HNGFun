@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>HNG FUN</title>
+    <title>iam__dharmy</title>
 
     <!-- Bootstrap core CSS -->
       <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -27,7 +27,7 @@
 	  <link href="../css/carousel.css" rel="stylesheet">
       <style>
       body {
-			background-image: url("../images/iam__dharmy.png");
+			
 			background-size: cover;
 		}
 		p{ color:white
@@ -41,7 +41,7 @@
 
   </head>
 
-  <body>
+  <body style = "background-image:url(http://res.cloudinary.com/iamdharmy/image/upload/v1523622015/iam__dharmy.png)">
 
   
 
@@ -64,7 +64,7 @@
 	<div class="testimonial">
                                     <!--Avatar-->
                                     <div class="avatar mx-auto">
-                                        <img src="../images/iam__dharmy.PNG" class="rounded-circle img-fluid">
+                                        <img src="http://res.cloudinary.com/iamdharmy/image/upload/v1523622015/iam__dharmy.png" class="rounded-circle img-fluid">
                                     </div>
                                     <!--Content-->
                                     <h4>iam__dharmy</h4>
