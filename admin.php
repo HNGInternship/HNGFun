@@ -7,7 +7,7 @@ require 'db.php';
 $nameError ="";
 $usernameError = "";
 $keyError="";
-$uploadError = "";
+$filenameError = "";
 
 //$imageSuccess = false;
 $success = false;
