@@ -9,12 +9,12 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
     <style type="text/css">
-        * {
+        /* * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-        body {
+        } */
+        /* body {
             margin: 0;
             font-family: 'Roboto', sans-serif;
             background-color: #efefef;
@@ -22,8 +22,8 @@
             color: #157EFB;
             font-family: 'Raleway', sans-serif;
             font-weight: 100;
-        }
-        .container {
+        } */
+        .containers {
             display: flex;
             max-width: 700px;
             height: 100vh;
@@ -32,16 +32,16 @@
             align-items: center;
             position: relative;
         }
-        .wrapper {
+        .wrappers {
             display: flex;
             justify-content: center;
             align-content: center;
         }
-        .about b {
+        .mybio b {
             font-size: 14px;
             color:black;
         }
-        .about{
+        .mybio{
             color:black;
         }
         .avatar {
@@ -108,7 +108,7 @@
         .fa-link:hover {
             background-color: #322f30;
         }
-        .profile {
+        .myprofile {
             background-color: #ffffff;
             margin-right: 20px;
             height: 255px;
@@ -202,9 +202,9 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="wrapper">
-            <div class="profile">
+    <div class="containers">
+        <div class="wrappers">
+            <div class="myprofile">
                 <img src="http://res.cloudinary.com/tarrot-system-inc/image/upload/v1523621115/IMG_4551_muwd22.jpg" class="avatar">
                 <div class="name" style ="color: #157EFB;"><b>Tejumola David Timi</b>
                 <p>@timi</p>
@@ -225,7 +225,7 @@
             </div>
         </div>
 
-        <div class="about">
+        <div class="mybio">
             <br/><h3>Tejumola David Timi</h3><br/>
             <p>UI/UX designer.<br/>JAVA Lover<br/>Swift.<br/></p>
             <p># Google Android Associate Developer.<br> # Learning fullstack javascript (MEAN Stack).<br/># Music Lover<br/> </b></p>

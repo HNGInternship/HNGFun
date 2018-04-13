@@ -256,7 +256,7 @@ body{
         <nav>
             <span class="top-text">Olawalle</span>
             <div class="loo">
-                        
+                    <img src="https://image.ibb.co/fkMC7S/me.jpg"/>    
                       </div>
                  <div class="links">
                     <a href="https://www.behance.net/olawalle94c375"><i class="fa fa-behance"></i></a>

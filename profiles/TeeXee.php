@@ -33,6 +33,29 @@
 			color: #ccc;
 			padding: 10px;
 		}
+		
+		.profile{
+			text-align:center;
+			margin-bottom:50px
+			}
+		.profile img{
+			height:225px;
+			width:225px;
+			border:7px solid #fff
+			}
+		.profile h4{
+			margin-top:25px;
+			margin-bottom:0;
+			text-transform:none
+		}
+		.profile p{
+			margin-top:0
+			}		
+		.profile ul.list-inline {
+			margin-bottom: 30px;
+			margin-top: 0; 
+			}
+			
 			
 	</style>
 </head>
@@ -40,17 +63,23 @@
 <body>
 
 <div class="card">
-	  <img src="http://res.cloudinary.com/teexee19/image/upload/v1523621681/pp_1.jpg" alt="Franklin" style="width:100%; height: 200px">
- <h1>Tochukwu Franklin Ene</h1>
-	  <p class="title">Software Developer</p>
-	  <div>
-				<a href="https://github.com/TeeXee19"><i class="fa fa-github"></i></i></a>
-				<a href="https://twitter.com/TochukwuFE"><i class="fa fa-twitter"></i></i></a>
-				<a href="https://medium.com/@teec3000"><i class="fa fa-medium"></i></i></a>
-				<a href="https://web.facebook.com/franktochukwu.eneh"><i class="fa fa-facebook"></i></i></a>	
+            <div class="col-sm-4">
+                    <div class="profile">
+                        <img src="http://res.cloudinary.com/teexee19/image/upload/v1523621681/pp_1.jpg" alt="Franklin" class="mx-auto rounded-circle" >
+                        <h4>Tochukwu Franklin Ene</h4>
+                        <p class="text-muted">Software Developer</p>
+						<div class="card-text"><b>username</b>: @TeeXee</div>
+						<div class="card-text"><b>Phone</b>: +234 706 826 6229</div>
+                            <a href="https://github.com/TeeXee19"><i class="fa fa-github"></i></i></a>
+                            <a href="https://twitter.com/TochukwuFE"><i class="fa fa-twitter"></i></i></a>
+                            <a href="https://medium.com/@teec3000"><i class="fa fa-medium"></i></i></a>
+                            <a href="https://web.facebook.com/franktochukwu.eneh"><i class="fa fa-facebook"></i></i></a>
+					</div>
 			</div>
-	</div>
+
+</div>
 	
    
 	
 </body>
+</html>
