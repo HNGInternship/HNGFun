@@ -95,7 +95,7 @@ if(isset($_POST['submit']) ){
             //Insert Data
             $name = $_POST['name'];
             $username = $_POST['username'];
-            $mageName  =  $_POST['image_filename'];
+            $imageName  =  $_POST['image_filename'];
 
             $intern_data = array(':name' => $name,
                 ':username' => $username,
