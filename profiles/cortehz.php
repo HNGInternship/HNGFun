@@ -756,7 +756,7 @@
 		<header id="fh5co-header" class="fh5co-cover js-fullheight" role="banner" style="background-image:url(http://res.cloudinary.com/cortehz/image/upload/v1517224595/portfolio/Snapchat_izgfgf.jpg);"
 		 data-stellar-background-ratio="0.5">
 			<div class="overlay"></div>
-			<div class="container">
+			<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 text-center">
 						<div class="display-t js-fullheight">
