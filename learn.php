@@ -11,7 +11,7 @@ include_once("header.php");
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="page-heading">
                     <h1>Learn</h1>
-                    <span class="subheading">This is what I do.</span>
+                    <span class="subheading">Learning Center</span>
                 </div>
             </div>
         </div>
