@@ -1,33 +1,17 @@
-<?php 
-	require_once('../db.php');
-
-
-	$sql = "SELECT * FROM `interns_data` WHERE `username`='alabamustapha' LIMIT 1";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-
-    $details = $q->fetchAll();
-    
-    $detail =  array_shift($details);
-
-    $image_url = 'https://res.cloudinary.com/alabamustapha/image/upload/v1523619685/me.jpg';
-	$name = "Alaba Mustapha O.";
-
-    
-	    if($detail) {
-	                $image_url = $detail['image_filename'];
-	                $name = $detail['name'];
-	            }   
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>HNGInternship 4.0</title>
 	<style type="text/css">
-		
+			
 			body{
+				background: url(https://res.cloudinary.com/alabamustapha/image/upload/v1523619362/bg.jpg) no-repeat;
+				background-size: cover;
+			}
+			.profile-body{
 				width: 100%;
 				max-height: 500px;
-				background: url(https://res.cloudinary.com/alabamustapha/image/upload/v1523619362/bg.jpg) no-repeat;
+				/*background: url(https://res.cloudinary.com/alabamustapha/image/upload/v1523619362/bg.jpg) no-repeat;*/
 				background-size: cover;
 				font-family: Roboto Condensed;
 			}
@@ -38,7 +22,7 @@
 				height: 219px;
 				border-radius: 50%;
 				margin: 0 auto;
-				background: url(<?php echo $image_url; ?>) no-repeat;
+				background: url(https://res.cloudinary.com/alabamustapha/image/upload/v1523619685/me.jpg) no-repeat;
 
 			}
 
@@ -64,38 +48,37 @@
 
 			.main{
 				 display: table;
-				 position: absolute;
+				 padding-top: 30px;
+				 box-sizing: border-box;
+				 /*position: absolute;*/
 				 height: 100%;
 				 width: 100%;
 			}
 
-			.container{
+			.profile-container{
 				display: table-cell;
   				vertical-align: middle;
 			}
 			.text-center{
 				text-align: center;
 			}
-
 	</style>
 </head>
 <body>
-	
-	<section class="main">
-		<div class="container">
-			
-			<div class="time-circle">
-				<div class="time">
-					<?php echo date('h:iA'); ?>
+	<div class="profile-body">
+		<section class="main">
+			<div class="profile-container">
+				
+				<div class="time-circle">
+					<div class="time">
+						<!-- <?php echo date('h:iA'); ?> -->
+					</div>
 				</div>
-			</div>
 
-			<h1 class="intro"><?php echo $name; ?></h1>
-			<h3 class="text-center">Being Kind is better than being right</h3>
-		</div>	
-	</section>
+				<h1 class="intro">Alaba Mustapha O.</h1>
+				<h3 class="text-center">Being Kind is better than being right</h3>
+			</div>	
+		</section>
+	</div>
 </body>
-
-
-
 </html>

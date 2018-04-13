@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Victor Alagwu</title>
-<<<<<<< HEAD
     <meta name="viewport" content="width=device-width, initial-scale=1">
    
 </head>
@@ -12,24 +11,15 @@
     <div>
     About Victor
     </div>
-=======
     <meta name="viewport" content="width=device-width, initial-scale=1">  
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <style>
-        body{
-            background: url('http://res.cloudinary.com/codedvictor/image/upload/v1523619694/IMG_20171219_141908_tc61l0.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            font-family: "Lekton", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            color: #777;
-            line-height: 26px;
-            font-weight: 400;
-            font-size: 14px;
-            letter-spacing: -0.2px;
-        }
-    </style> 
+    .container{
+        padding-top: 40px
+    }
+            
+    </style>
 </head>
 
 <body>
@@ -41,6 +31,21 @@
             <p class="lead"></p>
          </div>
 </section>
->>>>>>> 6c05a62353856974fa9bb4b017dc182e42761364
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <img class="img-fluid" alt="Profile Image" src="https://res.cloudinary.com/codedvictor/image/upload/v1523622219/IMG_20180129_171523_ictawg.jpg">
+        </div>
+        <hr>
+        <div class="col-lg-6 col-md-6 text-center">
+            <h3><span>Victor</span> <mark>Alagwu</mark></h3>
+
+            <br>
+            <a href="https://github.com/victoralagwu"><i class="fa fa-github fa-2x"></i></a>&nbsp;
+            <a href="https://twitter.com/i_jv_learner"><i class="fa fa-twitter fa-2x"></i></a>&nbsp;
+            <a href="https://facebook.com/victor.alagwu"><i class="fa fa-facebook fa-2x"></i></a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
