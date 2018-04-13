@@ -27,7 +27,7 @@
 	  <link href="../css/carousel.css" rel="stylesheet">
       <style>
       body {
-			background-image: url("../images/iam__dharmy.png");
+			background-image: url("http://res.cloudinary.com/iamdharmy/image/upload/v1523622015/iam__dharmy.png");
 			background-size: cover;
 		}
 		p{ color:white
@@ -64,7 +64,7 @@
 	<div class="testimonial">
                                     <!--Avatar-->
                                     <div class="avatar mx-auto">
-                                        <img src="../images/iam__dharmy.PNG" class="rounded-circle img-fluid">
+                                        <img src="http://res.cloudinary.com/iamdharmy/image/upload/v1523622015/iam__dharmy.png" class="rounded-circle img-fluid">
                                     </div>
                                     <!--Content-->
                                     <h4>iam__dharmy</h4>
