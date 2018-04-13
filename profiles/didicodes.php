@@ -65,26 +65,25 @@
     <div class="container">
 
       <!-- Portfolio Item Heading -->
-      <h1 class="my-4">Chidimma Juliet Ezekwe
-        <small>Wed Developer</small>
+      <h1 class="my-4">Edidiong Anny Asikpo
+        <small>Android Developer</small>
       </h1>
 
       <!-- Portfolio Item Row -->
       <div class="row">
 
         <div class="col-md-8">
-          <img class="img-fluid" src="http://res.cloudinary.com/julietezekwe/image/upload/v1523620041/juliet.jpg" alt="juliet">
+          <img class="img-fluid" src="http://res.cloudinary.com/didicodes/image/upload/v1523626566/edidiong.jpg" alt="Didicodes">
         </div>
 
         <div class="col-md-4">
           <h3 class="my-3">Description</h3>
-          <p>An Innovative web deveploper inter at HngInternship<sup>4</sup></p>
+          <p>An Android Developer for HngInternship<sup>4</sup></p>
           <h3 class="my-3">Details</h3>
           <ul>
-            <li>Creative</li>
-            <li>Innovative</li>
-            <li>Team player</li>
-            <li>Result oriented and time conscious</li>
+            <li>Team Player</li>
+            <li>Ideaist</li>
+            <li>Optimistic</li>
           </ul>
         </div>
 

@@ -3,47 +3,50 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Mike's Profile</title>
+  <title>Emeka's Profile</title>
   <meta name="theme-color" content="#2f3061">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
   <style>
     body {
-      background-color: #41C3DE;;
-      font-family: 'Roboto';
+      background-color: #02422F;
     }
 
-    #container {
+    #main {
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    #me {
-      color: #ffffff;
+    #about {
+      color: #02422F;
     }
 
-    #welcome {
-      font-size: 100px;
+    #hello {
+      font-size: 80px;
       color: #ffffff;
-      font-family: 'Alfa Slab One';
+      font-family: 'Arial';
     }
 
-    
+    #h4 {
+      font-size: 40px;
+      font-weight: bold;
+	  color: #ffffff;
+    }
+
 
   </style>
 </head>
 
 <body>
-  <div id="container">
-    <div id="me">
-      <div class="text-center">
-        <h2 id="welcome">My Space</h2>
-        <h3>I'm Ekpang Michael</h3>
-        <h4>Currently on the Hotels.ng Internship Program</h4>
-          
+  <div id="main">
+    <div id="about">
+      <div>
+        <h1 id="hello">Greetings..... </br>
+        Emeka Oputa Here</br>
+		</h1>
+        <h4 id="h4">Currently on the Hotels.ng Internship Program</h4>
       </div>
     </div>
   </div>

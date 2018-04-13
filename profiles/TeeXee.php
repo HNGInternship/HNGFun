@@ -8,7 +8,6 @@
 	
 	<style>
 		body {
-			background-image: url("https://photos.google.com/search/_tra_/photo/AF1QipM9xixSIVQJOi2NS2u_ahnBOW2HejzO6aXgbs72");
 			background-size: cover;
 		}
 		
@@ -16,6 +15,19 @@
     		color: #536DFE;
 		}
 
+		
+		.card {
+			  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+			  max-width: 300px;
+			  margin: auto;
+			  text-align: center;
+			  font-family: arial;
+			}
+
+		.title {
+			  color: Black;
+			  font-size: 50px;
+			}
 		.fa {
 			float: right;
 			font-size: 25px;
@@ -23,21 +35,15 @@
 			padding: 10px;
 		}
 			
-		#clock {
-			float: right;
-			font-size: 4em;
-			display: inline;
-			color: #ccc;
-			text-align: center;
-			margin: 150px 10px 0 0;
-		}	
 	</style>
 </head>
 
 <body>
 
+<<<<<<< HEAD
 
 	
+<<<<<<< HEAD
     
 	<p id="clock">
 		<?php
@@ -46,12 +52,33 @@
 	</p>
 <footer>
 			<div>
+=======
+    <h1>Tochukwu Franklin Ene</h1>
+=======
+<div class="card">
+	  <img src="http://res.cloudinary.com/teexee19/image/upload/v1523621681/pp_1.jpg" alt="Franklin" style="width:100%; height: 200px">
+ <h1>Tochukwu Franklin Ene</h1>
+>>>>>>> fb21eb94235aa8e74cac7adc7b552d6a48afcb5f
+	  <p class="title">Software Developer</p>
+	  <div>
+>>>>>>> 6c05a62353856974fa9bb4b017dc182e42761364
 				<a href="https://github.com/TeeXee19"><i class="fa fa-github"></i></i></a>
 				<a href="https://twitter.com/TochukwuFE"><i class="fa fa-twitter"></i></i></a>
 				<a href="https://medium.com/@teec3000"><i class="fa fa-medium"></i></i></a>
 				<a href="https://web.facebook.com/franktochukwu.eneh"><i class="fa fa-facebook"></i></i></a>	
 			</div>
+<<<<<<< HEAD
+<<<<<<< HEAD
 		
 	</footer>
 </body>
 
+=======
+=======
+	</div>
+	
+   
+>>>>>>> fb21eb94235aa8e74cac7adc7b552d6a48afcb5f
+	
+</body>
+>>>>>>> 6c05a62353856974fa9bb4b017dc182e42761364
