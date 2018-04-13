@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#2f3061">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
-  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+  <!-- <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'> -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
   <style>
     body {
@@ -60,17 +60,17 @@
             <ul class="nav nav-pills">
               <li>
                 <a href="https://codepen.io/johnayeni" target="_blank">
-                  <i class="fab fa-codepen fa-3x"></i>
+                  <i class="fa fa-codepen fa-3x"></i>
                 </a>
               </li>
               <li>
                 <a href="https://github.com/johnayeni" target="_blank" target="_blank" target="_blank">
-                <i class="fab fa-github fa-3x"></i>
+                <i class="fa fa-github fa-3x"></i>
                 </a>
               </li>
               <li>
                 <a href="https://twitter.com/johnayeni_" target="_blank" target="_blank">
-                  <i class="fab fa-twitter fa-3x"></i>
+                  <i class="fa fa-twitter fa-3x"></i>
                 </a>
               </li>
             </ul>

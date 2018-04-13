@@ -11,6 +11,8 @@
 			.profile-body{
 				width: 100%;
 				max-height: 500px;
+				/*background: url(https://res.cloudinary.com/alabamustapha/image/upload/v1523619362/bg.jpg) no-repeat;*/
+				background-size: cover;
 				font-family: Roboto Condensed;
 			}
 
@@ -46,29 +48,30 @@
 
 			.main{
 				 display: table;
-				 position: absolute;
+				 padding-top: 30px;
+				 box-sizing: border-box;
+				 /*position: absolute;*/
 				 height: 100%;
 				 width: 100%;
 			}
 
-			.container{
+			.profile-container{
 				display: table-cell;
   				vertical-align: middle;
 			}
 			.text-center{
 				text-align: center;
 			}
-
 	</style>
 </head>
 <body>
 	<div class="profile-body">
 		<section class="main">
-			<div class="container">
+			<div class="profile-container">
 				
 				<div class="time-circle">
 					<div class="time">
-						<?php echo date('h:iA'); ?>
+						<!-- <?php echo date('h:iA'); ?> -->
 					</div>
 				</div>
 
@@ -78,7 +81,4 @@
 		</section>
 	</div>
 </body>
-
-
-
 </html>
