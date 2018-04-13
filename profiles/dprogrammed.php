@@ -54,7 +54,11 @@
   	.font{
   		margin-top: 7em;
   	}
+<<<<<<< HEAD
 	.container-fluid{
+=======
+	footer{
+>>>>>>> af151caefb9849951deec16724af1f14aecb4fe7
 		margin-top: 40em !important;
 	  }
   	</style>
