@@ -9,7 +9,7 @@ $usernameError = "";
 $keyError="";
 $uploadError = "";
 
-$imageSuccess = false;
+//$imageSuccess = false;
 $success = false;
 $key = "1n73rn@Hng";
 
@@ -22,6 +22,14 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
             $nameError = "<span class='invalid'>Please enter a valid name.</span>";
         }
     }
+    
+  if($_POST['image_filename'] != ""){
+      $_POST['image_filename'] = filter_var($_POST['image_filename'], FILTER_SANITIZE_URL);
+      if ($_POST['image_filename'] == ""){
+          $filenameError = "<span class='invalid'>Please enter a proper file URL .</span>";
+      }
+  }
+    
     // key
     if($_POST['key'] != ""){
         
@@ -47,7 +55,7 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
         }
     }
 
-    //Upload File and Insert Data into Database
+    /** Upload File and Insert Data into Database
     if ($nameError == "" && $usernameError == "" && $keyError == "") {
         //Upload file
         $max_size = 500 * 1024; // 500 KB
@@ -81,9 +89,9 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
         }
         else {
             $uploadError = "Invalid image format. Allowed formats: JPG, JPEG, PNG.";
-        }
+        } **/
 
-        if ($imageSuccess) {
+        //if ($imageSuccess) {
             //Insert Data
             $name = $_POST['name'];
             $username = $_POST['username'];
@@ -108,7 +116,7 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
             } catch (PDOException $e) {
                 throw $e;
             }
-        }
+      //  }
     }
 }
 ?>
@@ -158,7 +166,7 @@ if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="file">Profile Picture <small>(max-size: 500kb):</small></label>
-                    <input type="file" name="file" class="form-control-file" id="file" >
+                    <input type="text" name="image_filename" class="form-control" id="image_filename" >
                 </div>
                 <?php if($uploadError != "") { echo "<div class='alert alert-danger'>$uploadError</div>"; }?>
             </div>
