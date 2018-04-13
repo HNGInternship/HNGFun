@@ -8,11 +8,11 @@ div {
 </style>
 <center style="padding-top:50px">
    <div>
-      <div id="image">
+      <div>
          <div><img src="images/femi_dd.png" class="rounded-circle" width="35%"></div>
       </div>
       <div style="color:black; font-size:40px"><b>Kole-Ibrahim AbdulQudus</b></div>
-      <div id="about">Backend Developer(PHP - CodeIgniter), JAVA, MySQL<br /> Motivational Writer and Farmer</div>
+      <div id="about">Backend Developer(PHP - CodeIgniter), JAVA, MySQL.<br /> Motivational Writer and Farmer</div>
    </div>
 </center>
 <script>
