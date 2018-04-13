@@ -49,6 +49,9 @@
               <a class="nav-link" href="learn.php">Learn</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="jegededavid.php">@Jegededavid</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="listing.php">Interns</a>
             </li>
             <li class="nav-item">
