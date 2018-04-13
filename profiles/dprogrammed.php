@@ -54,7 +54,7 @@
   	.font{
   		margin-top: 7em;
   	}
-	.container-fluid{
+	footer{
 		margin-top: 40em !important;
 	  }
   	</style>
