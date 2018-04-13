@@ -13,7 +13,7 @@ $uploadError = "";
 $success = false;
 $key = "1n73rn@Hng";
 
-if(isset($_POST['submit']) && isset($_FILES["file"]["type"])){
+if(isset($_POST['submit']) ){
 
     //Data Sanitization and Validation
     if($_POST['name'] != ""){
