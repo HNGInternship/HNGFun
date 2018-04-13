@@ -15,7 +15,15 @@
 		.fa:hover {
     		color: #536DFE;
 		}
+<<<<<<< HEAD
 
+=======
+		
+		.title {
+			  color: grey;
+			  font-size: 18px;
+			}
+>>>>>>> 6c05a62353856974fa9bb4b017dc182e42761364
 		.fa {
 			float: right;
 			font-size: 25px;
@@ -38,6 +46,7 @@
 
 
 	
+<<<<<<< HEAD
     
 	<p id="clock">
 		<?php
@@ -46,12 +55,22 @@
 	</p>
 <footer>
 			<div>
+=======
+    <h1>Tochukwu Franklin Ene</h1>
+	  <p class="title">Software Developer</p>
+	  <div>
+>>>>>>> 6c05a62353856974fa9bb4b017dc182e42761364
 				<a href="https://github.com/TeeXee19"><i class="fa fa-github"></i></i></a>
 				<a href="https://twitter.com/TochukwuFE"><i class="fa fa-twitter"></i></i></a>
 				<a href="https://medium.com/@teec3000"><i class="fa fa-medium"></i></i></a>
 				<a href="https://web.facebook.com/franktochukwu.eneh"><i class="fa fa-facebook"></i></i></a>	
 			</div>
+<<<<<<< HEAD
 		
 	</footer>
 </body>
 
+=======
+	
+</body>
+>>>>>>> 6c05a62353856974fa9bb4b017dc182e42761364

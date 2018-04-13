@@ -18,6 +18,7 @@ INSERT INTO `interns_data` (`intern_id`, `name`, `username`, `image_filename`) V
 (9,	'Okunuga melody',	'melody',	'Screenshot-2018-3-21 Twitter.png'),
 (11,	'ikpe mercy michael',	'mercyikpe',	'IMG-20180322-WA0010.jpg'),
 (14, 'Ekpang Michael Etta', 'mike', 'mikeetta.jpg'),
+(14, 'Ekpang Michael Etta', 'mike', 'http://res.cloudinary.com/weezyval/image/upload/v1523620464/mikeetta.jpg'),
 (15, 'Charles Katuri', 'charlek', 'charlek.jpg'),
 (16, 'John Odey', 'john', 'john.jpg');
 
