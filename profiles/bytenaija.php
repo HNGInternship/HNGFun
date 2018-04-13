@@ -35,7 +35,7 @@
 
 header{
     width: 100%;
-    margin-top : 2rem;
+    margin-top : 4rem;
     text-align: center;
     font-family: 'Ubuntu';
     background-color: #632F2F;
