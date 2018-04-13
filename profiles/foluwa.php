@@ -1,4 +1,3 @@
-
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
@@ -7,10 +6,10 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<title>JEGEDE DAVID- Hng Intern</title>
+		<title>Foluwa- Hng Intern</title>
 		<script type="text/javascript">
 				var i = 0;
-        var text = "JEGEDE  David, am a Web Developer";
+        var text = "Hi am Foluwa, am a Web Developer";
         var speed = 50;
         var j = text.length;
         
@@ -24,13 +23,13 @@
 		</script>
 		<style type="text/css">
 			body{
-				background-color: #FF0000;
+				background-color: #87ceeb;
 				background: linear-gradient(to bottom right, #87ceeb, #ffffff);
 			}
 			footer {
 				padding-top: 300px;
 				text-align: center;
-				font-size: 30px;
+				font-size: 25px;
 			}
 			#typingEffect {
 				padding-top: 70px;
@@ -62,6 +61,6 @@
 			</section>
 		</main>
 		
-		<footer> Jegede david @ 2018</footer>
+		<footer> Foluwa @ 2018</footer>
 	</body>
 </html>
