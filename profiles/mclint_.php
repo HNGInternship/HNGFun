@@ -69,6 +69,25 @@
       border-radius: 50%;
       border: 10px solid var(--accent-color);
     }
+
+    @media (max-width: 575px) {
+      #hello {
+        font-size: 90px;
+      }
+
+      #profile-pic {
+        width: 150px;
+        height: 150px;
+      }
+
+      #about h4 {
+        font-size: 24px;
+      }
+
+      #about h5 {
+        font-size: 12px;
+      }
+    }
   </style>
 </head>
 
