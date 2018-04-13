@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Melas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         html, body {
@@ -44,7 +44,7 @@
         }
 
         .avatar {
-            height: 15em;
+            height: ;
             width: 15em;
             border: 1px solid #333;
             border-radius: 50%;
@@ -58,7 +58,7 @@
 
         .data p {
             font-size: .5em;
-            margin-top: -2em;
+            margin-top: -2px;
         }
 
         .contact {
@@ -66,11 +66,11 @@
         }
         .contact a {
             padding: .5em;
-            height: 1em;
-            width: 1em;
+            height: 50px;
+            width: 50px;
             text-decoration: none;
             display: flex;
-            align-content: center;
+            align-items: center;
             justify-content: center;
             border-radius: 50%;
             background-color: #333;
