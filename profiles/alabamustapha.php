@@ -71,7 +71,7 @@
 				
 				<div class="time-circle">
 					<div class="time">
-						<!-- <?php echo date('h:iA'); ?> -->
+						
 					</div>
 				</div>
 
