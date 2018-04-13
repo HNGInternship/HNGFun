@@ -110,7 +110,7 @@
         $sql = 'SELECT * FROM secret_word';
         $q = $conn->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetchAll();
+        $data = $q->fetch();
     } catch (PDOException $e) {
         throw $e;
     }
