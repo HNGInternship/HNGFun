@@ -51,9 +51,7 @@
             <li class="nav-item">
               <a class="nav-link" href="listing.php">Interns</a>
             </li>
-              <li class="nav-item">
-              <a class="nav-link" href="jegededavid.php">@Jegede David</a>
-            </li>
+              
             <li class="nav-item">
               <a class="nav-link" href="admin.php">Register</a>
             </li>
