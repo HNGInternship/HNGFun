@@ -10,7 +10,7 @@ $keyError="";
 $filenameError = "";
 
 //$imageSuccess = false;
-$success = false;
+//$success = false;
 $key = "1n73rn@Hng";
 
 if(isset($_POST['submit']) ){
@@ -33,7 +33,7 @@ if(isset($_POST['submit']) ){
     // key
     if($_POST['key'] != ""){
         
-        if ($_POST['key'] != "1n73rn@Hng "){
+        if ($_POST['key'] != "1n73rn@Hng"){
             $keyError = "<span class='invalid'>Please enter a valid key code.</span>";
         }
     }
@@ -95,7 +95,7 @@ if(isset($_POST['submit']) ){
             //Insert Data
             $name = $_POST['name'];
             $username = $_POST['username'];
-            $mageName  =  $_POST['image_filename'];
+            $imageName  =  $_POST['image_filename'];
 
             $intern_data = array(':name' => $name,
                 ':username' => $username,
@@ -165,7 +165,7 @@ if(isset($_POST['submit']) ){
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="file">Profile Picture <small>(max-size: 500kb):</small></label>
+                    <label for="file">Profile Picture</label>
                     <input type="text" name="image_filename" class="form-control" id="image_filename" >
                 </div>
                 <?php if($filenameError != "") { echo "<div class='alert alert-danger'>$filenameError</div>"; }?>
@@ -188,6 +188,3 @@ if(isset($_POST['submit']) ){
 <?php
 include_once("footer.php");
 ?>
-
-
-
