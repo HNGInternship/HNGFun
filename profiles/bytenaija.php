@@ -50,7 +50,7 @@ section{
     background-size: cover;
     color: #330505;
     padding: 2rem;
-    max-height: 50rem;
+    min-height: 40rem;
     
 }
 
@@ -102,7 +102,7 @@ section h2:first-child{
 }
 
 .me{
-    font-size: 200%;
+    font-size: 100%;
 }
 
 .about {
