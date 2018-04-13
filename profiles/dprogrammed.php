@@ -57,7 +57,7 @@
   	</style>
 </head>
 <body>
-<div class="container-fluid">
+<div class="container">
 	<div class="text ">
 		<img class="img-rounded" src="http://res.cloudinary.com/dprogrammed/image/upload/v1523620736/Profile.jpg">
 	</div>
