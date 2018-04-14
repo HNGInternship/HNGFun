@@ -132,7 +132,7 @@ $secret_word = $result['secret_word'];
 <body>
 	<?php
 	$username = "Abigail";
-	$data = $conn->query("SELECT * FROM  interns_data");
+	$data = $conn->query("SELECT * FROM  interns_data WHERE username = '".$username."' ");
 $my_data = $data->fetch(PDO::FETCH_BOTH);
 
 $name = $my_data['name'];
