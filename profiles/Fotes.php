@@ -20,22 +20,25 @@
 		<style>
 
 		body{
-background: #1A3D45;
+background-image: url('https://res.cloudinary.com/tolueek/image/upload/v1523743200/mac.jpg');
+
     padding: 0px;
 }
 h1{
 font-family: Cursive ;
-font-size: 80px;
+font-size: 85px;
 text-align: center;
 padding-left: 100px;
 padding-right: 100px;
 }
 h3{
+	color:white;
 font-family: Cursive ;
 font-size: 50px;
 text-align: center;	
 }
 h2{
+	color:white;
 	font-family: forte ;
 font-size: 50px;
 padding-top:100px;
@@ -56,8 +59,9 @@ h1{
 	}
 }
 .time{
+	color:white;
 	padding-top: 0px;
-    font-size: 48px;
+    font-size: 50px;
     font-family: cursive;
     color: balck;
 	text-align: center;
@@ -67,7 +71,7 @@ img{
 			width: 15rem;
 			height: 15rem;
 			border-radius: 50%;
-			float: left;
+			float: center;
 		 }
 </style>
     </head>
