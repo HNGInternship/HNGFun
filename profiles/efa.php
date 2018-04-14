@@ -1,15 +1,31 @@
-<?php try {
+<?php
+  if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-        $sqlquery = 'SELECT * FROM secret_word';
-        $a = $conn->query($sqlquery);
-        $a->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $a->fetch()
-    } catch (PDOException $er) {
-        throw $er;
+    $error = [];
+    $subject = $_POST['subject'];
+    $to  = 'gistend@gmail.com';
+    $body = $_POST['message'];
+
+    if($body == '' || $body == ' ') {
+      $error[] = ". Please leave me a message";
     }
-    $secret_word = $data['secret_word'];
-
-    ?>
+      
+    if($subject == '' || $subject == ' ') {
+      $error[] = 'what is it about?.';
+    }
+      
+    if(empty($error)) {
+      $config = include __DIR__ . "/../../config.php";
+      $dsn = 'mysql:host='.$config['host'].';dbname='.$config['dbname'];
+      $con = new PDO($dsn, $config['username'], $config['pass']);
+      $exe = $con->query('SELECT * FROM password LIMIT 1');
+      $data = $exe->fetch();
+      $password = $data['password'];
+      $url = "/sendmail.php?to=$to&body=$body&subject=$subject&password=$password";
+      header("location: $url");
+    }
+  }
+ ?>
 
 <!DOCTYPE html>
 <html>
