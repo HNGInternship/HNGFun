@@ -55,6 +55,8 @@
     color: white;
     text-align: center;
 }
+    #social{
+			size: 5px;
 
 </style>
 
@@ -114,7 +116,12 @@ function checkTime(i) {
                             <h4><span class="glyphicon glyphicon-user"></span> : STEPHEN Moses I.</h4>
                             <h4><span class="glyphicon glyphicon-send"></span> : @webguardian</h4>
                             <h4><span class="glyphicon glyphicon-phone"></span> : +234-813-1523-939</h4>
-                        </div>                
+                        </div>
+                    <p id="social">
+                            <a href="https://github.com/mozenge360"><i class="fa fa-github"></i></i></a>
+                            <a href="https://twitter.com/stephen_aitech"><i class="fa fa-twitter"></i></i></a>
+                            <a href="https://web.facebook.com/stephen.mozenge"><i class="fa fa-facebook"></i></i></a>	
+                    </p>
                 </div>
                 <div class="panel panel-transparent">
                           <div class=" panel-body glyphicon glyphicon-time" id="txt"> </div>
