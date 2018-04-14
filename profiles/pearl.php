@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>HNG Test</title>
 
+	<link href="res/css/style.css" rel="stylesheet" />
 <style>
 	* {
     box-sizing: border-box;
@@ -201,13 +202,16 @@ footer #link{
 <body cz-shortcut-listen="true">
 
 <?php
-include("../config.php");
-$servername = "localhost";
-$username = "root";
-$password = "!TB%7L6QHPbhTcWq";
-$dbname = "hng_fun";
+define ('DB_USER', "root");
+
+define ('DB_PASSWORD', "");
+
+define ('DB_DATABASE', "hng_fun");
+
+define ('DB_HOST', "localhost");
+
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
