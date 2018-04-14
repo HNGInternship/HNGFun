@@ -1,23 +1,14 @@
 <?php 
 
 try {
-$sql ='SELECT * FROM interns_data';
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$data = $q->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
-
-try {
-    $sql = 'SELECT secret_word FROM secret_word';
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $mydata = $q->fetch();
-    $secret_word = $mydata['secret_word'];
-} catch (PDOException $e) {
-    throw $e;
-}
+      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE intern_id = \'befe\'';
+      $q = $conn->query($sql);
+      $q->setFetchMode(PDO::FETCH_ASSOC);
+      $data = $q->fetch();
+      $secret_word = $data['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }
 
 
 
@@ -27,7 +18,7 @@ try {
 <html>
     <head>
         <meta charset="utf-8">
-        <title>My Profile Page</title>
+        <title><?php echo $data['name'] ?>'s Profile</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
         * {
@@ -52,6 +43,7 @@ try {
         .desc h1 {
             font-size: 80px;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            margin-bottom: 10px;
         }
         .desc p {
             font-size: 20px;
