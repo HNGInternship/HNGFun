@@ -90,9 +90,7 @@
 	  <h4>Full stack Developer</h4>
 	  <div class="flex time-box">
 	  	<img src="<?php echo $user->image_filename ?>" />
-	  </div>
-	  <h3><?php echo $secret_word ?></h3>
-		
+	  </div>		
 	</main>
 </section>
 </body>
