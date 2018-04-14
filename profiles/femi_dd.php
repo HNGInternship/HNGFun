@@ -68,7 +68,6 @@ p,i,li{
 }
 </style>
 <?php
-require 'db.php';
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
@@ -110,8 +109,8 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
          </div>
       </div>
    </div>
-   <footer style="margin-bottom:0px;" id="footer">
-      <center><p>Copyright &copy; Kole-Ibrahim AbdulQudus 2018</p></center>
+   <footer style="margin-bottom:0px; text-align:center; padding-top:25px;" id="footer">
+      <p>Copyright &copy; Kole-Ibrahim AbdulQudus 2018</p>
    </footer>
 </body>
 </html>
