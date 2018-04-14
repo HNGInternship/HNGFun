@@ -13,11 +13,20 @@
     <!-- Bootstrap core CSS -->
       <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+<<<<<<< HEAD
+
+      <!-- Custom fonts for this template -->
+=======
   <!-- Custom fonts for this template -->
+>>>>>>> 259f1fb69d3f832ab7c7270b52efcc092aa844a5
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 259f1fb69d3f832ab7c7270b52efcc092aa844a5
     <!-- Custom styles for this template -->
       <link href="css/style2.css" rel="stylesheet">
       <link href="css/style1.css" rel="stylesheet">
@@ -30,10 +39,18 @@
   </head>
 
   <body>
+<<<<<<< HEAD
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand" href="/index.php">HNG FUN</a>
+=======
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top" id="mainNav">
       <div class="container">
         <a class="navbar-brand" href="index.php">HNG FUN</a>
+>>>>>>> 259f1fb69d3f832ab7c7270b52efcc092aa844a5
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -46,6 +63,10 @@
             <li class="nav-item">
               <a class="nav-link" href="learn.php">Learn</a>
             </li>
+<<<<<<< HEAD
+            
+=======
+>>>>>>> 259f1fb69d3f832ab7c7270b52efcc092aa844a5
             <li class="nav-item">
               <a class="nav-link" href="listing.php">Interns</a>
             </li>
@@ -59,4 +80,7 @@
         </div>
       </div>
     </nav>
+<<<<<<< HEAD
+=======
 
+>>>>>>> 259f1fb69d3f832ab7c7270b52efcc092aa844a5
