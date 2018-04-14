@@ -1,11 +1,17 @@
 <?php
+	$host       = "localhost";
+	$username   = "mohammed";
+	$password   = "dollie";
+	$dbname     = "hng"; // will use later
+	$dsn        = "mysql:host=$host;dbname=$dbname"; // will use later
+	$options    = array( PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
 
-// define ('DB_USER', "root");
+	try{
+		$conn = new PDO($dsn, $username, $password, $options);
 
-// define ('DB_PASSWORD', "");
-//define ('DB_DATABASE', "hng.fun");
-define ('DB_PASSWORD', "!TB%7L6QHPbhTcWq");
-define ('DB_DATABASE', "hng_fun");
+define ('DB_USER', "root");
+define ('DB_PASSWORD', "");
+define ('DB_DATABASE', "hngfun");
 define ('DB_HOST', "localhost");
 
 ?>
