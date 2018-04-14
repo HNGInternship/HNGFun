@@ -1,5 +1,5 @@
 <?php
-require_once('../config.php');
+require_once('../db.php');
 $connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 $result = mysqli_query($connect, "SELECT * FROM secret_word");
 $secret_word = mysqli_fetch_assoc($result)['secret_word'];
@@ -108,7 +108,7 @@ else {echo "An error occored";}
 			<div class="clear"></div>
 		</div>
 		<div class="main">
-			<img src="http://res.cloudinary.com/jilh/image/upload/v1523718173/my_pics.jpg" class="my_pics" alt="Afolayan Stephen">
+			<img src="<?php if(isset($my_data['image_filename'])) echo $my_data['image_filename']; ?>" class="my_pics" alt="Afolayan Stephen">
 			<h2>Hi! I'm <?php if(isset($my_data['name'])) echo $my_data['name']; ?></h2>
 			<h3>I'm a lover of tech, i just got my hands on an opportunity to learn,
 			and i'm loving every bit of it.</h3>
