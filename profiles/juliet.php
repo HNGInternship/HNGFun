@@ -1,11 +1,12 @@
 
 
-    <?php include_once('profiles/' . $profile_name. '.php');
+    <?php 
     try {
         $secrete = 'SELECT * FROM secret_word';
         $sql = $conn->query($secrete);
         $sql->setFetchMode(PDO::FETCH_ASSOC);
-        $secret_word = $sql->fetch();
+        $result = $sql->fetch();
+        $secret_word = $result["secret_word"];
     } catch (PDOException $error) {
 
         throw $error;
