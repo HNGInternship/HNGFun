@@ -14,13 +14,16 @@ require 'db.php';
 
 <div class="container">
     <?php include_once('profiles/' . $profile_name. '.php');
-    try {
-        $sql = "SELECT * FROM secret_word";
-        $q = $conn->query($sql);
-        $data = $q->fetch_assoc();
-    } catch (PDOException $e) {
-        throw $e;
-    }?>
+   
+  try {
+    $sql = "SELECT * FROM secret_word";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+} catch (PDOException $e) {
+
+    throw $e;
+}?>
 </div>
 <?php if(!isset($secret_word) || $secret_word != $data['secret_word']) { ?>
     <script type="text/javascript">document.getElementById('secret').style.display = 'block';</script>
