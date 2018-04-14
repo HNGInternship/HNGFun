@@ -7,9 +7,9 @@
   <meta name="theme-color" content="#2f3061">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
   <style>
     body {
-      /* background-color: firebrick; */
       font-family: 'Ubuntu';
     }
 
@@ -40,8 +40,37 @@
       color: #b22222;
     }
 
-    #social {
+     #social {
       margin: 0 auto;
+      width: 300px;
+    }
+
+    .social-icons {
+      width: 50px;
+      transition: all 700ms;
+    }
+
+    .social-icons:hover {
+      transform: scale(1.2, 1.2);
+    }
+
+    @media (max-width: 575px) {
+      #hello {
+        font-size: 90px;
+      }
+
+      #profile-pic {
+        width: 150px;
+        height: 150px;
+      }
+
+      #about h4 {
+        font-size: 24px;
+      }
+
+      #about h5 {
+        font-size: 12px;
+      }
     }
   </style>
 </head>
@@ -58,17 +87,17 @@
             <ul class="nav nav-pills">
               <li>
                 <a href="https://codepen.io/johnayeni" target="_blank">
-                  <i class="fa fa-codepen fa-3x"></i>
+                  <img class="social-icons" src="http://res.cloudinary.com/johnayeni/image/upload/v1523630522/001-codepen_yqof5d.png" />
                 </a>
               </li>
               <li>
                 <a href="https://github.com/johnayeni" target="_blank" target="_blank" target="_blank">
-                <i class="fa fa-github fa-3x"></i>
+                  <img class="social-icons" src="http://res.cloudinary.com/johnayeni/image/upload/v1523630522/003-github-logo_b5y1j4.png" />
                 </a>
               </li>
               <li>
                 <a href="https://twitter.com/johnayeni_" target="_blank" target="_blank">
-                  <i class="fa fa-twitter fa-3x"></i>
+                  <img class="social-icons" src="http://res.cloudinary.com/johnayeni/image/upload/v1523630522/002-twitter_nlb7b6.png" />
                 </a>
               </li>
             </ul>
