@@ -14,20 +14,16 @@ $secret_word = $words['secret_word'];
 ?>
 <html>
 	<head>
-		<title>Identity by HTML5 UP</title>
+		<title>Dennis Otugo</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="https://html5up.net/uploads/demos/identity/assets/js/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="https://html5up.net/uploads/demos/identity/assets/css/main.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="https://html5up.net/uploads/demos/identity/assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="https://html5up.net/uploads/demos/identity/assets/css/ie8.css" /><![endif]-->
-		<style>
-			#mainNav {
-    display: none;
-			}
-			.mx-auto {
-    display: none;
-}
+		<style>		
+mainNav {display: none;}
+mx-auto {display: none;}
 		</style>
 		<noscript><link rel="stylesheet" href="https://html5up.net/uploads/demos/identity/assets/css/noscript.css" /></noscript>
 	</head>
