@@ -1,41 +1,17 @@
-<?php 
+<?php
+$sql = "SELECT * FROM interns_data WHERE username = 'Abseejp'";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$data = $q->fetchAll();
+$Abseejp = array_shift($data);
+// Secret word
+$sql = "SELECT * FROM secret_word";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$words = $q->fetch();
+$secret_word = $words['secret_word'];
+?>
 
-
-define('DB_HOST', "localhost");
-define('DB_USER', "root");
-define('DB_PASSWORD', "root");
-define('DB_DATABASE', "hng_fun");
-
-$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-if (!$con) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-
-$sql = "SELECT name, username, image_filename FROM interns_data";
-$result = mysqli_query($con, $sql);
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        echo "My Name is: " . $row["name"]. "<br>";
-    }
-} else {
-    echo "0 results";
-}
-
-
-$secret_word = "SELECT code FROM secret_word";
-$result = mysqli_query($con, $secret_word);
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        echo "the code is: " . $row["code"];
-    }
-} else {
-    echo "0 results";
-}
-mysqli_close($con);
-?>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,14 +78,14 @@ include('header.php')
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-					<img src="http://res.cloudinary.com/abseejp/image/upload/v1523617182/abbb.jpg" id="why-us" >
+					<img src="<?php echo $jim['image_filename']; ?>" id="why-us" >
+					<h1><?php echo $Abseejp['name']; ?></h1>
 					<h4 id="name">Abseejaypee</h4>
 					<p>Am a Web Developer, A Data Scientist, A Programmer who loves deep thinking, A Writer and Someone who loves innovation</p>
 				</div>	
 			</div>
 		</div>
-		<?php 
-		 ?>
+		
 		
 	</section>
 	<?php 

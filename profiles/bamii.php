@@ -267,6 +267,11 @@
     $resultName = $conn->query($sqlName);
     $resultUserame = $conn->query($sqlUsername);
     $resultImage = $conn->query($sqlImage);
+
+    $resultName = $conn->query($sqlName);
+    $resultUserame = $conn->query($sqlUsername);
+    $resultImage = $conn->query($sqlImage);
+
     $name = $resultName->fetch_assoc();
     $user = $resultUserame->fetch_assoc();
     $image = $resultImage->fetch_assoc();
@@ -352,14 +357,15 @@
         }
     </script>
     <?php
-	try {
-	    $sql = "SELECT * FROM secret_word";
-	    $q = $conn->query($sql);
-	    $q->setFetchMode(PDO::FETCH_ASSOC);
-	    $data = $q->fetch();
-	} catch (PDOException $e) {
-	    throw $e;
-	}
+      try {
+          $sql = "SELECT * FROM secret_word";
+          $q = $conn->query($sql);
+          $q->setFetchMode(PDO::FETCH_ASSOC);
+          $data = $q->fetch();
+      } catch (PDOException $e) {
+          throw $e;
+      }
     ?>
 </body>
 </html>
+

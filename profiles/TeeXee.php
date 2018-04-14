@@ -1,7 +1,6 @@
 <?php 
   try {
       $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'TeeXee\'';
-
       $q = $conn->query($sql);
       $q->setFetchMode(PDO::FETCH_ASSOC);
       $data = $q->fetch();
@@ -21,25 +20,7 @@
     <meta name="msapplication-TileColor" content="#329c85">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="robots" content="index">
-    <meta name="description" content="I am a student, web developer, and software engineer in Hyderabad, India. Hire me.">
-    <meta name="keywords" content="technology, photography, music, innovation, web development">
-    <meta name="author" content="Mani Kumar Reddy Kancharla">
-    <meta property="og:site_name" content="www.kmanikumarreddy.com">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:url" content="https://www.kmanikumarreddy.com">
-    <meta property="og:title" content="Mani Kumar Reddy Kancharla">
-    <meta property="og:description" content="I am a student, web developer, and software engineer in Hyderabad, India. Hire me.">
-    <meta property="assets/images/kmanikumarreddy.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@kmanikumarreddy">
-    <meta name="twitter:url" content="https://www.kmanikumarreddy.com">
-    <meta name="twitter:title" content="Mani Kumar Reddy Kancharla">
-    <meta name="twitter:description" content="I am a student, web developer, and software engineer in Hyderabad, India. Hire me.">
-    <meta name="twitter:image" content="assets/images/kmanikumarreddy.jpg">
-    <meta name="twitter:image:width" content="1024">
-    <meta name="twitter:image:height" content="512">
+
     <style type="text/css">
         @font-face {
             font-family: Proxima Nova;
@@ -8001,13 +7982,7 @@
             }
         }
     </style>
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-5635149151051950",
-        enable_page_level_ads: true
-      });
-    </script>
+
 </head>
 
 <body class="has-ledge">
@@ -8071,81 +8046,6 @@
             <div class="ledge-content">
             </div>
         </div>
-=======
-<!DOCTYPE html>
-<html>
-<head>
-	<title><?php echo $data['name'] ?></title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	
-	<style>
-		body {
-			background-size: cover;
-		}
-		
-		.fa:hover {
-    		color: #536DFE;
-		}
-		
-		.card {
-			  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-			  max-width: 300px;
-			  margin: auto;
-			  text-align: center;
-			  font-family: arial;
-			}
-
-		.title {
-			  color: Black;
-			  font-size: 50px;
-			}
-		.fa {
-			float: right;
-			font-size: 25px;
-			color: #ccc;
-			padding: 10px;
-		}
-		
-		.profile{
-			text-align:center;
-			margin-bottom:50px
-			}
-		.profile img{
-			height:225px;
-			width:225px;
-			border:7px solid #fff
-			}
-		.profile h4{
-			margin-top:25px;
-			margin-bottom:0;
-			text-transform:none
-		}
-		.profile p{
-			margin-top:0
-			}		
-				
-	</style>
-</head>
-
-<body>
-
-<div class="card">
-                    <div class="profile">
-                        <img src="<?php echo $data['image_filename'] ?>" alt="Franklin" class="mx-auto rounded-circle" >
-                        <h4><?php echo $data['name'] ?></h4>
-                        <p class="text-muted">Software Developer</p>
-						<div class="card-text"><b>username</b>: <?php echo $data['username'] ?></div>
-						<div class="card-text"><b>Phone</b>: +234 706 826 6229</div>
-                            <a href="https://github.com/TeeXee19"><i class="fa fa-github"></i></i></a>
-                            <a href="https://twitter.com/TochukwuFE"><i class="fa fa-twitter"></i></i></a>
-                            <a href="https://medium.com/@teec3000"><i class="fa fa-medium"></i></i></a>
-                            <a href="https://web.facebook.com/franktochukwu.eneh"><i class="fa fa-facebook"></i></i></a>
-					</div>
-
-</div>
-	
 </body>
 
 </html>

@@ -1,10 +1,33 @@
 <?php
+<<<<<<< HEAD
 $intern_details_query = $conn->query(
+=======
+<<<<<<< HEAD
+$intern_details_query = $conn->query(
+=======
+
+include_once '../config.php';
+define('DB_CHARSET', 'utf8mb4');
+
+$dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
+
+$opt = [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES => false
+];
+
+$pdo = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
+
+$stmt1 = $pdo->query(
+>>>>>>> f22e439beb9f0e6752bd5d1cf1dca8480f2af414
+>>>>>>> 6a78543c1d309f12152fc8dccbc6bd6d4f12ea96
     "SELECT     interns_data.name, 
                 interns_data.username, 
                 interns_data.image_filename
     FROM        interns_data
-    WHERE       interns_data.username = 'Christoph' LIMIT 1");
+<<<<<<< HEAD
+    WHERE       interns_data.username = 'christoph' LIMIT 1");
 
 $intern_details_query->setFetchMode(PDO::FETCH_ASSOC);
 
@@ -24,6 +47,34 @@ $secret_word = $secret_word['secret_word'];
 $name = $intern_detail['name'];
 $username = $intern_detail['username'];
 $filename = $intern_detail['image_filename'];
+=======
+    WHERE       interns_data.username = 'Christoph' LIMIT 1");
+
+$intern_details_query->setFetchMode(PDO::FETCH_ASSOC);
+
+$secret_word_query = $conn->query(
+    "SELECT     secret_word.secret_word 
+    FROM        secret_word LIMIT 1");
+
+$secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
+
+$intern_detail = $intern_details_query->fetch();
+$secret_word = $secret_word_query->fetch();
+
+// Secret Word
+$secret_word = $secret_word['secret_word'];
+
+// Profile Details
+<<<<<<< HEAD
+$name = $intern_detail['name'];
+$username = $intern_detail['username'];
+$filename = $intern_detail['image_filename'];
+=======
+$name = $row1['name'];
+$username = $row1['username'];
+$filename = $row1['image_filename'];
+>>>>>>> f22e439beb9f0e6752bd5d1cf1dca8480f2af414
+>>>>>>> 6a78543c1d309f12152fc8dccbc6bd6d4f12ea96
 
 ?>
 
@@ -44,11 +95,17 @@ $filename = $intern_detail['image_filename'];
         body {
             font-family: "Josefin Sans","Montserrat","Segoe UI","Roboto","Helvetica Neue","Arial","sans-serif";
             color: #4A4646;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 6a78543c1d309f12152fc8dccbc6bd6d4f12ea96
             overflow-x: none;
         }
 
         body > .container {
             padding-right: 0;
+<<<<<<< HEAD
+=======
         }
 
         .profile-details, .skills {
@@ -56,13 +113,30 @@ $filename = $intern_detail['image_filename'];
         }
 
         .profile-details {
+            padding-right: 0;
+=======
+>>>>>>> 6a78543c1d309f12152fc8dccbc6bd6d4f12ea96
+        }
+
+        .profile-details, .skills {
+            padding-top: 80px;
+        }
+
+        .profile-details {
+>>>>>>> f22e439beb9f0e6752bd5d1cf1dca8480f2af414
             background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
         }
 
         .skills {
+<<<<<<< HEAD
             height: auto;
             padding: 40px 70px;
+=======
+<<<<<<< HEAD
+            height: auto;
+            padding: 37px 70px;
+>>>>>>> 6a78543c1d309f12152fc8dccbc6bd6d4f12ea96
             background: #FFFFFF;
         }
 
@@ -73,6 +147,12 @@ $filename = $intern_detail['image_filename'];
         .container {
             max-width: 100%;
             padding-left: 0;
+<<<<<<< HEAD
+=======
+=======
+            padding: 75px 70px;
+>>>>>>> f22e439beb9f0e6752bd5d1cf1dca8480f2af414
+>>>>>>> 6a78543c1d309f12152fc8dccbc6bd6d4f12ea96
         }
 
         .profile-body {
@@ -123,7 +203,14 @@ $filename = $intern_detail['image_filename'];
         }
 
         .skill-list h4 {
+<<<<<<< HEAD
             font-family: "Josefin Sans","Montserrat","Segoe UI","Roboto","Helvetica Neue","Arial","sans-serif";
+=======
+<<<<<<< HEAD
+            font-family: "Josefin Sans","Montserrat","Segoe UI","Roboto","Helvetica Neue","Arial","sans-serif";
+=======
+>>>>>>> f22e439beb9f0e6752bd5d1cf1dca8480f2af414
+>>>>>>> 6a78543c1d309f12152fc8dccbc6bd6d4f12ea96
             font-size: 30px;
             border-bottom: 2px solid;
             display: inline-block;
@@ -134,10 +221,19 @@ $filename = $intern_detail['image_filename'];
             margin-bottom: 15px;
         }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 6a78543c1d309f12152fc8dccbc6bd6d4f12ea96
         .skill-progress > span {
             font-size: 16px;
         }
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> f22e439beb9f0e6752bd5d1cf1dca8480f2af414
+>>>>>>> 6a78543c1d309f12152fc8dccbc6bd6d4f12ea96
         .progress-bar {
             background-color: #E9ECEF;
             border-radius: 5px;
@@ -145,7 +241,14 @@ $filename = $intern_detail['image_filename'];
 
         .progress {
             background-color: #DAB9EA;
+<<<<<<< HEAD
             height: 3px;
+=======
+<<<<<<< HEAD
+            height: 3px;
+=======
+>>>>>>> f22e439beb9f0e6752bd5d1cf1dca8480f2af414
+>>>>>>> 6a78543c1d309f12152fc8dccbc6bd6d4f12ea96
         }
 
         .progress.html {
@@ -170,7 +273,11 @@ $filename = $intern_detail['image_filename'];
 
         @media screen and (max-width: 768px) {
             .profile-details {
+<<<<<<< HEAD
+                padding-top: 40px;
+=======
                 padding-top: 115px;
+>>>>>>> f22e439beb9f0e6752bd5d1cf1dca8480f2af414
             }
 
             .social-links {
@@ -178,11 +285,19 @@ $filename = $intern_detail['image_filename'];
             }
 
             .skills {
+<<<<<<< HEAD
+                padding: 10px 35px;
+            }
+
+            .hello-text {
+                font-size: 3em;
+=======
                 padding: 25px 30px;
             }
 
             .hello-text {
                 font-size: 3.5em;
+>>>>>>> f22e439beb9f0e6752bd5d1cf1dca8480f2af414
             }
         }
 
