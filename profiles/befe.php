@@ -43,7 +43,7 @@ try {
         .desc h1 {
             font-size: 80px;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
         .desc p {
             font-size: 20px;
