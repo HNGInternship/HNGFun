@@ -3,16 +3,13 @@
 <head>
 	<title>Profile - John Olubori David</title>
 	<?php 
-		include('../config.php');
+		require 'db.php';
 
-		$host = DB_HOST;
-		$db = DB_DATABASE;
-		$db = new PDO("mysql:host={$host};dbname={$db}", DB_USER, "");
-		$result = $db->query("Select * from secret_word LIMIT 1");
+		$result = $conn->query("Select * from secret_word LIMIT 1");
 		$result = $result->fetch(PDO::FETCH_OBJ);
 		$secret_word = $result->secret_word;
 
-		$result2 = $db->query("Select * from interns_data where username = 'olubori'");
+		$result2 = $conn->query("Select * from interns_data where username = 'olubori'");
 		$user = $result2->fetch(PDO::FETCH_OBJ);
 	?>
 	<style type="text/css">
@@ -37,6 +34,7 @@
 		}
 		header {
 			flex-grow: 2;
+			margin-top: 3rem;
 		}
 		header > h3 {
 			font-size: 32px;
@@ -92,13 +90,8 @@
 	  <h4>Full stack Developer</h4>
 	  <div class="flex time-box">
 	  	<img src="<?php echo $user->image_filename ?>" />
-	  </div>
-	  <h3><?php echo $secret_word ?></h3>
-		
+	  </div>		
 	</main>
-	<footer class="bg-grey flex">
-		<p>&copy; hotels.ng <?php echo date("Y"); ?> </p>
-	</footer>
 </section>
 </body>
 </html>
