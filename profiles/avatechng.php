@@ -33,10 +33,10 @@ body {
     width: 100%;
     text-shadow: 1px 1px 2px #000000;
     
-background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, #2d2c41 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%, #2d2c41 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, #2d2c41 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a64d4d4d',GradientType=0 ); /* IE6-9 */
+background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, #2d2c41 100%); 
+background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%, #2d2c41 100%);
+background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, #2d2c41 100%); 
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a64d4d4d',GradientType=0 ); 
 }
 .avatech {
     border-radius: 4px 4px 0 0;
@@ -437,17 +437,7 @@ h1 a {
     <a href="https://www.instagram.com/mravatech/" target="_blank"  class="btn-o"> <i class="fa fa-instagram"></i> Follow </a>
     
     
-     <!-- <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-ellipsis-v pull-right"></span></a>
-          <ul class="dropdown-menu pull-right">
-            <li><a href="#">Video Call <i class="fa fa-video-camera"></i></a></li>
-            <li><a href="#">Poke <i class="fa fa-hand-o-right"></i></a></li>
-            <li><a href="#">Report <i class="fa fa-bug"></i></a></li>
-            <li><a href="#">Block <i class="fa fa-lock"></i></a></li>
-          </ul>
-        </li>
-      </ul> -->
+  
    
 </div>
     
