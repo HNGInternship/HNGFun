@@ -1,3 +1,14 @@
+<?php 
+  try {
+      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE intern_id = \'gbxnga\'';
+      $q = $conn->query($sql);
+      $q->setFetchMode(PDO::FETCH_ASSOC);
+      $data = $q->fetch();
+      $secret_word = $data['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }
+?>
 <html>
     <head>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
