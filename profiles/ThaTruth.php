@@ -1,9 +1,16 @@
-<?php
-require '../db.php';
-
+<?php 
+  try {
+      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'ThaTruth\'';
+      $q = $conn->query($sql);
+      $q->setFetchMode(PDO::FETCH_ASSOC);
+      $data = $q->fetch();
+      $secret_word = $data['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }
+?>
 
 function getuserfield($field) {
-  require '../db.php'; 
 $username = $conn->query("SELECT $field FROM `interns_data_` WHERE name='Egbo Thankgod'");
 $username2 = $username->fetch();
 $username3 = $username2['name'];
@@ -12,8 +19,7 @@ echo $username3;
 }
 
 
-function getsecretword() {
-  require '../db.php'; 
+function getsecretword() { 
 $secret = $conn->query("SELECT * FROM `secret_word`");
 $secret2 = $secret->fetch();
 $secret3 = $secret2['secret_word'];

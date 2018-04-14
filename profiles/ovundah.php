@@ -1,4 +1,13 @@
-<!DOCTYPE html>
+<?php 
+		require 'db.php';
+
+		$result = $conn->query("Select * from secret_word LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+		$secret_word = $result->secret_word;
+
+		$result2 = $conn->query("Select * from interns_data where username = 'ovundah'");
+		$user = $result2->fetch(PDO::FETCH_OBJ);
+?>
 <html>
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
