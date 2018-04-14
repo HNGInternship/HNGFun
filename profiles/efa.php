@@ -121,10 +121,6 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 
 </body>
 </html>
-<<<<<<< HEAD
 
 <?php include("footer.php"); ?>
-=======
-  
-<?php include("footer.php"); ?>
->>>>>>> 7be1cd2a3d25a54d869ed19e04234804a84c82e1
+
