@@ -94,7 +94,7 @@
 <body>
   <!--home-->
 <?php
-require '../config.php';
+require_once '../config.php';
 $db_host = DB_HOST;
 $db_user = DB_USER;
 $db_pwd = DB_PASSWORD; 
