@@ -295,7 +295,7 @@
 	</head>
 <body>
   <?php
-    include("../config.php");
+    include_once("../config.php");
     $bami = "ayo";
 
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
@@ -314,9 +314,15 @@
     $resultImage = $conn->query($sqlImage);
     $secret_word = $conn->query($secret); // $secret_word variable
 
-    $name = $resultName->fetch_assoc();
-    $user = $resultUserame->fetch_assoc();
-    $image = $resultImage->fetch_assoc();
+    $resultUserame->setFetchMode(PDO::FETCH_ASSOC);
+    $resultName->setFetchMode(PDO::FETCH_ASSOC);
+    $resultImage->setFetchMode(PDO::FETCH_ASSOC);
+    $secretword->setFetchMode(PDO::FETCH_ASSOC);
+
+    $name = $resultName->fetch();
+    $user = $resultUserame->fetch();
+    $image = $resultImage->fetch();
+    $secret_word = $secretword->fetch();
   ?>
   <div class="page-container">  
     <div class="header-container">
@@ -325,9 +331,9 @@
       </div>
       <div class="my-details">
         <h1> <?php
-          echo($name['name']); 
+          echo($name); 
         ?> </h1>
-        <h2 id="button"> @<?php echo($user['username']) ?> </h2>
+        <h2 id="button"> @<?php echo($user) ?> </h2>
       </div>
     </div>
     <div class="more-details">
