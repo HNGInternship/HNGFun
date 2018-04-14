@@ -67,5 +67,33 @@ echo "The time is " . date("h:i:sa"); "<br>";
 </div>
       
 
+<?php
+error_reporting(-1);
+require_once '../db.php';
+
+try {
+    $sql = "SELECT * FROM interns_data WHERE username ='avatechng'";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+$name = $data['name'];
+$username = $data['username'];
+$image = $data['image_filename'];
+
+try {
+    $sql2 = 'SELECT * FROM secret_word';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $data2 = $q2->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+$secret_word = $data2['secret_word'];
+
+?>
+
 </body>
 </html>

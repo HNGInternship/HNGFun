@@ -1,3 +1,28 @@
+<?php 
+
+try {
+$sql ='SELECT * FROM interns_data';
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$data = $q->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+
+try {
+    $sql = 'SELECT secret_word FROM secret_word';
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $mydata = $q->fetch();
+    $secret_word = $mydata['secret_word'];
+} catch (PDOException $e) {
+    throw $e;
+}
+
+
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,7 +50,7 @@
             border-bottom-left-radius: 50px;
         }
         .desc h1 {
-            font-size: 70px;
+            font-size: 80px;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
         .desc p {
@@ -59,6 +84,14 @@
         @media (min-width: 769px){
             img {
                 margin-left: -10%;
+            }
+        }
+        @media (max-width: 600px){
+            .desc p {
+                font-size: 12px;
+            }
+            .desc h1 {
+                font-size: 48px;
             }
         }
 
@@ -100,12 +133,12 @@
         
         <section class='row'>
             <article class="desc col-8">
-                <h1>Hi, I'm Befe!</h1>
+                <h1>Hi, I'm <?php echo $data['username']; ?></h1>
                 <p class="small"> I am a Web developer with skills in HTML, CSS, JAVASCRIPT AND PHP!</p>
                 <p class="small"> I use the following Frameworks: Bootstrap, JQuery, AngularJs.</p>
             </article>
             <article class='col-4'>
-                <img src='http://res.cloudinary.com/befe/image/upload/v1523623765/dbefe.jpg' alt ='befe sitted and giving a pose'>
+                <img src="<?php echo $data['image_filename'];?>" alt ='befe sitted and giving a pose'>
             </article>
         </section>
 
