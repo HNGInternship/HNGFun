@@ -1,3 +1,10 @@
+<?php
+require '../db.php';
+$query = $conn->query("SELECT * FROM secret_word");
+$result = $query->fetch(PDO::FETCH_ASSOC);
+$secret_word = $result['secret_word'];
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -24,6 +31,47 @@
 
 <!---INTERNAL CSS TO CONTROL LOOK AND LAYOUT---->
 <style>
+	body{
+	background:url(https://i.imgur.com/Mo78jJo.jpg);
+	background-repeat: repeat-x;
+}
+.menu{
+
+font-family: Roboto;
+font-size: 18px;
+height:14px;
+font:#fff;
+text-decoration:none;
+position:left;
+opacity: 100%;
+margin:4px;
+}
+
+.active{
+border-bottom:2px solid #fff;
+}
+
+.lg{
+	font-family: Rambla;
+	font-size: 48px;
+	position:center;
+}
+.date{
+	font-family: Roboto;
+	font-size: 24px;
+	height: 28px;
+	position:center;
+}
+.time{
+	font-family: Roboto;
+	font-size: 18px;
+	height: 21px;
+	position:center;
+}
+.see{
+	opacity:0.5;
+	background-color:black;	
+}
     .panel-transparent {
         background: none;
     }
@@ -56,7 +104,9 @@
     text-align: center;
 }
     #social{
-			size: 5px;
+	size: 5px;
+	}
+
 
 </style>
 
@@ -80,7 +130,7 @@ function checkTime(i) {
 </head>
 
 <body onload="startTime()">
-<nav class="navbar navbar-inverse" style="border-radius:0px;">
+<!--<nav class="navbar navbar-inverse" style="border-radius:0px;">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">HGN Fun</a>
@@ -104,7 +154,7 @@ function checkTime(i) {
       </ul>
     </div>
   </div>
-</nav>
+</nav>-->
 
     <div class="container-fluid" align=center>
         <div class="row">

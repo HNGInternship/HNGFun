@@ -1,6 +1,16 @@
 
 <?php 
- require_once('../db.php');
+define ('DB_USER', "root");
+define ('DB_PASSWORD', "root");
+define ('DB_DATABASE', "hngfun");
+define ('DB_HOST', "localhost");
+
+ try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    // echo "Connected to ". DB_DATABASE . " successfully.</br>";
+} catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
 
  if (!$conn){
     die('failed to connect'. $conn->connect_errno);
@@ -19,8 +29,7 @@
 } catch (PDOException $e) {
 
     throw $e;
-}
-     
+}    
 try {
     $sql = "SELECT * FROM interns_data WHERE `username` = 'oriechinedu' LIMIT 1";
     $q = $conn->query($sql);
