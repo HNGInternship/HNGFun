@@ -12,7 +12,7 @@ try {
 $secret_word = $data['secret_word'];
 
 try {
-    $sql2 = 'SELECT * FROM intern_table where "username"="melody"';
+    $sql2 = 'SELECT * FROM intern_table where username="melody"';
     $q2 = $conn->query($sql2);
     $q2->setFetchMode(PDO::FETCH_ASSOC);
     $my_data = $q2->fetch();
