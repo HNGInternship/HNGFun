@@ -6,7 +6,7 @@ $connection  =  mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABASE)
                 or die("Error Connecting to Database");
 
 //Fetch User Details
-$query       =  "SELECT * FROM interns_data_ WHERE username ='OluwaseyiSam'";
+$query       =  "SELECT * FROM interns_data WHERE username ='OluwaseyiSam'";
 $resultSet   =  $connection->query($query);
 $resultData  =  mysqli_fetch_array($resultSet);
 $username    =  $resultData['username'];
