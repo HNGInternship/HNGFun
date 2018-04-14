@@ -1,36 +1,49 @@
 <?php
-    require "../config.php";
+   if(!defined('DB_USER')){
+        require "../config.php";
+    }
 
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-    if(!$conn){
-        die("Unable to connect to server");
+    // $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+    // if(!$conn){
+    //     die("Unable to connect to server");
+    // }
+
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        // echo "Connected to ". DB_DATABASE . " successfully.</br>";
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
     }
 
     //fetch secret word from database
+    $secret_word = null;
     $sql = "select * from secret_word limit 1";
-    $result = $conn->query($sql);
+    $st = $conn->prepare($sql);
+    $st->execute();
 
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()){
-            $secret_word = $row['secret_word'];
-            break; //because only one row is expected
-        }
+    $st->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $st->fetchAll();
+
+    if(count($result)> 0){
+        $secret_word = $result[0]['secret_word'];
     }
 
     //fetch my details from database;
-    $username = "oluwaseyi";
+    $username = "Oluwaseyi";
     $name = "";
     $image_filename = "";
 
     $sql = "select * from interns_data where username='$username' limit 1";
-    $result = $conn->query($sql);
+    $st = $conn->prepare($sql);
+    $st->execute();
 
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()){
-            $name = $row['name'];
-            $image_filename = $row['image_filename'];
-            break;
-        }
+    $st->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $st->fetchAll();
+
+    if(count($result)> 0){
+        $row = $result[0];
+        $name = $row['name'];
+        $image_filename = $row['image_filename'];
     }
 
 

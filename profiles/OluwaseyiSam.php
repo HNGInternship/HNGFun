@@ -1,3 +1,25 @@
+<?php
+include_once "../config.php";
+
+$connection  =  mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABASE)
+                or die("Error Connecting to Database");
+
+//Fetch User Details
+$query       =  "SELECT * FROM interns_data WHERE username ='OluwaseyiSam'";
+$resultSet   =  $connection->query($query);
+$resultData  =  mysqli_fetch_array($resultSet);
+$username    =  $resultData['username'];
+$fullName    =  $resultData['name'];
+$picture     =  $resultData['image_filename'];
+
+
+//Fetch Secret Word
+$querySecret =  "SELECT * FROM secret_word ";
+$resultSet   =  $connection->query($querySecret);
+$resultData  =  mysqli_fetch_array($resultSet);
+$secret_word =  $resultData[0]['secret_word'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +28,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Profile | Adeogun Oluwaseyi</title>
+    <title>Profile | <?php echo $username;?> </title>
 
     <!-- Bootstrap core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -107,8 +129,8 @@
     <div class="container">
         <div class="row text-center">
             <div class="col-lg-12">
-                <img height='200' width='200' class='img-thumbnail img-circle img-responsive' src='http://res.cloudinary.com/sheyi/image/upload/q_100/v1523622170/Snapchat-7382784329898612739.jpg' />
-                <h1>Adeogun Oluwaseyi</h1>
+                <img height='200' width='200' class='img-thumbnail img-circle img-responsive' src='<?php echo $picture; ?>' />
+                <h1><?php echo $fullName; ?></h1>
                 <h3>Web/Android Developer | Sheyilaaw98@gmail.com</h3>
             </div><!--/.col-lg-12 -->
         </div><!--/.row -->
@@ -129,8 +151,8 @@
                     <h5 class='text-center'>CONTACT</h5>
                     <p>
                         <a><i class="fa fa-phone"></i>+2348175851897</a><br>
-                        <a href="https://facebook.com/kvng.sheyi"><i class="fa fa-facebook"></i>Adeogun Oluwaseyi</a><br>
-                        <a href="https://www.linkedin.com/in/oluwaseyi-adeogun-28bb48147/"><i class="fa fa-linkedin"></i>Adeogun Oluwaseyi</a><br>
+                        <a href="https://facebook.com/kvng.sheyi"><i class="fa fa-facebook"></i><?php echo $fullName; ?></a><br>
+                        <a href="https://www.linkedin.com/in/oluwaseyi-adeogun-28bb48147/"><i class="fa fa-linkedin"></i><?php echo $fullName; ?></a><br>
                         <a href="https://github.com/Sheyilaaw"><i class="fa fa-github"></i>Sheyilaaw</a><br>
                     </p>
                 </div>

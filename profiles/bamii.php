@@ -32,7 +32,6 @@
         -moz-box-shadow: -1px 1px 4px 1px #c8cbd1;
         box-shadow: -1px 1px 4px 1px #c8cbd1;
         }
-
         .blur {
         -webkit-filter: blur(5px);
         -moz-filter: blur(5px);
@@ -40,7 +39,6 @@
         -ms-filter: blur(5px);
         filter: blur(5px);
         }
-
         /* NAVIGATION */
         div.navigation {
         position: fixed;
@@ -48,16 +46,13 @@
         width: 100%;
         margin: 0;
         }
-
         .hamburger {
         float: right;
         }
-
         /* HEADER STYLES */
         .header-container {
         width: 100%;
         }
-
         .my-details {
         width: 70%;
         margin: 0 auto;
@@ -65,7 +60,6 @@
         flex-direction: column;
         text-align: center;
         }
-
         .img-container {
         height: 300px;
         width: 100%;
@@ -75,16 +69,13 @@
         margin-top: 10px;
         margin-bottom: 10px;
         }
-
         .img-container>img {
         height: inherit;
         border-radius:50%;
         }
-
         h1 {
         border-bottom: black 1px solid;
         }
-
         div>h1,
         div>h2{
         margin: 0;
@@ -92,7 +83,6 @@
         color: black;
         text-align: center;
         }
-
         /* MORE DETAILS */
         .more-details {
         width: 100%;
@@ -101,7 +91,6 @@
         justify-content: space-around;
         margin-top: 15px;
         }
-
         .about-me,
         .my-stack,
         .portfolio-click {
@@ -118,17 +107,14 @@
         display: flex;
         cursor: pointer;
         }
-
         @keyframes ish {
         0% { height: 0; }
         100% { height: auto; }
         }
-
         @-webkit-keyframes ish {
         0% { height: 0; }
         50% { height: auto; }
         }
-
         .first-paragraph,
         .second-paragraph {
         font-family: 'Josefin Sans';
@@ -145,12 +131,10 @@
         -ms-transition: height 4s ease;  
         transition: height 4s ease;
         }
-
         .paragraph-active {
         height: 200px;
         display: flex;
         }
-
         /* NAVIGATION MODAL */
         #nav-modal,
         #portfolio {
@@ -165,20 +149,17 @@
         justify-content: space-around;
         align-items: center;
         }
-
         .modal-contents {
         position: fixed;
         margin: 0 auto;
         width: 100%;
         text-align: center;
         }
-
         .useless {
         position: absolute;
         width: 100%;
         height: 100%;
         }
-
         div>.social-text {
         font-family: 'Raleway', sans-serif;
         padding-bottom: 5px;
@@ -190,13 +171,11 @@
         font-size: x-large;
         border-bottom: 1px white solid;
         }
-
         .help-text {
         font-family: 'Raleway', sans-serif;
         font-size: small;
         color: white;
         }
-
         .social-links {
         font-family: 'Raleway', sans-serif;
         color: white;
@@ -207,31 +186,26 @@
         width: 60%;
         font-size: x-large;
         }
-
         .my-list>li:first-child {
         border-right: 1px white solid;
         }
-
         .my-list>li {
         display: inline-block;
         border-bottom: 1px solid transparent;   width: 0px;
         transition: 0.6s ease;
         white-space: nowrap;
         }
-
         .my-list>li:hover {
         border-bottom: 1px solid white;
         border-right: 1px solid white;
         border-left: 1px solid white;
         width: 50%;
         }
-
         .my-list>li {
         list-style: none;
         width: 50%;
         padding-top: 1px;
         }
-
         a,
         a:hover,
         a:visited,
@@ -239,9 +213,6 @@
         color: white;
         text-decoration: none;
         }
-
-
-
         /* PORTFOLIO STYLES */
         .portfolio-close {
         font-family: 'Raleway';
@@ -255,13 +226,11 @@
         border: 1px white solid;
         cursor: pointer;
         }
-
         .portfolio-close:hover {
             background: white;
             color: black;
             border: 1px solid black;
         }
-
         .portfolio-item-container {
         height: 300px;
         width: 100%;
@@ -271,7 +240,6 @@
         justify-content: space-around;
         align-items: center;
         }
-
         .portfolio-item {
         width: 200px;
         height: 200px;
@@ -282,12 +250,10 @@
         margin: 0;
         overflow: hidden;
         }
-
         .portfolio-item>img {
         height: 80%;
         width: auto;
         }
-
         .portfolio-item>a {
         font-family: 'Raleway', sans-serif;
         }
@@ -295,24 +261,16 @@
 	</head>
 <body>
   <?php
-    include("../config.php");
-    $bami = "ayo";
-
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-
-    if ($conn -> connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-    }
-
-    $sqlName = "SELECT name FROM interns_data_";
-    $sqlUsername = "SELECT username FROM interns_data_";
-    $sqlImage = "SELECT image_filename FROM interns_data_";
-    $secret = "SELECT * FROM secret_word";
+    $sqlName = "SELECT name FROM interns_data";
+    $sqlUsername = "SELECT username FROM interns_data";
+    $sqlImage = "SELECT image_filename FROM interns_data";
+    $resultName = $conn->query($sqlName);
+    $resultUserame = $conn->query($sqlUsername);
+    $resultImage = $conn->query($sqlImage);
 
     $resultName = $conn->query($sqlName);
     $resultUserame = $conn->query($sqlUsername);
     $resultImage = $conn->query($sqlImage);
-    $secret_word = $conn->query($secret); // $secret_word variable
 
     $name = $resultName->fetch_assoc();
     $user = $resultUserame->fetch_assoc();
@@ -324,20 +282,11 @@
         <img class="profile-image" src="http://res.cloudinary.com/bambam/image/upload/v1523622325/16966438.jpg"/>
       </div>
       <div class="my-details">
-        <h1> <?php
-          echo($name['name']); 
-        ?> </h1>
+        <h1> <?php echo($name['name']) ?> </h1>
         <h2 id="button"> @<?php echo($user['username']) ?> </h2>
       </div>
     </div>
     <div class="more-details">
-      <!--
-      <div id="about" class="about-me" onClick="open1()"> About Me </div>
-      <div id="first" class="first-paragraph transform">
-        <p> <strong>I</strong> am an undergraduate Computer Science w/ Economics student of Obafemi Awolowo University. </p>
-        <p> <strong>I</strong> am currently a freelancer and I build responsive websites, mobile apps(using React Native, and Java). </p>
-      </div>
-      -->
       
       <div id="stack" class="my-stack" onClick="open2()"> My Stack </div>
       <div id="second" class="second-paragraph">
@@ -375,7 +324,6 @@
         document.getElementById('about').style.color = 'white';
         }
         }
-
         function open2() {
         const component = document.getElementById('second');
         if(component.style.display == 'flex') {
@@ -388,29 +336,36 @@
         document.getElementById('stack').style.color = 'white';
         }
         }
-
         function openNav() {
         document.getElementById("nav-modal").style.display = "flex";
         var ish = document.querySelector(".page-container");
         ish.className = ish.className + " blur";
         //alert("Help");
         }
-
         function closeNav() {
         document.getElementById("nav-modal").style.display = "none";
         var ish = document.getElementsByClassName("page-container")[0].classList.remove("blur");
         }
-
         function openPortfolio() {
         document.getElementById("portfolio").style.display = "flex";
         var ish = document.querySelector(".page-container");
         ish.className = ish.className + " blur";
         }
-
         function closePortfolio() {
         document.getElementById("portfolio").style.display = "none";
         var ish = document.getElementsByClassName("page-container")[0].classList.remove("blur");
         }
     </script>
+    <?php
+      try {
+          $sql = "SELECT * FROM secret_word";
+          $q = $conn->query($sql);
+          $q->setFetchMode(PDO::FETCH_ASSOC);
+          $data = $q->fetch();
+      } catch (PDOException $e) {
+          throw $e;
+      }
+    ?>
 </body>
 </html>
+
