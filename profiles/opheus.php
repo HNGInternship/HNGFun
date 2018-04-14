@@ -20,6 +20,7 @@ if (mysqli_num_rows($result) > 0) {
 }
 mysqli_close($conn);
 ?> 
+
 <html>
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -66,9 +67,15 @@ button:hover, a:hover {
 <h2 style="text-align:center">User Profile</h2>
 
 <div class="card">
+<<<<<<< HEAD
   <img src="<?php if (isset($imagelink)) { echo $imagelink; } ?>" alt="ima" style="width:100%">
   <h1><?php if (isset($name)) { echo $name; } ?></h1>
   <h2>@<?php if (isset($username)) { echo $username; } ?></h2>
+=======
+  <img src="http://res.cloudinary.com/opheus/image/upload/v1523622319/IMG_20180404_091302_600.jpg" alt="ima" style="width:100%">
+  <h1>Ominiabohs Efemena David</h1>
+  <h2>@opheus</h2>
+>>>>>>> be3fa7c29f997825de9ad279b33f11df3eb052fc
   <p class="title">Web Designer & Developer, UI/UX Designer</p>
   <p>Delta State Univeristy (B.Sc Physics)</p>
   <p>Nigeria</p>
@@ -93,3 +100,7 @@ button:hover, a:hover {
 </div>
 
 </body>
+<<<<<<< HEAD
+=======
+<html>
+>>>>>>> be3fa7c29f997825de9ad279b33f11df3eb052fc

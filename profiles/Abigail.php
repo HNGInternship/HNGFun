@@ -33,6 +33,10 @@ $secret_word = $result['secret_word'];
     -moz-background-size: cover;
     -webkit-background-size: cover;
     background-size: cover;
+<<<<<<< HEAD
+=======
+    position: fixed;
+>>>>>>> be3fa7c29f997825de9ad279b33f11df3eb052fc
 		height: 100vh;
 				width: 100%;
 				background-image: url(http://res.cloudinary.com/bogadeji/image/upload/v1523633847/happy_x89ylu.jpg);
@@ -62,12 +66,19 @@ $secret_word = $result['secret_word'];
 				font-size: 20px;
 				position: absolute;
 				bottom: 9%;
+				bottom: 7%;
 				right: 10%;
 			}
 		#abt-me-div{
 			width: 70%;
 			margin:  auto;
 			padding: 100px;
+<<<<<<< HEAD
+=======
+			/*background-color: #bcd6d6;
+			opacity: 0.2;*/
+			background-color: rgba(239, 239, 239, 0.6);
+>>>>>>> be3fa7c29f997825de9ad279b33f11df3eb052fc
 		}
 		#about-me{
 			width: 40%;
@@ -86,10 +97,17 @@ $secret_word = $result['secret_word'];
 			width: 35%;
 			float: left;
 			height: 80%;
+<<<<<<< HEAD
 			margin: 30px 30px 70px 30px;
 		}
 		#pic img{
 			margin: 0px 70px 70px 30px;
+=======
+			/*margin: 30px 30px 70px 30px;*/
+		}
+		#pic img{
+			/*margin: 0px 70px 70px 30px;*/
+>>>>>>> be3fa7c29f997825de9ad279b33f11df3eb052fc
 			border-radius: 10px;
 		}
 		#contact{
