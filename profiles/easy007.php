@@ -31,7 +31,7 @@ include('header.php')
 	 	<h1 id="one">i am easy007</h1>
 	 	<h1 id="two">A  Web Developer</h1>
 
-         <img src="https://cloudinary.com/console/media_library/asset/image/upload/image-1.jpg" alt="easy007 pizure">
+         <img src="http://res.cloudinary.com/easy007/image/upload/v1523694330/image-1.jpg" alt="easy007 pizure">
 	 </body>
 
  </html>
