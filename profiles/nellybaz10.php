@@ -1,3 +1,11 @@
+<?php
+$link = mysqli_connect(DB_DATABASE, DB_USER, DB_PASSWORD);
+if(!$link){
+	echo "not connected";
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <title>Nellybaz10 Profile Page</title>
