@@ -34,6 +34,7 @@
 		}
 		header {
 			flex-grow: 2;
+			margin-top: 3rem;
 		}
 		header > h3 {
 			font-size: 32px;
@@ -93,9 +94,6 @@
 	  <h3><?php echo $secret_word ?></h3>
 		
 	</main>
-	<footer class="bg-grey flex">
-		<p>&copy; hotels.ng <?php echo date("Y"); ?> </p>
-	</footer>
 </section>
 </body>
 </html>
