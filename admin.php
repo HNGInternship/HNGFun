@@ -10,7 +10,7 @@ $keyError="";
 $filenameError = "";
 
 //$imageSuccess = false;
-//$success = false;
+$success = false;
 $key = "1n73rn@Hng";
 
 if(isset($_POST['submit']) ){
@@ -142,7 +142,7 @@ if(isset($_POST['submit']) ){
         echo "<div class='alert alert-danger'>Error found, please try again!</div>";
     }?>
 
-    <?php if($success) {
+    <?php if(isset($success) AND $success) {
         echo "<div class='alert alert-success'>Successful! Click <a href='profiles/". $username . ".php'>here</a> to view your profile</div>";
     }?>
 

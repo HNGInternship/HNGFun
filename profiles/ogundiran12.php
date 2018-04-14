@@ -151,10 +151,10 @@ a{
 
 <body>
 <?php
-    require_once('../config.php');
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+    //require_once('../db.php');
     $result = mysqli_query($conn, "select * from secret_word");
     $secret_word = mysqli_fetch_assoc($result)['secret_word'];
+    echo $secret_word;
     $result = mysqli_query($conn, "select * from interns_data where username = 'ogundiran12'");
     $me = mysqli_fetch_assoc($result);
 ?>
