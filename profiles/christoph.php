@@ -1,4 +1,7 @@
 <?php
+<<<<<<< HEAD
+$intern_details_query = $conn->query(
+=======
 
 include_once '../config.php';
 define('DB_CHARSET', 'utf8mb4');
@@ -14,10 +17,33 @@ $opt = [
 $pdo = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
 
 $stmt1 = $pdo->query(
+>>>>>>> f22e439beb9f0e6752bd5d1cf1dca8480f2af414
     "SELECT     interns_data.name, 
                 interns_data.username, 
                 interns_data.image_filename
     FROM        interns_data
+<<<<<<< HEAD
+    WHERE       interns_data.username = 'christoph' LIMIT 1");
+
+$intern_details_query->setFetchMode(PDO::FETCH_ASSOC);
+
+$secret_word_query = $conn->query(
+    "SELECT     secret_word.secret_word 
+    FROM        secret_word LIMIT 1");
+
+$secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
+
+$intern_detail = $intern_details_query->fetch();
+$secret_word = $secret_word_query->fetch();
+
+// Secret Word
+$secret_word = $secret_word['secret_word'];
+
+// Profile Details
+$name = $intern_detail['name'];
+$username = $intern_detail['username'];
+$filename = $intern_detail['image_filename'];
+=======
     WHERE       interns_data.username = 'Christoph' LIMIT 1");
 
 $stmt2 = $pdo->query(
@@ -33,6 +59,7 @@ $secret_word = $row2['secret_word'];
 $name = $row1['name'];
 $username = $row1['username'];
 $filename = $row1['image_filename'];
+>>>>>>> f22e439beb9f0e6752bd5d1cf1dca8480f2af414
 
 ?>
 
@@ -53,6 +80,21 @@ $filename = $row1['image_filename'];
         body {
             font-family: "Josefin Sans","Montserrat","Segoe UI","Roboto","Helvetica Neue","Arial","sans-serif";
             color: #4A4646;
+<<<<<<< HEAD
+            overflow-x: none;
+        }
+
+        body > .container {
+            padding-right: 0;
+        }
+
+        .profile-details, .skills {
+            padding-top: 80px;
+        }
+
+        .profile-details {
+            padding-right: 0;
+=======
         }
 
         .profile-details, .skills {
@@ -60,12 +102,28 @@ $filename = $row1['image_filename'];
         }
 
         .profile-details {
+>>>>>>> f22e439beb9f0e6752bd5d1cf1dca8480f2af414
             background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
         }
 
         .skills {
+<<<<<<< HEAD
+            height: auto;
+            padding: 37px 70px;
+            background: #FFFFFF;
+        }
+
+        footer {
+            display: none;
+        }
+
+        .container {
+            max-width: 100%;
+            padding-left: 0;
+=======
             padding: 75px 70px;
+>>>>>>> f22e439beb9f0e6752bd5d1cf1dca8480f2af414
         }
 
         .profile-body {
@@ -116,6 +174,10 @@ $filename = $row1['image_filename'];
         }
 
         .skill-list h4 {
+<<<<<<< HEAD
+            font-family: "Josefin Sans","Montserrat","Segoe UI","Roboto","Helvetica Neue","Arial","sans-serif";
+=======
+>>>>>>> f22e439beb9f0e6752bd5d1cf1dca8480f2af414
             font-size: 30px;
             border-bottom: 2px solid;
             display: inline-block;
@@ -126,6 +188,13 @@ $filename = $row1['image_filename'];
             margin-bottom: 15px;
         }
 
+<<<<<<< HEAD
+        .skill-progress > span {
+            font-size: 16px;
+        }
+
+=======
+>>>>>>> f22e439beb9f0e6752bd5d1cf1dca8480f2af414
         .progress-bar {
             background-color: #E9ECEF;
             border-radius: 5px;
@@ -133,6 +202,10 @@ $filename = $row1['image_filename'];
 
         .progress {
             background-color: #DAB9EA;
+<<<<<<< HEAD
+            height: 3px;
+=======
+>>>>>>> f22e439beb9f0e6752bd5d1cf1dca8480f2af414
         }
 
         .progress.html {
@@ -157,7 +230,11 @@ $filename = $row1['image_filename'];
 
         @media screen and (max-width: 768px) {
             .profile-details {
+<<<<<<< HEAD
+                padding-top: 40px;
+=======
                 padding-top: 115px;
+>>>>>>> f22e439beb9f0e6752bd5d1cf1dca8480f2af414
             }
 
             .social-links {
@@ -165,11 +242,19 @@ $filename = $row1['image_filename'];
             }
 
             .skills {
+<<<<<<< HEAD
+                padding: 10px 35px;
+            }
+
+            .hello-text {
+                font-size: 3em;
+=======
                 padding: 25px 30px;
             }
 
             .hello-text {
                 font-size: 3.5em;
+>>>>>>> f22e439beb9f0e6752bd5d1cf1dca8480f2af414
             }
         }
 
