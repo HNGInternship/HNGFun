@@ -74,9 +74,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <p class="w3-wide">JavaScript</p>
     <div class="w3-white">
       <div class="w3-dark-grey" style="height:28px;width:50%"></div>
-    </div><br>
-    
-      
+    </div><br>     
   
   
 
@@ -118,10 +116,9 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
   <!-- End footer -->
   </footer>
   
-    <?php include("footer.php"); ?>
-
-
 </div>
 
 </body>
 </html>
+  
+<?php include("footer.php"); ?>
