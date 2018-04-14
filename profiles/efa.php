@@ -59,7 +59,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
   <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
     <h2 class="w3-text-light-grey">About</h2>
     <hr style="width:200px" class="w3-opacity">
-    <p>I'm a web and developer, FullStack Enthusiast and an Aspiring Data Scientist
+    <p>I'm a Web Developer, FullStack Enthusiast and an Aspiring Data Scientist
     </p>
     
     <h3 class="w3-padding-16 w3-text-light-grey">My Skills</h3>
@@ -120,5 +120,10 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 
 </body>
 </html>
+<<<<<<< HEAD
+
+<?php include("footer.php"); ?>
+=======
   
 <?php include("footer.php"); ?>
+>>>>>>> 7be1cd2a3d25a54d869ed19e04234804a84c82e1
