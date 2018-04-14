@@ -64,7 +64,7 @@ echo "The time is " . date("h:i:sa"); "<br>";
   // $emat_pass =  "";
 
   // start connection to mysql
-  $conn = mysqli_connect(DB_HOST, DB_DATABASE, DB_USER, DB_PASSWORD);
+  $conn2 = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
   // check for errors
   if (mysqli_connect_errno())
@@ -74,14 +74,14 @@ echo "The time is " . date("h:i:sa"); "<br>";
 
   // get secret keyword
   $query1 = " SELECT secret_word FROM secret_word ";
-  $secret_result = mysqli_query($conn, $query1);
+  $secret_result = mysqli_query($conn2, $query1);
   while($result_data = mysqli_fetch_assoc($secret_result)){
     $secret_word = $result_data['secret_word'];
   }
 
   // fetch my information
   $query2 = " SELECT name, username, image_filename FROM interns_data_ WHERE(username = 'ematthew') ";
-  $results = mysqli_query($conn, $query2);
+  $results = mysqli_query($conn2, $query2);
   while($data = mysqli_fetch_assoc($results)){
     $username = $data['username'];
     $name = $data['name'];
