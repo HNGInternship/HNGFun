@@ -1,4 +1,33 @@
 
+<?php
+require_once '../db.php';
+    try {
+        //Your username here
+        $sql2 = "SELECT * FROM interns_data WHERE username = 'mercyikpe'";
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $data2 = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    
+    $name = $data2['name'];
+    $username = $data2['username'];
+    $image = $data2['image_filename'];
+
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    
+    // secret key
+    $secret_word = $data['secret_word'];
+    ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,18 +76,6 @@
 		?> 
 	</p>
     
-	<?php include_once('profiles/' . $profile_name. '.php');
-	
-	try {
-        $secrete = 'SELECT * FROM secret_word';
-        $sql = $conn->query($secrete);
-        $sql->setFetchMode(PDO::FETCH_ASSOC);
-        $secret_word = $sql->fetch();
-   	} catch (PDOException $error) {
-
-        throw $error;
-	}?>
-
-</body>
+	</body>
 </html>
 
