@@ -2,8 +2,8 @@
     require "../config.php";
 
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-    if(!$conn){
-        die("Unable to connect to server");
+    if(!defined('DB_USER')){
+        require "../config.php";
     }
 
     //fetch secret word from database
