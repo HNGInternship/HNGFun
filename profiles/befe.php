@@ -1,21 +1,24 @@
 <?php 
-require '../db.php';
 
 try {
-$sql ='SELECT * FROM interns_data';
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$data = $q->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
+      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE intern_id = \'befe\'';
+      $q = $conn->query($sql);
+      $q->setFetchMode(PDO::FETCH_ASSOC);
+      $data = $q->fetch();
+      $secret_word = $data['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }
+
+
+
 ?>
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
-        <title>My Profile Page</title>
+        <title><?php echo $data['name'] ?>'s Profile</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
         * {
@@ -40,6 +43,7 @@ $data = $q->fetch();
         .desc h1 {
             font-size: 80px;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            margin-bottom: 20px;
         }
         .desc p {
             font-size: 20px;
@@ -129,20 +133,6 @@ $data = $q->fetch();
                 <img src="<?php echo $data['image_filename'];?>" alt ='befe sitted and giving a pose'>
             </article>
         </section>
-
-<?php
-
-try {
-    $sql = 'SELECT * FROM secret_word';
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    $secret_word = $data['secret_word'];
-
-    ?>
 
     </body>
 </html>
