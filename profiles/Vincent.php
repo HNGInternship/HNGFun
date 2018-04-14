@@ -48,12 +48,12 @@ $secret_word = $get['secret_word'];
 
   <div class="main d-flex justify-content-center align-content-center ">
   <div class="d-flex justify-content-center">
-          <img src="<?php  $user['image_filename']; ?>" class="img-thumbnail img-fluid rounded-circle w-40 h-40"  alt="avatar">
+          <img src="http://res.cloudinary.com/dzrvqcbdp/image/upload/v1523712826/vincent.jpg" class="img-thumbnail img-fluid rounded-circle w-40 h-40"  alt="avatar">
         </div>
     <div class=" text">
       <div class="my-5">
         <p class=" h5">Hello, there!</p>
-        <p class=" h3">My name is <b><?php  $user['name']; ?></b></p>                     
+        <p class=" h3">My name is <b>Vincent Williams</b></p>                     
         <p class=" h5 mt-3">And I am a <b class="h5">Developer</b></p>
         <p class="h5">Love coding C#,java and bootstrap</P>
         <p class="h5">good in VisualStudio and AndroidStudio IDE</p>
