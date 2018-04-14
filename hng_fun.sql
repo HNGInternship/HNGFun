@@ -1,5 +1,8 @@
 -- phpMyAdmin SQL Dump
+<<<<<<< HEAD
+=======
 
+>>>>>>> 259f1fb69d3f832ab7c7270b52efcc092aa844a5
 -- version 4.2.11
 -- http://www.phpmyadmin.net
 --
@@ -20,7 +23,10 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
+<<<<<<< HEAD
+=======
 START TRANSACTION;
+>>>>>>> 259f1fb69d3f832ab7c7270b52efcc092aa844a5
 
 SET time_zone = "+00:00";
 
@@ -29,10 +35,14 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 
+<<<<<<< HEAD
+/*!40101 SET NAMES utf8
+/*!40101 SET NAMES u*/
+=======
 /*!40101 SET NAMES utf8 */;
 
-/*!40101 SET NAMES utf8mb4 */;
 
+>>>>>>> 259f1fb69d3f832ab7c7270b52efcc092aa844a5
 
 --
 -- Database: `hng_fun`
@@ -57,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `interns_data_` (
 --
 
 INSERT INTO `interns_data_` (`intern_id`, `name`, `username`, `image_filename`) VALUES
-(14, 'Solanke damilare', 'D.dan', 'https://res.cloudinary.com/damilare1957/image/upload/v1523622655/dan.jpg');
+(14, 'Akinduko Olugbenga', 'dev_geaks', 'http://res.cloudinary.com/devgeaks/image/upload/v1523731563/2017-03-02_08.30.03.jpg');
 
 -- --------------------------------------------------------
 
@@ -168,7 +178,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+
 
 --
 -- Database: `hng_fun`

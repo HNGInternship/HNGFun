@@ -262,7 +262,7 @@
 <body>
   <?php
 
-    $sql = 'SELECT * FROM interns_data_ WHERE username="bamii"';
+    $sql = 'SELECT * FROM interns_data WHERE username="bamii"';
     $query = $conn->query($sql);
     $query->setFetchMode(PDO::FETCH_ASSOC);
     $result = $query->fetch();    
