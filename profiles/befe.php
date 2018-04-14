@@ -1,5 +1,4 @@
 <?php 
-require '../db.php';
 
 try {
       $sql = "SELECT * FROM interns_data WHERE username = 'befe' LIMIT 1"; 
