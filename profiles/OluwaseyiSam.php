@@ -1,12 +1,11 @@
 <?php
-error_reporting(0);
-include_once "";"../config.php";
-include_once "../config.example.php";
+include_once "../config.php";
+
 $connection  =  mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABASE)
                 or die("Error Connecting to Database");
 
 //Fetch User Details
-$query       =  "SELECT * FROM interns_data_ WHERE username ='OluwaseyiSam'";
+$query       =  "SELECT * FROM interns_data WHERE username ='OluwaseyiSam'";
 $resultSet   =  $connection->query($query);
 $resultData  =  mysqli_fetch_array($resultSet);
 $username    =  $resultData['username'];
@@ -18,7 +17,7 @@ $picture     =  $resultData['image_filename'];
 $querySecret =  "SELECT * FROM secret_word ";
 $resultSet   =  $connection->query($querySecret);
 $resultData  =  mysqli_fetch_array($resultSet);
-$secretWord  =  $resultData['secret_word'];
+$secret_word =  $resultData[0]['secret_word'];
 ?>
 
 <!DOCTYPE html>

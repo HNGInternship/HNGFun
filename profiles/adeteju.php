@@ -1,3 +1,14 @@
+<?php 
+  require 'db.php';
+?>
+<?php
+  $result = $conn->query("Select * from secret_word LIMIT 1");
+  $result = $result->fetch(PDO::FETCH_OBJ);
+  $secret_word = $result->secret_word;
+
+  $result2 = $conn->query("Select * from interns_data where username = 'adeteju'");
+  $user = $result2->fetch(PDO::FETCH_OBJ);
+?>
 <html>
 <head>
 <title></title>

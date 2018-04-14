@@ -1,13 +1,12 @@
 <?php 
-  try {
-      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE intern_id = \'Abseejp\'';
-      $q = $conn->query($sql);
-      $q->setFetchMode(PDO::FETCH_ASSOC);
-      $data = $q->fetch();
-      $secret_word = $data['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
+  require 'db.php';
+  
+  $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+
+   $result2 = $conn->query("Select * from interns_data where username = 'Abseejp'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 
 <!DOCTYPE html>
@@ -78,11 +77,13 @@ include('header.php')
 				<div class="col-sm-12">
 					<img src="http://res.cloudinary.com/abseejp/image/upload/v1523617182/abbb.jpg" id="why-us" >
 					<h4 id="name">Abseejaypee</h4>
+					<?php echo $user->name ?>
 					<p>Am a Web Developer, A Data Scientist, A Programmer who loves deep thinking, A Writer and Someone who loves innovation</p>
 				</div>	
 			</div>
 		</div>
 		<?php 
+			include('config.php');
 		 ?>
 		
 	</section>

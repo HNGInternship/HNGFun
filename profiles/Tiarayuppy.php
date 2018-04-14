@@ -1,37 +1,38 @@
-<?php 
-  /*try {
-      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE intern_id = \'gbxnga\'';
-      $q = $conn->query($sql);
-      $q->setFetchMode(PDO::FETCH_ASSOC);
-      $data = $q->fetch();
-      $secret_word = $data['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }*/
-?>
-<?php
-require '../db.php';
-  $result = $conn->query("Select * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
 
-  $result2 = $conn->query("Select * from interns_data where username = 'gbxnga'");
-  $user = $result2->fetch(PDO::FETCH_OBJ);
-?>
-<html>
-    <head>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+  <?php
+          try {
+              $sql = 'SELECT * FROM secret_word';
+              $q = $conn->query($sql);
+              $q->setFetchMode(PDO::FETCH_ASSOC);
+              $data = $q->fetch();
+          } catch (PDOException $e) {
+              throw $e;
+          }
+          $secret_word = $data['secret_word'];
+
+
+              $profile_details_query = "SELECT name, username, image_filename 
+              FROM interns_data where username = '$profile_name' LIMIT 1";
+              $profile_details_result = $conn->query($profile_details_query);
+
+                  $profile_details_result->setFetchMode(PDO::FETCH_ASSOC);
+                      $profile_details = $profile_details_result->fetch();
+                  ?>
+<head>
+ 
+  <title>TiaraYuppy - HNG Internship</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
 <style>
-
+ 
 
 .card {
-    
     padding-top: 20px;
     margin: 10px 0 20px 0;
     background-color: rgba(214, 224, 226, 0.2);
@@ -46,6 +47,7 @@ require '../db.php';
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    width: 100%;
 }
 
 .card .card-heading {
@@ -225,9 +227,9 @@ require '../db.php';
 }
 
 .card.hovercard .cardheader {
-    background: url("https://res.cloudinary.com/gbxnga/image/upload/v1523623045/Legacy-code-e1478772285495.jpg");
+    background: url("http://lorempixel.com/850/280/nature/4/");
     background-size: cover;
-    height: 135px;
+    height: 155px;
 }
 
 .card.hovercard .avatar {
@@ -237,10 +239,10 @@ require '../db.php';
 }
 
 .card.hovercard .avatar img {
-    width: 100px;
-    height: 100px;
-    max-width: 100px;
-    max-height: 100px;
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 200px;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
@@ -253,7 +255,7 @@ require '../db.php';
 
 .card.hovercard .info .title {
     margin-bottom: 4px;
-    font-size: 24px;
+    font-size: 35px;
     line-height: 1;
     color: #262626;
     vertical-align: middle;
@@ -261,8 +263,8 @@ require '../db.php';
 
 .card.hovercard .info .desc {
     overflow: hidden;
-    font-size: 12px;
-    line-height: 20px;
+    font-size: 20px;
+    line-height: 50px;
     color: #737373;
     text-overflow: ellipsis;
 }
@@ -272,50 +274,62 @@ require '../db.php';
     margin-bottom: 17px;
 }
 
-.btn{ border-radius: 50%; width:32px; height:32px; line-height:18px;  }
-</style>
-</head>
-<body>
-<div class="container">
-	<div class="row">
-		<div class="col-md-4 col-sm-6 col-md-offset-4">
+.btn{ border-radius: 50%; width:32px; height:32px; line-height:18px;  
 
-            <div class="card hovercard" style="margin-top:100px;box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2);zoom:120%">
+}
+.color{
+    background-color: #e2e2e2;
+}
+.btn-sm-github{
+    color: #070707;
+    background-color: #070707;
+}
+
+</style>
+<body class="color">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-sm-6">
+
+            <div class="card hovercard">
                 <div class="cardheader">
 
                 </div>
-                <div class="avatar" >
-                    <img alt="" src="https://res.cloudinary.com/gbxnga/image/upload/v1523622896/photo.png">
+                <div class="avatar">
+                    <img alt="" src="<?php echo $profile_details['image_filename'] ?>">
                 </div>
                 <div class="info">
                     <div class="title">
-                        <a target="_blank" href="http://gbengaoni.com/"><?php echo $user->name.'h' ;?></a>
+                        <a target="_blank" href="http://res.cloudinary.com/tiarayuppy/image/upload/v1523634049/IMG_20171025_172725.jpg">
+                        <?php echo $profile_details['name'] ?></a>
                     </div>
-                    <div class="desc">Passionate Software Developer</div>
-                    <div class="desc">Sporadic Learner</div>
-                    <div class="desc">Tech geek</div>
+                    <p><?php echo $profile_details['username'] ?></p>
+                    <div class="desc">Passionate designer</div>
+                    <div class="desc">Curious developer</div>
+                    <div class="desc">Tech geek| Woman in Tech</div>
+                    <div class="desc">Fast Learner</div>
                 </div>
                 <div class="bottom">
-                    <a class="btn btn-twitter btn-sm" href="https://twitter.com/gbxnga">
-                        <i class="fa fa-twitter"></i>
+                    
+                    <a class="btn btn-danger btn-sm-github" rel="publisher"
+                       href="https://github.com/Tiarayuppy">
+                        <i class="fa fa-github"></i>
                     </a>
-                    <a class="btn btn-sm text-danger" rel="publisher"
-                       href="https://medium.com/@gbxnga">
-                        <i class="fa fa-medium"></i>
-                    </a>
-                    <a class="btn btn-sm" rel="publisher"
-                       href="https://facebook.com/gbenga.gbliss">
+                    <a class="btn btn-primary btn-sm" rel="publisher"
+                       href="https://facebook.com/tiarayuppy">
                         <i class="fa fa-facebook"></i>
                     </a>
-                    <a class="btn btn-sm" style="color:black" rel="publisher" href="https://github.com/gbxnga">
-                        <i class="fa fa-github"></i>
+                    <a class="btn btn-warning btn-sm" rel="publisher" href="https://plus.google.com/tiarayuppy">
+                        <i class="fa fa-behance"></i>
                     </a>
                 </div>
             </div>
 
         </div>
 
-	</div>
+    </div>
+
+  
 </div>
 </body>
 </html>

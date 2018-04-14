@@ -17,10 +17,14 @@ $secret_word = $result['secret_word'];
 	<title>Portfolio | Adeboga Abigail</title>
 	<style type="text/css">
 <<<<<<< HEAD
+	#name-div::after{
+=======
+<<<<<<< HEAD
 	#fst::after{
 =======
 	#name-div::after{
 >>>>>>> 41423abe05c9e89fb255c09678a8779decd2c470
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
 		 content: "";
  /* background: url(https://i.imgur.com/0EWDjqv.jpg);*/
   opacity: 0.35;
@@ -40,21 +44,31 @@ $secret_word = $result['secret_word'];
 <<<<<<< HEAD
 =======
     position: fixed;
+<<<<<<< HEAD
+>>>>>>> be3fa7c29f997825de9ad279b33f11df3eb052fc
+=======
 >>>>>>> 41423abe05c9e89fb255c09678a8779decd2c470
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
 		height: 100vh;
 				width: 100%;
 				background-image: url(http://res.cloudinary.com/bogadeji/image/upload/v1523633847/happy_x89ylu.jpg);
 				/*opacity: 50%;*/
 	}
 <<<<<<< HEAD
+			#name-div{
+=======
+<<<<<<< HEAD
 			#fst{
 =======
 			#name-div{
 >>>>>>> 41423abe05c9e89fb255c09678a8779decd2c470
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
 				
 				font-family: "Montserrat" Monospace;
 				align-items: bottom;
 			}
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
 			#container, #fst{
 				height: 100vh;
@@ -62,12 +76,16 @@ $secret_word = $result['secret_word'];
 			#fst h1, #fst h4{position: absolute;}
 			#fst h1{
 =======
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
 			#about-div, #name-div, #abt-me-div{
 				height: 100vh;
 			}
 			#name-div h1, #name-div h4{position: absolute;}
 			#name-div h1{
+<<<<<<< HEAD
+=======
 >>>>>>> 41423abe05c9e89fb255c09678a8779decd2c470
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
 				/*margin-top: 300px;*/
 				text-align: right;
 				font-size: 72px;
@@ -77,6 +95,8 @@ $secret_word = $result['secret_word'];
 				bottom: 10%;
 				right: 10%;
 			}
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
 			#fst h4{
 				font-family: "Muli";
@@ -91,10 +111,12 @@ $secret_word = $result['secret_word'];
 			padding: 100px;
 			height: 500px;
 =======
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
 			#name-div h4{
 				font-family: "Muli";
 				font-size: 20px;
 				position: absolute;
+				bottom: 9%;
 				bottom: 7%;
 				right: 10%;
 			}
@@ -102,19 +124,29 @@ $secret_word = $result['secret_word'];
 			width: 70%;
 			margin:  auto;
 			padding: 100px;
+<<<<<<< HEAD
+=======
 			/*background-color: #bcd6d6;
 			opacity: 0.2;*/
 			background-color: rgba(239, 239, 239, 0.6);
+<<<<<<< HEAD
+>>>>>>> be3fa7c29f997825de9ad279b33f11df3eb052fc
+=======
 >>>>>>> 41423abe05c9e89fb255c09678a8779decd2c470
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
 		}
 		#about-me{
 			width: 40%;
 			float: right;
 <<<<<<< HEAD
+			height: 80%;
+=======
+<<<<<<< HEAD
 			height: 90%;
 =======
 			height: 80%;
 >>>>>>> 41423abe05c9e89fb255c09678a8779decd2c470
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
 			border-radius: 50%;
 			background-color: white;
 			align-items: center;
@@ -129,7 +161,11 @@ $secret_word = $result['secret_word'];
 			float: left;
 			height: 80%;
 <<<<<<< HEAD
+<<<<<<< HEAD
+			margin: 30px 30px 70px 30px;
+=======
 			margin: 30px 70px 70px 60px;
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
 		}
 		#pic img{
 			margin: 0px 70px 70px 30px;
@@ -138,7 +174,11 @@ $secret_word = $result['secret_word'];
 		}
 		#pic img{
 			/*margin: 0px 70px 70px 30px;*/
+<<<<<<< HEAD
+>>>>>>> be3fa7c29f997825de9ad279b33f11df3eb052fc
+=======
 >>>>>>> 41423abe05c9e89fb255c09678a8779decd2c470
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
 			border-radius: 10px;
 		}
 		#contact{
@@ -146,10 +186,14 @@ $secret_word = $result['secret_word'];
 			background-color: #e4e4e4;
 			padding:10px 0;
 <<<<<<< HEAD
+			width: 35%;
+=======
+<<<<<<< HEAD
 			width: 30%;
 =======
 			width: 35%;
 >>>>>>> 41423abe05c9e89fb255c09678a8779decd2c470
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
 			border-radius: 50px;
 			margin: 0 auto;
 		}
@@ -183,6 +227,8 @@ $secret_word = $result['secret_word'];
 </head>
 <body>
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 	<?php
 	$username = "Abigail";
 	$data = $conn->query("SELECT * FROM  interns_data WHERE username = '".$username."' ");
@@ -199,6 +245,7 @@ $username =$my_data['username'];
 	<div id="container">
 <div id="main" align="center">
 =======
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
  	<?php
 	$username = "Abigail";
 	$data = $conn->query("SELECT * FROM  interns_data WHERE username = '".$username."' ");
@@ -214,7 +261,10 @@ $username =$my_data['username'];
 	</div>
 	<div id="about-div">
 <div id="abt-me-div" align="center">
+<<<<<<< HEAD
+=======
 >>>>>>> 41423abe05c9e89fb255c09678a8779decd2c470
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
 	<div id="about-me">
 		<p>I am a junior web developer with experience with HTML, CSS, JavaScript, Bootstrap and PHP. My love for words and solving problems brought me to the world of writing and coding(which I choose to acknowledge as writing). Want to chat, collaborate or hire me on a project, please feel free to contact me.</p>
 		<div id="contact" align="center"><a href="mailto:animashaunoluwatosin7@gmail.com">CONTACT ME</a></div>
