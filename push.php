@@ -9,14 +9,14 @@
 	 */
 	// The commands
 	$commands = array(
-		'echo $PWD',
-		'whoami',
-		'git reset --hard HEAD',
-		'git pull origin master',
+		//'echo $PWD',
+		//'whoami',
+		//'git reset --hard HEAD',
+		'git pull',
 		'git status',
-		'git submodule sync',
-		'git submodule update',
-		'git submodule status',
+		//'git submodule sync',
+		//'git submodule update',
+		//'git submodule status',
 	);
 	// Run the commands for output
 	$output = '';
