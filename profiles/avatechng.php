@@ -37,7 +37,7 @@ $secret_word = $data2['secret_word'];
     <style type="text/css">
         @import url(https://fonts.googleapis.com/css?family=Oswald:400,300);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
-* {
+ {
     margin: 0;
 	padding: 0;
 	-webkit-box-sizing: border-box;
