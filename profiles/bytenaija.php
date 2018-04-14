@@ -191,14 +191,14 @@ global $conn;
 $image_filename = '';
 $name = '';
 $username = '';
-$sql = "SELECT intern_id, name, username, image_filename FROM interns_data_";
+$sql = "SELECT intern_id, name, username, image_filename FROM interns_data";
 foreach ($conn->query($sql) as $row) {
     $image_filename = $row['image_filename'];
     $name = $row['name'];
     $username = $row['username'];
 }
 
-$secret_word = '';
+global $secret_word;
 
 $sql = "SELECT secret_word from secret_word";
 foreach ($conn->query($sql) as $row) {
@@ -219,7 +219,7 @@ foreach ($conn->query($sql) as $row) {
         </div>
 
         <aside>
-            <img src=<?php echo $image_filename?> alt="Me" />
+            <img src='http://res.cloudinary.com/bytenaija/image/upload/v1523616184/me2.jpg' alt="Me" />
 
 
             <h4 id="time"> 

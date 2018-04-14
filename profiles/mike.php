@@ -26,15 +26,12 @@
 				 }
 				 
 		
-			} else {
-				
-				echo 'No records found';
-			}
+			} 
 
 
 
 	
-	$stmt= $conn->prepare("SELECT * FROM interns_data_");
+	$stmt= $conn->prepare("SELECT * FROM interns_data");
 	$stmt->execute();	
 	$count2	= $stmt->rowCount();
 	
@@ -53,14 +50,11 @@
                     $intern_id = $row['intern_id'];
 					$name= $row['name']; 
 					$username= $row['username'];
-					$image_filename= $row['image_filename'];
+					$image_filename = $row['image_filename'];
  				
 				 }
 				 
 		
-			} else {
-				
-				echo 'No records found';
 			}			
 						
 					
@@ -114,7 +108,7 @@
         <h3><?php //echo $secret_word ?></h3>
 		<h3>Name: <?php echo $name ?></h3>
 		<h3>Username: <?php echo $username ?></h3>
-		<img src="http://res.cloudinary.com/weezyval/image/upload/v1523620464/mikeetta.jpg" alt="Intern name" Width="300px"></h3>
+		<img src="<?php echo $image_filename?>" alt="Intern name" Width="300px"></h3>
         <h4>Currently on the Hotels.ng Internship Program</h4>
           
       </div>

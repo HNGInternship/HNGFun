@@ -31,7 +31,7 @@
 		}
 
 		figure {
-            background-image: url(http://www.filetolink.com/8acb616934);
+            background-image: url(http://res.cloudinary.com/pixeldb/image/upload/c_crop,h_4032,x_10,y_673/v1523637382/IMG_0952_tfxgmf.jpg);
             background-size: cover;
             border-radius: 4px;
             height: 150px;
@@ -55,8 +55,8 @@
     	<br>
     	<div style="font-size: 25px; margin-top: 10px;">
     	<a href="http://www.github.com/peterperez" target="_blank"><i class="fa fa-github"></i></a>
-    	<a href="http://www.github.com/ambarelyscared" target="_blank"><i class="fa fa-instagram"></i></a>
-    	<a href="http://www.github.com/ambarelyscared" target="_blank"><i class="fa fa-twitter"></i></a>
+    	<a href="http://www.instagram.com/ambarelyscared" target="_blank"><i class="fa fa-instagram"></i></a>
+    	<a href="http://www.twitter.com/ambarelyscared" target="_blank"><i class="fa fa-twitter"></i></a>
     	</div>
     	
 

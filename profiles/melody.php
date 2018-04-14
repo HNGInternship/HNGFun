@@ -1,28 +1,3 @@
-<?php
-
-
-try {
-    $sql = 'SELECT * FROM secret_word';
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
-$secret_word = $data['secret_word'];
-
-try {
-    $sql2 = 'SELECT * FROM intern_table where "username"="melody"';
-    $q2 = $conn->query($sql2);
-    $q2->setFetchMode(PDO::FETCH_ASSOC);
-    $my_data = $q2->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
-
-?>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,8 +90,8 @@ try {
     <div class="offset-md-3 col-md-6">
         <div class="col-md-2">
         </div>
-        <img class="img-fluid rounded" style="padding-top: 10px" onerror="this.src='images/default.jpg'" src=<?= echo $my_data['image_filename'] >
-        <div class="main"><span class="text"><?= echo $my_data['name']</span></div>
+        <img class="img-fluid rounded" style="padding-top: 10px" onerror="this.src='images/default.jpg'" src="https://res.cloudinary.com/melody/image/upload/v1523619250/Melody.jpg" >
+        <div class="main"><span class="text">Okunuga Melody</span></div>
         <div class="under"><span>Full Stack Web Developer</span></div>
         <div class="under1"><span><a href="https://github.com/mokunuga">
                 <img style="width:40px; height: 40px;" src="https://cdn1.iconfinder.com/data/icons/logotypes/32/github-512.png">
@@ -128,7 +103,19 @@ try {
     </div>
 
 
+    <?php
 
+
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+    ?>
 
 </div>
 
