@@ -2,7 +2,7 @@
 
 
 try {
-   $profile = 'SELECT * FROM interns_data_ WHERE username="bella"';
+   $profile = "SELECT * FROM interns_data_ WHERE `username` = 'bella' LIMIT 1";
     $select = 'SELECT * FROM secret_word';
 
     $query = $conn->query($select);
