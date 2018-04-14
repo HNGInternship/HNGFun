@@ -78,6 +78,7 @@ require_once '../db.php';
 		<p class="about">My name is <?php echo $name ?>, a tech guy from Delta, NG.<br>
 		I'm a web developer and creative UI/UX designer.</p>
 		<div class="link">
+				<p style="font-style: bold; color: blue;">Follow me:</p>
 			<a href="https://github.com/jeremiahriz"><img src="https://res.cloudinary.com/jeremiahriz/image/upload/v1523631643/Hello-img/GitHub.png" style="width:40px"></a>
 			<a href="https://twitter.com/jeremiahriz"><img src="https://res.cloudinary.com/jeremiahriz/image/upload/v1523631644/Hello-img/twitter.png" style="width:40px"></a>
 			<a href="https://www.instagram.com/jeremiahriz/"><img src="https://res.cloudinary.com/jeremiahriz/image/upload/v1523631644/Hello-img/instagram.png" style="width:40px" ></a>		

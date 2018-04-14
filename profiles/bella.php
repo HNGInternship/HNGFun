@@ -1,3 +1,24 @@
+ <?php
+
+
+try {
+   $profile = "SELECT * FROM interns_data_ WHERE `username` = 'bella' LIMIT 1";
+    $select = 'SELECT * FROM secret_word';
+
+    $query = $conn->query($select);
+    $profile_query = $conn->query($profile);
+
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $profile_query->setFetchMode(PDO::FETCH_ASSOC);
+
+    $get = $query->fetch();
+    $user = $profile_query->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+$secret_word = $get['secret_word'];
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,8 +66,8 @@ button:hover, a:hover {
 <h2 style="text-align:center">Bella's Profile Card</h2>
 
 <div class="card">
-  <img src="https://res.cloudinary.com/mfonobong/image/upload/v1523621316/Me.jpg" alt="Bella" style="width:100%">
-  <h1>Mfonobong Umondia</h1>
+  <img src="<?php echo $user['image_filename']; ?>" alt="Bella" style="width:100%">
+  <h1><?php echo $user['name']; ?></h1>
   <p class="title">HNG Intern</p>
   <p>University of Uyo</p>
   <div style="margin: 24px 0;">
@@ -57,19 +78,7 @@ button:hover, a:hover {
  <p><button>Email me at: umondiamfonobong@gmail.com</button></p>
 </div>
 
- <?php
 
-
-try {
-    $select = 'SELECT * FROM secret_word';
-    $query = $conn->query($select);
-    $query->setFetchMode(PDO::FETCH_ASSOC);
-    $get = $query->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
-$secret_word = $get['secret_word'];
-?>
 
 
 </body>
