@@ -28,8 +28,7 @@ h1{
 font-family: Cursive ;
 font-size: 85px;
 text-align: center;
-padding-left: 100px;
-padding-right: 100px;
+
 }
 h3{
 	color:white;
