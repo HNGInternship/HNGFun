@@ -23,7 +23,7 @@
 }
      
 try {
-    $sql = "SELECT * FROM interns_data_ WHERE `username` = 'oriechinedu' LIMIT 1";
+    $sql = "SELECT * FROM interns_data WHERE `username` = 'oriechinedu' LIMIT 1";
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $my_data = $q->fetch();
@@ -75,7 +75,7 @@ try {
                         
                         <div class="page-header">
                             <h2 class="text-blue page-header">Let's Get Connected</h2>
-                            <h3><?= $secret_word ?></h3>
+                           
                         </div>
                     <div class="row">
                         <div class="col-md-2">
