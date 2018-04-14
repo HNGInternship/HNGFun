@@ -1,12 +1,11 @@
 <?php 
 
-
-define('DB_HOST', "localhost");
 define('DB_USER', "root");
 define('DB_PASSWORD', "root");
 define('DB_DATABASE', "hng_fun");
+define('DB_HOST', "localhost");
 
-$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+$con = mysqli_connect(DB_USER, DB_PASSWORD, DB_DATABASE, DB_HOST);
 if (!$con) {
     die("Connection failed: " . mysqli_connect_error());
 }
