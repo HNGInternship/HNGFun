@@ -19,11 +19,9 @@ div {
 window.addEventListener("load", doSocial, false);
 function doSocial() {
    let github = "https://github.com/Femi-DD/";
-   let linkedin = "http://linkedin.com/in/koleibrahimabdulqudus/";
    let twitter = "https://twitter.com/Femi_DD/";
    let facebook = "http://facebook.com/KoleIbrahimAbdulQudus";
    document.getElementById("twitter").href = twitter;
-   document.getElementById("linkedin").href = linkedin;
    document.getElementById("github").href = github;
    document.getElementById("facebook").href = facebook;
 }
