@@ -1,17 +1,29 @@
 <?php
-	$db = new PDO("mysql:host=localhost;dbname=hng-fun", "root", "");
-	$query = $db->query("Select * from secret_word LIMIT 1");
-	$query = $query->fetch(PDO::FETCH_OBJ);
-	$secret_word = $query->secret_word;
+require "../db.php";
+$query = $db->query("Select * from secret_word LIMIT 1");
+$result= $conn->query($query);
 
-	$query_me = $db->query("Select * from interns_data_ where username = 'temitope'");
-	$user = $query_me->fetch(PDO::FETCH_OBJ);
+while($row = $result->fetch()){
+	$secret=$row['secret_word'];
+}
+
+$secret_word = $secret;
+
+$sql_user='select * from interns_data where username="temitope"';
+$users = $conn->query($sql_user);
+
+while($row = $users->fetch()){
+	$id=$row['intern_id'];
+	$name=$row['name'];
+	$username=$row['username'];
+	$image_filename=$row['image_filename'];
+}
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title><?php echo strtoupper($user->name) ?> on HNG 4.0</title>
+	<title><?php echo strtoupper($name) ?> on HNG 4.0</title>
 	<link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
 	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<style>
@@ -119,15 +131,15 @@
 			<div class="card-top" style="width: 100%;">
 				<center>
 				<div class="profile-img"  style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;">
-					<img style="width: 200px;" src="<?php echo $user->image_filename ?>">
+					<img style="width: 200px;" src="<?php echo $image_filename ?>">
 					
 				</div>
 				</center>
 			</div>
 			<div class="card-body" style="width: 100%; display: block;">
 				<center>
-					<h1><?php echo ucwords(strtolower($user->name)) ?></h1>
-					 <span> @<?php echo strtolower($user->username) ?> </span> <span class="label-info">Slack </span>
+					<h1><?php echo ucwords(strtolower($name)) ?></h1>
+					 <span> @<?php echo strtolower($username) ?> </span> <span class="label-info">Slack </span>
 
 					 <button class="btn-primary span-width">HNG 4.0 INTERN</button>
 					 <p>
