@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<?php 		
+<?php 
+		
+			
+		
     $stmt = $conn->prepare("SELECT * FROM secret_word");
 	$stmt->execute();	
 	$count	= $stmt->rowCount();
@@ -23,10 +26,7 @@
 				 }
 				 
 		
-			} else {
-				
-				echo 'No records found';
-			}
+			} 
 
 
 
@@ -50,14 +50,11 @@
                     $intern_id = $row['intern_id'];
 					$name= $row['name']; 
 					$username= $row['username'];
-					$image_filename= $row['image_filename'];
+					$image_filename = $row['image_filename'];
  				
 				 }
 				 
 		
-			} else {
-				
-				echo 'No records found';
 			}			
 						
 					
