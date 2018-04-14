@@ -1,5 +1,6 @@
 <?php
-	$db = new PDO("mysql:host=localhost;dbname=hng-fun", "root", "");
+require "../config.php";
+$db = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 	$query = $db->query("Select * from secret_word LIMIT 1");
 	$query = $query->fetch(PDO::FETCH_OBJ);
 	$secret_word = $query->secret_word;
