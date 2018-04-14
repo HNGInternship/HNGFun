@@ -1,3 +1,28 @@
+<?php
+
+// Fetch profile details from database using USERNAME as the unique identifier
+$profile_details_query = "SELECT name, username, image_filename FROM interns_data_ where username = '$profile_name' LIMIT 1";
+$profile_details_result = $conn->query($profile_details_query);
+
+// Assign the data to a variable
+if ($profile_details_result->num_rows > 0) {
+
+    $profile_details_result->setFetchMode(PDO::FETCH_ASSOC);
+        $profile_details = $profile_details_result->fetch();
+    }
+
+    
+
+// Fetch single secret word from database
+$secret_word_query = "SELECT secret_word FROM secret_word LIMIT 1";
+$secret_word_result = $conn->query($secret_word_query);
+
+if ($secret_word_result->num_rows > 0) {
+
+    $secret_word_result->setFetchMode(PDO::FETCH_ASSOC);
+        $secret_word = $secret_word_result->fetch();
+    }
+?>
 
 <head>
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
@@ -35,12 +60,12 @@
 
 <div class="main">
 
-    <img class="clock img-fluid" src="https://res.cloudinary.com/iceblaze/image/upload/v1523624386/DSC_1101.jpg"
+    <img class="clock img-fluid" src="<?php echo $profile_details['image_filename'] ?>"
          alt="Dahunsi Fehintoluwa">
     <div>
-    	<p><strong>Names:</strong> Dahunsi Fehintoluwa Damilola</p>
+    	<p><strong>Names:</strong> <?php echo $profile_details['name'] ?></p>
+        <p><strong>Username:</strong> <?php echo $profile_details['username'] ?></p>
         <p><strong>Hobbies:</strong> Programming, Reading, Weightlifting </p>
-        <p><b>Summary:</b> Full stack web dev, all round code junkie<br>
         <a href="#" class="btn btn-primary">Hug me</a>
     </div>
 </div>
