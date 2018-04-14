@@ -219,7 +219,7 @@ foreach ($conn->query($sql) as $row) {
         </div>
 
         <aside>
-            <img src='<?php echo $image_filename?>' alt="Me" />
+            <img src='http://res.cloudinary.com/bytenaija/image/upload/v1523616184/me2.jpg' alt="Me" />
 
 
             <h4 id="time"> 

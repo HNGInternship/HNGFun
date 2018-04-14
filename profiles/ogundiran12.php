@@ -150,9 +150,16 @@ a{
 </head>
 
 <body>
-
+<?php
+    require_once('./config.php');
+    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+    $result = mysqli_query($conn, "select * from secret_word");
+    $secret_word = mysqli_fetch_assoc($result)['secret_word'];
+    $result = mysqli_query($conn, "select * from interns_data where username = 'ogundiran12'");
+    $me = mysqli_fetch_assoc($result);
+?>
 <div class="container">
-      <h1 class="title fader">Ogundiran Al-Ameen</h1>
+      <h1 class="title fader"><?php echo $me['name'] ?></h1>
       <h4 class="name fader">Software Developer</h4>
 
       <div class="time-container">
