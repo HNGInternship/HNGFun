@@ -53,7 +53,7 @@ require_once '../db.php';
 		.content h1 {
 			font-size: 40px;
 			font-style: bold;
-			line-height: 35px;
+			line-height: 45px;
 		}
 		.about{
 			font-size: 23px;
