@@ -9,6 +9,10 @@
   $result2 = $conn->query("Select * from interns_data where username = 'adeteju'");
   $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
+<<<<<<< HEAD
+
+=======
+>>>>>>> 772f68dc8b562c7d899fc9fed0635b5650aa3d70
 <html>
 <head>
 <title></title>
@@ -24,7 +28,7 @@ h2 {
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-<img src= "http://res.cloudinary.com/diwu3x3tr/image/upload/v1523637541/rsz_img_20170213_081525_594.jpg" alt="Adeteju" align="center" width="200" height="200" ></center>
+<img src= "http://res.cloudinary.com/diwu3x3tr/image/upload/v1523637541/rsz_img_20170213_081525_594.jpg" alt="Adeteju" align="center" width="300" height="300" ></center>
 <div class="jumbotron jumbotron-fluid" style= "jumbotron{ color: red;}">
   <div class="container">
     <h1 class="display-4">Hi Guys!</h1>

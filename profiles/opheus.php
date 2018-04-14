@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+<?php
+
+include("../config.php"); 
+
+=======
 
 <?php
 <<<<<<< HEAD
@@ -39,6 +45,7 @@ ini_set('display_errors', 1);
 include("config.php"); 
 
 >>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
+>>>>>>> 259f1fb69d3f832ab7c7270b52efcc092aa844a5
 // Create connection
 $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 // Check connection
@@ -46,7 +53,10 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 259f1fb69d3f832ab7c7270b52efcc092aa844a5
 $sql = "SELECT intern_id, name, username, image_filename FROM interns_data_ WHERE username='opheus' ";
 $result = mysqli_query($conn, $sql);
 
@@ -57,6 +67,29 @@ if (mysqli_num_rows($result) > 0) {
 		$username = $row["username"];
 		$imagelink = $row["image_filename"];
     }
+<<<<<<< HEAD
+} else {
+    echo "NO USER FOUND";
+}
+
+$sql2 = "SELECT secret_word FROM secret_word";
+$result2 = mysqli_query($conn, $sql2);
+
+if (mysqli_num_rows($result2) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result2)) {
+		$secret_word = $row["secret_word"];
+    }
+} else {
+    echo "NO SECRET KEY";
+}
+
+mysqli_close($conn);
+
+
+
+?> 
+=======
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -70,6 +103,7 @@ if (mysqli_num_rows($result) > 0) {
 mysqli_close($conn);
 ?> 
 
+>>>>>>> 259f1fb69d3f832ab7c7270b52efcc092aa844a5
 <html>
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -110,6 +144,8 @@ button:hover, a:hover {
   opacity: 0.7;
 }
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -128,6 +164,7 @@ button:hover, a:hover {
 ?> 
 a663d942
 >>>>>>> 5d41468bd304026ed0e88d497f5f7f34e79f146b
+>>>>>>> 259f1fb69d3f832ab7c7270b52efcc092aa844a5
 </style>
 </head>
 <body>
@@ -135,6 +172,12 @@ a663d942
 <h2 style="text-align:center">User Profile</h2>
 
 <div class="card">
+<<<<<<< HEAD
+  <img src="<?php echo $imagelink; ?>" alt="John" style="width:100%">
+  <h1><?php echo $name; ?></h1>
+  <h2>@<?php echo $username; ?></h2>
+  <p class="title">Web Designer &#38; Developer, UI/UX Designer</p>
+=======
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -167,6 +210,7 @@ a663d942
 
 >>>>>>> 5d41468bd304026ed0e88d497f5f7f34e79f146b
   <p class="title">Web Designer & Developer, UI/UX Designer</p>
+>>>>>>> 259f1fb69d3f832ab7c7270b52efcc092aa844a5
   <p>Delta State Univeristy (B.Sc Physics)</p>
   <p>Nigeria</p>
   <div style="margin: 24px 0;">
@@ -176,6 +220,12 @@ a663d942
     <a href="https://www.fb.com/j.ominiabohs"><i class="fa fa-facebook"></i></a> 
  </div>
  <p><button>Contact</button></p>
+<<<<<<< HEAD
+</div>
+
+</body>
+</html>
+=======
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -221,3 +271,4 @@ a663d942
 =======
 
 >>>>>>> 5d41468bd304026ed0e88d497f5f7f34e79f146b
+>>>>>>> 259f1fb69d3f832ab7c7270b52efcc092aa844a5
