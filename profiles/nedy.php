@@ -1,3 +1,23 @@
+ <?php
+ 
+try {
+   $profile = 'SELECT * FROM interns_data_ WHERE username="nedy"';
+    $select = 'SELECT * FROM secret_word';
+
+    $query = $conn->query($select);
+    $profile_query = $conn->query($profile);
+
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $profile_query->setFetchMode(PDO::FETCH_ASSOC);
+
+    $get = $query->fetch();
+    $user = $profile_query->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+$secret_word = $get['secret_word'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
