@@ -3,11 +3,6 @@ error_reporting(-1);
 require_once '../db.php';
 
 try {
-    $sql = "SELECT * FROM interns_data WHERE username ='avatechng'";
-
-require_once '../db.php';
-
-try {
     $sql = "SELECT * FROM interns_data_ WHERE username ='AvatechNG'";
 
     $q = $conn->query($sql);
