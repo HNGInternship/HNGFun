@@ -479,7 +479,7 @@ h1 a {
 				<li><a href="#">Address : Lagos,Nigeria</a></li>
 				<li><a href="mailto:techissued@gmail.com">Email : techissued@gmail.com</a></li>
 				<li><a href="#">Phone : +23407015120757</a></li>
-				<li><a href="#"><span class="tags">Angular</span> <span class="tags">Node.Js</span> <span class="tags">CSS</span> <span class="tags">Css 3</span> 
+				<li><a href="#">Professional Skill </br><span class="tags">Angular</span> <span class="tags">Node.Js</span> <span class="tags">CSS</span> <span class="tags">Css 3</span> 
                 <span class="tags">Java</span> <span class="tags">PHP</span> <span class="tags">HTML5</span> <span class="tags">JavaScript</span> 
                 <span class="tags">bootstrap</span> <span class="tags">User Interface Design</span> <span class="tags">Wordpress</span><span class="tags">Drupal</span> </li></a>
 			
