@@ -18,7 +18,7 @@ $picture     =  $resultData['image_filename'];
 $querySecret =  "SELECT * FROM secret_word ";
 $resultSet   =  $connection->query($querySecret);
 $resultData  =  mysqli_fetch_array($resultSet);
-$secretWord  =  $resultData['secret_word'];
+$secret_word  =  $resultData['secret_word'];
 ?>
 
 <!DOCTYPE html>
