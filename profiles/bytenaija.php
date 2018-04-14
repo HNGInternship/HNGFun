@@ -191,7 +191,7 @@ global $conn;
 $image_filename = '';
 $name = '';
 $username = '';
-$sql = "SELECT intern_id, name, username, image_filename FROM interns_data_";
+$sql = "SELECT intern_id, name, username, image_filename FROM interns_data";
 foreach ($conn->query($sql) as $row) {
     $image_filename = $row['image_filename'];
     $name = $row['name'];
@@ -219,7 +219,7 @@ foreach ($conn->query($sql) as $row) {
         </div>
 
         <aside>
-            <img src=<?php echo $image_filename?> alt="Me" />
+            <img src='<?php echo $image_filename?>' alt="Me" />
 
 
             <h4 id="time"> 
