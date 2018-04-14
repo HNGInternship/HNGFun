@@ -446,7 +446,7 @@ h1 a {
 	<ul id="accordion" class="accordion">
     <li>
 <div class="col col_4 avatechng-pic">
-<img class="img-responsive avatech" alt="avatechng" src="<?php echo $image?>">
+<img class="img-responsive avatech" alt="avatechng" src="<?php echo $image?>" width="360px" height="480px">
 <div class="edit-pic">
 <a href="https://web.facebook.com/avatechng" target="_blank" class="fa fa-facebook"></a>
 <a href="https://www.instagram.com/mravatech/" target="_blank" class="fa fa-instagram"></a>
