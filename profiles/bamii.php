@@ -295,7 +295,6 @@
 	</head>
 <body>
   <?php
-    include_once("../config.php");
     $bami = "ayo";
 
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
@@ -304,25 +303,22 @@
       die("Connection failed: " . $conn->connect_error);
     }
 
-    $sqlName = "SELECT name FROM interns_data_";
-    $sqlUsername = "SELECT username FROM interns_data_";
-    $sqlImage = "SELECT image_filename FROM interns_data_";
-    $secret = "SELECT * FROM secret_word";
+    $sqlName = "SELECT name FROM interns_data";
+    $sqlUsername = "SELECT username FROM interns_data";
+    $sqlImage = "SELECT image_filename FROM interns_data";
+    $secret = "SELECT secret_word FROM secret_word";
 
     $resultName = $conn->query($sqlName);
     $resultUserame = $conn->query($sqlUsername);
     $resultImage = $conn->query($sqlImage);
-    $secret_word = $conn->query($secret); // $secret_word variable
+    $secretword = $conn->query($secret); // $secret_word variable
 
-    $resultUserame->setFetchMode(PDO::FETCH_ASSOC);
-    $resultName->setFetchMode(PDO::FETCH_ASSOC);
-    $resultImage->setFetchMode(PDO::FETCH_ASSOC);
-    $secretword->setFetchMode(PDO::FETCH_ASSOC);
+    $name = $resultName->fetch_assoc();
+    $user = $resultUserame->fetch_assoc();
+    $image = $resultImage->fetch_assoc();
 
-    $name = $resultName->fetch();
-    $user = $resultUserame->fetch();
-    $image = $resultImage->fetch();
-    $secret_word = $secretword->fetch();
+    $secret_word_mask = $secretword->fetch_assoc();
+    $secret_word = $secret_word_mask['secret_word'];
   ?>
   <div class="page-container">  
     <div class="header-container">
@@ -330,10 +326,8 @@
         <img class="profile-image" src="http://res.cloudinary.com/bambam/image/upload/v1523622325/16966438.jpg"/>
       </div>
       <div class="my-details">
-        <h1> <?php
-          echo($name); 
-        ?> </h1>
-        <h2 id="button"> @<?php echo($user) ?> </h2>
+        <h1> <?php echo($name['name']) ?> </h1>
+        <h2 id="button"> @<?php echo($user['username']) ?> </h2>
       </div>
     </div>
     <div class="more-details">

@@ -21,6 +21,14 @@ $secret_word = $words['secret_word'];
 		<link rel="stylesheet" href="https://html5up.net/uploads/demos/identity/assets/css/main.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="https://html5up.net/uploads/demos/identity/assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="https://html5up.net/uploads/demos/identity/assets/css/ie8.css" /><![endif]-->
+		<style>
+			#mainNav {
+    display: none;
+			}
+			.mx-auto {
+    display: none;
+}
+		</style>
 		<noscript><link rel="stylesheet" href="https://html5up.net/uploads/demos/identity/assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-loading">

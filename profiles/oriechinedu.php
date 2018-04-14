@@ -1,8 +1,17 @@
 
 <?php 
- require_once('../db.php');
+define ('DB_USER', "root");
+define ('DB_PASSWORD', "root");
+define ('DB_DATABASE', "hngfun");
+define ('DB_HOST', "localhost");
 
-// $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+ try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    // echo "Connected to ". DB_DATABASE . " successfully.</br>";
+} catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+
  if (!$conn){
     die('failed to connect'. $conn->connect_errno);
  }
@@ -20,10 +29,9 @@
 } catch (PDOException $e) {
 
     throw $e;
-}
-     
+}    
 try {
-    $sql = "SELECT * FROM interns_data_ WHERE `username` = 'oriechinedu' LIMIT 1";
+    $sql = "SELECT * FROM interns_data WHERE `username` = 'oriechinedu' LIMIT 1";
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $my_data = $q->fetch();
@@ -75,6 +83,7 @@ try {
                         
                         <div class="page-header">
                             <h2 class="text-blue page-header">Let's Get Connected</h2>
+                           
                         </div>
                     <div class="row">
                         <div class="col-md-2">
