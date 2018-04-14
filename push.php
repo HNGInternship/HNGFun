@@ -13,7 +13,7 @@
 		//'whoami',
 		//'git reset --hard HEAD',
 		'cd /var/www/hng.fun/html/HNGFun',
-		'git fetch 2>&1',
+		'git pull 2>&1',
 		'git status',
 		//'git submodule sync',
 		//'git submodule update',
