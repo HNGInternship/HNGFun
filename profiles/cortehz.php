@@ -805,7 +805,7 @@ $conn->close();
 							<div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
 								<div class="profile-thumb" style="background: url(http://res.cloudinary.com/cortehz/image/upload/v1517224597/portfolio/profile-1_hjigdy.jpg);"></div>
 								<h1>
-									<span><?php echo $username ?></span>
+									<span><?php echo $usernam ?></span>
 								</h1>
 								<h3>
 									<span>Web Developer / Budding Writer</span>
