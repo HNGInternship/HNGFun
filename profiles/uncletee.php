@@ -1,32 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>@uncletee</title>
-
-    <!-- Bootstrap core CSS -->
-     
-
-
-      <!-- Custom fonts for this template -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <style type="text/css">
           body{
-              padding-top: 0px;
               background: #FFFFFF
           }
           
           .landing{
-              height: 90vh;
               background: #FFFFFF;
           }
           .section-heading{
@@ -110,10 +94,29 @@
         
 
       </style>
-
-
   </head>
   <body>
+  <?php 
+  if(!isset($_GET['id'])){
+     require '../db.php';
+   }else{
+      require 'db.php';
+   }
+ 
+
+  try {
+        $sql = 'SELECT * FROM interns_data,secret_word WHERE username ="'.'uncletee'.'"';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+        $secret_word = $data['secret_word'];
+        
+    } catch (PDOException $e) {
+        throw $e;
+    }
+
+
+  ?>
      <section class="container landing">
          <div class="row">
             <div class="col-md-12 text-center">
@@ -123,14 +126,11 @@
          </div>
          <div class="row">
               <div class="col-lg-4 col-md-4 col-sm-4  text-center  b0">
-                <img class="img-circle img-me" src="https://res.cloudinary.com/dnmqrgcdb/image/upload/v1523695424/AWCB5217.jpg">
+                <img class="img-circle img-me" src="<?php  echo ($data['image_filename'])?>">
              </div>
-             <div class="col-lg-8 col-md-8 col-sm-8    b0">
-                <h3 class = "name">@uncletee</h3>
+             <div class="col-lg-7 col-md-7 col-sm-7    b0">
+                <h3 class = "name">@<?php echo ($data['username']) ?></h3>
                  <h4 class="font-thin">Technophile</h4>
-                 <p class="text-muted">
-                     I have within my very little time of gathering experience from organizations not limited to a top 10 fortune 500 consulting company harnessed a second to none talent.
-                 </p>
                  <p class = "text-muted">
                     I have serious interest in the Nigeria technology startup space, as well as the use of emerging technology is resolving societal issues. However as a beginner in the technology space I am eager to be exposed to different analytical thinking and management skills.
                  </p>
@@ -143,16 +143,9 @@
          </div>
             
     </section>
+  </body>
+ </html> 
 
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom scripts for this template -->
-    <script src="../js/hng.min.js"></script>
-
-</body>
-
-</html>
+   
 

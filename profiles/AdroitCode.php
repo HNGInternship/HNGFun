@@ -1,3 +1,21 @@
+
+<?php
+    require "../config.php";
+    $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+
+    if(!$con){
+        die("DB connection failed");
+    }
+
+    $query = "select * from secret_word limit 1";
+    $result = $con->query($query);
+
+    if($result->num_rows > 0){
+        while($row = $result->fetch_assoc()){
+            $secret_word = $row['secret_word'];
+        }
+    }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20009,7 +20027,7 @@
     </style>
 </head>
 <body class="font-custo text-grey-darker">
-    <div class="lg:fixed xl:fixed flex sm:block md:block lg:inline-flex xl:flex">
+    <div class="lg:fixed bg-white xl:fixed flex sm:block md:block lg:inline-flex xl:flex">
         <!--- Left Main Content To Be Designed Here -->
         <div class="flex-1 bg-image h-screen lg:border-r xl:border-r">
             <div class="w-full h-auto">
@@ -20026,10 +20044,7 @@
                                             <a class="no-underline text-grey-dark block items-center pt-2 pb-4 border-b border-teal" href="#about">About</a>
                                         </li>
                                         <li class="mr-6">
-                                            <a class="no-underline opacity-50 md:text-grey-darker md:opacity-100 block items-center pt-2 pb-4 border-b border-transparent hover:opacity-100 md:hover:border-teal" href="#portfolio">Portfolio</a>
-                                        </li>
-                                        <li class="mr-6">
-                                            <a class="no-underline opacity-50 md:text-grey-dark md:opacity-100 block items-center pt-2 pb-4 border-b border-transparent hover:opacity-100 md:hover:border-teal" href="#contact">Contact</a>
+                                            <a class="no-underline opacity-50 md:text-grey-darker md:opacity-100 block items-center pt-2 pb-4 border-b border-transparent hover:opacity-100 md:hover:border-teal" href="#portfolio">Chat</a>
                                         </li>
                                     </ul>
                             </div>
@@ -20044,7 +20059,7 @@
                 <div class="w-3/4 h-auto p-8 text-center ml-auto mr-auto mt-4 mb-auto">
                     <span>
                         <span class="text-lg">
-                            Adroit, passionately curious Software Developer based in Lagos, Nigeria. I am currently a product of the Andela Learning Community, I love learning and sharing knowledge about web development/design, am currently working on a personal project, "<em class="text-teal">AdroitCode</em>" an online code editor.
+                            Adroit, passionately curious Software Developer based in Lagos, Nigeria. I love learning and sharing knowledge about web development/design, am currently working on been a world class software developer, "<em class="text-teal">AdroitCode</em>".
                         </span>
                     </span>
                 </div>
@@ -20104,10 +20119,7 @@
                                 <a class="no-underline text-grey-dark flex items-center pb-4 border-b border-teal" href="#about">About</a>
                             </li>
                             <li class="mr-6">
-                                <a class="no-underline text-white opacity-50 md:text-grey-darker md:opacity-100 flex items-center pb-4 border-b border-transparent hover:opacity-100 md:hover:border-teal" href="#portfolio">Portfolio</a>
-                            </li>
-                            <li class="mr-6">
-                                <a class="no-underline text-white opacity-50 md:text-grey-dark md:opacity-100 flex items-center pb-4 border-b border-transparent hover:opacity-100 md:hover:border-teal" href="#contact">Contact</a>
+                                <a class="no-underline text-white opacity-50 md:text-grey-darker md:opacity-100 flex items-center pb-4 border-b border-transparent hover:opacity-100 md:hover:border-teal" href="#portfolio">Chat</a>
                             </li>
                         </ul>
                     </div>
@@ -20127,78 +20139,18 @@
                         <p class="mt-2">PHP (Beginner)</p>
                         <h2 class="text-base font-semibold leading-tight mt-8 mb-8 pb-2">Frameworks & Libraries</h2>
                         <p class="mt-2">Tailwind CSS (Beginner)</p>
-                        <p class="mt-2">Bootstrap</p>
+                        <p class="mt-2">Bootstrap (Beginner)</p>
                         <p class="mt-2">React Js (Beginner)</p>
                         <p class="mt-2">Vue Js (Beginner)</p>
                     </div>
                 </div>
                 <div id="portfolio" class="w-full h-auto border-2 bg-teal-lightest border-grey-light shadow rounded-lg p-4 mb-8">
-                    <h2 class="text-base font-semibold leading-tight mb-8 pb-2 border-b">Portfolio</h2>
-                    <div class="w-full h-auto p-8">
-                            I design and build web applications to help solve raising challenges, and meet human's need.
-                            <div class="w-full h-auto mt-8">
-                                <h3 class="text-base font-semibold leading-tight mb-8 pb-2 border-b">
-                                    My Web Projects
-                                </h3>
-                                <div class="flex flex-wrap -mx-2">
-                                    <div class="w-full h-auto mb-4 bg-grey rounded-lg border-2 border-grey-light">
-                                        <img class="w-full rounded-lg" src="http://res.cloudinary.com/dc9kfp5gt/image/upload/q_100/v1519847220/screencapture-localhost-AdroitCodeEditor-1519847116464_w1fkwy.png" alt="my web jobs">
-                                    </div>
-                                </div>
-                                <h3 class="text-base font-semibold leading-tight mb-8 mt-4 pb-2 border-b">
-                                    My Daily Code challenges (100DaysOfCode, FreeCodeCamp), and Pens 
-                                </h3>
-                                <div class="flex -mx-2">
-                                    <div class="w-1/2 px-2 h-auto rounded-lg text-center">
-                                        <a href="https://codepen.io/Adroit11/full/LeZWBJ/">
-                                            <img class="w-full rounded-lg" src="http://res.cloudinary.com/dc9kfp5gt/image/upload/q_100/v1519841760/IMG_20171221_095641_175_yjf3hk.jpg" alt="myjobs">
-                                            <span class="p-2">Illustration of Lagos Commercial Bus (Danfo) Pure Html & Css Design.</span>
-                                        </a>
-                                    </div>
-                                    <div class="w-1/2 px-2 h-auto rounded-lg text-center">
-                                        <a href="https://codepen.io/Adroit11/full/GydRpR/">
-                                            <img class="w-full rounded-lg" src="http://res.cloudinary.com/dc9kfp5gt/image/upload/c_scale,h_997,q_100,w_2282/v1519844075/IMG_20180228_195245_856_q2rmgp.jpg" alt="myjobs">
-                                            <span class="p-2">Illustration of A MacBook Design With Html & Css Only.</span>
-                                        </a>
-                                        <a href="https://codepen.io/Adroit11/full/EvwGYN/">
-                                            <img class="w-full rounded-lg" src="http://res.cloudinary.com/dc9kfp5gt/image/upload/q_100/v1519844075/IMG_20180228_195206_491_pbfxhk.jpg">
-                                            <span>My FreeCodeCamp Pomodo Clock Project</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="flex -mx-2 mt-4">
-                                    <div class="w-1/2 px-2 h-auto rounded-lg text-center">
-                                        <a href="https://codepen.io/Adroit11/full/WdwYLq/">
-                                            <img class="w-full rounded-lg" src="http://res.cloudinary.com/dc9kfp5gt/image/upload/q_100/v1519844075/IMG_20180228_195119_365_h0qqlb.jpg" alt="myjobs">
-                                            <span>Illustration of a Koala. Pure Html & Css</span>
-                                        </a>
-                                        <a href="https://codepen.io/Adroit11/full/JMapgb/">
-                                            <img class="w-full rounded-lg" src="http://res.cloudinary.com/dc9kfp5gt/image/upload/q_100/v1519844074/IMG_20180228_195319_319_oav1q3.jpg" alt="myjobs">
-                                        <span>Pure Html & Css Illustration of Smiley Emoji</span>
-                                        </a>
-                                    </div>
-                                    <div class="w-1/2 px-2 h-auto rounded-lg text-center">
-                                        <a href="https://codepen.io/Adroit11/full/dJMQmV/">
-                                            <img class="w-full rounded-lg" src="http://res.cloudinary.com/dc9kfp5gt/image/upload/q_100/v1519841760/IMG_20171228_080715_466_iiosgv.jpg" alt="myjobs">
-                                            <span>Pure Html & Css Code Illustration of Linux Logo Panda. Inspiration derived from the sawg from #ALCOyo meetup(LPHub Swag)</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="flex -mx-2 mt-4">
-                                    <div class="w-1/2 px-2 h-auto rounded-lg text-center">
-                                        <a href="https://codepen.io/Adroit11/full/YeVwwE/">
-                                            <img class="w-full rounded-lg" src="http://res.cloudinary.com/dc9kfp5gt/image/upload/q_100/v1519844074/IMG_20180228_195029_290_zznqvs.jpg" alt="myjobs">
-                                            <span>My Daily CSS Image Challenge. An illustration of President Muhammadu Buhari getting set for election 2019</span>
-                                        </a>
-                                    </div>
-                                    <div class="w-1/2 px-2 h-auto rounded-lg text-center">
-                                        <img class="w-full rounded-lg" src="http://res.cloudinary.com/dc9kfp5gt/image/upload/q_100/v1519841760/IMG_20171025_085240_684_uqhbxq.jpg" alt="myjobs">
-                                    </div>
-                                </div>
-                            </div>
+                    <h2 class="text-base font-semibold leading-tight mb-8 pb-2 border-b">Chat</h2>
+                    <div class="w-full h-auto p-8"">
+                      
                     </div>
                 </div>
-                <div class="w-full h-auto border-2 bg-yellow-lightest border-grey-light shadow rounded-lg p-4 mb-8">
+                <!--<div class="w-full h-auto border-2 bg-yellow-lightest border-grey-light shadow rounded-lg p-4 mb-8">
                     <h2 class="text-base font-semibold leading-tight mb-8 pb-2 border-b">Awards</h2>
                     <div class="w-full h-auto p-8">
                         I'm focuced and adroitly working towards becoming a world class full-stack web developer. In my journey so far I have been encouraged with some scholarship awards and certificates.
@@ -20265,7 +20217,7 @@
                             </form>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
