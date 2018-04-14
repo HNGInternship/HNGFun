@@ -14,11 +14,11 @@ $opt = [
 $pdo = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
 
 $stmt1 = $pdo->query(
-    "SELECT     interns_data_.name, 
-                interns_data_.username, 
-                interns_data_.image_filename
-    FROM        interns_data_
-    WHERE       interns_data_.username = 'Christoph' LIMIT 1");
+    "SELECT     interns_data.name, 
+                interns_data.username, 
+                interns_data.image_filename
+    FROM        interns_data
+    WHERE       interns_data.username = 'Christoph' LIMIT 1");
 
 $stmt2 = $pdo->query(
     "SELECT     secret_word.secret_word 
