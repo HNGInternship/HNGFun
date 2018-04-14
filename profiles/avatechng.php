@@ -1,3 +1,31 @@
+<?php
+
+require_once '../db.php';
+
+try {
+    $sql = "SELECT * FROM interns_data_ WHERE username ='AvatechNG'";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+$name = $data['name'];
+$username = $data['username'];
+$image = $data['image_filename'];
+
+try {
+    $sql2 = 'SELECT * FROM secret_word';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $data2 = $q2->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+$secret_word = $data2['secret_word'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +37,7 @@
     <style type="text/css">
         @import url(https://fonts.googleapis.com/css?family=Oswald:400,300);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
-* {
+ {
     margin: 0;
 	padding: 0;
 	-webkit-box-sizing: border-box;
@@ -418,7 +446,7 @@ h1 a {
 	<ul id="accordion" class="accordion">
     <li>
 <div class="col col_4 avatechng-pic">
-<img class="img-responsive avatech" alt="avatechng" src="http://res.cloudinary.com/avatechng/image/upload/v1523682918/IMG_20180125_185955.jpg">
+<img class="img-responsive avatech" alt="avatechng" src="<?php echo $image?>" width="360px" height="480px">
 <div class="edit-pic">
 <a href="https://web.facebook.com/avatechng" target="_blank" class="fa fa-facebook"></a>
 <a href="https://www.instagram.com/mravatech/" target="_blank" class="fa fa-instagram"></a>
@@ -430,7 +458,7 @@ h1 a {
 
 </div>
 <div class="username">
-    <h2>Shafi Abdulrahman  <small><i class="fa fa-map-marker"></i> Nigeria</small></h2>
+    <h2><?php echo $name?>  <small><i class="fa fa-map-marker"></i> Nigeria</small></h2>
     <p><i class="fa fa-briefcase"></i> Web And Mobile Development.</p>
     
     <a href="https://web.facebook.com/avatechng" target="_blank" class="btn-o"> <i class="fa fa-facebook"></i> Add Friend </a>
