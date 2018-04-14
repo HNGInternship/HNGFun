@@ -297,12 +297,6 @@
   <?php
     $bami = "ayo";
 
-    #$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-	/*
-    if ($conn -> connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-    } */
-
     $sqlName = "SELECT name FROM interns_data";
     $sqlUsername = "SELECT username FROM interns_data";
     $sqlImage = "SELECT image_filename FROM interns_data";
@@ -331,13 +325,6 @@
       </div>
     </div>
     <div class="more-details">
-      <!--
-      <div id="about" class="about-me" onClick="open1()"> About Me </div>
-      <div id="first" class="first-paragraph transform">
-        <p> <strong>I</strong> am an undergraduate Computer Science w/ Economics student of Obafemi Awolowo University. </p>
-        <p> <strong>I</strong> am currently a freelancer and I build responsive websites, mobile apps(using React Native, and Java). </p>
-      </div>
-      -->
       
       <div id="stack" class="my-stack" onClick="open2()"> My Stack </div>
       <div id="second" class="second-paragraph">
@@ -414,3 +401,4 @@
     </script>
 </body>
 </html>
+
