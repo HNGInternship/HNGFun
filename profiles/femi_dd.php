@@ -9,7 +9,7 @@ div {
 <center style="padding-top:50px">
    <div>
       <div>
-         <div><img src="images/femi_dd.png" class="rounded-circle" width="35%"></div>
+         <div><img src="http://res.cloudinary.com/femidd/image/upload/v1523647188/femi_dd.png" class="rounded-circle" width="35%"></div>
       </div>
       <div style="color:black; font-size:40px"><b>Kole-Ibrahim AbdulQudus</b></div>
       <div id="about">Backend Developer(PHP - CodeIgniter), JAVA, MySQL.<br /> Motivational Writer and Farmer</div>
@@ -19,11 +19,9 @@ div {
 window.addEventListener("load", doSocial, false);
 function doSocial() {
    let github = "https://github.com/Femi-DD/";
-   let linkedin = "http://linkedin.com/in/koleibrahimabdulqudus/";
    let twitter = "https://twitter.com/Femi_DD/";
    let facebook = "http://facebook.com/KoleIbrahimAbdulQudus";
    document.getElementById("twitter").href = twitter;
-   document.getElementById("linkedin").href = linkedin;
    document.getElementById("github").href = github;
    document.getElementById("facebook").href = facebook;
 }
