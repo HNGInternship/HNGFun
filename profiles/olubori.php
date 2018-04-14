@@ -2,6 +2,19 @@
 <html lang="en">
 <head>
 	<title>Profile - John Olubori David</title>
+	<?php 
+		include('../config.php');
+
+		$host = DB_HOST;
+		$db = DB_DATABASE;
+		$db = new PDO("mysql:host={$host};dbname={$db}", DB_USER, "");
+		/*$result = $db->query("Select * from secret_word LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+		$secret_word = $result->secret_word;*/
+
+		$result2 = $db->query("Select * from interns_data where username = 'olubori'");
+		$user = $result2->fetch(PDO::FETCH_OBJ);
+	?>
 	<style type="text/css">
 		html, body{
 			height: 100%;
@@ -67,23 +80,12 @@
 <body>
 <section id="app">
 	<header class="bg-grey flex">
-		<h3>WELCOME TO HNG INTERNSHIP 4.0</h3>
+		<h3><?php echo $user->name ?></h3>
 	</header>
 	<main class="flex">
-		<?php 
-			$date = time();
-		?>
 	  <h4><?php echo date('l, F d Y', $date); ?></h4>
 	  <div class="flex time-box">
-	  	<div class="time-element">
-	  	  <p><?php echo date('H', $date); ?></p>
-	  	</div>
-	  	<div>
-	  	  <p>:</p>
-	  	</div>
-	  	<div class="time-element">
-	  	  <p><?php echo date('i', $date); ?></p>
-	  	</div>
+	  	<img src="<?php echo $user->image_filename ?>" />
 	  </div>
 		
 	</main>
