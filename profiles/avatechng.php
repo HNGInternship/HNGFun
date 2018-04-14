@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(-1);
 require_once '../db.php';
 
 try {
