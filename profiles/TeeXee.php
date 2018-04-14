@@ -1,10 +1,7 @@
 <?php 
   try {
-<<<<<<< HEAD
       $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'TeeXee\'';
-=======
-      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE intern_id = \'YemKay\'';
->>>>>>> e01bcb3023edf64b4917c76b724235173ed667ad
+
       $q = $conn->query($sql);
       $q->setFetchMode(PDO::FETCH_ASSOC);
       $data = $q->fetch();
@@ -13,7 +10,6 @@
       throw $e;
   }
 ?>
-<<<<<<< HEAD
 <html>
 
 <head>
@@ -8150,9 +8146,6 @@
 
 </div>
 	
-   
-	
->>>>>>> e01bcb3023edf64b4917c76b724235173ed667ad
 </body>
 
 </html>
