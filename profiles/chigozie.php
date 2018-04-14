@@ -22,7 +22,7 @@
 		$username = "chigozie";
 		$image_filename = null;
 
-		$stmt = $conn->prepare("select * from interns_data_ where username = :username");
+		$stmt = $conn->prepare("select * from interns_data where username = :username");
 		$stmt->bindParam(':username', $username);
 		$stmt->execute();
 
