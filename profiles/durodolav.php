@@ -34,8 +34,7 @@
         $result2 = mysqli_query($db, $sql2);
         if (mysqli_num_rows($result2) > 0) {
         
-        while($row = mysqli_fetch_assoc($result2)) {
-        $secret_word = $row["secret_word"];
+        
         global $secret_word;
         $sql = "SELECT secret_word from secret_word";
         foreach ($db->query($sql) as $row) {
@@ -72,8 +71,6 @@
 <?php
     }
 ?>
-<?php
-    }
-?>
+
   </body>
 </html>
