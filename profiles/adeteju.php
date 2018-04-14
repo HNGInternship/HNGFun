@@ -2,6 +2,7 @@
 <head>
 <title></title>
 <style>
+body {background-color: 87ceeb;}
 h2 {
     border-style: solid;
     border-color: coral;}
@@ -11,7 +12,8 @@ h2 {
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
-<body style ="background-color: 87ceeb;}" >
+<body>
+<img src= "http://res.cloudinary.com/diwu3x3tr/image/upload/v1523637541/rsz_img_20170213_081525_594.jpg" alt="Adeteju" align="center" width="200" height="200" ></center>
 <div class="jumbotron jumbotron-fluid" style= "jumbotron{ color: red;}">
   <div class="container">
     <h1 class="display-4">Hi Guys!</h1>
