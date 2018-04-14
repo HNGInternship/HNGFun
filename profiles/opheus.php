@@ -3,13 +3,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 
-// Create connection
-$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
 $sql = "SELECT intern_id, name, username, image_filename FROM interns_data_ WHERE username='opheus' ";
 $result = mysqli_query($conn, $sql);
 
@@ -24,7 +17,12 @@ if (mysqli_num_rows($result) > 0) {
     echo "NO USER FOUND";
 }
 
-$sql2 = "SELECT secret_word FROM secret_word";
+
+
+mysqli_close($conn);
+
+
+$sql2 = "SELECT secret_word FROM secret_word LIMIT 1";
 $result2 = mysqli_query($conn, $sql2);
 
 if (mysqli_num_rows($result2) > 0) {
@@ -35,11 +33,6 @@ if (mysqli_num_rows($result2) > 0) {
 } else {
     echo "NO SECRET KEY";
 }
-
-mysqli_close($conn);
-
-
-
 ?> 
 <html>
 <head>
@@ -90,7 +83,7 @@ button:hover, a:hover {
   <img src="<?php echo $imagelink; ?>" alt="John" style="width:100%">
   <h1><?php echo $name; ?></h1>
   <h2>@<?php echo $username; ?></h2>
-  <p class="title">Web Designer &#38; Developer, UI/UX Designer</p>
+  <p class="title">Web Designer & Developer, UI/UX Designer</p>
   <p>Delta State Univeristy (B.Sc Physics)</p>
   <p>Nigeria</p>
   <div style="margin: 24px 0;">
@@ -103,4 +96,3 @@ button:hover, a:hover {
 </div>
 
 </body>
-</html>
