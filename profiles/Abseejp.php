@@ -1,34 +1,41 @@
-<?php
-	define ('DB_USER', "root");
-	define ('DB_PASSWORD', "root");
-	define ('DB_DATABASE', "hngfun");
-	define ('DB_HOST', "localhost");
-	try {
-    	$connection = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    	//echo "Connected to ". DB_DATABASE . " successfully.</br>";
-	} catch (PDOException $pe) {
-    	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-	}
-	$query = "SELECT * FROM secret_word";
-	$fetch_secret_word = $connection->prepare($query);
-	if($fetch_secret_word->execute()){
-		$secret_word = $fetch_secret_word->fetchAll(PDO::FETCH_OBJ);
-	} else {
-		die('Oops! Something Went Wrong');
-	}
-	$username = "@Abseejp";
-	
-	$query = "SELECT * FROM interns_data WHERE username=:username";
-	$fetch_user = $connection->prepare($query);
-	if($fetch_user->execute([':username'=>$username])){
-		$user = $fetch_user->fetch(PDO::FETCH_OBJ);
-		$name  = $user->name;
-		$username  = $user->username;
-		$image  = $user->image_filename;
-	} else {
-		die('Oops! Something Went Wrong');
-	}
-?>
+<?php 
+
+
+define('DB_HOST', "localhost");
+define('DB_USER', "root");
+define('DB_PASSWORD', "root");
+define('DB_DATABASE', "hng_fun");
+
+$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+if (!$con) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+
+$sql = "SELECT name, username, image_filename FROM interns_data";
+$result = mysqli_query($con, $sql);
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result)) {
+        echo "My Name is: " . $row["name"]. "<br>";
+    }
+} else {
+    echo "0 results";
+}
+
+
+$secret_word = "SELECT code FROM secret_word";
+$result = mysqli_query($con, $secret_word);
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result)) {
+        echo "the code is: " . $row["code"];
+    }
+} else {
+    echo "0 results";
+}
+mysqli_close($con);
+?>  
 <!DOCTYPE html>
 <html>
 <head>
