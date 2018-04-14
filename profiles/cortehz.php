@@ -764,33 +764,21 @@
     $secret_word = $data['secret_word'];
     ?>
 
-<?php
-
-$servername = "127.0.0.1";
-$username = "root";
-$password = "root";
-$dbname = "hngfun";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
-
-$sql = "SELECT * FROM interns_data_";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $username = $row["username"];
+	 <?php
+    try {
+        $sqli = 'SELECT * FROM interns_data_';
+        $quin = $conn->query($sqli);
+        $quin->setFetchMode(PDO::FETCH_ASSOC);
+        $datas = $quin->fetch();
+    } catch (PDOException $error) {
+        throw $error;
     }
-} else {
-    echo "0 results";
-}
-$conn->close();
-?>
+	$username = $datas['username'];
+	$name = $datas['name'];
+	
+    ?>
+
+
 
 
 
@@ -805,7 +793,7 @@ $conn->close();
 							<div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
 								<div class="profile-thumb" style="background: url(http://res.cloudinary.com/cortehz/image/upload/v1517224597/portfolio/profile-1_hjigdy.jpg);"></div>
 								<h1>
-									<span><?php echo $usernam ?></span>
+									<span><?php echo $username ?></span>
 								</h1>
 								<h3>
 									<span>Web Developer / Budding Writer</span>
@@ -841,7 +829,7 @@ $conn->close();
 		
 					<div class="col-md-12">
 						<h2 class="text-center">Hello There!</h2>
-						<p>I am a Web Developer in constant awe of the web. I want to contribute to build the future of the web. Making the web
+						<p>My name is <?php echo $name ?>. I am a Web Developer in constant awe of the web. I want to contribute to build the future of the web. Making the web
 							accessible to everybody.
 						</p>
 						<p>From the visually impaired to those with the slowest internet connection. Hit me up below.</p>
