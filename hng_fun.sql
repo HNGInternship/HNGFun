@@ -1,5 +1,4 @@
 -- phpMyAdmin SQL Dump
-<<<<<<< HEAD
 -- version 4.2.11
 -- http://www.phpmyadmin.net
 --
@@ -20,19 +19,16 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
-START TRANSACTION;
->>>>>>> 3c1880cc4662f2e86b0a735a6ff335d58ec5c74a
+
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-<<<<<<< HEAD
-/*!40101 SET NAMES utf8 */;
-=======
-/*!40101 SET NAMES utf8mb4 */;
->>>>>>> 3c1880cc4662f2e86b0a735a6ff335d58ec5c74a
+
+/*!40101 SET NAMES utf8
+/*!40101 SET NAMES u*/
 
 --
 -- Database: `hng_fun`
@@ -41,7 +37,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
-<<<<<<< HEAD
+
 -- Table structure for table `interns_data_`
 --
 
