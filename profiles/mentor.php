@@ -12,4 +12,4 @@
     $secret_word = $data['secret_word'];
 ?>
 
-<h1> Mentors's Pagoooo</h1>
+<h1> Mentors's PagooooXOOO</h1>
