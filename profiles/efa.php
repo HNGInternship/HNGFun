@@ -12,13 +12,13 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 
 <style>
-body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
-.w3-row-padding img {margin-bottom: 12px}
+body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif;}
+.w3-row-padding img {margin-bottom: 12px;}
 .w3-sidebar {width: 120px;background: #222;}
 
-#main {margin-left: 120px}
+#main {margin-left: 120px;}
 
-@media only screen and (max-width: 600px) {#main {margin-left: 0}}
+@media only screen and (max-width: 600px) {#main {margin-left: 0;}}
 </style>
   
 </head>
@@ -40,7 +40,6 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
   </a>
 </nav>
 
-<!-- Navbar on small screens (Hidden on medium and large screens) -->
 <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
   <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
     <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
@@ -72,14 +71,19 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <div class="w3-white">
       <div class="w3-dark-grey" style="height:28px;width:85%"></div>
     </div>
-    <p class="w3-wide">JavaScript</p>
+    <p class="w3-wide">BootStrap</p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:92%"></div>
+    </div>
+    <p class="w3-wide">JQuery</p>
+    <div class="w3-white">
+      <div class="w3-dark-grey" style="height:28px;width:80%"></div>
+    </div>
+    <p class="w3-wide">Vanilla JavaScript</p>
     <div class="w3-white">
       <div class="w3-dark-grey" style="height:28px;width:50%"></div>
-    </div><br>     
+    </div><br>      
   
-  
-
-  <!-- Contact Section -->
   <div class="w3-padding-64 w3-content w3-text-grey" id="contact">
     <h2 class="w3-text-light-grey">Contact Me</h2>
     <hr style="width:200px" class="w3-opacity">
@@ -102,29 +106,20 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
         </button>
       </p>
     </form>
-  <!-- End Contact Section -->
-  </div>
   
-    <!-- Footer -->
+  </div>  
     
-       
    <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
     <!-- <i class="fa fa-facebook-official icon-square w3-hover-opacity"></i>
     <i class="fa fa-instagram icon-square w3-hover-opacity"></i>
     <i class="fa fa-twitter icon-square w3-hover-opacity"></i>
     <i class="fa fa-linkedin w3-hover-opacity"></i> -->
     <p class="w3-medium">Designed by <a href="#" target="_blank" class="w3-hover-text-green">Efa Eleng</a></p>
-  <!-- End footer -->
-  </footer>
   
+  </footer>  
 </div>
 
 </body>
 </html>
-<<<<<<< HEAD
 
 <?php include("footer.php"); ?>
-=======
-  
-<?php include("footer.php"); ?>
->>>>>>> 7be1cd2a3d25a54d869ed19e04234804a84c82e1
