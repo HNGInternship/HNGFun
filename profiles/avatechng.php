@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 error_reporting(-1);
 require_once '../db.php';
 
@@ -11,7 +10,7 @@ require_once '../db.php';
 
 try {
     $sql = "SELECT * FROM interns_data_ WHERE username ='AvatechNG'";
->>>>>>> your commit message
+
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $data = $q->fetch();
