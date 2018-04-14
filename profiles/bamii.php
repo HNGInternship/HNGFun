@@ -295,7 +295,6 @@
 	</head>
 <body>
   <?php
-    include_once("../config.php");
     $bami = "ayo";
 
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
