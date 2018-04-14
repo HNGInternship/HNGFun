@@ -101,7 +101,7 @@
     $secret_word = mysqli_fetch_assoc($result)['secret_word'];
     echo $secret_word;
 
-    $result = mysqli_query($conn, "select * from interns_data_ where username = 'mclint_'");
+    $result = mysqli_query($conn, "select * from interns_data where username = 'mclint_'");
     $me = mysqli_fetch_assoc($result);
   ?>
   <div id="main">
