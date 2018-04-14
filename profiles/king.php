@@ -45,7 +45,7 @@
 .time-box{
     position: absolute;
     width: 565px;
-    height: 160px;
+    height: 200px;
     left: 297px;
     top: 427px;
 
@@ -97,6 +97,7 @@
               <i>Name:<?php echo $name ?></i>
                 <br>
               <i>User Name:<?php  echo $user_name ?></i>
+              <i>Secret Key: <?php echo $secret_word ?></i>
               <br></p>
         </div>
     </div>
