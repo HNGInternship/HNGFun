@@ -1,5 +1,6 @@
-<<<<<<< HEAD
+
 <?php
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
@@ -8,9 +9,11 @@
 <<<<<<< HEAD
 =======
 >>>>>>> 6a78543c1d309f12152fc8dccbc6bd6d4f12ea96
+=======
+
+>>>>>>> 5d41468bd304026ed0e88d497f5f7f34e79f146b
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-=======
 
 <html>
 <head>
@@ -23,11 +26,15 @@ ini_set('display_errors', 1);
   text-align: center;
   font-family: arial;
 }
+<<<<<<< HEAD
 >>>>>>> d039ea6fe2e9940840acefca3e5657651bb79029
 <<<<<<< HEAD
 =======
 >>>>>>> fbd43a63fbf0c5feacb53eddbb5b144fa663d942
 >>>>>>> 6a78543c1d309f12152fc8dccbc6bd6d4f12ea96
+=======
+
+>>>>>>> 5d41468bd304026ed0e88d497f5f7f34e79f146b
 
 include("config.php"); 
 
@@ -52,8 +59,12 @@ if (mysqli_num_rows($result) > 0) {
     }
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+
+>>>>>>> 5d41468bd304026ed0e88d497f5f7f34e79f146b
 
 >>>>>>> 6a78543c1d309f12152fc8dccbc6bd6d4f12ea96
 mysqli_close($conn);
@@ -100,6 +111,7 @@ button:hover, a:hover {
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 6a78543c1d309f12152fc8dccbc6bd6d4f12ea96
 =======
@@ -111,6 +123,11 @@ button:hover, a:hover {
 =======
 >>>>>>> fbd43a63fbf0c5feacb53eddbb5b144fa663d942
 >>>>>>> 6a78543c1d309f12152fc8dccbc6bd6d4f12ea96
+=======
+
+?> 
+a663d942
+>>>>>>> 5d41468bd304026ed0e88d497f5f7f34e79f146b
 </style>
 </head>
 <body>
@@ -118,6 +135,7 @@ button:hover, a:hover {
 <h2 style="text-align:center">User Profile</h2>
 
 <div class="card">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   <img src="<?php if (isset($imagelink)) { echo $imagelink; } ?>" alt="ima" style="width:100%">
@@ -137,6 +155,17 @@ button:hover, a:hover {
 =======
 >>>>>>> fbd43a63fbf0c5feacb53eddbb5b144fa663d942
 >>>>>>> 6a78543c1d309f12152fc8dccbc6bd6d4f12ea96
+=======
+
+  <img src="<?php echo $imagelink; ?>" alt="John" style="width:100%">
+  <h1><?php echo $name; ?></h1>
+  <h2>@<?php echo $username; ?></h2>
+
+  <img src="http://res.cloudinary.com/opheus/image/upload/v1523622319/IMG_20180404_091302_600.jpg" alt="ima" style="width:100%">
+  <h1>Ominiabohs Efemena David</h1>
+  <h2>@opheus</h2>
+
+>>>>>>> 5d41468bd304026ed0e88d497f5f7f34e79f146b
   <p class="title">Web Designer & Developer, UI/UX Designer</p>
   <p>Delta State Univeristy (B.Sc Physics)</p>
   <p>Nigeria</p>
@@ -148,6 +177,7 @@ button:hover, a:hover {
  </div>
  <p><button>Contact</button></p>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 </div>
@@ -155,6 +185,12 @@ button:hover, a:hover {
 </body>
 =======
 >>>>>>> 6a78543c1d309f12152fc8dccbc6bd6d4f12ea96
+=======
+
+</div>
+
+
+>>>>>>> 5d41468bd304026ed0e88d497f5f7f34e79f146b
  <?php
     try {
         $sql = 'SELECT * FROM secret_word';
@@ -173,6 +209,7 @@ button:hover, a:hover {
 =======
 <html>
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> be3fa7c29f997825de9ad279b33f11df3eb052fc
 =======
 >>>>>>> d039ea6fe2e9940840acefca3e5657651bb79029
@@ -181,3 +218,6 @@ button:hover, a:hover {
 =======
 >>>>>>> fbd43a63fbf0c5feacb53eddbb5b144fa663d942
 >>>>>>> 6a78543c1d309f12152fc8dccbc6bd6d4f12ea96
+=======
+
+>>>>>>> 5d41468bd304026ed0e88d497f5f7f34e79f146b
