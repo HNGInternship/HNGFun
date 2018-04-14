@@ -56,13 +56,14 @@ $filename = $intern_detail['image_filename'];
         }
 
         .profile-details {
+            padding-right: 0;
             background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
         }
 
         .skills {
             height: auto;
-            padding: 40px 70px;
+            padding: 37px 70px;
             background: #FFFFFF;
         }
 
@@ -170,7 +171,7 @@ $filename = $intern_detail['image_filename'];
 
         @media screen and (max-width: 768px) {
             .profile-details {
-                padding-top: 115px;
+                padding-top: 40px;
             }
 
             .social-links {
@@ -178,11 +179,11 @@ $filename = $intern_detail['image_filename'];
             }
 
             .skills {
-                padding: 25px 30px;
+                padding: 10px 35px;
             }
 
             .hello-text {
-                font-size: 3.5em;
+                font-size: 3em;
             }
         }
 
