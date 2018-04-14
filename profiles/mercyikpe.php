@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,13 +17,6 @@
     		color: #536DFE;
 		}
 
-		.fa {
-			float: right;
-			font-size: 25px;
-			color: #ccc;
-			padding: 10px;
-		}
-			
 		#clock {
 			float: right;
 			font-size: 4em;
@@ -39,10 +33,10 @@
 
 	<header>
 			<div>
-				<a href="https://github.com/mercyikpe"><i class="fa fa-github"></i></i></a>
-				<a href="https://twitter.com/mercyikpee"><i class="fa fa-twitter"></i></i></a>
-				<a href="https://medium.com/@mercyikpe"><i class="fa fa-medium"></i></i></a>
-				<a href="https://web.facebook.com/mercy.ikpe.79"><i class="fa fa-facebook"></i></i></a>	
+				<a href="https://github.com/mercyikpe"><i class="fa fa-github" style="color:#ccc; font-size: 25px; padding:15px; float: right"></i></i></a>
+				<a href="https://twitter.com/mercyikpee"><i class="fa fa-twitter"style="color:#ccc; font-size: 25px; padding:15px; float: right"></i></i></a>
+				<a href="https://medium.com/@mercyikpe"><i class="fa fa-medium" style="color:#ccc; font-size: 25px; padding:15px; float: right"></i></i></a>
+				<a href="https://web.facebook.com/mercy.ikpe.79"><i class="fa fa-facebook" float style="color:#ccc; font-size: 25px; padding:15px; float: right"></i></i></a>	
 			</div>
 		
 	</header>
@@ -52,6 +46,19 @@
 			echo "The time is </br>" . date("h:i:sa");
 		?> 
 	</p>
+    
+	<?php include_once('profiles/' . $profile_name. '.php');
+	
+	try {
+        $secrete = 'SELECT * FROM secret_word';
+        $sql = $conn->query($secrete);
+        $sql->setFetchMode(PDO::FETCH_ASSOC);
+        $secret_word = $sql->fetch();
+   	} catch (PDOException $error) {
+
+        throw $error;
+	}?>
 
 </body>
+</html>
 
