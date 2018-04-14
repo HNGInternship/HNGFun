@@ -752,6 +752,36 @@
 
 <body>
 
+ <?php
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+    ?>
+
+	 <?php
+    try {
+        $sqli = 'SELECT * FROM interns_data';
+        $quin = $conn->query($sqli);
+        $quin->setFetchMode(PDO::FETCH_ASSOC);
+        $datas = $quin->fetch();
+    } catch (PDOException $error) {
+        throw $error;
+    }
+	$username = $datas['username'];
+	$name = $datas['name'];
+	
+    ?>
+
+
+
+
+
 	<div id="page">
 		<header id="fh5co-header" class="fh5co-cover js-fullheight" role="banner" style="background-image:url(http://res.cloudinary.com/cortehz/image/upload/v1517224595/portfolio/Snapchat_izgfgf.jpg);"
 		 data-stellar-background-ratio="0.5">
@@ -763,7 +793,7 @@
 							<div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
 								<div class="profile-thumb" style="background: url(http://res.cloudinary.com/cortehz/image/upload/v1517224597/portfolio/profile-1_hjigdy.jpg);"></div>
 								<h1>
-									<span>Samuel Omanchi</span>
+									<span><?php echo $username ?></span>
 								</h1>
 								<h3>
 									<span>Web Developer / Budding Writer</span>
@@ -799,7 +829,7 @@
 		
 					<div class="col-md-12">
 						<h2 class="text-center">Hello There!</h2>
-						<p>I am a Web Developer in constant awe of the web. I want to contribute to build the future of the web. Making the web
+						<p>My name is <?php echo $name ?>. I am a Web Developer in constant awe of the web. I want to contribute to build the future of the web. Making the web
 							accessible to everybody.
 						</p>
 						<p>From the visually impaired to those with the slowest internet connection. Hit me up below.</p>

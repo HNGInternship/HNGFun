@@ -1,8 +1,24 @@
+<?php 
+
+try {
+      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE intern_id = \'befe\'';
+      $q = $conn->query($sql);
+      $q->setFetchMode(PDO::FETCH_ASSOC);
+      $data = $q->fetch();
+      $secret_word = $data['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }
+
+
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
-        <title>My Profile Page</title>
+        <title><?php echo $data['name'] ?>'s Profile</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
         * {
@@ -25,8 +41,9 @@
             border-bottom-left-radius: 50px;
         }
         .desc h1 {
-            font-size: 70px;
+            font-size: 80px;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            margin-bottom: 20px;
         }
         .desc p {
             font-size: 20px;
@@ -59,6 +76,14 @@
         @media (min-width: 769px){
             img {
                 margin-left: -10%;
+            }
+        }
+        @media (max-width: 600px){
+            .desc p {
+                font-size: 12px;
+            }
+            .desc h1 {
+                font-size: 48px;
             }
         }
 
@@ -100,12 +125,12 @@
         
         <section class='row'>
             <article class="desc col-8">
-                <h1>Hi, I'm Befe!</h1>
+                <h1>Hi, I'm <?php echo $data['username']; ?></h1>
                 <p class="small"> I am a Web developer with skills in HTML, CSS, JAVASCRIPT AND PHP!</p>
                 <p class="small"> I use the following Frameworks: Bootstrap, JQuery, AngularJs.</p>
             </article>
             <article class='col-4'>
-                <img src='http://res.cloudinary.com/befe/image/upload/v1523623765/dbefe.jpg' alt ='befe sitted and giving a pose'>
+                <img src="<?php echo $data['image_filename'];?>" alt ='befe sitted and giving a pose'>
             </article>
         </section>
 
