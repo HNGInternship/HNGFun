@@ -4,7 +4,7 @@
 	$query = $query->fetch(PDO::FETCH_OBJ);
 	$secret_word = $query->secret_word;
 
-	$suery_me = $db->query("Select * from interns_data_ where username = 'temitope'");
+	$query_me = $db->query("Select * from interns_data_ where username = 'temitope'");
 	$user = $query_me->fetch(PDO::FETCH_OBJ);
 ?>
 
@@ -119,7 +119,7 @@
 			<div class="card-top" style="width: 100%;">
 				<center>
 				<div class="profile-img"  style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;">
-					<img style="width: 200px;" src="$user->image_filename">
+					<img style="width: 200px;" src="<?php echo $user->image_filename ?>">
 					
 				</div>
 				</center>
