@@ -17,7 +17,6 @@
       .pix{
         max-width: 300px;
       }
-
       .up{
         padding-top: 50px;
       }
@@ -25,18 +24,26 @@
   </head>
   <body>
      <?php
-       $db = new mysqli('localhost','root', 'ayokunumi', 'hng');
-      $check = $db->query("SELECT * FROM interns_data_")->fetch_assoc();   
-      $result = $db->query("SELECT * FROM interns_data_");
+      $db = new mysqli('localhost','root', 'ayokunumi', 'hng');
+      $check = $db->query("SELECT * FROM interns_data")->fetch_assoc();   
+      $result = $db->query("SELECT * FROM interns_data");
       $secret_word = $db->query("SELECT * FROM secret_word");
       ?>
+      <?php
+        $sql2 = "SELECT secret_word FROM secret_word";
+        $result2 = mysqli_query($db, $sql2);
+        if (mysqli_num_rows($result2) > 0) {
+        // output data of each row
+        while($row = mysqli_fetch_assoc($result2)) {
+        $secret_word = $row["secret_word"];
+        }
+      ?>
    <?php 
-    $secret_word="tosin";
+    
     foreach ($result as $result) {
 
-
   ?>
-
+  
     <h1 class="up">Hello,</h1>
     <div>
       <img class="pix" src="<?php echo $result['image_filename'];?>">

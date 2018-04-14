@@ -1,3 +1,25 @@
+<?php
+define('server','localhost');
+define('user','root');
+define('password','');
+$link=mysqli_connect(server,user,password);
+$database="hng_fun";
+mysqli_select_db($link,$database) or die ("connection error:".mysqli_error());
+$sql="SELECT     interns_data_.name, 
+                interns_data_.username, 
+                interns_data_.image_filename, 
+                secret_word.secret_word 
+    FROM        interns_data_, 
+                secret_word";
+    $result=mysqli_query($link,$sql);
+    while($row=mysqli_fetch_assoc($result)){
+            $name=$row['name'];
+            $username=$row['username'];
+            $image=$row['image_filename'];
+            $secret_word=$row['secret_word'];
+            }
+mysqli_close($link);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,18 +56,19 @@
 
     #hello {
       font-size: 200px;
-      color: var(--accent-color);
+      color:white;
       font-family: 'Alfa Slab One';
     }
 
     #about h4 {
       font-size: 40px;
       font-weight: bold;
+      color:white;
     }
 
     #about h5 {
       font-size: 14px;
-      color: var(--text-primary);
+      color: red;
     }
 
     #social {
@@ -69,14 +92,14 @@
     <div id="about">
       <div class="text-center">
         <h1 id="hello">Hello!</h1>
-        <h4>I am solanke Damilare Daniel</h4>
+        <h4 align="center">I am <?php echo $name;?></h4>
         <h5 align="center">A Front end Developer</h5>
         <div class="navbar">
           <div id="social">
             <ul class="nav nav-pills">
               <li style="display:inline">
                 <a href="https://res.cloudinary.com/damilare1957/image/upload/v1523622655/dan.jpg">
-                  <img  src="https://res.cloudinary.com/damilare1957/image/upload/v1523622655/dan.jpg" width="200" height="200">
+                  <img  src="<?php echo $image;?>" align="center" width="200" height="200">
                 </a>
               </li>
               
@@ -86,6 +109,11 @@
       </div>
     </div>
   </div>
+  
+ 
+
+   
+
 </body>
 
 </html>
