@@ -1,17 +1,19 @@
- <?php
- 
+
+
+<?php
 try {
-   $profile = 'SELECT * FROM interns_data_ WHERE username="nedy"';
+    $profile = 'SELECT * FROM interns_data WHERE username="Vincent"';
     $select = 'SELECT * FROM secret_word';
 
     $query = $conn->query($select);
-    $profile_query = $conn->query($profile);
+    $get_profile = $conn->query($profile);
 
     $query->setFetchMode(PDO::FETCH_ASSOC);
-    $profile_query->setFetchMode(PDO::FETCH_ASSOC);
+    $get_profile->setFetchMode(PDO::FETCH_ASSOC);
 
     $get = $query->fetch();
-    $user = $profile_query->fetch();
+    $user = $get_profile->fetch();
+    
 } catch (PDOException $e) {
     throw $e;
 }
@@ -23,7 +25,7 @@ $secret_word = $get['secret_word'];
 
 <head>
   <meta charset="UTF-8">
-  <title>Profie | Nedy</title>
+  <title>Profile/Vincent</title>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -36,23 +38,27 @@ $secret_word = $get['secret_word'];
       box-shadow: 0px 0px 10px #b4b4b4;
       width: 50%;
     }
-
+    .text{
+        margin-top: 15%;
+    }
   </style>
 </head>
 
 <body class="bg-light">
 
   <div class="main d-flex justify-content-center align-content-center ">
-    <div class="card mt-5 py-5">
-      <div class="my-3">
-        <p class="text-center text-primary h3">Hi, there!</p>
-        <p class="text-center text-danger h3">My name is <b>Nedy</b></p>
-        <p class="text-center text-secondary">below is my picture</p>
-        <div class="d-flex justify-content-center">
-          <img src="https://res.cloudinary.com/nedy123/image/upload/v1515053242/my_d.p_paeru8.jpg" class="img-thumbnail img-fluid rounded-circle w-25 h-25" alt="avatar">
+  <div class="d-flex justify-content-center">
+          <img src="http://res.cloudinary.com/dzrvqcbdp/image/upload/v1523712826/vincent.jpg" class="img-thumbnail img-fluid rounded-circle w-40 h-40"  alt="avatar">
         </div>
-        <p class="text-center text-primary h4 mt-3">And I am a <b class="h2">Developer</b></p>
-
+    <div class=" text">
+      <div class="my-5">
+        <p class=" h5">Hello, there!</p>
+        <p class=" h3">My name is <b>Vincent Williams</b></p>                     
+        <p class=" h5 mt-3">And I am a <b class="h5">Developer</b></p>
+        <p class="h5">Love coding C#,java and bootstrap</P>
+        <p class="h5">good in VisualStudio and AndroidStudio IDE</p>
+        <p class="h5">Am all  out to learn new things always</p>
+        <p></P>
       </div>
     </div>
   </div>
