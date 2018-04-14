@@ -122,11 +122,6 @@ require_once '../db.php';
 		<p><a href="www.jeremiahrighteous.com" class="link">wwww.jeremiahrighteous.com</a></p>
 	</section>
 
-	<section class="footer">
-
-		<p>Designed with <span style="color: #cc023b; font-size: 20px;">&hearts;</span> by:  @jeremiahriz  <span style="font-size: 30px; font-style: bold;">|</span>  Hotel NG Internship 4.0</p>
-	
-	</section>
 		
 </body>
 </html>
