@@ -191,14 +191,14 @@ global $conn;
 $image_filename = '';
 $name = '';
 $username = '';
-$sql = "SELECT intern_id, name, username, image_filename FROM interns_data";
+$sql = "SELECT * FROM interns_data where username = 'bytenaija'";
 foreach ($conn->query($sql) as $row) {
     $image_filename = $row['image_filename'];
     $name = $row['name'];
     $username = $row['username'];
 }
 
-$secret_word = '';
+global $secret_word;
 
 $sql = "SELECT secret_word from secret_word";
 foreach ($conn->query($sql) as $row) {
