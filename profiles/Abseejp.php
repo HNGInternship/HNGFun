@@ -1,45 +1,4 @@
-<?php 
 
-<<<<<<< HEAD
-
-define('DB_HOST', "localhost");
-define('DB_USER', "root");
-define('DB_PASSWORD', "root");
-define('DB_DATABASE', "hng_fun");
-
-$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-if (!$con) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-
-$sql = "SELECT name, username, image_filename FROM interns_data";
-$result = mysqli_query($con, $sql);
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        echo "My Name is: " . $row["name"]. "<br>";
-    }
-} else {
-    echo "0 results";
-}
-
-
-$secret_word = "SELECT code FROM secret_word";
-$result = mysqli_query($con, $secret_word);
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        echo "the code is: " . $row["code"];
-    }
-} else {
-    echo "0 results";
-}
-mysqli_close($con);
-?>  
-=======
- ?>
->>>>>>> 7bab28c2ca35f2a02e4b6e2e3d292535fcfab8fb
 <!DOCTYPE html>
 <html>
 <head>
@@ -112,12 +71,7 @@ include('header.php')
 				</div>	
 			</div>
 		</div>
-		<?php 
-<<<<<<< HEAD
-=======
-			include('config.php');
->>>>>>> 7bab28c2ca35f2a02e4b6e2e3d292535fcfab8fb
-		 ?>
+		
 		
 	</section>
 	<?php 
@@ -127,8 +81,4 @@ include('header.php')
 <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> 7bab28c2ca35f2a02e4b6e2e3d292535fcfab8fb
