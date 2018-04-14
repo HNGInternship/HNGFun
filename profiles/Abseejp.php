@@ -1,15 +1,17 @@
 <?php
-	
-$sql = 'SELECT * FROM secret_word';
-   $sql = "SELECT * FROM `interns_data` WHERE username = 'Abseejp' LIMIT 1";
-   $q = $conn->query($sql);
-   $q->setFetchMode(PDO::FETCH_ASSOC);
-   $data = $q->fetch();
-
-$name = $data['name'];
-$image_filename = $data['image_filename'];
-	
+$sql = "SELECT * FROM interns_data WHERE username = 'Abseejp'";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$data = $q->fetchAll();
+$Abseejp = array_shift($data);
+// Secret word
+$sql = "SELECT * FROM secret_word";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$words = $q->fetch();
+$secret_word = $words['secret_word'];
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,7 +78,8 @@ include('header.php')
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-					<img src="http://res.cloudinary.com/abseejp/image/upload/v1523617182/abbb.jpg" id="why-us" >
+					<img src="<?php echo $jim['image_filename']; ?>" id="why-us" >
+					<h1><?php echo $Abseejp['name']; ?></h1>
 					<h4 id="name">Abseejaypee</h4>
 					<p>Am a Web Developer, A Data Scientist, A Programmer who loves deep thinking, A Writer and Someone who loves innovation</p>
 				</div>	
