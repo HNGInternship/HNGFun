@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,23 +104,18 @@
 
 
     <?php
-    require '../db.php';
+
 
     try {
         $sql = 'SELECT * FROM secret_word';
         $q = $conn->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetchAll();
-    } catch (Exception $e) {
-
+        $data = $q->fetch();
+    } catch (PDOException $e) {
         throw $e;
     }
-
-
-    var_dump($data);
+    $secret_word = $data['secret_word'];
     ?>
-
-
 
 </div>
 
