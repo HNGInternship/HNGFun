@@ -22,7 +22,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 </style>
   
 </head>
-<body class="w3-indigo">
+<body class="w3-gray">
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
   
   <img src="http://res.cloudinary.com/sage001/image/upload/v1523650843/C360_2015-12-19-12-25-12-665.jpg" style="width:100%">
