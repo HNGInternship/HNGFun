@@ -1,8 +1,8 @@
 <?php
-define ('DB_USER', "root");
-define ('DB_PASSWORD', "");
-define ('DB_DATABASE', "hngfun");
-define ('DB_HOST', "localhost");
+// define ('DB_USER', "root");
+// define ('DB_PASSWORD', "");
+// define ('DB_DATABASE', "hngfun");
+// define ('DB_HOST', "localhost");
 $connect = mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABASE);
 $query = "SELECT secret_word FROM secret_word";
 $result = mysqli_query($connect,$query);
