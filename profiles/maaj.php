@@ -1,34 +1,29 @@
  <?php
-
+include_once '../config.php';
+define('DB_CHARSET', 'utf8mb4');
 // Create connection
-$conn = new mysqli($DB_HOST, $DB_USER, $DB_PASSWORD, $DB_DATABASE);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+$msql = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
+$mysql = new PDO($msql, DB_USER, DB_PASSWORD);
+//$t = new PDO('DB_HOST','DB_USER','DB_PASSWORD','DB_DATABASE');
 
-$sqli = "SELECT secret_word FROM secret_word";
-$resulti = $conn->query($sqli);
-if ($resulti->num_rows > 0) {
-while($rowi = $resulti->fetch_assoc()){;
-$secret_word = $rowi["secret_word"];
-}
-}
-$sql = "SELECT intern_id, name, username, image_filename FROM Interns_data_";
-$result = $conn->query($sql);
+//querying the database
+$query = $mysql->query(
+    "SELECT     interns_data_.name, 
+                interns_data_.username, 
+                interns_data_.image_filename, 
+                secret_word.secret_word 
+    FROM        interns_data_, 
+                secret_word 
+    WHERE       interns_data_.intern_id = secret_word.id LIMIT 1");
 
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-		$id = $row["intern_id"];
-		$name = $row["name"];
-		$username= $row["username"];
-		$image_url = $row["image_filename"];
-       
-    }
-} else {
-    echo "0 results";
-}
+$row = $query->fetch();
+
+// Secret Word and others 
+$secret_word = $row['secret_word'];
+$name = $row['name'];
+$username= $row['username'];
+$image_url = $row['image_filename'];
+
 
 ?> 
 <!DOCTYPE html>
@@ -96,7 +91,7 @@ body {
     <a href="#"><i class="fa fa-linkedin"></i></a>
     <a href="https://github.com/dmaaj"><i class="fa fa-github"></i></a>
  </div>
-	<?php echo $row["name"];?>
+	<?php //echo $row["name"];?>
 </body>
 </html>
-<?php $conn->close();?>
+<?php //$conn->close();?>

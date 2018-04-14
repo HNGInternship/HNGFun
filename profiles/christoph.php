@@ -13,24 +13,26 @@ $opt = [
 
 $pdo = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
 
-$stmt = $pdo->query(
+$stmt1 = $pdo->query(
     "SELECT     interns_data_.name, 
                 interns_data_.username, 
-                interns_data_.image_filename, 
-                secret_word.secret_word 
-    FROM        interns_data_, 
-                secret_word 
-    WHERE       interns_data_.intern_id = secret_word.id LIMIT 1");
+                interns_data_.image_filename
+    FROM        interns_data_
+    WHERE       interns_data_.username = 'Christoph' LIMIT 1");
 
-$row = $stmt->fetch();
+$stmt2 = $pdo->query(
+    "SELECT     secret_word.secret_word 
+    FROM        secret_word LIMIT 1");
 
-// Secret CWord
-$secret_word = $row['secret_word'];
+$row1 = $stmt1->fetch();
+$row2 = $stmt2->fetch();
+// Secret Word
+$secret_word = $row2['secret_word'];
 
 // Profile Details
-$name = $row['name'];
-$username = $row['username'];
-$filename = $row['image_filename'];
+$name = $row1['name'];
+$username = $row1['username'];
+$filename = $row1['image_filename'];
 
 ?>
 
@@ -44,7 +46,7 @@ $filename = $row['image_filename'];
     <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css' />
-    <link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css' />
     <style>
 
@@ -178,7 +180,7 @@ $filename = $row['image_filename'];
         <div class="row">
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
-                    <img src="http://res.cloudinary.com/myopinion-ng/image/upload/v1523653410/christoph.jpg" alt="Christoph HNG Intern">
+                    <img src="<?=$filename;?>" alt="Christoph HNG Intern">
                 </div>
                 <p class="text-center profile-name">
                     <?=$name;?> (@<?=$username;?>)
