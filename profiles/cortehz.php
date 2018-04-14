@@ -130,7 +130,7 @@
 			bottom: 0;
 			left: 0;
 			right: 0;
-			background: rgba(255, 144, 0, 0.9);
+			background: #fff;
 		}
 
 		#fh5co-header .display-t,
@@ -212,6 +212,7 @@
 				width: 20px;
 				height: 3px;
 				margin-left: -15px;
+				color: #FF9000;
 			}
 			#fh5co-header .display-tc h1 span:after,
 			.fh5co-cover .display-tc h1 span:after {
@@ -219,6 +220,7 @@
 				width: 20px;
 				height: 3px;
 				margin-right: -15px;
+				color: #FF9000;
 			}
 		}
 
@@ -232,6 +234,7 @@
 		#fh5co-header .display-tc h3,
 		.fh5co-cover .display-tc h3 {
 			font-size: 16px;
+			color: #FF9000;
 		}
 
 		@media screen and (max-width: 768px) {
@@ -259,7 +262,7 @@
 
 		#fh5co-header .display-tc .fh5co-social-icons li a,
 		.fh5co-cover .display-tc .fh5co-social-icons li a {
-			color: #fff;
+			color: #FF9000;
 		}
 
 		#fh5co-header .display-tc .fh5co-social-icons li a i,
@@ -793,7 +796,7 @@
 							<div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
 								<div class="profile-thumb" style="background: url(http://res.cloudinary.com/cortehz/image/upload/v1517224597/portfolio/profile-1_hjigdy.jpg);"></div>
 								<h1>
-									<span><?php echo $username ?></span>
+									<span>Samuel Omanchi</span>
 								</h1>
 								<h3>
 									<span>Web Developer / Budding Writer</span>
@@ -829,7 +832,7 @@
 		
 					<div class="col-md-12">
 						<h2 class="text-center">Hello There!</h2>
-						<p>My name is <?php echo $name ?>. I am a Web Developer in constant awe of the web. I want to contribute to build the future of the web. Making the web
+						<p>My name is Samuel Omanchi. I am a Web Developer in constant awe of the web. I want to contribute to build the future of the web. Making the web
 							accessible to everybody.
 						</p>
 						<p>From the visually impaired to those with the slowest internet connection. Hit me up below.</p>
