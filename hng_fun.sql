@@ -94,10 +94,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `interns_data_`
+-- Table structure for table `interns_data`
 --
 
-CREATE TABLE `interns_data_` (
+CREATE TABLE `interns_data` (
   `intern_id` int(10) NOT NULL,
   `name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
@@ -109,9 +109,9 @@ CREATE TABLE `interns_data_` (
 --
 
 --
--- Indexes for table `interns_data_`
+-- Indexes for table `interns_data`
 --
-ALTER TABLE `interns_data_`
+ALTER TABLE `interns_data`
   ADD PRIMARY KEY (`intern_id`);
 
 --
@@ -119,9 +119,9 @@ ALTER TABLE `interns_data_`
 --
 
 --
--- AUTO_INCREMENT for table `interns_data_`
+-- AUTO_INCREMENT for table `interns_data`
 --
-ALTER TABLE `interns_data_`
+ALTER TABLE `interns_data`
   MODIFY `intern_id` int(10) NOT NULL AUTO_INCREMENT;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
