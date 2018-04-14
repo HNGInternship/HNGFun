@@ -9,7 +9,11 @@
       throw $e;
   }
 ?>
+<<<<<<< HEAD
 
+=======
+<?php
+>>>>>>> 52b67053e12fb654879ade8c1a3050d1578a8623
 function getuserfield($field) {
 $username = $conn->query("SELECT $field FROM `interns_data_` WHERE name='Egbo Thankgod'");
 $username2 = $username->fetch();
