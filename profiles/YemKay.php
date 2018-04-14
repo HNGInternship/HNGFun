@@ -1,8 +1,19 @@
+<?php 
+  try {
+      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE intern_id = \'YemKay\'';
+      $q = $conn->query($sql);
+      $q->setFetchMode(PDO::FETCH_ASSOC);
+      $data = $q->fetch();
+      $secret_word = $data['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }
+?>
 <!DOCTYPE html>
 
 <head>
   <meta charset="UTF-8" />
-  <title>Mani Kumar Reddy Kancharla - Software Developer - stuMagz | LinkedIn</title>
+  <title><?php echo $data['name'] ?> - Software Developer - stuMagz | LinkedIn</title>
   <meta name="referrer" content="origin" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta content="https://static.licdn.comhttps://www.linkedin.com/scds/concat/common/js?v=0.1.508" name="RemoteNavJSContentBaseURL" />
@@ -7877,14 +7888,14 @@ body.advocate-modal-visible {
 </style>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noarchive">
-<meta name="description" content='Software Developer Mani Kumar Reddy Kancharla' />
+<meta name="description" content='Software Developer <?php echo $data['name'] ?>' />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@kmanikumarreddy" />
 <meta property="og:url" content="https://www.kmanikumarreddy.com" />
-<meta name="og:title" content="Mani Kumar Reddy Kancharla - Software Developer - stuMagz | LinkedIn" />
-<meta name="og:description" content='View Mani Kumar Reddy Kancharla’s profile on LinkedIn, the world&#39;s largest professional community. Mani Kumar Reddy has 5 jobs jobs listed on their profile. See the complete profile on LinkedIn and discover Mani Kumar Reddy’s connections and jobs at similar companies.' />
+<meta name="og:title" content="<?php echo $data['name'] ?> - Software Developer - stuMagz | LinkedIn" />
+<meta name="og:description" content='View <?php echo $data['name'] ?>’s profile' />
 <script type="application/ld+json">
-  {"@context":"http://schema.org","@graph":[{"@type":"Person","name":"Mani Kumar Reddy Kancharla","address":{"@type":"PostalAddress","addressLocality":"Hyderabad Area, India"},"jobTitle":["Software Developer","Software Developer","Software Development Intern"],"alumniOf":[{"@type":"Organization","name":"Voonik Technologies Pvt Ltd","url":"https://www.linkedin.com/company/voonik?trk=ppro_cprof"},{"@type":"Organization","name":"W3 Shastra"},{"@type":"EducationalOrganization","name":"CVR College Of Engineering"},{"@type":"EducationalOrganization","name":"Narayana Junior College"},{"@type":"EducationalOrganization","name":"Ramadevi Public School"}],"awards":[]},{"@type":"WebPage","url":"https://in.linkedin.com/in/kmanikumarreddy","reviewedBy":{"@type":"Person","name":"Mani Kumar Reddy Kancharla"}}]}
+  {"@context":"http://schema.org","@graph":[{"@type":"Person","name":"<?php echo $data['name'] ?>","address":{"@type":"PostalAddress","addressLocality":"Hyderabad Area, India"},"jobTitle":["Software Developer","Software Developer","Software Development Intern"],"alumniOf":[{"@type":"Organization","name":"Voonik Technologies Pvt Ltd","url":"https://www.linkedin.com/company/voonik?trk=ppro_cprof"},{"@type":"Organization","name":"W3 Shastra"},{"@type":"EducationalOrganization","name":"CVR College Of Engineering"},{"@type":"EducationalOrganization","name":"Narayana Junior College"},{"@type":"EducationalOrganization","name":"Ramadevi Public School"}],"awards":[]},{"@type":"WebPage","url":"https://in.linkedin.com/in/kmanikumarreddy","reviewedBy":{"@type":"Person","name":"<?php echo $data['name'] ?>"}}]}
 </script>
 </head>
 
@@ -8091,12 +8102,12 @@ body.advocate-modal-visible {
                   fMchaaT9TzicqV9qysrQadSGJwc0clU6axJIME8LIthuGq5amI6fkrYk7qUDzKH3osRa7bp+J8nD
                   Qnm6Lex1rKyrXAAzgIPK8lu1frDgdJQhBVvsQanIDyYyQE83N+o5/tWVlEWyO2oc5oB4Uui7yVtD
                   C1pbG3pX7HkyFL5lA4PTJ3NZWV0SOK502rebkOJVlSinbHLjrW7DnucicOqCweoNZWUtjyX4KakY
-                  3aUU2u+OsBKfGU4kjoVYI/FZWVlOuY0nshsh2nAX/9k=" width="200" height="200" alt="Mani Kumar Reddy Kancharla">
+                  3aUU2u+OsBKfGU4kjoVYI/FZWVlOuY0nshsh2nAX/9k=" width="200" height="200" alt="<?php echo $data['name'] ?>">
                 </a>
               </div>
               <div class="profile-overview">
                 <div class="profile-overview-content ">
-                  <h1 id="name" class="fn">Mani Kumar Reddy Kancharla</h1>
+                  <h1 id="name" class="fn"><?php echo $data['name'] ?></h1>
                   <p class="headline title" data-section="headline">Software Developer</p>
                   <dl id="demographics"><dt>Location</dt>
                     <dd class="descriptor address"><span class="locality">Hyderabad Area, India</span>
@@ -8135,7 +8146,7 @@ body.advocate-modal-visible {
                       </tr>
                       <tr>
                         <th>Recommendations</th>
-                        <td><strong>1</strong> person has recommended <strong>Mani Kumar Reddy Kancharla</strong>
+                        <td><strong>1</strong> person has recommended <strong><?php echo $data['name'] ?></strong>
                         </td>
                       </tr>
                       <tr class="websites" data-section="websites">
@@ -8489,7 +8500,7 @@ body.advocate-modal-visible {
                     <dl class="contributors"><dt>Team members: </dt>
                       <dd>
                         <ul>
-                          <li class="contributor"><a href="https://in.linkedin.com/in/kmanikumarreddy" data-tracking-control-name="pp_project_contributor">Mani Kumar Reddy Kancharla</a>,</li>
+                          <li class="contributor"><a href="https://in.linkedin.com/in/kmanikumarreddy" data-tracking-control-name="pp_project_contributor"><?php echo $data['name'] ?></a>,</li>
                           <li class="contributor"><a href="https://in.linkedin.com/in/arjun-k-761324ab" data-tracking-control-name="pp_project_contributor">arjun k</a>,</li>
                           <li class="contributor">Pramod Deshpande</li>
                         </ul>
