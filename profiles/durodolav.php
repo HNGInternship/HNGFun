@@ -31,6 +31,7 @@
       ?>
       <?php
         $sc = "SELECT secret_word FROM secret_word";
+        $sc1 = mysqli_query($db, $sc);
         if (mysqli_num_rows($sc1) > 0) {
         // output data of each row
         while($row = mysqli_fetch_assoc($sc1)) {
