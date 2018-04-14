@@ -1,3 +1,19 @@
+<?php
+   require_once('../db.php');
+
+   try {
+   $sql = 'SELECT * FROM secret_word';
+       $q = $conn->query($sql);
+       $q->setFetchMode(PDO::FETCH_ASSOC);
+   } catch (PDOException $e) {
+       die("Could not query the database:" . $e->getMessage());
+     }
+   $data = $q->fetch();
+   $secret_word = $data['secret_word'];
+
+   ?>
+
+
 <html>
   <head>
     <title> Olamide's Portfolio </title>
