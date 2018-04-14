@@ -70,10 +70,15 @@ img{
     </head>
 
 <body>
+	<div class="container profile-body">
+           <div class="row">
+            <div class="col-sm-6 profile-details">
 <h2>Welcome to</h2>
 <h1>HNG Internship 4.0</h1>
   <img src="<?php echo $user->image_filename ?>" />
 <h3>I am <?php echo $user->name ?> <small>(@<?php echo $user->username ?>)</small></h3>
+		    </div>
+			    </div>
 
  <div class="time">
  <?php date_default_timezone_set("Africa/Lagos");
@@ -81,5 +86,6 @@ img{
    ?>
  
 </div>
+	</div>
 </body>
 </html>
