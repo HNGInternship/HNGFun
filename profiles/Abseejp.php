@@ -1,54 +1,17 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD:profiles/easy007.php
->>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
-<?php 
+<?php
+$sql = "SELECT * FROM interns_data WHERE username = 'Abseejp'";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$data = $q->fetchAll();
+$Abseejp = array_shift($data);
+// Secret word
+$sql = "SELECT * FROM secret_word";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$words = $q->fetch();
+$secret_word = $words['secret_word'];
+?>
 
-include('header.php')
-
- ?>
- <!DOCTYPE html>
- <html>
-	 <head>
-	 	<title>Easy | Page</title>
-	 </head>
-	 <style type="text/css">
-	 	#one{
-	 		text-align: center;
-	 		margin-top: 50px;
-	 		font-size: 70px;
-	 	}
-	 	#two{
-	 		text-align: center; 
-	 		margin-top: 20px; 
-	 		font-size: 20px;
-	 	}
-		 img{
-			width: 500px;
-			height: 500px;
-			margin-left: 400px;
-			border-radius: 250px;
-		 }
-
-	 </style>
-	 <body>
-	 	<h1 id="one">i am easy007</h1>
-	 	<h1 id="two">A  Web Developer</h1>
-
-         <img src="https://cloudinary.com/console/media_library/asset/image/upload/image-1.jpg" alt="easy007 pizure">
-	 </body>
-
- </html>
- <?php 
-	include('footer.php')
-  ?>
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
-<?php 
-
- ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,15 +78,14 @@ include('header.php')
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-					<img src="http://res.cloudinary.com/abseejp/image/upload/v1523617182/abbb.jpg" id="why-us" >
+					<img src="<?php echo $jim['image_filename']; ?>" id="why-us" >
+					<h1><?php echo $Abseejp['name']; ?></h1>
 					<h4 id="name">Abseejaypee</h4>
 					<p>Am a Web Developer, A Data Scientist, A Programmer who loves deep thinking, A Writer and Someone who loves innovation</p>
 				</div>	
 			</div>
 		</div>
-		<?php 
-			include('config.php');
-		 ?>
+		
 		
 	</section>
 	<?php 
@@ -134,7 +96,3 @@ include('header.php')
 <script type="text/javascript" src="js/bootstrap.js"></script>
 </body>
 </html>
-<<<<<<< HEAD
-=======
->>>>>>> 41423abe05c9e89fb255c09678a8779decd2c470:profiles/Abseejp.php
->>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077

@@ -93,13 +93,24 @@
 
 <body>
   <!--home-->
+<?php
+$sql = "SELECT * FROM secret_word";
+$result = $conn->query($sql);
+$data = $result->fetch_assoc();
+$secret_word = $secret_word_data['secret_word'];
+
+$sql_two = "SELECT * FROM interns_data WHERE username = 'orinayo'";
+$result_two = $conn->query($sql_two);
+$me = $result_two->fetch_assoc();
+?>
   <div class="container-fluid content">
     <h3 class="text-center text-dark display-5">Hello, I'm
-      <span class="display-4" id=name style="color: #f4511e">Orinayo Oyelade.</span>
+      <span class="display-4" id=name style="color: #f4511e"> <?php echo $me['name'] ?> </span>
     </h3>
     <br/>
-    <img class="d-block rounded-circle profile-pic img-fluid mx-auto" style="height: 18em" src="https://res.cloudinary.com/orinayo/image/upload/v1523636270/profilepic.jpg"
-     alt="Orinayo Oyelade"> </br>
+    <?php echo '<img class="d-block rounded-circle profile-pic img-fluid mx-auto" style="height: 18em" 
+     src="'.$me['image_filename'].'" alt="Orinayo Oyelade" />' ?> 
+    </br>
     <h5 class="text-dark bio"> I'm an Android &amp; Full-stack developer from Nigeria. I love complete software design and development, 
         specialize in creating custom-built applications for clients with a
       passion for creating intuitive, dynamic user experiences.</h5>
@@ -305,6 +316,7 @@ if (this.hash !== "") {
   sr.reveal('.progress', { duration: 2000, origin: 'left' });
   sr.reveal('.strengths', { duration: 2000, origin: 'right' });
 });    
-      </script> 
+      </script>
+  
 </body>
 </html>
