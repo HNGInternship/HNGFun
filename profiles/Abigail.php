@@ -1,8 +1,8 @@
 <?php
-// require '../db.php';
-// $query = $conn->query("SELECT * FROM secret_word");
-// $result = $query->fetch(PDO::FETCH_ASSOC);
-// $secret_word = $result['secret_word'];
+require '../db.php';
+$query = $conn->query("SELECT * FROM secret_word");
+$result = $query->fetch(PDO::FETCH_ASSOC);
+$secret_word = $result['secret_word'];
 
 
 ?>
@@ -129,14 +129,14 @@
 	</style>
 </head>
 <body>
-	<?php
-// 	$username = "Abigail";
-// 	$data = $conn->query("SELECT * FROM  interns_data WHERE username = '".$username."' ");
-// $my_data = $data->fetch(PDO::FETCH_BOTH);
+ 	<?php
+	$username = "Abigail";
+	$data = $conn->query("SELECT * FROM  interns_data WHERE username = '".$username."' ");
+	$my_data = $data->fetch(PDO::FETCH_BOTH);
 
-// $name = $my_data['name'];
-// $src = $my_data['image_filename'];
-// $username =$my_data['username'];
+	$name = $my_data['name'];
+	$src = $my_data['image_filename'];
+	$username =$my_data['username'];
 ?>
 	<div id="name-div">
 		<h1><?php echo $name;?></h1>
