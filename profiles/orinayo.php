@@ -94,15 +94,19 @@
 <body>
   <!--home-->
 <?php
-require '../config.php';
-$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+require_once '../config.php';
+$db_host = DB_HOST;
+$db_user = DB_USER;
+$db_pwd = DB_PASSWORD; 
+$db_db = DB_DATABASE;
+$conn = new mysqli($db_host, $db_user, $db_pwd, $db_db);
 if ($conn->connect_errno) {
-    echo "Failed to connect to MySQL: " . $conn->connect_error;
-}
-$sql = "SELECT secret_word FROM secret_word";
+    die("Connection failed: " . $conn->connect_error);
+} 
+$sql = "SELECT * FROM secret_word";
 $result = $conn->query($sql);
 $secret_word_data = $result->fetch_assoc();
-$secret_term = $secret_word_data['secret_word'];
+$secret = $secret_word_data['secret_word'];
 
 $sql_two = "SELECT * FROM interns_data WHERE username = 'orinayo'";
 $result_two = $conn->query($sql_two);

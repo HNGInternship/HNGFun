@@ -1,30 +1,19 @@
 
 <?php
-    require "../config.php";
-    if(!$con){
-        die("Unable to connect to server");
-    }
-    $query = "select * from secret_word limit 1";
-    $result = $con->query($query);
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()){
-            $secret_word = $row['secret_word'];
-        }
-    }
+    require '../db.php';
+    $query = $conn->query("SELECT * FROM secret_word");
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    $secret_word = $result['secret_word'];
+
     $username = "AdroitCode";
     $fullname = "";
     $image = "";
-    $sql = "select * from interns_data where username='$username' limit 1";
-
-    $result = $con->query($sql);
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()){
-            $fullname = $row['name'];
-            $image = $row['image_filename'];
-            break;
-        }
+    $query = $conn->query("SELECT * FROM interns_data where username='$username' limit 1");
+    while($result = $query->fetch(PDO::FETCH_ASSOC)){
+        $fullname = $result['name'];
+        $image = $result['image_filename'];
     }
-    echo $secret_word;
+    //echo $secret_word;
 ?>
 <!DOCTYPE html>
 <html>
