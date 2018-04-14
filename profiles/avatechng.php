@@ -37,7 +37,7 @@ $secret_word = $data2['secret_word'];
     <style type="text/css">
         @import url(https://fonts.googleapis.com/css?family=Oswald:400,300);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
- {
+* {
     margin: 0;
 	padding: 0;
 	-webkit-box-sizing: border-box;
@@ -434,15 +434,14 @@ h1 a {
     </style>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <div class="container">
 	<div class="row">
 	
         
-    <h1>HNG Internship 4<br><small></small></h1>
+    <h1>HNG Internship 4<br><small>@AvatechNG</small></h1>
 	
 	<ul id="accordion" class="accordion">
     <li>
