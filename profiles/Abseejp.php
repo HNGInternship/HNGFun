@@ -74,7 +74,6 @@ include('header.php')
 			</div>
 		</div>
 		<?php 
-			include('config.php');
 		 ?>
 		
 	</section>
