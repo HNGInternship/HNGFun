@@ -1,3 +1,31 @@
+ <?php
+include_once '../config.php';
+define('DB_CHARSET', 'utf8mb4');
+// Create connection
+$msql = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
+$mysql = new PDO($msql, DB_USER, DB_PASSWORD);
+//$t = new PDO('DB_HOST','DB_USER','DB_PASSWORD','DB_DATABASE');
+
+//querying the database
+$query = $mysql->query(
+    "SELECT     interns_data_.name, 
+                interns_data_.username, 
+                interns_data_.image_filename, 
+                secret_word.secret_word 
+    FROM        interns_data_, 
+                secret_word 
+    WHERE       interns_data_.intern_id = secret_word.id LIMIT 1");
+
+$row = $query->fetch();
+
+// Secret Word and others 
+$secret_word = $row['secret_word'];
+$name = $row['name'];
+$username= $row['username'];
+$image_url = $row['image_filename'];
+
+
+?> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +45,7 @@
 	}
 	
 	.profile{
-		background-image: url(http://res.cloudinary.com/maaj/image/upload/v1523621615/profile.jpg);
+		background-image: url(<?php echo $image_url;?>);
 		background-size: cover;
 		backgroun-position: top;
 		background-repeat: no-repeat;
@@ -52,15 +80,18 @@ body {
 </head>
 <body bgcolor="#153643" >
 	
+	
+
 	<div class="profile"></div>
-	<div class="head"><h1> <b>JIMOH MUHEEZ</b> </h1> </div>
-	<h5 class="head"> Freelance developer and Motion graphics expert</p>
+	<div class="head"><h1><b> <?php echo $name;?></b> </h1> </div>
+	<h5 class="head"> slack username: <?php echo $username;?></p>
 	<div style="margin: 24px 0;">
     <a href="#"><i class="fa fa-instagram"></i></a>
     <a href="#"><i class="fa fa-facebook"></i></a>
     <a href="#"><i class="fa fa-linkedin"></i></a>
     <a href="https://github.com/dmaaj"><i class="fa fa-github"></i></a>
  </div>
-	
+	<?php //echo $row["name"];?>
 </body>
 </html>
+<?php //$conn->close();?>
