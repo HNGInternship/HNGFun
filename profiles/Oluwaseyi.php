@@ -1,3 +1,40 @@
+<?php
+    require "../config.php";
+
+    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+    if(!$conn){
+        die("Unable to connect to server");
+    }
+
+    //fetch secret word from database
+    $sql = "select * from secret_word limit 1";
+    $result = $conn->query($sql);
+
+    if($result->num_rows > 0){
+        while($row = $result->fetch_assoc()){
+            $secret_word = $row['secret_word'];
+            break; //because only one row is expected
+        }
+    }
+
+    //fetch my details from database;
+    $username = "oluwaseyi";
+    $name = "";
+    $image_filename = "";
+
+    $sql = "select * from interns_data where username='$username' limit 1";
+    $result = $conn->query($sql);
+
+    if($result->num_rows > 0){
+        while($row = $result->fetch_assoc()){
+            $name = $row['name'];
+            $image_filename = $row['image_filename'];
+            break;
+        }
+    }
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,9 +83,9 @@ img{
 <body>
     <div>
         <h1>Hello!</h1>
-        <h2>I am Oyewole Oluwaseyi</h2>
+        <h2>I am <?php echo $name; ?></h2>
         <h3>A Front End Web Developer/Digital marketer</h3>
-        <img src="http://res.cloudinary.com/dlcmbdadn/image/upload/v1523637130/seyi's%20image/IMG_20170925_075058_242_-_Copy.jpg" alt="seyi's picture">
+        <img src="<?php echo $image_filename; ?>" alt="seyi's picture">
     </div>
     <div class="icon">
     <a href="https://www.linkedin.com/in/oyewole-oluwaseyi-391a04134"><i class="fa fa-linkedin-square" ></i></a>

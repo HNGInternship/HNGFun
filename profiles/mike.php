@@ -31,7 +31,7 @@
 
 
 	
-	$stmt= $conn->prepare("SELECT * FROM interns_data_");
+	$stmt= $conn->prepare("SELECT * FROM interns_data");
 	$stmt->execute();	
 	$count2	= $stmt->rowCount();
 	

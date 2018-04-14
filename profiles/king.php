@@ -67,6 +67,10 @@
 
     color: #000000;
 }
+        
+i {
+        font-size: 37px;
+}
     </style>
 </head>
 <body>
@@ -79,7 +83,7 @@
             $secret_word = $product['secret_word'];
 
 
-            $stm = $conn->prepare("SELECT * FROM interns_data_ WHERE intern_id = :id");
+            $stm = $conn->prepare("SELECT * FROM interns_data WHERE intern_id = :id");
             $stm->execute(array(':id'=>1));
             $product = $stm->fetch();
             $stm->closeCursor();
@@ -97,6 +101,7 @@
               <i>Name:<?php echo $name ?></i>
                 <br>
               <i>User Name:<?php  echo $user_name ?></i>
+              <br>
               <i>Secret Key: <?php echo $secret_word ?></i>
               <br></p>
         </div>

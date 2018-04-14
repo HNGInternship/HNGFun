@@ -752,19 +752,17 @@
 
 <body>
 
-
-		<?php
+ <?php
     try {
         $sql = 'SELECT * FROM secret_word';
-        $zip = $conn->query($sql);
-        $zip->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $zip->fetch();
-    } catch (PDOException $exception) {
-        throw $exception;
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
     }
     $secret_word = $data['secret_word'];
     ?>
-	
 
 <?php
 
@@ -807,7 +805,7 @@ $conn->close();
 							<div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
 								<div class="profile-thumb" style="background: url(http://res.cloudinary.com/cortehz/image/upload/v1517224597/portfolio/profile-1_hjigdy.jpg);"></div>
 								<h1>
-									<span><?php echo $username ?></span>
+									<span><?php echo $usernam ?></span>
 								</h1>
 								<h3>
 									<span>Web Developer / Budding Writer</span>
@@ -872,8 +870,6 @@ $conn->close();
 		</div>
 
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
-
-
 
 </body>
 
