@@ -1,5 +1,5 @@
 -- phpMyAdmin SQL Dump
-<<<<<<< HEAD
+
 -- version 4.2.11
 -- http://www.phpmyadmin.net
 --
@@ -9,7 +9,7 @@
 -- PHP Version: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-=======
+
 -- version 4.7.2
 -- https://www.phpmyadmin.net/
 --
@@ -21,18 +21,18 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
->>>>>>> 3c1880cc4662f2e86b0a735a6ff335d58ec5c74a
+
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-<<<<<<< HEAD
+
 /*!40101 SET NAMES utf8 */;
-=======
+
 /*!40101 SET NAMES utf8mb4 */;
->>>>>>> 3c1880cc4662f2e86b0a735a6ff335d58ec5c74a
+
 
 --
 -- Database: `hng_fun`
@@ -41,7 +41,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
-<<<<<<< HEAD
+
 -- Table structure for table `interns_data_`
 --
 
@@ -107,7 +107,7 @@ MODIFY `intern_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 ALTER TABLE `secret_word`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
-=======
+
 -- Table structure for table `secret_word`
 --
 
@@ -207,7 +207,7 @@ ALTER TABLE `interns_data`
 ALTER TABLE `interns_data`
   MODIFY `intern_id` int(10) NOT NULL AUTO_INCREMENT;COMMIT;
 
->>>>>>> 3c1880cc4662f2e86b0a735a6ff335d58ec5c74a
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
