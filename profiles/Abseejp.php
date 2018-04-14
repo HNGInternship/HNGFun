@@ -1,15 +1,34 @@
-<?php 
-  try {
-      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE intern_id = \'Abseejp\'';
-      $q = $conn->query($sql);
-      $q->setFetchMode(PDO::FETCH_ASSOC);
-      $data = $q->fetch();
-      $secret_word = $data['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
+<?php
+	define ('DB_USER', "root");
+	define ('DB_PASSWORD', "");
+	define ('DB_DATABASE', "hngfun");
+	define ('DB_HOST', "localhost");
+	try {
+    	$connection = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    	//echo "Connected to ". DB_DATABASE . " successfully.</br>";
+	} catch (PDOException $pe) {
+    	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	}
+	$query = "SELECT * FROM secret_word";
+	$fetch_secret_word = $connection->prepare($query);
+	if($fetch_secret_word->execute()){
+		$secret_word = $fetch_secret_word->fetchAll(PDO::FETCH_OBJ);
+	} else {
+		die('Oops! Something Went Wrong');
+	}
+	$username = "@Abseejp";
+	
+	$query = "SELECT * FROM interns_data WHERE username=:username";
+	$fetch_user = $connection->prepare($query);
+	if($fetch_user->execute([':username'=>$username])){
+		$user = $fetch_user->fetch(PDO::FETCH_OBJ);
+		$name  = $user->name;
+		$username  = $user->username;
+		$image  = $user->image_filename;
+	} else {
+		die('Oops! Something Went Wrong');
+	}
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
