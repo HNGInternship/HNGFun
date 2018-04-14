@@ -63,9 +63,9 @@
             </div>
             </section>
             <script >
-               $('document').ready(funcrion(){
+               $('document').ready(function(){
 
-                   $('body').slideDown();
+                  $("body").css("opacity", 0).animate({ opacity: 1}, 3000);
                });
             
             </script>
