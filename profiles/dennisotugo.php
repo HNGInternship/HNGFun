@@ -10,7 +10,7 @@ $sql = "SELECT * FROM secret_word";
 $q = $conn->query($sql);
 $q->setFetchMode(PDO::FETCH_ASSOC);
 $words = $q->fetch();
-$secret_word = $words['1n73rn@Hng'];
+$secret_word = $words['secret_word'];
 ?>
 <html>
 	<head>
