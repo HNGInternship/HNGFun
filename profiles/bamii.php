@@ -303,9 +303,9 @@
       die("Connection failed: " . $conn->connect_error);
     }
 
-    $sqlName = "SELECT name FROM interns_data_";
-    $sqlUsername = "SELECT username FROM interns_data_";
-    $sqlImage = "SELECT image_filename FROM interns_data_";
+    $sqlName = "SELECT name FROM interns_data";
+    $sqlUsername = "SELECT username FROM interns_data";
+    $sqlImage = "SELECT image_filename FROM interns_data";
     $secret = "SELECT secret_word FROM secret_word";
 
     $resultName = $conn->query($sqlName);
