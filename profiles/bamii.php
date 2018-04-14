@@ -9,9 +9,9 @@
 	<!-- link to main stylesheet -->
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
     <style>
-	profile {
-		height: 0;
-		width: 0;
+      profile {
+        height: 0;
+        width: 0;
 	    }
         div.page-container {
         padding-top: 15px;
@@ -294,75 +294,70 @@
     </style>
 	</head>
 <body>
-  <div class="page-container">
-  <div class="navigation">
-    <div class="hamburger" onClick="openNav()"> 
-      <i class="fa fa-tasks fa-2x" aria-hidden="true"></i>
-    </div>
-  </div>
-  <div class="header-container">
-    <div class="img-container">
-      <img class="profile-image" src="http://res.cloudinary.com/bambam/image/upload/v1523622325/16966438.jpg"/>
-    </div>
-    <div class="my-details">
-      <h1> Ayobami Ayo-Salami </h1>
-      <h2 id="button"> Web Developer </h2>
-    </div>
-  </div>
-  
-  <div class="more-details">
-     <!--
-     <div id="about" class="about-me" onClick="open1()"> About Me </div>
-     <div id="first" class="first-paragraph transform">
-      <p> <strong>I</strong> am an undergraduate Computer Science w/ Economics student of Obafemi Awolowo University. </p>
-       <p> <strong>I</strong> am currently a freelancer and I build responsive websites, mobile apps(using React Native, and Java). </p>
-     </div>
-     -->
-    
-    <div id="stack" class="my-stack" onClick="open2()"> My Stack </div>
-    <div id="second" class="second-paragraph">
-      <p> I mostly work frontend designing, using the obvious HTML & CSS, Bootstrap, and React (it was made primarily for UI). I also build mobile apps using React Native (and i'm pretty good at it, if i do say so myself) and Java. </p>
-      <p>
-        Here's the list of the Programming Languages i'm conversant with and the areas of specialisation in each Language.
-        <ul class="my-list">
-          <li> Java </li>
-          <li> Javascript </li>
-          <li> HTML5, CSS, JS bundle </li>
-          <li> React </li>
-          <li> ExpressJS </li>
-          <li> KnockoutJS </li>
-        </ul>
-      </p>
-    </div>
-  
-    <div id="third" class="portfolio-click" onClick="openPortfolio()"> Portfolio </div>
-  </div>
+  <?php
+    include("../config.php");
+    $bami = "ayo";
 
-</div>
-<div id="nav-modal">
-  <div class="useless" onClick="closeNav()">
-    
-  </div>
-  <div class="modal-contents" onClick="stuff(event)">
-    <div class="help-text"> (Click on the links to open, or click elsewhere to close the modal) <br/>
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+
+    if ($conn -> connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sqlName = "SELECT name FROM interns_data_";
+    $sqlUsername = "SELECT username FROM interns_data_";
+    $sqlImage = "SELECT image_filename FROM interns_data_";
+    $secret = "SELECT * FROM secret_word";
+
+    $resultName = $conn->query($sqlName);
+    $resultUserame = $conn->query($sqlUsername);
+    $resultImage = $conn->query($sqlImage);
+    $secret_word = $conn->query($secret); // $secret_word variable
+
+    $name = $resultName->fetch_assoc();
+    $user = $resultUserame->fetch_assoc();
+    $image = $resultImage->fetch_assoc();
+  ?>
+  <div class="page-container">  
+    <div class="header-container">
+      <div class="img-container">
+        <img class="profile-image" src="http://res.cloudinary.com/bambam/image/upload/v1523622325/16966438.jpg"/>
       </div>
-    <div class="social-text"> You can find me cooling off on
+      <div class="my-details">
+        <h1> <?php
+          echo($name['name']); 
+        ?> </h1>
+        <h2 id="button"> @<?php echo($user['username']) ?> </h2>
+      </div>
     </div>
-    <ul class="social-links">
-      <li> <a href="https://github.com/Bamii"> @bamii <i class="fa fa-github" aria-hidden="true" fa-3x></i> </a> </li>
-      <li> <a href="https://twitter.com/dhaiveed"> @dhaiveed <i class="fa fa-twitter" aria-hidden="true" fa-3x></i> </a> </li> 
-    </ul>
+    <div class="more-details">
+      <!--
+      <div id="about" class="about-me" onClick="open1()"> About Me </div>
+      <div id="first" class="first-paragraph transform">
+        <p> <strong>I</strong> am an undergraduate Computer Science w/ Economics student of Obafemi Awolowo University. </p>
+        <p> <strong>I</strong> am currently a freelancer and I build responsive websites, mobile apps(using React Native, and Java). </p>
+      </div>
+      -->
+      
+      <div id="stack" class="my-stack" onClick="open2()"> My Stack </div>
+      <div id="second" class="second-paragraph">
+        <p> I mostly work frontend designing, using the obvious HTML & CSS, Bootstrap, and React (it was made primarily for UI). I also build mobile apps using React Native (and i'm pretty good at it, if i do say so myself) and Java. </p>
+        <p>
+          Here's the list of the Programming Languages i'm conversant with and the areas of specialisation in each Language.
+          <ul class="my-list">
+            <li> Java </li>
+            <li> Javascript </li>
+            <li> HTML5, CSS, JS bundle </li>
+            <li> React </li>
+            <li> ExpressJS </li>
+            <li> KnockoutJS </li>
+          </ul>
+        </p>
+      </div>
+    
+      <div id="third" class="portfolio-click" onClick="openPortfolio()"> Portfolio </div>
+    </div>  
   </div>
-</div>
-<div id="portfolio">
-  <div class="portfolio-close" onClick="closePortfolio()"> Close </div>
-  <div class="portfolio-item-container">
-    <div class="portfolio-item">
-      <img src="./img/app.png" alt="first project" />
-      <a href="https://ricknmorty.herokuapp.com"> Rick And Morty App </a>
-    </div>
-  </div>
-</div>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"> </script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
     <script>
