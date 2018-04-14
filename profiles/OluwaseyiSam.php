@@ -1,17 +1,27 @@
 <?php
 require_once "../db.php";
+
 //Fetch User Details
-$query       =  "SELECT * FROM interns_data WHERE username ='OluwaseyiSam'";
-$resultSet   =  $conn->query($query);
-$resultData  =  $resultSet->fetch(PDO::FETCH_ASSOC);
-$username    =  $resultData['username'];
-$fullName    =  $resultData['name'];
-$picture     =  $resultData['image_filename'];
+try {
+    $query = "SELECT * FROM interns_data WHERE username ='OluwaseyiSam'";
+    $resultSet = $conn->query($query);
+    $resultData = $resultSet->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e){
+    throw $e;
+}
+$username = $resultData['username'];
+$fullName = $resultData['name'];
+$picture = $resultData['image_filename'];
 
 //Fetch Secret Word
-$querySecret =  "SELECT * FROM secret_word LIMIT 1";
-$resultSet   =  $conn->query($querySecret);
-$resultData  =  $resultSet->fetch(PDO::FETCH_ASSOC);
+try{
+    $querySecret =  "SELECT * FROM secret_word LIMIT 1";
+    $resultSet   =  $conn->query($querySecret);
+    $resultData  =  $resultSet->fetch(PDO::FETCH_ASSOC);
+    $secret_word =  $resultData['secret_word'];
+}catch (PDOException $e){
+    throw $e;
+}
 $secret_word =  $resultData['secret_word'];
 ?>
 
