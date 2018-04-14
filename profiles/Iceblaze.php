@@ -1,15 +1,13 @@
 <?php
 
 // Fetch profile details from database using USERNAME as the unique identifier
-$profile_details_query = "SELECT name, username, image_filename FROM interns_data_ where username = '$profile_name' LIMIT 1";
+$profile_details_query = "SELECT name, username, image_filename FROM interns_data where username = '$profile_name' LIMIT 1";
 $profile_details_result = $conn->query($profile_details_query);
 
 // Assign the data to a variable
-if ($profile_details_result->num_rows > 0) {
 
     $profile_details_result->setFetchMode(PDO::FETCH_ASSOC);
         $profile_details = $profile_details_result->fetch();
-    }
 
     
 
@@ -17,11 +15,9 @@ if ($profile_details_result->num_rows > 0) {
 $secret_word_query = "SELECT secret_word FROM secret_word LIMIT 1";
 $secret_word_result = $conn->query($secret_word_query);
 
-if ($secret_word_result->num_rows > 0) {
-
     $secret_word_result->setFetchMode(PDO::FETCH_ASSOC);
-        $secret_word = $secret_word_result->fetch();
-    }
+        $secret = $secret_word_result->fetch();
+        $secret_word = $secret['secret_word'];
 ?>
 
 <head>
@@ -63,9 +59,9 @@ if ($secret_word_result->num_rows > 0) {
     <img class="clock img-fluid" src="<?php echo $profile_details['image_filename'] ?>"
          alt="Dahunsi Fehintoluwa">
     <div>
-    	<p><strong>Names:</strong> <?php echo $profile_details['name'] ?></p>
-        <p><strong>Username:</strong> <?php echo $profile_details['username'] ?></p>
-        <p><strong>Hobbies:</strong> Programming, Reading, Weightlifting </p>
+    	<p class="m-1"><strong>Names:</strong> <?php echo $profile_details['name'] ?></p>
+        <p class="m-1"><strong>Username:</strong> <?php echo $profile_details['username'] ?></p>
+        <p class="m-1"><strong>Hobbies:</strong> Programming, Reading, Weightlifting </p>
         <a href="#" class="btn btn-primary">Hug me</a>
     </div>
 </div>
