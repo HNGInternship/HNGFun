@@ -34,34 +34,32 @@ require_once '../db.php';
 	It contains a little of my interests. by Jeremiah Righteous -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 	<!--<link rel="stylesheet" type="text/css" href="style.css">-->
-	<style type="text/css">
+		<style type="text/css">
 		
-		body{
-	padding:0;
-	margin:0;
-	font-family: 'Roboto', sans-serif;
-	font-size: 100%;
-	overflow: hidden;
-	/**background-color: #F9F4ED;		**/
-		
-	}
-	section.heroImage{
+	body{
+			padding:0;
+			margin:0;
+			font-family: 'Roboto', sans-serif;
+			font-size: 100%;
+			background-color: #DBE1E1;
 
-		background-image: url("https://res.cloudinary.com/jeremiahriz/image/upload/v1523631672/Hello-img/welcome_bg.jpg");
-		background-color: black;
+			}
+
+	/**section.heroImage{
+
+		background-color: #DBE1E1;
 		width: 100%;
 		height:650px;
 		background-repeat: no-repeat;
 		background-size: cover;
 	} 
-
+**/
 
 	section.content{
-		position: absolute;
+		margin: auto;
+		position: relative;
 		text-align: center;
-		top: 50px;
-		left: 200px;
-
+		top: 100px;
 	}
 	.content h1 {
 		font-size: 40px;
@@ -73,16 +71,18 @@ require_once '../db.php';
 		line-height: 30px;
 		letter-spacing: 20%;
 	}
+
 	#currentTime{
-		margin-left: 130px;
+		margin: auto;
 		width: 300px;
 		height:22px;
 		background-color: #C4C4C4;
 		font-size: 17px;
-		padding: 6px;
 		font-style: bold;
+		padding: 6px;
+		
 	}
-
+/**
 	section.footer{
 		margin: auto;
 		width: 100%;
@@ -90,13 +90,14 @@ require_once '../db.php';
 		top:590px;
 		text-align: center;
 		line-height: 10px;
-	}
+	}**/
 	.link{
 		text-decoration: none;
 		color: black;
 		
 	}
 	</style>
+
 
 </head>
 <body>
