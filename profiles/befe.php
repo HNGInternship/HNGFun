@@ -9,6 +9,16 @@ $data = $q->fetch();
 } catch (PDOException $e) {
     throw $e;
 }
+
+try {
+    $sql = 'SELECT secret_word FROM secret_word';
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+    $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+    throw $e;
+}
 ?>
 
 <!DOCTYPE html>
@@ -129,16 +139,6 @@ $data = $q->fetch();
                 <img src="<?php echo $data['image_filename'];?>" alt ='befe sitted and giving a pose'>
             </article>
         </section>
-
-<?php
-    $sql = 'SELECT * FROM secret_word';
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-    
-    $secret_word = $data['secret_word'];
-
-    ?>
 
     </body>
 </html>
