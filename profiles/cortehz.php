@@ -752,6 +752,48 @@
 
 <body>
 
+ <?php
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+    ?>
+
+<?php
+
+$servername = "127.0.0.1";
+$username = "root";
+$password = "root";
+$dbname = "hngfun";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+$sql = "SELECT * FROM interns_data_";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $username = $row["username"];
+    }
+} else {
+    echo "0 results";
+}
+$conn->close();
+?>
+
+
+
 	<div id="page">
 		<header id="fh5co-header" class="fh5co-cover js-fullheight" role="banner" style="background-image:url(http://res.cloudinary.com/cortehz/image/upload/v1517224595/portfolio/Snapchat_izgfgf.jpg);"
 		 data-stellar-background-ratio="0.5">
@@ -763,7 +805,7 @@
 							<div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
 								<div class="profile-thumb" style="background: url(http://res.cloudinary.com/cortehz/image/upload/v1517224597/portfolio/profile-1_hjigdy.jpg);"></div>
 								<h1>
-									<span>Samuel Omanchi</span>
+									<span><?php echo $usernam ?></span>
 								</h1>
 								<h3>
 									<span>Web Developer / Budding Writer</span>
