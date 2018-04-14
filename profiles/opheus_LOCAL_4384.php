@@ -89,7 +89,7 @@ button:hover, a:hover {
   <img src="<?php echo $imagelink; ?>" alt="John" style="width:100%">
   <h1><?php echo $name; ?></h1>
   <h2>@<?php echo $username; ?></h2>
-  <p class="title">Web Designer &#38; Developer, UI/UX Designer</p>
+  <p class="title">Web Designer & Developer, UI/UX Designer</p>
   <p>Delta State Univeristy (B.Sc Physics)</p>
   <p>Nigeria</p>
   <div style="margin: 24px 0;">
@@ -102,4 +102,3 @@ button:hover, a:hover {
 </div>
 
 </body>
-</html>

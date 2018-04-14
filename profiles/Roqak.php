@@ -44,7 +44,7 @@ echo "" . $secret_word;
 		<h3>I AM <?php $query = "SELECT * FROM interns_data";
 $result = mysqli_query($connect,$query);
 $sec = mysqli_fetch_array($result);
-echo "" . $sec["username"]; ?> | HNG INTERN.</h3>
+echo "" . $sec["image_filename"]; ?> | HNG INTERN.</h3>
                 <a href="" target="https://www.facebook.com/badoo.akin">
                   <i class="fa fa-facebook"></i>
                 </a>
