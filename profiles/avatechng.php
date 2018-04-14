@@ -473,7 +473,7 @@ h1 a {
 </div>
         
     </li>
-		<li>
+		<li class="default open">
 			<div class="link"><i class="fa fa-globe"></i>About<i class="fa fa-chevron-down"></i></div>
 			<ul class="submenu">
 				<li><a href="#">Address : Lagos,Nigeria</a></li>
