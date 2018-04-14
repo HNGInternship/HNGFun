@@ -1,5 +1,4 @@
 <?php 
-require '../db.php';
 
 try {
 $sql ='SELECT * FROM interns_data';
@@ -19,6 +18,9 @@ try {
 } catch (PDOException $e) {
     throw $e;
 }
+
+
+
 ?>
 
 <!DOCTYPE html>
