@@ -151,7 +151,7 @@ a{
 
 <body>
 <?php
-    require_once('../config.php');
+    require_once('./config.php');
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
     $result = mysqli_query($conn, "select * from secret_word");
     $secret_word = mysqli_fetch_assoc($result)['secret_word'];
