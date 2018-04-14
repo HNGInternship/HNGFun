@@ -295,24 +295,17 @@
 	</head>
 <body>
   <?php
-    $bami = "ayo";
-
     $sqlName = "SELECT name FROM interns_data";
     $sqlUsername = "SELECT username FROM interns_data";
     $sqlImage = "SELECT image_filename FROM interns_data";
-    $secret = "SELECT secret_word FROM secret_word";
 
     $resultName = $conn->query($sqlName);
     $resultUserame = $conn->query($sqlUsername);
     $resultImage = $conn->query($sqlImage);
-    $secretword = $conn->query($secret); // $secret_word variable
 
     $name = $resultName->fetch_assoc();
     $user = $resultUserame->fetch_assoc();
     $image = $resultImage->fetch_assoc();
-
-    $secret_word_mask = $secretword->fetch_assoc();
-    $secret_word = $secret_word_mask['secret_word'];
   ?>
   <div class="page-container">  
     <div class="header-container">
@@ -399,6 +392,16 @@
         var ish = document.getElementsByClassName("page-container")[0].classList.remove("blur");
         }
     </script>
+    <?php
+	try {
+	    $sql = "SELECT * FROM secret_word";
+	    $q = $conn->query($sql);
+	    $q->setFetchMode(PDO::FETCH_ASSOC);
+	    $data = $q->fetch();
+	} catch (PDOException $e) {
+	    throw $e;
+	}
+    ?>
 </body>
 </html>
 
