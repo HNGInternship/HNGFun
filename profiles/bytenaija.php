@@ -198,7 +198,7 @@ foreach ($conn->query($sql) as $row) {
     $username = $row['username'];
 }
 
-$secret_word = '';
+global $secret_word;
 
 $sql = "SELECT secret_word from secret_word";
 foreach ($conn->query($sql) as $row) {
