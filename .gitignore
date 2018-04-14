@@ -1,1 +1,9 @@
 config.php
+<<<<<<< HEAD
+=======
+docker-compose.yml
+phpmyadmin/
+.DS_Store
+._.DS_Store
+/deploy
+>>>>>>> 03d1dc7aff548070972829868007c3ff912704a7
