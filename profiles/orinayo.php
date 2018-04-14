@@ -100,9 +100,6 @@ $db_user = DB_USER;
 $db_pwd = DB_PASSWORD; 
 $db_db = DB_DATABASE;
 $conn = new mysqli($db_host, $db_user, $db_pwd, $db_db);
-if ($conn->connect_errno) {
-    echo "Failed to connect to MySQL: " . $conn->connect_error;
-}
 $sql = "SELECT secret_word FROM secret_word";
 $result = $conn->query($sql);
 $secret_word_data = $result->fetch_assoc();
