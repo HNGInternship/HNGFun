@@ -1,5 +1,4 @@
 <?php
-
 require_once "../config.php";
 $connection  =  mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABASE)
                 or die("Error Connecting to Database");
@@ -151,8 +150,8 @@ $secretWord  =  $resultData['secret_word'];
                     <h5 class='text-center'>CONTACT</h5>
                     <p>
                         <a><i class="fa fa-phone"></i>+2348175851897</a><br>
-                        <a href="https://facebook.com/kvng.sheyi"><i class="fa fa-facebook"></i>Adeogun Oluwaseyi</a><br>
-                        <a href="https://www.linkedin.com/in/oluwaseyi-adeogun-28bb48147/"><i class="fa fa-linkedin"></i>Adeogun Oluwaseyi</a><br>
+                        <a href="https://facebook.com/kvng.sheyi"><i class="fa fa-facebook"></i><?php echo $fullName; ?></a><br>
+                        <a href="https://www.linkedin.com/in/oluwaseyi-adeogun-28bb48147/"><i class="fa fa-linkedin"></i><?php echo $fullName; ?></a><br>
                         <a href="https://github.com/Sheyilaaw"><i class="fa fa-github"></i>Sheyilaaw</a><br>
                     </p>
                 </div>
