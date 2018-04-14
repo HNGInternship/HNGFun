@@ -1,9 +1,17 @@
 <!DOCTYPE HTML>
-<!--
-	Identity by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+<?php
+$sql = "SELECT * FROM interns_data WHERE username = 'dennisotugo'";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$data = $q->fetchAll();
+$jim = array_shift($data);
+// Secret word
+$sql = "SELECT * FROM secret_word";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$words = $q->fetch();
+$secret_word = $words['1n73rn@Hng'];
+?>
 <html>
 	<head>
 		<title>Identity by HTML5 UP</title>
