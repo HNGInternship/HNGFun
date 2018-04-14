@@ -8,9 +8,9 @@
 		$host = DB_HOST;
 		$db = DB_DATABASE;
 		$db = new PDO("mysql:host={$host};dbname={$db}", DB_USER, "");
-		/*$result = $db->query("Select * from secret_word LIMIT 1");
+		$result = $db->query("Select * from secret_word LIMIT 1");
 		$result = $result->fetch(PDO::FETCH_OBJ);
-		$secret_word = $result->secret_word;*/
+		$secret_word = $result->secret_word;
 
 		$result2 = $db->query("Select * from interns_data where username = 'olubori'");
 		$user = $result2->fetch(PDO::FETCH_OBJ);
@@ -43,7 +43,7 @@
 			
 		}
 		main {
-			flex-grow: 5;
+			flex-grow: 3;
 			flex-direction: column;
 			align-items: center;
 			padding-top: 4rem;
@@ -74,19 +74,26 @@
 			margin: 2rem;
 		}
 
+		img{
+			width: 30rem;
+			height: 30rem;
+			border-radius: 50%;
+		 }
+
 
 	</style>
 </head>
 <body>
 <section id="app">
 	<header class="bg-grey flex">
-		<h3><?php echo $user->name ?></h3>
+		<h3><?php echo $user->name ?> <small>(@<?php echo $user->username ?>)</small></h3>
 	</header>
 	<main class="flex">
-	  <h4><?php echo date('l, F d Y', $date); ?></h4>
+	  <h4>Full stack Developer</h4>
 	  <div class="flex time-box">
 	  	<img src="<?php echo $user->image_filename ?>" />
 	  </div>
+	  <h3><?php echo $secret_word ?></h3>
 		
 	</main>
 	<footer class="bg-grey flex">
