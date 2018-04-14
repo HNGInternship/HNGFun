@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-<html lang="en">
-=======
+
 
   <?php
           try {
@@ -22,7 +19,7 @@
                   $profile_details_result->setFetchMode(PDO::FETCH_ASSOC);
                       $profile_details = $profile_details_result->fetch();
                   ?>
->>>>>>> 772f68dc8b562c7d899fc9fed0635b5650aa3d70
+
 <head>
  
   <title>TiaraYuppy - HNG Internship</title>
@@ -334,29 +331,7 @@
 
     </div>
 
-<<<<<<< HEAD
-    <?php
-          try {
-              $sql = 'SELECT * FROM secret_word';
-              $q = $conn->query($sql);
-              $q->setFetchMode(PDO::FETCH_ASSOC);
-              $data = $q->fetch();
-          } catch (PDOException $e) {
-              throw $e;
-          }
-          $secret_word = $data['secret_word'];
 
-
-              $profile_details_query = "SELECT name, username, image_filename 
-              FROM interns_data where username = '$profile_name' LIMIT 1";
-              $profile_details_result = $conn->query($profile_details_query);
-
-                  $profile_details_result->setFetchMode(PDO::FETCH_ASSOC);
-                      $profile_details = $profile_details_result->fetch();
-                  ?>
-=======
-  
->>>>>>> 772f68dc8b562c7d899fc9fed0635b5650aa3d70
 </div>
 </body>
 </html>
