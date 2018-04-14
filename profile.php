@@ -20,7 +20,6 @@ require 'db.php';
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetch();
     } catch (PDOException $e) {
-
         throw $e;
     }?>
 </div>

@@ -22,17 +22,17 @@ if(isset($_POST['submit']) ){
             $nameError = "<span class='invalid'>Please enter a valid name.</span>";
         }
     }
-    
+
   if($_POST['image_filename'] != ""){
       $_POST['image_filename'] = filter_var($_POST['image_filename'], FILTER_SANITIZE_URL);
       if ($_POST['image_filename'] == ""){
           $filenameError = "<span class='invalid'>Please enter a proper file URL .</span>";
       }
   }
-    
+
     // key
     if($_POST['key'] != ""){
-        
+
         if ($_POST['key'] != "1n73rn@Hng"){
             $keyError = "<span class='invalid'>Please enter a valid key code.</span>";
         }
