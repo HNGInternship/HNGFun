@@ -766,7 +766,7 @@
 
 	 <?php
     try {
-        $sqli = 'SELECT * FROM interns_data_';
+        $sqli = 'SELECT * FROM interns_data';
         $quin = $conn->query($sqli);
         $quin->setFetchMode(PDO::FETCH_ASSOC);
         $datas = $quin->fetch();
