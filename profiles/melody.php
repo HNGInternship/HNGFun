@@ -115,8 +115,8 @@ try {
     <div class="offset-md-3 col-md-6">
         <div class="col-md-2">
         </div>
-        <img class="img-fluid rounded" style="padding-top: 10px" onerror="this.src='images/default.jpg'" src=<?= echo $my_data['image_filename'] >
-        <div class="main"><span class="text"><?= echo $my_data['name']</span></div>
+        <img class="img-fluid rounded" style="padding-top: 10px" onerror="this.src='images/default.jpg'" src="<?= echo $my_data['image_filename'] ?>" >
+        <div class="main"><span class="text"><?= echo $my_data['name'] ?></span></div>
         <div class="under"><span>Full Stack Web Developer</span></div>
         <div class="under1"><span><a href="https://github.com/mokunuga">
                 <img style="width:40px; height: 40px;" src="https://cdn1.iconfinder.com/data/icons/logotypes/32/github-512.png">
