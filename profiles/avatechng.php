@@ -434,19 +434,20 @@ h1 a {
     </style>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
 <div class="container">
 	<div class="row">
 	
         
-    <h1>HNG Internship 4<br><small>@AvatechNG</small></h1>
+    <h1>HNG Internship 4<br><small></small></h1>
 	
 	<ul id="accordion" class="accordion">
     <li>
 <div class="col col_4 avatechng-pic">
-<img class="img-responsive avatech" alt="avatechng" src="<?php echo $image?>">
+<img class="img-responsive avatech" alt="avatechng" src="<?php echo $image?>" width="360px" height="480px">
 <div class="edit-pic">
 <a href="https://web.facebook.com/avatechng" target="_blank" class="fa fa-facebook"></a>
 <a href="https://www.instagram.com/mravatech/" target="_blank" class="fa fa-instagram"></a>
