@@ -1,6 +1,5 @@
  <?php
-
-
+ 
 try {
    $profile = 'SELECT * FROM interns_data_ WHERE username="nedy"';
     $select = 'SELECT * FROM secret_word';
