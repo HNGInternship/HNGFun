@@ -19,7 +19,6 @@ require 'db.php';
         $q = $conn->query($sql);
         $data = $q->fetch_assoc();
     } catch (PDOException $e) {
-
         throw $e;
     }?>
 </div>
