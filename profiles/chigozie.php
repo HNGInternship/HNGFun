@@ -34,7 +34,6 @@
 			$image_filename = $row['image_filename'];	
 		}
 
-		echo $secret_word;
 	}
 	catch(PDOException $e)
 	{
