@@ -1,9 +1,6 @@
 <!-- Header -->
 <?php
 
-include_once('header.php');
-require_once 'db.php';
-
 $sql = "SELECT * FROM interns_data WHERE username = 'jim'";
 $q = $conn->query($sql);
 $q->setFetchMode(PDO::FETCH_ASSOC);
@@ -38,6 +35,3 @@ $secret_word = $words['secret_word'];
 	<?php endif; ?>
 </div>
 </div>
-
-<!-- Footer -->
-<?php include_once('footer.php'); ?>
