@@ -15,10 +15,9 @@ require 'db.php';
 <div class="container">
     <?php include_once('profiles/' . $profile_name. '.php');
     try {
-        $sql = 'SELECT * FROM secret_word';
+        $sql = "SELECT * FROM secret_word";
         $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
+        $data = $q->fetch_assoc();
     } catch (PDOException $e) {
 
         throw $e;
