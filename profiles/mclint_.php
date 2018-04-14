@@ -92,12 +92,23 @@
 </head>
 
 <body>
+  <?php
+    include '../config.php';
+
+    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+    $result = mysqli_query($conn, "select * from secret_word");
+
+    $secret_word = mysqli_fetch_assoc($result)['secret_word'];
+
+    $result = mysqli_query($conn, "select * from interns_data where username = 'mclint_'");
+    $me = mysqli_fetch_assoc($result);
+  ?>
   <div id="main">
     <div id="about">
       <div class="text-center">
-        <img id="profile-pic" src="https://res.cloudinary.com/mclint-cdn/image/upload/v1523622051/mclint_.jpg" />
+      <?php echo '<img id="profile-pic" src="'.$me['image_filename'].'" />' ?>
         <h1 id="hello">Hello!</h1>
-        <h4>I'm Mbah Clinton</h4>
+        <h4>I'm <?php echo $me['name'] ?></h4>
         <h5>A FREELANCE WEB & MOBILE DEVELOPER BASED IN GHANA</h5>
         <div class="navbar">
           <div id="social">
