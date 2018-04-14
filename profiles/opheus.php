@@ -17,11 +17,6 @@ if (mysqli_num_rows($result) > 0) {
     echo "NO USER FOUND";
 }
 
-
-
-mysqli_close($conn);
-
-
 $sql2 = "SELECT secret_word FROM secret_word LIMIT 1";
 $result2 = mysqli_query($conn, $sql2);
 
@@ -33,6 +28,11 @@ if (mysqli_num_rows($result2) > 0) {
 } else {
     echo "NO SECRET KEY";
 }
+
+mysqli_close($conn);
+
+
+
 ?> 
 <html>
 <head>
