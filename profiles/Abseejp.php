@@ -1,5 +1,6 @@
 <?php 
 
+<<<<<<< HEAD
 
 define('DB_HOST', "localhost");
 define('DB_USER', "root");
@@ -36,6 +37,9 @@ if (mysqli_num_rows($result) > 0) {
 }
 mysqli_close($con);
 ?>  
+=======
+ ?>
+>>>>>>> 7bab28c2ca35f2a02e4b6e2e3d292535fcfab8fb
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,6 +113,10 @@ include('header.php')
 			</div>
 		</div>
 		<?php 
+<<<<<<< HEAD
+=======
+			include('config.php');
+>>>>>>> 7bab28c2ca35f2a02e4b6e2e3d292535fcfab8fb
 		 ?>
 		
 	</section>
@@ -119,4 +127,8 @@ include('header.php')
 <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 7bab28c2ca35f2a02e4b6e2e3d292535fcfab8fb
