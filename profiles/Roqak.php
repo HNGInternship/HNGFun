@@ -1,13 +1,28 @@
 <?php
-// define ('DB_USER', "root");
-// define ('DB_PASSWORD', "");
-// define ('DB_DATABASE', "hngfun");
-// define ('DB_HOST', "localhost");
-$connect = mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABASE);
-$query = "SELECT secret_word FROM secret_word";
-$result = mysqli_query($connect,$query);
-$sec = mysqli_fetch_array($result);
-$secret_word = $sec['secret_word'];
+require_once '../db.php';
+try {
+    $sql = "SELECT * FROM interns_data WHERE username ='Roqak'";
+require_once '../db.php';
+try {
+    $sql = "SELECT * FROM interns_data_ WHERE username ='Roqak'";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+$name = $data['name'];
+$username = $data['username'];
+$image = $data['image_filename'];
+try {
+    $sql2 = 'SELECT * FROM secret_word';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $data2 = $q2->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+$secret_word = $data2['secret_word'];
 ?>
 
 <html>
@@ -15,10 +30,7 @@ $secret_word = $sec['secret_word'];
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-	<title><?php $query = "SELECT * FROM interns_data WHERE username = 'Roqak'";
-$result = mysqli_query($connect,$query);
-$sec = mysqli_fetch_array($result);
-echo "" . $sec["name"]; ?> </title>
+	<title> <?php echo $name ?> </title>
 	<style type="text/css">
 	.white{
 		color: white;
@@ -45,10 +57,7 @@ echo "" . $sec["name"]; ?> </title>
 ?> -->
 	<div class="white text-center">
 		<h1 id="hello">HELLO</h1>
-		<h3>I AM <?php $query = "SELECT * FROM interns_data WHERE username = 'Roqak'";
-$result = mysqli_query($connect,$query);
-$sec = mysqli_fetch_array($result);
-echo "" . $sec["name"]; ?> | HNG INTERN.</h3>
+		<h3>I AM <?php echo $name ?> | HNG INTERN.</h3>
                 <a href="" target="https://www.facebook.com/badoo.akin">
                   <i class="fa fa-facebook"></i>
                 </a>
