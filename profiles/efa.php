@@ -74,9 +74,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <p class="w3-wide">JavaScript</p>
     <div class="w3-white">
       <div class="w3-dark-grey" style="height:28px;width:50%"></div>
-    </div><br>
-    
-      
+    </div><br>     
   
   
 
@@ -117,11 +115,15 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <p class="w3-medium">Designed by <a href="#" target="_blank" class="w3-hover-text-green">Efa Eleng</a></p>
   <!-- End footer -->
   </footer>
-
-
+  
 </div>
 
 </body>
 </html>
+<<<<<<< HEAD
 
 <?php include("footer.php"); ?>
+=======
+  
+<?php include("footer.php"); ?>
+>>>>>>> 7be1cd2a3d25a54d869ed19e04234804a84c82e1
