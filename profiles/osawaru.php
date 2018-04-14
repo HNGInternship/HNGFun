@@ -3,8 +3,8 @@
     $sql = 'SELECT secret_word FROM secret_word LIMIT 1';
     $result = $conn->query($sql);
     $result->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $result->fetch();
-    $secret_word = $data['secret_word'];
+    $response = $result->fetch();
+    $secret_word = $response['secret_word'];
 
 try {
     $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="osawaru';
