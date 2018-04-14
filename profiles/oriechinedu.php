@@ -75,6 +75,7 @@ try {
                         
                         <div class="page-header">
                             <h2 class="text-blue page-header">Let's Get Connected</h2>
+                            <h3><?= $secret_word ?></h3>
                         </div>
                     <div class="row">
                         <div class="col-md-2">
