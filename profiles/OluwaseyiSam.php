@@ -1,6 +1,6 @@
 <?php
 error_reporting(0);
-include_once "";"../config.php";
+include_once "../config.php";
 include_once "../config.example.php";
 $connection  =  mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABASE)
                 or die("Error Connecting to Database");
