@@ -3,6 +3,9 @@
     <head>
     <title>HNG INTERNSHIP #1</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
                 <link rel="icon" href="worldtime.jpg" type="image/png" sizes="16x16">
 					<?php 
 		require 'db.php';
@@ -70,15 +73,16 @@ img{
     </head>
 
 <body>
-	<div class="container profile-body">
-           <div class="row">
-            <div class="col-sm-6 profile-details">
+<div class="container">
+        <div class="row">
+        <div class="gallery col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <h2>Welcome to</h2>
 <h1>HNG Internship 4.0</h1>
   <img src="<?php echo $user->image_filename ?>" />
 <h3>I am <?php echo $user->name ?> <small>(@<?php echo $user->username ?>)</small></h3>
-		    </div>
-			    </div>
+</div>
+</div>
+
 
  <div class="time">
  <?php date_default_timezone_set("Africa/Lagos");
@@ -86,6 +90,8 @@ img{
    ?>
  
 </div>
-	</div>
+
+</div>
+</div>
 </body>
 </html>
