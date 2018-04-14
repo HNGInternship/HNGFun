@@ -25,6 +25,9 @@
 	</style>
 </head>
 <body>
+<!-- 	<?php
+// include_once("../header.php");
+?> -->
 	<div class="white text-center">
 		<h1 id="hello">HELLO</h1>
 		<h3>I AM OLUNLOYE AKINKUNMI | HNG INTERN.</h3>
