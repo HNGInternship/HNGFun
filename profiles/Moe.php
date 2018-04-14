@@ -1,3 +1,14 @@
+<?php  
+  try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+    ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -61,17 +72,7 @@ img{
     <meta content="">
   </head>
   <body>
-<?php  
-  try {
-        $sql = 'SELECT * FROM secret_word';
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    $secret_word = $data['secret_word'];
-    ?>
+
   <header>
 			<div>
 				<a href="https://github.com/benzowe"><i class="fa fa-github"></i></i></a>

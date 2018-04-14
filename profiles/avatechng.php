@@ -5,11 +5,6 @@ require_once '../db.php';
 try {
     $sql = "SELECT * FROM interns_data WHERE username ='avatechng'";
 
-require_once '../db.php';
-
-try {
-    $sql = "SELECT * FROM interns_data_ WHERE username ='AvatechNG'";
-
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $data = $q->fetch();
@@ -452,11 +447,7 @@ h1 a {
 	<ul id="accordion" class="accordion">
     <li>
 <div class="col col_4 avatechng-pic">
-<<<<<<< HEAD
-<img class="img-responsive avatech" alt="avatechng" src="http://res.cloudinary.com/avatechng/image/upload/c_scale,w_360/v1523682918/IMG_20180125_185955.jpg" width="360px" height="480px">
-=======
-<img class="img-responsive avatech" alt="avatechng" src="<?php echo $image?>">
->>>>>>> your commit message
+<img class="img-responsive avatech" alt="avatechng" src="<?php echo $image?>" width="360px" height="480px">
 <div class="edit-pic">
 <a href="https://web.facebook.com/avatechng" target="_blank" class="fa fa-facebook"></a>
 <a href="https://www.instagram.com/mravatech/" target="_blank" class="fa fa-instagram"></a>
@@ -482,22 +473,19 @@ h1 a {
 </div>
         
     </li>
-		<li>
+		<li class="default open">
 			<div class="link"><i class="fa fa-globe"></i>About<i class="fa fa-chevron-down"></i></div>
 			<ul class="submenu">
 				<li><a href="#">Address : Lagos,Nigeria</a></li>
 				<li><a href="mailto:techissued@gmail.com">Email : techissued@gmail.com</a></li>
 				<li><a href="#">Phone : +23407015120757</a></li>
-			</ul>
-		</li>
-		<li class="default open">
-			<div class="link"><i class="fa fa-code"></i>Professional Skills<i class="fa fa-chevron-down"></i></div>
-			<ul class="submenu">
-				<li><a href="#"><span class="tags">Angular</span> <span class="tags">Node.Js</span> <span class="tags">CSS</span> <span class="tags">Css 3</span> 
+				<li><a href="#">Professional Skill </br><span class="tags">Angular</span> <span class="tags">Node.Js</span> <span class="tags">CSS</span> <span class="tags">Css 3</span> 
                 <span class="tags">Java</span> <span class="tags">PHP</span> <span class="tags">HTML5</span> <span class="tags">JavaScript</span> 
                 <span class="tags">bootstrap</span> <span class="tags">User Interface Design</span> <span class="tags">Wordpress</span><span class="tags">Drupal</span> </li></a>
+			
 			</ul>
 		</li>
+		
 		
 		
 	</ul>
