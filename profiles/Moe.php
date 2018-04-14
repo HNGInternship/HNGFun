@@ -83,7 +83,7 @@ img{
 		
 	</header>
   <center><img src="http://res.cloudinary.com/benzowe/image/upload/v1523637805/IMG_0343.jpg" alt="Mohammed" align="center" width="100" height="100" ></center>
-  <center><p>Hey Guys, I'm Mohammed Sanusi</p></center>
+  <center><p>Hey Guys. I'm Mohammed Sanusi</p></center>
   <box class="a">
   <center>Today</center> <br>
   <?php
