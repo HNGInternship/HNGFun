@@ -31,7 +31,7 @@
       $secret_word = $db->query("SELECT * FROM secret_word");
       ?>
    <?php 
-    $secret_word=tosin;
+    $secret_word="tosin";
     foreach ($result as $result) {
 
 
