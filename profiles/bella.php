@@ -2,7 +2,7 @@
 
 
 try {
-   $profile = "SELECT * FROM interns_data_ WHERE `username` = 'bella' LIMIT 1";
+   $profile = 'SELECT * FROM interns_data_ WHERE username="bella"';
     $select = 'SELECT * FROM secret_word';
 
     $query = $conn->query($select);
@@ -66,8 +66,8 @@ button:hover, a:hover {
 <h2 style="text-align:center">Bella's Profile Card</h2>
 
 <div class="card">
-  <img src="<?php echo $user['image_filename']; ?>" alt="Bella" style="width:100%">
-  <h1><?php echo $user['name']; ?></h1>
+  <img src="https://res.cloudinary.com/mfonobong/image/upload/v1523621316/Me.jpg" alt="Bella" style="width:100%">
+  <h1>Mfonobong Umondia</h1>
   <p class="title">HNG Intern</p>
   <p>University of Uyo</p>
   <div style="margin: 24px 0;">
