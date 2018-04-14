@@ -1,3 +1,5 @@
+<?php include("header.php"); ?>
+
 <!DOCTYPE html>
 <html>
 <title>Efa Eleng</title>
@@ -115,6 +117,8 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <p class="w3-medium">Designed by <a href="#" target="_blank" class="w3-hover-text-green">Efa Eleng</a></p>
   <!-- End footer -->
   </footer>
+  
+    <?php include("footer.php"); ?>
 
 
 </div>
