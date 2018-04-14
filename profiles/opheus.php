@@ -1,4 +1,28 @@
+<<<<<<< HEAD
 <?php
+=======
+<<<<<<< HEAD
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+=======
+
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+>>>>>>> d039ea6fe2e9940840acefca3e5657651bb79029
+
+include("config.php"); 
+
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
 // Create connection
 $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 // Check connection
@@ -60,6 +84,12 @@ a {
 button:hover, a:hover {
   opacity: 0.7;
 }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+?> 
+=======
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
 </style>
 </head>
 <body>
@@ -103,4 +133,8 @@ button:hover, a:hover {
 <<<<<<< HEAD
 =======
 <html>
+<<<<<<< HEAD
 >>>>>>> be3fa7c29f997825de9ad279b33f11df3eb052fc
+=======
+>>>>>>> d039ea6fe2e9940840acefca3e5657651bb79029
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077

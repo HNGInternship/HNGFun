@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD:profiles/easy007.php
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
 <?php 
 
 include('header.php')
@@ -38,6 +42,10 @@ include('header.php')
  <?php 
 	include('footer.php')
   ?>
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
 <?php 
 
  ?>
@@ -126,3 +134,7 @@ include('header.php')
 <script type="text/javascript" src="js/bootstrap.js"></script>
 </body>
 </html>
+<<<<<<< HEAD
+=======
+>>>>>>> 41423abe05c9e89fb255c09678a8779decd2c470:profiles/Abseejp.php
+>>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
