@@ -10,7 +10,7 @@ $keyError="";
 $filenameError = "";
 
 //$imageSuccess = false;
-//$success = false;
+$success = false;
 $key = "1n73rn@Hng";
 
 if(isset($_POST['submit']) ){
