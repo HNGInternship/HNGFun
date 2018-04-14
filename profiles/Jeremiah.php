@@ -1,3 +1,30 @@
+<?php
+require_once '../db.php';
+	try {
+		// 
+        $sql2 = "SELECT * FROM interns_data WHERE username = 'Jeremiah'";
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $data2 = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+	
+	$name = $data2['name'];
+	$username = $data2['username'];
+	$image = $data2['image_filename'];
+
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+	// this is for the secret key on tHNG server
+    $secret_word = $data['secret_word'];
+    ?>
 <!DOCTYPE html>
 <html>
 
@@ -51,7 +78,7 @@
 		width: 300px;
 		height:22px;
 		background-color: #C4C4C4;
-		font-size: 20px;
+		font-size: 17px;
 		padding: 6px;
 		font-style: bold;
 	}
@@ -76,10 +103,10 @@
 	<section class="heroImage"> </section>
 
 	<section class="content">
-		<img class="circle_img" src="https://res.cloudinary.com/jeremiahriz/image/upload/v1523631644/Hello-img/jeremiah.jpg" atl="Jeremiah Photo" style="border-radius:50%;
-	border:6px solid black;width:170px">		
+<img class="circle_img" src="<?php echo $image;?>" atl="Jeremiah Photo" style="border-radius:50%;
+	border:6px solid black;width:170px">				
 		<h1>HELLO THERE,</h1>
-		<p class="about">My name is Jeremiah Righteous, a tech guy from Delta, NG.<br>
+<p class="about">My name is <?php echo $name ?>, a tech guy from Delta, NG.<br>
 		I'm a web developer and creative UI/UX designer.</p>
 		<div>
 			<?php		
