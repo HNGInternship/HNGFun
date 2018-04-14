@@ -441,7 +441,7 @@ h1 a {
 	<div class="row">
 	
         
-    <h1>HNG Internship 4<br><small>@AvatechNG</small></h1>
+    <h1>HNG Internship 4<br><small></small></h1>
 	
 	<ul id="accordion" class="accordion">
     <li>
