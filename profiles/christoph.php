@@ -178,7 +178,7 @@ $filename = $row['image_filename'];
         <div class="row">
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
-                    <img src="http://res.cloudinary.com/myopinion-ng/image/upload/v1523653410/christoph.jpg" alt="Christoph HNG Intern">
+                    <img src="<?=$filename;?>" alt="Christoph HNG Intern">
                 </div>
                 <p class="text-center profile-name">
                     <?=$name;?> (@<?=$username;?>)
