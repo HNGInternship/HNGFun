@@ -1,10 +1,13 @@
 <?php
 	
 $sql = 'SELECT * FROM secret_word';
+   $sql = "SELECT * FROM `interns_data` WHERE username = 'Abseejp' LIMIT 1";
    $q = $conn->query($sql);
    $q->setFetchMode(PDO::FETCH_ASSOC);
    $data = $q->fetch();
-    $secret_word = $data['secret_word']	
+
+$name = $data['name'];
+$image_filename = $data['image_filename'];
 	
 ?>
 <!DOCTYPE html>
