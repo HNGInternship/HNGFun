@@ -448,7 +448,6 @@ h1 a {
     <li>
 <div class="col col_4 avatechng-pic">
 <img class="img-responsive avatech" alt="avatechng" src="<?php echo $image?>" width="360px" height="480px">
-<img class="img-responsive avatech" alt="avatechng" src="<?php echo $image?>">
 <div class="edit-pic">
 <a href="https://web.facebook.com/avatechng" target="_blank" class="fa fa-facebook"></a>
 <a href="https://www.instagram.com/mravatech/" target="_blank" class="fa fa-instagram"></a>
@@ -480,16 +479,13 @@ h1 a {
 				<li><a href="#">Address : Lagos,Nigeria</a></li>
 				<li><a href="mailto:techissued@gmail.com">Email : techissued@gmail.com</a></li>
 				<li><a href="#">Phone : +23407015120757</a></li>
-			</ul>
-		</li>
-		<li class="default open">
-			<div class="link"><i class="fa fa-code"></i>Professional Skills<i class="fa fa-chevron-down"></i></div>
-			<ul class="submenu">
 				<li><a href="#"><span class="tags">Angular</span> <span class="tags">Node.Js</span> <span class="tags">CSS</span> <span class="tags">Css 3</span> 
                 <span class="tags">Java</span> <span class="tags">PHP</span> <span class="tags">HTML5</span> <span class="tags">JavaScript</span> 
                 <span class="tags">bootstrap</span> <span class="tags">User Interface Design</span> <span class="tags">Wordpress</span><span class="tags">Drupal</span> </li></a>
+			
 			</ul>
 		</li>
+		
 		
 		
 	</ul>
