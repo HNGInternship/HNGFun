@@ -1,18 +1,28 @@
 <?php
+include("../db.php");
+
+define('DB_CHARSET', 'utf8mb4');
+$dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
+
+$opt = [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES => false
+];
+
+$conn = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
+
+
 $intern_details_query = $conn->query(
     "SELECT     interns_data.name, 
                 interns_data.username, 
                 interns_data.image_filename
     FROM        interns_data
-    WHERE       interns_data.username = 'Christoph' LIMIT 1");
-
-$intern_details_query->setFetchMode(PDO::FETCH_ASSOC);
+    WHERE       interns_data.username = 'christoph' LIMIT 1");
 
 $secret_word_query = $conn->query(
     "SELECT     secret_word.secret_word 
     FROM        secret_word LIMIT 1");
-
-$secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
 
 $intern_detail = $intern_details_query->fetch();
 $secret_word = $secret_word_query->fetch();
@@ -56,13 +66,14 @@ $filename = $intern_detail['image_filename'];
         }
 
         .profile-details {
+            padding-right: 0;
             background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
         }
 
         .skills {
             height: auto;
-            padding: 40px 70px;
+            padding: 37px 70px;
             background: #FFFFFF;
         }
 
@@ -170,7 +181,7 @@ $filename = $intern_detail['image_filename'];
 
         @media screen and (max-width: 768px) {
             .profile-details {
-                padding-top: 115px;
+                padding-top: 40px;
             }
 
             .social-links {
@@ -178,11 +189,11 @@ $filename = $intern_detail['image_filename'];
             }
 
             .skills {
-                padding: 25px 30px;
+                padding: 10px 35px;
             }
 
             .hello-text {
-                font-size: 3.5em;
+                font-size: 3em;
             }
         }
 

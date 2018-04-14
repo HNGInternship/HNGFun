@@ -1,4 +1,31 @@
-<?php include("header.php"); ?>
+<?php
+  if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    $error = [];
+    $subject = $_POST['subject'];
+    $to  = 'gistend@gmail.com';
+    $body = $_POST['message'];
+
+    if($body == '' || $body == ' ') {
+      $error[] = ". Please leave me a message";
+    }
+      
+    if($subject == '' || $subject == ' ') {
+      $error[] = 'what is it about?.';
+    }
+      
+    if(empty($error)) {
+      $config = include __DIR__ . "/../../config.php";
+      $dsn = 'mysql:host='.$config['host'].';dbname='.$config['dbname'];
+      $con = new PDO($dsn, $config['username'], $config['pass']);
+      $exe = $con->query('SELECT * FROM password LIMIT 1');
+      $data = $exe->fetch();
+      $password = $data['password'];
+      $url = "/sendmail.php?to=$to&body=$body&subject=$subject&password=$password";
+      header("location: $url");
+    }
+  }
+ ?>
 
 <!DOCTYPE html>
 <html>
@@ -121,5 +148,3 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif;}
 
 </body>
 </html>
-
-<?php include("footer.php"); ?>

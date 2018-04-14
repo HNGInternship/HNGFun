@@ -151,7 +151,7 @@ a{
 
 <body>
 <?php
-    require_once('./db.php');
+    //require_once('../db.php');
     $result = mysqli_query($conn, "select * from secret_word");
     $secret_word = mysqli_fetch_assoc($result)['secret_word'];
     echo $secret_word;
