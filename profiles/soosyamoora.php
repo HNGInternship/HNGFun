@@ -1,5 +1,5 @@
 <?php
-require_once '../db.php';
+require_once 'db.php';
 try {
     $sql = "SELECT * FROM interns_data_ WHERE username ='soosyamoora'";
     $q = $conn->query($sql);
@@ -19,7 +19,7 @@ try {
 } catch (PDOException $e) {
     throw $e;
 }
-$secret_word = $data2['amoora'];
+$secret_word = $data2['secret_word'];
  ?>
 
 

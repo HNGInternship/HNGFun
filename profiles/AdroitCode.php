@@ -1,18 +1,22 @@
 
 <?php
-    require '../db.php';
-    $query = $conn->query("SELECT * FROM secret_word");
-    $result = $query->fetch(PDO::FETCH_ASSOC);
-    $secret_word = $result['secret_word'];
+    try {
+          $query = $conn->query("SELECT * FROM secret_word");
+          $result = $query->fetch(PDO::FETCH_ASSOC);
+          $secret_word = $result['secret_word'];
 
-    $username = "AdroitCode";
-    $fullname = "";
-    $image = "";
-    $query = $conn->query("SELECT * FROM interns_data where username='$username' limit 1");
-    while($result = $query->fetch(PDO::FETCH_ASSOC)){
-        $fullname = $result['name'];
-        $image = $result['image_filename'];
-    }
+          $username = "AdroitCode";
+          $fullname = "";
+          $image = "";
+          $query = $conn->query("SELECT * FROM interns_data where username='$username' limit 1");
+          while($result = $query->fetch(PDO::FETCH_ASSOC)){
+              $fullname = $result['name'];
+              $image = $result['image_filename'];
+          }
+      } 
+  catch (PDOException $event) {
+          throw $event;
+  }
     //echo $secret_word;
 ?>
 <!DOCTYPE html>

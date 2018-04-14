@@ -1,6 +1,6 @@
-<?php
+echo ()<?php
 include_once("header.php");
-
+echo("we are debugging and am ure we will get tru this");
 require 'db.php';
 
 // Initializing Error Variables To Null.

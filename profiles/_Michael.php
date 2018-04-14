@@ -1,10 +1,12 @@
 <?php
+require '../db.php';
+
   try {
     $sql = "SELECT * FROM secret_word";
     $secret_word_query = $conn->query($sql);
     $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
     $query_result = $secret_word_query->fetch();
-
+  
     $sql_query = 'SELECT * FROM interns_data WHERE username="_Michael"';
     $query_my_intern_db = $conn->query($sql_query);
     $query_my_intern_db->setFetchMode(PDO::FETCH_ASSOC);
