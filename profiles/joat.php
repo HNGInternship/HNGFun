@@ -1,3 +1,13 @@
+<?php
+require'db.php';
+$result = $conn->query("Select * from secret_word LIMIT 1");
+$result = $result->fetch(PDO::FETCH_OBJ);
+$secret_word = $result->secret_word;
+
+$result2 = $conn->query("Select * from interns_data where username='joat'");
+$user = $result2->fetch(PDO::FETCH_OBJ);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,7 +71,7 @@
 	<div class='col-sm-6'>
 		<div>
 			<br><br><br><br><br><br>
-			<h1 style='font-family: "proxima-nova"; color:#fff; font-size: 22px; font-weight: 600; letter-spacing: .14em; line-height: 1em;'>JOSHUA ROBINSON.</h1>
+			<h1 style='font-family: "proxima-nova"; color:#fff; font-size: 22px; font-weight: 600; letter-spacing: .14em; line-height: 1em; text-transform: uppercase;'><?php echo $user->name; ?>.</h1>
 			<h2 style='font-family: "proxima-nova"; color:#a3a3a3; font-size: 22px; line-height: 1.15em; text-transform: none;letter-spacing: .01em; margin-bottom:26px;'>I am a website devloper, android app devloper ,an animator and also love gaimg. Follow me anywhere.</h2>
 			<h2><a href="mailto:starboi247@gmail.com" style='font-family: "proxima-nova"; color:#fff; font-size: 22px; font-weight: 600; letter-spacing: .14em; line-height: 1em;'>STARBOI247@GMAIL.COM</a></h2>
 			<h2><a href="http://itsjoat.com" style='font-family: "proxima-nova"; color:#fff; font-size: 22px; font-weight: 600; letter-spacing: .14em; line-height: 1em;'>WEBSITE</a></h2>
