@@ -55,6 +55,8 @@
     color: white;
     text-align: center;
 }
+    #social{
+			size: 5px;
 
 </style>
 
