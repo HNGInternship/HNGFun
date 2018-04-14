@@ -201,25 +201,107 @@ footer #link{
 </style>
 </head>
 <body cz-shortcut-listen="true">
+
+<?php
+include("../config.php");
+$servername = "localhost";
+$username = "root";
+$password = "!TB%7L6QHPbhTcWq";
+$dbname = "hng_fun";
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+?>
+
 	<div class="container">
 		<header>
 			<div class="header">
-                <span>Osumgba Chiamaka</span>
+                <span>
+
+<?php
+
+$sql = "SELECT name, username, image_filename FROM interns_data";
+$result = $conn->query($sql);
+		if ($result->num_rows > 0) {
+
+    while($row = $result->fetch_assoc()) {
+        echo $row['name'];
+    }
+}
+ else {
+    echo "0 results";
+}
+?>
             </div>
 		</header>
+<?php
+$fetch_code = "SELECT code FROM secret_word";
+$secret_word = $conn->query($fetch_code);
+
+
+?>
         <div id="intro">
             <div id="intro-span">
                 <div id="main">
-                    Hi, I am<br /><span id="me">Chiamaka Osumgba Kindness</span><br />
+                    Hi, I am<br /><span id="me">
+	<?php
+
+$sql = "SELECT name, username, image_filename FROM interns_data";
+$result = $conn->query($sql);
+		if ($result->num_rows > 0) {
+
+    while($row = $result->fetch_assoc()) {
+        echo $row['name'];
+    }
+}
+ else {
+    echo "0 results";
+}
+?>
+</span><br />
                     <span>A Software Developer</span>
                 </div>
             </div>
         </div>
 		<section class="main">
 			<div class="get-started">
-                <h1>Meet Kindness</h1>
+                <h1>
+	<?php
+
+$sql = "SELECT name, username, image_filename FROM interns_data";
+$result = $conn->query($sql);
+		if ($result->num_rows > 0) {
+
+    while($row = $result->fetch_assoc()) {
+        echo  "Meet " . $row['username'];
+    }
+}
+ else {
+    echo "0 results";
+}
+?>
+</h1>
                 <div>
-                    <img class="img"  src="http://res.cloudinary.com/duxoxictr/image/upload/v1523623851/The_untold_story_of_the_girl_who_hated_computers2.jpg" alt="She Codes" /></div>
+                    <img class="img"  src="
+	<?php
+
+$sql = "SELECT name, username, image_filename FROM interns_data";
+$result = $conn->query($sql);
+		if ($result->num_rows > 0) {
+
+    while($row = $result->fetch_assoc()) {
+        echo  $row['image_filename'];
+    }
+}
+ else {
+    echo "0 results";
+}
+$conn->close();
+?>" alt="She Codes" /></div>
                 <p class="mission" id="caption"><b>My mission for HNG Internship:</b> Be a world class developer, initiate and complete innovative projects, and have a voice in the technology ecosystem. </p>
                 
                 <p>Anyway, this is the “About” page, so I should probably tell you my story.
