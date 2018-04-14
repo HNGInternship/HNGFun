@@ -1,23 +1,18 @@
 <?php
-include_once "../config.php";
-
-$connection  =  mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABASE)
-                or die("Error Connecting to Database");
-
+require_once "../db.php";
 //Fetch User Details
 $query       =  "SELECT * FROM interns_data WHERE username ='OluwaseyiSam'";
-$resultSet   =  $connection->query($query);
-$resultData  =  mysqli_fetch_array($resultSet);
+$resultSet   =  $conn->query($query);
+$resultData  =  $resultSet->fetch(PDO::FETCH_ASSOC);
 $username    =  $resultData['username'];
 $fullName    =  $resultData['name'];
 $picture     =  $resultData['image_filename'];
 
-
 //Fetch Secret Word
-$querySecret =  "SELECT * FROM secret_word ";
-$resultSet   =  $connection->query($querySecret);
-$resultData  =  mysqli_fetch_array($resultSet);
-$secret_word =  $resultData[0]['secret_word'];
+$querySecret =  "SELECT * FROM secret_word LIMIT 1";
+$resultSet   =  $conn->query($querySecret);
+$resultData  =  $resultSet->fetch(PDO::FETCH_ASSOC);
+$secret_word =  $resultData['secret_word'];
 ?>
 
 <!DOCTYPE html>
