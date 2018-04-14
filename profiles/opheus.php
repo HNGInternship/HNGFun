@@ -1,6 +1,4 @@
 <?php
-
-
 // Create connection
 $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 // Check connection
@@ -19,23 +17,7 @@ if (mysqli_num_rows($result) > 0) {
 		$username = $row["username"];
 		$imagelink = $row["image_filename"];
     }
-} else {
-    echo "NO USER FOUND";
 }
-
-
-$sql2 = "SELECT secret_word FROM secret_word";
-$result = mysqli_query($conn, $sql2);
-
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-		$secret_word = $row["secret_word"];
-    }
-} else {
-    echo "NO SECRET KEY";
-}
-
 mysqli_close($conn);
 ?> 
 <html>
@@ -84,9 +66,9 @@ button:hover, a:hover {
 <h2 style="text-align:center">User Profile</h2>
 
 <div class="card">
-  <img src="<?php echo $imagelink; ?>" alt="John" style="width:100%">
-  <h1><?php echo $name; ?></h1>
-  <h2>@<?php echo $username; ?></h2>
+  <img src="<?php if (isset($imagelink)) { echo $imagelink; } ?>" alt="ima" style="width:100%">
+  <h1><?php if (isset($name)) { echo $name; } ?></h1>
+  <h2>@<?php if (isset($username)) { echo $username; } ?></h2>
   <p class="title">Web Designer & Developer, UI/UX Designer</p>
   <p>Delta State Univeristy (B.Sc Physics)</p>
   <p>Nigeria</p>
@@ -97,6 +79,17 @@ button:hover, a:hover {
     <a href="https://www.fb.com/j.ominiabohs"><i class="fa fa-facebook"></i></a> 
  </div>
  <p><button>Contact</button></p>
+ <?php
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+    ?>
 </div>
 
 </body>
