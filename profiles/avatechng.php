@@ -3,7 +3,7 @@ error_reporting(-1);
 require_once '../db.php';
 
 try {
-    $sql = "SELECT * FROM interns_data_ WHERE username ='avatechng'";
+    $sql = "SELECT * FROM interns_data WHERE username ='avatechng'";
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $data = $q->fetch();
