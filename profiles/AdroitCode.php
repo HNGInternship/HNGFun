@@ -1,20 +1,19 @@
 
 <?php
-    require "../config.php";
-    $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+    require '../db.php';
+    $query = $conn->query("SELECT * FROM secret_word");
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    $secret_word = $result['secret_word'];
 
-    if(!$con){
-        die("DB connection failed");
+    $username = "AdroitCode";
+    $fullname = "";
+    $image = "";
+    $query = $conn->query("SELECT * FROM interns_data where username='$username' limit 1");
+    while($result = $query->fetch(PDO::FETCH_ASSOC)){
+        $fullname = $result['name'];
+        $image = $result['image_filename'];
     }
-
-    $query = "select * from secret_word limit 1";
-    $result = $con->query($query);
-
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()){
-            $secret_word = $row['secret_word'];
-        }
-    }
+    //echo $secret_word;
 ?>
 <!DOCTYPE html>
 <html>
@@ -20026,7 +20025,7 @@
   
     </style>
 </head>
-<body class="font-custo text-grey-darker">
+<body class="font-custo">
     <div class="lg:fixed bg-white xl:fixed flex sm:block md:block lg:inline-flex xl:flex">
         <!--- Left Main Content To Be Designed Here -->
         <div class="flex-1 bg-image h-screen lg:border-r xl:border-r">
@@ -20034,7 +20033,7 @@
                 <div class="w-full h-16 pt-8 pl-8">
                     <div class="flex mb-4">
                         <div class="w-1/2 h-12">
-                            <h1 class="text-2xl mb-8 font-semibold leading-tight">Ogundiji Bolade Adio</h1>
+                            <h1 class="text-2xl mb-8 font-semibold leading-tight"><?php echo $fullname; ?></h1>
                         </div>
                         <div class="hamburger w-1/2 h-12 text-right md:hidden z-40">
                             <svg class="mr-8 fill-current text-grey-dark h-8 w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M16.4 9H3.6c-.552 0-.6.447-.6 1 0 .553.048 1 .6 1h12.8c.552 0 .6-.447.6-1 0-.553-.048-1-.6-1zm0 4H3.6c-.552 0-.6.447-.6 1 0 .553.048 1 .6 1h12.8c.552 0 .6-.447.6-1 0-.553-.048-1-.6-1zM3.6 7h12.8c.552 0 .6-.447.6-1 0-.553-.048-1-.6-1H3.6c-.552 0-.6.447-.6 1 0 .553.048 1 .6 1z"/></svg>
@@ -20059,7 +20058,7 @@
                 <div class="w-3/4 h-auto p-8 text-center ml-auto mr-auto mt-4 mb-auto">
                     <span>
                         <span class="text-lg">
-                            Adroit, passionately curious Software Developer based in Lagos, Nigeria. I love learning and sharing knowledge about web development/design, am currently working on been a world class software developer, "<em class="text-teal">AdroitCode</em>".
+                            Adroit, passionately curious Software Developer based in Lagos, Nigeria. I love learning and sharing knowledge about web development/design, am currently working on been a world class software developer, "<em class="text-teal"><?php echo $username; ?></em>".
                         </span>
                     </span>
                 </div>
@@ -20116,10 +20115,10 @@
                     <div class="">
                         <ul class="list-reset flex">
                             <li class="mr-6">
-                                <a class="no-underline text-grey-dark flex items-center pb-4 border-b border-teal" href="#about">About</a>
+                                <a class="no-underline text-grey-dark flex items-center" href="#about">About</a>
                             </li>
                             <li class="mr-6">
-                                <a class="no-underline text-white opacity-50 md:text-grey-darker md:opacity-100 flex items-center pb-4 border-b border-transparent hover:opacity-100 md:hover:border-teal" href="#portfolio">Chat</a>
+                                <a class="no-underline text-white opacity-50 md:text-grey-darker md:opacity-100 flex items-center" href="#portfolio">Chat</a>
                             </li>
                         </ul>
                     </div>

@@ -1,9 +1,17 @@
 <!DOCTYPE HTML>
-<!--
-	Identity by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+<?php
+$sql = "SELECT * FROM interns_data WHERE username = 'dennisotugo'";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$data = $q->fetchAll();
+$jim = array_shift($data);
+// Secret word
+$sql = "SELECT * FROM secret_word";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$words = $q->fetch();
+$secret_word = $words['secret_word'];
+?>
 <html>
 	<head>
 		<title>Identity by HTML5 UP</title>
@@ -13,6 +21,14 @@
 		<link rel="stylesheet" href="https://html5up.net/uploads/demos/identity/assets/css/main.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="https://html5up.net/uploads/demos/identity/assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="https://html5up.net/uploads/demos/identity/assets/css/ie8.css" /><![endif]-->
+		<style>
+			#mainNav {
+    display: none;
+			}
+			.mx-auto {
+    display: none;
+}
+		</style>
 		<noscript><link rel="stylesheet" href="https://html5up.net/uploads/demos/identity/assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-loading">
