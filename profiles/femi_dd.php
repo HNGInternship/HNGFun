@@ -1,18 +1,11 @@
-<style>
-i {
-   font-size: 20px;
-}
-div {
-   font-family: "Monaco"
-}
-</style>
+<style>i {font-size: 20px;} div {font-family: "Monaco"}</style>
 <center style="padding-top:50px">
    <div>
       <div>
          <div><img src="http://res.cloudinary.com/femidd/image/upload/v1523647188/femi_dd.png" class="rounded-circle" width="35%"></div>
       </div>
-      <div style="color:black; font-size:40px"><b>Kole-Ibrahim AbdulQudus</b></div>
-      <div id="about">Backend Developer(PHP - CodeIgniter), JAVA, MySQL.<br /> Motivational Writer and Farmer</div>
+      <div style="color:black; font-size:41px"><b>Kole-Ibrahim AbdulQudus</b></div>
+      <div id="about">Backend Developer(PHP - CodeIgniter), JAVA, MySQL.<br /> Motivational Writer and Farmer.</div>
    </div>
 </center>
 <script>

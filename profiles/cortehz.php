@@ -752,47 +752,33 @@
 
 <body>
 
-
-		<?php
+ <?php
     try {
         $sql = 'SELECT * FROM secret_word';
-        $zip = $conn->query($sql);
-        $zip->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $zip->fetch();
-    } catch (PDOException $exception) {
-        throw $exception;
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
     }
     $secret_word = $data['secret_word'];
     ?>
-	
 
-<?php
-
-$servername = "127.0.0.1";
-$username = "root";
-$password = "root";
-$dbname = "hngfun";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
-
-$sql = "SELECT * FROM interns_data_";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $username = $row["username"];
+	 <?php
+    try {
+        $sqli = 'SELECT * FROM interns_data';
+        $quin = $conn->query($sqli);
+        $quin->setFetchMode(PDO::FETCH_ASSOC);
+        $datas = $quin->fetch();
+    } catch (PDOException $error) {
+        throw $error;
     }
-} else {
-    echo "0 results";
-}
-$conn->close();
-?>
+	$username = $datas['username'];
+	$name = $datas['name'];
+	
+    ?>
+
+
 
 
 
@@ -843,7 +829,7 @@ $conn->close();
 		
 					<div class="col-md-12">
 						<h2 class="text-center">Hello There!</h2>
-						<p>I am a Web Developer in constant awe of the web. I want to contribute to build the future of the web. Making the web
+						<p>My name is <?php echo $name ?>. I am a Web Developer in constant awe of the web. I want to contribute to build the future of the web. Making the web
 							accessible to everybody.
 						</p>
 						<p>From the visually impaired to those with the slowest internet connection. Hit me up below.</p>
@@ -872,8 +858,6 @@ $conn->close();
 		</div>
 
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
-
-
 
 </body>
 
