@@ -289,7 +289,7 @@ require '../db.php';
                 </div>
                 <div class="info">
                     <div class="title">
-                        <a target="_blank" href="http://gbengaoni.com/"><?php echo $user->name ;?></a>
+                        <a target="_blank" href="http://gbengaoni.com/"><?php echo $user->name.'h' ;?></a>
                     </div>
                     <div class="desc">Passionate Software Developer</div>
                     <div class="desc">Sporadic Learner</div>

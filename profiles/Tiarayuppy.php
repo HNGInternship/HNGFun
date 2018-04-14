@@ -1,7 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+
+
+  <?php
+          try {
+              $sql = 'SELECT * FROM secret_word';
+              $q = $conn->query($sql);
+              $q->setFetchMode(PDO::FETCH_ASSOC);
+              $data = $q->fetch();
+          } catch (PDOException $e) {
+              throw $e;
+          }
+          $secret_word = $data['secret_word'];
+
+
+              $profile_details_query = "SELECT name, username, image_filename 
+              FROM interns_data where username = '$profile_name' LIMIT 1";
+              $profile_details_result = $conn->query($profile_details_query);
+
+                  $profile_details_result->setFetchMode(PDO::FETCH_ASSOC);
+                      $profile_details = $profile_details_result->fetch();
+                  ?>
+
 <head>
-  <!-- Theme Made By www.w3schools.com - No Copyright -->
+ 
   <title>TiaraYuppy - HNG Internship</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -311,25 +331,7 @@
 
     </div>
 
-    <?php
-          try {
-              $sql = 'SELECT * FROM secret_word';
-              $q = $conn->query($sql);
-              $q->setFetchMode(PDO::FETCH_ASSOC);
-              $data = $q->fetch();
-          } catch (PDOException $e) {
-              throw $e;
-          }
-          $secret_word = $data['secret_word'];
 
-
-              $profile_details_query = "SELECT name, username, image_filename 
-              FROM interns_data where username = '$profile_name' LIMIT 1";
-              $profile_details_result = $conn->query($profile_details_query);
-
-                  $profile_details_result->setFetchMode(PDO::FETCH_ASSOC);
-                      $profile_details = $profile_details_result->fetch();
-                  ?>
 </div>
 </body>
 </html>
