@@ -261,20 +261,15 @@
 	</head>
 <body>
   <?php
-    $sqlName = "SELECT name FROM interns_data";
-    $sqlUsername = "SELECT username FROM interns_data";
-    $sqlImage = "SELECT image_filename FROM interns_data";
-    $resultName = $conn->query($sqlName);
-    $resultUserame = $conn->query($sqlUsername);
-    $resultImage = $conn->query($sqlImage);
 
-    $resultName = $conn->query($sqlName);
-    $resultUserame = $conn->query($sqlUsername);
-    $resultImage = $conn->query($sqlImage);
+    $sql = 'SELECT * FROM interns_data_ WHERE username="bamii"';
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $query->fetch();    
 
-    $name = $resultName->fetch_assoc();
-    $user = $resultUserame->fetch_assoc();
-    $image = $resultImage->fetch_assoc();
+    $name = $result['name'];
+    $user = $result['username'];
+    $image = $result['image_filename'];
   ?>
   <div class="page-container">  
     <div class="header-container">
@@ -282,8 +277,8 @@
         <img class="profile-image" src="http://res.cloudinary.com/bambam/image/upload/v1523622325/16966438.jpg"/>
       </div>
       <div class="my-details">
-        <h1> <?php echo($name['name']) ?> </h1>
-        <h2 id="button"> @<?php echo($user['username']) ?> </h2>
+        <h1> <?php echo($name) ?> </h1>
+        <h2 id="button"> @<?php echo($user) ?> </h2>
       </div>
     </div>
     <div class="more-details">
@@ -358,13 +353,14 @@
     </script>
     <?php
       try {
-          $sql = "SELECT * FROM secret_word";
-          $q = $conn->query($sql);
-          $q->setFetchMode(PDO::FETCH_ASSOC);
-          $data = $q->fetch();
+          $sql2 = "SELECT * FROM secret_word";
+          $query2 = $conn->query($sql2);
+          $query2->setFetchMode(PDO::FETCH_ASSOC);
+          $result2 = $query2->fetch();
       } catch (PDOException $e) {
           throw $e;
       }
+      $secret_word = $result2['secret_word'];
     ?>
 </body>
 </html>
