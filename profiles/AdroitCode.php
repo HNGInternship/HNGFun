@@ -13,7 +13,7 @@
         $fullname = $result['name'];
         $image = $result['image_filename'];
     }
-    echo $secret_word;
+    //echo $secret_word;
 ?>
 <!DOCTYPE html>
 <html>
