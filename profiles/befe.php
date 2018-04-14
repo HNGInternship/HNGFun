@@ -1,46 +1,60 @@
+<?php 
+
+try {
+      $sql = "SELECT * FROM interns_data WHERE intern_id = 'befe' ";
+      $q = $conn->query($sql);
+      $q->setFetchMode(PDO::FETCH_ASSOC);
+      $data = $q->fetch();
+  } catch (PDOException $e) {
+      throw $e;
+  }
+
+  try {
+      $sql = 'SELECT * FROM secret_word';
+      $q = $conn->query($sql);
+      $q->setFetchMode(PDO::FETCH_ASSOC);
+      $mydata = $q->fetch();
+      $secret_word = $mydata['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
-        <title>My Profile Page</title>
+        <title><?php echo $data['name']; ?>'s Profile</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
         * {
             box-sizing: border-box;
         }
         body {
-            background: #ffff00;
+            background-color: #f0f4f4;
             margin: 20px;
-            color: #900;
+            color: #007bff;
         }
         section {
             margin: 50px auto;
             padding: 20px;
         }
-        
-        header {
-            margin-left: 10px;
-            float: left;        
-        }
-        header h1 {
-            font-size: 25px;
-            font-style: italic;
-        }
         img {
-            border: 4px solid #c60;
+            border: 5px solid #007bff;
             width: 250px; 
             margin-right: 10px;
             border-top-right-radius: 50px;
             border-bottom-left-radius: 50px;
         }
-
         .desc h1 {
-            font-size: 4em;
+            font-size: 80px;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            margin-bottom: 20px;
         }
         .desc p {
-            font-size: 1.2em;
+            font-size: 20px;
             margin-top: -20px;
+            color: #006fe6 !important;
         }
         .small {
             line-height: 25px;
@@ -68,6 +82,14 @@
         @media (min-width: 769px){
             img {
                 margin-left: -10%;
+            }
+        }
+        @media (max-width: 600px){
+            .desc p {
+                font-size: 12px;
+            }
+            .desc h1 {
+                font-size: 48px;
             }
         }
 
@@ -109,12 +131,12 @@
         
         <section class='row'>
             <article class="desc col-8">
-                <h1>Hi, I'm Befe!</h1>
+                <h1>Hi, I'm <?php echo $data['username']; ?></h1>
                 <p class="small"> I am a Web developer with skills in HTML, CSS, JAVASCRIPT AND PHP!</p>
                 <p class="small"> I use the following Frameworks: Bootstrap, JQuery, AngularJs.</p>
             </article>
             <article class='col-4'>
-                <img src='http://res.cloudinary.com/befe/image/upload/v1523623765/dbefe.jpg' alt ='befe sitted and giving a pose'>
+                <img src="<?php echo $data['image_filename'];?>" alt ='befe sitted and giving a pose'>
             </article>
         </section>
 

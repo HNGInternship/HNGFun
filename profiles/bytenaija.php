@@ -184,18 +184,42 @@ section h2:first-child{
     </style>
 </head>
 <body>
+<?php
+
+include "../db.php";
+global $conn;
+$image_filename = '';
+$name = '';
+$username = '';
+$sql = "SELECT * FROM interns_data where username = 'bytenaija'";
+foreach ($conn->query($sql) as $row) {
+    $image_filename = $row['image_filename'];
+    $name = $row['name'];
+    $username = $row['username'];
+}
+
+global $secret_word;
+
+$sql = "SELECT secret_word from secret_word";
+foreach ($conn->query($sql) as $row) {
+    $secret_word = $row['secret_word'];
+   
+}
+?>
+
+
     <header>
         <h1>Welcome to HNG  <br />Internship 4</h1>
     </header>
 
     <section class="content">
         <div class="left">
-        <h2>My name is Everistus.</h2>
+        <h2>My name is <?php echo $name; ?>.</h2>
         <h3>It is great to be part of <br />HNG Internship 4</h3>
         </div>
 
         <aside>
-            <img src="http://res.cloudinary.com/bytenaija/image/upload/v1523616184/me2.jpg" alt="Me" />
+            <img src='http://res.cloudinary.com/bytenaija/image/upload/v1523616184/me2.jpg' alt="Me" />
 
 
             <h4 id="time"> 

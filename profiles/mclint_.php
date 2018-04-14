@@ -92,12 +92,25 @@
 </head>
 
 <body>
+  <?php
+    $sql = "SELECT * FROM secret_word";
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $query->fetch();
+    $secret_word = $result['secret_word'];
+
+    $sql = "SELECT * FROM interns_data WHERE username = 'mclint_'";
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $query->fetchAll();
+    $me = array_shift($data);
+  ?>
   <div id="main">
     <div id="about">
       <div class="text-center">
-        <img id="profile-pic" src="https://res.cloudinary.com/mclint-cdn/image/upload/v1523622051/mclint_.jpg" />
+      <?php echo '<img id="profile-pic" src="'.$me['image_filename'].'" />' ?>
         <h1 id="hello">Hello!</h1>
-        <h4>I'm Mbah Clinton</h4>
+        <h4>I'm <?php echo $me['name'] ?></h4>
         <h5>A FREELANCE WEB & MOBILE DEVELOPER BASED IN GHANA</h5>
         <div class="navbar">
           <div id="social">

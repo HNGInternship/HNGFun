@@ -1,6 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<?php 
+		
+			
+		
+    $stmt = $conn->prepare("SELECT * FROM secret_word");
+	$stmt->execute();	
+	$count	= $stmt->rowCount();
+	
+	 //Get all users	
+	
+  
+	
+	//get the secret word
+	
+	 if($count >0){
+				
+				
+				
+				 while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+   
+                    $id = $row['id'];
+					$secret_word= $row['secret_word']; 
+					
+ 				
+				 }
+				 
+		
+			} 
 
+
+
+	
+	$stmt= $conn->prepare("SELECT * FROM interns_data");
+	$stmt->execute();	
+	$count2	= $stmt->rowCount();
+	
+	
+	
+	
+	
+			//Get intern data
+			
+      if($count2 >0){
+				
+				
+				
+				 while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+   
+                    $intern_id = $row['intern_id'];
+					$name= $row['name']; 
+					$username= $row['username'];
+					$image_filename = $row['image_filename'];
+ 				
+				 }
+				 
+		
+			}			
+						
+					
+						
+					
+					
+					?>
+					
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Mike's Profile</title>
@@ -11,80 +74,43 @@
   <style>
     body {
       background-color: #41C3DE;;
-      font-family: 'Ubuntu';
+      font-family: 'Roboto';
     }
 
-    #main {
+    #container {
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    #about {
+    #me {
       color: #ffffff;
     }
 
-    #hello {
-      font-size: 200px;
+    #welcome {
+      font-size: 100px;
       color: #ffffff;
       font-family: 'Alfa Slab One';
     }
 
-    #about h4 {
-      font-size: 40px;
-      font-weight: bold;
-    }
+    
 
-    #about h5 {
-      font-size: 14px;
-      color: #ffffff;
-    }
-
-    #social {
-      margin: 0 auto;
-      width: 198px;
-    }
-
-    .social-icons {
-      width: 18px;
-      transition: all 700ms;
-    }
-
-    .social-icons:hover {
-      transform: scale(1.2, 1.2);
-    }
   </style>
 </head>
 
 <body>
-  <div id="main">
-    <div id="about">
+
+  <div id="container">
+    <div id="me">
       <div class="text-center">
-        <h1 id="hello">Hello !</h1>
-        <h3>I'm Ekpang Michael</h3>
+        <h2 id="welcome">My Space</h2>
+        <h3><?php //echo $secret_word ?></h3>
+		<h3>Name: <?php echo $name ?></h3>
+		<h3>Username: <?php echo $username ?></h3>
+		<img src="<?php echo $image_filename?>" alt="Intern name" Width="300px"></h3>
         <h4>Currently on the Hotels.ng Internship Program</h4>
-          <div id="social">
-            <ul class="nav nav-pills">
-              <li>
-        <div class="navbar">
-                <a href="https://codepen.io/weezyval" target="_blank">
-                  <img class="social-icons" src="https://res.cloudinary.com/mclint-cdn/image/upload/v1523605717/codepen.svg" />
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/weezyval" target="_blank" target="_blank" target="_blank">
-                  <img class="social-icons" src="https://res.cloudinary.com/mclint-cdn/image/upload/v1523605717/github.svg" />
-                </a>
-              </li>
-              <li>
-                <a href="https://twitter.com/ekpang_michael_" target="_blank" target="_blank">
-                  <img class="social-icons" src="https://res.cloudinary.com/mclint-cdn/image/upload/v1523605718/twitter.svg" />
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+          
       </div>
     </div>
   </div>

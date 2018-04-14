@@ -1,8 +1,0 @@
-Options -MultiViews
-
-RewriteEngine On    # Turn on the rewriting engine
-# not rewrite css, js and images
-#RewriteCond %{REQUEST_URI} !\.(?:css|js|jpg|gif|png)$ [NC]
-
-RewriteRule  ^profile/(.*)$/?$     profile.php?id=$1   [NC,L]
-
