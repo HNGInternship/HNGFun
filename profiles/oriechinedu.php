@@ -2,7 +2,6 @@
 <?php 
  require_once('../db.php');
 
-// $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
  if (!$conn){
     die('failed to connect'. $conn->connect_errno);
  }
