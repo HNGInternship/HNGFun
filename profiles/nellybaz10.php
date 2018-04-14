@@ -1,11 +1,6 @@
 <?php
 $link = mysqli_connect(DB_DATABASE, DB_USER, DB_PASSWORD);
-if(!$link){
-	echo "not connected";
-}
-else{
-	echo "connected";
-}
+
 
 ?>
 
@@ -63,7 +58,12 @@ body, h1,h2,h3,h4,h5,h6 {font-family: cursive;}
   <!-- Header/Home -->
   <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
     <h1 id="type-in" class="w3-jumbo"></h1>
-    <p>Programmer and Enterpreneur</p>
+    <p>Programmer and Enterpreneur <?php   if(!$link){
+	echo "not connected";
+}
+else{
+	echo "connected";
+}    ?></p>
     <img src="http://res.cloudinary.com/nellybaz/image/upload/e_art:incognito/v1523621760/nelly.jpg" style="border-radius: 50%" alt="Nelson Bassey" class="w3-image" width="300" height="400">
   </header>
 
