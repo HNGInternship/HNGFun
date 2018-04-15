@@ -232,33 +232,6 @@ include_once("header.php");
                         </div>
                     </div>
                     <!--Third slide-->
-                       <!--fourth slide-->
-                    <div class="carousel-item">
-                        <!--Grid column-->
-                        <div class="row justify-content-center mx-auto">
-                            <div class="col-md-4">
-
-                                <div class="testimonial">
-                                    <!--Avatar-->
-                                    <div class="avatar mx-auto">
-                                        <img src="http://res.cloudinary.com/moon-dock-group/image/upload/v1523706771/akpan.jpg" class="rounded-circle img-fluid">
-                                    </div>
-                                    <!--Content-->
-                                    <h4>chuckbass</h4>
-                                    <h6 class="blue-text font-weight-bold">Intern - HNG Internship 4</h6>
-                                    <p>
-                                        <i class="fa fa-quote-left"></i>Coming from Accounting background, wasn't expecting much from myself but was sure the financial sector needs coders that understand their basics. I started the internship with no knowledge of coding, the pressure was much but within a little time frame and help of other interns,i was able to develop my skills in using figma, github and other tools. it's not the end but just the beginning</p>
-                                </div>
-
-                            </div>
-                            <!--Grid column-->
-
-                           
-                    </div>
-                    <!--fourth slide-->
-
-                </div>
-                <!--Slides-->
 
                 </div>
                 <!--Slides-->

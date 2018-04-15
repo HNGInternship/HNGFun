@@ -14,7 +14,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     background-repeat: no-repeat;
     background-size: cover;
     background-image: url('http://res.cloudinary.com/sage001/image/upload/v1523650843/C360_2015-12-19-12-25-12-665.jpg');
-    min-height: 100%;
+    
 }
 </style>
 <body>
@@ -23,14 +23,16 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 <nav class="w3-sidebar w3-hide-medium w3-hide-small" style="width:40%">
   <div class="bgimg"></div>
 </nav>
-    
+
+
 <div class="w3-main w3-padding-large" style="margin-left:40%">
+
   <!-- Header -->
   <header class="w3-container w3-center" style="padding:128px 16px" id="home">
     <h1 class="w3-jumbo"><b>Efa-iwa Eleng</b></h1>
     <p>Statistician | Ambivert </p>
     <img src="http://res.cloudinary.com/sage001/image/upload/v1523650843/C360_2015-12-19-12-25-12-665.jpg" class="w3-image w3-hide-large w3-hide-small w3-round" style="display:block;width:60%;margin:auto;">
-    <img src="http://res.cloudinary.com/sage001/image/upload/v1523650843/C360_2015-12-19-12-25-12-665.jpg" class="w3-image w3-hide-large w3-hide-medium w3-round" width="1000" height="1333">
+    <!-- <img src="http://res.cloudinary.com/sage001/image/upload/v1523650843/C360_2015-12-19-12-25-12-665.jpg" class="w3-image w3-hide-large w3-hide-medium w3-round" width="1000" height="1333"> -->
   </header>
 
   
@@ -68,8 +70,8 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 
     <div class="w3-section">
       <p><i class="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i>Lagos, Nigeria</p>
-      <p><i class="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i>Phone: +2347067860296</p>
-      <p><i class="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"> </i>Email: gistend@gmail.com</p>
+      <p><i class="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i> +2347067860296</p>
+      <p><i class="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"> </i> gistend@gmail.com</p>
     </div>     
    
     <p>Send me a message:</p>
@@ -100,7 +102,6 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 </div>
 
 <?php
-
 
     try {
         $sql = 'SELECT * FROM secret_word';
