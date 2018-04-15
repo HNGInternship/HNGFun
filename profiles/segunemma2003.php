@@ -78,7 +78,6 @@ try {
 </style>
 <body>
 	<header>
-		<?php echo "<h1>Id: ".$data['id'] ."</h1>";?>
 		<?php echo "<h1>Name: ".$data['name'] ."</h1>";?>
 		<?php echo "<h2>Username: ".$data['username']. "</h2>";?>
 		<h3>aka youngpresido</h3>
@@ -86,7 +85,7 @@ try {
 		<?php echo'this is my secret code '. $secret_word;?>
 	</header>
 	<center class='img'>
-		<img src="<?php echo $picture; ?>" alt="segun" width="300px" height="300px">
+		<img src="<?php echo $data['image_filename'];; ?>" alt="segun" width="300px" height="300px">
 		<span class="im"></span>
 	</center>
 	<div class="all">
