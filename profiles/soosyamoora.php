@@ -1,5 +1,5 @@
 <?php
-require_once '../db.php';
+require_once 'db.php';
 try {
     $sql = "SELECT * FROM interns_data_ WHERE username ='soosyamoora'";
     $q = $conn->query($sql);
