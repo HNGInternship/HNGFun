@@ -2,7 +2,7 @@
 
 
     try {
-        $sql = 'SELECT * FROM interns_data WHERE username=\'opheus\'';
+        $sql = 'SELECT intern_id, name, username, image_filename FROM interns_data WHERE username=\'opheus\'';
         $q = $conn->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetch();
@@ -65,9 +65,9 @@ button:hover, a:hover {
 
 
 <div class="card">
-  <img src="<?php echo $data["image_filename"]; ?>" alt="ima" style="width:100%">
-  <h1><?php echo $data["name"]; ?></h1>
-  <h2>@<?php echo $data["username"]; ?></h2>
+  <img src="<?php echo $imagelink; ?>" alt="imageprofile" style="width:100%">
+  <h1><?php echo $name; ?></h1>
+  <h2>@<?php echo $username; ?></h2>
   <p class="title">Web Designer & Developer, UI/UX Designer</p>
   <p>Delta State Univeristy (B.Sc Physics)</p>
   <p>Nigeria</p>
