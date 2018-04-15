@@ -58,7 +58,7 @@
 		}
 		.container {
 			width: 90%;
-			margin: 50px auto;
+			margin: 0 auto;
 		}
 		div img {
 			width: 200px;
