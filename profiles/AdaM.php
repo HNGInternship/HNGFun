@@ -8,6 +8,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
 	@import url('https://fonts.googleapis.com/css?family=Allura|Damion');
+	@media only screen and (min-width: 600px) {
+			img.bootstrap-pic { display:inline-block; margin-top:-60px;}
+	}
+	@media only screen and (max-width: 600px) {
+			img.bootstrap-pic { display:block;}
+	}
 	.panel{border:0; box-shadow:none;}
 	.hello{font-family: 'Allura', Helvetica, cursive; font-size: 35px; line-height: 1.375em; font-weight: bold;}
 	.name{font-family: 'Damion', Arial, sans-serif; font-size:55px; color: #d16027;}
@@ -37,20 +43,19 @@
 	  <div class="row" style="margin-top:70px; margin-bottom:0px;">
 		<div class="col-sm-5">
 			<div class="panel panel-default" style="padding:5px 0 5px 0 border:0">
-				
 				  <img src="https://res.cloudinary.com/missada/image/upload/v1523634470/squarequick_201671715640975.jpg" class= "img-responsive img-circle" />
-				
 			</div>
 		</div>
 		<div class="col-sm-7">
 			<div class="panel panel-default">
-				<div class="panel-body" align="center" style="padding: 40px 10px 40px 10px">
+				<div class="panel-body" align="center" style="padding: 20px 10px 20px 10px">
 					<h4 class= "hello">Hello! I'm</h4>
 					<h1 class="name"><b><?php echo $user->name; ?></b></h1>
-					<p style="font-size:20px">Web developer from Lagos, Nigeria</p>
+					<p style="font-size:20px">IT graduate, Web Designer and Blogger from Lagos, Nigeria</p>
 					<div>
 						<span class="fa fa-html5 icons html5"></span> &nbsp; &nbsp;
 						<span class="fa fa-css3 icons css3"></span>
+						<img src="https://res.cloudinary.com/missada/image/upload/v1523807521/bootstrap.jpg" width="150px" height="150px" class="img-responsive bootstrap-pic"/>
 					</div>
 					<p class="details"><span class="fa fa-envelope"> adamichelllle@gmail.com </span></p>			
 					<p>
