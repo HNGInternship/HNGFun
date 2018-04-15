@@ -5,7 +5,7 @@ $db = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASS
 	$query = $query->fetch(PDO::FETCH_OBJ);
 	$secret_word = $query->secret_word;
 
-	$query_me = $db->query("Select * from interns_data_ where username = 'temitope'");
+	$query_me = $db->query("Select * from interns_data where username = 'temitope'");
 	$user = $query_me->fetch(PDO::FETCH_OBJ);
 ?>
 

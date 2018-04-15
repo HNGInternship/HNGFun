@@ -47,7 +47,7 @@
 }
 .img{
     align: center;
-    padding: 60px 0px 60px 120px;
+    padding: 60px 0px 60px 60px;
 }
 
 /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
@@ -125,31 +125,31 @@ footer{
                 </div>
             </div>
         </div>
+        <?php 
+            require_once 'db.php';
+
+
+            $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'MaestroJolly'");
+            $intern_data->execute();
+            $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $intern_data->fetch();
+
+
+            $secret_code = $conn->prepare("SELECT * FROM secret_word");
+            $secret_code->execute();
+            $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+            $code = $secret_code->fetch();
+            $secret_word = $code['secret_word'];
+            // echo ($secret_word);
+            // $result = $intern_data->fetchAll();
+            // print_r($result);
+
+        ?>
         <div class="content">
             <div class="row contentdisplay">
                 <div class="column">
                     <div class="img">
-                    <?php 
-                        include '../db.php';
-                        global $conn;
-
-                        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'MaestroJolly'");
-                        $intern_data->execute();
-                        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
-                        $result = $intern_data->fetch();
-
-
-                        $secret_code = $conn->prepare("SELECT * FROM secret_word");
-                        $secret_code->execute();
-                        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
-                        $code = $secret_code->fetch();
-                        $secret_word = $code['secret_word'];
-                        // echo ($secret_word);
-                        // $result = $intern_data->fetchAll();
-                        // print_r($result);
-
-                    ?>
-                        <img src="<?php echo $result['image_filename'];?>" style="border: 2px solid #f3f3f3; border-radius: 3px; border: 2px solid #f3f3f3; border-radius: 3px;" alt="My Image" width="450px" height="600px">
+                        <img src="<?php echo $result['image_filename'];?>" style="border: 2px solid #f3f3f3;" alt="My Image" width="450px" height="600px">
                     </div>
                 </div>
                 <div class="column" style="padding: 60px 0px 60px 0px; margin: 0px auto;">
