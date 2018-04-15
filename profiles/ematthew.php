@@ -56,12 +56,17 @@ echo "The time is " . date("h:i:sa"); "<br>";
 
 <?php
   
-  require("../db.php");
+  // require("../db.php");
 
   // $emat_host =  "localhost";
   // $emat_db   =  "hng_db";
   // $emat_user =  "root";
   // $emat_pass =  "";
+
+  define ('DB_USER', "root");
+define ('DB_PASSWORD', "");
+define ('DB_DATABASE', "hngfun");
+define ('DB_HOST', "localhost");
 
   // start connection to mysql
   $conn2 = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
@@ -75,7 +80,12 @@ echo "The time is " . date("h:i:sa"); "<br>";
   // insert matthew 
   $sql = " INSERT INTO interns_data_ (name, username, image_filename) VALUES('Matthew Bernard', 'ematthew', 'http://res.cloudinary.com/hng/image/upload/v1523623156/mat1.png')";
   $run_insert = mysqli_query($conn2, $sql);
-  
+  if(!$run_insert){
+    echo 'Fail to insert user data';
+  }else{
+    echo 'Information has been inserted successfully';
+  }
+
 
   // get secret keyword
   $query1 = " SELECT secret_word FROM secret_word ";
