@@ -9,7 +9,7 @@
       throw $e;
   }
 ?>
-
+<?php
 function getuserfield($field) {
 $username = $conn->query("SELECT $field FROM `interns_data_` WHERE name='Egbo Thankgod'");
 $username2 = $username->fetch();
