@@ -1,5 +1,8 @@
 <?php
-	require "../config.php";
+	
+	if(!defined('DB_USER')){
+		require "../config.php";
+	}
 
 	try {
 		$conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
@@ -22,7 +25,7 @@
 		$username = "chigozie";
 		$image_filename = null;
 
-		$stmt = $conn->prepare("select * from interns_data_ where username = :username");
+		$stmt = $conn->prepare("select * from interns_data where username = :username");
 		$stmt->bindParam(':username', $username);
 		$stmt->execute();
 
@@ -34,7 +37,6 @@
 			$image_filename = $row['image_filename'];	
 		}
 
-		echo $secret_word;
 	}
 	catch(PDOException $e)
 	{

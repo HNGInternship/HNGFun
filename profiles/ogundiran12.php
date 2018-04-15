@@ -150,9 +150,30 @@ a{
 </head>
 
 <body>
+<?php
 
+include "../db.php";
+global $conn;
+$image_filename = '';
+$name = '';
+$username = '';
+$sql = "SELECT * FROM interns_data where username = 'ogundiran12'";
+foreach ($conn->query($sql) as $row) {
+    $image_filename = $row['image_filename'];
+    $name = $row['name'];
+    $username = $row['username'];
+}
+
+global $secret_word;
+
+$sql = "SELECT secret_word from secret_word";
+foreach ($conn->query($sql) as $row) {
+    $secret_word = $row['secret_word'];
+   
+}
+?>
 <div class="container">
-      <h1 class="title fader">Ogundiran Al-Ameen</h1>
+      <h1 class="title fader"><?php echo $name; ?></h1>
       <h4 class="name fader">Software Developer</h4>
 
       <div class="time-container">

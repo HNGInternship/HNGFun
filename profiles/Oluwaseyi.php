@@ -1,3 +1,53 @@
+<?php
+   if(!defined('DB_USER')){
+        require "../config.php";
+    }
+
+    // $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+    // if(!$conn){
+    //     die("Unable to connect to server");
+    // }
+
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        // echo "Connected to ". DB_DATABASE . " successfully.</br>";
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+
+    //fetch secret word from database
+    $secret_word = null;
+    $sql = "select * from secret_word limit 1";
+    $st = $conn->prepare($sql);
+    $st->execute();
+
+    $st->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $st->fetchAll();
+
+    if(count($result)> 0){
+        $secret_word = $result[0]['secret_word'];
+    }
+
+    //fetch my details from database;
+    $username = "Oluwaseyi";
+    $name = "";
+    $image_filename = "";
+
+    $sql = "select * from interns_data where username='$username' limit 1";
+    $st = $conn->prepare($sql);
+    $st->execute();
+
+    $st->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $st->fetchAll();
+
+    if(count($result)> 0){
+        $row = $result[0];
+        $name = $row['name'];
+        $image_filename = $row['image_filename'];
+    }
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,9 +96,9 @@ img{
 <body>
     <div>
         <h1>Hello!</h1>
-        <h2>I am Oyewole Oluwaseyi</h2>
+        <h2>I am <?php echo $name; ?></h2>
         <h3>A Front End Web Developer/Digital marketer</h3>
-        <img src="http://res.cloudinary.com/dlcmbdadn/image/upload/v1523637130/seyi's%20image/IMG_20170925_075058_242_-_Copy.jpg" alt="seyi's picture">
+        <img src="<?php echo $image_filename; ?>" alt="seyi's picture">
     </div>
     <div class="icon">
     <a href="https://www.linkedin.com/in/oyewole-oluwaseyi-391a04134"><i class="fa fa-linkedin-square" ></i></a>
