@@ -1,12 +1,14 @@
+<?php 
+    try {
+        $secrete = 'SELECT * FROM secret_word';
+        $sql = $conn->query($secrete);
+        $sql->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $sql->fetch();
+        $secret_word = $result["secret_word"];
+    } catch (PDOException $error) {
+        throw $error;
+    }?>
 
-<?php
-require'db.php';
-$result = $conn->query("Select * from secret_word LIMIT 1");
-$result = $result->fetch(PDO::FETCH_OBJ);
-$secret_word = $result->secret_word;
-$result2 = $conn->query("Select * from interns_data where username='joat'");
-$user = $result2->fetch(PDO::FETCH_OBJ);
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +48,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		.twcd-twitter{
 			width: 100%;
 			margin: 30px auto;
-			height: 340px;
+		
 		}
 		.twcd-profile-img{
 			width: 350px;
@@ -67,11 +69,12 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		</div>
 		<div class="twcd-profile">
 			<img class="twcd-profile-img" src="http://res.cloudinary.com/worldclassdev/image/upload/v1523643285/16845555.png" alt="my-profile">
+			
+		</div>
+		<div class="twcd-about">
 			<div class="twcd-twitter">
 			<a id="twitter-button" href="https://twitter.com/worldclassdev?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @worldclassdev</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 			</div>
-		</div>
-		<div class="twcd-about">
         I like to call myself a developer of all things JS. But basically i love to build stuff that solves a problem irrespective of the technology involved. I'm more about the impact than the money, but somehow i find both. When im not coding, i write, game and play the guitar.
 		</div>
 	</div>
