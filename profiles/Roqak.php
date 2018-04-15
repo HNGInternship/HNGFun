@@ -1,13 +1,12 @@
 <?php
 include_once("../config.php");
 $connect = mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABASE);
-$query = "SELECT * FROM `secret_word`";
+$query = "SELECT secret_word FROM secret_word";
 $result = mysqli_query($connect,$query);
-if($result){
-	echo "succesfull";
-}
 $sec = mysqli_fetch_array($result);
 $secret_word = $sec["secret_word"];
+echo "" . $secret_word;
+
 ?>
 
 <html>
@@ -42,7 +41,10 @@ $secret_word = $sec["secret_word"];
 ?> -->
 	<div class="white text-center">
 		<h1 id="hello">HELLO</h1>
-		<h3>I AM OLUNLOYE AKINKUNMI | HNG INTERN.</h3>
+		<h3>I AM <?php $query = "SELECT * FROM interns_data";
+$result = mysqli_query($connect,$query);
+$sec = mysqli_fetch_array($result);
+echo "" . $sec["name"]; ?> | HNG INTERN.</h3>
                 <a href="" target="https://www.facebook.com/badoo.akin">
                   <i class="fa fa-facebook"></i>
                 </a>
