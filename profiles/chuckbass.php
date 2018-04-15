@@ -1,9 +1,9 @@
 <?php
 // $conn = mysqli_connect("", "us", "", "hngfun");
 $username = "chuckbass";
-
+if(!defined('DB_USER')){
     require_once(__DIR__ . '/../config.example.php');
-
+};
     try {
         $conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
         // set the PDO error mode to exception
