@@ -1,33 +1,23 @@
 
 <?php
-require_once '../db.php';
-    try {
-        //Your username here
-        $sql2 = "SELECT * FROM interns_data WHERE username = 'mercyikpe'";
-        $q2 = $conn->query($sql2);
-        $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $data2 = $q2->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    
-    $name = $data2['name'];
-    $username = $data2['username'];
-    $image = $data2['image_filename'];
 
-    try {
-        $sql = 'SELECT * FROM secret_word';
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    
-    // secret key
-    $secret_word = $data['secret_word'];
-    ?>
 
+   try {
+       $sql = 'SELECT intern_id, name, username, image_filename FROM interns_data_ WHERE username=\'mercyikpe\'';
+       $q = $conn->query($sql);
+       $q->setFetchMode(PDO::FETCH_ASSOC);
+       $data = $q->fetch();
+   } catch (PDOException $e) {
+       throw $e;
+   }
+        
+        $mynameis = $data["name"];
+        $myusernameis = $data["username"];
+        $myimagelinkis = $data["image_filename"];
+
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +28,7 @@ require_once '../db.php';
 	
 	<style>
 		body {
-			background-image: url("http://res.cloudinary.com/mercyikpe/image/upload/v1517443922/mercy_ownuvy.jpg");
+			background-image: url("<?php  echo $myimagelinkis; ?>");
 			background-size: cover;
 		}
 		
@@ -75,7 +65,17 @@ require_once '../db.php';
 			echo "The time is </br>" . date("h:i:sa");
 		?> 
 	</p>
-    
+    <?php
+   try {
+       $sql = 'SELECT * FROM secret_word';
+       $q = $conn->query($sql);
+       $q->setFetchMode(PDO::FETCH_ASSOC);
+       $data = $q->fetch();
+   } catch (PDOException $e) {
+       throw $e;
+   }
+   $secret_word = $data['secret_word'];
+   ?>
 	</body>
 </html>
 
