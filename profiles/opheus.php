@@ -2,7 +2,7 @@
 
 
     try {
-        $sql = 'SELECT * FROM interns_data_ WHERE username=\'opheus\'';
+        $sql = 'SELECT * FROM interns_data WHERE username=\'opheus\'';
         $q = $conn->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetch();
