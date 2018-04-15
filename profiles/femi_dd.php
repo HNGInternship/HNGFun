@@ -60,9 +60,6 @@ li{
 .inner{
    padding: 20px
 }
-#btn{
-   margin-top: -80px;
-}
 p,i,li{
    font-family:'Lato', arial, sans-serif;
 }
@@ -95,7 +92,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
                <li><a target="_blank" title="Linkedin/KoleIbrahimAbdulQudus" href="https://www.linkedin.com/in/koleibrahimabdulqudus/"><i class="fa fa-linkedin"></i></a></li>
                <li><a target="_blank" title="Github/Femi-DD" href="http://github.com/femi-dd"><i class="fa fa-github-alt"></i></a></li>
                <li><a target="_blank" title="StackOverflow/Femi_DD" href="https://stackoverflow.com/story/femi_dd"><i class="fa fa-stack-overflow"></i></a></li>
-               <a style="float:right" id="btn" class="btn btn-cta-primary" href="mailto:femi.highsky@gmail.com" target="_blank"><i class="fa fa-paper-plane"></i> Contact Me</a>
+               <li><a style="font-size:20px;" class="btn btn-cta-primary pull-right" href="mailto:femi.highsky@gmail.com" target="_blank"><i class="fa fa-paper-plane"></i> Contact Me</a></li>
             </ul>
          </div>
       </div>
