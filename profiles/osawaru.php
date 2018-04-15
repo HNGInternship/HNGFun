@@ -40,8 +40,9 @@
 <title>Osawaru Oyelade Efe-osa</title>
 </head>
 
-<body><?php
+<body>
 
+<?php
 $sql = "SELECT * FROM secret_word";
 $query = $conn->query($sql);
 $query->setFetchMode(PDO::FETCH_ASSOC);
@@ -52,7 +53,7 @@ try {
     $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="osawaru"';
     $q2 = $conn->query($sql2);
     $q2->setFetchMode(PDO::FETCH_ASSOC);
-    $mydata = $q2->fetch();
+    $me = $q2->fetch();
 } catch (PDOException $e) {
     throw $e;
 }
