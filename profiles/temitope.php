@@ -1,5 +1,5 @@
 <?php
-require_once "../db.php";
+// require_once "../db.php";
 
 	$query = $conn->query("Select * from secret_word LIMIT 1");
 	$query = $query->fetch(PDO::FETCH_OBJ);
