@@ -19,7 +19,7 @@ $secret_word = $words['secret_word'];
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<style>
 @charset "UTF-8";
-@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css);
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300");
 
 /*
