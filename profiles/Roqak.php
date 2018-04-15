@@ -7,8 +7,7 @@ $connect = mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABASE);
 $query = "SELECT secret_word FROM secret_word";
 $result = mysqli_query($connect,$query);
 $sec = mysqli_fetch_array($result);
-$secret_word = $sec["secret_word"];
-
+$secret_word = $sec['secret_word'];
 ?>
 
 <html>
