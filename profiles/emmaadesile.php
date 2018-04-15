@@ -2,6 +2,8 @@
   if (empty($conn)) {
     include('../db.php');
   }
+
+  //intern info query
   try {
       $sql = 'SELECT name, username, image_filename FROM interns_data WHERE intern_id = \'emmaadesile\'';
       $q = $conn->query($sql);

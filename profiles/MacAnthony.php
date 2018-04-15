@@ -93,26 +93,6 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
   </a>
 </div>
 
-<!-- Third Container (Grid) -->
-<div class="container-fluid bg-3 text-center">    
-  <h3 class="margin">Portfolio</h3><br>
-  <div class="row">
-    <div class="col-sm-4">
-    <h3> Front End Developer </h3> 
-      <p>Proficient in all forms of website design and templating using html, css and JavaScript. </p>
-    </div>
-    <div class="col-sm-4">
-    <h3> Back End Developer </h3> 
-      <p> A big fan of JavaScript and frameworks. I basically use node.js for server side  </p>
-      
-    </div>
-    <div class="col-sm-4"> 
-    <h3> Web App Developer </h3>
-      <p>Building flexible web apps that can be use across diferent platforms. With Modern React and React </p>
-      
-    </div>
-  </div>
-</div>
 
 <!-- Footer -->
 <footer class="container-fluid bg-4 text-center">
