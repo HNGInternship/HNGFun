@@ -24,6 +24,7 @@
 			font-family: 'Andika';
 			font-size: 16px;
 			height: 100vh;
+			color: #fff;
 			overflow-y: scroll;
 			overflow-x: hidden;
 		}
@@ -32,6 +33,7 @@
 			margin-bottom: 5px;
 		}
 		.flexbox{
+			margin-top: 20vh;
 			height: 90vh;
 			display: flex;
 			align-items: center;
