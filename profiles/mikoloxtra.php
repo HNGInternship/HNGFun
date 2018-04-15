@@ -42,7 +42,7 @@ button:hover, a:hover {
   background-color: cyan;
 }
 .image{border-radius: 100%;}
-.usernamecs{margin-top:10px;}
+h1.usernamecs{margin-top:30px;}
 </style>
 </head>
 <body>
