@@ -34,6 +34,7 @@ require 'db.php';
     margin-bottom: 1rem;
     border: 1px solid transparent;
     border-radius: .25rem;
+    top: 50px;
     ">Secret key mismatch. Insert your secret key</div>
 <?php } ?>
 
