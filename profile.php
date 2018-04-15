@@ -8,19 +8,6 @@ require 'db.php';
 
 ?>
 <!-- Page Content -->
-<?php if(!isset($secret_word) || $secret_word != $data['secret_word']) { ?>
-    <div style="
-    color: #721c24;
-        background-color: #f8d7da;
-        border-color: #f5c6cb;
-        position: relative;
-    padding: .75rem 1.25rem;
-    margin-bottom: 1rem;
-    border: 1px solid transparent;
-    border-radius: .25rem;
-    ">Secret key mismatch. Insert your secret key</div>
-<?php } ?>
-
 </div>
 <body class = 'profile'>
 
@@ -37,7 +24,18 @@ require 'db.php';
     throw $e;
 }?>
 </div>
-
+<?php if(!isset($secret_word) || $secret_word != $data['secret_word']) { ?>
+    <div style="
+    color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    ">Secret key mismatch. Insert your secret key</div>
+<?php } ?>
 
 </body>
 
