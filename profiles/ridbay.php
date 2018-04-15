@@ -1,3 +1,29 @@
+<?php
+require_once '../db.php';
+	try {
+		//Your username here
+        $sql2 = "SELECT * FROM interns_data WHERE username = 'ridbay'";
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $data2 = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+	
+	$name = $data2['name'];
+	$username = $data2['username'];
+	$image = $data2['image_filename'];
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+	// this is for the secret key on tHNG server
+    $secret_word = $data['secret_word'];
+    ?>
 <!DOCTYPE html>
 <html>
 <head>

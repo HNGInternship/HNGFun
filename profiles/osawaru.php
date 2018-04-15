@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
@@ -12,8 +13,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <!--Font -->
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro|Playball" rel="stylesheet">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S"
-    crossorigin="anonymous">
+
 <style>
     #projects {
         background-image: url(" http://res.cloudinary.com/osawaru/image/upload/v1523637993/bg-img.jpg");
@@ -40,18 +40,41 @@
 <title>Osawaru Oyelade Efe-osa</title>
 </head>
 
-
 <body>
+
+<?php
+$sql = "SELECT * FROM secret_word";
+$query = $conn->query($sql);
+$query->setFetchMode(PDO::FETCH_ASSOC);
+$result = $query->fetch();
+$secret_word = $result['secret_word'];
+
+try {
+    $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="osawaru"';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $mydata = $q2->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+
+?>
+
+
     <div class="containter text-white text-center">
         <p class="mt-5 text-danger" style="font-stretch: expanded; font-family: 'Playball',cursive; font-size:40px">Meet</p>
         <h1 class="font-weight-bold" style="font-family: 'Source Sans Pro', sans-serif;">
-            <u>OSAWARU OYELADE EFE-OSA</u>
+            <u><?php
+            echo $mydata["name"];
+            ?></u>
         </h1>
-        <img src="http://res.cloudinary.com/osawaru/image/upload/v1523631992/29715068_1532097686913181_1567723712273186816_n.jpg"
+        <img src="<?php
+            echo $mydata["image_filename"];
+            ?>"
             class="img-fluid img-thumbnail rounded-circle mx-auto w-25 h-25" alt="Osawaru Efe">
         <h3 class="mt-5">I am a Full stack Developer as well as a digital designer</h3>
         <h6>
-            <i class="fa fa-map-marker-alt mr-2"></i>Abuja | NG </h6>
+            <i class="fa fa-street-view mr-2"></i>Abuja | NG </h6>
     </div>
     <div id="projects">
         <div class="container-fluid text-center text-white">
@@ -102,17 +125,17 @@
 
         </div>
     </div>
-    <p class="text-center mt-3" style="color:white; font-size: 25px">Social Media
+    <p class="text-center mt-3" style="color:white; font-size: 18px">Connect With Me
         <br>
-        <span style="color: Tomato; font-size: 30px">
-            <a href="https://twitter.com/Jessy9507">
-                <i class="fab fa-twitter-square"></i>
+        <span style="color: white; font-size: 30px">
+        <a href="https://twitter.com/Jessy9507">
+                <i class="fa fa-twitter"></i>
             </a>
             <a href="https://github.com/jessye95?tab=stars">
-                <i class="fab fa-github-square ml-2"></i>
+                <i class="fa fa-github ml-2"></i>
             </a>
-            <a href="https://linkedin.com/Oyelade">
-                <i class="fab fa-linkedin ml-2"></i>
+            <a href="https://www.linkedin.com/in/efe-osa-oyelade-4aa82a5b/">
+                <i class="fa fa-linkedin ml-2"></i>
             </a>
             <a href="mail to:jessye95@gmail.com">
                 <i class="fa fa-envelope ml-2"></i>

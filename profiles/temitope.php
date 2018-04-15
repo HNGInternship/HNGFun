@@ -1,11 +1,11 @@
 <?php
-require "../config.php";
-$db = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-	$query = $db->query("Select * from secret_word LIMIT 1");
+// require_once "../db.php";
+
+	$query = $conn->query("Select * from secret_word LIMIT 1");
 	$query = $query->fetch(PDO::FETCH_OBJ);
 	$secret_word = $query->secret_word;
 
-	$query_me = $db->query("Select * from interns_data_ where username = 'temitope'");
+	$query_me = $conn->query("Select * from interns_data where username = 'temitope'");
 	$user = $query_me->fetch(PDO::FETCH_OBJ);
 ?>
 
@@ -16,6 +16,7 @@ $db = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASS
 	<link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
 	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<style>
+
 		body{
 			background: linear-gradient(150deg, #4e9af5, #f6b301);
 			background-size: cover;
@@ -111,6 +112,10 @@ $db = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASS
 			border: 2px solid #b3b3b3;
 		}
 
+		a{
+			text-decoration: none;
+		}
+
 	</style>
 </head>
 
@@ -132,9 +137,9 @@ $db = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASS
 
 					 <button class="btn-primary span-width">HNG 4.0 INTERN</button>
 					 <p>
-					 	<span class="fa fa-facebook icon-circle"></span>
-					 	<span class="fa fa-twitter icon-circle"></span>
-					 	<span class="fa fa-github icon-circle"></span>
+					 	<a href="https://www.facebook.com/hellesanmi.santiago"><span class="fa fa-facebook icon-circle"></span></a>
+					 	<a href="https://twitter.com/aidansantiago97"><span class="fa fa-twitter icon-circle"></span></a>
+					 	<a href="https://github.com/itope84"><span class="fa fa-github icon-circle"></span></a>
 					 </p>
 				</center>
 				
