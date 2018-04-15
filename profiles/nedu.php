@@ -3,6 +3,7 @@
   <?php
    $file = realpath(__DIR__.'/..')."/db.php";
    require_once $file;
+   $file1 = realpath(__DIR__.'/..')."/footer.php";
    $result = $conn->query("SELECT * FROM secret_word LIMIT 1");
    $result = $result->fetch(PDO::FETCH_OBJ);
    $secret_word = $result->secret_word;
@@ -111,7 +112,7 @@
     <p>Skill : Web developer</p>
   </div>
   <div>
-   <p><?php include_once ('../footer.php');?></p>
+   <p><?php include_once $file1;?></p>
   </div>
 </div>
 </body>
