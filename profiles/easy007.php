@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<head>
 <title>Easy | Page</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,6 +8,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+*{
+  box-sizing:border-box;
+}
 body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 .w3-row-padding img {margin-bottom: 12px}
 #about{
@@ -16,30 +20,35 @@ body >div{
 	background:bisque;
 	margin-bottom:1rem;
 }
-.bgimg {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image: url('http://res.cloudinary.com/easy007/image/upload/v1523694330/image-1.jpg');
-    min-height: 100%;
+
+.bgimg{
+  width: 25%;
+    margin: auto;
+}
+.bgimg img{
+  max-width:100%;
+  height:auto;
 }
 </style>
+</head>
 <body>
 
 <!-- Sidebar with image -->
-<nav class="w3-sidebar w3-hide-medium w3-hide-small" style="width:40%">
-  <div class="bgimg"></div>
+<nav style="margin:auto">
+  <div class="bgimg">
+  <img src="http://res.cloudinary.com/easy007/image/upload/v1523694330/image-1.jpg"  alt="My Image" max-width="100%" height="auto">
+  </div>
 </nav>
     
-<div class="w3-main w3-padding-large" style="margin-left:40%">
+<div class="content" style="margin:auto">
   <!-- Header -->
-  <header class="w3-container w3-center" style="padding:128px 16px" id="home">
-    <h1 class="w3-jumbo"><b>Adeniyi Yusuf</b></h1>
+  <header class="w3-container w3-center" id="home">
+    <h1 class="w3-jumbo" style="text-align:center;margin:1rem;">Name: &nbsp;&nbsp;<b>Adeniyi Yusuf</b></h1>
   </header>
 
   
   <div class="w3-content w3-justify w3-text-grey w3-text-center w3-padding-32" id="about">
-    <h1 style="background: white;margin: 0 -2rem;">About</h1>
+    <h1 style="background: white;margin: 0 -1rem;">About</h1>
     <hr class="w3-opacity">
     <p>Student | Web developer| Computer scientist</p>
         
@@ -54,7 +63,7 @@ body >div{
 	</div>
   <!-- Contact Section -->
   <div class="w3-padding-32 w3-content w3-text-grey" id="contact" style="margin-bottom:64px; text-align:center">
-    <h1 style="background: white;margin: 0 -2rem;">Contact Me</h1>
+    <h1 style="background: white;margin: 0 -1rem;">Contact Me</h1>
     <hr class="w3-opacity">
 
     <div class="w3-section">
@@ -79,7 +88,7 @@ body >div{
   </div>  
   
   <!-- Footer -->
-  <footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-opacity w3-xlarge" style="margin:-24px">
+  <footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-opacity w3-xlarge" style="margin:-24px;text-align:center;">
     <i class="fa fa-facebook-official w3-hover-opacity"></i>
     <i class="fa fa-instagram w3-hover-opacity"></i>
     <i class="fa fa-twitter w3-hover-opacity"></i>
@@ -102,7 +111,7 @@ body >div{
         throw $e;
     }
     $secret_word = $data['secret_word'];
-    ?>
+?>
 
 </body>
 </html>
