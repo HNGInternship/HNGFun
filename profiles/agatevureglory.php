@@ -1,6 +1,6 @@
 <?php
 
-include('../db.php');
+require_once '../db.php';
 
 
 
@@ -81,8 +81,8 @@ include('../db.php');
 <body>
 	<div class="container"> 
 	    <div class="row">
-	      <div class="col s5 "><span class="flow-text"><img class ="myPics" src="http://res.cloudinary.com/gconnect/image/upload/v1523730900/glory.jpg" width="300px" height="400px"></span>
-	      	<h5 class="name"><a href="www.medium.com/@agatevureglory">Agatevure Glory</a></h5>
+	      <div class="col s5 "><span class="flow-text"><img class ="myPics" src="<?php echo $image_filename?>" width="300px" height="400px"></span>
+	      	<h5 class="name"><a href="www.medium.com/@agatevureglory"><?php echo $name?></a></h5>
 	      </div>
 
 	      <div class="col s7 ">

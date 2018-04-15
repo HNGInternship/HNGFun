@@ -11,7 +11,7 @@ include_once("header.php");
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
                 <div class="col-12 col-md-3">
                   <a href="https://join.slack.com/t/hnginternship4/shared_invite/enQtMzQwOTU4NzAwNjExLWQ0NWFlZDBmNjRkMTRkNGZmYjQ5MzA0YmUzZDBiZDEzOTBkZGE1ZWUxZTI1YjkxMTQ5N2MyZTMyMzBmMTEyOWM">
-                    <button type="submit" class="btn btn-block btn-lg btn-primary">Apply Here</button></a>
+                    <button type="submit" class="btn btn-block btn-lg btn-primary">Apply</button></a>
                 </div>
           </div>
         </div>
