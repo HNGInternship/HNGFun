@@ -21,17 +21,13 @@ body, h1,h2,h3,h4,h5,h6 {font-family: cursive;}
 
 <!--      ====================           CONNECTION    AND QUERY  ============                 -->
 <?php
-include ('config.example.php');
-$host = DB_HOST;
-$user = DB_USER;
-$db = DB_DATABASE;
-$pass = DB_PASSWORD;
+include ('../config.example.php');
 
 $link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 
 
-$qq = "select * from interns_data_";
+$qq = "select * from interns_data";
 $result = mysqli_query($link, $qq);
 $row2 = mysqli_fetch_array($result);
 
