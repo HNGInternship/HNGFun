@@ -1,3 +1,23 @@
+<?php 
+  /*try {
+      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE intern_id = \'gbxnga\'';
+      $q = $conn->query($sql);
+      $q->setFetchMode(PDO::FETCH_ASSOC);
+      $data = $q->fetch();
+      $secret_word = $data['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }*/
+?>
+<?php
+require_once 'db.php';
+  $result = $conn->query("Select * from secret_word LIMIT 1");
+  $result = $result->fetch(PDO::FETCH_OBJ);
+  $secret_word = $result->secret_word;
+
+  $result2 = $conn->query("Select * from interns_data where username = 'gbxnga'");
+  $user = $result2->fetch(PDO::FETCH_OBJ);
+?>
 <html>
     <head>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -269,7 +289,7 @@
                 </div>
                 <div class="info">
                     <div class="title">
-                        <a target="_blank" href="http://gbengaoni.com/">Gbenga Oni</a>
+                        <a target="_blank" href="http://gbengaoni.com/"><?php echo $user->name ;?></a>
                     </div>
                     <div class="desc">Passionate Software Developer</div>
                     <div class="desc">Sporadic Learner</div>

@@ -93,16 +93,17 @@
 
 <body>
   <?php
-    include '../config.php';
+    $sql = "SELECT * FROM secret_word";
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $query->fetch();
+    $secret_word = $result['secret_word'];
 
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-    $result = mysqli_query($conn, "select * from secret_word");
-
-    $secret_word = mysqli_fetch_assoc($result)['secret_word'];
-    echo $secret_word;
-
-    $result = mysqli_query($conn, "select * from interns_data where username = 'mclint_'");
-    $me = mysqli_fetch_assoc($result);
+    $sql = "SELECT * FROM interns_data WHERE username = 'mclint_'";
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $query->fetchAll();
+    $me = array_shift($data);
   ?>
   <div id="main">
     <div id="about">

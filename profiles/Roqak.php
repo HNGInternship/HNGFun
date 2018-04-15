@@ -1,21 +1,19 @@
+<html>
+
 <?php
-include_once("../config.php");
-$connect = mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABASE);
-$query = "SELECT * FROM `secret_word`";
-$result = mysqli_query($connect,$query);
-if($result){
-	echo "succesfull";
-}
-$sec = mysqli_fetch_array($result);
-$secret_word = $sec["secret_word"];
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+
+   $result2 = $conn->query("Select * from interns_data where username = 'roqak'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 
-<html>
 <head>
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-	<title>Olunloye Akikunmi</title>
+	<title> <?php echo $user->name ?> </title>
 	<style type="text/css">
 	.white{
 		color: white;
@@ -37,12 +35,9 @@ $secret_word = $sec["secret_word"];
 	</style>
 </head>
 <body>
-<!-- 	<?php
-// include_once("../header.php");
-?> -->
 	<div class="white text-center">
 		<h1 id="hello">HELLO</h1>
-		<h3>I AM OLUNLOYE AKINKUNMI | HNG INTERN.</h3>
+		<h3>I AM <?php echo $user->name ?>  HNG INTERN.</h3>
                 <a href="" target="https://www.facebook.com/badoo.akin">
                   <i class="fa fa-facebook"></i>
                 </a>
@@ -55,7 +50,6 @@ $secret_word = $sec["secret_word"];
 								<a href="" target="https://slack.com/roqak">
                   <i class="fa fa-slack"></i>
                 </a>
-          </div>
-	</div>
+    </div>
 </body>
 </html>
