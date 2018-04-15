@@ -131,13 +131,11 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
         <br>
         <img src="<?php echo $result['image_filename'] ?>" class="circle responsive-img photo" alt="umar yusuf">
         <h1 class="header center text-lighten-2 "><?php echo $result['name']; ?></h1>
-        <h3 class="center">@<?php echo $result['username']; ?></h3>
+        <h5 class="center">@<?php echo $result['username']; ?></h5>
         <div class="row center">
           <h5 class="header col s12 orange-text accent-2 flow-text desc">Hello!, I'am Umar Yusuf web application developer based in Kaduna Nigeria, I provide application development, enhancement, and I also accept paid work.</h5>
         </div>
-        <div class="row center">
-          <a href="#" id="download-button" class="btn-large hoverable waves-effect waves-light teal lighten-1">lets get to work</a>
-        </div>
+        
         <br>
       </div>
     </div>
@@ -152,7 +150,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
         </div>
       </div>
       <div class="row">
-        <div class="col s12 m4">
+        <div class="col s12 l4">
           <div class="icon-block">
             <h2 class="center orange-text accent-2"><i class="mdi mdi-flash"></i></h2>
             <ul class="collection">
@@ -202,7 +200,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
           </div>
         </div>
 
-        <div class="col s12 m4">
+        <div class="col s12 l4">
           <div class="icon-block">
             <h2 class="center orange-text accent-2"><i class="mdi mdi-group"></i></h2>
             <ul class="collection">
@@ -252,7 +250,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
           </div>
         </div>
 
-        <div class="col s12 m4">
+        <div class="col s12 l4">
           <div class="icon-block">
             <h2 class="center orange-text accent-2t"><i class="mdi mdi-settings"></i></h2>
             <ul class="collection">
