@@ -29,7 +29,7 @@ require 'db.php';
     color: #721c24;
         background-color: #f8d7da;
         border-color: #f5c6cb;
-        position: relative;
+        position: fixed;
     padding: .75rem 1.25rem;
     margin-bottom: 1rem;
     border: 1px solid transparent;
