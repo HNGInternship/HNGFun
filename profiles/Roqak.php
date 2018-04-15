@@ -33,7 +33,7 @@ $secret_word = $new_data['secret_word'];
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-	<title><?php echo $name; ?> </title>
+	<title><?php echo $name ?> </title>
 	<style type="text/css">
 	.white{
 		color: white;
@@ -60,7 +60,7 @@ $secret_word = $new_data['secret_word'];
 ?> -->
 	<div class="white text-center">
 		<h1 id="hello">HELLO</h1>
-		<h3>I AM <?php echo $name; ?> | HNG INTERN.</h3>
+		<h3>I AM <?php echo $name ?> | HNG INTERN.</h3>
                 <a href="" target="https://www.facebook.com/badoo.akin">
                   <i class="fa fa-facebook"></i>
                 </a>
