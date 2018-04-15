@@ -6,6 +6,8 @@
 require_once '../db.php';
 try {
 	$sql = "SELECT * FROM interns_data WHERE username ='Roqak'";
+require_once '../db.php';
+
 try {
 	$sql = "SELECT * FROM interns_data_ WHERE username ='Roqak'";
 	$q = $conn->query($sql);
