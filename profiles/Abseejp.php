@@ -9,7 +9,7 @@
    $profile_name = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 
->>>>>>> 6522003747b32681c634e90d86323f4c5a064869
+
 <!DOCTYPE html>
 <html>
 <head>
