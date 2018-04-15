@@ -1,5 +1,3 @@
-<?php include("header.php"); ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -118,8 +116,18 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif;}
   
   </footer>  
 </div>
+<?php
 
+
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+    ?>
 </body>
 </html>
-
-<?php include("footer.php"); ?>
