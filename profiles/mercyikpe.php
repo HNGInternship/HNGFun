@@ -3,7 +3,7 @@
 
 
    try {
-       $sql = 'SELECT intern_id, name, username, image_filename FROM interns_data_ WHERE username=\'mercyikpe\'';
+       $sql = 'SELECT intern_id, name, username, image_filename FROM interns_data WHERE username=\'mercyikpe\'';
        $q = $conn->query($sql);
        $q->setFetchMode(PDO::FETCH_ASSOC);
        $data = $q->fetch();
