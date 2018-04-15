@@ -48,7 +48,7 @@
 		.twcd-twitter{
 			width: 100%;
 			margin: 30px auto;
-			height: 340px;
+		
 		}
 		.twcd-profile-img{
 			width: 350px;
