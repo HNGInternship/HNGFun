@@ -181,7 +181,6 @@ hr {
         <img class="img-responsive" id="bobo" src="https://avatars3.githubusercontent.com/u/20623732?s=460&v=4" style="width: 300px; height: 300px; border-radius: 100px;" align="right"  />
           <h3>Hi I'm Olamide Faniyan</h3>
           <hr>
-          <h1><?php echo $user->name; ?></h1>
           <h1>A Front-end Web Developer / Designer </h1>
       </div>
     </div>
