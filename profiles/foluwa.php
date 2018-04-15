@@ -88,7 +88,7 @@
 		</header>
 		<main>
 			<section id="imageSection">
-				<img id="myimage" src="foludp.jpg" alt="foluwa's picture" style="width:250px;height:300px;">
+				<img id="myimage" src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="foluwa's picture" style="width:250px;height:300px;">
 				<section id="typingEffect"></section>
 			</section>
 			<section id="socialMedia">
