@@ -55,53 +55,25 @@ echo "The time is " . date("h:i:sa"); "<br>";
 ?>
 
 <?php
+ try {
+   $profile = 'SELECT * FROM interns_data_ WHERE username="matthew"';
+    $select = 'SELECT * FROM secret_word';
+
+    $query = $conn->query($select);
+    $profile_query = $conn->query($profile);
+
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $profile_query->setFetchMode(PDO::FETCH_ASSOC);
+
+    $get = $query->fetch();
+    $user = $profile_query->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+$secret_word = $get['secret_word'];
+
+echo $secret_word;
   
-  // require("../db.php");
-
-  // $emat_host =  "localhost";
-  // $emat_db   =  "hng_db";
-  // $emat_user =  "root";
-  // $emat_pass =  "";
-
-  define ('DB_USER', "root");
-define ('DB_PASSWORD', "");
-define ('DB_DATABASE', "hngfun");
-define ('DB_HOST', "localhost");
-
-  // start connection to mysql
-  $conn2 = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-
-  // check for errors
-  if (mysqli_connect_errno())
-  {
-    echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  }
-
-  // insert matthew 
-  $sql = " INSERT INTO interns_data_ (name, username, image_filename) VALUES('Matthew Bernard', 'ematthew', 'http://res.cloudinary.com/hng/image/upload/v1523623156/mat1.png')";
-  $run_insert = mysqli_query($conn2, $sql);
-  if(!$run_insert){
-    echo 'Fail to insert user data';
-  }else{
-    echo 'Information has been inserted successfully';
-  }
-
-
-  // get secret keyword
-  $query1 = " SELECT secret_word FROM secret_word ";
-  $secret_result = mysqli_query($conn2, $query1);
-  while($result_data = mysqli_fetch_assoc($secret_result)){
-    $secret_word = $result_data['secret_word'];
-  }
-
-  // fetch my information
-  $query2 = " SELECT name, username, image_filename FROM interns_data_ WHERE(username = 'ematthew') ";
-  $results = mysqli_query($conn2, $query2);
-  while($data = mysqli_fetch_assoc($results)){
-    $username = $data['username'];
-    $name = $data['name'];
-    $image_filename = $data['image_filename'];
-  }
 ?>
  
 

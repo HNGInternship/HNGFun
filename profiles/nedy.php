@@ -1,4 +1,4 @@
- <?php
+<?php
  
 try {
    $profile = 'SELECT * FROM interns_data_ WHERE username="nedy"';
