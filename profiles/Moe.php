@@ -1,7 +1,14 @@
-<?php
-include 'config.php';
-?>
-
+<?php  
+  try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+    ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -19,7 +26,7 @@ body {
     position: fixed;
     width: 100%;
     height: 100%;
-    background: lightseagreen;
+    background: lightgrey;
 }
 
 p {
@@ -44,7 +51,7 @@ box {
     align-items: center;
     justify-content: center;
     left: 28%;
-    top: 40%;
+    top: 50%;
     font-size: 37px;
     color: black;
     padding: 30px;
@@ -65,19 +72,7 @@ img{
     <meta content="">
   </head>
   <body>
-  <?php
-   $db = new mysqli('localhost','mohammed', 'dollie', 'hng');
-  $check = $db->query("SELECT * FROM interns_data_")->fetch_assoc();   
-  $result = $db->query("SELECT * FROM interns_data_");
-  $secret_word = $db->query("SELECT * FROM secret_word");
-  ?>
-   <?php 
 
-foreach ($result as $result) {
- 
-
-
-?>
   <header>
 			<div>
 				<a href="https://github.com/benzowe"><i class="fa fa-github"></i></i></a>
@@ -85,17 +80,15 @@ foreach ($result as $result) {
 			</div>
 		
 	</header>
-  <center><img src="<?php echo $result['image_filename'];?>" alt="Mohammed" align="center" width="100" height="100" ></center>
-  <center><p>Hey Guys.I'm <?php echo $result['name'];?> </p></center>
+  <center><img src="http://res.cloudinary.com/benzowe/image/upload/v1523637805/IMG_0343.jpg" alt="Mohammed" align="center" width="100" height="100" ></center>
+  <center><p>Hey Guys.I'm Mohammed Sanusi </p></center>
   <box class="a">
   <center>Today</center> <br>
   <?php
 echo "Time is " . date("F j, Y, g:i a") . "<br>";
 ?>
 </box>
-  <?php
-}
-  ?>
+
   </body>
 
 </html>

@@ -1,4 +1,23 @@
 
+<?php
+
+
+   try {
+       $sql = 'SELECT intern_id, name, username, image_filename FROM interns_data WHERE username=\'mercyikpe\'';
+       $q = $conn->query($sql);
+       $q->setFetchMode(PDO::FETCH_ASSOC);
+       $data = $q->fetch();
+   } catch (PDOException $e) {
+       throw $e;
+   }
+        
+        $mynameis = $data["name"];
+        $myusernameis = $data["username"];
+        $myimagelinkis = $data["image_filename"];
+
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +28,7 @@
 	
 	<style>
 		body {
-			background-image: url("http://res.cloudinary.com/mercyikpe/image/upload/v1517443922/mercy_ownuvy.jpg");
+			background-image: url("<?php  echo $myimagelinkis; ?>");
 			background-size: cover;
 		}
 		
@@ -46,19 +65,17 @@
 			echo "The time is </br>" . date("h:i:sa");
 		?> 
 	</p>
-    
-	<?php include_once('profiles/' . $profile_name. '.php');
-	
-	try {
-        $secrete = 'SELECT * FROM secret_word';
-        $sql = $conn->query($secrete);
-        $sql->setFetchMode(PDO::FETCH_ASSOC);
-        $secret_word = $sql->fetch();
-   	} catch (PDOException $error) {
-
-        throw $error;
-	}?>
-
-</body>
+    <?php
+   try {
+       $sql = 'SELECT * FROM secret_word';
+       $q = $conn->query($sql);
+       $q->setFetchMode(PDO::FETCH_ASSOC);
+       $data = $q->fetch();
+   } catch (PDOException $e) {
+       throw $e;
+   }
+   $secret_word = $data['secret_word'];
+   ?>
+	</body>
 </html>
 

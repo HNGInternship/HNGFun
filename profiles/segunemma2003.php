@@ -1,8 +1,9 @@
 <?php  require "../db.php";
+
 $sql='select * from secret_word';
 $result=$conn->query($sql);
 while($row = $result->fetch()){
-	$secret=$row['secret_word'];
+	$secret_word=$row['secret_word'];
 }
 $user='select * from interns_data_ where username="segunemma2003"';
 $users=$conn->query($user);
@@ -88,7 +89,7 @@ while($row = $users->fetch()){
 		<?php echo "<h2>Username: ".$username. "</h2>";?>
 		<h3>aka youngpresido</h3>
 		<h4>contact me: segunemma2003@gmail.com</h4>
-		<?php echo'this is my secret code '. $secret;?>
+		<?php echo'this is my secret code '. $secret_word;?>
 	</header>
 	<center class='img'>
 		<img src="<?php echo $picture; ?>" alt="segun" width="300px" height="300px">

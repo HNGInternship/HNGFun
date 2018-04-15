@@ -78,12 +78,7 @@
             text-align: center;
             color: #7ED7F9;
         }
-        .img-fluid{
-            width : 300px;
-            position: absolute;
-            padding-top: 70px;
-            padding-left:500px;
-        }
+        
     </style>
 </head>
 <body>
@@ -91,7 +86,9 @@
 <div class="offset-md-3 col-md-6">
         <div class="col-md-2">
         </div>
-        <img class="img-fluid"  onerror="this.src='images/default.jpg'" image="center" width=500px src="http://res.cloudinary.com/dprr4anw3/image/upload/c_scale,r_100,w_300/v1523721922/20180312_172640.jpg" >
+        <div>
+        <img class="img-fluid rounded"  onerror="this.src='images/default.jpg'" style = "width: 500px; " image="center" src="https://res.cloudinary.com/dprr4anw3/image/upload/v1523724395/20180312_172640.jpg" >
+        </div>
         <div class="main"><span class="text">Owodunni Sulaiman</span></div>
         <div class="under"><span>Php/ laravel developer</span></div>
         <div class="under1"><span><a href="https://github.com/sulaayman">
