@@ -1,5 +1,5 @@
 <?php
-require_once('../db.php');
+require('db.php');
 
 $connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 $result = mysqli_query($connect, "SELECT * FROM secret_word");
@@ -98,16 +98,7 @@ else {echo "An error occored";}
 	</head>
 	
 	<body>
-		<div class="nav">
-			<a href="#" class="brand">HNG Internship</a>
-			<nav>
-				<ul class="nav-list">
-					<li><a href="#">home</a></li>
-					<li><a href="#">about me</a></li>
-				</ul>
-			</nav>
-			<div class="clear"></div>
-		</div>
+		
 		<div class="main">
 			<img src="<?php if(isset($my_data['image_filename'])) echo $my_data['image_filename']; ?>" class="my_pics" alt="Afolayan Stephen">
 			<h2>Hi! I'm <?php if(isset($my_data['name'])) echo $my_data['name']; ?></h2>
