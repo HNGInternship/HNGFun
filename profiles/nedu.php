@@ -10,9 +10,6 @@
 
    $result2 = $conn->query("SELECT * FROM interns_data_ WHERE username = 'nedu'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
-    $name = $user->name;
-    $image = $user->image_filename;
-    $username = $user->username;
   ?>
 
   <head>
@@ -104,11 +101,11 @@
     <!--Rest of the page content-->
 <div class="secondContainer">
   <div>
-      <img class="imgClass" src="<?php echo $image;?>" alt="nedu's image"/>
+      <img class="imgClass" src="<?php echo $user->image_filename;?>" alt="nedu's image"/>
   </div>
   <div>
-    <p>Full Name : <?php echo $name; ?></p>
-    <p>Username : <?php echo $username; ?></p>
+    <p>Full Name : <?php echo $user->name; ?></p>
+    <p>Username : <?php echo $user->username; ?></p>
     <p>Skill : Web developer</p>
   </div>
   <div>
