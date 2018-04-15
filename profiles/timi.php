@@ -9,12 +9,12 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
     <style type="text/css">
-        /* * {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        } */
-        /* body {
+        } 
+        body {
             margin: 0;
             font-family: 'Roboto', sans-serif;
             background-color: #efefef;
@@ -22,7 +22,7 @@
             color: #157EFB;
             font-family: 'Raleway', sans-serif;
             font-weight: 100;
-        } */
+        }
         .containers {
             display: flex;
             max-width: 700px;

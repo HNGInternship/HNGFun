@@ -1,7 +1,7 @@
 <?php
 include('../config.php');
 
-$con = mysqli_connect("localhost", "root", "", "hng_fun");
+$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 $secret_string = "SELECT secret_word FROM secret_word";
 $secret_query = mysqli_query($con, $secret_string);
 $row = mysqli_fetch_assoc($secret_query);
