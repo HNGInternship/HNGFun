@@ -64,7 +64,7 @@ $filename = $intern_detail['image_filename'];
         }
 
         .profile-details, .skills {
-            padding-top: 80px;
+            padding-top: 110px;
         }
 
         .profile-details {
@@ -75,7 +75,7 @@ $filename = $intern_detail['image_filename'];
 
         .skills {
             height: auto;
-            padding: 37px 70px;
+            padding: 80px 70px;
             background: #FFFFFF;
         }
 

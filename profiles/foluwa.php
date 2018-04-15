@@ -16,19 +16,6 @@
   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 		<title><?php echo $user->name ?>-Hng Intern</title>
-		<script type="text/javascript">
-				var i = 0;
-		        var text = "Hi am" + <?php echo $user->name ?> + ", am a Web Developer";
-		        var speed = 50;
-		        var j = text.length;
-		        function textType() {
-		          if (i < text.length) {
-		            document.getElementById("typingEffect").innerHTML += text.charAt(i);
-		            i++;
-		            setTimeout(textType, speed);
-		          }
-		        }
-		</script>
 		<style type="text/css">
 			body{
 				background-color: #87ceeb;
@@ -52,7 +39,7 @@
 			}
 			#typingEffect {
 				padding-top: 70px;
-				font-size: 50px;
+				font-size: 40px;
 				font-style: Arial,Verdana,Courier;
 			}
 			#socialMedia {
@@ -89,7 +76,11 @@
 		<main>
 			<section id="imageSection">
 				<img id="myimage" src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="foluwa's picture" style="width:250px;height:300px;">
-				<section id="typingEffect"></section>
+				<section id="typingEffect">
+					<div>
+						Hi  am <?php echo $user->name ?> , am a Web Developer;
+					</div>
+				</section>
 			</section>
 			<section id="socialMedia">
 				<div id="socialicons">
