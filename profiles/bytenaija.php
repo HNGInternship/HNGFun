@@ -1,12 +1,3 @@
-
-<?php 
-if (isset($_GET["query"])) {
-
-    echo "Hi, how are you? What is your name?" ;
-}else{
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -287,7 +278,7 @@ font-family: Lato;
 <body>
 <?php
 
-include "../db.php";
+require_once "../db.php";
 global $conn;
 $image_filename = '';
 $name = '';
@@ -487,6 +478,3 @@ function capitalize(str){
 </script>
 </body>
 </html>
-<?php
-}
-?>
