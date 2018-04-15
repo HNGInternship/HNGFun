@@ -21,7 +21,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: cursive;}
 
 <!--      ====================           CONNECTION    AND QUERY  ============                 -->
 <?php
-include dirname(__FILE__).'/../config.php';
+include ('config.example.php');
 $host = DB_HOST;
 $user = DB_USER;
 $db = DB_DATABASE;
