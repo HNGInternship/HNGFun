@@ -1,18 +1,13 @@
 <?php
-   require_once('../db.php');
+$result = $conn->query("Select * from secret_word LIMIT 1");
+$result = $result->fetch(PDO::FETCH_OBJ);
+$secret_word = $result->secret_word;
 
-   try {
-   $sql = 'SELECT * FROM secret_word';
-       $q = $conn->query($sql);
-       $q->setFetchMode(PDO::FETCH_ASSOC);
-   } catch (PDOException $e) {
-       die("Could not query the database:" . $e->getMessage());
-     }
-   $data = $q->fetch();
-   $secret_word = $data['secret_word'];
+$result2 = $conn->query("Select * from interns_data_ where username = 'pajimo'");
+$user = $result2->fetch(PDO::FETCH_OBJ);
+?>
 
-   ?>
-
+<!DOCTYPE HTML>
 
 <html>
   <head>
@@ -186,6 +181,7 @@ hr {
         <img class="img-responsive" id="bobo" src="https://avatars3.githubusercontent.com/u/20623732?s=460&v=4" style="width: 300px; height: 300px; border-radius: 100px;" align="right"  />
           <h3>Hi I'm Olamide Faniyan</h3>
           <hr>
+          <h1><?php echo $user->name; ?></h1>
           <h1>A Front-end Web Developer / Designer </h1>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <?php
-require'../db.php';
+require'db.php';
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
@@ -73,8 +73,8 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 			<br><br><br><br><br><br>
 			<h1 style='font-family: "proxima-nova"; color:#fff; font-size: 22px; font-weight: 600; letter-spacing: .14em; line-height: 1em; text-transform: uppercase;'><?php echo $user->name; ?></h1>
 			<h2 style='font-family: "proxima-nova"; color:#a3a3a3; font-size: 22px; line-height: 1.15em; text-transform: none;letter-spacing: .01em; margin-bottom:26px; text-align:left;'>I am a website devloper, android app devloper ,an animator and also love gaimg. Follow me anywhere.</h2>
-			<h2><a href="mailto:starboi247@gmail.com" style='font-family: "proxima-nova"; color:#fff; font-size: 22px; font-weight: 600; letter-spacing: .14em; line-height: 1em; text-align:left;'>STARBOI247@GMAIL.COM</a></h2>
-			<h2><a href="http://itsjoat.com" style='font-family: "proxima-nova"; color:#fff; font-size: 22px; font-weight: 600; letter-spacing: .14em; line-height: 1em; text-align:left;'>WEBSITE</a></h2>
+			<h2 style='text-align:left;'><a href="mailto:starboi247@gmail.com" style='font-family: "proxima-nova"; color:#fff; font-size: 22px; font-weight: 600; letter-spacing: .14em; line-height: 1em; '>STARBOI247@GMAIL.COM</a></h2>
+			<h2 style='text-align:left;'><a href="http://itsjoat.com" style='font-family: "proxima-nova"; color:#fff; font-size: 22px; font-weight: 600; letter-spacing: .14em; line-height: 1em; '>WEBSITE</a></h2>
 			<div>
 				<a href="https://instagram.com/its_joat"><img style='margin-right:10px;' width='40' height='40' src="http://res.cloudinary.com/dlsfrelbb/image/upload/v1523643336/instagram-icon-white.png"></a>
 				<a href="https://twitter.com/its_joat"><img style='margin-right:10px;' width='40' height='40' src="http://res.cloudinary.com/dlsfrelbb/image/upload/v1523643336/icon-twitter-white-1.png"></a>

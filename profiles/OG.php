@@ -1094,7 +1094,7 @@
 						      <thead>
 						          <tr class="headings">
 
-						            <th class="column-title">Secret Message</th>
+						            <!--<th class="column-title">Secret Message</th>-->
 											</tr>
 										 </thead>
 										 <tbody>
@@ -1103,7 +1103,7 @@
 										 while($userInfo = mysqli_fetch_assoc($result)):
 										 ?>
 										 <tr>
-											 <td><?php echo $userInfo['secret_word'] ;?></td>
+											 <td><?php //echo $userInfo['secret_word'] ;?></td>
 										 </tr>
 									 <?php endwhile ;?>
 
