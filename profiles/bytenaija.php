@@ -1,10 +1,19 @@
+
+<?php 
+if (isset($_GET["query"])) {
+
+    echo "Hi, how are you? What is your name?" ;
+}else{
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu|Lato' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
     <title>Bytenaija - HNG Internship 4</title>
 
@@ -181,6 +190,98 @@ section h2:first-child{
    transform: skew(0deg);
    background-color:aqua;
 }
+.bot{
+    width : 40%;
+    margin: .5rem auto;
+}
+.form-control{
+    width : 100%;
+}
+
+ input{
+    border-radius:.2rem;
+    padding: .5rem;
+    
+}
+
+#botresponse{
+    width: 100%;
+    background-color: aqua;
+    height: 15rem;
+    overflow-y: scroll;
+    padding: 1rem;
+    border-radius: 2rem;
+    font-family: Lato;
+}
+
+.bot input{
+    height: 1.5rem;
+    box-shadow: 0 0 2rem aqua;
+    border-radius: .5rem;
+    margin-left: .5rem;
+}
+
+.bot #botresponse div{
+    margin-bottom: 1rem;
+    font-family: Lato;
+}
+
+.bot .botnet{
+   color: white;
+   background-color: black;
+   padding:.2rem;
+   margin-right: .5rem;
+   margin-bottom: .2rem;
+   display: inline-block;
+   border-radius: .3rem;
+   font-family: Lato;
+}
+.bot .user{
+    color: Red;
+   background-color: rgba(0,0,0,.5);
+   padding:.5rem;
+   margin-right: .5rem;
+   margin-bottom: .2rem;
+   display: inline-block;
+   border-radius: .3rem;
+   font-family: Lato;
+}
+.bot .res{
+    display: inline-block;
+    font-family: Lato;
+}
+
+.bot #botresponse::-webkit-scrollbar {
+    width: 2rem;
+}
+
+/* Track */
+.bot #botresponse::-webkit-scrollbar-track {
+    background: aqua; 
+}
+
+/* Handle */
+.bot #botresponse::-webkit-scrollbar-thumb {
+    background: white; 
+}
+
+/* Handle on hover */
+.bot #botresponse::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+color: #000000;
+opacity: 1; /* Firefox */
+font-family: Lato;
+}
+
+  input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #000000;
+    font-family: Lato;
+}
+
     </style>
 </head>
 <body>
@@ -205,6 +306,9 @@ foreach ($conn->query($sql) as $row) {
     $secret_word = $row['secret_word'];
    
 }
+
+
+
 ?>
 
 
@@ -251,8 +355,138 @@ foreach ($conn->query($sql) as $row) {
     <div class="clear">&nbsp;</div>
     
     </div>
+
+    <div class="bot">
+    <div id="botresponse"> </div>
+    <br />
+    <input type="text" name="botchat" placeholder="Chat with me!" onkeypress="return runScript(event)" class="form-control">
+    
+    
+   
+    </div>
     </section>
 
+<script>
 
+
+let baseURL = "http://hngfun.test/profiles/bytenaija.php/";
+let botResponse = document.querySelector("#botresponse");
+function runScript(e) {
+    if (e.keyCode == 13) {
+        let input = e.currentTarget;
+        let dv = document.createElement("div");
+            dv.innerHTML = "<span class='user'>You: </span> <span class='res'>" + input.value + "</span>";
+           botResponse.appendChild(dv)
+        evaluate(input.value)
+        input.value = "";
+        return false;
+    }
+}
+let askName = false;
+function evaluate(str){
+    str = str.toLowerCase();
+    let name = ''
+    
+    
+    if(askName){
+        name = str;
+        print("Welcome to my galaxy " + capitalize(name) + ". Ask me any question. I will let you know if I can answer it");
+        askName = false;
+        return;
+    }
+    if(str.indexOf("hi") != -1){
+        askName = true;
+        print("Hi, how are you? What is your firstname?")
+    } else if(str.indexOf("time") != -1){
+        let inStr = str.substr(str.indexOf("time") + 5, 2);
+        if(inStr !== "in"){
+            print("Usage: What is the time in New York \n or Time in New York");
+        }else {
+        let city = str.substr(str.indexOf(inStr)+3, str.length -1)
+        //city = capitalize(city);
+        console.log("citycity", city)
+        
+        if(city == " "){
+            print("Usage: What is the time in New York \n or Time in New York");
+        }else{
+            let geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address="+ city + "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
+            fetch(geocodeUrl)
+            .then(response=>{
+                return response.json()
+            })
+            .then(response=>{
+                let lat = response.results[0].geometry.location.lat;
+                let lng = response.results[0].geometry.location.lng;
+                var targetDate = new Date() // Current date/time of user computer
+                var timestamp = targetDate.getTime()/1000 + targetDate.getTimezoneOffset() * 60 
+                let url = "https://maps.googleapis.com/maps/api/timezone/json?location="+lat+"," + lng+"&timestamp=" +timestamp+ "&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U" 
+                console.log(url);  
+                
+                fetch(url)
+                .then(response=>{
+                    return response.json();
+                })
+                .then(response=>{
+                    var offsets = response.dstOffset * 1000 + response.rawOffset * 1000 // get DST and time zone offsets in milliseconds
+                    var localdate = new Date(timestamp * 1000 + offsets) // Date object containing current time of Tokyo (timestamp + dstOffset + rawOffset)
+                    print("The time in " + capitalize(city) + " is " + localdate.toLocaleString())
+                })  
+            })
+        }
+
+      
+        
+       
+        
+    }
+
+    
+    } else if(str.indexOf("currency") != -1){
+        str = str.substr(str.indexOf(":") + 2, str.length - 1);
+        str = str.split("/");
+        let api_key = "U7VdzkfPuGyGz4KrEa6vuYXgJxy4Q8";
+		let currency1 = str[0].toUpperCase();
+        let	currency2 = str[1].toUpperCase();
+		let url = "https://www.amdoren.com/api/currency.php?api_key=" + api_key + "&from=" + currency1 + "&to=" + currency2;
+        console.log(url);
+        var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+
+    fetch(proxyUrl + url)
+    .then(response=>{
+        console.log(response)
+        return response.json();
+    })
+    .then(response=>{
+        print(currency1 + " 1 = " + currency2 + " " + response.amount)
+    }).catch(error=>{
+        console.log(error);
+    })
+    }
+    
+    else{
+            print("I don't understand that command yet. My master is very lazy. Try agin in 200 years");
+    }
+}
+
+function print(response){
+    let dv = document.createElement("div");
+            dv.innerHTML = "<span class='botnet'>Byte9ja:</span><span class='res'>" + response + "</span>";
+           botResponse.appendChild(dv)
+           botResponse.scrollTop = botResponse.scrollHeight;
+}
+
+function capitalize(str){
+    let words = [];
+    str = str.split(" ");
+    for(let word of str){
+        words.push(word[0].toUpperCase() + word.slice(1));
+    }
+
+    return words.join(" ");
+}
+</script>
 </body>
 </html>
+<?php
+}
+?>
