@@ -1,9 +1,9 @@
 <?php
-require '../db.php';
+require 'db.php';
 
 
 function getuserfield($field) {
-  require '../db.php'; 
+  require 'db.php'; 
 $username = $conn->query("SELECT $field FROM `interns_data_` WHERE name='Egbo Thankgod'");
 $username2 = $username->fetch();
 $username3 = $username2['name'];
@@ -13,7 +13,7 @@ echo $username3;
 
 
 function getsecretword() {
-  require '../db.php'; 
+  require 'db.php'; 
 $secret = $conn->query("SELECT * FROM `secret_word`");
 $secret2 = $secret->fetch();
 $secret3 = $secret2['secret_word'];
