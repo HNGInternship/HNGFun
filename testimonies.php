@@ -46,7 +46,7 @@ include_once("header.php");
                                     <p>
                                         <i class="fa fa-quote-left"></i> I learnt how to design a web page with Figma, implemented the designs with HTML,CSS and PHP.
                                         I used TeamViewer for the first time yesterday and now I just had a better understanding about Git.
-                                        Isn't this internship just amazing. I can't wait to learn more.
+                                        Isn't this internship just amazing. I can't wait to learn more...
                                     </p>
                                 </div>
 
