@@ -1,23 +1,26 @@
-<?php
-include('../config.php');
+<?php 
+	function getUserInfo($username="admiral"){
+		try {
+			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		    $stmt = $conn->prepare("SELECT intern_id, name, username, image_filename FROM interns_data WHERE username =:username");
+		    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+		    $stmt->execute();
 
-$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-$secret_string = "SELECT secret_word FROM secret_word";
-$secret_query = mysqli_query($con, $secret_string);
-$row = mysqli_fetch_assoc($secret_query);
-$secret_word = $row['secret_word'];
+		    // set the resulting array to associative
+		    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		    if(!empty($result)){
+		    	return $result[0];
+		    }
+		    
+		}
+		catch(PDOException $e) {
+		    echo "Error: " . $e->getMessage();
+		}
+		$conn = null;
+	}
 
-
-$interns_string = "SELECT * FROM interns_data_";
-$interns_query = mysqli_query($con, $interns_string);
-$row = mysqli_fetch_assoc($interns_query);
-
-$id = $row['intern_id'];
-$name = $row['name'];
-$username = $row['username'];
-$image = $row['image_filename'];
-
-//echo '<h1>'.$id.$name.$username.$image.'</h1>';
+	$user_info = getUserInfo();
 ?>
 <html>
     <head>
