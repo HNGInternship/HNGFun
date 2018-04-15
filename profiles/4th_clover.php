@@ -1,3 +1,12 @@
+<?php
+require('db.php');
+$connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+$result = mysqli_query($connect, "SELECT * FROM secret_word");
+$secret_word = mysqli_fetch_assoc($result)['secret_word'];
+$result = mysqli_query($connect, "SELECT * FROM interns_data WHERE username = '4th_clover'");
+if($result) $my_data = mysqli_fetch_assoc($result);
+else {echo "An error occored";}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +30,7 @@
               bottom:50%;
               transform:translate(-50%,-50%);
               width: 300px;
-              height:700px;
+              height:1000px;
               background: #fff;
               box-sizing: border-box;
               border-radius: 10px;
