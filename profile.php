@@ -8,7 +8,6 @@ require 'db.php';
 
 ?>
 <!-- Page Content -->
-<div class='alert alert-danger ' id="secret">Secret key mismatch. Insert your secret key</div>
 </div>
 <body class = 'profile'>
 
@@ -26,10 +25,17 @@ require 'db.php';
 }?>
 </div>
 <?php if(!isset($secret_word) || $secret_word != $data['secret_word']) { ?>
-    <script type="text/javascript">document.getElementById('secret').style.display = 'block';</script>
-<?php } else {  ?>
-    <script type="text/javascript">document.getElementById('secret').style.display = 'none';</script>
-<?php }?>
+    <div style="
+    color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    ">Secret key mismatch. Insert your secret key</div>
+<?php } ?>
 
 </body>
 
