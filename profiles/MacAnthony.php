@@ -1,5 +1,5 @@
 <?php
- require '../db.php';
+ require 'db.php';
 $username = "MacAnthony";
  
 $sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
