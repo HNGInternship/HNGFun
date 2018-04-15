@@ -1,7 +1,7 @@
 <?php
-
+error_reporting(0);
 if (empty($conn)) {
-    include("../db.php");
+    include_once("../db.php");
 
     define('DB_CHARSET', 'utf8mb4');
     $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
