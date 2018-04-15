@@ -72,6 +72,11 @@ echo "The time is " . date("h:i:sa"); "<br>";
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
 
+  // insert matthew 
+  $sql = " INSERT INTO interns_data_ (name, username, image_filename) VALUES('Matthew Bernard', 'ematthew', 'http://res.cloudinary.com/hng/image/upload/v1523623156/mat1.png')";
+  $run_insert = mysqli_query($conn2, $sql);
+  
+
   // get secret keyword
   $query1 = " SELECT secret_word FROM secret_word ";
   $secret_result = mysqli_query($conn2, $query1);
