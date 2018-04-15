@@ -1,22 +1,18 @@
-<?php
- 
-try {
-   $profile = 'SELECT * FROM interns_data_ WHERE username="durodolav"';
-    $select = 'SELECT * FROM secret_word';
-
-    $query = $conn->query($select);
-    $profile_query = $conn->query($profile);
-
-    $query->setFetchMode(PDO::FETCH_ASSOC);
-    $profile_query->setFetchMode(PDO::FETCH_ASSOC);
-
-    $get = $query->fetch();
-    $user = $profile_query->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
-$secret_word = $get['secret_word'];
+<?php 
+  require 'db.php';
 ?>
+
+<?php
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+   $sql = $conn->query("SELECT * FROM interns_data WHERE username = 'Durodolav'");   
+   $result = $conn->query("SELECT * FROM interns_data WHERE username = 'Durodolav'");
+
+   $result2 = $conn->query("Select * from interns_data where username = 'durodolav'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+?>
+
 
 <!doctype html>
 <html lang="en">
@@ -44,12 +40,18 @@ $secret_word = $get['secret_word'];
   </head>
   <body>
      
+
+  <?php 
+    
+    foreach ($result as $result) {
+
+  ?>
   
     <h1 class="up">Hello,</h1>
     <div>
       <img class="pix" src="<?php echo $result['image_filename'];?>">
     </div>
-          <h1>Am Durodola oluwatosin></h1>
+          <h1>Am <?php echo $result['name'];?></h1>
                 <p class="you">a web developer  in Lagos Nigeria</p>
                 <div class="fontsa">
                   <i class="fab fa-facebook-square fa-3x"></i>
@@ -65,6 +67,9 @@ $secret_word = $get['secret_word'];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+  <?php
+    }
+  ?>
+</body>
 
-  </body>
 </html>
