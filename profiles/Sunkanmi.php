@@ -1,5 +1,5 @@
 <?php
-require('../db.php');
+require('db.php');
 
 $query = $conn->prepare("SELECT * FROM secret_word");
 if($query->execute()){
