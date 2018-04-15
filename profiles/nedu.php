@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <?php
-   include ('../db.php');
+   $file = realpath(__DIR__.'/..')."/db.php";
+   require_once $file;
    $result = $conn->query("SELECT * FROM secret_word LIMIT 1");
    $result = $result->fetch(PDO::FETCH_OBJ);
    $secret_word = $result->secret_word;
