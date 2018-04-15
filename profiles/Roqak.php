@@ -1,5 +1,7 @@
+<html>
+
 <?php 
-  require 'db.php';
+  require '../db.php';
 ?>
 <?php
    $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -10,7 +12,6 @@
    $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 
-<html>
 <head>
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
