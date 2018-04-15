@@ -1,21 +1,14 @@
+<?php 
+  require 'db.php';
+?>
+
 <?php
- 
-try {
-   $profile = 'SELECT * FROM interns_data_ WHERE username="durodolav"';
-    $select = 'SELECT * FROM secret_word';
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
 
-    $query = $conn->query($select);
-    $profile_query = $conn->query($profile);
-
-    $query->setFetchMode(PDO::FETCH_ASSOC);
-    $profile_query->setFetchMode(PDO::FETCH_ASSOC);
-
-    $get = $query->fetch();
-    $user = $profile_query->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
-$secret_word = $get['secret_word'];
+   $result2 = $conn->query("Select * from interns_data where username = 'durodolav'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 
 <!doctype html>
@@ -47,7 +40,7 @@ $secret_word = $get['secret_word'];
   
     <h1 class="up">Hello,</h1>
     <div>
-      <img class="pix" src="<?php echo $result['image_filename'];?>">
+      <img class="pix" src="http://res.cloudinary.com/tosin/image/upload/v1523625647/tosin_i7yr3o.jpg">
     </div>
           <h1>Am Durodola oluwatosin></h1>
                 <p class="you">a web developer  in Lagos Nigeria</p>
