@@ -6,7 +6,7 @@
     <title>Oluwapelumi Olaoye</title>
 
     <?php
-    require '../db.php';
+    require 'db.php';
 
     $sql = "Select * from secret_word LIMIT 1";
     $result = $conn->query($sql);
