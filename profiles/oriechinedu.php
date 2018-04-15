@@ -1,14 +1,6 @@
 
 <?php 
 
-require_once('../db.php');
-
- if (!$conn){
-    die('failed to connect'. $conn->connect_errno);
- }
-
-
-
  try {
     $sql = 'SELECT * FROM secret_word LIMIT 1';
     $q = $conn->query($sql);
@@ -48,7 +40,7 @@ try {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title></small> <?= $my_data['name'] ?></title>
+    <title><?= $my_data['name'] ?></title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
