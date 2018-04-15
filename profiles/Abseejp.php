@@ -1,18 +1,6 @@
 <?php 
   require 'db.php';
 
-
-define('DB_USER', "root");
-define('DB_PASSWORD', "root");
-define('DB_DATABASE', "hngfun");
-define('DB_HOST', "localhost");
-
-$con = mysqli_connect(DB_USER, DB_PASSWORD, DB_DATABASE, DB_HOST);
-if (!$con) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-
 $sql = "SELECT name, username, image_filename FROM interns_data";
 $result = mysqli_query($con, $sql);
 if (mysqli_num_rows($result) > 0) {
