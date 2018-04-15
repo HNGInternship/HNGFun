@@ -5,16 +5,14 @@ $username = "umaryusuf";
 
  
 $sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
-$sql0 = "SELECT * FROM `secrete_word`";
+$sql0 = "SELECT * FROM `secrete_word` LIMIT 1";
 
 $stmt0 = $conn->prepare($sql0);
 $stmt0->execute();
 
 
 $data = $stmt0->fetch(PDO::FETCH_ASSOC);
-$secrete_word = $data['secrete_word'];
-
-echo $secrete_word;
+$secret_word = $data['secrete_word'];
 
 $stmt = $conn->prepare($sql);
 $stmt->execute();
