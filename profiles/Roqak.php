@@ -1,7 +1,7 @@
 <html>
 
 <?php 
-  require '../db.php';
+  require 'db.php';
 ?>
 <?php
    $result = $conn->query("Select * from secret_word LIMIT 1");
