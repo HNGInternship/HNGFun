@@ -1,19 +1,13 @@
 <?php
 
-try {
-    $sql = 'SELECT secret_word FROM secret_word';
-    $result = $conn->query($sql);
-    $result->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $result->fetch();
-} 
-catch (PDOException $e) {
-    throw $e;
-}
-
-$secret_word = $data['secret_word'];
+$sql = "SELECT * FROM secret_word";
+$query = $conn->query($sql);
+$query->setFetchMode(PDO::FETCH_ASSOC);
+$result = $query->fetch();
+$secret_word = $result['secret_word'];
 
 try {
-    $sql2 = 'SELECT name,username,image_filename FROM interns_data';
+    $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="osawaru';
     $q2 = $conn->query($sql2);
     $q2->setFetchMode(PDO::FETCH_ASSOC);
     $mydata = $q2->fetch();
