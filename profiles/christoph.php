@@ -1,19 +1,17 @@
 <?php
+include("../db.php");
 
-if (empty($conn)) {
-    include("../db.php");
+define('DB_CHARSET', 'utf8mb4');
+$dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
 
-    define('DB_CHARSET', 'utf8mb4');
-    $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
+$opt = [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES => false
+];
 
-    $opt = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES => false
-    ];
+$conn = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
 
-    $conn = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
-}
 
 $intern_details_query = $conn->query(
     "SELECT     interns_data.name, 
@@ -45,7 +43,7 @@ $filename = $intern_detail['image_filename'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?=$name;?></title>
+    <title>James Christopher</title>
     <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css' />
