@@ -1,15 +1,12 @@
-<?php include_once '../header.php';?>
 <?php
-    include '../config.php';
+require('db.php');
 
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-    
-    $result = mysqli_query($conn, "select * from secret_word LIMIT 1");
-    $secret = mysqli_fetch_assoc($result);
-    $secret_word = $secret['secret_word'];
+$result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
 
-    $result = mysqli_query($conn, "select * from interns_data where username = 'codearcher'");
-    $user = mysqli_fetch_assoc($result);
+   $result2 = $conn->query("Select * from interns_data where username = 'codearcher'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
 
     $avater = "http://res.cloudinary.com/brianiyoha/image/upload/v1523633547/myAvatar_oatlnb.png";
   ?>
@@ -160,7 +157,7 @@
         .sticky {
             position: fixed;
             top: 0;
-            width: 90%;
+            width: 80%;
             z-index: 2;
             background-color: rgba(3, 54, 113, 0.93);
             -webkit-box-shadow: 0 3px 4px rgba(149, 161, 175, 0.93);
@@ -506,7 +503,7 @@
                 </div>
                 <div class="App-header2">
                     <img class="intro-pic" src="<?php echo $avater;?>" alt="brian iyoha avater">
-                    <h1><?php echo $user['name'];?></h1>
+                    <h1><?php echo $user->name;?></h1>
                     <h5 class="quick-info">I Learn, Build, Code, Teach, Play and Collaborate</h5>
                     <div class="stack-info">Full Stack Developer</div>
                     <div class="intro">
@@ -698,4 +695,3 @@
     </script>
 
 </body>
-<?php include_once '../footer.php';?>
