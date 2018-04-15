@@ -68,8 +68,8 @@ button:hover, a:hover {
     <h1 style="text-align:center">My Profile Card</h1>
 
 <div class="container">
-  <img src="<?php echo $user['image_filename']; ?>" alt="uthman" style="width:55%; height: 500px;">
-  <h1><?php echo $user['name'];?></h1>
+  <img src="https://res.cloudinary.com/de42yadcm/image/upload/v1523798238/profile.jpg" alt="uthman" style="width:55%; height: 500px;">
+  <h1>Ayinde Uthman Eyitayo</h1>
   <p class="title">Web Developer(Backend-php(pdo)) AND Still Learning </p>
   <p>HNG internship</p>
   <div style="margin: 24px 0;">
