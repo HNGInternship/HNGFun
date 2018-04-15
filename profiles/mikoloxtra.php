@@ -47,33 +47,35 @@ button:hover, a:hover {
 <body>
 <?php
 
-  $sql = "SELECT intern_id, name, username, image_filename FROM interns_data_ WHERE username='mikoloxtra'";
-  $result =mysqli_query($mysqli, $sql);
-  $resultCheck = mysqli_num_rows($result);
-
-  if ($resultCheck > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-      $name = $row['name'];
-      $username = $row['username'];
-      $profileimg =$row['image_filename'];
-    }
+  try{
+  //get secret_word 
+  $sql = 'SELECT * FROM secret_word';
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+  $secret_word = $data['secret_word'];
+  
+  //get my details    
+  $sql = 'SELECT * FROM secret_word';
+    $sql = "SELECT * FROM `interns_data` WHERE username = 'mikoloxtra' LIMIT 1";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+    
+    $name = $data['name'];
+  $image_filename = $data['image_filename'];
+  }catch(PDOException $e){
+    $secret_word = "sample_secret_word";
+    $name = "Ajetunmobi Michael";
+    $username = "username";
+    $image_filename = 'https://res.cloudinary.com/alabamustapha/image/upload/v1523619685/me.jpg';
   }
-?>
-<?php 
-    $sql = "SELECT * FROM secret_word";
-    $result =mysqli_query($mysqli, $sql);
-    $resultCheck = mysqli_num_rows($result);
 
-  if ($resultCheck > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-      $secretword = $row['secret_word'];
-    }
-  }
 ?>
 <h2 style="text-align:center"><?php echo $name; ?></h2>
 
 <div class="card">
-  <img class="image" src="<?php echo $profileimg; ?>" style="width:100%">
+  <img class="image" src="<?php echo $image_filename; ?>" style="width:100%">
   <h1><?php echo $username; ?></h1>
   <p class="title">UI/UX , Programmer & Intern @</p>
   <p>HNG Internship</p>
