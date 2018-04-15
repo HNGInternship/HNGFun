@@ -120,7 +120,7 @@ $(document).ready(function(){
 <p id="panel">
 <?php
 require 'db.php';
-$username = "dev_geaks";
+$username = "dev_gb";
 $data = $conn->query("SELECT * FROM  interns_data WHERE username = '".$username."' ");
 $my_data = $data->fetch(PDO::FETCH_BOTH);
 $name = $my_data['name'];
