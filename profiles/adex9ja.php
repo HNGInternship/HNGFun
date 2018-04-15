@@ -43,7 +43,7 @@ try {
 			left: 265px;
 			width: 170pX;
 			height: 170px;
-			background: url(<?php echo $user['image_filename']; ?>), #C4C4C4;
+			background: url('http://res.cloudinary.com/adex9ja/image/upload/v1523796441/1523796266176.jpg'), #C4C4C4;
 			background-size: 100%;
 			border-radius: 50%;
 			box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -104,7 +104,7 @@ try {
 <body>
 	<div id="container">
 		<div id="profilePix"></div>
-		<div id="fullname"><?php echo $user['name']; ?></div>
+		<div id="fullname">Adeyemo Adeolu Sunday</div>
 		<div id="skills">Android Developer  &nbsp;&bull;&nbsp;  Web Developer  &nbsp;&bull;&nbsp;  Digital Marketer</div>		
 		<hr/>
 		<div id="social">
