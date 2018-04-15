@@ -94,7 +94,7 @@ $profile_name = $_GET['id'];
 	<img src="https://res.cloudinary.com/pepps01/image/upload/v1523816522/sunny.jpg" class="profile_image"  width="260" height="250">
 		<h4 style="margin-top: 5px;"><?php echo $r['name'];?></h4>
 		 Backend and Android
-		<p>@<?= $['username'];?></p>	
+		<p>@<?= $r['username'];?></p>	
 
 		<a href="" class="btn btn-success">Holla</a>
 </div>
