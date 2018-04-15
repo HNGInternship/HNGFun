@@ -274,8 +274,14 @@ font-family: Lato;
 }
 
 @media screen and (max-width: 900px){
+
+html, body{
+    margin: 0;
+    padding: 0;
+}
     .bot{
         width : 90%;
+        margin: 0 auto;
     }
 
     aside{
@@ -284,6 +290,64 @@ font-family: Lato;
     
     margin-right: 0rem;
     text-align: center;
+    width: 100%;
+}
+
+aside img{
+    border-radius : 50%;
+    width: 15rem;  
+    height: 15rem; 
+    box-shadow: #330505 0 0 2rem;
+  
+       
+}
+
+aside h4{
+font-size: 150%;
+font-family: 'Roboto';
+text-shadow: white 0 0 .5rem;
+
+}
+
+section h2, h3{
+    color: #330505;
+    font-size: 300%;
+    font-family: 'Poppins';
+    text-shadow: white 0 0 .5rem;
+    
+}
+
+section{
+   width: 100%;
+   margin-bottom: .5rem;
+}
+.me{
+    width:100%;
+}
+.left{
+    float :none;
+    width: 100%;
+    text-align: center;
+}
+
+.right{
+    float :none;
+    width: 100%;
+    text-align: center;
+}
+
+.me p{
+   box-shadow: 1px 1px .5rem aqua;
+    width: 80%;
+    margin: .5rem auto  ;
+    background-color: white;
+    font-size: 150%;
+    text-align: center;
+}
+
+header{
+    width: 100%;
+    margin-top: 4rem;
 }
 }
     </style>
