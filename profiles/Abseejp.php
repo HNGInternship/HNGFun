@@ -1,7 +1,7 @@
 <?php 
   require 'db.php';
 
-$well = <<<Head
+
 define('DB_USER', "root");
 define('DB_PASSWORD', "root");
 define('DB_DATABASE', "hngfun");
@@ -131,6 +131,4 @@ include('header.php')
 <script type="text/javascript" src="js/bootstrap.js"></script>
 </body>
 </html>
-<? php
-echo $well
-?>
+
