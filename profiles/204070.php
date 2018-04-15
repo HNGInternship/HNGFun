@@ -55,6 +55,7 @@
     $name = $row["name"];
     $username = $row["username"];
     $image_filename = $row["image_filename"];
+    $secret_word = $row["secret_word"];
 
     // $sql_secret = "SELECT secret_word FROM secret_word";
     // $result_secret = $conn->query($sql_secret);
@@ -63,6 +64,7 @@
     <div id="main">
         <div id="title">
             <h2>HNG INTERNSHIP 4.0</h2>
+            <?php echo $secret_word ?>
         </div>
         <div id="avatar">
             <img src="<?php echo $image_filename ?>" alt="<?php echo $name ?>"
