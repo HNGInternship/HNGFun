@@ -15,7 +15,7 @@ $secret_word = $sec['secret_word'];
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-	<title><?php $query = "SELECT * FROM interns_data";
+	<title><?php $query = "SELECT * FROM interns_data WHERE username = 'Roqak'";
 $result = mysqli_query($connect,$query);
 $sec = mysqli_fetch_array($result);
 echo "" . $sec["name"]; ?> </title>
@@ -45,7 +45,7 @@ echo "" . $sec["name"]; ?> </title>
 ?> -->
 	<div class="white text-center">
 		<h1 id="hello">HELLO</h1>
-		<h3>I AM <?php $query = "SELECT * FROM interns_data";
+		<h3>I AM <?php $query = "SELECT * FROM interns_data WHERE username = 'Roqak'";
 $result = mysqli_query($connect,$query);
 $sec = mysqli_fetch_array($result);
 echo "" . $sec["name"]; ?> | HNG INTERN.</h3>
