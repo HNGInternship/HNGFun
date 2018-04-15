@@ -22,12 +22,11 @@
 
 	$user_info = getUserInfo();
 
-	function getSecretWord($internid=1){
+	function getSecretWord(){
 		try {
 			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		    $stmt = $conn->prepare("SELECT secret_word FROM secret_word WHERE id =:internid");
-		    $stmt->bindParam(':internid', $internid, PDO::PARAM_STR);
+		    $stmt = $conn->prepare("SELECT * FROM secret_word");
 		    $stmt->execute();
 
 		    // set the resulting array to associative
