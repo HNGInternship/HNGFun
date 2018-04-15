@@ -92,10 +92,13 @@
 			text-align: center;
 			margin-top: 30px;
 		}
+		.top {
+			margin-top: 50px;
+		}
 	</style>
 </head>
 <body>
-	<div class="clear"></div>
+	<div class="top clear"></div>
 	<div class="con clear">
 		<div class="img">
 			<img src= "http://res.cloudinary.com/intellitech/image/upload/v1523779243/admiral.jpg" alt="Admiral">
