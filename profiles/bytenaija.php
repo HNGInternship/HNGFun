@@ -465,20 +465,24 @@ function runScript(e) {
     }
 }
 let askName = false;
+let setName = false;
+let name = ''
 function evaluate(str){
     str = str.toLowerCase();
-    let name = ''
-    
-    
-    if(askName){
-        name = str;
-        print("Welcome to my galaxy " + capitalize(name) + ". Ask me any question. I will let you know if I can answer it");
-        askName = false;
+    if(askName && !setName){
+        setName = true;
+        name = capitalize(str);
+        print("Welcome to my galaxy " + name + ". Ask me any question. I will let you know if I can answer it");
         return;
     }
-    if(str.indexOf("hi") != -1){
-        askName = true;
+    if(str.indexOf("hi") != -1 || str.indexOf("hello") != -1){
+        if(askName){
+            print("Hello " + name + "! How can I be of help?")
+        }else{
+            askName = true;
         print("Hi, how are you? What is your firstname?")
+        }
+        
     } else if(str.indexOf("time") != -1){
         let inStr = str.substr(str.indexOf("time") + 5, 2);
         if(inStr !== "in"){
