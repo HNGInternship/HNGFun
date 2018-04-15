@@ -17,7 +17,7 @@
     <body style="padding: 100px; font-size: 120%" >
         <div style="text-align:center; padding: 50px; background-color: white">
             <div style='padding-bottom: 20px'>
-                <img src="http://res.cloudinary.com/ovu/image/upload/c_scale,r_100,w_200/v1523814132/Ovundah.jpg" alt="Ovundah King" >
+                <img src="http://res.cloudinary.com/ovu/image/upload/c_scale,e_grayscale,o_100,r_100,w_200/a_349/v1523814132/Ovundah.png" alt="Ovundah King" >
             </div>
             <div style="font-family: 'Exo 2', sans-serif;'">
                 <h1><strong>Ovundah King</strong></h1>
