@@ -43,7 +43,7 @@
 
   <?php 
     
-    foreach ($result as $result) {
+    foreach ($result2 as $result2) {
 
   ?>
   
