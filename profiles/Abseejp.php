@@ -9,6 +9,7 @@
    $profile_name = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,3 +94,4 @@ include('header.php')
 <script type="text/javascript" src="js/bootstrap.js"></script>
 </body>
 </html>
+

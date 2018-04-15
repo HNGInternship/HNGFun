@@ -273,11 +273,103 @@ font-family: Lato;
     font-family: Lato;
 }
 
+@media screen and (max-width: 900px){
+
+html, body{
+    margin: 0;
+    padding: 0;
+}
+    .bot{
+        width : 100%;
+        margin: 0 auto;
+    }
+
+    aside{
+    
+    float:none;
+    
+    margin-right: 0rem;
+    text-align: center;
+    width: 100%;
+}
+
+aside img{
+    border-radius : 50%;
+    width: 15rem;  
+    height: 15rem; 
+    box-shadow: #330505 0 0 2rem;
+  
+       
+}
+
+aside h4{
+font-size: 150%;
+font-family: 'Roboto';
+text-shadow: white 0 0 .5rem;
+
+}
+
+section h2, h3{
+    color: #330505;
+    font-size: 100%;
+    font-family: 'Poppins';
+    text-shadow: white 0 0 .5rem;
+    
+}
+
+section{
+   width: 100%;
+   margin-bottom: .5rem;
+}
+.me{
+    width:100%;
+}
+.left{
+    float :none;
+    width: 100%;
+    text-align: center;
+}
+
+.right{
+    float :none;
+    width: 100%;
+    text-align: center;
+}
+
+.me p{
+   box-shadow: 1px 1px .5rem aqua;
+    width: 80%;
+    margin: .5rem auto  ;
+    background-color: white;
+    font-size: 100%;
+    text-align: center;
+}
+
+header{
+    width: 100%;
+    margin-top: 4rem;
+}
+
+.bot .botnet{
+    font-size:80%;
+}
+.bot .user{
+    font-size:80%;
+}
+.bot .res{
+    font-size:80%;
+}
+
+.about{
+    font-size: 100%;
+}
+}
     </style>
 </head>
 <body>
 <?php
-
+$file = realpath(__DIR__ . '/..') . "/db.php"    ;
+include $file;
 global $conn;
 $image_filename = '';
 $name = '';
@@ -373,20 +465,24 @@ function runScript(e) {
     }
 }
 let askName = false;
+let setName = false;
+let name = ''
 function evaluate(str){
     str = str.toLowerCase();
-    let name = ''
-    
-    
-    if(askName){
-        name = str;
-        print("Welcome to my galaxy " + capitalize(name) + ". Ask me any question. I will let you know if I can answer it");
-        askName = false;
+    if(askName && !setName){
+        setName = true;
+        name = capitalize(str);
+        print("Welcome to my galaxy " + name + ". Ask me any question. I will let you know if I can answer it");
         return;
     }
-    if(str.indexOf("hi") != -1){
-        askName = true;
+    if(str.indexOf("hi") != -1 || str.indexOf("hello") != -1){
+        if(askName){
+            print("Hello " + name + "! How can I be of help?")
+        }else{
+            askName = true;
         print("Hi, how are you? What is your firstname?")
+        }
+        
     } else if(str.indexOf("time") != -1){
         let inStr = str.substr(str.indexOf("time") + 5, 2);
         if(inStr !== "in"){
