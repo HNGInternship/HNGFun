@@ -50,24 +50,32 @@ else {echo "An error occored";}
 				.clear{clear: both;}
 				
 				.main{
-					width: 600px;
-					height: 500px;
-					position: absolute;
+					width: 100%;
+					height: 600px;
+					position: relative;
 					left: 0;
 					right: 0;
-					top: 0;
+					top: 30px;
 					bottom: 0;
 					margin: auto;
 					text-align: center;
+					background: #ddd;
+					padding: 20px;
 				}
-				.main > h1{
-					font-size: 48px;
+				.main > h2{
+					font-size: 30px;
+					color: #007bff;
+					margin-top: 10px;
 					}
 				.main > h3{
-					font-size: 24px;
+					font-size: 18px;
+					line-height: 2em;
+					font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
 				}
 				.main > h6 {
 					font-size: 14px;
+					margin-top: 15px;
+					color: #007bff;
 				}
 				.my_pics{
 					width: 200px;
@@ -79,19 +87,19 @@ else {echo "An error occored";}
 				.connect{
 					list-style-type: none;
 					margin-left: 0;
+					margin-top: 10px;
 					padding-left: 0;
 				}
 				.connect > li{
 					display: inline-block;
 				}
 				.connect > li > a{
-					font-size: 24px;
+					font-size: 34px;
 					font-weight: bold;
 					text-decoration: none;
-					padding: 10px;
-					background: #000;
 					color: #fff;
-					border-radius: 10%;
+					text-align: center;
+					border-radius: 20%;
 				}
 			
 		</style>
@@ -105,11 +113,11 @@ else {echo "An error occored";}
 			<h3>I'm a lover of tech, i just got my hands on an opportunity to learn,
 			and i'm loving every bit of it.</h3>
 			
-			<h3>Connect with me</h3>
+			<h6>Let's talk</h6>
 			<ul class="connect">
-				<li><a href="https://www.facebook.com/afolayan.stephen">f</a></li>
-				<li><a href="#">G</a></li>
-				<li><a href="https://github.com/jilh">Github</a></li>
+				<li><a style="color: #3b5998;" href="https://www.facebook.com/afolayan.stephen"><span class="fa fa-facebook-square"></span></a></li>
+				<li><a style="color: #db4437;"href="https://plus.google.com/100463981266653803670"><span class="fa fa-google-plus-square"></span></a></li>
+				<li><a style="color: #212529;" href="https://github.com/jilh"><span class="fa fa-github-square"></span></a></li>
 			</ul>
 		</div>
 	</body>
