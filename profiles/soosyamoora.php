@@ -19,7 +19,7 @@ try {
 } catch (PDOException $e) {
     throw $e;
 }
-$secret_word = $data2['amoora'];
+$secret_word = $data2['secret_word'];
  ?>
 
 
