@@ -55,7 +55,7 @@
 	</style>
 </head>
 <body>
-	<section style="width: 100%; min-height: 440px;">
+	<section style="width: 100%; min-height: 470px;">
 
 		<div id="wrapper" style="height: 600px;">    
 		    <div id="yourdiv">
