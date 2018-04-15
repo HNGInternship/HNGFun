@@ -4,7 +4,7 @@ $sql = "SELECT * FROM interns_data WHERE username = 'dennisotugo'";
 $q = $conn->query($sql);
 $q->setFetchMode(PDO::FETCH_ASSOC);
 $data = $q->fetchAll();
-$jim = array_shift($data);
+$dennisotugo = array_shift($data);
 // Secret word
 $sql = "SELECT * FROM secret_word";
 $q = $conn->query($sql);
@@ -21,10 +21,7 @@ $secret_word = $words['secret_word'];
 		<link rel="stylesheet" href="https://html5up.net/uploads/demos/identity/assets/css/main.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="https://html5up.net/uploads/demos/identity/assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="https://html5up.net/uploads/demos/identity/assets/css/ie8.css" /><![endif]-->
-		<style>		
-mainNav {display: none;}
-mx-auto {display: none;}
-		</style>
+
 		<noscript><link rel="stylesheet" href="https://html5up.net/uploads/demos/identity/assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-loading">
@@ -36,7 +33,7 @@ mx-auto {display: none;}
 					<section id="main">
 						<header>
 							<span class="avatar"><img src="https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701221/avatar.png" alt="" /></span>
-							<h1>Dennis Otugo</h1>
+							<h1>Denis Otugo</h1>
 							<p>Human Being</p>
 						</header>
 						<!--

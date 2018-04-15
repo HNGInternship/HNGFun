@@ -1,5 +1,4 @@
 <?php
-require '../db.php';
   try {
     $sql = "SELECT * FROM secret_word";
     $secret_word_query = $conn->query($sql);
