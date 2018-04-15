@@ -2,13 +2,17 @@
 
 
     try {
-        $sql = 'SELECT intern_id, name, username, image_filename FROM interns_data_ WHERE username=\'opheus\'';
+        $sql = 'SELECT * FROM interns_data_ WHERE username=\'opheus\'';
         $q = $conn->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetch();
     } catch (PDOException $e) {
         throw $e;
     }
+		
+		$name = $data["name"];
+		$username = $data["username"];
+		$imagelink = $data["image_filename"];
 
 
 
