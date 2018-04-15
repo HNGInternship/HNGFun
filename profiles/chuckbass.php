@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect("", "us", "", "hngfun");
+// $conn = mysqli_connect("", "us", "", "hngfun");
 $username = "chuckbass";
 
     require_once(__DIR__ . '/../config.example.php');
