@@ -5,14 +5,14 @@
    }else{
       require 'db.php';
    }
- 
+
  try {
  	$insert_sql = "INSERT INTO secret_word (secret_word) values ('1n73rn@Hng')";
    $rstmt = $conn->prepare($insert_sql);
    $rstmt->execute();
    	if ($rstmt->rowCount() > 0) true;
 
-      $sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = \'pepps01\'';
+      $sql = 'SELECT * FROM interns_data,secret_word WHERE username ="'.'pepps01'.'"';
       $stmt = $conn->query($sql);
       $r = $stmt->fetch(PDO::FETCH_ASSOC);
       $secret_word = $r['secret_word'];
