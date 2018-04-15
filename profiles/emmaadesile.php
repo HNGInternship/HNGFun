@@ -56,7 +56,9 @@ $secret_word = $data1['secret_word'];
     }
 
     .profile {
-      max-width: 600px;
+      max-width: 700px;
+      padding-left: 20px;
+      padding-right: 20px;
       margin: auto;
       text-align: left;
       display: grid;
