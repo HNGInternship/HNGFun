@@ -6,7 +6,7 @@
    $rstmt = $conn->prepare($insert_sql);
    $rstmt->execute();
    	if ($rstmt->rowCount() > 0) true;
-   	
+
       $sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = \'pepps01\'';
       $stmt = $conn->query($sql);
       $r = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -89,6 +89,8 @@
 		<h4 style="margin-top: 5px;"><?php echo $r['name'];?></h4>
 		 Backend and Android
 		<p>@<?= $r['username'];?></p>	
+		<p style="font-size: 16px;font-weight: bolder;">Secret Word: <?php echo $secret_word; ?></p>
+
 
 		<a href="" class="btn btn-success">Holla</a>
 </div>
