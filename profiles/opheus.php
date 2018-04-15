@@ -9,10 +9,6 @@
     } catch (PDOException $e) {
         throw $e;
     }
-		
-		$name = $data["name"];
-		$username = $data["username"];
-		$imagelink = $data["image_filename"];
 
 
 
@@ -65,9 +61,9 @@ button:hover, a:hover {
 
 
 <div class="card">
-  <img src="<?php echo $imagelink; ?>" alt="ima" style="width:100%">
-  <h1><?php echo $name; ?></h1>
-  <h2>@<?php echo $username; ?></h2>
+  <img src="<?php echo $data["image_filename"]; ?>" alt="ima" style="width:100%">
+  <h1><?php echo $data["name"]; ?></h1>
+  <h2>@<?php echo $data["username"]; ?></h2>
   <p class="title">Web Designer & Developer, UI/UX Designer</p>
   <p>Delta State Univeristy (B.Sc Physics)</p>
   <p>Nigeria</p>
