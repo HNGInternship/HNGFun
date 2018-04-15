@@ -1,12 +1,14 @@
-<?php
-
-try {
-    $conn = new PDO("mysql:host=". localhost. ";dbname=". hng_fun , root, );
-    // echo "Connected to ". DB_DATABASE . " successfully.</br>";
-} catch (PDOException $pe) {
-    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
-
+<?php 
+  try {
+      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'ThaTruth\'';
+      $q = $conn->query($sql);
+      $q->setFetchMode(PDO::FETCH_ASSOC);
+      $data = $q->fetch();
+      $secret_word = $data['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }
+?>
 
 function getuserfield($field) {
 $username = $conn->query("SELECT $field FROM `interns_data_` WHERE name='Egbo Thankgod'");
