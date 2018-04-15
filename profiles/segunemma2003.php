@@ -1,4 +1,4 @@
-<?php  require "db.php";
+<?php  require "../db.php";
 
 $sql='select * from secret_word';
 $result=$conn->query($sql);
