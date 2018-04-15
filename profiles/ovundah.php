@@ -6,7 +6,7 @@
         <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
     </head>
     <body style="padding: 100px; font-size: 120%" >
-        <div style="text-align:center; padding-bottom: 20px">
+        <div style="text-align:center; padding-bottom: 20px; background-color: white">
             <div style='padding-bottom: 20px'>
                 <img src="http://res.cloudinary.com/ovu/image/upload/c_scale,r_100,w_200/v1523814132/Ovundah.jpg" alt="Ovundah King" >
             </div>
