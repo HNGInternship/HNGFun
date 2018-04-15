@@ -56,7 +56,7 @@
 			font-weight: normal;
 			font-family: sans-serif;
 		}
-		.container {
+		.con {
 			width: 90%;
 			margin: 0 auto;
 		}
@@ -95,7 +95,8 @@
 	</style>
 </head>
 <body>
-	<div class="container clear">
+	<div class="clear"></div>
+	<div class="con clear">
 		<div class="img">
 			<img src= "http://res.cloudinary.com/intellitech/image/upload/v1523779243/admiral.jpg" alt="Admiral">
 		</div>
