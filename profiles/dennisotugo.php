@@ -125,7 +125,7 @@ $secret_word = $words['secret_word'];
 			height: inherit;
 			opacity: 0;
 			z-index: 1;
-			background-color: #ffffff;
+			background-color: #007bff;
 			background-image: url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523717927/overlay.png"), -moz-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35));
 			background-image: url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523717927/overlay.png"), -webkit-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35));
 			background-image: url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523717927/overlay.png"), -ms-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35));
@@ -542,7 +542,6 @@ $secret_word = $words['secret_word'];
 					display: block;
 					width: 3.75em;
 					height: 3.75em;
-					border-radius: 100%;
 					border: solid 1px #c8cccf;
 					line-height: 3.75em;
 					overflow: hidden;
@@ -724,7 +723,7 @@ $secret_word = $words['secret_word'];
 		max-width: 100%;
 		min-width: 27em;
 		padding: 4.5em 3em 3em 3em ;
-		background: #ffffff;
+		background: #007bff;
 		border-radius: 4px;
 		cursor: default;
 		opacity: 0.95;
@@ -904,7 +903,7 @@ $secret_word = $words['secret_word'];
 					<section id="main">
 						<header>
 							<span class="avatar"><img src="https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701221/avatar.png" alt="" /></span>
-							<h1>Denis Otugo</h1>
+							<h1>Dennis Otugo</h1>
 							<p>Human Being</p>
 						</header>
 						<!--
