@@ -1,3 +1,11 @@
+<?php
+    $result = $conn->query("Select * from secret_word LIMIT 1");
+    $result = $result->fetch(PDO::FETCH_OBJ);
+    $secret_word = $result->secret_word;
+
+    $result2 = $conn->query("Select * from interns_data where username = 'victor'");
+    $user = $result2->fetch(PDO::FETCH_OBJ);
+?>
 <style>
     body{
         background-color: #000000b8;
@@ -23,21 +31,31 @@
     }      
     .social{
         margin-top: 19px;
-        text-align: left;
+    text-align: left;
     }
     .social li {
         display: inline-block;
-        padding-right: 14px;
+    padding-right: 14px;
     }
-</style>
+    </style>
+</head>
+
+<body>
+
 <div class="content">
+    <header class="text-center">
+            <div class="" data-wow-duration="1s" data-wow-delay="0.4s">
+                <h1><span style="text-transform:capitalize"><?php echo $user->username; ?></span> <mark>Alagwu</mark></h1>
+                <p class="lead"><mark>Learner | Autodidact | Tech Lover</mark></p>
+            </div>
+    </header>
     <div class="row">
         <hr>
         <div class="col-lg-12 col-md-12 text-center">
             <h3><span>About</span> <mark>Me</mark></h3>
             <hr>
             <div class="clearfix"></div>
-                <p class="intro">My name is Victor{you know that already}, a young computer science student from the University of Nigeria, Nsukka, who believes that this world would be a better place if we have more problem solvers, and also strive to be one.
+                <p class="intro">My name is <?php echo $user->username; ?>{you know that already}, a young computer science student from the University of Nigeria, Nsukka, who believes that this world would be a better place if we have more problem solvers, and also strive to be one.
                 </p>
                 <div class="social text-center">
                     <ul>
