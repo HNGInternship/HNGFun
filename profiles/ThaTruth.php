@@ -394,7 +394,7 @@ footer.footer .social-link:hover{
             <hr>
           </div>
           <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5">Badass Back-End Web Programmer<?php echo $data['name'] ?></p>
+            <p class="text-faded mb-5">Badass Back-End Web Programmer <?php echo $data['name'] ?></p>
             <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
           </div>
         </div>
