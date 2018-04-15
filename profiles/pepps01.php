@@ -1,11 +1,12 @@
 <!-- head here  -->
 <?php
- 
-
+   
  try {
  	$insert_sql = "INSERT INTO secret_word (secret_word) values ('1n73rn@Hng')";
-   $stmt = $conn->prepare($insert_sql);
-   $stmt->execute();
+   $rstmt = $conn->prepare($insert_sql);
+   $rstmt->execute();
+   	if ($rstmt->rowCount() > 0) true;
+   	
       $sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = \'pepps01\'';
       $stmt = $conn->query($sql);
       $r = $stmt->fetch(PDO::FETCH_ASSOC);
