@@ -1,62 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Ovundah King</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<style>
-	h2{
-		padding-top: 40px;
-	}
-			.profile {
-			  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-			  max-width: 300px;
-			  margin: auto;
-			  text-align: center;
-			  font-family: arial;
-			  border-radius: 10px;
-			  padding-top: 20px;
-			  background-color: #eff2f7;
-			}
-
-			.title {
-			  color: grey;
-			  font-size: 18px;
-			}
-
-			a {
-			  text-decoration: none;
-			  font-size: 22px;
-			  color: black;
-			}
-
-			 a:hover {
-			  opacity: 0.7;
-			}
-			
-			img{
-				width: 150px; 
-				height: 150px;
-	-moz-border-radius: 50px;
-	-webkit-border-radius: 50px;
-	border-radius: 50px;
-			}
-
-	</style>
-
-</head>
-<body>
-
-	<h2 style="text-align:center">My Profile</h2>
-
-	<div class="profile" >
-	  <img src="https://res.cloudinary.com/ovu/image/upload/v1523630375/Ovundah.jpg" alt="Ovundah King" >
-	  <h1>Ovundah King Nyenke</h1>
-	  <p class="title">Tech Enthusiast</p>
-	  <p>Figma, HTML, CSS, JS, MEAN</p>
-	  <div style="margin: 24px 0; padding-bottom: 20px">
-	    <a href="https://twitter.com/OvundahKing"><i class="fa fa-twitter"></i></a>  
-	 </div>
-	</div>
-
-</body>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>Ovundah King</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+    </head>
+    <body style="padding: 100px; font-size: 200%" >
+        <div class="container" style="text-align:center; padding-bottom: 20px">
+            <div class='row' style='padding-bottom: 20px'>
+                <img src="http://res.cloudinary.com/ovu/image/upload/c_scale,r_100,w_200/v1523814132/Ovundah.jpg" alt="Ovundah King" >
+            </div>
+            <div class='row' style="font-family: 'Exo 2', sans-serif;'">
+                <h1><strong>Ovundah King</strong></h1>
+                <p>Tech Enthusiast</p>
+                <p>Figma, HTML, CSS, JS, MEAN</p>
+	               <a href="https://twitter.com/OvundahKing">
+                       <i class="fa fa-twitter fa-3x"></i>
+                    </a>
+            </div>
+        </div>
+    </body>
 </html>
