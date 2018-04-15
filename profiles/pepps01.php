@@ -1,5 +1,6 @@
 <!-- head here  -->
 <?php
+	require "config.php";
 	if(!isset($_GET['id'])){
      require '../db.php';
    }else{
