@@ -24,7 +24,7 @@
 <body>
     <?php
         include "db.php";
-		global $conn;
+				global $conn;
         $query = $conn->query("Select * from secret_word LIMIT 1");
         $result = $query->fetch(PDO::FETCH_OBJ);
         $secret_word = $result->secret_word;

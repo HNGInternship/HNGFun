@@ -1,6 +1,12 @@
 <?php
 
-	require "../db.php";
+
+	// if(!isset($_GET['id'])){
+ //    	require '../db.php';
+	// }else{
+	// 	require 'db.php';
+	// }
+
 
 	$query = "SELECT * FROM secret_word";
 	$fetch_secret_word = $conn->prepare($query);
