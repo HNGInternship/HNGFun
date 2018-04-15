@@ -64,6 +64,7 @@ button:hover, a:hover {
     
     $name = $data['name'];
   $image_filename = $data['image_filename'];
+    $username = $data['username'];
   }catch(PDOException $e){
     $secret_word = "sample_secret_word";
     $name = "Ajetunmobi Michael";
