@@ -67,7 +67,6 @@ $secret_word = $data2['secret_word'];
 								<a href="" target="https://slack.com/roqak">
                   <i class="fa fa-slack"></i>
                 </a>
-          </div>
-	</div>
+    </div>
 </body>
 </html>
