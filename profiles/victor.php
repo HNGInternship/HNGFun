@@ -31,11 +31,18 @@
     }      
     .social{
         margin-top: 19px;
-    text-align: left;
+        text-align: left;
     }
     .social li {
         display: inline-block;
-    padding-right: 14px;
+        padding-right: 14px;
+    }
+    .user_img{
+        display: inline-block;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
     }
     </style>
 </head>
@@ -55,8 +62,16 @@
             <h3><span>About</span> <mark>Me</mark></h3>
             <hr>
             <div class="clearfix"></div>
-                <p class="intro">My name is <?php echo $user->username; ?>{you know that already}, a young computer science student from the University of Nigeria, Nsukka, who believes that this world would be a better place if we have more problem solvers, and also strive to be one.
-                </p>
+            <div class="row">
+                <div class="col-lg-4">
+                 <img src="https://res.cloudinary.com/codedvictor/image/upload/v1523622219/IMG_20180129_171523_ictawg.jpg" class="user_img">
+                </div>
+                <div class="col-lg-8">
+                    <p class="intro">My name is <?php echo $user->username; ?>{you know that already}, a young computer science student from the University of Nigeria, Nsukka, who believes that this world would be a better place if we have more problem solvers, and also strive to be one.
+                    </p>
+                </div>
+            </div>
+                
                 <div class="social text-center">
                     <ul>
                         <li> <a href="https://facebook.com/victor.alagwu"><i class="fa fa-facebook"></i></a> </li>
