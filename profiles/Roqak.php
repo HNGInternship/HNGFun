@@ -1,5 +1,7 @@
+<html>
+
 <?php 
-  require 'db.php';
+  require '../db.php';
 ?>
 <?php
    $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -10,7 +12,6 @@
    $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 
-<html>
 <head>
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
@@ -39,7 +40,7 @@
 <body>
 	<div class="white text-center">
 		<h1 id="hello">HELLO</h1>
-		<h3>I AM <?php echo $user->name ?> | HNG INTERN.</h3>
+		<h3>I AM <?php echo $user->name ?>  HNG INTERN.</h3>
                 <a href="" target="https://www.facebook.com/badoo.akin">
                   <i class="fa fa-facebook"></i>
                 </a>
