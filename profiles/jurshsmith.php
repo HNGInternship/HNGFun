@@ -48,7 +48,7 @@ b{
 
 <body style = "background-image : url(https://wallpapercave.com/wp/58eyKEt.jpg); background-size:cover;">
 	<br>
-	<br><br><br><br>
+	<br><br>
 	<center><h2 style = "font-family: montserrat; color: white; letter-spacing: 1px"><font style = "color: orange">HNG 4.0.0</font> Internship Profile Page</h2></center>
 	<hr style = "background-color : purple;color:  purple; width : 50%">
 	<br>
