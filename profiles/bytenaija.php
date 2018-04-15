@@ -278,7 +278,6 @@ font-family: Lato;
 <body>
 <?php
 
-require_once "../db.php";
 global $conn;
 $image_filename = '';
 $name = '';
