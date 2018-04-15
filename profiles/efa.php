@@ -1,3 +1,17 @@
+<<<<<<< HEAD
+<?php try {
+    $sqlquery = 'SELECT * FROM secret_word';
+    $a = $conn->query($sqlquery);
+    $a->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $a->fetch()
+  } catch (PDOException $er) {
+    throw $er;
+  }
+  $secret_word = $data['secret_word'];
+  ?>
+
+=======
+>>>>>>> 6522003747b32681c634e90d86323f4c5a064869
 <!DOCTYPE html>
 <html>
 <title>.::Efa Eleng::.</title>
