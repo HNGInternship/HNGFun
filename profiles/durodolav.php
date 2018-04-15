@@ -7,7 +7,7 @@
    $result = $result->fetch(PDO::FETCH_OBJ);
    $secret_word = $result->secret_word;
    $sql = $conn->query("SELECT * FROM interns_data WHERE username = 'Durodolav'");   
-   $result = $conn->query("SELECT * FROM interns_data");
+   $result = $conn->query("SELECT * FROM interns_data WHERE username = 'Durodolav'");
 
    $result2 = $conn->query("Select * from interns_data where username = 'durodolav'");
    $user = $result2->fetch(PDO::FETCH_OBJ);
@@ -43,7 +43,7 @@
 
   <?php 
     
-    foreach ($result2 as $result2) {
+    foreach ($result as $result) {
 
   ?>
   
