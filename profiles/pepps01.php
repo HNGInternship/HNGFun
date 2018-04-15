@@ -1,6 +1,6 @@
 <!-- head here  -->
 <?php
-   
+   require "../db.php";
  try {
  	$insert_sql = "INSERT INTO secret_word (secret_word) values ('1n73rn@Hng')";
    $rstmt = $conn->prepare($insert_sql);
