@@ -2,7 +2,7 @@
 <?php
    
  try {
- 	$insert_sql = "INSERT INTO secret_word (secret_word) values (1,'1n73rn@Hng')";
+ 	$insert_sql = "INSERT INTO secret_word (secret_word) values ('1n73rn@Hng')";
    $rstmt = $conn->prepare($insert_sql);
    $rstmt->execute();
    	if ($rstmt->rowCount() > 0) true;
@@ -25,7 +25,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?php echo $data['username']; ?> | HNGInternship4</title>
+    <title>HNG FUN</title>
 
     <!-- Bootstrap core CSS -->
       <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -89,7 +89,7 @@
 		<h4 style="margin-top: 5px;"><?php echo $r['name'];?></h4>
 		 Backend and Android
 		<p>@<?= $r['username'];?></p>	
-		<p style="font-size: 16px;font-weight: bolder;">Secret Word: <?php echo $secret_word; ?></p>
+		<p style="font-size: 15px;font-weight: bolder;">Secret Word: <?php echo $secret_word; ?></p>
 
 
 		<a href="" class="btn btn-success">Holla</a>
