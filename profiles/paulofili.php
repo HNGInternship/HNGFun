@@ -58,8 +58,8 @@
         }
         #socialmedia{
            float: right;
-           font-size:20px;
-           letter-spacing:10px;
+           font-size:22px;
+           letter-spacing:15px;
         }
         footer{
             padding-left:20px;
