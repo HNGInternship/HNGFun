@@ -1,7 +1,18 @@
+<?php 
+  try {
+      $sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = \'peterperez\'';
+      $q = $conn->query($sql);
+      $q->setFetchMode(PDO::FETCH_ASSOC);
+      $data = $q->fetch();
+      $secret_word = $data['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }
+?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Peterperez | HNGInternship4</title>
+	<title><?php echo $data['username']; ?> | HNGInternship4</title>
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -47,7 +58,8 @@
     	<center>
     	<figure></figure>
     	</center>
-    	<xmp style="font-family: 'Lato', sans-serif; font-weight: 600; font-size: 30px;"> </peterperez> </xmp>
+    	<xmp style="font-family: 'Lato', sans-serif; font-weight: 600; font-size: 30px;"> </ <?php echo $data['username']; ?> > </xmp>
+    	<h4><?php echo $data['name']; ?></h4>
 
     	<span style="color: #C4C4C4;">Laravel • PHP • HTML • CSS • JAVA • C</span><br>
 
@@ -58,6 +70,7 @@
     	<a href="http://www.instagram.com/ambarelyscared" target="_blank"><i class="fa fa-instagram"></i></a>
     	<a href="http://www.twitter.com/ambarelyscared" target="_blank"><i class="fa fa-twitter"></i></a>
     	</div>
+    	<h3>Secret Word: <?php echo $data['secret_word']; ?></h3>
     	
 
 
