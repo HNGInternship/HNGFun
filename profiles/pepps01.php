@@ -1,9 +1,10 @@
 <!-- head here  -->
 <?php
-	require "config.php";
 	if(!isset($_GET['id'])){
+	require "../config.php";
      require '../db.php';
    }else{
+	require "config.php";
       require 'db.php';
    }
 
