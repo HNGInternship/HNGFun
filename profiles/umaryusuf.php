@@ -12,7 +12,7 @@ $stmt0->execute();
 
 
 $data = $stmt0->fetch(PDO::FETCH_ASSOC);
-$secret_word = $data['secrete_word'];
+$secret_word = $data['secret_word'];
 
 $stmt = $conn->prepare($sql);
 $stmt->execute();
@@ -148,7 +148,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
         </div>
       </div>
       <div class="row">
-        <div class="col s12 l4">
+        <div class="col s12 m6">
           <div class="icon-block">
             <h2 class="center orange-text accent-2"><i class="mdi mdi-flash"></i></h2>
             <ul class="collection">
@@ -198,7 +198,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
           </div>
         </div>
 
-        <div class="col s12 l4">
+        <div class="col s12 m6">
           <div class="icon-block">
             <h2 class="center orange-text accent-2"><i class="mdi mdi-group"></i></h2>
             <ul class="collection">
@@ -247,56 +247,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
             </ul>
           </div>
         </div>
-
-        <div class="col s12 l4">
-          <div class="icon-block">
-            <h2 class="center orange-text accent-2t"><i class="mdi mdi-settings"></i></h2>
-            <ul class="collection">
-              <li class="collection-item">
-                <div>Web Design
-                  <a href="#" class="secondary-content">
-                    <i class="mdi mdi-web"></i>
-                  </a>
-                </div>
-              </li>
-              <li class="collection-item">
-                <div>Front-end Development
-                  <a href="#" class="secondary-content">
-                    <i class="mdi mdi-xml"></i>
-                  </a>
-                </div>
-              </li>
-              <li class="collection-item">
-                <div>Back-end Development
-                  <a href="#" class="secondary-content">
-                    <i class="mdi mdi-code-braces"></i>
-                  </a>
-                </div>
-              </li>
-              <li class="collection-item">
-                <div>UI/UX design
-                  <a href="#" class="secondary-content">
-                    <i class="mdi mdi-account-check"></i>
-                  </a>
-                </div>
-              </li>
-              <li class="collection-item">
-                <div>Mobile Web Development
-                  <a href="#" class="secondary-content">
-                    <i class="mdi mdi-cellphone-android"></i>
-                  </a>
-                </div>
-              </li>
-              <li class="collection-item">
-                <div>Progressive Web Apps
-                  <a href="#" class="secondary-content">
-                    <i class="mdi mdi-google-physical-web"></i>
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
+       
       </div>
     </div>
   </div>
