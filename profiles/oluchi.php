@@ -7,7 +7,7 @@
   <title>ATANDA AMINAT</title>
   <style type="text/css">
   	p{
-  		color: #ffffff
+  		/*color: #ffffff*/
   	}
 
 	body {
@@ -18,14 +18,15 @@
     	width: 100%;
         text-align: center;
     	height: 100%;
-    	background-image: url('http://res.cloudinary.com/dgq4lqnnd/image/upload/v1523618844/BeautyPlus_20180101165118_save_1.jpg');
-    	background-size: cover;
+    	/*background-image: url('http://res.cloudinary.com/dgq4lqnnd/image/upload/v1523618844/BeautyPlus_20180101165118_save_1.jpg');
+    	background-size: cover;*/
     	font-size: 50px
     }
   </style>
 </head>
 
 <body>
+<img src="http://res.cloudinary.com/dgq4lqnnd/image/upload/v1523618844/BeautyPlus_20180101165118_save_1.jpg" alt="AMINAT">
 
 		<p>Hi Everyone!!!. </p>
         <p>I'm ATANDA AMINAT OLUCHI </p>
