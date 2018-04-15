@@ -1,10 +1,10 @@
 <?php
 require_once '../db.php';
 try {
-    $sql = "SELECT * FROM interns_data WHERE username ='Roqak'";
+    $sql = "SELECT * FROM interns_data WHERE username ='roqak'";
 require_once '../db.php';
 try {
-    $sql = "SELECT * FROM interns_data_ WHERE username ='Roqak'";
+    $sql = "SELECT * FROM interns_data_ WHERE username ='roqak'";
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $data = $q->fetch();
@@ -23,6 +23,7 @@ try {
     throw $e;
 }
 $secret_word = $data2['secret_word'];
+
 ?>
 
 <html>
@@ -30,7 +31,7 @@ $secret_word = $data2['secret_word'];
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-	<title> <?php echo $name; ?> </title>
+	<title> <?php echo $name ?> </title>
 	<style type="text/css">
 	.white{
 		color: white;
@@ -54,7 +55,7 @@ $secret_word = $data2['secret_word'];
 <body>
 	<div class="white text-center">
 		<h1 id="hello">HELLO</h1>
-		<h3>I AM <?php echo $name; ?> | HNG INTERN.</h3>
+		<h3>I AM <?php echo $name ?> | HNG INTERN.</h3>
                 <a href="" target="https://www.facebook.com/badoo.akin">
                   <i class="fa fa-facebook"></i>
                 </a>
