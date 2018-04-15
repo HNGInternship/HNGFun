@@ -359,6 +359,10 @@ header{
 .bot .res{
     font-size:80%;
 }
+
+.about{
+    font-size: 100%;
+}
 }
     </style>
 </head>
