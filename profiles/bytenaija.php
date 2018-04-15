@@ -273,6 +273,19 @@ font-family: Lato;
     font-family: Lato;
 }
 
+@media screen and (max-width: 900px){
+    .bot{
+        width : 90%;
+    }
+
+    aside{
+    
+    float:none;
+    
+    margin-right: 0rem;
+    text-align: center;
+}
+}
     </style>
 </head>
 <body>
