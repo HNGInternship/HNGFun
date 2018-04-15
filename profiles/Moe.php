@@ -1,3 +1,14 @@
+<?php  
+  try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+    ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -15,7 +26,7 @@ body {
     position: fixed;
     width: 100%;
     height: 100%;
-    background: lightseagreen;
+    background: lightgrey;
 }
 
 p {
@@ -40,7 +51,7 @@ box {
     align-items: center;
     justify-content: center;
     left: 28%;
-    top: 40%;
+    top: 50%;
     font-size: 37px;
     color: black;
     padding: 30px;
@@ -51,21 +62,7 @@ box {
 box.a{
     font-family:herculanum;
 }
-button.b{
-    background-color:lightgrey;
-    color:grey;
-    position: absolute;
-    align-items: center;
-    justify-content: center;
-    
-    top: 80%;
-    font-size: 37px;
-    font-family:Montserrat;
-    margin-left:160px;
-    padding: 10px;
-    border-radius:30px;
-    
-}
+
 img{
     border-radius:50px;
     margin-top:30px;
@@ -75,6 +72,7 @@ img{
     <meta content="">
   </head>
   <body>
+
   <header>
 			<div>
 				<a href="https://github.com/benzowe"><i class="fa fa-github"></i></i></a>
@@ -83,16 +81,14 @@ img{
 		
 	</header>
   <center><img src="http://res.cloudinary.com/benzowe/image/upload/v1523637805/IMG_0343.jpg" alt="Mohammed" align="center" width="100" height="100" ></center>
-  <center><p>Hey Guys, I'm Mohammed Sanusi</p></center>
+  <center><p>Hey Guys.I'm Mohammed Sanusi </p></center>
   <box class="a">
   <center>Today</center> <br>
   <?php
 echo "Time is " . date("F j, Y, g:i a") . "<br>";
 ?>
 </box>
-<button class="b" align="center">
 
-I'm Currently a student of the Hotels.ng Remote internship program
-</button>
   </body>
+
 </html>

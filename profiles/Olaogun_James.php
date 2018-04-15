@@ -42,10 +42,28 @@
 </head>
 <body>
 
+<?php
+$profile_name = $_GET['id'];
+require 'db.php';
 
+
+
+
+$secret_q = "SELECT * FROM secret_word  LIMIT 1";
+$result = $conn->query($secret_q);
+$result = $result->fetch(PDO::FETCH_OBJ);
+$secret_word = $result->secret_word;
+
+$details = "SELECT * FROM interns_data  WHERE username = 'Olaogun_James' ";
+$result2 = $conn->query($details);
+$my_details = $result2->fetch(PDO::FETCH_OBJ);
+
+ 
+
+?>
 <div class="james-cont">
-  <img src="http://res.cloudinary.com/dho83jdnc/image/upload/v1523638386/IMG_20171121_093052.jpg" alt="James" style="width:100%">
-  <h1>Olaogun James Eniola</h1>
+  <img src="<?php echo $my_details->image_filename  ?>" alt="James" style="width:100%">
+  <h1><?php echo $my_details->name  ?></h1>
   <p class="james-title">Student and Tech Enthusiast</p>
   <p>Tai Solarin University of Education</p>
   <div style="margin: 24px 0;">
@@ -55,6 +73,7 @@
  </div>
  <p><button class="james-number">08178313562</button></p>
 </div>
+
 
 </body>
 </html>

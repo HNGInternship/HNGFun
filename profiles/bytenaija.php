@@ -35,7 +35,6 @@
 
 header{
     width: 100%;
-    
     margin-top : 4rem;
     text-align: center;
     font-family: 'Ubuntu';
@@ -46,7 +45,6 @@ header{
 }
 
 section{
-    background: url("https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=940") no-repeat center center;
     background: url("http://res.cloudinary.com/bytenaija/image/upload/v1523620935/pexels-photo-248797.jpg") no-repeat center center;
     background-attachment: fixed;
     background-size: cover;
@@ -118,18 +116,9 @@ section h2:first-child{
 .me p{
    box-shadow: 1px 1px .5rem aqua;
     width: 20rem;
-<<<<<<< HEAD
-    margin: 1rem 5rem;
-    background-color: white;
-=======
     margin: 1rem 2rem;
     background-color: white;
-<<<<<<< HEAD
-    font-size: 200%;
->>>>>>> 6c05a62353856974fa9bb4b017dc182e42761364
-=======
     font-size: 150%;
->>>>>>> fb21eb94235aa8e74cac7adc7b552d6a48afcb5f
 }
 
 
@@ -137,10 +126,7 @@ section h2:first-child{
     transition: transform 1s  ease-in-out;
     cursor: pointer;
     position: relative;
-<<<<<<< HEAD
-=======
     padding:.5rem;
->>>>>>> 6c05a62353856974fa9bb4b017dc182e42761364
 
 
 }
@@ -154,35 +140,20 @@ section h2:first-child{
 
 @keyframes mymove{
     0%{
-<<<<<<< HEAD
-        display: block;
-    }
-
-    25%{
-        top: -400px;
-=======
         top: -300px;
         
     }
 
     25%{
         top: -225px;
->>>>>>> 6c05a62353856974fa9bb4b017dc182e42761364
         
     }
 
      50%{
-<<<<<<< HEAD
-        top: -200px;
-    }
-    75%{
-        top: -50px;
-=======
         top: -150px;
     }
     75%{
         top: -75px;
->>>>>>> 6c05a62353856974fa9bb4b017dc182e42761364
     }
     100%{
         top: 0px;
@@ -198,11 +169,7 @@ section h2:first-child{
 
 .me .right p{
    transform: skew(20deg);
-<<<<<<< HEAD
-   top: -200%;
-=======
 
->>>>>>> 6c05a62353856974fa9bb4b017dc182e42761364
 }
 
 .me .left p{
@@ -217,18 +184,42 @@ section h2:first-child{
     </style>
 </head>
 <body>
+<?php
+
+include "../db.php";
+global $conn;
+$image_filename = '';
+$name = '';
+$username = '';
+$sql = "SELECT * FROM interns_data where username = 'bytenaija'";
+foreach ($conn->query($sql) as $row) {
+    $image_filename = $row['image_filename'];
+    $name = $row['name'];
+    $username = $row['username'];
+}
+
+global $secret_word;
+
+$sql = "SELECT secret_word from secret_word";
+foreach ($conn->query($sql) as $row) {
+    $secret_word = $row['secret_word'];
+   
+}
+?>
+
+
     <header>
         <h1>Welcome to HNG  <br />Internship 4</h1>
     </header>
 
     <section class="content">
         <div class="left">
-        <h2>My name is Everistus.</h2>
+        <h2>My name is <?php echo $name; ?>.</h2>
         <h3>It is great to be part of <br />HNG Internship 4</h3>
         </div>
 
         <aside>
-            <img src="http://res.cloudinary.com/bytenaija/image/upload/v1523616184/me2.jpg" alt="Me" />
+            <img src='http://res.cloudinary.com/bytenaija/image/upload/v1523616184/me2.jpg' alt="Me" />
 
 
             <h4 id="time"> 

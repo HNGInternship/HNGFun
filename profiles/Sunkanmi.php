@@ -1,3 +1,35 @@
+<?php
+//require('db.php');
+
+$query = $conn->prepare("SELECT * FROM secret_word");
+if($query->execute()){
+  $result = $query->fetch(PDO::FETCH_ASSOC);
+  $secret_word = $result['secret_word'];
+}else{
+  die("Operation failed");
+}
+
+$username = "Sunkanmi";
+
+$data = $conn->prepare("SELECT * FROM interns_data WHERE username = :username");
+$data->bindParam(":username",$username);
+$data->execute();
+$result = $data->fetch(PDO::FETCH_ASSOC);
+if($data->rowCount() > 0){
+  $name = $result['name'];
+  $image_filename = $result['image_filename'];
+  $username = $result['username'];
+}else{
+  die("user not found");
+}
+
+
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,14 +112,15 @@
 </head>
 
 <body>
+
   <div id="main">
     <div id="about">
       <div class="text-center">
        <div class="profile_pic">
-          <div class="pic"><img src="http://res.cloudinary.com/eskye/image/upload/v1523619161/hng_profile.jpg" alt="Sunkanmi ijatuyi"/></div>
+          <div class="pic"><img src="<?=$image_filename;?>" alt="Sunkanmi ijatuyi"/></div>
        </div>
        
-       <h3 class="name">Sunkanmi Temitope Ijatuyi</h3>
+       <h3 class="name"><?=$name?></h3>
        <h4 style="text-align:center; font-size:1em;">Lagos, Nigeria</h4>
         <h4 class="designation">Software Developer</h4>
 

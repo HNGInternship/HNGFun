@@ -10,7 +10,7 @@ $keyError="";
 $filenameError = "";
 
 //$imageSuccess = false;
-//$success = false;
+$success = false;
 $key = "1n73rn@Hng";
 
 if(isset($_POST['submit']) ){
@@ -22,17 +22,17 @@ if(isset($_POST['submit']) ){
             $nameError = "<span class='invalid'>Please enter a valid name.</span>";
         }
     }
-    
+
   if($_POST['image_filename'] != ""){
       $_POST['image_filename'] = filter_var($_POST['image_filename'], FILTER_SANITIZE_URL);
       if ($_POST['image_filename'] == ""){
           $filenameError = "<span class='invalid'>Please enter a proper file URL .</span>";
       }
   }
-    
+
     // key
     if($_POST['key'] != ""){
-        
+
         if ($_POST['key'] != "1n73rn@Hng"){
             $keyError = "<span class='invalid'>Please enter a valid key code.</span>";
         }
@@ -55,41 +55,41 @@ if(isset($_POST['submit']) ){
         }
     }
 
-    /** Upload File and Insert Data into Database
-    if ($nameError == "" && $usernameError == "" && $keyError == "") {
-        //Upload file
-        $max_size = 500 * 1024; // 500 KB
-        $destination_directory = "images/";
-        $validExtensions = array("jpeg", "jpg", "png", "JPEG", "JPG", "PNG");
-        $temporary = explode(".", $_FILES["file"]["name"]);
-        $file_extension = end($temporary);
+    // /** Upload File and Insert Data into Database
+    // if ($nameError == "" && $usernameError == "" && $keyError == "") {
+    //     //Upload file
+    //     $max_size = 500 * 1024; // 500 KB
+    //     $destination_directory = "images/";
+    //     $validExtensions = array("jpeg", "jpg", "png", "JPEG", "JPG", "PNG");
+    //     $temporary = explode(".", $_FILES["file"]["name"]);
+    //     $file_extension = end($temporary);
 
-        if ( (($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/jpg") ||
-                ($_FILES["file"]["type"] == "image/jpeg")) && in_array($file_extension, $validExtensions)) {
-            if ( $_FILES["file"]["size"] < ($max_size) ) {
-                if ( $_FILES["file"]["error"] > 0 ) {
-                    $uploadError = "Error: <strong>" . $_FILES["file"]["error"] . "</strong>";
-                }
-                else if (file_exists($destination_directory . $_FILES["file"]["name"]) ) {
-                    $uploadError = "Error: File <strong>" . $_FILES["file"]["name"] . "</strong> already exists.";
-                }
-                else {
-                    $sourcePath = $_FILES["file"]["tmp_name"];
-                    $targetPath = $destination_directory . $_FILES["file"]["name"];
-                    if(move_uploaded_file($sourcePath, $targetPath)) {
-                        $imageSuccess = true;
-                    } else {
-                        $uploadError = "Upload failed";
-                    }
-                }
-            }
-            else {
-                $uploadError = "The size of image you are attempting to upload is " . round($_FILES["file"]["size"]/1024, 2) . " KB, maximum size allowed is " . round($max_size/1024, 2) . " KB";
-            }
-        }
-        else {
-            $uploadError = "Invalid image format. Allowed formats: JPG, JPEG, PNG.";
-        } **/
+    //     if ( (($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/jpg") ||
+    //             ($_FILES["file"]["type"] == "image/jpeg")) && in_array($file_extension, $validExtensions)) {
+    //         if ( $_FILES["file"]["size"] < ($max_size) ) {
+    //             if ( $_FILES["file"]["error"] > 0 ) {
+    //                 $uploadError = "Error: <strong>" . $_FILES["file"]["error"] . "</strong>";
+    //             }
+    //             else if (file_exists($destination_directory . $_FILES["file"]["name"]) ) {
+    //                 $uploadError = "Error: File <strong>" . $_FILES["file"]["name"] . "</strong> already exists.";
+    //             }
+    //             else {
+    //                 $sourcePath = $_FILES["file"]["tmp_name"];
+    //                 $targetPath = $destination_directory . $_FILES["file"]["name"];
+    //                 if(move_uploaded_file($sourcePath, $targetPath)) {
+    //                     $imageSuccess = true;
+    //                 } else {
+    //                     $uploadError = "Upload failed";
+    //                 }
+    //             }
+    //         }
+    //         else {
+    //             $uploadError = "The size of image you are attempting to upload is " . round($_FILES["file"]["size"]/1024, 2) . " KB, maximum size allowed is " . round($max_size/1024, 2) . " KB";
+    //         }
+    //     }
+    //     else {
+    //         $uploadError = "Invalid image format. Allowed formats: JPG, JPEG, PNG.";
+    //     } **/
 
         //if ($imageSuccess) {
             //Insert Data
@@ -142,7 +142,7 @@ if(isset($_POST['submit']) ){
         echo "<div class='alert alert-danger'>Error found, please try again!</div>";
     }?>
 
-    <?php if($success) {
+    <?php if(isset($success) AND $success) {
         echo "<div class='alert alert-success'>Successful! Click <a href='profiles/". $username . ".php'>here</a> to view your profile</div>";
     }?>
 
