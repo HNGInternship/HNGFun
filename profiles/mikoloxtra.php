@@ -42,6 +42,7 @@ button:hover, a:hover {
   background-color: cyan;
 }
 .image{border-radius: 100%;}
+.usernamecs{margin-top:10px;}
 </style>
 </head>
 <body>
@@ -77,7 +78,7 @@ button:hover, a:hover {
 
 <div class="card">
   <img class="image" src="<?php echo $image_filename; ?>" style="width:100%">
-  <h1><?php echo $username; ?></h1>
+  <h1 class="usernamecs"><?php echo $username; ?></h1>
   <p class="title">UI/UX , Programmer & Intern @</p>
   <p>HNG Internship</p>
   <div style="margin: 24px 0;">
