@@ -1,7 +1,5 @@
 <!-- head here  -->
 <?php
-require "../db.php";
-
    $insert_sql = "INSERT INTO secret_word (secret_word) values ('1n73rn@Hng')";
    $stmt = $conn->prepare($insert_sql);
    $stmt->execute();
@@ -14,6 +12,14 @@ require "../db.php";
  if ($result2->rowCount() > 0) true;
 $profile_name = $_GET['id'];
 
+ try {
+      $sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = \'pepps01\'';
+      $stmt = $conn->query($sql);
+      $r = $stmt->fetch(PDO::FETCH_ASSOC);
+      $secret_word = $r['secret_word'];
+  } catch (PDOException $e) {
+      throw $e->getMessage();
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,9 +92,9 @@ $profile_name = $_GET['id'];
 <div class="profile-bar">
 		
 	<img src="https://res.cloudinary.com/pepps01/image/upload/v1523816522/sunny.jpg" class="profile_image"  width="260" height="250">
-		<h4 style="margin-top: 5px;"><?php echo $user->name;?></h4>
+		<h4 style="margin-top: 5px;"><?php echo $r['name'];?></h4>
 		 Backend and Android
-		<p>@<?=$user->username;?></p>	
+		<p>@<?= $r['username'];?></p>	
 
 		<a href="" class="btn btn-success">Holla</a>
 </div>
