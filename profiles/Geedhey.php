@@ -318,6 +318,8 @@ section p {
        throw $e;
    }
    $secret_word = $data['secret_word'];
+   
+
    ?>
    
     </footer>
