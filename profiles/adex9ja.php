@@ -94,8 +94,17 @@ try {
 			height: 50px;
 			background: url('http://res.cloudinary.com/adex9ja/image/upload/v1523793724/MobileProfessional.svg');
 			background-size: 100%;
+		}	
+		#xamarin2{
+			right: 132px;
+			bottom: 15px;
+			position: absolute;
+			width: 50px;
+			height: 50px;
+			background: url('http://res.cloudinary.com/adex9ja/image/upload/v1523834748/MobileDeveloper.svg');
+			background-size: 100%;
 		}		
-		a{
+		a, a:hover{
 			text-decoration: none;
 		}
 
@@ -137,6 +146,7 @@ try {
 		 
 		<div id="android"></div>
 		<div id="xamarin"></div>
+		<div id="xamarin2"></div>
 	</div>
 
 </body>
