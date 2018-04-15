@@ -46,7 +46,6 @@ button:hover, a:hover {
 </head>
 <body>
 <?php
- $mysqli = new mysqli("localhost", "admin", "mikoloxtra", "hngfun");
 
   $sql = "SELECT intern_id, name, username, image_filename FROM interns_data_ WHERE username='mikoloxtra'";
   $result =mysqli_query($mysqli, $sql);
