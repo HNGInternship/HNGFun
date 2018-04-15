@@ -1,8 +1,7 @@
 <?php
-include("../db.php");
-
-define('DB_CHARSET', 'utf8mb4');
-$dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
+error_reporting(0);
+if (empty($conn)) {
+    include_once("../db.php");
 
 $opt = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
