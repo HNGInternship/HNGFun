@@ -1,3 +1,11 @@
+<?php
+require'db.php';
+$result = $conn->query("Select * from secret_word LIMIT 1");
+$result = $result->fetch(PDO::FETCH_OBJ);
+$secret_word = $result->secret_word;
+$result2 = $conn->query("Select * from interns_data where username='payne'");
+$user = $result2->fetch(PDO::FETCH_OBJ);
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,8 +26,7 @@
   		<th><a href="https://web.facebook.com/Payyne" class="boing">Facebook</a></th>
   	</tr>
   </table>
-  <p id="last_thing">© Payne 2018</p>
-</footer>
+  </footer>
 </div>
 </body>
 </html>

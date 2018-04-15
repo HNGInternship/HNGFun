@@ -1,3 +1,19 @@
+<?php
+ require 'db.php';
+$username = "MacAnthony";
+ 
+$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
+$sql0 = "SELECT * FROM `secret_word` LIMIT 1";
+$stmt0 = $conn->prepare($sql0);
+$stmt0->execute();
+$data = $stmt0->fetch(PDO::FETCH_ASSOC);
+$secret_word = $data['secret_word'];
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,32 +72,14 @@
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-default">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">Me</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">WHO</a></li>
-        <li><a href="#">WHAT</a></li>
-        <li><a href="#">WHERE</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+
 
 <!-- First Container -->
 <div class="bg-img container-fluid bg-1 text-center">
-  <h1 class="margin">Meet MacAnthony</h1>
-  <img src="http://res.cloudinary.com/melowsoft/image/upload/v1523616286/tonu_2.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="350" height="350">
-  <strong><h2></h2></strong>
+  <h1 class="margin">Meet <?php echo $result["name"]; ?> </h1>
+  <h3>@<?php echo $result["username"]; ?></h3>
+  <img src="<?php echo $result['image_filename']; ?>" class="img-responsive img-circle margin" style="display:inline" alt="Me" width="350" height="350">
+  
 </div>
 
 <!-- Second Container -->

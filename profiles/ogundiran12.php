@@ -152,7 +152,7 @@ a{
 <body>
 <?php
 
-include "../db.php";
+//include "../db.php";
 global $conn;
 $image_filename = '';
 $name = '';
