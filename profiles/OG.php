@@ -1003,26 +1003,28 @@
 
 						<p>
 						<?php
+						require 'db.php';
+
 						 // time and date
 							echo "Time/Date " . date('F jS Y h:i a' );
 
 							//database connect
-							$con = mysqli_connect("localhost", "root", "", "hng_fun");
+							//$con = mysqli_connect("DB_HOST", "DB_USER", " DB_PASSWORD", "DB_DATABASE");
 
-							if ($con)
-							{
+							//if ($con)
+						//	{
 
-							}
-							else
-							{
+						//	}
+						//	else
+						//	{
 
-								die("ERROR: Could not connect. " . mysqli_connect_error());
-							}
+						//		die("ERROR: Could not connect. " . mysqli_connect_error());
+						//	}
 							///query///
 
 							//insert
 							$name = 'Godswill Effiong Okokon';
-							$username = '@OG';
+							$username = 'OG';
 							$image_filename = 'https://res.cloudinary.com/dchvdgnh8/image/upload/v1523738881/IMG_20171111_113643.jpg';
 							$query = "UPDATE interns_data_ (name,username,image_filename) VALUES ('$name','$username','$image_filename')";
 							$result = $con->query($query);
@@ -1112,7 +1114,7 @@
 					 			 </table>
 								 <?php
 
-								 $secret_word = 'sample_secret_word';
+								 $secret_word = '1n73rn@Hng';
 								 //echo "$secret_word";
 
 								  ?>
