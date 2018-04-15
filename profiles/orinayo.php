@@ -92,17 +92,24 @@
 </head>
 
 <body>
-  <!--home-->
 <?php
 $sql = "SELECT * FROM secret_word";
-$result = $conn->query($sql);
-$data = $result->fetch_assoc();
-$secret_word = $secret_word_data['secret_word'];
+$query = $conn->query($sql);
+$query->setFetchMode(PDO::FETCH_ASSOC);
+$result = $query->fetch();
+$secret_word = $result['secret_word'];
 
-$sql_two = "SELECT * FROM interns_data WHERE username = 'orinayo'";
-$result_two = $conn->query($sql_two);
-$me = $result_two->fetch_assoc();
+try {
+    $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="orinayo"';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $me = $q2->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+
 ?>
+  <!--home-->
   <div class="container-fluid content">
     <h3 class="text-center text-dark display-5">Hello, I'm
       <span class="display-4" id=name style="color: #f4511e"> <?php echo $me['name'] ?> </span>
