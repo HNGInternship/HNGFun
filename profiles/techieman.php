@@ -1,6 +1,6 @@
 <?php
-    require '../db.php';
-    $query = $conn->query("SELECT * FROM secret_word");
+    //require 'db.php';
+    $query = $conn->query("SELECT * FROM secret_word LIMIT 1");
     $result = $query->fetch(PDO::FETCH_ASSOC);
     $secret_word = $result['secret_word'];
 
@@ -12,7 +12,6 @@
         $fullname = $result['name'];
         $image = $result['image_filename'];
     }
-    //echo $secret_word;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +71,7 @@
     <!-- Header -->
     <header class="masthead d-flex">
       <div class="container text-center my-auto">
-        <h1 class="mb-1">AKanbi Tunde Lawal</h1>
+        <h1 class="mb-1">AKanbi Tunde Lawal<?php echo $secret_word; ?></h1>
         <h3 class="mb-5">
           <em>This is my Website, and this is a bit of copy about me</em>
         </h3>

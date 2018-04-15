@@ -1,4 +1,5 @@
 
+
   <?php
           try {
               $sql = 'SELECT * FROM secret_word';
@@ -18,6 +19,7 @@
                   $profile_details_result->setFetchMode(PDO::FETCH_ASSOC);
                       $profile_details = $profile_details_result->fetch();
                   ?>
+
 <head>
  
   <title>TiaraYuppy - HNG Internship</title>
@@ -329,7 +331,7 @@
 
     </div>
 
-  
+
 </div>
 </body>
 </html>

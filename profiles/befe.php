@@ -1,7 +1,7 @@
 <?php 
 
 try {
-      $sql = "SELECT * FROM interns_data WHERE username = $profile_name LIMIT 1"; 
+      $sql = "SELECT * FROM interns_data WHERE username = 'befe' LIMIT 1"; 
       $q = $conn->query($sql);
       $q->setFetchMode(PDO::FETCH_ASSOC);
       $data = $q->fetch();
