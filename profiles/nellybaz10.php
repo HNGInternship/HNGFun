@@ -27,7 +27,7 @@ $user = DB_USER;
 $db = DB_DATABASE;
 $pass = DB_PASSWORD;
 
-$link = mysqli_connect($host, $user, $pass, $db);
+$link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 
 
