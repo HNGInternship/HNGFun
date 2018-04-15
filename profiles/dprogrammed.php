@@ -2,7 +2,8 @@
 include("../db.php");
 $image = '';                 
 $name ="";
-$username = "";      
+$username = "";     
+$secret_word = "";
 $conn = new mysqli("localhost", "root", "", "hng_fun");
 // Check connection
 if (mysqli_connect_errno())
@@ -10,19 +11,7 @@ if (mysqli_connect_errno())
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
 
-// $sql="SELECT * FROM secret_word";
-//  $result = $conn->query($sql);
-// if ($result->query($sql2))
-//   {
-//   // Fetch one and one row
-//   while ($row=$result->fetch_assoc())
-//     {
-//     $secret_word = printf ("%s (%s)\n",$row[0],$row[1]);
-//     }
-//   // Free result set
-//   mysqli_free_result($result);
-//   //echo "<h4>". $secret_word . "</h4>";
-// }
+
 
 $sql = "SELECT * FROM interns_data_";
 $result = $conn->query($sql);
@@ -30,7 +19,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        // echo "id: " . $row["intern_id"]. " - Name: " . $row["name"]. " " . $row["username"]. "<br>" . $row["image_filename"];
+   
         $name = $row["name"];
         $username = $row["username"];
         $image = $row["image_filename"];
@@ -39,6 +28,18 @@ if ($result->num_rows > 0) {
     echo "0 results";
 }
 
+$sql = "SELECT * FROM secret_word";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+      
+        $secret_word = $row['secret_word'];
+    }
+} else {
+    echo "0 results";
+}
         
 
 ?>
