@@ -53,7 +53,7 @@ try {
     $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="osawaru"';
     $q2 = $conn->query($sql2);
     $q2->setFetchMode(PDO::FETCH_ASSOC);
-    $me = $q2->fetch();
+    $mydata = $q2->fetch();
 } catch (PDOException $e) {
     throw $e;
 }

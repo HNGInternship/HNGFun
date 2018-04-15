@@ -58,9 +58,9 @@ try {
                 <div class="row">
                 <div class="col-xl-8 mx-auto">
                     <div class="text-center">
-                        <img src="<?php isset($my_data['image_filename'])? $my_data['image_filename']: 'http://res.cloudinary.com/drjpxke9z/image/upload/v1523623738/oriechinedu_ihubdk.jpg'?>" class="rounded-circle" alt="orie chinedu" width="200px" height="200px">
+                        <img src="<?= "http://res.cloudinary.com/drjpxke9z/image/upload/v1523623738/oriechinedu_ihubdk.jpg" ?>" class="rounded-circle" alt="orie chinedu" width="200px" height="200px">
                     </div>
-                    <h1 >Hey! <small>This is</small> <?php isset($my_data['name'])? $my_data['name']: 'Orie Chinedu' ?></h1> 
+                    <h1 >Hey! <small>This is</small> <?= 'Orie Chinedu' ?></h1> 
                     <p id="intro" style="margin-bottom: 50px; text-shadow: 2px 2px 2px #fff; color: #000;">I am a Web Developer. Proficient in HTML, CSS, JAVASCRIPT,
                     PHP/LARAVEL/VUEJS. A little of Python/Django. I also write technical articles on medium. I am a volunteer coach at Djangogirls.org and generally a tech lover</p>
                         
