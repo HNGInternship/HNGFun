@@ -278,7 +278,6 @@ font-family: Lato;
 <body>
 <?php
 $file = realpath(__DIR__ . '/..') . "/db.php"    ;
-echo $file;
 include $file;
 global $conn;
 $image_filename = '';
