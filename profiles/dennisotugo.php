@@ -104,7 +104,7 @@ $secret_word = $words['secret_word'];
 
 	body {
 		height: 100%;
-		background-color: #ffffff;
+		background-color: #007bff;
 		background-image: url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523717927/overlay.png"), -moz-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)), url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701316/bg.jpg");
 		background-image: url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523717927/overlay.png"), -webkit-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)), url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701316/bg.jpg");
 		background-image: url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523717927/overlay.png"), -ms-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)), url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701316/bg.jpg");
@@ -125,7 +125,7 @@ $secret_word = $words['secret_word'];
 			height: inherit;
 			opacity: 0;
 			z-index: 1;
-			background-color: #ffffff;
+			background-color: #007bff;
 			background-image: url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523717927/overlay.png"), -moz-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35));
 			background-image: url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523717927/overlay.png"), -webkit-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35));
 			background-image: url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523717927/overlay.png"), -ms-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35));
@@ -562,8 +562,7 @@ $secret_word = $words['secret_word'];
 
 					ul.icons li a:before {
 						color: #ffffff;
-						text-shadow: 1.25px 0px 0px #c8cccf, -1.25px 0px 0px #c8cccf, 0px 1.25px 0px #c8cccf, 0px -1.25px 0px #c8cccf;
-					}
+						}
 
 					ul.icons li a:hover:before {
 						text-shadow: 1.25px 0px 0px #ff7496, -1.25px 0px 0px #ff7496, 0px 1.25px 0px #ff7496, 0px -1.25px 0px #ff7496;
@@ -643,7 +642,7 @@ $secret_word = $words['secret_word'];
 		padding: 0 1.5em;
 		background-color: transparent;
 		border-radius: 4px;
-		border: solid 1px #c8cccf;
+		border: solid 2px #c8cccf;
 		color: #414f57 !important;
 		cursor: pointer;
 		text-align: center;
@@ -725,7 +724,7 @@ $secret_word = $words['secret_word'];
 		max-width: 100%;
 		min-width: 27em;
 		padding: 4.5em 3em 3em 3em ;
-		background: #ffffff;
+		background: #007bff;
 		border-radius: 4px;
 		cursor: default;
 		opacity: 0.95;
@@ -754,7 +753,6 @@ $secret_word = $words['secret_word'];
 				display: block;
 				margin: 0 auto;
 				border-radius: 100%;
-				box-shadow: 0 0 0 1.5em #ffffff;
 			}
 
 			#main .avatar:before {
@@ -957,9 +955,6 @@ $secret_word = $words['secret_word'];
 
 				<!-- Footer -->
 					<footer id="footer">
-						<ul class="copyright">
-							<li>&copy; Dennis Otugo</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-						</ul>
 					</footer>
 
 			</div>

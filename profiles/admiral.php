@@ -1,5 +1,5 @@
 <?php 
-	function getUserInfo($username="admiral"){
+	function getUserInfo($username="davidshare"){
 		try {
 			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -21,6 +21,28 @@
 	}
 
 	$user_info = getUserInfo();
+
+	function getSecretWord(){
+		try {
+			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		    $stmt = $conn->prepare("SELECT * FROM secret_word");
+		    $stmt->execute();
+
+		    // set the resulting array to associative
+		    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		    if(!empty($result)){
+		    	return $result[0]['secret_word'];
+		    }
+		    
+		}
+		catch(PDOException $e) {
+		    echo "Error: " . $e->getMessage();
+		}
+		$conn = null;
+	}
+
+	$secret_word = getSecretWord($user_info['intern_id']);
 ?>
 <html>
     <head>
@@ -34,9 +56,9 @@
 			font-weight: normal;
 			font-family: sans-serif;
 		}
-		.container {
+		.con {
 			width: 90%;
-			margin: 20px auto;
+			margin: 0 auto;
 		}
 		div img {
 			width: 200px;
@@ -70,10 +92,14 @@
 			text-align: center;
 			margin-top: 30px;
 		}
+		.top {
+			margin-top: 50px;
+		}
 	</style>
 </head>
 <body>
-	<div class="container clear">
+	<div class="top clear"></div>
+	<div class="con clear">
 		<div class="img">
 			<img src= "http://res.cloudinary.com/intellitech/image/upload/v1523779243/admiral.jpg" alt="Admiral">
 		</div>
