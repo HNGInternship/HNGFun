@@ -11,7 +11,7 @@ include('../db.php');
 	$secret_word = $data['secret_word'];
 	
 	//get my details		
-    $sql = "SELECT * FROM `interns_datas` WHERE username = 'agatevureglory' LIMIT 1";
+    $sql = "SELECT * FROM `interns_data` WHERE username = 'agatevureglory' LIMIT 1";
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $data = $q->fetch();
