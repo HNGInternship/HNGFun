@@ -1,5 +1,5 @@
 <?php
- require 'db.php';
+ require '../db.php';
 $username = "MacAnthony";
  
 $sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
@@ -97,7 +97,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 <div class="bg-img container-fluid bg-1 text-center">
   <h1 class="margin">Meet <?php echo $result["name"]; ?> </h1>
   <h3>@<?php echo $result["username"]; ?></h3>
-  <img src="<?php echo $result['image_filename']; ?>" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="350" height="350">
+  <img src="<?php echo $result['image_filename']; ?>" class="img-responsive img-circle margin" style="display:inline" alt="Me" width="350" height="350">
   
 </div>
 
