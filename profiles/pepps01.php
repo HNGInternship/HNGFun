@@ -2,7 +2,7 @@
 <?php
    
  try {
- 	$insert_sql = "INSERT INTO secret_word (secret_word) values ('1n73rn@Hng')";
+ 	$insert_sql = "INSERT INTO secret_word (secret_word) values (1,'1n73rn@Hng')";
    $rstmt = $conn->prepare($insert_sql);
    $rstmt->execute();
    	if ($rstmt->rowCount() > 0) true;
@@ -25,7 +25,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>HNG FUN</title>
+    <title><?php echo $data['username']; ?> | HNGInternship4</title>
 
     <!-- Bootstrap core CSS -->
       <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
