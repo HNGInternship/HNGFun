@@ -4,7 +4,7 @@ $sql = "SELECT * FROM interns_data WHERE username = 'dennisotugo'";
 $q = $conn->query($sql);
 $q->setFetchMode(PDO::FETCH_ASSOC);
 $data = $q->fetchAll();
-$jim = array_shift($data);
+$dennisotugo = array_shift($data);
 // Secret word
 $sql = "SELECT * FROM secret_word";
 $q = $conn->query($sql);
