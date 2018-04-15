@@ -39,7 +39,7 @@
 <body>
 	<div class="white text-center">
 		<h1 id="hello">HELLO</h1>
-		<h3>I AM <?php echo $user->name ?> | HNG INTERN.</h3>
+		<h3>I AM <?php echo $user->name ?>  HNG INTERN.</h3>
                 <a href="" target="https://www.facebook.com/badoo.akin">
                   <i class="fa fa-facebook"></i>
                 </a>
