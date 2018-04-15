@@ -1,20 +1,14 @@
-<?php  require "../db.php";
+<?php  require "db.php";
 
-$sql='select * from secret_word';
-$result=$conn->query($sql);
-while($row = $result->fetch()){
-	$secret_word=$row['secret_word'];
+try {
+	$sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = \'segunemma2003\'';
+	$q = $conn->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$data = $q->fetch();
+	$secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+	throw $e;
 }
-$user='select * from interns_data_ where username="segunemma2003"';
-$users=$conn->query($user);
-
-while($row = $users->fetch()){
-	$id=$row['intern_id'];
-	$name=$row['name'];
-	$username=$row['username'];
-	$picture=$row['image_filename'];
-}
-
 ?> 
 <!DOCTYPE html>
 
