@@ -1,6 +1,43 @@
 <?php 
   require 'db.php';
 
+<<<<<<< HEAD
+define('DB_USER', "root");
+define('DB_PASSWORD', "root");
+define('DB_DATABASE', "hngfun");
+define('DB_HOST', "localhost");
+
+$con = mysqli_connect(DB_USER, DB_PASSWORD, DB_DATABASE, DB_HOST);
+if (!$con) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+
+$sql = "SELECT name, username, image_filename FROM interns_data";
+$result = mysqli_query($con, $sql);
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result)) {
+        echo "My Name is: " . $row["name"]. "<br>";
+    }
+} else {
+    echo "0 results";
+}
+
+
+$secret_word = "SELECT code FROM secret_word";
+$result = mysqli_query($con, $secret_word);
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result)) {
+        echo "the code is: " . $row["code"];
+    }
+} else {
+    echo "0 results";
+}
+mysqli_close($con);
+?>  
+=======
   $result = $conn->query("Select * from secret_word LIMIT 1");
    $result = $result->fetch(PDO::FETCH_OBJ);
    $secret_word = $result->secret_word;
@@ -9,6 +46,7 @@
    $profile_name = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 
+>>>>>>> 6522003747b32681c634e90d86323f4c5a064869
 <!DOCTYPE html>
 <html>
 <head>
