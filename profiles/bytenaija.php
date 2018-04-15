@@ -311,7 +311,7 @@ text-shadow: white 0 0 .5rem;
 
 section h2, h3{
     color: #330505;
-    font-size: 300%;
+    font-size: 100%;
     font-family: 'Poppins';
     text-shadow: white 0 0 .5rem;
     
@@ -341,7 +341,7 @@ section{
     width: 80%;
     margin: .5rem auto  ;
     background-color: white;
-    font-size: 150%;
+    font-size: 100%;
     text-align: center;
 }
 
