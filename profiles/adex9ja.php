@@ -1,6 +1,5 @@
 <?php 
 try {
-	  require_once("../db.php");
      $profile = 'SELECT * FROM interns_data_ WHERE username="adex9ja"';
     $select = 'SELECT * FROM secret_word';
 
