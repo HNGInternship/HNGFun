@@ -1,33 +1,28 @@
 <?php
-// define ('DB_USER', "root");
-// define ('DB_PASSWORD', "");
-// define ('DB_DATABASE', "hngfun");
-// define ('DB_HOST', "localhost");
 require_once '../db.php';
 try {
-	$sql = "SELECT * FROM interns_data WHERE username ='Roqak'";
+    $sql = "SELECT * FROM interns_data WHERE username ='Roqak'";
 require_once '../db.php';
-
 try {
-	$sql = "SELECT * FROM interns_data_ WHERE username ='Roqak'";
-	$q = $conn->query($sql);
-	$q->setFetchMode(PDO::FETCH_ASSOC);
-	$data = $q->fetch();
+    $sql = "SELECT * FROM interns_data_ WHERE username ='Roqak'";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
 } catch (PDOException $e) {
-	throw $e;
+    throw $e;
 }
 $name = $data['name'];
 $username = $data['username'];
 $image = $data['image_filename'];
 try {
-	$sql2 = 'SELECT * FROM secret_word';
-	$q2 = $conn->query($sql2);
-	$q2->setFetchMode(PDO::FETCH_ASSOC);
-	$new_data = $q2->fetch();
+    $sql2 = 'SELECT * FROM secret_word';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $data2 = $q2->fetch();
 } catch (PDOException $e) {
-	throw $e;
+    throw $e;
 }
-$secret_word = $new_data['secret_word'];
+$secret_word = $data2['secret_word'];
 ?>
 
 <html>
