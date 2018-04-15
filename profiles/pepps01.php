@@ -7,10 +7,6 @@
    }
 
  try {
- 	$insert_sql = "INSERT INTO secret_word (secret_word) values ('1n73rn@Hng')";
-   $rstmt = $conn->prepare($insert_sql);
-   $rstmt->execute();
-   	if ($rstmt->rowCount() > 0) true;
 
       $sql = 'SELECT * FROM interns_data,secret_word WHERE username ="'.'pepps01'.'"';
       $stmt = $conn->query($sql);
