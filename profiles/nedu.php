@@ -3,15 +3,13 @@
   <?php
    $file = realpath(__DIR__.'/..')."/db.php";
    require_once $file;
+   $file1 = realpath(__DIR__.'/..')."/footer.php";
    $result = $conn->query("SELECT * FROM secret_word LIMIT 1");
    $result = $result->fetch(PDO::FETCH_OBJ);
    $secret_word = $result->secret_word;
 
    $result2 = $conn->query("SELECT * FROM interns_data_ WHERE username = 'nedu'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
-    $name = $user->name;
-    $image = $user->image_filename;
-    $username = $user->username;
   ?>
 
   <head>
@@ -103,15 +101,15 @@
     <!--Rest of the page content-->
 <div class="secondContainer">
   <div>
-      <img class="imgClass" src="<?php echo $image;?>" alt="nedu's image"/>
+      <img class="imgClass" src="<?php echo $user->image_filename;?>" alt="nedu's image"/>
   </div>
   <div>
-    <p>Full Name : <?php echo $name; ?></p>
-    <p>Username : <?php echo $username; ?></p>
+    <p>Full Name : <?php echo $user->name; ?></p>
+    <p>Username : <?php echo $user->username; ?></p>
     <p>Skill : Web developer</p>
   </div>
   <div>
-   <p><?php include_once ('../footer.php');?></p>
+   <p><?php include_once $file1;?></p>
   </div>
 </div>
 </body>

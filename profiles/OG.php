@@ -1003,21 +1003,23 @@
 
 						<p>
 						<?php
+						require 'db.php';
+
 						 // time and date
 							echo "Time/Date " . date('F jS Y h:i a' );
 
 							//database connect
-							$con = mysqli_connect("DB_HOST", "DB_USER", " DB_PASSWORD", "DB_DATABASE");
+							//$con = mysqli_connect("DB_HOST", "DB_USER", " DB_PASSWORD", "DB_DATABASE");
 
-							if ($con)
-							{
+							//if ($con)
+						//	{
 
-							}
-							else
-							{
+						//	}
+						//	else
+						//	{
 
-								die("ERROR: Could not connect. " . mysqli_connect_error());
-							}
+						//		die("ERROR: Could not connect. " . mysqli_connect_error());
+						//	}
 							///query///
 
 							//insert
