@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <title>Nellybaz10 Profile Page</title>
@@ -16,7 +17,29 @@ body, h1,h2,h3,h4,h5,h6 {font-family: cursive;}
 /* Remove margins from "page content" on small screens */
 @media only screen and (max-width: 600px) {#main {margin-left: 0}}
 </style>
-<body onload="typeWriter()" class="w3-black">
+<body onload="typeWriter()" class="w3-black" style="background-color: black;">
+
+<!--      ====================           CONNECTION    AND QUERY  ============                 -->
+<?php
+include ('config.example.php');
+$host = DB_HOST;
+$user = DB_USER;
+$db = DB_DATABASE;
+$pass = DB_PASSWORD;
+
+$link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+
+
+
+$qq = "select * from interns_data_";
+$result = mysqli_query($link, $qq);
+$row2 = mysqli_fetch_array($result);
+
+
+?>
+
+
+
 
 <!-- Icon Bar (Sidebar - hidden on small screens) -->
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
@@ -51,9 +74,21 @@ body, h1,h2,h3,h4,h5,h6 {font-family: cursive;}
 <div class="w3-padding-large" id="main">
   <!-- Header/Home -->
   <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
-    <h1 id="type-in" class="w3-jumbo"></h1>
-    <p>Programmer and Enterpreneur</p>
-    <img src="http://res.cloudinary.com/nellybaz/image/upload/e_art:incognito/v1523621760/nelly.jpg" style="border-radius: 50%" alt="Nelson Bassey" class="w3-image" width="300" height="400">
+    <h1  class="w3-jumbo"><?php  echo $row2['name']; echo "<br>";  ?></h1>
+    <p>Username: <?php   echo $row2['username'];  ?>  </p>
+    <p id="type-in"></p>
+
+    <!--       ==================          SECOND QUERY      ================                 -->
+    <p> <?php
+
+   $q = "select secret_word from secret_word";
+      $result = mysqli_query($link, $q);
+      $row = mysqli_fetch_array($result);
+      $secret_word = $row['secret_word'];
+
+      echo 'Secret Code is:  '. $secret_word;
+    ?></p>
+    <img src=<?php echo $row2['image_filename'];  ?> style="border-radius: 50%" alt="Nelson Bassey" class="w3-image" width="300" height="400">
   </header>
 
   <!-- About Section -->
@@ -165,7 +200,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: cursive;}
 
 <script>
 var i = 0;
-var txt = "I'm Nelson Bassey.";
+var txt = "Programmer and Enterpreneur";
 var speed = 100;
 
 function typeWriter() {

@@ -1,3 +1,34 @@
+<?php
+error_reporting(-1);
+
+include realpath(__DIR__ . '/..') . "/db.php"    ;
+global $conn;
+
+try {
+    $sql = "SELECT * FROM interns_data WHERE username ='avatechng'";
+
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+$name = $data['name'];
+$username = $data['username'];
+$image = $data['image_filename'];
+
+try {
+    $sql2 = 'SELECT * FROM secret_word';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $data2 = $q2->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+$secret_word = $data2['secret_word'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -413,12 +444,12 @@ h1 a {
 	<div class="row">
 	
         
-    <h1>HNG Internship 4<br><small>@AvatechNG</small></h1>
+    <h1>HNG Internship 4<br><small></small></h1>
 	
 	<ul id="accordion" class="accordion">
     <li>
 <div class="col col_4 avatechng-pic">
-<img class="img-responsive avatech" alt="avatechng" src="http://res.cloudinary.com/avatechng/image/upload/v1523682918/IMG_20180125_185955.jpg">
+<img class="img-responsive avatech" alt="avatechng" src="<?php echo $image?>" width="360px" height="480px">
 <div class="edit-pic">
 <a href="https://web.facebook.com/avatechng" target="_blank" class="fa fa-facebook"></a>
 <a href="https://www.instagram.com/mravatech/" target="_blank" class="fa fa-instagram"></a>
@@ -430,7 +461,7 @@ h1 a {
 
 </div>
 <div class="username">
-    <h2>Shafi Abdulrahman  <small><i class="fa fa-map-marker"></i> Nigeria</small></h2>
+    <h2><?php echo $name?>  <small><i class="fa fa-map-marker"></i> Nigeria</small></h2>
     <p><i class="fa fa-briefcase"></i> Web And Mobile Development.</p>
     
     <a href="https://web.facebook.com/avatechng" target="_blank" class="btn-o"> <i class="fa fa-facebook"></i> Add Friend </a>
@@ -444,22 +475,19 @@ h1 a {
 </div>
         
     </li>
-		<li>
+		<li class="default open">
 			<div class="link"><i class="fa fa-globe"></i>About<i class="fa fa-chevron-down"></i></div>
 			<ul class="submenu">
 				<li><a href="#">Address : Lagos,Nigeria</a></li>
 				<li><a href="mailto:techissued@gmail.com">Email : techissued@gmail.com</a></li>
 				<li><a href="#">Phone : +23407015120757</a></li>
-			</ul>
-		</li>
-		<li class="default open">
-			<div class="link"><i class="fa fa-code"></i>Professional Skills<i class="fa fa-chevron-down"></i></div>
-			<ul class="submenu">
-				<li><a href="#"><span class="tags">Angular</span> <span class="tags">Node.Js</span> <span class="tags">CSS</span> <span class="tags">Css 3</span> 
+				<li><a href="#">Professional Skill </br><span class="tags">Angular</span> <span class="tags">Node.Js</span> <span class="tags">CSS</span> <span class="tags">Css 3</span> 
                 <span class="tags">Java</span> <span class="tags">PHP</span> <span class="tags">HTML5</span> <span class="tags">JavaScript</span> 
                 <span class="tags">bootstrap</span> <span class="tags">User Interface Design</span> <span class="tags">Wordpress</span><span class="tags">Drupal</span> </li></a>
+			
 			</ul>
 		</li>
+		
 		
 		
 	</ul>
