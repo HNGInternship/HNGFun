@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+
+
   try {
       $sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = \'peterperez\'';
       $q = $conn->query($sql);
@@ -52,29 +55,32 @@
 	</style>
 </head>
 <body>
-<div id="wrapper">    
-    <div id="yourdiv">
-    	<div class="margin"></div>
-    	<center>
-    	<figure></figure>
-    	</center>
-    	<xmp style="font-family: 'Lato', sans-serif; font-weight: 600; font-size: 30px;"> </ <?php echo $data['username']; ?> > </xmp>
-    	<h4><?php echo $data['name']; ?></h4>
+	<section style="width: 100%; min-height: 400px;">
 
-    	<span style="color: #C4C4C4;">Laravel • PHP • HTML • CSS • JAVA • C</span><br>
+		<div id="wrapper" style="height: 600px;">    
+		    <div id="yourdiv">
+		    	<div class="margin"></div>
+		    	<center>
+		    	<figure></figure>
+		    	</center>
+		    	<xmp style="font-family: 'Lato', sans-serif; font-weight: 600; font-size: 30px;"> </ <?php echo $data['username']; ?> > </xmp>
+		    	<h4><?php echo $data['name']; ?></h4>
 
-    	<span>I believe the passion to learn more everyday,<br> helps me use technology to solve problems around me.</span>
-    	<br>
-    	<div style="font-size: 25px; margin-top: 10px;">
-    	<a href="http://www.github.com/peterperez" target="_blank"><i class="fa fa-github"></i></a>
-    	<a href="http://www.instagram.com/ambarelyscared" target="_blank"><i class="fa fa-instagram"></i></a>
-    	<a href="http://www.twitter.com/ambarelyscared" target="_blank"><i class="fa fa-twitter"></i></a>
-    	</div>
-    	<h3>Secret Word: <?php echo $data['secret_word']; ?></h3>
-    	
+		    	<span style="color: #C4C4C4;">Laravel • PHP • HTML • CSS • JAVA • C</span><br>
+
+		    	<span>I believe the passion to learn more everyday,<br> helps me use technology to solve problems around me.</span>
+		    	<br>
+		    	<div style="font-size: 25px; margin-top: 10px;">
+		    	<a href="http://www.github.com/peterperez" target="_blank"><i class="fa fa-github"></i></a>
+		    	<a href="http://www.instagram.com/ambarelyscared" target="_blank"><i class="fa fa-instagram"></i></a>
+		    	<a href="http://www.twitter.com/ambarelyscared" target="_blank"><i class="fa fa-twitter"></i></a>
+		    	</div>
+		    	<h3>Secret Word: <?php echo $secret_word; ?></h3>
+		    	
 
 
-    </div>
-</div>
+		    </div>
+		</div>
+	</section>
 </body>
 </html>
