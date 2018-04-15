@@ -40,8 +40,9 @@
 <title>Osawaru Oyelade Efe-osa</title>
 </head>
 
-<body><?php
+<body>
 
+<?php
 $sql = "SELECT * FROM secret_word";
 $query = $conn->query($sql);
 $query->setFetchMode(PDO::FETCH_ASSOC);

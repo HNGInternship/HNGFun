@@ -1,36 +1,19 @@
+<html>
+
 <?php
-require_once '../db.php';
-try {
-    $sql = "SELECT * FROM interns_data WHERE username ='Roqak'";
-require_once '../db.php';
-try {
-    $sql = "SELECT * FROM interns_data_ WHERE username ='Roqak'";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
-$name = $data['name'];
-$username = $data['username'];
-$image = $data['image_filename'];
-try {
-    $sql2 = 'SELECT * FROM secret_word';
-    $q2 = $conn->query($sql2);
-    $q2->setFetchMode(PDO::FETCH_ASSOC);
-    $data2 = $q2->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
-$secret_word = $data2['secret_word'];
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+
+   $result2 = $conn->query("Select * from interns_data where username = 'roqak'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 
-<html>
 <head>
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-	<title> <?php echo $name; ?> </title>
+	<title> <?php echo $user->name ?> </title>
 	<style type="text/css">
 	.white{
 		color: white;
@@ -54,7 +37,7 @@ $secret_word = $data2['secret_word'];
 <body>
 	<div class="white text-center">
 		<h1 id="hello">HELLO</h1>
-		<h3>I AM <?php echo $name; ?> | HNG INTERN.</h3>
+		<h3>I AM <?php echo $user->name ?>  HNG INTERN.</h3>
                 <a href="" target="https://www.facebook.com/badoo.akin">
                   <i class="fa fa-facebook"></i>
                 </a>

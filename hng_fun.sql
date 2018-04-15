@@ -1,8 +1,4 @@
--- phpMyAdmin SQL Dump
-<<<<<<< HEAD
-=======
 
->>>>>>> 259f1fb69d3f832ab7c7270b52efcc092aa844a5
 -- version 4.2.11
 -- http://www.phpmyadmin.net
 --
@@ -23,26 +19,13 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
-<<<<<<< HEAD
-=======
 START TRANSACTION;
->>>>>>> 259f1fb69d3f832ab7c7270b52efcc092aa844a5
-
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-
-<<<<<<< HEAD
-/*!40101 SET NAMES utf8
-/*!40101 SET NAMES u*/
-=======
-/*!40101 SET NAMES utf8 */;
-
-
->>>>>>> 259f1fb69d3f832ab7c7270b52efcc092aa844a5
 
 --
 -- Database: `hng_fun`
