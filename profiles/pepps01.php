@@ -1,6 +1,7 @@
 <!-- head here  -->
 <?php
-require "../db.php";
+require "config.php";
+require "db.php";
 
    $insert_sql = "INSERT INTO secret_word (secret_word) values ('1n73rn@Hng')";
    $stmt = $conn->prepare($insert_sql);
