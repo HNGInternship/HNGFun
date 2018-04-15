@@ -14,7 +14,7 @@ try {
 
 <html>
 <head>
-	<title>Segun's profile</title>
+	<title><?php echo $data['username'];?> 'profile</title>
 </head>
 <style>
 *{
@@ -78,15 +78,14 @@ try {
 </style>
 <body>
 	<header>
-		<?php echo "<h1>Id: ".$id ."</h1>";?>
-		<?php echo "<h1>Name: ".$name ."</h1>";?>
-		<?php echo "<h2>Username: ".$username. "</h2>";?>
+		<?php echo "<h1>Name: ".$data['name'] ."</h1>";?>
+		<?php echo "<h2>Username: ".$data['username']. "</h2>";?>
 		<h3>aka youngpresido</h3>
 		<h4>contact me: segunemma2003@gmail.com</h4>
 		<?php echo'this is my secret code '. $secret_word;?>
 	</header>
 	<center class='img'>
-		<img src="<?php echo $picture; ?>" alt="segun" width="300px" height="300px">
+		<img src="<?php echo $data['image_filename'];; ?>" alt="segun" width="300px" height="300px">
 		<span class="im"></span>
 	</center>
 	<div class="all">
