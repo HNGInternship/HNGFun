@@ -63,6 +63,9 @@ li{
 p,i,li{
    font-family:'Lato', arial, sans-serif;
 }
+#all_content{
+   padding-top:21px
+}
 </style>
 <?php
 $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -80,7 +83,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 </head>
 <html>
 <body>
-   <div>
+   <div id="all_content">
       <div id="top">
          <img src="http://res.cloudinary.com/femidd/image/upload/v1523647188/femi_dd.jpg" alt="Kole-Ibrahim AbdulQudus">
          <div id="intro">
