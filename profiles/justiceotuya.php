@@ -62,7 +62,7 @@
 	<header>
 		<div>
 			<h1 id="name"><?php echo $user->name ?></h1>
-		(@<?php echo $user->username ?>)</small></h3>
+		<small>(@<?php echo $user->username ?>)</small>
 
 
 <div class="flex time-box">
