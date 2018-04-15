@@ -1,5 +1,7 @@
 <?php 
+  require 'db.php';
 
+<<<<<<< HEAD
 define('DB_USER', "root");
 define('DB_PASSWORD', "root");
 define('DB_DATABASE', "hngfun");
@@ -35,6 +37,16 @@ if (mysqli_num_rows($result) > 0) {
 }
 mysqli_close($con);
 ?>  
+=======
+  $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+
+   $result2 = $conn->query("Select * from interns_data where username = 'Abseejp'");
+   $profile_name = $result2->fetch(PDO::FETCH_OBJ);
+?>
+
+>>>>>>> 6522003747b32681c634e90d86323f4c5a064869
 <!DOCTYPE html>
 <html>
 <head>
@@ -103,12 +115,12 @@ include('header.php')
 				<div class="col-sm-12">
 					<img src="http://res.cloudinary.com/abseejp/image/upload/v1523617182/abbb.jpg" id="why-us" >
 					<h4 id="name">Abseejaypee</h4>
+					<?php echo $profile_name->name ?>
 					<p>Am a Web Developer, A Data Scientist, A Programmer who loves deep thinking, A Writer and Someone who loves innovation</p>
 				</div>	
 			</div>
 		</div>
-		<?php 
-		 ?>
+		
 		
 	</section>
 	<?php 
