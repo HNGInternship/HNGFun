@@ -67,7 +67,7 @@ button:hover, a:hover {
   }catch(PDOException $e){
     $secret_word = "sample_secret_word";
     $name = "Ajetunmobi Michael";
-    $username = "username";
+    $username = "mikoloxtra";
     $image_filename = 'https://res.cloudinary.com/alabamustapha/image/upload/v1523619685/me.jpg';
   }
 
