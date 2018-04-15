@@ -85,9 +85,7 @@ include('header.php')
 				</div>	
 			</div>
 		</div>
-		<?php 
-			include('config.php');
-		 ?>
+		
 		
 	</section>
 	<?php 
