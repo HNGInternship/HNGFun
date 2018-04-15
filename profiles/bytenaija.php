@@ -341,7 +341,7 @@ section{
     width: 80%;
     margin: .5rem auto  ;
     background-color: white;
-    font-size: 150%;
+    font-size: 100%;
     text-align: center;
 }
 
