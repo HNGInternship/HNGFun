@@ -349,6 +349,16 @@ header{
     width: 100%;
     margin-top: 4rem;
 }
+
+.bot .botnet{
+    font-size:80%;
+}
+.bot .user{
+    font-size:80%;
+}
+.bot .res{
+    font-size:80%;
+}
 }
     </style>
 </head>
