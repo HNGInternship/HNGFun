@@ -542,7 +542,6 @@ $secret_word = $words['secret_word'];
 					display: block;
 					width: 3.75em;
 					height: 3.75em;
-					border-radius: 100%;
 					border: solid 1px #c8cccf;
 					line-height: 3.75em;
 					overflow: hidden;
@@ -904,7 +903,7 @@ $secret_word = $words['secret_word'];
 					<section id="main">
 						<header>
 							<span class="avatar"><img src="https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701221/avatar.png" alt="" /></span>
-							<h1>Denis Otugo</h1>
+							<h1>Dennis Otugo</h1>
 							<p>Human Being</p>
 						</header>
 						<!--
