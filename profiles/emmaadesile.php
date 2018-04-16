@@ -41,7 +41,7 @@ $secret_word = $data1['secret_word'];
       font-family: 'Helvetica', 'Alto';
       box-sizing: border-box;
       background-position: cover;
-      color: white;
+      color: #ddd;
       font-size: 1.1rem;
       padding-top: 6rem;
     }
@@ -115,10 +115,10 @@ $secret_word = $data1['secret_word'];
       <p>Hello! My name is Emmanuel Adesile and I'm a Fullstack developer based in Lagos, Nigeria. I also have a knack for UI/UX design. I like to make beautifully crafted websites that meet industry standards.
       </p>
 
-      <p>My skillset inlcudes HTML, CSS, Bootstrap, JavaScript, Node, Python, Angular and MySQL. I do well with version control using git. I also design with Figma and Photoshop
+      <p>My skillset includes HTML, CSS, Bootstrap, JavaScript, Node, Python, Angular and MySQL. I do well with version control using git. I also design with Figma and Photoshop
       </p>
 
-      <p>My code is hosted on <a href="http://www.github.com/emmaadesile" class="link">github</a>. When I'm not coding, I usually on <a href="http://www.twitter.com/emma_adesile" class="link">twitter</a> exploring the world of social media. Got a project for me? You can shoot me an <a href="mailto:emma2adesile@gmail.com" class="link">email</a>
+      <p>My code is hosted on <a href="http://www.github.com/emmaadesile" class="link">github</a>. When I'm not coding, I'm usually on <a href="http://www.twitter.com/emma_adesile" class="link">twitter</a> exploring the world of social media. Got a project for me? You can shoot me an <a href="mailto:emma2adesile@gmail.com" class="link">email</a>
       </p>
 
 
