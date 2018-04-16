@@ -2,14 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7b77678-9ba5-44a7-b166-ffdfeb376f05" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/HNGFun.iml" afterPath="$PROJECT_DIR$/.idea/HNGFun.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/admin.php" afterPath="$PROJECT_DIR$/admin.php" />
-      <change beforePath="$PROJECT_DIR$/db.php" afterPath="$PROJECT_DIR$/db.php" />
-      <change beforePath="$PROJECT_DIR$/profiles/nectar.php" afterPath="$PROJECT_DIR$/profiles/nectar.php" />
-      <change beforePath="$PROJECT_DIR$/profiles/woleo.php" afterPath="$PROJECT_DIR$/profiles/woleo.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/profiles/shine.php" afterPath="$PROJECT_DIR$/profiles/shine.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.phpintel/4a178f358f98bff5354444536cd32c4e" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AdroitCode.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AinAfolabi.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hngfun.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/profiles/Tobey.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/profiles/ekpono.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/profiles/interactive_bee.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/profiles/olayinkaraheem.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/profiles/tobalase.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/profiles/Ddan.php" afterPath="$PROJECT_DIR$/profiles/Ddan.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/profiles/bytenaija.php" afterPath="$PROJECT_DIR$/profiles/bytenaija.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/profiles/codetillamgone.php" afterPath="$PROJECT_DIR$/profiles/codetillamgone.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/profiles/victormfreke.php" afterPath="$PROJECT_DIR$/profiles/victormfreke.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -63,7 +68,14 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+              <folding>
+                <marker date="1523844951258" expanded="true" signature="5658:5695" ph="..." />
+                <marker date="1523844951258" expanded="true" signature="5658:5726" ph="..." />
+                <marker date="1523844951258" expanded="true" signature="5658:5998" ph="..." />
+                <marker date="1523844951258" expanded="true" signature="5658:6243" ph="..." />
+                <marker date="1523844951258" expanded="true" signature="5658:6251" ph="..." />
+                <marker date="1523844951258" expanded="true" signature="5658:6259" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -303,6 +315,7 @@
     <option name="totallyTimeSpent" value="16618000" />
     <option name="totallyTimeSpent" value="16488000" />
     <option name="totallyTimeSpent" value="16605000" />
+    <option name="totallyTimeSpent" value="16676000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="50" y="23" width="1316" height="747" extended-state="0" />
@@ -506,7 +519,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1523844951258" expanded="true" signature="5658:5695" ph="..." />
+            <marker date="1523844951258" expanded="true" signature="5658:5726" ph="..." />
+            <marker date="1523844951258" expanded="true" signature="5658:5998" ph="..." />
+            <marker date="1523844951258" expanded="true" signature="5658:6243" ph="..." />
+            <marker date="1523844951258" expanded="true" signature="5658:6251" ph="..." />
+            <marker date="1523844951258" expanded="true" signature="5658:6259" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -618,7 +638,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2293">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1523844951258" expanded="true" signature="5658:5695" ph="..." />
+            <marker date="1523844951258" expanded="true" signature="5658:5726" ph="..." />
+            <marker date="1523844951258" expanded="true" signature="5658:5998" ph="..." />
+            <marker date="1523844951258" expanded="true" signature="5658:6243" ph="..." />
+            <marker date="1523844951258" expanded="true" signature="5658:6251" ph="..." />
+            <marker date="1523844951258" expanded="true" signature="5658:6259" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
