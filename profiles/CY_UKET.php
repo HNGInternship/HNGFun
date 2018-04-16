@@ -1,6 +1,7 @@
 <?php 
- {
-      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'Cy_Uket\'';
+ try {	
+	$sql = "INSERT INTO login (name ,username,image_filename) VALUES ('Uket Cyril Ofem','CY_UKET','https://res.cloudinary.com/cyuket/image/upload/v1523889745/1522947398679.jpg')";
+      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'CY_UKET\'';
       $q = $conn->query($sql);
       $q->setFetchMode(PDO::FETCH_ASSOC);
       $data = $q->fetch();
