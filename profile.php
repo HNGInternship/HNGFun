@@ -22,7 +22,7 @@ require 'db.php';
 } catch (PDOException $e) {
 
     throw $e;
-}?>
+}?> 
 </div>
 <?php if(!isset($secret_word) || $secret_word != $data['secret_word']) { ?>
     <div style="
