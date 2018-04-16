@@ -107,7 +107,7 @@ h1 {
 	color:#7a2e40;
 	margin:0 0 10px;
 	padding-bottom:10px;
-	font:normal 17px Georgia, serif;
+	font:normal 23px Georgia, serif;
 	border-bottom:1px solid #efece7;
 }
 
@@ -155,7 +155,7 @@ ul {
 
 #logo {
 	margin-bottom:50px;
-	font:normal 18px Georgia, serif;
+	font:normal 30px Georgia, serif;
 	color:#300820;
 }
 </style>
@@ -164,7 +164,7 @@ ul {
 <div id="wrapper">
     
     <div id="header">
-		<div id="nav"><a href="index.html">Home</a> | <a href="#">About Me</a> | <a href="#">Contact Me</a> | <a href="#">My Photos</a> | <a href="#">My Videos</a></div>
+		<div id="nav"><a href="index.html">Home</a> | <a href="#">About Me</a> | <a href="#">Contact Me</a> | <a href="#">My Photos</a> </div>
 		<div id="bg"></div>
 	</div>
 	
@@ -175,8 +175,8 @@ ul {
 			</div>
 			<div class="box">
         		<h1>What You'll Find Here</h1>
-        		<p>This is my space. Here are some of my interests: </p>
-				<ul style="margin-top:10px;">
+        		<p>This is my space. Here are some of my skills and interests: </p>
+				<ul style="margin-top:17px;">
 					<li>Android Development"</li>
 					<li>UX Enthusiast</li>
 					<li>Web Developer</li>
@@ -184,7 +184,7 @@ ul {
 					<li>Tech Blogger</li>
 				</ul>
 			</div>
-			<h2>A Few of My Famous Quotes</h2>
+			<h2>A Few Famous Quotes I like</h2>
 			<p>
 				<img src="http://res.cloudinary.com/dk1btjvhc/image/upload/v1523630359/C360_2015-04-03-08-40-28-091.png
 " width="139" height="150" style="margin: 0 10px 10px 0;float:left;" />
