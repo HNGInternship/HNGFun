@@ -9,6 +9,9 @@
   $profile_result = $profile_result->fetch(PDO:: FETCH_ASSOC);
   $name = $profile_result->name;
   $profile_pic = $profile_result->image_filename;
+
+  var_dump($secret_word);
+  die();
 ?>
 <style>
     html, body {
