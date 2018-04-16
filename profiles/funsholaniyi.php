@@ -93,7 +93,7 @@ try {
 			<li class="list-group-item text-center">
 				<a target="_blank" href="https://facebook.com/funsholaniyi/"><i class="fa fa-facebook"></i></a> &emsp;
 				<a target="_blank" href="https://twitter.com/funsholaniyi/"><i class="fa fa-twitter"></i></a> &emsp;
-				<a target="_blank" href="https://quora.com/funsholaniyi/"><i class="fa fa-quora"></i></a> &emsp;
+				<a target="_blank" href="https://quora.com/profile/Funsho-Olaniyi/"><i class="fa fa-quora"></i></a> &emsp;
 				<a target="_blank" href="https://github.com/funsholaniyi/"><i class="fa fa-github"></i></a> &emsp;
 				<a target="_blank" href="https://ng.linkedin.com/in/funsholaniyi"><i class="fa fa-linkedin"></i></a>
 			</li>
