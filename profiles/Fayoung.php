@@ -1,51 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php 
-	function getUserInfo($username="Fayoung"){
-		try {
-			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-		    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		    $stmt = $conn->prepare("SELECT intern_id, name, username, image_filename FROM interns_data WHERE username =:username");
-		    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-		    $stmt->execute();
+ <?php 
+            require_once 'db.php';
 
-		    // set the resulting array to associative
-		    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		    if(!empty($result)){
-		    	return $result[0];
-		    }
-		    
-		}
-		catch(PDOException $e) {
-		    echo "Error: " . $e->getMessage();
-		}
-		$conn = null;
-	}
 
-	$user_info = getUserInfo();
+            $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'Fayoung'");
+            $intern_data->execute();
+            $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $intern_data->fetch();
 
-	function getSecretWord(){
-		try {
-			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-		    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		    $stmt = $conn->prepare("SELECT * FROM secret_word");
-		    $stmt->execute();
 
-		    // set the resulting array to associative
-		    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		    if(!empty($result)){
-		    	return $result[0]['secret_word'];
-		    }
-		    
-		}
-		catch(PDOException $e) {
-		    echo "Error: " . $e->getMessage();
-		}
-		$conn = null;
-	}
+            $secret_code = $conn->prepare("SELECT * FROM secret_word");
+            $secret_code->execute();
+            $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+            $code = $secret_code->fetch();
+            $secret_word = $code['secret_word'];
+            // echo ($secret_word);
+            // $result = $intern_data->fetchAll();
+            // print_r($result);
 
-	$secret_word = getSecretWord($user_info['intern_id']);
-?>
+        ?>
 
   <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
