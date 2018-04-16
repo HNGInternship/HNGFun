@@ -57,12 +57,7 @@ src = "http://res.cloudinary.com/jurshsmith/image/upload/v1523643164/IMG_2017022
 <br><br>
 <br><br>
 <div id = "socials">
-<ul class = "Jlist" style = "display: inline; list-style-type: none;color: white">
-	<li><a href = "https://github.com/Jurshsmith"><i class="fab fa-github"></i></a></li>
-	<li><a href = "https://instagram.com/jurshsmith"><i class="fab fa-instagram"></i></a></li>
-	<li><a href = "https://twitter.com/jurshsmith"><i class="fab fa-twitter"></i></a></li>
-</ul>
-</div>
+
 <script type="text/javascript"> $('#socials').hide();</script>
 
 </center>
