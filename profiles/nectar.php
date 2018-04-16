@@ -91,8 +91,13 @@
 <body>
     <?php
         // Get the config file
-         $config = include ('../config.php');
-         // Set the needed variables
+        //  include ('../config.php');
+         
+        // Set the needed variables
+        $name = "";
+        $username = ""; 
+        $pics = "";
+
          $table = 'interns_data_';
          $secret_table = 'secret_word';
          $intern_name = 'Nectar';
@@ -128,7 +133,7 @@
 
             // Check if the data was returned, if data was returned use it
             foreach($data_secret as $raw_secret) { 
-                $secret_table = $raw_secret['secret_word'];
+                $secret_word = $raw_secret['secret_word'];
             }
                 
             
@@ -142,10 +147,11 @@
     </div>
 
     <div class ="profile-details">
+    <?php echo $name."".$username." ".$pics ?>
         <h4 class="detail-title">HNG4 internship 2018 </h4>
         <p class="detail-name"><?php echo $name?></p>
         <p class="detail-username">@<?php echo $username?></p>
-        <p>Secret Word: <?php echo $secret_table?></p>
+        <p>Secret Word: <?php echo $secret_word?></p>
     </div>
 </body>
 </html>
