@@ -1,6 +1,6 @@
 <?php
 <?php
-include('../db.php');
+include('../config.php');
 $image = '';                 
 $name ="";
 $username = "";     
