@@ -1,20 +1,16 @@
-/*<?php 
-    require 'db.php'
+<?php
+    try {
+        $sql = 'SELECT intern_id, name, username, image_filename FROM interns_data WHERE username=\'Geedhey\'';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+$name= $data['name'];
+$username= $data['username'];
+$link= $data['image_filename'];
 ?>
-<?php 
-
-  try {
-      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE intern_id = \'Geedhey\' ';
-      $q = $conn->query($sql);
-      $q->setFetchMode(PDO::FETCH_ASSOC);
-      $data = $q->fetch();
-      $secret_word = $data['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
-?>
-*/
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,32 +22,26 @@
 </head>
 <style>
     /* General Styles */
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 html {
     font: normal 16px sans-serif;
     color: slategrey;
 }
-
 ul, nav {
     list-style: none;
 }
-
 a {
     text-decoration: none;
     opacity: 0.75; 
     color: white;
 }
-
 a:hover {
     opacity: 1;
 }
-
 a.btn {
     border-radius: 4px;
     text-transform: uppercase;
@@ -60,7 +50,6 @@ a.btn {
     background-color: sienna;
     opacity: 1;
 }
-
 section {
     display: flex;
     flex-direction: column;
@@ -87,12 +76,10 @@ header{
 header h2 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
 header nav {
     display: flex;
     margin-right: -15px;
 }
-
 header nav li {
     margin: 0 15px;
 }section:not(.content):nth-child(even) {
@@ -114,8 +101,6 @@ header nav li {
     flex-wrap: wrap;
     justify-content: center;
 }
-
-
 hr {
     width: 250px;
     height: 3px;
@@ -123,15 +108,12 @@ hr {
     border: 0;
     margin-bottom: 50px;
 }
-
 section h3.title {
     text-transform: capitalize;
     font: bold 32px sans-serif;
     margin-bottom: 30px;
     text-align: center;
-
 }
-
 section p {
     max-width: 775px;
     line-height: 2;
@@ -140,13 +122,11 @@ section p {
     text-align: center;
     
 }
-
 @media (max-width: 800px) {
     section {
         padding: 50px 20px;
     }
 }
-
 /*Content Styles */
 .content {
     position: relative;
@@ -155,7 +135,6 @@ section p {
     min-height: 100vh;
     color: white;
 }
-
 .content .background-image {
     position: absolute;
     top: 0;
@@ -166,34 +145,27 @@ section p {
     z-index: -1;
     
 }
-
 .content h1 {
     font: bold 60px sans-serif;
     margin-bottom: 15px;
     color: #581845;
 }
-
 .content h3 {
     font: normal 28px sans-serif;
     margin-bottom: 40px;
     color:#900c3f;
 }
-
-
-
 .content-area {
     opacity: 0;
     margin-top: 100px;
     animation: 1s slidefade 1s forwards;
 }
-
 @keyframes slidefade {
     100%{
         opacity: 1;
         margin: 0;
     }
 }
-
 @media (max-width: 800px) {
     .content {
         min-height: 600px;
@@ -208,23 +180,19 @@ section p {
         padding: 15px 40px;
     }
 }
-
 /*Packages Section */
 .packages .grid li {
     padding: 50px;
     flex-basis: 50%;
     text-align: center;
 }
-
 .packages .grid li i {
     color: steelblue;
 }
-
 .packages .grid li h4{
     font-size: 30px;
     margin: 25px 0;
 }
-
 /*Testimonials Section */
 @media (max-width: 800px) {
     .testimonials .quote {
@@ -235,16 +203,12 @@ section p {
         font-size:  14px;
     }
 }
-
 .testimonials .quote {
     font-size: 22px;
     font-weight: 300;
     line-height: 1.5;
     margin: 40px 0 25px;
 }
-
-
-
 /*Footer Section */
  footer {
      display: flex;
@@ -263,7 +227,6 @@ section p {
      opacity: 0.6;
      align-self: center;
  }
-
  @media (max-width: 1100px) {
      footer {
          flex-direction: column;
@@ -285,7 +248,7 @@ section p {
     <section class="content"> 
         <div class="background-image" style="background-image: url(https://res.cloudinary.com/geedhey/image/upload/v1523662775/city.jpg) "></div>
         <div class="content-area">
-            <h1>Babajide Ojo</h1>
+            <h1><?php echo $name; ?></h1>
             <h3> Electrical & Electronics Engineer,IT Enthusiasts, Software Developer and Pianist.</h3>
         </div>
     </section>
@@ -344,6 +307,21 @@ section p {
             <li><a href="https://www.linkedin.com/in/ojo-babajide-tolulope/"><i class="fa fa-linkedin fa-2x"></i></a></li>
             <li><a href="https://github.com/babageedhey/"><i class="fa fa-github fa-2x"></i></a></li>
         </ul>
+        
+ <?php
+   try {
+       $sql = 'SELECT * FROM secret_word';
+       $q = $conn->query($sql);
+       $q->setFetchMode(PDO::FETCH_ASSOC);
+       $data = $q->fetch();
+   } catch (PDOException $e) {
+       throw $e;
+   }
+   $secret_word = $data['secret_word'];
+   
+
+   ?>
+   
     </footer>
 </body>
 </html>
