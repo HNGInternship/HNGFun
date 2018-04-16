@@ -48,6 +48,8 @@ if(isset($_GET['train']) || isset($_GET['query']) || isset($_GET['list'])){
         } 
          echo $string;
          return;
+    }else{
+        echo "No commands stored yet";
     }
         
      
