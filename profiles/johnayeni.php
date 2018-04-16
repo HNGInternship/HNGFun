@@ -106,7 +106,7 @@ $secret_word =  $resultData['secret_word'];
       <div class="text-center">
         <img class="img-circle img-responsive" src="http://res.cloudinary.com/johnayeni/image/upload/v1523621916/john_gttqiq.jpg" width="250" style="margin: auto">
         <h2 id="hello">Hello</h2>
-        <h3>I'm <?php echo $fullName ?>  (<?php echo $username ?>)</h3>
+        <h3>I'm <?php echo $fullName ; ?>  (<?php echo $username ;?>)</h3>
         <h4>I am a Software Engineer from Nigeria</h4>
           <div id="social">
             <ul class="nav nav-pills">
