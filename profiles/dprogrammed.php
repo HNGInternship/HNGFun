@@ -1,10 +1,11 @@
 <?php
-include("../db.php");
+// require "config.php";
+// incude('../db.php');
 $image = '';                 
 $name ="";
 $username = "";     
 $secret_word = "";
-$conn = new mysqli("localhost", "root", "", "hng_fun");
+$conn = mysqli_connect('localhost','root','','hngfun');
 // Check connection
 if (mysqli_connect_errno())
   {
@@ -13,20 +14,21 @@ if (mysqli_connect_errno())
 
 
 
-$sql = "SELECT * FROM interns_data_";
-$result = $conn->query($sql);
+$sql = "SELECT * FROM interns_data WHERE username='dprogrammed' LIMIT 1";
+// $result =mysqli_query($result);
+$result = mysqli_query($conn, $sql);
 
-if ($result->num_rows > 0) {
+if (mysqli_num_rows($result) > 0) {
     // output data of each row
-    while($row = $result->fetch_assoc()) {
-   
-        $name = $row["name"];
-        $username = $row["username"];
-        $image = $row["image_filename"];
+    while($row = mysqli_fetch_assoc($result)) {
+       $username = $row['username'];
+       $name = $row['name'];
+       $image = $row['image_filename'];
     }
 } else {
     echo "0 results";
 }
+
 
 $sql = "SELECT * FROM secret_word";
 $result = $conn->query($sql);
@@ -36,9 +38,10 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       
         $secret_word = $row['secret_word'];
+  
     }
 } else {
-    echo "0 results";
+    echo "result not found";
 }
         
 
