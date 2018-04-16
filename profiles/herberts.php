@@ -56,7 +56,7 @@
 				background: rgba(255, 255, 255, 0.9);
 				padding: 10px;
 				float: right;
-				max-height: 700px;
+				max-height: 670px;
 				overflow: auto;
 				margin-bottom: 10px;
 				border: transparent;
@@ -101,7 +101,7 @@
 			}
 
 			.name {
-				width: 75%;
+				width: 70%;
 				margin: 0 auto;
 				float: right;
 				margin: 25px 15px 0 0;
@@ -121,7 +121,7 @@
 			}
 
 			.image .name small {
-				font-size: 0.7em;
+				font-size: 0.8em;
 				line-height: 1;
 				font-style: italic;
 			}
@@ -140,42 +140,28 @@
 				border-radius: 10px;
 			}
 
-			.person .desc h3 {
+			.person h3 {
 				background: #f3f3f3;
-				padding: 5px 0 5px 10px;
+				padding: 15px 0 5px 30px;
 				font-size: 1.3em;
 				border-radius: 10px 10px 0 0;
+				height: 50px;
 			}
 
 			.person .description {
-				padding: 10px;
+				padding: 0 10px 10px 10px;
 				margin-bottom: 25px;
-			}
-
-			.person .res {
-				background-color: rgba(212, 215, 73, 0.5);
-				box-shadow: 7px 8px 4px rgba(73, 98, 73, 0.5);
-				width: 100%;
-				border-radius: 10px;
-			}
-
-			.person .res h3 {
-				background: #f3f3f3;
-				padding: 5px 0 5px 10px;
-				font-size: 1.3em;
-				border-radius: 10px 10px 0 0;
 			}
 
 			.person .resume {
 				padding: 10px;
 			}
 
-			.resume ul {
-				list-style-type: lower-hexadecimal;
+			.resume ol {
 				padding-left: 25px;
 			}
 
-			.resume ul li{
+			.resume ol li{
 				padding-left: 10px;
 			}
 
@@ -187,17 +173,19 @@
 			.action {
 				background: #f3f3f3;
 				margin-top: 10px;
+				width: 450px;
+				margin-left: 20px;
 			}
 
 			.action ul {
-				height: 45px;
+				height: 44px;
 			}
 
 			.action ul li {
 				display: inline;
 				float: left;
-				padding: 8px 48px 8px 48px;
-				border-right: 1px solid #999;
+				padding: 10px 48px 10px 48px;
+				border-right: 2px solid rgba(212, 215, 73, 0.5);
 				text-align: center;
 			}
 
@@ -244,7 +232,7 @@
 					<div class="row">
 						<div class="image">
 							<div class="pic">
-								<img src="<?echo $row['image_filename']?>" alt="Herberts" onerror="this.src='images/default.jpg'" title="Herberts">
+								<img src="http://res.cloudinary.com/dsitzw8mp/image/upload/v1523798919/face.png" alt="Herberts" onerror="this.src='images/default.jpg'" title="Herberts">
 							</div>
 							
 							<div class="name">
@@ -275,10 +263,10 @@
 										</p>
 									</div>
 								</div>
-								<div class="res">
+								<div class="res desc">
 									<h3>Resume</h3>
 									<div class="resume">
-										<ul>
+										<ol>
 											<li>Lorem ipsum</li>
 											<li>Dolor sit</li>
 											<li>Amet consectetur</li>
@@ -286,7 +274,7 @@
 											<li>Dolor sit</li>
 											<li>Amet consectetur</li>
 											<li>Lorem ipsum</li>
-										</ul>
+										</ol>
 									</div>
 								</div>
 							</div>
