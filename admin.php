@@ -44,7 +44,7 @@ if(isset($_POST['submit']) ){
         if($_POST['username'] == ""){
             $usernameError = "<span class='invalid'>Please enter a valid username</span>";
         }else {
-            $sql = 'SELECT * FROM interns_data WHERE username = "'. $_POST['username'] .'";';
+            $sql = 'SELECT * FROM interns_data_ WHERE username = "'. $_POST['username'] .'";';
             $q = $conn->query($sql);
             $q->setFetchMode(PDO::FETCH_ASSOC);
             if(!empty($q->fetchAll())) {
@@ -103,7 +103,7 @@ if(isset($_POST['submit']) ){
                 ':username' => $username,
                 ':imageName' => $imageName);
 
-            $sql = 'INSERT INTO interns_data ( name, username, image_filename)
+            $sql = 'INSERT INTO interns_data_ ( name, username, image_filename)
                   VALUES (
                       :name,
                       :username,
@@ -142,8 +142,8 @@ if(isset($_POST['submit']) ){
         echo "<div class='alert alert-danger'>Error found, please try again!</div>";
     }?>
 
-    <?php if(isset($success) AND $success) {
-        echo "<div class='alert alert-success'>Successful! Click <a href='profiles/". $username . ".php'>here</a> to view your profile</div>";
+    <?php if($success) {
+        echo "<div class='alert alert-success'>Successful! Click <a href='profile.php?id=$username'>here</a> to view your profile</div>";
     }?>
 
     <form action="admin.php" method="post" enctype="multipart/form-data">
