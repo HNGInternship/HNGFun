@@ -25,6 +25,7 @@ $result = $conn->query("Select * from secret_word LIMIT 1");
 
 
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -150,7 +151,7 @@ h3{
 
         <div class="col-md-4 about">
           <h3>About</h3>
-                    <p id="about" style="word-wrap: break-word ">My name is <strong>Ogedengbe Samuel Segun</strong> and I'm an <strong>computer scientist</strong>, with vast experience in programming, soft development, Online Advertising. designer software developing.Graphics Designer Web Developer Software Developer Career Coach</p>
+                    <p id="about" style="word-wrap: break-word ">My name is <strong>Ogedengbe Samuel Segun</strong> and I'm an <strong>computer scientist</strong>, with vast experience in programming, soft development, Online Advertising, designer,software developer,Graphics Designer, Web Developer, Career Coach</p>
             </div>
 </body>
 </html>
