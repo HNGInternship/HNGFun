@@ -37,6 +37,7 @@ font-family: 'Russo One', sans-serif;
         border: 2px dashed white;
     }
     .skills{
+        margin-top: 20px;
         border: 2px solid grey;
         background-color: grey;
         font-family: 'Patua One', cursive;
@@ -45,8 +46,9 @@ font-family: 'Russo One', sans-serif;
         opacity: 0.8;
     }
     .intro{
+        margin-top: 20px;
         color: aliceblue;
-        padding-top: 55px;
+        padding-top: 30px;
         font-family: 'Cinzel', serif;
     }
 </style>
