@@ -12,16 +12,35 @@ $conn = mysqli_connect('localhost','root','','hng_fun');
 //   echo "Failed to connect to MySQL: " . mysqli_connect_error();
 //   }
 
-$result = $conn->query("Select * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
-
-  $result2 = $conn->query("Select * from interns_data where username = 'dprogrammed'");
-  $user = $result2->fetch(PDO::FETCH_ASSOC);
-    $name = $user['name'];
-    $username = $user['username'];
-    $image = $user['image_filename'];
-
+$sql = "SELECT * FROM interns_data WHERE username='dprogrammed' LIMIT 1";
+  $result = mysqli_query($conn, $sql);
+if(!$result){
+  echo "No result found";
+}
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result)) {
+        $name = $row["name"];
+        $username = $row["username"];
+        $image = $row['image_filename'];
+    }
+} else {
+    echo "0 results";
+}
+$sql2 = "SELECT * FROM secret_word LIMIT 1";
+  $result2 = mysqli_query($conn, $sql2);
+if(!$result2){
+  echo "No result found";
+}
+if (mysqli_num_rows($result2) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result)) {
+        $secret_word = $row["secret_word"];
+       
+    }
+} else {
+    echo "0 results";
+}
 
 
 ?>
