@@ -57,7 +57,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
       width: 200px;
       border: 2px solid #fff;
       border-radius: 5px;
-      margin: 60px 0 20px;
+      margin: 120px 0 20px;
     }
     .profile_details h2 {
       font-size: 45px;
