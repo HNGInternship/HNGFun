@@ -1,53 +1,18 @@
-<?php
-	
-	if(!defined('DB_USER')){
-		require "../config.php";
-	}
-
-	try {
-		$conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
-		// set the PDO error mode to exception
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		
-		$stmt = $conn->prepare("select secret_word from secret_word limit 1");
-		$stmt->execute();
-
-		$secret_word = null;
-
-		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-		$rows = $stmt->fetchAll();
-		if(count($rows)>0){
-			$row = $rows[0];
-			$secret_word = $row['secret_word'];	
-		}
-
-		$name = null;
-		$username = "mchardex";
-		$image_filename = null;
-
-		$stmt = $conn->prepare("select * from interns_data where username = :username");
-		$stmt->bindParam(':username', $username);
-		$stmt->execute();
-
-		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-		$rows = $stmt->fetchAll();
-		if(count($rows)>0){
-			$row = $rows[0];
-			$name = $row['name'];	
-			$image_filename = $row['image_filename'];	
-		}
-
-	}
-	catch(PDOException $e)
-	{
-		echo "Connection failed: " . $e->getMessage();
-	}
-?>
-
-
 <!DOCTYPE html>
 <html>
 <head>
+
+    <?php 
+		require 'db.php';
+
+		$result = $conn->query("Select * from secret_word LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+		$secret_word = $result->secret_word;
+
+		$result2 = $conn->query("Select * from interns_data where username = 'mchardex'");
+        $user = $result2->fetch(PDO::FETCH_OBJ);
+        
+	?>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<style>
         .card {
@@ -82,9 +47,10 @@
     text-shadow: 2px 2px 6px grey;">My Profile Card</h2>
 
 	<div class="card">
-	  <img src="http://res.cloudinary.com/mchardex/image/upload/v1523618086/bukunmi.jpg" alt="mchardex" style="width:100%; height: 350px">
-	  <h1 style="font-size: 24px;">Adebisi Oluwabukunmi J</h1>
+	  <img src="<?php echo $user->image_filename ?>" alt="mchardex" style="width:100%; height: 350px">
+	  <h1 style="font-size: 24px;">@<?php echo $user->username ?></h1>
 	  <p class="title">Web Developer</p>
+      <p class="username">@<?php echo $username; ?></p>
 	  <p>Javascript, NodeJs and jquery</p>
 	  <div style="margin: 24px 0; padding-bottom: 20px">
 	    <a href="https://twitter.com/mchardex"><i class="fa fa-twitter"></i></a>  
