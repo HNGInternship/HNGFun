@@ -15,7 +15,7 @@
           padding: 20px;
            position: relative;
            top:30px;
-           left: 50px;
+           left: 300px;
            height: 600px;
            width: 550px;
            
@@ -27,7 +27,15 @@
 
        }
      
-   h3.android_dev{
+       h3.name{
+           text-align: center;
+           font-size: 25px;
+           text-decoration: underline;
+           text-decoration-style: solid;
+           text-decoration-color: black;
+          
+       }
+       h3.android_dev{
         text-align: center;
         font-size: 20px;
        }
@@ -63,18 +71,21 @@
 
 
 <?php
-    try {
-                
-   $getData = 'SELECT * FROM interns_data WHERE username="codetillamgone"';
-   $query1 = $conn->query($getData); 
-   $query1->setFetchMode(PDO::FETCH_ASSOC);
-   $result = $query1->fetch();    
-} catch (PDOEXception $e) {
-        throw $e; 
-        }
-   $name = $result["name"];
-   $user = $result["username"];
-   $image = $result["image_filename"];
+
+try{
+    $getData = 'SELECT * FROM interns_data WHERE username="codetillamgone"';
+    $query1 = $conn->query($getData);
+    $query1->setFetchMode(PDO::FETCH_ASSOC);
+    $result1 = $query1->fetch(); 
+}
+catch(PDOException $e){
+    throw $e;
+    
+}
+    
+   $name = $result1['name'];
+   $user = $result1['username'];
+   $image = $result1['image_filename'];
  ?>
    
         
@@ -83,7 +94,7 @@
   <?php
       try {
           $getWord = "SELECT * FROM secret_word";
-          $query2 = $conn->query($getWord); 
+          $query2 = $conn->query($getWord);
           $query2->setFetchMode(PDO::FETCH_ASSOC);
           $result2 = $query2->fetch();
       } catch (PDOException $e) {
@@ -95,7 +106,7 @@
        
     <div class="box">
             <p class="one">
-                <h3> <?php echo ($name) ?>  </h3>
+                <h3 class="name"> <b> <?php echo $name; ?> </b>  </h3>
                 <h3 class="android_dev"> <b> Android Developer</b></h3>
                 </p>
 
