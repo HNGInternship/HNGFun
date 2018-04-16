@@ -1,6 +1,16 @@
 
 
-   
+    <?php 
+    try {
+        $secrete = 'SELECT * FROM secret_word';
+        $sql = $conn->query($secrete);
+        $sql->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $sql->fetch();
+        $secret_word = $result["secret_word"];
+    } catch (PDOException $error) {
+
+        throw $error;
+    }?>
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
