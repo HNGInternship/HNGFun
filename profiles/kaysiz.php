@@ -10,77 +10,67 @@
   $name = $profile_result->name;
   $profile_pic = $profile_result->image_filename;
 ?>
+<style>
+    html, body {
+    background: url(http://res.cloudinary.com/kaysiz/image/upload/v1523657757/miroslav-skopek-526075-unsplash_xvr8db.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Kaysiz</title>
-    <style>
-       html, body {
-        background: url(http://res.cloudinary.com/kaysiz/image/upload/v1523657757/miroslav-skopek-526075-unsplash_xvr8db.jpg) no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;   
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        margin: 0px;
-        padding: 0px;
-        }
-
-        .wrapper {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            background-color: azure;
-            max-width: 50%;
-            display: flex;
-            flex-direction: row;
-            height: 50%;
-        }
-
-        .left, .right {
-        
-        margin: 5px;
+    .wrapper {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        background-color: azure;
         max-width: 50%;
-        flex: 1;
         display: flex;
-        flex-direction: column;
-        }
+        flex-direction: row;
+        height: 50%;
+    }
 
-        .left {
-        align-items: center;
-        }
+    .left, .right {
+    
+    margin: 5px;
+    max-width: 50%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    }
 
-        .profile-picture {
-        border-radius: 50%;
-        }
-        .social-links {
-        list-style: none;
-        padding-left: 0px;
-        font-size: 18px;
-        }
+    .left {
+    align-items: center;
+    }
 
-        .social-links li {
-        display: inline-block;
-        margin-right: 8px;
-        }
+    .profile-picture {
+    border-radius: 50%;
+    }
+    .social-links {
+    list-style: none;
+    padding-left: 0px;
+    font-size: 18px;
+    }
 
-        .social-links a {
-        text-decoration: none;
-        padding: 4px;
-        }
+    .social-links li {
+    display: inline-block;
+    margin-right: 8px;
+    }
 
-        .social-links a:hover {
-        background-color: rgba(0, 0, 0, 0.1);
-        }
+    .social-links a {
+    text-decoration: none;
+    padding: 4px;
+    }
 
-    </style>
-</head>
-<body>
+    .social-links a:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    }
+
+</style>
 <div class="wrapper">
     
     <div class="left">
@@ -100,5 +90,3 @@
     </div>
     
 </div>
-</body>
-</html>
