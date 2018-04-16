@@ -6,6 +6,7 @@ $username = "";
 $secret_word = "";
 $conn = new mysqli("localhost", "root", "", "hng_fun");
 // Check connection
+<<<<<<< HEAD
 if (mysqli_connect_errno())
   {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -23,13 +24,48 @@ if ($result->num_rows > 0) {
         $name = $row["name"];
         $username = $row["username"];
         $image = $row["image_filename"];
+=======
+// if (mysqli_connect_errno())
+//   {
+//   echo "Failed to connect to MySQL: " . mysqli_connect_error();
+//   }
+
+$sql = "SELECT * FROM interns_data WHERE username='dprogrammed' LIMIT 1";
+  $result = mysqli_query($conn, $sql);
+if(!$result){
+  echo "No result found";
+}
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result)) {
+        $name = $row["name"];
+        $username = $row["username"];
+        $image = $row['image_filename'];
     }
 } else {
     echo "0 results";
 }
+$sql2 = "SELECT * FROM secret_word LIMIT 1";
+  $result2 = mysqli_query($conn, $sql2);
+if(!$result2){
+  echo "No result found";
+}
+if (mysqli_num_rows($result2) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result)) {
+        $secret_word = $row["secret_word"];
+       
+>>>>>>> 3be00122e02117cd3ed1b0d613be1d55efdf7264
+    }
+} else {
+    echo "0 results";
+}
+<<<<<<< HEAD
 
 $sql = "SELECT * FROM secret_word";
 $result = $conn->query($sql);
+=======
+>>>>>>> 3be00122e02117cd3ed1b0d613be1d55efdf7264
 
 if ($result->num_rows > 0) {
     // output data of each row
