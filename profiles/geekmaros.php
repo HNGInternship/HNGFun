@@ -1,5 +1,4 @@
 <?php
-require ('config.php');
 
 $query = 'SELECT * FROM interns_data WHERE username = "geekmaros" ';
 
@@ -76,6 +75,7 @@ $secret_word = $res["secret_word"];
 			.text-center{
 				text-align: center;
 			}
+			
 			img{
 				border: 1px solid #ddd;
    			 	 border-radius: 50px;
