@@ -93,7 +93,7 @@ $filename = $intern_detail['image_filename'];
 	
 	  <img src= "<?=$filename;?>" alt="chisom profile" style="width:100%; height: 300px">
 
-	  <h1><?=$name;?></h1>
+	  <h1><?=$name;?> (@<?=$username;?>)</h1>
 
 	  <p style="margin:10px 0px"><span class="title">FrontEnd Developer</span> <br>
 	  		  Angular and anything JS
