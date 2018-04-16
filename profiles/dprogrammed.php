@@ -5,7 +5,7 @@ $image = '';
 $name ="";
 $username = "";     
 $secret_word = "";
-$conn = mysqli_connect('localhost','root','','hngfun');
+$conn = mysqli_connect('localhost','root','','hng_fun');
 // Check connection
 // if (mysqli_connect_errno())
 //   {
