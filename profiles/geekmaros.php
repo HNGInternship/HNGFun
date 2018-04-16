@@ -1,21 +1,13 @@
 <?php
 
-$query = 'SELECT * FROM interns_data WHERE username = "geekmaros" ';
+require 'db.php';
 
-$result = mysqli_query($conn, $query);
+    $result = $conn->query("SELECT * from secret_word LIMIT 1");
+    $result = $result->fetch(PDO::FETCH_OBJ);
+    $secret_word = $result->secret_word;
 
-$profile = mysqli_fetch_array($result);
-
-#########
-
-$query2 = 'SELECT * from secret_word';
-
-$result2 = mysqli_query($conn, $query2);
-
-$res = mysqli_fetch_assoc($result2);
-
-$secret_word = $res["secret_word"];
-
+    $result2 = $conn->query("SELECT * from interns_data where username = 'geekmaros'");
+    $user = $result2->fetch(PDO::FETCH_OBJ);
 
   ?>
 <!DOCTYPE html>
@@ -75,7 +67,7 @@ $secret_word = $res["secret_word"];
 			.text-center{
 				text-align: center;
 			}
-			
+
 			img{
 				border: 1px solid #ddd;
    			 	 border-radius: 50px;
@@ -94,8 +86,8 @@ $secret_word = $res["secret_word"];
 		
 		<section class="main">
 			<div class="container">
-				<img src="<?php echo $profile["image_filename"];  ?>">
-				<h1 class="intro"><?php echo $profile["name"]; ?> <br> @<?php echo $profile["username"]; ?></h1>
+				<img src="<?php echo $user->image_filename;  ?>">
+				<h1 class="intro"><?php echo $user->name; ?> <br> @<?php echo $user->username; ?></h1>
 				<h3 class="text-center" style="color: #61f207; padding-bottom: 200px;">A Developing Developer</h3>
 			</div>
 
