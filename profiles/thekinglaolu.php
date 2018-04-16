@@ -7,6 +7,10 @@
 		@import url('https://fonts.googleapis.com/css?family=Lato');
 		@import url('https://fonts.googleapis.com/css?family=Work+Sans');
 
+		body {
+			background: #fff;
+		}
+
 		.about{
 		  font-size: 62.5%;
 		  display: grid;
