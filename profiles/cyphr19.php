@@ -149,11 +149,11 @@ text-align:center;
 
        <div class="profile_pic">
 
-          <div class="main pic"> <img src="<=http://res.cloudinary.com/galdrencyphr/image/upload/v1523626611/IMG_20180218_181243_674.jpg >" alt="Aina Afolabi"/> </div>
+          <div class="main pic"> <img src="<=http://res.cloudinary.com/galdrencyphr/image/upload/v1523626611/IMG_20180218_181243_674.jpg >" alt=""/> </div>
 
        </div>
 
-       <img src="<=http://res.cloudinary.com/galdrencyphr/image/upload/v1523626611/IMG_20180218_181243_674.jpg>" alt="Aina Afolabi"/>
+       <img src="<=http://res.cloudinary.com/galdrencyphr/image/upload/v1523626611/IMG_20180218_181243_674.jpg>" alt=""/>
 
        <h3 class="name"><?=$name?>Aina Afolabi</h3>
 
