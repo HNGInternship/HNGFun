@@ -1,15 +1,16 @@
 <?php
-include('../db.php');
+// include 'config.php';
+// include 'db.php';
 $image = '';                 
 $name ="";
 $username = "";     
 $secret_word = "";
-$conn = mysqli_connect('localhost','root','','hngfun');
+$conn = mysqli_connect('localhost','root','','hng_fun');
 // Check connection
-if (mysqli_connect_errno())
-  {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  }
+// if (mysqli_connect_errno())
+//   {
+//   echo "Failed to connect to MySQL: " . mysqli_connect_error();
+//   }
 
 
 
@@ -41,6 +42,7 @@ if ($result->num_rows > 0) {
     }
 } else {
     echo "result not found";
+
 }
         
 
@@ -93,6 +95,7 @@ img{
     background-color: darkcyan;
     color: white;
     height: 39em;
+>>>>>>> 3470794498b643e4c5b5d0033bb08cfd079fa4b8
 }
 label{
    word-wrap: break-word;
