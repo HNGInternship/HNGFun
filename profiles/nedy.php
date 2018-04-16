@@ -1,4 +1,4 @@
- <?php
+<?php
  
 try {
    $profile = 'SELECT * FROM interns_data_ WHERE username="nedy"';
@@ -52,7 +52,6 @@ $secret_word = $get['secret_word'];
           <img src="https://res.cloudinary.com/nedy123/image/upload/v1515053242/my_d.p_paeru8.jpg" class="img-thumbnail img-fluid rounded-circle w-25 h-25" alt="avatar">
         </div>
         <p class="text-center text-primary h4 mt-3">And I am a <b class="h2">Developer</b></p>
-
       </div>
     </div>
   </div>

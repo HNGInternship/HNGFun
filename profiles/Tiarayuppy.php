@@ -1,4 +1,5 @@
 
+
   <?php
           try {
               $sql = 'SELECT * FROM secret_word';
@@ -18,6 +19,7 @@
                   $profile_details_result->setFetchMode(PDO::FETCH_ASSOC);
                       $profile_details = $profile_details_result->fetch();
                   ?>
+
 <head>
  
   <title>TiaraYuppy - HNG Internship</title>
@@ -26,12 +28,14 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-
+  <script src="https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
 <style>
  
-
+body{
+    margin-bottom: 100px;
+}
 .card {
     padding-top: 20px;
     margin: 10px 0 20px 0;
@@ -284,6 +288,153 @@
     color: #070707;
     background-color: #070707;
 }
+#demo {
+            /*background-color: #ffffff;*/
+            width: 80%;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 20px;
+
+            background-color: #F8F8F8;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px #999;
+            line-height: 1.4em;
+            font: 13px helvetica,arial,freesans,clean,sans-serif;
+            color: black;
+        }
+        #demo input {
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            width: 400px;
+        }
+        .button {
+            display: inline-block;
+            background-color: darkcyan;
+            color: #fff;
+            padding: 8px;
+            cursor: pointer;
+            float: right;
+        }
+        #chatBotCommandDescription {
+            display: none;
+            margin-bottom: 20px;
+        }
+        input:focus {
+            outline: none;
+        }
+        .chatBotChatEntry {
+            display: none;
+        }
+        .chatBotChatEntry {
+    padding: 20px;
+    background-color: #fff;
+    border: none;
+    margin-top: 5px;
+    font-family: 'open_sanslight', sans-serif !important;
+    font-size: 17px;
+    font-weight: normal;
+}
+
+.chatBotChatEntry * {
+    font-family: 'open_sanslight', sans-serif !important;
+    font-size: 17px;
+    font-weight: normal;
+}
+
+.chatBotChatEntry .origin {
+    font-weight: bold;
+    margin-right: 10px;
+}
+.chatBotChatEntry .imgBox {
+    position: relative;
+    width: 32%;
+    display: inline-block;
+    margin-top: 10px;
+    margin-right: 10px;
+    height: 218px;
+    overflow: hidden;
+}
+.chatBotChatEntry .imgBox .actions .button {
+    margin-top: 10px;
+    font-size: 18px;
+    padding: 5px;
+    width: 50%;
+}
+.chatBotChatEntry .imgBox .actions {
+    position: absolute;
+    display: none;
+    top: 31px;
+    width: 100%;
+    text-align: center;
+}
+.chatBotChatEntry .imgBox:hover .actions {
+    display: block;
+}
+.chatBotChatEntry .imgBox .title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px;
+    color: #fff;
+    background-color: #333;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+    .chatBotChatEntry .imgBox img {
+        width: 100%;
+    }
+
+    .bot {
+        /*border: 4px solid rgba(0, 132, 60, 0.2);*/
+        background-color: rgba(0, 132, 60, 0.2);
+    }
+    .human {
+        /*border: 4px solid rgba(38, 159, 202, 0.2);*/
+        background-color: rgba(38, 159, 202, 0.2);
+    }
+
+    #chatBotCommandDescription {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+    }
+    .commandDescription span.phraseHighlight {
+        color: chartreuse;
+    }
+    .commandDescription span.placeholderHighlight {
+        color: deeppink;
+    }
+    .commandDescription {
+        margin-top: 5px;
+    }
+
+    #chatBotConversationLoadingBar {
+        background-color: darkcyan;
+        height: 2px;
+        width: 0;
+    }
+
+    .appear {
+        animation-duration: 0.2s;
+        animation-name: appear;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-out;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes appear {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+ }
 
 </style>
 <body class="color">
@@ -329,7 +480,58 @@
 
     </div>
 
-  
+
 </div>
+
+
+
+<div id="demo">
+    <div id="chatBotCommandDescription"></div>
+    <input id="humanInput" type="text" placeholder="Say something" />
+
+    <div class="button" onclick="if (!ChatBot.playConversation(sampleConversation,4000)) {alert('conversation already running');};">Play sample conversation!</div>
+    <div class="button" onclick="$('#chatBotCommandDescription').slideToggle();" style="margin-right:10px">What can I say?</div>
+
+    <div style="clear: both;">&nbsp;</div>
+
+    <div id="chatBot">
+        <div id="chatBotThinkingIndicator"></div>
+        <div id="chatBotHistory"></div>
+    </div>
+</div>
+
+
+<script>
+    var sampleConversation = [
+        "Hi",
+        "My name is [name]",
+        "Where is Hotels.ng?",
+        "What is the Nigeria",
+        "Bye"
+        
+    ];
+    var config = {
+        botName: 'Tiarayuppy',
+        inputs: '#humanInput',
+        inputCapabilityListing: true,
+        engines: [ChatBot.Engines.duckduckgo()],
+        addChatEntryCallback: function(entryDiv, text, origin) {
+            entryDiv.delay(200).slideDown();
+        }
+    };
+    ChatBot.init(config);
+    ChatBot.setBotName("Tiarayuppy");
+    ChatBot.addPattern("^hi$", "response", "Hello, friend", undefined, "Say 'Hi' to be greeted back.");
+    ChatBot.addPattern("^bye$", "response", "See you later buddy", undefined, "Say 'Bye' to end the conversation.");
+    ChatBot.addPattern("(?:my name is|I'm|I am) (.*)", "response", "hi $1, thanks for talking to me today", function (matches) {
+        ChatBot.setHumanName(matches[1]);
+    },"Say 'My name is [your name]' or 'I am [name]' to be called that by the bot");
+    ChatBot.addPattern("(what is the )?meaning of life", "response", "42", undefined, "Say 'What is the meaning of life' to get the answer.");
+    ChatBot.addPattern("compute ([0-9]+) plus ([0-9]+)", "response", undefined, function (matches) {
+        ChatBot.addChatEntry("That would be "+(1*matches[1]+1*matches[2])+".","bot");
+    },"Say 'compute [number] plus [number]' to make the bot your math calculator");
+
+</script>
+
 </body>
 </html>

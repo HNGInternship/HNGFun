@@ -60,15 +60,14 @@ li{
 .inner{
    padding: 20px
 }
-#btn{
-   margin-top: -80px;
-}
 p,i,li{
    font-family:'Lato', arial, sans-serif;
 }
+#all_content{
+   padding-top:21px
+}
 </style>
 <?php
-require 'db.php';
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
@@ -84,19 +83,19 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 </head>
 <html>
 <body>
-   <div>
+   <div id="all_content">
       <div id="top">
          <img src="http://res.cloudinary.com/femidd/image/upload/v1523647188/femi_dd.jpg" alt="Kole-Ibrahim AbdulQudus">
          <div id="intro">
             <h1><?php echo $user->name; ?></h1>
-            <h2>Backend Developer</h2>
+            <h2 style="text-align:left">Backend Developer</h2>
             <ul class="list-inline">
                <li><a target="_blank" title="Twitter/Femi_DD" href="https://twitter.com/Femi_DD"><i class="fa fa-twitter"></i></a></li>
                <li><a target="_blank" title="Facebook/KoleIbrahimAbdulQudus" href="http://facebook.com/KoleIbrahimAbdulQudus"><i class="fa fa-facebook"></i></a></li>
                <li><a target="_blank" title="Linkedin/KoleIbrahimAbdulQudus" href="https://www.linkedin.com/in/koleibrahimabdulqudus/"><i class="fa fa-linkedin"></i></a></li>
                <li><a target="_blank" title="Github/Femi-DD" href="http://github.com/femi-dd"><i class="fa fa-github-alt"></i></a></li>
                <li><a target="_blank" title="StackOverflow/Femi_DD" href="https://stackoverflow.com/story/femi_dd"><i class="fa fa-stack-overflow"></i></a></li>
-               <a style="float:right" id="btn" class="btn btn-cta-primary" href="mailto:femi.highsky@gmail.com" target="_blank"><i class="fa fa-paper-plane"></i> Contact Me</a>
+               <li><a style="font-size:20px;" class="btn btn-cta-primary pull-right" href="mailto:femi.highsky@gmail.com" target="_blank"><i class="fa fa-paper-plane"></i> Contact Me</a></li>
             </ul>
          </div>
       </div>
@@ -110,8 +109,8 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
          </div>
       </div>
    </div>
-   <footer style="margin-bottom:0px;" id="footer">
-      <center><p>Copyright &copy; Kole-Ibrahim AbdulQudus 2018</p></center>
+   <footer style="margin-bottom:0px; text-align:center; padding-top:25px;" id="footer">
+      <p>Copyright &copy; Kole-Ibrahim AbdulQudus 2018</p>
    </footer>
 </body>
 </html>

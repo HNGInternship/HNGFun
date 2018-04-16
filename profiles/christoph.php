@@ -1,17 +1,19 @@
 <?php
-include("../db.php");
+error_reporting(0);
+if (empty($conn)) {
+    include("../db.php");
 
-define('DB_CHARSET', 'utf8mb4');
-$dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
+    define('DB_CHARSET', 'utf8mb4');
+    $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
 
-$opt = [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES => false
-];
+    $opt = [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false
+    ];
 
-$conn = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
-
+    $conn = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
+}
 
 $intern_details_query = $conn->query(
     "SELECT     interns_data.name, 
@@ -35,6 +37,11 @@ $name = $intern_detail['name'];
 $username = $intern_detail['username'];
 $filename = $intern_detail['image_filename'];
 
+$padding = '107px 70px';
+if (stristr($_SERVER['REQUEST_URI'], 'id')) {
+    $padding = '37px 80px';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +50,7 @@ $filename = $intern_detail['image_filename'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>James Christopher</title>
+    <title><?=$name;?></title>
     <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css' />
@@ -54,7 +61,7 @@ $filename = $intern_detail['image_filename'];
         body {
             font-family: "Josefin Sans","Montserrat","Segoe UI","Roboto","Helvetica Neue","Arial","sans-serif";
             color: #4A4646;
-            overflow-x: none;
+            overflow-x: hidden;
         }
 
         body > .container {
@@ -62,7 +69,7 @@ $filename = $intern_detail['image_filename'];
         }
 
         .profile-details, .skills {
-            padding-top: 80px;
+            padding-top: 110px;
         }
 
         .profile-details {
@@ -73,7 +80,7 @@ $filename = $intern_detail['image_filename'];
 
         .skills {
             height: auto;
-            padding: 37px 70px;
+            padding: 80px 70px;
             background: #FFFFFF;
         }
 
@@ -215,7 +222,7 @@ $filename = $intern_detail['image_filename'];
                     <a href="https://facebook.com/chrismarcelj" target="_blank"><i class="fa fa-2x fa-facebook"></i></a>
                 </div>
             </div>
-            <div class="col-sm-6 skills">
+            <div class="col-sm-6 skills" style="padding: <?=$padding;?>">
                 <p class="hello-text text-center">Hello World!</p>
                 <span>I am a Full-Stack Developer and an aspiring UI/UX Designer. Feel free to engage me in any of your projects.</span>
                 <div class="skill-list">
