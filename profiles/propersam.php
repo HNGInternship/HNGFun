@@ -47,7 +47,7 @@ body {
     </section>
     <section>
     <p style="text-align:center; font-size: 16px; font-style: italic; font-weight: 650;">"...I have a dream, that one day I will get the source code of human-beings and begin to create humans of my own :D" <br>
-    - <strong> <?php echo $user->name ?> </strong> </p>
+    - <strong> propersam </strong> </p>
     </section>
 </div>
 </body>

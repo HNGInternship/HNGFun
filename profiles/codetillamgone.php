@@ -70,22 +70,36 @@
 
 
 
+<?php
+   $getData = 'SELECT * FROM interns_data WHERE username="codetillamgone"';
+   $query1 = $conn->query($getData); 
+   $query1->setFetchMode(PDO::FETCH_ASSOC);
+   $result = $query1->fetch();    
 
+   $name = $result["name"];
+   $user = $result["username"];
+   $image = $result["image_filename"];
+ ?>
    
         
-        <?php
-   $result = $conn->query('Select * FROM secret_word LIMIT 1');
-   $result = $result->fetch(PDO::FETCH_OBJ);
-   $secret_word = $result->secret_word;
+  
 
-   $result2 = $conn->query('Select * FROM interns_data WHERE username = "codetillamgone"');
-   $user = $result2->fetch(PDO::FETCH_OBJ);
-?>
+  <?php
+      try {
+          $getWord = "SELECT * FROM secret_word";
+          $query2 = $conn->query($getWord); 
+          $query2->setFetchMode(PDO::FETCH_ASSOC);
+          $result2 = $query2->fetch();
+      } catch (PDOException $e) {
+          throw $e;
+      }
+      $secret_word = $result2['secret_word'];
+    ?>
         
        
     <div class="box">
             <p class="one">
-                <h3 class="name"> <b> <?php echo $user->name ?> </b>  </h3>
+                <h3 class="name"> <?php echo ($name) ?>  </h3>
                 <h3 class="android_dev"> <b> Android Developer</b></h3>
                 </p>
 
