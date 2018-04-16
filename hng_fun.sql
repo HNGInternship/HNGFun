@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `interns_data_` (
 --
 
 INSERT INTO `interns_data_` (`intern_id`, `name`, `username`, `image_filename`) VALUES
-(14, 'Uket Cyril Ofem', 'CY_UKET', 'https://res.cloudinary.com/cyuket/image/upload/v1523889745/1522947398679.jpg');
+(122, 'Butu Ordooter', 'Ordooter', 'http://i1074.photobucket.com/albums/w416/Butu_Ordooter_A/profile1_zpsblk9vlnz.png');
 
 -- --------------------------------------------------------
 
