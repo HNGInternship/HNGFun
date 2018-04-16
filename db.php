@@ -1,6 +1,6 @@
 <?php
 
-<<<<<<< HEAD
+
 
 require_once 'config.example.php';
 //=======
@@ -15,10 +15,10 @@ require_once 'config.example.php';
 
 // require_once '../config.php';
 
-=======
+
 require_once 'config.php';
 
->>>>>>> e9193037f442533c17388f9045fd8f38ce776540
+
 try {
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
     //echo "Connected to ". DB_DATABASE . " successfully.</br>";
