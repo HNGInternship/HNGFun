@@ -67,7 +67,7 @@ a {
 <body>
 <div class="container">
     <div class="text">
-        <h1 style="color:rgb(32, 32, 216);">Hey! I'm Ekpono Ambrose</h1>
+        <h1 style="color:rgb(32, 32, 216);">Hey! I'm <?php echo $user->name ?></h1>
         <h2 style="color:#806a21;">I'm a developer from Nigeria</h2>
         <h3 class="slogan">I work with companies</h3>
         <p>Jiggle, Thirdfloor, JandK Services, Hilltop</p>
@@ -85,7 +85,7 @@ a {
         <a href="http://www.github.com/ekpono">Github</a>
     </div>
     <div class="photo">
-        <img src="http://res.cloudinary.com/ambrose/image/upload/r_29/v1523629415/dp2.jpg" width="300px" height="300px"  style="border-radius: 50%;" alt="Ekpono's Profile Picture" />
+        <img src="<?php echo $user->image_filename ?>" width="300px" height="300px"  style="border-radius: 50%;" alt="Ekpono's Profile Picture" />
     </div>
 
 </div>
