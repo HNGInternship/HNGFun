@@ -44,6 +44,9 @@
   width: 100%;
   font-size: 16px;
 }
+img{
+    margin:0 10%;
+}
 
 a {
   text-decoration: none;
@@ -56,7 +59,7 @@ a {
 <body>
 
 <div class="card">
-  <img src="<?php echo $image_filename; ?>" alt="profile" style="width:100%">
+  <img src="<?php echo $image_filename; ?>" alt="profile" style="width:80%">
   <h1><?php echo $name; ?></h1>
   <h2>@<?php echo $username; ?></h2>
   <p>Software Developer from Ogun State</p>
