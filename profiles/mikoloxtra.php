@@ -42,6 +42,7 @@ button:hover, a:hover {
   background-color: cyan;
 }
 .image{border-radius: 100%;}
+.usernamecs{margin-top:10px;}
 </style>
 </head>
 <body>
@@ -73,7 +74,7 @@ button:hover, a:hover {
   }
 
 ?>
-<h2 style="text-align:center"><?php echo $name; ?></h2>
+<h2 class="usernamecs" style="text-align:center"><?php echo $name; ?></h2>
 
 <div class="card">
   <img class="image" src="<?php echo $image_filename; ?>" style="width:100%">

@@ -1,3 +1,7 @@
+<?php
+include_once realpath(__DIR__ . '/..') . "/answers.php" 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -182,7 +186,7 @@ section h2:first-child{
    background-color:aqua;
 }
 .bot{
-    width : 40%;
+    width : 60%;
     margin: .5rem auto;
 }
 .form-control{
@@ -190,19 +194,21 @@ section h2:first-child{
 }
 
  input{
-    border-radius:.2rem;
-    padding: .5rem;
+   
+    padding: .5rem !important;
     
 }
 
 #botresponse{
     width: 100%;
-    background-color: aqua;
+   
     height: 15rem;
     overflow-y: scroll;
     padding: 1rem;
-    border-radius: 2rem;
     font-family: Lato;
+    color:#330505;
+    border-left: 1px solid #330505;
+    box-shadow: 1px 5px 3rem aqua;
 }
 
 .bot input{
@@ -217,6 +223,8 @@ section h2:first-child{
     font-family: Lato;
 }
 
+
+
 .bot .botnet{
    color: white;
    background-color: black;
@@ -224,24 +232,34 @@ section h2:first-child{
    margin-right: .5rem;
    margin-bottom: .2rem;
    display: inline-block;
-   border-radius: .3rem;
    font-family: Lato;
 }
 .bot .user{
     color: Red;
    background-color: rgba(0,0,0,.5);
-   padding:.5rem;
+   padding:1rem;
    margin-right: .5rem;
    margin-bottom: .2rem;
    display: inline-block;
-   border-radius: .3rem;
    font-family: Lato;
 }
 .bot .res{
+    background-color:white;
     display: inline-block;
     font-family: Lato;
+    padding:.5rem 1rem;
+    width: 20rem;
+    background-color: #1E73E8;
 }
 
+.bot .userres{
+    background-color:white;
+    display: inline-block;
+    font-family: Lato;
+    padding:.5rem 1rem;
+    min-width: 20rem;
+    background-color: #EB5757;
+}
 .bot #botresponse::-webkit-scrollbar {
     width: 2rem;
 }
@@ -349,6 +367,9 @@ header{
     width: 100%;
     margin-top: 4rem;
 }
+.botres{
+    float:right !important;
+}
 
 .bot .botnet{
     font-size:80%;
@@ -358,6 +379,7 @@ header{
 }
 .bot .res{
     font-size:80%;
+   
 }
 
 .about{
@@ -383,10 +405,14 @@ foreach ($conn->query($sql) as $row) {
 
 global $secret_word;
 
-$sql = "SELECT secret_word from secret_word";
-foreach ($conn->query($sql) as $row) {
-    $secret_word = $row['secret_word'];
-   
+try {
+    $sql = "SELECT secret_word FROM secret_word";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+    $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+    throw $e;
 }
 
 
@@ -441,7 +467,7 @@ foreach ($conn->query($sql) as $row) {
     <div class="bot">
     <div id="botresponse"> </div>
     <br />
-    <input type="text" name="botchat" placeholder="Chat with me!" onkeypress="return runScript(event)" class="form-control">
+    <input type="text" name="botchat" placeholder="Chat with me!" onkeypress="return runScript(event)" onkeyDown="recall(event)" class="form-control">
     
     
    
@@ -449,17 +475,51 @@ foreach ($conn->query($sql) as $row) {
     </section>
 
 <script>
-
-
-let baseURL = "http://hngfun.test/profiles/bytenaija.php/";
+let url = "https://hng.fun/answers.php?bytenaija=1"
+url = "http://hngfun.test/answers.php?bytenaija=1&time=1&location=";
+let trainMode = false;
 let botResponse = document.querySelector("#botresponse");
+window.onload = instructions;
+let stack = [];
+let count = 0;
+function recall(e){
+    let input = e.currentTarget;
+    if(e.keyCode == 38){
+       
+        console.log(count)
+        if(stack.length > 0){
+       if(count < stack.length){
+        let command = stack[stack.length- count -1];
+        input.value = command;
+            }else{
+                count =0
+            }
+            count++;
+        }
+    
+    }else if(e.keyCode == 40){
+        if(count > 0){
+            count--;
+            console.log(count)
+            let command = stack[count];
+            input.value = command;
+        }
+        
+    }
+}
 function runScript(e) {
     if (e.keyCode == 13) {
         let input = e.currentTarget;
         let dv = document.createElement("div");
-            dv.innerHTML = "<span class='user'>You: </span> <span class='res'>" + input.value + "</span>";
+            dv.innerHTML = "<span class='user'>You: </span> <span class='userres'>" + input.value + "</span>";
            botResponse.appendChild(dv)
-        evaluate(input.value)
+           stack.push(input.value)
+           if(trainMode){
+               training(input.value)
+           }else{
+            evaluate(input.value)
+           }
+        
         input.value = "";
         return false;
     }
@@ -495,68 +555,86 @@ function evaluate(str){
         if(city == " "){
             print("Usage: What is the time in New York \n or Time in New York");
         }else{
-            let geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address="+ city + "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
-            fetch(geocodeUrl)
+        fetch(url + city)
             .then(response=>{
-                return response.json()
+                return response.text()
             })
             .then(response=>{
-                let lat = response.results[0].geometry.location.lat;
-                let lng = response.results[0].geometry.location.lng;
-                var targetDate = new Date() // Current date/time of user computer
-                var timestamp = targetDate.getTime()/1000 + targetDate.getTimezoneOffset() * 60 
-                let url = "https://maps.googleapis.com/maps/api/timezone/json?location="+lat+"," + lng+"&timestamp=" +timestamp+ "&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U" 
-                console.log(url);  
-                
-                fetch(url)
-                .then(response=>{
-                    return response.json();
-                })
-                .then(response=>{
-                    var offsets = response.dstOffset * 1000 + response.rawOffset * 1000 // get DST and time zone offsets in milliseconds
-                    var localdate = new Date(timestamp * 1000 + offsets) // Date object containing current time of Tokyo (timestamp + dstOffset + rawOffset)
-                    print("The time in " + capitalize(city) + " is " + localdate.toLocaleString())
-                })  
+                console.log(response);
             })
-        }
 
-      
-        
+    
+    } 
+}
+}
+    else if(str.indexOf("#train") != -1)
+    {
+        console.log("Entering training mode")
+        print("Entering training mode. Enter #exit to exit training mode. To train enter <strong>keyword : response.</strong>");
+        trainMode = true;
+
+    } 
+    else if(str.indexOf("#untrain") != -1)
+    {
+    
+        print("Oh why are you doing thisEntering training mode. Enter #exit to exit training mode. To train enter <strong>keyword : response.</strong>");
+        trainMode = true;
+
+    } 
+    else if(str.indexOf("#list") != -1)
+    {
        
+    let list = "<li>Time in {country or city}</li>";
+    list += "<li>What is the time in {country or city}</li>";
+    list += "<li>Hello</li>";
+    list += "<li>Hi</li>";
+    list += "<li>currency: {base}/{other}</li>";
+
+       let urlL = url + "&list=1";
         
-    }
+        fetch(urlL)
+        .then(response=>{
+            return response.text();
+        })
+        .then(response=>{
+            if(response == ''){
+                print(list)
+            }else{
+                print(response + list);
+            }
+            
+        })
 
-    
-    } else if(str.indexOf("currency") != -1){
-        str = str.substr(str.indexOf(":") + 2, str.length - 1);
-        str = str.split("/");
-        let api_key = "U7VdzkfPuGyGz4KrEa6vuYXgJxy4Q8";
-		let currency1 = str[0].toUpperCase();
-        let	currency2 = str[1].toUpperCase();
-		let url = "https://www.amdoren.com/api/currency.php?api_key=" + api_key + "&from=" + currency1 + "&to=" + currency2;
-        console.log(url);
-        var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-
-    fetch(proxyUrl + url)
-    .then(response=>{
-        console.log(response)
-        return response.json();
-    })
-    .then(response=>{
-        print(currency1 + " 1 = " + currency2 + " " + response.amount)
-    }).catch(error=>{
-        console.log(error);
-    })
-    }
-    
+    } 
     else{
-            print("I don't understand that command yet. My master is very lazy. Try agin in 200 years");
+       
+        str = str.split(":");
+        let keyword = str[0], response = str[1];
+
+        console.log(keyword, response)
+
+        let urlL = url + "&query=" + str;
+        console.log(url)
+
+        fetch(urlL)
+        .then(response=>{
+            return response.text();
+        })
+        .then(response=>{
+            if(response.length <= 0){
+                print("I don't understand that command yet. My master is very lazy. Try agin in 200 years");
+            }else{
+                print(response);
+            }
+            
+        })
+            
     }
 }
 
 function print(response){
     let dv = document.createElement("div");
-            dv.innerHTML = "<span class='botnet'>Byte9ja:</span><span class='res'>" + response + "</span>";
+            dv.innerHTML = "<div class='botres' style='float: right;'><span class='res'>" + response + "</span><span class='botnet'>Byte9ja</span></div>";
            botResponse.appendChild(dv)
            botResponse.scrollTop = botResponse.scrollHeight;
 }
@@ -569,6 +647,46 @@ function capitalize(str){
     }
 
     return words.join(" ");
+}
+
+function training(str){
+ if(str.indexOf("#exit") != -1)
+    {
+        
+        print("Exiting training mode! Thank you for the training.");
+        trainMode = false;
+        return;
+
+    }
+
+    ;
+    str = str.split(":");
+    let keyword = str[0], response = str[1];
+
+    console.log(keyword, response)
+
+    let urlL = url + "&train&keyword=" + keyword + "&response=" + response;
+    console.log(urlL)
+    fetch(urlL)
+    .then(response=>{
+        console.log(response);
+        return response.text()
+    })
+    .then(response=>{
+        console.log(response)
+        print(response);
+    })
+}
+
+function instructions(){
+    $string = 'My name is byte9ja. I am a Robot. I understand the following commands<br>';
+    $string += "<li><strong>Hi</strong> or <strong>Hello</strong>: Greet me </li>";
+    $string += "<li>Type <strong>#train</strong> to enter training mode and <strong>#exit</strong> to exit training mode </li>";
+    $string += "<li><strong>currency: {base currency}/{other currency}</strong> to see exchange rate: e.g. currency: USD/NGN </li>";
+    $string += "<li><strong>What is the time in {country or city}</strong> or <strong>Time in {country or city} </strong>to check the time: e.g. Time in New York </li>";
+    $string += "<li><strong>#list </strong>to list all the questions in the database</li>";
+    $string += "<li>You can use the <strong>Up</strong> and <strong>Down</strong> arrow to recall your previous commands</li>";
+   print($string);
 }
 </script>
 </body>
