@@ -665,3 +665,7 @@ function training(str){
 </script>
 </body>
 </html>
+<?php
+}
+
+?>
