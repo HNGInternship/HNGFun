@@ -28,16 +28,21 @@
 ?>
 <!-- Page Content -->
 
-<div class="profile-bar" style="border:1px soild blue;">
-		
-	<img src="https://res.cloudinary.com/pepps01/image/upload/v1523816522/sunny.jpg" class="profile_image"  width="260" height="250">
-		<h4 style="margin-top: 5px;"><?php echo $user->username;?></h4>
-		 Backend and Android
-		<p>@<?= $user->username;?></p>	
-		<p style="font-size: 15px;font-weight: bolder;">Secret Word: <?php echo $secret_word; ?></p>
+<div class="profile-bar" style="margin: 0 auto;text-align: center;width: 100%;border-radius: 10px;font-family: 'Lora';">
+	<div class="me" style="background:#007BFF;border-radius: 10px; padding: 20px 20px">
+    
+  <img src="https://res.cloudinary.com/pepps01/image/upload/v1523816522/sunny.jpg" width="200" height="200" style="border-radius: 50%; border:5px solid white;outline: none;">
+    <h4 style="margin-top: 10px;color: white;font-family: 'Lora';"><?php echo $user->name;?></h4>
+  </div>
+  <div style="padding: 5px 10px;">
+    
+     <p>Backend and Android Developer</p>
+    <p>@<?= $user->username;?></p>  
+    <p style="font-size: 15px;font-weight: bolder;">Secret Word: <?php echo $secret_word; ?></p>
 
 
-		<a href="" class="btn btn-success">Holla</a>
+    <a href="" class="btn btn-success">Holla</a>
+  </div>
 </div>
 </body>
 

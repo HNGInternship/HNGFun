@@ -1,16 +1,23 @@
+
+
 <?php
+  $result = $conn->query("Select * from secret_word LIMIT 1");
+  $result = $result->fetch(PDO::FETCH_ASSOC);
+  $secret_word = $result['secret_word'];
 
-require '../db.php';
-$start = $conn->query("SELECT *FROM secret_word");
+  $result2 = $conn->query("Select * from interns_data where username = 'chisom5'");
+  $user = $result2->fetch(PDO::FETCH_ASSOC);
 
-$result = $start->fetch(PDO:: FETCH_ASSOC);
-$secret_word = $result['secret_word'];
-
-$username ='chisom5';
-$fullname = 'Okoye chisom';
-$image ="http://res.cloudinary.com/dzejyjjer/image/upload/v1523722123/chisomProfile.jpg";
-
+  $username = $user['username'];
+$name = $user['name'];
+$image_filename = $user['image_filename'];
 ?>
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,13 +50,11 @@ $image ="http://res.cloudinary.com/dzejyjjer/image/upload/v1523722123/chisomProf
             #github{
             	color:#333;
             }
-            #linked{
-            	color:#0077B5;
-            }
+          
             footer{
                 background:#000000;
-                height:40px;
-            }
+/*                height:40px;
+*/            }
             footer p{
                 color:#ffffff;
                 line-height:40px;
@@ -61,21 +66,24 @@ $image ="http://res.cloudinary.com/dzejyjjer/image/upload/v1523722123/chisomProf
     	<h2 style="text-align:center">My Profile Card</h2>
 
 	<div class="card">
-	  <img src="http://res.cloudinary.com/dzejyjjer/image/upload/v1523722123/chisomProfile.jpg" alt="John" style="width:100%; height: 300px">
-	  <h1><?php echo $fullname->name; ?></h1>
+	
+	  <img src= "<?=$image_filename;?>" alt="chisom profile" style="width:100%; height: 300px">
 
-	  <p class="title">FrontEnd Developer</p>
-	  <p>Angular and anything JS</p>
-	  <div style="margin: 24px 0; padding-bottom: 20px">
+	  <h1><?=$name;?></h1>
+
+	  <p style="margin:10px 0px"><span class="title">FrontEnd Developer</span> <br>
+	  		  Angular and anything JS
+
+	  </p>
+	  
       <p> connect with me <br>
-	    <a href="#"><i class="fa fa-twitter" id="twitter"></i></a>  
-	    <a href="#"><i class="fa fa-linkedin" id="linked"></i></a>  
-	    <a href="#"><i class="fa fa-facebook" id="facebook"></i></a> 
-	    <a href="#"><i class="fa fa-github" id="github"></i></a>
+	    <a href="https://twitter.com/chisom_code"><i class="fa fa-twitter" id="twitter"></i></a>  
+	    <a href="https://web.facebook.com/chisom.okoye.108"><i class="fa fa-facebook" id="facebook"></i></a> 
+	    <a href="https://github.com/chisom5"><i class="fa fa-github" id="github"></i></a>
         </p>
-	 </div>
+	 
 
-     <footer>
+     <footer style="padding:0px">
     <p>coptright&copy; HNGInternship 2018</p>
     </footer>
 	</div>

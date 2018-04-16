@@ -10,6 +10,7 @@
   }
 ?>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 <?php
@@ -31,6 +32,8 @@ $secret3 = $secret2['secret_word'];
 echo $secret3;
 }
 ?>
+=======
+>>>>>>> d1e5c57f76f7abcf6242f6f42c3ebefa9ef6c972
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,9 +44,7 @@ echo $secret3;
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title> <?php
-        echo getuserfield('name');
-        ?></title>
+    <title><?php echo $data['name'] ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -370,9 +371,7 @@ footer.footer .social-link:hover{
     	<nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top" id="mainNav">
       <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">
-        <?php
-        echo getuserfield('name');
-        ?>
+<?php echo $data['name'] ?>
         </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -414,20 +413,13 @@ footer.footer .social-link:hover{
 
               <strong>WELCOME TO MY WORLD</strong><br>
               <small> 
-        <?php
-        echo getuserfield('name');
-        ?>         
+       <?php echo $data['name'] ?>         
         </small>
             </h1>
-                  <?php
-        echo getsecretword();
-        ?>  
             <hr>
           </div>
           <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5">Badass Back-End Web Programmer  <?php
-        echo getuserfield('name');
-        ?></p>
+            <p class="text-faded mb-5">Badass Back-End Web Programmer <?php echo $data['name'] ?></p>
             <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
           </div>
         </div>
@@ -440,9 +432,7 @@ footer.footer .social-link:hover{
           <div class="col-lg-8 mx-auto text-center">
             <h2 class="section-heading text-white">Here's a Brief Intro</h2>
             <hr class="light my-4">
-            <p class="text-faded mb-4"> <?php
-        echo getuserfield('name');
-        ?> Is a Back-End Web Developer, a Computer Science Student of Cross River University of Technology. Big dreams of getting one of the biggest Tech Empire in the world.</p>
+            <p class="text-faded mb-4"> <?php echo $data['name'] ?> Is a Back-End Web Developer, a Computer Science Student of Cross River University of Technology. Big dreams of getting one of the biggest Tech Empire in the world.</p>
             <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Work With Me!</a>
           </div>
         </div>
