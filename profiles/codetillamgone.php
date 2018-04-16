@@ -27,15 +27,7 @@
 
        }
      
-       h3.name{
-           text-align: center;
-           font-size: 25px;
-           text-decoration: underline;
-           text-decoration-style: solid;
-           text-decoration-color: black;
-          
-       }
-       h3.android_dev{
+   h3.android_dev{
         text-align: center;
         font-size: 20px;
        }
@@ -99,7 +91,7 @@
        
     <div class="box">
             <p class="one">
-                <h3 class="name"> <?php echo ($name) ?>  </h3>
+                <h3> <?php echo ($name) ?>  </h3>
                 <h3 class="android_dev"> <b> Android Developer</b></h3>
                 </p>
 
