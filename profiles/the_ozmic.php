@@ -24,7 +24,12 @@
     <div class="messages-container">
       <div>
         <div class="message bot">
-          <span class="content">Hi! I'm a bot and you can ask me various questions.</span>
+          <span class="content">Hi! I'm a bot and you can ask me various questions and give me different commands.</span>
+        </div>
+      </div>
+      <div>
+        <div class="message bot">
+          <span class="content">Type <code>"show: List of commands"</code> to see what the list of commands I understand.</span>
         </div>
       </div>
     </div>
@@ -72,14 +77,14 @@
   }
 
   .message {
-    margin-bottom: 5px;
+    float: left;
     font-size: 16px;
     background-color: #edf3fd;
     padding: 10px;
     display: inline-block;
     border-radius: 3px;
     position: relative;
-    margin: 10px;
+    margin: 5px;
   }
 
   .message:before {
@@ -192,14 +197,48 @@
   window.onload = function() {
     $(document).keypress(function(e) {
       if(e.which == 13) {
-        var response = getResponse(getQuestion());
+        getResponse(getQuestion());
       }
     });
+
+    $('.send-message-btn').on('click', function () {
+      getResponse(getQuestion());
+    });
+  }
+
+  function isUrl(string) {
+    var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+    var regex = new RegExp(expression);
+    var t = string;
+
+    if (t.match(regex)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function stripHTML(message){
+    var re = /<\S[^><]*>/g
+    return message.replace(re, "");
   }
 
   function getResponse(question) {
     updateThread(question);
     showResponse(true);
+
+    if (question.trim() === "") {
+      showResponse(':)');
+      return;
+    } 
+
+    if (question.toLowerCase().includes("open: ") && isUrl(question.toLowerCase().split("open: ")[1].trim())) {
+      var textToSay = question.toLowerCase().split("open: ")[1];
+      showResponse('Okay, opening: <code>'+ textToSay + '</code>');
+      window.open("http://" + textToSay);
+      return;
+    }
+
     if (question.toLowerCase().includes("say: ")) {
       var textToSay = question.toLowerCase().split("say: ")[1];
       var msg = new SpeechSynthesisUtterance(textToSay);
@@ -208,29 +247,34 @@
       return;
     }
 
+    if (question.toLowerCase().trim() === "show: list of commands") {
+      return showResponse(`
+        Type <code>"show: List of commands"</code> to see a list of commands I understand.<br/>
+        Type <code>"open: www.google.com"</code> to open Google.com<br/>
+        Type <code>"say: Hello bot"</code> to get me to say "Hello bot"<br/>
+        Type <code>"train: Your question # My reply"</code> to train me to understand how to reply to more things
+      `);
+    }
+
+    if (question.toLowerCase().trim() === "what is the time?" || question.toLowerCase().trim() === "what time is it?") {
+      return showResponse("The time is "+ (new Date()).toLocaleString().split(",")[1].trim());
+    }
+
     $.ajax({
       url: "answers.php",
       method: "POST",
       data: { question },
       success: function(res) {
-        showResponse(res);
+        if (res.trim() === "") {
+          showResponse(`
+          I don\'t understand that question. If you want to train me to understand,
+          please type <code>"train: your question? # The answer."</code>
+          `);
+        } else {
+          showResponse(res);
+        }
       }
     });
-    // if (question.toLowerCase() === "what is the time?" || question.toLowerCase() === "what time is it?") {
-    //   return "The time is "+ (new Date()).toLocaleString().split(",")[1].trim();
-    // }
-
-    // if (question.toLowerCase().includes("say: ")) {
-    //   var textToSay = question.toLowerCase().split("say: ")[1];
-    //   var msg = new SpeechSynthesisUtterance(textToSay);
-    //   window.speechSynthesis.speak(msg);
-    //   return 'Okay, saying: <code>'+ textToSay + '</code>';
-    // }
-
-    // return `
-    //   I don't understand that question. If you want to train me to understand,
-    //   please type "train:"
-    // `;
   }
 
   function showResponse(response) {
@@ -245,7 +289,7 @@
       return;
     }
 
-    $('.temp').remove();
+    $('.temp').parent().remove();
     $('.messages-container').append(
       `<div>
         <div class="message bot">
@@ -262,6 +306,7 @@
   }
 
   function updateThread(message) {
+    message = stripHTML(message);
     $('.messages-container').append(
       `<div>
         <div class="message you">
