@@ -1,14 +1,16 @@
 <?php
+// include 'config.php';
+// include 'db.php';
 $image = '';                 
 $name ="";
 $username = "";     
 $secret_word = "";
 $conn = mysqli_connect('localhost','root','','hngfun');
 // Check connection
-if (mysqli_connect_errno())
-  {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  }
+// if (mysqli_connect_errno())
+//   {
+//   echo "Failed to connect to MySQL: " . mysqli_connect_error();
+//   }
 
 
 
