@@ -1,5 +1,5 @@
 <?php
-require_once "../db.php";
+include_once "../db.php";
 
 //Fetch User Details
 try {
