@@ -1,10 +1,4 @@
 <?php
-<<<<<<< HEAD
-// require "config.php";
-// incude('../db.php');
-=======
-
->>>>>>> 3470794498b643e4c5b5d0033bb08cfd079fa4b8
 $image = '';                 
 $name ="";
 $username = "";     
@@ -46,8 +40,7 @@ if ($result->num_rows > 0) {
     }
 } else {
     echo "result not found";
-<<<<<<< HEAD
-=======
+
 }
         
 
