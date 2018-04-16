@@ -149,7 +149,7 @@ font-size:13px;
 <div id="container">
 	<div id="header">
 		<h4 id="profile_text">My Profile Page</h4>
-			<span id="t" onload="piece()" style="color:#075E54;">time</span>
+			<span id="t" onload="piece()" style="color:#075E54;"><?php echo  date("H:i:s"); ?></span>
 	</div>
 		<img id="image_center" src="../images/jozy.jpg" width="200px" height="200px">
 			<div id="about_me">
@@ -171,7 +171,7 @@ font-size:13px;
 				</div>
 </div>
 <script type="text/javascript">
-function piece(){
+/*function piece(){
 	var d = new Date();
 	var hours = d.getHours();
 	var mins = d.getMinutes();
@@ -185,7 +185,7 @@ function piece(){
 	var t = document.getElementById('t');
 	t.innerHTML =hours+":"+mins+":"+secs;
 }
-var t = setInterval(piece,10);
+var t = setInterval(piece,10);*/
 </script>
 </body>
 </html>
