@@ -1,17 +1,18 @@
 <?php 
   require 'db.php';
 
-  $secret_word_result=$conn->query("SELECT * FROM secret_word LIMIT 1");
-  $secret_word_result = $secret_word_result->fetch(PDO:: FETCH_ASSOC);
-  $secret_word = $secret_word_result->secret_word;
+  
+  $secret_word_query = $conn->prepare("SELECT * FROM secret_word LIMIT 1");
+  $secret_word_query->execute();
+  $$secret_word_result = $secret_word_query->fetch();
+  $secret_word = $secret_word_result['secret_word'];
 
-  $profile_result=$conn->query("SELECT * FROM interns_data where username = 'kaysiz'");
-  $profile_result = $profile_result->fetch(PDO:: FETCH_ASSOC);
-  $name = $profile_result->name;
-  $profile_pic = $profile_result->image_filename;
+  $profile_query=$conn->prepare("SELECT * FROM interns_data where username = 'kaysiz'");
+  $profile_query->execute();
+  $profile_result = $profile_query->fetch();
+  $name = $profile_result['name'];
+  $profile_pic = $profile_result['image_filename'];
 
-  var_dump($secret_word);
-  die();
 ?>
 <style>
     html, body {
