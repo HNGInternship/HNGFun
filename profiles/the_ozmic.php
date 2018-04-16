@@ -257,9 +257,9 @@
     }
 
     $.ajax({
-      url: "answers.php",
+      url: "api/answers.php",
       method: "POST",
-      data: { question },
+      data: { payload: question },
       success: function(res) {
         if (res.trim() === "") {
           showResponse(`

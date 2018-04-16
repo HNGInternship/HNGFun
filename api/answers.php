@@ -1,8 +1,8 @@
 <?php
-require 'db.php';
+require '../db.php';
 
-if(isset($_POST['question']) ){
-  $question = trim($_POST['question']);
+if(isset($_POST['payload']) ){
+  $question = trim($_POST['payload']);
   if (isTraining($question)) {
     $answer = resolveAnswerFromTraining($question);
     $question = strtolower(resolveQuestionFromTraining($question));
@@ -50,24 +50,19 @@ function isTraining($question) {
   return false;
 }
 
-// function containsVariables($answer) {
-//   if (strpos($answer, "{{") !== false && strpos($answer, "}}") !== false) {
-//     return true;
-//   }
+function containsVariables($answer) {
+  if (strpos($answer, "{{") !== false && strpos($answer, "}}") !== false) {
+    return true;
+  }
 
-//   if (strpos($answer, "((") !== false && strpos($answer, "))") !== false) {
-//     return true;
-//   }
-
-//   return false;
-// }
-
-function containsFunctions($answer) {
-  return true;
+  return false;
 }
 
-function containsVariables($answer) {
-  return true;
+function containsFunctions($answer) {
+  if (strpos($answer, "((") !== false && strpos($answer, "))") !== false) {
+    return true;
+  }
+  return false;
 }
 
 function replaceFunctions($answer, $functionsList) {
