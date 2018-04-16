@@ -1,11 +1,4 @@
-<?php 
-		require 'db.php';
-		$result = $conn->query("Select * from secret_word LIMIT 1");
-		$result = $result->fetch(PDO::FETCH_OBJ);
-		$secret_word = $result->secret_word;
-		$result2 = $conn->query("Select * from interns_data where username = 'jurshsmith'");
-		$user = $result2->fetch(PDO::FETCH_OBJ);
-	?>
+
 <html>
 <head>
 	<meta charset="utf-8" />
@@ -73,7 +66,7 @@ src = "http://res.cloudinary.com/jurshsmith/image/upload/v1523643164/IMG_2017022
 <script type="text/javascript"> $('#socials').hide();</script>
 
 </center>
-<img height = "100px" align = "right" style = "position: relative; " src="http://res.cloudinary.com/jurshsmith/image/upload/v1523649287/sign.png"   alt = "jurshsmith">
+<img height = "100px" align = "right" style = "position: relative;top: 40px " src="http://res.cloudinary.com/jurshsmith/image/upload/v1523649287/sign.png"   alt = "jurshsmith">
 
 </body>
 <script type="text/javascript">
