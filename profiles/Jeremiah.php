@@ -1,30 +1,19 @@
 <?php
-require_once '../db.php';
-	try {
-		//Your username here
-        $sql2 = "SELECT * FROM interns_data WHERE username = 'Jeremiah'";
-        $q2 = $conn->query($sql2);
-        $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $data2 = $q2->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-	
-	$name = $data2['name'];
-	$username = $data2['username'];
-	$image = $data2['image_filename'];
+	// $sql = "SELECT * FROM secret_word";
+	// $result = mysqli_query($conn, $sql);
+   	$result = $conn->query("Select * from secret_word LIMIT 1");
 
-    try {
-        $sql = 'SELECT * FROM secret_word';
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-	// this is for the secret key on tHNG server
-    $secret_word = $data['secret_word'];
-    ?>
+	// $secret_word = mysqli_fetch_assoc($result);
+	$result = $result->fetch(PDO::FETCH_OBJ);
+	$secret_word = $result->secret_word;
+
+	// $sql2 = "SELECT * FROM interns_data WHERE username = 'hanyi'";
+	// $result2 = mysqli_query($conn, $sql2);
+	// $intern_data = mysqli_fetch_assoc($result2);
+	$result2 = $conn->query("Select * from interns_data where username = 'Jeremiah'");
+	$intern = $result2->fetch(PDO::FETCH_OBJ);
+?>
+
 <!DOCTYPE html>
 <html>
 <head>	
@@ -72,11 +61,11 @@ require_once '../db.php';
 </head>
 <body>
 	<section class="content">
-		<img class="circle_img" src="<?php echo $image;?>" atl="Jeremiah Photo" style="border-radius:50%;
+		<img class="circle_img" src="https://res.cloudinary.com/jeremiahriz/image/upload/v1523631644/Hello-img/jeremiah.jpg" atl="Jeremiah Photo" style="border-radius:50%;
 		border:6px solid black;width:170px">				
 		
 		<h1>HELLO THERE,</h1>
-		<p class="about">My name is <?php echo $name ?>, a tech guy from Delta, NG.<br>
+		<p class="about">My name is Jeremiah Righteous, a tech guy from Delta, NG.<br>
 		I'm a web developer and creative UI/UX designer.</p>
 		<div class="link">
 				<p style="font-style: bold; color: blue;">Follow me:</p>
