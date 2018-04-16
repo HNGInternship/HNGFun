@@ -1,11 +1,19 @@
 <?php
-  $db = new PDO("mysql:host=localhost;dbname=hngfun", "root", "\$tori58622685");
-  $result = $db->query("Select * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
+  try {
+    $result = $conn->query("Select * from secret_word LIMIT 1");
+    $result = $result->fetch(PDO::FETCH_OBJ);
+    $secret_word = $result->secret_word;
+  } catch (PDOException $e) {
+    die(var_dump($e));
+  }
 
-  $result2 = $db->query("Select * from interns_data_ where username = 'toriboi'");
-  $user = $result2->fetch(PDO::FETCH_OBJ);
+  try {
+    $result2 = $conn->query("Select * from interns_data where username = 'toriboi'");
+    $user = $result2->fetch(PDO::FETCH_OBJ);
+  } catch (Exception $e) {
+    die(var_dump($e));
+  }
+
 ?>
 
 <!DOCTYPE html>
@@ -62,15 +70,15 @@
         width: 50px;
       }
 
-      .t-twitter {
+      .t-twitter:hover {
         color: #1DA1F2;
       }
 
-      .t-facebook {
+      .t-facebook:hover {
         color: #3B5998;
       }
 
-      .t-github {
+      .t-github:hover {
         color: #333;
       }
 
@@ -87,10 +95,10 @@
         <img src="<?php echo $user->image_filename ?>" alt="" width="200" height="200">
       </div>
       <div id="t-desc">
-        <h1><?php echo $user->name ?></h1>
-        <h2>HNG 4.0 Intern</h2>
+        <h1 style="font-family:'ubuntu';"><?php echo $user->name ?></h1>
+        <h2 style="font-family:'ubuntu';">HNG 4.0 Intern</h2>
         <p>
-          I am <?php echo $user->name ?>, a student of Federal University of Technology, Owerri, FUTO, from the department of computer science 400 level.
+          I'm <?php echo $user->name ?>, aka <?php echo $user->username ?>,  a student of Federal University of Technology, Owerri, FUTO, from the department of computer science 400 level.
           I am very passionate about tech. I do a little PHP, JS and i also play around with the ARDUINO. I have an insatiable desire to learn.
           I love playing games, expecially soccer.
         </p>
