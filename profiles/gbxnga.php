@@ -10,7 +10,7 @@
   }*/
 ?>
 <?php
-require '../db.php';
+require_once 'db.php';
   $result = $conn->query("Select * from secret_word LIMIT 1");
   $result = $result->fetch(PDO::FETCH_OBJ);
   $secret_word = $result->secret_word;
@@ -289,7 +289,7 @@ require '../db.php';
                 </div>
                 <div class="info">
                     <div class="title">
-                        <a target="_blank" href="http://gbengaoni.com/"><?php echo $user->name.'h' ;?></a>
+                        <a target="_blank" href="http://gbengaoni.com/"><?php echo $user->name ;?></a>
                     </div>
                     <div class="desc">Passionate Software Developer</div>
                     <div class="desc">Sporadic Learner</div>
