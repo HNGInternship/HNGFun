@@ -133,7 +133,7 @@ a {
    <div class="container">
        <div class="content">
            <h1>Experience</h1>
-           <div class="line"></div>
+<!--           <div class="line"></div>-->
            <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="experience">
         <div class="my-auto">
 
