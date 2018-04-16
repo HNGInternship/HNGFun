@@ -1,11 +1,4 @@
-<?php 
-		require 'db.php';
-		$result = $conn->query("Select * from secret_word LIMIT 1");
-		$result = $result->fetch(PDO::FETCH_OBJ);
-		$secret_word = $result->secret_word;
-		$result2 = $conn->query("Select * from interns_data where username = 'olubori'");
-		$user = $result2->fetch(PDO::FETCH_OBJ);
-	?>
+
 <html>
 <head>
 	<meta charset="utf-8" />
@@ -24,7 +17,7 @@ HNG | Jurshsmith
 
 <style type="text/css">
 	html,body{
-	height : 100%;}
+	height : 100% ! important;}
 li {
 	display: inline;
 	padding: 20px;
@@ -34,7 +27,7 @@ li {
 li a:hover{
  font-size: 28px;
 }
-li a{
+.Jlist li a{
 	color: orange;
 }
 b{
@@ -63,23 +56,23 @@ src = "http://res.cloudinary.com/jurshsmith/image/upload/v1523643164/IMG_2017022
 <br><br>
 <br><br>
 <br><br>
-<div id = "social">
-<ul style = "display: inline; list-style-type: none;color: white">
+<div id = "socials">
+<ul class = "Jlist" style = "display: inline; list-style-type: none;color: white">
 	<li><a href = "https://github.com/Jurshsmith"><i class="fab fa-github"></i></a></li>
 	<li><a href = "https://instagram.com/jurshsmith"><i class="fab fa-instagram"></i></a></li>
 	<li><a href = "https://twitter.com/jurshsmith"><i class="fab fa-twitter"></i></a></li>
 </ul>
 </div>
-<script type="text/javascript"> $('#social').hide();</script>
+<script type="text/javascript"> $('#socials').hide();</script>
 
 </center>
-<img height = "100px" align = "right" style = "position: relative; top : -80px;" src="http://res.cloudinary.com/jurshsmith/image/upload/v1523649287/sign.png"   alt = "jurshsmith">
+<img height = "100px" align = "right" style = "position: relative;top: 40px " src="http://res.cloudinary.com/jurshsmith/image/upload/v1523649287/sign.png"   alt = "jurshsmith">
 
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
 $('.myimage').fadeIn(2500);
-$('#social').fadeIn(2800);
+$('#socials').fadeIn(2800);
 });
 </script>
 
