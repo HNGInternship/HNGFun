@@ -63,11 +63,15 @@
 
 
 <?php
+    try {
+                
    $getData = 'SELECT * FROM interns_data WHERE username="codetillamgone"';
    $query1 = $conn->query($getData); 
    $query1->setFetchMode(PDO::FETCH_ASSOC);
    $result = $query1->fetch();    
-
+} catch (PDOEXception $e) {
+        throw $e; 
+        }
    $name = $result["name"];
    $user = $result["username"];
    $image = $result["image_filename"];
