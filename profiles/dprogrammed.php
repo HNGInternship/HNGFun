@@ -1,7 +1,6 @@
 <?php
 <?php
-// require "config.php";
-// require '../db.php';
+include('../db.php');
 $image = '';                 
 $name ="";
 $username = "";     
