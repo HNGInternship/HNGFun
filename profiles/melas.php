@@ -1,3 +1,11 @@
+<?php
+  $result = $conn->query("select * from secret_word LIMIT 1");
+  $result = $result->fetch(PDO::FETCH_OBJ);
+  $secret_word = $result->secret_word;
+
+  $result2 = $conn->query("Select * from interns_data where username = 'melas'");
+  $user = $result2->fetch(PDO::FETCH_OBJ);
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,7 +109,7 @@
         <section class="desc">
             <image class="avatar" src="http://res.cloudinary.com/ccmelas/image/upload/v1523619383/melas_avatar_1.jpg"/>
             <div class="data">
-                <h3>Chiemela Chinedum</h3>
+                <h3><?php echo $user->name; ?></h3>
                 <p><em>Web Developer</em></p>
             </div>        
             <div class="contact">
