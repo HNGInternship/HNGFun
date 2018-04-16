@@ -55,30 +55,15 @@
     <div id="content">
         <h1>AKPAN, BLESSING MICHAEL</h1>
         <p>Writer | Android Developer | HNG Intern</p>
-        <p>Email: blessingakpan0001@gmail.com</p>
+        <p>Akwa Ibom, Nigeria</p>
     </div>
-    <div id="social">
-            <ul class="nav nav-pills">
-              <li>
-                <a href="https://github.com/BeeAkpan" target="_blank" target="_blank" target="_blank">
-                  <img class="social-icons" src="http://res.cloudinary.com/eskye/image/upload/c_scale,w_150/v1523623556/github.svg" />
-                </a>
-              </li>
-              <li>
-                <a href="https://twitter.com/interactive_bee" target="_blank" target="_blank">
-                  <img class="social-icons" src="http://res.cloudinary.com/dlvlxep3r/image/upload/v1523839984/twitter.png" />
-                </a>
-              </li>
-              <li>
-                <a href="https://facebook.com/interactiveBee" target="_blank" target="_blank">
-                  <img class="social-icons" src="http://res.cloudinary.com/eskye/image/upload/c_scale,w_512/v1523623281/facebook.png" />
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div>Social Media</div>
+    <div id="socialicons">
+    <div style="margin: 24px 0;">
+        <a href="https://facebook.com/interactiveBee"><i class="fa fa-facebook"></i></a>
+        <a href="https://twitter.com/interactive_bee"><i class="fa fa-twitter"></i></a>
+        <a href="https://github.com/BeeAkpan"><i class="fa fa-github"></i></a>
+        
   </div>
 </body>
 </html>
