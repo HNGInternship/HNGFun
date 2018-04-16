@@ -1,5 +1,5 @@
 <?php 
-/*  try {
+ {
       $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'Cy_Uket\'';
       $q = $conn->query($sql);
       $q->setFetchMode(PDO::FETCH_ASSOC);
@@ -7,7 +7,7 @@
       $secret_word = $data['secret_word'];
   } catch (PDOException $e) {
       throw $e;
-  }*/
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +67,7 @@ h1,h2,h3,h4,h5,h6{
   font-family:'Open Sans','Helvetica Neue',Arial,sans-serif}
 
 .bg-primary{
-  background-color:#f05f40!important}
+  background-color:#481E1E!important}
 
 .bg-dark{
   background-color:#212529!important}
@@ -170,7 +170,7 @@ img::-moz-selection{
 
   header.masthead{
     padding-top:10rem;padding-bottom:calc(10rem - 56px);
-    background-image:url(http://res.cloudinary.com/tech-18/image/upload/v1523645499/header_p9zqkc.jpg);
+    background-image:url(https://res.cloudinary.com/cyuket/image/upload/v1523892813/cyi.jpg);
     background-position:center center;
     -webkit-background-size:cover;
     -moz-background-size:cover;
@@ -458,7 +458,7 @@ footer.footer .social-link:hover{
     </section>
 
 
-    <section id="contact" style="background-color: rgba(184, 195, 195, 0.5)">
+    <section id="contact" style="background-color: rgba(73, 117, 117, 0.5))">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
@@ -482,7 +482,7 @@ footer.footer .social-link:hover{
       <div class="container">
                     <ul class="list-inline text-center">
                <li class="list-inline-item">
-                  <a id="twitter" href="https://twitter.com/EgboThankgod"" target="_blank">
+                  <a id="twitter" href="https://twitter.com/cy_uket" target="_blank">
                      <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
@@ -490,7 +490,7 @@ footer.footer .social-link:hover{
                   </a>
                </li>
                <li class="list-inline-item">
-                  <a id="facebook" href="https://web.facebook.com/thankgod.egbo" target="_blank">
+                  <a id="facebook" href="https://web.facebook.com/syziddy.cy" target="_blank">
                      <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
@@ -498,7 +498,7 @@ footer.footer .social-link:hover{
                   </a>
                </li>
                <li class="list-inline-item">
-                  <a id="github" href="https://github.com/ThaTruth24" target="_blank">
+                  <a id="github" href="https://github.com/syziddy65" target="_blank">
                      <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-github fa-stack-1x fa-inverse"></i>
