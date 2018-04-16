@@ -169,7 +169,7 @@ height : 300px ;
 <div class="profile-description" >
 
 <p class="name">
-
+    Ibitoye Oluwafemi Zion
 </p>
 
 <p class="designer">
