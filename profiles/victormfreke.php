@@ -165,7 +165,7 @@ try {
                                     Victor, a student at Heritage Polytechnic, Eket currently studying Computer Engineering.
                                     <br /><br />
                                     He has intermediate experience in Computer Langusges like HTML, CSS, Python and PHP.<br /><br />
-                                    He is  also a Drummer. 
+                                    He is  also a Drummer 
                                 </p>
                         </div>
                         <div class="small-0 large-5">
