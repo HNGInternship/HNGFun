@@ -18,14 +18,14 @@
         <entry file="file://$PROJECT_DIR$/profiles/shine.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="54" column="24" lean-forward="true" selection-start-line="54" selection-start-column="24" selection-end-line="54" selection-end-column="24" />
+              <caret line="54" column="30" lean-forward="true" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
               <folding>
                 <element signature="n#style#0;n#h1#0;n#div#0;n#div#0;n#div#0;n#div#1;n#header#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <marker date="1523840827062" expanded="true" signature="2154:2204" ph="SELECT * FRO... interns_data" />
-                <marker date="1523840827062" expanded="true" signature="2453:2478" ph="SELECT * FRO... secret_word" />
+                <marker date="1523841312438" expanded="true" signature="2160:2210" ph="SELECT * FRO... interns_data" />
+                <marker date="1523841312438" expanded="true" signature="2459:2484" ph="SELECT * FRO... secret_word" />
               </folding>
             </state>
           </provider>
@@ -268,12 +268,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1523821836835</updated>
-      <workItem from="1523821840696" duration="15613000" />
+      <workItem from="1523821840696" duration="16097000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15613000" />
+    <option name="totallyTimeSpent" value="16097000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="50" y="21" width="1316" height="747" extended-state="4" />
@@ -427,14 +427,14 @@
     <entry file="file://$PROJECT_DIR$/profiles/shine.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="54" column="24" lean-forward="true" selection-start-line="54" selection-start-column="24" selection-end-line="54" selection-end-column="24" />
+          <caret line="54" column="30" lean-forward="true" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
           <folding>
             <element signature="n#style#0;n#h1#0;n#div#0;n#div#0;n#div#0;n#div#1;n#header#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1523840827062" expanded="true" signature="2154:2204" ph="SELECT * FRO... interns_data" />
-            <marker date="1523840827062" expanded="true" signature="2453:2478" ph="SELECT * FRO... secret_word" />
+            <marker date="1523841312438" expanded="true" signature="2160:2210" ph="SELECT * FRO... interns_data" />
+            <marker date="1523841312438" expanded="true" signature="2459:2484" ph="SELECT * FRO... secret_word" />
           </folding>
         </state>
       </provider>
