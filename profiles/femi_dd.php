@@ -192,7 +192,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
          <div class="inner">
             <h2>femiBot 🤖</h2>
             <?php if(empty($_SESSION['chatSession'])) { ?>
-               <form method="GET" action="femi_dd.php">
+               <form>
                   <input class="form-control" type="text" name="user" placeholder="Enter your name here to begin chat" />
                   <button class="btn btn-primary pull-right" name="action" value="startchat" style="float:right; margin-top:10px" type="submit">Start Chat</button>
                </form>
@@ -204,7 +204,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
                   <input style="text-align:left" class="form-control" type="text" name="response" value="🤖 <?php echo $chat['response']; ?>" readonly />
                   <p class="pull-right"><i><?php echo $chat['time']; ?></i></p>
                <?php } ?>
-               <form method="GET" action="femi_dd.php">
+               <form>
                   <input class="form-control" type="text" placeholder="Message" name="newrequest" />
                   &nbsp;
                   <button class="btn btn-success pull-right" name="action" value="newrequest" style="float:right; margin-top:10px" type="submit">Send 💬</button>
