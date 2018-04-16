@@ -1,8 +1,8 @@
 <?php
- require '../db.php';
+require '../db.php';
 $username = "adamucodes";
- 
-$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
+
+$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data_` WHERE `username`='$username'";
 $sql0 = "SELECT * FROM `secret_word` LIMIT 1";
 $stmt0 = $conn->prepare($sql0);
 $stmt0->execute();
@@ -12,7 +12,6 @@ $stmt = $conn->prepare($sql);
 $stmt->execute();
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,10 +65,6 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
       margin: 0;
       text-shadow: 2px 4px 8px #000;
     }
-    .profile_details h4 {
-      color: #fff;
-      font-weight: bold;
-    }
     .profile_details p {
       font-size: 25px;
       color: #fff;
@@ -94,11 +89,10 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
       <div class="header_overlay">
         <center>
           <div class="profile_image">
-            <img src="<?php echo $result['image_filename'] ?>">
+            <img src="<?php echo $result["image_filename"] ?>">
           </div>
           <div class="profile_details">
             <h2><?php echo $result["name"] ?></h2>
-            <h4>Username: @<?php echo $result["username"] ?> </h4>
             <p>"Freelance Web Applications Developer with huge passion for creating Mobile and Web Applications"</p>
           </div>
           <div class="profile_icons">

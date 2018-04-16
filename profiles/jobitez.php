@@ -53,7 +53,7 @@
       <div class="my-3">
         <p class="text-center h2"><b>Welcome, Everyone!</b></p>
         <p class="text-center h4">My name is OKORIE CHIJIOKE JOB</p>    
-        <p class="text-center h4">My username is <b><i>Jobitez</b></p>
+        <p class="text-center h4">My username is <b><i>jobitez</b></p>
         <p class="text-center">below is my profile picture</p>
         <div class="d-flex justify-content-center">
           <img src="https://res.cloudinary.com/hng-intenship/image/upload/v1523716114/my_airtel_no_20180329_200329.jpg" class="img-thumbnail img-fluid rounded-circle w-25 h-25" alt="jobitez">

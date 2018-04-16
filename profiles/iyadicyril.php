@@ -1,15 +1,32 @@
-<?php $secret_word = "sample_secret_word" ?>
+<?php 
+
+    try {
+
+        $q = 'SELECT * FROM secret_word';
+
+        $sql = $conn->query($q);
+
+        $sql->setFetchMode(PDO::FETCH_ASSOC);
+
+        $data = $sql->fetch();
+
+        $secret_word = $data["secret_word"];
+
+    } catch (PDOException $err) {
+
+        throw $err;
+
+    }?>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Iyadi Cyril</title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<link href='http://fonts.googleapis.com/css?family=Englebert|Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link href="http://fonts.googleapis.com/css?family=Englebert|Open+Sans:400,600,700" rel="stylesheet" type="text/css">
 
 <!--[if IE 6]>
 <link href="default_ie6.css" rel="stylesheet" type="text/css" />
@@ -334,8 +351,6 @@ hr
 
 
 </style>
-
-
 <div id="header" class="container">
 	<div id="logo">
 		<h1><a href="#">@IyadiCyril</a></h1>
@@ -348,6 +363,5 @@ hr
 					<p style="margin-top: 0px;margin-left: 20px;border-right-width: 20px;margin-right: 20px;">The only edge i have is my ever in-depth desire to learn.</p>				
 	</div>
 </div>
-
 </body>
 </html>
