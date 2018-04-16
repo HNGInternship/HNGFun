@@ -151,15 +151,29 @@ a{
 
 <body>
 <?php
-    require_once('./config.php');
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-    $result = mysqli_query($conn, "select * from secret_word");
-    $secret_word = mysqli_fetch_assoc($result)['secret_word'];
-    $result = mysqli_query($conn, "select * from interns_data where username = 'ogundiran12'");
-    $me = mysqli_fetch_assoc($result);
+
+//include "../db.php";
+global $conn;
+$image_filename = '';
+$name = '';
+$username = '';
+$sql = "SELECT * FROM interns_data where username = 'ogundiran12'";
+foreach ($conn->query($sql) as $row) {
+    $image_filename = $row['image_filename'];
+    $name = $row['name'];
+    $username = $row['username'];
+}
+
+global $secret_word;
+
+$sql = "SELECT secret_word from secret_word";
+foreach ($conn->query($sql) as $row) {
+    $secret_word = $row['secret_word'];
+   
+}
 ?>
 <div class="container">
-      <h1 class="title fader"><?php echo $me['name'] ?></h1>
+      <h1 class="title fader"><?php echo $name; ?></h1>
       <h4 class="name fader">Software Developer</h4>
 
       <div class="time-container">

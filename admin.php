@@ -10,7 +10,7 @@ $keyError="";
 $filenameError = "";
 
 //$imageSuccess = false;
-//$success = false;
+$success = false;
 $key = "1n73rn@Hng";
 
 if(isset($_POST['submit']) ){
@@ -44,7 +44,7 @@ if(isset($_POST['submit']) ){
         if($_POST['username'] == ""){
             $usernameError = "<span class='invalid'>Please enter a valid username</span>";
         }else {
-            $sql = 'SELECT * FROM interns_data WHERE username = "'. $_POST['username'] .'";';
+            $sql = 'SELECT * FROM interns_data WHERE username = "'. $_POST['username'] .'"';
             $q = $conn->query($sql);
             $q->setFetchMode(PDO::FETCH_ASSOC);
             if(!empty($q->fetchAll())) {
@@ -143,7 +143,7 @@ if(isset($_POST['submit']) ){
     }?>
 
     <?php if($success) {
-        echo "<div class='alert alert-success'>Successful! Click <a href='profiles/". $username . ".php'>here</a> to view your profile</div>";
+        echo "<div class='alert alert-success'>Successful! Click <a href='profile.php?id=$username'>here</a> to view your profile</div>";
     }?>
 
     <form action="admin.php" method="post" enctype="multipart/form-data">

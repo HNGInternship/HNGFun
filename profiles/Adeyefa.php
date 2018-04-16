@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html>
+<?php
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+
+   $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+?>
 <head>
-	<title> Adeyefa Oluwatoba</title>
+	<title>  <?php echo $user->name ?></title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -44,7 +52,7 @@
 	</p>
 	
 	<p id="p1">
-		I am ADEYEFA OLUWA TOBA
+		I am  <?php echo $user->name ?>
 	</p>
 	<p id="info">
 		A Web developer, blogger and Software engineer

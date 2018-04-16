@@ -59,9 +59,9 @@ h3{font-size: 25px; text-align: center;;}
 
 				</div>
 	</div>
-<div class="pull-right"> <img src="../images/epo.png" height="399px"/></div>
+<div class="pull-right"> <img src="http://res.cloudinary.com/epospiky/image/upload/v1523739075/epo.png" height="400px"/></div>
 <div class="clear"> </div>
-	<div class="about">
+	<div id = "about" class="about">
 		<div class="about-info">
 				<h3>ABOUT ME</h3>
 				<h4>Who I am and why I design</h4>

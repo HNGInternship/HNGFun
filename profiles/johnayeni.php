@@ -81,7 +81,11 @@
       <div class="text-center">
         <img class="img-circle img-responsive" src="http://res.cloudinary.com/johnayeni/image/upload/v1523621916/john_gttqiq.jpg" width="250" style="margin: auto">
         <h2 id="hello">Hello</h2>
+<<<<<<< HEAD
         <h3>I'm John Ayeni</h3>
+=======
+        <h3>I'm <?php echo $fullName ; ?>  (<?php echo $username ;?>)</h3>
+>>>>>>> 3be00122e02117cd3ed1b0d613be1d55efdf7264
         <h4>I am a Software Engineer from Nigeria</h4>
           <div id="social">
             <ul class="nav nav-pills">

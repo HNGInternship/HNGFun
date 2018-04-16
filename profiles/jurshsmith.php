@@ -1,3 +1,11 @@
+<?php 
+		require 'db.php';
+		$result = $conn->query("Select * from secret_word LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+		$secret_word = $result->secret_word;
+		$result2 = $conn->query("Select * from interns_data where username = 'olubori'");
+		$user = $result2->fetch(PDO::FETCH_OBJ);
+	?>
 <html>
 <head>
 	<meta charset="utf-8" />
@@ -15,6 +23,8 @@ HNG | Jurshsmith
      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
 <style type="text/css">
+	html,body{
+	height : 100%;}
 li {
 	display: inline;
 	padding: 20px;
@@ -38,6 +48,7 @@ b{
 
 <body style = "background-image : url(https://wallpapercave.com/wp/58eyKEt.jpg); background-size:cover;">
 	<br>
+	<br><br>
 	<center><h2 style = "font-family: montserrat; color: white; letter-spacing: 1px"><font style = "color: orange">HNG 4.0.0</font> Internship Profile Page</h2></center>
 	<hr style = "background-color : purple;color:  purple; width : 50%">
 	<br>
