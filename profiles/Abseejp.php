@@ -1,13 +1,18 @@
+
 <?php 
   require 'db.php';
 
   $result = $conn->query("Select * from secret_word LIMIT 1");
    $result = $result->fetch(PDO::FETCH_OBJ);
+
    $secret_word = $result->secret_word;
 
    $result2 = $conn->query("Select * from interns_data where username = 'Abseejp'");
    $profile_name = $result2->fetch(PDO::FETCH_OBJ);
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html>
@@ -50,17 +55,10 @@
 			margin-top: 20px;
 			font-size: 60px;
 		}
-		
-
 	</style>
 </head>
 
 
-<?php 
-
-include('header.php')
-
- ?>
 
 <body>
 	<div class="cover">
@@ -85,11 +83,11 @@ include('header.php')
 		
 		
 	</section>
-	<?php 
-		include('footer.php');
-
-	 ?>
+	
 <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 </body>
 </html>
+
+
+
