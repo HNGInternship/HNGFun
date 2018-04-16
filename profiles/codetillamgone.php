@@ -15,7 +15,7 @@
           padding: 20px;
            position: relative;
            top:30px;
-           left: 300px;
+           left: 50px;
            height: 600px;
            width: 550px;
            
