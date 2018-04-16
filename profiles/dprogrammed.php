@@ -1,83 +1,309 @@
+<?php
+// include 'config.php';
+// include 'db.php';
+$image = '';                 
+$name ="";
+$username = "";     
+$secret_word = "";
+$conn = mysqli_connect('localhost','root','','hngfun');
+// Check connection
+// if (mysqli_connect_errno())
+//   {
+//   echo "Failed to connect to MySQL: " . mysqli_connect_error();
+//   }
+
+
+
+$sql = "SELECT * FROM interns_data WHERE username='dprogrammed' LIMIT 1";
+// $result =mysqli_query($result);
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result)) {
+       $username = $row['username'];
+       $name = $row['name'];
+       $image = $row['image_filename'];
+    }
+} else {
+    echo "0 results";
+}
+
+
+$sql = "SELECT * FROM secret_word";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+      
+        $secret_word = $row['secret_word'];
+  
+    }
+} else {
+    echo "result not found";
+
+}
+        
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Dprogrammed</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-
-  <style type="text/css">
-  .head{
-  	background-color: #3399ff;
-  	color: white !important;
-  }
-  .navbar-brand{
-  	color: white !important;
-  }
-
+  <title>Intern-Dprogrammed</title>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<style type="text/css">
   body{
-  	background-color: #ff8c1a;	
-  }
-	.bar{
-		color: white;
-	}
-  	.move{
-  		margin-left: 36em;
+    background-color:white;
+    
+}
 
-  	}
-  	img{
-  		position: absolute;
-  		top: 7em;
-  		margin-left: 12em;
-  		width: 30em;
-  		height: 37em;
-  		background-color: white;
-  	}
+.pic{
+    width: 40% !important;
+    height: 30px;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.nav {
+    background-color:ghostwhite;
+    color: cornflowerblue;
 
-  	.about{
-  		display: block;
-  		position: absolute;
-  		top: 7em;
-  		left: 20em;
-  		width: 30em;
-  		height: 37.2em;
-  		margin-left: 27em;
-  		background-color: white;
-  	}
- 	.text-center{
- 		margin-top: 10em;
- 	}
-  	.font{
-  		margin-top: 7em;
-  	}
-<<<<<<< HEAD
-	.container-fluid{
-=======
-	footer{
->>>>>>> af151caefb9849951deec16724af1f14aecb4fe7
-		margin-top: 40em !important;
-	  }
-  	</style>
+}
+img{
+  width:15em;
+  height: 20em;
+  margin-right: 5em;
+  margin-bottom: 2em;
+  margin-top: 2em;
+    margin-left: 2em;
+    border-radius: 50%;
+}
+
+.col-md-4{
+  margin-top: 1em;
+  border:0.2em;
+  border-color:cornflowerblue;
+  border-style: solid;
+    background-color: darkcyan;
+    color: white;
+    height: 39em;
+>>>>>>> 3470794498b643e4c5b5d0033bb08cfd079fa4b8
+}
+label{
+   word-wrap: break-word;
+   font-size: 12px;
+}
+
+.btn-file input[type=file]{
+  /*display: block;*/
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 5px;
+    font-size: 100px;
+    text-align: right;
+    /*filter: alpha(opacity=0);*/
+    opacity: 0;
+    /*outline: none;   */
+    cursor:pointer;
+/*    display: block;
+*/}
+
+.btn-primary{
+    width: 15%;
+    height: 5%;
+    font-size: 10px; 
+
+}
+
+p{
+   font-family:Verdana;
+      
+}
+.btn-success{
+    margin-top: 0.5em;
+}
+.col-md-4{
+  margin-top: 10em;
+}
+.first{
+  margin-left: 10em;
+
+}
+#img{
+  position: relative;
+  left: 4em;
+}
+h3{
+  font-family: Tahoma;
+  margin:0;
+}
+.about{
+  height: 20em !important;
+  padding-top: 3em;
+}
+</style>
 </head>
-<body>
-<div class="container">
-	<div class="text ">
-		<img class="img-rounded" src="http://res.cloudinary.com/dprogrammed/image/upload/v1523620736/Profile.jpg">
-	</div>
-	<div class="about">
-		<div class="text-center">
-			<h4 class="name"><strong>Ogedengbe Samuel</strong></h4>
-			<h4 class="nick">@dprogrammed</h4>
-			<span>Software Developer</span>
-			<ul class="font">
-              	<a href="https://www.facebook.com/ogedengbe.samuel.58"><li class="fa fa-facebook-square" style="font-size: 50px;"></li></a>
-             
-              	<a href="https://github.com/dprogrammed/"><li class="fa fa-github" style="font-size: 50px;"></li></a>
-            </ul>
-		</div>
+<body class="container">
+  <div class="row  align-items-center">
+      <div class="col-md-4 first">
+               
+        <img id="img" name="dprogrammed" class="img-rounded" src=<?php echo $image ?>>
+                     
+                <div class="name text-center">
+          <label class="text-center" >Name: </label>
+          <h3 id="namep" class="text-center" name="Ogedengbe Samuel"><?php echo $name?></h3>
+          
+        </div>
+        <div class="profession text-center">
+          <label  class="text-center">username: </label><br/>
+          <h3 id="prof"  class="text-center"><?php echo $username?></h3>
+        </div>
+                </div>
+
+        <div class="col-md-4 about">
+          <h3>About</h3>
+                    <p id="about" style="word-wrap: break-word ">My name is <strong>Ogedengbe Samuel Segun</strong> and I'm an <strong>computer scientist</strong>, with vast experience in programming, soft development, Online Advertising. designer software developing.Graphics Designer Web Developer Software Developer Career Coach</p>
+            </div>
+</body>
+</html>
+        
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Intern-Dprogrammed</title>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<style type="text/css">
+  body{
+    background-color:white;
+    
+}
+
+.pic{
+    width: 40% !important;
+    height: 30px;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.nav {
+    background-color:ghostwhite;
+    color: cornflowerblue;
+
+}
+img{
+  width:15em;
+  height: 20em;
+  margin-right: 5em;
+  margin-bottom: 2em;
+  margin-top: 2em;
+    margin-left: 2em;
+    border-radius: 50%;
+}
+
+.col-md-4{
+  margin-top: 1em;
+  border:0.2em;
+  border-color:cornflowerblue;
+  border-style: solid;
+    background-color: darkcyan;
+    color: white;
+    height: 39em;
+}
+label{
+   word-wrap: break-word;
+   font-size: 12px;
+}
+
+.btn-file input[type=file]{
+  /*display: block;*/
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 5px;
+    font-size: 100px;
+    text-align: right;
+    /*filter: alpha(opacity=0);*/
+    opacity: 0;
+    /*outline: none;   */
+    cursor:pointer;
+/*    display: block;
+*/}
+
+.btn-primary{
+    width: 15%;
+    height: 5%;
+    font-size: 10px; 
+
+}
+
+p{
+   font-family:Verdana;
+      
+}
+.btn-success{
+    margin-top: 0.5em;
+}
+.col-md-4{
+  margin-top: 10em;
+}
+.first{
+  margin-left: 10em;
+
+}
+#img{
+  position: relative;
+  left: 4em;
+}
+h3{
+  font-family: Tahoma;
+  margin:0;
+}
+.about{
+  height: 20em !important;
+  padding-top: 3em;
+}
+</style>
+</head>
+<body class="container">
+  <div class="row  align-items-center">
+      <div class="col-md-4 first">
+               
+        <img id="img" name="dprogrammed" class="img-rounded" src=<?php echo $image ?>>
+                     
+                <div class="name text-center">
+          <label class="text-center" >Name: </label>
+          <h3 id="namep" class="text-center" name="Ogedengbe Samuel"><?php echo $name?></h3>
+          
+        </div>
+        <div class="profession text-center">
+          <label  class="text-center">username: </label><br/>
+          <h3 id="prof"  class="text-center"><?php echo $username?></h3>
+        </div>
+                </div>
+
+        <div class="col-md-4 about">
+          <h3>About</h3>
+                    <p id="about" style="word-wrap: break-word ">My name is <strong>Ogedengbe Samuel Segun</strong> and I'm an <strong>computer scientist</strong>, with vast experience in programming, soft development, Online Advertising. designer software developing.Graphics Designer Web Developer Software Developer Career Coach</p>
+            </div>
 </body>
 </html>

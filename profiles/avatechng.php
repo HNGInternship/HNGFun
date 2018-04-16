@@ -1,6 +1,8 @@
 <?php
 error_reporting(-1);
-require_once '../db.php';
+
+include realpath(__DIR__ . '/..') . "/db.php"    ;
+global $conn;
 
 try {
     $sql = "SELECT * FROM interns_data WHERE username ='avatechng'";
