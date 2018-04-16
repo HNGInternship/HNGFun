@@ -56,6 +56,7 @@
     </header>
     <div class='content'>
         <p><b>Full Name:</b><?php echo $profile_details['name']?></p>
+        <p><b>Slack Username:</b>@<?php echo $profile_details['username']?></p>
         <p><b>Occupation:</b> Student(UI, Computer Science, 400level), Intern(HNG)</p>
         <p><b>Languages:</b> Python, HTML/CSS/JS/PHP</p>
         <p><b>Lover of:</b> Anime, Novels, Good Food</p>
