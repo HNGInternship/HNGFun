@@ -242,7 +242,7 @@ section h2:first-child{
     height: 15rem;
     overflow-y: scroll;
     padding: 1rem;
-    border-radius: .5rem;
+    border-radius: 2rem;
     font-family: Lato;
 }
 
@@ -491,25 +491,16 @@ foreach ($conn->query($sql) as $row) {
 
 <script>
 
-window.onload = botInfo;
 
-function botInfo(){
-    print("Welcome to Byte9ja Galaxy. \n To check currency: currency: from/to. e.g. currency: USD/NGN")
-}
 let baseURL = "http://hngfun.test/profiles/bytenaija.php/";
 let botResponse = document.querySelector("#botresponse");
-let trainMode = false;
 function runScript(e) {
     if (e.keyCode == 13) {
         let input = e.currentTarget;
         let dv = document.createElement("div");
             dv.innerHTML = "<span class='user'>You: </span> <span class='res'>" + input.value + "</span>";
            botResponse.appendChild(dv)
-        if(trainMode){
-            training(input.value);
-        }else{
-        evaluate(input.value);
-        }
+        evaluate(input.value)
         input.value = "";
         return false;
     }
@@ -674,7 +665,3 @@ function training(str){
 </script>
 </body>
 </html>
-<?php
-}
-
-?>

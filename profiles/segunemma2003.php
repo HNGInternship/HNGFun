@@ -1,26 +1,20 @@
-<?php  require "../db.php";
+<?php  require "db.php";
 
-$sql='select * from secret_word';
-$result=$conn->query($sql);
-while($row = $result->fetch()){
-	$secret_word=$row['secret_word'];
+try {
+	$sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = \'segunemma2003\'';
+	$q = $conn->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$data = $q->fetch();
+	$secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+	throw $e;
 }
-$user='select * from interns_data_ where username="segunemma2003"';
-$users=$conn->query($user);
-
-while($row = $users->fetch()){
-	$id=$row['intern_id'];
-	$name=$row['name'];
-	$username=$row['username'];
-	$picture=$row['image_filename'];
-}
-
 ?> 
 <!DOCTYPE html>
 
 <html>
 <head>
-	<title>Segun's profile</title>
+	<title><?php echo $data['username'];?> 'profile</title>
 </head>
 <style>
 *{
@@ -84,15 +78,14 @@ while($row = $users->fetch()){
 </style>
 <body>
 	<header>
-		<?php echo "<h1>Id: ".$id ."</h1>";?>
-		<?php echo "<h1>Name: ".$name ."</h1>";?>
-		<?php echo "<h2>Username: ".$username. "</h2>";?>
+		<?php echo "<h1>Name: ".$data['name'] ."</h1>";?>
+		<?php echo "<h2>Username: ".$data['username']. "</h2>";?>
 		<h3>aka youngpresido</h3>
 		<h4>contact me: segunemma2003@gmail.com</h4>
 		<?php echo'this is my secret code '. $secret_word;?>
 	</header>
 	<center class='img'>
-		<img src="<?php echo $picture; ?>" alt="segun" width="300px" height="300px">
+		<img src="<?php echo $data['image_filename'];; ?>" alt="segun" width="300px" height="300px">
 		<span class="im"></span>
 	</center>
 	<div class="all">

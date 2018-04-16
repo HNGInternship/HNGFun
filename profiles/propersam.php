@@ -22,6 +22,15 @@ body {
 
 </style>
 <body>
+<?php
+
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+
+   $result2 = $conn->query("Select * from interns_data_ where username = 'propersam'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+?>
 <div class="whole-page">
 <h1 align="center" style="color:#453f6f"> HotelsNG Internship - HNGFUN</h1>
     <hr/>
@@ -38,7 +47,7 @@ body {
     </section>
     <section>
     <p style="text-align:center; font-size: 16px; font-style: italic; font-weight: 650;">"...I have a dream, that one day I will get the source code of human-beings and begin to create humans of my own :D" <br>
-    - <strong> Propersam </strong> </p>
+    - <strong> propersam </strong> </p>
     </section>
 </div>
 </body>
