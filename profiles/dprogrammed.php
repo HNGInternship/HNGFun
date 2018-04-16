@@ -5,6 +5,12 @@ $name ="";
 $username = "";     
 $secret_word = "";
 
+$conn = mysqli_connect('localhost','root','','hng_fun');
+// Check connection
+// if (mysqli_connect_errno())
+//   {
+//   echo "Failed to connect to MySQL: " . mysqli_connect_error();
+//   }
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
   $result = $result->fetch(PDO::FETCH_OBJ);

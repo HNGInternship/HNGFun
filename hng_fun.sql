@@ -43,23 +43,37 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+<<<<<<< HEAD
+
+-- Table structure for table `interns_data`
+--
+
+CREATE TABLE IF NOT EXISTS `interns_data` (
+`intern_id` int(10) NOT NULL,
+=======
 -- Table structure for table `interns_data_`
 --
 
 CREATE TABLE `interns_data_` (
   `intern_id` int(10) NOT NULL,
+>>>>>>> dbc8ffb6296f148ac8379f9ff59583c32ec88d19
   `name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `image_filename` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `interns_data_`
+-- Dumping data for table `interns_data`
 --
 
+<<<<<<< HEAD
+INSERT INTO `interns_data` (`intern_id`, `name`, `username`, `image_filename`) VALUES
+(15, 'Faith Young Uhie', 'Fayoung', 'https://res.cloudinary.com/fayoung/image/upload/v1523738849/me.jpg');
+=======
 INSERT INTO `interns_data_` (`intern_id`, `name`, `username`, `image_filename`) VALUES
 (14, 'Akinduko Olugbenga', 'dev_geaks', 'http://res.cloudinary.com/devgeaks/image/upload/v1523731563/2017-03-02_08.30.03.jpg'),
 (15, 'Herbert John', 'herberts', 'http://res.cloudinary.com/dsitzw8mp/image/upload/v1523798919/face.png');
+>>>>>>> dbc8ffb6296f148ac8379f9ff59583c32ec88d19
 
 -- --------------------------------------------------------
 
@@ -84,10 +98,15 @@ INSERT INTO `secret_word` (`id`, `secret_word`) VALUES
 --
 
 --
--- Indexes for table `interns_data_`
+-- Indexes for table `interns_data`
 --
+<<<<<<< HEAD
+ALTER TABLE `interns_data`
+ ADD PRIMARY KEY (`intern_id`);
+=======
 ALTER TABLE `interns_data_`
   ADD PRIMARY KEY (`intern_id`);
+>>>>>>> dbc8ffb6296f148ac8379f9ff59583c32ec88d19
 
 --
 -- Indexes for table `secret_word`
@@ -100,10 +119,43 @@ ALTER TABLE `secret_word`
 --
 
 --
--- AUTO_INCREMENT for table `interns_data_`
+-- AUTO_INCREMENT for table `interns_data`
 --
+<<<<<<< HEAD
+ALTER TABLE `interns_data`
+MODIFY `intern_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT for table `secret_word`
+--
+ALTER TABLE `secret_word`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+
+
+
+--
+-- Dumping data for table `secret_word`
+--
+
+INSERT INTO `secret_word` (`id`, `secret_word`) VALUES
+(1, 'sample_secret_word');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `secret_word`
+--
+ALTER TABLE `secret_word`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+=======
 ALTER TABLE `interns_data_`
   MODIFY `intern_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+>>>>>>> dbc8ffb6296f148ac8379f9ff59583c32ec88d19
 
 --
 -- AUTO_INCREMENT for table `secret_word`
