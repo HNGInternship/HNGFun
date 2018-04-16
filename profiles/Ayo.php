@@ -2,30 +2,7 @@
 <?php
 
 
-include realpath(__DIR__ . '/..') . "/db.php"  ;
-global $conn;
 
-  try {
-      $sql = "SELECT * FROM interns_data WHERE username ='Ayo'";
-      $q = $conn->query($sql);
-      $q->setFetchMode(PDO::FETCH_ASSOC);
-      $data = $q->fetch();
-  } catch (PDOException $e) {
-      throw $e;
-  }
-  $name = $data['Ayomide Apantaku'];
-  $username = $data['Ayo'];
-  $image = $data['http://res.cloudinary.com/onesiphorus/image/upload/v1523631727/pexels-photo-97077.jpg'];
-
-  try {
-      $sql2 = 'SELECT * FROM secret_word';
-      $q2 = $conn->query($sql2);
-      $q2->setFetchMode(PDO::FETCH_ASSOC);
-      $data2 = $q2->fetch();
-  } catch (PDOException $e) {
-      throw $e;
-  }
-  $secret_word = $data2['secret_word'];
 
   ?>
 <html lang="en">
