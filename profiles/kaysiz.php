@@ -1,9 +1,18 @@
+<<<<<<< HEAD
+<?php
+  
+  $secret_word_query = $conn->prepare("SELECT * FROM secret_word LIMIT 1");
+  $secret_word_query->execute();
+  $secret_word_result = $secret_word_query->fetch();
+  $secret_word = $secret_word_result['secret_word'];
+=======
 <?php 
   require 'db.php';
 
   $secret_word_result=$conn->query("SELECT * FROM secret_word LIMIT 1");
   $secret_word_result = $secret_word_result->fetch(PDO:: FETCH_ASSOC);
   $secret_word = $secret_word_result->secret_word;
+>>>>>>> 0e8b994c2194c59374b39a32a5d4f48708ec3a7c
 
   $profile_result=$conn->query("SELECT * FROM interns_data where username = 'kaysiz'");
   $profile_result = $profile_result->fetch(PDO:: FETCH_ASSOC);
