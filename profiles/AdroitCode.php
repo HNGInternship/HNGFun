@@ -1,5 +1,4 @@
 <?php
-  //require '../db.php';
     try {
           $query = $conn->query("SELECT * FROM secret_word");
           $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -20178,10 +20177,10 @@
                             <div class="menu lg:hidden z-50 bg-white border-2 border-grey pl-4 pb-4 pt-4 rounded-b-lg">
                                     <ul class="list-reset block">
                                         <li class="mr-6">
-                                            <a class="no-underline text-grey-dark block items-center pt-2 pb-4 border-b border-teal" href="#about">About</a>
+                                            <a class="no-underline text-teal-dark block items-center pt-2 pb-4 border-b border-teal" href="#about">About</a>
                                         </li>
                                         <li class="mr-6">
-                                            <a class="no-underline opacity-50 md:text-grey-darker md:opacity-100 block items-center pt-2 pb-4 border-b border-transparent hover:opacity-100 md:hover:border-teal" href="#chat">Chat</a>
+                                            <a class="no-underline text-teal-darker opacity-50 md:text-teal-darker md:opacity-100 block items-center pt-2 pb-4 border-b border-transparent hover:opacity-100 md:hover:border-teal" href="#chat">Chat</a>
                                         </li>
                                     </ul>
                             </div>
@@ -20336,10 +20335,10 @@
                     <div class="">
                         <ul class="list-reset flex">
                             <li class="mr-6">
-                                <a class="no-underline text-grey-dark flex items-center" href="#about">About</a>
+                                <a class="no-underline text-teal-dark flex items-center" href="#about">About</a>
                             </li>
                             <li class="mr-6">
-                                <a class="no-underline text-white opacity-50 md:text-grey-darker md:opacity-100 flex items-center" href="#chat">Chat</a>
+                                <a class="no-underline text-teal-darker md:text-teal-darker md:opacity-100 flex items-center" href="#chat">Chat</a>
                             </li>
                         </ul>
                     </div>

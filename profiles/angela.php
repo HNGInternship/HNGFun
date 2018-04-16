@@ -172,7 +172,6 @@
     }
     .hover-bg:hover .hover-text>h4 {
       opacity: 1;
-      -webkit-backface-visibility: hidden;
       -webkit-transform: translateY(0);
       transform: translateY(0);
     }
@@ -184,7 +183,6 @@
     }
     .hover-bg:hover .hover-text>i {
       opacity: 1;
-      -webkit-backface-visibility: hidden;
       -webkit-transform: translateY(100%);
       transform: translateY(100%);
     }
