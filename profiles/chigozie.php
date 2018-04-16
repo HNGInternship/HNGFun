@@ -123,7 +123,7 @@
 			}else{
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Unfortunately, I cannot answer your question at the moment. I need to be trained further"
+					'answer' => "Unfortunately, I cannot answer your question at the moment. I need to be trained further. The training data format is <br> <b>train: question # answer</b>"
 				]);
 			}		
 			return;
@@ -136,6 +136,13 @@
 			
 			$question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string); //remove ? and . so that questions missing ? (and maybe .) can be recognized
 			$split_string = explode("#", $question_and_answer_string);
+			if(count($split_string) == 1){
+				echo json_encode([
+					'status' => 0,
+					'answer' => "Invalid training format. I cannot decipher the answer part of the question. <br> The correct training data format is <br> <b>train: question # answer</b>"
+				]);
+				return;
+			}
 			$que = trim($split_string[0]);
 			$ans = trim($split_string[1]);
 
