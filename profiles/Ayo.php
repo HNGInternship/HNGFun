@@ -13,8 +13,8 @@ global $conn;
   } catch (PDOException $e) {
       throw $e;
   }
-  $name = $data['Ayomide Apantaku'];
-  $username = $data['Ayo'];
+  $name = $data['name'];
+  $username = $data['username'];
   $image = $data['http://res.cloudinary.com/onesiphorus/image/upload/v1523631727/pexels-photo-97077.jpg'];
 
   try {

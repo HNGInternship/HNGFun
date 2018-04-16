@@ -28,7 +28,7 @@
     </style>
 </head>
 <body>
-<div class="container">
+
 	<h2 style="text-align: center;
     font-family: sans-serif;
     font-size: 20px;
@@ -46,7 +46,6 @@
 	    <a href="https://github.com/McHardex"><i class="fa fa-github"></i></a>
 	 </div>
 	</div>
-</div>
 
 </body>
 </html>
