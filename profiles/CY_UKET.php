@@ -1,6 +1,6 @@
 <?php 
  {
-      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'Cy_Uket\'';
+      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'CY_UKET\'';
       $q = $conn->query($sql);
       $q->setFetchMode(PDO::FETCH_ASSOC);
       $data = $q->fetch();
