@@ -1,5 +1,20 @@
+<<<<<<< HEAD
 -- phpMyAdmin SQL Dump
 -- version 4.7.7
+=======
+
+-- version 4.2.11
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 14, 2018 at 12:32 PM
+-- Server version: 5.6.21
+-- PHP Version: 5.6.3
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+
+-- version 4.7.2
+>>>>>>> 1a63d6d5d02d8fe9a4544287ddac79956b89b341
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
@@ -16,7 +31,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+<<<<<<< HEAD
 /*!40101 SET NAMES utf8mb4 */;
+=======
+>>>>>>> 1a63d6d5d02d8fe9a4544287ddac79956b89b341
 
 --
 -- Database: `hng_fun`

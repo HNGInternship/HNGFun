@@ -1,24 +1,12 @@
- <?php
-
-
-try {
-   $profile = 'SELECT * FROM interns_data_ WHERE username="4th_clover"';
-    $select = 'SELECT * FROM secret_word';
-
-    $query = $conn->query($select);
-    $profile_query = $conn->query($profile);
-
-    $query->setFetchMode(PDO::FETCH_ASSOC);
-    $profile_query->setFetchMode(PDO::FETCH_ASSOC);
-
-    $get = $query->fetch();
-    $user = $profile_query->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
-$secret_word = $get['secret_word'];
+<?php
+require('db.php');
+$connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+$result = mysqli_query($connect, "SELECT * FROM secret_word");
+$secret_word = mysqli_fetch_assoc($result)['secret_word'];
+$result = mysqli_query($connect, "SELECT * FROM interns_data WHERE username = '4th_clover'");
+if($result) $my_data = mysqli_fetch_assoc($result);
+else {echo "An error occored";}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +30,7 @@ $secret_word = $get['secret_word'];
               bottom:50%;
               transform:translate(-50%,-50%);
               width: 300px;
-              height:700px;
+              height:1000px;
               background: #fff;
               box-sizing: border-box;
               border-radius: 10px;
