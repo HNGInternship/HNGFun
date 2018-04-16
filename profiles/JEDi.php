@@ -1,5 +1,5 @@
 <?php
-require_once('db.php');
+
 try {
     $sql = 'SELECT * FROM secret_word LIMIT 1';
     $q = $conn->query($sql);
@@ -13,7 +13,7 @@ try {
     throw $e;
 }    
 try {
-    $sql = "SELECT * FROM interns_data_ WHERE `username` = 'JEDi' LIMIT 1";
+    $sql = "SELECT * FROM interns_data WHERE `username` = 'JEDi' LIMIT 1";
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $my_data = $q->fetch();
