@@ -1,5 +1,6 @@
+
 <?php
-<?php
+
 require 'db.php';
 $image = '';                 
 $name ="";
