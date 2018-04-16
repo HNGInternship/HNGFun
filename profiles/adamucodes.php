@@ -1,4 +1,12 @@
+<?php
+  require '../db.php';
+  $result = $conn->query("Select * from secret_word LIMIT 1");
+  $result = $result->fetch(PDO::FETCH_OBJ);
+  $secret_word = $result->secret_word;
 
+  $result2 = $conn->query("Select * from interns_data where username = 'adamucodes'");
+  $user = $result2->fetch(PDO::FETCH_OBJ);
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,7 +87,7 @@
             <img src="http://res.cloudinary.com/adamucodes/image/upload/v1523739297/mou2.jpg">
           </div>
           <div class="profile_details">
-            <h2><?php echo $result["name"] ?></h2>
+            <h2><?php echo $user->name ?></h2>
             <p>"Freelance Web Applications Developer with huge passion for creating Mobile and Web Applications"</p>
           </div>
           <div class="profile_icons">
