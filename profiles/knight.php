@@ -1,4 +1,3 @@
-<?php require('db.php'); ?>
 <!DOCTYPE html>
 <html lang="">
   <head>
@@ -85,7 +84,7 @@
    $secret_word = $result['secret_word'];
 
    try {
-       $qry2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="knight"';
+       $qry2 = 'SELECT name,username,image_filename FROM interns_data_ WHERE username="knight"';
        $q2 = $conn->query($qry2);
        $q2->setFetchMode(PDO::FETCH_ASSOC);
        $data = $q2->fetch();
