@@ -1,22 +1,22 @@
 <?php
 
-
-$query = 'SELECT * FROM interns_data WHERE username = "geekmaros" ';
-
-$result = mysqli_query($conn, $query);
-
-$profile = mysqli_fetch_array($result);
-
-#########
-
-$query2 = 'SELECT * from secret_word';
-
-$result2 = mysqli_query($conn, $query2);
-
-$res = mysqli_fetch_array($result2);
-
-$secret_word = $res["secret_word"];
-
+ try {
+        $profile = 'SELECT * FROM interns_data_ WHERE username="geekmaros"';
+        $select = 'SELECT * FROM secret_word';
+    
+        $query = $conn->query($select);
+        $profile_query = $conn->query($profile);
+    
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $profile_query->setFetchMode(PDO::FETCH_ASSOC);
+    
+        $get = $query->fetch();
+        $user = $profile_query->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $get['secret_word'];
+    ?>
 
   ?>
 <!DOCTYPE html>
@@ -58,7 +58,7 @@ $secret_word = $res["secret_word"];
 				font-weight: bold;
 				line-height: normal;
 				font-size: 48px;
-				color: #30140d;
+				color: #61f207;
 				padding-top: 120px;
 			}
 
@@ -94,12 +94,13 @@ $secret_word = $res["secret_word"];
 		
 		<section class="main">
 			<div class="container">
-				<h1 class="intro"><?php echo $profile["name"]; ?> <br> @<?php echo $profile["username"]; ?></h1>
-				<h3 class="text-center" style="color: #30140d; padding-bottom: 200px;">A Developing Developer</h3>
+				<img src="<?php echo $image_filename;  ?>">
+				<h1 class="intro"><?php echo $name ?> <br> @<?php echo $username; ?></h1>
+				<h3 class="text-center" style="color: #61f207; padding-bottom: 200px;">A Developing Developer</h3>
 			</div>
 
 		</section>
-		<img src="<?php echo $profile["image_filename"];  ?>">
+		
 	</div>
 
 </body>
