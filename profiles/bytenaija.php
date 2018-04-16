@@ -5,12 +5,12 @@ global $conn;
 
 
     
-if(isset($_GET['train']) || isset($_GET['query']) ){
+if(isset($_GET['train']) || isset($_GET['query']) || isset($_GET['list'])){
     if(isset($_GET['train'])){
         $keyword = trim($_GET["keyword"]);
         $response = trim($_GET["response"]);
         try {
-        $sql = "INSERT INTO bot(keywords, response) VALUES ('" . $keyword . "', '" . $response . "')";
+        $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $keyword . "', '" . $response . "')";
         
         $conn->exec($sql);
 
@@ -24,16 +24,36 @@ if(isset($_GET['train']) || isset($_GET['query']) ){
         echo $sql . "<br>" . $e->getMessage();
         }
     }else if(isset($_GET['query'])){
+        
         $query = $_GET['query'];
         $str = "'%".$query."%'";
-        $sql = "SELECT response FROM bot WHERE keywords LIKE " . $str . " ORDER BY keywords ASC LIMIT 1";
+        $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $str . " ORDER BY question ASC LIMIT 1";
         
       foreach ($conn->query($sql) as $row) {
-            echo $row["response"];
+            echo $row["answer"];
         } 
       
+    } else if(isset($_GET['list'])){
+        $sql = "SELECT COUNT(*) FROM bot";
+        if ($res = $conn->query($sql)) {
+             
+        $string = '';
+     
+    /* Check the number of rows that match the SELECT statement */
+        if ($res->fetchColumn() > 0) {
+            $sql = "SELECT * FROM chatbot ORDER BY question ASC";
+       
+      foreach ($conn->query($sql) as $row) {
+            $string .= $row["question"] . "<br>";
+        } 
+        echo $string;
     }
-}else
+        
+     
+    }
+}
+}
+else
 
 {
 
@@ -491,16 +511,22 @@ foreach ($conn->query($sql) as $row) {
 
 <script>
 
-
+let trainMode = false;
 let baseURL = "http://hngfun.test/profiles/bytenaija.php/";
 let botResponse = document.querySelector("#botresponse");
+window.onload = instructions;
 function runScript(e) {
     if (e.keyCode == 13) {
         let input = e.currentTarget;
         let dv = document.createElement("div");
             dv.innerHTML = "<span class='user'>You: </span> <span class='res'>" + input.value + "</span>";
            botResponse.appendChild(dv)
-        evaluate(input.value)
+           if(trainMode){
+               training(input.value)
+           }else{
+            evaluate(input.value)
+           }
+        
         input.value = "";
         return false;
     }
@@ -596,7 +622,28 @@ function evaluate(str){
         trainMode = true;
 
     } 
+    else if(str.indexOf("#list") != -1)
+    {
+       
+        let  url = window.location.href;
     
+
+        url += "?list=1";
+        
+        fetch(url)
+        .then(response=>{
+            return response.text();
+        })
+        .then(response=>{
+            if(response == ''){
+                print("I don't understand that command yet. My master is very lazy. Try agin in 200 years");
+            }else{
+                print(response);
+            }
+            
+        })
+
+    } 
     else{
         let  url = window.location.href;
         str = str.split(":");
@@ -611,9 +658,14 @@ function evaluate(str){
             return response.text();
         })
         .then(response=>{
-            print(response);
+            if(response.length <= 0){
+                print("I don't understand that command yet. My master is very lazy. Try agin in 200 years");
+            }else{
+                print(response);
+            }
+            
         })
-            print("I don't understand that command yet. My master is very lazy. Try agin in 200 years");
+            
     }
 }
 
@@ -661,6 +713,16 @@ function training(str){
         console.log(response)
         print(response);
     })
+}
+
+function instructions(){
+    $string = 'My name is byte9ja. I am a Robot. I understand the following commands<br>';
+    $string += "<li><strong>Hi</strong> or <strong>Hello</strong>: Greet me </li>";
+    $string += "<li>Type <strong>#train</strong> to enter training mode and <strong>#exit</strong> to exit training mode </li>";
+    $string += "<li><strong>currency: {base currency}/{other currency}</strong> to see exchange rate: e.g. currency: USD/NGN </li>";
+    $string += "<li><strong>What is the time in {country or city}</strong> or <strong>Time in {country or city} </strong>to check the time: e.g. Time in New York </li>";
+    $string += "<li><strong>#list </strong>to list all the questions in the database</li>";
+   print($string);
 }
 </script>
 </body>
