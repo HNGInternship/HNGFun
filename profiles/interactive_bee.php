@@ -66,7 +66,7 @@
               </li>
               <li>
                 <a href="https://twitter.com/interactive_bee" target="_blank" target="_blank">
-                  <img class="social-icons" src="http://res.cloudinary.com/eskye/image/upload/c_scale,w_100/v1523623465/twitter.svg" />
+                  <img class="social-icons" src="http://res.cloudinary.com/dlvlxep3r/image/upload/v1523839984/twitter.png" />
                 </a>
               </li>
               <li>
