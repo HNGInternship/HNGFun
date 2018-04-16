@@ -1,10 +1,18 @@
-<?php 
-  $sql = 'SELECT * FROM secret_word';
-  $q = $conn->query($sql);
-  $q->setFetchMode(PDO::FETCH_ASSOC);
-  $secret_word = $q->fetch("1");
+<?php
 
- ?>
+$username = "tonerolima";
+
+$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data_` WHERE `username`='$username'";
+$sql0 = "SELECT * FROM `secret_word` LIMIT 1";
+$stmt0 = $conn->prepare($sql0);
+$stmt0->execute();
+$data = $stmt0->fetch(PDO::FETCH_ASSOC);
+$secret_word = $data['secret_word'];
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+?>
 
 <html>
 <head>
@@ -41,6 +49,7 @@
       font-size: 65px;
       margin-right: 150px;
       letter-spacing: .5rem;
+      text-transform: capitalize;
     }
 
     #positioned {
@@ -87,11 +96,11 @@
   <div class="main">
     <div id="fixed">
       <p>
-        @Tonerolima
+        @<?php echo $result["username"]; ?>
       </p>
     </div>
     <div id="positioned">
-      <img class="img-thumbnail" src="https://res.cloudinary.com/tonerolima/image/upload/v1523880092/20170909_104232.jpg">
+      <img class="img-thumbnail" src="<?php echo $result["image_filename"] ?>">
       <ul class="list_items">
         <li>First Name:</li>
         <li>Last Name:</li>
@@ -104,8 +113,8 @@
         <li>Specializations:</li>
       </ul>
       <ul class="list_items" id="second_list">
-        <li>Anthony</li>
-        <li>Oyathelmhi</li>
+        <li><?php echo substr($result["name"], stripos($result["name"], " "))?></li>
+        <li><?php echo substr($result["name"], 0, stripos($result["name"], " ")) ?></li>
         <li>Oghenakhogie</li>
         <li>Nigerian</li>
         <li>Edo</li>
