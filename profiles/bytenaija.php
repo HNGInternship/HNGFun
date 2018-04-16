@@ -628,7 +628,7 @@ function evaluate(str){
         let  url = window.location.href;
     
 
-        url += "?list=1";
+        url += "&list=1";
         
         fetch(url)
         .then(response=>{
@@ -651,7 +651,8 @@ function evaluate(str){
 
         console.log(keyword, response)
 
-        url += "?query=" + str;
+        url += "&query=" + str;
+        console.log(url)
 
         fetch(url)
         .then(response=>{
@@ -702,7 +703,7 @@ function training(str){
 
     console.log(keyword, response)
 
-    url += "?train&keyword=" + keyword + "&response=" + response;
+    url += "&train&keyword=" + keyword + "&response=" + response;
     console.log(url)
     fetch(url)
     .then(response=>{
