@@ -68,7 +68,7 @@ INSERT INTO `interns_data` (`intern_id`, `name`, `username`, `image_filename`) V
 --
 
 CREATE TABLE `secret_word` (
-  `id` int(11) NOT NULL,
+`id` int(11) NOT NULL,
   `secret_word` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -93,7 +93,7 @@ ALTER TABLE `interns_data`
 -- Indexes for table `secret_word`
 --
 ALTER TABLE `secret_word`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables

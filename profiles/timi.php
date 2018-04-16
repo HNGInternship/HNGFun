@@ -1,15 +1,4 @@
-<?php 
-  try {
-      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE intern_id = \'timi\'';
-      $q = $conn->query($sql);
-      $q->setFetchMode(PDO::FETCH_ASSOC);
-      $data = $q->fetch();
-      $secret_word = $data['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
-?>
-<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,15 +95,15 @@
             color: #636b6f;
         }
         .fa-link {
-            padding: 10px 12px!important;
-            -o-transition: .5s!important;
-            -ms-transition: .5s !important;
-            -moz-transition: .5s !important;
-            -webkit-transition: .5s !important;
-            transition: .5s !important;
-            background-color: #00aced !important;
-            margin-left: 10px !important;
-            color: #fff !important;
+            padding: 10px 12px;
+            -o-transition: .5s;
+            -ms-transition: .5s;
+            -moz-transition: .5s;
+            -webkit-transition: .5s;
+            transition: .5s;
+            background-color: #00aced;
+            margin-left: 10px;
+            color: #fff;
         }
         .fa-link:hover {
             background-color: #322f30;
@@ -154,28 +143,28 @@
             background-color: #00aced;
         }
         .fa-github {
-            padding: 10px 12px !important;
-            -o-transition: .5s !important;
-            -ms-transition: .5s !important;
-            -moz-transition: .5s !important;
-            -webkit-transition: .5s !important;
-            transition: .5s !important;
-            background-color: #157EFB !important;
+            padding: 10px 12px;
+            -o-transition: .5s;
+            -ms-transition: .5s;
+            -moz-transition: .5s;
+            -webkit-transition: .5s;
+            transition: .5s;
+            background-color: #157EFB;
         }
         .fa-github:hover {
-            background-color:#157EFB !important;
+            background-color:#157EFB;
         }
         .fa-twitter {
-            padding: 10px 12px !important;
-            -o-transition: .5s !important;
-            -ms-transition: .5s !important;
-            -moz-transition: .5s !important;
-            -webkit-transition: .5s !important;
-            transition: .5s !important;
-            background-color: #157EFB !important;
+            padding: 10px 12px;
+            -o-transition: .5s;
+            -ms-transition: .5s;
+            -moz-transition: .5s;
+            -webkit-transition: .5s;
+            transition: .5s;
+            background-color: #157EFB;
         }
         .fa-twitter:hover {
-            background-color: #157EFB !important;
+            background-color: #157EFB;
         }
         .sendersname {
             padding: 20px;
