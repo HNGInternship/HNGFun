@@ -70,8 +70,8 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 
     <div class="w3-section">
       <p><i class="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i>Lagos, Nigeria</p>
-      <p><i class="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i>Phone: +2347067860296</p>
-      <p><i class="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"> </i>Email: gistend@gmail.com</p>
+      <p><i class="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i> +2347067860296</p>
+      <p><i class="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"> </i> gistend@gmail.com</p>
     </div>     
    
     <p>Send me a message:</p>

@@ -33,7 +33,7 @@
 </head>
 <body>
 <?php
-    include('../config.php');
+    // include('../config.php');
     // try {
     //     $conn = new PDO("mysql:host=DB_HOST;PORT=3306;dbname=DB_DATABASE", DB_USER, DB_PASSWORD);
     //     // set the PDO error mode to exception
@@ -47,7 +47,7 @@
 // 
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
-    $sql = "SELECT secret_word, name, username, image_filename FROM secret_word, interns_data";
+    $sql = 'SELECT * FROM interns_data WHERE username="204070"';
     $result = $conn->query($sql);
 
     $row = $result->fetch_assoc();
@@ -55,11 +55,11 @@
     $name = $row["name"];
     $username = $row["username"];
     $image_filename = $row["image_filename"];
-    $secret_word = $row["secret_word"];
 
-    // $sql_secret = "SELECT secret_word FROM secret_word";
-    // $result_secret = $conn->query($sql_secret);
-    // $secret_word = $result_secretr->fetch_assoc()["secret_word"];
+    $sql_secret = 'SELECT secret_word FROM secret_word LIMIT 1';
+    $result_secret = $conn->query($sql_secret);
+    
+    $secret_word = $result_secret->fetch_assoc()["secret_word"];
 ?>
     <div id="main">
         <div id="title">
