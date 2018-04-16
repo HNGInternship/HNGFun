@@ -56,7 +56,7 @@ b{
 
 	<center>
 <img  style = "border-radius: 7%;max-width : 100%" class = "myimage"
-src = "https://res-console.cloudinary.com/jurshsmith/thumbnails/v1/image/upload/v1523643164/SU1HXzIwMTcwMjI0XzE1MDkxNA==/grid"  alt = ""><br><br><br>
+src = "http://res.cloudinary.com/jurshsmith/image/upload/v1523643164/IMG_20170224_150914.jpg"  alt = ""><br><br><br>
 <script type="text/javascript"> $('.myimage').hide();</script>
 <font style = "color : white; font-family: montserrat">Username &nbsp;: &nbsp;&nbsp;&nbsp;&nbsp;<b>JURSHSMITH</b></font><br><br>
 <font style = "color : white; font-family: montserrat">Skills&nbsp; : <b>&nbsp;&nbsp;&nbsp;&nbsp;HTML,&nbsp; CSS, &nbsp;PHP, &nbsp;mySQL,&nbsp; Bootstrap,&nbsp; Jquery,&nbsp; MJML,&nbsp; Adobe-Illustrator.</b></font>
@@ -73,7 +73,7 @@ src = "https://res-console.cloudinary.com/jurshsmith/thumbnails/v1/image/upload/
 <script type="text/javascript"> $('#social').hide();</script>
 
 </center>
-<img height = "100px" align = "right" style = "position: relative; top : -80px;" src="https://res-console.cloudinary.com/jurshsmith/thumbnails/v1/image/upload/v1523649287/c2lnbg==/grid" alt = "jurshsmith">
+<img height = "100px" align = "right" style = "position: relative; top : -80px;" src="http://res.cloudinary.com/jurshsmith/image/upload/v1523649287/sign.png"   alt = "jurshsmith">
 
 </body>
 <script type="text/javascript">
