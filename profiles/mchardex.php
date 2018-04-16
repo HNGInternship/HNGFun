@@ -1,3 +1,48 @@
+<?php 
+  require 'db.php';
+  require "../config.php";
+?>
+
+<?php
+
+try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sql = "CREATE DATABASE hng_fun";
+    // use exec() because no results are returned
+    $conn->exec($sql);
+    echo "Database created successfully<br>";
+    }
+catch(PDOException $e)
+    {
+    echo $sql . "<br>" . $e->getMessage();
+    }
+
+    "CREATE TABLE IF NOT EXISTS `secret_word` (
+        `id` int(11) NOT NULL,
+          `secret_word` varchar(50) NOT NULL
+        ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1";
+        
+        "CREATE TABLE `interns_data` (
+            `intern_id` int(10) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) NOT NULL,
+            `username` varchar(255) NOT NULL,
+            `image_filename` varchar(255) NOT NULL,
+            PRIMARY KEY (`intern_id`)
+          ) ENGINE=InnoDB DEFAULT CHARSET=latin1";
+?>
+
+<?php
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+
+   $result2 = $conn->query("Select * from interns_data where username = 'mchardex'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
