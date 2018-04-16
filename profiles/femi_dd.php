@@ -88,7 +88,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
          <img src="http://res.cloudinary.com/femidd/image/upload/v1523647188/femi_dd.jpg" alt="Kole-Ibrahim AbdulQudus">
          <div id="intro">
             <h1><?php echo $user->name; ?></h1>
-            <h2>Backend Developer</h2>
+            <h2 style="text-align:left">Backend Developer</h2>
             <ul class="list-inline">
                <li><a target="_blank" title="Twitter/Femi_DD" href="https://twitter.com/Femi_DD"><i class="fa fa-twitter"></i></a></li>
                <li><a target="_blank" title="Facebook/KoleIbrahimAbdulQudus" href="http://facebook.com/KoleIbrahimAbdulQudus"><i class="fa fa-facebook"></i></a></li>
