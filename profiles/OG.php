@@ -1027,7 +1027,7 @@
 						//	$username = 'OG';
 						//	$image_filename = 'https://res.cloudinary.com/dchvdgnh8/image/upload/v1523738881/IMG_20171111_113643.jpg';
 							//$query = "UPDATE interns_data_ (name,username,image_filename) VALUES ('$name','$username','$image_filename') WHERE username=\'OG\'";
-							//$result = $con->query($query);
+							//$result = $conn->query($query);
 
 							//view
 						//	$query = "SELECT intern_id, name, username, image_filename FROM interns_data WHERE username=\'OG\' ";
