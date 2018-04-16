@@ -132,7 +132,7 @@
 		 	<h5><b>Name:</b> <?php echo  $user->name; ?> </h5>
 		 	<h5><b>Username:</b> <?php echo $user->username; ?> </h5>
 		 	<h6>(Web Developer)</h6>
-		 	   <p style=" text-align: center;" ><b>Skills:</b> PHP , HTML , CSS,  BOOTSTRAP , CODE IGNITER.  </p>
+		 	<p style="text-align: center;" ><b>Skills:</b> PHP,HTML,CSS,BOOTSTRAP,CODE IGNITER.</p>
 		<div id="social">
 				<ul>
 
