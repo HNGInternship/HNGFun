@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 
 -- phpMyAdmin SQL Dump
 -- version 4.7.7
@@ -23,7 +23,6 @@
 -- version 3.4.5
 -- http://www.phpmyadmin.net
 --
->>>>>>> b2bbe46b15fc26a9eb4bb2d3c3786788727f0b54
 -- Host: localhost
 -- Generation Time: Apr 16, 2018 at 04:24 PM
 -- Server version: 5.5.16
@@ -36,14 +35,13 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-<<<<<<< HEAD
+
 
 /*!40101 SET NAMES utf8mb4 */;
 
 
 =======
 /*!40101 SET NAMES utf8 */;
->>>>>>> b2bbe46b15fc26a9eb4bb2d3c3786788727f0b54
 
 --
 -- Database: `hng_fun`
@@ -52,7 +50,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
-<<<<<<< HEAD
+
 
 
 -- Table structure for table `interns_data`
@@ -66,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `interns_data` (
 
 CREATE TABLE `interns_data_` (
   `intern_id` int(10) NOT NULL,
- dbc8ffb6296f148ac8379f9ff59583c32ec88d19
+
 =======
 -- Table structure for table `interns_data_`
 --
@@ -83,20 +81,11 @@ CREATE TABLE IF NOT EXISTS `interns_data_` (
 --
 -- Dumping data for table `interns_data_`
 --
-
-<<<<<<< HEAD
-
-INSERT INTO `interns_data` (`intern_id`, `name`, `username`, `image_filename`) VALUES
-(15, 'Faith Young Uhie', 'Fayoung', 'https://res.cloudinary.com/fayoung/image/upload/v1523738849/me.jpg');
-
-INSERT INTO `interns_data_` (`intern_id`, `name`, `username`, `image_filename`) VALUES
-(14, 'Akinduko Olugbenga', 'dev_geaks', 'http://res.cloudinary.com/devgeaks/image/upload/v1523731563/2017-03-02_08.30.03.jpg'),
-(15, 'Herbert John', 'herberts', 'http://res.cloudinary.com/dsitzw8mp/image/upload/v1523798919/face.png');
- dbc8ffb6296f148ac8379f9ff59583c32ec88d19
+ 
 =======
 INSERT INTO `interns_data_` (`intern_id`, `name`, `username`, `image_filename`) VALUES
-(14, 'Uket Cyril Ofem', 'CY_UKET', 'https://res.cloudinary.com/cyuket/image/upload/v1523889745/1522947398679.jpg');
->>>>>>> b2bbe46b15fc26a9eb4bb2d3c3786788727f0b54
+(122, 'Butu Ordooter', 'Ordooter', 'http://i1074.photobucket.com/albums/w416/Butu_Ordooter_A/profile1_zpsblk9vlnz.png');
+
 
 -- --------------------------------------------------------
 
@@ -190,7 +179,6 @@ ALTER TABLE `secret_word`
 COMMIT;
 
 =======
->>>>>>> b2bbe46b15fc26a9eb4bb2d3c3786788727f0b54
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
