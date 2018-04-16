@@ -1,45 +1,47 @@
-<?php 
-  require 'db.php';
-  require "../config.php";
-?>
-
 <?php
+	
+	if(!defined('DB_USER')){
+		require "../config.php";
+	}
 
-try {
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "CREATE DATABASE hng_fun";
-    // use exec() because no results are returned
-    $conn->exec($sql);
-    echo "Database created successfully<br>";
-    }
-catch(PDOException $e)
-    {
-    echo $sql . "<br>" . $e->getMessage();
-    }
+	try {
+		$conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
+		// set the PDO error mode to exception
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		
+		$stmt = $conn->prepare("select secret_word from secret_word limit 1");
+		$stmt->execute();
 
-    "CREATE TABLE IF NOT EXISTS `secret_word` (
-        `id` int(11) NOT NULL,
-          `secret_word` varchar(50) NOT NULL
-        ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1";
-        
-        "CREATE TABLE `interns_data` (
-            `intern_id` int(10) NOT NULL AUTO_INCREMENT,
-            `name` varchar(255) NOT NULL,
-            `username` varchar(255) NOT NULL,
-            `image_filename` varchar(255) NOT NULL,
-            PRIMARY KEY (`intern_id`)
-          ) ENGINE=InnoDB DEFAULT CHARSET=latin1";
-?>
+		$secret_word = null;
 
-<?php
-   $result = $conn->query("Select * from secret_word LIMIT 1");
-   $result = $result->fetch(PDO::FETCH_OBJ);
-   $secret_word = $result->secret_word;
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$rows = $stmt->fetchAll();
+		if(count($rows)>0){
+			$row = $rows[0];
+			$secret_word = $row['secret_word'];	
+		}
 
-   $result2 = $conn->query("Select * from interns_data where username = 'mchardex'");
-   $user = $result2->fetch(PDO::FETCH_OBJ);
+		$name = null;
+		$username = "mchardex";
+		$image_filename = null;
+
+		$stmt = $conn->prepare("select * from interns_data where username = :username");
+		$stmt->bindParam(':username', $username);
+		$stmt->execute();
+
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$rows = $stmt->fetchAll();
+		if(count($rows)>0){
+			$row = $rows[0];
+			$name = $row['name'];	
+			$image_filename = $row['image_filename'];	
+		}
+
+	}
+	catch(PDOException $e)
+	{
+		echo "Connection failed: " . $e->getMessage();
+	}
 ?>
 
 

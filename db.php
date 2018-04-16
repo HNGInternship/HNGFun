@@ -1,5 +1,4 @@
 <?php
-require_once 'config.example.php';
 require_once 'config.php';
 
 try {
