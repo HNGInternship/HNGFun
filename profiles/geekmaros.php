@@ -2,11 +2,11 @@
 
 require 'db.php';
 
-    $result = $conn->query("Select * from secret_word LIMIT 1");
+    $result = $conn->query("SELECT * from secret_word LIMIT 1");
     $result = $result->fetch(PDO::FETCH_OBJ);
     $secret_word = $result->secret_word;
 
-    $result2 = $conn->query("Select * from interns_data where username = 'sadiq'");
+    $result2 = $conn->query("SELECT * from interns_data where username = 'geekmaros'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
 
   ?>
