@@ -30,6 +30,15 @@
                 <element signature="e#5833#5839#0#HTML" expanded="true" />
                 <marker date="1523897705000" expanded="true" signature="2160:2210" ph="SELECT * FRO... interns_data" />
                 <marker date="1523897705000" expanded="true" signature="2459:2484" ph="SELECT * FRO... secret_word" />
+            <state relative-caret-position="34">
+              <caret line="55" column="5" lean-forward="true" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+              <folding>
+                <element signature="n#style#0;n#h1#0;n#div#0;n#div#0;n#div#0;n#div#1;n#header#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <marker date="1523841702950" expanded="true" signature="2162:2212" ph="SELECT * FRO... interns_data" />
+                <marker date="1523841702950" expanded="true" signature="2461:2486" ph="SELECT * FRO... secret_word" />
               </folding>
             </state>
           </provider>
@@ -281,12 +290,14 @@
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
       <updated>1523903898654</updated>
+      <workItem from="1523821840696" duration="16488000" />
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
     <option name="totallyTimeSpent" value="16618000" />
+    <option name="totallyTimeSpent" value="16488000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="50" y="23" width="1316" height="747" extended-state="0" />
@@ -502,6 +513,15 @@
             <element signature="e#5833#5839#0#HTML" expanded="true" />
             <marker date="1523897705000" expanded="true" signature="2160:2210" ph="SELECT * FRO... interns_data" />
             <marker date="1523897705000" expanded="true" signature="2459:2484" ph="SELECT * FRO... secret_word" />
+        <state relative-caret-position="34">
+          <caret line="55" column="5" lean-forward="true" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+          <folding>
+            <element signature="n#style#0;n#h1#0;n#div#0;n#div#0;n#div#0;n#div#1;n#header#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1523841702950" expanded="true" signature="2162:2212" ph="SELECT * FRO... interns_data" />
+            <marker date="1523841702950" expanded="true" signature="2461:2486" ph="SELECT * FRO... secret_word" />
           </folding>
         </state>
       </provider>

@@ -52,7 +52,7 @@
     </nav>
 
     <?php
-    require_once("../db.php");
+//    require_once("../db.php");
 try {
     $sql = "SELECT * FROM interns_data WHERE username ='shine'";
     $q = $conn->query($sql);
