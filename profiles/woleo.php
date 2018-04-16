@@ -31,7 +31,7 @@
     <style>
         .card{
             margin: auto 0;
-            width: 60%;
+            width: 100%;
             text-align:center;
         }
 
