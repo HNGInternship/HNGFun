@@ -36,7 +36,7 @@ main{
     position: absolute;
     top: 60%;
     width: 100%;
-    background: rgba(111, 207, 151, 0.8);
+    background: rgba(100, 107, 151, 0.8);
     text-align: center; 
 }
 .calebikhuohon-profile-img{
