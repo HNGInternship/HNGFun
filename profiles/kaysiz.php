@@ -1,6 +1,4 @@
-<?php 
-  require 'db.php';
-
+<?php
   
   $secret_word_query = $conn->prepare("SELECT * FROM secret_word LIMIT 1");
   $secret_word_query->execute();
