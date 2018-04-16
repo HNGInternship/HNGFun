@@ -49,7 +49,8 @@
 a {
   text-decoration: none;
   font-size: 22px;
-  color: black;
+  color: blue;
+  padding-right:20px;
 }
     </style>
 </head>
@@ -59,7 +60,7 @@ a {
   <img src="<?php echo $image_filename; ?>" alt="profile" style="width:100%">
   <h1><?php echo $name; ?></h1>
   <h2>@<?php echo $username; ?></h2>
-  <p>Web Developer from Ogun State</p>
+  <p>Software Developer from Ogun State</p>
   <div style="margin: 24px 0;">
     <a href="https://twitter.com/oluwolley"><i class="fa fa-twitter"></i></a>  
     <a href="https://www.instagram.com/iam_ahead/"><i class="fa fa-instagram"></i></a>  
