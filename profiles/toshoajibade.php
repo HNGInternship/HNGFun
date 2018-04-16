@@ -109,7 +109,7 @@
     <div class='content'>
         <div class='user'>
             <div class='user-info'>
-                <img src="https://res.cloudinary.com/toshoajibade/image/upload/v1523826074/photo5951734494048398166.jpg" alt="Profile Picture"
+                <img src="http://res.cloudinary.com/toshoajibade/image/upload/v1523826074/photo5951734494048398166.jpg" alt="Profile Picture"
                     class="profile-pic" srcset="">
                 <p class="user-name">Tosho Ajibade</p>
                 <p>Entrepreneur</p>
