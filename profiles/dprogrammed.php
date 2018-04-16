@@ -1,5 +1,5 @@
 <?php
-<?php
+include(../db.php);
 $image = '';                 
 $name ="";
 $username = "";     
