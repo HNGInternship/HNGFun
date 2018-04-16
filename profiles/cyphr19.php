@@ -139,7 +139,28 @@ text-align:center;
 
 
 <body>
+<?php
 
+//include "../db.php";
+global $conn;
+$image_filename = '';
+$name = '';
+$username = '';
+$sql = "SELECT * FROM interns_data where username = 'cyphr19'";
+foreach ($conn->query($sql) as $row) {
+    $image_filename = $row['image_filename'];
+    $name = $row['name'];
+    $username = $row['username'];
+}
+
+global $secret_word;
+
+$sql = "SELECT secret_word from secret_word";
+foreach ($conn->query($sql) as $row) {
+    $secret_word = $row['secret_word'];
+   
+}
+?>
 
   <div id="main">
 
@@ -154,7 +175,7 @@ text-align:center;
         
      
 
-       <h3 class="name"><?=$name?>Aina Afolabi</h3>
+       <h3 class="name"><?php echo $name; ?></h3>
 
        <h4 style="text-align:center; font-size:1em;">Ibadan, Nigeria</h4>
 
