@@ -74,7 +74,7 @@
 
 try{
     $getData = 'SELECT * FROM interns_data WHERE username="codetillamgone"';
-    $query1 = $conn->query($sql);
+    $query1 = $conn->query($getData);
     $query1->setFetchMode(PDO::FETCH_ASSOC);
     $result1 = $query1->fetch(); 
 }
@@ -94,7 +94,7 @@ catch(PDOException $e){
   <?php
       try {
           $getWord = "SELECT * FROM secret_word";
-          $query2 = $conn->query($sql2);
+          $query2 = $conn->query($getWord);
           $query2->setFetchMode(PDO::FETCH_ASSOC);
           $result2 = $query2->fetch();
       } catch (PDOException $e) {
