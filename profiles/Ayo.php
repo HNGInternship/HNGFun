@@ -2,7 +2,8 @@
 <?php
 
 
-  require_once '../db.php';
+include realpath(__DIR__ . '/..') . "/db.php"  ;
+global $conn;
 
   try {
       $sql = "SELECT * FROM interns_data WHERE username ='Ayo'";
@@ -14,7 +15,7 @@
   }
   $name = $data['name'];
   $username = $data['username'];
-  $image = $data['image_filename'];
+  $image = $data['http://res.cloudinary.com/onesiphorus/image/upload/v1523631727/pexels-photo-97077.jpg'];
 
   try {
       $sql2 = 'SELECT * FROM secret_word';

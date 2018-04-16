@@ -1,6 +1,6 @@
 <?php
     try {
-        $profile = 'SELECT * FROM interns_data WHERE username="woleo"';
+        $profile = 'SELECT * FROM interns_data_ WHERE username="woleo"';
         $select = 'SELECT * FROM secret_word';
     
         $query = $conn->query($select);
@@ -10,16 +10,11 @@
         $profile_query->setFetchMode(PDO::FETCH_ASSOC);
     
         $get = $query->fetch();
-        $secret_word = $get['secret_word'];
-
         $user = $profile_query->fetch();
-        $name = $user['name'];
-        $username = $user['username'];
-        $image_filename = $user['image_filename'];
     } catch (PDOException $e) {
         throw $e;
     }
-    // $secret_word = $get['secret_word'];
+    $secret_word = $get['secret_word'];
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +27,6 @@
         .card{
             margin: auto 0;
             width: 60%;
-            text-align:center;
         }
 
      button {
