@@ -5,10 +5,7 @@
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $data = $q->fetch();
     $secret_word = $data['secret_word'];
-
-
 } catch (PDOException $e) {
-
     throw $e;
 }    
 try {
@@ -17,14 +14,9 @@ try {
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $my_data = $q->fetch();
     
-
-
 } catch (PDOException $e) {
-
     throw $e;
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,12 +49,13 @@ try {
                 letter-spacing: 1.5px;
             }
             #pro-pic {
+			    padding-top:20px;
                 border-radius: 50%;
                 border: 4px solid #fff;
-                width: 70px;
-                height: 70px;
-                margin-top: 20px;
-                margin-left: 40px;
+                width: 120px;
+                height: 120px;
+                margin-top: 160px;
+                margin-left: 10px;
                 padding-bottom: 20px;
                 padding: 0px;
             }
@@ -72,6 +65,7 @@ try {
                 font-family: 'Cabin';
                 color: #BDBDBD;
                 padding: 15px;
+				margin-top:30px;
             }
             #foot {
                 text-align: right;
@@ -81,6 +75,7 @@ try {
                 color: #F2F2F2;
             }
             #name {
+			margin-top: 200px;
                 padding-top: 45px;
                 padding-left: 15px;
                 font-size: 22px;

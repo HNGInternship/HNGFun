@@ -37,6 +37,11 @@ $name = $intern_detail['name'];
 $username = $intern_detail['username'];
 $filename = $intern_detail['image_filename'];
 
+$padding = '107px 70px';
+if (stristr($_SERVER['REQUEST_URI'], 'id')) {
+    $padding = '37px 80px';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +61,11 @@ $filename = $intern_detail['image_filename'];
         body {
             font-family: "Josefin Sans","Montserrat","Segoe UI","Roboto","Helvetica Neue","Arial","sans-serif";
             color: #4A4646;
-            overflow-x: none;
+            overflow-x: hidden;
+        }
+
+        body > .container {
+            padding-right: 0;
         }
 
         .profile-details, .skills {
@@ -213,7 +222,7 @@ $filename = $intern_detail['image_filename'];
                     <a href="https://facebook.com/chrismarcelj" target="_blank"><i class="fa fa-2x fa-facebook"></i></a>
                 </div>
             </div>
-            <div class="col-sm-6 skills">
+            <div class="col-sm-6 skills" style="padding: <?=$padding;?>">
                 <p class="hello-text text-center">Hello World!</p>
                 <span>I am a Full-Stack Developer and an aspiring UI/UX Designer. Feel free to engage me in any of your projects.</span>
                 <div class="skill-list">
