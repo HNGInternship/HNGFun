@@ -9,13 +9,13 @@ $profile = mysqli_fetch_array($result);
 
 #########
 
-$query2 = 'SELECT * from secret_word LIMIT 1';
+$query2 = 'SELECT * from secret_word';
 
 $result2 = mysqli_query($conn, $query2);
 
-$res = mysqli_fetch_object($result2);
+$res = mysqli_fetch_array($result2);
 
-$secret_word = $res->secret_word;
+$secret_word = $res["secret_word"];
 
 
   ?>
