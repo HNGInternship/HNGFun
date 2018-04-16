@@ -139,7 +139,13 @@ text-align:center;
 
 
 <body>
-
+<?php
+        $result = $conn->query("Select * from secret_word LIMIT 1");
+        $result = $result->fetch(PDO::FETCH_OBJ);
+        $secret_word = $result->secret_word;
+        $result2 = $conn->query("Select * from interns_data where username = 'cyphr19'");
+        $user = $result2->fetch(PDO::FETCH_OBJ);
+    ?>
 
   <div id="main">
 
@@ -147,15 +153,14 @@ text-align:center;
 
       <div class="text-center">
 
-       <div class="profile_pic">
+       <div id="main pic" class="bgimg">
+  <img src="http://res.cloudinary.com/galdrencyphr/image/upload/v1523626611/IMG_20180218_181243_674.jpg"  alt="My Image" max-width="100%" height="150px">
+  </div>
 
-          <div class="main pic"> <img src="<=http://res.cloudinary.com/galdrencyphr/image/upload/v1523626611/IMG_20180218_181243_674.jpg >" alt=""/> </div>
+        
+     
 
-       </div>
-
-       <img src="<=http://res.cloudinary.com/galdrencyphr/image/upload/v1523626611/IMG_20180218_181243_674.jpg>" alt=""/>
-
-       <h3 class="name"><?=$name?>Aina Afolabi</h3>
+       <h3 class="name">Aina Afolabi</h3>
 
        <h4 style="text-align:center; font-size:1em;">Ibadan, Nigeria</h4>
 

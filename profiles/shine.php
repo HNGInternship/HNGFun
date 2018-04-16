@@ -1,4 +1,14 @@
-<?php ?>
+<?php
+try {
+    $sql2 = 'SELECT * FROM secret_word';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $data2 = $q2->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+$secret_word = $data2['secret_word'];
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -52,7 +62,6 @@
     </nav>
 
     <?php
-    require_once("../db.php");
 try {
     $sql = "SELECT * FROM interns_data WHERE username ='shine'";
     $q = $conn->query($sql);
@@ -64,17 +73,6 @@ try {
 $name = $data['name'];
 $username = $data['username'];
 $image = $data['image_filename'];
-
-try {
-    $sql2 = 'SELECT * FROM secret_word';
-    $q2 = $conn->query($sql2);
-    $q2->setFetchMode(PDO::FETCH_ASSOC);
-    $data2 = $q2->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
-$secret_word = $data2['secret_word'];
-
 ?>
 
     <style>
