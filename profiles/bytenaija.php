@@ -1,6 +1,38 @@
 <?php 
-if(isset($_GET['train']) || isset($_GET['query']) ){
+$file = realpath(__DIR__ . '/..') . "/db.php"    ;
+require_once $file;
+global $conn;
 
+
+    
+if(isset($_GET['train']) || isset($_GET['query']) ){
+    if(isset($_GET['train'])){
+        $keyword = trim($_GET["keyword"]);
+        $response = trim($_GET["response"]);
+        try {
+        $sql = "INSERT INTO bot(keywords, response) VALUES ('" . $keyword . "', '" . $response . "')";
+        
+        $conn->exec($sql);
+
+     $message = "Saved " . $keyword ." : " . $response;
+        
+        echo $message;
+
+    }
+    catch(PDOException $e)
+        {
+        echo $sql . "<br>" . $e->getMessage();
+        }
+    }else if(isset($_GET['query'])){
+        $query = $_GET['query'];
+        $str = "'%".$query."%'";
+        $sql = "SELECT response FROM bot WHERE keywords LIKE " . $str . " ORDER BY keywords ASC LIMIT 1";
+        
+      foreach ($conn->query($sql) as $row) {
+            echo $row["response"];
+        } 
+      
+    }
 }else
 
 {
@@ -210,7 +242,7 @@ section h2:first-child{
     height: 15rem;
     overflow-y: scroll;
     padding: 1rem;
-    border-radius: .5rem;
+    border-radius: 2rem;
     font-family: Lato;
 }
 
@@ -459,25 +491,16 @@ foreach ($conn->query($sql) as $row) {
 
 <script>
 
-window.onload = botInfo;
 
-function botInfo(){
-    print("Welcome to Byte9ja Galaxy. \n To check currency: currency: from/to. e.g. currency: USD/NGN")
-}
 let baseURL = "http://hngfun.test/profiles/bytenaija.php/";
 let botResponse = document.querySelector("#botresponse");
-let trainMode = false;
 function runScript(e) {
     if (e.keyCode == 13) {
         let input = e.currentTarget;
         let dv = document.createElement("div");
             dv.innerHTML = "<span class='user'>You: </span> <span class='res'>" + input.value + "</span>";
            botResponse.appendChild(dv)
-        if(trainMode){
-            training(input.value);
-        }else{
-        evaluate(input.value);
-        }
+        evaluate(input.value)
         input.value = "";
         return false;
     }
@@ -569,13 +592,27 @@ function evaluate(str){
     else if(str.indexOf("#train") != -1)
     {
         console.log("Entering training mode")
-        print("Entering training mode. Enter #exit to exit training mode");
+        print("Entering training mode. Enter #exit to exit training mode. To train enter <strong>keyword : response.</strong>");
         trainMode = true;
 
     } 
     
     else{
+        let  url = window.location.href;
+        str = str.split(":");
+        let keyword = str[0], response = str[1];
 
+        console.log(keyword, response)
+
+        url += "?query=" + str;
+
+        fetch(url)
+        .then(response=>{
+            return response.text();
+        })
+        .then(response=>{
+            print(response);
+        })
             print("I don't understand that command yet. My master is very lazy. Try agin in 200 years");
     }
 }
@@ -598,10 +635,6 @@ function capitalize(str){
 }
 
 function training(str){
-  let  url = window.location.href;
-
-  console.log(url);
-
  if(str.indexOf("#exit") != -1)
     {
         
@@ -610,6 +643,24 @@ function training(str){
         return;
 
     }
+
+    let  url = window.location.href;
+    str = str.split(":");
+    let keyword = str[0], response = str[1];
+
+    console.log(keyword, response)
+
+    url += "?train&keyword=" + keyword + "&response=" + response;
+    console.log(url)
+    fetch(url)
+    .then(response=>{
+        console.log(response);
+        return response.text()
+    })
+    .then(response=>{
+        console.log(response)
+        print(response);
+    })
 }
 </script>
 </body>
