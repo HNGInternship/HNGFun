@@ -1,7 +1,8 @@
 config.php
 docker-compose.yml
 phpmyadmin/
-
+interns_data.sql
+hng_fun.sql
 .DS_Store
 ._.DS_Store
 /deploy
