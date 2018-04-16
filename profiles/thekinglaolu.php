@@ -38,13 +38,13 @@
 		  font-family: 'Lato', sans-serif;
 		  font-size: 1.8em;
 		  padding: .5em 1em;
+		  line-height: 1.5;
+		  letter-spacing: .02em;
 		}
 		.profile {
 			height: 15em;
 			margin-top: 4em;
 			border-radius: 100%;
-			border-style: solid;
-			border-color: #b3b3b3;
 		}
 		.grey {
 			height: .3em;
@@ -62,8 +62,7 @@
 			<h1> David Afolayan </h1>
 			<h2>FRONTEND MAGICIAN</h2>
 			<hr class="grey"/>
-			<p class="bio">David Afolayan is a young, ambitious and passionate tech enthusiast. He is a self-taught front-end developer with interests in building beautiful and user-friendly products that not only put smiles on people's faces but also make the world a better place.
-			He has a strong desire to see people grow, become better and live comfortable lives, He seeks to be of great service to humanity especially in areas involving tech and as much as he can be involved in several philanthropic activities.</p>
+			<p class="bio">David Afolayan is a young and passionate ninja geek. He has interests in javascript technologies, UI design and building things that crawl on the web. He's aspiring tech influencer who's trying to get his feet steady in the sands of coding. And did I mention he's a sucker for graphics design, phtography and art?</p>
 		</div>
 	</main>
 </body>
