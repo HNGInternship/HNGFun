@@ -32,7 +32,6 @@
   </head>
 
   <body>
-
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top" id="mainNav">
       <div class="container">
@@ -49,7 +48,6 @@
             <li class="nav-item">
               <a class="nav-link" href="learn.php">Learn</a>
             </li>
-            
             <li class="nav-item">
               <a class="nav-link" href="listing.php">Interns</a>
             </li>

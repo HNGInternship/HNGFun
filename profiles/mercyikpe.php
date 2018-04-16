@@ -1,3 +1,23 @@
+
+<?php
+
+
+   try {
+       $sql = 'SELECT intern_id, name, username, image_filename FROM interns_data WHERE username=\'mercyikpe\'';
+       $q = $conn->query($sql);
+       $q->setFetchMode(PDO::FETCH_ASSOC);
+       $data = $q->fetch();
+   } catch (PDOException $e) {
+       throw $e;
+   }
+        
+        $mynameis = $data["name"];
+        $myusernameis = $data["username"];
+        $myimagelinkis = $data["image_filename"];
+
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,21 +28,14 @@
 	
 	<style>
 		body {
-			background-image: url("http://res.cloudinary.com/mercyikpe/image/upload/v1517443922/mercy_ownuvy.jpg");
+			background-image: url("<?php  echo $myimagelinkis; ?>");
 			background-size: cover;
 		}
 		
-		header.fa:hover {
+		.fa:hover {
     		color: #536DFE;
 		}
 
-		header.fa {
-			float: right;
-			font-size: 25px;
-			color: #ccc;
-			padding: 10px;
-		}
-			
 		#clock {
 			float: right;
 			font-size: 4em;
@@ -34,22 +47,15 @@
 	</style>
 </head>
 
-<?php
-        $sql = 'SELECT * FROM secret_word';
-        $query = $conn->query($sql);
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        $secret_word = $query->fetch();
-?>
-
 <body>
 
 
 	<header>
 			<div>
-				<a href="https://github.com/mercyikpe"><i class="fa fa-github"></i></i></a>
-				<a href="https://twitter.com/mercyikpee"><i class="fa fa-twitter"></i></i></a>
-				<a href="https://medium.com/@mercyikpe"><i class="fa fa-medium"></i></i></a>
-				<a href="https://web.facebook.com/mercy.ikpe.79"><i class="fa fa-facebook"></i></i></a>	
+				<a href="https://github.com/mercyikpe"><i class="fa fa-github" style="color:#ccc; font-size: 25px; padding:15px; float: right"></i></i></a>
+				<a href="https://twitter.com/mercyikpee"><i class="fa fa-twitter"style="color:#ccc; font-size: 25px; padding:15px; float: right"></i></i></a>
+				<a href="https://medium.com/@mercyikpe"><i class="fa fa-medium" style="color:#ccc; font-size: 25px; padding:15px; float: right"></i></i></a>
+				<a href="https://web.facebook.com/mercy.ikpe.79"><i class="fa fa-facebook" float style="color:#ccc; font-size: 25px; padding:15px; float: right"></i></i></a>	
 			</div>
 		
 	</header>
@@ -59,5 +65,17 @@
 			echo "The time is </br>" . date("h:i:sa");
 		?> 
 	</p>
+    <?php
+   try {
+       $sql = 'SELECT * FROM secret_word';
+       $q = $conn->query($sql);
+       $q->setFetchMode(PDO::FETCH_ASSOC);
+       $data = $q->fetch();
+   } catch (PDOException $e) {
+       throw $e;
+   }
+   $secret_word = $data['secret_word'];
+   ?>
+	</body>
+</html>
 
-</body>

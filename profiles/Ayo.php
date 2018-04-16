@@ -1,4 +1,32 @@
-<!DOCTYPE html>
+
+<?php
+
+
+  require_once '../db.php';
+
+  try {
+      $sql = "SELECT * FROM interns_data WHERE username ='Ayo'";
+      $q = $conn->query($sql);
+      $q->setFetchMode(PDO::FETCH_ASSOC);
+      $data = $q->fetch();
+  } catch (PDOException $e) {
+      throw $e;
+  }
+  $name = $data['name'];
+  $username = $data['username'];
+  $image = $data['image_filename'];
+
+  try {
+      $sql2 = 'SELECT * FROM secret_word';
+      $q2 = $conn->query($sql2);
+      $q2->setFetchMode(PDO::FETCH_ASSOC);
+      $data2 = $q2->fetch();
+  } catch (PDOException $e) {
+      throw $e;
+  }
+  $secret_word = $data2['secret_word'];
+
+  ?>
 <html lang="en">
 <meta charset="UTF-8">
 <title>Ayomide Apantaku</title>
@@ -65,8 +93,8 @@ button:hover, a:hover {
 <h2 style="text-align:center">HNG Internship Profile</h2>
 
 <div class="card">
-  <img src="http://res.cloudinary.com/onesiphorus/image/upload/v1523619252/IMG_20171023_180642_440.jpg" alt="Ayomide Apantaku" style="width:100%">
-  <h1>Ayomide Apantaku</h1>
+  <img src="<?php echo $image; ?>" alt="Ayomide Apantaku" style="width:100%">
+  <h1><?php echo $name; ?></h1>
   <p class="title">Student, UI/UX designer, Web Developer</p>
   <p><a href="#">HNG Internship 4.0</a></p>
   <div style="margin: 24px 0;">

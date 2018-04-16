@@ -1,34 +1,22 @@
  <?php
 
-// Create connection
-$conn = new mysqli($DB_HOST, $DB_USER, $DB_PASSWORD, $DB_DATABASE);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require 'db.php';
+$sec = $conn->query("Select * from secret_word LIMIT 1");
+$sec = $sec->fetch(PDO::FETCH_OBJ);
+$secret_word = $sec->secret_word;
 
-$sqli = "SELECT secret_word FROM secret_word";
-$resulti = $conn->query($sqli);
-if ($resulti->num_rows > 0) {
-while($rowi = $resulti->fetch_assoc()){;
-$secret_word = $rowi["secret_word"];
-}
-}
-$sql = "SELECT intern_id, name, username, image_filename FROM Interns_data_";
-$result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-		$id = $row["intern_id"];
-		$name = $row["name"];
-		$username= $row["username"];
-		$image_url = $row["image_filename"];
-       
-    }
-} else {
-    echo "0 results";
-}
+
+//querying the database
+$query = $conn->query("Select * from interns_data where username = 'maaj'");
+$row = $query->fetch();
+
+// Secret Word and others 
+
+$name = $row['name'];
+$username= $row['username'];
+$image_url = $row['image_filename'];
+
 
 ?> 
 <!DOCTYPE html>
@@ -96,7 +84,7 @@ body {
     <a href="#"><i class="fa fa-linkedin"></i></a>
     <a href="https://github.com/dmaaj"><i class="fa fa-github"></i></a>
  </div>
-	<?php echo $row["name"];?>
+	<?php //echo $row["name"];?>
 </body>
 </html>
-<?php $conn->close();?>
+<?php //$conn->close();?>
