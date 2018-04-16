@@ -1,3 +1,33 @@
+<?php
+require_once('db.php');
+try {
+    $sql = 'SELECT * FROM secret_word LIMIT 1';
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+    $secret_word = $data['secret_word'];
+
+
+} catch (PDOException $e) {
+
+    throw $e;
+}    
+try {
+    $sql = "SELECT * FROM interns_data_ WHERE `username` = 'JEDi' LIMIT 1";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $my_data = $q->fetch();
+    
+
+
+} catch (PDOException $e) {
+
+    throw $e;
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -100,7 +130,7 @@ body.fullsingle p {
 .fs-split .image {
     width: 50%;
     height: 100vh;
-    background-image: url("https://res.cloudinary.com/cupidy28/image/upload/v1523799015/background.jpg");
+    background-image: url(<?php echo $my_data['image_filename']; ?>);
     background-position: center center;
     background-size: cover; }
 
@@ -236,7 +266,7 @@ body.fullsingle p {
 		
 			<div class="intro">
 				
-				<h1>ELekwa Solomon U.</h1>
+				<h1><?php echo $my_data['name']; ?></h1>
 
 				<span class="tagline">Developer. Accountant. Nomad.</span>
 
