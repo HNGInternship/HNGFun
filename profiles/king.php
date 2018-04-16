@@ -158,7 +158,7 @@ Coordinated team stand-up meetings.
 Coordinated agile tests of features, improvements and bug fixes.
 Wrote server side,frontend code using PHP, Python, HTML, CSS, and JavaScript.
 Worked alongside other developers to write backend logics including database setup.
-Maintained legacy codes.</p>
+Maintained legacy code.</p>
             </div>
           </div>
 
