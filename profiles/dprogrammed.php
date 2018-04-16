@@ -1,48 +1,31 @@
 <?php
-include("../db.php");
+require 'db.php';
 $image = '';                 
 $name ="";
 $username = "";     
 $secret_word = "";
-$conn = new mysqli("localhost", "root", "", "hng_fun");
+
+$conn = mysqli_connect('localhost','root','','hng_fun');
 // Check connection
-if (mysqli_connect_errno())
-  {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  }
+// if (mysqli_connect_errno())
+//   {
+//   echo "Failed to connect to MySQL: " . mysqli_connect_error();
+//   }
+
+$result = $conn->query("Select * from secret_word LIMIT 1");
+  $result = $result->fetch(PDO::FETCH_OBJ);
+  $secret_word = $result->secret_word;
+
+  $result2 = $conn->query("Select * from interns_data where username = 'dprogrammed'");
+  $user = $result2->fetch(PDO::FETCH_ASSOC);
+    $name = $user['name'];
+    $username = $user['username'];
+    $image = $user['image_filename'];
 
 
-
-$sql = "SELECT * FROM interns_data_";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-   
-        $name = $row["name"];
-        $username = $row["username"];
-        $image = $row["image_filename"];
-    }
-} else {
-    echo "0 results";
-}
-
-$sql = "SELECT * FROM secret_word";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-      
-        $secret_word = $row['secret_word'];
-    }
-} else {
-    echo "0 results";
-}
-        
 
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,6 +74,7 @@ img{
     background-color: darkcyan;
     color: white;
     height: 39em;
+
 }
 label{
    word-wrap: break-word;
@@ -167,7 +151,8 @@ h3{
 
         <div class="col-md-4 about">
           <h3>About</h3>
-                    <p id="about" style="word-wrap: break-word ">My name is <strong>Ogedengbe Samuel Segun</strong> and I'm an <strong>computer scientist</strong>, with vast experience in programming, soft development, Online Advertising. designer software developing.Graphics Designer Web Developer Software Developer Career Coach</p>
+                    <p id="about" style="word-wrap: break-word ">My name is <strong>Ogedengbe Samuel Segun</strong> and I'm an <strong>computer scientist</strong>, with vast experience in programming, soft development, Online Advertising, designer,software developer,Graphics Designer, Web Developer, Career Coach</p>
             </div>
 </body>
 </html>
+        
