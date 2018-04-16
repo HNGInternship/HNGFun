@@ -91,7 +91,7 @@
 <body>
     <?php
         // Get the config file
-         $config = include ('./config.php');
+         $config = include ('../config.php');
          // Set the needed variables
          $table = 'interns_data_';
          $secret_table = 'secret_word';
