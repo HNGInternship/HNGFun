@@ -44,7 +44,7 @@ if(isset($_POST['submit']) ){
         if($_POST['username'] == ""){
             $usernameError = "<span class='invalid'>Please enter a valid username</span>";
         }else {
-            $sql = 'SELECT * FROM interns_data_ WHERE username = "'. $_POST['username'] .'";';
+            $sql = 'SELECT * FROM interns_data WHERE username = "'. $_POST['username'] .'"';
             $q = $conn->query($sql);
             $q->setFetchMode(PDO::FETCH_ASSOC);
             if(!empty($q->fetchAll())) {
@@ -103,7 +103,7 @@ if(isset($_POST['submit']) ){
                 ':username' => $username,
                 ':imageName' => $imageName);
 
-            $sql = 'INSERT INTO interns_data_ ( name, username, image_filename)
+            $sql = 'INSERT INTO interns_data ( name, username, image_filename)
                   VALUES (
                       :name,
                       :username,

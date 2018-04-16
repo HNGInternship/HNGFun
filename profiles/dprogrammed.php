@@ -1,4 +1,6 @@
+
 <?php
+
 require 'db.php';
 $image = '';                 
 $name ="";
@@ -39,7 +41,7 @@ if (mysqli_num_rows($result2) > 0) {
        
     }
 } else {
-    echo "0 results";
+    echo "No result found";
 }
 
 
