@@ -29,12 +29,12 @@
       </div>
       <div>
         <div class="message bot">
-          <span class="content">Type <code>"show: List of commands"</code> to see what the list of commands I understand.</span>
+          <span class="content">Type "<code>show: List of commands</code>" to see what the list of commands I understand.</span>
         </div>
       </div>
     </div>
     <div class="send-message-container">
-      <input class="message-box" placeholder="Type question here"/>
+      <input class="message-box" placeholder="Type here..."/>
       <button class="send-message-btn">
         <div>
           <i class="fa fa-paper-plane" aria-hidden="true"></i>
@@ -53,10 +53,10 @@
 <style>
 
   .bot-container {
-    margin-top: 100px;
-    margin-bottom: 50px;
     border-bottom: 1px solid #bbbfbf;
     padding-bottom: 50px;
+    width: 60%;
+    margin: 50px auto;
   }
 
   .messages-container {
@@ -249,15 +249,11 @@
 
     if (question.toLowerCase().trim() === "show: list of commands") {
       return showResponse(`
-        Type <code>"show: List of commands"</code> to see a list of commands I understand.<br/>
-        Type <code>"open: www.google.com"</code> to open Google.com<br/>
-        Type <code>"say: Hello bot"</code> to get me to say "Hello bot"<br/>
-        Type <code>"train: Your question # My reply"</code> to train me to understand how to reply to more things
+        Type "<code>show: List of commands</code>" to see a list of commands I understand.<br/>
+        Type "<code>open: www.google.com</code>" to open Google.com<br/>
+        Type "<code>say: Hello bot</code>" to get me to say "Hello bot"<br/>
+        Type "<code>train: Your question # My reply</code>" to train me to understand how to reply to more things
       `);
-    }
-
-    if (question.toLowerCase().trim() === "what is the time?" || question.toLowerCase().trim() === "what time is it?") {
-      return showResponse("The time is "+ (new Date()).toLocaleString().split(",")[1].trim());
     }
 
     $.ajax({

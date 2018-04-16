@@ -6,31 +6,18 @@ if(isset($_POST['question']) ){
   if (isTraining($question)) {
     $answer = resolveAnswerFromTraining($question);
     $question = strtolower(resolveQuestionFromTraining($question));
-    $question_data = array(':question' => $question);
+    $question_data = array(':question' => $question, ':answer' => $answer);
 
-    $sql = 'SELECT * FROM questions WHERE question = "' . $question . '"';
+    $sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '"';
     $question_data_query =  $conn->query($sql);
     $question_data_query->setFetchMode(PDO::FETCH_ASSOC);
     $question_data_result = $question_data_query->fetch();
 
     if ($question_data_result['id'] == "") {
-      $sql = 'INSERT INTO questions ( question )
-          VALUES ( :question );';
-
-      try {
-        $q = $conn->prepare($sql);
-        $q->execute($question_data);
-        $question_id = $conn->lastInsertId();
-
-        $sql = 'INSERT INTO answers_bank ( question_id, answer  )
-            VALUES ( :question_id, :answer );';
-        $answer_data = array(':question_id' => $question_id, ':answer' => $answer);
-        $q = $conn->prepare($sql);
-        $q->execute($answer_data);
-
-      } catch (PDOException $e) {
-        throw $e;
-      }
+      $sql = 'INSERT INTO chatbot ( question, answer )
+          VALUES ( :question, :answer );';
+      $q = $conn->prepare($sql);
+      $q->execute($question_data);
       echo "Training successful.";
       return;
     } else {
@@ -63,47 +50,73 @@ function isTraining($question) {
   return false;
 }
 
-function getQuestionId() {
-  global $conn;
-  global $question;
-  
-  $sql = 'SELECT * FROM questions WHERE question = "' . $question . '"';
-  $question_data_query =  $conn->query($sql);
-  $question_data_query->setFetchMode(PDO::FETCH_ASSOC);
-  $question_data_result = $question_data_query->fetch();
-  return $question_data_result['id'];
+// function containsVariables($answer) {
+//   if (strpos($answer, "{{") !== false && strpos($answer, "}}") !== false) {
+//     return true;
+//   }
+
+//   if (strpos($answer, "((") !== false && strpos($answer, "))") !== false) {
+//     return true;
+//   }
+
+//   return false;
+// }
+
+function containsFunctions($answer) {
+  return true;
 }
 
 function containsVariables($answer) {
-  if (strpos($answer, "{{") !== false && strpos($answer, "}}") !== false) {
-    return true;
-  }
+  return true;
+}
 
-  if (strpos($answer, "((") !== false && strpos($answer, "))") !== false) {
-    return true;
-  }
+function replaceFunctions($answer, $functionsList) {
+  return "The temperature in {{location}} is 30 degrees";
+}
 
-  return false;
+function replaceVariables($answer, $variablesList) {
+  return "The temperature in Lagos is ((get_temperature))";
+}
+
+function resolveVariables($answer) {
+  return ["Lagos"];
+}
+
+function resolveFunctions($answer) {
+  return [getTemperature()];
+}
+
+function getTemperature() {
+  return "30 degrees";
 }
 
 function resolveAnswer($answer) {
+  if (containsFunctions($answer)) {
+    $functionsList = resolveFunctions($answer);
+    $answer = replaceFunctions($answer, $functionsList);
+  }
 
+  if (containsVariables($answer)) {
+    $variablesList = resolveVariables($answer);
+    $answer = replaceVariables($answer, $variablesList);
+  }
+  return $answer;
 }
 
 function getAnswer() {
+  global $question;
   global $conn;
 
-  $question_id = getQuestionId();
-  if ($question_id == "") {
-    return 'I don\'t understand that question. If you want to train me to understand, please type <code>"train: your question? # The answer."</code>';
-  }
-
-  $sql = 'SELECT * FROM answers_bank WHERE question_id = ' . $question_id;
-  $answer_data_query = $conn->query($sql);
+  $sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '"';
+  $answer_data_query =  $conn->query($sql);
   $answer_data_query->setFetchMode(PDO::FETCH_ASSOC);
   $answer_data_result = $answer_data_query->fetch();
 
-  if (containsVariables($answer_data_result['answer'])) {
+  if ($answer_data_result["answer"] == "") {
+    return 'I don\'t understand that question. If you want to train me to understand, please type "<code>train: your question? # The answer.</code>"';
+  }
+
+  if (containsVariables($answer_data_result['answer']) || containsFunctions($answer_data_result['answer']) ) {
     $answer = resolveAnswer($answer_data_result['answer']);
     return $answer;
   } else {
