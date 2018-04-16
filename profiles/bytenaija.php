@@ -46,7 +46,8 @@ if(isset($_GET['train']) || isset($_GET['query']) || isset($_GET['list'])){
       foreach ($conn->query($sql) as $row) {
             $string .= $row["question"] . "<br>";
         } 
-        echo $string;
+         echo $string;
+         return;
     }
         
      
