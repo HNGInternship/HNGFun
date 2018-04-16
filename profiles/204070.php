@@ -33,7 +33,7 @@
 </head>
 <body>
 <?php
-    include('../config.php');
+    // include('../config.php');
     // try {
     //     $conn = new PDO("mysql:host=DB_HOST;PORT=3306;dbname=DB_DATABASE", DB_USER, DB_PASSWORD);
     //     // set the PDO error mode to exception
