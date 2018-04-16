@@ -169,7 +169,7 @@ if(isset($_POST['submit']) ){
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="file">Profile Picture</label>
-                    <input type="text" name="image_filename" class="form-control" id="image_filename" accept="image/*">
+                    <input type="text" name="image_filename" class="form-control" id="image_filename" >
                 </div>
                 <?php if($filenameError != "") { echo "<div class='alert alert-danger'>$filenameError</div>"; }?>
             </div>
