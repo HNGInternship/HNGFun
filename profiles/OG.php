@@ -1,14 +1,3 @@
-<?php
-  try {
-      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'OG\'';
-      $q = $conn->query($sql);
-      $q->setFetchMode(PDO::FETCH_ASSOC);
-      $data = $q->fetch();
-      $secret_word = $data['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
-?>
 <!DOCTYPE HTML>
 
 <html>
@@ -1014,40 +1003,48 @@
 
 						<p>
 						<?php
-
+						require 'db.php';
 
 						 // time and date
 							echo "Time/Date " . date('F jS Y h:i a' );
 
+							//database connect
+							//$con = mysqli_connect("DB_HOST", "DB_USER", " DB_PASSWORD", "DB_DATABASE");
 
+							//if ($con)
+						//	{
+
+						//	}
+						//	else
+						//	{
+
+						//		die("ERROR: Could not connect. " . mysqli_connect_error());
+						//	}
 							///query///
 
 							//insert
-						//	$name = 'Godswill Effiong Okokon';
-						//	$username = 'OG';
-						//	$image_filename = 'https://res.cloudinary.com/dchvdgnh8/image/upload/v1523738881/IMG_20171111_113643.jpg';
-							//$query = "UPDATE interns_data_ (name,username,image_filename) VALUES ('$name','$username','$image_filename') WHERE username=\'OG\'";
-							//$result = $conn->query($query);
+							$name = 'Godswill Effiong Okokon';
+							$username = 'OG';
+							$image_filename = 'https://res.cloudinary.com/dchvdgnh8/image/upload/v1523738881/IMG_20171111_113643.jpg';
+							$query = "UPDATE interns_data_ (name,username,image_filename) VALUES ('$name','$username','$image_filename')";
+							$result = $con->query($query);
 
 							//view
-						//	$query = "SELECT intern_id, name, username, image_filename FROM interns_data WHERE username=\'OG\' ";
-						//	$result = $con->query($query);
+							$query = "SELECT * FROM  interns_data_ ";
+							$result = $con->query($query);
 
 
 
-						//	if($result)
-						//	{
+							if($result)
+							{
 
-						//	}
-							//else
-						//	{
-						//		echo '<br>ERROR: Could not get details from database ';
-						//	}
+							}
+							else
+							{
+								echo '<br>ERROR: Could not get details from database ';
+							}
 							?>
 							<br><br>
-							<div class="card" style="width:30%" >
-								<img src="https://res.cloudinary.com/dchvdgnh8/image/upload/v1523738881/IMG_20171111_113643.jpg" alt="Tha" style="width:100%">
-							</div>
 							<table class="">
 						      <thead>
 						          <tr class="headings">
@@ -1062,17 +1059,16 @@
 						          <tbody>
 						          <tr class="">
 						          <?php
-						          //while($userInfo = mysqli_fetch_assoc($result)):
+						          while($userInfo = mysqli_fetch_assoc($result)):
 						          ?>
 						          <tr>
-						            <td><?php echo $data['name'] ;?></td>
-						            <td><?php echo $data['username'] ;?></td>
-
-
+						            <td><?php echo $userInfo['name'] ;?></td>
+						            <td><?php echo $userInfo['username'] ;?></td>
+						            <td><?php echo $userInfo['image_filename'] ;?></td>
 
 
 						          </tr>
-						        <?php// endwhile ;?>
+						        <?php endwhile ;?>
 
 						          </tr>
 						          </tbody>
@@ -1082,16 +1078,16 @@
 
 							<?php
 
-							//$query = "SELECT * FROM secret_word ";
-							//$result = $con->query($query);
-						//	if ($result)
-						//	{
+							$query = "SELECT * FROM secret_word ";
+							$result = $con->query($query);
+							if ($result)
+							{
 
-					//		}
-						//	else
-						//	{
-						////		echo 'no secret word found';
-						//	}
+							}
+							else
+							{
+								echo 'no secret word found';
+							}
 
 
 							?>
@@ -1106,19 +1102,19 @@
 										 <tbody>
 										 <tr class="">
 										 <?php
-										 //while($userInfo = mysqli_fetch_assoc($result)):
+										 while($userInfo = mysqli_fetch_assoc($result)):
 										 ?>
 										 <tr>
 											 <td><?php //echo $userInfo['secret_word'] ;?></td>
 										 </tr>
-									 <?php //endwhile ;?>
+									 <?php endwhile ;?>
 
 										 </tr>
 										 </tbody>
 					 			 </table>
 								 <?php
 
-								 //$secret_word = '1n73rn@Hng';
+								 $secret_word = '1n73rn@Hng';
 								 //echo "$secret_word";
 
 								  ?>
