@@ -5,7 +5,10 @@
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $data = $q->fetch();
     $secret_word = $data['secret_word'];
+
+
 } catch (PDOException $e) {
+
     throw $e;
 }    
 try {
@@ -14,9 +17,14 @@ try {
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $my_data = $q->fetch();
     
+
+
 } catch (PDOException $e) {
+
     throw $e;
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,13 +57,12 @@ try {
                 letter-spacing: 1.5px;
             }
             #pro-pic {
-			    padding-top:20px;
                 border-radius: 50%;
                 border: 4px solid #fff;
-                width: 120px;
-                height: 120px;
-                margin-top: 160px;
-                margin-left: 10px;
+                width: 70px;
+                height: 70px;
+                margin-top: 20px;
+                margin-left: 40px;
                 padding-bottom: 20px;
                 padding: 0px;
             }
@@ -65,7 +72,6 @@ try {
                 font-family: 'Cabin';
                 color: #BDBDBD;
                 padding: 15px;
-				margin-top:30px;
             }
             #foot {
                 text-align: right;
@@ -75,7 +81,6 @@ try {
                 color: #F2F2F2;
             }
             #name {
-			margin-top: 200px;
                 padding-top: 45px;
                 padding-left: 15px;
                 font-size: 22px;
@@ -165,7 +170,7 @@ try {
                                     Victor, a student at Heritage Polytechnic, Eket currently studying Computer Engineering.
                                     <br /><br />
                                     He has intermediate experience in Computer Langusges like HTML, CSS, Python and PHP.<br /><br />
-                                    He is  also a Drummer 
+                                    He is  also a Drummer. 
                                 </p>
                         </div>
                         <div class="small-0 large-5">

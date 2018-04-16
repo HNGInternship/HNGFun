@@ -1,11 +1,16 @@
 <?php
-  require '../db.php';
-  $result = $conn->query("Select * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
+require '../db.php';
+$username = "adamucodes";
 
-  $result2 = $conn->query("Select * from interns_data where username = 'adamucodes'");
-  $user = $result2->fetch(PDO::FETCH_OBJ);
+$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data_` WHERE `username`='$username'";
+$sql0 = "SELECT * FROM `secret_word` LIMIT 1";
+$stmt0 = $conn->prepare($sql0);
+$stmt0->execute();
+$data = $stmt0->fetch(PDO::FETCH_ASSOC);
+$secret_word = $data['secret_word'];
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html>
@@ -84,10 +89,10 @@
       <div class="header_overlay">
         <center>
           <div class="profile_image">
-            <img src="http://res.cloudinary.com/adamucodes/image/upload/v1523739297/mou2.jpg">
+            <img src="<?php echo $result["image_filename"] ?>">
           </div>
           <div class="profile_details">
-            <h2><?php echo $user->name ?></h2>
+            <h2><?php echo $result["name"] ?></h2>
             <p>"Freelance Web Applications Developer with huge passion for creating Mobile and Web Applications"</p>
           </div>
           <div class="profile_icons">

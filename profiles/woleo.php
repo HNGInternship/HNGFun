@@ -11,7 +11,6 @@
     
         $get = $query->fetch();
         $secret_word = $get['secret_word'];
-
         $user = $profile_query->fetch();
         $name = $user['name'];
         $username = $user['username'];
@@ -19,7 +18,7 @@
     } catch (PDOException $e) {
         throw $e;
     }
-    // $secret_word = $get['secret_word'];
+    //$secret_word = $get['secret_word'];
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,8 +30,8 @@
     <style>
         .card{
             margin: auto 0;
-            width: 100%;
-            text-align:center;
+            width: 60%;
+            text-align: center;
         }
 
      button {
@@ -70,5 +69,4 @@ a {
 
 </body>
 </html>
-
 
