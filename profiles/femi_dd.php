@@ -1,3 +1,83 @@
+<?php
+// ob_start();
+session_start();
+/**
+* femiBot Class
+*/
+class Bot {
+   public $error = null;
+
+   // public function __construct()
+   // {
+   //    self::startChat($user);
+   // }
+
+   function startChat($user) {
+      $_SESSION['chatSession']['user'] = $user;
+      $_SESSION['chatSession']['messages'] = [];
+      array_push($_SESSION['chatSession']['messages'], array(
+         'request' => 'Hello, I\'m '.$user,
+         'response' => 'Welcome '.$user,
+         'time' => date('h:i:s A')
+      ) );
+      // = ;
+      unset($_GET['action']);
+   }
+
+   function endChat(){
+      try {
+         // ob_destroy();
+         unset($_SESSION['chatSession']);
+         session_destroy();
+         return true;
+      } catch (Exception $ex) {
+         $error = $ex->getMessage();
+         return false;
+      }
+   }
+
+   function messagesAdd($response_and_request) {
+      array_push($_SESSION['chatSession']['messages'], $response_and_request);
+
+   }
+
+   function train($trainData) {
+      $temp = explode("#", $trainData);
+      $data['request'] = $temp[0];
+      $data['response'] = $temp[1];
+      unset($temp);
+   }
+}
+
+if(isset($_GET['action'])) {
+   $bot = new Bot();
+   switch ($_GET['action']) {
+      case 'newrequest':
+      $response_and_request['request'] = $_GET['newrequest'];
+      $response_and_request['response'] = "response";
+      $response_and_request['time'] = date('h:i:s A');
+      $bot->messagesAdd($response_and_request);
+      break;
+
+      case 'endchat':
+      $bot->endChat();
+      break;
+
+      case 'startchat':
+      if(!empty($_GET['user'])) {
+         $bot->startChat($_GET['user']);
+      } else if(empty($_GET['chat'])) {
+         $bot->startChat("Anonymous");
+      }
+      break;
+
+      default:
+      echo "no request made";
+      break;
+   }
+}
+
+?>
 <style>
 body {
    background: #DAE3E7;
@@ -108,6 +188,34 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
             <p>The things i like aren't so much: #peace #solitude #mylaptop</p>
          </div>
       </div>
+      <div class="bot round-corners">
+         <div class="inner">
+            <h2>femiBot 🤖</h2>
+            <?php if(empty($_SESSION['chatSession'])) { ?>
+               <form>
+                  <input type="text" name="id" value="femi_dd" hidden />
+                  <input class="form-control" type="text" name="user" placeholder="Enter your name here to begin chat" />
+                  <button class="btn btn-primary pull-right" name="action" value="startchat" style="float:right; margin-top:10px" type="submit">Start Chat</button>
+               </form>
+            <?php } ?>
+            <?php if (!empty($_SESSION['chatSession'])) { ?>
+               <?php foreach ($_SESSION['chatSession']['messages'] as $key => $chat) { ?>
+                  <input style="text-align:right" class="form-control" type="text" name="response" value="<?php echo $chat['request']; ?>" readonly />
+                  &nbsp;
+                  <input style="text-align:left" class="form-control" type="text" name="response" value="🤖 <?php echo $chat['response']; ?>" readonly />
+                  <p class="pull-right"><i><?php echo $chat['time']; ?></i></p>
+               <?php } ?>
+               <form>
+                  <input type="text" name="id" value="femi_dd" hidden />
+                  <input class="form-control" type="text" placeholder="Message" name="newrequest" />
+                  &nbsp;
+                  <button class="btn btn-success pull-right" name="action" value="newrequest" style="float:right; margin-top:10px" type="submit">Send 💬</button>
+                  <button class="btn btn-primary pull-left" name="action" value="endchat" style="float:right; margin-top:10px" type="submit">End Chat ❌</button>
+               </form>
+            <?php } ?>
+         </div>
+      </div>
+   </div>
    </div>
    <footer style="margin-bottom:0px; text-align:center; padding-top:25px;" id="footer">
       <p>Copyright &copy; Kole-Ibrahim AbdulQudus 2018</p>

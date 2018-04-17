@@ -53,10 +53,6 @@
 		@import url('https://fonts.googleapis.com/css?family=Lato');
 		@import url('https://fonts.googleapis.com/css?family=Work+Sans');
 
-		body {
-			background: #fff;
-		}
-
 		.about{
 		  font-size: 62.5%;
 		  display: grid;
@@ -88,8 +84,6 @@
 		  font-family: 'Lato', sans-serif;
 		  font-size: 1.8em;
 		  padding: .5em 1em;
-		  line-height: 1.5;
-		  letter-spacing: .02em;
 		}
 		.profile {
 			height: 15em;
@@ -112,7 +106,7 @@
 			<h1> David Afolayan </h1>
 			<h2>FRONTEND MAGICIAN</h2>
 			<hr class="grey"/>
-			<p class="bio">David Afolayan is a young and passionate ninja geek. He has interests in javascript technologies, UI/UX design and building things that crawl on the web. He's aspiring tech influencer who's trying to get his feet steady in the sands of coding. And did I mention he's a sucker for graphics design, phtography and art?</p>
+			<p class="bio">David Afolayan is a young and passionate ninja geek. He has interests in javascript technologies, UI/UX design and building things that crawl on the web. He's aspiring tech influencer who's trying to get his feet steady in the sands of coding. And did I mention he's a sucker for graphics design, phtography and art? Well, He is!</p>
 		</div>
 	</main>
 </body>

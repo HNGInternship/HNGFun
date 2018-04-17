@@ -1,6 +1,6 @@
 <?php
 
-require_once 'config.php';
+require_once '../config.php';
 
 try {
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
@@ -33,8 +33,7 @@ $secret_word = $word['secret_word'];
 					<ul class="list-unstyled text-center">
 						<li class="list-item"><small><b>USERNAME</b></small><br> @<?= $data['username'] ?></li>
 						<li class="list-item"><small><b>NAME</b></small><br><?= $data['name'] ?></li>
-						<li class="list-item"><small><b>Date</b></small><br> <?=date("h:i:s a");?></li>
-						<li class="list-item"><small><b>Word</b></small><br> <?=$secret_word ?></li>
+						<li class="list-item"><small><b>PHONE</b></small><br> <?=date("h:i:s a");?></li>
 					</ul>
 				</div>
 			</div>
