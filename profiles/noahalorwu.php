@@ -25,7 +25,6 @@ body{
   margin: auto;
   text-align: center;
   font-family: arial;
-  margin-top: 100px;
   color: white;
 
 
