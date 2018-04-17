@@ -1,14 +1,15 @@
 <?php
-  if($_SERVER['REQUEST_METHOD'] === 'GET'){
-    if(!defined('DB_USER')){
-      require "../../config.php";		
-      try {
-          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-      } catch (PDOException $pe) {
-          die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-      }
+  if(!defined('DB_USER')){
+    require "../../config.php";		
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
     }
+  }
+  global $conn;
 
+  if($_SERVER['REQUEST_METHOD'] === 'GET'){
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $sql = "SELECT * FROM secret_word";
@@ -21,21 +22,12 @@
     $sql = "SELECT * FROM interns_data WHERE username = 'mclint_'";
     $query = $conn->query($sql);
     $query->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $query->fetchAll();
-    $me = array_shift($data);
+    $me = $query->fetch();
   }
 ?>
 
 <?php
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    if(!defined('DB_USER')){
-      require "../../config.php";		
-      try {
-          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-      } catch (PDOException $pe) {
-          die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-      }
-    }
     require "../answers.php";
     
     $noIdeaResponses = array("Ha. Turns out that I'm not that smart after all. Train me, yoda! Please?", 
@@ -43,13 +35,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     "Ugh. If only my creator trained me better I'd know what to say in reply to what you just said. Please train me?");
 
     function answerQuestion($question){
+      global $conn;
+      global $answer;
+      
       $question = preg_replace('([\s]+)', ' ', trim($question));
       $question = preg_replace("([?.])", "", $question);
       
       $question = "%$question%";
       $sql = "select * from chatbot where question like ".$question;
-      $query = $conn->prepare($sql);
-      $query->execute();
+      $query = $conn->query($sql);
       $query->setFetchMode(PDO::FETCH_ASSOC);
       $rows = $query->fetchAll();
       
