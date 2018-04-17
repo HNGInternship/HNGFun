@@ -1,5 +1,4 @@
 <?php
-if($_SERVER['REQUEST_METHOD'] === "GET"){
 $file = realpath(__DIR__ . '/..') . "/db.php"    ;
 include $file;
 global $conn;
@@ -25,7 +24,6 @@ try {
     throw $e;
 }
 
-}
 require realpath(__DIR__ . '/..') ."/answers.php";
 $file = realpath(__DIR__ . '/..') . "/db.php"    ;
 include $file;
