@@ -42,60 +42,36 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     "Maybe you humans might win after all. I have no idea what you just said. Please train me.",
     "Ugh. If only my creator trained me better I'd know what to say in reply to what you just said. Please train me?");
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      //if($_POST['password'] === 'trainpwforhng'){
-        $question = $_POST['question']; 
-
-        $userIsTrainingBot = stripos($question, "train:");
-        if($userIsTrainingBot === false){
-          answerQuestion($question);
-        }else{
-          trainBot($question);
-        }
-        
-        $randomIndex = rand(0, sizeof($noIdeaResponses) - 1);
-        echo json_encode([
-          'status' => 404,
-          'answer' => $noIdeaResponses[$randomIndex]
-        ]);
-    /*}else{
-        echo json_encode([
-          'status' => 403,
-          'answer' => 'You are not authorized to train this bot.'
-        ]);
-      }*/
-    }
-
     function answerQuestion($question){
-        $question = preg_replace('([\s]+)', ' ', trim($question));
-        $question = preg_replace("([?.])", "", $question);
+      $question = preg_replace('([\s]+)', ' ', trim($question));
+      $question = preg_replace("([?.])", "", $question);
+      
+      $question = "%$question%";
+      $sql = "select * from chatbot where question like ".$question;
+      $query = $conn->prepare($sql);
+      $query->execute();
+      $query->setFetchMode(PDO::FETCH_ASSOC);
+      $rows = $query->fetchAll();
+      
+      $resultsCount = count($rows);
+      if(resultsCount > 0){
+        $index = rand(0, $resultsCount - 1);
+        $row = $rows[$index];
+        $answer = $row['answer'];	
         
-        $question = "%$question%";
-        $sql = "select * from chatbot where question like ".$question;
-        $query = $conn->prepare($sql);
-        $query->execute();
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        $rows = $query->fetchAll();
-        
-        $resultsCount = count($rows);
-        if(resultsCount > 0){
-          $index = rand(0, $resultsCount - 1);
-          $row = $rows[$index];
-          $answer = $row['answer'];	
-          
-          $startParanthesesIndex = stripos($answer, "((");
+        $startParanthesesIndex = stripos($answer, "((");
 
-          // If the answer does not contain a function call
-          if($startParanthesesIndex === false){
-            echo json_encode([
-              'status' => 200,
-              'answer' => $answer
-            ]);
-          }else{
-            returnFunctionResponse($answer, $startParanthesesIndex);
-          }
+        // If the answer does not contain a function call
+        if($startParanthesesIndex === false){
+          echo json_encode([
+            'status' => 200,
+            'answer' => $answer
+          ]);
+        }else{
+          returnFunctionResponse($answer, $startParanthesesIndex);
         }
       }
+    }
 
     function returnFunctionResponse($answer, $startParanthesesIndex){
       $endParanthesesIndex = stripos($answer, "))");
@@ -157,6 +133,32 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         ]);
         return;
     }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      //if($_POST['password'] === 'trainpwforhng'){
+        $question = $_POST['question']; 
+
+        $userIsTrainingBot = stripos($question, "train:");
+        if($userIsTrainingBot === false){
+          answerQuestion($question);
+        }else{
+          trainBot($question);
+        }
+        
+        $randomIndex = rand(0, sizeof($noIdeaResponses) - 1);
+        echo json_encode([
+          'status' => 404,
+          'answer' => $noIdeaResponses[$randomIndex]
+        ]);
+    /*}else{
+        echo json_encode([
+          'status' => 403,
+          'answer' => 'You are not authorized to train this bot.'
+        ]);
+      }*/
+    }
+
+    
   }
 ?>
     <!DOCTYPE html>
