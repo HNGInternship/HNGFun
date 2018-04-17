@@ -1,20 +1,20 @@
 <?php
 
-	define ('DB_USER', "root");
-	define ('DB_PASSWORD', "");
-	define ('DB_DATABASE', "hngfun");
-	define ('DB_HOST', "localhost");
 
-	try {
-    	$connection = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    	//echo "Connected to ". DB_DATABASE . " successfully.</br>";
-	} catch (PDOException $pe) {
-    	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-	}
+	// if(!isset($_GET['id'])){
+ //    	require '../db.php';
+	// }else{
+	// 	require 'db.php';
+	// }
+
+
 	$query = "SELECT * FROM secret_word";
-	$fetch_secret_word = $connection->prepare($query);
+	$fetch_secret_word = $conn->prepare($query);
 	if($fetch_secret_word->execute()){
-		$secret_word = $fetch_secret_word->fetchAll(PDO::FETCH_OBJ);
+		$secret_data = $fetch_secret_word->fetchAll(PDO::FETCH_OBJ);
+		
+		$secret_word = $secret_data[0]->secret_word;
+		
 	} else {
 		die('Oops! Something Went Wrong');
 	}
@@ -23,7 +23,7 @@
 	
 	$query = "SELECT * FROM interns_data WHERE username=:username";
 
-	$fetch_user = $connection->prepare($query);
+	$fetch_user = $conn->prepare($query);
 	if($fetch_user->execute([':username'=>$username])){
 		$user = $fetch_user->fetch(PDO::FETCH_OBJ);
 		$name  = $user->name;
