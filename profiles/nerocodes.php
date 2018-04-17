@@ -57,7 +57,7 @@
     </style>
     <main>
         <?php
-            require "db.php";
+            require "../db.php";
 
             $stmt = $conn->query("SELECT name, username, image_filename FROM interns_data_");
             
