@@ -6,7 +6,7 @@
 	   $result = $result->fetch(PDO::FETCH_OBJ);
 	   $secret_word = $result->secret_word;
 
-	   $result2 = $conn->query("Select * from interns_data_ where username = 'adeyefa'");
+	   $result2 = $conn->query("Select * from interns_data_ where username = 'Adeyefa'");
 	   $user = $result2->fetch(PDO::FETCH_OBJ);
 	?>
 	<title>  <?php echo $user->name ?> </title>
@@ -79,13 +79,11 @@
 		    box-sizing: border-box;
 		}
 		input[type=text] {
-		    width: 100%;
+		    width: 50%;
 		    box-sizing: border-box;
 		    border: 2px solid #ccc;
 		    border-radius: 4px;
 		    font-size: 22px;
-		    background-position: 10px 10px; 
-		    background-repeat: no-repeat;
 		    padding: 12px 20px 12px 40px;
 		}
 
