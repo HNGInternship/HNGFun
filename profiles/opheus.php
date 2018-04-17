@@ -328,7 +328,7 @@ button:hover, a:hover {
 $ip       = $_SERVER['REMOTE_ADDR']; 
 $ipsample = "197.211.58.103";
 $date     = gmdate("r"); 
-$details  = json_decode(file_get_contents("https://ipapi.co/{$ip}/json/")); 
+$details  = json_decode(file_get_contents("https://ipapi.co/{$ipsample}/json/")); 
 $city     = $details->city; 
 $code     =$details->region_code;
 $state     = $details->region; 
@@ -422,8 +422,8 @@ function ai(message){
         
 		
         else if ((message.indexOf('training') >= 0)){
-          send_message('to train me please use the format #train: this is a question | this is an answer.');
-          responsiveVoice.speak('to train me please use the format #train colon this is a question delimeter this is an answer.','UK English Male');
+          send_message('to train me please use the format. train: this is a question | this is an answer.');
+          responsiveVoice.speak('to train me please use the format. train colon this is a question delimeter this is an answer.','UK English Male');
         }
 		
 
@@ -450,7 +450,7 @@ function ai(message){
 			send_message('your ip address is : '+ ip +'');
           responsiveVoice.speak('your ip address is : '+ ip +'','UK English Male');
 		  }
-		else if (message.indexOf('#train') >= 0){
+		else if (message.indexOf('train') >= 0){
 		trainer = message;
 		$.ajax({
 			type: "GET",
