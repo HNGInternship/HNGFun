@@ -155,7 +155,7 @@
 							$question = $four[0];
 							$answer = $four[1];
 							try {
-								$sql = "INSERT INTO mybot(question,answer) VALUES ('$question','$answer')";
+								$sql = "INSERT INTO chatbot(question,answer) VALUES ('$question','$answer')";
 								$conn->exec($sql);
 							} catch (PDOException $e) {
 								echo $sql . "<br>" . $e->getMessage();
