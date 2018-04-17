@@ -45,7 +45,6 @@ class Bot {
 
    function messagesAdd($response_and_request) {
       array_push($_SESSION['chatSession']['messages'], $response_and_request);
-      print_r($response_and_request);
    }
 
    function getAction($functionName) {
