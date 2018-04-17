@@ -1,4 +1,5 @@
 <?php
+
 function getListOfCommands() {
   return 'Type "<code>show: List of commands</code>" to see a list of commands I understand.<br/>
   Type "<code>open: www.google.com</code>" to open Google.com<br/>
@@ -33,6 +34,12 @@ function getAJoke(){
 
     return $jokes[rand(0, count($jokes) - 1)];
 }
+
+function emojifyText($text){
+    $url = "https://torpid-needle.glitch.me/emojify/{$text}";
+    return file_get_contents($url);
+}
+// End of functions by @mclint_
 
     //functions defined by @chigozie. DO NOT MODIFY!!!
     function getDayOfWeek(){
@@ -250,4 +257,25 @@ function get_device_name($user_agent)
 }
 
 ///////////////////////end of opheus ////////////////////
+
+/***************************Femi_DD*************************/
+function myBoss() {
+return "Femi_DD is my creator, He's a nice person and doesn't rest untill he solves a problem.";
+}
+
+ function dateToday() {
+     return date("F jS Y h:i:s A");
+ }
+
+ function myIP() {
+     return $_SERVER['REMOTE_ADDR'];
+ }
+
+ function myLocation() {
+    $tz = new DateTimeZone("Africa/Lagos");
+    $loc = $tz->getLocation();
+    return $loc['longitude'] .' : '. $loc['latitude'];
+ }
+
+/***************************Femi_DD*************************/
 ?>
