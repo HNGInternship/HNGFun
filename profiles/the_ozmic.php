@@ -78,7 +78,20 @@
       return $answer;
     }
 
+    $password = explode("#", trim($question));
+
     if (isTraining($question)) {
+
+      if (isset($password[2])) {
+        if ($password[2] !== "trainpwforhng") {
+          echo "Invalid authorization, you are not allowed to train me.";
+          exit();
+        }
+      } else {
+        echo "Please provide a password to train me.";
+        exit();
+      }
+
       $answer = resolveAnswerFromTraining($question);
       $question = strtolower(resolveQuestionFromTraining($question));
       $question_data = array(':question' => $question, ':answer' => $answer);
@@ -121,13 +134,13 @@
         $function_found = substr($answer, $start, - $end);
         $replacable_text = substr($answer, $start, - $end);
         $new_answer = str_replace($replacable_text, $function_found(), $answer);
-        
+
         $new_answer = str_replace("((", "", $new_answer);
         $new_answer = str_replace("))", "", $new_answer);
         return resolveAnswer($new_answer);
       }
     }
-  
+
     $answer = getAnswer();
     echo $answer;
     exit();
