@@ -1,41 +1,33 @@
+<?php
 
-  
-         <?php
-  define("DB_SERVER", "localhost");
-  define("DB_USER", "root");
-  define("DB_PASS", "");
-  define("DB_NAME", "hngfun");     
-$connection=mysqli_connect(DB_SERVER,DB_USER,"",DB_NAME);
-if(mysqli_connect_errno()){
-    die("database connection failed: ".mysqli_connect_error());
-}
+$sel_frank = "SELECT * FROM interns_data WHERE username = 'frank'";
+$q = $conn->query($sel_frank);
+$fetch_frank->setFetchMode(PDO::FETCH_ASSOC);
+$frank_data = $fetch_frank->fetchAll();
+$frank = array_shift($frank_data);
+
+// Secret word
+$sql = "SELECT * FROM secret_word";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$words = $q->fetch();
+$secret_word = $words['secret_word'];
 ?>
- </br>   </br>    
-  <?php 
-  $query=mysqli_query($connection,"SELECT * FROM secret_word ");
-    if(!$query){
-        echo "Selecting code from secret word failed";
-         } else{
-            while($row=mysqli_fetch_array($query)){
-             $secret_word=$row['secret_word'];
-              }
-       
-             $sel =mysqli_query($connection,"SELECT * FROM interns_data where username='frank'");
-     ?>
-        <?php   WHILE($row=mysqli_fetch_array($sel)) {?>
-        <?php
-           $picture=$row['image_filename']."<br/>"; 
-           echo "Full Name: ".  $name= $row['name']."<br/>"; 
-           ?>
-       
-           <img src="<?php echo $row['image_filename']; ?>" alt="@frank" style="width:170px;height:170px; />   
-       
-  <?php } ?>
- <?php } ?>
-         
-  </br>    
-  <img src="<?php echo $picture; ?>
- 
- 
-  </div>
 
+<div class="frank profile-wrap">
+<div class="about">
+	<?php if (empty($frank)): ?>
+	<span>what's wrong</SPand>
+	<?php else: ?>
+	<br/><br/><br/>
+	
+	<div class="photo-wrap">
+		<img src="<?php echo $frank['image_filename']; ?>" alt="" width="300" height="300" />
+	</div>
+	
+	<h3>HNG INTERNSHIP 4 #STAGE3 TASK</h3>
+	<h2><?php echo $frank['name']; ?></h2>
+	
+	<?php endif; ?>
+</div>
+</div>
