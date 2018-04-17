@@ -94,13 +94,12 @@
       $answer = resolveAnswerFromTraining($question);
       $question = strtolower(resolveQuestionFromTraining($question));
       $question_data = array(':question' => $question, ':answer' => $answer);
-  
+
       $sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '"';
-      $question_data_query =  $conn->query($sql);
+      $question_data_query = $conn->query($sql);
       $question_data_query->setFetchMode(PDO::FETCH_ASSOC);
       $question_data_result = $question_data_query->fetch();
-  
-  
+
       $sql = 'INSERT INTO chatbot ( question, answer )
           VALUES ( :question, :answer );';
       $q = $conn->prepare($sql);
