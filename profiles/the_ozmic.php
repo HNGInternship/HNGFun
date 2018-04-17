@@ -53,7 +53,7 @@
         $answer_data_index = rand(0, count($answer_data_result) - 1);
       }
 
-      if ($answer_data_result[$answer_data_index]) {
+      if (!isset($answer_data_result[$answer_data_index])) {
         return 'I don\'t understand that question. If you want to train me to understand, please type "<code>train: your question? # The answer.</code>"';
       }
 
