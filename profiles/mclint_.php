@@ -54,6 +54,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           sendResponse(200, getAJoke());
           break;
       }
+
+      switch(true){
+        case substr($question, 0, strlen('emojify:')) === "emojify:":
+          sendResponse(200, emojifyText(substr(strlen('emojify:'), strlen($question))));
+          break;
+      }
       
       $question = "%$question%";
       $sql = "select * from chatbot where question like :question";

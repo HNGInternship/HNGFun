@@ -46,6 +46,16 @@ function getAJoke(){
     return $jokes[rand(0, count($jokes) - 1)];
 }
 
+function emojifyText($text){
+    echo $text;
+    $url = "https://torpid-needle.glitch.me/emojify/{$text}";
+    $json = file_get_contents($url);
+    $response = json_decode($json);
+
+    return $response.data;
+}
+// End of functions by @mclint_
+
     //functions defined by @chigozie. DO NOT MODIFY!!!
     function getDayOfWeek(){
         return date("l");
