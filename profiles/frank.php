@@ -46,18 +46,7 @@ color: #F2F2F2;
  }
 
 
- .container .time{ 
- padding-top: 20px;
- padding-left: 30px;
-position: absolute;
-width: 300px;
-height: 280px;
-left: 250px;
-top: 120px;  
-font-size: 20px;
-color: black;
-background: #828282;
- }
+ 
 </style>   
 </head>
 <body>
@@ -65,7 +54,7 @@ background: #828282;
 <div class="container" >
     <span class="title">HNG INTERNSHIP 4 #STAGE3 TASK
                  </span>
-    <div class="time"> 
+    
   
  
  </br>   </br>    
@@ -93,7 +82,7 @@ background: #828282;
          
   </br>   </br>   </br>    </br>   </br>   </br>    </br>   </br>   </br>   
   <img src="<?php echo $picture; ?>
-</div> </br>   </br>   </br>   
+ 
  
   </div>
 </body>
