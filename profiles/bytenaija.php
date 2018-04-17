@@ -143,8 +143,7 @@ try {
     processQuestion($_GET['query']);
     
 }else{
-$file = realpath(__DIR__ . '/..') . "/db.php";
-require_once $file;
+
 ?>
 
 <!DOCTYPE html>
