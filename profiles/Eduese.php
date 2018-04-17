@@ -45,7 +45,7 @@
 	</style>
 </head>
 <body>
-	<h2 class="title" style="text-align:center">My Profile pixelss</h2>
+	<h2 class="title" style="text-align:center">My Profiles</h2>
 
 	<div class="container">
 	<div class="pixelss" style="width: 18rem; text-align: center;">
