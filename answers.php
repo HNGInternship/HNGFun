@@ -54,10 +54,11 @@ if(isset($_GET['bytenaija'])){
           $res = $row["question"];
           $question = '';
           if(strpos($res, ":" ) !== false){
-            $question = explode(":", $res)[1];
+            $question = explode(":", $res);
+            $res = $question[1];
           }
             
-            $string .= "<li>" . $row["question"] . "</li>";
+            $string .= "<li>" . $res. "</li>";
         } 
          echo $string;
          
