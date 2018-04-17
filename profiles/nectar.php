@@ -19,7 +19,6 @@
         }
         div.profile-image{
             width: 100%;
-            margin-top: 10%;
             margin-right: auto;
             margin-left: auto;
             align-content: center;
@@ -92,7 +91,7 @@
 <body>
     <?php
         // Get the config file
-         include ('../config.php');
+        //  include ('../config.php');
          
         // Set the needed variables
         $name = "";
