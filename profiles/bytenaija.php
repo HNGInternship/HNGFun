@@ -441,7 +441,25 @@ font-family: Lato;
     color: #000000;
     font-family: Lato;
 }
+.move-right{
+    animation: move  5s;
+    animation-fill-mode: forwards;
+    position: relative;
+    left: -100%;
+    
 
+}
+
+@keyframes move{
+   from{
+        left:-100%;
+    }
+
+    to{
+        left:18%;
+    }
+
+}
 @media screen and (max-width: 900px){
 
 html, body{
@@ -450,7 +468,7 @@ html, body{
 }
     .bot{
         width : 100%;
-        margin: 0 auto;
+        margin: 0 0;
     }
 
     aside{
@@ -610,7 +628,8 @@ try {
     
     </div>
 
-    <div class="bot">
+    <div class="bot move-right">
+    <h2>Byte9ja Chatbot</h2>
     <div id="botresponse"> </div>
     <br />
     <input type="text" name="botchat" placeholder="Chat with me! Press enter to send." onkeypress="return runScript(event)" onkeyDown="recall(event)" class="form-control">
