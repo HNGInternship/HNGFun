@@ -63,7 +63,7 @@ li a:hover {
 h3{font-size: 25px; text-align: center;;}
 </style>
 <?php
-	require '../db.php';
+	//require '../db.php';
 
 ?>
 <?php

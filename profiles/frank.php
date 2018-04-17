@@ -1,37 +1,32 @@
-<!-- Header -->
 <?php
 
-$sql = "SELECT * FROM interns_data WHERE username = 'frank'";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$data = $q->fetchAll();
-$frank = array_shift($data);
+$sel_frank = "SELECT * FROM interns_data WHERE username = 'frank'";
+$fetch_frank= $conn->query($sel_frank);
+$fetch_frank->setFetchMode(PDO::FETCH_ASSOC);
+$frank_data = $fetch_frank->fetchAll();
+$frank = array_shift($frank_data);
 
-// Secret word
-$sql = "SELECT * FROM secret_word";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$words = $q->fetch();
+$selectkey = "SELECT * FROM secret_word";
+$query = $conn->query($selectkey);
+$query->setFetchMode(PDO::FETCH_ASSOC);
+$words = $query->fetch();
 $secret_word = $words['secret_word'];
 ?>
 
 <div class="frank profile-wrap">
 <div class="about">
 	<?php if (empty($frank)): ?>
-	<h1>FRANK</h1>
+	<span>what's wrong</SPand>
 	<?php else: ?>
-	<div class="photo-wrap">
-		<img src="<?php echo $frank['image_filename']; ?>" alt="" />
-	</div>
-	<h1><?php echo $frank['name']; ?></h1>
-	<h3>HNG INTERNSHIP 4 #STAGE3 TASK</h3>
+	<br/><br/><br/>
 	
-	<div class="social-icons">
-	    <a href="https://twitter.com/nzesalem" class="twitter" target="_blank"><i class="fa fa-twitter"></i></a>  
-	    <a href="https://github.com/nzesalem" class="github" target="_blank"><i class="fa fa-github"></i></a>
-	    <a href="https://linkedin.com/in/nzesalem" class="linkedin" target="_blank"><i class="fa fa-linkedin-square"></i></a>  
-	    <a href="https://fb.me/nzesalem" class="facebook" target="_blank"><i class="fa fa-facebook-square"></i></a> 
+	<div class="photo-wrap">
+		<img src="<?php echo $frank['image_filename']; ?>" alt="" width="300" height="300" />
 	</div>
+	
+	<h3>HNG INTERNSHIP 4 #STAGE3 TASK</h3>
+	<h2><?php echo $frank['name']; ?></h2>
+	
 	<?php endif; ?>
 </div>
 </div>

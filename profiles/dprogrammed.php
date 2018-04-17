@@ -7,43 +7,33 @@ $name ="";
 $username = "";     
 $secret_word = "";
 
-$conn = mysqli_connect('localhost','root','','hng_fun');
+// $conn = mysqli_connect('localhost','root','','hng_fun');
 // Check connection
 // if (mysqli_connect_errno())
 //   {
 //   echo "Failed to connect to MySQL: " . mysqli_connect_error();
 //   }
 
-$sql = "SELECT * FROM interns_data WHERE username='dprogrammed' LIMIT 1";
-  $result = mysqli_query($conn, $sql);
-if(!$result){
-  echo "No result found";
-}
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        $name = $row["name"];
-        $username = $row["username"];
-        $image = $row['image_filename'];
-    }
-} else {
-    echo "0 results";
-}
-$sql2 = "SELECT * FROM secret_word LIMIT 1";
-  $result2 = mysqli_query($conn, $sql2);
-if(!$result2){
-  echo "No result found";
-}
-if (mysqli_num_rows($result2) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        $secret_word = $row["secret_word"];
-       
-    }
-} else {
-    echo "No result found";
+$stmt = $conn->query('SELECT * FROM interns_data WHERE username="dprogrammed"');
+ 
+while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+   $name = $row['name'];
+   $username = $row['username']; 
+   $image = $row['image_filename'];//etc...
 }
 
+    // output data of each row
+
+
+
+$stmt =$conn->query('SELECT * FROM secret_word');
+
+$stmt = $conn->query('SELECT secret_word FROM secret_word LIMIT 1');
+ 
+while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $secret_word = $row['secret_word'];
+
+}
 
 ?>
 
