@@ -1,5 +1,6 @@
 
 <html lang="en">
+<?php require_once "./db.php" ?>
 	<?php
 	   $result = $conn->query("Select * from secret_word LIMIT 1");
 	   $result = $result->fetch(PDO::FETCH_OBJ);
@@ -113,19 +114,18 @@
 				<div class="col-sm-6">
 					<div> 
 						<section id="botSection">MyBOT</section>
-						<form action="" method="POST" style="position:relative;display:flex;">
-							<label for="botInput"></label>
-							<input type="text" name="botInput" width="40%" height="20px" placeholder="Your text goes here..."/>
-							<label for="botSubmit"></label>
-							<input name="botSubmit" name="submit" type="submit" >
-						</form>
-
-						<div><p><?php $mybotInp = $_REQUEST['botInput'];echo "You entered " . $mybotInp;?></p>
-						</div>			 
+							<form action="" method="POST" style="position:relative;display:flex;">
+								<label for="botInput"></label>
+								<input type="text" name="botInput" width="40%" height="20px" placeholder="Your text goes here..."/>
+								<label for="botSubmit"></label>
+								<input name="botSubmit" name="submit" type="submit" >
+							</form>
+						<div><p><?php $mybotInp = $_REQUEST['botInput'];echo "You entered " . $mybotInp;?></p></div>			 
 					</div>
 				</div>
 			</div>
 			<footer>Foluwa @ <a href="https://hotels.ng">Hotels.ng</a></footer>
+			<hr style="width:50%"/>
 		</main>
 		<?php
 		   try {
