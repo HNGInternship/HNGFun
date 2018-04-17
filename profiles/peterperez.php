@@ -64,6 +64,7 @@
 	</style>
 </head>
 <body>
+	<div class="row">
 	<section style="width: 100%; min-height: 470px;">
 
 		<div id="wrapper" style="height: 600px;">    
@@ -91,5 +92,6 @@
 		    </div>
 		</div>
 	</section>
+		</div>
 </body>
 </html>
