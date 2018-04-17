@@ -95,6 +95,21 @@
 		.top {
 			margin-top: 50px;
 		}
+		.bot {
+			position: fixed;
+			bottom: 2%;
+			right: 8%;
+			width: 350px;
+			display: block;
+			background-color: blue;
+		}
+		.chat {
+			display: block;
+			background-color: blue;
+			color: #fff;
+			text-align: center;
+			padding: 10px 0;
+		}
 	</style>
 </head>
 <body>
@@ -120,6 +135,9 @@
 			<h3> Slack: @admiral </h3>
 		</div>
 		<div class="clear"></div>
+		<div class="bot">
+			<h2 class="chat">CHAT BOT</h2>
+		</div>
 		<div class="footer">
 			<footer class="socials">
                 <i class="fab fa-github-square fa-2x"></i>
@@ -128,6 +146,5 @@
                 <i class="fab fa-linkedin fa-2x"></i>
             </footer>
 		</div>
-	</div>
     </body>
 </html>

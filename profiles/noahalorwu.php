@@ -40,7 +40,8 @@ body{
 a {
   text-decoration: none;
   font-size: 40px;
-  color: white;
+  color: black;
+  margin: auto;
 }
  
 
@@ -60,6 +61,5 @@ a {
  </div>
 
 </div>
-
 </body>
 </html>
