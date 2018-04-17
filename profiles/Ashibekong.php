@@ -4,6 +4,28 @@
 	<head>
 
  <?php
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> f2598eb70c1068fcbd230b8021d108fafbbf4f86
+
+   require_once('../db.php');
+
+   try {
+   $sql = 'SELECT * FROM secret_word';
+       $q = $conn->query($sql);
+       $q->setFetchMode(PDO::FETCH_ASSOC);
+   } catch (PDOException $e) {
+       die("Could not query the database:" . $e->getMessage());
+     }
+   $result = $q->fetch();
+   $secret_word = $result['secret_word'];
+
+   ?>
+ 
+<<<<<<< HEAD
+=======
+=======
  require'../db.php';
       try {
     $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -21,6 +43,8 @@
   }
 
   ?>
+>>>>>>> a408531ab7ecca1fc770e36e677122a80adfea7a
+>>>>>>> f2598eb70c1068fcbd230b8021d108fafbbf4f86
 
 		<title>Ashibekong John Ishado</title>
 		<meta charset="utf-8" />

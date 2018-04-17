@@ -1,3 +1,13 @@
+<?php
+require_once '../config.php';
+try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    // echo "Connected to ". DB_DATABASE . " successfully.</br>";
+} catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+?>
+
 <!DOCTYPE html>
 <head>
 	<style type="text/css">
@@ -43,21 +53,21 @@
 </head>
 <body>
 	<?php
-$result = $conn->query("Select * from secret_word LIMIT 1");
-$result = $result -> fetch(PDO::FETCH_OBJ);
-$secret_word = $result ->secret_word;
-
-$result2 = $conn->query("Select * from interns_data where username = 'Rexben'");
-$user = $result2 -> fetch(PDO::FETCH_OBJ);
-?>
+$name_query = $conn->query('SELECT * FROM interns_data WHERE username="Rexben"');
+			$name_query->execute(); 
+			$result = $name_query->fetch(PDO::FETCH_ASSOC);
+			$name = $result['name'];
+			$img_file = $result['image_filename'];
+			$username = $result['username'];
+		?>
 
 
 <p class= "imagee">
-<img src="<?php echo $user->image_filename ?>" alt="Rexben Image">
+<img src="<?php echo $img_file ?>" alt="Rexben Image">
 </p>
 	<h1 class = "named">
 		<?php
-		echo $user->name
+		echo $name
 		?>
 	</h1>
 	<p class = "named2">
@@ -72,6 +82,17 @@ $user = $result2 -> fetch(PDO::FETCH_OBJ);
 			</p>
 
 	</div>
+ <?php
+					    try {
+					        $sql = 'SELECT * FROM secret_word';
+					        $q = $conn->query($sql);
+					        $q->setFetchMode(PDO::FETCH_ASSOC);
+					        $data = $q->fetch();
+					    } catch (PDOException $e) {
+					        throw $e;
+					    }
+					    $secret_word = $data['secret_word'];
+					  ?>
 		</body>
 
 </html>
