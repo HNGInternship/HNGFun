@@ -123,7 +123,7 @@
       <!--Sidebar content-->
 
 
-			<img src="<?php echo $user->image_filename; ?>" style="border: 2px solid #f3f3f3;" alt="My Image" width="400px" height="600px">
+			<img src="<?php echo $user->image_filename; ?>" style="border: 2px solid #f3f3f3;" alt="My Image"  class="img-circle"  width="400px" height="600px">
 
 
     </div>
