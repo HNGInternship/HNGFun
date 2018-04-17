@@ -58,7 +58,7 @@ $secret_word =  $result['secret_word'];
 	<div class="card">
 	  <img src="http://res.cloudinary.com/digitalstead/image/upload/v1523614823/john.jpg" alt="John picture" style="width:100%; height: 200px">
 	  <h1><?php echo $fullName ?></h1>
-	  <h6><?php echo "username: " $username ?></h6>
+	  <h6><?php echo $username ?></h6>
 	  <p class="title">FrontEnd Developer</p>
 	  <p>Bootstrap, Materialize and Angular</p>
 	  <div style="margin: 24px 0; padding-bottom: 20px">
