@@ -27,7 +27,7 @@
       
 			$question = "%$question%";
 			$sql = "select * from chatbot where question like ".$question;
-			$query = conn->query($sql);
+			$query = $conn->query($sql);
 			$query->setFetchMode(PDO::FETCH_ASSOC);
       $rows = $query->fetchAll();
       
@@ -345,7 +345,7 @@
                 this.message.push({sender: 'bot', query: response.data.answer});
               }).catch(error => {
                 console.log(error);
-              })
+              });
             }
           },
           template: `
