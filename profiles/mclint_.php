@@ -62,8 +62,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         echo json_encode([
           'status' => 403,
           'answer' => 'You are not authorized to train this bot.'
-        ]);*/
-      }
+        ]);
+      }*/
     }
 
     function answerQuestion($question){
