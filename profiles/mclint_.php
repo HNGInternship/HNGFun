@@ -350,9 +350,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             },
             getBubbleColor(sender) {
               if (sender === 'user')
-                return 'orange';
+                return 'white';
 
-              return 'teal';
+              return 'gray';
             },
             answerQuery(query) {
               var params = new URLSearchParams();
@@ -375,7 +375,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             <div id="chat-container">
               <ul style="padding: 16px; list-style-type: none;">
                 <li class="chat-bubble" v-for="(msg, index) in messages" v-key="index" :style="{'background-color': getBubbleColor(msg.sender)}">
-                  <p style="margin: 0; padding: 0">{{msg.query}}</p>
+                  <p style="margin: 0; padding: 0; color: rgba(0, 0, 0, 0.8)">{{msg.query}}</p>
                 </li>
               </ul>
             </div>
