@@ -53,11 +53,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			if(count($split_string) == 1){
 				echo  json_encode([
 				    'status' => 0,
-				    'answer' => "Invalid training format()"
+				    'answer' => "Invalid training format"
 				]);
 
 				return;
 			}
+			$que = trim($split_string[0]);
+	        $ans = trim($split_string[1]);
+	  
+	        if(count($split_string) < 3){
+	        echo json_encode([
+	          'status' => 0,
+	          'answer' => "You need to enter the training password to train me."
+	        ]);
+	        return;
+	        }
 			$password = trim($split_string[2]);
 		    //verify if training password is correct
 		    define('TRAINING_PASSWORD', 'trainpwforhng');
