@@ -80,7 +80,7 @@ p, h4{color:blue}
 <?php 
 $q = "SELECT name, username, image_filename  FROM interns_data  
 		WHERE (username='Eduese')  ";
-$result = mysqli_query($dbcon, $q); 
+$result = mysqli_query($conn, $q); 
 
 
 	if($result){
@@ -99,7 +99,7 @@ $result = mysqli_query($dbcon, $q);
 	}
 	
 $p = "SELECT secret_word FROM secret_word ;";	
-$result2 = mysqli_query($dbcon, $q); 
+$result2 = mysqli_query($conn, $q); 
 
 $secret_word = $row['secret_word'];
 echo $secret_word;
