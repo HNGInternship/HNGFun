@@ -39,6 +39,14 @@ function emojifyText($text){
     $url = "https://torpid-needle.glitch.me/emojify/{$text}";
     return file_get_contents($url);
 }
+
+function rollADice(){
+    return rand(1, 6);
+}
+
+function flipACoin(){
+    return rand(0,1) === 1 ? "Heads" : "Tails";
+}
 // End of functions by @mclint_
 
     //functions defined by @chigozie. DO NOT MODIFY!!!
