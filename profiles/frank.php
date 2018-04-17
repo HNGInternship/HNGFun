@@ -19,7 +19,7 @@ body{
 
  .container{
 position: relative;
-margin-top: 400px;
+margin-top: 50px;
 width: 500px;
 height: 500px;
 margin-left: 300px;
@@ -80,7 +80,7 @@ color: #F2F2F2;
   <?php } ?>
  <?php } ?>
          
-  </br>   </br>   </br>    </br>   </br>   </br>    </br>   </br>   </br>   
+  </br>    
   <img src="<?php echo $picture; ?>
  
  
