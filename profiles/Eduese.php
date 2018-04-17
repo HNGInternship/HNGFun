@@ -71,7 +71,7 @@ p, h4{color:blue}
 
 <?php
 
-// This file provides the information for accessing the database.and connecting 
+/*/ This file provides the information for accessing the database.and connecting 
 //to MySQL. It also sets the language coding to utf-8
 
 // First we define the constants: 
@@ -87,7 +87,7 @@ OR die("Could not connect to server: " .mysqli_connect_error());
 
 // Finally, we set the language encoding.as utf-8
 mysqli_set_charset($dbcon, 'utf8'); 
-
+*/
 ?>
 
 
@@ -102,7 +102,7 @@ mysqli_set_charset($dbcon, 'utf8');
 <h4><i>Welcome to my page, I am 
 
 <?php 
-$q = "SELECT name, username, image_filename  FROM myhng_table  
+$q = "SELECT name, username, image_filename  interns_data  
 		WHERE (username='Eduese')  ";
 $result = mysqli_query($dbcon, $q); // Run the query. #7
 
@@ -114,8 +114,8 @@ $result = mysqli_query($dbcon, $q); // Run the query. #7
 		echo($row['name']);
 		
 		echo ' am a web developer. <br><br>
-		I am so glad to have you here. Please do more to explore the site. <br><br>
-		Meanwhile, my username on slack is  @'; 
+		I am so glad to have you here. Please do more to explore the site. <br><br>';
+		echo 'Meanwhile, my username on slack is  @'; 
 		echo ($row['username']);
 		echo ' <br><br>And the file name to the saved image is : ';
 		echo ($row['image_filename']);
@@ -143,7 +143,7 @@ $result2 = mysqli_query($dbcon, $q); // Run the query. #7
 
 <div id = "my_pics" class = "col-2">
 <figure class = "allimage" id = "logo">
-<img src = "https://cloudinary.com/console/media_library/asset/image/upload/my_pics.jpg"
+<img src = "http://res.cloudinary.com/duys5bnjm/image/upload/v1523634872/my_pics.jpg"
  width ="35%" height ="50%" ></figure></br>
 
 </div> 
