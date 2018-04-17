@@ -362,13 +362,13 @@ function bytenaija_hodl(){
     $response = curl_exec($curl);
     $response = json_decode($response, true);
     curl_close($curl);
-    $responseStr = "<h4 class='hodl'>Bitcoin Price as at " . $response["time"]["updated"] . "</h4><br> <div><h4>Prices</h4><p><li>"
+    $responseStr = "<h4 class='hodl'>Bitcoin Price as at " . $response["time"]["updated"] . "</h4><br> <div><h4>Prices</h4><li>"
     . $response["bpi"]["USD"]["code"] . " " . $response["bpi"]["USD"]["rate"] . "</li>
     <li>"
     . $response["bpi"]["EUR"]["code"] . " " . $response["bpi"]["EUR"]["rate"] . "</li>
     <li>"
     . $response["bpi"]["GBP"]["code"] . " " . $response["bpi"]["GBP"]["rate"] . "</li>
-    </p></div>";
+    </div>";
     echo $responseStr;
 }
 /***************************Bytenaija ends here*************************/
