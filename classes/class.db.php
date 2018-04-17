@@ -9,7 +9,7 @@
 
 		private static $_host = 'localhost';
 		private static $_username = 'root';
-		private static $_password = '';
+		private static $_password = 'root';
 		private static $_driver = 'mysql';
 		private static $_instance = null;
 
