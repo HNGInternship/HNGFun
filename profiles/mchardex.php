@@ -2,17 +2,15 @@
 <html>
 <head>
 
-    <?php 
-		require 'db.php';
+<?php
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
 
-		$result = $conn->query("Select * from secret_word LIMIT 1");
-		$result = $result->fetch(PDO::FETCH_OBJ);
-		$secret_word = $result->secret_word;
+   $result2 = $conn->query("select * from interns_data where username = 'mchardex'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+?>
 
-		$result2 = $conn->query("Select * from interns_data where username = 'mchardex'");
-        $user = $result2->fetch(PDO::FETCH_OBJ);
-        
-	?>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<style>
         .card {
@@ -48,9 +46,8 @@
 
 	<div class="card">
 	  <img src="<?php echo $user->image_filename ?>" alt="mchardex" style="width:100%; height: 350px">
-	  <h1 style="font-size: 24px;">@<?php echo $user->username ?></h1>
+	  <h1 style="font-size: 24px;">Adebisi Oluwabukunmi J</h1>
 	  <p class="title">Web Developer</p>
-      <p class="username">@<?php echo $username; ?></p>
 	  <p>Javascript, NodeJs and jquery</p>
 	  <div style="margin: 24px 0; padding-bottom: 20px">
 	    <a href="https://twitter.com/mchardex"><i class="fa fa-twitter"></i></a>  
