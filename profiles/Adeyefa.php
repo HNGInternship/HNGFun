@@ -1,78 +1,78 @@
+<?php	
+   $result = $conn->query("Select* from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
 
+   $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+   //start
+   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+		require "../answers.php";
+
+		date_default_timezone_set("Africa/Lagos");
+
+
+		try{
+		  if(!isset($_POST['question'])){
+		    echo json_encode([
+		      'status' => 1,
+		      'answer' => "Please provide a question"
+		    ]);
+		    return;
+		    }
+		    $question = $_POST['question'];
+		}
+		#Check Training Mode
+	    $train_index = stripos($question, "train:");
+	    if($train_index === false){
+		    $question = preg_replace('([\s]+)', ' ', trim($question));
+		    $question = preg_replace("([?.])", "", $question);
+
+		    $question = "%$question%";
+	        $sql = "Select * from chatbot where question like :question";
+	        $stat = $conn->prepare($sql);
+	        $stat->bindParam(':question', $question);
+	        $stat->execute();
+	  
+	        $stat->setFetchMode(PDO::FETCH_ASSOC);
+	        $rows = $stat->fetchAll();
+	        if(count($rows)>0){
+		    $index = rand(0, count($rows)-1);
+		    $row = $rows[$index];
+		    $answer = $row['answer'];
+		    echo $answer;	
+		}
+		else{
+			$training_string = substr($question, 6);
+		    //remove excess white space in $question_and_answer_string
+		    $training_string = preg_replace('([\s]+)', ' ', trim($training_string));
+		      
+		    $training_string = preg_replace("([?.])", "", $training_string); //remove ? and . so that questions missing ? (and maybe .) can be recognized
+		    $split_string = explode("#", $question_and_answer_string);
+		
+    
+	        $question = trim($split_string[0]);
+	        $answer = trim($split_string[1]);
+
+	        $sql = "INSERT INTO chatbot(question, answer) VALUES (:question, :answer)";
+		    $stat = $conn->prepare($sql);
+		    $stat->bindParam(':question', $question);
+		    $stat->bindParam(':answer', $answer);
+		    $stat->execute();
+		    $stat->setFetchMode(PDO::FETCH_ASSOC);
+		    echo json_encode([
+		        'status' => 1,
+		        'answer' => "Thanks for training me"
+		    ]);
+		    return;
+		}
+	}
+?>
 <!DOCTYPE html>
 <html>
 <head>
-	<?php	
-	   $result = $conn->query("Select* from secret_word LIMIT 1");
-	   $result = $result->fetch(PDO::FETCH_OBJ);
-	   $secret_word = $result->secret_word;
 
-	   $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
-	   $user = $result2->fetch(PDO::FETCH_OBJ);
-       //start
-	   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-			require "../answers.php";
-
-			date_default_timezone_set("Africa/Lagos");
-
-
-			try{
-			  if(!isset($_POST['question'])){
-			    echo json_encode([
-			      'status' => 1,
-			      'answer' => "Please provide a question"
-			    ]);
-			    return;
-			    }
-			    $question = $_POST['question'];
-			}
-			#Check Training Mode
-		    $train_index = stripos($question, "train:");
-		    if($train_index === false){
-			    $question = preg_replace('([\s]+)', ' ', trim($question));
-			    $question = preg_replace("([?.])", "", $question);
-
-			    $question = "%$question%";
-		        $sql = "Select * from chatbot where question like :question";
-		        $stat = $conn->prepare($sql);
-		        $stat->bindParam(':question', $question);
-		        $stat->execute();
-		  
-		        $stat->setFetchMode(PDO::FETCH_ASSOC);
-		        $rows = $stat->fetchAll();
-		        if(count($rows)>0){
-			    $index = rand(0, count($rows)-1);
-			    $row = $rows[$index];
-			    $answer = $row['answer'];
-			    echo $answer;	
-			}
-			else{
-				$training_string = substr($question, 6);
-			    //remove excess white space in $question_and_answer_string
-			    $training_string = preg_replace('([\s]+)', ' ', trim($training_string));
-			      
-			    $training_string = preg_replace("([?.])", "", $training_string); //remove ? and . so that questions missing ? (and maybe .) can be recognized
-			    $split_string = explode("#", $question_and_answer_string);
-			
-        
-		        $question = trim($split_string[0]);
-		        $answer = trim($split_string[1]);
-
-		        $sql = "INSERT INTO chatbot(question, answer) VALUES (:question, :answer)";
-			    $stat = $conn->prepare($sql);
-			    $stat->bindParam(':question', $question);
-			    $stat->bindParam(':answer', $answer);
-			    $stat->execute();
-			    $stat->setFetchMode(PDO::FETCH_ASSOC);
-			    echo json_encode([
-			        'status' => 1,
-			        'answer' => "Thanks for training me"
-			    ]);
-			    return;
-			}
-		}
-	?>
 	<title>  <?php echo $user->name ?> </title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
