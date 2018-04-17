@@ -1,7 +1,7 @@
 <?php
   if(isset($_POST['payload']) ){
     if(!defined('DB_USER')){
-      require "../../db.php";
+      require "../db.php";
     }
   }
   $date_time = new DateTime('now', new DateTimezone('Africa/Lagos'));
