@@ -93,18 +93,8 @@ $image = $data['image_filename'];
 
     </style>
     <br><br><br>
-    <header class="masthead" style="background-image: url('img/home-bg.jpg')">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto">
-                    <div class="site-heading">
-                        <h1 style="text-align:center">HNG Internship Profile</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+       <h1 style="text-align:center">HNG Internship Profile</h1>
+                  
     <div class="row">
         <div class="col-lg-6 col-md-6">
             <img src="<?php echo $image; ?>" alt="ijeomah Arinze C" style="width:100%;padding-left: 200px">
@@ -121,40 +111,5 @@ $image = $data['image_filename'];
             <h1>Email:</h1>
             <p>ijeomaharinze@gmail.com</p>
 
-        </div>
-    </div>
-
-    <div class="container-fluid" style="background-color: #007bff!important">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <ul class="list-inline text-center">
-                    <li class="list-inline-item">
-                        <a id="twitter" href="https://twitter.com/hnginternship?lang=en" target="_blank">
-                     <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                     </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a id="facebook" href="https://web.facebook.com/hotelsng/" target="_blank">
-                     <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                     </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a id="github" href="https://github.com/HNGInternship/" target="_blank">
-                     <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                     </span>
-                        </a>
-                    </li>
-
-                </ul>
-                <p style="text-align:center; c" class="copyright text-muted">Copyright &copy;shine</p>
-            </div>
         </div>
     </div>
