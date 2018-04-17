@@ -1,5 +1,5 @@
 <?php
-$file = "../db.php"; 
+$file = realpath(__DIR__ . '/..') . "/db.php"; 
 require_once $file;
 global $conn;
 $image_filename = '';
@@ -139,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if($_SERVER['REQUEST_METHOD'] === "GET"){
-$file = realpath(__DIR__ . '/..') . "/db.php"    ;
+$file = realpath(__DIR__ . '/..') . "/db.php";
 require_once $file;
 ?>
 
