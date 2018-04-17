@@ -16,15 +16,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Victor's Profile</title>
-  <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
+  
   <style>
     .text {
-      font-family: "Nunito Sans", sans-serif;
+      font-family: "Rajdhani", sans-serif;
       text-align: center;
     }
 
     .gray {
       color: #c4c4c4;
+    }
+
+    .white {
+      color: #ffffff;
     }
 
     h2 {
@@ -68,6 +74,7 @@
       /*  */
       border-radius: 50%;
     }
+
   </style>
 </head>
 <body>
@@ -75,13 +82,13 @@
     <div id="image-div">
       <img src="<?php echo $user->image_filename; ?>" height=180px width=180px>
     </div>
-    <h2 class="text gray"><?php echo $user->name; ?></h2>
-    <h5 class="text">@<?php echo $user->username; ?></h5>
+    <h2 class="text white"><?php echo $user->name; ?></h2>
+    <h5 class="text"><strong>@<?php echo $user->username; ?></strong></h5>
   </div>
   
   <div id="bottom">
-  <br>
-    <h5 class="text">Student | Intern</h5>
+    <br>
+    <h5 class="text">Problem Solver | Student at University of Ibadan</h5>
   </div>
 </body>
 </html>
