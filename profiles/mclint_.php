@@ -116,8 +116,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if($_POST['password'] === 'trainpwforhng'){
-        $question = $_POST['question']; 
-        echo $question;
+        $question = $_POST['question'];
 
         $userIsTrainingBot = stripos($question, "train:");
         if($userIsTrainingBot === false){
@@ -348,7 +347,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               this.query = '';
             },
             getBubbleColor(sender) {
-              console.log(sender);
               if (sender === 'user')
                 return 'orange';
 
@@ -369,7 +367,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             }
           },
           template: `
-        <div style="display: flex; flex-direction: column; width: 20%; align-items: center;">
+        <div style="display: flex; flex-direction: column; width: 40%; align-items: center;">
           <button id="btn-show-bot" @click="showChatBot = !showChatBot">{{botBtnText}}</button>
           <div  id="chat-bot" v-if="showChatBot">
             <div id="chat-container">

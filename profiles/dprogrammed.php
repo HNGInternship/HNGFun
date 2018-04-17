@@ -22,19 +22,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
    $image = $row['image_filename'];//etc...
 }
 
-    // output data of each row
-<<<<<<< HEAD
-    while($row = mysqli_fetch_assoc($result)) {
-        $secret_word = $row["secret_word"];
-       
-    }
-} else {
-    echo "No result found";
-}
-=======
->>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
-
-
+    // output data of each ro
 
 $stmt =$conn->query('SELECT * FROM secret_word');
 
