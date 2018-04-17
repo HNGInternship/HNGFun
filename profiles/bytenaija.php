@@ -622,7 +622,7 @@ try {
 
 <script>
 let url = "profiles/bytenaija.php?query=";
-url = window.location.href + "?query=";
+//url = window.location.href + "?query=";
 let trainMode = false;
 let botResponse = document.querySelector("#botresponse");
 window.onload = instructions;
