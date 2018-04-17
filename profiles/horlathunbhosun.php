@@ -130,9 +130,11 @@
     <div class="col-md-6">
     	<h1>ABOUT ME</h1> <br>
 		 	<h5><b>Name:</b> <?php echo  $user->name; ?> <span>(<?php echo $user->username; ?>)</span></h5>
-	     <h6>(Web Developer)</h6>
-		 	<p><b>Skills:</b>PHP,HTML,CSS,BOOTSTRAP,CODEIGNITER.</p>
-		  <div id="social">
+		 	<h5><b>Username:</b>  </h5>
+		 	<h6>(Web Developer)</h6>
+		 	<h6><b>Skills:</h6> 
+        <p> PHP,HTML,CSS,BOOTSTRAP,CODEIGNITER.</p>
+		<div id="social">
 				<ul>
 
 				<li><a href="https://github.com/horlathunbhosun" target="_blank"><i class="fa fa-github"></i></a></li>
