@@ -1,6 +1,10 @@
 <?php
 
     //functions defined by @chigozie. DO NOT MODIFY!!!
+    function getDayOfWeek(){
+        return date("l");
+    }
+
     function getDaysInMonth($month){
         $months_with_31_days = ["january", "march", "may", "july", "august", "october", "december"];
         $months_with_30_days = ["april", "june", "september", "november"];
