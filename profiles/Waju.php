@@ -30,7 +30,6 @@ try {
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $questions_and_anwers = $q->fetchAll();
 
-    var_dump($questions_and_anwers); die();
 } catch(PDOException $e) {
     throw $e;
 }
