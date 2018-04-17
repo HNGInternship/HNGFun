@@ -1,15 +1,15 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-<?php
-   $result = $conn->query("Select * from secret_word LIMIT 1");
-   $result = $result->fetch(PDO::FETCH_OBJ);
-   $secret_word = $result->secret_word;
+	<?php
+	$result = $conn->query("Select * from secret_word LIMIT 1");
+	$result = $result->fetch(PDO::FETCH_OBJ);
+	$secret_word = $result->secret_word;
 
-   $result2 = $conn->query("Select * from interns_data where username = 'justin'");
-   $user = $result2->fetch(PDO::FETCH_OBJ);
-?>
-    <title>HNG Profile</title>
+	$result2 = $conn->query("Select * from interns_data where username = 'justin'");
+	$user = $result2->fetch(PDO::FETCH_OBJ);
+	?>
+    <title>Justin's Profile</title>
 	<link href="https://fonts.googleapis.com/css?family=Reem+Kufi" rel="stylesheet">    
 	<style>
 		#header{position: absolute;
@@ -158,7 +158,7 @@
 <div id="insta">
 	<img src="https://res.cloudinary.com/dykuixlcf/image/upload/v1523987390/insta.jpg" alt="inta icon">
 </div>
-<div id="slack_handle"><p style="margin: 0">@<?php echo $user->username; ?></p></div>
+<div id="slack_handle"><p style="margin: 0">@justin</p></div>
 <div id="fb_handle"><p style="margin: 0">Justin Wainaina</p></div>
 <div id="twitter_handle"><p style="margin: 0">@justin_that_guy</p></div>
 <div id="insta_handle"><p style="margin: 0">@justo_ke</p></div>
