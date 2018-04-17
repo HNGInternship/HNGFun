@@ -597,7 +597,7 @@ function evaluate(str){
     list += "<li>Hi</li>";
     list += "<li>currency: {base}/{other}</li>";
 
-       let urlL += url + "&list=1";
+       let urlL = url + "&list=1";
         
         fetch(urlL)
         .then(response=>{
@@ -620,7 +620,7 @@ function evaluate(str){
 
         console.log(keyword, response)
 
-        let urlL += url + "&query=" + str;
+        let urlL = url + "&query=" + str;
         console.log(url)
 
         fetch(urlL)
@@ -672,7 +672,7 @@ function training(str){
 
     console.log(keyword, response)
 
-    let urlL += url + "&train&keyword=" + keyword + "&response=" + response;
+    let urlL = url + "&train&keyword=" + keyword + "&response=" + response;
     console.log(urlL)
     fetch(urlL)
     .then(response=>{
