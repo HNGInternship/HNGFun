@@ -1,21 +1,4 @@
 <?php
-
-
-
-
-require_once 'config.example.php';
-
-
-
-
-require_once 'config.example.php';
-
-require_once 'config.php';
-
-require_once 'config.example.php';
-
-
-
 require_once '../config.php';
 
 try {
@@ -23,3 +6,4 @@ try {
 } catch (PDOException $pe) {
     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
+
