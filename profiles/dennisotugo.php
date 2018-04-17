@@ -12,6 +12,7 @@ $q->setFetchMode(PDO::FETCH_ASSOC);
 $words = $q->fetch();
 $secret_word = $words['secret_word'];
 ?>
+
 <?php
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if(!defined('DB_USER')){
@@ -24,7 +25,7 @@ $secret_word = $words['secret_word'];
 		}
 		require "../answers.php";
 		date_default_timezone_set("Africa/Lagos");
-		// header('Content-Type: application/json');
+		
 		if(!isset($_POST['question'])){
 			echo json_encode([
 				'status' => 1,
@@ -176,70 +177,72 @@ $secret_word = $words['secret_word'];
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />	
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
+		<script src="../vendor/jquery/jquery.min.js"></script>
+		<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+		<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+		<script>
+	$(document).ready(function(){
+		var questionForm = $('#question-form');
+		questionForm.submit(function(e){
+			e.preventDefault();
+			var questionBox = $('input[name=question]');
+			var question = questionBox.val();
+			//display question in the message frame as a chat entry
+			var messageFrame = $('#message-frame');
+			var chatToBeDisplayed = '<div class="row single-message">'+
+						'<div class="col-md-8 offset-md-2 single-message-bg2">'+
+							'<p>'+question+'</p>'+
+						'</div>'+
+						'<div class="col-md-2 single-message-bg2">'+
+							'<span class="float-right fa fa-user f-icon"></span>'+
+						'</div>'+
+					'</div>';
+			messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+			//send question to server
+			$.ajax({
+				url: "/profiles/dennisotugo.php",
+				type: "post",
+				data: {question: question},
+				dataType: "json",
+				success: function(response){
+					if(response.status == 1){
+						var chatToBeDisplayed = '<div class="row single-message">'+
+									'<div class="col-md-2 single-message-bg">'+
+										'<span class="fa fa-user f-icon"></span>'+
+									'</div>'+
+									'<div class="col-md-8 single-message-bg">'+
+										'<p>'+response.answer+'</p>'+
+									'</div>'+
+								'</div>';
+						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+						questionBox.val("");	
+						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+					}else if(response.status == 0){
+						var chatToBeDisplayed = '<div class="row single-message">'+
+									'<div class="col-md-2 single-message-bg">'+
+										'<span class="fa fa-user f-icon"></span>'+
+									'</div>'+
+									'<div class="col-md-8 single-message-bg">'+
+										'<p>'+response.answer+'</p>'+
+									'</div>'+
+								'</div>';
+						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+					}
+				},
+				error: function(error){
+					console.log(error);
+				}
+			})
+		});
+	});
+</script>	
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<style>
-					.circle {
-			width: 60%;
-			margin-left: 20%;
-			border-radius: 50%;
-		}
-		.frame {
-			border: 1px solid grey;
-			padding: 20px;
-			background-color: #ffffff;
-			margin-top: 5%;
-			height: 400px;
-		}
-		.info {
-			margin-top: 25px;
-		}
-		.slack_span {
-			color: #0000ff;
-		}
-		.occupation_span {
-			color: #ff0000;
-			font-weight: bold;
-		}
-		.chat-frame {
-			border: 1px solid grey;
-			padding: 20px;
-			background-color: #f8d34a;
-			margin-top: 5%;
-			margin-bottom: 50px;
-		}
-		.chat-messages {
-			background-color: #ffffff;
-			height: 600px;
-			overflow-y: auto;
-			margin-left: 15px;
-			margin-right: 15px;
-			border-radius: 6px;
-			padding: 5px;
-		}
-		.single-message {
-			margin-bottom: 5px; 
-			border-radius: 5px;
-			min-height: 60px;
-		}
-		.single-message-bg {
-			background-color: #99ff33;
-			padding: 10px;
-		}
-		.single-message-bg2 {
-			background-color: #6699ff;
-			padding: 10px;
-		}
-		input[name=question] {
-			height: 50px;
-		}
-		button[type=submit] {
-			height: 50px;
-		}
-		.f-icon {
-			font-size: 40px;
-		}
 
 #mainb {
 		text-align: center;
@@ -304,147 +307,64 @@ span#chatbot {
 						</nav>
 					</header>
 					
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-md-4 offset-md-1 frame">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="circle">
-											<img src="<?php echo $image_filename; ?>" alt="Profile Picture" class="circle" />
-										</div>
-									</div>	
-								</div>
-					
-								<div class="row info">
-									<div class="col-md-12">
-										<h3 class="text-center">
-											<?php echo $name; ?>
-										</h3>
-										<h5 class="text-center"><span class="slack_span">Slack Username: </span>@<?php echo $username; ?></h5>
-										<p class="text-center"><span class="occupation_span">What I do: </span>I develop web and mobile apps</p>
-									</div>
-					
-								</div>
-							</div>	
-					
-							<div class="col-md-4 offset-md-1 chat-frame">
-								<h2 class="text-center">Chatbot Interface</h2>
-								<div class="row chat-messages" id="chat-messages">
-									<div class="col-md-12" id="message-frame">
-										<div class="row single-message">
-											<div class="col-md-2 single-message-bg">
-												<span class="fa fa-user f-icon"></span>
-											</div>
-					
-											<div class="col-md-8 single-message-bg">
-												<p>Welcome! My name is <span style="font-weight: bold">Optimus Prime</span></p>
-											</div>
-										</div>
-										<div class="row single-message">
-											<div class="col-md-2 single-message-bg">
-												<span class="fa fa-user f-icon"></span>
-											</div>
-											<div class="col-md-8 single-message-bg">
-												<p>Ask me your questions and I will try to answer them.</p>
-											</div>
-										</div>
-										<div class="row single-message">
-											<div class="col-md-2 single-message-bg">
-												<span class="fa fa-user f-icon"></span>
-											</div>
-											<div class="col-md-8 single-message-bg">
-												<p>You can teach me answers to new questions by training me.</p>
-												<p>To train me, enter the training string in this format:</p>
-												<p><b>train: question # answer</b></p>
-											</div>
-										</div>
-					
-										<!-- <div class="row single-message">
-											<div class="col-md-10">
-												<p>Welcome! How may I assist you today?</p>
-											</div>
-											<div class="col-md-2">
-												<span class="float-right fa fa-user f-icon"></span>
-											</div>
-										</div> -->
-									</div>
-								</div>
-								<div class="row" style="margin-top: 40px;">
-									<form class="form-inline col-md-12 col-sm-12" id="question-form">
-										<div class="col-md-12 col-sm-12 col-12">
-											<input class="form-control w-100" type="text" name="question" placeholder="Ask a question" />
-										</div>
-										<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
-											<button type="submit" class="btn btn-info float-right w-100">Send</button>
-										</div>
-									</form>	
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<script src="../vendor/jquery/jquery.min.js"></script>
-					<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-					<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-					<script>
-						$(document).ready(function(){
-							var questionForm = $('#question-form');
-							questionForm.submit(function(e){
-								e.preventDefault();
-								var questionBox = $('input[name=question]');
-								var question = questionBox.val();
-								//display question in the message frame as a chat entry
-								var messageFrame = $('#message-frame');
-								var chatToBeDisplayed = '<div class="row single-message">'+
-											'<div class="col-md-8 offset-md-2 single-message-bg2">'+
-												'<p>'+question+'</p>'+
-											'</div>'+
-											'<div class="col-md-2 single-message-bg2">'+
-												'<span class="float-right fa fa-user f-icon"></span>'+
-											'</div>'+
-										'</div>';
-								messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-								$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-								//send question to server
-								$.ajax({
-									url: "/profiles/chigozie.php",
-									type: "post",
-									data: {question: question},
-									dataType: "json",
-									success: function(response){
-										if(response.status == 1){
-											var chatToBeDisplayed = '<div class="row single-message">'+
-														'<div class="col-md-2 single-message-bg">'+
-															'<span class="fa fa-user f-icon"></span>'+
-														'</div>'+
-														'<div class="col-md-8 single-message-bg">'+
-															'<p>'+response.answer+'</p>'+
-														'</div>'+
-													'</div>';
-											messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-											questionBox.val("");	
-											$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-										}else if(response.status == 0){
-											var chatToBeDisplayed = '<div class="row single-message">'+
-														'<div class="col-md-2 single-message-bg">'+
-															'<span class="fa fa-user f-icon"></span>'+
-														'</div>'+
-														'<div class="col-md-8 single-message-bg">'+
-															'<p>'+response.answer+'</p>'+
-														'</div>'+
-													'</div>';
-											messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-											$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-										}
-									},
-									error: function(error){
-										console.log(error);
-									}
-								})
-							});
-						});
-					</script>	
 						<footer id="footer">
+								<div class="container-fluid">
+										<div class="row">
+											<div class="col-md-4 offset-md-1 chat-frame">
+												<h2 class="text-center">Chatbot Interface</h2>
+												<div class="row chat-messages" id="chat-messages">
+													<div class="col-md-12" id="message-frame">
+														<div class="row single-message">
+															<div class="col-md-2 single-message-bg">
+																<span class="fa fa-user f-icon"></span>
+															</div>
+									
+															<div class="col-md-8 single-message-bg">
+																<p>Welcome! My name is <span style="font-weight: bold">Optimus Prime</span></p>
+															</div>
+														</div>
+														<div class="row single-message">
+															<div class="col-md-2 single-message-bg">
+																<span class="fa fa-user f-icon"></span>
+															</div>
+															<div class="col-md-8 single-message-bg">
+																<p>Ask me your questions and I will try to answer them.</p>
+															</div>
+														</div>
+														<div class="row single-message">
+															<div class="col-md-2 single-message-bg">
+																<span class="fa fa-user f-icon"></span>
+															</div>
+															<div class="col-md-8 single-message-bg">
+																<p>You can teach me answers to new questions by training me.</p>
+																<p>To train me, enter the training string in this format:</p>
+																<p><b>train: question # answer</b></p>
+															</div>
+														</div>
+									
+														<!-- <div class="row single-message">
+															<div class="col-md-10">
+																<p>Welcome! How may I assist you today?</p>
+															</div>
+															<div class="col-md-2">
+																<span class="float-right fa fa-user f-icon"></span>
+															</div>
+														</div> -->
+													</div>
+												</div>
+												<div class="row" style="margin-top: 40px;">
+													<form class="form-inline col-md-12 col-sm-12" id="question-form">
+														<div class="col-md-12 col-sm-12 col-12">
+															<input class="form-control w-100" type="text" name="question" placeholder="Ask a question" />
+														</div>
+														<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
+															<button type="submit" class="btn btn-info float-right w-100">Send</button>
+														</div>
+													</form>	
+												</div>
+											</div>
+										</div>
+									</div>
 						</footer>
 
 			</div>
