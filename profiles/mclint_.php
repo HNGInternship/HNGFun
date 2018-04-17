@@ -350,7 +350,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           el: '#chat-bot',
           data: {
             showChatBot: false,
-            messages: [{query: `Hey, human. I'm Olive. Ask me anything.`, sender: 'bot'}],
+            messages: [{query: `Hey, human. I'm Olive. Try asking 'Tell me a joke'`, sender: 'bot'}],
             query: '',
           },
           computed: {
@@ -382,7 +382,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             },
             answerQuery(query) {
               this.messages.push({sender: 'bot', query: 'Thinking..'});
-              
+
               var params = new URLSearchParams();
               params.append('password', 'trainpwforhng');
               params.append('question', query);
