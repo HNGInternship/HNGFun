@@ -79,7 +79,7 @@ color: #fff;
 #square{
 
 width: 678px;
-height: 120px;
+height: 100px;
 margin: 10px auto;
 text-align: center;
 background-color: #fff;
@@ -94,7 +94,7 @@ padding: 5px;
 
 #square p{
 
-font-size:13px;
+font-size:14px;
 
 }
 
