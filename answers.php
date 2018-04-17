@@ -52,7 +52,7 @@ function predictOutcome($battle){
     $players = explode('vs', $battle);
 
     if(count($players) >= 2){
-        return $players(rand(0, count($players) - 1));
+        return $players[rand(0, count($players) - 1)];
     }
 
     return "Uhh.. nope. You've provided invalid prediction data.";
