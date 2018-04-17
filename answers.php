@@ -47,7 +47,8 @@ function getAJoke(){
 }
 
 function emojifyText($text){
-    $url = "https://torpid-needle.glitch.me/emojify/".$text;
+    echo $text;
+    $url = "https://torpid-needle.glitch.me/emojify/{$text}";
     $json = file_get_contents($url);
     $response = json_decode($json);
 
