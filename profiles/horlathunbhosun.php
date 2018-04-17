@@ -129,11 +129,10 @@
     </div>
     <div class="col-md-6">
     	<h1>ABOUT ME</h1> <br>
-		 	<h5><b>Name:</b> <?php echo  $user->name; ?> </h5>
-		 	<h5><b>Username:</b> <?php echo $user->username; ?> </h5>
-		 	<h6>(Web Developer)</h6>
-		 	<p style="text-align: center;" ><b>Skills:</b> PHP,HTML,CSS,BOOTSTRAP,CODE IGNITER.</p>
-		<div id="social">
+		 	<h5><b>Name:</b> <?php echo  $user->name; ?> <span>(<?php echo $user->username; ?>)</span></h5>
+	     <h6>(Web Developer)</h6>
+		 	<p><b>Skills:</b>PHP,HTML,CSS,BOOTSTRAP,CODEIGNITER.</p>
+		  <div id="social">
 				<ul>
 
 				<li><a href="https://github.com/horlathunbhosun" target="_blank"><i class="fa fa-github"></i></a></li>
