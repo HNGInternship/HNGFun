@@ -3,9 +3,11 @@
 		require 'db.php';
         
 
-		//$result = $conn->query("Select * from secret_word LIMIT 1");
-		//$result = $result->fetch(PDO::FETCH_OBJ);
-		//$secret_word = $result->secret_word;
+		$result = $conn->query("Select * from secret_word LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+		$secret_word = $result->secret_word;
+         
+        print_r($secret_word);
 
 		$result2 = $conn->query("Select * from interns_data where username = 'ovundah'");
 		$user = $result2->fetch(PDO::FETCH_OBJ);
@@ -23,7 +25,7 @@
 
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$rows = $stmt->fetchAll();
-        print_r($rows);
+        //print_r($rows);
 
 
 
