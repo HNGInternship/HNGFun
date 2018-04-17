@@ -330,7 +330,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           el: '#chat-bot',
           data: {
             showChatBot: false,
-            messages: [{query: `Hey human. I'm Jarvis. Ask my anything!`, sender: 'bot'}],
+            messages: [{query: `Hey human. I'm Jarvis. Ask me anything.`, sender: 'bot'}],
             query: '',
           },
           computed: {
