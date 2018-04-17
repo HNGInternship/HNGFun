@@ -23,6 +23,16 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 }
 
     // output data of each row
+<<<<<<< HEAD
+    while($row = mysqli_fetch_assoc($result)) {
+        $secret_word = $row["secret_word"];
+       
+    }
+} else {
+    echo "No result found";
+}
+=======
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 
 
 
