@@ -1,7 +1,12 @@
 <?php
 	if($_SERVER['REQUEST_METHOD'] === "GET"){
 		if(!defined('DB_USER')){
-			require "../db.php";
+			require "../../config.php";		
+			try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
 		}
 
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -39,7 +44,14 @@
 <?php
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		require "../db.php";
+		if(!defined('DB_USER')){
+			require "../../config.php";		
+			try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
+		}
 		require "../answers.php";
 
 		date_default_timezone_set("Africa/Lagos");

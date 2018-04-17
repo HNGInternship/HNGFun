@@ -1,6 +1,5 @@
 <?php
-require_once "../db.php";
-
+include_once "../db.php";
 //Fetch User Details
 try {
     $query = "SELECT * FROM interns_data WHERE username ='OluwaseyiSam'";
