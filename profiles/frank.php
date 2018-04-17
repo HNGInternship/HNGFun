@@ -22,7 +22,7 @@ $secret_word = $words['secret_word'];
 	<br/><br/><br/>
 	
 	<div class="photo-wrap">
-		<img src="<?php echo $frank['image_filename']; ?>" alt="" />
+		<img src="<?php echo $frank['image_filename']; ?>" alt="" width="300" height="300" />
 	</div>
 	
 	<h3>HNG INTERNSHIP 4 #STAGE3 TASK</h3>
