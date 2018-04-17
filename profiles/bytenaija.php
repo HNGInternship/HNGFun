@@ -106,7 +106,7 @@ function training($question, $answer){
     }
 
 
-if (isset($_GET["query"])) {
+if (isset($_POST["query"])) {
     include_once realpath(__DIR__ . '/..') . "/answers.php"; 
     if(!defined('DB_USER')){
         require "../../config.php";
@@ -614,8 +614,8 @@ try {
     </section>
 
 <script>
-let url = "profiles/bytenaija.php?query="
-//url = window.location.href + "?query=";
+let url = "profiles/bytenaija.php"
+//url = window.location.href;
 let trainMode = false;
 let botResponse = document.querySelector("#botresponse");
 window.onload = instructions;
@@ -653,9 +653,14 @@ if (e.keyCode == 13) {
             dv.innerHTML = "<span class='user'>You: </span> <span class='userres'>" + input.value + "</span>";
            botResponse.appendChild(dv)
            stack.push(input.value)
-    
-   let urlL = url + input.value;
-    fetch(urlL)
+           
+        let data = new FormData();
+        data.append("query", input.value);
+   let urlL = url;
+    fetch(urlL,{
+    method: "POST",
+    body: JSON.stringify(data)
+    })
     .then(response=>{
         
         return response.text();
