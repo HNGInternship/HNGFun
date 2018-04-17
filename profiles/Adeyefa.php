@@ -2,12 +2,47 @@
 <html>
 <head>
 	<?php
-	   $result = $conn->query("Select * from secret_word LIMIT 1");
-	   $result = $result->fetch(PDO::FETCH_OBJ);
-	   $secret_word = $result->secret_word;
+	   if($_SERVER['REQUEST_METHOD'] === "GET"){
+		   if(!defined('DB_USER')){
+				require "../../config.php";		
+				try {
+				    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+				} catch (PDOException $pe) {
+				    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+				}
+			}
+		}
 
-	   $result2 = $conn->query("Select * from interns_data_ where username = 'adeyefa'");
-	   $user = $result2->fetch(PDO::FETCH_OBJ);
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		
+		$stmt = $conn->prepare("select secret_word from secret_word limit 1");
+		$stmt->execute();
+
+		$secret_word = null;
+
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$rows = $stmt->fetchAll();
+		if(count($rows)>0){
+			$row = $rows[0];
+			$secret_word = $row['secret_word'];	
+		}
+
+		$name = null;
+		$username = "adeyefa";
+		$image_filename = null;
+
+		$stmt = $conn->prepare("select * from interns_data where username = :username");
+		$stmt->bindParam(':username', $username);
+		$stmt->execute();
+
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$rows = $stmt->fetchAll();
+		if(count($rows)>0){
+			$row = $rows[0];
+			$name = $row['name'];	
+			$image_filename = $row['image_filename'];	
+		}
+	}
 	?>
 	<title>  <?php echo $user->name ?> </title>
 	<meta charset="utf-8">
