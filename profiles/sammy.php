@@ -222,7 +222,7 @@
         #cent {
             text-align: center;
             align-content: flex-start;
-            transform: translateX(0%) translateY(10px);
+            transform: translateX(-15%) translateY(10px);
         }
     </style>
 </head>
