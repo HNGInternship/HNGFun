@@ -48,11 +48,12 @@
         body {
             background-size: cover;
             margin: 0 auto;
-            height: 800px;;
+            height: 900px;;
             border-left:1px solid #5e5c5c46;
             border-right:1px solid #5e5c5c46;
             width: 800px;
-            padding: 0px 200px 0px 0px;
+            padding-bottom: 20px;
+            transform: translateX(0%) translateY(0%);
         }
 
         .carousel-inner > .item > img,
@@ -123,6 +124,7 @@
             background-color: rgb(8, 85, 129);
             width: 800px;
             height: 30px;
+            transform: translateX(-0.125%) translateY(0%);
         }
 
         #layer-sub {
@@ -146,6 +148,7 @@
         margin: 0 5px;
         font-size: 15px;
         }
+
         #nav a:hover {
         text-decoration:underline;
         color:#ffffff;
@@ -156,6 +159,7 @@
             text-align: center;
             background-image: url("https://res.cloudinary.com/dyuuulmg0/image/upload/v1523622023/sammm.jpg");
             height: 120px;
+            width: 800px;
             padding-top: 20px;
             letter-spacing: 1.5px;
             
@@ -172,13 +176,11 @@
             
         }
         #footer {
-            transform: translateX(-0.1%) translateY(430px);
+            transform: translateX(0%) translateY(430px);
             clear: both;
             background:#f7f7f7;
             padding-top: 10px;
             padding-bottom: 10px;
-            padding-left:15px;
-            padding-right:15px;
             border-top: 1px solid #f0e9eb;
             text-align: center;
         }
@@ -191,6 +193,7 @@
             background-color: #f7f7f7;
             box-shadow: -2px -2px 9px #f7f7f7b9;
         }
+
         h5 {
             color: rgb(6, 65, 124);
             font-size: 20px;
@@ -201,8 +204,18 @@
         }
 
         #tod {
-            height: 800px;
+        	padding-top: 60px;
+            height: 900px;
             width: 800px;
+            align-self: center;
+        }
+
+        #foot-container {
+        	padding-top: 10px;
+        }
+
+        #head-image {
+        	padding-left: 0px;s
         }
         
     </style>
@@ -210,7 +223,8 @@
 <body>
 <div id="tod">
     <div id="layer1">
-            <div id="nav">
+           <div id="head-image">
+           		<div id="nav">
                 <a href="https://hng.fun">Home</a> |
                 <a href="https://sammy-favcode.heroku.com">About Me</a> |
                 <a href="#">Contact Me</a> 
@@ -230,6 +244,7 @@
                     </a>
                 </div>
             </div>
+           </div>
             
             <div id="bg"></div>
             <div class="background">
@@ -298,9 +313,10 @@
                 
             </div>
 
-            <div id="footer">
+            <div id="foot-container">
+            	<div id="footer">
                 Copyright &copy; 2018 Achem Samuel. All rights reserved.
-                <br/>
+            </div>
             </div>
     </div>
 </div>
