@@ -81,7 +81,7 @@
 
         #center {
             position: absolute;
-            top: 10%;
+            top: 12%;
             float: left;
             padding-left: 20px;
         }
@@ -216,7 +216,7 @@
         }
 
         #body {
-            padding-top: 30px;
+            padding-top: 5px;
         }
 
         #cent {
