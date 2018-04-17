@@ -1,5 +1,5 @@
 <?php
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //<<<<<<< HEAD
 
 //<<<<<<< HEAD
@@ -11,9 +11,9 @@ require_once 'config.example.php';
 //=======
 //require_once '../config.php';
 //>>>>>>> 572965041b1dcf43d51a6911134c5afcbd2796e4
-=======
-require_once '../config.php';
->>>>>>> 5d39431939c5c58b9b82b3995e99e76eca333097
+//=======
+//require_once '../config.php';
+//>>>>>>> 5d39431939c5c58b9b82b3995e99e76eca333097
 
 try {
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
