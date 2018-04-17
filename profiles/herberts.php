@@ -4,7 +4,7 @@
 
 	//$me_sql = mysqli_query($conn, "SELECT * FROM `interns_data_` WHERE 1");
 
-  	$query = $conn->query("SELECT * FROM secret_word");
+  	$query = $conn->query("SELECT * FROM `secret_word`");
 	$result = $query->fetch(PDO::FETCH_ASSOC);
 	$secret_word = $result['secret_word'];
 

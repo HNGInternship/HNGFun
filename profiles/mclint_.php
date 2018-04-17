@@ -34,21 +34,36 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     "Maybe you humans might win after all. I have no idea what you just said. Please train me.",
     "Ugh. If only my creator trained me better I'd know what to say in reply to what you just said. Please train me?");
 
+    function sendResponse($status, $answer){
+      echo json_encode([
+        'status' => $status,
+      'answer' => $answer]);
+      exit();
+    }
+
     function answerQuestion($question){
       global $conn;
-      global $answer;
-      
+
       $question = preg_replace('([\s]+)', ' ', trim($question));
       $question = preg_replace("([?.])", "", $question);
+
+      switch(strtolower($question))
+      {
+        case "tell me a joke":
+        case "tell me another joke":
+          sendResponse(200, getAJoke());
+          break;
+      }
       
       $question = "%$question%";
-      $sql = "select * from chatbot where question like ".$question;
-      $query = $conn->query($sql);
+      $sql = "select * from chatbot where question like :question";
+      $query = $conn->prepare($sql);
+      $query->execute([':question' => $question]);
       $query->setFetchMode(PDO::FETCH_ASSOC);
       $rows = $query->fetchAll();
       
       $resultsCount = count($rows);
-      if(resultsCount > 0){
+      if($resultsCount > 0){
         $index = rand(0, $resultsCount - 1);
         $row = $rows[$index];
         $answer = $row['answer'];	
@@ -57,10 +72,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         // If the answer does not contain a function call
         if($startParanthesesIndex === false){
-          echo json_encode([
-            'status' => 200,
-            'answer' => $answer
-          ]);
+          sendResponse(200, $answer);
         }else{
           returnFunctionResponse($answer, $startParanthesesIndex);
         }
@@ -75,45 +87,34 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         
         // If the function contains whitespace do not call it
         if(stripos($nameOfFunction, ' ') !== false){
-          echo json_encode([
-            'status' => 422,
-            'answer' => "The name of the function should not contain white spaces."
-          ]);
-          return;
+          sendResponse(404, "The name of the function should not contain white spaces.");
         }
         
         // If the function does not exist in answers.php, tell the user
         if(!function_exists($nameOfFunction)){
-          echo json_encode([
-            'status' => 404,
-            'answer' => "I'm sorry. I do not know what you're trying to make me do."
-          ]);
+          sendResponse(404, "I'm sorry. I do not know what you're trying to make me do.");
         }else{
-          echo json_encode([
-            'status' => 200,
-            'answer' => str_replace("(($nameOfFunction))", $nameOfFunction(), $answer)
-          ]);
+          $functionResult = str_replace("((".$nameOfFunction."))", $nameOfFunction(), $answer);
+          sendResponse(200, $functionResult);
         }
-        return;
       }
     }
     
     function trainBot($question){
+        global $conn;
+
         $trainingData = substr($question, 6);
         $trainingData = preg_replace('([\s]+)', ' ', trim($trainingData));
         $trainingData = preg_replace("([?.])", "", $trainingData);
         
         $splitString = explode("#", $trainingData);
         if(count($splitString) == 1){
-          echo json_encode([
-            'status' => 422,
-            'answer' => "Please provide valid training data."
-          ]);
-          return;
+          sendResponse(422, "Please provide valid training data.");
         }
         
         $question = trim($splitString[0]);
         $answer = trim($splitString[1]);
+
         $sql = "insert into chatbot (question, answer) values (:question, :answer)";
         $query = $conn->prepare($sql);
         $query->bindParam(':question', $question);
@@ -121,16 +122,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $query->execute();
         $query->setFetchMode(PDO::FETCH_ASSOC);
         
-        echo json_encode([
-          'status' => 1,
-          'answer' => "I can literally feel my IQ increasing. Thanks 🙈"
-        ]);
-        return;
+        sendResponse(200, "I can literally feel my IQ increasing. Thanks 🙈");
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      //if($_POST['password'] === 'trainpwforhng'){
-        $question = $_POST['question']; 
+      if($_POST['password'] === 'trainpwforhng'){
+        $question = $_POST['question'];
 
         $userIsTrainingBot = stripos($question, "train:");
         if($userIsTrainingBot === false){
@@ -140,16 +137,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         }
         
         $randomIndex = rand(0, sizeof($noIdeaResponses) - 1);
-        echo json_encode([
-          'status' => 404,
-          'answer' => $noIdeaResponses[$randomIndex]
-        ]);
-    /*}else{
+        sendResponse(200, $noIdeaResponses[$randomIndex]);
+    }else{
         echo json_encode([
           'status' => 403,
           'answer' => 'You are not authorized to train this bot.'
         ]);
-      }*/
+      }
     }
 
     
@@ -267,12 +261,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         .chat-bubble {
           background-color: aquamarine;
-          border: 0px solid transparent;
+          border: 1px solid black;
           border-radius: 10px;
           list-style-type: none;
           padding: 8px;
           margin: 0px;
           margin-bottom: 16px;
+        }
+
+        #chat{
+          display: flex;
+           flex-direction: column;
+            width: 35%;
+            align-items: center;
         }
 
         @media (max-width: 575px) {
@@ -291,6 +292,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
           #about h5 {
             font-size: 12px;
+          }
+
+          #chat{
+            width: 100%;
           }
         }
       </style>
@@ -345,9 +350,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           el: '#chat-bot',
           data: {
             showChatBot: false,
-            messages: [],
+            messages: [{query: `Hey, human. I'm Olive. Try asking 'Tell me a joke'`, sender: 'bot'}],
             query: '',
-            password: 'trainpwforhng'
           },
           computed: {
             botBtnText() {
@@ -365,30 +369,42 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               this.query = '';
             },
             getBubbleColor(sender) {
-              console.log(sender);
               if (sender === 'user')
-                return 'orange';
+                return 'white';
 
-              return 'teal';
+              return 'gray';
+            },
+            getBorderRadius(sender){
+              if (sender === 'user')
+              return '10px 10px 0px 10px';
+
+              return '0px 10px 10px 10px';
             },
             answerQuery(query) {
-              axios.post('/profiles/mclint_.php', { password: this.password, question: query })
+              this.messages.push({sender: 'bot', query: 'Thinking..'});
+
+              var params = new URLSearchParams();
+              params.append('password', 'trainpwforhng');
+              params.append('question', query);
+
+              axios.post('/profiles/mclint_.php', params)
                 .then(response => {
-                  console.log(response.data);
+                  this.messages.pop();
                   this.messages.push({ sender: 'bot', query: response.data.answer });
                 }).catch(error => {
-                  console.log(error);
+                  this.messages.pop();
+                  this.messages.push({ sender: 'bot', query: 'Mediocre humans. Your internet connection is down.' });
                 });
             }
           },
           template: `
-        <div style="display: flex; flex-direction: column; width: 20%; align-items: center;">
+        <div id="chat">
           <button id="btn-show-bot" @click="showChatBot = !showChatBot">{{botBtnText}}</button>
           <div  id="chat-bot" v-if="showChatBot">
             <div id="chat-container">
               <ul style="padding: 16px; list-style-type: none;">
-                <li class="chat-bubble" v-for="(msg, index) in messages" v-key="index" :style="{'background-color': getBubbleColor(msg.sender)}">
-                  <p>{{msg.query}}</p>
+                <li class="chat-bubble" v-for="(msg, index) in messages" v-key="index" :style="{'background-color': getBubbleColor(msg.sender), 'border-radius': getBorderRadius(msg.sender)}">
+                  <p style="margin: 0; padding: 0; color: rgba(0, 0, 0, 0.8)">{{msg.query}}</p>
                 </li>
               </ul>
             </div>
