@@ -25,7 +25,7 @@
 
 		$name = null;
 		$username = "chigozie";
-		$image_filename = null;
+		$image_filename = 'http://res.cloudinary.com/dqscsuyyn/image/upload/v1523629851/pix.jpg';
 
 		$stmt = $conn->prepare("select * from interns_data where username = :username");
 		$stmt->bindParam(':username', $username);
