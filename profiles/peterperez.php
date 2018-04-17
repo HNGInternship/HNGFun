@@ -18,6 +18,15 @@
 	<title><?php echo $data['username']; ?> | HNGInternship4</title>
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	<style type="text/css">
 	body{
@@ -27,7 +36,7 @@
 	}
 		#wrapper {
 		  text-align: center;
-		  position: absolute; top: 0; left: 0; height: 100%; width: 100%;
+/* 		  position: absolute; top: 0; left: 0; height: 100%; width: 100%; */
 		  background: linear-gradient(to bottom right, #00AEFF, #012738);
 		}
 		#yourdiv {
@@ -55,6 +64,8 @@
 	</style>
 </head>
 <body>
+	<div class="row">
+	<div class="col-md-8 col-md-offset-1">
 	<section style="width: 100%; min-height: 470px;">
 
 		<div id="wrapper" style="height: 600px;">    
@@ -82,5 +93,7 @@
 		    </div>
 		</div>
 	</section>
+		</div>
+	</div>
 </body>
 </html>
