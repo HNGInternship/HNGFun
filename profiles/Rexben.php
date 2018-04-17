@@ -43,7 +43,7 @@
 </head>
 <body>
 	<?php
-$name_query = $conn->query('SELECT * FROM interns_data WHERE username="ife"');
+$name_query = $conn->query('SELECT * FROM interns_data WHERE username="Rexben"');
 			$name_query->execute(); 
 			$result = $name_query->fetch(PDO::FETCH_ASSOC);
 			$name = $result['name'];
