@@ -1,15 +1,4 @@
 <?php
-/*
-function speak(string){
-	var utterance = new SpeechSynthesisUtterance();
-	utterance.voice = speechSynthesis.getVoices().filter(function(voice){return voice.name == "Agnes";})[0];
-	utterance.text = string;
-	utterance.lang = "en-US";
-	utterance.volume = 1; //0-1 interval
-	utterance.rate = 1;
-	utterance.pitch = 2; //0-2 interval
-	speechSynthesis.speak(utterance);
-}*/
 
 function getListOfCommands() {
   return 'Type "<code>show: List of commands</code>" to see a list of commands I understand.<br/>
