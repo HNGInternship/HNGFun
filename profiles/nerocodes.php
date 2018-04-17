@@ -33,12 +33,15 @@
 
         .name{
             font-family: verdana;
-            font-size: 3em;
+            font-size: 2em;
+            margin-top: 5px;
         }
 
         .username{
             font-family: verdana;
             font-size: 2em;
+            color: #ffffff;
+            
         }
 
         section{
@@ -61,7 +64,7 @@
             $sql = $sql->fetch(PDO::FETCH_OBJ);
             $secret_word = $sql->secret_word;
 
-            $result = $conn->query("SELECT * FROM interns_data_ WHERE username = 'nerocodes'");
+            $result = $conn->query("SELECT * FROM interns_data WHERE username = 'nerocodes'");
             $user = $result->fetch(PDO::FETCH_OBJ);
 
         ?>

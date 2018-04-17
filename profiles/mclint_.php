@@ -1,86 +1,71 @@
 <?php
-  $sql = "SELECT * FROM secret_word";
-  $query = $conn->query($sql);
-  $query->setFetchMode(PDO::FETCH_ASSOC);
-  $result = $query->fetch();
-  $secret_word = $result['secret_word'];
+  if(!defined('DB_USER')){
+    require "../../config.php";		
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+  }
+  global $conn;
 
-  $sql = "SELECT * FROM interns_data WHERE username = 'mclint_'";
-  $query = $conn->query($sql);
-  $query->setFetchMode(PDO::FETCH_ASSOC);
-  $data = $query->fetchAll();
-  $me = array_shift($data);
+  if($_SERVER['REQUEST_METHOD'] === 'GET'){
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $sql = "SELECT * FROM secret_word";
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+
+    $result = $query->fetch();
+    $secret_word = $result['secret_word'];
+
+    $sql = "SELECT * FROM interns_data WHERE username = 'mclint_'";
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $me = $query->fetch();
+  }
 ?>
 
 <?php
-    //require "../answers.php";
-    if(!defined('DB_USER')){
-			require "../../config.php";		
-			try {
-			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-			} catch (PDOException $pe) {
-			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-			}
-    }
-
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    require "../answers.php";
+    
     $noIdeaResponses = array("Ha. Turns out that I'm not that smart after all. Train me, yoda! Please?", 
     "Maybe you humans might win after all. I have no idea what you just said. Please train me.",
     "Ugh. If only my creator trained me better I'd know what to say in reply to what you just said. Please train me?");
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      if($_POST['password'] === 'trainpwforhng'){
-        $question = $_POST['question']; 
-
-        $userIsTrainingBot = stripos($question, "train:");
-        if($userIsTrainingBot === false){
-          answerQuestion($question);
-        }else{
-          trainBot($question);
-        }
+    function answerQuestion($question){
+      global $conn;
+      global $answer;
+      
+      $question = preg_replace('([\s]+)', ' ', trim($question));
+      $question = preg_replace("([?.])", "", $question);
+      
+      $question = "%$question%";
+      $sql = "select * from chatbot where question like ".$question;
+      $query = $conn->query($sql);
+      $query->setFetchMode(PDO::FETCH_ASSOC);
+      $rows = $query->fetchAll();
+      
+      $resultsCount = count($rows);
+      if(resultsCount > 0){
+        $index = rand(0, $resultsCount - 1);
+        $row = $rows[$index];
+        $answer = $row['answer'];	
         
-        $randomIndex = rand(0, sizeof($noIdeaResponses) - 1);
-        echo json_encode([
-          'status' => 404,
-          'answer' => $noIdeaResponses[$randomIndex]
-        ]);
-      }else{
-        echo json_encode([
-          'status' => 403,
-          'answer' => 'You are not authorized to train this bot.'
-        ]);
+        $startParanthesesIndex = stripos($answer, "((");
+
+        // If the answer does not contain a function call
+        if($startParanthesesIndex === false){
+          echo json_encode([
+            'status' => 200,
+            'answer' => $answer
+          ]);
+        }else{
+          returnFunctionResponse($answer, $startParanthesesIndex);
+        }
       }
     }
-
-    function answerQuestion($question){
-        $question = preg_replace('([\s]+)', ' ', trim($question));
-        $question = preg_replace("([?.])", "", $question);
-        
-        $question = "%$question%";
-        $sql = "select * from chatbot where question like ".$question;
-        $query = $conn->prepare($sql);
-        $query->execute();
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        $rows = $query->fetchAll();
-        
-        $resultsCount = count($rows);
-        if(resultsCount > 0){
-          $index = rand(0, $resultsCount - 1);
-          $row = $rows[$index];
-          $answer = $row['answer'];	
-          
-          $startParanthesesIndex = stripos($answer, "((");
-
-          // If the answer does not contain a function call
-          if($startParanthesesIndex === false){
-            echo json_encode([
-              'status' => 200,
-              'answer' => $answer
-            ]);
-          }else{
-            returnFunctionResponse($answer, $startParanthesesIndex);
-          }
-        }
-      }
 
     function returnFunctionResponse($answer, $startParanthesesIndex){
       $endParanthesesIndex = stripos($answer, "))");
@@ -142,10 +127,36 @@
         ]);
         return;
     }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      //if($_POST['password'] === 'trainpwforhng'){
+        $question = $_POST['question']; 
+
+        $userIsTrainingBot = stripos($question, "train:");
+        if($userIsTrainingBot === false){
+          answerQuestion($question);
+        }else{
+          trainBot($question);
+        }
+        
+        $randomIndex = rand(0, sizeof($noIdeaResponses) - 1);
+        echo json_encode([
+          'status' => 404,
+          'answer' => $noIdeaResponses[$randomIndex]
+        ]);
+    /*}else{
+        echo json_encode([
+          'status' => 403,
+          'answer' => 'You are not authorized to train this bot.'
+        ]);
+      }*/
+    }
+
+    
+  }
 ?>
     <!DOCTYPE html>
     <html lang="en">
-
     <head>
       <meta charset="UTF-8">
       <title>Mbah Clinton</title>
