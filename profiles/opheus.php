@@ -414,18 +414,11 @@ function get_username(){
 
 // simple ai function
 function ai(message){
-        if (username.length < 3){
+        if (username.length < 1){
           username = message;
-          send_message('Hi, nice to meet you ' + username + '. Would you like to train me?. If yes type training')
-		  responsiveVoice.speak('Hi, nice to meet you ' + username + '. Would you like to train me?. If yes type training','UK English Male');
+          send_message('Hi, nice to meet you ' + username + '. Would you like to train me? If yes please use the format. train: this is a question | this is an answer.')
+		  responsiveVoice.speak('Hi, nice to meet you ' + username + '. Would you like to train me? If yes please use the format. train: this is a question | this is an answer.','UK English Male');
         }
-        
-		
-        else if ((message.indexOf('training') >= 0)){
-          send_message('to train me please use the format. train: this is a question | this is an answer.');
-          responsiveVoice.speak('to train me please use the format. train colon this is a question delimeter this is an answer.','UK English Male');
-        }
-		
 
         else if ((message.indexOf('what is the time') >= 0) || (message.indexOf('what is my time') >= 0) || (message.indexOf('what time is it') >= 0)){
         var date = new Date();
