@@ -7,7 +7,6 @@
   $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'sarah'");
   $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
