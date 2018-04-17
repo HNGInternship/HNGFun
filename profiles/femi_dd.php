@@ -2,6 +2,7 @@
 // ob_start();
 session_start();
 require 'db.php';
+require 'answers.php';
 global $conn;
 /**
 * femiBot Class
@@ -47,14 +48,6 @@ class Bot {
       array_push($_SESSION['chatSession']['messages'], $response_and_request);
    }
 
-   function getAction($functionName) {
-      if(function_exists($functionName)) {
-         return $functionName();
-      } else {
-         return false;
-      }
-   }
-
    function train($trainData) {
       $data = [];
       $data['response'] = null;
@@ -79,6 +72,22 @@ class Bot {
       $statement->setFetchMode(PDO::FETCH_ASSOC);
       $rows = $statement->fetch();
       $response = $rows['answer'];
+      //check for function
+      $start = null;
+      $stop = null;
+      // if(preg_match_all('({+[a-zA-Z]+})', $response)) {
+      if(preg_match('/(\(+[a-zA-Z_]+\))/', $response, $match)) {
+         $functionName = $match[0];
+         $functionName = str_replace('(', '', $functionName);
+         $functionName = str_replace(')', '', $functionName);
+         if(function_exists($functionName)) {
+            $response = str_replace($functionName, $functionName(), $response);
+         } else {
+            $response = "I'm sorry " . $_SESSION['chatSession']['user'].", The function doesn't exist";
+         }
+      } else {
+         $response = "I'm sorry " . $_SESSION['chatSession']['user'].", The function doesn't exist";
+      }
       return $response;
    }
 
@@ -275,7 +284,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
                   <input style="text-align:right" class="form-control" type="text" name="response" value="<?php echo $chat['request']; ?>" readonly />
                   &nbsp;
                   <input style="text-align:left" class="form-control" type="text" name="response" value="🤖 <?php echo $chat['response']; ?>" readonly />
-                  <!-- <p class="pull-right" style="font-size:10px"><i><?php echo $chat['time']; ?></i></p> -->
+                  <p class="pull-right" style="font-size:10px"><i><?php echo $chat['time']; ?></i></p>
                <?php } ?>
                <form>
                   <input type="text" name="id" value="femi_dd" hidden />
