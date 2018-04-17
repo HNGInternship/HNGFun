@@ -14,6 +14,8 @@
        font-family: 'Ebrima';
     }
 
+
+
     #main {
       height: 100vh;
       display: flex;
@@ -105,7 +107,7 @@
 
   //Fetch User Details
 try {
-    $query = "SELECT * FROM interns_data WHERE username='samsonadegboyega'";
+    $query = "SELECT * FROM interns_data WHERE username='sammieneutron'";
     $resultSet = $conn->query($query);
     $result = $resultSet->fetch(PDO::FETCH_ASSOC);
 } catch (PDOException $e){
