@@ -1,19 +1,14 @@
-<?php
-include("db.php") ;
+<?php 
+    try {
+        $q = 'SELECT * FROM secret_word';
+        $sql = $conn->query($q);
+        $sql->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $sql->fetch();
+        $secret_word = $data["secret_word"];
+    } catch (PDOException $err) {
 
-  	
-  	
-   $result = $conn->query("Select * from secret_word LIMIT 1");
-   $result = $result->fetch(PDO::FETCH_OBJ);
-   $secret_word = $result->secret_word;
-
-   $result2 = $conn->query("Select * from interns_data where username = 'essietom'");
-   $user = $result2->fetch(PDO::FETCH_OBJ);
-
-?>
-
-<!DOCTYPE html>
-<html>
+        throw $err;
+    }?>
 <head>
 	<title><?php echo $user->username; ?></title>
 	<style type="text/css">

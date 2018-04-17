@@ -1,3 +1,31 @@
+<?php
+ try {
+    $sql = 'SELECT * FROM secret_word LIMIT 1';
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+    $secret_word = $data['secret_word'];
+
+
+} catch (PDOException $e) {
+
+    throw $e;
+}    
+try {
+    $sql = "SELECT * FROM interns_data WHERE `username` = 'victormfreke' LIMIT 1";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $my_data = $q->fetch();
+    
+
+
+} catch (PDOException $e) {
+
+    throw $e;
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -142,7 +170,7 @@
                                     Victor, a student at Heritage Polytechnic, Eket currently studying Computer Engineering.
                                     <br /><br />
                                     He has intermediate experience in Computer Langusges like HTML, CSS, Python and PHP.<br /><br />
-                                    He is  also a Drummer 
+                                    He is  also a Drummer. 
                                 </p>
                         </div>
                         <div class="small-0 large-5">
