@@ -136,6 +136,13 @@
 			
 			$question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string); //remove ? and . so that questions missing ? (and maybe .) can be recognized
 			$split_string = explode("#", $question_and_answer_string);
+			if(count($split_string) == 1){
+				echo json_encode([
+					'status' => 0,
+					'answer' => "Invalid training format. I cannot decipher the answer part of the question"
+				]);
+				return;
+			}
 			$que = trim($split_string[0]);
 			$ans = trim($split_string[1]);
 
