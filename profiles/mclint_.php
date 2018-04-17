@@ -67,6 +67,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         case substr($question, 0, strlen('emojify:')) === "emojify:":
           sendResponse(200, emojifyText(substr($question, strlen('emojify:'), strlen($question))));
           break;
+
+        case substr($question, 0, strlen('predict:')) === "predict:":
+          sendResponse(200, predictOutcome(substr($question, strlen('emojify:'), strlen($question))));
+          break;
       }
       
       $question = "%$question%";
