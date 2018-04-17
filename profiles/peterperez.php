@@ -71,9 +71,8 @@
 		<div id="wrapper" style="height: 600px;">    
 		    <div id="yourdiv">
 		    	<div class="margin"></div>
-		    	<center>
+		    	
 		    	<figure></figure>
-		    	</center>
 		    	<xmp style="font-family: 'Lato', sans-serif; font-weight: 600; font-size: 30px;"> </<?php echo $data['username']; ?>> </xmp>
 		    	<h4><?php echo $data['name']; ?></h4>
 
