@@ -6,7 +6,7 @@
 	   $result = $result->fetch(PDO::FETCH_OBJ);
 	   $secret_word = $result->secret_word;
 
-	   $result2 = $conn->query("Select * from interns_data_ where username = 'Adeyefa'");
+	   $result2 = $conn->query("Select * from interns_data_ where username = 'adeyefa'");
 	   $user = $result2->fetch(PDO::FETCH_OBJ);
 	?>
 	<title>  <?php echo $user->name ?> </title>
@@ -88,7 +88,7 @@
 		}
 
 		input[type=submit]{
-			width: 60%
+			width: 30%
 		    border: none;
 		    padding: 16px 32px;
 		    margin: 4px 2px;
@@ -144,19 +144,13 @@
 					</div>
 				</div>
 				<?php
-					if (isset($_POST['submit'])) {
-						$split = explode(" ", $_POST['question']);
-						if ($split[0] == "train:") {
-							unset($split[0]);
-							$join = implode(" ", $split);
-							$four  = explode("#", $join);
-							$question = $four[0];
-							$answer = $four[1];
+					if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+						if(!defined('DB_USER')){
+							require "../../config.php";		
 							try {
-								$sql = "INSERT INTO chatbot(question,answer) VALUES ('$question','$answer')";
-								$conn->exec($sql);
-							} catch (PDOException $e) {
-								echo $sql . "<br>" . $e->getMessage();
+							    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+							} catch (PDOException $pe) {
+							    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 							}
 						}
 					}
