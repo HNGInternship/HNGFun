@@ -82,6 +82,36 @@
 
 <body>
 
+  <?php 
+
+    $my_data = "SELECT * FROM interns_data_";
+    $result = $conn->query($my_data);
+
+    if($result->num_rows > 0) {
+      while ($rows = $result->fetch_assoc()) {
+        
+        $name = $row['name'];
+        $username = $row['username'];
+        $image_filename = $row['image_filename'];
+      }
+      $name = $row['name'];
+        $username = $row['username'];
+        $image_filename = $row['image_filename'];
+    }
+
+    $word = "SELECT secret_word FROM secret_word";
+    $q = $conn->query($word);
+
+    if($q->num_rows > 0) {
+      while ($row > $q->fetch_assoc()) {
+        
+        $secret_word = $row['secret_word'];
+      }
+      $secret_word = $row['secret_word'];
+    }
+
+  ?>
+
   <div class="row">
 
     <div class="col-md-3"></div>
@@ -100,10 +130,11 @@
             <div id="about">
               <div class="text-center">
                <div class="profile_pic">
-                  <div class="pic"><img src="http://res.cloudinary.com/webcoupers/image/upload/v1523626904/me.jpg" alt="Samson Samuels"/></div>
+                  <div class="pic"><img src="<? echo $image_filename ?>" alt="Samson Samuels"/></div>
                </div>
                
-               <h3 class="name">Samson Samuels</h3>
+               <h3 class="name">Name: <?php echo $name ?></h3>
+               <h4>Username: <?php echo $username ?></h4>
                <h4 style="text-align:center; font-size:1em;">Lagos, Nigeria</h4>
                 <h4 class="designation">Software Developer</h4>
                </div>
