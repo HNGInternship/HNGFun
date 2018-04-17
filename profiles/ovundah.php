@@ -2,7 +2,7 @@
 
 		require 'db.php';
         
-
+       
 		$result = $conn->query("Select * from secret_word LIMIT 1");
 		$result = $result->fetch(PDO::FETCH_OBJ);
 		$secret_word = $result->secret_word;
@@ -19,11 +19,12 @@
 		$stmt = $conn->prepare("SELECT * FROM chatbot");
 		$stmt->execute();
 
-        $secret_word = null;
+       
 
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$rows = $stmt->fetchAll();
-        print_r($rows);
+        $json = json_encode($rows);
+        echo $json;
 
 
 
