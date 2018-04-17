@@ -73,7 +73,7 @@
                 
                 
             }
-            $sql = $conn->query("SELECT * FROM secret_word");
+            $sql = $conn->query("SELECT secret_word FROM secret_word");
             
 
             $query = $sql->setFetchMode(PDO::FETCH_ASSOC);
