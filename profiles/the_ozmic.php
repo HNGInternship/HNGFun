@@ -3,6 +3,7 @@
   $date_time = new DateTime('now', new DateTimezone('Africa/Lagos'));
 
   try {
+    global $conn;
     $sql = 'SELECT * FROM secret_word';
     $secret_word_query = $conn->query($sql);
     $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
