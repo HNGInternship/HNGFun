@@ -115,7 +115,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      //if($_POST['password'] === 'trainpwforhng'){
+      if($_POST['password'] === 'trainpwforhng'){
         $question = $_POST['question']; 
         echo $question;
 
@@ -128,12 +128,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         
         $randomIndex = rand(0, sizeof($noIdeaResponses) - 1);
         sendResponse(200, $noIdeaResponses[$randomIndex]);
-    /*}else{
+    }else{
         echo json_encode([
           'status' => 403,
           'answer' => 'You are not authorized to train this bot.'
         ]);
-      }*/
+      }
     }
 
     
@@ -331,7 +331,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             showChatBot: false,
             messages: [],
             query: '',
-            password: 'trainpwforhng'
           },
           computed: {
             botBtnText() {
@@ -356,7 +355,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               return 'teal';
             },
             answerQuery(query) {
-              axios.post('/profiles/mclint_.php', { password: this.password, question: query })
+              var params = new URLSearchParams();
+              params.append('password', 'trainpwforhng');
+              params.append('question', query);
+
+              axios.post('/profiles/mclint_.php', params)
                 .then(response => {
                   console.log(response.data);
                   this.messages.push({ sender: 'bot', query: response.data.answer });
@@ -372,7 +375,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             <div id="chat-container">
               <ul style="padding: 16px; list-style-type: none;">
                 <li class="chat-bubble" v-for="(msg, index) in messages" v-key="index" :style="{'background-color': getBubbleColor(msg.sender)}">
-                  <p>{{msg.query}}</p>
+                  <p style="margin: 0; padding: 0">{{msg.query}}</p>
                 </li>
               </ul>
             </div>
