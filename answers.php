@@ -1,15 +1,4 @@
 <?php
-/*
-function speak(string){
-	var utterance = new SpeechSynthesisUtterance();
-	utterance.voice = speechSynthesis.getVoices().filter(function(voice){return voice.name == "Agnes";})[0];
-	utterance.text = string;
-	utterance.lang = "en-US";
-	utterance.volume = 1; //0-1 interval
-	utterance.rate = 1;
-	utterance.pitch = 2; //0-2 interval
-	speechSynthesis.speak(utterance);
-}*/
 
 function getListOfCommands() {
   return 'Type "<code>show: List of commands</code>" to see a list of commands I understand.<br/>
@@ -45,6 +34,12 @@ function getAJoke(){
 
     return $jokes[rand(0, count($jokes) - 1)];
 }
+
+function emojifyText($text){
+    $url = "https://torpid-needle.glitch.me/emojify/{$text}";
+    return file_get_contents($url);
+}
+// End of functions by @mclint_
 
     //functions defined by @chigozie. DO NOT MODIFY!!!
     function getDayOfWeek(){
@@ -262,4 +257,62 @@ function get_device_name($user_agent)
 }
 
 ///////////////////////end of opheus ////////////////////
+
+/***************************Femi_DD*************************/
+function myBoss() {
+return "Femi_DD is my creator, He's a nice person and doesn't rest untill he solves a problem.";
+}
+
+ function dateToday() {
+     return date("F jS Y h:i:s A");
+ }
+
+ function myIP() {
+     return $_SERVER['REMOTE_ADDR'];
+ }
+
+ function myLocation() {
+    $tz = new DateTimeZone("Africa/Lagos");
+    $loc = $tz->getLocation();
+    return $loc['longitude'] .' : '. $loc['latitude'];
+ }
+
+/***************************Femi_DD*************************/
+
+
+/***************************Bytenaija Start here*************************/
+//bytenaija time function
+function bytenaija_time($location) {
+    $curl = curl_init();
+    $geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=".$location. "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => $geocodeUrl,
+        CURLOPT_USERAGENT => 'Codular Sample cURL Request'
+    ));
+
+    $response = curl_exec($curl);
+    $response = json_decode($response, true);
+    //$lat = $response->results;
+    $response = $response['results'][0]['geometry'];
+
+    $response = $response["location"];
+    $lat = $response["lat"];
+    $lng = $response["lng"];
+    $timestamp = time();;
+
+    $url = "https://maps.googleapis.com/maps/api/timezone/json?location=".$lat.",".$lng."&timestamp=".$timestamp."&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U";
+
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $responseJson = curl_exec($curl);
+    curl_close($curl);
+    $response = json_decode($responseJson);
+    $timezone = $response -> timeZoneId;
+    $date = new DateTime("now", new DateTimeZone($timezone));
+    echo "The time in ".ucwords($location). " is ".$date -> format('d M, Y h:i:s A');
+
+}
+
+/***************************Bytenaija ends here*************************/
 ?>

@@ -54,6 +54,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           sendResponse(200, getAJoke());
           break;
       }
+
+      switch(true){
+        case substr($question, 0, strlen('emojify:')) === "emojify:":
+          sendResponse(200, emojifyText(substr($question, strlen('emojify:'), strlen($question))));
+          break;
+      }
       
       $question = "%$question%";
       $sql = "select * from chatbot where question like :question";
@@ -351,7 +357,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           el: '#chat-bot',
           data: {
             showChatBot: false,
-            messages: [{ query: `Hey, human. I'm Olive. Try asking 'Tell me a joke'`, sender: 'bot' }],
+            messages: [{ query: `Hey, human. I'm Olive. Try asking 'Tell me a joke' or 'emojify: Hello bot'`, sender: 'bot' }],
             history: [],
             historyIndex: 0,
             query: '',
@@ -409,15 +415,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                   if (this.historyIndex + 1 <= this.history.length - 1) {
                     this.historyIndex++;
                     this.query = this.history[this.historyIndex];
-                  } else if (this.historyIndex == 0) {
-                    this.query = this.history[0];
                   }
                 } else {
                   if (this.historyIndex - 1 >= 0) {
                     this.historyIndex--;
                     this.query = this.history[this.historyIndex];
-                  } else if (this.historyIndex == 0) {
-                    this.query = this.history[0];
                   }
                 }
               }
