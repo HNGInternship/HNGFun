@@ -87,7 +87,7 @@
         return;
       }
 
-      if ($password[2] != "trainpwforhng") {
+      if ($password[2] !== "trainpwforhng") {
         echo "Invalid authorization, you are not allowed to train me." . $password[2];
         exit();
         return;
