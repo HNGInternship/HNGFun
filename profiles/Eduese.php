@@ -78,10 +78,10 @@ p, h4{color:blue}
 <h4><i>Welcome to my page, I am 
 
 <?php 
+	
 $q = "SELECT name, username, image_filename  FROM interns_data  
 		WHERE (username='Eduese')  ";
-$result = mysqli_query($conn, $q); 
-
+$result = mysqli_query($conn, $q) OR die("Could not connect to server: " .mysqli_connect_error());
 
 	if($result){
 		while($row=mysqli_fetch_array($result, MYSQLI_ASSOC))
@@ -119,7 +119,7 @@ echo $secret_word;*/
 
 <div id = "my_pics" class = "col-2">
 <figure class = "allimage" id = "logo">
- width ="35%" height ="50%" ></figure></br>
+ width ="35%" height ="50%"></figure></br>
 
 </div> 
 </div>
