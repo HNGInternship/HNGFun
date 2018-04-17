@@ -22,7 +22,10 @@ $secret_word = $words['secret_word'];
 		<!--[if lte IE 8]><link rel="stylesheet" href="https://html5up.net/uploads/demos/aerial/assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="https://html5up.net/uploads/demos/aerial/assets/css/ie9.css" /><![endif]-->
 		<style>
+#overlay {
 
+    background-image: none;
+}
 #mainb {
 		text-align: center;
 		width: 100%;
