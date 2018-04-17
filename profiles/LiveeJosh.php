@@ -83,6 +83,26 @@
         </section>
     </div>
 
+    <?php
+
+    $result = $conn->query("Select * from secret_word LIMIT 1");
+      $result = $result->fetch(PDO::FETCH_OBJ);
+      $secret_word = $result->secret_word;
+
+      $result2 = $conn->query("Select * from interns_data where username = 'LiveeJosh'");
+      $user = $result2->fetch(PDO::FETCH_OBJ);
+
+      try {
+          $sql = "SELECT secret_word FROM secret_word";
+          $q = $conn->query($sql);
+          $q->setFetchMode(PDO::FETCH_ASSOC);
+          $data = $q->fetch();
+          $secret_word = $data['secret_word'];
+      } catch (PDOException $e) {
+          throw $e;
+      }
+
+    ?>
 </body>
 
 </html>
