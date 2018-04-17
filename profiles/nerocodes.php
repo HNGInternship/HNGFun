@@ -59,6 +59,11 @@
         <?php
             
             
+            $sql = $conn->query("SELECT * FROM secret_word LIMIT 1");
+            
+
+            $sql = $sql->fetch(PDO::FETCH_OBJ);
+            $secret_word = $sql->secret_word;
 
             $stmt = $conn->query("SELECT name, username, image_filename FROM interns_data_");
             
@@ -73,11 +78,7 @@
                 
                 
             }
-            $sql = $conn->query("SELECT secret_word FROM secret_word");
             
-
-            $query = $sql->setFetchMode(PDO::FETCH_ASSOC);
-            $secret_word = $sql->fetch();
             
 
 
