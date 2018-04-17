@@ -34,12 +34,14 @@
         .name{
             font-family: verdana;
             font-size: 2em;
+            margin-top: 5px;
         }
 
         .username{
             font-family: verdana;
             font-size: 2em;
             color: #ffffff;
+            
         }
 
         section{
