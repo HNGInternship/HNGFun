@@ -7097,7 +7097,7 @@
 
 <body>
 <?php
-    include '../config.php';
+    require 'db.php';
    
 
     $query = "SELECT * FROM interns_data WHERE username = 'oyewoas'";
