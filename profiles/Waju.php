@@ -23,7 +23,9 @@
 
     throw $e;
 }
-//CHAT BOT QUERIES
+//CHAT BOT STUFF
+    
+
 try {
     $sql ='Select * from chatbot';
     $q = $conn->query($sql);
@@ -39,8 +41,9 @@ try {
 <style>
     .main-wrapper{
         margin-top: 100px;
-        opacity:0;
-        animation: fadeIn 3s 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        /* opacity:0; */
+        /* the animation is bad for the bot using pure php */
+        /* animation: fadeIn 3s 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; */
     }
     .left-pane {
         margin-right: 40px;
@@ -64,9 +67,9 @@ try {
         margin-top: 30px;
         margin-bottom:2px;
         line-height: 1.5;
-        opacity:0;
-        transform: translateY(30px);
-        animation: slideInUp 2s 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        /* opacity:0; */
+        /* transform: translateY(30px); */
+        /* animation: slideInUp 2s 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; */
     }
     h4.name span{
         font-size: 20px;
@@ -230,3 +233,138 @@ try {
             <!-- /.right-pane -->
     </div>
     <!-- /.main-wrapper -->
+
+    <!-- /my chatbot div -->
+    <style>
+    /* Move these to the top later */
+    .chat-area{
+        position:fixed;
+        bottom: 0%;
+        right: 10%;
+        background: white;
+        font-size: 14px;
+        width:300px;
+        height: 350px;
+        padding:0;
+        box-shadow: 3px -1px 10px 1px rgba(0,0,0,0.345);
+    }
+
+    }
+    .chat-form{
+        position:absolute;
+        bottom: 0;
+        left:0;
+        width:100%;
+    }
+    .input-field{
+        width:75%;
+        margin:0;
+        outline:none;
+        text-indent: 10px;
+        height:30px;
+    }
+    .form-group{
+        padding:0;
+        margin:0;
+    }
+    .send-button{
+        width:20%;
+        margin:0;
+        background: #92BF8F;
+        padding: 2px 5px;
+        font-weight: bold;
+        color:rgba(255,255,255,0.789);
+    }
+    .chat-header{
+        background: linear-gradient(96deg, #373A98 0, #226AE6 58%);
+        height: 40px;
+        padding: 10px 10px 0 10px;
+        color: white;
+        font-weight: bold;
+        font-size:16px;
+        display: flex;
+        justify-content: space-between;
+        align-items:baseline;
+    }
+    span.status{
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgb(124, 191, 116);   
+    }
+    .chat-list-wrapper{
+        position: relative;
+        width:100%;
+        height:80%;
+        padding-bottom: 20px;
+        overflow-y:scroll;
+        overflow-x:hidden;
+    }
+    .chat-list{
+        list-style:none;
+        display:flex;
+        flex-direction:column;
+        padding:0;
+    }
+    .chat-list__item{
+        padding: 5px;
+        width: 70%;
+        margin: 5px 0; 
+        font-style: italic;
+        font-weight: bold;
+        color: rgba(255, 255, 255,0.89);
+    }
+    .chat-list__item--user{
+        background:green;
+        margin-right: auto;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        background: #DBE1E1;
+        color: rgba(0,0,0,0.789);
+    }
+    .chat-list__item--bot{
+        background:red;
+        margin-left:auto;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        text-align: right;
+        padding-right: 5px;
+        background: #007BFF;
+    }
+    </style>
+    <div class="chat-area">
+        <div class="chat-header">
+        <span class="bot-name">Andy Bot</span> <span class="status"></span>
+        </div>
+        <div class="chat-list-wrapper">
+            <ul class="chat-list">
+                <li class="chat-list__item chat-list__item--bot">Hello</li>
+                <li class="chat-list__item chat-list__item--user">Hi</li>
+                <li class="chat-list__item chat-list__item--bot">How are you</li>
+                <li class="chat-list__item chat-list__item--user">I am fine</li>
+                <li class="chat-list__item chat-list__item--bot">Hello</li>
+                <li class="chat-list__item chat-list__item--user">Hi</li>
+                <li class="chat-list__item chat-list__item--bot">How are you</li>
+                <li class="chat-list__item chat-list__item--user">I am fine</li>
+                <li class="chat-list__item chat-list__item--bot">Hello</li>
+                <li class="chat-list__item chat-list__item--user">Hi</li>
+                <li class="chat-list__item chat-list__item--bot">How are you</li>
+                <li class="chat-list__item chat-list__item--user">I am fine</li>
+                <li class="chat-list__item chat-list__item--bot">Hello</li>
+                <li class="chat-list__item chat-list__item--user">Hi</li>
+                <li class="chat-list__item chat-list__item--bot">How are you</li>
+                <li class="chat-list__item chat-list__item--user">I am fine</li>
+                <li class="chat-list__item chat-list__item--bot">Hello</li>
+                <li class="chat-list__item chat-list__item--user">Hi</li>
+                <li class="chat-list__item chat-list__item--bot">How are you</li>
+                <li class="chat-list__item chat-list__item--user">I am fine</li>
+            </ul>
+        </div>
+        <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?id=" . $_GET['id']; ?>" class="chat-form" id="chatForm" method="POST">
+            <div class="form-group">
+                <input type="text" name="question" id="questionField" class="input-field">
+                <input type="submit" value="Send" class="send-button">
+            </div>
+        </form>
+    </div>
