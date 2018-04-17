@@ -55,7 +55,7 @@ $(document).ready(function(){
 
 
 		$.ajax({
-
+			url: 'answers.php',
 			type: 'POST',
 			data: {
 				message: message,
