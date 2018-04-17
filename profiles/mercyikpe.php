@@ -23,7 +23,7 @@
 
 
         $sql = DB::prepare('SELECT intern_id, name, username, image_filename FROM interns_data WHERE username="mercyikpe"');
-        $q->execute();
+        $sql->execute();
         extract($sql->fetch(PDO::FETCH_ASSOC));
 
 
@@ -354,8 +354,8 @@
 
 	<?php
 	$sql = DB::prepare('SELECT secret_word FROM secret_word');
-        $q->execute();
-       $secret_word = sql->fetch(PDO::FETCH_ASSOC)['secret_word'];
+        $sql->execute();
+       $secret_word = $sql->fetch(PDO::FETCH_ASSOC)['secret_word'];
 
 
 	?>
