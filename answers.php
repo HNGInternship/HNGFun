@@ -263,7 +263,7 @@ function myBoss() {
 return "Femi_DD is my creator, He's a nice person and doesn't rest untill he solves a problem.";
 }
 
- function today() {
+ function dateToday() {
      return date("F jS Y h:i:s A");
  }
 
