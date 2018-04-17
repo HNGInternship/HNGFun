@@ -5,7 +5,7 @@
 
   //intern info query
   try {
-      $sql = 'SELECT name, username, image_filename FROM interns_data WHERE intern_id = \'emmaadesile\'';
+      $sql = "SELECT name, username, image_filename FROM interns_data WHERE intern_id = 'emmaadesile'";
       $q = $conn->query($sql);
       $q->setFetchMode(PDO::FETCH_ASSOC);
       $data = $q->fetch();
@@ -19,9 +19,9 @@
     $q1 = $conn->query($sql);
     $q1->setFetchMode(PDO::FETCH_ASSOC);
     $data1 = $q1->fetch();
-} catch (PDOException $error) {
-    throw $error;
-}
+  } catch (PDOException $error) {
+      throw $error;
+  }
 $secret_word = $data1['secret_word'];
 ?>
 
@@ -59,10 +59,10 @@ $secret_word = $data1['secret_word'];
 
     .profile {
       max-width: 700px;
-      padding-left: 20px;
-      padding-right: 20px;
+      padding-left: 10px;
+      padding-right: 10px;
       margin: auto;
-      text-align: left;
+      text-align: center;
       display: grid;
       grid-template-columns: 1fr;
       place-items: center;
@@ -130,7 +130,11 @@ $secret_word = $data1['secret_word'];
         <a href="https://www.linkedin.com/in/emmaadesile/"><i class="fa fa-linkedin" target="_blank"></i></a>
         <a href="http://www.twitter.com/emma_adesile"><i class="fa fa-twitter" target="_blank"></i></a>
         <a href="http://www.github.com/emmaadesile" target="_blank"><i class="fa fa-github"></i></a>
-      </div>   
+      </div> 
+
+      <div class="chatbot">
+      
+      </div>  
       <p>&copy; Handcrafted by Emmanuel Adesile</p>
   <div>
 </body>
