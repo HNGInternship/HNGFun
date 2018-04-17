@@ -1,7 +1,6 @@
 <?php
-
+  global $conn;
   $date_time = new DateTime('now', new DateTimezone('Africa/Lagos'));
-
   try {
     $sql = 'SELECT * FROM secret_word';
     $secret_word_query = $conn->query($sql);
