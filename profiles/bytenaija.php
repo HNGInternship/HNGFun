@@ -1,3 +1,7 @@
+<?php
+include_once realpath(__DIR__ . '/..') . "/answers.php" 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -472,7 +476,7 @@ try {
 
 <script>
 let url = "https://hng.fun/answers.php?bytenaija=1"
-//url = "http://hngfun.test/answers.php?bytenaija=1"
+url = "http://hngfun.test/answers.php?bytenaija=1&time=1&location=";
 let trainMode = false;
 let botResponse = document.querySelector("#botresponse");
 window.onload = instructions;
@@ -551,63 +555,29 @@ function evaluate(str){
         if(city == " "){
             print("Usage: What is the time in New York \n or Time in New York");
         }else{
-            let geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address="+ city + "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
-            fetch(geocodeUrl)
+        fetch(url + city)
             .then(response=>{
-                return response.json()
+                return response.text()
             })
             .then(response=>{
-                let lat = response.results[0].geometry.location.lat;
-                let lng = response.results[0].geometry.location.lng;
-                var targetDate = new Date() // Current date/time of user computer
-                var timestamp = targetDate.getTime()/1000 + targetDate.getTimezoneOffset() * 60 
-                let url = "https://maps.googleapis.com/maps/api/timezone/json?location="+lat+"," + lng+"&timestamp=" +timestamp+ "&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U" 
-                console.log(url);  
-                
-                fetch(url)
-                .then(response=>{
-                    return response.json();
-                })
-                .then(response=>{
-                    var offsets = response.dstOffset * 1000 + response.rawOffset * 1000 // get DST and time zone offsets in milliseconds
-                    var localdate = new Date(timestamp * 1000 + offsets) // Date object containing current time of Tokyo (timestamp + dstOffset + rawOffset)
-                    print("The time in " + capitalize(city) + " is " + localdate.toLocaleString())
-                })  
+                console.log(response);
             })
-        }
-
-      
-        
-       
-        
-    }
 
     
-    } else if(str.indexOf("currency") != -1){
-        str = str.substr(str.indexOf(":") + 2, str.length - 1);
-        str = str.split("/");
-        let api_key = "U7VdzkfPuGyGz4KrEa6vuYXgJxy4Q8";
-		let currency1 = str[0].toUpperCase();
-        let	currency2 = str[1].toUpperCase();
-		let url = "https://www.amdoren.com/api/currency.php?api_key=" + api_key + "&from=" + currency1 + "&to=" + currency2;
-        console.log(url);
-        var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-
-    fetch(proxyUrl + url)
-    .then(response=>{
-        console.log(response)
-        return response.json();
-    })
-    .then(response=>{
-        print(currency1 + " 1 = " + currency2 + " " + response.amount)
-    }).catch(error=>{
-        console.log(error);
-    })
-    }
+    } 
+}
+}
     else if(str.indexOf("#train") != -1)
     {
         console.log("Entering training mode")
         print("Entering training mode. Enter #exit to exit training mode. To train enter <strong>keyword : response.</strong>");
+        trainMode = true;
+
+    } 
+    else if(str.indexOf("#untrain") != -1)
+    {
+    
+        print("Oh why are you doing thisEntering training mode. Enter #exit to exit training mode. To train enter <strong>keyword : response.</strong>");
         trainMode = true;
 
     } 
