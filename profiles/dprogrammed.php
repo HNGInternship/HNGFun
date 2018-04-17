@@ -25,6 +25,9 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     // output data of each row
 
 
+
+$stmt =$conn->query('SELECT * FROM secret_word');
+
 $stmt = $conn->query('SELECT secret_word FROM secret_word');
  
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {

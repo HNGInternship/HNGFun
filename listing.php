@@ -32,7 +32,7 @@ $data = $q->fetchAll();
 
     <div class="row">
 
-    <?php foreach($data as $list){ ?>
+    <?php print_r($data);foreach($data as $list){ ?>
 
         <!--Grid column-->
         <div class="col-lg-3 col-md-3 mb-4">
