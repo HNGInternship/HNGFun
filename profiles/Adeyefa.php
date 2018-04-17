@@ -2,12 +2,12 @@
 <html>
 <head>
 	<?php	
-	   $result = $conn->query("Select * from secret_word LIMIT 1");
+	   $result - $conn->query("Select* from secret_word LIMIT 1");
 	   $result = $result->fetch(PDO::FETCH_OBJ);
 	   $secret_word = $result->secret_word;
 
-	   $result2 = $conn->query("Select * from interns_data_ where username = 'adeyefa'");
-	   $user = $result2->fetch(PDO::FETCH_OBJ);
+	   $result2 = $conn->query("Select * from internss_data where username = 'adeyefa'");
+	   $user= $result->fetch(PDO::FETCH_OBJ);
 	?>
 	<title>  <?php echo $user->name ?> </title>
 	<meta charset="utf-8">
@@ -85,13 +85,6 @@
 		    border-radius: 4px;
 		    font-size: 22px;
 		    padding: 12px 20px 12px 40px;
-		}
-
-		input[type=submit]{
-		    border: none;
-		    padding: 16px 32px;
-		    margin: 4px 2px;
-		    cursor: pointer;
 		}
 		.head{
 			background-color: #0EEFF1;
