@@ -26,7 +26,7 @@
   }
 ?>
 
-<?php
+  <?php
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     require "../answers.php";
     
@@ -151,6 +151,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 ?>
     <!DOCTYPE html>
     <html lang="en">
+
     <head>
       <meta charset="UTF-8">
       <title>Mbah Clinton</title>
@@ -269,11 +270,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           margin-bottom: 16px;
         }
 
-        #chat{
+        #chat {
           display: flex;
-           flex-direction: column;
-            width: 35%;
-            align-items: center;
+          flex-direction: column;
+          width: 35%;
+          align-items: center;
         }
 
         @media (max-width: 575px) {
@@ -294,7 +295,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             font-size: 12px;
           }
 
-          #chat{
+          #chat {
             width: 100%;
           }
         }
@@ -350,7 +351,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           el: '#chat-bot',
           data: {
             showChatBot: false,
-            messages: [{query: `Hey, human. I'm Olive. Try asking 'Tell me a joke'`, sender: 'bot'}],
+            messages: [{ query: `Hey, human. I'm Olive. Try asking 'Tell me a joke'`, sender: 'bot' }],
             history: [],
             historyIndex: 0,
             query: '',
@@ -378,14 +379,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
               return 'gray';
             },
-            getBorderRadius(sender){
+            getBorderRadius(sender) {
               if (sender === 'user')
-              return '10px 10px 0px 10px';
+                return '10px 10px 0px 10px';
 
               return '0px 10px 10px 10px';
             },
             answerQuery(query) {
-              this.messages.push({sender: 'bot', query: 'Thinking..'});
+              this.messages.push({ sender: 'bot', query: 'Thinking..' });
 
               var params = new URLSearchParams();
               params.append('password', 'trainpwforhng');
@@ -402,23 +403,23 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                   this.messages.push({ sender: 'bot', query: 'Mediocre humans. Your internet connection is down.' });
                 });
             },
-            showHistory(direction){
-              if(this.history.length > 0){
-                if(direction == 'up'){
-                  if(this.historyIndex + 1 <= this.history.length - 1){
+            showHistory(direction) {
+              if (this.history.length > 0) {
+                if (direction == 'up') {
+                  if (this.historyIndex + 1 <= this.history.length - 1) {
                     this.historyIndex++;
                     this.query = this.history[this.historyIndex];
                   }
-                }else{
-                  if(this.historyIndex - 1 >= 0){
+                } else {
+                  if (this.historyIndex - 1 >= 0) {
                     this.historyIndex--;
                     this.query = this.history[this.historyIndex];
                   }
                 }
               }
             },
-            triggerAction(event){
-              switch(event.keyCode){
+            triggerAction(event) {
+              switch (event.key) {
                 case 'Enter':
                   this.askBot();
                   break;
