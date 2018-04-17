@@ -1,5 +1,5 @@
 <?php
-//include "../config.php";
+include "../db.php";
 
     try {
         $sql = 'SELECT intern_id, name, username, image_filename FROM interns_data WHERE username=\'opheus\'';
