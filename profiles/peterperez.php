@@ -18,6 +18,15 @@
 	<title><?php echo $data['username']; ?> | HNGInternship4</title>
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	<style type="text/css">
 	body{
@@ -25,12 +34,12 @@
 		font-family: 'Lato', sans-serif;
 		background: linear-gradient(to bottom right, #00AEFF, #012738);
 	}
-		#wrapper {
+		#wrapperr {
 		  text-align: center;
-		  position: absolute; top: 0; left: 0; height: 100%; width: 100%;
+/* 		  position: absolute; top: 0; left: 0; height: 100%; width: 100%; */
 		  background: linear-gradient(to bottom right, #00AEFF, #012738);
 		}
-		#yourdiv {
+		#yourdivv {
 		  display: inline-block;
 		}
 		.margin{
@@ -55,15 +64,19 @@
 	</style>
 </head>
 <body>
+	<div class="row">
+		<div class="col-md-2">
+			
+		</div>
+	<div class="col-md-6">
 	<section style="width: 100%; min-height: 470px;">
 
 		<div id="wrapper" style="height: 600px;">    
 		    <div id="yourdiv">
 		    	<div class="margin"></div>
-		    	<center>
+		    	
 		    	<figure></figure>
-		    	</center>
-		    	<xmp style="font-family: 'Lato', sans-serif; font-weight: 600; font-size: 30px;"> </ <?php echo $data['username']; ?> > </xmp>
+		    	<xmp style="font-family: 'Lato', sans-serif; font-weight: 600; font-size: 30px;"> </<?php echo $data['username']; ?>> </xmp>
 		    	<h4><?php echo $data['name']; ?></h4>
 
 		    	<span style="color: #C4C4C4;">Laravel • PHP • HTML • CSS • JAVA • C</span><br>
@@ -82,5 +95,13 @@
 		    </div>
 		</div>
 	</section>
+		
+		<div class="col-md-6">
+			Bot
+		</div>
+		
+		
+		</div>
+	</div>
 </body>
 </html>

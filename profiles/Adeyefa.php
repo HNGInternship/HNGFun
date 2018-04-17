@@ -6,6 +6,8 @@ $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
 	require "./answers.php";
 
 	date_default_timezone_set("Africa/Lagos");
@@ -51,11 +53,21 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 			if(count($split_string) == 1){
 				echo  json_encode([
 				    'status' => 0,
-				    'answer' => "Invalid training format()"
+				    'answer' => "Invalid training format"
 				]);
 
 				return;
 			}
+			$que = trim($split_string[0]);
+	        $ans = trim($split_string[1]);
+	  
+	        if(count($split_string) < 3){
+	        echo json_encode([
+	          'status' => 0,
+	          'answer' => "You need to enter the training password to train me."
+	        ]);
+	        return;
+	        }
 			$password = trim($split_string[2]);
 		    //verify if training password is correct
 		    define('TRAINING_PASSWORD', 'trainpwforhng');
@@ -79,11 +91,12 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		} 
 		echo json_encode([
 			'status' => 0,
-			'answer' => "I dont understant you right now, I need more training"
+			'answer' => "I am sorry, I dont understand you right now, I need more training"
 		]);
 	} catch (Exception $e){
 		return $e->message;
 	}
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -160,7 +173,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		}
 		input[type=text] {
 
-		    width: 60%;
+		    width: 80%;
 		    box-sizing: border-box;
 		    border: 2px solid #ccc;
 		    border-radius: 4px;
@@ -169,7 +182,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		}
 
 		input[type=submit]{
-		    width: 60%;
+		    width: 80%;
 		    padding: 12px 20px;
 		    margin: 8px 8px;
 		}
@@ -209,13 +222,13 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 	    </div>	
 		<div class="sidebar">
 			<div class="head">
-				<h2> Chat With MATRIX</h3>
+				<h2> Chat With MyBot</h3>
 			</div>
 			<div class="row-holder">
 				<div class="row2">
-					<div class="form" action='Adeyefa.php' method="post">
+					<div class="form" action='./Adeyefa.php' method="post">
 						<form >
-							<input type="text" name="question" placeholder="type your question here"><input type="submit" name="submit">
+							<input type="text" name='question' placeholder="type your question here"><input type="submit" name="submit">
 						</form>
 					</div>
 				</div>
