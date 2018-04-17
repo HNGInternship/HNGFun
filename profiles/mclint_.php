@@ -403,15 +403,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 });
             },
             showHistory(direction){
-              if(direction == 'up'){
-                if(this.historyIndex + 1 <= this.history.length - 1){
-                  this.historyIndex++;
-                  this.query = this.history[this.historyIndex];
-                }
-              }else{
-                if(this.historyIndex - 1 >= 0){
-                  this.historyIndex--;
-                  this.query = this.history[this.historyIndex];
+              if(this.history.length > 0){
+                if(direction == 'up'){
+                  if(this.historyIndex + 1 <= this.history.length - 1){
+                    this.historyIndex++;
+                    this.query = this.history[this.historyIndex];
+                  }
+                }else{
+                  if(this.historyIndex - 1 >= 0){
+                    this.historyIndex--;
+                    this.query = this.history[this.historyIndex];
+                  }
                 }
               }
             }
