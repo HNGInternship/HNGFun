@@ -20,13 +20,13 @@ $secret_word = $words['secret_word'];
 	<span>what's wrong</SPand>
 	<?php else: ?>
 	<br/><br/><br/>
-	<h2><?php echo $frank['name']; ?></h2>
+	
 	<div class="photo-wrap">
 		<img src="<?php echo $frank['image_filename']; ?>" alt="" />
 	</div>
 	
 	<h3>HNG INTERNSHIP 4 #STAGE3 TASK</h3>
-	
+	<h2><?php echo $frank['name']; ?></h2>
 	
 	<?php endif; ?>
 </div>
