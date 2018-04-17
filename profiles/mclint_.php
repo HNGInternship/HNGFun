@@ -1,4 +1,32 @@
 <?php
+  if($_SERVER['REQUEST_METHOD'] === 'GET'){
+    if(!defined('DB_USER')){
+      require "../../config.php";		
+      try {
+          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+      } catch (PDOException $pe) {
+          die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+      }
+    }
+
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $sql = "SELECT * FROM secret_word";
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+
+    $result = $query->fetch();
+    $secret_word = $result['secret_word'];
+
+    $sql = "SELECT * FROM interns_data WHERE username = 'mclint_'";
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $query->fetchAll();
+    $me = array_shift($data);
+  }
+?>
+
+<?php
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if(!defined('DB_USER')){
       require "../../config.php";		
@@ -15,7 +43,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     "Ugh. If only my creator trained me better I'd know what to say in reply to what you just said. Please train me?");
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      if($_POST['password'] === 'trainpwforhng'){
+      //if($_POST['password'] === 'trainpwforhng'){
         $question = $_POST['question']; 
 
         $userIsTrainingBot = stripos($question, "train:");
@@ -30,11 +58,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           'status' => 404,
           'answer' => $noIdeaResponses[$randomIndex]
         ]);
-      }else{
+    }/*else{
         echo json_encode([
           'status' => 403,
           'answer' => 'You are not authorized to train this bot.'
-        ]);
+        ]);*/
       }
     }
 
@@ -273,33 +301,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     </head>
 
     <body>
-    <?php
-      if($_SERVER['REQUEST_METHOD'] === 'GET'){
-        if(!defined('DB_USER')){
-          require "../../config.php";		
-          try {
-              $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-          } catch (PDOException $pe) {
-              die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-          }
-        }
-
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        $sql = "SELECT * FROM secret_word";
-        $query = $conn->query($sql);
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-
-        $result = $query->fetch();
-        $secret_word = $result['secret_word'];
-
-        $sql = "SELECT * FROM interns_data WHERE username = 'mclint_'";
-        $query = $conn->query($sql);
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $query->fetchAll();
-        $me = array_shift($data);
-      }
-    ?>
       <div id="main">
         <div id="about">
           <div class="text-center">
