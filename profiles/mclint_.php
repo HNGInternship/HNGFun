@@ -13,7 +13,7 @@
 ?>
 
 <?php
-    require "../answers.php";
+    //require "../answers.php";
     $noIdeaResponses = array("Ha. Turns out that I'm not that smart after all. Train me, yoda! Please?", 
     "Maybe you humans might win after all. I have no idea what you just said. Please train me.",
     "Ugh. If only my creator trained me better I'd know what to say in reply to what you just said. Please train me?");
