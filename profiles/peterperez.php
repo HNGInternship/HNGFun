@@ -34,17 +34,8 @@
 		font-family: 'Lato', sans-serif;
 		background: linear-gradient(to bottom right, #00AEFF, #012738);
 	}
-		#wrapperr {
-		  text-align: center;
-/* 		  position: absolute; top: 0; left: 0; height: 100%; width: 100%; */
-		  background: linear-gradient(to bottom right, #00AEFF, #012738);
-		}
-		#yourdivv {
-		  display: inline-block;
-		}
-		.margin{
-			height: 100px;
-		}
+		
+		
 		a{
 			 color: #C4C4C4;
 		}
@@ -69,11 +60,10 @@
 			bot2
 		</div>
 	<div class="col-md-6">
-	<section>
 
-		<div id="wrapper">    
-		    <div id="yourdiv">
-		    	<div class="margin"></div>
+   
+		    <div>
+		    	
 		    	
 		    	<figure></figure>
 		    	<xmp style="font-family: 'Lato', sans-serif; font-weight: 600; font-size: 30px;"> </<?php echo $data['username']; ?>> </xmp>
@@ -93,15 +83,17 @@
 
 
 		    </div>
+	
+		
+		
 		</div>
-	</section>
+		
 		
 		<div class="col-md-4">
 			Bot
 		</div>
 		
 		
-		</div>
 	</div>
 </body>
 </html>
