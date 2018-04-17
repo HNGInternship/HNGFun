@@ -21,16 +21,18 @@ jumbotron{
 
 
 /* -------------------------- JIM'S PROFILE PAGE STYLES ------------------------------------- */
-.Jim.profile-wrap{
-	height: 100vh;
+.Jim {
+    background: linear-gradient(180deg, #141719d1 99.99%, rgba(255, 255, 255, 0) 100%), url(https://res.cloudinary.com/nzesalem/image/upload/v1523623978/desktop.jpg);
+    background-size: cover;
+    background-position: -250px -375px;
+}
+.Jim .profile-wrap{
+	height: 350px;
     display: flex;
 	justify-content: center;
 	align-items: center;
 	color: #fff;
 	text-align: center;
-    background-color: #333;
-	background: linear-gradient(180deg, #141719d1 99.99%, rgba(255, 255, 255, 0) 100%), url(https://res.cloudinary.com/nzesalem/image/upload/v1523623978/desktop.jpg);
-	background-size: cover;
 }
 
 .Jim h1, .Jim h3 {
@@ -71,4 +73,8 @@ jumbotron{
 }
 .Jim .facebook {
 	color: #365899 !important;
+}
+
+.Jim .chat-wrap {
+    padding: 0 200px;
 }
