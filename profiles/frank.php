@@ -1,10 +1,10 @@
 <?php
 
-$sql = "SELECT * FROM interns_data WHERE username = 'frank'";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$data = $q->fetchAll();
-$frank = array_shift($data);
+$sel_frank = "SELECT * FROM interns_data WHERE username = 'frank'";
+$q = $conn->query($sel_frank);
+$fetch_frank->setFetchMode(PDO::FETCH_ASSOC);
+$frank_data = $fetch_frank->fetchAll();
+$frank = array_shift($frank_data);
 
 // Secret word
 $sql = "SELECT * FROM secret_word";
