@@ -46,6 +46,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
       $question = preg_replace('([\s]+)', ' ', trim($question));
       $question = preg_replace("([?.])", "", $question);
+
+      switch(strtolower($question))
+      {
+        case "tell me a joke":
+          sendResponse(200, getAJoke());
+          break;
+      }
       
       $question = "%$question%";
       $sql = "select * from chatbot where question like :question";
@@ -342,7 +349,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           el: '#chat-bot',
           data: {
             showChatBot: false,
-            messages: [{query: `Hey human. I'm Jarvis. Ask me anything.`, sender: 'bot'}],
+            messages: [{query: `Hey, human. I'm Olive. Ask me anything.`, sender: 'bot'}],
             query: '',
           },
           computed: {

@@ -23,6 +23,14 @@ function getRandomFact(){
   return $facts[rand(0, count($facts) - 1)];
 }
 
+// functions by @mclint_. DO NOT MODIFY
+function getAJoke(){
+    $jokes = ["My dog used to chase people on a bike a lot. It got so bad, finally I had to take his bike away.", "What is the difference between a snowman and a snowwoman? Snowballs.",
+    "I invented a new word. Plagiarism.", "Helvetica and Times New Roman walk into a bar. 'Get out of here!' shouts the bartender. 'We don't serve your type.'", "Why don’t scientists trust atoms? Because they make up everything."];
+
+    return $jokes[rand(0, count($jokes) - 1)];
+}
+
     //functions defined by @chigozie. DO NOT MODIFY!!!
     function getDayOfWeek(){
         return date("l");
