@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 body{
-  background-image: url(http://res.cloudinary.com/noahalorwu/image/upload/v1523952647/ss.jpg );
+  color: #ef5350;
 
 }
 .profile {
@@ -25,7 +25,7 @@ body{
   text-align: center;
   font-family: arial;
   margin-top: 100px;
-  color: orange;
+  color: white;
 
 
 }
