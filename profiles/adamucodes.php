@@ -1,8 +1,8 @@
 <?php
-require '../db.php';
+require 'db.php';
 $username = "adamucodes";
 
-$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data_` WHERE `username`='$username'";
+$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
 $sql0 = "SELECT * FROM `secret_word` LIMIT 1";
 $stmt0 = $conn->prepare($sql0);
 $stmt0->execute();
@@ -24,23 +24,6 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
     .container {
       width: 100%;
     }
-    nav ul {
-      margin: 0;
-      padding: 0;
-      background-color: #333;
-      color: #fff;
-    }
-    nav ul li {
-      list-style: none;
-      display: inline-block;
-      padding: 30px;
-    }
-    nav ul li a {
-      font-size: 18px;
-      font-weight: 600;
-      color: #fff;
-      text-decoration: none;
-    }
     .header {
       background-image: url("http://res.cloudinary.com/adamucodes/image/upload/v1523741962/coding7.jpg");
       background-repeat: no-repeat;
@@ -57,7 +40,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
       width: 200px;
       border: 2px solid #fff;
       border-radius: 5px;
-      margin: 60px 0 20px;
+      margin: 120px 0 20px;
     }
     .profile_details h2 {
       font-size: 45px;
