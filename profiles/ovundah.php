@@ -16,7 +16,7 @@
 
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
-		$stmt = $conn->prepare("SELECT * FROM secret_word");
+		$stmt = $conn->prepare("SELECT * FROM chatbot");
 		$stmt->execute();
 
         $secret_word = null;
