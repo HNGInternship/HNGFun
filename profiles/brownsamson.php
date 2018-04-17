@@ -223,7 +223,7 @@
                     <div class="space"></div>
                 </div>
                 <div class="space"></div>
-                <a href="brownsamson.com/portfolio"><button class="button">My Portfolio</button></a>
+                <a href="http://brownsamson.com/portfolio"><button class="button">My Portfolio</button></a>
                 <div class="space"></div>
                 <div class="space"></div>
             </div>

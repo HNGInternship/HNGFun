@@ -1,14 +1,5 @@
 <?php
 
-include("../config.php"); 
-
-// Create connection
-$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
 $sql = "SELECT intern_id, name, username, image_filename FROM interns_data WHERE username='ibotyle' ";
 $result = mysqli_query($conn, $sql);
 
