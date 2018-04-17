@@ -68,7 +68,7 @@
 
 		    	<span style="color: #C4C4C4;">Laravel • PHP • HTML • CSS • JAVA • C</span><br>
 
-		    	<span>I believe the passion to learn more everyday.<br> helps me use technology to solve problems around me.</span>
+		    	<span>I believe the passion to learn more everyday,<br> helps me use technology to solve problems around me.</span>
 		    	<br>
 		    	<div style="font-size: 25px; margin-top: 10px;">
 		    	<a href="http://www.github.com/peterperez" target="_blank"><i class="fa fa-github"></i></a>
