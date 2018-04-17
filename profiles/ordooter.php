@@ -1,6 +1,27 @@
 
 
 <!DOCTYPE html>
+<?php
+if(!isset($_GET['id'])){
+    require '../db.php';
+}else{
+    require 'db.php';
+}
+
+
+try {
+    $sql = 'SELECT * FROM interns_data,secret_word WHERE username ="'.'ordooter'.'"';
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+    $secret_word = $data['secret_word'];
+
+} catch (PDOException $e) {
+    throw $e;
+}
+
+
+?>
 <html lang="en">
 
   <head>
@@ -59,7 +80,7 @@
     <header class="masthead bg-primary text-white text-center">
       <div class="container">
         <img class="img-fluid mb-5 d-block mx-auto" src="http://i1074.photobucket.com/albums/w416/Butu_Ordooter_A/profile1_zpsblk9vlnz.png" alt="">
-        <h1 class="text-uppercase mb-0"><?php echo ("Butu Ordooter"); ?></h1>
+        <h1 class="text-uppercase mb-0">@<?php echo ($data['username']) ?></h1>
         <hr class="star-light">
         <h2 class="font-weight-light mb-0"><?php echo ("Web Developer -  DevOps Engineer - Backend Engineer"); ?></h2>
         <hr class="star-light">
@@ -67,7 +88,7 @@
       </div>
     </header>
 
-    <!-- Portfolio Grid Section -->
+    <!-- Portfolio Grid Section -->ß
     <section class="portfolio" id="portfolio">
       <div class="container">
         <h2 class="text-center text-uppercase text-secondary mb-0">Portfolio</h2>
