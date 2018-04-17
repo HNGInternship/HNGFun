@@ -17,6 +17,7 @@
             background-image: url('https://res.cloudinary.com/drlcfqzym/image/upload/v1523934335/chess-2730034_1920.jpg');
             background-position: center center;
             background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
         .image{
@@ -55,7 +56,6 @@
     </style>
     <main>
         <?php
-            require "../db.php";
             
             $sql = $conn->query("SELECT * FROM secret_word LIMIT 1");
             $sql = $sql->fetch(PDO::FETCH_OBJ);
@@ -63,7 +63,6 @@
 
             $result = $conn->query("SELECT * FROM interns_data_ WHERE username = 'nerocodes'");
             $user = $result->fetch(PDO::FETCH_OBJ);
-
 
         ?>
         <h1 class="name"><?php echo $user->name ?></h1>
