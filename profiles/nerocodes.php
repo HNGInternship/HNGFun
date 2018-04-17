@@ -33,12 +33,13 @@
 
         .name{
             font-family: verdana;
-            font-size: 3em;
+            font-size: 2em;
         }
 
         .username{
             font-family: verdana;
             font-size: 2em;
+            color: #ffffff;
         }
 
         section{
