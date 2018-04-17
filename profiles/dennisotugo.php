@@ -58,10 +58,8 @@ span#user {
 }
 span#chatbot {
     font-family: sans-serif;
-    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     width: 70%;
     font-size: 1.2rem;
     color: black;
