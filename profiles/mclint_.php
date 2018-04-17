@@ -86,7 +86,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         if(!function_exists($nameOfFunction)){
           sendResponse(404, "I'm sorry. I do not know what you're trying to make me do.");
         }else{
-          sendResponse(200, str_replace("(($nameOfFunction))", $nameOfFunction(), $answer));
+          $functionResult = str_replace("((".$nameOfFunction."))", $nameOfFunction(), $answer);
+          sendResponse(200, $functionResult);
         }
       }
     }
