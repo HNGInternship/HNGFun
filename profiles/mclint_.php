@@ -389,9 +389,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
               axios.post('/profiles/mclint_.php', params)
                 .then(response => {
+                  console.log(response);
                   this.messages.pop();
                   this.messages.push({ sender: 'bot', query: response.data.answer });
                 }).catch(error => {
+                  console.log(error);
                   this.messages.pop();
                   this.messages.push({ sender: 'bot', query: 'Mediocre humans. Your internet connection is down.' });
                 });
