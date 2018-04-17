@@ -586,7 +586,7 @@ header{
     </section>
 
 <script>
-let url = "https://hng.fun/profiles/bytenaija.php"
+let url = "profiles/bytenaija.php"
 //url = window.location.href + "?bytenaija=1";
 let trainMode = false;
 let botResponse = document.querySelector("#botresponse");
