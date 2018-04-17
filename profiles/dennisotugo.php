@@ -17,9 +17,9 @@ $secret_word = $words['secret_word'];
 		<title>Dennis Otugo</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="https://html5up.net/uploads/demos/aerial/https://html5up.net/uploads/demos/aerial/https://html5up.net/uploads/demos/aerial/assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="https://html5up.net/uploads/demos/aerial/https://html5up.net/uploads/demos/aerial/https://html5up.net/uploads/demos/aerial/https://html5up.net/uploads/demos/aerial/assets/css/main.css" />	
-		<!--[if lte IE 8]><link rel="stylesheet" href="https://html5up.net/uploads/demos/aerial/https://html5up.net/uploads/demos/aerial/assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 8]><script src="https://html5up.net/uploads/demos/aerial/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="https://html5up.net/uploads/demos/aerial/assets/css/main.css" />	
+		<!--[if lte IE 8]><link rel="stylesheet" href="https://html5up.net/uploads/demos/aerial/assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="https://html5up.net/uploads/demos/aerial/assets/css/ie9.css" /><![endif]-->
 		<style>
 
@@ -175,7 +175,7 @@ span#chatbot {
 
 			</div>
 		</div>
-		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+		<!--[if lte IE 8]><script src="html5up.net/uploads/demos/aerial/assets/js/ie/respond.min.js"></script><![endif]-->
 		<script>
 			window.onload = function() { document.body.className = ''; }
 			window.ontouchmove = function() { return false; }
