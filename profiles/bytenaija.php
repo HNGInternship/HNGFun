@@ -614,8 +614,8 @@ try {
     </section>
 
 <script>
-let url = "profiles/bytenaija.php"
-//url = window.location.href;
+let url = "profiles/bytenaija.php?query="
+//url = window.location.href + "?query=";
 let trainMode = false;
 let botResponse = document.querySelector("#botresponse");
 window.onload = instructions;
@@ -653,14 +653,9 @@ if (e.keyCode == 13) {
             dv.innerHTML = "<span class='user'>You: </span> <span class='userres'>" + input.value + "</span>";
            botResponse.appendChild(dv)
            stack.push(input.value)
-           
-        let data = new FormData();
-        data.append("query", input.value);
+    
    let urlL = url;
-    fetch(urlL,{
-    method: "POST",
-    body: JSON.stringify(data)
-    })
+    fetch(urlL)
     .then(response=>{
         
         return response.text();
