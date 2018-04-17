@@ -71,7 +71,7 @@ p, h4{color:blue}
 
 <?php
 
-// This file provides the information for accessing the database.and connecting 
+/*/ This file provides the information for accessing the database.and connecting 
 //to MySQL. It also sets the language coding to utf-8
 
 // First we define the constants: 
@@ -87,7 +87,7 @@ OR die("Could not connect to server: " .mysqli_connect_error());
 
 // Finally, we set the language encoding.as utf-8
 mysqli_set_charset($dbcon, 'utf8'); 
-
+*/
 ?>
 
 
@@ -123,10 +123,10 @@ $result = mysqli_query($dbcon, $q); // Run the query. #7
 		}
 	}
 	
-$p = "SELECT secret_word FROM secret_word ;";	
+/*$p = "SELECT secret_word FROM secret_word ;";	
 $result2 = mysqli_query($dbcon, $q); // Run the query. #7
 
-	
+	*/
 	
 	?> 
 	
@@ -143,7 +143,8 @@ $result2 = mysqli_query($dbcon, $q); // Run the query. #7
 
 <div id = "my_pics" class = "col-2">
 <figure class = "allimage" id = "logo">
-<img src = "https://cloudinary.com/console/media_library/asset/image/upload/my_pics.jpg"
+<img src = "
+http://res.cloudinary.com/duys5bnjm/image/upload/v1523634872/my_pics.jpg"
  width ="35%" height ="50%" ></figure></br>
 
 </div> 
