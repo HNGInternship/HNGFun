@@ -1,26 +1,17 @@
 <?php
+
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
-
-$result2 = $conn->query("Select * from interns_data_ where username = 'adeyefa'");
+$result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	# code...
 	require "./answers.php";
 
 	date_default_timezone_set("Africa/Lagos");
 
 	try{
-		if(!isset($_POST['question'])){
-			echo json_encode([
-				'status' => 1,
-			    'answer' => "Please provide a question
-			"]);
-			return;
-		}
+
 		$question = $_POST['question'];
 		//Check for training mode
 		$train_question = stripos($question, "train");
@@ -93,7 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	} catch (Exception $e){
 		return $e->message;
 	}
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -191,9 +181,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			font-weight: bolder;
 			font-size: 40px;
 		}
-		.col{
-			background-color: white;
-		}
 	</style>
 </head>
 <body>
@@ -208,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					HELLO WORLD
 				</p>
 				<p id="p1">
-					I am  <?php echo $user->name ?>
+					I am  <?php echo $user->name; ?>
 				</p>
 				<p id="info">
 					A Web developer, blogger and Software engineer
@@ -227,7 +214,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			<div class="row-holder">
 				<div class="row2">
 					<div class="form">
-						<form action="/profiles/Adeyefa.php" method="post">
+						<form >
 							<input type="text" name="question" placeholder="type your question here"><input type="submit" name="submit">
 						</form>
 					</div>

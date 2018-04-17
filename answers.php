@@ -47,6 +47,16 @@ function rollADice(){
 function flipACoin(){
     return rand(0,1) === 1 ? "Heads" : "Tails";
 }
+
+function predictOutcome($battle){
+    $players = explode('vs', $battle);
+
+    if(count($players) >= 2){
+        return $players[rand(0, count($players) - 1)];
+    }
+
+    return "Uhh.. nope. You've provided invalid prediction data.";
+}
 // End of functions by @mclint_
 
     //functions defined by @chigozie. DO NOT MODIFY!!!

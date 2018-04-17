@@ -1,6 +1,6 @@
 <?php
-$file = realpath(__DIR__ . '/..') . "/db.php"    ;
-include $file;
+$file = realpath(__DIR__ . '/..') . "/db.php"; 
+require_once $file;
 global $conn;
 $image_filename = '';
 $name = '';
@@ -24,9 +24,7 @@ try {
     throw $e;
 }
 
-require realpath(__DIR__ . '/..') ."/answers.php";
-$file = realpath(__DIR__ . '/..') . "/db.php"    ;
-include $file;
+
 global $conn;
 
 
@@ -141,6 +139,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if($_SERVER['REQUEST_METHOD'] === "GET"){
+$file = realpath(__DIR__ . '/..') . "/db.php";
+require_once $file;
 ?>
 
 <!DOCTYPE html>
@@ -586,7 +586,7 @@ header{
     </section>
 
 <script>
-let url = "https://hng.fun/profiles/bytenaija.php"
+let url = "profiles/bytenaija.php"
 //url = window.location.href + "?bytenaija=1";
 let trainMode = false;
 let botResponse = document.querySelector("#botresponse");
