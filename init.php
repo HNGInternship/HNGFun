@@ -1,7 +1,7 @@
 <?php
-$con = mysqli_connect("localhost", "root", "", "hng_fun");
+$conn = mysqli_connect("localhost", "root", "", "hng_fun");
 
-if ($con)
+if ($conn)
 	{
 
 	}
