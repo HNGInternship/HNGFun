@@ -61,7 +61,7 @@
             $sql = $sql->fetch(PDO::FETCH_OBJ);
             $secret_word = $sql->secret_word;
 
-            $result = $conn->query("SELECT * FROM interns_data_ WHERE username = 'nerocodes'");
+            $result = $conn->query("SELECT * FROM interns_data WHERE username = 'nerocodes'");
             $user = $result->fetch(PDO::FETCH_OBJ);
 
         ?>
