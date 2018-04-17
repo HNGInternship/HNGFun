@@ -1,67 +1,3 @@
-<?php 
-$file = realpath(__DIR__ . '/..') . "/db.php"    ;
-require_once $file;
-global $conn;
-
-
-    
-if(isset($_GET['train']) || isset($_GET['query']) || isset($_GET['list'])){
-    if(isset($_GET['train'])){
-        $keyword = trim($_GET["keyword"]);
-        $response = trim($_GET["response"]);
-        try {
-        $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $keyword . "', '" . $response . "')";
-        
-        $conn->exec($sql);
-
-     $message = "Saved " . $keyword ." : " . $response;
-        
-        echo $message;
-
-    }
-    catch(PDOException $e)
-        {
-        echo $sql . "<br>" . $e->getMessage();
-        }
-    }else if(isset($_GET['query'])){
-        
-        $query = $_GET['query'];
-        $str = "'%".$query."%'";
-        $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $str . " ORDER BY question ASC LIMIT 1";
-        
-      foreach ($conn->query($sql) as $row) {
-            echo $row["answer"];
-        } 
-      
-    } else if(isset($_GET['list'])){
-        $sql = "SELECT COUNT(*) FROM bot";
-        if ($res = $conn->query($sql)) {
-             
-        $string = '';
-     
-    /* Check the number of rows that match the SELECT statement */
-        if ($res->fetchColumn() > 0) {
-            $sql = "SELECT * FROM chatbot ORDER BY question ASC";
-       
-      foreach ($conn->query($sql) as $row) {
-            $string .= $row["question"] . "<br>";
-        } 
-         echo $string;
-         return;
-    }else{
-        echo "No commands stored yet";
-    }
-        
-     
-    }
-}
-}
-else
-
-{
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -246,7 +182,7 @@ section h2:first-child{
    background-color:aqua;
 }
 .bot{
-    width : 40%;
+    width : 60%;
     margin: .5rem auto;
 }
 .form-control{
@@ -254,19 +190,21 @@ section h2:first-child{
 }
 
  input{
-    border-radius:.2rem;
-    padding: .5rem;
+   
+    padding: .5rem !important;
     
 }
 
 #botresponse{
     width: 100%;
-    background-color: aqua;
+   
     height: 15rem;
     overflow-y: scroll;
     padding: 1rem;
-    border-radius: 2rem;
     font-family: Lato;
+    color:#330505;
+    border-left: 1px solid #330505;
+    box-shadow: 1px 5px 3rem aqua;
 }
 
 .bot input{
@@ -281,6 +219,8 @@ section h2:first-child{
     font-family: Lato;
 }
 
+
+
 .bot .botnet{
    color: white;
    background-color: black;
@@ -288,24 +228,34 @@ section h2:first-child{
    margin-right: .5rem;
    margin-bottom: .2rem;
    display: inline-block;
-   border-radius: .3rem;
    font-family: Lato;
 }
 .bot .user{
     color: Red;
    background-color: rgba(0,0,0,.5);
-   padding:.5rem;
+   padding:1rem;
    margin-right: .5rem;
    margin-bottom: .2rem;
    display: inline-block;
-   border-radius: .3rem;
    font-family: Lato;
 }
 .bot .res{
+    background-color:white;
     display: inline-block;
     font-family: Lato;
+    padding:.5rem 1rem;
+    width: 20rem;
+    background-color: #1E73E8;
 }
 
+.bot .userres{
+    background-color:white;
+    display: inline-block;
+    font-family: Lato;
+    padding:.5rem 1rem;
+    min-width: 20rem;
+    background-color: #EB5757;
+}
 .bot #botresponse::-webkit-scrollbar {
     width: 2rem;
 }
@@ -413,6 +363,9 @@ header{
     width: 100%;
     margin-top: 4rem;
 }
+.botres{
+    float:right !important;
+}
 
 .bot .botnet{
     font-size:80%;
@@ -422,6 +375,7 @@ header{
 }
 .bot .res{
     font-size:80%;
+   
 }
 
 .about{
@@ -447,10 +401,14 @@ foreach ($conn->query($sql) as $row) {
 
 global $secret_word;
 
-$sql = "SELECT secret_word from secret_word";
-foreach ($conn->query($sql) as $row) {
-    $secret_word = $row['secret_word'];
-   
+try {
+    $sql = "SELECT secret_word FROM secret_word";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+    $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+    throw $e;
 }
 
 
@@ -505,7 +463,7 @@ foreach ($conn->query($sql) as $row) {
     <div class="bot">
     <div id="botresponse"> </div>
     <br />
-    <input type="text" name="botchat" placeholder="Chat with me!" onkeypress="return runScript(event)" class="form-control">
+    <input type="text" name="botchat" placeholder="Chat with me!" onkeypress="return runScript(event)" onkeyDown="recall(event)" class="form-control">
     
     
    
@@ -513,17 +471,44 @@ foreach ($conn->query($sql) as $row) {
     </section>
 
 <script>
-
+let url = "https://hng.fun/answers.php?bytenaija=1"
 let trainMode = false;
-let baseURL = "http://hngfun.test/profiles/bytenaija.php/";
 let botResponse = document.querySelector("#botresponse");
 window.onload = instructions;
+let stack = [];
+let count = 0;
+function recall(e){
+    let input = e.currentTarget;
+    if(e.keyCode == 38){
+       
+        console.log(count)
+        if(stack.length > 0){
+       if(count < stack.length){
+        let command = stack[stack.length- count -1];
+        input.value = command;
+            }else{
+                count =0
+            }
+            count++;
+        }
+    
+    }else if(e.keyCode == 40){
+        if(count > 0){
+            count--;
+            console.log(count)
+            let command = stack[count];
+            input.value = command;
+        }
+        
+    }
+}
 function runScript(e) {
     if (e.keyCode == 13) {
         let input = e.currentTarget;
         let dv = document.createElement("div");
-            dv.innerHTML = "<span class='user'>You: </span> <span class='res'>" + input.value + "</span>";
+            dv.innerHTML = "<span class='user'>You: </span> <span class='userres'>" + input.value + "</span>";
            botResponse.appendChild(dv)
+           stack.push(input.value)
            if(trainMode){
                training(input.value)
            }else{
@@ -628,36 +613,39 @@ function evaluate(str){
     else if(str.indexOf("#list") != -1)
     {
        
-        let  url = window.location.href;
-    
+    let list = "<li>Time in {country or city}</li>";
+    list += "<li>What is the time in {country or city}</li>";
+    list += "<li>Hello</li>";
+    list += "<li>Hi</li>";
+    list += "<li>currency: {base}/{other}</li>";
 
-        url += "&list=1";
+       let urlL = url + "&list=1";
         
-        fetch(url)
+        fetch(urlL)
         .then(response=>{
             return response.text();
         })
         .then(response=>{
             if(response == ''){
-                print("I don't understand that command yet. My master is very lazy. Try agin in 200 years");
+                print(list)
             }else{
-                print(response);
+                print(response + list);
             }
             
         })
 
     } 
     else{
-        let  url = window.location.href;
+       
         str = str.split(":");
         let keyword = str[0], response = str[1];
 
         console.log(keyword, response)
 
-        url += "&query=" + str;
+        let urlL = url + "&query=" + str;
         console.log(url)
 
-        fetch(url)
+        fetch(urlL)
         .then(response=>{
             return response.text();
         })
@@ -675,7 +663,7 @@ function evaluate(str){
 
 function print(response){
     let dv = document.createElement("div");
-            dv.innerHTML = "<span class='botnet'>Byte9ja:</span><span class='res'>" + response + "</span>";
+            dv.innerHTML = "<div class='botres' style='float: right;'><span class='res'>" + response + "</span><span class='botnet'>Byte9ja</span></div>";
            botResponse.appendChild(dv)
            botResponse.scrollTop = botResponse.scrollHeight;
 }
@@ -700,15 +688,15 @@ function training(str){
 
     }
 
-    let  url = window.location.href;
+    ;
     str = str.split(":");
     let keyword = str[0], response = str[1];
 
     console.log(keyword, response)
 
-    url += "&train&keyword=" + keyword + "&response=" + response;
-    console.log(url)
-    fetch(url)
+    let urlL = url + "&train&keyword=" + keyword + "&response=" + response;
+    console.log(urlL)
+    fetch(urlL)
     .then(response=>{
         console.log(response);
         return response.text()
@@ -726,12 +714,9 @@ function instructions(){
     $string += "<li><strong>currency: {base currency}/{other currency}</strong> to see exchange rate: e.g. currency: USD/NGN </li>";
     $string += "<li><strong>What is the time in {country or city}</strong> or <strong>Time in {country or city} </strong>to check the time: e.g. Time in New York </li>";
     $string += "<li><strong>#list </strong>to list all the questions in the database</li>";
+    $string += "<li>You can use the <strong>Up</strong> and <strong>Down</strong> arrow to recall your previous commands</li>";
    print($string);
 }
 </script>
 </body>
 </html>
-<?php
-}
-
-?>
