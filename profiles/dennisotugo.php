@@ -89,7 +89,9 @@ span#chatbot {
 						</nav>
 					</header>
 					
-					<div id="mainb">
+					
+						<footer id="footer">
+							<div id="mainb">
 					<div><span id="user"></span></div>
 					<div><span id="chatbot"></span></div>
 					<div><input id="input" type="text" placeholder="say anything..." autocomplete="off"/></div>
@@ -173,7 +175,6 @@ span#chatbot {
 					speechSynthesis.speak(utterance);
 				}
 				</script>
-						<footer id="footer">
 						</footer>
 
 			</div>

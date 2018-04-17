@@ -53,6 +53,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         case "tell me another joke":
           sendResponse(200, getAJoke());
           break;
+
+        case "roll a dice":
+          sendResponse(200, rollADice());
+          break;
+
+        case "flip a coin":
+          sendResponse(200, flipACoin());
+          break;
       }
 
       switch(true){
@@ -357,7 +365,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           el: '#chat-bot',
           data: {
             showChatBot: false,
-            messages: [{ query: `Hey, human. I'm Olive. Try asking 'Tell me a joke' or 'emojify: Hello bot'`, sender: 'bot' }],
+            messages: [{ query: `Hey, human. I'm Olive. Try asking 'Tell me a joke' or 'emojify: Hello bot' or 'Flip a coin' or 'Roll a dice'`, sender: 'bot' }],
             history: [],
             historyIndex: 0,
             query: '',
