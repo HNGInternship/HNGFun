@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 
+<?php 
+require 'db.php';
+try {
+     $profile = 'SELECT * FROM interns_data_ WHERE username="boldtechs"';
+    $select = 'SELECT * FROM secret_word';
 
+    $query = $conn->query($select);
+    $profile_query = $conn->query($profile);
+
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $profile_query->setFetchMode(PDO::FETCH_ASSOC);
+
+    $get = $query->fetch();
+    $user = $profile_query->fetch();
+    $secret_word = $get['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }
+ ?>
 <head>
 	<title> Boldtechs | Profile</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed|Roboto+Mono" rel="stylesheet"> 
@@ -53,7 +71,7 @@ width: 100%;
 #content h3{
 
 margin: 10px auto;
-width: 12%;
+width: 20%;
 color: #fff;
  font-family: Roboto Mono;
 }
@@ -61,13 +79,13 @@ color: #fff;
 #square{
 
 width: 678px;
-height: 90px;
+height: 100px;
 margin: 10px auto;
 text-align: center;
 background-color: #fff;
 opacity: 0.6;
 filter: alpha(opacity=60);
-padding: 10px;
+padding: 5px;
     font-family: 'Roboto Mono', monospace;
    border-radius: 4px;
 
@@ -76,8 +94,7 @@ padding: 10px;
 
 #square p{
 
-margin-bottom: 10px;
-
+font-size:14px;
 
 }
 
@@ -99,10 +116,6 @@ color: #fff;
         
 	            <div id="nav">	
 
-
-	            	<h2>HGN INTERNSHIP 4</h2>
-	            	<p>HOME | PORTFOLIO</p>
-
 	            </div>
 
 	            <div id="oval"> </div>
@@ -111,7 +124,7 @@ color: #fff;
 	            <p class="align">Slack : @boldtechs</p>
 	            <div id="square">
 	            	
-	            	<p>
+	            	<p class="fit">
 	            		"Every great developer you know got there by solving problems they were unqualified to solve until they actually did it." - Patrick McKenzie 
 	            	</p>
 
