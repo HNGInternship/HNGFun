@@ -187,7 +187,6 @@
 
 		</style>
 
-	<body>
 		<div class="wrapper">
 			<div class="container">
 				<div class="content">
@@ -295,4 +294,3 @@
 				</div>
 			</div>
 		</div>
-	</body>
