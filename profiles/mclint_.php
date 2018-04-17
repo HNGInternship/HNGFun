@@ -34,10 +34,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     "Maybe you humans might win after all. I have no idea what you just said. Please train me.",
     "Ugh. If only my creator trained me better I'd know what to say in reply to what you just said. Please train me?");
 
-    function answerQuestion(){
-      global $conn;
-      global $answer;
-
+    function answerQuestion($question){
       $question = preg_replace('([\s]+)', ' ', trim($question));
       $question = preg_replace("([?.])", "", $question);
       
@@ -135,7 +132,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         $userIsTrainingBot = stripos($question, "train:");
         if($userIsTrainingBot === false){
-          answerQuestion();
+          answerQuestion($question);
         }else{
           trainBot($question);
         }
