@@ -195,15 +195,9 @@
             color: rgb(6, 65, 124);
             font-size: 20px;
         }
-
         h4 {
             color: rgb(105, 15, 19);
             font-size: 20px;
-        }
-
-        #tod {
-            height: 800px;
-            width: 800px;
         }
         
     </style>
@@ -303,7 +297,19 @@
                 Copyright &copy; 2018 Achem Samuel. All rights reserved.
                 <br/>
             </div>
+
     </div>
+    
+    
+    
+    
+        
+
+
+
+
+
+
 </div>
 
 
