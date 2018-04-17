@@ -11,19 +11,24 @@ if(isset($_GET['bytenaija'])){
         $quest = trim($_GET["keyword"]);
         $keyword = "bytenaija: " . $quest;
         $response = trim($_GET["response"]);
-        try {
-        $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $keyword . "', '" . $response . "')";
-        
-        $conn->exec($sql);
+        if($response == ''){
+            echo "Answer cannot be empty. What are you trying to do? Confuse me?";
+        }else{
+            try {
+            $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $keyword . "', '" . $response . "')";
+            
+            $conn->exec($sql);
+    
+         $message = "Saved " . $quest ." : " . $response;
+            
+            echo $message;
+    
+        }
+        catch(PDOException $e)
+            {
+            echo $sql . "<br>" . $e->getMessage();
+            }
 
-     $message = "Saved " . $quest ." : " . $response;
-        
-        echo $message;
-
-    }
-    catch(PDOException $e)
-        {
-        echo $sql . "<br>" . $e->getMessage();
         }
     }else if(isset($_GET['query'])){
                
