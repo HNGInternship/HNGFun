@@ -5,7 +5,7 @@
   //define("DB_USER1", "root");
   //define("DB_PASS", "");
  // define("DB_NAME", "hngfun");     
-$connection=mysqli_connect("localhost","root","","hngfun");
+$connection=mysqli_connect("localhost","root","","hng_fun");
 if(mysqli_connect_errno()){
     die("database connection failed: ".mysqli_connect_error());
 }
