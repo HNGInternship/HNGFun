@@ -50,6 +50,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       switch(strtolower($question))
       {
         case "tell me a joke":
+        case "tell me another joke":
           sendResponse(200, getAJoke());
           break;
       }
