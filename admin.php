@@ -1,6 +1,5 @@
 <?php
 include_once("header.php");
-
 require 'db.php';
 
 // Initializing Error Variables To Null.
@@ -41,19 +40,28 @@ if(isset($_POST['submit']) ){
     // key valid ends
     if($_POST['username'] != ""){
         $_POST['username'] = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
+<<<<<<< HEAD
         if($_POST['username'] == ""){
             $usernameError = "<span class='invalid'>Please enter a valid username</span>";
         }else {
+=======
+            if($_POST['username'] == ""){
+                $usernameError = "<span class='invalid'>Please enter a valid username</span>";
+            }
+
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
             $sql = 'SELECT * FROM interns_data WHERE username = "'. $_POST['username'] .'"';
             $q = $conn->query($sql);
             $q->setFetchMode(PDO::FETCH_ASSOC);
-            if(!empty($q->fetchAll())) {
-                $usernameError = "<span class='invalid'>Username already taken, please choose another!</span>";
-            }else if (!file_exists( 'profiles/' . $_POST['username'] . '.php')) {
-                $usernameError = "<span class='invalid'>Please create your profile page first using YourSlackUsername.php</span>";
+
+           if(!empty($q->fetchAll())) {
+                    $usernameError = "<span class='invalid'>Username already taken, please choose another!</span>";
+                }
+            else if (!file_exists( 'profiles/' . $_POST['username'] . '.php')) {
+                  //$eror = file_exists( 'profiles/' . $_POST['username'] . '.php');
+                    $usernameError = "<span class='invalid'>Please create your profile page first using " . $_POST['username'].'.php</span> <p> We cannot find ' . $_POST['username'] .'.php  in the profiles folder. Maybe wait some minutes for autodeploy </p>' ;
             }
-        }
-    }
+         }
 
     // /** Upload File and Insert Data into Database
     // if ($nameError == "" && $usernameError == "" && $keyError == "") {
@@ -168,8 +176,13 @@ if(isset($_POST['submit']) ){
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
+<<<<<<< HEAD
                     <label for="file">Profile Picture</label>
                     <input type="file" name="image_filename" class="form-control" id="image_filename" accept="image/*">
+=======
+                    <label for="text">Profile Picture</label>
+                    <input type="text" name="image_filename" class="form-control" id="image_filename" accept="image/*" required>
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
                 </div>
                 <?php if($filenameError != "") { echo "<div class='alert alert-danger'>$filenameError</div>"; }?>
             </div>

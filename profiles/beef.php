@@ -1,4 +1,8 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 <?php
 require('db.php');
 
@@ -125,6 +129,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif;}
 </div>
 </body>
 </html>
+<<<<<<< HEAD
 =======
 <!DOCTYPE html>
 <html>
@@ -181,3 +186,5 @@ echo "Today's Date is " . date("F j, Y, g:i a") . "<br>";
   </body>
 </html>
 >>>>>>> b2bbe46b15fc26a9eb4bb2d3c3786788727f0b54
+=======
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1

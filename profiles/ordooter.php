@@ -1,6 +1,26 @@
+<<<<<<< HEAD
 
 
 <!DOCTYPE html>
+=======
+<!DOCTYPE html>
+<?php
+if(!isset($_GET['id'])){
+    require '../db.php';
+}else{
+    require 'db.php';
+}
+try {
+    $sql = 'SELECT * FROM interns_data,secret_word WHERE username ="'.'ordooter'.'"';
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+    $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+    throw $e;
+}
+?>
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 <html lang="en">
 
   <head>
@@ -31,6 +51,7 @@
 
   <body id="page-top">
 
+<<<<<<< HEAD
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
       <div class="container">
@@ -60,6 +81,13 @@
       <div class="container">
         <img class="img-fluid mb-5 d-block mx-auto" src="http://i1074.photobucket.com/albums/w416/Butu_Ordooter_A/profile1_zpsblk9vlnz.png" alt="">
         <h1 class="text-uppercase mb-0"><?php echo ("Butu Ordooter"); ?></h1>
+=======
+    <!-- Header -->
+    <header class="masthead bg-secondary text-white text-center">
+      <div class="container">
+        <img class="img-fluid mb-5 d-block mx-auto" src="http://i1074.photobucket.com/albums/w416/Butu_Ordooter_A/profile1_zpsblk9vlnz.png" alt="">
+        <h1 class="text-uppercase mb-0">@<?php echo ($data['username']) ?></h1>
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
         <hr class="star-light">
         <h2 class="font-weight-light mb-0"><?php echo ("Web Developer -  DevOps Engineer - Backend Engineer"); ?></h2>
         <hr class="star-light">
@@ -67,6 +95,7 @@
       </div>
     </header>
 
+<<<<<<< HEAD
     <!-- Portfolio Grid Section -->
     <section class="portfolio" id="portfolio">
       <div class="container">
@@ -136,6 +165,9 @@
         </div>
       </div>
     </section>
+=======
+   
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 
     <!-- About Section -->
     <section class="bg-primary text-white mb-0" id="about">
@@ -150,6 +182,7 @@
             <p class="lead">System Administration, Ruby, PHP, Python, Scrum Agile, Web Technologies, Operating Systems, Blockchains, Cryptocurrencies and HTML. Strong entrepreneurship professional with a B.Sc. Computer Science from Benue State University, Makurdi.</p>
           </div>
         </div>
+<<<<<<< HEAD
         <div class="text-center mt-4">
           <a class="btn btn-xl btn-outline-light" href="#">
             <i class="fa fa-envelope mr-2"></i>
@@ -207,6 +240,12 @@
         </div>
       </div>
     </section>
+=======
+      </div>
+    </section>
+
+
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 
     <!-- Footer -->
     <footer class="footer text-center">
@@ -262,6 +301,7 @@
       </div>
     </div>
 
+<<<<<<< HEAD
     <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
     <div class="scroll-to-top d-lg-none position-fixed ">
       <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top">
@@ -269,6 +309,8 @@
       </a>
     </div>
 
+=======
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 
     <!-- Bootstrap core JavaScript -->
     <script
@@ -282,9 +324,12 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 
+<<<<<<< HEAD
     <!-- Contact Form JavaScript -->
     <script src="jhttps://cdnjs.cloudflare.com/ajax/libs/jqBootstrapValidation/1.3.7/jqBootstrapValidation.min.js"></script>
     <script>$(function(){$("#contactForm input,#contactForm textarea").jqBootstrapValidation({preventSubmit:!0,submitError:function(t,e,s){},submitSuccess:function(t,e){e.preventDefault();var s=$("input#name").val(),a=$("input#email").val(),n=$("input#phone").val(),c=$("textarea#message").val(),i=s;i.indexOf(" ")>=0&&(i=s.split(" ").slice(0,-1).join(" ")),$this=$("#sendMessageButton"),$this.prop("disabled",!0),$.ajax({url:"././mail/contact_me.php",type:"POST",data:{name:s,phone:n,email:a,message:c},cache:!1,success:function(){$("#success").html("<div class='alert alert-success'>"),$("#success > .alert-success").html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;").append("</button>"),$("#success > .alert-success").append("<strong>Your message has been sent. </strong>"),$("#success > .alert-success").append("</div>"),$("#contactForm").trigger("reset")},error:function(){$("#success").html("<div class='alert alert-danger'>"),$("#success > .alert-danger").html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;").append("</button>"),$("#success > .alert-danger").append($("<strong>").text("Sorry "+i+", it seems that my mail server is not responding. Please try again later!")),$("#success > .alert-danger").append("</div>"),$("#contactForm").trigger("reset")},complete:function(){setTimeout(function(){$this.prop("disabled",!1)},1e3)}})},filter:function(){return $(this).is(":visible")}}),$('a[data-toggle="tab"]').click(function(t){t.preventDefault(),$(this).tab("show")})}),$("#name").focus(function(){$("#success").html("")});</script>
+=======
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 
     <!-- Custom scripts for this template -->
     <script>$(function(){$("#contactForm input,#contactForm textarea").jqBootstrapValidation({preventSubmit:!0,submitError:function(t,e,s){},submitSuccess:function(t,e){e.preventDefault();var s=$("input#name").val(),a=$("input#email").val(),n=$("input#phone").val(),c=$("textarea#message").val(),i=s;i.indexOf(" ")>=0&&(i=s.split(" ").slice(0,-1).join(" ")),$this=$("#sendMessageButton"),$this.prop("disabled",!0),$.ajax({url:"././mail/contact_me.php",type:"POST",data:{name:s,phone:n,email:a,message:c},cache:!1,success:function(){$("#success").html("<div class='alert alert-success'>"),$("#success > .alert-success").html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;").append("</button>"),$("#success > .alert-success").append("<strong>Your message has been sent. </strong>"),$("#success > .alert-success").append("</div>"),$("#contactForm").trigger("reset")},error:function(){$("#success").html("<div class='alert alert-danger'>"),$("#success > .alert-danger").html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;").append("</button>"),$("#success > .alert-danger").append($("<strong>").text("Sorry "+i+", it seems that my mail server is not responding. Please try again later!")),$("#success > .alert-danger").append("</div>"),$("#contactForm").trigger("reset")},complete:function(){setTimeout(function(){$this.prop("disabled",!1)},1e3)}})},filter:function(){return $(this).is(":visible")}}),$('a[data-toggle="tab"]').click(function(t){t.preventDefault(),$(this).tab("show")})}),$("#name").focus(function(){$("#success").html("")});</script>
