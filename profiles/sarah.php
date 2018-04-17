@@ -166,7 +166,7 @@
       <img src="https://res.cloudinary.com/temipet/image/upload/c_scale,w_300/v1523998638/fine_sarah.jpg" alt="A really fine pic of Sarah" class="profile-dp">
       <section class="title">
         <h1 class="name">Sarah Temitope</h1>
-        <p class="labels">Web Developer ✿ Lover of Life</p>
+        <p class="labels">Budding Designer ✿ Lover of Life</p>
       </section>
       <section class="socials">
         <a href="https://www.instagram.com/elegant_garlie0" class="fa-icon" target="_blank">
