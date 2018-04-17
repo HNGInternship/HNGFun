@@ -1,11 +1,4 @@
-<?php
-  $result = $conn->query("select * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
 
-  $result2 = $conn->query("Select * from interns_data where username = 'noahalorwu'");
-  $user = $result2->fetch(PDO::FETCH_OBJ);
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +18,7 @@ body{
   margin: auto;
   text-align: center;
   font-family: arial;
+  margin-top: 100px;
   color: white;
 
 
