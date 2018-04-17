@@ -66,7 +66,7 @@
 <body>
 	<div class="row">
 		<div class="col-md-2">
-			
+			bot2
 		</div>
 	<div class="col-md-6">
 	<section>
