@@ -93,6 +93,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
     
     function trainBot($question){
+        global $conn;
+
         $trainingData = substr($question, 6);
         $trainingData = preg_replace('([\s]+)', ' ', trim($trainingData));
         $trainingData = preg_replace("([?.])", "", $trainingData);
@@ -367,7 +369,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             }
           },
           template: `
-        <div style="display: flex; flex-direction: column; width: 40%; align-items: center;">
+        <div style="display: flex; flex-direction: column; width: 35%; align-items: center;">
           <button id="btn-show-bot" @click="showChatBot = !showChatBot">{{botBtnText}}</button>
           <div  id="chat-bot" v-if="showChatBot">
             <div id="chat-container">
