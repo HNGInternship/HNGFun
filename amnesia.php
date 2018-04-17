@@ -159,4 +159,16 @@
     <!-- Custom scripts for this template -->
     <script src="js/hng.min.js"></script>
 
+    <?php
+   try {
+       $sql = 'SELECT * FROM secret_word';
+       $q = $conn->query($sql);
+       $q->setFetchMode(PDO::FETCH_ASSOC);
+       $data = $q->fetch();
+   } catch (PDOException $e) {
+       throw $e;
+   }
+   $secret_word = $data['secret_word'];
+   ?>
+
   </body>
