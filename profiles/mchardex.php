@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<?php
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+
+   $result2 = $conn->query("select * from interns_data where username = 'mchardex'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+?>
+
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<style>
         .card {
@@ -35,7 +45,7 @@
     text-shadow: 2px 2px 6px grey;">My Profile Card</h2>
 
 	<div class="card">
-	  <img src="http://res.cloudinary.com/mchardex/image/upload/v1523618086/bukunmi.jpg" alt="mchardex" style="width:100%; height: 350px">
+	  <img src="<?php echo $user->image_filename ?>" alt="mchardex" style="width:100%; height: 350px">
 	  <h1 style="font-size: 24px;">Adebisi Oluwabukunmi J</h1>
 	  <p class="title">Web Developer</p>
 	  <p>Javascript, NodeJs and jquery</p>
