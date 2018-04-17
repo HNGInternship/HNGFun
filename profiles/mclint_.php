@@ -253,12 +253,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         .chat-bubble {
           background-color: aquamarine;
-          border: 0px solid transparent;
+          border: 1px solid black;
           border-radius: 10px;
           list-style-type: none;
           padding: 8px;
           margin: 0px;
           margin-bottom: 16px;
+        }
+
+        #chat{
+          display: flex;
+           flex-direction: column;
+            width: 35%;
+            align-items: center;
         }
 
         @media (max-width: 575px) {
@@ -277,6 +284,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
           #about h5 {
             font-size: 12px;
+          }
+
+          #chat{
+            width: 100%;
           }
         }
       </style>
@@ -380,7 +391,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             }
           },
           template: `
-        <div style="display: flex; flex-direction: column; width: 35%; align-items: center;">
+        <div id="chat">
           <button id="btn-show-bot" @click="showChatBot = !showChatBot">{{botBtnText}}</button>
           <div  id="chat-bot" v-if="showChatBot">
             <div id="chat-container">
