@@ -37,7 +37,7 @@
     }else{
       echo json_encode([
         'status' => 403,
-        'answer' => 'You are not authorized to train this bot.';
+        'answer' => 'You are not authorized to train this bot.'
       ])
     }
   }
