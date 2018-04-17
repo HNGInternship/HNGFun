@@ -6,6 +6,8 @@ $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
 	require "./answers.php";
 
 	date_default_timezone_set("Africa/Lagos");
@@ -17,7 +19,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		$train_question = stripos($question, "train");
 		if ($train_question === false) {
 			# code...
-			$question = preg_replace('([\s]+)', ' ', trim($questions));//to remove extra white spaces from the question
+			$question = preg_replace('([\s]+)', ' ', trim($question));//to remove extra white spaces from the question
 			$question = preg_replace("([?.])", "", $question);
 
 			//to check if question already exists in the database
@@ -79,11 +81,12 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		} 
 		echo json_encode([
 			'status' => 0,
-			'answer' => "I dont understant you right now, I need more training"
+			'answer' => "I am sorry, I dont understand you right now, I need more training"
 		]);
 	} catch (Exception $e){
 		return $e->message;
 	}
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -213,9 +216,9 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 			</div>
 			<div class="row-holder">
 				<div class="row2">
-					<div class="form" method="post">
+					<div class="form" action='./Adeyefa.php' method="post">
 						<form >
-							<input type="text" name="question" placeholder="type your question here"><input type="submit" name="submit">
+							<input type="text" name='question' placeholder="type your question here"><input type="submit" name="submit">
 						</form>
 					</div>
 				</div>
