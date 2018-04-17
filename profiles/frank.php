@@ -1,11 +1,11 @@
 
   
          <?php
-  define("DB_SERVER", "localhost");
-  define("DB_USER", "root");
-  define("DB_PASS", "");
-  define("DB_NAME", "hngfun");     
-$connection=mysqli_connect(DB_SERVER,DB_USER,"",DB_NAME);
+  //define("DB_SERVER", "localhost");
+  //define("DB_USER1", "root");
+  //define("DB_PASS", "");
+ // define("DB_NAME", "hngfun");     
+$connection=mysqli_connect("localhost","root","","hngfun");
 if(mysqli_connect_errno()){
     die("database connection failed: ".mysqli_connect_error());
 }
