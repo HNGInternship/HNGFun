@@ -351,6 +351,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           data: {
             showChatBot: false,
             messages: [{query: `Hey, human. I'm Olive. Try asking 'Tell me a joke'`, sender: 'bot'}],
+            history: [],
+            historyIndex: 0,
             query: '',
           },
           computed: {
@@ -364,6 +366,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           methods: {
             askBot() {
               this.messages.push({ query: this.query, sender: 'user' });
+              this.history.push(this.query);
+              this.historyIndex = this.history.length - 1;
 
               this.answerQuery(this.query);
               this.query = '';
@@ -397,6 +401,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                   this.messages.pop();
                   this.messages.push({ sender: 'bot', query: 'Mediocre humans. Your internet connection is down.' });
                 });
+            },
+            showHistory(direction){
+              if(direction == 'up'){
+                if(this.historyIndex + 1 <= this.history.length - 1){
+                  this.historyIndex++;
+                  this.query = this.history[this.historyIndex];
+                }
+              }else{
+                if(this.historyIndex - 1 >= 0){
+                  this.historyIndex--;
+                  this.query = this.history[this.historyIndex];
+                }
+              }
             }
           },
           template: `
@@ -411,7 +428,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               </ul>
             </div>
             <div>
-              <input id="message-tb" type="text" @keyup.enter="askBot" placeholder="Type your message here" v-model="query" />
+              <input id="message-tb" type="text" @keyup.enter="askBot" @keyup.up="showHistory('up')" @keyup.up="showHistory('down')" placeholder="Type your message here" v-model="query" />
             </div>
           </div>
         </div>
