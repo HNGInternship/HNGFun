@@ -9,7 +9,7 @@
 		// set the PDO error mode to exception
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
-		$stmt = $conn->prepare("select secret_word from secret_word limit 1");
+		$stmt = $conn->prepare("select * from secret_word limit 1");
 		$stmt->execute();
 
 		$secret_word = null;
