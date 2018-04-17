@@ -402,7 +402,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                   this.messages.push({ sender: 'bot', query: 'Mediocre humans. Your internet connection is down.' });
                 });
             },
-            function showHistory(direction){
+            showHistory(direction){
               if(direction == 'up'){
                 if(this.historyIndex + 1 <= this.history.length - 1){
                   this.historyIndex++;
