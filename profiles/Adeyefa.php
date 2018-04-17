@@ -2,7 +2,6 @@
 <html>
 <head>
 	<?php
-	   require_once './db.php';
 	   $result = $conn->query("Select * from secret_word LIMIT 1");
 	   $result = $result->fetch(PDO::FETCH_OBJ);
 	   $secret_word = $result->secret_word;
