@@ -357,7 +357,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           el: '#chat-bot',
           data: {
             showChatBot: false,
-            messages: [{ query: `Hey, human. I'm Olive. Try asking 'Tell me a joke'`, sender: 'bot' }],
+            messages: [{ query: `Hey, human. I'm Olive. Try asking 'Tell me a joke' or 'emojify: Hello bot'`, sender: 'bot' }],
             history: [],
             historyIndex: 0,
             query: '',
