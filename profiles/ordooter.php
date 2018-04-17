@@ -75,19 +75,6 @@ try {
       </div>
     </section>
 
-
-    <!-- Bootstrap core JavaScript -->
-    <script
-  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-  crossorigin="anonymous"></script>
-    <script src="vhttps://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"></script>
-
-    <!-- Plugin JavaScript -->
-     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-
   </body>
 
 </html>
