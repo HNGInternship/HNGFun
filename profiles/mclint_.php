@@ -287,8 +287,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $sql = "SELECT * FROM secret_word";
-        $query = $conn->prepare($sql);
-        $query->execute();
+        $query = $conn->query($sql);
         $query->setFetchMode(PDO::FETCH_ASSOC);
 
         $result = $query->fetch();
