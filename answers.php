@@ -354,9 +354,6 @@ function get_device_name($user_agent)
 function myBoss() {
 return "Femi_DD is my creator, He's a nice person and doesn't rest untill he solves a problem.";
 }
-function gettime() {
-    return date('h:i:s A');
- }
 
  function today() {
      return date("F jS Y h:i:s A");
