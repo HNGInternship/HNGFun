@@ -52,13 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'help'){
       echo json_encode([
         'status' => 1,
-        'answer' => "Send 'fact' to get a fact. \n
-                    Send 'time' to get the time. \n
-                    Send 'about' to know me. \n
-                    Send 'help' to see this again. \n
-                    If its just a question send the question plain. \n
-                    To train me, send in this format => \n
-                    'train: question # answer # password'"
+        'answer' => getBotMenu()
       ]);
       return;
     }
@@ -77,12 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'time'){
       echo json_encode([
         'status' => 1,
-        'answer' => "Send 'fact' to get a fact. \n
-                    Send 'time' to get the time. \n
-                    Send 'help' to see this again. \n
-                    If its just a question send the question plain. \n
-                    To train me, send in this format => \n
-                    'train: question # answer # password'"
+        'answer' => getTime()
       ]);
       return;
     }
@@ -91,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'about'){
       echo json_encode([
         'status' => 1,
-        'answer' => getBotName()
+        'answer' => aboutMe()
       ]);
       return;
     }

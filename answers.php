@@ -66,4 +66,25 @@ function getRandomFact(){
         return false;
     }
 
+// functions by john ayeni do not modify please
+
+function aboutMe(){
+  return "Hi my name is Ruby, I am a chatbot, nice to meet you";
+}
+
+function getBotMenu(){
+  return  "Send 'fact' to get a fact. \n
+    Send 'time' to get the time. \n
+    Send 'about' to know me. \n
+    Send 'help' to see this again. \n
+    If its just a question send the question plain. \n
+    To train me, send in this format => \n
+    'train: question # answer # password'";
+}
+
+function getTime(){
+  return date("h:i:s");
+}
+
+// end of functions by johnayeni
 ?>

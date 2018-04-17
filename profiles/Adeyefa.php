@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<?php
-	   $result = $conn->query("Select * from secret_word LIMIT 1");
+	<?php	
+	   $result = $conn->query("Select* from secret_word LIMIT 1");
 	   $result = $result->fetch(PDO::FETCH_OBJ);
 	   $secret_word = $result->secret_word;
 
-	   $result2 = $conn->query("Select * from interns_data_ where username = 'adeyefa'");
+	   $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
 	   $user = $result2->fetch(PDO::FETCH_OBJ);
 	?>
 	<title>  <?php echo $user->name ?> </title>
@@ -70,13 +70,12 @@
 			background-color: rgb(52,185,96,0.9);
 			color: #FFF;
 			padding: 7px;
-			position: absolute;
+			position: relative;
 		}
-		input{
-			width: 100%;
+		input[type=submit]{
+			width: 60%;
 		    padding: 12px 20px;
-		    margin: 8px 0;
-		    box-sizing: border-box;
+		    margin: 8px 8px;
 		}
 		input[type=text] {
 		    width: 60%;
@@ -85,14 +84,6 @@
 		    border-radius: 4px;
 		    font-size: 22px;
 		    padding: 12px 20px 12px 40px;
-		}
-
-		input[type=submit]{
-			width: 30%
-		    border: none;
-		    padding: 16px 32px;
-		    margin: 4px 2px;
-		    cursor: pointer;
 		}
 		.head{
 			background-color: #0EEFF1;
@@ -138,7 +129,7 @@
 			<div class="row-holder">
 				<div class="row2">
 					<div class="form">
-						<form action="Adeyefa.php" method="post">
+						<form action="answer.php" method="post">
 							<input type="text" name="question" placeholder="type your question here"><input type="submit" name="submit">
 						</form>
 					</div>
