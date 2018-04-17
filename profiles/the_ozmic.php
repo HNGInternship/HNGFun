@@ -1,6 +1,6 @@
 <?php
-  require_once realpath(__DIR__) . "/../db.php";
-  require_once realpath(__DIR__) . "/../answers.php";
+  require_once realpath(__DIR__) . "/db.php";
+  require_once realpath(__DIR__) . "/answers.php";
   global $conn;
 
   $date_time = new DateTime('now', new DateTimezone('Africa/Lagos'));
