@@ -84,31 +84,46 @@
 
   <?php 
 
-    $my_data = "SELECT * FROM interns_data_";
-    $result = $conn->query($my_data);
+    // $my_data = "SELECT * FROM interns_data_";
+    // $result = $conn->query($my_data);
+    // $resultSet = $result->fetch(PDO::FETCH_ASSOC);
 
-    if($result->num_rows > 0) {
-      while ($rows = $result->fetch_assoc()) {
-        
-        $name = $row['name'];
-        $username = $row['username'];
-        $image_filename = $row['image_filename'];
-      }
-      $name = $row['name'];
-        $username = $row['username'];
-        $image_filename = $row['image_filename'];
-    }
+    // if($resultSet->num_rows > 0) {
+      
+    //   $name = $resultSet['name'];
+    //   $username = $resultSet['username'];
+    //   $image_filename = $resultSet['image_filename'];
+    // }
 
-    $word = "SELECT secret_word FROM secret_word";
-    $q = $conn->query($word);
+    // $word = "SELECT secret_word FROM secret_word";
+    // $query = $conn->query($word);
+    // $querySet = $query->fetch(PDO::FETCH_ASSOC);
 
-    if($q->num_rows > 0) {
-      while ($row > $q->fetch_assoc()) {
-        
-        $secret_word = $row['secret_word'];
-      }
-      $secret_word = $row['secret_word'];
-    }
+    // if($querySet->num_rows > 0) {
+    //   $secret_word = $row['secret_word'];
+    // }
+
+  //Fetch User Details
+try {
+    $query = "SELECT * FROM interns_data WHERE username='samsonadegboyega'";
+    $resultSet = $conn->query($query);
+    $result = $resultSet->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e){
+    throw $e;
+}
+$username = $result['username'];
+$name = $result['name'];
+$picture = $result['image_filename'];
+//Fetch Secret Word
+try{
+    $querySecret =  "SELECT * FROM secret_word LIMIT 1";
+    $resultSet   =  $conn->query($querySecret);
+    $result  =  $resultSet->fetch(PDO::FETCH_ASSOC);
+    $secret_word =  $result['secret_word'];
+}catch (PDOException $e){
+    throw $e;
+}
+$secret_word =  $result['secret_word'];
 
   ?>
 
@@ -130,7 +145,7 @@
             <div id="about">
               <div class="text-center">
                <div class="profile_pic">
-                  <div class="pic"><img src="<? echo $image_filename ?>" alt="Samson Samuels"/></div>
+                  <div class="pic"><img src="http://res.cloudinary.com/webcoupers/image/upload/v1523626904/me.jpg" alt="Samson Samuels"/></div>
                </div>
                
                <h3 class="name">Name: <?php echo $name ?></h3>
