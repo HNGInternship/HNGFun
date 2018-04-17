@@ -22,7 +22,7 @@
 			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 			}
     }
-    
+
     $noIdeaResponses = array("Ha. Turns out that I'm not that smart after all. Train me, yoda! Please?", 
     "Maybe you humans might win after all. I have no idea what you just said. Please train me.",
     "Ugh. If only my creator trained me better I'd know what to say in reply to what you just said. Please train me?");
@@ -57,7 +57,8 @@
         
         $question = "%$question%";
         $sql = "select * from chatbot where question like ".$question;
-        $query = $conn->query($sql);
+        $query = $conn->prepare($sql);
+        $query->execute();
         $query->setFetchMode(PDO::FETCH_ASSOC);
         $rows = $query->fetchAll();
         
