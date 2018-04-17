@@ -58,6 +58,10 @@ function processQuestion($str){
            case "convert":
            bytenaija_convert(trim($paramenterArr[0]), trim($paramenterArr[1]));
            break;
+
+           case "hodl":
+           bytenaija_hodl();
+           break;
        }
     }else{
         //call database for question;
@@ -708,6 +712,7 @@ function instructions(){
     $string = '<div class="instructions">My name is byte9ja. I am a Robot. Type a command and I will try and answer you.<br> Meanwhile, try this commands';
     $string += "<li><strong>time(city) will give you the time in that city: e.g. time(abuja) </strong></li>";
     $string += "<li><strong>convert(currency, currency) will convert the exhange rate for you e.g. convert(usd, ngn) </strong></li>";
+    $string += "<li><strong>hodl() to get the latest bitcoin prices</strong></li>";
     $string += "<li><strong>train: question # answer - to train me and make me more intelligent</strong></li>";
     $string += "</div>"
  

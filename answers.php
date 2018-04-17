@@ -345,8 +345,31 @@ function bytenaija_convert($base, $other){
 
     $response = curl_exec($curl);
     $response = json_decode($response, true);
+    curl_close($curl);
     echo "1 ". strtoupper($base) ." is equal to ".  strtoupper($other)  ." " .$response['amount'];
 }
 
+//bitcoin price index
+function bytenaija_hodl(){
+    $url ="https://api.coindesk.com/v1/bpi/currentprice.json";
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => $url,
+        CURLOPT_USERAGENT => 'Codular Sample cURL Request'
+    ));
+
+    $response = curl_exec($curl);
+    $response = json_decode($response, true);
+    curl_close($curl);
+    $responseStr = "<h4 class='hodl'>Bitcoin Price as at " . $response["time"]["updated"] . "</h4><br> <div><h4>Prices</h4><p><li>"
+    . $response["bpi"]["USD"]["code"] . " " . $response["bpi"]["USD"]["rate"] . "</li>
+    <li>"
+    . $response["bpi"]["EUR"]["code"] . " " . $response["bpi"]["EUR"]["rate"] . "</li>
+    <li>"
+    . $response["bpi"]["GBP"]["code"] . " " . $response["bpi"]["GBP"]["rate"] . "</li>
+    </p></div>";
+    echo $responseStr;
+}
 /***************************Bytenaija ends here*************************/
 ?>
