@@ -34,12 +34,12 @@
 		font-family: 'Lato', sans-serif;
 		background: linear-gradient(to bottom right, #00AEFF, #012738);
 	}
-		#wrapper {
+		#wrapperr {
 		  text-align: center;
 /* 		  position: absolute; top: 0; left: 0; height: 100%; width: 100%; */
 		  background: linear-gradient(to bottom right, #00AEFF, #012738);
 		}
-		#yourdiv {
+		#yourdivv {
 		  display: inline-block;
 		}
 		.margin{
