@@ -222,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	    </div>	
 		<div class="sidebar">
 			<div class="head">
-				<h2> Chat With MATRIX</h3>
+				<h2> Chat With MyBot</h3>
 			</div>
 			<div class="row-holder">
 				<div class="row2">
