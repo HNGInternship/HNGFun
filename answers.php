@@ -262,4 +262,28 @@ function get_device_name($user_agent)
 }
 
 ///////////////////////end of opheus ////////////////////
+
+/***************************Femi_DD*************************/
+function myBoss() {
+return "Femi_DD is my creator, He's a nice person and doesn't rest untill he solves a problem.";
+}
+function gettime() {
+    return date('h:i:s A');
+ }
+
+ function today() {
+     return date("F jS Y h:i:s A");
+ }
+
+ function myIP() {
+     return $_SERVER['REMOTE_ADDR'];
+ }
+
+ function myLocation() {
+    $tz = new DateTimeZone("Africa/Lagos");
+    $loc = $tz->getLocation();
+    return $loc['longitude'] .' : '. $loc['latitude'];
+ }
+
+/***************************Femi_DD*************************/
 ?>
