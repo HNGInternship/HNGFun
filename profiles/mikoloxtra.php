@@ -15,6 +15,8 @@ body {
   font-family: arial;
   background-color: white;
   border-radius: 19px;
+  margin-top:30px;
+  border:none;
 }
 
 button {
