@@ -6,11 +6,10 @@ $fetch_frank->setFetchMode(PDO::FETCH_ASSOC);
 $frank_data = $fetch_frank->fetchAll();
 $frank = array_shift($frank_data);
 
-// Secret word
-$sql = "SELECT * FROM secret_word";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$words = $q->fetch();
+$selectkey = "SELECT * FROM secret_word";
+$query = $conn->query($selectkey);
+$query->setFetchMode(PDO::FETCH_ASSOC);
+$words = $query->fetch();
 $secret_word = $words['secret_word'];
 ?>
 
