@@ -65,9 +65,9 @@
             $user = $result->fetch(PDO::FETCH_OBJ);
 
         ?>
-        <h1 class="name"><?php echo $user->name ?></h1>
-        <img src="<?php echo $user->image_filename ?>" alt="" class="image">
-        <h2 class="username">@<?php echo $user->username ?></h2>
+        <h1 class="name"><?php echo $user->name; ?></h1>
+        <img src="<?php echo $user->image_filename; ?>" alt="" class="image">
+        <h2 class="username">@<?php echo $user->username; ?></h2>
         <section>
             <h3>Front-End Web Developer</h3>
         </section>
