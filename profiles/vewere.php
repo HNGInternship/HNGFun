@@ -23,22 +23,26 @@
       text-align: center;
     }
 
+    .gray {
+      color: #c4c4c4;
+    }
+
     h2 {
       margin-top: 10px;
       margin-bottom: 0px
     }
 
-    h4 {
+    h5 {
       margin: 0px;
     }
 
     #top {
       margin: auto;
-      margin-top: 8%;
+      margin-top: 4%;
       padding-top: 20px;
-      padding-bottom: 50px;
+      padding-bottom: 80px;
       width: 300px;
-      height: 204px;
+      height: 294px;
       background: #f67575;
       border-radius: 10% 10% 0% 0%;
     }
@@ -49,6 +53,7 @@
       height: 84px;
       background: #c4c4c4;
       border-radius: 0% 0% 10% 10%;
+      /* padding-bottom: 20px; */
     }
 
     #image-div{
@@ -70,13 +75,13 @@
     <div id="image-div">
       <img src="<?php echo $user->image_filename; ?>" height=180px width=180px>
     </div>
-    <h2 class="text"><?php echo $user->name; ?></h2>
-    <h4 class="text">@<?php echo $user->username; ?></h4>
+    <h2 class="text gray"><?php echo $user->name; ?></h2>
+    <h5 class="text">@<?php echo $user->username; ?></h5>
   </div>
   
   <div id="bottom">
-  <br><br>
-    <h4 class="text">Student | Intern</h4>
+  <br>
+    <h5 class="text">Student | Intern</h5>
   </div>
 </body>
 </html>
