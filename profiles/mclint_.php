@@ -1,5 +1,4 @@
 <?php
-  global $conn;
   if(!defined('DB_USER')){
     require "../../config.php";		
     try {
@@ -8,6 +7,7 @@
         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
     }
   }
+  global $conn;
 
   if($_SERVER['REQUEST_METHOD'] === 'GET'){
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -35,6 +35,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     "Ugh. If only my creator trained me better I'd know what to say in reply to what you just said. Please train me?");
 
     function answerQuestion($question){
+      global $conn;
+      global $answer;
+      
       $question = preg_replace('([\s]+)', ' ', trim($question));
       $question = preg_replace("([?.])", "", $question);
       
