@@ -36,12 +36,8 @@ function getAJoke(){
 }
 
 function emojifyText($text){
-    echo $text;
     $url = "https://torpid-needle.glitch.me/emojify/{$text}";
-    $json = file_get_contents($url);
-    $response = json_decode($json);
-
-    return $response.data;
+    return file_get_contents($url);
 }
 // End of functions by @mclint_
 
