@@ -1,3 +1,13 @@
+<?php
+require_once '../config.php';
+try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    // echo "Connected to ". DB_DATABASE . " successfully.</br>";
+} catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+?>
+
 <!DOCTYPE html>
 <head>
 	<style type="text/css">
@@ -72,6 +82,17 @@ $name_query = $conn->query('SELECT * FROM interns_data WHERE username="Rexben"')
 			</p>
 
 	</div>
+ <?php
+					    try {
+					        $sql = 'SELECT * FROM secret_word';
+					        $q = $conn->query($sql);
+					        $q->setFetchMode(PDO::FETCH_ASSOC);
+					        $data = $q->fetch();
+					    } catch (PDOException $e) {
+					        throw $e;
+					    }
+					    $secret_word = $data['secret_word'];
+					  ?>
 		</body>
 
 </html>
