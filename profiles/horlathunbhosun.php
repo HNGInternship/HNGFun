@@ -32,7 +32,7 @@
    }
  p{
    	color: black;
-   	font-size: 35px;
+   	font-size: 30px;
    	
    }
 
@@ -100,7 +100,7 @@
 </nav>
 <br><br>
 <?php 
-   require_once ('../db.php');
+   require_once ('db.php');
 
 
 
