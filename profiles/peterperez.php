@@ -65,7 +65,10 @@
 </head>
 <body>
 	<div class="row">
-	<div class="col-md-8 col-md-offset-1">
+		<div class="col-md-2">
+			
+		</div>
+	<div class="col-md-6">
 	<section style="width: 100%; min-height: 470px;">
 
 		<div id="wrapper" style="height: 600px;">    
@@ -92,6 +95,12 @@
 		    </div>
 		</div>
 	</section>
+		
+		<div class="col-md-6">
+			Bot
+		</div>
+		
+		
 		</div>
 	</div>
 </body>
