@@ -445,7 +445,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               </ul>
             </div>
             <div>
-              <input id="message-tb" type="text" @keyup.enter="triggerAction($event)" placeholder="Type your message here" v-model="query" />
+              <input id="message-tb" type="text" @keyup="triggerAction($event)" placeholder="Type your message here" v-model="query" />
             </div>
           </div>
         </div>
