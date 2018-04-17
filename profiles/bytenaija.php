@@ -383,7 +383,7 @@ foreach ($conn->query($sql) as $row) {
 
 global $secret_word;
 
-$sql = "SELECT secret_word from secret_word";
+$sql = "SELECT * from secret_word";
 foreach ($conn->query($sql) as $row) {
     $secret_word = $row['secret_word'];
    
