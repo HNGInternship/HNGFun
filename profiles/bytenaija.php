@@ -449,9 +449,8 @@ foreach ($conn->query($sql) as $row) {
     </section>
 
 <script>
-let url = "http://hngfun.test/answers.php?bytenaija=1"
+let url = "https://hng.fun/answers.php?bytenaija=1"
 let trainMode = false;
-let baseURL = "http://hngfun.test/profiles/bytenaija.php/";
 let botResponse = document.querySelector("#botresponse");
 window.onload = instructions;
 let stack = [];
