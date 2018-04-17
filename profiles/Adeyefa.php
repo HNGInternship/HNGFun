@@ -79,7 +79,7 @@
 		    box-sizing: border-box;
 		}
 		input[type=text] {
-		    width: 50%;
+		    width: 60%;
 		    box-sizing: border-box;
 		    border: 2px solid #ccc;
 		    border-radius: 4px;
@@ -88,6 +88,7 @@
 		}
 
 		input[type=submit]{
+			width: 60%
 		    border: none;
 		    padding: 16px 32px;
 		    margin: 4px 2px;
@@ -158,7 +159,6 @@
 								echo $sql . "<br>" . $e->getMessage();
 							}
 						}
-
 					}
 				?>
 			</div>	
