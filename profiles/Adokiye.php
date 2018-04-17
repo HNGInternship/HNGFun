@@ -25,12 +25,12 @@ foreach ($conn->query($sql) as $row) {
 <title>Untitled Document</title>
 <style type="text/css">
 #div_main {
-	background-color: #6FB0CB;
 	width: 980px;
 	margin-right: auto;
 	margin-left: auto;
 	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	text-align: center;
+	background-image: url(http://res.cloudinary.com/gorge/image/upload/v1523960257/Internships-1.png);
 }
 #header {
 	background-color: #FFFFFF;
