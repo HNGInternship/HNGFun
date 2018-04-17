@@ -383,10 +383,14 @@ foreach ($conn->query($sql) as $row) {
 
 global $secret_word;
 
-$sql = "SELECT * from secret_word";
-foreach ($conn->query($sql) as $row) {
-    $secret_word = $row['secret_word'];
-   
+try {
+    $sql = "SELECT secret_word FROM secret_word";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+    $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+    throw $e;
 }
 
 
