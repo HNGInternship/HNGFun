@@ -36,7 +36,7 @@
 	}
 		#wrapper {
 		  text-align: center;
-		  position: absolute; top: 0; left: 0; height: 100%; width: 100%;
+/* 		  position: absolute; top: 0; left: 0; height: 100%; width: 100%; */
 		  background: linear-gradient(to bottom right, #00AEFF, #012738);
 		}
 		#yourdiv {
