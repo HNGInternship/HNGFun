@@ -65,6 +65,5 @@ http://res.cloudinary.com/duys5bnjm/image/upload/v1523634872/my_pics.jpg" alt="E
 	 </div>
 	</div>
 </div>
-
 </body>
 </html>
