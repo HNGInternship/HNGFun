@@ -1,32 +1,28 @@
+<?php	
+   $result = $conn->query("Select* from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
 
-<!DOCTYPE html>
-<html>
-<head>
-	<?php	
-	   $result = $conn->query("Select* from secret_word LIMIT 1");
-	   $result = $result->fetch(PDO::FETCH_OBJ);
-	   $secret_word = $result->secret_word;
+   $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+   //start
+    /*if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-	   $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
-	   $user = $result2->fetch(PDO::FETCH_OBJ);
-       //start
-	   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		require "../answers.php";
 
-			require "../answers.php";
-
-			date_default_timezone_set("Africa/Lagos");
+		date_default_timezone_set("Africa/Lagos");
 
 
-			try{
-			  if(!isset($_POST['question'])){
-			    echo json_encode([
-			      'status' => 1,
-			      'answer' => "Please provide a question"
-			    ]);
-			    return;
-			    }
-			    $question = $_POST['question'];
-			}
+		try{
+		  if(!isset($_POST['question'])){
+		    echo json_encode([
+		      'status' => 1,
+		      'answer' => "Please provide a question"
+		    ]);
+		    return;
+		    }
+		    $question = $_POST['question'];
+		}
 			#Check Training Mode
 		    $train_index = stripos($question, "train:");
 		    if($train_index === false){
@@ -55,7 +51,7 @@
 			    $training_string = preg_replace("([?.])", "", $training_string); //remove ? and . so that questions missing ? (and maybe .) can be recognized
 			    $split_string = explode("#", $question_and_answer_string);
 			
-        
+	    
 		        $question = trim($split_string[0]);
 		        $answer = trim($split_string[1]);
 
@@ -71,8 +67,14 @@
 			    ]);
 			    return;
 			}
-		}
-	?>
+		catch (Exception $e){
+	    return $e->message ;
+        }
+	}*/
+?>
+<!DOCTYPE html>
+<html>
+<head>
 	<title>  <?php echo $user->name ?> </title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -203,3 +205,7 @@
 	</div>	
 </body>
 </html> 
+
+<?php
+}
+?>
