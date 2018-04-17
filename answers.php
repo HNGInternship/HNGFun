@@ -156,6 +156,21 @@ echo "you are currently using a ,".$browser.", browser on a  ,".$device.", Devic
 
 
 
+spl_autoload_register(function($className){
+
+	$className = strtolower(str_replace('.', '', str_replace('..', '', $className)));
+	require_once 'classes/class.'.$className.'.php';
+
+
+});
+
+if(isset($_POST['action'])){
+
+
+	Jamila::handleMessage($_POST['message']);
+	exit;
+}
+
 
 
 
