@@ -62,6 +62,8 @@ $secret_word = $data2['secret_word'];
     </nav>
 
     <?php
+    $file = realpath(__DIR__ . '/..') . "/db.php"    ;
+    require_once $file;
 //    require_once("../db.php");
 try {
     $sql = "SELECT * FROM interns_data WHERE username ='shine'";
