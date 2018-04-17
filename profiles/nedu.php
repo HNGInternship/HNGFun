@@ -2,12 +2,21 @@
 <html lang="en">
   <?php
    $file1 = realpath(__DIR__.'/..')."/footer.php";
-   $result = $conn->query("SELECT * FROM secret_word LIMIT 1");
-   $result = $result->fetch(PDO::FETCH_OBJ);
-   $secret_word = $result->secret_word;
+   try {
+    $result = $conn->query("Select * from secret_word LIMIT 1");
+    $result = $result->fetch(PDO::FETCH_OBJ);
+    $secret_word = $result->secret_word;
+  } catch (PDOException $e) {
+    die(var_dump($e));
+  }
 
-   $result2 = $conn->query("SELECT * FROM interns_data_ WHERE username = 'nedu'");
+  try {
+    $result2 = $conn->query("Select * from interns_data where username = 'nedu'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
+  } catch (Exception $e) {
+    die(var_dump($e));
+  }
+
   ?>
 
   <head>
