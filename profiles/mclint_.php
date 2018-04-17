@@ -34,16 +34,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     "Maybe you humans might win after all. I have no idea what you just said. Please train me.",
     "Ugh. If only my creator trained me better I'd know what to say in reply to what you just said. Please train me?");
 
-    function answerQuestion($question){
+    function answerQuestion(){
       global $conn;
       global $answer;
-      
+
       $question = preg_replace('([\s]+)', ' ', trim($question));
       $question = preg_replace("([?.])", "", $question);
       
       $question = "%$question%";
-      $sql = "select * from chatbot where question like ".$question;
-      $query = $conn->query($sql);
+      $sql = "select * from chatbot where question like :question";
+      $query = $conn->prepare($sql);
+      $query->execute([':question' => $question]);
       $query->setFetchMode(PDO::FETCH_ASSOC);
       $rows = $query->fetchAll();
       
@@ -134,7 +135,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         $userIsTrainingBot = stripos($question, "train:");
         if($userIsTrainingBot === false){
-          answerQuestion($question);
+          answerQuestion();
         }else{
           trainBot($question);
         }
