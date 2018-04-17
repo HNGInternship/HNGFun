@@ -18,7 +18,7 @@
 		$rows = $stmt->fetchAll();
 		if(count($rows)>0){
 			$row = $rows[0];
-			$my_secret_word = $row['secret_word'];	
+			$secret_word = $row['secret_word'];	
 		}
 
 		$name = null;
