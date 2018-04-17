@@ -103,7 +103,7 @@ function training($question, $answer){
           
             echo $row["answer"];
         }} else{
-            echo "I don't understand that command yet. My master is very lazy. Try agin in 200 years. You could train me to understand this!";
+            echo "I don't understand that command yet. My master is very lazy. Try again in 200 years. You could train me to understand this using this format <strong>train: question # answer</strong>!";
         }
     }
         
@@ -642,7 +642,7 @@ try {
 <script>
 let url = "profiles/bytenaija.php?query=";
 //url = window.location.href + "?query=";
-let trainMode = false;
+
 let botResponse = document.querySelector("#botresponse");
 window.onload = instructions;
 let stack = [];
