@@ -123,9 +123,9 @@
         <h2>@gazelle007</h2>
         <nav>
             <a href="https://www.facebook.com/dorcas.godwin"><span class="fa fa-facebook"></span></a>
-            <a href="https://twitter.com/gazelle_007"><span class="fa fa-twitter"></span></a>
+            <a href="https://https://twitter.com/DerNaan><span class="fa fa-twitter"></span></a>
             <a href="https://www.linkedin.com/in/dernan-tirsing-5155ba156"><span class="fa fa-linkedin"></span></a>
-            <a href="https://github.com/Gazelle007"><span class="fa fa-github"></span></a>
+            <a href="https://github.com/DernanT"><span class="fa fa-github"></span></a>
         </nav>
 
         <?php
