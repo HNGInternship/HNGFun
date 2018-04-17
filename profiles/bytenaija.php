@@ -597,9 +597,9 @@ function evaluate(str){
     list += "<li>Hi</li>";
     list += "<li>currency: {base}/{other}</li>";
 
-        url += "&list=1";
+       let urlL = url + "&list=1";
         
-        fetch(url)
+        fetch(urlL)
         .then(response=>{
             return response.text();
         })
@@ -620,10 +620,10 @@ function evaluate(str){
 
         console.log(keyword, response)
 
-        url += "&query=" + str;
+        let urlL = url + "&query=" + str;
         console.log(url)
 
-        fetch(url)
+        fetch(urlL)
         .then(response=>{
             return response.text();
         })
@@ -672,9 +672,9 @@ function training(str){
 
     console.log(keyword, response)
 
-    url += "&train&keyword=" + keyword + "&response=" + response;
-    console.log(url)
-    fetch(url)
+    let urlL = url + "&train&keyword=" + keyword + "&response=" + response;
+    console.log(urlL)
+    fetch(urlL)
     .then(response=>{
         console.log(response);
         return response.text()
