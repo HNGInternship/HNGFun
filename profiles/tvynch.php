@@ -72,7 +72,7 @@
           </section>
 
           <section class="col-md-6">
-            <img src="" alt="tvynch">
+            <img src="images/tvynch.jpg" alt="tvynch">
           </section>
 
           <footer class="footer text-center col-md-12">
