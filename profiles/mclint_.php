@@ -382,17 +382,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             },
             answerQuery(query) {
               this.messages.push({sender: 'bot', query: 'Thinking..'});
+              
               var params = new URLSearchParams();
               params.append('password', 'trainpwforhng');
               params.append('question', query);
 
               axios.post('/profiles/mclint_.php', params)
                 .then(response => {
-                  console.log(response.data);
                   this.messages.pop();
                   this.messages.push({ sender: 'bot', query: response.data.answer });
                 }).catch(error => {
-                  console.log(error);
                   this.messages.pop();
                   this.messages.push({ sender: 'bot', query: 'Mediocre humans. Your internet connection is down.' });
                 });
