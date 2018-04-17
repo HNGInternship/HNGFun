@@ -220,9 +220,10 @@
         }
 
         #cent {
+            padding-right: 300px;
             text-align: center;
             align-content: flex-start;
-            transform: translateX(-15%) translateY(10px);
+            transform: translateX(-20px) translateY(10px);
         }
     </style>
 </head>
