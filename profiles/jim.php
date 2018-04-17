@@ -18,11 +18,14 @@ function sanitize(string $value) {
 // Chatbot (Jimie)
 if (!empty($_POST['message'])) {
 	
-	// Even though this file was required by profile.php
-	// we need to require it here again because we are
-	// accessing this file (jim.php) directly here not
-	// through profile.php
-	require_once('../db.php');
+	if(! defined('DB_USER')){
+		require "../../config.php";		
+		try {
+		    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		} catch (PDOException $pe) {
+		    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+		}
+	}
 
 	$message = $_POST['message'];
 

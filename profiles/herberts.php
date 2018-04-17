@@ -8,21 +8,6 @@
 	$result = $query->fetch(PDO::FETCH_ASSOC);
 	$secret_word = $result['secret_word'];
 
-
-	try{
-	    $getData = "SELECT * FROM `interns_data_` WHERE `username`= 'herberts'";
-	    $query1 = $conn->query($getData);
-	    $query1->setFetchMode(PDO::FETCH_ASSOC);
-	    $result1 = $query1->fetch(); 
-	}
-	catch(PDOException $e){
-	    throw $e;
-	    
-	}
-	    
-	   $name = $result1['name'];
-	   $user = $result1['username'];
-	   $image = $result1['image_filename'];
 ?>
 
 
@@ -165,7 +150,7 @@
 
 			.right .chat ul li {
 				display: inline-block;
-				padding: 2.3% 10.1% 2.3% 10.1%;
+				padding: 2.3% 10% 2.3% 10%;
 				border-right: 3px solid rgba(171, 177, 22, 0.5);
 			}
 
@@ -196,8 +181,8 @@
 								<img src="http://res.cloudinary.com/dsitzw8mp/image/upload/v1523798919/face.png" onerror="this.src='images/default.jpg'" alt="Herberts" title="@herberts">
 							</div>
 							<div class="name">
-								<h1><?echo $name;?></h1>
-								<h3>@<?echo $user?></h3>
+								<h1>Herbert John</h1>
+								<h3>@herberts</h3>
 								<div class="bio">
 									<small>Hardcore developer with genuine passion for coding. I love coding so much that even codes i don't know what they do gives me joy.</small>
 								</div>

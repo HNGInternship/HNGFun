@@ -2,7 +2,7 @@
 //include "../config.php";
 
     try {
-        $sql = 'SELECT intern_id, name, username, image_filename FROM interns_data_ WHERE username=\'opheus\'';
+        $sql = 'SELECT intern_id, name, username, image_filename FROM interns_data WHERE username=\'opheus\'';
         $q = $conn->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetch();
