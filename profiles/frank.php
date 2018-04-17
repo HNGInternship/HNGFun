@@ -1,41 +1,37 @@
+<!-- Header -->
+<?php
 
-  
-         <?php
-  //define("DB_SERVER", "localhost");
-  //define("DB_USER1", "root");
-  //define("DB_PASS", "");
- // define("DB_NAME", "hngfun");     
-$connection=mysqli_connect("localhost","root","","hng_fun");
-if(mysqli_connect_errno()){
-    die("database connection failed: ".mysqli_connect_error());
-}
+$sql = "SELECT * FROM interns_data WHERE username = 'frank'";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$data = $q->fetchAll();
+$frank = array_shift($data);
+
+// Secret word
+$sql = "SELECT * FROM secret_word";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$words = $q->fetch();
+$secret_word = $words['secret_word'];
 ?>
- </br>   </br>    
-  <?php 
-  $query=mysqli_query($connection,"SELECT * FROM secret_word ");
-    if(!$query){
-        echo "Selecting code from secret word failed";
-         } else{
-            while($row=mysqli_fetch_array($query)){
-             $secret_word=$row['secret_word'];
-              }
-       
-             $sel =mysqli_query($connection,"SELECT * FROM interns_data where username='frank'");
-     ?>
-        <?php   WHILE($row=mysqli_fetch_array($sel)) {?>
-        <?php
-           $picture=$row['image_filename']."<br/>"; 
-           echo "Full Name: ".  $name= $row['name']."<br/>"; 
-           ?>
-       
-           <img src="<?php echo $row['image_filename']; ?>" alt="@frank" style="width:170px;height:170px; />   
-       
-  <?php } ?>
- <?php } ?>
-         
-  </br>    
-  <img src="<?php echo $picture; ?>
- 
- 
-  </div>
 
+<div class="frank profile-wrap">
+<div class="about">
+	<?php if (empty($frank)): ?>
+	<h1>FRANK</h1>
+	<?php else: ?>
+	<div class="photo-wrap">
+		<img src="<?php echo $frank['image_filename']; ?>" alt="" />
+	</div>
+	<h1><?php echo $frank['name']; ?></h1>
+	<h3>HNG INTERNSHIP 4 #STAGE3 TASK</h3>
+	
+	<div class="social-icons">
+	    <a href="https://twitter.com/nzesalem" class="twitter" target="_blank"><i class="fa fa-twitter"></i></a>  
+	    <a href="https://github.com/nzesalem" class="github" target="_blank"><i class="fa fa-github"></i></a>
+	    <a href="https://linkedin.com/in/nzesalem" class="linkedin" target="_blank"><i class="fa fa-linkedin-square"></i></a>  
+	    <a href="https://fb.me/nzesalem" class="facebook" target="_blank"><i class="fa fa-facebook-square"></i></a> 
+	</div>
+	<?php endif; ?>
+</div>
+</div>
