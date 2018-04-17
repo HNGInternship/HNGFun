@@ -56,6 +56,7 @@
 </head>
 <body>
 	<div class="row">
+		<div class="col-md-12" style="50px;"></div>
 		<div class="col-md-2">
 			bot2
 		</div>
