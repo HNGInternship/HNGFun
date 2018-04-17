@@ -62,7 +62,7 @@ function myFunction() {
   <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
   <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name?></p>
   <p style="font-weight: bold">USERNAME : <?php echo $username?></p>
-  <p><span style="font-weight: bold">PROFILE PICTURE :  </span>: <?php echo"<img src=$image_filename>alt=\"Adokiye\" width=\"254\" height=\"413\"></p>"?>
+  <p><span style="font-weight: bold">PROFILE PICTURE :  </span>: <?php echo"<img src=$image_filename alt=\"Adokiye\" width=\"254\" height=\"413\">"?></p>
 </div>
 </body>
 </html>
