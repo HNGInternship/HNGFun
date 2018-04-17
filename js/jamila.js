@@ -2,7 +2,6 @@ $(document).ready(function(){
 
 
 
-	$('.btn').ripples();
 
 	$('#messageInputContainer').css('width', $('#botBox').css('width'));
 

@@ -22,6 +22,12 @@
 	session_unset();
 
 
+        $sql = DB::prepare('SELECT intern_id, name, username, image_filename FROM interns_data WHERE username="mercyikpe"');
+        $sql->execute();
+        extract($sql->fetch(PDO::FETCH_ASSOC));
+
+
+
 ?>
 
 
@@ -42,8 +48,8 @@
 <html>
 <head>
 	<title>Mercy Ikpe | Jamila</title>
-	<link rel="stylesheet" type="text/css" href="../css/ripples.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+	
 	<link rel="stylesheet" type="text/css" href="../css/jamila.css">
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -91,7 +97,7 @@
 				
 
 				<!-- <img class="img img-circle" src="../img/bg2.png"> -->
-				<img class="img img-circle" src="http://res.cloudinary.com/mercyikpe/image/upload/w_400,h_400,c_crop,g_face,r_max/w_200/v1517443922/mercy_ownuvy.jpg">
+				<img class="img img-circle" src="https://res.cloudinary.com/mercyikpe/image/upload/w_400,h_400,c_crop,g_face,r_max/w_200/v1517443922/mercy_ownuvy.jpg">
 
 			</div>
 
@@ -342,7 +348,15 @@
 
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="../js/ripples.min.js"></script>
 	<script type="text/javascript" src="../js/jamila.js"></script>
+
+
+	<?php
+	$sql = DB::prepare('SELECT secret_word FROM secret_word');
+        $sql->execute();
+       $secret_word = $sql->fetch(PDO::FETCH_ASSOC)['secret_word'];
+
+
+	?>
 </body>
 </html>
