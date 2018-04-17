@@ -1,3 +1,16 @@
+<?php
+    try {
+        $sql = 'SELECT intern_id, name, username, image_filename FROM interns_data WHERE username=\'Bukola\'';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $name= $data['name'];
+    $username= $data['username'];
+    $link= $data['image_filename'];
+?>
 <!DOCTYPE html>
 <html>
 
@@ -55,18 +68,6 @@
 </head>
 
 <body>
-
-<?php
-    try {
-        $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE intern_id = \'Bukola\' ';
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-        $secret_word = $data['secret_word'];
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    ?>
     <div class="wrapper">
         <div>
             <h1>Hi, I'm Bukola!<h1>
@@ -91,6 +92,17 @@
             </div>
         </div>
     </div>
+    <?php
+        try {
+            $sql = 'SELECT * FROM secret_word LIMIT 1';
+            $q = $conn->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+        $secret_word = $data['secret_word'];
+    ?>
 </body>
 
 </html>
