@@ -46,7 +46,7 @@ try {
   <body>
 
     <!-- Header -->
-    <header class="bg-secondary text-white text-center">
+    <section class="bg-secondary text-white text-center">
       <div class="container">
         <img class="img-fluid mb-5 d-block mx-auto" src="http://i1074.photobucket.com/albums/w416/Butu_Ordooter_A/profile1_zpsblk9vlnz.png" alt="">
         <h1 class="text-uppercase mb-0"><?php echo ($data['name']); ?></h1>
@@ -55,7 +55,7 @@ try {
         <hr class="star-light">
         <h2 class="font-weight-light mb-0">My Current Date is: <?php echo date("D M d, Y G:i a"); ?></h2>
       </div>
-    </header>
+    </section>
 
    
 
