@@ -1,5 +1,7 @@
 <?php 
+
     try {
+        require('db.php');
         $secrete = 'SELECT * FROM secret_word';
         $sql = $conn->query($secrete);
         $sql->setFetchMode(PDO::FETCH_ASSOC);
