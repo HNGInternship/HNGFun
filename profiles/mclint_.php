@@ -416,6 +416,21 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                   }
                 }
               }
+            },
+            triggerAction(event){
+              switch(event.keyCode){
+                case 'Enter':
+                  this.askBot();
+                  break;
+
+                case 'ArrowUp':
+                  this.showHistory('up');
+                  break;
+
+                case 'ArrowDown':
+                  this.showHistory('down');
+                  break;
+              }
             }
           },
           template: `
@@ -430,7 +445,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               </ul>
             </div>
             <div>
-              <input id="message-tb" type="text" @keyup.enter="askBot" @keyup.up="showHistory('up')" @keyup.up="showHistory('down')" placeholder="Type your message here" v-model="query" />
+              <input id="message-tb" type="text" @keyup.enter="triggerAction($event)" placeholder="Type your message here" v-model="query" />
             </div>
           </div>
         </div>
