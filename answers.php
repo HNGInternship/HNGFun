@@ -1,4 +1,5 @@
 <?php
+
 function getListOfCommands() {
   return 'Type "<code>show: List of commands</code>" to see a list of commands I understand.<br/>
   Type "<code>open: www.google.com</code>" to open Google.com<br/>
@@ -22,6 +23,41 @@ function getRandomFact(){
 
   return $facts[rand(0, count($facts) - 1)];
 }
+
+// functions by @mclint_. DO NOT MODIFY
+function getAJoke(){
+    $jokes = ["My dog used to chase people on a bike a lot. It got so bad, finally I had to take his bike away.", "What is the difference between a snowman and a snowwoman? Snowballs.",
+    "I invented a new word. Plagiarism.", "Helvetica and Times New Roman walk into a bar. 'Get out of here!' shouts the bartender. 'We don't serve your type.'",
+     "Why don’t scientists trust atoms? Because they make up everything.", "Where are average things manufactured? The satisfactory.", "How do you drown a hipster? Throw him in the mainstream",
+    "How does Moses make tea? He brews!", "Why can’t you explain puns to kleptomaniacs? They always take things literally.", "I got called pretty yesterday and it felt good! Actually, the full sentence was 'You're pretty annoying.' but I'm choosing to focus on the positive.",
+    "Two cannibals eating a clown. 'Does this taste funny to you?'", "Why can’t you hear a pterodactyl in the bathroom? Because it has a silent pee.", "Where does a sheep go for a haircut? To the baaaaa baaaaa shop!"];
+
+    return $jokes[rand(0, count($jokes) - 1)];
+}
+
+function emojifyText($text){
+    $url = "https://torpid-needle.glitch.me/emojify/{$text}";
+    return file_get_contents($url);
+}
+
+function rollADice(){
+    return rand(1, 6);
+}
+
+function flipACoin(){
+    return rand(0,1) === 1 ? "Heads" : "Tails";
+}
+
+function predictOutcome($battle){
+    $players = explode('vs', $battle);
+
+    if(count($players) >= 2){
+        return $players[rand(0, count($players) - 1)];
+    }
+
+    return "Uhh.. nope. You've provided invalid prediction data.";
+}
+// End of functions by @mclint_
 
     //functions defined by @chigozie. DO NOT MODIFY!!!
     function getDayOfWeek(){
@@ -239,4 +275,62 @@ function get_device_name($user_agent)
 }
 
 ///////////////////////end of opheus ////////////////////
+
+/***************************Femi_DD*************************/
+function myBoss() {
+return "Femi_DD is my creator, He's a nice person and doesn't rest untill he solves a problem.";
+}
+
+ function dateToday() {
+     return date("F jS Y h:i:s A");
+ }
+
+ function myIP() {
+     return $_SERVER['REMOTE_ADDR'];
+ }
+
+ function myLocation() {
+    $tz = new DateTimeZone("Africa/Lagos");
+    $loc = $tz->getLocation();
+    return $loc['longitude'] .' : '. $loc['latitude'];
+ }
+
+/***************************Femi_DD*************************/
+
+
+/***************************Bytenaija Start here*************************/
+//bytenaija time function
+function bytenaija_time($location) {
+    $curl = curl_init();
+    $geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=".$location. "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => $geocodeUrl,
+        CURLOPT_USERAGENT => 'Codular Sample cURL Request'
+    ));
+
+    $response = curl_exec($curl);
+    $response = json_decode($response, true);
+    //$lat = $response->results;
+    $response = $response['results'][0]['geometry'];
+
+    $response = $response["location"];
+    $lat = $response["lat"];
+    $lng = $response["lng"];
+    $timestamp = time();;
+
+    $url = "https://maps.googleapis.com/maps/api/timezone/json?location=".$lat.",".$lng."&timestamp=".$timestamp."&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U";
+
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $responseJson = curl_exec($curl);
+    curl_close($curl);
+    $response = json_decode($responseJson);
+    $timezone = $response -> timeZoneId;
+    $date = new DateTime("now", new DateTimeZone($timezone));
+    echo "The time in ".ucwords($location). " is ".$date -> format('d M, Y h:i:s A');
+
+}
+
+/***************************Bytenaija ends here*************************/
 ?>
