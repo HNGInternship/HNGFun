@@ -4,7 +4,33 @@ body{background:#ced7df;
 .head {color: #4eacff;
 		font-size: 6.5em;
 		text-transform: none;
-		text-decoration: none;}
+		text-decoration: none;
+		overflow: hidden;
+	}
+	
+.head:hover {
+	color: #fff;
+}
+.link--head::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: -1;
+	background: #242424;
+	-webkit-transform: translate3d(101%,0,0);
+	transform: translate3d(101%,0,0);
+	-webkit-transition: -webkit-transform 0.5s;
+	transition: transform 0.5s;
+	-webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+	transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+}
+
+.link--head:hover::after {
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -36,11 +62,22 @@ li a:hover {
 .clear{clear:both;}
 h3{font-size: 25px; text-align: center;;}
 </style>
+<?php
+	//require '../db.php';
+
+?>
+<?php
+	$result = $conn->query("SELECT * from secret_word LIMIT 1");
+	$result = $result->fetch(PDO::FETCH_OBJ, PDO::ERRMODE_EXCEPTION);
+	$secret_word = $result->secret_word;
+	$result2 = $conn->query("SELECT * from interns_data where username = 'Epospiky'");
+	$user = $result2->fetch(PDO::FETCH_OBJ);
+?>
 <div>
 	
 	<div class="pull-left">
 		<div>
-			 <a class="head" href="#home"><span data-letters="Epospiky">EPOSPIKY</span></a>
+			 <a class="head" href="#home"><span data-letters=""><?php echo $user->name ?></span></a>
 		</div>
 						<div class="">
 						
