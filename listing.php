@@ -1,8 +1,11 @@
 <?php
+
+/* DO NOT TOUCH THIS FILE */
 include_once("header.php");
 require 'db.php';
 
-$sql = 'SELECT * FROM interns_data_';
+/* YOUR INTERNS DATA TABLE SHOULD BE named interns_data_ */
+$sql = 'SELECT * FROM interns_data';
 $q = $conn->query($sql);
 $q->setFetchMode(PDO::FETCH_ASSOC);
 $data = $q->fetchAll();
