@@ -32,6 +32,7 @@ $stmt = $conn->query('SELECT secret_word FROM secret_word');
  
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $secret_word = $row['secret_word'];
+ echo $secret_word;
 }
 
 ?>
