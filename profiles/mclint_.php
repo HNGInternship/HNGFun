@@ -44,7 +44,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     function answerQuestion($question){
       global $conn;
       global $answer; 
-      
+
       $question = preg_replace('([\s]+)', ' ', trim($question));
       $question = preg_replace("([?.])", "", $question);
       
@@ -56,7 +56,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       $rows = $query->fetchAll();
       
       $resultsCount = count($rows);
-      if(resultsCount > 0){
+      if($resultsCount > 0){
         $index = rand(0, $resultsCount - 1);
         $row = $rows[$index];
         $answer = $row['answer'];	
@@ -117,6 +117,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       //if($_POST['password'] === 'trainpwforhng'){
         $question = $_POST['question']; 
+        echo $question;
 
         $userIsTrainingBot = stripos($question, "train:");
         if($userIsTrainingBot === false){
