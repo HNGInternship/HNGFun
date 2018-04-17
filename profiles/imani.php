@@ -1,5 +1,14 @@
-<!Doctype html> 
-<html lang="en">
+<?php 
+    try {
+        $q = 'SELECT * FROM secret_word';
+        $sql = $conn->query($q);
+        $sql->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $sql->fetch();
+        $secret_word = $data["secret_word"];
+    } catch (PDOException $err) {
+
+        throw $err;
+    }?>
 <head>
    <title>Tolu Faith</title> 
    <meta name="author" content="Tolu Faith">

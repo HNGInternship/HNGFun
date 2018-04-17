@@ -1,25 +1,14 @@
-<?php
-require 'db.php';
-
-
-function getuserfield($field) {
-  require 'db.php'; 
-$username = $conn->query("SELECT $field FROM `interns_data_` WHERE name='Egbo Thankgod'");
-$username2 = $username->fetch();
-$username3 = $username2['name'];
-
-echo $username3;
-}
-
-
-function getsecretword() {
-  require 'db.php'; 
-$secret = $conn->query("SELECT * FROM `secret_word`");
-$secret2 = $secret->fetch();
-$secret3 = $secret2['secret_word'];
-
-echo $secret3;
-}
+<?php 
+ try {	
+	$sql = "INSERT INTO login (name ,username,image_filename) VALUES ('Uket Cyril Ofem','CY_UKET','https://res.cloudinary.com/cyuket/image/upload/v1523889745/1522947398679.jpg')";
+      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'CY_UKET\'';
+      $q = $conn->query($sql);
+      $q->setFetchMode(PDO::FETCH_ASSOC);
+      $data = $q->fetch();
+      $secret_word = $data['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,9 +20,7 @@ echo $secret3;
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title> <?php
-        echo getuserfield('name');
-        ?></title>
+    <title><?php echo $data['name'] ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -81,7 +68,7 @@ h1,h2,h3,h4,h5,h6{
   font-family:'Open Sans','Helvetica Neue',Arial,sans-serif}
 
 .bg-primary{
-  background-color:#f05f40!important}
+  background-color:#481E1E!important}
 
 .bg-dark{
   background-color:#212529!important}
@@ -184,7 +171,7 @@ img::-moz-selection{
 
   header.masthead{
     padding-top:10rem;padding-bottom:calc(10rem - 56px);
-    background-image:url(http://res.cloudinary.com/tech-18/image/upload/v1523645499/header_p9zqkc.jpg);
+    background-image:url(https://res.cloudinary.com/cyuket/image/upload/v1523892813/cyi.jpg);
     background-position:center center;
     -webkit-background-size:cover;
     -moz-background-size:cover;
@@ -360,9 +347,7 @@ footer.footer .social-link:hover{
     	<nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top" id="mainNav">
       <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">
-        <?php
-        echo getuserfield('name');
-        ?>
+<?php echo $data['name'] ?>
         </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -399,25 +384,18 @@ footer.footer .social-link:hover{
               <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div class="card" style="width:30%" >
-  <img src="http://res.cloudinary.com/tech-18/image/upload/v1516110766/IMG_20170803_224355_268_ji75r2.jpg" alt="Tha" style="width:100%">
+  <img src="https://res.cloudinary.com/cyuket/image/upload/v1523889745/1522947398679.jpg" alt="cy" style="width:100%">
 </div>
 
-              <strong>WELCOME TO MY WORLD</strong><br>
+              <strong>WELCOME TO MY CODING WORLD</strong><br>
               <small> 
-        <?php
-        echo getuserfield('name');
-        ?>         
+       <?php echo $data['name'] ?>         
         </small>
             </h1>
-                  <?php
-        echo getsecretword();
-        ?>  
             <hr>
           </div>
           <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5">Badass Back-End Web Programmer  <?php
-        echo getuserfield('name');
-        ?></p>
+            <p class="text-faded mb-5">Badass Back-End Demon Web Programmer <?php echo $data['name'] ?></p>
             <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
           </div>
         </div>
@@ -430,16 +408,14 @@ footer.footer .social-link:hover{
           <div class="col-lg-8 mx-auto text-center">
             <h2 class="section-heading text-white">Here's a Brief Intro</h2>
             <hr class="light my-4">
-            <p class="text-faded mb-4"> <?php
-        echo getuserfield('name');
-        ?> Is a Back-End Web Developer, a Computer Science Student of Cross River University of Technology. Big dreams of getting one of the biggest Tech Empire in the world.</p>
+            <p class="text-faded mb-4"> <?php echo $data['name'] ?> Is a Back-End Web Developer, a Computer Science Student of Cross River University of Technology. learning has always been my hobby right from when i was a kid. I maximize every opportiunity to learn new things both in my field of study or not.</p>
             <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Work With Me!</a>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="services" style="background-color: rgba(184, 195, 195, 0.5)">
+    <section id="services" style="background-color: rgba(18, 195, 195, 0.5)">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
@@ -483,7 +459,7 @@ footer.footer .social-link:hover{
     </section>
 
 
-    <section id="contact" style="background-color: rgba(184, 195, 195, 0.5)">
+    <section id="contact" style="background-color: rgba(73, 117, 117, 0.5))">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
@@ -507,7 +483,7 @@ footer.footer .social-link:hover{
       <div class="container">
                     <ul class="list-inline text-center">
                <li class="list-inline-item">
-                  <a id="twitter" href="https://twitter.com/EgboThankgod"" target="_blank">
+                  <a id="twitter" href="https://twitter.com/cy_uket" target="_blank">
                      <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
@@ -515,7 +491,7 @@ footer.footer .social-link:hover{
                   </a>
                </li>
                <li class="list-inline-item">
-                  <a id="facebook" href="https://web.facebook.com/thankgod.egbo" target="_blank">
+                  <a id="facebook" href="https://web.facebook.com/syziddy.cy" target="_blank">
                      <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
@@ -523,7 +499,7 @@ footer.footer .social-link:hover{
                   </a>
                </li>
                <li class="list-inline-item">
-                  <a id="github" href="https://github.com/ThaTruth24" target="_blank">
+                  <a id="github" href="https://github.com/syziddy65" target="_blank">
                      <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-github fa-stack-1x fa-inverse"></i>
