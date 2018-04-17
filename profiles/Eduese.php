@@ -98,11 +98,11 @@ $result = mysqli_query($conn, $q);
 		}
 	}
 	
-$p = "SELECT secret_word FROM secret_word ;";	
+/*$p = "SELECT secret_word FROM secret_word ;";	
 $result2 = mysqli_query($conn, $q); 
 
 $secret_word = $row['secret_word'];
-echo $secret_word;
+echo $secret_word;*/
 
 ?> 
 	
