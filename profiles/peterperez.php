@@ -69,9 +69,9 @@
 			
 		</div>
 	<div class="col-md-6">
-	<section style="width: 100%; min-height: 470px;">
+	<section>
 
-		<div id="wrapper" style="height: 600px;">    
+		<div id="wrapper">    
 		    <div id="yourdiv">
 		    	<div class="margin"></div>
 		    	
