@@ -1,16 +1,18 @@
-<?php
-$sql = "SELECT * FROM interns_data WHERE username = 'Abseejp'";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$data = $q->fetchAll();
-$Abseejp = array_shift($data);
-// Secret word
-$sql = "SELECT * FROM secret_word";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$words = $q->fetch();
-$secret_word = $words['secret_word'];
+
+<?php 
+  require 'db.php';
+
+  $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+
+   $secret_word = $result->secret_word;
+
+   $result2 = $conn->query("Select * from interns_data where username = 'Abseejp'");
+   $profile_name = $result2->fetch(PDO::FETCH_OBJ);
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html>
@@ -53,17 +55,10 @@ $secret_word = $words['secret_word'];
 			margin-top: 20px;
 			font-size: 60px;
 		}
-		
-
 	</style>
 </head>
 
 
-<?php 
-
-include('header.php')
-
- ?>
 
 <body>
 	<div class="cover">
@@ -78,9 +73,9 @@ include('header.php')
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-					<img src="<?php echo $jim['image_filename']; ?>" id="why-us" >
-					<h1><?php echo $Abseejp['name']; ?></h1>
+					<img src="http://res.cloudinary.com/abseejp/image/upload/v1523617182/abbb.jpg" id="why-us" >
 					<h4 id="name">Abseejaypee</h4>
+					<?php echo $profile_name->name ?>
 					<p>Am a Web Developer, A Data Scientist, A Programmer who loves deep thinking, A Writer and Someone who loves innovation</p>
 				</div>	
 			</div>
@@ -88,11 +83,11 @@ include('header.php')
 		
 		
 	</section>
-	<?php 
-		include('footer.php');
-
-	 ?>
+	
 <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 </body>
 </html>
+
+
+

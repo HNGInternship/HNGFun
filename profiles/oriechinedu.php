@@ -1,22 +1,5 @@
 
 <?php 
-define ('DB_USER', "root");
-define ('DB_PASSWORD', "root");
-define ('DB_DATABASE', "hngfun");
-define ('DB_HOST', "localhost");
-
- try {
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    // echo "Connected to ". DB_DATABASE . " successfully.</br>";
-} catch (PDOException $pe) {
-    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
-
- if (!$conn){
-    die('failed to connect'. $conn->connect_errno);
- }
-
-
 
  try {
     $sql = 'SELECT * FROM secret_word LIMIT 1';
@@ -57,7 +40,7 @@ try {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title></small> <?= $my_data['name'] ?></title>
+    <title><?= $my_data['name'] ?></title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -69,15 +52,15 @@ try {
   </head>
     <body style="background: url(http://res.cloudinary.com/drjpxke9z/image/upload/v1523626247/oriechinedu-header_nyavtu.jpg) no-repeat center center;background-size: cover;">
 
-        <section class="text-blue text-center" styl>
+        <section class="text-blue text-center">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row">
                 <div class="col-xl-8 mx-auto">
                     <div class="text-center">
-                        <img src="<?= $my_data['image_filename']?>" class="rounded-circle" alt="orie chinedu" width="200px" height="200px">
+                        <img src="<?= "http://res.cloudinary.com/drjpxke9z/image/upload/v1523623738/oriechinedu_ihubdk.jpg" ?>" class="rounded-circle" alt="orie chinedu" width="200px" height="200px">
                     </div>
-                    <h1 >Hey! <small>This is</small> <?= $my_data['name'] ?></h1> 
+                    <h1 >Hey! <small>This is</small> <?= 'Orie Chinedu' ?></h1> 
                     <p id="intro" style="margin-bottom: 50px; text-shadow: 2px 2px 2px #fff; color: #000;">I am a Web Developer. Proficient in HTML, CSS, JAVASCRIPT,
                     PHP/LARAVEL/VUEJS. A little of Python/Django. I also write technical articles on medium. I am a volunteer coach at Djangogirls.org and generally a tech lover</p>
                         
