@@ -37,11 +37,6 @@ global $conn;
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 
-body{
-  background-image: "url(http://res.cloudinary.com/onesiphorus/image/upload/v1523631727/pexels-photo-97077.jpg)";
-  background-size: cover;
-
-}
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 2);
   max-width: 350px;
