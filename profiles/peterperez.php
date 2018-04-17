@@ -36,9 +36,6 @@
 	}
 		
 		
-		.margin{
-			height: 100px;
-		}
 		a{
 			 color: #C4C4C4;
 		}
@@ -66,7 +63,7 @@
 
    
 		    <div>
-		    	<div class="margin"></div>
+		    	
 		    	
 		    	<figure></figure>
 		    	<xmp style="font-family: 'Lato', sans-serif; font-weight: 600; font-size: 30px;"> </<?php echo $data['username']; ?>> </xmp>
