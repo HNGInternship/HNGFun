@@ -55,32 +55,20 @@
     </style>
     <main>
         <?php
-            
+            require "../db.php";
             
             $sql = $conn->query("SELECT * FROM secret_word LIMIT 1");
-            
-
             $sql = $sql->fetch(PDO::FETCH_OBJ);
             $secret_word = $sql->secret_word;
 
-            $stmt = $conn->query("SELECT name, username, image_filename FROM interns_data_");
-            
-
-            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            
-            while($row = $stmt->fetch()) {
-                echo "<h1 class='name'>".$row['name']."</h1>".
-                "<img class='image' src='".$row['image_filename']."'>".
-                
-                "<h2 class='username'>@".$row['username']."</h2>";
-                
-                
-            }
-            
-            
+            $result = $conn->query("SELECT * FROM interns_data_ WHERE username = 'nerocodes'");
+            $user = $result->fetch(PDO::FETCH_OBJ);
 
 
         ?>
+        <h1 class="name"><?php echo $user->name ?></h1>
+        <img src="<?php echo $user->image_filename ?>" alt="" class="image">
+        <h2 class="username">@<?php echo $user->username ?></h2>
         <section>
             <h3>Front-End Web Developer</h3>
         </section>

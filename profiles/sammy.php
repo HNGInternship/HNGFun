@@ -46,11 +46,11 @@
     </script>
     <style>
         body {
-            padding-top: 20px;
+            padding-top: 30px;
             background-size: cover;
             margin: 0 auto;
             height: 900px;
-            width: 800px;
+            width: 803px;
             transform: translateX(0%) translateY(0%);
         }
 
@@ -79,7 +79,6 @@
             font-style: normal;
             letter-spacing: 1px;
             font-size: 13px;
-            ;
 
         }
 
@@ -212,15 +211,10 @@
             height: 900px;
             width: 802px;
             
-            
         }
 
         #foot-container {
             padding-top: 45px;
-        }
-
-        #head-image {
-            padding-left: 0px;
         }
 
     </style>
@@ -333,7 +327,7 @@
         </div>
     </div>
 
-
+    
     <?php
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
