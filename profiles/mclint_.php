@@ -116,8 +116,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if($_POST['password'] === 'trainpwforhng'){
-        $question = $_POST['question']; 
-        echo $question;
+        $question = $_POST['question'];
 
         $userIsTrainingBot = stripos($question, "train:");
         if($userIsTrainingBot === false){
@@ -213,7 +212,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         #chat-bot {
           display: flex;
           flex-direction: column;
-          width: 100%;
+          width: 300px;
           margin-top: 16px;
           margin-bottom: 40px;
           box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
@@ -348,7 +347,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               this.query = '';
             },
             getBubbleColor(sender) {
-              console.log(sender);
               if (sender === 'user')
                 return 'orange';
 
