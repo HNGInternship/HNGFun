@@ -1,8 +1,6 @@
-<<<<<<< HEAD
+
 <?php
-=======
-<?php 
->>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
+
 require 'db.php';
     $result = $conn->query("SELECT * from secret_word LIMIT 1");
     $result = $result->fetch(PDO::FETCH_OBJ);
@@ -11,7 +9,7 @@ require 'db.php';
     $result2 = $conn->query("SELECT * from interns_data where username = 'geekmaros'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
 
-<<<<<<< HEAD
+
   ?>
 <!DOCTYPE html>
 <html>
@@ -99,7 +97,7 @@ require 'db.php';
 	</div>
 
 </body>
-=======
+
  ?>
 <!DOCTYPE html>
 <html>
@@ -482,7 +480,7 @@ h1 a {
 </style>
 </head>
 <body>
->>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
+
 
     <div class="container">
     <div class="row">
@@ -544,9 +542,8 @@ h1 a {
     
 </div>
 
-<<<<<<< HEAD
+
 </html>
-=======
+
 </body>
 </html>
->>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
