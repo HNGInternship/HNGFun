@@ -1,5 +1,4 @@
 <?php
-require_once("../db.php");
 $servername = "localhost";
 $userName = "username";
 $password = "";
