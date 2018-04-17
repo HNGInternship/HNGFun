@@ -48,14 +48,15 @@
       $answer_data_query->setFetchMode(PDO::FETCH_ASSOC);
       $answer_data_result = $answer_data_query->fetchAll();
       $answer_data_index = 0;
+
       if (count($answer_data_result) > 0) {
         $answer_data_index = rand(0, count($answer_data_result) - 1);
       }
 
-      if ($answer_data_result[$answer_data_index]["answer"] == "") {
+      if (!isset($answer_data_result[$answer_data_index])) {
         return 'I don\'t understand that question. If you want to train me to understand, please type "<code>train: your question? # The answer.</code>"';
       }
-  
+
       if (containsVariables($answer_data_result[$answer_data_index]['answer']) || containsFunctions($answer_data_result[$answer_data_index]['answer'])) {
         $answer = resolveAnswer($answer_data_result[$answer_data_index]['answer']);
         return $answer;
@@ -75,6 +76,13 @@
       $start = strpos($question, " # ") + 3;
       $answer = substr($question, $start);
       return $answer;
+    }
+
+    $password = explode("#", trim($question))[2];
+
+    if ($password !== "trainpwforhng") {
+      echo "Invalid authorization, you are not allowed to train me.";
+      exit();
     }
 
     if (isTraining($question)) {
@@ -120,13 +128,13 @@
         $function_found = substr($answer, $start, - $end);
         $replacable_text = substr($answer, $start, - $end);
         $new_answer = str_replace($replacable_text, $function_found(), $answer);
-        
+
         $new_answer = str_replace("((", "", $new_answer);
         $new_answer = str_replace("))", "", $new_answer);
         return resolveAnswer($new_answer);
       }
     }
-  
+
     $answer = getAnswer();
     echo $answer;
     exit();

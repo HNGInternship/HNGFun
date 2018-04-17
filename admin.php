@@ -40,11 +40,17 @@ if(isset($_POST['submit']) ){
     // key valid ends
     if($_POST['username'] != ""){
         $_POST['username'] = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
+<<<<<<< HEAD
+        if($_POST['username'] == ""){
+            $usernameError = "<span class='invalid'>Please enter a valid username</span>";
+        }else {
+=======
             if($_POST['username'] == ""){
                 $usernameError = "<span class='invalid'>Please enter a valid username</span>";
             }
 
-            $sql = 'SELECT * FROM interns_data_ WHERE username = "'. $_POST['username'] .'"';
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
+            $sql = 'SELECT * FROM interns_data WHERE username = "'. $_POST['username'] .'"';
             $q = $conn->query($sql);
             $q->setFetchMode(PDO::FETCH_ASSOC);
 
@@ -105,7 +111,7 @@ if(isset($_POST['submit']) ){
                 ':username' => $username,
                 ':imageName' => $imageName);
 
-            $sql = 'INSERT INTO interns_data_ ( name, username, image_filename)
+            $sql = 'INSERT INTO interns_data ( name, username, image_filename)
                   VALUES (
                       :name,
                       :username,
@@ -170,8 +176,13 @@ if(isset($_POST['submit']) ){
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
+<<<<<<< HEAD
+                    <label for="file">Profile Picture</label>
+                    <input type="file" name="image_filename" class="form-control" id="image_filename" accept="image/*">
+=======
                     <label for="text">Profile Picture</label>
                     <input type="text" name="image_filename" class="form-control" id="image_filename" accept="image/*" required>
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
                 </div>
                 <?php if($filenameError != "") { echo "<div class='alert alert-danger'>$filenameError</div>"; }?>
             </div>
