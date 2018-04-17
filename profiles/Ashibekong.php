@@ -4,23 +4,21 @@
 	<head>
 
  <?php
- require'../db.php';
-      try {
-    $result = $conn->query("Select * from secret_word LIMIT 1");
-    $result = $result->fetch(PDO::FETCH_OBJ);
-    $secret_word = $result->secret_word;
-  } catch (PDOException $e) {
-    die(var_dump($e));
-  }
 
-  try {
-    $result2 = $conn->query("Select * from interns_data where username = 'Ashibekong'");
-    $user = $result2->fetch(PDO::FETCH_OBJ);
-  } catch (Exception $e) {
-    die(var_dump($e));
-  }
 
-  ?>
+   try {
+   $sql = 'SELECT * FROM secret_word';
+       $q = $conn->query($sql);
+       $q->setFetchMode(PDO::FETCH_ASSOC);
+   } catch (PDOException $e) {
+       die("Could not query the database:" . $e->getMessage());
+     }
+   $result = $q->fetch();
+   $secret_word = $result['secret_word'];
+
+   ?>
+ 
+
 
 		<title>Ashibekong John Ishado</title>
 		<meta charset="utf-8" />

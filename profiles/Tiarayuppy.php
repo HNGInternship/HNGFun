@@ -20,15 +20,171 @@
                       $profile_details = $profile_details_result->fetch();
                   ?>
 
+<?php
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		if(!defined('DB_USER')){
+			require "../../config.php";		
+			try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("can't connect to DB " . DB_DATABASE . ": " . $pe->getMessage());
+			}
+		}
+		require "../answers.php";
+		date_default_timezone_set("Nigeria/Lagos");
+		
+		if(!isset($_POST['question'])){
+			echo json_encode([
+				'status' => 1,
+				'answer' => "Please provide a question"
+			]);
+			return;
+		}
+		$question = $_POST['question']; 
+		
+		$index_of_train = stripos($question, "train:");
+		if($index_of_train === false){
+			$question = preg_replace('([\s]+)', ' ', trim($question)); 
+			$question = preg_replace("([?.])", "", $question);
+			
+						$question = "%$question%";
+					$sql = "select * from chatbot where question like :question";
+				$stmt = $conn->prepare($sql);
+			$stmt->bindParam(':question', $question);
+						$stmt->execute();
+			$stmt->setFetchMode(PDO::FETCH_ASSOC);
+			$rows = $stmt->fetchAll();
+			if(count($rows)>0){
+				$index = rand(0, count($rows)-1);
+				$row = $rows[$index];
+				$answer = $row['answer'];	
+				
+				$index_of_parentheses = stripos($answer, "((");
+				if($index_of_parentheses === false){ 
+					echo json_encode([
+						'status' => 1,
+						'answer' => $answer
+					]);
+				}else{
+					$index_of_parentheses_closing = stripos($answer, "))");
+					if($index_of_parentheses_closing !== false){
+						$function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
+						$function_name = trim($function_name);
+						if(stripos($function_name, ' ') !== false){ 
+							echo json_encode([
+								'status' => 0,
+								'answer' => "The function name should not contain white spaces"
+							]);
+							return;
+						}
+						if(!function_exists($function_name)){
+							echo json_encode([
+								'status' => 0,
+								'answer' => "I am sorry but I could not find that function"
+							]);
+						}else{
+							echo json_encode([
+								'status' => 1,
+								'answer' => str_replace("(($function_name))", $function_name(), $answer)
+							]);
+						}
+						return;
+					}
+				}
+			}else{
+				echo json_encode([
+					'status' => 0,
+					'answer' => "Unfortunately, I cannot answer your question at the moment. you  can train me more <br> <b>train: question # answer</b>"
+				]);
+			}		
+			return;
+		}else{
+			
+			$question_and_answer_string = substr($question, 6);
+		
+			$question_and_answer_string = preg_replace('([\s]+)', ' ', trim($question_and_answer_string));
+			
+			$question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string); 
+			$split_string = explode("#", $question_and_answer_string);
+			if(count($split_string) == 1){
+				echo json_encode([
+					'status' => 0,
+					'answer' => "Error training method command <br> The correct training data format is <br> <b>train: question # answer</b>"
+				]);
+				return;
+			}
+					$que = trim($split_string[0]);
+				$ans = trim($split_string[1]);
+			if(count($split_string) < 3){
+					echo json_encode([
+					'status' => 0,
+					'answer' => "You need to enter the training password to train me."
+				]);
+				return;
+			}
+								$password = trim($split_string[2]);
+								
+								define('TRAINING_PASSWORD', 'trainme');
+								if($password !== TRAINING_PASSWORD){
+									echo json_encode([
+										'status' => 0,
+										'answer' => "You are not authorized to train me"
+									]);
+									return;
+								}
+			
+							
+								$sql = "insert into chatbot (question, answer) values (:question, :answer)";
+								$stmt = $conn->prepare($sql);
+								$stmt->bindParam(':question', $que);
+								$stmt->bindParam(':answer', $ans);
+								$stmt->execute();
+								$stmt->setFetchMode(PDO::FETCH_ASSOC);
+								echo json_encode([
+				'status' => 1,
+				'answer' => "Thank you, i can now be of more help"
+			]);
+			return;
+		}
+		echo json_encode([
+			'status' => 0,
+			'answer' => "Hello please ask me a meaningful question"
+		]);
+		
+	}
+?>
+<?php
+								if($_SERVER['REQUEST_METHOD'] === "GET"){
+							if(!defined('DB_USER')){
+					require "../../config.php";		
+				try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
+		}
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		
+
+?>
+
+
+
+<?php
+	if($_SERVER['REQUEST_METHOD'] === "GET"){
+?>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
- 
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
   <title>TiaraYuppy - HNG Internship</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-  <script src="https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js"></script>
+ <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
 <style>
@@ -288,6 +444,10 @@ body{
     color: #070707;
     background-color: #070707;
 }
+
+#time{
+    display-content:center;
+}
 #demo {
             /*background-color: #ffffff;*/
             width: 80%;
@@ -447,14 +607,12 @@ body{
 
                 </div>
                 <div class="avatar">
-                    <img alt="" src="<?php echo $profile_details['image_filename'] ?>">
+                    <img alt="" src="http://res.cloudinary.com/tiarayuppy/image/upload/v1523634049/IMG_20171025_172725.jpg">
                 </div>
                 <div class="info">
                     <div class="title">
-                        <a target="_blank" href="http://res.cloudinary.com/tiarayuppy/image/upload/v1523634049/IMG_20171025_172725.jpg">
-                        <?php echo $profile_details['name'] ?></a>
+                        <a target="_blank" href="http://res.cloudinary.com/tiarayuppy/image/upload/v1523634049/IMG_20171025_172725.jpg">Miracle Joseph</a>
                     </div>
-                    <p><?php echo $profile_details['username'] ?></p>
                     <div class="desc">Passionate designer</div>
                     <div class="desc">Curious developer</div>
                     <div class="desc">Tech geek| Woman in Tech</div>
@@ -474,15 +632,24 @@ body{
                         <i class="fa fa-behance"></i>
                     </a>
                 </div>
+                    
+  
             </div>
 
         </div>
+
 
     </div>
 
 
 </div>
-
+<div id="time"></div>
+  
+    
+   
+    </div>
+    
+<script src="https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js"></script>
 
 
 <div id="demo">
@@ -497,17 +664,35 @@ body{
     <div id="chatBot">
         <div id="chatBotThinkingIndicator"></div>
         <div id="chatBotHistory"></div>
+        
     </div>
 </div>
-
-
+<script>
+   function updateClock(){
+            console.log("called ")
+            let d = new Date().toUTCString();
+            d = d.substr(0, d.indexOf("GMT")-9)
+             d += " - " + new Date().toLocaleTimeString();
+            document.getElementById('time').innerText = d;
+            
+            return 0;
+             
+               
+        }
+         window.onload = function(){
+            updateClock();
+          var j=  setInterval(updateClock, 1000);
+         }
+</script>
 <script>
     var sampleConversation = [
         "Hi",
         "My name is [name]",
         "Where is Hotels.ng?",
-        "What is the Nigeria",
-        "Bye"
+        "Whhere is  Nigeria",
+        "Bye",
+        "What is the time"
+
         
     ];
     var config = {
@@ -522,7 +707,8 @@ body{
     ChatBot.init(config);
     ChatBot.setBotName("Tiarayuppy");
     ChatBot.addPattern("^hi$", "response", "Hello, friend", undefined, "Say 'Hi' to be greeted back.");
-    ChatBot.addPattern("^bye$", "response", "See you later buddy", undefined, "Say 'Bye' to end the conversation.");
+    ChatBot.addPattern("^What is the time$", "response", "The Time is getTime()", undefined, "Say 'What is the time' to be greeted back.");
+    ChatBot.addPattern("^bye$", "response", "See you later...", undefined, "Say 'Bye' to end the conversation.");
     ChatBot.addPattern("(?:my name is|I'm|I am) (.*)", "response", "hi $1, thanks for talking to me today", function (matches) {
         ChatBot.setHumanName(matches[1]);
     },"Say 'My name is [your name]' or 'I am [name]' to be called that by the bot");
@@ -532,6 +718,46 @@ body{
     },"Say 'compute [number] plus [number]' to make the bot your math calculator");
 
 </script>
+<script>
+    
+else if(str.indexOf("time") != -1){
+        let inStr = str.substr(str.indexOf("time") + 5, 2);
+        if(inStr !== "in"){
+            print("Usage: What is the time in New York \n or Time in New York");
+        }else {
+        let city = str.substr(str.indexOf(inStr)+3, str.length -1)
+        //city = capitalize(city);
+        console.log("citycity", city)
+        
+        if(city == " "){
+            print("Usage: What is the time in New York \n or Time in New York");
+        }else{
+            let geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address="+ city + "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
+            fetch(geocodeUrl)
+            .then(response=>{
+                return response.json()
+            })
+            .then(response=>{
+                let lat = response.results[0].geometry.location.lat;
+                let lng = response.results[0].geometry.location.lng;
+                var targetDate = new Date() // Current date/time of user computer
+                var timestamp = targetDate.getTime()/1000 + targetDate.getTimezoneOffset() * 60 
+                let url = "https://maps.googleapis.com/maps/api/timezone/json?location="+lat+"," + lng+"&timestamp=" +timestamp+ "&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U" 
+                console.log(url);  
+                
+                fetch(url)
+                .then(response=>{
+                    return response.json();
+                })
+                .then(response=>{
+                    var offsets = response.dstOffset * 1000 + response.rawOffset * 1000 // get DST and time zone offsets in milliseconds
+                    var localdate = new Date(timestamp * 1000 + offsets) // Date object containing current time of Tokyo (timestamp + dstOffset + rawOffset)
+                    print("The time in " + capitalize(city) + " is " + localdate.toLocaleString())
+                }) 
 
+</script>
 </body>
 </html>
+<?php 
+	}
+?>
