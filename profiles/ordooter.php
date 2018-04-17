@@ -1,18 +1,4 @@
 
-<?php
- require '../db.php';
-$username = "ordooter";
- 
-$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
-$sql0 = "SELECT * FROM `secret_word` LIMIT 1";
-$stmt0 = $conn->prepare($sql0);
-$stmt0->execute();
-$data = $stmt0->fetch(PDO::FETCH_ASSOC);
-$secret_word = $data['secret_word'];
-$stmt = $conn->prepare($sql);
-$stmt->execute();
-$result = $stmt->fetch(PDO::FETCH_ASSOC);
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -73,9 +59,9 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
     <header class="masthead bg-primary text-white text-center">
       <div class="container">
         <img class="img-fluid mb-5 d-block mx-auto" src="http://i1074.photobucket.com/albums/w416/Butu_Ordooter_A/profile1_zpsblk9vlnz.png" alt="">
-        <h1 class="text-uppercase mb-0">Butu Ordooter</h1>
+        <h1 class="text-uppercase mb-0"><?php echo ("Butu Ordooter"); ?></h1>
         <hr class="star-light">
-        <h2 class="font-weight-light mb-0">Web Developer -  DevOps Engineer - Backend Engineer</h2>
+        <h2 class="font-weight-light mb-0"><?php echo ("Web Developer -  DevOps Engineer - Backend Engineer"); ?></h2>
         <hr class="star-light">
         <h2 class="font-weight-light mb-0">My Current Date is: <?php echo date("D M d, Y G:i a"); ?></h2>
       </div>
