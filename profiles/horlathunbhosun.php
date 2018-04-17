@@ -129,8 +129,8 @@
     </div>
     <div class="col-md-6">
     	<h1>ABOUT ME</h1> <br>
-		 	<h5><b>Name:</b> <?php echo  $user->name; ?> <span>(<?php echo $user->username; ?>)</span></h5>
-		 	<h5><b>Username:</b>  </h5>
+		 	<h5><b>Name:</b> <?php echo  $user->name; ?> <span></span></h5>
+		 	<h5><b>Username:</b> (<?php echo $user->username; ?>) </h5>
 		 	<h6>(Web Developer)</h6>
 		 	<h6><b>Skills:</b></h6> 
         <p style="padding-right: 10px;"> PHP,HTML,CSS,BOOTSTRAP,CODEIGNITER.</p>
