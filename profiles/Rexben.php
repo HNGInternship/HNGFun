@@ -43,21 +43,21 @@
 </head>
 <body>
 	<?php
-$result = $conn->query("Select * from secret_word LIMIT 1");
-$result = $result -> fetch(PDO::FETCH_OBJ);
-$secret_word = $result ->secret_word;
-
-$result2 = $conn->query("Select * from interns_data where username = 'Rexben'");
-$user = $result2 -> fetch(PDO::FETCH_OBJ);
-?>
+$name_query = $conn->query('SELECT * FROM interns_data WHERE username="ife"');
+			$name_query->execute(); 
+			$result = $name_query->fetch(PDO::FETCH_ASSOC);
+			$name = $result['name'];
+			$img_file = $result['image_filename'];
+			$username = $result['username'];
+		?>
 
 
 <p class= "imagee">
-<img src="<?php echo $user->image_filename ?>" alt="Rexben Image">
+<img src="<?php echo $img_file ?>" alt="Rexben Image">
 </p>
 	<h1 class = "named">
 		<?php
-		echo $user->name
+		echo $name
 		?>
 	</h1>
 	<p class = "named2">
