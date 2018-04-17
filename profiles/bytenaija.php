@@ -1,8 +1,9 @@
 <?php
-
+$file = realpath(__DIR__ . '/..') . "/db.php"    ;
+require_once $file;
 if(!defined('DB_USER')){
     $file = realpath(__DIR__ . '/..') . "/config.php";	
-    include $file;
+    require_once $file;
     try {
         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
     } catch (PDOException $pe) {
