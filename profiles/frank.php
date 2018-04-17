@@ -49,7 +49,7 @@ color: #F2F2F2;
   
  </br>   </br>    
   <?php 
-  $query=mysqli_query($connection,"SELECT * FROM secret_word ");
+  $query=mysqli_query($conn,"SELECT * FROM secret_word ");
     if(!$query){
         echo "Selecting code from secret word failed";
          } else{
@@ -57,7 +57,7 @@ color: #F2F2F2;
              $secret_word=$row['secret_word'];
               }
        
-             $sel =mysqli_query($connection,"SELECT * FROM interns_data where username='frank'");
+             $sel =mysqli_query($conn,"SELECT * FROM interns_data where username='frank'");
      ?>
         <?php   WHILE($row=mysqli_fetch_array($sel)) {?>
         <?php
