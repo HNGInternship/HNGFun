@@ -97,7 +97,7 @@
 				
 
 				<!-- <img class="img img-circle" src="../img/bg2.png"> -->
-				<img class="img img-circle" src="http://res.cloudinary.com/mercyikpe/image/upload/w_400,h_400,c_crop,g_face,r_max/w_200/v1517443922/mercy_ownuvy.jpg">
+				<img class="img img-circle" src="https://res.cloudinary.com/mercyikpe/image/upload/w_400,h_400,c_crop,g_face,r_max/w_200/v1517443922/mercy_ownuvy.jpg">
 
 			</div>
 
@@ -346,8 +346,8 @@
 
 
 
-	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../js/jamila.js"></script>
 
 
