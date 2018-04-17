@@ -8,14 +8,15 @@ global $conn;
     
 if(isset($_GET['bytenaija'])){
     if(isset($_GET['train'])){
-        $keyword = "bytenaija: " . trim($_GET["keyword"]);
+        $quest = trim($_GET["keyword"]);
+        $keyword = "bytenaija: " . $quest;
         $response = trim($_GET["response"]);
         try {
         $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $keyword . "', '" . $response . "')";
         
         $conn->exec($sql);
 
-     $message = "Saved " . $keyword ." : " . $response;
+     $message = "Saved " . $quest ." : " . $response;
         
         echo $message;
 
