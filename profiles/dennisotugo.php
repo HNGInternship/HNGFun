@@ -17,11 +17,8 @@ $secret_word = $words['secret_word'];
 		<title>Dennis Otugo</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="https://html5up.net/uploads/demos/aerial/assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="https://html5up.net/uploads/demos/aerial/assets/css/main.css" />	
-		<!--[if lte IE 8]><link rel="stylesheet" href="https://html5up.net/uploads/demos/aerial/assets/css/ie8.css" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="https://html5up.net/uploads/demos/aerial/assets/css/ie9.css" /><![endif]-->
-		<style>
+		<link rel="stylesheet" href="/aerial/assets/css/main.css" />	
+<style>
 #overlay {
 
     background-image: none;
@@ -96,7 +93,7 @@ span#chatbot {
 				</div>
 				<script type="text/javascript">
 				var trigger = [
-					["hi","hey","hello"], 
+					["hi","hey","hello","yo","bot"], 
 					["how are you", "how is life", "how are things"],
 					["what are you doing", "what is going on"],
 					["how old are you"],
@@ -111,7 +108,7 @@ span#chatbot {
 					["bye", "good bye", "goodbye", "see you later"]
 				];
 				var reply = [
-					["Hi","Hey","Hello"], 
+					["Hi","Hey","Hello","howdy","Yes, I'm listening..."], 
 					["Fine", "Pretty well", "Fantastic"],
 					["Nothing much", "About to go to sleep", "Can you guest?", "I don't know actually"],
 					["I am 1 day old"],
@@ -125,7 +122,7 @@ span#chatbot {
 					["Tell me a story", "Tell me a joke", "Tell me about yourself", "You are welcome"],
 					["Bye", "Goodbye", "See you later"]
 				];
-				var alternative = ["Haha...", "Eh..."];
+				var alternative = ["You would have to train me to say that", "Say that again but now say it slowly"];
 				document.querySelector("#input").addEventListener("keypress", function(e){
 					var key = e.which || e.keyCode;
 					if(key === 13){ //Enter button
@@ -177,7 +174,6 @@ span#chatbot {
 
 			</div>
 		</div>
-		<!--[if lte IE 8]><script src="html5up.net/uploads/demos/aerial/assets/js/ie/respond.min.js"></script><![endif]-->
 		<script>
 			window.onload = function() { document.body.className = ''; }
 			window.ontouchmove = function() { return false; }
