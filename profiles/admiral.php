@@ -103,6 +103,13 @@
 			display: block;
 			background-color: blue;
 		}
+		.chat {
+			display: block;
+			background-color: blue;
+			color: #fff;
+			text-align: center;
+			padding: 10px 0;
+		}
 	</style>
 </head>
 <body>
