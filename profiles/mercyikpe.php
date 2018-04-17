@@ -48,8 +48,6 @@
 <html>
 <head>
 	<title>Mercy Ikpe | Jamila</title>
-	<link rel="stylesheet" type="text/css" href="../css/ripples.min.css">
-	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/jamila.css">
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -346,9 +344,7 @@
 
 
 
-	<script type="text/javascript" src="../js/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="../js/ripples.min.js"></script>
 	<script type="text/javascript" src="../js/jamila.js"></script>
 
 
