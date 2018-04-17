@@ -46,6 +46,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
       $question = preg_replace('([\s]+)', ' ', trim($question));
       $question = preg_replace("([?.])", "", $question);
+
+      switch(strtolower($question))
+      {
+        case "tell me a joke":
+        case "tell me another joke":
+          sendResponse(200, getAJoke());
+          break;
+      }
       
       $question = "%$question%";
       $sql = "select * from chatbot where question like :question";
@@ -342,7 +350,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           el: '#chat-bot',
           data: {
             showChatBot: false,
-            messages: [{query: `Hey human. I'm Jarvis. Ask me anything.`, sender: 'bot'}],
+            messages: [{query: `Hey, human. I'm Olive. Ask me anything.`, sender: 'bot'}],
             query: '',
           },
           computed: {
@@ -374,17 +382,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             },
             answerQuery(query) {
               this.messages.push({sender: 'bot', query: 'Thinking..'});
+              
               var params = new URLSearchParams();
               params.append('password', 'trainpwforhng');
               params.append('question', query);
 
               axios.post('/profiles/mclint_.php', params)
                 .then(response => {
-                  console.log(response.data);
                   this.messages.pop();
                   this.messages.push({ sender: 'bot', query: response.data.answer });
                 }).catch(error => {
-                  console.log(error);
                   this.messages.pop();
                   this.messages.push({ sender: 'bot', query: 'Mediocre humans. Your internet connection is down.' });
                 });
