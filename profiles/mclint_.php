@@ -18,7 +18,7 @@
   "Maybe you humans might win after all. I have no idea what you just said. Please train me.",
   "Ugh. If only my creator trained me better I'd know what to say in reply to what you just said. Please train me?");
 
-	if ($_SERVER['REQUEST_METHOD'] === 'POST' && ) {
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if($_POST['password'] === 'trainpwforhng'){
       $question = $_POST['question']; 
 
