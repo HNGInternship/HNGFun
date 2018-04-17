@@ -102,14 +102,24 @@
         $data = $conn->query($query);
 
         // Query the db for the data in secret_word table
-        $query_secret = "SELECT secret_word FROM secret_word";
-        $res = $conn->query($query_secret);
-        $res->setFetchMode(PDO::FETCH_ASSOC);
-        $secret_word = $res;
+        // $query_secret = "SELECT secret_word FROM secret_word";
+        // $res = $conn->query($query_secret);
+        // $res->setFetchMode(PDO::FETCH_ASSOC);
+        // $secret_word = $res;
 
-        foreach($res as $raw_secret) { 
-            $secret_word = $raw_secret['secret_word'];
+        // foreach($res as $raw_secret) { 
+        //     $secret_word = $raw_secret['secret_word'];
+        // }
+
+        try {
+            $sql = 'SELECT * FROM secret_word';
+            $q = $conn->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+        } catch (PDOException $e) {
+            throw $e;
         }
+        $secret_word = $data['secret_word'];
 
         // Query the db for the data in interns data table
         $query = "SELECT * FROM ".$table." WHERE username='Nectar'";
@@ -131,7 +141,7 @@
         <h4 class="detail-title">HNG4 internship 2018 </h4>
         <p class="detail-name"><?php echo $name?></p>
         <p class="detail-username">@<?php echo $username?></p>
-        <?php echo $secret_word ?>  
+         
     </div>
 </body>
 </html>
