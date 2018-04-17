@@ -2,7 +2,7 @@
 include_once("header.php");
 require 'db.php';
 
-$sql = 'SELECT * FROM interns_data_';
+$sql = 'SELECT * FROM interns_data';
 $q = $conn->query($sql);
 $q->setFetchMode(PDO::FETCH_ASSOC);
 $data = $q->fetchAll();
@@ -22,8 +22,6 @@ $data = $q->fetchAll();
     </header>
 
   <div class="container" id="container">
-
-
 
 
 <!--Section: interns v.1-->
@@ -67,8 +65,6 @@ $data = $q->fetchAll();
 
 
 </div>
-
-
 
 
 

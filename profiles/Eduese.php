@@ -79,7 +79,7 @@ p, h4{color:blue}
 DEFINE ('DB_USER', 'Eduese');
 DEFINE ('DB_PASSWORD', '');
 DEFINE ('DB_HOST', 'localhost');
-DEFINE ('DB_NAME', 'mydbhng');
+DEFINE ('DB_NAME', 'interns_data');
 
 // Next we assign the database connection to a variable that we will call $dbcon: 
 $dbcon = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
@@ -102,7 +102,7 @@ mysqli_set_charset($dbcon, 'utf8');
 <h4><i>Welcome to my page, I am 
 
 <?php 
-$q = "SELECT name, username, image_filename  FROM myhng_table  
+$q = "SELECT name, username, image_filename  FROM interns_data  
 		WHERE (username='Eduese')  ";
 $result = mysqli_query($dbcon, $q); // Run the query. #7
 

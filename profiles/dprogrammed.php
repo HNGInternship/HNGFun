@@ -1,28 +1,39 @@
+
 <?php
+
 require 'db.php';
 $image = '';                 
 $name ="";
 $username = "";     
 $secret_word = "";
 
-$conn = mysqli_connect('localhost','root','','hng_fun');
+// $conn = mysqli_connect('localhost','root','','hng_fun');
 // Check connection
 // if (mysqli_connect_errno())
 //   {
 //   echo "Failed to connect to MySQL: " . mysqli_connect_error();
 //   }
 
-$result = $conn->query("Select * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
+$stmt = $conn->query('SELECT * FROM interns_data WHERE username="dprogrammed"');
+ 
+while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+   $name = $row['name'];
+   $username = $row['username']; 
+   $image = $row['image_filename'];//etc...
+}
 
-  $result2 = $conn->query("Select * from interns_data where username = 'dprogrammed'");
-  $user = $result2->fetch(PDO::FETCH_ASSOC);
-    $name = $user['name'];
-    $username = $user['username'];
-    $image = $user['image_filename'];
+    // output data of each row
 
 
+
+$stmt =$conn->query('SELECT * FROM secret_word');
+
+$stmt = $conn->query('SELECT secret_word FROM secret_word LIMIT 1');
+ 
+while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $secret_word = $row['secret_word'];
+
+}
 
 ?>
 
