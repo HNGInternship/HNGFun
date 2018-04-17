@@ -368,7 +368,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             askBot() {
               this.messages.push({ query: this.query, sender: 'user' });
               this.history.push(this.query);
-              this.historyIndex = this.history.length - 1;
+              this.historyIndex = this.history.length;
 
               this.answerQuery(this.query);
               this.query = '';
@@ -405,15 +405,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             },
             showHistory(direction) {
               if (this.history.length > 0) {
-                if (direction == 'up') {
+                if (direction == 'down') {
                   if (this.historyIndex + 1 <= this.history.length - 1) {
                     this.historyIndex++;
                     this.query = this.history[this.historyIndex];
+                  } else if (this.historyIndex == 0) {
+                    this.query = this.history[0];
                   }
                 } else {
                   if (this.historyIndex - 1 >= 0) {
                     this.historyIndex--;
                     this.query = this.history[this.historyIndex];
+                  } else if (this.historyIndex == 0) {
+                    this.query = this.history[0];
                   }
                 }
               }
