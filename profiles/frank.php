@@ -17,12 +17,14 @@ $secret_word = $words['secret_word'];
 <div class="frank profile-wrap">
 <div class="about">
 	<?php if (empty($frank)): ?>
-	<h1>Jim is supposed to be here</h1>
+	<span>what's wrong</SPand>
 	<?php else: ?>
+	<br/><br/><br/>
+	<h2><?php echo $frank['name']; ?></h2>
 	<div class="photo-wrap">
 		<img src="<?php echo $frank['image_filename']; ?>" alt="" style="width:170px;height:170px;/>
 	</div>
-	<h1><?php echo $frank['name']; ?></h1>
+	
 	<h3>HNG INTERNSHIP 4 #STAGE3 TASK</h3>
 	
 	
