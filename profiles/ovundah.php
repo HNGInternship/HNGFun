@@ -3,9 +3,9 @@
 		require 'db.php';
         
 
-		//$result = $conn->query("Select * from secret_word LIMIT 1");
-		//$result = $result->fetch(PDO::FETCH_OBJ);
-		//$secret_word = $result->secret_word;
+		$result = $conn->query("Select * from secret_word LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+		$secret_word = $result->secret_word;
 
 		$result2 = $conn->query("Select * from interns_data where username = 'ovundah'");
 		$user = $result2->fetch(PDO::FETCH_OBJ);
@@ -13,7 +13,7 @@
 
      //stage 4
      
-
+/*
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
 		$stmt = $conn->prepare("SELECT * FROM chatbot");
@@ -23,10 +23,10 @@
 
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$rows = $stmt->fetchAll();
-        print_r($rows);
+        //print_r($rows);
 
 
-
+*/
 /*
 		if(count($rows)>0){
 			$row = $rows[0];
@@ -49,7 +49,7 @@
                 <img src="http://res.cloudinary.com/ovu/image/upload/c_scale,e_grayscale,o_100,r_100,w_200/a_349/v1523814132/Ovundah.png" alt="Ovundah King" >
             </div>
             <div style="font-family: 'Exo 2', sans-serif;'">
-                <h1><strong>Ovundah King new</strong></h1>
+                <h1><strong>Ovundah King</strong></h1>
                 <p>Tech Enthusiast</p>
                 <p>Figma, HTML, CSS, JS, MEAN</p>
 	               <a href="https://twitter.com/OvundahKing" style='color: #5697ff'>

@@ -6,7 +6,7 @@
    $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
    $user = $result2->fetch(PDO::FETCH_OBJ);
    //start
-   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    /*if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		require "../answers.php";
 
@@ -70,7 +70,7 @@
 		catch (Exception $e){
 	    return $e->message ;
         }
-	}
+	}*/
 ?>
 <!DOCTYPE html>
 <html>
