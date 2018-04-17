@@ -81,7 +81,7 @@
 
         #center {
             position: absolute;
-            top: 12%;
+            top: 15%;
             float: left;
             padding-left: 20px;
         }
@@ -220,7 +220,9 @@
         }
 
         #cent {
-            text-align: justify;
+            text-align: center;
+            align-content: flex-start;
+            transform: translateX(0%) translateY(10px);
         }
     </style>
 </head>
@@ -336,6 +338,7 @@
 
 
 <div id="cent">
+
     <?php
     
     $result = $conn->query("Select * from secret_word LIMIT 1");
