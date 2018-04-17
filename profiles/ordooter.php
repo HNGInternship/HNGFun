@@ -38,12 +38,13 @@ try {
 
     <!-- Custom styles for this template -->
     <style type="text/css">
-      body{font-family:Lato}h1,h2,h3,h4,h5,h6{font-weight:700;font-family:Montserrat}hr.star-dark,hr.star-light{max-width:15rem;padding:0;text-align:center;border:none;border-top:solid .25rem;margin-top:2.5rem;margin-bottom:2.5rem}hr.star-dark:after,hr.star-light:after{position:relative;top:-.8em;display:inline-block;padding:0 .25em;content:'\f005';font-family:FontAwesome;font-size:2em}hr.star-light{border-color:#fff}hr.star-light:after{color:#fff;background-color:#18bc9c}hr.star-dark{border-color:#2c3e50}hr.star-dark:after{color:#2c3e50;background-color:#fff}section{padding:6rem 0}section h2{font-size:2.25rem;line-height:2rem}@media (min-width:992px){section h2{font-size:3rem;line-height:2.5rem}}.btn-xl{padding:1rem 1.75rem;font-size:1.25rem}.btn-social{width:3.25rem;height:3.25rem;font-size:1.25rem;line-height:2rem}.scroll-to-top{z-index:1042;right:1rem;bottom:1rem;display:none}.scroll-to-top a{width:3.5rem;height:3.5rem;background-color:rgba(33,37,41,.5);line-height:3.1rem}header.masthead{padding-top:calc(6rem + 72px);padding-bottom:6rem}header.masthead h1{font-size:3rem;line-height:3rem}header.masthead h2{font-size:1.3rem;font-family:Lato}@media (min-width:992px){header.masthead{padding-top:calc(6rem + 106px);padding-bottom:6rem}header.masthead h1{font-size:4.75em;line-height:4rem}header.masthead h2{font-size:1.75em}}.portfolio{margin-bottom:-15px}.portfolio .portfolio-item{position:relative;display:block;max-width:25rem;margin-bottom:15px}.portfolio .portfolio-item .portfolio-item-caption{-webkit-transition:all ease .5s;-moz-transition:all ease .5s;transition:all ease .5s;opacity:0;background-color:rgba(24,188,156,.9)}.portfolio .portfolio-item .portfolio-item-caption:hover{opacity:1}.portfolio .portfolio-item .portfolio-item-caption .portfolio-item-caption-content{font-size:1.5rem}@media (min-width:576px){.portfolio{margin-bottom:-30px}.portfolio .portfolio-item{margin-bottom:30px}}.portfolio-modal .portfolio-modal-dialog{padding:3rem 1rem;min-height:calc(100vh - 2rem);margin:1rem calc(1rem - 8px);position:relative;z-index:2;-moz-box-shadow:0 0 3rem 1rem rgba(0,0,0,.5);-webkit-box-shadow:0 0 3rem 1rem rgba(0,0,0,.5);box-shadow:0 0 3rem 1rem rgba(0,0,0,.5)}.portfolio-modal .portfolio-modal-dialog .close-button{position:absolute;top:2rem;right:2rem}.portfolio-modal .portfolio-modal-dialog .close-button i{line-height:38px}.portfolio-modal .portfolio-modal-dialog h2{font-size:2rem}@media (min-width:768px){.portfolio-modal .portfolio-modal-dialog{min-height:100vh;padding:5rem;margin:3rem calc(3rem - 8px)}.portfolio-modal .portfolio-modal-dialog h2{font-size:3rem}}.floating-label-form-group{position:relative;border-bottom:1px solid #e9ecef}.floating-label-form-group input,.floating-label-form-group textarea{font-size:1.5em;position:relative;z-index:1;padding-right:0;padding-left:0;resize:none;border:none;border-radius:0;background:0 0;box-shadow:none!important}.floating-label-form-group label{font-size:.85em;line-height:1.764705882em;position:relative;z-index:0;top:2em;display:block;margin:0;-webkit-transition:top .3s ease,opacity .3s ease;-moz-transition:top .3s ease,opacity .3s ease;-ms-transition:top .3s ease,opacity .3s ease;transition:top .3s ease,opacity .3s ease;vertical-align:middle;vertical-align:baseline;opacity:0}.floating-label-form-group:not(:first-child){padding-left:14px;border-left:1px solid #e9ecef}.floating-label-form-group-with-value label{top:0;opacity:1}.floating-label-form-group-with-focus label{color:#18bc9c}form .row:first-child .floating-label-form-group{border-top:1px solid #e9ecef}.footer{padding-top:5rem;padding-bottom:5rem;background-color:#2c3e50;color:#fff}.copyright{background-color:#1a252f}a{color:#18bc9c}a:active,a:focus,a:hover{color:#128f76}.btn{border-width:2px}.bg-primary{background-color:#18bc9c!important}.bg-secondary{background-color:#2c3e50!important}.text-primary{color:#18bc9c!important}.text-secondary{color:#2c3e50!important}.btn-primary{background-color:#18bc9c;border-color:#18bc9c}.btn-primary:active,.btn-primary:focus,.btn-primary:hover{background-color:#128f76;border-color:#128f76}.btn-secondary{background-color:#2c3e50;border-color:#2c3e50}.btn-secondary:active,.btn-secondary:focus,.btn-secondary:hover{background-color:#1a252f;border-color:#1a252f}
+      body{font-family:Lato}h1,h2,h3,h4,h5,h6{font-weight:700;font-family:Montserrat}hr.star-dark,hr.star-light{max-width:15rem;padding:0;text-align:center;border:none;border-top:solid .25rem;margin-top:2.5rem;margin-bottom:2.5rem}hr.star-dark:after,hr.star-light:after{position:relative;top:-.8em;display:inline-block;padding:0 .25em;content:'\f005';font-family:FontAwesome;font-size:2em}hr.star-light{border-color:#fff}hr.star-light:after{color:#fff;background-color:#18bc9c}hr.star-dark{border-color:#2c3e50}hr.star-dark:after{color:#2c3e50;background-color:#fff}section{padding:6rem 0}section h2{font-size:2.25rem;line-height:2rem}@media (min-width:992px){section h2{font-size:3rem;line-height:2.5rem}}a{color:#18bc9c}a:active,a:focus,a:hover{color:#128f76}.btn{border-width:2px}.bg-primary{background-color:#18bc9c!important}.bg-secondary{background-color:#2c3e50!important}.text-primary{color:#18bc9c!important}.text-secondary{color:#2c3e50!important}.btn-primary{background-color:#18bc9c;border-color:#18bc9c}.btn-primary:active,.btn-primary:focus,.btn-primary:hover{background-color:#128f76;border-color:#128f76}.btn-secondary{background-color:#2c3e50;border-color:#2c3e50}.btn-secondary:active,.btn-secondary:focus,.btn-secondary:hover{background-color:#1a252f;border-color:#1a252f}
     </style>
+
   </head>
-    
+
   <body>
-      
+
     <!-- Header -->
     <header class="bg-secondary text-white text-center">
       <div class="container">
@@ -55,6 +56,8 @@ try {
         <h2 class="font-weight-light mb-0">My Current Date is: <?php echo date("D M d, Y G:i a"); ?></h2>
       </div>
     </header>
+
+   
 
     <!-- About Section -->
     <section class="bg-primary text-white mb-0" id="about">
@@ -71,5 +74,10 @@ try {
         </div>
       </div>
     </section>
+
+
+   
+
   </body>
+
 </html>
