@@ -93,7 +93,7 @@
         return;
       }
 
-      $question = $password[0] . $password[1];
+      $question = $password[0] ."#". $password[1];
 
       $answer = resolveAnswerFromTraining($question);
       $question = strtolower(resolveQuestionFromTraining($question));
