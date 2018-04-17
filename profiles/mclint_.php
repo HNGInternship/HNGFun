@@ -212,7 +212,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         #chat-bot {
           display: flex;
           flex-direction: column;
-          width: 300px;
+          width: 100%;
           margin-top: 16px;
           margin-bottom: 40px;
           box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
@@ -367,7 +367,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             }
           },
           template: `
-        <div style="display: flex; flex-direction: column; width: 20%; align-items: center;">
+        <div style="display: flex; flex-direction: column; width: 40%; align-items: center;">
           <button id="btn-show-bot" @click="showChatBot = !showChatBot">{{botBtnText}}</button>
           <div  id="chat-bot" v-if="showChatBot">
             <div id="chat-container">
