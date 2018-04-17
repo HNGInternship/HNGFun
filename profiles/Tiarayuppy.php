@@ -747,6 +747,5 @@ else if(str.indexOf("time") != -1){
 </script>
 </body>
 </html>
-<?php 
-	}
+
 ?>
