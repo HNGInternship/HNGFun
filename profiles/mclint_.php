@@ -79,7 +79,7 @@
         $randomIndex = rand(0, sizeof($noIdeaResponses) - 1);
 				echo json_encode([
 					'status' => 0,
-					'answer' => $noIdeaResponses[$randomIndex];
+					'answer' => $noIdeaResponses[$randomIndex]
 				]);
 			}		
 			return;
