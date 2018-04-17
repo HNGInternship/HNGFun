@@ -13,8 +13,8 @@
 
      //stage 4
      
-/*
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+      // $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
 		$stmt = $conn->prepare("SELECT * FROM chatbot");
 		$stmt->execute();
@@ -23,10 +23,10 @@
 
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$rows = $stmt->fetchAll();
-        //print_r($rows);
+        print_r($rows);
 
 
-*/
+
 /*
 		if(count($rows)>0){
 			$row = $rows[0];
