@@ -72,11 +72,10 @@
 			padding: 7px;
 			position: relative;
 		}
-		input{
-			width: 100%;
+		input[type=submit]{
+			width: 60%;
 		    padding: 12px 20px;
-		    margin: 8px 0;
-		    box-sizing: border-box;
+		    margin: 8px 8px;
 		}
 		input[type=text] {
 		    width: 60%;
