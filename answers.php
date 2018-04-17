@@ -1,58 +1,26 @@
-<?php 
-//Bytenaija Entry. Do not modify
-$file = realpath(__DIR__) . "/db.php"    ;
-require_once $file;
-global $conn;
-
-
-    
-if(isset($_GET['bytenaija'])){
-    if(isset($_GET['train'])){
-        $keyword = trim($_GET["keyword"]);
-        $response = trim($_GET["response"]);
-        try {
-        $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $keyword . "', '" . $response . "')";
-        
-        $conn->exec($sql);
-
-     $message = "Saved " . $keyword ." : " . $response;
-        
-        echo $message;
-
-    }
-    catch(PDOException $e)
-        {
-        echo $sql . "<br>" . $e->getMessage();
-        }
-    }else if(isset($_GET['query'])){
-        
-        $query = $_GET['query'];
-        $str = "'%".$query."%'";
-        $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $str . " ORDER BY question ASC LIMIT 1";
-        
-      foreach ($conn->query($sql) as $row) {
-            echo $row["answer"];
-        } 
-      
-    } else if(isset($_GET['list'])){
-        $sql = "SELECT COUNT(*) FROM bot";
-        if ($res = $conn->query($sql)) {
-             
-        $string = '';
-     
-    /* Check the number of rows that match the SELECT statement */
-        if ($res->fetchColumn() > 0) {
-            $sql = "SELECT * FROM chatbot ORDER BY question ASC";
-       
-      foreach ($conn->query($sql) as $row) {
-            $string .= "<li>" . $row["question"] . "</li>";
-        } 
-         echo $string;
-         return;
-    }
-        
-     
-    }
+<?php
+function getListOfCommands() {
+  return 'Type "<code>show: List of commands</code>" to see a list of commands I understand.<br/>
+  Type "<code>open: www.google.com</code>" to open Google.com<br/>
+  Type "<code>say: Hello bot</code>" to get me to say "Hello bot"<br/>
+  Type "<code>train: Your question # My reply</code>" to train me to understand how to reply to more things';
 }
+
+function getRandomNumber() {
+  return (rand(10,10000));
 }
+
+function getBotName() {
+  return "the_ozmic's bot";
+}
+
+function getRandomFact(){
+  $facts = ["Most toilets flush in E flat",
+  "“Almost” is the longest word in English with all the letters in alphabetical order.",
+  "All swans in England belong to the queen.",
+  "No piece of square paper can be folded more than 7 times in half."];
+
+  return $facts[rand(0, count($facts) - 1)];
+}
+
 ?>
