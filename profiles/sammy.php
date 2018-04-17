@@ -49,8 +49,7 @@
             background-size: cover;
             margin: 0 auto;
             height: 900px;
-            width: 803px;
-            transform: translateX(0%) translateY(0%);
+            width: 800px;
         }
 
         .carousel-inner>.item>img,
@@ -78,7 +77,6 @@
             font-style: normal;
             letter-spacing: 1px;
             font-size: 13px;
-
         }
 
         #center {
@@ -154,6 +152,7 @@
             text-align: center;
             background-image: url("https://res.cloudinary.com/dyuuulmg0/image/upload/v1523622023/sammm.jpg");
             height: 130px;
+            display: inline-block;
             width: 800px;
             padding-top: 20px;
             position: relative;
@@ -202,7 +201,7 @@
         }
 
         #tod {
-            padding-top: 10px;
+            padding-top: 1px;
             border-left: 1px solid #5e5c5c46;
             border-right: 1px solid #5e5c5c46;
             border-top: 1px solid #5e5c5c46;
@@ -213,11 +212,15 @@
         }
 
         #foot-container {
-            padding-top: 45px;
+            padding-top: 53px;
         }
 
         #body {
             padding-top: 30px;
+        }
+
+        #cent {
+            text-align: justify;
         }
     </style>
 </head>
@@ -332,26 +335,28 @@
    </div>
 
 
+<div id="cent">
     <?php
-
-$result = $conn->query("Select * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
-
-  $result2 = $conn->query("Select * from interns_data where username = 'olubori'");
-  $user = $result2->fetch(PDO::FETCH_OBJ);
-  
-  try {
-      $sql = "SELECT secret_word FROM secret_word";
-      $q = $conn->query($sql);
-      $q->setFetchMode(PDO::FETCH_ASSOC);
-      $data = $q->fetch();
-      $secret_word = $data['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
-
-?>
+    
+    $result = $conn->query("Select * from secret_word LIMIT 1");
+      $result = $result->fetch(PDO::FETCH_OBJ);
+      $secret_word = $result->secret_word;
+    
+      $result2 = $conn->query("Select * from interns_data where username = 'olubori'");
+      $user = $result2->fetch(PDO::FETCH_OBJ);
+      
+      try {
+          $sql = "SELECT secret_word FROM secret_word";
+          $q = $conn->query($sql);
+          $q->setFetchMode(PDO::FETCH_ASSOC);
+          $data = $q->fetch();
+          $secret_word = $data['secret_word'];
+      } catch (PDOException $e) {
+          throw $e;
+      }
+    
+    ?>
+</div>
 
 </body>
 
