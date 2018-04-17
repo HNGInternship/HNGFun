@@ -82,9 +82,10 @@
 
     if (isTraining($question)) {
       if (isset($password[2])) {
-        if ($password[2] !== "trainpwforhng") {
+        if ($password[2] != "trainpwforhng") {
           echo "Invalid authorization, you are not allowed to train me.";
           exit();
+          return;
         }
       } else {
         echo "Please provide a password to train me.";
