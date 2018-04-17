@@ -1,24 +1,6 @@
 <!DOCTYPE html>
 
 
-<?php 
-try {
-     $profile = 'SELECT * FROM interns_data_ WHERE username="boldtechs"';
-    $select = 'SELECT * FROM secret_word';
-
-    $query = $conn->query($select);
-    $profile_query = $conn->query($profile);
-
-    $query->setFetchMode(PDO::FETCH_ASSOC);
-    $profile_query->setFetchMode(PDO::FETCH_ASSOC);
-
-    $get = $query->fetch();
-    $user = $profile_query->fetch();
-    $secret_word = $get['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
- ?>
 <head>
 	<title> Boldtechs | Profile</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed|Roboto+Mono" rel="stylesheet"> 
@@ -71,7 +53,7 @@ width: 100%;
 #content h3{
 
 margin: 10px auto;
-width: 11%;
+width: 12%;
 color: #fff;
  font-family: Roboto Mono;
 }
@@ -94,8 +76,16 @@ padding: 10px;
 
 #square p{
 
-margin-bottom: 30px;
+margin-bottom: 10px;
 
+
+}
+
+.align {
+width: 678px;
+margin: 0px auto;
+text-align: center;
+color: #fff;
 
 }
 
@@ -117,8 +107,8 @@ margin-bottom: 30px;
 
 	            <div id="oval"> </div>
 	            <h3> WEB | MOBILE</h3>
-	            <p>Tel: +2348063332676</p>
-	            <p>Slack : @boldtechs</p>
+	            <p class="align">Tel: +2348063332676</p>
+	            <p class="align">Slack : @boldtechs</p>
 	            <div id="square">
 	            	
 	            	<p>

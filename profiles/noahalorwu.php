@@ -16,7 +16,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 body{
-  color: #ef5350;
+  background-color:#ef5350;
+
 
 }
 .profile {
@@ -41,9 +42,7 @@ a {
   font-size: 40px;
   color: white;
 }
- a:hover i {
-            color: orange;
-        }
+ 
 
 </style>
 </head>

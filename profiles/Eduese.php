@@ -79,15 +79,15 @@ p, h4{color:blue}
 DEFINE ('DB_USER', 'Eduese');
 DEFINE ('DB_PASSWORD', '');
 DEFINE ('DB_HOST', 'localhost');
-DEFINE ('DB_NAME', 'mydbhng');
+DEFINE ('DB_NAME', '');
 
 // Next we assign the database connection to a variable that we will call $dbcon: 
 $dbcon = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
 OR die("Could not connect to server: " .mysqli_connect_error());
 
 // Finally, we set the language encoding.as utf-8
-mysqli_set_charset($dbcon, 'utf8'); 
-*/
+mysqli_set_charset($dbcon, 'utf8'); */
+
 ?>
 
 
@@ -102,7 +102,7 @@ mysqli_set_charset($dbcon, 'utf8');
 <h4><i>Welcome to my page, I am 
 
 <?php 
-$q = "SELECT name, username, image_filename  interns_data  
+$q = "SELECT name, username, image_filename  FROM interns_data  
 		WHERE (username='Eduese')  ";
 $result = mysqli_query($dbcon, $q); // Run the query. #7
 
@@ -114,8 +114,8 @@ $result = mysqli_query($dbcon, $q); // Run the query. #7
 		echo($row['name']);
 		
 		echo ' am a web developer. <br><br>
-		I am so glad to have you here. Please do more to explore the site. <br><br>';
-		echo 'Meanwhile, my username on slack is  @'; 
+		I am so glad to have you here. Please do more to explore the site. <br><br>
+		Meanwhile, my username on slack is  @'; 
 		echo ($row['username']);
 		echo ' <br><br>And the file name to the saved image is : ';
 		echo ($row['image_filename']);
@@ -123,10 +123,10 @@ $result = mysqli_query($dbcon, $q); // Run the query. #7
 		}
 	}
 	
-$p = "SELECT secret_word FROM secret_word ;";	
+/*$p = "SELECT secret_word FROM secret_word ;";	
 $result2 = mysqli_query($dbcon, $q); // Run the query. #7
 
-	
+	*/
 	
 	?> 
 	
