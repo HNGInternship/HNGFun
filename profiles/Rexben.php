@@ -70,9 +70,10 @@ $name_query = $conn->query('SELECT * FROM interns_data WHERE username="Rexben"')
 		echo $name
 		?>
 	</h1>
-	<p class = "named2">
-		I am into Web design, Android development, Content writing, Blogging, I do a little of graphic designs too.
-	</p>
+	<div class = "named2">
+		<p> Slack Username: @<?php echo $username?></p>
+		<p>I am into Web design, Android development, Content writing, Blogging, I do a little of graphic designs too.</p>
+	</div>
 
 <div class = "Skills"> <p>Skills</p>
 				<p>
