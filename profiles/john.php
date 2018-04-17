@@ -53,12 +53,12 @@ $secret_word =  $result['secret_word'];
 </head>
 <body>
 		
-	<h2 style="text-align:center; padding-top: 70px;">My Profile Card</h2>
+	<h2 style="text-align:center; padding-top: 50px; padding-bottom: 10px">My Profile Card</h2>
 
 	<div class="card">
-	  <img src="http://res.cloudinary.com/digitalstead/image/upload/v1523614823/john.jpg" alt="John picture" style="width:100%; height: 200px">
-	  <h1><?php echo $fullName ?></h1>
-	  <h6><?php echo "username: " $username ?></h6>
+	  <img src="http://res.cloudinary.com/digitalstead/image/upload/v1523614823/john.jpg" alt="John picture" style="width:100%; height: 250px">
+	  <h3 style="padding-top: 10px;"><?php echo $fullName ?></h3>
+	  <h6><?php echo 'Slack name:  '. $username ?></h6>
 	  <p class="title">FrontEnd Developer</p>
 	  <p>Bootstrap, Materialize and Angular</p>
 	  <div style="margin: 24px 0; padding-bottom: 20px">
