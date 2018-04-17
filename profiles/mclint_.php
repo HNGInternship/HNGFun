@@ -58,7 +58,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           'status' => 404,
           'answer' => $noIdeaResponses[$randomIndex]
         ]);
-    }/*else{
+    /*}else{
         echo json_encode([
           'status' => 403,
           'answer' => 'You are not authorized to train this bot.'
