@@ -9,7 +9,7 @@
 
 		private static $_host = 'localhost';
 		private static $_username = 'root';
-		private static $_password = 'limitless';
+		private static $_password = 'root';
 		private static $_driver = 'mysql';
 		private static $_instance = null;
 
@@ -30,7 +30,7 @@
 
 // 
 
-		public static function getInstance($dbname = 'hng'){
+		public static function getInstance($dbname = 'hng_fun'){
 
 
 			if(is_null(self::$_instance)){
