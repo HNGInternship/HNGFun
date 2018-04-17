@@ -141,10 +141,10 @@
 	<p>HNG INTERN PROFILE</p>
 </div>
 <div id="image">
-	<img src="https://res.cloudinary.com/dykuixlcf/image/upload/v1523964879/testimg.jpg" alt="Justin's picture">
+	<img src="<?php echo $user->image_filename; ?>" alt="Justin's picture">
 </div>
 <div id="social-header">
-	<P>Justin Wainaina</P>
+	<P><?php echo $user->name; ?></P>
 </div>
 <div id="slack">
 	<img src="https://res.cloudinary.com/dykuixlcf/image/upload/v1523986719/download.jpg" alt="slack icon">
@@ -158,7 +158,7 @@
 <div id="insta">
 	<img src="https://res.cloudinary.com/dykuixlcf/image/upload/v1523987390/insta.jpg" alt="inta icon">
 </div>
-<div id="slack_handle"><p style="margin: 0">@justin</p></div>
+<div id="slack_handle"><p style="margin: 0">@<?php echo $user->username; ?></p></div>
 <div id="fb_handle"><p style="margin: 0">Justin Wainaina</p></div>
 <div id="twitter_handle"><p style="margin: 0">@justin_that_guy</p></div>
 <div id="insta_handle"><p style="margin: 0">@justo_ke</p></div>
