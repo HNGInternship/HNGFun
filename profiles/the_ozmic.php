@@ -81,15 +81,16 @@
     $password = explode("#", trim($question));
 
     if (isTraining($question)) {
-      if (isset($password[2])) {
-        if ($password[2] != "trainpwforhng") {
-          echo "Invalid authorization, you are not allowed to train me." . $password[2];
-          exit();
-          return;
-        }
-      } else {
+      if (!isset($password[2])) {
         echo "Please provide a password to train me.";
         exit();
+        return;
+      }
+
+      if ($password[2] != "trainpwforhng") {
+        echo "Invalid authorization, you are not allowed to train me." . $password[2];
+        exit();
+        return;
       }
 
       $answer = resolveAnswerFromTraining($question);
