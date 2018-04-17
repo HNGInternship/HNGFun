@@ -1,151 +1,213 @@
 <?php
 
-$dbD = 'mysql:dbname='.DB_DATABASE.';host='.DB_HOST;
-		$username = DB_USER;
-		$password = DB_PASSWORD;
-$pdo = new PDO($dbD,$username,$password);
+
+  // if(!isset($_GET['id'])){
+ //     require '../db.php';
+  // }else{
+  //  require 'db.php';
+  // }
 
 
-$query = "SELECT name,username,image_filename FROM interns_data WHERE username = 'victororu'";
-$db = $pdo->prepare($query);
-$db->execute();
-$db->setFetchMode(PDO::FETCH_OBJ);
-$result = $db->fetch();
-// user details
-$name = $result->name;
-$username = $result->username;
-$img = $result->image_filename;
+  $query = "SELECT * FROM secret_word";
+  $fetch_secret_word = $conn->prepare($query);
+  if($fetch_secret_word->execute()){
+    $secret_data = $fetch_secret_word->fetchAll(PDO::FETCH_OBJ);
+    
+    $secret_word = $secret_data[0]->secret_word;
+    
+  } else {
+    die('Oops! Something Went Wrong');
+  }
 
+  $username = "victororu";
+  
+  $query = "SELECT * FROM interns_data WHERE username=:username";
 
-//fetch secret word
-$query = "SELECT secret_word FROM secret_word";
-$db = $pdo->prepare($query);
-$db->execute();
-$db->setFetchMode(PDO::FETCH_OBJ);
-$result = $db->fetch();
+  $fetch_user = $conn->prepare($query);
+  if($fetch_user->execute([':username'=>$username])){
+    $user = $fetch_user->fetch(PDO::FETCH_OBJ);
+    $name  = $user->name;
+    $username  = $user->username;
+    $image  = $user->image_filename;
+  } else {
+    die('Oops! Something Went Wrong');
+  }
 
-$secret_word = $result->secret_word;
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="HNG internship 4.0">
-    <meta name="author" content="Victororu">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-
-    <title>Oru Victor</title>
-
+<html>
+<head>
+  <title>My HomePage</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="../vendor/font-awesome/css/font-awesome.min.css">
     <style type="text/css">
-body {
-	margin: 0;
-	padding: 0;
-    font-family: 'Open Sans', sans-serif;
-	font-size: 1.7em;
-	color: #fff;
-	background:#382c3f;
+      *{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
 
-}
-a {
-	text-decoration: none;
-	color: #fff;
-}
-.header {
-	background: rgba(255,255,255,0.1);
-}
-.container{
-	margin:0 auto;
-	width: 1120px;
-}
-.flat {
-	padding-top: 70px;
-	text-align: center;
-}
-.forty {
-	width: 50%;
-	display: inline-block;
-}
-.flat h1,.flat p {
-	font-size: 2em;
-	font-weight: bold;
-	margin: 0;
-	padding: 0;
-}
-.flat h1 {
-	margin-top: 20px;
-}
-.flat .avatar {
-	max-width: 250px;
-	max-height: 250px;
-	border-radius: 50%;
-	background: #fff;
-	padding: 5px;
-}
-.flat p {
-	font-weight: normal;
-	font-size: 0.6em;
-	letter-spacing:1px;
-	margin: 20px 0;
-}
-.logo-font {
-	font-weight: bold;
-}
-.header .nav-links {
-	font-size: 0.7em;
-	text-align: right;
-	float: right;
-	margin: 5px 0 0 0;
-}
-.nav div {
-	display: inline;
-}
-.nav-links a {
-	margin: 0 20px;
-	vertical-align: middle;
-}
-.clearfix {
-	overflow:auto;
-}
-.vertical-spacer{
-	margin: 100px 0;
-}
-.little {
-	font-size: 0.5em;
-	color: #ccc;
-}
+    body {
+      font-family: Roboto,  sans-serif;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .navbar, .content, .footer {
+      width: 100%;
+      text-align: center;
+    }
+
+    .navbar, .footer {
+      height: 41px;
+      background-color: #573f3f;
+      padding-top: 16px;
+      padding-bottom: 32px;
+      padding-left: 36px;
+      padding-right: 36px;
+    }
+
+    .navbar .brand-name {
+      float: left;
+    }
+
+    .navbar .nav-items {
+      float: right;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      text-transform: uppercase;
+      color: #fff;
+      margin: 0 5px;
+    }
+
+    .content {
+      background-image: url('https://res.cloudinary.com/dwwohcj76/image/upload/v1523963088/download_1.jpg');
+      background-size: cover;
+      background-repeat:  no-repeat;
+      padding:50px;
+      line-height: 2em;
+    }
+
+    .welcome {
+      letter-spacing: 10px;
+      font-size:  18px;
+      font-weight: 300;
+    }
+
+    .today, .date, .time {
+      margin-top: 14px;
+      margin-bottom: 14px;
+    }
+
+    .today, .date {
+      font-size: 36px;
+    }
+
+    .time {
+      font-size:  18px;
+    }
+
+    .me{
+      margin-top: 2em;
+    }
+
+    .profile-pics{
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+    }
+
+    .intro{
+      font-family: monospace, cursive;
+      padding: 2em 0;
+    }
+
+    .even{
+      text-shadow: 0 0 5px green;
+      font-size: 1.5em;
+    }
+
+    i{
+      margin: 0 5px;
+
+    }
+    i:hover{
+      transition: all ease-in-out 0.5s;
+      transform: scale(1.2);
+      text-shadow: 0 0 2px green;
+    }
+
+    .twitter-color{
+      color: rgba(0,0,255,0.5);
+    }
+
+    .blue{
+      color: #00f;
+    }
+
+    .red{
+      color: #f00;
+    }
+    .social{
+      margin-top: 24px;
+    }
     </style>
-  </head>
-
-  <body>
-    <div class="header">
-      <div class="container">
-      <div class="nav clearfix">
-        <div class="logo-font">Victororu</div>
-        <div class="nav-links">
-          <a href="#" class="links">About</a>
-          <a href="#" class="links">Work</a>
-          <a href="#" class="links">Contact</a>
-        </div>
-      </div>
-      </div>
+</head>
+<body>
+  <div class="navbar">
+    <div class="brand-name">Oru Victor</div>
+    <div class="nav-items">
+      <a href="index.php">home</a>
+      <a href="#">about me</a>
+      <a href="#">contact me</a>
     </div>
+  </div>
+  <div class="content">
 
-    <div class="flat">
-      <div class="container">
-        <div class="forty">
-        <img src="https://res.cloudinary.com/dwwohcj76/image/upload/v1523876876/vic1.jpg" class="avatar">
-         <h1><?php echo $name ?></h1>
-         <div class="little">@<?php echo $username; ?></div>
-         <p><a href="http://twitter.com/iam_vikta" title="@iam_vikta"><img src="https://res.cloudinary.com/dwwohcj76/image/upload/v1523877026/download.png"></a></p>
-       </div>
+    <h3 class="welcome">Welcome To My Homepage!</h3>
 
-      </div>  
+    <div class="me"><img src="<?=$image;?>" class="profile-pics"></div>
+
+    <div class="intro">
+      <p>
+        My name is <?=$name;?>
+      </p>
+
+      <p class="even">
+        I am a web developer.
+      </p>
+      <p>
+        This is my Personal Home page for
+      </p>
+      <p class="even">
+        HNGIntership 4.0
+      </p>
+      <p>
+        My skill Set includes
+      </p>
+      <p class="even">
+        HTML, CSS, JavaScript, jQuery and Bootstrap.
+      </p>
+
+      <p class="social">Hook Me Up via:</p>
+
+      <p class="">
+        <a href="" class="twitter-color"><i class="fa fa-twitter fa-2x"></i></a>
+        <a href="" class="blue"><i class="fa fa-facebook fa-2x"></i></a>
+        <a href="" class="red">
+        <i class="fa fa-google-plus fa-2x"></i></a>
+      </p>
     </div>
 
     
 
-
-  </body>
+  </div>
+  <div class="footer">
+    &copy; <?=Date('Y');?> &nbsp;Oru Victor
+  </div>
+</body>
 </html>
