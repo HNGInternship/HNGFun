@@ -330,7 +330,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           el: '#chat-bot',
           data: {
             showChatBot: false,
-            messages: [],
+            messages: [{query: `Hey human. I'm Jarvis. Ask me anything.`, sender: 'bot'}],
             query: '',
           },
           computed: {
@@ -350,11 +350,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             },
             getBubbleColor(sender) {
               if (sender === 'user')
-                return 'orange';
+                return 'white';
 
-              return 'teal';
+              return 'gray';
+            },
+            getBorderRadius(sender){
+              if (sender === 'user')
+              return '10px 10px 0px 10px';
+
+              return '0px 10px 10px 10px';
             },
             answerQuery(query) {
+              this.messages.push({sender: 'bot', query: 'Thinking..'});
               var params = new URLSearchParams();
               params.append('password', 'trainpwforhng');
               params.append('question', query);
@@ -362,9 +369,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               axios.post('/profiles/mclint_.php', params)
                 .then(response => {
                   console.log(response.data);
+                  this.messages.pop();
                   this.messages.push({ sender: 'bot', query: response.data.answer });
                 }).catch(error => {
                   console.log(error);
+                  this.messages.pop();
+                  this.messages.push({ sender: 'bot', query: 'Mediocre humans. Your internet connection is down.' });
                 });
             }
           },
@@ -374,8 +384,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           <div  id="chat-bot" v-if="showChatBot">
             <div id="chat-container">
               <ul style="padding: 16px; list-style-type: none;">
-                <li class="chat-bubble" v-for="(msg, index) in messages" v-key="index" :style="{'background-color': getBubbleColor(msg.sender)}">
-                  <p style="margin: 0; padding: 0">{{msg.query}}</p>
+                <li class="chat-bubble" v-for="(msg, index) in messages" v-key="index" :style="{'background-color': getBubbleColor(msg.sender), 'border-radius': getBorderRadius(msg.sender)}">
+                  <p style="margin: 0; padding: 0; color: rgba(0, 0, 0, 0.8)">{{msg.query}}</p>
                 </li>
               </ul>
             </div>

@@ -1,5 +1,4 @@
 <?php 
-<<<<<<< HEAD
     try {
         $q = 'SELECT * FROM secret_word';
         $sql = $conn->query($q);
@@ -10,23 +9,9 @@
 
         throw $err;
     }?>
-=======
 
-  try {
-      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'essietom\'';
-      $q = $conn->query($sql);
-      $q->setFetchMode(PDO::FETCH_ASSOC);
-      $data = $q->fetch();
-      $secret_word = $data['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
-?>
-<!DOCTYPE html>
-<html>
->>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 <head>
-	<title><?php echo $username; ?></title>
+	<title>essietom</title>
 	<style type="text/css">
 		
 		body{
@@ -242,7 +227,7 @@
 <body>
 <div class="inner">
 <div class="absmenu">
-<nav class="menu2">
+<!--<nav class="menu2">
 	<ul class="menu nav">
 		<li><a href="#" class="active">Home</a></li>
 		<li><a href="#">Skills</a></li>
@@ -250,7 +235,7 @@
 		<li><a href="#">Awards</a></li>
 		<li><a href="#">Academics</a></li>
 	</ul>
-</nav>
+</nav>-->
 </div>
 <div class="banner">
 
@@ -269,8 +254,8 @@
 
 <div class="banner-main">
 	
-	<img src="<?php echo $image_filename; ?>" width="100px" height="110px" class="round-border roll-image">
-	<h2><?php echo $username; ?></h2>
+	<img src="http://res.cloudinary.com/essietom/image/upload/v1523719246/essietom.png" width="100px" height="110px" class="round-border roll-image">
+	<h2>Adenekan Esther</h2>
 	<h4>Web developer and designer</h4>
 	<p style="text-align: justify; padding-right:10px;margin-left: 10px;">
 		I am a tech enthusiast, passionate about changing my world with technology. Software development is my thing, with determination to discover creative ideas and solve complex problems.<br>
@@ -313,7 +298,8 @@
 </div>
 
 </div><!--end of page div-->
-<div style="color:white">My secret code:<?php echo $secret_word; ?></div>
+
+<!--<div style="color:white">My secret code:  <?php echo $secret_word; ?></div>-->
 </div><!--inner ends here -->
 
 </body>
