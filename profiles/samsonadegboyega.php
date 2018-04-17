@@ -105,14 +105,14 @@
 
   //Fetch User Details
 try {
-    $query = "SELECT * FROM interns_data";
+    $query = "SELECT * FROM interns_data WHERE username='samsonadegboyega'";
     $resultSet = $conn->query($query);
     $result = $resultSet->fetch(PDO::FETCH_ASSOC);
 } catch (PDOException $e){
     throw $e;
 }
 $username = $result['username'];
-$fullName = $result['name'];
+$name = $result['name'];
 $picture = $result['image_filename'];
 //Fetch Secret Word
 try{
