@@ -33,11 +33,7 @@
         }
         div.profile-image img {
             margin:auto;
-<<<<<<< HEAD
-            margin-left: 35%;
-=======
             margin-left: 40%;
->>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
             max-width: 100%;
             min-width: 10%;
             width: 20%;
@@ -95,23 +91,16 @@
 <body>
     <?php
         // Get the config file
-        //  include ('../config.php');
+        // include ('../config.php');
          
         // Set the needed variables
         $name = "";
         $username = ""; 
         $pics = "";
 
-<<<<<<< HEAD
-         $table = 'interns_data_';
-         $secret_table = 'secret_word';
-         $intern_name = 'Nectar';
-         $test_link = 'https://upload.wikimedia.org/wikipedia/commons/f/f9/Phoenicopterus_ruber_in_S%C3%A3o_Paulo_Zoo.jpg';
-=======
-         $table = 'interns_data';
-         $secret_table = 'secret_word';
-         $intern_name = 'Nectar';
->>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
+        $table = 'interns_data';
+        $secret_table = 'secret_word';
+        $intern_name = 'Nectar';
          
         // Make a connection to the db, Catch the database errors
         try {
@@ -120,52 +109,30 @@
             // set the PDO error mode to exception
             $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
-            // echo nl2br("Connected successfully \r\n");
-
-<<<<<<< HEAD
             // Query the db for the data in interns data table
             $query = "SELECT * FROM ".$table." WHERE username='Nectar'";
             $data = $connect->query($query);
 
-            // Check if the data was returned, if data was returned use it
-            if ($data == null){
-                echo nl2br("Empty, Name not found");
-            }else{
-                foreach($data as $row) {
-                    $name = $row["name"];
-                    $username = $row["username"];
-                    $pics = $row["image_filename"];
-                }
-            }
-
             // Query the db for the data in secret_word table
-            $query_secret = "SELECT * FROM ".$secret_table;
-            $data_secret = $connect->query($query_secret);
-=======
-            // Query the db for the data in secret_word table
-            $query_secret = "SELECT secret_word FROM ".$secret_table;
-            $data_secret = $connect->query($query_secret);
-            // echo $data_secret;
->>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
+            $query_secret = "SELECT secret_word FROM secret_word";
+            $res = $connect->query($query_secret);
+            $res->setFetchMode(PDO::FETCH_ASSOC);
+            $secret_word = $res;
 
-            // Check if the data was returned, if data was returned use it
-            foreach($data_secret as $raw_secret) { 
+            foreach($res as $raw_secret) { 
                 $secret_word = $raw_secret['secret_word'];
             }
-<<<<<<< HEAD
-=======
 
             // Query the db for the data in interns data table
             $query = "SELECT * FROM ".$table." WHERE username='Nectar'";
             $data = $connect->query($query);
+            $data->setFetchMode(PDO::FETCH_ASSOC);
 
             foreach($data as $row) {
                 $name = $row["name"];
                 $username = $row["username"];
                 $pics = $row["image_filename"];
-            }
->>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
-                
+            }                
             
         }catch(PDOException $e) {
             echo "Connection failed: " .$e->getMessage();
@@ -177,18 +144,12 @@
     </div>
 
     <div class ="profile-details">
-<<<<<<< HEAD
+
     <?php echo $name."".$username." ".$pics ?>
         <h4 class="detail-title">HNG4 internship 2018 </h4>
         <p class="detail-name"><?php echo $name?></p>
         <p class="detail-username">@<?php echo $username?></p>
-        <p>Secret Word: <?php echo $secret_word?></p>
-=======
-        <h4 class="detail-title">HNG4 internship 2018 </h4>
-        <p class="detail-name"><?php echo $name?></p>
-        <p class="detail-username">@<?php echo $username?></p>
-       
->>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
+              
     </div>
 </body>
 </html>

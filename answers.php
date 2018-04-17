@@ -87,7 +87,7 @@ function getTime(){
 }
 
 // end of functions by johnayeni
-?>
+
 
 /////////////////////opheus //////////
 
@@ -239,3 +239,4 @@ function get_device_name($user_agent)
 }
 
 ///////////////////////end of opheus ////////////////////
+?>
