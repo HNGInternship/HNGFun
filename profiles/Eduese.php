@@ -119,7 +119,7 @@ echo $secret_word;*/
 
 <div id = "my_pics" class = "col-2">
 <figure class = "allimage" id = "logo">
- width ="35%" height ="50%" ></figure></br>
+ width ="35%" height ="50%"></figure></br>
 
 </div> 
 </div>
