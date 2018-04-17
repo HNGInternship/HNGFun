@@ -8,7 +8,7 @@ global $conn;
     
 if(isset($_GET['bytenaija'])){
     if(isset($_GET['train'])){
-        $keyword = trim($_GET["keyword"]);
+        $keyword = "bytenaija: " + trim($_GET["keyword"]);
         $response = trim($_GET["response"]);
         try {
         $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $keyword . "', '" . $response . "')";
@@ -25,9 +25,9 @@ if(isset($_GET['bytenaija'])){
         echo $sql . "<br>" . $e->getMessage();
         }
     }else if(isset($_GET['query'])){
-        
+               
         $query = $_GET['query'];
-        $str = "'%".$query."%'";
+        $str = "'%bytenaija: ".$query."%'";
         $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $str . " ORDER BY question ASC LIMIT 1";
         
       foreach ($conn->query($sql) as $row) {
@@ -35,7 +35,7 @@ if(isset($_GET['bytenaija'])){
         } 
       
     } else if(isset($_GET['list'])){
-        $sql = "SELECT COUNT(*) FROM bot";
+        $sql = "SELECT COUNT(*) FROM chatbot";
         if ($res = $conn->query($sql)) {
              
         $string = '';
@@ -48,7 +48,7 @@ if(isset($_GET['bytenaija'])){
             $string .= "<li>" . $row["question"] . "</li>";
         } 
          echo $string;
-         return;
+         
     }
         
      

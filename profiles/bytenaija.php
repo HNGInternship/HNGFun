@@ -182,7 +182,7 @@ section h2:first-child{
    background-color:aqua;
 }
 .bot{
-    width : 40%;
+    width : 60%;
     margin: .5rem auto;
 }
 .form-control{
@@ -190,19 +190,21 @@ section h2:first-child{
 }
 
  input{
-    border-radius:.2rem;
-    padding: .5rem;
+   
+    padding: .5rem !important;
     
 }
 
 #botresponse{
     width: 100%;
-    background-color: aqua;
+   
     height: 15rem;
     overflow-y: scroll;
     padding: 1rem;
-    border-radius: 2rem;
     font-family: Lato;
+    color:#330505;
+    border-left: 1px solid #330505;
+    box-shadow: 1px 5px 3rem aqua;
 }
 
 .bot input{
@@ -217,6 +219,8 @@ section h2:first-child{
     font-family: Lato;
 }
 
+
+
 .bot .botnet{
    color: white;
    background-color: black;
@@ -224,24 +228,34 @@ section h2:first-child{
    margin-right: .5rem;
    margin-bottom: .2rem;
    display: inline-block;
-   border-radius: .3rem;
    font-family: Lato;
 }
 .bot .user{
     color: Red;
    background-color: rgba(0,0,0,.5);
-   padding:.5rem;
+   padding:1rem;
    margin-right: .5rem;
    margin-bottom: .2rem;
    display: inline-block;
-   border-radius: .3rem;
    font-family: Lato;
 }
 .bot .res{
+    background-color:white;
     display: inline-block;
     font-family: Lato;
+    padding:.5rem 1rem;
+    width: 20rem;
+    background-color: #1E73E8;
 }
 
+.bot .userres{
+    background-color:white;
+    display: inline-block;
+    font-family: Lato;
+    padding:.5rem 1rem;
+    min-width: 20rem;
+    background-color: #EB5757;
+}
 .bot #botresponse::-webkit-scrollbar {
     width: 2rem;
 }
@@ -349,6 +363,9 @@ header{
     width: 100%;
     margin-top: 4rem;
 }
+.botres{
+    float:right !important;
+}
 
 .bot .botnet{
     font-size:80%;
@@ -358,6 +375,7 @@ header{
 }
 .bot .res{
     font-size:80%;
+   
 }
 
 .about{
@@ -488,7 +506,7 @@ function runScript(e) {
     if (e.keyCode == 13) {
         let input = e.currentTarget;
         let dv = document.createElement("div");
-            dv.innerHTML = "<span class='user'>You: </span> <span class='res'>" + input.value + "</span>";
+            dv.innerHTML = "<span class='user'>You: </span> <span class='userres'>" + input.value + "</span>";
            botResponse.appendChild(dv)
            stack.push(input.value)
            if(trainMode){
@@ -645,7 +663,7 @@ function evaluate(str){
 
 function print(response){
     let dv = document.createElement("div");
-            dv.innerHTML = "<span class='botnet'>Byte9ja:</span><span class='res'>" + response + "</span>";
+            dv.innerHTML = "<div class='botres' style='float: right;'><span class='res'>" + response + "</span><span class='botnet'>Byte9ja</span></div>";
            botResponse.appendChild(dv)
            botResponse.scrollTop = botResponse.scrollHeight;
 }
