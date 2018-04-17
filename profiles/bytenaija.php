@@ -1,5 +1,31 @@
 <?php
+if($_SERVER['REQUEST_METHOD'] === "GET"){
+$file = realpath(__DIR__ . '/..') . "/db.php"    ;
+include $file;
+global $conn;
+$image_filename = '';
+$name = '';
+$username = '';
+$sql = "SELECT * FROM interns_data where username = 'bytenaija'";
+foreach ($conn->query($sql) as $row) {
+    $image_filename = $row['image_filename'];
+    $name = $row['name'];
+    $username = $row['username'];
+}
 
+global $secret_word;
+
+try {
+    $sql = "SELECT secret_word FROM secret_word";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+    $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+    throw $e;
+}
+
+}
 require realpath(__DIR__ . '/..') ."/answers.php";
 $file = realpath(__DIR__ . '/..') . "/db.php"    ;
 include $file;
@@ -114,7 +140,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
     processQuestion($_POST['query']);
     
-}else{
+}
+
+if($_SERVER['REQUEST_METHOD'] === "GET"){
 ?>
 
 <!DOCTYPE html>
@@ -504,36 +532,6 @@ header{
     </style>
 </head>
 <body>
-<?php
-$file = realpath(__DIR__ . '/..') . "/db.php"    ;
-include $file;
-global $conn;
-$image_filename = '';
-$name = '';
-$username = '';
-$sql = "SELECT * FROM interns_data where username = 'bytenaija'";
-foreach ($conn->query($sql) as $row) {
-    $image_filename = $row['image_filename'];
-    $name = $row['name'];
-    $username = $row['username'];
-}
-
-global $secret_word;
-
-try {
-    $sql = "SELECT secret_word FROM secret_word";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-    $secret_word = $data['secret_word'];
-} catch (PDOException $e) {
-    throw $e;
-}
-
-
-
-?>
-
 
     <header>
         <h1>Welcome to HNG  <br />Internship 4</h1>
