@@ -65,10 +65,13 @@
 </head>
 <body>
 	<div class="row">
-	<div class="col-md-8 col-md-offset-1">
-	<section style="width: 100%; min-height: 470px;">
+		<div class="col-md-2">
+			bot2
+		</div>
+	<div class="col-md-6">
+	<section>
 
-		<div id="wrapper" style="height: 600px;">    
+		<div id="wrapper">    
 		    <div id="yourdiv">
 		    	<div class="margin"></div>
 		    	
@@ -92,7 +95,16 @@
 		    </div>
 		</div>
 	</section>
+		
+		
 		</div>
+		
+		
+		<div class="col-md-4">
+			Bot
+		</div>
+		
+		
 	</div>
 </body>
 </html>
