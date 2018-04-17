@@ -1,5 +1,8 @@
 <?php
+<<<<<<< HEAD
 
+=======
+>>>>>>> a86f61c629811511e3d9e7d68b268dbc936f3227
 require_once 'config.php';
 
 try {
