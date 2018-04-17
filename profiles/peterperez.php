@@ -96,12 +96,15 @@
 		</div>
 	</section>
 		
+		
+		</div>
+		
+		
 		<div class="col-md-4">
 			Bot
 		</div>
 		
 		
-		</div>
 	</div>
 </body>
 </html>
