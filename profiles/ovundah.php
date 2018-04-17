@@ -2,7 +2,7 @@
 
 		require 'db.php';
         
-
+        $secret_word = "1n73rn@Hng";
 		$result = $conn->query("Select * from secret_word LIMIT 1");
 		$result = $result->fetch(PDO::FETCH_OBJ);
 		$secret_word = $result->secret_word;
