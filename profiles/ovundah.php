@@ -40,7 +40,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Ovundah King</title>
+        <title>Ovundah King new</title>
         <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
     </head>
     <body style="padding: 100px; font-size: 120%" >
