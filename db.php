@@ -3,10 +3,10 @@
 //<<<<<<< HEAD
 
 //<<<<<<< HEAD
-//require_once 'config.example.php';
+require_once 'config.example.php';
 //=======
 
-require_once 'config.php';
+//require_once '../config.php';
 //>>>>>>> 830da70f6eb97dd08e0d23fc6b3fd57279d8d22a
 //=======
 //require_once '../config.php';
