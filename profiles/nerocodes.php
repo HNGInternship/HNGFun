@@ -51,9 +51,7 @@
             background: -webkit-linear-gradient(top, #aaaaaa 0%, #333333);
         }
 
-        ul{
-            list-style: none;
-        }
+        
     </style>
     <main>
         <?php
