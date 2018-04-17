@@ -123,7 +123,7 @@
 			}else{
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Unfortunately, I cannot answer your question at the moment. I need to be trained further"
+					'answer' => "Unfortunately, I cannot answer your question at the moment. I need to be trained further. The training data format is <br> <b>train: question # answer</b>"
 				]);
 			}		
 			return;
@@ -139,7 +139,7 @@
 			if(count($split_string) == 1){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Invalid training format. I cannot decipher the answer part of the question"
+					'answer' => "Invalid training format. I cannot decipher the answer part of the question. <br> The correct training data format is <br> <b>train: question # answer</b>"
 				]);
 				return;
 			}
