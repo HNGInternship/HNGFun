@@ -110,17 +110,6 @@
 			text-align: center;
 			padding: 10px 0;
 		}
-		.chat-messages {
-			background-color: #fff;
-			margin-left: 15px;
-			margin-right: 15px;
-			padding: 5px;
-		}
-		.single-message {
-			margin-bottom: 5px; 
-			border-radius: 5px;
-			min-height: 60px;
-		}
 	</style>
 </head>
 <body>
@@ -148,44 +137,6 @@
 		<div class="clear"></div>
 		<div class="bot">
 			<h2 class="chat">CHAT BOT</h2>
-			<div class="chat-messages" id="chat-messages">
-				<div class="col-md-12" id="message-frame">
-					<div class="row single-message">
-						<div class="col-md-2 single-message-bg">
-							<span class="fa fa-user f-icon"></span>
-						</div>
-
-						<div class="col-md-8 single-message-bg">
-							<p>Welcome! My name is <span style="font-weight: bold">Optimus Prime</span></p>
-						</div>
-					</div>
-					<div class="row single-message">
-						<div class="col-md-2 single-message-bg">
-							<span class="fa fa-user f-icon"></span>
-						</div>
-						<div class="col-md-8 single-message-bg">
-							<p>Ask me your questions and I will try to answer them.</p>
-						</div>
-					</div>
-					<div class="single-message">
-						<div>
-							<p>You can teach me answers to new questions by training me.</p>
-							<p>To train me, enter the training string in this format:</p>
-							<p><b>train: question # answer</b></p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row" style="margin-top: 40px;">
-				<form class="form-inline col-md-12 col-sm-12" id="question-form">
-					<div class="col-md-12 col-sm-12 col-12">
-						<input class="form-control w-100" type="text" name="question" placeholder="Ask a question" />
-					</div>
-					<div style="margin-top: 20px">
-						<button type="submit" class="btn btn-info float-right w-100">Send</button>
-					</div>
-				</form>	
-			</div>
 		</div>
 		<div class="footer">
 			<footer class="socials">
