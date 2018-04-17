@@ -51,7 +51,14 @@ if(isset($_GET['bytenaija'])){
             $sql = "SELECT * FROM chatbot ORDER BY question ASC";
        
       foreach ($conn->query($sql) as $row) {
-            $string .= "<li>" . $row["question"] . "</li>";
+          $res = $row["question"];
+          $question = '';
+          if(strpos($res, ":" ) !== false){
+            $question = explode(":", $res);
+            $res = $question[1];
+          }
+            
+            $string .= "<li>" . $res. "</li>";
         } 
          echo $string;
          

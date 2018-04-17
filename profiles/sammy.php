@@ -199,6 +199,11 @@
             color: rgb(105, 15, 19);
             font-size: 20px;
         }
+
+        #tod {
+            height: 800px;
+            width: 800px;
+        }
         
     </style>
 </head>
@@ -206,8 +211,8 @@
 <div id="tod">
     <div id="layer1">
             <div id="nav">
-                <a href="www.sammy-favcode.heroku.com">Home</a> |
-                <a href="#">About Me</a> |
+                <a href="https://hng.fun">Home</a> |
+                <a href="https://sammy-favcode.heroku.com">About Me</a> |
                 <a href="#">Contact Me</a> 
             </br>
                 <div id="link">
@@ -297,19 +302,7 @@
                 Copyright &copy; 2018 Achem Samuel. All rights reserved.
                 <br/>
             </div>
-
     </div>
-    
-    
-    
-    
-        
-
-
-
-
-
-
 </div>
 
 
