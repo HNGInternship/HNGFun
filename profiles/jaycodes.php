@@ -2,8 +2,8 @@
 
 $today = date("H:i:s");
 try {
-    $profile = 'SELECT * FROM interns_data_ WHERE username="nedy"';
-     $select = 'SELECT * FROM secret_word';
+    $profile = 'SELECT * FROM interns_data_ WHERE username="jaycodes"';
+     $select = 'SELECT * FROM secret_word LIMIT 1';
  
      $query = $conn->query($select);
      $profile_query = $conn->query($profile);
