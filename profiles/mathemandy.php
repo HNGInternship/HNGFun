@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <?php 
 try {
        $sql = 'SELECT * FROM secret_word';
@@ -1816,4 +1816,3 @@ button {
       </div>
     </body>
 </html>
->>>>>>> 6522003747b32681c634e90d86323f4c5a064869
