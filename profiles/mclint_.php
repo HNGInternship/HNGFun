@@ -43,7 +43,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     function answerQuestion($question){
       global $conn;
-      global $answer; 
 
       $question = preg_replace('([\s]+)', ' ', trim($question));
       $question = preg_replace("([?.])", "", $question);
@@ -106,6 +105,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         
         $question = trim($splitString[0]);
         $answer = trim($splitString[1]);
+
         $sql = "insert into chatbot (question, answer) values (:question, :answer)";
         $query = $conn->prepare($sql);
         $query->bindParam(':question', $question);
