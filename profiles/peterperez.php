@@ -34,14 +34,8 @@
 		font-family: 'Lato', sans-serif;
 		background: linear-gradient(to bottom right, #00AEFF, #012738);
 	}
-		#wrapperr {
-		  text-align: center;
-/* 		  position: absolute; top: 0; left: 0; height: 100%; width: 100%; */
-		  background: linear-gradient(to bottom right, #00AEFF, #012738);
-		}
-		#yourdivv {
-		  display: inline-block;
-		}
+		
+		
 		.margin{
 			height: 100px;
 		}
@@ -69,10 +63,9 @@
 			bot2
 		</div>
 	<div class="col-md-6">
-	<section>
 
-		<div id="wrapper">    
-		    <div id="yourdiv">
+   
+		    <div>
 		    	<div class="margin"></div>
 		    	
 		    	<figure></figure>
@@ -93,8 +86,7 @@
 
 
 		    </div>
-		</div>
-	</section>
+	
 		
 		
 		</div>
