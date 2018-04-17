@@ -4,10 +4,7 @@
 	<head>
 
  <?php
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> f2598eb70c1068fcbd230b8021d108fafbbf4f86
+
 
    require_once('../db.php');
 
@@ -23,28 +20,7 @@
 
    ?>
  
-<<<<<<< HEAD
-=======
-=======
- require'../db.php';
-      try {
-    $result = $conn->query("Select * from secret_word LIMIT 1");
-    $result = $result->fetch(PDO::FETCH_OBJ);
-    $secret_word = $result->secret_word;
-  } catch (PDOException $e) {
-    die(var_dump($e));
-  }
 
-  try {
-    $result2 = $conn->query("Select * from interns_data where username = 'Ashibekong'");
-    $user = $result2->fetch(PDO::FETCH_OBJ);
-  } catch (Exception $e) {
-    die(var_dump($e));
-  }
-
-  ?>
->>>>>>> a408531ab7ecca1fc770e36e677122a80adfea7a
->>>>>>> f2598eb70c1068fcbd230b8021d108fafbbf4f86
 
 		<title>Ashibekong John Ishado</title>
 		<meta charset="utf-8" />
