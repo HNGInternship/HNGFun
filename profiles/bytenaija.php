@@ -106,7 +106,7 @@ function training($question, $answer){
     }
 
 
-if (isset($_POST["query"])) {
+if (isset($_GET["query"])) {
     include_once realpath(__DIR__ . '/..') . "/answers.php"; 
     if(!defined('DB_USER')){
         require "../../config.php";
@@ -654,7 +654,7 @@ if (e.keyCode == 13) {
            botResponse.appendChild(dv)
            stack.push(input.value)
     
-   let urlL = url;
+   let urlL = url + input.value;
     fetch(urlL)
     .then(response=>{
         
