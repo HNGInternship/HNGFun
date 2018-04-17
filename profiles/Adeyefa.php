@@ -1,14 +1,80 @@
+<?php	
+   $result = $conn->query("Select* from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+
+   $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+   //start
+    /*if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+		require "../answers.php";
+
+		date_default_timezone_set("Africa/Lagos");
+
+
+		try{
+		  if(!isset($_POST['question'])){
+		    echo json_encode([
+		      'status' => 1,
+		      'answer' => "Please provide a question"
+		    ]);
+		    return;
+		    }
+		    $question = $_POST['question'];
+		}
+			#Check Training Mode
+		    $train_index = stripos($question, "train:");
+		    if($train_index === false){
+			    $question = preg_replace('([\s]+)', ' ', trim($question));
+			    $question = preg_replace("([?.])", "", $question);
+
+			    $question = "%$question%";
+		        $sql = "Select * from chatbot where question like :question";
+		        $stat = $conn->prepare($sql);
+		        $stat->bindParam(':question', $question);
+		        $stat->execute();
+		  
+		        $stat->setFetchMode(PDO::FETCH_ASSOC);
+		        $rows = $stat->fetchAll();
+		        if(count($rows)>0){
+			    $index = rand(0, count($rows)-1);
+			    $row = $rows[$index];
+			    $answer = $row['answer'];
+			    echo $answer;	
+			}
+			else{
+				$training_string = substr($question, 6);
+			    //remove excess white space in $question_and_answer_string
+			    $training_string = preg_replace('([\s]+)', ' ', trim($training_string));
+			      
+			    $training_string = preg_replace("([?.])", "", $training_string); //remove ? and . so that questions missing ? (and maybe .) can be recognized
+			    $split_string = explode("#", $question_and_answer_string);
+			
+	    
+		        $question = trim($split_string[0]);
+		        $answer = trim($split_string[1]);
+
+		        $sql = "INSERT INTO chatbot(question, answer) VALUES (:question, :answer)";
+			    $stat = $conn->prepare($sql);
+			    $stat->bindParam(':question', $question);
+			    $stat->bindParam(':answer', $answer);
+			    $stat->execute();
+			    $stat->setFetchMode(PDO::FETCH_ASSOC);
+			    echo json_encode([
+			        'status' => 1,
+			        'answer' => "Thanks for training me"
+			    ]);
+			    return;
+			}
+		catch (Exception $e){
+	    return $e->message ;
+        }
+	}*/
+?>
 <!DOCTYPE html>
 <html>
 <head>
-	<?php
-	   $result = $conn->query("Select * from secret_word LIMIT 1");
-	   $result = $result->fetch(PDO::FETCH_OBJ);
-	   $secret_word = $result->secret_word;
-
-	   $result2 = $conn->query("Select * from interns_data_ where username = 'Adeyefa'");
-	   $user = $result2->fetch(PDO::FETCH_OBJ);
-	?>
 	<title>  <?php echo $user->name ?> </title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,28 +136,20 @@
 			background-color: rgb(52,185,96,0.9);
 			color: #FFF;
 			padding: 7px;
-			position: absolute;
+			position: relative;
 		}
-		input{
-			width: 100%;
+		input[type=submit]{
+			width: 60%;
 		    padding: 12px 20px;
-		    margin: 8px 0;
-		    box-sizing: border-box;
+		    margin: 8px 8px;
 		}
 		input[type=text] {
-		    width: 50%;
+		    width: 60%;
 		    box-sizing: border-box;
 		    border: 2px solid #ccc;
 		    border-radius: 4px;
 		    font-size: 22px;
 		    padding: 12px 20px 12px 40px;
-		}
-
-		input[type=submit]{
-		    border: none;
-		    padding: 16px 32px;
-		    margin: 4px 2px;
-		    cursor: pointer;
 		}
 		.head{
 			background-color: #0EEFF1;
@@ -132,7 +190,7 @@
 	    </div>	
 		<div class="sidebar">
 			<div class="head">
-				<h2> Chat With MATRIX</h3>
+				<h2> Chat</h3>
 			</div>
 			<div class="row-holder">
 				<div class="row2">
@@ -142,27 +200,12 @@
 						</form>
 					</div>
 				</div>
-				<?php
-					if (isset($_POST['submit'])) {
-						$split = explode(" ", $_POST['question']);
-						if ($split[0] == "train:") {
-							unset($split[0]);
-							$join = implode(" ", $split);
-							$four  = explode("#", $join);
-							$question = $four[0];
-							$answer = $four[1];
-							try {
-								$sql = "INSERT INTO chatbot(question,answer) VALUES ('$question','$answer')";
-								$conn->exec($sql);
-							} catch (PDOException $e) {
-								echo $sql . "<br>" . $e->getMessage();
-							}
-						}
-
-					}
-				?>
 			</div>	
 	    </div>
 	</div>	
 </body>
 </html> 
+
+<?php
+}
+?>

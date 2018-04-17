@@ -29,7 +29,7 @@ if (!empty($_POST['message'])) {
 
 	$message = $_POST['message'];
 
-	$trainRegex = "^train(?:\:?)?(?:\s+)?(.+)#(.+)";
+	$trainRegex = "^train(?:\:?)?(?:\s+)?(.+)#(.+)(?:\s+)(.+)";
 
 	// First we check if we are training
 	if (preg_match("/^train/", $message)) {
@@ -37,6 +37,11 @@ if (!empty($_POST['message'])) {
 		if (preg_match_all("/${trainRegex}/i", $message, $matches)) {
 			$question = sanitize($matches[1][0]);
 			$answer = sanitize($matches[2][0]);
+			$password = ($matches[3][0]);
+
+			if ($password !== 'trainpwforhng') {
+				respond('Oh no! That\'s not the password to train me');
+			}
 
 			if (empty($question)) {
 				respond('It look like you did not provide me with a question');
@@ -65,7 +70,7 @@ if (!empty($_POST['message'])) {
 	            }
             }
 		} else {
-			respond('Oh! No. This is how to train me: train: Question # Answer');
+			respond('Oh! No. This is how to train me: train: Question # Answer Password');
 		}
 	} else {
 		$question = sanitize($message);
