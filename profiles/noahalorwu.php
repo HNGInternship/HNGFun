@@ -40,14 +40,15 @@ body{
 a {
   text-decoration: none;
   font-size: 40px;
-  color: white;
+  color: black;
+  margin: auto;
 }
  
 
 </style>
 </head>
 <body>
-<section>
+
 <div class="profile">
   <img src="http://res.cloudinary.com/noahalorwu/image/upload/v1523904795/DSC_4950.jpg" alt="Noah Alorwu" style="width:100%">
   <h1> <?php echo $user->name; ?></h1>
@@ -60,6 +61,5 @@ a {
  </div>
 
 </div>
-</section>
 </body>
 </html>
