@@ -24,23 +24,6 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
     .container {
       width: 100%;
     }
-    nav ul {
-      margin: 0;
-      padding: 0;
-      background-color: #333;
-      color: #fff;
-    }
-    nav ul li {
-      list-style: none;
-      display: inline-block;
-      padding: 30px;
-    }
-    nav ul li a {
-      font-size: 18px;
-      font-weight: 600;
-      color: #fff;
-      text-decoration: none;
-    }
     .header {
       background-image: url("http://res.cloudinary.com/adamucodes/image/upload/v1523741962/coding7.jpg");
       background-repeat: no-repeat;
