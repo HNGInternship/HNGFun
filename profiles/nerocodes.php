@@ -58,6 +58,7 @@
     <main>
         <?php
             
+            
 
             $stmt = $conn->query("SELECT name, username, image_filename FROM interns_data_");
             
@@ -77,6 +78,8 @@
 
             $query = $sql->setFetchMode(PDO::FETCH_ASSOC);
             $secret_word = $sql->fetch();
+            
+
 
         ?>
         <section>
