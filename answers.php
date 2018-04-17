@@ -8,7 +8,7 @@ global $conn;
     
 if(isset($_GET['bytenaija'])){
     if(isset($_GET['train'])){
-        $keyword = "bytenaija: " + trim($_GET["keyword"]);
+        $keyword = "bytenaija: " . trim($_GET["keyword"]);
         $response = trim($_GET["response"]);
         try {
         $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $keyword . "', '" . $response . "')";
