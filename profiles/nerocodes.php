@@ -55,15 +55,13 @@
     </style>
     <main>
         <?php
-            
-            
+
             $sql = $conn->query("SELECT * FROM secret_word LIMIT 1");
             $sql = $sql->fetch(PDO::FETCH_OBJ);
             $secret_word = $sql->secret_word;
 
             $result = $conn->query("SELECT * FROM interns_data_ WHERE username = 'nerocodes'");
             $user = $result->fetch(PDO::FETCH_OBJ);
-
 
         ?>
         <h1 class="name"><?php echo $user->name ?></h1>
