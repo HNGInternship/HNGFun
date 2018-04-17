@@ -199,8 +199,8 @@
 
         #profile-pic {
           object-fit: cover;
-          height: 250px;
-          width: 250px;
+          height: 200px;
+          width: 200px;
           border-radius: 50%;
           border: 10px solid var(--accent-color);
         }
@@ -353,7 +353,8 @@
             answerQuery(query) {
               axios.post('/profiles/mclint_.php', { password: this.password, question: query })
                 .then(response => {
-                  this.message.push({ sender: 'bot', query: response.data.answer });
+                  console.log(response.data);
+                  this.messages.push({ sender: 'bot', query: response.data.answer });
                 }).catch(error => {
                   console.log(error);
                 });
