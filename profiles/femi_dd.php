@@ -2,7 +2,7 @@
 // ob_start();
 session_start();
 require 'db.php';
-require '../answers.php';
+require 'answers.php';
 global $conn;
 /**
 * femiBot Class
