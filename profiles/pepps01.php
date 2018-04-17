@@ -1,10 +1,30 @@
 <?php
+<<<<<<< HEAD
+	if(!isset($_GET['id'])){
+	require "../config.php";
+     require '../db.php';
+   }else{
+	require "config.php";
+      require 'db.php';
+   }
+
+ try {
+
+      $sql = 'SELECT * FROM interns_data,secret_word WHERE username ="'.'pepps01'.'"';
+      $stmt = $conn->query($sql);
+      $r = $stmt->fetch(PDO::FETCH_ASSOC);
+      $secret_word = $r['secret_word'];
+  } catch (PDOException $e) {
+      throw $e->getMessage();
+  }
+=======
    $result = $conn->query("Select * from secret_word LIMIT 1");
    $result = $result->fetch(PDO::FETCH_OBJ);
    $secret_word = $result->secret_word;
 
    $result2 = $conn->query("Select * from interns_data where username = 'pepps01'");
    $user = $result2->fetch(PDO::FETCH_OBJ);
+>>>>>>> 52b67053e12fb654879ade8c1a3050d1578a8623
 ?>
 <!-- Page Content -->
 
