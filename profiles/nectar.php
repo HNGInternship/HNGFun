@@ -19,6 +19,7 @@
         }
         div.profile-image{
             width: 100%;
+            margin-top: 10%;
             margin-right: auto;
             margin-left: auto;
             align-content: center;
@@ -91,17 +92,16 @@
 <body>
     <?php
         // Get the config file
-        //  include ('../config.php');
+         include ('../config.php');
          
         // Set the needed variables
         $name = "";
         $username = ""; 
         $pics = "";
 
-         $table = 'interns_data_';
+         $table = 'interns_data';
          $secret_table = 'secret_word';
          $intern_name = 'Nectar';
-         $test_link = 'https://upload.wikimedia.org/wikipedia/commons/f/f9/Phoenicopterus_ruber_in_S%C3%A3o_Paulo_Zoo.jpg';
          
         // Make a connection to the db, Catch the database errors
         try {
@@ -147,7 +147,7 @@
         <h4 class="detail-title">HNG4 internship 2018 </h4>
         <p class="detail-name"><?php echo $name?></p>
         <p class="detail-username">@<?php echo $username?></p>
-        <p>Secret Word: <?php echo $secret_word ?></p>
+       
     </div>
 </body>
 </html>
