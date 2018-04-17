@@ -1,12 +1,41 @@
 <?php 
-		require 'db.php';
 
-		$result = $conn->query("Select * from secret_word LIMIT 1");
-		$result = $result->fetch(PDO::FETCH_OBJ);
-		$secret_word = $result->secret_word;
+		require 'db.php';
+        
+
+		//$result = $conn->query("Select * from secret_word LIMIT 1");
+		//$result = $result->fetch(PDO::FETCH_OBJ);
+		//$secret_word = $result->secret_word;
 
 		$result2 = $conn->query("Select * from interns_data where username = 'ovundah'");
 		$user = $result2->fetch(PDO::FETCH_OBJ);
+
+
+     //stage 4
+     
+
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		
+		$stmt = $conn->prepare("SELECT * FROM chatbot");
+		$stmt->execute();
+
+        $secret_word = null;
+
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$rows = $stmt->fetchAll();
+        print_r($rows);
+
+
+
+/*
+		if(count($rows)>0){
+			$row = $rows[0];
+			$secret_word = $row['secret_word'];	
+		}
+        */
+   
+
+
 ?>
 <html>
     <head>
