@@ -160,7 +160,7 @@ text-align:center;
         
      
 
-       <h3 class="name"><?php echo $name; ?></h3>
+       <h3 class="name">Aina Afolabi</h3>
 
        <h4 style="text-align:center; font-size:1em;">Ibadan, Nigeria</h4>
 
