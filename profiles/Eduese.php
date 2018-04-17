@@ -102,7 +102,7 @@ mysqli_set_charset($dbcon, 'utf8');
 <h4><i>Welcome to my page, I am 
 
 <?php 
-$q = "SELECT name, username, image_filename  FROM myhng_table  
+$q = "SELECT name, username, image_filename  FROM interns_data  
 		WHERE (username='Eduese')  ";
 $result = mysqli_query($dbcon, $q); // Run the query. #7
 
