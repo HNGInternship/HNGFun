@@ -85,14 +85,7 @@ $(document).ready(function(){
 			error: function(e){
 
 				$('#pendingMessageBox').hide();
-				$('#messages .message-block').append(`<ul>							
-							<li>
-								
-								`+e.responseText+`
-							</li>	
-						</ul>
-					`);
-				return;
+				
 				$('#messages .message-block').append(`<ul>							
 							<li>
 								
