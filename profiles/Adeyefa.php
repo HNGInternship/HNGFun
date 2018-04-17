@@ -129,7 +129,7 @@
 			<div class="row-holder">
 				<div class="row2">
 					<div class="form">
-						<form action="Adeyefa.php" method="post">
+						<form action="answer.php" method="post">
 							<input type="text" name="question" placeholder="type your question here"><input type="submit" name="submit">
 						</form>
 					</div>
