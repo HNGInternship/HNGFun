@@ -106,8 +106,6 @@
       }
     }
 
-    $secret_word = 
-
   ?>
 
   <div class="row">
