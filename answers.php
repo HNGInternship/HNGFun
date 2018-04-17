@@ -66,6 +66,8 @@ function getRandomFact(){
         return false;
     }
 
+// functions by john ayeni do not modify please
+
 function aboutMe(){
   return "Hi my name is Ruby, I am a chatbot, nice to meet you";
 }
@@ -83,4 +85,6 @@ function getBotMenu(){
 function getTime(){
   return date("h:i:s");
 }
+
+// end of functions by johnayeni
 ?>
