@@ -76,7 +76,7 @@
 
 			//check if answer already exists in database
 			$question = "%$question%";
-			$sql = "select * from chatbot where question like :question limit 1";
+			$sql = "select * from chatbot where question like :question";
 			$stmt = $conn->prepare($sql);
 			$stmt->bindParam(':question', $question);
 			$stmt->execute();
@@ -84,7 +84,8 @@
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			$rows = $stmt->fetchAll();
 			if(count($rows)>0){
-				$row = $rows[0];
+				$index = rand(0, count($rows)-1);
+				$row = $rows[$index];
 				$answer = $row['answer'];	
 
 				//check if the answer is to call a function
@@ -146,29 +147,29 @@
 			$que = trim($split_string[0]);
 			$ans = trim($split_string[1]);
 
-			//check if question already exists before adding it again
-			$question = "%$que%";
-			$sql = "select * from chatbot where question like :question limit 1";
-			$stmt = $conn->prepare($sql);
-			$stmt->bindParam(':question', $question);
-			$stmt->execute();
+			// //check if question already exists before adding it again
+			// $question = "%$que%";
+			// $sql = "select * from chatbot where question like :question limit 1";
+			// $stmt = $conn->prepare($sql);
+			// $stmt->bindParam(':question', $question);
+			// $stmt->execute();
 
-			$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			$rows = $stmt->fetchAll();
-			if(count($rows)>0){
-				//question already exists. update its answer
-				$sql = "update chatbot set answer = :answer where question = :question";
-				$stmt = $conn->prepare($sql);
-				$stmt->bindParam(':answer', $ans);
-				$stmt->bindParam(':question', $que);
-				$stmt->execute();
+			// $stmt->setFetchMode(PDO::FETCH_ASSOC);
+			// $rows = $stmt->fetchAll();
+			// if(count($rows)>0){
+			// 	//question already exists. update its answer
+			// 	$sql = "update chatbot set answer = :answer where question = :question";
+			// 	$stmt = $conn->prepare($sql);
+			// 	$stmt->bindParam(':answer', $ans);
+			// 	$stmt->bindParam(':question', $que);
+			// 	$stmt->execute();
 
-				echo json_encode([
-					'status' => 1,
-					'answer' => "Thank you. I have now learnt a new answer to the question"
-				]);
-				return;
-			}
+			// 	echo json_encode([
+			// 		'status' => 1,
+			// 		'answer' => "Thank you. I have now learnt a new answer to the question"
+			// 	]);
+			// 	return;
+			// }
 
 			//insert into database
 			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
