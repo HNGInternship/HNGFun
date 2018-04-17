@@ -1,5 +1,5 @@
 <?php
-require('db.php');
+require('/../db.php');
 
 $connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 $result = mysqli_query($connect, "SELECT * FROM secret_word");
@@ -101,7 +101,63 @@ else {echo "An error occored";}
 					text-align: center;
 					border-radius: 20%;
 				}
-			
+				
+				.my-bot{
+					position: fixed;
+					right: 0;
+					bottom: 0;
+					height: 400px;
+					width: 300px;
+					border: 1px solid #ddd;
+					background: #fff;
+					box-model: border-box;
+				}
+				.my-bot > .pan {
+					
+				}
+				.my-bot > .pan > .pan-head{
+					background: #007bff !important;
+					padding: 5px;
+					color: #fff;
+				}
+				.my-bot > .pan > .pan-head > .minimize{
+					position: absolute;
+					right: 5px;
+				}
+				.pan-body {
+					padding: 5px;
+					height: 300px;
+					overflow: auto;
+				}
+				.pan-body > .design {
+					display: block;
+					font-size: 14px;
+					border-radius: 4px;
+					width: 80%;
+					padding: 5px;
+					margin-bottom: 5px;
+				}
+				.pan-body > .design > .name{
+					display: block;
+					font-weight: bold;
+					font-size: 15px;
+				}
+				.pan-body > .sender{
+					background: #ddd;
+					float: right;
+				}
+				.pan-body > .reciever{
+					background: #abf;
+					float: left;
+				}
+				
+				.pan > form{
+					width: 100%;
+					margin: 5px;
+				}
+				.pan > form > textarea{
+					width: 290px;
+				}
 		</style>
 	</head>
 	
@@ -120,5 +176,85 @@ else {echo "An error occored";}
 				<li><a style="color: #212529;" href="https://github.com/jilh"><span class="fa fa-github-square"></span></a></li>
 			</ul>
 		</div>
+		
+		<div class="my-bot">
+			<div class="pan">
+				<div class="pan-head">Let's Chat
+					<span class="minimize fa fa-remove"></span>
+				</div>
+				<div class="pan-body">
+					<span class="design sender">
+						<span class="name">Adebola</span>
+						I love being here
+					</span>
+					<span class="design reciever">
+						<span class="name">Bot</span>
+						I hate being here
+					</span>
+					<span class="design reciever">
+						<span class="name">Bot</span>
+						I hate being here
+					</span>
+					<span class="design sender">
+						<span class="name">Adebola</span>
+						I love being here
+					</span>
+					<span class="design reciever">
+						<span class="name">Bot</span>
+						I hate being here
+					</span>
+				</div>
+				<form action="#" method="POST" onSubmit="chatBot(); return false;">
+					<input id="message" type="text" name="chats" placeholder="Ask me anything">
+					<input type="submit" value="Send" class="">
+				</form>
+			</div>
+		</div>
+		<script src="../HNGFun/vendor/jquery/jquery.min.js"></script>
+		<script type="text/javascript">
+			function chatBot(){
+				let data = $('#message').val();
+				if(data == ''){
+					$('.pan-body').append('<span class="design reciever"><span class="name">Bot</span>Common! Don\'t hide your feelings from me</span>');
+					return false;
+				}
+				else{
+					
+					$('.pan-body').append('<span class="design sender"><span class="name">User</span>' + data + '</span>');
+					$('#message').val('');
+					$.ajax({
+						url: "profiles/jilh.php",
+						type: "POST",
+						data: "message=" + data,
+						success: function(resp){
+							if(resp)
+							{
+								alert(resp);
+								$('.pan-body').append('<span class="design reciever"><span class="name">Bot</span>' + resp + '</span>');
+								return false;
+							}
+						}
+					});
+				}
+			}
+		</script>
 	</body>
 </html>
+
+<?php
+if(isset($_POST['message']) && $_POST['message'] != "")
+{
+	$question = $_POST['message'];
+	echo json_encode(checkString($question));
+}
+
+function checkString($str)
+{
+	$string_array = explode(" ", $str);
+	$new_string = "";
+	if($string_array[0] == "train:")
+	{
+		return "You want to train me";
+	}
+}
+?>
