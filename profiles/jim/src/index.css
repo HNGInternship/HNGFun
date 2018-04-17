@@ -41,9 +41,10 @@
 }
 .msg .text {
 	margin: 0;
-	line-height: 1.1;
+	line-height: 1.2;
     font-size: 17px;
     font-family: Arial, sans-serif;
+    word-wrap: break-word
 }
 .msg-guest {
 	margin-left: auto;
