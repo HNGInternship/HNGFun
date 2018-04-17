@@ -64,7 +64,7 @@ b{
 	<br>
 
 	<center>
-<img  style = "border-radius: 7%;max-width : 100%; height : 380px" class = "myimage"
+<img  style = "border-radius: 7%;max-width : 100%; width: 380px" class = "myimage"
 src = "http://res.cloudinary.com/jurshsmith/image/upload/v1523643164/IMG_20170224_150914.jpg"  alt = ""><br><br><br>
 <script type="text/javascript"> $('.myimage').hide();</script>
 <font style = "color : white; font-family: montserrat">Username &nbsp;: &nbsp;&nbsp;&nbsp;&nbsp;<b>JURSHSMITH</b></font><br><br>
