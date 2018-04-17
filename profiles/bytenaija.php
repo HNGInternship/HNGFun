@@ -1,6 +1,6 @@
 <?php
 
-require "../answers.php";
+require realpath(__DIR__ . '/..') ."/answers.php";
 $file = realpath(__DIR__ . '/..') . "/db.php"    ;
 include $file;
 global $conn;
