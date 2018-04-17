@@ -78,13 +78,10 @@ p, h4{color:blue}
 <h4><i>Welcome to my page, I am 
 
 <?php 
-$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
-OR die("Could not connect to server: " .mysqli_connect_error());
 	
 $q = "SELECT name, username, image_filename  FROM interns_data  
 		WHERE (username='Eduese')  ";
-$result = mysqli_query($conn, $q); 
-
+$result = mysqli_query($conn, $q) OR die("Could not connect to server: " .mysqli_connect_error());
 
 	if($result){
 		while($row=mysqli_fetch_array($result, MYSQLI_ASSOC))
