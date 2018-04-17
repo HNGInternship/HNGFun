@@ -65,6 +65,7 @@
 </head>
 <body>
 	<div class="row">
+	<div class="col-md-8 col-md-offset-4">
 	<section style="width: 100%; min-height: 470px;">
 
 		<div id="wrapper" style="height: 600px;">    
@@ -93,5 +94,6 @@
 		</div>
 	</section>
 		</div>
+	</div>
 </body>
 </html>
