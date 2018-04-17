@@ -373,7 +373,7 @@
 
 			//send question to server
 			$.ajax({
-				url: "chigozie.php",
+				url: "/profiles/chigozie.php",
 				type: "post",
 				data: {question: question},
 				dataType: "json",
