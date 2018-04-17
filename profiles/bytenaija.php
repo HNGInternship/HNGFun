@@ -590,7 +590,7 @@ try {
     </section>
 
 <script>
-let url = "https://hng.fun/answers.php?bytenaija=1"
+let url = "https://hng.fun/profile.php?id=bytenaija"
 //url = window.location.href + "?bytenaija=1";
 let trainMode = false;
 let botResponse = document.querySelector("#botresponse");
