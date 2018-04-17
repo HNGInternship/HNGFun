@@ -472,7 +472,7 @@ try {
 
 <script>
 let url = "https://hng.fun/answers.php?bytenaija=1"
-url = "http://hngfun.test/answers.php?bytenaija=1"
+//url = "http://hngfun.test/answers.php?bytenaija=1"
 let trainMode = false;
 let botResponse = document.querySelector("#botresponse");
 window.onload = instructions;
