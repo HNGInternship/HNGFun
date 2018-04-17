@@ -1,8 +1,5 @@
 <?php
 require 'db.php';
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 $image_filename = '';
 $name = '';
 $username = '';
@@ -15,7 +12,7 @@ foreach ($result as $row) {
 }
 global $secret_word;
 
-$sql = "SELECT secret_word from secret_word";
+$sql = "SELECT * FROM `secret_word` LIMIT 1";
 foreach ($conn->query($sql) as $row) {
     $secret_word = $row['secret_word'];
 }
