@@ -42,6 +42,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
 
     function answerQuestion($question){
+      global $conn;
+      global $answer; 
+      
       $question = preg_replace('([\s]+)', ' ', trim($question));
       $question = preg_replace("([?.])", "", $question);
       
