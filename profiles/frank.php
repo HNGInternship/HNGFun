@@ -1,10 +1,10 @@
 <?php
 
-$sql = "SELECT * FROM interns_data WHERE username = 'frank'";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$data = $q->fetchAll();
-$frank = array_shift($data);
+$sel_frank = "SELECT * FROM interns_data WHERE username = 'frank'";
+$fetch_frank= $conn->query($sel_frank);
+$fetch_frank->setFetchMode(PDO::FETCH_ASSOC);
+$frank_data = $fetch_frank->fetchAll();
+$frank = array_shift($frank_data);
 
 // Secret word
 $sql = "SELECT * FROM secret_word";
@@ -22,7 +22,7 @@ $secret_word = $words['secret_word'];
 	<br/><br/><br/>
 	
 	<div class="photo-wrap">
-		<img src="<?php echo $frank['image_filename']; ?>" alt="" />
+		<img src="<?php echo $frank['image_filename']; ?>" alt="" width="300" height="300" />
 	</div>
 	
 	<h3>HNG INTERNSHIP 4 #STAGE3 TASK</h3>
