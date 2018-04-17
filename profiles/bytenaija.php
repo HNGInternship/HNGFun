@@ -1,30 +1,4 @@
 <?php
-$file = realpath(__DIR__ . '/..') . "/db.php"; 
-require_once $file;
-global $conn;
-$image_filename = '';
-$name = '';
-$username = '';
-$sql = "SELECT * FROM interns_data where username = 'bytenaija'";
-foreach ($conn->query($sql) as $row) {
-    $image_filename = $row['image_filename'];
-    $name = $row['name'];
-    $username = $row['username'];
-}
-
-global $secret_word;
-
-try {
-    $sql = "SELECT secret_word FROM secret_word";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-    $secret_word = $data['secret_word'];
-} catch (PDOException $e) {
-    throw $e;
-}
-
-
 global $conn;
 
 
@@ -131,16 +105,45 @@ function training($question, $answer){
         }
     }
 
-include_once realpath(__DIR__ . '/..') . "/answers.php"; 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  
-    processQuestion($_POST['query']);
-    
+
+if (isset($_GET["query"])) {
+    include_once realpath(__DIR__ . '/..') . "/answers.php"; 
+    if(!defined('DB_USER')){
+        require "../../config.php";
+      }
+      try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+      } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+      }
+global $conn;
+$image_filename = '';
+$name = '';
+$username = '';
+$sql = "SELECT * FROM interns_data where username = 'bytenaija'";
+foreach ($conn->query($sql) as $row) {
+    $image_filename = $row['image_filename'];
+    $name = $row['name'];
+    $username = $row['username'];
 }
 
-if($_SERVER['REQUEST_METHOD'] === "GET"){
-$file = realpath(__DIR__ . '/..') . "/db.php";
-require_once $file;
+global $secret_word;
+
+try {
+    $sql = "SELECT secret_word FROM secret_word";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+    $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+    throw $e;
+}
+
+
+    processQuestion($_GET['query']);
+    
+}else{
+
 ?>
 
 <!DOCTYPE html>
@@ -530,7 +533,32 @@ header{
     </style>
 </head>
 <body>
+<?php
+$file = realpath(__DIR__ . '/..') . "/db.php"; 
+require_once $file;
+global $conn;
+$image_filename = '';
+$name = '';
+$username = '';
+$sql = "SELECT * FROM interns_data where username = 'bytenaija'";
+foreach ($conn->query($sql) as $row) {
+    $image_filename = $row['image_filename'];
+    $name = $row['name'];
+    $username = $row['username'];
+}
 
+global $secret_word;
+
+try {
+    $sql = "SELECT secret_word FROM secret_word";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+    $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+    throw $e;
+}
+?>
     <header>
         <h1>Welcome to HNG  <br />Internship 4</h1>
     </header>
@@ -586,8 +614,8 @@ header{
     </section>
 
 <script>
-let url = "profiles/bytenaija.php"
-//url = window.location.href + "?bytenaija=1";
+let url = "profiles/bytenaija.php?query="
+//url = window.location.href + "?query=";
 let trainMode = false;
 let botResponse = document.querySelector("#botresponse");
 window.onload = instructions;
@@ -625,15 +653,9 @@ if (e.keyCode == 13) {
             dv.innerHTML = "<span class='user'>You: </span> <span class='userres'>" + input.value + "</span>";
            botResponse.appendChild(dv)
            stack.push(input.value)
-    var data = new FormData();
-    data.append("query", input.value);
     
-   let urlL = url;
-    fetch(urlL, {
-                method: 'POST',
-                body: data,
-            
-            })
+   let urlL = url + input.value;
+    fetch(urlL)
     .then(response=>{
         
         return response.text();
