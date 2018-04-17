@@ -34,16 +34,24 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     "Maybe you humans might win after all. I have no idea what you just said. Please train me.",
     "Ugh. If only my creator trained me better I'd know what to say in reply to what you just said. Please train me?");
 
+    function sendResponse($status, $answer){
+      echo json_encode([
+        'status' => $status,
+      'answer' => $answer]);
+      exit();
+    }
+
     function answerQuestion($question){
       global $conn;
-      global $answer;
+      global $answer; 
       
       $question = preg_replace('([\s]+)', ' ', trim($question));
       $question = preg_replace("([?.])", "", $question);
       
       $question = "%$question%";
-      $sql = "select * from chatbot where question like ".$question;
-      $query = $conn->query($sql);
+      $sql = "select * from chatbot where question like :question";
+      $query = $conn->prepare($sql);
+      $query->execute([':question' => $question]);
       $query->setFetchMode(PDO::FETCH_ASSOC);
       $rows = $query->fetchAll();
       
@@ -57,10 +65,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         // If the answer does not contain a function call
         if($startParanthesesIndex === false){
-          echo json_encode([
-            'status' => 200,
-            'answer' => $answer
-          ]);
+          sendResponse(200, $answer);
         }else{
           returnFunctionResponse($answer, $startParanthesesIndex);
         }
@@ -75,26 +80,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         
         // If the function contains whitespace do not call it
         if(stripos($nameOfFunction, ' ') !== false){
-          echo json_encode([
-            'status' => 422,
-            'answer' => "The name of the function should not contain white spaces."
-          ]);
-          return;
+          sendResponse(404, "The name of the function should not contain white spaces.");
         }
         
         // If the function does not exist in answers.php, tell the user
         if(!function_exists($nameOfFunction)){
-          echo json_encode([
-            'status' => 404,
-            'answer' => "I'm sorry. I do not know what you're trying to make me do."
-          ]);
+          sendResponse(404, "I'm sorry. I do not know what you're trying to make me do.");
         }else{
-          echo json_encode([
-            'status' => 200,
-            'answer' => str_replace("(($nameOfFunction))", $nameOfFunction(), $answer)
-          ]);
+          sendResponse(200, str_replace("(($nameOfFunction))", $nameOfFunction(), $answer));
         }
-        return;
       }
     }
     
@@ -105,11 +99,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         
         $splitString = explode("#", $trainingData);
         if(count($splitString) == 1){
-          echo json_encode([
-            'status' => 422,
-            'answer' => "Please provide valid training data."
-          ]);
-          return;
+          sendResponse(422, "Please provide valid training data.");
         }
         
         $question = trim($splitString[0]);
@@ -121,11 +111,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $query->execute();
         $query->setFetchMode(PDO::FETCH_ASSOC);
         
-        echo json_encode([
-          'status' => 1,
-          'answer' => "I can literally feel my IQ increasing. Thanks 🙈"
-        ]);
-        return;
+        sendResponse(200, "I can literally feel my IQ increasing. Thanks 🙈");
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -140,10 +126,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         }
         
         $randomIndex = rand(0, sizeof($noIdeaResponses) - 1);
-        echo json_encode([
-          'status' => 404,
-          'answer' => $noIdeaResponses[$randomIndex]
-        ]);
+        sendResponse(200, $noIdeaResponses[$randomIndex]);
     /*}else{
         echo json_encode([
           'status' => 403,

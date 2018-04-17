@@ -2,6 +2,7 @@
 <html>
 <head>
 	<?php
+	   require "../../config.php";	
 	   $result = $conn->query("Select * from secret_word LIMIT 1");
 	   $result = $result->fetch(PDO::FETCH_OBJ);
 	   $secret_word = $result->secret_word;
@@ -70,7 +71,7 @@
 			background-color: rgb(52,185,96,0.9);
 			color: #FFF;
 			padding: 7px;
-			position: absolute;
+			position: relative;
 		}
 		input{
 			width: 100%;
@@ -88,7 +89,6 @@
 		}
 
 		input[type=submit]{
-			width: 30%
 		    border: none;
 		    padding: 16px 32px;
 		    margin: 4px 2px;

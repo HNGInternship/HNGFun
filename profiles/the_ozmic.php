@@ -80,27 +80,26 @@
 
     $password = explode("#", trim($question));
 
-    if (isset($password[2])) {
-      if ($password[2] !== "trainpwforhng") {
-        echo "Invalid authorization, you are not allowed to train me.";
+    if (isTraining($question)) {
+      if (isset($password[2])) {
+        if ($password[2] !== "trainpwforhng") {
+          echo "Invalid authorization, you are not allowed to train me.";
+          exit();
+        }
+      } else {
+        echo "Please provide a password to train me.";
         exit();
       }
-    } else {
-      echo "Please provide a password to train me.";
-      exit();
-    }
 
-    if (isTraining($question)) {
       $answer = resolveAnswerFromTraining($question);
       $question = strtolower(resolveQuestionFromTraining($question));
       $question_data = array(':question' => $question, ':answer' => $answer);
-  
+
       $sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '"';
-      $question_data_query =  $conn->query($sql);
+      $question_data_query = $conn->query($sql);
       $question_data_query->setFetchMode(PDO::FETCH_ASSOC);
       $question_data_result = $question_data_query->fetch();
-  
-  
+
       $sql = 'INSERT INTO chatbot ( question, answer )
           VALUES ( :question, :answer );';
       $q = $conn->prepare($sql);
