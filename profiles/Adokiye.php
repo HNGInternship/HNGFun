@@ -1,12 +1,5 @@
 <?php
-$servername = "localhost";
-$userName = "username";
-$password = "";
-$dbname = "interns_data";
-// Create connection
-$conn = new mysqli($servername, $userName, $password, $dbname);
-global $conn;
-// Check connection
+require 'db.php';
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
