@@ -1,6 +1,6 @@
 <?php
     try {
-        $profile = 'SELECT * FROM interns_data_ WHERE username="woleo"';
+        $profile = 'SELECT * FROM interns_data WHERE username="woleo"';
         $select = 'SELECT * FROM secret_word';
     
         $query = $conn->query($select);
@@ -10,11 +10,15 @@
         $profile_query->setFetchMode(PDO::FETCH_ASSOC);
     
         $get = $query->fetch();
+        $secret_word = $get['secret_word'];
         $user = $profile_query->fetch();
+        $name = $user['name'];
+        $username = $user['username'];
+        $image_filename = $user['image_filename'];
     } catch (PDOException $e) {
         throw $e;
     }
-    $secret_word = $get['secret_word'];
+    //$secret_word = $get['secret_word'];
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +31,7 @@
         .card{
             margin: auto 0;
             width: 60%;
+            text-align: center;
         }
 
      button {
@@ -39,21 +44,25 @@
   width: 100%;
   font-size: 16px;
 }
+img{
+    margin:0 10%;
+}
 
 a {
   text-decoration: none;
   font-size: 22px;
-  color: black;
+  color: blue;
+  padding-right:20px;
 }
     </style>
 </head>
 <body>
 
 <div class="card">
-  <img src="<?php echo $image_filename; ?>" alt="profile" style="width:100%">
+  <img src="<?php echo $image_filename; ?>" alt="profile" style="width:80%">
   <h1><?php echo $name; ?></h1>
   <h2>@<?php echo $username; ?></h2>
-  <p>Web Developer from Ogun State</p>
+  <p>Software Developer from Ogun State</p>
   <div style="margin: 24px 0;">
     <a href="https://twitter.com/oluwolley"><i class="fa fa-twitter"></i></a>  
     <a href="https://www.instagram.com/iam_ahead/"><i class="fa fa-instagram"></i></a>  
@@ -63,5 +72,4 @@ a {
 
 </body>
 </html>
-
 
