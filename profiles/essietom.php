@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><?php echo $user->username; ?></title>
+	<title><?php echo $username; ?></title>
 	<style type="text/css">
 		
 		body{
@@ -256,8 +256,8 @@
 
 <div class="banner-main">
 	
-	<img src="http://res.cloudinary.com/essietom/image/upload/v1523719246/<?php echo $user->image_filename; ?>" width="100px" height="110px" class="round-border roll-image">
-	<h2><?php echo $user->name; ?></h2>
+	<img src="<?php echo $image_filename; ?>" width="100px" height="110px" class="round-border roll-image">
+	<h2><?php echo $username; ?></h2>
 	<h4>Web developer and designer</h4>
 	<p style="text-align: justify; padding-right:10px;margin-left: 10px;">
 		I am a tech enthusiast, passionate about changing my world with technology. Software development is my thing, with determination to discover creative ideas and solve complex problems.<br>
