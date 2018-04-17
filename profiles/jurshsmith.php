@@ -13,6 +13,13 @@ HNG | Jurshsmith
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous">
     </script>
      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<script>
+	$(document).ready(function(){
+	$('.col-lg-8').hide();
+	
+	
+	});
+	</script>
 
 <style type="text/css">
 	html,body{
