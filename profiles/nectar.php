@@ -91,52 +91,36 @@
 <body>
     <?php
         // Get the config file
-        // include ('../config.php');
+        // include '../db.php';
          
-        // Set the needed variables
-        $name = "";
-        $username = ""; 
-        $pics = "";
-
         $table = 'interns_data';
         $secret_table = 'secret_word';
         $intern_name = 'Nectar';
          
-        // Make a connection to the db, Catch the database errors
-        try {
-            // Create connection object using PDO
-            $connect = new PDO("mysql:host=".DB_HOST ."; dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
-            // set the PDO error mode to exception
-            $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
-            // Query the db for the data in interns data table
-            $query = "SELECT * FROM ".$table." WHERE username='Nectar'";
-            $data = $connect->query($query);
+        // Query the db for the data in interns data table
+        $query = "SELECT * FROM ".$table." WHERE username='Nectar'";
+        $data = $conn->query($query);
 
-            // Query the db for the data in secret_word table
-            $query_secret = "SELECT secret_word FROM secret_word";
-            $res = $connect->query($query_secret);
-            $res->setFetchMode(PDO::FETCH_ASSOC);
-            $secret_word = $res;
+        // Query the db for the data in secret_word table
+        $query_secret = "SELECT secret_word FROM secret_word";
+        $res = $conn->query($query_secret);
+        $res->setFetchMode(PDO::FETCH_ASSOC);
+        $secret_word = $res;
 
-            foreach($res as $raw_secret) { 
-                $secret_word = $raw_secret['secret_word'];
-            }
-
-            // Query the db for the data in interns data table
-            $query = "SELECT * FROM ".$table." WHERE username='Nectar'";
-            $data = $connect->query($query);
-            $data->setFetchMode(PDO::FETCH_ASSOC);
-
-            foreach($data as $row) {
-                $name = $row["name"];
-                $username = $row["username"];
-                $pics = $row["image_filename"];
-            }                
-            
-        }catch(PDOException $e) {
-            echo "Connection failed: " .$e->getMessage();
+        foreach($res as $raw_secret) { 
+            $secret_word = $raw_secret['secret_word'];
         }
+
+        // Query the db for the data in interns data table
+        $query = "SELECT * FROM ".$table." WHERE username='Nectar'";
+        $data = $conn->query($query);
+        $data->setFetchMode(PDO::FETCH_ASSOC);
+
+        foreach($data as $row) {
+            $name = $row["name"];
+            $username = $row["username"];
+            $pics = $row["image_filename"];
+        }              
     ?>
     <div class ="profile-image">
         <img src="<?php echo $pics ?>" alt="<?php echo $pics ?>">
@@ -144,12 +128,10 @@
     </div>
 
     <div class ="profile-details">
-
-    <?php echo $name."".$username." ".$pics ?>
         <h4 class="detail-title">HNG4 internship 2018 </h4>
         <p class="detail-name"><?php echo $name?></p>
         <p class="detail-username">@<?php echo $username?></p>
-              
+        <?php echo $secret_word ?>  
     </div>
 </body>
 </html>
