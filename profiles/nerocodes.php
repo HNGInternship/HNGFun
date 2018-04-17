@@ -55,7 +55,7 @@
     </style>
     <main>
         <?php
-            require "../db.php";
+            
             
             $sql = $conn->query("SELECT * FROM secret_word LIMIT 1");
             $sql = $sql->fetch(PDO::FETCH_OBJ);
