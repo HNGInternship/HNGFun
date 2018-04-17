@@ -332,5 +332,21 @@ function bytenaija_time($location) {
 
 }
 
+function bytenaija_convert($base, $other){
+    $api_key = "U7VdzkfPuGyGz4KrEa6vuYXgJxy4Q8";
+    $url = "https://www.amdoren.com/api/currency.php?api_key=" . $api_key . "&from=" . $base . "&to=" . $other;
+    
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => $url,
+        CURLOPT_USERAGENT => 'Codular Sample cURL Request'
+    ));
+
+    $response = curl_exec($curl);
+    $response = json_decode($response, true);
+    echo "1 ". strtoupper($base) ." is equal to ".  strtoupper($other)  ." " .$response['amount'];
+}
+
 /***************************Bytenaija ends here*************************/
 ?>

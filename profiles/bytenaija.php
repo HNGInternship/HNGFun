@@ -47,9 +47,16 @@ function processQuestion($str){
     }else if(validateFunction($str)){
        list($functionName, $paramenter) = explode('(', $str) ;
         list($paramenter, $useless) = explode(')', $paramenter);
+        if(strpos($paramenter, ",")!== false){
+            $paramenterArr = explode(",", $paramenter);
+        }
        switch ($functionName){
            case "time":
            bytenaija_time($paramenter);
+           break;
+
+           case "convert":
+           bytenaija_convert(trim($paramenterArr[0]), trim($paramenterArr[1]));
            break;
        }
     }else{
@@ -96,7 +103,7 @@ function training($question, $answer){
           
             echo $row["answer"];
         }} else{
-            echo "I don't understand that command yet. My master is very lazy. Try agin in 200 years. You could train me to understand this!";
+            echo "I don't understand that command yet. My master is very lazy. Try again in 200 years. You could train me to understand this using this format <strong>train: question # answer</strong>!";
         }
     }
         
@@ -434,7 +441,25 @@ font-family: Lato;
     color: #000000;
     font-family: Lato;
 }
+.move-right{
+    animation: move  5s;
+    animation-fill-mode: forwards;
+    position: relative;
+    left: -100%;
+    
 
+}
+
+@keyframes move{
+   from{
+        left:-100%;
+    }
+
+    to{
+        left:18%;
+    }
+
+}
 @media screen and (max-width: 900px){
 
 html, body{
@@ -443,7 +468,7 @@ html, body{
 }
     .bot{
         width : 100%;
-        margin: 0 auto;
+        margin: 0 0;
     }
 
     aside{
@@ -603,10 +628,11 @@ try {
     
     </div>
 
-    <div class="bot">
+    <div class="bot move-right">
+    <h2>Byte9ja Chatbot</h2>
     <div id="botresponse"> </div>
     <br />
-    <input type="text" name="botchat" placeholder="Chat with me!" onkeypress="return runScript(event)" onkeyDown="recall(event)" class="form-control">
+    <input type="text" name="botchat" placeholder="Chat with me! Press enter to send." onkeypress="return runScript(event)" onkeyDown="recall(event)" class="form-control">
     
     
    
@@ -616,7 +642,7 @@ try {
 <script>
 let url = "profiles/bytenaija.php?query=";
 //url = window.location.href + "?query=";
-let trainMode = false;
+
 let botResponse = document.querySelector("#botresponse");
 window.onload = instructions;
 let stack = [];
@@ -663,7 +689,7 @@ if (e.keyCode == 13) {
     })
     .then(
         response=>{
-            
+            console.log(response)
             print(response);
         });
         input.value = '';
@@ -681,6 +707,7 @@ function print(response){
 function instructions(){
     $string = '<div class="instructions">My name is byte9ja. I am a Robot. Type a command and I will try and answer you.<br> Meanwhile, try this commands';
     $string += "<li><strong>time(city) will give you the time in that city: e.g. time(abuja) </strong></li>";
+    $string += "<li><strong>convert(currency, currency) will convert the exhange rate for you e.g. convert(usd, ngn) </strong></li>";
     $string += "<li><strong>train: question # answer - to train me and make me more intelligent</strong></li>";
     $string += "</div>"
  
