@@ -1,10 +1,14 @@
+<?php
+include_once realpath(__DIR__ . '/..') . "/answers.php" 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu|Lato' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
     <title>Bytenaija - HNG Internship 4</title>
 
@@ -181,12 +185,213 @@ section h2:first-child{
    transform: skew(0deg);
    background-color:aqua;
 }
+.bot{
+    width : 60%;
+    margin: .5rem auto;
+}
+.form-control{
+    width : 100%;
+}
+
+ input{
+   
+    padding: .5rem !important;
+    
+}
+
+#botresponse{
+    width: 100%;
+   
+    height: 15rem;
+    overflow-y: scroll;
+    padding: 1rem;
+    font-family: Lato;
+    color:#330505;
+    border-left: 1px solid #330505;
+    box-shadow: 1px 5px 3rem aqua;
+}
+
+.bot input{
+    height: 1.5rem;
+    box-shadow: 0 0 2rem aqua;
+    border-radius: .5rem;
+    margin-left: .5rem;
+}
+
+.bot #botresponse div{
+    margin-bottom: 1rem;
+    font-family: Lato;
+}
+
+
+
+.bot .botnet{
+   color: white;
+   background-color: black;
+   padding:.2rem;
+   margin-right: .5rem;
+   margin-bottom: .2rem;
+   display: inline-block;
+   font-family: Lato;
+}
+.bot .user{
+    color: Red;
+   background-color: rgba(0,0,0,.5);
+   padding:1rem;
+   margin-right: .5rem;
+   margin-bottom: .2rem;
+   display: inline-block;
+   font-family: Lato;
+}
+.bot .res{
+    background-color:white;
+    display: inline-block;
+    font-family: Lato;
+    padding:.5rem 1rem;
+    width: 20rem;
+    background-color: #1E73E8;
+}
+
+.bot .userres{
+    background-color:white;
+    display: inline-block;
+    font-family: Lato;
+    padding:.5rem 1rem;
+    min-width: 20rem;
+    background-color: #EB5757;
+}
+.bot #botresponse::-webkit-scrollbar {
+    width: 2rem;
+}
+
+/* Track */
+.bot #botresponse::-webkit-scrollbar-track {
+    background: aqua; 
+}
+
+/* Handle */
+.bot #botresponse::-webkit-scrollbar-thumb {
+    background: white; 
+}
+
+/* Handle on hover */
+.bot #botresponse::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+color: #000000;
+opacity: 1; /* Firefox */
+font-family: Lato;
+}
+
+  input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #000000;
+    font-family: Lato;
+}
+
+@media screen and (max-width: 900px){
+
+html, body{
+    margin: 0;
+    padding: 0;
+}
+    .bot{
+        width : 100%;
+        margin: 0 auto;
+    }
+
+    aside{
+    
+    float:none;
+    
+    margin-right: 0rem;
+    text-align: center;
+    width: 100%;
+}
+
+aside img{
+    border-radius : 50%;
+    width: 15rem;  
+    height: 15rem; 
+    box-shadow: #330505 0 0 2rem;
+  
+       
+}
+
+aside h4{
+font-size: 150%;
+font-family: 'Roboto';
+text-shadow: white 0 0 .5rem;
+
+}
+
+section h2, h3{
+    color: #330505;
+    font-size: 100%;
+    font-family: 'Poppins';
+    text-shadow: white 0 0 .5rem;
+    
+}
+
+section{
+   width: 100%;
+   margin-bottom: .5rem;
+}
+.me{
+    width:100%;
+}
+.left{
+    float :none;
+    width: 100%;
+    text-align: center;
+}
+
+.right{
+    float :none;
+    width: 100%;
+    text-align: center;
+}
+
+.me p{
+   box-shadow: 1px 1px .5rem aqua;
+    width: 80%;
+    margin: .5rem auto  ;
+    background-color: white;
+    font-size: 100%;
+    text-align: center;
+}
+
+header{
+    width: 100%;
+    margin-top: 4rem;
+}
+.botres{
+    float:right !important;
+}
+
+.bot .botnet{
+    font-size:80%;
+}
+.bot .user{
+    font-size:80%;
+}
+.bot .res{
+    font-size:80%;
+   
+}
+
+.about{
+    font-size: 100%;
+}
+}
     </style>
 </head>
 <body>
 <?php
-
-include "../db.php";
+$file = realpath(__DIR__ . '/..') . "/db.php"    ;
+include $file;
 global $conn;
 $image_filename = '';
 $name = '';
@@ -200,11 +405,18 @@ foreach ($conn->query($sql) as $row) {
 
 global $secret_word;
 
-$sql = "SELECT secret_word from secret_word";
-foreach ($conn->query($sql) as $row) {
-    $secret_word = $row['secret_word'];
-   
+try {
+    $sql = "SELECT secret_word FROM secret_word";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+    $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+    throw $e;
 }
+
+
+
 ?>
 
 
@@ -251,8 +463,231 @@ foreach ($conn->query($sql) as $row) {
     <div class="clear">&nbsp;</div>
     
     </div>
+
+    <div class="bot">
+    <div id="botresponse"> </div>
+    <br />
+    <input type="text" name="botchat" placeholder="Chat with me!" onkeypress="return runScript(event)" onkeyDown="recall(event)" class="form-control">
+    
+    
+   
+    </div>
     </section>
 
+<script>
+let url = "https://hng.fun/answers.php?bytenaija=1"
+url = "http://hngfun.test/answers.php?bytenaija=1&time=1&location=";
+let trainMode = false;
+let botResponse = document.querySelector("#botresponse");
+window.onload = instructions;
+let stack = [];
+let count = 0;
+function recall(e){
+    let input = e.currentTarget;
+    if(e.keyCode == 38){
+       
+        console.log(count)
+        if(stack.length > 0){
+       if(count < stack.length){
+        let command = stack[stack.length- count -1];
+        input.value = command;
+            }else{
+                count =0
+            }
+            count++;
+        }
+    
+    }else if(e.keyCode == 40){
+        if(count > 0){
+            count--;
+            console.log(count)
+            let command = stack[count];
+            input.value = command;
+        }
+        
+    }
+}
+function runScript(e) {
+    if (e.keyCode == 13) {
+        let input = e.currentTarget;
+        let dv = document.createElement("div");
+            dv.innerHTML = "<span class='user'>You: </span> <span class='userres'>" + input.value + "</span>";
+           botResponse.appendChild(dv)
+           stack.push(input.value)
+           if(trainMode){
+               training(input.value)
+           }else{
+            evaluate(input.value)
+           }
+        
+        input.value = "";
+        return false;
+    }
+}
+let askName = false;
+let setName = false;
+let name = ''
+function evaluate(str){
+    str = str.toLowerCase();
+    if(askName && !setName){
+        setName = true;
+        name = capitalize(str);
+        print("Welcome to my galaxy " + name + ". Ask me any question. I will let you know if I can answer it");
+        return;
+    }
+    if(str.indexOf("hi") != -1 || str.indexOf("hello") != -1){
+        if(askName){
+            print("Hello " + name + "! How can I be of help?")
+        }else{
+            askName = true;
+        print("Hi, how are you? What is your firstname?")
+        }
+        
+    } else if(str.indexOf("time") != -1){
+        let inStr = str.substr(str.indexOf("time") + 5, 2);
+        if(inStr !== "in"){
+            print("Usage: What is the time in New York \n or Time in New York");
+        }else {
+        let city = str.substr(str.indexOf(inStr)+3, str.length -1)
+        //city = capitalize(city);
+        console.log("citycity", city)
+        
+        if(city == " "){
+            print("Usage: What is the time in New York \n or Time in New York");
+        }else{
+        fetch(url + city)
+            .then(response=>{
+                return response.text()
+            })
+            .then(response=>{
+                console.log(response);
+            })
 
+    
+    } 
+}
+}
+    else if(str.indexOf("#train") != -1)
+    {
+        console.log("Entering training mode")
+        print("Entering training mode. Enter #exit to exit training mode. To train enter <strong>keyword : response.</strong>");
+        trainMode = true;
+
+    } 
+    else if(str.indexOf("#untrain") != -1)
+    {
+    
+        print("Oh why are you doing thisEntering training mode. Enter #exit to exit training mode. To train enter <strong>keyword : response.</strong>");
+        trainMode = true;
+
+    } 
+    else if(str.indexOf("#list") != -1)
+    {
+       
+    let list = "<li>Time in {country or city}</li>";
+    list += "<li>What is the time in {country or city}</li>";
+    list += "<li>Hello</li>";
+    list += "<li>Hi</li>";
+    list += "<li>currency: {base}/{other}</li>";
+
+       let urlL = url + "&list=1";
+        
+        fetch(urlL)
+        .then(response=>{
+            return response.text();
+        })
+        .then(response=>{
+            if(response == ''){
+                print(list)
+            }else{
+                print(response + list);
+            }
+            
+        })
+
+    } 
+    else{
+       
+        str = str.split(":");
+        let keyword = str[0], response = str[1];
+
+        console.log(keyword, response)
+
+        let urlL = url + "&query=" + str;
+        console.log(url)
+
+        fetch(urlL)
+        .then(response=>{
+            return response.text();
+        })
+        .then(response=>{
+            if(response.length <= 0){
+                print("I don't understand that command yet. My master is very lazy. Try agin in 200 years");
+            }else{
+                print(response);
+            }
+            
+        })
+            
+    }
+}
+
+function print(response){
+    let dv = document.createElement("div");
+            dv.innerHTML = "<div class='botres' style='float: right;'><span class='res'>" + response + "</span><span class='botnet'>Byte9ja</span></div>";
+           botResponse.appendChild(dv)
+           botResponse.scrollTop = botResponse.scrollHeight;
+}
+
+function capitalize(str){
+    let words = [];
+    str = str.split(" ");
+    for(let word of str){
+        words.push(word[0].toUpperCase() + word.slice(1));
+    }
+
+    return words.join(" ");
+}
+
+function training(str){
+ if(str.indexOf("#exit") != -1)
+    {
+        
+        print("Exiting training mode! Thank you for the training.");
+        trainMode = false;
+        return;
+
+    }
+
+    ;
+    str = str.split(":");
+    let keyword = str[0], response = str[1];
+
+    console.log(keyword, response)
+
+    let urlL = url + "&train&keyword=" + keyword + "&response=" + response;
+    console.log(urlL)
+    fetch(urlL)
+    .then(response=>{
+        console.log(response);
+        return response.text()
+    })
+    .then(response=>{
+        console.log(response)
+        print(response);
+    })
+}
+
+function instructions(){
+    $string = 'My name is byte9ja. I am a Robot. I understand the following commands<br>';
+    $string += "<li><strong>Hi</strong> or <strong>Hello</strong>: Greet me </li>";
+    $string += "<li>Type <strong>#train</strong> to enter training mode and <strong>#exit</strong> to exit training mode </li>";
+    $string += "<li><strong>currency: {base currency}/{other currency}</strong> to see exchange rate: e.g. currency: USD/NGN </li>";
+    $string += "<li><strong>What is the time in {country or city}</strong> or <strong>Time in {country or city} </strong>to check the time: e.g. Time in New York </li>";
+    $string += "<li><strong>#list </strong>to list all the questions in the database</li>";
+    $string += "<li>You can use the <strong>Up</strong> and <strong>Down</strong> arrow to recall your previous commands</li>";
+   print($string);
+}
+</script>
 </body>
 </html>

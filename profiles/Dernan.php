@@ -76,6 +76,7 @@
         body{
         	background-image: url(http://res.cloudinary.com/ddjpblpib/image/upload/v1523629224/1.jpg);
         	background-size: cover;
+		width: 100vw;
         }
 
         .landing h1{
@@ -120,12 +121,12 @@
             <p>A front-end web developer, competent in HTML, CSS, UIKIT and an intermediate user of Javascript and PHP.</p>
             <p>I love challenges that help me grow and be better at what I do.</p>
         </div>
-        <h2>@gazelle007</h2>
+        <h2>@Dernan</h2>
         <nav>
             <a href="https://www.facebook.com/dorcas.godwin"><span class="fa fa-facebook"></span></a>
-            <a href="https://twitter.com/gazelle_007"><span class="fa fa-twitter"></span></a>
+            <a href="https://https://twitter.com/DerNaan><span class="fa fa-twitter"></span></a>
             <a href="https://www.linkedin.com/in/dernan-tirsing-5155ba156"><span class="fa fa-linkedin"></span></a>
-            <a href="https://github.com/Gazelle007"><span class="fa fa-github"></span></a>
+            <a href="https://github.com/DernanT"><span class="fa fa-github"></span></a>
         </nav>
 
         <?php

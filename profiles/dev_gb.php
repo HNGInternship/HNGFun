@@ -1,5 +1,4 @@
 <?php
-require '../db.php';
 $query = $conn->query("SELECT * FROM secret_word");
 $result = $query->fetch(PDO::FETCH_ASSOC);
 $secret_word = $result['secret_word'];
@@ -15,7 +14,7 @@ $secret_word = $result['secret_word'];
 <style>
 body {
   margin: 0;
-  background-image: url("http://res.cloudinary.com/devgeaks/image/upload/v1523731563/background.jpg");
+  background-image: url("https://res.cloudinary.com/devgeaks/image/upload/v1523891444/bot2.jpg");
   background-attachment: fixed;
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -84,14 +83,23 @@ body {
     float: center;
 }
 
+.content  form{
+  margin-top: 70px;
+    font-family: "Lobster", Sans-serif;
+    font-size: 30px;
+    padding: 14px 16px;
+    text-align: center;
+    float: center;
+}
+
 /* Style the footer */
 .footer {
     background-color: white;
-    width:100%;
+    width:auto;
     opacity: 0.5;
     filter: alpha(opacity=50);
     bottom:0;
-    position:absolute;
+    position:relative;
 }
 
 .footer p1 {
@@ -106,7 +114,8 @@ body {
     font-family: "Comic Sans MS";
     text-decoration: none;
     font-size: 20px;
-}</style>
+}
+</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script> 
 $(document).ready(function(){
@@ -121,7 +130,7 @@ $(document).ready(function(){
 <p id="panel">
 <?php
 require 'db.php';
-$username = "dev_geaks";
+$username = "dev_gb";
 $data = $conn->query("SELECT * FROM  interns_data WHERE username = '".$username."' ");
 $my_data = $data->fetch(PDO::FETCH_BOTH);
 $name = $my_data['name'];
@@ -147,6 +156,11 @@ $username =$my_data['username'];
 
 <div class="w3-container w3-lobster font-effect-brick-sign">
   <h2>Welcome to dev_geaks</h2>
+  <form action="dev_gb.php" method="post">
+    Input:&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="name"><br>
+    Answer: <input type="text" name="email"><br>
+    <input type="submit">
+   </form>
 </div>  
 </div>
 
