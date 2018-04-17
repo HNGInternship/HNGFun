@@ -94,6 +94,9 @@
         $username = $row['username'];
         $image_filename = $row['image_filename'];
       }
+      $name = $row['name'];
+        $username = $row['username'];
+        $image_filename = $row['image_filename'];
     }
 
     $word = "SELECT secret_word FROM secret_word";
@@ -104,6 +107,7 @@
         
         $secret_word = $row['secret_word'];
       }
+      $secret_word = $row['secret_word'];
     }
 
   ?>
