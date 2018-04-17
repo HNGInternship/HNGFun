@@ -5,47 +5,38 @@
 <title> @frank HNG Internship 4 #stage3 </title>
 <link rel="stylesheet" type="text/css" href="style.css">
 <style>
-
-
 * {
     margin: 0;
     padding: 0;
 }
-
 body{
  background-color:#E5E5E5;
 }
-
-
  .container{
 position: relative;
 margin-top: 50px;
-width: 500px;
-height: 500px;
+width: 300px;
+height: 300px;
 margin-left: 300px;
 padding-right: 200px;
 background: #132B38;
+color: white;
+padding-left: 20;
  }
-
-
  .container .title{
 position: absolute;
-width: 600.1px;
+width: 300.1px;
 height: 300.11px;
-left: 110px;
+left: 180px;
 top: 79.22px;
-
 font-family: Roboto;
 font-style: normal;
 font-weight: normal;
 line-height: normal;
 font-size: 25px;
 text-align: center;
-
 color: #F2F2F2;
  }
-
-
  
 </style>   
 </head>
@@ -56,7 +47,16 @@ color: #F2F2F2;
                  </span>
     
   
- 
+         <?php
+  define("DB_SERVER", "localhost");
+  define("DB_USER", "root");
+  define("DB_PASS", "");
+  define("DB_NAME", "hngfun");     
+$connection=mysqli_connect(DB_SERVER,DB_USER,"",DB_NAME);
+if(mysqli_connect_errno()){
+    die("database connection failed: ".mysqli_connect_error());
+}
+?>
  </br>   </br>    
   <?php 
   $query=mysqli_query($connection,"SELECT * FROM secret_word ");
