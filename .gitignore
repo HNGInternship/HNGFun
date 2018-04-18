@@ -4,4 +4,4 @@ phpmyadmin/
 .DS_Store
 ._.DS_Store
 /deploy
-
+.idea/

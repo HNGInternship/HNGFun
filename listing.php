@@ -24,8 +24,6 @@ $data = $q->fetchAll();
   <div class="container" id="container">
 
 
-
-
 <!--Section: interns v.1-->
 <section class="section pb-3 text-center">
 
@@ -67,8 +65,6 @@ $data = $q->fetchAll();
 
 
 </div>
-
-
 
 
 

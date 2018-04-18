@@ -33,7 +33,7 @@
         }
         div.profile-image img {
             margin:auto;
-            margin-left: 35%;
+            margin-left: 40%;
             max-width: 100%;
             min-width: 10%;
             width: 20%;
@@ -91,20 +91,39 @@
 <body>
     <?php
         // Get the config file
-        //  include ('../config.php');
+        // include '../db.php';
          
+<<<<<<< HEAD
         // Set the needed variables
         $name = "";
         $username = ""; 
         $pics = "";
 
-         $table = 'interns_data_';
+         $table = 'interns_data';
          $secret_table = 'secret_word';
          $intern_name = 'Nectar';
-         $test_link = 'https://upload.wikimedia.org/wikipedia/commons/f/f9/Phoenicopterus_ruber_in_S%C3%A3o_Paulo_Zoo.jpg';
+=======
+        $table = 'interns_data';
+        $secret_table = 'secret_word';
+        $intern_name = 'Nectar';
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
          
-        // Make a connection to the db, Catch the database errors
+        // Query the db for the data in interns data table
+        $query = "SELECT * FROM ".$table." WHERE username='Nectar'";
+        $data = $conn->query($query);
+
+        // Query the db for the data in secret_word table
+        // $query_secret = "SELECT secret_word FROM secret_word";
+        // $res = $conn->query($query_secret);
+        // $res->setFetchMode(PDO::FETCH_ASSOC);
+        // $secret_word = $res;
+
+        // foreach($res as $raw_secret) { 
+        //     $secret_word = $raw_secret['secret_word'];
+        // }
+
         try {
+<<<<<<< HEAD
             // Create connection object using PDO
             $connect = new PDO("mysql:host=".DB_HOST ."; dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
             // set the PDO error mode to exception
@@ -112,34 +131,50 @@
             
             // echo nl2br("Connected successfully \r\n");
 
-            // Query the db for the data in interns data table
-            $query = "SELECT * FROM ".$table." WHERE username='Nectar'";
-            $data = $connect->query($query);
-
-            // Check if the data was returned, if data was returned use it
-            if ($data == null){
-                echo nl2br("Empty, Name not found");
-            }else{
-                foreach($data as $row) {
-                    $name = $row["name"];
-                    $username = $row["username"];
-                    $pics = $row["image_filename"];
-                }
-            }
-
             // Query the db for the data in secret_word table
-            $query_secret = "SELECT * FROM ".$secret_table;
+            $query_secret = "SELECT secret_word FROM ".$secret_table;
             $data_secret = $connect->query($query_secret);
+            // echo $data_secret;
 
             // Check if the data was returned, if data was returned use it
             foreach($data_secret as $raw_secret) { 
                 $secret_word = $raw_secret['secret_word'];
             }
+
+            // Query the db for the data in interns data table
+            $query = "SELECT * FROM ".$table." WHERE username='Nectar'";
+            $data = $connect->query($query);
+
+            foreach($data as $row) {
+                $name = $row["name"];
+                $username = $row["username"];
+                $pics = $row["image_filename"];
+            }
                 
             
         }catch(PDOException $e) {
             echo "Connection failed: " .$e->getMessage();
+=======
+            $sql = 'SELECT * FROM secret_word';
+            $q = $conn->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+        } catch (PDOException $e) {
+            throw $e;
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
         }
+        $secret_word = $data['secret_word'];
+
+        // Query the db for the data in interns data table
+        $query = "SELECT * FROM ".$table." WHERE username='Nectar'";
+        $data = $conn->query($query);
+        $data->setFetchMode(PDO::FETCH_ASSOC);
+
+        foreach($data as $row) {
+            $name = $row["name"];
+            $username = $row["username"];
+            $pics = $row["image_filename"];
+        }              
     ?>
     <div class ="profile-image">
         <img src="<?php echo $pics ?>" alt="<?php echo $pics ?>">
@@ -147,11 +182,14 @@
     </div>
 
     <div class ="profile-details">
-    <?php echo $name."".$username." ".$pics ?>
         <h4 class="detail-title">HNG4 internship 2018 </h4>
         <p class="detail-name"><?php echo $name?></p>
         <p class="detail-username">@<?php echo $username?></p>
-        <p>Secret Word: <?php echo $secret_word?></p>
+<<<<<<< HEAD
+       
+=======
+         
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
     </div>
 </body>
 </html>
