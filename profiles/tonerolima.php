@@ -1,10 +1,12 @@
-<?php 
-  $sql = 'SELECT * FROM secret_word';
-  $q = $conn->query($sql);
-  $q->setFetchMode(PDO::FETCH_ASSOC);
-  $secret_word = $q->fetch("1");
+<?php
 
- ?>
+$sql = "SELECT * FROM `secret_word` LIMIT 1";
+$q = $conn->prepare($sql);
+$q->execute();
+$data = $q->fetch(PDO::FETCH_ASSOC);
+$secret_word = $data['secret_word'];
+
+?>
 
 <html>
 <head>

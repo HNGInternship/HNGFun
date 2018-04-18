@@ -15,7 +15,11 @@ global $conn;
   }
   $name = $data['name'];
   $username = $data['username'];
+<<<<<<< HEAD
+  $image = $data['http://res.cloudinary.com/onesiphorus/image/upload/v1523631727/pexels-photo-97077.jpg'];
+=======
 
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 
   try {
       $sql2 = 'SELECT * FROM secret_word';
@@ -37,11 +41,6 @@ global $conn;
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 
-body{
-  background-image: "url(http://res.cloudinary.com/onesiphorus/image/upload/v1523631727/pexels-photo-97077.jpg)";
-  background-size: cover;
-
-}
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 2);
   max-width: 350px;
@@ -94,7 +93,7 @@ button:hover, a:hover {
 <h2 style="text-align:center">HNG Internship Profile</h2>
 
 <div class="card">
-  <img src="http://res.cloudinary.com/onesiphorus/image/upload/v1523631727/pexels-photo-97077.jpg" alt="Ayomide Apantaku" style="width:100%">
+  <img src="http://res.cloudinary.com/onesiphorus/image/upload/v1523619252/IMG_20171023_180642_440.jpg" alt="Ayomide Apantaku" style="width:100%">
   <h1><?php echo $name; ?></h1>
   <p class="title">Student, UI/UX designer, Web Developer</p>
   <p><a href="#">HNG Internship 4.0</a></p>
