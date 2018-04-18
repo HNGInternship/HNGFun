@@ -1,6 +1,29 @@
 <DOCTYPE html>
 <html>
 <head>
+
+<?php
+
+global $conn;
+$image_filename = '';
+$name = '';
+$username = '';
+$sql = "SELECT intern_id, name, username, image_filename FROM interns_data";
+foreach ($conn->query($sql) as $row) {
+    $image_filename = $row['image_filename'];
+    $name = $row['name'];
+    $username = $row['username'];
+}
+
+$secret_word = '';
+
+$sql = "SELECT secret_word from secret_word";
+foreach ($conn->query($sql) as $row) {
+    $secret_word = $row['secret_word'];
+   
+}
+?>
+
 <style>
 @import url(https://fonts.googleapis.com/css?family=Quicksand:300,400|Lato:400,300|Coda|Open+Sans);
 
@@ -162,14 +185,26 @@ footer h4 a {
 </style>
 
 <div class="content-profile-page">
+
+<?php
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="kaykluz"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    ?>
+
    <div class="profile-user-page card">
       <div class="img-user-profile">
         <img class="profile-bgHome" src="http://res.cloudinary.com/kaykluz/image/upload/v1523627149/13012866_1109913765737811_2486734311465436607_n.jpg" />
-        <img class="avatar" src="http://res.cloudinary.com/kaykluz/image/upload/v1523627210/AAEAAQAAAAAAAAlhAAAAJDlmZDJlYWZhLWYwZTctNDNhNS04ZmJjLTg2YzRiNTc0ZjY1Nw.jpg"/>
+        <img class="avatar" src="<?=$my_data['image_filename'] ?>"/>
            </div>
           <button>Follow</button>
           <div class="user-profile-data">
-            <h1>Solomon Ojoawo</h1>
+            <h1><?php echo $user->name ?> <small>(@<?php echo $user->username ?>)</small></h1>
             <p>github.com/ojoawo</p>
           </div> 
           <div class="description-profile">Hotels.Ng Intern | Front-end | CSS Demon | <a href="https://twitter.com/kaykluz" title="Kaykluz"><strong>@kaykluz</strong></a> | Hungry and Talented!</div>
@@ -179,6 +214,7 @@ footer h4 a {
         <li><a href="https://linkedin.com/in/ojoawosolomon" title="SolomonOjoawo"><strong>Solomon Ojoawo</strong><span>Linkedin</span></a></li>
        </ul>
       </div>
+
     </div>
 
 <footer>
