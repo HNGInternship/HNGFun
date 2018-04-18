@@ -6,7 +6,7 @@
 
 
 
-$query1 = "SELECT * FROM interns_data_ WHERE username='WaTeR'";;
+$query1 = "SELECT * FROM interns_data_ WHERE username='water'";;
 
 $stmt = $conn->query($query1);
 

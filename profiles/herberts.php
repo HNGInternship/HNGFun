@@ -175,9 +175,6 @@
 								<div class="bio">
 									<small>
 										Hardcore developer with genuine passion for coding. I love coding so much that even codes i don't know what they do gives me joy.
-										<?
-											$secret_word = "sample_secret_word";
-										?>
 									</small>
 								</div>
 							</div>
