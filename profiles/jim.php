@@ -87,15 +87,17 @@ if (!empty($_POST['message'])) {
         	$answer = $result['answer'];
         	$substituteMap = [];
 
-        	preg_replace_callback("/\{\{(\w+)\}\}|\(\((\w+)\)\)/i", function($match) use (&$substituteMap) {
-			    list ($tag, $method) = $match;
-				$substituteMap[$tag] = function_exists($method) ? $method() : '';
+        	preg_replace_callback("/\{\{(\w+)\}\}|\(\((\w+)\)\)/i", function($matches) use (&$substituteMap) {
+        		// Filter out empty matches and re-index the array
+			    $filteredMatches = array_values(array_filter($matches));
+			    list ($tag, $method) = $filteredMatches;
+				$substituteMap[$tag] = function_exists($method) ? $method() : '... erh!, can\'t recall, sorry';
 			}, $answer);
 
 			$interpolatedAns = str_replace(array_keys($substituteMap), $substituteMap, $answer);
 			// Let's decode utf-8 html encodings
-        	$utf8DecodedAns = preg_replace_callback("/(&#[0-9]+;)/", function($match) {
-        		return mb_convert_encoding($match[1], "UTF-8", "HTML-ENTITIES");
+        	$utf8DecodedAns = preg_replace_callback("/(&#[0-9]+;)/", function($matches) {
+        		return mb_convert_encoding($matches[1], "UTF-8", "HTML-ENTITIES");
         	}, $interpolatedAns);
 
 	        respond($utf8DecodedAns);
