@@ -5,25 +5,33 @@
     # User input
     $data = $_POST['question'];
 
+    if(!defined('DB_USER')){
+			require "../config.php";		
+			try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
+    }
+    
     # Functions to get the data from db
-    $sql = 'SELECT * FROM questions';
-    $query = $conn->query($sql);
-    $query->setFetchMode(PDO::FETCH_ASSOC);
-    $result = $query->fetchAll();
+    $sql = $conn->prepare('select * FROM questions');
+    $sql->execute();
+    $db_result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
     # arrays to populaate with db data;
     $q = [];
     $a = [];
 
     # Greetings
-    $greeting = ['hi?', 'hey', 'hello?', 'hello there?', 'hey there?', 'hi there?'];
+    $greeting = ['hi?', 'hey?', 'hello?', 'hello there?', 'hey there?', 'hi there?'];
     $follow_up = ['whats up?', 'and you?', 'how are you?'];
 
     # Populate the question array
-    /* foreach ($result as $key => $value) {
+    foreach ($db_result as $key => $value) {
       array_push($q, strtolower($value['question']));
       array_push($a, strtolower($value['answer']));
-    } */
+    }
 
     # Make the data lower case. makes it easier to compare data.
     $data_lower = strtolower($data);
@@ -37,13 +45,23 @@
         # Greeting
         echo json_encode([
           'status' => 1,
-          'answer' => "Hello How are you?",
+          'answer' => "Hello there!",
         ]);
         return;
     } else if(in_array($greet, $follow_up)) {
       echo json_encode([
         'status' => 1,
         'answer' => "I'm fine, Thank you!",
+      ]);
+      return;
+    } else if(in_array($data_lower, $q)) { # DONE
+      # search the stored db
+      $data_lower_2 = preg_replace("([?.])", "", $data_lower);
+
+      $index = array_search($data_lower_2, $q);
+      echo json_encode([
+        'status' => 1,
+        'answer' => $a[$index],
       ]);
       return;
     } else if(strpos($data, "train:") !== false) {
@@ -63,8 +81,8 @@
       # Append the question to the db
       try {
         $sql2 =  'INSERT INTO `questions`(`question`, `answer`) VALUES ("' . $question . '", "' . $answer . '");';
-        $query = $conn->query($sql2);
-         echo json_encode([
+        $conn->exec($sql2);
+        echo json_encode([
           'status' => 1,
           'answer' => "Heyyy check it out, you taught me something. Now you can ask me again and i'll gladly answer :)",
         ]);
@@ -108,11 +126,13 @@
           e.g convert 100 from usd to ngn <br />
           - To tell the current time. Make sure you have 'time' in your command <br />
           - To tell you corny chuck norris jokes. Make sure you have either 'joke' or 'chuck' in your command.
-          e.g. tell me chuck norris jokes
+          e.g. tell me chuck norris jokes <br />
           - To tell details about a place. Type: details the_country <br />
           e.g details lagos. <br />
-          If you type details nigeria. It defaults to the capital of the country.
-        ",
+          If you type details nigeria. It defaults to the capital of the country. <br />
+          - Search hotels in hotel.ng. Type: search hotels: hotel_name <br />
+          e.g search hotels: moon <br />
+          ",
       ]);
       return;
     } else if(strpos($data_lower, 'joke') !== false || strpos($data_lower, 'chuck') !== false) {
@@ -139,11 +159,23 @@
         'answer' => $result,
       ]);
       return;
+    } else if(strpos($data_lower, 'search') !== false) {
+      $url_temp = str_replace("search hotels:", "", $data_lower);
+      $url = trim($url_temp);
+      echo json_encode([
+        'status' => 2,
+        'answer' => 'https://hotels.ng/hotels/search?query=' . $url,
+      ]);
+      return;
     } else { # 
-      echo nl2br("Sorry, I can't answer this command / question right now. \nSadly, my creator didn't train me enough *rolls eyes*."
-      ." Fortunately for you, you can train me by typing \n<strong> 'train: what_you_want_me_to_know # how_to_answer' </strong> like so: "
-      ." eg -> <strong> train: Which company is hosting this internship. # This Internship is hosted courtesy Hotels.NG </strong> <br />
-      <hr /> You can also type in help for a full list of commands i understand.");
+      echo json_encode([
+        'status' => 1,
+        'answer' => nl2br("Sorry, I can't answer this command / question right now. \nSadly, my creator didn't train me enough *rolls eyes*."
+        ." Fortunately for you, you can train me by typing \n<strong> 'train: what_you_want_me_to_know # how_to_answer' </strong> like so: "
+        ." eg -> <strong> train: Which company is hosting this internship. # This Internship is hosted courtesy Hotels.NG </strong> <br />
+        <hr /> You can also type in help for a full list of commands i understand."),
+      ]);
+      return;
     }
   }
 ?>
@@ -314,15 +346,17 @@
           font-size: small;
           font-family: 'Raleway';
           min-width: 30%;
-          max-width: 45%;
+          max-width: 60%;
           overflow-wrap: break-word;
           border: 1px solid grey;
           align-items: center;
           margin-bottom: 10px;
+          font-size: 14px;
         }
 
         .server-reply {
           border-radius: 0 10px 10px 0;
+          border-right: 2px solid black;
         }
 
         .server-name {
@@ -334,11 +368,13 @@
           align-self: flex-end;
           font-family: 'Raleway';
           font-size: medium;
+          
         }
 
         .client-send {
           align-self: flex-end;
           border-radius: 10px 0px 0px 10px;
+          border-left: 2px solid black;
         }
 
         .input {
@@ -462,14 +498,15 @@
                     client.appendChild(text);
                     client.appendChild(ish);
                     $('#chat-input').val("");
-                   console.log(question);
+                    
+                    /* Scroll to the bottom */
+                    $('html,body').animate({scrollTop: document.body.scrollHeight},"fast");
                     $.ajax({
                         url: './profiles/bamii.php',
                         type: "post",
                         dataType: "json",
                         data: {'question': question},
                         success: function(response) {
-                          console.log(response);
                           if(response.status === 1) {
                             var resp = document.createElement('div');
                             var respText = document.createElement('div');
@@ -479,15 +516,16 @@
                             resp.innerHTML = response.answer;
                             client.appendChild(respText);
                             client.appendChild(resp);
-                          } else if (response.status === 0) {
+                          } else if (response.status === 2) {
                             var resp = document.createElement('div');
                             var respText = document.createElement('div');
                             respText.className += " " + 'server-name';
                             resp.className += " " + 'server-reply';
                             respText.innerHTML = 'Bot';
-                            resp.innerHTML = response.answer;
+                            resp.innerHTML = "Sure!";
                             client.appendChild(respText);
                             client.appendChild(resp);
+                            open(response.answer);
                           }
                         },
                         error: function(error) {
