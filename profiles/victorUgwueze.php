@@ -112,6 +112,16 @@ h3{
     justify-content: space-around;
     padding-bottom: 20px;
 }
+.bot{
+    height:400px;
+    width:300px;
+    background:white;
+    position: fixed;
+    right:0;
+    bottom:0;
+    border-radius:4%;
+    margin-right:3%;
+}
     </style>
 
     <script>
@@ -150,6 +160,9 @@ h3{
                 </div>
             </div>
         </div>
+    </div>
+    <div class="bot">
+
     </div>
 </body>
 </html>
