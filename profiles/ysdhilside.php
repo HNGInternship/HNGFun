@@ -20,7 +20,7 @@ $image = $row['image_filename'];
 //echo '<h1>'.$id.$name.$username.$image.'</h1>';
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE html>   
 <html>
 <head>
 	<meta charset="utf-8">
