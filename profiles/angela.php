@@ -1,3 +1,9 @@
+<?php
+  $query = "SELECT * FROM secret_word";
+  $secret_word = $conn->query($query);
+  $result = $secret_word->fetch();
+  $secret_word = $result['secret_word'];
+?>
 <!DOCTYPE html>
 <html>
 <head>
