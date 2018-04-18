@@ -47,16 +47,7 @@ $filename = $intern_detail['image_filename'];
     <title>Udim Manny</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-    body{background: url
-
-(http://res.cloudinary.com/eacademy/image/upload/v1523970578/mechie.png) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  position: relative;
-font-size:18px;
-font-family: roboto}
+    body{}
 
 
 
@@ -67,7 +58,16 @@ nav{position: fixed;
     background: #F2F2F2;}
     
 
-#about{
+#about{background: url
+
+(http://res.cloudinary.com/eacademy/image/upload/v1523970578/mechie.png) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: relative;
+font-size:18px;
+font-family: roboto
 text-align: center;
 background-size:cover;
 background-repeat: no-repeat;
@@ -154,10 +154,9 @@ top:2px;}
         <div class="container col-sm-12">
             <h1 class=" name">Udim Manasseh Victor</h1>
             <h3 class="what" >Human|Engineer|Budding Developer| Wannabe Designer</h3>
-            <p class="time">Time is an equally distributed resource, best used wisely</p>
-            <h2 class="echo">
+            <?php/* <h2 class="echo">
             <?php echo date('Y-m-d H:i:s'); ?>
-        </h2>
+        </h2> ?>
         </div>
     </section> 
 </body>
