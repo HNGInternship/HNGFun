@@ -2,6 +2,7 @@
 
 $today = date("H:i:s");
 try {
+<<<<<<< HEAD
    $profile = 'SELECT * FROM interns_data_ WHERE username="jaycodes"';
     $select = 'SELECT * FROM secret_word';
     $query = $conn->query($select);
@@ -14,6 +15,24 @@ try {
     throw $e;
 }
 $secret_word = $get['secret_word'];
+=======
+    $profile = 'SELECT * FROM interns_data_ WHERE username="jaycodes"';
+     $select = 'SELECT * FROM secret_word LIMIT 1';
+ 
+     $query = $conn->query($select);
+     $profile_query = $conn->query($profile);
+ 
+     $query->setFetchMode(PDO::FETCH_ASSOC);
+     $profile_query->setFetchMode(PDO::FETCH_ASSOC);
+ 
+     $get = $query->fetch();
+     $user = $profile_query->fetch();
+ } catch (PDOException $e) {
+     throw $e;
+ }
+ $secret_word = $get['secret_word'];
+
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 ?>
 
 <!DOCTYPE html>
