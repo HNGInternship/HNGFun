@@ -10,13 +10,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<<<<<<< HEAD
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="favicon.ico" type="icon">
-
-=======
    
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
     <script>
         var slideInterval = 2500;
         function getFigures() {
@@ -73,7 +69,7 @@
 
         .name {
             color: rgb(0, 0, 0);
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, Sans-Serif;
             float: right;
             position: relative;
             margin-top: 0px;
@@ -82,22 +78,6 @@
             font-style: normal;
             letter-spacing: 1px;
             font-size: 13px;
-<<<<<<< HEAD
-
-=======
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
-        }
-
-        #center {
-            position: absolute;
-<<<<<<< HEAD
-            top: 10%;
-=======
-            top: 15%;
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
-            float: left;
-            padding-left: 20px;
-        }
 
         p {
             color: rgb(0, 0, 0);
@@ -148,6 +128,14 @@
         #nav a:hover {
             text-decoration: none;
             color: #ffffff;
+        }
+
+        #center {
+            position: absolute;
+            top: 10%;
+            top: 15%;
+            float: left;
+            padding-left: 20px;
         }
 
         #nav a {
@@ -230,17 +218,15 @@
         #body {
             padding-top: 30px;
         }
-<<<<<<< HEAD
-=======
 
         #cent {
-            float:left;
+            float:right;
             margin-right: 50px;
             text-align: center;
             align-content: flex-start;
             transform: translateX(-10px) translateY(10px);
         }
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
+
     </style>
 </head>
 
@@ -354,28 +340,6 @@
    </div>
 
 
-<<<<<<< HEAD
-    <?php
-
-$result = $conn->query("Select * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
-
-  $result2 = $conn->query("Select * from interns_data where username = 'olubori'");
-  $user = $result2->fetch(PDO::FETCH_OBJ);
-  
-  try {
-      $sql = "SELECT secret_word FROM secret_word";
-      $q = $conn->query($sql);
-      $q->setFetchMode(PDO::FETCH_ASSOC);
-      $data = $q->fetch();
-      $secret_word = $data['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
-
-?>
-=======
 <div id="cent">
 
     <?php
@@ -399,7 +363,6 @@ $result = $conn->query("Select * from secret_word LIMIT 1");
     
     ?>
 </div>
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
 
 </body>
 
