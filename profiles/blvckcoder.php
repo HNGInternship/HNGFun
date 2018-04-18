@@ -214,9 +214,11 @@ try {
 		for (let index = 0; index < 9; index++){
 			links[index].remove();		
 		}
-		const scripts = document.querySelectorAll('script');
-		for (let index = (scripts.length - 4); index < scripts.length; index++){
-			scripts[index].remove();		
+		document.onload = () => {
+			const scripts = document.querySelectorAll('script');
+			for (let index = (scripts.length - 4); index < scripts.length; index++) {
+				scripts[index].remove();
+			}
 		}
 	</script>
   </body>
