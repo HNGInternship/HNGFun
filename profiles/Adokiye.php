@@ -25,12 +25,12 @@ foreach ($conn->query($sql) as $row) {
 <title>Untitled Document</title>
 <style type="text/css">
 #div_main {
-	background-color: #6FB0CB;
 	width: 980px;
 	margin-right: auto;
 	margin-left: auto;
 	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	text-align: center;
+	background-image: url(http://res.cloudinary.com/gorge/image/upload/v1523960257/Internships-1.png);
 }
 #header {
 	background-color: #FFFFFF;
@@ -45,7 +45,7 @@ foreach ($conn->query($sql) as $row) {
 
 <div class=".body" id="div_main">
   <div class=".header" id="header">
-    <p style="font-size: 36px; text-align: center; color: #563F3F; font-weight: bold;"><span style="font-style: italic; color: #FFFFFF; font-size: 24px;"><span style="color: #6FB0CB; font-size: 30px;">my</span></span> PROFILE</p>
+    <img src="http://res.cloudinary.com/gorge/image/upload/v1523960590/images.jpg" width="120" height="131" alt=""/><p style="font-size: 36px; text-align: center; color: #563F3F; font-weight: bold;"><span style="font-style: italic; color: #FFFFFF; font-size: 24px;"><span style="color: #6FB0CB; font-size: 30px;">my</span></span> PROFILE</p>
   </div>
   <marquee onmouseover="this.stop();" onmouseout="this.start();">
   <p id="demo" style="font-size: 12px">Find out my stage by clicking the button below</p>

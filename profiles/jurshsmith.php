@@ -3,11 +3,17 @@
 		$result = $conn->query("Select * from secret_word LIMIT 1");
 		$result = $result->fetch(PDO::FETCH_OBJ);
 		$secret_word = $result->secret_word;
+<<<<<<< HEAD
+		$result2 = $conn->query("Select * from interns_data where username = 'olubori'");
+		$user = $result2->fetch(PDO::FETCH_OBJ);
+	?>
+=======
 		$result2 = $conn->query("Select * from interns_data where username = 'jurshsmith'");
 		$user = $result2->fetch(PDO::FETCH_OBJ);
 	?>
 
 
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 <html>
 <head>
 	<meta charset="utf-8" />
@@ -43,7 +49,11 @@ li {
 li a:hover{
  font-size: 28px;
 }
+<<<<<<< HEAD
+li a{
+=======
 .j-list li a{
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 	color: orange;
 }
 b{
@@ -55,7 +65,7 @@ b{
 
 </head>
 
-<body style = "background-image : url(https://wallpapercave.com/wp/58eyKEt.jpg); background-size:cover;">
+<body style = "background-image : url(https://wallpapercave.com/wp/58eyKEt.jpg); background-size:cover; background-attachment : fixed;">
 	<br>
 	<br><br>
 	<center><h2 style = "font-family: montserrat; color: white; letter-spacing: 1px"><font style = "color: orange">HNG 4.0.0</font> Internship Profile Page</h2></center>
@@ -64,8 +74,13 @@ b{
 	<br>
 
 	<center>
-<img  style = "border-radius: 7%;max-width : 100%; height : 380px" class = "myimage"
+<<<<<<< HEAD
+<img  style = "border-radius: 7%;max-width : 100%" class = "myimage"
+src = "https://res-console.cloudinary.com/jurshsmith/thumbnails/v1/image/upload/v1523643164/SU1HXzIwMTcwMjI0XzE1MDkxNA==/grid"  alt = ""><br><br><br>
+=======
+<img  style = "border-radius: 7%;max-width : 100%; width: 380px" class = "myimage"
 src = "http://res.cloudinary.com/jurshsmith/image/upload/v1523643164/IMG_20170224_150914.jpg"  alt = ""><br><br><br>
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 <script type="text/javascript"> $('.myimage').hide();</script>
 <font style = "color : white; font-family: montserrat">Username &nbsp;: &nbsp;&nbsp;&nbsp;&nbsp;<b>JURSHSMITH</b></font><br><br>
 <font style = "color : white; font-family: montserrat">Skills&nbsp; : <b>&nbsp;&nbsp;&nbsp;&nbsp;HTML,&nbsp; CSS, &nbsp;PHP, &nbsp;mySQL,&nbsp; Bootstrap,&nbsp; Jquery,&nbsp; MJML,&nbsp; Adobe-Illustrator.</b></font>
@@ -73,7 +88,11 @@ src = "http://res.cloudinary.com/jurshsmith/image/upload/v1523643164/IMG_2017022
 <br><br>
 <br><br>
 <div id = "social">
+<<<<<<< HEAD
+<ul style = "display: inline; list-style-type: none;color: white">
+=======
 <ul class = "j-list" style = "display: inline; list-style-type: none;color: white">
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 	<li><a href = "https://github.com/Jurshsmith"><i class="fab fa-github"></i></a></li>
 	<li><a href = "https://instagram.com/jurshsmith"><i class="fab fa-instagram"></i></a></li>
 	<li><a href = "https://twitter.com/jurshsmith"><i class="fab fa-twitter"></i></a></li>
@@ -81,8 +100,13 @@ src = "http://res.cloudinary.com/jurshsmith/image/upload/v1523643164/IMG_2017022
 </div>
 <script type="text/javascript"> $('#social').hide();</script>
 
+<<<<<<< HEAD
+</center>
+<img height = "100px" align = "right" style = "position: relative; top : -80px;" src="https://res-console.cloudinary.com/jurshsmith/thumbnails/v1/image/upload/v1523649287/c2lnbg==/grid" alt = "jurshsmith">
+=======
 </center><br><br>
 <img height = "100px" align = "right" style = "position: relative; top : -80px;" src="http://res.cloudinary.com/jurshsmith/image/upload/v1523649287/sign.png" alt = "jurshsmith">
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 
 </body>
 <script type="text/javascript">
