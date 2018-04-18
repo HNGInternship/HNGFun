@@ -1,5 +1,3 @@
-<div class="row">
-<div class="col-md-6 pull-right">
 <?php
 
 
@@ -11,6 +9,7 @@ $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
+
 $existError =false;
   $reply = "";//process starts
 if(isset($_POST["page"]) && !empty($_POST["page"]))
@@ -23,7 +22,7 @@ if(isset($_POST["page"]) && !empty($_POST["page"]))
         $reply = assistant($_POST['msg']);
        
       }
-     else if($reply == "") {
+     if($reply =="") {
 
          $post= mysqli_real_escape_string($conn, $_POST['msg']);
            $result = decider($post);
@@ -77,6 +76,9 @@ if(isset($_POST["page"]) && !empty($_POST["page"]))
         $result = mysqli_query($conn, $sql);
         
         if (mysqli_num_rows($result) > 0) {
+          if (!$result) {
+            die(mysqli_error($link));
+        }
           $input = strtolower(trim($input));
           $sql = "SELECT * FROM chatbot WHERE trim(question) = '$input'";
           $result = mysqli_query($conn, $sql);
@@ -110,131 +112,216 @@ if(isset($_POST["page"]) && !empty($_POST["page"]))
   }
   echo $reply;
   exit();
+  $sql = "SELECT * FROM secret_word";
+ $result = mysqli_query($conn, $sql);
+ $row = mysqli_fetch_assoc($result);
+ $secret_word = $row['secret_word'];
+ // $secret_word= "sample_secret_word";
 }
 
+// function
+
+function decider($string){
+  
+  if (strpos($string, ":") !== false)
+  {
+    $field = explode (":", $string, 2);
+    $key = $field[0];
+    $key = strtolower(preg_replace('/\s+/', '', $key));
+  if(($key == "train")){
+     $password ="p@55";
+     $trainer =$field[1];
+     $result = explode ("#", $trainer);
+  if($result[2] && $result[2] == $password){
+    echo"<br>Training mode<br>";
+    return $result;
+  } else echo "opssss!!! Looks like you are trying to train me without permission";
+  
+
+    
+     
+  }
+   }
+   
+
+}
+
+
+  function tester($string){
+   if (strpos($string, ":" ) !== false) 
+   { 
+    $field = explode (":", $string);
+    $key = $field[0];
+    $key = strtolower(preg_replace('/\s+/', '', $key));
+    if(($key !== "train")){
+      
+     echo"<br>testing mode activated<br>";
+     return $string;
+  }
+ }
+ return $string;
+  }
+
+  
+
+
+
+
+
+
 ?>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<body>
-<div class="container-fluid">
-<br>
-<button type="button" class="btn btn-danger btn-lg pull-right" data-toggle="collapse" data-target="#chat">Chat now</button>
-  
-  <div id="chat" class="wrapper collapse">
+  <!-- Page Content -->
+    <div class="container">
 
-    <div class="content">
+      <!-- Portfolio Item Heading -->
+      <h1 >Chidimma Juliet Ezekwe</h1>
+      <small>Wed Developer</small>
 
-      <div class="sidebar">
+      <!-- Portfolio Item Row -->
+      <div class="row">
 
-    <br><br>
+        <div class="col-md-6">
+          <img class="img-fluid" src="http://res.cloudinary.com/julietezekwe/image/upload/v1523620041/juliet.jpg" alt="juliet">
+        </div>
 
-        <div class="contacts">
+        <div class="col-md-6">
+          <h3 class="my-3">Description</h3>
+          <p>An Innovative web deveploper inter at HngInternship<sup>4</sup></p>
+          <h3 class="my-3">Details</h3>
+          <ul>
+            <li>Creative</li>
+            <li>Innovative</li>
+            <li>Team player</li>
+            <li>Result oriented and time conscious</li>
+          </ul>
+        </div>
 
-       <li class="person">
-              <span class="avatar">
-                <img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964193/human.png" alt="Sacha Griffin" />
-                <span class="status online"></span>
-              </span>
-              <span class="info">
-                <span class="status-msg">You Are Currently Logged In </span>
-              </span>
-            </li>
-               <li class="person">
-              <span class="avatar">
-                <img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964204/robot.jpg" alt="NitroChatBot" />
-                <span class="status online"></span>
-              </span>
-              <span class="info">
-                <span class="name">Julie's Assist</span>
-                <span class="status-msg">I am Julies's Assistant</span>
-              </span>
-            </li>
+      </div>
+      <div class="row">
+        <!-- chatbot -->
+        <div class="col-md-6">
+          
+            <button type="button" class="btn btn-danger btn-lg pull-right" data-toggle="collapse" data-target="#chat">Chat now</button>
+              
+              <div id="chat" class="wrapper collapse">
 
-          </ul><!-- /.contact-list -->
+                <div class="content">
 
-        </div><!-- /.contacts -->
+                  <div class="sidebar">
 
-      </div><!-- /.sidebar -->
+                <br><br>
 
-      <div class="chatbox">
+                    <div class="contacts">
 
-        <div class="person">
-          <span class="avatar">
-            <img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964193/human.png" alt="human Image" />
-            <span class="status online"></span>
-          </span>
-          <span class="info">
-           <span class="login-status">Online    | <?php
-echo "" . date("h:i:a");
-?>, <?php
-$query = @unserialize (file_get_contents('http://ip-api.com/php/'));
-if ($query && $query['status'] == 'success') {
-echo '' . $query['country'] . ', ' . $query['city'] . '!';
-}
-?></span>
-            
-          </span>
-        </div><!-- /.person -->
-    <script>
-$(document).ready(function(){
-var hiddenDiv = $(".messages");
-var show = function() {
-hiddenDiv.fadeIn();
-play();
+                   <li class="person">
+                          <span class="avatar">
+                            <img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964193/human.png" alt="Sacha Griffin" />
+                            <span class="status online"></span>
+                          </span>
+                          <span class="info">
+                            <span class="status-msg">You Are Currently Logged In </span>
+                          </span>
+                        </li>
+                           <li class="person">
+                          <span class="avatar">
+                            <img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964204/robot.jpg" alt="NitroChatBot" />
+                            <span class="status online"></span>
+                          </span>
+                          <span class="info">
+                            <span class="name">Julie's Assist</span>
+                            <span class="status-msg">I am Julies's Assistant</span>
+                          </span>
+                        </li>
 
-};
+                      </ul><!-- /.contact-list -->
 
-hiddenDiv.hide();
-setTimeout(show, 2000);
+                    </div><!-- /.contacts -->
+
+                  </div><!-- /.sidebar -->
+
+                  <div class="chatbox">
+
+                    <div class="person">
+                      <span class="avatar">
+                        <img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964193/human.png" alt="human Image" />
+                        <span class="status online"></span>
+                      </span>
+                      <span class="info">
+                       <span class="login-status">Online    | <?php
+            echo "" . date("h:i:a");
+            ?>, <?php
+            $query = @unserialize (file_get_contents('http://ip-api.com/php/'));
+            if ($query && $query['status'] == 'success') {
+            echo '' . $query['country'] . ', ' . $query['city'] . '!';
+            }
+            ?></span>
+                        
+                      </span>
+                    </div><!-- /.person -->
+                <script>
+            $(document).ready(function(){
+            var hiddenDiv = $(".messages");
+            var show = function() {
+            hiddenDiv.fadeIn();
+            play();
+
+            };
+
+            hiddenDiv.hide();
+            setTimeout(show, 2000);
 
 
-});
-    </script>
-        <div class="chatbox-messages" >
-          <div class="messages clear"><span class="avatar"><img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964204/robot.jpg"alt="Debby Jones" /></span><div class="sender"><div class="message-container"><div class="message"><p>
-          Hi My name is Cutie <i class="em em-sunglasses"></i> I can tell you about My Author <i class="em em-smiley"></i></p>
-                  <p>You can tell me what to do i promise not to fail you, just type "commands' to see the list of what i can do.<br>You can train me too by simply using the key word "train", seperate the command and response with "#", and ofourse, the password</p>
-                  </div><span class="delivered"><?php
-echo "" . date("h:i:a");
-?></span></div><!-- /.message-container -</div><!-- /.sender --></div><!-- /.messages -->
-                </div>
-                <div class="push"></div>
+            });
+                </script>
+                    <div class="chatbox-messages" >
+                      <div class="messages clear"><span class="avatar"><img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964204/robot.jpg"alt="Debby Jones" /></span><div class="sender"><div class="message-container"><div class="message"><p>
+                      Hi My name is Cutie <i class="em em-sunglasses"></i> I can tell you about My Author <i class="em em-smiley"></i></p>
+                              <p>You can tell me what to do i promise not to fail you, just type "commands' to see the list of what i can do.<br>You can train me too by simply using the key word "train", seperate the command and response with "#", and ofourse, the password</p>
+                              </div><span class="delivered"><?php
+            echo "" . date("h:i:a");
+            ?></span></div><!-- /.message-container -</div><!-- /.sender --></div><!-- /.messages -->
+                            </div>
+                            <div class="push"></div>
 
-        </div><!-- /.chatbox-messages -->
+                    </div><!-- /.chatbox-messages -->
 
 
-        <div class="message-form-container">
+                    <div class="message-form-container">
 
-          <script type="text/javascript">
+                      <script type="text/javascript">
 
-                                    $(document).ready(function(){
-                 $('#msg').keypress(
-                  function(e){
-                      if (e.keyCode == 13) {
-                          e.preventDefault();
-                          var msg = $(this).val();
-                    $(this).val('');
-                          if(msg!='')
-                    $('<div class="messages clear"><div class="user"><div class="message-container"><div class="message"><p>'+msg+'</p></div><span class="delivered"><?php
-              echo "" . date("h:i:a");
-              ?></span></div></div><!-- /.user --></div>').insertBefore('.push');
-                    $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
+                                  $(document).ready(function(){
+               $('#msg').keypress(
+                function(e){
+                    if (e.keyCode == 13) {
+                        e.preventDefault();
+                        var msg = $(this).val();
+                  $(this).val('');
+                        if(msg!='')
+                  $('<div class="messages clear"><div class="user"><div class="message-container"><div class="message"><p>'+msg+'</p></div><span class="delivered"><?php
+            echo "" . date("h:i:a");
+            ?></span></div></div><!-- /.user --></div>').insertBefore('.push');
+                  $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
 
-                    formSubmit();
+                  formSubmit();
 
-                      }
+                    }
 
-                  function formSubmit(){
-                  var message = $("#msg").val();
-                      var dataString = 'msg=' + msg + '&page=chat';
-                      jQuery.ajax({
-                          url: "index.php",
-                          data: dataString,
-                          type: "POST",
-                           cache: false,
-                               success: function(response) {
+                function formSubmit(){
+                var message = $("#msg").val();
+                    var dataString = 'msg=' + msg + '&page=chat';
+                    jQuery.ajax({
+                        url: "juliet.php",
+                        data: dataString,
+                        type: "POST",
+                         cache: false,
+                             success: function(response) {
             setTimeout(function(){
                      $(' <div class="messages clear"><span class="avatar"><img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964204/robot.jpg"alt="Debby Jones" /></span><div class="sender"><div class="message-container"><div class="message"><p>'+response+'</p></div><span class="delivered"><?php
             echo "" . date("h:i:a");
@@ -254,66 +341,24 @@ echo "" . date("h:i:a");
                    var audio = document.getElementById("audio");
                    audio.play();
                              }                
-</script>
-<audio id="audio" src="beep.mp3" ></audio>
+            </script>
+            <audio id="audio" src="https://res.cloudinary.com/julietezekwe/video/upload/v1523964158/beep.mp3" ></audio>
 
-          <form class="message-form" method="POST" action="" >
-            <textarea id="msg" name="msg" value=""  placeholder="Type a message here..."></textarea>
-              </form><!-- /.search-form -->
+                      <form class="message-form" method="POST" action="" >
+                        <textarea id="msg" name="msg" value=""  placeholder="Type a message here..."></textarea>
+                          </form><!-- /.search-form -->
 
 
-        </div><!-- /.message-form-container -->
+                    </div><!-- /.message-form-container -->
 
-      </div><!-- /.chatbox -->
+                  </div><!-- /.chatbox -->
 
-    </div><!-- /.content -->
+                </div><!-- /.content -->
 
-  </div><!-- /.wrapper -->
-</div>
-</div>
-</div>
+              </div><!-- /.wrapper -->
 
-    <?php 
-    try {
-        $secrete = 'SELECT * FROM secret_word';
-        $sql = $conn->query($secrete);
-        $sql->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $sql->fetch();
-        $secret_word = $result["secret_word"];
-    } catch (PDOException $error) {
 
-        throw $error;
-    }?>
-
-    <!-- Navigation -->
-    
-    <!-- Page Content -->
-    <div class="container">
-
-      <!-- Portfolio Item Heading -->
-      <h1 class="my-4">Chidimma Juliet Ezekwe
-        <small>Wed Developer</small>
-      </h1>
-
-      <!-- Portfolio Item Row -->
-      <div class="row">
-
-        <div class="col-md-8">
-          <img class="img-fluid" src="http://res.cloudinary.com/julietezekwe/image/upload/v1523620041/juliet.jpg" alt="juliet">
         </div>
-
-        <div class="col-md-4">
-          <h3 class="my-3">Description</h3>
-          <p>An Innovative web deveploper inter at HngInternship<sup>4</sup></p>
-          <h3 class="my-3">Details</h3>
-          <ul>
-            <li>Creative</li>
-            <li>Innovative</li>
-            <li>Team player</li>
-            <li>Result oriented and time conscious</li>
-          </ul>
-        </div>
-
       </div>
       <!-- /.row -->
 
@@ -647,55 +692,3 @@ a:focus {
 
 </style>
 
-
-<?php
-
-
-function decider($string){
-  
-  if (strpos($string, ":") !== false)
-  {
-    $field = explode (":", $string, 2);
-    $key = $field[0];
-    $key = strtolower(preg_replace('/\s+/', '', $key));
-  if(($key == "train")){
-     $password ="p@55";
-     $trainer =$field[1];
-     $result = explode ("#", $trainer);
-  if($result[2] && $result[2] == $password){
-    echo"<br>Training mode<br>";
-    return $result;
-  } else echo "opssss!!! Looks like you are trying to train me without permission";
-  
-
-    
-     
-  }
-   }
-   
-
-}
-
-
-  function tester($string){
-   if (strpos($string, ":" ) !== false) 
-   { 
-    $field = explode (":", $string);
-    $key = $field[0];
-    $key = strtolower(preg_replace('/\s+/', '', $key));
-    if(($key !== "train")){
-      
-     echo"<br>testing mode activated<br>";
-     return $string;
-  }
- }
- return $string;
-  }
-
-  
-
-
-
-  
-  ?>
-  
