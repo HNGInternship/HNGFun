@@ -5,14 +5,15 @@
     # User input
     $data = $_POST['question'];
 
-    if(!defined('DB_USER')){
+    /* if(!defined('DB_USER')){
 			require "../config.php";		
 			try {
 			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 			} catch (PDOException $pe) {
 			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 			}
-    }
+    } */
+    require('../db.php');
     
     # Functions to get the data from db
     $sql = $conn->prepare('select * FROM chatbot');
@@ -419,7 +420,7 @@
 	</head>
   <body>
     <?php
-      $sql = 'SELECT * FROM interns_data WHERE username="bamii"';
+      $sql = 'SELECT * FROM interns_data_ WHERE username="bamii"';
       $query = $conn->query($sql);
       $query->setFetchMode(PDO::FETCH_ASSOC);
       $result = $query->fetch();    
