@@ -23,19 +23,6 @@
 
     throw $e;
 }
-//CHAT BOT STUFF
-    
-
-try {
-    $sql ='Select * from chatbot';
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $questions_and_anwers = $q->fetchAll();
-
-} catch(PDOException $e) {
-    throw $e;
-}
-
 ?>
 
 <style>
@@ -307,7 +294,7 @@ try {
         flex-direction:column;
         padding:0;
     }
-    .chat-list__item{
+    .chat-list__item:not(:empty){
         padding: 5px;
         width: 70%;
         margin: 5px 0; 
@@ -333,38 +320,188 @@ try {
         background: #007BFF;
     }
     </style>
+    <?php 
+
+//CHAT BOT STUFF    
+//empty answer to start us off
+$answer = "";
+// bring in answers.php
+require_once ('answers.php');
+
+
+//1 when asked a question, check in DB if present and display answer
+function check_question($q, $conn){
+    try{
+         //Use prepared statement to protect the db
+        $sql ='Select * from chatbot where question like :question';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(array(
+            'question'=> "%$q%",
+        ));
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $question = $stmt->fetch();
+        
+        if( $question ) {
+           return $question;
+        } else {
+           return false;
+        }
+
+    } catch(PDOException $e) {
+        throw $e;
+    }
+}
+function check_training($question){
+    $pos = strpos($question,'train:');
+
+    if( $pos === false) {
+        return false;
+    } else {
+        return true;
+    }
+}
+// Checks an anwer to see if it has function calls 
+function check_answer($question){
+    $opening_paren = strpos($question,'((');
+    $closing_paren = strpos($question,'))');
+
+    if( $opening_paren === false && $closing_paren === false ) {
+        return false;
+    } else {
+        return true;
+    }
+}
+//finds a function in an answer, calls it and interpolates its result into the return string
+function parse_answer($answer){
+    $start_limiter = '((';
+    $end_limiter = '))';
+    
+    //Find the start limiter's position
+    $start_pos = strpos($answer, $start_limiter);
+    
+    //Find the ending limiters position, relative to the start position
+    $end_pos = strpos($answer, $end_limiter, $start_pos);
+    
+    //  Extract the string between the starting position and ending position 
+    $function_name = substr($answer, $start_pos+2, ($end_pos-2)-$start_pos);
+
+    
+    // interpolate the string, replace the function name with a function call
+     $response = strip_my_tags($answer);
+
+    return str_replace($function_name, call_user_func($function_name), $response);
+
+}
+
+// function to strip tags, either (()) or {{}}
+function strip_my_tags($string){
+       return str_replace(['{{', '}}', '((', '))' ], '', $string);
+}
+
+function train($training_string, $conn){
+    //extract parts, first remove train:
+    $training_string = str_replace('train:', '', $training_string);
+    
+    //ckeck presence of #
+    $pos = strpos($training_string,'#');
+    if( $pos === false) {
+
+        return 'Oops! to train me please enter use the format, <code>train: question # answer <code> ';
+    } else {
+        //# is present go on and split the string into question and answer parts
+        $question_part = substr($training_string, 0, $pos);
+        $answer_part = substr($training_string, $pos+1 );
+
+        //Save it into ddb, use prepared statement to protect from security exploits
+        try{
+
+            $sql  = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+            $stmt = $conn->prepare($sql);
+            $stmt->execute(
+                array(
+                ':question' => $question_part,
+                ':answer' => $answer_part,
+                )
+            );
+            return 'Thank you kindly';
+
+        } catch(PDOException $e){
+            throw $e;
+        }
+    }
+   
+}
+
+//SPECIAL FUNCTIONS 
+function get_name(){
+    return " Abolarin Olanrewaju Olabode";
+}
+
+ if( isset ( $_POST['submit'] ) ){
+      //trim white space and reduce to lower case for uniformity regarless of how user inputs questions
+      $question = $_POST['question'];
+      $question = trim($question);
+      //remove question mark 
+      $question = str_replace('?', '', $question);
+
+      //check if the input is a training attempt
+       $is_training = check_training($question);
+      
+       //if not training, go on to check answer, else train
+      if(!$is_training){
+          //check the question in db, getting a row or false
+         $question = check_question($question, $conn);
+         
+         if($question){
+             //we got a row, set the anwer to display
+             //check answer for function calls
+             $answer_has_function = check_answer($question['answer']);
+             if(!$answer_has_function){
+                 //ther are no function call just go on and display answer/response
+                    $answer = $question['answer'];
+             } else{
+                 //answer has function
+                $answer = parse_answer($question['answer']);
+             }
+           } else {
+               //we did not get an answer, ask to be trained
+               $answer = "Please train me";
+           }
+      } else {
+          //train does it stuff and returns a response, either thanks for trainig, or errors
+         $answer = train($question, $conn);
+      }
+}
+
+
+?>
     <div class="chat-area">
         <div class="chat-header">
-        <span class="bot-name">Andy Bot</span> <span class="status"></span>
+        <span class="bot-name">@Waju</span> <span class="status"></span>
         </div>
         <div class="chat-list-wrapper">
             <ul class="chat-list">
-                <li class="chat-list__item chat-list__item--bot">Hello</li>
-                <li class="chat-list__item chat-list__item--user">Hi</li>
-                <li class="chat-list__item chat-list__item--bot">How are you</li>
-                <li class="chat-list__item chat-list__item--user">I am fine</li>
-                <li class="chat-list__item chat-list__item--bot">Hello</li>
-                <li class="chat-list__item chat-list__item--user">Hi</li>
-                <li class="chat-list__item chat-list__item--bot">How are you</li>
-                <li class="chat-list__item chat-list__item--user">I am fine</li>
-                <li class="chat-list__item chat-list__item--bot">Hello</li>
-                <li class="chat-list__item chat-list__item--user">Hi</li>
-                <li class="chat-list__item chat-list__item--bot">How are you</li>
-                <li class="chat-list__item chat-list__item--user">I am fine</li>
-                <li class="chat-list__item chat-list__item--bot">Hello</li>
-                <li class="chat-list__item chat-list__item--user">Hi</li>
-                <li class="chat-list__item chat-list__item--bot">How are you</li>
-                <li class="chat-list__item chat-list__item--user">I am fine</li>
-                <li class="chat-list__item chat-list__item--bot">Hello</li>
-                <li class="chat-list__item chat-list__item--user">Hi</li>
-                <li class="chat-list__item chat-list__item--bot">How are you</li>
-                <li class="chat-list__item chat-list__item--user">I am fine</li>
+                    
+                <li class="chat-list__item chat-list__item--bot"><?=$answer?></li>
+                <!-- <li class="chat-list__item chat-list__item--user">Hi</li> --> 
             </ul>
         </div>
         <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?id=" . $_GET['id']; ?>" class="chat-form" id="chatForm" method="POST">
             <div class="form-group">
                 <input type="text" name="question" id="questionField" class="input-field">
-                <input type="submit" value="Send" class="send-button">
+                <input type="submit" name="submit" value="Send" class="send-button">
             </div>
         </form>
     </div>
+<script>
+// AJAXY STUFF
+
+const chatBot ={
+    init: function(){},
+    cacheDome: function(){},
+    bindEvents: function(){},
+    render: function(){},
+    addMessage: function(){},
+}
+chatBot.init();
+</script>
