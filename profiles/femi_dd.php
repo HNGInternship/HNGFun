@@ -252,7 +252,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET") {
                <div class="input-group">
                   <input type="text" class="form-control" id="message" type="text" placeholder="Message" name="newrequest" />
                   <div class="input-group-btn">
-                     <button class="btn btn-success pull-right" id="send" onclick="sendData()" value="newrequest" type="submit">Send💬</button>
+                     <button class="btn btn-success pull-right" id="send" onclick="sendData()" value="newrequest" type="button">Send💬</button>
                   </div>
                </div>
             </div>
