@@ -2,7 +2,7 @@
 
 try {
     // Get the Secret Word from DB hush hush
-    $secret_word_sql = "SELECT * FROM secret_word";
+    $secret_word_sql = "SELECT * FROM secret_word LIMIT 1";
     $secret_word_query = $conn->query($secret_word_sql);
     $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
     $secret_word_data = $secret_word_query->fetch();
