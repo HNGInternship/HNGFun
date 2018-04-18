@@ -45,6 +45,7 @@ $filename = $intern_detail['image_filename'];
   	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+<<<<<<< HEAD
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/eacademy/image/upload/v1523652600/favicon.ico"/>
@@ -103,11 +104,24 @@ Manny's portfolio| Full Stack Mechie
 .gold{color:#FFD700;}
 .shadow{box-shadow: #f8f8f8 5px 5px;
 border: 1px solid whitesmoke;}
+=======
+    <style>
+    body{}
+
+
+
+nav{position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    background: #F2F2F2;}
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
     
     li{display: inline;
 text-decoration: none;
 }
 
+<<<<<<< HEAD
 a{
 text-decoration: none;
 }
@@ -168,6 +182,68 @@ padding-bottom:30px;
 background-color: #f8f8f8;
 opacity: 0.8;
 color: black;
+=======
+#about{background: url
+
+(http://res.cloudinary.com/eacademy/image/upload/v1523970578/mechie.png) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: relative;
+font-size:18px;
+font-family: roboto
+text-align: center;
+background-size:cover;
+background-repeat: no-repeat;
+height: 700px;
+width: 100%;
+color: #F5D984;
+margin-top:0; 
+position: relative;
+margin-top: 0px;
+}
+.name{position: relative;
+    text-align: center;
+   top: 220px;
+    font-family: Radley;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 64px;
+    color: #F5D984;}
+
+.who{position: relative;
+    text-align: center;
+    top: 140px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 35px;
+    text-align: center;
+    color: #56CCF2;}
+
+.time{color: #F2C94C;
+    position: relative;
+    text-align: center;
+    top: 150px;
+    font-family: Ropa Sans;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 36px;
+    text-align: center;}
+
+.echo{
+
+color: #F2C94C;
+
+}
+
+nav{margin-bottom: 2px;
+height: 52px;}
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
 
 }
 #clients{padding-top:30px;
@@ -435,6 +511,7 @@ p.space2{font-size:22px;
     
         </div>
     </section>
+<<<<<<< HEAD
                           
 
 
@@ -493,6 +570,14 @@ p.space2{font-size:22px;
             
        
           </div>
+=======
+    <!--background-image starts here-->
+    <section id="about" style="background-image:url(http://res.cloudinary.com/eacademy/image/upload/v1523970578/mechie.png);"
+        <div class="container">
+            <h1 class="name">Udim Manny</h1>
+            <h3 class="who" >Human|Engineer|Budding Developer| Wannabe Designer</h3>
+            
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
         </div>
         <div class="col-sm-6 col-md-4">
                 <div class="">
