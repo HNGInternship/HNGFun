@@ -1,4 +1,7 @@
 <?php
+     
+
+       
     try {
         $profile = 'SELECT * FROM interns_data WHERE username="woleo"';
         $select = 'SELECT * FROM secret_word';
@@ -61,9 +64,9 @@ a {
 <div class="card">
   <img src="<?php echo $image_filename; ?>" alt="profile" style="width:80%">
   <h1><?php echo $name; ?></h1>
-  <h2>@<?php echo $username; ?></h2>
+  <h2>@<?php echo $username; ?></h2> 
   <p>Software Developer from Ogun State</p>
-  <div style="margin: 24px 0;">
+  <div style="margin: 24px 0;">       
     <a href="https://twitter.com/oluwolley"><i class="fa fa-twitter"></i></a>  
     <a href="https://www.instagram.com/iam_ahead/"><i class="fa fa-instagram"></i></a>  
     <a href="https://www.fb.com/S.Hammed"><i class="fa fa-facebook"></i></a> 

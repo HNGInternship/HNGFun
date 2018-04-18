@@ -111,6 +111,72 @@ function getRandomFact(){
   return $facts[rand(0, count($facts) - 1)];
 }
 
+//functions by melas. MODIFY NOT
+function aboutHNG() 
+{
+    return 'The HNG is a 3-month remote internship program designed to locate the most talented software developers in Nigeria and the whole of Africa. Everyone is welcome to participate (there is no entrance exam). We create fun challenges every week on our slack channel. THose who solve them stay on. Everyone gets to learn important concepts quickly, and make connections with people they can work with in the future. The intern coders are introduced to complex programming frameworks, and get to work on real applications that scale. the finalist are connected to the best companies in the tech ecosystem and get full time jobs and contracts immediately.';
+}
+
+function aboutHNGStage($stage)
+{
+    $stages = [];
+
+    $stages[1] = '* Set your picture and name on the Slack channel</br>';
+    $stages[1] .= '* Setup a github account</br>';
+    $stages[1] .= '* Install git and get git running on your system</br>';
+    $stages[1] .= '* Make a figma account</br>';
+    $stages[1] .= '* Download and install WAMP, LAMP or equivalent</br>';
+    $stages[1] .= '* Ask @xyluz to add you to the github organisation</br>';
+    $stages[1] .= '* Add your name to the contributors file: Full name, Slack Name and github name, comma delimited</br>';
+    $stages[1] .= '* Join the #stage1 channel on Slack</br>';
+    $stages[1] .= '* Proceed to do #stage2';
+    
+    $stages[2] = 'Make sure you have complete all #stage1 tasks. Ask all questions on how to achieve #stage2 in the #stage1 channel.<br/>';
+    $stages[2] .= 'The goal of #stage2 is the achieve this:<br/><br/>';
+    $stages[2] .= 'Create hng.fun/profile/<yourusername>This should be a simple html page with your photo, your name, your slack username and your biography.';
+    $stages[2] .= 'Also link to the results of your <b>#stage1</b>. You should have your own css file and your own html page (unlinked to anyone elses)<br/>';
+    $stages[2] .= 'Modify the participants page to include a link to your page<br/>';
+    $stages[2] .= 'Submit your work in <b>#reviews channel</b>. Your submission should link to your personal profile page, as well as the participants page which shows your name there';
+    
+    $stages[3] = '1. clone repo - git clone https://github.com/HNGInternship/HNGFun<br/>';
+    $stages[3] .= '2. if you have phpmyadmin, run - localhost/phpmyadmin. login to your phpmyadmin<br/>';
+    $stages[3] .= '3. create a new database using phpmyadmin - name of the database is hng_fun<br/>';
+    $stages[3] .= '4. from phpmyadmin upload and run the hng_fun.sql file in the project folder. This will create two tables in the database - interns_data and secret_word<br/>';
+    $stages[3] .= '5. use phpmyadmin to insert data (name, username, image_filename) - this is only for testing locally, however, it is preferable to use the real data you\'ll fill in the hng.fun.admin.php form. The image file should be uploaded to your cloudinary account and only the link used in the project.<br/>';
+    $stages[3] .= '6. open config.example.php in the projects directory, copy the content(db configurations)<br/>';
+    $stages[3] .= '7. create a config.php file and paste the content there, make sure to set the config to suite your local environment. don\'t worry, the .gitignore file automatically ignore the config.php file you create when you push to the repo. however, check the .gitignore file to be sure that config.php is there to be safe.<br/>';
+    $stages[3] .= '8. create your username.php file - username here is your slack username(display name)<br/>';
+    $stages[3] .= '9. create your profile using html and css - note css and js used must be in the same file, don\'t create another file or edit any other file in the project folder<br/>';
+    $stages[3] .= '10. use php to query your name, username, image_file from the interns_data table on your database.<br/><br/>';
+    
+    $stages[3] .= '<b>Note:<b/> you do not need to import the config.php file or the db.php file, it is already done for you in the profile.php file that will load your page<br/>';
+    $stages[3] .= '11. query the secret_word table for the secret word and store your results in a variable called $secret_word<br/>';
+    $stages[3] .= '12. go to hng.fun/admin.php and fill in the details in the form. the key code is - 1n73rn@Hng<br/><br/>';
+    
+    $stages[3] .= 'HINT: check the profile.php file and admin.php for example on how to query the database<br/>';
+    $stages[3] .= 'DO NOT EDIT OR DELETE ANY OTHER FILE,<br/>'; 
+    $stages[3] .= 'WHEN YOU RUN GIT STATUS, MAKE SURE THE ONLY FILE SHOWING IS YOUR USERNAME.PHP FILE<br/>';
+    $stages[3] .= 'DO NOT EDIT ANY OTHER FILE. <br/>';
+    $stages[3] .= 'IF YOU NEED ANY OTHER CLARIFICATION, DM A COLLEAGUE OR A MENTOR.<br/>';
+    $stages[3] .= 'MAKE SURE ALL IMAGES ARE FROM CLOUDINARY<br/>';
+    
+    $stages[4] = 'Add a form to your profile page. This form is the interface of a chat-bot. When a question is asked of this chat-bot, you check the database if that question exists, and if it does, retrieve the answer and display it.<br/>';
+    $stages[4] .= 'Everyone is sharing the same question and answer database. Using your text field, it is also possible to train the bot - simply type ‘train’ before the text, and then the question and the answer, using # as a delimiter. You do not need to use Ajax for this part.<br/>';
+    $stages[4] .= 'For extra points, make it possible to call a function as a response. For example, you could ask the bot -“What time is it?” and it retrieves the current time. This will be possible by adding the function in a file called “answers.php”. In there, add the function, which returns a text result.<br/>';
+    $stages[4] .= 'To activate a function, use the training syntax: train: what is the time? # The time is ((get_time)).';
+    
+    switch($stage) {
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+            return $stages[$stage] . '<br/><br/>Goodluck';
+        default:
+            return 'I don\'t have instructions for this stage yet. Please try again';
+    }
+}
+//End of functions by melas
+
 // functions by @mclint_. DO NOT MODIFY
 function getAJoke(){
     $jokes = ["My dog used to chase people on a bike a lot. It got so bad, finally I had to take his bike away.", "What is the difference between a snowman and a snowwoman? Snowballs.",
@@ -123,7 +189,7 @@ function getAJoke(){
 }
 
 function emojifyText($text){
-    $url = "https://torpid-needle.glitch.me/emojify/{$text}";
+    $url = "http://torpid-needle.glitch.me/emojify/{trim($text)}";
     return file_get_contents($url);
 }
 
@@ -189,6 +255,9 @@ function predictOutcome($battle){
         return false;
     }
 
+<<<<<<< HEAD
+?>
+=======
 // functions by john ayeni do not modify please
 
 function aboutMe(){
@@ -468,7 +537,6 @@ function bytenaija_time($location) {
 );  
     $geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=".$location. "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
 
-    $response = curl_exec($curl); */
     $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
     $response = json_decode($response, true);
     //$lat = $response->results;
@@ -577,3 +645,4 @@ function assistant($string)
 
 /***************************./ Juliet ends*************************/
  ?>
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
