@@ -24,7 +24,7 @@ function getRandomFact(){
 }
 
     //functions defined by @chigozie. DO NOT MODIFY!!!
-    function getDayOfWeek(){
+    function getDayOfWeek(){ 
         return date("l");
     }
 
@@ -35,12 +35,12 @@ function getRandomFact(){
 
         $month = strtolower(trim($month));
         if(in_array($month, $months_with_31_days)){
-            return ucfirst($month)." has 31 days";
+            return "31 days";
         }else if(in_array($month, $months_with_30_days)){
-            return ucfirst($month)." has 30 days";
+            return "30 days";
         }else if(in_array($month, $other)){
-            $ans = "In a leap year, February has 29 days otherwise, it has 28 days. ";
-            $ans .= "If you are asking about the current year ".date("Y").", then February has ";
+            $ans = "29 days in a leap year. Otherwise, it has 28 days. ";
+            $ans .= "If you are interested in the current year ".date("Y").", then February has ";
             if(isCurrentYearLeap()){
                 $ans .= "29 days";
             }else{
@@ -65,5 +65,7 @@ function getRandomFact(){
         }
         return false;
     }
+    //end of functions defined by @chigozie
+
 
 ?>
