@@ -11,13 +11,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 	date_default_timezone_set("Africa/Lagos");
 
 	try{
-		if(!isset($_POST['question'])){
-			echo json_encode([
-				'status' => 1,
-			    'answer' => "Please provide a question"
-			]);
-			return;
-		}
+
 		$question = $_POST['question'];
 		//Check for training mode
 		$train_question = stripos($question, "train");
