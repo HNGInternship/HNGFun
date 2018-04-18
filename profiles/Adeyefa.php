@@ -226,13 +226,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			</div>
 			<div class="row-holder">
 				<div class="row2">
-					<div class="form" action='./Adeyefa.php' method="post">
+					<div class="form" id="form" method="post">
 						<form >
 							<input type="text" name='question' placeholder="type your question here"><input type="submit" name="submit">
 						</form>
 					</div>
 				</div>
 			</div>	
+			<ul id="chats">
+				
+			</ul>
 	    </div>
 	</div>	
 	<script>
@@ -240,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			var Form =$('#form');
 			Form.submit(function(e){
 				e.preventDefault();
-				var MBox = $('input[name=message']);
+				var MBox = $('input[name=question']);
 				var question = MBox.val();
 				$("#chats").append("<li>" + question + "</li>");
 
