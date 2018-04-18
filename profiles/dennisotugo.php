@@ -243,7 +243,9 @@ $secret_word = $words['secret_word'];
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<style>
-
+#main:before {
+    display: none;
+}
 #mainb {
 		text-align: center;
 		width: 100%;
@@ -285,6 +287,68 @@ span#chatbot {
     color: black;
 }
 
+.circle {
+			width: 60%;
+			margin-left: 20%;
+			border-radius: 50%;
+		}
+		.frame {
+			border: 1px solid grey;
+			padding: 20px;
+			background-color: #ffffff;
+			margin-top: 5%;
+			height: 400px;
+		}
+		.info {
+			margin-top: 25px;
+		}
+		.slack_span {
+			color: #0000ff;
+		}
+		.occupation_span {
+			color: #ff0000;
+			font-weight: bold;
+		}
+		.chat-frame {
+			border: 1px solid grey;
+			padding: 20px;
+			background-color: #f8d34a;
+			margin-top: 5%;
+			margin-bottom: 50px;
+		}
+		.chat-messages {
+			background-color: #ffffff;
+			height: 600px;
+			overflow-y: auto;
+			margin-left: 15px;
+			margin-right: 15px;
+			border-radius: 6px;
+			padding: 5px;
+		}
+		.single-message {
+			margin-bottom: 5px; 
+			border-radius: 5px;
+			min-height: 60px;
+		}
+		.single-message-bg {
+			background-color: #99ff33;
+			padding: 10px;
+		}
+		.single-message-bg2 {
+			background-color: #6699ff;
+			padding: 10px;
+		}
+		input[name=question] {
+			height: 50px;
+		}
+		button[type=submit] {
+			height: 50px;
+		}
+		.f-icon {
+			font-size: 40px;
+		}
+
+
 
 				</style>
 	</head>
@@ -294,20 +358,6 @@ span#chatbot {
 			<div id="overlay"></div>
 			<div id="main">
 					
-					<header id="header">
-						<h1>Dennis Otugo</h1>
-						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
-						<nav>
-							<ul>
-								<li><a href="https://facebook.com/el.chapon.9" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-								<li><a href="https://twitter.com/wesleyotugo" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-								<li><a href="https://github.com/dennisotugo" class="icon fa-github"><span class="label">Github</span></a></li>
-								<li><a href="emailto:wesleyotugo@fedoraproject.org" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-							</ul>
-						</nav>
-					</header>
-					
-						<footer id="footer">
 								<div class="container-fluid">
 										<div class="row">
 											<div class="col-md-4 offset-md-1 chat-frame">
@@ -365,7 +415,6 @@ span#chatbot {
 											</div>
 										</div>
 									</div>
-						</footer>
 
 			</div>
 		</div>
