@@ -377,6 +377,12 @@
           border-left: 2px solid black;
         }
 
+        .chatbot {
+          text-align: center;
+          font-size: 40px;
+          font-family: 'Raleway';
+        }
+
         .input {
           height: 50px;
           width: 100%;
@@ -413,7 +419,7 @@
 	</head>
   <body>
     <?php
-      $sql = 'SELECT * FROM interns_data_ WHERE username="bamii"';
+      $sql = 'SELECT * FROM interns_data WHERE username="bamii"';
       $query = $conn->query($sql);
       $query->setFetchMode(PDO::FETCH_ASSOC);
       $result = $query->fetch();    
@@ -432,28 +438,8 @@
           <h2 id="button"> @<?php echo($user); ?> </h2>
         </div>
       </div>
-
-      <div class="more-details">
-        <div id="stack" class="my-stack" onClick="open2()"> My Stack </div>
-          <div id="second" class="second-paragraph">
-            <p> I mostly work frontend designing, using the obvious HTML & CSS, Bootstrap, and React (it was made primarily for UI). I also build mobile apps using React Native (and i'm pretty good at it, if i do say so myself) and Java. </p>
-            <p>
-              Here's the list of the Programming Languages i'm conversant with and the areas of specialisation in each Language.
-              <ul class="my-list">
-                <li> Java </li>
-                <li> Javascript </li>
-                <li> HTML5, CSS, JS bundle </li>
-                <li> React </li>
-                <li> ExpressJS </li>
-                <li> KnockoutJS </li>
-              </ul>
-            </p>
-          </div>
-      
-          <div id="third" class="portfolio-click" onClick="openPortfolio()"> Portfolio </div>
-      </div>
     </div>
-
+    <div class="chatbot"> ChatBot </div>
     <div class="chatbot-container">
       <div class="chat-details" id="chat">
         <div class="server-name"> Bot </div>
