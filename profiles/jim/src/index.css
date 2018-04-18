@@ -1,10 +1,14 @@
+.Jim .chat-wrap {
+    padding: 0 200px;
+}
+
 .Jim .chat-header {
 	text-align: center;
 	padding: 10px 17px;
 	text-align: center;
 	background-color: #0078fd;
 	color: #fff;
-	border-radius: 2px 2px 0 0;
+	border-radius: 4px 4px 0 0;
 	box-shadow: 0 0 20px 0 #495057;
     position: relative;
     z-index: 1;
@@ -41,9 +45,10 @@
 }
 .msg .text {
 	margin: 0;
-	line-height: 1.1;
+	line-height: 1.2;
     font-size: 17px;
     font-family: Arial, sans-serif;
+    word-wrap: break-word
 }
 .msg-guest {
 	margin-left: auto;
@@ -113,4 +118,30 @@
 .send-btn:focus {
 	outline: 0;
 	box-shadow: none;
+}
+
+@media (max-width: 991.98px) { 
+    .Jim .chat-wrap {
+        padding: 0 10px;
+    }
+    .msg {
+        max-width: 90%;
+    }
+    .chat-input {
+        height: 40px;
+    }
+    .send-btn {
+        padding: 2px 10px 5px 35px !important;
+    }
+    .send-btn:before {
+        border-top: 40px solid #fff;
+    }
+}
+@media (max-width: 377px) {
+    .msg {
+        max-width: 100%;
+    }
+    .chat-input {
+        font-size: 10px;
+    }
 }

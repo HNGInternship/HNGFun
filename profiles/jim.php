@@ -1,6 +1,6 @@
 <?php
 
-// First off: Helper functions
+// First off, Helper functions
 function respond($response, array $options=['chatMassage' => true]) {
 	if ($options['chatMassage'] == true) {
 		// We call this function concurrently
@@ -29,7 +29,7 @@ if (!empty($_POST['message'])) {
 
 	$message = $_POST['message'];
 
-	$trainRegex = "^train(?:\:?)?(?:\s+)?(.+)#(.+)";
+	$trainRegex = "^train(?:\:?)?(?:\s+)?(.+)#(.+)(?:\s+)(.+)";
 
 	// First we check if we are training
 	if (preg_match("/^train/", $message)) {
@@ -37,6 +37,11 @@ if (!empty($_POST['message'])) {
 		if (preg_match_all("/${trainRegex}/i", $message, $matches)) {
 			$question = sanitize($matches[1][0]);
 			$answer = sanitize($matches[2][0]);
+			$password = ($matches[3][0]);
+
+			if ($password !== 'trainpwforhng') {
+				respond('Oh no! That\'s not the password to train me');
+			}
 
 			if (empty($question)) {
 				respond('It look like you did not provide me with a question');
@@ -65,23 +70,37 @@ if (!empty($_POST['message'])) {
 	            }
             }
 		} else {
-			respond('Oh! No. This is how to train me: train: Question # Answer');
+			respond('Oh! No. This is how to train me: train: Question # Answer Password');
 		}
 	} else {
 		$question = sanitize($message);
 
-		$sql = $conn->prepare("SELECT * FROM chatbot WHERE question LIKE :question ORDER BY RAND()");
-		$sql->execute([':question' => "%{$question}%"]);
+		$sql = $conn->prepare("SELECT * FROM chatbot WHERE question = :question ORDER BY RAND()");
+		$sql->execute([':question' => "{$question}"]);
         $result = $sql->fetch(PDO::FETCH_ASSOC);
 
         if (! $result) {
         	respond('I do not understand what you mean because I\'ve not been trained on that.');
         } else {
-        	$output = preg_replace_callback("/(&#[0-9]+;)/", function($m) {
-        		return mb_convert_encoding($m[1], "UTF-8", "HTML-ENTITIES");
-        	}, $result['answer']); 
+        	require_once('../answers.php');
 
-	        respond($output);
+        	$answer = $result['answer'];
+        	$substituteMap = [];
+
+        	preg_replace_callback("/\{\{(\w+)\}\}|\(\((\w+)\)\)/i", function($matches) use (&$substituteMap) {
+        		// Filter out empty matches and re-index the array
+			    $filteredMatches = array_values(array_filter($matches));
+			    list ($tag, $method) = $filteredMatches;
+				$substituteMap[$tag] = function_exists($method) ? $method() : '... erh!, can\'t recall, sorry';
+			}, $answer);
+
+			$interpolatedAns = str_replace(array_keys($substituteMap), $substituteMap, $answer);
+			// Let's decode utf-8 html encodings
+        	$utf8DecodedAns = preg_replace_callback("/(&#[0-9]+;)/", function($matches) {
+        		return mb_convert_encoding($matches[1], "UTF-8", "HTML-ENTITIES");
+        	}, $interpolatedAns);
+
+	        respond($utf8DecodedAns);
         }
 	}
 }
@@ -98,9 +117,6 @@ $q = $conn->query($sql);
 $q->setFetchMode(PDO::FETCH_ASSOC);
 $words = $q->fetch();
 $secret_word = $words['secret_word'];
-
-
-
 ?>
 <div class="Jim">
 	<div class="profile-wrap">
