@@ -12,12 +12,12 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 	try{
 
-		$questionss = $_POST['question'];
+		$question = $_POST['question'];
 		//Check for training mode
-		$train_question = stripos($questionss, "train");
+		$train_question = stripos($question, "train");
 		if ($train_question === false) {
 			# code...
-			$questionss = preg_replace('([\s]+)', ' ', trim($questions));//to remove extra white spaces from the question
+			$question = preg_replace('([\s]+)', ' ', trim($question));//to remove extra white spaces from the question
 			$question = preg_replace("([?.])", "", $question);
 
 			//to check if question already exists in the database
