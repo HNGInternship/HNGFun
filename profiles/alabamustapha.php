@@ -119,6 +119,76 @@
 			.text-center{
 				text-align: center;
 			}
+
+			/*chatbot styles */
+			div#start-bot{
+				position: fixed;
+				bottom: 0;
+				right: 0;
+				z-index: 100;
+			}
+			div#chat-bot{
+				min-width: 100%;
+				min-height: 100%;
+				position: fixed;
+				background: #007bff;
+				z-index: 10;
+				top: 0;
+				left: 0;
+				opacity: .9;
+				padding-top: 80px;
+			}
+
+			div#chat-bot-container{
+				width: 400px;
+				height: 500px;
+				margin: 0 auto;
+				position: relative;
+				z-index: 15;
+			}
+
+			div#chat-bot-container  input.human_input{
+				border: 0;
+				border-bottom: 2px solid #fff;
+				width: 100%;
+				background: none;
+			}
+
+			div#chat-bot-container > .conversation {
+				width: 100%;
+				height: 100%;
+				overflow-y: auto;
+				overflow-x: hidden;
+			}
+			div#chat-bot-container > .conversation > .message {
+				margin: 10px 0;
+				min-height: 30px;
+				color: white;
+			}
+
+			div#chat-bot-container > .conversation > .message {
+				float: left;
+				clear: both;
+			}
+			div#chat-bot-container > .conversation > .message > .message-content {
+				color: #007bff;
+				background-color: #fff;
+				font-size: 18px;
+				line-height: 1;
+				padding: 7px 13px;
+				border-radius: 15px;
+				width: auto;
+				max-width: 85%;
+				display: inline-block;
+			}
+
+			div#chat-bot-container > .conversation > .message > .human{
+				float: right;
+			}
+
+			.hide{
+				visibility: hidden;
+			}
 	</style>
 </head>
 <body>
@@ -137,5 +207,71 @@
 			</div>	
 		</section>
 	</div>
+
+	<div id="start-bot">
+		<a id="start-chat-bot">
+			<span class="fa-stack fa-lg">
+			<i class="fa fa-circle fa-stack-2x"></i>
+			<i class="fa fa-comments fa-stack-1x fa-inverse"></i>
+			</span>
+		</a>
+	</div>
+	<!-- <button id="start-bot" class="btn">
+		let's chat	
+
+	</button> -->
+	<div id="chat-bot">
+			<div id="chat-bot-container">
+				
+				<div class="conversation">
+
+					
+					<!-- <div class="message">
+						<div class="message-content text">
+							<span>Awesome! You can show buttons like the one you pressed.</span> 
+						</div>
+					</div>
+				
+					<div class="message">
+						<div class="human message-content text">
+							<span>Awesome! You can show buttons like the one you pressed.</span> 
+						</div>
+					</div> -->
+					
+				</div>
+				<input type="text" class="human_input" name="human_input">		
+				
+			</div>
+	</div>
+	
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+	<script>
+		$(document).ready(function() {
+			
+
+			var intro = makeMessage("I am Alabot, what is your name?");
+			
+			$("div#chat-bot").hide();
+			
+			$("a#start-chat-bot").click(function(e){
+				$("div#chat-bot").toggle();
+				
+				if($("div.conversation > .message").length == 0){
+					$("div.conversation").append(intro);
+				}
+			});
+
+			function makeMessage(message){
+				return "<div class='message'> <div class='message-content text'><span>" + message + "</span></div></div>";
+			}
+			
+
+
+			
+		});
+	</script>
 </body>
 </html>
