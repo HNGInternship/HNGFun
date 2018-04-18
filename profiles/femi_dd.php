@@ -13,7 +13,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
    }
    // require '../config.php';
    // require '../db.php';
-   require '../answers.php';
+   require '../../answers.php';
    global $conn;
 
    function train($trainData) {
