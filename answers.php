@@ -467,11 +467,6 @@ function bytenaija_time($location) {
     ),
 );  
     $geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=".$location. "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
-    /* curl_setopt_array($curl, array(
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_URL => $geocodeUrl,
-        CURLOPT_USERAGENT => 'Codular Sample cURL Request'
-    ));
 
     $response = curl_exec($curl); */
     $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
@@ -488,10 +483,6 @@ function bytenaija_time($location) {
 
     $url = "https://maps.googleapis.com/maps/api/timezone/json?location=".$lat.",".$lng."&timestamp=".$timestamp."&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U";
 
-    /* curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    $responseJson = curl_exec($curl); */
-    //curl_close($curl);
     $responseJson = file_get_contents($url,  false, stream_context_create($arrContextOptions));
     $response = json_decode($responseJson);
     $timezone = $response -> timeZoneId;
@@ -503,15 +494,6 @@ function bytenaija_time($location) {
 function bytenaija_convert($base, $other){
     $api_key = "U7VdzkfPuGyGz4KrEa6vuYXgJxy4Q8";
     $url = "https://www.amdoren.com/api/currency.php?api_key=" . $api_key . "&from=" . $base . "&to=" . $other;
-    
-    /* $curl = curl_init();
-    curl_setopt_array($curl, array(
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_URL => $url,
-        CURLOPT_USERAGENT => 'Codular Sample cURL Request'
-    ));
-
-    $response = curl_exec($curl); */
 
     $response = file_get_contents($url);
     $response = json_decode($response, true);
@@ -522,18 +504,8 @@ function bytenaija_convert($base, $other){
 //bitcoin price index
 function bytenaija_hodl(){
     $url ="https://api.coindesk.com/v1/bpi/currentprice.json";
-   /*  $curl = curl_init();
-    curl_setopt_array($curl, array(
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_URL => $url,
-        CURLOPT_USERAGENT => 'Codular Sample cURL Request'
-    ));
-
-    $response = curl_exec($curl); */
-
     $response = file_get_contents($url);
     $response = json_decode($response, true);
-    //curl_close($curl);
     $responseStr = "<h4 class='hodl'>Bitcoin Price as at " . $response["time"]["updated"] . "</h4><br> <div><h4>Prices</h4><li>"
     . $response["bpi"]["USD"]["code"] . " " . $response["bpi"]["USD"]["rate"] . "</li>
     <li>"
