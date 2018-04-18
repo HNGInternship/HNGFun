@@ -15,7 +15,7 @@
     }
     
     # Functions to get the data from db
-    $sql = $conn->prepare('select * FROM questions');
+    $sql = $conn->prepare('select * FROM chatbot');
     $sql->execute();
     $db_result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
