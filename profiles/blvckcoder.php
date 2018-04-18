@@ -35,6 +35,9 @@ try {
 		footer{
 			display: none !important;
 		}
+        body{
+            background: white;
+        }
 	</style>
 </head>
 <body>
