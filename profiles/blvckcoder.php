@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 1);
 try {
     $q = 'SELECT * FROM secret_word';
     $sql = $conn->query($q);
