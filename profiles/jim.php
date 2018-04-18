@@ -1,5 +1,8 @@
+<!-- Header -->
 <?php
 
+<<<<<<< HEAD
+=======
 // First off, Helper functions
 function respond($response, array $options=['chatMassage' => true]) {
 	if ($options['chatMassage'] == true) {
@@ -105,6 +108,7 @@ if (!empty($_POST['message'])) {
 	}
 }
 
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
 $sql = "SELECT * FROM interns_data WHERE username = 'jim'";
 $q = $conn->query($sql);
 $q->setFetchMode(PDO::FETCH_ASSOC);
@@ -118,27 +122,24 @@ $q->setFetchMode(PDO::FETCH_ASSOC);
 $words = $q->fetch();
 $secret_word = $words['secret_word'];
 ?>
-<div class="Jim">
-	<div class="profile-wrap">
-	<div class="about">
-		<?php if (empty($jim)): ?>
-		<h1>Jim is supposed to be here</h1>
-		<?php else: ?>
-		<div class="photo-wrap">
-			<img src="<?php echo $jim['image_filename']; ?>" alt="" />
-		</div>
-		<h1><?php echo $jim['name']; ?></h1>
-		<h3>Pro. Web Developer</h3>
-		
-		<div class="social-icons">
-		    <a href="https://twitter.com/nzesalem" class="twitter" target="_blank"><i class="fa fa-twitter"></i></a>  
-		    <a href="https://github.com/nzesalem" class="github" target="_blank"><i class="fa fa-github"></i></a>
-		    <a href="https://linkedin.com/in/nzesalem" class="linkedin" target="_blank"><i class="fa fa-linkedin-square"></i></a>  
-		    <a href="https://fb.me/nzesalem" class="facebook" target="_blank"><i class="fa fa-facebook-square"></i></a> 
-		</div>
-		<?php endif; ?>
+
+<div class="Jim profile-wrap">
+<div class="about">
+	<?php if (empty($jim)): ?>
+	<h1>Jim is supposed to be here</h1>
+	<?php else: ?>
+	<div class="photo-wrap">
+		<img src="<?php echo $jim['image_filename']; ?>" alt="" />
 	</div>
+	<h1><?php echo $jim['name']; ?></h1>
+	<h3>Pro. Web Developer</h3>
+	
+	<div class="social-icons">
+	    <a href="https://twitter.com/nzesalem" class="twitter" target="_blank"><i class="fa fa-twitter"></i></a>  
+	    <a href="https://github.com/nzesalem" class="github" target="_blank"><i class="fa fa-github"></i></a>
+	    <a href="https://linkedin.com/in/nzesalem" class="linkedin" target="_blank"><i class="fa fa-linkedin-square"></i></a>  
+	    <a href="https://fb.me/nzesalem" class="facebook" target="_blank"><i class="fa fa-facebook-square"></i></a> 
 	</div>
-	<div id="Jimie"></div>
+	<?php endif; ?>
 </div>
-<script src="profiles/jim/dist/Jimie.js"></script>
+</div>

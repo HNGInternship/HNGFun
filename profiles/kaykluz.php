@@ -1,20 +1,13 @@
-<DOCTYPE html>
-<html>
-<head>
-
-<?php
-
-global $conn;
-$image_filename = '';
-$name = '';
-$username = '';
-$sql = "SELECT intern_id, name, username, image_filename FROM interns_data";
-foreach ($conn->query($sql) as $row) {
-    $image_filename = $row['image_filename'];
-    $name = $row['name'];
-    $username = $row['username'];
-}
-
+  <?php
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    
 $secret_word = '';
 
 $sql = "SELECT secret_word from secret_word";
@@ -22,8 +15,12 @@ foreach ($conn->query($sql) as $row) {
     $secret_word = $row['secret_word'];
    
 }
-?>
 
+    ?>
+
+<DOCTYPE html>
+<html>
+<head>
 <style>
 @import url(https://fonts.googleapis.com/css?family=Quicksand:300,400|Lato:400,300|Coda|Open+Sans);
 
@@ -204,7 +201,7 @@ footer h4 a {
            </div>
           <button>Follow</button>
           <div class="user-profile-data">
-            <h1><?php echo $user->name ?> <small>(@<?php echo $user->username ?>)</small></h1>
+            <h1><?=$my_data['name'] ?></h1>
             <p>github.com/ojoawo</p>
           </div> 
           <div class="description-profile">Hotels.Ng Intern | Front-end | CSS Demon | <a href="https://twitter.com/kaykluz" title="Kaykluz"><strong>@kaykluz</strong></a> | Hungry and Talented!</div>
