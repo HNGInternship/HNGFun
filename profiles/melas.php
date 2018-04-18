@@ -196,7 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         .container {
             display: flex;
             flex-direction: column;
-            height: 100%;
+            min-height: 100%;
         }
 
         nav {
@@ -222,7 +222,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
 
         .avatar {
-            height: ;
             width: 15em;
             border: 1px solid #333;
             border-radius: 50%;
@@ -364,6 +363,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         .chat-trigger:hover {
             background-color: #222;
             color: white;
+        }
+
+        @media screen and (max-width: 360px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .avatar {
+                width: 8em;
+                border: 1px solid #333;
+                border-radius: 50%;
+            }
+
+            .chat-trigger {
+                position: fixed;
+                bottom: 0em;
+                right: 0em;
+                margin-top: 2em;
+            }
         }
     </style>
 </head>
