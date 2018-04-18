@@ -647,7 +647,7 @@ body{
    
     </div>
     
-<script src="https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js"></script>
+https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js
 
 
 <div id="demo">
@@ -687,9 +687,10 @@ body{
         "Hi",
         "My name is [name]",
         "Where is Hotels.ng?",
-        "Whhere is  Nigeria",
+        "Where is  Nigeria",
         "Bye",
-        "What is the time"
+        "What is the time",
+	 "How are you"
 
         
     ];
@@ -707,6 +708,7 @@ body{
     ChatBot.addPattern("^hi$", "response", "Hello, friend", undefined, "Say 'Hi' to be greeted back.");
     ChatBot.addPattern("^What is the time$", "response", "The Time is getTime()", undefined, "Say 'What is the time' to be greeted back.");
     ChatBot.addPattern("^bye$", "response", "See you later...", undefined, "Say 'Bye' to end the conversation.");
+    ChatBot.addPattern("^How are you$", "response", "im fine and you?...", undefined, "Say 'Fine' to end the conversation.");
     ChatBot.addPattern("(?:my name is|I'm|I am) (.*)", "response", "hi $1, thanks for talking to me today", function (matches) {
         ChatBot.setHumanName(matches[1]);
     },"Say 'My name is [your name]' or 'I am [name]' to be called that by the bot");
