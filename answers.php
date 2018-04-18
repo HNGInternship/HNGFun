@@ -246,7 +246,7 @@ function get_device_name($user_agent)
 |              JIM (JIMIE) Functions Begins                       |
 |=================================================================|
 */
-function inspire_me() {
+function inspire() {
     $inspirations = [
         'It is during our darkest moments that we must focus to see the light. \\n - Aristotle',
         'Start by doing what\'s necessary; then do what\'s possible; and suddenly you are doing the impossible. \\n - Francis of Assisi',
@@ -275,7 +275,7 @@ function inspire_me() {
     return $inspirations[array_rand($inspirations)];
 }
 
-function jim_get_time() {
+function get_current_time() {
     date_default_timezone_set("Africa/Lagos");
     return date('h:i:s A');
 }
