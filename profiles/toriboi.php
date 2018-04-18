@@ -1,15 +1,17 @@
 <?php
-  // define ('DB_USER', "root");
-  // define ('DB_PASSWORD', "\$tori58622685");
-  // define ('DB_DATABASE', "hng_fun");
-  // define ('DB_HOST', "localhost");
-  //
-  // try {
-  //     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-  //     //echo "Connected to ". DB_DATABASE . " successfully.</br>";
-  // } catch (PDOException $pe) {
-  //     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-  // }
+  if($_SERVER['REQUEST_METHOD'] === "POST"){
+    if(!isset($conn)) {
+        include '../db.php';
+
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    }
+
+    if(isset($_POST['q']) && $_POST['q'] != '') {
+      $value = $_POST['q'];
+      echo $value;
+      exit();
+    }
+	}
 
   // Retrieve user details from database
   try {
@@ -27,14 +29,6 @@
     die(var_dump($e));
   }
 
-?>
-
-
-<?php
-  // Database onnection for chat bot functionality
-  if(isset($_POST['q']) && $_POST['q'] != '') {
-    echo $_POST['q']; exit();
-  }
 ?>
 
 <!DOCTYPE html>
@@ -182,7 +176,7 @@
         background-color: green;
         margin-left: 5px;
         margin-right: 30%;
-        border-radius: 0 10px 10px 10px;
+        border-radius: 0 5px 5px 10px;
       }
 
       .my-message {
@@ -190,7 +184,7 @@
         background-color: blue;
         margin-right: 5px;
         margin-left: 30%;
-        border-radius: 10px 10px 0 10px;
+        border-radius: 5px 10px 0 5px;
       }
 
       .name {
@@ -275,12 +269,16 @@
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
           if(this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
+            // console.log(this.responseText);
+            addMyMessage(this.responseText);
+            setTimeout(addBotMessage, 1000);
           }
         }
         xhttp.open('POST', 'profiles/toriboi.php', true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send('q='+ text);
+
+
 
         // var text = document.getElementById('text').value;
         // if(text == 'what time is it?') {
@@ -300,6 +298,20 @@
         //
         // messageArea.innerHTML += you + toribot;
         e.preventDefault();
+      }
+
+      function addMyMessage(message) {
+        var you = `<div class="my-message">
+                    <span class="name">You: </span><span class="message">`+ message +`</span>
+                  </div>`;
+        messageArea.innerHTML += you;
+      }
+
+      function addBotMessage() {
+        var toribot = `<div class="bot-message">
+                        <span class="name">toribot: </span><span class="message">Holla</span>
+                      </div>`;
+        messageArea.innerHTML += toribot;
       }
 
     </script>
