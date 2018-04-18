@@ -309,8 +309,6 @@ button:hover, a:hover {
     <a href="https://www.fb.com/j.ominiabohs"><i class="fa fa-facebook"></i></a> 
  </div>
  <p><button>Contact</button></p>
-<<<<<<< HEAD
-=======
  
 <div class="customfoo">                  
 <div class="container bootstrap snippet">
@@ -529,7 +527,7 @@ $(function() {
 
 
 </script>
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
+
  <?php
     try {
         $sql = 'SELECT * FROM secret_word';
