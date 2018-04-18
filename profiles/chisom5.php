@@ -1,21 +1,45 @@
 
 
 <?php
+error_reporting(0);
+if (empty($conn)) {
+    include("../db.php");
 
-  $result = $conn->query("Select * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_ASSOC);
-  $secret_word = $result['secret_word'];
+    define('DB_CHARSET', 'utf8mb4');
+    $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
 
-  $result2 = $conn->query("Select * from interns_data where username = 'chisom5'");
-  $user = $result2->fetch(PDO::FETCH_ASSOC);
+    $opt = [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false
+    ];
 
-  $username = $user['username'];
-$name = $user['name'];
-$image_filename = $user['image_filename'];
+    $conn = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
+}
+
+$intern_details_query = $conn->query(
+    "SELECT     interns_data.name, 
+                interns_data.username, 
+                interns_data.image_filename
+    FROM        interns_data
+    WHERE       interns_data.username = 'chisom5' LIMIT 1");
+
+$secret_word_query = $conn->query(
+    "SELECT     secret_word.secret_word 
+    FROM        secret_word LIMIT 1");
+
+$intern_detail = $intern_details_query->fetch();
+$secret_word = $secret_word_query->fetch();
+
+// Secret Word
+$secret_word = $secret_word['secret_word'];
+
+// Profile Details
+$name = $intern_detail['name'];
+$username = $intern_detail['username'];
+$filename = $intern_detail['image_filename'];
+
 ?>
-
-
-
 
 
 <!DOCTYPE html>
@@ -67,9 +91,9 @@ $image_filename = $user['image_filename'];
 
 	<div class="card">
 	
-	  <img src= "<?=$image_filename;?>" alt="chisom profile" style="width:100%; height: 300px">
+	  <img src= "<?=$filename;?>" alt="chisom profile" style="width:100%; height: 300px">
 
-	  <h1><?=$name;?></h1>
+	  <h1><?=$name;?> (@<?=$username;?>)</h1>
 
 	  <p style="margin:10px 0px"><span class="title">FrontEnd Developer</span> <br>
 	  		  Angular and anything JS
