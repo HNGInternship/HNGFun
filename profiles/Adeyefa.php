@@ -90,7 +90,6 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 	} catch (Exception $e){
 		return $e->message;
 	}
-}
 ?>
 <!DOCTYPE html>
 <html>
