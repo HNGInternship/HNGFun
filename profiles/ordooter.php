@@ -10,7 +10,7 @@ try {
     $result = $result->fetch(PDO::FETCH_OBJ);
     $secret_word = $result->secret_word;
 
-    $result2 = $conn->query("Select * from interns_data_ where username = 'ordooter'");
+    $result2 = $conn->query("Select * from interns_data where username = 'ordooter'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
 } catch (PDOException $e) {
     throw $e;
