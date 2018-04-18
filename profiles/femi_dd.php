@@ -1,7 +1,7 @@
 <?php
 // ob_start();
 session_start();
-if($_SERVER['REQUEST_METHOD'] === "POST") {
+if($_SERVER['REQUEST_METHOD'] == "POST") {
    if(!defined('DB_USER')){
       require "../config.php";
       try {
@@ -292,7 +292,7 @@ function sendData() {
       }
    };
 
-   xmlhttp.open("POST", "http://localhost/HNGFun/profiles/femi_dd.php?new_request="+message, true);
+   xmlhttp.open("POST", "http://hng.fun/profiles/femi_dd.php?new_request="+message, true);
    xmlhttp.send();
 
    document.getElementById("message").value = "";
