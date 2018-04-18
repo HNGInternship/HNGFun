@@ -8,11 +8,12 @@
 
 <style type="text/css">
 
+
 #mid
 {
  
    color: #FBF7F7;
-   width: 87%;
+   width: 95%;
    border-radius: 30px;
    padding-top: 30px;
    font-size: 38px;
@@ -24,11 +25,11 @@
 {
  
    color: #FBF7F7;
-   width: 68%;
+   width: 85%;
    text-decoration:bold ;
    border-radius: 30px;
    padding-top: 3px;
-   font-size: 25px;
+   font-size: 16px;
    text-align: left;
    padding-bottom: 4px;
    
@@ -38,7 +39,7 @@
 {
  
    color: #FBF7F7;
-   width: 68%;
+   width: 88%;
    font-family: 'Font Name',Righteous;
    border-radius: 30px;
    padding-top: 3px;
@@ -51,16 +52,16 @@
 }
 body
 {
-	width: 100%;
-	color: #FBF7F7;
-	padding-top: 100px;
-	background-image: url('https://res.cloudinary.com/dttpnfzul/image/upload/v1524048214/bg.jpg');
-	font-family: 'Font Name',Righteous;
-	text-align: center;
-	font-size: 28px;
-	font-style:regular;
-	line-height: 60px;
-	
+  width: 100%;
+  color: #FBF7F7;
+  padding-top: 100px;
+  background-image: url('https://res.cloudinary.com/dttpnfzul/image/upload/v1524048214/bg.jpg');
+  font-family: 'Font Name',Righteous;
+  text-align: center;
+  font-size: 28px;
+  font-style:regular;
+  line-height: 60px;
+  
 
    background-color:rgba(196, 196, 196, 0.50);
 }
