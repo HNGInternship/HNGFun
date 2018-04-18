@@ -28,10 +28,20 @@ SET time_zone = "+00:00";
 -- Table structure for table `secret_word`
 --
 
+<<<<<<< HEAD
+CREATE TABLE IF NOT EXISTS `interns_data` (
+  `intern_id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `image_filename` varchar(255) NOT NULL,
+  PRIMARY KEY (`intern_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+=======
 CREATE TABLE `secret_word` (
   `id` int(11) NOT NULL,
   `secret_word` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+>>>>>>> 7308894e2631b854c7047b8af1104e4db03deed6
 
 --
 -- Dumping data for table `secret_word`
@@ -90,9 +100,15 @@ SET time_zone = "+00:00";
 --
 -- Database: `hng_fun`
 --
+<<<<<<< HEAD
+ 
+ALTER TABLE `interns_data`
+MODIFY `intern_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+=======
 
 -- --------------------------------------------------------
 
+>>>>>>> 7308894e2631b854c7047b8af1104e4db03deed6
 --
 -- Table structure for table `interns_data_`
 --
