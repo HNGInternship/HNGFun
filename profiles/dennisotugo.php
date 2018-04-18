@@ -12,238 +12,17 @@ $q->setFetchMode(PDO::FETCH_ASSOC);
 $words = $q->fetch();
 $secret_word = $words['secret_word'];
 ?>
-
-<?php
-	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		if(!defined('DB_USER')){
-			require "../../config.php";		
-			try {
-			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-			} catch (PDOException $pe) {
-			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-			}
-		}
-		require "../answers.php";
-		date_default_timezone_set("Africa/Lagos");
-		
-		if(!isset($_POST['question'])){
-			echo json_encode([
-				'status' => 1,
-				'answer' => "Please provide a question"
-			]);
-			return;
-		}
-		$question = $_POST['question']; //get the entry into the chatbot text field
-		//check if in training mode
-		$index_of_train = stripos($question, "train:");
-		if($index_of_train === false){//then in question mode
-			$question = preg_replace('([\s]+)', ' ', trim($question)); //remove extra white space from question
-			$question = preg_replace("([?.])", "", $question); //remove ? and .
-			//check if answer already exists in database
-			$question = "%$question%";
-			$sql = "select * from chatbot where question like :question";
-			$stmt = $conn->prepare($sql);
-			$stmt->bindParam(':question', $question);
-			$stmt->execute();
-			$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			$rows = $stmt->fetchAll();
-			if(count($rows)>0){
-				$index = rand(0, count($rows)-1);
-				$row = $rows[$index];
-				$answer = $row['answer'];	
-				//check if the answer is to call a function
-				$index_of_parentheses = stripos($answer, "((");
-				if($index_of_parentheses === false){ //then the answer is not to call a function
-					echo json_encode([
-						'status' => 1,
-						'answer' => $answer
-					]);
-				}else{//otherwise call a function. but get the function name first
-					$index_of_parentheses_closing = stripos($answer, "))");
-					if($index_of_parentheses_closing !== false){
-						$function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
-						$function_name = trim($function_name);
-						if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
-							echo json_encode([
-								'status' => 0,
-								'answer' => "The function name should not contain white spaces"
-							]);
-							return;
-						}
-						if(!function_exists($function_name)){
-							echo json_encode([
-								'status' => 0,
-								'answer' => "I am sorry but I could not find that function"
-							]);
-						}else{
-							echo json_encode([
-								'status' => 1,
-								'answer' => str_replace("(($function_name))", $function_name(), $answer)
-							]);
-						}
-						return;
-					}
-				}
-			}else{
-				echo json_encode([
-					'status' => 0,
-					'answer' => "Unfortunately, I cannot answer your question at the moment. I need to be trained further. The training data format is <br> <b>train: question # answer</b>"
-				]);
-			}		
-			return;
-		}else{
-			//in training mode
-			//get the question and answer
-			$question_and_answer_string = substr($question, 6);
-			//remove excess white space in $question_and_answer_string
-			$question_and_answer_string = preg_replace('([\s]+)', ' ', trim($question_and_answer_string));
-			
-			$question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string); //remove ? and . so that questions missing ? (and maybe .) can be recognized
-			$split_string = explode("#", $question_and_answer_string);
-			if(count($split_string) == 1){
-				echo json_encode([
-					'status' => 0,
-					'answer' => "Invalid training format. I cannot decipher the answer part of the question. <br> The correct training data format is <br> <b>train: question # answer</b>"
-				]);
-				return;
-			}
-			$que = trim($split_string[0]);
-			$ans = trim($split_string[1]);
-			if(count($split_string) < 3){
-				echo json_encode([
-					'status' => 0,
-					'answer' => "You need to enter the training password to train me."
-				]);
-				return;
-			}
-			$password = trim($split_string[2]);
-			//verify if training password is correct
-			define('TRAINING_PASSWORD', 'trainpwforhng');
-			if($password !== TRAINING_PASSWORD){
-				echo json_encode([
-					'status' => 0,
-					'answer' => "You are not authorized to train me"
-				]);
-				return;
-			}
-			// //check if question already exists before adding it again
-			// $question = "%$que%";
-			// $sql = "select * from chatbot where question like :question limit 1";
-			// $stmt = $conn->prepare($sql);
-			// $stmt->bindParam(':question', $question);
-			// $stmt->execute();
-			// $stmt->setFetchMode(PDO::FETCH_ASSOC);
-			// $rows = $stmt->fetchAll();
-			// if(count($rows)>0){
-			// 	//question already exists. update its answer
-			// 	$sql = "update chatbot set answer = :answer where question = :question";
-			// 	$stmt = $conn->prepare($sql);
-			// 	$stmt->bindParam(':answer', $ans);
-			// 	$stmt->bindParam(':question', $que);
-			// 	$stmt->execute();
-			// 	echo json_encode([
-			// 		'status' => 1,
-			// 		'answer' => "Thank you. I have now learnt a new answer to the question"
-			// 	]);
-			// 	return;
-			// }
-			//insert into database
-			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
-			$stmt = $conn->prepare($sql);
-			$stmt->bindParam(':question', $que);
-			$stmt->bindParam(':answer', $ans);
-			$stmt->execute();
-			$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			echo json_encode([
-				'status' => 1,
-				'answer' => "Thank you, I am now smarter"
-			]);
-			return;
-		}
-		echo json_encode([
-			'status' => 0,
-			'answer' => "Unfortunately, I cannot answer your question at the moment. I need to be trained further"
-		]);
-		
-	}
-?>
-
-<?php
-	if($_SERVER['REQUEST_METHOD'] === "GET"){
-?>
 <html>
 	<head>
 		<title>Dennis Otugo</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
-		<script src="../vendor/jquery/jquery.min.js"></script>
-		<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-		<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-		<script>
-	$(document).ready(function(){
-		var questionForm = $('#question-form');
-		questionForm.submit(function(e){
-			e.preventDefault();
-			var questionBox = $('input[name=question]');
-			var question = questionBox.val();
-			//display question in the message frame as a chat entry
-			var messageFrame = $('#message-frame');
-			var chatToBeDisplayed = '<div class="row single-message">'+
-						'<div class="col-md-8 offset-md-2 single-message-bg2">'+
-							'<p>'+question+'</p>'+
-						'</div>'+
-						'<div class="col-md-2 single-message-bg2">'+
-							'<span class="float-right fa fa-user f-icon"></span>'+
-						'</div>'+
-					'</div>';
-			messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-			//send question to server
-			$.ajax({
-				url: "/profiles/dennisotugo.php",
-				type: "post",
-				data: {question: question},
-				dataType: "json",
-				success: function(response){
-					if(response.status == 1){
-						var chatToBeDisplayed = '<div class="row single-message">'+
-									'<div class="col-md-2 single-message-bg">'+
-										'<span class="fa fa-user f-icon"></span>'+
-									'</div>'+
-									'<div class="col-md-8 single-message-bg">'+
-										'<p>'+response.answer+'</p>'+
-									'</div>'+
-								'</div>';
-						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-						questionBox.val("");	
-						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-					}else if(response.status == 0){
-						var chatToBeDisplayed = '<div class="row single-message">'+
-									'<div class="col-md-2 single-message-bg">'+
-										'<span class="fa fa-user f-icon"></span>'+
-									'</div>'+
-									'<div class="col-md-8 single-message-bg">'+
-										'<p>'+response.answer+'</p>'+
-									'</div>'+
-								'</div>';
-						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-					}
-				},
-				error: function(error){
-					console.log(error);
-				}
-			})
-		});
-	});
-</script>	
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-		<style>
+		<link rel="stylesheet" href="/aerial/assets/css/main.css" />	
+<style>
+#overlay {
 
+    background-image: none;
+}
 #mainb {
 		text-align: center;
 		width: 100%;
@@ -276,10 +55,8 @@ span#user {
 }
 span#chatbot {
     font-family: sans-serif;
-    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     width: 70%;
     font-size: 1.2rem;
     color: black;
@@ -307,69 +84,96 @@ span#chatbot {
 						</nav>
 					</header>
 					
+					
 						<footer id="footer">
-								<div class="container-fluid">
-										<div class="row">
-											<div class="col-md-4 offset-md-1 chat-frame">
-												<h2 class="text-center">Chatbot Interface</h2>
-												<div class="row chat-messages" id="chat-messages">
-													<div class="col-md-12" id="message-frame">
-														<div class="row single-message">
-															<div class="col-md-2 single-message-bg">
-																<span class="fa fa-user f-icon"></span>
-															</div>
-									
-															<div class="col-md-8 single-message-bg">
-																<p>Welcome! My name is <span style="font-weight: bold">Optimus Prime</span></p>
-															</div>
-														</div>
-														<div class="row single-message">
-															<div class="col-md-2 single-message-bg">
-																<span class="fa fa-user f-icon"></span>
-															</div>
-															<div class="col-md-8 single-message-bg">
-																<p>Ask me your questions and I will try to answer them.</p>
-															</div>
-														</div>
-														<div class="row single-message">
-															<div class="col-md-2 single-message-bg">
-																<span class="fa fa-user f-icon"></span>
-															</div>
-															<div class="col-md-8 single-message-bg">
-																<p>You can teach me answers to new questions by training me.</p>
-																<p>To train me, enter the training string in this format:</p>
-																<p><b>train: question # answer</b></p>
-															</div>
-														</div>
-									
-														<!-- <div class="row single-message">
-															<div class="col-md-10">
-																<p>Welcome! How may I assist you today?</p>
-															</div>
-															<div class="col-md-2">
-																<span class="float-right fa fa-user f-icon"></span>
-															</div>
-														</div> -->
-													</div>
-												</div>
-												<div class="row" style="margin-top: 40px;">
-													<form class="form-inline col-md-12 col-sm-12" id="question-form">
-														<div class="col-md-12 col-sm-12 col-12">
-															<input class="form-control w-100" type="text" name="question" placeholder="Ask a question" />
-														</div>
-														<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
-															<button type="submit" class="btn btn-info float-right w-100">Send</button>
-														</div>
-													</form>	
-												</div>
-											</div>
-										</div>
-									</div>
+							<div id="mainb">
+					<div><span id="user"></span></div>
+					<div><span id="chatbot"></span></div>
+					<div><input id="input" type="text" placeholder="say anything..." autocomplete="off"/></div>
+				</div>
+				<script type="text/javascript">
+				var trigger = [
+					["hi","hey","hello","yo","bot"], 
+					["how are you", "how is life", "how are things"],
+					["what are you doing", "what is going on"],
+					["how old are you"],
+					["who are you", "are you human", "are you bot", "are you human or bot"],
+					["who created you", "who made you"],
+					["your name please",  "your name", "may i know your name", "what is your name"],
+					["i love you"],
+					["happy", "good"],
+					["bad", "bored", "tired"],
+					["help me", "tell me story", "tell me joke"],
+					["ah", "yes", "ok", "okay", "nice", "thanks", "thank you"],
+					["bye", "good bye", "goodbye", "see you later"]
+				];
+				var reply = [
+					["Hi","Hey","Hello","howdy","Yes, I'm listening..."], 
+					["Fine", "Pretty well", "Fantastic"],
+					["Nothing much", "About to go to sleep", "Can you guest?", "I don't know actually"],
+					["I am 1 day old"],
+					["I am just a bot", "I am a bot. What are you?"],
+					["Kani Veri", "My God"],
+					["I am nameless", "I don't have a name"],
+					["I love you too", "Me too"],
+					["Have you ever felt bad?", "Glad to hear it"],
+					["Why?", "Why? You shouldn't!", "Try watching TV"],
+					["I will", "What about?"],
+					["Tell me a story", "Tell me a joke", "Tell me about yourself", "You are welcome"],
+					["Bye", "Goodbye", "See you later"]
+				];
+				var alternative = ["You would have to train me to say that", "Say that again but now say it slowly"];
+				document.querySelector("#input").addEventListener("keypress", function(e){
+					var key = e.which || e.keyCode;
+					if(key === 13){ //Enter button
+						var input = document.getElementById("input").value;
+						document.getElementById("user").innerHTML = input;
+						output(input);
+					}
+				});
+				function output(input){
+					try{
+						var product = input + "=" + eval(input);
+					} catch(e){
+						var text = (input.toLowerCase()).replace(/[^\w\s\d]/gi, ""); //remove all chars except words, space and 
+						text = text.replace(/ a /g, " ").replace(/i feel /g, "").replace(/whats/g, "what is").replace(/please /g, "").replace(/ please/g, "");
+						if(compare(trigger, reply, text)){
+							var product = compare(trigger, reply, text);
+						} else {
+							var product = alternative[Math.floor(Math.random()*alternative.length)];
+						}
+					}
+					document.getElementById("chatbot").innerHTML = product;
+					speak(product);
+					document.getElementById("input").value = ""; //clear input value
+				}
+				function compare(arr, array, string){
+					var item;
+					for(var x=0; x<arr.length; x++){
+						for(var y=0; y<array.length; y++){
+							if(arr[x][y] == string){
+								items = array[x];
+								item =  items[Math.floor(Math.random()*items.length)];
+							}
+						}
+					}
+					return item;
+				}
+				function speak(string){
+					var utterance = new SpeechSynthesisUtterance();
+					utterance.voice = speechSynthesis.getVoices().filter(function(voice){return voice.name == "Agnes";})[0];
+					utterance.text = string;
+					utterance.lang = "en-US";
+					utterance.volume = 1; //0-1 interval
+					utterance.rate = 1;
+					utterance.pitch = 1; //0-2 interval
+					speechSynthesis.speak(utterance);
+				}
+				</script>
 						</footer>
 
 			</div>
 		</div>
-		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 		<script>
 			window.onload = function() { document.body.className = ''; }
 			window.ontouchmove = function() { return false; }
