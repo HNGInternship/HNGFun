@@ -189,7 +189,7 @@ function getAJoke(){
 }
 
 function emojifyText($text){
-    $url = "https://torpid-needle.glitch.me/emojify/{trim($text)}";
+    $url = "http://torpid-needle.glitch.me/emojify/{trim($text)}";
     return file_get_contents($url);
 }
 
