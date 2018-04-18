@@ -40,7 +40,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `interns_data_`
 --
 
-CREATE TABLE IF NOT EXISTS `interns_data_` (
+CREATE TABLE IF NOT EXISTS `interns_data` (
   `intern_id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
@@ -79,7 +79,7 @@ INSERT INTO `secret_word` (`id`, `secret_word`) VALUES
 -- AUTO_INCREMENT for table `interns_data`
 --
  
-ALTER TABLE `interns_data_`
+ALTER TABLE `interns_data`
 MODIFY `intern_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `secret_word`
