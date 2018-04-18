@@ -159,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			margin-bottom: 10px;
 			padding: 7px;
 		}
-		.form{
+		#form{
 			background-color: rgb(52,185,96,0.9);
 			color: #FFF;
 			padding: 7px;
@@ -226,7 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			</div>
 			<div class="row-holder">
 				<div class="row2">
-					<div class="form" id="form" method="post">
+					<div id="form" method="post">
 						<form >
 							<input type="text" name='question' placeholder="type your question here"><input type="submit" name="submit">
 						</form>
@@ -234,7 +234,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				</div>
 			</div>	
 			<ul id="chats">
-				
+				<li> </li>
 			</ul>
 	    </div>
 	</div>	
@@ -243,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			var Form =$('#form');
 			Form.submit(function(e){
 				e.preventDefault();
-				var MBox = $('input[name=question']);
+				var MBox = $('input[name=question]');
 				var question = MBox.val();
 				$("#chats").append("<li>" + question + "</li>");
 
