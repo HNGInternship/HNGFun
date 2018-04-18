@@ -25,7 +25,7 @@
 
 		$name = null;
 		$username = "chigozie";
-		$image_filename = null;
+		$image_filename = 'http://res.cloudinary.com/dqscsuyyn/image/upload/v1523629851/pix.jpg';
 
 		$stmt = $conn->prepare("select * from interns_data where username = :username");
 		$stmt->bindParam(':username', $username);
@@ -76,7 +76,7 @@
 
 			//check if answer already exists in database
 			$question = "%$question%";
-			$sql = "select * from chatbot where question like :question limit 1";
+			$sql = "select * from chatbot where question like :question";
 			$stmt = $conn->prepare($sql);
 			$stmt->bindParam(':question', $question);
 			$stmt->execute();
@@ -84,7 +84,8 @@
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			$rows = $stmt->fetchAll();
 			if(count($rows)>0){
-				$row = $rows[0];
+				$index = rand(0, count($rows)-1);
+				$row = $rows[$index];
 				$answer = $row['answer'];	
 
 				//check if the answer is to call a function
@@ -123,7 +124,7 @@
 			}else{
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Unfortunately, I cannot answer your question at the moment. I need to be trained further"
+					'answer' => "Unfortunately, I cannot answer your question at the moment. I need to be trained further. The training data format is <br> <b>train: question # answer</b>"
 				]);
 			}		
 			return;
@@ -139,36 +140,55 @@
 			if(count($split_string) == 1){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Invalid training format. I cannot decipher the answer part of the question"
+					'answer' => "Invalid training format. I cannot decipher the answer part of the question. <br> The correct training data format is <br> <b>train: question # answer</b>"
 				]);
 				return;
 			}
 			$que = trim($split_string[0]);
 			$ans = trim($split_string[1]);
 
-			//check if question already exists before adding it again
-			$question = "%$que%";
-			$sql = "select * from chatbot where question like :question limit 1";
-			$stmt = $conn->prepare($sql);
-			$stmt->bindParam(':question', $question);
-			$stmt->execute();
-
-			$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			$rows = $stmt->fetchAll();
-			if(count($rows)>0){
-				//question already exists. update its answer
-				$sql = "update chatbot set answer = :answer where question = :question";
-				$stmt = $conn->prepare($sql);
-				$stmt->bindParam(':answer', $ans);
-				$stmt->bindParam(':question', $que);
-				$stmt->execute();
-
+			if(count($split_string) < 3){
 				echo json_encode([
-					'status' => 1,
-					'answer' => "Thank you. I have now learnt a new answer to the question"
+					'status' => 0,
+					'answer' => "You need to enter the training password to train me."
 				]);
 				return;
 			}
+
+			$password = trim($split_string[2]);
+			//verify if training password is correct
+			define('TRAINING_PASSWORD', 'trainpwforhng');
+			if($password !== TRAINING_PASSWORD){
+				echo json_encode([
+					'status' => 0,
+					'answer' => "You are not authorized to train me"
+				]);
+				return;
+			}
+
+			// //check if question already exists before adding it again
+			// $question = "%$que%";
+			// $sql = "select * from chatbot where question like :question limit 1";
+			// $stmt = $conn->prepare($sql);
+			// $stmt->bindParam(':question', $question);
+			// $stmt->execute();
+
+			// $stmt->setFetchMode(PDO::FETCH_ASSOC);
+			// $rows = $stmt->fetchAll();
+			// if(count($rows)>0){
+			// 	//question already exists. update its answer
+			// 	$sql = "update chatbot set answer = :answer where question = :question";
+			// 	$stmt = $conn->prepare($sql);
+			// 	$stmt->bindParam(':answer', $ans);
+			// 	$stmt->bindParam(':question', $que);
+			// 	$stmt->execute();
+
+			// 	echo json_encode([
+			// 		'status' => 1,
+			// 		'answer' => "Thank you. I have now learnt a new answer to the question"
+			// 	]);
+			// 	return;
+			// }
 
 			//insert into database
 			$sql = "insert into chatbot (question, answer) values (:question, :answer)";

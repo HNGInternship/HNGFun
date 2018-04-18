@@ -16,7 +16,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 body{
-  background-image: url(http://res.cloudinary.com/noahalorwu/image/upload/v1523952647/ss.jpg );
+  background-color:#ef5350;
+
 
 }
 .profile {
@@ -39,11 +40,10 @@ body{
 a {
   text-decoration: none;
   font-size: 40px;
-  color: white;
+  color: black;
+  margin: auto;
 }
- a:hover i {
-            color: orange;
-        }
+ 
 
 </style>
 </head>
@@ -52,8 +52,7 @@ a {
 <div class="profile">
   <img src="http://res.cloudinary.com/noahalorwu/image/upload/v1523904795/DSC_4950.jpg" alt="Noah Alorwu" style="width:100%">
   <h1> <?php echo $user->name; ?></h1>
-  <p class="title">Android | JAVA | Python</p>
-  <p> Django | WordPress</p>
+  <p class="title">Android | JAVA | Python | Django | WordPress</p>
   <div style="margin: 20px 0;"> 
     <a href="https://github.com/plasmadray"><i class="fa fa-github"></i></a> 
     <a href="htpps://twitter.com/plasmadray"><i class="fa fa-twitter"></i></a>  
@@ -62,6 +61,5 @@ a {
  </div>
 
 </div>
-
 </body>
 </html>

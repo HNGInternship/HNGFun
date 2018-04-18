@@ -1,7 +1,10 @@
 <?php
+
+/* DO NOT TOUCH THIS FILE */
 include_once("header.php");
 require 'db.php';
 
+/* YOUR INTERNS DATA TABLE SHOULD BE named interns_data */
 $sql = 'SELECT * FROM interns_data';
 $q = $conn->query($sql);
 $q->setFetchMode(PDO::FETCH_ASSOC);
@@ -24,15 +27,13 @@ $data = $q->fetchAll();
   <div class="container" id="container">
 
 
-
-
 <!--Section: interns v.1-->
 <section class="section pb-3 text-center">
 
 
     <div class="row">
 
-    <?php print_r($data);foreach($data as $list){ ?>
+    <?php foreach($data as $list){ ?>
 
         <!--Grid column-->
         <div class="col-lg-3 col-md-3 mb-4">
@@ -67,8 +68,6 @@ $data = $q->fetchAll();
 
 
 </div>
-
-
 
 
 
