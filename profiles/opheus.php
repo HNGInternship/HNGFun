@@ -1,5 +1,5 @@
 <?php
-//include "../config.php";
+
 
     try {
         $sql = 'SELECT intern_id, name, username, image_filename FROM interns_data WHERE username=\'opheus\'';
@@ -54,7 +54,7 @@ echo "you are currently using a ,".$browser.", browser on a  ,".$device.", Devic
 
 function bot_answer($check) {
 
-require '../db.php';
+require 'db.php';
 
 // Create connection
 //$conn = new mysqli($servername, $username, $password, $dbname);
@@ -104,7 +104,7 @@ $question = trim($exploded[1]);
 
 $answer = trim($exploded[2]);
 
-require '../db.php';
+require 'db.php';
 
 try {
     
@@ -250,18 +250,17 @@ $url2 = "https://www.amdoren.com/api/weather.php?api_key=u3YfnHN8xmibFPbxAjRhtWY
 ?> 
 <html>
 <head>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 400px;
-  max-height: auto;
+  max-width: 300px;
   margin: auto;
   text-align: center;
   font-family: arial;
 }
 
-.titler {
+.title {
   color: grey;
   font-size: 18px;
 }
@@ -289,194 +288,6 @@ button:hover, a:hover {
   opacity: 0.7;
 }
 </style>
-<style type="text/css">
-    	                    
-.customfoo {
-    position: fixed;
-    bottom: 0;
-    width: 400;
-    right: 0;
-  }
- .portlet {
-    margin-bottom: 15px;
-}
-
-.btn-white {
-    border-color: #cccccc;
-    color: #333333;
-    background-color: #ffffff;
-}
-
-.portlet {
-    border: 1px solid;
-}
-
-.portlet .portlet-heading {
-    padding: 0 15px;
-}
-
-.portlet .portlet-heading h4 {
-    padding: 1px 0;
-    font-size: 16px;
-}
-
-.portlet .portlet-heading a {
-    color: #fff;
-}
-
-.portlet .portlet-heading a:hover,
-.portlet .portlet-heading a:active,
-.portlet .portlet-heading a:focus {
-    outline: none;
-}
-
-.portlet .portlet-widgets .dropdown-menu a {
-    color: #333;
-}
-
-.portlet .portlet-widgets ul.dropdown-menu {
-    min-width: 0;
-}
-
-.portlet .portlet-heading .portlet-title {
-    float: left;
-}
-
-.portlet .portlet-heading .portlet-title h4 {
-    margin: 10px 0;
-}
-
-.portlet .portlet-heading .portlet-widgets {
-    float: right;
-    margin: 8px 0;
-}
-
-.portlet .portlet-heading .portlet-widgets .tabbed-portlets {
-    display: inline;
-}
-
-.portlet .portlet-heading .portlet-widgets .divider {
-    margin: 0 5px;
-}
-
-.portlet .portlet-body {
-    padding: 15px;
-    background: #fff;
-}
-
-.portlet .portlet-footer {
-    padding: 10px 15px;
-    background: #fbf0e4;
-}
-
-.portlet .portlet-footer ul {
-    margin: 0;
-}
-
-.portlet-green,
-.portlet-green>.portlet-heading {
-    border-color: #16a085;
-}
-
-.portlet-green>.portlet-heading {
-    color: #fff;
-    background-color: #16a085;
-}
-
-.portlet-orange,
-.portlet-orange>.portlet-heading {
-    border-color: #f39c12;
-}
-
-.portlet-orange>.portlet-heading {
-    color: #fff;
-    background-color: #f39c12;
-}
-
-.portlet-blue,
-.portlet-blue>.portlet-heading {
-    border-color: #2980b9;
-}
-
-.portlet-blue>.portlet-heading {
-    color: #fff;
-    background-color: #2980b9;
-}
-
-.portlet-red,
-.portlet-red>.portlet-heading {
-    border-color: #e74c3c;
-}
-
-.portlet-red>.portlet-heading {
-    color: #fff;
-    background-color: #e74c3c;
-}
-
-.portlet-purple,
-.portlet-purple>.portlet-heading {
-    border-color: #8e44ad;
-}
-
-.portlet-purple>.portlet-heading {
-    color: #fff;
-    background-color: #8e44ad;
-}
-
-.portlet-default,
-.portlet-dark-blue,
-.portlet-default>.portlet-heading,
-.portlet-dark-blue>.portlet-heading {
-    border-color: #34495e;
-}
-
-.portlet-default>.portlet-heading,
-.portlet-dark-blue>.portlet-heading {
-    color: #fff;
-    background-color: #34495e;
-}
-
-.portlet-basic,
-.portlet-basic>.portlet-heading {
-    border-color: #333;
-}
-
-.portlet-basic>.portlet-heading {
-    border-bottom: 1px solid #333;
-    color: #333;
-    background-color: #fff;
-}
-
-@media(min-width:768px) {
-    .portlet {
-        margin-bottom: 30px;
-    }
-}
-
-.text-green {
-    color: #16a085;
-}
-
-.text-orange {
-    color: #f39c12;
-}
-
-.text-red {
-    color: #e74c3c;
-}    
-.username {
-  color: blue;
-  font-weight: bold;
-}
-
-.bot {
-  color: green;
-  font-weight: bold;
-}
-
-  
-     
-    </style>
 </head>
 <body>
 <br>
@@ -485,10 +296,10 @@ button:hover, a:hover {
 
 
 <div class="card">
-  <img src="<?php echo $imagelink; ?>" alt="ima" style="width:100%">
+  <img src="<?php echo $imagelink; ?>" alt="imageprofile" style="width:100%">
   <h1><?php echo $name; ?></h1>
   <h2>@<?php echo $username; ?></h2>
-  <p class="titler">Web Designer & Developer, UI/UX Designer</p>
+  <p class="title">Web Designer & Developer, UI/UX Designer</p>
   <p>Delta State Univeristy (B.Sc Physics)</p>
   <p>Nigeria</p>
   <div style="margin: 24px 0;">
@@ -498,6 +309,8 @@ button:hover, a:hover {
     <a href="https://www.fb.com/j.ominiabohs"><i class="fa fa-facebook"></i></a> 
  </div>
  <p><button>Contact</button></p>
+<<<<<<< HEAD
+=======
  
 <div class="customfoo">                  
 <div class="container bootstrap snippet">
@@ -555,11 +368,11 @@ button:hover, a:hover {
 </div>
 </div>   
              
-//<?php 
+<?php 
 $ip       = $_SERVER['REMOTE_ADDR']; 
 $ipsample = "197.211.58.103";
 $date     = gmdate("r"); 
-$details  = json_decode(file_get_contents("https://ipapi.co/{$ip}/json/")); 
+$details  = json_decode(file_get_contents("https://ipapi.co/{$ipsample}/json/")); 
 $city     = $details->city; 
 $code     =$details->region_code;
 $state     = $details->region; 
@@ -716,6 +529,7 @@ $(function() {
 
 
 </script>
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
  <?php
     try {
         $sql = 'SELECT * FROM secret_word';

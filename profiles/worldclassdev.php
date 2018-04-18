@@ -1,4 +1,4 @@
-<?php 
+  <?php 
     try {
         $secrete = 'SELECT * FROM secret_word';
         $sql = $conn->query($secrete);
