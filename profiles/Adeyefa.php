@@ -213,7 +213,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 			</div>
 			<div class="row-holder">
 				<div class="row2">
-					<div class="form" method="post">
+					<div class="form" action='Adeyefa.php' method="post">
 						<form >
 							<input type="text" name="question" placeholder="type your question here"><input type="submit" name="submit">
 						</form>
