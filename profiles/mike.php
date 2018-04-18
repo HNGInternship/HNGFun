@@ -16,7 +16,7 @@ require_once("../db.php");
 				 while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
    
                                        $id = $row['id'];
-					echo $secret_word= $row['secret_word']; 
+				       $secret_word= $row['secret_word']; 
 					
  				
 				 }
