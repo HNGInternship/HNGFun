@@ -65,15 +65,23 @@ body
    background-color:rgba(196, 196, 196, 0.50);
 }
 .fa {
-  padding: 20px;
-  font-size: 30px;
-  width: 30px;
-  text-align: center;
-  text-decoration: none;
-  margin: 5px 2px;
-  border-radius: 50%;
-  color: white;
-}
+            padding: 10px;
+            font-size: 15px;
+            width: 35px;
+            text-align: center;
+            margin: 3px 2px;
+             background: #000000;
+            color: rgb(255, 0, 0);
+            border-radius: 50%;
+            text-decoration: none;
+        }
+
+        .fa:hover {
+            opacity: 0.7;
+            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.35);
+            transition: 0.2s;
+        }
+
 
 </style>
 <head>
