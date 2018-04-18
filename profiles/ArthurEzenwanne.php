@@ -1,7 +1,4 @@
 <?php
-    //require_once "./db.php";
-    //$slackUserName = "ArthurEzenwanne";
-
     // Query secret_word table
     $resultSecretWord = $conn->query("SELECT * FROM secret_word LIMIT 1");
     $resultSecretWord = $resultSecretWord->fetch(PDO::FETCH_OBJ);
@@ -14,7 +11,6 @@
     $internUserName = $userData->username;
     $internImgURL = $userData->image_filename;
 ?>
-
 
 <!doctype html>
 <html lang="en" class="no-js">
