@@ -1,13 +1,39 @@
-
-
-  <?php
-		$profile_details_query = "SELECT name, username, image_filename 
-              FROM interns_data where username = '$profile_name' LIMIT 1";
-              $profile_details_result = $conn->query($profile_details_query);
-
-                  $profile_details_result->setFetchMode(PDO::FETCH_ASSOC);
-                      $profile_details = $profile_details_result->fetch();
-                  ?>
+<?php
+	if($_SERVER['REQUEST_METHOD'] === "GET"){
+		if(!defined('DB_USER')){
+			require "../../config.php";		
+			try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
+		}
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		
+		$stmt = $conn->prepare("select secret_word from secret_word limit 1");
+		$stmt->execute();
+		$secret_word = null;
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$rows = $stmt->fetchAll();
+		if(count($rows)>0){
+			$row = $rows[0];
+			$secret_word = $row['secret_word'];	
+		}
+		$name = null;
+		$username = "Tiarayuppy";
+		$image_filename = null;
+		$stmt = $conn->prepare("select * from interns_data where username = :username");
+		$stmt->bindParam(':username', $username);
+		$stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$rows = $stmt->fetchAll();
+		if(count($rows)>0){
+			$row = $rows[0];
+			$name = $row['name'];	
+			$image_filename = $row['image_filename'];	
+		}
+	}
+?>
 
 <?php
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -16,11 +42,11 @@
 			try {
 			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 			} catch (PDOException $pe) {
-			    die("can't connect to DB " . DB_DATABASE . ": " . $pe->getMessage());
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 			}
 		}
 		require "../answers.php";
-		date_default_timezone_set("Nigeria/Lagos");
+		date_default_timezone_set("Africa/Lagos");
 		
 		if(!isset($_POST['question'])){
 			echo json_encode([
@@ -34,20 +60,20 @@
 		$index_of_train = stripos($question, "train:");
 		if($index_of_train === false){
 			$question = preg_replace('([\s]+)', ' ', trim($question)); 
-			$question = preg_replace("([?.])", "", $question);
+			$question = preg_replace("([?.])", "", $question); 
 			
-						$question = "%$question%";
-					$sql = "select * from chatbot where question like :question";
-				$stmt = $conn->prepare($sql);
+			$question = "%$question%";
+			$sql = "select * from chatbot where question like :question";
+			$stmt = $conn->prepare($sql);
 			$stmt->bindParam(':question', $question);
-						$stmt->execute();
+			$stmt->execute();
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			$rows = $stmt->fetchAll();
 			if(count($rows)>0){
 				$index = rand(0, count($rows)-1);
 				$row = $rows[$index];
 				$answer = $row['answer'];	
-				
+			
 				$index_of_parentheses = stripos($answer, "((");
 				if($index_of_parentheses === false){ 
 					echo json_encode([
@@ -69,7 +95,7 @@
 						if(!function_exists($function_name)){
 							echo json_encode([
 								'status' => 0,
-								'answer' => "I am sorry but I could not find that function"
+								'answer' => "I am sorry but I could not find that function in the database"
 							]);
 						}else{
 							echo json_encode([
@@ -83,14 +109,14 @@
 			}else{
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Unfortunately, I cannot answer your question at the moment. you  can train me more <br> <b>train: question # answer</b>"
+					'answer' => "Unfortunately, I cannot answer your question at the moment. you can train me now. The training data format is <br> <b>train: question # answer</b>"
 				]);
 			}		
 			return;
 		}else{
-			
-			$question_and_answer_string = substr($question, 6);
 		
+			$question_and_answer_string = substr($question, 6);
+			
 			$question_and_answer_string = preg_replace('([\s]+)', ' ', trim($question_and_answer_string));
 			
 			$question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string); 
@@ -98,66 +124,49 @@
 			if(count($split_string) == 1){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Error training method command <br> The correct training data format is <br> <b>train: question # answer</b>"
+					'answer' => "Invalid training format. I dont understand your commands. <br> The correct training data format is <br> <b>train: question # answer</b>"
 				]);
 				return;
 			}
-					$que = trim($split_string[0]);
-				$ans = trim($split_string[1]);
+			$que = trim($split_string[0]);
+			$ans = trim($split_string[1]);
 			if(count($split_string) < 3){
-					echo json_encode([
+				echo json_encode([
 					'status' => 0,
-					'answer' => "You need to enter the training password to train me."
+					'answer' => "You need to enter my keyword before you train me"
 				]);
 				return;
 			}
-								$password = trim($split_string[2]);
-								
-								define('TRAINING_PASSWORD', 'trainme');
-								if($password !== TRAINING_PASSWORD){
-									echo json_encode([
-										'status' => 0,
-										'answer' => "You are not authorized to train me"
-									]);
-									return;
-								}
+			$password = trim($split_string[2]);
 			
-							
-								$sql = "insert into chatbot (question, answer) values (:question, :answer)";
-								$stmt = $conn->prepare($sql);
-								$stmt->bindParam(':question', $que);
-								$stmt->bindParam(':answer', $ans);
-								$stmt->execute();
-								$stmt->setFetchMode(PDO::FETCH_ASSOC);
-								echo json_encode([
+			define('TRAINING_PASSWORD', 'trainisdope');
+			if($password !== TRAINING_PASSWORD){
+				echo json_encode([
+					'status' => 0,
+					'answer' => "You are not authorized to train me"
+				]);
+				return;
+			}
+			
+			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
+			$stmt = $conn->prepare($sql);
+			$stmt->bindParam(':question', $que);
+			$stmt->bindParam(':answer', $ans);
+			$stmt->execute();
+			$stmt->setFetchMode(PDO::FETCH_ASSOC);
+			echo json_encode([
 				'status' => 1,
-				'answer' => "Thank you, i can now be of more help"
+				'answer' => "Thank you, I can now do better"
 			]);
 			return;
 		}
 		echo json_encode([
 			'status' => 0,
-			'answer' => "Hello please ask me a meaningful question"
+			'answer' => "Unfortunately, I cannot answer your question at the moment. I need to be trained further"
 		]);
 		
 	}
 ?>
-<?php
-								if($_SERVER['REQUEST_METHOD'] === "GET"){
-							if(!defined('DB_USER')){
-					require "../../config.php";		
-				try {
-			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-			} catch (PDOException $pe) {
-			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-			}
-		}
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		
-
-?>
-
-
 
 <?php
 	if($_SERVER['REQUEST_METHOD'] === "GET"){
@@ -642,6 +651,7 @@ body{
 
 
 <div id="demo">
+	<h4>Train password <code>`trainisdope`</code></h4>
     <div id="chatBotCommandDescription"></div>
     <input id="humanInput" type="text" placeholder="Say something" />
 
@@ -657,31 +667,13 @@ body{
     </div>
 </div>
 <script>
-   function updateClock(){
-            console.log("called ")
-            let d = new Date().toUTCString();
-            d = d.substr(0, d.indexOf("GMT")-9)
-             d += " - " + new Date().toLocaleTimeString();
-            document.getElementById('time').innerText = d;
-            
-            return 0;
-             
-               
-        }
-         window.onload = function(){
-            updateClock();
-          var j=  setInterval(updateClock, 1000);
-         }
-</script>
-<script>
     var sampleConversation = [
         "Hi",
         "My name is [name]",
         "Where is Hotels.ng?",
-        "Whhere is  Nigeria",
+        "Where is  Nigeria",
         "Bye",
         "What is the time"
-
         
     ];
     var config = {
@@ -705,47 +697,7 @@ body{
     ChatBot.addPattern("compute ([0-9]+) plus ([0-9]+)", "response", undefined, function (matches) {
         ChatBot.addChatEntry("That would be "+(1*matches[1]+1*matches[2])+".","bot");
     },"Say 'compute [number] plus [number]' to make the bot your math calculator");
-
-</script>
-<script>
-    
-else if(str.indexOf("time") != -1){
-        let inStr = str.substr(str.indexOf("time") + 5, 2);
-        if(inStr !== "in"){
-            print("Usage: What is the time in New York \n or Time in New York");
-        }else {
-        let city = str.substr(str.indexOf(inStr)+3, str.length -1)
-        //city = capitalize(city);
-        console.log("citycity", city)
-        
-        if(city == " "){
-            print("Usage: What is the time in New York \n or Time in New York");
-        }else{
-            let geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address="+ city + "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
-            fetch(geocodeUrl)
-            .then(response=>{
-                return response.json()
-            })
-            .then(response=>{
-                let lat = response.results[0].geometry.location.lat;
-                let lng = response.results[0].geometry.location.lng;
-                var targetDate = new Date() // Current date/time of user computer
-                var timestamp = targetDate.getTime()/1000 + targetDate.getTimezoneOffset() * 60 
-                let url = "https://maps.googleapis.com/maps/api/timezone/json?location="+lat+"," + lng+"&timestamp=" +timestamp+ "&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U" 
-                console.log(url);  
-                
-                fetch(url)
-                .then(response=>{
-                    return response.json();
-                })
-                .then(response=>{
-                    var offsets = response.dstOffset * 1000 + response.rawOffset * 1000 // get DST and time zone offsets in milliseconds
-                    var localdate = new Date(timestamp * 1000 + offsets) // Date object containing current time of Tokyo (timestamp + dstOffset + rawOffset)
-                    print("The time in " + capitalize(city) + " is " + localdate.toLocaleString())
-                }) 
-
-</script>
+</script>	
 </body>
 </html>
 
-?>
