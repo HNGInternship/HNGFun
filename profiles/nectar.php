@@ -73,8 +73,7 @@
             font-size: 3.5em;
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             font-weight: bold;
-
-
+            
             /* Test attributes */
             /* border: 2px solid yellow; */
         }
@@ -91,10 +90,10 @@
 <body>
     <?php
         // Get the config file
-        include '../db.php';
+        // include '../db.php';
          
         // Set the needed variables
-        $table = 'interns_data_';
+        $table = 'interns_data';
         $secret_table = 'secret_word';
         $intern_name = 'Nectar';
 
@@ -127,8 +126,7 @@
     <div class ="profile-details">
         <h4 class="detail-title">HNG4 internship 2018 </h4>
         <p class="detail-name"><?php echo $name?></p>
-        <p class="detail-username">@<?php echo $username?></p>
-        
+        <p class="detail-username">@<?php echo $username?></p>        
     </div>
 </body>
 </html>
