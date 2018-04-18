@@ -32,7 +32,7 @@ try {
 		.container{
 			width: 100% !important;
 		}
-		nav{
+		footer{
 			display: none !important;
 		}
 	</style>
