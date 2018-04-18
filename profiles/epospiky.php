@@ -294,7 +294,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		   	<div class="clear"> </div>
 		</div>   
 	</div>
- <div class="modal-body">
+	hi mu pekjahlkjfhkfhljanjdlfhjfnsd
+ <div class="">
             <div class="chat">
               <div class="msg you">
                   Hi there?
