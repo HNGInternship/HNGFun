@@ -133,6 +133,7 @@
 				foreach($new_sentences as $sentence){
 					$index_of_first_space = strpos($sentence, " ");
 					$index_of_last_space = strrpos($sentence, " ");
+
 					if($index_of_last_space === false){ //$index_of_first_space is also going to be false
 						// search database for question containing only one word in it. That word is the parameter
 						$question = " {{"."%";
@@ -210,7 +211,7 @@
 						$query_sentence = substr($sentence, 0, $index_of_last_space);
 						$query_sentence = trim($query_sentence);
 
-						$question = $query_sentence." {{"."%";
+						$question = "%".$query_sentence." {{"."%";
 						$sql = "select * from chatbot where question like :question";
 						$stmt = $conn->prepare($sql);
 						$stmt->bindParam(':question', $question);
