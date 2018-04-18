@@ -4,11 +4,6 @@
   $secret_word_result = $secret_word_query->fetch();
   $secret_word = $secret_word_result['secret_word'];
 
-  $sql = 'SELECT * FROM interns_data';
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$data = $q->fetchAll();    
-
   $profile_query= "SELECT * FROM interns_data where username = 'kaysiz'";
   $q = $conn->query($profile_query);
   $q->setFetchMode(PDO::FETCH_ASSOC);
