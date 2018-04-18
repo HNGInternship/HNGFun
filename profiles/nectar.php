@@ -184,12 +184,16 @@
     <div class ="profile-details">
         <h4 class="detail-title">HNG4 internship 2018 </h4>
         <p class="detail-name"><?php echo $name?></p>
+<<<<<<< HEAD
+        <p class="detail-username">@<?php echo $username?></p>         
+=======
         <p class="detail-username">@<?php echo $username?></p>
 <<<<<<< HEAD
        
 =======
          
 >>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
+>>>>>>> eb7c7be751f480ff7d38833d901f5fa4ba4cd1a1
     </div>
 </body>
 </html>
