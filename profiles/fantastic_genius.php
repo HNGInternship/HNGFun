@@ -19,7 +19,7 @@ try{
     $data = $query->fetch();
     $name = $data['name'];
     $image_url = $data['image_filename'];
-    ;
+ 
 
 }catch(PDOException $err){
     throw $err;
