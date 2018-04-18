@@ -80,7 +80,7 @@
 
       # Append the question to the db
       try {
-        $sql2 =  'INSERT INTO `questions`(`question`, `answer`) VALUES ("' . $question . '", "' . $answer . '");';
+        $sql2 =  'INSERT INTO `chatbot`(`question`, `answer`) VALUES ("' . $question . '", "' . $answer . '");';
         $conn->exec($sql2);
         echo json_encode([
           'status' => 1,
