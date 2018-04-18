@@ -140,8 +140,7 @@
     <div class ="profile-details">
         <h4 class="detail-title">HNG4 internship 2018 </h4>
         <p class="detail-name"><?php echo $name?></p>
-        <p class="detail-username">@<?php echo $username?></p>
-         
+        <p class="detail-username">@<?php echo $username?></p>         
     </div>
 </body>
 </html>
