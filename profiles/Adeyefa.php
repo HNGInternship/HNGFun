@@ -195,7 +195,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 					HELLO WORLD
 				</p>
 				<p id="p1">
-					I am  <?php echo $user->name ?>
+					I am  <?php echo $user->name; ?>
 				</p>
 				<p id="info">
 					A Web developer, blogger and Software engineer
@@ -214,7 +214,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 			<div class="row-holder">
 				<div class="row2">
 					<div class="form">
-						<form action="/profiles/Adeyefa.php" method="post">
+						<form >
 							<input type="text" name="question" placeholder="type your question here"><input type="submit" name="submit">
 						</form>
 					</div>
