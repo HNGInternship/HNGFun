@@ -22,7 +22,7 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
     <!--CSS-->
-    <link rel="stylesheet" type="text/css" href="http://nelsonatuonwu.me/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="https://nelsonatuonwu.me/css/style.css" />
     <title>Nelson Atuonwu Portfolio</title>
 </head>
 <body>
@@ -186,11 +186,11 @@ try {
 <!-- /Container -->
 
 <!-- Scripts -->
-<script src="http://nelsonatuonwu.me/js/jquery-1.11.3.min.js"></script>
-<script src="http://nelsonatuonwu.me/js/modernizr.custom.js"></script>
-<script src="http://nelsonatuonwu.me/js/notifyMe.js"></script>
-<script src="http://nelsonatuonwu.me/js/jquery.placeholder.js"></script>
-<script src="http://nelsonatuonwu.me/js/jquery.nicescroll.js"></script>
-<script src="http://nelsonatuonwu.me/js/init.js"></script>
+<script src="https://nelsonatuonwu.me/js/jquery-1.11.3.min.js"></script>
+<script src="https://nelsonatuonwu.me/js/modernizr.custom.js"></script>
+<script src="https://nelsonatuonwu.me/js/notifyMe.js"></script>
+<script src="https://nelsonatuonwu.me/js/jquery.placeholder.js"></script>
+<script src="https://nelsonatuonwu.me/js/jquery.nicescroll.js"></script>
+<script src="https://nelsonatuonwu.me/js/init.js"></script>
 </body>
 </html>

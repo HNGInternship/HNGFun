@@ -317,7 +317,7 @@ function decider($string){
                 var message = $("#msg").val();
                     var dataString = 'msg=' + msg + '&page=chat';
                     jQuery.ajax({
-                        url: "juliet.php",
+                        url: "profiles/juliet.php",
                         data: dataString,
                         type: "POST",
                          cache: false,
