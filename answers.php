@@ -468,7 +468,6 @@ function bytenaija_time($location) {
 );  
     $geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=".$location. "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
 
-    $response = curl_exec($curl); */
     $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
     $response = json_decode($response, true);
     //$lat = $response->results;
