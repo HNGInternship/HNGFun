@@ -108,7 +108,7 @@ require 'db.php';
 			
 				<img src="<?php echo $profile_img ?>" alt="" class="profile-img" />
 				<header>
-					<h3>Hello, <br>My Name Is <strong><?php echo $names ?></strong> and I am a web developer @<?php echo $username ?>
+					<h3>Hello, <br>My Name Is <strong><?php echo $names ?></strong> a web developer @<?php echo $username ?>
 					</h3>
 					
 				</header>
