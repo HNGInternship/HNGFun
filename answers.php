@@ -86,17 +86,6 @@
 
 ?>
 <?php
-/*
-function speak(string){
-	var utterance = new SpeechSynthesisUtterance();
-	utterance.voice = speechSynthesis.getVoices().filter(function(voice){return voice.name == "Agnes";})[0];
-	utterance.text = string;
-	utterance.lang = "en-US";
-	utterance.volume = 1; //0-1 interval
-	utterance.rate = 1;
-	utterance.pitch = 2; //0-2 interval
-	speechSynthesis.speak(utterance);
-}*/
 
 function getListOfCommands() {
   return 'Type "<code>show: List of commands</code>" to see a list of commands I understand.<br/>
@@ -132,6 +121,30 @@ function getAJoke(){
 
     return $jokes[rand(0, count($jokes) - 1)];
 }
+
+function emojifyText($text){
+    $url = "https://torpid-needle.glitch.me/emojify/{$text}";
+    return file_get_contents($url);
+}
+
+function rollADice(){
+    return rand(1, 6);
+}
+
+function flipACoin(){
+    return rand(0,1) === 1 ? "Heads" : "Tails";
+}
+
+function predictOutcome($battle){
+    $players = explode('vs', $battle);
+
+    if(count($players) >= 2){
+        return $players[rand(0, count($players) - 1)];
+    }
+
+    return "Uhh.. nope. You've provided invalid prediction data.";
+}
+// End of functions by @mclint_
 
     //functions defined by @chigozie. DO NOT MODIFY!!!
     function getDayOfWeek(){
@@ -229,6 +242,21 @@ echo "you are currently using a ,".$browser.", browser on a  ,".$device.", Devic
 
 
 
+
+spl_autoload_register(function($className){
+
+	$className = strtolower(str_replace('.', '', str_replace('..', '', $className)));
+	require_once 'classes/class.'.$className.'.php';
+
+
+});
+
+if(isset($_POST['action'])){
+
+
+	Jamila::handleMessage($_POST['message']);
+	exit;
+}
 
 
 
@@ -355,7 +383,7 @@ function myBoss() {
 return "Femi_DD is my creator, He's a nice person and doesn't rest untill he solves a problem.";
 }
 
- function today() {
+ function dateToday() {
      return date("F jS Y h:i:s A");
  }
 
@@ -370,4 +398,80 @@ return "Femi_DD is my creator, He's a nice person and doesn't rest untill he sol
  }
 
 /***************************Femi_DD*************************/
+
+
+/***************************Bytenaija Start here*************************/
+//bytenaija time function
+function bytenaija_time($location) {
+    $curl = curl_init();
+    $geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=".$location. "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => $geocodeUrl,
+        CURLOPT_USERAGENT => 'Codular Sample cURL Request'
+    ));
+
+    $response = curl_exec($curl);
+    $response = json_decode($response, true);
+    //$lat = $response->results;
+    $response = $response['results'][0]['geometry'];
+
+    $response = $response["location"];
+    $lat = $response["lat"];
+    $lng = $response["lng"];
+    $timestamp = time();;
+
+    $url = "https://maps.googleapis.com/maps/api/timezone/json?location=".$lat.",".$lng."&timestamp=".$timestamp."&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U";
+
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $responseJson = curl_exec($curl);
+    curl_close($curl);
+    $response = json_decode($responseJson);
+    $timezone = $response -> timeZoneId;
+    $date = new DateTime("now", new DateTimeZone($timezone));
+    echo "The time in ".ucwords($location). " is ".$date -> format('d M, Y h:i:s A');
+
+}
+
+function bytenaija_convert($base, $other){
+    $api_key = "U7VdzkfPuGyGz4KrEa6vuYXgJxy4Q8";
+    $url = "https://www.amdoren.com/api/currency.php?api_key=" . $api_key . "&from=" . $base . "&to=" . $other;
+    
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => $url,
+        CURLOPT_USERAGENT => 'Codular Sample cURL Request'
+    ));
+
+    $response = curl_exec($curl);
+    $response = json_decode($response, true);
+    curl_close($curl);
+    echo "1 ". strtoupper($base) ." is equal to ".  strtoupper($other)  ." " .$response['amount'];
+}
+
+//bitcoin price index
+function bytenaija_hodl(){
+    $url ="https://api.coindesk.com/v1/bpi/currentprice.json";
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => $url,
+        CURLOPT_USERAGENT => 'Codular Sample cURL Request'
+    ));
+
+    $response = curl_exec($curl);
+    $response = json_decode($response, true);
+    curl_close($curl);
+    $responseStr = "<h4 class='hodl'>Bitcoin Price as at " . $response["time"]["updated"] . "</h4><br> <div><h4>Prices</h4><li>"
+    . $response["bpi"]["USD"]["code"] . " " . $response["bpi"]["USD"]["rate"] . "</li>
+    <li>"
+    . $response["bpi"]["EUR"]["code"] . " " . $response["bpi"]["EUR"]["rate"] . "</li>
+    <li>"
+    . $response["bpi"]["GBP"]["code"] . " " . $response["bpi"]["GBP"]["rate"] . "</li>
+    </div>";
+    echo $responseStr;
+}
+/***************************Bytenaija ends here*************************/
 ?>
