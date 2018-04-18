@@ -1,16 +1,15 @@
 <?php
-  if(isset($_POST['payload']) ){
+  if(!defined('DB_USER')){
     require "../../config.php";
-    require "../answers.php";
-    try {
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
   }
-
-  
+  try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
   $date_time = new DateTime('now', new DateTimezone('Africa/Lagos'));
+  global $conn;
+
   try {
     $sql = 'SELECT * FROM secret_word';
     $secret_word_query = $conn->query($sql);
@@ -30,12 +29,7 @@
   $img_url = $intern_data_result['image_filename'];
 
   if(isset($_POST['payload']) ){
-    global $conn;
-    try {
-      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
-      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
+    require "../answers.php";
     $question = trim($_POST['payload']);
   
     function isTraining($question) {
@@ -49,20 +43,25 @@
       global $question;
       global $conn;
 
-      $sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '"';
+      $sql = 'SELECT * FROM chatbot WHERE question LIKE "' . $question . '"';
       $answer_data_query =  $conn->query($sql);
       $answer_data_query->setFetchMode(PDO::FETCH_ASSOC);
-      $answer_data_result = $answer_data_query->fetch();
-  
-      if ($answer_data_result["answer"] == "") {
+      $answer_data_result = $answer_data_query->fetchAll();
+      $answer_data_index = 0;
+
+      if (count($answer_data_result) > 0) {
+        $answer_data_index = rand(0, count($answer_data_result) - 1);
+      }
+
+      if (!isset($answer_data_result[$answer_data_index])) {
         return 'I don\'t understand that question. If you want to train me to understand, please type "<code>train: your question? # The answer.</code>"';
       }
-  
-      if (containsVariables($answer_data_result['answer']) || containsFunctions($answer_data_result['answer'])) {
-        $answer = resolveAnswer($answer_data_result['answer']);
+
+      if (containsVariables($answer_data_result[$answer_data_index]['answer']) || containsFunctions($answer_data_result[$answer_data_index]['answer'])) {
+        $answer = resolveAnswer($answer_data_result[$answer_data_index]['answer']);
         return $answer;
       } else {
-        return $answer_data_result['answer'];
+        return $answer_data_result[$answer_data_index]['answer'];
       }
     }
     
@@ -79,26 +78,36 @@
       return $answer;
     }
 
+    $password = explode("#", trim($question));
+
     if (isTraining($question)) {
+      if (!isset($password[2])) {
+        echo "Please provide a password to train me.";
+        exit();
+        return;
+      }
+
+      if (trim($password[2]) !== "trainpwforhng") {
+        echo "Invalid authorization, you are not allowed to train me.";
+        exit();
+        return;
+      }
+
+      $question = $password[0] ."#". $password[1];
+
       $answer = resolveAnswerFromTraining($question);
       $question = strtolower(resolveQuestionFromTraining($question));
       $question_data = array(':question' => $question, ':answer' => $answer);
-  
+
       $sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '"';
-      $question_data_query =  $conn->query($sql);
+      $question_data_query = $conn->query($sql);
       $question_data_query->setFetchMode(PDO::FETCH_ASSOC);
       $question_data_result = $question_data_query->fetch();
-  
-      if ($question_data_result['id'] == "") {
-        $sql = 'INSERT INTO chatbot ( question, answer )
-            VALUES ( :question, :answer );';
-        $q = $conn->prepare($sql);
-        $q->execute($question_data);
-      } else {
-        $sql = 'UPDATE chatbot SET answer = "' . $answer . '"
-            WHERE question = "' . $question . '"';
-        $conn->query($sql);
-      }
+
+      $sql = 'INSERT INTO chatbot ( question, answer )
+          VALUES ( :question, :answer );';
+      $q = $conn->prepare($sql);
+      $q->execute($question_data);
       echo "Training successful.";
       return;
     }
@@ -127,13 +136,13 @@
         $function_found = substr($answer, $start, - $end);
         $replacable_text = substr($answer, $start, - $end);
         $new_answer = str_replace($replacable_text, $function_found(), $answer);
-        
+
         $new_answer = str_replace("((", "", $new_answer);
         $new_answer = str_replace("))", "", $new_answer);
         return resolveAnswer($new_answer);
       }
     }
-  
+
     $answer = getAnswer();
     echo $answer;
     exit();

@@ -1,6 +1,9 @@
 <?php 
+<<<<<<< HEAD
+=======
 
     require('db.php');
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
     try {
         $secrete = 'SELECT * FROM secret_word';
         $sql = $conn->query($secrete);

@@ -9,8 +9,9 @@
 
         throw $err;
     }?>
+
 <head>
-	<title><?php echo $user->username; ?></title>
+	<title>essietom</title>
 	<style type="text/css">
 		
 		body{
@@ -226,7 +227,7 @@
 <body>
 <div class="inner">
 <div class="absmenu">
-<nav class="menu2">
+<!--<nav class="menu2">
 	<ul class="menu nav">
 		<li><a href="#" class="active">Home</a></li>
 		<li><a href="#">Skills</a></li>
@@ -234,7 +235,7 @@
 		<li><a href="#">Awards</a></li>
 		<li><a href="#">Academics</a></li>
 	</ul>
-</nav>
+</nav>-->
 </div>
 <div class="banner">
 
@@ -253,8 +254,8 @@
 
 <div class="banner-main">
 	
-	<img src="http://res.cloudinary.com/essietom/image/upload/v1523719246/<?php echo $user->image_filename; ?>" width="100px" height="110px" class="round-border roll-image">
-	<h2><?php echo $user->name; ?></h2>
+	<img src="http://res.cloudinary.com/essietom/image/upload/v1523719246/essietom.png" width="100px" height="110px" class="round-border roll-image">
+	<h2>Adenekan Esther</h2>
 	<h4>Web developer and designer</h4>
 	<p style="text-align: justify; padding-right:10px;margin-left: 10px;">
 		I am a tech enthusiast, passionate about changing my world with technology. Software development is my thing, with determination to discover creative ideas and solve complex problems.<br>
@@ -297,7 +298,8 @@
 </div>
 
 </div><!--end of page div-->
-<div style="color:white">My secret code:<?php echo $secret_word; ?></div>
+
+<!--<div style="color:white">My secret code:  <?php echo $secret_word; ?></div>-->
 </div><!--inner ends here -->
 
 </body>

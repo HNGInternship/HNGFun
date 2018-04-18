@@ -32,7 +32,7 @@
    }
  p{
    	color: black;
-   	font-size: 35px;
+   	font-size: 30px;
    	
    }
 
@@ -100,7 +100,7 @@
 </nav>
 <br><br>
 <?php 
-   require_once ('../db.php');
+   require_once ('db.php');
 
 
 
@@ -123,16 +123,17 @@
       <!--Sidebar content-->
 
 
-			<img src="<?php echo $user->image_filename; ?>" style="border: 2px solid #f3f3f3;" alt="My Image" width="600px" height="600px">
+			<img src="<?php echo $user->image_filename; ?>" style="border: 2px solid #f3f3f3;" alt="My Image"  class="img-circle"  width="400px" height="600px">
 
 
     </div>
     <div class="col-md-6">
     	<h1>ABOUT ME</h1> <br>
-		 	<h5><b>Name:</b> <?php echo  $user->name; ?> </h5>
-		 	<h5><b>Username:</b> <?php echo $user->username; ?> </h5>
+		 	<h5><b>Name:</b> <?php echo  $user->name; ?> <span>(<?php echo $user->username; ?>)</span></h5>
+		 	<h5><b>Username:</b>  </h5>
 		 	<h6>(Web Developer)</h6>
-		 	   <p style="word-wrap: break-word  ; text-align: center;" ><b>Skills:</b> PHP , HTML , CSS,  BOOTSTRAP , CODE IGNITER.  </p>
+		 	<h6><b>Skills:</b></h6> 
+        <p style="padding-right: 10px;"> PHP,HTML,CSS,BOOTSTRAP,CODEIGNITER.</p>
 		<div id="social">
 				<ul>
 
