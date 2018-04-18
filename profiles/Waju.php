@@ -1,13 +1,16 @@
 <?php 
   try {
-
-    $sql ="Select * from interns_data where username = 'Waju'";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $intern_data = $q->fetch();
+    //QUERY for User Profile, using prepared statement for security
+    $sql ='Select * from interns_data where username =:user';
+    $stmt = $conn->prepare($sql);
+    $stmt->execute(array(
+        'user'=> $_GET['id'],
+    ));
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $intern_data = $stmt->fetch();
   
 
-    //query for the secret word;
+    //query for the secret word; no need for prepared statement since its all internal
     $sql = "SELECT * FROM secret_word";
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
@@ -20,7 +23,16 @@
 
     throw $e;
 }
+//CHAT BOT QUERIES
+try {
+    $sql ='Select * from chatbot';
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $questions_and_anwers = $q->fetchAll();
 
+} catch(PDOException $e) {
+    throw $e;
+}
 
 ?>
 
