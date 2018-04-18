@@ -1,14 +1,11 @@
 <?php
+
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
-
-$result2 = $conn->query("Select * from interns_data_ where username = 'adeyefa'");
+$result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	# code...
 	require "./answers.php";
 
 	date_default_timezone_set("Africa/Lagos");
@@ -17,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if(!isset($_POST['question'])){
 			echo json_encode([
 				'status' => 1,
-			    'answer' => "Please provide a question
-			"]);
+			    'answer' => "Please provide a question"
+			]);
 			return;
 		}
 		$question = $_POST['question'];
@@ -190,9 +187,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		h2{
 			font-weight: bolder;
 			font-size: 40px;
-		}
-		.col{
-			background-color: white;
 		}
 	</style>
 </head>
