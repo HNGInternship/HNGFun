@@ -47,19 +47,18 @@ $filename = $intern_detail['image_filename'];
     <title>Udim Manny</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-    html{background: url
+    body{background: url
 
-(http://res.cloudinary.com/eacademy/image/upload/v152397057
-
-8/mechie.png) no-repeat center center fixed; 
+(http://res.cloudinary.com/eacademy/image/upload/v1523970578/mechie.png) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;}
-
-body{position: relative;
+  background-size: cover;
+  position: relative;
 font-size:18px;
-font-family: roboto;}
+font-family: roboto}
+
+
 
 nav{position: fixed;
     top: 0;
@@ -91,7 +90,7 @@ margin-top: 0px;
 
 .what{position: relative;
     text-align: center;
-    top: 160px;
+    top: 140px;
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
@@ -112,11 +111,11 @@ margin-top: 0px;
     text-align: center;}
 
 .echo{
-   g
 
 color: #F2C94C;
 
 }
+
 nav{margin-bottom: 2px;
 height: 52px;}
 

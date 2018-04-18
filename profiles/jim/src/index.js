@@ -55,6 +55,7 @@ class Jimie extends Component {
     
     this.setState({
       botBusy: true,
+      chatMessage: '',
     }, () => {
       this.scroll.scrollToBottom();
     });
@@ -70,9 +71,6 @@ class Jimie extends Component {
           message,
           by: 'jimie',
         }, { setBusy: false });
-        this.setState({
-          chatMessage: '',
-        })
       }
     })
     .catch((error) => {

@@ -6,6 +6,8 @@ $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
 	require "./answers.php";
 
 	date_default_timezone_set("Africa/Lagos");
@@ -14,10 +16,10 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 		$question = $_POST['question'];
 		//Check for training mode
-		$train_question = stripos($question, "train");
+		$train_question = stripos($question, "train:");
 		if ($train_question === false) {
 			# code...
-			$question = preg_replace('([\s]+)', ' ', trim($questions));//to remove extra white spaces from the question
+			$question = preg_replace('([\s]+)', ' ', trim($question));//to remove extra white spaces from the question
 			$question = preg_replace("([?.])", "", $question);
 
 			//to check if question already exists in the database
@@ -51,11 +53,21 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 			if(count($split_string) == 1){
 				echo  json_encode([
 				    'status' => 0,
-				    'answer' => "Invalid training format()"
+				    'answer' => "Invalid training format"
 				]);
 
 				return;
 			}
+			$que = trim($split_string[0]);
+	        $ans = trim($split_string[1]);
+	  
+	        if(count($split_string) < 3){
+	        echo json_encode([
+	          'status' => 0,
+	          'answer' => "You need to enter the training password to train me."
+	        ]);
+	        return;
+	        }
 			$password = trim($split_string[2]);
 		    //verify if training password is correct
 		    define('TRAINING_PASSWORD', 'trainpwforhng');
@@ -79,11 +91,12 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		} 
 		echo json_encode([
 			'status' => 0,
-			'answer' => "I dont understant you right now, I need more training"
+			'answer' => "I am sorry, I dont understand you right now, I need more training"
 		]);
 	} catch (Exception $e){
 		return $e->message;
 	}
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -92,6 +105,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 	<title>  <?php echo $user->name ?> </title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style type="text/css">
 		body{
@@ -146,7 +160,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 			margin-bottom: 10px;
 			padding: 7px;
 		}
-		.form{
+		#form{
 			background-color: rgb(52,185,96,0.9);
 			color: #FFF;
 			padding: 7px;
@@ -160,7 +174,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		}
 		input[type=text] {
 
-		    width: 60%;
+		    width: 80%;
 		    box-sizing: border-box;
 		    border: 2px solid #ccc;
 		    border-radius: 4px;
@@ -169,7 +183,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		}
 
 		input[type=submit]{
-		    width: 60%;
+		    width: 80%;
 		    padding: 12px 20px;
 		    margin: 8px 8px;
 		}
@@ -182,6 +196,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 			font-size: 40px;
 		}
 	</style>
+	
 </head>
 <body>
 	<h1>
@@ -195,7 +210,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 					HELLO WORLD
 				</p>
 				<p id="p1">
-					I am  <?php echo $user->name ?>
+					I am  <?php echo $user->name; ?>
 				</p>
 				<p id="info">
 					A Web developer, blogger and Software engineer
@@ -209,19 +224,47 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 	    </div>	
 		<div class="sidebar">
 			<div class="head">
-				<h2> Chat With MATRIX</h3>
+				<h2> Chat With MyBot</h3>
 			</div>
 			<div class="row-holder">
 				<div class="row2">
-					<div class="form">
-						<form action="/profiles/Adeyefa.php" method="post">
-							<input type="text" name="question" placeholder="type your question here"><input type="submit" name="submit">
+					<div id="form" method="post">
+						<form role="form">
+							<input type="text" name='question' placeholder="type your question here"><input type="submit" name="submit">
 						</form>
 					</div>
 				</div>
 			</div>	
+			<ul id="chats">
+				<li> Chat Here</li>
+			</ul>
 	    </div>
 	</div>	
+	<script src="../vendor/jquery/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			var Form =$('#form');
+			Form.submit(function(e){
+				e.preventDefault();
+				var MBox = $('input[name=question]');
+				var question = MBox.val();
+				$("#chats").append("<li>" + question + "</li>");
+
+				$.ajax({
+					url: '/profiles/Adeyefa.php',
+					type: 'POST',
+					dataType: 'json',
+					data: {question: question},
+					success: (response) =>{
+						console.log("success");
+					},
+					error: (error) => {
+						console.log(error);
+					}
+				})
+			})
+		});
+	</script>
 </body>
 </html> 
 
