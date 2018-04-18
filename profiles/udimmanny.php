@@ -88,7 +88,7 @@ margin-top: 0px;
     font-size: 64px;
     color: #F5D984;}
 
-.what{position: relative;
+.who{position: relative;
     text-align: center;
     top: 140px;
     font-family: Roboto;
@@ -150,13 +150,11 @@ top:2px;}
 </nav>                                                 
     </section>
     <!--background-image starts here-->
-    <section id="about"> 
-        <div class="container col-sm-12">
-            <h1 class=" name">Udim Manasseh Victor</h1>
-            <h3 class="what" >Human|Engineer|Budding Developer| Wannabe Designer</h3>
-            <?php/* <h2 class="echo">
-            <?php echo date('Y-m-d H:i:s'); ?>
-        </h2> ?>
+    <section id="about" style="background-image:url(http://res.cloudinary.com/eacademy/image/upload/v1523970578/mechie.png);"
+        <div class="container">
+            <h1 class="name">Udim Manny</h1>
+            <h3 class="who" >Human|Engineer|Budding Developer| Wannabe Designer</h3>
+            
         </div>
     </section> 
 </body>
