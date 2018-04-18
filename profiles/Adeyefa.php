@@ -254,7 +254,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					data: {question: question},
 					success: (response) =>{
 						console.log("success");
-
 					},
 					error: (error) => {
 						console.log(error);
