@@ -174,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		    box-sizing: border-box;
 		    border: 2px solid #ccc;
 		    border-radius: 4px;
-		    font-size: 22px;
+		    font-size: 15px;
 		    padding: 12px 20px 12px 40px;
 		}
 
@@ -227,7 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			<div class="row-holder">
 				<div class="row2">
 					<div class="form">
-						<form action="Adeyefa.php" method="post">
+						<form action="/profiles/Adeyefa.php" method="post">
 							<input type="text" name="question" placeholder="type your question here"><input type="submit" name="submit">
 						</form>
 					</div>
