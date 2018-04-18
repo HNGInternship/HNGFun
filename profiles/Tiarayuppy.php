@@ -466,6 +466,7 @@ body{
             font-size: 14px;
             border: 1px solid #ddd;
             width: 400px;
+	    height:100px;
         }
         .button {
             display: inline-block;
