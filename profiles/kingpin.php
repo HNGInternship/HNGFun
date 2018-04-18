@@ -72,7 +72,6 @@ body
   text-decoration: none;
   margin: 5px 2px;
   border-radius: 50%;
-   background: #3B5998;
   color: white;
 }
 
@@ -85,10 +84,10 @@ body
 </head>
 <body>
   <?php 
-require '../db.php';
+
   $result = $conn->query("Select * from secret_word LIMIT 1");
-   $result = $result->fetch(PDO::FETCH_OBJ);
-   $secret_word = $result->secret_word;
+  $result = $result->fetch(PDO::FETCH_OBJ);
+  $secret_word = $result->secret_word;
    $result2 = $conn->query("Select * from interns_data where username = 'kingpin'");
    $user = $result2->fetch(PDO::FETCH_OBJ);
    $yy='<img  src="';
@@ -97,7 +96,7 @@ require '../db.php';
 
    
 
-    echo $user->name;
+    echo $user->name.' Owino';
  echo'<br><c style="color: #FBF7F7;">WELCOME TO MY PROFILE<br>';
  echo $user->username;
  echo'</c><br><br><center><div id="mid">';

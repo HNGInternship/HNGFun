@@ -154,7 +154,7 @@
                         <div class="box-white">
                             <i class="fa fa-flash fa-3x"></i>
                             <h4 class="small-text">I. Learn</h4>
-                            <p>I am an Open Learner. I look out for opportunities to improve my skills set.</p>
+                            <p>I am <strong><em><?php echo "$internName";?></em></strong>, an Open Learner. I look out for opportunities to improve my skills set.</p>
                         </div>
                     </div>
 
