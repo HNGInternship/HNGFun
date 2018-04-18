@@ -459,17 +459,26 @@ return "Femi_DD is my creator, He's a nice person and doesn't rest untill he sol
 /***************************Bytenaija Start here*************************/
 //bytenaija time function
 function bytenaija_time($location) {
-    $curl = curl_init();
+   // $curl = curl_init();
+   $arrContextOptions=array(
+    "ssl"=>array(
+        "verify_peer"=>false,
+        "verify_peer_name"=>false,
+    ),
+);  
     $geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=".$location. "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
-    curl_setopt_array($curl, array(
+    /* curl_setopt_array($curl, array(
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_URL => $geocodeUrl,
         CURLOPT_USERAGENT => 'Codular Sample cURL Request'
     ));
 
-    $response = curl_exec($curl);
+    $response = curl_exec($curl); */
+    $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
     $response = json_decode($response, true);
     //$lat = $response->results;
+
+
     $response = $response['results'][0]['geometry'];
 
     $response = $response["location"];
@@ -479,10 +488,11 @@ function bytenaija_time($location) {
 
     $url = "https://maps.googleapis.com/maps/api/timezone/json?location=".$lat.",".$lng."&timestamp=".$timestamp."&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U";
 
-    curl_setopt($curl, CURLOPT_URL, $url);
+    /* curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    $responseJson = curl_exec($curl);
-    curl_close($curl);
+    $responseJson = curl_exec($curl); */
+    //curl_close($curl);
+    $responseJson = file_get_contents($url,  false, stream_context_create($arrContextOptions));
     $response = json_decode($responseJson);
     $timezone = $response -> timeZoneId;
     $date = new DateTime("now", new DateTimeZone($timezone));

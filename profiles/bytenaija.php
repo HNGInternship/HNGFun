@@ -52,7 +52,7 @@ function processQuestion($str){
         }
        switch ($functionName){
            case "time":
-           bytenaija_time($paramenter);
+           bytenaija_time(urlencode($paramenter));
            break;
 
            case "convert":
