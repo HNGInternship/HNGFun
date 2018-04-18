@@ -1,6 +1,6 @@
 <?php
 
-// First off: Helper functions
+// First off, Helper functions
 function respond($response, array $options=['chatMassage' => true]) {
 	if ($options['chatMassage'] == true) {
 		// We call this function concurrently
@@ -82,11 +82,25 @@ if (!empty($_POST['message'])) {
         if (! $result) {
         	respond('I do not understand what you mean because I\'ve not been trained on that.');
         } else {
-        	$output = preg_replace_callback("/(&#[0-9]+;)/", function($m) {
-        		return mb_convert_encoding($m[1], "UTF-8", "HTML-ENTITIES");
-        	}, $result['answer']); 
+        	require_once('../answers.php');
 
-	        respond($output);
+        	$answer = $result['answer'];
+        	$substituteMap = [];
+
+        	preg_replace_callback("/\{\{(\w+)\}\}|\(\((\w+)\)\)/i", function($matches) use (&$substituteMap) {
+        		// Filter out empty matches and re-index the array
+			    $filteredMatches = array_values(array_filter($matches));
+			    list ($tag, $method) = $filteredMatches;
+				$substituteMap[$tag] = function_exists($method) ? $method() : '... erh!, can\'t recall, sorry';
+			}, $answer);
+
+			$interpolatedAns = str_replace(array_keys($substituteMap), $substituteMap, $answer);
+			// Let's decode utf-8 html encodings
+        	$utf8DecodedAns = preg_replace_callback("/(&#[0-9]+;)/", function($matches) {
+        		return mb_convert_encoding($matches[1], "UTF-8", "HTML-ENTITIES");
+        	}, $interpolatedAns);
+
+	        respond($utf8DecodedAns);
         }
 	}
 }
@@ -103,9 +117,6 @@ $q = $conn->query($sql);
 $q->setFetchMode(PDO::FETCH_ASSOC);
 $words = $q->fetch();
 $secret_word = $words['secret_word'];
-
-
-
 ?>
 <div class="Jim">
 	<div class="profile-wrap">
