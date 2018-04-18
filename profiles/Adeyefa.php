@@ -235,6 +235,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			</div>	
 	    </div>
 	</div>	
+	<script>
+		$(document).ready(function()){
+			var Form =$('#form');
+			Form.submit(function(e){
+				e.preventDefault();
+				var MBox = $('input[name=message']);
+				var question = MBox.val();
+				$("#chats").append("<li>" + question + "</li>");
+
+				$.ajax({
+					url: "Adeyefa.php",
+					type: 'POST',
+					dataType: 'json',
+					data: {question: question},
+					success: (response) =>{
+						console.log("success");
+
+					},
+					error: (error) => {
+						console.log(error);
+					}
+				})
+			})
+		});
+	</script>
 </body>
 </html> 
 
