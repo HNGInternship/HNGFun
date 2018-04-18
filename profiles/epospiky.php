@@ -294,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		   	<div class="clear"> </div>
 		</div>   
 	</div>
-	hi mu pekjahlkjfhkfhljanjdlfhjfnsd
+	hi mu pekjahlkjfhkfhljanjdlfhjfnsdgtr
  <div class="">
             <div class="chat">
               <div class="msg you">
