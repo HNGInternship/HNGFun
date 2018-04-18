@@ -30,7 +30,6 @@
 
 <body>
 
-
 	<header>
 			<div>
 				<a href="https://github.com/mercyikpe"><i class="fa fa-github" style="color:#ccc; font-size: 25px; padding:15px; float: right"></i></i></a>
