@@ -74,7 +74,7 @@
 		    	<center>
 		    	<figure></figure>
 		    	</center>
-		    	<xmp style="font-family: 'Lato', sans-serif; font-weight: 600; font-size: 30px;"> </ <?php echo $data['username']; ?> > </xmp>
+		    	<xmp style="font-family: 'Lato', sans-serif; font-weight: 600; font-size: 30px;"> </<?php echo $data['username']; ?>> </xmp>
 		    	<h4><?php echo $data['name']; ?></h4>
 
 		    	<span style="color: #C4C4C4;">Laravel • PHP • HTML • CSS • JAVA • C</span><br>
