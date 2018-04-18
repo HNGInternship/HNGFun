@@ -7,7 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>i-Code</title>
+    <?php
 
+        require 'db.php';
+
+
+        $result = $conn->query("Select * from secret_word LIMIT 1");
+        $result = $result->fetch(PDO::FETCH_OBJ);
+        $secret_word = $result->secret_word;
+
+        $result2 = $conn->query("Select * from interns_data where username = 'oyewoas'");
+        $user = $result2->fetch(PDO::FETCH_OBJ);
+
+    ?>
     <!-- jQuery library -->
 
     <style>
@@ -7096,19 +7108,7 @@
 </head>
 
 <body>
-<?php
 
-   require 'db.php';
-
-
-$result = $conn->query("Select * from secret_word LIMIT 1");
-$result = $result->fetch(PDO::FETCH_OBJ);
-$secret_word = $result->secret_word;
-
-$result2 = $conn->query("Select * from interns_data where username = 'oyewoas'");
-$user = $result2->fetch(PDO::FETCH_OBJ);
-    
-    ;?>
     <header>
         <div class="container ">
             <div class="row">

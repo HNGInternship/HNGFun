@@ -1,3 +1,90 @@
+<?php 
+
+    ######################################################
+    ####################### @BAMII #######################
+    ######################################################
+    function bamiiConvertCurrency($amount, $from, $to){
+        $conv_id = "{$from}_{$to}";
+        $string = file_get_contents("https://free.currencyconverterapi.com/api/v5/convert?q=$conv_id&compact=y");
+        $json_a = json_decode($string, true);
+    
+        #return $json_a[strtoupper($conv_id)]['val'];
+        #return $amount;
+        return $amount * $json_a[strtoupper($conv_id)]['val'];
+    }
+
+    function bamiiChuckNorris() {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "http://api.icndb.com/jokes/random",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache"
+          ),
+        ));
+        
+        $response = curl_exec($curl);
+        $a =json_decode($response, true);
+        curl_close($curl);
+
+        return $a['value']['joke'];
+    }
+
+    function bamiiTellTime($data) {
+        if(strpos($data, 'in')) {
+           return "Sorry i can't tell you the time somewhere else right now";
+        } else {
+            return 'The time is:' . date("h:i");
+        }
+    }
+
+    function bamiiCountryDetails($data) {
+        $country_arr = explode(' ', $data);
+        $country_index= array_search('details', $country_arr) + 1;
+        $country = $country_arr[$country_index];
+        $country_temp = str_replace('details', "", $data);
+        $country2 = trim($country_temp);
+
+        $string = 'http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query='. $country2 .'&num_of_results=2&format=json';
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => $string,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache"
+          ),
+        ));
+        
+        $response = curl_exec($curl);
+        $a =json_decode($response, true);
+        curl_close($curl);
+
+        $longitude = $a['search_api']['result'][0]['longitude'];
+        $latitude = $a['search_api']['result'][0]['latitude'];
+        $name = $a['search_api']['result'][0]['areaName'][0]['value'];
+        $country_name = $a['search_api']['result'][0]['country'][0]['value'];
+        $population = $a['search_api']['result'][0]['population'];
+
+        
+        return('
+            '. ($name ? 'Name :'. $name . '<br />' : null) .'
+            Country: ' . $country_name . ' <br />
+            Latitude: ' . $latitude . ' <br />
+            Longitude: ' . $longitude . ' <br />
+            Population: ' . $population . '<br />
+        ');
+    }
+
+    ###################### END BAMII #####################
+
+?>
 <?php
 
 function getListOfCommands() {
@@ -327,7 +414,6 @@ $conn = null;
 }
 
 
-
 function get_browser_name($user_agent)
 {
     if (strpos($user_agent, 'Opera') || strpos($user_agent, 'OPR/')) return 'Opera';
@@ -357,6 +443,63 @@ function get_device_name($user_agent)
 
 ///////////////////////end of opheus ////////////////////
 
+/*
+|=================================================================|
+|              JIM (JIMIE) Functions Begins                       |
+|=================================================================|
+*/
+function inspire() {
+    $inspirations = [
+        'It is during our darkest moments that we must focus to see the light. \\n\\n - Aristotle',
+        'Start by doing what\'s necessary; then do what\'s possible; and suddenly you are doing the impossible. \\n\\n - Francis of Assisi',
+        'I can\'t change the direction of the wind, but I can adjust my sails to always reach my destination. \\n\\n - Jimmy Dean',
+        'Put your heart, mind, and soul into even your smallest acts. This is the secret of success. \\n\\n - Swami Sivananda',
+        'The best preparation for tomorrow is doing your best today. \\n\\n - H. Jackson Brown, Jr',
+        'Optimism is the faith that leads to achievement. Nothing can be done without hope and confidence. \\n\\n - Helen Keller',
+        'Failure will never overtake me if my determination to succeed is strong enough. \\n\\n - Og Mandino',
+        'It does not matter how slowly you go as long as you do not stop. \\n\\n - Confucius',
+        'Either I will find a way, or I will make one. \\n\\n - Philip Sidney',
+        'It always seems impossible until it\'s done. \\n\\n - Nelson Mandela',
+        'Believe in yourself! Have faith in your abilities! Without a humble but reasonable confidence in your own powers you cannot be successful or happy. \\n\\n - Norman Vincent Peale',
+        'The secret of getting ahead is getting started. \\n\\n - Mark Twain',
+        'Accept the challenges so that you can feel the exhilaration of victory. \\n\\n - George S. Patton',
+        'A creative man is motivated by the desire to achieve, not by the desire to beat others. \\n\\n - Ayn Rand',
+        'Your talent is God\'s gift to you. What you do with it is your gift back to God. \\n\\n - Leo Buscaglia',
+        'Keep your eyes on the stars, and your feet on the ground. \\n\\n - Theodore Roosevelt',
+        'Quality is not an act, it is a habit. \\n\\n - Aristotle',
+        'We may encounter many defeats but we must not be defeated. \\n\\n - Maya Angelou',
+        'Never retreat. Never explain. Get it done and let them howl. \\n\\n - Benjamin Jowett',
+        'The most effective way to do it, is to do it. \\n\\n - Amelia Earhart',
+        'If you can dream it, you can do it. \\n\\n - Walt Disney',
+        'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference. \\n – Robert Frost',
+        'You miss 100% of the shots you don’t take. \\n\\n – Wayne Gretzky',
+    ];
+    return $inspirations[array_rand($inspirations)];
+}
+
+function get_current_time() {
+    date_default_timezone_set("Africa/Lagos");
+    return date('h:i:s A');
+}
+
+function get_btc_rates() {
+    $response = file_get_contents('https://bitaps.com/api/ticker/average');
+    $data = json_decode($response, true);
+    $otherCurs = array_shift($data);
+
+    $usd = number_format($data['usd']);
+    $eur = number_format($otherCurs['eur']);
+    $rub = number_format($otherCurs['rub']);
+    $try = number_format($otherCurs['try']);
+
+   return "1 BTC = {$usd} USD | {$eur} EURO | {$rub} RUB | {$try} TRY";
+}
+/*
+|=================================================================|
+|               JIM (JIMIE) Functions Ends                        |
+|=================================================================|
+*/
+
 /***************************Femi_DD*************************/
 function myBoss() {
 return "Femi_DD is my creator, He's a nice person and doesn't rest untill he solves a problem.";
@@ -382,17 +525,20 @@ return "Femi_DD is my creator, He's a nice person and doesn't rest untill he sol
 /***************************Bytenaija Start here*************************/
 //bytenaija time function
 function bytenaija_time($location) {
-    $curl = curl_init();
+   // $curl = curl_init();
+   $arrContextOptions=array(
+    "ssl"=>array(
+        "verify_peer"=>false,
+        "verify_peer_name"=>false,
+    ),
+);  
     $geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=".$location. "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
-    curl_setopt_array($curl, array(
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_URL => $geocodeUrl,
-        CURLOPT_USERAGENT => 'Codular Sample cURL Request'
-    ));
 
-    $response = curl_exec($curl);
+    $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
     $response = json_decode($response, true);
     //$lat = $response->results;
+
+
     $response = $response['results'][0]['geometry'];
 
     $response = $response["location"];
@@ -402,10 +548,7 @@ function bytenaija_time($location) {
 
     $url = "https://maps.googleapis.com/maps/api/timezone/json?location=".$lat.",".$lng."&timestamp=".$timestamp."&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U";
 
-    curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    $responseJson = curl_exec($curl);
-    curl_close($curl);
+    $responseJson = file_get_contents($url,  false, stream_context_create($arrContextOptions));
     $response = json_decode($responseJson);
     $timezone = $response -> timeZoneId;
     $date = new DateTime("now", new DateTimeZone($timezone));
@@ -416,33 +559,18 @@ function bytenaija_time($location) {
 function bytenaija_convert($base, $other){
     $api_key = "U7VdzkfPuGyGz4KrEa6vuYXgJxy4Q8";
     $url = "https://www.amdoren.com/api/currency.php?api_key=" . $api_key . "&from=" . $base . "&to=" . $other;
-    
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_URL => $url,
-        CURLOPT_USERAGENT => 'Codular Sample cURL Request'
-    ));
 
-    $response = curl_exec($curl);
+    $response = file_get_contents($url);
     $response = json_decode($response, true);
-    curl_close($curl);
+    //curl_close($curl);
     echo "1 ". strtoupper($base) ." is equal to ".  strtoupper($other)  ." " .$response['amount'];
 }
 
 //bitcoin price index
 function bytenaija_hodl(){
     $url ="https://api.coindesk.com/v1/bpi/currentprice.json";
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_URL => $url,
-        CURLOPT_USERAGENT => 'Codular Sample cURL Request'
-    ));
-
-    $response = curl_exec($curl);
+    $response = file_get_contents($url);
     $response = json_decode($response, true);
-    curl_close($curl);
     $responseStr = "<h4 class='hodl'>Bitcoin Price as at " . $response["time"]["updated"] . "</h4><br> <div><h4>Prices</h4><li>"
     . $response["bpi"]["USD"]["code"] . " " . $response["bpi"]["USD"]["rate"] . "</li>
     <li>"
@@ -453,4 +581,64 @@ function bytenaija_hodl(){
     echo $responseStr;
 }
 /***************************Bytenaija ends here*************************/
-?>
+
+
+
+/***************************juliet starts*************************/
+
+function assistant($string)
+{    
+    if ($string == 'what is my location') {
+        $reply= "This is Your Location <i class='em em-arrow_forward'></i> " . $query['city'] . ", ". $query['country'] . "!";
+        return $reply;
+        
+    }
+    elseif ($string == 'tell me about your author') {
+        $reply= 'His name is <i class="em em-sunglasses"></i> alex idowu, he is Passionate, gifted and creative backend programmer who love to create appealing Web apps solution from concept through to completion. An enthusiastic and effective team player and always challenge the star to quo by taking up complex responsibilities. Social account <b><a href="https://twitter.com/Codexxxp">Codexxp @Twitter</a></b> <br> <b><a href="https://www.linkedin.com/in/alex-idowu-0b4142124/">Alex Idowu @Linkedin</a></b> ';
+        return $reply;    
+    }
+    elseif ($string == 'open facebook') {
+        $reply= "<p>Facebook opened successfully </p> <script language='javascript'> window.open(
+    'https://www.facebook.com/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }
+    elseif ($string == 'open twitter') {
+        $reply = "<p>Twitter opened successfully </p> <script language='javascript'> window.open(
+    'https://twitter.com/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }elseif ($string == 'open linkedin') {
+        $reply= "<p>Linkedin opened successfully </p> <script language='javascript'> window.open(
+    'https://www.linkedin.com/jobs/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }
+    elseif ($string == 'shutdown my pc') {
+        $reply =  exec ('shutdown -s -t 0');
+        return $reply;
+    }elseif ($string == 'get my pc name') {
+        $reply = getenv('username');
+        return $reply;
+    }
+    else{
+        $reply = "";
+        return $reply;
+    }
+   return $reply;
+}
+
+
+
+
+/***************************./ Juliet ends*************************/
+ ?>

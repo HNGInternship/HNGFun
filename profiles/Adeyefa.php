@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		$question = $_POST['question'];
 		//Check for training mode
-		$train_question = stripos($question, "train");
+		$train_question = stripos($question, "train:");
 		if ($train_question === false) {
 			# code...
 			$question = preg_replace('([\s]+)', ' ', trim($question));//to remove extra white spaces from the question
@@ -105,6 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	<title>  <?php echo $user->name ?> </title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style type="text/css">
 		body{
@@ -159,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			margin-bottom: 10px;
 			padding: 7px;
 		}
-		.form{
+		#form{
 			background-color: rgb(52,185,96,0.9);
 			color: #FFF;
 			padding: 7px;
@@ -195,6 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			font-size: 40px;
 		}
 	</style>
+	
 </head>
 <body>
 	<h1>
@@ -226,29 +228,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			</div>
 			<div class="row-holder">
 				<div class="row2">
-					<div class="form" id="form" method="post">
-						<form >
+					<div id="form" method="post">
+						<form role="form">
 							<input type="text" name='question' placeholder="type your question here"><input type="submit" name="submit">
 						</form>
 					</div>
 				</div>
 			</div>	
 			<ul id="chats">
-				
+				<li> Chat Here</li>
 			</ul>
 	    </div>
 	</div>	
+	<script src="../vendor/jquery/jquery.min.js"></script>
 	<script>
-		$(document).ready(function()){
+		$(document).ready(function(){
 			var Form =$('#form');
 			Form.submit(function(e){
 				e.preventDefault();
-				var MBox = $('input[name=question']);
+				var MBox = $('input[name=question]');
 				var question = MBox.val();
 				$("#chats").append("<li>" + question + "</li>");
 
 				$.ajax({
-					url: "Adeyefa.php",
+					url: '/profiles/Adeyefa.php',
 					type: 'POST',
 					dataType: 'json',
 					data: {question: question},
