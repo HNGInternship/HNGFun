@@ -902,7 +902,7 @@ body {
 	
 				<li class="replies">
 					<img src="http://res.cloudinary.com/weezyval/image/upload/v1523998289/bot.png" alt="" />
-					<p>Hi They! i'm zobi, i can answer some basic questions, you can also train me by simply typing this command <code>tran: question # answer #password</code></p>
+					<p>Hi They! i'm zobi, i can answer some basic questions, you can also train me by simply typing this command <code>train: question # answer #password</code></p>
 					
 					
 				</li>
