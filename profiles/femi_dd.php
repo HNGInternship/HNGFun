@@ -1,6 +1,12 @@
 <?php
 // ob_start();
 session_start();
+<<<<<<< HEAD
+=======
+require 'db.php';
+include 'answers.php';
+global $conn;
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
 /**
 * femiBot Class
 */
@@ -39,13 +45,68 @@ class Bot {
    function messagesAdd($response_and_request) {
       array_push($_SESSION['chatSession']['messages'], $response_and_request);
 
+<<<<<<< HEAD
    }
 
+=======
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
    function train($trainData) {
       $temp = explode("#", $trainData);
       $data['request'] = $temp[0];
       $data['response'] = $temp[1];
+<<<<<<< HEAD
       unset($temp);
+=======
+      $data['request'] = preg_replace('/(train:)/', '', $temp[0]);
+      $data['response'] = preg_replace('/#/', '', $temp[1]);
+      if(self::store($data['request'], $data['response'])) {
+         return "I just learnt something new, thanks to you 😎";
+      } else {
+         return "I'm sorry " .$_SESSION['chatSession']['user'].", An error occured while trying to store what i learnt 😔";
+      }
+   }
+
+   function searchRequest($request) {
+      global $conn;
+      $statement = $conn->prepare("select * from chatbot where question like :request");
+      $statement->bindValue(':request', "%$request%");
+      $statement->execute();
+      $statement->setFetchMode(PDO::FETCH_ASSOC);
+      $rows = $statement->fetch();
+      $response = $rows['answer'];
+      //check for function
+      $start = null;
+      $stop = null;
+      // if(preg_match_all('({+[a-zA-Z]+})', $response)) {
+      if(preg_match('/(\(+[a-zA-Z_]+\))/', $response, $match)) {
+         $functionName = $match[0];
+         $functionName = str_replace('(', '', $functionName);
+         $functionName = str_replace(')', '', $functionName);
+         if(function_exists($functionName)) {
+            $response = str_replace($functionName, $functionName(), $response);
+         } else {
+            $response = "I'm sorry " . $_SESSION['chatSession']['user'].", The function doesn't exist";
+         }
+      } else {
+         $response = "I'm sorry " . $_SESSION['chatSession']['user'].", The function doesn't exist";
+      }
+      return $response;
+   }
+
+   function store($request, $response) {
+      global $conn;
+      $statement = $conn->prepare("insert into chatbot (question, answer) values (:request, :response)");
+      $statement->bindValue(':request', $request);
+      $statement->bindValue(':response', $response);
+      $statement->execute();
+      // setFetchMode(PDO::FETCH_ASSOC);
+      // return true
+      if($statement->execute()) {
+         return true;
+      } else {
+         return false;
+      }
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
    }
 }
 
@@ -190,7 +251,16 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
       </div>
       <div class="bot round-corners">
          <div class="inner">
+<<<<<<< HEAD
             <h2>femiBot 🤖</h2>
+=======
+         <h2>femiBot 🤖</h2>
+         <i style="font-size: 15px">To train the bot, follow :<br />
+               1. train:What is the time #The time is (timefunction) (where train: is the question and #is the answer, timefunctionis the function to handler your request)<br />
+               2. train:Today's date #Todays date is (date)<br />
+            3. My boss is working hard to give me some functions of my own very soon, I'll write them here when they're ready. </i>
+            <div style="overflow: auto; height:500px;">
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
             <?php if(empty($_SESSION['chatSession'])) { ?>
                <form>
                   <input type="text" name="id" value="femi_dd" hidden />
@@ -203,7 +273,11 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
                   <input style="text-align:right" class="form-control" type="text" name="response" value="<?php echo $chat['request']; ?>" readonly />
                   &nbsp;
                   <input style="text-align:left" class="form-control" type="text" name="response" value="🤖 <?php echo $chat['response']; ?>" readonly />
+<<<<<<< HEAD
                   <p class="pull-right"><i><?php echo $chat['time']; ?></i></p>
+=======
+                  <p class="pull-right" style="font-size:10px"><i><?php echo $chat['time']; ?></i></p>
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
                <?php } ?>
                <form>
                   <input type="text" name="id" value="femi_dd" hidden />

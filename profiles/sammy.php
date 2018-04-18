@@ -6,10 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Sammy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:image" content="Felix%20-%20Favcoder_files/art.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<<<<<<< HEAD
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="favicon.ico" type="icon">
 
+=======
+   
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
     <script>
         var slideInterval = 2500;
         function getFigures() {
@@ -46,7 +53,8 @@
             background-size: cover;
             margin: 0 auto;
             height: 900px;
-            width: 800px;
+            width: 803px;
+            transform: translateX(0%) translateY(0%);
         }
 
         .carousel-inner>.item>img,
@@ -74,11 +82,19 @@
             font-style: normal;
             letter-spacing: 1px;
             font-size: 13px;
+<<<<<<< HEAD
+
+=======
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
         }
 
         #center {
             position: absolute;
+<<<<<<< HEAD
+            top: 10%;
+=======
             top: 15%;
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
             float: left;
             padding-left: 20px;
         }
@@ -149,7 +165,6 @@
             text-align: center;
             background-image: url("https://res.cloudinary.com/dyuuulmg0/image/upload/v1523622023/sammm.jpg");
             height: 130px;
-            display: inline-block;
             width: 800px;
             padding-top: 20px;
             position: relative;
@@ -198,7 +213,7 @@
         }
 
         #tod {
-            padding-top: 1px;
+            padding-top: 10px;
             border-left: 1px solid #5e5c5c46;
             border-right: 1px solid #5e5c5c46;
             border-top: 1px solid #5e5c5c46;
@@ -209,20 +224,23 @@
         }
 
         #foot-container {
-            padding-top: 53px;
+            padding-top: 45px;
         }
 
         #body {
-            padding-top: 5px;
+            padding-top: 30px;
         }
+<<<<<<< HEAD
+=======
 
         #cent {
             float:left;
             margin-right: 50px;
             text-align: center;
             align-content: flex-start;
-            transform: translateX(-20%) translateY(10px);
+            transform: translateX(-10px) translateY(10px);
         }
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
     </style>
 </head>
 
@@ -336,6 +354,28 @@
    </div>
 
 
+<<<<<<< HEAD
+    <?php
+
+$result = $conn->query("Select * from secret_word LIMIT 1");
+  $result = $result->fetch(PDO::FETCH_OBJ);
+  $secret_word = $result->secret_word;
+
+  $result2 = $conn->query("Select * from interns_data where username = 'olubori'");
+  $user = $result2->fetch(PDO::FETCH_OBJ);
+  
+  try {
+      $sql = "SELECT secret_word FROM secret_word";
+      $q = $conn->query($sql);
+      $q->setFetchMode(PDO::FETCH_ASSOC);
+      $data = $q->fetch();
+      $secret_word = $data['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }
+
+?>
+=======
 <div id="cent">
 
     <?php
@@ -359,6 +399,7 @@
     
     ?>
 </div>
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
 
 </body>
 

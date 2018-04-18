@@ -1,11 +1,17 @@
 <?php 
  require 'db.php';
+<<<<<<< HEAD
   $result = $conn->query("Select * from secret_word LIMIT 1");
    $result = $result->fetch(PDO::FETCH_OBJ);
    $secret_word = $result->secret_word;
 
 
 
+=======
+     $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+>>>>>>> 7d6d1bb4d1ba8c90933a130490cf66835465927d
 $query1 = "SELECT * FROM interns_data_ WHERE username='WaTeR'";;
 
 $stmt = $conn->query($query1);
@@ -18,6 +24,10 @@ $stmt->execute();
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7d6d1bb4d1ba8c90933a130490cf66835465927d
       
 ?>
 
@@ -60,7 +70,11 @@ $stmt->execute();
 	background:#6FCF97;
 	max-width: 90%;
 	
+<<<<<<< HEAD
 	color: #FDFDF8;height: 150px;
+=======
+	color: #FDFDF8;
+>>>>>>> 7d6d1bb4d1ba8c90933a130490cf66835465927d
 	text-align: center;
 }
 .content .header{
@@ -70,14 +84,34 @@ $stmt->execute();
 	
 	
 }
+<<<<<<< HEAD
 
+=======
+.content .phead{
+	width: 90%;
+	background: green;
+	padding: 10px;
+	color: #4D0909;
+	font-size: 20pt;
+	text-align: left;
+}
+.content .sub{
+	color: #4D0909;
+	font-size: 20pt;
+	text-align: left;
+	padding-left: 35px;	
+}
+>>>>>>> 7d6d1bb4d1ba8c90933a130490cf66835465927d
 
 
 	</style>
 }
+<<<<<<< HEAD
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+=======
+>>>>>>> 7d6d1bb4d1ba8c90933a130490cf66835465927d
 </head>
 <body>
 
@@ -91,6 +125,7 @@ $stmt->execute();
 </div>
 
 <div class="content">
+<<<<<<< HEAD
 <div class="col-lg-3">
 	</div>
 		<?php while ($data = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
@@ -115,3 +150,32 @@ $stmt->execute();
 <!-- /.row -->
 </body>
 </html> 
+=======
+	<div class="compliment">
+	<p> MY PROFILE </p>
+
+</div>
+<p> <br/></p>
+	<div style="float: left; width: 40%;">
+		<?php while ($data = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
+		<p class="phead">Profle Name:</p>
+		<p class="sub"><?php echo $data['name']; ?></p>
+		<hr>
+		<p class="phead">Profle Name:</p>
+		<p class="sub"><?php echo $data['username']; ?></p>
+
+	</div>
+
+	<div style="float: left;width: 50%;">
+<img src="<?php echo $data['image_filename']; ?>"  width="300" height="300" alt="<?php echo $data['image_filename']; ?>"/>
+	</div>
+	<?php } ?>
+<br/><br/>
+
+<div style="clear: both;">
+		
+		</div>
+
+</body>
+</html> 
+>>>>>>> 7d6d1bb4d1ba8c90933a130490cf66835465927d

@@ -1,11 +1,10 @@
 <!-- head here  -->
 <?php
-include_once("header.php");
+    include_once("header.php");
 
-$profile_name = $_GET['id'];
+    $profile_name = $_GET['id'];
 
-require 'db.php';
-
+    require 'db.php';
 ?>
 <!-- Page Content -->
 </div>
@@ -22,7 +21,7 @@ require 'db.php';
 } catch (PDOException $e) {
 
     throw $e;
-}?>
+}?> 
 </div>
 <?php if(!isset($secret_word) || $secret_word != $data['secret_word']) { ?>
     <div style="
