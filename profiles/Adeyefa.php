@@ -15,7 +15,7 @@ try {
 } catch (PDOException $e){
     throw $e;
 }
-$username = $resultData['username'];
+$user = $resultData['username'];
 $fullName = $resultData['name'];
 //Fetch Secret Word
 try{
