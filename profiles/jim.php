@@ -75,8 +75,8 @@ if (!empty($_POST['message'])) {
 	} else {
 		$question = sanitize($message);
 
-		$sql = $conn->prepare("SELECT * FROM chatbot WHERE question LIKE :question ORDER BY RAND()");
-		$sql->execute([':question' => "%{$question}%"]);
+		$sql = $conn->prepare("SELECT * FROM chatbot WHERE question = :question ORDER BY RAND()");
+		$sql->execute([':question' => "{$question}"]);
         $result = $sql->fetch(PDO::FETCH_ASSOC);
 
         if (! $result) {
