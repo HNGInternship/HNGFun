@@ -647,7 +647,7 @@ body{
    
     </div>
     
-<script src="https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js"></script>
+https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js
 
 
 <div id="demo">
