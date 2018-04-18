@@ -62,8 +62,12 @@
 			<h1> David Afolayan </h1>
 			<h2>FRONTEND MAGICIAN</h2>
 			<hr class="grey"/>
+<<<<<<< HEAD
 			<p class="bio">David Afolayan is a young, ambitious and passionate tech enthusiast. He is a self-taught front-end developer with interests in building beautiful and user-friendly products that not only put smiles on people's faces but also make the world a better place.
 			He has a strong desire to see people grow, become better and live comfortable lives, He seeks to be of great service to humanity especially in areas involving tech and as much as he can be involved in several philanthropic activities.</p>
+=======
+			<p class="bio">David Afolayan is a young and passionate ninja geek. He has interests in javascript technologies, UI/UX design and building things that crawl on the web. He's aspiring tech influencer who's trying to get his feet steady in the sands of coding. And did I mention he's a sucker for graphics design, phtography and art? Well, He is!</p>
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 		</div>
 	</main>
 </body>

@@ -6,6 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Nedu Robert</title>
     <style>
+        body {
+            background-color: #1F2746;
+            color: #FFF;
+        }
+
+        .skills {
+            width:400px;
+            margin: 0 auto;
+        }
+
         .profileImage img {
             width: 100px;
             height: 100px;
@@ -44,7 +54,7 @@
     ?>
 </head>
 <body>
-    <div class=profileInfo>
+    <div class="profileInfo">
         <div class="profileImage">
             <img src="<?php echo $user->image_filename ?>" />
         </div>
@@ -53,6 +63,8 @@
             <span>(@<?php echo $user->username ?>)</span>
         </div>  
     </div>
-    <h2>Full-Stack Developer</h2>
+    <div class="skills">
+        <p>Hello! I am a full-stack software developer with experience in HTML5, CSS3, Responsive design,  JavaScript (React, Node.js, Express), Redux, MongoDB and PHP.</p>
+    </div>
 </body>
 </html>

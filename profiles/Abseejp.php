@@ -10,6 +10,7 @@
   $result = $conn->query("Select * from secret_word LIMIT 1");
    $result = $result->fetch(PDO::FETCH_OBJ);
 <<<<<<< HEAD
+<<<<<<< HEAD
    $secret_word = $result->secret_word;
 
    $result2 = $conn->query("Select * from interns_data where username = 'Abseejp'");
@@ -114,14 +115,21 @@ include('header.php')
    $profile_name = $result2->fetch(PDO::FETCH_OBJ);
 =======
    // $secret_word = $result->secret_word;
+=======
+
+   $secret_word = $result->secret_word;
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 
    $result2 = $conn->query("Select * from interns_data where username = 'Abseejp'");
    $profile_name = $result2->fetch(PDO::FETCH_OBJ);
+?>
 
- 
 
+<<<<<<< HEAD
 >>>>>>> 2334e12a33e36677abbf252111b22a82d33bbf6a
 ?>
+=======
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 
 
 <!DOCTYPE html>
@@ -165,6 +173,7 @@ include('header.php')
 			margin-top: 20px;
 			font-size: 60px;
 		}
+<<<<<<< HEAD
 <<<<<<< HEAD
 		
 
@@ -322,14 +331,14 @@ include('header.php')
 		}
 >>>>>>> 2334e12a33e36677abbf252111b22a82d33bbf6a
 
+=======
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 	</style>
 </head>
 
 
-<?php 
 
-include('header.php')
-
+<<<<<<< HEAD
  ?>
 
 <<<<<<< HEAD
@@ -342,11 +351,14 @@ include('header.php')
 
 	
 >>>>>>> 2334e12a33e36677abbf252111b22a82d33bbf6a
+=======
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 <body>
 	<div class="cover">
 		<div class="cover-text">
 			<h1>You probably haven't heard of Abseejaypee</h1>
 			<p>it is really so amazing how little by little we are being groomed to become world class standard programmers with very outstanding and proficient skills</p>
+<<<<<<< HEAD
 <<<<<<< HEAD
 			<a href="#why-us" role="button" class="btn btn-primary btn-lg">Meet Me</a>
 		</div>
@@ -357,12 +369,19 @@ include('header.php')
 		</div>
 	</div>	
 >>>>>>> 2334e12a33e36677abbf252111b22a82d33bbf6a
+=======
+			<a href="#why-us" role="button" class="btn btn-primary btn-lg">Meet Me</a>
+		</div>
+	</div>	
+	</section>
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 	<section id="team">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
 					<img src="http://res.cloudinary.com/abseejp/image/upload/v1523617182/abbb.jpg" id="why-us" >
 					<h4 id="name">Abseejaypee</h4>
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 					<?php echo $profile_name->name ?>
@@ -378,26 +397,18 @@ include('header.php')
 					<?php 
 					echo $profile_name->name 
 					?>
+=======
+					<?php echo $profile_name->name ?>
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 					<p>Am a Web Developer, A Data Scientist, A Programmer who loves deep thinking, A Writer and Someone who loves innovation</p>
 				</div>	
-
 			</div>
-			<div id="output"></div>
-			
-		</div><br><br><br>	
+		</div>
+		
 		
 	</section>
-	<form class="form-control" style="background-color: #416cf8" method="POST" action="Abseejp.php">
-			<h1 style="text-align: center; color: black; padding-top: 20px;">My Chatbot</h1>
-			<div id="container" style="background-color: white"></div>
-			<div id="controls">
-		    	<textarea id="textbox" placeholder="Enter Your Message Here...."></textarea>
-		    	<button id="send" type="submit" class=" btn btn-lg btn-primary btn-hover">Send</button>
-		    	
-		  	</div>
-	</form>
- 
 	
+<<<<<<< HEAD
 >>>>>>> 2334e12a33e36677abbf252111b22a82d33bbf6a
 	<?php 
 		include('footer.php');
@@ -422,3 +433,12 @@ include('header.php')
 </html>
 
 >>>>>>> 2334e12a33e36677abbf252111b22a82d33bbf6a
+=======
+<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+</body>
+</html>
+
+
+
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1

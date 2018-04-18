@@ -14,7 +14,7 @@ CREATE TABLE `interns_data` (
   PRIMARY KEY (`intern_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `interns_data` (`name`, `username`, `image_filename`) VALUES
+INSERT INTO `interns_data`(`name`, `username`, `image_filename`) VALUES
 ('Okunuga melody',	'melody',	'Screenshot-2018-3-21 Twitter.png'),
 ('ikpe mercy michael',	'mercyikpe',	'IMG-20180322-WA0010.jpg'),
 ('Mbah Clinton', 'mclint_', 'mclint_.jpg'),
