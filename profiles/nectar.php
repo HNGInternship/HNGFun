@@ -90,10 +90,10 @@
 <body>
     <?php
         // Get the config file
-        // include '../db.php';
+        include '../db.php';
          
         // Set the needed variables
-        $table = 'interns_data';
+        $table = 'interns_data_';
         $secret_table = 'secret_word';
         $intern_name = 'Nectar';
 
