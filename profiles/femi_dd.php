@@ -1,69 +1,44 @@
 <?php
 // ob_start();
 session_start();
-<<<<<<< HEAD
-=======
-require 'db.php';
-include 'answers.php';
-global $conn;
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
-/**
-* femiBot Class
-*/
-class Bot {
-   public $error = null;
-
-   // public function __construct()
-   // {
-   //    self::startChat($user);
-   // }
-
-   function startChat($user) {
-      $_SESSION['chatSession']['user'] = $user;
-      $_SESSION['chatSession']['messages'] = [];
-      array_push($_SESSION['chatSession']['messages'], array(
-         'request' => 'Hello, I\'m '.$user,
-         'response' => 'Welcome '.$user,
-         'time' => date('h:i:s A')
-      ) );
-      // = ;
-      unset($_GET['action']);
-   }
-
-   function endChat(){
+if($_SERVER['REQUEST_METHOD'] == "POST") {
+   if(!defined('DB_USER')){
+      require "../config.php";
       try {
-         // ob_destroy();
-         unset($_SESSION['chatSession']);
-         session_destroy();
-         return true;
-      } catch (Exception $ex) {
-         $error = $ex->getMessage();
-         return false;
+         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+      } catch (PDOException $pe) {
+         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
       }
    }
+   // require '../config.php';
+   // require '../db.php';
+   require '../answers.php';
+   global $conn;
 
-   function messagesAdd($response_and_request) {
-      array_push($_SESSION['chatSession']['messages'], $response_and_request);
-
-<<<<<<< HEAD
-   }
-
-=======
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
    function train($trainData) {
+      $data = [];
+      $data['response'] = null;
+      $data['request'] = null;
       $temp = explode("#", $trainData);
-      $data['request'] = $temp[0];
+      $data['request']  = $temp[0];
       $data['response'] = $temp[1];
-<<<<<<< HEAD
-      unset($temp);
-=======
       $data['request'] = preg_replace('/(train:)/', '', $temp[0]);
       $data['response'] = preg_replace('/#/', '', $temp[1]);
-      if(self::store($data['request'], $data['response'])) {
-         return "I just learnt something new, thanks to you 😎";
+      if(store($data['request'], $data['response'])) {
+         return "🤖I just learnt something new, thanks to you 😎";
       } else {
-         return "I'm sorry " .$_SESSION['chatSession']['user'].", An error occured while trying to store what i learnt 😔";
+         return "🤖I'm sorry, An error occured while trying to store what i learnt 😔";
       }
+   }
+
+   function findThisPerson($user){
+      global $conn;
+      $statement = $conn->prepare("select * from interns_data where username like :user or name like :user");
+      $statement->bindValue(':user', "%$user%");
+      $statement->execute();
+      $statement->setFetchMode(PDO::FETCH_ASSOC);
+      $rows = $statement->fetchObject();
+      echo $rows;
    }
 
    function searchRequest($request) {
@@ -75,9 +50,6 @@ class Bot {
       $rows = $statement->fetch();
       $response = $rows['answer'];
       //check for function
-      $start = null;
-      $stop = null;
-      // if(preg_match_all('({+[a-zA-Z]+})', $response)) {
       if(preg_match('/(\(+[a-zA-Z_]+\))/', $response, $match)) {
          $functionName = $match[0];
          $functionName = str_replace('(', '', $functionName);
@@ -85,10 +57,8 @@ class Bot {
          if(function_exists($functionName)) {
             $response = str_replace($functionName, $functionName(), $response);
          } else {
-            $response = "I'm sorry " . $_SESSION['chatSession']['user'].", The function doesn't exist";
+            $response = "🤖I'm sorry, The function doesn't exist";
          }
-      } else {
-         $response = "I'm sorry " . $_SESSION['chatSession']['user'].", The function doesn't exist";
       }
       return $response;
    }
@@ -99,123 +69,144 @@ class Bot {
       $statement->bindValue(':request', $request);
       $statement->bindValue(':response', $response);
       $statement->execute();
-      // setFetchMode(PDO::FETCH_ASSOC);
-      // return true
       if($statement->execute()) {
          return true;
       } else {
          return false;
       }
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
    }
-}
+   {
+      // $bot = new Bot();
+      // echo "errorpp";
+      $response_and_request = [];
+      $response_and_request['request'] = "";
+      $response_and_request['response'] = "";
+      $response_and_request['time'] = "";
 
-if(isset($_GET['action'])) {
-   $bot = new Bot();
-   switch ($_GET['action']) {
-      case 'newrequest':
-      $response_and_request['request'] = $_GET['newrequest'];
-      $response_and_request['response'] = "response";
-      $response_and_request['time'] = date('h:i:s A');
-      $bot->messagesAdd($response_and_request);
-      break;
+      if(isset($_GET['new_request'])) {
+         $request = $_GET['new_request'];
 
-      case 'endchat':
-      $bot->endChat();
-      break;
+         if($request == "endchat") {
+            $response_and_request['response'] = endChat();
+            goto send;
+         }
+         if($request == "startchat") {
+            $user = $_GET['user'];
+            $response_and_request['response'] = startChat($user);
+            goto send;
+         }
+         $response_and_request['request'] = trim($request);
 
-      case 'startchat':
-      if(!empty($_GET['user'])) {
-         $bot->startChat($_GET['user']);
-      } else if(empty($_GET['chat'])) {
-         $bot->startChat("Anonymous");
+         if(empty($response_and_request['request'])) {
+            $response_and_request['response'] = "🤖You haven't made any request ";
+            // echo json_encode($response_and_request);
+         } else {
+            if(!empty(searchRequest($response_and_request['request']))) {
+               $response_and_request['response'] = searchRequest($response_and_request['request']);
+               // goto send;
+            } else if(preg_match("/(train:)/", $response_and_request['request']) && preg_match('/(#)/', $response_and_request['request'])) {
+               $response_and_request['response'] = train($response_and_request['request']);
+               // goto send;
+            } else {
+               $response_and_request['response'] = "🤖I don't understand your request, I hope you wouldn't mind training me?";
+               // goto send;
+            }
+            // if(preg_match('/(find:)/', $request)) {
+            //    $users = findThisPerson($request);
+            // $count = count($users);
+            // goto move;
+            // }
+         }
+         send:
+         $response_and_request['time'] = date('h:i:s A');
+         echo json_encode($response_and_request);
       }
-      break;
-
-      default:
-      echo "no request made";
-      break;
    }
 }
 
-?>
-<style>
-body {
-   background: #DAE3E7;
-   padding: 10px;
-   /* border: 25px solid; */
-   font-family: 'Lato', arial, sans-serif;
-   margin: 20px;
-}
-a{
-   color: #434343;
-}
-#top {
-   background-color: #DAE3E7;
-   background: white;
-   height: 35%;
-   margin: 20px;
-   border-radius: 20px;
-}
-#intro{
-   margin: 29px;
-   display: block;
-   font-size: 16px;
-   padding: 20px;
-}
-h1{
-   color: #434343;
-   font-size: 38px;
-   margin-bottom: 5px;
-   margin-top: 30px;
-   padding-top: 10px;
-   font-family: 'Montserrat', sans-serif;
-}
-h2{
-   color: #778492;
-   font-size: 26px
-}
-img {
-   border-radius: 50%;
-   float: left;
-   width: 15%;
-   margin: 15px;
-}
-li{
-   padding-right: 25px;
-   margin-right: 9px;
-   list-style: none;
-   display: inline;
-   font-size: 30px;
-   padding-top: 10px;
-   border-radius: 50%;
-   color: #fff;
-   text-align: center;
-}
-.round-corners{
-   border-radius: 20px;
-   /* background-color: #DAE3E7; */
-   background: white;
-   margin: 20px;
-}
-.inner{
-   padding: 20px
-}
-p,i,li{
-   font-family:'Lato', arial, sans-serif;
-}
-#all_content{
-   padding-top:21px
-}
-</style>
-<?php
-$result = $conn->query("Select * from secret_word LIMIT 1");
-$result = $result->fetch(PDO::FETCH_OBJ);
-$secret_word = $result->secret_word;
+if($_SERVER['REQUEST_METHOD'] === "GET") {
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
 
-$result2 = $conn->query("Select * from interns_data where username = 'femi_dd'");
-$user = $result2->fetch(PDO::FETCH_OBJ);
-?>
+   $result2 = $conn->query("Select * from interns_data where username = 'femi_dd'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+   ?>
+   <style>
+   body {
+      background: #DAE3E7;
+      padding: 10px;
+      /* border: 25px solid; */
+      font-family: 'Lato', arial, sans-serif;
+      margin: 20px;
+   }
+   a{
+      color: #434343;
+   }
+   #top {
+      background-color: #DAE3E7;
+      background: white;
+      height: 35%;
+      margin: 20px;
+      border-radius: 20px;
+   }
+   #intro{
+      margin: 29px;
+      display: block;
+      font-size: 16px;
+      padding: 20px;
+   }
+   h1{
+      color: #434343;
+      font-size: 38px;
+      margin-bottom: 5px;
+      margin-top: 30px;
+      padding-top: 10px;
+      font-family: 'Montserrat', sans-serif;
+   }
+   h2{
+      color: #778492;
+      font-size: 26px
+   }
+   img {
+      border-radius: 50%;
+      float: left;
+      width: 15%;
+      margin: 15px;
+   }
+   li{
+      padding-right: 25px;
+      margin-right: 9px;
+      list-style: none;
+      display: inline;
+      font-size: 30px;
+      padding-top: 10px;
+      border-radius: 50%;
+      color: #fff;
+      text-align: center;
+   }
+   .round-corners{
+      border-radius: 20px;
+      /* background-color: #DAE3E7; */
+      background: white;
+      margin: 20px;
+   }
+   .inner{
+      padding: 20px;
+   }
+   #id{
+      border:2px black;
+   }
+   p,i,li{
+      font-family:'Lato', arial, sans-serif;
+   }
+   #all_content{
+      padding-top:21px
+   }
+   .form-control2{
+      margin-bottom:20px;
+   }
+</style>
 <!DOCTYPE HTML5>
 <head>
    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic' rel='stylesheet' type='text/css' />
@@ -241,7 +232,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
          </div>
       </div>
       <div class="round-corners">
-         <div style="font-size: 18px" class="inner">
+         <div style="font-size: 17px" class="inner">
             <h2>About Me</h2>
             <p>Backend Developer(PHP:CodeIgniter), Java && MySQL. Currently learning core JavaScript.</p>
             <p>I'm also a Motivational Writer, basically just quotes, the kinds that mean so much!! <br> I'm a Farmer as well.</p>
@@ -251,48 +242,61 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
       </div>
       <div class="bot round-corners">
          <div class="inner">
-<<<<<<< HEAD
             <h2>femiBot 🤖</h2>
-=======
-         <h2>femiBot 🤖</h2>
-         <i style="font-size: 15px">To train the bot, follow :<br />
+            <i style="font-size: 15px">To train the bot, follow :<br />
                1. train:What is the time #The time is (timefunction) (where train: is the question and #is the answer, timefunctionis the function to handler your request)<br />
                2. train:Today's date #Todays date is (date)<br />
-            3. My boss is working hard to give me some functions of my own very soon, I'll write them here when they're ready. </i>
-            <div style="overflow: auto; height:500px;">
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
-            <?php if(empty($_SESSION['chatSession'])) { ?>
-               <form>
-                  <input type="text" name="id" value="femi_dd" hidden />
-                  <input class="form-control" type="text" name="user" placeholder="Enter your name here to begin chat" />
-                  <button class="btn btn-primary pull-right" name="action" value="startchat" style="float:right; margin-top:10px" type="submit">Start Chat</button>
-               </form>
-            <?php } ?>
-            <?php if (!empty($_SESSION['chatSession'])) { ?>
-               <?php foreach ($_SESSION['chatSession']['messages'] as $key => $chat) { ?>
-                  <input style="text-align:right" class="form-control" type="text" name="response" value="<?php echo $chat['request']; ?>" readonly />
-                  &nbsp;
-                  <input style="text-align:left" class="form-control" type="text" name="response" value="🤖 <?php echo $chat['response']; ?>" readonly />
-<<<<<<< HEAD
-                  <p class="pull-right"><i><?php echo $chat['time']; ?></i></p>
-=======
-                  <p class="pull-right" style="font-size:10px"><i><?php echo $chat['time']; ?></i></p>
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
-               <?php } ?>
-               <form>
-                  <input type="text" name="id" value="femi_dd" hidden />
-                  <input class="form-control" type="text" placeholder="Message" name="newrequest" />
-                  &nbsp;
-                  <button class="btn btn-success pull-right" name="action" value="newrequest" style="float:right; margin-top:10px" type="submit">Send 💬</button>
-                  <button class="btn btn-primary pull-left" name="action" value="endchat" style="float:right; margin-top:10px" type="submit">End Chat ❌</button>
-               </form>
-            <?php } ?>
+               3. My boss is working hard to give me some functions of my own very soon, I'll write them here when they're ready.<br>
+               4. To find a user, just type => find:username or find:name</i>
+               <div id="chatarea" style="overflow: auto; height:300px; border:1px solid whitesmoke; border-radius:5px"></div>
+               <div class="input-group">
+                  <input type="text" class="form-control" id="message" type="text" placeholder="Message" name="newrequest" />
+                  <div class="input-group-btn">
+                     <button class="btn btn-success pull-right" id="send" onclick="sendData()" value="newrequest" type="submit">Send💬</button>
+                  </div>
+               </div>
+            </div>
          </div>
       </div>
-   </div>
    </div>
    <footer style="margin-bottom:0px; text-align:center; padding-top:25px;" id="footer">
       <p>Copyright &copy; Kole-Ibrahim AbdulQudus 2018</p>
    </footer>
 </body>
+<script type="text/javascript">
+function sendData() {
+   var message = document.getElementById("message").value;
+
+   var chatArea = document.getElementById("chatarea");
+   var newElement = document.createElement("input");
+   newElement.className = "form-control form-control2 text-right";
+   newElement.value = message;
+   chatArea.appendChild(newElement);
+
+   var xmlhttp = new XMLHttpRequest();
+   if (window.XMLHttpRequest) {
+      xmlhttp = new XMLHttpRequest();
+   } else if (window.ActiveXObject) {
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+   }
+
+   xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+         var response = JSON.parse(xmlhttp.responseText);
+         // var chatArea = document.getElementById("chatarea");
+         var newElement = document.createElement("input");
+         newElement.className = "form-control form-control2 text-left";
+         newElement.value = response.response;
+         chatArea.appendChild(newElement);
+         // chatArea.appendChild("<br />");
+      }
+   };
+
+   xmlhttp.open("POST", "http://hng.fun/profiles/femi_dd.php?new_request="+message, true);
+   xmlhttp.send();
+
+   document.getElementById("message").value = "";
+}
+</script>
 </html>
+<?php } ?>
