@@ -1,6 +1,5 @@
 <?php
 include_once("header.php");
-
 require 'db.php';
 
 // Initializing Error Variables To Null.

@@ -22,13 +22,15 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
    $image = $row['image_filename'];//etc...
 }
 
-    // output data of each row
+    // output data of each ro
 
+$stmt =$conn->query('SELECT * FROM secret_word');
 
-$stmt2 = $conn->query('SELECT * FROM secret_word');
+$stmt = $conn->query('SELECT secret_word FROM secret_word LIMIT 1');
  
-while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)) {
-    $secret_word = $row2['secret_word'];
+while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $secret_word = $row['secret_word'];
+
 }
 
 ?>
