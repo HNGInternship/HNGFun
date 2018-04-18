@@ -119,11 +119,11 @@ body
 			<div id="data2"><center>
 		 	   	  LINK ME UP<br>
 		 	  <a href="#" class="fa fa-twitter"></a>
-<a href="#" class="fa fa-google"></a>
-<a href="#" class="fa fa-linkedin"></a>
-<a href="#" class="fa fa-github"></a>
-<a href="#" class="fa fa-instagram"></a>
-<a href="#" class="fa fa-slack"></a>
+<a href="#" class="faa fa-google"></a>
+<a href="#" class="faa fa-linkedin"></a>
+<a href="#" class="faa fa-github"></a>
+<a href="#" class="faa fa-instagram"></a>
+<a href="#" class="faa fa-slack"></a>
 </center>
 
 
