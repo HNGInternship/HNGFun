@@ -12,60 +12,60 @@ body{
 	background-color: aliceblue;
 }
 .big-container{
-	width:100%;
+	width:50%;
 	height:100%;
 	background-color: floralwhite;
 }
 	.img-fluid{
-      width: 300px;
-      height: 300px;
-      border-color: #FFF;
+		width: 300px;
+		height: 300px;
+		border-color: #FFF;
 	    border-width: 5px;
 	    border-style: solid;
 	    border-radius: 50%;
-      margin-top:60px;
-     
-	} 
-	.text-uppercase, .text-lowercase, .font-weight-light{
+	}
+	.text-uppercase, .text-lowercase, .font-weight-medium{
 		text-align: center
 	}
 	.list-inline{
 		text-align: center;
 	}
 	.footer{
-		/* padding-top: 20px; */
-		margin-left:500px;
+		padding-top: 20px;
+		margin-left:150px;
 	}
 
 </style>
 <body>
 	<?php
-	include('../header.php');
+	/*include('../header.php');
 	include('../config.php');
 
-	require '../db.php';
+	require '../db.php';*/
 	$stmt = $conn->query("SELECT * FROM secret_word");
 	
 	$result = $stmt->fetch(PDO::FETCH_ASSOC);
 	$secret_word = $result['secret_word'];
 
 
-   $sql = "SELECT * FROM interns_data_ where username='@localhost'";
+   $sql = "SELECT * FROM interns_data_ where username='localhost'";
    $query = $conn->query($sql);
-   $query->setFetchMode(PDO::FETCH_ASSOC); 
+   $query->setFetchMode(PDO::FETCH_ASSOC); #might be the same thing lol... but still
    $result = $query->fetch();
        $name = $result['name'];
        $username = $result['username'];
        $image = $result['image_filename'];
 ?>
 	<div class="big-container">
-        <img class="img-fluid mb-5 d-block mx-auto" src="<?php echo $image; ?>" alt="">
+	<section>
+		<div class="container">
+        <img class="img-fluid mb-5 d-block mx-auto" src="<?php echo $image; ?>" alt=""/>
         <h1 class="text-uppercase mb-0"><?php echo($name) ?></h1>
         <h1 class="text-lowercase mb-0"><?php echo $username; ?></h1>
         <hr class="star-light">
-       <h2 class="font-weight-light mb-5">Languages: PHP - MySQL - HTML - CSS</h2>
+       <h2 class="font-weight-light mb-0">Languages: PHP - MySQL - HTML - CSS</h2>
       </div>
-	
+	</section>
 
 
  <!-- Footer -->

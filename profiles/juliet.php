@@ -173,7 +173,7 @@ function decider($string){
 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   <!-- Page Content -->
@@ -317,7 +317,7 @@ function decider($string){
                 var message = $("#msg").val();
                     var dataString = 'msg=' + msg + '&page=chat';
                     jQuery.ajax({
-                        url: "juliet.php",
+                        url: "profiles/juliet.php",
                         data: dataString,
                         type: "POST",
                          cache: false,
@@ -370,8 +370,7 @@ function decider($string){
 
 
     <!-- Bootstrap core JavaScript -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
 
     <!-- Custom scripts for this template -->
     <script src="../js/hng.min.js"></script>

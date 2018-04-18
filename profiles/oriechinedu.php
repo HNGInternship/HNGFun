@@ -50,8 +50,27 @@
 
                     $question = $second_test_str[0];
                     $ans = $second_test_str[1];
+
+                    // preg_match_all('/\(\((.*)\)\)/', $ans, $matches);
+
+                    // $func = $matches[0];
+
+                    // echo json_encode(['status'=>1, 'answer'=>$func]);
+                    // return;
+                    // if ($func){
+
+                    //     require_once('../answers.php');
+
+                    //     if (function_exists($func)){
+
+                    //         $function_result =  $func();
+
+                    //         echo json_encode(['status'=> 5, 'response'=>$function_result]);
+                    //         return;
+                    //     }
+                    // }
                     
-                    // $sql_chk = "SELECT * FROM chatbot WHERE `question` LIKE '%$question%'";
+                    //check if question or answer already exists
                         $sql = "SELECT * FROM chatbot WHERE `question` LIKE '%$question%' OR `answer` LIKE '%$ans%'";
                         $stm = $conn->query($sql);
                         $stm->setFetchMode(PDO::FETCH_ASSOC);
@@ -61,7 +80,8 @@
                          if ($res){
                              echo json_encode(['status'=>4, 'response'=>'Were you thinking I am that dull not to know that <code>'.$res[0]['question']. '</code> simply require <code>'. $res[0]['answer'].'</code> as the answer? <code>Could you please ask something more challenging or teach me something serious?</code>']);
                          }
-
+                           
+                         //if it's a new question, save into db
                         else{
                             $sql = "INSERT INTO chatbot(question, answer)
                                     VALUES(:quest, :ans)";
@@ -171,11 +191,14 @@
         .msg_receive {
             padding-left: 0;
             margin-left: 0;
+            background: #666 !important;
+            color: #FFF;
         }
         
         .msg_sent {
             padding-bottom: 20px !important;
             margin-right: 0;
+            
         }
         
         .messages {
@@ -227,6 +250,7 @@
         .base_sent {
             justify-content: flex-end;
             align-items: flex-end;
+            
         }
         
         .base_sent>.avatar:after {
@@ -260,52 +284,68 @@
 
         .profile{
 
-            border: 1px solid black;
+           border-radius: 20px;
             max-width: 90%;
             margin: 0 auto;
             box-shadow: inset 0 0 25px #246476;
+            margin-bottom: 50px;
+
+        }
+
+        .iconn:hover{
+            color: #00AEFF !important;
+        }
+        .icon-container{
+            padding: 20px;
+        }
+        .connect{
+
+            color:red !important;
+            padding: 10px 0;
         }
         
-        /* .bot-img {
-            width: 50px;
-            height: 50px;
-        } */
+        #intro{
+            padding: 0 20px;
+        }
+     
             </style>
         </head>
-            <body >
-                <div class="container" style="margin: 100px 0px;">
-                    <section class="text-blue text-center">
+            <body>
+                <div class="container" style="margin: 100px auto">
+                    <section class="text-dark text-center">
                         <div class="row">
                             <div class="col-lg-8 col-sm|md|xs-12">
                                 <div class="profile"> 
                                     <div class="text-center">
-                                        <img src="<?= $my_data['image_filename'] ?>" class="rounded-circle" alt="orie chinedu" width="200px" height="200px">
+                                        <img src="<?= "http://res.cloudinary.com/drjpxke9z/image/upload/v1523623738/oriechinedu_ihubdk.jpg"?>" class="rounded-circle" alt="orie chinedu" width="200px" height="200px">
                                     </div>
-                                    <h1 >Hey! <small>This is</small> <?= 'Orie Chinedu' ?></h1> 
-                                    <p id="intro" style="margin-bottom: 50px; text-shadow: 2px 2px 2px #fff; color: #000;">I am a Web Developer. Proficient in HTML, CSS, JAVASCRIPT,
+                                    <h1 >Hey! <small>this is</small> <?= 'Orie Chinedu' ?></h1> 
+                                    <p id="intro" style="margin-bottom: 50px; text-shadow: 2px 2px 2px #fff; color: dark;">I am a Web Developer. Proficient in HTML, CSS, JAVASCRIPT,
                                         PHP/LARAVEL/VUEJS. A little of Python/Django. I also write technical articles on medium. I am a volunteer coach at Djangogirls.org and generally a tech lover</p>
                                         
-                                    <div class="page-header">
-                                        <h2 class="text-blue page-header">Let's Get Connected</h2>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <a href="https://slack.com/hnginternship4/@oriechinedu"><span class="fa fa-slack" style="color: blue; font-size: 48px;"></span></a>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <a href="https://facebook.com/orie.chinedu"><span class="fa fa-facebook" style="color: blue;font-size: 48px;"></span></a>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <a href="https://medium.com/@oriechinedu"><span class="fa fa-medium" style="color: blue; font-size: 48px;"></span></a>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <a href="https://twitter.com/@orie.chinedu"><span class="fa fa-twitter" style="color: blue; font-size: 48px;"></span></a>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <a href="https://linkedin.com/in/chinedu-emmanuel-orie-b8484b147/"><span class="fa fa-linkedin" style="color: blue; font-size: 48px;"></span></a>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <a href="https://github.com/oiechinedu"><span class="fa fa-github" style="color: blue; font-size: 48px;"></span></a>
+                                    
+                                        <h2 class="text-dark connect">Let's Get Connected</h2><hr>
+                                  
+                                    <div class="row icon-container" >
+                                        <div class="offset-md-1 col-md-10 offset-xs-1 col-xs-10">
+                                            <div class="d-inline">
+                                                <a href="https://slack.com/hnginternship4/@oriechinedu"><span class="fa fa-slack iconn" style="color: #000; font-size: 48px;"></span></a>
+                                            </div>
+                                            <div class="d-inline">
+                                                <a href="https://facebook.com/orie.chinedu"><span class="fa fa-facebook iconn" style="color: #000;font-size: 48px;"></span></a>
+                                            </div>
+                                            <div class="d-inline">
+                                                <a href="https://medium.com/@oriechinedu"><span class="fa fa-medium iconn" style="color: #000; font-size: 48px;"></span></a>
+                                            </div>
+                                            <div class="d-inline">
+                                                <a href="https://twitter.com/@orie.chinedu"><span class="fa fa-twitter iconn" style="color: #000; font-size: 48px;"></span></a>
+                                            </div>
+                                            <div class="d-inline">
+                                                <a href="https://linkedin.com/in/chinedu-emmanuel-orie-b8484b147/"><span class="fa fa-linkedin iconn" style="color: #000; font-size: 48px;"></span></a>
+                                            </div>
+                                            <div class="d-inline">
+                                                <a href="https://github.com/oiechinedu"><span class="fa fa-github iconn" style="color: #000; font-size: 48px;"></span></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -327,7 +367,7 @@
                                             <div class="row msg_container base_sent">
                                                 <div class="col-md-10 col-xs-10">
                                                     <div class="messages msg_sent">
-                                                        <p>Hello, I am da bot, I am smart but you can make me smarter, I am always willing to learn</p>
+                                                        <p><code>Hello, I am da bot, I am smart but you can make me smarter, I am always willing to learn</code></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 col-xs-2"></div>
@@ -335,7 +375,7 @@
                                             <div class="row msg_container base_sent">
                                                 <div class="col-md-10 col-xs-10">
                                                     <div class="messages msg_sent">
-                                                        <p>To teach me, send train:your question#your answer</p>
+                                                        <p><code>To teach me, send train:your question#your answer</code></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 col-xs-2"></div>
@@ -356,7 +396,7 @@
                                         <div class="card-footer message-div">
                                             <form action="" id="chat-form" method="post">
                                                 <div class="input-group mb-3">
-                                                    <textarea row="2" class="form-control message chat_input" name="chat_message" aria-label="With textarea"></textarea>
+                                                    <input class="form-control message chat_input" name="chat_message" aria-label="With input" placeholder="Let's Chat  Now...">
                                                     <div class="input-group-append">
                                                         <button type="submit" class="btn btn-primary btn-sm send-message" id="btn-chat"><i class="fa fa-send-o"></i></button>                                                                                 
                                                     </div>
@@ -500,6 +540,7 @@
                                 $("#chat_window_1").remove();
                             });
                 });
+
                     </script>
             </body>
         </html>

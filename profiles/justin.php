@@ -9,20 +9,6 @@
 	$result2 = $conn->query("Select * from interns_data where username = 'justin'");
 	$user = $result2->fetch(PDO::FETCH_OBJ);
 	?>
-    <title><?php echo $user->username; ?></title>
-	<link href="https://fonts.googleapis.com/css?family=Reem+Kufi" rel="stylesheet">  	
-</head>  
-<body><!doctype html>
-<html lang="en">
-<head>
-	<?php
-	$result = $conn->query("Select * from secret_word LIMIT 1");
-	$result = $result->fetch(PDO::FETCH_OBJ);
-	$secret_word = $result->secret_word;
-
-	$result2 = $conn->query("Select * from interns_data where username = 'justin'");
-	$user = $result2->fetch(PDO::FETCH_OBJ);
-	?>
     <title>Justin's Profile</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Reem+Kufi" rel="stylesheet">    
