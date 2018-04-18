@@ -14,94 +14,6 @@ require 'db.php';
 <!DOCTYPE html>
 <html>
 <head>
-	<title>HNGInternship 4.0</title>
-	<style type="text/css">
-			
-			body{
-				background: url(http://res.cloudinary.com/geekmaros/image/upload/v1523630188/sunset.jpg) no-repeat;
-				background-size: cover;
-			}
-			.profile-body{
-				width: 100%;
-				max-height: 500px;
-				font-family: Roboto Condensed;
-			}
-
-			
-			}
-
-			div.time{
-				/*position: relative;*/
-				font-style: normal;
-				font-weight: bold;
-				line-height: normal;
-				font-size: 48px;
-				color: #FFFFFF;
-				padding-top: 75px;
-				text-align: center;
-			}
-			img{
-
-			}
-
-			h1.intro{
-				text-align: center;
-				font-style: normal;
-				font-weight: bold;
-				line-height: normal;
-				font-size: 48px;
-				color: #61f207;
-				padding-top: 120px;
-			}
-
-			.main{
-				 display: table;
-				 position: absolute;
-				 height: 100%;
-				 width: 100%;
-			}
-
-			.container{
-				display: table-cell;
-  				vertical-align: middle;
-			}
-			.text-center{
-				text-align: center;
-			}
-
-			img{
-				border: 1px solid #ddd;
-   			 	 border-radius: 50px;
-   				 padding-left: 5px;
-   				 width: 150px;
-   				 margin-left: 40px;
-   				 margin-top: 90px;
-
-   				
-			}
-
-	</style>
-</head>
-<body>
-	<div class="profile-body">
-		
-		<section class="main">
-			<div class="container">
-				<img src="<?php echo $user->image_filename;  ?>">
-				<h1 class="intro"><?php echo $user->name; ?> <br> @<?php echo $user->username; ?></h1>
-				<h3 class="text-center" style="color: #61f207; padding-bottom: 200px;">A Developing Developer</h3>
-			</div>
-
-		</section>
-		
-	</div>
-
-</body>
-
- ?>
-<!DOCTYPE html>
-<html>
-<head>
     <title>profile</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -476,14 +388,12 @@ h1 a {
     z-index: 10;
 }
 
-
 </style>
 </head>
 <body>
 
-
-    <div class="container">
-    <div class="row">
+<div class="container">
+   <div class="row">
     <!-- Contenedor -->
     <ul id="accordion" class="accordion">
     <li>
@@ -497,11 +407,11 @@ h1 a {
 
 </div>
 <div class="username">
-    <h2><?php echo $user->name; ?> @<?php echo $user->username; ?> <small><i class="fa fa-map-marker"></i> Nigeria (Ilorin Kwara)</small></h2>
-    <p><i class="fa fa-briefcase"></i> Web Developer    .</p>
+    <h2><?php echo $user->name; ?>  @<?php echo $user->username; ?><small><i class="fa fa-map-marker"></i> Nigeria (kwara)</small></h2>
+    <p><i class="fa fa-briefcase"></i> Web Developer.</p>
     
-    <a href="https://https://www.facebook.com/marosconnect" target="_blank" class="btn-o"> <i class="fa fa-user-plus"></i> Add Friend </a>
-    <a href="https://twitter.com/geekmaros" target="_blank"  class="btn-o"> <i class="fa fa-plus"></i> Follow </a>
+    <a href="https://web.facebook.com/marosconnect" target="_blank" class="btn-o"> <i class="fa fa-user-plus"></i> Add Friend </a>
+    <a href="https://www.instagram.com/geekmaros/" target="_blank"  class="btn-o"> <i class="fa fa-plus"></i> Follow </a>
     
     
      <ul class="nav navbar-nav">
@@ -522,13 +432,19 @@ h1 a {
         
     </li>
         <li>
-                
+            <div class="link"><i class="fa fa-globe"></i>About<i class="fa fa-chevron-down"></i></div>
+            <ul class="submenu">
+                <li><a href="#"><i class="fa fa-calendar left-none"></i> Date of Birth : 01/10/199X</a></li>
+                <li><a href="#">Address : Nigeria,Kwara</a></li>
+                <li><a href="mailto:razicruz@gmail.com">Email : razicruz@gmail.com</a></li>
+                <li><a href="#">Phone : +234 XXX XXX XXXX</a></li>
+            </ul>
         </li>
         <li class="default open">
             <div class="link"><i class="fa fa-code"></i>Professional Skills<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-                <li><a href="#"> <span class="tags">PHP</span> <span class="tags">HTML</span> 
-                <span class="tags">BOOTSTRAP</span> <span class="tags">LARAVEL</span> <span class="tags">CSS</span>   </li></a>
+                <li><a href="#"><span class="tags">HTML</span> <span class="tags">CSS</span> <span class="tags">BOOTSTRAP</span> <span class="tags">PHP</span> 
+                <span class="tags">LARAVEL</span></li></a>
             </ul>
         </li>
         
@@ -543,7 +459,7 @@ h1 a {
 </div>
 
 
-</html>
+
 
 </body>
 </html>
