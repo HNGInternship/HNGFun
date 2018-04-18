@@ -236,7 +236,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				</div>
 			</div>	
 			<ul id="chats">
-				<li> </li>
+				<li> Chat Here</li>
 			</ul>
 	    </div>
 	</div>	
