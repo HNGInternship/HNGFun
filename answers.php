@@ -1,4 +1,7 @@
 <?php
+<<<<<<< HEAD
+
+=======
 function getListOfCommands() {
   return 'Type "<code>show: List of commands</code>" to see a list of commands I understand.<br/>
   Type "<code>open: www.google.com</code>" to open Google.com<br/>
@@ -67,3 +70,4 @@ function getRandomFact(){
     }
 
 ?>
+>>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
