@@ -1,3 +1,23 @@
+
+<?php
+    try {
+          $query = $conn->query("SELECT * FROM secret_word");
+          $result = $query->fetch(PDO::FETCH_ASSOC);
+          $secret_word = $result['secret_word'];
+          $username = "Peculiar";
+          $fullname = "Peculiar Ediomo-Abasi";
+          $image = "http://res.cloudinary.com/pediomo/image/upload/v1516201515/pecu_lhdpbt.jpg";
+          $query = $conn->query("SELECT * FROM interns_data where username='$username' limit 1");
+          while($result = $query->fetch(PDO::FETCH_ASSOC)){
+              $fullname = $result['name'];
+              $image = $result['image_filename'];
+          }
+      } 
+  catch (PDOException $event) {
+          throw $event;
+  }
+    //echo $secret_word;
+?>
 <!DOCTYPE html>
 <html>
 <head>
