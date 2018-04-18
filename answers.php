@@ -494,32 +494,36 @@ function bytenaija_convert($base, $other){
     $api_key = "U7VdzkfPuGyGz4KrEa6vuYXgJxy4Q8";
     $url = "https://www.amdoren.com/api/currency.php?api_key=" . $api_key . "&from=" . $base . "&to=" . $other;
     
-    $curl = curl_init();
+    /* $curl = curl_init();
     curl_setopt_array($curl, array(
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_URL => $url,
         CURLOPT_USERAGENT => 'Codular Sample cURL Request'
     ));
 
-    $response = curl_exec($curl);
+    $response = curl_exec($curl); */
+
+    $response = file_get_contents($url);
     $response = json_decode($response, true);
-    curl_close($curl);
+    //curl_close($curl);
     echo "1 ". strtoupper($base) ." is equal to ".  strtoupper($other)  ." " .$response['amount'];
 }
 
 //bitcoin price index
 function bytenaija_hodl(){
     $url ="https://api.coindesk.com/v1/bpi/currentprice.json";
-    $curl = curl_init();
+   /*  $curl = curl_init();
     curl_setopt_array($curl, array(
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_URL => $url,
         CURLOPT_USERAGENT => 'Codular Sample cURL Request'
     ));
 
-    $response = curl_exec($curl);
+    $response = curl_exec($curl); */
+
+    $response = file_get_contents($url);
     $response = json_decode($response, true);
-    curl_close($curl);
+    //curl_close($curl);
     $responseStr = "<h4 class='hodl'>Bitcoin Price as at " . $response["time"]["updated"] . "</h4><br> <div><h4>Prices</h4><li>"
     . $response["bpi"]["USD"]["code"] . " " . $response["bpi"]["USD"]["rate"] . "</li>
     <li>"
