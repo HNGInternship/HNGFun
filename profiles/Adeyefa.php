@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		$question = $_POST['question'];
 		//Check for training mode
-		$train_question = stripos($question, "train");
+		$train_question = stripos($question, "train:");
 		if ($train_question === false) {
 			# code...
 			$question = preg_replace('([\s]+)', ' ', trim($question));//to remove extra white spaces from the question
@@ -229,7 +229,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			<div class="row-holder">
 				<div class="row2">
 					<div id="form" method="post">
-						<form >
+						<form role="form">
 							<input type="text" name='question' placeholder="type your question here"><input type="submit" name="submit">
 						</form>
 					</div>
@@ -251,7 +251,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$("#chats").append("<li>" + question + "</li>");
 
 				$.ajax({
-					url: "/profiles/Adeyefa.php",
+					url: '/profiles/Adeyefa.php',
 					type: 'POST',
 					dataType: 'json',
 					data: {question: question},
