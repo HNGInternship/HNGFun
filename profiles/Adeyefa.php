@@ -172,7 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 
 		input[type=submit]{
-		    width: 60%;
+		    width: 80%;
 		    padding: 12px 20px;
 		    margin: 8px 8px;
 		}
