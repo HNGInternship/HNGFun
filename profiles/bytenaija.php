@@ -563,8 +563,15 @@ header{
 </head>
 <body>
 <?php
-$file = realpath(__DIR__ . '/..') . "/db.php"; 
-require_once $file;
+
+if(!defined('DB_USER')){
+    require "../../config.php";
+  }
+  try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
 global $conn;
 $image_filename = '';
 $name = '';
