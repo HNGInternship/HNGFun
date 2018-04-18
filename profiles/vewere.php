@@ -117,7 +117,7 @@
 
     #input-area {
       margin-top: 0;
-      height: 50px;
+      height: 53px;
       background: #000000;
     }
     
