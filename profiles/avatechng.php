@@ -1,17 +1,10 @@
 <?php
-<<<<<<< HEAD
-error_reporting(-1);
-require_once '../db.php';
-
-try {
+error_reporting(0);
+include realpath(__DIR__ . '/..') . "/db.php" ;
+global $conn;
+ try {
     $sql = "SELECT * FROM interns_data WHERE username ='avatechng'";
-=======
 
-require_once '../db.php';
-
-try {
-    $sql = "SELECT * FROM interns_data_ WHERE username ='AvatechNG'";
->>>>>>> your commit message
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $data = $q->fetch();
@@ -32,8 +25,107 @@ try {
 }
 $secret_word = $data2['secret_word'];
 
+
+$conf = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
+function showtime($location){
+    date_default_timezone_set($location);
+  $da= date('Y-m-d H:i:s') ;
+  $re =  '<div class="out"> ';
+  $re .= "<div style=\"margin-top:10px; margin-bottom:5px;background-color:blue;color:white;\"><b>The time is</b></div>";
+  $re .=  $da;
+  $re .= '</div>';
+  // echo $da;
+  echo $re;
+  }
+
+if(isset($_POST['input'])){
+    $msgg=$_POST['input'];
+$msg=strtolower($msgg);
+$length=strlen($msg);
+// $msg = "train: hdgudd ifh #hiiii";
+$flag=0;
+$us = explode(":",$msg);
+$train = $us[0];
+$qa = $us[1];
+$q = explode("#", $qa);
+$qu = $q[0];
+$an = $q[1];
+$pass = $q[2];
+if($train == 'train'&& $pass != 'asdfgh'){
+    echo "Wrong Password, You need my pass word before you can train me.";
+  }elseif($train == 'train' && $pass == '1234'){
+  $in = "INSERT INTO `user`(`input`, `output`, `title`)
+     VALUES ('$qu','$an','$qu')";
+  $tr = mysqli_query($conf, $in);
+ echo '<div class="out"> Thank You For Training Me.';
+ echo "<div style=\"margin-top:10px; margin-bottom:5px;background-color:blue;color:white;\"><b>Question: $qu</b></div>";
+
+echo "Answer: ".$an;
+echo '</div>';
+}else{
+    $ti = explode(" ", $msg);
+    $time = $ti[3];
+    $location = $ti[0];
+    $loc =  "'.$location.'";
+      if($time == 'time'){
+        ?>
+        <div class="in">
+         <?php echo "$msgg"; ?>
+            </div>
+            <?php
+        $result = showtime($loc);
+       
+      }else{
+$sql="SELECT * FROM user WHERE input LIKE '$msg%' ";
+$send=mysqli_query($conf,$sql);
+
+$u = 'hello';
+
 ?>
 
+     <div class="in">
+     <?php echo "$msgg"; ?>
+        </div><br>
+
+    <div class="out">
+    <?php
+    function make_links_clickable($text){
+                  return preg_replace('!(((f|ht)tp(s)?://)[-a-zA-Zа-яА-Я()0-9@:%_+.~#?&;//=]+)!i', '<br><a href="$1" target="_blank">Click Here</a><br>', $text);
+        }
+    
+         while($row=mysqli_fetch_array($send))
+        {
+   
+          $flag=1;
+          $qu = $row['input'];
+          $output=$row['output'];
+          $title=$row['title'];
+          $result = make_links_clickable($output);
+        if(!empty($title))
+          {
+                 
+               echo "<div style=\"margin-top:10px; margin-bottom:5px;background-color:blue;color:white;\"><b>$title</b></div>";
+
+          }
+           echo "$result";
+
+         }if($flag==0)
+        {
+        	 $output="Sorry I have no knowledge of ".$msgg." yet. You can train me by typing train:Question #Answer #Password";
+        	 $result = make_links_clickable($output);
+        	 echo "$result";
+          	 
+        }    
+      }
+    }
+     ?>
+
+  
+
+     </div>
+    <?php
+exit();
+ }?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,6 +134,17 @@ $secret_word = $data2['secret_word'];
     <title>HNG Internship 4</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+
+        <link rel="stylesheet" href="../../chatbot/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../chatbot/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../../chatbot/css/normalize.css">
+        <link rel="stylesheet" href="../../chatbot/css/main.css">
+        <script src="../../chatbot/js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="../../chatbot/js/vendor/jquery-1.12.0.min.js"></script>
+
+
+
     <style type="text/css">
         @import url(https://fonts.googleapis.com/css?family=Oswald:400,300);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
@@ -338,21 +441,6 @@ h1 a {
  	color: #FFF;
  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .nav.navbar-nav .dropdown-toggle {
     padding: 0 !important;
 }
@@ -423,21 +511,104 @@ h1 a {
     z-index: 10;
 }
 
+/** bot **/
+.chat
+   {
+   
+     position:fixed;
+     bottom:0;
+     right:0;
+     margin-right: 20px;
+     max-width:300px;
+     z-index:999;
+     box-shadow: 4px 4px 4px 4px;
+     border: : 2px solid rgb(22,118,134);
+   }
 
 
 
+     #sc
+     {
+      background-color: rgb(22,118,134);
+      padding:15px;
+      color:white;
+      font-size: 16px;
+      width:300px;
+      height: 45px;
 
 
+     }
 
+     #panel
+     {
+       
+        background-color: white;
+        display: none;
+        margin:0;
+        width:300px;
+        height: 300px;
 
+     }
 
+     #div
+     {
+        padding:10px;
+        height: 240px;
+        position: relative;
+        overflow-y: auto;
+        
+     }
+  
+     input[type=text] 
+     {
+          width: 100%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          box-sizing: border-box;
+     }
 
+     .out
+     {
+        background-color:rgb(241,240,240);
+        color:black;
+        padding:10px; 
+        left:5; 
+        
+        text-align: center;
+        height:auto;
+        border-radius: 15px;
+  
+      }
+      .stt
+      {
+         margin-top:5px;
+        
+      }
+      .in{
+                background-color:rgb(64,128,255);
+                color:white;
+            padding:10px; 
+                right:0;
+                width:130px;
+                text-align: center;
+                height:auto;
+                border-radius: 5px;
+                margin-left: 120px;
+                margin-bottom: 5px;
+                
+            }
 
-
-
-
-
-
+    .out{
+        background-color:rgb(241,240,240);
+        color:black;
+        padding:10px; 
+        left:5; 
+       
+        text-align: left;
+        height:auto;
+        border-radius: 15px;
+        
+    }
 
     </style>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -454,11 +625,7 @@ h1 a {
 	<ul id="accordion" class="accordion">
     <li>
 <div class="col col_4 avatechng-pic">
-<<<<<<< HEAD
-<img class="img-responsive avatech" alt="avatechng" src="http://res.cloudinary.com/avatechng/image/upload/c_scale,w_360/v1523682918/IMG_20180125_185955.jpg" width="360px" height="480px">
-=======
-<img class="img-responsive avatech" alt="avatechng" src="<?php echo $image?>">
->>>>>>> your commit message
+<img class="img-responsive avatech" alt="avatechng" src="<?php echo $image?>" width="360px" height="480px">
 <div class="edit-pic">
 <a href="https://web.facebook.com/avatechng" target="_blank" class="fa fa-facebook"></a>
 <a href="https://www.instagram.com/mravatech/" target="_blank" class="fa fa-instagram"></a>
@@ -484,22 +651,19 @@ h1 a {
 </div>
         
     </li>
-		<li>
+		<li class="default open">
 			<div class="link"><i class="fa fa-globe"></i>About<i class="fa fa-chevron-down"></i></div>
 			<ul class="submenu">
 				<li><a href="#">Address : Lagos,Nigeria</a></li>
 				<li><a href="mailto:techissued@gmail.com">Email : techissued@gmail.com</a></li>
 				<li><a href="#">Phone : +23407015120757</a></li>
-			</ul>
-		</li>
-		<li class="default open">
-			<div class="link"><i class="fa fa-code"></i>Professional Skills<i class="fa fa-chevron-down"></i></div>
-			<ul class="submenu">
-				<li><a href="#"><span class="tags">Angular</span> <span class="tags">Node.Js</span> <span class="tags">CSS</span> <span class="tags">Css 3</span> 
+				<li><a href="#">Professional Skill </br><span class="tags">Angular</span> <span class="tags">Node.Js</span> <span class="tags">CSS</span> <span class="tags">Css 3</span> 
                 <span class="tags">Java</span> <span class="tags">PHP</span> <span class="tags">HTML5</span> <span class="tags">JavaScript</span> 
                 <span class="tags">bootstrap</span> <span class="tags">User Interface Design</span> <span class="tags">Wordpress</span><span class="tags">Drupal</span> </li></a>
+			
 			</ul>
 		</li>
+		
 		
 		
 	</ul>
@@ -510,6 +674,171 @@ h1 a {
  
     
 </div>
+<div class="container">
+
+
+
+<div class="row">
+
+
+
+
+<div class="col-sm-7">
+
+
+
+
+
+<div class="chat">
+<a style="text-decoration:none;" href="#"><div id="sc"><center >
+   
+    <b>Chat With MrAvatech</b></center></div></a>
+<div id="panel">
+  
+
+<script>
+
+$(document).ready(function(){
+
+    var i=0;
+    var st;
+
+    $("#sc").click(function(){
+
+         
+          i++;
+
+          $("#panel").slideToggle();
+
+          if(i==1)
+          {
+              $('#div').html("<div class=\"ou\"> Welcome, My master is not around but you can chat with me i will deliver to him.<br>You can know the time by asking <b>What is the time</b><br>You can train me by typing train:Question #Answer #Password,  <br>Thanks </div><br>");
+
+          }
+          
+
+           
+
+        });
+
+
+
+});
+
+
+
+</script>
+
+
+<script type="text/javascript">
+  
+  $(document).ready(function(){
+
+     $("#st").click(function(){
+
+           var str=$("#tt").val();
+  
+           $("#div").html(str);
+
+
+
+     });
+
+  });
+
+
+</script>
+
+<script>
+
+$(document).ready(function(){
+
+ window.alreadySubmit = false;
+
+  $('#tt').keypress(function(f){
+
+     
+     if(f.which == 13 && !alreadySubmit) {
+        window.alreadySubmit = true;
+
+   
+
+    $('form').on('submit', function(e){
+     e.preventDefault();
+        $.ajax({
+            type: "POST",
+            cache: false, 
+            url: "#", 
+            datatype: "html",
+            data: $('form').serialize(), 
+            success: function(result) { 
+            $('#div').append("<div class=\"stt in\""+result+"</div>");
+
+                $('#tt').val("");
+
+            }
+        });
+    });
+  }
+    
+       
+  
+    });
+
+    
+    });
+    window.setInterval(function(){
+        var elem = document.getElementById('div');
+        elem.scrollTop = elem.scrollHeight;
+    }, 10000);
+               
+</script>
+
+<div id='div' name="output" >
+  
+  <div id="div1"></div>
+
+
+</div>
+<br>
+
+<!--<script>
+"use strict";
+function submitForm(oFormElement)
+{
+  var xhr = new XMLHttpRequest();
+  var display=document.getElementById('div');
+  xhr.onload = function(){ display.innerHTML=xhr.responseText; }
+  xhr.open (oFormElement.method, oFormElement.action, true);
+  xhr.send (new FormData (oFormElement));
+  return false;
+}
+</script>-->
+<!--<label for="out">Output</label>
+<textarea id='div' class="form-control" name="output" rows="10" cols="50"></textarea><br><br>-->
+
+<div class="form-group">
+<form action="process.php" id="form" name="f2" method="POST" >
+
+<input type="textarea" id="tt" name="input" placeholder="Type Your Message" style="position:absolute; bottom:0; height:30px; width:100%; height:50px;" required />
+
+
+</form>
+
+
+</div>
+
+
+
+
+</div></div>
+
+</div>
+
+</div>
+
+</div>
+
 <script type="text/javascript">
 $(function() {
     var Accordion = function(el, multiple) {
@@ -546,3 +875,4 @@ $(function() {
 </script>
 </body>
 </html>
+
