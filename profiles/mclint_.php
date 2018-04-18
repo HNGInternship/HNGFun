@@ -26,7 +26,7 @@
   }
 ?>
 
-<?php
+  <?php
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     require "../answers.php";
     
@@ -46,6 +46,32 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
       $question = preg_replace('([\s]+)', ' ', trim($question));
       $question = preg_replace("([?.])", "", $question);
+
+      switch(strtolower($question))
+      {
+        case "tell me a joke":
+        case "tell me another joke":
+          sendResponse(200, getAJoke());
+          break;
+
+        case "roll a dice":
+          sendResponse(200, rollADice());
+          break;
+
+        case "flip a coin":
+          sendResponse(200, flipACoin());
+          break;
+      }
+
+      switch(true){
+        case substr($question, 0, strlen('emojify:')) === "emojify:":
+          sendResponse(200, emojifyText(substr($question, strlen('emojify:'), strlen($question))));
+          break;
+
+        case substr($question, 0, strlen('predict:')) === "predict:":
+          sendResponse(200, predictOutcome(substr($question, strlen('emojify:'), strlen($question))));
+          break;
+      }
       
       $question = "%$question%";
       $sql = "select * from chatbot where question like :question";
@@ -143,6 +169,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 ?>
     <!DOCTYPE html>
     <html lang="en">
+
     <head>
       <meta charset="UTF-8">
       <title>Mbah Clinton</title>
@@ -261,11 +288,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           margin-bottom: 16px;
         }
 
-        #chat{
+        #chat {
           display: flex;
-           flex-direction: column;
-            width: 35%;
-            align-items: center;
+          flex-direction: column;
+          width: 35%;
+          align-items: center;
         }
 
         @media (max-width: 575px) {
@@ -286,7 +313,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             font-size: 12px;
           }
 
-          #chat{
+          #chat {
             width: 100%;
           }
         }
@@ -342,7 +369,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           el: '#chat-bot',
           data: {
             showChatBot: false,
-            messages: [{query: `Hey human. I'm Jarvis. Ask me anything.`, sender: 'bot'}],
+            messages: [{ query: `Hey, human. I'm Olive. Try asking 'Tell me a joke' or 'emojify: Hello bot' or 'Flip a coin' or 'Roll a dice'`, sender: 'bot' }],
+            history: [],
+            historyIndex: 0,
             query: '',
           },
           computed: {
@@ -356,6 +385,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           methods: {
             askBot() {
               this.messages.push({ query: this.query, sender: 'user' });
+              this.history.push(this.query);
+              this.historyIndex = this.history.length;
 
               this.answerQuery(this.query);
               this.query = '';
@@ -366,21 +397,22 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
               return 'gray';
             },
-            getBorderRadius(sender){
+            getBorderRadius(sender) {
               if (sender === 'user')
-              return '10px 10px 0px 10px';
+                return '10px 10px 0px 10px';
 
               return '0px 10px 10px 10px';
             },
             answerQuery(query) {
-              this.messages.push({sender: 'bot', query: 'Thinking..'});
+              this.messages.push({ sender: 'bot', query: 'Thinking..' });
+
               var params = new URLSearchParams();
               params.append('password', 'trainpwforhng');
               params.append('question', query);
 
               axios.post('/profiles/mclint_.php', params)
                 .then(response => {
-                  console.log(response.data);
+                  console.log(response);
                   this.messages.pop();
                   this.messages.push({ sender: 'bot', query: response.data.answer });
                 }).catch(error => {
@@ -388,6 +420,36 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                   this.messages.pop();
                   this.messages.push({ sender: 'bot', query: 'Mediocre humans. Your internet connection is down.' });
                 });
+            },
+            showHistory(direction) {
+              if (this.history.length > 0) {
+                if (direction == 'down') {
+                  if (this.historyIndex + 1 <= this.history.length - 1) {
+                    this.historyIndex++;
+                    this.query = this.history[this.historyIndex];
+                  }
+                } else {
+                  if (this.historyIndex - 1 >= 0) {
+                    this.historyIndex--;
+                    this.query = this.history[this.historyIndex];
+                  }
+                }
+              }
+            },
+            triggerAction(event) {
+              switch (event.key) {
+                case 'Enter':
+                  this.askBot();
+                  break;
+
+                case 'ArrowUp':
+                  this.showHistory('up');
+                  break;
+
+                case 'ArrowDown':
+                  this.showHistory('down');
+                  break;
+              }
             }
           },
           template: `
@@ -402,7 +464,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               </ul>
             </div>
             <div>
-              <input id="message-tb" type="text" @keyup.enter="askBot" placeholder="Type your message here" v-model="query" />
+              <input id="message-tb" type="text" @keyup="triggerAction($event)" placeholder="Type your message here" v-model="query" />
             </div>
           </div>
         </div>

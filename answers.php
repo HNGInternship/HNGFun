@@ -1,4 +1,92 @@
+<?php 
+
+    ######################################################
+    ####################### @BAMII #######################
+    ######################################################
+    function bamiiConvertCurrency($amount, $from, $to){
+        $conv_id = "{$from}_{$to}";
+        $string = file_get_contents("https://free.currencyconverterapi.com/api/v5/convert?q=$conv_id&compact=y");
+        $json_a = json_decode($string, true);
+    
+        #return $json_a[strtoupper($conv_id)]['val'];
+        #return $amount;
+        return $amount * $json_a[strtoupper($conv_id)]['val'];
+    }
+
+    function bamiiChuckNorris() {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "http://api.icndb.com/jokes/random",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache"
+          ),
+        ));
+        
+        $response = curl_exec($curl);
+        $a =json_decode($response, true);
+        curl_close($curl);
+
+        return $a['value']['joke'];
+    }
+
+    function bamiiTellTime($data) {
+        if(strpos($data, 'in')) {
+           return "Sorry i can't tell you the time somewhere else right now";
+        } else {
+            return 'The time is:' . date("h:i");
+        }
+    }
+
+    function bamiiCountryDetails($data) {
+        $country_arr = explode(' ', $data);
+        $country_index= array_search('details', $country_arr) + 1;
+        $country = $country_arr[$country_index];
+        $country_temp = str_replace('details', "", $data);
+        $country2 = trim($country_temp);
+
+        $string = 'http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query='. $country2 .'&num_of_results=2&format=json';
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => $string,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache"
+          ),
+        ));
+        
+        $response = curl_exec($curl);
+        $a =json_decode($response, true);
+        curl_close($curl);
+
+        $longitude = $a['search_api']['result'][0]['longitude'];
+        $latitude = $a['search_api']['result'][0]['latitude'];
+        $name = $a['search_api']['result'][0]['areaName'][0]['value'];
+        $country_name = $a['search_api']['result'][0]['country'][0]['value'];
+        $population = $a['search_api']['result'][0]['population'];
+
+        
+        return('
+            '. ($name ? 'Name :'. $name . '<br />' : null) .'
+            Country: ' . $country_name . ' <br />
+            Latitude: ' . $latitude . ' <br />
+            Longitude: ' . $longitude . ' <br />
+            Population: ' . $population . '<br />
+        ');
+    }
+
+    ###################### END BAMII #####################
+
+?>
 <?php
+
 function getListOfCommands() {
   return 'Type "<code>show: List of commands</code>" to see a list of commands I understand.<br/>
   Type "<code>open: www.google.com</code>" to open Google.com<br/>
@@ -22,6 +110,41 @@ function getRandomFact(){
 
   return $facts[rand(0, count($facts) - 1)];
 }
+
+// functions by @mclint_. DO NOT MODIFY
+function getAJoke(){
+    $jokes = ["My dog used to chase people on a bike a lot. It got so bad, finally I had to take his bike away.", "What is the difference between a snowman and a snowwoman? Snowballs.",
+    "I invented a new word. Plagiarism.", "Helvetica and Times New Roman walk into a bar. 'Get out of here!' shouts the bartender. 'We don't serve your type.'",
+     "Why don’t scientists trust atoms? Because they make up everything.", "Where are average things manufactured? The satisfactory.", "How do you drown a hipster? Throw him in the mainstream",
+    "How does Moses make tea? He brews!", "Why can’t you explain puns to kleptomaniacs? They always take things literally.", "I got called pretty yesterday and it felt good! Actually, the full sentence was 'You're pretty annoying.' but I'm choosing to focus on the positive.",
+    "Two cannibals eating a clown. 'Does this taste funny to you?'", "Why can’t you hear a pterodactyl in the bathroom? Because it has a silent pee.", "Where does a sheep go for a haircut? To the baaaaa baaaaa shop!"];
+
+    return $jokes[rand(0, count($jokes) - 1)];
+}
+
+function emojifyText($text){
+    $url = "https://torpid-needle.glitch.me/emojify/{$text}";
+    return file_get_contents($url);
+}
+
+function rollADice(){
+    return rand(1, 6);
+}
+
+function flipACoin(){
+    return rand(0,1) === 1 ? "Heads" : "Tails";
+}
+
+function predictOutcome($battle){
+    $players = explode('vs', $battle);
+
+    if(count($players) >= 2){
+        return $players[rand(0, count($players) - 1)];
+    }
+
+    return "Uhh.. nope. You've provided invalid prediction data.";
+}
+// End of functions by @mclint_
 
     //functions defined by @chigozie. DO NOT MODIFY!!!
     function getDayOfWeek(){
@@ -120,6 +243,21 @@ echo "you are currently using a ,".$browser.", browser on a  ,".$device.", Devic
 
 
 
+spl_autoload_register(function($className){
+
+	$className = strtolower(str_replace('.', '', str_replace('..', '', $className)));
+	require_once 'classes/class.'.$className.'.php';
+
+
+});
+
+if(isset($_POST['action'])){
+
+
+	Jamila::handleMessage($_POST['message']);
+	exit;
+}
+
 
 
 
@@ -210,7 +348,6 @@ $conn = null;
 }
 
 
-
 function get_browser_name($user_agent)
 {
     if (strpos($user_agent, 'Opera') || strpos($user_agent, 'OPR/')) return 'Opera';
@@ -239,7 +376,6 @@ function get_device_name($user_agent)
 }
 
 ///////////////////////end of opheus ////////////////////
-
 
 /*
 |=================================================================|
@@ -298,4 +434,160 @@ function get_btc_rates() {
 |=================================================================|
 */
 
-?>
+/***************************Femi_DD*************************/
+function myBoss() {
+return "Femi_DD is my creator, He's a nice person and doesn't rest untill he solves a problem.";
+}
+
+ function dateToday() {
+     return date("F jS Y h:i:s A");
+ }
+
+ function myIP() {
+     return $_SERVER['REMOTE_ADDR'];
+ }
+
+ function myLocation() {
+    $tz = new DateTimeZone("Africa/Lagos");
+    $loc = $tz->getLocation();
+    return $loc['longitude'] .' : '. $loc['latitude'];
+ }
+
+/***************************Femi_DD*************************/
+
+
+/***************************Bytenaija Start here*************************/
+//bytenaija time function
+function bytenaija_time($location) {
+    $curl = curl_init();
+    $geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=".$location. "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => $geocodeUrl,
+        CURLOPT_USERAGENT => 'Codular Sample cURL Request'
+    ));
+
+    $response = curl_exec($curl);
+    $response = json_decode($response, true);
+    //$lat = $response->results;
+    $response = $response['results'][0]['geometry'];
+
+    $response = $response["location"];
+    $lat = $response["lat"];
+    $lng = $response["lng"];
+    $timestamp = time();;
+
+    $url = "https://maps.googleapis.com/maps/api/timezone/json?location=".$lat.",".$lng."&timestamp=".$timestamp."&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U";
+
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $responseJson = curl_exec($curl);
+    curl_close($curl);
+    $response = json_decode($responseJson);
+    $timezone = $response -> timeZoneId;
+    $date = new DateTime("now", new DateTimeZone($timezone));
+    echo "The time in ".ucwords($location). " is ".$date -> format('d M, Y h:i:s A');
+
+}
+
+function bytenaija_convert($base, $other){
+    $api_key = "U7VdzkfPuGyGz4KrEa6vuYXgJxy4Q8";
+    $url = "https://www.amdoren.com/api/currency.php?api_key=" . $api_key . "&from=" . $base . "&to=" . $other;
+    
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => $url,
+        CURLOPT_USERAGENT => 'Codular Sample cURL Request'
+    ));
+
+    $response = curl_exec($curl);
+    $response = json_decode($response, true);
+    curl_close($curl);
+    echo "1 ". strtoupper($base) ." is equal to ".  strtoupper($other)  ." " .$response['amount'];
+}
+
+//bitcoin price index
+function bytenaija_hodl(){
+    $url ="https://api.coindesk.com/v1/bpi/currentprice.json";
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => $url,
+        CURLOPT_USERAGENT => 'Codular Sample cURL Request'
+    ));
+
+    $response = curl_exec($curl);
+    $response = json_decode($response, true);
+    curl_close($curl);
+    $responseStr = "<h4 class='hodl'>Bitcoin Price as at " . $response["time"]["updated"] . "</h4><br> <div><h4>Prices</h4><li>"
+    . $response["bpi"]["USD"]["code"] . " " . $response["bpi"]["USD"]["rate"] . "</li>
+    <li>"
+    . $response["bpi"]["EUR"]["code"] . " " . $response["bpi"]["EUR"]["rate"] . "</li>
+    <li>"
+    . $response["bpi"]["GBP"]["code"] . " " . $response["bpi"]["GBP"]["rate"] . "</li>
+    </div>";
+    echo $responseStr;
+}
+/***************************Bytenaija ends here*************************/
+
+
+
+/***************************juliet starts*************************/
+
+function assistant($string)
+{    
+    if ($string == 'what is my location') {
+        $reply= "This is Your Location <i class='em em-arrow_forward'></i> " . $query['city'] . ", ". $query['country'] . "!";
+        return $reply;
+        
+    }
+    elseif ($string == 'tell me about your author') {
+        $reply= 'His name is <i class="em em-sunglasses"></i> alex idowu, he is Passionate, gifted and creative backend programmer who love to create appealing Web apps solution from concept through to completion. An enthusiastic and effective team player and always challenge the star to quo by taking up complex responsibilities. Social account <b><a href="https://twitter.com/Codexxxp">Codexxp @Twitter</a></b> <br> <b><a href="https://www.linkedin.com/in/alex-idowu-0b4142124/">Alex Idowu @Linkedin</a></b> ';
+        return $reply;    
+    }
+    elseif ($string == 'open facebook') {
+        $reply= "<p>Facebook opened successfully </p> <script language='javascript'> window.open(
+    'https://www.facebook.com/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }
+    elseif ($string == 'open twitter') {
+        $reply = "<p>Twitter opened successfully </p> <script language='javascript'> window.open(
+    'https://twitter.com/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }elseif ($string == 'open linkedin') {
+        $reply= "<p>Linkedin opened successfully </p> <script language='javascript'> window.open(
+    'https://www.linkedin.com/jobs/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }
+    elseif ($string == 'shutdown my pc') {
+        $reply =  exec ('shutdown -s -t 0');
+        return $reply;
+    }elseif ($string == 'get my pc name') {
+        $reply = getenv('username');
+        return $reply;
+    }
+    else{
+        $reply = "";
+        return $reply;
+    }
+   return $reply;
+}
+
+
+
+
+/***************************./ Juliet ends*************************/
+ ?>
