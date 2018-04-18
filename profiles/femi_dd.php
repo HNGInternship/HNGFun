@@ -7,7 +7,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
       try {
          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
       } catch (PDOException $pe) {
-         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+         // die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+         echo "Can't connect to knowledge base : ".$pe->getMessage();
       }
    }
    // require '../config.php';
