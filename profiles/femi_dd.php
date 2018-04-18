@@ -1,9 +1,12 @@
 <?php
 // ob_start();
 session_start();
+<<<<<<< HEAD
+=======
 require 'db.php';
 include 'answers.php';
 global $conn;
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
 /**
 * femiBot Class
 */
@@ -13,11 +16,6 @@ class Bot {
    // public function __construct()
    // {
    //    self::startChat($user);
-   // }
-
-   // function connect() {
-   //    $link = mysqli_connect("localhost", "root", "", "bot");
-   //    return $link;
    // }
 
    function startChat($user) {
@@ -46,15 +44,19 @@ class Bot {
 
    function messagesAdd($response_and_request) {
       array_push($_SESSION['chatSession']['messages'], $response_and_request);
+
+<<<<<<< HEAD
    }
 
+=======
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
    function train($trainData) {
-      $data = [];
-      $data['response'] = null;
-      $data['request'] = null;
       $temp = explode("#", $trainData);
-      $data['request']  = $temp[0];
+      $data['request'] = $temp[0];
       $data['response'] = $temp[1];
+<<<<<<< HEAD
+      unset($temp);
+=======
       $data['request'] = preg_replace('/(train:)/', '', $temp[0]);
       $data['response'] = preg_replace('/#/', '', $temp[1]);
       if(self::store($data['request'], $data['response'])) {
@@ -104,34 +106,16 @@ class Bot {
       } else {
          return false;
       }
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
    }
 }
 
-if(isset($_GET['action']) && !empty($_GET['action'])) {
+if(isset($_GET['action'])) {
    $bot = new Bot();
-   $response_and_request = [];
-   $response_and_request['request'] = "";
-   $response_and_request['response'] = "";
-   $response_and_request['time'] = "";
-   
    switch ($_GET['action']) {
-
       case 'newrequest':
-      $response_and_request['request'] = trim($_GET['newrequest']);
-      if(empty($response_and_request['request'])) {
-         goto defaultaction;
-      }
-      //train or skip
-      if(preg_match("/(train:)/", $response_and_request['request']) && preg_match('/(#)/', $response_and_request['request'])) {
-         $response_and_request['response'] = $bot->train($response_and_request['request']);
-      } else {
-         if(!empty($bot->searchRequest($response_and_request['request']))) {
-            $response_and_request['response'] = $bot->searchRequest($response_and_request['request']);
-         } else {
-            $response_and_request['response'] = "I don't understand your request, I hope you wouldn't mind training me?";
-         }
-      }
-
+      $response_and_request['request'] = $_GET['newrequest'];
+      $response_and_request['response'] = "response";
       $response_and_request['time'] = date('h:i:s A');
       $bot->messagesAdd($response_and_request);
       break;
@@ -149,10 +133,7 @@ if(isset($_GET['action']) && !empty($_GET['action'])) {
       break;
 
       default:
-      defaultaction:
-      $response_and_request['response'] = "You haven't made any request 💁‍♂️";
-      $response_and_request['time'] = date('h:i:s A');
-      $bot->messagesAdd($response_and_request);
+      echo "no request made";
       break;
    }
 }
@@ -270,12 +251,16 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
       </div>
       <div class="bot round-corners">
          <div class="inner">
+<<<<<<< HEAD
+            <h2>femiBot 🤖</h2>
+=======
          <h2>femiBot 🤖</h2>
          <i style="font-size: 15px">To train the bot, follow :<br />
                1. train:What is the time #The time is (timefunction) (where train: is the question and #is the answer, timefunctionis the function to handler your request)<br />
                2. train:Today's date #Todays date is (date)<br />
             3. My boss is working hard to give me some functions of my own very soon, I'll write them here when they're ready. </i>
             <div style="overflow: auto; height:500px;">
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
             <?php if(empty($_SESSION['chatSession'])) { ?>
                <form>
                   <input type="text" name="id" value="femi_dd" hidden />
@@ -288,17 +273,20 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
                   <input style="text-align:right" class="form-control" type="text" name="response" value="<?php echo $chat['request']; ?>" readonly />
                   &nbsp;
                   <input style="text-align:left" class="form-control" type="text" name="response" value="🤖 <?php echo $chat['response']; ?>" readonly />
+<<<<<<< HEAD
+                  <p class="pull-right"><i><?php echo $chat['time']; ?></i></p>
+=======
                   <p class="pull-right" style="font-size:10px"><i><?php echo $chat['time']; ?></i></p>
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
                <?php } ?>
                <form>
                   <input type="text" name="id" value="femi_dd" hidden />
-                  <input style="word-break: break-all" class="form-control" type="text" placeholder="Message" name="newrequest" />
+                  <input class="form-control" type="text" placeholder="Message" name="newrequest" />
                   &nbsp;
                   <button class="btn btn-success pull-right" name="action" value="newrequest" style="float:right; margin-top:10px" type="submit">Send 💬</button>
                   <button class="btn btn-primary pull-left" name="action" value="endchat" style="float:right; margin-top:10px" type="submit">End Chat ❌</button>
                </form>
             <?php } ?>
-            </div>
          </div>
       </div>
    </div>

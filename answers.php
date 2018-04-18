@@ -255,6 +255,9 @@ function predictOutcome($battle){
         return false;
     }
 
+<<<<<<< HEAD
+?>
+=======
 // functions by john ayeni do not modify please
 
 function aboutMe(){
@@ -642,3 +645,4 @@ function assistant($string)
 
 /***************************./ Juliet ends*************************/
  ?>
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
