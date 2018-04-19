@@ -1,7 +1,7 @@
 <?php
 // If you can't find const DB_USER, this occurs when I'm testing locally or through hng.fun/profiles/temitope.php
 		if(!defined('DB_USER')){
-			require "../config.php";
+			require "../../config.php";
 			//Renamed myconfig so as not to confuse with config.php in the main folder, remember to change this to config.php
 			try {
 			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
