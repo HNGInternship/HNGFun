@@ -127,41 +127,26 @@
     
     <!-- my footer -->
     <footer>
-      <p style="font-size: 28px">Contact:</p>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            <ul class="list-inline text-center">
-              <li class="list-inline-item">
-                <a id="twitter" href="https://twitter.com/_Fayoung" target="_blank">
-                    <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                    </span>
-                </a>  
-              </li>
-                 
-              <li class="list-inline-item">
-                <a id="facebook" href="https://web.facebook.com/faith.uhie" target="_blank">
-                    <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                    </span>
-                </a>
-              </li>
-                 
-              <li class="list-inline-item">
-                <a id="github" href="https://github.com/Fayoung01" target="_blank">
-                    <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                    </span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+		<ul class="social-icons animated">
+			<li>
+				<a href="https://web.facebook.com/faith.uhie" target="_blank" class="social-icon">
+					<span class="fa" data-hover="&#xf0e1;">&#xf0e1;</span>
+				</a>
+			</li>
+			<li>
+				<a href="https://twitter.com/_Fayoung" target="_blank" class="social-icon">
+					<span class="fa" data-hover="&#xf099;">&#xf099;</span>
+				</a>
+			</li>
+			<li>
+				<a href="https://www.github.com/Fayoung01" target="_blank" class="social-icon">
+					<span class="fa" data-hover="&#xf09b;">&#xf09b;</span>
+				</a>
+			</li>
+		</ul>
+	
+      <p style="font-size: 28px">Contact</p>
+        
     </footer>
     <br>
     <br>
