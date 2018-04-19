@@ -5,6 +5,7 @@ include "../answers.php";
             require "../../config.php";
             try {
                 $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+                echo "connection successful";
             } catch (PDOException $pe) {
                 die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
             }
@@ -128,11 +129,11 @@ include "../answers.php";
         <p>&nbsp;</p>
     </form>
     <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
-    <p style="font-style: normal; font-weight: bold;">NAME : <?php echo "i=Iruene Adokiye" ?></p>
+    <p style="font-style: normal; font-weight: bold;">NAME : <?php echo "Iruene Adokiye" ?></p>
     <p style="font-weight: bold">USERNAME : <?php echo "Adokiye" ?></p>
 
 
-?>
+
 </div>
 </body>
 </html>
