@@ -105,7 +105,7 @@ while ($row2 = mysqli_fetch_array($result)) {
 				//
 				var input = $('#input').val();
 				//alert(input);
-				$('#bot-display').load('/profiles/nnzzion.php', {
+				$('#bot-display').load('nnzzion.php', {
 					question: input
 				});
 
