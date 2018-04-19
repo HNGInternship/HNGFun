@@ -1,7 +1,13 @@
 <?php
+<<<<<<< HEAD
 include_once realpath(__DIR__ . '/..') . "/answers.php"; 
 if (!defined('DB_USER')) {
 	require_once "../../config.php";
+=======
+include_once realpath(__DIR__ . '/..') . "/answers.php";
+require_once "../../config.php";
+if (!defined('DB_USER')) {
+>>>>>>> e04168efd1514201c3f2ec968ef12f17f5d05a91
 	try {
 		$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
 	} catch (PDOException $pe) {

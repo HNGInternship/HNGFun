@@ -18,7 +18,7 @@
             background-color: #e6e6e6;                         
         }
         div.section-info {
-            background-image: url('../null-file/bg.png');
+            background-image: url('http://res.cloudinary.com/primefeed/image/upload/v1524155781/bg.jpg');
             height: 90%;
 
         }
@@ -137,7 +137,7 @@
         include '../db.php';
          
         // Set the needed variables
-        $table = 'interns_data_';
+        $table = 'interns_data';
         $secret_table = 'secret_word';
         $intern_name = 'Nectar';
 
@@ -183,19 +183,19 @@
             <p class="chat-entry bot"> Hello! My Name is Locala</p>
             <p class="chat-entry user"> Hello i am a user</p>
 
-            <p class="chat-entry bot"> Hello! My Name is Locala</p>
+            <!-- <p class="chat-entry bot"> Hello! My Name is Locala</p>
             <p class="chat-entry user"> Hello i am a user</p>
             <p class="chat-entry bot"> For the vertical bar,it will allow the content to expand up to the height you have specified. If it exceeds that height, it will show a vertical scrollbar to view the rest of the content, but will not show a scrollbar if it does not exceed the height.</p>
             <p class="chat-entry user"> Hello i am a user</p>
             <p class="chat-entry bot"> Hello! My Name is Locala</p>
             <p class="chat-entry user"> Hello i am a user</p>
             <p class="chat-entry bot"> Hello! My Name is Locala</p>
-            <p class="chat-entry user">For the vertical bar,it will allow the content to expand up to the height you have specified. If it exceeds that height, it will show a vertical scrollbar to view the rest of the content, but will not show a scrollbar if it does not exceed the height.</p>        
+            <p class="chat-entry user">For the vertical bar,it will allow the content to expand up to the height you have specified. If it exceeds that height, it will show a vertical scrollbar to view the rest of the content, but will not show a scrollbar if it does not exceed the height.</p>         -->
         </div>
 
         <div class="chatbot-input">
             <form action="" method="get">
-                <input type="text" name="entry-question" id="question">
+                <input type="text" width= "100%" name="entry-question" id="question">
                 <button type="submit">Send</button>
             </form>
         </div>                

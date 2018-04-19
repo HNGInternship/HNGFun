@@ -177,7 +177,11 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
     	body{
     		font-family: 'roboto';
     	}
+<<<<<<< HEAD
 		.container{
+=======
+		{
+>>>>>>> e04168efd1514201c3f2ec968ef12f17f5d05a91
 			background-image: url('https://res.cloudinary.com/dzbxciyvo/image/upload/v1524148027/imageedit_1_9203304264.gif');
 			background-size: cover;
 			background-position: center;
@@ -422,7 +426,11 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 			$('#chatWindow').animate({scrollTop: $('#chatWindow').prop("scrollHeight")}, 1000);
 			
 		  $.ajax({
+<<<<<<< HEAD
 				url: "",
+=======
+				url: "/profiles/temitope.php",
+>>>>>>> e04168efd1514201c3f2ec968ef12f17f5d05a91
 				type: "post",
 				data: {message: message},
 				dataType: "json",
