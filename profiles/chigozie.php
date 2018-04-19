@@ -567,7 +567,7 @@
 							<p>You can teach me answers to new questions by training me.</p>
 							<p>To train me, enter the training string in this format:</p>
 							<p><b>train: question # answer # password</b></p>
-							<p>To assistance, type: <br>
+							<p>To get assistance, type: <br>
 								<b>--help</b>
 							</p>
 						</div>
