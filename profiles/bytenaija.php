@@ -751,6 +751,7 @@ function instructions(){
     $string += "<li><strong>time(city) will give you the time in that city: e.g. time(abuja) </strong></li>";
     $string += "<li><strong>convert(currency, currency) will convert the exhange rate for you e.g. convert(usd, ngn) </strong></li>";
     $string += "<li><strong>hodl() to get the latest bitcoin prices</strong></li>";
+    $string += "<li><strong>deleteEmpty record - to delete any record the question or answer is empty</strong></li>";
     $string += "<li><strong>train: question # answer - to train me and make me more intelligent</strong></li>";
     $string += "</div>"
  
