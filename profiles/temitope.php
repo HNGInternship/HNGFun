@@ -184,8 +184,9 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 			background-attachment: fixed;
 		}
 
-		.container:before {
+		.container:after {
 			    content: '';
+			z-index: -1;
 		        position: fixed;
 		        top: 0;
 		        right: 0;
@@ -431,7 +432,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 			$('#chatWindow').animate({scrollTop: $('#chatWindow').prop("scrollHeight")}, 1000);
 			
 		  $.ajax({
-				url: "",
+				url: "/profiles/temitope.php",
 				type: "post",
 				data: {message: message},
 				dataType: "json",
