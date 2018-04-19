@@ -1,6 +1,14 @@
 <?php
-require __DIR__ . '\..\db.php';
-include __DIR__ . '\..\answers.php';
+include "../answers.php";
+ if(!defined('DB_USER')){
+			require "../../config.php";		
+			try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
+    }
+    
 ?>
 <!doctype html>
 <html>
@@ -42,7 +50,6 @@ include __DIR__ . '\..\answers.php';
 </head>
 
 <body>
-
 <div class=".body" id="div_main">
     <div class=".header" id="header">
         <img src="http://res.cloudinary.com/gorge/image/upload/v1523960590/images.jpg" width="120" height="131" alt=""/><p style="font-size: 36px; text-align: center; color: #563F3F; font-weight: bold;"><span style="font-style: italic; color: #FFFFFF; font-size: 24px;"><span style="color: #6FB0CB; font-size: 30px;">my</span></span> PROFILE</p>
@@ -51,9 +58,9 @@ include __DIR__ . '\..\answers.php';
         <p  style=" color: #FFFFFF;font-family: arial, sans-serif; font-size: 14px;font-weight: bold;letter-spacing: 0.3px;">ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="font-weight: bolder">TRAIN: YOUR QUESTION#YOUR ANSWER</span> TO ADD MORE QUESTIONS TO THE DATABASE</p>
   </marquee>
     <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
-    <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name?></p>
-    <p style="font-weight: bold">USERNAME : <?php echo $username?></p>
-    <p><span style="font-weight: bold">PROFILE PICTURE :  </span>: <?php echo"<img src=$image_filename alt=\"Adokiye\" width=\"254\" height=\"413\">"?></p>
+    <p style="font-style: normal; font-weight: bold;">NAME : <?php echo "i=Iruene Adokiye"?></p>
+    <p style="font-weight: bold">USERNAME : <?php echo "Adokiye"?></p>
+    <p><span style="font-weight: bold">PROFILE PICTURE :  </span>: <?php echo"<img src="http://res.cloudinary.com/gorge/image/upload/v1523960782/Screenshot_20180414-113840.png" alt=\"Adokiye\" width=\"254\" height=\"413\">"?></p>
     <?php
     if (isset($_POST['button'])){
         if (isset ($_POST['input'])&&$_POST['input']!==""){
