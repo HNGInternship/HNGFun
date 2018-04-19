@@ -176,8 +176,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 
     	body{
     		font-family: 'roboto';
-    	
-		
 			background-image: url('https://res.cloudinary.com/dzbxciyvo/image/upload/v1524148027/imageedit_1_9203304264.gif');
 			background-size: cover;
 			background-position: center;
@@ -422,7 +420,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 			$('#chatWindow').animate({scrollTop: $('#chatWindow').prop("scrollHeight")}, 1000);
 			
 		  $.ajax({
-				url: "/profiles/temitope.php",
+				url: "",
 				type: "post",
 				data: {message: message},
 				dataType: "json",
