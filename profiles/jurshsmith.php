@@ -176,7 +176,7 @@ ends here -->
 	<div class = "row">
 		<div id = "j-firstdiv" class = "col-lg-5 col-md-5 col-sm-12 col-xs-12">
 			<br><br>
-			<center><img  src = "images/josh.png" width = "350px" id = "j-image"></center><br><br>
+			<center><img  src = "http://res.cloudinary.com/jurshsmith/image/upload/v1524109896/josh.png" width = "350px" id = "j-image"></center><br><br>
 			<font class = "j-profile">  <span class="glyphicon glyphicon-user"></span>  &nbsp;</font>
 			<font class = "j-profile" style = "font-weight: 600;">OLADELE JOSHUA</font><br>
 			 <font class = "j-header" style = "font-weight: 250;">
