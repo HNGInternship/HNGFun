@@ -1,4 +1,4 @@
-
+<?php
 
 $q = $conn->query("select * from secret_word LIMIT 1");
 $result = $q->fetch(PDO::FETCH_OBJ);
@@ -21,13 +21,12 @@ catch (Exception $e) {
     echo "Temporary server problem.";
     exit(1);
 }
-
+?>
 
 <html>
 <head>
     <!-- Roboto and Lato Google fonts cdn -->
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400i|Roboto:700" rel="stylesheet">
-    <title><?php echo $user->username; ?></title>
     <style>
         body {
             background: #FAFAF6;
