@@ -20,7 +20,6 @@ try {
     $username = $user["username"];
     $imagelink = $user["image_filename"];
     
- $secret_word = $get['secret_word'];
 
 ?>
 
