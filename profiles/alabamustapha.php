@@ -1,17 +1,23 @@
 <?php
+<<<<<<< HEAD
+// include_once realpath(__DIR__ . '/..') . "/answers.php";
+=======
 //require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/answers.php'; //tweak
 
+>>>>>>> 564343188b1bcbdcbaf94a02a1cf3e627069bb51
 if (!defined('DB_USER')) {
-	require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/config.php'; //tweak
+	require "../../config.php";
 	try {
 		$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
 	} catch (PDOException $pe) {
 		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 	}
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 564343188b1bcbdcbaf94a02a1cf3e627069bb51
 global $conn;
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
@@ -32,12 +38,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 		$name = $data['name'];
 		$image_filename = $data['image_filename'];
+
 	} catch (PDOException $e) {
+		
 		$secret_word = "sample_secret_word";
 		$name = "Alaba Mustapha O.";
 		$image_filename = 'https://res.cloudinary.com/alabamustapha/image/upload/v1523619685/me.jpg';
 	}
 
+
+}else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+	
+
+	$data = getAction($_POST);
+
+	echo $data;
+	exit();
+		// return;
 
 }
 
@@ -46,15 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 // var_dump($data);
 
 // die;
-	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-		$data = getAction($_POST);
 	
-		echo $data;
-		exit();
-		// return;
-
-	}
 	
 
 
@@ -76,6 +86,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 		return json_encode($data);
 	}
 
+function alabotGetMenu()
+{
+	return '1. enter menu to show this help <br>
+            2. Find synonyms E.g: Synonyms of love? <br>
+            3. train me e.g: train synonyms of goat # goatie,goater,etc # passkey. <br>
+            3. clear screen: cls. <br>
+            4. exit bot: exit. <br>
+           ';
+}
 
 	function train($human_response){
 		$human_response = prepare_input($human_response);
@@ -114,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 		$human_response = prepare_input($human_response);
 		
 		$human_response_words = explode(' ', $human_response);
-		if(strcmp($human_response, strtolower('menu')) === 0){
+		if(strcmp(strtolower(trim($human_response)), 'menu') == 0){
 			$data = ["data" => alabotGetMenu(), "stage" => 2];	
 		}elseif (strpos($human_response, 'synonym') !== false && count($human_response_words) > 1) {
 			$data = getSynonyms($human_response);
@@ -206,18 +225,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 	function greet(){
 		$greetings = [
-						'Hi, I am Alabot, What is your name?', 
-						'Howdy, I am Alabot, your name?',
-						'I am Alabot, What is your name'
+						'Hi, I am Alabot, Learn, play and take quiz?',
+		'Howdy, I am Alabot, Learn, play and take quiz?',
+		'I am Alabot, Learn, play and take quiz'
 					];
 
-		return ["data" => $greetings[array_rand($greetings)], "stage" => 1];
+		return ["data" => $greetings[array_rand($greetings)], "stage" => 2];
 	}
 	
 	function intro($name){
 		$data = "Welcome " . $name . " You can learn, play or train me to be better Check the menu for guide";
 		return ["data" => $data, "stage" => 2];
 	}
+
 	
 
 ?>
@@ -373,7 +393,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 				</div>
 
 				<h1 class="intro"><?=$name?> </h1>
-				<h3 class="text-center">Being Kind is better than being right</h3>
+				<h3 class="text-center">Being Kind is better than being right.</h3>
 			</div>	
 		</section>
 	</div>
@@ -386,10 +406,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			</span>
 		</a>
 	</div>
-	<!-- <button id="start-bot" class="btn">
-		let's chat	
+	
 
-	</button> -->
 	<div id="chat-bot">
 			<div id="chat-bot-container">
 				
@@ -426,7 +444,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			// Perform other work here ...
 			let stage = 0;
 			var visitor = '';
-			var visitor_input = '';
+			var done_intro = 0;
 			let url = "profiles/alabamustapha.php";
 			
 
@@ -435,21 +453,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			$("a#start-chat-bot").click(function(e){
 				
 				$("div#chat-bot").toggle();
+				
+				stage = 0;
 
 				doIntro();
-
-
-
 
 				$(".human_input").on('keyup', function (e) {
 					if (e.keyCode == 13) {
 						
 						if($("input.human_input").val().trim().length < 1){
-							$("div.conversation").append(makeMessage("Please provide an input"));
+							// $("div.conversation").append(makeMessage("Please provide an input"));
 						}else if($("input.human_input").val() == "cls"){
 							$("div.conversation").html('');
 							$("div.conversation").append(makeMessage("Clean slate, Check menu if needed"));
 							$('input.human_input').val('');
+						}else if($("input.human_input").val() == "exit"){
+							$("div.conversation").html('');
+							$('input.human_input').val('');
+							stage = 0;
+							$("div#chat-bot").hide();	
 						}else{
 
 							human_response = $("input.human_input").val().trim();
@@ -458,7 +480,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 							$.post(url, {human_response: human_response, stage: stage})
 							.done(function(response) {
-								console.log(response);
+								// console.log(response);
 								response = jQuery.parseJSON(response);
 								if(stage == 1){
 									$("div.conversation").append(makeMessage(response.data));
@@ -491,12 +513,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 				return "<div class='pull-right message'><div class='human-message message-content text'><span>" + message + "</span></div></div>";
 			}
 
-			function doIntro(){
-				if(visitor == ''){
-					
-					$.post(url, {human_response: 'Hi', stage: stage})
+			function doIntro(human_input){
+					$.post(url, {human_response: human_input, stage: stage})
 						.done(function(response) {
-							console.log(response);
+							$("div.conversation").html('');
 							response = jQuery.parseJSON(response);
 							stage = response.stage;
 							$("div.conversation").append(makeMessage(response.data));
@@ -505,7 +525,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 							alert("error");
 						})
 
-				}
 
 			}
 
