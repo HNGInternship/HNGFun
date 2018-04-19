@@ -7,3 +7,4 @@ phpmyadmin/
 ._.DS_Store
 /deploy
 .idea/
+config.php
