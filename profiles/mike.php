@@ -198,10 +198,7 @@ if(!defined('DB_USER')){
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
 <style> 
 body {
-<<<<<<< HEAD
-=======
 
->>>>>>> d6ea0ce8c31f3eb41b013571b1a7f41f63893274
   align-items: center;
   justify-content: center;
   background: #27ae60;
@@ -220,11 +217,8 @@ body {
   min-height: 300px;
   max-height: 720px;
   background: #E6EAEA;
-<<<<<<< HEAD
- 
-=======
   margin-top:60px;
->>>>>>> d6ea0ce8c31f3eb41b013571b1a7f41f63893274
+
 }
 @media screen and (max-width: 360px) {
   #frame {
