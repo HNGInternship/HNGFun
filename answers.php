@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 
 function getUserAvatar($username)
@@ -66,6 +65,7 @@ function getNumberOfInterns()
     // this is finally sending the query to the database#9b4247
     $userData = $qForUser->fetch();
 
+<<<<<<< HEAD
     return 'Presently, there are ' . $userData['COUNT(*)'] . ' interns at the amazing hng internship.';
 
 ########################################################
@@ -78,6 +78,12 @@ function getNumberOfInterns()
     ######################################################
     function bamiiConvertCurrency($amount, $from, $to)
     {
+=======
+    return 'Presently, there are '.$userData['COUNT(*)'].' interns at the amazing hng internship.';
+}
+
+    function bamiiConvertCurrency($amount, $from, $to){
+>>>>>>> 583e7a9c42bc1447e93beccec4f600005222b122
         $conv_id = "{$from}_{$to}";
         $string = file_get_contents("https://free.currencyconverterapi.com/api/v5/convert?q=$conv_id&compact=y");
         $json_a = json_decode($string, true);
@@ -524,6 +530,7 @@ function getNumberOfInterns()
             2. Find synonyms E.g: Synonyms of love? <br>
             3. train me e.g: train synonyms of goat # goatie,goater,etc # passkey. <br>
             3. clear screen: cls. <br>
+            4. exit bot: exit. <br>
            ';
     }
 
@@ -615,4 +622,3 @@ function getNumberOfInterns()
 }
 ?>
 
->>>>>>> c264e61d5463ecd0b686406245535a16775bfd3b
