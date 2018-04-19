@@ -10,7 +10,8 @@ if (!$conn) {
 }
 
 
-if (isset($_GET["page"])) {
+if (isset($_POST["page"])) {
+  
 }else
 {
 ?>
