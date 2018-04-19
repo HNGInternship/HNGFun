@@ -8,29 +8,23 @@
 			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 			}
 		}
-
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
 		$stmt = $conn->prepare("select secret_word from secret_word limit 1");
 		$stmt->execute();
-
 		$secret_word = null;
-
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$rows = $stmt->fetchAll();
 		if(count($rows)>0){
 			$row = $rows[0];
 			$secret_word = $row['secret_word'];	
 		}
-
 		$name = null;
 		$username = "chigozie";
 		$image_filename = null;
-
 		$stmt = $conn->prepare("select * from interns_data where username = :username");
 		$stmt->bindParam(':username', $username);
 		$stmt->execute();
-
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$rows = $stmt->fetchAll();
 		if(count($rows)>0){
@@ -42,7 +36,6 @@
 ?>
 
 <?php
-
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if(!defined('DB_USER')){
 			require "../../config.php";		
@@ -53,11 +46,8 @@
 			}
 		}
 		require "../answers.php";
-
 		date_default_timezone_set("Africa/Lagos");
-
 		// header('Content-Type: application/json');
-
 		if(!isset($_POST['question'])){
 			echo json_encode([
 				'status' => 1,
@@ -65,29 +55,24 @@
 			]);
 			return;
 		}
-
 		$question = $_POST['question']; //get the entry into the chatbot text field
-
 		//check if in training mode
 		$index_of_train = stripos($question, "train:");
 		if($index_of_train === false){//then in question mode
 			$question = preg_replace('([\s]+)', ' ', trim($question)); //remove extra white space from question
 			$question = preg_replace("([?.])", "", $question); //remove ? and .
-
 			//check if answer already exists in database
 			$question = "%$question%";
 			$sql = "select * from chatbot where question like :question";
 			$stmt = $conn->prepare($sql);
 			$stmt->bindParam(':question', $question);
 			$stmt->execute();
-
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			$rows = $stmt->fetchAll();
 			if(count($rows)>0){
 				$index = rand(0, count($rows)-1);
 				$row = $rows[$index];
 				$answer = $row['answer'];	
-
 				//check if the answer is to call a function
 				$index_of_parentheses = stripos($answer, "((");
 				if($index_of_parentheses === false){ //then the answer is not to call a function
@@ -146,7 +131,6 @@
 			}
 			$que = trim($split_string[0]);
 			$ans = trim($split_string[1]);
-
 			if(count($split_string) < 3){
 				echo json_encode([
 					'status' => 0,
@@ -154,7 +138,6 @@
 				]);
 				return;
 			}
-
 			$password = trim($split_string[2]);
 			//verify if training password is correct
 			define('TRAINING_PASSWORD', 'trainpwforhng');
@@ -165,14 +148,12 @@
 				]);
 				return;
 			}
-
 			// //check if question already exists before adding it again
 			// $question = "%$que%";
 			// $sql = "select * from chatbot where question like :question limit 1";
 			// $stmt = $conn->prepare($sql);
 			// $stmt->bindParam(':question', $question);
 			// $stmt->execute();
-
 			// $stmt->setFetchMode(PDO::FETCH_ASSOC);
 			// $rows = $stmt->fetchAll();
 			// if(count($rows)>0){
@@ -182,14 +163,12 @@
 			// 	$stmt->bindParam(':answer', $ans);
 			// 	$stmt->bindParam(':question', $que);
 			// 	$stmt->execute();
-
 			// 	echo json_encode([
 			// 		'status' => 1,
 			// 		'answer' => "Thank you. I have now learnt a new answer to the question"
 			// 	]);
 			// 	return;
 			// }
-
 			//insert into database
 			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
 			$stmt = $conn->prepare($sql);
@@ -203,7 +182,6 @@
 			]);
 			return;
 		}
-
 		echo json_encode([
 			'status' => 0,
 			'answer' => "Unfortunately, I cannot answer your question at the moment. I need to be trained further"
@@ -226,13 +204,11 @@
 		body {
 			background-image: url(http://res.cloudinary.com/dqscsuyyn/image/upload/v1523631081/bg.jpg);
 		}
-
 		.circle {
 			width: 60%;
 			margin-left: 20%;
 			border-radius: 50%;
 		}
-
 		.frame {
 			border: 1px solid grey;
 			padding: 20px;
@@ -240,20 +216,16 @@
 			margin-top: 5%;
 			height: 400px;
 		}
-
 		.info {
 			margin-top: 25px;
 		}
-
 		.slack_span {
 			color: #0000ff;
 		}
-
 		.occupation_span {
 			color: #ff0000;
 			font-weight: bold;
 		}
-
 		.chat-frame {
 			border: 1px solid grey;
 			padding: 20px;
@@ -261,7 +233,6 @@
 			margin-top: 5%;
 			margin-bottom: 50px;
 		}
-
 		.chat-messages {
 			background-color: #ffffff;
 			height: 600px;
@@ -271,35 +242,28 @@
 			border-radius: 6px;
 			padding: 5px;
 		}
-
 		.single-message {
 			margin-bottom: 5px; 
 			border-radius: 5px;
 			min-height: 60px;
 		}
-
 		.single-message-bg {
 			background-color: #99ff33;
 			padding: 10px;
 		}
-
 		.single-message-bg2 {
 			background-color: #6699ff;
 			padding: 10px;
 		}
-
 		input[name=question] {
 			height: 50px;
 		}
-
 		button[type=submit] {
 			height: 50px;
 		}
-
 		.f-icon {
 			font-size: 40px;
 		}
-
 	</style>
 </head>
 
@@ -364,7 +328,6 @@
 						<div class="col-md-10">
 							<p>Welcome! How may I assist you today?</p>
 						</div>
-
 						<div class="col-md-2">
 							<span class="float-right fa fa-user f-icon"></span>
 						</div>
@@ -395,7 +358,6 @@
 			e.preventDefault();
 			var questionBox = $('input[name=question]');
 			var question = questionBox.val();
-
 			//display question in the message frame as a chat entry
 			var messageFrame = $('#message-frame');
 			var chatToBeDisplayed = '<div class="row single-message">'+
@@ -406,10 +368,8 @@
 							'<span class="float-right fa fa-user f-icon"></span>'+
 						'</div>'+
 					'</div>';
-
 			messageFrame.html(messageFrame.html()+chatToBeDisplayed);
 			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-
 			//send question to server
 			$.ajax({
 				url: "/profiles/chigozie.php",
@@ -422,12 +382,10 @@
 									'<div class="col-md-2 single-message-bg">'+
 										'<span class="fa fa-user f-icon"></span>'+
 									'</div>'+
-
 									'<div class="col-md-8 single-message-bg">'+
 										'<p>'+response.answer+'</p>'+
 									'</div>'+
 								'</div>';
-
 						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
 						questionBox.val("");	
 						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
@@ -436,12 +394,10 @@
 									'<div class="col-md-2 single-message-bg">'+
 										'<span class="fa fa-user f-icon"></span>'+
 									'</div>'+
-
 									'<div class="col-md-8 single-message-bg">'+
 										'<p>'+response.answer+'</p>'+
 									'</div>'+
 								'</div>';
-
 						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
 						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
 					}
@@ -450,7 +406,6 @@
 					console.log(error);
 				}
 			})
-
 		});
 	});
 </script>	
