@@ -170,7 +170,7 @@
             position:fixed;
             display: none;
             bottom:0;
-            left: 20px;
+            right: 20px;
             background-color:#fefefe;
             width: 350px;
             height: 550px;
@@ -223,11 +223,11 @@
         i:hover{
             color:black
         }
-        .message-area{
+        .myMessage-area{
             margin: 6px 5px;
             margin-bottom:50px;
         }
-        .message{
+        .myMessage{
             /* display:block; */
             
         }
@@ -272,17 +272,17 @@
             </p>
 
         </div>
-        <div class="footer"><button class="btnM" onclick="meetB()">Meet botX</button><button class="btn"style="display:none; border:none;box-shadow:3px 3px 3px #a1a1a1; background-color:#f8e2ea;text-shadow: 1.5px 1.5px 1px #ccc;" onclick="exitB()">Close botX</button></div>
+        <div class="footer"><button class="btnM" onclick="meetB()">Meet botX</button><button class="btnN"style="display:none; border:none;box-shadow:3px 3px 3px #a1a1a1; background-color:#f8e2ea;text-shadow: 1.5px 1.5px 1px #ccc;" onclick="exitB()">Close botX</button></div>
     </div>
 
     <div class="display">
         <div>
             <nav>Jay Interactive</nav>
-            <div class="message-area">
-                <div class="message bot">
+            <div class="myMessage-area">
+                <div class="myMessage bot">
                     <p>Hi am botX</p>
                 </div>
-                <div class="message bot">
+                <div class="myMessage bot">
                     <p>To exit this type <em>:close:</em> </p>
                 </div>
                 
@@ -301,12 +301,12 @@
     display.style.display = "block";
     var btnM = document.querySelector(".btnM");
     btnM.style.display ="none"
-    document.querySelector(".btn").style.display ="inline"
+    document.querySelector(".btnN").style.display ="inline"
 }
 function exitB(){
     var display= document.querySelector(".display");
     display.style.display = "none";
-    document.querySelector(".btn").style.display = "none";
+    document.querySelector(".btnN").style.display = "none";
     document.querySelector(".btnM").style.display = "inline";
 }
 window.addEventListener("keydown", function(e){
@@ -365,12 +365,12 @@ function displayOnScreen(data,sender){
         sender = "bot"
     }
     var display = document.querySelector(".display");
-    var msgArea = document.querySelector(".message-area");
+    var msgArea = document.querySelector(".myMessage-area");
     var div = document.createElement("div");
     var p = document.createElement("p");
     p.innerHTML = data;
     //console.log(data);
-    div.className = "message "+sender;
+    div.className = "myMessage "+sender;
     div.append(p);
     msgArea.append(div)
     if(data != document.querySelector("#question").value){
