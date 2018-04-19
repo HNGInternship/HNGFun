@@ -1,5 +1,16 @@
 <?php
 
+if (!defined('DB_USER')) {
+	require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/config.php'; //tweak
+	try {
+		$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	} catch (PDOException $pe) {
+		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	}
+}
+global $conn;
+
+// require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/db.php'; //tweak
 //connecting to db manually
 
 // require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/config.php'; //tweak
@@ -29,7 +40,6 @@
 // }
 // 
 
-
 //using previous connction
 	try{
 	//get secret_word	
@@ -53,6 +63,177 @@
 		$name = "Alaba Mustapha O.";
 		$image_filename = 'https://res.cloudinary.com/alabamustapha/image/upload/v1523619685/me.jpg';
 	}
+
+// $data = getAction(['stage' => 2, 'human_response' => 'train what is the synonym of love # like,hate,toast']);
+
+// var_dump($data);
+
+// die;
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+		$data = getAction($_POST);
+	
+		echo $data;
+		exit();
+		// return;
+
+	}
+	
+
+
+	function getAction($input){
+		$data = [];
+		
+		switch ($input['stage']){
+			case 0: //bot intro
+				$data = greet();
+				break;
+			case 1: //welcome user
+				$data = intro($input['human_response']);	
+				break;
+			case 2: // chat or train
+				$data = chat_or_train($input['human_response']);
+				break;
+		}
+
+		return json_encode($data);
+	}
+
+
+	function train($human_response){
+		$human_response = prepare_input($human_response);
+		$parts = explode('#', $human_response);
+		$part_one = trim($parts[0]);
+		$part_one_split = explode(' ', $part_one);
+		$word = array_pop($part_one_split);
+		$word = trim($word);
+		$word = str_replace('?', '', $word);
+		$answer = trim(str_replace(' ', '', $parts[1]));
+
+		if (strpos($human_response, 'synonym') !== false) {
+			$data = setSynonyms($word, $answer);
+		} else {
+			return 'Just a bot, still learning :-)';
+		}
+
+		
+		return $data;
+	}
+
+
+	function setQuiz(){
+
+	}
+
+	function chat($human_response){
+		
+		$data = [];
+		$human_response = prepare_input($human_response);
+		
+		$human_response_words = explode(' ', $human_response);
+		if (strpos($human_response, 'synonym') !== false && count($human_response_words) > 1) {
+			$data = getSynonyms($human_response);
+		} else {
+			return 'Just a bot, still learning :-)';
+		}
+
+		return $data;
+	}
+
+	function getSynonyms($human_response){
+		global $conn;
+		$human_response_words = explode(' ', $human_response);
+		$word = array_pop($human_response_words);
+		$db_word = 'alabot_synonyms_' . $word;
+		$sql = "SELECT * FROM chatbot WHERE question like '{$db_word}%' LIMIT 1";
+		$q = $conn->query($sql);
+		$q->setFetchMode(PDO::FETCH_ASSOC);
+		$data = $q->fetch();
+		if(is_null($data) || !isset($data) || $data == null){
+			$data = "I have not learn the word: " . $word . ' You can help others by adding it.';
+		}else{
+			$data = $data['answer'];
+		}
+		return ["data" => $data, "stage" => 2];
+	}
+
+	function setSynonyms($word, $answer){
+		global $conn;
+		$db_word = 'alabot_synonyms_' . $word;
+
+		$sql = "SELECT * FROM chatbot WHERE question = '{$db_word}' LIMIT 1";
+		$q = $conn->query($sql);
+		$q->setFetchMode(PDO::FETCH_ASSOC);
+		$data = $q->fetch();
+		if (is_null($data) || !isset($data) || $data == null) {
+
+			$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+			
+			try {
+				$query = $conn->prepare($sql);
+				
+				if ($query->execute([':question' => $db_word, ':answer' => $answer]) == true) {
+					$data = ['Great! thank you so much for teaching that'];
+				};
+
+			} catch (PDOException $e) {
+				$data = "Something went wrong, please try again";
+			}
+
+		} else {
+			$data = "Synonyns of " . $word . ' already learnt: ' . $data['answer'];
+		}
+
+		return ["data" => $data, "stage" => 2];
+	}
+	
+	function getAntonyms(){
+
+	}
+	
+	function getMeaning(){
+
+	}
+	
+	function setSpellingQuiz(){
+
+	}
+
+	function chat_or_train($human_response){
+
+		$human_response_words = explode(' ', $human_response);
+		if (strpos(trim($human_response_words[0]), 'train') !== false && count($human_response_words) > 4) {
+			return train($human_response);
+		}else{
+			return chat($human_response);
+		}
+
+	}
+
+	function prepare_input($input){
+		return strtolower($input);	
+	}
+
+
+	
+
+	
+
+	function greet(){
+		$greetings = [
+						'Hi, I am Alabot, What is your name?', 
+						'Howdy, I am Alabot, your name?',
+						'I am Alabot, What is your name'
+					];
+
+		return ["data" => $greetings[array_rand($greetings)], "stage" => 1];
+	}
+	
+	function intro($name){
+		$data = "Welcome " . $name . " You can learn, play or train me to be better Check the menu for guide";
+		return ["data" => $data, "stage" => 2];
+	}
+	
 
 ?>
 <!DOCTYPE html>
@@ -163,13 +344,19 @@
 			div#chat-bot-container > .conversation > .message {
 				margin: 10px 0;
 				min-height: 30px;
-				color: white;
+				width: 100%;
 			}
-
-			div#chat-bot-container > .conversation > .message {
+			
+			div#chat-bot-container > .conversation > .message > .bot-message {
+				clear: both;
 				float: left;
+			}
+			
+			div#chat-bot-container > .conversation > .message > .human-message {
+				float: right;
 				clear: both;
 			}
+
 			div#chat-bot-container > .conversation > .message > .message-content {
 				color: #007bff;
 				background-color: #fff;
@@ -182,9 +369,7 @@
 				display: inline-block;
 			}
 
-			div#chat-bot-container > .conversation > .message > .human{
-				float: right;
-			}
+			
 
 			.hide{
 				visibility: hidden;
@@ -227,49 +412,123 @@
 
 					
 					<!-- <div class="message">
-						<div class="message-content text">
-							<span>Awesome! You can show buttons like the one you pressed.</span> 
+						<div class="bot-message message-content text">
+							<span>Awesome! You can hdhd .</span> 
 						</div>
 					</div>
 				
 					<div class="message">
-						<div class="human message-content text">
-							<span>Awesome! You can show buttons like the one you pressed.</span> 
+						<div class="human-message message-content text">
+							<span>Awesome! You.</span> 
 						</div>
 					</div> -->
 					
+					
 				</div>
 				<input type="text" class="human_input" name="human_input">		
+				<button class="btn btn-primary pull-right btn-sm">Menu</button>		
 				
 			</div>
 	</div>
 	
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
 
 	<script>
 		$(document).ready(function() {
-			
 
-			var intro = makeMessage("I am Alabot, what is your name?");
-			
+			// Perform other work here ...
+			let stage = 0;
+			var visitor = '';
+			var visitor_input = '';
+
 			$("div#chat-bot").hide();
 			
 			$("a#start-chat-bot").click(function(e){
-				$("div#chat-bot").toggle();
 				
-				if($("div.conversation > .message").length == 0){
-					$("div.conversation").append(intro);
-				}
+				$("div#chat-bot").toggle();
+
+				doIntro();
+
+
+
+
+				$(".human_input").on('keyup', function (e) {
+					if (e.keyCode == 13) {
+						
+						if($("input.human_input").val().trim().length < 1){
+							$("div.conversation").append(makeMessage("Please provide an input"));
+						}else if($("input.human_input").val() == "cls"){
+							$("div.conversation").html('');
+							$("div.conversation").append(makeMessage("Clean slate, Check menu if needed"));
+							$('input.human_input').val('');
+						}else{
+
+							human_response = $("input.human_input").val().trim();
+							$("div.conversation").append(makeHumanMessage(human_response));
+							$('input.human_input').val('');
+
+							$.post("http://localhost/HNGfun/profiles/alabamustapha.php", {human_response: human_response, stage: stage})
+							
+							.done(function(response) {
+								response = jQuery.parseJSON(response);
+								
+								if(stage == 1){
+									$("div.conversation").append(makeMessage(response.data));
+								}else if(stage == 2){
+									if(Array.isArray(response.data)){
+										$("div.conversation").append(makeMessage(response.data));
+									}else{
+										$("div.conversation").append(makeMessage(response.data));
+									}
+									
+								}
+								stage = response.stage;	
+							}).fail(function() {
+								alert( "error" );
+							})
+
+						}	
+					}
+				});
+
 			});
 
+		
+
 			function makeMessage(message){
-				return "<div class='message'> <div class='message-content text'><span>" + message + "</span></div></div>";
+				return "<div class='message'> <div class='bot-message message-content text'><span>" + message + "</span></div></div>";
 			}
 			
+			function makeHumanMessage(message){
+				return "<div class='pull-right message'><div class='human-message message-content text'><span>" + message + "</span></div></div>";
+			}
 
+			function doIntro(){
+				if(visitor == ''){
+					
+					$.post("http://localhost/HNGfun/profiles/alabamustapha.php", {human_response: 'Hi', stage: stage})
+						.done(function(response) {
+							response = jQuery.parseJSON(response);
+							stage = response.stage;
+							$("div.conversation").append(makeMessage(response.data));
+							responsiveVoice.speak(response.data);
+						}).fail(function() {
+							alert("error");
+						})
 
+				}
+
+			}
+
+			
+			function visitorIsTyping(){
+				$(".human_input").on('keyup', function (e) {
+					return true;
+				});
+			}
+		
 			
 		});
 	</script>
