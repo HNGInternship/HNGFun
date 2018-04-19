@@ -16,11 +16,7 @@
     <?php 
 	
 	
-	try {
 	require_once('profiles/' . $profile_name. '.php');
-	} catch(Exception $e){
-	var_dump($e);
-	}
 	
 
   try {
