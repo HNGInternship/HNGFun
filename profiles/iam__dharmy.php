@@ -72,14 +72,14 @@
 						if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
 							echo json_encode([
 								'status' => 0,
-								'answer' => "The function name should not contain white spaces"
+								'answer' => "No white spaces allowed in function name"
 							]);
 							return;
 						}
 						if(!function_exists($function_name)){
 							echo json_encode([
 								'status' => 0,
-								'answer' => "I am sorry but I could not find that function"
+								'answer' => "Function not found"
 							]);
 						}else{
 							echo json_encode([
@@ -130,7 +130,7 @@
 			if($password !== TRAINING_PASSWORD){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "You are not authorized to train me"
+					'answer' => "Sorry you cannot train me."
 				]);
 				return;
 			}
@@ -145,7 +145,7 @@
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			echo json_encode([
 				'status' => 1,
-				'answer' => "Thank you"
+				'answer' => "Yipeee, I have been trained"
 			]);
 			return;
 		}
@@ -161,7 +161,7 @@
 <?php
 	if($_SERVER['REQUEST_METHOD'] === "GET"){
 ?>
-
+<head>
 <style>
       body {
 			
@@ -323,9 +323,7 @@
 </div>
 <script src="../vendor/jquery/jquery.min.js"></script>
 <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
 <script>
 	
 	$(document).ready(function(){
