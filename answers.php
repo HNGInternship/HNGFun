@@ -1,8 +1,73 @@
-<?php 
+<?php
 
-    ######################################################
-    ####################### @BAMII #######################
-    ######################################################
+function getUserAvatar($username)
+{
+    require 'db.php';
+
+    $sqlForUser = "SELECT * FROM interns_data WHERE interns_data.username = '".$username."' LIMIT 1";
+
+    // this is executing our query
+    $qForUser = $conn->query($sqlForUser);
+
+    // this is defining the mode in which we receive results, saying the results should return in an array format (associative array to be precise)
+    $qForUser->setFetchMode(PDO::FETCH_ASSOC);
+
+    // this is finally sending the query to the database#9b4247
+    $userData = $qForUser->fetch();
+
+    if ($userData === false) {
+        return 'No user was found with username '.$username;
+    }
+
+    return "Here's how ".$username.' looks: <br /> '."<img className='user-avatar' style='width: 150px; height:150px; border-radius: 0px;' src=".$userData['image_filename'].'>';
+}
+
+function getNumberOfGithubRepos($username)
+{
+    // Get cURL resource
+    $curl = curl_init();
+    // Set some options - we are passing in a useragent too here
+    curl_setopt_array($curl, array(
+    CURLOPT_RETURNTRANSFER => 1,
+    CURLOPT_URL => 'https://api.github.com/users/'.$username,
+    CURLOPT_USERAGENT => 'Hng Internship', ));
+    // Send the request & save response to $resp
+    $resp = json_decode(curl_exec($curl));
+    // Close request to clear up some resources
+    curl_close($curl);
+
+    if (property_exists($resp, 'message')) {
+        return "I couldn't find a github user with the name ".$username;
+    }
+
+    return $username.' has '.$resp->public_repos.' repositories on github. Check them out <a style="color: black; font-weight: bold; font-size: 18px; padding: 0px; text-decoration: none" target="_blank" href="'.$resp->html_url.'?tab=repositories">HERE</a>';
+}
+
+function getNeneRaeBotCustomCommands()
+{
+    return '<small>If you want to know the number of interns at HNG this year, type: <br /><b>"show number of interns" </b><br /><br />'.
+    'If you want to see the avatar of a specific intern, type: <br /><b>"show avatar: intern username" </b><br /><br />'.
+    'If you want me to show you the number of repositories a github user has, type: <br /><b>"show user repos: github username"</b> </small>';
+}
+
+function getNumberOfInterns()
+{
+    require 'db.php';
+
+    $sqlForUser = 'SELECT COUNT(*) FROM interns_data';
+
+    // this is executing our query
+    $qForUser = $conn->query($sqlForUser);
+
+    // this is defining the mode in which we receive results, saying the results should return in an array format (associative array to be precise)
+    $qForUser->setFetchMode(PDO::FETCH_ASSOC);
+
+    // this is finally sending the query to the database#9b4247
+    $userData = $qForUser->fetch();
+
+    return 'Presently, there are '.$userData['COUNT(*)'].' interns at the amazing hng internship.';
+}
+
     function bamiiConvertCurrency($amount, $from, $to){
         $conv_id = "{$from}_{$to}";
         $string = file_get_contents("https://free.currencyconverterapi.com/api/v5/convert?q=$conv_id&compact=y");
@@ -338,10 +403,176 @@ function bytenaija_time($location) {
 for any reason*/
 function myCreator(){
     return "Adokiye is my creator he is currently in stage 4 of the HNG internship, he will soon advance to stage 5";
-}function get_current_time(){
+}
+
+function get_current_time(){
     date_default_timezone_set('Africa/Lagos');
     $currentTime = date('Y-M-D H:i:s');
     return $currentTime;
+}
 /*end of
 Adokiye's function*/
+
+
+/*
+|=================================================================|
+|              JIM (JIMIE) Functions Begins                       |
+|=================================================================|
+*/
+function inspire() {
+    $inspirations = [
+        'It is during our darkest moments that we must focus to see the light. \\n\\n - Aristotle',
+        'Start by doing what\'s necessary; then do what\'s possible; and suddenly you are doing the impossible. \\n\\n - Francis of Assisi',
+        'I can\'t change the direction of the wind, but I can adjust my sails to always reach my destination. \\n\\n - Jimmy Dean',
+        'Put your heart, mind, and soul into even your smallest acts. This is the secret of success. \\n\\n - Swami Sivananda',
+        'The best preparation for tomorrow is doing your best today. \\n\\n - H. Jackson Brown, Jr',
+        'Optimism is the faith that leads to achievement. Nothing can be done without hope and confidence. \\n\\n - Helen Keller',
+        'Failure will never overtake me if my determination to succeed is strong enough. \\n\\n - Og Mandino',
+        'It does not matter how slowly you go as long as you do not stop. \\n\\n - Confucius',
+        'Either I will find a way, or I will make one. \\n\\n - Philip Sidney',
+        'It always seems impossible until it\'s done. \\n\\n - Nelson Mandela',
+        'Believe in yourself! Have faith in your abilities! Without a humble but reasonable confidence in your own powers you cannot be successful or happy. \\n\\n - Norman Vincent Peale',
+        'The secret of getting ahead is getting started. \\n\\n - Mark Twain',
+        'Accept the challenges so that you can feel the exhilaration of victory. \\n\\n - George S. Patton',
+        'A creative man is motivated by the desire to achieve, not by the desire to beat others. \\n\\n - Ayn Rand',
+        'Your talent is God\'s gift to you. What you do with it is your gift back to God. \\n\\n - Leo Buscaglia',
+        'Keep your eyes on the stars, and your feet on the ground. \\n\\n - Theodore Roosevelt',
+        'Quality is not an act, it is a habit. \\n\\n - Aristotle',
+        'We may encounter many defeats but we must not be defeated. \\n\\n - Maya Angelou',
+        'Never retreat. Never explain. Get it done and let them howl. \\n\\n - Benjamin Jowett',
+        'The most effective way to do it, is to do it. \\n\\n - Amelia Earhart',
+        'If you can dream it, you can do it. \\n\\n - Walt Disney',
+        'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference. \\n\\n – Robert Frost',
+        'You miss 100% of the shots you don’t take. \\n\\n – Wayne Gretzky',
+    ];
+    return $inspirations[array_rand($inspirations)];
+}
+
+function get_btc_rates() {
+    $response = file_get_contents('https://bitaps.com/api/ticker/average');
+    $data = json_decode($response, true);
+    $otherCurs = array_shift($data);
+
+    $usd = number_format($data['usd']);
+    $eur = number_format($otherCurs['eur']);
+    $rub = number_format($otherCurs['rub']);
+    $try = number_format($otherCurs['try']);
+
+   return "1 BTC = {$usd} USD | {$eur} EURO | {$rub} RUB | {$try} TRY";
+}
+
+function get_jimies_functions() {
+   return '1. You can ask me to inspire you \n
+           E.g: Say "Inspire me" or "Inspire me please" \\n\\n
+           2. You can ask me to get you the current Bitcoin rates. \\n
+           E.g: Ask: "What are the current btc rates?"
+           ';
+}
+/*
+|=================================================================|
+|               JIM (JIMIE) Functions Ends                        |
+|=================================================================|
+*/
+
+
+/*
+|=================================================================|
+|               Alabots  - Alaba Mustapha                        |
+|=================================================================|
+*/
+
+function alabotGetMenu()
+{
+    return '1. enter menu to show this help <br>
+            2. Find synonyms E.g: Synonyms of love? <br>
+            3. train me e.g: train synonyms of goat # goatie,goater,etc # passkey. <br>
+            3. clear screen: cls. <br>
+            4. exit bot: exit. <br>
+           ';
+}
+
+/*
+|=================================================================|
+|               Alabots  - Alaba Mustapha end                     |
+|=================================================================|
+ */
+
+// end of functions by johnayeni
+
+/////////////////////////////////////////////////////// Olaogun Function 
+function multiplication($a, $b){
+    $c = $a * $b;
+    echo $c;
+}
+
+function addition($a, $b){
+    $c = $a + $b;
+    echo $c;
+}
+
+function subtraction($a, $b){
+    $c = $a - $b;
+    echo $c;
+}
+
+function division($a, $b){
+    $c = $a / $b;
+    echo $c;
+}
+
+
+// AbseeJP own
+
+  require 'db.php';
+ 
+if (isset($_POST['question'])) {
+	$value = $_POST['question'];
+	
+	$arr = str_split($value);
+	if ($arr[0]=='#') {
+
+		$input2 = $value;
+
+
+		$ab = explode( ':', $input2 );
+		$ques = ltrim($ab[0], '#');
+		$ans = $ab[1];
+
+		$awesome = "INSERT INTO chatbot (question, answer) VALUES ('$ques', '$ans')";
+		$Absee = $conn->query($awesome);
+   		$Absee = $Absee->fetch(PDO::FETCH_OBJ);
+	}
+	else{
+
+	$Absee = $conn->query("SELECT * from chatbot where question = '$value'");
+   	$Absee = $Absee->fetch(PDO::FETCH_OBJ);
+
+	if ($Absee) {
+		$answer = $Absee->answer ;
+		echo '<div class= "container">
+				<p  style= "width:60%;background:#BBDEFB;color:white;border-radius:5px;padding:10px;">'
+					.$value.'
+				<br>
+				</p>'.
+				'<p style= "float:right;width:40%;background:#90CAF9;color:white;border-radius:5px;padding:10px;margin-bottom:20px;margin-top:10px;">'.$answer.'<br>
+				</p>
+			</div>';
+	
+	}else{
+		$reply = 'Not in db';
+		echo '<div class= "container">
+				<p  style= "width:60%;background:#BBDEFB;color:white;border-radius:5px;padding:10px;">'
+					.$value.'
+				<br>
+				</p>'.
+				'<p style= "float:right;width:40%;background:#FF5722;color:white;border-radius:5px;padding:10px;margin-bottom:20px;margin-top:10px;">'.$reply.'<br>
+				</p>
+			</div>';
+		
+	}
+		
+	}
+}
+
 ?>
+

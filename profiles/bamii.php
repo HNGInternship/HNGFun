@@ -1,7 +1,7 @@
 <?php
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		require "../answers.php";
-    //require '../db.php';
+    # require "../answers.php";
+    # require_once '../db.php';
     # User input
     $data = $_POST['question'];
 
@@ -25,8 +25,8 @@
     $a = [];
 
     # Greetings
-    $greeting = ['hi?', 'hey?', 'hello?', 'hello there?', 'hey there?', 'hi there?'];
-    $follow_up = ['whats up?', 'and you?', 'how are you?'];
+    /* $greeting = ['hi?', 'hey?', 'hello?', 'hello there?', 'hey there?', 'hi there?'];
+    $follow_up = ['whats up?', 'and you?', 'how are you?']; */
 
     # Populate the question array
     foreach ($db_result as $key => $value) {
@@ -42,24 +42,16 @@
     }
 
 
-    if (in_array($greet, $greeting)) {
-        # Greeting
-        echo json_encode([
-          'status' => 1,
-          'answer' => "Hello there!",
-        ]);
-        return;
-    } else if(in_array($greet, $follow_up)) {
-      echo json_encode([
-        'status' => 1,
-        'answer' => "I'm fine, Thank you!",
-      ]);
-      return;
-    } else if(in_array($data_lower, $q)) { # DONE
+    if(in_array($data_lower, $q)) { # DONE
       # search the stored db
       $data_lower_2 = preg_replace("([?.])", "", $data_lower);
 
-      $index = array_search($data_lower_2, $q);
+      $indexes = array_keys($q, $data_lower);
+      $arr_size = sizeof($indexes);
+      $random = mt_rand(0, $arr_size-1);
+
+      $index = $indexes[$random];
+
       echo json_encode([
         'status' => 1,
         'answer' => $a[$index],
@@ -178,6 +170,76 @@
       ]);
       return;
     }
+
+    
+  }
+  function bamiiConvertCurrency($amount, $from, $to){
+    $conv_id = "{$from}_{$to}";
+    $string = file_get_contents("https://free.currencyconverterapi.com/api/v5/convert?q=$conv_id&compact=y");
+    $json_a = json_decode($string, true);
+
+    #return $json_a[strtoupper($conv_id)]['val'];
+    #return $amount;
+    return $amount * $json_a[strtoupper($conv_id)]['val'];
+  }
+
+  function bamiiChuckNorris() {
+      $arrContextOptions=array(
+          "ssl"=>array(
+              "verify_peer"=>false,
+              "verify_peer_name"=>false,
+            ),
+        );  
+      $geocodeUrl = "http://api.icndb.com/jokes/random";
+      $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+
+      $a =json_decode($response, true);
+
+      return $a['value']['joke'];
+  }
+
+  function bamiiTellTime($data) {
+      if(strpos($data, 'in')) {
+        return "Sorry i can't tell you the time somewhere else right now";
+      } else {
+          return 'The time is:' . date("h:i");
+      }
+  }
+
+  function bamiiCountryDetails($data) {
+      $country_arr = explode(' ', $data);
+      $country_index= array_search('details', $country_arr) + 1;
+      $country = $country_arr[$country_index];
+      $country_temp = str_replace('details', "", $data);
+      $country2 = trim($country_temp);
+
+      $string = 'http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query='. $country2 .'&num_of_results=2&format=json';
+
+      $arrContextOptions=array(
+          "ssl"=>array(
+              "verify_peer"=>false,
+              "verify_peer_name"=>false,
+          ),
+      );  
+      $geocodeUrl = "http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query=lagos&num_of_results=2&format=json";
+      $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+
+      $a =json_decode($response, true);
+
+      $longitude = $a['search_api']['result'][0]['longitude'];
+      $latitude = $a['search_api']['result'][0]['latitude'];
+      $name = $a['search_api']['result'][0]['areaName'][0]['value'];
+      $country_name = $a['search_api']['result'][0]['country'][0]['value'];
+      $population = $a['search_api']['result'][0]['population'];
+
+      
+      return('
+          '. ($name ? 'Name :'. $name . '<br />' : null) .'
+          Country: ' . $country_name . ' <br />
+          Latitude: ' . $latitude . ' <br />
+          Longitude: ' . $longitude . ' <br />
+          Population: ' . $population . '<br />
+      ');
   }
 ?>
 <!DOCTYPE html>
@@ -440,7 +502,7 @@
         </div>
       </div>
     </div>
-    <div class="chatbot"> ChatBot </div>
+    <div class="chatbot"> _ChatBot_ </div>
     <div class="chatbot-container">
       <div class="chat-details" id="chat">
         <div class="server-name"> Bot </div>
@@ -471,7 +533,6 @@
 
               bot_input.submit(function(e) {
                   e.preventDefault();
-                  console.log("hey");
                   var question = $('#chat-input').val();
 
                     // Append the client bubble
@@ -503,6 +564,7 @@
                             resp.innerHTML = response.answer;
                             client.appendChild(respText);
                             client.appendChild(resp);
+                            $('html,body').animate({scrollTop: document.body.scrollHeight},"fast")
                           } else if (response.status === 2) {
                             var resp = document.createElement('div');
                             var respText = document.createElement('div');
@@ -525,6 +587,7 @@
                           client.appendChild(respText);
                           client.appendChild(resp);
                           console.log(error);
+                          $('html,body').animate({scrollTop: document.body.scrollHeight},"fast")
                         }
                     })
               }); // end submit

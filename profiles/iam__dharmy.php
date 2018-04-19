@@ -72,14 +72,14 @@
 						if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
 							echo json_encode([
 								'status' => 0,
-								'answer' => "The function name should not contain white spaces"
+								'answer' => "No white spaces allowed in function name"
 							]);
 							return;
 						}
 						if(!function_exists($function_name)){
 							echo json_encode([
 								'status' => 0,
-								'answer' => "I am sorry but I could not find that function"
+								'answer' => "Function not found"
 							]);
 						}else{
 							echo json_encode([
@@ -119,18 +119,18 @@
 			if(count($split_string) < 3){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "You need to enter the training password to train me."
+					'answer' => "Please enter the training password to train me."
 				]);
 				return;
 			}
 
 			$password = trim($split_string[2]);
 			//verify if training password is correct
-			define('TRAINING_PASSWORD', 'trainpwforhng');
+			define('TRAINING_PASSWORD', 'password');
 			if($password !== TRAINING_PASSWORD){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "You are not authorized to train me"
+					'answer' => "Sorry you cannot train me."
 				]);
 				return;
 			}
@@ -145,7 +145,7 @@
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			echo json_encode([
 				'status' => 1,
-				'answer' => "Thank you"
+				'answer' => "Yipeee, I have been trained"
 			]);
 			return;
 		}
@@ -161,7 +161,9 @@
 <?php
 	if($_SERVER['REQUEST_METHOD'] === "GET"){
 ?>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
 <style>
       body {
 			
@@ -178,7 +180,7 @@
 		
 		}
 		
-.chat-frame {
+		.chat-frame {
 			border-color: #cccccc;
 			color: #333333;
 			background-color: #ffffff;
@@ -232,15 +234,15 @@
 			margin-left: 20%;
 			border-radius: 50%;
 		}
-
+		.f-icon {
+			font-size: 40px;
+		}
    
       </style>
 
   </head>
 
   <body style = "background color: #FFFFFF">
-
-  
 
 <!-- Main Content -->
 <div class="container-fluid">
@@ -270,14 +272,14 @@
 				</div>
 
 			</div>
-
+<!--<footer>
 			<div>
 				<a href="https://github.com/iam-dharmy"><i class="fa fa-github"></i></i></a>&nbsp;&nbsp;
 				<a href="https://twitter.com/@iam_dharmy"><i class="fa fa-twitter"></i></i></a>&nbsp;&nbsp;
 				<a href="https://medium.com/@damis"><i class="fa fa-medium"></i></i></a>&nbsp;&nbsp;
 				<a href="https://web.facebook.com/soyombo.damilola"><i class="fa fa-facebook"></i></i></a>	
 			</div>
-
+</footer>-->
 </div>
 <div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
 <div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
@@ -302,8 +304,6 @@
 							<h5>To train me, type <br/><b>train: question # answer</b><h5>
 						</div>
 					</div>
-
-					
 				</div>
 			</div>
 			
@@ -323,9 +323,7 @@
 </div>
 <script src="../vendor/jquery/jquery.min.js"></script>
 <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
 <script>
 	
 	$(document).ready(function(){
@@ -349,7 +347,7 @@
 
 			//send question to server
 			$.ajax({
-				url: "/profiles/iam__dharmy.php",
+				url: "profiles/iam__dharmy.php",
 				type: "post",
 				data: {question: question},
 				dataType: "json",
@@ -385,6 +383,4 @@
 </script>	
 </body>
 </html>
-<?php
-}
-?>
+<?php}?>
