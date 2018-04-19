@@ -64,7 +64,6 @@
             }
             .bot{
                 width: 60%;
-                clip: rec
             }
             .info{
                 padding: 50px;
