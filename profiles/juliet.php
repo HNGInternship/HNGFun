@@ -489,10 +489,6 @@ a:focus {
 /*------------------------------------*\
     Contacts List - Custom Scrollbar
 \*------------------------------------*/
-<<<<<<< HEAD
-</style>
-</head>
-=======
 
 
 </style>
@@ -509,7 +505,6 @@ $secret_word = $row['secret_word'];
 // $secret_word= "sample_secret_word";
 ?>
 
->>>>>>> 4a8608a8c0de38a3b1adb492affbd4a4149ea4b5
   <!-- Page Content -->
     <div class="container">
 
@@ -604,11 +599,6 @@ $secret_word = $row['secret_word'];
             var show = function() {
             hiddenDiv.fadeIn();
             play();
-<<<<<<< HEAD
-            };
-            hiddenDiv.hide();
-            setTimeout(show, 2000);
-=======
 
             };
 
@@ -616,7 +606,6 @@ $secret_word = $row['secret_word'];
             setTimeout(show, 2000);
 
 
->>>>>>> 4a8608a8c0de38a3b1adb492affbd4a4149ea4b5
             });
                 </script>
                     <div class="chatbox-messages" >
@@ -635,10 +624,6 @@ $secret_word = $row['secret_word'];
                     <div class="message-form-container">
 
                       <script type="text/javascript">
-<<<<<<< HEAD
-=======
-
->>>>>>> 4a8608a8c0de38a3b1adb492affbd4a4149ea4b5
                                   $(document).ready(function(){
                $('#msg').keypress(
                 function(e){
@@ -646,22 +631,11 @@ $secret_word = $row['secret_word'];
                         e.preventDefault();
                         var msg = $(this).val();
                   $(this).val('');
-<<<<<<< HEAD
-                        if(msg!='')
-=======
                         if(msg !== '' )
->>>>>>> 4a8608a8c0de38a3b1adb492affbd4a4149ea4b5
                   $('<div class="messages clear"><div class="user"><div class="message-container"><div class="message"><p>'+msg+'</p></div><span class="delivered"><?php
             echo "" . date("h:i:a");
             ?></span></div></div><!-- /.user --></div>').insertBefore('.push');
                   $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
-<<<<<<< HEAD
-                  formSubmit();
-                    }
-                function formSubmit(){
-                var message = $("#msg").val();
-                    var dataString = 'msg=' + msg + '&page=chat';
-=======
 
                   formSubmit();
 
@@ -670,7 +644,6 @@ $secret_word = $row['secret_word'];
                 function formSubmit(){
                 var message = $("#msg").val();
                     var dataString = 'msg=' + msg;
->>>>>>> 4a8608a8c0de38a3b1adb492affbd4a4149ea4b5
                     jQuery.ajax({
                         url: "/profiles/juliet.php",
                         data: dataString,
@@ -684,10 +657,6 @@ $secret_word = $row['secret_word'];
                   $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
                   play();
                 },  1000);
-<<<<<<< HEAD
-=======
-
->>>>>>> 4a8608a8c0de38a3b1adb492affbd4a4149ea4b5
                   },
                         error: function (){}
                     });
@@ -735,11 +704,7 @@ $secret_word = $row['secret_word'];
 
   </body>
 
-<<<<<<< HEAD
-</html>
-=======
 </html>
 <?php
       }
       ?>
->>>>>>> 4a8608a8c0de38a3b1adb492affbd4a4149ea4b5
