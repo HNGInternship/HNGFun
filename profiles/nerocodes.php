@@ -34,7 +34,7 @@
         .name{
             font-family: verdana;
             font-size: 2em;
-            margin-top: 5px;
+            margin-top: 7px;
         }
 
         .username{
