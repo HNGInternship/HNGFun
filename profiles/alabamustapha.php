@@ -1,13 +1,13 @@
 <?php
 
-if (!defined('DB_USER')) {
-	require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/config.php'; //tweak
-	try {
-		$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-	} catch (PDOException $pe) {
-		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-	}
-}
+// if (!defined('DB_USER')) {
+// 	require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/config.php'; //tweak
+// 	try {
+// 		$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+// 	} catch (PDOException $pe) {
+// 		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+// 	}
+// }
 global $conn;
 
 
@@ -39,7 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 }
 
+<<<<<<< HEAD
+// $data = getAction(['stage' => 2, 'human_response' => 'train what is the synonym of love # like,hate,toast']);
+=======
 // $data = getAction(['stage' => 2, 'human_response' => 'synonym of love']);
+>>>>>>> 1eb52e5d15cc558242e86db7cf3dd8bad0a42a6d
 
 // var_dump($data);
 

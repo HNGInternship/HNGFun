@@ -4,12 +4,6 @@ language: php
 
 php:
   - '7.0'
-  - '7.1'
-  - '7.2'
-  - nightly
-  
-env:
-  DOCKER_COMPOSE_VERSION: 1.16.1
 
 services:
   - mysql
@@ -36,7 +30,7 @@ before_install:
 
 
 after_success: 
-- chmod + x ./push.sh 
+- chmod +x ./push.sh 
 - ./push.sh
 
 before_script:

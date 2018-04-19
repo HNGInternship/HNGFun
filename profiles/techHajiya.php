@@ -1,29 +1,34 @@
-<?php
-include_once '../config.php';
-define('DB_CHARSET', 'utf8mb4');
-$dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
-$opt = [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES => false
-];
-$pdo = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
-$stmt1 = $pdo->query(
-    "SELECT interns_data.name,interns_data.username, interns_data.image_filename FROM interns_data WHERE interns_data.username = 'TechHajiya'");
-$stmt2 = $pdo->query(
-    "SELECT     secret_word.secret_word FROM secret_word");
-$row1 = $stmt1->fetch();
-$row2 = $stmt2->fetch();
-
-$secret_word = $row2['secret_word']; //Querying Secret Word
-
-// Profile Details
-$name = $row1['name'];
-$username = $row1['username'];
-$filename = $row1['image_filename'];
-?>
 
 <!DOCTYPE html>
+<?php
+
+try{
+    $sql = "SELECT * FROM secret_word" ;
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $query->fetch();
+    $secret_word = $data['secret_word'];
+
+}catch(PDOException $err){
+    throw $err;
+}
+
+try{
+    $sql = "SELECT * FROM interns_data_ WHERE username = 'techHajiya'";
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $query->fetch();
+    $name = $data['name'];
+	$username = $data['username'];
+    $image_url = $data['image_filename'];
+ 
+
+}catch(PDOException $err){
+    throw $err;
+}
+
+?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -90,10 +95,10 @@ $filename = $row1['image_filename'];
         <div class="row" style="width:1100px;">
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
-                    <img src="<?=$filename;?>" alt="Lois Thomas">
+                    <img src="<?php echo $image_url ?>" alt="Lois Thomas">
                 </div>
 				<p class="text-center profile-name">
-				<span> Hi! I am  <?=$name;?>  <br/>(@<?=$username;?>) <br/> I Eat | I Code | I Repeat</span>
+				<span> Hi! I am  <?php echo $name ?> ?>  <br/>(@<?php echo $username ?>) <br/> I Eat | I Code | I Repeat</span>
                 </p>
                 <div class="text-center social-links">
                     <a href="https://github.com/cara06" target="_blank"><i class="fa fa-2x fa-github"></i></a>

@@ -20515,7 +20515,7 @@
                 $.ajax({
                     type: "POST",
                     cache: false, 
-                    url: "/profiles/AdroitCode.php", 
+                    url: "#", 
                     dataType: "json",
                     data: $('form').serialize(), 
                     success: function(result) {
