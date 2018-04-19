@@ -66,6 +66,7 @@ function getNumberOfInterns()
     $userData = $qForUser->fetch();
 
     return 'Presently, there are ' . $userData['COUNT(*)'] . ' interns at the amazing hng internship.';
+  }
 
 ########################################################
 # __   ___              __      __  ___       __   __  #
@@ -75,10 +76,10 @@ function getNumberOfInterns()
     ######################################################
     ####################### @BAMII #######################
     ######################################################
-    function bamiiConvertCurrency($amount, $from, $to)
-    {
-    return 'Presently, there are '.$userData['COUNT(*)'].' interns at the amazing hng internship.';
-}
+//     function bamiiConvertCurrency($amount, $from, $to)
+//     {
+//     return 'Presently, there are '.$userData['COUNT(*)'].' interns at the amazing hng internship.';
+// }
 
     ########################################################
     ###################### Start BAMII #####################
@@ -157,9 +158,6 @@ function getNumberOfInterns()
     }
 
     ###################### END BAMII #####################
-
-    ?>
-    <?php
 
     function getListOfCommands()
     {
@@ -656,7 +654,6 @@ function getNumberOfInterns()
 		
 // 	}
 // }
-    
-}
+
 ?>
 
