@@ -3,6 +3,16 @@
 
 require("../../config.php");
 // Create connection
+<<<<<<< HEAD
+$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+// Check connection;
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+
+if (isset($_POST["page"])) {
+=======
 $connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 // Check connection
 
@@ -161,9 +171,10 @@ $secret_word = $row['secret_word'];
 
 
   // function
+>>>>>>> 1eb52e5d15cc558242e86db7cf3dd8bad0a42a6d
   
-}else{
-  
+}else
+{
 ?>
 
 <!DOCTYPE html>
@@ -706,4 +717,8 @@ $secret_word = $row['secret_word'];
 </html>
 <?php
       }
+<<<<<<< HEAD
       ?>
+=======
+      ?>
+>>>>>>> 1eb52e5d15cc558242e86db7cf3dd8bad0a42a6d
