@@ -13,8 +13,7 @@
 
 <div class="container">
 	
-	<?php var_dump(is_file('profiles/' . $profile_name. '.php')); ?>
-    <?php include_once('profiles/' . $profile_name. '.php');
+    <?php require_once('profiles/' . $profile_name. '.php');
 
   try {
     $sql = "SELECT * FROM secret_word";
