@@ -1,12 +1,53 @@
 <?php
 
 include_once realpath(__DIR__ . '/..') . "/answers.php"; 
+
 require("../../config.php");
+
+function decider($string){
+  
+  if (strpos($string, ":") !== false)
+  {
+    $field = explode (":", $string, 2);
+    $key = $field[0];
+    $key = strtolower(preg_replace('/\s+/', '', $key));
+  if(($key == "train")){
+     $password ="p@55";
+     $trainer =$field[1];
+     $result = explode ("#", $trainer);
+  if($result[2] && $result[2] == $password){
+    echo"<br>Training mode<br>";
+    return $result;
+  } else echo "opssss!!! Looks like you are trying to train me without permission";
+  
+
+    
+     
+  }
+   }
+   
+
+}
+function tester($string){
+  if (strpos($string, ":" ) !== false) 
+  { 
+   $field = explode (":", $string);
+   $key = $field[0];
+   $key = strtolower(preg_replace('/\s+/', '', $key));
+   if(($key !== "train")){
+     
+    echo"<br>testing mode activated<br>";
+    return $string;
+ }
+}
+return $string;
+ }
+
 // Create connection
-$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+$connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 // Check connection
 
-if (!$conn) {
+if (!$connect) {
     die("Connection failed: " . mysqli_connect_error());
 }
 $existError =false;
@@ -14,30 +55,31 @@ $existError =false;
 if(isset($_GET["page"]) && !empty($_GET["page"]))
       { 
 
-        global $conn;
+        global $connect;
 $sql = "SELECT * FROM secret_word";
-$result = mysqli_query($conn, $sql);
+$result = mysqli_query($connect, $sql);
 $row = mysqli_fetch_assoc($result);
 $secret_word = $row['secret_word'];
 // $secret_word= "sample_secret_word";
+
        
         if ($_POST['msg'] == 'commands') {
         $reply= 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
       } 
-      else if($reply==""){
+      // else if($reply==""){
        
-        $reply = assistant($_POST['msg']);
+      //   $reply = assistant($_POST['msg']);
        
-      }
+      // }
      if($reply =="") {
 
-         $post= mysqli_real_escape_string($conn, $_POST['msg']);
+         $post= mysqli_real_escape_string($connect, $_POST['msg']);
            $result = decider($post);
            if($result){
                 $question=$result[0]; 
                 $answer= $result[1];
                 $sql = "SELECT * FROM chatbot";
-                $result = mysqli_query($conn, $sql);
+                $result = mysqli_query($connect, $sql);
                 
                 if (mysqli_num_rows($result) > 0) {
                         $row = mysqli_fetch_assoc($result);
@@ -60,7 +102,7 @@ $secret_word = $row['secret_word'];
                 if(!($existError)){
                     $sql = "INSERT INTO chatbot (question, answer) VALUES ('".$question."', '".$answer."')";
                     
-                            if (mysqli_query($conn, $sql)) {
+                            if (mysqli_query($connect, $sql)) {
                                 $reply = "Thanks to you, I am smarter now";
                             } else {
                                 echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -80,7 +122,7 @@ $secret_word = $row['secret_word'];
         // query db to look for question 
         $answer = "";
         $sql = "SELECT * FROM chatbot";
-        $result = mysqli_query($conn, $sql);
+        $result = mysqli_query($connect, $sql);
         
         if (mysqli_num_rows($result) > 0) {
           if (!$result) {
@@ -88,7 +130,7 @@ $secret_word = $row['secret_word'];
         }
           $input = strtolower(trim($input));
           $sql = "SELECT * FROM chatbot WHERE trim(question) = '$input'";
-          $result = mysqli_query($conn, $sql);
+          $result = mysqli_query($connect, $sql);
                      
           if(mysqli_num_rows($result) > 0){
             
@@ -121,48 +163,6 @@ $secret_word = $row['secret_word'];
 
 
   // function
-
-function decider($string){
-  
-  if (strpos($string, ":") !== false)
-  {
-    $field = explode (":", $string, 2);
-    $key = $field[0];
-    $key = strtolower(preg_replace('/\s+/', '', $key));
-  if(($key == "train")){
-     $password ="p@55";
-     $trainer =$field[1];
-     $result = explode ("#", $trainer);
-  if($result[2] && $result[2] == $password){
-    echo"<br>Training mode<br>";
-    return $result;
-  } else echo "opssss!!! Looks like you are trying to train me without permission";
-  
-
-    
-     
-  }
-   }
-   
-
-}
-
-
-  function tester($string){
-   if (strpos($string, ":" ) !== false) 
-   { 
-    $field = explode (":", $string);
-    $key = $field[0];
-    $key = strtolower(preg_replace('/\s+/', '', $key));
-    if(($key !== "train")){
-      
-     echo"<br>testing mode activated<br>";
-     return $string;
-  }
- }
- return $string;
-  }
-
   
 }else{
   
@@ -498,9 +498,9 @@ a:focus {
   <body>
 <?php 
 
-global $conn;
+global $connect;
 $sql = "SELECT * FROM secret_word";
-$result = mysqli_query($conn, $sql);
+$result = mysqli_query($connect, $sql);
 $row = mysqli_fetch_assoc($result);
 $secret_word = $row['secret_word'];
 // $secret_word= "sample_secret_word";
