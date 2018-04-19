@@ -184,7 +184,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 			background-attachment: fixed;
 		}
 
-		.container:after {
+		.container:before {
 			    content: '';
 			z-index: -1;
 		        position: fixed;
