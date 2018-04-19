@@ -1,13 +1,13 @@
 <?php
 
-// if (!defined('DB_USER')) {
-// 	require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/config.php'; //tweak
-// 	try {
-// 		$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-// 	} catch (PDOException $pe) {
-// 		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-// 	}
-// }
+if (!defined('DB_USER')) {
+	require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/config.php'; //tweak
+	try {
+		$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	} catch (PDOException $pe) {
+		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	}
+}
 global $conn;
 
 
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 }
 
-// $data = getAction(['stage' => 2, 'human_response' => 'train what is the synonym of love # like,hate,toast']);
+// $data = getAction(['stage' => 2, 'human_response' => 'synonym of love']);
 
 // var_dump($data);
 
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 		if (strpos($human_response, 'synonym') !== false) {
 			$data = setSynonyms($word, $answer);
 		} else {
-			return 'Just a bot, still learning :-)';
+			$data = ["data" => "Just a bot, still learning :-)", "stage" => 2];
 		}
 
 		
@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 		if (strpos($human_response, 'synonym') !== false && count($human_response_words) > 1) {
 			$data = getSynonyms($human_response);
 		} else {
-			return 'Just a bot, still learning :-)';
+		$data = ["data" => "Just a bot, still learning :-)", "stage" => 2];
 		}
 
 		return $data;
@@ -135,7 +135,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	function setSynonyms($word, $answer){
 		global $conn;
 		$db_word = 'alabot_synonyms_' . $word;
-
 		$sql = "SELECT * FROM chatbot WHERE question = '{$db_word}' LIMIT 1";
 		$q = $conn->query($sql);
 		$q->setFetchMode(PDO::FETCH_ASSOC);
@@ -447,10 +446,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 							$('input.human_input').val('');
 
 							$.post(url, {human_response: human_response, stage: stage})
-							
 							.done(function(response) {
+								console.log(response);
 								response = jQuery.parseJSON(response);
-								
 								if(stage == 1){
 									$("div.conversation").append(makeMessage(response.data));
 								}else if(stage == 2){
