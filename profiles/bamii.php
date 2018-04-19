@@ -1,7 +1,7 @@
 <?php
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		require "../answers.php";
-    # require_once '../db.php';
+#		require "../answers.php";
+    require_once '../db.php';
     # User input
     $data = $_POST['question'];
 /*
