@@ -211,7 +211,8 @@
     display: inline-block;
     font-weight: bold;
 }
-.footer {
+footer {
+	display: none;
 	padding: 0px !important;
 }
   .bot-body {
@@ -287,7 +288,8 @@
   .message-box {    
 		width: -webkit-fill-available;
     border: none;
-    padding: 5px 10px;
+		padding: 2px 4px;
+    font-size: 18px;
   }
 
   .img-body {
@@ -322,14 +324,11 @@
     align-items: center;
   }
 
-  .body {
+  body {
 		overflow: hidden;
     height: 100%;
   }
 
-  body, html {
-    /* height: 100%!important; */
-  }
 </style>
 <script>
   window.onload = function() {
@@ -366,20 +365,6 @@
       return;
     } 
 
-    if (question.toLowerCase().includes("open: ") && isUrl(question.toLowerCase().split("open: ")[1].trim())) {
-      var textToSay = question.toLowerCase().split("open: ")[1];
-      showResponse('Okay, opening: <code>'+ textToSay + '</code>');
-      window.open("http://" + textToSay);
-      return;
-    }
-
-    if (question.toLowerCase().includes("say: ")) {
-      var textToSay = question.toLowerCase().split("say: ")[1];
-      var msg = new SpeechSynthesisUtterance(textToSay);
-      window.speechSynthesis.speak(msg);
-      showResponse('Okay, saying: <code>'+ textToSay + '</code>');
-      return;
-    }
 
     $.ajax({
       url: "profiles/dennisotugo.php",
