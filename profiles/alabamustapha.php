@@ -10,61 +10,36 @@ if (!defined('DB_USER')) {
 }
 global $conn;
 
-// require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/db.php'; //tweak
-//connecting to db manually
 
-// require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/config.php'; //tweak
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-// $mysqli = new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABASE);
-
-// if ($mysqli->connect_errno) {
-//    $name = "Alaba Mustapha O.";
-//    $image_filename = 'https://res.cloudinary.com/alabamustapha/image/upload/v1523619685/me.jpg';
-// }else{
-	
-// 	$sql = "SELECT * FROM `interns_data` WHERE username = 'alabamustapha' LIMIT 1";	
-	
-// 	$record = $mysqli->query($sql);
-	
-// 	$detail = $record->fetch_object();
-
-// 	$name = $detail->name;
-
-// 	$image_filename = $detail->image_filename;
-
-// 	$sql = "SELECT * FROM `secret_word` LIMIT 1";	
-
-// 	$record = $mysqli->query($sql);
-	
-// 	$secret_word = $record->fetch_object()->secret_word;
-// }
-// 
-
-//using previous connction
-	try{
+	try {
 	//get secret_word	
-	$sql = 'SELECT * FROM secret_word';
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-	$secret_word = $data['secret_word'];
+		$sql = 'SELECT * FROM secret_word';
+		$q = $conn->query($sql);
+		$q->setFetchMode(PDO::FETCH_ASSOC);
+		$data = $q->fetch();
+		$secret_word = $data['secret_word'];
 	
 	//get my details		
-	$sql = 'SELECT * FROM secret_word';
-    $sql = "SELECT * FROM `interns_data` WHERE username = 'alabamustapha' LIMIT 1";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-    
-    $name = $data['name'];
-	$image_filename = $data['image_filename'];
-	}catch(PDOException $e){
+		$sql = 'SELECT * FROM secret_word';
+		$sql = "SELECT * FROM `interns_data` WHERE username = 'alabamustapha' LIMIT 1";
+		$q = $conn->query($sql);
+		$q->setFetchMode(PDO::FETCH_ASSOC);
+		$data = $q->fetch();
+
+		$name = $data['name'];
+		$image_filename = $data['image_filename'];
+	} catch (PDOException $e) {
 		$secret_word = "sample_secret_word";
 		$name = "Alaba Mustapha O.";
 		$image_filename = 'https://res.cloudinary.com/alabamustapha/image/upload/v1523619685/me.jpg';
 	}
 
-// $data = getAction(['stage' => 2, 'human_response' => 'train what is the synonym of love # like,hate,toast']);
+
+}
+
+// $data = getAction(['stage' => 2, 'human_response' => 'synonym of love']);
 
 // var_dump($data);
 
@@ -113,7 +88,7 @@ global $conn;
 		if (strpos($human_response, 'synonym') !== false) {
 			$data = setSynonyms($word, $answer);
 		} else {
-			return 'Just a bot, still learning :-)';
+			$data = ["data" => "Just a bot, still learning :-)", "stage" => 2];
 		}
 
 		
@@ -134,7 +109,7 @@ global $conn;
 		if (strpos($human_response, 'synonym') !== false && count($human_response_words) > 1) {
 			$data = getSynonyms($human_response);
 		} else {
-			return 'Just a bot, still learning :-)';
+		$data = ["data" => "Just a bot, still learning :-)", "stage" => 2];
 		}
 
 		return $data;
@@ -160,7 +135,6 @@ global $conn;
 	function setSynonyms($word, $answer){
 		global $conn;
 		$db_word = 'alabot_synonyms_' . $word;
-
 		$sql = "SELECT * FROM chatbot WHERE question = '{$db_word}' LIMIT 1";
 		$q = $conn->query($sql);
 		$q->setFetchMode(PDO::FETCH_ASSOC);
@@ -442,6 +416,8 @@ global $conn;
 			let stage = 0;
 			var visitor = '';
 			var visitor_input = '';
+			let url = "profiles/alabamustapha.php";
+			
 
 			$("div#chat-bot").hide();
 			
@@ -469,11 +445,10 @@ global $conn;
 							$("div.conversation").append(makeHumanMessage(human_response));
 							$('input.human_input').val('');
 
-							$.post("http://localhost/HNGfun/profiles/alabamustapha.php", {human_response: human_response, stage: stage})
-							
+							$.post(url, {human_response: human_response, stage: stage})
 							.done(function(response) {
+								console.log(response);
 								response = jQuery.parseJSON(response);
-								
 								if(stage == 1){
 									$("div.conversation").append(makeMessage(response.data));
 								}else if(stage == 2){
@@ -507,8 +482,8 @@ global $conn;
 
 			function doIntro(){
 				if(visitor == ''){
-					
-					$.post("http://localhost/HNGfun/profiles/alabamustapha.php", {human_response: 'Hi', stage: stage})
+
+					$.post(url, {human_response: 'Hi', stage: stage})
 						.done(function(response) {
 							response = jQuery.parseJSON(response);
 							stage = response.stage;
