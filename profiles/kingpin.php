@@ -115,8 +115,9 @@ body
 		 <div id="data">
 		 	
 		 	>  STUDENT<br>
-		 	>  FRONT END &BACKEND DEVELOLER<br>> ANDROID DEVELOPER
-		 	   <br> > IN LOVE WITH GRAPHICS<br>
+		 	>  FRONT END &BACKEND DEVELOPER<br>> ANDROID DEVELOPER
+		 	   <br> > IN LOVE WITH GRAPHICS<br>>LIVING LIFE
+
 
 		 	 
 		 	   
