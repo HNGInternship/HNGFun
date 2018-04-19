@@ -215,7 +215,6 @@ body {
   min-height: 300px;
   max-height: 720px;
   background: #E6EAEA;
-  float:left;
   margin-top:60px;
 }
 @media screen and (max-width: 360px) {
