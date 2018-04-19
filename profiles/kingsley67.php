@@ -26,8 +26,8 @@
 <body>
   <div class="intro">
   <h1>Welcome to Kingsley's profile on HNGInternship 4</h1>  
-      <div id='credentials'><h2>Name:  <?php echo $name?></h2>
-     <h2>Username: @<?php echo $user?></h2>
+      <div id='credentials'><h2>Name: </h2>
+     <h2>Username:</h2>
        </div>
       <div><img src="
 https://res.cloudinary.com/dyngnvcre/image/upload/v1524083992/king.jpg" alt="king.jpg"></div>
