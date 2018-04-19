@@ -2,7 +2,7 @@
 <?php
    // include_once("header.php");
 
-   $profile_name = $_GET['id'];
+   echo $profile_name = $_GET['id'];
 	$secret_word = "sample_secret_word";
 
     //require 'db.php';
