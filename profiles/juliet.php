@@ -93,7 +93,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if($result){
       $question=$result[0]; 
       $answer= $result[1];
-      $sql = "SELECT * FROM chatbot WHERE question = '$question' OR answer = '$answer'";
+      $sql = "SELECT * FROM chatbot WHERE question = '$question'";
       $stm = $conn->query($sql);
       $stm->setFetchMode(PDO::FETCH_ASSOC);
 
