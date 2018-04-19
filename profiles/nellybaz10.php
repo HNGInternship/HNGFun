@@ -17,10 +17,10 @@ if(!$conn){
 
 
 
-$qq = "select * from interns_data";
+$qq = "select * from interns_data where username='nellybaz10'";
 $result = mysqli_query($conn, $qq);
 $row2 = mysqli_fetch_array($result);
-
+	echo $row2['name'];
 
 ?>
 
@@ -44,7 +44,7 @@ $row2 = mysqli_fetch_array($result);
 				    }
 
 
-				   $q = "select secret_word from secret_word";
+				   $q = "select secret_word from secret_word where username='nellybaz10'";
 				      $result = mysqli_query($conn, $q);
 				      $row = mysqli_fetch_array($result);
 				      $secret_word = $row['secret_word'];
