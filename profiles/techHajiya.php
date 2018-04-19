@@ -90,5 +90,8 @@
         </div>
     </div>
 </body>
-
+<script src="../vendor/jquery/jquery.min.js" type="text/javascript"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+</html>
 </html>
