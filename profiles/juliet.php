@@ -698,7 +698,7 @@ $secret_word = $row['secret_word'];
 
 
 
-    <!-- Bootstrap core JavaScript -->
+    <!-- Bootstrap core JavaScript ///-->
     
 
     <!-- Custom scripts for this template -->
