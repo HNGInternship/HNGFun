@@ -1,15 +1,4 @@
 
-<?
-	require 'db.php';
-
-	//$me_sql = mysqli_query($conn, "SELECT * FROM `interns_data_` WHERE 1");
-
-  	$query = $conn->query("SELECT * FROM `secret_word`");
-	$result = $query->fetch(PDO::FETCH_ASSOC);
-	$secret_word = $result['secret_word'];
-
-?>
-
 
 		<style type="text/css">
 			
@@ -184,7 +173,9 @@
 								<h1>Herbert John</h1>
 								<h3>@herberts</h3>
 								<div class="bio">
-									<small>Hardcore developer with genuine passion for coding. I love coding so much that even codes i don't know what they do gives me joy.</small>
+									<small>
+										Hardcore developer with genuine passion for coding. I love coding so much that even codes i don't know what they do gives me joy.
+									</small>
 								</div>
 							</div>
 						</div>
@@ -279,3 +270,16 @@
 				</div>
 			</div>
 		</div>
+
+
+ <?php
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+    ?>
