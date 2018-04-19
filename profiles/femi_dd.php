@@ -3,11 +3,12 @@
 session_start();
 if($_SERVER['REQUEST_METHOD'] == "POST") {
    if(!defined('DB_USER')){
-      require "../config.php";
+      require "../../config.php";
       try {
          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
       } catch (PDOException $pe) {
-         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+         // die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+         echo "Can't connect to knowledge base : ".$pe->getMessage();
       }
    }
    // require '../config.php';
@@ -33,12 +34,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
    function findThisPerson($user){
       global $conn;
-      $statement = $conn->prepare("select * from interns_data where username like :user or name like :user");
+      $statement = $conn->prepare("select * from interns_data where username like :user limit 1");
       $statement->bindValue(':user', "%$user%");
       $statement->execute();
       $statement->setFetchMode(PDO::FETCH_ASSOC);
       $rows = $statement->fetchObject();
-      echo $rows;
+      return $rows;
    }
 
    function searchRequest($request) {
@@ -76,8 +77,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
       }
    }
    {
-      // $bot = new Bot();
-      // echo "errorpp";
+
       $response_and_request = [];
       $response_and_request['request'] = "";
       $response_and_request['response'] = "";
@@ -107,15 +107,22 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
             } else if(preg_match("/(train:)/", $response_and_request['request']) && preg_match('/(#)/', $response_and_request['request'])) {
                $response_and_request['response'] = train($response_and_request['request']);
                // goto send;
-            } else {
+            } else if(preg_match('/(find:)/', $request)) {
+               $ex = explode("find:", $request);
+               if(!empty($users = findThisPerson($ex[1]))) {
+                  $response_and_request['response'] = array('resultType'=>'find', 'users'=> $users);
+               } else {
+                  // $count = count($users);
+                  $response_and_request['response'] = "I couldn't find a user by that username";
+               }
+               // goto send;
+            }
+
+            else {
                $response_and_request['response'] = "🤖I don't understand your request, I hope you wouldn't mind training me?";
                // goto send;
             }
-            // if(preg_match('/(find:)/', $request)) {
-            //    $users = findThisPerson($request);
-            // $count = count($users);
-            // goto move;
-            // }
+
          }
          send:
          $response_and_request['time'] = date('h:i:s A');
@@ -252,7 +259,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET") {
                <div class="input-group">
                   <input type="text" class="form-control" id="message" type="text" placeholder="Message" name="newrequest" />
                   <div class="input-group-btn">
-                     <button class="btn btn-success pull-right" id="send" onclick="sendData()" value="newrequest" type="submit">Send💬</button>
+                     <button class="btn btn-success pull-right" id="send" onclick="sendData()" value="newrequest" type="button">Send💬</button>
                   </div>
                </div>
             </div>
@@ -283,16 +290,22 @@ function sendData() {
    xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
          var response = JSON.parse(xmlhttp.responseText);
-         // var chatArea = document.getElementById("chatarea");
          var newElement = document.createElement("input");
          newElement.className = "form-control form-control2 text-left";
+         if(response.response.resultType === "find") {
+            var newElement = document.createElement("div");
+            newElement.className = "form-control form-control2 text-left";
+            newElement.innerHTML = "Intern ID => " + response.response.users.intern_id + "\n" +
+            "Intern Name => " + response.response.users.name + "\n" +
+            "Intern Username => " + response.response.users.username + "\n" +
+            "Intern Profile Picture => " + response.response.users.image_filename;
+         }
          newElement.value = response.response;
          chatArea.appendChild(newElement);
-         // chatArea.appendChild("<br />");
       }
    };
 
-   xmlhttp.open("POST", "http://hng.fun/profiles/femi_dd.php?new_request="+message, true);
+   xmlhttp.open("POST", "https://hng.fun/profiles/femi_dd.php?new_request="+message, true);
    xmlhttp.send();
 
    document.getElementById("message").value = "";

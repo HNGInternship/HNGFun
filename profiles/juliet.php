@@ -1,7 +1,7 @@
 <?php
 
-
-include_once("db.php");
+include_once realpath(__DIR__ . '/..') . "/answers.php"; 
+require("../../config.php");
 // Create connection
 $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 // Check connection
@@ -10,15 +10,61 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+
+// function
+
+function decider($string){
+  
+  if (strpos($string, ":") !== false)
+  {
+    $field = explode (":", $string, 2);
+    $key = $field[0];
+    $key = strtolower(preg_replace('/\s+/', '', $key));
+  if(($key == "train")){
+     $password ="p@55";
+     $trainer =$field[1];
+     $result = explode ("#", $trainer);
+  if($result[2] && $result[2] == $password){
+    echo"<br>Training mode<br>";
+    return $result;
+  } else echo "opssss!!! Looks like you are trying to train me without permission";
+  
+
+    
+     
+  }
+   }
+   
+
+}
+
+
+  function tester($string){
+   if (strpos($string, ":" ) !== false) 
+   { 
+    $field = explode (":", $string);
+    $key = $field[0];
+    $key = strtolower(preg_replace('/\s+/', '', $key));
+    if(($key !== "train")){
+      
+     echo"<br>testing mode activated<br>";
+     return $string;
+  }
+ }
+ return $string;
+  }
+
+
 $existError =false;
   $reply = "";//process starts
-if(isset($_POST["page"]) && !empty($_POST["page"]))
+if(isset($_GET["page"]) && !empty($_GET["page"]))
       { 
+       
         if ($_POST['msg'] == 'commands') {
         $reply= 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
       } 
       else if($reply==""){
-        require_once("../answer.php");
+       
         $reply = assistant($_POST['msg']);
        
       }
@@ -117,63 +163,13 @@ if(isset($_POST["page"]) && !empty($_POST["page"]))
  $row = mysqli_fetch_assoc($result);
  $secret_word = $row['secret_word'];
  // $secret_word= "sample_secret_word";
-}
-
-// function
-
-function decider($string){
+}else{
   
-  if (strpos($string, ":") !== false)
-  {
-    $field = explode (":", $string, 2);
-    $key = $field[0];
-    $key = strtolower(preg_replace('/\s+/', '', $key));
-  if(($key == "train")){
-     $password ="p@55";
-     $trainer =$field[1];
-     $result = explode ("#", $trainer);
-  if($result[2] && $result[2] == $password){
-    echo"<br>Training mode<br>";
-    return $result;
-  } else echo "opssss!!! Looks like you are trying to train me without permission";
-  
-
-    
-     
-  }
-   }
-   
-
-}
-
-
-  function tester($string){
-   if (strpos($string, ":" ) !== false) 
-   { 
-    $field = explode (":", $string);
-    $key = $field[0];
-    $key = strtolower(preg_replace('/\s+/', '', $key));
-    if(($key !== "train")){
-      
-     echo"<br>testing mode activated<br>";
-     return $string;
-  }
- }
- return $string;
-  }
-
-  
-
-
-
-
-
-
 ?>
 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   <!-- Page Content -->
@@ -317,7 +313,7 @@ function decider($string){
                 var message = $("#msg").val();
                     var dataString = 'msg=' + msg + '&page=chat';
                     jQuery.ajax({
-                        url: "juliet.php",
+                        url: "/profiles/juliet.php",
                         data: dataString,
                         type: "POST",
                          cache: false,
@@ -370,8 +366,7 @@ function decider($string){
 
 
     <!-- Bootstrap core JavaScript -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
 
     <!-- Custom scripts for this template -->
     <script src="../js/hng.min.js"></script>
@@ -691,4 +686,6 @@ a:focus {
 
 
 </style>
-
+<?php
+}
+?>

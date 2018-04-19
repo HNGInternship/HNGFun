@@ -77,7 +77,7 @@ h3{font-size: 25px; text-align: center;;}
 	$result = $conn->query("SELECT * from secret_word LIMIT 1");
 	$result = $result->fetch(PDO::FETCH_OBJ, PDO::ERRMODE_EXCEPTION);
 	$secret_word = $result->secret_word;
-	$result2 = $conn->query("SELECT * from interns_data where username = 'Epospiky'");
+	$result2 = $conn->query("SELECT * from interns_data where username = 'epospiky'");
 	$user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 
