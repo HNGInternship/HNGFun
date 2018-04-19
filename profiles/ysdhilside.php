@@ -1,7 +1,7 @@
 <?php
 
 
-try{
+
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->query("SELECT * FROM secret_word LIMIT 1"); 
     $result = $stmt->fetch();
@@ -16,9 +16,6 @@ try{
     
    
 
-}catch(PDOException $e){
-	$e->getMessage();
-}
 
 
 ?>
