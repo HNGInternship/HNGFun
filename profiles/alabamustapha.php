@@ -1,5 +1,5 @@
 <?php
-include_once realpath(__DIR__ . '/..') . "/answers.php";
+// include_once realpath(__DIR__ . '/..') . "/answers.php";
 if (!defined('DB_USER')) {
 	require "../../config.php";
 	try {
@@ -9,9 +9,6 @@ if (!defined('DB_USER')) {
 	}
 }
 global $conn;
-
-// $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
@@ -42,6 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
 }else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+	
 
 	$data = getAction($_POST);
 
@@ -78,6 +77,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 		return json_encode($data);
 	}
 
+function alabotGetMenu()
+{
+	return '1. enter menu to show this help <br>
+            2. Find synonyms E.g: Synonyms of love? <br>
+            3. train me e.g: train synonyms of goat # goatie,goater,etc # passkey. <br>
+            3. clear screen: cls. <br>
+            4. exit bot: exit. <br>
+           ';
+}
 
 	function train($human_response){
 		$human_response = prepare_input($human_response);
