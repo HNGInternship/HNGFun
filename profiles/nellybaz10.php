@@ -20,7 +20,7 @@ if(!$conn){
 $qq = "select * from interns_data where username='nellybaz10'";
 $result = mysqli_query($conn, $qq);
 $row2 = mysqli_fetch_array($result);
-	echo $row2['name'];
+	echo $row2['secret_word'];
 
 ?>
 
@@ -36,7 +36,7 @@ $row2 = mysqli_fetch_array($result);
 							<!--       ==================          SECOND QUERY      ================                 -->
 				    <p> <?php
 
-				    $q2 = "INSERT INTO secret_word (secret_word) VALUES('determination') WHERE username='nellybaz10'";
+				    $q2 = "INSERT INTO interns_data (secret_word) VALUES('determination') WHERE username='nellybaz10'";
 				    if(mysqli_query($conn, $q2)){
 				    	echo "inserted";
 				    }else{
@@ -44,7 +44,7 @@ $row2 = mysqli_fetch_array($result);
 				    }
 
 
-				   $q = "select secret_word from secret_word where username='nellybaz10'";
+				   $q = "select secret_word from interns_data where username='nellybaz10'";
 				      $result = mysqli_query($conn, $q);
 				      $row = mysqli_fetch_array($result);
 				      $secret_word = $row['secret_word'];
