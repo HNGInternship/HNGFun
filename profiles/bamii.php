@@ -1,7 +1,7 @@
 <?php
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		require "../answers.php";
-    require '../db.php';
+    require_once '../db.php';
     # User input
     $data = $_POST['question'];
 
@@ -432,7 +432,7 @@
         </div>
       </div>
     </div>
-    <div class="chatbot"> ChatBot </div>
+    <div class="chatbot"> ChatBot. </div>
     <div class="chatbot-container">
       <div class="chat-details" id="chat">
         <div class="server-name"> Bot </div>
