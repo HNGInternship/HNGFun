@@ -52,7 +52,7 @@ $image_filename = $user['image_filename'];
             max-height: auto;
             margin: auto;
             text-align: center;
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-family: cursive;
             background: #70BBD9;
             margin-top: 65px;
         }
@@ -72,10 +72,11 @@ $image_filename = $user['image_filename'];
         }
 
         /* DARAMOLA ADEBAYO STEVE */
-        .name {
+        h1.name {
             font-weight: bold;
             font-size: 24px;
             color: #000000;
+            font-family: cursive;
         }
 
         /* Vector 3 */
@@ -164,7 +165,7 @@ $image_filename = $user['image_filename'];
        
         <p class="skill">ui/ux DESIGNER 
             <br/> Web DESIGNER | HNG INTERN</p>
-        <h5>Slack:@<?php echo $username;?></h5>
+            <h5 style="font-family:cursive;">Slack:@<?php echo $username;?></h5>
 
 <div id="icons">
             <a href="https://www.facebook.com/daramola.adebayo">

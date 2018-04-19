@@ -15,8 +15,8 @@ require_once("../db.php");
 				
 				 while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
    
-                    $id = $row['id'];
-					$secret_word= $row['secret_word']; 
+                                       $id = $row['id'];
+				       $secret_word= $row['secret_word']; 
 					
  				
 				 }
@@ -43,7 +43,7 @@ require_once("../db.php");
 				
 				 while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
    
-                    $intern_id = $row['intern_id'];
+                                        $intern_id = $row['intern_id'];
 					$name= $row['name']; 
 					$username= $row['username'];
 					$image_filename = $row['image_filename'];
@@ -65,7 +65,7 @@ require_once("../db.php");
 	 //Bot Brain
 			
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		require "../answers.php";
+		//require "../answers.php";
 		if(!isset($_POST['q'])){
 			echo json_encode([
 				'status' => 1,
@@ -902,7 +902,7 @@ body {
 	
 				<li class="replies">
 					<img src="http://res.cloudinary.com/weezyval/image/upload/v1523998289/bot.png" alt="" />
-					<p>Hi They! i'm zobi, i can answer some basic questions, you can also train me by simply typing this command <code>tran: question # answer #password</code></p>
+					<p>Hi They! i'm zobi, i can answer some basic questions, you can also train me by simply typing this command <code>train: question # answer #password</code></p>
 					
 					
 				</li>

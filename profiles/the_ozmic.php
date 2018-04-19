@@ -48,15 +48,14 @@
       $answer_data_query->setFetchMode(PDO::FETCH_ASSOC);
       $answer_data_result = $answer_data_query->fetchAll();
       $answer_data_index = 0;
-
       if (count($answer_data_result) > 0) {
         $answer_data_index = rand(0, count($answer_data_result) - 1);
       }
 
-      if (!isset($answer_data_result[$answer_data_index])) {
+      if ($answer_data_result[$answer_data_index]["answer"] == "") {
         return 'I don\'t understand that question. If you want to train me to understand, please type "<code>train: your question? # The answer.</code>"';
       }
-
+  
       if (containsVariables($answer_data_result[$answer_data_index]['answer']) || containsFunctions($answer_data_result[$answer_data_index]['answer'])) {
         $answer = resolveAnswer($answer_data_result[$answer_data_index]['answer']);
         return $answer;
@@ -78,32 +77,17 @@
       return $answer;
     }
 
-    $password = explode("#", trim($question));
-
     if (isTraining($question)) {
-      if (!isset($password[2])) {
-        echo "Please provide a password to train me.";
-        exit();
-        return;
-      }
-
-      if (trim($password[2]) !== "trainpwforhng") {
-        echo "Invalid authorization, you are not allowed to train me.";
-        exit();
-        return;
-      }
-
-      $question = $password[0] ."#". $password[1];
-
       $answer = resolveAnswerFromTraining($question);
       $question = strtolower(resolveQuestionFromTraining($question));
       $question_data = array(':question' => $question, ':answer' => $answer);
-
+  
       $sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '"';
-      $question_data_query = $conn->query($sql);
+      $question_data_query =  $conn->query($sql);
       $question_data_query->setFetchMode(PDO::FETCH_ASSOC);
       $question_data_result = $question_data_query->fetch();
-
+  
+  
       $sql = 'INSERT INTO chatbot ( question, answer )
           VALUES ( :question, :answer );';
       $q = $conn->prepare($sql);
@@ -136,13 +120,13 @@
         $function_found = substr($answer, $start, - $end);
         $replacable_text = substr($answer, $start, - $end);
         $new_answer = str_replace($replacable_text, $function_found(), $answer);
-
+        
         $new_answer = str_replace("((", "", $new_answer);
         $new_answer = str_replace("))", "", $new_answer);
         return resolveAnswer($new_answer);
       }
     }
-
+  
     $answer = getAnswer();
     echo $answer;
     exit();
