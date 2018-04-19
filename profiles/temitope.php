@@ -1,5 +1,15 @@
 <?php
-
+// If you can't find const DB_USER, this occurs when I'm testing locally or through hng.fun/profiles/temitope.php
+		if(!defined('DB_USER')){
+			require "../../config.php";
+			//Renamed myconfig so as not to confuse with config.php in the main folder, remember to change this to config.php
+			try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			    
+			} catch (PDOException $e) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
+			}
+		}
 // Let's set up d profile first
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
 	$query = $conn->query("Select * from secret_word LIMIT 1");
@@ -13,17 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
 // if we're sending a post message, i.e from the bot.
 if($_SERVER['REQUEST_METHOD'] === "POST"){
-	// If you can't find const DB_USER, this occurs when I'm testing locally or through hng.fun/profiles/temitope.php
-		if(!defined('DB_USER')){
-			require "../config.php";
-			//Renamed myconfig so as not to confuse with config.php in the main folder, remember to change this to config.php
-			try {
-			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-			    
-			} catch (PDOException $e) {
-			    die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
-			}
-		}
+	
 
 		// let's start with some functions to simplify our work
 		function stripquestion($question){
