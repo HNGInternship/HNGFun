@@ -2,15 +2,19 @@
 
 
 
+	
+	require_once '../config.php';
+
 	class db {
 
 
 
-		private static $_host = "localhost";
-		private static $_username = "root";
-		private static $_password = "";
+		private static $_host = DB_HOST;
+		private static $_username = DB_USER;
+		private static $_password = DB_PASSWORD;
 		private static $_driver = 'mysql';
 		private static $_instance = null;
+
 
 
 
