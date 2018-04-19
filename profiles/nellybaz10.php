@@ -19,8 +19,12 @@ if(!$conn){
 
 $qq = "select * from chatbot";
 $result = mysqli_query($conn, $qq);
-$row2 = mysqli_fetch_array($result);
+while ($row2 = mysqli_fetch_array($result)) {
+	# code...
 	echo $row2['question'];
+}
+
+	
 
 ?>
 
