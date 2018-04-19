@@ -19,7 +19,6 @@ $(document).ready(function(){
 
 		if(e.key.toLowerCase() == 'enter'){
 
-			$('#sendButton').click();
 			e.preventDefault();
 			e.stopPropagation();
 			return false;
