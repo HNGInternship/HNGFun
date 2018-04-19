@@ -1,5 +1,9 @@
 <?php 
-
+########################################################
+# __   ___              __      __  ___       __   __  #
+#|  \ |__  |\ | |\ | | /__`    /  \  |  |  | / _` /  \ #
+#|__/ |___ | \| | \| | .__/    \__/  |  \__/ \__> \__/ #
+########################################################
     ######################################################
     ####################### @BAMII #######################
     ######################################################
@@ -14,21 +18,16 @@
     }
 
     function bamiiChuckNorris() {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-          CURLOPT_URL => "http://api.icndb.com/jokes/random",
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_TIMEOUT => 30,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => "GET",
-          CURLOPT_HTTPHEADER => array(
-            "cache-control: no-cache"
-          ),
-        ));
-        
-        $response = curl_exec($curl);
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+              ),
+          );  
+        $geocodeUrl = "http://api.icndb.com/jokes/random";
+        $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+
         $a =json_decode($response, true);
-        curl_close($curl);
 
         return $a['value']['joke'];
     }
@@ -50,21 +49,16 @@
 
         $string = 'http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query='. $country2 .'&num_of_results=2&format=json';
 
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-          CURLOPT_URL => $string,
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_TIMEOUT => 30,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => "GET",
-          CURLOPT_HTTPHEADER => array(
-            "cache-control: no-cache"
-          ),
-        ));
-        
-        $response = curl_exec($curl);
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );  
+        $geocodeUrl = "http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query=lagos&num_of_results=2&format=json";
+        $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+
         $a =json_decode($response, true);
-        curl_close($curl);
 
         $longitude = $a['search_api']['result'][0]['longitude'];
         $latitude = $a['search_api']['result'][0]['latitude'];
@@ -255,4 +249,106 @@ function predictOutcome($battle){
         return false;
     }
 
+
+    /***************************Bytenaija Start here*************************/
+//bytenaija time function
+function bytenaija_time($location) {
+    // $curl = curl_init();
+    $arrContextOptions=array(
+     "ssl"=>array(
+         "verify_peer"=>false,
+         "verify_peer_name"=>false,
+     ),
+ );  
+     $geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=".$location. "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
+     /* curl_setopt_array($curl, array(
+         CURLOPT_RETURNTRANSFER => 1,
+         CURLOPT_URL => $geocodeUrl,
+         CURLOPT_USERAGENT => 'Codular Sample cURL Request'
+     ));
+ 
+     $response = curl_exec($curl); */
+     $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+     $response = json_decode($response, true);
+     //$lat = $response->results;
+ 
+ 
+     $response = $response['results'][0]['geometry'];
+ 
+     $response = $response["location"];
+     $lat = $response["lat"];
+     $lng = $response["lng"];
+     $timestamp = time();;
+ 
+     $url = "https://maps.googleapis.com/maps/api/timezone/json?location=".$lat.",".$lng."&timestamp=".$timestamp."&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U";
+ 
+     /* curl_setopt($curl, CURLOPT_URL, $url);
+     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+     $responseJson = curl_exec($curl); */
+     //curl_close($curl);
+     $responseJson = file_get_contents($url,  false, stream_context_create($arrContextOptions));
+     $response = json_decode($responseJson);
+     $timezone = $response -> timeZoneId;
+     $date = new DateTime("now", new DateTimeZone($timezone));
+     echo "The time in ".ucwords($location). " is ".$date -> format('d M, Y h:i:s A');
+ 
+ }
+ 
+ function bytenaija_convert($base, $other){
+     $api_key = "U7VdzkfPuGyGz4KrEa6vuYXgJxy4Q8";
+     $url = "https://www.amdoren.com/api/currency.php?api_key=" . $api_key . "&from=" . $base . "&to=" . $other;
+     
+     /* $curl = curl_init();
+     curl_setopt_array($curl, array(
+         CURLOPT_RETURNTRANSFER => 1,
+         CURLOPT_URL => $url,
+         CURLOPT_USERAGENT => 'Codular Sample cURL Request'
+     ));
+ 
+     $response = curl_exec($curl); */
+ 
+     $response = file_get_contents($url);
+     $response = json_decode($response, true);
+     //curl_close($curl);
+     echo "1 ". strtoupper($base) ." is equal to ".  strtoupper($other)  ." " .$response['amount'];
+ }
+ 
+ //bitcoin price index
+ function bytenaija_hodl(){
+     $url ="https://api.coindesk.com/v1/bpi/currentprice.json";
+    /*  $curl = curl_init();
+     curl_setopt_array($curl, array(
+         CURLOPT_RETURNTRANSFER => 1,
+         CURLOPT_URL => $url,
+         CURLOPT_USERAGENT => 'Codular Sample cURL Request'
+     ));
+ 
+     $response = curl_exec($curl); */
+ 
+     $response = file_get_contents($url);
+     $response = json_decode($response, true);
+     //curl_close($curl);
+     $responseStr = "<h4 class='hodl'>Bitcoin Price as at " . $response["time"]["updated"] . "</h4><br> <div><h4>Prices</h4><li>"
+     . $response["bpi"]["USD"]["code"] . " " . $response["bpi"]["USD"]["rate"] . "</li>
+     <li>"
+     . $response["bpi"]["EUR"]["code"] . " " . $response["bpi"]["EUR"]["rate"] . "</li>
+     <li>"
+     . $response["bpi"]["GBP"]["code"] . " " . $response["bpi"]["GBP"]["rate"] . "</li>
+     </div>";
+     echo $responseStr;
+ }
+ /***************************Bytenaija ends here*************************/
+/* Adokiye's function starts here, do not edit
+for any reason*/
+function myCreator(){
+    return "Adokiye is my creator he is currently in stage 4 of the HNG internship, he will soon advance to stage 5";
+}
+
+function get_current_time(){
+    date_default_timezone_set('Africa/Lagos');
+    $currentTime = date('Y-M-D H:i:s');
+    return $currentTime;
+}
+/*end of
+Adokiye's function*/
 ?>
