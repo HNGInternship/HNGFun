@@ -52,6 +52,7 @@ $stmt->execute();
 	color: #FDFDF8;
 	text-align: center;
 }
+		
 .content{
 	margin-top:  5px;
 	padding: 20px;
