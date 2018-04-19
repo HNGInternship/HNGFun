@@ -1,5 +1,5 @@
 <?php
-    //require "../db.php";
+    // require "../db.php";
     try {
           $query = $conn->query("SELECT * FROM secret_word");
           $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -123,18 +123,6 @@
   }
     //echo $secret_word;
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Adoit Adio</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" media="screen" href="../css/main.css" />
-    
-    <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
-    <script src="main.js"></script>
     <style>
         /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
 
@@ -20389,11 +20377,6 @@
                         <p class="mt-2">JavaScript (Beginner)</p>
                         <p class="mt-2">Responsive Designs</p>
                         <p class="mt-2">PHP (Beginner)</p>
-                        <h2 class="text-base font-semibold leading-tight mt-8 mb-8 pb-2">Frameworks & Libraries</h2>
-                        <p class="mt-2">Tailwind CSS (Beginner)</p>
-                        <p class="mt-2">Bootstrap (Beginner)</p>
-                        <p class="mt-2">React Js (Beginner)</p>
-                        <p class="mt-2">Vue Js (Beginner)</p>
                     </div>
                 </div>
                 <div id="chat" class="w-full h-auto border-2 bg-teal-lightest border-grey-light shadow rounded-lg p-4 mb-8">
@@ -20514,7 +20497,7 @@
                 $.ajax({
                     type: "POST",
                     cache: false, 
-                    url: "#", 
+                    url: "AdroitCode.php", 
                     datatype: "json",
                     data: $('form').serialize(), 
                     success: function(result) {
@@ -20537,5 +20520,3 @@
         });
         });
     </script>
-</body>
-</html>
