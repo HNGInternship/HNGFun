@@ -1,3 +1,5 @@
+
+<?php
 try{
      $profile = 'SELECT * FROM interns_data_ WHERE username= "samtech"';
      $check = 'SELECT * FROM secret_word LIMIT 1';
@@ -13,9 +15,8 @@ try{
  }catch (PDOException $e) {
      throw $e;
  }
- 
  $secret_word = $get['secret_word'];
- ?> 
+?>
 <!DOCTYPE html>
 <html>
      <head>
