@@ -54,7 +54,7 @@ $pass = $q[2];
 if($train == 'train'&& $pass != 'asdfgh'){
     echo "Wrong Password, You need my pass word before you can train me.";
   }elseif($train == 'train' && $pass == '1234'){
-  $in = "INSERT INTO `user`(`input`, `output`, `title`)
+  $in = "INSERT INTO `chatbot`(`input`, `output`, `title`)
      VALUES ('$qu','$an','$qu')";
   $tr = mysqli_query($conf, $in);
  echo '<div class="out"> Thank You For Training Me.';
@@ -136,12 +136,12 @@ exit();
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
     
 
-        <link rel="stylesheet" href="../../chatbot/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../../chatbot/css/font-awesome.min.css">
-        <link rel="stylesheet" href="../../chatbot/css/normalize.css">
-        <link rel="stylesheet" href="../../chatbot/css/main.css">
-        <script src="../../chatbot/js/vendor/modernizr-2.8.3.min.js"></script>
-        <script src="../../chatbot/js/vendor/jquery-1.12.0.min.js"></script>
+        <link rel="stylesheet" href="http://icitifysolution.com/hng/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://icitifysolution.com/hng/css/font-awesome.min.css">
+        <link rel="stylesheet" href="http://icitifysolution.com/hng/css/normalize.css">
+        <link rel="stylesheet" href="http://icitifysolution.com/hng/css/main.css">
+        <script src="http://icitifysolution.com/hng/js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="http://icitifysolution.com/hng/js/vendor/jquery-1.12.0.min.js"></script>
 
 
 
