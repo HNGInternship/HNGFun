@@ -336,7 +336,7 @@ function sendMsg(){
             processData(xhttp.responseText);
         }
     };
-    xhttp.open("POST", "index.php", true);
+    xhttp.open("POST", "jaycodes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("ques="+ques.value);
 }
