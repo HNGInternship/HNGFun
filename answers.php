@@ -399,6 +399,14 @@ function get_btc_rates() {
 
    return "1 BTC = {$usd} USD | {$eur} EURO | {$rub} RUB | {$try} TRY";
 }
+
+function get_jimies_functions() {
+   return '1. You can ask me to inspire you \n
+           E.g: Say "Inspire me" or "Inspire me please" \\n\\n
+           2. You can ask me to get you the current Bitcoin rates. \\n
+           E.g: Ask: "What are the current btc rates?"
+           ';
+}
 /*
 |=================================================================|
 |               JIM (JIMIE) Functions Ends                        |
