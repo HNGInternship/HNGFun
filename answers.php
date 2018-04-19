@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 
 function getUserAvatar($username)
@@ -68,16 +67,7 @@ function getNumberOfInterns()
 
     return 'Presently, there are '.$userData['COUNT(*)'].' interns at the amazing hng internship.';
 }
-=======
-<?php 
-########################################################
-# __   ___              __      __  ___       __   __  #
-#|  \ |__  |\ | |\ | | /__`    /  \  |  |  | / _` /  \ #
-#|__/ |___ | \| | \| | .__/    \__/  |  \__/ \__> \__/ #
-########################################################
-    ######################################################
-    ####################### @BAMII #######################
-    ######################################################
+
     function bamiiConvertCurrency($amount, $from, $to){
         $conv_id = "{$from}_{$to}";
         $string = file_get_contents("https://free.currencyconverterapi.com/api/v5/convert?q=$conv_id&compact=y");
@@ -586,4 +576,3 @@ if (isset($_POST['question'])) {
 
 ?>
 
->>>>>>> c264e61d5463ecd0b686406245535a16775bfd3b
