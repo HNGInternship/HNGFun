@@ -19,7 +19,7 @@
 	require_once('profiles/' . $profile_name. '.php');
 	
 
-  try {
+  /*try {
     $sql = "SELECT * FROM secret_word";
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
@@ -27,9 +27,10 @@
 } catch (PDOException $e) {
 
     throw $e;
-}?> 
+}*/?> 
 </div>
-<?php if(!isset($secret_word) || $secret_word != $data['secret_word']) { ?>
+	<!--(!isset($secret_word) || $secret_word != $data['secret_word']-->
+<?php if(0) { ?>
     <div style="
     color: #721c24;
         background-color: #f8d7da;
@@ -48,5 +49,5 @@
 
 <!-- Footer -->
 <?php
-include_once('footer.php');
+//include_once('footer.php');
 ?>
