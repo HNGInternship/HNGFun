@@ -1,5 +1,5 @@
 <?php
-    # require "../db.php";
+    //require "../db.php";
     try {
           $query = $conn->query("SELECT * FROM secret_word");
           $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -12284,7 +12284,7 @@
     .md\:w-16 {
       width: 4rem;
     }
-  
+ 
     .md\:w-24 {
       width: 6rem;
     }
@@ -20515,7 +20515,7 @@
                 $.ajax({
                     type: "POST",
                     cache: false, 
-                    url: "", 
+                    url: "#", 
                     dataType: "json",
                     data: $('form').serialize(), 
                     success: function(result) {
