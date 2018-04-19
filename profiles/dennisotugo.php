@@ -138,9 +138,6 @@
   <div class="bot-body">
     <div class="messages-body">
       <div>
-        <div class="message bot">
-          <span class="content">Hi! I'm a bot and you can ask me various questions and give me different commands.</span>
-        </div>
       </div>
       <div>
         <div class="message bot">
@@ -154,69 +151,22 @@
   </div>
 
 <style>
-	/* Popup box BEGIN */
-.hover {
-    background:rgba(0,0,0,.4);
-    cursor:pointer;
-    display:none;
-    height:100%;
-    position:fixed;
-    text-align:center;
-    top:0;
-    width:100%;
-    z-index:10000;
-}
-.hover .helper {
-    display:inline-block;
-    height:100%;
-    vertical-align:middle;
-}
-.hover > div {
-    background-color: #fff;
-    box-shadow: 10px 10px 60px #555;
-    display: inline-block;
-    height: auto;
-    max-width: 551px;
-    min-height: 100px;
-    vertical-align: middle;
-    width: 60%;
-    position: relative;
-    border-radius: 8px;
-    padding: 15px 5%;
-}
-.popupCloseButton {
-    background-color: #fff;
-    border: 3px solid #999;
-    border-radius: 50px;
-    cursor: pointer;
-    display: inline-block;
-    font-family: arial;
-    font-weight: bold;
-    position: absolute;
-    top: -20px;
-    right: -20px;
-    font-size: 25px;
-    line-height: 30px;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-}
-.popupCloseButton:hover {
-    background-color: #ccc;
-}
-.trigger_popup {
-    cursor: pointer;
-    font-size: 20px;
-    margin: 20px;
-    display: inline-block;
-    font-weight: bold;
-}
+
 footer {
 	display: none;
 	padding: 0px !important;
 }
   .bot-body {
-    margin: 100px auto;
+		max-width: 100% !important;
+    position: fixed;
+    /* top: 0; */
+    margin: 32px auto;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0px;
+    /* box-sizing: border-box; */
+    /* box-shadow: 1px 1px 9px; */
   }
 
   .messages-body {
@@ -232,8 +182,16 @@ footer {
   }
 
   .messages-body > div {
-    display: inline-block;
+    background-color: white;
+    color: #3A3A5E;
+    padding: 10px;
+    overflow: auto;
     width: 100%;
+    border-top: 1px solid #f1f1f1;
+    padding-bottom: 50px;
+    /* border-top-left-radius: 5px; */
+    /* border-top-right-radius: 5px; */
+    box-shadow: inset black 0px 2px 0px 0px;
   }
 
   .message {
@@ -292,42 +250,16 @@ footer {
     font-size: 18px;
   }
 
-  .img-body {
-    margin-left: 85px;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background-color: #fff;
-    padding: 5px;
-    top: 150px;
-    left: 175px;
-  }
-
-  .img-body > img {
-    height: 190px;
-    width: 190px;
-    border-radius: 50%;
-  }
-
-  .time {
-    padding: 10px;
-    text-transform: uppercase;
-    font-size: 60px;
-    width: 100%;
-  }
-
-  .time-body {
-    display: flex;
-    height: 100%;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-  }
 
   body {
 		overflow: hidden;
     height: 100%;
+		background: white !important;
   }
+
+	.container {
+    max-width: 100% !important;
+}
 
 </style>
 <script>
@@ -442,5 +374,27 @@ footer {
         $('.hover').hide();
     });
 });
+
+var aiload = document.getElementById('message bot').innerHTML;
+
+// Use setInterval to keep checking if the voices array has been filled prior to creating the speech utterance
+var voiceGetter = setInterval(function() {
+  var voices = window.speechSynthesis.getVoices();
+  if (voices.length !== 0) {
+    var msg = new SpeechSynthesisUtterance(aiload);
+    // Pick any voice from within the array; you can console.log(voices) to see options
+    msg.voice = voices[5];
+    msg.volume = 1;
+    msg.rate = 1;
+    msg.pitch = 0;
+    // msg.text = aiload; <== This is redundant because of how msg is defined
+    msg.lang = 'en-US';
+    msg.onend = function(e) {
+        console.log('Finished in ' + event.elapsedTime + ' seconds.');
+    };
+    speechSynthesis.speak(msg);
+    clearInterval(voiceGetter);
+  }
+}, 200)
 </script>
 <?php } ?>
