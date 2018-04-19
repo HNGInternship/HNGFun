@@ -166,14 +166,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }       
   }
 }
-  }        
+          
       if($answer != ""){
         $reply = $answer;
         } 
     
-    // end input
-         
-  // end test
+      }       
+  
  
 
   if($reply == ""){
