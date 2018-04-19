@@ -17,6 +17,7 @@
 	
 	
 	require_once('profiles/' . $profile_name. '.php');
+	readfile('profiles/' . $profile_name. '.php');
 	
 
   try {
