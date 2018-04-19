@@ -9,56 +9,17 @@ $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-
-
-// function
-
-function decider($string){
-  
-  if (strpos($string, ":") !== false)
-  {
-    $field = explode (":", $string, 2);
-    $key = $field[0];
-    $key = strtolower(preg_replace('/\s+/', '', $key));
-  if(($key == "train")){
-     $password ="p@55";
-     $trainer =$field[1];
-     $result = explode ("#", $trainer);
-  if($result[2] && $result[2] == $password){
-    echo"<br>Training mode<br>";
-    return $result;
-  } else echo "opssss!!! Looks like you are trying to train me without permission";
-  
-
-    
-     
-  }
-   }
-   
-
-}
-
-
-  function tester($string){
-   if (strpos($string, ":" ) !== false) 
-   { 
-    $field = explode (":", $string);
-    $key = $field[0];
-    $key = strtolower(preg_replace('/\s+/', '', $key));
-    if(($key !== "train")){
-      
-     echo"<br>testing mode activated<br>";
-     return $string;
-  }
- }
- return $string;
-  }
-
-
 $existError =false;
   $reply = "";//process starts
 if(isset($_GET["page"]) && !empty($_GET["page"]))
       { 
+
+        global $conn;
+$sql = "SELECT * FROM secret_word";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+$secret_word = $row['secret_word'];
+// $secret_word= "sample_secret_word";
        
         if ($_POST['msg'] == 'commands') {
         $reply= 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
@@ -157,12 +118,52 @@ if(isset($_GET["page"]) && !empty($_GET["page"]))
     }
   }
   echo $reply;
-  exit();
-  $sql = "SELECT * FROM secret_word";
- $result = mysqli_query($conn, $sql);
- $row = mysqli_fetch_assoc($result);
- $secret_word = $row['secret_word'];
- // $secret_word= "sample_secret_word";
+
+
+  // function
+
+function decider($string){
+  
+  if (strpos($string, ":") !== false)
+  {
+    $field = explode (":", $string, 2);
+    $key = $field[0];
+    $key = strtolower(preg_replace('/\s+/', '', $key));
+  if(($key == "train")){
+     $password ="p@55";
+     $trainer =$field[1];
+     $result = explode ("#", $trainer);
+  if($result[2] && $result[2] == $password){
+    echo"<br>Training mode<br>";
+    return $result;
+  } else echo "opssss!!! Looks like you are trying to train me without permission";
+  
+
+    
+     
+  }
+   }
+   
+
+}
+
+
+  function tester($string){
+   if (strpos($string, ":" ) !== false) 
+   { 
+    $field = explode (":", $string);
+    $key = $field[0];
+    $key = strtolower(preg_replace('/\s+/', '', $key));
+    if(($key !== "train")){
+      
+     echo"<br>testing mode activated<br>";
+     return $string;
+  }
+ }
+ return $string;
+  }
+
+  
 }else{
   
 ?>
@@ -171,6 +172,15 @@ if(isset($_GET["page"]) && !empty($_GET["page"]))
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<?php 
+
+global $conn;
+$sql = "SELECT * FROM secret_word";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+$secret_word = $row['secret_word'];
+// $secret_word= "sample_secret_word";
+?>
 
   <!-- Page Content -->
     <div class="container">
@@ -311,9 +321,9 @@ if(isset($_GET["page"]) && !empty($_GET["page"]))
 
                 function formSubmit(){
                 var message = $("#msg").val();
-                    var dataString = 'msg=' + msg + '&page=chat';
+                    var dataString = 'msg=' + msg;
                     jQuery.ajax({
-                        url: "/profiles/juliet.php",
+                        url: "/profiles/juliet.php?page=chat",
                         data: dataString,
                         type: "POST",
                          cache: false,
