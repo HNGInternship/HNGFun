@@ -8,6 +8,17 @@ $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
+
+if(isset($_GET["page"]) && !empty($_GET["page"]))
+      { 
+        $existError =false;
+        $reply = "";//process starts
+        global $conn;
+$sql = "SELECT * FROM secret_word";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+$secret_word = $row['secret_word'];
+      }
 ?>
 
 <!DOCTYPE html>
