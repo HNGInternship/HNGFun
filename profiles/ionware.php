@@ -1,4 +1,4 @@
-<?php
+
 
 $q = $conn->query("select * from secret_word LIMIT 1");
 $result = $q->fetch(PDO::FETCH_OBJ);
@@ -23,7 +23,6 @@ catch (Exception $e) {
 }
 
 
-?>
 <html>
 <head>
     <!-- Roboto and Lato Google fonts cdn -->
