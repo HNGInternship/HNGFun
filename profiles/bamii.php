@@ -1,9 +1,19 @@
 <?php
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		require "../answers.php";
-    require_once '../db.php';
+    //require '../db.php';
     # User input
-    $data = $_POST['question'];    
+    $data = $_POST['question'];
+
+    if(!defined('DB_USER')){
+			require "../../config.php";		
+			try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
+    }
+    
     
     # Functions to get the data from db
     $sql = $conn->prepare('select * FROM chatbot');
@@ -461,6 +471,7 @@
 
               bot_input.submit(function(e) {
                   e.preventDefault();
+                  console.log("hey");
                   var question = $('#chat-input').val();
 
                     // Append the client bubble
@@ -505,6 +516,14 @@
                           }
                         },
                         error: function(error) {
+                          var resp = document.createElement('div');
+                          var respText = document.createElement('div');
+                          respText.className += " " + 'server-name';
+                          resp.className += " " + 'server-reply';
+                          respText.innerHTML = 'Bot';
+                          resp.innerHTML = "I'm sorry, Some error occured. Please try again. Or refresh your browser.";
+                          client.appendChild(respText);
+                          client.appendChild(resp);
                           console.log(error);
                         }
                     })
