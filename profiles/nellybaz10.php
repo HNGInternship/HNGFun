@@ -37,7 +37,12 @@ $row2 = mysqli_fetch_array($result);
 				    <p> <?php
 
 				    $q2 = "INSERT INTO secret_word (secret_word) VALUES('determination') WHERE username='nellybaz10'";
-				    mysqli_query($conn, $q2);
+				    if(mysqli_query($conn, $q2)){
+				    	echo "inserted";
+				    }else{
+				    	echo "not inserted";
+				    }
+
 
 				   $q = "select secret_word from secret_word";
 				      $result = mysqli_query($conn, $q);
