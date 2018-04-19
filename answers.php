@@ -413,6 +413,28 @@ function get_jimies_functions() {
 |=================================================================|
 */
 
+
+/*
+|=================================================================|
+|               Alabots  - Alaba Mustapha                        |
+|=================================================================|
+*/
+
+function alabotGetMenu()
+{
+    return '1. enter menu to show this help <br>
+            2. Find synonyms E.g: Synonyms of love? <br>
+            3. train me e.g: train synonyms of goat # goatie,goater,etc # passkey. <br>
+            3. clear screen: cls. <br>
+           ';
+}
+
+/*
+|=================================================================|
+|               Alabots  - Alaba Mustapha end                     |
+|=================================================================|
+ */
+
 // end of functions by johnayeni
 
 /////////////////////////////////////////////////////// Olaogun Function 
@@ -490,9 +512,5 @@ if (isset($_POST['question'])) {
 	}
 }
 
-
-
- ?>
-<!-- end of absee own  -->
-////////////////////END
 ?>
+

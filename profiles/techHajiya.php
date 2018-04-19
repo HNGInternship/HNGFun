@@ -1,6 +1,5 @@
 
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,13 +12,10 @@
     <link href='https://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css' />
 	
-	 <?php 
-		
-
+	 <?php
 		$result = $conn->query("Select * from secret_word LIMIT 1");
 		$result = $result->fetch(PDO::FETCH_OBJ);
 		$secret_word = $result->secret_word;
-
 		$result2 = $conn->query("Select * from interns_data where username = 'techHajiya'");
 		$user = $result2->fetch(PDO::FETCH_OBJ);
 	?>
@@ -94,5 +90,8 @@
         </div>
     </div>
 </body>
-
+<script src="../vendor/jquery/jquery.min.js" type="text/javascript"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+</html>
 </html>
