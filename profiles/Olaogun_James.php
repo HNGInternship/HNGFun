@@ -383,7 +383,7 @@ $my_details = $result2->fetch(PDO::FETCH_OBJ);
       </div>
       <div>
         <div class="my_user message bot">
-          <span class="content">I can perform basic arithmetic of two numbers. to calculate follow the format below: <code><br>add: 1st num + 2nd num <br>multiply: 1st num * 2nd num <br>subtract: 1st num - 2nd num <br>divide: 1st num / 2nd num</code></span>
+          <span class="content">I can perform basic arithmetic of two numbers. to calculate follow the format below: <code><br>add: 1st number + 2nd number <br>multiply: 1st number * 2nd number <br>subtract: 1st number - 2nd number <br>divide: 1st number / 2nd number</code></span>
         </div>
       </div>
     </div>
