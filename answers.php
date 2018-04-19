@@ -334,4 +334,14 @@ function bytenaija_time($location) {
      echo $responseStr;
  }
  /***************************Bytenaija ends here*************************/
+/* Adokiye's function starts here, do not edit
+for any reason*/
+function myCreator(){
+    return "Adokiye is my creator he is currently in stage 4 of the HNG internship, he will soon advance to stage 5";
+}function get_current_time(){
+    date_default_timezone_set('Africa/Lagos');
+    $currentTime = date('Y-M-D H:i:s');
+    return $currentTime;
+/*end of
+Adokiye's function*/
 ?>
