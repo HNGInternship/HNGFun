@@ -1,5 +1,16 @@
 
+<?php
 
+$sql = 'SELECT * FROM interns_data WHERE username="kingsley67"';
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);  
+    $result = $query->fetch();    
+
+    $name = $result['name'];
+    $user = $result['username'];
+    $image = $result['image_filename'];
+
+  ?>
 <!DOCTYPE>
 <html>
 
