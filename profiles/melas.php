@@ -1,4 +1,14 @@
 <?php
+if(!defined('DB_USER')){
+    require "../../config.php";		
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+}
+global $conn;
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $result = $conn->query("select * from secret_word LIMIT 1");
     $result = $result->fetch(PDO::FETCH_OBJ);
@@ -7,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $result2 = $conn->query("Select * from interns_data where username = 'melas'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
 } else {
-    require './../db.php';
     require '../answers.php';
     $message = trim(strtolower($_POST['message']));
 

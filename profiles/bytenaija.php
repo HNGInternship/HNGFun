@@ -93,20 +93,21 @@ function training($question, $answer){
     function getAnswerFromDb($str){
 
         global $conn;
-        $str = "'%".$str."%'";
         if($str !== ''){
-            $sql = "SELECT COUNT(*) FROM chatbot WHERE question LIKE " . $str;
+            $sql = "SELECT COUNT(*) FROM chatbot WHERE question = '" . $str . "'";
             if ($res = $conn->query($sql)) {
 
                 /* Check the number of rows that match the SELECT statement */
               if ($res->fetchColumn() > 0) {
        
-        $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $str . " ORDER BY question ASC LIMIT 1";
+        $sql = "SELECT answer FROM chatbot WHERE question = '" . $str . "' ORDER BY question ASC LIMIT 1";
         
       foreach ($conn->query($sql) as $row) {
           
             echo $row["answer"];
-        }} else{
+        }
+        } 
+        else{
             echo "I don't understand that command yet. My master is very lazy. Try again in 200 years. You could train me to understand this using this format <strong>train: question # answer</strong>!";
         }
     }
