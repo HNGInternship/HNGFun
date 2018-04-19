@@ -4,7 +4,7 @@
     # require_once '../db.php';
     # User input
     $data = $_POST['question'];
-
+/*
     if(!defined('DB_USER')){
 			require "../../config.php";		
 			try {
@@ -12,7 +12,7 @@
 			} catch (PDOException $pe) {
 			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 			}
-    }
+    }*/
     
     
     # Functions to get the data from db
