@@ -2,7 +2,7 @@
 <?php
     include_once("header.php");
 
-    $profile_name = $_GET['id'];
+   $profile_name = $_GET['id'];
 	$secret_word = "sample_secret_word";
 
     require 'db.php';
@@ -12,7 +12,12 @@
 <body class = 'profile'>
 
 <div class="container">
-    <?php include_once('profiles/' . $profile_name. '.php');
+	
+    <?php 
+	
+	
+	require_once('profiles/' . $profile_name. '.php');
+	
 
   try {
     $sql = "SELECT * FROM secret_word";

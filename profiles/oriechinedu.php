@@ -1,10 +1,18 @@
 <?php 
     date_default_timezone_set('Africa/Lagos');
 
-    if($_SERVER['REQUEST_METHOD']==='GET'){
-        if (!defined('DB_DATABASE')){
-        require_once('../db.php');
+        if (!defined('DB_USER')){
+            
+            require "../../config.php";
         }
+        try {
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+          } catch (PDOException $pe) {
+            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+          }
+
+           global $conn;
+
         try {
             $sql = 'SELECT * FROM secret_word LIMIT 1';
             $q = $conn->query($sql);
@@ -22,12 +30,8 @@
         } catch (PDOException $e) {
             throw $e;
         }
-    }
+    
     if ($_SERVER['REQUEST_METHOD']==="POST") {
-        if (!defined('DB_DATABASE')) {
-
-            require_once('../db.php');
-        }
 
          $q = $_POST['chat_message'];
 
@@ -39,7 +43,6 @@
             echo json_encode(['status'=>0]); //status =0 means, user submitted empty string
         }
            
-            
             //check if it's a trainer
            $first_test_str = explode(':', $q);
            if ($first_test_str[0]== 'train'){
@@ -109,7 +112,8 @@
                 $result = $stm->fetchAll();
                 if ($result) {
                     
-                        $answer = $result[0]['answer'];
+                    $answer_index = rand(0, (count($result)-1));
+                        $answer = $result[$answer_index]['answer'];
 
                         echo json_encode(['status'=>1, 'answer'=>$answer]);
                 }
@@ -118,13 +122,10 @@
                 }
         }
         
-    }
+    }else{
+
 ?>
 
-
-<?php
-	if($_SERVER['REQUEST_METHOD'] === "GET"){
-?>
 
         <!DOCTYPE html>
         <html lang="en">
@@ -179,13 +180,15 @@
             max-height: 350px;
             overflow-x: hidden;
         }
-        
+        /* .msg_container{
+            width:100%;
+        } */
         .top-bar {
             background: #666;
             color: white;
             padding: 10px;
-            /* position: relative; */
-            /* overflow: hidden; */
+            position: relative; 
+             overflow: hidden;
         }
         
         .msg_receive {
@@ -206,7 +209,7 @@
             padding: 10px;
             border-radius: 2px;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-            max-width: 100%;
+            max-width: 80%;
         }
         
         .messages>p {
@@ -225,15 +228,6 @@
             overflow: hidden;
             display: flex;
         }
-        
-        /* .bot-img {
-            display: block;
-            width: 100%;
-        }
-        
-        .avatar {
-            position: relative;
-        } */
         
         .base_receive>.avatar:after {
             content: "";
@@ -317,7 +311,7 @@
                             <div class="col-lg-8 col-sm|md|xs-12">
                                 <div class="profile"> 
                                     <div class="text-center">
-                                        <img src="<?= "http://res.cloudinary.com/drjpxke9z/image/upload/v1523623738/oriechinedu_ihubdk.jpg"?>" class="rounded-circle" alt="orie chinedu" width="200px" height="200px">
+                                        <img src="<?= "https://res.cloudinary.com/drjpxke9z/image/upload/c_scale,e_auto_saturation,h_1300,q_auto:best/v1523623738/oriechinedu_ihubdk.png"?>" class="rounded-circle" alt="orie chinedu" width="200px" height="200px">
                                     </div>
                                     <h1 >Hey! <small>this is</small> <?= 'Orie Chinedu' ?></h1> 
                                     <p id="intro" style="margin-bottom: 50px; text-shadow: 2px 2px 2px #fff; color: dark;">I am a Web Developer. Proficient in HTML, CSS, JAVASCRIPT,
@@ -350,12 +344,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-sm|md|xs-12">
+                            <div class="col-lg-4 col-sm|md|xs-10">
                                 <div class="row chat-window" id="chat_window_1">
                                     <div class="card">
                                         <div class="row card-header top-bar">
                                             <div class="col-md-8 col-xs-8">
-                                                <h3><span class="fa fa-comment"></span> HNGBot</h3>   
+                                                <h3><span class="fa fa-comment"></span>ChatBot</h3>   
                                             </div>
                                             <div class="col-md-4 col-xs-4">
                                                 <a href="#"><span id="minim_chat_window" class="fa fa-minus icon_minim"></span></a>
@@ -367,7 +361,7 @@
                                             <div class="row msg_container base_sent">
                                                 <div class="col-md-10 col-xs-10">
                                                     <div class="messages msg_sent">
-                                                        <p><code>Hello, I am da bot, I am smart but you can make me smarter, I am always willing to learn</code></p>
+                                                        <p><code>Hello, I am a bot, I am smart but you can make me smarter, I am always willing to learn</code></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 col-xs-2"></div>
@@ -375,22 +369,12 @@
                                             <div class="row msg_container base_sent">
                                                 <div class="col-md-10 col-xs-10">
                                                     <div class="messages msg_sent">
-                                                        <p><code>To teach me, send train:your question#your answer</code></p>
+                                                        <p><code>To teach me, package your lesson in the format below</code></p>
+                                                        <p><code>train:your question#your answer</code></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 col-xs-2"></div>
                                             </div>
-                                            
-                                        <!-- Bot reply here -->
-                                            <!-- <div class="row msg_container base_receive">
-                                                <div class="col-md-2 col-xs-2 avatar"></div>
-                                                <div class="col-md-10 col-xs-10">
-                                                    <div class="messages msg_receive">
-                                                        <p>I am bot</p>
-                                                        <time datetime="2009-11-13T20:00">00:000:00</time>
-                                                    </div>
-                                                </div>
-                                            </div> -->
 
                                         </div>   <!-- message form -->
                                         <div class="card-footer message-div">
@@ -424,15 +408,14 @@
 
                                 let bot_msg =  (answer)=>{
 
-
-                                            return         '<div class="row msg_container base_sent">'+
+                                            return   '<div class="row msg_container base_sent">'+
                                                             '<div class="col-md-10 col-xs-10">'+
-                                                        '<div class="messages msg_sent">'+
-                                                                '<p>'+answer+'</p>'+
-                                                            '</div>'+
-                                                            '</div>'+
-                                                            '<div class="col-md-2 col-xs-2 avatar">'+
-                                                            '<img src="" class="bot-img img-responsive" title="">'+
+                                                                '<div class="messages msg_sent">'+
+                                                                    '<p>'+answer+'</p>'+
+                                                                '</div>'+
+                                                                '</div>'+
+                                                                '<div class="col-md-2 col-xs-2 avatar">'+
+                                                                '<img src="" class="bot-img img-responsive" title="">'+
                                                             '</div>'+
                                                         '</div>';
                                 }
@@ -453,6 +436,7 @@
 
                                            if (message.split(':')[0] !='train')
                                             msg_container.append(sent_msg(message));
+                                             msg_container.scrollTop(msg_container[0].scrollHeight);
                                        }
                                         // msg_container.append(bot_msg);
                                        
@@ -468,34 +452,37 @@
                                     dataType: 'json',
                                     data: {chat_message: message},
                                     success: function(data) {
-                                        console.log(data);
+                                        //console.log(data);
                                         if (data.status===1){
 
                                            $('.message').val('');
                                              msg_container.append(bot_msg(data.answer));  
+                                             msg_container.scrollTop(msg_container[0].scrollHeight);
                                         }
                                         else if(data.status===2){
                                             $('.message').val('');
                                             msg_container.append(bot_msg('Oga I no know this one, abeg try again'));
-                                            // $('.message').addClass('has-danger');
-                                            // $('.message-div').addClass('has-danger');
+                                            msg_container.scrollTop(msg_container[0].scrollHeight);
                                         }
                                         else if(data.status===0){
                                             msg_container.append(bot_msg('Opps what do you really expect from me with empty question?'))
+                                            msg_container.scrollTop(msg_container[0].scrollHeight);
                                         }
                                         else if(data.status===3){
                                             $('.message').val('');
                                             msg_container.append(bot_msg(data.response));
+                                            msg_container.scrollTop(msg_container[0].scrollHeight);
                                         }
                                         else if(data.status===4){
                                             $('.message').val('');
                                             msg_container.append(bot_msg(data.response));
+                                            msg_container.scrollTop(msg_container[0].scrollHeight);
                                         }
-                                        // location.reload();
+                                        
                                     },
                                     error: function(error) {
                                     
-                                        // console.log(error);
+                                        console.log(error);
                                     
                                         if (error) {
                                             
@@ -504,17 +491,6 @@
                                     },
                                 });
                             });
-
-                            //============jqueryui tooltip==========//
-                            // $('.img').tooltip({
-                            
-                            //     placement: 'right'
-                            
-                            // });
-                            //===========end jqueryui tooltip========//
-                            // $('.chat-window').draggable({
-
-                            // });
 
                             $(document).on('click', '.card-header span.icon_minim', function(e) {
                                 var $this = $(this);
