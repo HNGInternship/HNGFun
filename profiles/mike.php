@@ -1,5 +1,14 @@
 <?php
-require_once("../db.php");
+if(!defined('DB_USER')){
+			require "../../config.php";		
+			try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
+		}
+
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
     $stmt = $conn->prepare("SELECT * FROM secret_word");
 	$stmt->execute();	
@@ -65,7 +74,7 @@ require_once("../db.php");
 	 //Bot Brain
 			
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		//require "../answers.php";
+		require "../answers.php";
 		if(!isset($_POST['q'])){
 			echo json_encode([
 				'status' => 1,
@@ -149,7 +158,7 @@ require_once("../db.php");
 
 			$password = trim($split_string[2]);
 			//verify traning Password
-			$training_pass = "trainpwforhng";
+			$training_pass = "password";
 			
 			if($password !== $training_pass){
 				echo json_encode([
@@ -189,21 +198,17 @@ require_once("../db.php");
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
 <style> 
 body {
-  display: flex;
+
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
   background: #27ae60;
   font-family: "proxima-nova", "Source Sans Pro", sans-serif;
   font-size: 1em;
-  letter-spacing: 0.1px;
-  color: #32465a;
-  text-rendering: optimizeLegibility;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
-  -webkit-font-smoothing: antialiased;
+
 }
 
 #frame {
+  margin-bottom:10px;
   width: 95%;
   min-width: 360px;
   max-width: 1000px;
@@ -211,6 +216,8 @@ body {
   min-height: 300px;
   max-height: 720px;
   background: #E6EAEA;
+  margin-top:60px;
+
 }
 @media screen and (max-width: 360px) {
   #frame {
@@ -963,7 +970,7 @@ $(document).ready(function(){
 				return false;
 			}
 			$.ajax({
-				url: "mike.php",
+				url: "/profiles/mike.php",
 				type: "post",
 				data: {q: question},
 				dataType: "json",
