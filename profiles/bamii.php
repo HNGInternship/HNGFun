@@ -1,3 +1,175 @@
+<?php
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		require "../answers.php";
+    require_once '../db.php';
+    # User input
+    $data = $_POST['question'];    
+    
+    # Functions to get the data from db
+    $sql = $conn->prepare('select * FROM chatbot');
+    $sql->execute();
+    $db_result = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    # arrays to populaate with db data;
+    $q = [];
+    $a = [];
+
+    # Greetings
+    $greeting = ['hi?', 'hey?', 'hello?', 'hello there?', 'hey there?', 'hi there?'];
+    $follow_up = ['whats up?', 'and you?', 'how are you?'];
+
+    # Populate the question array
+    foreach ($db_result as $key => $value) {
+      array_push($q, strtolower($value['question']));
+      array_push($a, strtolower($value['answer']));
+    }
+
+    # Make the data lower case. makes it easier to compare data.
+    $data_lower = strtolower($data);
+    $greet = $data_lower;
+    if(!strpos($greet, '?')) {
+      $greet = $greet . '?';
+    }
+
+
+    if (in_array($greet, $greeting)) {
+        # Greeting
+        echo json_encode([
+          'status' => 1,
+          'answer' => "Hello there!",
+        ]);
+        return;
+    } else if(in_array($greet, $follow_up)) {
+      echo json_encode([
+        'status' => 1,
+        'answer' => "I'm fine, Thank you!",
+      ]);
+      return;
+    } else if(in_array($data_lower, $q)) { # DONE
+      # search the stored db
+      $data_lower_2 = preg_replace("([?.])", "", $data_lower);
+
+      $index = array_search($data_lower_2, $q);
+      echo json_encode([
+        'status' => 1,
+        'answer' => $a[$index],
+      ]);
+      return;
+    } else if(strpos($data, "train:") !== false) {
+      ################################
+      ######## Train the bot #########
+      ################################
+
+      # Split into question & answer array.
+      $array = explode("#", $data);
+      $question_temp = explode(":", $array[0]);
+      $question = trim($question_temp[1]);
+      $answer = trim($array[1]);
+
+      # replace question mark
+      $question = preg_replace("([?.])", "", $question);
+
+      # Append the question to the db
+      try {
+        $sql2 =  'INSERT INTO `chatbot`(`question`, `answer`) VALUES ("' . $question . '", "' . $answer . '");';
+        $conn->exec($sql2);
+        echo json_encode([
+          'status' => 1,
+          'answer' => "Heyyy check it out, you taught me something. Now you can ask me again and i'll gladly answer :)",
+        ]);
+        return;
+      } catch (Exception $e) {
+        echo json_encode([
+          'status' => 1,
+          'answer' => "Sorry. My Bad. Something happened. Please try again",
+        ]);
+        return;
+      }
+      return;
+    } else if(strpos($data_lower, 'convert') !== false) {
+      ##################################
+      ####### Currency Convertion ######
+      ##################################
+
+
+        $curr_array = explode(" ", $data_lower);
+        $amount = $curr_array[1];
+
+        $from_index = array_search('from', $curr_array) + 1;
+        $to_index = array_search('to', $curr_array) + 1;
+
+        $from = $curr_array[$from_index];
+        $to = $curr_array[$to_index];
+        $converted = bamiiConvertCurrency($amount, $from, $to);
+        $value = $amount . " " . $from . " is " . $converted . " " . $to;
+        echo json_encode([
+          'status' => 1,
+          'answer' => $value,
+        ]);
+        return;
+
+    } else if(strpos($data_lower, "help") !== false) {
+      echo json_encode([
+        'status' => 1,
+        'answer' => "
+          - To convert currency, use this format <br />
+          convert value from base to destination <br />
+          e.g convert 100 from usd to ngn <br />
+          - To tell the current time. Make sure you have 'time' in your command <br />
+          - To tell you corny chuck norris jokes. Make sure you have either 'joke' or 'chuck' in your command.
+          e.g. tell me chuck norris jokes <br />
+          - To tell details about a place. Type: details the_country <br />
+          e.g details lagos. <br />
+          If you type details nigeria. It defaults to the capital of the country. <br />
+          - Search hotels in hotel.ng. Type: search hotels: hotel_name <br />
+          e.g search hotels: moon <br />
+          ",
+      ]);
+      return;
+    } else if(strpos($data_lower, 'joke') !== false || strpos($data_lower, 'chuck') !== false) {
+      $random_joke = bamiiChuckNorris();
+
+      echo json_encode([
+        'status' => 1,
+        'answer' => $random_joke,
+      ]);
+      return;
+    } else if(strpos($data_lower, 'time') !== false) {
+      $result = bamiiTellTime($data_lower);
+
+      echo json_encode([
+        'status' => 1,
+        'answer' => $result,
+      ]);
+      return;
+    } else if(strpos($data_lower, "details") !== false) {
+      $result = bamiiCountryDetails($data);
+
+      echo json_encode([
+        'status' => 1,
+        'answer' => $result,
+      ]);
+      return;
+    } else if(strpos($data_lower, 'search') !== false) {
+      $url_temp = str_replace("search hotels:", "", $data_lower);
+      $url = trim($url_temp);
+      echo json_encode([
+        'status' => 2,
+        'answer' => 'https://hotels.ng/hotels/search?query=' . $url,
+      ]);
+      return;
+    } else { # 
+      echo json_encode([
+        'status' => 1,
+        'answer' => nl2br("Sorry, I can't answer this command / question right now. \nSadly, my creator didn't train me enough *rolls eyes*."
+        ." Fortunately for you, you can train me by typing \n<strong> 'train: what_you_want_me_to_know # how_to_answer' </strong> like so: "
+        ." eg -> <strong> train: Which company is hosting this internship. # This Internship is hosted courtesy Hotels.NG </strong> <br />
+        <hr /> You can also type in help for a full list of commands i understand."),
+      ]);
+      return;
+    }
+  }
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -9,11 +181,15 @@
 	<!-- link to main stylesheet -->
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
     <style>
+      body {
+       background: white; 
+      }
       profile {
         height: 0;
         width: 0;
 	    }
-        div.page-container {
+      div.page-container,
+      .chatbot-container {
         padding-top: 15px;
         width: 500px;
         border: 1px solid grey;
@@ -31,24 +207,14 @@
         -webkit-box-shadow: -1px 1px 4px 1px #c8cbd1;
         -moz-box-shadow: -1px 1px 4px 1px #c8cbd1;
         box-shadow: -1px 1px 4px 1px #c8cbd1;
-        }
-        .blur {
+      }
+      .blur {
         -webkit-filter: blur(5px);
         -moz-filter: blur(5px);
         -o-filter: blur(5px);
         -ms-filter: blur(5px);
         filter: blur(5px);
-        }
-        /* NAVIGATION */
-        div.navigation {
-        position: fixed;
-        padding-right: 30px;
-        width: 100%;
-        margin: 0;
-        }
-        .hamburger {
-        float: right;
-        }
+      }
         /* HEADER STYLES */
         .header-container {
         width: 100%;
@@ -107,14 +273,7 @@
         display: flex;
         cursor: pointer;
         }
-        @keyframes ish {
-        0% { height: 0; }
-        100% { height: auto; }
-        }
-        @-webkit-keyframes ish {
-        0% { height: 0; }
-        50% { height: auto; }
-        }
+        
         .first-paragraph,
         .second-paragraph {
         font-family: 'Josefin Sans';
@@ -131,61 +290,7 @@
         -ms-transition: height 4s ease;  
         transition: height 4s ease;
         }
-        .paragraph-active {
-        height: 200px;
-        display: flex;
-        }
-        /* NAVIGATION MODAL */
-        #nav-modal,
-        #portfolio {
-        position: fixed;
-        top: 0;
-        display: none;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.7);
-        z-index: 1;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        }
-        .modal-contents {
-        position: fixed;
-        margin: 0 auto;
-        width: 100%;
-        text-align: center;
-        }
-        .useless {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        }
-        div>.social-text {
-        font-family: 'Raleway', sans-serif;
-        padding-bottom: 5px;
-        coursor: crosshair;
-        margin: 0 auto;
-        text-align: center;
-        width: 60%;
-        color: white;
-        font-size: x-large;
-        border-bottom: 1px white solid;
-        }
-        .help-text {
-        font-family: 'Raleway', sans-serif;
-        font-size: small;
-        color: white;
-        }
-        .social-links {
-        font-family: 'Raleway', sans-serif;
-        color: white;
-        display: flex;
-        justify-content: space-around;
-        margin: 0 auto;
-        padding-left: 0;
-        width: 60%;
-        font-size: x-large;
-        }
+
         .my-list>li:first-child {
         border-right: 1px white solid;
         }
@@ -206,162 +311,216 @@
         width: 50%;
         padding-top: 1px;
         }
-        a,
-        a:hover,
-        a:visited,
-        a:active {
-        color: white;
-        text-decoration: none;
+
+        .chatbot-container {
+          min-height: 300px;
+          width: 200px;
+          margin: 0 auto;
+          width: 500px;
+          display: flex;
+          flex-direction: column;
+          padding: 10px;
         }
-        /* PORTFOLIO STYLES */
-        .portfolio-close {
-        font-family: 'Raleway';
-        color: white;
-        display: fixed;
-        width: 40%;
-        height: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: 1px white solid;
-        cursor: pointer;
+
+        .chat-details {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          border-bottom: 1px solid grey;
+          margin-bottom: 10px;
         }
-        .portfolio-close:hover {
-            background: white;
-            color: black;
-            border: 1px solid black;
+
+        .server-reply,
+        .client-send {
+          padding: 10px 20px;
+          font-size: small;
+          font-family: 'Raleway';
+          min-width: 30%;
+          max-width: 60%;
+          overflow-wrap: break-word;
+          border: 1px solid grey;
+          align-items: center;
+          margin-bottom: 10px;
+          font-size: 14px;
         }
-        .portfolio-item-container {
-        height: 300px;
-        width: 100%;
-        display: flex;
-        flex: wrap;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
+
+        .server-reply {
+          border-radius: 0 10px 10px 0;
+          border-right: 2px solid black;
         }
-        .portfolio-item {
-        width: 200px;
-        height: 200px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        margin: 0;
-        overflow: hidden;
+
+        .server-name {
+          font-family: 'Raleway';
+          font-size: medium;
         }
-        .portfolio-item>img {
-        height: 80%;
-        width: auto;
+
+        .client-name {
+          align-self: flex-end;
+          font-family: 'Raleway';
+          font-size: medium;
+          
         }
-        .portfolio-item>a {
-        font-family: 'Raleway', sans-serif;
+
+        .client-send {
+          align-self: flex-end;
+          border-radius: 10px 0px 0px 10px;
+          border-left: 2px solid black;
         }
+
+        .chatbot {
+          text-align: center;
+          font-size: 40px;
+          font-family: 'Raleway';
+        }
+
+        .input {
+          height: 50px;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .chat-input {
+          height: 100%;
+          width: 80%;
+          border: 1px solid grey;
+          border-radius: 3px;
+          padding: 0 15px;
+          margin: 0 auto;
+          font-size: small;
+          font-family: 'Raleway';
+        }
+
+        .chat-btn {
+          height: 100%;
+          width: 18%;
+          border: 1px solid grey;
+          font-size: small;
+          font-family: 'Raleway';
+          border-radius: 3px;
+          background: black;
+          color: white;
+          cursor: pointer; 
+        }
+
+
     </style>
 	</head>
-<body>
-  <?php
+  <body>
+    <?php
+      $sql = 'SELECT * FROM interns_data WHERE username="bamii"';
+      $query = $conn->query($sql);
+      $query->setFetchMode(PDO::FETCH_ASSOC);
+      $result = $query->fetch();    
 
-    $sql = 'SELECT * FROM interns_data WHERE username="bamii"';
-    $query = $conn->query($sql);
-    $query->setFetchMode(PDO::FETCH_ASSOC);
-    $result = $query->fetch();    
-
-    $name = $result['name'];
-    $user = $result['username'];
-    $image = $result['image_filename'];
-  ?>
-  <div class="page-container">  
-    <div class="header-container">
-      <div class="img-container">
-        <img class="profile-image" src="http://res.cloudinary.com/bambam/image/upload/v1523622325/16966438.jpg"/>
-      </div>
-      <div class="my-details">
-        <h1> <?php echo($name) ?> </h1>
-        <h2 id="button"> @<?php echo($user) ?> </h2>
+      $name = $result['name'];
+      $user = $result['username'];
+      $image = $result['image_filename'];
+    ?>
+    <div class="page-container">  
+      <div class="header-container">
+        <div class="img-container">
+          <img class="profile-image" src="http://res.cloudinary.com/bambam/image/upload/v1523622325/16966438.jpg"/>
+        </div>
+        <div class="my-details">
+          <h1> <?php echo($name) ?> </h1>
+          <h2 id="button"> @<?php echo($user); ?> </h2>
+        </div>
       </div>
     </div>
-    <div class="more-details">
-      
-      <div id="stack" class="my-stack" onClick="open2()"> My Stack </div>
-      <div id="second" class="second-paragraph">
-        <p> I mostly work frontend designing, using the obvious HTML & CSS, Bootstrap, and React (it was made primarily for UI). I also build mobile apps using React Native (and i'm pretty good at it, if i do say so myself) and Java. </p>
-        <p>
-          Here's the list of the Programming Languages i'm conversant with and the areas of specialisation in each Language.
-          <ul class="my-list">
-            <li> Java </li>
-            <li> Javascript </li>
-            <li> HTML5, CSS, JS bundle </li>
-            <li> React </li>
-            <li> ExpressJS </li>
-            <li> KnockoutJS </li>
-          </ul>
-        </p>
+    <div class="chatbot"> ChatBot </div>
+    <div class="chatbot-container">
+      <div class="chat-details" id="chat">
+        <div class="server-name"> Bot </div>
+        <div class="server-reply">
+          Hey there. I'm your new best friend. :) Ask me anything in this line <br />
+          1. To tell you corny chuck norris jokes <br />
+          2. Convert currency. <br />
+          ... i've still got a few things up my sleeve though. Just chill ;). <br /> <hr />
+          Did i tell you that you can train me too? It's simple!. <br /> <hr />
+          Just type "train: your_command # the_supposed_answer" <br/> <hr />
+          Voila! Next time you ask me that question (I'm a strict parent lol. Ask me the same thing ::), i'll be sure to answer <br /> <hr />
+          type "help" to show my commands.
+        </div>
       </div>
-    
-      <div id="third" class="portfolio-click" onClick="openPortfolio()"> Portfolio </div>
-    </div>  
-  </div>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"> </script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
-    <script>
-        // some constants ==> #232870
-        function open1() {
-        const component = document.getElementById('first');
-        if(component.style.display == 'flex') {
-            component.style.display = 'none';
-            
-            document.getElementById('about').style.background = 'white';
-        document.getElementById('about').style.color = 'black';
-        } else {
-            component.style.display = 'flex';
-            document.getElementById('about').style.background = 'black';
-        document.getElementById('about').style.color = 'white';
-        }
-        }
-        function open2() {
-        const component = document.getElementById('second');
-        if(component.style.display == 'flex') {
-            component.style.display = 'none';
-            document.getElementById('stack').style.background = 'white';
-        document.getElementById('stack').style.color = 'black';
-        } else {
-            component.style.display = 'flex';
-            document.getElementById('stack').style.background = 'black';
-        document.getElementById('stack').style.color = 'white';
-        }
-        }
-        function openNav() {
-        document.getElementById("nav-modal").style.display = "flex";
-        var ish = document.querySelector(".page-container");
-        ish.className = ish.className + " blur";
-        //alert("Help");
-        }
-        function closeNav() {
-        document.getElementById("nav-modal").style.display = "none";
-        var ish = document.getElementsByClassName("page-container")[0].classList.remove("blur");
-        }
-        function openPortfolio() {
-        document.getElementById("portfolio").style.display = "flex";
-        var ish = document.querySelector(".page-container");
-        ish.className = ish.className + " blur";
-        }
-        function closePortfolio() {
-        document.getElementById("portfolio").style.display = "none";
-        var ish = document.getElementsByClassName("page-container")[0].classList.remove("blur");
-        }
-    </script>
-    <?php
-      try {
-          $sql2 = "SELECT * FROM secret_word";
-          $query2 = $conn->query($sql2);
-          $query2->setFetchMode(PDO::FETCH_ASSOC);
-          $result2 = $query2->fetch();
-      } catch (PDOException $e) {
-          throw $e;
-      }
-      $secret_word = $result2['secret_word'];
-    ?>
-</body>
-</html>
+      <form class="input" id="bot-input">
+        <input class="chat-input" id="chat-input" type="text" placeholder="Ask a question" />
+        <button type="submit" class="chat-btn"> Ask </button>
+      </form>
+    </div>
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"> </script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
+      <script>
+        $(function(){
+              var chatInput = $('#chat-input');
+              var bot_input = $('#bot-input');
+              var stack = $('#stack');
 
+              bot_input.submit(function(e) {
+                  e.preventDefault();
+                  var question = $('#chat-input').val();
+
+                    // Append the client bubble
+                    var client = document.getElementById('chat');
+                    var ish = document.createElement('div');
+                    var text = document.createElement('div');
+                    ish.className += " " + 'client-send';
+                    text.className += " " + 'client-name';
+                    text.innerHTML = 'You';
+                    ish.innerHTML = question;
+                    client.appendChild(text);
+                    client.appendChild(ish);
+                    $('#chat-input').val("");
+                    
+                    /* Scroll to the bottom */
+                    $('html,body').animate({scrollTop: document.body.scrollHeight},"fast");
+                    $.ajax({
+                        url: './profiles/bamii.php',
+                        type: "post",
+                        dataType: "json",
+                        data: {'question': question},
+                        success: function(response) {
+                          if(response.status === 1) {
+                            var resp = document.createElement('div');
+                            var respText = document.createElement('div');
+                            respText.className += " " + 'server-name';
+                            resp.className += " " + 'server-reply';
+                            respText.innerHTML = 'Bot';
+                            resp.innerHTML = response.answer;
+                            client.appendChild(respText);
+                            client.appendChild(resp);
+                          } else if (response.status === 2) {
+                            var resp = document.createElement('div');
+                            var respText = document.createElement('div');
+                            respText.className += " " + 'server-name';
+                            resp.className += " " + 'server-reply';
+                            respText.innerHTML = 'Bot';
+                            resp.innerHTML = "Sure!";
+                            client.appendChild(respText);
+                            client.appendChild(resp);
+                            open(response.answer);
+                          }
+                        },
+                        error: function(error) {
+                          console.log(error);
+                        }
+                    })
+              }); // end submit
+        }); // end func
+      </script>
+      <?php
+        try {
+            $sql2 = "SELECT * FROM secret_word";
+            $query2 = $conn->query($sql2);
+            $query2->setFetchMode(PDO::FETCH_ASSOC);
+            $result2 = $query2->fetch();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+        $secret_word = $result2['secret_word'];
+      ?>
+  </body>
+</html>
