@@ -1,5 +1,5 @@
 <?php
-   #  require "../db.php";
+    //require "../db.php";
     try {
           $query = $conn->query("SELECT * FROM secret_word");
           $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -113,6 +113,7 @@
             $message = $_POST['chatbotmessage'];
             $answer = processMessage($message);
             # echo $answer;
+            return;
           }
           
           /* Chat Bot End */
@@ -20514,13 +20515,13 @@
                 $.ajax({
                     type: "POST",
                     cache: false, 
-                    url: "#", 
-                    datatype: "json",
+                    url: "", 
+                    dataType: "json",
                     data: $('form').serialize(), 
                     success: function(result) {
                       console.log(result);
                       $("footer").remove();
-                      $('#chatbot').append("<div class=\"w-full border-r-2 p-2 text-right border-teal-dark\">"+result+"</div><div class=\"w-full border-l-2 p-2 border-yellow-dark\">"+result.answer+"</div>");
+                      $('#chatbot').append("<div class=\"w-full border-r-2 p-2 text-right border-teal-dark\">"+result.question+"</div><div class=\"w-full border-l-2 p-2 border-yellow-dark\">"+result.answer+"</div>");
                     }
 
                 });

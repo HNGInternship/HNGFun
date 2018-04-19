@@ -381,7 +381,7 @@ function inspire() {
         'Never retreat. Never explain. Get it done and let them howl. \\n\\n - Benjamin Jowett',
         'The most effective way to do it, is to do it. \\n\\n - Amelia Earhart',
         'If you can dream it, you can do it. \\n\\n - Walt Disney',
-        'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference. \\n – Robert Frost',
+        'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference. \\n\\n – Robert Frost',
         'You miss 100% of the shots you don’t take. \\n\\n – Wayne Gretzky',
     ];
     return $inspirations[array_rand($inspirations)];
@@ -413,4 +413,28 @@ function get_jimies_functions() {
 |=================================================================|
 */
 
+// end of functions by johnayeni
+
+/////////////////////////////////////////////////////// Olaogun Function 
+function multiplication($a, $b){
+    $c = $a * $b;
+    echo $c;
+}
+
+function addition($a, $b){
+    $c = $a + $b;
+    echo $c;
+}
+
+function subtraction($a, $b){
+    $c = $a - $b;
+    echo $c;
+}
+
+function division($a, $b){
+    $c = $a / $b;
+    echo $c;
+}
+
+////////////////////END
 ?>
