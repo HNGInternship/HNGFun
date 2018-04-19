@@ -14,13 +14,13 @@
         body {
             background: mintcream;
             line-height: 1.5;
-            margin: 100px 25px 90px 25px;
+            margin: 0;
             font-family: Arial, Helvetica, sans-serif;
             font-weight: 500;
         }
 
         .container {
-            height: 100vh;
+            margin: 0 auto;
         }
 
         .card-text,
@@ -54,24 +54,21 @@
         </header>
 
         <section>
-            <div class="col-md-6 offset-md-3 my-3">
-                <div class="card text-white bg-info" style="max-width: auto">
-                    <img class="card-img" src="http://res.cloudinary.com/liveejosh/image/upload/v1523639339/IMG-20180306-WA0004.jpg" alt="liveejosh img">
+            <div class="col-md-6 my-3 float-left">
+                <div class="card text-white bg-info" style="">
+                    <img class="card-img" src="http://res.cloudinary.com/liveejosh/image/upload/v1523639339/IMG-20180306-WA0004.jpg" alt="liveejosh img" width="139" height="400">
                     <div class="card-body">
                         <h2 class="card-header text-center bg-secondary">Joshua Afekuro</h2>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <section>
-            <div class="text-center">
-                <p class="text-secondary p-2 mx-5">I am an aspiring web developer.
+            <div class="col-md-6 text-center float-right">
+                <p class="text-secondary p-2 mt-5">I am an aspiring web developer.
                     <br>
                     <i>Html5, Css, Bootstrap4, Javascript.</i>
                 </p>
                 <hr>
-                <div>
+                <div class="mt-5">
                     <h5 class="text-info">Hey connect with me on social media.</h5>
                     <p class="card-text"></p>
                     <a href="http://facebook.com/afekuroj" target="_blank" class="fa fa-facebook"> </a>
@@ -80,7 +77,9 @@
                     <a href="http://github.com/Liveejosh" target="_blank" class="fa fa-github"> </a>
                 </div>
             </div>
+        
         </section>
+
     </div>
 
     <?php
