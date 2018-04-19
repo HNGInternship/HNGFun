@@ -13,9 +13,7 @@ $link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 if(!$link){
   echo "couldn't connect";
 }
-else{
-  echo "connected";
-}
+
 
 
 $qq = "select * from interns_data";
@@ -29,7 +27,7 @@ $row2 = mysqli_fetch_array($result);
 		<tr>
 			<td>
 				
-		<div  style="margin:30px 0 0 20%; border:1px solid gray; width: 60%; height: 500px; min-width: 300px; min-height: 300px" align="left" class="whole-content">
+		<div  style="margin:30px 0 0 20%; border:1px solid gray; width: 60%; height: 650px; min-width: 300px; min-height: 300px" align="left" class="whole-content">
 		<img style="max-width: 200px; max-height: 200px; border-radius: 8px; margin:30px 0 0 30px;" src="profile.jpg">
 
 		<div style="padding-left: 30px">
