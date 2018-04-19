@@ -41,8 +41,138 @@
       $greet = $greet . '?';
     }
 
+    if(strpos($data, "train:") !== false) {
+      ################################
+      ######## Train the bot #########
+      ################################
 
-    if(in_array($data_lower, $q)) { # DONE
+      # Split into question & answer array.
+      $array = explode("#", $data);
+      $question_temp = explode(":", $array[0]);
+      $question = trim($question_temp[1]);
+      $answer = trim($array[1]);
+
+      # replace question mark
+      $question = preg_replace("([?.])", "", $question);
+
+      # Append the question to the db
+      try {
+        $sql2 =  'INSERT INTO `chatbot`(`question`, `answer`) VALUES ("' . $question . '", "' . $answer . '");';
+        $conn->exec($sql2);
+        echo json_encode([
+          'status' => 1,
+          'answer' => "Heyyy check it out, you taught me something. Now you can ask me again and i'll gladly answer :)",
+        ]);
+        return;
+      } catch (Exception $e) {
+        echo json_encode([
+          'status' => 1,
+          'answer' => "Sorry. My Bad. Something happened. Please try again",
+        ]);
+        return;
+      }
+      return;
+    } else if (strpos($data, "train:") !== true) {
+      if(in_array($data_lower, $q)) { # DONE
+        # search the stored db
+        $data_lower_2 = preg_replace("([?.])", "", $data_lower);
+  
+        $indexes = array_keys($q, $data_lower);
+        $arr_size = sizeof($indexes);
+        $random = mt_rand(0, $arr_size-1);
+  
+        $index = $indexes[$random];
+  
+        echo json_encode([
+          'status' => 1,
+          'answer' => $a[$index],
+        ]);
+        return;
+      } else if(strpos($data_lower, 'time') !== false) {
+        $result = bamiiTellTime($data_lower);
+  
+        echo json_encode([
+          'status' => 1,
+          'answer' => $result,
+        ]);
+        return;
+      } else if(strpos($data_lower, 'convert') !== false) {
+        ##################################
+        ####### Currency Convertion ######
+        ##################################
+  
+  
+          $curr_array = explode(" ", $data_lower);
+          $amount = $curr_array[1];
+  
+          $from_index = array_search('from', $curr_array) + 1;
+          $to_index = array_search('to', $curr_array) + 1;
+  
+          $from = $curr_array[$from_index];
+          $to = $curr_array[$to_index];
+          $converted = bamiiConvertCurrency($amount, $from, $to);
+          $value = $amount . " " . $from . " is " . $converted . " " . $to;
+          echo json_encode([
+            'status' => 1,
+            'answer' => $value,
+          ]);
+          return;
+  
+      } else if(strpos($data_lower, "help") !== false) {
+        echo json_encode([
+          'status' => 1,
+          'answer' => "
+            - To convert currency, use this format <br />
+            convert value from base to destination <br />
+            e.g convert 100 from usd to ngn <br />
+            - To tell the current time. Make sure you have 'time' in your command <br />
+            - To tell you corny chuck norris jokes. Make sure you have either 'joke' or 'chuck' in your command.
+            e.g. tell me chuck norris jokes <br />
+            - To tell details about a place. Type: details the_country <br />
+            e.g details lagos. <br />
+            If you type details nigeria. It defaults to the capital of the country. <br />
+            - Search hotels in hotel.ng. Type: search hotels: hotel_name <br />
+            e.g search hotels: moon <br />
+            ",
+        ]);
+        return;
+      } else if(strpos($data_lower, 'joke') !== false || strpos($data_lower, 'chuck') !== false) {
+        $random_joke = bamiiChuckNorris();
+  
+        echo json_encode([
+          'status' => 1,
+          'answer' => $random_joke,
+        ]);
+        return;
+      } else if(strpos($data_lower, "details") !== false) {
+        $result = bamiiCountryDetails($data);
+  
+        echo json_encode([
+          'status' => 1,
+          'answer' => $result,
+        ]);
+        return;
+      } else if(strpos($data_lower, 'search') !== false) {
+        $url_temp = str_replace("search hotels:", "", $data_lower);
+        $url = trim($url_temp);
+        echo json_encode([
+          'status' => 2,
+          'answer' => 'https://hotels.ng/hotels/search?query=' . $url,
+        ]);
+        return;
+      } else { # 
+        echo json_encode([
+          'status' => 1,
+          'answer' => nl2br("Sorry, I can't answer this command / question right now. \nSadly, my creator didn't train me enough *rolls eyes*."
+          ." Fortunately for you, you can train me by typing \n<strong> 'train: what_you_want_me_to_know # how_to_answer' </strong> like so: "
+          ." eg -> <strong> train: Which company is hosting this internship. # This Internship is hosted courtesy Hotels.NG </strong> <br />
+          <hr /> You can also type in help for a full list of commands i understand."),
+        ]);
+        return;
+      }
+    }
+
+   /*  if(in_array($data_lower, $q)) { # DONE
       # search the stored db
       $data_lower_2 = preg_replace("([?.])", "", $data_lower);
 
@@ -87,6 +217,14 @@
         ]);
         return;
       }
+      return;
+    } else if(strpos($data_lower, 'time') !== false) {
+      $result = bamiiTellTime($data_lower);
+
+      echo json_encode([
+        'status' => 1,
+        'answer' => $result,
+      ]);
       return;
     } else if(strpos($data_lower, 'convert') !== false) {
       ##################################
@@ -136,14 +274,6 @@
         'answer' => $random_joke,
       ]);
       return;
-    } else if(strpos($data_lower, 'time') !== false) {
-      $result = bamiiTellTime($data_lower);
-
-      echo json_encode([
-        'status' => 1,
-        'answer' => $result,
-      ]);
-      return;
     } else if(strpos($data_lower, "details") !== false) {
       $result = bamiiCountryDetails($data);
 
@@ -169,7 +299,7 @@
         <hr /> You can also type in help for a full list of commands i understand."),
       ]);
       return;
-    }
+    } */
 
     
   }
