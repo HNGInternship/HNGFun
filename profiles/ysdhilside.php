@@ -12,7 +12,7 @@ try{
     $secret_word = $result['secret_word'];
     
 
-    $stmt_intern_data = $conn->query("SELECT * FROM interns_data WHERE username = '@ysdhilside'"); 
+    $stmt_intern_data = $conn->query("SELECT * FROM interns_data_ WHERE username = 'ysdhilside'"); 
     $result = $stmt_intern_data->fetch();
     $username = $result['username'];
     $name = $result['name'];
