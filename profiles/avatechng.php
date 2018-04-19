@@ -689,7 +689,7 @@ h1 a {
 
 <script>
 
-$(document).ready(function(){
+$(function(){
 
     var i=0;
     var st;
@@ -723,7 +723,7 @@ $(document).ready(function(){
 
 <script type="text/javascript">
   
-  $(document).ready(function(){
+  $(function(){
 
      $("#st").click(function(){
 
@@ -742,7 +742,7 @@ $(document).ready(function(){
 
 <script>
 
-$(document).ready(function(){
+$(function(){
 
  window.alreadySubmit = false;
 

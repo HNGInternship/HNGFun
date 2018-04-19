@@ -476,7 +476,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				type: 'POST',
 				data: {question: question},
 				dataType: 'json',
-				success: (response) => { 
+				success: (response) => {
+          response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
           let newMessage = `<div class="bubble you">
                           ${response.answer}
                       </div>`;
