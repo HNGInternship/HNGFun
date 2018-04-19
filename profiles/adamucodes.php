@@ -1,15 +1,8 @@
 <?php
-<<<<<<< HEAD
-require '../db.php';
-$username = "adamucodes";
-
-$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data_` WHERE `username`='$username'";
-=======
 require 'db.php';
 $username = "adamucodes";
 
 $sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
->>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 $sql0 = "SELECT * FROM `secret_word` LIMIT 1";
 $stmt0 = $conn->prepare($sql0);
 $stmt0->execute();

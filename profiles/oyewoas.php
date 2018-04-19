@@ -7097,18 +7097,16 @@
 
 <body>
 <?php
-    require 'db.php';
-   
 
-    $query = "SELECT * FROM interns_data WHERE username = 'oyewoas'";
-    mysqli_query($conn, $query) or die('Error Connecting to table');
-    $result = mysqli_query($conn,$query);
-    $row = mysqli_fetch_array($result);
+   require 'db.php';
 
-    $query1 = "SELECT * FROM secret_word";
-    mysqli_query($conn, $query1) or die('Error Connecting to table');
-    $result1 = mysqli_query($conn,$query1);
-    $see = mysqli_fetch_array($result1);
+
+$result = $conn->query("Select * from secret_word LIMIT 1");
+$result = $result->fetch(PDO::FETCH_OBJ);
+$secret_word = $result->secret_word;
+
+$result2 = $conn->query("Select * from interns_data where username = 'oyewoas'");
+$user = $result2->fetch(PDO::FETCH_OBJ);
     
     ;?>
     <header>
@@ -7175,8 +7173,8 @@
                 <div class="col-md-12">
                     <h1 id="int">Web Designer and Developer</h1>
                     <p id="intro">
-                        <em>Hello, I am <?php echo $row['name'];?> with username <?php echo $row['username'];?>, Specializing in Web Design and Development.<br>
-                            My secret word is <?php echo $see['secret_word'];?> </em>
+                        <em>Hello, I am <?php echo $user->name?> with username @<?php echo $user->username?>, Specializing in Web Design and Development.
+                             </em>
                     </p>
                 </div>
             </div>
@@ -7185,7 +7183,7 @@
                 <div class="col-md-4"></div>
 
                 <div class="col-md-4 ">
-                  <?php echo  '<img src="'.$row['image_filename'].'" alt="This is my picture" class="img-circle center " id="imgmodal" title="I am a cool guy">' ?>
+                  <img src="<?php echo $user->image_filename ?>" alt="This is my picture" class="img-circle center " id="imgmodal" title="I am a cool guy">
 
                 </div>
                 <div class="col-md-4"></div>

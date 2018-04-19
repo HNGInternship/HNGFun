@@ -2,21 +2,20 @@
 <html>
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <style>
-body {
-  background-color: #edeff2;
-  font-family: "Calibri", "Roboto", sans-serif;
-}
+body{background-color: cyan;}
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.7);
-  max-width: 500px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  max-width: 300px;
+  margin: auto;
   text-align: center;
   font-family: arial;
-  background-color: white;
-  border-radius: 19px;
-  margin-top:30px;
-  border:none;
+  background-color: tomato;
+}
+
+.title {
+  color: white;
+  font-size: 18px;
 }
 
 button {
@@ -25,63 +24,25 @@ button {
   display: inline-block;
   padding: 8px;
   color: white;
-  background-color: #a3d063;
+  background-color: #000;
   text-align: center;
   cursor: pointer;
   width: 100%;
   font-size: 18px;
-  border-radius: 12px;
 }
 
 a {
   text-decoration: none;
   font-size: 22px;
-  color: #fff;
+  color: black;
 }
 
-button:hover,
-a:hover {
-    opacity: 0.9;
-    background-color: #c7eafc ;
+button:hover, a:hover {
+  opacity: 0.7;
+  background-color: cyan;
 }
-
-.image {
-    border-radius: 100%;
-    padding-top: 6px;
-}
-
-.usernamecs {
-    margin-top: 40px;
-}
-
-p.ctact {
-    border-radius: 12px;
-    padding-right: 8px;
-    padding-left: 8px;
-    padding-bottom: 6px;
-    color: #f5886e;
-}
-
-p.catact {
-    border-radius: 12px;
-    padding-right: 8px;
-    padding-left: 8px;
-    padding-top: 10px;
-}
-
-.col-md-12 {
-    margin-top: 10px;
-}
-h3{background-color: #f5886e;
-    margin-right: 8px;
-    margin-left: 8px;}
-.titles{background-color: #f5886e;
-    margin-right: 8px;
-    margin-left: 8px;}
-.hng{background-color: #f5886e;
-    margin-right: 8px;
-    margin-left: 8px;}
-.glyph{background-color: #f5886e;}
+.image{border-radius: 100%;}
+.usernamecs{margin-top:10px;}
 </style>
 </head>
 <body>
@@ -113,25 +74,20 @@ h3{background-color: #f5886e;
   }
 
 ?>
-<div class="col-md-12 col-sm-12">
-         <div class="col-md-4 col-sm-12">
-            <div class="card">
+<h2 class="usernamecs" style="text-align:center"><?php echo $name; ?></h2>
 
-                <img class="image" src="<?php echo $image_filename; ?>" style="width:92%">
-                <p class="catact">
-                    <button><?php echo $name; ?></button>
-                </p>
-                <h3>slack url : <?php echo $username; ?></h3>
-                <p class="titles">UI/UX , Programmer & Intern @</p>
-                <b><p class="hng">HNG Internship</p><b>
-                <div class="glyph" style="margin: 8px 8px;">
-                <a href="https://github.com/mikoloxtra"><i class="fa fa-github"></i></a> 
-                <a href="#"><i class="fa fa-twitter"></i></a>  
-                <a href="#"><i class="fa fa-linkedin"></i></a>  
-                <a href="#"><i class="fa fa-facebook"></i></a> 
-                </div>
-                <p class="ctact"><button>Contact</button></p>
-            </div>
-</div>   
+<div class="card">
+  <img class="image" src="<?php echo $image_filename; ?>" style="width:100%">
+  <h1><?php echo $username; ?></h1>
+  <p class="title">UI/UX , Programmer & Intern @</p>
+  <p>HNG Internship</p>
+  <div style="margin: 24px 0;">
+    <a href="#"><i class="fa fa-github"></i></a> 
+    <a href="#"><i class="fa fa-twitter"></i></a>  
+    <a href="#"><i class="fa fa-linkedin"></i></a>  
+    <a href="#"><i class="fa fa-facebook"></i></a> 
+ </div>
+ <p><button>Contact</button></p>
+</div>
 </body>
 </html>
