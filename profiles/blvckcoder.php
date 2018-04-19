@@ -220,7 +220,7 @@ try {
 			document.body.querySelectorAll('footer')[1].remove();
 			const scripts = document.body.getElementsByTagName('script');
 			if (scripts.length > 7) {
-				for (let index = (scripts.length - 5); index < scripts.length; index++) {
+				for (let index = (scripts.length - 3); index < scripts.length; index++) {
 					scripts[index].remove();
 				}
 			}
