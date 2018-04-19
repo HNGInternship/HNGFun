@@ -1,5 +1,5 @@
 <?php
-include_once("db.php");
+include_once("../db.php");
 // Create connection
 $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 // Check connection
