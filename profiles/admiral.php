@@ -235,6 +235,10 @@
   			align-items: stretch;
   			width: 100%;
 		}
+		.mb-3,
+		.my-3 {
+  			margin-bottom: 1rem !important;
+		}
 	</style>
 </head>
 <body>
@@ -263,39 +267,11 @@
 			<div class="col-lg-4">
                 <div class="row chat-window" id="chat_window_1">
                     <div class="card">
-                        <div class="row card-header top-bar chat">
-			<div class="col-lg-4">
-                <div class="row chat-window" id="chat_window_1">
-                    <div class="card">
                         <div class="row card-header top-bar">
                             <div class="col-md-8">
                                 <h2>Bot Chat</h2>   
                             </div>
                         </div>
-                                        <div class="card-body  msg_container_base">
-                        
-                                            <div class="row msg_container base_sent">
-                                                <div class="col-md-10 col-xs-10">
-                                                    <div class="messages msg_sent">
-                                                        <p><code>Hello, I am a bot, I am smart but you can make me smarter, I am always willing to learn</code></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2 col-xs-2"></div>
-                                            </div>
-                                            <div class="row msg_container base_sent">
-                                                <div class="col-md-10 col-xs-10">
-                                                    <div class="messages msg_sent">
-                                                        <p><code>To teach me, package your lesson in the format below</code></p>
-                                                        <p><code>train:your question#your answer#password</code></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2 col-xs-2"></div>
-                                            </div>
-
-                                        </div>   <!-- message form -->
-                                        <div class="card-footer message-div">
-                                            <form action="" id="chat-form" method="post">
-                                                <div class="input-group mb-3">
                             <div class="card-body  msg_container_base">
                         		<div class="row msg_container base_sent">
                                     <div class="col-md-10">
