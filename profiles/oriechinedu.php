@@ -112,7 +112,8 @@
                 $result = $stm->fetchAll();
                 if ($result) {
                     
-                        $answer = $result[0]['answer'];
+                    $answer_index = rand(0, (count($result)-1));
+                        $answer = $result[$answer_index]['answer'];
 
                         echo json_encode(['status'=>1, 'answer'=>$answer]);
                 }
@@ -179,13 +180,15 @@
             max-height: 350px;
             overflow-x: hidden;
         }
-        
+        /* .msg_container{
+            width:100%;
+        } */
         .top-bar {
             background: #666;
             color: white;
             padding: 10px;
-            /* position: relative; */
-            /* overflow: hidden; */
+            position: relative; 
+             overflow: hidden;
         }
         
         .msg_receive {
@@ -206,7 +209,7 @@
             padding: 10px;
             border-radius: 2px;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-            max-width: 100%;
+            max-width: 80%;
         }
         
         .messages>p {
