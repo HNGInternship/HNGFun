@@ -1,5 +1,5 @@
-
 <?php
+
 
 require 'db.php';
     $result = $conn->query("SELECT * from secret_word LIMIT 1");
@@ -274,20 +274,6 @@ h1 a {
     font-size: 16px;
 }
 
-.accordion li.open .link {
-    color: #b63b4d;
-}
-
-.accordion li.open i {
-    color: #b63b4d;
-}
-.accordion li.open i.fa-chevron-down {
-    -webkit-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    transform: rotate(180deg);
-}
-
 .accordion li.default .submenu {display: block;}
 /**
  * Submenu
@@ -462,4 +448,5 @@ h1 a {
 
 
 </body>
+
 </html>

@@ -9,7 +9,7 @@
 		// set the PDO error mode to exception
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
-		$stmt = $conn->prepare("select secret_word from secret_word limit 1");
+		$stmt = $conn->prepare("select * from secret_word limit 1");
 		$stmt->execute();
 
 		$secret_word = null;
@@ -18,7 +18,7 @@
 		$rows = $stmt->fetchAll();
 		if(count($rows)>0){
 			$row = $rows[0];
-			$my_secret_word = $row['secret_word'];	
+			$secret_word = $row['secret_word'];	
 		}
 
 		$name = null;
@@ -329,9 +329,7 @@ body{
 <div style="text-align:center;">
 <button style="padding:8px 15px; border:none; background-color:white; font-size:20px; border-radius:10px;"><a href="index" style="color:black; text-decoration:none; font-weight:bold;" >Go to Home</a></button>
 </div>
-<?php 
-echo $my_secret_word
-?>
+
 
 </div>
 

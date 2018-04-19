@@ -1,34 +1,18 @@
 <?php
+//include "../config.php";
 
-$sql = "SELECT intern_id, name, username, image_filename FROM interns_data WHERE username='ibotyle' ";
-$result = mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-    $name = $row["name"];
-    $username = $row["username"];
-    $imagelink = $row["image_filename"];
+    try {
+        $sql = 'SELECT intern_id, name, username, image_filename FROM interns_data WHERE username=\'ibotyle\'';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
     }
-} else {
-    echo "NO USER FOUND";
-}
-
-$sql2 = "SELECT secret_word FROM secret_word";
-$result2 = mysqli_query($conn, $sql2);
-
-if (mysqli_num_rows($result2) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result2)) {
-    $secret_word = $row["secret_word"];
-    }
-} else {
-    echo "NO SECRET KEY";
-}
-
-mysqli_close($conn);
-
-
+    
+    $name = $data["name"];
+    $username = $data["username"];
+    $imagelink = $data["image_filename"];
 
 ?> 
 <html>
@@ -89,6 +73,16 @@ button:hover, a:hover {
  </div>
  <p><a href="https://awajis.com/contact/"><button>Contact</button></a></p>
 </div>
-
+ <?php
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+    ?>
 </body>
 </html>
