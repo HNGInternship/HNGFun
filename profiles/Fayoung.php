@@ -127,6 +127,7 @@
     
     <!-- my footer -->
     <footer>
+	
 		<ul class="social-icons animated">
 			<li>
 				<a href="https://web.facebook.com/faith.uhie" target="_blank" class="social-icon">
@@ -153,7 +154,6 @@
     <br>
     <script type="text/javascript">document.getElementById('secret').style.display = 'block';</script>
     </body>
-
 
 	<?php
    try {
