@@ -1,7 +1,7 @@
 <?php
 
 
-
+/*
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->query("SELECT * FROM secret_word LIMIT 1"); 
     $result = $stmt->fetch();
@@ -12,7 +12,20 @@
     $result = $stmt_intern_data->fetch();
     $username = $result['username'];
     $name = $result['name'];
-    $image = $result['image_filename'];
+    $image = $result['image_filename']; */
+
+  $stmt = $conn->query("SELECT * FROM secret_word LIMIT 1");
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  $secret_word = $result['secret_word'];
+
+
+   $sql = "SELECT * FROM interns_data where username='ysdhilside'";
+   $query = $conn->query($sql);
+   $query->setFetchMode(PDO::FETCH_ASSOC); 
+   $result = $query->fetch();
+       $name = $result['name'];
+       $username = $result['username'];
+       $image = $result['image_filename'];
     
    
 
