@@ -342,4 +342,6 @@ function myCreator(){
     date_default_timezone_set('Africa/Lagos');
     $currentTime = date('Y-M-D H:i:s');
     return $currentTime;
+/*end of
+Adokiye's function*/
 ?>
