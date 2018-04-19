@@ -76,7 +76,7 @@ echo '</div>';
         $result = showtime($loc);
        
       }else{
-$sql="SELECT DISTINCT * FROM chatbot WHERE question LIKE '$msg%' ";
+$sql="SELECT DISTINCT question, answer  FROM chatbot WHERE question LIKE '$msg%' ";
 $send=mysqli_query($conf,$sql);
 
 $u = 'hello';
