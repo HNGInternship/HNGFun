@@ -1,5 +1,7 @@
 <?php
 
+require "../../config.php";
+
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
@@ -8,7 +10,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-	require "./answers.php";
+	require "../answers.php";
 
 	date_default_timezone_set("Africa/Lagos");
 
@@ -32,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$stat->setFetchMode(PDO::FETCH_ASSOC);
 			$rows = $stat->fetchAll();
 			if(count($rows)>0){
+				#code...
 				$index = rand(0,count($rows)-1);
 				$row = $rows[$index];
 				$answer = $row['answer'];
@@ -51,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 			$split_string = explode("#", $training_string);
 			if(count($split_string) == 1){
+				#code...
 				echo  json_encode([
 				    'status' => 0,
 				    'answer' => "Invalid training format"
@@ -62,11 +66,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	        $ans = trim($split_string[1]);
 	  
 	        if(count($split_string) < 3){
-	        echo json_encode([
-	          'status' => 0,
-	          'answer' => "You need to enter the training password to train me."
-	        ]);
-	        return;
+		        echo json_encode([
+		          'status' => 0,
+		          'answer' => "You need to enter the training password to train me."
+		        ]);
+		        return;
 	        }
 			$password = trim($split_string[2]);
 		    //verify if training password is correct
@@ -228,26 +232,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			</div>
 			<div class="row-holder">
 				<div class="row2">
-					<div id="form" method="post">
-						<form role="form">
+					<div id="form">
+						<form id="qform">
 							<input type="text" name='question' placeholder="type your question here"><input type="submit" name="submit">
 						</form>
 					</div>
 				</div>
 			</div>	
-			<ul id="chats">
-				<li> Chat Here</li>
-			</ul>
+			<div>
+				<ul id="chats">
+					<li> Chat Here</li>
+				</ul>
+			</div>
 	    </div>
 	</div>	
 	<script src="../vendor/jquery/jquery.min.js"></script>
 	<script>
 		$(document).ready(function(){
-			var Form =$('#form');
+			var Form =$('#qform');
 			Form.submit(function(e){
 				e.preventDefault();
-				var MBox = $('input[name=question]');
-				var question = MBox.val();
+				var questionBox = $('input[name=question]');
+				var question = questionBox.val();
 				$("#chats").append("<li>" + question + "</li>");
 
 				$.ajax({
@@ -259,6 +265,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						console.log("success");
 					},
 					error: (error) => {
+						alert('error occured')
 						console.log(error);
 					}
 				})
