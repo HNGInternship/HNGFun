@@ -12284,7 +12284,7 @@
     .md\:w-16 {
       width: 4rem;
     }
-  
+ 
     .md\:w-24 {
       width: 6rem;
     }
@@ -20515,7 +20515,7 @@
                 $.ajax({
                     type: "POST",
                     cache: false, 
-                    url: "", 
+                    url: "/profiles/AdroitCode.php", 
                     dataType: "json",
                     data: $('form').serialize(), 
                     success: function(result) {
