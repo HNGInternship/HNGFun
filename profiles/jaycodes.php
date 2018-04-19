@@ -1,20 +1,5 @@
 <?php
-    require_once 'db.php';
-    try {
-        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
-        $intern_data->execute();
-        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $intern_data->fetch();
     
-    
-        $secret_code = $conn->prepare("SELECT * FROM secret_word");
-        $secret_code->execute();
-        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
-        $code = $secret_code->fetch();
-        $secret_word = $code['secret_word'];
-     } catch (PDOException $e) {
-         throw $e;
-     }
     if(isset($_POST['ques'])){
         //function definitions
         function test_input($data) {
@@ -93,8 +78,25 @@
 
 
     return;
+    }else{
+        require_once 'db.php';
+    try {
+        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
+        $intern_data->execute();
+        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $intern_data->fetch();
+    
+    
+        $secret_code = $conn->prepare("SELECT * FROM secret_word");
+        $secret_code->execute();
+        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+        $code = $secret_code->fetch();
+        $secret_word = $code['secret_word'];
+     } catch (PDOException $e) {
+         throw $e;
+     }
+     $today = date("H:i:s");
     }
- $today = date("H:i:s");
 ?>
 
 <!DOCTYPE html>
