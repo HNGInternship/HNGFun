@@ -1,3 +1,24 @@
+ <?php
+
+require 'db.php';
+$sec = $conn->query("Select * from secret_word LIMIT 1");
+$sec = $sec->fetch(PDO::FETCH_OBJ);
+$secret_word = $sec->secret_word;
+
+
+
+//querying the database
+$query = $conn->query("Select * from interns_data where username = 'maaj'");
+$row = $query->fetch();
+
+// Secret Word and others 
+
+$name = $row['name'];
+$username= $row['username'];
+$image_url = $row['image_filename'];
+
+
+?> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +38,7 @@
 	}
 	
 	.profile{
-		background-image: url(http://res.cloudinary.com/maaj/image/upload/v1523621615/profile.jpg);
+		background-image: url(<?php echo $image_url;?>);
 		background-size: cover;
 		backgroun-position: top;
 		background-repeat: no-repeat;
@@ -52,15 +73,18 @@ body {
 </head>
 <body bgcolor="#153643" >
 	
+	
+
 	<div class="profile"></div>
-	<div class="head"><h1> <b>JIMOH MUHEEZ</b> </h1> </div>
-	<h5 class="head"> Freelance developer and Motion graphics expert</p>
+	<div class="head"><h1><b> <?php echo $name;?></b> </h1> </div>
+	<h5 class="head"> slack username: <?php echo $username;?></p>
 	<div style="margin: 24px 0;">
     <a href="#"><i class="fa fa-instagram"></i></a>
     <a href="#"><i class="fa fa-facebook"></i></a>
     <a href="#"><i class="fa fa-linkedin"></i></a>
     <a href="https://github.com/dmaaj"><i class="fa fa-github"></i></a>
  </div>
-	
+	<?php //echo $row["name"];?>
 </body>
 </html>
+<?php //$conn->close();?>

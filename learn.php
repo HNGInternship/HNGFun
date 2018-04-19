@@ -11,7 +11,7 @@ include_once("header.php");
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="page-heading">
                     <h1>Learn</h1>
-                    <span class="subheading">Learning Resources Center</span>
+                    <span class="subheading">Learning Resources Center </span>
                 </div>
             </div>
         </div>
@@ -96,7 +96,7 @@ include_once("header.php");
             <div class="news-style-one col-md-4 col-sm-6 col-xs-12">
                 <div class="inner-box wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
                     <figure class="image-box"><a href="blog-single.html"><img src="img/icons/icon-15.png" alt=""></a></figure>
-                    <h3 class="resources" "><a href="#">Figma</a></h3>
+                    <h3 class="resources"><a href="#">Figma</a></h3>
                     <div class="lower-content">
                         <div class="text">Introducing you to a world of interface design with real-time collaboration using figma. First of it's kind, Figma enables teams carry out projects in one page, while keeping all feedback changes and updates constantly in sync.</div>
                     </div>
