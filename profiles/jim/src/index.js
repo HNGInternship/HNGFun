@@ -27,7 +27,8 @@ class Jimie extends Component {
         },
         {
           by: 'jimie',
-          message: 'My name is Jimie. How may I assist you today?',
+          message: `My name is Jimie. How may I assist you today? \\n
+                    Type --Help to see my list of special commands.`,
         }
       ],
     }

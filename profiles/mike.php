@@ -201,7 +201,6 @@ body {
 
   align-items: center;
   justify-content: center;
- 
   background: #27ae60;
   font-family: "proxima-nova", "Source Sans Pro", sans-serif;
   font-size: 1em;
@@ -216,7 +215,7 @@ body {
   min-height: 300px;
   max-height: 720px;
   background: #E6EAEA;
-float:left;
+  margin-top:60px;
 }
 @media screen and (max-width: 360px) {
   #frame {
