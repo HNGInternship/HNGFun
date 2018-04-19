@@ -281,31 +281,5 @@
 				</div>
 			</div>
 		</div>
-		<!--<main>
-			<section class="profile-pic">
-				<img src="http://res.cloudinary.com/di4zcjwn0/image/upload/v1523629645/mypic.jpg" />
-				<h1>Ibrahim Isa</h1>
-				<p style="text-transform:uppercase">
-					Software Developer
-				</p>
-			</section>
-			<section class="basic-info">
-			</section>
-			<scetion>
-				<p>
-					PORTFOLIO
-				</p>
-				<p></p>
-			</section>
-			<section id="socialMedia">
-				<div>Contact Me</div>
-				<div id="socialicons">
-					<a href="https://facebook.com/akintola.moronfoluwar"><i class="fa fa-facebook"></i></a>
-					<a href="https://instagram.com/fantastic_foluwa"><i class="fa fa-github"></i></a>
-					<a href="https://twitter.com/fantasticfoluwa"><i class="fa fa-twitter"></i></a>
-				</div>
-			</section>
-		</main>
-		<footer> Ibrahim Isa @ 2018</footer> -->
 	</body>
 </html>
