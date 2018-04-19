@@ -164,6 +164,7 @@ footer {
     width: 100%;
     left: 0;
     bottom: 0px;
+		height: 25%;
     /* box-sizing: border-box; */
     /* box-shadow: 1px 1px 9px; */
   }
@@ -186,17 +187,13 @@ footer {
     padding: 10px;
     overflow: auto;
     width: 100%;
-    border-top: 1px solid #f1f1f1;
     padding-bottom: 50px;
-    /* border-top-left-radius: 5px; */
-    /* border-top-right-radius: 5px; */
-    box-shadow: inset black 0px 2px 0px 0px;
   }
 
   .message {
     float: left;
     font-size: 16px;
-    background-color: #edf3fd;
+    background-color: #007bff63;
     padding: 10px;
     display: inline-block;
     border-radius: 3px;
@@ -231,6 +228,7 @@ footer {
 
   .content {
     display: block;
+		color: black;
   }
 
   .send-message-body {
@@ -259,6 +257,7 @@ footer {
 	.container {
     max-width: 100% !important;
 }
+
 
 </style>
 <script>
