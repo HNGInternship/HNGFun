@@ -197,7 +197,7 @@ footer h4 a {
    <div class="profile-user-page card">
       <div class="img-user-profile">
         <img class="profile-bgHome" src="http://res.cloudinary.com/kaykluz/image/upload/v1523627149/13012866_1109913765737811_2486734311465436607_n.jpg" />
-        <img class="avatar" src="http://res.cloudinary.com/kaykluz/image/upload/v1523632681/15095645_10206084687075447_3926987726117046959_n.jpg"/>
+        <img class="avatar" src="http://res.cloudinary.com/kaykluz/image/upload/v1523627210/AAEAAQAAAAAAAAlhAAAAJDlmZDJlYWZhLWYwZTctNDNhNS04ZmJjLTg2YzRiNTc0ZjY1Nw.jpg"/>
            </div>
           <button>Follow</button>
           <div class="user-profile-data">
