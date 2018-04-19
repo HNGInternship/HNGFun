@@ -267,6 +267,10 @@ footer {
         getResponse(getQuestion());
       }
     });
+
+    $('.send-message-btn').on('click', function () {
+      getResponse(getQuestion());
+    });
   }
 
   function isUrl(string) {
@@ -295,9 +299,23 @@ footer {
       return;
     } 
 
+    if (question.toLowerCase().includes("open: ") && isUrl(question.toLowerCase().split("open: ")[1].trim())) {
+      var textToSay = question.toLowerCase().split("open: ")[1];
+      showResponse('Okay, opening: <code>'+ textToSay + '</code>');
+      window.open("http://" + textToSay);
+      return;
+    }
+
+    if (question.toLowerCase().includes("say: ")) {
+      var textToSay = question.toLowerCase().split("say: ")[1];
+      var msg = new SpeechSynthesisUtterance(textToSay);
+      window.speechSynthesis.speak(msg);
+      showResponse('Okay, saying: <code>'+ textToSay + '</code>');
+      return;
+    }
 
     $.ajax({
-      url: "profiles/dennisotugo.php",
+      url: "profiles/the_ozmic.php",
       method: "POST",
       data: { payload: question },
       success: function(res) {
@@ -315,7 +333,7 @@ footer {
 
   function showResponse(response) {
     if (response === true) {
-      $('.messages-body').append(
+      $('.messages-container').append(
         `<div>
           <div class="message bot temp">
             <span class="content">Thinking...</span>
@@ -326,7 +344,7 @@ footer {
     }
 
     $('.temp').parent().remove();
-    $('.messages-body').append(
+    $('.messages-container').append(
       `<div>
         <div class="message bot">
           <span class="content">${response}</span>
@@ -343,8 +361,8 @@ footer {
 
   function updateThread(message) {
     message = stripHTML(message);
-    $('.messages-body').append(
-      `<div class "trigger_popup">
+    $('.messages-container').append(
+      `<div>
         <div class="message you">
           <span class="content">${message}</span>
         </div>
@@ -360,18 +378,5 @@ footer {
     document.querySelector(".time").innerHTML = time;
   }
   setInterval(updateTime, 60);
-
-	$(window).load(function () {
-    $(".trigger_popup").click(function(){
-       $('.hover').show();
-    });
-    $('.hover').click(function(){
-        $('.hover').hide();
-    });
-    $('.popupCloseButton').click(function(){
-        $('.hover').hide();
-    });
-});
-
 </script>
 <?php } ?>
