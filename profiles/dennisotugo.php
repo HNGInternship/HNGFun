@@ -212,6 +212,7 @@
     font-weight: bold;
 }
 footer {
+	display: none;
 	padding: 0px !important;
 }
   .bot-body {
@@ -364,20 +365,6 @@ footer {
       return;
     } 
 
-    if (question.toLowerCase().includes("open: ") && isUrl(question.toLowerCase().split("open: ")[1].trim())) {
-      var textToSay = question.toLowerCase().split("open: ")[1];
-      showResponse('Okay, opening: <code>'+ textToSay + '</code>');
-      window.open("http://" + textToSay);
-      return;
-    }
-
-    if (question.toLowerCase().includes("say: ")) {
-      var textToSay = question.toLowerCase().split("say: ")[1];
-      var msg = new SpeechSynthesisUtterance(textToSay);
-      window.speechSynthesis.speak(msg);
-      showResponse('Okay, saying: <code>'+ textToSay + '</code>');
-      return;
-    }
 
     $.ajax({
       url: "profiles/dennisotugo.php",
