@@ -1,30 +1,4 @@
 <?php 
-
-########################################################
-# __   ___              __      __  ___       __   __  #
-#|  \ |__  |\ | |\ | | /__`    /  \  |  |  | / _` /  \ #
-#|__/ |___ | \| | \| | .__/    \__/  |  \__/ \__> \__/ #
-########################################################
-
-function start_scroll_down() { 
-   scroll = setInterval(function(){ window.scrollBy(0, 1000); console.log('start');}, 1500);
-}
-
-function stop_scroll_down() {
-   clearInterval(scroll);
-   console.log('stop');
-}
-
-function begin() {
-    start_scroll_down();
-}
-function end() {
-    stop_scroll_down();
-}
-########################################################
-
-
-
 ########################################################
 # __   ___              __      __  ___       __   __  #
 #|  \ |__  |\ | |\ | | /__`    /  \  |  |  | / _` /  \ #
@@ -368,10 +342,13 @@ function bytenaija_time($location) {
 for any reason*/
 function myCreator(){
     return "Adokiye is my creator he is currently in stage 4 of the HNG internship, he will soon advance to stage 5";
-}function get_current_time(){
+}
+
+function get_current_time(){
     date_default_timezone_set('Africa/Lagos');
     $currentTime = date('Y-M-D H:i:s');
     return $currentTime;
+}
 /*end of
 Adokiye's function*/
 ?>
