@@ -1,21 +1,5 @@
 sdsd
-<?php
-	session_start();
-	error_reporting(E_ALL);
-ini_set('display_errors',1);
-	spl_autoload_register(function($className){
-		$className = strtolower(str_replace('.', '', str_replace('..', '', $className)));
-		require_once 'classes/class.'.$className.'.php';
-	});
-	if(isset($_POST['action'])){
-		Jamila::handleMessage($_POST['message']);
-		exit;
-	}
-	session_unset();
-        $sql = DB::prepare('SELECT intern_id, name, username, image_filename FROM interns_data WHERE username="mercyikpe"');
-        $q->execute();
-        extract($sql->fetch(PDO::FETCH_ASSOC));
-?>
+
 
 	<!DOCTYPE html>
 <html id="jbot">
