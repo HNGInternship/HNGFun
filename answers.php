@@ -1,108 +1,80 @@
-<?php 
-
+<?php
 ########################################################
 # __   ___              __      __  ___       __   __  #
 #|  \ |__  |\ | |\ | | /__`    /  \  |  |  | / _` /  \ #
 #|__/ |___ | \| | \| | .__/    \__/  |  \__/ \__> \__/ #
 ########################################################
-
-function start_scroll_down() { 
-   scroll = setInterval(function(){ window.scrollBy(0, 1000); console.log('start');}, 1500);
-}
-
-function stop_scroll_down() {
-   clearInterval(scroll);
-   console.log('stop');
-}
-
-function begin() {
-    start_scroll_down();
-}
-function end() {
-    stop_scroll_down();
-}
-########################################################
-
-
-
-########################################################
-# __   ___              __      __  ___       __   __  #
-#|  \ |__  |\ | |\ | | /__`    /  \  |  |  | / _` /  \ #
-#|__/ |___ | \| | \| | .__/    \__/  |  \__/ \__> \__/ #
-########################################################
-    ######################################################
-    ####################### @BAMII #######################
-    ######################################################
-    function bamiiConvertCurrency($amount, $from, $to){
-        $conv_id = "{$from}_{$to}";
-        $string = file_get_contents("https://free.currencyconverterapi.com/api/v5/convert?q=$conv_id&compact=y");
-        $json_a = json_decode($string, true);
+######################################################
+####################### @BAMII #######################
+######################################################
+function bamiiConvertCurrency($amount, $from, $to){
+    $conv_id = "{$from}_{$to}";
+    $string = file_get_contents("https://free.currencyconverterapi.com/api/v5/convert?q=$conv_id&compact=y");
+    $json_a = json_decode($string, true);
     
-        #return $json_a[strtoupper($conv_id)]['val'];
-        #return $amount;
-        return $amount * $json_a[strtoupper($conv_id)]['val'];
-    }
+    return $amount * $json_a[strtoupper($conv_id)]['val'];
+}
 
-    function bamiiChuckNorris() {
-        $arrContextOptions=array(
-            "ssl"=>array(
-                "verify_peer"=>false,
-                "verify_peer_name"=>false,
-              ),
-          );  
-        $geocodeUrl = "http://api.icndb.com/jokes/random";
-        $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
-
-        $a =json_decode($response, true);
-
-        return $a['value']['joke'];
-    }
-
-    function bamiiTellTime($data) {
-        if(strpos($data, 'in')) {
-           return "Sorry i can't tell you the time somewhere else right now";
-        } else {
-            return 'The time is:' . date("h:i");
-        }
-    }
-
-    function bamiiCountryDetails($data) {
-        $country_arr = explode(' ', $data);
-        $country_index= array_search('details', $country_arr) + 1;
-        $country = $country_arr[$country_index];
-        $country_temp = str_replace('details', "", $data);
-        $country2 = trim($country_temp);
-
-        $string = 'http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query='. $country2 .'&num_of_results=2&format=json';
-
-        $arrContextOptions=array(
-            "ssl"=>array(
-                "verify_peer"=>false,
-                "verify_peer_name"=>false,
+function bamiiChuckNorris() {
+    $arrContextOptions=array(
+        "ssl"=>array(
+            "verify_peer"=>false,
+            "verify_peer_name"=>false,
             ),
         );  
-        $geocodeUrl = "http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query=lagos&num_of_results=2&format=json";
-        $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+    $geocodeUrl = "http://api.icndb.com/jokes/random";
+    $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
 
-        $a =json_decode($response, true);
+    $a =json_decode($response, true);
 
-        $longitude = $a['search_api']['result'][0]['longitude'];
-        $latitude = $a['search_api']['result'][0]['latitude'];
-        $name = $a['search_api']['result'][0]['areaName'][0]['value'];
-        $country_name = $a['search_api']['result'][0]['country'][0]['value'];
-        $population = $a['search_api']['result'][0]['population'];
+    return $a['value']['joke'];
+}
 
-        
-        return('
-            '. ($name ? 'Name :'. $name . '<br />' : null) .'
-            Country: ' . $country_name . ' <br />
-            Latitude: ' . $latitude . ' <br />
-            Longitude: ' . $longitude . ' <br />
-            Population: ' . $population . '<br />
-        ');
+function bamiiTellTime($data) {
+    if(strpos($data, 'in')) {
+        return "Sorry i can't tell you the time somewhere else right now";
+    } else {
+        return 'The time is:' . date("h:i");
     }
+}
 
-    ###################### END BAMII #####################
+function bamiiCountryDetails($data) {
+    $country_arr = explode(' ', $data);
+    $country_index= array_search('details', $country_arr) + 1;
+    $country = $country_arr[$country_index];
+    $country_temp = str_replace('details', "", $data);
+    $country2 = trim($country_temp);
+
+    $string = 'http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query='. $country2 .'&num_of_results=2&format=json';
+
+    $arrContextOptions=array(
+        "ssl"=>array(
+            "verify_peer"=>false,
+            "verify_peer_name"=>false,
+        ),
+    );  
+    $geocodeUrl = "http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query=lagos&num_of_results=2&format=json";
+    $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+
+    $a =json_decode($response, true);
+
+    $longitude = $a['search_api']['result'][0]['longitude'];
+    $latitude = $a['search_api']['result'][0]['latitude'];
+    $name = $a['search_api']['result'][0]['areaName'][0]['value'];
+    $country_name = $a['search_api']['result'][0]['country'][0]['value'];
+    $population = $a['search_api']['result'][0]['population'];
+
+    
+    return('
+        '. ($name ? 'Name :'. $name . '<br />' : null) .'
+        Country: ' . $country_name . ' <br />
+        Latitude: ' . $latitude . ' <br />
+        Longitude: ' . $longitude . ' <br />
+        Population: ' . $population . '<br />
+    ');
+}
+
+###################### END BAMII #####################
 
 ?>
 <?php
@@ -232,71 +204,62 @@ function predictOutcome($battle){
 }
 // End of functions by @mclint_
 
-    //functions defined by @chigozie. DO NOT MODIFY!!!
-    function getDayOfWeek(){
-        return date("l");
-    }
+//functions defined by @chigozie. DO NOT MODIFY!!!
+function getDayOfWeek(){
+    return date("l");
+}
 
-    function getDaysInMonth($month){
-        $months_with_31_days = ["january", "march", "may", "july", "august", "october", "december"];
-        $months_with_30_days = ["april", "june", "september", "november"];
-        $other = ["february"];
+function getDaysInMonth($month){
+    $months_with_31_days = ["january", "march", "may", "july", "august", "october", "december"];
+    $months_with_30_days = ["april", "june", "september", "november"];
+    $other = ["february"];
 
-        $month = strtolower(trim($month));
-        if(in_array($month, $months_with_31_days)){
-            return ucfirst($month)." has 31 days";
-        }else if(in_array($month, $months_with_30_days)){
-            return ucfirst($month)." has 30 days";
-        }else if(in_array($month, $other)){
-            $ans = "In a leap year, February has 29 days otherwise, it has 28 days. ";
-            $ans .= "If you are asking about the current year ".date("Y").", then February has ";
-            if(isCurrentYearLeap()){
-                $ans .= "29 days";
-            }else{
-                $ans .= "28 days";
-            }
-            return $ans;
+    $month = strtolower(trim($month));
+    if(in_array($month, $months_with_31_days)){
+        return ucfirst($month)." has 31 days";
+    }else if(in_array($month, $months_with_30_days)){
+        return ucfirst($month)." has 30 days";
+    }else if(in_array($month, $other)){
+        $ans = "In a leap year, February has 29 days otherwise, it has 28 days. ";
+        $ans .= "If you are asking about the current year ".date("Y").", then February has ";
+        if(isCurrentYearLeap()){
+            $ans .= "29 days";
         }else{
-            return "I don't recognize the month you entered";
+            $ans .= "28 days";
         }
+        return $ans;
+    }else{
+        return "I don't recognize the month you entered";
     }
+}
 
-    function isCurrentYearLeap(){
-        $currrent_year = intval(date('Y'));
-        if($currrent_year % 400 === 0){
-            return true;
-        }
-        if($currrent_year % 100 === 0){
-            return false;
-        }
-        if($currrent_year % 4 === 0){
-            return true;
-        }
+function isCurrentYearLeap(){
+    $currrent_year = intval(date('Y'));
+    if($currrent_year % 400 === 0){
+        return true;
+    }
+    if($currrent_year % 100 === 0){
         return false;
     }
+    if($currrent_year % 4 === 0){
+        return true;
+    }
+    return false;
+}
 
-
-    /***************************Bytenaija Start here*************************/
+/***************************Bytenaija Start here*************************/
 //bytenaija time function
 function bytenaija_time($location) {
-    // $curl = curl_init();
     $arrContextOptions=array(
-     "ssl"=>array(
-         "verify_peer"=>false,
-         "verify_peer_name"=>false,
-     ),
- );  
+        "ssl"=>array(
+            "verify_peer"=>false,
+            "verify_peer_name"=>false,
+        ),
+    );
+
      $geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=".$location. "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
-     /* curl_setopt_array($curl, array(
-         CURLOPT_RETURNTRANSFER => 1,
-         CURLOPT_URL => $geocodeUrl,
-         CURLOPT_USERAGENT => 'Codular Sample cURL Request'
-     ));
- 
-     $response = curl_exec($curl); */
      $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
      $response = json_decode($response, true);
-     //$lat = $response->results;
  
  
      $response = $response['results'][0]['geometry'];
@@ -307,11 +270,6 @@ function bytenaija_time($location) {
      $timestamp = time();;
  
      $url = "https://maps.googleapis.com/maps/api/timezone/json?location=".$lat.",".$lng."&timestamp=".$timestamp."&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U";
- 
-     /* curl_setopt($curl, CURLOPT_URL, $url);
-     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-     $responseJson = curl_exec($curl); */
-     //curl_close($curl);
      $responseJson = file_get_contents($url,  false, stream_context_create($arrContextOptions));
      $response = json_decode($responseJson);
      $timezone = $response -> timeZoneId;
@@ -323,33 +281,15 @@ function bytenaija_time($location) {
  function bytenaija_convert($base, $other){
      $api_key = "U7VdzkfPuGyGz4KrEa6vuYXgJxy4Q8";
      $url = "https://www.amdoren.com/api/currency.php?api_key=" . $api_key . "&from=" . $base . "&to=" . $other;
-     
-     /* $curl = curl_init();
-     curl_setopt_array($curl, array(
-         CURLOPT_RETURNTRANSFER => 1,
-         CURLOPT_URL => $url,
-         CURLOPT_USERAGENT => 'Codular Sample cURL Request'
-     ));
- 
-     $response = curl_exec($curl); */
  
      $response = file_get_contents($url);
      $response = json_decode($response, true);
-     //curl_close($curl);
      echo "1 ". strtoupper($base) ." is equal to ".  strtoupper($other)  ." " .$response['amount'];
  }
  
  //bitcoin price index
  function bytenaija_hodl(){
      $url ="https://api.coindesk.com/v1/bpi/currentprice.json";
-    /*  $curl = curl_init();
-     curl_setopt_array($curl, array(
-         CURLOPT_RETURNTRANSFER => 1,
-         CURLOPT_URL => $url,
-         CURLOPT_USERAGENT => 'Codular Sample cURL Request'
-     ));
- 
-     $response = curl_exec($curl); */
  
      $response = file_get_contents($url);
      $response = json_decode($response, true);
@@ -363,15 +303,76 @@ function bytenaija_time($location) {
      </div>";
      echo $responseStr;
  }
- /***************************Bytenaija ends here*************************/
+
+/***************************Bytenaija ends here*************************/
+
 /* Adokiye's function starts here, do not edit
 for any reason*/
 function myCreator(){
     return "Adokiye is my creator he is currently in stage 4 of the HNG internship, he will soon advance to stage 5";
-}function get_current_time(){
+}
+
+function get_current_time(){
     date_default_timezone_set('Africa/Lagos');
     $currentTime = date('Y-M-D H:i:s');
     return $currentTime;
+}
 /*end of
 Adokiye's function*/
+
+
+////////////////////
+function assistant($string)
+{    $reply = "";
+    if ($string == 'what is my location') {
+        $reply= "This is Your Location <i class='em em-arrow_forward'></i> " . $query['city'] . ", ". $query['country'] . "!";
+        return $reply;
+        
+    }
+    elseif ($string == 'tell me about your author') {
+        $reply= 'His name is <i class="em em-sunglasses"></i> alex idowu, he is Passionate, gifted and creative backend programmer who love to create appealing Web apps solution from concept through to completion. An enthusiastic and effective team player and always challenge the star to quo by taking up complex responsibilities. Social account <b><a href="https://twitter.com/Codexxxp">Codexxp @Twitter</a></b> <br> <b><a href="https://www.linkedin.com/in/alex-idowu-0b4142124/">Alex Idowu @Linkedin</a></b> ';
+        return $reply;    
+    }
+    elseif ($string == 'open facebook') {
+        $reply= "<p>Facebook opened successfully </p> <script language='javascript'> window.open(
+    'https://www.facebook.com/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }
+    elseif ($string == 'open twitter') {
+        $reply = "<p>Twitter opened successfully </p> <script language='javascript'> window.open(
+    'https://twitter.com/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }elseif ($string == 'open linkedin') {
+        $reply= "<p>Linkedin opened successfully </p> <script language='javascript'> window.open(
+    'https://www.linkedin.com/jobs/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }
+    elseif ($string == 'shutdown my pc') {
+        $reply =  exec ('shutdown -s -t 0');
+        return $reply;
+    }elseif ($string == 'get my pc name') {
+        $reply = getenv('username');
+        return $reply;
+    }
+    else{
+        $reply = "";
+        return $reply;
+    }
+  
+}
+
+
+////////////////////////////
 ?>
