@@ -1,6 +1,4 @@
 <?php
-include_once realpath(__DIR__ . '/..') . "/answers.php";
-
 
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
