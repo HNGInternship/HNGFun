@@ -34,6 +34,14 @@
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$rows = $stmt->fetchAll();
         
+        $stmt = $conn->prepare("SELECT * FROM chatbot");
+		$stmt->execute();
+
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$rows = $stmt->fetchAll();
+        $json = json_encode($rows);
+        echo $json
+        
 		if(count($rows)>0){
 			$row = $rows[0];
 			$name = $row['name'];	
@@ -41,22 +49,7 @@
 		}
 	}
 ?>
-<?php 
-		$result = $conn->query("Select * from secret_word LIMIT 1");
-		$result = $result->fetch(PDO::FETCH_OBJ);
-		$secret_word = $result->secret_word;
-		$result2 = $conn->query("Select * from interns_data where username = 'ovundah'");
-		$user = $result2->fetch(PDO::FETCH_OBJ);
 
-		
-		$stmt = $conn->prepare("SELECT * FROM chatbot");
-		$stmt->execute();
-
-		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-		$rows = $stmt->fetchAll();
-        $json = json_encode($rows);
-        echo $json
-?>
 <html>
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
