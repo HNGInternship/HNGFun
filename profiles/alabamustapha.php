@@ -62,10 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 	function getAction($input){
 		$data = [];
-		// if(strtolower($input['human_response'], "hi") == 0){
-		// $data = intro($input['human_response']);	
-		// return json_encode($data);
-		// }
+		
 		switch ($input['stage']){
 			case 0: //bot intro
 				$data = greet();
@@ -132,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
 	function getSynonyms($human_response){
-		// global $conn;
+		global $conn;
 		$human_response_words = explode(' ', $human_response);
 		$word = array_pop($human_response_words);
 		$db_word = 'alabot_synonyms_' . $word;
@@ -149,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	}
 
 	function setSynonyms($word, $answer){
-		// global $conn;
+		global $conn;
 		$db_word = 'alabot_synonyms_' . $word;
 		$sql = "SELECT * FROM chatbot WHERE question = '{$db_word}' LIMIT 1";
 		$q = $conn->query($sql);
@@ -379,7 +376,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 				</div>
 
 				<h1 class="intro"><?=$name?> </h1>
-				<h3 class="text-center">Being Kind is better than being right</h3>
+				<h3 class="text-center">Being Kind is better than being right.</h3>
 			</div>	
 		</section>
 	</div>
