@@ -1,5 +1,4 @@
 <?php 
-<<<<<<< HEAD
     try {
         $q = 'SELECT * FROM secret_word';
         $sql = $conn->query($q);
@@ -10,23 +9,8 @@
 
         throw $err;
     }?>
-=======
-
-  try {
-      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'essietom\'';
-      $q = $conn->query($sql);
-      $q->setFetchMode(PDO::FETCH_ASSOC);
-      $data = $q->fetch();
-      $secret_word = $data['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
-?>
-<!DOCTYPE html>
-<html>
->>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 <head>
-	<title><?php echo $username; ?></title>
+	<title><?php echo $user->username; ?></title>
 	<style type="text/css">
 		
 		body{
@@ -269,8 +253,8 @@
 
 <div class="banner-main">
 	
-	<img src="<?php echo $image_filename; ?>" width="100px" height="110px" class="round-border roll-image">
-	<h2><?php echo $username; ?></h2>
+	<img src="http://res.cloudinary.com/essietom/image/upload/v1523719246/<?php echo $user->image_filename; ?>" width="100px" height="110px" class="round-border roll-image">
+	<h2><?php echo $user->name; ?></h2>
 	<h4>Web developer and designer</h4>
 	<p style="text-align: justify; padding-right:10px;margin-left: 10px;">
 		I am a tech enthusiast, passionate about changing my world with technology. Software development is my thing, with determination to discover creative ideas and solve complex problems.<br>

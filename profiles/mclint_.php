@@ -26,7 +26,7 @@
   }
 ?>
 
-<?php
+  <?php
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     require "../answers.php";
     
@@ -43,10 +43,35 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     function answerQuestion($question){
       global $conn;
-      global $answer; 
 
       $question = preg_replace('([\s]+)', ' ', trim($question));
       $question = preg_replace("([?.])", "", $question);
+
+      switch(strtolower($question))
+      {
+        case "tell me a joke":
+        case "tell me another joke":
+          sendResponse(200, getAJoke());
+          break;
+
+        case "roll a dice":
+          sendResponse(200, rollADice());
+          break;
+
+        case "flip a coin":
+          sendResponse(200, flipACoin());
+          break;
+      }
+
+      switch(true){
+        case substr($question, 0, strlen('emojify:')) === "emojify:":
+          sendResponse(200, emojifyText(substr($question, strlen('emojify:'), strlen($question))));
+          break;
+
+        case substr($question, 0, strlen('predict:')) === "predict:":
+          sendResponse(200, predictOutcome(substr($question, strlen('emojify:'), strlen($question))));
+          break;
+      }
       
       $question = "%$question%";
       $sql = "select * from chatbot where question like :question";
@@ -87,7 +112,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         if(!function_exists($nameOfFunction)){
           sendResponse(404, "I'm sorry. I do not know what you're trying to make me do.");
         }else{
-          sendResponse(200, str_replace("(($nameOfFunction))", $nameOfFunction(), $answer));
+          $functionResult = str_replace("((".$nameOfFunction."))", $nameOfFunction(), $answer);
+          sendResponse(200, $functionResult);
         }
       }
     }
@@ -106,6 +132,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         
         $question = trim($splitString[0]);
         $answer = trim($splitString[1]);
+
         $sql = "insert into chatbot (question, answer) values (:question, :answer)";
         $query = $conn->prepare($sql);
         $query->bindParam(':question', $question);
@@ -142,12 +169,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 ?>
     <!DOCTYPE html>
     <html lang="en">
+
     <head>
       <meta charset="UTF-8">
       <title>Mbah Clinton</title>
       <meta name="theme-color" content="#2f3061">
       <meta name="viewport" content="width=device-width,initial-scale=1.0">
-      <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu|IBM+Plex+Sans" rel="stylesheet">
       <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
       <style>
         :root {
@@ -221,10 +249,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         }
 
         #chat-container {
-          height: 600px;
+          height: 450px;
           border-radius: 10px 10px 0px 0px;
-          background-color: rgb(230, 230, 230);
+          background-color: rgb(231, 231, 231);
           overflow-y: scroll;
+          font-size: 16px;
         }
 
         #message-tb {
@@ -233,7 +262,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           height: 50px;
           padding-left: 16px;
           border-radius: 0px 0px 10px 10px;
-          background-color: white;
+          background-color: #D7D8DC;
+          font-size: 16px;
         }
 
         #btn-show-bot {
@@ -252,12 +282,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         .chat-bubble {
           background-color: aquamarine;
-          border: 0px solid transparent;
           border-radius: 10px;
           list-style-type: none;
           padding: 8px;
           margin: 0px;
           margin-bottom: 16px;
+        }
+
+        #chat {
+          display: flex;
+          flex-direction: column;
+          width: 35%;
+          align-items: center;
+          font-family: 'IBM Plex Sans', 'Arial', sans-serif;
         }
 
         @media (max-width: 575px) {
@@ -276,6 +313,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
           #about h5 {
             font-size: 12px;
+          }
+
+          #chat {
+            width: 100%;
           }
         }
       </style>
@@ -330,7 +371,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           el: '#chat-bot',
           data: {
             showChatBot: false,
-            messages: [],
+            messages: [{ query: `Hey, human. I'm Olive. Try asking 'Tell me a joke' or 'emojify: Hello bot' or 'Flip a coin' or 'Roll a dice' or 'predict: Barcelona vs Real Madrid'`, sender: 'bot' }],
+            history: [],
+            historyIndex: 0,
             query: '',
           },
           computed: {
@@ -344,43 +387,86 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           methods: {
             askBot() {
               this.messages.push({ query: this.query, sender: 'user' });
+              this.history.push(this.query);
+              this.historyIndex = this.history.length;
 
               this.answerQuery(this.query);
               this.query = '';
             },
             getBubbleColor(sender) {
               if (sender === 'user')
-                return 'orange';
+                return '#8DCBF4';
 
-              return 'teal';
+              return '#F7F9FB';
+            },
+            getBorderRadius(sender) {
+              if (sender === 'user')
+                return '10px 10px 0px 10px';
+
+              return '0px 10px 10px 10px';
             },
             answerQuery(query) {
+              this.messages.push({ sender: 'bot', query: 'Thinking..' });
+
               var params = new URLSearchParams();
               params.append('password', 'trainpwforhng');
               params.append('question', query);
 
               axios.post('/profiles/mclint_.php', params)
                 .then(response => {
-                  console.log(response.data);
+                  console.log(response);
+                  this.messages.pop();
                   this.messages.push({ sender: 'bot', query: response.data.answer });
                 }).catch(error => {
                   console.log(error);
+                  this.messages.pop();
+                  this.messages.push({ sender: 'bot', query: 'Mediocre humans. Your internet connection is down.' });
                 });
+            },
+            showHistory(direction) {
+              if (this.history.length > 0) {
+                if (direction == 'down') {
+                  if (this.historyIndex + 1 <= this.history.length - 1) {
+                    this.historyIndex++;
+                    this.query = this.history[this.historyIndex];
+                  }
+                } else {
+                  if (this.historyIndex - 1 >= 0) {
+                    this.historyIndex--;
+                    this.query = this.history[this.historyIndex];
+                  }
+                }
+              }
+            },
+            triggerAction(event) {
+              switch (event.key) {
+                case 'Enter':
+                  this.askBot();
+                  break;
+
+                case 'ArrowUp':
+                  this.showHistory('up');
+                  break;
+
+                case 'ArrowDown':
+                  this.showHistory('down');
+                  break;
+              }
             }
           },
           template: `
-        <div style="display: flex; flex-direction: column; width: 35%; align-items: center;">
+        <div id="chat">
           <button id="btn-show-bot" @click="showChatBot = !showChatBot">{{botBtnText}}</button>
           <div  id="chat-bot" v-if="showChatBot">
             <div id="chat-container">
               <ul style="padding: 16px; list-style-type: none;">
-                <li class="chat-bubble" v-for="(msg, index) in messages" v-key="index" :style="{'background-color': getBubbleColor(msg.sender)}">
-                  <p style="margin: 0; padding: 0">{{msg.query}}</p>
+                <li class="chat-bubble" v-for="(msg, index) in messages" v-key="index" :style="{'background-color': getBubbleColor(msg.sender), 'border-radius': getBorderRadius(msg.sender)}">
+                  <p style="margin: 0; padding: 0; color: rgba(0, 0, 0, 0.8)">{{msg.query}}</p>
                 </li>
               </ul>
             </div>
             <div>
-              <input id="message-tb" type="text" @keyup.enter="askBot" placeholder="Type your message here" v-model="query" />
+              <input id="message-tb" type="text" @keyup="triggerAction($event)" placeholder="Type your message here" v-model="query" />
             </div>
           </div>
         </div>
