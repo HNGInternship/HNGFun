@@ -20508,27 +20508,7 @@
     
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <script type="text/javascript">
-      $(document).ready(function(){
-            $('form').on('submit', function(e){
-             e.preventDefault();
-                $.ajax({
-                    type: "POST",
-                    cache: false, 
-                    url: "#", 
-                    dataType: "json",
-                    data: $('form').serialize(), 
-                    success: function(result) {
-                      console.log(result);
-                      $("footer").remove();
-                      $('#chatbot').append("<div class=\"w-full border-r-2 p-2 text-right border-teal-dark\">"+result.question+"</div><div class=\"w-full border-l-2 p-2 border-yellow-dark\">"+result.answer+"</div>");
-                    }
-
-                });
-            });
-            
-            });
-    </script>
+    
     <script>
         $( document ).ready(function() {
         $( ".menu" ).hide();
