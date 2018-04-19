@@ -442,6 +442,8 @@ global $conn;
 			let stage = 0;
 			var visitor = '';
 			var visitor_input = '';
+			let url = window.location.origin + "/HNGfun/profiles/alabamustapha.php";
+			
 
 			$("div#chat-bot").hide();
 			
@@ -469,7 +471,7 @@ global $conn;
 							$("div.conversation").append(makeHumanMessage(human_response));
 							$('input.human_input').val('');
 
-							$.post("http://localhost/HNGfun/profiles/alabamustapha.php", {human_response: human_response, stage: stage})
+							$.post(url, {human_response: human_response, stage: stage})
 							
 							.done(function(response) {
 								response = jQuery.parseJSON(response);
@@ -507,8 +509,8 @@ global $conn;
 
 			function doIntro(){
 				if(visitor == ''){
-					
-					$.post("http://localhost/HNGfun/profiles/alabamustapha.php", {human_response: 'Hi', stage: stage})
+
+					$.post(url, {human_response: 'Hi', stage: stage})
 						.done(function(response) {
 							response = jQuery.parseJSON(response);
 							stage = response.stage;
