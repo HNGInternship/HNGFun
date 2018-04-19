@@ -1,10 +1,10 @@
 <?php
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		require "../answers.php";
+    # require "../answers.php";
     # require_once '../db.php';
     # User input
     $data = $_POST['question'];
-/*
+
     if(!defined('DB_USER')){
 			require "../../config.php";		
 			try {
@@ -12,7 +12,7 @@
 			} catch (PDOException $pe) {
 			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 			}
-    }*/
+    }
     
     
     # Functions to get the data from db
@@ -169,6 +169,75 @@
         <hr /> You can also type in help for a full list of commands i understand."),
       ]);
       return;
+    }
+
+    function bamiiConvertCurrency($amount, $from, $to){
+        $conv_id = "{$from}_{$to}";
+        $string = file_get_contents("https://free.currencyconverterapi.com/api/v5/convert?q=$conv_id&compact=y");
+        $json_a = json_decode($string, true);
+    
+        #return $json_a[strtoupper($conv_id)]['val'];
+        #return $amount;
+        return $amount * $json_a[strtoupper($conv_id)]['val'];
+    }
+
+    function bamiiChuckNorris() {
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+              ),
+          );  
+        $geocodeUrl = "http://api.icndb.com/jokes/random";
+        $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+
+        $a =json_decode($response, true);
+
+        return $a['value']['joke'];
+    }
+
+    function bamiiTellTime($data) {
+        if(strpos($data, 'in')) {
+          return "Sorry i can't tell you the time somewhere else right now";
+        } else {
+            return 'The time is:' . date("h:i");
+        }
+    }
+
+    function bamiiCountryDetails($data) {
+        $country_arr = explode(' ', $data);
+        $country_index= array_search('details', $country_arr) + 1;
+        $country = $country_arr[$country_index];
+        $country_temp = str_replace('details', "", $data);
+        $country2 = trim($country_temp);
+
+        $string = 'http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query='. $country2 .'&num_of_results=2&format=json';
+
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );  
+        $geocodeUrl = "http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query=lagos&num_of_results=2&format=json";
+        $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+
+        $a =json_decode($response, true);
+
+        $longitude = $a['search_api']['result'][0]['longitude'];
+        $latitude = $a['search_api']['result'][0]['latitude'];
+        $name = $a['search_api']['result'][0]['areaName'][0]['value'];
+        $country_name = $a['search_api']['result'][0]['country'][0]['value'];
+        $population = $a['search_api']['result'][0]['population'];
+
+        
+        return('
+            '. ($name ? 'Name :'. $name . '<br />' : null) .'
+            Country: ' . $country_name . ' <br />
+            Latitude: ' . $latitude . ' <br />
+            Longitude: ' . $longitude . ' <br />
+            Population: ' . $population . '<br />
+        ');
     }
   }
 ?>
@@ -432,7 +501,7 @@
         </div>
       </div>
     </div>
-    <div class="chatbot"> ChatBot. </div>
+    <div class="chatbot"> _ChatBot_ </div>
     <div class="chatbot-container">
       <div class="chat-details" id="chat">
         <div class="server-name"> Bot </div>
