@@ -381,7 +381,7 @@ function inspire() {
         'Never retreat. Never explain. Get it done and let them howl. \\n\\n - Benjamin Jowett',
         'The most effective way to do it, is to do it. \\n\\n - Amelia Earhart',
         'If you can dream it, you can do it. \\n\\n - Walt Disney',
-        'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference. \\n – Robert Frost',
+        'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference. \\n\\n – Robert Frost',
         'You miss 100% of the shots you don’t take. \\n\\n – Wayne Gretzky',
     ];
     return $inspirations[array_rand($inspirations)];
@@ -398,6 +398,14 @@ function get_btc_rates() {
     $try = number_format($otherCurs['try']);
 
    return "1 BTC = {$usd} USD | {$eur} EURO | {$rub} RUB | {$try} TRY";
+}
+
+function get_jimies_functions() {
+   return '1. You can ask me to inspire you \n
+           E.g: Say "Inspire me" or "Inspire me please" \\n\\n
+           2. You can ask me to get you the current Bitcoin rates. \\n
+           E.g: Ask: "What are the current btc rates?"
+           ';
 }
 /*
 |=================================================================|
