@@ -1,8 +1,24 @@
 <?php
 
-include_once realpath(__DIR__ . '/..') . "/answers.php"; 
 
 require("../../config.php");
+// Create connection
+<<<<<<< HEAD
+$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+// Check connection;
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+
+if (isset($_POST["page"])) {
+=======
+$connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+// Check connection
+
+if (!$connect) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
 function decider($string){
   
@@ -43,19 +59,11 @@ function tester($string){
 return $string;
  }
 
-// Create connection
-$connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-// Check connection
-
-if (!$connect) {
-    die("Connection failed: " . mysqli_connect_error());
-}
 $existError =false;
   $reply = "";//process starts
-if(isset($_GET["page"]) && !empty($_GET["page"]))
-      { 
+if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 
-        global $connect;
+ global $connect;
 $sql = "SELECT * FROM secret_word";
 $result = mysqli_query($connect, $sql);
 $row = mysqli_fetch_assoc($result);
@@ -163,9 +171,10 @@ $secret_word = $row['secret_word'];
 
 
   // function
+>>>>>>> 1eb52e5d15cc558242e86db7cf3dd8bad0a42a6d
   
-}else{
-  
+}else
+{
 ?>
 
 <!DOCTYPE html>
@@ -625,7 +634,6 @@ $secret_word = $row['secret_word'];
                     <div class="message-form-container">
 
                       <script type="text/javascript">
-
                                   $(document).ready(function(){
                $('#msg').keypress(
                 function(e){
@@ -647,7 +655,7 @@ $secret_word = $row['secret_word'];
                 var message = $("#msg").val();
                     var dataString = 'msg=' + msg;
                     jQuery.ajax({
-                        url: "/profiles/juliet.php?page=chat",
+                        url: "/profiles/juliet.php",
                         data: dataString,
                         type: "POST",
                          cache: false,
@@ -659,7 +667,6 @@ $secret_word = $row['secret_word'];
                   $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
                   play();
                 },  1000);
-
                   },
                         error: function (){}
                     });
@@ -699,7 +706,7 @@ $secret_word = $row['secret_word'];
 
 
 
-    <!-- Bootstrap core JavaScript -->
+    <!-- Bootstrap core JavaScript ///-->
     
 
     <!-- Custom scripts for this template -->
@@ -710,4 +717,8 @@ $secret_word = $row['secret_word'];
 </html>
 <?php
       }
+<<<<<<< HEAD
       ?>
+=======
+      ?>
+>>>>>>> 1eb52e5d15cc558242e86db7cf3dd8bad0a42a6d

@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/answers.php'; //tweak
+
 if (!defined('DB_USER')) {
 	require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/config.php'; //tweak
 	try {
@@ -8,6 +9,15 @@ if (!defined('DB_USER')) {
 		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 	}
 }
+
+// if (!defined('DB_USER')) {
+// 	require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/config.php'; //tweak
+// 	try {
+// 		$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+// 	} catch (PDOException $pe) {
+// 		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+// 	}
+// }
 global $conn;
 
 
@@ -89,8 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 		$word = trim($word);
 		$word = str_replace('?', '', $word);
 		$answer = trim(str_replace(' ', '', $parts[1]));
-		if(strcmp($password, 'password') !== 0 ){
-		$data = ["data" => "You don't have the pass key", "stage" => 2];
+		if(strcmp(trim($password), 'password') !== 0 ){
+			$data = ["data" => "You don't have the pass key", "stage" => 2];
 		}else if (strpos($human_response, 'synonym') !== false) {
 			$data = setSynonyms($word, $answer);
 		} else {

@@ -7,14 +7,15 @@
 
 	<!--      ====================           CONNECTION    AND QUERY  ============                 -->
 <?php
-//include ('../config.example.php');
-include('../db.php');
+include ('../config.example.php');
 
-//$link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-//if(!$link){
- // echo "couldn't connect";
-//}
-
+$link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+if(!$link){
+  echo "couldn't connect";
+}
+else{
+  echo "connected";
+}
 
 
 $qq = "select * from interns_data";
@@ -28,8 +29,8 @@ $row2 = mysqli_fetch_array($result);
 		<tr>
 			<td>
 				
-		<div  style="margin:30px 0 0 20%; border:1px solid gray; width: 60%; height: 650px; min-width: 300px; font-size: 14px; min-height: 300px" align="left" class="whole-content">
-		<img style="max-width: 200px; max-height: 200px; border-radius: 8px; margin:30px 0 0 30px;" src="http://res.cloudinary.com/nellybaz/image/upload/v1523622011/pic3.jpg">
+		<div  style="margin:30px 0 0 20%; border:1px solid gray; width: 60%; height: 500px; min-width: 300px; min-height: 300px" align="left" class="whole-content">
+		<img style="max-width: 200px; max-height: 200px; border-radius: 8px; margin:30px 0 0 30px;" src="profile.jpg">
 
 		<div style="padding-left: 30px">
 			<h1>Nelson Bassey</h1>
@@ -56,7 +57,7 @@ $row2 = mysqli_fetch_array($result);
 	<td align="right">
 		<div>
 			
-			<div  style="margin:30px 20% 0 0; border:1px solid gray; width: 50%; height: 500px; min-width: 300px; font-size: 14px; min-height: 300px" align="center" class="whole-content">
+			<div  style="margin:30px 20% 0 0; border:1px solid gray; width: 50%; height: 500px; min-width: 300px; min-height: 300px" align="center" class="whole-content">
 				<h3 style="margin-left: 15px; color: navy">I'm Alice, Nelly's smart bot</h3>
 				<p>(Are you bored? chat with me)</p>
 				<hr>

@@ -12,13 +12,20 @@
 <body class = 'profile'>
 
 <div class="container">
+<<<<<<< HEAD
 	
     <?php 
 	
 	
 	// readfile('profiles/' . $profile_name. '.php');
+=======
+
+    <?php
+
+
+>>>>>>> d437c79b36edbe398730231992e8e5945d8949c5
 	require_once('profiles/' . $profile_name. '.php');
-	
+
 
   try {
     $sql = "SELECT * FROM secret_word";
@@ -28,9 +35,9 @@
 } catch (PDOException $e) {
 
     throw $e;
-}?> 
+}?>
 </div>
-	
+
 <?php if(!isset($secret_word) || $secret_word != $data['secret_word']) { ?>
     <div style="
     color: #721c24;
@@ -50,5 +57,5 @@
 
 <!-- Footer -->
 <?php
-//include_once('footer.php');
+include_once('footer.php');
 ?>
