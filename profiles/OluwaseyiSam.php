@@ -1,9 +1,4 @@
 <?php
-<<<<<<< HEAD
-require_once "../db.php";
-
-=======
->>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 //Fetch User Details
 try {
     $query = "SELECT * FROM interns_data WHERE username ='OluwaseyiSam'";
