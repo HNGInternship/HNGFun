@@ -7,12 +7,13 @@
 
 	<!--      ====================           CONNECTION    AND QUERY  ============                 -->
 <?php
-include ('../config.example.php');
+//include ('../config.example.php');
+include('../db.php');
 
-$link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-if(!$link){
-  echo "couldn't connect";
-}
+//$link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+//if(!$link){
+ // echo "couldn't connect";
+//}
 
 
 
