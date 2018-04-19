@@ -438,7 +438,7 @@ function division($a, $b){
 
 
 // AbseeJP own
-<?php 
+
   require 'db.php';
  
 if (isset($_POST['question'])) {
@@ -495,4 +495,4 @@ if (isset($_POST['question'])) {
  ?>
 <!-- end of absee own  -->
 ////////////////////END
-?>
+
