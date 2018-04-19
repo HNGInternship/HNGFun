@@ -160,31 +160,6 @@ $my_details = $result2->fetch(PDO::FETCH_OBJ);
                       
     if (isset($_POST['payload'])) {
     // require "../answers.php"; 
-    function multiplication($a, $b)
-    {
-        $c = $a * $b;
-        echo $c;
-    }
-
-    function addition($a, $b)
-    {
-        $c = $a + $b;
-        echo $c;
-    }
-
-    function subtraction($a, $b)
-    {
-        $c = $a - $b;
-        echo $c;
-    }
-
-    function division($a, $b)
-    {
-        $c = $a / $b;
-        echo $c;
-    }
-
-
     $question = $_POST['payload'];
     function trainningMode($question) {
       if (strpos($question, 'train:') !== false) {
@@ -246,7 +221,30 @@ $my_details = $result2->fetch(PDO::FETCH_OBJ);
       echo "Thank you. i have gained more knowledge.";
       return;
     }
-	
+    function multiplication($a, $b)
+    {
+        $c = $a * $b;
+        echo $c;
+    }
+
+    function addition($a, $b)
+    {
+        $c = $a + $b;
+        echo $c;
+    }
+
+    function subtraction($a, $b)
+    {
+        $c = $a - $b;
+        echo $c;
+    }
+
+    function division($a, $b)
+    {
+        $c = $a / $b;
+        echo $c;
+    }
+
 	  function multiplication_question($question) {
 		if (strpos($question, 'multiply:') !== false) {
 		  return true;
