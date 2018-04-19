@@ -216,7 +216,7 @@ body {
   max-height: 720px;
   background: #E6EAEA;
   float:left;
-  margin-top:100px;
+  margin-top:60px;
 }
 @media screen and (max-width: 360px) {
   #frame {
