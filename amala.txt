@@ -1,5 +1,5 @@
 // main JQuery function
-$(function() {
+ii jkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk$(function() {
       get_username();
       $('#text-sms').keypress(function(event){
         if (event.which == 13) {
