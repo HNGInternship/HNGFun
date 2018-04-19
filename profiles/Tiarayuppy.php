@@ -719,43 +719,6 @@ https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js
     },"Say 'compute [number] plus [number]' to make the bot your math calculator");
 
 </script>
-<script>
-    
-else if(str.indexOf("time") != -1){
-        let inStr = str.substr(str.indexOf("time") + 5, 2);
-        if(inStr !== "in"){
-            print("Usage: What is the time in New York \n or Time in New York");
-        }else {
-        let city = str.substr(str.indexOf(inStr)+3, str.length -1)
-        //city = capitalize(city);
-        console.log("citycity", city)
-        
-        if(city == " "){
-            print("Usage: What is the time in New York \n or Time in New York");
-        }else{
-            let geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address="+ city + "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
-            fetch(geocodeUrl)
-            .then(response=>{
-                return response.json()
-            })
-            .then(response=>{
-                let lat = response.results[0].geometry.location.lat;
-                let lng = response.results[0].geometry.location.lng;
-                var targetDate = new Date() // Current date/time of user computer
-                var timestamp = targetDate.getTime()/1000 + targetDate.getTimezoneOffset() * 60 
-                let url = "https://maps.googleapis.com/maps/api/timezone/json?location="+lat+"," + lng+"&timestamp=" +timestamp+ "&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U" 
-                console.log(url);  
-                
-                fetch(url)
-                .then(response=>{
-                    return response.json();
-                })
-                .then(response=>{
-                    var offsets = response.dstOffset * 1000 + response.rawOffset * 1000 // get DST and time zone offsets in milliseconds
-                    var localdate = new Date(timestamp * 1000 + offsets) // Date object containing current time of Tokyo (timestamp + dstOffset + rawOffset)
-                    print("The time in " + capitalize(city) + " is " + localdate.toLocaleString())
-                }) 
 
-</script>
 </body>
 </html>

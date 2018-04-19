@@ -33,74 +33,68 @@
     
     if ($_SERVER['REQUEST_METHOD']==="POST") {
 
-         $q = $_POST['chat_message'];
+        $q = $_POST['chat_message'];
 
-         $q = trim(htmlspecialchars($q));
-         $q = trim($q, "?");
+        $q = trim(htmlspecialchars($q));
+        $q = trim($q, "?");
 
         if (empty($q)){
 
             echo json_encode(['status'=>0]); //status =0 means, user submitted empty string
-        }
+       }
            
             //check if it's a trainer
            $first_test_str = explode(':', $q);
            if ($first_test_str[0]== 'train'){
 
+                $password = 'password';
+
                 $second_test_str = explode('#', $first_test_str[1]);
 
-                if(trim($second_test_str[0]) !='' && trim($second_test_str[1] != '')){
+                if (! count($second_test_str) < 3 && trim($password)===trim($second_test_str[2])){
 
-                    $question = $second_test_str[0];
-                    $ans = $second_test_str[1];
+                    if(trim($second_test_str[0]) !='' && trim($second_test_str[1] != '')){
 
-
-                    // preg_match_all('/\(\((.*)\)\)/', $ans, $matches);
-
-                    // $func = $matches[1];
-                    // echo json_encode(['status'=> 4, 'response'=>$func]);
-
-                    // if ($func){
-
-                    //     require_once('../answers.php');
-
-                    //     if (function_exists($func)){
-
-                    //         $function_result =  $func();
-
-                    //         echo json_encode(['status'=> 5, 'response'=>$function_result]);
+                        $question = $second_test_str[0];
+                        $ans = $second_test_str[1];
                         
-                    //     }
-                    // }
-                    
-                    //check if question or answer already exists
-                        $sql = "SELECT * FROM chatbot WHERE `question` LIKE '%$question%' OR `answer` LIKE '%$ans%'";
-                        $stm = $conn->query($sql);
-                        $stm->setFetchMode(PDO::FETCH_ASSOC);
-        
-                        $res = $stm->fetchAll();
+                        //check if question or answer already exists
+                            $sql = "SELECT * FROM chatbot WHERE `question` LIKE '%$question%' OR `answer` LIKE '%$ans%'";
+                            $stm = $conn->query($sql);
+                            $stm->setFetchMode(PDO::FETCH_ASSOC);
+            
+                            $res = $stm->fetchAll();
 
-                         if ($res){
-                             echo json_encode(['status'=>4, 'response'=>'Were you thinking I am that dull not to know that <code>'.$res[0]['question']. '</code> simply require <code>'. $res[0]['answer'].'</code> as the answer? <code>Could you please ask something more challenging or teach me something serious?</code>']);
-                         }
-                           
-                         //if it's a new question, save into db
-                        else{
-                            $sql = "INSERT INTO chatbot(question, answer)
-                                    VALUES(:quest, :ans)";
-                            $stm =$conn->prepare($sql);
-                            $stm->bindParam(':quest', $question);
-                            $stm->bindParam(':ans', $ans);
-
-                            $saved = $stm->execute();
-                            if ($saved){
-
-                                echo json_encode(['status'=>1, 'answer'=>'Thanks for helping me learn']);
+                            if ($res){
+                                echo json_encode(['status'=>4, 'response'=>'Were you thinking I am that dull not to know that <code>'.$res[0]['question']. '</code> simply require <code>'. $res[0]['answer'].'</code> as the answer? <code>Could you please ask something more challenging or teach me something serious?</code>']);
                             }
-                            else {
-                                echo json_encode(['status'=>3, 'response'=>'Opps could not understand because of my small brain, please kinly repeat']);
+                            
+                            //if it's a new question, save into db
+                            else{
+                                $sql = "INSERT INTO chatbot(question, answer)
+                                        VALUES(:quest, :ans)";
+                                $stm =$conn->prepare($sql);
+                                $stm->bindParam(':quest', $question);
+                                $stm->bindParam(':ans', $ans);
+
+                                $saved = $stm->execute();
+                                if ($saved){
+
+                                    echo json_encode(['status'=>1, 'answer'=>'Thanks for helping me learn']);
+                                }
+                                else {
+                                    echo json_encode(['status'=>3, 'response'=>'Opps could not understand because of my small brain, please kinly repeat']);
+                                }
                             }
+                    }
+                    else{
+                          echo json_encode(['status'=>3, 'response'=>'Opps, Invalid training format']);
                         }
+                
+                
+                }        
+                    else{
+                    echo json_encode(['status'=>3, 'response'=>'Oops you are not authorized to train me']);
                 }
            }
            else {
@@ -370,7 +364,7 @@
                                                 <div class="col-md-10 col-xs-10">
                                                     <div class="messages msg_sent">
                                                         <p><code>To teach me, package your lesson in the format below</code></p>
-                                                        <p><code>train:your question#your answer</code></p>
+                                                        <p><code>train:your question#your answer#password</code></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 col-xs-2"></div>
