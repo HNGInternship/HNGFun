@@ -33,6 +33,7 @@
 
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$rows = $stmt->fetchAll();
+        $json = json_encode($rows);
 		if(count($rows)>0){
 			$row = $rows[0];
 			$name = $row['name'];	
@@ -40,6 +41,7 @@
 		}
 	}
 ?>
+
 <html>
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
