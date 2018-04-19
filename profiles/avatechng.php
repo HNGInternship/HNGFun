@@ -76,7 +76,7 @@ echo '</div>';
         $result = showtime($loc);
        
       }else{
-$sql="SELECT * FROM chatbot WHERE input LIKE '$msg%' ";
+$sql="SELECT * FROM chatbot WHERE question LIKE '$msg%' ";
 $send=mysqli_query($conf,$sql);
 
 $u = 'hello';
