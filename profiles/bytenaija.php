@@ -104,8 +104,8 @@ function training($question, $answer){
     }
 
     function getAnswerFromDb($str){
-
         global $conn;
+        if(strpos($str, "deleteEmpty") === false){        
         $str = "'%".$str."%'";
         if($str !== ''){
            /*  $sql = "SELECT COUNT(*) FROM chatbot WHERE question LIKE " . $str;
@@ -116,7 +116,6 @@ function training($question, $answer){
             
                 
         $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $str . " ORDER BY answer ASC";
-        $selected;
         $q = $conn->query($sql);
         $count = $q->rowCount();
         if($count > 0){
@@ -135,6 +134,17 @@ function training($question, $answer){
         }else{
             echo "Enter a valid command!";
         }
+    }else{
+        $sql = "DELETE FROM chatbot WHERE question = '' OR answer=''";
+        $q = $conn->query($sql);
+        $count = $q->rowCount();
+        if($count > 0){
+            echo "All empty questions and answers deleted!";
+        }else{
+            echo "There is no question or answer that is empty!";
+        }
+
+    }
     }
 
 
