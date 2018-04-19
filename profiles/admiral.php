@@ -308,6 +308,16 @@
   				line-height: 1.5;
   				border-radius: 0.2rem;
 			}
+			.chat-window .card{
+            	width: 100%;
+         		margin: 0 auto; 
+        	}
+        	.chat-window.col-xs-12 {
+            	left: 10px;
+        	} 
+        	.chat-window>div>.panel {
+            	border-radius: 5px 5px 0 0;
+        	}
 	</style>
 </head>
 <body>
@@ -337,8 +347,8 @@
                 <div class="row chat-window" id="chat_window_1">
                     <div class="card">
                         <div class="row card-header top-bar">
-                            <div class="col-md-8">
-                                <h2>Bot Chat</h2>   
+                            <div>
+                                <h3>Bot Chat</h3>   
                             </div>
                         </div>
                             <div class="card-body  msg_container_base">
