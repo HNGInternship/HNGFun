@@ -413,4 +413,28 @@ function get_jimies_functions() {
 |=================================================================|
 */
 
+// end of functions by johnayeni
+
+/////////////////////////////////////////////////////// Olaogun Function 
+function multiplication($a, $b){
+    $c = $a * $b;
+    echo $c;
+}
+
+function addition($a, $b){
+    $c = $a + $b;
+    echo $c;
+}
+
+function subtraction($a, $b){
+    $c = $a - $b;
+    echo $c;
+}
+
+function division($a, $b){
+    $c = $a / $b;
+    echo $c;
+}
+
+////////////////////END
 ?>
