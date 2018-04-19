@@ -1,19 +1,9 @@
 <?php
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		require "../answers.php";
-    
+    require_once '../db.php';
     # User input
-    $data = $_POST['question'];
-
-    /* if(!defined('DB_USER')){
-			require "../config.php";		
-			try {
-			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-			} catch (PDOException $pe) {
-			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-			}
-    } */
-    require('../db.php');
+    $data = $_POST['question'];    
     
     # Functions to get the data from db
     $sql = $conn->prepare('select * FROM chatbot');
@@ -471,7 +461,6 @@
 
               bot_input.submit(function(e) {
                   e.preventDefault();
-                  console.log("hey");
                   var question = $('#chat-input').val();
 
                     // Append the client bubble

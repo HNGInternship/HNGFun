@@ -1,73 +1,165 @@
-<!DOCTYPE HTML>
 <?php
-$sql = "SELECT * FROM interns_data WHERE username = 'dennisotugo'";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$data = $q->fetchAll();
-$dennisotugo = array_shift($data);
-// Secret word
-$sql = "SELECT * FROM secret_word";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$words = $q->fetch();
-$secret_word = $words['secret_word'];
-?>
-<html>
-	<head>
-		<title>Dennis Otugo</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="/aerial/assets/css/main.css" />	
-<style>
-#overlay {
-
-    background-image: none;
-}
-#mainb {
-		text-align: center;
-		width: 100%;
-	}
-	.chat-input {
-  padding: 20px;
-  background: #eee;
-  border: 1px solid #ccc;
-  border-bottom: 0;
-}
-input {
-    background-color: #eee;
-    border: none;
-    font-family: sans-serif;
-    /* color: #000; */
-    /* padding: 15px 32px; */
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    /* font-size: 30px; */
-    width: 70%;
-    font-size: 1rem;
-    color: black;
-    /* border: 2px solid #000000; */
-    border-radius: 4px;
-    padding: 8px;
-}
-span#user {
-	display: none;
-}
-span#chatbot {
-    font-family: sans-serif;
-    text-align: center;
-    text-decoration: none;
-    width: 70%;
-    font-size: 1.2rem;
-    color: black;
-}
-.bot-container {
-    border-bottom: 1px solid #bbbfbf;
-    padding-bottom: 50px;
-    width: 60%;
-    margin: 50px auto;
+  if(!defined('DB_USER')){
+    require "../../config.php";
   }
-  .messages-container {
+  try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
+  $date_time = new DateTime('now', new DateTimezone('Africa/Lagos'));
+  global $conn;
+
+  try {
+    $sql = 'SELECT * FROM secret_word';
+    $secret_word_query = $conn->query($sql);
+    $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
+    $secret_word_result = $secret_word_query->fetch();
+
+    $sql = 'SELECT * FROM interns_data WHERE username = "dennisotugo"';
+    $intern_data_query = $conn->query($sql);
+    $intern_data_query->setFetchMode(PDO::FETCH_ASSOC);
+    $intern_data_result = $intern_data_query->fetch();
+  } catch (PDOException $e) {
+      throw $e;
+  }
+
+  $secret_word = $secret_word_result['secret_word'];
+  $name = $intern_data_result['name'];
+  $img_url = $intern_data_result['image_filename'];
+
+  if(isset($_POST['payload']) ){
+    require "../answers.php";
+    $question = trim($_POST['payload']);
+  
+    function isTraining($question) {
+      if (strpos($question, 'train:') !== false) {
+        return true;
+      }
+      return false;
+    }
+  
+    function getAnswer() {
+      global $question;
+      global $conn;
+
+      $sql = 'SELECT * FROM chatbot WHERE question LIKE "' . $question . '"';
+      $answer_data_query =  $conn->query($sql);
+      $answer_data_query->setFetchMode(PDO::FETCH_ASSOC);
+      $answer_data_result = $answer_data_query->fetchAll();
+      $answer_data_index = 0;
+      if (count($answer_data_result) > 0) {
+        $answer_data_index = rand(0, count($answer_data_result) - 1);
+      }
+
+      if ($answer_data_result[$answer_data_index]["answer"] == "") {
+        return 'I don\'t understand that question. If you want to train me to understand, please type "<code>train: your question? # The answer.</code>"';
+      }
+  
+      if (containsVariables($answer_data_result[$answer_data_index]['answer']) || containsFunctions($answer_data_result[$answer_data_index]['answer'])) {
+        $answer = resolveAnswer($answer_data_result[$answer_data_index]['answer']);
+        return $answer;
+      } else {
+        return $answer_data_result[$answer_data_index]['answer'];
+      }
+    }
+    
+    function resolveQuestionFromTraining($question) {
+      $start = 7;
+      $end = strlen($question) - strpos($question, " # ");
+      $new_question = substr($question, $start, -$end);
+      return $new_question;
+    }
+    
+    function resolveAnswerFromTraining($question) {
+      $start = strpos($question, " # ") + 3;
+      $answer = substr($question, $start);
+      return $answer;
+    }
+
+    if (isTraining($question)) {
+      $answer = resolveAnswerFromTraining($question);
+      $question = strtolower(resolveQuestionFromTraining($question));
+      $question_data = array(':question' => $question, ':answer' => $answer);
+  
+      $sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '"';
+      $question_data_query =  $conn->query($sql);
+      $question_data_query->setFetchMode(PDO::FETCH_ASSOC);
+      $question_data_result = $question_data_query->fetch();
+  
+  
+      $sql = 'INSERT INTO chatbot ( question, answer )
+          VALUES ( :question, :answer );';
+      $q = $conn->prepare($sql);
+      $q->execute($question_data);
+      echo "Training successful.";
+      return;
+    }
+
+    function containsVariables($answer) {
+      if (strpos($answer, "{{") !== false && strpos($answer, "}}") !== false) {
+        return true;
+      }
+    
+      return false;
+    }
+    
+    function containsFunctions($answer) {
+      if (strpos($answer, "((") !== false && strpos($answer, "))") !== false) {
+        return true;
+      }
+      return false;
+    }
+    
+    function resolveAnswer($answer) {
+      if (strpos($answer, "((") == "" && strpos($answer, "((") !== 0) {
+        return $answer;
+      } else {
+        $start = strpos($answer, "((") + 2;
+        $end = strlen($answer) - strpos($answer, "))");
+        $function_found = substr($answer, $start, - $end);
+        $replacable_text = substr($answer, $start, - $end);
+        $new_answer = str_replace($replacable_text, $function_found(), $answer);
+        
+        $new_answer = str_replace("((", "", $new_answer);
+        $new_answer = str_replace("))", "", $new_answer);
+        return resolveAnswer($new_answer);
+      }
+    }
+  
+    $answer = getAnswer();
+    echo $answer;
+    exit();
+  
+  } else {
+
+?>
+
+  <div class="bot-body">
+    <div class="messages-body">
+      <div>
+        <div class="message bot">
+          <span class="content">Hi! I'm a bot and you can ask me various questions and give me different commands.</span>
+        </div>
+      </div>
+      <div>
+        <div class="message bot">
+          <span class="content">Type "<code>show: List of commands</code>" to see what the list of commands I understand.</span>
+        </div>
+      </div>
+    </div>
+    <div class="send-message-body">
+      <input class="message-box" placeholder="Type here..."/>
+    </div>
+  </div>
+
+<style>
+
+  .bot-body {
+    margin: 100px auto;
+  }
+
+  .messages-body {
     background-color: white;
     color: #3A3A5E;
     padding: 10px;
@@ -78,10 +170,12 @@ span#chatbot {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
   }
-  .messages-container > div {
+
+  .messages-body > div {
     display: inline-block;
     width: 100%;
   }
+
   .message {
     float: left;
     font-size: 16px;
@@ -92,6 +186,7 @@ span#chatbot {
     position: relative;
     margin: 5px;
   }
+
   .message:before {
     position: absolute;
     top: 0;
@@ -100,11 +195,13 @@ span#chatbot {
     height: 0;
     border-style: solid;
   }
+
   .message.bot:before {
     border-color: transparent #edf3fd transparent transparent;
     border-width: 0 10px 10px 0;
     left: -9px;
   }
+
   .message.you:before {
     border-width: 10px 10px 0 0;
     right: -9px;
@@ -114,15 +211,17 @@ span#chatbot {
   .message.you {
     float: right;
   }
+
   .content {
     display: block;
   }
-  .send-message-container {
+
+  .send-message-body {
     display: inline-grid;
     background-color: #2b7ae3;
     grid-column-gap: 10px;
     grid-template-columns: 1px auto auto 40px 1px;
-    /* position: fixed; */
+    position: fixed;
     width: 100%;
     left: 0;
     bottom: 0px;
@@ -131,6 +230,7 @@ span#chatbot {
     box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.25);
     height: 60px;
   }
+
   .message-box {
     border-radius: 3px;
     border: none;
@@ -138,19 +238,8 @@ span#chatbot {
     grid-column-start: 2;
     grid-column-end: 4;
   }
-  .send-message-btn {
-    background-color: #fff;
-    padding: 0px;
-    border-radius: 50%;
-    border: none;
-    font-size: 16px;
-    grid-column-start: 4;
-  }
-  .send-message-btn > div {
-    margin-top: 0px;
-    margin-right: 2px;
-  }
-  .img-container {
+
+  .img-body {
     margin-left: 85px;
     width: 200px;
     height: 200px;
@@ -160,49 +249,149 @@ span#chatbot {
     top: 150px;
     left: 175px;
   }
-  .img-container > img {
+
+  .img-body > img {
     height: 190px;
     width: 190px;
     border-radius: 50%;
   }
+
   .time {
     padding: 10px;
     text-transform: uppercase;
     font-size: 60px;
     width: 100%;
   }
-  .time-container {
+
+  .time-body {
     display: flex;
     height: 100%;
     text-align: center;
     justify-content: center;
     align-items: center;
   }
-  .container {
+
+  .body {
     height: 100%;
   }
 
+  body, html {
+    /* height: 100%!important; */
+  }
+</style>
+<script>
+  window.onload = function() {
+    $(document).keypress(function(e) {
+      if(e.which == 13) {
+        getResponse(getQuestion());
+      }
+    });
+  }
 
-				</style>
-	</head>
-	<body class="loading">
-		<div id="wrapper">
-			<div id="bg"></div>
-			<div id="overlay"></div>
-			<div id="main">
-					<header id="header">
-						<h1>Dennis Otugo</h1>
-						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
-						<nav>
-							<ul>
-								<li><a href="https://facebook.com/el.chapon.9" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-								<li><a href="https://twitter.com/wesleyotugo" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-								<li><a href="https://github.com/dennisotugo" class="icon fa-github"><span class="label">Github</span></a></li>
-								<li><a href="emailto:wesleyotugo@fedoraproject.org" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-							</ul>
-						</nav>
-					</header>
-					
-						<footer id="footer">
-	</body>
-</html>
+  function isUrl(string) {
+    var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+    var regex = new RegExp(expression);
+    var t = string;
+
+    if (t.match(regex)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function stripHTML(message){
+    var re = /<\S[^><]*>/g
+    return message.replace(re, "");
+  }
+
+  function getResponse(question) {
+    updateThread(question);
+    showResponse(true);
+
+    if (question.trim() === "") {
+      showResponse(':)');
+      return;
+    } 
+
+    if (question.toLowerCase().includes("open: ") && isUrl(question.toLowerCase().split("open: ")[1].trim())) {
+      var textToSay = question.toLowerCase().split("open: ")[1];
+      showResponse('Okay, opening: <code>'+ textToSay + '</code>');
+      window.open("http://" + textToSay);
+      return;
+    }
+
+    if (question.toLowerCase().includes("say: ")) {
+      var textToSay = question.toLowerCase().split("say: ")[1];
+      var msg = new SpeechSynthesisUtterance(textToSay);
+      window.speechSynthesis.speak(msg);
+      showResponse('Okay, saying: <code>'+ textToSay + '</code>');
+      return;
+    }
+
+    $.ajax({
+      url: "profiles/dennisotugo.php",
+      method: "POST",
+      data: { payload: question },
+      success: function(res) {
+        if (res.trim() === "") {
+          showResponse(`
+          I don\'t understand that question. If you want to train me to understand,
+          please type <code>"train: your question? # The answer."</code>
+          `);
+        } else {
+          showResponse(res);
+        }
+      }
+    });
+  }
+
+  function showResponse(response) {
+    if (response === true) {
+      $('.messages-body').append(
+        `<div>
+          <div class="message bot temp">
+            <span class="content">Thinking...</span>
+          </div>
+        </div>`
+      );
+      return;
+    }
+
+    $('.temp').parent().remove();
+    $('.messages-body').append(
+      `<div>
+        <div class="message bot">
+          <span class="content">${response}</span>
+        </div>
+      </div>`
+    );
+    $('.message-box').val("");
+
+  }
+
+  function getQuestion() {
+    return $('.message-box').val();
+  }
+
+  function updateThread(message) {
+    message = stripHTML(message);
+    $('.messages-body').append(
+      `<div>
+        <div class="message you">
+          <span class="content">${message}</span>
+        </div>
+      </div>`
+    );
+  }
+
+  var options = { hour12: true };
+  var time = "";
+  function updateTime() {
+    var date = new Date();
+    time = date.toLocaleString('en-NG', options).split(",")[1].trim();
+    document.querySelector(".time").innerHTML = time;
+  }
+  setInterval(updateTime, 60);
+</script>
+<?php } ?>
