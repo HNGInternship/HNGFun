@@ -115,22 +115,23 @@ include "../answers.php";
         <p style=" color: #FFFFFF;font-family: arial, sans-serif; font-size: 14px;font-weight: bold;letter-spacing: 0.3px;">
             ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="font-weight: bolder">TRAIN: YOUR QUESTION#YOUR ANSWER</span>
             TO ADD MORE QUESTIONS TO THE DATABASE</p>
-    </marquee>
+    </marquee><form name = "askMe" method="post">
+        <p>
+            <label>
+                <input name="input" type="text" class="tb5">
+            </label><label>
+                <input name="button" type="submit" class="fb7" id="button" value="ASK">
+            </label>
+            <br />
+
+        </p>
+        <p>&nbsp;</p>
+    </form>
     <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
     <p style="font-style: normal; font-weight: bold;">NAME : <?php echo "i=Iruene Adokiye" ?></p>
     <p style="font-weight: bold">USERNAME : <?php echo "Adokiye" ?></p>
-    <form name = "askMe" method="post">
-       <p>
-         <label>
-           <input name="input" type="text" class="tb5">
-         </label><label>
-           <input name="button" type="submit" class="fb7" id="button" value="ASK">
-         </label>
-         <br />
 
-       </p>
-       <p>&nbsp;</p>
-  </form>
+
 ?>
 </div>
 </body>

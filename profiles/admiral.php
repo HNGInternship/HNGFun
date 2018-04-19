@@ -111,6 +111,13 @@
 			text-align: center;
 			padding: 10px 0;
 		}
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> f0b5af1cdd5f2b3290339a6aaf610d323b04eb91
+>>>>>>> 77f8319ee17744e370f72da8923a604477d12d32
 		.col-lg-4 {
     	-ms-flex: 0 0 33.333333%;
     	flex: 0 0 33.333333%;
@@ -148,6 +155,8 @@
     		flex: 0 0 66.666667%;
     		max-width: 66.666667%;
   		}
+<<<<<<< HEAD
+=======
   		.col-md-10 {
     		-ms-flex: 0 0 83.333333%;
     		flex: 0 0 83.333333%;
@@ -235,6 +244,12 @@
   			align-items: stretch;
   			width: 100%;
 		}
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 2b8c9accd201aadfbec9423ea29c2b64f6911980
+>>>>>>> f0b5af1cdd5f2b3290339a6aaf610d323b04eb91
+>>>>>>> 77f8319ee17744e370f72da8923a604477d12d32
 	</style>
 </head>
 <body>
@@ -263,11 +278,44 @@
 			<div class="col-lg-4">
                 <div class="row chat-window" id="chat_window_1">
                     <div class="card">
+                        <div class="row card-header top-bar chat">
+=======
+<<<<<<< HEAD
+			<div class="col-lg-4">
+                <div class="row chat-window" id="chat_window_1">
+                    <div class="card">
                         <div class="row card-header top-bar">
+>>>>>>> f0b5af1cdd5f2b3290339a6aaf610d323b04eb91
                             <div class="col-md-8">
                                 <h2>Bot Chat</h2>   
                             </div>
                         </div>
+<<<<<<< HEAD
+                                        <div class="card-body  msg_container_base">
+                        
+                                            <div class="row msg_container base_sent">
+                                                <div class="col-md-10 col-xs-10">
+                                                    <div class="messages msg_sent">
+                                                        <p><code>Hello, I am a bot, I am smart but you can make me smarter, I am always willing to learn</code></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-xs-2"></div>
+                                            </div>
+                                            <div class="row msg_container base_sent">
+                                                <div class="col-md-10 col-xs-10">
+                                                    <div class="messages msg_sent">
+                                                        <p><code>To teach me, package your lesson in the format below</code></p>
+                                                        <p><code>train:your question#your answer#password</code></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-xs-2"></div>
+                                            </div>
+
+                                        </div>   <!-- message form -->
+                                        <div class="card-footer message-div">
+                                            <form action="" id="chat-form" method="post">
+                                                <div class="input-group mb-3">
+=======
                             <div class="card-body  msg_container_base">
                         		<div class="row msg_container base_sent">
                                     <div class="col-md-10">
@@ -290,6 +338,7 @@
                             <div class="card-footer message-div">
                                 <form action="" id="chat-form" method="post">
                                     <div class="input-group mb-3">
+>>>>>>> f0b5af1cdd5f2b3290339a6aaf610d323b04eb91
                                                     <input class="form-control message chat_input" name="chat_message" aria-label="With input" placeholder="Let's Chat  Now...">
                                                     <div class="input-group-append">
                                                         <button type="submit" class="btn btn-primary btn-sm send-message" id="btn-chat"><i class="fa fa-send-o"></i></button>                                                                                 
@@ -300,6 +349,17 @@
                                     </div>
                                 </div>
                             </div>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+=======
+		<div class="bot">
+			<h2 class="chat">CHAT BOT</h2>
+		</div>
+>>>>>>> 2b8c9accd201aadfbec9423ea29c2b64f6911980
+>>>>>>> f0b5af1cdd5f2b3290339a6aaf610d323b04eb91
+>>>>>>> 77f8319ee17744e370f72da8923a604477d12d32
 		<div class="footer">
 			<footer class="socials">
                 <i class="fab fa-github-square fa-2x"></i>
