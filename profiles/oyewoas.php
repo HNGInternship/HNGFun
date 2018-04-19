@@ -22,7 +22,7 @@
     ?>
     <!-- jQuery library -->
 
-    <style>
+   
         /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2017 Twitter, Inc.
@@ -39,6 +39,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
         /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+     <style>
         html {
             font-family: sans-serif;
             -ms-text-size-adjust: 100%;
@@ -7280,10 +7281,7 @@
             <?php echo date("Y"); ?>
         </p>
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery3.2.1.min.js"></script>
+    
 
 
 </body>
