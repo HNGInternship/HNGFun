@@ -155,7 +155,7 @@ HNG 4.0 | Jurshsmith
 html 
 ends here -->
 
-<div id = "j-background">
+<div id = "j-background" style = "width : 100%">
 	<div class = "row">
 		<div id = "j-firstdiv" class = "col-lg-5 col-md-5 col-sm-12 col-xs-12">
 			<br><br>
