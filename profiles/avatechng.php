@@ -763,7 +763,7 @@ $(function(){
             datatype: "html",
             data: $('form').serialize(), 
             success: function(result) { 
-            $('#div').append("<div class=\"stt in\""+result+"</div>");
+            $('#div').append("<div class=\"stt\""+result+"</div>");
 
                 $('#tt').val("");
 

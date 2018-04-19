@@ -1,6 +1,5 @@
 <?php
 include_once realpath(__DIR__ . '/..') . "/answers.php";
-
 if (!defined('DB_USER')) {
 	require "../../config.php";
 	try {
@@ -11,7 +10,7 @@ if (!defined('DB_USER')) {
 }
 global $conn;
 
-$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -393,10 +392,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			</span>
 		</a>
 	</div>
-	<!-- <button id="start-bot" class="btn">
-		let's chat	
+	
 
-	</button> -->
 	<div id="chat-bot">
 			<div id="chat-bot-container">
 				
