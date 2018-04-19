@@ -148,6 +148,97 @@
     		flex: 0 0 66.666667%;
     		max-width: 66.666667%;
   		}
+  		.col-md-10 {
+    		-ms-flex: 0 0 83.333333%;
+    		flex: 0 0 83.333333%;
+    		max-width: 83.333333%;
+  		}
+  		.col-md-2 {
+    		-ms-flex: 0 0 16.666667%;
+    		flex: 0 0 16.666667%;
+    		max-width: 16.666667%;
+  		}
+        .msg_container_base {
+            background: #e5e5e5;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 10px 10px;
+            max-height: 350px;
+            overflow-x: hidden;
+        }
+        .msg_container {
+            padding: 10px;
+            overflow: hidden;
+            display: flex;
+        }
+        .base_sent {
+            justify-content: flex-end;
+            align-items: flex-end;
+            
+        }
+        .base_receive>.avatar:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border: 5px solid #FFF;
+            border-left-color: rgba(0, 0, 0, 0);
+            border-bottom-color: rgba(0, 0, 0, 0);
+        }
+        .base_sent>.avatar:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border: 5px solid white;
+            border-right-color: transparent;
+            border-top-color: transparent;
+            box-shadow: 1px 1px 2px rgba(black, 0.2); // not quite perfect but close } .msg_sent > time{
+            float: right;
+        }
+        .card-body {
+  			-ms-flex: 1 1 auto;
+  			flex: 1 1 auto;
+  			padding: 1.25rem;
+		}
+		.messages {
+            background: white;
+            padding: 10px;
+            border-radius: 2px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            max-width: 80%;
+        }
+        .msg_sent {
+            padding-bottom: 20px !important;
+            margin-right: 0;
+        }
+        .card-footer {
+  			padding: 0.75rem 1.25rem;
+  			background-color: rgba(0, 0, 0, 0.03);
+  			border-top: 1px solid rgba(0, 0, 0, 0.125);
+		}
+
+		.card-footer:last-child {
+  			border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
+		}
+		.input-group {
+  			position: relative;
+  			display: -ms-flexbox;
+  			display: flex;
+  			-ms-flex-wrap: wrap;
+  			flex-wrap: wrap;
+  			-ms-flex-align: stretch;
+  			align-items: stretch;
+  			width: 100%;
+		}
+		.mb-3,
+		.my-3 {
+  			margin-bottom: 1rem !important;
+		}
 	</style>
 </head>
 <body>
@@ -176,35 +267,33 @@
 			<div class="col-lg-4">
                 <div class="row chat-window" id="chat_window_1">
                     <div class="card">
-                        <div class="row card-header top-bar chat">
+                        <div class="row card-header top-bar">
                             <div class="col-md-8">
                                 <h2>Bot Chat</h2>   
                             </div>
                         </div>
-                                        <div class="card-body  msg_container_base">
-                        
-                                            <div class="row msg_container base_sent">
-                                                <div class="col-md-10 col-xs-10">
-                                                    <div class="messages msg_sent">
-                                                        <p><code>Hello, I am a bot, I am smart but you can make me smarter, I am always willing to learn</code></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2 col-xs-2"></div>
-                                            </div>
-                                            <div class="row msg_container base_sent">
-                                                <div class="col-md-10 col-xs-10">
-                                                    <div class="messages msg_sent">
-                                                        <p><code>To teach me, package your lesson in the format below</code></p>
-                                                        <p><code>train:your question#your answer#password</code></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2 col-xs-2"></div>
-                                            </div>
-
-                                        </div>   <!-- message form -->
-                                        <div class="card-footer message-div">
-                                            <form action="" id="chat-form" method="post">
-                                                <div class="input-group mb-3">
+                            <div class="card-body  msg_container_base">
+                        		<div class="row msg_container base_sent">
+                                    <div class="col-md-10">
+                                        <div class="messages msg_sent">
+                                            <p><code>Hello, I am a bot, I am smart but you can make me smarter, I am always willing to learn</code></p>
+                                        </div>
+                                    </div>
+                        			<div class="col-md-2"></div>
+                                </div>
+                            	<div class="row msg_container base_sent">
+                                <div class="col-md-10">
+                                    <div class="messages msg_sent">
+                                        <p><code>To teach me, package your lesson in the format below</code></p>
+                                        <p><code>train:your question#your answer#password</code></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2"></div>
+                            	</div>
+                            </div>   <!-- message form -->
+                            <div class="card-footer message-div">
+                                <form action="" id="chat-form" method="post">
+                                    <div class="input-group mb-3">
                                                     <input class="form-control message chat_input" name="chat_message" aria-label="With input" placeholder="Let's Chat  Now...">
                                                     <div class="input-group-append">
                                                         <button type="submit" class="btn btn-primary btn-sm send-message" id="btn-chat"><i class="fa fa-send-o"></i></button>                                                                                 
