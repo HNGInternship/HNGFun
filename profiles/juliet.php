@@ -1,37 +1,83 @@
-<div class="row">
-<div class="col-md-6 pull-right">
 <?php
 
 
-include_once("db.php");
+require("../../config.php");
 // Create connection
-$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+$connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 // Check connection
 
-if (!$conn) {
+if (!$connect) {
     die("Connection failed: " . mysqli_connect_error());
 }
+
+function decider($string){
+  
+  if (strpos($string, ":") !== false)
+  {
+    $field = explode (":", $string, 2);
+    $key = $field[0];
+    $key = strtolower(preg_replace('/\s+/', '', $key));
+  if(($key == "train")){
+     $password ="p@55";
+     $trainer =$field[1];
+     $result = explode ("#", $trainer);
+  if($result[2] && $result[2] == $password){
+    echo"<br>Training mode<br>";
+    return $result;
+  } else echo "opssss!!! Looks like you are trying to train me without permission";
+  
+
+    
+     
+  }
+   }
+   
+
+}
+function tester($string){
+  if (strpos($string, ":" ) !== false) 
+  { 
+   $field = explode (":", $string);
+   $key = $field[0];
+   $key = strtolower(preg_replace('/\s+/', '', $key));
+   if(($key !== "train")){
+     
+    echo"<br>testing mode activated<br>";
+    return $string;
+ }
+}
+return $string;
+ }
+
 $existError =false;
   $reply = "";//process starts
-if(isset($_POST["page"]) && !empty($_POST["page"]))
-      { 
+if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
+
+ global $connect;
+$sql = "SELECT * FROM secret_word";
+$result = mysqli_query($connect, $sql);
+$row = mysqli_fetch_assoc($result);
+$secret_word = $row['secret_word'];
+// $secret_word= "sample_secret_word";
+
+       
         if ($_POST['msg'] == 'commands') {
         $reply= 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
       } 
-      else if($reply==""){
-        require_once("../answer.php");
-        $reply = assistant($_POST['msg']);
+      // else if($reply==""){
        
-      }
-     else if($reply == "") {
+      //   $reply = assistant($_POST['msg']);
+       
+      // }
+     if($reply =="") {
 
-         $post= mysqli_real_escape_string($conn, $_POST['msg']);
+         $post= mysqli_real_escape_string($connect, $_POST['msg']);
            $result = decider($post);
            if($result){
                 $question=$result[0]; 
                 $answer= $result[1];
                 $sql = "SELECT * FROM chatbot";
-                $result = mysqli_query($conn, $sql);
+                $result = mysqli_query($connect, $sql);
                 
                 if (mysqli_num_rows($result) > 0) {
                         $row = mysqli_fetch_assoc($result);
@@ -54,7 +100,7 @@ if(isset($_POST["page"]) && !empty($_POST["page"]))
                 if(!($existError)){
                     $sql = "INSERT INTO chatbot (question, answer) VALUES ('".$question."', '".$answer."')";
                     
-                            if (mysqli_query($conn, $sql)) {
+                            if (mysqli_query($connect, $sql)) {
                                 $reply = "Thanks to you, I am smarter now";
                             } else {
                                 echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -74,12 +120,15 @@ if(isset($_POST["page"]) && !empty($_POST["page"]))
         // query db to look for question 
         $answer = "";
         $sql = "SELECT * FROM chatbot";
-        $result = mysqli_query($conn, $sql);
+        $result = mysqli_query($connect, $sql);
         
         if (mysqli_num_rows($result) > 0) {
+          if (!$result) {
+            die(mysqli_error($link));
+        }
           $input = strtolower(trim($input));
           $sql = "SELECT * FROM chatbot WHERE trim(question) = '$input'";
-          $result = mysqli_query($conn, $sql);
+          $result = mysqli_query($connect, $sql);
                      
           if(mysqli_num_rows($result) > 0){
             
@@ -109,231 +158,27 @@ if(isset($_POST["page"]) && !empty($_POST["page"]))
     }
   }
   echo $reply;
-  exit();
-}
 
+
+  // function
+  
+}else{
+  
 ?>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   
+    <title>Juliet - HNG Internship 4</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<body>
-<div class="container-fluid">
-<br>
-<button type="button" class="btn btn-danger btn-lg pull-right" data-toggle="collapse" data-target="#chat">Chat now</button>
-  
-  <div id="chat" class="wrapper collapse">
 
-    <div class="content">
-
-      <div class="sidebar">
-
-    <br><br>
-
-        <div class="contacts">
-
-       <li class="person">
-              <span class="avatar">
-                <img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964193/human.png" alt="Sacha Griffin" />
-                <span class="status online"></span>
-              </span>
-              <span class="info">
-                <span class="status-msg">You Are Currently Logged In </span>
-              </span>
-            </li>
-               <li class="person">
-              <span class="avatar">
-                <img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964204/robot.jpg" alt="NitroChatBot" />
-                <span class="status online"></span>
-              </span>
-              <span class="info">
-                <span class="name">Julie's Assist</span>
-                <span class="status-msg">I am Julies's Assistant</span>
-              </span>
-            </li>
-
-          </ul><!-- /.contact-list -->
-
-        </div><!-- /.contacts -->
-
-      </div><!-- /.sidebar -->
-
-      <div class="chatbox">
-
-        <div class="person">
-          <span class="avatar">
-            <img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964193/human.png" alt="human Image" />
-            <span class="status online"></span>
-          </span>
-          <span class="info">
-           <span class="login-status">Online    | <?php
-echo "" . date("h:i:a");
-?>, <?php
-$query = @unserialize (file_get_contents('http://ip-api.com/php/'));
-if ($query && $query['status'] == 'success') {
-echo '' . $query['country'] . ', ' . $query['city'] . '!';
-}
-?></span>
-            
-          </span>
-        </div><!-- /.person -->
-    <script>
-$(document).ready(function(){
-var hiddenDiv = $(".messages");
-var show = function() {
-hiddenDiv.fadeIn();
-play();
-
-};
-
-hiddenDiv.hide();
-setTimeout(show, 2000);
-
-
-});
-    </script>
-        <div class="chatbox-messages" >
-          <div class="messages clear"><span class="avatar"><img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964204/robot.jpg"alt="Debby Jones" /></span><div class="sender"><div class="message-container"><div class="message"><p>
-          Hi My name is Cutie <i class="em em-sunglasses"></i> I can tell you about My Author <i class="em em-smiley"></i></p>
-                  <p>You can tell me what to do i promise not to fail you, just type "commands' to see the list of what i can do.<br>You can train me too by simply using the key word "train", seperate the command and response with "#", and ofourse, the password</p>
-                  </div><span class="delivered"><?php
-echo "" . date("h:i:a");
-?></span></div><!-- /.message-container -</div><!-- /.sender --></div><!-- /.messages -->
-                </div>
-                <div class="push"></div>
-
-        </div><!-- /.chatbox-messages -->
-
-
-        <div class="message-form-container">
-
-          <script type="text/javascript">
-
-                                    $(document).ready(function(){
-                 $('#msg').keypress(
-                  function(e){
-                      if (e.keyCode == 13) {
-                          e.preventDefault();
-                          var msg = $(this).val();
-                    $(this).val('');
-                          if(msg!='')
-                    $('<div class="messages clear"><div class="user"><div class="message-container"><div class="message"><p>'+msg+'</p></div><span class="delivered"><?php
-              echo "" . date("h:i:a");
-              ?></span></div></div><!-- /.user --></div>').insertBefore('.push');
-                    $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
-
-                    formSubmit();
-
-                      }
-
-                  function formSubmit(){
-                  var message = $("#msg").val();
-                      var dataString = 'msg=' + msg + '&page=chat';
-                      jQuery.ajax({
-                          url: "index.php",
-                          data: dataString,
-                          type: "POST",
-                           cache: false,
-                               success: function(response) {
-            setTimeout(function(){
-                     $(' <div class="messages clear"><span class="avatar"><img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964204/robot.jpg"alt="Debby Jones" /></span><div class="sender"><div class="message-container"><div class="message"><p>'+response+'</p></div><span class="delivered"><?php
-            echo "" . date("h:i:a");
-            ?></span></div><!-- /.message-container -</div><!-- /.sender --></div><!-- /.messages --></div>').insertBefore('.push');
-                  $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
-                  play();
-                },  1000);
-
-                  },
-                        error: function (){}
-                    });
-                return true;
-                }
-                    });
-            });
-                  function play(){
-                   var audio = document.getElementById("audio");
-                   audio.play();
-                             }                
-</script>
-<audio id="audio" src="beep.mp3" ></audio>
-
-          <form class="message-form" method="POST" action="" >
-            <textarea id="msg" name="msg" value=""  placeholder="Type a message here..."></textarea>
-              </form><!-- /.search-form -->
-
-
-        </div><!-- /.message-form-container -->
-
-      </div><!-- /.chatbox -->
-
-    </div><!-- /.content -->
-
-  </div><!-- /.wrapper -->
-</div>
-</div>
-</div>
-
-    <?php 
-    try {
-        $secrete = 'SELECT * FROM secret_word';
-        $sql = $conn->query($secrete);
-        $sql->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $sql->fetch();
-        $secret_word = $result["secret_word"];
-    } catch (PDOException $error) {
-
-        throw $error;
-    }?>
-
-    <!-- Navigation -->
-    
-    <!-- Page Content -->
-    <div class="container">
-
-      <!-- Portfolio Item Heading -->
-      <h1 class="my-4">Chidimma Juliet Ezekwe
-        <small>Wed Developer</small>
-      </h1>
-
-      <!-- Portfolio Item Row -->
-      <div class="row">
-
-        <div class="col-md-8">
-          <img class="img-fluid" src="http://res.cloudinary.com/julietezekwe/image/upload/v1523620041/juliet.jpg" alt="juliet">
-        </div>
-
-        <div class="col-md-4">
-          <h3 class="my-3">Description</h3>
-          <p>An Innovative web deveploper inter at HngInternship<sup>4</sup></p>
-          <h3 class="my-3">Details</h3>
-          <ul>
-            <li>Creative</li>
-            <li>Innovative</li>
-            <li>Team player</li>
-            <li>Result oriented and time conscious</li>
-          </ul>
-        </div>
-
-      </div>
-      <!-- /.row -->
-
-    
-
-    </div>
-    <!-- /.container -->
-
-
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom scripts for this template -->
-    <script src="../js/hng.min.js"></script>
-
-  </body>
-
-</html>
 <style type="text/css">
   *, *:after, *:before {
   -moz-box-sizing:border-box;
@@ -646,56 +491,219 @@ a:focus {
 
 
 </style>
+  </head>
+
+  <body>
+<?php 
+
+global $connect;
+$sql = "SELECT * FROM secret_word";
+$result = mysqli_query($connect, $sql);
+$row = mysqli_fetch_assoc($result);
+$secret_word = $row['secret_word'];
+// $secret_word= "sample_secret_word";
+?>
+
+  <!-- Page Content -->
+    <div class="container">
+
+      <!-- Portfolio Item Heading -->
+      <h1 >Chidimma Juliet Ezekwe</h1>
+      <small>Wed Developer</small>
+
+      <!-- Portfolio Item Row -->
+      <div class="row">
+
+        <div class="col-md-6">
+          <img class="img-fluid" src="http://res.cloudinary.com/julietezekwe/image/upload/v1523620041/juliet.jpg" alt="juliet">
+        </div>
+
+        <div class="col-md-6">
+          <h3 class="my-3">Description</h3>
+          <p>An Innovative web deveploper inter at HngInternship<sup>4</sup></p>
+          <h3 class="my-3">Details</h3>
+          <ul>
+            <li>Creative</li>
+            <li>Innovative</li>
+            <li>Team player</li>
+            <li>Result oriented and time conscious</li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="row">
+        <!-- chatbot -->
+        <div class="col-md-6">
+          
+            <button type="button" class="btn btn-danger btn-lg pull-right" data-toggle="collapse" data-target="#chat">Chat now</button>
+              
+              <div id="chat" class="wrapper collapse">
+
+                <div class="content">
+
+                  <div class="sidebar">
+
+                <br><br>
+
+                    <div class="contacts">
+
+                   <li class="person">
+                          <span class="avatar">
+                            <img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964193/human.png" alt="Sacha Griffin" />
+                            <span class="status online"></span>
+                          </span>
+                          <span class="info">
+                            <span class="status-msg">You Are Currently Logged In </span>
+                          </span>
+                        </li>
+                           <li class="person">
+                          <span class="avatar">
+                            <img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964204/robot.jpg" alt="NitroChatBot" />
+                            <span class="status online"></span>
+                          </span>
+                          <span class="info">
+                            <span class="name">Julie's Assist</span>
+                            <span class="status-msg">I am Julies's Assistant</span>
+                          </span>
+                        </li>
+
+                      </ul><!-- /.contact-list -->
+
+                    </div><!-- /.contacts -->
+
+                  </div><!-- /.sidebar -->
+
+                  <div class="chatbox">
+
+                    <div class="person">
+                      <span class="avatar">
+                        <img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964193/human.png" alt="human Image" />
+                        <span class="status online"></span>
+                      </span>
+                      <span class="info">
+                       <span class="login-status">Online    | <?php
+            echo "" . date("h:i:a");
+            ?>, <?php
+            $query = @unserialize (file_get_contents('http://ip-api.com/php/'));
+            if ($query && $query['status'] == 'success') {
+            echo '' . $query['country'] . ', ' . $query['city'] . '!';
+            }
+            ?></span>
+                        
+                      </span>
+                    </div><!-- /.person -->
+                <script>
+            $(document).ready(function(){
+            var hiddenDiv = $(".messages");
+            var show = function() {
+            hiddenDiv.fadeIn();
+            play();
+
+            };
+
+            hiddenDiv.hide();
+            setTimeout(show, 2000);
 
 
-<?php
+            });
+                </script>
+                    <div class="chatbox-messages" >
+                      <div class="messages clear"><span class="avatar"><img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964204/robot.jpg"alt="Debby Jones" /></span><div class="sender"><div class="message-container"><div class="message"><p>
+                      Hi My name is Cutie <i class="em em-sunglasses"></i> I can tell you about My Author <i class="em em-smiley"></i></p>
+                              <p>You can tell me what to do i promise not to fail you, just type "commands' to see the list of what i can do.<br>You can train me too by simply using the key word "train", seperate the command and response with "#", and ofourse, the password</p>
+                              </div><span class="delivered"><?php
+            echo "" . date("h:i:a");
+            ?></span></div><!-- /.message-container -</div><!-- /.sender --></div><!-- /.messages -->
+                            </div>
+                            <div class="push"></div>
+
+                    </div><!-- /.chatbox-messages -->
 
 
-function decider($string){
-  
-  if (strpos($string, ":") !== false)
-  {
-    $field = explode (":", $string, 2);
-    $key = $field[0];
-    $key = strtolower(preg_replace('/\s+/', '', $key));
-  if(($key == "train")){
-     $password ="p@55";
-     $trainer =$field[1];
-     $result = explode ("#", $trainer);
-  if($result[2] && $result[2] == $password){
-    echo"<br>Training mode<br>";
-    return $result;
-  } else echo "opssss!!! Looks like you are trying to train me without permission";
-  
+                    <div class="message-form-container">
+
+                      <script type="text/javascript">
+                                  $(document).ready(function(){
+               $('#msg').keypress(
+                function(e){
+                    if (e.keyCode == 13) {
+                        e.preventDefault();
+                        var msg = $(this).val();
+                  $(this).val('');
+                        if(msg !== '' )
+                  $('<div class="messages clear"><div class="user"><div class="message-container"><div class="message"><p>'+msg+'</p></div><span class="delivered"><?php
+            echo "" . date("h:i:a");
+            ?></span></div></div><!-- /.user --></div>').insertBefore('.push');
+                  $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
+
+                  formSubmit();
+
+                    }
+
+                function formSubmit(){
+                var message = $("#msg").val();
+                    var dataString = 'msg=' + msg;
+                    jQuery.ajax({
+                        url: "/profiles/juliet.php",
+                        data: dataString,
+                        type: "POST",
+                         cache: false,
+                             success: function(response) {
+            setTimeout(function(){
+                     $(' <div class="messages clear"><span class="avatar"><img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964204/robot.jpg"alt="Debby Jones" /></span><div class="sender"><div class="message-container"><div class="message"><p>'+response+'</p></div><span class="delivered"><?php
+            echo "" . date("h:i:a");
+            ?></span></div><!-- /.message-container -</div><!-- /.sender --></div><!-- /.messages --></div>').insertBefore('.push');
+                  $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
+                  play();
+                },  1000);
+                  },
+                        error: function (){}
+                    });
+                return true;
+                }
+                    });
+            });
+                  function play(){
+                   var audio = document.getElementById("audio");
+                   audio.play();
+                             }                
+            </script>
+            <audio id="audio" src="https://res.cloudinary.com/julietezekwe/video/upload/v1523964158/beep.mp3" ></audio>
+
+                      <form class="message-form" method="POST" action="" >
+                        <textarea id="msg" name="msg" value=""  placeholder="Type a message here..."></textarea>
+                          </form><!-- /.search-form -->
+
+
+                    </div><!-- /.message-form-container -->
+
+                  </div><!-- /.chatbox -->
+
+                </div><!-- /.content -->
+
+              </div><!-- /.wrapper -->
+
+
+        </div>
+      </div>
+      <!-- /.row -->
 
     
-     
-  }
-   }
-   
 
-}
-
-
-  function tester($string){
-   if (strpos($string, ":" ) !== false) 
-   { 
-    $field = explode (":", $string);
-    $key = $field[0];
-    $key = strtolower(preg_replace('/\s+/', '', $key));
-    if(($key !== "train")){
-      
-     echo"<br>testing mode activated<br>";
-     return $string;
-  }
- }
- return $string;
-  }
-
-  
+    </div>
+    <!-- /.container -->
 
 
 
-  
-  ?>
-  
+    <!-- Bootstrap core JavaScript ///-->
+    
+
+    <!-- Custom scripts for this template -->
+    <script src="../js/hng.min.js"></script>
+
+  </body>
+
+</html>
+<?php
+      }
+      ?>
