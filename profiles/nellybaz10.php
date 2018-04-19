@@ -20,7 +20,7 @@ if(!$conn){
 $qq = "select * from interns_data where username='nellybaz10'";
 $result = mysqli_query($conn, $qq);
 $row2 = mysqli_fetch_array($result);
-	echo $row2['name'];
+	echo $row2['secret_word'];
 
 ?>
 
