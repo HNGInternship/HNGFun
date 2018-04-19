@@ -33,6 +33,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
          return "🤖 I'm sorry, An error occured while trying to store what i learnt 😔";
       }
    }
+   
    function findThisPerson($user){
       global $conn;
       $statement = $conn->prepare("select * from interns_data where username like :user limit 1");
@@ -42,6 +43,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
       $rows = $statement->fetchObject();
       return $rows;
    }
+   
    function searchRequest($request) {
       global $conn;
       $statement = $conn->prepare("select * from chatbot where question like :request");
@@ -287,7 +289,7 @@ function sendData() {
          newElement.value = response.response;
          chatArea.appendChild(newElement);
       }
-   };
+   }
    //live server
    xmlhttp.open("POST", "https://hng.fun/profiles/femi_dd.php?new_request="+message, true);
    //localhost

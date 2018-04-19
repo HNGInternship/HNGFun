@@ -104,15 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD
-<?php
-   $result = $conn->query("Select * from secret_word LIMIT 1");
-   $result = $result->fetch(PDO::FETCH_OBJ);
-   $secret_word = $result->secret_word;
-
-   $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
-   $user = $result2->fetch(PDO::FETCH_OBJ);
-?>
 <head>
 	<title>  <?php echo $user->name ?></title>
 <head>
