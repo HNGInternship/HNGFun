@@ -138,8 +138,6 @@
   <div class="bot-body">
     <div class="messages-body">
       <div>
-      </div>
-      <div>
         <div class="message bot">
           <span class="content">Type "<code>show: List of commands</code>" to see what the list of commands I understand.</span>
         </div>
@@ -318,7 +316,7 @@ footer {
   function showResponse(response) {
     if (response === true) {
       $('.messages-body').append(
-        `<div class="trigger_popup">
+        `<div>
           <div class="message bot temp">
             <span class="content">Thinking...</span>
           </div>
@@ -329,7 +327,7 @@ footer {
 
     $('.temp').parent().remove();
     $('.messages-body').append(
-      `<div class="trigger_popup">
+      `<div>
         <div class="message bot">
           <span class="content">${response}</span>
         </div>
@@ -375,16 +373,5 @@ footer {
     });
 });
 
-document.getElementById("message bot").innerHTML;
-function speak(string){
-	var utterance = new SpeechSynthesisUtterance();
-	utterance.voice = speechSynthesis.getVoices().filter(function(voice){return voice.name == "Agnes";})[0];
-	utterance.text = string;
-	utterance.lang = "en-US";
-	utterance.volume = 1; //0-1 interval
-	utterance.rate = 1;
-	utterance.pitch = 1; //0-2 interval
-	speechSynthesis.speak(utterance);
-}
 </script>
 <?php } ?>
