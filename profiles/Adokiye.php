@@ -1,4 +1,7 @@
-
+<?php
+include "../answers.php";
+require '../db.php';
+?>
 <!doctype html>
 <html>
 <head>
