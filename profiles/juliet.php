@@ -8,6 +8,11 @@ $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
+
+
+if (isset($_GET["page"])) {
+}else
+{
 ?>
 
 <!DOCTYPE html>
@@ -550,3 +555,6 @@ $secret_word = $row['secret_word'];
   </body>
 
 </html>
+<?php
+      }
+      ?>
