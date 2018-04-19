@@ -2,7 +2,7 @@
 
 include_once realpath(__DIR__ . '/..') . "/answers.php"; 
 
-require("../config.php");
+require("../../config.php");
 
 function decider($string){
   
