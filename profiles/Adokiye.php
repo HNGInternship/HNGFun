@@ -8,7 +8,6 @@ include "../answers.php";
 			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 			}
 		}
-global $conn;
 ?>
 <!doctype html>
 <html>
