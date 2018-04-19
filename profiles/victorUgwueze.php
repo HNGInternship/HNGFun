@@ -125,6 +125,7 @@ h3{
 }
 .top-bar {
   background: #666;
+  height:50px;
   color: white;
   padding: 10px;
   position: relative;
@@ -132,19 +133,23 @@ h3{
   border-radius:4%;
    
 }
+
+.input{
+    height:50px;
+}
 .minimize-bot{
     position:absolute;
     right:2%;
     font-weight:180%;
 }
-.panel-body p{
-    overflow:scroll;
+
+.panel-body{
+    height:300px;
+    overflow-y:scroll;
 }
   </style>
 
-    <script>
-    
-    </script>
+
 
 </head>
 <body>
@@ -182,9 +187,9 @@ h3{
     <div class="container">
         <div class="bot panel panel-default">
             <div class="panel-heading top-bar">Panel 
-                <span class="minimize-bot">-</span>
+                <span><button class="minimize-bot" data-hide="minimize">-</button></span>
             </div>
-            <div class="panel-body">
+            <div class="panel-body"> 
             
                 <p>is simply dummy text of the printing and typesetting industry. 
                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
@@ -218,7 +223,7 @@ h3{
                 naissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line
                  in section 1.10.32.</p>
             </div>
-            <div class="input">
+            <div class="input" style="position:absolute; bottom:0;">
             <form action="" class="form-inline">
                     <div class="input-group mb-2 mr-sm-2">
                         <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="type your message">
@@ -230,5 +235,34 @@ h3{
             </div>
         </div>
     </div>
+
+    <!-- Javascript tags -->
+    <script>
+        /handles show and hide for chat window/ 
+        let minimizeBot = document.querySelector('.minimize-bot');
+        minimizeBot.addEventListener('click',chatAction);
+        function chatAction(){
+            if(this.dataset.hide ==="minimize"){
+                this.dataset.hide = "expand";
+                hideChat();
+            }else if(this.dataset.hide === "expand"){
+                this.dataset.hide = "minimize";
+                showChat();
+            }
+            console.log(this.dataset.hide);
+        }
+
+        function hideChat(){
+            let chatWindow = document.querySelector('.panel-body');
+            chatWindow.style.display = "none";
+            chatWindow.parentNode.style.height = "100px";
+        }
+
+        function showChat(){
+            let chatWindow = document.querySelector('.panel-body');
+            chatWindow.style.display = "block";
+            chatWindow.parentNode.style.height = "400px";
+        }
+    </script>
 </body>
 </html>
