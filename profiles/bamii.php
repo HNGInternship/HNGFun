@@ -356,11 +356,7 @@
       $a =json_decode($response, true);
 
       if($a['data']['error']) {
-        echo json_encode([
-          'status' => 1,
-          'message' => "Unable to find the country.",
-        ]);
-        return;
+        return "Unable to find the country";
       }
 
       $longitude = $a['search_api']['result'][0]['longitude'];
