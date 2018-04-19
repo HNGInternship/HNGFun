@@ -49,25 +49,6 @@ include "../answers.php";
 </head>
 
 <body>
-<?php
-  try {
-    $sql = 'SELECT * FROM secret_word';
-    $secret_word_query = $conn->query($sql);
-    $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
-    $secret_word_result = $secret_word_query->fetch();
-    $sql = 'SELECT * FROM interns_data WHERE username = "Adokiye"';
-    $intern_data_query = $conn->query($sql);
-    $intern_data_query->setFetchMode(PDO::FETCH_ASSOC);
-    $intern_data_result = $intern_data_query->fetch();
-  } catch (PDOException $e) {
-      throw $e;
-  }	
-$secret_word = $secret_word_result['secret_word'];
-  $name = $intern_data_result['name'];
-  $img_url = $intern_data_result['image_filename'];
-$username = $intern_data_result['username'];
-	
-	?>
 <div class=".body" id="div_main">
     <div class=".header" id="header">
         <img src="http://res.cloudinary.com/gorge/image/upload/v1523960590/images.jpg" width="120" height="131" alt=""/><p style="font-size: 36px; text-align: center; color: #563F3F; font-weight: bold;"><span style="font-style: italic; color: #FFFFFF; font-size: 24px;"><span style="color: #6FB0CB; font-size: 30px;">my</span></span> PROFILE</p>
@@ -76,9 +57,9 @@ $username = $intern_data_result['username'];
         <p  style=" color: #FFFFFF;font-family: arial, sans-serif; font-size: 14px;font-weight: bold;letter-spacing: 0.3px;">ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="font-weight: bolder">TRAIN: YOUR QUESTION#YOUR ANSWER</span> TO ADD MORE QUESTIONS TO THE DATABASE</p>
   </marquee>
     <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
-    <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name?></p>
-    <p style="font-weight: bold">USERNAME : <?php echo $username?></p>
-    <p><span style="font-weight: bold">PROFILE PICTURE :  </span>: <?php echo"<img src=$image_filename alt=\"Adokiye\" width=\"254\" height=\"413\">"?></p>
+    <p style="font-style: normal; font-weight: bold;">NAME : <?php echo "i=Iruene Adokiye"?></p>
+    <p style="font-weight: bold">USERNAME : <?php echo "Adokiye"?></p>
+    <p><span style="font-weight: bold">PROFILE PICTURE :  </span>: <?php echo"<img src="http://res.cloudinary.com/gorge/image/upload/v1523960782/Screenshot_20180414-113840.png" alt=\"Adokiye\" width=\"254\" height=\"413\">"?></p>
     <?php
     if (isset($_POST['button'])){
         if (isset ($_POST['input'])&&$_POST['input']!==""){
