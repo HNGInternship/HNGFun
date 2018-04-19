@@ -1,7 +1,7 @@
 <?php
 
 
-include_once("db.php");
+require("../config.php");
 // Create connection
 $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 // Check connection
