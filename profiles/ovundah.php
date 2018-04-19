@@ -47,7 +47,6 @@
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$rows = $stmt->fetchAll();
         $json = json_encode($rows);
-        echo $json
 ?>
 
 <html>
