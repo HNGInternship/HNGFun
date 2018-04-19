@@ -211,7 +211,7 @@
     display: inline-block;
     font-weight: bold;
 }
-.footer {
+footer {
 	padding: 0px !important;
 }
   .bot-body {
@@ -287,7 +287,8 @@
   .message-box {    
 		width: -webkit-fill-available;
     border: none;
-    padding: 5px 10px;
+		padding: 2px 4px;
+    font-size: 18px;
   }
 
   .img-body {
@@ -322,14 +323,11 @@
     align-items: center;
   }
 
-  .body {
+  body {
 		overflow: hidden;
     height: 100%;
   }
 
-  body, html {
-    /* height: 100%!important; */
-  }
 </style>
 <script>
   window.onload = function() {
