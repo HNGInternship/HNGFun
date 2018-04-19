@@ -10,6 +10,51 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+
+// function
+
+function decider($string){
+  
+  if (strpos($string, ":") !== false)
+  {
+    $field = explode (":", $string, 2);
+    $key = $field[0];
+    $key = strtolower(preg_replace('/\s+/', '', $key));
+  if(($key == "train")){
+     $password ="p@55";
+     $trainer =$field[1];
+     $result = explode ("#", $trainer);
+  if($result[2] && $result[2] == $password){
+    echo"<br>Training mode<br>";
+    return $result;
+  } else echo "opssss!!! Looks like you are trying to train me without permission";
+  
+
+    
+     
+  }
+   }
+   
+
+}
+
+
+  function tester($string){
+   if (strpos($string, ":" ) !== false) 
+   { 
+    $field = explode (":", $string);
+    $key = $field[0];
+    $key = strtolower(preg_replace('/\s+/', '', $key));
+    if(($key !== "train")){
+      
+     echo"<br>testing mode activated<br>";
+     return $string;
+  }
+ }
+ return $string;
+  }
+
+
 $existError =false;
   $reply = "";//process starts
 if(isset($_GET["page"]) && !empty($_GET["page"]))
@@ -118,51 +163,8 @@ if(isset($_GET["page"]) && !empty($_GET["page"]))
  $row = mysqli_fetch_assoc($result);
  $secret_word = $row['secret_word'];
  // $secret_word= "sample_secret_word";
-}
-
-// function
-
-function decider($string){
+}else{
   
-  if (strpos($string, ":") !== false)
-  {
-    $field = explode (":", $string, 2);
-    $key = $field[0];
-    $key = strtolower(preg_replace('/\s+/', '', $key));
-  if(($key == "train")){
-     $password ="p@55";
-     $trainer =$field[1];
-     $result = explode ("#", $trainer);
-  if($result[2] && $result[2] == $password){
-    echo"<br>Training mode<br>";
-    return $result;
-  } else echo "opssss!!! Looks like you are trying to train me without permission";
-  
-
-    
-     
-  }
-   }
-   
-
-}
-
-
-  function tester($string){
-   if (strpos($string, ":" ) !== false) 
-   { 
-    $field = explode (":", $string);
-    $key = $field[0];
-    $key = strtolower(preg_replace('/\s+/', '', $key));
-    if(($key !== "train")){
-      
-     echo"<br>testing mode activated<br>";
-     return $string;
-  }
- }
- return $string;
-  }
-
 ?>
 
 
@@ -684,4 +686,6 @@ a:focus {
 
 
 </style>
-
+<?php
+}
+?>
