@@ -93,15 +93,14 @@ function training($question, $answer){
     function getAnswerFromDb($str){
 
         global $conn;
-        $str = "'%".$str."%'";
         if($str !== ''){
-            $sql = "SELECT COUNT(*) FROM chatbot WHERE question LIKE " . $str;
+            $sql = "SELECT COUNT(*) FROM chatbot WHERE question = '" . $str + "'";
             if ($res = $conn->query($sql)) {
 
                 /* Check the number of rows that match the SELECT statement */
               if ($res->fetchColumn() > 0) {
        
-        $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $str . " ORDER BY question ASC LIMIT 1";
+        $sql = "SELECT answer FROM chatbot WHERE question = '" . $str . "' ORDER BY question ASC LIMIT 1";
         
       foreach ($conn->query($sql) as $row) {
           
