@@ -1,18 +1,191 @@
 <?php
 
-include_once realpath(__DIR__ . '/..') . "/answers.php"; 
-require_once "../../config.php";
-// Create connection
-$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-// Check connection;
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+// include_once realpath(__DIR__ . '/..') . "/answers.php"; 
+
+if (!defined('DB_USER')){
+            
+  require "../../config.php";
+}
+try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
 
-if(isset($_GET["page"]))
-      { 
+ global $conn;
+
+ try {
+  $sql = 'SELECT * FROM secret_word LIMIT 1';
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $data = $q->fetch();
+  $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+  throw $e;
+}    
+try {
+  $sql = "SELECT * FROM interns_data WHERE `username` = 'juliet' LIMIT 1";
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $my_data = $q->fetch();
+} catch (PDOException $e) {
+  throw $e;
+}
+
+function decider($string){
+  
+  if (strpos($string, ":") !== false)
+  {
+    $field = explode (":", $string, 2);
+    $key = $field[0];
+    $key = strtolower(preg_replace('/\s+/', '', $key));
+  if(($key == "train")){
+     $password ="p@55";
+     $trainer =$field[1];
+     $result = explode ("#", $trainer);
+  if($result[2] && $result[2] == $password){
+    echo"<br>Training mode<br>";
+    return $result;
+  } else echo "opssss!!! Looks like you are trying to train me without permission";   
+  }
+   }
+}
+
+function tester($string){
+  if (strpos($string, ":" ) !== false) 
+  { 
+   $field = explode (":", $string);
+   $key = $field[0];
+   $key = strtolower(preg_replace('/\s+/', '', $key));
+   if(($key !== "train")){
+     
+    echo"<br>testing mode activated<br>";
+    return $string;
+ }
+}
+return $string;
+ }
+
+// Create connection
+// $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+// Check connection
+
+// if (!$conn) {
+//     die("Connection failed: " . mysqli_connect_error());
+// }
+$existError =false;
+$reply = "";//process starts
+if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
+
+  if ($_POST['msg'] == 'commands') {
+    $reply= 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
+  } 
+      // else if($reply==""){
        
-      }else{
+      //   $reply = assistant($_POST['msg']);
+       
+      // }
+  if($reply =="") {
+
+    $post= $_POST['msg'];
+    $result = decider($post);
+    if($result){
+      $question=$result[0]; 
+      $answer= $result[1];
+      $sql = "SELECT * FROM chatbot";
+      $stm = $conn->query($sql);
+      $stm->setFetchMode(PDO::FETCH_ASSOC);
+
+      $result = $stm->fetchAll();
+        
+        if (count(($result))> 0) {
+              
+          while($result) {
+            $strippedQ = strtolower(preg_replace('/\s+/', '', $question));
+            $strippedA = strtolower(preg_replace('/\s+/', '', $answer));
+            $strippedRowQ = strtolower(preg_replace('/\s+/', '', $result['question']));
+            $strippedRowA = strtolower(preg_replace('/\s+/', '', $result['answer']));
+            if(($strippedRowQ == $strippedQ) && ($strippedRowA == $strippedA)){
+            $reply = "I know this already, but you can make me smarter by giving another response to this command";
+            $existError = true;
+            break;
+            
+            }
+              
+          }        
+        } 
+    
+    if(!($existError)){
+      $sql = "INSERT INTO chatbot(question, answer)
+      VALUES(:quest, :ans)";
+      $stm =$conn->prepare($sql);
+      $stm->bindParam(':quest', $question);
+      $stm->bindParam(':ans', $answer);
+
+      $saved = $stm->execute();
+        
+      if ($saved) {
+          $reply = "Thanks to you, I am smarter now";
+      } else {
+          echo "Error: could not understand";
+      }
+        
+        
+    }  
+  }
+  else{
+    $input = tester($post); 
+ 
+  if($input){
+    
+  
+    // $time ="what is the time";
+    // query db to look for question 
+    $answer = "";
+    $sql = "SELECT * FROM chatbot";
+    $stm = $conn->query($sql);
+    $stm->setFetchMode(PDO::FETCH_ASSOC);
+
+    $res = $stm->fetchAll();
+    
+    if (count($res) > 0) {
+    
+      $input = strtolower(trim($input));
+      $sql = "SELECT * FROM chatbot WHERE question LIKE '%$input%'";
+            $stm = $conn->query($sql);
+            $stm->setFetchMode(PDO::FETCH_ASSOC);
+
+            $result = $stm->fetchAll();
+      
+                  
+      if(count(($result)) > 0){
+        
+        $answer = $answer[array_rand($answer)];   
+      } 
+    
+    }       
+  }
+}
+  }        
+      if($answer != ""){
+        $reply = $answer;
+        } 
+    
+    // end input
+         
+  // end test
+ 
+
+  if($reply == ""){
+        $reply ="I did'nt get that, please rephrase or try again later";
+    }
+  
+  echo $reply;
+
+
+  // function
+  }
+  
 ?>
 
 <!DOCTYPE html>
@@ -343,15 +516,6 @@ a:focus {
   </head>
 
   <body>
-<?php 
-
-global $conn;
-$sql = "SELECT * FROM secret_word";
-$result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
-$secret_word = $row['secret_word'];
-// $secret_word= "sample_secret_word";
-?>
 
   <!-- Page Content -->
     <div class="container">
@@ -494,7 +658,7 @@ $secret_word = $row['secret_word'];
                 var message = $("#msg").val();
                     var dataString = 'msg=' + msg;
                     jQuery.ajax({
-                        url: "/profiles/juliet.php?page=chat",
+                        url: "/profiles/juliet.php",
                         data: dataString,
                         type: "POST",
                          cache: false,
@@ -557,4 +721,6 @@ $secret_word = $row['secret_word'];
 </html>
 <?php
       }
+
       ?>
+

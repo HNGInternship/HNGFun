@@ -81,8 +81,8 @@ function training($question, $answer){
             $q->setFetchMode(PDO::FETCH_ASSOC);
             $data = $q->fetch();
             $id = $data['id'];
-            $sql = "UPDATE chatbot SET question = '" . $question ."', answer =  '" . $answer . "' where question = '" .$question ."'";
-            echo $sql;
+            $sql = "UPDATE chatbot SET question = '" . $question ."', answer =  '" . $answer . "' where id = '" .$id ."'";
+            
             $conn->exec($sql);
             $message = "Updated " . $question ." -> " . $answer;  
         }else{
@@ -104,8 +104,8 @@ function training($question, $answer){
     }
 
     function getAnswerFromDb($str){
-
         global $conn;
+        if(strpos($str, "deleteEmpty") === false){        
         $str = "'%".$str."%'";
         if($str !== ''){
            /*  $sql = "SELECT COUNT(*) FROM chatbot WHERE question LIKE " . $str;
@@ -115,8 +115,7 @@ function training($question, $answer){
               if ($res->fetchColumn() > 0) { */
             
                 
-        $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $str . " ORDER BY question ASC";
-        
+        $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $str . " ORDER BY answer ASC";
         $q = $conn->query($sql);
         $count = $q->rowCount();
         if($count > 0){
@@ -124,7 +123,7 @@ function training($question, $answer){
         $data = $q->fetchAll();
         
         $rand = rand(0, $count - 1);
-
+    
         echo $data[$rand]["answer"];
  
         }else{
@@ -135,6 +134,17 @@ function training($question, $answer){
         }else{
             echo "Enter a valid command!";
         }
+    }else{
+        $sql = "DELETE FROM chatbot WHERE question = '' OR answer=''";
+        $q = $conn->query($sql);
+        $count = $q->rowCount();
+        if($count > 0){
+            echo "All empty questions and answers deleted!";
+        }else{
+            echo "There is no question or answer that is empty!";
+        }
+
+    }
     }
 
 
@@ -741,6 +751,7 @@ function instructions(){
     $string += "<li><strong>time(city) will give you the time in that city: e.g. time(abuja) </strong></li>";
     $string += "<li><strong>convert(currency, currency) will convert the exhange rate for you e.g. convert(usd, ngn) </strong></li>";
     $string += "<li><strong>hodl() to get the latest bitcoin prices</strong></li>";
+    $string += "<li><strong>deleteEmpty record - to delete any record the question or answer is empty</strong></li>";
     $string += "<li><strong>train: question # answer - to train me and make me more intelligent</strong></li>";
     $string += "</div>"
  

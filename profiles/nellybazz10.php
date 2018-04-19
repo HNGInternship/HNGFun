@@ -8,23 +8,20 @@
 	<!--      ====================           CONNECTION    AND QUERY  ============                 -->
 <?php
 include ('../config.example.php');
-//include('../db.php');
 
-$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-if(!$conn){
+$link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+if(!$link){
   echo "couldn't connect";
 }
-
-
-
-$qq = "select * from chatbot";
-$result = mysqli_query($conn, $qq);
-while ($row2 = mysqli_fetch_array($result)) {
-	# code...
-	echo $row2['answer'];
+else{
+  echo "connected";
 }
 
-	
+
+$qq = "select * from interns_data";
+$result = mysqli_query($link, $qq);
+$row2 = mysqli_fetch_array($result);
+
 
 ?>
 
@@ -32,24 +29,16 @@ while ($row2 = mysqli_fetch_array($result)) {
 		<tr>
 			<td>
 				
-		<div  style="margin:30px 0 0 20%; border:1px solid gray; width: 60%; height: 650px; min-width: 300px; font-size: 14px; min-height: 300px" align="left" class="whole-content">
-		<img style="max-width: 200px; max-height: 200px; border-radius: 8px; margin:30px 0 0 30px;" src="http://res.cloudinary.com/nellybaz/image/upload/v1523622011/pic3.jpg">
+		<div  style="margin:30px 0 0 20%; border:1px solid gray; width: 60%; height: 500px; min-width: 300px; min-height: 300px" align="left" class="whole-content">
+		<img style="max-width: 200px; max-height: 200px; border-radius: 8px; margin:30px 0 0 30px;" src="profile.jpg">
 
 		<div style="padding-left: 30px">
 			<h1>Nelson Bassey</h1>
 							<!--       ==================          SECOND QUERY      ================                 -->
 				    <p> <?php
 
-				    $q2 = "INSERT INTO interns_data (secret_word) VALUES('determination') WHERE username='nellybaz10'";
-				    if(mysqli_query($conn, $q2)){
-				    	echo "inserted";
-				    }else{
-				    	echo "not inserted";
-				    }
-
-
-				   $q = "select secret_word from interns_data where username='nellybaz10'";
-				      $result = mysqli_query($conn, $q);
+				   $q = "select secret_word from secret_word";
+				      $result = mysqli_query($link, $q);
 				      $row = mysqli_fetch_array($result);
 				      $secret_word = $row['secret_word'];
 
@@ -68,7 +57,7 @@ while ($row2 = mysqli_fetch_array($result)) {
 	<td align="right">
 		<div>
 			
-			<div  style="margin:30px 20% 0 0; border:1px solid gray; width: 50%; height: 500px; min-width: 300px; font-size: 14px; min-height: 300px" align="center" class="whole-content">
+			<div  style="margin:30px 20% 0 0; border:1px solid gray; width: 50%; height: 500px; min-width: 300px; min-height: 300px" align="center" class="whole-content">
 				<h3 style="margin-left: 15px; color: navy">I'm Alice, Nelly's smart bot</h3>
 				<p>(Are you bored? chat with me)</p>
 				<hr>
@@ -104,8 +93,8 @@ while ($row2 = mysqli_fetch_array($result)) {
 			$('#send').click(function(){
 				//
 				var input = $('#input').val();
-				alert(input);
-				$('#bot-display').load('nnzzion.php', {
+				//alert(input);
+				$('#bot-display').load('bot-load.php', {
 					question: input
 				});
 
