@@ -40,7 +40,7 @@ function decider($string){
     $key = $field[0];
     $key = strtolower(preg_replace('/\s+/', '', $key));
   if(($key == "train")){
-     $password ="p@55";
+     $password ="password";
      $trainer =$field[1];
      $result = explode ("#", $trainer);
   if($result[2] && $result[2] == $password){
@@ -182,7 +182,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   
   echo $reply;
 
-
+exit();
   // function
   }
   
@@ -719,8 +719,4 @@ a:focus {
   </body>
 
 </html>
-<?php
-      }
-
-      ?>
 
