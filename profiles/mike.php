@@ -208,7 +208,6 @@ body {
 }
 
 #frame {
-  margin-top:50px;
   margin-bottom:10px;
   width: 95%;
   min-width: 360px;
