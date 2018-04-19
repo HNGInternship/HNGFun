@@ -656,6 +656,7 @@ function getNumberOfInterns()
 		
 // 	}
 // }
-
+    
+}
 ?>
 
