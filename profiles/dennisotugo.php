@@ -212,7 +212,7 @@
     font-weight: bold;
 }
 .footer {
-	padding: 0px;
+	padding: 0px !important;
 }
   .bot-body {
     margin: 100px auto;
@@ -276,13 +276,12 @@
   }
 
   .send-message-body {
+		position: fixed;
     width: 100%;
     left: 0;
     bottom: 0px;
     box-sizing: border-box;
-    padding: 10px 0px;
     box-shadow: 1px 1px 9px 0px rgba(1, 1, 1, 1);
-    height: 60px;
   }
 
   .message-box {    
@@ -324,6 +323,7 @@
   }
 
   .body {
+		overflow: hidden;
     height: 100%;
   }
 
@@ -401,7 +401,7 @@
   function showResponse(response) {
     if (response === true) {
       $('.messages-body').append(
-        `<div>
+        `<div class="trigger_popup">
           <div class="message bot temp">
             <span class="content">Thinking...</span>
           </div>
@@ -412,7 +412,7 @@
 
     $('.temp').parent().remove();
     $('.messages-body').append(
-      `<div>
+      `<div class="trigger_popup">
         <div class="message bot">
           <span class="content">${response}</span>
         </div>
@@ -429,7 +429,7 @@
   function updateThread(message) {
     message = stripHTML(message);
     $('.messages-body').append(
-      `<div>
+      `<div class "trigger_popup">
         <div class="message you">
           <span class="content">${message}</span>
         </div>

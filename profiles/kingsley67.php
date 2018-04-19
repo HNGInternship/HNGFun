@@ -1,5 +1,5 @@
 <?php
-include ("db.php");
+require '../db.php'; 
 $sql = 'SELECT * FROM interns_data_ WHERE username="kingsley67"';
     $query = $conn->query($sql);
     $query->setFetchMode(PDO::FETCH_ASSOC);  
