@@ -146,10 +146,7 @@
               'answer' => "Please follow the syntax. Thank you! <br /> <i>convert amount from base to destination</i>",
             ]);
             return;
-          }
-  
-          
-  
+          } 
       } else if(strpos($data_lower, 'joke') !== false || strpos($data_lower, 'chuck') !== false) {
         $random_joke = bamiiChuckNorris();
   
