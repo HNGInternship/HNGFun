@@ -14,21 +14,16 @@
     }
 
     function bamiiChuckNorris() {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-          CURLOPT_URL => "http://api.icndb.com/jokes/random",
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_TIMEOUT => 30,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => "GET",
-          CURLOPT_HTTPHEADER => array(
-            "cache-control: no-cache"
-          ),
-        ));
-        
-        $response = curl_exec($curl);
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+              ),
+          );  
+        $geocodeUrl = "http://api.icndb.com/jokes/random";
+        $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+
         $a =json_decode($response, true);
-        curl_close($curl);
 
         return $a['value']['joke'];
     }
@@ -50,21 +45,16 @@
 
         $string = 'http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query='. $country2 .'&num_of_results=2&format=json';
 
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-          CURLOPT_URL => $string,
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_TIMEOUT => 30,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => "GET",
-          CURLOPT_HTTPHEADER => array(
-            "cache-control: no-cache"
-          ),
-        ));
-        
-        $response = curl_exec($curl);
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );  
+        $geocodeUrl = "http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query=lagos&num_of_results=2&format=json";
+        $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+
         $a =json_decode($response, true);
-        curl_close($curl);
 
         $longitude = $a['search_api']['result'][0]['longitude'];
         $latitude = $a['search_api']['result'][0]['latitude'];
