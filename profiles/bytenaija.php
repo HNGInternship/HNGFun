@@ -652,7 +652,7 @@ try {
 
 <script>
 let url = "profiles/bytenaija.php?query=";
-url = window.location.href + "?query=";
+//url = window.location.href + "?query=";
 
 let botResponse = document.querySelector("#botresponse");
 window.onload = instructions;
@@ -691,7 +691,7 @@ if (e.keyCode == 13) {
            botResponse.appendChild(dv)
            stack.push(input.value)
     
-   let urlL = url + encodeURIComponent(input.value);
+   let urlL = url + encodeURI(input.value);
    console.log(urlL);
     fetch(urlL)
     .then(response=>{
