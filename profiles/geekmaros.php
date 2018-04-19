@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+
 require 'db.php';
     $result = $conn->query("SELECT * from secret_word LIMIT 1");
     $result = $result->fetch(PDO::FETCH_OBJ);
@@ -7,7 +9,8 @@ require 'db.php';
     $result2 = $conn->query("SELECT * from interns_data where username = 'geekmaros'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
 
- ?>
+
+  ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -271,20 +274,6 @@ h1 a {
     font-size: 16px;
 }
 
-.accordion li.open .link {
-    color: #b63b4d;
-}
-
-.accordion li.open i {
-    color: #b63b4d;
-}
-.accordion li.open i.fa-chevron-down {
-    -webkit-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    transform: rotate(180deg);
-}
-
 .accordion li.default .submenu {display: block;}
 /**
  * Submenu
@@ -385,13 +374,12 @@ h1 a {
     z-index: 10;
 }
 
-
 </style>
 </head>
 <body>
 
-    <div class="container">
-    <div class="row">
+<div class="container">
+   <div class="row">
     <!-- Contenedor -->
     <ul id="accordion" class="accordion">
     <li>
@@ -405,11 +393,11 @@ h1 a {
 
 </div>
 <div class="username">
-    <h2><?php echo $user->name; ?> @<?php echo $user->username; ?> <small><i class="fa fa-map-marker"></i> Nigeria (Ilorin Kwara)</small></h2>
-    <p><i class="fa fa-briefcase"></i> Web Developer    .</p>
+    <h2><?php echo $user->name; ?>  @<?php echo $user->username; ?><small><i class="fa fa-map-marker"></i> Nigeria (kwara)</small></h2>
+    <p><i class="fa fa-briefcase"></i> Web Developer.</p>
     
-    <a href="https://https://www.facebook.com/marosconnect" target="_blank" class="btn-o"> <i class="fa fa-user-plus"></i> Add Friend </a>
-    <a href="https://twitter.com/geekmaros" target="_blank"  class="btn-o"> <i class="fa fa-plus"></i> Follow </a>
+    <a href="https://web.facebook.com/marosconnect" target="_blank" class="btn-o"> <i class="fa fa-user-plus"></i> Add Friend </a>
+    <a href="https://www.instagram.com/geekmaros/" target="_blank"  class="btn-o"> <i class="fa fa-plus"></i> Follow </a>
     
     
      <ul class="nav navbar-nav">
@@ -430,13 +418,19 @@ h1 a {
         
     </li>
         <li>
-                
+            <div class="link"><i class="fa fa-globe"></i>About<i class="fa fa-chevron-down"></i></div>
+            <ul class="submenu">
+                <li><a href="#"><i class="fa fa-calendar left-none"></i> Date of Birth : 01/10/199X</a></li>
+                <li><a href="#">Address : Nigeria,Kwara</a></li>
+                <li><a href="mailto:razicruz@gmail.com">Email : razicruz@gmail.com</a></li>
+                <li><a href="#">Phone : +234 XXX XXX XXXX</a></li>
+            </ul>
         </li>
         <li class="default open">
             <div class="link"><i class="fa fa-code"></i>Professional Skills<i class="fa fa-chevron-down"></i></div>
             <ul class="submenu">
-                <li><a href="#"> <span class="tags">PHP</span> <span class="tags">HTML</span> 
-                <span class="tags">BOOTSTRAP</span> <span class="tags">LARAVEL</span> <span class="tags">CSS</span>   </li></a>
+                <li><a href="#"><span class="tags">HTML</span> <span class="tags">CSS</span> <span class="tags">BOOTSTRAP</span> <span class="tags">PHP</span> 
+                <span class="tags">LARAVEL</span></li></a>
             </ul>
         </li>
         
@@ -450,5 +444,9 @@ h1 a {
     
 </div>
 
+
+
+
 </body>
+
 </html>

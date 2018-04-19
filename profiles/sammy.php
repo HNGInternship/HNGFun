@@ -6,13 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Sammy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:image" content="Felix%20-%20Favcoder_files/art.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" href="favicon.ico" type="icon">
-
+   
     <script>
         var slideInterval = 2500;
         function getFigures() {
@@ -224,7 +221,7 @@
             margin-right: 50px;
             text-align: center;
             align-content: flex-start;
-            transform: translateX(-20%) translateY(10px);
+            transform: translateX(-10px) translateY(10px);
         }
     </style>
 </head>

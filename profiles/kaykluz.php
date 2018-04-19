@@ -1,3 +1,23 @@
+  <?php
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    
+$secret_word = '';
+
+$sql = "SELECT secret_word from secret_word";
+foreach ($conn->query($sql) as $row) {
+    $secret_word = $row['secret_word'];
+   
+}
+
+    ?>
+
 <DOCTYPE html>
 <html>
 <head>
@@ -162,6 +182,18 @@ footer h4 a {
 </style>
 
 <div class="content-profile-page">
+
+<?php
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="kaykluz"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    ?>
+
    <div class="profile-user-page card">
       <div class="img-user-profile">
         <img class="profile-bgHome" src="http://res.cloudinary.com/kaykluz/image/upload/v1523627149/13012866_1109913765737811_2486734311465436607_n.jpg" />
@@ -169,7 +201,7 @@ footer h4 a {
            </div>
           <button>Follow</button>
           <div class="user-profile-data">
-            <h1>Solomon Ojoawo</h1>
+            <h1><?=$my_data['name'] ?></h1>
             <p>github.com/ojoawo</p>
           </div> 
           <div class="description-profile">Hotels.Ng Intern | Front-end | CSS Demon | <a href="https://twitter.com/kaykluz" title="Kaykluz"><strong>@kaykluz</strong></a> | Hungry and Talented!</div>
@@ -179,6 +211,7 @@ footer h4 a {
         <li><a href="https://linkedin.com/in/ojoawosolomon" title="SolomonOjoawo"><strong>Solomon Ojoawo</strong><span>Linkedin</span></a></li>
        </ul>
       </div>
+
     </div>
 
 <footer>
