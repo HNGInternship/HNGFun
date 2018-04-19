@@ -298,8 +298,7 @@ function getNumberOfInterns()
 // End of functions by @mclint_
 
     //functions defined by @chigozie. DO NOT MODIFY!!!
-    function getDayOfWeek()
-    {
+    function getDayOfWeek(){ 
         return date("l");
     }
 
@@ -310,14 +309,14 @@ function getNumberOfInterns()
         $other = ["february"];
 
         $month = strtolower(trim($month));
-        if (in_array($month, $months_with_31_days)) {
-            return ucfirst($month) . " has 31 days";
-        } else if (in_array($month, $months_with_30_days)) {
-            return ucfirst($month) . " has 30 days";
-        } else if (in_array($month, $other)) {
-            $ans = "In a leap year, February has 29 days otherwise, it has 28 days. ";
-            $ans .= "If you are asking about the current year " . date("Y") . ", then February has ";
-            if (isCurrentYearLeap()) {
+        if(in_array($month, $months_with_31_days)){
+            return "31 days";
+        }else if(in_array($month, $months_with_30_days)){
+            return "30 days";
+        }else if(in_array($month, $other)){
+            $ans = "29 days in a leap year. Otherwise, it has 28 days. ";
+            $ans .= "If you are interested in the current year ".date("Y").", then February has ";
+            if(isCurrentYearLeap()){
                 $ans .= "29 days";
             } else {
                 $ans .= "28 days";
@@ -342,6 +341,42 @@ function getNumberOfInterns()
         }
         return false;
     }
+
+    function getWeather($location=''){
+      define('OW_API_KEY', "97fbc1fbe89950b7e28508aa9148bf9d");
+        if($location === ''){
+            return "Please enter location";
+        }
+
+        $url = "http://api.openweathermap.org/data/2.5/weather?q=$location&units=metric&appid=".OW_API_KEY;
+        $curl_session = curl_init();
+        curl_setopt($curl_session, CURLOPT_URL, $url);
+        curl_setopt($curl_session,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($curl_session,CURLOPT_HEADER, false); 
+        $result=curl_exec($curl_session);
+        curl_close($curl_session);
+        $result_object = json_decode($result);
+        $weather = ucfirst($result_object->weather[0]->description);
+        $temperature = $result_object->main->temp;
+        $pressure = $result_object->main->pressure;
+        $humidity = $result_object->main->humidity;
+        $windspeed = $result_object->wind->speed;
+        $result = "Weather: <b>$weather</b><br>Temperature: <b>$temperature<sup>o</sup>C</b><br>Pressure: <b>$pressure"."mb</b><br>Humidity: <b>$humidity%</b><br>Windspeed: <b>$windspeed"."km/hr</b>";
+        return $result;
+    }
+
+    function getOptimusPrimeCustomFunctions(){
+      $result = array("<b>getDayOfWeek</b>", "<b>getDaysInMonth</b>", "<b>getWeather</b>");
+      $r = "My custom functions are:<br>".implode("<br>", $result);
+      $r .= "<br>I however have to be trained first before I can answer questions based on these functions.";
+      $r .= "<br>To answer questions which do not contain a parameter but whose answer uses a custom function, the training answer must contain the function name enclosed in (( )), i.e. ((<b>function_name</b>)). For example ((<b>getDayOfWeek</b>))";
+      $r .= "<br>To answer questions which contain a parameter in the question, the training question must contain the parameter enclosed in {{ }}, i.e. {{<b>parameter</b>}}";
+      $r .= "<br>and the training answer must contain the name of the function to call enclosed in (( )), i.e. ((<b>parameter</b>)). <br>An example of this is:";
+      $r .= "<br>train: How many days does {{month}} have? # {{month}} has ((getDaysInMonth)) # trainingpassword";
+      return $r;
+    }
+    //end of functions defined by @chigozie
+
 
 
     /***************************Bytenaija Start here*************************/
@@ -571,55 +606,57 @@ function getNumberOfInterns()
 
 // AbseeJP own
 
-    require 'db.php';
+//   require 'db.php';
+ 
+// if (isset($_POST['question'])) {
+// 	$value = $_POST['question'];
+	
+// 	$arr = str_split($value);
+// 	if ($arr[0]=='#') {
 
-    if (isset($_POST['question'])) {
-        $value = $_POST['question'];
-
-        $arr = str_split($value);
-        if ($arr[0] == '#') {
-
-            $input2 = $value;
+// 		$input2 = $value;
 
 
-            $ab = explode(':', $input2);
-            $ques = ltrim($ab[0], '#');
-            $ans = $ab[1];
+// 		$ab = explode( ':', $input2 );
+// 		$ques = ltrim($ab[0], '#');
+// 		$ans = $ab[1];
 
-            $awesome = "INSERT INTO chatbot (question, answer) VALUES ('$ques', '$ans')";
-            $Absee = $conn->query($awesome);
-            $Absee = $Absee->fetch(PDO::FETCH_OBJ);
-        } else {
+// 		$awesome = "INSERT INTO chatbot (question, answer) VALUES ('$ques', '$ans')";
+// 		$Absee = $conn->query($awesome);
+//    		$Absee = $Absee->fetch(PDO::FETCH_OBJ);
+// 	}
+// 	else{
 
-            $Absee = $conn->query("SELECT * from chatbot where question = '$value'");
-            $Absee = $Absee->fetch(PDO::FETCH_OBJ);
+// 	$Absee = $conn->query("SELECT * from chatbot where question = '$value'");
+//    	$Absee = $Absee->fetch(PDO::FETCH_OBJ);
 
-            if ($Absee) {
-                $answer = $Absee->answer;
-                echo '<div class= "container">
-				<p  style= "width:60%;background:#BBDEFB;color:white;border-radius:5px;padding:10px;">'
-                    . $value . '
-				<br>
-				</p>' .
-                    '<p style= "float:right;width:40%;background:#90CAF9;color:white;border-radius:5px;padding:10px;margin-bottom:20px;margin-top:10px;">' . $answer . '<br>
-				</p>
-			</div>';
-
-            } else {
-                $reply = 'Not in db';
-                echo '<div class= "container">
-				<p  style= "width:60%;background:#BBDEFB;color:white;border-radius:5px;padding:10px;">'
-                    . $value . '
-				<br>
-				</p>' .
-                    '<p style= "float:right;width:40%;background:#FF5722;color:white;border-radius:5px;padding:10px;margin-bottom:20px;margin-top:10px;">' . $reply . '<br>
-				</p>
-			</div>';
-
-            }
-
-        }
-    }
+// 	if ($Absee) {
+// 		$answer = $Absee->answer ;
+// 		echo '<div class= "container">
+// 				<p  style= "width:60%;background:#BBDEFB;color:white;border-radius:5px;padding:10px;">'
+// 					.$value.'
+// 				<br>
+// 				</p>'.
+// 				'<p style= "float:right;width:40%;background:#90CAF9;color:white;border-radius:5px;padding:10px;margin-bottom:20px;margin-top:10px;">'.$answer.'<br>
+// 				</p>
+// 			</div>';
+	
+// 	}else{
+// 		$reply = 'Not in db';
+// 		echo '<div class= "container">
+// 				<p  style= "width:60%;background:#BBDEFB;color:white;border-radius:5px;padding:10px;">'
+// 					.$value.'
+// 				<br>
+// 				</p>'.
+// 				'<p style= "float:right;width:40%;background:#FF5722;color:white;border-radius:5px;padding:10px;margin-bottom:20px;margin-top:10px;">'.$reply.'<br>
+// 				</p>
+// 			</div>';
+		
+// 	}
+		
+// 	}
+// }
+    
 }
 ?>
 
