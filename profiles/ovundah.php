@@ -69,7 +69,7 @@
                 padding: 50px;
                 margin-left: 50px;
                 text-align: center; 
-                background: linear-gradient(#88194b, #19133e)
+                background: linear-gradient(#761742, #19133e)
             }
             @media only screen and (max-width: 1100px){
                 body {
@@ -102,7 +102,7 @@
             
         </div>
         <div class='bot embed-responsive embed-responsive-4by3'>
-            <iframe class="embed-responsive-item" src="https://hng.fun//profiles/ovundah/dist/"
+            <iframe class="embed-responsive-item" src="https://hng.fun//profiles/ovundah/"
                         width="100%" 
                         height="100%">
             </iframe>
