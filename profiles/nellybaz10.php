@@ -17,10 +17,10 @@ if(!$conn){
 
 
 
-$qq = "select * from interns_data where username='nellybaz10'";
+$qq = "select * from chatbot";
 $result = mysqli_query($conn, $qq);
 $row2 = mysqli_fetch_array($result);
-	echo $row2['secret_word'];
+	echo $row2['question'];
 
 ?>
 
