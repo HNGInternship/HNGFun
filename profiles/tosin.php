@@ -28,8 +28,8 @@
 			.img-thumbnail
 			{
 				padding: 20px;
-					border-radius: 5px;
-				border-radius: 50px;
+				border-radius: 5px;
+				border-radius: 500px;
 			}
 	</style>
 </head> <?php
@@ -44,10 +44,10 @@ $result2=$conn->query("Select * from interns_data where username='Tosin210'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 <body class="body">
-<br><br>
+<br>
 <br><table width="998" border="0" align="center" cellpadding="9">
   <tr>
-    <td height="26" colspan="1" align="center">Your Profile Information </td>
+    <td height="26" colspan="1" align="center">My Profile Information </td>
 
   </tr>
   
@@ -57,7 +57,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
   </tr>
  
   <tr>
-    <td valign="top" colspan="2"><div align="left">Last Name: Otuseso</td> <td> </div></td>
+    <td valign="top" colspan="2"><div align="left">Last Name: Otuseso</td>
     <td valign="top"></td>
   </tr>
   <tr>
