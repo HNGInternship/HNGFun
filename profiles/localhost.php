@@ -39,7 +39,7 @@ body{
 </style>
 <body>
   <?php
- /* include('../header.php');
+  /*include('../header.php');
   include('../config.php');
 
   require '../db.php';*/
