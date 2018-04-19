@@ -131,14 +131,15 @@ input[type=submit]:hover {
 <?php
 
 if(!defined('DB_USER')){
-    require "../config.php";
-  }
-  try {
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-  } catch (PDOException $pe) {
-    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-  }
+  require "../../config.php";
+}
+try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
 
+global $conn;
 
 
 
@@ -159,32 +160,14 @@ $my_details = $result2->fetch(PDO::FETCH_OBJ);
                       
     if (isset($_POST['payload'])) {
     // require "../answers.php"; 
-    function multiplication($a, $b)
-    {
-        $c = $a * $b;
-        echo $c;
-    }
-
-    function addition($a, $b)
-    {
-        $c = $a + $b;
-        echo $c;
-    }
-
-    function subtraction($a, $b)
-    {
-        $c = $a - $b;
-        echo $c;
-    }
-
-    function division($a, $b)
-    {
-        $c = $a / $b;
-        echo $c;
-    }
-
-
-	  $question = $_POST['payload'];	  
+    $question = $_POST['payload'];
+    function trainningMode($question) {
+      if (strpos($question, 'train:') !== false) {
+        return true;
+      }
+      return false;
+      }
+          
 	 function botReply() {
 		global $question;
 		global $conn;
@@ -202,13 +185,7 @@ $my_details = $result2->fetch(PDO::FETCH_OBJ);
 		  return $question_chat[$question_chat_index]['answer'];
 		}
 
-	  function trainningMode($question) {
-		if (strpos($question, 'train:') !== false) {
-		  return true;
-		}
-		return false;
-    }
-    
+	
     function questionFromTranning($question) {
       $s = 7;
       $e = strlen($question) - strpos($question, " # ");
@@ -244,7 +221,30 @@ $my_details = $result2->fetch(PDO::FETCH_OBJ);
       echo "Thank you. i have gained more knowledge.";
       return;
     }
-	
+    function multiplication($a, $b)
+    {
+        $c = $a * $b;
+        echo $c;
+    }
+
+    function addition($a, $b)
+    {
+        $c = $a + $b;
+        echo $c;
+    }
+
+    function subtraction($a, $b)
+    {
+        $c = $a - $b;
+        echo $c;
+    }
+
+    function division($a, $b)
+    {
+        $c = $a / $b;
+        echo $c;
+    }
+
 	  function multiplication_question($question) {
 		if (strpos($question, 'multiply:') !== false) {
 		  return true;
@@ -396,8 +396,6 @@ $my_details = $result2->fetch(PDO::FETCH_OBJ);
 </ul>	
 </body>
 </html>
-<script src="../vendor/jquery/jquery.min.js"></script>
-<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   window.onload = function() {
     $(document).keypress(function(e) {
