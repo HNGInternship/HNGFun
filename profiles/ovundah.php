@@ -26,8 +26,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Ovundah King</title>
         <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+        <!--
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-
+-->
         <style>
             body{
                 padding: 100px;
@@ -74,15 +75,20 @@
             </div>
             
         </div>
+            <!--
         <div class='bot embed-responsive embed-responsive-4by3'>
             <iframe class="embed-responsive-item" src="https://hng.fun/profiles/ovundah/dist/"
                         width="100%" 
                         height="100%">
             </iframe>
+
         </div>
+-->
         </div>
     </body>
 </html>
+<!--
 <script>
     sessionStorage.setItem('answers', JSON.stringify(<?php echo $json; ?>));
 </script>
+-->
