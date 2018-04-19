@@ -135,8 +135,8 @@
 
 ?>
 
-  <div class="bot-container">
-    <div class="messages-container">
+  <div class="bot-body">
+    <div class="messages-body">
       <div>
         <div class="message bot">
           <span class="content">Hi! I'm a bot and you can ask me various questions and give me different commands.</span>
@@ -148,26 +148,18 @@
         </div>
       </div>
     </div>
-    <div class="send-message-container">
+    <div class="send-message-body">
       <input class="message-box" placeholder="Type here..."/>
-      <button class="send-message-btn">
-        <div>
-          <i class="fa fa-paper-plane" aria-hidden="true"></i>
-        </div>
-      </button>
     </div>
   </div>
 
 <style>
 
-  .bot-container {
-    border-bottom: 1px solid #bbbfbf;
-    padding-bottom: 50px;
-    width: 60%;
-    margin: 50px auto;
+  .bot-body {
+    margin: 100px auto;
   }
 
-  .messages-container {
+  .messages-body {
     background-color: white;
     color: #3A3A5E;
     padding: 10px;
@@ -179,7 +171,7 @@
     border-top-right-radius: 5px;
   }
 
-  .messages-container > div {
+  .messages-body > div {
     display: inline-block;
     width: 100%;
   }
@@ -224,12 +216,12 @@
     display: block;
   }
 
-  .send-message-container {
+  .send-message-body {
     display: inline-grid;
     background-color: #2b7ae3;
     grid-column-gap: 10px;
     grid-template-columns: 1px auto auto 40px 1px;
-    /* position: fixed; */
+    position: fixed;
     width: 100%;
     left: 0;
     bottom: 0px;
@@ -247,21 +239,7 @@
     grid-column-end: 4;
   }
 
-  .send-message-btn {
-    background-color: #fff;
-    padding: 0px;
-    border-radius: 50%;
-    border: none;
-    font-size: 16px;
-    grid-column-start: 4;
-  }
-
-  .send-message-btn > div {
-    margin-top: 0px;
-    margin-right: 2px;
-  }
-
-  .img-container {
+  .img-body {
     margin-left: 85px;
     width: 200px;
     height: 200px;
@@ -272,7 +250,7 @@
     left: 175px;
   }
 
-  .img-container > img {
+  .img-body > img {
     height: 190px;
     width: 190px;
     border-radius: 50%;
@@ -285,7 +263,7 @@
     width: 100%;
   }
 
-  .time-container {
+  .time-body {
     display: flex;
     height: 100%;
     text-align: center;
@@ -293,7 +271,7 @@
     align-items: center;
   }
 
-  .container {
+  .body {
     height: 100%;
   }
 
@@ -307,10 +285,6 @@
       if(e.which == 13) {
         getResponse(getQuestion());
       }
-    });
-
-    $('.send-message-btn').on('click', function () {
-      getResponse(getQuestion());
     });
   }
 
@@ -374,7 +348,7 @@
 
   function showResponse(response) {
     if (response === true) {
-      $('.messages-container').append(
+      $('.messages-body').append(
         `<div>
           <div class="message bot temp">
             <span class="content">Thinking...</span>
@@ -385,7 +359,7 @@
     }
 
     $('.temp').parent().remove();
-    $('.messages-container').append(
+    $('.messages-body').append(
       `<div>
         <div class="message bot">
           <span class="content">${response}</span>
@@ -402,7 +376,7 @@
 
   function updateThread(message) {
     message = stripHTML(message);
-    $('.messages-container').append(
+    $('.messages-body').append(
       `<div>
         <div class="message you">
           <span class="content">${message}</span>
