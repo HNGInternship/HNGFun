@@ -1,11 +1,11 @@
 <!-- head here  -->
 <?php
-   // include_once("header.php");
+   include_once("header.php");
 
-   echo $profile_name = $_GET['id'];
+   $profile_name = $_GET['id'];
 	$secret_word = "sample_secret_word";
 
-    //require 'db.php';
+    require 'db.php';
 ?>
 <!-- Page Content -->
 </div>
@@ -19,7 +19,7 @@
 	require_once('profiles/' . $profile_name. '.php');
 	
 
-  /*try {
+  try {
     $sql = "SELECT * FROM secret_word";
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
@@ -27,10 +27,10 @@
 } catch (PDOException $e) {
 
     throw $e;
-}*/?> 
+}?> 
 </div>
-	<!--(!isset($secret_word) || $secret_word != $data['secret_word']-->
-<?php if(0) { ?>
+	
+<?php if(!isset($secret_word) || $secret_word != $data['secret_word']) { ?>
     <div style="
     color: #721c24;
         background-color: #f8d7da;
