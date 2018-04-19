@@ -1,5 +1,5 @@
 <?php
-   #  require "../db.php";
+    # require "../db.php";
     try {
           $query = $conn->query("SELECT * FROM secret_word");
           $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -62,7 +62,7 @@
               $question = trim($sperate_ques_ans[0]);
               $answer = trim($sperate_ques_ans[1]);
               $password = trim($sperate_ques_ans[2]);
-              if ($password === 'trainpwforhng') {
+              if ($password === 'password') {
                 # carry out insertion if password is supplied correctly
                 #return "good to go on";
                 $sql = "SELECT * FROM chatbot WHERE question LIKE '".$question."'";
@@ -113,6 +113,7 @@
             $message = $_POST['chatbotmessage'];
             $answer = processMessage($message);
             # echo $answer;
+            return;
           }
           
           /* Chat Bot End */
@@ -12283,7 +12284,7 @@
     .md\:w-16 {
       width: 4rem;
     }
-  
+ 
     .md\:w-24 {
       width: 6rem;
     }
@@ -20514,13 +20515,13 @@
                 $.ajax({
                     type: "POST",
                     cache: false, 
-                    url: "#", 
-                    datatype: "json",
+                    url: "", 
+                    dataType: "json",
                     data: $('form').serialize(), 
                     success: function(result) {
                       console.log(result);
                       $("footer").remove();
-                      $('#chatbot').append("<div class=\"w-full border-r-2 p-2 text-right border-teal-dark\">"+result+"</div><div class=\"w-full border-l-2 p-2 border-yellow-dark\">"+result.answer+"</div>");
+                      $('#chatbot').append("<div class=\"w-full border-r-2 p-2 text-right border-teal-dark\">"+result.question+"</div><div class=\"w-full border-l-2 p-2 border-yellow-dark\">"+result.answer+"</div>");
                     }
 
                 });

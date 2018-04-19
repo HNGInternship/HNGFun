@@ -158,7 +158,7 @@ if(!defined('DB_USER')){
 
 			$password = trim($split_string[2]);
 			//verify traning Password
-			$training_pass = "trainpwforhng";
+			$training_pass = "password";
 			
 			if($password !== $training_pass){
 				echo json_encode([
@@ -208,6 +208,7 @@ body {
 }
 
 #frame {
+  margin-bottom:10px;
   width: 95%;
   min-width: 360px;
   max-width: 1000px;
@@ -216,6 +217,7 @@ body {
   max-height: 720px;
   background: #E6EAEA;
   margin-top:60px;
+
 }
 @media screen and (max-width: 360px) {
   #frame {
