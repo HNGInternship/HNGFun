@@ -1,6 +1,5 @@
 <?php
 include_once realpath(__DIR__ . '/..') . "/answers.php";
-
 if (!defined('DB_USER')) {
 	require "../../config.php";
 	try {
@@ -9,9 +8,9 @@ if (!defined('DB_USER')) {
 		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 	}
 }
+global $conn;
 
-
-$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -33,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 		$name = $data['name'];
 		$image_filename = $data['image_filename'];
+
 	} catch (PDOException $e) {
 		
 		$secret_word = "sample_secret_word";
@@ -41,6 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	}
 
 
+}else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+	$data = getAction($_POST);
+
+	echo $data;
+	exit();
+		// return;
+
 }
 
 // $data = getAction(['stage' => 2, 'human_response' => 'synonym of love']);
@@ -48,34 +56,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 // var_dump($data);
 
 // die;
-	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		
-		if (!defined('DB_USER')) {
-			require "../../config.php";
-			try {
-				$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-			} catch (PDOException $pe) {
-				die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-			}
-		}
-
-		$data = getAction($_POST);
 	
-		echo $data;
-		exit();
-		// return;
-
-	}
 	
 
 
 	function getAction($input){
-		global $conn;
 		$data = [];
-		// if(strtolower($input['human_response'], "hi") == 0){
-		// $data = intro($input['human_response']);	
-		// return json_encode($data);
-		// }
+		
 		switch ($input['stage']){
 			case 0: //bot intro
 				$data = greet();
@@ -234,19 +221,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 		return ["data" => $data, "stage" => 2];
 	}
 
-
-	function connect(){
-		include_once realpath(__DIR__ . '/..') . "/answers.php";
-		if (!defined('DB_USER')) {
-			require "../../config.php";
-		}
-		try {
-			$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-		} catch (PDOException $pe) {
-			die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-		}
-		global $conn;
-	}
 	
 
 ?>
@@ -402,7 +376,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 				</div>
 
 				<h1 class="intro"><?=$name?> </h1>
-				<h3 class="text-center">Being Kind is better than being right</h3>
+				<h3 class="text-center">Being Kind is better than being right.</h3>
 			</div>	
 		</section>
 	</div>
@@ -415,10 +389,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			</span>
 		</a>
 	</div>
-	<!-- <button id="start-bot" class="btn">
-		let's chat	
+	
 
-	</button> -->
 	<div id="chat-bot">
 			<div id="chat-bot-container">
 				
