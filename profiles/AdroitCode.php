@@ -12284,7 +12284,7 @@
     .md\:w-16 {
       width: 4rem;
     }
-  
+ 
     .md\:w-24 {
       width: 6rem;
     }
