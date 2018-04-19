@@ -356,11 +356,7 @@
       $a =json_decode($response, true);
 
       if($a['data']['error']) {
-        echo json_encode([
-          'status' => 1,
-          'message' => "Unable to find the country.",
-        ]);
-        return;
+        return "Unable to find the country";
       }
 
       $longitude = $a['search_api']['result'][0]['longitude'];
@@ -386,7 +382,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://use.fontawesome.com/dfb23fb58f.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Tajawal" rel="stylesheet">
 	<!-- link to main stylesheet -->
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
     <style>
@@ -544,7 +540,7 @@
         .client-send {
           padding: 10px 20px;
           font-size: small;
-          font-family: 'Raleway';
+          font-family: 'Tajawal';
           min-width: 30%;
           max-width: 60%;
           overflow-wrap: break-word;
@@ -560,13 +556,13 @@
         }
 
         .server-name {
-          font-family: 'Raleway';
+          font-family: 'Tajawal';
           font-size: medium;
         }
 
         .client-name {
           align-self: flex-end;
-          font-family: 'Raleway';
+          font-family: 'Tajawal';
           font-size: medium;
           
         }
@@ -599,7 +595,7 @@
           padding: 0 15px;
           margin: 0 auto;
           font-size: small;
-          font-family: 'Raleway';
+          font-family: 'Tajawal';
         }
 
         .chat-btn {
