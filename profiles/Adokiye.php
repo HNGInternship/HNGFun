@@ -1,6 +1,5 @@
 <?php
 include "../answers.php";
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
         if (!defined('DB_USER')) {
             require "../../config.php";
             try {
@@ -11,13 +10,7 @@ include "../answers.php";
             }
         }
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if (isset($_POST['button'])) {
-        if (isset ($_POST['input']) && $_POST['input'] !== "") {
-            $asked_question_text = $_POST['input'];
-            echo askQuestion($asked_question_text);
-        }
-    }
-    function askQuestion($input)
+function askQuestion($input)
     {
         $split = preg_split("/(:|#)/", $input, -1);
         global $conn;
@@ -55,7 +48,12 @@ include "../answers.php";
             echo "Question and answer with myCreator function added successfully";
         } else
             return "ENTER train:your question#your answer  to add questions and answers to the database";
-    }
+    }    if (isset($_POST['button'])) {
+            if (isset ($_POST['input']) && $_POST['input'] !== "") {
+                $asked_question_text = $_POST['input'];
+                echo askQuestion($asked_question_text);
+            }
+
     }
 ?>
 
