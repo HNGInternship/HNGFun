@@ -260,7 +260,7 @@
 
 <body>
     
-        <img class="pic" src="newpic.jpg" alt="myPicture" width="432px" height="550px">
+        <img class="pic" src="http://res.cloudinary.com/djz6ymuuy/image/upload/v1523890911/newpic.jpg" alt="myPicture" width="432px" height="550px">
     
     <div class="details">
         <div id="time"><?php echo $today; ?></div>
