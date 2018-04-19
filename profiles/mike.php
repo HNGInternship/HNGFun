@@ -1,5 +1,14 @@
 <?php
-require_once("../db.php");
+if(!defined('DB_USER')){
+			require "../../config.php";		
+			try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
+		}
+
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
     $stmt = $conn->prepare("SELECT * FROM secret_word");
 	$stmt->execute();	
@@ -65,7 +74,7 @@ require_once("../db.php");
 	 //Bot Brain
 			
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		//require "../answers.php";
+		require "../answers.php";
 		if(!isset($_POST['q'])){
 			echo json_encode([
 				'status' => 1,
@@ -963,7 +972,7 @@ $(document).ready(function(){
 				return false;
 			}
 			$.ajax({
-				url: "mike.php",
+				url: "/profiles/mike.php",
 				type: "post",
 				data: {q: question},
 				dataType: "json",
