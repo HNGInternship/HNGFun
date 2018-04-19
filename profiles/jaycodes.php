@@ -1,6 +1,7 @@
 <?php
 
 $today = date("H:i:s");
+require_once 'db.php';
 try {
     $profile = 'SELECT * FROM interns_data_ WHERE username="jaycodes"';
      $select = 'SELECT * FROM secret_word LIMIT 1';
