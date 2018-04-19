@@ -323,6 +323,7 @@
   }
 
   .body {
+		overflow: hidden;
     height: 100%;
   }
 
@@ -400,7 +401,7 @@
   function showResponse(response) {
     if (response === true) {
       $('.messages-body').append(
-        `<div>
+        `<div class="trigger_popup">
           <div class="message bot temp">
             <span class="content">Thinking...</span>
           </div>
@@ -411,7 +412,7 @@
 
     $('.temp').parent().remove();
     $('.messages-body').append(
-      `<div>
+      `<div class="trigger_popup">
         <div class="message bot">
           <span class="content">${response}</span>
         </div>
@@ -428,7 +429,7 @@
   function updateThread(message) {
     message = stripHTML(message);
     $('.messages-body').append(
-      `<div>
+      `<div class "trigger_popup">
         <div class="message you">
           <span class="content">${message}</span>
         </div>
