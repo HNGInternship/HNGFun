@@ -51,11 +51,11 @@ $q = explode("#", $qa);
 $qu = $q[0];
 $an = $q[1];
 $pass = $q[2];
-if($train == 'train'&& $pass != 'asdfgh'){
+if($train == 'train'&& $pass != 'trainpwforhng'){
     echo "Wrong Password, You need my pass word before you can train me.";
   }elseif($train == 'train' && $pass == '1234'){
-  $in = "INSERT INTO `chatbot`(`input`, `output`, `title`)
-     VALUES ('$qu','$an','$qu')";
+  $in = "INSERT INTO `chatbot`(`question`, `answer`)
+     VALUES ('$qu','$an')";
   $tr = mysqli_query($conf, $in);
  echo '<div class="out"> Thank You For Training Me.';
  echo "<div style=\"margin-top:10px; margin-bottom:5px;background-color:blue;color:white;\"><b>Question: $qu</b></div>";
@@ -76,7 +76,7 @@ echo '</div>';
         $result = showtime($loc);
        
       }else{
-$sql="SELECT * FROM user WHERE input LIKE '$msg%' ";
+$sql="SELECT * FROM chatbot WHERE input LIKE '$msg%' ";
 $send=mysqli_query($conf,$sql);
 
 $u = 'hello';
@@ -97,9 +97,9 @@ $u = 'hello';
         {
    
           $flag=1;
-          $qu = $row['input'];
-          $output=$row['output'];
-          $title=$row['title'];
+          $qu = $row['question'];
+          $output=$row['answer'];
+          $title=$row['question'];
           $result = make_links_clickable($output);
         if(!empty($title))
           {
