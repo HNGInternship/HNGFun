@@ -137,14 +137,10 @@
 
   <div class="bot-body">
     <div class="messages-body">
+
       <div>
         <div class="message bot">
-          <span class="content">Hi! I'm a bot and you can ask me various questions and give me different commands.</span>
-        </div>
-      </div>
-      <div>
-        <div class="message bot">
-          <span class="content">Type "<code>show: List of commands</code>" to see what the list of commands I understand.</span>
+          <span class="content">Look alive</span>
         </div>
       </div>
     </div>
@@ -154,69 +150,23 @@
   </div>
 
 <style>
-	/* Popup box BEGIN */
-.hover {
-    background:rgba(0,0,0,.4);
-    cursor:pointer;
-    display:none;
-    height:100%;
-    position:fixed;
-    text-align:center;
-    top:0;
-    width:100%;
-    z-index:10000;
-}
-.hover .helper {
-    display:inline-block;
-    height:100%;
-    vertical-align:middle;
-}
-.hover > div {
-    background-color: #fff;
-    box-shadow: 10px 10px 60px #555;
-    display: inline-block;
-    height: auto;
-    max-width: 551px;
-    min-height: 100px;
-    vertical-align: middle;
-    width: 60%;
-    position: relative;
-    border-radius: 8px;
-    padding: 15px 5%;
-}
-.popupCloseButton {
-    background-color: #fff;
-    border: 3px solid #999;
-    border-radius: 50px;
-    cursor: pointer;
-    display: inline-block;
-    font-family: arial;
-    font-weight: bold;
-    position: absolute;
-    top: -20px;
-    right: -20px;
-    font-size: 25px;
-    line-height: 30px;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-}
-.popupCloseButton:hover {
-    background-color: #ccc;
-}
-.trigger_popup {
-    cursor: pointer;
-    font-size: 20px;
-    margin: 20px;
-    display: inline-block;
-    font-weight: bold;
-}
+
 footer {
 	display: none;
 	padding: 0px !important;
 }
   .bot-body {
-    margin: 100px auto;
+		max-width: 100% !important;
+    position: fixed;
+    /* top: 0; */
+    margin: 32px auto;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0px;
+		height: 25%;
+    /* box-sizing: border-box; */
+    /* box-shadow: 1px 1px 9px; */
   }
 
   .messages-body {
@@ -232,14 +182,18 @@ footer {
   }
 
   .messages-body > div {
-    display: inline-block;
+    background-color: white;
+    color: #3A3A5E;
+    padding: 10px;
+    overflow: auto;
     width: 100%;
+    padding-bottom: 50px;
   }
 
   .message {
     float: left;
     font-size: 16px;
-    background-color: #edf3fd;
+    background-color: #007bff63;
     padding: 10px;
     display: inline-block;
     border-radius: 3px;
@@ -257,11 +211,32 @@ footer {
   }
 
   .message.bot:before {
-    border-color: transparent #edf3fd transparent transparent;
+    border-color: transparent #9cccff transparent transparent;
     border-width: 0 10px 10px 0;
     left: -9px;
   }
+	.color-change {
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 14px 80px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #00A6FF;
+  font-size: 1.5rem;
+  font-family: 'Roboto';
+  font-weight: 100;
+  border: 1px solid #fff;
+  box-shadow: 2px 2px 5px #AFE9FF;
+  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+}
 
+.color-change:hover {
+  color: #006398;
+  border: 1px solid #006398;
+  box-shadow: 2px 2px 20px #AFE9FF;
+}
   .message.you:before {
     border-width: 10px 10px 0 0;
     right: -9px;
@@ -274,6 +249,7 @@ footer {
 
   .content {
     display: block;
+		color: black;
   }
 
   .send-message-body {
@@ -292,43 +268,44 @@ footer {
     font-size: 18px;
   }
 
-  .img-body {
-    margin-left: 85px;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background-color: #fff;
-    padding: 5px;
-    top: 150px;
-    left: 175px;
-  }
-
-  .img-body > img {
-    height: 190px;
-    width: 190px;
-    border-radius: 50%;
-  }
-
-  .time {
-    padding: 10px;
-    text-transform: uppercase;
-    font-size: 60px;
-    width: 100%;
-  }
-
-  .time-body {
-    display: flex;
-    height: 100%;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-  }
 
   body {
 		overflow: hidden;
     height: 100%;
+		background: white !important;
   }
 
+	.container {
+    max-width: 100% !important;
+}
+
+/*--------------------
+Bounce
+--------------------*/
+@keyframes bounce { 
+  0% { transform: matrix3d(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  4.7% { transform: matrix3d(0.45, 0, 0, 0, 0, 0.45, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  9.41% { transform: matrix3d(0.883, 0, 0, 0, 0, 0.883, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  14.11% { transform: matrix3d(1.141, 0, 0, 0, 0, 1.141, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  18.72% { transform: matrix3d(1.212, 0, 0, 0, 0, 1.212, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  24.32% { transform: matrix3d(1.151, 0, 0, 0, 0, 1.151, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  29.93% { transform: matrix3d(1.048, 0, 0, 0, 0, 1.048, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  35.54% { transform: matrix3d(0.979, 0, 0, 0, 0, 0.979, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  41.04% { transform: matrix3d(0.961, 0, 0, 0, 0, 0.961, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  52.15% { transform: matrix3d(0.991, 0, 0, 0, 0, 0.991, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  63.26% { transform: matrix3d(1.007, 0, 0, 0, 0, 1.007, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  85.49% { transform: matrix3d(0.999, 0, 0, 0, 0, 0.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } 
+}
+
+
+@keyframes ball { 
+  from {
+    transform: translateY(0) scaleY(.8);
+  }
+  to {
+    transform: translateY(-10px);
+  }
 </style>
 <script>
   window.onload = function() {
@@ -442,5 +419,18 @@ footer {
         $('.hover').hide();
     });
 });
+
+document.getElementById("message bot").innerHTML;
+function speak(string){
+	var utterance = new SpeechSynthesisUtterance();
+	utterance.voice = speechSynthesis.getVoices().filter(function(voice){return voice.name == "Agnes";})[0];
+	utterance.text = string;
+	utterance.lang = "en-US";
+	utterance.volume = 1; //0-1 interval
+	utterance.rate = 1;
+	utterance.pitch = 1; //0-2 interval
+	speechSynthesis.speak(utterance);
+}
 </script>
-<?php } ?>
+<?php } 
+?>
