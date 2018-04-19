@@ -34,13 +34,14 @@
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		$rows = $stmt->fetchAll();
         $json = json_encode($rows);
+        echo $json;
 		if(count($rows)>0){
 			$row = $rows[0];
 			$name = $row['name'];	
 			$image_filename = $row['image_filename'];	
 		}
 	}
-    echo $json;
+    
 ?>
 
 
