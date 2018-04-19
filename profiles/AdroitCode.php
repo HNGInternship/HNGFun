@@ -20453,7 +20453,7 @@
                 $.ajax({
                     type: "POST",
                     cache: false, 
-                    url: "AdroitCode.php", 
+                    url: "#", 
                     datatype: "json",
                     data: $('form').serialize(), 
                     success: function(result) {
