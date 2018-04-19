@@ -119,14 +119,14 @@
 			if(count($split_string) < 3){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "You need to enter the training password to train me."
+					'answer' => "Please enter the training password to train me."
 				]);
 				return;
 			}
 
 			$password = trim($split_string[2]);
 			//verify if training password is correct
-			define('TRAINING_PASSWORD', 'trainpwforhng');
+			define('TRAINING_PASSWORD', 'password');
 			if($password !== TRAINING_PASSWORD){
 				echo json_encode([
 					'status' => 0,
@@ -161,6 +161,8 @@
 <?php
 	if($_SERVER['REQUEST_METHOD'] === "GET"){
 ?>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <style>
       body {
@@ -178,7 +180,7 @@
 		
 		}
 		
-.chat-frame {
+		.chat-frame {
 			border-color: #cccccc;
 			color: #333333;
 			background-color: #ffffff;
@@ -232,15 +234,15 @@
 			margin-left: 20%;
 			border-radius: 50%;
 		}
-
+		.f-icon {
+			font-size: 40px;
+		}
    
       </style>
 
   </head>
 
   <body style = "background color: #FFFFFF">
-
-  
 
 <!-- Main Content -->
 <div class="container-fluid">
@@ -270,14 +272,14 @@
 				</div>
 
 			</div>
-
+<!--<footer>
 			<div>
 				<a href="https://github.com/iam-dharmy"><i class="fa fa-github"></i></i></a>&nbsp;&nbsp;
 				<a href="https://twitter.com/@iam_dharmy"><i class="fa fa-twitter"></i></i></a>&nbsp;&nbsp;
 				<a href="https://medium.com/@damis"><i class="fa fa-medium"></i></i></a>&nbsp;&nbsp;
 				<a href="https://web.facebook.com/soyombo.damilola"><i class="fa fa-facebook"></i></i></a>	
 			</div>
-
+</footer>-->
 </div>
 <div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
 <div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
@@ -302,8 +304,6 @@
 							<h5>To train me, type <br/><b>train: question # answer</b><h5>
 						</div>
 					</div>
-
-					
 				</div>
 			</div>
 			
@@ -347,7 +347,7 @@
 
 			//send question to server
 			$.ajax({
-				url: "/profiles/iam__dharmy.php",
+				url: "profiles/iam__dharmy.php",
 				type: "post",
 				data: {question: question},
 				dataType: "json",
@@ -383,6 +383,4 @@
 </script>	
 </body>
 </html>
-<?php
-}
-?>
+<?php}?>
