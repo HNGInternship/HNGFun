@@ -1,6 +1,5 @@
 <?php
 
-<<<<<<< HEAD
 include_once realpath(__DIR__ . '/..') . "/answers.php"; 
 
 require("../../config.php");
@@ -167,12 +166,6 @@ $secret_word = $row['secret_word'];
   
 }else{
   
-=======
-if (isset($_POST["page"])) {
-
-}else
-{
->>>>>>> 30e7cee39f682717d4072f70e45cd545c62779e9
 ?>
 
 <!DOCTYPE html>
