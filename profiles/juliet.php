@@ -11,14 +11,8 @@ if (!$conn) {
 
 if(isset($_GET["page"]) && !empty($_GET["page"]))
       { 
-        $existError =false;
-        $reply = "";//process starts
-        global $conn;
-$sql = "SELECT * FROM secret_word";
-$result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
-$secret_word = $row['secret_word'];
-      }
+       
+      }else{
 ?>
 
 <!DOCTYPE html>
@@ -561,3 +555,6 @@ $secret_word = $row['secret_word'];
   </body>
 
 </html>
+<?php
+      }
+      ?>
