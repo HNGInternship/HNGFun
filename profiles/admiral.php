@@ -111,6 +111,7 @@
 			text-align: center;
 			padding: 10px 0;
 		}
+<<<<<<< HEAD
 		.col-lg-4 {
     	-ms-flex: 0 0 33.333333%;
     	flex: 0 0 33.333333%;
@@ -235,6 +236,8 @@
   			align-items: stretch;
   			width: 100%;
 		}
+=======
+>>>>>>> 2b8c9accd201aadfbec9423ea29c2b64f6911980
 	</style>
 </head>
 <body>
@@ -260,6 +263,7 @@
 			<h3> Slack: @admiral </h3>
 		</div>
 		<div class="clear"></div>
+<<<<<<< HEAD
 			<div class="col-lg-4">
                 <div class="row chat-window" id="chat_window_1">
                     <div class="card">
@@ -300,6 +304,11 @@
                                     </div>
                                 </div>
                             </div>
+=======
+		<div class="bot">
+			<h2 class="chat">CHAT BOT</h2>
+		</div>
+>>>>>>> 2b8c9accd201aadfbec9423ea29c2b64f6911980
 		<div class="footer">
 			<footer class="socials">
                 <i class="fab fa-github-square fa-2x"></i>
