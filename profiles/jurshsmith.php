@@ -38,6 +38,10 @@ HNG 4.0 | Jurshsmith
 
 <!--my css starts here-->
 <style>
+html,body{
+		background-color: #f4f4f4;
+	
+}
 
 #j-background{
 		background-color: #f4f4f4;
