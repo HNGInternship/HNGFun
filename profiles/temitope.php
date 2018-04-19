@@ -178,7 +178,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
     		font-family: 'roboto';
     	}
 		.container{
-			background-image: url('hng-cover.jpg');
+			background-image: url('https://drive.google.com/open?id=1ObsCSN6HxCY3fEJX7rysaaXKVc1n_LVG');
 			background-size: cover;
 			background-position: center;
 			background-attachment: fixed;
