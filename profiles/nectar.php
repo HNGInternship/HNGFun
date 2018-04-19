@@ -15,11 +15,13 @@
     accent = 
     */
         body{
-            background-color: #e6e6e6;                         
+            background-color: #e6e6e6;  
+            width: 100%;                       
         }
         div.section-info {
             background-image: url('http://res.cloudinary.com/primefeed/image/upload/v1524155781/bg.jpg');
             height: 90%;
+            width: 100%;
 
         }
         div.section-info div.profile-image{
@@ -137,7 +139,7 @@
         include '../db.php';
          
         // Set the needed variables
-        $table = 'interns_data';
+        $table = 'interns_data_';
         $secret_table = 'secret_word';
         $intern_name = 'Nectar';
 
