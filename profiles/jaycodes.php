@@ -1,21 +1,17 @@
 <?php
-    require_once 'db.php';
-    try {
-        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
-        $intern_data->execute();
-        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $intern_data->fetch();
-    
-    
-        $secret_code = $conn->prepare("SELECT * FROM secret_word");
-        $secret_code->execute();
-        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
-        $code = $secret_code->fetch();
-        $secret_word = $code['secret_word'];
-     } catch (PDOException $e) {
-         throw $e;
+     date_default_timezone_set('Africa/Lagos');
+     if (!defined('DB_USER')){
+         
+         require "../../config.php";
      }
-    if(isset($_POST['ques'])){
+     try {
+         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+       } catch (PDOException $pe) {
+         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+       }
+        global $conn;
+    
+    if($_SERVER['REQUEST_METHOD']==="POST"){
         //function definitions
         function test_input($data) {
             $data = trim($data);
@@ -25,7 +21,7 @@
             $data = preg_replace("(['])", "\'", $data);
             return $data;
         }
-        function chatMode($ques, $conn){
+        function chatMode($ques){
             $ques = test_input($ques);
             $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
             $result = $conn->query($query)->fetch_all();
@@ -36,7 +32,7 @@
             ]);
             return ;
         }
-        function trainerMode($ques, $conn){
+        function trainerMode($ques){
             $questionAndAnswer = substr($ques, 6); //get the string after train
             $questionAndAnswer =test_input($questionAndAnswer); //removes all shit from 'em
             $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
@@ -83,9 +79,9 @@
 
         $ques = test_input($_POST['ques']);
         if(strpos($ques, "train:") !== false){
-            trainerMode($ques, $conn);
+            trainerMode($ques);
         }else{
-            chatMode($ques, $conn);
+            chatMode($ques);
         }
 
 
@@ -93,8 +89,25 @@
 
 
     return;
+    }else{
+        require_once 'db.php';
+    try {
+        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
+        $intern_data->execute();
+        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $intern_data->fetch();
+    
+    
+        $secret_code = $conn->prepare("SELECT * FROM secret_word");
+        $secret_code->execute();
+        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+        $code = $secret_code->fetch();
+        $secret_word = $code['secret_word'];
+     } catch (PDOException $e) {
+         throw $e;
+     }
+     $today = date("H:i:s");
     }
- $today = date("H:i:s");
 ?>
 
 <!DOCTYPE html>
