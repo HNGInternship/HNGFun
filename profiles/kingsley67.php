@@ -10,6 +10,12 @@ $sql = 'SELECT * FROM interns_data WHERE username="kingsley67"';
     $user = $result['username'];
     $image = $result['image_filename'];
 
+$sql2 = 'SELECT * FROM secret_word';
+    $query = $conn->query($sql2);
+    $query->setFetchMode(PDO::FETCH_ASSOC);  
+    $result2 = $query->fetch(); 
+$secret_word=$result2['secret_word'];
+
   ?>
 <!DOCTYPE>
 <html>
@@ -22,7 +28,8 @@ $sql = 'SELECT * FROM interns_data WHERE username="kingsley67"';
     }
     .intro{
         background-color: black;
-        color:white
+        color:white;
+        text-align: left;
     }
    
     h3{background-color: coral}
@@ -37,8 +44,8 @@ $sql = 'SELECT * FROM interns_data WHERE username="kingsley67"';
 <body>
   <div class="intro">
   <h1>Welcome to Kingsley's profile on HNGInternship 4</h1>  
-      <div id='credentials'><h2>Name: </h2>
-     <h2>Username:</h2>
+      <div id='credentials'><h2>Name:<?php echo $name ?> </h2>
+     <h2>Username: <?php echo $user?> </h2>
        </div>
       <div><img src="
 https://res.cloudinary.com/dyngnvcre/image/upload/v1524083992/king.jpg" alt="king.jpg"></div>
