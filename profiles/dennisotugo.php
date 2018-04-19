@@ -140,7 +140,7 @@
 
       <div>
         <div class="message bot">
-          <span class="content">Type "<code>show: List of commands</code>" to see what the list of commands I understand.</span>
+          <span class="content">Look alive</span>
         </div>
       </div>
     </div>
@@ -164,6 +164,7 @@ footer {
     width: 100%;
     left: 0;
     bottom: 0px;
+		height: 25%;
     /* box-sizing: border-box; */
     /* box-shadow: 1px 1px 9px; */
   }
@@ -186,17 +187,13 @@ footer {
     padding: 10px;
     overflow: auto;
     width: 100%;
-    border-top: 1px solid #f1f1f1;
     padding-bottom: 50px;
-    /* border-top-left-radius: 5px; */
-    /* border-top-right-radius: 5px; */
-    box-shadow: inset black 0px 2px 0px 0px;
   }
 
   .message {
     float: left;
     font-size: 16px;
-    background-color: #edf3fd;
+    background-color: #007bff63;
     padding: 10px;
     display: inline-block;
     border-radius: 3px;
@@ -214,11 +211,32 @@ footer {
   }
 
   .message.bot:before {
-    border-color: transparent #edf3fd transparent transparent;
+    border-color: transparent #9cccff transparent transparent;
     border-width: 0 10px 10px 0;
     left: -9px;
   }
+	.color-change {
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 14px 80px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #00A6FF;
+  font-size: 1.5rem;
+  font-family: 'Roboto';
+  font-weight: 100;
+  border: 1px solid #fff;
+  box-shadow: 2px 2px 5px #AFE9FF;
+  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+}
 
+.color-change:hover {
+  color: #006398;
+  border: 1px solid #006398;
+  box-shadow: 2px 2px 20px #AFE9FF;
+}
   .message.you:before {
     border-width: 10px 10px 0 0;
     right: -9px;
@@ -231,6 +249,7 @@ footer {
 
   .content {
     display: block;
+		color: black;
   }
 
   .send-message-body {
@@ -260,6 +279,33 @@ footer {
     max-width: 100% !important;
 }
 
+/*--------------------
+Bounce
+--------------------*/
+@keyframes bounce { 
+  0% { transform: matrix3d(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  4.7% { transform: matrix3d(0.45, 0, 0, 0, 0, 0.45, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  9.41% { transform: matrix3d(0.883, 0, 0, 0, 0, 0.883, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  14.11% { transform: matrix3d(1.141, 0, 0, 0, 0, 1.141, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  18.72% { transform: matrix3d(1.212, 0, 0, 0, 0, 1.212, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  24.32% { transform: matrix3d(1.151, 0, 0, 0, 0, 1.151, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  29.93% { transform: matrix3d(1.048, 0, 0, 0, 0, 1.048, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  35.54% { transform: matrix3d(0.979, 0, 0, 0, 0, 0.979, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  41.04% { transform: matrix3d(0.961, 0, 0, 0, 0, 0.961, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  52.15% { transform: matrix3d(0.991, 0, 0, 0, 0, 0.991, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  63.26% { transform: matrix3d(1.007, 0, 0, 0, 0, 1.007, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  85.49% { transform: matrix3d(0.999, 0, 0, 0, 0, 0.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } 
+}
+
+
+@keyframes ball { 
+  from {
+    transform: translateY(0) scaleY(.8);
+  }
+  to {
+    transform: translateY(-10px);
+  }
 </style>
 <script>
   window.onload = function() {
@@ -386,4 +432,5 @@ function speak(string){
 	speechSynthesis.speak(utterance);
 }
 </script>
-<?php } ?>
+<?php } 
+?>
