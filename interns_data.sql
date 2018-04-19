@@ -14,15 +14,10 @@ CREATE TABLE `interns_data` (
   PRIMARY KEY (`intern_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `interns_data` (`intern_id`, `name`, `username`, `image_filename`) VALUES
-(9,	'Okunuga melody',	'melody',	'Screenshot-2018-3-21 Twitter.png'),
-(11,	'ikpe mercy michael',	'mercyikpe',	'IMG-20180322-WA0010.jpg'),
-(14, 'Ekpang Michael Etta', 'mike', 'http://res.cloudinary.com/weezyval/image/upload/v1523620464/mikeetta.jpg'),
-(15, 'Charles Katuri', 'charlek', 'charlek.jpg'),
-(16, 'John Odey', 'john', 'john.jpg'),
-(17, 'Jegede David','davidstick766','dav.jpg'),
-(18, 'Tejumola Timi', 'timi', 'http://res.cloudinary.com/tarrot-system-inc/image/upload/v1523621115/IMG_4551_muwd22.jpg'),
-(19, 'Aghedo Joseph Femi', 'femicodes', 'https://res.cloudinary.com/femicodes/image/upload/v1523623381/IMG_20180221_185703.jpg'),
-(21, 'Gbenga Oni', 'gbxnga', 'https://res.cloudinary.com/gbxnga/image/upload/v1523622896/photo.png'),(22, 'Deekor Baribefe','befe','http://res.cloudinary.com/befe/image/upload/v1523623765/dbefe.jpg');
-
+INSERT INTO `interns_data`(`name`, `username`, `image_filename`) VALUES
+('Okunuga melody',	'melody',	'Screenshot-2018-3-21 Twitter.png'),
+('ikpe mercy michael',	'mercyikpe',	'IMG-20180322-WA0010.jpg'),
+('Mbah Clinton', 'mclint_', 'mclint_.jpg'),
+('John Olubori David', 'olubori', 'http://res.cloudinary.com/naera/image/upload/v1518079662/d4wgdlou4n4mnc1meumf.jpg'),
+('Sampson Joshua Monday', 'jozy', 'jozy.png');
 -- 2018-04-13 06:08:02

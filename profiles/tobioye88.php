@@ -1,29 +1,41 @@
-<style>
-* {
-	font-size: 1.0em !important;
+<?php
+
+require_once '../config.php';
+
+try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+    die(DB_DATABASE . ": " . $pe->getMessage());
 }
-</style>
+//user
+$username = $_GET['id'];
+$sql = "SELECT * FROM interns_data WHERE username = '$username'";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$data = $q->fetch();
+
+//secret word
+$sql = "SELECT * FROM secret_word";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$word = $q->fetch();
+$secret_word = $word['secret_word'];
+
+?>
+
+
 <div class="row my-4">
-	<div class="col-md-3">
+	<div class="col-md-3 mx-auto">
 		<div class="card">
 			<div class="card-body">
-				<img class="rounded-circle img-fluid border border-primary" src="https://i.imgur.com/hseuEvU.png" alt="">
-				<div class="card-text mt-5"><b>username</b>: @tobioye88</div>
-				<div class="card-text"><b>Phone</b>: 08034006567</div>
-				<div class="card-text"><b>Phone</b>: <?=date("h:i:s a");?></div>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-9">
-		<div class="card">
-			<div class="card-header">Details</div>
-			<div class="card-body">
-				<p class="card-text my-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus rem est sequi deleniti eveniet nihil quos voluptas inventore, in harum eaque quasi perspiciatis! Quas libero rerum blanditiis deleniti, voluptatum. Libero.</p>
-				<p class="card-text my-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus rem est sequi deleniti eveniet nihil quos voluptas inventore, in harum eaque quasi perspiciatis! Quas libero rerum blanditiis deleniti, voluptatum. Libero.</p>
-				<p class="card-text my-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus rem est sequi deleniti eveniet nihil quos voluptas inventore, in harum eaque quasi perspiciatis! Quas libero rerum blanditiis deleniti, voluptatum. Libero.</p>
-				<p class="card-text my-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus rem est sequi deleniti eveniet nihil quos voluptas inventore, in harum eaque quasi perspiciatis! Quas libero rerum blanditiis deleniti, voluptatum. Libero.</p>
-				<p class="card-text my-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus rem est sequi deleniti eveniet nihil quos voluptas inventore, in harum eaque quasi perspiciatis! Quas libero rerum blanditiis deleniti, voluptatum. Libero.</p>
-				<p class="card-text my-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus rem est sequi deleniti eveniet nihil quos voluptas inventore, in harum eaque quasi perspiciatis! Quas libero rerum blanditiis deleniti, voluptatum. Libero.</p>
+				<img class="rounded-circle img-fluid border border-primary" src="<?= $data['image_filename'] ?>" alt="">
+				<div class="card-text mt-5">
+					<ul class="list-unstyled text-center">
+						<li class="list-item"><small><b>USERNAME</b></small><br> @<?= $data['username'] ?></li>
+						<li class="list-item"><small><b>NAME</b></small><br><?= $data['name'] ?></li>
+						<li class="list-item"><small><b>PHONE</b></small><br> <?=date("h:i:s a");?></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
