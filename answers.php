@@ -11,9 +11,7 @@ function bamiiConvertCurrency($amount, $from, $to){
     $conv_id = "{$from}_{$to}";
     $string = file_get_contents("https://free.currencyconverterapi.com/api/v5/convert?q=$conv_id&compact=y");
     $json_a = json_decode($string, true);
-
-    #return $json_a[strtoupper($conv_id)]['val'];
-    #return $amount;
+    
     return $amount * $json_a[strtoupper($conv_id)]['val'];
 }
 
@@ -252,7 +250,6 @@ function isCurrentYearLeap(){
 /***************************Bytenaija Start here*************************/
 //bytenaija time function
 function bytenaija_time($location) {
-    // $curl = curl_init();
     $arrContextOptions=array(
         "ssl"=>array(
             "verify_peer"=>false,
@@ -263,7 +260,6 @@ function bytenaija_time($location) {
      $geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=".$location. "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
      $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
      $response = json_decode($response, true);
-     //$lat = $response->results;
  
  
      $response = $response['results'][0]['geometry'];
@@ -274,11 +270,6 @@ function bytenaija_time($location) {
      $timestamp = time();;
  
      $url = "https://maps.googleapis.com/maps/api/timezone/json?location=".$lat.",".$lng."&timestamp=".$timestamp."&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U";
- 
-     /* curl_setopt($curl, CURLOPT_URL, $url);
-     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-     $responseJson = curl_exec($curl); */
-     //curl_close($curl);
      $responseJson = file_get_contents($url,  false, stream_context_create($arrContextOptions));
      $response = json_decode($responseJson);
      $timezone = $response -> timeZoneId;
@@ -290,33 +281,15 @@ function bytenaija_time($location) {
  function bytenaija_convert($base, $other){
      $api_key = "U7VdzkfPuGyGz4KrEa6vuYXgJxy4Q8";
      $url = "https://www.amdoren.com/api/currency.php?api_key=" . $api_key . "&from=" . $base . "&to=" . $other;
-     
-     /* $curl = curl_init();
-     curl_setopt_array($curl, array(
-         CURLOPT_RETURNTRANSFER => 1,
-         CURLOPT_URL => $url,
-         CURLOPT_USERAGENT => 'Codular Sample cURL Request'
-     ));
- 
-     $response = curl_exec($curl); */
  
      $response = file_get_contents($url);
      $response = json_decode($response, true);
-     //curl_close($curl);
      echo "1 ". strtoupper($base) ." is equal to ".  strtoupper($other)  ." " .$response['amount'];
  }
  
  //bitcoin price index
  function bytenaija_hodl(){
      $url ="https://api.coindesk.com/v1/bpi/currentprice.json";
-    /*  $curl = curl_init();
-     curl_setopt_array($curl, array(
-         CURLOPT_RETURNTRANSFER => 1,
-         CURLOPT_URL => $url,
-         CURLOPT_USERAGENT => 'Codular Sample cURL Request'
-     ));
- 
-     $response = curl_exec($curl); */
  
      $response = file_get_contents($url);
      $response = json_decode($response, true);
@@ -346,4 +319,60 @@ function get_current_time(){
 }
 /*end of
 Adokiye's function*/
+
+
+////////////////////
+function assistant($string)
+{    $reply = "";
+    if ($string == 'what is my location') {
+        $reply= "This is Your Location <i class='em em-arrow_forward'></i> " . $query['city'] . ", ". $query['country'] . "!";
+        return $reply;
+        
+    }
+    elseif ($string == 'tell me about your author') {
+        $reply= 'His name is <i class="em em-sunglasses"></i> alex idowu, he is Passionate, gifted and creative backend programmer who love to create appealing Web apps solution from concept through to completion. An enthusiastic and effective team player and always challenge the star to quo by taking up complex responsibilities. Social account <b><a href="https://twitter.com/Codexxxp">Codexxp @Twitter</a></b> <br> <b><a href="https://www.linkedin.com/in/alex-idowu-0b4142124/">Alex Idowu @Linkedin</a></b> ';
+        return $reply;    
+    }
+    elseif ($string == 'open facebook') {
+        $reply= "<p>Facebook opened successfully </p> <script language='javascript'> window.open(
+    'https://www.facebook.com/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }
+    elseif ($string == 'open twitter') {
+        $reply = "<p>Twitter opened successfully </p> <script language='javascript'> window.open(
+    'https://twitter.com/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }elseif ($string == 'open linkedin') {
+        $reply= "<p>Linkedin opened successfully </p> <script language='javascript'> window.open(
+    'https://www.linkedin.com/jobs/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }
+    elseif ($string == 'shutdown my pc') {
+        $reply =  exec ('shutdown -s -t 0');
+        return $reply;
+    }elseif ($string == 'get my pc name') {
+        $reply = getenv('username');
+        return $reply;
+    }
+    else{
+        $reply = "";
+        return $reply;
+    }
+  
+}
+
+
+////////////////////////////
 ?>

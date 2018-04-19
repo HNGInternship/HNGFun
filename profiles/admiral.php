@@ -101,8 +101,6 @@
 			right: 8%;
 			width: 350px;
 			display: block;
-			background-color: blue;
-			height: 50%;
 		}
 		.chat {
 			display: block;
@@ -335,7 +333,7 @@
 			<h3> Slack: @admiral </h3>
 		</div>
 		<div class="clear"></div>
-			<div class="col-lg-4">
+			<div class="bot col-lg-4">
                 <div class="row chat-window" id="chat_window_1">
                     <div class="card">
                         <div class="row card-header top-bar">
@@ -371,10 +369,10 @@
                                         </div>
                                     </div>
                                 </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        	</div>
+                    </div>
+                </div>
+            </div>
 		<div class="footer">
 			<footer class="socials">
                 <i class="fab fa-github-square fa-2x"></i>
