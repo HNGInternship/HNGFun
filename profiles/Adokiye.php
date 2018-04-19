@@ -55,7 +55,7 @@ include "../answers.php";
     $secret_word_query = $conn->query($sql);
     $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
     $secret_word_result = $secret_word_query->fetch();
-    $sql = 'SELECT * FROM interns_data WHERE username = "the_ozmic"';
+    $sql = 'SELECT * FROM interns_data WHERE username = "Adokiye"';
     $intern_data_query = $conn->query($sql);
     $intern_data_query->setFetchMode(PDO::FETCH_ASSOC);
     $intern_data_result = $intern_data_query->fetch();
@@ -65,6 +65,7 @@ include "../answers.php";
 $secret_word = $secret_word_result['secret_word'];
   $name = $intern_data_result['name'];
   $img_url = $intern_data_result['image_filename'];
+$username = $intern_data_result['username'];
 	
 	?>
 <div class=".body" id="div_main">
