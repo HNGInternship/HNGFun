@@ -30,7 +30,7 @@ before_install:
 
 
 after_success: 
-- chmod + x ./push.sh 
+- chmod +x ./push.sh 
 - ./push.sh
 
 before_script:
