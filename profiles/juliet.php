@@ -1,14 +1,8 @@
 <?php
 
+include_once realpath(__DIR__ . '/..') . "/answers.php"; 
 
 require("../../config.php");
-// Create connection
-$connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-// Check connection
-
-if (!$connect) {
-    die("Connection failed: " . mysqli_connect_error());
-}
 
 function decider($string){
   
@@ -49,6 +43,13 @@ function tester($string){
 return $string;
  }
 
+// Create connection
+$connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+// Check connection
+
+if (!$connect) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 $existError =false;
   $reply = "";//process starts
 if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
@@ -623,6 +624,7 @@ $secret_word = $row['secret_word'];
                     <div class="message-form-container">
 
                       <script type="text/javascript">
+
                                   $(document).ready(function(){
                $('#msg').keypress(
                 function(e){
@@ -656,6 +658,7 @@ $secret_word = $row['secret_word'];
                   $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
                   play();
                 },  1000);
+
                   },
                         error: function (){}
                     });
@@ -695,7 +698,7 @@ $secret_word = $row['secret_word'];
 
 
 
-    <!-- Bootstrap core JavaScript ///-->
+    <!-- Bootstrap core JavaScript -->
     
 
     <!-- Custom scripts for this template -->
