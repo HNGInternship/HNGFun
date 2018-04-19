@@ -115,14 +115,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <head>
 	<title>  <?php echo $user->name ?></title>
-=======
 <head>
-	
 	<title>  <?php echo $user->name ?> </title>
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style type="text/css">
 		body{
@@ -151,8 +147,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			text-align: center;
 			font-size: 30px;
 		}
-<<<<<<< HEAD
-=======
 		#bar{
 			background-color: white;
 		}
@@ -217,37 +211,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			font-weight: bolder;
 			font-size: 40px;
 		}
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
 	</style>
-	
 </head>
 <body>
-		
-	<h1>
-		WELCOME TO MY PROFILE PAGE
-	</h1>
-<<<<<<< HEAD
-	<p>
-		HELLO WORLD
-	</p>
-	
-	<p id="p1">
-		I am  <?php echo $user->name ?>
-	</p>
-	<p id="info">
-		A Web developer, blogger and Software engineer
-	</p>
-	<p id="fav">
-		<a href="https://github.com/sainttobs"><i class="fa fa-github"></i></i></a>
-		<a href="https://twitter.com/9jatechguru"><i class="fa fa-twitter"></i></i></a>
-		<a href="https://web.facebook.com/toba.adeyefa"><i class="fa fa-facebook"></i></i></a>	
-	</p>
-</body>
-</html> 
-=======
 	<div class="iii">
 		<div class="bbb">
-
 	    	<div class="main">
 				<p>
 					HELLO WORLD
@@ -317,4 +285,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php
 
 ?>
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
