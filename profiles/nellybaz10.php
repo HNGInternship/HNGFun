@@ -8,18 +8,23 @@
 	<!--      ====================           CONNECTION    AND QUERY  ============                 -->
 <?php
 include ('../config.example.php');
+//include('../db.php');
 
-$link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-if(!$link){
+$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+if(!$conn){
   echo "couldn't connect";
 }
 
 
 
-$qq = "select * from interns_data";
-$result = mysqli_query($link, $qq);
-$row2 = mysqli_fetch_array($result);
+$qq = "select * from chatbot";
+$result = mysqli_query($conn, $qq);
+while ($row2 = mysqli_fetch_array($result)) {
+	# code...
+	echo $row2['answer'];
+}
 
+	
 
 ?>
 
@@ -35,8 +40,16 @@ $row2 = mysqli_fetch_array($result);
 							<!--       ==================          SECOND QUERY      ================                 -->
 				    <p> <?php
 
-				   $q = "select secret_word from secret_word";
-				      $result = mysqli_query($link, $q);
+				    $q2 = "INSERT INTO interns_data (secret_word) VALUES('determination') WHERE username='nellybaz10'";
+				    if(mysqli_query($conn, $q2)){
+				    	echo "inserted";
+				    }else{
+				    	echo "not inserted";
+				    }
+
+
+				   $q = "select secret_word from interns_data where username='nellybaz10'";
+				      $result = mysqli_query($conn, $q);
 				      $row = mysqli_fetch_array($result);
 				      $secret_word = $row['secret_word'];
 
@@ -91,8 +104,8 @@ $row2 = mysqli_fetch_array($result);
 			$('#send').click(function(){
 				//
 				var input = $('#input').val();
-				//alert(input);
-				$('#bot-display').load('bot-load.php', {
+				alert(input);
+				$('#bot-display').load('nnzzion.php', {
 					question: input
 				});
 

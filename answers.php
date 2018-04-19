@@ -1,82 +1,82 @@
-<?php 
+<?php
 ########################################################
 # __   ___              __      __  ___       __   __  #
 #|  \ |__  |\ | |\ | | /__`    /  \  |  |  | / _` /  \ #
 #|__/ |___ | \| | \| | .__/    \__/  |  \__/ \__> \__/ #
 ########################################################
-    ######################################################
-    ####################### @BAMII #######################
-    ######################################################
-    function bamiiConvertCurrency($amount, $from, $to){
-        $conv_id = "{$from}_{$to}";
-        $string = file_get_contents("https://free.currencyconverterapi.com/api/v5/convert?q=$conv_id&compact=y");
-        $json_a = json_decode($string, true);
-    
-        #return $json_a[strtoupper($conv_id)]['val'];
-        #return $amount;
-        return $amount * $json_a[strtoupper($conv_id)]['val'];
-    }
+######################################################
+####################### @BAMII #######################
+######################################################
+function bamiiConvertCurrency($amount, $from, $to){
+    $conv_id = "{$from}_{$to}";
+    $string = file_get_contents("https://free.currencyconverterapi.com/api/v5/convert?q=$conv_id&compact=y");
+    $json_a = json_decode($string, true);
 
-    function bamiiChuckNorris() {
-        $arrContextOptions=array(
-            "ssl"=>array(
-                "verify_peer"=>false,
-                "verify_peer_name"=>false,
-              ),
-          );  
-        $geocodeUrl = "http://api.icndb.com/jokes/random";
-        $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+    #return $json_a[strtoupper($conv_id)]['val'];
+    #return $amount;
+    return $amount * $json_a[strtoupper($conv_id)]['val'];
+}
 
-        $a =json_decode($response, true);
-
-        return $a['value']['joke'];
-    }
-
-    function bamiiTellTime($data) {
-        if(strpos($data, 'in')) {
-           return "Sorry i can't tell you the time somewhere else right now";
-        } else {
-            return 'The time is:' . date("h:i");
-        }
-    }
-
-    function bamiiCountryDetails($data) {
-        $country_arr = explode(' ', $data);
-        $country_index= array_search('details', $country_arr) + 1;
-        $country = $country_arr[$country_index];
-        $country_temp = str_replace('details', "", $data);
-        $country2 = trim($country_temp);
-
-        $string = 'http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query='. $country2 .'&num_of_results=2&format=json';
-
-        $arrContextOptions=array(
-            "ssl"=>array(
-                "verify_peer"=>false,
-                "verify_peer_name"=>false,
+function bamiiChuckNorris() {
+    $arrContextOptions=array(
+        "ssl"=>array(
+            "verify_peer"=>false,
+            "verify_peer_name"=>false,
             ),
         );  
-        $geocodeUrl = "http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query=lagos&num_of_results=2&format=json";
-        $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+    $geocodeUrl = "http://api.icndb.com/jokes/random";
+    $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
 
-        $a =json_decode($response, true);
+    $a =json_decode($response, true);
 
-        $longitude = $a['search_api']['result'][0]['longitude'];
-        $latitude = $a['search_api']['result'][0]['latitude'];
-        $name = $a['search_api']['result'][0]['areaName'][0]['value'];
-        $country_name = $a['search_api']['result'][0]['country'][0]['value'];
-        $population = $a['search_api']['result'][0]['population'];
+    return $a['value']['joke'];
+}
 
-        
-        return('
-            '. ($name ? 'Name :'. $name . '<br />' : null) .'
-            Country: ' . $country_name . ' <br />
-            Latitude: ' . $latitude . ' <br />
-            Longitude: ' . $longitude . ' <br />
-            Population: ' . $population . '<br />
-        ');
+function bamiiTellTime($data) {
+    if(strpos($data, 'in')) {
+        return "Sorry i can't tell you the time somewhere else right now";
+    } else {
+        return 'The time is:' . date("h:i");
     }
+}
 
-    ###################### END BAMII #####################
+function bamiiCountryDetails($data) {
+    $country_arr = explode(' ', $data);
+    $country_index= array_search('details', $country_arr) + 1;
+    $country = $country_arr[$country_index];
+    $country_temp = str_replace('details', "", $data);
+    $country2 = trim($country_temp);
+
+    $string = 'http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query='. $country2 .'&num_of_results=2&format=json';
+
+    $arrContextOptions=array(
+        "ssl"=>array(
+            "verify_peer"=>false,
+            "verify_peer_name"=>false,
+        ),
+    );  
+    $geocodeUrl = "http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query=lagos&num_of_results=2&format=json";
+    $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+
+    $a =json_decode($response, true);
+
+    $longitude = $a['search_api']['result'][0]['longitude'];
+    $latitude = $a['search_api']['result'][0]['latitude'];
+    $name = $a['search_api']['result'][0]['areaName'][0]['value'];
+    $country_name = $a['search_api']['result'][0]['country'][0]['value'];
+    $population = $a['search_api']['result'][0]['population'];
+
+    
+    return('
+        '. ($name ? 'Name :'. $name . '<br />' : null) .'
+        Country: ' . $country_name . ' <br />
+        Latitude: ' . $latitude . ' <br />
+        Longitude: ' . $longitude . ' <br />
+        Population: ' . $population . '<br />
+    ');
+}
+
+###################### END BAMII #####################
 
 ?>
 <?php
@@ -183,7 +183,7 @@ function getAJoke(){
 }
 
 function emojifyText($text){
-    $url = "http://torpid-needle.glitch.me/emojify/{trim($text)}";
+    $url = "http://torpid-needle.glitch.me/emojify/{$text}";
     return file_get_contents($url);
 }
 
@@ -206,68 +206,61 @@ function predictOutcome($battle){
 }
 // End of functions by @mclint_
 
-    //functions defined by @chigozie. DO NOT MODIFY!!!
-    function getDayOfWeek(){
-        return date("l");
-    }
+//functions defined by @chigozie. DO NOT MODIFY!!!
+function getDayOfWeek(){
+    return date("l");
+}
 
-    function getDaysInMonth($month){
-        $months_with_31_days = ["january", "march", "may", "july", "august", "october", "december"];
-        $months_with_30_days = ["april", "june", "september", "november"];
-        $other = ["february"];
+function getDaysInMonth($month){
+    $months_with_31_days = ["january", "march", "may", "july", "august", "october", "december"];
+    $months_with_30_days = ["april", "june", "september", "november"];
+    $other = ["february"];
 
-        $month = strtolower(trim($month));
-        if(in_array($month, $months_with_31_days)){
-            return ucfirst($month)." has 31 days";
-        }else if(in_array($month, $months_with_30_days)){
-            return ucfirst($month)." has 30 days";
-        }else if(in_array($month, $other)){
-            $ans = "In a leap year, February has 29 days otherwise, it has 28 days. ";
-            $ans .= "If you are asking about the current year ".date("Y").", then February has ";
-            if(isCurrentYearLeap()){
-                $ans .= "29 days";
-            }else{
-                $ans .= "28 days";
-            }
-            return $ans;
+    $month = strtolower(trim($month));
+    if(in_array($month, $months_with_31_days)){
+        return ucfirst($month)." has 31 days";
+    }else if(in_array($month, $months_with_30_days)){
+        return ucfirst($month)." has 30 days";
+    }else if(in_array($month, $other)){
+        $ans = "In a leap year, February has 29 days otherwise, it has 28 days. ";
+        $ans .= "If you are asking about the current year ".date("Y").", then February has ";
+        if(isCurrentYearLeap()){
+            $ans .= "29 days";
         }else{
-            return "I don't recognize the month you entered";
+            $ans .= "28 days";
         }
+        return $ans;
+    }else{
+        return "I don't recognize the month you entered";
     }
+}
 
-    function isCurrentYearLeap(){
-        $currrent_year = intval(date('Y'));
-        if($currrent_year % 400 === 0){
-            return true;
-        }
-        if($currrent_year % 100 === 0){
-            return false;
-        }
-        if($currrent_year % 4 === 0){
-            return true;
-        }
+function isCurrentYearLeap(){
+    $currrent_year = intval(date('Y'));
+    if($currrent_year % 400 === 0){
+        return true;
+    }
+    if($currrent_year % 100 === 0){
         return false;
     }
+    if($currrent_year % 4 === 0){
+        return true;
+    }
+    return false;
+}
 
-
-    /***************************Bytenaija Start here*************************/
+/***************************Bytenaija Start here*************************/
 //bytenaija time function
 function bytenaija_time($location) {
     // $curl = curl_init();
     $arrContextOptions=array(
-     "ssl"=>array(
-         "verify_peer"=>false,
-         "verify_peer_name"=>false,
-     ),
- );  
+        "ssl"=>array(
+            "verify_peer"=>false,
+            "verify_peer_name"=>false,
+        ),
+    );
+
      $geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=".$location. "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
-     /* curl_setopt_array($curl, array(
-         CURLOPT_RETURNTRANSFER => 1,
-         CURLOPT_URL => $geocodeUrl,
-         CURLOPT_USERAGENT => 'Codular Sample cURL Request'
-     ));
- 
-     $response = curl_exec($curl); */
      $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
      $response = json_decode($response, true);
      //$lat = $response->results;
@@ -337,7 +330,9 @@ function bytenaija_time($location) {
      </div>";
      echo $responseStr;
  }
- /***************************Bytenaija ends here*************************/
+
+/***************************Bytenaija ends here*************************/
+
 /* Adokiye's function starts here, do not edit
 for any reason*/
 function myCreator(){
@@ -351,90 +346,4 @@ function get_current_time(){
 }
 /*end of
 Adokiye's function*/
-
-
-/*
-|=================================================================|
-|              JIM (JIMIE) Functions Begins                       |
-|=================================================================|
-*/
-function inspire() {
-    $inspirations = [
-        'It is during our darkest moments that we must focus to see the light. \\n\\n - Aristotle',
-        'Start by doing what\'s necessary; then do what\'s possible; and suddenly you are doing the impossible. \\n\\n - Francis of Assisi',
-        'I can\'t change the direction of the wind, but I can adjust my sails to always reach my destination. \\n\\n - Jimmy Dean',
-        'Put your heart, mind, and soul into even your smallest acts. This is the secret of success. \\n\\n - Swami Sivananda',
-        'The best preparation for tomorrow is doing your best today. \\n\\n - H. Jackson Brown, Jr',
-        'Optimism is the faith that leads to achievement. Nothing can be done without hope and confidence. \\n\\n - Helen Keller',
-        'Failure will never overtake me if my determination to succeed is strong enough. \\n\\n - Og Mandino',
-        'It does not matter how slowly you go as long as you do not stop. \\n\\n - Confucius',
-        'Either I will find a way, or I will make one. \\n\\n - Philip Sidney',
-        'It always seems impossible until it\'s done. \\n\\n - Nelson Mandela',
-        'Believe in yourself! Have faith in your abilities! Without a humble but reasonable confidence in your own powers you cannot be successful or happy. \\n\\n - Norman Vincent Peale',
-        'The secret of getting ahead is getting started. \\n\\n - Mark Twain',
-        'Accept the challenges so that you can feel the exhilaration of victory. \\n\\n - George S. Patton',
-        'A creative man is motivated by the desire to achieve, not by the desire to beat others. \\n\\n - Ayn Rand',
-        'Your talent is God\'s gift to you. What you do with it is your gift back to God. \\n\\n - Leo Buscaglia',
-        'Keep your eyes on the stars, and your feet on the ground. \\n\\n - Theodore Roosevelt',
-        'Quality is not an act, it is a habit. \\n\\n - Aristotle',
-        'We may encounter many defeats but we must not be defeated. \\n\\n - Maya Angelou',
-        'Never retreat. Never explain. Get it done and let them howl. \\n\\n - Benjamin Jowett',
-        'The most effective way to do it, is to do it. \\n\\n - Amelia Earhart',
-        'If you can dream it, you can do it. \\n\\n - Walt Disney',
-        'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference. \\n\\n – Robert Frost',
-        'You miss 100% of the shots you don’t take. \\n\\n – Wayne Gretzky',
-    ];
-    return $inspirations[array_rand($inspirations)];
-}
-
-function get_btc_rates() {
-    $response = file_get_contents('https://bitaps.com/api/ticker/average');
-    $data = json_decode($response, true);
-    $otherCurs = array_shift($data);
-
-    $usd = number_format($data['usd']);
-    $eur = number_format($otherCurs['eur']);
-    $rub = number_format($otherCurs['rub']);
-    $try = number_format($otherCurs['try']);
-
-   return "1 BTC = {$usd} USD | {$eur} EURO | {$rub} RUB | {$try} TRY";
-}
-
-function get_jimies_functions() {
-   return '1. You can ask me to inspire you \n
-           E.g: Say "Inspire me" or "Inspire me please" \\n\\n
-           2. You can ask me to get you the current Bitcoin rates. \\n
-           E.g: Ask: "What are the current btc rates?"
-           ';
-}
-/*
-|=================================================================|
-|               JIM (JIMIE) Functions Ends                        |
-|=================================================================|
-*/
-
-// end of functions by johnayeni
-
-/////////////////////////////////////////////////////// Olaogun Function 
-function multiplication($a, $b){
-    $c = $a * $b;
-    echo $c;
-}
-
-function addition($a, $b){
-    $c = $a + $b;
-    echo $c;
-}
-
-function subtraction($a, $b){
-    $c = $a - $b;
-    echo $c;
-}
-
-function division($a, $b){
-    $c = $a / $b;
-    echo $c;
-}
-
-////////////////////END
 ?>

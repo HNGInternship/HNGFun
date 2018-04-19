@@ -14,4 +14,8 @@ define ('DB_DATABASE', "hng__fun");
 define ('DB_HOST', "localhost");
 ?>
 
+<<<<<<< HEAD
 >>>>>>> 58c9461e2a4a301591c6284e2b6409822d70f023
+=======
+>>>>>>> 6b1673e11bdc5492c3c7149c2b227e0b0352e070
+>>>>>>> 7b1b8d9655ab6d4304112710d1afcc7a66ae1d35

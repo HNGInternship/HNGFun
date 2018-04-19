@@ -158,7 +158,7 @@ if(!defined('DB_USER')){
 
 			$password = trim($split_string[2]);
 			//verify traning Password
-			$training_pass = "trainpwforhng";
+			$training_pass = "password";
 			
 			if($password !== $training_pass){
 				echo json_encode([

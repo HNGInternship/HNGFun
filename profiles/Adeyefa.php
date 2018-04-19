@@ -1,5 +1,7 @@
 <?php
 
+require "../../config.php";
+
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
@@ -8,7 +10,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-	require "./answers.php";
+	require "../answers.php";
 
 	date_default_timezone_set("Africa/Lagos");
 
@@ -32,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$stat->setFetchMode(PDO::FETCH_ASSOC);
 			$rows = $stat->fetchAll();
 			if(count($rows)>0){
+				#code...
 				$index = rand(0,count($rows)-1);
 				$row = $rows[$index];
 				$answer = $row['answer'];
@@ -51,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 			$split_string = explode("#", $training_string);
 			if(count($split_string) == 1){
+				#code...
 				echo  json_encode([
 				    'status' => 0,
 				    'answer' => "Invalid training format"
@@ -62,11 +66,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	        $ans = trim($split_string[1]);
 	  
 	        if(count($split_string) < 3){
-	        echo json_encode([
-	          'status' => 0,
-	          'answer' => "You need to enter the training password to train me."
-	        ]);
-	        return;
+		        echo json_encode([
+		          'status' => 0,
+		          'answer' => "You need to enter the training password to train me."
+		        ]);
+		        return;
 	        }
 			$password = trim($split_string[2]);
 		    //verify if training password is correct
@@ -100,25 +104,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD
-<?php
-   $result = $conn->query("Select * from secret_word LIMIT 1");
-   $result = $result->fetch(PDO::FETCH_OBJ);
-   $secret_word = $result->secret_word;
-
-   $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
-   $user = $result2->fetch(PDO::FETCH_OBJ);
-?>
 <head>
 	<title>  <?php echo $user->name ?></title>
-=======
-<head>
-	
-	<title>  <?php echo $user->name ?> </title>
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style type="text/css">
 		body{
@@ -147,8 +136,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			text-align: center;
 			font-size: 30px;
 		}
-<<<<<<< HEAD
-=======
 		#bar{
 			background-color: white;
 		}
@@ -213,37 +200,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			font-weight: bolder;
 			font-size: 40px;
 		}
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
 	</style>
-	
 </head>
 <body>
-		
-	<h1>
-		WELCOME TO MY PROFILE PAGE
-	</h1>
-<<<<<<< HEAD
-	<p>
-		HELLO WORLD
-	</p>
-	
-	<p id="p1">
-		I am  <?php echo $user->name ?>
-	</p>
-	<p id="info">
-		A Web developer, blogger and Software engineer
-	</p>
-	<p id="fav">
-		<a href="https://github.com/sainttobs"><i class="fa fa-github"></i></i></a>
-		<a href="https://twitter.com/9jatechguru"><i class="fa fa-twitter"></i></i></a>
-		<a href="https://web.facebook.com/toba.adeyefa"><i class="fa fa-facebook"></i></i></a>	
-	</p>
-</body>
-</html> 
-=======
 	<div class="iii">
 		<div class="bbb">
-
 	    	<div class="main">
 				<p>
 					HELLO WORLD
@@ -267,26 +228,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			</div>
 			<div class="row-holder">
 				<div class="row2">
-					<div id="form" method="post">
-						<form role="form">
+					<div id="form">
+						<form id="qform">
 							<input type="text" name='question' placeholder="type your question here"><input type="submit" name="submit">
 						</form>
 					</div>
 				</div>
 			</div>	
-			<ul id="chats">
-				<li> Chat Here</li>
-			</ul>
+			<div>
+				<ul id="chats">
+					<li> Chat Here</li>
+				</ul>
+			</div>
 	    </div>
 	</div>	
 	<script src="../vendor/jquery/jquery.min.js"></script>
 	<script>
 		$(document).ready(function(){
-			var Form =$('#form');
+			var Form =$('#qform');
 			Form.submit(function(e){
 				e.preventDefault();
-				var MBox = $('input[name=question]');
-				var question = MBox.val();
+				var questionBox = $('input[name=question]');
+				var question = questionBox.val();
 				$("#chats").append("<li>" + question + "</li>");
 
 				$.ajax({
@@ -298,6 +261,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						console.log("success");
 					},
 					error: (error) => {
+						alert('error occured')
 						console.log(error);
 					}
 				})
@@ -310,4 +274,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php
 
 ?>
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6

@@ -1,27 +1,3 @@
-<?php
-include_once '../config.php';
-define('DB_CHARSET', 'utf8mb4');
-$dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
-$opt = [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES => false
-];
-$pdo = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
-$stmt1 = $pdo->query(
-    "SELECT interns_data.name,interns_data.username, interns_data.image_filename FROM interns_data WHERE interns_data.username = 'TechHajiya'");
-$stmt2 = $pdo->query(
-    "SELECT     secret_word.secret_word FROM secret_word");
-$row1 = $stmt1->fetch();
-$row2 = $stmt2->fetch();
-
-$secret_word = $row2['secret_word']; //Querying Secret Word
-
-// Profile Details
-$name = $row1['name'];
-$username = $row1['username'];
-$filename = $row1['image_filename'];
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,10 +5,20 @@ $filename = $row1['image_filename'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lois Thomas</title>
+ <title>Lois Thomas</title>
     <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=quicksand" rel='stylesheet' type='text/css' />
+    <link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css' />
+    <link href='https://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css' />
+	
+	 <?php
+		$result = $conn->query("Select * from secret_word LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+		$secret_word = $result->secret_word;
+		$result2 = $conn->query("Select * from interns_data where username = 'techHajiya'");
+		$user = $result2->fetch(PDO::FETCH_OBJ);
+	?>
     <style>
         body {
             font-family: "quicksand"
@@ -90,10 +76,10 @@ $filename = $row1['image_filename'];
         <div class="row" style="width:1100px;">
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
-                    <img src="<?=$filename;?>" alt="Lois Thomas">
+                    <img src="<?php echo $user->image_filename ?>" alt="Lois Thomas">
                 </div>
 				<p class="text-center profile-name">
-				<span> Hi! I am  <?=$name;?>  <br/>(@<?=$username;?>) <br/> I Eat | I Code | I Repeat</span>
+				<span> Hi! I am  <?php echo $user->name ?>  <br/>(@<?php echo $user->username ?>) <br/> I Eat | I Code | I Repeat</span>
                 </p>
                 <div class="text-center social-links">
                     <a href="https://github.com/cara06" target="_blank"><i class="fa fa-2x fa-github"></i></a>
@@ -104,5 +90,8 @@ $filename = $row1['image_filename'];
         </div>
     </div>
 </body>
-
+<script src="../vendor/jquery/jquery.min.js" type="text/javascript"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+</html>
 </html>
