@@ -74,11 +74,24 @@ function training($question, $answer){
   global $conn;
   
     try {
+        $sql = "SELECT id FROM chatbot where question = '" .$question ."'";
+        $q = $conn->query($sql);
+        $count = $q->rowCount();
+        if($count > 0){
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+            $id = $data['id'];
+            $sql = "UPDATE chatbot SET question = '" . $question ."', answer =  '" . $answer . "' where question = '" .$question ."'";
+            echo $sql;
+            $conn->exec($sql);
+            $message = "Updated " . $question ." -> " . $answer;  
+        }else{
         $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
         
         $conn->exec($sql);
 
         $message = "Saved " . $question ." -> " . $answer;
+        }
         
         echo $message;
 
