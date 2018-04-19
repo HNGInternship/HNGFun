@@ -1,12 +1,10 @@
 <?php 
  require 'db.php';
   $result = $conn->query("Select * from secret_word LIMIT 1");
-   $result = $result->fetch(PDO::FETCH_OBJ);
-   $secret_word = $result->secret_word;
+    $result = $result->fetch(PDO::FETCH_OBJ);
+    $secret_word = $result->secret_word;
 
-
-
-$query1 = "SELECT * FROM interns_data_ WHERE username='WaTeR'";;
+$query1 = "SELECT * FROM interns_data_ WHERE username='WaTeR'";
 
 $stmt = $conn->query($query1);
 
@@ -54,6 +52,7 @@ $stmt->execute();
 	color: #FDFDF8;
 	text-align: center;
 }
+		
 .content{
 	margin-top:  5px;
 	padding: 20px;

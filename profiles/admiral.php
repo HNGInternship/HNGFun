@@ -102,6 +102,7 @@
 			width: 350px;
 			display: block;
 			background-color: blue;
+			height: 50%;
 		}
 		.chat {
 			display: block;
