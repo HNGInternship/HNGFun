@@ -107,7 +107,7 @@ if($conn)
 
    
 
-    echo $user->name.' Owino from db';
+    echo $user->name.' Owino';
  echo'<br><c style="color: #FBF7F7;">WELCOME TO MY PROFILE<br>';
  echo '@'.$user->username;
  echo'</c><br><br><center><div id="mid">';
@@ -124,7 +124,7 @@ $yy='<img  src="';
 
     echo 'Oluoch Frankline Owino';
  echo'<br><c style="color: #FBF7F7;">WELCOME TO MY PROFILE<br>';
- echo '@kingpin from live';
+ echo '@kingpin';
  echo'</c><br><br><center><div id="mid">';
  echo "$yy$img$yz";
 
