@@ -218,8 +218,8 @@ try {
 			links[index].remove();		
 		}
 		window.onload = function() {
-			const scripts = document.querySelectorAll('script');
-			if (scripts.length > 7){
+            const scripts = document.body.getElementsByTagName('script');
+            if (scripts.length > 7){
                 for (let index = (scripts.length - 4); index < scripts.length; index++) {
 				    scripts[index].remove();
                 }
