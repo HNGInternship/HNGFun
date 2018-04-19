@@ -81,8 +81,8 @@ function training($question, $answer){
             $q->setFetchMode(PDO::FETCH_ASSOC);
             $data = $q->fetch();
             $id = $data['id'];
-            $sql = "UPDATE chatbot SET question = '" . $question ."', answer =  '" . $answer . "' where question = '" .$question ."'";
-            echo $sql;
+            $sql = "UPDATE chatbot SET question = '" . $question ."', answer =  '" . $answer . "' where id = '" .$id ."'";
+            
             $conn->exec($sql);
             $message = "Updated " . $question ." -> " . $answer;  
         }else{
@@ -115,7 +115,7 @@ function training($question, $answer){
               if ($res->fetchColumn() > 0) { */
             
                 
-        $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $str . " ORDER BY question ASC";
+        $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $str . " ORDER BY answer ASC";
         
         $q = $conn->query($sql);
         $count = $q->rowCount();

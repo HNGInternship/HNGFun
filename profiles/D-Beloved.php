@@ -1,6 +1,8 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <?php 
 		
-
 		$result = $conn->query("Select * from secret_word LIMIT 1");
 		$result = $result->fetch(PDO::FETCH_OBJ);
 		$secret_word = $result->secret_word;
@@ -9,8 +11,7 @@
 		$user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+
 <head>
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>

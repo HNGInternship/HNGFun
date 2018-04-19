@@ -21,25 +21,9 @@
 
     ?>
     <!-- jQuery library -->
+    
 
-   
-        /*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2017 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
-
-        /*!
- * Generated using the Bootstrap Customizer (http://getbootstrap.com/docs/3.3/customize/?id=4b57f444e61fdd5e3815d8620a07ecdc)
- * Config saved to config.json and https://gist.github.com/4b57f444e61fdd5e3815d8620a07ecdc
- */
-        /*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
-        /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
-     <style>
+    <style>
         html {
             font-family: sans-serif;
             -ms-text-size-adjust: 100%;
@@ -7281,7 +7265,7 @@
             <?php echo date("Y"); ?>
         </p>
     </div>
-    
+
 
 
 </body>
