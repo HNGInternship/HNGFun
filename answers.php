@@ -248,6 +248,31 @@ function predictOutcome($battle){
         }
         return false;
     }
+
+    function getWeather($location=''){
+      define('OW_API_KEY', "97fbc1fbe89950b7e28508aa9148bf9d");
+        if($location === ''){
+            return "Please enter location";
+        }
+
+        $url = "http://api.openweathermap.org/data/2.5/weather?q=$location&units=metric&appid=".OW_API_KEY;
+        $curl_session = curl_init();
+        curl_setopt($curl_session, CURLOPT_URL, $url);
+        curl_setopt($curl_session,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($curl_session,CURLOPT_HEADER, false); 
+        $result=curl_exec($curl_session);
+        curl_close($curl_session);
+        $result_object = json_decode($result);
+        $weather = ucfirst($result_object->weather[0]->description);
+        $temperature = $result_object->main->temp;
+        $pressure = $result_object->main->pressure;
+        $humidity = $result_object->main->humidity;
+        $windspeed = $result_object->wind->speed;
+        $result = "Weather: <b>$weather</b><br>Temperature: <b>$temperature<sup>o</sup>C</b><br>Pressure: <b>$pressure"."mb</b><br>Humidity: <b>$humidity%</b><br>Windspeed: <b>$windspeed"."km/hr</b>";
+        return $result;
+    }
+
+    // echo getWeather("lagos");
     //end of functions defined by @chigozie
 
 

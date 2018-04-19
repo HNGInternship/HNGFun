@@ -355,7 +355,7 @@
 					}
 
 					//remove {{parameter_name}} from the question string and move it to the end of the string
-					$que2 = str_replace("{{".$parameter_name."}}", "", $que);
+					$que2 = trim(str_replace("{{".$parameter_name."}}", "", $que));
 					$que2 = preg_replace("([\s]+)", " ", $que2);
 					$que2 .= " {{".$parameter_name."}}";
 					
@@ -431,7 +431,7 @@
 			padding: 20px;
 			background-color: #ffffff;
 			margin-top: 5%;
-			height: 400px;
+			height: 300px;
 		}
 
 		.info {
@@ -500,7 +500,7 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-4 offset-md-1 frame">
+		<div class="col-md-3 offset-md-1 frame">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="circle">
@@ -521,7 +521,7 @@
 			</div>
 		</div>	
 
-		<div class="col-md-4 offset-md-1 chat-frame">
+		<div class="col-md-6 offset-md-1 chat-frame">
 			<h2 class="text-center">Chatbot Interface</h2>
 			<div class="row chat-messages" id="chat-messages">
 				<div class="col-md-12" id="message-frame">
