@@ -114,7 +114,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               
           }        
         } 
-    }
+    
     if(!($existError)){
       $sql = "INSERT INTO chatbot(question, answer)
       VALUES(:quest, :ans)";
@@ -132,14 +132,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         
         
     }  
-  } 
+  }
   else{
     $input = tester($post); 
  
   if($input){
     
   
-    $time ="what is the time";
+    // $time ="what is the time";
     // query db to look for question 
     $answer = "";
     $sql = "SELECT * FROM chatbot";
@@ -166,7 +166,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }       
   }
 }
-        
+  }        
       if($answer != ""){
         $reply = $answer;
         } 
@@ -185,7 +185,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
   // function
   }
-  else{
+  
 ?>
 
 <!DOCTYPE html>
