@@ -60,7 +60,7 @@ HNG 4.0 | Jurshsmith
 		background-color: #f4f4f4;
 				}
 
-#j-image{
+#j-image {
 		border: 7px solid grey;
 		border-radius: 45px;
 		max-width: 100%;
