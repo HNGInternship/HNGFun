@@ -1,21 +1,17 @@
 <?php
-    require_once 'db.php';
-    try {
-        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
-        $intern_data->execute();
-        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $intern_data->fetch();
-    
-    
-        $secret_code = $conn->prepare("SELECT * FROM secret_word");
-        $secret_code->execute();
-        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
-        $code = $secret_code->fetch();
-        $secret_word = $code['secret_word'];
-     } catch (PDOException $e) {
-         throw $e;
+     date_default_timezone_set('Africa/Lagos');
+     if (!defined('DB_USER')){
+         
+         require "../../config.php";
      }
-    if(isset($_POST['ques'])){
+     try {
+         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+       } catch (PDOException $pe) {
+         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+       }
+        global $conn;
+    
+    if($_SERVER['REQUEST_METHOD']==="POST"){
         //function definitions
         function test_input($data) {
             $data = trim($data);
@@ -27,7 +23,6 @@
         }
         function chatMode($ques){
             $ques = test_input($ques);
-            if(!$conn){die("Unable to connect");}
             $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
             $result = $conn->query($query)->fetch_all();
             
@@ -58,7 +53,6 @@
                     ]);
                     return;
                 }
-                if(!$conn){die("Unable to connect");}
                 $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
                 if($conn->query($query) ===true){
                     echo json_encode([
@@ -95,8 +89,25 @@
 
 
     return;
+    }else{
+        require_once 'db.php';
+    try {
+        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
+        $intern_data->execute();
+        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $intern_data->fetch();
+    
+    
+        $secret_code = $conn->prepare("SELECT * FROM secret_word");
+        $secret_code->execute();
+        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+        $code = $secret_code->fetch();
+        $secret_word = $code['secret_word'];
+     } catch (PDOException $e) {
+         throw $e;
+     }
+     $today = date("H:i:s");
     }
- $today = date("H:i:s");
 ?>
 
 <!DOCTYPE html>
@@ -235,6 +246,7 @@
             margin-bottom: 5px;
         }
         .bot p{
+            margin:0px;
             padding:4px;
             text-align: left;
             display:inline-block;
@@ -249,6 +261,7 @@
             text-align: right;
         }
         .user p{
+            margin:0px;
             padding:4px;
             display: inline-block;
             background-color: #d1d1d1;
@@ -336,7 +349,7 @@ function sendMsg(){
             processData(xhttp.responseText);
         }
     };
-    xhttp.open("POST", "https://hng.fun/profile.php?id=jaycodes", true);
+    xhttp.open("POST", "https://hng.fun/profiles/jaycodes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("ques="+ques.value);
 }

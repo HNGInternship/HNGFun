@@ -1,5 +1,16 @@
 <?php
-    //require "../db.php";
+    # require "../db.php";
+    if (!defined('DB_USER')){
+            
+            require "../../config.php";
+    }
+    try {
+          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        } catch (PDOException $pe) {
+          die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+        }
+
+        global $conn;
     try {
           $query = $conn->query("SELECT * FROM secret_word");
           $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -20508,6 +20519,7 @@
     
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+<<<<<<< HEAD
     <script type="text/javascript">
       $(document).ready(function(){
             $('form').on('submit', function(e){
@@ -20515,7 +20527,7 @@
                 $.ajax({
                     type: "POST",
                     cache: false, 
-                    url: "", 
+                    url: "/profiles/AdroitCode.php", 
                     dataType: "json",
                     data: $('form').serialize(), 
                     success: function(result) {
@@ -20529,6 +20541,9 @@
             
             });
     </script>
+=======
+    
+>>>>>>> e4aee28334f5d4d785d647f07c097d6933da86be
     <script>
         $( document ).ready(function() {
         $( ".menu" ).hide();

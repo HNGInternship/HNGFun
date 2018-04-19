@@ -69,7 +69,7 @@
                 padding: 50px;
                 margin-left: 50px;
                 text-align: center; 
-                background: linear-gradient(#88194b, #19133e)
+                background: linear-gradient(#761742, #19133e)
             }
             @media only screen and (max-width: 1100px){
                 body {
