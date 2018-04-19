@@ -211,7 +211,7 @@ function predictOutcome($battle){
         return date("l");
     }
 
-    function getDaysInMonth($month){
+    function getDaysInMonth($month=''){
         $months_with_31_days = ["january", "march", "may", "july", "august", "october", "december"];
         $months_with_30_days = ["april", "june", "september", "november"];
         $other = ["february"];
@@ -272,7 +272,14 @@ function predictOutcome($battle){
         return $result;
     }
 
-    // echo getWeather("lagos");
+    function getOptimusPrimeCustomFunctions(){
+      $result = array("<b>getDayOfWeek</b>", "<b>getDaysInMonth</b>", "<b>getWeather</b>");
+      $r = "My custom functions are:<br>".implode("<br>", $result);
+      $r .= "<br>I however have to be trained first before I can answer questions based on these functions.";
+      $r .= "<br>To answer questions which do not contain a parameter but whose answer uses a custom function, the training answer must contain the function name enclosed in (( )), i.e. ((<b>getDayOfWeek</b>))";
+      $r .= "<br>To answer questions which contain a parameter in the question, the training question must contain the parameter enclosed in {{ }}, i.e. {{<b>parameter</b>}}";
+      return $r;
+    }
     //end of functions defined by @chigozie
 
 

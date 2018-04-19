@@ -68,6 +68,21 @@
 
 		$question = $_POST['question']; //get the entry into the chatbot text field
 
+		if(stripos(trim($question),'show commands') !== false){
+			if(function_exists('getOptimusPrimeCustomFunctions')){
+				echo json_encode([
+					'status' => 1,
+					'answer' => getOptimusPrimeCustomFunctions()
+				]);
+			}else{
+				echo json_encode([
+                	'status' => 0,
+                	'answer' => "Some decepticon tampered with my head. I have forgotten my custom functions"
+				]);
+			}
+			return;	
+		}
+
 		//check if in training mode
 		$index_of_train = stripos($question, "train:");
 		if($index_of_train === false){//then in question mode
@@ -76,7 +91,8 @@
 			$question2 = $question; //to be used for performing query of questions with parameters
 
 			//check if answer already exists in database
-			$question = "%$question%";
+			// $question = "%$question%";
+			$question = "$question";
 			$sql = "select * from chatbot where question like :question";
 			$stmt = $conn->prepare($sql);
 			$stmt->bindParam(':question', $question);
@@ -315,7 +331,7 @@
 			
 			$password = trim($split_string[2]);
 			//verify if training password is correct
-			define('TRAINING_PASSWORD', 'trainpwforhng');
+			define('TRAINING_PASSWORD', 'password');
 			if($password !== TRAINING_PASSWORD){
 				echo json_encode([
 					'status' => 0,
@@ -457,6 +473,7 @@
 
 		.chat-messages {
 			background-color: #ffffff;
+			font-size: 14px;
 			height: 600px;
 			overflow-y: auto;
 			margin-left: 15px;
@@ -549,7 +566,10 @@
 						<div class="col-md-8 single-message-bg">
 							<p>You can teach me answers to new questions by training me.</p>
 							<p>To train me, enter the training string in this format:</p>
-							<p><b>train: question # answer</b></p>
+							<p><b>train: question # answer # password</b></p>
+							<p>To see a list of my custom functions, type: <br>
+								<b>--show commands</b>
+							</p>
 						</div>
 					</div>
 
