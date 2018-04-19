@@ -21,7 +21,7 @@ $qq = "select * from chatbot";
 $result = mysqli_query($conn, $qq);
 while ($row2 = mysqli_fetch_array($result)) {
 	# code...
-	echo $row2['question'];
+	echo $row2['answer'];
 }
 
 	
