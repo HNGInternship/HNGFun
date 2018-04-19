@@ -1,3 +1,4 @@
+this is to test auto deploy
 <?php
 	session_start();
 	error_reporting(E_ALL);
@@ -16,7 +17,7 @@ ini_set('display_errors',1);
         extract($sql->fetch(PDO::FETCH_ASSOC));
 ?>
 
-this is to test auto deploy
+
 
 
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
@@ -30,5 +31,4 @@ this is to test auto deploy
         $q->execute();
        $secret_word = sql->fetch(PDO::FETCH_ASSOC)['secret_word'];
 	?>
-</body>
-</html>
+
