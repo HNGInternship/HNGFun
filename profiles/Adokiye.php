@@ -1,7 +1,4 @@
-<?php
-include "../answers.php";
-include '../db.php';
-?>
+
 <!doctype html>
 <html>
 <head>
