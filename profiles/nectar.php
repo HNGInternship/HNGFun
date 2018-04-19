@@ -73,8 +73,7 @@
             font-size: 3.5em;
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             font-weight: bold;
-
-
+            
             /* Test attributes */
             /* border: 2px solid yellow; */
         }
@@ -93,33 +92,10 @@
         // Get the config file
         // include '../db.php';
          
+        // Set the needed variables
         $table = 'interns_data';
         $secret_table = 'secret_word';
         $intern_name = 'Nectar';
-         
-        // Query the db for the data in interns data table
-        $query = "SELECT * FROM ".$table." WHERE username='Nectar'";
-        $data = $conn->query($query);
-
-        // Query the db for the data in secret_word table
-        // $query_secret = "SELECT secret_word FROM secret_word";
-        // $res = $conn->query($query_secret);
-        // $res->setFetchMode(PDO::FETCH_ASSOC);
-        // $secret_word = $res;
-
-        // foreach($res as $raw_secret) { 
-        //     $secret_word = $raw_secret['secret_word'];
-        // }
-
-        try {
-            $sql = 'SELECT * FROM secret_word';
-            $q = $conn->query($sql);
-            $q->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $q->fetch();
-        } catch (PDOException $e) {
-            throw $e;
-        }
-        $secret_word = $data['secret_word'];
 
         // Query the db for the data in interns data table
         $query = "SELECT * FROM ".$table." WHERE username='Nectar'";
@@ -130,7 +106,17 @@
             $name = $row["name"];
             $username = $row["username"];
             $pics = $row["image_filename"];
-        }              
+        }
+        
+        try {
+            $query2 = "SELECT * FROM secret_word";
+            $word = $conn->query($query2);
+            $word->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $word->fetch();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+        $secret_word = $result['secret_word'];
     ?>
     <div class ="profile-image">
         <img src="<?php echo $pics ?>" alt="<?php echo $pics ?>">
@@ -140,8 +126,7 @@
     <div class ="profile-details">
         <h4 class="detail-title">HNG4 internship 2018 </h4>
         <p class="detail-name"><?php echo $name?></p>
-        <p class="detail-username">@<?php echo $username?></p>
-         
+        <p class="detail-username">@<?php echo $username?></p>        
     </div>
 </body>
 </html>

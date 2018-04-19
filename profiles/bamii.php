@@ -1,18 +1,19 @@
 <?php
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		require "../answers.php";
-    
+    //require '../db.php';
     # User input
     $data = $_POST['question'];
 
     if(!defined('DB_USER')){
-			require "../config.php";		
+			require "../../config.php";		
 			try {
 			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 			} catch (PDOException $pe) {
 			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 			}
     }
+    
     
     # Functions to get the data from db
     $sql = $conn->prepare('select * FROM chatbot');
@@ -80,7 +81,7 @@
 
       # Append the question to the db
       try {
-        $sql2 =  'INSERT INTO `questions`(`question`, `answer`) VALUES ("' . $question . '", "' . $answer . '");';
+        $sql2 =  'INSERT INTO `chatbot`(`question`, `answer`) VALUES ("' . $question . '", "' . $answer . '");';
         $conn->exec($sql2);
         echo json_encode([
           'status' => 1,
@@ -377,6 +378,12 @@
           border-left: 2px solid black;
         }
 
+        .chatbot {
+          text-align: center;
+          font-size: 40px;
+          font-family: 'Raleway';
+        }
+
         .input {
           height: 50px;
           width: 100%;
@@ -413,7 +420,7 @@
 	</head>
   <body>
     <?php
-      $sql = 'SELECT * FROM interns_data_ WHERE username="bamii"';
+      $sql = 'SELECT * FROM interns_data WHERE username="bamii"';
       $query = $conn->query($sql);
       $query->setFetchMode(PDO::FETCH_ASSOC);
       $result = $query->fetch();    
@@ -432,28 +439,8 @@
           <h2 id="button"> @<?php echo($user); ?> </h2>
         </div>
       </div>
-
-      <div class="more-details">
-        <div id="stack" class="my-stack" onClick="open2()"> My Stack </div>
-          <div id="second" class="second-paragraph">
-            <p> I mostly work frontend designing, using the obvious HTML & CSS, Bootstrap, and React (it was made primarily for UI). I also build mobile apps using React Native (and i'm pretty good at it, if i do say so myself) and Java. </p>
-            <p>
-              Here's the list of the Programming Languages i'm conversant with and the areas of specialisation in each Language.
-              <ul class="my-list">
-                <li> Java </li>
-                <li> Javascript </li>
-                <li> HTML5, CSS, JS bundle </li>
-                <li> React </li>
-                <li> ExpressJS </li>
-                <li> KnockoutJS </li>
-              </ul>
-            </p>
-          </div>
-      
-          <div id="third" class="portfolio-click" onClick="openPortfolio()"> Portfolio </div>
-      </div>
     </div>
-
+    <div class="chatbot"> ChatBot </div>
     <div class="chatbot-container">
       <div class="chat-details" id="chat">
         <div class="server-name"> Bot </div>
@@ -529,6 +516,14 @@
                           }
                         },
                         error: function(error) {
+                          var resp = document.createElement('div');
+                          var respText = document.createElement('div');
+                          respText.className += " " + 'server-name';
+                          resp.className += " " + 'server-reply';
+                          respText.innerHTML = 'Bot';
+                          resp.innerHTML = "I'm sorry, Some error occured. Please try again. Or refresh your browser.";
+                          client.appendChild(respText);
+                          client.appendChild(resp);
                           console.log(error);
                         }
                     })

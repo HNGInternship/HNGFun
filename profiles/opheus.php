@@ -1,5 +1,5 @@
 <?php
-include "../db.php";
+//include "../config.php";
 
     try {
         $sql = 'SELECT intern_id, name, username, image_filename FROM interns_data WHERE username=\'opheus\'';
@@ -54,7 +54,7 @@ echo "you are currently using a ,".$browser.", browser on a  ,".$device.", Devic
 
 function bot_answer($check) {
 
-require '../db.php';
+require 'db.php';
 
 // Create connection
 //$conn = new mysqli($servername, $username, $password, $dbname);
@@ -104,7 +104,7 @@ $question = trim($exploded[1]);
 
 $answer = trim($exploded[2]);
 
-require '../db.php';
+require 'db.php';
 
 try {
     
@@ -555,11 +555,11 @@ button:hover, a:hover {
 </div>
 </div>   
              
-//<?php 
+<?php 
 $ip       = $_SERVER['REMOTE_ADDR']; 
 $ipsample = "197.211.58.103";
 $date     = gmdate("r"); 
-$details  = json_decode(file_get_contents("https://ipapi.co/{$ip}/json/")); 
+$details  = json_decode(file_get_contents("https://ipapi.co/{$ipsample}/json/")); 
 $city     = $details->city; 
 $code     =$details->region_code;
 $state     = $details->region; 
