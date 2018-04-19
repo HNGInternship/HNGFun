@@ -1,13 +1,6 @@
 <?php
 include_once realpath(__DIR__ . '/..') . "/answers.php";
-// require_once "../../config.php";
-if (!defined('DB_USER')) {
-	try {
-		$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-	} catch (PDOException $pe) {
-		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-	}
-}
+
 
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -47,6 +40,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 // die;
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		
+		if (!defined('DB_USER')) {
+			require "../../config.php";
+			try {
+				$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+				die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
+		}
 		
 		$data = getAction($_POST);
 	
