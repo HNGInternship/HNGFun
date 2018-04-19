@@ -212,6 +212,36 @@
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
             max-width: 80%;
         }
+        .msg_receive {
+            padding-left: 0;
+            margin-left: 0;
+            background: #666 !important;
+            color: #FFF;
+        }
+        
+        .msg_sent {
+            padding-bottom: 20px !important;
+            margin-right: 0;
+        }
+        
+        .messages {
+            background: white;
+            padding: 10px;
+            border-radius: 2px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            max-width: 80%;
+        }
+        
+        .messages>p {
+            font-size: 13px;
+            margin: 0 0 0.2rem 0;
+            overflow-wrap: break-word;
+        }
+        
+        .messages>time {
+            font-size: 11px;
+            color: #ccc;
+        }
         .msg_sent {
             padding-bottom: 20px !important;
             margin-right: 0;
@@ -235,10 +265,51 @@
   			align-items: stretch;
   			width: 100%;
 		}
+		.input-group-prepend,
+		.input-group-append {
+  			display: -ms-flexbox;
+  			display: flex;
+		}
+		.input-group-prepend .btn,
+		.input-group-append .btn {
+  			position: relative;
+  			z-index: 2;
+		}
+		.input-group-append {
+  			margin-left: -1px;
+		}
 		.mb-3,
 		.my-3 {
   			margin-bottom: 1rem !important;
 		}
+		.btn {
+  			display: inline-block;
+  			font-weight: 400;
+  			text-align: center;
+  			white-space: nowrap;
+  			vertical-align: middle;
+  			-webkit-user-select: none;
+  			-moz-user-select: none;
+  			-ms-user-select: none;
+  			user-select: none;
+  			border: 1px solid transparent;
+  			padding: 0.375rem 0.75rem;
+  			font-size: 1rem;
+  			line-height: 1.5;
+  			border-radius: 0.25rem;
+  			transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+			}
+			.btn-primary {
+  				color: #fff;
+  				background-color: #007bff;
+  				border-color: #007bff;
+			}
+			.btn-sm, .btn-group-sm > .btn {
+  				padding: 0.25rem 0.5rem;
+  				font-size: 0.875rem;
+  				line-height: 1.5;
+  				border-radius: 0.2rem;
+			}
 	</style>
 </head>
 <body>
@@ -294,12 +365,12 @@
                             <div class="card-footer message-div">
                                 <form action="" id="chat-form" method="post">
                                     <div class="input-group mb-3">
-                                                    <input class="form-control message chat_input" name="chat_message" aria-label="With input" placeholder="Let's Chat  Now...">
-                                                    <div class="input-group-append">
-                                                        <button type="submit" class="btn btn-primary btn-sm send-message" id="btn-chat"><i class="fa fa-send-o"></i></button>                                                                                 
-                                                    </div>
-                                                </div>
-                                            </form>
+                                        <input class="form-control message chat_input" name="chat_message" aria-label="With input" placeholder="Let's Chat  Now...">
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-primary btn-sm send-message" id="btn-chat"><i class="fa fa-send-o"></i></button> 
+                                        </div>
+                                    </div>
+                                </form>
                                         </div>
                                     </div>
                                 </div>
