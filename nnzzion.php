@@ -5,6 +5,8 @@ if(!$con){
   echo "couldn't connect";
 }
 
+echo "Loading....";
+
 	$question = $_POST['question'];
 	 $x = 0;
 	 $count = 3;
