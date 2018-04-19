@@ -140,7 +140,7 @@
 
       <div>
         <div class="message bot">
-          <span class="content">Type "<code>show: List of commands</code>" to see what the list of commands I understand.</span>
+          <span class="content">Look alive</span>
         </div>
       </div>
     </div>
@@ -211,11 +211,32 @@ footer {
   }
 
   .message.bot:before {
-    border-color: transparent #edf3fd transparent transparent;
+    border-color: transparent #9cccff transparent transparent;
     border-width: 0 10px 10px 0;
     left: -9px;
   }
+	.color-change {
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 14px 80px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #00A6FF;
+  font-size: 1.5rem;
+  font-family: 'Roboto';
+  font-weight: 100;
+  border: 1px solid #fff;
+  box-shadow: 2px 2px 5px #AFE9FF;
+  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+}
 
+.color-change:hover {
+  color: #006398;
+  border: 1px solid #006398;
+  box-shadow: 2px 2px 20px #AFE9FF;
+}
   .message.you:before {
     border-width: 10px 10px 0 0;
     right: -9px;
@@ -411,4 +432,5 @@ function speak(string){
 	speechSynthesis.speak(utterance);
 }
 </script>
-<?php } ?>
+<?php } 
+?>
