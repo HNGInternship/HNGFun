@@ -4,6 +4,14 @@
 */
 define ('DB_USER', "root");
 define ('DB_PASSWORD', "");
+<<<<<<< HEAD
 define ('DB_DATABASE', "hngfun");
 define ('DB_HOST', "localhost");
 ?>
+=======
+
+define ('DB_DATABASE', "hng__fun");
+define ('DB_HOST', "localhost");
+?>
+
+>>>>>>> 58c9461e2a4a301591c6284e2b6409822d70f023
