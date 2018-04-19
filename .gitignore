@@ -1,21 +1,10 @@
-config.php
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 7459eb888e3c0279a2c0395d1d4b2ad5af058f43
+
+db.php
 docker-compose.yml
 phpmyadmin/
 .DS_Store
 ._.DS_Store
 /deploy
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 03d1dc7aff548070972829868007c3ff912704a7
-=======
->>>>>>> 7459eb888e3c0279a2c0395d1d4b2ad5af058f43
-=======
 .idea/
-
-
->>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
+config.php
+/null-file

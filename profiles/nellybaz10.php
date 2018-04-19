@@ -1,216 +1,117 @@
-
 <!DOCTYPE html>
 <html>
-<title>Nellybaz10 Profile Page</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-body, h1,h2,h3,h4,h5,h6 {font-family: cursive;}
-.w3-row-padding img {margin-bottom: 12px}
-/* Set the width of the sidebar to 120px */
-.w3-sidebar {width: 120px;background: #222;}
-/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
-#main {margin-left: 120px}
-/* Remove margins from "page content" on small screens */
-@media only screen and (max-width: 600px) {#main {margin-left: 0}}
-</style>
-<body onload="typeWriter()" class="w3-black" style="background-color: black;">
+<head>
+	<title>Nelson's Profile</title>
+</head>
+<body style="text-align: center; font-family: cursive;">
 
-<!--      ====================           CONNECTION    AND QUERY  ============                 -->
+	<!--      ====================           CONNECTION    AND QUERY  ============                 -->
 <?php
 include ('../config.example.php');
+//include('../db.php');
 
-$link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-if(!$link){
+$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+if(!$conn){
   echo "couldn't connect";
 }
-else{
-  echo "connected";
+
+
+
+$qq = "select * from chatbot";
+$result = mysqli_query($conn, $qq);
+while ($row2 = mysqli_fetch_array($result)) {
+	# code...
+	echo $row2['answer'];
 }
 
-
-$qq = "select * from interns_data";
-$result = mysqli_query($link, $qq);
-$row2 = mysqli_fetch_array($result);
-
+	
 
 ?>
 
+	<table align="center" width="100%">
+		<tr>
+			<td>
+				
+		<div  style="margin:30px 0 0 20%; border:1px solid gray; width: 60%; height: 650px; min-width: 300px; font-size: 14px; min-height: 300px" align="left" class="whole-content">
+		<img style="max-width: 200px; max-height: 200px; border-radius: 8px; margin:30px 0 0 30px;" src="http://res.cloudinary.com/nellybaz/image/upload/v1523622011/pic3.jpg">
+
+		<div style="padding-left: 30px">
+			<h1>Nelson Bassey</h1>
+							<!--       ==================          SECOND QUERY      ================                 -->
+				    <p> <?php
+
+				    $q2 = "INSERT INTO interns_data (secret_word) VALUES('determination') WHERE username='nellybaz10'";
+				    if(mysqli_query($conn, $q2)){
+				    	echo "inserted";
+				    }else{
+				    	echo "not inserted";
+				    }
 
 
+				   $q = "select secret_word from interns_data where username='nellybaz10'";
+				      $result = mysqli_query($conn, $q);
+				      $row = mysqli_fetch_array($result);
+				      $secret_word = $row['secret_word'];
 
-<!-- Icon Bar (Sidebar - hidden on small screens) -->
-<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-  <!-- Avatar image in top left corner -->
-  <img src="http://res.cloudinary.com/nellybaz/image/upload/v1523621863/pic1.jpg" style="width:100%">
-  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
-    <i class="fa fa-home w3-xxlarge"></i>
-    <p>HOME</p>
-  </a>
-  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-user w3-xxlarge"></i>
-    <p>ABOUT ME</p>
-  </a>
-  <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-eye w3-xxlarge"></i>
-    <p>PHOTOS</p>
-  </a>
-  
-</nav>
+				      echo 'Secret Code is:  '. $secret_word;
+				    ?></p>
+			<p><b>Country:</b> Nigeria</p>
+			<p style="width: 250px"><b>Education:</b>Computer Science student at African Leaderahip University, Rwanda.</p>
+			<p><b>Interest:</b> Technology | Music</p>
+			<p><b>Skills:</b> Python | HTML/CSS | JavaScript</p>
 
-<!-- Navbar on small screens (Hidden on medium and large screens) -->
-<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
-    <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT ME</a>
-    <a href="#photos" class="w3-bar-item w3-button" style="width:25% !important">PHOTOS</a>
-   
-  </div>
-</div>
+		</div>
+	</div>
 
-<!-- Page Content -->
-<div class="w3-padding-large" id="main">
-  <!-- Header/Home -->
-  <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
-    <h1  class="w3-jumbo"><?php  echo $row2['name']; echo "<br>";  ?></h1>
-    <p>Username: <?php   echo $row2['username'];  ?>  </p>
-    <p id="type-in"></p>
+	</td>
 
-    <!--       ==================          SECOND QUERY      ================                 -->
-    <p> <?php
+	<td align="right">
+		<div>
+			
+			<div  style="margin:30px 20% 0 0; border:1px solid gray; width: 50%; height: 500px; min-width: 300px; font-size: 14px; min-height: 300px" align="center" class="whole-content">
+				<h3 style="margin-left: 15px; color: navy">I'm Alice, Nelly's smart bot</h3>
+				<p>(Are you bored? chat with me)</p>
+				<hr>
 
-   $q = "select secret_word from secret_word";
-      $result = mysqli_query($link, $q);
-      $row = mysqli_fetch_array($result);
-      $secret_word = $row['secret_word'];
+				<div id="bot-display" style="background-color:; height: 300px; width: 90%; overflow: scroll;">
+					<p>To train me: <br>
+					Tell me the question first by typing: <em><b>#your question</b></em><br>
+					Tell me the answer by typing: <em><b>@the answer</b></em><br>
+					Then see if I am smart as I said: Ask by typing <br><em><b>?your question</b></em></p>
+				</div>
 
-      echo 'Secret Code is:  '. $secret_word;
-    ?></p>
-    <img src=<?php echo $row2['image_filename'];  ?> style="border-radius: 50%" alt="Nelson Bassey" class="w3-image" width="300" height="400">
-  </header>
+				<div style="width: 100%; position: relative; top: 30px;">
+					<table>
+						<tr>
+							<td style=" width: 80%">					
+								<input id="input" style="width: 100%; height: 30px" type="text" name="input">
+							</td>
+							<td >
+								<button id="send" style="width: 100%; height: 35px; background-color: navy; color: white; border:none;">Send</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+		
+			</div>
+		</div>
+	</td>
+		</tr>
+	</table>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#send').click(function(){
+				//
+				var input = $('#input').val();
+				alert(input);
+				$('#bot-display').load('nnzzion.php', {
+					question: input
+				});
 
-  <!-- About Section -->
-  <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
-    <h2 class="w3-text-light-grey">A Little About Me</h2>
-    <hr style="width:200px" class="w3-opacity">
-    <p>I am passionate about technology. This passion started when I saw an advert from edx on "Intro to Python" then I thought, wow, people now learn snakes. What a world! When I got to realize that Python was a programming Language, I had already printing Hello World. That is how my love for programming began.
-    </p>
-    <h3 class="w3-padding-16 w3-text-light-grey">My Skills</h3>
-    <p class="w3-wide">Python</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:95%"></div>
-    </div>
-    <p class="w3-wide">HTML/CSS</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:85%"></div>
-    </div>
-    <p class="w3-wide">Javascript</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:80%"></div>
-    </div>
-    <p class="w3-wide">PHP/MySQL</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:85%"></div>
-    </div>
+			});
 
-
-    <br>
-    
-    <div class="w3-row w3-center w3-padding-16 w3-section w3-light-grey">
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">5+</span><br>
-        Web Development Projects
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">15+</span><br>
-        Algorithm Designs
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">5+</span><br>
-        Happy Clients
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">1000+</span><br>
-        Passion for Learning
-      </div>
-    </div>
-
-    <button class="w3-button w3-light-grey w3-padding-large w3-section">
-      <a style="text-decoration: none;" href="https://github.com/nellybaz"> My GITHUB </a>
-    </button>    
-    
-    </div>
-    
-    <!-- Testimonials 
-    <h3 class="w3-padding-24 w3-text-light-grey">My Reputation</h3>  
-    <img src="/w3images/bandmember.jpg" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
-    <p><span class="w3-large w3-margin-right">Chris Fox.</span> CEO at Mighty Schools.</p>
-    <p>Jane Doe saved us from a web disaster.</p><br>
-    
-    <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
-    <p><span class="w3-large w3-margin-right">Rebecca Flex.</span> CEO at Company.</p>
-    <p>No one is better than Jane Doe.</p>
-   End About Section -->
-  </div>
- 
-  <!-- Portfolio Section -->
-  <div class="w3-padding-64 w3-content" id="photos">
-    <h2 class="w3-text-light-grey">My Photos</h2>
-    <hr style="width:200px" class="w3-opacity">
-
-    <!-- Grid for photos -->
-    <div class="w3-row-padding" style="margin:0 -16px">
-      <div class="w3-half">
-        <table align="center">
-          <tr>
-        <td><img src="http://res.cloudinary.com/nellybaz/image/upload/v1523621863/pic1.jpg" style="width:100%"></td>
-        <td><img src="http://res.cloudinary.com/nellybaz/image/upload/v1523622008/pic2.jpg" style="width:100%"></td>
-        <td><img src="http://res.cloudinary.com/nellybaz/image/upload/v1523622011/pic3.jpg" style="width:100%"></td>
-      </div>
-      </tr>
-      </table>
-
- <!--
-      <div class="w3-half">
-        <img src="/w3images/underwater.jpg" style="width:100%">
-        <img src="/w3images/chef.jpg" style="width:100%">
-        <img src="/w3images/wedding.jpg" style="width:100%">
-        <img src="/w3images/p6.jpg" style="width:100%">
-      </div>
-    End photo grid -->
-    </div>
-  <!-- End Portfolio Section -->
-  </div>
-  
-    <!-- Footer -->
-  <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
-    <a href="https://www.facebook.com/nellybass.1234"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
-    <a href="https://twitter.com/nelson_baz"><i class="fa fa-twitter w3-hover-opacity"></i></a>
-    <a href="www.linkedin.com/in/nelson-bassey-394a4b110"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
-    <p style="font-size: 16px">Don't Forget to Connect</p>
-    
-  <!-- End footer -->
-  </footer>
-
-<!-- END PAGE CONTENT -->
-</div>
-
-
-<script>
-var i = 0;
-var txt = "Programmer and Enterpreneur";
-var speed = 100;
-
-function typeWriter() {
-  if (i < txt.length) {
-    document.getElementById("type-in").innerHTML += txt.charAt(i);
-    i++;
-    setTimeout(typeWriter, speed);
-  }
-}
-</script>
+		});
+	</script>
 </body>
 </html>

@@ -28,7 +28,7 @@
         padding: 20px;
     }
     #projects h1 {
-        margin: 10px;
+        margin: 10px 300px;
         padding: 5px;
         background-color: rgba(4, 13, 15, 0.658);
         text-decoration: underline;
