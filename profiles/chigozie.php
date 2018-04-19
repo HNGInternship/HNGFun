@@ -68,7 +68,7 @@
 
 		$question = $_POST['question']; //get the entry into the chatbot text field
 
-		if(stripos(trim($question),'show commands') !== false){
+		if(stripos(trim($question),'--help') !== false){
 			if(function_exists('getOptimusPrimeCustomFunctions')){
 				echo json_encode([
 					'status' => 1,
@@ -447,7 +447,7 @@
 			padding: 20px;
 			background-color: #ffffff;
 			margin-top: 5%;
-			height: 300px;
+			height: 400px;
 		}
 
 		.info {
@@ -567,8 +567,8 @@
 							<p>You can teach me answers to new questions by training me.</p>
 							<p>To train me, enter the training string in this format:</p>
 							<p><b>train: question # answer # password</b></p>
-							<p>To see a list of my custom functions, type: <br>
-								<b>--show commands</b>
+							<p>To assistance, type: <br>
+								<b>--help</b>
 							</p>
 						</div>
 					</div>
