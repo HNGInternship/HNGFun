@@ -1,6 +1,13 @@
 <?php
-require __DIR__ . '\..\db.php';
-include __DIR__ . '\..\answers.php';
+include "../answers.php";
+	if(!defined('DB_USER')){
+			require "../../config.php";		
+			try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
+		}
 ?>
 <!doctype html>
 <html>
@@ -82,7 +89,7 @@ include __DIR__ . '\..\answers.php';
                }
            }
        }elseif ($split[0] == $action && isset($split[1]) && isset($split[2])) {
-           $asked_question_answer = ("INSERT INTO chatbot (question, answer) VALUES ('$split[1]','$split[2]')");
+           $asked_question_answer = "INSERT INTO chatbot (question, answer) VALUES ('$split[1]','$split[2]')";
            $conn->query($asked_question_answer);
            echo "Question and answer added successfully";
        } else if ($split[0] == $action && isset($split[1]) && isset($split[2])&&$split[2]=="((get_current_time))"){

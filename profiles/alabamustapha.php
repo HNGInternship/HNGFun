@@ -1,4 +1,14 @@
 <?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/answers.php'; //tweak
+
+if (!defined('DB_USER')) {
+	require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/config.php'; //tweak
+	try {
+		$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	} catch (PDOException $pe) {
+		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	}
+}
 
 // if (!defined('DB_USER')) {
 // 	require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/config.php'; //tweak
@@ -39,11 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 }
 
-<<<<<<< HEAD
-// $data = getAction(['stage' => 2, 'human_response' => 'train what is the synonym of love # like,hate,toast']);
-=======
 // $data = getAction(['stage' => 2, 'human_response' => 'synonym of love']);
->>>>>>> 1eb52e5d15cc558242e86db7cf3dd8bad0a42a6d
 
 // var_dump($data);
 
@@ -82,14 +88,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	function train($human_response){
 		$human_response = prepare_input($human_response);
 		$parts = explode('#', $human_response);
+		if(count($parts) !== 3){
+			$data = ["data" => "In correct train syntax", "stage" => 2];	
+			return $data;
+		}
+		$password = array_pop($parts);
 		$part_one = trim($parts[0]);
 		$part_one_split = explode(' ', $part_one);
 		$word = array_pop($part_one_split);
 		$word = trim($word);
 		$word = str_replace('?', '', $word);
 		$answer = trim(str_replace(' ', '', $parts[1]));
-
-		if (strpos($human_response, 'synonym') !== false) {
+		if(strcmp(trim($password), 'password') !== 0 ){
+			$data = ["data" => "You don't have the pass key", "stage" => 2];
+		}else if (strpos($human_response, 'synonym') !== false) {
 			$data = setSynonyms($word, $answer);
 		} else {
 			$data = ["data" => "Just a bot, still learning :-)", "stage" => 2];
@@ -110,7 +122,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 		$human_response = prepare_input($human_response);
 		
 		$human_response_words = explode(' ', $human_response);
-		if (strpos($human_response, 'synonym') !== false && count($human_response_words) > 1) {
+		if(strcmp($human_response, strtolower('menu')) === 0){
+			$data = ["data" => alabotGetMenu(), "stage" => 2];	
+		}elseif (strpos($human_response, 'synonym') !== false && count($human_response_words) > 1) {
 			$data = getSynonyms($human_response);
 		} else {
 		$data = ["data" => "Just a bot, still learning :-)", "stage" => 2];
@@ -118,6 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 		return $data;
 	}
+
 
 	function getSynonyms($human_response){
 		global $conn;
@@ -486,9 +501,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 			function doIntro(){
 				if(visitor == ''){
-
+					
 					$.post(url, {human_response: 'Hi', stage: stage})
 						.done(function(response) {
+							console.log(response);
 							response = jQuery.parseJSON(response);
 							stage = response.stage;
 							$("div.conversation").append(makeMessage(response.data));

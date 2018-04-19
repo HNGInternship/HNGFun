@@ -178,22 +178,13 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
     		font-family: 'roboto';
     	}
 		.container{
-			background-image: url('https://drive.google.com/open?id=1ObsCSN6HxCY3fEJX7rysaaXKVc1n_LVG');
+			background-image: url('https://res.cloudinary.com/dzbxciyvo/image/upload/v1524148027/imageedit_1_9203304264.gif');
 			background-size: cover;
 			background-position: center;
 			background-attachment: fixed;
 		}
 
-		.container:before {
-			    content: '';
-		        position: fixed;
-		        top: 0;
-		        right: 0;
-		        bottom: 0;
-		        left: 0;
-		        background-image: linear-gradient(to bottom right,#002f4b,#dc4225);
-		        opacity: .6; 
-		  }
+		
 		h1{
 			margin-bottom: 5px;
 		}
