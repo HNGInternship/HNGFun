@@ -40,7 +40,10 @@
 			$image_filename = $row['image_filename'];	
 		}
 	}
+    echo $json;
 ?>
+
+
 
 <html>
     <head>
