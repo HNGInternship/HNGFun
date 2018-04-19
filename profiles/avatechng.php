@@ -133,16 +133,7 @@ exit();
     
     <title>HNG Internship 4</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
     
-
-        <link rel="stylesheet" href="http://icitifysolution.com/hng/css/bootstrap.min.css">
-        <link rel="stylesheet" href="http://icitifysolution.com/hng/css/font-awesome.min.css">
-        <link rel="stylesheet" href="http://icitifysolution.com/hng/css/normalize.css">
-        <link rel="stylesheet" href="http://icitifysolution.com/hng/css/main.css">
-        <script src="http://icitifysolution.com/hng/js/vendor/modernizr-2.8.3.min.js"></script>
-        <script src="http://icitifysolution.com/hng/js/vendor/jquery-1.12.0.min.js"></script>
-
 
 
     <style type="text/css">
