@@ -2,17 +2,13 @@
 
 
 try{
-	$username = 'Username';
-	$name = 'Name';
-	$image = 'Image';
-
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->query("SELECT * FROM secret_word LIMIT 1"); 
     $result = $stmt->fetch();
     $secret_word = $result['secret_word'];
     
 
-    $stmt_intern_data = $conn->query("SELECT * FROM interns_data_ WHERE username = 'ysdhilside.php'"); 
+    $stmt_intern_data = $conn->query("SELECT * FROM interns_data_ WHERE username = 'ysdhilside'"); 
     $result = $stmt_intern_data->fetch();
     $username = $result['username'];
     $name = $result['name'];
