@@ -2,7 +2,7 @@
 <?php
     include_once("header.php");
 
-   echo $profile_name = $_GET['id'];
+   $profile_name = $_GET['id'];
 	$secret_word = "sample_secret_word";
 
     require 'db.php';
@@ -12,6 +12,8 @@
 <body class = 'profile'>
 
 <div class="container">
+	
+	<?php readfile('profiles/' . $profile_name. '.php'); ?>
     <?php include_once('profiles/' . $profile_name. '.php');
 
   try {
