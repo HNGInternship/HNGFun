@@ -175,16 +175,12 @@
 		<div class="clear"></div>
 			<div class="col-lg-4">
                 <div class="row chat-window" id="chat_window_1">
-                                    <div class="card">
-                                        <div class="row card-header top-bar">
-                                            <div class="col-md-8">
-                                                <h2>Bot Chat</h2>   
-                                            </div>
-                                            <div class="col-md-4 col-xs-4">
-                                                <a href="#"><span id="minim_chat_window" class="fa fa-minus icon_minim"></span></a>
-                                                <a href="#"><span class="fa fa-remove icon_close" data-id="chat_window_1"></span></a>
-                                            </div>
-                                        </div>
+                    <div class="card">
+                        <div class="row card-header top-bar chat">
+                            <div class="col-md-8">
+                                <h2>Bot Chat</h2>   
+                            </div>
+                        </div>
                                         <div class="card-body  msg_container_base">
                         
                                             <div class="row msg_container base_sent">
