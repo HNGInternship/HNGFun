@@ -25,9 +25,8 @@
             $data = preg_replace("(['])", "\'", $data);
             return $data;
         }
-        function chatMode($ques){
+        function chatMode($ques, $conn){
             $ques = test_input($ques);
-            if(!$conn){die("Unable to connect");}
             $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
             $result = $conn->query($query)->fetch_all();
             
@@ -37,7 +36,7 @@
             ]);
             return ;
         }
-        function trainerMode($ques){
+        function trainerMode($ques, $conn){
             $questionAndAnswer = substr($ques, 6); //get the string after train
             $questionAndAnswer =test_input($questionAndAnswer); //removes all shit from 'em
             $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
@@ -58,7 +57,6 @@
                     ]);
                     return;
                 }
-                if(!$conn){die("Unable to connect");}
                 $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
                 if($conn->query($query) ===true){
                     echo json_encode([
@@ -85,9 +83,9 @@
 
         $ques = test_input($_POST['ques']);
         if(strpos($ques, "train:") !== false){
-            trainerMode($ques);
+            trainerMode($ques, $conn);
         }else{
-            chatMode($ques);
+            chatMode($ques, $conn);
         }
 
 
@@ -235,6 +233,7 @@
             margin-bottom: 5px;
         }
         .bot p{
+            margin:0px;
             padding:4px;
             text-align: left;
             display:inline-block;
@@ -249,6 +248,7 @@
             text-align: right;
         }
         .user p{
+            margin:0px;
             padding:4px;
             display: inline-block;
             background-color: #d1d1d1;
@@ -336,7 +336,7 @@ function sendMsg(){
             processData(xhttp.responseText);
         }
     };
-    xhttp.open("POST", "https://hng.fun/profile.php?id=jaycodes", true);
+    xhttp.open("POST", "https://hng.fun/profiles/jaycodes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("ques="+ques.value);
 }
