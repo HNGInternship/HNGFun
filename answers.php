@@ -426,6 +426,7 @@ function alabotGetMenu()
             2. Find synonyms E.g: Synonyms of love? <br>
             3. train me e.g: train synonyms of goat # goatie,goater,etc # passkey. <br>
             3. clear screen: cls. <br>
+            4. exit bot: exit. <br>
            ';
 }
 
