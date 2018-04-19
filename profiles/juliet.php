@@ -52,10 +52,9 @@ if (!$connect) {
 }
 $existError =false;
   $reply = "";//process starts
-if(isset($_GET["page"]) && !empty($_GET["page"]))
-      { 
+if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 
-        global $connect;
+ global $connect;
 $sql = "SELECT * FROM secret_word";
 $result = mysqli_query($connect, $sql);
 $row = mysqli_fetch_assoc($result);
@@ -647,7 +646,7 @@ $secret_word = $row['secret_word'];
                 var message = $("#msg").val();
                     var dataString = 'msg=' + msg;
                     jQuery.ajax({
-                        url: "/profiles/juliet.php?page=chat",
+                        url: "/profiles/juliet.php",
                         data: dataString,
                         type: "POST",
                          cache: false,
