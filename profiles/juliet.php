@@ -9,10 +9,10 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-if(isset($_GET["page"]))
-      { 
-       
-      }else{
+
+if (isset($_GET["page"])) {
+}else
+{
 ?>
 
 <!DOCTYPE html>
