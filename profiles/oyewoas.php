@@ -7,26 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>i-Code</title>
+    <?php
 
+        require 'db.php';
+
+
+        $result = $conn->query("Select * from secret_word LIMIT 1");
+        $result = $result->fetch(PDO::FETCH_OBJ);
+        $secret_word = $result->secret_word;
+
+        $result2 = $conn->query("Select * from interns_data where username = 'oyewoas'");
+        $user = $result2->fetch(PDO::FETCH_OBJ);
+
+    ?>
     <!-- jQuery library -->
+    
 
     <style>
-        /*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2017 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
-
-        /*!
- * Generated using the Bootstrap Customizer (http://getbootstrap.com/docs/3.3/customize/?id=4b57f444e61fdd5e3815d8620a07ecdc)
- * Config saved to config.json and https://gist.github.com/4b57f444e61fdd5e3815d8620a07ecdc
- */
-        /*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
-        /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
         html {
             font-family: sans-serif;
             -ms-text-size-adjust: 100%;
@@ -6774,7 +6771,7 @@
         body {
             background-image: url("https://res.cloudinary.com/i-code/image/upload/v1523993886/icode2.jpg");
             background-repeat: no-repeat;
-            background-size: 1420px;
+            background-size: 100% 100%;
             background-attachment: fixed;
             background-position: center;
             margin-top: 4px;
@@ -7096,19 +7093,7 @@
 </head>
 
 <body>
-<?php
 
-   require 'db.php';
-
-
-$result = $conn->query("Select * from secret_word LIMIT 1");
-$result = $result->fetch(PDO::FETCH_OBJ);
-$secret_word = $result->secret_word;
-
-$result2 = $conn->query("Select * from interns_data where username = 'oyewoas'");
-$user = $result2->fetch(PDO::FETCH_OBJ);
-    
-    ;?>
     <header>
         <div class="container ">
             <div class="row">
@@ -7280,10 +7265,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
             <?php echo date("Y"); ?>
         </p>
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery3.2.1.min.js"></script>
+
 
 
 </body>

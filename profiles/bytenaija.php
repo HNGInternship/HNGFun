@@ -74,11 +74,24 @@ function training($question, $answer){
   global $conn;
   
     try {
+        $sql = "SELECT id FROM chatbot where question = '" .$question ."'";
+        $q = $conn->query($sql);
+        $count = $q->rowCount();
+        if($count > 0){
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+            $id = $data['id'];
+            $sql = "UPDATE chatbot SET question = '" . $question ."', answer =  '" . $answer . "' where id = '" .$id ."'";
+            
+            $conn->exec($sql);
+            $message = "Updated " . $question ." -> " . $answer;  
+        }else{
         $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
         
         $conn->exec($sql);
 
         $message = "Saved " . $question ." -> " . $answer;
+        }
         
         echo $message;
 
@@ -95,21 +108,29 @@ function training($question, $answer){
         global $conn;
         $str = "'%".$str."%'";
         if($str !== ''){
-            $sql = "SELECT COUNT(*) FROM chatbot WHERE question LIKE " . $str;
+           /*  $sql = "SELECT COUNT(*) FROM chatbot WHERE question LIKE " . $str;
             if ($res = $conn->query($sql)) {
-
-                /* Check the number of rows that match the SELECT statement */
-              if ($res->fetchColumn() > 0) {
-       
-        $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $str . " ORDER BY question ASC LIMIT 1";
+               
+               
+              if ($res->fetchColumn() > 0) { */
+            
+                
+        $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $str . " ORDER BY answer ASC";
         
-      foreach ($conn->query($sql) as $row) {
-          
-            echo $row["answer"];
-        }} else{
+        $q = $conn->query($sql);
+        $count = $q->rowCount();
+        if($count > 0){
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
+        
+        $rand = rand(0, $count - 1);
+
+        echo $data[$rand]["answer"];
+ 
+        }else{
             echo "I don't understand that command yet. My master is very lazy. Try again in 200 years. You could train me to understand this using this format <strong>train: question # answer</strong>!";
         }
-    }
+    
         
         }else{
             echo "Enter a valid command!";
