@@ -9,7 +9,7 @@ if (!defined('DB_USER')) {
 		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 	}
 }
-
+global $conn;
 
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 		$name = $data['name'];
 		$image_filename = $data['image_filename'];
+
 	} catch (PDOException $e) {
 		
 		$secret_word = "sample_secret_word";
@@ -41,6 +42,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	}
 
 
+}else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+	$data = getAction($_POST);
+
+	echo $data;
+	exit();
+		// return;
+
 }
 
 // $data = getAction(['stage' => 2, 'human_response' => 'synonym of love']);
@@ -48,29 +57,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 // var_dump($data);
 
 // die;
-	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		
-		if (!defined('DB_USER')) {
-			require "../../config.php";
-			try {
-				$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-			} catch (PDOException $pe) {
-				die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-			}
-		}
-
-		$data = getAction($_POST);
 	
-		echo $data;
-		exit();
-		// return;
-
-	}
 	
 
 
 	function getAction($input){
-		global $conn;
 		$data = [];
 		// if(strtolower($input['human_response'], "hi") == 0){
 		// $data = intro($input['human_response']);	
@@ -142,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
 	function getSynonyms($human_response){
-		global $conn;
+		// global $conn;
 		$human_response_words = explode(' ', $human_response);
 		$word = array_pop($human_response_words);
 		$db_word = 'alabot_synonyms_' . $word;
@@ -159,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	}
 
 	function setSynonyms($word, $answer){
-		global $conn;
+		// global $conn;
 		$db_word = 'alabot_synonyms_' . $word;
 		$sql = "SELECT * FROM chatbot WHERE question = '{$db_word}' LIMIT 1";
 		$q = $conn->query($sql);
@@ -234,19 +225,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 		return ["data" => $data, "stage" => 2];
 	}
 
-
-	function connect(){
-		include_once realpath(__DIR__ . '/..') . "/answers.php";
-		if (!defined('DB_USER')) {
-			require "../../config.php";
-		}
-		try {
-			$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-		} catch (PDOException $pe) {
-			die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-		}
-		global $conn;
-	}
 	
 
 ?>
