@@ -432,7 +432,7 @@
         </div>
       </div>
     </div>
-    <div class="chatbot"> ChatBot. </div>
+    <div class="chatbot"> _ChatBot_ </div>
     <div class="chatbot-container">
       <div class="chat-details" id="chat">
         <div class="server-name"> Bot </div>
