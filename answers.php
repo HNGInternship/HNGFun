@@ -80,6 +80,10 @@ function getNumberOfInterns()
     return 'Presently, there are '.$userData['COUNT(*)'].' interns at the amazing hng internship.';
 }
 
+    ########################################################
+    ###################### Start BAMII #####################
+    ########################################################
+
     function bamiiConvertCurrency($amount, $from, $to){
         $conv_id = "{$from}_{$to}";
         $string = file_get_contents("https://free.currencyconverterapi.com/api/v5/convert?q=$conv_id&compact=y");
