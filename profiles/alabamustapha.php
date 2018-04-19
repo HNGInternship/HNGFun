@@ -442,7 +442,7 @@ global $conn;
 			let stage = 0;
 			var visitor = '';
 			var visitor_input = '';
-			let url = window.location.origin + "/HNGfun/profiles/alabamustapha.php";
+			let url = "profiles/alabamustapha.php";
 			
 
 			$("div#chat-bot").hide();
