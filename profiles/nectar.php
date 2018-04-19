@@ -33,7 +33,7 @@
         }
         div.profile-image img {
             margin:auto;
-            margin-left: 35%;
+            margin-left: 40%;
             max-width: 100%;
             min-width: 10%;
             width: 20%;
@@ -73,8 +73,7 @@
             font-size: 3.5em;
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             font-weight: bold;
-
-
+            
             /* Test attributes */
             /* border: 2px solid yellow; */
         }
@@ -91,55 +90,33 @@
 <body>
     <?php
         // Get the config file
-        //  include ('../config.php');
+        // include '../db.php';
          
         // Set the needed variables
-        $name = "";
-        $username = ""; 
-        $pics = "";
+        $table = 'interns_data';
+        $secret_table = 'secret_word';
+        $intern_name = 'Nectar';
 
-         $table = 'interns_data_';
-         $secret_table = 'secret_word';
-         $intern_name = 'Nectar';
-         $test_link = 'https://upload.wikimedia.org/wikipedia/commons/f/f9/Phoenicopterus_ruber_in_S%C3%A3o_Paulo_Zoo.jpg';
-         
-        // Make a connection to the db, Catch the database errors
-        try {
-            // Create connection object using PDO
-            $connect = new PDO("mysql:host=".DB_HOST ."; dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
-            // set the PDO error mode to exception
-            $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
-            // echo nl2br("Connected successfully \r\n");
+        // Query the db for the data in interns data table
+        $query = "SELECT * FROM ".$table." WHERE username='Nectar'";
+        $data = $conn->query($query);
+        $data->setFetchMode(PDO::FETCH_ASSOC);
 
-            // Query the db for the data in interns data table
-            $query = "SELECT * FROM ".$table." WHERE username='Nectar'";
-            $data = $connect->query($query);
-
-            // Check if the data was returned, if data was returned use it
-            if ($data == null){
-                echo nl2br("Empty, Name not found");
-            }else{
-                foreach($data as $row) {
-                    $name = $row["name"];
-                    $username = $row["username"];
-                    $pics = $row["image_filename"];
-                }
-            }
-
-            // Query the db for the data in secret_word table
-            $query_secret = "SELECT * FROM ".$secret_table;
-            $data_secret = $connect->query($query_secret);
-
-            // Check if the data was returned, if data was returned use it
-            foreach($data_secret as $raw_secret) { 
-                $secret_word = $raw_secret['secret_word'];
-            }
-                
-            
-        }catch(PDOException $e) {
-            echo "Connection failed: " .$e->getMessage();
+        foreach($data as $row) {
+            $name = $row["name"];
+            $username = $row["username"];
+            $pics = $row["image_filename"];
         }
+        
+        try {
+            $query2 = "SELECT * FROM secret_word";
+            $word = $conn->query($query2);
+            $word->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $word->fetch();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+        $secret_word = $result['secret_word'];
     ?>
     <div class ="profile-image">
         <img src="<?php echo $pics ?>" alt="<?php echo $pics ?>">
@@ -147,11 +124,9 @@
     </div>
 
     <div class ="profile-details">
-    <?php echo $name."".$username." ".$pics ?>
         <h4 class="detail-title">HNG4 internship 2018 </h4>
         <p class="detail-name"><?php echo $name?></p>
-        <p class="detail-username">@<?php echo $username?></p>
-        <p>Secret Word: <?php echo $secret_word?></p>
+        <p class="detail-username">@<?php echo $username?></p>        
     </div>
 </body>
 </html>

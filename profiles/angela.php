@@ -1,3 +1,9 @@
+<?php
+  $query = "SELECT * FROM secret_word";
+  $secret_word = $conn->query($query);
+  $result = $secret_word->fetch();
+  $secret_word = $result['secret_word'];
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -166,7 +172,6 @@
     }
     .hover-bg:hover .hover-text>h4 {
       opacity: 1;
-      -webkit-backface-visibility: hidden;
       -webkit-transform: translateY(0);
       transform: translateY(0);
     }
@@ -178,7 +183,6 @@
     }
     .hover-bg:hover .hover-text>i {
       opacity: 1;
-      -webkit-backface-visibility: hidden;
       -webkit-transform: translateY(100%);
       transform: translateY(100%);
     }

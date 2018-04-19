@@ -6,8 +6,6 @@
  <?php
 
 
-   require_once('../db.php');
-
    try {
    $sql = 'SELECT * FROM secret_word';
        $q = $conn->query($sql);
