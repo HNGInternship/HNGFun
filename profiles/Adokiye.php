@@ -1,14 +1,14 @@
 <?php
 include "../answers.php";
- if(!defined('DB_USER')){
-			require "../../config.php";		
-			try {
-			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-			} catch (PDOException $pe) {
-			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-			}
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+if(!defined('DB_USER')){
+    require "../../config.php";
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
     }
-    
+}$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 ?>
 <!doctype html>
 <html>
@@ -60,7 +60,6 @@ include "../answers.php";
     <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
     <p style="font-style: normal; font-weight: bold;">NAME : <?php echo "i=Iruene Adokiye"?></p>
     <p style="font-weight: bold">USERNAME : <?php echo "Adokiye"?></p>
-    <p><span style="font-weight: bold">PROFILE PICTURE :  </span>: <?php echo"<img src="http://res.cloudinary.com/gorge/image/upload/v1523960782/Screenshot_20180414-113840.png" alt=\"Adokiye\" width=\"254\" height=\"413\">"?></p>
     <?php
     if (isset($_POST['button'])){
         if (isset ($_POST['input'])&&$_POST['input']!==""){
