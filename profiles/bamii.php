@@ -145,7 +145,7 @@
         ]);
         return;
       } else if(strpos($data_lower, "details") !== false) {
-        $result = bamiiCountryDetails($data);
+        $result = bamiiCountryDetails($data_lower);
   
         echo json_encode([
           'status' => 1,
@@ -350,11 +350,18 @@
               "verify_peer"=>false,
               "verify_peer_name"=>false,
           ),
-      );  
-      $geocodeUrl = "http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query=lagos&num_of_results=2&format=json";
-      $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+      );
+      $response = file_get_contents($string, false, stream_context_create($arrContextOptions));
 
       $a =json_decode($response, true);
+
+      if($a['data']['error']) {
+        echo json_encode([
+          'status' => 1,
+          'message' => "Unable to find the country.",
+        ]);
+        return;
+      }
 
       $longitude = $a['search_api']['result'][0]['longitude'];
       $latitude = $a['search_api']['result'][0]['latitude'];
