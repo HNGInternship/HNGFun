@@ -95,12 +95,15 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 			// Let's first check if we're in training mode
 			$array_data = explode(':', $strippedquestion);
 
-			if (is_training($array_data[0])) {
+			if (is_training($array_data[0])) { 
+				
 				// get training data
 				extract(training_data(stripquestion($array_data[1])), EXTR_PREFIX_ALL, "train");
+				
 
+				if(authorize_training($train_password)){
 				// store question in database
-				$answer = train($train_question, $train_answer);
+				$answer = train($train_question, $train_answer);}else{$answer=" incorrect password, authorization failed";}
 				echo json_encode([
 					'status' => 1,
 					'answer' => $answer
