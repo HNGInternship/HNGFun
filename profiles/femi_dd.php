@@ -1,21 +1,19 @@
 <?php
 // ob_start();
-session_start();
+session_start();  
 if($_SERVER['REQUEST_METHOD'] == "POST") {
    if(!defined('DB_USER')){
       //live server
-      require "../../config.php";
-      //localhost
-      // require "../config.php";
-
+      // require "../../config.php";
+      // localhost
+      require "../config.php";
       try {
          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
       } catch (PDOException $pe) {
          die("🤖I couldn't connect to knowledge base : ".$pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
       }
    }
-   // require '../config.php';
-   // require '../db.php';
+
    require '../answers.php';
    global $conn;
    function train($trainData) {
@@ -83,26 +81,30 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
       }
    }
 
-   $response_and_request = [];
-   $response_and_request['request'] = "";
-   $response_and_request['response'] = "";
-   $response_and_request['time'] = "";
    if(isset($_GET['new_request'])) {
-
+      $response_and_request = [];
+      $response_and_request['request'] = "";
+      $response_and_request['response'] = "";
+      $response_and_request['time'] = "";
       $request = $_GET['new_request'];
       $response_and_request['request'] = trim($request);
+
       if(empty($response_and_request['request'])) {
-         $response_and_request['response'] = "🤖 You haven't made any request ";
+         $response_and_request['response'] = "🤖 You haven't made any request";
          // echo json_encode($response_and_request);
+
       } else {
          if(!empty(searchRequest($response_and_request['request']))) {
             $response_and_request['response'] = searchRequest($response_and_request['request']);
             // goto send;
+
          } else if(preg_match("/(train:)/", $response_and_request['request']) && preg_match('/(@)/', $response_and_request['request'])) {
             $response_and_request['response'] = train($response_and_request['request']);
             // goto send;
+
          } else if(preg_match('/(find:)/', $request)) {
             $ex = explode("find:", $request);
+
             if(!empty($users = findThisPerson($ex[1]))) {
                // $count = count($users);
                $response_and_request['response'] = array('resultType'=>'find', 'users'=> $users);
@@ -120,14 +122,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
       echo json_encode($response_and_request);
    }
 }
-
-if($_SERVER['REQUEST_METHOD'] === "GET") {
+if($_SERVER['REQUEST_METHOD'] == "GET") {
    $result = $conn->query("Select * from secret_word LIMIT 1");
    $result = $result->fetch(PDO::FETCH_OBJ);
    $secret_word = $result->secret_word;
    $result2 = $conn->query("Select * from interns_data where username = 'femi_dd'");
    $user = $result2->fetch(PDO::FETCH_OBJ);
-   ?>
+} ?>
+<?php if($_SERVER['REQUEST_METHOD'] == "GET") { ?>
    <style>
    body {
       background: #DAE3E7;
@@ -202,6 +204,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET") {
    .form-control2{
       margin-bottom:20px;
    }
+   .timeEl{color:#495057;font-size:12px}
 </style>
 <!DOCTYPE HTML5>
 <head>
@@ -259,6 +262,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET") {
       <p>Copyright &copy; Kole-Ibrahim AbdulQudus 2018</p>
    </footer>
 </body>
+
 <script type="text/javascript">
 function sendData() {
    var message = document.getElementById("message").value;
@@ -267,6 +271,14 @@ function sendData() {
    newElement.className = "form-control form-control2 text-right";
    newElement.value = message;
    chatArea.appendChild(newElement);
+
+//request time  element
+var timeEl2 = document.createElement("p");
+timeEl2.className = "timeEl text-right";
+timeEl2.innerHTML = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
+chatArea.appendChild(timeEl2);
+//request time element
+
    var xmlhttp = new XMLHttpRequest();
    if (window.XMLHttpRequest) {
       xmlhttp = new XMLHttpRequest();
@@ -277,6 +289,8 @@ function sendData() {
       if (this.readyState == 4 && this.status == 200) {
          var response = JSON.parse(xmlhttp.responseText);
          var newElement = document.createElement("input");
+         var timeEl = document.createElement("p");
+      timeEl.className = "timeEl text-left";
          newElement.className = "form-control form-control2 text-left";
          if(response.response.resultType === "find") {
             var newElement = document.createElement("div");
@@ -288,13 +302,14 @@ function sendData() {
          }
          newElement.value = response.response;
          chatArea.appendChild(newElement);
+         timeEl.innerHTML = response.time;
+         chatArea.appendChild(timeEl);
       }
    }
    //live server
-   xmlhttp.open("POST", "https://hng.fun/profiles/femi_dd.php?new_request="+message, true);
+//    xmlhttp.open("POST", "https://hng.fun/profiles/femi_dd.php?new_request="+message, true);
    //localhost
-   // xmlhttp.open("POST", "http://localhost/HNGFun/profiles/femi_dd.php?new_request="+message, true);
-
+   xmlhttp.open("POST", "http://localhost/HNGFun/profiles/femi_dd.php?new_request="+message, true);
    xmlhttp.send();
    document.getElementById("message").value = "";
 }
