@@ -53,7 +53,7 @@ $an = $q[1];
 $pass = $q[2];
 if($train == 'train'&& $pass != 'trainpwforhng'){
     echo "Wrong Password, You need my pass word before you can train me.";
-  }elseif($train == 'train' && $pass == '1234'){
+  }elseif($train == 'train' && $pass == 'trainpwforhng'){
   $in = "INSERT INTO `chatbot`(`question`, `answer`)
      VALUES ('$qu','$an')";
   $tr = mysqli_query($conf, $in);
