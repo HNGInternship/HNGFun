@@ -15,11 +15,7 @@ global $conn;
   }
   $name = $data['name'];
   $username = $data['username'];
-<<<<<<< HEAD
-  $image = $data['http://res.cloudinary.com/onesiphorus/image/upload/v1523631727/pexels-photo-97077.jpg'];
-=======
 
->>>>>>> c4cd176945e1e8f6df3bf5ca3e7506726d4861d1
 
   try {
       $sql2 = 'SELECT * FROM secret_word';

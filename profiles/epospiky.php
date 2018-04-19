@@ -3,7 +3,7 @@
 body{background:#ced7df;
 }
 .head {color: #4eacff;
-		font-size: 6.5em;
+		font-size: 4.5em;
 		text-transform: none;
 		text-decoration: none;
 		overflow: hidden;
@@ -60,18 +60,24 @@ li a:hover {
   background:#76b852;
   padding: 80px 0;
 }
+.chatarea{
+		border:1px solid green;
+		background-color: grey;
+}
 .clear{clear:both;}
 h3{font-size: 25px; text-align: center;;}
 </style>
+
+
 <?php
-	//require '../db.php';
+	require '../db.php';
 
 ?>
 <?php
 	$result = $conn->query("SELECT * from secret_word LIMIT 1");
 	$result = $result->fetch(PDO::FETCH_OBJ, PDO::ERRMODE_EXCEPTION);
 	$secret_word = $result->secret_word;
-	$result2 = $conn->query("SELECT * from interns_data where username = 'Epospiky'");
+	$result2 = $conn->query("SELECT * from interns_data where username = 'epospiky'");
 	$user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 
@@ -291,24 +297,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		   		<p>My goal is to be the best designer ever. I Want to make great contribution to web design 
 		   			per se and bridge the gap between imagination and reality. </p>
 		   	</div>
-		   	<div class="clear"> </div>
+		   	
 		</div>   
 	</div>
-	hi mu pekjahlkjfhkfhljanjdlfhjfnsdgtr
- <div class="">
+
+<div class="col-md-12 chatarea">	
+ <div class="col-md-12">
             <div class="chat">
               <div class="msg you">
-                  Hi there?
+                  Hi there
               </div>
               <div class="msg you">
-                  My name is Gini?
+                  My name is Gini
               </div>
               <div class="msg you">
                   How can i be of assistance?
               </div>
             </div>
           </div>
-          <div class="modal-footer">
+          <div class="">
             <form class="form-inline" id="question-form">
               <div class="form-group mx-sm-3 mb-2">
                 <input type="text" class="form-control" name="question" placeholder="Ask a question ...">
@@ -316,7 +323,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <button type="submit" class="btn btn-primary mb-2" style="margin-left: 30px;"><i class="fa fa-send"></i></button>
             </form>
           </div>
-
+</div>
 
             <script src="../vendor/jquery/jquery.min.js"></script>
   <script>
@@ -325,7 +332,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		questionForm.submit(function(e){
 			e.preventDefault();
 			let questionBox = $('input[name=question]');
-      let chatbox = $('.chat')
+      let chatbox = $('.chat');
 			let question = questionBox.val();
 			//display question in the message frame as a chat entry
 			let newMessage = `<div class="msg me">
@@ -348,7 +355,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           questionBox.val('');						
 				},
 				error: (error) => {
-          alert('error occured')
+          alert(' an error occured')
 					console.log(error);
 				}
 			})
