@@ -65,7 +65,7 @@ require_once("../db.php");
 	 //Bot Brain
 			
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		require "../answers.php";
+		//require "../answers.php";
 		if(!isset($_POST['q'])){
 			echo json_encode([
 				'status' => 1,

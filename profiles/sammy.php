@@ -6,12 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Sammy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:image" content="Felix%20-%20Favcoder_files/art.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" href="favicon.ico" type="icon">
    
     <script>
         var slideInterval = 2500;
@@ -49,8 +46,7 @@
             background-size: cover;
             margin: 0 auto;
             height: 900px;
-            width: 803px;
-            transform: translateX(0%) translateY(0%);
+            width: 800px;
         }
 
         .carousel-inner>.item>img,
@@ -69,7 +65,7 @@
 
         .name {
             color: rgb(0, 0, 0);
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, Sans-Serif;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             float: right;
             position: relative;
             margin-top: 0px;
@@ -78,6 +74,14 @@
             font-style: normal;
             letter-spacing: 1px;
             font-size: 13px;
+        }
+
+        #center {
+            position: absolute;
+            top: 15%;
+            float: left;
+            padding-left: 20px;
+        }
 
         p {
             color: rgb(0, 0, 0);
@@ -130,14 +134,6 @@
             color: #ffffff;
         }
 
-        #center {
-            position: absolute;
-            top: 10%;
-            top: 15%;
-            float: left;
-            padding-left: 20px;
-        }
-
         #nav a {
             margin: 0 5px;
             font-size: 15px;
@@ -153,6 +149,7 @@
             text-align: center;
             background-image: url("https://res.cloudinary.com/dyuuulmg0/image/upload/v1523622023/sammm.jpg");
             height: 130px;
+            display: inline-block;
             width: 800px;
             padding-top: 20px;
             position: relative;
@@ -201,7 +198,7 @@
         }
 
         #tod {
-            padding-top: 10px;
+            padding-top: 1px;
             border-left: 1px solid #5e5c5c46;
             border-right: 1px solid #5e5c5c46;
             border-top: 1px solid #5e5c5c46;
@@ -212,21 +209,20 @@
         }
 
         #foot-container {
-            padding-top: 45px;
+            padding-top: 53px;
         }
 
         #body {
-            padding-top: 30px;
+            padding-top: 5px;
         }
 
         #cent {
-            float:right;
+            float:left;
             margin-right: 50px;
             text-align: center;
             align-content: flex-start;
             transform: translateX(-10px) translateY(10px);
         }
-
     </style>
 </head>
 

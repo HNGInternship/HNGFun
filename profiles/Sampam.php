@@ -46,9 +46,9 @@
         <div id = 'profile'>    
             <div id = 'text center'>
             
-            <h1>Hey there, I'm Kayode Samuel</h1>
+            <h1>Hey there, I'm Kayode Samuel Bunmi</h1>
             <h1>A software Engineering newbie. I tweet at <a href="https://twitter.com/Prof_sampam">@Prof_sampam</a></h1>
-            <img src="http://res.cloudinary.com/sampam/image/upload/v1523744814/IMG_20180130_155108.jpg" alt="Sampam"
+            <img src="http://res.cloudinary.com/sampam/image/upload/v1523744814/IMG_20180130_155108.jpg" alt="Sampam with the sauce"
             height= "240px" width="240px">
             </div>
         </div>

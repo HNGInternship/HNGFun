@@ -8,11 +8,12 @@
 
 <style type="text/css">
 
+
 #mid
 {
  
    color: #FBF7F7;
-   width: 87%;
+   width: 95%;
    border-radius: 30px;
    padding-top: 30px;
    font-size: 38px;
@@ -24,11 +25,11 @@
 {
  
    color: #FBF7F7;
-   width: 68%;
+   width: 85%;
    text-decoration:bold ;
    border-radius: 30px;
    padding-top: 3px;
-   font-size: 25px;
+   font-size: 16px;
    text-align: left;
    padding-bottom: 4px;
    
@@ -38,7 +39,7 @@
 {
  
    color: #FBF7F7;
-   width: 68%;
+   width: 88%;
    font-family: 'Font Name',Righteous;
    border-radius: 30px;
    padding-top: 3px;
@@ -51,30 +52,37 @@
 }
 body
 {
-	width: 100%;
-	color: #FBF7F7;
-	padding-top: 100px;
-	background-image: url('https://res.cloudinary.com/dttpnfzul/image/upload/v1524048214/bg.jpg');
-	font-family: 'Font Name',Righteous;
-	text-align: center;
-	font-size: 28px;
-	font-style:regular;
-	line-height: 60px;
-	
+  width: 100%;
+  color: #FBF7F7;
+  padding-top: 100px;
+  background-image: url('https://res.cloudinary.com/dttpnfzul/image/upload/v1524048214/bg.jpg');
+  font-family: 'Font Name',Righteous;
+  text-align: center;
+  font-size: 28px;
+  font-style:regular;
+  line-height: 60px;
+  
 
    background-color:rgba(196, 196, 196, 0.50);
 }
 .fa {
-  padding: 20px;
-  font-size: 30px;
-  width: 30px;
-  text-align: center;
-  text-decoration: none;
-  margin: 5px 2px;
-  border-radius: 50%;
-   background: #3B5998;
-  color: white;
-}
+            padding: 10px;
+            font-size: 15px;
+            width: 35px;
+            text-align: center;
+            margin: 3px 2px;
+             background: #000000;
+            color: rgb(255, 0, 0);
+            border-radius: 50%;
+            text-decoration: none;
+        }
+
+        .fa:hover {
+            opacity: 0.7;
+            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.35);
+            transition: 0.2s;
+        }
+
 
 </style>
 <head>
@@ -85,10 +93,10 @@ body
 </head>
 <body>
   <?php 
-require '../db.php';
+
   $result = $conn->query("Select * from secret_word LIMIT 1");
-   $result = $result->fetch(PDO::FETCH_OBJ);
-   $secret_word = $result->secret_word;
+  $result = $result->fetch(PDO::FETCH_OBJ);
+  $secret_word = $result->secret_word;
    $result2 = $conn->query("Select * from interns_data where username = 'kingpin'");
    $user = $result2->fetch(PDO::FETCH_OBJ);
    $yy='<img  src="';
@@ -97,7 +105,7 @@ require '../db.php';
 
    
 
-    echo $user->name;
+    echo $user->name.' Owino';
  echo'<br><c style="color: #FBF7F7;">WELCOME TO MY PROFILE<br>';
  echo $user->username;
  echo'</c><br><br><center><div id="mid">';
