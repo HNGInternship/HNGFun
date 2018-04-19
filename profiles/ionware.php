@@ -39,7 +39,7 @@ catch (Exception $e) {
             font-size: 1.02em;
         }
         .pad-all-2x {
-            padding: 15px;
+            padding: 10px;
         }
         .avater {
             width: 160px;
@@ -57,7 +57,7 @@ catch (Exception $e) {
             color:
         }
         .social {
-            padding: 10px 30px;
+            padding: 0 0;
             text-align: right;
         }
         .social > a {

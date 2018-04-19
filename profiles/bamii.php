@@ -25,8 +25,8 @@
     $a = [];
 
     # Greetings
-    $greeting = ['hi?', 'hey?', 'hello?', 'hello there?', 'hey there?', 'hi there?'];
-    $follow_up = ['whats up?', 'and you?', 'how are you?'];
+    /* $greeting = ['hi?', 'hey?', 'hello?', 'hello there?', 'hey there?', 'hi there?'];
+    $follow_up = ['whats up?', 'and you?', 'how are you?']; */
 
     # Populate the question array
     foreach ($db_result as $key => $value) {
@@ -42,24 +42,16 @@
     }
 
 
-    if (in_array($greet, $greeting)) {
-        # Greeting
-        echo json_encode([
-          'status' => 1,
-          'answer' => "Hello there!",
-        ]);
-        return;
-    } else if(in_array($greet, $follow_up)) {
-      echo json_encode([
-        'status' => 1,
-        'answer' => "I'm fine, Thank you!",
-      ]);
-      return;
-    } else if(in_array($data_lower, $q)) { # DONE
+    if(in_array($data_lower, $q)) { # DONE
       # search the stored db
       $data_lower_2 = preg_replace("([?.])", "", $data_lower);
 
-      $index = array_search($data_lower_2, $q);
+      $indexes = array_keys($q, $data_lower);
+      $arr_size = sizeof($indexes);
+      $random = mt_rand(0, $arr_size-1);
+
+      $index = $indexes[$random];
+
       echo json_encode([
         'status' => 1,
         'answer' => $a[$index],
