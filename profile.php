@@ -12,18 +12,12 @@
 <body class = 'profile'>
 
 <div class="container">
-<<<<<<< HEAD
 	
     <?php 
 	
 	
 	// readfile('profiles/' . $profile_name. '.php');
-=======
 
-    <?php
-
-
->>>>>>> d437c79b36edbe398730231992e8e5945d8949c5
 	require_once('profiles/' . $profile_name. '.php');
 
 
