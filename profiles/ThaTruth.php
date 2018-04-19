@@ -1,14 +1,24 @@
+<?php 
+  try {
+      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'ThaTruth\'';
+      $q = $conn->query($sql);
+      $q->setFetchMode(PDO::FETCH_ASSOC);
+      $data = $q->fetch();
+      $secret_word = $data['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Egbo ThankGod</title>
+    <title><?php echo $data['name'] ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -334,7 +344,9 @@ footer.footer .social-link:hover{
     <!-- Navigation -->
     	<nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Egbo ThankGod</a>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">
+<?php echo $data['name'] ?>
+        </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -366,13 +378,22 @@ footer.footer .social-link:hover{
         <div class="row">
           <div class="col-lg-10 mx-auto">
             <h1 class="text-uppercase">
+
+              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="card" style="width:30%" >
+  <img src="http://res.cloudinary.com/tech-18/image/upload/v1516110766/IMG_20170803_224355_268_ji75r2.jpg" alt="Tha" style="width:100%">
+</div>
+
               <strong>WELCOME TO MY WORLD</strong><br>
-              <small>THANKGOD EGBO</small>
+              <small> 
+       <?php echo $data['name'] ?>         
+        </small>
             </h1>
             <hr>
           </div>
           <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5">Badass Back-End Web Programmer Egbo ThankGod</p>
+            <p class="text-faded mb-5">Badass Back-End Web Programmer <?php echo $data['name'] ?></p>
             <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
           </div>
         </div>
@@ -385,7 +406,7 @@ footer.footer .social-link:hover{
           <div class="col-lg-8 mx-auto text-center">
             <h2 class="section-heading text-white">Here's a Brief Intro</h2>
             <hr class="light my-4">
-            <p class="text-faded mb-4">Egbo ThankGod Is a Back-End Web Developer, a Computer Science Student of Cross River University of Technology. Big dreams of getting one of the biggest Tech Empire in the world.</p>
+            <p class="text-faded mb-4"> <?php echo $data['name'] ?> Is a Back-End Web Developer, a Computer Science Student of Cross River University of Technology. Big dreams of getting one of the biggest Tech Empire in the world.</p>
             <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Work With Me!</a>
           </div>
         </div>
