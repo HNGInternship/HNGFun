@@ -145,7 +145,7 @@
         ]);
         return;
       } else if(strpos($data_lower, "details") !== false) {
-        $result = bamiiCountryDetails($data);
+        $result = bamiiCountryDetails($data_lower);
   
         echo json_encode([
           'status' => 1,
@@ -350,11 +350,14 @@
               "verify_peer"=>false,
               "verify_peer_name"=>false,
           ),
-      );  
-      $geocodeUrl = "http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query=lagos&num_of_results=2&format=json";
-      $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+      );
+      $response = file_get_contents($string, false, stream_context_create($arrContextOptions));
 
       $a =json_decode($response, true);
+
+      if($a['data']['error']) {
+        return "Unable to find the country";
+      }
 
       $longitude = $a['search_api']['result'][0]['longitude'];
       $latitude = $a['search_api']['result'][0]['latitude'];
@@ -379,7 +382,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://use.fontawesome.com/dfb23fb58f.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Tajawal" rel="stylesheet">
 	<!-- link to main stylesheet -->
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
     <style>
@@ -537,7 +540,7 @@
         .client-send {
           padding: 10px 20px;
           font-size: small;
-          font-family: 'Raleway';
+          font-family: 'Tajawal';
           min-width: 30%;
           max-width: 60%;
           overflow-wrap: break-word;
@@ -553,13 +556,13 @@
         }
 
         .server-name {
-          font-family: 'Raleway';
+          font-family: 'Tajawal';
           font-size: medium;
         }
 
         .client-name {
           align-self: flex-end;
-          font-family: 'Raleway';
+          font-family: 'Tajawal';
           font-size: medium;
           
         }
@@ -592,7 +595,7 @@
           padding: 0 15px;
           margin: 0 auto;
           font-size: small;
-          font-family: 'Raleway';
+          font-family: 'Tajawal';
         }
 
         .chat-btn {
