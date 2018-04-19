@@ -62,7 +62,7 @@
               $question = trim($sperate_ques_ans[0]);
               $answer = trim($sperate_ques_ans[1]);
               $password = trim($sperate_ques_ans[2]);
-              if ($password === 'trainpwforhng') {
+              if ($password === 'password') {
                 # carry out insertion if password is supplied correctly
                 #return "good to go on";
                 $sql = "SELECT * FROM chatbot WHERE question LIKE '".$question."'";
