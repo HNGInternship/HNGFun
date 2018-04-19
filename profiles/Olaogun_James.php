@@ -228,7 +228,7 @@ $my_details = $result2->fetch(PDO::FETCH_OBJ);
         exit();
         return;
       }
-      if (trim($string[2]) !== "pass") {
+      if (trim($string[2]) !== "password") {
         echo "Invalid password, i will not allow you train me.";
         exit();
         return;
