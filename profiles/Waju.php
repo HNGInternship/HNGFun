@@ -639,12 +639,12 @@ window.addEventListener("load", function() {
 
             //scroll the chat interface up/ down
             this.$wrapper.animate(
-                {scrollTop: 800,},
+                {scrollTop: '+=800',},
                 {duration: 600}
             );
         },
         toggleView: function(e){
-            this.$el.animate({ height: 50 }, { duration: 300 });
+            this.$el.animate({ height: 250 }, { duration: 300 });
             console.log(this.$toggle.data('state')); //=== 'down' ? "\&#x23EB;" : "\&#x23EC;" ;  
             console.log(this.$toggle.text());
         },
