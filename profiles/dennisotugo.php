@@ -375,26 +375,16 @@ footer {
     });
 });
 
-var aiload = document.getElementById('message bot').innerHTML;
-
-// Use setInterval to keep checking if the voices array has been filled prior to creating the speech utterance
-var voiceGetter = setInterval(function() {
-  var voices = window.speechSynthesis.getVoices();
-  if (voices.length !== 0) {
-    var msg = new SpeechSynthesisUtterance(aiload);
-    // Pick any voice from within the array; you can console.log(voices) to see options
-    msg.voice = voices[5];
-    msg.volume = 1;
-    msg.rate = 1;
-    msg.pitch = 0;
-    // msg.text = aiload; <== This is redundant because of how msg is defined
-    msg.lang = 'en-US';
-    msg.onend = function(e) {
-        console.log('Finished in ' + event.elapsedTime + ' seconds.');
-    };
-    speechSynthesis.speak(msg);
-    clearInterval(voiceGetter);
-  }
-}, 200)
+document.getElementById("message bot").innerHTML;
+function speak(string){
+	var utterance = new SpeechSynthesisUtterance();
+	utterance.voice = speechSynthesis.getVoices().filter(function(voice){return voice.name == "Agnes";})[0];
+	utterance.text = string;
+	utterance.lang = "en-US";
+	utterance.volume = 1; //0-1 interval
+	utterance.rate = 1;
+	utterance.pitch = 1; //0-2 interval
+	speechSynthesis.speak(utterance);
+}
 </script>
 <?php } ?>
