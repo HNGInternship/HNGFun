@@ -1,21 +1,17 @@
 <?php
-    require_once 'db.php';
-    try {
-        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
-        $intern_data->execute();
-        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $intern_data->fetch();
-    
-    
-        $secret_code = $conn->prepare("SELECT * FROM secret_word");
-        $secret_code->execute();
-        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
-        $code = $secret_code->fetch();
-        $secret_word = $code['secret_word'];
-     } catch (PDOException $e) {
-         throw $e;
+     date_default_timezone_set('Africa/Lagos');
+     if (!defined('DB_USER')){
+         
+         require "../../config.php";
      }
-    if(isset($_POST['ques'])){
+     try {
+         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+       } catch (PDOException $pe) {
+         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+       }
+        global $conn;
+    
+    if($_SERVER['REQUEST_METHOD']==="POST"){
         //function definitions
         function test_input($data) {
             $data = trim($data);
@@ -27,7 +23,6 @@
         }
         function chatMode($ques){
             $ques = test_input($ques);
-            if(!$conn){die("Unable to connect");}
             $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
             $result = $conn->query($query)->fetch_all();
             
@@ -58,7 +53,6 @@
                     ]);
                     return;
                 }
-                if(!$conn){die("Unable to connect");}
                 $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
                 if($conn->query($query) ===true){
                     echo json_encode([
@@ -95,8 +89,25 @@
 
 
     return;
+    }else{
+        require_once 'db.php';
+    try {
+        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
+        $intern_data->execute();
+        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $intern_data->fetch();
+    
+    
+        $secret_code = $conn->prepare("SELECT * FROM secret_word");
+        $secret_code->execute();
+        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+        $code = $secret_code->fetch();
+        $secret_word = $code['secret_word'];
+     } catch (PDOException $e) {
+         throw $e;
+     }
+     $today = date("H:i:s");
     }
- $today = date("H:i:s");
 ?>
 
 <!DOCTYPE html>
@@ -170,7 +181,7 @@
             position:fixed;
             display: none;
             bottom:0;
-            left: 20px;
+            right: 20px;
             background-color:#fefefe;
             width: 350px;
             height: 550px;
@@ -223,11 +234,11 @@
         i:hover{
             color:black
         }
-        .message-area{
+        .myMessage-area{
             margin: 6px 5px;
             margin-bottom:50px;
         }
-        .message{
+        .myMessage{
             /* display:block; */
             
         }
@@ -235,6 +246,7 @@
             margin-bottom: 5px;
         }
         .bot p{
+            margin:0px;
             padding:4px;
             text-align: left;
             display:inline-block;
@@ -249,6 +261,7 @@
             text-align: right;
         }
         .user p{
+            margin:0px;
             padding:4px;
             display: inline-block;
             background-color: #d1d1d1;
@@ -272,17 +285,17 @@
             </p>
 
         </div>
-        <div class="footer"><button class="btnM" onclick="meetB()">Meet botX</button><button class="btn"style="display:none; border:none;box-shadow:3px 3px 3px #a1a1a1; background-color:#f8e2ea;text-shadow: 1.5px 1.5px 1px #ccc;" onclick="exitB()">Close botX</button></div>
+        <div class="footer"><button class="btnM" onclick="meetB()">Meet botX</button><button class="btnN"style="display:none; border:none;box-shadow:3px 3px 3px #a1a1a1; background-color:#f8e2ea;text-shadow: 1.5px 1.5px 1px #ccc;" onclick="exitB()">Close botX</button></div>
     </div>
 
     <div class="display">
         <div>
             <nav>Jay Interactive</nav>
-            <div class="message-area">
-                <div class="message bot">
+            <div class="myMessage-area">
+                <div class="myMessage bot">
                     <p>Hi am botX</p>
                 </div>
-                <div class="message bot">
+                <div class="myMessage bot">
                     <p>To exit this type <em>:close:</em> </p>
                 </div>
                 
@@ -301,12 +314,12 @@
     display.style.display = "block";
     var btnM = document.querySelector(".btnM");
     btnM.style.display ="none"
-    document.querySelector(".btn").style.display ="inline"
+    document.querySelector(".btnN").style.display ="inline"
 }
 function exitB(){
     var display= document.querySelector(".display");
     display.style.display = "none";
-    document.querySelector(".btn").style.display = "none";
+    document.querySelector(".btnN").style.display = "none";
     document.querySelector(".btnM").style.display = "inline";
 }
 window.addEventListener("keydown", function(e){
@@ -336,7 +349,7 @@ function sendMsg(){
             processData(xhttp.responseText);
         }
     };
-    xhttp.open("POST", "index.php", true);
+    xhttp.open("POST", "https://hng.fun/profiles/jaycodes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("ques="+ques.value);
 }
@@ -365,12 +378,12 @@ function displayOnScreen(data,sender){
         sender = "bot"
     }
     var display = document.querySelector(".display");
-    var msgArea = document.querySelector(".message-area");
+    var msgArea = document.querySelector(".myMessage-area");
     var div = document.createElement("div");
     var p = document.createElement("p");
     p.innerHTML = data;
     //console.log(data);
-    div.className = "message "+sender;
+    div.className = "myMessage "+sender;
     div.append(p);
     msgArea.append(div)
     if(data != document.querySelector("#question").value){
