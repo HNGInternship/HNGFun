@@ -40,12 +40,8 @@
 			$image_filename = $row['image_filename'];	
 		}
 	}
-?>
-<?php 
 
-
-		
-		$stmt = $conn->prepare("SELECT * FROM chatbot");
+    $stmt = $conn->prepare("SELECT * FROM chatbot");
 		$stmt->execute();
 
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -53,6 +49,7 @@
         $json = json_encode($rows);
         echo $json
 ?>
+
 <html>
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
