@@ -463,7 +463,6 @@
 
               bot_input.submit(function(e) {
                   e.preventDefault();
-                  console.log("hey");
                   var question = $('#chat-input').val();
 
                     // Append the client bubble
@@ -495,6 +494,7 @@
                             resp.innerHTML = response.answer;
                             client.appendChild(respText);
                             client.appendChild(resp);
+                            $('html,body').animate({scrollTop: document.body.scrollHeight},"fast")
                           } else if (response.status === 2) {
                             var resp = document.createElement('div');
                             var respText = document.createElement('div');
@@ -517,6 +517,7 @@
                           client.appendChild(respText);
                           client.appendChild(resp);
                           console.log(error);
+                          $('html,body').animate({scrollTop: document.body.scrollHeight},"fast")
                         }
                     })
               }); // end submit
