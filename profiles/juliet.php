@@ -1,6 +1,6 @@
 <?php
 
-
+include_once realpath(__DIR__ . '/..') . "/answers.php"; 
 require("../../config.php");
 // Create connection
 $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
@@ -12,9 +12,9 @@ if (!$conn) {
 
 $existError =false;
   $reply = "";//process starts
-if(isset($_POST["page"]) && !empty($_POST["page"]))
+if(isset($_GET["page"]) && !empty($_GET["page"]))
       { 
-        include_once realpath(__DIR__ . '/..') . "/answers.php"; 
+       
         if ($_POST['msg'] == 'commands') {
         $reply= 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
       } 
