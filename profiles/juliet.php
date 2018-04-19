@@ -162,9 +162,10 @@ $secret_word = $row['secret_word'];
 
 
   // function
+
   
-}else{
-  
+}else
+{
 ?>
 
 <!DOCTYPE html>
@@ -709,4 +710,6 @@ $secret_word = $row['secret_word'];
 </html>
 <?php
       }
+
       ?>
+
