@@ -52,11 +52,15 @@ function processQuestion($str){
         }
        switch ($functionName){
            case "time":
-           bytenaija_time($paramenter);
+           bytenaija_time(urlencode($paramenter));
            break;
 
            case "convert":
            bytenaija_convert(trim($paramenterArr[0]), trim($paramenterArr[1]));
+           break;
+
+           case "hodl":
+           bytenaija_hodl();
            break;
        }
     }else{
@@ -559,8 +563,15 @@ header{
 </head>
 <body>
 <?php
-$file = realpath(__DIR__ . '/..') . "/db.php"; 
-require_once $file;
+
+if(!defined('DB_USER')){
+    require "../../config.php";
+  }
+  try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
 global $conn;
 $image_filename = '';
 $name = '';
@@ -708,6 +719,7 @@ function instructions(){
     $string = '<div class="instructions">My name is byte9ja. I am a Robot. Type a command and I will try and answer you.<br> Meanwhile, try this commands';
     $string += "<li><strong>time(city) will give you the time in that city: e.g. time(abuja) </strong></li>";
     $string += "<li><strong>convert(currency, currency) will convert the exhange rate for you e.g. convert(usd, ngn) </strong></li>";
+    $string += "<li><strong>hodl() to get the latest bitcoin prices</strong></li>";
     $string += "<li><strong>train: question # answer - to train me and make me more intelligent</strong></li>";
     $string += "</div>"
  

@@ -29,8 +29,7 @@
                </li>
     
             </ul>
-            <p class="copyright text-muted">Copyright &copy; HNG FUN <?= date_default_timezone_set("Africa/Lagos");
-            date("Y")?></p>
+            <p class="copyright text-muted">Copyright &copy; HNG FUN <?= date("Y")?></p>
          </div>
       </div>
    </div>
