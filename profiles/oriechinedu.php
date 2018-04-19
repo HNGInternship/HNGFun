@@ -51,7 +51,7 @@
 
                 $second_test_str = explode('#', $first_test_str[1]);
 
-                if (! count($second_test_str) < 3 && $password===$second_test_str[2]){
+                if (! count($second_test_str) < 3 && trim($password)===trim($second_test_str[2])){
 
                     if(trim($second_test_str[0]) !='' && trim($second_test_str[1] != '')){
 
