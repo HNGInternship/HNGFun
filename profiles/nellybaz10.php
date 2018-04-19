@@ -27,7 +27,7 @@ $row2 = mysqli_fetch_array($result);
 		<tr>
 			<td>
 				
-		<div  style="margin:30px 0 0 20%; border:1px solid gray; width: 60%; height: 650px; min-width: 300px; font-size: 16px; min-height: 300px" align="left" class="whole-content">
+		<div  style="margin:30px 0 0 20%; border:1px solid gray; width: 60%; height: 650px; min-width: 300px; font-size: 14px; min-height: 300px" align="left" class="whole-content">
 		<img style="max-width: 200px; max-height: 200px; border-radius: 8px; margin:30px 0 0 30px;" src="http://res.cloudinary.com/nellybaz/image/upload/v1523622011/pic3.jpg">
 
 		<div style="padding-left: 30px">
