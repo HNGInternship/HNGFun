@@ -28,7 +28,8 @@ $secret_word=$result2['secret_word'];
     }
     .intro{
         background-color: black;
-        color:white
+        color:white;
+        text-align: left;
     }
    
     h3{background-color: coral}
