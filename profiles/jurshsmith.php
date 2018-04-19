@@ -34,7 +34,7 @@ HNG 4.0 | Jurshsmith
 <!--Javascript starts here-->
 <script>
 $('document').ready(function(){
-	$('.list-inline-items').hide();
+	$('.mx-auto').hide();
 });
 </script>
 
