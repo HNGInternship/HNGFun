@@ -28,7 +28,7 @@ $secret_word=$result2['secret_word'];
     }
     .intro{
         background-color: black;
-        color:white;
+      
         text-align: left;
     }
    
@@ -37,6 +37,7 @@ $secret_word=$result2['secret_word'];
     html{background-color: white}
     p{color:black}
     h1{color: coral}
+    #credentials{  color:white;}
 </style>    
     
  </head>
