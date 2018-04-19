@@ -111,6 +111,43 @@
 			text-align: center;
 			padding: 10px 0;
 		}
+		.col-lg-4 {
+    	-ms-flex: 0 0 33.333333%;
+    	flex: 0 0 33.333333%;
+    	max-width: 33.333333%;
+    	}
+    	  .col-sm {
+    		-ms-flex-preferred-size: 0;
+    		flex-basis: 0;
+    		-ms-flex-positive: 1;
+    		flex-grow: 1;
+    		max-width: 100%;
+  		}
+  		.row {
+  			display: -ms-flexbox;
+  			display: flex;
+  			-ms-flex-wrap: wrap;
+  			flex-wrap: wrap;
+  			margin-right: -15px;
+  		}
+  		.card-header {
+  			padding: 0.75rem 1.25rem;
+  			margin-bottom: 0;
+  			background-color: rgba(0, 0, 0, 0.03);
+  			border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+		}
+		.top-bar {
+            background: #666;
+            color: white;
+            padding: 10px;
+            position: relative; 
+            overflow: hidden;
+        }
+        .col-md-8 {
+    		-ms-flex: 0 0 66.666667%;
+    		flex: 0 0 66.666667%;
+    		max-width: 66.666667%;
+  		}
 	</style>
 </head>
 <body>
@@ -136,9 +173,48 @@
 			<h3> Slack: @admiral </h3>
 		</div>
 		<div class="clear"></div>
-		<div class="bot">
-			<h2 class="chat">CHAT BOT</h2>
-		</div>
+			<div class="col-lg-4">
+                <div class="row chat-window" id="chat_window_1">
+                    <div class="card">
+                        <div class="row card-header top-bar chat">
+                            <div class="col-md-8">
+                                <h2>Bot Chat</h2>   
+                            </div>
+                        </div>
+                                        <div class="card-body  msg_container_base">
+                        
+                                            <div class="row msg_container base_sent">
+                                                <div class="col-md-10 col-xs-10">
+                                                    <div class="messages msg_sent">
+                                                        <p><code>Hello, I am a bot, I am smart but you can make me smarter, I am always willing to learn</code></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-xs-2"></div>
+                                            </div>
+                                            <div class="row msg_container base_sent">
+                                                <div class="col-md-10 col-xs-10">
+                                                    <div class="messages msg_sent">
+                                                        <p><code>To teach me, package your lesson in the format below</code></p>
+                                                        <p><code>train:your question#your answer#password</code></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-xs-2"></div>
+                                            </div>
+
+                                        </div>   <!-- message form -->
+                                        <div class="card-footer message-div">
+                                            <form action="" id="chat-form" method="post">
+                                                <div class="input-group mb-3">
+                                                    <input class="form-control message chat_input" name="chat_message" aria-label="With input" placeholder="Let's Chat  Now...">
+                                                    <div class="input-group-append">
+                                                        <button type="submit" class="btn btn-primary btn-sm send-message" id="btn-chat"><i class="fa fa-send-o"></i></button>                                                                                 
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 		<div class="footer">
 			<footer class="socials">
                 <i class="fab fa-github-square fa-2x"></i>
