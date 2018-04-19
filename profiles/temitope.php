@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 			$strippedquestion = trim(preg_replace("/[^a-zA-Z0-9\s\'\-\:\(\)#]/", "", $strippedquestion));
 			$strippedquestion = $strippedquestion;
 
-			return $strippedquestion;
+			return strtolower($strippedquestion);
 		}
 
 		function is_training($data){
@@ -45,7 +45,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 			}
 		}
 		function authorize_training($password){
-			if ($password=='trainpwforhng') {
+			if ($password=='password') {
 				return true;
 			}else{
 				return false;
@@ -420,7 +420,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 			$('#chatWindow').animate({scrollTop: $('#chatWindow').prop("scrollHeight")}, 1000);
 			
 		  $.ajax({
-				url: "",
+				url: "/profiles/temitope.php",
 				type: "post",
 				data: {message: message},
 				dataType: "json",
