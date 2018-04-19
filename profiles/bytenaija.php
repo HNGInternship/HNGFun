@@ -116,7 +116,7 @@ function training($question, $answer){
             
                 
         $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $str . " ORDER BY answer ASC";
-        
+        $selected;
         $q = $conn->query($sql);
         $count = $q->rowCount();
         if($count > 0){
@@ -124,7 +124,7 @@ function training($question, $answer){
         $data = $q->fetchAll();
         
         $rand = rand(0, $count - 1);
-
+    
         echo $data[$rand]["answer"];
  
         }else{

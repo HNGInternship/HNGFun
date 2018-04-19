@@ -54,12 +54,12 @@
                     $question = $second_test_str[0];
                     $ans = $second_test_str[1];
 
+
                     // preg_match_all('/\(\((.*)\)\)/', $ans, $matches);
 
-                    // $func = $matches[0];
+                    // $func = $matches[1];
+                    // echo json_encode(['status'=> 4, 'response'=>$func]);
 
-                    // echo json_encode(['status'=>1, 'answer'=>$func]);
-                    // return;
                     // if ($func){
 
                     //     require_once('../answers.php');
@@ -69,7 +69,7 @@
                     //         $function_result =  $func();
 
                     //         echo json_encode(['status'=> 5, 'response'=>$function_result]);
-                    //         return;
+                        
                     //     }
                     // }
                     
@@ -474,6 +474,11 @@
                                             msg_container.scrollTop(msg_container[0].scrollHeight);
                                         }
                                         else if(data.status===4){
+                                            $('.message').val('');
+                                            msg_container.append(bot_msg(data.response));
+                                            msg_container.scrollTop(msg_container[0].scrollHeight);
+                                        }
+                                        else if(data.status===5){
                                             $('.message').val('');
                                             msg_container.append(bot_msg(data.response));
                                             msg_container.scrollTop(msg_container[0].scrollHeight);
