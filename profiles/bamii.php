@@ -6,7 +6,7 @@
     $data = $_POST['question'];
 
     if(!defined('DB_USER')){
-			require "../config.php";		
+			require "../../config.php";		
 			try {
 			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 			} catch (PDOException $pe) {
