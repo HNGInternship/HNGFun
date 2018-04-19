@@ -82,7 +82,7 @@ function training($question, $answer){
             $data = $q->fetch();
             $id = $data['id'];
             $sql = "UPDATE chatbot SET question = '" . $question ."', answer =  '" . $answer . "' where id = '" .$id ."'";
-            echo $sql;
+            
             $conn->exec($sql);
             $message = "Updated " . $question ." -> " . $answer;  
         }else{
