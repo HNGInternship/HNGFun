@@ -387,7 +387,6 @@ h1 a {
 
 <div class="container">
 	<div class="row">	        
-    <h1><small>My profile</small></h1>
 	<!-- Contenedor -->
 	<ul id="accordion" class="accordion">
     <li>
