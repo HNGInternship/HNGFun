@@ -1,5 +1,7 @@
 <?php
 	session_start();
+	error_reporting(E_ALL);
+ini_set('display_errors',1);
 	spl_autoload_register(function($className){
 		$className = strtolower(str_replace('.', '', str_replace('..', '', $className)));
 		require_once 'classes/class.'.$className.'.php';
@@ -14,6 +16,7 @@
         extract($sql->fetch(PDO::FETCH_ASSOC));
 ?>
 
+this is to test auto deploy
 
 
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
