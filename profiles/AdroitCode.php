@@ -32,14 +32,23 @@
             } catch (PDOException $pe) {
                 die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
             }
+            if ($question === "aboutbot") {
+              echo json_encode([
+                'question' => $question,
+                'answer' => "Adoitbot v-1.0.0"
+              ]);
+              return;
+            }
             /* check if in training mode (checking for train: in input) */
             $is_training = stripos($question, "train:");
             if ($is_training === false) { 
               /* bot not training, process question */
-              $query = $conn->query("SELECT * FROM chatbot WHERE question LIKE '".$question."'");
-              while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
-                $answer = $result['answer'];
-              }
+              //$answer_stmt->execute()
+              $query = $conn->prepare("SELECT * FROM chatbot  WHERE question LIKE :question ORDER BY RAND() Limit 1");
+              $query->bindParam(':question', $question);
+              $query->execute();
+              $result = $query->fetch();
+              $answer = $result['answer'];
               if (isset($answer)) {
                 echo json_encode([
                   'question' => $question,
@@ -81,17 +90,16 @@
                     # check if question was saved
                     echo json_encode([
                       'question' => $question,
-                      'answer' => "Thanks very much, new data saved."
+                      'answer' => "Thanks for the new info, Data Saved."
                     ]);
                     return;
                   }
-                  echo json_encode([
-                    'question' => $question,
-                    'answer' => "Have not gotten your question"
-                  ]);
-                  return;
-                  
-              }
+                    echo json_encode([
+                      'question' => $question,
+                      'answer' => "Have not gotten your question"
+                    ]);
+                    return;
+                  }
               echo json_encode([
                 'question' => $question,
                 'answer' => "You are not authorized to train me, please supply a valid password"
@@ -20512,7 +20520,7 @@
              e.preventDefault();
                 $.ajax({
                     type: "POST",
-                    cache: false, 
+                    cache: false,
                     url: "/profiles/AdroitCode.php", 
                     dataType: "json",
                     data: $('form').serialize(), 
