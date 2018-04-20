@@ -129,10 +129,58 @@ function train($training_string, $conn){
         
         //get the answer, remove everything else from the training string
         $answer_part = trim(str_replace(['#', 'trainpwforhng', $question_part], '', $training_string));
+<<<<<<< HEAD
+=======
   
         // Save it into db, use prepared statement to protect from security exploits
         try{
 
+            $sql  = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+            $stmt = $conn->prepare($sql);
+            $stmt->execute(
+                array(
+                ':question' => $question_part,
+                ':answer' => $answer_part,
+                )
+            );
+            return 'Thank you kindly';
+
+        } catch(PDOException $e){
+            throw $e;
+        }
+    }
+   
+}
+
+//SPECIAL FUNCTIONS 
+function get_name(){
+    return " Abolarin Olanrewaju Olabode";
+}
+function get_the_time(){
+    //instantiate date-time object
+     $datetime = new DateTime();
+     //set the timezone to Africa/Lagos 
+     $datetime->setTimezone(new DateTimeZone('Africa/lagos'));
+     //format the time
+
+     return $datetime->format('H:i: A');
+ }
+
+//QUERY for User Profile, using prepared statement for security
+  try {
+    $sql ='Select * from interns_data where username =:user';
+    $stmt = $conn->prepare($sql);
+    $stmt->execute(array(
+        'user'=> 'Waju',
+    ));
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $intern_data = $stmt->fetch();
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+  
+        // Save it into db, use prepared statement to protect from security exploits
+        try{
+
+<<<<<<< HEAD
             $sql  = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
             $stmt = $conn->prepare($sql);
             $stmt->execute(
@@ -165,6 +213,8 @@ function get_name(){
     $intern_data = $stmt->fetch();
   
 
+=======
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
 //query for the secret word; no need for prepared statement since its all internal
     $sql = "SELECT * FROM secret_word";
     $q = $conn->query($sql);
@@ -222,6 +272,10 @@ function get_name(){
                     if( !isset( $_POST['ajax'] ) ){
                         //answer has function
                         $answer = parse_answer($question['answer']);
+<<<<<<< HEAD
+=======
+                        
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
                     } else {
                         // ajax  use status for styling later
                         echo json_encode([
@@ -639,12 +693,20 @@ window.addEventListener("load", function() {
 
             //scroll the chat interface up/ down
             this.$wrapper.animate(
+<<<<<<< HEAD
                 {scrollTop: 800,},
+=======
+                {scrollTop: '+=800',},
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
                 {duration: 600}
             );
         },
         toggleView: function(e){
+<<<<<<< HEAD
             this.$el.animate({ height: 50 }, { duration: 300 });
+=======
+            this.$el.animate({ height: 250 }, { duration: 300 });
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
             console.log(this.$toggle.data('state')); //=== 'down' ? "\&#x23EB;" : "\&#x23EC;" ;  
             console.log(this.$toggle.text());
         },

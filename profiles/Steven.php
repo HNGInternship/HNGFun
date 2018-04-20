@@ -1,5 +1,15 @@
-<?php
-    require_once('../db.php');
+<?php 
+    date_default_timezone_set('Africa/Lagos');
+
+        if (!defined('DB_USER')){
+            
+            require "../../config.php";
+        }
+        try {
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+          } catch (PDOException $pe) {
+            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+          }
 
     try {
     $sql = 'SELECT * FROM secret_word';
@@ -44,7 +54,11 @@
             $ask = preg_replace('([?.])', "", $ask);
 
             //if the answer is already in the database, do this:
+<<<<<<< HEAD
             $ask = "%$ask%";
+=======
+            $ask = "$ask";
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
             $sql ="SELECT * FROM chatbot WHERE question LIKE :ask";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':ask', $ask);
@@ -56,14 +70,18 @@
               $row= $rows[$index];
               $answer = $row['answer'];
 
+<<<<<<< HEAD
               //Does this answer require a function? Check:
               $index_of_parentheses = stripos($answer, "((");
               if($index_of_parentheses === false){ 
               //then the answer is not to call a function
+=======
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
                 echo json_encode([
                   'status' => 1,
                   'answer' => $answer
                 ]);
+<<<<<<< HEAD
               }else{
               //otherwise call a function. but get the function name first
               $index_of_parentheses_closing = stripos($answer, "))");
@@ -92,6 +110,8 @@
                 return;
               }
             }
+=======
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
           }else{
             echo json_encode([
                 'status' => 0,
@@ -101,6 +121,7 @@
           return;
       }else{
         //Enter the training mode
+<<<<<<< HEAD
         $question_and_answer_string = substr($ask, 6);
         //remove excess white space in $question_and_answer_string
          $question_and_answer_string = preg_replace('([\s]+)', ' ', trim($question_and_answer_string));
@@ -108,16 +129,32 @@
          $question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string);
          $split_string = explode("#", $question_and_answer_string);
          if(count($split_string) == 1){
+=======
+        $ask_ans = substr($ask, 6);
+        //remove excess white space in $ask_ans
+         $ask_ans = preg_replace('([\s]+)', ' ', trim($ask_ans));
+         //remove ? and . so that questions missing ? (and maybe .) can be recognized
+         $ask_ans = preg_replace("([?.])", "", $ask_ans);
+         $separate = explode("#", $ask_ans);
+         if(count($separate) == 1){
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
           echo json_encode([
             'status' => 0,
             'answer' => "It seems you didnt enter the format correctly. \n Here, Let me help you: \n Type: <strong>train: question # answer # password"
             ]);
           return;
          }
+<<<<<<< HEAD
          $que = trim($split_string[0]);
          $ans = trim($split_string[1]);
 
          if(count($split_string) < 3){
+=======
+         $que = trim($separate[0]);
+         $ans = trim($separate[1]);
+
+         if(count($separate) < 3){
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
           echo json_encode([
             'status' => 0,
             'answer'=> "You need to type the training password to train me"
@@ -126,7 +163,11 @@
          }
          //Lets know what the password is
          
+<<<<<<< HEAD
          $password = trim($split_string[2]);
+=======
+         $password = trim($separate[2]);
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
          define('TRAINING_PASSWORD', 'password');
          //verify if training password is correct
          if($password !== TRAINING_PASSWORD){
@@ -145,16 +186,27 @@
          $stmt->setFetchMode(FETCH_ASSOC);
          echo json_encode([
             'status' => 1,
+<<<<<<< HEAD
             'answer' => "I have learnt a new thing today, Thank you"
+=======
+            'answer' => "I have learnt a new thing today, Thank you. You can now test me"
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
           ]);
          return;
       }
       echo json_encode([
       'status' => 0,
+<<<<<<< HEAD
       'answer' => "Sorry, i really dont understand you right now, you could offer to train me"
     ]); 
   }else {
 ?>    
+=======
+      'answer' => "I cant grasp this, try me another time. Thanks."
+    ]); 
+  }else {
+?>   
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
 
 <!DOCTYPE html>
 <html>
@@ -241,6 +293,11 @@
       float: right;
       color: #1a1a1a;
       background-color: #edf3fd;
+<<<<<<< HEAD
+=======
+      max-width: 80%
+      font-weight: bold;
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
       -webkit-align-self: flex-end;
       align-self: flex-end;
       -moz-animation-name: slideFromRight;
@@ -255,6 +312,11 @@
       float: left;
       color: #fff;
      background-color: #c0c0c0;
+<<<<<<< HEAD
+=======
+     max-width: 80%;
+     font-weight: bold;
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
       -webkit-align-self: flex-start;
       align-self: flex-start;
       -moz-animation-name: slideFromLeft;
@@ -341,7 +403,11 @@
 </section>
 
 <script src="../vendor/jquery/jquery.min.js"></script>
+<<<<<<< HEAD
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.js"></script>
+=======
+
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
 
 <script>
 $(document).ready(function(){

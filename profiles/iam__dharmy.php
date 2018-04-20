@@ -1,4 +1,14 @@
 <?php 
+		
+		if(!defined('DB_USER')){
+			require "../../config.php";		
+			try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
+		}
+
     try {
         $q = 'SELECT * FROM secret_word';
         $sql = $conn->query($q);
@@ -13,14 +23,7 @@
 <?php
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		if(!defined('DB_USER')){
-			require "../../config.php";		
-			try {
-			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-			} catch (PDOException $pe) {
-			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-			}
-		}
+		
 		require "../answers.php";
 
 		date_default_timezone_set("Africa/Lagos");
@@ -156,11 +159,15 @@
 		]);
 		
 	}
+	else{
 ?>
 
+<<<<<<< HEAD
 <?php
 	if($_SERVER['REQUEST_METHOD'] === "GET"){
 ?>
+=======
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -383,4 +390,8 @@
 </script>	
 </body>
 </html>
+<<<<<<< HEAD
 <?php}?>
+=======
+<?php } ?>
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b

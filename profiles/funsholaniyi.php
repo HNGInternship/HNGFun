@@ -24,8 +24,8 @@ if (file_exists('config.php')) {
  */
 class Database
 {
-    // a singleton pattern implementation
-    
+	// a singleton pattern implementation
+	
 	private static $_instance;
 	private $connection;
 	
@@ -68,7 +68,7 @@ class Database
  */
 class Response
 {
- 
+	
 	public $status;
 	public $data = array();
 	public $message;
@@ -240,9 +240,9 @@ function smartSearch($question, $questions_array)
 					$q_sorta[] = $item;
 				}
 				if($hit_count >= $word_count){
-				    // we match all words here already, so stop looping and return instead
-                    return $item;
-                }
+					// we match all words here already, so stop looping and return instead
+					return $item;
+				}
 			}
 		}
 	}
@@ -269,7 +269,7 @@ function respond($message, $status = 'success')
  */
 function parseAnswer($result)
 {
-	if (empty($result)) $answer = 'Didn\'t get that, How about you train me *winks*';
+	if (empty($result)) $answer = 'Didn\'t get that, How about you train me';
 	else {
 		$question = $result['question'];
 		$answer = $result['answer'];
@@ -289,6 +289,8 @@ function parseAnswer($result)
 			}
 		}
 	}
+	if (empty($answer)) $answer = 'Didn\'t get that, How about you train me';
+	
 	return $answer;
 }
 
@@ -355,68 +357,70 @@ $user = (new Model())->getProfile();
 
 
 <main class="my-container row">
-    <div class="profile col-md-6">
-        <div class="avatar"></div>
-        <br/>
-        <ul class="list-group">
-
-            <li class="list-group-item">
-                <i class="fa fa-user"></i>
-                &emsp;
-                <strong>
+	<div class="profile col-md-6">
+		<div class="avatar"></div>
+		<br/>
+		<ul class="list-group">
+			
+			<li class="list-group-item">
+				<i class="fa fa-user"></i>
+				&emsp;
+				<strong>
 					<?php echo $user->name; ?>
-                </strong>
-            </li>
-            <li class="list-group-item">
-                <i class="fa fa-envelope"></i>
-                &emsp;
-                <strong>
-                    <a href="mailto:funsholaniyi@gmail.com">funsholaniyi@gmail.com</a>
-                </strong>
-            </li>
-            <li class="list-group-item">
-                <i class="fa fa-phone-square"></i>
-                &emsp;
-                <strong>
-                    <a href="tel:+2347085827380">+2347085827380
-                </strong>
-            </li>
-
-            <li class="list-group-item text-center">
-                <a target="_blank" href="https://facebook.com/funsholaniyi/"><i class="fa fa-facebook"></i></a> &emsp;
-                <a target="_blank" href="https://twitter.com/funsholaniyi/"><i class="fa fa-twitter"></i></a> &emsp;
-                <a target="_blank" href="https://quora.com/profile/Funsho-Olaniyi/"><i class="fa fa-quora"></i></a>
-                &emsp;
-                <a target="_blank" href="https://github.com/funsholaniyi/"><i class="fa fa-github"></i></a> &emsp;
-                <a target="_blank" href="https://ng.linkedin.com/in/funsholaniyi"><i class="fa fa-linkedin"></i></a>
-            </li>
-        </ul>
-
-    </div>
-    <div class="profile col-md-5">
-        <div class="content">
-            <div id="group-info">
-
-            </div>
-            <div class="messages">
-                <ul id="message-outlet">
-
-                </ul>
-            </div>
-
-            <div class="message-input">
-                <form id="message_chat_form">
-                    <div class="form-group">
-                        <input type="text" class="form-control" style="width: 100%; font-size: 12px;" id="chat_message_text"
-                               placeholder="Please tell me, i'd try">
-                    </div>
-                    <button type="submit" class="btn btn-success btn-sm pull-right">Send</button>
-                </form>
-            </div>
-        </div>
-        </div>
+				</strong>
+			</li>
+			<li class="list-group-item">
+				<i class="fa fa-envelope"></i>
+				&emsp;
+				<strong>
+					<a href="mailto:funsholaniyi@gmail.com">funsholaniyi@gmail.com</a>
+				</strong>
+			</li>
+			<li class="list-group-item">
+				<i class="fa fa-phone-square"></i>
+				&emsp;
+				<strong>
+					<a href="tel:+2347085827380">+2347085827380
+				</strong>
+			</li>
+			
+			<li class="list-group-item text-center">
+				<a target="_blank" href="https://facebook.com/funsholaniyi/"><i class="fa fa-facebook"></i></a> &emsp;
+				<a target="_blank" href="https://twitter.com/funsholaniyi/"><i class="fa fa-twitter"></i></a> &emsp;
+				<a target="_blank" href="https://quora.com/profile/Funsho-Olaniyi/"><i class="fa fa-quora"></i></a>
+				&emsp;
+				<a target="_blank" href="https://github.com/funsholaniyi/"><i class="fa fa-github"></i></a> &emsp;
+				<a target="_blank" href="https://ng.linkedin.com/in/funsholaniyi"><i class="fa fa-linkedin"></i></a>
+			</li>
+		</ul>
+	
+	</div>
+	<div class="profile col-md-5">
+		<div class="content">
+			<div id="group-info">
+			
+			</div>
+			<div class="messages">
+				<ul id="message-outlet">
+				
+				</ul>
+			</div>
+			
+			<div class="message-input">
+				<form id="message_chat_form">
+					<div class="form-group">
+						<input type="text" class="form-control" style="width: 100%; font-size: 12px;" id="chat_message_text"
+						       placeholder="Please tell me, i'd try">
+					</div>
+					<button type="submit" class="btn btn-success btn-sm pull-right">Send</button>
+				</form>
+			</div>
+		</div>
+	</div>
 </main>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
 <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+
 <script type="text/javascript">
     var chat = chat || {};
 
@@ -490,196 +494,196 @@ $user = (new Model())->getProfile();
 
 
 <style>
-    .my-container {
-        margin-bottom: 100px;
-        margin-top: 100px;
-        position: relative;
-    }
-
-    div.profile {
-        width: 100%;
-        /*max-width: 500px;*/
-        background: #fff;
-        height: 400px;
-        margin: 10px;
-        padding: 50px 20px 10px;
-    }
-
-    div.avatar {
-        background: url(<?php echo $user->image_filename; ?>) center no-repeat;
-        background-size: 100% 100%;
-        border-radius: 100%;
-        width: 200px;
-        height: 200px;
-        box-shadow: 0 0 10px inset rgba(1, 1, 1, 0.8);
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: -120px;
-        right: 0;
-        left: 0;
-        position: absolute;
-    }
-
-    .skills i {
-        font-size: 25pt;
-        cursor: pointer;
-    }
-
-    .skills i:hover {
-        filter: brightness(150%);
-    }
-
-    /*chat box*/
-
-    .content .messages {
-        height: 200px;
-        min-height: calc(100% - 200px);
-        max-height: calc(100% - 200px);
-        overflow-y: scroll;
-        /*overflow-x: hidden;*/
-    }
-
-    @media screen and (max-width: 735px) {
-        .content .messages {
-            max-height: calc(100% - 105px);
-        }
-    }
-
-    .content .messages::-webkit-scrollbar {
-        width: 8px;
-        background: transparent;
-    }
-
-    .content .messages::-webkit-scrollbar-thumb {
-        background-color: rgba(0, 0, 0, 0.3);
-    }
-
-    .content .messages ul li {
-        display: inline-block;
-        clear: both;
-        margin: 5px;
-        width: calc(100% - 25px);
-        font-size: 0.7em;
-    }
-
-    .content .messages ul li.sent {
-        float: left;
-    }
-
-    .content .messages ul li.replies {
-        float: right;
-    }
-
-    .content .messages ul li:nth-last-child(1) {
-        margin-bottom: 20px;
-    }
-
-    .content .messages ul li.sent img {
-        margin: 6px 8px 0 0;
-    }
-
-    .content .messages ul li.sent h5 {
-        font-size: 10px;
-        color: #19a708;
-
-    }
-
-    .content .messages ul li.sent p {
-        background: #19a708;
-        color: #f5f5f5;
-    }
-
-    .content .messages ul li.replies img {
-        float: right;
-        margin: 6px 0 0 8px;
-    }
-
-    .content .messages ul li.replies h5 {
-        font-size: 10px;
-
-    }
-
-    .content .messages ul li.replies p {
-        background: #f5f5f5;
-        float: right;
-    }
-
-    .content .messages ul li img {
-        width: 22px;
-        border-radius: 50%;
-        float: left;
-    }
-
-    .content .messages ul li p {
-        display: inline-block;
-        padding: 5px 15px;
-        margin: 0;
-        border-radius: 20px;
-        max-width: 205px;
-        line-height: 130%;
-    }
-
-    @media screen and (min-width: 735px) {
-        .content .messages ul li p {
-            max-width: 300px;
-        }
-    }
-
-    .content .message-input {
-        /*position: absolute;*/
-        bottom: 0;
-        /*background-color: #ffffff;*/
-        width: 100%;
-        z-index: 99;
-    }
-
-    .content .message-input .wrap {
-        position: relative;
-    }
-
-    .content .message-input .wrap input {
-        font-family: "lato", "Source Sans Pro", sans-serif;
-        float: left;
-        border: none;
-        width: calc(100% - 60px);
-        padding: 11px 32px 10px 8px;
-        font-size: 0.8em;
-        color: #404040;
-    }
-
-    @media screen and (max-width: 735px) {
-        .content .message-input .wrap input {
-            padding: 15px 32px 16px 8px;
-        }
-    }
-
-    .content .message-input .wrap input:focus {
-        outline: none;
-    }
-
-    .content .message-input .wrap button {
-        float: right;
-        border: none;
-        width: 50px;
-        padding: 12px 0;
-        cursor: pointer;
-        background: #18a706;
-        color: #f5f5f5;
-    }
-
-    @media screen and (max-width: 735px) {
-        .content .message-input .wrap button {
-            padding: 16px 0;
-        }
-    }
-
-    .content .message-input .wrap button:hover {
-        background: #435f7a;
-    }
-
-    .content .message-input .wrap button:focus {
-        outline: none;
-    }
+	.my-container {
+		margin-bottom: 100px;
+		margin-top: 100px;
+		position: relative;
+	}
+	
+	div.profile {
+		width: 100%;
+		/*max-width: 500px;*/
+		background: #fff;
+		height: 400px;
+		margin: 10px;
+		padding: 50px 20px 10px;
+	}
+	
+	div.avatar {
+		background: url(<?php echo $user->image_filename; ?>) center no-repeat;
+		background-size: 100% 100%;
+		border-radius: 100%;
+		width: 200px;
+		height: 200px;
+		box-shadow: 0 0 10px inset rgba(1, 1, 1, 0.8);
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: -120px;
+		right: 0;
+		left: 0;
+		position: absolute;
+	}
+	
+	.skills i {
+		font-size: 25pt;
+		cursor: pointer;
+	}
+	
+	.skills i:hover {
+		filter: brightness(150%);
+	}
+	
+	/*chat box*/
+	
+	.content .messages {
+		height: 200px;
+		min-height: calc(100% - 200px);
+		max-height: calc(100% - 200px);
+		overflow-y: scroll;
+		/*overflow-x: hidden;*/
+	}
+	
+	@media screen and (max-width: 735px) {
+		.content .messages {
+			max-height: calc(100% - 105px);
+		}
+	}
+	
+	.content .messages::-webkit-scrollbar {
+		width: 8px;
+		background: transparent;
+	}
+	
+	.content .messages::-webkit-scrollbar-thumb {
+		background-color: rgba(0, 0, 0, 0.3);
+	}
+	
+	.content .messages ul li {
+		display: inline-block;
+		clear: both;
+		margin: 5px;
+		width: calc(100% - 25px);
+		font-size: 0.7em;
+	}
+	
+	.content .messages ul li.sent {
+		float: left;
+	}
+	
+	.content .messages ul li.replies {
+		float: right;
+	}
+	
+	.content .messages ul li:nth-last-child(1) {
+		margin-bottom: 20px;
+	}
+	
+	.content .messages ul li.sent img {
+		margin: 6px 8px 0 0;
+	}
+	
+	.content .messages ul li.sent h5 {
+		font-size: 10px;
+		color: #19a708;
+		
+	}
+	
+	.content .messages ul li.sent p {
+		background: #19a708;
+		color: #f5f5f5;
+	}
+	
+	.content .messages ul li.replies img {
+		float: right;
+		margin: 6px 0 0 8px;
+	}
+	
+	.content .messages ul li.replies h5 {
+		font-size: 10px;
+		
+	}
+	
+	.content .messages ul li.replies p {
+		background: #f5f5f5;
+		float: right;
+	}
+	
+	.content .messages ul li img {
+		width: 22px;
+		border-radius: 50%;
+		float: left;
+	}
+	
+	.content .messages ul li p {
+		display: inline-block;
+		padding: 5px 15px;
+		margin: 0;
+		border-radius: 20px;
+		max-width: 205px;
+		line-height: 130%;
+	}
+	
+	@media screen and (min-width: 735px) {
+		.content .messages ul li p {
+			max-width: 300px;
+		}
+	}
+	
+	.content .message-input {
+		/*position: absolute;*/
+		bottom: 0;
+		/*background-color: #ffffff;*/
+		width: 100%;
+		z-index: 99;
+	}
+	
+	.content .message-input .wrap {
+		position: relative;
+	}
+	
+	.content .message-input .wrap input {
+		font-family: "lato", "Source Sans Pro", sans-serif;
+		float: left;
+		border: none;
+		width: calc(100% - 60px);
+		padding: 11px 32px 10px 8px;
+		font-size: 0.8em;
+		color: #404040;
+	}
+	
+	@media screen and (max-width: 735px) {
+		.content .message-input .wrap input {
+			padding: 15px 32px 16px 8px;
+		}
+	}
+	
+	.content .message-input .wrap input:focus {
+		outline: none;
+	}
+	
+	.content .message-input .wrap button {
+		float: right;
+		border: none;
+		width: 50px;
+		padding: 12px 0;
+		cursor: pointer;
+		background: #18a706;
+		color: #f5f5f5;
+	}
+	
+	@media screen and (max-width: 735px) {
+		.content .message-input .wrap button {
+			padding: 16px 0;
+		}
+	}
+	
+	.content .message-input .wrap button:hover {
+		background: #435f7a;
+	}
+	
+	.content .message-input .wrap button:focus {
+		outline: none;
+	}
 
 </style>
 <div class="clearfix"></div>

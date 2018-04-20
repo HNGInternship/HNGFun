@@ -1,66 +1,14 @@
 
 <html lang="en">
 
-<?php
-require_once './db.php'
-$result = $conn->query("Select * from secret_word LIMIT 1");
-$result = $result->fetch(PDO::FETCH_OBJ);
-$secret_word = $result->secret_word;
-$result2 = $conn->query("Select * from interns_data where username = 'roqak'");
-$user = $result2->fetch(PDO::FETCH_OBJ);
-///////////////////////////////////////////////////////////////
-function sendResponse(){
-  header('Content-type: application/json');
-      echo json_encode([
-        'status' => 200,
-      'answer' => 'hello'],JSON_UNESCAPED_UNICODE);
-      exit();
-			return;
-    }
-    require "../answers.php";
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-  $mem = $_POST['question'];
-	$arr = explode(" ", $mem);
-	if($arr[0] == "train:"){
-		unset($arr[0]);
-		$q = implode(" ",$arr);
-		$queries = explode("#", $q);
-		$quest = $queries[0];
-		$ans = $queries[1];
-		try {
-		 $sql = "INSERT INTO chatbot(question, response) VALUES ('" . $quest . "', '" . $ans . "')";
-		 $conn->exec($sql);
-
-	$message = " Thanks for increasing my knowledgebase";
-
- }
- catch(PDOException $e)
-		 {
-		 // echo $sql . "<br>" . $e->getMessage();
-		 }
-	} else{
-		$message = "querynnnn";
-	}
-sendResponse();
- }
-
-?>
-
-
-
-
-
-
-<?php /* 
+<?php 
 	   require_once './db.php'
 	   //GET USER DETAILS 
 	   $result = $conn->query("Select * from secret_word LIMIT 1");
 	   $result = $result->fetch(PDO::FETCH_OBJ);
 	   $secret_word = $result->secret_word;
 	   $result2 = $conn->query("Select * from interns_data where username = 'foluwa'");
-	   $user = $result2->fetch(PDO::FETCH_OBJ);
-			
-	*/		
+	   $user = $result2->fetch(PDO::FETCH_OBJ);		
 	?>
 	<head>
 		<meta charset="utf-8">
