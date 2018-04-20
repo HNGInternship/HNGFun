@@ -45,6 +45,7 @@
 				<div id="bot-display" style="background-color:; height: 300px; width: 90%; overflow: scroll;">
 					<p>Ask me any question, I will give you the answer</p>
 					<p>Ask: <b>what is time</b> to get the current time</p>
+					<p>I can send you an email, type: <b>mailTo:your email</b></p>
 					<!--<p>To train me: <br>
 					Tell me the question first by typing: <em><b>#your question</b></em><br>
 					Then the answer by typing: <em><b>@the answer</b></em><br>
@@ -210,6 +211,16 @@ $question = trim($question);
 	 			echo date('l jS \of F Y h:i:s A');
 	 			echo "</div>";
 	 	}
+
+
+	 		else if($question[0] == 'm' && $question[4] == 'T'){
+	 				list($keyword, $email) = explode(':', $question);
+	 				$email = trim($email);
+	 			mail($email, 'Thanks for your time', 'It was fun chatting with you!');
+	 		
+	 	}
+
+	 	
 
 	 	else{
 	 		display_answer($question);
