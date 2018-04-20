@@ -51,9 +51,9 @@ $q = explode("#", $qa);
 $qu = $q[0];
 $an = $q[1];
 $pass = $q[2];
-if($train == 'train'&& $pass != 'trainpwforhng'){
+if($train == 'train'&& $pass != 'password'){
     echo "Wrong Password, You need my pass word before you can train me.";
-  }elseif($train == 'train' && $pass == '1234'){
+  }elseif($train == 'train' && $pass == 'password'){
   $in = "INSERT INTO `chatbot`(`question`, `answer`)
      VALUES ('$qu','$an')";
   $tr = mysqli_query($conf, $in);
@@ -76,7 +76,7 @@ echo '</div>';
         $result = showtime($loc);
        
       }else{
-$sql="SELECT * FROM chatbot WHERE input LIKE '$msg%' ";
+$sql="SELECT DISTINCT question, answer  FROM chatbot WHERE question LIKE '$msg%' ";
 $send=mysqli_query($conf,$sql);
 
 $u = 'hello';
@@ -602,7 +602,7 @@ h1 a {
     }
 
     </style>
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -763,7 +763,7 @@ $(function(){
             datatype: "html",
             data: $('form').serialize(), 
             success: function(result) { 
-            $('#div').append("<div class=\"stt in\""+result+"</div>");
+            $('#div').append("<div class=\"stt\""+result+"</div>");
 
                 $('#tt').val("");
 

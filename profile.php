@@ -12,9 +12,11 @@
 <body class = 'profile'>
 
 <div class="container">
-
-    <?php
-
+	
+    <?php 
+	
+	
+	// readfile('profiles/' . $profile_name. '.php');
 
 	require_once('profiles/' . $profile_name. '.php');
 
@@ -49,5 +51,5 @@
 
 <!-- Footer -->
 <?php
-//include_once('footer.php');
+include_once('footer.php');
 ?>

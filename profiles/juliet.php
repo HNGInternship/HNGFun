@@ -1,23 +1,35 @@
 <?php
 
+ include_once("../answers.php"); 
 
-require("../../config.php");
-// Create connection
-<<<<<<< HEAD
-$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-// Check connection;
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+if (!defined('DB_USER')){
+            
+  require "../../config.php";
+}
+try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
 
+ global $conn;
 
-if (isset($_POST["page"])) {
-=======
-$connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-// Check connection
-
-if (!$connect) {
-    die("Connection failed: " . mysqli_connect_error());
+ try {
+  $sql = 'SELECT * FROM secret_word LIMIT 1';
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $data = $q->fetch();
+  $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+  throw $e;
+}    
+try {
+  $sql = "SELECT * FROM interns_data WHERE `username` = 'juliet' LIMIT 1";
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $my_data = $q->fetch();
+} catch (PDOException $e) {
+  throw $e;
 }
 
 function decider($string){
@@ -28,153 +40,170 @@ function decider($string){
     $key = $field[0];
     $key = strtolower(preg_replace('/\s+/', '', $key));
   if(($key == "train")){
-     $password ="p@55";
+     $password ="password";
      $trainer =$field[1];
      $result = explode ("#", $trainer);
   if($result[2] && $result[2] == $password){
     echo"<br>Training mode<br>";
     return $result;
-  } else echo "opssss!!! Looks like you are trying to train me without permission";
-  
-
-    
-     
+  } 
+  else echo "opssss!!! Looks like you are trying to train me without permission";   
   }
    }
-   
+}
 
+
+function assistant($string)
+{    $reply = "";
+    if ($string == 'what is my location') {
+        $reply= "This is Your Location <i class='em em-arrow_forward'></i> " . $query['city'] . ", ". $query['country'] . "!";
+        return $reply;
+        
+    }
+    elseif ($string == 'tell me about your author') {
+        $reply= 'His name is <i class="em em-sunglasses"></i> alex idowu, he is Passionate, gifted and creative backend programmer who love to create appealing Web apps solution from concept through to completion. An enthusiastic and effective team player and always challenge the star to quo by taking up complex responsibilities. Social account <b><a href="https://twitter.com/Codexxxp">Codexxp @Twitter</a></b> <br> <b><a href="https://www.linkedin.com/in/alex-idowu-0b4142124/">Alex Idowu @Linkedin</a></b> ';
+        return $reply;    
+    }
+    elseif ($string == 'open facebook') {
+        $reply= "<p>Facebook opened successfully </p> <script language='javascript'> window.open(
+    'https://www.facebook.com/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }
+    elseif ($string == 'open twitter') {
+        $reply = "<p>Twitter opened successfully </p> <script language='javascript'> window.open(
+    'https://twitter.com/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }elseif ($string == 'open linkedin') {
+        $reply= "<p>Linkedin opened successfully </p> <script language='javascript'> window.open(
+    'https://www.linkedin.com/jobs/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }
+    elseif ($string == 'shutdown my pc') {
+        $reply =  exec ('shutdown -s -t 0');
+        return $reply;
+    }elseif ($string == 'get my pc name') {
+        $reply = getenv('username');
+        return $reply;
+    }
+    else{
+        $reply = "";
+        return $reply;
+    }
+  
 }
-function tester($string){
-  if (strpos($string, ":" ) !== false) 
-  { 
-   $field = explode (":", $string);
-   $key = $field[0];
-   $key = strtolower(preg_replace('/\s+/', '', $key));
-   if(($key !== "train")){
-     
-    echo"<br>testing mode activated<br>";
-    return $string;
- }
-}
-return $string;
- }
+
+
+
 
 $existError =false;
-  $reply = "";//process starts
+$reply = "";//process starts
 if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 
- global $connect;
-$sql = "SELECT * FROM secret_word";
-$result = mysqli_query($connect, $sql);
-$row = mysqli_fetch_assoc($result);
-$secret_word = $row['secret_word'];
-// $secret_word= "sample_secret_word";
-
-       
-        if ($_POST['msg'] == 'commands') {
-        $reply= 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
-      } 
-      // else if($reply==""){
-       
-      //   $reply = assistant($_POST['msg']);
-       
-      // }
-     if($reply =="") {
-
-         $post= mysqli_real_escape_string($connect, $_POST['msg']);
-           $result = decider($post);
-           if($result){
-                $question=$result[0]; 
-                $answer= $result[1];
-                $sql = "SELECT * FROM chatbot";
-                $result = mysqli_query($connect, $sql);
-                
-                if (mysqli_num_rows($result) > 0) {
-                        $row = mysqli_fetch_assoc($result);
-                        ;
-                        while($row = mysqli_fetch_assoc($result)) {
-              $strippedQ = strtolower(preg_replace('/\s+/', '', $question));
-              $strippedA = strtolower(preg_replace('/\s+/', '', $answer));
-              $strippedRowQ = strtolower(preg_replace('/\s+/', '', $row['question']));
-              $strippedRowA = strtolower(preg_replace('/\s+/', '', $row['answer']));
-                            if(($strippedRowQ == $strippedQ) && ($strippedRowA == $strippedA)){
-                            $reply = "I know this already, but you can make me smarter by giving another response to this command";
-                            $existError = true;
-                            break;
-                            
-                            }
-                            
-                        }        
-                } 
-
-                if(!($existError)){
-                    $sql = "INSERT INTO chatbot (question, answer) VALUES ('".$question."', '".$answer."')";
-                    
-                            if (mysqli_query($connect, $sql)) {
-                                $reply = "Thanks to you, I am smarter now";
-                            } else {
-                                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-                            }
-                    
-                    
-                   }
-                
-       
-           } else{
-             $input = tester($post); 
-
-      if($input){
-        
-      
-        $time ="what is the time";
-        // query db to look for question 
-        $answer = "";
-        $sql = "SELECT * FROM chatbot";
-        $result = mysqli_query($connect, $sql);
-        
-        if (mysqli_num_rows($result) > 0) {
-          if (!$result) {
-            die(mysqli_error($link));
-        }
-          $input = strtolower(trim($input));
-          $sql = "SELECT * FROM chatbot WHERE trim(question) = '$input'";
-          $result = mysqli_query($connect, $sql);
-                     
-          if(mysqli_num_rows($result) > 0){
-            
-            $answer = [];         
-          while($row = mysqli_fetch_assoc($result)) {
-            array_push($answer, $row['answer']);
-                    
-        } 
-        $answer = $answer[array_rand($answer)];
-         }       
-            }
-            
-      if($answer != ""){
-        $reply = $answer;
-        
-            
-         } 
-    }
-    // end input
-           
+  if ($_POST['msg'] == 'commands') {
+    $reply= 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
   } 
-  // end test
+      if($reply==""){
+       
+     echo assistant($_POST['msg']);
+       
+     }
+  if($reply =="") {
+
+    $post= $_POST['msg'];
+    $result = decider($post);
+    if($result){
+      $question=$result[0]; 
+      $answer= $result[1];
+      $sql = "SELECT * FROM chatbot WHERE question = '$question' And answer = '$answer'";
+      $stm = $conn->query($sql);
+      $stm->setFetchMode(PDO::FETCH_ASSOC);
+
+      $result = $stm->fetchAll();
+        
+        if (count(($result))> 0) {
+              
+          // while($result) {
+          //   $strippedQ = strtolower(preg_replace('/\s+/', '', $question));
+          //   $strippedA = strtolower(preg_replace('/\s+/', '', $answer));
+          //   $strippedRowQ = strtolower(preg_replace('/\s+/', '', $result['question']));
+          //   $strippedRowA = strtolower(preg_replace('/\s+/', '', $result['answer']));
+          //   if(($strippedRowQ == $strippedQ) && ($strippedRowA == $strippedA)){
+          //   $reply = "I know this already, but you can make me smarter by giving another response to this command";
+          //   $existError = true;
+          //   break;
+            
+          //   }
+              
+          // }  
+          $existError = true; 
+          echo "I know this already, but you can make me smarter by giving another response to this command";
+            
+        } 
+      else
+        if(!($existError)){
+          $sql = "INSERT INTO chatbot(question, answer)
+          VALUES(:quest, :ans)";
+          $stm =$conn->prepare($sql);
+          $stm->bindParam(':quest', $question);
+          $stm->bindParam(':ans', $answer);
+
+          $saved = $stm->execute();
+            
+          if ($saved) {
+              echo  "Thanks to you, I am smarter now";
+          } else {
+              echo "Error: could not understand";
+          }
+            
+          
+        }  
+  }
+  else{
+    $input = trim($post); 
+ 
+  if($input){
+    
+    $sql = "SELECT * FROM chatbot WHERE question = '$input'";
+    $stm = $conn->query($sql);
+    $stm->setFetchMode(PDO::FETCH_ASSOC);
+
+    $res = $stm->fetchAll();
+    
+    if (count($res) > 0) {
+    
+      $index = rand(0, count($res)-1);
+      $response = $res[$index]['answer'];  
+
+      echo $response;
+    
+    }
+    else{
+       echo "I did'nt get that, please rephrase or try again later";
+    }       
+  }
+}
+          
+      
+    
+      }       
+  
  
 
-  if($reply == ""){
-        $reply ="I did'nt get that, please rephrase or try again later";
-    }
-  }
-  echo $reply;
-
-
-  // function
->>>>>>> 1eb52e5d15cc558242e86db7cf3dd8bad0a42a6d
+}
+else{
   
-}else
-{
 ?>
 
 <!DOCTYPE html>
@@ -505,22 +534,13 @@ a:focus {
   </head>
 
   <body>
-<?php 
-
-global $connect;
-$sql = "SELECT * FROM secret_word";
-$result = mysqli_query($connect, $sql);
-$row = mysqli_fetch_assoc($result);
-$secret_word = $row['secret_word'];
-// $secret_word= "sample_secret_word";
-?>
 
   <!-- Page Content -->
     <div class="container">
 
       <!-- Portfolio Item Heading -->
       <h1 >Chidimma Juliet Ezekwe</h1>
-      <small>Wed Developer</small>
+      <h4>Web Developer</h4>
 
       <!-- Portfolio Item Row -->
       <div class="row">
@@ -634,6 +654,7 @@ $secret_word = $row['secret_word'];
                     <div class="message-form-container">
 
                       <script type="text/javascript">
+
                                   $(document).ready(function(){
                $('#msg').keypress(
                 function(e){
@@ -667,6 +688,7 @@ $secret_word = $row['secret_word'];
                   $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
                   play();
                 },  1000);
+
                   },
                         error: function (){}
                     });
@@ -706,7 +728,7 @@ $secret_word = $row['secret_word'];
 
 
 
-    <!-- Bootstrap core JavaScript ///-->
+    <!-- Bootstrap core JavaScript -->
     
 
     <!-- Custom scripts for this template -->
@@ -715,10 +737,6 @@ $secret_word = $row['secret_word'];
   </body>
 
 </html>
-<?php
-      }
-<<<<<<< HEAD
-      ?>
-=======
-      ?>
->>>>>>> 1eb52e5d15cc558242e86db7cf3dd8bad0a42a6d
+
+<?php 
+}?>
