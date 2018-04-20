@@ -5,7 +5,13 @@
 <head>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono" rel="stylesheet">
 	<title>Nelson's Profile</title>
+	<style type="text/css">
+		.this{
+			font-family: 'IBM Plex Mono', monospace;
+		}
+	</style>
 
 </head>
 <body style="text-align: center; font-family: cursive;">

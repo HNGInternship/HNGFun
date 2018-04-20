@@ -1,18 +1,6 @@
 <?php
 global $conn;
-if (isset($_POST['button'])) {
-if (isset ($_POST['input']) && $_POST['input'] !== "") {
-    $asked_question_text = $_POST['input'];
-    processAskedQuestion($asked_question_text);
-}}
-function validateTrain_function($input){if(strpos($input, "train:") !== false){
-    return true;
-}else{return false;
-}
-}function validateTextFunction($input){if(strpos($input, "(") !== false){return true;
-}else{
-    return false;
-}function processAskedQuestion($input){
+function processAskedQuestion($input){
     if(validateTrain_function($input)){
         list($trim, $question) = explode(":", $input);
         $question = trim($question, " ");
@@ -30,10 +18,10 @@ function validateTrain_function($input){if(strpos($input, "train:") !== false){
             }}else{
             echo "Please enter the question and answer";
         }}else if(validateFunction($input)){
-        list($functionName, $paramenter) = explode('(', $str) ;
-        list($paramenter, $notUsed) = explode(')', $paramenter);
-        if(strpos($paramenter, ",")!== false){
-            $paramenterArr = explode(",", $paramenter);
+        list($functionName, $parameter) = explode('(', $input) ;
+        list($parameter, $notUsed) = explode(')', $parameter);
+        if(strpos($parameter, ",")!== false){
+            $paramenterArr = explode(",", $parameter);
         }switch ($functionName){
             case "time":
             default:
@@ -42,7 +30,20 @@ function validateTrain_function($input){if(strpos($input, "train:") !== false){
     }else{
         getAnswerFromDb($input);
     }
-}function training($question, $answer){
+
+if (isset($_POST['button'])) {
+if (isset ($_POST['input']) && $_POST['input'] !== "") {
+    $asked_question_text = $_POST['input'];
+    processAskedQuestion($asked_question_text);
+}}
+function validateTrain_function($input){if(strpos($input, "train:") !== false){
+    return true;
+}else{return false;
+}
+}function validateTextFunction($input){if(strpos($input, "(") !== false){return true;
+}else{
+    return false;
+}}function training($question, $answer){
     global $conn;
     try {
         $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
@@ -215,10 +216,6 @@ try {
         <p>&nbsp;</p>
     </form>
 </div>
-
-
-
-
 </body>
 </html>
 
