@@ -232,7 +232,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             outline:none;
             transition: border 0.2s linear;
             border-radius: 10px;
-            font-size: 12px;
+            font-size: 14px;
         }
         input:hover{
             border:solid 2px #222;
