@@ -37,11 +37,11 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             $ques = test_input($ques);
             $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
             if(!$conn){
-            echo json_encode([
-                'status'    => 1,
-                'answer'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
-            ]);
-            return;
+                echo json_encode([
+                    'status'    => 1,
+                    'answer'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                ]);
+                return;
             }
         
             $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
