@@ -129,6 +129,8 @@ function train($training_string, $conn){
         
         //get the answer, remove everything else from the training string
         $answer_part = trim(str_replace(['#', 'trainpwforhng', $question_part], '', $training_string));
+<<<<<<< HEAD
+=======
   
         // Save it into db, use prepared statement to protect from security exploits
         try{
@@ -164,6 +166,45 @@ function get_the_time(){
      return $datetime->format('H:i: A');
  }
 
+<<<<<<< HEAD
+//QUERY for User Profile, using prepared statement for security
+  try {
+    $sql ='Select * from interns_data where username =:user';
+    $stmt = $conn->prepare($sql);
+    $stmt->execute(array(
+        'user'=> 'Waju',
+    ));
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $intern_data = $stmt->fetch();
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+  
+        // Save it into db, use prepared statement to protect from security exploits
+        try{
+
+<<<<<<< HEAD
+            $sql  = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+            $stmt = $conn->prepare($sql);
+            $stmt->execute(
+                array(
+                ':question' => $question_part,
+                ':answer' => $answer_part,
+                )
+            );
+            return 'Thank you kindly';
+
+        } catch(PDOException $e){
+            throw $e;
+        }
+    }
+   
+}
+
+//SPECIAL FUNCTIONS 
+function get_name(){
+    return " Abolarin Olanrewaju Olabode";
+}
+=======
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 //QUERY for User Profile, using prepared statement for security
   try {
     $sql ='Select * from interns_data where username =:user';
@@ -175,6 +216,8 @@ function get_the_time(){
     $intern_data = $stmt->fetch();
   
 
+=======
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
 //query for the secret word; no need for prepared statement since its all internal
     $sql = "SELECT * FROM secret_word";
     $q = $conn->query($sql);
@@ -232,7 +275,14 @@ function get_the_time(){
                     if( !isset( $_POST['ajax'] ) ){
                         //answer has function
                         $answer = parse_answer($question['answer']);
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
                         
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+                        
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
                     } else {
                         // ajax  use status for styling later
                         echo json_encode([
@@ -650,12 +700,28 @@ window.addEventListener("load", function() {
 
             //scroll the chat interface up/ down
             this.$wrapper.animate(
+<<<<<<< HEAD
+<<<<<<< HEAD
+                {scrollTop: 800,},
+=======
                 {scrollTop: '+=800',},
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+                {scrollTop: '+=800',},
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
                 {duration: 600}
             );
         },
         toggleView: function(e){
+<<<<<<< HEAD
+<<<<<<< HEAD
+            this.$el.animate({ height: 50 }, { duration: 300 });
+=======
             this.$el.animate({ height: 250 }, { duration: 300 });
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+            this.$el.animate({ height: 250 }, { duration: 300 });
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
             console.log(this.$toggle.data('state')); //=== 'down' ? "\&#x23EB;" : "\&#x23EC;" ;  
             console.log(this.$toggle.text());
         },

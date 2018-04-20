@@ -211,21 +211,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		.top {
 			margin-top: 50px;
 		}
-		.bot {
-			position: fixed;
-			bottom: 2%;
-			right: 8%;
-			width: 350px;
-			display: block;
-		}
-		.chat {
-			display: block;
-			background-color: blue;
-			color: #fff;
-			text-align: center;
-			padding: 10px 0;
-		}
-		
 		.main{
 			margin-top: 20vh;
 		}
@@ -264,7 +249,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		}
 
 		.bot-panel .card-header{
-			background-color: rgba(173, 88, 31, 0.85);
+			background-color: #0085A1;
 			color: #fff;
 		}
 
@@ -276,18 +261,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 			max-width: 60px;
 			border: 1px solid #fff;
 			border-radius: 50%;
-		}
-
-		.msj:before{
-		    width: 0;
-		    height: 0;
-		    content:"";
-		    top:-5px;
-		    left:-14px;
-		    position:relative;
-		    border-style: solid;
-		    border-width: 0 13px 13px 0;
-		    border-color: transparent #f1a97a transparent transparent;            
 		}
 		.msj-rta:after{
 		    width: 0;
@@ -321,10 +294,12 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		    margin-top:5px;width:85%;border-radius:5px;padding:5px;display:flex;
 		}
 		.msj-rta{
-		    float:right;background:whitesmoke;
+		    float:right;
+		    background:whitesmoke;
 		}
 		.msj{
-		    float:left;background:#f1a97a;
+		    float:left;
+		    background-color: #0085A1;
 		}
 	</style>
 </head>
@@ -357,8 +332,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 				    <h4 class="ml-3 d-inline" style="font-size: 1.2rem; font-weight: 500;">CHAT BOT</h4>
 				  </div>
 				  <div class="card-body" id="chatWindow">
-				    
-				    <!-- Gracie's message -->
                         <div class="msj macro">
                             <div class="text text-l">
                                 <p>How may I be of service today?</p>
@@ -366,9 +339,8 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
                         </div>
                     <!-- Gracie's message -->
                         <div class="msj macro">
-                        <div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="gracie-icon align-self-start"></div>
                             <div class="text text-l">
-                                <p>You can ask me any questions, You could also train me by entering the following format: <br>
+                                <p>ask me any questions, You can also train me by entering the following format: <br>
                                 	<code class="text-white">train: your question # the correct answer # password</code>
                                 </p>
                                 
@@ -393,7 +365,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 				    <?php if (isset($answer)) { ?>
 				    	<!-- Gracie's message -->
                         <div class="msj macro">
-                        <div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="gracie-icon"></div>
                             <div class="text text-l">
                                 <p><?php echo $answer; ?></p>                                
                             </div>
@@ -466,7 +437,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		    var answer = response.answer;
 		  	$(selector).html(''+message+'');
 			$(selector).removeClass(classname).addClass('sent');
-			$('#chatWindow').append(' <div class="msj macro"><div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="gracie-icon align-self-start"></div><div class="text text-l"><p>'+answer+'</p></div></div>');
+			$('#chatWindow').append(' <div class="msj macro"><div class="avatar"></div><div class="text text-l"><p>'+answer+'</p></div></div>');
 		  
 		  },
 		  error: function(error){
