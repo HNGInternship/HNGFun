@@ -244,7 +244,7 @@ function smartSearch($question, $questions_array)
 				if ($hit_count && $hit_count > 2) {
 					$q_sorta[] = $item;
 				}
-				if ($hit_count >= $word_count) {
+				if ($hit_count === $word_count) {
 					// we match all words here already, so stop looping and return instead
 					return $item;
 				}
