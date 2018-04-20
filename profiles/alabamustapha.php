@@ -1,18 +1,5 @@
 <?php
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-// include_once realpath(__DIR__ . '/..') . "/answers.php";
-=======
 //require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/answers.php'; //tweak
-
->>>>>>> 564343188b1bcbdcbaf94a02a1cf3e627069bb51
-=======
-//require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/answers.php'; //tweak
->>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
-=======
-//require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/answers.php'; //tweak
->>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 if (!defined('DB_USER')) {
 	require "../../config.php";
 	try {
@@ -22,13 +9,6 @@ if (!defined('DB_USER')) {
 	}
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 564343188b1bcbdcbaf94a02a1cf3e627069bb51
-=======
->>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
-=======
->>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 global $conn;
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -71,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 }
 
-// $data = getAction(['stage' => 2, 'human_response' => 'synonym of love']);
+// $data = getAction(['stage' => 2, 'human_response' => 'hi']);
 
 // var_dump($data);
 
@@ -150,7 +130,8 @@ function alabotGetMenu()
 		}elseif (strpos($human_response, 'synonym') !== false && count($human_response_words) > 1) {
 			$data = getSynonyms($human_response);
 		} else {
-		$data = ["data" => "Just a bot, still learning :-)", "stage" => 2];
+			
+		$data = getGeneral($human_response);
 		}
 
 		return $data;
@@ -231,28 +212,35 @@ function alabotGetMenu()
 	}
 
 
-	
+
+
+	function getGeneral($human_response){
+		global $conn;
+		$word = trim($human_response);
+		$sql = "SELECT * FROM chatbot WHERE question = '{$word}'";
+		$q = $conn->query($sql);
+		$q->setFetchMode(PDO::FETCH_ASSOC);
+		$data_res = $q->fetchAll();
+		if (count($data_res) > 0) {
+			
+			$index = rand(0, count($data_res) - 1);
+			$data = $data_res[$index]['answer'];
+
+		}else{
+			$data = "Just a bot, still learning :-)";
+		}
+
+		return ["data" => $data, "stage" => 2];
+	}
 
 	
 
 	function greet(){
 		$greetings = [
-<<<<<<< HEAD
-<<<<<<< HEAD
-						'Hi, I am Alabot, Learn, play and take quiz?',
-		'Howdy, I am Alabot, Learn, play and take quiz?',
-		'I am Alabot, Learn, play and take quiz'
-=======
-						'Hi, I am Alabot, Learn, play and take quiz. type menu to check commands',
+		'Hi, I am Alabot, Learn, play and take quiz. type menu to check commands',
 		'Howdy, I am Alabot, Learn, play and take quiz. type menu to check commands',
 		'I am Alabot, Learn, play and take quiz. type menu to check commands'
->>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
-=======
-						'Hi, I am Alabot, Learn, play and take quiz. type menu to check commands',
-		'Howdy, I am Alabot, Learn, play and take quiz. type menu to check commands',
-		'I am Alabot, Learn, play and take quiz. type menu to check commands'
->>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
-					];
+		];
 
 		return ["data" => $greetings[array_rand($greetings)], "stage" => 2];
 	}
@@ -387,15 +375,16 @@ function alabotGetMenu()
 			}
 
 			div#chat-bot-container > .conversation > .message > .message-content {
-				color: #007bff;
+				color: #3908fc;
 				background-color: #fff;
-				font-size: 18px;
-				line-height: 1;
+				font-size: 16px;
+				line-height: 1.2;
 				padding: 7px 13px;
 				border-radius: 15px;
 				width: auto;
 				max-width: 85%;
 				display: inline-block;
+				letter-spacing: 1px;
 			}
 
 			
