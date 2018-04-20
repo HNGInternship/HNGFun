@@ -52,19 +52,16 @@ function processQuestion($str){
         }
        switch ($functionName){
            case "time":
-           //bytenaija_time(urlencode($paramenter));
-           //break;
+           bytenaija_time(urlencode($paramenter));
+           break;
 
            case "convert":
-           //bytenaija_convert(trim($paramenterArr[0]), trim($paramenterArr[1]));
-           //break;
+           bytenaija_convert(trim($paramenterArr[0]), trim($paramenterArr[1]));
+           break;
 
            case "hodl":
-           //bytenaija_hodl();
-           //break;
-
-           default:
-           echo "That command has not been implemented yet. It has been put on hold till stage 5";
+           bytenaija_hodl();
+           break;
        }
     }else{
         //call database for question;
@@ -686,7 +683,7 @@ try {
 
 <script>
 let url = "profiles/bytenaija.php?query=";
-url = window.location.href + "?query=";
+//url = window.location.href + "?query=";
 
 let botResponse = document.querySelector("#botresponse");
 window.onload = instructions;
@@ -751,6 +748,9 @@ function print(response){
 
 function instructions(){
     $string = '<div class="instructions">My name is byte9ja. I am a Robot. Type a command and I will try and answer you.<br> Meanwhile, try this commands';
+    $string += "<li><strong>time(city) will give you the time in that city: e.g. time(abuja) </strong></li>";
+    $string += "<li><strong>convert(currency, currency) will convert the exhange rate for you e.g. convert(usd, ngn) </strong></li>";
+    $string += "<li><strong>hodl() to get the latest bitcoin prices</strong></li>";
     $string += "<li><strong>deleteEmpty record - to delete any record the question or answer is empty</strong></li>";
     $string += "<li><strong>train: question # answer - to train me and make me more intelligent</strong></li>";
     $string += "</div>"

@@ -22,35 +22,15 @@
     $secret_word = $result['secret_word'];
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-      require "../answers.php";
 
-      date_default_timezone_set("Africa/Lagos");
-
-      if(!isset($_POST['ask'])){
-        echo json_encode([
-            'status' => 1,
-            'answer' => 'What do you have in mind?'
-          ]);
-        return;
-      }
       $ask = $_POST['ask'];
-
-      //get what the user asked
-      if($ask == ""){
-        echo json_encode([
-        'status' => 0,
-        'answer' => "Please type your question"
-      ]);
-      return;
-    }
     
         //check if bot is training
-        $index_of_train = stripos($ask, "train:");
-          if($index_of_train === false){
-            //then, we are now in asking mode
-            //Lets remove white spaces from the question asked
+        $train_bot = stripos($ask, "train:");
+          if($train_bot === false){
+            
+            //Bot is not training, ask your question, but remove question mark and dot
             $ask = preg_replace('([\s]+)', ' ', trim($ask));
-            //Lets remove the question mark(?) and the dot sign(.)
             $ask = preg_replace('([?.])', "", $ask);
 
             //if the answer is already in the database, do this:
@@ -273,7 +253,7 @@
         </div>
         <h2 style="text-align: center; color: white; margin-top: 10px;">Steven Victor</h2>
         <div style="text-align: center; color: white; margin-top: 10px;">
-          Web Developer, skilled in HTML, CSS, JavaScript, PHP, Laravel, VueJS, 
+          Web Developer, skilled in HTML, CSS, JavaScript, PHP, Laravel, VueJS. 
         </div>
         <div class="row">
             <div style="margin-top: 10px">
