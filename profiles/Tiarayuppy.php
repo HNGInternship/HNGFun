@@ -80,6 +80,7 @@
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js"></script>
 
 <style>
  
@@ -543,7 +544,7 @@ body{
    
     </div>
     
-<script src="https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js"></script>
+
 
 
 <div id="demo">
