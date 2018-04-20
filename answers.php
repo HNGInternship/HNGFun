@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 function get_time(){
   //instantiate date-time object
   $datetime = new DateTime();
@@ -360,8 +359,7 @@ function getTime(){
 ////////////////////////////////
 // END OF JOHN AYENI FUNCTIONS//
 ////////////////////////////////
-?>
-=======
+
 function getCurrentDateAndTime(){
     $newdate = date("l jS \of F Y h:i:s A");
     echo "Today's date is " . $newdate;
@@ -378,7 +376,6 @@ function getFutureDate(){
     echo "A week from now, the date will be: " . date_format($newdate, "l jS \of F Y");
     //A.M.A
 }
->>>>>>> pinkybot
 
 function getRandomYoMamaJoke(){
 	$randomJokeJson = file_get_contents("http://api.yomomma.info");
