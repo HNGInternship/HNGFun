@@ -20520,7 +20520,8 @@
              e.preventDefault();
                 $.ajax({
                     type: "POST",
-                    cache: false,
+                    cache: false, 
+                    //
                     url: "/profiles/AdroitCode.php", 
                     dataType: "json",
                     data: $('form').serialize(), 

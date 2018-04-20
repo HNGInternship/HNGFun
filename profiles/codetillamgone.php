@@ -266,7 +266,7 @@ catch(PDOException $e){
         </div> 
             
         <div id= "chatform">
-            <form method="post" action="../profiles/codetillamgone.php" id="form" class = "questionform">
+            <form  id="form" class = "questionform">
             <input id="input" type="text" name="question" placeholder="Lets talk, pal">
             <input id="send" type="submit">
             </form>
@@ -284,7 +284,7 @@ catch(PDOException $e){
          if(question.trim() == ''){
              var servertext = document.createElement('div');
              servertext.innerHTML = "<br>"  + "<span class= 'bot' > Rodrigo: </span>" + "Please enter a question" + "<br>";
-             client.appendChild(text);
+             client.appendChild(servertext);
          }
          else{
         
@@ -295,15 +295,15 @@ catch(PDOException $e){
          }
         
          $.ajax({
-				url: "../profiles/codetillamgone.php",
+				url: "/profiles/codetillamgone.php",
 				type: "post",
-				data: {'question': question},
+				data: {question: question},
 				dataType: "json",
                 success: function(response){
                     if( response.status == 1){
                         var servertext = document.createElement('div');
                         servertext.innerHTML = "<br>"  + "<span class= 'bot' > Rodrigo: </span>" + response.reply + "<br>";
-                        client.appendChild(text);
+                        client.appendChild(servertext);
                     }
                 },
                 error : function(error){

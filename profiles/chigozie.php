@@ -427,13 +427,17 @@
         }
 
         $url = "http://api.openweathermap.org/data/2.5/weather?q=$location&units=metric&appid=".OW_API_KEY;
-        $curl_session = curl_init();
-        curl_setopt($curl_session, CURLOPT_URL, $url);
-        curl_setopt($curl_session,CURLOPT_RETURNTRANSFER,true);
-        curl_setopt($curl_session,CURLOPT_HEADER, false); 
-        $result=curl_exec($curl_session);
-        curl_close($curl_session);
+        // $curl_session = curl_init();
+        // curl_setopt($curl_session, CURLOPT_URL, $url);
+        // curl_setopt($curl_session,CURLOPT_RETURNTRANSFER,true);
+        // curl_setopt($curl_session,CURLOPT_HEADER, false); 
+        // $result=curl_exec($curl_session);
+        // curl_close($curl_session);
+        $result = file_get_contents($url);
         $result_object = json_decode($result);
+        if(!isset($result_object->main)){
+        	return "City not found";
+        }
         $weather = ucfirst($result_object->weather[0]->description);
         $temperature = $result_object->main->temp;
         $pressure = $result_object->main->pressure;

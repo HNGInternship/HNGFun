@@ -360,20 +360,25 @@ function getTime(){
 // END OF JOHN AYENI FUNCTIONS//
 ////////////////////////////////
 
+
+/////////////////////////////////////////
+//Beginning Aniuchi A. M's Functions/////
+////////////////////////////////////////
 function getCurrentDateAndTime(){
-    $newdate = date("l jS \of F Y h:i:s A");
-    echo "Today's date is " . $newdate;
+    $newDate = date("l jS \of F Y");
+    $newTime = date("h:i:s A");
+    echo "Today's date is " . $newDate . ". The time is " . $newTime;
     //A.M.A
 }
 function getCurrentDayOfTheWeek(){
-    $newdate = date("l");
-    echo "Today's is a " . $newdate;
+    $newDate = date("l");
+    echo "Today is a " . $newDate;
 }
 function getFutureDate(){
-    $newdate = date("Y-m-d");
-    $newdate = date_create($newdate);
-    date_add($newdate,date_interval_create_from_date_string("7 days"));
-    echo "A week from now, the date will be: " . date_format($newdate, "l jS \of F Y");
+    $newDate = date("Y-m-d");
+    $newdate = date_create($newDate);
+    date_add($newDate,date_interval_create_from_date_string("7 days"));
+    echo "A week from now, the date will be: " . date_format($newDate, "l jS \of F Y");
     //A.M.A
 }
 
@@ -420,11 +425,73 @@ function getMediumArticle(){
     //A.M.A
 }
 function getPinkyCommands(){
-    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and time</b> </br/> 
-    2. Get <b>motivational quote of the day.</b> <br/> 3. Get my creator <b>Ada's latest medium article</b> <br/>
-    4. Get or <b>tell you a random Yo Momma Joke</b>. <br/> 5. Get or tell you <b>what day of the week it is.</b> <br/>
-    6. Get the <b>date seven days or a week from now.</b> <br/> 7.Get or <b>tell you a random quote.</b><br/>
-    NB. All or some of the words in bold should be included in your message.";
+    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/> 
+    2. Get <b>motivational quote of the day.</b> or <b>inspire me today</b> <br/> 3. Get my creator <b>Ada's latest medium article</b> <br/>
+    4. Get or tell you<b> a random Yo Momma Joke</b>. <br/> 5. Get or tell you <b>what day of the week it is.</b> <br/>
+    6. Get the <b>date seven days or a week from now.</b> <br/> 7.Get or tell you<b> a random quote.</b> <br/>
+    8. Tell you version of the bot <b>aboutbot</b><br/>
+    NB. All or some of the words in bold should be included in your message. Please try to follow these patterns as I am still learning.";
     //A.M.A
 }
+///////////////////////////////
+//End Aniuchi A. M's Functions/
+///////////////////////////////
+
+/****** AdroitCode Bot Function *********/
+
+function simpleMaths($operation, $expression){
+    switch ($operation) {
+      case 'factor':
+        # factorization condition
+      $notify = "Factorize";
+        break;
+
+        case 'simplify':
+        # simplify
+      $notify = "Simplify";
+        break;
+
+        case 'derive':
+        # derivative
+      $notify = "Derivative";
+        break;
+
+        case 'integrate':
+          # Integrate
+        $notify = "Integrate";
+          break;
+
+        case 'zeroes':
+          # polinomia
+        $notify = "Polinomial, find 0S in";
+          break;
+
+        case 'tangent':
+          # tangent
+        $notify = "Find Tangent";
+          break;
+
+        case 'log':
+          # logrithms
+        $notify = 'Logarithm';
+          break;
+
+
+      
+      default:
+        # code...
+        break;
+    }
+    $url = "https://newton.now.sh/".$operation."/".$expression;
+    $result = file_get_contents($url);
+    $response = json_decode($result, true);
+    echo json_encode([
+        'question' => $notify." : ".$response['expression'],
+        'answer' =>"Your answer is: ".$response['result']
+    ]);
+}
+
+/******** End Adroit Bot Funct ********/
+
+
 ?>
