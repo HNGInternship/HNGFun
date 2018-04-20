@@ -58,14 +58,14 @@ img{
 					</div>
 					<div class="col-md-6 col-sm-6 col-xs-6">
 						<h1>Skill Set</h1>
-						<h3> Front End Skills: Html, Css, Js, Vue</h3>
+						<h3> Front End Skills: Html, Css, Js, Vue ...</h3>
 						<div class="progress">
 							<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width:85%;">
 								85%
 							</div>
 						</div>
 
-						<h3> Backend Skills : Php, Laravel</h3>
+						<h3> Backend Skills : Php, Laravel...</h3>
 						<div class="progress">
 							<div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%;">
 								70%
@@ -91,6 +91,7 @@ img{
 			</div>
 		</div>
 	</div>
+
 
 	
 
