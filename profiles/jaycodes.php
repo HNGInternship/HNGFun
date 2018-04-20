@@ -59,7 +59,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
                 $answer = $questionAndAnswer[1];
                 $password = $questionAndAnswer[2];
             }
-            if(!(isset($password))|| $password != 'password'){
+            if(!(isset($password))|| $password !== 'password'){
                 echo json_encode([
                     'status'    => 1,
                     'answer'    => "Please insert the correct training password"
