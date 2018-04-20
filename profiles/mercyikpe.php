@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 				$question = $trim_messages[0];
 				$answer = $trim_messages[1];
 
-				$sql = "SELECT * FROM chatbot WHERE question=$question OR `answer` LIKE '%$answer%'";
+				$sql = "SELECT * FROM chatbot WHERE `question` LIKE '%$question%' OR `answer` LIKE '%$answer%'";
 				$stm = $conn->query($sql);
 				$stm->setFetchMode(PDO::FETCH_ASSOC);
 				$res = $stm->fetchAll();
