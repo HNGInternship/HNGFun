@@ -94,10 +94,7 @@ $check_pass = 'password';
 		$q->execute($question_data);
 		echo "Now I understand. No wahala, now try me again";
 		return;
-	} else {
-	echo "YOU DONT HAVE ACCESS!!! SARS!!!! EFCC!!! NAFDAC!!!! HACKER!!! USA COME AND CARRY YOU RUSSIA :$";
-		return;
- 	}
+	}
 
 	function containsVariables($answer)
 	{
