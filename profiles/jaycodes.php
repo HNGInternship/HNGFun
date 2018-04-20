@@ -4,15 +4,23 @@
          
          require "../../config.php";
      }
-      $conn = mysqli_connect(DB_HOST,DB_USER, DB_PASSWORD, DB_DATABASE );
-      if(!$conn){
-        echo json_encode([
-            'status' => 0,
-            'answer' => "Error unable toconnect to database"
-        ]);
-         
-        return;
-      }
+     require_once 'db.php';
+ try {
+     $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
+     $intern_data->execute();
+     $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+     $result = $intern_data->fetch();
+ 
+ 
+     $secret_code = $conn->prepare("SELECT * FROM secret_word");
+     $secret_code->execute();
+     $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+     $code = $secret_code->fetch();
+     $secret_word = $code['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }
+  $today = date("H:i:s");
       
     if($_SERVER['REQUEST_METHOD']==="POST"){
         //function definitions
@@ -26,9 +34,17 @@
         }
         function chatMode($ques){
             $ques = test_input($ques);
-            $conn = mysqli_connect(DB_HOST,DB_USER, DB_PASSWORD, DB_DATABASE );
+            //$conn = mysqli_connect(DB_HOST,DB_USER, DB_PASSWORD, DB_DATABASE );
+            try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
             $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
-            $result = $conn->query($query)->fetch_all();
+            $stmt = $conn->prepare($query); 
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $stmt->fetchAll();
             
             echo json_encode([
                 'status' => 1,
@@ -37,7 +53,12 @@
             return ;
         }
         function trainerMode($ques){
-            $conn = mysqli_connect(DB_HOST,DB_USER, DB_PASSWORD, DB_DATABASE );
+            //$conn = mysqli_connect(DB_HOST,DB_USER, DB_PASSWORD, DB_DATABASE );
+            try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
             $questionAndAnswer = substr($ques, 6); //get the string after train
             $questionAndAnswer =test_input($questionAndAnswer); //removes all shit from 'em
             $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
@@ -59,7 +80,8 @@
                     return;
                 }
                 $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
-                if($conn->query($query) ===true){
+                //$conn->exec($sql);
+                if($conn->exec($query)){
                     echo json_encode([
                         'status'    => 1,
                         'answer'    => "trained successfully"
@@ -94,25 +116,8 @@
 
 
     return;
-    }else{
-        require_once 'db.php';
-    try {
-        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
-        $intern_data->execute();
-        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $intern_data->fetch();
-    
-    
-        $secret_code = $conn->prepare("SELECT * FROM secret_word");
-        $secret_code->execute();
-        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
-        $code = $secret_code->fetch();
-        $secret_word = $code['secret_word'];
-     } catch (PDOException $e) {
-         throw $e;
-     }
-     $today = date("H:i:s");
     }
+    
 ?>
 
 <!DOCTYPE html>
