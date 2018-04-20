@@ -11,7 +11,8 @@
     }
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+   
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		
 		require "../answers.php";
 		date_default_timezone_set("Africa/Lagos");
@@ -19,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if(!isset($_POST['question'])){
 			echo json_encode([
 				'status' => 1,
-				'answer' => "Ask me anything"
+				'answer' => "What is your question"
 			]);
 			return;
 		}
@@ -125,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			echo json_encode([
 				'status' => 1,
-				'answer' => "Ok, Got it!"
+				'answer' => "Yipeee, I have been trained"
 			]);
 			return;
 		}
