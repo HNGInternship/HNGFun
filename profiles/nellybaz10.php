@@ -42,7 +42,7 @@
 				<p>(Are you bored? chat with me)</p>
 				<hr>
 
-				<div id="bot-display" style="background-color:; height: 300px; width: 90%; overflow: scroll;">
+				<div id="bot-display" style="background-color:; height: 300px; width: 90%; overflow: scroll; font-family: 'IBM Plex Mono', monospace;">
 					<p>Ask me any question, I will give you the answer</p>
 					<p>Ask: <b>what is time</b> to get the current time</p>
 					<p>I can send you an email, type: <b>mailTo:your email</b></p>
