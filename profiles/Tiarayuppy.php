@@ -1,12 +1,12 @@
 <?php
     session_start();
     require('answers.php');
-                                  $dsn = "mysql:host=".DB_HOST.";dbname=".DB_DATABASE;
-                        $db = new PDO($dsn, DB_USER,DB_PASSWORD);
+                $dsn = "mysql:host=".DB_HOST.";dbname=".DB_DATABASE;
+                $db = new PDO($dsn, DB_USER,DB_PASSWORD);
                 $codeQuery = $db->query('SELECT * FROM secret_word ORDER BY id DESC LIMIT 1', PDO::FETCH_ASSOC);
-          $secret_word = $codeQuery->fetch(PDO::FETCH_ASSOC)['secret_word'];
+                $secret_word = $codeQuery->fetch(PDO::FETCH_ASSOC)['secret_word'];
                 $detailsQuery = $db->query('SELECT * FROM interns_data WHERE name = \'Tiarayuppy\' ');
-                        $username = $detailsQuery->fetch(PDO::FETCH_ASSOC)['username'];
+    $username = $detailsQuery->fetch(PDO::FETCH_ASSOC)['username'];
     if(isset($_POST['message']))
     {
                     array_push($_SESSION['chat_history'], trim($_POST['message']));
@@ -14,44 +14,45 @@
         {
           
                     $args = explode("#", trim($_POST['message']));
-                            $question = trim($args[1]);
+                    $question = trim($args[1]);
           $answer = trim($args[2]);
-                            $password = trim($args[3]);
+          $password = trim($args[3]);
           if($password == "trainisdope")
           {
               // Password perfect
-                        $trainQuery = $db->prepare("INSERT INTO chatbot (question , answer) VALUES ( :question, :answer)");
-                   if($trainQuery->execute(array(':question' => $question, ':answer' => $answer)))
+            $trainQuery = $db->prepare("INSERT INTO chatbot (question , answer) VALUES ( :question, :answer)");
+            if($trainQuery->execute(array(':question' => $question, ':answer' => $answer)))
             {
-                          array_push($_SESSION['chat_history'], "Try another method");
+                array_push($_SESSION['chat_history'], "Try another method");
             }
-                                else
+            else
             {
                 array_push($_SESSION['chat_history'], "Something went wrong somewhere");
             }
           }
-                    else
+          else
           {
               // Password not correct
-                     array_push($_SESSION['chat_history'], "The password entered was incorrect");
+             array_push($_SESSION['chat_history'], "The password entered was incorrect");
           }
         }
-                    else
+        else
         {
             // Not Training
           $questionQuery = $db->prepare("SELECT * FROM chatbot WHERE question LIKE :question");
-                        $questionQuery->execute(array(':question' => trim($_POST['message'])));
-                    $qaPairs = $questionQuery->fetchAll(PDO::FETCH_ASSOC);
-                            if(count($qaPairs) == 0)
+          $questionQuery->execute(array(':question' => trim($_POST['message'])));
+          $qaPairs = $questionQuery->fetchAll(PDO::FETCH_ASSOC);
+          if(count($qaPairs) == 0)
           {
                     $answer = "Sorry, I cant understand your details";
           } else
           {
-                            $answer = $qaPairs[mt_rand(0, count($qaPairs) - 1)]['answer'] $bracketIndex = 0;
-                        while(stripos($answer, "{{", $bracketIndex) !== false)
+            $answer = $qaPairs[mt_rand(0, count($qaPairs) - 1)]['answer'];
+            $bracketIndex = 0;
+            while(stripos($answer, "{{", $bracketIndex) !== false)
             {
               $bracketIndex = stripos($answer, "{{", $bracketIndex);
-                            $endIndex = stripos($answer, "}}", $bracketIndex);
+              $endIndex = stripos($answer, "}}", $bracketIndex);
               $bracketIndex++;
                   $function_name = substr($answer, $bracketIndex + 1, $endIndex - $bracketIndex -1);
                   $answer = str_replace("{{".$function_name."}}", call_user_func($function_name), $answer);
@@ -61,8 +62,10 @@
         }
     }
     if(!isset($_SESSION['chat_history']))
-    { $_SESSION['chat_history'] = array('Hello! How can I help? Ask for my help. To train me, enter the command "train # question # answer # password');
-   }$messages = $_SESSION['chat_history'];
+    {
+                $_SESSION['chat_history'] = array('Hello! How can I help? Ask for my help. To train me, enter the command "train # question # answer # password');
+    }
+    $messages = $_SESSION['chat_history'];
 ?>
 
 <!DOCTYPE html>
@@ -655,7 +658,7 @@ body{
     </div>
 </div>
 <div>
-     <span style="margin-top: 150px;margin-left: 400px; font-size: 37px; font-weight: 700;color: #263238;">Chatbot</span>
+     <span style="margin-top: 150px;margin-left: 400px; font-size: 37px; font-weight: 700;color: #263238;">Chat Bot from Database</span>
     <div class="chatbox">
         <div class="chat-area">
 
