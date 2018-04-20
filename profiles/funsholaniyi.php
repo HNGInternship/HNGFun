@@ -307,6 +307,10 @@ function sendMessage()
 	$m = new Model();
 	$message = clean_string($_POST['message']);
 	
+	if(strstr('aboutbot', $message)){
+		return respond('Hi, My name is Christiana, I\'m currently versioned 0.1');
+	}
+	
 	$if_training_mode = preg_match("/^train/", $message);
 	if ($if_training_mode) {
 		$message = str_replace('train:', '', $message);
@@ -333,7 +337,7 @@ function sendMessage()
 				return respond('Oh! I already knew that. something else, please...');
 			} else {
 				$m->trainBot($question, $answer);
-				return respond('Funsho is smarter, don\'t get jealous, you made it happen');
+				return respond('Christiana is smarter, don\'t get jealous, you made it happen');
 			}
 		} else {
 			return respond('but no. I\'d prefer, train: Question # Answer # Password');
@@ -434,7 +438,7 @@ $user = (new Model())->getProfile();
         this.onReady = function () {
             // send welcome messages
             var strMessages = '<li class="replies"><img src="https://res.cloudinary.com/funsholaniyi/image/upload/v1524159157/default.jpg">' +
-                '<p><small style="font-size: 10px;">Funsho</small><br>Hi, My name is Funsho</p></li><div class="clearfix"></div> ';
+                '<p><small style="font-size: 10px;">Christiana</small><br>Hi, My name is Christiana</p></li><div class="clearfix"></div> ';
             $('#message-outlet').append(strMessages);
             $(".messages").scrollTop($("#message-outlet").outerHeight());
         };
@@ -481,7 +485,7 @@ $user = (new Model())->getProfile();
                 $('#message_chat_form')[0].reset();
                 // console.log(response);
                 var strMessages = '<li class="replies"><img src="https://res.cloudinary.com/funsholaniyi/image/upload/v1524159157/default.jpg">' +
-                    '<p><small style="font-size: 10px;">Funsho</small><br>' +
+                    '<p><small style="font-size: 10px;">Christiana</small><br>' +
                     '' + response.message + '</p></li><div class="clearfix"></div> ';
                 $('#message-outlet').append(strMessages);
                 $(".messages").scrollTop($("#message-outlet").outerHeight());
