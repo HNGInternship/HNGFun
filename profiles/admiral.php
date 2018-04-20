@@ -419,6 +419,7 @@
 		</div>
 		<div class="clear"></div>
 			<div class="bot col-lg-4">
+				<img src="">
                 <div class="row chat-window" id="chat_window_1">
                     <div class="card">
                         <div class="row card-header top-bar">
@@ -597,3 +598,6 @@
                     </script>
     </body>
 </html>
+<?php 
+	}
+?>
