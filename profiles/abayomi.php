@@ -32,7 +32,7 @@
         }
         .main {
         width: 360px;
-        height: 550px;
+        height: 600px;
         left: 50%;
         top:55%;
         background: rgb(43, 108, 167);
@@ -54,12 +54,13 @@
         }
         h1 {
         margin-top: 100px;
-        font-size: 26px;
+        font-size: 24px;
         color: #fff;
         text-align: center;
         }
         h3 {
         margin: -10px;
+        font-size: 20px;
         text-align: center;
         color: #fff;
         }
@@ -75,18 +76,20 @@
         font-weight: bold;
         font-size: 16px;
         }
+/*
         #icons{
-        margin-left: 50px;
-        padding-left: 10px;
+         margin-left: 50px;
         }
+*/
         .fa {
+            position: relative;
         padding: 20px;
         font-size: 20px;
         width: 20px;
         height: 20px;
         text-align: center;
         text-decoration: none;
-        border-radius: 50%
+        border-radius: 50%;
         }
         .fa:hover {
         opacity: 0.7;
@@ -107,19 +110,20 @@
         background: rgb(47, 136, 204);
         color:#fff;
         }
-        footer{
+        .date{
         margin-bottom: 10px;
         }
 	</style>
 </head>
 <body>
     <div class="main">
-        <div class="image"><img src="http://res.cloudinary.com/abayomijohn273/image/upload/v1524099224/abayomi.jpg" alt="Author's Picture"></div>
+        <div class="image"><img src="<?php echo $user->image_filename; ?>" alt="Author's Picture"></div>
         <div class="details">
-            <h1><?php echo Olatunji Abayomi ?></h1>
-            <h3>Slack Username: @Abayomi?></h3>
+            <h1><?php echo $user->name; ?></h1>
+            <h3>Slack Username: @<?php echo $user->username; ?></h3>
             <p>Exceptionally well organised, self taught, self motivated and resourceful Professional with few years of experience in Website Development and Design using HTML, CSS, Bootstrap, JAVASCRIPT, JQuery, Laravel, PHP, MYSQL.  Excellent analytical and problem solving skills.</p>
             <p class="connect_me">Connect with me</p>
+<!--
         <div id="icons">
             <a href="https://www.facebook.com/abayomijohn1670">
                 <i class="fa fa-facebook"></i>
@@ -134,10 +138,11 @@
                 <i class="fa fa-github"></i>
             </a>
         </div>
+-->
             
         </div>
-<footer>
-    <p>Copyright &copy; HNG FUN <?php echo date("Y"); ?></p>
-</footer>
+        <div class="date">
+        <p>Copyright &copy; HNG FUN <?php echo date("Y"); ?></p>
+        </div>
     </div>
 </body>
