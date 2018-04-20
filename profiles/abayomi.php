@@ -76,17 +76,17 @@
         font-size: 16px;
         }
         #icons{
-        margin-left: 50px;
-        padding-left: 10px;
+        margin-left: 100px;
+        padding-left: 20px;
         }
         .fa {
-        padding: 5px;
+        padding: 10px;
         font-size: 20px;
-        width: 20px;
-        height: 20px;
+        width: 50px;
+        height: 50px;
         text-align: center;
         text-decoration: none;
-        border-radius: 50%
+        border-radius: 50%;
         }
         .fa:hover {
         opacity: 0.7;
