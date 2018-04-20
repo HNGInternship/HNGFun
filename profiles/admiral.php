@@ -211,6 +211,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		.top {
 			margin-top: 50px;
 		}
+<<<<<<< HEAD
 		.bot {
 			position: fixed;
 			bottom: 2%;
@@ -428,6 +429,8 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 			}
 =======
 		
+=======
+>>>>>>> 5f8c248c2d9413d18f8ff7a2141503cdd212b9c4
 		.main{
 			margin-top: 20vh;
 		}
@@ -526,7 +529,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		    position:relative;
 		    border-style: solid;
 		    border-width: 0 13px 13px 0;
-		    border-color: transparent #f1a97a transparent transparent;            
+		    border-color: transparent #0085A1 transparent transparent;            
 		}
 		.msj-rta:after{
 		    width: 0;
@@ -573,6 +576,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		}
 		.msj{
 		    float:left;
+		    background-color: #0085A1;
 		}
 >>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 	</style>
