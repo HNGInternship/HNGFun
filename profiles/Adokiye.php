@@ -1,15 +1,7 @@
 <?php
 global $conn;
-if(!defined('DB_USER')){
-    require "../../config.php";
-}
-try {
-     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-} catch (PDOException $pe) {
-    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
 function processAskedQuestion($input){
-    
+
     if(validateTrain_function($input)){
         list($trim, $question) = explode(":", $input);
         $question = trim($question, " ");
@@ -41,6 +33,15 @@ function processAskedQuestion($input){
     }
 
 if (isset($_POST['button'])) {
+    if(!defined('DB_USER')){
+        require "../../config.php";
+        try {
+            global $conn;
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        } catch (PDOException $pe) {
+            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+        }
+    }
 if (isset ($_POST['input']) && $_POST['input'] !== "") {
     $asked_question_text = $_POST['input'];
     processAskedQuestion($asked_question_text);
