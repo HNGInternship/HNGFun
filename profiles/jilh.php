@@ -120,7 +120,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 ?>
 
-<?php if($_SERVER['REQUEST_METHOD'] === 'GET'){ ?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -360,4 +360,3 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		</script>
 	</body>
 </html>
-<?php } ?>
