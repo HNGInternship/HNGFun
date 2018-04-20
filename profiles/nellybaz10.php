@@ -3,7 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 	<title>Nelson's Profile</title>
+
 </head>
 <body style="text-align: center; font-family: cursive;">
 	<table align="center" width="100%">
@@ -78,10 +81,14 @@ if(!$conn){
 		if(mysqli_num_rows($result) > 0){
 			$row = mysqli_fetch_array($result);
 			echo "<div class='this'>";
-			echo "<p>YOU: ".$question ;
+			echo "<table border='0' width='100%'>";
+			echo "<tr><td align='left'>";
+			echo "<p><i class='material-icons'>perm_identity</i> ".$question ;
 			echo "</p>";
-			echo "<p>Alice: ".$row['answer'];
+			echo "</td><td align='right'>";
+			echo "<p><i class='material-icons'>child_care</i> ".$row['answer'];
 			echo "</p>";
+			echo "</td></tr></table>";
 			echo "</div>";
 		}
 		else{
