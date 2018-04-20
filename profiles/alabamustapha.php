@@ -421,7 +421,7 @@ function alabotGetMenu()
 					
 				</div>
 				<input type="text" class="human_input" name="human_input">		
-				<button class="btn btn-primary pull-right btn-sm">Menu</button>		
+					
 				
 			</div>
 	</div>
