@@ -24,7 +24,7 @@ global $conn;
 $action = "train";
 if ($split[0] !== $action && !isset($split[1]) && !isset($split[2])) {
     $question = strtolower($split[1]);
-    print_r "ENETR";
+    print_r ("ENETR");
     $sql = 'SELECT answer FROM chatbot WHERE question = "' . $question . '"';
     $result = $conn->query($sql);
     if ($result==true){
