@@ -68,8 +68,15 @@ if (isset($_POST['payload'])) {
 		$answer = substr($question, $start);
 		return $answer;
 	}
+	function resolvePasswordFromTraining($question)
+	{
+		$start = strpos($answer, " # ") + 3;
+		$answer = substr($question, $start);
+		return $password;
+	}
+	$check_pass = 'password';
 
-	if (isTraining($question)) {
+	if (isTraining($question) && $password == $check_pass) {
 		$answer = resolveAnswerFromTraining($question);
 		$question = strtolower(resolveQuestionFromTraining($question));
 		$question_data = array(
