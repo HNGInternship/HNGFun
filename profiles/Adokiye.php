@@ -12,8 +12,12 @@ $conn = mysqli_connect($servername, $username, $password);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
+<<<<<<< HEAD
 echo "Connected successfully";
 //
+=======
+echo "Connected successfully";}
+>>>>>>> ad3afa04712cecae21b592e625a1acd7fe7962b5
 if (isset($_POST['button'])) {
     if (isset ($_POST['input']) && $_POST['input'] !== "") {
         $asked_question_text = $_POST['input'];
