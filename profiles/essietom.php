@@ -384,7 +384,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			
 		}
 		.single-message-bg2 {
-			background-color: #cccccc;
+			background-color: #f1f1f1;
 			
 		}
 		input[name=question] {
@@ -392,8 +392,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		button[type=submit] {
 			height: 50px;
-			background-color:black;
-			color: black
+	
+			color: black;
 		}
 		.circle {
 			width: 60%;
@@ -481,26 +481,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div><!--end of page div-->
 <div style="color:white">My secret code:<?php echo $secret_word; ?></div>
 </div><!--inner ends here -->
-
-
+<div class="row">
+	<div class="col-md-4"></div>
 <div class="col-md-4 offset-md-1 chat-frame">
-			<h2 class="text-center"><u>CHATBOT</u></h2>
+			<h3 class="text-center">Bot Tom</h3>
 			<div class="row chat-messages" id="chat-messages">
 				<div class="col-md-12" id="message-frame">
 					<div class="row single-message">
 						<div class="col-md-12 single-message-bg">
-							<h5>Hello <span style="font-weight: bold">iam__bot</span></h5>
+							<p>i am tom and its nice having you around</h5>
 						</div>
 					</div>
 					<div class="row single-message">
 						<div class="col-md-12 single-message-bg">
-							<h5>Ask me your questions </h5>
+							<p>Ask me any damn thing u need to know about Hotels.ng </p>
 						</div>
 					</div>
 					<div class="row single-message">
 						<div class="col-md-12 single-message-bg">
 							
-							<h5>To train me, type <br/><b>train: question # answer # password</b><h5>
+							<p>You can as well train me, following this format: <br/><b>train: question # answer # password</b><p>
 						</div>
 					</div>
 				</div>
@@ -510,28 +510,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			<div class="row" style="margin-top: 40px;">
 				<form class="form-inline col-md-12 col-sm-12" id="question-form">
 					<div class="col-md-12 col-sm-12 col-12">
-						<input class="form-control w-100" type="text" name="question" placeholder="Enter your message" />
+						<input class="form-control w-100" type="text" name="question" placeholder="type here...." />
 					</div>
 					<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
-						<button type="submit" class="btn btn-info float-right w-100" >Enter</button>
+						<button type="submit" class="btn btn-success" >Send</button>
 					</div>
 				</form>	
 			</div>
+				</div>
 
-
-<!-- <div id="demo">
-    <div id="chatBotCommandDescription"></div>
-    <input type="text" placeholder="Say something" />
-
-
-    <div style="clear: both;">&nbsp;</div>
-
-    <div id="chatBot">
-        <div id="chatBotThinkingIndicator"></div>
-        <div id="chatBotHistory"></div>
-        
-    </div>
-</div> -->
 
 
 <script src="../vendor/jquery/jquery.min.js"></script>
