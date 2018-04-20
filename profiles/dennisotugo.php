@@ -168,19 +168,7 @@ else {
           });
   }
 
-  function isUrl(string) {
-          var expression =
-                  /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
-          var regex = new RegExp(expression);
-          var t = string;
-          if (t.match(regex)) {
-                  return true;
-          } else {
-                  return false;
-          }
-  }
-
-  function stripHTML(message) {
+function stripHTML(message) {
           var re = /<\S[^><]*>/g
           return message.replace(re, "");
   }
@@ -197,60 +185,44 @@ else {
                   showResponse('version 1.1.0');
                   return;
           }
-              $.ajax({
-      url: "profiles/dennisotugo.php",
-     method: "post",
-	data: {question: question},
-	dataType: "json",
-      success: function(res) {
-        if (res.trim() === "") {
-          showResponse(`
-          I don\'t understand that question. If you want to train me to understand,
-          please type <code>"train: your question? # The answer."</code>
-          `);
-        } else {
-          showResponse(res);
-        }
-      }
-    });
-  }
-
-  function showResponse(response) {
-          if (response === true) {
-                  $('.messages-body').append(
-                          `<div>
-          <div class="message bot temp">
-            <span class="content">...</span>
-          </div>
-        </div>`
-                  );
-                  return;
-          }
-          $('.temp').parent().remove();
-          $('.messages-body').append(
-                  `<div>
-        <div class="message bot">
-          <span class="content">${response}</span>
-        </div>
-      </div>`
-          );
-          $('.message-box').val("");
-  }
-
-  function getQuestion() {
-          return $('.message-box').val();
-  }
-
-  function updateThread(message) {
-          message = stripHTML(message);
-          $('.messages-body').append(
-                  `<div>
-        <div class="message you">
-          <span class="content">${message}</span>
-        </div>
-      </div>`
-          );
-  }
+              $(document).ready(function(){
+		var questionForm = $('#input');
+		questionForm.submit(function(e){
+			e.preventDefault();
+			var questionBox = $('input[name=question]');
+			var question = questionBox.val();
+			
+			//display question in the message frame as a chat entry
+			var messageFrame = $('#message-body');
+			var chatToBeDisplayed = '<div class="message bot">'+question+'</div>';
+			
+			messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+			$("#message-body").scrollTop($("#message-body")[0].scrollHeight);
+			//send question to server
+			$.ajax({
+				url: "/profiles/dennisotugo.php",
+				type: "post",
+				data: {question: question},
+				dataType: "json",
+				success: function(response){
+					if(response.status == 1){
+						var chatToBeDisplayed = '<div class="message bot">'+response.answer+'</div>';
+						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+						questionBox.val("");	
+						$("#message-body").scrollTop($("#message-body")[0].scrollHeight);
+					}else if(response.status == 0){
+						var chatToBeDisplayed = '<div class="row single-message">'+
+									'<div class="message bot">'+response.answer+'</div>';
+						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+						$("#message-body").scrollTop($("#message-body")[0].scrollHeight);
+					}
+				},
+				error: function(error){
+					console.log(error);
+				}
+			})
+		});
+	});
 </script>
 <?php } 
 ?>
