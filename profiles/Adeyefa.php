@@ -295,7 +295,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			</div>		
 	    </div>
 	</div>	
-	<script src="Hngfun/vendor/jquery/jquery.min.js"></script>
+	<script src="../vendor/jquery/jquery.min.js"></script>
 	<script>
 		$(document).ready(function(){
 			var Form =$('#qform');
