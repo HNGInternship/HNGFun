@@ -24,13 +24,13 @@
     padding: 0 20px;
 }*/
 
-/*.container {
+.container {
     border: 2px solid #dedede;
     background-color: #f1f1f1;
     border-radius: 5px;
     padding: 10px;
     margin: 10px 0;
-}*/
+}
 
 .darker {
     border-color: #ccc;
