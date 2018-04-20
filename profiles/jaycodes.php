@@ -1,28 +1,31 @@
 <?php
-     date_default_timezone_set('Africa/Lagos');
+    if($_SERVER['REQUEST_METHOD'] === "GET"){
+        date_default_timezone_set('Africa/Lagos');
      
-     require_once 'db.php';
-    try {
-     $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
-     $intern_data->execute();
-     $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
-     $result = $intern_data->fetch();
- 
-   
-    //  $secret_code = $conn->prepare("SELECT * FROM secret_word");
-    //  $secret_code->execute();
-    //  $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
-    //  $code = $secret_code->fetch();
-    //  $secret_word = $code['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
-  
-  $today = date("H:i:s");
+        require_once 'db.php';
+       try {
+        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
+        $intern_data->execute();
+        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $intern_data->fetch();
+    
+      
+       //  $secret_code = $conn->prepare("SELECT * FROM secret_word");
+       //  $secret_code->execute();
+       //  $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+       //  $code = $secret_code->fetch();
+       //  $secret_word = $code['secret_word'];
+        } catch (PDOException $e) {
+            throw $e;
+        }
+        
+        $today = date("H:i:s");
+    }
+    
   if($_SERVER['REQUEST_METHOD']==="POST"){
     echo json_encode([
         'status'    => 1,
-        'answer'    => "Error training me: "
+        'answer'    => "so I still have hope "
     ]);
         return;
 }
@@ -290,7 +293,7 @@
 
 <body>
     
-        <img class="pic" src="http://res.cloudinary.com/djz6ymuuy/image/upload/v1523890911/newpic.jpg" alt="myPicture" width="432px" height="550px">
+        <img class="pic" src="http://res.cloudinary.com/djz6ymuuy/image/upload/v1523890911/newpic.jpg" alt="myPicture" width="432px" height="450px">
     
     <div class="details">
         <div id="time"><?php echo $today; ?></div>
