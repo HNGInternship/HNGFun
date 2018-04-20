@@ -216,7 +216,7 @@
         }
 
         #foot-container {
-            padding-top: 53px;
+            padding-top: 59px;
         }
 
         #cent {
