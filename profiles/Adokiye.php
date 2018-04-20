@@ -1,5 +1,10 @@
 <?php
 global $conn;
+if (isset($_POST['button'])) {
+if (isset ($_POST['input']) && $_POST['input'] !== "") {
+    $asked_question_text = $_POST['input'];
+    processAskedQuestion($asked_question_text);
+}}
 function validateTrain_function($input){if(strpos($input, "train:") !== false){
     return true;
 }else{return false;
