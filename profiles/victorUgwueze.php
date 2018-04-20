@@ -38,6 +38,13 @@ try {
         if($message == ''){
             echo json_encode(['status'=>200,"message"=>"empty"]);
         }else{
+            //check if it ask about bot
+                if($message == 'aboutbot'){
+                    $version = "1.0.0";
+                    echo json_encode(['status'=>200,"message"=>"version ".$version]);
+                    exit();
+                }
+
             if(strpos($message,'train:')===0){
                 $trainMessage = explode('#',substr($message,6));
                 if(sizeof($trainMessage)== 3){
