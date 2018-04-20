@@ -86,7 +86,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
       $response_and_request['request'] = "";
       $response_and_request['response'] = "";
       $response_and_request['time'] = "";
-      $request = $_GET['new_request'];
+      $request = strtolower($_GET['new_request']);
       $response_and_request['request'] = trim($request);
 
       if(empty($response_and_request['request'])) {
