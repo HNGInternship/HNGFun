@@ -1,5 +1,11 @@
+<<<<<<< HEAD
  <?php
  try{
+=======
+
+<?php
+try{
+>>>>>>> 9937252cc84dc5efe5670ec61af59ea90aa11fea
      $profile = 'SELECT * FROM interns_data_ WHERE username= "samtech"';
      $check = 'SELECT * FROM secret_word LIMIT 1';
 
@@ -14,12 +20,19 @@
  }catch (PDOException $e) {
      throw $e;
  }
+<<<<<<< HEAD
  
  $secret_word = $get['secret_word'];
  
  ?>
  
  <html>
+=======
+ $secret_word = $get['secret_word'];
+?>
+<!DOCTYPE html>
+<html>
+>>>>>>> 9937252cc84dc5efe5670ec61af59ea90aa11fea
      <head>
          <title> MY PROFILE</title>
          <style type="text/css">
@@ -62,6 +75,7 @@ p{
      </head>
      <div id = "container">
      <body id="load">
+      
         <div id="formattedtext">
             <p id="boldText"> MY PROFILE </p><br>
             <p> Umoren Samuel Enefiok <br> HNG INTERN <br> UNIVERSITY OF UYO </p>

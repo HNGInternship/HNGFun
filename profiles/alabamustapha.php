@@ -1,8 +1,7 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/answers.php'; //tweak
-
+//require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/answers.php'; //tweak
 if (!defined('DB_USER')) {
-	require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/config.php'; //tweak
+	require "../../config.php";
 	try {
 		$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
 	} catch (PDOException $pe) {
@@ -10,16 +9,7 @@ if (!defined('DB_USER')) {
 	}
 }
 
-// if (!defined('DB_USER')) {
-// 	require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/config.php'; //tweak
-// 	try {
-// 		$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-// 	} catch (PDOException $pe) {
-// 		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-// 	}
-// }
 global $conn;
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
@@ -40,29 +30,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 		$name = $data['name'];
 		$image_filename = $data['image_filename'];
+
 	} catch (PDOException $e) {
+		
 		$secret_word = "sample_secret_word";
 		$name = "Alaba Mustapha O.";
 		$image_filename = 'https://res.cloudinary.com/alabamustapha/image/upload/v1523619685/me.jpg';
 	}
 
 
+}else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+	
+
+	$data = getAction($_POST);
+
+	echo $data;
+	exit();
+		// return;
+
 }
 
-// $data = getAction(['stage' => 2, 'human_response' => 'synonym of love']);
+// $data = getAction(['stage' => 2, 'human_response' => 'what is the synonym of die']);
 
 // var_dump($data);
 
 // die;
-	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-		$data = getAction($_POST);
 	
-		echo $data;
-		exit();
-		// return;
-
-	}
 	
 
 
@@ -84,6 +78,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 		return json_encode($data);
 	}
 
+function alabotGetMenu()
+{
+	return '1. enter menu to show this help <br>
+            2. Find synonyms E.g: Synonyms of love? <br>
+            3. train me e.g: train synonyms of goat # goatie,goater,etc # passkey. <br>
+            3. clear screen: cls. <br>
+            4. exit bot: exit. <br>
+           ';
+}
 
 	function train($human_response){
 		$human_response = prepare_input($human_response);
@@ -92,19 +95,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			$data = ["data" => "In correct train syntax", "stage" => 2];	
 			return $data;
 		}
+
+		
 		$password = array_pop($parts);
 		$part_one = trim($parts[0]);
+		
+		
 		$part_one_split = explode(' ', $part_one);
-		$word = array_pop($part_one_split);
-		$word = trim($word);
-		$word = str_replace('?', '', $word);
-		$answer = trim(str_replace(' ', '', $parts[1]));
+		array_shift($part_one_split);
+		$question = implode(' ', $part_one_split);
+		$answer = trim($parts[1]);
+
 		if(strcmp(trim($password), 'password') !== 0 ){
 			$data = ["data" => "You don't have the pass key", "stage" => 2];
 		}else if (strpos($human_response, 'synonym') !== false) {
-			$data = setSynonyms($word, $answer);
+			// $data = setSynonyms($word, $answer);
+			$data = setGeneral($question, $answer);
 		} else {
-			$data = ["data" => "Just a bot, still learning :-)", "stage" => 2];
+			$data = setGeneral($question, $answer);
 		}
 
 		
@@ -122,12 +130,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 		$human_response = prepare_input($human_response);
 		
 		$human_response_words = explode(' ', $human_response);
-		if(strcmp($human_response, strtolower('menu')) === 0){
+
+		if(strcmp(strtolower(trim($human_response)), 'menu') == 0){
 			$data = ["data" => alabotGetMenu(), "stage" => 2];	
+		}elseif(strcmp(strtolower(trim($human_response)), 'aboutbot') == 0){
+			$data = ['data' => 'Alabot v0.1', 'stage' => 2];	
 		}elseif (strpos($human_response, 'synonym') !== false && count($human_response_words) > 1) {
-			$data = getSynonyms($human_response);
+			// $data = getSynonyms($human_response);
+			$data = getGeneral($human_response);
 		} else {
-		$data = ["data" => "Just a bot, still learning :-)", "stage" => 2];
+			$data = getGeneral($human_response);
 		}
 
 		return $data;
@@ -208,24 +220,83 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	}
 
 
-	
+
+
+	function getGeneral($human_response){
+		global $conn;
+		$word = prepare_question($human_response);
+		$word = str_replace('?', '', $word);
+		$sql = "SELECT * FROM chatbot WHERE question = '{$word}' or question = '{$word}?'";
+		$q = $conn->query($sql);
+		$q->setFetchMode(PDO::FETCH_ASSOC);
+		$data_res = $q->fetchAll();
+		if (count($data_res) > 0) {
+			
+			$index = rand(0, count($data_res) - 1);
+			$data = $data_res[$index]['answer'];
+
+		}else{
+			$data = "Just a bot, still learning :-)";
+		}
+
+		return ["data" => $data, "stage" => 2];
+	}
+
+	function setGeneral($question, $answer){
+		global $conn;
+		$question = trim($question);
+		$question = prepare_question($question);
+		$sql = "SELECT * FROM chatbot WHERE question = '{$question}'";
+		$q = $conn->query($sql);
+		$q->setFetchMode(PDO::FETCH_ASSOC);
+		$data_res = $q->fetchAll();
+		if (count($data_res) > 0) {
+			$data = "I have learnt that already, thanks";
+		} else {
+			
+			$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+
+			try {
+				$query = $conn->prepare($sql);
+
+				if ($query->execute([':question' => $question, ':answer' => $answer]) == true) {
+					$data = 'Great! thank you so much for teaching that';
+				};
+
+			} catch (PDOException $e) {
+				$data = "Something went wrong, please try again";
+			}
+		}
+		return ["data" => $data, "stage" => 2];
+	}
 
 	
 
 	function greet(){
 		$greetings = [
-						'Hi, I am Alabot, What is your name?', 
-						'Howdy, I am Alabot, your name?',
-						'I am Alabot, What is your name'
-					];
+		'Hi, I am Alabot, Learn, play and take quiz. type menu to check commands',
+		'Howdy, I am Alabot, Learn, play and take quiz. type menu to check commands',
+		'I am Alabot, Learn, play and take quiz. type menu to check commands'
+		];
 
-		return ["data" => $greetings[array_rand($greetings)], "stage" => 1];
+		return ["data" => $greetings[array_rand($greetings)], "stage" => 2];
 	}
 	
 	function intro($name){
 		$data = "Welcome " . $name . " You can learn, play or train me to be better Check the menu for guide";
 		return ["data" => $data, "stage" => 2];
 	}
+
+	function prepare_question($question){
+		$question = trim($question);
+		
+		$words = explode(' ', $question);
+		foreach ($words as $key => $word) {
+			$words[$key] = trim($word);
+		}
+		return implode(' ', $words);
+	}
+
 	
 
 ?>
@@ -351,15 +422,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			}
 
 			div#chat-bot-container > .conversation > .message > .message-content {
-				color: #007bff;
+				color: #3908fc;
 				background-color: #fff;
-				font-size: 18px;
-				line-height: 1;
+				font-size: 16px;
+				line-height: 1.2;
 				padding: 7px 13px;
 				border-radius: 15px;
 				width: auto;
 				max-width: 85%;
 				display: inline-block;
+				letter-spacing: 1px;
 			}
 
 			
@@ -381,7 +453,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 				</div>
 
 				<h1 class="intro"><?=$name?> </h1>
-				<h3 class="text-center">Being Kind is better than being right</h3>
+				<h3 class="text-center">Being Kind is better than being right.</h3>
 			</div>	
 		</section>
 	</div>
@@ -394,10 +466,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			</span>
 		</a>
 	</div>
-	<!-- <button id="start-bot" class="btn">
-		let's chat	
+	
 
-	</button> -->
 	<div id="chat-bot">
 			<div id="chat-bot-container">
 				
@@ -419,7 +489,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 					
 				</div>
 				<input type="text" class="human_input" name="human_input">		
-				<button class="btn btn-primary pull-right btn-sm">Menu</button>		
+					
 				
 			</div>
 	</div>
@@ -434,7 +504,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			// Perform other work here ...
 			let stage = 0;
 			var visitor = '';
-			var visitor_input = '';
+			var done_intro = 0;
 			let url = "profiles/alabamustapha.php";
 			
 
@@ -443,21 +513,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			$("a#start-chat-bot").click(function(e){
 				
 				$("div#chat-bot").toggle();
+				
+				stage = 0;
 
 				doIntro();
-
-
-
 
 				$(".human_input").on('keyup', function (e) {
 					if (e.keyCode == 13) {
 						
 						if($("input.human_input").val().trim().length < 1){
-							$("div.conversation").append(makeMessage("Please provide an input"));
+							// $("div.conversation").append(makeMessage("Please provide an input"));
 						}else if($("input.human_input").val() == "cls"){
 							$("div.conversation").html('');
 							$("div.conversation").append(makeMessage("Clean slate, Check menu if needed"));
 							$('input.human_input').val('');
+						}else if($("input.human_input").val() == "exit"){
+							$("div.conversation").html('');
+							$('input.human_input').val('');
+							stage = 0;
+							$("div#chat-bot").hide();	
 						}else{
 
 							human_response = $("input.human_input").val().trim();
@@ -466,7 +540,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 							$.post(url, {human_response: human_response, stage: stage})
 							.done(function(response) {
-								console.log(response);
+								// console.log(response);
 								response = jQuery.parseJSON(response);
 								if(stage == 1){
 									$("div.conversation").append(makeMessage(response.data));
@@ -499,12 +573,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 				return "<div class='pull-right message'><div class='human-message message-content text'><span>" + message + "</span></div></div>";
 			}
 
-			function doIntro(){
-				if(visitor == ''){
-					
-					$.post(url, {human_response: 'Hi', stage: stage})
+			function doIntro(human_input){
+					$.post(url, {human_response: human_input, stage: stage})
 						.done(function(response) {
-							console.log(response);
+							$("div.conversation").html('');
 							response = jQuery.parseJSON(response);
 							stage = response.stage;
 							$("div.conversation").append(makeMessage(response.data));
@@ -513,7 +585,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 							alert("error");
 						})
 
-				}
 
 			}
 
