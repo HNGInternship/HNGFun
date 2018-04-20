@@ -1,4 +1,14 @@
 <?php 
+		
+		if(!defined('DB_USER')){
+			require "../../config.php";		
+			try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
+		}
+
     try {
         $q = 'SELECT * FROM secret_word';
         $sql = $conn->query($q);
@@ -13,14 +23,7 @@
 <?php
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		if(!defined('DB_USER')){
-			require "../../config.php";		
-			try {
-			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-			} catch (PDOException $pe) {
-			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-			}
-		}
+		
 		require "../answers.php";
 
 		date_default_timezone_set("Africa/Lagos");
@@ -156,11 +159,9 @@
 		]);
 		
 	}
+	else{
 ?>
 
-<?php
-	if($_SERVER['REQUEST_METHOD'] === "GET"){
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -347,7 +348,7 @@
 
 			//send question to server
 			$.ajax({
-				url: "profiles/iam__dharmy.php",
+				url: "/profiles/iam__dharmy.php",
 				type: "post",
 				data: {question: question},
 				dataType: "json",
@@ -383,4 +384,4 @@
 </script>	
 </body>
 </html>
-<?php}?>
+<?php } ?>

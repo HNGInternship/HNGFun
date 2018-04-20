@@ -1,6 +1,6 @@
 <?php
 
-// include_once realpath(__DIR__ . '/..') . "/answers.php"; 
+ include_once("../answers.php"); 
 
 if (!defined('DB_USER')){
             
@@ -40,31 +40,32 @@ function decider($string){
     $key = $field[0];
     $key = strtolower(preg_replace('/\s+/', '', $key));
   if(($key == "train")){
-     $password ="p@55";
+     $password ="password";
      $trainer =$field[1];
      $result = explode ("#", $trainer);
   if($result[2] && $result[2] == $password){
     echo"<br>Training mode<br>";
     return $result;
-  } else echo "opssss!!! Looks like you are trying to train me without permission";   
+  } 
+  else echo "opssss!!! Looks like you are trying to train me without permission";   
   }
    }
 }
 
-function tester($string){
-  if (strpos($string, ":" ) !== false) 
-  { 
-   $field = explode (":", $string);
-   $key = $field[0];
-   $key = strtolower(preg_replace('/\s+/', '', $key));
-   if(($key !== "train")){
+// function tester($string){
+//   if (strpos($string, ":" ) !== false) 
+//   { 
+//    $field = explode (":", $string);
+//    $key = $field[0];
+//    $key = strtolower(preg_replace('/\s+/', '', $key));
+//    if(($key !== "train")){
      
-    echo"<br>testing mode activated<br>";
-    return $string;
- }
-}
-return $string;
- }
+//     echo"<br>testing mode activated<br>";
+//     return $string;
+//  }
+// }
+// return $string;
+//  }
 
 // Create connection
 // $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
@@ -80,11 +81,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   if ($_POST['msg'] == 'commands') {
     $reply= 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
   } 
-      // else if($reply==""){
+    //   if($reply==""){
        
-      //   $reply = assistant($_POST['msg']);
+    //  $reply = assistant($_POST['msg']);
        
-      // }
+    //   }
   if($reply =="") {
 
     $post= $_POST['msg'];
@@ -92,7 +93,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if($result){
       $question=$result[0]; 
       $answer= $result[1];
-      $sql = "SELECT * FROM chatbot";
+      $sql = "SELECT * FROM chatbot WHERE question = '$question' And answer = '$answer'";
       $stm = $conn->query($sql);
       $stm->setFetchMode(PDO::FETCH_ASSOC);
 
@@ -100,49 +101,52 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         
         if (count(($result))> 0) {
               
-          while($result) {
-            $strippedQ = strtolower(preg_replace('/\s+/', '', $question));
-            $strippedA = strtolower(preg_replace('/\s+/', '', $answer));
-            $strippedRowQ = strtolower(preg_replace('/\s+/', '', $result['question']));
-            $strippedRowA = strtolower(preg_replace('/\s+/', '', $result['answer']));
-            if(($strippedRowQ == $strippedQ) && ($strippedRowA == $strippedA)){
-            $reply = "I know this already, but you can make me smarter by giving another response to this command";
-            $existError = true;
-            break;
+          // while($result) {
+          //   $strippedQ = strtolower(preg_replace('/\s+/', '', $question));
+          //   $strippedA = strtolower(preg_replace('/\s+/', '', $answer));
+          //   $strippedRowQ = strtolower(preg_replace('/\s+/', '', $result['question']));
+          //   $strippedRowA = strtolower(preg_replace('/\s+/', '', $result['answer']));
+          //   if(($strippedRowQ == $strippedQ) && ($strippedRowA == $strippedA)){
+          //   $reply = "I know this already, but you can make me smarter by giving another response to this command";
+          //   $existError = true;
+          //   break;
             
-            }
+          //   }
               
-          }        
+          // }  
+          $existError = true; 
+          echo "I know this already, but you can make me smarter by giving another response to this command";
+            
         } 
-    
-    if(!($existError)){
-      $sql = "INSERT INTO chatbot(question, answer)
-      VALUES(:quest, :ans)";
-      $stm =$conn->prepare($sql);
-      $stm->bindParam(':quest', $question);
-      $stm->bindParam(':ans', $answer);
+      else
+        if(!($existError)){
+          $sql = "INSERT INTO chatbot(question, answer)
+          VALUES(:quest, :ans)";
+          $stm =$conn->prepare($sql);
+          $stm->bindParam(':quest', $question);
+          $stm->bindParam(':ans', $answer);
 
-      $saved = $stm->execute();
-        
-      if ($saved) {
-          $reply = "Thanks to you, I am smarter now";
-      } else {
-          echo "Error: could not understand";
-      }
-        
-        
-    }  
+          $saved = $stm->execute();
+            
+          if ($saved) {
+              echo  "Thanks to you, I am smarter now";
+          } else {
+              echo "Error: could not understand";
+          }
+            
+          
+        }  
   }
   else{
-    $input = tester($post); 
+    $input = trim($post); 
  
   if($input){
     
   
     // $time ="what is the time";
     // query db to look for question 
-    $answer = "";
-    $sql = "SELECT * FROM chatbot";
+    // $answer = "";
+    $sql = "SELECT * FROM chatbot WHERE question = '$input'";
     $stm = $conn->query($sql);
     $stm->setFetchMode(PDO::FETCH_ASSOC);
 
@@ -150,41 +154,48 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
     if (count($res) > 0) {
     
-      $input = strtolower(trim($input));
-      $sql = "SELECT * FROM chatbot WHERE question LIKE '%$input%'";
-            $stm = $conn->query($sql);
-            $stm->setFetchMode(PDO::FETCH_ASSOC);
+      // $input = strtolower(trim($input));
+      // $sql = "SELECT * FROM chatbot WHERE question LIKE '%$input%'";
+      //       $stm = $conn->query($sql);
+      //       $stm->setFetchMode(PDO::FETCH_ASSOC);
 
-            $result = $stm->fetchAll();
+      //       $result = $stm->fetchAll();
       
                   
-      if(count(($result)) > 0){
+      // if(count(($result)) > 0){
         
-        $answer = $answer[array_rand($answer)];   
-      } 
+      //   $answer = $answer[array_rand($answer)];   
+      // } 
+      $index = rand(0, count($res)-1);
+      $response = $res[$index]['answer'];  
+
+      echo $response;
     
+    }
+    else{
+       echo "I did'nt get that, please rephrase or try again later";
     }       
   }
 }
-  }        
-      if($answer != ""){
-        $reply = $answer;
-        } 
+          
+      // if($answer != ""){
+      //   $reply = $answer;
+      //   } 
     
-    // end input
-         
-  // end test
+      }       
+  
  
 
-  if($reply == ""){
-        $reply ="I did'nt get that, please rephrase or try again later";
-    }
+  // if($reply == ""){
+  //       $reply ="I did'nt get that, please rephrase or try again later";
+  //   }
   
-  echo $reply;
+  // echo $reply;
 
-
+// exit();
   // function
-  }
+}
+else{
   
 ?>
 
@@ -719,8 +730,6 @@ a:focus {
   </body>
 
 </html>
-<?php
-      }
 
-      ?>
-
+<?php 
+}?>

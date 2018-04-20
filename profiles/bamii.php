@@ -41,8 +41,149 @@
       $greet = $greet . '?';
     }
 
+    if(strpos($data, "train:") !== false) {
+      ################################
+      ######## Train the bot #########
+      ################################
 
-    if(in_array($data_lower, $q)) { # DONE
+      # Split into question & answer array.
+      $array = explode("#", $data);
+      $question_temp = explode(":", $array[0]);
+      $question = trim($question_temp[1]);
+      $answer = trim($array[1]);
+
+      # replace question mark
+      $question = preg_replace("([?.])", "", $question);
+
+      # Append the question to the db
+      try {
+        $sql2 =  'INSERT INTO `chatbot`(`question`, `answer`) VALUES ("' . $question . '", "' . $answer . '");';
+        $conn->exec($sql2);
+        echo json_encode([
+          'status' => 1,
+          'answer' => "Heyyy check it out, you taught me something. Now you can ask me again and i'll gladly answer :)",
+        ]);
+        return;
+      } catch (Exception $e) {
+        echo json_encode([
+          'status' => 1,
+          'answer' => "Sorry. My Bad. Something happened. Please try again",
+        ]);
+        return;
+      }
+      return;
+    } else if (strpos($data, "train:") !== true) {
+      if(in_array($data_lower, $q)) { # DONE
+        # search the stored db
+        $data_lower_2 = preg_replace("([?.])", "", $data_lower);
+  
+        $indexes = array_keys($q, $data_lower);
+        $arr_size = sizeof($indexes);
+        $random = mt_rand(0, $arr_size-1);
+  
+        $index = $indexes[$random];
+  
+        echo json_encode([
+          'status' => 1,
+          'answer' => $a[$index],
+        ]);
+        return;
+      } else if(strpos($data_lower, "help") !== false) {
+        echo json_encode([
+          'status' => 1,
+          'answer' => "
+            - To convert currency, use this format <br />
+            convert value from base to destination <br />
+            e.g convert 100 from usd to ngn <br />
+            - To tell the current time. Make sure you have 'time' in your command <br />
+            - To tell you corny chuck norris jokes. Make sure you have either 'joke' or 'chuck' in your command.
+            e.g. tell me chuck norris jokes <br />
+            - To tell details about a place. Type: details the_country <br />
+            e.g details lagos. <br />
+            If you type details nigeria. It defaults to the capital of the country. <br />
+            - Search hotels in hotel.ng. Type: search hotels: hotel_name <br />
+            e.g search hotels: moon <br /> <hr />
+            Just so you know (In case you want to enter multiple commands at the same time e.g search time details), <br />
+            this is the order of preference of the functions --> help > time > convert > joke > details > search. <br />
+            So if you do 'search time details', you'll trigger the time function because it's the highest in the chain. <br />
+            ",
+        ]);
+        return;
+      } else if(strpos($data_lower, 'time') !== false) {
+        $result = bamiiTellTime($data_lower);
+  
+        echo json_encode([
+          'status' => 1,
+          'answer' => $result,
+        ]);
+        return;
+      } else if(strpos($data_lower, 'convert') !== false) {
+        ##################################
+        ####### Currency Convertion ######
+        ##################################
+  
+  
+          $curr_array = explode(" ", $data_lower);
+
+          if(isset($curr_array[1]) && is_numeric($curr_array[1]) && isset($curr_array[3]) && isset($curr_array[5])) {
+            
+            $amount = $curr_array[1];
+            $from_index = array_search('from', $curr_array) + 1;
+            $to_index = array_search('to', $curr_array) + 1;
+    
+            $from = $curr_array[$from_index];
+            $to = $curr_array[$to_index];
+            $converted = bamiiConvertCurrency($amount, $from, $to);
+            $value = $amount . " " . $from . " is " . $converted . " " . $to;
+            echo json_encode([
+              'status' => 1,
+              'answer' => $value,
+            ]);
+            return;
+          } else {
+            echo json_encode([
+              'status' => 1,
+              'answer' => "Please follow the syntax. Thank you! <br /> <i>convert amount from base to destination</i>",
+            ]);
+            return;
+          } 
+      } else if(strpos($data_lower, 'joke') !== false || strpos($data_lower, 'chuck') !== false) {
+        $random_joke = bamiiChuckNorris();
+  
+        echo json_encode([
+          'status' => 1,
+          'answer' => $random_joke,
+        ]);
+        return;
+      } else if(strpos($data_lower, "details") !== false) {
+        $result = bamiiCountryDetails($data_lower);
+  
+        echo json_encode([
+          'status' => 1,
+          'answer' => $result,
+        ]);
+        return;
+      } else if(strpos($data_lower, 'search') !== false) {
+        $url_temp = str_replace("search hotels:", "", $data_lower);
+        $url = trim($url_temp);
+        echo json_encode([
+          'status' => 2,
+          'answer' => 'https://hotels.ng/hotels/search?query=' . $url,
+        ]);
+        return;
+      } else { # 
+        echo json_encode([
+          'status' => 1,
+          'answer' => nl2br("Sorry, I can't answer this command / question right now. \nSadly, my creator didn't train me enough *rolls eyes*."
+          ." Fortunately for you, you can train me by typing \n<strong> 'train: what_you_want_me_to_know # how_to_answer' </strong> like so: <br /> "
+          ." -> <strong> train: Which company is hosting this internship. # This Internship is hosted courtesy Hotels.NG </strong> <br />
+          <hr /> You can also type in help for a full list of commands i understand."),
+        ]);
+        return;
+      }
+    }
+
+   /*  if(in_array($data_lower, $q)) { # DONE
       # search the stored db
       $data_lower_2 = preg_replace("([?.])", "", $data_lower);
 
@@ -87,6 +228,14 @@
         ]);
         return;
       }
+      return;
+    } else if(strpos($data_lower, 'time') !== false) {
+      $result = bamiiTellTime($data_lower);
+
+      echo json_encode([
+        'status' => 1,
+        'answer' => $result,
+      ]);
       return;
     } else if(strpos($data_lower, 'convert') !== false) {
       ##################################
@@ -136,14 +285,6 @@
         'answer' => $random_joke,
       ]);
       return;
-    } else if(strpos($data_lower, 'time') !== false) {
-      $result = bamiiTellTime($data_lower);
-
-      echo json_encode([
-        'status' => 1,
-        'answer' => $result,
-      ]);
-      return;
     } else if(strpos($data_lower, "details") !== false) {
       $result = bamiiCountryDetails($data);
 
@@ -169,7 +310,7 @@
         <hr /> You can also type in help for a full list of commands i understand."),
       ]);
       return;
-    }
+    } */
 
     
   }
@@ -220,11 +361,14 @@
               "verify_peer"=>false,
               "verify_peer_name"=>false,
           ),
-      );  
-      $geocodeUrl = "http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query=lagos&num_of_results=2&format=json";
-      $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+      );
+      $response = file_get_contents($string, false, stream_context_create($arrContextOptions));
 
       $a =json_decode($response, true);
+
+      if($a['data']['error']) {
+        return "Unable to find the country";
+      }
 
       $longitude = $a['search_api']['result'][0]['longitude'];
       $latitude = $a['search_api']['result'][0]['latitude'];
@@ -249,7 +393,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://use.fontawesome.com/dfb23fb58f.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Tajawal" rel="stylesheet">
 	<!-- link to main stylesheet -->
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
     <style>
@@ -406,38 +550,38 @@
         .server-reply,
         .client-send {
           padding: 10px 20px;
-          font-size: small;
-          font-family: 'Raleway';
+          font-size: medium;
+          font-family: 'Tajawal';
           min-width: 30%;
           max-width: 60%;
           overflow-wrap: break-word;
           border: 1px solid grey;
           align-items: center;
           margin-bottom: 10px;
-          font-size: 14px;
+          font-size: 16px;
         }
 
         .server-reply {
-          border-radius: 0 10px 10px 0;
-          border-right: 2px solid black;
+          border-radius: 0 0 10px 0;
+          border-right: 3px solid black;
         }
 
         .server-name {
-          font-family: 'Raleway';
+          font-family: 'Tajawal';
           font-size: medium;
         }
 
         .client-name {
           align-self: flex-end;
-          font-family: 'Raleway';
+          font-family: 'Tajawal';
           font-size: medium;
           
         }
 
         .client-send {
           align-self: flex-end;
-          border-radius: 10px 0px 0px 10px;
-          border-left: 2px solid black;
+          border-radius: 0px 0px 0px 10px;
+          border-left: 3px solid black;
         }
 
         .chatbot {
@@ -462,7 +606,7 @@
           padding: 0 15px;
           margin: 0 auto;
           font-size: small;
-          font-family: 'Raleway';
+          font-family: 'Tajawal';
         }
 
         .chat-btn {
@@ -510,6 +654,9 @@
           Hey there. I'm your new best friend. :) Ask me anything in this line <br />
           1. To tell you corny chuck norris jokes <br />
           2. Convert currency. <br />
+          3. Tell you the time <br />
+          4. Tell you few details about a country/state <br />
+          5. Search hotels.ng hotels <br />
           ... i've still got a few things up my sleeve though. Just chill ;). <br /> <hr />
           Did i tell you that you can train me too? It's simple!. <br /> <hr />
           Just type "train: your_command # the_supposed_answer" <br/> <hr />
