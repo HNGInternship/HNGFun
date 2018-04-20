@@ -42,10 +42,18 @@
             width: 100%;
             display: flex;
             flex-wrap: wrap;
-            flex-direction: column;
             align-items: center;
             justify-content: space-evenly;
             height: 100vh;
+        }
+        .my-profile, .bot {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 500px;
+            width: 100%;
+            flex: 1 1 50%;
+            align-items: center;
         }
         .my-face {
             background: lightblue url('https://res.cloudinary.com/do52uumgy/image/upload/v1523890291/avatar_lphsd8.png') no-repeat center;
@@ -64,31 +72,98 @@
         .my-info div a {
             color: inherit
         }
+        .bot-con {
+            border: 1px solid #535353;
+            height: 500px;
+            padding: 1em;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .bot-msg {
+            border: 1px solid blue;
+            background: aliceblue;
+            font-size: 0.9em;
+            padding: 1em;
+            margin-bottom: 2em;
+            width: 65%;
+            height: auto;
+            align-self: flex-start;
+        }
+        .user-msg {
+            border: 1px solid orange;
+            background: lightgoldenrodyellow;
+            font-size: 0.9em;
+            padding: 1em;
+            width: 65%;
+            height: auto;
+            align-self: flex-end;
+            margin-bottom: 2em;
+        }
+        /* .actions */
+        .btn {
+            background-color: #DC5960;
+            padding: 1em;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 1em;
+            width: 320px;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .actions input {
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
     <div class="wrapper">
-        <div>
-            <h1>Hi, I'm Bukola!<h1>
+        <div class="my-profile">
+            <div>
+                <h1>Hi, I'm Bukola!<h1>
+            </div>
+            <div class="my-face"></div>
+            <div class="my-info">
+                <div>
+                    <span>Fullname:</span> 
+                    Bukola Bisuga
+                </div>
+                <div>
+                    <span>Nickname:</span> 
+                    bukks
+                </div>
+                <div>
+                    <span>Email:</span> 
+                    <a href="mailto:bukksbisuga@gmail.com">bukksbisuga@gmail.com</a>
+                </div>
+                <div>
+                    <span>Interests:</span> 
+                    Athletics, Singing
+                </div>
+            </div>
         </div>
-        <div class="my-face"></div>
-        <div class="my-info">
-            <div>
-                <span>Fullname:</span> 
-                Bukola Bisuga
-            </div>
-            <div>
-                <span>Nickname:</span> 
-                bukks
-            </div>
-            <div>
-                <span>Email:</span> 
-                <a href="mailto:bukksbisuga@gmail.com">bukksbisuga@gmail.com</a>
-            </div>
-            <div>
-                <span>Interests:</span> 
-                Athletics, Singing
+        <div class="bot">
+            <div class="bot-con">
+                <div class="bot-msg">
+                    <span>I'm Lator, I can translate to french language for you</span>
+                </div>
+                <div class="user-msg">
+                    <span>Hi Lator</span>
+                </div>
+                <form class="actions" id="command-form">
+                    <input type="text" placeholder="enter a command">
+                    <button class="btn" id="getProfile">send</button>
+                </form>
             </div>
         </div>
     </div>
@@ -103,6 +178,18 @@
         }
         $secret_word = $data['secret_word'];
     ?>
+
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var commandForm = $('#command-form');
+            commandForm.submit(function(e){
+                e.preventDefault();
+                var commandBox = $('input[name=question]');
+			    var command = commandBox.val();
+            }
+        }
+    </script>
 </body>
 
 </html>

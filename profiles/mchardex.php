@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD
+=======
 
 <?php
 	if($_SERVER['REQUEST_METHOD'] === "GET"){
@@ -46,6 +48,7 @@
 	}
 ?>
 
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<style>
         .card {
@@ -97,9 +100,14 @@
 
 
 	<div class="card">
+<<<<<<< HEAD
+	  <img src="http://res.cloudinary.com/mchardex/image/upload/v1523618086/bukunmi.jpg" alt="mchardex" style="width:100%; height: 350px">
+	  <h1 style="font-size: 24px;">Adebisi Oluwabukunmi J</h1>
+=======
 	<h2 class="header">My Profile Card</h2>
 	  <img src="<?php echo $image_filename; ?>" alt="mchardex">
 	  <h1 class="name">Adebisi Oluwabukunmi J</h1>
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
 	  <p class="title">Web Developer</p>
 	  <p class="skills">Javascript, NodeJs and jquery</p>
 	  <div class="social">

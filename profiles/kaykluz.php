@@ -1,20 +1,13 @@
-<DOCTYPE html>
-<html>
-<head>
-
-<?php
-
-global $conn;
-$image_filename = '';
-$name = '';
-$username = '';
-$sql = "SELECT intern_id, name, username, image_filename FROM interns_data";
-foreach ($conn->query($sql) as $row) {
-    $image_filename = $row['image_filename'];
-    $name = $row['name'];
-    $username = $row['username'];
-}
-
+  <?php
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    
 $secret_word = '';
 
 $sql = "SELECT secret_word from secret_word";
@@ -22,8 +15,12 @@ foreach ($conn->query($sql) as $row) {
     $secret_word = $row['secret_word'];
    
 }
-?>
 
+    ?>
+
+<DOCTYPE html>
+<html>
+<head>
 <style>
 @import url(https://fonts.googleapis.com/css?family=Quicksand:300,400|Lato:400,300|Coda|Open+Sans);
 
@@ -200,11 +197,11 @@ footer h4 a {
    <div class="profile-user-page card">
       <div class="img-user-profile">
         <img class="profile-bgHome" src="http://res.cloudinary.com/kaykluz/image/upload/v1523627149/13012866_1109913765737811_2486734311465436607_n.jpg" />
-        <img class="avatar" src="<?=$my_data['image_filename'] ?>"/>
+        <img class="avatar" src="http://res.cloudinary.com/kaykluz/image/upload/v1523627210/AAEAAQAAAAAAAAlhAAAAJDlmZDJlYWZhLWYwZTctNDNhNS04ZmJjLTg2YzRiNTc0ZjY1Nw.jpg"/>
            </div>
           <button>Follow</button>
           <div class="user-profile-data">
-            <h1><?php echo $user->name ?> <small>(@<?php echo $user->username ?>)</small></h1>
+            <h1><?=$my_data['name'] ?></h1>
             <p>github.com/ojoawo</p>
           </div> 
           <div class="description-profile">Hotels.Ng Intern | Front-end | CSS Demon | <a href="https://twitter.com/kaykluz" title="Kaykluz"><strong>@kaykluz</strong></a> | Hungry and Talented!</div>
