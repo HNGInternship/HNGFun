@@ -1,20 +1,17 @@
 <?php
     session_start();
     require('answers.php');
-    			$dsn = "mysql:host=".DB_HOST.";dbname=".DB_DATABASE;
-    			$db = new PDO($dsn, DB_USER,DB_PASSWORD);
-    			$codeQuery = $db->query('SELECT * FROM secret_word ORDER BY id DESC LIMIT 1', PDO::FETCH_ASSOC);
-    			$secret_word = $codeQuery->fetch(PDO::FETCH_ASSOC)['secret_word'];
-    			$detailsQuery = $db->query('SELECT * FROM interns_data WHERE name = \'Joseph Miracle\' ');
+    $dsn = "mysql:host=".DB_HOST.";dbname=".DB_DATABASE; $db = new PDO($dsn, DB_USER,DB_PASSWORD); $codeQuery = $db->query('SELECT * FROM secret_word ORDER BY id DESC LIMIT 1', PDO::FETCH_ASSOC);$secret_word = $codeQuery->fetch(PDO::FETCH_ASSOC)['secret_word'];
+                            $detailsQuery = $db->query('SELECT * FROM interns_data WHERE name = \'Tiarayuppy\' ');
     $username = $detailsQuery->fetch(PDO::FETCH_ASSOC)['username'];
     if(isset($_POST['message']))
     {
-        			array_push($_SESSION['chat_history'], trim($_POST['message']));
-        			if(stripos(trim($_POST['message']), "train") === 0)
+                    array_push($_SESSION['chat_history'], trim($_POST['message']));
+                    if(stripos(trim($_POST['message']), "train") === 0)
         {
           
-          			$args = explode("#", trim($_POST['message']));
-          			$question = trim($args[1]);
+                    $args = explode("#", trim($_POST['message']));
+                    $question = trim($args[1]);
           $answer = trim($args[2]);
           $password = trim($args[3]);
           if($password == "trainisdope")
@@ -23,7 +20,7 @@
             $trainQuery = $db->prepare("INSERT INTO chatbot (question , answer) VALUES ( :question, :answer)");
             if($trainQuery->execute(array(':question' => $question, ':answer' => $answer)))
             {
-                array_push($_SESSION['chat_history'], "Try another method");
+                array_push($_SESSION['chat_history'], "That works! okay continue chatting");
             }
             else
             {
@@ -44,7 +41,7 @@
           $qaPairs = $questionQuery->fetchAll(PDO::FETCH_ASSOC);
           if(count($qaPairs) == 0)
           {
-             		$answer = "Sorry, I cant understand your details";
+                    $answer = "Sorry, I cant understand your details";
           } else
           {
             $answer = $qaPairs[mt_rand(0, count($qaPairs) - 1)]['answer'];
@@ -54,8 +51,8 @@
               $bracketIndex = stripos($answer, "{{", $bracketIndex);
               $endIndex = stripos($answer, "}}", $bracketIndex);
               $bracketIndex++;
-			      $function_name = substr($answer, $bracketIndex + 1, $endIndex - $bracketIndex -1);
-			      $answer = str_replace("{{".$function_name."}}", call_user_func($function_name), $answer);
+                  $function_name = substr($answer, $bracketIndex + 1, $endIndex - $bracketIndex -1);
+                  $answer = str_replace("{{".$function_name."}}", call_user_func($function_name), $answer);
             }
           }
           array_push($_SESSION['chat_history'] , $answer);
@@ -63,7 +60,7 @@
     }
     if(!isset($_SESSION['chat_history']))
     {
-        		$_SESSION['chat_history'] = array('Hi! How can I help? Ask me any question. To train me, enter the command "train # question # answer # password');
+                $_SESSION['chat_history'] = array('Hello! How can I help? Ask for my help. To train me, enter the command "train # question # answer # password');
     }
     $messages = $_SESSION['chat_history'];
 ?>
@@ -363,6 +360,7 @@ body{
             font-size: 14px;
             border: 1px solid #ddd;
             width: 400px;
+        height:300px;
         }
         .button {
             display: inline-block;
@@ -383,14 +381,14 @@ body{
             display: none;
         }
         .chatBotChatEntry {
-    padding: 20px;
-    background-color: #fff;
-    border: none;
-    margin-top: 5px;
-    font-family: 'open_sanslight', sans-serif !important;
-    font-size: 17px;
-    font-weight: normal;
-}
+        padding: 20px;
+        background-color: #fff;
+        border: none;
+        margin-top: 5px;
+        font-family: 'open_sanslight', sans-serif !important;
+        font-size: 17px;
+        font-weight: normal;
+    }
 
 .chatBotChatEntry * {
     font-family: 'open_sanslight', sans-serif !important;
@@ -490,6 +488,108 @@ body{
             opacity: 1;
         }
  }
+ .my-container
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: "Work Sans", sans-serif;
+    }
+    .content
+    {
+        display: flex;
+        flex-direction: column;
+    }
+    .row
+    {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        flex-direction: row;
+    }
+    .icon-row
+    {
+        display: flex;
+        flex-direction: row;
+        width: 70px;
+        justify-content: space-between;
+    }
+    .chatbox
+    {
+        display: center;
+        flex-direction: column;
+        background-color: #c5f9f0;
+        width: 40%;
+        min-height: 500px;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 20px;
+        border-color:#1d3baf;
+        margin-top: 25px;
+        margin-bottom: 50px;
+        margin-left: 400px;
+    }
+    .chat-area
+    {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: 450px;
+        padding-top: 20px;
+        padding-bottom: 10px;
+        padding-right: 20px;
+        padding-left: 20px;
+        overflow: scroll;
+        box-sizing: border-box;
+    }
+    .chat-controller
+    {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 50px;
+        border-top: 1px solid #1d3baf;
+        box-sizing: border-box;
+        font-size: 20px;
+    }
+    .chat-container
+    {
+        box-sizing: border-box;
+        width: 100%;
+        display: flex;
+    }
+    .input-ctn
+    {
+        flex-direction: row-reverse;
+    }
+    .output-ctn
+    {
+        flex-direction: row;
+    }
+    .chat
+    {
+        min-height: 30px;
+        padding: 10px;
+        box-sizing: border-box;
+        min-width: 30px;
+        border-radius: 8px;
+        font-size: 12px;
+        margin-bottom: 5px;
+        max-width: 60%;
+    }
+    .input
+    {
+        color: #FAFAFA;
+        background-color: #1de5d1;
+    }
+    .output
+    {
+        background-color: transparent;
+        border: 0.5px solid #1E88E5;
+        color: #1E88E5;
+    }
 
 </style>
 <body class="color">
@@ -530,25 +630,17 @@ body{
                     
   
             </div>
-
         </div>
-
-
     </div>
-
-
 </div>
 <div id="time"></div>
-  
-    
+   
    
     </div>
     
-
-
-
 <div id="demo">
-	<h4>Train password <code>`trainisdope`</code></h4>
+    <h4 style="text-align: center;">Chat Bot Query from Duckducko </h4>
+    <h4>Train password <code>`trainisdope`</code></h4>
     <div id="chatBotCommandDescription"></div>
     <input id="humanInput" type="text" placeholder="Say something" />
 
@@ -560,15 +652,29 @@ body{
     <div id="chatBot">
         <div id="chatBotThinkingIndicator"></div>
         <div id="chatBotHistory"></div>
-        
     </div>
 </div>
 <div>
-	<?php for($index = 0; $index < count($messages); $index++ ) :?>
+     <span style="margin-top: 150px;margin-left: 400px; font-size: 37px; font-weight: 700;color: #263238;">Chat Bot from Database</span>
+    <div class="chatbox">
+        <div class="chat-area">
+
+
+          <?php for($index = 0; $index < count($messages); $index++ ) :?>
               <div class="chat-container <?= ($index % 2 == 0) ? "output-ctn" : "input-ctn"  ?>">
                   <div class="chat <?= ($index % 2 == 0) ? "output" : "input"  ?>"><?= $messages[$index] ?></div>
               </div>
           <?php endfor; ?>
+
+        </div>
+        <div class="chat-controller">
+            <form action="/profile.php?id=Tiarayuppy" method="POST" style="display: flex; width: 100%;">
+                <input type="text" name="message" style="box-sizing: border-box; flex-grow: 3; border-right: 1px solid #757575; border-left: 0px;  border-top: 0px; border-bottom: 0px; background-color: transparent; margin-left: 5px; height: 50px;" placeholder="Enter a message..."/>
+                <input type="submit" style="flex-grow: 1; background-color: #1565C0; color: #FAFAFA;"/>
+            </form>
+        </div>
+    </div>
+</div>
 </div>
 <script>
     var sampleConversation = [
@@ -601,7 +707,7 @@ body{
     ChatBot.addPattern("compute ([0-9]+) plus ([0-9]+)", "response", undefined, function (matches) {
         ChatBot.addChatEntry("That would be "+(1*matches[1]+1*matches[2])+".","bot");
     },"Say 'compute [number] plus [number]' to make the bot your math calculator");
-</script>	
+</script>   
 
 </body>
 </html>

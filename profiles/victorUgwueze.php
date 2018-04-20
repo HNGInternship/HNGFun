@@ -1,16 +1,17 @@
 
 <?php
 try {
-    if (!isset($conn)){
+    if (!defined('DB_USER')){
             
-        require "../config.php";
+        require "../../config.php";
     }
     try {
         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
+      } catch (PDOException $pe) {
         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
-    global $conn;
+      }
+       global $conn;
+
 
     $sql ="SELECT * FROM interns_data WHERE username = 'victorUgwueze' LIMIT 1";
     $q = $conn->query($sql);
@@ -37,6 +38,13 @@ try {
         if($message == ''){
             echo json_encode(['status'=>200,"message"=>"empty"]);
         }else{
+            //check if it ask about bot
+                if($message == 'aboutbot'){
+                    $version = "1.0.0";
+                    echo json_encode(['status'=>200,"message"=>"version ".$version]);
+                    exit();
+                }
+
             if(strpos($message,'train:')===0){
                 $trainMessage = explode('#',substr($message,6));
                 if(sizeof($trainMessage)== 3){
@@ -271,7 +279,7 @@ h3{
 }
 
 .bot-message{
-    background:blue;
+    background:#007bff;
     color: #FFFFFF;
     margin: 10px 10px;
     border-radius:4%;
