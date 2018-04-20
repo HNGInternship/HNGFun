@@ -523,13 +523,13 @@ body{
     {
         display: center;
         flex-direction: column;
-        background-color: #FAFAFA;
+        background-color: #c5f9f0;
         width: 40%;
         min-height: 500px;
         border-style: solid;
         border-width: 1px;
-        border-radius: 5px;
-        border-color: #757575;
+        border-radius: 20px;
+        border-color:#1d3baf;
         margin-top: 25px;
         margin-bottom: 50px;
         margin-left: 400px;
@@ -553,9 +553,9 @@ body{
         flex-direction: row;
         width: 100%;
         height: 50px;
-        border-top: 1px solid #757575;
+        border-top: 1px solid #1d3baf;
         box-sizing: border-box;
-        font-size: 12px;
+        font-size: 20px;
     }
     .chat-container
     {

@@ -80,18 +80,12 @@ if(!$conn){
 		$result = mysqli_query($con, $display_query);
 		if(mysqli_num_rows($result) > 0){
 			$row = mysqli_fetch_array($result);
-			echo "<div class='this'>";
-			echo "<table border='0' width='100%'>";
-			echo "<tr><td align='left'>";
+			echo "<div class='this'>";		
 			echo "<p><i class='material-icons'>perm_identity</i> ".$question ;
 			echo "</p>";
-			sleep(1);
-			echo "</td";
-			echo "<tr>";
-			echo "<td align='right'>";
+			sleep(1);			
 			echo "<p><i class='material-icons'>child_care</i> ".$row['answer'];
 			echo "</p>";
-			echo "</td></tr></table>";
 			echo "</div>";
 		}
 		else{
