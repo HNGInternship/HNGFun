@@ -216,7 +216,17 @@ $question = trim($question);
 	 		else if($question[0] == 'm' && $question[4] == 'T'){
 	 				list($keyword, $email) = explode(':', $question);
 	 				$email = trim($email);
-	 			mail($email, 'Thanks for your time', 'It was fun chatting with you!');
+	 				if(mail($email, 'Thanks for your time', 'It was fun chatting with you!')){
+	 					echo "<div class='this'>";
+	 			echo "<p>I sent you an email, hurray go check</p>";
+	 			echo "</div>";
+	 				}else{
+
+	 					echo "<div class='this'>";
+	 			echo "<p>Sorry couldn't send an email now, my boss has not permitted it.</p>";
+	 			echo "</div>";
+	 				}
+	 			
 	 		
 	 	}
 
