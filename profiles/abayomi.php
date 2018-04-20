@@ -60,6 +60,7 @@
         }
         h3 {
         margin: -10px;
+        font-size: 20px;
         text-align: center;
         color: #fff;
         }
@@ -77,7 +78,6 @@
         }
         #icons{
         margin-left: 100px;
-        padding-left: 20px;
         }
         .fa {
         padding: 10px;
