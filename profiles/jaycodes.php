@@ -19,6 +19,15 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
 }
 
  ?>
+ <?php 
+    if($_SERVER['REQUEST_METHOD']==='POST'){
+        echo json_encode([
+            'status'    => 1,
+            'answer'    => "attmepting connection"
+        ]);
+        return;
+    }
+ ?>
 
 
 <!DOCTYPE html>
