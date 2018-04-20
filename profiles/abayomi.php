@@ -32,7 +32,7 @@
         }
         .main {
         width: 360px;
-        height: 550px;
+        height: 600px;
         left: 50%;
         top:55%;
         background: rgb(43, 108, 167);
@@ -107,7 +107,7 @@
         background: rgb(47, 136, 204);
         color:#fff;
         }
-        footer{
+        date{
         margin-bottom: 10px;
         }
 	</style>
@@ -136,8 +136,8 @@
         </div>
             
         </div>
-<footer>
+<div class="date">
     <p>Copyright &copy; HNG FUN <?php echo date("Y"); ?></p>
-</footer>
+</date>
     </div>
 </body>
