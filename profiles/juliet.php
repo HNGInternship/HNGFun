@@ -56,8 +56,12 @@ function decider($string){
 function assistant($string)
 {    $reply = "";
     if ($string == 'what is my location') {
-        $reply= "This is Your Location <i class='em em-arrow_forward'></i> " . $query['city'] . ", ". $query['country'] . "!";
-        return $reply;
+       
+      
+      $ip=$_SERVER['REMOTE_ADDR'];
+      $reply =var_export(unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip)));
+      
+      return $reply;
         
     }
     elseif ($string == 'tell me about your author') {
@@ -616,10 +620,10 @@ a:focus {
                        <span class="login-status">Online    | <?php
             echo "" . date("h:i:a");
             ?>, <?php
-            $query = @unserialize (file_get_contents('http://ip-api.com/php/'));
-            if ($query && $query['status'] == 'success') {
-            echo '' . $query['country'] . ', ' . $query['city'] . '!';
-            }
+            
+            $ip=$_SERVER['REMOTE_ADDR'];
+            echo var_export(unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip)));
+            
             ?></span>
                         
                       </span>
