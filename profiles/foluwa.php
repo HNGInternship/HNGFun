@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 else
   require '../config.php';
 try {
-  $db_conn = new PDO("mysql:host=".DB_HOST.";dbname=".hng_fun, DB_USER, DB_PASSWORD);
+  $db_conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
   $secret_word = $db_conn->query('SELECT secret_word FROM secret_word')->fetch(PDO::FETCH_OBJ)->secret_word;
   $user = $db_conn->query('SELECT * FROM interns_data WHERE username="foluwa"')->fetch(PDO::FETCH_OBJ);
 }
@@ -280,7 +280,6 @@ messageForm.onsubmit = function (e) {
 </script>
 
 <?php
-}
 
 $db_conn = null;
 
