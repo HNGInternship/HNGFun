@@ -42,8 +42,10 @@
 				<p>(Are you bored? chat with me)</p>
 				<hr>
 
-				<div id="bot-display" style="background-color:; height: 300px; width: 90%; overflow: scroll;">
+				<div id="bot-display" style="background-color:; height: 300px; width: 90%; overflow: scroll; font-family: 'IBM Plex Mono', monospace;">
 					<p>Ask me any question, I will give you the answer</p>
+					<p>Ask: <b>what is time</b> to get the current time</p>
+					<p>I can send you an email, type: <b>mailTo:your email</b></p>
 					<!--<p>To train me: <br>
 					Tell me the question first by typing: <em><b>#your question</b></em><br>
 					Then the answer by typing: <em><b>@the answer</b></em><br>
@@ -83,7 +85,7 @@ if(!$conn){
 		//list($keyvalue, $real_question) = explode('?', $question);
 		$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 		$question = mysqli_real_escape_string($con, $question);
-		$display_query = "SELECT answer FROM chatbot WHERE question = '$question'";
+		$display_query = "SELECT answer FROM chatbot WHERE question = '$question' ORDER BY RAND() LIMIT 1;";
 		$result = mysqli_query($con, $display_query);
 		if(mysqli_num_rows($result) > 0){
 			$row = mysqli_fetch_array($result);
@@ -201,6 +203,35 @@ $question = trim($question);
 	 					Version: Alice 1.5.2</p>";
 	 			echo "</div>";
 	 	}
+
+	 	else if($question == 'what is the time'){
+	 		date_default_timezone_set('UTC');
+	 			echo "<div class='this'>";
+
+	 			echo date('l jS \of F Y h:i:s A');
+	 			echo "</div>";
+	 	}
+
+
+	 		else if($question[0] == 'm' && $question[4] == 'T'){
+	 				list($keyword, $email) = explode(':', $question);
+	 				$email = trim($email);
+	 				if(mail($email, 'Thanks for your time', 'It was fun chatting with you!')){
+	 					echo "<div class='this'>";
+	 			echo "<p>I sent you an email, hurray go check</p>";
+	 			echo "</div>";
+	 				}else{
+
+	 					echo "<div class='this'>";
+	 			echo "<p>Sorry couldn't send an email now, my boss has not permitted it.</p>";
+	 			echo $email;
+	 			echo "</div>";
+	 				}
+	 			
+	 		
+	 	}
+
+	 	
 
 	 	else{
 	 		display_answer($question);

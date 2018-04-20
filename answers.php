@@ -324,5 +324,40 @@ function get_current_time(){
 }
 /*end of
 Adokiye's function*/
+
+
+/////////////////////////////////////////////////
+////////////////////////////////////////////////
+// functions by john ayeni do not modify please//
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+function aboutMe(){
+  return "Hi my name is Ruby, I am a chatbot, nice to meet you";
+}
+
+
+function getRandomFacts(){
+  $facts = ["Most toilets flush in E flat",
+  "“Almost” is the longest word in English with all the letters in alphabetical order.",
+  "All swans in England belong to the queen.",
+  "No piece of square paper can be folded more than 7 times in half."];
+  return $facts[rand(0, count($facts) - 1)];
+}
+
+function getBotMenu(){
+  return  "Send 'fact' to get a fact. \n
+    Send 'time' to get the time. \n
+    Send 'about' to know me. \n
+    Send 'help' to see this again. \n
+    If its just a question send the question plain. \n
+    To train me, send in this format => \n
+    'train: question # answer # password'";
+}
+function getTime(){
+  return date("h:i:s");
+}
+////////////////////////////////
+// END OF JOHN AYENI FUNCTIONS//
+////////////////////////////////
 ?>
 

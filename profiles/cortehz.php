@@ -765,7 +765,7 @@ body {
 }
 
 .chat_window {
-  position: absolute;
+  position: relative;
   width: calc(100% - 20px);
   max-width: 800px;
   height: 500px;
@@ -1030,6 +1030,7 @@ body {
 			</div>
             </div>
 		</header>
+		</div>
 
 		
 <div class="chat_window">
@@ -1037,7 +1038,7 @@ body {
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
-<<script>
+<script>
 	(function () {
     var Message;
     Message = function (arg) {
