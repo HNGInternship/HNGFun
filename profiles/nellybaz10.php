@@ -204,8 +204,10 @@ $question = trim($question);
 	 	}
 
 	 	else if($question == 'what is the time'){
+	 		date_default_timezone_set('UTC');
 	 			echo "<div class='this'>";
-	 			echo "<p>The time is </p>".date('h:m:s');
+
+	 			echo date('l jS \of F Y h:i:s A');
 	 			echo "</div>";
 	 	}
 
