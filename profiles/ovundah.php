@@ -102,7 +102,7 @@
             
         </div>
         <div class='bot embed-responsive embed-responsive-4by3'>
-            <iframe class="embed-responsive-item" src="https://hng.fun/profiles/ovundah/"
+            <iframe name='bot' class="embed-responsive-item" src="https://hng.fun/profiles/ovundah/"
                         width="100%" 
                         height="100%">
             </iframe>
@@ -111,5 +111,8 @@
     </body>
 </html>
 <script>
+    function send(){window.frames['bot'].set(<?php echo $json; ?>)}
+    
+    
     sessionStorage.setItem('answers', JSON.stringify(<?php echo $json; ?>));
 </script>
