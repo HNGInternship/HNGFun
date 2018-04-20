@@ -1,5 +1,5 @@
 <?php 
-require 'db.php';
+//require 'db.php';
 if($_SERVER['REQUEST_METHOD'] === "GET"){
     try {
         $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
