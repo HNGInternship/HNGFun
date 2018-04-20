@@ -1,12 +1,18 @@
 <?php
 include "../answers.php";
 require "../../config.php";
-try{
-    $conn = new PDO ("mysql:host=".DB_HOST.";dbname=". DB_DATABASE,DB_USER,DB_PASSWORD);
-    echo "cccccccc";
-}catch (PDOException $pe){
-    die("could not connect to the database ". DB_DATABASE.": " . $pe->getMessage());
+$servername = DB_HOST;
+$username = DB_USER;
+$password = DB_PASSSWORD;
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password);
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
 }
+echo "Connected successfully";
 if (isset($_POST['button'])) {
     if (isset ($_POST['input']) && $_POST['input'] !== "") {
         $asked_question_text = $_POST['input'];
