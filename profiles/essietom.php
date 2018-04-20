@@ -362,17 +362,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			height: 700px;
 			margin-top: 5%;
 			margin-bottom: 50px;
-			font-size:20px;
+			font-size:18px;
 		}
 		.chat-messages {
 			padding: 5px;
-			height: 450px;
+			height: 500px;
 			overflow-y: auto;
 			margin-left: 15px;
 			margin-right: 15px;
 			border-radius: 6px;
 			
 		}
+		p {
+    line-height: 1;
+    margin: 10px 0;
+}
 		.single-message {
 			margin-bottom: 5px; 
 			border-radius: 5px;
@@ -380,7 +384,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			
 		}
 		.single-message-bg {
-			background-color:#a1a1a1;
+			background-color:#f3f3f3;
 			
 			
 		}
