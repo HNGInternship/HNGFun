@@ -44,7 +44,7 @@
             $ask = preg_replace('([?.])', "", $ask);
 
             //if the answer is already in the database, do this:
-            $ask = "%$ask%";
+            $ask = "$ask";
             $sql ="SELECT * FROM chatbot WHERE question LIKE :ask";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':ask', $ask);
@@ -56,42 +56,10 @@
               $row= $rows[$index];
               $answer = $row['answer'];
 
-              //Does this answer require a function? Check:
-              $index_of_parentheses = stripos($answer, "((");
-              if($index_of_parentheses === false){ 
-              //then the answer is not to call a function
                 echo json_encode([
                   'status' => 1,
                   'answer' => $answer
                 ]);
-              }else{
-              //otherwise call a function. but get the function name first
-              $index_of_parentheses_closing = stripos($answer, "))");
-              if($index_of_parentheses_closing !== false){
-                $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
-                $function_name = trim($function_name);
-                //if method name contains space, do not invoke
-                if(stripos($function_name, ' ') !== false){
-                  echo json_encode([
-                    'status' => 0,
-                    'answer' => "The function name should not contain white spaces"
-                  ]);
-                  return;
-                }
-                if(!function_exists($function_name)){
-                  echo json_encode([
-                    'status' => 0,
-                    'answer' => "Sorry i could not find this function, check your calling and try again"
-                    ]);
-                }else{
-                  echo json_encode([
-                    'status' => 1,
-                    'answer' => str_replace("(($function_name))", $function_name(), $answer)
-                    ]); 
-                }
-                return;
-              }
-            }
           }else{
             echo json_encode([
                 'status' => 0,
@@ -101,23 +69,23 @@
           return;
       }else{
         //Enter the training mode
-        $question_and_answer_string = substr($ask, 6);
-        //remove excess white space in $question_and_answer_string
-         $question_and_answer_string = preg_replace('([\s]+)', ' ', trim($question_and_answer_string));
+        $ask_ans = substr($ask, 6);
+        //remove excess white space in $ask_ans
+         $ask_ans = preg_replace('([\s]+)', ' ', trim($ask_ans));
          //remove ? and . so that questions missing ? (and maybe .) can be recognized
-         $question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string);
-         $split_string = explode("#", $question_and_answer_string);
-         if(count($split_string) == 1){
+         $ask_ans = preg_replace("([?.])", "", $ask_ans);
+         $separate = explode("#", $ask_ans);
+         if(count($separate) == 1){
           echo json_encode([
             'status' => 0,
             'answer' => "It seems you didnt enter the format correctly. \n Here, Let me help you: \n Type: <strong>train: question # answer # password"
             ]);
           return;
          }
-         $que = trim($split_string[0]);
-         $ans = trim($split_string[1]);
+         $que = trim($separate[0]);
+         $ans = trim($separate[1]);
 
-         if(count($split_string) < 3){
+         if(count($separate) < 3){
           echo json_encode([
             'status' => 0,
             'answer'=> "You need to type the training password to train me"
@@ -126,7 +94,7 @@
          }
          //Lets know what the password is
          
-         $password = trim($split_string[2]);
+         $password = trim($separate[2]);
          define('TRAINING_PASSWORD', 'password');
          //verify if training password is correct
          if($password !== TRAINING_PASSWORD){
@@ -145,16 +113,16 @@
          $stmt->setFetchMode(FETCH_ASSOC);
          echo json_encode([
             'status' => 1,
-            'answer' => "I have learnt a new thing today, Thank you"
+            'answer' => "I have learnt a new thing today, Thank you. You can now test me"
           ]);
          return;
       }
       echo json_encode([
       'status' => 0,
-      'answer' => "Sorry, i really dont understand you right now, you could offer to train me"
+      'answer' => "I cant grasp this, try me another time. Thanks."
     ]); 
   }else {
-?>    
+?>   
 
 <!DOCTYPE html>
 <html>
@@ -241,6 +209,8 @@
       float: right;
       color: #1a1a1a;
       background-color: #edf3fd;
+      max-width: 80%
+      font-weight: bold;
       -webkit-align-self: flex-end;
       align-self: flex-end;
       -moz-animation-name: slideFromRight;
@@ -255,6 +225,8 @@
       float: left;
       color: #fff;
      background-color: #c0c0c0;
+     max-width: 80%;
+     font-weight: bold;
       -webkit-align-self: flex-start;
       align-self: flex-start;
       -moz-animation-name: slideFromLeft;
@@ -366,8 +338,7 @@ $(document).ready(function(){
       $('.submit').click(function(){
         currentMessage();
         getAnswer();
-      });
-
+      
      $(window).on('keydown', function(e){
         if (e.which == 13) {
           currentMessage();
