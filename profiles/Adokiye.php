@@ -1,15 +1,12 @@
 <?php
 include "../answers.php";
-
-            require "../../config.php";
-            try {
-                $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-                echo "connection successful";
-            } catch (PDOException $pe) {
-                die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-            }
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-function askQuestion($input)
+require '../db.php';
+if (isset($_POST['button'])) {
+    if (isset ($_POST['input']) && $_POST['input'] !== "") {
+        $asked_question_text = $_POST['input'];
+        echo askQuestion($asked_question_text);
+    }
+}function askQuestion($input)
     {
         $split = preg_split("/(:|#)/", $input, -1);
         global $conn;
@@ -47,12 +44,6 @@ function askQuestion($input)
             echo "Question and answer with myCreator function added successfully";
         } else
             return "ENTER train:your question#your answer  to add questions and answers to the database";
-    }    if (isset($_POST['button'])) {
-            if (isset ($_POST['input']) && $_POST['input'] !== "") {
-                $asked_question_text = $_POST['input'];
-                echo askQuestion($asked_question_text);
-            }
-
     }
 ?>
 
