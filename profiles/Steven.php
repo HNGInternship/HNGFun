@@ -313,7 +313,7 @@
 </section>
 
 <script src="../vendor/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.js"></script>
+
 
 <script>
 $(document).ready(function(){
@@ -338,7 +338,8 @@ $(document).ready(function(){
       $('.submit').click(function(){
         currentMessage();
         getAnswer();
-      
+      });
+
      $(window).on('keydown', function(e){
         if (e.which == 13) {
           currentMessage();
