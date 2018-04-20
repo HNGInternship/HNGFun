@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
@@ -240,15 +240,7 @@ body{
     </style>
    </head>
     <body onload="typeWriter()">
-	<?php
-  $result = $conn->query("Select * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
-
-  $result2 = $conn->query("Select * from interns_data where username = 'olawalle'");
-  $user = $result2->fetch(PDO::FETCH_OBJ);
-?>
-        <nav>
+	        <nav>
             <span class="top-text">Olawalle</span>
                 <div class="links">
                     <a href="https://www.behance.net/olawalle94c375"><i class="fa fa-behance"></i></a>
@@ -273,8 +265,7 @@ body{
                     I am proficient with <span>HTML5</span>, <span>CSS3</span>, <span>Bootstrap</span>, <span>javascript</span>, <span>JQuery</span> and <span>Angular4</span> .<br>
                     I love <span class="tint">artworks</span>, <span class="tint">movies</span>  , <span class="tint">puzzles </span>& <span class="tint"> music </span><br>
                     if you want to know more,<i class="em em-call_me_hand"></i><br>
-					<?php echo $user->username ?>
-                    </p>
+					olawalle                    </p>
 					
                 </div>
                 </div>  
