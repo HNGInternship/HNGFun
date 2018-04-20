@@ -111,17 +111,19 @@
   
   } else {
 ?>
-<div class="profile">
+<div class="profile" style="
+    height:  100%;
+    text-align:  center;
+    position:  fixed;
+    position: fixed;
+    position: fixed;
+    width: 50%;
+    right: 0;
+    background-color: #007bff;
+">
 						<h1>Dennis Otugo</h1>
 						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
-						<nav>
-							<ul>
-								<li><a href="https://facebook.com/el.chapon.9" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-								<li><a href="https://twitter.com/wesleyotugo" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-								<li><a href="https://github.com/dennisotugo" class="icon fa-github"><span class="label">Github</span></a></li>
-								<li><a href="emailto:wesleyotugo@fedoraproject.org" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-							</ul>
-						</nav>
+
 					</div>
   <div class="bot-body">
     <div class="messages-body">
@@ -144,7 +146,24 @@ footer {
 	display: none;
 	padding: 0px !important;
 }
-	
+	h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+    bottom: 50%;
+    left: 65%;
+    position: fixed;
+    font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 700;
+}
+	p {
+    position: fixed;
+    bottom: 40%;
+    left: 58%;
+    /* text-align: center; */
+    line-height: 1.5;
+    margin: 30px 0;
+}
+
+
   .bot-body {
 		max-width: 100% !important;
     position: fixed;
@@ -154,6 +173,7 @@ footer {
     width: 100%;
     left: 0;
     bottom: 0px;
+	      height: 80%;
     /* box-sizing: border-box; */
     /* box-shadow: 1px 1px 9px; */
   }
@@ -164,7 +184,6 @@ footer {
     padding: 10px;
     overflow: auto;
     width: 50%;
-	  border-right: solid black 3px;
     border-top: 1px solid #f1f1f1;
     padding-bottom: 50px;
     border-top-left-radius: 5px;
@@ -356,5 +375,7 @@ footer {
     );
   }
 </script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+
 <?php } 
 ?>
