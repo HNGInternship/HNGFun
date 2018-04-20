@@ -1,254 +1,287 @@
-
-
-<?php 
-//DATE
- $d = date("h:i:sa"); 
- if(!defined('DB_USER')){
-			require "../../config.php";		
-			try {
-			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-			} catch (PDOException $pe) {
-			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-			}
-		}
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);	
-    	$stmt = $conn->prepare("SELECT * FROM secret_word");
-		$stmt->execute();	
-		$count	= $stmt->rowCount();
-	
-	//get the secret word
-	 if($count >0){
-				 while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                       $id = $row['id'];
-				       $secret_word= $row['secret_word']; 
-				 }
-			} 
-	$username = "foluwa";
-	$stmt= $conn->prepare("SELECT * FROM interns_data WHERE username=? LIMIT 1");
-	$stmt->execute(array($username));	
-	$count2	= $stmt->rowCount();
-?>
 <?php
-	if($_SERVER['REQUEST_METHOD'] === 'POST'){
-	  $mem = $_POST['question'];
-	  $mem = preg_replace('([\s]+)', ' ', trim($mem));
-	  $mem = preg_replace("([?.])", "", $mem);
-		$arr = explode(" ", $mem);
-		if($arr[0] == "train:"){
-			unset($arr[0]);
-			$q = implode(" ",$arr);
-			$queries = explode("#", $q);
-			$quest = $queries[0];
-			$ans = $queries[1];
-			 $sql = "INSERT INTO nbot(question, response) VALUES ('" . $quest . "', '" . $ans . "')";
-			 $conn->exec($sql);
-	     header('Content-type: text/json');
-	     $arrayName = array('result' => 'Would you like to test now');
-	     echo json_encode($arrayName);
-	     return;
-	    }
-	    else {
-	      header('Content-type: text/json');
-	       $arrayName = array('result' => "Couldnt get that,Kindly try again");
-	       echo json_encode($arrayName);
-	       return;
-	   }
-	}
+if ($_SERVER['REQUEST_METHOD'] === 'POST')
+  require '../../config.php';
+else
+  require '../config.php';
+try {
+  $db_conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
+  $secret_word = $db_conn->query('SELECT secret_word FROM secret_word')->fetch(PDO::FETCH_OBJ)->secret_word;
+  $user = $db_conn->query('SELECT * FROM interns_data WHERE username="foluwa"')->fetch(PDO::FETCH_OBJ);
+}
+catch (PDOException $e) {
+  die('Error: ' . $e->getMessage());
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST')
+{
+  include '../answers.php';
+
+  $message = $_POST['message'];
+
+  $format = 'Kindly use the format <code>train: question # answer # password</code> to train me.';
+
+  function pick_one(Array $answers)
+  {
+    return $answers[random_int(0, count($answers) - 1)];
+  }
+
+  function escape_apostrophe(String $string)
+  {
+    return str_replace("'", "\\'", $string);
+  }
+
+  function validate_answer(String $answer)
+  {
+    $matches = [];
+    if (preg_match_all('/.*\(\((?<functions>[[:alnum:]_]+)\)\).*/', $answer, $matches)) {
+      $functions = array_map(function ($function) {
+        if (function_exists($function)) return $function;
+        return sendResponse(200, "The function, '$function', Not Available.");
+      }, $matches['functions']);
+    }
+    return count($functions);
+  }
+
+  function function_replace(String $string)
+  {
+    $matches = [];
+    $matched = preg_match_all('/.*\(\((?<functions>[[:alnum:]_]+)\)\).*/', $string, $matches);
+    if ($matched) {
+      $functions = $matches['functions'];
+      foreach ($functions as $function) {
+        $string = str_replace("(($function))", $function(), $string);
+      }
+
+      return $string;
+    }
+    return $string;
+
+  }
+
+  function sendResponse($status, $message, $type = 'text')
+  {
+    http_response_code($status);
+    echo json_encode([
+      'message' => nl2br($message),
+      'type' => $type,
+    ]);
+    exit;
+  }
+
+  function show($option = 'commands')
+  {
+    $fails = [
+      'I do not know that.',
+    ];
+    $contains_command = (bool) preg_match('/.*command.*/', $option);
+    if ($contains_command) return sendResponse(200, getListOfCommands());
+    return sendResponse(200, pick_one($fails));
+  }
+
+  function send_url($url)
+  {
+    $link = trim($url);
+    if (filter_var("http://$link", FILTER_VALIDATE_URL) === false) return sendResponse(200, 'That is an invalid link.');
+    return sendResponse(200, $url, 'url');
+  }
+
+  function train_zoe(String $instruction = null) //''
+  {
+    global $db_conn;
+    global $format;
+    $invalid_password = [
+      'Your password is incorrect.',
+    ];
+    $success = [
+      'Would you tell me more Got to learn more',
+    ];
+    $failure = [
+        'Something went wrong somewhere. Please check your syntax.',
+    ];
+    $instructions = explode('#', $instruction);
+    $instructions = array_map('trim', $instructions);
+    if (count($instructions) !== 3)
+      return sendResponse(200, $format);
+    if ($instructions[2] !== 'password')
+      return sendResponse(200, pick_one($invalid_password));
+    validate_answer($instructions[1]);
+    $instructions = array_map('escape_apostrophe', $instructions);
+    $query = "INSERT INTO chatbot (question, answer) VALUES ('$instructions[0]', '$instructions[1]')";
+    $send_training_data = $db_conn->prepare($query);
+    $query_success = $send_training_data->execute();
+    if ($query_success)
+        return sendResponse(201, pick_one($success));
+    return sendResponse(200, pick_one($failure));
+  }
+
+  function reply($message)
+  {
+    global $db_conn;
+    global $format;
+    $dumb = [
+      'I do not know that',
+      'Would you please teach',
+    ];
+    $question = str_replace('?', '', $message);
+    $question = escape_apostrophe($question);
+    $question = trim($question);
+    $answers = $db_conn->query("SELECT answer FROM chatbot WHERE question LIKE '%$question%'")->fetchAll(PDO::FETCH_OBJ);
+    if (empty($answers)) {
+      $reply = pick_one($dumb)."\n".$format;
+      sendResponse(200, $reply);
+    }
+    $answer = pick_one($answers)->answer;
+    if (validate_answer($answer))
+      return sendResponse(200, function_replace($answer));
+    return sendResponse(200, $answer);
+  }
+
+  $messageParts = array_map('trim', explode(':', $message));
+  switch($messageParts[0]) {
+    case 'show':
+      show($messageParts[1]);
+      break;
+    case 'open':
+      unset($messageParts[0]);
+      $url = implode(':', $messageParts);
+      send_url($url);
+      break;
+    case 'train':
+      unset($messageParts[0]);
+      $command = implode(':', $messageParts);
+      train_zoe($command);
+      break;
+    default:
+      reply($message);
+  }
+} //else {
+
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
-
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-		<title>Foluwa-Hng Intern</title>
-		<style type="text/css">
-			body{
-				background-color: #87ceeb;
-				background: linear-gradient(to bottom right, #DDA0DD,  #87ceeb);
-			}
-			header{
-				padding-top: 20px;
-			}
-			footer{
-				padding-top: 25px;
-				text-align: center;
-				font-size: 25px;
-				color: blue;
-			}
-			a{
-				padding-left: 20px;
-				padding-right: 20px;
-			}
-			footer > a {
-				color: #0000ff;
-			}
-			#typingEffect {
-				padding-top: 70px;
-				font-size: 30px;
-				font-weight: 40px;
-				font-style: Arial,Verdana,Courier;
-			}
-			#socialMedia {
-				padding-top: 30px;
-				font-size: 30px;
-				text-align: center;
-			}
-			#socialicons {
-				padding-top: 20px;
-			}
-			#imageSection {
-				padding-top: 50px;
-				border: 2px solid black;
-			}
-			#myimage {
-				border-radius: 50%;
-				display: block; 
-				margin-left: auto;
-				 margin-right: auto; 
-				 width: 50%; 
-			}
-			input[type=text] {
-			    width: 100%;
-			    padding: 12px 20px;
-			    margin: 8px 0;
-			    box-sizing: border-box;
-			    border: 2px solid red;
-			    border-radius: 4px;
-			    background-color: skyblue;
-    			color: white;
-		    }
-			#botSection{
-				
-			}
-			#headerTime {
-				text-align: right;
-				color: #f4e8af;
-			}
-			#botInput{ 
-				height: 7px;
-				width: 14px;
-			}
-			#botSubmit{
-				height: 7px;
-				width: 14px;
-			}
-			#mychats {
-				list-style-type: none;
-				padding: 0;
-				margin: 0;
-				width: 10em;
-			}
-			.vertical-menu {
-			    width: 200px;
-			    height:300px;
-			    overflow-y: auto;
-			}
-			.botSend{
-				position: absolute; 
-				color:red;
-			}
-
-			.humanSend {
-				position: absolute; 
-				color: green;
-				right: 0px;
-			}
-			.humanSender {
-				position: absolute; 
-				color: green;
-				right: 0px;
-				margin: 1em 0;
-				margin-top: auto;
-			}
-
-			.vertical-menu li {
-			    /*background-color: #00ff00;*/
-			    margin-top: 50px;
-			    text-decoration: none;
-			    width: auto;
-			    list-style-type: none;
-			    border-radius: 4px;
-			    background-color: yellow;
-			}
-		</style>
-	</head>
-	<body class="container-fluid"  width="100%;" height="100%;">
-		<header class="row" style="color:blue;">
-				  <div class="col-sm-12 text-right" id="headerTime"><?php echo date("l jS \of F Y h:i:s A"); ?></div>
-		</header>
-		<main>
-			<div class="row">
-				<div class="col-sm-6">
-						<section id="imageSection">
-							<img id="myimage" src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="foluwa's picture" style="width:300px;height:350px;">
-							<section id="typingEffect">
-								<div>Akintola Moronfoluwa</div>
-								<div id="socialMedia">
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+  <style type="text/css">
+  body{
+    background-color: #ff0000;
+  }
+  </style>
+</head>
+<body>
+<main class="content">
+  <div class="row">
+      <div class="col-sm-6">
+            <span class="name"><?php echo $user->name; ?></span>
+               <div id="socialMedia">
 									<div id="socialicons">
 										<a href="https://facebook.com/akintola.moronfoluwar"><i class="fa fa-facebook"></i></a>
 										<a href="https://instagram.com/fantastic_foluwa"><i class="fa fa-instagram"></i></a>
 										<a href="https://twitter.com/fantasticfoluwa"><i class="fa fa-twitter"></i></a>
 										<a href="https://github.com/foluwa"><i class="fa fa-github"></i></a>
 										<a href="https://slack.com/foluwa"><i class="fa fa-slack"></i></a>
-									</div>
-								</div>
-							</section>
-						</section>		
-				</div>
-				<div class="col-sm-6" style="height=1000px;border:2px solid green;postion:relative;"> 
-						<section id="botSection" style="border: 2px solid black;font-size: 10px;text-align: right;">
-							<div>MyBOT</div>
-							<div style="border:2px solid red;align-contents:right;">
-								<div class="vertical-menu" style="width:500px;display:flex;">
-									 <ul id="mychats">
-	  									<li class="botSend" style="margin-top:0px;left:0px;">Hi, I am  Zoe, here to help you<br> 
-	  										<strong><?php echo $d ?></strong>
-	  									</li>
-	  									<li class="humanSend">My text here goes directly<br>
-	  										<strong><?php echo $d ?></strong>
-	  									</li> 
-	  								 </ul>
-								</div>
-									<form id="botForm" method="POST" style="position:absolute;bottom:0;display:flex;padding: 10px;">
-										<label for="botInput"></label>
-										<input type="text" name="botInput" width="70%" height="40px" placeholder="Your text goes here..." align="right"/>
-										<button type="submit" id="send" name="send" align="right">Send</button>
-									</form>
-						</section>	
-					</div>
-				</div>
-			<footer>Foluwa @ <a href="https://hotels.ng">Hotels.ng</a></footer>
-		</main>
-		<script>
-				$(document).ready(function(){
-				var Form = $('#botForm');
-				Form.submit(function(e){
-					e.preventDefault();
-					var MBox = $('input[name=botInput]');
-					var question = MBox.val();
-					$("#mychats").append("<br><li class='humanSender' style='color:blue;'>" + question + "<br> <?php echo $d;?></li>");
-					$.ajax({
-						url: "foluwa.php",
-						type: "post",
-						data: {question: question},
-						dataType: "json",
-						success: function(response){
-			        $("#mychats").append("<li class='botSend'>" + response.result + "</li>");
-						},
-						error: function(error){
-							console.log(error);
-			        //alert(error);
-						}
-					})
+                  </div>
+                </div>
+      </div>
+    
+    </div>
+      <div class="col-sm-6">
+    <div class="chat-head">Chat</div>
+    <div class="chat">
+      <div class="conversation" id="conversation">
+        <p class="bot">
+          Hi I am Zoe.
+          <br>
+          Send <code>show: List of commands</code> to see a list of things I can do.
+        </p>
+      </div>
+      <form id="chat" class="box" action="/profiles/foluwa.php" name="message" method="post">
+        <textarea type="text" id="message" class="message" placeholder="Message" wrap="soft" rows=1 autofocus></textarea>
+        <button id="send" class=send type=submit>Send</button>
+      </form>
+    </div></div>
+    <footer>Foluwa @ <a href="https://hotels.ng">Hotels.ng</a></footer>
+  </div>
+  </div>
+</main>
+</body>
 
-	});
-});
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script>
+const messageField = document.getElementById('message');
+const sendButton = document.getElementById('send');
+const conversation = document.getElementById('conversation');
+const messageForm = document.getElementById('chat');
 
-		</script>
-	</body>
+messageField.scrollIntoView();
+
+const appendMessage = function (text, from) {
+    const message = document.createElement('p');
+    message.innerHTML = text;
+    message.className = from;
+    conversation.appendChild(message);
+    conversation.scrollTop = conversation.scrollHeight;
+};
+
+const retractMessage = function (from = 'you') {
+    const messages = jQuery(`p.${from}`);
+    const message = messages[messages.length - 1];
+    message.remove();
+    messageField.value = message.innerText;
+    return message.innerText;
+};
+
+messageField.oninput = function () {
+    if (this.value[this.value.length - 1] === "\n") {
+        this.value = this.value.replace(/\n/g, '');
+        sendButton.click();
+        return false;
+    }
+    return true;
+};
+
+messageForm.onsubmit = function (e) {
+    e.preventDefault();
+    const handleError = function (xhr) {
+        if (String(xhr.status)[0] == 4) {
+            retractMessage();
+            appendMessage('Kindly, check your internet connection.', 'bot');
+        }
+        if (String(xhr.status)[0] == 5)
+            appendMessage('something is wrong ', 'bot');
+    };
+    const useResult = function (res) {
+        if (res.type === 'url') {
+            const u = new URL('http://example.com');
+            u.hostname = res.message;
+            return window.open(u.toString(), '_blank');
+        }
+        appendMessage(res.message, 'bot');
+    };
+    appendMessage(messageField.value, 'you');
+    if (messageField.value.trim().toLowerCase() === 'aboutbot')
+        appendMessage('zoe v1.0', 'bot');
+    else $.ajax({
+        type: 'POST',
+        url: '/profiles/foluwa.php',
+        data: {message: messageField.value},
+        dataType: 'json',
+        success: useResult,
+        error: handleError,
+    });
+    messageField.value = '';
+};
+</script>
+
+<?php
+
+$db_conn = null;
+
+?>
 </html>

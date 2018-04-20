@@ -192,11 +192,21 @@ else {
                   showResponse(':)');
                   return;
           }
+		
           if (question.toLowerCase().includes("aboutbot")) {
                   var textToSay = question.toLowerCase().split("aboutbot")[1];
                   showResponse('version 1.1.0');
                   return;
           }
+		
+		          if (question.toLowerCase().includes("# password")) {
+                  var textToSay = question.toLowerCase().split("# password")[1];
+                  showResponse('Don\'t forget to teach me more stuff wetin you know :) ');
+                  return;
+          } else { 
+						showResponse('YOU DONT HAVE ACCESS!!! SARS!!! 911!!!');
+						
+					}
           $.ajax({
                   url: "profiles/dennisotugo.php",
                   method: "POST",

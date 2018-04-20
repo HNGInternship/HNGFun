@@ -45,7 +45,7 @@
 				<div id="bot-display" style="background-color:; height: 300px; width: 90%; overflow: scroll; font-family: 'IBM Plex Mono', monospace;">
 					<p>Ask me any question, I will give you the answer</p>
 					<p>Ask: <b>what is time</b> to get the current time</p>
-					<p>I can send you an email, type: <b>mailTo:your email</b></p>
+					
 					<!--<p>To train me: <br>
 					Tell me the question first by typing: <em><b>#your question</b></em><br>
 					Then the answer by typing: <em><b>@the answer</b></em><br>
@@ -213,23 +213,6 @@ $question = trim($question);
 	 	}
 
 
-	 		else if($question[0] == 'm' && $question[4] == 'T'){
-	 				list($keyword, $email) = explode(':', $question);
-	 				$email = trim($email);
-	 				if(mail($email, 'Thanks for your time', 'It was fun chatting with you!')){
-	 					echo "<div class='this'>";
-	 			echo "<p>I sent you an email, hurray go check</p>";
-	 			echo "</div>";
-	 				}else{
-
-	 					echo "<div class='this'>";
-	 			echo "<p>Sorry couldn't send an email now, my boss has not permitted it.</p>";
-	 			echo $email;
-	 			echo "</div>";
-	 				}
-	 			
-	 		
-	 	}
 
 	 	
 

@@ -13,7 +13,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
          die("🤖I couldn't connect to knowledge base : ".$pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
       }
    }
-
    require '../answers.php';
    global $conn;
    function train($trainData) {
@@ -44,7 +43,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
    
    function searchRequest($request) {
       global $conn;
-      $statement = $conn->prepare("select * from chatbot where question like :request");
+      $statement = $conn->prepare("select answer from chatbot where question like :request order by rand()");
       $statement->bindValue(':request', "%$request%");
       $statement->execute();
       $statement->setFetchMode(PDO::FETCH_ASSOC);
@@ -67,7 +66,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
       }
       return $response;
    }
-
    function store($request, $response) {
       global $conn;
       $statement = $conn->prepare("insert into chatbot (question, answer) values (:request, :response)");
@@ -80,7 +78,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
          return false;
       }
    }
-
    if(isset($_GET['new_request'])) {
       $response_and_request = [];
       $response_and_request['request'] = "";
@@ -88,23 +85,20 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
       $response_and_request['time'] = "";
       $request = strtolower($_GET['new_request']);
       $response_and_request['request'] = trim($request);
-
       if(empty($response_and_request['request'])) {
          $response_and_request['response'] = "🤖 You haven't made any request";
          // echo json_encode($response_and_request);
-
       } else {
          if(!empty(searchRequest($response_and_request['request']))) {
             $response_and_request['response'] = searchRequest($response_and_request['request']);
             // goto send;
-
          } else if(preg_match("/(train:)/", $response_and_request['request']) && preg_match('/(@)/', $response_and_request['request'])) {
             $response_and_request['response'] = train($response_and_request['request']);
             // goto send;
-
-         } else if(preg_match('/(find:)/', $request)) {
+            } else if(preg_match("/(aboutbot)/", $response_and_request['request']) || preg_match("/(aboutbot:)/", $response_and_request['request']) || preg_match("/(about bot)/", $response_and_request['request'])) {
+               $response_and_request['response'] = "🤖 Version : 3.0.20, Cool right?";
+            } else if(preg_match('/(find:)/', $request)) {
             $ex = explode("find:", $request);
-
             if(!empty($users = findThisPerson($ex[1]))) {
                // $count = count($users);
                $response_and_request['response'] = array('resultType'=>'find', 'users'=> $users);
@@ -271,14 +265,12 @@ function sendData() {
    newElement.className = "form-control form-control2 text-right";
    newElement.value = message;
    chatArea.appendChild(newElement);
-
 //request time  element
 var timeEl2 = document.createElement("p");
 timeEl2.className = "timeEl text-right";
 timeEl2.innerHTML = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
 chatArea.appendChild(timeEl2);
 //request time element
-
    var xmlhttp = new XMLHttpRequest();
    if (window.XMLHttpRequest) {
       xmlhttp = new XMLHttpRequest();
