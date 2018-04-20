@@ -533,7 +533,7 @@ a:focus {
 
       <!-- Portfolio Item Heading -->
       <h1 >Chidimma Juliet Ezekwe</h1>
-      <small>Wed Developer</small>
+      <h4>Web Developer</h4>
 
       <!-- Portfolio Item Row -->
       <div class="row">
