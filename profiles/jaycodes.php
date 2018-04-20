@@ -30,8 +30,20 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             $data = preg_replace("(['])", "\'", $data);
             return $data;
         }
-        function chatMode($ques, $conn){
-            if(isset($conn)&& isset($ques)){
+        function chatMode($ques){
+
+            require '../config.php';
+
+        try {
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        } catch (PDOException $pe) {
+            echo json_encode([
+                'status'    => 1,
+                'answer'    => "Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage()
+            ]);
+            return;
+        }
+            if( isset($ques)){
                 echo json_encode([
                     'status'    => 1,
                     'answer'    => "In chat mode"
@@ -40,18 +52,19 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             }else{
                 echo json_encode([
                     'status'    => 1,
-                    'answer'    => var_dump($conn)
+                    'answer'    => "Still errors"
                 ]);
             }
             return;
         }
 
         //end of function definition
+        
         $ques = test_input($_POST['ques']);
         if(strpos($ques, "train:") !== false){
             trainerMode($ques);
         }else{
-            chatMode($ques, $conn);
+            chatMode($ques);
         }
 
        
