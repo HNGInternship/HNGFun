@@ -352,6 +352,7 @@
 			$(".current_message").hide();
       		$(".current_message").delay(600).fadeIn();
       		$(".current_message").removeClass("current_message");
+			$(".chat-section").scrollTop($(".chat-section").prop("scrollHeight"));
 		}
 
 		//fuction to send the message received from the user to the php script
