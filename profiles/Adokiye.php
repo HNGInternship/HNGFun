@@ -94,12 +94,16 @@ function askQuestion($input)
 <?php
 if(!defined('DB_USER')){
     require "../../config.php";
-}
-try {
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-} catch (PDOException $pe) {
-    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
+    $servername = DB_HOST;
+    $username_ = DB_USER;
+    $password = DB_PASSWORD;
+    $dbname = DB_DATABASE;
+    // Create connection
+    $conn = mysqli_connect($servername, $username_, $password, $dbname);
+    // Check connection
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }}
 global $conn;
 $name = '';
 $username = '';
