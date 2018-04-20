@@ -43,7 +43,7 @@ if (isset($_POST['payload'])) {
 		}
 
 		if ($answer_data_result[$answer_data_index]["answer"] == "") {
-			return 'I don\'t get :/ Train me to understand small something sha,no vex please type "<code>train: your question? # The answer.</code> ;)"';
+			return 'I don\'t get :/ Train me to understand small something sha,no vex please type "<code>train question # The answer.</code> ;)"';
 		}
 
 		if (containsVariables($answer_data_result[$answer_data_index]['answer']) || containsFunctions($answer_data_result[$answer_data_index]['answer'])) {
@@ -75,9 +75,20 @@ if (isset($_POST['payload'])) {
 		$password = strpos("# password", $start);
 		return $password;
 	}
-$check_pass = 'password';
 
-	if (isTraining($question) && $password == $check_pass) {
+if(isset($_POST['message']))
+    {
+                    array_push($_SESSION['chat_history'], trim($_POST['message']));
+                    if(stripos(trim($_POST['message']), "train") === 0)
+        {
+          
+          $args = explode("#", trim($_POST['message']));
+          $question = trim($args[1]);
+          $answer = trim($args[2]);
+          $password = trim($args[3]);
+          if($password == "password")
+          {
+	if (isTraining($question)) {
 		$answer = resolveAnswerFromTraining($question);
 		$question = strtolower(resolveQuestionFromTraining($question));
 		$question_data = array(
@@ -95,7 +106,13 @@ $check_pass = 'password';
 		echo "Now I understand. No wahala, now try me again";
 		return;
 	}
-
+			  }
+          else
+          {
+              // Password not correct
+             array_push($_SESSION['chat_history'], "The password entered was incorrect");
+          }
+        }
 	function containsVariables($answer)
 	{
 		if (strpos($answer, "{{") !== false && strpos($answer, "}}") !== false) {
