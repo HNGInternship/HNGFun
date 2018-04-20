@@ -15,11 +15,11 @@
 
 if(!defined('DB_USER')){
 	if (file_exists('../../config.php')) {
-		require '../../config.php';
+		require_once '../../config.php';
 	} else if (file_exists('../config.php')) {
-		require '../config.php';
+		require_once '../config.php';
 	} elseif (file_exists('config.php')) {
-		require 'config.php';
+		require_once 'config.php';
 	}
 }
 
@@ -358,10 +358,8 @@ if (!empty($_POST)) {
 }
 $user = (new Model())->getProfile();
 
-var_dump($user);
 
 ?>
-<p>New Update 1</p>
 
 <main class="my-container row">
     <div class="profile col-md-6">
