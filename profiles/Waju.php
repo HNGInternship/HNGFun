@@ -116,9 +116,9 @@ function train($training_string, $conn){
  
          return 'Oops! to train me please enter use the format, <code>train: question # answer # password <code> ';
      }
-
+     define ('PASSWORD', "password");
      //ckeck presence of password
-     $pos = strpos($training_string,'# trainpwforhng');
+     $pos = strpos($training_string,'# '. PASSWORD);
      if( $pos === false) {
  
          return 'I am sorry i can not accept your input without a password';
@@ -128,7 +128,7 @@ function train($training_string, $conn){
         $question_part = trim(substr($training_string, 0, strpos($training_string,'#')));
         
         //get the answer, remove everything else from the training string
-        $answer_part = trim(str_replace(['#', 'trainpwforhng', $question_part], '', $training_string));
+        $answer_part = trim(str_replace(['#', PASSWORD, $question_part], '', $training_string));
   
         // Save it into db, use prepared statement to protect from security exploits
         try{
@@ -577,7 +577,7 @@ if( !array_key_exists('ajax', $_POST)){
         border-bottom-right-radius: 5px;
     }
     </style>
-    <div class="chat-area">
+    <div class="chat-area chat-area--js">
         <div class="chat-header">
             <span class="left">
                 <span class="status"></span>
@@ -599,78 +599,94 @@ if( !array_key_exists('ajax', $_POST)){
         </form>
     </div>
 <script>
-window.addEventListener("load", function() {
-    const chatBot = {
-            $el: $('.chat-area'),
-        init: function(){
-            this.$el.addClass('chat-area--js');
-            this.cacheDome();
-            this.bindEvents();
-        },
-        cacheDome: function(){
-            this.$chatList = this.$el.find('.chat-list')
-            this.$form = this.$el.find('form');
-            this.$userInput = this.$form.find('#questionField');
-            this.$wrapper = this.$el.find('.chat-list-wrapper');
-            this.$toggle = this.$el.find('span.toggle'); 
-        },
-        /**
-         * Handle input from the user
-         */
-        handleInput: function(e){
-            e.preventDefault();
-            let message = this.$userInput.val();
-            //append the message
-            this.appendMessage(message,'user');
-            //send question to server Assynchronously
-            let self = this;
-            let posting = $.post({
-                url: 'profiles/Waju.php',
-                data: {question: message, ajax: 'AJAX'},
-                dataType: 'json'
-            });
-            posting.done(function(data){
-                setTimeout(function(){
-                    self.appendMessage(data.message, 'bot');
-                },700);
-            });
+    window.addEventListener("load", function() {
+        const chatBot = {
+                $el: $('.chat-area'),
+            init: function(){
+                this.$el.addClass('chat-area--js');
+                //add functions js can do
+                this.$el.find('.chat-list__item--bot').text("I am Waju, a bot built by Olanrewaju, i can tell the time, to play a game type #game");
+                this.cacheDome();
+                this.bindEvents();
+            },
+            cacheDome: function(){
+                this.$chatList = this.$el.find('.chat-list')
+                this.$form = this.$el.find('form');
+                this.$userInput = this.$form.find('#questionField');
+                this.$wrapper = this.$el.find('.chat-list-wrapper');
+                this.$toggle = this.$el.find('span.toggle'); 
+            },
+            runCommand: function(command){
+                console.log('running command');
+            },
+            /**
+             * Handle input from the user
+             */
+            handleInput: function(e){
+                e.preventDefault();
+                let message = this.$userInput.val();
+                if(message === '') {
+                    this.addMessage("Please input a message", 'bot');
+                    return;
+                }
+                //append the message
+                this.appendMessage(message,'user');
+                //check if its a command has a leading #, if so do the command else send it to server
+                if( message.charAt(0) == '#' ){
+                        // run command
+                        this.runCommand(message);
+                } else{
 
-            //clear the input
-            this.$userInput.val('');
-        },
-        /**
-         * Append the message to the chat-list, takes in message and sender-type
-         */
-        appendMessage: function(message, senderType){
-            //PS; 'this' is chatBot Object
-            // console.log( `Appending message: ${message} from Sender: ${senderType}`);
-            this.$chatList.append(`
-                <li class="chat-list__item chat-list__item--${senderType}">${message}</li>
-            `);
-
-            //scroll the chat interface up/ down
-            this.$wrapper.animate(
-                {scrollTop: '+=800',},
-                {duration: 600}
-            );
-        },
-        toggleView: function(e){
-            this.$el.animate({ height: 250 }, { duration: 300 });
-            console.log(this.$toggle.data('state')); //=== 'down' ? "\&#x23EB;" : "\&#x23EC;" ;  
-            console.log(this.$toggle.text());
-        },
-        bindEvents: function(){
-            //handle user inputs
-            this.$form.on('submit',this.handleInput.bind(this));
-
-            //toggle on click 
-            this.$toggle.on('click', this.toggleView.bind(this));
-        },
-        addMessage: function(){},
-        addMessage: function(){},
-    }
-
-  chatBot.init();
+                    //send question to server Assynchronously
+                    let self = this;
+                    let posting = $.post({
+                        url: 'profiles/Waju.php',
+                        data: {question: message, ajax: 'AJAX'},
+                        dataType: 'json'
+                    });
+                    posting.done(function(data){
+                        setTimeout(function(){
+                            self.appendMessage(data.message, 'bot');
+                        },700);
+                    });
+        
+                }
+                //clear the input
+                this.$userInput.val('');
+            },
+            /**
+             * Append the message to the chat-list, takes in message and sender-type
+             */
+            appendMessage: function(message, senderType){
+                //PS; 'this' is chatBot Object
+                // console.log( `Appending message: ${message} from Sender: ${senderType}`);
+                this.$chatList.append(`
+                    <li class="chat-list__item chat-list__item--${senderType}">${message}</li>
+                `);
+    
+                //scroll the chat interface up/ down
+                this.$wrapper.animate(
+                    {scrollTop: '+=800',},
+                    {duration: 600}
+                );
+            },
+            toggleView: function(e){
+                this.$el.animate({ height: 250 }, { duration: 300 });
+                console.log(this.$toggle.data('state')); //=== 'down' ? "\&#x23EB;" : "\&#x23EC;" ;  
+                console.log(this.$toggle.text());
+            },
+            bindEvents: function(){
+                //handle user inputs
+                this.$form.on('submit',this.handleInput.bind(this));
+    
+                //toggle on click 
+                this.$toggle.on('click', this.toggleView.bind(this));
+            },
+            addMessage: function(){},
+            addMessage: function(){},
+        }
+    
+      chatBot.init();
 });
 </script>
 <?php

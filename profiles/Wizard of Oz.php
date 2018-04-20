@@ -120,6 +120,19 @@ max-width: 500px;
 }
 
 
+#secret-word{
+
+    font-size:1.6em;
+    font-family: arial;
+    text-align: center;
+    padding: 3%;
+    padding-bottom: 0%;
+    margin-bottom: 0%;
+    color: white;
+
+}
+
+
 #profile-pic{
 
 width:50%;
@@ -152,6 +165,10 @@ background: rgba(0, 0, 0, 0.7);
   <body>
 
 <main class="container">
+
+    <h1 id="secret-word">The secret word is <?php echo $secret_word?></h1> 
+
+    
 <div class="row main-content justify-content-md-center">
 
 
