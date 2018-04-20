@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 global $conn;
 function validateTraining($str){
 
@@ -8,6 +9,20 @@ function validateTraining($str){
 
         return false;
     }
+=======
+include "../answers.php";
+require "../../config.php";
+$servername = DB_HOST;
+$username = DB_USER;
+$password = DB_PASSWORD;
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password);
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+>>>>>>> 785a0ca8c2edf53ad6cc2dca57d70d0c2ffd3b0a
 }
 function validateFunction($str){
     if(strpos($str, "(") !== false){
@@ -17,6 +32,7 @@ function validateFunction($str){
 
         return false;
     }
+<<<<<<< HEAD
 }
 function processQuestion($str){
     if(validateTraining($str)){
@@ -96,6 +112,17 @@ function getAnswerFromDb($str){
             $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $str . " ORDER BY answer ASC";
             $q = $conn->query($sql);
             $count = $q->rowCount();
+=======
+}function askQuestion($input)
+    {
+        $split = preg_split("/(:|#)/", $input, -1);
+        global $conn;
+        $action = "train";
+        if ($split[0] !== $action && !isset($split[1]) && !isset($split[2])) {
+            $sql = "SELECT answer FROM chatbot where question LIKE ".$input."ORDER BY answer ASC";
+            $result = $conn->query($sql);
+            $count = $result->rowCount();
+>>>>>>> 785a0ca8c2edf53ad6cc2dca57d70d0c2ffd3b0a
             if($count > 0){
                 $q->setFetchMode(PDO::FETCH_ASSOC);
                 $data = $q->fetchAll();
@@ -239,6 +266,7 @@ if (isset($_GET["query"])) {
             }
             section h2:first-child{
 
+<<<<<<< HEAD
                 margin-top: 1rem;
             }
             .clear{
@@ -537,6 +565,25 @@ if (isset($_GET["query"])) {
     <header>
         <h1>Welcome to HNG  <br />Internship 4</h1>
     </header>
+=======
+?>
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Adokiye Iruene</title>
+    <style type="text/css">
+        #div_main {
+            width: 980px;
+            margin-right: auto;
+            margin-left: auto;
+            font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            text-align: center;
+            background-image: url(http://res.cloudinary.com/gorge/image/upload/v1523960257/Internships-1.png);
+            height: auto;
+        }
+>>>>>>> 785a0ca8c2edf53ad6cc2dca57d70d0c2ffd3b0a
 
     <section class="content">
         <div class="left">
