@@ -65,7 +65,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 					<h3 class="text-center">
 						<?php echo $name; ?>
 					</h3>
-					<h5 class="text-center"><span class="slack_span">Slack Username: </span>@<?php echo $username; ?></h5>
+					<h5 class="text-center"><span class="slack_span">Slack Username: </span>@brume</h5>
 					<p class="text-center"><span class="occupation_span">My Intrest: </span>Backend Developer and Mobile Developer</p>
 				</div>
 
