@@ -125,6 +125,16 @@ body
 		
 
 		 </div>
+
+
+      <div id="data2"><center>
+            try my bot <br>
+        
+</center>
+
+      </div>
+
+
 		
 			<div id="data2"><center>
 		 	   	  LINK ME UP<br>
@@ -135,10 +145,6 @@ body
 <a href="#" class="fa fa-instagram"></a>
 <a href="#" class="fa fa-slack"></a>
 </center>
-
-
-		 	   
-
 
 		 	</div>
 
