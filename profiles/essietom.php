@@ -529,7 +529,7 @@
 					</div>
 				</form>	
 			</div>
-				</div>
+			
 
 </div>
 </div>
@@ -590,4 +590,4 @@
 </script>
 </body>
 </html>
-
+<?php } ?>
