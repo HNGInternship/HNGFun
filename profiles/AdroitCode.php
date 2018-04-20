@@ -1,5 +1,5 @@
 <?php
-    # require "../db.php";
+    require "../db.php";
     if (!defined('DB_USER')){
             
             require "../../config.php";
@@ -20520,7 +20520,8 @@
              e.preventDefault();
                 $.ajax({
                     type: "POST",
-                    cache: false,
+                    cache: false, 
+                    //
                     url: "/profiles/AdroitCode.php", 
                     dataType: "json",
                     data: $('form').serialize(), 
