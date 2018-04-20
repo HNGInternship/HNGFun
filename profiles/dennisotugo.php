@@ -43,7 +43,7 @@ if (isset($_POST['payload'])) {
 		}
 
 		if ($answer_data_result[$answer_data_index]["answer"] == "") {
-			return 'I don\'t get :/. Train me to understand small something sha,no vex  \n please type "<code>train: your question? # The answer #password.</code> ;)"';
+			return 'I don\'t get :/. Train me to understand small something sha,no vex please type "<code>train: your question? # The answer.</code> ;)"';
 		}
 
 		if (containsVariables($answer_data_result[$answer_data_index]['answer']) || containsFunctions($answer_data_result[$answer_data_index]['answer'])) {

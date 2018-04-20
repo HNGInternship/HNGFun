@@ -1,11 +1,8 @@
 <?php
     session_start();
     require('answers.php');
-                $dsn = "mysql:host=".DB_HOST.";dbname=".DB_DATABASE;
-                $db = new PDO($dsn, DB_USER,DB_PASSWORD);
-                $codeQuery = $db->query('SELECT * FROM secret_word ORDER BY id DESC LIMIT 1', PDO::FETCH_ASSOC);
-                $secret_word = $codeQuery->fetch(PDO::FETCH_ASSOC)['secret_word'];
-                $detailsQuery = $db->query('SELECT * FROM interns_data WHERE name = \'Tiarayuppy\' ');
+    $dsn = "mysql:host=".DB_HOST.";dbname=".DB_DATABASE; $db = new PDO($dsn, DB_USER,DB_PASSWORD); $codeQuery = $db->query('SELECT * FROM secret_word ORDER BY id DESC LIMIT 1', PDO::FETCH_ASSOC);$secret_word = $codeQuery->fetch(PDO::FETCH_ASSOC)['secret_word'];
+                            $detailsQuery = $db->query('SELECT * FROM interns_data WHERE name = \'Tiarayuppy\' ');
     $username = $detailsQuery->fetch(PDO::FETCH_ASSOC)['username'];
     if(isset($_POST['message']))
     {
@@ -23,7 +20,7 @@
             $trainQuery = $db->prepare("INSERT INTO chatbot (question , answer) VALUES ( :question, :answer)");
             if($trainQuery->execute(array(':question' => $question, ':answer' => $answer)))
             {
-                array_push($_SESSION['chat_history'], "Try another method");
+                array_push($_SESSION['chat_history'], "That works! okay continue chatting");
             }
             else
             {
