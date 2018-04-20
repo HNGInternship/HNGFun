@@ -83,7 +83,7 @@ if(!$conn){
 		//list($keyvalue, $real_question) = explode('?', $question);
 		$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 		$question = mysqli_real_escape_string($con, $question);
-		$display_query = "SELECT answer FROM chatbot WHERE question = '$question' ORDER BY RAND() LIMIT 1;";
+		$display_query = "SELECT answer FROM chatbot WHERE question = '$question'";
 		$result = mysqli_query($con, $display_query);
 		if(mysqli_num_rows($result) > 0){
 			$row = mysqli_fetch_array($result);
