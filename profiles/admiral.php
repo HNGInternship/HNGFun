@@ -304,6 +304,9 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		.txt {
 			font-size: 14px;
 		}
+		.tx {
+			color: #fff
+		}
 	</style>
 </head>
 <body>
@@ -440,7 +443,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		    var answer = response.answer;
 		  	$(selector).html(''+message+'');
 			$(selector).removeClass(classname).addClass('sent');
-			$('#chatWindow').append(' <div class="msj macro"><div class="text text-l"><p>'+answer+'</p></div></div>');
+			$('#chatWindow').append(' <div class="msj macro"><div class="text text-l"><p class="tx">'+answer+'</p></div></div>');
 		  
 		  },
 		  error: function(error){
