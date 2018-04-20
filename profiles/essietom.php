@@ -491,6 +491,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             opacity: 1;
         }
  }
+		
+		
+		.chat-frame {
+			border-color: #cccccc;
+			color: #333333;
+			background-color: #ffffff;
+			padding: 20px;
+			height: 550px;
+			margin-top: 5%;
+			margin-bottom: 50px;
+		}
+		.chat-messages {
+			background-color: firebrick;
+			padding: 5px;
+			height: 300px;
+			overflow-y: auto;
+			margin-left: 15px;
+			margin-right: 15px;
+			border-radius: 6px;
+			
+		}
+		.single-message {
+			margin-bottom: 5px; 
+			border-radius: 5px;
+			min-height: 30px;
+			
+		}
+		.single-message-bg {
+			background-color: blue;
+			
+			
+		}
+		.single-message-bg2 {
+			background-color: darkblue;
+			
+		}
+		input[name=question] {
+			height: 50px;
+		}
+		button[type=submit] {
+			height: 50px;
+			background-color: blue;
+			color: black
+		}
+		.circle {
+			width: 60%;
+			margin-left: 20%;
+			border-radius: 50%;
+		}
+		.f-icon {
+			font-size: 40px;
+		}
 	</style>
 </head>
 <body>
@@ -571,8 +623,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div><!--inner ends here -->
 
 
+<div class="col-md-4 offset-md-1 chat-frame">
+			<h2 class="text-center"><u>CHATBOT</u></h2>
+			<div class="row chat-messages" id="chat-messages">
+				<div class="col-md-12" id="message-frame">
+					<div class="row single-message">
+						<div class="col-md-12 single-message-bg">
+							<h5>Hello <span style="font-weight: bold">iam__bot</span></h5>
+						</div>
+					</div>
+					<div class="row single-message">
+						<div class="col-md-12 single-message-bg">
+							<h5>Ask me your questions </h5>
+						</div>
+					</div>
+					<div class="row single-message">
+						<div class="col-md-12 single-message-bg">
+							
+							<h5>To train me, type <br/><b>train: question # answer # password</b><h5>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="row" style="margin-top: 40px;">
+				<form class="form-inline col-md-12 col-sm-12" id="question-form">
+					<div class="col-md-12 col-sm-12 col-12">
+						<input class="form-control w-100" type="text" name="question" placeholder="Enter your message" />
+					</div>
+					<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
+						<button type="submit" class="btn btn-info float-right w-100" >Enter</button>
+					</div>
+				</form>	
+			</div>
 
-<div id="demo">
+
+<!-- <div id="demo">
     <div id="chatBotCommandDescription"></div>
     <input type="text" placeholder="Say something" />
 
@@ -584,7 +671,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div id="chatBotHistory"></div>
         
     </div>
-</div>
+</div> -->
 
 
 <script src="../vendor/jquery/jquery.min.js"></script>
