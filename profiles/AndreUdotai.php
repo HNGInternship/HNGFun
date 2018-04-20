@@ -1,12 +1,10 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Andre's HNG Profile</title>
 	<style type="text/css">
 		body {
-			background-color: rgb(101, 187, 232);
+			/*background-color: rgb(101, 187, 232);*/
 		}
 
 		#body {
