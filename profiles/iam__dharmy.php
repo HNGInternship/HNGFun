@@ -96,7 +96,7 @@
 			}else{
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Sorry, I cannot answer your question.Please train me. The training data format is  <b>train: question # answer</b>"
+					'answer' => "Sorry, I cannot answer your question.Please train me. The training data format is  <b>train: question # answer # password</b>"
 				]);
 			}		
 			return;
@@ -112,7 +112,7 @@
 			if(count($split_string) == 1){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Invalid training format. <br> Type  <b>train: question # answer</b>"
+					'answer' => "Invalid training format. <br> Type  <b>train: question # answer # password</b>"
 				]);
 				return;
 			}
@@ -162,15 +162,6 @@
 	else{
 ?>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<?php
-	if($_SERVER['REQUEST_METHOD'] === "GET"){
-?>
-=======
->>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
-=======
->>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -311,7 +302,7 @@
 					<div class="row single-message">
 						<div class="col-md-12 single-message-bg">
 							
-							<h5>To train me, type <br/><b>train: question # answer</b><h5>
+							<h5>To train me, type <br/><b>train: question # answer # password</b><h5>
 						</div>
 					</div>
 				</div>
@@ -393,12 +384,4 @@
 </script>	
 </body>
 </html>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<?php}?>
-=======
 <?php } ?>
->>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
-=======
-<?php } ?>
->>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da

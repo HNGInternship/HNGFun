@@ -24,13 +24,13 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
        $username = $user['username'];
        $image = $user['image_filename'];
     ?>
-<!-- Page Container -->
+
 <div class="w3-content w3-margin-top" style="max-width:1400px;">
 
-  <!-- The Grid -->
+  
   <div class="w3-row-padding">
   
-    <!-- Left Column -->
+    
     <div class="w3-third">
     
       <div class="w3-white w3-text-grey w3-card-4">
@@ -48,7 +48,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
           <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>+233542833108</p>
           <hr>
 
-          <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b></p>
+          <p class="w3-large"><b><i class=" fa-fw w3-margin-right w3-text-teal"></i>Skills</b></p>
           <p>Web Development</p>
           <div class="w3-light-grey w3-round-xlarge w3-small">
             <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:90%">90%</div>
@@ -69,7 +69,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
           </div>
           <br>
 
-          <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Languages</b></p>
+          <p class="w3-large w3-text-theme"><b><i class=" fa-fw w3-margin-right w3-text-teal"></i>Languages</b></p>
           <p>English</p>
           <div class="w3-light-grey w3-round-xlarge">
             <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
@@ -86,61 +86,59 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
         </div>
       </div><br>
 
-    <!-- End Left Column -->
+
     </div>
 
-    <!-- Right Column -->
+
     <div class="w3-twothird">
     
       <div class="w3-container w3-card w3-white w3-margin-bottom">
-        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work Experience</h2>
+        <h2 class="w3-text-grey w3-padding-16"><i class=" fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work Experience</h2>
         <div class="w3-container">
           <h5 class="w3-opacity"><b>Mobile Developer</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>November 2017 - <span class="w3-tag w3-teal w3-round">Current</span></h6>
+          <h6 class="w3-text-teal"><i class=" fa-fw w3-margin-right"></i>November 2017 - <span class="w3-tag w3-teal w3-round">Current</span></h6>
           <p>My journey of becoming a mobile developer started not long ago when I was supposed to build a mobile app as a project in school. I learnt React Native because it was cross platform and fairly easy to use. My project can be found <a href = 'https://github.com/sammykori/foodexpress'> here</a></p>
           <hr>
         </div>
         <div class="w3-container">
           <h5 class="w3-opacity"><b>Web Developer</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>July 2016 - <span class="w3-tag w3-teal w3-round">Current</span></h6>
+          <h6 class="w3-text-teal"><i class=" fa-fw w3-margin-right"></i>July 2016 - <span class="w3-tag w3-teal w3-round">Current</span></h6>
           <p>In school we were taught web development. I started with HTML, CSS and Javascript. Later on learnt PHP, and the laravel framework. Since then i have been learning different frameworks like Django, Devless and React.</p>
           <hr>
         </div>
         <div class="w3-container">
           <h5 class="w3-opacity"><b>Graphic Designer</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jun 2016 - </h6>
+          <h6 class="w3-text-teal"><i class=" fa-fw w3-margin-right"></i>Jun 2016 - </h6>
           <p>I design flyers, cards, logos, etc using adobe photoshop and microsoft publisher</p><br>
         </div>
       </div>
 
       <div class="w3-container w3-card w3-white">
-        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Education</h2>
+        <h2 class="w3-text-grey w3-padding-16"><i class=" fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Education</h2>
         <div class="w3-container">
           <h5 class="w3-opacity"><b>Lancaster University</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2015 - 2019</h6>
+          <h6 class="w3-text-teal"><i class=" fa-fw w3-margin-right"></i>2015 - 2019</h6>
           <p>Computer Science (Bsc)</p>
           <hr>
         </div>
         <div class="w3-container">
           <h5 class="w3-opacity"><b>w3schools.com</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Forever</h6>
+          <h6 class="w3-text-teal"><i class=" fa-fw w3-margin-right"></i>Forever</h6>
           <p>HTML, PHP, Javascript, CSS</p>
           <hr>
         </div>
         <div class="w3-container">
           <h5 class="w3-opacity"><b>HNG Internship</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2018 - </h6>
+          <h6 class="w3-text-teal"><i class=" fa-fw w3-margin-right"></i>2018 - </h6>
           <p>Bachelor Degree</p><br>
         </div>
       </div>
 
-    <!-- End Right Column -->
+  
     </div>
     
-  <!-- End Grid -->
   </div>
   
-  <!-- End Page Container -->
 </div>
 
 <footer class="w3-container w3-teal w3-center w3-margin-top">
