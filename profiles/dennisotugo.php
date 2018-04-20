@@ -75,8 +75,9 @@ if (isset($_POST['payload'])) {
 		$answer = substr($question, $start);
 		return $password;
 	}
+	$check_pass = 'password';
 
-	if (isTraining($question) && $password = 'password') {
+	if (isTraining($question) && $password == $check_pass) {
 		$answer = resolveAnswerFromTraining($question);
 		$question = strtolower(resolveQuestionFromTraining($question));
 		$question_data = array(
@@ -94,7 +95,7 @@ if (isset($_POST['payload'])) {
 		echo "Now I understand. No wahala, now try me again";
 		return;
 	} else {
-		echo "WHO ARE YOU!!! SARS!!!! EFCC!!! NAFDAC!!!! HACKER!!! USA COME AND CARRY YOU RUSSIA :$";
+		echo "YOU DONT HAVE ACCESS!!! SARS!!!! EFCC!!! NAFDAC!!!! HACKER!!! USA COME AND CARRY YOU RUSSIA :$";
 	}
 
 	function containsVariables($answer)
