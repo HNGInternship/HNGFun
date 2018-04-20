@@ -365,19 +365,20 @@ function getTime(){
 //Beginning Aniuchi A. M's Functions/////
 ////////////////////////////////////////
 function getCurrentDateAndTime(){
-    $newdate = date("l jS \of F Y h:i:s A");
-    echo "Today's date is " . $newdate;
+    $newDate = date("l jS \of F Y");
+    $newTime = date("h:i:s A");
+    echo "Today's date is " . $newDate . ". The time is " . $newTime;
     //A.M.A
 }
 function getCurrentDayOfTheWeek(){
-    $newdate = date("l");
-    echo "Today's is a " . $newdate;
+    $newDate = date("l");
+    echo "Today is a " . $newDate;
 }
 function getFutureDate(){
-    $newdate = date("Y-m-d");
-    $newdate = date_create($newdate);
-    date_add($newdate,date_interval_create_from_date_string("7 days"));
-    echo "A week from now, the date will be: " . date_format($newdate, "l jS \of F Y");
+    $newDate = date("Y-m-d");
+    $newdate = date_create($newDate);
+    date_add($newDate,date_interval_create_from_date_string("7 days"));
+    echo "A week from now, the date will be: " . date_format($newDate, "l jS \of F Y");
     //A.M.A
 }
 
