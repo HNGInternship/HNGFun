@@ -1,137 +1,74 @@
 <?php
-  if(!defined('DB_USER')){
-    require "../../config.php";
+$sql = "SELECT * FROM interns_data WHERE username = 'dennisotugo'";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$data = $q->fetchAll();
+$dennisotugo = array_shift($data);
+// Secret word
+$sql = "SELECT * FROM secret_word";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$words = $q->fetch();
+$secret_word = $words['secret_word'];
+?>
+/************************SET UP DB CONN************************/
+<?php
+if(!defined('DB_USER')){
+  require "../../config.php";
+}
+try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+global $conn;
+
+
+$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$check' ORDER BY rand() LIMIT 1");
+$stmt->execute();
+if($stmt->rowCount() > 0)
+{
+  while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+  {
+		echo $row["answer"];
   }
-  try {
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-  } catch (PDOException $pe) {
-    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-  }
-  $date_time = new DateTime('now', new DateTimezone('Africa/Lagos'));
-  global $conn;
+} else {
+    echo "Well i couldnt understand what you asked. But you can teach me.";
+	echo "Type ";
+	echo "train: write a question | write the answer.  "; 
+	echo "to teach me.";
+}
+}
 
-  try {
-    $sql = 'SELECT * FROM secret_word';
-    $secret_word_query = $conn->query($sql);
-    $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
-    $secret_word_result = $secret_word_query->fetch();
 
-    $sql = 'SELECT * FROM interns_data WHERE username = "dennisotugo"';
-    $intern_data_query = $conn->query($sql);
-    $intern_data_query->setFetchMode(PDO::FETCH_ASSOC);
-    $intern_data_result = $intern_data_query->fetch();
-  } catch (PDOException $e) {
-      throw $e;
-  }
-
-  $secret_word = $secret_word_result['secret_word'];
-  $name = $intern_data_result['name'];
-  $img_url = $intern_data_result['image_filename'];
-
-  if(isset($_POST['payload']) ){
-    require "../answers.php";
-    $question = trim($_POST['payload']);
-  
-    function isTraining($question) {
-      if (strpos($question, 'train:') !== false) {
-        return true;
-      }
-      return false;
-    }
-  
-    function getAnswer() {
-      global $question;
-      global $conn;
-
-      $sql = 'SELECT * FROM chatbot WHERE question LIKE "' . $question . '"';
-      $answer_data_query =  $conn->query($sql);
-      $answer_data_query->setFetchMode(PDO::FETCH_ASSOC);
-      $answer_data_result = $answer_data_query->fetchAll();
-      $answer_data_index = 0;
-      if (count($answer_data_result) > 0) {
-        $answer_data_index = rand(0, count($answer_data_result) - 1);
-      }
-
-      if ($answer_data_result[$answer_data_index]["answer"] == "") {
-        return 'I don\'t understand that question. If you want to train me to understand, please type "<code>train: your question? # The answer.</code>"';
-      }
-  
-      if (containsVariables($answer_data_result[$answer_data_index]['answer']) || containsFunctions($answer_data_result[$answer_data_index]['answer'])) {
-        $answer = resolveAnswer($answer_data_result[$answer_data_index]['answer']);
-        return $answer;
-      } else {
-        return $answer_data_result[$answer_data_index]['answer'];
-      }
-    }
+function train_bot ($message) {
+function multiexplode ($delimiters,$string) {
     
-    function resolveQuestionFromTraining($question) {
-      $start = 7;
-      $end = strlen($question) - strpos($question, " # ");
-      $new_question = substr($question, $start, -$end);
-      return $new_question;
-    }
+    $ready = str_replace($delimiters, $delimiters[0], $string);
+    $launch = explode($delimiters[0], $ready);
+    return  $launch;
+}
+//$text = "#train: this a question | this my answer :)";
+$exploded = multiexplode(array(":","|"),$message);
+$question = trim($exploded[1]);
+$answer = trim($exploded[2]);
+require 'db.php';
+try {
     
-    function resolveAnswerFromTraining($question) {
-      $start = strpos($question, " # ") + 3;
-      $answer = substr($question, $start);
-      return $answer;
-    }
-
-    if (isTraining($question)) {
-      $answer = resolveAnswerFromTraining($question);
-      $question = strtolower(resolveQuestionFromTraining($question));
-      $question_data = array(':question' => $question, ':answer' => $answer);
-  
-      $sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '"';
-      $question_data_query =  $conn->query($sql);
-      $question_data_query->setFetchMode(PDO::FETCH_ASSOC);
-      $question_data_result = $question_data_query->fetch();
-  
-  
-      $sql = 'INSERT INTO chatbot ( question, answer )
-          VALUES ( :question, :answer );';
-      $q = $conn->prepare($sql);
-      $q->execute($question_data);
-      echo "Training successful.";
-      return;
-    }
-
-    function containsVariables($answer) {
-      if (strpos($answer, "{{") !== false && strpos($answer, "}}") !== false) {
-        return true;
-      }
+    $sql = "INSERT INTO chatbot (id, question, answer)
+VALUES ('', '$question', '$answer')";
+    // use exec() because no results are returned
+    $conn->exec($sql);
     
-      return false;
+    echo "Thank you! i just learnt something new, my master would be proud of me.";
+	
+	}
+catch(PDOException $e)
+    {
+    echo $sql . "<br>" . $e->getMessage();
     }
-    
-    function containsFunctions($answer) {
-      if (strpos($answer, "((") !== false && strpos($answer, "))") !== false) {
-        return true;
-      }
-      return false;
-    }
-    
-    function resolveAnswer($answer) {
-      if (strpos($answer, "((") == "" && strpos($answer, "((") !== 0) {
-        return $answer;
-      } else {
-        $start = strpos($answer, "((") + 2;
-        $end = strlen($answer) - strpos($answer, "))");
-        $function_found = substr($answer, $start, - $end);
-        $replacable_text = substr($answer, $start, - $end);
-        $new_answer = str_replace($replacable_text, $function_found(), $answer);
-        
-        $new_answer = str_replace("((", "", $new_answer);
-        $new_answer = str_replace("))", "", $new_answer);
-        return resolveAnswer($new_answer);
-      }
-    }
-  
-    $answer = getAnswer();
-    echo $answer;
-    exit();
-  
-  } else {
+	
+$conn = null;
 
 ?>
 
@@ -279,158 +216,51 @@ footer {
     max-width: 100% !important;
 }
 
-/*--------------------
-Bounce
---------------------*/
-@keyframes bounce { 
-  0% { transform: matrix3d(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-  4.7% { transform: matrix3d(0.45, 0, 0, 0, 0, 0.45, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-  9.41% { transform: matrix3d(0.883, 0, 0, 0, 0, 0.883, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-  14.11% { transform: matrix3d(1.141, 0, 0, 0, 0, 1.141, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-  18.72% { transform: matrix3d(1.212, 0, 0, 0, 0, 1.212, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-  24.32% { transform: matrix3d(1.151, 0, 0, 0, 0, 1.151, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-  29.93% { transform: matrix3d(1.048, 0, 0, 0, 0, 1.048, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-  35.54% { transform: matrix3d(0.979, 0, 0, 0, 0, 0.979, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-  41.04% { transform: matrix3d(0.961, 0, 0, 0, 0, 0.961, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-  52.15% { transform: matrix3d(0.991, 0, 0, 0, 0, 0.991, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-  63.26% { transform: matrix3d(1.007, 0, 0, 0, 0, 1.007, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-  85.49% { transform: matrix3d(0.999, 0, 0, 0, 0, 0.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-  100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } 
-}
-
-
-@keyframes ball { 
-  from {
-    transform: translateY(0) scaleY(.8);
-  }
-  to {
-    transform: translateY(-10px);
-  }
 </style>
 <script>
-  window.onload = function() {
-    $(document).keypress(function(e) {
-      if(e.which == 13) {
-        getResponse(getQuestion());
-      }
-    });
-  }
-
-  function isUrl(string) {
-    var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
-    var regex = new RegExp(expression);
-    var t = string;
-
-    if (t.match(regex)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  function stripHTML(message){
-    var re = /<\S[^><]*>/g
-    return message.replace(re, "");
-  }
-
-  function getResponse(question) {
-    updateThread(question);
-    showResponse(true);
-
-    if (question.trim() === "") {
-      showResponse(':)');
-      return;
-    } 
-
-
-    $.ajax({
-      url: "profiles/dennisotugo.php",
-      method: "POST",
-      data: { payload: question },
-      success: function(res) {
-        if (res.trim() === "") {
-          showResponse(`
-          I don\'t understand that question. If you want to train me to understand,
-          please type <code>"train: your question? # The answer."</code>
-          `);
-        } else {
-          showResponse(res);
+// send the message to user
+function send_message(message){
+      var prevSms = $('#opheuscont').html();
+      if (prevSms.length > 8) {
+        prevSms = prevSms + '<br>'
         }
-      }
-    });
-  }
-
-  function showResponse(response) {
-    if (response === true) {
-      $('.messages-body').append(
-        `<div class="trigger_popup">
-          <div class="message bot temp">
-            <span class="content">Thinking...</span>
-          </div>
-        </div>`
-      );
-      return;
+      $('#opheuscont').html(prevSms + '<span class="cureent_sms">' + '<span class="bot">opheusbot: </span>' + message + '</span>');
+	  $('#opheuscont').scrollTop($('#opheuscont').height());
+      $('.cureent_sms').hide();
+      $('.cureent_sms').delay(50).fadeIn();
+      $('.cureent_sms').removeClass("current_sms");
     }
-
-    $('.temp').parent().remove();
-    $('.messages-body').append(
-      `<div class="trigger_popup">
-        <div class="message bot">
-          <span class="content">${response}</span>
-        </div>
-      </div>`
-    );
-    $('.message-box').val("");
-
-  }
-
-  function getQuestion() {
-    return $('.message-box').val();
-  }
-
-  function updateThread(message) {
-    message = stripHTML(message);
-    $('.messages-body').append(
-      `<div class "trigger_popup">
-        <div class="message you">
-          <span class="content">${message}</span>
-        </div>
-      </div>`
-    );
-  }
-
-  var options = { hour12: true };
-  var time = "";
-  function updateTime() {
-    var date = new Date();
-    time = date.toLocaleString('en-NG', options).split(",")[1].trim();
-    document.querySelector(".time").innerHTML = time;
-  }
-  setInterval(updateTime, 60);
-
-	$(window).load(function () {
-    $(".trigger_popup").click(function(){
-       $('.hover').show();
-    });
-    $('.hover').click(function(){
-        $('.hover').hide();
-    });
-    $('.popupCloseButton').click(function(){
-        $('.hover').hide();
-    });
+	
+	
+	// main JQuery function
+$(function() {
+      get_username();
+      $('#text-sms').keypress(function(event){
+        if (event.which == 13) {
+          if ($('#enter').prop('checked')){
+            $('#send-button').click();
+            event.preventDefault();
+          }
+        }
+      });
+    $('#send-button').click(function(){
+        var username = '<span class="username">You: </span>'
+        var sms = $('#text-sms').val();
+        $('#text-sms').val('');
+          //store the first sms
+        var prevSms = $('#opheuscont').html();
+          //check if prev sms length is greater than 8
+        if (prevSms.length > 8) {
+          prevSms = prevSms + '<br>'
+          }
+        //show the sms to the opheuscont div
+        $('#opheuscont').html(prevSms + username + sms);
+        $('#opheuscont').scrollTop($('#opheuscont').prop('scrollHeight'));
+        ai(sms);
+      });
 });
-
-document.getElementById("message bot").innerHTML;
-function speak(string){
-	var utterance = new SpeechSynthesisUtterance();
-	utterance.voice = speechSynthesis.getVoices().filter(function(voice){return voice.name == "Agnes";})[0];
-	utterance.text = string;
-	utterance.lang = "en-US";
-	utterance.volume = 1; //0-1 interval
-	utterance.rate = 1;
-	utterance.pitch = 1; //0-2 interval
-	speechSynthesis.speak(utterance);
-}
+	
+	
 </script>
 <?php } 
 ?>
