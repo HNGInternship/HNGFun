@@ -360,8 +360,10 @@ if (!empty($_POST)) {
 }
 $user = (new Model())->getProfile();
 
-?>
+var_dump($user);
 
+?>
+<p>New Update 1</p>
 
 <main class="my-container row">
     <div class="profile col-md-6">
