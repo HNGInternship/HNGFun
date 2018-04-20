@@ -111,7 +111,7 @@
   
   } else {
 ?>
-<div class"profile">
+<div class="profile">
 						<h1>Dennis Otugo</h1>
 						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
 						<nav>
