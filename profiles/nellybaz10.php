@@ -1,60 +1,145 @@
+
+<?php
+//echo "here";
+	include ('../config.example.php');
+//include('../db.php');
+
+$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+if(!$con){
+  echo "couldn't connect";
+}
+	function display_answer($question){
+		//list($keyvalue, $real_question) = explode('?', $question);
+		$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+		$question = mysqli_real_escape_string($con, $question);
+		$display_query = "SELECT answer FROM bot WHERE question = '$question'";
+		$result = mysqli_query($con, $display_query);
+		if(mysqli_num_rows($result) > 0){
+			$row = mysqli_fetch_array($result);
+			echo "<div class='this'>";
+			echo "<p>YOU: ".$question ;
+			echo "</p>";
+			echo "<p>Alice: ".$row['answer'];
+			echo "</p>";
+			echo "</div>";
+		}
+		else{
+			echo "<div class='this'>";
+			echo "<p>Sorry, your question is too hard for me. But you can train me. Remember I am smart.<br>
+					To train me: <br>
+					Tell me the question first by typing: <em><b>#your question</b></em><br>
+					Then the answer by typing: <em><b>@the answer</b></em><br>
+					Then ask
+			</p>";
+			echo "</div>";
+			
+		}
+		
+	
+	}
+
+
+	function add_question($question){
+		list($keyvalue, $real_question) = explode('#', $question);		
+		$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+		$real_question = mysqli_real_escape_string($con, $real_question);
+		$question_query = "INSERT INTO `bot`(`question`) VALUES ('{$real_question}')";
+		
+		if(mysqli_query($con, $question_query)){
+			echo "<div class='this'>";
+			echo "<p>Thanks! Now the Answer</p>";
+			echo "<p>Tell me the answer by typing: <br>
+			       <b>@the asnswer</b></p>";
+			       echo "</div>";
+			
+		}
+		else{
+			echo "<div class='this'>";
+			echo "<p><b>Alice:</b> Sorry I couldn't process your question now. Ask again Later!</p?";
+			echo "</div>";
+		}
+		mysqli_close($con);
+	}
+
+
+		function add_answer($answer){
+		list($keyvalue, $real_answer) = explode('@', $answer);	
+		$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);	
+		$real_answer = mysqli_real_escape_string($con, $real_answer);
+		$get_last_id = "SELECT id from bot ORDER BY id DESC LIMIT 1";
+		$result = mysqli_query($con, $get_last_id);
+		$row = mysqli_fetch_array($result);
+		$last_id = $row['id'];
+		$answer_query = "UPDATE bot SET answer = '$real_answer' WHERE id = '$last_id'";
+		if(mysqli_query($con, $answer_query)){
+			echo "<div class='this'>";
+			echo "<p>Thank you for training me. <br>
+			Now you can ask me that question, and I will answer it.<br>
+			Type <b>The question</b></p>";
+			echo "</div>";
+			
+		}
+		else{
+			echo "<div class='this'>";
+			echo "<p>Couldn't learn your answer, mayber it's wrong or I am just too tired. Try again later. Thanks</p>";
+			echo "</div>";
+
+		}
+		
+		mysqli_close($con);
+	}
+
+	$question = $_POST['question'];
+	//echo $question;
+	 $x = 0;
+	 $count = 3;
+	 $count_hash = 0;
+	
+
+	while( $x < $count){
+			if ($question[$x] == '#') {
+				add_question($question);
+				break;
+				}
+			elseif($question[$x] == '@'){
+					
+					add_answer($question);
+					break;
+				}
+			else{
+				display_answer($question);
+				break;
+
+			}
+				$x = $x + 1;
+			
+			}
+			
+	
+	
+	
+
+
+
+	}
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Nelson's Profile</title>
 </head>
 <body style="text-align: center; font-family: cursive;">
-
-	<!--      ====================           CONNECTION    AND QUERY  ============                 -->
-<?php
-include ('../config.example.php');
-//include('../db.php');
-
-$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-if(!$conn){
-  echo "couldn't connect";
-}
-
-
-
-$qq = "select * from chatbot";
-$result = mysqli_query($conn, $qq);
-while ($row2 = mysqli_fetch_array($result)) {
-	# code...
-	echo $row2['answer'];
-}
-
-	
-
-?>
-
 	<table align="center" width="100%">
 		<tr>
 			<td>
 				
-		<div  style="margin:30px 0 0 20%; border:1px solid gray; width: 60%; height: 650px; min-width: 300px; font-size: 14px; min-height: 300px" align="left" class="whole-content">
-		<img style="max-width: 200px; max-height: 200px; border-radius: 8px; margin:30px 0 0 30px;" src="http://res.cloudinary.com/nellybaz/image/upload/v1523622011/pic3.jpg">
+		<div  style="margin:30px 0 0 20%; border:1px solid gray; width: 60%; height: 500px; min-width: 300px; font-size: 14px; min-height: 300px" align="left" class="whole-content">
+		<img style="max-width: 200px; max-height: 200px; border-radius: 8px; margin:30px 0 0 30px;" src="profile.jpg">
 
 		<div style="padding-left: 30px">
 			<h1>Nelson Bassey</h1>
-							<!--       ==================          SECOND QUERY      ================                 -->
-				    <p> <?php
-
-				    $q2 = "INSERT INTO interns_data (secret_word) VALUES('determination') WHERE username='nellybaz10'";
-				    if(mysqli_query($conn, $q2)){
-				    	echo "inserted";
-				    }else{
-				    	echo "not inserted";
-				    }
-
-
-				   $q = "select secret_word from interns_data where username='nellybaz10'";
-				      $result = mysqli_query($conn, $q);
-				      $row = mysqli_fetch_array($result);
-				      $secret_word = $row['secret_word'];
-
-				      echo 'Secret Code is:  '. $secret_word;
-				    ?></p>
 			<p><b>Country:</b> Nigeria</p>
 			<p style="width: 250px"><b>Education:</b>Computer Science student at African Leaderahip University, Rwanda.</p>
 			<p><b>Interest:</b> Technology | Music</p>
@@ -74,10 +159,12 @@ while ($row2 = mysqli_fetch_array($result)) {
 				<hr>
 
 				<div id="bot-display" style="background-color:; height: 300px; width: 90%; overflow: scroll;">
-					<p>To train me: <br>
+					<p>Ask me any question, I will give you the answer</p>
+					<!--<p>To train me: <br>
 					Tell me the question first by typing: <em><b>#your question</b></em><br>
-					Tell me the answer by typing: <em><b>@the answer</b></em><br>
-					Then see if I am smart as I said: Ask by typing <br><em><b>?your question</b></em></p>
+					Then the answer by typing: <em><b>@the answer</b></em><br>
+					Then see if I am smart as I said: Ask by typing <br><em><b>your question</b></em></p>
+				-->
 				</div>
 
 				<div style="width: 100%; position: relative; top: 30px;">
@@ -104,14 +191,32 @@ while ($row2 = mysqli_fetch_array($result)) {
 			$('#send').click(function(){
 				//
 				var input = $('#input').val();
-				alert(input);
-				$('#bot-display').load('nnzzion.php', {
+				//alert(input);
+				$('#bot-display').load('profiles/nellybaz10.php .this', {
 					question: input
 				});
+				return false;
+
+
+				//$.ajax({
+				//	url: '',
+				//	type: 'post',
+				//	data: {question: input},
+				//	success: function(response){
+						//var data_to_display = "<p>" + response + "</p>";
+						//$('#bot-display').text(response);
+						
+				//			$('#bot-display').html('<p>answer displayed</p>'+response+'<p>seen</p>');
+						
+				//	}
+//
+				//});
 
 			});
 
 		});
 	</script>
+
+	
 </body>
 </html>
