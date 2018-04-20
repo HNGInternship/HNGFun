@@ -1,6 +1,6 @@
 <?php
-require('db.php');
-require('answers.php');
+require('/../db.php');
+require('/../answers.php');
 
 $connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 $result = mysqli_query($connect, "SELECT * FROM secret_word");
@@ -334,8 +334,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 						url: "profiles/jilh.php",
 						type: "POST",
 						data: {message: botMessage},
-						dataType: "json",
-						success: function(response){ //alert(response);
+						//dataType: "json",
+						success: function(response){ alert(response);
 							if(response.state === "say")
 							{
 								$('.pan-body').append('<span class="design reciever"><span class="name">Bot</span>' + response.msg + '</span>');
