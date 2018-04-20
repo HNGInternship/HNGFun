@@ -23,7 +23,7 @@
             throw $e;
         }    
         try {
-            $sql = "SELECT * FROM interns_data WHERE `username` = 'oriechinedu' LIMIT 1";
+            $sql = "SELECT * FROM interns_data WHERE `username` = 'admiral' LIMIT 1";
             $q = $conn->query($sql);
             $q->setFetchMode(PDO::FETCH_ASSOC);
             $my_data = $q->fetch();
@@ -521,7 +521,7 @@
                                 // alert(message);
                                 $.ajax({
                                     type: 'POST',
-                                    url: '/profiles/oriechinedu.php',
+                                    url: '/profiles/admiral.php',
                                     dataType: 'json',
                                     data: {chat_message: message},
                                     success: function(data) {
