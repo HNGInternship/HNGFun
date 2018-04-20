@@ -162,7 +162,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    -webkit-flex-direction: column;
 		    flex-direction: column;
 		}
-		#irr{
+		.irr{
 			float: left;
 	        color: #fff;
 	        background-color: #033FFF;
@@ -174,7 +174,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	        font-size: 15px;
 			font-family: Ubuntu;
 		}
-		#irr:before{
+		.irr:before{
 			left: -3px;
             background-color: #00b0ff;
 		}
@@ -213,7 +213,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 								<button type="submit" id="send-button">Send</button>
 							</div>
 							<div id="bot_reply">
-								<div id="irr">
+								<div class="irr">
 									Chats 
 									<ul id="chats">
 										<?php
