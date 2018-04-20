@@ -40,6 +40,16 @@ function showtime($location){
 
 if(isset($_POST['input'])){
     $msgg=$_POST['input'];
+    if($msgg == 'aboutbot'){?>
+     <div class="in">
+     <?php echo  "$msgg";?>
+     </div>
+     <?php 
+     echo '<div class="out">';
+     echo 'Current Version is 1.0';
+     echo '</div>';
+     
+    }else{
 $msg=strtolower($msgg);
 $length=strlen($msg);
 // $msg = "train: hdgudd ifh #hiiii";
@@ -125,6 +135,8 @@ $u = 'hello';
      </div>
     <?php
 exit();
+ }
+ exit();
  }?>
 <!DOCTYPE html>
 <html lang="en">
