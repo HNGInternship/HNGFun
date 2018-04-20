@@ -30,8 +30,6 @@
     border-radius: 5px;
     padding: 10px;
     margin: 10px 0;
-    height: 30px;
-    width:50px;
 }
 
 .darker {
