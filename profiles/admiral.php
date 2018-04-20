@@ -354,21 +354,21 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 			<div class="col-md-6">
 				<div class="card border-0 bot-panel ml-auto mr-auto">
 				  <div class="card-header">
-				    <h4 class="ml-3 d-inline" style="font-size: 1.2rem; font-weight: 500;">Gracie</h4>
+				    <h4 class="ml-3 d-inline" style="font-size: 1.2rem; font-weight: 500;">CHAT BOT</h4>
 				  </div>
 				  <div class="card-body" id="chatWindow">
 				    
 				    <!-- Gracie's message -->
                         <div class="msj macro">
                             <div class="text text-l">
-                                <p>Hi! My name is Gracie. How may I be of service today?</p>
+                                <p>How may I be of service today?</p>
                             </div>
                         </div>
                     <!-- Gracie's message -->
                         <div class="msj macro">
                         <div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="gracie-icon align-self-start"></div>
                             <div class="text text-l">
-                                <p>You can ask me any questions, let's see if I can answer them. You could also train me by entering the following format: <br>
+                                <p>You can ask me any questions, You could also train me by entering the following format: <br>
                                 	<code class="text-white">train: your question # the correct answer # password</code>
                                 </p>
                                 
