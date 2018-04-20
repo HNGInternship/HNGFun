@@ -418,47 +418,52 @@
 			<h3> Slack: @admiral </h3>
 		</div>
 		<div class="clear"></div>
-			<div class="bot col-lg-4">
-				<img src="">
-                <div class="row chat-window" id="chat_window_1">
-                    <div class="card">
-                        <div class="row card-header top-bar">
-                            <div>
-                                <h3>Bot Chat</h3>   
+			<div class="col-lg-4 col-sm|md|xs-10">
+                                <div class="row chat-window" id="chat_window_1">
+                                    <div class="card">
+                                        <div class="row card-header top-bar">
+                                            <div class="col-md-8 col-xs-8">
+                                                <h3><span class="fa fa-comment"></span>ChatBot</h3>   
+                                            </div>
+                                            <div class="col-md-4 col-xs-4">
+                                                <a href="#"><span id="minim_chat_window" class="fa fa-minus icon_minim"></span></a>
+                                                <a href="#"><span class="fa fa-remove icon_close" data-id="chat_window_1"></span></a>
+                                            </div>
+                                        </div>
+                                        <div class="card-body  msg_container_base">
+                        
+                                            <div class="row msg_container base_sent">
+                                                <div class="col-md-10 col-xs-10">
+                                                    <div class="messages msg_sent">
+                                                        <p><code>Hello, I am a bot, I am smart but you can make me smarter, I am always willing to learn</code></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-xs-2"></div>
+                                            </div>
+                                            <div class="row msg_container base_sent">
+                                                <div class="col-md-10 col-xs-10">
+                                                    <div class="messages msg_sent">
+                                                        <p><code>To teach me, package your lesson in the format below</code></p>
+                                                        <p><code>train:your question#your answer#password</code></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-xs-2"></div>
+                                            </div>
+
+                                        </div>   <!-- message form -->
+                                        <div class="card-footer message-div">
+                                            <form action="" id="chat-form" method="post">
+                                                <div class="input-group mb-3">
+                                                    <input class="form-control message chat_input" name="chat_message" aria-label="With input" placeholder="Let's Chat  Now...">
+                                                    <div class="input-group-append">
+                                                        <button type="submit" class="btn btn-primary btn-sm send-message" id="btn-chat"><i class="fa fa-send-o"></i></button>                                                                                 
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                            <div class="card-body  msg_container_base">
-                        		<div class="row msg_container base_sent">
-                                    <div class="col-md-10">
-                                        <div class="messages msg_sent">
-                                            <p><code>Hello, I am a bot, I am smart but you can make me smarter, I am always willing to learn</code></p>
-                                        </div>
-                                    </div>
-                        			<div class="col-md-2"></div>
-                                </div>
-                            	<div class="row msg_container base_sent">
-                                <div class="col-md-10">
-                                    <div class="messages msg_sent">
-                                        <p><code>To teach me, package your lesson in the format below</code></p>
-                                        <p><code>train:your question#your answer#password</code></p>
-                                    </div>
-                                </div>
-                                <div class="col-md-2"></div>
-                            	</div>
-                            </div>   <!-- message form -->
-                            <div class="card-footer message-div">
-                                <form action="" id="chat-form" method="post">
-                                    <div class="input-group mb-3">
-                                        <input class="form-control message chat_input" name="chat_message" aria-label="With input" placeholder="Let's Chat  Now...">
-                                        <div class="input-group-append">
-                                            <button type="submit" class="btn btn-primary btn-sm send-message" id="btn-chat"><i class="fa fa-send-o"></i></button> 
-                                        </div>
-                                    </div>
-                                </form>
-                        	</div>
-                    </div>
-                </div>
-            </div>
 		<div class="footer">
 			<footer class="socials">
                 <i class="fab fa-github-square fa-2x"></i>
