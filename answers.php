@@ -426,7 +426,7 @@ function getMediumArticle(){
 }
 function getPinkyCommands(){
     echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/> 
-    2. Get <b>motivational quote of the day.</b> <br/> 3. Get my creator <b>Ada's latest medium article</b> <br/>
+    2. Get <b>motivational quote of the day.</b> or <b>inspire me today</b> <br/> 3. Get my creator <b>Ada's latest medium article</b> <br/>
     4. Get or tell you<b> a random Yo Momma Joke</b>. <br/> 5. Get or tell you <b>what day of the week it is.</b> <br/>
     6. Get the <b>date seven days or a week from now.</b> <br/> 7.Get or tell you<b> a random quote.</b> <br/>
     8. Tell you version of the bot <b>aboutbot</b><br/>
