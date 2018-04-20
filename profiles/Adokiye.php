@@ -1,4 +1,12 @@
 <?php
+  if(!defined('DB_USER')){
+    require "../../config.php";
+  }
+  try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
 global $conn;
 function processAskedQuestion($input){
 
@@ -33,15 +41,6 @@ function processAskedQuestion($input){
     }
 
 if (isset($_POST['button'])) {
-    if(!defined('DB_USER')){
-        require "../../config.php";
-        try {
-            global $conn;
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-        } catch (PDOException $pe) {
-            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-        }
-    }
 if (isset ($_POST['input']) && $_POST['input'] !== "") {
     $asked_question_text = $_POST['input'];
     processAskedQuestion($asked_question_text);
