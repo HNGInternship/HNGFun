@@ -43,17 +43,10 @@ class Database
 //		$tz = (new DateTime('now', new DateTimeZone('Africa/Lagos')))->format('P');
 //		$this->connection->query("SET time_zone='$tz';");
 		// Error handling
-        echo 'hi';
-        echo DB_HOST;
-        echo DB_DATABASE;
-        echo DB_USER;
-        echo DB_PASSWORD;
-		die('Failed to connect to MySQL');
-		
 		if (mysqli_connect_error()) {
-		    die('Failed to connect to MySQL');
 			trigger_error("Failed to connect to MySQL: " . mysqli_connect_error(),
 				E_USER_ERROR);
+			die('Failed to connect to MySQL');
 		}
 	}
 	
