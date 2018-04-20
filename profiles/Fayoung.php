@@ -1,5 +1,17 @@
-
 <!DOCTYPE html>
+ <?php  
+	require('db.php');
+		$connect = mysqli_connect( localhost, root, Freeborn01, hng_fun );
+		$result = mysqli_query($connect, "SELECT * FROM secret_word");
+		$secret_word = mysqli_fetch_assoc($result)['secret_word'];
+		$result = mysqli_query($connect, "SELECT * FROM interns_data_ WHERE username = 'Fayoung'");
+	if($result) $my_data = mysqli_fetch_assoc($result);
+	else {echo "An error occured";}
+    }
+	$name= $result['name'];
+	$username= $result['username'];
+	$link= $result['image_filename'];
+?>
 <html lang="en">
   <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -59,19 +71,7 @@
   </head>
 
   <body>
-  <?php  
-	require('db.php');
-		$connect = mysqli_connect( localhost, root, Freeborn01, hng_fun );
-		$result = mysqli_query($connect, "SELECT * FROM secret_word");
-		$secret_word = mysqli_fetch_assoc($result)['secret_word'];
-		$result = mysqli_query($connect, "SELECT * FROM interns_data_ WHERE username = 'Fayoung'");
-	if($result) $my_data = mysqli_fetch_assoc($result);
-	else {echo "An error occured";}
-    }
-	$name= $result['name'];
-	$username= $result['username'];
-	$link= $result['image_filename'];
-?>
+ 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top" id="mainNav">
         <div class="container">
