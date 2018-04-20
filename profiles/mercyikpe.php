@@ -143,9 +143,7 @@ catch(PDOException $e)
 		<title>Mercy Ikpe | Jamila</title>
 			 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-			<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 			<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-				<link rel="stylesheet" type="text/css" href="https://cloudinary.com/console/media_library#/dialog/raw/upload/jamila_crxbkz.css">
             <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
             <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -805,7 +803,7 @@ header h1 {
 					<header class="col-md-12">
 									<div class="col-md-6" id="imgBlock" >
 										<!-- <img class="img img-circle" src="img/bg2.png"> -->
-										<img class="img img-circle" src="http://res.cloudinary.com/mercyikpe/image/upload/w_400,h_400,c_crop,g_face,r_max/w_200/v1517443922/mercy_ownuvy.jpg" />
+										<img class="img img-circle" src="https://res.cloudinary.com/mercyikpe/image/upload/w_400,h_400,c_crop,g_face,r_max/w_200/v1517443922/mercy_ownuvy.jpg" />
 										
 											<h1 class="ubuntu">Mercy Ikpe</h1>
 											<div class="col-md-12 col-md-offset-2">
