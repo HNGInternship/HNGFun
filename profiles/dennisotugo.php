@@ -1,76 +1,111 @@
-<?php
-$sql = "SELECT * FROM interns_data WHERE username = 'dennisotugo'";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$data = $q->fetchAll();
-$dennisotugo = array_shift($data);
-// Secret word
-$sql = "SELECT * FROM secret_word";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$words = $q->fetch();
-$secret_word = $words['secret_word'];
-?>
-/************************SET UP DB CONN************************/
-<?php
-if(!defined('DB_USER')){
-  require "../../config.php";
-}
-try {
-  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-} catch (PDOException $pe) {
-  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
-global $conn;
-
-
-$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$check' ORDER BY rand() LIMIT 1");
-$stmt->execute();
-if($stmt->rowCount() > 0)
-{
-  while($row = $stmt->fetch(PDO::FETCH_ASSOC))
-  {
-		echo $row["answer"];
-  }
-} else {
-    echo "Well i couldnt understand what you asked. But you can teach me.";
-	echo "Type ";
-	echo "train: write a question | write the answer.  "; 
-	echo "to teach me.";
-}
-}
-
-
-function train_bot ($message) {
-function multiexplode ($delimiters,$string) {
+<?php 
+    date_default_timezone_set('Africa/Lagos');
+        if (!defined('DB_USER')){
+            
+            require "../../config.php";
+        }
+        try {
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+          } catch (PDOException $pe) {
+            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+          }
+    try {
+    $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        die("Could not query the database:" . $e->getMessage());
+      }
+    $result = $q->fetch();
+    $secret_word = $result['secret_word'];
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+      $ask = $_POST['ask'];
     
-    $ready = str_replace($delimiters, $delimiters[0], $string);
-    $launch = explode($delimiters[0], $ready);
-    return  $launch;
-}
-//$text = "#train: this a question | this my answer :)";
-$exploded = multiexplode(array(":","|"),$message);
-$question = trim($exploded[1]);
-$answer = trim($exploded[2]);
-require 'db.php';
-try {
-    
-    $sql = "INSERT INTO chatbot (id, question, answer)
-VALUES ('', '$question', '$answer')";
-    // use exec() because no results are returned
-    $conn->exec($sql);
-    
-    echo "Thank you! i just learnt something new, my master would be proud of me.";
-	
-	}
-catch(PDOException $e)
-    {
-    echo $sql . "<br>" . $e->getMessage();
-    }
-	
-$conn = null;
-
-?>
+        //check if bot is training
+        $train_bot = stripos($ask, "train:");
+          if($train_bot === false){
+            
+            //Bot is not training, ask your question, but remove question mark and dot
+            $ask = preg_replace('([\s]+)', ' ', trim($ask));
+            $ask = preg_replace('([?.])', "", $ask);
+            //if the answer is already in the database, do this:
+            $ask = "$ask";
+            $sql ="SELECT * FROM chatbot WHERE question LIKE :ask";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':ask', $ask);
+            $stmt->execute();
+            $stmt->setFetchMode(FETCH_ASSOC);
+            $rows = $stmt->fetchAll();
+            if(count($rows)>0){
+              $index = rand(0, count($rows)-1);
+              $row= $rows[$index];
+              $answer = $row['answer'];
+                echo json_encode([
+                  'status' => 1,
+                  'answer' => $answer
+                ]);
+          }else{
+            echo json_encode([
+                'status' => 0,
+                'answer' => "I dont have an answer to that question. Am not that intelligent you know. But you can make me be. Please train me. Type <strong>train: question # answer # password"
+              ]);
+          }
+          return;
+      }else{
+        //Enter the training mode
+        $ask_ans = substr($ask, 6);
+        //remove excess white space in $ask_ans
+         $ask_ans = preg_replace('([\s]+)', ' ', trim($ask_ans));
+         //remove ? and . so that questions missing ? (and maybe .) can be recognized
+         $ask_ans = preg_replace("([?.])", "", $ask_ans);
+         $separate = explode("#", $ask_ans);
+         if(count($separate) == 1){
+          echo json_encode([
+            'status' => 0,
+            'answer' => "It seems you didnt enter the format correctly. \n Here, Let me help you: \n Type: <strong>train: question # answer # password"
+            ]);
+          return;
+         }
+         $que = trim($separate[0]);
+         $ans = trim($separate[1]);
+         if(count($separate) < 3){
+          echo json_encode([
+            'status' => 0,
+            'answer'=> "You need to type the training password to train me"
+            ]);
+          return;
+         }
+         //Lets know what the password is
+         
+         $password = trim($separate[2]);
+         define('TRAINING_PASSWORD', 'password');
+         //verify if training password is correct
+         if($password !== TRAINING_PASSWORD){
+          echo json_encode([
+            'status' => 0,
+            'answer' => "You can't train me with that password, check it and train again"
+            ]);
+          return;
+         }
+         //put results into database
+         $sql = "INSERT INTO chatbot (question, answer) VALUES (:question, :answer)";
+         $stmt= $conn->prepare($sql);
+         $stmt->bindParam(':question', $que);
+         $stmt->bindParam(':answer', $ans);
+         $stmt->execute();
+         $stmt->setFetchMode(FETCH_ASSOC);
+         echo json_encode([
+            'status' => 1,
+            'answer' => "I have learnt a new thing today, Thank you. You can now test me"
+          ]);
+         return;
+      }
+      echo json_encode([
+      'status' => 0,
+      'answer' => "I cant grasp this, try me another time. Thanks."
+    ]); 
+  }else {
+?>   
 
   <div class="bot-body">
     <div class="messages-body">
@@ -83,6 +118,8 @@ $conn = null;
     </div>
     <div class="send-message-body">
       <input class="message-box" placeholder="Type here..."/>
+	    <button type="submit" class="message-btn">
+      </button>
     </div>
   </div>
 
@@ -218,49 +255,62 @@ footer {
 
 </style>
 <script>
-// send the message to user
-function send_message(message){
-      var prevSms = $('#opheuscont').html();
-      if (prevSms.length > 8) {
-        prevSms = prevSms + '<br>'
+$(document).ready(function(){
+  var askForm = $("#send-message-body");
+  askForm.submit(function(e){
+    e.preventDefault();
+    });
+  $(".messages-body").animate({ scrollTop: $(document).height() }, "fast");
+  $("")
+  
+    function currentMessage(){
+        var msg = $('.ask-input input').val();
+        if($.trim(msg) == ''){
+          return false;
         }
-      $('#opheuscont').html(prevSms + '<span class="cureent_sms">' + '<span class="bot">opheusbot: </span>' + message + '</span>');
-	  $('#opheuscont').scrollTop($('#opheuscont').height());
-      $('.cureent_sms').hide();
-      $('.cureent_sms').delay(50).fadeIn();
-      $('.cureent_sms').removeClass("current_sms");
-    }
-	
-	
-	// main JQuery function
-$(function() {
-      get_username();
-      $('#text-sms').keypress(function(event){
-        if (event.which == 13) {
-          if ($('#enter').prop('checked')){
-            $('#send-button').click();
-            event.preventDefault();
-          }
-        }
+         $('<div class="ask me">' + msg + '</div>').appendTo($('.messages-body'));
+        $(".messages-body").animate({ scrollTop: $(document).height() }, "fast");
+      };
+      $('.submit').click(function(){
+        currentMessage();
+        getAnswer();
       });
-    $('#send-button').click(function(){
-        var username = '<span class="username">You: </span>'
-        var sms = $('#text-sms').val();
-        $('#text-sms').val('');
-          //store the first sms
-        var prevSms = $('#opheuscont').html();
-          //check if prev sms length is greater than 8
-        if (prevSms.length > 8) {
-          prevSms = prevSms + '<br>'
-          }
-        //show the sms to the opheuscont div
-        $('#opheuscont').html(prevSms + username + sms);
-        $('#opheuscont').scrollTop($('#opheuscont').prop('scrollHeight'));
-        ai(sms);
-      });
+     $(window).on('keydown', function(e){
+        if (e.which == 13) {
+          currentMessage();
+          getAnswer();
+          return false;
+      }
+    });
+   
+    //Transfer the question asked to the server
+    function getAnswer(){
+      let ask = $("#message").val();
+      if($.trim(ask) == ''){
+        return false;
+      }
+    $.ajax({
+      url: '/profiles/dennisotugo.php',
+      data: {ask: ask},
+      dataType: 'json',
+      type: 'POST',
+      success: (response) => {
+        if(response.status == 1){
+        $('<div class="message bot">' + response.answer + '</div>').appendTo($('.messages-body'));
+        $('.message-box input').val(null);
+        $(".messages-body").animate({ scrollTop: $(document).height() }, "fast");
+      }else if(response.status == 0){
+          $('<div class="message bot">' + response.answer + '</div>').appendTo($('.messages-body'));
+          $('.message-box input').val(null);
+            $(".messages-body").animate({ scrollTop: $(document).height() }, "fast");
+      }
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  }
 });
-	
-	
 </script>
 <?php } 
 ?>
