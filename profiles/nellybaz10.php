@@ -159,6 +159,7 @@ if(!$conn){
 
 
 if(isset($_POST['question'])){
+	$question = trim($question);
 $question = $_POST['question'];
 	//echo $question;
 	 $x = 0;
