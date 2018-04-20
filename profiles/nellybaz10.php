@@ -38,7 +38,7 @@
 		<div>
 			
 			<div  style="margin:30px 20% 0 0; border:1px solid gray; width: 50%; height: 500px; min-width: 300px; font-size: 14px; min-height: 300px" align="center" class="whole-content">
-				<h3 style="margin-left: 15px; color: navy">I'm Alice, Nelly's smart bot</h3>
+				<h3 style="margin-left: 15px; color: navy; font-family: 'IBM Plex Mono', monospace;">I'm Alice, Nelly's smart bot</h3>
 				<p>(Are you bored? chat with me)</p>
 				<hr>
 
