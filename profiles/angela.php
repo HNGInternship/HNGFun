@@ -1,9 +1,15 @@
+<?php
+  $query = "SELECT * FROM secret_word";
+  $secret_word = $conn->query($query);
+  $result = $secret_word->fetch();
+  $secret_word = $result['secret_word'];
+?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Angela Bello</title>
-  <link rel="stylesheet" type="text/css"  href="vendor/bootstrap/css/bootstrap2.css">
+  <link rel="stylesheet" type="text/css"  href="vendor/bootstrap/3.3.4/css/bootstrap.css">
   <style>
     body, html {
       font-family: 'Open Sans', sans-serif;
@@ -166,7 +172,6 @@
     }
     .hover-bg:hover .hover-text>h4 {
       opacity: 1;
-      -webkit-backface-visibility: hidden;
       -webkit-transform: translateY(0);
       transform: translateY(0);
     }
@@ -178,7 +183,6 @@
     }
     .hover-bg:hover .hover-text>i {
       opacity: 1;
-      -webkit-backface-visibility: hidden;
       -webkit-transform: translateY(100%);
       transform: translateY(100%);
     }

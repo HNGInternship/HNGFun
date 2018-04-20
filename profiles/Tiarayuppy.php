@@ -1,35 +1,86 @@
-
-
-  <?php
-          try {
-              $sql = 'SELECT * FROM secret_word';
-              $q = $conn->query($sql);
-              $q->setFetchMode(PDO::FETCH_ASSOC);
-              $data = $q->fetch();
-          } catch (PDOException $e) {
-              throw $e;
+<?php
+    session_start();
+    require('answers.php');
+    			$dsn = "mysql:host=".DB_HOST.";dbname=".DB_DATABASE;
+    			$db = new PDO($dsn, DB_USER,DB_PASSWORD);
+    			$codeQuery = $db->query('SELECT * FROM secret_word ORDER BY id DESC LIMIT 1', PDO::FETCH_ASSOC);
+    			$secret_word = $codeQuery->fetch(PDO::FETCH_ASSOC)['secret_word'];
+    			$detailsQuery = $db->query('SELECT * FROM interns_data WHERE name = \'Joseph Miracle\' ');
+    $username = $detailsQuery->fetch(PDO::FETCH_ASSOC)['username'];
+    if(isset($_POST['message']))
+    {
+        			array_push($_SESSION['chat_history'], trim($_POST['message']));
+        			if(stripos(trim($_POST['message']), "train") === 0)
+        {
+          
+          			$args = explode("#", trim($_POST['message']));
+          			$question = trim($args[1]);
+          $answer = trim($args[2]);
+          $password = trim($args[3]);
+          if($password == "trainisdope")
+          {
+              // Password perfect
+            $trainQuery = $db->prepare("INSERT INTO chatbot (question , answer) VALUES ( :question, :answer)");
+            if($trainQuery->execute(array(':question' => $question, ':answer' => $answer)))
+            {
+                array_push($_SESSION['chat_history'], "Try another method");
+            }
+            else
+            {
+                array_push($_SESSION['chat_history'], "Something went wrong somewhere");
+            }
           }
-          $secret_word = $data['secret_word'];
+          else
+          {
+              // Password not correct
+             array_push($_SESSION['chat_history'], "The password entered was incorrect");
+          }
+        }
+        else
+        {
+            // Not Training
+          $questionQuery = $db->prepare("SELECT * FROM chatbot WHERE question LIKE :question");
+          $questionQuery->execute(array(':question' => trim($_POST['message'])));
+          $qaPairs = $questionQuery->fetchAll(PDO::FETCH_ASSOC);
+          if(count($qaPairs) == 0)
+          {
+             		$answer = "Sorry, I cant understand your details";
+          } else
+          {
+            $answer = $qaPairs[mt_rand(0, count($qaPairs) - 1)]['answer'];
+            $bracketIndex = 0;
+            while(stripos($answer, "{{", $bracketIndex) !== false)
+            {
+              $bracketIndex = stripos($answer, "{{", $bracketIndex);
+              $endIndex = stripos($answer, "}}", $bracketIndex);
+              $bracketIndex++;
+			      $function_name = substr($answer, $bracketIndex + 1, $endIndex - $bracketIndex -1);
+			      $answer = str_replace("{{".$function_name."}}", call_user_func($function_name), $answer);
+            }
+          }
+          array_push($_SESSION['chat_history'] , $answer);
+        }
+    }
+    if(!isset($_SESSION['chat_history']))
+    {
+        		$_SESSION['chat_history'] = array('Hi! How can I help? Ask me any question. To train me, enter the command "train # question # answer # password');
+    }
+    $messages = $_SESSION['chat_history'];
+?>
 
-
-              $profile_details_query = "SELECT name, username, image_filename 
-              FROM interns_data where username = '$profile_name' LIMIT 1";
-              $profile_details_result = $conn->query($profile_details_query);
-
-                  $profile_details_result->setFetchMode(PDO::FETCH_ASSOC);
-                      $profile_details = $profile_details_result->fetch();
-                  ?>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
- 
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
   <title>TiaraYuppy - HNG Internship</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-  <script src="https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js"></script>
+ <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js"></script>
 
 <style>
  
@@ -288,6 +339,10 @@ body{
     color: #070707;
     background-color: #070707;
 }
+
+#time{
+    display-content:center;
+}
 #demo {
             /*background-color: #ffffff;*/
             width: 80%;
@@ -447,14 +502,12 @@ body{
 
                 </div>
                 <div class="avatar">
-                    <img alt="" src="<?php echo $profile_details['image_filename'] ?>">
+                    <img alt="" src="http://res.cloudinary.com/tiarayuppy/image/upload/v1523634049/IMG_20171025_172725.jpg">
                 </div>
                 <div class="info">
                     <div class="title">
-                        <a target="_blank" href="http://res.cloudinary.com/tiarayuppy/image/upload/v1523634049/IMG_20171025_172725.jpg">
-                        <?php echo $profile_details['name'] ?></a>
+                        <a target="_blank" href="http://res.cloudinary.com/tiarayuppy/image/upload/v1523634049/IMG_20171025_172725.jpg">Miracle Joseph</a>
                     </div>
-                    <p><?php echo $profile_details['username'] ?></p>
                     <div class="desc">Passionate designer</div>
                     <div class="desc">Curious developer</div>
                     <div class="desc">Tech geek| Woman in Tech</div>
@@ -474,18 +527,28 @@ body{
                         <i class="fa fa-behance"></i>
                     </a>
                 </div>
+                    
+  
             </div>
 
         </div>
+
 
     </div>
 
 
 </div>
+<div id="time"></div>
+  
+    
+   
+    </div>
+    
 
 
 
 <div id="demo">
+	<h4>Train password <code>`trainisdope`</code></h4>
     <div id="chatBotCommandDescription"></div>
     <input id="humanInput" type="text" placeholder="Say something" />
 
@@ -497,17 +560,24 @@ body{
     <div id="chatBot">
         <div id="chatBotThinkingIndicator"></div>
         <div id="chatBotHistory"></div>
+        
     </div>
 </div>
-
-
+<div>
+	<?php for($index = 0; $index < count($messages); $index++ ) :?>
+              <div class="chat-container <?= ($index % 2 == 0) ? "output-ctn" : "input-ctn"  ?>">
+                  <div class="chat <?= ($index % 2 == 0) ? "output" : "input"  ?>"><?= $messages[$index] ?></div>
+              </div>
+          <?php endfor; ?>
+</div>
 <script>
     var sampleConversation = [
         "Hi",
         "My name is [name]",
         "Where is Hotels.ng?",
-        "What is the Nigeria",
-        "Bye"
+        "Where is  Nigeria",
+        "Bye",
+        "What is the time"
         
     ];
     var config = {
@@ -522,7 +592,8 @@ body{
     ChatBot.init(config);
     ChatBot.setBotName("Tiarayuppy");
     ChatBot.addPattern("^hi$", "response", "Hello, friend", undefined, "Say 'Hi' to be greeted back.");
-    ChatBot.addPattern("^bye$", "response", "See you later buddy", undefined, "Say 'Bye' to end the conversation.");
+    ChatBot.addPattern("^What is the time$", "response", "The Time is getTime()", undefined, "Say 'What is the time' to be greeted back.");
+    ChatBot.addPattern("^bye$", "response", "See you later...", undefined, "Say 'Bye' to end the conversation.");
     ChatBot.addPattern("(?:my name is|I'm|I am) (.*)", "response", "hi $1, thanks for talking to me today", function (matches) {
         ChatBot.setHumanName(matches[1]);
     },"Say 'My name is [your name]' or 'I am [name]' to be called that by the bot");
@@ -530,8 +601,7 @@ body{
     ChatBot.addPattern("compute ([0-9]+) plus ([0-9]+)", "response", undefined, function (matches) {
         ChatBot.addChatEntry("That would be "+(1*matches[1]+1*matches[2])+".","bot");
     },"Say 'compute [number] plus [number]' to make the bot your math calculator");
-
-</script>
+</script>	
 
 </body>
 </html>

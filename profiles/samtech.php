@@ -1,4 +1,24 @@
- <html>
+
+<?php
+try{
+     $profile = 'SELECT * FROM interns_data_ WHERE username= "samtech"';
+     $check = 'SELECT * FROM secret_word LIMIT 1';
+
+     $query = $conn->query($check);
+     $profile_query = $conn->query($profile);
+
+     $query->setFetchMode(PDO::FETCH_ASSOC);
+     $profile_query->setFetchMode(PDO::FETCH_ASSOC);
+
+     $get = $query->fetch();
+     $user = $profile_query->fetch();
+ }catch (PDOException $e) {
+     throw $e;
+ }
+ $secret_word = $get['secret_word'];
+?>
+<!DOCTYPE html>
+<html>
      <head>
          <title> MY PROFILE</title>
          <style type="text/css">
@@ -41,6 +61,7 @@ p{
      </head>
      <div id = "container">
      <body id="load">
+      
         <div id="formattedtext">
             <p id="boldText"> MY PROFILE </p><br>
             <p> Umoren Samuel Enefiok <br> HNG INTERN <br> UNIVERSITY OF UYO </p>

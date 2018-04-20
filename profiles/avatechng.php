@@ -1,10 +1,8 @@
 <?php
 error_reporting(-1);
-
-include realpath(__DIR__ . '/..') . "/db.php"    ;
+include realpath(__DIR__ . '/..') . "/db.php" ;
 global $conn;
-
-try {
+ try {
     $sql = "SELECT * FROM interns_data WHERE username ='avatechng'";
 
     $q = $conn->query($sql);
@@ -27,8 +25,119 @@ try {
 }
 $secret_word = $data2['secret_word'];
 
+
+$conf = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE );
+function showtime($location){
+    date_default_timezone_set($location);
+  $da= date('Y-m-d H:i:s') ;
+  $re =  '<div class="out"> ';
+  $re .= "<div style=\"margin-top:10px; margin-bottom:5px;background-color:blue;color:white;\"><b>The time is</b></div>";
+  $re .=  $da;
+  $re .= '</div>';
+  // echo $da;
+  echo $re;
+  }
+
+if(isset($_POST['input'])){
+    $msgg=$_POST['input'];
+    if($msgg == 'aboutbot'){?>
+     <div class="in">
+     <?php echo  "$msgg";?>
+     </div>
+     <?php 
+     echo '<div class="out">';
+     echo 'Current Version is 1.0';
+     echo '</div>';
+     
+    }else{
+$msg=strtolower($msgg);
+$length=strlen($msg);
+// $msg = "train: hdgudd ifh #hiiii";
+$flag=0;
+$us = explode(":",$msg);
+$train = $us[0];
+$qa = $us[1];
+$q = explode("#", $qa);
+$qu = $q[0];
+$an = $q[1];
+$pass = $q[2];
+if($train == 'train'&& $pass != 'password'){
+    echo "Wrong Password, You need my pass word before you can train me.";
+  }elseif($train == 'train' && $pass == 'password'){
+  $in = "INSERT INTO `chatbot`(`question`, `answer`)
+     VALUES ('$qu','$an')";
+  $tr = mysqli_query($conf, $in);
+ echo '<div class="out"> Thank You For Training Me.';
+ echo "<div style=\"margin-top:10px; margin-bottom:5px;background-color:blue;color:white;\"><b>Question: $qu</b></div>";
+
+echo "Answer: ".$an;
+echo '</div>';
+}else{
+    $ti = explode(" ", $msg);
+    $time = $ti[3];
+    $location = $ti[0];
+    $loc =  "'.$location.'";
+      if($time == 'time'){
+        ?>
+        <div class="in">
+         <?php echo "$msgg"; ?>
+            </div>
+            <?php
+        $result = showtime($loc);
+       
+      }else{
+$sql="SELECT DISTINCT question, answer  FROM chatbot WHERE question LIKE '$msg%' LIMIT 1";
+$send=mysqli_query($conf,$sql);
+
+$u = 'hello';
+
 ?>
 
+     <div class="in">
+     <?php echo "$msgg"; ?>
+        </div><br>
+
+    <div class="out">
+    <?php
+    function make_links_clickable($text){
+                  return preg_replace('!(((f|ht)tp(s)?://)[-a-zA-Zа-яА-Я()0-9@:%_+.~#?&;//=]+)!i', '<br><a href="$1" target="_blank">Click Here</a><br>', $text);
+        }
+    
+         while($row=mysqli_fetch_array($send))
+        {
+   
+          $flag=1;
+          $qu = $row['question'];
+          $output=$row['answer'];
+          $title=$row['question'];
+          $result = make_links_clickable($output);
+        if(!empty($title))
+          {
+                 
+               echo "<div style=\"margin-top:10px; margin-bottom:5px;background-color:blue;color:white;\"><b>$title</b></div>";
+
+          }
+           echo "$result";
+
+         }if($flag==0)
+        {
+        	 $output="Sorry I have no knowledge of ".$msgg." yet. You can train me by typing train:Question #Answer #Password";
+        	 $result = make_links_clickable($output);
+        	 echo "$result";
+          	 
+        }    
+      }
+    }
+     ?>
+
+  
+
+     </div>
+    <?php
+exit();
+ }
+ exit();
+ }?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +145,9 @@ $secret_word = $data2['secret_word'];
     
     <title>HNG Internship 4</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+
+
     <style type="text/css">
         @import url(https://fonts.googleapis.com/css?family=Oswald:400,300);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
@@ -333,21 +444,6 @@ h1 a {
  	color: #FFF;
  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .nav.navbar-nav .dropdown-toggle {
     padding: 0 !important;
 }
@@ -418,24 +514,107 @@ h1 a {
     z-index: 10;
 }
 
+/** bot **/
+.chat
+   {
+   
+     position:fixed;
+     bottom:0;
+     right:0;
+     margin-right: 20px;
+     max-width:300px;
+     z-index:999;
+     box-shadow: 4px 4px 4px 4px;
+     border: : 2px solid rgb(22,118,134);
+   }
 
 
 
+     #sc
+     {
+      background-color: rgb(22,118,134);
+      padding:15px;
+      color:white;
+      font-size: 16px;
+      width:300px;
+      height: 45px;
 
 
+     }
 
+     #panel
+     {
+       
+        background-color: white;
+        display: none;
+        margin:0;
+        width:300px;
+        height: 300px;
 
+     }
 
+     #div
+     {
+        padding:10px;
+        height: 240px;
+        position: relative;
+        overflow-y: auto;
+        
+     }
+  
+     input[type=text] 
+     {
+          width: 100%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          box-sizing: border-box;
+     }
 
+     .out
+     {
+        background-color:rgb(241,240,240);
+        color:black;
+        padding:10px; 
+        left:5; 
+        
+        text-align: center;
+        height:auto;
+        border-radius: 15px;
+  
+      }
+      .stt
+      {
+         margin-top:5px;
+        
+      }
+      .in{
+                background-color:rgb(64,128,255);
+                color:white;
+            padding:10px; 
+                right:0;
+                width:130px;
+                text-align: center;
+                height:auto;
+                border-radius: 5px;
+                margin-left: 120px;
+                margin-bottom: 5px;
+                
+            }
 
-
-
-
-
-
+    .out{
+        background-color:rgb(241,240,240);
+        color:black;
+        padding:10px; 
+        left:5; 
+       
+        text-align: left;
+        height:auto;
+        border-radius: 15px;
+        
+    }
 
     </style>
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -498,39 +677,172 @@ h1 a {
  
     
 </div>
-<script type="text/javascript">
-$(function() {
-    var Accordion = function(el, multiple) {
-		this.el = el || {};
-		this.multiple = multiple || false;
+<div class="container">
 
-		// Variables privadas
-		var links = this.el.find('.link');
-		// Evento
-		links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
-	}
 
-	Accordion.prototype.dropdown = function(e) {
-		var $el = e.data.el;
-			$this = $(this),
-			$next = $this.next();
 
-		$next.slideToggle();
-		$this.parent().toggleClass('open');
+<div class="row">
 
-		if (!e.data.multiple) {
-			$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
-		};
-	}	
 
-	var accordion = new Accordion($('#accordion'), false);
+
+
+<div class="col-sm-7">
+
+
+
+
+
+<div class="chat">
+<a style="text-decoration:none;" href="#"><div id="sc"><center >
+   
+    <b>Chat With MrAvatech</b></center></div></a>
+<div id="panel">
+  
+
+<script>
+
+$(function(){
+
+    var i=0;
+    var st;
+
+    $("#sc").click(function(){
+
+         
+          i++;
+
+          $("#panel").slideToggle();
+
+          if(i==1)
+          {
+              $('#div').html("<div class=\"ou\"> Welcome, My master is not around but you can chat with me i will deliver to him.<br>You can know the time by asking <b>What is the time</b><br>You can train me by typing train:Question #Answer #Password,  <br>Thanks </div><br>");
+
+          }
+          
+
+           
+
+        });
+
+
+
 });
 
 
 
+</script>
 
+
+<script type="text/javascript">
+  
+  $(function(){
+
+     $("#st").click(function(){
+
+           var str=$("#tt").val();
+  
+           $("#div").html(str);
+
+
+
+     });
+
+  });
 
 
 </script>
+
+<script>
+
+$(function(){
+
+ window.alreadySubmit = false;
+
+  $('#tt').keypress(function(f){
+
+     
+     if(f.which == 13 && !alreadySubmit) {
+        window.alreadySubmit = true;
+
+   
+
+    $('form').on('submit', function(e){
+     e.preventDefault();
+        $.ajax({
+            type: "POST",
+            cache: false, 
+            url: "#", 
+            datatype: "html",
+            data: $('form').serialize(), 
+            success: function(result) { 
+            $('#div').append("<div class=\"stt\""+result+"</div>");
+
+                $('#tt').val("");
+
+            }
+        });
+    });
+  }
+    
+       
+  
+    });
+
+    
+    });
+    window.setInterval(function(){
+        var elem = document.getElementById('div');
+        elem.scrollTop = elem.scrollHeight;
+    }, 10000);
+               
+</script>
+
+<div id='div' name="output" >
+  
+  <div id="div1"></div>
+
+
+</div>
+<br>
+
+<!--<script>
+"use strict";
+function submitForm(oFormElement)
+{
+  var xhr = new XMLHttpRequest();
+  var display=document.getElementById('div');
+  xhr.onload = function(){ display.innerHTML=xhr.responseText; }
+  xhr.open (oFormElement.method, oFormElement.action, true);
+  xhr.send (new FormData (oFormElement));
+  return false;
+}
+</script>-->
+<!--<label for="out">Output</label>
+<textarea id='div' class="form-control" name="output" rows="10" cols="50"></textarea><br><br>-->
+
+<div class="form-group">
+<form action="process.php" id="form" name="f2" method="POST" >
+
+<input type="textarea" id="tt" name="input" placeholder="Type Your Message" style="position:absolute; bottom:0; height:30px; width:100%; height:50px;" required />
+
+
+</form>
+
+
+</div>
+
+
+
+
+</div></div>
+
+</div>
+
+</div>
+
+</div>
+
+
 </body>
 </html>
+

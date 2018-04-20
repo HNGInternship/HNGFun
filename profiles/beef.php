@@ -12,119 +12,98 @@ else {echo "An error occored";}
 
 
 	
-
-	
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Beef</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<style>
-body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif;}
-.w3-row-padding img {margin-bottom: 12px;}
-.w3-sidebar {width: 120px;background: #222;}
-#main {margin-left: 120px;}
-@media only screen and (max-width: 600px) {#main {margin-left: 0;}}
-</style>
-  
+  <title><?php echo $my_data['name']; ?> - HNG Internship</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  @import url('https://fonts.googleapis.com/css?family=Montserrat');
+  @import url('https://s3.amazonaws.com/icomoon.io/114779/Socicon/style.css?9ukd8d');
+  @import url('https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css');
+  .bg-1 { 
+      background-color: #cc66ff; /* Green */
+      color: #ffffff;
+  }
+  .bg-2 { 
+      background-color:  #ff66a3; /* Dark Blue */
+      color: #ffffff;
+  }
+  .bg-3 { 
+      background-color: #fff; /* White */
+      color: #555555;
+	  
+.skills, .social {
+  margin: 10px 0 10px 0;
+}
+
+.devicon-html5-plain.sq:hover {
+  background-color: #e54d26;
+  color: #fff;
+}
+.devicon-css3-plain.sq:hover {
+  background-color: #3d8fc6;
+  color: #fff;
+}
+.devicon-php-plain.sq:hover {
+  background-color: #6181b6;
+  color: #fff;
+}
+.devicon-nodejs-plain.sq:hover {
+  background-color: #83CD29;
+  color: #fff;
+}
+.devicon-ruby-plain.sq:hover {
+  background-color: #d91404;
+  color: #fff;
+}
+.devicon-javascript-plain.sq:hover {
+  color: #f0db4f;
+  font-size: 30px;
+  padding: 10px;
+  margin: 0;
+  width:50px;
+  height:50px;
+  background: linear-gradient(to bottom, #fff 0%, #f0db4f 100%);
+  margin:0 auto;
+  margin-top:50px;
+  background: #fff;
+  box-shadow: inset 0 0 0 13px #f0db4f;
+}
+
+  }
+  </style>
 </head>
-<body class="w3-indigo">
-<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+<body>
+
+<div class="container-fluid bg-1 text-center">
+  <h1><?php echo $my_data['name']; ?></h1>
+  <img src="<?php echo $my_data['image_filename']; ?>" class="img-square" alt="profile picture" width="200" height="200">
   
-  <img src="http://res.cloudinary.com/beef4/image/upload/v1523636064/IMG_20180401_123150.jpg" style="width:100%">
-  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
-    <i class="fa fa-home w3-xxlarge"></i>
-    <p>HOME</p>
-  </a>
-  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-user w3-xxlarge"></i>
-    <p>ABOUT</p>
-  </a>
-    <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-envelope w3-xxlarge"></i>
-    <p>CONTACT</p>
-  </a>
-</nav>
-<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
-    <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
-    <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
-  </div>
+  <h3>Adobe Certified Associate, Frontend, Backend.</h3>
+  
+
 </div>
-<div class="w3-padding-large" id="main">
- 
-  <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
-    <h1 class="w3-jumbo"><span class="w3-hide-small">Bifarin Alayonimi </span></h1>
-        <img src="http://res.cloudinary.com/beef4/image/upload/v1523636064/IMG_20180401_123150.jpg" alt="Beef" class="w3-image" width="300" height="200">
-  </header>
-  <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
-    <h2 class="w3-text-light-grey">About</h2>
-    <hr style="width:200px" class="w3-opacity">
-    <p>I'm a Web Developer, Adobe Certified Associate
-    </p>
-    
-    <h3 class="w3-padding-16 w3-text-light-grey">My Skills</h3>
-    <p class="w3-wide">HTML 5</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:95%"></div>
+
+<div class="container-fluid bg-2 text-center">
+  <p>Skills</p>
+    <div class="skills">
+      <i class="devicon-html5-plain sq" title="HTML5"></i>
+      <i class="devicon-css3-plain sq" title="CSS3"></i>
+      <i class="devicon-javascript-plain sq gradient" title="JavaScript"></i>
+      <i class="devicon-php-plain sq" title="PHP"></i>
+      <i class="devicon-nodejs-plain sq" title="NodeJS"></i>
+      <i class="devicon-ruby-plain sq" title="Ruby"></i>
     </div>
-    <p class="w3-wide">CSS/CSS3</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:85%"></div>
-    </div>
-    <p class="w3-wide">PHP</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:92%"></div>
-    </div>
-	
-   
-
-
-
-
-
-  
-  <div class="w3-padding-64 w3-content w3-text-grey" id="contact">
-    <h2 class="w3-text-light-grey">Contact Me</h2>
-    <hr style="width:200px" class="w3-opacity">
-    <div class="w3-section">
-      <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Ile-Ife Nigeria</p>
-      <p><i class="fa fa-phone fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Phone: 08168206382</p>
-      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email:alayonimibifarin@yahoo.com</p>
-    </div><br>
-    <p>Send me a message</p>
-    <form action="/action_page.php" target="_blank">
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Name" required name="Name"></p>
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Email" required name="Email"></p>
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Subject" required name="Subject"></p>
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Message" required name="Message"></p>
-      <p>
-        <button class="w3-button w3-light-grey w3-padding-large" type="submit">
-          <i class="fa fa-paper-plane"></i> SEND MESSAGE
-        </button>
-      </p>
-    </form>
-  
-  </div>  
-    
-   <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
-    <!-- <i class="fa fa-facebook-official icon-square w3-hover-opacity"></i>
-    <i class="fa fa-instagram icon-square w3-hover-opacity"></i>
-    <i class="fa fa-twitter icon-square w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i> -->
-    <p class="w3-medium">Designed by <a href="#" target="_blank" class="w3-hover-text-green">BeefWeb</a></p>
-  
-  </footer>  
 </div>
+
 </body>
 </html>
+<<<<<<< HEAD
 =======
 <!DOCTYPE html>
 <html>
@@ -181,3 +160,8 @@ echo "Today's Date is " . date("F j, Y, g:i a") . "<br>";
   </body>
 </html>
 >>>>>>> b2bbe46b15fc26a9eb4bb2d3c3786788727f0b54
+=======
+
+	
+
+>>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6

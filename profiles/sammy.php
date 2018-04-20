@@ -6,13 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Sammy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:image" content="Felix%20-%20Favcoder_files/art.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" href="favicon.ico" type="icon">
-
+   
     <script>
         var slideInterval = 2500;
         function getFigures() {
@@ -46,12 +43,10 @@
     </script>
     <style>
         body {
-            padding-top: 20px;
             background-size: cover;
             margin: 0 auto;
             height: 900px;
             width: 800px;
-            transform: translateX(0%) translateY(0%);
         }
 
         .carousel-inner>.item>img,
@@ -79,13 +74,11 @@
             font-style: normal;
             letter-spacing: 1px;
             font-size: 13px;
-            ;
-
         }
 
         #center {
             position: absolute;
-            top: 10%;
+            top: 15%;
             float: left;
             padding-left: 20px;
         }
@@ -156,6 +149,7 @@
             text-align: center;
             background-image: url("https://res.cloudinary.com/dyuuulmg0/image/upload/v1523622023/sammm.jpg");
             height: 130px;
+            display: inline-block;
             width: 800px;
             padding-top: 20px;
             position: relative;
@@ -204,7 +198,7 @@
         }
 
         #tod {
-            padding-top: 10px;
+            padding-top: 1px;
             border-left: 1px solid #5e5c5c46;
             border-right: 1px solid #5e5c5c46;
             border-top: 1px solid #5e5c5c46;
@@ -212,148 +206,159 @@
             height: 900px;
             width: 802px;
             
-            
         }
 
         #foot-container {
-            padding-top: 45px;
+            padding-top: 53px;
         }
 
-        #head-image {
-            padding-left: 0px;
+        #body {
+            padding-top: 5px;
         }
 
+        #cent {
+            float:left;
+            margin-right: 50px;
+            text-align: center;
+            align-content: flex-start;
+            transform: translateX(-10px) translateY(10px);
+        }
     </style>
 </head>
 
 <body>
-    <div id="tod">
-        <div id="layer1">
-            <div id="head-image">
-                <div id="nav">
-                    <a href="https://hng.fun">Home</a> |
-                    <a href="https://sammy-favcode.heroku.com">About Me</a> |
-                    <a href="#">Contact Me</a>
-                    </br>
-                    <div id="link">
-                        <a class="right" href="https://twitter.com/_Achimedes" target="_blank">
-                            <img class="img-circle" src="https://res.cloudinary.com/dyuuulmg0/image/upload/v1523625296/tweet.png" height="25" width="25"
-                            />
-                        </a>
-                        <a class="right" href="https://github.com/Achemsamuel" target="_blank">
-                            <img class="img-circle" src="https://res.cloudinary.com/dyuuulmg0/image/upload/v1523625295/itytytyt.png" height="25" width="25"
-                            />
-                        </a>
-                        <a class="right" href="https://web.facebook.com/achimede" target="_blank">
-                            <img class="img-circle" src="https://res.cloudinary.com/dyuuulmg0/image/upload/v1523626151/face.jpg" height="25" width="25"
-                            />
-                        </a>
+   <div id="body">
+        <div id="tod">
+            <div id="layer1">
+                <div id="head-image">
+                    <div id="nav">
+                        <a href="https://hng.fun">Home</a> |
+                        <a href="https://sammy-favcode.heroku.com">About Me</a> |
+                        <a href="#">Contact Me</a>
+                        </br>
+                        <div id="link">
+                            <a class="right" href="https://twitter.com/_Achimedes" target="_blank">
+                                <img class="img-circle" src="https://res.cloudinary.com/dyuuulmg0/image/upload/v1523625296/tweet.png" height="25" width="25"
+                                />
+                            </a>
+                            <a class="right" href="https://github.com/Achemsamuel" target="_blank">
+                                <img class="img-circle" src="https://res.cloudinary.com/dyuuulmg0/image/upload/v1523625295/itytytyt.png" height="25" width="25"
+                                />
+                            </a>
+                            <a class="right" href="https://web.facebook.com/achimede" target="_blank">
+                                <img class="img-circle" src="https://res.cloudinary.com/dyuuulmg0/image/upload/v1523626151/face.jpg" height="25" width="25"
+                                />
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div id="bg"></div>
-            <div class="background">
-                <div class="name">
-                    <h4>Achem Samuel - Web | UI/UX | Android Developer</h4>
-                    <hr>
-                    <div id="outside-container">
-                        <section id="artcenter">
-                            <section id="carousel" class="carousel slide" data-ride="carousel">
-                                <div class="carousel-inner" role="listbox">
-                                    <figure class="item active" role="option">
-                                        <p>
-                                            I am a tech enthusiast, dedicated to learning and improving on my skills on a daily basis. I believe that hard and dedication
-                                            to the completion of a project should not be forced on anyone. </br>
-                                            A person should be willing to choose to work hard because of the vision and goals of a project.
-
-
-                                            </br>
-                                            Some Quotes I love </br>
-                                            "The price of success is hard work, dedication to the job at hand, and the determination that whether we win or lose, we
-                                            have applied the best of ourselves to the task at hand." </br>
-                                            -
-                                            <em>Vince Lombardi</em>
-                                            </br>
-
-
-                                        </p>
-                                    </figure>
-                                    <figure class="item" role="option">
-                                        <p>
-                                            "I'm proud of my hard work. Working hard won't always lead to the exact things we desire. There are many things I've wanted
-                                            that I haven't always gotten. But, I have a great satisfaction in the blessings
-                                            from my mother and father, who instilled a great work ethic in me both personally
-                                            and professionally." </br>
-                                            -
-                                            <em>Tamron Hall</em>
-                                            </br>
-                                            A major strong point for me in the design process is that the designer must clearly understand the mind og the client and
-                                            work around the clock to help the client achieve this dream. It's in this that
-                                            the designer should derive satisfaction.
-                                        </p>
-                                    </figure>
-                                </div>
-                            </section>
-
-                    </div>
-                </div>
-                <div>
-                    <img id="center" class="img-circle" src="https://res.cloudinary.com/dyuuulmg0/image/upload/v1523621000/sam1.jpg" alt="I am Achem Samuel"
-                        height="250" width="210" />
-
-                    <div id="like">
-                        <h5 style="text-align: justify">What I like</h5>
+        
+                <div id="bg"></div>
+                <div class="background">
+                    <div class="name">
+                        <h4>Achem Samuel - Web | UI/UX | Android Developer</h4>
                         <hr>
-                        <li>
-                            Music
-                        </li>
-                        <li>
-                            Coding
-                        </li>
-                        <li>
-                            Reading
-                        </li>
-                        <li>
-                            Swimming
-                        </li>
-                        <li>
-                            Traveling
-                        </li>
+                        <div id="outside-container">
+                            <section id="artcenter">
+                                <section id="carousel" class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner" role="listbox">
+                                        <figure class="item active" role="option">
+                                            <p>
+                                                I am a tech enthusiast, dedicated to learning and improving on my skills on a daily basis. I believe that hard and dedication
+                                                to the completion of a project should not be forced on anyone. </br>
+                                                A person should be willing to choose to work hard because of the vision and goals of a project.
+        
+        
+                                                </br>
+                                                Some Quotes I love </br>
+                                                "The price of success is hard work, dedication to the job at hand, and the determination that whether we win or lose, we
+                                                have applied the best of ourselves to the task at hand." </br>
+                                                -
+                                                <em>Vince Lombardi</em>
+                                                </br>
+        
+        
+                                            </p>
+                                        </figure>
+                                        <figure class="item" role="option">
+                                            <p>
+                                                "I'm proud of my hard work. Working hard won't always lead to the exact things we desire. There are many things I've wanted
+                                                that I haven't always gotten. But, I have a great satisfaction in the blessings from
+                                                my mother and father, who instilled a great work ethic in me both personally and
+                                                professionally." </br>
+                                                -
+                                                <em>Tamron Hall</em>
+                                                </br>
+                                                A major strong point for me in the design process is that the designer must clearly understand the mind og the client and
+                                                work around the clock to help the client achieve this dream. It's in this that the
+                                                designer should derive satisfaction.
+                                            </p>
+                                        </figure>
+                                    </div>
+                                </section>
+        
+                        </div>
                     </div>
+                    <div>
+                        <img id="center" class="img-circle" src="https://res.cloudinary.com/dyuuulmg0/image/upload/v1523621000/sam1.jpg" alt="I am Achem Samuel"
+                            height="250" width="210" />
+        
+                        <div id="like">
+                            <h5 style="text-align: justify">What I like</h5>
+                            <hr>
+                            <li>
+                                Music
+                            </li>
+                            <li>
+                                Coding
+                            </li>
+                            <li>
+                                Reading
+                            </li>
+                            <li>
+                                Swimming
+                            </li>
+                            <li>
+                                Traveling
+                            </li>
+                        </div>
+                    </div>
+        
                 </div>
-
-            </div>
-
-            <div id="foot-container">
-                <div id="footer">
-                    Copyright &copy; 2018 Achem Samuel. All rights reserved.
+        
+                <div id="foot-container">
+                    <div id="footer">
+                        Copyright &copy; 2018 Achem Samuel. All rights reserved.
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+   </div>
 
+
+<div id="cent">
 
     <?php
-
-$result = $conn->query("Select * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
-
-  $result2 = $conn->query("Select * from interns_data where username = 'olubori'");
-  $user = $result2->fetch(PDO::FETCH_OBJ);
-  
-  try {
-      $sql = "SELECT secret_word FROM secret_word";
-      $q = $conn->query($sql);
-      $q->setFetchMode(PDO::FETCH_ASSOC);
-      $data = $q->fetch();
-      $secret_word = $data['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
-
-?>
+    
+    $result = $conn->query("Select * from secret_word LIMIT 1");
+      $result = $result->fetch(PDO::FETCH_OBJ);
+      $secret_word = $result->secret_word;
+    
+      $result2 = $conn->query("Select * from interns_data where username = 'olubori'");
+      $user = $result2->fetch(PDO::FETCH_OBJ);
+      
+      try {
+          $sql = "SELECT secret_word FROM secret_word";
+          $q = $conn->query($sql);
+          $q->setFetchMode(PDO::FETCH_ASSOC);
+          $data = $q->fetch();
+          $secret_word = $data['secret_word'];
+      } catch (PDOException $e) {
+          throw $e;
+      }
+    
+    ?>
+</div>
 
 </body>
 

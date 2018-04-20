@@ -1,10 +1,10 @@
 <?php
 
-require '../db.php';
+require 'db.php';
 
 $username = "Modupe";
 
-$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data_` WHERE `username`='$username'";
+$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
 
 $sql0 = "SELECT * FROM `secret_word` LIMIT 1";
 
