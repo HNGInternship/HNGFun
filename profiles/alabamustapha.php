@@ -51,11 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 }
 
-$data = getAction(['stage' => 2, 'human_response' => 'hi']);
+// $data = getAction(['stage' => 2, 'human_response' => 'hi']);
 
-var_dump($data);
+// var_dump($data);
 
-die;
+// die;
 	
 	
 
