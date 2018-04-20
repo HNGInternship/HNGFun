@@ -1,6 +1,11 @@
 <?php
 include "../answers.php";
-require '../db.php';
+require "../../config.php";
+try{
+    $conn = new PDO ("mysql:host=".DB_HOST.";dbname=". DB_DATABASE,DB_USER,DB_PASSWORD);
+}catch (PDOException $pe){
+    die("could not connect to the database ". DB_DATABASE.": " . $pe->getMessage());
+}
 if (isset($_POST['button'])) {
     if (isset ($_POST['input']) && $_POST['input'] !== "") {
         $asked_question_text = $_POST['input'];
