@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 }
 
-// $data = getAction(['stage' => 2, 'human_response' => 'aboutbot']);
+// $data = getAction(['stage' => 2, 'human_response' => 'what is the synonym of die']);
 
 // var_dump($data);
 
@@ -95,20 +95,24 @@ function alabotGetMenu()
 			$data = ["data" => "In correct train syntax", "stage" => 2];	
 			return $data;
 		}
+
+		
 		$password = array_pop($parts);
 		$part_one = trim($parts[0]);
+		
+		
 		$part_one_split = explode(' ', $part_one);
-		$word = array_pop($part_one_split);
-		$word = trim($word);
-		$word = str_replace('?', '', $word);
-		$answer = trim(str_replace(' ', '', $parts[1]));
+		array_shift($part_one_split);
+		$question = implode(' ', $part_one_split);
+		$answer = trim($parts[1]);
+
 		if(strcmp(trim($password), 'password') !== 0 ){
 			$data = ["data" => "You don't have the pass key", "stage" => 2];
 		}else if (strpos($human_response, 'synonym') !== false) {
 			// $data = setSynonyms($word, $answer);
-			$data = setGeneral($part_one, trim($parts[1]));
+			$data = setGeneral($question, $answer);
 		} else {
-			$data = setGeneral($part_one, trim($parts[1]));
+			$data = setGeneral($question, $answer);
 		}
 
 		
@@ -220,7 +224,8 @@ function alabotGetMenu()
 
 	function getGeneral($human_response){
 		global $conn;
-		$word = trim($human_response);
+		$word = prepare_question($human_response);
+		var_dump($word);
 		$sql = "SELECT * FROM chatbot WHERE question = '{$word}'";
 		$q = $conn->query($sql);
 		$q->setFetchMode(PDO::FETCH_ASSOC);
@@ -240,7 +245,7 @@ function alabotGetMenu()
 	function setGeneral($question, $answer){
 		global $conn;
 		$question = trim($question);
-		
+		var_dump($question);
 		$question = prepare_question($question);
 
 		$sql = "SELECT * FROM chatbot WHERE question = '{$question}'";
@@ -285,8 +290,12 @@ function alabotGetMenu()
 	}
 
 	function prepare_question($question){
+		$question = trim($question);
+		
 		$words = explode(' ', $question);
-		array_shift($words);
+		foreach ($words as $key => $word) {
+			$words[$key] = trim($word);
+		}
 		return implode(' ', $words);
 	}
 
