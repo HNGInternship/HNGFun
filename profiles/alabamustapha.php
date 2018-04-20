@@ -48,9 +48,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 }
 
-// $data = getAction(['stage' => 1, 'human_response' => 'train: what is the synonym of die # kill,death # password']);
 
-// var_dump($data);
+
+
+// $data = getAction(['stage' => 1, 'human_response' => 'train:                   what is the             synonym of die # kill,death #     password']);
+
+// echo $data;
 
 // die;
 
@@ -63,7 +66,7 @@ function getAction($input)
 			$data = greet();
 			break;
 		case 1: // chat or train
-			$data = chat_or_train($input['human_response']);
+			$data = chat_or_train(preg_replace('/\s\s+/', ' ', $input['human_response']));
 			break;
 	}
 

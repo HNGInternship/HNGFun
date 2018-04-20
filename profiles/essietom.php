@@ -359,13 +359,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			color: #333333;
 			background-color: #ffffff;
 			padding: 20px;
-			height: 550px;
+			height: 700px;
 			margin-top: 5%;
 			margin-bottom: 50px;
+			font-size:20px;
 		}
 		.chat-messages {
 			padding: 5px;
-			height: 300px;
+			height: 450px;
 			overflow-y: auto;
 			margin-left: 15px;
 			margin-right: 15px;
@@ -402,6 +403,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		.f-icon {
 			font-size: 40px;
+		}
+		.col-md-4{
+			border:0px;
 		}
 	</style>
 </head>
@@ -545,7 +549,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: "/profiles/iam__dharmy.php",
+				url: "/profiles/essietom.php",
 				type: "post",
 				data: {question: question},
 				dataType: "json",
@@ -569,6 +573,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
 					}
 				},
+				
 				error: function(error){
 					console.log(error);
 				}
