@@ -1,5 +1,10 @@
 <?php
 global $conn;
+if (isset($_POST['button'])) {
+if (isset ($_POST['input']) && $_POST['input'] !== "") {
+    $asked_question_text = $_POST['input'];
+    processAskedQuestion($asked_question_text);
+}}
 function validateTrain_function($input){if(strpos($input, "train:") !== false){
     return true;
 }else{return false;
@@ -200,7 +205,7 @@ try {
     <form name = "askMe" method="post">
         <p>
             <label>
-                <input name="input" type="text" class="tb5">
+                <input name="input" type="text" class="tb5" placeholder="Chat with me! Press Ask to send.">
             </label><label>
                 <input name="button" type="submit" class="fb7" id="button" value="ASK">
             </label>
@@ -209,7 +214,6 @@ try {
         </p>
         <p>&nbsp;</p>
     </form>
-    <input type="text" class = "tb5" name="input" placeholder="Chat with me! Press enter to send.">
 </div>
 
 
