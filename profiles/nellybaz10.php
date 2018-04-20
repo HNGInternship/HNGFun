@@ -159,8 +159,9 @@ if(!$conn){
 
 
 if(isset($_POST['question'])){
-	$question = trim($question);
+
 $question = $_POST['question'];
+$question = trim($question);
 	//echo $question;
 	 $x = 0;
 	 $count = 3;
@@ -238,7 +239,7 @@ $question = $_POST['question'];
 				//
 				var input = $('#input').val();
 				alert(input);
-				$('#bot-display').load('/profiles/nellybaz10.php .this', {
+				$('#bot-display').load(' .this', {
 					question: input
 				});
 				return false;
