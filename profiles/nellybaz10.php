@@ -85,8 +85,10 @@ if(!$conn){
 			echo "<tr><td align='left'>";
 			echo "<p><i class='material-icons'>perm_identity</i> ".$question ;
 			echo "</p>";
-			sleep(2);
-			echo "</td><br><td align='right'>";
+			sleep(1);
+			echo "</td";
+			echo "<tr>";
+			echo "<td align='right'>";
 			echo "<p><i class='material-icons'>child_care</i> ".$row['answer'];
 			echo "</p>";
 			echo "</td></tr></table>";
