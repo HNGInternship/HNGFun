@@ -107,7 +107,7 @@
         background: rgb(47, 136, 204);
         color:#fff;
         }
-        date{
+        .date{
         margin-bottom: 10px;
         }
 	</style>
