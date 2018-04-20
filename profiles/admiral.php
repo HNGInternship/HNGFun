@@ -359,7 +359,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 			$('#chatWindow').animate({scrollTop: $('#chatWindow').prop("scrollHeight")}, 1000);
 			
 		  $.ajax({
-				url: "/profiles/temitope.php",
+				url: "/profiles/admiral.php",
 				type: "post",
 				data: {message: message},
 				dataType: "json",
