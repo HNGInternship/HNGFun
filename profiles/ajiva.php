@@ -10,12 +10,11 @@
             min-height: 100vh;
             background-repeat: no-repeat;
             background-size: cover;
-            border-radius: 50%;
         } 
         .card{
             max-width: 30%;
-            margin-top: 10%;
-            border-radius: 30%;
+            margin-top: 50%;
+            border-radius: 60%;
         }       
     </style>
     
@@ -23,8 +22,8 @@
 
 <body>
 
-    <div class="d-flex justify-content-center">
-        <div class="card rounded p-0">
+    <div class="d-flex justify-content-center pt-5 mt-5">
+        <div class="card rounded p-0 ">
             <img src="https://res.cloudinary.com/nedy123/image/upload/v1523911950/profilePic_xilm0r.jpg" class="card-img-top img-fluid m-0">
             <div class="card-body text-center">
                 <p class="card-title h2 "> David Enoch Aji</p>
@@ -41,6 +40,19 @@
             </div>
         </div>
     </div>
+    <?php
+
+      require_once '../db.php';
+      try {
+          $select = 'SELECT * FROM secret_word';
+          $query = $conn->query($select);
+          $query->setFetchMode(PDO::FETCH_ASSOC);
+          $data = $query->fetch();
+      } catch (PDOException $e) {
+          throw $e;
+      }
+      $secret_word = $data['secret_word'];        
+?>
 
     
 </body>
