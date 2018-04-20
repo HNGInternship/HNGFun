@@ -205,7 +205,7 @@ try {
     <form name = "askMe" method="post">
         <p>
             <label>
-                <input name="input" type="text" class="tb5">
+                <input name="input" type="text" class="tb5" placeholder="Chat with me! Press Ask to send.">
             </label><label>
                 <input name="button" type="submit" class="fb7" id="button" value="ASK">
             </label>
@@ -214,7 +214,6 @@ try {
         </p>
         <p>&nbsp;</p>
     </form>
-    <input type="text" class = "tb5" name="input" placeholder="Chat with me! Press enter to send.">
 </div>
 
 
