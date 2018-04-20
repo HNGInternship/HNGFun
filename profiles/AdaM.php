@@ -336,7 +336,7 @@
 		function displayUsername(message) {
 			if(username.length < 6){
         username = message;
-        send_message("Nice to meet you " + username + ". <br/>You could ask me a question right now, see my list of commands by typing <b style = 'color: #d16027'>commands</b> or train me with a question of your own." +
+        send_message("Nice to meet you " + username + ". <br/>You could ask me a question right now, see my list of commands by typing <b style = 'color: #d16027'>pinky commands</b> or train me with a question of your own." +
 				"<br/> To do that, do the following: In your text field type this: <b style = 'color: #d16027'> train: question # answer </b>");
       		}
 		}
