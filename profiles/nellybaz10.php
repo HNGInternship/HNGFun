@@ -3,7 +3,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono" rel="stylesheet">
 	<title>Nelson's Profile</title>
+	<style type="text/css">
+		.this{
+			font-family: 'IBM Plex Mono', monospace;
+		}
+	</style>
+
 </head>
 <body style="text-align: center; font-family: cursive;">
 	<table align="center" width="100%">
@@ -11,7 +20,7 @@
 			<td>
 				
 		<div  style="margin:30px 0 0 20%; border:1px solid gray; width: 60%; height: 500px; min-width: 300px; font-size: 14px; min-height: 300px" align="left" class="whole-content">
-		<img style="max-width: 200px; max-height: 200px; border-radius: 8px; margin:30px 0 0 30px;" src="profile.jpg">
+		<img style="max-width: 200px; max-height: 200px; border-radius: 8px; margin:30px 0 0 30px;" src="http://res.cloudinary.com/nellybaz/image/upload/v1523622011/pic3.jpg">
 
 		<div style="padding-left: 30px">
 			<h1>Nelson Bassey</h1>
@@ -29,7 +38,7 @@
 		<div>
 			
 			<div  style="margin:30px 20% 0 0; border:1px solid gray; width: 50%; height: 500px; min-width: 300px; font-size: 14px; min-height: 300px" align="center" class="whole-content">
-				<h3 style="margin-left: 15px; color: navy">I'm Alice, Nelly's smart bot</h3>
+				<h3 style="margin-left: 15px; color: navy; font-family: 'IBM Plex Mono', monospace;">I'm Alice, Nelly's smart bot</h3>
 				<p>(Are you bored? chat with me)</p>
 				<hr>
 
@@ -49,7 +58,7 @@
 								<input id="input" style="width: 100%; height: 30px" type="text" name="input">
 							</td>
 							<td >
-								<button id="send" style="width: 100%; height: 35px; background-color: navy; color: white; border:none;">Send</button>
+								<button id="send" style="width: 100%; height: 32px; border-radius: 8px; background-color: navy; color: white; border:none;">Send</button>
 							</td>
 						</tr>
 					</table>
@@ -63,6 +72,7 @@
 
 <?php
 include ('../config.example.php');
+include('../answers.php');
 //include('../db.php');
 
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
@@ -77,10 +87,11 @@ if(!$conn){
 		$result = mysqli_query($con, $display_query);
 		if(mysqli_num_rows($result) > 0){
 			$row = mysqli_fetch_array($result);
-			echo "<div class='this'>";
-			echo "<p>YOU: ".$question ;
+			echo "<div class='this'>";		
+			echo "<p><i class='material-icons'>perm_identity</i> ".$question ;
 			echo "</p>";
-			echo "<p>Alice: ".$row['answer'];
+			sleep(1);			
+			echo "<p><i class='material-icons'>child_care</i> ".$row['answer'];
 			echo "</p>";
 			echo "</div>";
 		}
@@ -105,13 +116,13 @@ if(!$conn){
 
 		//check if already exist
 
-		$check_question = "SELECT * FROM chatbot WHERE question = '$real_question'";
-		$result = mysqli_query($con, $check_question);
-		if(mysqli_num_rows($result) > 0){
-			echo "<div class='this'>";
-			echo "<p>I already know the asnwer to this question, just ask me</p>";
-			echo "</div>";
-		}else{
+		//$check_question = "SELECT * FROM chatbot WHERE question = '$real_question'";
+		//$result = mysqli_query($con, $check_question);
+		//if(mysqli_num_rows($result) > 0){
+		//	echo "<div class='this'>";
+		//	echo "<p>I already know the asnwer to this question, just ask me</p>";
+		//	echo "</div>";
+		//}else{
 		$question_query = "INSERT INTO `chatbot`(`question`, `answer`) VALUES ('{$real_question}', '{$real_answer}')";
 		
 		if(mysqli_query($con, $question_query)){
@@ -127,7 +138,7 @@ if(!$conn){
 			echo "</div>";
 		}
 		mysqli_close($con);
-	}
+	//}
 	}
 
 		function add_answer($answer){
@@ -235,10 +246,24 @@ $question = trim($question);
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
+
+
+
+			$(document).keypress(function(e) {
+    if(e.which == 13) {
+        
+        var input = $('#input').val();
+				//alert(input);
+				$('#bot-display').load(' .this', {
+					question: input
+				});
+				return false;
+    }
+});
 			$('#send').click(function(){
 				//
 				var input = $('#input').val();
-				alert(input);
+				//alert(input);
 				$('#bot-display').load(' .this', {
 					question: input
 				});

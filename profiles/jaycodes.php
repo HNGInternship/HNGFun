@@ -16,6 +16,8 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
      } catch (PDOException $e) {
          throw $e;
      }
+     date_default_timezone_set("Africa/Lagos");
+     $today = date("H:i:s");
 }
 
  ?>
@@ -31,31 +33,83 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             return $data;
         }
         function chatMode($ques){
-
-            require '../config.php';
-
-        try {
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-        } catch (PDOException $pe) {
+            require '../../config.php';
+            $ques = test_input($ques);
+            $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+            if(!$conn){
+                echo json_encode([
+                    'status'    => 1,
+                    'answer'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                ]);
+                return;
+            }
+            $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
+            $result = $conn->query($query)->fetch_all();
             echo json_encode([
-                'status'    => 1,
-                'answer'    => "Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage()
+                'status' => 1,
+                'answer' => $result
             ]);
             return;
         }
-            if( isset($ques)){
-                echo json_encode([
-                    'status'    => 1,
-                    'answer'    => "In chat mode"
-                ]);
-                
-            }else{
-                echo json_encode([
-                    'status'    => 1,
-                    'answer'    => "Still errors"
-                ]);
+        function trainerMode($ques){
+            require '../../config.php';
+            $questionAndAnswer = substr($ques, 6); //get the string after train
+            $questionAndAnswer =test_input($questionAndAnswer); //removes all shit from 'em
+            $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
+            $questionAndAnswer = explode("#",$questionAndAnswer);
+            if((count($questionAndAnswer)==3)){
+                $question = $questionAndAnswer[0];
+                $answer = $questionAndAnswer[1];
+                $password = $questionAndAnswer[2];
             }
+            if(!(isset($password))|| $password !== 'password'){
+                echo json_encode([
+                    'status'    => 1,
+                    'answer'    => "Please insert the correct training password"
+                ]);
+                return;
+            }
+            if(isset($question) && isset($answer)){
+                //Correct training pattern
+                $question = test_input($question);
+                $answer = test_input($answer);
+                if($question == "" ||$answer ==""){
+                    echo json_encode([
+                        'status'    => 1,
+                        'answer'    => "empty question or response"
+                    ]);
+                    return;
+                }
+                $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+                if(!$conn){
+                    echo json_encode([
+                        'status'    => 1,
+                        'answer'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                    ]);
+                    return;
+                }
+                $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
+                if($conn->query($query) ===true){
+                    echo json_encode([
+                        'status'    => 1,
+                        'answer'    => "trained successfully"
+                    ]);
+                }else{
+                    echo json_encode([
+                        'status'    => 1,
+                        'answer'    => "Error training me: ".$conn->error
+                    ]);
+                }
+                
+
+                return;
+            }else{ //wrong training pattern or error in string
+            echo json_encode([
+                'status'    => 0,
+                'answer'    => "Wrong training pattern<br> PLease use this<br>train: question # answer"
+            ]);
             return;
+            }
         }
 
         //end of function definition
@@ -148,19 +202,22 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             right: 20px;
             background-color:#fefefe;
             width: 350px;
-            height: 550px;
+            height: 470px;
             overflow:auto;
-            box-shadow: 4px 4px 4px black;
+            box-shadow: 4px 4px 4px #888;
         }
         .display nav{
             display:block;
+            width:350px;
+            position: fixed;
+            bottom:470px;
             height: 50px;
             background-color: #f8e2ea;
             text-align: center;
             font-size: 25px;
             padding-top:7.5px;
             font-weight: normal;
-            box-shadow: 2px 2px 2px #aaa;
+            box-shadow: 2px 2px 2px #888;
             text-shadow: 1.5px 1.5px 1px #ccc;
         }
         
@@ -174,12 +231,13 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
         input{
             width:270px;
             height: 40px;
-            background-color:transparent;
+            background-color:white;
             border:solid 2px #aaa;
             padding:4px 10px;
             outline:none;
             transition: border 0.2s linear;
             border-radius: 10px;
+            font-size: 14px;
         }
         input:hover{
             border:solid 2px #222;
@@ -210,6 +268,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             margin-bottom: 5px;
         }
         .bot p{
+            font-size:15px;
             margin:0px;
             padding:4px;
             text-align: left;
@@ -225,6 +284,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             text-align: right;
         }
         .user p{
+            font-size: 15px;
             margin:0px;
             padding:4px;
             display: inline-block;
@@ -261,6 +321,9 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
                 </div>
                 <div class="myMessage bot">
                     <p>To exit this type <em>:close:</em> </p>
+                </div>
+                <div class="myMessage bot">
+                    <p>To know more about me type <em>:about bot:</em> </p>
                 </div>
                 
             </div>
@@ -303,6 +366,11 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
                 exitB();
                 return;
             }
+            if(ques.value.toLowerCase() ==":about bot:"){
+                displayOnScreen(ques.value, "user");
+                displayOnScreen("Name: botX <br> Version: 1.0.0");
+                return;
+            }
             if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
             displayOnScreen(ques.value, "user");
             
@@ -327,7 +395,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
                     var res = Math.floor(Math.random()*answer.length);
                     displayOnScreen(answer[res][0], "bot");
                 }else{
-                    displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn<br> Here's the format: train: question # response");
+                    displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn<br> Here's the format: train: question # response # password");
                 }
             }else{
                 displayOnScreen(answer,"bot");
