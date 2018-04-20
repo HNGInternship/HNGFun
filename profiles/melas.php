@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if ($intent === 'unrecognized') {
         $answer = '';
-        $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$message' ORDER BY rand() LIMIT 1");
+        $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE '$message' ORDER BY rand() LIMIT 1");
         $stmt->execute();
         if($stmt->rowCount() > 0) {
             $intent = 'db_question';
