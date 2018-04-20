@@ -76,15 +76,10 @@ if (isset($_POST['payload'])) {
 		return $password;
 	}
 
-if(isset($_POST['message']))
-    {
-                    array_push($_SESSION['chat_history'], trim($_POST['message']));
-                    if(stripos(trim($_POST['message']), "train") === 0)
-        {
-          
+
+          array_push($_SESSION['chat_history'], trim($_POST['message']));
+	  if(stripos(trim($_POST['message']), "train") === 0);
           $args = explode("#", trim($_POST['message']));
-          $question = trim($args[1]);
-          $answer = trim($args[2]);
           $password = trim($args[3]);
           if($password == "password")
           {
@@ -110,9 +105,9 @@ if(isset($_POST['message']))
           else
           {
               // Password not correct
-             array_push($_SESSION['chat_history'], "The password entered was incorrect");
+             echo "The password entered was incorrect";
           }
-        }
+        
 	function containsVariables($answer)
 	{
 		if (strpos($answer, "{{") !== false && strpos($answer, "}}") !== false) {
