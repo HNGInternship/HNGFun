@@ -3,6 +3,7 @@ include "../answers.php";
 require "../../config.php";
 try{
     $conn = new PDO ("mysql:host=".DB_HOST.";dbname=". DB_DATABASE,DB_USER,DB_PASSWORD);
+    echo "cccccccc";
 }catch (PDOException $pe){
     die("could not connect to the database ". DB_DATABASE.": " . $pe->getMessage());
 }
