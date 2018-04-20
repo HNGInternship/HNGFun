@@ -1,5 +1,7 @@
 <?php
 include "../answers.php";
+<<<<<<< HEAD
+<<<<<<< HEAD
 
             require "../../config.php";
             try {
@@ -10,13 +12,59 @@ include "../answers.php";
             }
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 function askQuestion($input)
+=======
+require "../../config.php";
+$servername = DB_HOST;
+$username = DB_USER;
+$password = DB_PASSWORD;
+
+=======
+require "../../config.php";
+$servername = DB_HOST;
+$username = DB_USER;
+$password = DB_PASSWORD;
+
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
+// Create connection
+$conn = mysqli_connect($servername, $username, $password);
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+echo "Connected successfully";
+//
+if (isset($_POST['button'])) {
+    if (isset ($_POST['input']) && $_POST['input'] !== "") {
+        $asked_question_text = $_POST['input'];
+        echo askQuestion($asked_question_text);
+    }
+}function askQuestion($input)
+<<<<<<< HEAD
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
     {
         $split = preg_split("/(:|#)/", $input, -1);
         global $conn;
         $action = "train";
         if ($split[0] !== $action && !isset($split[1]) && !isset($split[2])) {
             $result = $conn->query("SELECT id FROM chatbot where question = '$input'");
+<<<<<<< HEAD
+<<<<<<< HEAD
             $fetched_records = $result->fetch_all(MYSQLI_ASSOC);
+=======
+=======
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
+            if ($result==true){
+
+
+            $fetched_records = mysqli_fetch_field($result);
+            mysqli_free_result($result);
+<<<<<<< HEAD
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
             if ($fetched_records === true) {
                 $result2 = $conn->query("SELECT answer FROM chatbot where id = '{$fetched_records[0]['id']}'");
                 $fetched_answer = $result2->fetch_all(MYSQLI_ASSOC);
@@ -30,7 +78,15 @@ function askQuestion($input)
                     } else
                         return "ENTER train:your question#your answer  to add questions and answers to the database";
                 }
+<<<<<<< HEAD
+<<<<<<< HEAD
             }
+=======
+            }}
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+            }}
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
         } elseif ($split[0] == $action && isset($split[1]) && isset($split[2])) {
             $asked_question_answer = "INSERT INTO chatbot (question, answer) VALUES ('$split[1]','$split[2]')";
             $conn->query($asked_question_answer);
@@ -47,12 +103,18 @@ function askQuestion($input)
             echo "Question and answer with myCreator function added successfully";
         } else
             return "ENTER train:your question#your answer  to add questions and answers to the database";
+<<<<<<< HEAD
+<<<<<<< HEAD
     }    if (isset($_POST['button'])) {
             if (isset ($_POST['input']) && $_POST['input'] !== "") {
                 $asked_question_text = $_POST['input'];
                 echo askQuestion($asked_question_text);
             }
 
+=======
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
     }
 ?>
 

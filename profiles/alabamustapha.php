@@ -1,10 +1,18 @@
 <?php
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 // include_once realpath(__DIR__ . '/..') . "/answers.php";
 =======
 //require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/answers.php'; //tweak
 
 >>>>>>> 564343188b1bcbdcbaf94a02a1cf3e627069bb51
+=======
+//require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/answers.php'; //tweak
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+//require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/answers.php'; //tweak
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 if (!defined('DB_USER')) {
 	require "../../config.php";
 	try {
@@ -13,10 +21,14 @@ if (!defined('DB_USER')) {
 		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 	}
 }
-<<<<<<< HEAD
-=======
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 564343188b1bcbdcbaf94a02a1cf3e627069bb51
+=======
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 global $conn;
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -225,9 +237,21 @@ function alabotGetMenu()
 
 	function greet(){
 		$greetings = [
+<<<<<<< HEAD
+<<<<<<< HEAD
 						'Hi, I am Alabot, Learn, play and take quiz?',
 		'Howdy, I am Alabot, Learn, play and take quiz?',
 		'I am Alabot, Learn, play and take quiz'
+=======
+						'Hi, I am Alabot, Learn, play and take quiz. type menu to check commands',
+		'Howdy, I am Alabot, Learn, play and take quiz. type menu to check commands',
+		'I am Alabot, Learn, play and take quiz. type menu to check commands'
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+						'Hi, I am Alabot, Learn, play and take quiz. type menu to check commands',
+		'Howdy, I am Alabot, Learn, play and take quiz. type menu to check commands',
+		'I am Alabot, Learn, play and take quiz. type menu to check commands'
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 					];
 
 		return ["data" => $greetings[array_rand($greetings)], "stage" => 2];
@@ -429,7 +453,7 @@ function alabotGetMenu()
 					
 				</div>
 				<input type="text" class="human_input" name="human_input">		
-				<button class="btn btn-primary pull-right btn-sm">Menu</button>		
+					
 				
 			</div>
 	</div>

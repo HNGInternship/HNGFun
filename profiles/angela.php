@@ -9,7 +9,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Angela Bello</title>
-  <link rel="stylesheet" type="text/css"  href="vendor/bootstrap/css/bootstrap2.css">
+  <link rel="stylesheet" type="text/css"  href="vendor/bootstrap/3.3.4/css/bootstrap.css">
   <style>
     body, html {
       font-family: 'Open Sans', sans-serif;
