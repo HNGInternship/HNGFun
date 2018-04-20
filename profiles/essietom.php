@@ -11,7 +11,10 @@
     }
 
 
-   
+?>
+
+	
+<?php
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		
 		require "../answers.php";
@@ -136,7 +139,7 @@
 		]);
 		
 	}
-	
+	else{
 ?>
 <head>
 	<title><?php echo $user->username; ?></title>
@@ -526,10 +529,10 @@
 					</div>
 				</form>	
 			</div>
-				</div>
+			
 
-
-
+</div>
+</div>
 <script src="../vendor/jquery/jquery.min.js"></script>
 <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
@@ -554,7 +557,7 @@
 			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: "/profiles/essietom.php",
+				url: "/profiles/iam__dharmy.php",
 				type: "post",
 				data: {question: question},
 				dataType: "json",
@@ -587,4 +590,4 @@
 </script>
 </body>
 </html>
-
+<?php } ?>
