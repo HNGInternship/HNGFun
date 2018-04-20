@@ -569,7 +569,7 @@ body{
               </div>
           <?php endfor; ?>
 </div>
-<!--<script>
+<script>
     var sampleConversation = [
         "Hi",
         "My name is [name]",
@@ -601,6 +601,6 @@ body{
         ChatBot.addChatEntry("That would be "+(1*matches[1]+1*matches[2])+".","bot");
     },"Say 'compute [number] plus [number]' to make the bot your math calculator");
 </script>	
--->
+
 </body>
 </html>
