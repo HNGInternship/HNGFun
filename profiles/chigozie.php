@@ -434,6 +434,9 @@
         $result=curl_exec($curl_session);
         curl_close($curl_session);
         $result_object = json_decode($result);
+        if(!isset($result_object->main)){
+        	return "City not found";
+        }
         $weather = ucfirst($result_object->weather[0]->description);
         $temperature = $result_object->main->temp;
         $pressure = $result_object->main->pressure;
