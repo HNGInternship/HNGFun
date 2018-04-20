@@ -249,7 +249,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		}
 
 		.bot-panel .card-header{
-			background-color: rgba(173, 88, 31, 0.85);
+			background-color: #0085A1;
 			color: #fff;
 		}
 
@@ -261,18 +261,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 			max-width: 60px;
 			border: 1px solid #fff;
 			border-radius: 50%;
-		}
-
-		.msj:before{
-		    width: 0;
-		    height: 0;
-		    content:"";
-		    top:-5px;
-		    left:-14px;
-		    position:relative;
-		    border-style: solid;
-		    border-width: 0 13px 13px 0;
-		    border-color: transparent #0085A1 transparent transparent;            
 		}
 		.msj-rta:after{
 		    width: 0;
@@ -449,7 +437,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		    var answer = response.answer;
 		  	$(selector).html(''+message+'');
 			$(selector).removeClass(classname).addClass('sent');
-			$('#chatWindow').append(' <div class="msj macro"><div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="gracie-icon align-self-start"></div><div class="text text-l"><p>'+answer+'</p></div></div>');
+			$('#chatWindow').append(' <div class="msj macro"><div class="avatar"></div><div class="text text-l"><p>'+answer+'</p></div></div>');
 		  
 		  },
 		  error: function(error){
