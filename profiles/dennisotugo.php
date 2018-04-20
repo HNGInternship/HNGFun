@@ -43,7 +43,9 @@ if (isset($_POST['payload'])) {
 		}
 
 		if ($answer_data_result[$answer_data_index]["answer"] == "") {
-			return 'I don\'t get :/. Train me to understand small something sha,no vex please type "<code>train: your question? # The answer.</code> ;)"';
+			return 'I don\'t get :/ '\n
+			'Train me to understand small something sha,no vex please type '\n
+			'"<code>train: your question? # The answer.</code> ;)"';
 		}
 
 		if (containsVariables($answer_data_result[$answer_data_index]['answer']) || containsFunctions($answer_data_result[$answer_data_index]['answer'])) {
@@ -70,24 +72,24 @@ if (isset($_POST['payload'])) {
 		return $answer;
 	}
 
-	if (isTraining($question)) {
-		$answer = resolveAnswerFromTraining($question);
-		$question = strtolower(resolveQuestionFromTraining($question));
-		$question_data = array(
-			':question' => $question,
-			':answer' => $answer
-		);
-		$sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '"';
-		$question_data_query = $conn->query($sql);
-		$question_data_query->setFetchMode(PDO::FETCH_ASSOC);
-		$question_data_result = $question_data_query->fetch();
-		$sql = 'INSERT INTO chatbot ( question, answer )
-          VALUES ( :question, :answer );';
-		$q = $conn->prepare($sql);
-		$q->execute($question_data);
-		echo "Now I understand. No wahala, now try me again";
-		return;
-	}
+		if (isTraining($question)) {
+			$answer = resolveAnswerFromTraining($question);
+			$question = strtolower(resolveQuestionFromTraining($question));
+			$question_data = array(
+				':question' => $question,
+				':answer' => $answer
+			);
+			$sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '"';
+			$question_data_query = $conn->query($sql);
+			$question_data_query->setFetchMode(PDO::FETCH_ASSOC);
+			$question_data_result = $question_data_query->fetch();
+			$sql = 'INSERT INTO chatbot ( question, answer )
+      	    VALUES ( :question, :answer );';
+			$q = $conn->prepare($sql);
+			$q->execute($question_data);
+			echo "Now I understand. No wahala, now try me again";
+			return;
+		}
 
 	function containsVariables($answer)
 	{
