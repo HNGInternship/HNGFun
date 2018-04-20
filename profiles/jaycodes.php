@@ -4,13 +4,14 @@
          
          require "../../config.php";
      }
-     try {
-         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-       } catch (PDOException $pe) {
-         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-       }
-        global $conn;
-    
+      $conn = mysqli_connect(DB_HOST,DB_USER, DB_PASSWORD, DB_DATABASE );
+      if(!$conn){
+        echo json_encode([
+            'status' => 0,
+            'answer' => "Error unable toconnect to database"
+        ]);
+      }
+      
     if($_SERVER['REQUEST_METHOD']==="POST"){
         //function definitions
         function test_input($data) {
@@ -23,6 +24,7 @@
         }
         function chatMode($ques){
             $ques = test_input($ques);
+            $conn = mysqli_connect(DB_HOST,DB_USER, DB_PASSWORD, DB_DATABASE );
             $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
             $result = $conn->query($query)->fetch_all();
             
@@ -33,6 +35,7 @@
             return ;
         }
         function trainerMode($ques){
+            $conn = mysqli_connect(DB_HOST,DB_USER, DB_PASSWORD, DB_DATABASE );
             $questionAndAnswer = substr($ques, 6); //get the string after train
             $questionAndAnswer =test_input($questionAndAnswer); //removes all shit from 'em
             $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
