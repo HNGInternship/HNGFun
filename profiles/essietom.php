@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if(!isset($_POST['question'])){
 			echo json_encode([
 				'status' => 1,
-				'answer' => "What is your question"
+				'answer' => "Ask me anything"
 			]);
 			return;
 		}
@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			echo json_encode([
 				'status' => 1,
-				'answer' => "Yipeee, I have been trained"
+				'answer' => "Ok, Got it!"
 			]);
 			return;
 		}
@@ -353,145 +353,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				#time{
     display-content:center;
 }
-		#demo {
-            
-            width: 30%;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 20px;
-            background-color: #F8F8F8;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 10px #999;
-            line-height: 1.4em;
-            font: 13px helvetica,arial,freesans,clean,sans-serif;
-            color: black;
-        }
-        #demo input {
-            padding: 8px;
-            font-size: 14px;
-            border: 1px solid #ddd;
-            width: 100%;
-	    
-        }
-        .button {
-            display: inline-block;
-            background-color: darkcyan;
-            color: #fff;
-            padding: 8px;
-            cursor: pointer;
-            float: right;
-        }
-        #chatBotCommandDescription {
-            display: none;
-            margin-bottom: 20px;
-        }
-        input:focus {
-            outline: none;
-        }
-        .chatBotChatEntry {
-            display: none;
-        }
-        .chatBotChatEntry {
-    padding: 20px;
-    background-color: #fff;
-    border: none;
-    margin-top: 5px;
-    font-family: 'open_sanslight', sans-serif !important;
-    font-size: 17px;
-    font-weight: normal;
-}
-.chatBotChatEntry * {
-    font-family: 'open_sanslight', sans-serif !important;
-    font-size: 17px;
-    font-weight: normal;
-}
-.chatBotChatEntry .origin {
-    font-weight: bold;
-    margin-right: 10px;
-}
-.chatBotChatEntry .imgBox {
-    position: relative;
-    width: 32%;
-    display: inline-block;
-    margin-top: 10px;
-    margin-right: 10px;
-    height: 218px;
-    overflow: hidden;
-}
-.chatBotChatEntry .imgBox .actions .button {
-    margin-top: 10px;
-    font-size: 18px;
-    padding: 5px;
-    width: 50%;
-}
-.chatBotChatEntry .imgBox .actions {
-    position: absolute;
-    display: none;
-    top: 31px;
-    width: 100%;
-    text-align: center;
-}
-.chatBotChatEntry .imgBox:hover .actions {
-    display: block;
-}
-.chatBotChatEntry .imgBox .title {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 5px;
-    color: #fff;
-    background-color: #333;
-    font-weight: normal;
-    font-size: 16px;
-}
-    .chatBotChatEntry .imgBox img {
-        width: 100%;
-    }
-    .bot {
-        /*border: 4px solid rgba(0, 132, 60, 0.2);*/
-        background-color: rgba(0, 132, 60, 0.2);
-    }
-    .human {
-        /*border: 4px solid rgba(38, 159, 202, 0.2);*/
-        background-color: rgba(38, 159, 202, 0.2);
-    }
-    #chatBotCommandDescription {
-        background-color: #333;
-        color: #fff;
-        padding: 20px;
-    }
-    .commandDescription span.phraseHighlight {
-        color: chartreuse;
-    }
-    .commandDescription span.placeholderHighlight {
-        color: deeppink;
-    }
-    .commandDescription {
-        margin-top: 5px;
-    }
-    #chatBotConversationLoadingBar {
-        background-color: darkcyan;
-        height: 2px;
-        width: 0;
-    }
-    .appear {
-        animation-duration: 0.2s;
-        animation-name: appear;
-        animation-iteration-count: 1;
-        animation-timing-function: ease-out;
-        animation-fill-mode: forwards;
-    }
-    @keyframes appear {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
- }
-		
 		
 		.chat-frame {
 			border-color: #cccccc;
@@ -503,7 +364,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			margin-bottom: 50px;
 		}
 		.chat-messages {
-			background-color: firebrick;
 			padding: 5px;
 			height: 300px;
 			overflow-y: auto;
@@ -519,12 +379,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			
 		}
 		.single-message-bg {
-			background-color: blue;
+			background-color:#a1a1a1;
 			
 			
 		}
 		.single-message-bg2 {
-			background-color: darkblue;
+			background-color: #cccccc;
 			
 		}
 		input[name=question] {
@@ -532,7 +392,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		button[type=submit] {
 			height: 50px;
-			background-color: blue;
+			background-color:black;
 			color: black
 		}
 		.circle {
