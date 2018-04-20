@@ -175,7 +175,7 @@ p {
 					<p style=" font-size: 30px;">(<?php echo $user->username; ?>) </p>
 							<p>	(Web Developer)</p>
 						<p>I love tech stuff and cools things</p>
-						 <h6 style="font-size: 20px;"><b>Skills:</b>PHP(Code Igniter, Laravel)</h6>
+						 <h6 style="font-size: 10px;"><b>Skills:</b>PHP(Code Igniter, Laravel)</h6>
 						
 						<a href="https://github.com/horlathunbhosun" target="_blank" style="color: black;" class="btn btn-success"><i class="fa fa-github"></i> Github</a>
 						<a href="https://twitter.com/@horlathunbhosun" target="_blank" style="color: black;" class="btn btn-info"><i class="fa fa-twitter"></i> Twitter</a>
