@@ -196,7 +196,19 @@ try {
         <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
         <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
     </div>
-    chatbot
+    Chatbot by Adokiye<br />
+    <form name = "askMe" method="post">
+        <p>
+            <label>
+                <input name="input" type="text" class="tb5">
+            </label><label>
+                <input name="button" type="submit" class="fb7" id="button" value="ASK">
+            </label>
+            <br />
+
+        </p>
+        <p>&nbsp;</p>
+    </form>
     <input type="text" class = "tb5" name="input" placeholder="Chat with me! Press enter to send.">
 </div>
 
