@@ -9,6 +9,10 @@ if(!defined('DB_USER')){
     }
 }
 global $conn;
+if (isset($_POST['button'])) {
+if (isset ($_POST['input']) && $_POST['input'] !== "") {
+$asked_question_text = $_POST['input'];
+askQuestion($asked_question_text);}}
 function askQuestion($input)
 {
 $split = preg_split("/(:|#)/", $input, -1);
