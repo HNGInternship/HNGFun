@@ -11,9 +11,18 @@ $q->setFetchMode(PDO::FETCH_ASSOC);
 $words = $q->fetch();
 $secret_word = $words['secret_word'];
 ?>
+/************************SET UP DB CONN************************/
 <?php
-// initates db connection
-    require 'db.php';
+if(!defined('DB_USER')){
+  require "../../config.php";
+}
+try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+global $conn;
+
 
 $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$check' ORDER BY rand() LIMIT 1");
 $stmt->execute();
