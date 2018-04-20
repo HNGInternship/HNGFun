@@ -1,10 +1,21 @@
+
 <?php
 try {
+    if (!isset($conn)){
+            
+        require "../config.php";
+    }
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+    global $conn;
 
     $sql ="SELECT * FROM interns_data WHERE username = 'victorUgwueze' LIMIT 1";
     $q = $conn->query($sql);
-     $q->setFetchMode(PDO::FETCH_ASSOC);
-     $intern_data = $q->fetch();
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $intern_data = $q->fetch();
   
 
     //query for the secret word;
@@ -12,16 +23,105 @@ try {
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $data = $q->fetch();
-// Set the secret word
+    // Set the secret word
     $secret_word = $data['secret_word'];
+    } catch (PDOException $e) {
+         throw $e;
+    }
+
+    /*   Bot Backend Implementation begins here     */
 
 
-} catch (PDOException $e) {
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        $message = trim($_POST['message']);
+        if($message == ''){
+            echo json_encode(['status'=>200,"message"=>"empty"]);
+        }else{
+            if(strpos($message,'train:')===0){
+                $trainMessage = explode('#',substr($message,6));
+                if(sizeof($trainMessage)== 3){
+                    trainIfAuthorized($trainMessage);
+                }else{
+                    echo json_encode(['status'=>200,"message"=>"Invalid format",'train']);  
+                }
+            }else{
+                $answer = getAnswer($message);
+                if($answer == null){
+                    echo json_encode(['status'=>200,"message"=> "I don't know that","alert"=>'train']);  
+                }else{
+                    echo json_encode(['status'=>200,"message"=> $answer]); 
+                }
+                
+            }
+        }
+       exit();
+    }
 
-    throw $e;
-}
+    function trainIfAuthorized($trainMessage){
+        if($trainMessage[2]=='password'){
+            //Check if question already exists else train
+            if(!checkIfQuetionExists($trainMessage[0],$trainMessage[1])){
+                $trained = train($trainMessage[0],$trainMessage[1]);
+                if($trained){
+                    echo json_encode(['status'=>200,"message"=>"You can try and see if I have learn't","train"=>"yes"]);
+                }
+                return;
+            }else{
+                echo json_encode(['status'=>200,"message"=>"Lol,I already know that, thanks anyway"]); 
+            }
+         }else{
+            echo json_encode(['status'=>200,"message"=>"You are not authorized to train me"]); 
+         }
+    }
 
+    function checkIfQuetionExists($question, $answer){
+        global $conn;
+        $sql = $conn->prepare("SELECT * FROM chatbot WHERE question = :question AND answer = :answer");
+        $sql->execute([':question' => $question, ':answer' => $answer]);
+        $result = $sql->fetch(PDO::FETCH_ASSOC);
+        if(!empty($result)){
+            return true;
+        }
+        return false;
+    }
 
+    function train($question, $answer){
+        global $conn;
+        $sql = "INSERT INTO chatbot (question, answer) VALUES(:question,:answer)";
+        $stm= $conn->prepare($sql);
+        $stm->bindParam(':question',$question);
+        $stm->bindParam(':answer',$answer);
+        if($stm->execute()){
+            return true;
+        }
+       
+    }
+
+    function getAnswer($question){
+        return checkIfQuestionExists($question);
+   }
+
+   function checkIfQuestionExists($question){
+       global $conn;
+       $query = "SELECT * FROM chatbot WHERE `question` LIKE '%$question%'";
+       $stm = $conn->query($query);
+       $stm->setFetchMode(PDO::FETCH_ASSOC);
+       $result = $stm->fetchAll();
+       if($result){
+           switch($result){
+                case (sizeof($result)==1):
+                    return $result[0]['answer'];
+                case (sizeof($result) >1):
+                    return $result[rand(0,sizeof($result)-1)]['answer'];
+                default:
+                    return null;
+           }
+       }else{
+           return null;
+       }  
+   }
+
+    /*   Bot Backend Implementation ends here */
 
 ?>
 
@@ -113,12 +213,12 @@ h3{
     padding-bottom: 20px;
 }
 .bot{
-    height:400px;
-    width:300px;
+    height:500px;
+    width:340px;
     background:white;
     position: fixed;
     right:0;
-    bottom:0;
+    bottom:10%;
     /* border-radius:4%; */
     border: 1px solid gray;
     margin-right:3%;   
@@ -136,6 +236,7 @@ h3{
 
 .input{
     height:50px;
+    width:100%;
 }
 .minimize-bot{
     position:absolute;
@@ -144,24 +245,48 @@ h3{
 }
 
 .panel-body{
-    height:300px;
+    height:400px;
     position:relative;
     overflow-y:auto;
+    background:gray;
+    padding: 10px;
 }
 
-.human{
-    background:gray; width:50%;position:absolute; right:0;
+.human-message{
+    background:white; 
+    margin: 10px 10px;
+    border-radius:8%;
+    padding:4px;
 }
-.human:before{
-    width:0;
-    height:0;
+.human-message:before{
+    width: 0;
+    height: 0;
     content:"";
-    border-width: 0 13px;
+    top:0px;
+    left:-4px;
+    position:absolute;
     border-style: solid;
-    border-color: #fff #ffffff transparent transparent;
-    position:relative;
-    left:-14px;
-    top:-3px;
+    border-width: 13px 13px 0 0;
+    border-color: whitesmoke transparent transparent transparent;  
+}
+
+.bot-message{
+    background:blue;
+    color: #FFFFFF;
+    margin: 10px 10px;
+    border-radius:4%;
+    padding:4px;
+}
+.bot-message:after{
+    width: 0;
+    height: 0;
+    content:"";
+    position:absolute;
+    top:-5px;
+    right:0;
+    border-style: solid;
+    border-width: 13px 13px 0 0;
+    border-color: transparent transparent transparent whitesmoke;  
 }
   </style>
 
@@ -202,18 +327,20 @@ h3{
     </div>
     <div class="container">
         <div class="bot panel panel-default">
-            <div class="panel-heading top-bar">Panel 
+            <div class="panel-heading top-bar">Zinco
                 <span><button class="minimize-bot" data-hide="minimize">-</button></span>
             </div>
-            <div class="panel-body"> 
-            
+            <div class="panel-body">
+                <div class ="bot-message row">Hi, welcome let's have a chat</div>
+                <div class="bot-message row">To train me use this format<br> train: question #answer #password</div>
+                <div class ="bot-message row">Ask me anything</div>
             </div>
             <div class="input" style="position:absolute; bottom:0;">
             <form action="" class="form-inline">
                     <div class="input-group mb-2 mr-sm-2">
                         <input type="text" class="form-control question-input" id="inlineFormInputGroupUsername2" placeholder="type your message">
                         <div class="input-group-append">
-                            <div class="input-group-text btn-primary"><a href="#" id="send">Send</a></div>
+                            <div class="input-group-text btn-primary"><input class="btn-primary" id="send" type="submit" onclick="return false;"></div>
                         </div>
                     </div>
             </form>
@@ -228,7 +355,7 @@ h3{
         (function init(){
             let minimizeBot = document.querySelector('.minimize-bot');
             minimizeBot.addEventListener('click',chatAction);
-
+            console.log( document.querySelector('.modal'));
             let sendMessageButton = document.getElementById('send');
             sendMessageButton.addEventListener('click',getInput);
         })();
@@ -257,13 +384,55 @@ h3{
 
 
         function getInput(){
+            console.log(document.getElementsByTagName('form'));
             let bot = "";
-            let question = document.querySelector('.question-input');
+            let input = document.querySelector('.question-input').value
+            if(input == "") return;
             let messageBox = document.querySelector('.panel-body');
-            messageBox.innerHTML += '<br><div class="human">'+question.value +'</div>';
-            messageBox.innerHTML += '<br><div style="background:gray; width:50%;position:absolute: left:0">bot</div>';
-            question.value = "";
-            console.log(question.value);
+            let childDiv = document.createElement("div");
+            if(input.split(':')[0]=='train'){
+                let trainInput = input.substring(6).split('#');
+                let question = trainInput[0];
+                let answer = trainInput[1];
+                let output = '<div class="human-message">question: '+question+' response :'+answer+'</div>';
+                // childDiv.innerHTML = output;
+                messageBox.innerHTML = output;
+                // messageBox.appendChild(output);
+            }else{
+                let output = '<div class="human-message row">'+input+'</div>';
+                // childDiv.innerHTML = output;
+                messageBox.innerHTML += output;
+                // messageBox.appendChild(output);
+            }
+            
+            sendQuestion(input) 
+        }
+
+        function sendQuestion(input){
+            console.log(input);
+            $.ajax({
+                type:'POST',
+                url:'profiles/victorUgwueze.php',
+                dataType:'json',
+                data:{'message':input},
+                success:(data,status)=>{
+                    console.log(data);
+                    replyMessage(data);
+                },
+                error:(err)=>{
+                    console.log(err);
+                }
+            });
+        }
+
+
+        function replyMessage(data){
+            let messageBox = document.querySelector('.panel-body');
+            let childDiv = document.createElement("div");
+            let output = '<div class="bot-message row">'+data.message+'</div>';
+            // childDiv.innerHTML = output;
+            messageBox.innerHTML += output;
+            messageBox.scrollTop = messageBox.scrollHeight;
         }
     </script>
 </body>
