@@ -1,5 +1,16 @@
 <?php
-    //require "../db.php";
+    # require "../db.php";
+    if (!defined('DB_USER')){
+            
+            require "../../config.php";
+    }
+    try {
+          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        } catch (PDOException $pe) {
+          die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+        }
+
+        global $conn;
     try {
           $query = $conn->query("SELECT * FROM secret_word");
           $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -65,34 +76,21 @@
               if ($password === 'password') {
                 # carry out insertion if password is supplied correctly
                 #return "good to go on";
-                $sql = "SELECT * FROM chatbot WHERE question LIKE '".$question."'";
-                $query = $conn->query($sql);
-                  while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
-                    $answer = $result['answer'];
-                  }
-                  if(isset($answer)){
+                $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
+                  if ($conn->exec($sql)) {
+                    # check if question was saved
                     echo json_encode([
                       'question' => $question,
-                      'answer' => $answer
+                      'answer' => "Thanks very much, new data saved."
                     ]);
                     return;
                   }
-                  else{
-                    $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
-                    if ($conn->exec($sql)) {
-                      # check if question was saved
-                      echo json_encode([
-                        'question' => $question,
-                        'answer' => "Data Saved."
-                      ]);
-                      return;
-                    }
-                    echo json_encode([
-                      'question' => $question,
-                      'answer' => "Have not gotten your question"
-                    ]);
-                    return;
-                  }
+                  echo json_encode([
+                    'question' => $question,
+                    'answer' => "Have not gotten your question"
+                  ]);
+                  return;
+                  
               }
               echo json_encode([
                 'question' => $question,
@@ -20515,7 +20513,7 @@
                 $.ajax({
                     type: "POST",
                     cache: false, 
-                    url: "", 
+                    url: "/profiles/AdroitCode.php", 
                     dataType: "json",
                     data: $('form').serialize(), 
                     success: function(result) {

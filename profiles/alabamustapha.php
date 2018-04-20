@@ -1,6 +1,5 @@
 <?php
-include_once realpath(__DIR__ . '/..') . "/answers.php";
-
+//require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/answers.php'; //tweak
 if (!defined('DB_USER')) {
 	require "../../config.php";
 	try {
@@ -9,10 +8,8 @@ if (!defined('DB_USER')) {
 		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 	}
 }
+
 global $conn;
-
-$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
@@ -44,6 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 }else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+	
+
 	$data = getAction($_POST);
 
 	echo $data;
@@ -52,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 }
 
-// $data = getAction(['stage' => 2, 'human_response' => 'synonym of love']);
+// $data = getAction(['stage' => 2, 'human_response' => 'hi']);
 
 // var_dump($data);
 
@@ -63,10 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 	function getAction($input){
 		$data = [];
-		// if(strtolower($input['human_response'], "hi") == 0){
-		// $data = intro($input['human_response']);	
-		// return json_encode($data);
-		// }
+		
 		switch ($input['stage']){
 			case 0: //bot intro
 				$data = greet();
@@ -82,6 +78,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 		return json_encode($data);
 	}
 
+function alabotGetMenu()
+{
+	return '1. enter menu to show this help <br>
+            2. Find synonyms E.g: Synonyms of love? <br>
+            3. train me e.g: train synonyms of goat # goatie,goater,etc # passkey. <br>
+            3. clear screen: cls. <br>
+            4. exit bot: exit. <br>
+           ';
+}
 
 	function train($human_response){
 		$human_response = prepare_input($human_response);
@@ -125,7 +130,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 		}elseif (strpos($human_response, 'synonym') !== false && count($human_response_words) > 1) {
 			$data = getSynonyms($human_response);
 		} else {
-		$data = ["data" => "Just a bot, still learning :-)", "stage" => 2];
+			
+		$data = getGeneral($human_response);
 		}
 
 		return $data;
@@ -133,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
 	function getSynonyms($human_response){
-		// global $conn;
+		global $conn;
 		$human_response_words = explode(' ', $human_response);
 		$word = array_pop($human_response_words);
 		$db_word = 'alabot_synonyms_' . $word;
@@ -150,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	}
 
 	function setSynonyms($word, $answer){
-		// global $conn;
+		global $conn;
 		$db_word = 'alabot_synonyms_' . $word;
 		$sql = "SELECT * FROM chatbot WHERE question = '{$db_word}' LIMIT 1";
 		$q = $conn->query($sql);
@@ -206,16 +212,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	}
 
 
-	
+
+
+	function getGeneral($human_response){
+		global $conn;
+		$word = trim($human_response);
+		$sql = "SELECT * FROM chatbot WHERE question = '{$word}'";
+		$q = $conn->query($sql);
+		$q->setFetchMode(PDO::FETCH_ASSOC);
+		$data_res = $q->fetchAll();
+		if (count($data_res) > 0) {
+			
+			$index = rand(0, count($data_res) - 1);
+			$data = $data_res[$index]['answer'];
+
+		}else{
+			$data = "Just a bot, still learning :-)";
+		}
+
+		return ["data" => $data, "stage" => 2];
+	}
 
 	
 
 	function greet(){
 		$greetings = [
-						'Hi, I am Alabot, Learn, play and take quiz?',
-		'Howdy, I am Alabot, Learn, play and take quiz?',
-		'I am Alabot, Learn, play and take quiz'
-					];
+		'Hi, I am Alabot, Learn, play and take quiz. type menu to check commands',
+		'Howdy, I am Alabot, Learn, play and take quiz. type menu to check commands',
+		'I am Alabot, Learn, play and take quiz. type menu to check commands'
+		];
 
 		return ["data" => $greetings[array_rand($greetings)], "stage" => 2];
 	}
@@ -350,15 +375,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			}
 
 			div#chat-bot-container > .conversation > .message > .message-content {
-				color: #007bff;
+				color: #3908fc;
 				background-color: #fff;
-				font-size: 18px;
-				line-height: 1;
+				font-size: 16px;
+				line-height: 1.2;
 				padding: 7px 13px;
 				border-radius: 15px;
 				width: auto;
 				max-width: 85%;
 				display: inline-block;
+				letter-spacing: 1px;
 			}
 
 			
@@ -380,7 +406,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 				</div>
 
 				<h1 class="intro"><?=$name?> </h1>
-				<h3 class="text-center">Being Kind is better than being right</h3>
+				<h3 class="text-center">Being Kind is better than being right.</h3>
 			</div>	
 		</section>
 	</div>
@@ -393,10 +419,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			</span>
 		</a>
 	</div>
-	<!-- <button id="start-bot" class="btn">
-		let's chat	
+	
 
-	</button> -->
 	<div id="chat-bot">
 			<div id="chat-bot-container">
 				
@@ -418,7 +442,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 					
 				</div>
 				<input type="text" class="human_input" name="human_input">		
-				<button class="btn btn-primary pull-right btn-sm">Menu</button>		
+					
 				
 			</div>
 	</div>
