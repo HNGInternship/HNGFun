@@ -252,6 +252,7 @@ function smartSearch($question, $questions_array)
 		}
 	}
 	ksort($q_sorta);
+	var_dump($q_sorta);
 	return end($q_sorta);
 }
 
