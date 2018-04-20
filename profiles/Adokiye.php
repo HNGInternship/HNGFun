@@ -12,12 +12,8 @@ $conn = mysqli_connect($servername, $username, $password);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-<<<<<<< HEAD
 echo "Connected successfully";
 //
-=======
-echo "Connected successfully";}
->>>>>>> ad3afa04712cecae21b592e625a1acd7fe7962b5
 if (isset($_POST['button'])) {
     if (isset ($_POST['input']) && $_POST['input'] !== "") {
         $asked_question_text = $_POST['input'];
@@ -30,7 +26,11 @@ if (isset($_POST['button'])) {
         $action = "train";
         if ($split[0] !== $action && !isset($split[1]) && !isset($split[2])) {
             $result = $conn->query("SELECT id FROM chatbot where question = '$input'");
-            $fetched_records = $result->fetch_all(MYSQLI_ASSOC);
+            if ($result==true){
+
+
+            $fetched_records = mysqli_fetch_field($result);
+            mysqli_free_result($result);
             if ($fetched_records === true) {
                 $result2 = $conn->query("SELECT answer FROM chatbot where id = '{$fetched_records[0]['id']}'");
                 $fetched_answer = $result2->fetch_all(MYSQLI_ASSOC);
@@ -44,7 +44,7 @@ if (isset($_POST['button'])) {
                     } else
                         return "ENTER train:your question#your answer  to add questions and answers to the database";
                 }
-            }
+            }}
         } elseif ($split[0] == $action && isset($split[1]) && isset($split[2])) {
             $asked_question_answer = "INSERT INTO chatbot (question, answer) VALUES ('$split[1]','$split[2]')";
             $conn->query($asked_question_answer);
