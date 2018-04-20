@@ -21,10 +21,40 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
  ?>
  <?php 
     if($_SERVER['REQUEST_METHOD']==='POST'){
-        echo json_encode([
-            'status'    => 1,
-            'answer'    => "attmepting connection"
-        ]);
+        //function definitions
+        function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            $data = preg_replace("([?.!])", "", $data);
+            $data = preg_replace("(['])", "\'", $data);
+            return $data;
+        }
+        function chatMode($ques, $conn){
+            if(isset($conn)&& isset($ques)){
+                echo json_encode([
+                    'status'    => 1,
+                    'answer'    => "In chat mode"
+                ]);
+                
+            }else{
+                echo json_encode([
+                    'status'    => 1,
+                    'answer'    => "In chat mode with some errors "
+                ]);
+            }
+            return;
+        }
+
+        //end of function definition
+        $ques = test_input($_POST['ques']);
+        if(strpos($ques, "train:") !== false){
+            trainerMode($ques);
+        }else{
+            chatMode($ques, $conn);
+        }
+
+       
         return;
     }
  ?>

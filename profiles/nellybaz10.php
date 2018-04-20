@@ -157,6 +157,8 @@ if(!$conn){
 		mysqli_close($con);
 	}
 
+
+if(isset($_POST['question'])){
 $question = $_POST['question'];
 	//echo $question;
 	 $x = 0;
