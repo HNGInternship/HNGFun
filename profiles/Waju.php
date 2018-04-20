@@ -154,6 +154,16 @@ function train($training_string, $conn){
 function get_name(){
     return " Abolarin Olanrewaju Olabode";
 }
+function get_the_time(){
+    //instantiate date-time object
+     $datetime = new DateTime();
+     //set the timezone to Africa/Lagos 
+     $datetime->setTimezone(new DateTimeZone('Africa/lagos'));
+     //format the time
+
+     return $datetime->format('H:i: A');
+ }
+
 //QUERY for User Profile, using prepared statement for security
   try {
     $sql ='Select * from interns_data where username =:user';
@@ -222,6 +232,7 @@ function get_name(){
                     if( !isset( $_POST['ajax'] ) ){
                         //answer has function
                         $answer = parse_answer($question['answer']);
+                        
                     } else {
                         // ajax  use status for styling later
                         echo json_encode([
@@ -639,12 +650,12 @@ window.addEventListener("load", function() {
 
             //scroll the chat interface up/ down
             this.$wrapper.animate(
-                {scrollTop: 800,},
+                {scrollTop: '+=800',},
                 {duration: 600}
             );
         },
         toggleView: function(e){
-            this.$el.animate({ height: 50 }, { duration: 300 });
+            this.$el.animate({ height: 250 }, { duration: 300 });
             console.log(this.$toggle.data('state')); //=== 'down' ? "\&#x23EB;" : "\&#x23EC;" ;  
             console.log(this.$toggle.text());
         },
