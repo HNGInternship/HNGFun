@@ -14,7 +14,7 @@
         <link rel="shortcut icon" href="assets/images/favicon.ico">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <link href="tunbosun/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <!-- <link href="tunbosun/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
         <link href="tunbosun/icons.css" rel="stylesheet" type="text/css">
         <link href="tunbosun/style.css" rel="stylesheet" type="text/css">
 <style type="text/css">
