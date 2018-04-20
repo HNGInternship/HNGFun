@@ -54,7 +54,7 @@
         }
         h1 {
         margin-top: 100px;
-        font-size: 26px;
+        font-size: 24px;
         color: #fff;
         text-align: center;
         }
@@ -80,7 +80,7 @@
         padding-left: 10px;
         }
         .fa {
-        padding: 20px;
+        padding: 5px;
         font-size: 20px;
         width: 20px;
         height: 20px;
@@ -136,8 +136,8 @@
         </div>
             
         </div>
-<div class="date">
-    <p>Copyright &copy; HNG FUN <?php echo date("Y"); ?></p>
-</date>
+        <div class="date">
+        <p>Copyright &copy; HNG FUN <?php echo date("Y"); ?></p>
+        </div>
     </div>
 </body>
