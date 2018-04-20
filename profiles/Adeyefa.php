@@ -1,6 +1,6 @@
 <?php 
 
-include '../..config.php';
+require "../../config.php";
 
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -12,17 +12,39 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 /////////////////////////////////
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+    require "../answers.php";
+
     $mem = $_POST['question'];
     $mem = preg_replace('([\s]+)', ' ', trim($mem));
     $mem = preg_replace("([?.])", "", $mem);
 	$arr = explode(" ", $mem);
+	//test for training mode
+
 	if($arr[0] == "train:"){
+
 		unset($arr[0]);
 		$q = implode(" ",$arr);
 		$queries = explode("#", $q);
+		if (count($queries) < 3) {
+			# code...
+			$pword = array('result' => 'You need to enter a password to train me');
+			echo json_encode($pword);
+			return;
+		}
+		$password = trim($queries[2]);
+		//to verify training password
+		define('trainingpassword', 'password');
+		
+		if ($password !== trainingpassword) {
+			# code...
+			$wrongpword = array('result' => 'You entered a wrong training password, you are not authorized to train me');
+			echo json_encode($wrongpword);
+			return;
+		}
 		$quest = $queries[0];
 		$ans = $queries[1];
-		 $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $quest . "', '" . $ans . "')";
+		 $sql = "INSERT INTO chatbot(question, answer) VALUES ( '" . $quest . "', '" . $ans . "')";
 		 $conn->exec($sql);
      header('Content-type: text/json');
      $arrayName = array('result' => 'Thanks for training me, you can now test my knowledge');
@@ -35,11 +57,38 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
    //   echo json_encode($arrayName);
    //   return;
    // }
+    elseif ($arr[0] == "aboutbot") {
+    	# code...
+    	header('Content-type: text/jason');
+    	$aboutbot = array('result' => "I am MATRIX, Version 1.0.0. You can train me by using this format ' train: This is a question # This is the answer # password '");
+    	echo json_encode($aboutbot);
+    	return;
+    }
     else {
-      header('Content-type: text/json');
-       $arrayName = array('result' => "Query Accepted");
-       echo json_encode($arrayName);
-       return;
+    	$question = implode(" ",$arr);
+    	//to check if answer already exists in the database...
+    	$question = "%$question%";
+    	$sql = "select * from chatbot where question like :question";
+        $stat = $conn->prepare($sql);
+        $stat->bindParam(':question', $question);
+        $stat->execute();
+
+        $stat->setFetchMode(PDO::FETCH_ASSOC);
+        $rows = $stat->fetchAll();
+        if(count($rows)>0){
+	        $index = rand(0, count($rows)-1);
+	        $row = $rows[$index];
+	        $answer = $row['answer'];
+	        
+	        header('Content-type: text/json');
+	        echo json_encode($answer);
+	        return;
+	    }else{
+	    	header('Content-type: text/json');
+	    	$noanswer = array('result' => "I am sorry, I cannot answer your question now. You could offer to train me.");
+	    	echo json_encode($noanswer);
+	    	return;
+	    }
     }
 }
 ?>
@@ -120,7 +169,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 		input[type=text] {
 
-		    width: 80%;
+		    width: 60%;
 		    box-sizing: border-box;
 		    border: 2px solid #ccc;
 		    border-radius: 4px;
@@ -163,20 +212,29 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    flex-direction: column;
 		}
 		.irr{
-			float: left;
 	        color: #fff;
-	        background-color: #033FFF;
-	        -webkit-align-self: flex-start;
-	        align-self: flex-start;
-	        -moz-animation-name: slideFromLeft;
-	        -webkit-animation-name: slideFromLeft;
-	        animation-name: slideFromLeft;
 	        font-size: 15px;
 			font-family: Ubuntu;
 		}
 		.irr:before{
 			left: -3px;
             background-color: #00b0ff;
+		}
+		#queries{
+			margin-left: 50px;
+		}
+		.iro{
+			float: right;
+			color: #0DDFFF;
+			font-size: 20px;
+			font-family: Ubuntu;
+		}
+		.iio{
+			float: left;
+			margin-right: 90px;
+			color: #01DDDD;
+			font-size: 20px;
+			font-family: Ubuntu;
 		}
 	</style>
 </head>
@@ -214,11 +272,20 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
-									Chats 
-									<ul id="chats">
+									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about me type: 'aboutbot'
+								</div>
+								<div class="iro">
+									<ul id="queries">
 										<?php
 
 										?>
+									</ul>
+								</div>	
+								<div class="iio">
+									<ul id="ans">
+										<?php
+
+										?>	
 									</ul>
 								</div>	
 							</div>
@@ -236,7 +303,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#chats").append("<li>" + question + "</li>");
+				$("#queries").append("<li>" + question + "</li>");
+					//let newMessage = `<div class="iro">
+	                  //${question}
+	                //</div>`;
 				
 
 				//$.ajax({
@@ -254,15 +324,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				//}
 				$.ajax({
 					url: "Adeyefa.php",
-					type: "post",
+					type: "POST",
 					data: {question: question},
 					dataType: "json",
 					success: function(answer){
-		        $("#chats").append("<li>" + answer.result + "</li>");
+			        $("#ans").append("<li>" + answer.result +  "</li>");
 					},
 					error: function(error){
 						console.log(error);
-		        alert(error);
+				        alert(error);
 					}
 				})	
 			})
