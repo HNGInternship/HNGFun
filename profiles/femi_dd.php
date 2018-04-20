@@ -4,9 +4,9 @@ session_start();
 if($_SERVER['REQUEST_METHOD'] == "POST") {
    if(!defined('DB_USER')){
       //live server
-      // require "../../config.php";
+      require "../../config.php";
       // localhost
-      require "../config.php";
+//       require "../config.php";
       try {
          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
       } catch (PDOException $pe) {
@@ -20,7 +20,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
       $data = [];
       $data['response'] = null;
       $data['request'] = null;
-      $temp = explode("#", $trainData);
+      $temp = explode("@", $trainData);
       $data['request']  = $temp[0];
       $data['response'] = $temp[1];
       $data['request'] = preg_replace('/(train:)/', '', $temp[0]);
@@ -44,7 +44,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
    
    function searchRequest($request) {
       global $conn;
-      $statement = $conn->prepare("select * from chatbot where question like :request");
+      $statement = $conn->prepare("select answer from chatbot where question like :request order by rand()");
       $statement->bindValue(':request', "%$request%");
       $statement->execute();
       $statement->setFetchMode(PDO::FETCH_ASSOC);
@@ -86,7 +86,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
       $response_and_request['request'] = "";
       $response_and_request['response'] = "";
       $response_and_request['time'] = "";
-      $request = $_GET['new_request'];
+      $request = strtolower($_GET['new_request']);
       $response_and_request['request'] = trim($request);
 
       if(empty($response_and_request['request'])) {
@@ -302,14 +302,14 @@ chatArea.appendChild(timeEl2);
          }
          newElement.value = response.response;
          chatArea.appendChild(newElement);
-         timeEl.innerHTML = response.time;
+         timeEl.innerHTML = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
          chatArea.appendChild(timeEl);
       }
    }
    //live server
-//    xmlhttp.open("POST", "https://hng.fun/profiles/femi_dd.php?new_request="+message, true);
+   xmlhttp.open("POST", "https://hng.fun/profiles/femi_dd.php?new_request="+message, true);
    //localhost
-   xmlhttp.open("POST", "http://localhost/HNGFun/profiles/femi_dd.php?new_request="+message, true);
+//    xmlhttp.open("POST", "http://localhost/HNGFun/profiles/femi_dd.php?new_request="+message, true);
    xmlhttp.send();
    document.getElementById("message").value = "";
 }
