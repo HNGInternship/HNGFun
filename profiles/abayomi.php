@@ -76,14 +76,17 @@
         font-weight: bold;
         font-size: 16px;
         }
+/*
         #icons{
-        margin-left: 100px;
+         margin-left: 50px;
         }
+*/
         .fa {
-        padding: 10px;
+            position: relative;
+        padding: 20px;
         font-size: 20px;
-        width: 50px;
-        height: 50px;
+        width: 20px;
+        height: 20px;
         text-align: center;
         text-decoration: none;
         border-radius: 50%;
@@ -120,6 +123,7 @@
             <h3>Slack Username: @<?php echo $user->username; ?></h3>
             <p>Exceptionally well organised, self taught, self motivated and resourceful Professional with few years of experience in Website Development and Design using HTML, CSS, Bootstrap, JAVASCRIPT, JQuery, Laravel, PHP, MYSQL.  Excellent analytical and problem solving skills.</p>
             <p class="connect_me">Connect with me</p>
+<!--
         <div id="icons">
             <a href="https://www.facebook.com/abayomijohn1670">
                 <i class="fa fa-facebook"></i>
@@ -134,6 +138,7 @@
                 <i class="fa fa-github"></i>
             </a>
         </div>
+-->
             
         </div>
         <div class="date">
