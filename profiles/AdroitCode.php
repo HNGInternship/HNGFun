@@ -1,5 +1,6 @@
 <?php
     # require "../db.php";
+    require "../answers.php";
     if (!defined('DB_USER')){
             
             require "../../config.php";
@@ -39,6 +40,8 @@
               ]);
               return;
             }
+            
+
             /* check if in training mode (checking for train: in input) */
             $is_training = stripos($question, "train:");
             if ($is_training === false) { 
@@ -107,12 +110,24 @@
               return;
               //return "undergoing training";
             }
-            echo json_encode([
+            if (strpos($question, "(") !== false){
+              list($functionName, $paramenter) = explode('(', $question) ;
+              list($paramenter, $parameterEnd) = explode(')', $paramenter);
+              $paramenterArr = explode(",", $paramenter);
+              if(strpos($paramenter, ",")!== false){
+                $paramenterArr = explode(",", $paramenter);
+                $result = simpleMaths($paramenterArr[0], $paramenterArr[1]);
+                return $result;
+              }
+            }
+            else{
+              echo json_encode([
               'question' => $question,
               'answer' => "Sorry am not smart enough to answer, pls train me using the train: syntax"
             ]);
+              return;
+            }
             return;
-            
           }
           if (($_SERVER['REQUEST_METHOD'] === 'POST')) {
             # code...
