@@ -307,6 +307,9 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		.tx {
 			color: #fff
 		}
+		.text-white {
+			color: red;
+		}
 	</style>
 </head>
 <body>
@@ -385,8 +388,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 					    	<label for="message" class="sr-only">Message</label>
 					    	<input type="text" class="col-12 form-control" id="message" name="message" placeholder="Type Here">
 					  	</div>
-					  	<button type="submit" class="col-2 mx-auto btn btn-primary mb-2"><i class="fa fa-paper-plane"></i></button>
-
+					  	<button type="submit" class="col-2 mx-auto btn btn-primary mb-2"><i class="fa fa-angle-double-right"></i></button>
 				  	</form>
 				  	
 				  </div>
