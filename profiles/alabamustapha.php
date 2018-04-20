@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 }
 
-// $data = getAction(['stage' => 2, 'human_response' => 'hi']);
+// $data = getAction(['stage' => 2, 'human_response' => 'aboutbot']);
 
 // var_dump($data);
 
@@ -107,7 +107,7 @@ function alabotGetMenu()
 		}else if (strpos($human_response, 'synonym') !== false) {
 			$data = setSynonyms($word, $answer);
 		} else {
-			$data = ["data" => "Just a bot, still learning :-)", "stage" => 2];
+			$data = setGeneral($part_one, trim($parts[1]));
 		}
 
 		
@@ -125,13 +125,15 @@ function alabotGetMenu()
 		$human_response = prepare_input($human_response);
 		
 		$human_response_words = explode(' ', $human_response);
+
 		if(strcmp(strtolower(trim($human_response)), 'menu') == 0){
 			$data = ["data" => alabotGetMenu(), "stage" => 2];	
+		}elseif(strcmp(strtolower(trim($human_response)), 'aboutbot') == 0){
+			$data = ['data' => 'Alabot v0.1', 'stage' => 2];	
 		}elseif (strpos($human_response, 'synonym') !== false && count($human_response_words) > 1) {
 			$data = getSynonyms($human_response);
 		} else {
-			
-		$data = getGeneral($human_response);
+			$data = getGeneral($human_response);
 		}
 
 		return $data;
@@ -233,6 +235,36 @@ function alabotGetMenu()
 		return ["data" => $data, "stage" => 2];
 	}
 
+	function setGeneral($question, $answer){
+		global $conn;
+		$question = trim($question);
+		
+		$question = prepare_question($question);
+
+		$sql = "SELECT * FROM chatbot WHERE question = '{$question}'";
+		$q = $conn->query($sql);
+		$q->setFetchMode(PDO::FETCH_ASSOC);
+		$data_res = $q->fetchAll();
+		if (count($data_res) > 0) {
+			$data = "I have learnt that already, thanks";
+		} else {
+			
+			$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+
+			try {
+				$query = $conn->prepare($sql);
+
+				if ($query->execute([':question' => $question, ':answer' => $answer]) == true) {
+					$data = 'Great! thank you so much for teaching that';
+				};
+
+			} catch (PDOException $e) {
+				$data = "Something went wrong, please try again";
+			}
+		}
+		return ["data" => $data, "stage" => 2];
+	}
+
 	
 
 	function greet(){
@@ -248,6 +280,12 @@ function alabotGetMenu()
 	function intro($name){
 		$data = "Welcome " . $name . " You can learn, play or train me to be better Check the menu for guide";
 		return ["data" => $data, "stage" => 2];
+	}
+
+	function prepare_question($question){
+		$words = explode(' ', $question);
+		array_shift($words);
+		return implode(' ', $words);
 	}
 
 	
