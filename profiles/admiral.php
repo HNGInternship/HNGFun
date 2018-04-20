@@ -225,7 +225,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 			text-align: center;
 			padding: 10px 0;
 		}
-		
 		.main{
 			margin-top: 20vh;
 		}
@@ -321,10 +320,12 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		    margin-top:5px;width:85%;border-radius:5px;padding:5px;display:flex;
 		}
 		.msj-rta{
-		    float:right;background:whitesmoke;
+		    float:right;
+		    background:whitesmoke;
 		}
 		.msj{
-		    float:left;background:#f1a97a;
+		    float:left;
+		    background:lightgray;
 		}
 	</style>
 </head>
@@ -360,13 +361,14 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 				    
 				    <!-- Gracie's message -->
                         <div class="msj macro">
+                        <div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="gracie-icon"></div>
                             <div class="text text-l">
-                                <p>How may I be of service today?</p>
+                                <p>Hi! My name is Gracie. How may I be of service today?</p>
+                                
                             </div>
                         </div>
                     <!-- Gracie's message -->
                         <div class="msj macro">
-                        <div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="gracie-icon align-self-start"></div>
                             <div class="text text-l">
                                 <p>You can ask me any questions, You could also train me by entering the following format: <br>
                                 	<code class="text-white">train: your question # the correct answer # password</code>
