@@ -111,7 +111,18 @@
   
   } else {
 ?>
-
+<div class"profile">
+						<h1>Dennis Otugo</h1>
+						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
+						<nav>
+							<ul>
+								<li><a href="https://facebook.com/el.chapon.9" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+								<li><a href="https://twitter.com/wesleyotugo" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+								<li><a href="https://github.com/dennisotugo" class="icon fa-github"><span class="label">Github</span></a></li>
+								<li><a href="emailto:wesleyotugo@fedoraproject.org" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+							</ul>
+						</nav>
+					</div>
   <div class="bot-body">
     <div class="messages-body">
 
@@ -143,7 +154,6 @@ footer {
     width: 100%;
     left: 0;
     bottom: 0px;
-		height: 25%;
     /* box-sizing: border-box; */
     /* box-shadow: 1px 1px 9px; */
   }
@@ -153,7 +163,8 @@ footer {
     color: #3A3A5E;
     padding: 10px;
     overflow: auto;
-    width: 100%;
+    width: 50%;
+	  border-right: solid black 3px;
     border-top: 1px solid #f1f1f1;
     padding-bottom: 50px;
     border-top-left-radius: 5px;
@@ -232,8 +243,9 @@ footer {
   }
 
   .send-message-body {
+	  border-right: solid black 3px;
 		position: fixed;
-    width: 100%;
+    width: 50%;
     left: 0;
     bottom: 0px;
     box-sizing: border-box;
@@ -343,14 +355,6 @@ footer {
       </div>`
     );
   }
-  var options = { hour12: true };
-  var time = "";
-  function updateTime() {
-    var date = new Date();
-    time = date.toLocaleString('en-NG', options).split(",")[1].trim();
-    document.querySelector(".time").innerHTML = time;
-  }
-  setInterval(updateTime, 60);
 </script>
 <?php } 
 ?>
