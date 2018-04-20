@@ -343,7 +343,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
                     <!-- Gracie's message -->
                         <div class="msj macro">
                             <div class="text text-l">
-                                <p>ask me any questions, You can also train me by entering the following format: <br>
+                                <p class="txt">ask me any questions, You can also train me by entering the following format: <br>
                                 	<code class="text-white">train: your question # the correct answer # password</code>
                                 </p>
                                 

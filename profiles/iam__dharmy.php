@@ -162,15 +162,6 @@
 	else{
 ?>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<?php
-	if($_SERVER['REQUEST_METHOD'] === "GET"){
-?>
-=======
->>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
-=======
->>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -393,12 +384,4 @@
 </script>	
 </body>
 </html>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<?php}?>
-=======
 <?php } ?>
->>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
-=======
-<?php } ?>
->>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
