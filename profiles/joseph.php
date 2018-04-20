@@ -46,7 +46,7 @@
 				#0465B2 50%);
 		}
 		.first-col, .sec-col, .third-col{
-			height: auto;
+			height: 500px;
 			text-align: center;
 			color: white;
 			font-weight: bold;
