@@ -76,34 +76,21 @@
               if ($password === 'password') {
                 # carry out insertion if password is supplied correctly
                 #return "good to go on";
-                $sql = "SELECT * FROM chatbot WHERE question LIKE '".$question."'";
-                $query = $conn->query($sql);
-                  while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
-                    $answer = $result['answer'];
-                  }
-                  if(isset($answer)){
+                $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
+                  if ($conn->exec($sql)) {
+                    # check if question was saved
                     echo json_encode([
                       'question' => $question,
-                      'answer' => $answer
+                      'answer' => "Thanks very much, new data saved."
                     ]);
                     return;
                   }
-                  else{
-                    $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
-                    if ($conn->exec($sql)) {
-                      # check if question was saved
-                      echo json_encode([
-                        'question' => $question,
-                        'answer' => "Data Saved."
-                      ]);
-                      return;
-                    }
-                    echo json_encode([
-                      'question' => $question,
-                      'answer' => "Have not gotten your question"
-                    ]);
-                    return;
-                  }
+                  echo json_encode([
+                    'question' => $question,
+                    'answer' => "Have not gotten your question"
+                  ]);
+                  return;
+                  
               }
               echo json_encode([
                 'question' => $question,
@@ -20519,7 +20506,6 @@
     
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<<<<<<< HEAD
     <script type="text/javascript">
       $(document).ready(function(){
             $('form').on('submit', function(e){
@@ -20541,9 +20527,6 @@
             
             });
     </script>
-=======
-    
->>>>>>> e4aee28334f5d4d785d647f07c097d6933da86be
     <script>
         $( document ).ready(function() {
         $( ".menu" ).hide();
