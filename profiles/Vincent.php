@@ -73,25 +73,25 @@
     return;
     }
 ?>
-<!-- <?php
-// try {
-//     $profile = 'SELECT * FROM interns_data WHERE username="Vincent"';
-//     $select = 'SELECT * FROM secret_word';
+<?php
+try {
+    $profile = 'SELECT * FROM interns_data WHERE username="Vincent"';
+    $select = 'SELECT * FROM secret_word';
 
-//     $query = $conn->query($select);
-//     $get_profile = $conn->query($profile);
+    $query = $conn->query($select);
+    $get_profile = $conn->query($profile);
 
-//     $query->setFetchMode(PDO::FETCH_ASSOC);
-//     $get_profile->setFetchMode(PDO::FETCH_ASSOC);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $get_profile->setFetchMode(PDO::FETCH_ASSOC);
 
-//     $get = $query->fetch();
-//     $user = $get_profile->fetch();
+    $get = $query->fetch();
+    $user = $get_profile->fetch();
     
-// } catch (PDOException $e) {
-//     throw $e;
-// }
-// $secret_word = $get['secret_word'];
-?> -->
+} catch (PDOException $e) {
+    throw $e;
+}
+$secret_word = $get['secret_word'];
+?>
 
 <!DOCTYPE html>
 <html lang="en">
