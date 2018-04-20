@@ -279,7 +279,7 @@ h3{
 }
 
 .bot-message{
-    background:blue;
+    background:#007bff;
     color: #FFFFFF;
     margin: 10px 10px;
     border-radius:4%;

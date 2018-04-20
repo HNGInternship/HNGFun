@@ -62,12 +62,11 @@
 	</table>
 
 <?php
-//echo "here";
-	include ('../config.example.php');
+include ('../config.example.php');
 //include('../db.php');
 
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-if(!$con){
+if(!$conn){
   echo "couldn't connect";
 }
 	function display_answer($question){
@@ -87,12 +86,10 @@ if(!$con){
 		}
 		else{
 			echo "<div class='this'>";
-			echo "<p>Sorry, your question is too hard for me. But you can train me. Remember I am smart.<br>
-					To train me: <br>
-					Tell me the question first by typing: <em><b>#your question</b></em><br>
-					Then the answer by typing: <em><b>@the answer</b></em><br>
-					Then ask
-			</p>";
+			echo "<p>Sorry, I could't process that, probably my knowledge is not that wide. You can train me 
+					using the correct format. <br>
+					<b>Corrrect Format:</b><br>
+					train: your question#your answer@password</p>";
 			echo "</div>";
 			
 		}
@@ -101,17 +98,26 @@ if(!$con){
 	}
 
 
-	function add_question($question){
-		list($keyvalue, $real_question) = explode('#', $question);		
+	function add_question($real_question, $real_answer){
+		//list($keyvalue, $real_question) = explode('#', $question);		
 		$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 		$real_question = mysqli_real_escape_string($con, $real_question);
-		$question_query = "INSERT INTO `bot`(`question`) VALUES ('{$real_question}')";
+
+		//check if already exist
+
+		$check_question = "SELECT * FROM bot WHERE question = '$real_question'";
+		$result = mysqli_query($con, $check_question);
+		if(mysqli_num_rows($result) > 0){
+			echo "<div class='this'>";
+			echo "<p>I already know the asnwer to this question, just ask me</p>";
+			echo "</div>";
+		}else{
+		$question_query = "INSERT INTO `bot`(`question`, `answer`) VALUES ('{$real_question}', '{$real_answer}')";
 		
 		if(mysqli_query($con, $question_query)){
 			echo "<div class='this'>";
-			echo "<p>Thanks! Now the Answer</p>";
-			echo "<p>Tell me the answer by typing: <br>
-			       <b>@the asnswer</b></p>";
+			echo "<p>Thank you for training me</p>";
+			echo "<p>You can now ask that question</p>";
 			       echo "</div>";
 			
 		}
@@ -122,7 +128,7 @@ if(!$con){
 		}
 		mysqli_close($con);
 	}
-
+	}
 
 		function add_answer($answer){
 		list($keyvalue, $real_answer) = explode('@', $answer);	
@@ -151,31 +157,64 @@ if(!$con){
 		mysqli_close($con);
 	}
 
-	$question = $_POST['question'];
+$question = $_POST['question'];
 	//echo $question;
 	 $x = 0;
 	 $count = 3;
 	 $count_hash = 0;
+
+	 list($train_word, $question1) = explode(':', $question);
+	 list($real_question, $real_answer) = explode('#', $question1);
+	 list($real_answer, $pass) = explode('@', $real_answer);
+	 
+	 $pass = trim($pass);
+	 $check_pass = 'password';
+
+	 	if($question[5] == ':' && $pass == $check_pass){
+	 		//echo "<div class='this'>";
+	 		//echo $question;
+	 		//echo "</div>";
+	 		$real_question = trim($real_question);
+	 		$real_answer = trim($real_answer);
+	 		add_question($real_question ,$real_answer);
+	 	}
+
+	 	else if($question == 'aboutbot'){
+	 			echo "<div class='this'>";
+	 			echo "<p>ABOUT BOT<br><br>
+	 			Name: Alice.<br>
+	 					Version: Alice 1.5.2</p>";
+	 			echo "</div>";
+	 	}
+
+	 	else{
+	 		display_answer($question);
+	 	}
 	
 
-	while( $x < $count){
-			if ($question[$x] == '#') {
-				add_question($question);
-				break;
-				}
-			elseif($question[$x] == '@'){
+	//while( $x < $count){
+		//	if ($question[$x] == '#') {
+			//	add_question($question);
+				//break;
+	//			}
+		//	elseif($question[$x] == '@'){
 					
-					add_answer($question);
-					break;
-				}
-			else{
-				display_answer($question);
-				break;
+//					add_answer($question);
+	//				break;
+		//		}
+	//		else{
+		//		display_answer($question);
+			//	break;
 
-			}
-				$x = $x + 1;
+		//	}
+		//		$x = $x + 1;
+		
+		//	}
 			
-			}
+	
+	
+	
+
 			
 	
 	
@@ -188,7 +227,7 @@ if(!$con){
 
 ?>
 
-	
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
