@@ -1,23 +1,14 @@
 <?php
      date_default_timezone_set('Africa/Lagos');
-     if (!defined('DB_USER')){
-         
-         require "../../config.php";
-     }
+     
      require_once 'db.php';
- try {
+    try {
      $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
      $intern_data->execute();
      $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
      $result = $intern_data->fetch();
  
-   if($_SERVER['REQUEST_METHOD']==='Post'){
-    echo json_encode([
-                    'status' => 1,
-                    'answer' => $result
-                ]);
-                return ;
-   }
+   
     //  $secret_code = $conn->prepare("SELECT * FROM secret_word");
     //  $secret_code->execute();
     //  $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
@@ -26,7 +17,16 @@
   } catch (PDOException $e) {
       throw $e;
   }
+  
   $today = date("H:i:s");
+  if($_SERVER['REQUEST_METHOD']==="POST"){
+    echo json_encode([
+        'status'    => 1,
+        'answer'    => "Error training me: "
+    ]);
+        return;
+}
+
       
     // if($_SERVER['REQUEST_METHOD']==="POST"){
     //     //function definitions
