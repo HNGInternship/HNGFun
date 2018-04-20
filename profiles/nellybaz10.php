@@ -58,7 +58,7 @@
 								<input id="input" style="width: 100%; height: 30px" type="text" name="input">
 							</td>
 							<td >
-								<button id="send" style="width: 100%; height: 35px; background-color: navy; color: white; border:none;">Send</button>
+								<button id="send" style="width: 100%; height: 32px; border-radius: 8px; background-color: navy; color: white; border:none;">Send</button>
 							</td>
 						</tr>
 					</table>
