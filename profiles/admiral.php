@@ -325,7 +325,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		}
 		.msj{
 		    float:left;
-		    background:lightgray;
+		    background:blue;
 		}
 	</style>
 </head>
@@ -358,19 +358,15 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 				    <h4 class="ml-3 d-inline" style="font-size: 1.2rem; font-weight: 500;">CHAT BOT</h4>
 				  </div>
 				  <div class="card-body" id="chatWindow">
-				    
-				    <!-- Gracie's message -->
                         <div class="msj macro">
-                        <div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="gracie-icon"></div>
                             <div class="text text-l">
-                                <p>Hi! My name is Gracie. How may I be of service today?</p>
-                                
+                                <p>How may I be of service today?</p>
                             </div>
                         </div>
                     <!-- Gracie's message -->
                         <div class="msj macro">
                             <div class="text text-l">
-                                <p>You can ask me any questions, You could also train me by entering the following format: <br>
+                                <p>ask me any questions, You can also train me by entering the following format: <br>
                                 	<code class="text-white">train: your question # the correct answer # password</code>
                                 </p>
                                 
