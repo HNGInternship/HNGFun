@@ -224,6 +224,7 @@ $question = trim($question);
 
 	 					echo "<div class='this'>";
 	 			echo "<p>Sorry couldn't send an email now, my boss has not permitted it.</p>";
+	 			echo $email;
 	 			echo "</div>";
 	 				}
 	 			
