@@ -16,12 +16,12 @@
 # LOCAL ENVIRONMENT
 # require_once 'config.php';
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 require_once 'config.php';
-=======
+//=======
 # PRODUCTION
-require_once '../config.php';
->>>>>>> 7b1b8d9655ab6d4304112710d1afcc7a66ae1d35
+//require_once '../config.php';
+//>>>>>>> 7b1b8d9655ab6d4304112710d1afcc7a66ae1d35
 
 try {
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);

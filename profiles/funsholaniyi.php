@@ -7,10 +7,10 @@
  */
 
 /**
- * This is largely a smart work approach with basic implementation ideas from jim and chigozie codebase
+ * This is largely a smart work approach with basic implementation ideas from jim and chigozie and opheus codebase
  * after which, i built on it and made a beauty, i like to think of it that way
  *
- * PLEASE ENJOY THE SEARCH AND MATCH ALGORITHM, GIVE CREDITS IF U WANT TO USE IT, OPEN SOURCE BABY
+ * PLEASE ENJOY THE SEARCH AND MATCH ALGORITHM, GIVE CREDITS IF U WANT TO USE IT, OPEN SOURCED
  */
 
 if (file_exists('config.php')) {
@@ -240,7 +240,7 @@ function smartSearch($question, $questions_array)
 					$q_sorta[] = $item;
 				}
 				if($hit_count >= $word_count){
-				    // we match all words here already, so stop looping and return the guy abeg
+				    // we match all words here already, so stop looping and return instead
                     return $item;
                 }
 			}
@@ -414,11 +414,9 @@ $user = (new Model())->getProfile();
                 </form>
             </div>
         </div>
-    </div>
-
-
+        </div>
 </main>
-<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
 <script type="text/javascript">
     var chat = chat || {};
 
@@ -471,14 +469,13 @@ $user = (new Model())->getProfile();
             };
             this.postJSON(data, "/profiles/funsholaniyi.php", function (response) {
                 $('#message_chat_form')[0].reset();
-                console.log(response);
+                // console.log(response);
                 var strMessages = '<li class="replies"><img src="https://res.cloudinary.com/funsholaniyi/image/upload/v1524159157/default.jpg">' +
                     '<p><small style="font-size: 10px;">Funsho</small><br>' +
                     '' + response.message + '</p></li><div class="clearfix"></div> ';
                 $('#message-outlet').append(strMessages);
                 $(".messages").scrollTop($("#message-outlet").outerHeight());
-
-
+                responsiveVoice.speak(response.message ,'US English Female');
             });
         };
 
@@ -685,3 +682,4 @@ $user = (new Model())->getProfile();
     }
 
 </style>
+<div class="clearfix"></div>
