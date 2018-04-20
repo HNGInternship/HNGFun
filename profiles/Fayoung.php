@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
  <?php  
 	require('db.php');
@@ -73,6 +72,7 @@
 
   <body>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <?php  
 	require('db.php');
 		$connect = mysqli_connect( localhost, root, Freeborn01, hng_fun );
@@ -89,6 +89,9 @@
 =======
  
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+ 
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top" id="mainNav">
         <div class="container">

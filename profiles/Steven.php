@@ -22,43 +22,27 @@
     $secret_word = $result['secret_word'];
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-      require "../answers.php";
 
-      date_default_timezone_set("Africa/Lagos");
-
-      if(!isset($_POST['ask'])){
-        echo json_encode([
-            'status' => 1,
-            'answer' => 'What do you have in mind?'
-          ]);
-        return;
-      }
       $ask = $_POST['ask'];
-
-      //get what the user asked
-      if($ask == ""){
-        echo json_encode([
-        'status' => 0,
-        'answer' => "Please type your question"
-      ]);
-      return;
-    }
     
         //check if bot is training
-        $index_of_train = stripos($ask, "train:");
-          if($index_of_train === false){
-            //then, we are now in asking mode
-            //Lets remove white spaces from the question asked
+        $train_bot = stripos($ask, "train:");
+          if($train_bot === false){
+            
+            //Bot is not training, ask your question, but remove question mark and dot
             $ask = preg_replace('([\s]+)', ' ', trim($ask));
-            //Lets remove the question mark(?) and the dot sign(.)
             $ask = preg_replace('([?.])', "", $ask);
 
             //if the answer is already in the database, do this:
+<<<<<<< HEAD
 <<<<<<< HEAD
             $ask = "%$ask%";
 =======
             $ask = "$ask";
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+            $ask = "$ask";
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
             $sql ="SELECT * FROM chatbot WHERE question LIKE :ask";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':ask', $ask);
@@ -71,16 +55,20 @@
               $answer = $row['answer'];
 
 <<<<<<< HEAD
+<<<<<<< HEAD
               //Does this answer require a function? Check:
               $index_of_parentheses = stripos($answer, "((");
               if($index_of_parentheses === false){ 
               //then the answer is not to call a function
 =======
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
                 echo json_encode([
                   'status' => 1,
                   'answer' => $answer
                 ]);
+<<<<<<< HEAD
 <<<<<<< HEAD
               }else{
               //otherwise call a function. but get the function name first
@@ -112,6 +100,8 @@
             }
 =======
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
           }else{
             echo json_encode([
                 'status' => 0,
@@ -121,6 +111,7 @@
           return;
       }else{
         //Enter the training mode
+<<<<<<< HEAD
 <<<<<<< HEAD
         $question_and_answer_string = substr($ask, 6);
         //remove excess white space in $question_and_answer_string
@@ -138,12 +129,22 @@
          $separate = explode("#", $ask_ans);
          if(count($separate) == 1){
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+        $ask_ans = substr($ask, 6);
+        //remove excess white space in $ask_ans
+         $ask_ans = preg_replace('([\s]+)', ' ', trim($ask_ans));
+         //remove ? and . so that questions missing ? (and maybe .) can be recognized
+         $ask_ans = preg_replace("([?.])", "", $ask_ans);
+         $separate = explode("#", $ask_ans);
+         if(count($separate) == 1){
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
           echo json_encode([
             'status' => 0,
             'answer' => "It seems you didnt enter the format correctly. \n Here, Let me help you: \n Type: <strong>train: question # answer # password"
             ]);
           return;
          }
+<<<<<<< HEAD
 <<<<<<< HEAD
          $que = trim($split_string[0]);
          $ans = trim($split_string[1]);
@@ -155,6 +156,12 @@
 
          if(count($separate) < 3){
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+         $que = trim($separate[0]);
+         $ans = trim($separate[1]);
+
+         if(count($separate) < 3){
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
           echo json_encode([
             'status' => 0,
             'answer'=> "You need to type the training password to train me"
@@ -164,10 +171,14 @@
          //Lets know what the password is
          
 <<<<<<< HEAD
+<<<<<<< HEAD
          $password = trim($split_string[2]);
 =======
          $password = trim($separate[2]);
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+         $password = trim($separate[2]);
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
          define('TRAINING_PASSWORD', 'password');
          //verify if training password is correct
          if($password !== TRAINING_PASSWORD){
@@ -187,15 +198,20 @@
          echo json_encode([
             'status' => 1,
 <<<<<<< HEAD
+<<<<<<< HEAD
             'answer' => "I have learnt a new thing today, Thank you"
 =======
             'answer' => "I have learnt a new thing today, Thank you. You can now test me"
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+            'answer' => "I have learnt a new thing today, Thank you. You can now test me"
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
           ]);
          return;
       }
       echo json_encode([
       'status' => 0,
+<<<<<<< HEAD
 <<<<<<< HEAD
       'answer' => "Sorry, i really dont understand you right now, you could offer to train me"
     ]); 
@@ -207,6 +223,12 @@
   }else {
 ?>   
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+      'answer' => "I cant grasp this, try me another time. Thanks."
+    ]); 
+  }else {
+?>   
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 
 <!DOCTYPE html>
 <html>
@@ -294,10 +316,15 @@
       color: #1a1a1a;
       background-color: #edf3fd;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       max-width: 80%
       font-weight: bold;
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+      max-width: 80%
+      font-weight: bold;
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
       -webkit-align-self: flex-end;
       align-self: flex-end;
       -moz-animation-name: slideFromRight;
@@ -313,10 +340,15 @@
       color: #fff;
      background-color: #c0c0c0;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
      max-width: 80%;
      font-weight: bold;
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+     max-width: 80%;
+     font-weight: bold;
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
       -webkit-align-self: flex-start;
       align-self: flex-start;
       -moz-animation-name: slideFromLeft;
@@ -353,7 +385,7 @@
         </div>
         <h2 style="text-align: center; color: white; margin-top: 10px;">Steven Victor</h2>
         <div style="text-align: center; color: white; margin-top: 10px;">
-          Web Developer, skilled in HTML, CSS, JavaScript, PHP, Laravel, VueJS, 
+          Web Developer, skilled in HTML, CSS, JavaScript, PHP, Laravel, VueJS. 
         </div>
         <div class="row">
             <div style="margin-top: 10px">
@@ -404,10 +436,14 @@
 
 <script src="../vendor/jquery/jquery.min.js"></script>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.js"></script>
 =======
 
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 
 <script>
 $(document).ready(function(){

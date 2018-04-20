@@ -226,6 +226,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 			padding: 10px 0;
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 		.col-lg-4 {
     	-ms-flex: 0 0 33.333333%;
     	flex: 0 0 33.333333%;
@@ -462,6 +463,43 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 				right: 0;
 				bottom: 0;
 			}
+=======
+		.main{
+			margin-top: 20vh;
+		}
+
+		.card.profile-card{
+			
+			width: 90%;
+			max-width: 400px;
+			background-color: #fff;
+			color: #777;
+			/*min-height: 90%;*/
+			
+		}
+
+		.profile-card h1{
+			font-size: 1.8rem;
+		}
+
+
+		.span-width{
+			width: 80%;
+		}
+
+		.bot-panel{
+			height: 80vh;
+			width: 90%;
+			max-width: 400px;
+		}
+
+		@media(min-width: 750px){
+			.bot-panel{
+				position: fixed;
+				right: 0;
+				bottom: 0;
+			}
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 		}
 
 		.bot-panel .card-header{
@@ -522,12 +560,22 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		    margin-top:5px;width:85%;border-radius:5px;padding:5px;display:flex;
 		}
 		.msj-rta{
+<<<<<<< HEAD
 		    float:right;background:whitesmoke;
 		}
 		.msj{
 		    float:left;background:#f1a97a;
 		}
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+		    float:right;
+		    background:whitesmoke;
+		}
+		.msj{
+		    float:left;
+		    background:blue;
+		}
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 	</style>
 </head>
 <body>
@@ -553,6 +601,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 			<h3> Slack: @admiral </h3>
 		</div>
 		<div class="clear"></div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 			<div class="bot col-lg-4">
                 <div class="row chat-window" id="chat_window_1">
@@ -642,6 +691,52 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
                                 <p><?php echo $answer; ?></p>                                
                             </div>
                         </div>
+=======
+			<div class="col-md-6">
+				<div class="card border-0 bot-panel ml-auto mr-auto">
+				  <div class="card-header">
+				    <h4 class="ml-3 d-inline" style="font-size: 1.2rem; font-weight: 500;">CHAT BOT</h4>
+				  </div>
+				  <div class="card-body" id="chatWindow">
+                        <div class="msj macro">
+                            <div class="text text-l">
+                                <p>How may I be of service today?</p>
+                            </div>
+                        </div>
+                    <!-- Gracie's message -->
+                        <div class="msj macro">
+                            <div class="text text-l">
+                                <p>ask me any questions, You can also train me by entering the following format: <br>
+                                	<code class="text-white">train: your question # the correct answer # password</code>
+                                </p>
+                                
+                            </div>
+                        </div>
+                        <?php if (isset($question)) {
+                        	?>
+                        
+                    <!-- User's message -->
+                  
+                        <div class="msj-rta macro">
+                            <div class="text text-r">
+                                <p><?php echo $question; ?></p>
+                                
+                            </div>
+                        <div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="http://simpleicon.com/wp-content/uploads/user1.png" /></div>
+
+                    	</div>
+
+                    	<?php } ?>
+
+				    <?php if (isset($answer)) { ?>
+				    	<!-- Gracie's message -->
+                        <div class="msj macro">
+                        <div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="gracie-icon"></div>
+                            <div class="text text-l">
+                                <p><?php echo $answer; ?></p>                                
+                            </div>
+                        </div>
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 				    <?php } ?>
 
 				  </div>
@@ -659,7 +754,10 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 				  </div>
 				</div>
 			</div>
+<<<<<<< HEAD
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 		<div class="footer">
 			<footer class="socials">
                 <i class="fab fa-github-square fa-2x"></i>

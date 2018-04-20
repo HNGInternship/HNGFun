@@ -166,6 +166,7 @@ function get_the_time(){
      return $datetime->format('H:i: A');
  }
 
+<<<<<<< HEAD
 //QUERY for User Profile, using prepared statement for security
   try {
     $sql ='Select * from interns_data where username =:user';
@@ -202,6 +203,8 @@ function get_the_time(){
 function get_name(){
     return " Abolarin Olanrewaju Olabode";
 }
+=======
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 //QUERY for User Profile, using prepared statement for security
   try {
     $sql ='Select * from interns_data where username =:user';
@@ -273,9 +276,13 @@ function get_name(){
                         //answer has function
                         $answer = parse_answer($question['answer']);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                         
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+                        
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
                     } else {
                         // ajax  use status for styling later
                         echo json_encode([
@@ -694,19 +701,27 @@ window.addEventListener("load", function() {
             //scroll the chat interface up/ down
             this.$wrapper.animate(
 <<<<<<< HEAD
+<<<<<<< HEAD
                 {scrollTop: 800,},
 =======
                 {scrollTop: '+=800',},
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+                {scrollTop: '+=800',},
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
                 {duration: 600}
             );
         },
         toggleView: function(e){
 <<<<<<< HEAD
+<<<<<<< HEAD
             this.$el.animate({ height: 50 }, { duration: 300 });
 =======
             this.$el.animate({ height: 250 }, { duration: 300 });
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+            this.$el.animate({ height: 250 }, { duration: 300 });
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
             console.log(this.$toggle.data('state')); //=== 'down' ? "\&#x23EB;" : "\&#x23EC;" ;  
             console.log(this.$toggle.text());
         },

@@ -47,11 +47,17 @@ function decider($string){
     echo"<br>Training mode<br>";
     return $result;
 <<<<<<< HEAD
+<<<<<<< HEAD
   } else echo "opssss!!! Looks like you are trying to train me without permission";   
+=======
+  } 
+  else echo "opssss!!! Looks like you are trying to train me without permission";   
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
   }
    }
 }
 
+<<<<<<< HEAD
 function tester($string){
   if (strpos($string, ":" ) !== false) 
   { 
@@ -81,6 +87,8 @@ return $string;
    }
 }
 
+=======
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 
 function assistant($string)
 {    $reply = "";
@@ -136,17 +144,27 @@ function assistant($string)
 
 
 
+<<<<<<< HEAD
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 $existError =false;
 $reply = "";//process starts
 if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 
   if ($_POST['msg'] == 'commands') {
 <<<<<<< HEAD
+<<<<<<< HEAD
     $reply= 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
+=======
+    echo 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
   } 
       if($reply==""){
+       $reply = assistant($_POST['msg']);
+       echo $reply;
        
+<<<<<<< HEAD
      $reply = assistant($_POST['msg']);
        
       }
@@ -159,6 +177,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
        
      }
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+     }
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
   if($reply =="") {
 
     $post= $_POST['msg'];
@@ -167,10 +188,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       $question=$result[0]; 
       $answer= $result[1];
 <<<<<<< HEAD
+<<<<<<< HEAD
       $sql = "SELECT * FROM chatbot";
 =======
       $sql = "SELECT * FROM chatbot WHERE question = '$question' And answer = '$answer'";
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+      $sql = "SELECT * FROM chatbot WHERE question = '$question' And answer = '$answer'";
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
       $stm = $conn->query($sql);
       $stm->setFetchMode(PDO::FETCH_ASSOC);
 
@@ -178,6 +203,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         
         if (count(($result))> 0) {
               
+<<<<<<< HEAD
 <<<<<<< HEAD
           while($result) {
             $strippedQ = strtolower(preg_replace('/\s+/', '', $question));
@@ -188,40 +214,50 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $reply = "I know this already, but you can make me smarter by giving another response to this command";
             $existError = true;
             break;
+=======
+          // while($result) {
+          //   $strippedQ = strtolower(preg_replace('/\s+/', '', $question));
+          //   $strippedA = strtolower(preg_replace('/\s+/', '', $answer));
+          //   $strippedRowQ = strtolower(preg_replace('/\s+/', '', $result['question']));
+          //   $strippedRowA = strtolower(preg_replace('/\s+/', '', $result['answer']));
+          //   if(($strippedRowQ == $strippedQ) && ($strippedRowA == $strippedA)){
+          //   $reply = "I know this already, but you can make me smarter by giving another response to this command";
+          //   $existError = true;
+          //   break;
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
             
-            }
+          //   }
               
-          }        
+          // }  
+          $existError = true; 
+          echo "I know this already, but you can make me smarter by giving another response to this command";
+            
         } 
-    
-    if(!($existError)){
-      $sql = "INSERT INTO chatbot(question, answer)
-      VALUES(:quest, :ans)";
-      $stm =$conn->prepare($sql);
-      $stm->bindParam(':quest', $question);
-      $stm->bindParam(':ans', $answer);
+      else
+        if(!($existError)){
+          $sql = "INSERT INTO chatbot(question, answer)
+          VALUES(:quest, :ans)";
+          $stm =$conn->prepare($sql);
+          $stm->bindParam(':quest', $question);
+          $stm->bindParam(':ans', $answer);
 
-      $saved = $stm->execute();
-        
-      if ($saved) {
-          $reply = "Thanks to you, I am smarter now";
-      } else {
-          echo "Error: could not understand";
-      }
-        
-        
-    }  
+          $saved = $stm->execute();
+            
+          if ($saved) {
+              echo  "Thanks to you, I am smarter now";
+          } else {
+              echo "Error: could not understand";
+          }
+            
+          
+        }  
   }
   else{
-    $input = tester($post); 
+    $input = trim($post); 
  
   if($input){
     
-  
-    // $time ="what is the time";
-    // query db to look for question 
-    $answer = "";
-    $sql = "SELECT * FROM chatbot";
+    $sql = "SELECT * FROM chatbot WHERE question = '$input'";
     $stm = $conn->query($sql);
     $stm->setFetchMode(PDO::FETCH_ASSOC);
 
@@ -229,26 +265,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
     if (count($res) > 0) {
     
-      $input = strtolower(trim($input));
-      $sql = "SELECT * FROM chatbot WHERE question LIKE '%$input%'";
-            $stm = $conn->query($sql);
-            $stm->setFetchMode(PDO::FETCH_ASSOC);
+      $index = rand(0, count($res)-1);
+      $response = $res[$index]['answer'];  
 
-            $result = $stm->fetchAll();
-      
-                  
-      if(count(($result)) > 0){
-        
-        $answer = $answer[array_rand($answer)];   
-      } 
+      echo $response;
     
+    }
+    else{
+       echo "I did'nt get that, please rephrase or try again later";
     }       
   }
 }
           
-      if($answer != ""){
-        $reply = $answer;
-        } 
+      
     
       }       
   
@@ -306,6 +335,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       $index = rand(0, count($res)-1);
       $response = $res[$index]['answer'];  
 
+<<<<<<< HEAD
       echo $response;
     
     }
@@ -332,6 +362,10 @@ exit();
 }
 else{
 >>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+}
+else{
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
   
 ?>
 
