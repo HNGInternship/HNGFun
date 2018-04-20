@@ -18,10 +18,24 @@ try {
     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
 }
+function return_version(){
+    define ('VERSION', "Waju @1.0.0");
 
-
+    if( !isset( $_POST['ajax'] ) ){
+        //not ajax
+        return VERSION;
+      
+    } else {
+        // ajax  use status for styling later
+        echo json_encode([
+            "message" => VERSION
+        ]);
+        return;
+    }
+}
 //1 when asked a question, check in DB if present and display answer
 function check_question($q, $conn){
+
     try{
          //Use prepared statement to protect the db
         $sql ='Select * from chatbot where question like :question';
@@ -118,7 +132,7 @@ function train($training_string, $conn){
      }
      define ('PASSWORD', "password");
      //ckeck presence of password
-     $pos = strpos($training_string,'# '. PASSWORD);
+     $pos = strpos($training_string, PASSWORD);
      if( $pos === false) {
  
          return 'I am sorry i can not accept your input without a password';
@@ -189,25 +203,28 @@ function get_the_time(){
     throw $e;
 }
 
-//RUNTIME --NO AJAX
+//RUNTIME --
  if( isset ( $_POST['submit'] ) || isset( $_POST['ajax'] ) ){
     if($_POST['question'] == "") {
         $answer = 'Please type a question to start chatting';
     } else{
         //there is a question    
-        //trim white space and reduce to lower case for uniformity regarless of how user inputs questions
+
         $question = $_POST['question'];
-        
         $question = trim($question);
         //remove question mark 
         $question = str_replace('?', '', $question);
-
-        //check if the input is a training attempt
+            
+          //check if the input is a training attempt
         $is_training = check_training($question);
         
         //if not training, go on to check answer, else train
         if(!$is_training){
-            //check the question in db, getting a row or false
+           if($question == "aboutbot"){
+                $answer = return_version();
+           } else {
+
+                 //check the question in db, getting a row or false
             $question = check_question($question, $conn);
             
             if($question){
@@ -228,7 +245,7 @@ function get_the_time(){
                             return;
                         }
                 } else{
-
+                    //the answer has function calls parse it
                     if( !isset( $_POST['ajax'] ) ){
                         //answer has function
                         $answer = parse_answer($question['answer']);
@@ -243,7 +260,7 @@ function get_the_time(){
                     
                 }
             } else {
-
+                
                 if( !isset( $_POST['ajax'] ) ){
                     //we did not get an answer, ask to be trained
                     $answer = "I am sorry i don't have an answer for that, please train me";
@@ -256,8 +273,10 @@ function get_the_time(){
                     return;
                 }
             }
+           }
+        
         } else {
-
+            // training
             if( !isset( $_POST['ajax'] ) ){
                 //train does it stuff and returns a response, either thanks for trainig, or errors
                 $answer = train($question, $conn);
@@ -268,7 +287,7 @@ function get_the_time(){
                 ]);
                 return;
             }
-        }
+        } 
     }
     //there is a question ends here;
  }
