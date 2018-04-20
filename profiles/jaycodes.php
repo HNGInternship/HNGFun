@@ -40,7 +40,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             }else{
                 echo json_encode([
                     'status'    => 1,
-                    'answer'    => "In chat mode with some errors "
+                    'answer'    => var_dump($conn)
                 ]);
             }
             return;
