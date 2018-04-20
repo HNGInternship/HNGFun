@@ -225,8 +225,8 @@ function alabotGetMenu()
 	function getGeneral($human_response){
 		global $conn;
 		$word = prepare_question($human_response);
-		var_dump($word);
-		$sql = "SELECT * FROM chatbot WHERE question = '{$word}'";
+		$word = str_replace('?', '', $word);
+		$sql = "SELECT * FROM chatbot WHERE question = '{$word}' or question = '{$word}?'";
 		$q = $conn->query($sql);
 		$q->setFetchMode(PDO::FETCH_ASSOC);
 		$data_res = $q->fetchAll();
@@ -245,9 +245,7 @@ function alabotGetMenu()
 	function setGeneral($question, $answer){
 		global $conn;
 		$question = trim($question);
-		var_dump($question);
 		$question = prepare_question($question);
-
 		$sql = "SELECT * FROM chatbot WHERE question = '{$question}'";
 		$q = $conn->query($sql);
 		$q->setFetchMode(PDO::FETCH_ASSOC);
