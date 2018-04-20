@@ -44,7 +44,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
    
    function searchRequest($request) {
       global $conn;
-      $statement = $conn->prepare("select * from chatbot where question like :request");
+      $statement = $conn->prepare("select answer from chatbot where question like :request order by rand()");
       $statement->bindValue(':request', "%$request%");
       $statement->execute();
       $statement->setFetchMode(PDO::FETCH_ASSOC);
