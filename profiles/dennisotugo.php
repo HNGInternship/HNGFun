@@ -124,11 +124,24 @@
   </div>
 
 <style>
+  .message-btn {
+    background-color: #fff;
+    padding: 0px;
+    border-radius: 50%;
+    border: none;
+    font-size: 16px;
+    grid-column-start: 4;
+  }
+  .message-btn > div {
+    margin-top: 0px;
+    margin-right: 2px;
+  }
 
 footer {
 	display: none;
 	padding: 0px !important;
 }
+	
   .bot-body {
 		max-width: 100% !important;
     position: fixed;
