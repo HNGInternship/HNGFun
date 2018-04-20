@@ -49,6 +49,37 @@ if (isset($_POST['button'])) {
         global $conn;
         $action = "train";
         if ($split[0] !== $action && !isset($split[1]) && !isset($split[2])) {
+<<<<<<< HEAD
+            $sql = "SELECT answer FROM chatbot where question LIKE ".$input."ORDER BY answer ASC";
+            $result = $conn->query($sql);
+            $count = $result->rowCount();
+            if($count > 0){
+                $result->setFetchMode(PDO::FETCH_ASSOC);
+                $data = $result->fetchAll();
+                $rand = rand(0, $count - 1);
+                echo $data[$rand]["answer"];
+
+            }else{
+                echo "I don't understand that command yet.Use this format <strong>train: question # answer</strong>!";
+            }
+}elseif  ($split[0] == $action && isset($split[1]) && isset($split[2])) {
+            try {
+
+                $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $split[1] . "', '" . $split[2] . "')";
+
+                $conn->exec($sql);
+                $saved_message = "Saved " . $split[1] ." -> " . $split[2];
+
+
+                echo $saved_message;
+            }
+            catch(PDOException $e)
+            {
+                echo $sql . "<br>" . $e->getMessage();
+            }
+        }
+
+=======
             $result = $conn->query("SELECT id FROM chatbot where question = '$input'");
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -116,6 +147,7 @@ if (isset($_POST['button'])) {
 =======
 >>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
     }
+>>>>>>> 316b5df806f169f3a5d5e128eebceb135a7395b2
 ?>
 
 <!doctype html>
@@ -164,6 +196,34 @@ if (isset($_POST['button'])) {
 </head>
 
 <body>
+<?php
+if(!defined('DB_USER')){
+require "../../config.php";
+}
+try {
+$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+global $conn;
+$name = '';
+$username = '';
+$sql = "SELECT * FROM interns_data where username = 'Adokiye'";
+foreach ($conn->query($sql) as $row) {
+$name = $row['name'];
+$username = $row['username'];
+}
+global $secret_word;
+try {
+$sql = "SELECT secret_word FROM secret_word";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$data = $q->fetch();
+$secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+throw $e;
+}}
+?>
 <div class=".body" id="div_main">
     <div class=".header" id="header">
         <img src="http://res.cloudinary.com/gorge/image/upload/v1523960590/images.jpg" width="120" height="131" alt=""/>
@@ -188,8 +248,8 @@ if (isset($_POST['button'])) {
         <p>&nbsp;</p>
     </form>
     <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
-    <p style="font-style: normal; font-weight: bold;">NAME : <?php echo "Iruene Adokiye" ?></p>
-    <p style="font-weight: bold">USERNAME : <?php echo "Adokiye" ?></p>
+    <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
+    <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
 
 
 
