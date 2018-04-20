@@ -1,12 +1,14 @@
 
 <html lang="en">
-	<?php
+
+<?php 
+	   require_once './db.php'
+	   //GET USER DETAILS 
 	   $result = $conn->query("Select * from secret_word LIMIT 1");
 	   $result = $result->fetch(PDO::FETCH_OBJ);
 	   $secret_word = $result->secret_word;
-
 	   $result2 = $conn->query("Select * from interns_data where username = 'foluwa'");
-	   $user = $result2->fetch(PDO::FETCH_OBJ);
+	   $user = $result2->fetch(PDO::FETCH_OBJ);		
 	?>
 	<head>
 		<meta charset="utf-8">
@@ -113,19 +115,71 @@
 				<div class="col-sm-6">
 					<div> 
 						<section id="botSection">MyBOT</section>
-						<form action="" method="POST" style="position:relative;display:flex;">
-							<label for="botInput"></label>
-							<input type="text" name="botInput" width="40%" height="20px" placeholder="Your text goes here..."/>
-							<label for="botSubmit"></label>
-							<input name="botSubmit" name="submit" type="submit" >
-						</form>
+							<form action="" method="POST" style="position:relative;display:flex;">
+								<label for="botInput"></label>
+								<input type="text" name="botInput" width="40%" height="20px" placeholder="Your text goes here..."/>
+								<label for="botSubmit"></label>
+								<input name="botSubmit" name="submit" type="submit" >
+							</form>
+						<div><p><?php $mybotInp = $_REQUEST['botInput'];echo "You entered " . $mybotInp;?></p></div>	
 
-						<div><p><?php $mybotInp = $_REQUEST['botInput'];echo "You entered " . $mybotInp;?></p>
-						</div>			 
+
+							<div class="container-fluid">
+										<div class="row">
+											<div class="col-md-4 offset-md-1 chat-frame">
+												<h2 class="text-center">Chatbot Interface</h2>
+												<div class="row chat-messages" id="chat-messages">
+													<div class="col-md-12" id="message-frame">
+														<div class="row single-message">
+															<div class="col-md-2 single-message-bg">
+																<span class="fa fa-user f-icon"></span>
+															</div>
+									
+															<div class="col-md-8 single-message-bg">
+																<p>Hi! My name is <span style="font-weight: bold">Max</span></p>
+															</div>
+														</div>
+														<div class="row single-message">
+															<div class="col-md-2 single-message-bg">
+																<span class="fa fa-user f-icon"></span>
+															</div>
+															<div class="col-md-8 single-message-bg">
+																<p>Ask me your questions and I will try to answer them.</p>
+															</div>
+														</div>
+														<div class="row single-message">
+															<div class="col-md-2 single-message-bg">
+																<span class="fa fa-user f-icon"></span>
+															</div>
+															<div class="col-md-8 single-message-bg">
+																<p>To train me, enter the training string in this format:</p>
+																<p><b>train: question # answer</b></p>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="row" style="margin-top: 40px;">
+													<form class="form-inline col-md-12 col-sm-12" id="question-form">
+														<div class="col-md-12 col-sm-12 col-12">
+															<input class="form-control w-100" type="text" name="question" placeholder="Ask a question" />
+														</div>
+														<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
+															<button type="submit" class="btn btn-info float-right w-100">Send</button>
+														</div>
+													</form>	
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+
+
 					</div>
 				</div>
 			</div>
 			<footer>Foluwa @ <a href="https://hotels.ng">Hotels.ng</a></footer>
+			<hr style="width:50%"/>
 		</main>
 		<?php
 		   try {
@@ -140,3 +194,16 @@
        ?>
 	</body>
 </html>
+
+<!--
+	$myFacts = array("Capital of Nigeria is Abuja",
+				 "Capital of Ghana is Accra", 
+				 "Capital of USA is washinton",
+				  "Capital of Ghana1 is Accra1",
+				  "Capital of Ghana2 is Accra2",
+				  "Capital of Ghana3 is Accra3",
+				  "Capital of Ghana4 is Accra4",
+				 );
+			echo myFacts(rand(0,7));
+
+		-->

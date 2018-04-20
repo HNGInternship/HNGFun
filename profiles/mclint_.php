@@ -53,11 +53,23 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         case "tell me another joke":
           sendResponse(200, getAJoke());
           break;
+
+        case "roll a dice":
+          sendResponse(200, rollADice());
+          break;
+
+        case "flip a coin":
+          sendResponse(200, flipACoin());
+          break;
       }
 
       switch(true){
         case substr($question, 0, strlen('emojify:')) === "emojify:":
-          sendResponse(200, emojifyText(substr($question, strlen('emojify:'), strlen($question))));
+          sendResponse(200, emojifyText(substr($question, strlen('emojify:') + 1, strlen($question))));
+          break;
+
+        case substr($question, 0, strlen('predict:')) === "predict:":
+          sendResponse(200, predictOutcome(substr($question, strlen('emojify:'), strlen($question))));
           break;
       }
       
@@ -163,7 +175,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       <title>Mbah Clinton</title>
       <meta name="theme-color" content="#2f3061">
       <meta name="viewport" content="width=device-width,initial-scale=1.0">
-      <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu|IBM+Plex+Sans" rel="stylesheet">
       <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
       <style>
         :root {
@@ -237,10 +249,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         }
 
         #chat-container {
-          height: 600px;
+          height: 450px;
           border-radius: 10px 10px 0px 0px;
-          background-color: rgb(230, 230, 230);
+          background-color: rgb(231, 231, 231);
           overflow-y: scroll;
+          font-size: 16px;
         }
 
         #message-tb {
@@ -249,7 +262,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           height: 50px;
           padding-left: 16px;
           border-radius: 0px 0px 10px 10px;
-          background-color: white;
+          background-color: #D7D8DC;
+          font-size: 16px;
         }
 
         #btn-show-bot {
@@ -268,7 +282,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         .chat-bubble {
           background-color: aquamarine;
-          border: 1px solid black;
           border-radius: 10px;
           list-style-type: none;
           padding: 8px;
@@ -281,6 +294,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           flex-direction: column;
           width: 35%;
           align-items: center;
+          font-family: 'IBM Plex Sans', 'Arial', sans-serif;
         }
 
         @media (max-width: 575px) {
@@ -357,7 +371,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           el: '#chat-bot',
           data: {
             showChatBot: false,
-            messages: [{ query: `Hey, human. I'm Olive. Try asking 'Tell me a joke'`, sender: 'bot' }],
+            messages: [{ query: `Hey, human. I'm Olive. Try asking 'Tell me a joke' or 'emojify: Hello bot' or 'Flip a coin' or 'Roll a dice' or 'predict: Barcelona vs Real Madrid'`, sender: 'bot' }],
             history: [],
             historyIndex: 0,
             query: '',
@@ -381,9 +395,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             },
             getBubbleColor(sender) {
               if (sender === 'user')
-                return 'white';
+                return '#8DCBF4';
 
-              return 'gray';
+              return '#F7F9FB';
             },
             getBorderRadius(sender) {
               if (sender === 'user')
@@ -415,15 +429,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                   if (this.historyIndex + 1 <= this.history.length - 1) {
                     this.historyIndex++;
                     this.query = this.history[this.historyIndex];
-                  } else if (this.historyIndex == 0) {
-                    this.query = this.history[0];
                   }
                 } else {
                   if (this.historyIndex - 1 >= 0) {
                     this.historyIndex--;
                     this.query = this.history[this.historyIndex];
-                  } else if (this.historyIndex == 0) {
-                    this.query = this.history[0];
                   }
                 }
               }

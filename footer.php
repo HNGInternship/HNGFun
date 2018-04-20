@@ -1,4 +1,4 @@
-<footer>
+<footer style="position:fixed;bottom:0">
    <div class="container">
       <div class="row">
          <div class="col-lg-8 col-md-10 mx-auto">
@@ -29,8 +29,7 @@
                </li>
     
             </ul>
-            <p class="copyright text-muted">Copyright &copy; HNG FUN <?= date_default_timezone_set("Africa/Lagos");
-            date("Y")?></p>
+            <p class="copyright text-muted">Copyright &copy; HNG FUN <?= date("Y")?></p>
          </div>
       </div>
    </div>
