@@ -1,21 +1,43 @@
-
-
 <?php
-  $result = $conn->query("Select * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_ASSOC);
-  $secret_word = $result['secret_word'];
+error_reporting(0);
+if (empty($conn)) {
+    include("../db.php");
 
-  $result2 = $conn->query("Select * from interns_data where username = 'chisom5'");
-  $user = $result2->fetch(PDO::FETCH_ASSOC);
+    define('DB_CHARSET', 'utf8mb4');
+    $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
 
-  $username = $user['username'];
-$name = $user['name'];
-$image_filename = $user['image_filename'];
+    $opt = [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false
+    ];
+
+    $conn = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
+}
+
+$intern_details_query = $conn->query(
+    "SELECT     interns_data.name, 
+                interns_data.username, 
+                interns_data.image_filename
+    FROM        interns_data
+    WHERE       interns_data.username = 'chisom5' LIMIT 1");
+
+$secret_word_query = $conn->query(
+    "SELECT     secret_word.secret_word 
+    FROM        secret_word LIMIT 1");
+
+$intern_detail = $intern_details_query->fetch();
+$secret_word = $secret_word_query->fetch();
+
+// Secret Word
+$secret_word = $secret_word['secret_word'];
+
+// Profile Details
+$name = $intern_detail['name'];
+$username = $intern_detail['username'];
+$filename = $intern_detail['image_filename'];
+
 ?>
-
-
-
-
 
 
 <!DOCTYPE html>
@@ -24,7 +46,7 @@ $image_filename = $user['image_filename'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Chisom Okoye</title>
+    <title><?=$name;?></title>
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -36,6 +58,17 @@ $image_filename = $user['image_filename'];
 			  text-align: center;
 			  font-family: arial;
 			}
+            .profile-img img {
+              margin-left: auto;
+              margin-right: auto;
+              display: block;
+              width: 300px;
+            }
+          .profile-name {
+             font-size: 25px;
+             font-weight: 600;
+             margin-top: 20px;
+             }
 
 			.title {
 			  color: grey;
@@ -66,13 +99,20 @@ $image_filename = $user['image_filename'];
     	<h2 style="text-align:center">My Profile Card</h2>
 
 	<div class="card">
-	
-	  <img src= "<?=$image_filename;?>" alt="chisom profile" style="width:100%; height: 300px">
 
-	  <h1><?=$name;?></h1>
+	<div class="profile-img">
+    	  
+        <img src="<?=$filename;?>" alt="Chisom HNG Intern">
 
+    </div>
+
+        <p class="text-center profile-name">
+            <?=$name;?> (@<?=$username;?>)
+        </p>
+        
 	  <p style="margin:10px 0px"><span class="title">FrontEnd Developer</span> <br>
-	  		  Angular and anything JS
+	  		 
+            Angular and anything JS
 
 	  </p>
 	  

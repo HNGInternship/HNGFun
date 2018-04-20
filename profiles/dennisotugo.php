@@ -1,971 +1,259 @@
-<!DOCTYPE HTML>
 <?php
-$sql = "SELECT * FROM interns_data WHERE username = 'dennisotugo'";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$data = $q->fetchAll();
-$dennisotugo = array_shift($data);
-// Secret word
-$sql = "SELECT * FROM secret_word";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$words = $q->fetch();
-$secret_word = $words['secret_word'];
+
+if (!defined('DB_USER')) {
+	require "../../config.php";
+
+}
+
+try {
+	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+}
+
+catch(PDOException $pe) {
+	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+
+$date_time = new DateTime('now', new DateTimezone('Africa/Lagos'));
+global $conn;
+
+if (isset($_POST['payload'])) {
+	require "../answers.php";
+
+	$question = trim($_POST['payload']);
+	function isTraining($question)
+	{
+		if (strpos($question, 'train:') !== false) {
+			return true;
+		}
+
+		return false;
+	}
+
+	function getAnswer()
+	{
+		global $question;
+		global $conn;
+		$sql = 'SELECT * FROM chatbot WHERE question LIKE "' . $question . '"';
+		$answer_data_query = $conn->query($sql);
+		$answer_data_query->setFetchMode(PDO::FETCH_ASSOC);
+		$answer_data_result = $answer_data_query->fetchAll();
+		$answer_data_index = 0;
+		if (count($answer_data_result) > 0) {
+			$answer_data_index = rand(0, count($answer_data_result) - 1);
+		}
+
+		if ($answer_data_result[$answer_data_index]["answer"] == "") {
+			return 'I don\'t get :/ '\n
+			'Train me to understand small something sha,no vex please type '\n
+			'"<code>train: your question? # The answer.</code> ;)"';
+		}
+
+		if (containsVariables($answer_data_result[$answer_data_index]['answer']) || containsFunctions($answer_data_result[$answer_data_index]['answer'])) {
+			$answer = resolveAnswer($answer_data_result[$answer_data_index]['answer']);
+			return $answer;
+		}
+		else {
+			return $answer_data_result[$answer_data_index]['answer'];
+		}
+	}
+
+	function resolveQuestionFromTraining($question)
+	{
+		$start = 7;
+		$end = strlen($question) - strpos($question, " # ");
+		$new_question = substr($question, $start, -$end);
+		return $new_question;
+	}
+
+	function resolveAnswerFromTraining($question)
+	{
+		$start = strpos($question, " # ") + 3;
+		$answer = substr($question, $start);
+		return $answer;
+	}
+
+		if (isTraining($question)) {
+			$answer = resolveAnswerFromTraining($question);
+			$question = strtolower(resolveQuestionFromTraining($question));
+			$question_data = array(
+				':question' => $question,
+				':answer' => $answer
+			);
+			$sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '"';
+			$question_data_query = $conn->query($sql);
+			$question_data_query->setFetchMode(PDO::FETCH_ASSOC);
+			$question_data_result = $question_data_query->fetch();
+			$sql = 'INSERT INTO chatbot ( question, answer )
+      	    VALUES ( :question, :answer );';
+			$q = $conn->prepare($sql);
+			$q->execute($question_data);
+			echo "Now I understand. No wahala, now try me again";
+			return;
+		}
+
+	function containsVariables($answer)
+	{
+		if (strpos($answer, "{{") !== false && strpos($answer, "}}") !== false) {
+			return true;
+		}
+
+		return false;
+	}
+
+	function containsFunctions($answer)
+	{
+		if (strpos($answer, "((") !== false && strpos($answer, "))") !== false) {
+			return true;
+		}
+
+		return false;
+	}
+
+	function resolveAnswer($answer)
+	{
+		if (strpos($answer, "((") == "" && strpos($answer, "((") !== 0) {
+			return $answer;
+		}
+		else {
+			$start = strpos($answer, "((") + 2;
+			$end = strlen($answer) - strpos($answer, "))");
+			$function_found = substr($answer, $start, -$end);
+			$replacable_text = substr($answer, $start, -$end);
+			$new_answer = str_replace($replacable_text, $function_found() , $answer);
+			$new_answer = str_replace("((", "", $new_answer);
+			$new_answer = str_replace("))", "", $new_answer);
+			return resolveAnswer($new_answer);
+		}
+	}
+
+	$answer = getAnswer();
+	echo $answer;
+	exit();
+}
+else {
 ?>
-<html>
-	<head>
-		<title>Dennis Otugo</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<style>
-@charset "UTF-8";
-@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300");
 
-/*
-	Identity by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
-
-/* Reset */
-
-	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
-		margin: 0;
-		padding: 0;
-		border: 0;
-		font-size: 100%;
-		font: inherit;
-		vertical-align: baseline;
-	}
-
-	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-		display: block;
-	}
-
-	body {
-		line-height: 1;
-	}
-
-	ol, ul {
-		list-style: none;
-	}
-
-	blockquote, q {
-		quotes: none;
-	}
-
-	blockquote:before, blockquote:after, q:before, q:after {
-		content: '';
-		content: none;
-	}
-
-	table {
-		border-collapse: collapse;
-		border-spacing: 0;
-	}
-
-	body {
-		-webkit-text-size-adjust: none;
-	}
-
-/* Box Model */
-
-	*, *:before, *:after {
-		-moz-box-sizing: border-box;
-		-webkit-box-sizing: border-box;
-		box-sizing: border-box;
-	}
-
-/* Basic */
-
-	@media screen and (max-width: 480px) {
-
-		html, body {
-			min-width: 320px;
-		}
-
-	}
-
-	body.is-loading *, body.is-loading *:before, body.is-loading *:after {
-		-moz-animation: none !important;
-		-webkit-animation: none !important;
-		-ms-animation: none !important;
-		animation: none !important;
-		-moz-transition: none !important;
-		-webkit-transition: none !important;
-		-ms-transition: none !important;
-		transition: none !important;
-	}
-
-	html {
-		height: 100%;
-	}
-
-	body {
-		height: 100%;
-		background-color: #007bff;
-		background-image: url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523717927/overlay.png"), -moz-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)), url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701316/bg.jpg");
-		background-image: url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523717927/overlay.png"), -webkit-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)), url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701316/bg.jpg");
-		background-image: url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523717927/overlay.png"), -ms-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)), url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701316/bg.jpg");
-		background-image: url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523717927/overlay.png"), linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)), url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701316/bg.jpg");
-		background-repeat: repeat,			no-repeat,			no-repeat;
-		background-size: 100px 100px, cover,				cover;
-		background-position: top left,		center center,		bottom center;
-		background-attachment: fixed,			fixed,				fixed;
-	}
-
-		body:after {
-			content: '';
-			display: block;
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: inherit;
-			opacity: 0;
-			z-index: 1;
-			background-color: #007bff;
-			background-image: url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523717927/overlay.png"), -moz-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35));
-			background-image: url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523717927/overlay.png"), -webkit-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35));
-			background-image: url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523717927/overlay.png"), -ms-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35));
-			background-image: url("https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523717927/overlay.png"), linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35));
-			background-repeat: repeat,			no-repeat;
-			background-size: 100px 100px, cover;
-			background-position: top left,		center center;
-			-moz-transition: opacity 1.75s ease-out;
-			-webkit-transition: opacity 1.75s ease-out;
-			-ms-transition: opacity 1.75s ease-out;
-			transition: opacity 1.75s ease-out;
-		}
-
-		body.is-loading:after {
-			opacity: 1;
-		}
-
-/* Type */
-
-	body, input, select, textarea {
-		color: #414f57;
-		font-family: "Source Sans Pro", Helvetica, sans-serif;
-		font-size: 14pt;
-		font-weight: 300;
-		line-height: 2;
-		letter-spacing: 0.2em;
-		text-transform: uppercase;
-	}
-
-		@media screen and (max-width: 1680px) {
-
-			body, input, select, textarea {
-				font-size: 11pt;
-			}
-
-		}
-
-		@media screen and (max-width: 480px) {
-
-			body, input, select, textarea {
-				font-size: 10pt;
-				line-height: 1.75;
-			}
-
-		}
-
-	a {
-		-moz-transition: color 0.2s ease, border-color 0.2s ease;
-		-webkit-transition: color 0.2s ease, border-color 0.2s ease;
-		-ms-transition: color 0.2s ease, border-color 0.2s ease;
-		transition: color 0.2s ease, border-color 0.2s ease;
-		color: inherit;
-		text-decoration: none;
-	}
-
-		a:before {
-			-moz-transition: color 0.2s ease, text-shadow 0.2s ease;
-			-webkit-transition: color 0.2s ease, text-shadow 0.2s ease;
-			-ms-transition: color 0.2s ease, text-shadow 0.2s ease;
-			transition: color 0.2s ease, text-shadow 0.2s ease;
-		}
-
-		a:hover {
-			color: #ff7496;
-		}
-
-	strong, b {
-		color: #313f47;
-	}
-
-	em, i {
-		font-style: italic;
-	}
-
-	p {
-		margin: 0 0 1.5em 0;
-	}
-
-	h1, h2, h3, h4, h5, h6 {
-		color: #313f47;
-		line-height: 1.5;
-		margin: 0 0 0.75em 0;
-	}
-
-		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
-			color: inherit;
-			text-decoration: none;
-		}
-
-	h1 {
-		font-size: 1.85em;
-		letter-spacing: 0.22em;
-		margin: 0 0 0.525em 0;
-	}
-
-	h2 {
-		font-size: 1.25em;
-	}
-
-	h3 {
-		font-size: 1em;
-	}
-
-	h4 {
-		font-size: 1em;
-	}
-
-	h5 {
-		font-size: 1em;
-	}
-
-	h6 {
-		font-size: 1em;
-	}
-
-	@media screen and (max-width: 480px) {
-
-		h1 {
-			font-size: 1.65em;
-		}
-
-	}
-
-	sub {
-		font-size: 0.8em;
-		position: relative;
-		top: 0.5em;
-	}
-
-	sup {
-		font-size: 0.8em;
-		position: relative;
-		top: -0.5em;
-	}
-
-	hr {
-		border: 0;
-		border-bottom: solid 1px #c8cccf;
-		margin: 3em 0;
-	}
-
-/* Form */
-
-	form {
-		margin: 0 0 1.5em 0;
-	}
-
-		form > .field {
-			margin: 0 0 1.5em 0;
-		}
-
-			form > .field > :last-child {
-				margin-bottom: 0;
-			}
-
-	label {
-		color: #313f47;
-		display: block;
-		font-size: 0.9em;
-		margin: 0 0 0.75em 0;
-	}
-
-	input[type="text"],
-	input[type="password"],
-	input[type="email"],
-	input[type="tel"],
-	select,
-	textarea {
-		-moz-appearance: none;
-		-webkit-appearance: none;
-		-ms-appearance: none;
-		appearance: none;
-		border-radius: 4px;
-		border: solid 1px #c8cccf;
-		color: inherit;
-		display: block;
-		outline: 0;
-		padding: 0 1em;
-		text-decoration: none;
-		width: 100%;
-	}
-
-		input[type="text"]:invalid,
-		input[type="password"]:invalid,
-		input[type="email"]:invalid,
-		input[type="tel"]:invalid,
-		select:invalid,
-		textarea:invalid {
-			box-shadow: none;
-		}
-
-		input[type="text"]:focus,
-		input[type="password"]:focus,
-		input[type="email"]:focus,
-		input[type="tel"]:focus,
-		select:focus,
-		textarea:focus {
-			border-color: #ff7496;
-		}
-
-	.select-wrapper {
-		text-decoration: none;
-		display: block;
-		position: relative;
-	}
-
-		.select-wrapper:before {
-			content: "";
-			-moz-osx-font-smoothing: grayscale;
-			-webkit-font-smoothing: antialiased;
-			font-family: FontAwesome;
-			font-style: normal;
-			font-weight: normal;
-			text-transform: none !important;
-		}
-
-		.select-wrapper:before {
-			color: #c8cccf;
-			display: block;
-			height: 2.75em;
-			line-height: 2.75em;
-			pointer-events: none;
-			position: absolute;
-			right: 0;
-			text-align: center;
-			top: 0;
-			width: 2.75em;
-		}
-
-		.select-wrapper select::-ms-expand {
-			display: none;
-		}
-
-	input[type="text"],
-	input[type="password"],
-	input[type="email"],
-	select {
-		height: 2.75em;
-	}
-
-	textarea {
-		padding: 0.75em 1em;
-	}
-
-	input[type="checkbox"],
-	input[type="radio"] {
-		-moz-appearance: none;
-		-webkit-appearance: none;
-		-ms-appearance: none;
-		appearance: none;
-		display: block;
-		float: left;
-		margin-right: -2em;
-		opacity: 0;
-		width: 1em;
-		z-index: -1;
-	}
-
-		input[type="checkbox"] + label,
-		input[type="radio"] + label {
-			text-decoration: none;
-			color: #414f57;
-			cursor: pointer;
-			display: inline-block;
-			font-size: 1em;
-			font-weight: 300;
-			padding-left: 2.4em;
-			padding-right: 0.75em;
-			position: relative;
-		}
-
-			input[type="checkbox"] + label:before,
-			input[type="radio"] + label:before {
-				-moz-osx-font-smoothing: grayscale;
-				-webkit-font-smoothing: antialiased;
-				font-family: FontAwesome;
-				font-style: normal;
-				font-weight: normal;
-				text-transform: none !important;
-			}
-
-			input[type="checkbox"] + label:before,
-			input[type="radio"] + label:before {
-				border-radius: 4px;
-				border: solid 1px #c8cccf;
-				content: '';
-				display: inline-block;
-				height: 1.65em;
-				left: 0;
-				line-height: 1.58125em;
-				position: absolute;
-				text-align: center;
-				top: 0.15em;
-				width: 1.65em;
-			}
-
-		input[type="checkbox"]:checked + label:before,
-		input[type="radio"]:checked + label:before {
-			color: #ff7496;
-			content: '\f00c';
-		}
-
-		input[type="checkbox"]:focus + label:before,
-		input[type="radio"]:focus + label:before {
-			border-color: #ff7496;
-		}
-
-	input[type="checkbox"] + label:before {
-		border-radius: 4px;
-	}
-
-	input[type="radio"] + label:before {
-		border-radius: 100%;
-	}
-
-	::-webkit-input-placeholder {
-		color: #616f77 !important;
-		opacity: 1.0;
-	}
-
-	:-moz-placeholder {
-		color: #616f77 !important;
-		opacity: 1.0;
-	}
-
-	::-moz-placeholder {
-		color: #616f77 !important;
-		opacity: 1.0;
-	}
-
-	:-ms-input-placeholder {
-		color: #616f77 !important;
-		opacity: 1.0;
-	}
-
-	.formerize-placeholder {
-		color: #616f77 !important;
-		opacity: 1.0;
-	}
-
-/* Icon */
-
-	.icon {
-		text-decoration: none;
-		position: relative;
-		border-bottom: none;
-	}
-
-		.icon:before {
-			-moz-osx-font-smoothing: grayscale;
-			-webkit-font-smoothing: antialiased;
-			font-family: FontAwesome;
-			font-style: normal;
-			font-weight: normal;
-			text-transform: none !important;
-		}
-
-		.icon > .label {
-			display: none;
-		}
-
-/* List */
-
-	ol {
-		list-style: decimal;
-		margin: 0 0 1.5em 0;
-		padding-left: 1.25em;
-	}
-
-		ol li {
-			padding-left: 0.25em;
-		}
-
-	ul {
-		list-style: disc;
-		margin: 0 0 1.5em 0;
-		padding-left: 1em;
-	}
-
-		ul li {
-			padding-left: 0.5em;
-		}
-
-		ul.alt {
-			list-style: none;
-			padding-left: 0;
-		}
-
-			ul.alt li {
-				border-top: solid 1px #c8cccf;
-				padding: 0.5em 0;
-			}
-
-				ul.alt li:first-child {
-					border-top: 0;
-					padding-top: 0;
-				}
-
-		ul.icons {
-			cursor: default;
-			list-style: none;
-			padding-left: 0;
-			margin-top: -0.675em;
-		}
-
-			ul.icons li {
-				display: inline-block;
-				padding: 0.675em 0.5em;
-			}
-
-				ul.icons li a {
-					text-decoration: none;
-					position: relative;
-					display: block;
-					width: 3.75em;
-					height: 3.75em;
-					border: solid 1px #c8cccf;
-					line-height: 3.75em;
-					overflow: hidden;
-					text-align: center;
-					text-indent: 3.75em;
-					white-space: nowrap;
-				}
-
-					ul.icons li a:before {
-						-moz-osx-font-smoothing: grayscale;
-						-webkit-font-smoothing: antialiased;
-						font-family: FontAwesome;
-						font-style: normal;
-						font-weight: normal;
-						text-transform: none !important;
-					}
-
-					ul.icons li a:before {
-						color: #ffffff;
-						}
-
-					ul.icons li a:hover:before {
-						text-shadow: 1.25px 0px 0px #ff7496, -1.25px 0px 0px #ff7496, 0px 1.25px 0px #ff7496, 0px -1.25px 0px #ff7496;
-					}
-
-					ul.icons li a:before {
-						position: absolute;
-						top: 0;
-						left: 0;
-						width: inherit;
-						height: inherit;
-						font-size: 1.85rem;
-						line-height: inherit;
-						text-align: center;
-						text-indent: 0;
-					}
-
-					ul.icons li a:hover {
-						border-color: #ff7496;
-					}
-
-			@media screen and (max-width: 480px) {
-
-				ul.icons li a:before {
-					font-size: 1.5rem;
-				}
-
-			}
-
-		ul.actions {
-			cursor: default;
-			list-style: none;
-			padding-left: 0;
-		}
-
-			ul.actions li {
-				display: inline-block;
-				padding: 0 0.75em 0 0;
-				vertical-align: middle;
-			}
-
-				ul.actions li:last-child {
-					padding-right: 0;
-				}
-
-	dl {
-		margin: 0 0 1.5em 0;
-	}
-
-		dl dt {
-			display: block;
-			margin: 0 0 0.75em 0;
-		}
-
-		dl dd {
-			margin-left: 1.5em;
-		}
-
-/* Button */
-
-	input[type="submit"],
-	input[type="reset"],
-	input[type="button"],
-	button,
-	.button {
-		-moz-appearance: none;
-		-webkit-appearance: none;
-		-ms-appearance: none;
-		appearance: none;
-		-moz-transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
-		-webkit-transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
-		-ms-transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
-		transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
-		display: inline-block;
-		height: 2.75em;
-		line-height: 2.75em;
-		padding: 0 1.5em;
-		background-color: transparent;
-		border-radius: 4px;
-		border: solid 2px #c8cccf;
-		color: #414f57 !important;
-		cursor: pointer;
-		text-align: center;
-		text-decoration: none;
-		white-space: nowrap;
-	}
-
-		input[type="submit"]:hover,
-		input[type="reset"]:hover,
-		input[type="button"]:hover,
-		button:hover,
-		.button:hover {
-			border-color: #ff7496;
-			color: #ff7496 !important;
-		}
-
-		input[type="submit"].icon,
-		input[type="reset"].icon,
-		input[type="button"].icon,
-		button.icon,
-		.button.icon {
-			padding-left: 1.35em;
-		}
-
-			input[type="submit"].icon:before,
-			input[type="reset"].icon:before,
-			input[type="button"].icon:before,
-			button.icon:before,
-			.button.icon:before {
-				margin-right: 0.5em;
-			}
-
-		input[type="submit"].fit,
-		input[type="reset"].fit,
-		input[type="button"].fit,
-		button.fit,
-		.button.fit {
-			display: block;
-			width: 100%;
-			margin: 0 0 0.75em 0;
-		}
-
-		input[type="submit"].small,
-		input[type="reset"].small,
-		input[type="button"].small,
-		button.small,
-		.button.small {
-			font-size: 0.8em;
-		}
-
-		input[type="submit"].big,
-		input[type="reset"].big,
-		input[type="button"].big,
-		button.big,
-		.button.big {
-			font-size: 1.35em;
-		}
-
-		input[type="submit"].disabled, input[type="submit"]:disabled,
-		input[type="reset"].disabled,
-		input[type="reset"]:disabled,
-		input[type="button"].disabled,
-		input[type="button"]:disabled,
-		button.disabled,
-		button:disabled,
-		.button.disabled,
-		.button:disabled {
-			-moz-pointer-events: none;
-			-webkit-pointer-events: none;
-			-ms-pointer-events: none;
-			pointer-events: none;
-			opacity: 0.5;
-		}
-
-/* Main */
-
-	#main {
-		position: relative;
-		max-width: 100%;
-		min-width: 27em;
-		padding: 4.5em 3em 3em 3em ;
-		background: #007bff;
-		border-radius: 4px;
-		cursor: default;
-		opacity: 0.95;
-		text-align: center;
-		-moz-transform-origin: 50% 50%;
-		-webkit-transform-origin: 50% 50%;
-		-ms-transform-origin: 50% 50%;
-		transform-origin: 50% 50%;
-		-moz-transform: rotateX(0deg);
-		-webkit-transform: rotateX(0deg);
-		-ms-transform: rotateX(0deg);
-		transform: rotateX(0deg);
-		-moz-transition: opacity 1s ease, -moz-transform 1s ease;
-		-webkit-transition: opacity 1s ease, -webkit-transform 1s ease;
-		-ms-transition: opacity 1s ease, -ms-transform 1s ease;
-		transition: opacity 1s ease, transform 1s ease;
-	}
-
-		#main .avatar {
-			position: relative;
-			display: block;
-			margin-bottom: 1.5em;
-		}
-
-			#main .avatar img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 100%;
-			}
-
-			#main .avatar:before {
-				content: '';
-				display: block;
-				position: absolute;
-				top: 50%;
-				left: -3em;
-				width: calc(100% + 6em);
-				height: 1px;
-				z-index: -1;
-				background: #c8cccf;
-			}
-
-		@media screen and (max-width: 480px) {
-
-			#main {
-				min-width: 0;
-				width: 100%;
-				padding: 4em 2em 2.5em 2em ;
-			}
-
-				#main .avatar:before {
-					left: -2em;
-					width: calc(100% + 4em);
-				}
-
-		}
-
-		body.is-loading #main {
-			opacity: 0;
-			-moz-transform: rotateX(15deg);
-			-webkit-transform: rotateX(15deg);
-			-ms-transform: rotateX(15deg);
-			transform: rotateX(15deg);
-		}
-
-/* Footer */
-
-	#footer {
-		-moz-align-self: -moz-flex-end;
-		-webkit-align-self: -webkit-flex-end;
-		-ms-align-self: -ms-flex-end;
-		align-self: flex-end;
-		width: 100%;
-		padding: 1.5em 0 0 0;
-		color: rgba(255, 255, 255, 0.75);
-		cursor: default;
-		text-align: center;
-	}
-
-		#footer .copyright {
-			margin: 0;
-			padding: 0;
-			font-size: 0.9em;
-			list-style: none;
-		}
-
-			#footer .copyright li {
-				display: inline-block;
-				margin: 0 0 0 0.45em;
-				padding: 0 0 0 0.85em;
-				border-left: solid 1px rgba(255, 255, 255, 0.5);
-				line-height: 1;
-			}
-
-				#footer .copyright li:first-child {
-					border-left: 0;
-				}
-
-/* Wrapper */
-
-	#wrapper {
-		display: -moz-flex;
-		display: -webkit-flex;
-		display: -ms-flex;
-		display: flex;
-		-moz-align-items: center;
-		-webkit-align-items: center;
-		-ms-align-items: center;
-		align-items: center;
-		-moz-justify-content: space-between;
-		-webkit-justify-content: space-between;
-		-ms-justify-content: space-between;
-		justify-content: space-between;
-		-moz-flex-direction: column;
-		-webkit-flex-direction: column;
-		-ms-flex-direction: column;
-		flex-direction: column;
-		-moz-perspective: 1000px;
-		-webkit-perspective: 1000px;
-		-ms-perspective: 1000px;
-		perspective: 1000px;
-		position: relative;
-		min-height: 100%;
-		padding: 1.5em;
-		z-index: 2;
-	}
-
-		#wrapper > * {
-			z-index: 1;
-		}
-
-		#wrapper:before {
-			content: '';
-			display: block;
-		}
-
-		@media screen and (max-width: 360px) {
-
-			#wrapper {
-				padding: 0.75em;
-			}
-
-		}
-
-		body.is-ie #wrapper {
-			height: 100%;
-		}
-			</style>
-
-		<noscript>
-			<style>
-				
-/* Basic */
-
-	body:after {
-		display: none;
-	}
-
-/* Main */
-
-	#main {
-		-moz-transform: none !important;
-		-webkit-transform: none !important;
-		-ms-transform: none !important;
-		transform: none !important;
-		opacity: 1 !important;
-	}
-			</style>
-		</noscript>
-	</head>
-	<body class="is-loading">
-
-		<!-- Wrapper -->
-			<div id="wrapper">
-
-				<!-- Main -->
-					<section id="main">
-						<header>
-							<span class="avatar"><img src="https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701221/avatar.png" alt="" /></span>
-							<h1>Dennis Otugo</h1>
-							<p>Human Being</p>
-						</header>
-						<!--
-						<hr />
-						<h2>Extra Stuff!</h2>
-						<form method="post" action="#">
-							<div class="field">
-								<input type="text" name="name" id="name" placeholder="Name" />
-							</div>
-							<div class="field">
-								<input type="email" name="email" id="email" placeholder="Email" />
-							</div>
-							<div class="field">
-								<div class="select-wrapper">
-									<select name="department" id="department">
-										<option value="">Department</option>
-										<option value="sales">Sales</option>
-										<option value="tech">Tech Support</option>
-										<option value="null">/dev/null</option>
-									</select>
-								</div>
-							</div>
-							<div class="field">
-								<textarea name="message" id="message" placeholder="Message" rows="4"></textarea>
-							</div>
-							<div class="field">
-								<input type="checkbox" id="human" name="human" /><label for="human">I'm a human</label>
-							</div>
-							<div class="field">
-								<label>But are you a robot?</label>
-								<input type="radio" id="robot_yes" name="robot" /><label for="robot_yes">Yes</label>
-								<input type="radio" id="robot_no" name="robot" /><label for="robot_no">No</label>
-							</div>
-							<ul class="actions">
-								<li><a href="#" class="button">Get Started</a></li>
-							</ul>
-						</form>
-						<hr />
-						-->
-						<footer>
-							<ul class="icons">
-								<li><a href="https://Twitter.com/wesleyotugo" class="fa-twitter">Twitter</a></li>
-								<li><a href="https://Instagram.com/dennisotugo" class="fa-instagram">Instagram</a></li>
-								<li><a href="https://facebook.com/el.chapon.9" class="fa-facebook">Facebook</a></li>
-							</ul>
-						</footer>
-					</section>
-
-				<!-- Footer -->
-					<footer id="footer">
-					</footer>
-
-			</div>
-
-		<!-- Scripts -->
-			<!--[if lte IE 8]><script src="assets/js/respond.min.js"></script><![endif]-->
-			<script>
-				if ('addEventListener' in window) {
-					window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-loading\b/, ''); });
-					document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
-				}
-			</script>
-
-	</body>
-</html>
+<div class="profile">
+						<h1>Dennis Otugo</h1>
+						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
+
+					</div>
+  <div class="bot-body">
+    <div class="messages-body">
+      <div>
+        <div class="message bot">
+          <span class="content">Look alive</span>
+        </div>
+      </div>
+	<div>
+        <div class="message bot">
+          <span class="content">What do you have in mind, Let's talk :) </span>
+        </div>
+      </div>
+    </div>
+    <div class="send-message-body">
+      <input class="message-box" placeholder="Enter your words here..."/>
+    </div>
+  </div>
+
+<style>
+.profile {height: 100%;text-align: center;position: fixed;position: fixed;position: fixed;width: 50%;right: 0;background-color: #007bff}footer {display: none;padding: 0px !important}h1, h2, h3, h4, h5, h6 {color: white;text-align: center;bottom: 50%;left: 65%;position: fixed;font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight: 700}p {position: fixed;bottom: 40%;left: 58%;line-height: 1.5;margin: 30px 0}.bot-body {max-width: 100% !important;position: fixed;margin: 32px auto;position: fixed;width: 100%;left: 0;bottom: 0px;height: 80%}.messages-body {overflow-y: scroll;height: 100%;background-color: #FFFFFF;color: #3A3A5E;padding: 10px;overflow: auto;width: 50%;padding-bottom: 50px;border-top-left-radius: 5px;border-top-right-radius: 5px}.messages-body > div {background-color: #FFFFFF;color: #3A3A5E;padding: 10px;overflow: auto;width: 100%;padding-bottom: 50px}.message {float: left;font-size: 16px;background-color: #007bff63;padding: 10px;display: inline-block;border-radius: 3px;position: relative;margin: 5px}.message: before {position: absolute;top: 0;content: '';width: 0;height: 0;border-style: solid}.message.bot: before {border-color: transparent #9cccff transparent transparent;border-width: 0 10px 10px 0;left: -9px}.color-change {border-radius: 5px;font-size: 20px;padding: 14px 80px;cursor: pointer;color: #fff;background-color: #00A6FF;font-size: 1.5rem;font-family: 'Roboto';font-weight: 100;border: 1px solid #fff;box-shadow: 2px 2px 5px #AFE9FF;transition-duration: 0.5s;-webkit-transition-duration: 0.5s;-moz-transition-duration: 0.5s}.color-change: hover {color: #006398;border: 1px solid #006398;box-shadow: 2px 2px 20px #AFE9FF}.message.you: before {border-width: 10px 10px 0 0;right: -9px;border-color: #edf3fd transparent transparent transparent}.message.you {float: right}.content {display: block;color: #000000}.send-message-body {border-right: solid black 3px;position: fixed;width: 50%;left: 0;bottom: 0px;box-sizing: border-box;box-shadow: 1px 1px 9px 0px rgba(1, 1, 1, 1)}.message-box {width: -webkit-fill-available;border: none;padding: 2px 4px;font-size: 18px}body {overflow: hidden;height: 100%;background: #FFFFFF !important}.container {max-width: 100% !important}.fixed-top {position: fixed !important;}
+</style>
+<script>
+  window.onload = function () {
+          $(document).keypress(function (e) {
+                  if (e.which == 13) {
+                          getResponse(getQuestion());
+                  }
+          });
+  }
+
+  function isUrl(string) {
+          var expression =
+                  /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+          var regex = new RegExp(expression);
+          var t = string;
+          if (t.match(regex)) {
+                  return true;
+          } else {
+                  return false;
+          }
+  }
+
+  function stripHTML(message) {
+          var re = /<\S[^><]*>/g
+          return message.replace(re, "");
+  }
+
+  function getResponse(question) {
+          updateThread(question);
+          showResponse(true);
+          if (question.trim() === "") {
+                  showResponse(':)');
+                  return;
+          }
+          if (question.toLowerCase().includes("aboutbot")) {
+                  var textToSay = question.toLowerCase().split("aboutbot")[1];
+                  showResponse('version 1.1.0');
+                  return;
+          }
+          $.ajax({
+                  url: "profiles/dennisotugo.php",
+                  method: "POST",
+                  data: {
+                          payload: question
+                  },
+                  success: function (res) {
+                          if (res.trim() === "") {
+                                  showResponse(
+                                          `
+          I don\'t understand that question. If you want to train me to understand,
+          please type <code>"train: your question? # The answer."</code>
+          `
+                                  );
+                          } else {
+                                  showResponse(res);
+                          }
+                  }
+          });
+  }
+
+  function showResponse(response) {
+          if (response === true) {
+                  $('.messages-body').append(
+                          `<div>
+          <div class="message bot temp">
+            <span class="content">...</span>
+          </div>
+        </div>`
+                  );
+                  return;
+          }
+          $('.temp').parent().remove();
+          $('.messages-body').append(
+                  `<div>
+        <div class="message bot">
+          <span class="content">${response}</span>
+        </div>
+      </div>`
+          );
+          $('.message-box').val("");
+  }
+
+  function getQuestion() {
+          return $('.message-box').val();
+  }
+
+  function updateThread(message) {
+          message = stripHTML(message);
+          $('.messages-body').append(
+                  `<div>
+        <div class="message you">
+          <span class="content">${message}</span>
+        </div>
+      </div>`
+          );
+  }
+</script>
+<?php } 
+?>

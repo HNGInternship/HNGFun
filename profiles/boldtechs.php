@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
-
 <?php 
+require 'db.php';
 try {
      $profile = 'SELECT * FROM interns_data_ WHERE username="boldtechs"';
     $select = 'SELECT * FROM secret_word';
@@ -71,7 +71,7 @@ width: 100%;
 #content h3{
 
 margin: 10px auto;
-width: 11%;
+width: 20%;
 color: #fff;
  font-family: Roboto Mono;
 }
@@ -79,13 +79,13 @@ color: #fff;
 #square{
 
 width: 678px;
-height: 90px;
+height: 100px;
 margin: 10px auto;
 text-align: center;
 background-color: #fff;
 opacity: 0.6;
 filter: alpha(opacity=60);
-padding: 10px;
+padding: 5px;
     font-family: 'Roboto Mono', monospace;
    border-radius: 4px;
 
@@ -94,8 +94,15 @@ padding: 10px;
 
 #square p{
 
-margin-bottom: 30px;
+font-size:14px;
 
+}
+
+.align {
+width: 678px;
+margin: 0px auto;
+text-align: center;
+color: #fff;
 
 }
 
@@ -109,19 +116,15 @@ margin-bottom: 30px;
         
 	            <div id="nav">	
 
-
-	            	<h2>HGN INTERNSHIP 4</h2>
-	            	<p>HOME | PORTFOLIO</p>
-
 	            </div>
 
 	            <div id="oval"> </div>
 	            <h3> WEB | MOBILE</h3>
-	            <p>Tel: +2348063332676</p>
-	            <p>Slack : @boldtechs</p>
+	            <p class="align">Tel: +2348063332676</p>
+	            <p class="align">Slack : @boldtechs</p>
 	            <div id="square">
 	            	
-	            	<p>
+	            	<p class="fit">
 	            		"Every great developer you know got there by solving problems they were unqualified to solve until they actually did it." - Patrick McKenzie 
 	            	</p>
 
