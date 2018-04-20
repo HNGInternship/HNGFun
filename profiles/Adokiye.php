@@ -197,6 +197,7 @@ try {
             <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
     <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
     <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
+            <img src="<?php echo $image_filename>" width="120" height="131" alt=""/>
     </div>
     chatbot
     <input type="text" class = "fb7"name="input" placeholder="Chat with me! Press enter to send.">
