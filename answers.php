@@ -435,7 +435,6 @@ function getPinkyCommands(){
 //End Aniuchi A. M's Functions/
 ///////////////////////////////
 
-
 /****** AdroitCode Bot Function *********/
 
 function simpleMaths($operation, $expression){
@@ -491,5 +490,6 @@ function simpleMaths($operation, $expression){
 }
 
 /******** End Adroit Bot Funct ********/
+
 
 ?>
