@@ -1,18 +1,7 @@
 <?php
-
-if (!defined('DB_USER')) {
-	require "../../config.php";
-
-}
-
-try {
-	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-}
-
-catch(PDOException $pe) {
-	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
-
+include('../answers.php')
+include('../../config.php')
+$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);	
 $date_time = new DateTime('now', new DateTimezone('Africa/Lagos'));
 global $conn;
 
