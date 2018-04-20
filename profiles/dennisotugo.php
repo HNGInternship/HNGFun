@@ -197,24 +197,22 @@ else {
                   showResponse('version 1.1.0');
                   return;
           }
-          $.ajax({
-                  url: "profiles/dennisotugo.php",
-                  method: "POST",
-                  data: {question: question},
-		  dataType: "json",
-                  success: function (res) {
-                          if (response.status == 1) {
-                                  showResponse(
-                                          `
+              $.ajax({
+      url: "profiles/dennisotugo.php",
+     method: "post",
+	data: {question: question},
+	dataType: "json",
+      success: function(res) {
+        if (res.trim() === "") {
+          showResponse(`
           I don\'t understand that question. If you want to train me to understand,
           please type <code>"train: your question? # The answer."</code>
-          `
-                                  );
-                          } else if(response.status == 0){
-                                  showResponse(res);
-                          }
-                  }
-          });
+          `);
+        } else {
+          showResponse(res);
+        }
+      }
+    });
   }
 
   function showResponse(response) {
