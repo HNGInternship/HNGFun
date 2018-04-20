@@ -38,7 +38,7 @@
 		<div>
 			
 			<div  style="margin:30px 20% 0 0; border:1px solid gray; width: 50%; height: 500px; min-width: 300px; font-size: 14px; min-height: 300px" align="center" class="whole-content">
-				<h3 style="margin-left: 15px; color: navy">I'm Alice, Nelly's smart bot</h3>
+				<h3 style="margin-left: 15px; color: navy; font-family: 'IBM Plex Mono', monospace;">I'm Alice, Nelly's smart bot</h3>
 				<p>(Are you bored? chat with me)</p>
 				<hr>
 
@@ -58,7 +58,7 @@
 								<input id="input" style="width: 100%; height: 30px" type="text" name="input">
 							</td>
 							<td >
-								<button id="send" style="width: 100%; height: 35px; background-color: navy; color: white; border:none;">Send</button>
+								<button id="send" style="width: 100%; height: 32px; border-radius: 8px; background-color: navy; color: white; border:none;">Send</button>
 							</td>
 						</tr>
 					</table>
@@ -72,6 +72,7 @@
 
 <?php
 include ('../config.example.php');
+include('../answers.php');
 //include('../db.php');
 
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
