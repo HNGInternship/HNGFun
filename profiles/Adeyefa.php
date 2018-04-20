@@ -103,6 +103,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		<style type="text/css">
 		body{
 			background-color: #D4F4F4;
+			background-image: url(http://res.cloudinary.com/adeyefa/image/upload/v1524267920/turntable-1109588__340.jpg);
+			height: 100%; 
+		    background-position: center;
+		    background-repeat: no-repeat;
+		    background-size: cover;
 		}
 		h1{
 			text-align: center;
@@ -158,7 +163,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			color: #FFF;
 			padding: 7px;
 			position: absolute;
-			width: 450px;
+			width: 300px;
 			height: auto;
 		}
 		input{
