@@ -1,5 +1,15 @@
-<?php
-    require_once('../db.php');
+<?php 
+    date_default_timezone_set('Africa/Lagos');
+
+        if (!defined('DB_USER')){
+            
+            require "../../config.php";
+        }
+        try {
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+          } catch (PDOException $pe) {
+            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+          }
 
     try {
     $sql = 'SELECT * FROM secret_word';
@@ -313,7 +323,7 @@
 </section>
 
 <script src="../vendor/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.js"></script>
+
 
 <script>
 $(document).ready(function(){
@@ -338,7 +348,8 @@ $(document).ready(function(){
       $('.submit').click(function(){
         currentMessage();
         getAnswer();
-      
+      });
+
      $(window).on('keydown', function(e){
         if (e.which == 13) {
           currentMessage();
