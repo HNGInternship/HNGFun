@@ -44,6 +44,7 @@
 
 				<div id="bot-display" style="background-color:; height: 300px; width: 90%; overflow: scroll;">
 					<p>Ask me any question, I will give you the answer</p>
+					<p>Ask: <b>what is time</b> to get the current time</p>
 					<!--<p>To train me: <br>
 					Tell me the question first by typing: <em><b>#your question</b></em><br>
 					Then the answer by typing: <em><b>@the answer</b></em><br>
@@ -199,6 +200,12 @@ $question = trim($question);
 	 			echo "<p>ABOUT BOT<br><br>
 	 			Name: Alice.<br>
 	 					Version: Alice 1.5.2</p>";
+	 			echo "</div>";
+	 	}
+
+	 	else if($question == 'what is the time'){
+	 			echo "<div class='this'>";
+	 			echo "<p>The time is </p>".date('h:m:s');
 	 			echo "</div>";
 	 	}
 
