@@ -5,7 +5,7 @@ return true;
 }else{return false;
     }
 }function validateTextFunction($input){if(strpos($input, "(") !== false){return true;
-      }else{ 
+      }else{
           return false;
       }function processAskedQuestion($input){
     if(validateTrainfunction($input)){
@@ -51,75 +51,57 @@ return true;
         echo $sql . "<br>" . $e->getMessage();
         }
 
-    }function getAnswerFromDb($input){
+    }function getAnswerFromDb($input)
+{
+    global $conn;
+    if (strpos($input, "deleteEmpty") === false) {
+        $input = "'%" . $input . "%'";
+        if ($input !== '') {
+            $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $input . " ORDER BY answer ASC";
+            $result = $conn->query($sql);
+            $count = $result->rowCount();
+            if ($count > 0) {
+                $result->setFetchMode(PDO::FETCH_ASSOC);
+                $fetched_data = $result->fetchAll();
+                $rand = rand(0, $count - 1);
+                echo $fetched_data[$rand]["answer"];
+            } else {
+                echo "ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN TRAIN: YOUR QUESTION#YOUR ANSWER
+            TO ADD MORE QUESTIONS TO THE DATABASE";
+            }
+        }else{
+                echo "Enter a valid command!";
+            }
+
+    }
+
+
+    if (isset($_GET["query"])) {
+        include_once realpath(__DIR__ . '/..') . "/answers.php";
+        if (!defined('DB_USER')) {
+            require "../../config.php";
+        }
+        try {
+            $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+        } catch (PDOException $pe) {
+            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+        }
         global $conn;
-        if(strpos($input, "deleteEmpty") === false){        
-        $input = "'%".$input."%'";
-        if($input !== ''){
-        $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $input . " ORDER BY answer ASC";
-        $result = $conn->query($sql);
-        $count = $result->rowCount();
-        if($count > 0){
-        $result->setFetchMode(PDO::FETCH_ASSOC);
-        $fetched_data = $result->fetchAll();
-        $rand = rand(0, $count - 1);
-        echo $fetched_data[$rand]["answer"]; 
-        }else{
-            echo "<p style=" color: #FFFFFF;font-family: arial, sans-serif; font-size: 14px;font-weight: bold;letter-spacing: 0.3px;">
-            ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="font-weight: bolder">TRAIN: YOUR QUESTION#YOUR ANSWER</span>
-            TO ADD MORE QUESTIONS TO THE DATABASE</p>";        
-        }else{
-            echo "Enter a valid command!";
-        }
-    }else{
-        $sql = "DELETE FROM chatbot WHERE question = '' OR answer=''";
-        $result = $conn->query($sql);
-        $count = $q->rowCount();
-        if($count > 0){
-            echo "deleted Empty fields!";
-        }else{
-            echo "no Empty field";
-        }
-
-    }
-    }
-
-
-if (isset($_GET["query"])) {
-    include_once realpath(__DIR__ . '/..') . "/answers.php"; 
-    if(!defined('DB_USER')){
-        require "../../config.php";
-      }
-      try {
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-      } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-      }
-global $conn;
-$image_filename = '';
-$name = '';
-$username = '';
-$sql = "SELECT * FROM interns_data where username = 'Adokiye'";
-foreach ($conn->query($sql) as $row) {
-    $image_filename = $row['image_filename'];
-    $name = $row['name'];
-    $username = $row['username'];
-}
-
-global $secret_word;
-
-try {
-    $sql = "SELECT secret_word FROM secret_word";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-    $secret_word = $data['secret_word'];
-} catch (PDOException $e) {
-    throw $e;
-}processQuestion($_GET['query']);
-   
+    global $secret_word;
+    try {
+        $sql = "SELECT secret_word FROM secret_word";
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+        $secret_word = $data['secret_word'];
+    } catch (PDOException $e) {
+        throw $e;
+    }processQuestion($_GET['query']);
 }else{
-"------";
+        echo "------";
+    }
+
+}}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -186,13 +168,13 @@ section{
     color: #330505;
     padding: 2rem;
     min-height: 40rem;
-    
+
 }
 
 aside{
-    
+
     float:right;
-    
+
     margin-right: 5rem;
     text-align: center;
 }
@@ -200,11 +182,11 @@ aside{
 
 aside img{
     border-radius : 50%;
-    width: 15rem;  
-    height: 15rem; 
+    width: 15rem;
+    height: 15rem;
     box-shadow: #330505 0 0 2rem;
-  
-       
+
+
 }
 
 aside h4{
@@ -219,11 +201,11 @@ section h2, h3{
     font-size: 300%;
     font-family: 'Poppins';
     text-shadow: white 0 0 .5rem;
-    
+
 }
 
 section h2:first-child{
-    
+
     margin-top: 1rem;
 }
 
@@ -276,12 +258,12 @@ section h2:first-child{
 @keyframes mymove{
     0%{
         top: -300px;
-        
+
     }
 
     25%{
         top: -225px;
-        
+
     }
 
      50%{
@@ -298,8 +280,8 @@ section h2:first-child{
     margin : 0;
     float:right;
 
-    
-    
+
+
 }
 
 .me .right p{
@@ -325,14 +307,14 @@ section h2:first-child{
 }
 
  input{
-   
+
     padding: .5rem !important;
-    
+
 }
 
 #botresponse{
     width: 100%;
-   
+
     height: 15rem;
     overflow-y: scroll;
     padding: 1rem;
@@ -397,17 +379,17 @@ section h2:first-child{
 
 /* Track */
 .bot #botresponse::-webkit-scrollbar-track {
-    background: aqua; 
+    background: aqua;
 }
 
 /* Handle */
 .bot #botresponse::-webkit-scrollbar-thumb {
-    background: white; 
+    background: white;
 }
 
 /* Handle on hover */
 .bot #botresponse::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+    background: #555;
 }
 
 
@@ -426,7 +408,7 @@ font-family: Lato;
     animation-fill-mode: forwards;
     position: relative;
     left: -100%;
-    
+
 
 }
 
@@ -440,100 +422,7 @@ font-family: Lato;
     }
 
 }
-@media screen and (max-width: 900px){
 
-html, body{
-    margin: 0;
-    padding: 0;
-}
-    .bot{
-        width : 100%;
-        margin: 0 0;
-    }
-
-    aside{
-    
-    float:none;
-    
-    margin-right: 0rem;
-    text-align: center;
-    width: 100%;
-}
-
-aside img{
-    border-radius : 50%;
-    width: 15rem;  
-    height: 15rem; 
-    box-shadow: #330505 0 0 2rem;
-  
-       
-}
-
-aside h4{
-font-size: 150%;
-font-family: 'Roboto';
-text-shadow: white 0 0 .5rem;
-
-}
-
-section h2, h3{
-    color: #330505;
-    font-size: 100%;
-    font-family: 'Poppins';
-    text-shadow: white 0 0 .5rem;
-    
-}
-
-section{
-   width: 100%;
-   margin-bottom: .5rem;
-}
-.me{
-    width:100%;
-}
-.left{
-    float :none;
-    width: 100%;
-    text-align: center;
-}
-
-.right{
-    float :none;
-    width: 100%;
-    text-align: center;
-}
-
-.me p{
-   box-shadow: 1px 1px .5rem aqua;
-    width: 80%;
-    margin: .5rem auto  ;
-    background-color: white;
-    font-size: 100%;
-    text-align: center;
-}
-
-header{
-    width: 100%;
-    margin-top: 4rem;
-}
-.botres{
-    float:right !important;
-}
-
-.bot .botnet{
-    font-size:80%;
-}
-.bot .user{
-    font-size:80%;
-}
-.bot .res{
-    font-size:80%;
-   
-}
-
-.about{
-    font-size: 100%;
-}
     </style>
 </head>
 <body>
@@ -624,7 +513,7 @@ function recall(e){
             let command = stack[count];
             input.value = command;
         }
-        
+
     }
 }
 function runScript(e) {
@@ -634,19 +523,19 @@ if (e.keyCode == 13) {
             dv.innerHTML = "<span class='user'>You: </span> <span class='userres'>" + input.value + "</span>";
            botResponse.appendChild(dv)
            stack.push(input.value)
-    
+
    let urlL = url + encodeURIComponent(input.value);
    console.log(urlL);
     fetch(urlL)
     .then(response=>{
-        
+
         return response.text();
     })
     .then(
         response=>{
             console.log(response)
             print(response);
-        });
+        })
         input.value = '';
 }
 
@@ -661,16 +550,13 @@ function print(response){
 
 function instructions(){
     $string = '<div class="instructions">My name is Adokiye. I am a Robot. Type a command and I will try and answer you.<br> Meanwhile, try this commands';
-    $string += "<li><strong>deleteEmpty record - to delete any record the question or answer is empty</strong></li>";
     $string += "<li><strong>train: question # answer - to train me and make me more intelligent</strong></li>";
     $string += "</div>"
- 
+
    print($string);
 }
 </script>
 </div>
 </body>
 </html>
-<?php
-}
-?>
+
