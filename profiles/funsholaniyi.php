@@ -39,11 +39,12 @@ class Database
 	protected function __construct()
 	{
 		
-		$this->connection = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE . ";charset=utf8", DB_USER, DB_PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
-		$tz = (new DateTime('now', new DateTimeZone('Africa/Lagos')))->format('P');
-		$this->connection->query("SET time_zone='$tz';");
+		$this->connection =  new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+//		$tz = (new DateTime('now', new DateTimeZone('Africa/Lagos')))->format('P');
+//		$this->connection->query("SET time_zone='$tz';");
 		// Error handling
 		if (mysqli_connect_error()) {
+		    die('Failed to connect to MySQL');
 			trigger_error("Failed to connect to MySQL: " . mysqli_connect_error(),
 				E_USER_ERROR);
 		}
