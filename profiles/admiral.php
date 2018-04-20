@@ -211,20 +211,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		.top {
 			margin-top: 50px;
 		}
-		.bot {
-			position: fixed;
-			bottom: 2%;
-			right: 8%;
-			width: 350px;
-			display: block;
-		}
-		.chat {
-			display: block;
-			background-color: blue;
-			color: #fff;
-			text-align: center;
-			padding: 10px 0;
-		}
 		.main{
 			margin-top: 20vh;
 		}
@@ -286,7 +272,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		    position:relative;
 		    border-style: solid;
 		    border-width: 0 13px 13px 0;
-		    border-color: transparent #f1a97a transparent transparent;            
+		    border-color: transparent #0085A1 transparent transparent;            
 		}
 		.msj-rta:after{
 		    width: 0;
@@ -325,6 +311,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		}
 		.msj{
 		    float:left;
+		    background-color: #0085A1;
 		}
 	</style>
 </head>
