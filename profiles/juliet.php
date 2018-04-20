@@ -46,45 +46,84 @@ function decider($string){
   if($result[2] && $result[2] == $password){
     echo"<br>Training mode<br>";
     return $result;
-  } else echo "opssss!!! Looks like you are trying to train me without permission";   
+  } 
+  else echo "opssss!!! Looks like you are trying to train me without permission";   
   }
    }
 }
 
-function tester($string){
-  if (strpos($string, ":" ) !== false) 
-  { 
-   $field = explode (":", $string);
-   $key = $field[0];
-   $key = strtolower(preg_replace('/\s+/', '', $key));
-   if(($key !== "train")){
-     
-    echo"<br>testing mode activated<br>";
-    return $string;
- }
+
+function assistant($string)
+{    $reply = "";
+    if ($string == 'what is my location') {
+       
+      
+      $ip=$_SERVER['REMOTE_ADDR'];
+      $reply =unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
+      $reply =var_export('you are in '. $reply['geoplugin_regionName'] .' in '. $reply['geoplugin_countryName']);
+      return $reply;
+        
+    }
+    elseif ($string == 'tell me about your author') {
+        $reply= 'Her name is <i class="em em-sunglasses"></i> Chidimma Juliet Ezekwe, she is Passionate, gifted and creative backend programmer who love to create appealing Web apps solution from concept through to completion. An enthusiastic and effective team player and always challenge the star to quo by taking up complex responsibilities. Social account ';
+        return $reply;    
+    }
+    elseif ($string == 'open facebook') {
+        $reply= "<p>Facebook opened successfully </p> <script language='javascript'> window.open(
+    'https://www.facebook.com/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }
+    elseif ($string == 'open twitter') {
+        $reply = "<p>Twitter opened successfully </p> <script language='javascript'> window.open(
+    'https://twitter.com/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }elseif ($string == 'open linkedin') {
+        $reply= "<p>Linkedin opened successfully </p> <script language='javascript'> window.open(
+    'https://www.linkedin.com/jobs/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }
+    elseif ($string == 'shutdown my pc') {
+        $reply =  exec ('shutdown -s -t 0');
+        return $reply;
+    }elseif ($string == 'get my pc name') {
+        $reply = getenv('username');
+        return $reply;
+    }
+    else{
+        $reply = "";
+        return $reply;
+    }
+  
 }
-return $string;
- }
 
-// Create connection
-// $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-// Check connection
 
-// if (!$conn) {
-//     die("Connection failed: " . mysqli_connect_error());
-// }
+
+
 $existError =false;
 $reply = "";//process starts
 if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 
   if ($_POST['msg'] == 'commands') {
-    $reply= 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
+    $reply = 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
+    echo $reply;
   } 
       if($reply==""){
+       $reply = assistant($_POST['msg']);
+       echo $reply;
        
-     $reply = assistant($_POST['msg']);
-       
-      }
+     }
   if($reply =="") {
 
     $post= $_POST['msg'];
@@ -92,7 +131,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if($result){
       $question=$result[0]; 
       $answer= $result[1];
-      $sql = "SELECT * FROM chatbot";
+      $sql = "SELECT * FROM chatbot WHERE question = '$question' And answer = '$answer'";
       $stm = $conn->query($sql);
       $stm->setFetchMode(PDO::FETCH_ASSOC);
 
@@ -100,49 +139,48 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         
         if (count(($result))> 0) {
               
-          while($result) {
-            $strippedQ = strtolower(preg_replace('/\s+/', '', $question));
-            $strippedA = strtolower(preg_replace('/\s+/', '', $answer));
-            $strippedRowQ = strtolower(preg_replace('/\s+/', '', $result['question']));
-            $strippedRowA = strtolower(preg_replace('/\s+/', '', $result['answer']));
-            if(($strippedRowQ == $strippedQ) && ($strippedRowA == $strippedA)){
-            $reply = "I know this already, but you can make me smarter by giving another response to this command";
-            $existError = true;
-            break;
+          // while($result) {
+          //   $strippedQ = strtolower(preg_replace('/\s+/', '', $question));
+          //   $strippedA = strtolower(preg_replace('/\s+/', '', $answer));
+          //   $strippedRowQ = strtolower(preg_replace('/\s+/', '', $result['question']));
+          //   $strippedRowA = strtolower(preg_replace('/\s+/', '', $result['answer']));
+          //   if(($strippedRowQ == $strippedQ) && ($strippedRowA == $strippedA)){
+          //   $reply = "I know this already, but you can make me smarter by giving another response to this command";
+          //   $existError = true;
+          //   break;
             
-            }
+          //   }
               
-          }        
+          // }  
+          $existError = true; 
+          echo "I know this already, but you can make me smarter by giving another response to this command";
+            
         } 
-    
-    if(!($existError)){
-      $sql = "INSERT INTO chatbot(question, answer)
-      VALUES(:quest, :ans)";
-      $stm =$conn->prepare($sql);
-      $stm->bindParam(':quest', $question);
-      $stm->bindParam(':ans', $answer);
+      else
+        if(!($existError)){
+          $sql = "INSERT INTO chatbot(question, answer)
+          VALUES(:quest, :ans)";
+          $stm =$conn->prepare($sql);
+          $stm->bindParam(':quest', $question);
+          $stm->bindParam(':ans', $answer);
 
-      $saved = $stm->execute();
-        
-      if ($saved) {
-          $reply = "Thanks to you, I am smarter now";
-      } else {
-          echo "Error: could not understand";
-      }
-        
-        
-    }  
+          $saved = $stm->execute();
+            
+          if ($saved) {
+              echo  "Thanks to you, I am smarter now";
+          } else {
+              echo "Error: could not understand";
+          }
+            
+          
+        }  
   }
   else{
-    $input = tester($post); 
+    $input = trim($post); 
  
   if($input){
     
-  
-    // $time ="what is the time";
-    // query db to look for question 
-    $answer = "";
-    $sql = "SELECT * FROM chatbot";
+    $sql = "SELECT * FROM chatbot WHERE question = '$input'";
     $stm = $conn->query($sql);
     $stm->setFetchMode(PDO::FETCH_ASSOC);
 
@@ -150,40 +188,26 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
     if (count($res) > 0) {
     
-      $input = strtolower(trim($input));
-      $sql = "SELECT * FROM chatbot WHERE question LIKE '%$input%'";
-            $stm = $conn->query($sql);
-            $stm->setFetchMode(PDO::FETCH_ASSOC);
+      $index = rand(0, count($res)-1);
+      $response = $res[$index]['answer'];  
 
-            $result = $stm->fetchAll();
-      
-                  
-      if(count(($result)) > 0){
-        
-        $answer = $answer[array_rand($answer)];   
-      } 
+      echo $response;
     
+    }
+    else{
+       echo "I did'nt get that, please rephrase or try again later";
     }       
   }
 }
           
-      if($answer != ""){
-        $reply = $answer;
-        } 
+      
     
       }       
   
  
 
-  if($reply == ""){
-        $reply ="I did'nt get that, please rephrase or try again later";
-    }
-  
-  echo $reply;
-
-exit();
-  // function
-  }
+}
+else{
   
 ?>
 
@@ -521,7 +545,7 @@ a:focus {
 
       <!-- Portfolio Item Heading -->
       <h1 >Chidimma Juliet Ezekwe</h1>
-      <small>Wed Developer</small>
+      <h4>Web Developer</h4>
 
       <!-- Portfolio Item Row -->
       <div class="row">
@@ -596,10 +620,10 @@ a:focus {
                        <span class="login-status">Online    | <?php
             echo "" . date("h:i:a");
             ?>, <?php
-            $query = @unserialize (file_get_contents('http://ip-api.com/php/'));
-            if ($query && $query['status'] == 'success') {
-            echo '' . $query['country'] . ', ' . $query['city'] . '!';
-            }
+            
+            $ip=$_SERVER['REMOTE_ADDR'];
+            $reply = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
+            echo var_export('you are in '. $reply['geoplugin_countryName'] .' in '. $reply['geoplugin_regionName']);
             ?></span>
                         
                       </span>
@@ -719,3 +743,5 @@ a:focus {
 
 </html>
 
+<?php 
+}?>
