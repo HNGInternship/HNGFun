@@ -436,60 +436,6 @@ function getPinkyCommands(){
 ///////////////////////////////
 
 
-/****** AdroitCode Bot Function *********/
 
-function simpleMaths($operation, $expression){
-    switch ($operation) {
-      case 'factor':
-        # factorization condition
-      $notify = "Factorize";
-        break;
-
-        case 'simplify':
-        # simplify
-      $notify = "Simplify";
-        break;
-
-        case 'derive':
-        # derivative
-      $notify = "Derivative";
-        break;
-
-        case 'integrate':
-          # Integrate
-        $notify = "Integrate";
-          break;
-
-        case 'zeroes':
-          # polinomia
-        $notify = "Polinomial, find 0S in";
-          break;
-
-        case 'tangent':
-          # tangent
-        $notify = "Find Tangent";
-          break;
-
-        case 'log':
-          # logrithms
-        $notify = 'Logarithm';
-          break;
-
-
-      
-      default:
-        # code...
-        break;
-    }
-    $url = "https://newton.now.sh/".$operation."/".$expression;
-    $result = file_get_contents($url);
-    $response = json_decode($result, true);
-    echo json_encode([
-        'question' => $notify." : ".$response['expression'],
-        'answer' =>"Your answer is: ".$response['result']
-    ]);
-}
-
-/******** End Adroit Bot Funct ********/
 
 ?>
