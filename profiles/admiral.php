@@ -225,6 +225,107 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 			text-align: center;
 			padding: 10px 0;
 		}
+		
+		.main{
+			margin-top: 20vh;
+		}
+
+		.card.profile-card{
+			
+			width: 90%;
+			max-width: 400px;
+			background-color: #fff;
+			color: #777;
+			/*min-height: 90%;*/
+			
+		}
+
+		.profile-card h1{
+			font-size: 1.8rem;
+		}
+
+
+		.span-width{
+			width: 80%;
+		}
+
+		.bot-panel{
+			height: 80vh;
+			width: 90%;
+			max-width: 400px;
+		}
+
+		@media(min-width: 750px){
+			.bot-panel{
+				position: fixed;
+				right: 0;
+				bottom: 0;
+			}
+		}
+
+		.bot-panel .card-header{
+			background-color: rgba(173, 88, 31, 0.85);
+			color: #fff;
+		}
+
+		.bot-panel .card-body{	
+			overflow-y: scroll;
+		}
+
+		.gracie-icon{
+			max-width: 60px;
+			border: 1px solid #fff;
+			border-radius: 50%;
+		}
+
+		.msj:before{
+		    width: 0;
+		    height: 0;
+		    content:"";
+		    top:-5px;
+		    left:-14px;
+		    position:relative;
+		    border-style: solid;
+		    border-width: 0 13px 13px 0;
+		    border-color: transparent #f1a97a transparent transparent;            
+		}
+		.msj-rta:after{
+		    width: 0;
+		    height: 0;
+		    content:"";
+		    top:-5px;
+		    left:14px;
+		    position:relative;
+		    border-style: solid;
+		    border-width: 13px 13px 0 0;
+		    border-color: whitesmoke transparent transparent transparent;           
+		}  
+
+		.text{
+		    width:75%;display:flex;flex-direction:column;
+		}
+
+		.text-r{
+		    float:right;padding-left:10px;
+		}
+
+		.avatar{
+		    display:flex;
+		    justify-content:center;
+		    align-items:center;
+		    width:25%;
+		    float:left;
+		    padding-right:10px;
+		}
+		.macro{
+		    margin-top:5px;width:85%;border-radius:5px;padding:5px;display:flex;
+		}
+		.msj-rta{
+		    float:right;background:whitesmoke;
+		}
+		.msj{
+		    float:left;background:#f1a97a;
+		}
 	</style>
 </head>
 <body>
