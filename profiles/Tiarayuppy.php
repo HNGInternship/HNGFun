@@ -466,6 +466,7 @@ body{
             font-size: 14px;
             border: 1px solid #ddd;
             width: 400px;
+	    height:100px;
         }
         .button {
             display: inline-block;
@@ -647,11 +648,10 @@ body{
    
     </div>
     
-<script src="https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js"></script>
+https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js
 
 
 <div id="demo">
-	<h4>Train password <code>`trainisdope`</code></h4>
     <div id="chatBotCommandDescription"></div>
     <input id="humanInput" type="text" placeholder="Say something" />
 
@@ -667,13 +667,32 @@ body{
     </div>
 </div>
 <script>
+   function updateClock(){
+            console.log("called ")
+            let d = new Date().toUTCString();
+            d = d.substr(0, d.indexOf("GMT")-9)
+             d += " - " + new Date().toLocaleTimeString();
+            document.getElementById('time').innerText = d;
+            
+            return 0;
+             
+               
+        }
+         window.onload = function(){
+            updateClock();
+          var j=  setInterval(updateClock, 1000);
+         }
+</script>
+<script>
     var sampleConversation = [
         "Hi",
         "My name is [name]",
         "Where is Hotels.ng?",
         "Where is  Nigeria",
         "Bye",
-        "What is the time"
+        "What is the time",
+	 "How are you"
+
         
     ];
     var config = {
@@ -690,6 +709,7 @@ body{
     ChatBot.addPattern("^hi$", "response", "Hello, friend", undefined, "Say 'Hi' to be greeted back.");
     ChatBot.addPattern("^What is the time$", "response", "The Time is getTime()", undefined, "Say 'What is the time' to be greeted back.");
     ChatBot.addPattern("^bye$", "response", "See you later...", undefined, "Say 'Bye' to end the conversation.");
+    ChatBot.addPattern("^How are you$", "response", "im fine and you?...", undefined, "Say 'Fine' to end the conversation.");
     ChatBot.addPattern("(?:my name is|I'm|I am) (.*)", "response", "hi $1, thanks for talking to me today", function (matches) {
         ChatBot.setHumanName(matches[1]);
     },"Say 'My name is [your name]' or 'I am [name]' to be called that by the bot");
@@ -697,10 +717,8 @@ body{
     ChatBot.addPattern("compute ([0-9]+) plus ([0-9]+)", "response", undefined, function (matches) {
         ChatBot.addChatEntry("That would be "+(1*matches[1]+1*matches[2])+".","bot");
     },"Say 'compute [number] plus [number]' to make the bot your math calculator");
-</script>	
+
+</script>
+
 </body>
 </html>
-
-<?php 
-	}
-?>
