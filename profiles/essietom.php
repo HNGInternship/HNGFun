@@ -366,7 +366,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		.chat-messages {
 			padding: 5px;
-			height: 420px;
+			height: 400px;
 			overflow-y: auto;
 			margin-left: 15px;
 			margin-right: 15px;
@@ -521,7 +521,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						<input class="form-control w-100" type="text" name="question" placeholder="type here...." />
 					</div>
 					<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
-						<button type="submit" class="btn btn-success" style="float:center;">Send</button>
+						<button type="submit" class="btn btn-success w-100" style="float:center;">Send</button>
 					</div>
 				</form>	
 			</div>
