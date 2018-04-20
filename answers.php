@@ -68,7 +68,6 @@ function getNumberOfInterns()
     return 'Presently, there are ' . $userData['COUNT(*)'] . ' interns at the amazing hng internship.';
   }
 
-
 ########################################################
 # __   ___              __      __  ___       __   __  #
 #|  \ |__  |\ | |\ | | /__`    /  \  |  |  | / _` /  \ #
@@ -77,14 +76,6 @@ function getNumberOfInterns()
     ######################################################
     ####################### @BAMII #######################
     ######################################################
-//     function bamiiConvertCurrency($amount, $from, $to)
-//     {
-//     return 'Presently, there are '.$userData['COUNT(*)'].' interns at the amazing hng internship.';
-// }
-
-    ########################################################
-    ###################### Start BAMII #####################
-    ########################################################
 
     function bamiiConvertCurrency($amount, $from, $to){
         $conv_id = "{$from}_{$to}";
@@ -489,7 +480,6 @@ function getNumberOfInterns()
     /*end of
     Adokiye's function*/
 
-
 /*
 |=================================================================|
 |              JIM (JIMIE) Functions Begins                       |
@@ -654,6 +644,6 @@ function get_jimies_functions() {
 		
 // 	}
 // }
-
+    
 ?>
 

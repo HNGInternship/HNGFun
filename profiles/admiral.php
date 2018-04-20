@@ -449,7 +449,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		    var answer = response.answer;
 		  	$(selector).html(''+message+'');
 			$(selector).removeClass(classname).addClass('sent');
-			$('#chatWindow').append(' <div class="msj macro"><div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="gracie-icon align-self-start"></div><div class="text text-l"><p>'+answer+'</p></div></div>');
+			$('#chatWindow').append(' <div class="msj macro"><div class="avatar"><img style="width: 100%;" src="#" class="gracie-icon align-self-start"></div><div class="text text-l"><p>'+answer+'</p></div></div>');
 		  
 		  },
 		  error: function(error){
