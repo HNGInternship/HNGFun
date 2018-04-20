@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 	if ($first_test_str[0] == 'train')
 		{
 		$password = 'password';
-		$trim_messages = explode('#', $first_test_str[1]);
+		$trim_messages = explode('|', $first_test_str[1]);
 		if (!count($trim_messages) < 3 && trim($password) === trim($trim_messages[2]))
 			{
 			if (trim($trim_messages[0]) != '' && trim($trim_messages[1] != ''))
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 			}
 		  else
 			{
-			echo json_encode(['status' => 3, 'response' => 'Sorry but for security you can\'t\ educate me.']);
+			echo json_encode(['status' => 3, 'response' => 'Sorry but for security you can\'t educate me.']);
 			}
 		}
 	  else
