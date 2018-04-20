@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 date_default_timezone_set('Africa/Lagos');
 
 if (!defined('DB_USER'))
@@ -36,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 	if ($first_test_str[0] == 'train')
 		{
 		$password = 'password';
-		$trim_messages = explode('#', $first_test_str[1]);
+		$trim_messages = explode('|', $first_test_str[1]);
 		if (!count($trim_messages) < 3 && trim($password) === trim($trim_messages[2]))
 			{
 			if (trim($trim_messages[0]) != '' && trim($trim_messages[1] != ''))
@@ -44,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 				$question = $trim_messages[0];
 				$answer = $trim_messages[1];
 
-				$sql = "SELECT * FROM chatbot WHERE question=$question OR `answer` LIKE '%$answer%'";
+				$sql = "SELECT * FROM chatbot WHERE `question` LIKE '%$question%' OR `answer` LIKE '%$answer%'";
 				$stm = $conn->query($sql);
 				$stm->setFetchMode(PDO::FETCH_ASSOC);
 				$res = $stm->fetchAll();
@@ -80,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 			}
 		  else
 			{
-			echo json_encode(['status' => 3, 'response' => 'Sorry but for security you can\'t\ educate me.']);
+			echo json_encode(['status' => 3, 'response' => 'Sorry but for security you can\'t educate me.']);
 			}
 		}
 	  else
