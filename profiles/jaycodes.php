@@ -200,19 +200,22 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             right: 20px;
             background-color:#fefefe;
             width: 350px;
-            height: 550px;
+            height: 470px;
             overflow:auto;
-            box-shadow: 4px 4px 4px black;
+            box-shadow: 4px 4px 4px #888;
         }
         .display nav{
             display:block;
+            width:350px;
+            position: fixed;
+            bottom:470px;
             height: 50px;
             background-color: #f8e2ea;
             text-align: center;
             font-size: 25px;
             padding-top:7.5px;
             font-weight: normal;
-            box-shadow: 2px 2px 2px #aaa;
+            box-shadow: 2px 2px 2px #888;
             text-shadow: 1.5px 1.5px 1px #ccc;
         }
         
@@ -317,6 +320,9 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
                 <div class="myMessage bot">
                     <p>To exit this type <em>:close:</em> </p>
                 </div>
+                <div class="myMessage bot">
+                    <p>To know more about me type <em>:about bot:</em> </p>
+                </div>
                 
             </div>
         </div>
@@ -358,7 +364,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
                 exitB();
                 return;
             }
-            if(ques.value.toLowerCase() =="about bot"){
+            if(ques.value.toLowerCase() ==":about bot:"){
                 displayOnScreen(ques.value, "user");
                 displayOnScreen("Name: botX <br> Version: 1.0.0");
                 return;
