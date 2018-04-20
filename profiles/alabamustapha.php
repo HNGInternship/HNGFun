@@ -1,10 +1,5 @@
 <?php
-<<<<<<< HEAD
-// include_once realpath(__DIR__ . '/..') . "/answers.php";
-=======
 //require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/answers.php'; //tweak
-
->>>>>>> 564343188b1bcbdcbaf94a02a1cf3e627069bb51
 if (!defined('DB_USER')) {
 	require "../../config.php";
 	try {
@@ -13,10 +8,7 @@ if (!defined('DB_USER')) {
 		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 	}
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 564343188b1bcbdcbaf94a02a1cf3e627069bb51
 global $conn;
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -225,9 +217,9 @@ function alabotGetMenu()
 
 	function greet(){
 		$greetings = [
-						'Hi, I am Alabot, Learn, play and take quiz?',
-		'Howdy, I am Alabot, Learn, play and take quiz?',
-		'I am Alabot, Learn, play and take quiz'
+						'Hi, I am Alabot, Learn, play and take quiz. type menu to check commands',
+		'Howdy, I am Alabot, Learn, play and take quiz. type menu to check commands',
+		'I am Alabot, Learn, play and take quiz. type menu to check commands'
 					];
 
 		return ["data" => $greetings[array_rand($greetings)], "stage" => 2];
@@ -429,7 +421,7 @@ function alabotGetMenu()
 					
 				</div>
 				<input type="text" class="human_input" name="human_input">		
-				<button class="btn btn-primary pull-right btn-sm">Menu</button>		
+					
 				
 			</div>
 	</div>
