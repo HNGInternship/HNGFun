@@ -1,5 +1,5 @@
 <?php 
-require_once 'db.php';
+//require 'db.php';
 if($_SERVER['REQUEST_METHOD'] === "GET"){
     try {
         $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
@@ -19,6 +19,111 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
 }
 
  ?>
+ <?php 
+    if($_SERVER['REQUEST_METHOD']==='POST'){
+        //function definitions
+        function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            $data = preg_replace("([?.!])", "", $data);
+            $data = preg_replace("(['])", "\'", $data);
+            return $data;
+        }
+        function chatMode($ques){
+            require '../../config.php';
+            $ques = test_input($ques);
+            $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+            if(!$conn){
+                echo json_encode([
+                    'status'    => 1,
+                    'answer'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                ]);
+                return;
+            }
+            $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
+            $result = $conn->query($query)->fetch_all();
+            echo json_encode([
+                'status' => 1,
+                'answer' => $result
+            ]);
+            return;
+        }
+        function trainerMode($ques){
+            require '../../config.php';
+            $questionAndAnswer = substr($ques, 6); //get the string after train
+            $questionAndAnswer =test_input($questionAndAnswer); //removes all shit from 'em
+            $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
+            $questionAndAnswer = explode("#",$questionAndAnswer);
+            if((count($questionAndAnswer)==3)){
+                $question = $questionAndAnswer[0];
+                $answer = $questionAndAnswer[1];
+                $password = $questionAndAnswer[2];
+            }
+            if(!(isset($password))|| $password !== 'password'){
+                echo json_encode([
+                    'status'    => 1,
+                    'answer'    => "Please insert the correct training password"
+                ]);
+                return;
+            }
+            if(isset($question) && isset($answer)){
+                //Correct training pattern
+                $question = test_input($question);
+                $answer = test_input($answer);
+                if($question == "" ||$answer ==""){
+                    echo json_encode([
+                        'status'    => 1,
+                        'answer'    => "empty question or response"
+                    ]);
+                    return;
+                }
+                $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+                if(!$conn){
+                    echo json_encode([
+                        'status'    => 1,
+                        'answer'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                    ]);
+                    return;
+                }
+                $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
+                if($conn->query($query) ===true){
+                    echo json_encode([
+                        'status'    => 1,
+                        'answer'    => "trained successfully"
+                    ]);
+                }else{
+                    echo json_encode([
+                        'status'    => 1,
+                        'answer'    => "Error training me: ".$conn->error
+                    ]);
+                }
+                
+
+                return;
+            }else{ //wrong training pattern or error in string
+            echo json_encode([
+                'status'    => 0,
+                'answer'    => "Wrong training pattern<br> PLease use this<br>train: question # answer"
+            ]);
+            return;
+            }
+        }
+
+        //end of function definition
+        
+        $ques = test_input($_POST['ques']);
+        if(strpos($ques, "train:") !== false){
+            trainerMode($ques);
+        }else{
+            chatMode($ques);
+        }
+
+       
+        return;
+    }
+ ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -127,6 +232,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             outline:none;
             transition: border 0.2s linear;
             border-radius: 10px;
+            font-size: 14px;
         }
         input:hover{
             border:solid 2px #222;
@@ -157,6 +263,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             margin-bottom: 5px;
         }
         .bot p{
+            font-size:15px;
             margin:0px;
             padding:4px;
             text-align: left;
@@ -172,6 +279,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             text-align: right;
         }
         .user p{
+            font-size: 15px;
             margin:0px;
             padding:4px;
             display: inline-block;
