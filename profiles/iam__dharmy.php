@@ -96,7 +96,7 @@
 			}else{
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Sorry, I cannot answer your question.Please train me. The training data format is  <b>train: question # answer</b>"
+					'answer' => "Sorry, I cannot answer your question.Please train me. The training data format is  <b>train: question # answer # password</b>"
 				]);
 			}		
 			return;
@@ -112,7 +112,7 @@
 			if(count($split_string) == 1){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Invalid training format. <br> Type  <b>train: question # answer</b>"
+					'answer' => "Invalid training format. <br> Type  <b>train: question # answer # password</b>"
 				]);
 				return;
 			}
@@ -311,7 +311,7 @@
 					<div class="row single-message">
 						<div class="col-md-12 single-message-bg">
 							
-							<h5>To train me, type <br/><b>train: question # answer</b><h5>
+							<h5>To train me, type <br/><b>train: question # answer # password</b><h5>
 						</div>
 					</div>
 				</div>
