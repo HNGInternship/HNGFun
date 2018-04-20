@@ -241,7 +241,7 @@ function smartSearch($question, $questions_array)
 						$hit_count++;
 					}
 				}
-				if ($hit_count) {
+				if ($hit_count && $hit_count > 2) {
 					$q_sorta[] = $item;
 				}
 				if ($hit_count >= $word_count) {
@@ -288,7 +288,7 @@ function parseAnswer($result)
 			if ($index_of_parentheses_closing !== false) {
 				$function_name = substr($answer, $index_of_parentheses + 2, $index_of_parentheses_closing - $index_of_parentheses - 2);
 				$function_name = trim($function_name);
-				if (stripos($function_name, ' ') !== false) { //if method name contains spaces, do not invoke method
+				if (stripos($function_name, ' ') === false) { //if method name contains spaces, do not invoke method
 					$answer = str_replace("(($function_name))", $function_name(), $answer);
 				}
 			}

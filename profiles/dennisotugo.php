@@ -200,18 +200,17 @@ else {
           $.ajax({
                   url: "profiles/dennisotugo.php",
                   method: "POST",
-                  data: {
-                          payload: question
-                  },
+                  data: {question: question},
+		  dataType: "json",
                   success: function (res) {
-                          if (res.trim() === "") {
+                          if (response.status == 1) {
                                   showResponse(
                                           `
           I don\'t understand that question. If you want to train me to understand,
           please type <code>"train: your question? # The answer."</code>
           `
                                   );
-                          } else {
+                          } else if(response.status == 0){
                                   showResponse(res);
                           }
                   }
