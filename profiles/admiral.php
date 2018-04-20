@@ -325,7 +325,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		}
 		.msj{
 		    float:left;
-		    background:blue;
 		}
 	</style>
 </head>
@@ -391,7 +390,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 				    <?php if (isset($answer)) { ?>
 				    	<!-- Gracie's message -->
                         <div class="msj macro">
-                        <div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="gracie-icon"></div>
                             <div class="text text-l">
                                 <p><?php echo $answer; ?></p>                                
                             </div>
