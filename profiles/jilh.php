@@ -1,6 +1,6 @@
 <?php
 require('db.php');
-require('answers.php');
+require('/../answers.php');
 
 $connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 $result = mysqli_query($connect, "SELECT * FROM secret_word");
