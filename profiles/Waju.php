@@ -132,7 +132,7 @@ function train($training_string, $conn){
      }
      define ('PASSWORD', "password");
      //ckeck presence of password
-     $pos = strpos($training_string,'# '. PASSWORD);
+     $pos = strpos($training_string, PASSWORD);
      if( $pos === false) {
  
          return 'I am sorry i can not accept your input without a password';
