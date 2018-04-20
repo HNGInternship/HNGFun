@@ -114,10 +114,10 @@
 </head>
 <body>
     <div class="main">
-        <div class="image"><img src="http://res.cloudinary.com/abayomijohn273/image/upload/v1524099224/abayomi.jpg" alt="Author's Picture"></div>
+        <div class="image"><img src="<?php echo $user->image_filename; ?>" alt="Author's Picture"></div>
         <div class="details">
-            <h1><?php echo Olatunji Abayomi ?></h1>
-            <h3>Slack Username: @Abayomi?></h3>
+            <h1><?php echo $user->name; ?></h1>
+            <h3>Slack Username: @<?php echo $user->username; ?></h3>
             <p>Exceptionally well organised, self taught, self motivated and resourceful Professional with few years of experience in Website Development and Design using HTML, CSS, Bootstrap, JAVASCRIPT, JQuery, Laravel, PHP, MYSQL.  Excellent analytical and problem solving skills.</p>
             <p class="connect_me">Connect with me</p>
         <div id="icons">
