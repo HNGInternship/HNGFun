@@ -55,7 +55,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 			<div class="row">
 				<div class="col-md-12">
 					<div class="circle">
-						<img src="<?php echo $image_filename; ?>" alt="https://res.cloudinary.com/brume/image/upload/v1524034778/IMG_20180124_165614_051.jpg" class="circle" />
+						<img src="https://res.cloudinary.com/brume/image/upload/v1524034778/IMG_20180124_165614_051.jpg" alt="profile picture" class="circle" />
 					</div>
 				</div>	
 			</div>
