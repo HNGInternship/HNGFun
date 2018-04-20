@@ -176,11 +176,11 @@ p {
 							<p>	(Web Developer)</p>
 						<p>I love tech stuff and cools things</p>
 						 <h6 style="font-size: 20px;"><b>Skills:</b>PHP(Code Igniter, Laravel)</h6>
-						 <p><a href="https://github.com/horlathunbhosun" target="_blank"><i class="fa fa-github"></i></a>	</p>
+						
 						<a href="https://github.com/horlathunbhosun" target="_blank" style="color: black;" class="btn btn-success"><i class="fa fa-github"></i> Github</a>
-						<a href="https://twitter.com/@horlathunbhosun" target="_blank" style="color: black;" class="btn btn-info"><i class="fa fa-github"></i> Twitter</a>
-						<a href="https://www.linkedin.com/in/olulode-olatunbosun-458927135/" target="_blank" style="color: black;" class="btn btn-warning"><i class="fa fa-github"></i> Linkedin</a>
-						<a href="https://web.facebook.com/olaolulode" target="_blank" style="color: black;" class="btn btn-primary"><i class="fa fa-github"></i>Facebook</a>
+						<a href="https://twitter.com/@horlathunbhosun" target="_blank" style="color: black;" class="btn btn-info"><i class="fa fa-twitter"></i> Twitter</a>
+						<a href="https://www.linkedin.com/in/olulode-olatunbosun-458927135/" target="_blank" style="color: black;" class="btn btn-warning"><i class="fa fa-linkedin"></i> Linkedin</a>
+						<a href="https://web.facebook.com/olaolulode" target="_blank" style="color: black;" class="btn btn-primary"><i class="fa fa-facebook"></i>Facebook</a>
 						
 			</div>
 				</div>
