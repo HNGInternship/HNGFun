@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 }
 
-// $data = getAction(['stage' => 2, 'human_response' => 'synonym of love']);
+// $data = getAction(['stage' => 2, 'human_response' => 'hi']);
 
 // var_dump($data);
 
@@ -150,7 +150,8 @@ function alabotGetMenu()
 		}elseif (strpos($human_response, 'synonym') !== false && count($human_response_words) > 1) {
 			$data = getSynonyms($human_response);
 		} else {
-		$data = ["data" => "Just a bot, still learning :-)", "stage" => 2];
+			
+		$data = getGeneral($human_response);
 		}
 
 		return $data;
@@ -231,7 +232,26 @@ function alabotGetMenu()
 	}
 
 
-	
+
+
+	function getGeneral($human_response){
+		global $conn;
+		$word = trim($human_response);
+		$sql = "SELECT * FROM chatbot WHERE question = '{$word}'";
+		$q = $conn->query($sql);
+		$q->setFetchMode(PDO::FETCH_ASSOC);
+		$data_res = $q->fetchAll();
+		if (count($data_res) > 0) {
+			
+			$index = rand(0, count($data_res) - 1);
+			$data = $data_res[$index]['answer'];
+
+		}else{
+			$data = "Just a bot, still learning :-)";
+		}
+
+		return ["data" => $data, "stage" => 2];
+	}
 
 	
 
@@ -387,15 +407,16 @@ function alabotGetMenu()
 			}
 
 			div#chat-bot-container > .conversation > .message > .message-content {
-				color: #007bff;
+				color: #3908fc;
 				background-color: #fff;
-				font-size: 18px;
-				line-height: 1;
+				font-size: 16px;
+				line-height: 1.2;
 				padding: 7px 13px;
 				border-radius: 15px;
 				width: auto;
 				max-width: 85%;
 				display: inline-block;
+				letter-spacing: 1px;
 			}
 
 			
