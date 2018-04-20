@@ -359,19 +359,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			color: #333333;
 			background-color: #ffffff;
 			padding: 20px;
-			height: 550px;
+			height: 700px;
 			margin-top: 5%;
 			margin-bottom: 50px;
+			font-size:18px;
 		}
 		.chat-messages {
 			padding: 5px;
-			height: 300px;
+			height: 500px;
 			overflow-y: auto;
 			margin-left: 15px;
 			margin-right: 15px;
 			border-radius: 6px;
 			
 		}
+		p {
+    line-height: 1;
+    margin: 10px 0;
+}
 		.single-message {
 			margin-bottom: 5px; 
 			border-radius: 5px;
@@ -379,12 +384,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			
 		}
 		.single-message-bg {
-			background-color:#a1a1a1;
+			background-color:#f3f3f3;
 			
 			
 		}
 		.single-message-bg2 {
-			background-color: #cccccc;
+			background-color: #f1f1f1;
 			
 		}
 		input[name=question] {
@@ -392,8 +397,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		button[type=submit] {
 			height: 50px;
-			background-color:black;
-			color: black
+	
+			color: black;
 		}
 		.circle {
 			width: 60%;
@@ -402,6 +407,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		.f-icon {
 			font-size: 40px;
+		}
+		.col-md-4{
+			border:0px;
 		}
 	</style>
 </head>
@@ -481,26 +489,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div><!--end of page div-->
 <div style="color:white">My secret code:<?php echo $secret_word; ?></div>
 </div><!--inner ends here -->
-
-
+<div class="row">
+	<div class="col-md-4"></div>
 <div class="col-md-4 offset-md-1 chat-frame">
-			<h2 class="text-center"><u>CHATBOT</u></h2>
+			<h3 class="text-center">Bot Tom</h3>
 			<div class="row chat-messages" id="chat-messages">
 				<div class="col-md-12" id="message-frame">
 					<div class="row single-message">
 						<div class="col-md-12 single-message-bg">
-							<h5>Hello <span style="font-weight: bold">iam__bot</span></h5>
+							<p>i am tom and its nice having you around</h5>
 						</div>
 					</div>
 					<div class="row single-message">
 						<div class="col-md-12 single-message-bg">
-							<h5>Ask me your questions </h5>
+							<p>Ask me any damn thing u need to know about Hotels.ng </p>
 						</div>
 					</div>
 					<div class="row single-message">
 						<div class="col-md-12 single-message-bg">
 							
-							<h5>To train me, type <br/><b>train: question # answer # password</b><h5>
+							<p>You can as well train me, following this format: <br/><b>train: question # answer # password</b><p>
 						</div>
 					</div>
 				</div>
@@ -510,28 +518,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			<div class="row" style="margin-top: 40px;">
 				<form class="form-inline col-md-12 col-sm-12" id="question-form">
 					<div class="col-md-12 col-sm-12 col-12">
-						<input class="form-control w-100" type="text" name="question" placeholder="Enter your message" />
+						<input class="form-control w-100" type="text" name="question" placeholder="type here...." />
 					</div>
 					<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
-						<button type="submit" class="btn btn-info float-right w-100" >Enter</button>
+						<button type="submit" class="btn btn-success" >Send</button>
 					</div>
 				</form>	
 			</div>
+				</div>
 
-
-<!-- <div id="demo">
-    <div id="chatBotCommandDescription"></div>
-    <input type="text" placeholder="Say something" />
-
-
-    <div style="clear: both;">&nbsp;</div>
-
-    <div id="chatBot">
-        <div id="chatBotThinkingIndicator"></div>
-        <div id="chatBotHistory"></div>
-        
-    </div>
-</div> -->
 
 
 <script src="../vendor/jquery/jquery.min.js"></script>
@@ -558,7 +553,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: "/profiles/iam__dharmy.php",
+				url: "/profiles/essietom.php",
 				type: "post",
 				data: {question: question},
 				dataType: "json",
@@ -582,6 +577,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
 					}
 				},
+				
 				error: function(error){
 					console.log(error);
 				}
