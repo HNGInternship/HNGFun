@@ -169,7 +169,7 @@ p {
 <div class="container" style="padding-top: 100px;">
 		<div class="row">	
 	<div class="col-md-6" >
-		<div class="chatbox" id="boh1" style="height: 900px;">
+		<div class="chatbox" id="boh1" style="height: 700px;">
 			<img src="<?php echo $user->image_filename; ?>" alt="2boh" width= "300px" height="300px" class="img-circle">
 					<h1 style="color: black;"><?php echo  $user->name; ?></h1>
 					<p style=" font-size: 30px;">(<?php echo $user->username; ?>) </p>
