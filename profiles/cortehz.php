@@ -765,7 +765,7 @@ body {
 }
 
 .chat_window {
-  position: absolute;
+  position: relative;
   width: calc(100% - 20px);
   max-width: 800px;
   height: 500px;
