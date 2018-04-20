@@ -1,5 +1,5 @@
 <?php
-// If you can't find const DB_USER, this occurs when I'm testing locally or through hng.fun/profiles/temitope.php
+// If you can't find const DB_USER, this occurs when I'm testing locally or through hng.fun/profiles/adminral.php
 		if(!defined('DB_USER')){
 			require "../../config.php";
 			//Renamed myconfig so as not to confuse with config.php in the main folder, remember to change this to config.php
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 	$query = $query->fetch(PDO::FETCH_OBJ);
 	$secret_word = $query->secret_word;
 
-	$query_me = $conn->query("Select * from interns_data where username = 'temitope'");
+	$query_me = $conn->query("Select * from interns_data where username = 'admiral'");
 	$user = $query_me->fetch(PDO::FETCH_OBJ);
 
 }
@@ -324,137 +324,63 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
                 <i class="fab fa-linkedin fa-2x"></i>
             </footer>
 		</div>
-		                    <script>
-                        $('document').ready(function() {
+		<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 
-                            $("body").css("opacity", 0).animate({ opacity: 1}, 3000);
+<script>
+	$(document).ready(function() {
+		// let's scroll to the last message
+		$('#chatWindow').animate({scrollTop: $('#chatWindow').prop("scrollHeight")}, 1000);
 
+			$('#messageForm').submit(function(e){
+				e.preventDefault();
+				sendMessage(e);	
+			});
 
-                            $('#chat-form').submit(function(e) {
-                                e.preventDefault();
-                            
-                                var message = $('.message').val();
-                                var msg_container = $('.msg_container_base');
+			
+			
+			
+		});
 
-                                let bot_msg =  (answer)=>{
-
-                                            return   '<div class="row msg_container base_sent">'+
-                                                            '<div class="col-md-10 col-xs-10">'+
-                                                                '<div class="messages msg_sent">'+
-                                                                    '<p>'+answer+'</p>'+
-                                                                '</div>'+
-                                                                '</div>'+
-                                                                '<div class="col-md-2 col-xs-2 avatar">'+
-                                                                '<img src="" class="bot-img img-responsive" title="">'+
-                                                            '</div>'+
-                                                        '</div>';
-                                }
-
-                            let sent_msg =    (msg)=>{
-
-                                              return   '<div class="row msg_container base_receive">'+
-                                                            '<div class="col-md-2 col-xs-2 avatar"></div>'+
-                                                            '<div class="col-md-10 col-xs-10">'+
-                                                                '<div class="messages msg_receive">'+
-                                                                    '<p>'+msg+'</p>'+
-                                                                '</div>'+
-                                                            '</div>'+
-                                                        '</div>';
-                            }
-                                       
-                                       if (message != ''){
-
-                                           if (message.split(':')[0] !='train')
-                                            msg_container.append(sent_msg(message));
-                                             msg_container.scrollTop(msg_container[0].scrollHeight);
-                                       }
-                                        // msg_container.append(bot_msg);
-                                       
-                                        
-                                $('.message-div').removeClass('has-danger')
-
-                               
-
-                                // alert(message);
-                                $.ajax({
-                                    type: 'POST',
-                                    url: '/profiles/admiral.php',
-                                    dataType: 'json',
-                                    data: {chat_message: message},
-                                    success: function(data) {
-                                        //console.log(data);
-                                        if (data.status===1){
-
-                                           $('.message').val('');
-                                             msg_container.append(bot_msg(data.answer));  
-                                             msg_container.scrollTop(msg_container[0].scrollHeight);
-                                        }
-                                        else if(data.status===2){
-                                            $('.message').val('');
-                                            msg_container.append(bot_msg('Oga I no know this one, abeg try again'));
-                                            msg_container.scrollTop(msg_container[0].scrollHeight);
-                                        }
-                                        else if(data.status===0){
-                                            msg_container.append(bot_msg('Opps what do you really expect from me with empty question?'))
-                                            msg_container.scrollTop(msg_container[0].scrollHeight);
-                                        }
-                                        else if(data.status===3){
-                                            $('.message').val('');
-                                            msg_container.append(bot_msg(data.response));
-                                            msg_container.scrollTop(msg_container[0].scrollHeight);
-                                        }
-                                        else if(data.status===4){
-                                            $('.message').val('');
-                                            msg_container.append(bot_msg(data.response));
-                                            msg_container.scrollTop(msg_container[0].scrollHeight);
-                                        }
-                                        else if(data.status===5){
-                                            $('.message').val('');
-                                            msg_container.append(bot_msg(data.response));
-                                            msg_container.scrollTop(msg_container[0].scrollHeight);
-                                        }
-                                        
-                                    },
-                                    error: function(error) {
-                                    
-                                        console.log(error);
-                                    
-                                        if (error) {
-                                            
-                                            $('.message-div').addClass('has-danger');
-                                        }
-                                    },
-                                });
-                            });
-
-                            $(document).on('click', '.card-header span.icon_minim', function(e) {
-                                var $this = $(this);
-                                if (!$this.hasClass('card-collapsed')) {
-                                    $this.parents('.card').find('.card-body').slideUp();
-                                    $this.addClass('card-collapsed');
-                                    $this.removeClass('fa-minus').addClass('fa-plus');
-                                } else {
-                                    $this.parents('.card').find('.card-body').slideDown();
-                                    $this.removeClass('card-collapsed');
-                                    $this.removeClass('fa-plus').addClass('fa-minus');
-                                }
-                            });
-                            $(document).on('focus', '.card-footer input.chat_input', function(e) {
-                                var $this = $(this);
-                                if ($('#minim_chat_window').hasClass('card-collapsed')) {
-                                    $this.parents('.card').find('.card-body').slideDown();
-                                    $('#minim_chat_window').removeClass('card-collapsed');
-                                    $('#minim_chat_window').removeClass('fa-plus').addClass('fa-minus');
-                                }
-                            });
-                            $(document).on('click', '.icon_close', function(e) { //$(this).parent().parent().parent().parent().remove();
-                                $("#chat_window_1").remove();
-                            });
-                });
-
-                    </script>
+	function sendMessage(e) {
+		var message = $('#message').val();
+		if (message.length>0) {
+			// I'm adding this because of delay in network, so the messages don't overlap
+			var rand = Math.floor(Math.random()*100);
+			var classname = 'sending-'+rand;
+			var selector = '.'+classname;
+			$('#message').val('');
+			$('#chatWindow').append('<div class="msj-rta macro "><div class="text text-r"><p class="'+classname+'">Sending...</p></div>'+
+                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="http://simpleicon.com/wp-content/uploads/user1.png" /></div></div>');
+			$('#chatWindow').animate({scrollTop: $('#chatWindow').prop("scrollHeight")}, 1000);
+			
+		  $.ajax({
+				url: "/profiles/temitope.php",
+				type: "post",
+				data: {message: message},
+				dataType: "json",
+				success: function(response){
+		    var answer = response.answer;
+		  	$(selector).html(''+message+'');
+			$(selector).removeClass(classname).addClass('sent');
+			$('#chatWindow').append(' <div class="msj macro"><div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="gracie-icon align-self-start"></div><div class="text text-l"><p>'+answer+'</p></div></div>');
+		  
+		  },
+		  error: function(error){
+					console.log(error);
+				}
+		  // .catch(function (error) {
+		  //   $('#chatWindow').append(' <div class="msj macro"><div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="gracie-icon align-self-start"></div><div class="text text-l"><p>sorry, an error occured</p></div></div>');
+		  // });
+		  
+		  // e.preventDefault();
+		});
+	}
+}
+</script>
     </body>
 </html>
-<?php 
-	}
-?>
