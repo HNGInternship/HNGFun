@@ -52,40 +52,73 @@ function decider($string){
    }
 }
 
-// function tester($string){
-//   if (strpos($string, ":" ) !== false) 
-//   { 
-//    $field = explode (":", $string);
-//    $key = $field[0];
-//    $key = strtolower(preg_replace('/\s+/', '', $key));
-//    if(($key !== "train")){
-     
-//     echo"<br>testing mode activated<br>";
-//     return $string;
-//  }
-// }
-// return $string;
-//  }
 
-// Create connection
-// $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-// Check connection
+function assistant($string)
+{    $reply = "";
+    if ($string == 'what is my location') {
+        $reply= "This is Your Location <i class='em em-arrow_forward'></i> " . $query['city'] . ", ". $query['country'] . "!";
+        return $reply;
+        
+    }
+    elseif ($string == 'tell me about your author') {
+        $reply= 'His name is <i class="em em-sunglasses"></i> alex idowu, he is Passionate, gifted and creative backend programmer who love to create appealing Web apps solution from concept through to completion. An enthusiastic and effective team player and always challenge the star to quo by taking up complex responsibilities. Social account <b><a href="https://twitter.com/Codexxxp">Codexxp @Twitter</a></b> <br> <b><a href="https://www.linkedin.com/in/alex-idowu-0b4142124/">Alex Idowu @Linkedin</a></b> ';
+        return $reply;    
+    }
+    elseif ($string == 'open facebook') {
+        $reply= "<p>Facebook opened successfully </p> <script language='javascript'> window.open(
+    'https://www.facebook.com/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }
+    elseif ($string == 'open twitter') {
+        $reply = "<p>Twitter opened successfully </p> <script language='javascript'> window.open(
+    'https://twitter.com/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }elseif ($string == 'open linkedin') {
+        $reply= "<p>Linkedin opened successfully </p> <script language='javascript'> window.open(
+    'https://www.linkedin.com/jobs/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }
+    elseif ($string == 'shutdown my pc') {
+        $reply =  exec ('shutdown -s -t 0');
+        return $reply;
+    }elseif ($string == 'get my pc name') {
+        $reply = getenv('username');
+        return $reply;
+    }
+    else{
+        $reply = "";
+        return $reply;
+    }
+  
+}
 
-// if (!$conn) {
-//     die("Connection failed: " . mysqli_connect_error());
-// }
+
+
+
 $existError =false;
 $reply = "";//process starts
 if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 
   if ($_POST['msg'] == 'commands') {
-    $reply= 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
+    echo 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
   } 
-    //   if($reply==""){
+      if($reply==""){
+       $reply = assistant($_POST['msg']);
+       echo $reply;
        
-    //  $reply = assistant($_POST['msg']);
-       
-    //   }
+     }
   if($reply =="") {
 
     $post= $_POST['msg'];
@@ -142,10 +175,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
  
   if($input){
     
-  
-    // $time ="what is the time";
-    // query db to look for question 
-    // $answer = "";
     $sql = "SELECT * FROM chatbot WHERE question = '$input'";
     $stm = $conn->query($sql);
     $stm->setFetchMode(PDO::FETCH_ASSOC);
@@ -154,18 +183,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
     if (count($res) > 0) {
     
-      // $input = strtolower(trim($input));
-      // $sql = "SELECT * FROM chatbot WHERE question LIKE '%$input%'";
-      //       $stm = $conn->query($sql);
-      //       $stm->setFetchMode(PDO::FETCH_ASSOC);
-
-      //       $result = $stm->fetchAll();
-      
-                  
-      // if(count(($result)) > 0){
-        
-      //   $answer = $answer[array_rand($answer)];   
-      // } 
       $index = rand(0, count($res)-1);
       $response = $res[$index]['answer'];  
 
@@ -178,22 +195,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   }
 }
           
-      // if($answer != ""){
-      //   $reply = $answer;
-      //   } 
+      
     
       }       
   
  
 
-  // if($reply == ""){
-  //       $reply ="I did'nt get that, please rephrase or try again later";
-  //   }
-  
-  // echo $reply;
-
-// exit();
-  // function
 }
 else{
   
