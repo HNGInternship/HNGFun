@@ -14,11 +14,11 @@ function processAskedQuestion($input){
     if(validateTrain_function($input)){
         list($trim, $question) = explode(":", $input);
         $question = trim($question, " ");
-        if($question !== ''){
-            if(strpos($question, "#") !== false){
+        if($question != ''){
+            if(strpos($question, "#") != false){
                 list($question,$answer)  = explode("#", $question);
                 $answer = trim($answer, " ");
-                if($answer !== ''){
+                if($answer != ''){
                     training($question, $answer);
                 }else{
                     echo "Please enter the question and answer";
@@ -30,7 +30,7 @@ function processAskedQuestion($input){
         }}else if(validateFunction($input)){
         list($functionName, $parameter) = explode('(', $input) ;
         list($parameter, $notUsed) = explode(')', $parameter);
-        if(strpos($parameter, ",")!== false){
+        if(strpos($parameter, ",")!= false){
             $paramenterArr = explode(",", $parameter);
         }switch ($functionName){
             case "time":
@@ -42,15 +42,15 @@ function processAskedQuestion($input){
     }
 
 if (isset($_POST['button'])) {
-if (isset ($_POST['input']) && $_POST['input'] !== "") {
+if (isset ($_POST['input']) && $_POST['input'] != "") {
     $asked_question_text = $_POST['input'];
     processAskedQuestion($asked_question_text);
 }}
-function validateTrain_function($input){if(strpos($input, "train:") !== false){
+function validateTrain_function($input){if(strpos($input, "train:") != false){
     return true;
 }else{return false;
 }
-}function validateTextFunction($input){if(strpos($input, "(") !== false){return true;
+}function validateTextFunction($input){if(strpos($input, "(") != false){return true;
 }else{
     return false;
 }}function training($question, $answer){
@@ -72,7 +72,7 @@ function validateTrain_function($input){if(strpos($input, "train:") !== false){
     global $conn;
     if (strpos($input, "deleteEmpty") === false) {
         $input = "'%" . $input . "%'";
-        if ($input !== '') {
+        if ($input != '') {
             $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $input . " ORDER BY answer ASC";
             $result = $conn->query($sql);
             $count = $result->rowCount();
