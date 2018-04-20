@@ -1,123 +1,52 @@
 <?php
-  if(!defined('DB_USER')){
+if(!defined('DB_USER')){
     require "../../config.php";
-  }
-  try {
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-  } catch (PDOException $pe) {
-    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-  }
-global $conn;
-function processAskedQuestion($input){
-  die('here');
-
-    if(validateTrain_function($input)){
-        list($trim, $question) = explode(":", $input);
-        $question = trim($question, " ");
-        if($question != ''){
-            if(strpos($question, "#") != false){
-                list($question,$answer)  = explode("#", $question);
-                $answer = trim($answer, " ");
-                if($answer != ''){
-                    training($question, $answer);
-                }else{
-                    echo "Please enter the question and answer";
-                }
-            }else{
-                echo "Please enter the question and answer";
-            }}else{
-            echo "Please enter the question and answer";
-        }}else if(validateFunction($input)){
-        list($functionName, $parameter) = explode('(', $input) ;
-        list($parameter, $notUsed) = explode(')', $parameter);
-        if(strpos($parameter, ",")!= false){
-            $paramenterArr = explode(",", $parameter);
-        }switch ($functionName){
-            case "time":
-            default:
-                echo "No command like that";
-        }
-    }else{
-        getAnswerFromDb($input);
-    }
-
-if (isset($_POST['button'])) {
-if (isset ($_POST['input']) && $_POST['input'] != "") {
-    $asked_question_text = $_POST['input'];
-    processAskedQuestion($asked_question_text);
-}}
-function validateTrain_function($input){if(strpos($input, "train:") != false){
-    return true;
-}else{return false;
-}
-}function validateTextFunction($input){if(strpos($input, "(") != false){return true;
-}else{
-    return false;
-}}function training($question, $answer){
-    global $conn;
     try {
-        $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
+        global $conn;
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        echo "success";
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+}
+global $conn;
+if (isset($_POST['button'])) {
+    echo "yes ";
+if (isset ($_POST['input']) && $_POST['input'] !== "") {
+    echo"input";
+    print_r ($_POST);
+echo $asked_question_text = $_POST['input'];
+askQuestion($asked_question_text);}}
+function askQuestion($input)
+{
+$split = preg_split("/(:|#)/", $input, -1);
+global $conn;
+$action = "train";
+if ($split[0] !== $action && !isset($split[1]) && !isset($split[2])) {
+    $question = strtolower($split[1]);
+    print_r ("ENETR");
+    $sql = 'SELECT answer FROM chatbot WHERE question = "' . $question . '"';
+    $result = $conn->query($sql);
+    if ($result==true){
+        $fetched_data = mysqli_fetch_all(MYSQLI_ASSOC);
+        echo $fetched_data[0]['answer'];
+    }else
+        echo "ENTER TRAIN: QUESTION#ANSWER TO ADD MORE QUESTIONS TO THE DATABASE";
+}else if  ($split[0] == $action && isset($split[1]) && isset($split[2])) {
+    try {
+        $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $split[1] . "', '" . $split[2] . "')";
         $conn->exec($sql);
-        $Output_message = "This has been saved   " . $question ." -> " . $answer;
-        echo $Output_message;
-
+        $saved_message = "Saved " . $split[1] ." -> " . $split[2];
+        echo $saved_message;
     }
     catch(PDOException $e)
     {
         echo $sql . "<br>" . $e->getMessage();
     }
+}
 
-}function getAnswerFromDb($input)
-{
-    global $conn;
-    if (strpos($input, "deleteEmpty") === false) {
-        $input = "'%" . $input . "%'";
-        if ($input != '') {
-            $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $input . " ORDER BY answer ASC";
-            $result = $conn->query($sql);
-            $count = $result->rowCount();
-            if ($count > 0) {
-                $result->setFetchMode(PDO::FETCH_ASSOC);
-                $fetched_data = $result->fetchAll();
-                $rand = rand(0, $count - 1);
-                echo $fetched_data[$rand]["answer"];
-            } else {
-                echo "ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN TRAIN: YOUR QUESTION#YOUR ANSWER
-            TO ADD MORE QUESTIONS TO THE DATABASE";
-            }
-        }else{
-            echo "Enter a valid command!";
-        }
+}
 
-    }
-
-
-    if (isset($_GET["query"])) {
-        include_once realpath(__DIR__ . '/..') . "/answers.php";
-        if (!defined('DB_USER')) {
-            require "../../config.php";
-        }
-        try {
-            $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-        } catch (PDOException $pe) {
-            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-        }
-        global $conn;
-        global $secret_word;
-        try {
-            $sql = "SELECT secret_word FROM secret_word";
-            $q = $conn->query($sql);
-            $q->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $q->fetch();
-            $secret_word = $data['secret_word'];
-        } catch (PDOException $e) {
-            throw $e;
-        }processQuestion($_GET['query']);
-    }else{
-        echo "------";
-    }
-
-}}
 ?>
 <!DOCTYPE html>
 <html lang="en">

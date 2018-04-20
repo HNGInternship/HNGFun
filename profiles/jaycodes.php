@@ -16,6 +16,8 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
      } catch (PDOException $e) {
          throw $e;
      }
+     date_default_timezone_set("Africa/Lagos");
+     $today = date("H:i:s");
 }
 
  ?>
@@ -298,7 +300,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
         <img class="pic" src="http://res.cloudinary.com/djz6ymuuy/image/upload/v1523890911/newpic.jpg" alt="myPicture" width="432px" height="470px">
     
     <div class="details">
-        <!-- <div id="time"><?php echo $today; ?></div> -->
+        <div id="time"><?php echo $today; ?></div>
         <h2>James James John<br><small><em>@jaycodes</em></small></h2>
         <div>
             <p>
