@@ -4,13 +4,13 @@
 
 		<?php
 
-			$servername = "localhost";
-			$dbname = "hng_fun";
+			// $servername = "localhost";
+			// $dbname = "hng_fun";
 			$name = $username = $image_filename = $secret_word = "";
 			try {
 
-				$conn = new PDO("mysql:host=$servername;dbname=$dbname", "root", "");
-				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				// $conn = new PDO("mysql:host=$servername;dbname=$dbname", "root", "");
+				// $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 				$sql = "SELECT * FROM interns_data WHERE username = 'jane' LIMIT 1";
 				$stmt = $conn->query($sql);
