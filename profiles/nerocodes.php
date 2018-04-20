@@ -33,7 +33,12 @@
 
         .name{
             font-family: verdana;
+<<<<<<< HEAD
+            font-size: 2em;
+            margin-top: 7px;
+=======
             font-size: 3em;
+>>>>>>> 250584eaadb8eca4ffddd2ffb8b3b32d4ab0c712
         }
 
         .username{
