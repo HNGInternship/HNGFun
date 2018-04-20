@@ -1,5 +1,5 @@
 <?php
-require('/../db.php');
+require('db.php');
 require('/../answers.php');
 
 $connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
