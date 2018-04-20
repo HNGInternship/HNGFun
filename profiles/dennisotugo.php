@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('DB_USER')) {
-	require "../config.php";
+	require "../../config.php";
 
 }
 
