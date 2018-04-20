@@ -1,13 +1,13 @@
 <?php
-<!-- include "config.php"; -->
+// include "config.php";
 
 
-<!-- try {
-		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-	} 
-	catch (PDOException $pe) {
-			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-			} -->
+// try {
+// 		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+// 	} 
+// 	catch (PDOException $pe) {
+// 			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+// 			} 
 
     try {
         $sql = "SELECT name, username, image_filename FROM interns_data WHERE username='Wizard of Oz'";
@@ -166,7 +166,7 @@ background: rgba(0, 0, 0, 0.7);
 
     <h2 id="username">@<?php echo $username?></h2>
 
-    <h3 id="job">Web &amp; Mobile Engineer</h3>
+    <h3 id="job">Web &amp; Android Engineer</h3>
 
 
      <img class="rounded-circle" id="profile-pic" src=<?php echo $profilePic?> alt="Profile picture"> 
