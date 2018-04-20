@@ -73,7 +73,7 @@ if(!$conn){
 		//list($keyvalue, $real_question) = explode('?', $question);
 		$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 		$question = mysqli_real_escape_string($con, $question);
-		$display_query = "SELECT answer FROM bot WHERE question = '$question'";
+		$display_query = "SELECT answer FROM chatbot WHERE question = '$question'";
 		$result = mysqli_query($con, $display_query);
 		if(mysqli_num_rows($result) > 0){
 			$row = mysqli_fetch_array($result);
@@ -105,14 +105,14 @@ if(!$conn){
 
 		//check if already exist
 
-		$check_question = "SELECT * FROM bot WHERE question = '$real_question'";
+		$check_question = "SELECT * FROM chatbot WHERE question = '$real_question'";
 		$result = mysqli_query($con, $check_question);
 		if(mysqli_num_rows($result) > 0){
 			echo "<div class='this'>";
 			echo "<p>I already know the asnwer to this question, just ask me</p>";
 			echo "</div>";
 		}else{
-		$question_query = "INSERT INTO `bot`(`question`, `answer`) VALUES ('{$real_question}', '{$real_answer}')";
+		$question_query = "INSERT INTO `chatbot`(`question`, `answer`) VALUES ('{$real_question}', '{$real_answer}')";
 		
 		if(mysqli_query($con, $question_query)){
 			echo "<div class='this'>";
@@ -134,11 +134,11 @@ if(!$conn){
 		list($keyvalue, $real_answer) = explode('@', $answer);	
 		$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);	
 		$real_answer = mysqli_real_escape_string($con, $real_answer);
-		$get_last_id = "SELECT id from bot ORDER BY id DESC LIMIT 1";
+		$get_last_id = "SELECT id from chatbot ORDER BY id DESC LIMIT 1";
 		$result = mysqli_query($con, $get_last_id);
 		$row = mysqli_fetch_array($result);
 		$last_id = $row['id'];
-		$answer_query = "UPDATE bot SET answer = '$real_answer' WHERE id = '$last_id'";
+		$answer_query = "UPDATE chatbot SET answer = '$real_answer' WHERE id = '$last_id'";
 		if(mysqli_query($con, $answer_query)){
 			echo "<div class='this'>";
 			echo "<p>Thank you for training me. <br>
@@ -159,6 +159,7 @@ if(!$conn){
 
 
 if(isset($_POST['question'])){
+	$question = trim($question);
 $question = $_POST['question'];
 	//echo $question;
 	 $x = 0;
@@ -236,8 +237,8 @@ $question = $_POST['question'];
 			$('#send').click(function(){
 				//
 				var input = $('#input').val();
-				//alert(input);
-				$('#bot-display').load('profiles/nellybaz10.php .this', {
+				alert(input);
+				$('#bot-display').load('/profiles/nellybaz10.php .this', {
 					question: input
 				});
 				return false;
