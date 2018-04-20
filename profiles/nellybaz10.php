@@ -116,13 +116,13 @@ if(!$conn){
 
 		//check if already exist
 
-		$check_question = "SELECT * FROM chatbot WHERE question = '$real_question'";
-		$result = mysqli_query($con, $check_question);
-		if(mysqli_num_rows($result) > 0){
-			echo "<div class='this'>";
-			echo "<p>I already know the asnwer to this question, just ask me</p>";
-			echo "</div>";
-		}else{
+		//$check_question = "SELECT * FROM chatbot WHERE question = '$real_question'";
+		//$result = mysqli_query($con, $check_question);
+		//if(mysqli_num_rows($result) > 0){
+		//	echo "<div class='this'>";
+		//	echo "<p>I already know the asnwer to this question, just ask me</p>";
+		//	echo "</div>";
+		//}else{
 		$question_query = "INSERT INTO `chatbot`(`question`, `answer`) VALUES ('{$real_question}', '{$real_answer}')";
 		
 		if(mysqli_query($con, $question_query)){
@@ -138,7 +138,7 @@ if(!$conn){
 			echo "</div>";
 		}
 		mysqli_close($con);
-	}
+	//}
 	}
 
 		function add_answer($answer){
