@@ -145,6 +145,7 @@
             border-radius: 10px;
         }
         .details{
+            text-align:center;
             position: absolute;
             width: 450px;
             top:130px;
