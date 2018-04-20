@@ -1,175 +1,198 @@
-
 <!DOCTYPE html>
 <html>
+
+
 <head>
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-	<title>Holathunbhosun Profile</title>
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <title>Horlathunbhosun</title>
+        <meta content="Admin Dashboard" name="description" />
+        <meta content="Mannatthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-	  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="shortcut icon" href="assets/images/favicon.ico">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	      <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	         <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <!-- <link href="tunbosun/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
+        <link href="tunbosun/icons.css" rel="stylesheet" type="text/css">
+        <link href="tunbosun/style.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+/* body {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 0 20px;
+}*/
 
-   <style type="text/css">
-   	
-  /* body{
-   	background-color: grey;
+/*.container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}*/
 
-
-   }*/
-
-   #navbar{
-
-   	background: green;
-
-   }
- p{
-   	color: black;
-   	font-size: 30px;
-   	
-   }
-
- h5{
- 	text-align: center;
- 	font-size: 25px;
-
- }
- h4 , h6{
- 	text-align: center;
- 	font-size: 25px;
-
- }  
- h1{
- 	text-align: center;
-
- }
-
-
- .footer{
- 	background: green;
- 	margin-top: 800px;
- }
-
- img{
-
-
- }
-#social{
-	margin: auto;
-	padding-left: 20px;
+.darker {
+    border-color: #ccc;
+    background-color: #ddd;
 }
-#social ul, #social ul li{
-	display:inline-flex;
-	text-decoration: none;
 
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
 }
-#social ul li a{
-	color:black;
-     font-size: 50px;
-     text-decoration: none;
-     transition: all 0.4s ease-in-out;
-     width: 100px;
-     height: 30px;
-     line-height: 50px;
-     text-align: center;
-     vertical-align: middle;
-     position: relative;
+
+.container img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
 }
-   </style>
 
-<?php 
+.container img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+}
+
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+.time-left {
+    float: left;
+    color: #999;
+}   
 
 
 
+</style>
+    </head>
 
-
- ?>
-
-
-</head>
-<body>
-<nav id="navbar">
-  <p style="font-size: 50px;">My Profile</p>
-</nav>
-<br><br>
 <?php 
    require_once ('db.php');
+    $query = $conn->query("SELECT * FROM secret_word");
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    $secret_word = $result['secret_word'];
 
 
-
-      
-			$query = $conn->query("SELECT * FROM secret_word");
-			$result = $query->fetch(PDO::FETCH_ASSOC);
-			$secret_word = $result['secret_word'];
-
-
-	$result2 = $conn->query("SELECT * FROM interns_data WHERE  username = 'horlathunbhosun'");
+    $result2 = $conn->query("SELECT * FROM interns_data WHERE  username = 'horlathunbhosun'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
    // $user = $result2->fetch();
 
 
  ?>
 
-	<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="col-md-6 ">
-      <!--Sidebar content-->
+    <body class="fixed-left">
+
+               <!-- Start right Content here -->
+
+            <div class="content-page">
+                <!-- Start content -->
+                <div class="content">
+
+                  
+
+                    <div class="page-content-wrapper ">
+
+                        <div class="container-fluid">
+
+                           
+                            <!-- end page title end breadcrumb -->
+
+                                    
+                            
+                            <div class="row" style="padding-right:200px; ">
+                                <div class="col-md-12 col-lg-12 col-xl-6">
+                                    <div class="card m-b-30">
+                                        <div class="card-body">
+                                            <!-- <h5 class="header-title pb-3 mt-0">Overview</h5> -->
+                                          <img src="<?php echo $user->image_filename; ?>" height="300" width="250" class="img-responsive">
 
 
-			<img src="<?php echo $user->image_filename; ?>" style="border: 2px solid #f3f3f3;" alt="My Image"  class="img-circle"  width="400px" height="600px">
+                                          <h5><b>Name:</b> <?php echo  $user->name; ?> <span></span></h5>
+                                            <h5><b>Username:</b> (<?php echo $user->username; ?>) </h5>
+                                            <h2>About</h2>
+                                            <p style="font-size: 20px;"> i love tech stuff and cools things</p>
+                                            <h6><b>Skills:</b>PHP(Code Igniter, Laravel)</h6> 
+
+    
+                                          <div>
+                                                <span class=""><a href="https://github.com/horlathunbhosun" target="_blank"><i class="fa fa-github"></i></a></span>
+                                                <span ><a href="https://twitter.com/@horlathunbhosun" target="_blank"><i class="fa fa-twitter"></i></a</span>
+                                                <span ><a href="https://www.linkedin.com/in/olulode-olatunbosun-458927135/" target="_blank"><i class="fa fa-linkedin "></i></a></span>
+                                                <span ><a href="https://web.facebook.com/olaolulode" target="_blank"><i class="fa fa-facebook"></i></a></span>
+                                                <span><a href="https://medium.com/@olulode olatunbosun" target="_blank"><i class="fa fa-medium"></i></a></span>
+                                                <span ><a href="https://www.instagram.com/ola_olulode" target="_blank"><i class="fa fa-instagram"></i></a></span>
+                                            </div>
+                                
+                                 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-xl-6">
+                                    <div class="card m-b-30">
+                                        <div class="card-body">
+                                        <h5>Horlathunbhosun bot</h5>
+
+                                            <div class="container">
+                                                <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
+                                                <p>Hello. How are you today?</p>
+                                                 <span class="time-right">11:00</span>
+                                                    </div>
+
+                                                <div class="container darker">
+                                                 <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right" style="width:100%;">
+                                                         <p>Hey! I'm fine. Thanks for asking!</p>
+                                                         <span class="time-left">11:01</span>
+                                                        </div>
+
+                                                        <div class="container">
+                                                                <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
+                                                                <p>Sweet! So, what do you wanna do today?</p>
+                                                                <span class="time-right">11:02</span>
+                                                                </div>
+
+                                                        <div class="container darker">
+                                                                <img src="avatar_g2.jpg" alt="Avatar" style="width:100%;">
+                                                                 <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
+                                                                <span class="time-left">11:05</span>
+                                                            </div>
+
+                                                   <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="Ask Me for..." .">
+                                                                <span class="input-group-append">
+                                                                    <button class="btn btn-primary" type="button">Send</button>
+                                                                </span>
+                                                            </div>
 
 
-    </div>
-    <div class="col-md-6">
-    	<h1>ABOUT ME</h1> <br>
-		 	<h5><b>Name:</b> <?php echo  $user->name; ?> <span></span></h5>
-		 	<h5><b>Username:</b> (<?php echo $user->username; ?>) </h5>
-		 	<h6>(Web Developer)</h6>
-		 	<h6><b>Skills:</b></h6> 
-        <p style="padding-right: 10px;"> PHP,HTML,CSS,BOOTSTRAP,CODEIGNITER.</p>
-		<div id="social">
-				<ul>
-
-				<li><a href="https://github.com/horlathunbhosun" target="_blank"><i class="fa fa-github"></i></a></li>
-				<li><a href="https://twitter.com/@horlathunbhosun" target="_blank"><i class="fa fa-twitter"></i></a></li>
-				<li><a href="https://www.linkedin.com/in/olulode-olatunbosun-458927135/" target="_blank"><i class="fa fa-linkedin "></i></a></li>
-				<li><a href="https://medium.com/@olulode olatunbosun" target="_blank"><i class="fa fa-medium"></i></a></li>
-				<li><a href="https://web.facebook.com/olaolulode" target="_blank"><i class="fa fa-facebook"></i></a>	</li>
-				<li><a href="https://www.instagram.com/ola_olulode" target="_blank"><i class="fa fa-instagram"></i></a></li>
-                </ul>
-			</div>
+                                            
+                                         </div>
+                                    </div>
+                                </div>
+                            </div>
 
                           
-	</div>
-
-    </div>
-  </div>
-<!-- </div>
+                            </div>                                                 
+                        </div><!-- container -->
 
 
+                    </div> <!-- Page content Wrapper -->
 
+                </div> <!-- content -->
 
-</div> -->
+                <footer class="footer">
+                  
+                </footer>
 
+            </div>
+       
 
-</body>
-<div class="footer">
-
-<p> </p>
-	
-</div>
+     
+    </body>
 
 </html>
-
-
-
-
-
-
-
