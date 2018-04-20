@@ -359,19 +359,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			color: #333333;
 			background-color: #ffffff;
 			padding: 20px;
-			height: 550px;
+			height: 700px;
 			margin-top: 5%;
 			margin-bottom: 50px;
+			font-size:18px;
 		}
 		.chat-messages {
 			padding: 5px;
-			height: 300px;
+			height: 420px;
 			overflow-y: auto;
 			margin-left: 15px;
 			margin-right: 15px;
 			border-radius: 6px;
 			
 		}
+		p {
+    line-height: 1;
+    margin: 10px 0;
+}
 		.single-message {
 			margin-bottom: 5px; 
 			border-radius: 5px;
@@ -379,7 +384,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			
 		}
 		.single-message-bg {
-			background-color:#a1a1a1;
+			background-color:#f3f3f3;
 			
 			
 		}
@@ -402,6 +407,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		.f-icon {
 			font-size: 40px;
+		}
+		.col-md-4{
+			border:0px;
 		}
 	</style>
 </head>
@@ -513,7 +521,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						<input class="form-control w-100" type="text" name="question" placeholder="type here...." />
 					</div>
 					<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
-						<button type="submit" class="btn btn-success" >Send</button>
+						<button type="submit" class="btn btn-success" style="float:center;">Send</button>
 					</div>
 				</form>	
 			</div>
@@ -545,7 +553,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: "/profiles/iam__dharmy.php",
+				url: "/profiles/essietom.php",
 				type: "post",
 				data: {question: question},
 				dataType: "json",
@@ -569,6 +577,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
 					}
 				},
+				
 				error: function(error){
 					console.log(error);
 				}
