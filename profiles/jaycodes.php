@@ -226,7 +226,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
         input{
             width:270px;
             height: 40px;
-            background-color:transparent;
+            background-color:white;
             border:solid 2px #aaa;
             padding:4px 10px;
             outline:none;
@@ -358,6 +358,11 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
                 exitB();
                 return;
             }
+            if(ques.value.toLowerCase() =="about bot"){
+                displayOnScreen(ques.value, "user");
+                displayOnScreen("Name: botX <br> Version: 1.0.0");
+                return;
+            }
             if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
             displayOnScreen(ques.value, "user");
             
@@ -382,7 +387,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
                     var res = Math.floor(Math.random()*answer.length);
                     displayOnScreen(answer[res][0], "bot");
                 }else{
-                    displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn<br> Here's the format: train: question # response");
+                    displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn<br> Here's the format: train: question # response # password");
                 }
             }else{
                 displayOnScreen(answer,"bot");
