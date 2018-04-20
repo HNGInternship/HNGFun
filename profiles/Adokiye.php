@@ -9,6 +9,7 @@
   }
 global $conn;
 function processAskedQuestion($input){
+  die('here');
 
     if(validateTrain_function($input)){
         list($trim, $question) = explode(":", $input);
