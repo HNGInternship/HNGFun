@@ -72,6 +72,7 @@
 
 <?php
 include ('../config.example.php');
+include('../answers.php');
 //include('../db.php');
 
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);

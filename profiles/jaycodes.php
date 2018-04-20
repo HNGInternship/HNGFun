@@ -50,6 +50,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             return;
         }
         function trainerMode($ques){
+            require '../../config.php';
             $questionAndAnswer = substr($ques, 6); //get the string after train
             $questionAndAnswer =test_input($questionAndAnswer); //removes all shit from 'em
             $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
@@ -231,6 +232,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             outline:none;
             transition: border 0.2s linear;
             border-radius: 10px;
+            font-size: 12px;
         }
         input:hover{
             border:solid 2px #222;
@@ -261,6 +263,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             margin-bottom: 5px;
         }
         .bot p{
+            font-size:14px;
             margin:0px;
             padding:4px;
             text-align: left;
@@ -276,6 +279,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             text-align: right;
         }
         .user p{
+            font-size: 14px;
             margin:0px;
             padding:4px;
             display: inline-block;
