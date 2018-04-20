@@ -60,7 +60,7 @@ function assistant($string)
       
       $ip=$_SERVER['REMOTE_ADDR'];
       $reply =var_export(unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip)));
-      
+      $reply ='you are in '. $reply['geoplugin_regionName'] .' in '. $reply['geoplugin_countryName'];
       return $reply;
         
     }
@@ -622,8 +622,8 @@ a:focus {
             ?>, <?php
             
             $ip=$_SERVER['REMOTE_ADDR'];
-            echo var_export(unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip)));
-            
+            $reply = var_export(unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip)));
+            echo 'you are in '. $reply['geoplugin_regionName'] .' in '. $reply['geoplugin_countryName'];
             ?></span>
                         
                       </span>

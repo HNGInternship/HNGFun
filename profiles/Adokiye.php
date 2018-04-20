@@ -1,57 +1,57 @@
 <?php
 global $conn;
-function validateTrainfunction($input){if(strpos($input, "train:") !== false){
-return true;
+function validateTrain_function($input){if(strpos($input, "train:") !== false){
+    return true;
 }else{return false;
-    }
+}
 }function validateTextFunction($input){if(strpos($input, "(") !== false){return true;
-      }else{
-          return false;
-      }function processAskedQuestion($input){
-    if(validateTrainfunction($input)){
+}else{
+    return false;
+}function processAskedQuestion($input){
+    if(validateTrain_function($input)){
         list($trim, $question) = explode(":", $input);
         $question = trim($question, " ");
         if($question !== ''){
             if(strpos($question, "#") !== false){
                 list($question,$answer)  = explode("#", $question);
-            $answer = trim($answer, " ");
-           if($answer !== ''){
-                training($question, $answer);
-            }else{
-                echo "Please enter the question and answer";
-            }
+                $answer = trim($answer, " ");
+                if($answer !== ''){
+                    training($question, $answer);
+                }else{
+                    echo "Please enter the question and answer";
+                }
             }else{
                 echo "Please enter the question and answer";
             }}else{
             echo "Please enter the question and answer";
         }}else if(validateFunction($input)){
-       list($functionName, $paramenter) = explode('(', $str) ;
+        list($functionName, $paramenter) = explode('(', $str) ;
         list($paramenter, $notUsed) = explode(')', $paramenter);
         if(strpos($paramenter, ",")!== false){
             $paramenterArr = explode(",", $paramenter);
         }switch ($functionName){
-           case "time":
-           default:
-           echo "No command like that";
-       }
+            case "time":
+            default:
+                echo "No command like that";
+        }
     }else{
         getAnswerFromDb($input);
     }
 }function training($question, $answer){
-  global $conn;
-  try {
-       $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
+    global $conn;
+    try {
+        $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
         $conn->exec($sql);
-        $Outputmessage = "This has been saved   " . $question ." -> " . $answer;
-        echo $Outputmessage;
+        $Output_message = "This has been saved   " . $question ." -> " . $answer;
+        echo $Output_message;
 
     }
     catch(PDOException $e)
-        {
+    {
         echo $sql . "<br>" . $e->getMessage();
-        }
+    }
 
-    }function getAnswerFromDb($input)
+}function getAnswerFromDb($input)
 {
     global $conn;
     if (strpos($input, "deleteEmpty") === false) {
@@ -70,8 +70,8 @@ return true;
             TO ADD MORE QUESTIONS TO THE DATABASE";
             }
         }else{
-                echo "Enter a valid command!";
-            }
+            echo "Enter a valid command!";
+        }
 
     }
 
@@ -87,17 +87,17 @@ return true;
             die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
         }
         global $conn;
-    global $secret_word;
-    try {
-        $sql = "SELECT secret_word FROM secret_word";
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-        $secret_word = $data['secret_word'];
-    } catch (PDOException $e) {
-        throw $e;
-    }processQuestion($_GET['query']);
-}else{
+        global $secret_word;
+        try {
+            $sql = "SELECT secret_word FROM secret_word";
+            $q = $conn->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+            $secret_word = $data['secret_word'];
+        } catch (PDOException $e) {
+            throw $e;
+        }processQuestion($_GET['query']);
+    }else{
         echo "------";
     }
 
@@ -145,26 +145,24 @@ return true;
             color: #563F3F;
             cursor: pointer;
         }
-   
+
     </style>
 </head>
 <body>
 <?php
 if(!defined('DB_USER')){
     require "../../config.php";
-  }
-  try {
+}
+try {
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-  } catch (PDOException $pe) {
+} catch (PDOException $pe) {
     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-  }
+}
 global $conn;
-$image_filename = '';
 $name = '';
 $username = '';
 $sql = "SELECT * FROM interns_data where username = 'Adokiye'";
 foreach ($conn->query($sql) as $row) {
-    $image_filename = $row['image_filename'];
     $name = $row['name'];
     $username = $row['username'];
 }
@@ -193,18 +191,18 @@ try {
             ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="font-weight: bolder">TRAIN: YOUR QUESTION#YOUR ANSWER</span>
             TO ADD MORE QUESTIONS TO THE DATABASE</p>
     </marquee>
-        <div>
-            <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
-    <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
-            <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
+    <div>
+        <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
+        <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
+        <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
     </div>
     chatbot
     <input type="text" class = "tb5" name="input" placeholder="Chat with me! Press enter to send.">
-    </div>
-    
-
-
 </div>
+
+
+
+
 </body>
 </html>
 
