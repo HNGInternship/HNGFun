@@ -300,7 +300,10 @@ chatArea.appendChild(timeEl2);
          newElement.value = response.response;
          chatArea.appendChild(newElement);
          timeEl.innerHTML = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
+         newElement.setAttribute("id", response.time);
          chatArea.appendChild(timeEl);
+         document.getElementById(response.time).focus();
+         document.getElementById("message").focus();
       }
    }
    //live server
