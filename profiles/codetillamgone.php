@@ -295,7 +295,7 @@ catch(PDOException $e){
          }
         
          $.ajax({
-				url: "/profiles/codetillamgone.php",
+				url: "profiles/codetillamgone.php",
 				type: "post",
 				data: {question: question},
 				dataType: "json",
