@@ -17,7 +17,6 @@ $date_time = new DateTime('now', new DateTimezone('Africa/Lagos'));
 global $conn;
 
 if (isset($_POST['payload'])) {
-	require "../answers.php";
 
 	$question = trim($_POST['payload']);
 	function isTraining($question)
