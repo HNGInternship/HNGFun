@@ -101,7 +101,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 				extract(training_data(stripquestion($array_data[1])), EXTR_PREFIX_ALL, "train");
 				
 
-				if(authorize_training($train_password)){
+				if(authorize_training(stripquestion($train_password))){
 				// store question in database
 				$answer = train($train_question, $train_answer);}else{$answer=" incorrect password, authorization failed";}
 				echo json_encode([

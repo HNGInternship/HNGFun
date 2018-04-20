@@ -1,9 +1,10 @@
 <?php
-include ('../config.example.php');
-	$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-if(!$con){
-  echo "couldn't connect";
-}
+//include ('../config.example.php');
+include('../db.php');
+	//$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+//if(!$con){
+ // echo "couldn't connect";
+//}
 
 echo "Loading....";
 
@@ -36,7 +37,7 @@ echo "Loading....";
 	
 	function add_question($question){
 		list($keyvalue, $real_question) = explode('#', $question);		
-		$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+		$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 		$real_question = mysqli_real_escape_string($con, $real_question);
 		$question_query = "INSERT INTO `bot`(`question`) VALUES ('{$real_question}')";
 		
@@ -55,7 +56,7 @@ echo "Loading....";
 
 	function add_answer($answer){
 		list($keyvalue, $real_answer) = explode('@', $answer);	
-		$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);	
+		$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);	
 		$real_answer = mysqli_real_escape_string($con, $real_answer);
 		$get_last_id = "SELECT id from bot ORDER BY id DESC LIMIT 1";
 		$result = mysqli_query($con, $get_last_id);
@@ -78,7 +79,7 @@ echo "Loading....";
 
 	function display_answer($question){
 		//list($keyvalue, $real_question) = explode('?', $question);
-		$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+		$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 		$question = mysqli_real_escape_string($con, $question);
 		$display_query = "SELECT answer FROM bot WHERE question = '$question'";
 		$result = mysqli_query($con, $display_query);

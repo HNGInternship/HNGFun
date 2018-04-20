@@ -104,7 +104,7 @@ while ($row2 = mysqli_fetch_array($result)) {
 			$('#send').click(function(){
 				//
 				var input = $('#input').val();
-				//alert(input);
+				alert(input);
 				$('#bot-display').load('nnzzion.php', {
 					question: input
 				});
