@@ -493,5 +493,50 @@ function simpleMaths($operation, $expression){
 
 /******** End Adroit Bot Funct ********/
 
+#####################################################################################################
+#                                                                                                   #
+#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS BELOW            #
+#                                                                                                   #
+#####################################################################################################
+
+function calculate_distance($key, $url, $location1, $location2) {
+    $request_distance = $url.$location1."+Nigeria&destinations=$location2+Nigeria"."&key=".$key;
+    $response  = json_decode(file_get_contents($request_distance), 1);
+    $status = $response['status'];
+    if ($status === 'OK' and $response['rows'][0]['elements'][0]['status'] === 'OK') {
+        $distance = $response['rows'][0]['elements'][0]['distance']['text'];
+        return $distance;
+    }
+    // If no match, return error message
+    else {
+        $message = ["I couldn't calculate the distance for given location, could you be more specific? \n \n You could add City name or State or Country to be more accurate", "The addresses you gave me are quite complex. \n \n Why don't you add a city or state or even a country for me to get it correctly", "I couldn't really calculate this. \n \n Why? the addresses you gave me are rather too complex. \n \n You can include the city, state or country and watch me do magic"];
+        return nl2br($message[rand(0, 2)]);
+    }
+}
+
+function get_duration ($key, $url, $location1, $location2, $mode) {
+    $request_duration = $url.$location1."&destinations=$location2"."&key=".$key."&mode=".$mode."&departure_time=now";
+    $response = json_decode(file_get_contents($request_duration), 1);
+    $status = $response['status'];
+    if ($status === 'OK' and $response['rows'][0]['elements'][0]['status'] === 'OK') {
+        $duration = $response['rows'][0]['elements'][0]['duration_in_traffic']['text'];
+        return $duration;
+    }
+    // If no match, return error message
+    else {
+        $message = ["Sorry, I currently can't retrieve the duration for this trip as I don't have enough information"];
+        return $message;
+    }
+}
+
+function show_direction ($location1, $location2, $mode) {
+    return "https://www.google.com/maps/dir/?api=1&origin=$location1&destination=$location2&travelmode=$mode";
+}
+
+#####################################################################################################
+#                                                                                                   #
+#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS ABOVE            #
+#                                                                                                   #
+#####################################################################################################
 
 ?>
