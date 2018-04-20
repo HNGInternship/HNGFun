@@ -1,96 +1,6 @@
-<?php
-     date_default_timezone_set('Africa/Lagos');
-     if (!defined('DB_USER')){
-         
-         require "../../config.php";
-     }
-     try {
-         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-       } catch (PDOException $pe) {
-         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-       }
-        global $conn;
-    
-    if($_SERVER['REQUEST_METHOD']==="POST"){
-        //function definitions
-        function test_input($data) {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            $data = preg_replace("([?.!])", "", $data);
-            $data = preg_replace("(['])", "\'", $data);
-            return $data;
-        }
-        function chatMode($ques){
-            $ques = test_input($ques);
-            $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
-            $result = $conn->query($query)->fetch_all();
-            
-            echo json_encode([
-                'status' => 1,
-                'answer' => $result
-            ]);
-            return ;
-        }
-        function trainerMode($ques){
-            $questionAndAnswer = substr($ques, 6); //get the string after train
-            $questionAndAnswer =test_input($questionAndAnswer); //removes all shit from 'em
-            $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
-            $questionAndAnswer = explode("#",$questionAndAnswer);
-            if((count($questionAndAnswer)==2)){
-                $question = $questionAndAnswer[0];
-                $answer = $questionAndAnswer[1];
-            }
-            
-            if(isset($question) && isset($answer)){
-                //Correct training pattern
-                $question = test_input($question);
-                $answer = test_input($answer);
-                if($question == "" ||$answer ==""){
-                    echo json_encode([
-                        'status'    => 1,
-                        'answer'    => "empty question or response"
-                    ]);
-                    return;
-                }
-                $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
-                if($conn->query($query) ===true){
-                    echo json_encode([
-                        'status'    => 1,
-                        'answer'    => "trained successfully"
-                    ]);
-                }else{
-                    echo json_encode([
-                        'status'    => 1,
-                        'answer'    => "Error training me: ".$conn->error
-                    ]);
-                }
-                
-
-                return;
-            }else{ //wrong training pattern or error in string
-            echo json_encode([
-                'status'    => 0,
-                'answer'    => "Wrong training pattern<br> PLease use this<br>train: question # answer"
-            ]);
-            return;
-            }
-        }
-
-        $ques = test_input($_POST['ques']);
-        if(strpos($ques, "train:") !== false){
-            trainerMode($ques);
-        }else{
-            chatMode($ques);
-        }
-
-
-
-
-
-    return;
-    }else{
-        require_once 'db.php';
+<?php 
+//require 'db.php';
+if($_SERVER['REQUEST_METHOD'] === "GET"){
     try {
         $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
         $intern_data->execute();
@@ -106,9 +16,49 @@
      } catch (PDOException $e) {
          throw $e;
      }
-     $today = date("H:i:s");
+}
+
+ ?>
+ <?php 
+    if($_SERVER['REQUEST_METHOD']==='POST'){
+        //function definitions
+        function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            $data = preg_replace("([?.!])", "", $data);
+            $data = preg_replace("(['])", "\'", $data);
+            return $data;
+        }
+        function chatMode($ques, $conn){
+            if(isset($conn)&& isset($ques)){
+                echo json_encode([
+                    'status'    => 1,
+                    'answer'    => "In chat mode"
+                ]);
+                
+            }else{
+                echo json_encode([
+                    'status'    => 1,
+                    'answer'    => var_dump($conn)
+                ]);
+            }
+            return;
+        }
+
+        //end of function definition
+        $ques = test_input($_POST['ques']);
+        if(strpos($ques, "train:") !== false){
+            trainerMode($ques);
+        }else{
+            chatMode($ques, $conn);
+        }
+
+       
+        return;
     }
-?>
+ ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -135,6 +85,7 @@
             border-radius: 10px;
         }
         .details{
+            text-align:center;
             position: absolute;
             width: 450px;
             top:130px;
@@ -273,7 +224,7 @@
 
 <body>
     
-        <img class="pic" src="http://res.cloudinary.com/djz6ymuuy/image/upload/v1523890911/newpic.jpg" alt="myPicture" width="432px" height="550px">
+        <img class="pic" src="http://res.cloudinary.com/djz6ymuuy/image/upload/v1523890911/newpic.jpg" alt="myPicture" width="432px" height="470px">
     
     <div class="details">
         <div id="time"><?php echo $today; ?></div>
@@ -310,95 +261,95 @@
 
     <script>
         function meetB(){
-    var display= document.querySelector(".display");
-    display.style.display = "block";
-    var btnM = document.querySelector(".btnM");
-    btnM.style.display ="none"
-    document.querySelector(".btnN").style.display ="inline"
-}
-function exitB(){
-    var display= document.querySelector(".display");
-    display.style.display = "none";
-    document.querySelector(".btnN").style.display = "none";
-    document.querySelector(".btnM").style.display = "inline";
-}
-window.addEventListener("keydown", function(e){
-    if(e.keyCode ==13){
-        if(document.querySelector("#question").value.trim()==""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){
-            //console.log("empty box");
-        }else{
-            //this.console.log("Unempty");
-            sendMsg();
+            var display= document.querySelector(".display");
+            display.style.display = "block";
+            var btnM = document.querySelector(".btnM");
+            btnM.style.display ="none"
+            document.querySelector(".btnN").style.display ="inline"
         }
-    }
-});
-function sendMsg(){
+        function exitB(){
+            var display= document.querySelector(".display");
+            display.style.display = "none";
+            document.querySelector(".btnN").style.display = "none";
+            document.querySelector(".btnM").style.display = "inline";
+        }
+        window.addEventListener("keydown", function(e){
+            if(e.keyCode ==13){
+                if(document.querySelector("#question").value.trim()==""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){
+                    //console.log("empty box");
+                }else{
+                    //this.console.log("Unempty");
+                    sendMsg();
+                }
+            }
+        });
+        function sendMsg(){
 
-    var ques = document.querySelector("#question");
-    if(ques.value == ":close:"){
-        exitB();
-        return;
-    }
-    if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
-    displayOnScreen(ques.value, "user");
-    
-    //console.log(ques.value);
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function(){
-        if(xhttp.readyState ==4 && xhttp.status ==200){
-            processData(xhttp.responseText);
+            var ques = document.querySelector("#question");
+            if(ques.value == ":close:"){
+                exitB();
+                return;
+            }
+            if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
+            displayOnScreen(ques.value, "user");
+            
+            //console.log(ques.value);
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(xhttp.readyState ==4 && xhttp.status ==200){
+                    processData(xhttp.responseText);
+                }
+            };
+            xhttp.open("POST", "https://hng.fun/profiles/jaycodes.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("ques="+ques.value);
         }
-    };
-    xhttp.open("POST", "https://hng.fun/profiles/jaycodes.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("ques="+ques.value);
-}
-function processData (data){
-    data = JSON.parse(data);
-    console.log(data);
-    var answer = data.answer;
-    //Choose a random response from available
-    if(Array.isArray(answer)){
-        if(answer.length !=0){
-            var res = Math.floor(Math.random()*answer.length);
-            displayOnScreen(answer[res][0], "bot");
-        }else{
-            displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn<br> Here's the format: train: question # response");
+        function processData (data){
+            data = JSON.parse(data);
+            console.log(data);
+            var answer = data.answer;
+            //Choose a random response from available
+            if(Array.isArray(answer)){
+                if(answer.length !=0){
+                    var res = Math.floor(Math.random()*answer.length);
+                    displayOnScreen(answer[res][0], "bot");
+                }else{
+                    displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn<br> Here's the format: train: question # response");
+                }
+            }else{
+                displayOnScreen(answer,"bot");
+            }
+            
+            
+        
         }
-    }else{
-        displayOnScreen(answer,"bot");
-    }
-    
-    
-   
-}
-function displayOnScreen(data,sender){
-    //console.log(data);
-    if(!sender){
-        sender = "bot"
-    }
-    var display = document.querySelector(".display");
-    var msgArea = document.querySelector(".myMessage-area");
-    var div = document.createElement("div");
-    var p = document.createElement("p");
-    p.innerHTML = data;
-    //console.log(data);
-    div.className = "myMessage "+sender;
-    div.append(p);
-    msgArea.append(div)
-    if(data != document.querySelector("#question").value){
-        document.querySelector("#question").value="";
-    }
-    //display.scrollTo(0, display.scrollHeight);
-    $('.display').animate({
-        scrollTop: display.scrollHeight,
-        scrollLeft: 0
-    }, 500);
-    
-    // li.style.textAlign =align;
-    // li.innerHTML = data;
-    // lastchild.append(li);
-}
+        function displayOnScreen(data,sender){
+            //console.log(data);
+            if(!sender){
+                sender = "bot"
+            }
+            var display = document.querySelector(".display");
+            var msgArea = document.querySelector(".myMessage-area");
+            var div = document.createElement("div");
+            var p = document.createElement("p");
+            p.innerHTML = data;
+            //console.log(data);
+            div.className = "myMessage "+sender;
+            div.append(p);
+            msgArea.append(div)
+            if(data != document.querySelector("#question").value){
+                document.querySelector("#question").value="";
+            }
+            //display.scrollTo(0, display.scrollHeight);
+            $('.display').animate({
+                scrollTop: display.scrollHeight,
+                scrollLeft: 0
+            }, 500);
+            
+            // li.style.textAlign =align;
+            // li.innerHTML = data;
+            // lastchild.append(li);
+        }
     </script>
 </body>
 </html>

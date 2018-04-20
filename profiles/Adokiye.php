@@ -1,74 +1,113 @@
 <?php
-include "../answers.php";
-require "../../config.php";
-$servername = DB_HOST;
-$username = DB_USER;
-$password = DB_PASSWORD;
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password);
-
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+global $conn;
+function validateTrain_function($input){if(strpos($input, "train:") !== false){
+    return true;
+}else{return false;
 }
-echo "Connected successfully";
-//
-if (isset($_POST['button'])) {
-    if (isset ($_POST['input']) && $_POST['input'] !== "") {
-        $asked_question_text = $_POST['input'];
-        echo askQuestion($asked_question_text);
-    }
-}function askQuestion($input)
-    {
-        $split = preg_split("/(:|#)/", $input, -1);
-        global $conn;
-        $action = "train";
-        if ($split[0] !== $action && !isset($split[1]) && !isset($split[2])) {
-            $result = $conn->query("SELECT id FROM chatbot where question = '$input'");
-            if ($result==true){
-
-
-            $fetched_records = mysqli_fetch_field($result);
-            mysqli_free_result($result);
-            if ($fetched_records === true) {
-                $result2 = $conn->query("SELECT answer FROM chatbot where id = '{$fetched_records[0]['id']}'");
-                $fetched_answer = $result2->fetch_all(MYSQLI_ASSOC);
-                return $fetched_answer[0]['answer'];
-            } else {
-                if ($split[0] == "What is the current time?" || $split[0] == "what is the current time?" || $split[0] == "what is the current time" || $split[0] == "What is the current time") {
-                    return get_current_time();
-                } else {
-                    if ($split[0] == "Who is your creator?" || $split[0] == "who is your creator?" || $split[0] == "who is your creator" || $split[0] == "Who is your creator") {
-                        return myCreator();
-                    } else
-                        return "ENTER train:your question#your answer  to add questions and answers to the database";
+}function validateTextFunction($input){if(strpos($input, "(") !== false){return true;
+}else{
+    return false;
+}function processAskedQuestion($input){
+    if(validateTrain_function($input)){
+        list($trim, $question) = explode(":", $input);
+        $question = trim($question, " ");
+        if($question !== ''){
+            if(strpos($question, "#") !== false){
+                list($question,$answer)  = explode("#", $question);
+                $answer = trim($answer, " ");
+                if($answer !== ''){
+                    training($question, $answer);
+                }else{
+                    echo "Please enter the question and answer";
                 }
-            }}
-        } elseif ($split[0] == $action && isset($split[1]) && isset($split[2])) {
-            $asked_question_answer = "INSERT INTO chatbot (question, answer) VALUES ('$split[1]','$split[2]')";
-            $conn->query($asked_question_answer);
-            echo "Question and answer added successfully";
-        } else if ($split[0] == $action && isset($split[1]) && isset($split[2]) && $split[2] == "((get_current_time))") {
-            $time = get_current_time();
-            $asked_question_answer = ("INSERT INTO chatbot (question, answer) VALUES ('$split[1]','$time')");
-            $conn->query($asked_question_answer);
-            return "Question and answer with getCurrentTime function added successfully";
-        } else if ($split[0] == $action && isset($split[1]) && isset($split[2]) && $split[2] == "((myCreator))") {
-            $create = myCreator();
-            $asked_question_answer = ("INSERT INTO chatbot (question, answer) VALUES ('$split[1]','$create')");
-            $conn->query($asked_question_answer);
-            echo "Question and answer with myCreator function added successfully";
-        } else
-            return "ENTER train:your question#your answer  to add questions and answers to the database";
+            }else{
+                echo "Please enter the question and answer";
+            }}else{
+            echo "Please enter the question and answer";
+        }}else if(validateFunction($input)){
+        list($functionName, $paramenter) = explode('(', $str) ;
+        list($paramenter, $notUsed) = explode(')', $paramenter);
+        if(strpos($paramenter, ",")!== false){
+            $paramenterArr = explode(",", $paramenter);
+        }switch ($functionName){
+            case "time":
+            default:
+                echo "No command like that";
+        }
+    }else{
+        getAnswerFromDb($input);
     }
-?>
+}function training($question, $answer){
+    global $conn;
+    try {
+        $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
+        $conn->exec($sql);
+        $Output_message = "This has been saved   " . $question ." -> " . $answer;
+        echo $Output_message;
 
-<!doctype html>
-<html>
+    }
+    catch(PDOException $e)
+    {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+
+}function getAnswerFromDb($input)
+{
+    global $conn;
+    if (strpos($input, "deleteEmpty") === false) {
+        $input = "'%" . $input . "%'";
+        if ($input !== '') {
+            $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $input . " ORDER BY answer ASC";
+            $result = $conn->query($sql);
+            $count = $result->rowCount();
+            if ($count > 0) {
+                $result->setFetchMode(PDO::FETCH_ASSOC);
+                $fetched_data = $result->fetchAll();
+                $rand = rand(0, $count - 1);
+                echo $fetched_data[$rand]["answer"];
+            } else {
+                echo "ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN TRAIN: YOUR QUESTION#YOUR ANSWER
+            TO ADD MORE QUESTIONS TO THE DATABASE";
+            }
+        }else{
+            echo "Enter a valid command!";
+        }
+
+    }
+
+
+    if (isset($_GET["query"])) {
+        include_once realpath(__DIR__ . '/..') . "/answers.php";
+        if (!defined('DB_USER')) {
+            require "../../config.php";
+        }
+        try {
+            $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+        } catch (PDOException $pe) {
+            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+        }
+        global $conn;
+        global $secret_word;
+        try {
+            $sql = "SELECT secret_word FROM secret_word";
+            $q = $conn->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+            $secret_word = $data['secret_word'];
+        } catch (PDOException $e) {
+            throw $e;
+        }processQuestion($_GET['query']);
+    }else{
+        echo "------";
+    }
+
+}}
+?>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Adokiye Iruene</title>
+    <title>Adokiye ---- Stage 4</title>
     <style type="text/css">
         #div_main {
             width: 980px;
@@ -106,10 +145,40 @@ if (isset($_POST['button'])) {
             color: #563F3F;
             cursor: pointer;
         }
+
     </style>
 </head>
-
 <body>
+<?php
+if(!defined('DB_USER')){
+    require "../../config.php";
+}
+try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+global $conn;
+$name = '';
+$username = '';
+$sql = "SELECT * FROM interns_data where username = 'Adokiye'";
+foreach ($conn->query($sql) as $row) {
+    $name = $row['name'];
+    $username = $row['username'];
+}
+
+global $secret_word;
+
+try {
+    $sql = "SELECT secret_word FROM secret_word";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+    $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+    throw $e;
+}
+?>
 <div class=".body" id="div_main">
     <div class=".header" id="header">
         <img src="http://res.cloudinary.com/gorge/image/upload/v1523960590/images.jpg" width="120" height="131" alt=""/>
@@ -121,24 +190,19 @@ if (isset($_POST['button'])) {
         <p style=" color: #FFFFFF;font-family: arial, sans-serif; font-size: 14px;font-weight: bold;letter-spacing: 0.3px;">
             ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="font-weight: bolder">TRAIN: YOUR QUESTION#YOUR ANSWER</span>
             TO ADD MORE QUESTIONS TO THE DATABASE</p>
-    </marquee><form name = "askMe" method="post">
-        <p>
-            <label>
-                <input name="input" type="text" class="tb5">
-            </label><label>
-                <input name="button" type="submit" class="fb7" id="button" value="ASK">
-            </label>
-            <br />
-
-        </p>
-        <p>&nbsp;</p>
-    </form>
-    <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
-    <p style="font-style: normal; font-weight: bold;">NAME : <?php echo "Iruene Adokiye" ?></p>
-    <p style="font-weight: bold">USERNAME : <?php echo "Adokiye" ?></p>
-
-
-
+    </marquee>
+    <div>
+        <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
+        <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
+        <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
+    </div>
+    chatbot
+    <input type="text" class = "tb5" name="input" placeholder="Chat with me! Press enter to send.">
 </div>
+
+
+
+
 </body>
 </html>
+

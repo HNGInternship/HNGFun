@@ -18,32 +18,7 @@ catch(PDOException $pe)
 	}
 
 global $conn;
-try
-	{
-	$sql = 'SELECT * FROM secret_word LIMIT 1';
-	$mercy = $conn->query($sql);
-	$mercy->setFetchMode(PDO::FETCH_ASSOC);
-	$data = $mercy->fetch();
-	$secret_word = $data['secret_word'];
-	}
 
-catch(PDOException $e)
-	{
-	throw $e;
-	}
-
-try
-	{
-	$sql = "SELECT * FROM interns_data_ WHERE `username` = 'mercyikpe' LIMIT 1";
-	$mercy = $conn->query($sql);
-	$mercy->setFetchMode(PDO::FETCH_ASSOC);
-	$my_data = $mercy->fetch();
-	}
-
-catch(PDOException $e)
-	{
-	throw $e;
-	}
 
 if ($_SERVER['REQUEST_METHOD'] === "POST")
 	{
@@ -126,10 +101,38 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 			}
 		}
 	}
-  else
-	{
-?>
 
+?>
+<?php 
+if ($_SERVER['REQUEST_METHOD'] === "GET") {
+try
+	{
+	$sql = 'SELECT * FROM secret_word LIMIT 1';
+	$mercy = $conn->query($sql);
+	$mercy->setFetchMode(PDO::FETCH_ASSOC);
+	$data = $mercy->fetch();
+	$secret_word = $data['secret_word'];
+	}
+
+catch(PDOException $e)
+	{
+	throw $e;
+	}
+
+try
+	{
+	$sql = "SELECT * FROM interns_data WHERE `username` = 'mercyikpe' LIMIT 1";
+	$mercy = $conn->query($sql);
+	$mercy->setFetchMode(PDO::FETCH_ASSOC);
+	$my_data = $mercy->fetch();
+	}
+
+catch(PDOException $e)
+	{
+	throw $e;
+	}
+
+?>
 <html>
 	<head>
 	            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
