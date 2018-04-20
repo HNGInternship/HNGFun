@@ -10,6 +10,8 @@
             'status' => 0,
             'answer' => "Error unable toconnect to database"
         ]);
+         
+        return;
       }
       
     if($_SERVER['REQUEST_METHOD']==="POST"){
