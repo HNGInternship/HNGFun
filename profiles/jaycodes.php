@@ -1,8 +1,13 @@
 <?php
     if($_SERVER['REQUEST_METHOD'] === "GET"){
         date_default_timezone_set('Africa/Lagos');
-     
-        require_once 'db.php';
+        require "../../config.php";	
+        //require_once 'db.php';
+        try {
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        } catch (PDOException $pe) {
+            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+        }
        try {
         $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
         $intern_data->execute();
@@ -293,7 +298,7 @@
 
 <body>
     
-        <img class="pic" src="http://res.cloudinary.com/djz6ymuuy/image/upload/v1523890911/newpic.jpg" alt="myPicture" width="432px" height="450px">
+        <img class="pic" src="http://res.cloudinary.com/djz6ymuuy/image/upload/v1523890911/newpic.jpg" alt="myPicture" width="432px" height="470px">
     
     <div class="details">
         <div id="time"><?php echo $today; ?></div>
@@ -330,95 +335,95 @@
 
     <script>
         function meetB(){
-    var display= document.querySelector(".display");
-    display.style.display = "block";
-    var btnM = document.querySelector(".btnM");
-    btnM.style.display ="none"
-    document.querySelector(".btnN").style.display ="inline"
-}
-function exitB(){
-    var display= document.querySelector(".display");
-    display.style.display = "none";
-    document.querySelector(".btnN").style.display = "none";
-    document.querySelector(".btnM").style.display = "inline";
-}
-window.addEventListener("keydown", function(e){
-    if(e.keyCode ==13){
-        if(document.querySelector("#question").value.trim()==""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){
-            //console.log("empty box");
-        }else{
-            //this.console.log("Unempty");
-            sendMsg();
+            var display= document.querySelector(".display");
+            display.style.display = "block";
+            var btnM = document.querySelector(".btnM");
+            btnM.style.display ="none"
+            document.querySelector(".btnN").style.display ="inline"
         }
-    }
-});
-function sendMsg(){
+        function exitB(){
+            var display= document.querySelector(".display");
+            display.style.display = "none";
+            document.querySelector(".btnN").style.display = "none";
+            document.querySelector(".btnM").style.display = "inline";
+        }
+        window.addEventListener("keydown", function(e){
+            if(e.keyCode ==13){
+                if(document.querySelector("#question").value.trim()==""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){
+                    //console.log("empty box");
+                }else{
+                    //this.console.log("Unempty");
+                    sendMsg();
+                }
+            }
+        });
+        function sendMsg(){
 
-    var ques = document.querySelector("#question");
-    if(ques.value == ":close:"){
-        exitB();
-        return;
-    }
-    if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
-    displayOnScreen(ques.value, "user");
-    
-    //console.log(ques.value);
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function(){
-        if(xhttp.readyState ==4 && xhttp.status ==200){
-            processData(xhttp.responseText);
+            var ques = document.querySelector("#question");
+            if(ques.value == ":close:"){
+                exitB();
+                return;
+            }
+            if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
+            displayOnScreen(ques.value, "user");
+            
+            //console.log(ques.value);
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(xhttp.readyState ==4 && xhttp.status ==200){
+                    processData(xhttp.responseText);
+                }
+            };
+            xhttp.open("POST", "https://hng.fun/profiles/jaycodes.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("ques="+ques.value);
         }
-    };
-    xhttp.open("POST", "https://hng.fun/profiles/jaycodes.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("ques="+ques.value);
-}
-function processData (data){
-    data = JSON.parse(data);
-    console.log(data);
-    var answer = data.answer;
-    //Choose a random response from available
-    if(Array.isArray(answer)){
-        if(answer.length !=0){
-            var res = Math.floor(Math.random()*answer.length);
-            displayOnScreen(answer[res][0], "bot");
-        }else{
-            displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn<br> Here's the format: train: question # response");
+        function processData (data){
+            data = JSON.parse(data);
+            console.log(data);
+            var answer = data.answer;
+            //Choose a random response from available
+            if(Array.isArray(answer)){
+                if(answer.length !=0){
+                    var res = Math.floor(Math.random()*answer.length);
+                    displayOnScreen(answer[res][0], "bot");
+                }else{
+                    displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn<br> Here's the format: train: question # response");
+                }
+            }else{
+                displayOnScreen(answer,"bot");
+            }
+            
+            
+        
         }
-    }else{
-        displayOnScreen(answer,"bot");
-    }
-    
-    
-   
-}
-function displayOnScreen(data,sender){
-    //console.log(data);
-    if(!sender){
-        sender = "bot"
-    }
-    var display = document.querySelector(".display");
-    var msgArea = document.querySelector(".myMessage-area");
-    var div = document.createElement("div");
-    var p = document.createElement("p");
-    p.innerHTML = data;
-    //console.log(data);
-    div.className = "myMessage "+sender;
-    div.append(p);
-    msgArea.append(div)
-    if(data != document.querySelector("#question").value){
-        document.querySelector("#question").value="";
-    }
-    //display.scrollTo(0, display.scrollHeight);
-    $('.display').animate({
-        scrollTop: display.scrollHeight,
-        scrollLeft: 0
-    }, 500);
-    
-    // li.style.textAlign =align;
-    // li.innerHTML = data;
-    // lastchild.append(li);
-}
+        function displayOnScreen(data,sender){
+            //console.log(data);
+            if(!sender){
+                sender = "bot"
+            }
+            var display = document.querySelector(".display");
+            var msgArea = document.querySelector(".myMessage-area");
+            var div = document.createElement("div");
+            var p = document.createElement("p");
+            p.innerHTML = data;
+            //console.log(data);
+            div.className = "myMessage "+sender;
+            div.append(p);
+            msgArea.append(div)
+            if(data != document.querySelector("#question").value){
+                document.querySelector("#question").value="";
+            }
+            //display.scrollTo(0, display.scrollHeight);
+            $('.display').animate({
+                scrollTop: display.scrollHeight,
+                scrollLeft: 0
+            }, 500);
+            
+            // li.style.textAlign =align;
+            // li.innerHTML = data;
+            // lastchild.append(li);
+        }
     </script>
 </body>
 </html>

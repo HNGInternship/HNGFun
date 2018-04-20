@@ -53,7 +53,7 @@ return true;
 
     }function getAnswerFromDb($input){
         global $conn;
-        if(strpos($str, "deleteEmpty") === false){        
+        if(strpos($input, "deleteEmpty") === false){        
         $input = "'%".$input."%'";
         if($input !== ''){
         $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $input . " ORDER BY answer ASC";
@@ -124,26 +124,8 @@ try {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href='https://fonts.googleapis.com/css?family=Ubuntu|Lato' rel='stylesheet'>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
     <title>Adokiye ---- Stage 4</title>
-
-    <script>
-        function updateClock(){
-            console.log("called ")
-            let d = new Date().toUTCString();
-            d = d.substr(0, d.indexOf("GMT")-9)
-             d += " - " + new Date().toLocaleTimeString();
-            document.getElementById('time').innerText = d;
-            return 0; }
-         window.onload = function(){
-            updateClock();
-          var j=  setInterval(updateClock, 1000);
-         }
-    </script>
     <style type="text/css">
         #div_main {
             width: 980px;
@@ -552,12 +534,10 @@ header{
 .about{
     font-size: 100%;
 }
-}
     </style>
 </head>
 <body>
 <?php
-
 if(!defined('DB_USER')){
     require "../../config.php";
   }
@@ -603,15 +583,16 @@ try {
     </marquee>
     <section class="content">
         <div class="left">
-        <h2>My name is <?php echo $name; ?>.</h2>
-        </div>
+            <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
+    <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
+    <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
     <div class="clear">&nbsp;</div>
     <div class="clear">&nbsp;</div>
     </div><div class="bot move-right">
     <h2>Chatbot</h2>
     <div id="botresponse"> </div>
     <br />
-    <input type="text" name="asked" placeholder="Chat with me! Press enter to send." onkeypress="return runScript(event)" onkeyDown="recall(event)" class="form-control">
+    <input type="text" name="input" placeholder="Chat with me! Press enter to send." onkeypress="return runScript(event)" onkeyDown="recall(event)" class="form-control">
     </div>
     </section>
 
@@ -687,6 +668,7 @@ function instructions(){
    print($string);
 }
 </script>
+</div>
 </body>
 </html>
 <?php
