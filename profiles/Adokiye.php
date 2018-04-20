@@ -1,21 +1,24 @@
 <?php
+  if(!defined('DB_USER')){
+    require "../../config.php";
+  }
+  try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
 global $conn;
-function validateTrain_function($input){if(strpos($input, "train:") !== false){
-    return true;
-}else{return false;
-}
-}function validateTextFunction($input){if(strpos($input, "(") !== false){return true;
-}else{
-    return false;
-}function processAskedQuestion($input){
+function processAskedQuestion($input){
+  die('here');
+
     if(validateTrain_function($input)){
         list($trim, $question) = explode(":", $input);
         $question = trim($question, " ");
-        if($question !== ''){
-            if(strpos($question, "#") !== false){
+        if($question != ''){
+            if(strpos($question, "#") != false){
                 list($question,$answer)  = explode("#", $question);
                 $answer = trim($answer, " ");
-                if($answer !== ''){
+                if($answer != ''){
                     training($question, $answer);
                 }else{
                     echo "Please enter the question and answer";
@@ -25,10 +28,10 @@ function validateTrain_function($input){if(strpos($input, "train:") !== false){
             }}else{
             echo "Please enter the question and answer";
         }}else if(validateFunction($input)){
-        list($functionName, $paramenter) = explode('(', $str) ;
-        list($paramenter, $notUsed) = explode(')', $paramenter);
-        if(strpos($paramenter, ",")!== false){
-            $paramenterArr = explode(",", $paramenter);
+        list($functionName, $parameter) = explode('(', $input) ;
+        list($parameter, $notUsed) = explode(')', $parameter);
+        if(strpos($parameter, ",")!= false){
+            $paramenterArr = explode(",", $parameter);
         }switch ($functionName){
             case "time":
             default:
@@ -37,7 +40,20 @@ function validateTrain_function($input){if(strpos($input, "train:") !== false){
     }else{
         getAnswerFromDb($input);
     }
-}function training($question, $answer){
+
+if (isset($_POST['button'])) {
+if (isset ($_POST['input']) && $_POST['input'] != "") {
+    $asked_question_text = $_POST['input'];
+    processAskedQuestion($asked_question_text);
+}}
+function validateTrain_function($input){if(strpos($input, "train:") != false){
+    return true;
+}else{return false;
+}
+}function validateTextFunction($input){if(strpos($input, "(") != false){return true;
+}else{
+    return false;
+}}function training($question, $answer){
     global $conn;
     try {
         $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
@@ -56,7 +72,7 @@ function validateTrain_function($input){if(strpos($input, "train:") !== false){
     global $conn;
     if (strpos($input, "deleteEmpty") === false) {
         $input = "'%" . $input . "%'";
-        if ($input !== '') {
+        if ($input != '') {
             $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $input . " ORDER BY answer ASC";
             $result = $conn->query($sql);
             $count = $result->rowCount();
@@ -200,7 +216,7 @@ try {
     <form name = "askMe" method="post">
         <p>
             <label>
-                <input name="input" type="text" class="tb5">
+                <input name="input" type="text" class="tb5" placeholder="Chat with me! Press Ask to send.">
             </label><label>
                 <input name="button" type="submit" class="fb7" id="button" value="ASK">
             </label>
@@ -209,12 +225,7 @@ try {
         </p>
         <p>&nbsp;</p>
     </form>
-    <input type="text" class = "tb5" name="input" placeholder="Chat with me! Press enter to send.">
 </div>
-
-
-
-
 </body>
 </html>
 

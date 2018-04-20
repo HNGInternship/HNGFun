@@ -86,7 +86,7 @@ echo '</div>';
         $result = showtime($loc);
        
       }else{
-$sql="SELECT DISTINCT question, answer  FROM chatbot WHERE question LIKE '$msg%' LIMIT 1";
+$sql="SELECT DISTINCT question, answer  FROM chatbot WHERE question LIKE '$msg%' ORDER BY RAND() LIMIT 1";
 $send=mysqli_query($conf,$sql);
 
 $u = 'hello';

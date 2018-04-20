@@ -5,7 +5,13 @@
 <head>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono" rel="stylesheet">
 	<title>Nelson's Profile</title>
+	<style type="text/css">
+		.this{
+			font-family: 'IBM Plex Mono', monospace;
+		}
+	</style>
 
 </head>
 <body style="text-align: center; font-family: cursive;">
@@ -32,7 +38,7 @@
 		<div>
 			
 			<div  style="margin:30px 20% 0 0; border:1px solid gray; width: 50%; height: 500px; min-width: 300px; font-size: 14px; min-height: 300px" align="center" class="whole-content">
-				<h3 style="margin-left: 15px; color: navy">I'm Alice, Nelly's smart bot</h3>
+				<h3 style="margin-left: 15px; color: navy; font-family: 'IBM Plex Mono', monospace;">I'm Alice, Nelly's smart bot</h3>
 				<p>(Are you bored? chat with me)</p>
 				<hr>
 
@@ -52,7 +58,7 @@
 								<input id="input" style="width: 100%; height: 30px" type="text" name="input">
 							</td>
 							<td >
-								<button id="send" style="width: 100%; height: 35px; background-color: navy; color: white; border:none;">Send</button>
+								<button id="send" style="width: 100%; height: 32px; border-radius: 8px; background-color: navy; color: white; border:none;">Send</button>
 							</td>
 						</tr>
 					</table>
@@ -66,6 +72,7 @@
 
 <?php
 include ('../config.example.php');
+include('../answers.php');
 //include('../db.php');
 
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
@@ -80,15 +87,12 @@ if(!$conn){
 		$result = mysqli_query($con, $display_query);
 		if(mysqli_num_rows($result) > 0){
 			$row = mysqli_fetch_array($result);
-			echo "<div class='this'>";
-			echo "<table border='0' width='100%'>";
-			echo "<tr><td align='left'>";
+			echo "<div class='this'>";		
 			echo "<p><i class='material-icons'>perm_identity</i> ".$question ;
 			echo "</p>";
-			echo "</td><td align='right'>";
+			sleep(1);			
 			echo "<p><i class='material-icons'>child_care</i> ".$row['answer'];
 			echo "</p>";
-			echo "</td></tr></table>";
 			echo "</div>";
 		}
 		else{
@@ -112,13 +116,13 @@ if(!$conn){
 
 		//check if already exist
 
-		$check_question = "SELECT * FROM chatbot WHERE question = '$real_question'";
-		$result = mysqli_query($con, $check_question);
-		if(mysqli_num_rows($result) > 0){
-			echo "<div class='this'>";
-			echo "<p>I already know the asnwer to this question, just ask me</p>";
-			echo "</div>";
-		}else{
+		//$check_question = "SELECT * FROM chatbot WHERE question = '$real_question'";
+		//$result = mysqli_query($con, $check_question);
+		//if(mysqli_num_rows($result) > 0){
+		//	echo "<div class='this'>";
+		//	echo "<p>I already know the asnwer to this question, just ask me</p>";
+		//	echo "</div>";
+		//}else{
 		$question_query = "INSERT INTO `chatbot`(`question`, `answer`) VALUES ('{$real_question}', '{$real_answer}')";
 		
 		if(mysqli_query($con, $question_query)){
@@ -134,7 +138,7 @@ if(!$conn){
 			echo "</div>";
 		}
 		mysqli_close($con);
-	}
+	//}
 	}
 
 		function add_answer($answer){
