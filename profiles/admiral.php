@@ -301,6 +301,9 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		    float:left;
 		    background-color: #0085A1;
 		}
+		.txt {
+			font-size: 14px;
+		}
 	</style>
 </head>
 <body>
@@ -334,7 +337,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 				  <div class="card-body" id="chatWindow">
                         <div class="msj macro">
                             <div class="text text-l">
-                                <p>How may I be of service today?</p>
+                                <p class="txt">How may I be of service today?</p>
                             </div>
                         </div>
                     <!-- Gracie's message -->
@@ -437,7 +440,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 		    var answer = response.answer;
 		  	$(selector).html(''+message+'');
 			$(selector).removeClass(classname).addClass('sent');
-			$('#chatWindow').append(' <div class="msj macro"><div class="avatar"></div><div class="text text-l"><p>'+answer+'</p></div></div>');
+			$('#chatWindow').append(' <div class="msj macro"><div class="text text-l"><p>'+answer+'</p></div></div>');
 		  
 		  },
 		  error: function(error){
