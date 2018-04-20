@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sammy</title>
+    <title>Achem Samuel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -44,9 +44,16 @@
     <style>
         body {
             background-size: cover;
-            margin: 0 auto;
+            margin: 0;
+            font:normal 12px/1.6em Arial, Helvetica, sans-serif
+            
+        }
+
+        #body {
+            padding-top: 1px;
             height: 900px;
             width: 800px;
+            margin: 0 auto;
         }
 
         .carousel-inner>.item>img,
@@ -212,10 +219,6 @@
             padding-top: 53px;
         }
 
-        #body {
-            padding-top: 5px;
-        }
-
         #cent {
             float:left;
             margin-right: 50px;
@@ -326,11 +329,11 @@
         
                 </div>
         
-                <div id="foot-container">
+                <footer id="foot-container">
                     <div id="footer">
                         Copyright &copy; 2018 Achem Samuel. All rights reserved.
                     </div>
-                </div>
+                </footer>
             </div>
         </div>
    </div>
