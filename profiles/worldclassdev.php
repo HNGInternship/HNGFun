@@ -51,9 +51,9 @@
 		
 		}
 		.twcd-profile-img{
-			width: 200px;
+			width: 50%;
 			border-radius: 50%;
-			height: 200px;
+			height: 50%;
 		}
 		.twcd-about{
             width: 100%;

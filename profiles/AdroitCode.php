@@ -1,4 +1,16 @@
 <?php
+    # require "../db.php";
+    if (!defined('DB_USER')){
+            
+            require "../../config.php";
+    }
+    try {
+          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        } catch (PDOException $pe) {
+          die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+        }
+
+        global $conn;
     try {
           $query = $conn->query("SELECT * FROM secret_word");
           $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -20,16 +32,29 @@
             } catch (PDOException $pe) {
                 die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
             }
+            if ($question === "aboutbot") {
+              echo json_encode([
+                'question' => $question,
+                'answer' => "Adoitbot v-1.0.0"
+              ]);
+              return;
+            }
             /* check if in training mode (checking for train: in input) */
             $is_training = stripos($question, "train:");
             if ($is_training === false) { 
               /* bot not training, process question */
-              $query = $conn->query("SELECT * FROM chatbot WHERE question LIKE '".$question."'");
-              while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
-                $answer = $result['answer'];
-              }
+              //$answer_stmt->execute()
+              $query = $conn->prepare("SELECT * FROM chatbot  WHERE question LIKE :question ORDER BY RAND() Limit 1");
+              $query->bindParam(':question', $question);
+              $query->execute();
+              $result = $query->fetch();
+              $answer = $result['answer'];
               if (isset($answer)) {
-                return $answer;
+                echo json_encode([
+                  'question' => $question,
+                  'answer' => $answer
+                ]);
+                return;
               }
               /* returned message when bot can't find answer*/
             }
@@ -40,46 +65,61 @@
               $sperate_ques_ans = explode("#", $training);
               if (count($sperate_ques_ans) == 2) {
                 # it training password was not supplied;
-                return "Please supply my training password to train me."; 
+                echo json_encode([
+                  'question' => $question,
+                  'answer' => "Please supply my training password to train me."
+                ]);
+                return; 
               }
               elseif (count($sperate_ques_ans) == 1 ) {
                 # if training question's answer was not supplied
-                return "Invalid training, supply training: question # answer # password to train me";
+                echo json_encode([
+                  'question' => $question,
+                  'answer' => "Invalid training, supply training: question # answer # password to train me"
+                ]);
+                return;
               }
               $question = trim($sperate_ques_ans[0]);
               $answer = trim($sperate_ques_ans[1]);
               $password = trim($sperate_ques_ans[2]);
-              if ($password === 'trainpwforhng') {
+              if ($password === 'password') {
                 # carry out insertion if password is supplied correctly
                 #return "good to go on";
-                $sql = "SELECT * FROM chatbot WHERE question LIKE '".$question."'";
-                $query = $conn->query($sql);
-                  while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
-                    $answer = $result['answer'];
+                $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
+                  if ($conn->exec($sql)) {
+                    # check if question was saved
+                    echo json_encode([
+                      'question' => $question,
+                      'answer' => "Thanks for the new info, Data Saved."
+                    ]);
+                    return;
                   }
-                  if(isset($answer)){
-                    return $answer;
+                    echo json_encode([
+                      'question' => $question,
+                      'answer' => "Have not gotten your question"
+                    ]);
+                    return;
                   }
-                  else{
-                    $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
-                    if ($conn->exec($sql)) {
-                      # check if question was saved
-                      return "Data Saved.";
-                    }
-                    return "Have not gotten your question";
-                  }
-              }
-              return "You are not authorized to train me, please supply a valid password";
+              echo json_encode([
+                'question' => $question,
+                'answer' => "You are not authorized to train me, please supply a valid password"
+              ]);
+              return;
               //return "undergoing training";
             }
-            return "Sorry am not smart enough to answer, pls train me using the train: syntax";
+            echo json_encode([
+              'question' => $question,
+              'answer' => "Sorry am not smart enough to answer, pls train me using the train: syntax"
+            ]);
+            return;
             
           }
           if (($_SERVER['REQUEST_METHOD'] === 'POST')) {
             # code...
             $message = $_POST['chatbotmessage'];
             $answer = processMessage($message);
-            echo $answer;
+            # echo $answer;
+            return;
           }
           
           /* Chat Bot End */
@@ -20449,16 +20489,15 @@
                         </svg>
                       </div>
                       <div class="w-2/3 h-auto p-2">
-                        <div class="w-full border p-4 h-64 rounded-lg mb-2">
+                        <div id="chatbot" class="w-full border p-4 h-64 overflow-auto text-xs rounded-lg mb-2">
                           <div class="w-full border-l-2 p-2 border-yellow-dark">
-                            Hello, my name is AdroitCode.<br>
-                            What is your name?
+                            Hello, my name is AdroitCode, hw may I help you?
                           </div>
                         </div>
                         <form class="w-full max-w-xs" method="post" action="AdroitCode.php">
                           <div class="md:flex md:items-center h-auto mb-6">
                             <div class="md:w-2/3 pin-b">
-                              <input class="appearance-none block w-full bg-white text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" name="chatbotmessage" placeholder="How may I help you?">
+                              <input id="txt_question" class="appearance-none block w-full bg-white text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" name="chatbotmessage" placeholder="How may I help you?">
                             </div>
                             <div class="md:w-1/3 m-2">
                               <input type="submit" class="shadow bg-teal-dark w-full hover:bg-teal-light text-white font-bold py-2 px-4 rounded" type="button" value="⬆">
@@ -20472,7 +20511,30 @@
             </div>
         </div>
     </div>
+    
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+            $('form').on('submit', function(e){
+             e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    cache: false,
+                    url: "/profiles/AdroitCode.php", 
+                    dataType: "json",
+                    data: $('form').serialize(), 
+                    success: function(result) {
+                      console.log(result);
+                      $("footer").remove();
+                      $('#chatbot').append("<div class=\"w-full border-r-2 p-2 text-right border-teal-dark\">"+result.question+"</div><div class=\"w-full border-l-2 p-2 border-yellow-dark\">"+result.answer+"</div>");
+                    }
+
+                });
+            });
+            
+            });
+    </script>
     <script>
         $( document ).ready(function() {
         $( ".menu" ).hide();
