@@ -77,7 +77,7 @@
               $endIndex = stripos($answer, "))", $bracketIndex);
               $bracket1Index++;
               $function_name = substr($answer, $bracket1Index + 1, $endIndex - $bracket1Index -1);
-              $answer = str_replace("((".$function_name."))", call_user_func($function_name), $answer);
+              $answer = str_replace("{{".$function_name."}}", call_user_func($function_name), $answer);
 
 
 

@@ -241,14 +241,13 @@ function smartSearch($question, $questions_array)
 						$hit_count++;
 					}
 				}
+				if ($hit_count && $hit_count > 2) {
+					$q_sorta[] = $item;
+				}
 				if ($hit_count === $word_count) {
 					// we match all words here already, so stop looping and return instead
 					return $item;
 				}
-				if ($hit_count && ($hit_count === count($question) || $hit_count > 2)) { // if count is more than 1 and greater that 2 or equal count of question
-					$q_sorta[] = $item;
-				}
-			
 			}
 		}
 	}
