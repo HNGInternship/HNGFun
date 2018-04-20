@@ -1,4 +1,24 @@
-<!DOCTYPE html>
+	  <?php 
+  if(!isset($_GET['id'])){
+     require '../db.php';
+   }else{
+      require 'db.php';
+   }
+ 
+
+  try {
+        $sql = 'SELECT * FROM interns_data, secret_word WHERE username ="'.'dapetoo'.'"';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+        $secret_word = $data['secret_word'];
+        
+    } catch (PDOException $e) {
+        throw $e;
+    }
+
+
+  ?><!DOCTYPE html>
 <html lang="en">
 <head>
 	<title>HNG FUN: DAPETOO</title>
@@ -23,27 +43,6 @@
 		}
 	</style>
 
-	  <?php 
-  if(!isset($_GET['id'])){
-     require '../db.php';
-   }else{
-      require 'db.php';
-   }
- 
-
-  try {
-        $sql = 'SELECT * FROM interns_data, secret_word WHERE username ="'.'dapetoo'.'"';
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-        $secret_word = $data['secret_word'];
-        
-    } catch (PDOException $e) {
-        throw $e;
-    }
-
-
-  ?>
 </head>
 <body style='background-color:#3f4447;'>
 	
