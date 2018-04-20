@@ -70,25 +70,25 @@
     return;
     }
 ?>
-<!-- <?php
-// try {
-//     $profile = 'SELECT * FROM interns_data WHERE username="Vincent"';
-//     $select = 'SELECT * FROM secret_word';
+<?php
+try {
+    $profile = 'SELECT * FROM interns_data WHERE username="Vincent"';
+    $select = 'SELECT * FROM secret_word';
 
-//     $query = $conn->query($select);
-//     $get_profile = $conn->query($profile);
+    $query = $conn->query($select);
+    $get_profile = $conn->query($profile);
 
-//     $query->setFetchMode(PDO::FETCH_ASSOC);
-//     $get_profile->setFetchMode(PDO::FETCH_ASSOC);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $get_profile->setFetchMode(PDO::FETCH_ASSOC);
 
-//     $get = $query->fetch();
-//     $user = $get_profile->fetch();
+    $get = $query->fetch();
+    $user = $get_profile->fetch();
     
-// } catch (PDOException $e) {
-//     throw $e;
-// }
-//$secret_word = $get['secret_word'];
-?> -->
+} catch (PDOException $e) {
+    throw $e;
+}
+$secret_word = $get['secret_word'];
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -172,7 +172,7 @@
         <div>
             <nav></nav>
             <ul>
-                <li style="text-align: left">Am Bot Chat with Me</li>
+                <li style="text-align: left">Welcome am a chat bot</li>
             </ul>
         </div>
         <div class="form">
@@ -218,7 +218,7 @@ function processData (data){
             var res = Math.floor(Math.random()*answer.length);
             displayOnScreen(answer[res][0], "left");
         }else{
-            displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn something new <br> Here's the format: train: question # response");
+            displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn something new words<br> Here's the format: train: question # response");
         }
     }else{
         displayOnScreen(answer,"right");
