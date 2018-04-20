@@ -4,11 +4,18 @@ if(!defined('DB_USER')){
     try {
         global $conn;
         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        echo "success";
     } catch (PDOException $pe) {
         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
     }
 }
 global $conn;
+if (isset($_POST['button'])) {
+    echo "yes ";
+if (isset ($_POST['input']) && $_POST['input'] !== "") {
+    echo"input";
+$asked_question_text = $_POST['input'];
+askQuestion($asked_question_text);}}
 function askQuestion($input)
 {
 $split = preg_split("/(:|#)/", $input, -1);
