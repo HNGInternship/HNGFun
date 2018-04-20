@@ -320,6 +320,9 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
                 <div class="myMessage bot">
                     <p>To exit this type <em>:close:</em> </p>
                 </div>
+                <div class="myMessage bot">
+                    <p>To know more about me type <em>:about bot:</em> </p>
+                </div>
                 
             </div>
         </div>
@@ -361,7 +364,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
                 exitB();
                 return;
             }
-            if(ques.value.toLowerCase() =="about bot"){
+            if(ques.value.toLowerCase() ==":about bot:"){
                 displayOnScreen(ques.value, "user");
                 displayOnScreen("Name: botX <br> Version: 1.0.0");
                 return;
