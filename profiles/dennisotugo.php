@@ -42,7 +42,7 @@ if (isset($_POST['payload'])) {
 		}
 
 		if ($answer_data_result[$answer_data_index]["answer"] == "") {
-			return 'I don\'t get :/. Train me to understand small something sha,no vex please type "<code>train: your question? # The answer.</code> ;)"';
+			return 'I don\'t get :/ Train me to understand small something sha,no vex please type "<code>train: your question? # The answer.</code> ;)"';
 		}
 
 		if (containsVariables($answer_data_result[$answer_data_index]['answer']) || containsFunctions($answer_data_result[$answer_data_index]['answer'])) {
@@ -93,7 +93,9 @@ if (isset($_POST['payload'])) {
 		$q->execute($question_data);
 		echo "Now I understand. No wahala, now try me again";
 		return;
-	}
+	} else {
+	echo "YOU DONT HAVE ACCESS!!! SARS!!!! EFCC!!! NAFDAC!!!! HACKER!!! USA COME AND CARRY YOU RUSSIA :$";
+ 	}
 
 	function containsVariables($answer)
 	{
