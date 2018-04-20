@@ -1,5 +1,5 @@
 <?php
-    # require "../db.php";
+    #require "../db.php";
     require "../answers.php";
     if (!defined('DB_USER')){
             
