@@ -675,7 +675,7 @@ try {
 
 <script>
 let url = "profiles/bytenaija.php?query=";
-//url = window.location.href + "?query=";
+url = window.location.href + "?query=";
 
 let botResponse = document.querySelector("#botresponse");
 window.onload = instructions;
