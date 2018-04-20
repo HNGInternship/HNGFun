@@ -112,11 +112,11 @@ $reply = "";//process starts
 if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 
   if ($_POST['msg'] == 'commands') {
-    $reply= 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
+    echo 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
   } 
       if($reply==""){
-       
-     echo assistant($_POST['msg']);
+       $reply = assistant($_POST['msg']);
+       echo $reply;
        
      }
   if($reply =="") {
