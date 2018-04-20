@@ -105,7 +105,8 @@ function alabotGetMenu()
 		if(strcmp(trim($password), 'password') !== 0 ){
 			$data = ["data" => "You don't have the pass key", "stage" => 2];
 		}else if (strpos($human_response, 'synonym') !== false) {
-			$data = setSynonyms($word, $answer);
+			// $data = setSynonyms($word, $answer);
+			$data = setGeneral($part_one, trim($parts[1]));
 		} else {
 			$data = setGeneral($part_one, trim($parts[1]));
 		}
@@ -131,7 +132,8 @@ function alabotGetMenu()
 		}elseif(strcmp(strtolower(trim($human_response)), 'aboutbot') == 0){
 			$data = ['data' => 'Alabot v0.1', 'stage' => 2];	
 		}elseif (strpos($human_response, 'synonym') !== false && count($human_response_words) > 1) {
-			$data = getSynonyms($human_response);
+			// $data = getSynonyms($human_response);
+			$data = getGeneral($human_response);
 		} else {
 			$data = getGeneral($human_response);
 		}
