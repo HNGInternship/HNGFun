@@ -172,7 +172,7 @@ p {
 		<div class="chatbox" id="boh1">
 			<img src="<?php echo $user->image_filename; ?>" alt="2boh" width= "300" height="300" class="img-circle">
 					<h1 style="color: black;"><?php echo  $user->name; ?></h1>
-					<p style=" font-size: 30px;">(<?php echo $user->username; ?>) </p>
+					<p style=" font-size: 20px;">(<?php echo $user->username; ?>) </p>
 							<p>	(Web Developer)</p>
 						<p>I love tech stuff and cools things</p>
 						 <h6 style="font-size: 10px;"><b>Skills:</b>PHP(Code Igniter, Laravel)</h6>
