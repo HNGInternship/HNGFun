@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'fact'){
       echo json_encode([
         'status' => 1,
-        'answer' => getRandomFact()
+        'answer' => getRandomFacts()
       ]);
       return;
     }
