@@ -11,12 +11,18 @@
      $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
      $result = $intern_data->fetch();
  
- 
-     $secret_code = $conn->prepare("SELECT * FROM secret_word");
-     $secret_code->execute();
-     $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
-     $code = $secret_code->fetch();
-     $secret_word = $code['secret_word'];
+   if($_SERVER['REQUEST_METHOD']==='Post'){
+    echo json_encode([
+                    'status' => 1,
+                    'answer' => $result
+                ]);
+                return ;
+   }
+    //  $secret_code = $conn->prepare("SELECT * FROM secret_word");
+    //  $secret_code->execute();
+    //  $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+    //  $code = $secret_code->fetch();
+    //  $secret_word = $code['secret_word'];
   } catch (PDOException $e) {
       throw $e;
   }
