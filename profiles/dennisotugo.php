@@ -17,6 +17,7 @@ $date_time = new DateTime('now', new DateTimezone('Africa/Lagos'));
 global $conn;
 
 if (isset($_POST['payload'])) {
+	require "../answers_blank.php";
 
 	$question = trim($_POST['payload']);
 	function isTraining($question)
@@ -70,11 +71,11 @@ if (isset($_POST['payload'])) {
 	}
 	function resolvePasswordFromTraining($question)
 	{
-		$start = strpos($answer, " # ") + 3;
-		$answer = substr($question, $start);
+		$start = $question;
+		$password = strpos("# password", $start);
 		return $password;
 	}
-	$check_pass = 'password';
+$check_pass = 'password';
 
 	if (isTraining($question) && $password == $check_pass) {
 		$answer = resolveAnswerFromTraining($question);
@@ -95,6 +96,7 @@ if (isset($_POST['payload'])) {
 		return;
 	} else {
 	echo "YOU DONT HAVE ACCESS!!! SARS!!!! EFCC!!! NAFDAC!!!! HACKER!!! USA COME AND CARRY YOU RUSSIA :$";
+		return;
  	}
 
 	function containsVariables($answer)
