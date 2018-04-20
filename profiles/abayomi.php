@@ -1,15 +1,10 @@
     <?php
         $result = $conn->query("Select * from secret_word LIMIT 1");
-        $result = $result->fetch(PDO::FETCH_OBJ);
-        $secret_word = $result->secret_word;
+        $result = $result->fetch(PDO::FETCH_ASSOC);
+        $secret_word = $result['secret_word'];
 
         $result2 = $conn->query("Select * from interns_data where username = 'abayomi'");
         $user = $result2->fetch(PDO::FETCH_OBJ);
-		
-		$username = $user['username'];
-		$name = $user['name'];
-		$image_filename = $user['image_filename'];
-
     ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -119,10 +114,10 @@
 </head>
 <body>
     <div class="main">
-        <div class="image"><img src="<?php echo $user->image_filename ?>" alt="Author's Picture"></div>
+        <div class="image"><img src="http://res.cloudinary.com/abayomijohn273/image/upload/v1524099224/abayomi.jpg" alt="Author's Picture"></div>
         <div class="details">
-            <h1><?php echo strtoupper($user->image_filename) ?></h1>
-            <h3>Slack Username: @<?php echo ucfirst($user->username)?></h3>
+            <h1><?php echo Olatunji Abayomi ?></h1>
+            <h3>Slack Username: @Abayomi?></h3>
             <p>Exceptionally well organised, self taught, self motivated and resourceful Professional with few years of experience in Website Development and Design using HTML, CSS, Bootstrap, JAVASCRIPT, JQuery, Laravel, PHP, MYSQL.  Excellent analytical and problem solving skills.</p>
             <p class="connect_me">Connect with me</p>
         <div id="icons">
