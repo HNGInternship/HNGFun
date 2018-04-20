@@ -10,7 +10,8 @@
             return $data;
         }
         function chatMode($ques){
-            $conn = mysqli_connect("localhost", "root", "", "hngfun");
+          require '../../config.php';
+          $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
             if(!$conn){die("Unable to connect");}
             $query = "select answer from chatbot where question like '$ques'";
             $result = $conn->query($query)->fetch_all();
@@ -22,6 +23,8 @@
             return ;
         }
         function trainerMode($ques){
+          require '../../config.php';
+          $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
             $questionAndAnswer = substr($ques, 6); //get the string after train
             $questionAndAnswer =test_input($questionAndAnswer); //removes all shit from 'em
             $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
@@ -204,7 +207,7 @@ function sendMsg(){
             processData(xhttp.responseText);
         }
     };
-    xhttp.open("POST", "vincent.php", true);
+    xhttp.open("POST", "https://hng.fun/profiles/vincent.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("ques="+ques.value);
 }
