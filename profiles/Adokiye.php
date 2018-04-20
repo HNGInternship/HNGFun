@@ -1,49 +1,46 @@
 <?php
 if(!defined('DB_USER')){
     require "../../config.php";
-    try {
-        global $conn;
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-        echo "success";
-    } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
-}
+    $servername = DB_HOST;
+    $username_ = DB_USER;
+    $password = DB_PASSWORD;
+    $dbname = DB_DATABASE;
+    // Create connection
+    $conn = mysqli_connect($servername, $username_, $password, $dbname);
+    // Check connection
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }}
 global $conn;
 if (isset($_POST['button'])) {
-    echo "yes ";
-if (isset ($_POST['input']) && $_POST['input'] !== "") {
-    echo"input";
-    print_r ($_POST);
-echo $asked_question_text = $_POST['input'];
-askQuestion($asked_question_text);}}
+    if (isset ($_POST['input']) && $_POST['input'] !== "") {
+        $asked_question_text = $_POST['input'];
+        $solution = askQuestion($asked_question_text);}}
 function askQuestion($input)
 {
-$split = preg_split("/(:|#)/", $input, -1);
-global $conn;
-$action = "train";
-if ($split[0] !== $action && !isset($split[1]) && !isset($split[2])) {
-    $question = strtolower($split[1]);
-    print_r ("ENETR");
-    $sql = 'SELECT answer FROM chatbot WHERE question = "' . $question . '"';
-    $result = $conn->query($sql);
-    if ($result==true){
-        $fetched_data = mysqli_fetch_all(MYSQLI_ASSOC);
-        echo $fetched_data[0]['answer'];
-    }else
-        echo "ENTER TRAIN: QUESTION#ANSWER TO ADD MORE QUESTIONS TO THE DATABASE";
-}else if  ($split[0] == $action && isset($split[1]) && isset($split[2])) {
-    try {
-        $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $split[1] . "', '" . $split[2] . "')";
-        $conn->exec($sql);
-        $saved_message = "Saved " . $split[1] ." -> " . $split[2];
-        echo $saved_message;
+    $split = preg_split("/(:|#)/", $input, -1);
+    global $conn;
+    $action = "train";
+    if ($split[0] !== $action && !isset($split[1]) && !isset($split[2])) {
+        $question = strtolower($split[0]);
+        $sql = 'SELECT answer FROM chatbot WHERE question = "' . $question . '"';
+        $result = $conn->query($sql);
+            $fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            $row_cnt = $result->num_rows;
+            if ($row_cnt>0) {
+                return $fetched_data[0]['answer'];
+            } else
+            return "ENTER TRAIN: QUESTION#ANSWER TO ADD MORE QUESTIONS TO THE DATABASE";
+    }else if  ($split[0] == $action && isset($split[1]) && isset($split[2])) {
+            $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $split[1] . "', '" . $split[2] . "')";
+            $the_queried = $conn->query($sql);
+            if ($the_queried){
+                $saved_message = "Saved " . $split[1] ." -> " . $split[2];
+                return $saved_message;
+            }else
+                return "Please try again";
     }
-    catch(PDOException $e)
-    {
-        echo $sql . "<br>" . $e->getMessage();
-    }
-}
+
 
 }
 
@@ -97,12 +94,16 @@ if ($split[0] !== $action && !isset($split[1]) && !isset($split[2])) {
 <?php
 if(!defined('DB_USER')){
     require "../../config.php";
-}
-try {
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-} catch (PDOException $pe) {
-    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
+    $servername = DB_HOST;
+    $username_ = DB_USER;
+    $password = DB_PASSWORD;
+    $dbname = DB_DATABASE;
+    // Create connection
+    $conn = mysqli_connect($servername, $username_, $password, $dbname);
+    // Check connection
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }}
 global $conn;
 $name = '';
 $username = '';
@@ -154,7 +155,11 @@ try {
         </p>
         <p>&nbsp;</p>
     </form>
+    <p style=" color: #000000;font-family: arial, sans-serif; font-size: 14px;font-weight: bold;letter-spacing: 0.3px;"><span style="font-weight: bolder">BOT :::  <?php echo $solution?></span></p>
+
 </div>
 </body>
 </html>
+
+
 
