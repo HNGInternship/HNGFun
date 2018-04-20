@@ -93,8 +93,6 @@ body
 </head>
 <body>
   <?php 
-if($conn)
-{
 
   $result = $conn->query("Select * from secret_word LIMIT 1");
   $result = $result->fetch(PDO::FETCH_OBJ);
@@ -107,30 +105,11 @@ if($conn)
 
    
 
-    echo $user->name.' Owino from db';
+    echo $user->name.' Owino';
  echo'<br><c style="color: #FBF7F7;">WELCOME TO MY PROFILE<br>';
- echo '@'.$user->username;
+ echo $user->username;
  echo'</c><br><br><center><div id="mid">';
  echo "$yy$img$yz";
-echo "<br> db test";
-}
-else
-{
-
-$yy='<img  src="';
-   $img='https://res.cloudinary.com/dttpnfzul/image/upload/v1524056521/pp.jpg'
-   $yz= '" style="width:240px;height:240px;border-radius: 50%;">';
-
-   
-
-    echo 'Oluoch Frankline Owino';
- echo'<br><c style="color: #FBF7F7;">WELCOME TO MY PROFILE<br>';
- echo '@kingpin';
- echo'</c><br><br><center><div id="mid">';
- echo "$yy$img$yz";
-echo "<br> cd test";
-
-}
  
      ?>
 		 <div id="data">
