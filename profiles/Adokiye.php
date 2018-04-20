@@ -14,6 +14,7 @@ if (isset($_POST['button'])) {
     echo "yes ";
 if (isset ($_POST['input']) && $_POST['input'] !== "") {
     echo"input";
+    print_r ($_POST);
 echo $asked_question_text = $_POST['input'];
 askQuestion($asked_question_text);}}
 function askQuestion($input)
