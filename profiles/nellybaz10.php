@@ -102,7 +102,7 @@ if(!$conn){
 			echo "<p>Sorry, I could't process that, probably my knowledge is not that wide. You can train me 
 					using the correct format. <br>
 					<b>Corrrect Format:</b><br>
-					train: your question#your answer@password</p>";
+					train: your question#your answer#password</p>";
 			echo "</div>";
 			
 		}
@@ -181,8 +181,8 @@ $question = trim($question);
 	 $count_hash = 0;
 
 	 list($train_word, $question1) = explode(':', $question);
-	 list($real_question, $real_answer) = explode('#', $question1);
-	 list($real_answer, $pass) = explode('@', $real_answer);
+	 list($real_question, $real_answer, $pass) = explode('#', $question1);
+	 //list($real_answer, $pass) = explode('@', $real_answer);
 	 
 	 $pass = trim($pass);
 	 $check_pass = 'password';
