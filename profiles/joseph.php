@@ -49,7 +49,7 @@
 		.first-col, .sec-col, .third-col{
 			height: 500px;
 			text-align: center;
-			color: white;
+			color: black;
 			font-weight: bold;
 			font-size: 20px;
 			padding-top: 10%;
@@ -87,7 +87,7 @@
 		}
 		.ul li a{
 			text-decoration: none;
-			color: white;
+			color: #3b4747;
 		}
 	</style>
 </head>
