@@ -544,7 +544,7 @@ body{
         overflow: scroll;
         box-sizing: border-box;
     }
-    .chat-controls
+    .chat-controller
     {
         display: flex;
         flex-direction: row;
@@ -667,7 +667,7 @@ body{
           <?php endfor; ?>
 
         </div>
-        <div class="chat-controls">
+        <div class="chat-controller">
             <form action="/profile.php?id=Tiarayuppy" method="POST" style="display: flex; width: 100%;">
                 <input type="text" name="message" style="box-sizing: border-box; flex-grow: 3; border-right: 1px solid #757575; border-left: 0px;  border-top: 0px; border-bottom: 0px; background-color: transparent; margin-left: 5px; height: 50px;" placeholder="Enter a message..."/>
                 <input type="submit" style="flex-grow: 1; background-color: #1565C0; color: #FAFAFA;"/>

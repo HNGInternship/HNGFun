@@ -232,7 +232,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             outline:none;
             transition: border 0.2s linear;
             border-radius: 10px;
-            font-size: 12px;
+            font-size: 14px;
         }
         input:hover{
             border:solid 2px #222;
@@ -263,7 +263,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             margin-bottom: 5px;
         }
         .bot p{
-            font-size:14px;
+            font-size:15px;
             margin:0px;
             padding:4px;
             text-align: left;
@@ -279,7 +279,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             text-align: right;
         }
         .user p{
-            font-size: 14px;
+            font-size: 15px;
             margin:0px;
             padding:4px;
             display: inline-block;
