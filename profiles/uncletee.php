@@ -1,12 +1,14 @@
 <?php
 /////////////start for stage 3 HNG
 ////////////////////////////////////////
-if(!isset($_GET['id'])){
-    require '../db.php';
 
-}else{
+if(isset($_GET['id'])){
     require 'db.php';
     require "answers.php";
+
+}else{
+    require '../db.php';
+    require "../answers.php";
 }
 
 try {
@@ -29,7 +31,20 @@ try {
 //////////////////////////////////////////
 
 $response = [];
-$abusiveWords = ["4r5e", "5h1t", "5hit", "a55", "anal", "anus", "ar5e", "arrse", "arse", "ass", "ass-fucker", "asses", "assfucker", "assfukka", "asshole", "assholes", "asswhole", "a_s_s", "b!tch", "b00bs", "b17ch", "b1tch", "ballbag", "balls", "ballsack", "bastard", "beastial", "beastiality", "bellend", "bestial", "bestiality", "bi+ch", "biatch", "bitch", "bitcher", "bitchers", "bitches", "bitchin", "bitching", "bloody", "blow job", "blowjob", "blowjobs", "boiolas", "bollock", "bollok", "boner", "boob", "boobs", "booobs", "boooobs", "booooobs", "booooooobs", "breasts", "buceta", "bugger", "bum", "bunny fucker", "butt", "butthole", "buttmuch", "buttplug", "c0ck", "c0cksucker", "carpet muncher", "cawk", "chink", "cipa", "cl1t", "clit", "clitoris", "clits", "cnut", "cock", "cock-sucker", "cockface", "cockhead", "cockmunch", "cockmuncher", "cocks", "cocksuck", "cocksucked", "cocksucker", "cocksucking", "cocksucks", "cocksuka", "cocksukka", "cok", "cokmuncher", "coksucka", "coon", "cox", "crap", "cum", "cummer", "cumming", "cums", "cumshot", "cunilingus", "cunillingus", "cunnilingus", "cunt", "cuntlick", "cuntlicker", "cuntlicking", "cunts", "cyalis", "cyberfuc", "cyberfuck", "cyberfucked", "cyberfucker", "cyberfuckers", "cyberfucking", "d1ck", "damn", "dick", "dickhead", "dildo", "dildos", "dink", "dinks", "dirsa", "dlck", "dog-fucker", "doggin", "dogging", "donkeyribber", "doosh", "duche", "dyke", "ejaculate", "ejaculated", "ejaculates", "ejaculating", "ejaculatings", "ejaculation", "ejakulate", "f u c k", "f u c k e r", "f4nny", "fag", "fagging", "faggitt", "faggot", "faggs", "fagot", "fagots", "fags", "fanny", "fannyflaps", "fannyfucker", "fanyy", "fatass", "fcuk", "fcuker", "fcuking", "feck", "fecker", "felching", "fellate", "fellatio", "fingerfuck", "fingerfucked", "fingerfucker", "fingerfuckers", "fingerfucking", "fingerfucks", "fistfuck", "fistfucked", "fistfucker", "fistfuckers", "fistfucking", "fistfuckings", "fistfucks", "flange", "fook", "fooker", "fuck", "fucka", "fucked", "fucker", "fuckers", "fuckhead", "fuckheads", "fuckin", "fucking", "fuckings", "fuckingshitmotherfucker", "fuckme", "fucks", "fuckwhit", "fuckwit", "fudge packer", "fudgepacker", "fuk", "fuker", "fukker", "fukkin", "fuks", "fukwhit", "fukwit", "fux", "fux0r", "f_u_c_k", "gangbang", "gangbanged", "gangbangs", "gaylord", "gaysex", "goatse", "God", "god-dam", "god-damned", "goddamn", "goddamned", "hardcoresex", "hell", "heshe", "hoar", "hoare", "hoer", "homo", "hore", "horniest", "horny", "hotsex", "jack-off", "jackoff", "jap", "jerk-off", "jism", "jiz", "jizm", "jizz", "kawk", "knob", "knobead", "knobed", "knobend", "knobhead", "knobjocky", "knobjokey", "kock", "kondum", "kondums", "kum", "kummer", "kumming", "kums", "kunilingus", "l3i+ch", "l3itch", "labia", "lust", "lusting", "m0f0", "m0fo", "m45terbate", "ma5terb8", "ma5terbate", "masochist", "master-bate", "masterb8", "masterbat*", "masterbat3", "masterbate", "masterbation", "masterbations", "masturbate", "mo-fo", "mof0", "mofo", "mothafuck", "mothafucka", "mothafuckas", "mothafuckaz", "mothafucked", "mothafucker", "mothafuckers", "mothafuckin", "mothafucking", "mothafuckings", "mothafucks", "mother fucker", "motherfuck", "motherfucked", "motherfucker", "motherfuckers", "motherfuckin", "motherfucking", "motherfuckings", "motherfuckka", "motherfucks", "muff", "mutha", "muthafecker", "muthafuckker", "muther", "mutherfucker", "n1gga", "n1gger", "nazi", "nigg3r", "nigg4h", "nigga", "niggah", "niggas", "niggaz", "nigger", "niggers", "nob", "nob jokey", "nobhead", "nobjocky", "nobjokey", "numbnuts", "nutsack", "orgasim", "orgasims", "orgasm", "orgasms", "p0rn", "pawn", "pecker", "penis", "penisfucker", "phonesex", "phuck", "phuk", "phuked", "phuking", "phukked", "phukking", "phuks", "phuq", "pigfucker", "pimpis", "piss", "pissed", "pisser", "pissers", "pisses", "pissflaps", "pissin", "pissing", "pissoff", "poop", "porn", "porno", "pornography", "pornos", "prick", "pricks", "pron", "pube", "pusse", "pussi", "pussies", "pussy", "pussys", "rectum", "retard", "rimjaw", "rimming", "s hit", "s.o.b.", "sadist", "schlong", "screwing", "scroat", "scrote", "scrotum", "semen", "sex", "sh!+", "sh!t", "sh1t", "shag", "shagger", "shaggin", "shagging", "shemale", "shi+", "shit", "shitdick", "shite", "shited", "shitey", "shitfuck", "shitfull", "shithead", "shiting", "shitings", "shits", "shitted", "shitter", "shitters", "shitting", "shittings", "shitty", "skank", "slut", "sluts", "smegma", "smut", "snatch", "son-of-a-bitch", "spac", "spunk", "s_h_i_t", "t1tt1e5", "t1tties", "teets", "teez", "testical", "testicle", "tit", "titfuck", "tits", "titt", "tittie5", "tittiefucker", "titties", "tittyfuck", "tittywank", "titwank", "tosser", "turd", "tw4t", "twat", "twathead", "twatty", "twunt", "twunter", "v14gra", "v1gra", "vagina", "viagra", "vulva", "w00se", "wang", "wank", "wanker", "wanky", "whoar", "whore", "willies", "willy", "xrated", "xxx"];
+$abusiveWords = ["crazy","stupid","4r5e", "5h1t", "5hit", "a55", "anal", "anus", "ar5e", "arrse", "arse", "ass", "ass-fucker", "asses", "assfucker", "assfukka", "asshole", "assholes", "asswhole", "a_s_s", "b!tch", "b00bs", "b17ch", "b1tch", "ballbag", "balls", "ballsack", "bastard", "beastial", "beastiality", "bellend", "bestial", "bestiality", "bi+ch", "biatch", "bitch", "bitcher", "bitchers", "bitches", "bitchin", "bitching", "bloody", "blow job", "blowjob", "blowjobs", "boiolas", "bollock", "bollok", "boner", "boob", "boobs", "booobs", "boooobs", "booooobs", "booooooobs", "breasts", "buceta", "bugger", "bum", "bunny fucker", "butt", "butthole", "buttmuch", "buttplug", "c0ck", "c0cksucker", "carpet muncher", "cawk", "chink", "cipa", "cl1t", "clit", "clitoris", "clits", "cnut", "cock", "cock-sucker", "cockface", "cockhead", "cockmunch", "cockmuncher", "cocks", "cocksuck", "cocksucked", "cocksucker", "cocksucking", "cocksucks", "cocksuka", "cocksukka", "cok", "cokmuncher", "coksucka", "coon", "cox", "crap", "cum", "cummer", "cumming", "cums", "cumshot", "cunilingus", "cunillingus", "cunnilingus", "cunt", "cuntlick", "cuntlicker", "cuntlicking", "cunts", "cyalis", "cyberfuc", "cyberfuck", "cyberfucked", "cyberfucker", "cyberfuckers", "cyberfucking", "d1ck", "damn", "dick", "dickhead", "dildo", "dildos", "dink", "dinks", "dirsa", "dlck", "dog-fucker", "doggin", "dogging", "donkeyribber", "doosh", "duche", "dyke", "ejaculate", "ejaculated", "ejaculates", "ejaculating", "ejaculatings", "ejaculation", "ejakulate", "f u c k", "f u c k e r", "f4nny", "fag", "fagging", "faggitt", "faggot", "faggs", "fagot", "fagots", "fags", "fanny", "fannyflaps", "fannyfucker", "fanyy", "fatass", "fcuk", "fcuker", "fcuking", "feck", "fecker", "felching", "fellate", "fellatio", "fingerfuck", "fingerfucked", "fingerfucker", "fingerfuckers", "fingerfucking", "fingerfucks", "fistfuck", "fistfucked", "fistfucker", "fistfuckers", "fistfucking", "fistfuckings", "fistfucks", "flange", "fook", "fooker", "fuck", "fucka", "fucked", "fucker", "fuckers", "fuckhead", "fuckheads", "fuckin", "fucking", "fuckings", "fuckingshitmotherfucker", "fuckme", "fucks", "fuckwhit", "fuckwit", "fudge packer", "fudgepacker", "fuk", "fuker", "fukker", "fukkin", "fuks", "fukwhit", "fukwit", "fux", "fux0r", "f_u_c_k", "gangbang", "gangbanged", "gangbangs", "gaylord", "gaysex", "goatse", "God", "god-dam", "god-damned", "goddamn", "goddamned", "hardcoresex", "hell", "heshe", "hoar", "hoare", "hoer", "homo", "hore", "horniest", "horny", "hotsex", "jack-off", "jackoff", "jap", "jerk-off", "jism", "jiz", "jizm", "jizz", "kawk", "knob", "knobead", "knobed", "knobend", "knobhead", "knobjocky", "knobjokey", "kock", "kondum", "kondums", "kum", "kummer", "kumming", "kums", "kunilingus", "l3i+ch", "l3itch", "labia", "lust", "lusting", "m0f0", "m0fo", "m45terbate", "ma5terb8", "ma5terbate", "masochist", "master-bate", "masterb8", "masterbat*", "masterbat3", "masterbate", "masterbation", "masterbations", "masturbate", "mo-fo", "mof0", "mofo", "mothafuck", "mothafucka", "mothafuckas", "mothafuckaz", "mothafucked", "mothafucker", "mothafuckers", "mothafuckin", "mothafucking", "mothafuckings", "mothafucks", "mother fucker", "motherfuck", "motherfucked", "motherfucker", "motherfuckers", "motherfuckin", "motherfucking", "motherfuckings", "motherfuckka", "motherfucks", "muff", "mutha", "muthafecker", "muthafuckker", "muther", "mutherfucker", "n1gga", "n1gger", "nazi", "nigg3r", "nigg4h", "nigga", "niggah", "niggas", "niggaz", "nigger", "niggers", "nob", "nob jokey", "nobhead", "nobjocky", "nobjokey", "numbnuts", "nutsack", "orgasim", "orgasims", "orgasm", "orgasms", "p0rn", "pawn", "pecker", "penis", "penisfucker", "phonesex", "phuck", "phuk", "phuked", "phuking", "phukked", "phukking", "phuks", "phuq", "pigfucker", "pimpis", "piss", "pissed", "pisser", "pissers", "pisses", "pissflaps", "pissin", "pissing", "pissoff", "poop", "porn", "porno", "pornography", "pornos", "prick", "pricks", "pron", "pube", "pusse", "pussi", "pussies", "pussy", "pussys", "rectum", "retard", "rimjaw", "rimming", "s hit", "s.o.b.", "sadist", "schlong", "screwing", "scroat", "scrote", "scrotum", "semen", "sex", "sh!+", "sh!t", "sh1t", "shag", "shagger", "shaggin", "shagging", "shemale", "shi+", "shit", "shitdick", "shite", "shited", "shitey", "shitfuck", "shitfull", "shithead", "shiting", "shitings", "shits", "shitted", "shitter", "shitters", "shitting", "shittings", "shitty", "skank", "slut", "sluts", "smegma", "smut", "snatch", "son-of-a-bitch", "spac", "spunk", "s_h_i_t", "t1tt1e5", "t1tties", "teets", "teez", "testical", "testicle", "tit", "titfuck", "tits", "titt", "tittie5", "tittiefucker", "titties", "tittyfuck", "tittywank", "titwank", "tosser", "turd", "tw4t", "twat", "twathead", "twatty", "twunt", "twunter", "v14gra", "v1gra", "vagina", "viagra", "vulva", "w00se", "wang", "wank", "wanker", "wanky", "whoar", "whore", "willies", "willy", "xrated", "xxx"];
+$apiKey = 'f9cca98bdc5344ce8508b4a6b8110c59';
+
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+        header('Content-Type: application/json');
+        if(isset($_POST["data"])){
+
+        }
+         echo json_encode(askQuestion($_POST["data"]));
+
+
+}
+
+
 
 
 
@@ -41,30 +56,33 @@ $abusiveWords = ["4r5e", "5h1t", "5hit", "a55", "anal", "anus", "ar5e", "arrse",
  */
 
 
-function multiexplode ($delimiters,$string) {
-    $ready = str_replace($delimiters, $delimiters[0], $string);
-    $ready = trim($ready,$delimiters[0]);
-    $launch = explode($delimiters[0], $ready);
-    return  $launch;
-}
 
 
 
+//print_r(askQuestion("hello"));
 function askQuestion($string){
 
     $questionAsked =  prepareInputParams($string);
+    $questionHasAbusiveWords    =   _profanityCheck($questionAsked);
     $foundQuestion = findByQuestion($questionAsked);
+
      $foundAnswer =    $foundQuestion["answer"];
-//     return($foundAnswer);
+
+
+     if($questionHasAbusiveWords['code']==401){
+         return $questionHasAbusiveWords;
+     }
+
     return getQuestionFunction( $foundAnswer );
 
 
 }
 
-//print_r(performTraining('train:What is the time in sokoto#The time $$ in ((location))#Adenekan'));
+//print_r(performTraining('train:Give me latest news#((getNews))#adenekan'));
 function performTraining($string){
     $delimeters         = [":","#"];
     $trainnigParameters =   multiexplode ($delimeters ,$string);
+
     $isBotTrainnable = isTrainable($trainnigParameters);
     if( $trainnigParameters[0] == "train"){
         if ($isBotTrainnable["code"] == 204){
@@ -94,9 +112,13 @@ function performTraining($string){
 }
 
 
-
-
+/**
+ *  method will get response and what is and its corresponding function call
+ * @param $foundAnswer
+ * @return array
+ */
 function getQuestionFunction($foundAnswer){
+
     $errorResponses = [
             "You may have to give me trainning with a function I understand",
             "Boss, this is really hard or me, I do not have the skill set to answer the question,give me training with a function",
@@ -105,15 +127,27 @@ function getQuestionFunction($foundAnswer){
             "I can only perform with essential training"
     ];
     $functionSStart = stripos($foundAnswer, "((");
+    $functionEnd = strpos($foundAnswer, "))");
+
 
     //There is o function in the answer
-    if(!$functionSStart){
+    if(!$foundAnswer){
+
+        return [
+            'code' => 204, // The essense of the 204 is to make client know that he should show trainnig rules
+            'response' =>  $errorResponses[rand(0,count($errorResponses)-1)]
+        ];
+    }
+    if(!$functionSStart && !$functionEnd){
+
         return ["code" => 200, "response" => $foundAnswer ];
     }else{
-        $foundFunction = get_string_between($foundAnswer);
 
+        $foundFunction = get_string_between($foundAnswer);
         $foundFunction  = prepareInputParams($foundFunction);
+
         if(function_exists($foundFunction)){
+
             return [
 
                 'code' => 200,
@@ -125,6 +159,7 @@ function getQuestionFunction($foundAnswer){
                 'response' =>  $errorResponses[rand(0,count($errorResponses)-1)]
             ];
         }
+
 
     }
 
@@ -230,11 +265,12 @@ function prepareInputParams($string){
 function _profanityCheck($message){
     global $abusiveWords;
     $replies = [
-        'Hey! that seem to be very abusive!',
+        'Hey! that seem to be very abusive!, I hate it when people use such words. My master trained me well',
         'The way you talk, yo mama would be ashamed. I\'m sure she taught you better. Never use abusive words',
         'I thought you are my friend, please stop the use of abusive word',
-        "I beg now  small small, shey na because say I be bot? That is why u are abusing me",
-        "why don't you want us to get back to business, you are very abusive",
+        "I beg now  small small, shey na because say I be bot? I no like abusive words around",
+        "why don't you want us to get back to business, you seem to be an abusive person",
+        "omg, you just used an bad langugae, I hate it"
     ];
     $reply = [];
 
@@ -244,7 +280,6 @@ function _profanityCheck($message){
 
     $bits = explode(' ', $message);
 
-//    print_r(  $bits);
 
 
     foreach ($bits as $word) {
@@ -254,7 +289,7 @@ function _profanityCheck($message){
             return $reply;
         }
     }
-//    print_r($reply);
+
     return true;
 
 
@@ -338,6 +373,11 @@ function findByQuestion($question){
 }
 
 
+/**
+ * Method will find white spaces symbols
+ * @param $answer
+ * @return array|bool
+ */
 function whiteSpaceNotExistInFunction($answer){
     $response  = [];
     $responseErr = [
@@ -376,6 +416,23 @@ function whiteSpaceNotExistInFunction($answer){
 }
 
 
+/**
+ * fuction can explode if there are many delimeters
+ * @param $delimiters
+ * @param $string
+ * @return array
+ */
+function multiexplode ($delimiters,$string) {
+    $ready = str_replace($delimiters, $delimiters[0], $string);
+    $ready = trim($ready,$delimiters[0]);
+    $launch = explode($delimiters[0], $ready);
+    return  $launch;
+}
+
+
+
+
+
 
 
 
@@ -389,7 +446,7 @@ function whiteSpaceNotExistInFunction($answer){
 
 ///////////////////////////////////////////
 
-
+if($_SERVER['REQUEST_METHOD'] == "GET"){
 ?>
 
 <!DOCTYPE html>
@@ -963,8 +1020,8 @@ function whiteSpaceNotExistInFunction($answer){
 
   </script>
   </body>
- </html> 
+ </html>
 
 
-   
+<?php } ?>
 

@@ -538,8 +538,44 @@ function show_direction ($location1, $location2, $mode) {
 
 #####################################################################################################
 #                                                                                                   #
-#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS ABOVE            #
+#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS ABOVE           #
 #                                                                                                   #
 #####################################################################################################
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+///                                                                                  ////////'
+/// @UNCLETEE CODE STARTS HERE. bERAKING THE CODE CAN CAUSE SERIOUS HARVOC
+///
+/// ////////////////////////////////////////////////////////////////////////////////////////////
+
+function getNews($sources="techcrunch.com"){
+
+
+    $apiKey = 'f9cca98bdc5344ce8508b4a6b8110c59';
+    $url = 'https://newsapi.org/v2/everything?domains='.$sources.'&language=en&apiKey='.$apiKey;
+    $response = file_get_contents($url);
+    $foundNews = json_decode( $response , true);
+    $findOneNews = $foundNews['articles'][rand(0,count($foundNews['articles'])-1)];
+    $news = "Title-- ".$findOneNews['title']. "\n";
+    $news .= "Url--- ".$findOneNews['url'];
+    if(trim($foundNews['status'])=='ok'){
+        return  $news;
+    }else{
+        return "I cannot source for you at this time";
+    }
+}
+
+
+
+
+
+
+
+
+///
+/// eND Ehere
+///
+///
+
 
 ?>
