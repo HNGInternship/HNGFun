@@ -14,10 +14,10 @@ CREATE TABLE `interns_data` (
   PRIMARY KEY (`intern_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `interns_data` (`name`, `username`, `image_filename`) VALUES
+INSERT INTO `interns_data`(`name`, `username`, `image_filename`) VALUES
 ('Okunuga melody',	'melody',	'Screenshot-2018-3-21 Twitter.png'),
 ('ikpe mercy michael',	'mercyikpe',	'IMG-20180322-WA0010.jpg'),
 ('Mbah Clinton', 'mclint_', 'mclint_.jpg'),
 ('John Olubori David', 'olubori', 'http://res.cloudinary.com/naera/image/upload/v1518079662/d4wgdlou4n4mnc1meumf.jpg'),
-('Sampson Joshua Monday', 'jozy', 'jozy.png'),
+('Sampson Joshua Monday', 'jozy', 'jozy.png');
 -- 2018-04-13 06:08:02

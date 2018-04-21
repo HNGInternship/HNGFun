@@ -1,33 +1,39 @@
 <?php
 
 
-try{
-	$username = 'Username';
-	$name = 'Name';
-	$image = 'Image';
-
+/*
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->query("SELECT * FROM secret_word LIMIT 1"); 
     $result = $stmt->fetch();
     $secret_word = $result['secret_word'];
     
 
-    $stmt_intern_data = $conn->query("SELECT * FROM interns_data_ WHERE username = 'ysdhilside'"); 
+    $stmt_intern_data = $conn->query("SELECT * FROM interns_data WHERE username = 'ysdhilside'"); 
     $result = $stmt_intern_data->fetch();
     $username = $result['username'];
     $name = $result['name'];
-    $image = $result['image_filename'];
+    $image = $result['image_filename']; */
+
+  $stmt = $conn->query("SELECT * FROM secret_word LIMIT 1");
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  $secret_word = $result['secret_word'];
+
+
+   $sql = "SELECT * FROM interns_data where username='ysdhilside'";
+   $query = $conn->query($sql);
+   $query->setFetchMode(PDO::FETCH_ASSOC); 
+   $result = $query->fetch();
+       $name = $result['name'];
+       $username = $result['username'];
+       $image = $result['image_filename'];
     
    
 
-}catch(PDOException $e){
-	$e->getMessage();
-}
 
 
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE html>   
 <html>
 <head>
 	<meta charset="utf-8">

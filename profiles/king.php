@@ -7,7 +7,7 @@
     <style>
         html, body {
     
-    height: 100%;
+    height: auto;
     margin: 0;
 }
 
@@ -22,6 +22,10 @@ a {
     width: auto;
     overflow: auto;
     z-index: 1;
+}
+        
+.Experience {
+    margin-top: 74px;
 }
 
 .sidebar {
@@ -115,7 +119,7 @@ a {
     </style>
 </head>
 <body>
- <?php require_once('db.php'); ?>
+ <?php include "../header.php"; ?>
   <div class="sidebar">
      <div class="sidebar-img">
         <img class="img" src="https://scontent.flos5-1.fna.fbcdn.net/v/t1.0-9/12189606_682208521882532_6052298851762801031_n.jpg?_nc_cat=0&oh=f3af5a1e0f3278ad46141948a7ac6aa0&oe=5B516735" alt="profile picture" >
@@ -132,7 +136,7 @@ a {
   </div>
    <div class="container">
        <div class="content">
-           <h1>Experience</h1>
+           <h1 class="Experience">Experience</h1>
 <!--           <div class="line"></div>-->
            <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="experience">
         <div class="my-auto">
@@ -183,6 +187,8 @@ Maintained legacy code.</p>
       </section>
        </div>
    </div>
+   
+   <?php include "../footer.php"; ?>
    
   <?php
   $result = $conn->query("Select * from secret_word LIMIT 1");
