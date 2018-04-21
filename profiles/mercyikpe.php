@@ -23,17 +23,25 @@ global $conn;
 if ($_SERVER['REQUEST_METHOD'] === "POST")
 	{
 	$mercy = $_POST['sent_messages'];
+<<<<<<< HEAD
 	if ($mercy == 'aboutbot')
 		{
 		echo json_encode(['status' => 3, 'response' => 'mercyBotv1.0.']);
 		}
+=======
+	
+>>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
 	if (empty($mercy))
 		{
 		echo json_encode(['status' => 0]); 
 		}
 
 
-
+if ($mercy == 'aboutbot')
+		{
+		echo json_encode(['status' => 6]); 
+		}
+		else {
 	$first_test_str = explode(':', $mercy);
 	if ($first_test_str[0] == 'train')
 		{
@@ -105,7 +113,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 		}
 	}
 
+<<<<<<< HEAD
 
+=======
+	}
+>>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
 	
 	
 	
@@ -842,7 +854,7 @@ header h1 {
                                             <div class="row messenger_dezs response_sent">
                                                 <div class="col-md-10 col-xs-10">
                                                     <div class="responses inbox_msg">
-                                                        <p>Hello, I am a bot, I am smart but you can make me smarter, I am always willing to learn</p>
+                                                        <p>Hello, I am mercy's bot. Feel Free to teach, i love learning new things.</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 col-xs-2"></div>
@@ -850,8 +862,8 @@ header h1 {
                                             <div class="row messenger_dezs response_sent">
                                                 <div class="col-md-10 col-xs-10">
                                                     <div class="responses inbox_msg">
-                                                        <p>To teach me, package your lesson in the format below</p>
-                                                        <p>train:your question#your answer#password</p>
+                                                        <p>To teach me use the format below</p>
+                                                        <p>train: your question # your answer # password</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 col-xs-2"></div>
@@ -968,7 +980,13 @@ header h1 {
                                             messenger_dezs.append(bot_msg('So sorry but i don\'t\ understand your message. But you could teach me. train: this is a question # this is an answer # your password '));
                                             messenger_dezs.scrollTop(messenger_dezs[0].scrollHeight);
                                         }
+										else if(data.status===6){
+                                            $('.message').val('');
+                                            messenger_dezs.append(bot_msg('mercyBot v1.0'));
+                                            messenger_dezs.scrollTop(messenger_dezs[0].scrollHeight);
+                                        }
                                         else if(data.status===0){
+											$('.message').val('');
                                             messenger_dezs.append(bot_msg('you ought to be careful you know?'))
                                             messenger_dezs.scrollTop(messenger_dezs[0].scrollHeight);
                                         }
