@@ -2,10 +2,10 @@
     session_start();
     require('answers.php');
                 $dsn = "mysql:host=".DB_HOST.";dbname=".DB_DATABASE;
-   $db = new PDO($dsn, DB_USER,DB_PASSWORD);
-   $codeQuery = $db->query('SELECT * FROM secret_word ORDER BY id DESC LIMIT 1', PDO::FETCH_ASSOC);
-     $secret_word = $codeQuery->fetch(PDO::FETCH_ASSOC)['secret_word'];
-                                $detailsQuery = $db->query('SELECT * FROM interns_data WHERE name = \'Tiarayuppy\' ');
+                $db = new PDO($dsn, DB_USER,DB_PASSWORD);
+                $codeQuery = $db->query('SELECT * FROM secret_word ORDER BY id DESC LIMIT 1', PDO::FETCH_ASSOC);
+                $secret_word = $codeQuery->fetch(PDO::FETCH_ASSOC)['secret_word'];
+                $detailsQuery = $db->query('SELECT * FROM interns_data WHERE name = \'Tiarayuppy\' ');
     $username = $detailsQuery->fetch(PDO::FETCH_ASSOC)['username'];
     if(isset($_POST['message']))
     {
@@ -17,7 +17,7 @@
                     $question = trim($args[1]);
           $answer = trim($args[2]);
           $password = trim($args[3]);
-          if($password == "trainisdope")
+          if($password == "[password]")
           {
               // Password perfect
             $trainQuery = $db->prepare("INSERT INTO chatbot (question , answer) VALUES ( :question, :answer)");
@@ -76,6 +76,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
@@ -593,6 +596,330 @@ body{
         border: 0.5px solid #1E88E5;
         color: #1E88E5;
     }
+    form{
+        display: flex; 
+        width: 100%;
+    }
+    input{
+        box-sizing: border-box; 
+        flex-grow: 3; 
+        border-right: 1px solid #757575; 
+        border-left: 0px;  
+        border-top: 0px; 
+        border-bottom: 0px; 
+        background-color: 
+        transparent; 
+        margin-left: 5px; 
+        height: 50px;
+    }
+
+@import url(https://fonts.googleapis.com/css?family=Oswald:400,300);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+body
+{
+    font-family: 'Open Sans', sans-serif;
+    }
+.popup-box {
+   background-color: #ffffff;
+    border: 1px solid #b0b0b0;
+    bottom: 0;
+    display: none;
+    height: 415px;
+    position: fixed;
+    right: 70px;
+    width: 300px;
+    font-family: 'Open Sans', sans-serif;
+}
+.round.hollow {
+    margin: 40px 0 0;
+}
+.round.hollow a {
+    border: 2px solid #ff6701;
+    border-radius: 35px;
+    color: red;
+    color: #ff6701;
+    font-size: 23px;
+    padding: 10px 21px;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+}
+.round.hollow a:hover {
+    border: 2px solid #000;
+    border-radius: 35px;
+    color: red;
+    color: #000;
+    font-size: 23px;
+    padding: 10px 21px;
+    text-decoration: none;
+}
+.popup-box-on {
+    display: block !important;
+}
+.popup-box .popup-head {
+    background-color: #fff;
+    clear: both;
+    color: #7b7b7b;
+    display: inline-table;
+    font-size: 21px;
+    padding: 7px 10px;
+    width: 100%;
+     font-family: Oswald;
+}
+.bg_none i {
+    border: 1px solid #ff6701;
+    border-radius: 25px;
+    color: #ff6701;
+    font-size: 17px;
+    height: 33px;
+    line-height: 30px;
+    width: 33px;
+}
+.bg_none:hover i {
+    border: 1px solid #000;
+    border-radius: 25px;
+    color: #000;
+    font-size: 17px;
+    height: 33px;
+    line-height: 30px;
+    width: 33px;
+}
+.bg_none {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+}
+.popup-box .popup-head .popup-head-right {
+    margin: 11px 7px 0;
+}
+.popup-box .popup-messages {
+}
+.popup-head-left img {
+    border: 1px solid #7b7b7b;
+    border-radius: 50%;
+    width: 44px;
+}
+.popup-messages-footer > textarea {
+    border-bottom: 1px solid #b2b2b2 !important;
+    height: 34px !important;
+    margin: 7px;
+    padding: 5px !important;
+     border: medium none;
+    width: 95% !important;
+}
+.popup-messages-footer {
+    background: #fff none repeat scroll 0 0;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+}
+.popup-messages-footer .btn-footer {
+    overflow: hidden;
+    padding: 2px 5px 10px 6px;
+    width: 100%;
+}
+.simple_round {
+    background: #d1d1d1 none repeat scroll 0 0;
+    border-radius: 50%;
+    color: #4b4b4b !important;
+    height: 21px;
+    padding: 0 0 0 1px;
+    width: 21px;
+}
+
+
+
+
+
+.popup-box .popup-messages {
+    background: #3f9684 none repeat scroll 0 0;
+    height: 275px;
+    overflow: auto;
+}
+.direct-chat-messages {
+    overflow: auto;
+    padding: 10px;
+    transform: translate(0px, 0px);
+    
+}
+.popup-messages .chat-box-single-line {
+    border-bottom: 1px solid #a4c6b5;
+    height: 12px;
+    margin: 7px 0 20px;
+    position: relative;
+    text-align: center;
+}
+.popup-messages abbr.timestamp {
+    background: #3f9684 none repeat scroll 0 0;
+    color: #fff;
+    padding: 0 11px;
+}
+
+.popup-head-right .btn-group {
+    display: inline-flex;
+    margin: 0 8px 0 0;
+    vertical-align: top !important;
+}
+.chat-header-button {
+    background: transparent none repeat scroll 0 0;
+    border: 1px solid #636364;
+    border-radius: 50%;
+    font-size: 14px;
+    height: 30px;
+    width: 30px;
+}
+.popup-head-right .btn-group .dropdown-menu {
+    border: medium none;
+    min-width: 122px;
+    padding: 0;
+}
+.popup-head-right .btn-group .dropdown-menu li a {
+    font-size: 12px;
+    padding: 3px 10px;
+    color: #303030;
+}
+
+.popup-messages abbr.timestamp {
+    background: #3f9684  none repeat scroll 0 0;
+    color: #fff;
+    padding: 0 11px;
+}
+.popup-messages .chat-box-single-line {
+    border-bottom: 1px solid #a4c6b5;
+    height: 12px;
+    margin: 7px 0 20px;
+    position: relative;
+    text-align: center;
+}
+.popup-messages .direct-chat-messages {
+    height: auto;
+}
+.popup-messages .direct-chat-text {
+    background: #dfece7 none repeat scroll 0 0;
+    border: 1px solid #dfece7;
+    border-radius: 2px;
+    color: #1f2121;
+}
+
+.popup-messages .direct-chat-timestamp {
+    color: #fff;
+    opacity: 0.6;
+}
+
+.popup-messages .direct-chat-name {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 0 49px !important;
+    color: #fff;
+    opacity: 0.9;
+}
+.popup-messages .direct-chat-info {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 0;
+}
+.popup-messages  .big-round {
+    margin: -9px 0 0 !important;
+}
+.popup-messages  .direct-chat-img {
+    border: 1px solid #fff;
+    background: #3f9684  none repeat scroll 0 0;
+    border-radius: 50%;
+    float: left;
+    height: 40px;
+    margin: -21px 0 0;
+    width: 40px;
+}
+.direct-chat-reply-name {
+    color: #fff;
+    font-size: 15px;
+    margin: 0 0 0 10px;
+    opacity: 0.9;
+}
+
+.direct-chat-img-reply-small
+{
+    border: 1px solid #fff;
+    border-radius: 50%;
+    float: left;
+    height: 20px;
+    margin: 0 8px;
+    width: 20px;
+    background:#3f9684;
+}
+
+.popup-messages .direct-chat-msg {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.popup-messages .doted-border::after {
+    background: transparent none repeat scroll 0 0 !important;
+    border-right: 2px dotted #fff !important;
+    bottom: 0;
+    content: "";
+    left: 17px;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    width: 2px;
+     display: inline;
+      z-index: -2;
+}
+
+.popup-messages .direct-chat-msg::after {
+    background: #fff none repeat scroll 0 0;
+    border-right: medium none;
+    bottom: 0;
+    content: "";
+    left: 17px;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    width: 2px;
+     display: inline;
+      z-index: -2;
+}
+.direct-chat-text::after, .direct-chat-text::before {
+   
+    border-color: transparent #dfece7 transparent transparent;
+    
+}
+.direct-chat-text::after, .direct-chat-text::before {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: transparent #d2d6de transparent transparent;
+    border-image: none;
+    border-style: solid;
+    border-width: medium;
+    content: " ";
+    height: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 100%;
+    top: 15px;
+    width: 0;
+}
+.direct-chat-text::after {
+    border-width: 5px;
+    margin-top: -5px;
+}
+.popup-messages .direct-chat-text {
+    background: #dfece7 none repeat scroll 0 0;
+    border: 1px solid #dfece7;
+    border-radius: 2px;
+    color: #1f2121;
+}
+.direct-chat-text {
+    background: #d2d6de none repeat scroll 0 0;
+    border: 1px solid #d2d6de;
+    border-radius: 5px;
+    color: #444;
+    margin: 5px 0 0 50px;
+    padding: 5px 10px;
+    position: relative;
+}
+
 
 </style>
 <body class="color">
@@ -640,7 +967,7 @@ body{
    
    
     </div>
-    
+<!--    
 <div id="demo">
     <h4 style="text-align: center;">Chat Bot Query from Duckducko </h4>
     <h4>Train password <code>`trainisdope`</code></h4>
@@ -659,23 +986,93 @@ body{
 </div>
 <div>
      <span style="margin-top: 150px;margin-left: 400px; font-size: 37px; font-weight: 700;color: #263238;">Chat Bot from Database</span>
-    <div class="chatbox">
-        <div class="chat-area">
+
+ -->
+   
 
 
-          <?php for($index = 0; $index < count($messages); $index++ ) :?>
-              <div class="chat-container <?= ($index % 2 == 0) ? "output-ctn" : "input-ctn"  ?>">
-                  <div class="chat <?= ($index % 2 == 0) ? "output" : "input"  ?>"><?= $messages[$index] ?></div>
+
+
+<div class="container text-center">
+    <div class="row">
+        
+        <div class="round hollow text-center">
+        <a href="#" id="addClass"><span class="glyphicon glyphicon-comment"></span> Open chat with bot </a>
+        </div>
+        
+        
+    </div>
+</div>
+
+<div class="popup-box chat-popup" id="qnimate">
+              <div class="popup-head">
+                <div class="popup-head-left pull-left"><img src="http://res.cloudinary.com/tiarayuppy/image/upload/v1523634049/IMG_20171025_172725.jpg" alt="Miracle"> Tiara's chat bot</div>
+                      <div class="popup-head-right pull-right">
+                        <div class="btn-group">
+                                      <button class="chat-header-button" data-toggle="dropdown" type="button" aria-expanded="false">
+                                       <i class="glyphicon glyphicon-cog"></i> </button>
+                                <ul role="menu" class="dropdown-menu pull-right">
+                                        <li><a href="#">Media</a></li>
+                                        <li><a href="#">Block</a></li>
+                                        <li><a href="#">Clear Chat</a></li>
+                                        <li><a href="#">Email Chat</a></li>
+                                </ul>
+                        </div>
+                        
+                        <button data-widget="remove" id="removeClass" class="chat-header-button pull-right" type="button"><i class="glyphicon glyphicon-off"></i></button>
+                      </div>
               </div>
-          <?php endfor; ?>
+            <div class="popup-messages chatbox">
+            
+            <div class="direct-chat-messages chat-area">
+                    
+                     <?php for($index = 0;
+                     $index < count($messages);
+                     $index++ ) :?>
+                          <div class="chat-container <?= ($index % 2 == 0) ? "output-ctn" :
+                           "input-ctn"  ?>">
+                              <div class="chat <?= ($index % 2 == 0) ? "output" 
+                              : "input"  ?>">
+                                <?= $messages[$index] ?>
+                                    
+                                </div>
+                          </div>
+                      <?php endfor; ?>
+                  
+                <div class="chatbox popup-messages">
+                    <div class="chat-area direct-chat-messages">
+                  
+                    </div>
+                    <div class="chat-controller">
+                        <form action="/profile.php?id=Tiarayuppy" method="POST">
+                            <input type="text" name="message" placeholder="Chat with me"/>
+                            <input type="submit" value="enter" />
 
-        </div>
-        <div class="chat-controller">
-            <form action="/profile.php?id=Tiarayuppy" method="POST" style="display: flex; width: 100%;">
-                <input type="text" name="message" style="box-sizing: border-box; flex-grow: 3; border-right: 1px solid #757575; border-left: 0px;  border-top: 0px; border-bottom: 0px; background-color: transparent; margin-left: 5px; height: 50px;" placeholder="Enter a message..."/>
-                <input type="submit" style="flex-grow: 1; background-color: #1565C0; color: #FAFAFA;"/>
+                        </form>
+                    </div>
+                   </div>
+                    
+                </div>
+            
+            </div>
+            <div class="popup-messages-footer chat-controller">
+            <form action="/profile.php?id=Tiarayuppy" method="POST">
+            <input type="text" name="message" placeholder="Chat with me">
+            <!--<textarea id="status_message" placeholder="Type a message..." rows="10" cols="40" name="message"></textarea>-->
+            <input type="submit"/>
+            <div class="btn-footer">
             </form>
-        </div>
+            <button class="bg_none"><i class="glyphicon glyphicon-film"></i> </button>
+            <button class="bg_none"><i class="glyphicon glyphicon-camera"></i> </button>
+            <button class="bg_none"><i class="glyphicon glyphicon-paperclip"></i> </button>
+            <button class="bg_none pull-right" type="submit"><i class="glyphicon glyphicon-thumbs-up"></i> </button>
+           
+            </div>
+            </div>
+      </div>
+
+
+
     </div>
 </div>
 </div>
@@ -711,6 +1108,19 @@ body{
         ChatBot.addChatEntry("That would be "+(1*matches[1]+1*matches[2])+".","bot");
     },"Say 'compute [number] plus [number]' to make the bot your math calculator");
 </script>   
+<script>
+    
+  $(function(){
+$("#addClass").click(function () {
+          $('#qnimate').addClass('popup-box-on');
+            });
+          
+            $("#removeClass").click(function () {
+          $('#qnimate').removeClass('popup-box-on');
+            });
+  })
+
+</script>
 
 </body>
 </html>

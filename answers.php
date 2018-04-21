@@ -356,24 +356,106 @@ function getBotMenu(){
 function getTime(){
   return date("h:i:s");
 }
+function simpleMaths($operation, $expression){
+    switch ($operation) {
+      case 'factor':
+        # factorization condition
+      $notify = "Factorize";
+        break;
+
+        case 'simplify':
+        # simplify
+      $notify = "Simplify";
+        break;
+
+        case 'derive':
+        # derivative
+      $notify = "Derivative";
+        break;
+
+        case 'integrate':
+          # Integrate
+        $notify = "Integrate";
+          break;
+
+        case 'zeroes':
+          # polinomia
+        $notify = "Polinomial, find 0S in";
+          break;
+
+        case 'tangent':
+          # tangent
+        $notify = "Find Tangent";
+          break;
+
+        case 'log':
+          # logrithms
+        $notify = 'Logarithm';
+          break;
+
+
+      
+      default:
+        # code...
+        break;
+    }
+    $url = "https://newton.now.sh/".$operation."/".$expression;
+    $result = file_get_contents($url);
+    $response = json_decode($result, true);
+    echo json_encode([
+        'question' => $notify." : ".$response['expression'],
+        'answer' =>"Your answer is: ".$response['result']
+    ]);
+}
+
+/******** End Adroit Bot Funct ********/
+/*
+// end of functions by johnayeni
+
+//////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
+
+$qsam = $_REQUEST["qsam"];
+$anwerSam = "";
+
+if ($qsam === "Moses"){
+		$anwerSam = 'Nice Name, How are you ' . $qsam;
+
+}
+echo $anwerSam;
+
+////////////////////// END OF FUNCTION BY BROWN SAMSON ////////////////////////////////////
+
+/////////////////////opheus //////////
+
+if(isset($_GET['opheuslocation'])) {
+echo $time = get_time($_GET['opheuslocation']);
+}
+elseif(isset($_GET['opheusweather'])) {
+echo $weather = get_weather($_GET['opheusweather']);
+=======
 ////////////////////////////////
 // END OF JOHN AYENI FUNCTIONS//
 ////////////////////////////////
+*/
 
+/////////////////////////////////////////
+//Beginning Aniuchi A. M's Functions/////
+////////////////////////////////////////
 function getCurrentDateAndTime(){
-    $newdate = date("l jS \of F Y h:i:s A");
-    echo "Today's date is " . $newdate;
+    $newDate = date("l jS \of F Y");
+    $newTime = date("h:i:s A");
+    echo "Today's date is " . $newDate . ". The time is " . $newTime;
     //A.M.A
 }
 function getCurrentDayOfTheWeek(){
-    $newdate = date("l");
-    echo "Today's is a " . $newdate;
+    $newDate = date("l");
+    echo "Today is a " . $newDate;
 }
 function getFutureDate(){
-    $newdate = date("Y-m-d");
-    $newdate = date_create($newdate);
-    date_add($newdate,date_interval_create_from_date_string("7 days"));
-    echo "A week from now, the date will be: " . date_format($newdate, "l jS \of F Y");
+    $newDate = date("Y-m-d");
+    $newdate = date_create($newDate);
+    date_add($newDate,date_interval_create_from_date_string("7 days"));
+    echo "A week from now, the date will be: " . date_format($newDate, "l jS \of F Y");
     //A.M.A
 }
 
@@ -394,6 +476,36 @@ function getRandomQuote(){
     }
     else  echo "<br/>" .$quoteText. "<br/> &nbsp; &nbsp; &ndash; <cite>Unknown Author</cite>" ;
     //A.M.A
+}
+
+
+function bot_answer($check) {
+
+require 'db.php';
+
+// Create connection
+//$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+//if ($conn->connect_error) {
+ //   die("Connection failed: " . $conn->connect_error);
+//}
+
+
+
+$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$check' ORDER BY rand() LIMIT 1");
+$stmt->execute();
+if($stmt->rowCount() > 0)
+{
+  while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+  {
+		echo $row["answer"];
+  }
+} else {
+    echo "Well i couldnt understand what you asked. But you can teach me.";
+	echo "Type ";
+	echo "train: write a question | write the answer.  ";
+	echo "to teach me.";
+}
 }
 
 function getMotivationalQuoteForTheDay(){
@@ -418,13 +530,175 @@ function getMediumArticle(){
 		break;
     }
     //A.M.A
+
 }
 function getPinkyCommands(){
-    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and time</b> </br/> 
-    2. Get <b>motivational quote of the day.</b> <br/> 3. Get my creator <b>Ada's latest medium article</b> <br/>
-    4. Get or <b>tell you a random Yo Momma Joke</b>. <br/> 5. Get or tell you <b>what day of the week it is.</b> <br/>
-    6. Get the <b>date seven days or a week from now.</b> <br/> 7.Get or <b>tell you a random quote.</b><br/>
-    NB. All or some of the words in bold should be included in your message.";
+    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/> 
+    2. Get <b>motivational quote of the day.</b> or <b>inspire me today</b> <br/> 3. Get my creator <b>Ada's latest medium article</b> <br/>
+    4. Get or tell you<b> a random Yo Momma Joke</b>. <br/> 5. Get or tell you <b>what day of the week it is.</b> <br/>
+    6. Get the <b>date seven days or a week from now.</b> <br/> 7.Get or tell you<b> a random quote.</b> <br/>
+    8. Tell you version of the bot <b>aboutbot</b><br/>
+    NB. All or some of the words in bold should be included in your message. Please try to follow these patterns as I am still learning.";
     //A.M.A
 }
+
+function train_bot ($message) {
+function multiexplode ($delimiters,$string) {
+
+    $ready = str_replace($delimiters, $delimiters[0], $string);
+    $launch = explode($delimiters[0], $ready);
+    return  $launch;
+}
+
+//$text = "#train: this a question | this my answer :)";
+$exploded = multiexplode(array(":","|"),$message);
+
+$question = trim($exploded[1]);
+
+$answer = trim($exploded[2]);
+
+require 'db.php';
+
+try {
+
+    $sql = "INSERT INTO chatbot (id, question, answer)
+VALUES ('', '$question', '$answer')";
+    // use exec() because no results are returned
+    $conn->exec($sql);
+
+    echo "Thank you! i just learnt something new, my master would be proud of me.";
+
+	}
+catch(PDOException $e)
+    {
+    echo $sql . "<br>" . $e->getMessage();
+    }
+
+$conn = null;
+//////////////////////
+
+
+//And output will be like this:
+// Array
+// (
+//    [0] => here is a sample
+//    [1] =>  this text
+//    [2] =>  and this will be exploded
+//    [3] =>  this also
+//    [4] =>  this one too
+//    [5] => )
+// )
+
+}
+
+
+
+function get_browser_name($user_agent)
+{
+    if (strpos($user_agent, 'Opera') || strpos($user_agent, 'OPR/')) return 'Opera';
+    elseif (strpos($user_agent, 'Edge')) return 'Edge';
+    elseif (strpos($user_agent, 'Chrome')) return 'Chrome';
+    elseif (strpos($user_agent, 'Safari')) return 'Safari';
+    elseif (strpos($user_agent, 'Firefox')) return 'Firefox';
+    elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) return 'Internet Explorer';
+
+    return 'Other';
+}
+
+
+///////////////////////////////
+//End Aniuchi A. M's Functions/
+///////////////////////////////
+
+
+
+#####################################################################################################
+#                                                                                                   #
+#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS BELOW            #
+#                                                                                                   #
+#####################################################################################################
+
+function calculate_distance($key, $url, $location1, $location2) {
+    $request_distance = $url.$location1."+Nigeria&destinations=$location2+Nigeria"."&key=".$key;
+    $response  = json_decode(file_get_contents($request_distance), 1);
+    $status = $response['status'];
+    if ($status === 'OK' and $response['rows'][0]['elements'][0]['status'] === 'OK') {
+        $distance = $response['rows'][0]['elements'][0]['distance']['text'];
+        return $distance;
+    }
+    // If no match, return error message
+    else {
+        $message = ["I couldn't calculate the distance for given location, could you be more specific? \n \n You could add City name or State or Country to be more accurate", "The addresses you gave me are quite complex. \n \n Why don't you add a city or state or even a country for me to get it correctly", "I couldn't really calculate this. \n \n Why? the addresses you gave me are rather too complex. \n \n You can include the city, state or country and watch me do magic"];
+        return nl2br($message[rand(0, 2)]);
+    }
+}
+
+function get_duration ($key, $url, $location1, $location2, $mode) {
+    $request_duration = $url.$location1."&destinations=$location2"."&key=".$key."&mode=".$mode."&departure_time=now";
+    $response = json_decode(file_get_contents($request_duration), 1);
+    $status = $response['status'];
+    if ($status === 'OK' and $response['rows'][0]['elements'][0]['status'] === 'OK') {
+        $duration = $response['rows'][0]['elements'][0]['duration_in_traffic']['text'];
+        return $duration;
+    }
+    // If no match, return error message
+    else {
+        $message = ["Sorry, I currently can't retrieve the duration for this trip as I don't have enough information"];
+        return $message;
+    }
+}
+
+
+function get_device_name($user_agent)
+{
+    if (strpos($user_agent, 'Macintosh') || strpos($user_agent, 'mac os')) return 'Mac';
+    elseif (strpos($user_agent, 'Linux')) return 'Linux';
+    elseif (strpos($user_agent, 'Windows NT')) return 'Windows';
+    elseif (strpos($user_agent, 'iPhone')) return 'iPhone';
+    elseif (strpos($user_agent, 'Android')) return 'Android';
+    elseif (strpos($user_agent, 'iPad') ) return 'iPad';
+
+    return 'Other';
+}
+
+function show_direction ($location1, $location2, $mode) {
+    return "https://www.google.com/maps/dir/?api=1&origin=$location1&destination=$location2&travelmode=$mode";
+
+}
+
+
+function davidQuadraticEquation($a, $b, $c){  #Remember I know where you live if you tamper with this function
+     $discriminat = pow($b,2) - (4 * $a * $c);
+     if($discriminat == 0){
+         $x = -($b/(2 * $a));
+         return $x; 
+     }
+     else {
+         $root = sqrt($discriminat);
+         $x1 = (-$b + $root) / (2 *$a);
+         $x2 = (-$b - $root) / (2 *$a);
+         return 'x1 is ' + $x1 + 'and' + 'x2 is ' + $x2; 
+     }
+    
+     
+ }
+
+#####################################################################################################
+#                                                                                                   #
+#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS ABOVE            #
+#                                                                                                   #
+#####################################################################################################
+
+//Orinayo's function
+function Get_Hotelsng_wikipage()
+{
+    $api = "https://en.wikipedia.org/w/api.php?action=opensearch&search="."hotels.ng"."&format=json&callback=?";
+    $result = file_get_contents($api);
+    $result = substr_replace($result, "", 0, 5);
+    $result = substr_replace($result, "", -1);
+    $result = json_decode($result, true);
+    $result = array("answer"=>"<a href=".$result[3][0].">".$result[1][0]."</a><p>".$result[2][0]."</p>");
+    return $result;
+}
+//
 ?>

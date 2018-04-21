@@ -11,14 +11,19 @@
     if(isset($_POST['message']))
     {
         array_push($_SESSION['chat_history'], trim($_POST['message']));
-        if(stripos(trim($_POST['message']), "train") === 0)
+        if(strtolower(trim($_POST['message'])) == "aboutbot")
+        {
+            $answer = "Version 1.1";
+            array_push($_SESSION['chat_history'] , $answer);
+        }
+        else if(stripos(trim($_POST['message']), "train") === 0)
         {
           // Training
           $args = explode(":", trim($_POST['message']), 2);
           $args1 = explode("#", trim($args[1]));
-          $question = trim($args[0]);
-          $answer = trim($args[1]);
-          $password = trim($args[2]);
+          $question = trim($args1[0]);
+          $answer = trim($args1[1]);
+          $password = trim($args1[2]);
 
           if($password == "password")
           {
