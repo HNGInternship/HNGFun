@@ -125,7 +125,7 @@ catch(PDOException $e)
 
 try
 	{
-	$sql = "SELECT * FROM interns_data_ WHERE `username` = 'mercyikpe' LIMIT 1";
+	$sql = "SELECT * FROM interns_data WHERE `username` = 'mercyikpe' LIMIT 1";
 	$mercy = $conn->query($sql);
 	$mercy->setFetchMode(PDO::FETCH_ASSOC);
 	$my_data = $mercy->fetch();
