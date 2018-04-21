@@ -338,7 +338,7 @@ Adokiye's function*/
 
 function pig_latin($text){
   $pigText="Sorry, your word/sentence/phrase/clause contains only consonants. There must be vowels to translate to pig latin.";
-  $vowels"a,e,i,o,u";
+  $vowels = "a,e,i,o,u";
   $firstVowelPos=0;
   $frontConsonants="";
 
