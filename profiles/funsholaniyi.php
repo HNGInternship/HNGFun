@@ -7,16 +7,20 @@
  */
 
 /**
- * This is largely a smart work approach with basic implementation ideas from jim and chigozie codebase
+ * This is largely a smart work approach with basic implementation ideas from jim and chigozie and opheus codebase
  * after which, i built on it and made a beauty, i like to think of it that way
  *
- * PLEASE ENJOY THE SEARCH AND MATCH ALGORITHM, GIVE CREDITS IF U WANT TO USE IT, OPEN SOURCE BABY
+ * PLEASE ENJOY THE SEARCH AND MATCH ALGORITHM, GIVE CREDITS IF U WANT TO USE IT, OPEN SOURCED
  */
 
-if (file_exists('config.php')) {
-	require_once 'config.php';
-} else if (file_exists('../config.php')) {
-	require_once '../config.php';
+if(!defined('DB_USER')){
+	if (file_exists('../../config.php')) {
+		require_once '../../config.php';
+	} else if (file_exists('../config.php')) {
+		require_once '../config.php';
+	} elseif (file_exists('config.php')) {
+		require_once 'config.php';
+	}
 }
 
 /**
@@ -24,8 +28,8 @@ if (file_exists('config.php')) {
  */
 class Database
 {
-    // a singleton pattern implementation
-    
+	// a singleton pattern implementation
+	
 	private static $_instance;
 	private $connection;
 	
@@ -35,13 +39,14 @@ class Database
 	protected function __construct()
 	{
 		
-		$this->connection = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE . ";charset=utf8", DB_USER, DB_PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
-		$tz = (new DateTime('now', new DateTimeZone('Africa/Lagos')))->format('P');
-		$this->connection->query("SET time_zone='$tz';");
+		$this->connection =  new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+//		$tz = (new DateTime('now', new DateTimeZone('Africa/Lagos')))->format('P');
+//		$this->connection->query("SET time_zone='$tz';");
 		// Error handling
 		if (mysqli_connect_error()) {
 			trigger_error("Failed to connect to MySQL: " . mysqli_connect_error(),
 				E_USER_ERROR);
+			die('Failed to connect to MySQL');
 		}
 	}
 	
@@ -68,7 +73,7 @@ class Database
  */
 class Response
 {
- 
+	
 	public $status;
 	public $data = array();
 	public $message;
@@ -236,18 +241,24 @@ function smartSearch($question, $questions_array)
 						$hit_count++;
 					}
 				}
-				if ($hit_count) {
+				if ($hit_count === $word_count) {
+					// we match all words here already, so stop looping and return instead
+					return $item;
+				}
+				if ($hit_count && ($hit_count === count($question) || $hit_count > 2)) { // if count is more than 1 and greater that 2 or equal count of question
 					$q_sorta[] = $item;
 				}
-				if($hit_count >= $word_count){
-				    // we match all words here already, so stop looping and return the guy abeg
-                    return $item;
-                }
+			
 			}
 		}
 	}
 	ksort($q_sorta);
-	return end($q_sorta);
+	$item = end($q_sorta);
+	if($item){
+	    return $item;
+    }else{
+	    return [];
+    }
 }
 
 /**
@@ -269,7 +280,7 @@ function respond($message, $status = 'success')
  */
 function parseAnswer($result)
 {
-	if (empty($result)) $answer = 'Didn\'t get that, How about you train me *winks*';
+	if (empty($result)) $answer = 'Didn\'t get that, How about you train me';
 	else {
 		$question = $result['question'];
 		$answer = $result['answer'];
@@ -283,12 +294,14 @@ function parseAnswer($result)
 			if ($index_of_parentheses_closing !== false) {
 				$function_name = substr($answer, $index_of_parentheses + 2, $index_of_parentheses_closing - $index_of_parentheses - 2);
 				$function_name = trim($function_name);
-				if (stripos($function_name, ' ') !== false) { //if method name contains spaces, do not invoke method
+				if (stripos($function_name, ' ') === false) { //if method name contains spaces, do not invoke method
 					$answer = str_replace("(($function_name))", $function_name(), $answer);
 				}
 			}
 		}
 	}
+	if (empty($answer)) $answer = 'Didn\'t get that, How about you train me';
+	
 	return $answer;
 }
 
@@ -299,6 +312,10 @@ function sendMessage()
 {
 	$m = new Model();
 	$message = clean_string($_POST['message']);
+	
+	if(strstr('aboutbot', $message)){
+		return respond('Hi, My name is Christiana, I\'m currently versioned 0.1');
+	}
 	
 	$if_training_mode = preg_match("/^train/", $message);
 	if ($if_training_mode) {
@@ -326,7 +343,7 @@ function sendMessage()
 				return respond('Oh! I already knew that. something else, please...');
 			} else {
 				$m->trainBot($question, $answer);
-				return respond('Funsho is smarter, don\'t get jealous, you made it happen');
+				return respond('Christiana is smarter, don\'t get jealous, you made it happen');
 			}
 		} else {
 			return respond('but no. I\'d prefer, train: Question # Answer # Password');
@@ -351,8 +368,8 @@ if (!empty($_POST)) {
 }
 $user = (new Model())->getProfile();
 
-?>
 
+?>
 
 <main class="my-container row">
     <div class="profile col-md-6">
@@ -407,18 +424,19 @@ $user = (new Model())->getProfile();
             <div class="message-input">
                 <form id="message_chat_form">
                     <div class="form-group">
-                        <input type="text" class="form-control" style="width: 100%; font-size: 12px;" id="chat_message_text"
-                               placeholder="Please tell me, i'd try">
+                        <input type="text" class="form-control" style="width: 100%; font-size: 12px;"
+                               id="chat_message_text"
+                               placeholder="Type Something">
                     </div>
                     <button type="submit" class="btn btn-success btn-sm pull-right">Send</button>
                 </form>
             </div>
         </div>
     </div>
-
-
 </main>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
+<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+
 <script type="text/javascript">
     var chat = chat || {};
 
@@ -426,7 +444,7 @@ $user = (new Model())->getProfile();
         this.onReady = function () {
             // send welcome messages
             var strMessages = '<li class="replies"><img src="https://res.cloudinary.com/funsholaniyi/image/upload/v1524159157/default.jpg">' +
-                '<p><small style="font-size: 10px;">Funsho</small><br>Hi, My name is Funsho</p></li><div class="clearfix"></div> ';
+                '<p><small style="font-size: 10px;">Christiana</small><br>Hi, My name is Christiana</p></li><div class="clearfix"></div> ';
             $('#message-outlet').append(strMessages);
             $(".messages").scrollTop($("#message-outlet").outerHeight());
         };
@@ -471,14 +489,13 @@ $user = (new Model())->getProfile();
             };
             this.postJSON(data, "/profiles/funsholaniyi.php", function (response) {
                 $('#message_chat_form')[0].reset();
-                console.log(response);
+                // console.log(response);
                 var strMessages = '<li class="replies"><img src="https://res.cloudinary.com/funsholaniyi/image/upload/v1524159157/default.jpg">' +
-                    '<p><small style="font-size: 10px;">Funsho</small><br>' +
+                    '<p><small style="font-size: 10px;">Christiana</small><br>' +
                     '' + response.message + '</p></li><div class="clearfix"></div> ';
                 $('#message-outlet').append(strMessages);
                 $(".messages").scrollTop($("#message-outlet").outerHeight());
-
-
+                responsiveVoice.speak(response.message, 'US English Female');
             });
         };
 
@@ -685,3 +702,4 @@ $user = (new Model())->getProfile();
     }
 
 </style>
+<div class="clearfix"></div>

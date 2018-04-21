@@ -55,27 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $intent = 'casual';
     }
 
-    if ((strpos($message, 'wetin be') !== false ||
-        strpos($message, 'what is') !== false) 
-        && (strpos($message, 'hng'))) {
-        $intent = 'about_hng';
-        $response = aboutHNG();
-    }
-
-    if ((strpos($message, 'how') !== false) 
-        && 
-        (strpos($message, 'pass') !== false || strpos($message, 'cross') !== false || 
-            strpos($message, 'go about') !== false || strpos($message, 'finish') !== false)
-        && 
-        (strpos($message, 'stage {{') !== false || strpos($message, 'stage{{') !== false)
-        ) {
-            $intent = 'about_hng_stage';
-            $startIndex = strpos($message, '{{');
-            $endIndex = strpos($message, '}}');
-            $stage = (int) trim(substr($message, $startIndex + 2, $endIndex - $startIndex - 2));
-            $response =  aboutHNGStage($stage);
-    }
-
     //check for a function call
     if (($startIndex = strpos($message, '((')) !== false && ($endIndex = strpos($message, '))')) !== false) {
         if ($startIndex < $endIndex) {
@@ -139,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if ($intent === 'unrecognized') {
         $answer = '';
-        $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$message' ORDER BY rand() LIMIT 1");
+        $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE '$message' ORDER BY rand() LIMIT 1");
         $stmt->execute();
         if($stmt->rowCount() > 0) {
             $intent = 'db_question';

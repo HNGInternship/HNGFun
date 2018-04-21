@@ -1,5 +1,6 @@
 <?php
     # require "../db.php";
+    require "../answers.php";
     if (!defined('DB_USER')){
             
             require "../../config.php";
@@ -32,14 +33,24 @@
             } catch (PDOException $pe) {
                 die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
             }
+            if ($question === "aboutbot") {
+              echo json_encode([
+                'question' => $question,
+                'answer' => "Adoitbot v-1.0.0"
+              ]);
+              return;
+            }
+
             /* check if in training mode (checking for train: in input) */
             $is_training = stripos($question, "train:");
             if ($is_training === false) { 
               /* bot not training, process question */
-              $query = $conn->query("SELECT * FROM chatbot WHERE question LIKE '".$question."'");
-              while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
-                $answer = $result['answer'];
-              }
+              //$answer_stmt->execute()
+              $query = $conn->prepare("SELECT * FROM chatbot  WHERE question LIKE :question ORDER BY RAND() Limit 1");
+              $query->bindParam(':question', $question);
+              $query->execute();
+              $result = $query->fetch();
+              $answer = $result['answer'];
               if (isset($answer)) {
                 echo json_encode([
                   'question' => $question,
@@ -76,35 +87,21 @@
               if ($password === 'password') {
                 # carry out insertion if password is supplied correctly
                 #return "good to go on";
-                $sql = "SELECT * FROM chatbot WHERE question LIKE '".$question."'";
-                $query = $conn->query($sql);
-                  while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
-                    $answer = $result['answer'];
-                  }
-                  if(isset($answer)){
+                $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
+                  if ($conn->exec($sql)) {
+                    # check if question was saved
                     echo json_encode([
                       'question' => $question,
-                      'answer' => $answer
+                      'answer' => "Thanks for the new info, Data Saved."
                     ]);
                     return;
                   }
-                  else{
-                    $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
-                    if ($conn->exec($sql)) {
-                      # check if question was saved
-                      echo json_encode([
-                        'question' => $question,
-                        'answer' => "Data Saved."
-                      ]);
-                      return;
-                    }
                     echo json_encode([
                       'question' => $question,
                       'answer' => "Have not gotten your question"
                     ]);
                     return;
                   }
-              }
               echo json_encode([
                 'question' => $question,
                 'answer' => "You are not authorized to train me, please supply a valid password"
@@ -112,10 +109,22 @@
               return;
               //return "undergoing training";
             }
-            echo json_encode([
+            if(strpos($question, "(") !== false){
+              list($functionName, $paramenter) = explode('(', $question) ;
+              list($paramenter, $parameterEnd) = explode(')', $paramenter);
+              $paramenterArr = explode(",", $paramenter);
+              if(strpos($paramenter, ",")!== false){
+                $paramenterArr = explode(",", $paramenter);
+                simpleMaths($paramenterArr[0], $paramenterArr[1]);
+              }
+            }
+            else{
+              echo json_encode([
               'question' => $question,
               'answer' => "Sorry am not smart enough to answer, pls train me using the train: syntax"
-            ]);
+              ]);
+            }
+            
             return;
             
           }
@@ -20519,7 +20528,6 @@
     
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<<<<<<< HEAD
     <script type="text/javascript">
       $(document).ready(function(){
             $('form').on('submit', function(e){
@@ -20527,6 +20535,7 @@
                 $.ajax({
                     type: "POST",
                     cache: false, 
+                    // fixed
                     url: "/profiles/AdroitCode.php", 
                     dataType: "json",
                     data: $('form').serialize(), 
@@ -20541,9 +20550,6 @@
             
             });
     </script>
-=======
-    
->>>>>>> e4aee28334f5d4d785d647f07c097d6933da86be
     <script>
         $( document ).ready(function() {
         $( ".menu" ).hide();
