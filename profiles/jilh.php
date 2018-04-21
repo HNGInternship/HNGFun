@@ -340,8 +340,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 						url: "profiles/jilh.php",
 						type: "POST",
 						data: {message: botMessage},
-						dataType: "json",
-						success: function(response){ //alert(response);
+						//dataType: "json",
+						success: function(response){ alert(response);
 							if(response.state === "say")
 							{
 								$('.pan-body').append('<span class="design reciever"><span class="name">Bot</span>' + response.msg + '</span>');
