@@ -633,15 +633,6 @@ header h1 {
   color: white;
 }
 
-.divider {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100px;
-  /* drop the height to have a constant angle for all screen widths */
-}
 </style>
 					<style>
         .col-md-2,
@@ -813,9 +804,9 @@ header h1 {
 										
 											<h1 class="ubuntu">Mercy Ikpe</h1>
 											<div class="col-md-12 col-md-offset-2">
-											<h3>@mercyikpe</h3>
+											<h3>mercyikpe</h3>
 								<ul>
-								  <li>Web Designer/Developer, Article writer</li>
+								  <li>Web Designer/Developer, Technical Article writer</li>
 								  <li>Uyo, Aks</li>
 								  <li>Nigeria</li>
 								</ul>  
@@ -825,7 +816,7 @@ header h1 {
 												</div>
 										</div>
 										
-										<img src="mercy/img/divider.png" class="divider" />
+										
 									</header>
 					
 						<div class="col-lg-12  no-padding" align="right">
@@ -843,7 +834,7 @@ header h1 {
                                             <div class="row messenger_dezs response_sent">
                                                 <div class="col-md-10 col-xs-10">
                                                     <div class="responses inbox_msg">
-                                                        <p>Hello, I am mercy's bot. Feel Free to teach, i love learning new things.</p>
+                                                        <p>Hello, I am mercy's bot. Feel Free to teach, I love learning new things.</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 col-xs-2"></div>
@@ -874,23 +865,26 @@ header h1 {
                             </div>  
 									
 										
-												<div class="col-md-12 col-md-offset-12" style="display:flex;justify-content: center">
-													<a href="https://github.com/mercyikpe">
-														<i class="fa fa-github" style="color:#ccc; font-size: 25px; padding:15px; float: right"></i>
-													</i>
-												</a>
-												<a href="https://twitter.com/mercyikpee">
-													<i class="fa fa-twitter"style="color:#ccc; font-size: 25px; padding:15px; float: right"></i>
-												</i>
-											</a>
-											<a href="https://medium.com/@mercyikpe">
-												<i class="fa fa-medium" style="color:#ccc; font-size: 25px; padding:15px; float: right"></i>
-											</i>
-										</a>
-										<a href="https://web.facebook.com/mercy.ikpe.79">
-											<i class="fa fa-facebook" float style="color:#ccc; font-size: 25px; padding:15px; float: right"></i>
-										</i>
-									</a>
+				<div class="col-md-12 col-md-offset-12" style="display:flex;justify-content: center">
+				<a href="https://github.com/mercyikpe">
+					<i class="fa fa-github" style="color:#ccc; font-size: 25px; padding:15px; float: right"></i>
+				
+				</a>
+				
+				<a href="https://twitter.com/mercyikpee">
+					<i class="fa fa-twitter"style="color:#ccc; font-size: 25px; padding:15px; float: right"></i>
+												
+				</a>
+				
+				<a href="https://medium.com/@mercyikpe">
+					<i class="fa fa-medium" style="color:#ccc; font-size: 25px; padding:15px; float: right"></i>
+											
+				</a>
+				
+				<a href="https://web.facebook.com/mercy.ikpe.79">
+					<i class="fa fa-facebook" float style="color:#ccc; font-size: 25px; padding:15px; float: right"></i>
+										
+				</a>
 							  
 								
 							</section>
