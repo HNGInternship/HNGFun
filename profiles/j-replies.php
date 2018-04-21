@@ -50,13 +50,12 @@ if (stripos($question, $trainString) === FALSE and stripos($question, $convertSt
 
 $q = "SELECT answer FROM chatbot WHERE question='$question'";
 $r = mysqli_query($conn, $q);
-$result = $r->fetchAll();
 
 if (mysqli_num_rows($r) > 0)
     {
         $answer = mysqli_fetch_assoc($r);
-        $answer_index = rand(0, (count($result) - 1));
-        $answer = $result[$answer_index]['answer'];
+        $answer_index = rand(0, (count($answer) - 1));
+        $answer = $answer[$answer_index]['answer'];
         $answer = $answer['answer'];
         echo $answer;
 

@@ -463,7 +463,7 @@ else{
  			},1000);
  	});
  }
-// $('#message').val('');
+ $('#message').val('');
 // var lastEle = $('.bot:last-child').position().top;
 // var scrollAmount = lastEle - 30;
 // $('#chat-interface').animate({scrollTop : scrollAmount}, 1000);
