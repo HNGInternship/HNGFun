@@ -1004,11 +1004,11 @@
 
    $result2 = $conn->query("Select * from interns_data where username = 'femicodes'");
    $user = $result2->fetch(PDO::FETCH_OBJ);
-   // echo $user->name 					
+    					
 ?>
 
 							<!-- <p>Time: <span id="datetime"></span></p> -->
-						<h1>Aghedo Joseph Femi</h1>
+						<h1><?php echo $user->name ?></h1>
 						<p>Android Developer &nbsp;&bull;&nbsp; Technical Writer &nbsp;&bull;&nbsp; Part Time UI/UX Designer</p>
 					
 						<nav>
