@@ -570,11 +570,16 @@ $(document).on('click', '.chatbot-send', function(e){
 
     content_height = $('.chatbot-menu-content').prop('scrollHeight');
     $('.chatbot-menu-content').scrollTop(content_height);
+
+    url = './profiles/christoph.php';
+    if (location.pathname.includes('christoph.php')) {
+        url = '../profiles/christoph.php'
+    }
     
     // Use AJAX to query DB and look for matches to user's query
     if(message_string !== '' && message_string.trim() !== 'help' && password) {
         $.ajax({
-            url: './profiles/christoph.php',
+            url: url,
             data: bot_query+'='+payload.message,
             type: 'POST',
             dataType: 'JSON',
