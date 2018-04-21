@@ -6,19 +6,33 @@
    }
  
 
-  try {
-        $sql = 'SELECT * FROM interns_data, secret_word WHERE username ="'.'dapetoo'.'"';
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-        $secret_word = $data['secret_word'];
-        
-    } catch (PDOException $e) {
-        throw $e;
-    }
+try {
+    // Get the Secret Word from DB hush hush
+    $secret_word_sql = "SELECT * FROM secret_word LIMIT 1";
+    $secret_word_query = $conn->query($secret_word_sql);
+    $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
+    $secret_word_data = $secret_word_query->fetch();
+    $secret_word = $secret_word_data['secret_word'];
+
+    // Get my data from the DB
+    $interns_data_sql = "SELECT * FROM interns_data WHERE username='dapetoo'";
+    $interns_data_query = $conn->query($interns_data_sql);
+    $interns_data_query->setFetchMode(PDO::FETCH_ASSOC);
+    $interns_data_data = $interns_data_query->fetch();
+    
+    $username = $interns_data_data['name'];
+    $my_username = $interns_data_data['username'];
+    $my_image = $interns_data_data['image_filename'];
+
+} catch (PDOException $e) {
+
+    throw $e;
+}
 
 
-  ?><!DOCTYPE html>
+  ?>
+
+  <!DOCTYPE html>
 <html lang="en">
 <head>
 	<title>HNG FUN: DAPETOO</title>
@@ -55,7 +69,7 @@
 		<div class='col-sm-6'>
 			<div>
 				<br><br><br><br><br><br>
-				<h1 style='font-family: "proxima-nova"; color:#fff; font-size: 22px; font-weight: 600; letter-spacing: .14em; line-height: 1em; text-transform: uppercase;'><?php echo ($data['username']) ?></h1>
+				<h1 style='font-family: "proxima-nova"; color:#fff; font-size: 22px; font-weight: 600; letter-spacing: .14em; line-height: 1em; text-transform: uppercase;'><?php echo ($my_username['username']) ?></h1>
 				<h2 style='font-family: "proxima-nova"; color:#a3a3a3; font-size: 22px; line-height: 1.15em; text-transform: none;letter-spacing: .01em; margin-bottom:26px; text-align:left;'>I am a tech enthusiast, I love to explore anything in the world of technology. I develop Android apllications and Web Applications</h2>
 				<div>
 					<h4>Connect with me on Social Media</h4>
