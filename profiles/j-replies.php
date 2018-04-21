@@ -2,8 +2,8 @@
 //connection
 $db = "hng_fun";
 $servername = "localhost";
-$username = "jurshsmith";
-$password = "jurshsmith";
+$username = "root";
+$password = "";
 
 $conn = mysqli_connect($servername, $username, $password, $db);
 // Check connection
