@@ -8,7 +8,9 @@
 <link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Overpass">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+
 <style type="text/css">
+
 
 
 #mid
@@ -23,6 +25,33 @@
    font-family: 'Font Name',Overpass;
    background-color:rgba(238, 29, 29, 0.34);
 }
+
+
+.button {
+  display: inline-block;
+  padding: 5px 15px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #111111;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 5px #999;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+
+
 #data
 {
  
@@ -64,8 +93,47 @@ body
   font-style:regular;
   line-height: normal;
   
+
    background-color:rgba(196, 196, 196, 0.50);
 }
+
+.container {
+    border: 2px solid #dedede;
+    background-color: #a38cfd;
+    color: #111111;
+    font-size: 14px;
+    border-radius: 25px;
+    padding: 10px;
+    margin: 10px 0;
+    width: 70%;
+}
+
+.darker {
+  width: 70%;
+    border-color: #111111;
+    background-color: #ddd;
+}
+
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.container img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.container img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+}
+
 .fa {
             padding: 10px;
             font-size: 15px;
