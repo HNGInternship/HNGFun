@@ -305,28 +305,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				$("#queries").append("<li>" + question + "</li>");
 					//let newMessage = `<div class="iro">
 	                  //${question}
-	                //</div>`;
-				
-
-				//$.ajax({
-				//	url: 'Adeyefa.php',
-				//	type: 'GET',
-				//	dataType: 'json',
-				//	data: {question: question},
-				//	success: (response) =>{
-				//		console.log("success");
-				//	},
-				//	error: (error) => {
-				//		alert('error occured')
-				//		console.log(error);
-				//	}
-				//}
+	                //</div>`
 				$.ajax({
 					url: '../profiles/Adeyefa.php',
 					type: 'POST',
 					data: {question: question},
+					dataType: 'json',
 					success: (response)=> {
-			        $("#ans").append("<li>" + response.result + "</li>");
+			        //$("#ans").append("<li>" + response.result + "</li>");
+			        alert(response.result);
 			        //alert(answer.result);
 					},
 					error: function(error){
