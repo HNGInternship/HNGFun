@@ -4,10 +4,6 @@ language: php
 
 php:
   - '7.0'
-  
- matrix:
-  include:
-      env: SNIFF=1
 
 services:
   - mysql
