@@ -506,7 +506,7 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
 <!-- Latest compiled and minified JavaScript -->
 <script src="<?=$home_url;?>vendor/bootstrap/js/bootstrap.min.js"></script>
 <script>
-
+var last_updated = "8:40pm 21/04/2018";
 $(document).on('click', '.chat-btn', function(){
     $('.chatbot-menu').show();
     $('.chat-btn').hide();
