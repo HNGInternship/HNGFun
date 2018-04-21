@@ -310,9 +310,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					type: 'POST',
 					data: {question: question},
 					dataType: 'json',
-					success: function(answer){
-			        //$("#ans").append("<li>" + answer.result +  "</li>");
-			        alert(answer.result);
+					success: (response)=> {
+			        $("#ans").append("<li>" + response.result +  "</li>");
+			        //alert(answer.result);
 					},
 					error: function(error){
 						console.log(error);
