@@ -619,7 +619,7 @@ try {
                         } else {
                             $.ajax({
                             type: 'POST',
-                            url: '/hotelsng/HNGFun/profiles/orinayo.php',
+                            url: 'profiles/orinayo.php',
                             data: {userInput: $userInputValue},
                             success: function(answer) {
                             $chatMessages.append("<p class='chat-text'><i class='fa fa-user'></i> "
