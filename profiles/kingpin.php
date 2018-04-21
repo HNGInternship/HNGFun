@@ -191,13 +191,34 @@ body
 		 </div>
 
 
-      <div id="data2"><center>
-            try my chat bot <br>
+         <div id="data2"><center>
+            try my bot <br>
+            <div class="container">
+  <img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524056521/pp.jpg" alt="Avatar" style="width:100%;">
+  <p>Hello im frank's bot i can answer some of your questions try me ........He is not around im using his profile picture dont tell him &#9786; &#9786; &#9786; you can also train me to answer questions    To train me use the format: below <br> <i style="color: #fefe00;">train: question#answer#password 
+  </i></p>
+ 
+
+
+
+
+
+</div>
+
+<div id="async1">
+
+  
+</div>
+<form id="myform" method="POST">
+  <textarea  sid="text" name="message" id="ter" rows="0" cols="0" class="textarea" style=" padding:2px; border-radius: 12px;width: 80%;background-color:rgba(155, 22, 195, 0.32);" placeholder="enter your message"></textarea> <br>
+                               <button id="btn1" type="submit" class="button" >send</button>
+                               <br><br>
+
+
         
 </center>
 
-      </div>
-
+      </div><br>
 
 		
 			<div id="data2"><center>
@@ -232,8 +253,8 @@ $(document).ready(function(){
 
 
       var resbot='<div class="container" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524056521/pp.jpg" alt="Avatar" class="left" style="width:60%;"><p> Sorry to disappoint as you  can see he is too lazy to train me he did not even train me to answer simple questions .........i dont even know my name  i think you should go and beat him up ....he is embarassing me <h1> &#x1F620;&#x1F620;&#x1F620; </h1>';
-        $("#async").append(resusr+" "+valnext2+" </p></div>");
-         $("#async").append(resbot+"</p></div>");
+        $("#async1").append(resusr+" "+valnext2+" </p></div>");
+         $("#async1").append(resbot+"</p></div>");
 
     });
 $('form').submit(function(ev) {
