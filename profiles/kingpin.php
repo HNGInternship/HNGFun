@@ -335,30 +335,7 @@ include_once("../answers.php");
 </body>
 </html>
 <script>
- function formSubmit(){
-                var message = $("#msg").val();
-                    var dataString = 'msg=' + msg;
-                    jQuery.ajax({
-                        url: "/profiles/juliet.php",
-                        data: dataString,
-                        type: "POST",
-                         cache: false,
-                             success: function(response) {
-            setTimeout(function(){
-                     $(' <div class="messages clear"><span class="avatar"><img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964204/robot.jpg"alt="Debby Jones" /></span><div class="sender"><div class="message-container"><div class="message"><p>'+response+'</p></div><span class="delivered"><?php
-            echo "" . date("h:i:a");
-            ?></span></div><!-- /.message-container -</div><!-- /.sender --></div><!-- /.messages --></div>').insertBefore('.push');
-                  $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
-                  play();
-                },  1000);
-
-                  },
-                        error: function (){}
-                    });
-                return true;
-                }
-                    });
-            });
+ 
 
 
 
