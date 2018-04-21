@@ -17,7 +17,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 
     //if(!isset($_POST['question'])){
-    $mem = isset($_POST['question']);
+    $mem = $_POST['question'];
     $mem = preg_replace('([\s]+)', ' ', trim($mem));
     $mem = preg_replace("([?.])", "", $mem);
 	$arr = explode(" ", $mem);
@@ -310,7 +310,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				//	}
 				//}
 				$.ajax({
-					url: '/profiles/Adeyefa.php',
+					url: '../profiles/Adeyefa.php',
 					type: 'POST',
 					data: {question: question},
 					dataType: "json",
