@@ -49,11 +49,12 @@ function askQuestion($input)
             $question = strtolower($split[1]);
             $sql1 = 'SELECT question FROM chatbot WHERE LOWER(question) = "' . $question . '"';
             $query = $conn->query($sql1);
-            if ($query) {
-                return "Question already exists, please train again";
+            $fetched_data = mysqli_fetch_all($query, MYSQLI_ASSOC);
+            $row_cnt = $query->num_rows;
+            if ($row_cnt>0) {
+                return "QUESTION ALREADY EXISTS ";
             }else
-                $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $split[1] . "', '" . $split[2] . "')";
-                $the_queried = $conn->query($sql);
+                $the_queried = $conn->query("INSERT INTO chatbot(question, answer) VALUES ('" . $split[1] . "', '" . $split[2] . "')");
                 if ($the_queried){
                 $saved_message = "Saved " . $split[1] ." -> " . $split[2];
                 return $saved_message;
@@ -61,6 +62,9 @@ function askQuestion($input)
                 return "Please try again";
     }
 }
+
+?>
+
 
 ?>
 <!DOCTYPE html>
