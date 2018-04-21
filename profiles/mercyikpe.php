@@ -48,20 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 				$res = $stm->fetchAll();
 				if ($res)
 					{
-						$sql = "INSERT INTO chatbot(question, answer)
-                                        VALUES(:question, :answer)";
-					$stm = $conn->prepare($sql);
-					$stm->bindParam(':question', $question);
-					$stm->bindParam(':answer', $answer);
-					$trained = $stm->execute();
-					if ($trained)
-						{
-						echo json_encode(['status' => 1, 'answer' => 'Thanks for educating me. You deserve some accolades.']);
-						}
-					  else
-						{
-						echo json_encode(['status' => 3, 'response' => 'So sorry but i dont understand your message. But you could teach me. train: this is a question # this is an answer # your password.']);
-						}
+					echo json_encode(['status' => 4, 'response' => 'i know that <text>' . $res[0]['question'] . '</text> just use <text>' . $res[0]['answer'] . '</text> ???? <text>']);
 					}
 
 				// if it's a new question, save into db
