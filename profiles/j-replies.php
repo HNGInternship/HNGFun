@@ -14,7 +14,7 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 else{
-    echo 'connection successful';
+  //to trouble shoot conn
 }
   global $conn;
 
