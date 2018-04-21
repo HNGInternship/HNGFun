@@ -15,7 +15,13 @@ DO NOT MODIFY THIS FILE!!!
 
 require_once 'config.php';
 
+<<<<<<< HEAD
+require_once 'config.php';
+
+
+=======
 >>>>>>> 688757314aa5f07d2792b7955c41ed7a0474fea5
+>>>>>>> 8aca6596ca1abb2a1a790b771bc59edccba9e066
 
 try {
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
