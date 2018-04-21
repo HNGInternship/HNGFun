@@ -261,7 +261,7 @@ body
 
 
       <div id="data2"><center>
-            try my chat bot <br>
+            Try my chat bot <br>
 
              <div class="container1">
   <img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524056521/pp.jpg" alt="Avatar" style="width:100%;">
