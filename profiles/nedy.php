@@ -263,7 +263,7 @@ function sendMsg(){
     };
     xhttp.open("POST", "/profiles/nedy.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("ques="+ques.value);
+    xhttp.send("message="+ques.value);
 }
 function processData (data){
     data = JSON.parse(data);
