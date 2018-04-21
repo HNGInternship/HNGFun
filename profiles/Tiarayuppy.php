@@ -1047,22 +1047,9 @@ body
                     <div class="desc">Passionate designer</div>
                     <div class="desc">Curious developer</div>
                     <div class="desc">Tech geek| Woman in Tech</div>
-                    <div class="desc">Fast Learner</div>
+              
                 </div>
-                <div class="bottom">
-                    
-                    <a class="btn btn-danger btn-sm-github" rel="publisher"
-                       href="https://github.com/Tiarayuppy">
-                        <i class="fa fa-github"></i>
-                    </a>
-                    <a class="btn btn-primary btn-sm" rel="publisher"
-                       href="https://facebook.com/tiarayuppy">
-                        <i class="fa fa-facebook"></i>
-                    </a>
-                    <a class="btn btn-warning btn-sm" rel="publisher" href="https://plus.google.com/tiarayuppy">
-                        <i class="fa fa-behance"></i>
-                    </a>
-                </div>
+               
                     
   
             </div>
@@ -1353,14 +1340,7 @@ $('body > div > div > div:nth-child(2) > span').click(function(){
 resetChat();
 
 //-- Print Messages
-insertChat("me", "Hello ...", 0);  
-insertChat("you", "Hi, ", 1500);
-insertChat("me", "What would you like to talk about today?", 3500);
-insertChat("you", "Tell me a joke",7000);
-insertChat("me", "I was caught using another persons code!", 9500);
-insertChat("you", "LOL", 12000);
-insertChat("me", "Hello user welcome, how can i help? ", 12000);
-insertChat("me", "please to train me remember to use the above command ", 12000);
+
 
 
 //-- NOTE: No use time on insertChat.
