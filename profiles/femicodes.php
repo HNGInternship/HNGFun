@@ -997,7 +997,15 @@
 					
 					<?php
 						echo "Time " . date("h:i:sa");
-					?>
+					
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+
+   $result2 = $conn->query("Select * from interns_data where username = 'femicodes'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+    echo $user->name 					
+?>
 
 							<!-- <p>Time: <span id="datetime"></span></p> -->
 						<h1>Aghedo Joseph Femi</h1>
