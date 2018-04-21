@@ -1,15 +1,18 @@
 <?php 
     date_default_timezone_set('Africa/Lagos');
 
-        if (!defined('DB_USER')){
+        // if (!defined('DB_USER')){
             
-            require "../../config.php";
-        }
-        try {
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-          } catch (PDOException $pe) {
-            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-          }
+        //     require "../../config.php";
+        // }
+        // try {
+        //     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        //   } catch (PDOException $pe) {
+        //     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+        //   }
+        
+        require_once('../db.php');
+        
 
     try {
     $sql = 'SELECT * FROM secret_word';
@@ -41,11 +44,11 @@
             $stmt->bindParam(':ask', $ask);
             $stmt->execute();
             $stmt->setFetchMode(FETCH_ASSOC);
-            $rows = $stmt->fetchAll();
-            if(count($rows)>0){
-              $index = rand(0, count($rows)-1);
-              $row= $rows[$index];
-              $answer = $row['answer'];
+            $results = $stmt->fetchAll();
+            if(count($results)>0){
+              $index = rand(0, count($results)-1);
+              $result= $results[$index];
+              $answer = $result['answer'];
               echo json_encode([
                 'status' => 0, 'answer' => $answer
                 ]);
@@ -81,9 +84,9 @@
          }
          //Lets know what the password is
          $password = trim($separate[2]);
-         define('TRAINING_PASSWORD', 'password');
+         define('ACCESS', 'password');
          //verify if training password is correct
-         if($password !== TRAINING_PASSWORD){
+         if($password !== ACCESS){
           echo json_encode([
             'status' => 0, 'answer' => "You can't train me with that password, check it and train again"
             ]);
@@ -233,8 +236,7 @@
         </div>
         <h2 style="text-align: center; color: white; margin-top: 10px;">Steven Victor</h2>
         <div style="text-align: center; color: white; margin-top: 10px;">
-          Web Developer, skilled in HTML, CSS, JavaScript, PHP, Laravel, VueJS. 
-        </div>
+          Web Developer, skilled in HTML, CSS, JavaScript, PHP, Laravel, VueJS. </div>
         <div class="row">
             <div style="margin-top: 10px">
               
@@ -264,12 +266,11 @@
                 Good to have you here, am Alexa, how can i help?
               </div>
           </div>
-         
         </div>
         <form id="ask-form">
           <div class="form-row ask-input">
               <div class="col-11">
-                <input class="form-control ask-input-field" id="message" placeholder="Ask me..."></input>
+                <input class="form-control ask-input-field" id="message" placeholder="Ask me..." />
               </div>
               <div class="col-1">
                 <button type="submit" class="submit ask-btn"><i class="fa fa-send"></i></button>
@@ -279,7 +280,6 @@
       </div>
       </div>
     </div>
-  </div>
 </section>
 
 <script>
