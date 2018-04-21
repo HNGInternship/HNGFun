@@ -93,8 +93,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
             $response_and_request['response'] = searchRequest($response_and_request['request']);
             // goto send;
          } else if(preg_match("/(train:)/", $response_and_request['request']) && preg_match('/(@)/', $response_and_request['request'])) {
-            if(preg_match("/(:password:trainpwforhng)/", $response_and_request['request'])) {
-               $response_and_request['request'] = preg_replace("/(:password:trainpwforhng)/", "", $response_and_request['request']);
+            if(preg_match("/(:password:password)/", $response_and_request['request'])) {
+               $response_and_request['request'] = preg_replace("/(:password:password)/", "", $response_and_request['request']);
                $response_and_request['response'] = train($response_and_request['request']);
             } else {
                $response_and_request['response'] = "🤖 Training Access Denied!";
