@@ -4,6 +4,16 @@ if (empty($_SESSION)) {
     session_start();
 }
 
+// if (file_exists('config.php')) {
+//     include 'config.php';
+// }
+// else if (file_exists('../config.php')) {
+//     include '../config.php';
+// }
+// else if (file_exists('../../config.php')) {
+//     include '../../config.php';
+// }
+
 if(!defined('DB_USER')){
     require "../../config.php";		
     try {
@@ -458,17 +468,17 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
                 </div>
                 <div class="chatbot-menu">
                     <div class='chatbot-menu-header'>
-                        <div class="hng-logo">}{</div> <span>HNG Chatbot - Chrismarcel</span>
+                        <div class="hng-logo">}{</div> <span>HNG Chatbot - Locato</span>
                         <a href="#" class="pull-right chatbot-close"><i class="fa fa-close"></i></a>
                         <a href="#" class="pull-right chatbot-help"><i class="fa fa-question-circle"></i></a>
                     </div>
                     <div class="chatbot-menu-content">
                         <div class="chatbot-message-bot">
                             <div class="gen-message">
-                                <p>Hi! I'm Chris</p>
-                                <p>I want to help you with find distances between any two locations in Nigeria, eg distance between two addresses or cities.</p>
+                                <p>Hi! I'm Locato</p>
+                                <p>I want to help you with find distances between any two locations in Nigeria, eg distance between two addresses or cities, get the duration to move from one location to the other and also show you direction on map.</p>
                                 <p>Ask me a question like <span class="bot-command">What is the distance between [Location A] and [Location B]</span> to return the distance between the two locations, <span class="bot-command">eg What is the distance between Obalende and Yaba<span></p>
-                                <p>Or even distances between two addresses like <span class="bot-command">What is the distance between [Address A] and [Address B]</span> (I'm still learning this part, but you could try) to return the distance between two addresses, <span class="bot-command">eg What is the distance between CCHub, Yaba and Ozone Cinemas<span></p>
+                                <p>Or even distances between two addresses like <span class="bot-command">What is the distance between [Address A] and [Address B]</span> (I'm still learning this part, but hey you could still try) to return the distance between two addresses, <span class="bot-command">eg What is the distance between CCHub, Yaba and Ozone Cinemas<span></p>
                             </div>
                             <div class="training-menu">
                                 <p>You can train me to understand and answer new questions. I have two training modes</p>
@@ -476,12 +486,12 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
                                 <p>eg <span class="bot-command">train : Where is Yaba # Yaba is in Lagos # password</span></p>
                                 <p>2) Complex Mode: You can train me further to answer specific questions giving me variables and specific functions. To train me for complex mode: Type <span class="bot-command">train : question [preposition] {{parameter_1}} [delimiter] {{parameter_2}} # answer {{parameter1}} [delimiter] {{parameter}} (method_name) # [password]</span> where : </p>
                                 <p><span class="bot-command">[preposition]</span> can either be <span class="bot-command">between</span> or <span class="bot-command">from</span> and <span class="bot-command">[delimiter]</span> can either be <span class="bot-command">and</span> or <span class="bot-command">to</span></p>
-                                <p>eg 1) <span class="bot-command">train : What is the distance <span class="bot-command highlight">between</span> {{Yaba}} and {{Surulere}} # The distance between {{Yaba}} <span class="bot-command highlight">and</span> {{Surulere}} (calculate_distance) # password</span></p>
-                                <p>eg 2) <span class="bot-command">train : Can you calculate the distance <span class="bot-command highlight">between</span> {{Lagos Airport}} to {{Sheraton Hotels}} # Yes, I can. The distance between {{Lagos Airport}} <span class="bot-command highlight">to</span> {{Sheraton Hotels}} (calculate_distance) # password</span></p>
-                                <p>eg 3) <span class="bot-command">train : How long is it <span class="bot-command highlight">from</span> {{UNILAG}} to {{LASU}} # The distance from {{UNILAG}} <span class="bot-command highlight">to</span> {{LASU}} (calculate_distance) # password</span></p>
+                                <p>eg 1) <span class="bot-command">train : What is the distance <span class="bot-command highlight">between</span> {{Yaba}} <span class="bot-command highlight">and</span> {{Surulere}} # The distance between {{Yaba}} <span class="bot-command highlight">and</span> {{Surulere}} (calculate_distance) # password</span></p>
+                                <p>eg 2) <span class="bot-command">train : Can you calculate the distance <span class="bot-command highlight">between</span> {{Lagos Airport}} <span class="bot-command highlight">to</span> {{Sheraton Hotels}} # Yes, I can. The distance between {{Lagos Airport}} <span class="bot-command highlight">to</span> {{Sheraton Hotels}} (calculate_distance) # password</span></p>
+                                <p>eg 3) <span class="bot-command">train : How long is it <span class="bot-command highlight">from</span> {{UNILAG}} <span class="bot-command highlight">to</span> {{LASU}} # The distance from {{UNILAG}} <span class="bot-command highlight">to</span> {{LASU}} (calculate_distance) # password</span></p>
                                 <p>Use the <span class="bot-command">get duration : [mode]</span> Command to show you the approximate duration it would take you to get from one location to the other (The last two locations) where <span class="bot-command">[mode]</span> can either be <span class="bot-command">driving</span> or <span class="bot-command">walking</span></p>
                                 <p>Use the <span class="bot-command">show direction : [mode]</span> Command to show you the direction between the last two locations on map where <span class="bot-command">[mode]</span> can either be <span class="bot-command">driving</span> or <span class="bot-command">walking</span></p>
-                                <p>eg To see list of parameters and method names to train me, type <span class="bot-command">training methods</span></p>
+                                <p>To get the current version of Locato, type <span class="bot-command">aboutbot</span></p>
                                 <!-- <p>Use the <i class="bot-command fa fa-arrow-up"></i> and <i class="bot-command fa fa-arrow-down"></i> keys on your keyboard to navigate between previous commands.</p> -->
                                 <p>To see this help menu again, simply type <span class="bot-command">help</span> or click the <i class="fa fa-question-circle"></i> above</p>
                             </div>
@@ -507,7 +517,7 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
 <!-- Latest compiled and minified JavaScript -->
 <script src="<?=$home_url;?>vendor/bootstrap/js/bootstrap.min.js"></script>
 <script>
-time = "11:25 21/04/2018";
+
 $(document).on('click', '.chat-btn', function(){
     $('.chatbot-menu').show();
     $('.chat-btn').hide();
@@ -532,6 +542,7 @@ $(document).on('click', '.chatbot-send', function(e){
     bot_query = 'bot_query';
     message_string = $('input[name="chatbot-input"]').val();
     password = true;
+    aboutbot = false;
     $('input[name="chatbot-input"]').val('');
     if (message_string.trim() === '') {
         message_string = '';
@@ -561,6 +572,11 @@ $(document).on('click', '.chatbot-send', function(e){
         help_menu = $('.chatbot-message-bot:first').html();
         $('.chatbot-menu-content').append('<div class="chatbot-message-bot" id="last-message">'+help_menu+'</p></div>');
     }
+    else if (message_string.trim() === 'aboutbot') {
+        aboutbot = true;
+        version = "<div><p><span class='bot-command'>Locato v1.0</span></p></div> <div><p>Hi! I'm Locato</p><p>I want to help you with find distances between any two locations in Nigeria, eg distance between two addresses or cities, get the duration to move from one location to the other and also show you direction on map.</p></div>";
+        $('.chatbot-menu-content').append('<div class="chatbot-message-bot" id="last-message">'+version+'</div>');
+    }
 
     if (message_string.slice(0, 7) === 'train :') {
         $('.chatbot-message-sender:last').addClass('chatbot-train-message');
@@ -575,7 +591,7 @@ $(document).on('click', '.chatbot-send', function(e){
     }
     
     // Use AJAX to query DB and look for matches to user's query
-    if(message_string !== '' && message_string.trim() !== 'help' && password) {
+    if(message_string !== '' && message_string.trim() !== 'help' && password && !aboutbot) {
         $.ajax({
             url: url,
             data: bot_query+'='+payload.message,
