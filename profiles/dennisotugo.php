@@ -138,10 +138,14 @@ else {
 					</div>
   <div class="bot-body">
     <div class="messages-body">
-
       <div>
         <div class="message bot">
           <span class="content">Look alive</span>
+        </div>
+      </div>
+	<div>
+        <div class="message bot">
+          <span class="content">What do you have in mind, Let's talk :) </span>
         </div>
       </div>
     </div>
