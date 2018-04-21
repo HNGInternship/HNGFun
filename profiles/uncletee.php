@@ -3,12 +3,14 @@
 ////////////////////////////////////////
 if(!isset($_GET['id'])){
     require '../db.php';
-//    require "../answers.php";
+
 }else{
     require 'db.php';
+    require "answers.php";
 }
 
 
+$botVersion = "agbero v1.0";
 try {
 
     $sql = 'SELECT * FROM interns_data,secret_word WHERE username ="'.'uncletee'.'"';
@@ -50,45 +52,84 @@ function multiexplode ($delimiters,$string) {
 
 
 
-function performQuestion($string){
+function askQuestion($string){
 
     $questionAsked =  prepareInputParams($string);
     $foundQuestion = findByQuestion($questionAsked);
-    $foundAnswer =    $foundQuestion["answer"];
+     $foundAnswer =    $foundQuestion["answer"];
+//     return($foundAnswer);
     return getQuestionFunction( $foundAnswer );
 
 
 }
+
+//print_r(performTraining('train:What is the time in sokoto#The time $$ in ((location))#Adenekan'));
+function performTraining($string){
+    $delimeters         = [":","#"];
+    $trainnigParameters =   multiexplode ($delimeters ,$string);
+    $isBotTrainnable = isTrainable($trainnigParameters);
+    if( $trainnigParameters[0] == "train"){
+        if ($isBotTrainnable["code"] == 204){
+            return  $isBotTrainnable;
+        }
+        $question      = prepareInputParams($trainnigParameters[1]) ;
+        $answer      = prepareInputParams($trainnigParameters[2]);
+        $password      = trim($trainnigParameters[3]);
+        $questionHasAbusiveWords    =   _profanityCheck( $question );
+        $answerHasAbusiveWords      = _profanityCheck($answer);
+        $functionHasError   =   whiteSpaceNotExistInFunction($answer);
+        $isAuthenticated    = isAuthenticated( $password ,'adenekan');
+        if($isAuthenticated['code'] == 401){
+            return $isAuthenticated;
+        }else if($questionHasAbusiveWords['code'] == 401){  // 401 is assumed to be an error code
+            return  $questionHasAbusiveWords;
+        }else if( $answerHasAbusiveWords['code'] == 401){
+            return $answerHasAbusiveWords;
+        }else if($functionHasError['code'] == 401){
+            return $functionHasError;
+        }
+        //Add only if neccesary.
+
+        return saveTrainingParams($question,$answer);
+    }
+    return false;
+}
+
 
 
 
 function getQuestionFunction($foundAnswer){
     $errorResponses = [
             "You may have to give me trainning with a function I understand",
-            "Boss, this is really hard or me, I do not have the skill set to anser the question",
-            "In lasisi's voice, give me training jooooooooooooooooorrrrrrrr",
-            "I can only do better if I get good training",
+            "Boss, this is really hard or me, I do not have the skill set to answer the question,give me training with a function",
+            "In lasisi's voice, give me training jooooooooooooooooorrrrrrrr with a function ",
+            "I can only do better if I get good training with a function I understand",
             "I can only perform with essential training"
     ];
     $functionSStart = stripos($foundAnswer, "((");
-    $functionEnd    = stripos($foundAnswer, "))");
+
+    //There is o function in the answer
     if(!$functionSStart){
         return ["code" => 200, "response" => $foundAnswer ];
     }else{
         $foundFunction = get_string_between($foundAnswer);
+
         $foundFunction  = prepareInputParams($foundFunction);
         if(function_exists($foundFunction)){
             return [
+
                 'code' => 200,
-                'response' => str_replace("(( $foundFunction))", foundFunction(), $foundAnswer)
+                'response' => str_replace("(($foundFunction))", $foundFunction(), $foundAnswer)
+            ];
+        }else{
+            return [
+                'code' => 204, // The essense of the 204 is to make client know that he should show trainnig rules
+                'response' =>  $errorResponses[rand(0,count($errorResponses)-1)]
             ];
         }
 
     }
-    return [
-            'code' => 204, // The essense of the 204 is to make client know that he should show trainnig rules
-            'response' =>  $errorResponses[rand(0,count($errorResponses)-1)]
-    ];
+
 }
 
 
@@ -99,7 +140,7 @@ function getQuestionFunction($foundAnswer){
  * @param $end
  * @return bool|string
  */
-function get_string_between($string, $start, $end){
+function get_string_between($string, $start = "((", $end="))"){
     $string = ' ' . $string;
     $ini = strpos($string, $start);
     if ($ini == 0) return '';
@@ -136,37 +177,6 @@ function getFuctionsNames($str, $startDelimiter, $endDelimiter) {
 
 
 
-print_r(performTraining('train:What is the time in sokoto#The time $$ in (())#Adenekan'));
-function performTraining($string){
-    $delimeters         = [":","#"];
-    $trainnigParameters =   multiexplode ($delimeters ,$string);
-    $isBotTrainnable = isTrainable($trainnigParameters);
-    if( $trainnigParameters[0] == "train"){
-        if ($isBotTrainnable["code"] == 204){
-            return  $isBotTrainnable;
-        }
-        $question      = prepareInputParams($trainnigParameters[1]) ;
-        $answer      = prepareInputParams($trainnigParameters[2]);
-        $password      = trim($trainnigParameters[3]);
-        $questionHasAbusiveWords    =   _profanityCheck( $question );
-        $answerHasAbusiveWords      = _profanityCheck($answer);
-        $functionHasError   =   whiteSpaceNotExistInFunction($answer);
-        $isAuthenticated    = isAuthenticated( $password ,'adenekan');
-         if($isAuthenticated['code'] == 401){
-            return $isAuthenticated;
-        }else if($questionHasAbusiveWords['code'] == 401){  // 401 is assumed to be an error code
-            return  $questionHasAbusiveWords;
-        }else if( $answerHasAbusiveWords['code'] == 401){
-            return $answerHasAbusiveWords;
-        }else if($functionHasError['code'] == 401){
-            return $functionHasError;
-        }
-         //Add only if neccesary.
-        return "pass";
-//        return saveTrainingParams($question,$answer);
-    }
-    return false;
-}
 
 /**
  * functions will accepts an array parameter
@@ -187,7 +197,7 @@ function isTrainable($array){
 
    if (count($array) > 4){
         $returnParams["code"] = 204;
-        $returnParams["response"] =  "You have now given me more information than i need";
+        $returnParams["response"] =  "You have now giving me more information than i need";
         return  $returnParams;
     }else if (count($array)!=4 ){
     $returnParams["code"] = 204;
@@ -323,7 +333,7 @@ function findByQuestion($question){
         $stmt->bindParam(':quest', $question);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        return $stmt->fetchAll();
+        return $stmt->fetch();
     }catch(PDOException $e){
         throw $e;
     }
