@@ -54,6 +54,8 @@ $r = mysqli_query($conn, $q);
 if (mysqli_num_rows($r) > 0)
     {
         $answer = mysqli_fetch_assoc($r);
+        $answer_index = rand(0, (count($result) - 1));
+        $answer = $result[$answer_index]['answer'];
         $answer = $answer['answer'];
         echo $answer;
 
