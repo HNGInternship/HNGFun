@@ -1,13 +1,21 @@
 <?php
-require('db.php');
-require('/../answers.php');
+if(!defined('DB_USER')){
+require('../../config.php');
+}
+//require('/../answers.php');
 
 $connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-$result = mysqli_query($connect, "SELECT * FROM secret_word");
-$secret_word = mysqli_fetch_assoc($result)['secret_word'];
-$result = mysqli_query($connect, "SELECT * FROM interns_data WHERE username = 'jilh'");
-if($result)	$my_data = mysqli_fetch_assoc($result);
-else {echo "An error occored";}
+if($connect){
+	$result = mysqli_query($connect, "SELECT * FROM secret_word");
+	$secret_word = mysqli_fetch_assoc($result)['secret_word'];
+	$result = mysqli_query($connect, "SELECT * FROM interns_data WHERE username = 'jilh'");
+	if($result)	$my_data = mysqli_fetch_assoc($result);
+	else {echo "An error occored";}
+}
+else{
+	echo "Unable to connect to db";
+}
+
 ?>
 
 <?php
@@ -21,6 +29,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		$find_sum = stripos($question, "sum:");
 		$find_multiply = stripos($question, "multiply:");
 		$find_say = stripos($question, "say:");
+		$bot_info = stripos($question, "aboutbot");
 		
 		if($training_mode !== false){
 			$string = trim($question);
@@ -34,6 +43,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			}else{
 				echo json_encode(['state' => 0, 'msg' => "I'm sorry, something went wrong"]);
 			}
+		}
+		elseif($bot_info !== false){
+			echo json_encode(['state' => 1, 'msg' => "Bot v1.1 Developed by Afolayan Stephen"]);
 		}
 		elseif($find_average !== false){
 			$value = explode(" ", trim($question));
@@ -99,7 +111,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			}
 			else{
 				$sanitized_question = mysqli_real_escape_string($connect, trim($question));
-				$perform_answer = mysqli_query($connect, "SELECT * FROM chatbot WHERE question LIKE '%$sanitized_question%'");
+				$perform_answer = mysqli_query($connect, "SELECT * FROM chatbot WHERE question LIKE '%$sanitized_question%' ORDER BY RAND()");
 				if($perform_answer){
 					if($rows = mysqli_num_rows($perform_answer) > 0){
 						$result = mysqli_fetch_assoc($perform_answer);
@@ -285,7 +297,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			<h6>Let's talk</h6>
 			<ul class="connect">
 				<li><a style="color: #3b5998;" href="https://www.facebook.com/afolayan.stephen"><span class="fa fa-facebook-square"></span></a></li>
-				<li><a style="color: #db4437;"href="https://plus.google.com/100463981266653803670"><span class="fa fa-google-plus-square"></span></a></li>
+				<li><a style="color: #db4437;" href="https://plus.google.com/100463981266653803670"><span class="fa fa-google-plus-square"></span></a></li>
 				<li><a style="color: #212529;" href="https://github.com/jilh"><span class="fa fa-github-square"></span></a></li>
 			</ul>
 		</div>

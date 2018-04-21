@@ -4,9 +4,13 @@
     <title>Ajiva Profile</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 =======
 >>>>>>> 9ffcdeb9dd95b31d85f8db38a40a268d2521bc63
+=======
+    
+>>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <style>
         body{
@@ -15,6 +19,9 @@
             background-repeat: no-repeat;
             background-size: cover;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
             /* border-radius: 50%; */
         } 
         .card{
@@ -30,6 +37,7 @@
             height: 70%;
             /* border-radius: 5% 5% 0 0; */
         }
+<<<<<<< HEAD
 =======
         } 
         .card{
@@ -38,12 +46,17 @@
             border-radius: 60%;
         }       
 >>>>>>> 9ffcdeb9dd95b31d85f8db38a40a268d2521bc63
+=======
+>>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
     </style>
     
 </head>
 
 <body>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
 ss
     <div class="d-flex justify-content-center">
         <div class="card rounded p-0 mt-5">
@@ -70,6 +83,7 @@ ss
             
         </div>
     </div>
+<<<<<<< HEAD
 =======
 
     <div class="d-flex justify-content-center pt-5 mt-5">
@@ -104,6 +118,8 @@ ss
       $secret_word = $data['secret_word'];        
 ?>
 >>>>>>> 9ffcdeb9dd95b31d85f8db38a40a268d2521bc63
+=======
+>>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
 
     
 </body>

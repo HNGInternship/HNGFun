@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -60,9 +62,8 @@ body
   text-align: center;
   font-size: 28px;
   font-style:regular;
-  line-height: 60px;
+  line-height: normal;
   
-
    background-color:rgba(196, 196, 196, 0.50);
 }
 .fa {
@@ -92,7 +93,70 @@ body
 	</title>
 </head>
 <body>
+  <?php
+
+ if (isset($_POST))
+ {
+
+      $mesuu = $_POST['message'];
+      $message=strtolower($mesuu);
+     
+      trim($message);
+      $train = stripos($message, "train:");
+
+      if( $train)
+      {
+
+      }
+
+      if($message=='aboutbot'){
+
+           $botresp='franks bot version 1.45';
+      }
+
+
+
+
+/*
+      elseif (!$message) {
+
+
+
+        # code...
+         $result3 = $conn->query("Select * from chatbot where question = '$message'");
+        $result3->execute();
+      //  $dbresp = $result3->fetch(PDO::FETCH_OBJ);
+      $rows = $dbresp->fetchAll();
+
+
+            if(count($rows)<0)
+            {
+              $botresp = $row['answer'];
+              echo "$botresp";
+            }
+              if(count($rows)>0)
+             {
+              $index = rand(0, count($rows)-1);
+              $row= $rows[$index];
+              $botresp = $row['answer'];    
+              echo "$botresp";
+              }
+         if(count($rows)==0)
+         {
+          $botresp='sorry i have no answer to that yet .......but you an train me how to answer it ';
+          echo "$botresp";
+         }
+
+
+      }
+
+      */
+    
+ }
+
+  ?>
   <?php 
+
 
   $result = $conn->query("Select * from secret_word LIMIT 1");
   $result = $result->fetch(PDO::FETCH_OBJ);
@@ -127,13 +191,34 @@ body
 		 </div>
 
 
-      <div id="data2"><center>
+         <div id="data2"><center>
             try my bot <br>
+            <div class="container">
+  <img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524056521/pp.jpg" alt="Avatar" style="width:100%;">
+  <p>Hello im frank's bot i can answer some of your questions try me ........He is not around im using his profile picture dont tell him &#9786; &#9786; &#9786; you can also train me to answer questions    To train me use the format: below <br> <i style="color: #fefe00;">train: question#answer#password 
+  </i></p>
+ 
+
+
+
+
+
+</div>
+
+<div id="async1">
+
+  
+</div>
+<form id="myform" method="POST">
+  <textarea  sid="text" name="message" id="ter" rows="0" cols="0" class="textarea" style=" padding:2px; border-radius: 12px;width: 80%;background-color:rgba(155, 22, 195, 0.32);" placeholder="enter your message"></textarea> <br>
+                               <button id="btn1" type="submit" class="button" >send</button>
+                               <br><br>
+
+
         
 </center>
 
-      </div>
-
+      </div><br>
 
 		
 			<div id="data2"><center>
@@ -152,3 +237,31 @@ body
 
 </body>
 </html>
+
+<script>
+
+$(document).ready(function(){
+    $("#btn1").click(function(){
+      var valnext2 = $("#ter").val();
+      $("#ter").val('');
+    // var valnext2 = "<?php echo $mesuu; ?>";
+      var valnext = "ghjgjkhgkjhkhjhkhkjh";
+      var resusr='</center><div class="container darker" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524285838/960_720.png" alt="Avatar" class="right" style="width:60%;"><p> ';
+
+
+
+
+
+      var resbot='<div class="container" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524056521/pp.jpg" alt="Avatar" class="left" style="width:60%;"><p> Sorry to disappoint as you  can see he is too lazy to train me he did not even train me to answer simple questions .........i dont even know my name  i think you should go and beat him up ....he is embarassing me <h1> &#x1F620;&#x1F620;&#x1F620; </h1>';
+        $("#async1").append(resusr+" "+valnext2+" </p></div>");
+         $("#async1").append(resbot+"</p></div>");
+
+    });
+$('form').submit(function(ev) {
+    ev.preventDefault();
+    // ajax stuff...
+});
+
+    
+});
+</script>
