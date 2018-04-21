@@ -1,6 +1,6 @@
 <?php 
 
-include '../..config.php';
+require "../config.php";
 
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -12,22 +12,57 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 /////////////////////////////////
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+    require "../answers.php";
+
+
+    //if(!isset($_POST['question'])){
     $mem = $_POST['question'];
     $mem = preg_replace('([\s]+)', ' ', trim($mem));
     $mem = preg_replace("([?.])", "", $mem);
 	$arr = explode(" ", $mem);
+	//test for training mode
+
 	if($arr[0] == "train:"){
+
+
+
+        //echo json_encode([
+          //'status' => 0,
+          //'answer' => "You need to enter the training password to train me."
+        //]);
 		unset($arr[0]);
 		$q = implode(" ",$arr);
 		$queries = explode("#", $q);
+		if (count($queries) < 3) {
+			# code...
+			echo json_encode([
+				'status' => 0,
+				'result' => "You need to enter a password to train me."
+			]);
+			return;
+		}
+		$password = trim($queries[2]);
+		//to verify training password
+		define('trainingpassword', 'password');
+		
+		if ($password !== trainingpassword) {
+			# code...
+			echo json_encode([
+				'status'=> 0,
+				'result' => "You entered a wrong passsword"
+			]);
+			return;
+		}
 		$quest = $queries[0];
 		$ans = $queries[1];
-		 $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $quest . "', '" . $ans . "')";
+		 $sql = "INSERT INTO chatbot(question, answer) VALUES ( '" . $quest . "', '" . $ans . "')";
 		 $conn->exec($sql);
-     header('Content-type: text/json');
-     $arrayName = array('result' => 'Thanks for training me, you can now test my knowledge');
-     echo json_encode($arrayName);
-     return;
+		 echo json_encode([
+		 	'status' => 1,
+		 	'result' => "Thanks for training me, you can now test my knowledge"
+		 ]);
+		 return;
     }
     //else {
    //   $arrayName = array('result' => 'Oh my Error');
@@ -35,11 +70,43 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
    //   echo json_encode($arrayName);
    //   return;
    // }
+    elseif ($arr[0] == "aboutbot") {
+    	# code...
+    	echo json_encode([
+    		'status'=> 1,
+    		'result' => "I am MATRIX, Version 1.0.0. You can train me by using this format ' train: This is a question # This is the answer # password '"
+    	]);
+    	return;
+    }
     else {
-      header('Content-type: text/json');
-       $arrayName = array('result' => "Query Accepted");
-       echo json_encode($arrayName);
-       return;
+    	$question = implode(" ",$arr);
+    	//to check if answer already exists in the database...
+    	$question = "%$question%";
+    	$sql = "Select * from chatbot where question like $question";
+        $stat = $conn->prepare($sql);
+        $stat->bindParam(':question', $question);
+        $stat->execute();
+
+        $stat->setFetchMode(PDO::FETCH_ASSOC);
+        $rows = $stat->fetchAll();
+        if(count($rows)>0){
+	        $index = rand(0, count($rows)-1);
+	        $row = $rows[$index];
+	        $answer = $row['answer'];
+	        
+	        echo json_encode([
+	        	'status' => 1,
+	        	'result' => $answer
+	        ]);
+	        return;
+	    }else{
+
+	    	echo json_encode([
+	    		'status' => 0,
+	    		'result' => "I am sorry, I cannot answer your question now. You could offer to train me."
+	    	]);
+	    	return;
+	    }
     }
 }
 ?>
@@ -53,14 +120,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style type="text/css">
 		body{
-			background-color: #D4F4F4;
+			background-image: url(https://res.cloudinary.com/adeyefa/image/upload/v1524267920/turntable-1109588__340.jpg);
+			height: 100%; 
+		    background-position: center;
+		    background-repeat: no-repeat;
+		    background-size: cover;
 		}
 		h1{
 			text-align: center;
 			color: red;
-		}
-		.pimg{
-			float: right;
 		}
 		p{
 			text-align: center;
@@ -75,29 +143,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			text-align: center;
 			font-size: 30px;
 		}
-		#bar{
-			background-color: white;
-		}
 		.sidebar{
-			background-color: #FD4F5F;
-			width: 465px;
+			width: 400px;
 			height: 590px;
 		}
 		.bbb{
-			background-color: #3DFFDF;
 			width: 790px;
 			height: 590px;
 			float: right;
-		}
-		.iii{
-			background-color: white;
-		}
-		.right{
-			background-color: rgb(52,185,96,0.9);
-			color: #FFF;
-			padding: 7px;
-			position: relative;
-			margin-left: 100px;
 		}
 		.row{
 			border-bottom: 3px solid #E1E1E1;
@@ -109,7 +162,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			color: #FFF;
 			padding: 7px;
 			position: absolute;
-			width: 450px;
+			width: 400px;
 			height: auto;
 		}
 		input{
@@ -118,8 +171,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    margin: 8px 0;
 		    box-sizing: border-box;
 		}
-		input[type=text] {
-
+		textarea{
 		    width: 80%;
 		    box-sizing: border-box;
 		    border: 2px solid #ccc;
@@ -134,10 +186,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    margin: 8px 8px;
 		}
 		.head{
-			background-color: #0EEFF1;
 			text-align: center;
 		}
 		h2{
+			color: white;
 			font-weight: bolder;
 			font-size: 40px;
 		}
@@ -163,20 +215,29 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    flex-direction: column;
 		}
 		.irr{
-			float: left;
 	        color: #fff;
-	        background-color: #033FFF;
-	        -webkit-align-self: flex-start;
-	        align-self: flex-start;
-	        -moz-animation-name: slideFromLeft;
-	        -webkit-animation-name: slideFromLeft;
-	        animation-name: slideFromLeft;
 	        font-size: 15px;
 			font-family: Ubuntu;
 		}
 		.irr:before{
 			left: -3px;
             background-color: #00b0ff;
+		}
+		#queries{
+			margin-left: 50px;
+		}
+		.iro{
+			float: right;
+			color: #0DDFFF;
+			font-size: 20px;
+			font-family: Ubuntu;
+		}
+		.iio{
+			float: left;
+			margin-right: 90px;
+			color: #01DDDD;
+			font-size: 20px;
+			font-family: Ubuntu;
 		}
 	</style>
 </head>
@@ -214,11 +275,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
-									Chats 
-									<ul id="chats">
-										<?php
-
-										?>
+									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about me type: 'aboutbot'
+								</div>
+								<div class="iro">
+									<ul id="queries">
+										
+									</ul>
+								</div>	
+								<div class="iio">
+									<ul id="ans">
+											
 									</ul>
 								</div>	
 							</div>
@@ -228,7 +294,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			</div>		
 	    </div>
 	</div>	
-	<script src="Hngfun/vendor/jquery/jquery.min.js"></script>
+	<script src="../vendor/jquery/jquery.min.js"></script>
 	<script>
 		$(document).ready(function(){
 			var Form =$('#qform');
@@ -236,33 +302,24 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#chats").append("<li>" + question + "</li>");
-				
-
-				//$.ajax({
-				//	url: 'Adeyefa.php',
-				//	type: 'GET',
-				//	dataType: 'json',
-				//	data: {question: question},
-				//	success: (response) =>{
-				//		console.log("success");
-				//	},
-				//	error: (error) => {
-				//		alert('error occured')
-				//		console.log(error);
-				//	}
-				//}
+				$("#queries").append("<li>" + question + "</li>");
+					//let newMessage = `<div class="iro">
+	                  //${question}
+	                //</div>`
 				$.ajax({
-					url: "Adeyefa.php",
-					type: "post",
+					url: '../profiles/Adeyefa.php',
+					type: 'POST',
 					data: {question: question},
-					dataType: "json",
-					success: function(answer){
-		        $("#chats").append("<li>" + answer.result + "</li>");
+					dataType: 'json',
+					success: (response)=> {
+			        $("#ans").append("<li>" + response.result.d + "</li>");
+			        //alert(response.result.d);
+			        //alert(answer.result);
+			        
 					},
 					error: function(error){
 						console.log(error);
-		        alert(error);
+				        alert(error);
 					}
 				})	
 			})
