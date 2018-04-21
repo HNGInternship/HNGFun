@@ -356,6 +356,31 @@ function getBotMenu(){
 function getTime(){
   return date("h:i:s");
 }
+<<<<<<< HEAD
+
+// end of functions by johnayeni
+
+//////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
+
+$qsam = $_REQUEST["qsam"];
+$anwerSam = "";
+
+if ($qsam === "Moses"){
+		$anwerSam = 'Nice Name, How are you ' . $qsam;
+
+}
+echo $anwerSam;
+
+////////////////////// END OF FUNCTION BY BROWN SAMSON ////////////////////////////////////
+
+/////////////////////opheus //////////
+
+if(isset($_GET['opheuslocation'])) {
+echo $time = get_time($_GET['opheuslocation']);
+}
+elseif(isset($_GET['opheusweather'])) {
+echo $weather = get_weather($_GET['opheusweather']);
+=======
 ////////////////////////////////
 // END OF JOHN AYENI FUNCTIONS//
 ////////////////////////////////
@@ -369,6 +394,7 @@ function getCurrentDateAndTime(){
     $newTime = date("h:i:s A");
     echo "Today's date is " . $newDate . ". The time is " . $newTime;
     //A.M.A
+>>>>>>> 555d23d7bb88145ab2ece7ce6eda402ebbccd911
 }
 function getCurrentDayOfTheWeek(){
     $newDate = date("l");
@@ -401,6 +427,34 @@ function getRandomQuote(){
     //A.M.A
 }
 
+<<<<<<< HEAD
+function bot_answer($check) {
+
+require 'db.php';
+
+// Create connection
+//$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+//if ($conn->connect_error) {
+ //   die("Connection failed: " . $conn->connect_error);
+//}
+
+
+
+$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$check' ORDER BY rand() LIMIT 1");
+$stmt->execute();
+if($stmt->rowCount() > 0)
+{
+  while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+  {
+		echo $row["answer"];
+  }
+} else {
+    echo "Well i couldnt understand what you asked. But you can teach me.";
+	echo "Type ";
+	echo "train: write a question | write the answer.  ";
+	echo "to teach me.";
+=======
 function getMotivationalQuoteForTheDay(){
 	$randomQuoteJson =file_get_contents("http://quotes.rest/qod.json?category=inspire");
 	$randomQuote = json_decode($randomQuoteJson, true);
@@ -423,6 +477,7 @@ function getMediumArticle(){
 		break;
     }
     //A.M.A
+>>>>>>> 555d23d7bb88145ab2ece7ce6eda402ebbccd911
 }
 function getPinkyCommands(){
     echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/> 
@@ -433,6 +488,79 @@ function getPinkyCommands(){
     NB. All or some of the words in bold should be included in your message. Please try to follow these patterns as I am still learning.";
     //A.M.A
 }
+<<<<<<< HEAD
+
+
+
+
+
+
+
+
+
+function train_bot ($message) {
+function multiexplode ($delimiters,$string) {
+
+    $ready = str_replace($delimiters, $delimiters[0], $string);
+    $launch = explode($delimiters[0], $ready);
+    return  $launch;
+}
+
+//$text = "#train: this a question | this my answer :)";
+$exploded = multiexplode(array(":","|"),$message);
+
+$question = trim($exploded[1]);
+
+$answer = trim($exploded[2]);
+
+require 'db.php';
+
+try {
+
+    $sql = "INSERT INTO chatbot (id, question, answer)
+VALUES ('', '$question', '$answer')";
+    // use exec() because no results are returned
+    $conn->exec($sql);
+
+    echo "Thank you! i just learnt something new, my master would be proud of me.";
+
+	}
+catch(PDOException $e)
+    {
+    echo $sql . "<br>" . $e->getMessage();
+    }
+
+$conn = null;
+//////////////////////
+
+
+//And output will be like this:
+// Array
+// (
+//    [0] => here is a sample
+//    [1] =>  this text
+//    [2] =>  and this will be exploded
+//    [3] =>  this also
+//    [4] =>  this one too
+//    [5] => )
+// )
+
+}
+
+
+
+function get_browser_name($user_agent)
+{
+    if (strpos($user_agent, 'Opera') || strpos($user_agent, 'OPR/')) return 'Opera';
+    elseif (strpos($user_agent, 'Edge')) return 'Edge';
+    elseif (strpos($user_agent, 'Chrome')) return 'Chrome';
+    elseif (strpos($user_agent, 'Safari')) return 'Safari';
+    elseif (strpos($user_agent, 'Firefox')) return 'Firefox';
+    elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) return 'Internet Explorer';
+
+    return 'Other';
+
+=======
 ///////////////////////////////
 //End Aniuchi A. M's Functions/
 ///////////////////////////////
@@ -527,10 +655,25 @@ function get_duration ($key, $url, $location1, $location2, $mode) {
         $message = ["Sorry, I currently can't retrieve the duration for this trip as I don't have enough information"];
         return $message;
     }
+>>>>>>> 555d23d7bb88145ab2ece7ce6eda402ebbccd911
 }
 
+<<<<<<< HEAD
+
+function get_device_name($user_agent)
+{
+    if (strpos($user_agent, 'Macintosh') || strpos($user_agent, 'mac os')) return 'Mac';
+    elseif (strpos($user_agent, 'Linux')) return 'Linux';
+    elseif (strpos($user_agent, 'Windows NT')) return 'Windows';
+    elseif (strpos($user_agent, 'iPhone')) return 'iPhone';
+    elseif (strpos($user_agent, 'Android')) return 'Android';
+    elseif (strpos($user_agent, 'iPad') ) return 'iPad';
+
+    return 'Other';
+=======
 function show_direction ($location1, $location2, $mode) {
     return "https://www.google.com/maps/dir/?api=1&origin=$location1&destination=$location2&travelmode=$mode";
+>>>>>>> 555d23d7bb88145ab2ece7ce6eda402ebbccd911
 }
 
 #####################################################################################################
