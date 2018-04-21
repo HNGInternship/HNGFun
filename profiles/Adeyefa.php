@@ -15,6 +15,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     require "../answers.php";
 
+
+    //if(!isset($_POST['question'])){
     $mem = $_POST['question'];
     $mem = preg_replace('([\s]+)', ' ', trim($mem));
     $mem = preg_replace("([?.])", "", $mem);
@@ -23,13 +25,21 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 	if($arr[0] == "train:"){
 
+
+
+        //echo json_encode([
+          //'status' => 0,
+          //'answer' => "You need to enter the training password to train me."
+        //]);
 		unset($arr[0]);
 		$q = implode(" ",$arr);
 		$queries = explode("#", $q);
 		if (count($queries) < 3) {
 			# code...
-			$pword = array('result' => 'You need to enter a password to train me');
-			echo json_encode($pword);
+			echo json_encode([
+				'status' => 0,
+				'result' => "You need to enter a password to train me."
+			]);
 			return;
 		}
 		$password = trim($queries[2]);
@@ -38,18 +48,21 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		
 		if ($password !== trainingpassword) {
 			# code...
-			$wrongpword = array('result' => 'You entered a wrong training password, you are not authorized to train me');
-			echo json_encode($wrongpword);
+			echo json_encode([
+				'status'=> 0,
+				'result' => "You entered a wrong passsword"
+			]);
 			return;
 		}
 		$quest = $queries[0];
 		$ans = $queries[1];
 		 $sql = "INSERT INTO chatbot(question, answer) VALUES ( '" . $quest . "', '" . $ans . "')";
 		 $conn->exec($sql);
-     header('Content-type: text/json');
-     $arrayName = array('result' => 'Thanks for training me, you can now test my knowledge');
-     echo json_encode($arrayName);
-     return;
+		 echo json_encode([
+		 	'status' => 1,
+		 	'result' => "Thanks for training me, you can now test my knowledge"
+		 ]);
+		 return;
     }
     //else {
    //   $arrayName = array('result' => 'Oh my Error');
@@ -59,16 +72,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
    // }
     elseif ($arr[0] == "aboutbot") {
     	# code...
-    	header('Content-type: text/jason');
-    	$aboutbot = array('result' => "I am MATRIX, Version 1.0.0. You can train me by using this format ' train: This is a question # This is the answer # password '");
-    	echo json_encode($aboutbot);
+    	echo json_encode([
+    		'status'=> 1,
+    		'result' => "I am MATRIX, Version 1.0.0. You can train me by using this format ' train: This is a question # This is the answer # password '"
+    	]);
     	return;
     }
     else {
     	$question = implode(" ",$arr);
     	//to check if answer already exists in the database...
     	$question = "%$question%";
-    	$sql = "select * from chatbot where question like :question";
+    	$sql = "Select * from chatbot where question like $question";
         $stat = $conn->prepare($sql);
         $stat->bindParam(':question', $question);
         $stat->execute();
@@ -80,13 +94,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	        $row = $rows[$index];
 	        $answer = $row['answer'];
 	        
-	        header('Content-type: text/json');
-	        echo json_encode($answer);
+	        echo json_encode([
+	        	'status' => 1,
+	        	'result' => $answer
+	        ]);
 	        return;
 	    }else{
-	    	header('Content-type: text/json');
-	    	$noanswer = array('result' => "I am sorry, I cannot answer your question now. You could offer to train me.");
-	    	echo json_encode($noanswer);
+
+	    	echo json_encode([
+	    		'status' => 0,
+	    		'result' => "I am sorry, I cannot answer your question now. You could offer to train me."
+	    	]);
 	    	return;
 	    }
     }
@@ -102,7 +120,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style type="text/css">
 		body{
-			background-image: url(http://res.cloudinary.com/adeyefa/image/upload/v1524267920/turntable-1109588__340.jpg);
+			background-image: url(https://res.cloudinary.com/adeyefa/image/upload/v1524267920/turntable-1109588__340.jpg);
 			height: 100%; 
 		    background-position: center;
 		    background-repeat: no-repeat;
@@ -261,16 +279,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 								</div>
 								<div class="iro">
 									<ul id="queries">
-										<?php
-
-										?>
+										
 									</ul>
 								</div>	
 								<div class="iio">
 									<ul id="ans">
-										<?php
-
-										?>	
+											
 									</ul>
 								</div>	
 							</div>
@@ -291,29 +305,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				$("#queries").append("<li>" + question + "</li>");
 					//let newMessage = `<div class="iro">
 	                  //${question}
-	                //</div>`;
-				
-
-				//$.ajax({
-				//	url: 'Adeyefa.php',
-				//	type: 'GET',
-				//	dataType: 'json',
-				//	data: {question: question},
-				//	success: (response) =>{
-				//		console.log("success");
-				//	},
-				//	error: (error) => {
-				//		alert('error occured')
-				//		console.log(error);
-				//	}
-				//}
+	                //</div>`
 				$.ajax({
-					url: "Adeyefa.php",
-					type: "POST",
+					url: '../profiles/Adeyefa.php',
+					type: 'POST',
 					data: {question: question},
-					dataType: "json",
-					success: function(answer){
-			        $("#ans").append("<li>" + answer.result +  "</li>");
+					dataType: 'json',
+					success: (response)=> {
+			        $("#ans").append("<li>"  response.result.d  "</li>");
+			        //alert(response.result.d);
+			        //alert(answer.result);
+			        
 					},
 					error: function(error){
 						console.log(error);

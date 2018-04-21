@@ -3,19 +3,19 @@ error_reporting(0);
 if (empty($_SESSION)) {
     session_start();
 }
-if (empty($conn)) {
-    include("../db.php");
 
-    define('DB_CHARSET', 'utf8mb4');
-    $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
-
-    $opt = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES => false
-    ];
-
-    $conn = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
+if(!defined('DB_USER')){
+    require "../../config.php";		
+    try {
+        $opt = [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES => false
+        ];
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD, $opt);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
 }
 
 $intern_details_query = $conn->query(
@@ -466,7 +466,7 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
                                 <p>1) Simple Mode: You can train me to answer any question, I mean any question at all using: <span class="bot-command">train : question # answer # [password]</span></p> 
                                 <p>eg <span class="bot-command">train : Where is Yaba # Yaba is in Lagos # password</span></p>
                                 <p>2) Complex Mode: You can train me further to answer specific questions giving me variables and specific functions. To train me for complex mode: Type <span class="bot-command">train : question {{parameter_1}} [delimiter] {{parameter_2}} # answer {{parameter1}} [delimiter] {{parameter}} (method_name) # [password]</span> where <span class="bot-command">[delimiter]</span> can either be <span class="bot-command">and</span> or <span class="bot-command">to</span></p>
-                                <p>eg 1) <span class="bot-command">train : What is the distance between {{Yaba}} and {{Surulere}} # The distance between {{Yaba}} and {{Surulere}}(calculate_distance) # password</span></p>
+                                <p>eg 1) <span class="bot-command">train : What is the distance between {{Yaba}} and {{Surulere}} # The distance between {{Yaba}} and {{Surulere}} (calculate_distance) # password</span></p>
                                 <p>eg 2) <span class="bot-command">train : Can you calculate the distance between {{Lagos Airport}} to {{Sheraton Hotels}} # Yes, I can. The distance between {{Lagos Airport}} to {{Sheraton Hotels}} (calculate_distance) # password</span></p>
                                 <p>eg 3) <span class="bot-command">train : How long is it from {{UNILAG}} to {{LASU}} # The distance from {{UNILAG}} to {{LASU}} (calculate_distance) # password</span></p>
                                 <p>Use the <span class="bot-command">get duration : [mode]</span> Command to show you the approximate duration it would take you to get from one location to the other (The last two locations) where <span class="bot-command">[mode]</span> can either be <span class="bot-command">driving</span> or <span class="bot-command">walking</span></p>
@@ -544,7 +544,7 @@ $(document).on('click', '.chatbot-send', function(e){
             payload.message = message_string.trim().slice(0, -11);
         }
     }
-    else if (message_string.trim().slice(0, 12) === 'get duration' || message_string.trim().slice(0, 14) === 'show direction') {
+    else if (message_string.trim().split(' : ')) {
         bot_query = 'bot_command';
     }
     else if (message_string.trim() === 'help') {
@@ -731,7 +731,7 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
                     echo json_encode($response);
                 }
                 else {
-                    $response = ['response'=>'function_error', 'message'=>'Someone has tampered with my functions, check back in a bit'];
+                    $response = ['response'=>'train_command_error', 'message'=>'Sorry, that command does not exist, you can only use: <br /> <span class="bot-command">(calculate_distance)</span> function with the train command to get the distance between 2 locations <br /> <span class="bot-command">get duration : [mode]</span> Command to get the estimated trip duration between the last 2 locations <br /> <span class="bot-command">show direction : [mode]</span> Command to display the direction between the last 2 locations'];
                     echo json_encode($response);
                 }
             }
@@ -758,7 +758,7 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
             echo json_encode($response);
         }
         else {
-            $response = ['response'=>'function_error', 'message'=>'Someone has tampered with my functions, check back in a bit'];
+            $response = ['response'=>'command_error', 'message'=>'Sorry, that command does not exist.'];
             echo json_encode($response);
         }
     }
@@ -775,7 +775,7 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
             echo json_encode($response);
         }
         else {
-            $response = ['response'=>'function_error', 'message'=>$function_name];
+            $response = ['response'=>'command_error', 'message'=>'Sorry, that command does not exist.'];
             echo json_encode($response);
         }
     }
