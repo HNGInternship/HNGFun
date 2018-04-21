@@ -158,7 +158,7 @@ body {
     display: block;
     text-align: right;
     font-size: 20px;
-    padding-top: -80px;
+    padding-top: 30px;
 }
 .photo {
     width: 50%;
@@ -172,12 +172,7 @@ body {
 h3 {
     color:rgb(32, 32, 216)
 }
-a {
-    text-decoration: none;
-     text-decoration: underline dotted;
-}
-/* ChatBot */
-.display{
+	.display{
             position:fixed;
             bottom:0;
             right: 20px;
@@ -186,6 +181,11 @@ a {
             height: 500px;
             overflow:auto;
         }
+a {
+    text-decoration: none;
+     text-decoration: underline dotted;
+}
+
         .display nav{
             display:block;
             height: 50px;
