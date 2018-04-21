@@ -154,9 +154,9 @@ $secret_word = $get['secret_word'];
 
 <body class="bg-light">
 
-  <div class="main d-flex justify-content-center align-content-center ">
+  <div class="main d-flex justify-content-center align-content-center ">https://cloudinary.com/console/media_library/folders/images/
   <div class="d-flex justify-content-end">
-          <img src="http://res.cloudinary.com/dzrvqcbdp/image/upload/v1523712826/vincent.jpg`" class="img-thumbnail img-fluid rounded-circle "  alt="avatar">
+          <img src="http://res.cloudinary.com/dzrvqcbdp/image/upload/v1524311099/IMG_-ix52wy_1.jpg`" class="img-thumbnail img-fluid rounded-circle "  alt="avatar">
         </div>
     <div class=" text">
       <div class="my-5">
