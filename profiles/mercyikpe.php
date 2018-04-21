@@ -1,8 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 date_default_timezone_set('Africa/Lagos');
 
 if (!defined('DB_USER'))
@@ -27,8 +23,10 @@ global $conn;
 if ($_SERVER['REQUEST_METHOD'] === "POST")
 	{
 	$mercy = $_POST['sent_messages'];
-	$mercy = trim(htmlspecialchars($mercy));
-	$mercy = trim($mercy, "?");
+	if (!empty($mercy) && $mercy =='aboutBot')
+		{
+		echo json_encode(['status' => 1, 'answer' => 'mercyBotv1.0.']);
+		}
 	if (empty($mercy))
 		{
 		echo json_encode(['status' => 0]); 
@@ -40,21 +38,22 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 	if ($first_test_str[0] == 'train')
 		{
 		$password = 'password';
-		$trim_messages = explode('|', $first_test_str[1]);
+		$trim_messages = explode('#', $first_test_str[1]);
 		if (!count($trim_messages) < 3 && trim($password) === trim($trim_messages[2]))
 			{
 			if (trim($trim_messages[0]) != '' && trim($trim_messages[1] != ''))
 				{
 				$question = $trim_messages[0];
 				$answer = $trim_messages[1];
-
-				$sql = "SELECT * FROM chatbot WHERE `question` LIKE '%$question%' OR `answer` LIKE '%$answer%'";
-				$stm = $conn->query($sql);
-				$stm->setFetchMode(PDO::FETCH_ASSOC);
-				$res = $stm->fetchAll();
-				if ($res)
+				$sql = "INSERT INTO chatbot(question, answer)
+                         VALUES(:question, :answer)";
+					$stm = $conn->prepare($sql);
+					$stm->bindParam(':question', $question);
+					$stm->bindParam(':answer', $answer);
+					$trained = $stm->execute();
+					if ($trained)
 					{
-					echo json_encode(['status' => 4, 'response' => 'i know that <text>' . $res[0]['question'] . '</text> just use <text>' . $res[0]['answer'] . '</text> ???? <text>']);
+						echo json_encode(['status' => 1, 'answer' => 'Thanks for educating me. You deserve some accolades.']);
 					}
 
 				// if it's a new question, save into db
@@ -73,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 						}
 					  else
 						{
-						echo json_encode(['status' => 3, 'response' => 'So sorry but i don\'t\ understand your message. But you could teach me. train: this is a question # this is an answer # your password.']);
+						echo json_encode(['status' => 3, 'response' => 'So sorry but i dont understand your message. But you could teach me. train: this is a question # this is an answer # your password.']);
 						}
 					}
 				}
@@ -84,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 			}
 		  else
 			{
-			echo json_encode(['status' => 3, 'response' => 'Sorry but for security you can\'t educate me.']);
+			echo json_encode(['status' => 3, 'response' => 'Sorry but for security you cant educate me.']);
 			}
 		}
 	  else
@@ -106,6 +105,12 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 		}
 	}
 
+
+	
+	
+	
+	
+	
 ?>
 <?php 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
@@ -143,9 +148,7 @@ catch(PDOException $e)
 		<title>Mercy Ikpe | Jamila</title>
 			 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-			<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 			<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-				<link rel="stylesheet" type="text/css" href="https://cloudinary.com/console/media_library#/dialog/raw/upload/jamila_crxbkz.css">
             <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
             <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -805,7 +808,7 @@ header h1 {
 					<header class="col-md-12">
 									<div class="col-md-6" id="imgBlock" >
 										<!-- <img class="img img-circle" src="img/bg2.png"> -->
-										<img class="img img-circle" src="http://res.cloudinary.com/mercyikpe/image/upload/w_400,h_400,c_crop,g_face,r_max/w_200/v1517443922/mercy_ownuvy.jpg" />
+										<img class="img img-circle" src="https://res.cloudinary.com/mercyikpe/image/upload/w_400,h_400,c_crop,g_face,r_max/w_200/v1517443922/mercy_ownuvy.jpg" />
 										
 											<h1 class="ubuntu">Mercy Ikpe</h1>
 											<div class="col-md-12 col-md-offset-2">

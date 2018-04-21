@@ -1,6 +1,6 @@
 <?php 
 
-require "../../config.php";
+require "../config.php";
 
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -13,7 +13,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    require "../answers.php";
+    require "/answers.php";
 
     $mem = $_POST['question'];
     $mem = preg_replace('([\s]+)', ' ', trim($mem));
@@ -102,14 +102,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style type="text/css">
 		body{
-			background-color: #D4F4F4;
+			background-image: url(http://res.cloudinary.com/adeyefa/image/upload/v1524267920/turntable-1109588__340.jpg);
+			height: 100%; 
+		    background-position: center;
+		    background-repeat: no-repeat;
+		    background-size: cover;
 		}
 		h1{
 			text-align: center;
 			color: red;
-		}
-		.pimg{
-			float: right;
 		}
 		p{
 			text-align: center;
@@ -124,29 +125,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			text-align: center;
 			font-size: 30px;
 		}
-		#bar{
-			background-color: white;
-		}
 		.sidebar{
-			background-color: #FD4F5F;
-			width: 465px;
+			width: 400px;
 			height: 590px;
 		}
 		.bbb{
-			background-color: #3DFFDF;
 			width: 790px;
 			height: 590px;
 			float: right;
-		}
-		.iii{
-			background-color: white;
-		}
-		.right{
-			background-color: rgb(52,185,96,0.9);
-			color: #FFF;
-			padding: 7px;
-			position: relative;
-			margin-left: 100px;
 		}
 		.row{
 			border-bottom: 3px solid #E1E1E1;
@@ -158,7 +144,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			color: #FFF;
 			padding: 7px;
 			position: absolute;
-			width: 450px;
+			width: 400px;
 			height: auto;
 		}
 		input{
@@ -167,9 +153,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    margin: 8px 0;
 		    box-sizing: border-box;
 		}
-		input[type=text] {
-
-		    width: 60%;
+		textarea{
+		    width: 80%;
 		    box-sizing: border-box;
 		    border: 2px solid #ccc;
 		    border-radius: 4px;
@@ -183,10 +168,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    margin: 8px 8px;
 		}
 		.head{
-			background-color: #0EEFF1;
 			text-align: center;
 		}
 		h2{
+			color: white;
 			font-weight: bolder;
 			font-size: 40px;
 		}
