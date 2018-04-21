@@ -1,161 +1,93 @@
-<<<<<<< HEAD
 <?php
-
-function getUserAvatar($username)
-{
-    require 'db.php';
-
-    $sqlForUser = "SELECT * FROM interns_data WHERE interns_data.username = '".$username."' LIMIT 1";
-
-    // this is executing our query
-    $qForUser = $conn->query($sqlForUser);
-
-    // this is defining the mode in which we receive results, saying the results should return in an array format (associative array to be precise)
-    $qForUser->setFetchMode(PDO::FETCH_ASSOC);
-
-    // this is finally sending the query to the database#9b4247
-    $userData = $qForUser->fetch();
-
-    if ($userData === false) {
-        return 'No user was found with username '.$username;
-    }
-
-    return "Here's how ".$username.' looks: <br /> '."<img className='user-avatar' style='width: 150px; height:150px; border-radius: 0px;' src=".$userData['image_filename'].'>';
+function get_time(){
+  //instantiate date-time object
+  $datetime = new DateTime();
+  //set the timezone to Africa/Lagos
+  $datetime->setTimezone(new DateTimeZone('Africa/lagos'));
+  //format the time
+  return $datetime->format('H:i:A');
 }
 
-function getNumberOfGithubRepos($username)
-{
-    // Get cURL resource
-    $curl = curl_init();
-    // Set some options - we are passing in a useragent too here
-    curl_setopt_array($curl, array(
-    CURLOPT_RETURNTRANSFER => 1,
-    CURLOPT_URL => 'https://api.github.com/users/'.$username,
-    CURLOPT_USERAGENT => 'Hng Internship', ));
-    // Send the request & save response to $resp
-    $resp = json_decode(curl_exec($curl));
-    // Close request to clear up some resources
-    curl_close($curl);
-
-    if (property_exists($resp, 'message')) {
-        return "I couldn't find a github user with the name ".$username;
-    }
-
-    return $username.' has '.$resp->public_repos.' repositories on github. Check them out <a style="color: black; font-weight: bold; font-size: 18px; padding: 0px; text-decoration: none" target="_blank" href="'.$resp->html_url.'?tab=repositories">HERE</a>';
-}
-
-function getNeneRaeBotCustomCommands()
-{
-    return '<small>If you want to know the number of interns at HNG this year, type: <br /><b>"show number of interns" </b><br /><br />'.
-    'If you want to see the avatar of a specific intern, type: <br /><b>"show avatar: intern username" </b><br /><br />'.
-    'If you want me to show you the number of repositories a github user has, type: <br /><b>"show user repos: github username"</b> </small>';
-}
-
-function getNumberOfInterns()
-{
-    require 'db.php';
-
-    $sqlForUser = 'SELECT COUNT(*) FROM interns_data';
-
-    // this is executing our query
-    $qForUser = $conn->query($sqlForUser);
-
-    // this is defining the mode in which we receive results, saying the results should return in an array format (associative array to be precise)
-    $qForUser->setFetchMode(PDO::FETCH_ASSOC);
-
-    // this is finally sending the query to the database#9b4247
-    $userData = $qForUser->fetch();
-
-    return 'Presently, there are '.$userData['COUNT(*)'].' interns at the amazing hng internship.';
-}
-=======
-<?php 
 ########################################################
 # __   ___              __      __  ___       __   __  #
 #|  \ |__  |\ | |\ | | /__`    /  \  |  |  | / _` /  \ #
 #|__/ |___ | \| | \| | .__/    \__/  |  \__/ \__> \__/ #
 ########################################################
-    ######################################################
-    ####################### @BAMII #######################
-    ######################################################
-    function bamiiConvertCurrency($amount, $from, $to){
-        $conv_id = "{$from}_{$to}";
-        $string = file_get_contents("https://free.currencyconverterapi.com/api/v5/convert?q=$conv_id&compact=y");
-        $json_a = json_decode($string, true);
-    
-        #return $json_a[strtoupper($conv_id)]['val'];
-        #return $amount;
-        return $amount * $json_a[strtoupper($conv_id)]['val'];
-    }
+######################################################
+####################### @BAMII #######################
+######################################################
+function bamiiConvertCurrency($amount, $from, $to){
+    $conv_id = "{$from}_{$to}";
+    $string = file_get_contents("https://free.currencyconverterapi.com/api/v5/convert?q=$conv_id&compact=y");
+    $json_a = json_decode($string, true);
 
-    function bamiiChuckNorris() {
-        $arrContextOptions=array(
-            "ssl"=>array(
-                "verify_peer"=>false,
-                "verify_peer_name"=>false,
-              ),
-          );  
-        $geocodeUrl = "http://api.icndb.com/jokes/random";
-        $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+    return $amount * $json_a[strtoupper($conv_id)]['val'];
+}
 
-        $a =json_decode($response, true);
-
-        return $a['value']['joke'];
-    }
-
-    function bamiiTellTime($data) {
-        if(strpos($data, 'in')) {
-           return "Sorry i can't tell you the time somewhere else right now";
-        } else {
-            return 'The time is:' . date("h:i");
-        }
-    }
-
-    function bamiiCountryDetails($data) {
-        $country_arr = explode(' ', $data);
-        $country_index= array_search('details', $country_arr) + 1;
-        $country = $country_arr[$country_index];
-        $country_temp = str_replace('details', "", $data);
-        $country2 = trim($country_temp);
-
-        $string = 'http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query='. $country2 .'&num_of_results=2&format=json';
-
-        $arrContextOptions=array(
-            "ssl"=>array(
-                "verify_peer"=>false,
-                "verify_peer_name"=>false,
+function bamiiChuckNorris() {
+    $arrContextOptions=array(
+        "ssl"=>array(
+            "verify_peer"=>false,
+            "verify_peer_name"=>false,
             ),
-        );  
-        $geocodeUrl = "http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query=lagos&num_of_results=2&format=json";
-        $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+        );
+    $geocodeUrl = "http://api.icndb.com/jokes/random";
+    $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
 
-        $a =json_decode($response, true);
+    $a =json_decode($response, true);
 
-        $longitude = $a['search_api']['result'][0]['longitude'];
-        $latitude = $a['search_api']['result'][0]['latitude'];
-        $name = $a['search_api']['result'][0]['areaName'][0]['value'];
-        $country_name = $a['search_api']['result'][0]['country'][0]['value'];
-        $population = $a['search_api']['result'][0]['population'];
+    return $a['value']['joke'];
+}
 
-        
-        return('
-            '. ($name ? 'Name :'. $name . '<br />' : null) .'
-            Country: ' . $country_name . ' <br />
-            Latitude: ' . $latitude . ' <br />
-            Longitude: ' . $longitude . ' <br />
-            Population: ' . $population . '<br />
-        ');
+function bamiiTellTime($data) {
+    if(strpos($data, 'in')) {
+        return "Sorry i can't tell you the time somewhere else right now";
+    } else {
+        return 'The time is:' . date("h:i");
     }
+}
 
-    ###################### END BAMII #####################
+function bamiiCountryDetails($data) {
+    $country_arr = explode(' ', $data);
+    $country_index= array_search('details', $country_arr) + 1;
+    $country = $country_arr[$country_index];
+    $country_temp = str_replace('details', "", $data);
+    $country2 = trim($country_temp);
 
-?>
-<?php
+    $string = 'http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query='. $country2 .'&num_of_results=2&format=json';
+
+    $arrContextOptions=array(
+        "ssl"=>array(
+            "verify_peer"=>false,
+            "verify_peer_name"=>false,
+        ),
+    );
+    $geocodeUrl = "http://api.worldweatheronline.com/premium/v1/search.ashx?key=1bdf77b815ee4259942183015181704&query=lagos&num_of_results=2&format=json";
+    $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+
+    $a =json_decode($response, true);
+
+    $longitude = $a['search_api']['result'][0]['longitude'];
+    $latitude = $a['search_api']['result'][0]['latitude'];
+    $name = $a['search_api']['result'][0]['areaName'][0]['value'];
+    $country_name = $a['search_api']['result'][0]['country'][0]['value'];
+    $population = $a['search_api']['result'][0]['population'];
+
+
+    return('
+        '. ($name ? 'Name :'. $name . '<br />' : null) .'
+        Country: ' . $country_name . ' <br />
+        Latitude: ' . $latitude . ' <br />
+        Longitude: ' . $longitude . ' <br />
+        Population: ' . $population . '<br />
+    ');
+}
+
+###################### END BAMII #####################
 
 function getListOfCommands() {
   return 'Type "<code>show: List of commands</code>" to see a list of commands I understand.<br/>
   Type "<code>open: www.google.com</code>" to open Google.com<br/>
-  Type "<code>say: Hello bot</code>" to get me to say "Hello bot"<br/>
   Type "<code>train: Your question # My reply</code>" to train me to understand how to reply to more things';
 }
 
@@ -177,7 +109,7 @@ function getRandomFact(){
 }
 
 //functions by melas. MODIFY NOT
-function aboutHNG() 
+function aboutHNG()
 {
     return 'The HNG is a 3-month remote internship program designed to locate the most talented software developers in Nigeria and the whole of Africa. Everyone is welcome to participate (there is no entrance exam). We create fun challenges every week on our slack channel. THose who solve them stay on. Everyone gets to learn important concepts quickly, and make connections with people they can work with in the future. The intern coders are introduced to complex programming frameworks, and get to work on real applications that scale. the finalist are connected to the best companies in the tech ecosystem and get full time jobs and contracts immediately.';
 }
@@ -195,14 +127,14 @@ function aboutHNGStage($stage)
     $stages[1] .= '* Add your name to the contributors file: Full name, Slack Name and github name, comma delimited</br>';
     $stages[1] .= '* Join the #stage1 channel on Slack</br>';
     $stages[1] .= '* Proceed to do #stage2';
-    
+
     $stages[2] = 'Make sure you have complete all #stage1 tasks. Ask all questions on how to achieve #stage2 in the #stage1 channel.<br/>';
     $stages[2] .= 'The goal of #stage2 is the achieve this:<br/><br/>';
     $stages[2] .= 'Create hng.fun/profile/<yourusername>This should be a simple html page with your photo, your name, your slack username and your biography.';
     $stages[2] .= 'Also link to the results of your <b>#stage1</b>. You should have your own css file and your own html page (unlinked to anyone elses)<br/>';
     $stages[2] .= 'Modify the participants page to include a link to your page<br/>';
     $stages[2] .= 'Submit your work in <b>#reviews channel</b>. Your submission should link to your personal profile page, as well as the participants page which shows your name there';
-    
+
     $stages[3] = '1. clone repo - git clone https://github.com/HNGInternship/HNGFun<br/>';
     $stages[3] .= '2. if you have phpmyadmin, run - localhost/phpmyadmin. login to your phpmyadmin<br/>';
     $stages[3] .= '3. create a new database using phpmyadmin - name of the database is hng_fun<br/>';
@@ -213,23 +145,23 @@ function aboutHNGStage($stage)
     $stages[3] .= '8. create your username.php file - username here is your slack username(display name)<br/>';
     $stages[3] .= '9. create your profile using html and css - note css and js used must be in the same file, don\'t create another file or edit any other file in the project folder<br/>';
     $stages[3] .= '10. use php to query your name, username, image_file from the interns_data table on your database.<br/><br/>';
-    
+
     $stages[3] .= '<b>Note:<b/> you do not need to import the config.php file or the db.php file, it is already done for you in the profile.php file that will load your page<br/>';
     $stages[3] .= '11. query the secret_word table for the secret word and store your results in a variable called $secret_word<br/>';
     $stages[3] .= '12. go to hng.fun/admin.php and fill in the details in the form. the key code is - 1n73rn@Hng<br/><br/>';
-    
+
     $stages[3] .= 'HINT: check the profile.php file and admin.php for example on how to query the database<br/>';
-    $stages[3] .= 'DO NOT EDIT OR DELETE ANY OTHER FILE,<br/>'; 
+    $stages[3] .= 'DO NOT EDIT OR DELETE ANY OTHER FILE,<br/>';
     $stages[3] .= 'WHEN YOU RUN GIT STATUS, MAKE SURE THE ONLY FILE SHOWING IS YOUR USERNAME.PHP FILE<br/>';
     $stages[3] .= 'DO NOT EDIT ANY OTHER FILE. <br/>';
     $stages[3] .= 'IF YOU NEED ANY OTHER CLARIFICATION, DM A COLLEAGUE OR A MENTOR.<br/>';
     $stages[3] .= 'MAKE SURE ALL IMAGES ARE FROM CLOUDINARY<br/>';
-    
+
     $stages[4] = 'Add a form to your profile page. This form is the interface of a chat-bot. When a question is asked of this chat-bot, you check the database if that question exists, and if it does, retrieve the answer and display it.<br/>';
     $stages[4] .= 'Everyone is sharing the same question and answer database. Using your text field, it is also possible to train the bot - simply type ‘train’ before the text, and then the question and the answer, using # as a delimiter. You do not need to use Ajax for this part.<br/>';
     $stages[4] .= 'For extra points, make it possible to call a function as a response. For example, you could ask the bot -“What time is it?” and it retrieves the current time. This will be possible by adding the function in a file called “answers.php”. In there, add the function, which returns a text result.<br/>';
     $stages[4] .= 'To activate a function, use the training syntax: train: what is the time? # The time is ((get_time)).';
-    
+
     switch($stage) {
         case 1:
         case 2:
@@ -254,7 +186,7 @@ function getAJoke(){
 }
 
 function emojifyText($text){
-    $url = "http://torpid-needle.glitch.me/emojify/{trim($text)}";
+    $url = "http://torpid-needle.glitch.me/emojify/{$text}";
     return file_get_contents($url);
 }
 
@@ -277,125 +209,93 @@ function predictOutcome($battle){
 }
 // End of functions by @mclint_
 
-    //functions defined by @chigozie. DO NOT MODIFY!!!
-    function getDayOfWeek(){
-        return date("l");
-    }
+//functions defined by @chigozie. DO NOT MODIFY!!!
+function getDayOfWeek(){
+    return date("l");
+}
 
-    function getDaysInMonth($month){
-        $months_with_31_days = ["january", "march", "may", "july", "august", "october", "december"];
-        $months_with_30_days = ["april", "june", "september", "november"];
-        $other = ["february"];
+function getDaysInMonth($month){
+    $months_with_31_days = ["january", "march", "may", "july", "august", "october", "december"];
+    $months_with_30_days = ["april", "june", "september", "november"];
+    $other = ["february"];
 
-        $month = strtolower(trim($month));
-        if(in_array($month, $months_with_31_days)){
-            return ucfirst($month)." has 31 days";
-        }else if(in_array($month, $months_with_30_days)){
-            return ucfirst($month)." has 30 days";
-        }else if(in_array($month, $other)){
-            $ans = "In a leap year, February has 29 days otherwise, it has 28 days. ";
-            $ans .= "If you are asking about the current year ".date("Y").", then February has ";
-            if(isCurrentYearLeap()){
-                $ans .= "29 days";
-            }else{
-                $ans .= "28 days";
-            }
-            return $ans;
+    $month = strtolower(trim($month));
+    if(in_array($month, $months_with_31_days)){
+        return ucfirst($month)." has 31 days";
+    }else if(in_array($month, $months_with_30_days)){
+        return ucfirst($month)." has 30 days";
+    }else if(in_array($month, $other)){
+        $ans = "In a leap year, February has 29 days otherwise, it has 28 days. ";
+        $ans .= "If you are asking about the current year ".date("Y").", then February has ";
+        if(isCurrentYearLeap()){
+            $ans .= "29 days";
         }else{
-            return "I don't recognize the month you entered";
+            $ans .= "28 days";
         }
+        return $ans;
+    }else{
+        return "I don't recognize the month you entered";
     }
+}
 
-    function isCurrentYearLeap(){
-        $currrent_year = intval(date('Y'));
-        if($currrent_year % 400 === 0){
-            return true;
-        }
-        if($currrent_year % 100 === 0){
-            return false;
-        }
-        if($currrent_year % 4 === 0){
-            return true;
-        }
+function isCurrentYearLeap(){
+    $currrent_year = intval(date('Y'));
+    if($currrent_year % 400 === 0){
+        return true;
+    }
+    if($currrent_year % 100 === 0){
         return false;
     }
+    if($currrent_year % 4 === 0){
+        return true;
+    }
+    return false;
+}
 
-
-    /***************************Bytenaija Start here*************************/
+/***************************Bytenaija Start here*************************/
 //bytenaija time function
 function bytenaija_time($location) {
-    // $curl = curl_init();
     $arrContextOptions=array(
-     "ssl"=>array(
-         "verify_peer"=>false,
-         "verify_peer_name"=>false,
-     ),
- );  
+        "ssl"=>array(
+            "verify_peer"=>false,
+            "verify_peer_name"=>false,
+        ),
+    );
+
      $geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=".$location. "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
-     /* curl_setopt_array($curl, array(
-         CURLOPT_RETURNTRANSFER => 1,
-         CURLOPT_URL => $geocodeUrl,
-         CURLOPT_USERAGENT => 'Codular Sample cURL Request'
-     ));
- 
-     $response = curl_exec($curl); */
      $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
      $response = json_decode($response, true);
-     //$lat = $response->results;
- 
- 
+
+
      $response = $response['results'][0]['geometry'];
- 
+
      $response = $response["location"];
      $lat = $response["lat"];
      $lng = $response["lng"];
      $timestamp = time();;
- 
+
      $url = "https://maps.googleapis.com/maps/api/timezone/json?location=".$lat.",".$lng."&timestamp=".$timestamp."&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U";
- 
-     /* curl_setopt($curl, CURLOPT_URL, $url);
-     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-     $responseJson = curl_exec($curl); */
-     //curl_close($curl);
      $responseJson = file_get_contents($url,  false, stream_context_create($arrContextOptions));
      $response = json_decode($responseJson);
      $timezone = $response -> timeZoneId;
      $date = new DateTime("now", new DateTimeZone($timezone));
      echo "The time in ".ucwords($location). " is ".$date -> format('d M, Y h:i:s A');
- 
+
  }
- 
+
  function bytenaija_convert($base, $other){
      $api_key = "U7VdzkfPuGyGz4KrEa6vuYXgJxy4Q8";
      $url = "https://www.amdoren.com/api/currency.php?api_key=" . $api_key . "&from=" . $base . "&to=" . $other;
-     
-     /* $curl = curl_init();
-     curl_setopt_array($curl, array(
-         CURLOPT_RETURNTRANSFER => 1,
-         CURLOPT_URL => $url,
-         CURLOPT_USERAGENT => 'Codular Sample cURL Request'
-     ));
- 
-     $response = curl_exec($curl); */
- 
+
      $response = file_get_contents($url);
      $response = json_decode($response, true);
-     //curl_close($curl);
      echo "1 ". strtoupper($base) ." is equal to ".  strtoupper($other)  ." " .$response['amount'];
  }
- 
+
  //bitcoin price index
  function bytenaija_hodl(){
      $url ="https://api.coindesk.com/v1/bpi/currentprice.json";
-    /*  $curl = curl_init();
-     curl_setopt_array($curl, array(
-         CURLOPT_RETURNTRANSFER => 1,
-         CURLOPT_URL => $url,
-         CURLOPT_USERAGENT => 'Codular Sample cURL Request'
-     ));
- 
-     $response = curl_exec($curl); */
- 
+
      $response = file_get_contents($url);
      $response = json_decode($response, true);
      //curl_close($curl);
@@ -408,7 +308,9 @@ function bytenaija_time($location) {
      </div>";
      echo $responseStr;
  }
- /***************************Bytenaija ends here*************************/
+
+/***************************Bytenaija ends here*************************/
+
 /* Adokiye's function starts here, do not edit
 for any reason*/
 function myCreator(){
@@ -424,165 +326,367 @@ function get_current_time(){
 Adokiye's function*/
 
 
-/*
-|=================================================================|
-|              JIM (JIMIE) Functions Begins                       |
-|=================================================================|
-*/
-function inspire() {
-    $inspirations = [
-        'It is during our darkest moments that we must focus to see the light. \\n\\n - Aristotle',
-        'Start by doing what\'s necessary; then do what\'s possible; and suddenly you are doing the impossible. \\n\\n - Francis of Assisi',
-        'I can\'t change the direction of the wind, but I can adjust my sails to always reach my destination. \\n\\n - Jimmy Dean',
-        'Put your heart, mind, and soul into even your smallest acts. This is the secret of success. \\n\\n - Swami Sivananda',
-        'The best preparation for tomorrow is doing your best today. \\n\\n - H. Jackson Brown, Jr',
-        'Optimism is the faith that leads to achievement. Nothing can be done without hope and confidence. \\n\\n - Helen Keller',
-        'Failure will never overtake me if my determination to succeed is strong enough. \\n\\n - Og Mandino',
-        'It does not matter how slowly you go as long as you do not stop. \\n\\n - Confucius',
-        'Either I will find a way, or I will make one. \\n\\n - Philip Sidney',
-        'It always seems impossible until it\'s done. \\n\\n - Nelson Mandela',
-        'Believe in yourself! Have faith in your abilities! Without a humble but reasonable confidence in your own powers you cannot be successful or happy. \\n\\n - Norman Vincent Peale',
-        'The secret of getting ahead is getting started. \\n\\n - Mark Twain',
-        'Accept the challenges so that you can feel the exhilaration of victory. \\n\\n - George S. Patton',
-        'A creative man is motivated by the desire to achieve, not by the desire to beat others. \\n\\n - Ayn Rand',
-        'Your talent is God\'s gift to you. What you do with it is your gift back to God. \\n\\n - Leo Buscaglia',
-        'Keep your eyes on the stars, and your feet on the ground. \\n\\n - Theodore Roosevelt',
-        'Quality is not an act, it is a habit. \\n\\n - Aristotle',
-        'We may encounter many defeats but we must not be defeated. \\n\\n - Maya Angelou',
-        'Never retreat. Never explain. Get it done and let them howl. \\n\\n - Benjamin Jowett',
-        'The most effective way to do it, is to do it. \\n\\n - Amelia Earhart',
-        'If you can dream it, you can do it. \\n\\n - Walt Disney',
-        'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference. \\n\\n – Robert Frost',
-        'You miss 100% of the shots you don’t take. \\n\\n – Wayne Gretzky',
-    ];
-    return $inspirations[array_rand($inspirations)];
+/////////////////////////////////////////////////
+////////////////////////////////////////////////
+// functions by john ayeni do not modify please//
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+function aboutMe(){
+  return "Hi my name is Ruby, I am a chatbot, nice to meet you";
 }
 
-function get_btc_rates() {
-    $response = file_get_contents('https://bitaps.com/api/ticker/average');
-    $data = json_decode($response, true);
-    $otherCurs = array_shift($data);
 
-    $usd = number_format($data['usd']);
-    $eur = number_format($otherCurs['eur']);
-    $rub = number_format($otherCurs['rub']);
-    $try = number_format($otherCurs['try']);
-
-   return "1 BTC = {$usd} USD | {$eur} EURO | {$rub} RUB | {$try} TRY";
+function getRandomFacts(){
+  $facts = ["Most toilets flush in E flat",
+  "“Almost” is the longest word in English with all the letters in alphabetical order.",
+  "All swans in England belong to the queen.",
+  "No piece of square paper can be folded more than 7 times in half."];
+  return $facts[rand(0, count($facts) - 1)];
 }
 
-function get_jimies_functions() {
-   return '1. You can ask me to inspire you \n
-           E.g: Say "Inspire me" or "Inspire me please" \\n\\n
-           2. You can ask me to get you the current Bitcoin rates. \\n
-           E.g: Ask: "What are the current btc rates?"
-           ';
+function getBotMenu(){
+  return  "Send 'fact' to get a fact. \n
+    Send 'time' to get the time. \n
+    Send 'about' to know me. \n
+    Send 'help' to see this again. \n
+    If its just a question send the question plain. \n
+    To train me, send in this format => \n
+    'train: question # answer # password'";
 }
-/*
-|=================================================================|
-|               JIM (JIMIE) Functions Ends                        |
-|=================================================================|
-*/
+function getTime(){
+  return date("h:i:s");
+}
+function simpleMaths($operation, $expression){
+    switch ($operation) {
+      case 'factor':
+        # factorization condition
+      $notify = "Factorize";
+        break;
+
+        case 'simplify':
+        # simplify
+      $notify = "Simplify";
+        break;
+
+        case 'derive':
+        # derivative
+      $notify = "Derivative";
+        break;
+
+        case 'integrate':
+          # Integrate
+        $notify = "Integrate";
+          break;
+
+        case 'zeroes':
+          # polinomia
+        $notify = "Polinomial, find 0S in";
+          break;
+
+        case 'tangent':
+          # tangent
+        $notify = "Find Tangent";
+          break;
+
+        case 'log':
+          # logrithms
+        $notify = 'Logarithm';
+          break;
 
 
-/*
-|=================================================================|
-|               Alabots  - Alaba Mustapha                        |
-|=================================================================|
-*/
-
-function alabotGetMenu()
-{
-    return '1. enter menu to show this help <br>
-            2. Find synonyms E.g: Synonyms of love? <br>
-            3. train me e.g: train synonyms of goat # goatie,goater,etc # passkey. <br>
-            3. clear screen: cls. <br>
-           ';
+      
+      default:
+        # code...
+        break;
+    }
+    $url = "https://newton.now.sh/".$operation."/".$expression;
+    $result = file_get_contents($url);
+    $response = json_decode($result, true);
+    echo json_encode([
+        'question' => $notify." : ".$response['expression'],
+        'answer' =>"Your answer is: ".$response['result']
+    ]);
 }
 
+/******** End Adroit Bot Funct ********/
 /*
-|=================================================================|
-|               Alabots  - Alaba Mustapha end                     |
-|=================================================================|
- */
-
 // end of functions by johnayeni
 
-/////////////////////////////////////////////////////// Olaogun Function 
-function multiplication($a, $b){
-    $c = $a * $b;
-    echo $c;
+//////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
+
+$qsam = $_REQUEST["qsam"];
+$anwerSam = "";
+
+if ($qsam === "Moses"){
+		$anwerSam = 'Nice Name, How are you ' . $qsam;
+
+}
+echo $anwerSam;
+
+////////////////////// END OF FUNCTION BY BROWN SAMSON ////////////////////////////////////
+
+/////////////////////opheus //////////
+
+if(isset($_GET['opheuslocation'])) {
+echo $time = get_time($_GET['opheuslocation']);
+}
+elseif(isset($_GET['opheusweather'])) {
+echo $weather = get_weather($_GET['opheusweather']);
+=======
+////////////////////////////////
+// END OF JOHN AYENI FUNCTIONS//
+////////////////////////////////
+*/
+
+/////////////////////////////////////////
+//Beginning Aniuchi A. M's Functions/////
+////////////////////////////////////////
+function getCurrentDateAndTime(){
+    $newDate = date("l jS \of F Y");
+    $newTime = date("h:i:s A");
+    echo "Today's date is " . $newDate . ". The time is " . $newTime;
+    //A.M.A
+}
+function getCurrentDayOfTheWeek(){
+    $newDate = date("l");
+    echo "Today is a " . $newDate;
+}
+function getFutureDate(){
+    $newDate = date("Y-m-d");
+    $newdate = date_create($newDate);
+    date_add($newDate,date_interval_create_from_date_string("7 days"));
+    echo "A week from now, the date will be: " . date_format($newDate, "l jS \of F Y");
+    //A.M.A
 }
 
-function addition($a, $b){
-    $c = $a + $b;
-    echo $c;
+function getRandomYoMamaJoke(){
+	$randomJokeJson = file_get_contents("http://api.yomomma.info");
+	$randomJoke = json_decode($randomJokeJson);
+    echo $randomJoke->joke;	
+    //A.M.A
 }
 
-function subtraction($a, $b){
-    $c = $a - $b;
-    echo $c;
+function getRandomQuote(){
+	$randomQuoteJson =file_get_contents("https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en&json=?");
+	$randomQuote = json_decode($randomQuoteJson);
+	$quoteText = $randomQuote->quoteText;
+    $quoteAuthor = $randomQuote->quoteAuthor;
+    if(!empty($quoteAuthor) ){
+        echo "<br/>" .$quoteText. "<br/> &nbsp; &nbsp; &ndash; <cite>" .$quoteAuthor. "</cite>";
+    }
+    else  echo "<br/>" .$quoteText. "<br/> &nbsp; &nbsp; &ndash; <cite>Unknown Author</cite>" ;
+    //A.M.A
 }
 
-function division($a, $b){
-    $c = $a / $b;
-    echo $c;
+
+function bot_answer($check) {
+
+require 'db.php';
+
+// Create connection
+//$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+//if ($conn->connect_error) {
+ //   die("Connection failed: " . $conn->connect_error);
+//}
+
+
+
+$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$check' ORDER BY rand() LIMIT 1");
+$stmt->execute();
+if($stmt->rowCount() > 0)
+{
+  while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+  {
+		echo $row["answer"];
+  }
+} else {
+    echo "Well i couldnt understand what you asked. But you can teach me.";
+	echo "Type ";
+	echo "train: write a question | write the answer.  ";
+	echo "to teach me.";
+}
 }
 
+function getMotivationalQuoteForTheDay(){
+	$randomQuoteJson =file_get_contents("http://quotes.rest/qod.json?category=inspire");
+	$randomQuote = json_decode($randomQuoteJson, true);
+	$quoteTitle = $randomQuote['contents']['quotes'][0]['title'];
+	$quoteText = $randomQuote['contents']['quotes'][0]['quote'];
+    $quoteAuthor = $randomQuote['contents']['quotes'][0]['author'];
+    echo "</br>" .$quoteText. "<br/> &nbsp; &nbsp; &mdash; " .$quoteAuthor. "<br/>";
+    //A.M.A
+}
 
-// AbseeJP own
+function getMediumArticle(){
+	$getMediumUrlContents = file_get_contents("https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2F%40adamichelllle");
+	$getMediumJson = json_decode($getMediumUrlContents, true);
+	foreach($getMediumJson['items'] as $getSingleMediumArticle){
+		$mediumArticleTitle = $getSingleMediumArticle['title'];
+		$mediumArticleUrl = $getSingleMediumArticle['link'];
+		$mediumArticleThumbnail = $getSingleMediumArticle['thumbnail'];
+		echo "<a href= '$mediumArticleUrl' style='color: #ffffff'><img src='http://res.cloudinary.com/missada/image/upload/v1524225094/hng_internship.png' class= 'img-responsive' ><br/><b>$mediumArticleTitle</b></a>"; 
+		$article = "<script type='text/Javascript'>window.open('$mediumArticleUrl');</script>";
+		break;
+    }
+    //A.M.A
 
-  require 'db.php';
- 
-if (isset($_POST['question'])) {
-	$value = $_POST['question'];
-	
-	$arr = str_split($value);
-	if ($arr[0]=='#') {
+}
+function getPinkyCommands(){
+    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/> 
+    2. Get <b>motivational quote of the day.</b> or <b>inspire me today</b> <br/> 3. Get my creator <b>Ada's latest medium article</b> <br/>
+    4. Get or tell you<b> a random Yo Momma Joke</b>. <br/> 5. Get or tell you <b>what day of the week it is.</b> <br/>
+    6. Get the <b>date seven days or a week from now.</b> <br/> 7.Get or tell you<b> a random quote.</b> <br/>
+    8. Tell you version of the bot <b>aboutbot</b><br/>
+    NB. All or some of the words in bold should be included in your message. Please try to follow these patterns as I am still learning.";
+    //A.M.A
+}
 
-		$input2 = $value;
+function train_bot ($message) {
+function multiexplode ($delimiters,$string) {
 
+    $ready = str_replace($delimiters, $delimiters[0], $string);
+    $launch = explode($delimiters[0], $ready);
+    return  $launch;
+}
 
-		$ab = explode( ':', $input2 );
-		$ques = ltrim($ab[0], '#');
-		$ans = $ab[1];
+//$text = "#train: this a question | this my answer :)";
+$exploded = multiexplode(array(":","|"),$message);
 
-		$awesome = "INSERT INTO chatbot (question, answer) VALUES ('$ques', '$ans')";
-		$Absee = $conn->query($awesome);
-   		$Absee = $Absee->fetch(PDO::FETCH_OBJ);
+$question = trim($exploded[1]);
+
+$answer = trim($exploded[2]);
+
+require 'db.php';
+
+try {
+
+    $sql = "INSERT INTO chatbot (id, question, answer)
+VALUES ('', '$question', '$answer')";
+    // use exec() because no results are returned
+    $conn->exec($sql);
+
+    echo "Thank you! i just learnt something new, my master would be proud of me.";
+
 	}
-	else{
+catch(PDOException $e)
+    {
+    echo $sql . "<br>" . $e->getMessage();
+    }
 
-	$Absee = $conn->query("SELECT * from chatbot where question = '$value'");
-   	$Absee = $Absee->fetch(PDO::FETCH_OBJ);
+$conn = null;
+//////////////////////
 
-	if ($Absee) {
-		$answer = $Absee->answer ;
-		echo '<div class= "container">
-				<p  style= "width:60%;background:#BBDEFB;color:white;border-radius:5px;padding:10px;">'
-					.$value.'
-				<br>
-				</p>'.
-				'<p style= "float:right;width:40%;background:#90CAF9;color:white;border-radius:5px;padding:10px;margin-bottom:20px;margin-top:10px;">'.$answer.'<br>
-				</p>
-			</div>';
-	
-	}else{
-		$reply = 'Not in db';
-		echo '<div class= "container">
-				<p  style= "width:60%;background:#BBDEFB;color:white;border-radius:5px;padding:10px;">'
-					.$value.'
-				<br>
-				</p>'.
-				'<p style= "float:right;width:40%;background:#FF5722;color:white;border-radius:5px;padding:10px;margin-bottom:20px;margin-top:10px;">'.$reply.'<br>
-				</p>
-			</div>';
-		
-	}
-		
-	}
+
+//And output will be like this:
+// Array
+// (
+//    [0] => here is a sample
+//    [1] =>  this text
+//    [2] =>  and this will be exploded
+//    [3] =>  this also
+//    [4] =>  this one too
+//    [5] => )
+// )
+
 }
+
+
+
+function get_browser_name($user_agent)
+{
+    if (strpos($user_agent, 'Opera') || strpos($user_agent, 'OPR/')) return 'Opera';
+    elseif (strpos($user_agent, 'Edge')) return 'Edge';
+    elseif (strpos($user_agent, 'Chrome')) return 'Chrome';
+    elseif (strpos($user_agent, 'Safari')) return 'Safari';
+    elseif (strpos($user_agent, 'Firefox')) return 'Firefox';
+    elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) return 'Internet Explorer';
+
+    return 'Other';
+}
+
+
+///////////////////////////////
+//End Aniuchi A. M's Functions/
+///////////////////////////////
+
+
+
+#####################################################################################################
+#                                                                                                   #
+#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS BELOW            #
+#                                                                                                   #
+#####################################################################################################
+
+function calculate_distance($key, $url, $location1, $location2) {
+    $request_distance = $url.$location1."+Nigeria&destinations=$location2+Nigeria"."&key=".$key;
+    $response  = json_decode(file_get_contents($request_distance), 1);
+    $status = $response['status'];
+    if ($status === 'OK' and $response['rows'][0]['elements'][0]['status'] === 'OK') {
+        $distance = $response['rows'][0]['elements'][0]['distance']['text'];
+        return $distance;
+    }
+    // If no match, return error message
+    else {
+        $message = ["I couldn't calculate the distance for given location, could you be more specific? \n \n You could add City name or State or Country to be more accurate", "The addresses you gave me are quite complex. \n \n Why don't you add a city or state or even a country for me to get it correctly", "I couldn't really calculate this. \n \n Why? the addresses you gave me are rather too complex. \n \n You can include the city, state or country and watch me do magic"];
+        return nl2br($message[rand(0, 2)]);
+    }
+}
+
+function get_duration ($key, $url, $location1, $location2, $mode) {
+    $request_duration = $url.$location1."&destinations=$location2"."&key=".$key."&mode=".$mode."&departure_time=now";
+    $response = json_decode(file_get_contents($request_duration), 1);
+    $status = $response['status'];
+    if ($status === 'OK' and $response['rows'][0]['elements'][0]['status'] === 'OK') {
+        $duration = $response['rows'][0]['elements'][0]['duration_in_traffic']['text'];
+        return $duration;
+    }
+    // If no match, return error message
+    else {
+        $message = ["Sorry, I currently can't retrieve the duration for this trip as I don't have enough information"];
+        return $message;
+    }
+}
+
+
+function get_device_name($user_agent)
+{
+    if (strpos($user_agent, 'Macintosh') || strpos($user_agent, 'mac os')) return 'Mac';
+    elseif (strpos($user_agent, 'Linux')) return 'Linux';
+    elseif (strpos($user_agent, 'Windows NT')) return 'Windows';
+    elseif (strpos($user_agent, 'iPhone')) return 'iPhone';
+    elseif (strpos($user_agent, 'Android')) return 'Android';
+    elseif (strpos($user_agent, 'iPad') ) return 'iPad';
+
+    return 'Other';
+}
+
+function show_direction ($location1, $location2, $mode) {
+    return "https://www.google.com/maps/dir/?api=1&origin=$location1&destination=$location2&travelmode=$mode";
+
+}
+
+
+function davidQuadraticEquation($a, $b, $c){  #Remember I know where you live if you tamper with this function
+     $discriminat = pow($b,2) - (4 * $a * $c);
+     if($discriminat == 0){
+         $x = -($b/(2 * $a));
+         return $x; 
+     }
+     else {
+         $root = sqrt($discriminat);
+         $x1 = (-$b + $root) / (2 *$a);
+         $x2 = (-$b - $root) / (2 *$a);
+         return 'x1 is ' + $x1 + 'and' + 'x2 is ' + $x2; 
+     }
+    
+     
+ }
+
+#####################################################################################################
+#                                                                                                   #
+#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS ABOVE            #
+#                                                                                                   #
+#####################################################################################################
 
 ?>
-
->>>>>>> c264e61d5463ecd0b686406245535a16775bfd3b

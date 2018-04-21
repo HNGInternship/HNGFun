@@ -39,17 +39,17 @@ body{
 </style>
 <body>
   <?php
-  include('../header.php');
+  /*include('../header.php');
   include('../config.php');
 
-  require '../db.php';
-  $stmt = $conn->query("SELECT * FROM secret_word");
+  require '../db.php';*/
+  $stmt = $conn->query("SELECT * FROM secret_word LIMIT 1");
   
   $result = $stmt->fetch(PDO::FETCH_ASSOC);
   $secret_word = $result['secret_word'];
 
 
-   $sql = "SELECT * FROM interns_data_ where username='localhost'";
+   $sql = "SELECT * FROM interns_data where username='localhost'";
    $query = $conn->query($sql);
    $query->setFetchMode(PDO::FETCH_ASSOC); 
    $result = $query->fetch();
@@ -94,7 +94,9 @@ body{
           </div>
       </div>
     </footer>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js">
+
 </script>
 </div>
 </body>
