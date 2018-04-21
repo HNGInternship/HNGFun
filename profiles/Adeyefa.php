@@ -1,6 +1,6 @@
 <?php 
 
-require '../../config.php';
+include '../..config.php';
 
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
