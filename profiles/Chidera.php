@@ -32,7 +32,7 @@
             bottom: 0;
             right: 0;
             left: 0;
-            margin: 6% auto;
+            margin: 10% auto;
             background-color: #3E4447;
             box-shadow: 0px 0px 1px #3436a5, 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
             
@@ -42,7 +42,7 @@
         }
         .chidera_info{
             padding: 3px;
-            padding-top: 20px;
+            padding-top: 10px;
             text-align: center;
             color: #ffffff;
             font-family: 'Roboto Condensed', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -78,7 +78,7 @@
             font-variant: small-caps;
             font-size: 13px;
             margin: 4px;
-            margin-top: 20px;
+            margin-top: 10px;
             letter-spacing: 1px;
         }
         /* Style all font awesome icons */
@@ -142,7 +142,7 @@
     <section>
         <section class="chidera_profile-container">
             <div class="chidera_img">
-                <img class="chideraimg" src="<?php echo $user->image_filename?>" alt="CHIDERA'S PICTURE" srcset="" height="386" width="240">
+                <img class="chideraimg" src="<?php echo $user->image_filename?>" alt="CHIDERA'S PICTURE" height="386" width="240">
             </div>
             <div class="chidera_info">
                 <div class="chidera_header">
