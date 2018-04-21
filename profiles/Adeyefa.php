@@ -25,13 +25,21 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 	if($arr[0] == "train:"){
 
+
+
+        //echo json_encode([
+          //'status' => 0,
+          //'answer' => "You need to enter the training password to train me."
+        //]);
 		unset($arr[0]);
 		$q = implode(" ",$arr);
 		$queries = explode("#", $q);
 		if (count($queries) < 3) {
 			# code...
-			$pword = array('result' => 'You need to enter a password to train me');
-			echo json_encode($pword);
+			echo json_encode([
+				'status' => 0,
+				'result' => "You need to enter a password to train me."
+			]);
 			return;
 		}
 		$password = trim($queries[2]);
@@ -40,18 +48,21 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		
 		if ($password !== trainingpassword) {
 			# code...
-			$wrongpword = array('result' => 'You entered a wrong training password, you are not authorized to train me');
-			echo json_encode($wrongpword);
+			echo json_encode([
+				'status'=> 0,
+				'result' => "You entered a wrong passsword"
+			]);
 			return;
 		}
 		$quest = $queries[0];
 		$ans = $queries[1];
 		 $sql = "INSERT INTO chatbot(question, answer) VALUES ( '" . $quest . "', '" . $ans . "')";
 		 $conn->exec($sql);
-     header('Content-type: text/json');
-     $arrayName = array('result' => 'Thanks for training me, you can now test my knowledge');
-     echo json_encode($arrayName);
-     return;
+		 echo json_encode([
+		 	'status' => 1,
+		 	'result' => "Thanks for training me, you can now test my knowledge"
+		 ]);
+		 return;
     }
     //else {
    //   $arrayName = array('result' => 'Oh my Error');
@@ -61,9 +72,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
    // }
     elseif ($arr[0] == "aboutbot") {
     	# code...
-    	header('Content-type: text/jason');
-    	$aboutbot = array('result' => "I am MATRIX, Version 1.0.0. You can train me by using this format ' train: This is a question # This is the answer # password '");
-    	echo json_encode($aboutbot);
+    	echo json_encode([
+    		'status'=> 1,
+    		'result' => "I am MATRIX, Version 1.0.0. You can train me by using this format ' train: This is a question # This is the answer # password '"
+    	]);
     	return;
     }
     else {
@@ -82,13 +94,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	        $row = $rows[$index];
 	        $answer = $row['answer'];
 	        
-	        header('Content-type: text/json');
-	        echo json_encode($answer);
+	        echo json_encode([
+	        	'status' => 1,
+	        	'result' => $answer
+	        ]);
 	        return;
 	    }else{
-	    	header('Content-type: text/json');
-	    	$noanswer = array('result' => "I am sorry, I cannot answer your question now. You could offer to train me.");
-	    	echo json_encode($noanswer);
+
+	    	echo json_encode([
+	    		'status' => 0,
+	    		'result' => "I am sorry, I cannot answer your question now. You could offer to train me."
+	    	]);
 	    	return;
 	    }
     }
@@ -286,7 +302,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#queries").append("<li>" + question + "</li>");
+				$("#queries").append("<li>" question  "</li>");
 					//let newMessage = `<div class="iro">
 	                  //${question}
 	                //</div>`;
@@ -309,9 +325,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					url: '../profiles/Adeyefa.php',
 					type: 'POST',
 					data: {question: question},
-					dataType: 'json',
 					success: (response)=> {
-			        $("#ans").append("<li>" + response.result +  "</li>");
+			        $("#ans").append("<li>" response.result "</li>");
 			        //alert(answer.result);
 					},
 					error: function(error){
