@@ -150,6 +150,7 @@
 
        i:hover {
          color: #30B7FB;
+	 cursor: pointer;
        }
 
     </style>
