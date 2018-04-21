@@ -4,26 +4,23 @@ if (empty($_SESSION)) {
     session_start();
 }
 
-if (file_exists('config.php')) {
-    include 'config.php';
-}
-else if (file_exists('../config.php')) {
-    include '../config.php';
-}
-else if (file_exists('../../config.php')) {
-    include '../../config.php';
-}
+if(!defined('DB_USER')){
+    require "../../config.php";		
+    try {
+        define('DB_CHARSET', 'utf8mb4');
+    $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
 
-define('DB_CHARSET', 'utf8mb4');
-$dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
+    $opt = [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false
+    ];
 
-$opt = [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES => false
-];
-
-$conn = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
+    $conn = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+}
 
 $intern_details_query = $conn->query(
     "SELECT     interns_data.name, 
