@@ -62,7 +62,7 @@ body
   text-align: center;
   font-size: 28px;
   font-style:regular;
-  line-height: 60px;
+  line-height: normal;
   
 
    background-color:rgba(196, 196, 196, 0.50);
