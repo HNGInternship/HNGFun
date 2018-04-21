@@ -111,6 +111,7 @@ function askQuestion($input)
             background-image: url(http://res.cloudinary.com/gorge/image/upload/v1523960257/Internships-1.png);
             height: auto;
             padding-bottom: 1px;
+            //
         }
         #header {
             background-color: #FFFFFF;
