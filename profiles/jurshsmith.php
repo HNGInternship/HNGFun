@@ -228,20 +228,25 @@ $('document').ready(function(){
 	</div>
 	<br><br>
 	<div id = "chat-area" class = 'chat-area'>
+	<div style = "font-size: 10px; font-family: monospace;background-color: grey;color: white">
+		<br>
+		<p><b>Jobot</b><br>Hi, I'm Jobot</p>
+	</div>
 	<div class = "chats"></div>
 	<div id = "bott"></div>
 	</div>
-	<form id = "chatbot-text-area" class = "chatbot-text-area">
+	<div id = "chatbot-text-area" class = "chatbot-text-area">
 			<div class="form-group">
   
   <input type="text" class="form-control" id="message">
-				</div></form>
+				</div>
 	<div id = "chatbot-footer" >
 	
 		<span class="glyphicon glyphicon-send"   id = "j-send" role = "button"></span>
-		</form>
-
 	</div>
+		</div>
+
+	
 
 
 </div>
@@ -390,7 +395,7 @@ $('#j-send').click(
         theScrollCounter++;
 
 		var chat = $('#message').val();
-		var chatHtml = "<div class = 'user'><font class = 'userchat'>"+ chat + "</font><br></div>";
+		var chatHtml = "<div class = 'user'><font class = 'userchat'><b>You<b><br>"+ chat + "</font><br></div>";
         $(".chats").append(chatHtml);//should be after bot chat
 
 //trim for all browsers
@@ -416,20 +421,28 @@ var theDate = d + "-"+ m + "-" + y;
 //searchIfItEAConstant
 if (chat.search("time") != -1){
 reply = "The time is "+time;
-reply = "<div href = 'index.php#chat-interface#bott"+ theScrollCounter +"' class = 'bot' id = 'bott" + theScrollCounter +"'><font class = 'bot-reply'>"+ reply + "</font><br></div>";
+reply = "<div href = 'index.php#chat-interface#bott"+ theScrollCounter +"' class = 'bot' id = 'bott" + theScrollCounter +"'><font class = 'bot-reply'><b>jobot</b><br>"+ reply + "</font><br></div>";
         $(".chats").append(reply);//should be after bot chat    
 }
 else if (chat.search("date") != -1){
 reply = "The date is "+theDate;
-reply = "<div href = 'index.php#chat-interface#bott"+ theScrollCounter +"' class = 'bot' id = 'bott" + theScrollCounter +"'><font class = 'bot-reply'>"+ reply + "</font><br></div>";
+reply = "<div href = 'index.php#chat-interface#bott"+ theScrollCounter +"' class = 'bot' id = 'bott" + theScrollCounter +"'><font class = 'bot-reply'><b>jobot</b><br>"+ reply + "</font><br></div>";
         $(".chats").append(reply);//should be after bot chat    
 }
-else if (!(isNaN(chat))){
-reply = "cool math";
-reply = "<div href = 'index.php#chat-interface#bott"+ theScrollCounter +"' class = 'bot' id = 'bott" + theScrollCounter +"'><font class = 'bot-reply'>"+ reply + "</font><br></div>";
-        $(".chats").append(reply);//should be after bot chat    
-}
+// else if (!(isNaN(chat))){
+// reply = "cool math";
+// reply = "<div href = 'index.php#chat-interface#bott"+ theScrollCounter +"' class = 'bot' id = 'bott" + theScrollCounter +"'><font class = 'bot-reply'>"+ reply + "</font><br></div>";
+//         $(".chats").append(reply);//should be after bot chat    
+// }
+//used to return say a word
+//if it has say word in in it
+//if it has convert word in it
+//if it has Loc word in it
+//if it has motivate me word in it
+
 else{
+
+	
 
         //using ajax
 <<<<<<< HEAD
@@ -438,10 +451,10 @@ else{
    $.post('profiles/j-replies.php',{phpques : chat}, function(data){
 >>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
    		reply = data;
-   		reply = "<div href = 'index.php#chat-interface#bott"+ theScrollCounter +"' class = 'bot' id = 'bott" + theScrollCounter +"'><font class = 'bot-reply'>"+ reply + "</font><br></div>";
+   		reply = "<div href = 'index.php#chat-interface#bott"+ theScrollCounter +"' class = 'bot' id = 'bott" + theScrollCounter +"'><font class = 'bot-reply'><b>jobot</b><br>"+ reply + "</font><br></div>";
         $(".chats").append(reply);//should be after bot chat    
         // $(".chats").append(data);//should be after bot chat
-
+       
        
    });
 
@@ -454,7 +467,7 @@ else{
  			},1000);
  	});
  }
-// $('#message').val('');
+ $('#message').val('');
 // var lastEle = $('.bot:last-child').position().top;
 // var scrollAmount = lastEle - 30;
 // $('#chat-interface').animate({scrollTop : scrollAmount}, 1000);
