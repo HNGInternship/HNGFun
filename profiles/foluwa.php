@@ -1,4 +1,8 @@
-<?php
+
+<?php //DATE
+ $d = date("h:i:sa");
+?>
+<?php 
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
   require '../../config.php';
 else
@@ -11,37 +15,30 @@ try {
 catch (PDOException $e) {
   die('Error: ' . $e->getMessage());
 }
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
   include '../answers.php';
-
-  $message = $_POST['message'];
-
-  $format = 'Kindly use the format <code>train: question # answer # password</code> to train me.';
-
+  $message = $_POST['message'];  
+  $syntax = 'Please, use the format <code>train: question # answer # password</code> to train me.';
   function pick_one(Array $answers)
   {
     return $answers[random_int(0, count($answers) - 1)];
   }
-
   function escape_apostrophe(String $string)
   {
     return str_replace("'", "\\'", $string);
   }
-
   function validate_answer(String $answer)
   {
     $matches = [];
     if (preg_match_all('/.*\(\((?<functions>[[:alnum:]_]+)\)\).*/', $answer, $matches)) {
       $functions = array_map(function ($function) {
         if (function_exists($function)) return $function;
-        return sendResponse(200, "The function, '$function', Not Available.");
+        return sendResponse(200, "The function, '$function', is not available to me at the moment.");
       }, $matches['functions']);
     }
     return count($functions);
   }
-
   function function_replace(String $string)
   {
     $matches = [];
@@ -51,13 +48,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
       foreach ($functions as $function) {
         $string = str_replace("(($function))", $function(), $string);
       }
-
       return $string;
     }
     return $string;
-
   }
-
   function sendResponse($status, $message, $type = 'text')
   {
     http_response_code($status);
@@ -67,41 +61,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     ]);
     exit;
   }
-
   function show($option = 'commands')
   {
     $fails = [
-      'I do not know that.',
+      'I DONT KNOW THAT.',
+      'Would you teach me.',
+      '',
     ];
     $contains_command = (bool) preg_match('/.*command.*/', $option);
     if ($contains_command) return sendResponse(200, getListOfCommands());
     return sendResponse(200, pick_one($fails));
   }
-
   function send_url($url)
   {
     $link = trim($url);
     if (filter_var("http://$link", FILTER_VALIDATE_URL) === false) return sendResponse(200, 'That is an invalid link.');
     return sendResponse(200, $url, 'url');
   }
-
-  function train_zoe(String $instruction = '') 
+  function train_alfred(String $instruction = '')
   {
     global $db_conn;
-    global $format;
+    global $syntax;
     $invalid_password = [
-      'Your password is incorrect.',
+      'You entered an invalid training password.',
     ];
     $success = [
-      'Would you tell me more Got to learn more',
+      'Thank you, Gracias!.',
+      'I want to learn more',
     ];
     $failure = [
-        'Something went wrong somewhere. Please check your syntax.',
+        'You inputted the wrong format, please try again.',
     ];
     $instructions = explode('#', $instruction);
     $instructions = array_map('trim', $instructions);
     if (count($instructions) !== 3)
-      return sendResponse(200, $format);
+      return sendResponse(200, $syntax);
     if ($instructions[2] !== 'password')
       return sendResponse(200, pick_one($invalid_password));
     validate_answer($instructions[1]);
@@ -113,21 +107,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
         return sendResponse(201, pick_one($success));
     return sendResponse(200, pick_one($failure));
   }
-
   function reply($message)
   {
     global $db_conn;
-    global $format;
+    global $syntax;
     $dumb = [
-      'I do not know that',
-      'Would you please teach',
+      'I do not know what that means',
     ];
     $question = str_replace('?', '', $message);
     $question = escape_apostrophe($question);
     $question = trim($question);
     $answers = $db_conn->query("SELECT answer FROM chatbot WHERE question LIKE '%$question%'")->fetchAll(PDO::FETCH_OBJ);
     if (empty($answers)) {
-      $reply = pick_one($dumb)."\n".$format;
+      $reply = pick_one($dumb)."\n".$syntax;
       sendResponse(200, $reply);
     }
     $answer = pick_one($answers)->answer;
@@ -135,7 +127,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
       return sendResponse(200, function_replace($answer));
     return sendResponse(200, $answer);
   }
-
   $messageParts = array_map('trim', explode(':', $message));
   switch($messageParts[0]) {
     case 'show':
@@ -149,18 +140,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     case 'train':
       unset($messageParts[0]);
       $command = implode(':', $messageParts);
-      train_zoe($command);
+      train_alfred($command);
       break;
     default:
       reply($message);
   }
-}  else {
+} else {
 
 ?>
 
-<?php //DATE
- $d = date("h:i:sa");
-?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -214,9 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
          border: 2px red solid;
          width: 47%;
          height:auto;
-         overflow-y: auto;
          padding: 10px;
-         overflow: auto;
 }
       .botSend{
          position: absolute; 
@@ -256,13 +243,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                 <div class="chat-head">Chat Interface</div>
                     <div class="chat">
                         <div id="conversation">
-                          <p class="bot botSend" style="margin-top:0px;left:0px;">Hi I am Zoe.
+                          <p class="bot botSend" style="margin-top:0px;left:0px;">
                               <strong><?php echo $d ?></strong>
                           </p>
                         </div>
                         <div style="position:fixed;bottom:0;">
-                        <form id="chat" class="box" action="/profiles/foluwa.php" name="message" method="post">
-                          <textarea type="text" id="message" class="message" placeholder="Message" wrap="soft" rows=1 autofocus></textarea>
+                        <form id="chat" class="box" action="foluwa.php" name="message" method="post">
+                          <textarea type="text" id="message" class="message" placeholder="Enter your text" wrap="soft" rows=1 autofocus></textarea>
                           <button id="send" class=send type=submit>Send</button>
                         </form>
                         </div>
@@ -280,11 +267,14 @@ const messageField = document.getElementById('message');
 const sendButton = document.getElementById('send');
 const conversation = document.getElementById('conversation');
 const messageForm = document.getElementById('chat');
-
 messageField.scrollIntoView();
-
 const appendMessage = function (text, from) {
     const message = document.createElement('p');
+    message.style.cssText = 'color:blue; 
+                               font-size:25px;
+                               width:auto; 
+                               border-radius:4px;
+                               background-color: yellow;';
     message.innerHTML = text;
     message.className = from;
     conversation.appendChild(message);
@@ -328,10 +318,10 @@ messageForm.onsubmit = function (e) {
     };
     appendMessage(messageField.value, 'you');
     if (messageField.value.trim().toLowerCase() === 'aboutbot')
-        appendMessage('zoe v1.0', 'bot');
+        appendMessage('zoe version1.0', 'bot');
     else $.ajax({
         type: 'POST',
-        url: '/profiles/foluwa.php',
+        url: '/profiles/foluwa.php';  //'/profiles/foluwa.php',
         data: {message: messageField.value},
         dataType: 'json',
         success: useResult,
