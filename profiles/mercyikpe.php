@@ -23,7 +23,7 @@ global $conn;
 if ($_SERVER['REQUEST_METHOD'] === "POST")
 	{
 	$mercy = $_POST['sent_messages'];
-	if (!empty($mercy) && $mercy =='aboutBot')
+	if (!empty($mercy) && $mercy =='aboutbot')
 		{
 		echo json_encode(['status' => 1, 'answer' => 'mercyBotv1.0.']);
 		}
@@ -43,8 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 			{
 			if (trim($trim_messages[0]) != '' && trim($trim_messages[1] != ''))
 				{
-				$question = $trim_messages[0];
-				$answer = $trim_messages[1];
+				$question = trim($trim_messages[0]);
+				$answer = trim($trim_messages[1]);
 				$sql = "INSERT INTO chatbot(question, answer)
                          VALUES(:question, :answer)";
 					$stm = $conn->prepare($sql);
