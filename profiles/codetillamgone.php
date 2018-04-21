@@ -148,11 +148,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type="text/css">
      .box{
-            margin-top:30px;
+            margin-top:10px;
             float:left;
             padding: 10px;
             text-align: center;
-            margin-left: 200px;
+            margin-left: 100px;
             height: 400px;
             width: 300px;
             background-color:cornflowerblue;
@@ -169,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background-color:white;
         }.chatbotbox {
             background-color:white;
-            margin-top:30px;
+            margin-top:10px;
             float:left; 
             margin-left:100px;
             padding:20px;
