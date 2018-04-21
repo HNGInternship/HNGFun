@@ -45,7 +45,6 @@ require 'db.php';
 			}
 			h2{
 				font-weight: 700;
-				text-transform: uppercase;
 				font-size:1.5em;
 				line-height: 1.4em;
 			}
@@ -56,7 +55,6 @@ require 'db.php';
 			.container-main{
 				background: #fff;
 				  margin-top: 80px;
-				  opacity:.7;
 				  padding:30px;
 				  width:80%;
 				  margin-right:auto;
@@ -84,7 +82,6 @@ require 'db.php';
 
 			.row{
 				margin-bottom:20px;
-				
 				line-height:25px;
 				  margin-top: 0px;
 				  padding:30px;
@@ -103,19 +100,6 @@ require 'db.php';
 				margin-top:-80px;
 				border-radius: 20%;
 			}
-			.contact-list{
-				padding;0;
-				margin:0;
-
-			}
-
-			footer{
-			background:#ededed;
-			text-align:center;
-			padding-top:20px;
-			padding-bottom:20px;
-			}
-
 		</style>
 	</head>
 	<body>
@@ -124,7 +108,7 @@ require 'db.php';
 			
 				<img src="<?php echo $profile_img ?>" alt="" class="profile-img" />
 				<header>
-					<h3>Hello, <br>My Name Is <strong><?php echo $names ?></strong> and I am a web developer @<?php echo $username ?>
+					<h3>Hello, <br>My Name Is <strong><?php echo $names ?></strong> a web developer @<?php echo $username ?>
 					</h3>
 					
 				</header>
@@ -145,12 +129,6 @@ require 'db.php';
 				
 			</div>
 		</section>
-
-		<footer>
-			<div>
-				<P>Copyright &copy; 2018, All Right Reserved</p>
-			</div>
-		</footer>
 	</body>
 </html>
 

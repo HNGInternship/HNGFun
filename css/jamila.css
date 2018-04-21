@@ -1,0 +1,483 @@
+@charset 'utf-8';
+
+
+
+
+body {
+	padding: 0;
+	margin: 0;
+    overflow: auto;
+}
+
+
+
+
+/* METERIAL ICONS */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v30/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+}
+
+
+
+
+
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+
+
+.ubuntu {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+
+.btn {
+	text-transform: uppercase;
+	padding: 4px 8px !important;
+    box-shadow: 0 2px 2px 0 rgba(153, 153, 153, 0.14), 0 3px 1px -2px rgba(153, 153, 153, 0.2), 0 1px 5px 0 rgba(153, 153, 153, 0.12);
+
+}
+
+.btn.btn-success:focus, .btn.btn-success:active, .btn.btn-success:hover, .navbar .navbar-nav > li > a.btn.btn-success:focus, .navbar .navbar-nav > li > a.btn.btn-success:active, .navbar .navbar-nav > li > a.btn.btn-success:hover {
+    box-shadow: 0 14px 26px -12px rgba(76, 175, 80, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(76, 175, 80, 0.2);
+}
+.btn.btn-success, .btn.btn-success:hover, .btn.btn-success:focus, .btn.btn-success:active, .btn.btn-success.active, .btn.btn-success:active:focus, .btn.btn-success:active:hover, .btn.btn-success.active:focus, .btn.btn-success.active:hover, .open > .btn.btn-success.dropdown-toggle, .open > .btn.btn-success.dropdown-toggle:focus, .open > .btn.btn-success.dropdown-toggle:hover, .navbar .navbar-nav > li > a.btn.btn-success, .navbar .navbar-nav > li > a.btn.btn-success:hover, .navbar .navbar-nav > li > a.btn.btn-success:focus, .navbar .navbar-nav > li > a.btn.btn-success:active, .navbar .navbar-nav > li > a.btn.btn-success.active, .navbar .navbar-nav > li > a.btn.btn-success:active:focus, .navbar .navbar-nav > li > a.btn.btn-success:active:hover, .navbar .navbar-nav > li > a.btn.btn-success.active:focus, .navbar .navbar-nav > li > a.btn.btn-success.active:hover, .open > .navbar .navbar-nav > li > a.btn.btn-success.dropdown-toggle, .open > .navbar .navbar-nav > li > a.btn.btn-success.dropdown-toggle:focus, .open > .navbar .navbar-nav > li > a.btn.btn-success.dropdown-toggle:hover {
+    background-color: #4caf50;
+    color: #FFFFFF;
+}
+.btn-success:hover {
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+}
+.btn.focus, .btn:focus, .btn:hover {
+    color: #333;
+    text-decoration: none;
+}
+.btn.btn-sm, .btn-group-sm .btn, .navbar .navbar-nav > li > a.btn.btn-sm, .btn-group-sm .navbar .navbar-nav > li > a.btn {
+    padding: 5px 20px;
+    font-size: 11px;
+}
+.btn.btn-success, .navbar .navbar-nav > li > a.btn.btn-success {
+    box-shadow: 0 2px 2px 0 rgba(76, 175, 80, 0.14), 0 3px 1px -2px rgba(76, 175, 80, 0.2), 0 1px 5px 0 rgba(76, 175, 80, 0.12);
+}
+.btn:focus, .btn:active, .btn:hover, .btn.btn-default:focus, .btn.btn-default:active, .btn.btn-default:hover, .navbar .navbar-nav > li > a.btn:focus, .navbar .navbar-nav > li > a.btn:active, .navbar .navbar-nav > li > a.btn:hover, .navbar .navbar-nav > li > a.btn.btn-default:focus, .navbar .navbar-nav > li > a.btn.btn-default:active, .navbar .navbar-nav > li > a.btn.btn-default:hover {
+    box-shadow: 0 14px 26px -12px rgba(153, 153, 153, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(153, 153, 153, 0.2);
+}
+.btn, .btn:hover, .btn:active, .btn.active, .btn:active:focus, .btn:active:hover, .btn.active:focus, .btn.active:hover, .open > .btn.dropdown-toggle, .open > .btn.dropdown-toggle:focus, .open > .btn.dropdown-toggle:hover, .btn.btn-default, .btn.btn-default:hover, .btn.btn-default:focus, .btn.btn-default:active, .btn.btn-default.active, .btn.btn-default:active:focus, .btn.btn-default:active:hover, .btn.btn-default.active:focus, .btn.btn-default.active:hover, .open > .btn.btn-default.dropdown-toggle, .open > .btn.btn-default.dropdown-toggle:focus, .open > .btn.btn-default.dropdown-toggle:hover, .navbar .navbar-nav > li > a.btn, .navbar .navbar-nav > li > a.btn:hover, .navbar .navbar-nav > li > a.btn:focus, .navbar .navbar-nav > li > a.btn:active, .navbar .navbar-nav > li > a.btn.active, .navbar .navbar-nav > li > a.btn:active:focus, .navbar .navbar-nav > li > a.btn:active:hover, .navbar .navbar-nav > li > a.btn.active:focus, .navbar .navbar-nav > li > a.btn.active:hover, .open > .navbar .navbar-nav > li > a.btn.dropdown-toggle, .open > .navbar .navbar-nav > li > a.btn.dropdown-toggle:focus, .open > .navbar .navbar-nav > li > a.btn.dropdown-toggle:hover, .navbar .navbar-nav > li > a.btn.btn-default, .navbar .navbar-nav > li > a.btn.btn-default:hover, .navbar .navbar-nav > li > a.btn.btn-default:focus, .navbar .navbar-nav > li > a.btn.btn-default:active, .navbar .navbar-nav > li > a.btn.btn-default.active, .navbar .navbar-nav > li > a.btn.btn-default:active:focus, .navbar .navbar-nav > li > a.btn.btn-default:active:hover, .navbar .navbar-nav > li > a.btn.btn-default.active:focus, .navbar .navbar-nav > li > a.btn.btn-default.active:hover, .open > .navbar .navbar-nav > li > a.btn.btn-default.dropdown-toggle, .open > .navbar .navbar-nav > li > a.btn.btn-default.dropdown-toggle:focus, .open > .navbar .navbar-nav > li > a.btn.btn-default.dropdown-toggle:hover {
+    background-color: #999999;
+    color: #FFFFFF;
+}
+a:focus, a:active, button:active, button:focus, button:hover, button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, select::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner {
+    outline: 0 !important;
+}
+.btn-group-sm > .btn, .btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+.btn-success {
+    color: #fff;
+    background-
+    color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+.no-padding {
+
+    padding: 0 !important;
+
+}
+
+
+
+.btn-warning {
+
+    background: #ff9800 !important;
+    border: none;
+}
+
+
+
+
+
+
+
+.no-show {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+/*header img {
+
+    margin-top: 20px;
+    height: 200px;
+    width: 200px;
+
+}
+
+header  h1 {
+    float: left;
+}
+
+
+
+#imgBlock {
+
+    height: 100%;
+    justify-content:center;
+    display: flex;
+    align-items: center;
+}
+*/
+
+
+
+p {
+    margin-top: 20px;
+    text-indent: 10px;
+}
+
+
+#letsChat {
+
+    padding: 9px 13px !important;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    background: #ff9800;
+
+}
+
+
+
+
+#botBox {
+
+    height: 100%;
+    min-height: 100vh;
+    box-shadow: -4px 0 4px rgba(0,0,0,0.23);
+    background: url('../img/bgn.jpg');
+    background-position: 20% 80%;
+    background-attachment: fixed;
+    padding: 10px 0;
+    position: fixed;
+    float: none;
+    overflow: auto;
+    transition: transform .15s
+   
+
+
+}
+
+
+
+
+@media screen and (max-width: 992px){
+
+
+    #letsChat {
+
+        display: block;
+
+    }
+
+    #botBox.mobile-hide {
+
+        transform: translate3d(100%, 0,0);
+   
+
+    }
+
+
+
+    #botBox {
+
+
+        position: fixed;
+        top: 0;
+        left: 0;
+
+    }
+
+
+}
+
+
+#messages {
+
+    float: left;
+}
+
+
+.message-block {
+
+    height: auto;
+
+
+}
+
+
+.message-block ul {
+
+    padding: 0;
+    list-style-type: none;
+    float: left;
+    margin-top: 8px;
+    width: 100%;
+    min-width: 100%;
+
+}
+
+.message-block ul:last-child {
+
+    margin-bottom: 80px;
+
+}
+
+
+.message-block ul li {
+
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    padding: 12px 15px;
+    margin-top: 1px;
+    background: linear-gradient(60deg, #26c6da, #0097a7);
+    color: #fff;
+    max-width: 70%;
+    /*min-width: 20%;*/
+    width: auto;
+
+}
+
+.message-block ul li:nth-child(1) {
+
+
+    border-top-right-radius: 20px;
+
+
+}
+
+
+
+.message-block ul li:last-child {
+
+
+    border-bottom-right-radius: 20px;
+
+
+}
+
+
+.message-block ul.right {
+
+
+    float: right !important;
+
+}
+
+
+
+
+.message-block ul.right li {
+
+    border-radius: unset;
+    background: linear-gradient(60deg, #eee, #fff);
+    color: #666;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    float: right;
+
+
+}
+
+
+
+.message-block ul.right li:nth-child(1) {
+
+
+    border-top-left-radius: 20px;
+
+
+}
+
+
+
+.message-block ul.right li:last-child {
+
+
+    border-bottom-left-radius: 20px;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+#pendingMessageBox {
+
+    background: linear-gradient(60deg, #26c6da, #0097a7);
+    border-radius: 0 20px 20px 0;
+    float: left;
+    margin-left: -15px;
+    left: 0;
+    padding: 12px 9px;
+
+
+}
+
+
+#pendingMessageBox img {
+
+    height: 10px;
+    width: 100px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#messageInputContainer {
+
+
+    position: fixed;
+    bottom: 0;
+    width: inherit;
+    /*right: 0;*/
+    display: flex;
+    align-items: center;
+    border-top: 2px solid #00bcd4;
+    background: #fff;
+    float: right;
+
+
+
+}
+
+
+
+#messageInput {
+
+    border: none;
+    height: 100%;
+    resize: none;
+    padding: 8px;
+    font-size: 15px;
+    background: #fff;
+    overflow: hidden;
+    width: calc(100% - 80px);
+    /*position: absolute;*/
+}
+
+
+#sendButton, #closeButton {
+
+
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 15px;
+    color: #fff !important
+
+}
+
+
+
+
+
+#closeButton {
+
+    background: #fff !important;
+    color: #666 !important;
+    float: left;
+    box-shadow: none !important
+
+}
+
+
+
+
+
+
+/*PROFILE STYLES*/
+
+
+
+
+header {
+  position: relative;
+  height: 300px;
+    background: linear-gradient(60deg, #26c6da, #0097a7);
+}
+
+h1 {
+  margin: 0;
+  padding: 100px 0;
+  font: 44px "Arial";
+  text-align: center;
+}
+
+header h1 {
+  color: white;
+}
+
+.divider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100px;
+  /* drop the height to have a constant angle for all screen widths */
+}
