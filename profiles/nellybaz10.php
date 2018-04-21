@@ -42,8 +42,10 @@
 				<p>(Are you bored? chat with me)</p>
 				<hr>
 
-				<div id="bot-display" style="background-color:; height: 300px; width: 90%; overflow: scroll;">
+				<div id="bot-display" style="background-color:; height: 300px; width: 90%; overflow: scroll; font-family: 'IBM Plex Mono', monospace;">
 					<p>Ask me any question, I will give you the answer</p>
+					<p>Ask: <b>what is time</b> to get the current time</p>
+					
 					<!--<p>To train me: <br>
 					Tell me the question first by typing: <em><b>#your question</b></em><br>
 					Then the answer by typing: <em><b>@the answer</b></em><br>
@@ -83,7 +85,7 @@ if(!$conn){
 		//list($keyvalue, $real_question) = explode('?', $question);
 		$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 		$question = mysqli_real_escape_string($con, $question);
-		$display_query = "SELECT answer FROM chatbot WHERE question = '$question'";
+		$display_query = "SELECT answer FROM chatbot WHERE question = '$question' ORDER BY RAND() LIMIT 1;";
 		$result = mysqli_query($con, $display_query);
 		if(mysqli_num_rows($result) > 0){
 			$row = mysqli_fetch_array($result);
@@ -100,7 +102,7 @@ if(!$conn){
 			echo "<p>Sorry, I could't process that, probably my knowledge is not that wide. You can train me 
 					using the correct format. <br>
 					<b>Corrrect Format:</b><br>
-					train: your question#your answer@password</p>";
+					train: your question#your answer#password</p>";
 			echo "</div>";
 			
 		}
@@ -179,8 +181,8 @@ $question = trim($question);
 	 $count_hash = 0;
 
 	 list($train_word, $question1) = explode(':', $question);
-	 list($real_question, $real_answer) = explode('#', $question1);
-	 list($real_answer, $pass) = explode('@', $real_answer);
+	 list($real_question, $real_answer, $pass) = explode('#', $question1);
+	 //list($real_answer, $pass) = explode('@', $real_answer);
 	 
 	 $pass = trim($pass);
 	 $check_pass = 'password';
@@ -201,6 +203,18 @@ $question = trim($question);
 	 					Version: Alice 1.5.2</p>";
 	 			echo "</div>";
 	 	}
+
+	 	else if($question == 'what is the time'){
+	 		date_default_timezone_set('UTC');
+	 			echo "<div class='this'>";
+
+	 			echo date('l jS \of F Y h:i:s A');
+	 			echo "</div>";
+	 	}
+
+
+
+	 	
 
 	 	else{
 	 		display_answer($question);
