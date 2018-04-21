@@ -13,7 +13,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    require "../answers.php";
+    require "/answers.php";
 
     $mem = $_POST['question'];
     $mem = preg_replace('([\s]+)', ' ', trim($mem));
