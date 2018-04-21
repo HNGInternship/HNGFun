@@ -911,6 +911,7 @@ header h1 {
                             
                                 var message = $('.message').val();
 				    message = message.trim();
+				    if(message ==''){return;}
                                 var messenger_dezs = $('.messenger_dez');
 
                                 let bot_msg =  (answer)=>{
