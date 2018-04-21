@@ -316,8 +316,11 @@ background: rgba(0, 0, 0, 0.7);
 }
 
 .container:first-of-type{
-    margin-left: 0px;
-    padding-left: 0px;
+    margin-left: 0%;
+    padding-left: 0%;
+    margin-right: 0%;
+    padding-left: 0%;
+    min-width: 100%;
 }
 
 
