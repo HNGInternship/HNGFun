@@ -667,7 +667,7 @@ function show_direction ($location1, $location2, $mode) {
 }
 
 
-function davidQuadraticEquation($a, $b, $c){
+function davidQuadraticEquation($a, $b, $c){  #Remember I know where you live if you tamper with this function
      $discriminat = pow($b,2) - (4 * $a * $c);
      if($discriminat == 0){
          $x = -($b/(2 * $a));
