@@ -270,12 +270,14 @@ body
  
 
 </div>
+<div id="async">
 
-
-
-
-
-
+  
+</div>
+<form id="myform" method="POST">
+  <textarea  sid="text" name="message" id="ter" rows="0" cols="0" class="textarea" style=" padding:2px; border-radius: 12px;width: 80%;background-color:rgba(155, 22, 195, 0.32);" placeholder="enter your message"></textarea> <br>
+                               <button id="btn1" type="submit" class="button" >send</button>
+                               <br><br>
 
 
 
