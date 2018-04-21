@@ -3,19 +3,30 @@
 $user_input = "";
 $possible_questions = array();
 $sorted_possible_questions = array();
-require 'db.php';
+if (!defined('DB_USER')) {
+    include "../../config.php";
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+}
 
 try {
-        $sql = "SELECT * FROM secret_word";
-        $query = $conn->query($sql);
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $query->fetch();
-        $secret_word = $result['secret_word'];
-        
-        $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="orinayo"';
-        $q2 = $conn->query($sql2);
-        $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $me = $q2->fetch();
+    $sql = "SELECT * FROM secret_word";
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $query->fetch();
+    $secret_word = $result['secret_word'];
+}
+catch (PDOException $e) {
+    throw $e;
+}
+try {        
+    $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="orinayo"';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $me = $q2->fetch();
 }
 catch (PDOException $e) {
     throw $e;
@@ -25,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // validate input
     $user_input = validate_input($_POST["userInput"]);
     try {
-        include_once "answers.php";
+        include "../answers.php";
 
         if (strpos($user_input, 'train') === 0) {
             $user_input = substr_replace($user_input, '', 0, 5);
