@@ -1,13 +1,12 @@
-config.php
+
+db.php
 docker-compose.yml
 phpmyadmin/
 .DS_Store
 ._.DS_Store
 /deploy
-<<<<<<< HEAD
 .idea/
-
-
-=======
-.idea/
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
+config.php
+/null-
+.travis.yml
+push.sh

@@ -6,11 +6,12 @@ if(!isset($_GET['id'])){
     require 'db.php';
 }
 try {
-    $sql = 'SELECT * FROM interns_data,secret_word WHERE username ="'.'ordooter'.'"';
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-    $secret_word = $data['secret_word'];
+    $result = $conn->query("Select * from secret_word LIMIT 1");
+    $result = $result->fetch(PDO::FETCH_OBJ);
+    $secret_word = $result->secret_word;
+
+    $result2 = $conn->query("Select * from interns_data where username = 'ordooter'");
+    $user = $result2->fetch(PDO::FETCH_OBJ);
 } catch (PDOException $e) {
     throw $e;
 }
@@ -36,7 +37,9 @@ try {
     <!-- Plugin CSS -->
     <link href="vhttps://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" type="text/css">
 
-
+    <style type="text/css">
+        body{font-family:Lato}h1,h2,h3,h4,h5,h6{font-weight:700;font-family:Montserrat}hr.star-dark,hr.star-light{max-width:15rem;padding:0;text-align:center;border:none;border-top:solid .25rem;margin-top:2.5rem;margin-bottom:2.5rem}hr.star-dark:after,hr.star-light:after{position:relative;top:-.8em;display:inline-block;padding:0 .25em;content:'\f005';font-family:FontAwesome;font-size:2em}hr.star-light{border-color:#fff}hr.star-light:after{color:#fff;background-color:#007bff}hr.star-dark{border-color:#2c3e50}hr.star-dark:after{color:#2c3e50;background-color:#fff}section{padding:6rem 0}section h2{font-size:2.25rem;line-height:2rem}@media (min-width:992px){section h2{font-size:3rem;line-height:2.5rem}}.btn-xl{padding:1rem 1.75rem;font-size:1.25rem}.btn-social{width:3.25rem;height:3.25rem;font-size:1.25rem;line-height:2rem}
+    </style>
 
   </head>
 
@@ -46,21 +49,15 @@ try {
     <section class="bg-secondary text-white text-center">
       <div class="container">
         <img class="img-fluid mb-5 d-block mx-auto" src="http://i1074.photobucket.com/albums/w416/Butu_Ordooter_A/profile1_zpsblk9vlnz.png" alt="">
-<<<<<<< HEAD
-        <h1 class="text-uppercase mb-0">@<?php echo ($data['username']) ?></h1>
-=======
+        <?php if (!empty($data)) { ?>
         <h1 class="text-uppercase mb-0"><?php echo ($data['name']); ?></h1>
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
+        <?php } ?>
         <hr class="star-light">
-        <h2 class="font-weight-light mb-0"><?php echo ("Web Developer -  DevOps Engineer - Backend Engineer"); ?></h2>
+        <h3 class="font-weight-light mb-0"><?php echo ("Web Developer -  DevOps Engineer - Backend Engineer"); ?></h3>
         <hr class="star-light">
-        <h2 class="font-weight-light mb-0">My Current Date is: <?php echo date("D M d, Y G:i a"); ?></h2>
+        <h3 class="font-weight-light mb-0">My Current Date is: <?php echo date("D M d, Y G:i a"); ?></h3>
       </div>
-<<<<<<< HEAD
-    </header>
-=======
     </section>
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
 
    
 
@@ -79,85 +76,9 @@ try {
         </div>
       </div>
     </section>
-<<<<<<< HEAD
-
-
-
-    <!-- Footer -->
-    <footer class="footer text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4 mb-5 mb-lg-0">
-            <h4 class="text-uppercase mb-4">Location</h4>
-            <p class="lead mb-0">1B Amenam Street
-              <br>Total Estate, Abuja, FCT.</p>
-          </div>
-          <div class="col-md-4 mb-5 mb-lg-0">
-            <h4 class="text-uppercase mb-4">Follow On Social Media</h4>
-            <ul class="list-inline mb-0">
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-facebook"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-google-plus"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-twitter"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-linkedin"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                  <i class="fa fa-fw fa-dribbble"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <h4 class="text-uppercase mb-4">About Butu Ordooter</h4>
-            <p class="lead mb-0">Experienced Professional In Information Communication Technology...
-              <a href="https://www.linkedin.com/in/butuordooter/">More</a>.</p>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <div class="copyright py-4 text-center text-white">
-      <div class="container">
-        <small>Copyright &copy; Butu Ordooter A 2018</small>
-      </div>
-    </div>
-
-
-    <!-- Bootstrap core JavaScript -->
-    <script
-  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-  crossorigin="anonymous"></script>
-    <script src="vhttps://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"></script>
-
-    <!-- Plugin JavaScript -->
-     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-
-
-    <!-- Custom scripts for this template -->
-    <script>$(function(){$("#contactForm input,#contactForm textarea").jqBootstrapValidation({preventSubmit:!0,submitError:function(t,e,s){},submitSuccess:function(t,e){e.preventDefault();var s=$("input#name").val(),a=$("input#email").val(),n=$("input#phone").val(),c=$("textarea#message").val(),i=s;i.indexOf(" ")>=0&&(i=s.split(" ").slice(0,-1).join(" ")),$this=$("#sendMessageButton"),$this.prop("disabled",!0),$.ajax({url:"././mail/contact_me.php",type:"POST",data:{name:s,phone:n,email:a,message:c},cache:!1,success:function(){$("#success").html("<div class='alert alert-success'>"),$("#success > .alert-success").html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;").append("</button>"),$("#success > .alert-success").append("<strong>Your message has been sent. </strong>"),$("#success > .alert-success").append("</div>"),$("#contactForm").trigger("reset")},error:function(){$("#success").html("<div class='alert alert-danger'>"),$("#success > .alert-danger").html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;").append("</button>"),$("#success > .alert-danger").append($("<strong>").text("Sorry "+i+", it seems that my mail server is not responding. Please try again later!")),$("#success > .alert-danger").append("</div>"),$("#contactForm").trigger("reset")},complete:function(){setTimeout(function(){$this.prop("disabled",!1)},1e3)}})},filter:function(){return $(this).is(":visible")}}),$('a[data-toggle="tab"]').click(function(t){t.preventDefault(),$(this).tab("show")})}),$("#name").focus(function(){$("#success").html("")});</script>
-=======
 
 
    
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
 
   </body>
 
