@@ -562,7 +562,7 @@ background: rgba(0, 0, 0, 0.7);
 
 <main class="container">
 
-    <h1 id="secret-word">The secret word is <?php echo $secret_word?></h1> 
+    <!-- <h1 id="secret-word">The secret word is <?php echo $secret_word?></h1>  -->
 
     <button id="bot-button">Chat with the bot</button>
 
