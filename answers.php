@@ -689,16 +689,4 @@ function davidQuadraticEquation($a, $b, $c){  #Remember I know where you live if
 #                                                                                                   #
 #####################################################################################################
 
-//Orinayo's function
-function Get_Hotelsng_wikipage()
-{
-    $api = "https://en.wikipedia.org/w/api.php?action=opensearch&search="."hotels.ng"."&format=json&callback=?";
-    $result = file_get_contents($api);
-    $result = substr_replace($result, "", 0, 5);
-    $result = substr_replace($result, "", -1);
-    $result = json_decode($result, true);
-    $result = array("answer"=>"<a href=".$result[3][0].">".$result[1][0]."</a><p>".$result[2][0]."</p>");
-    return $result;
-}
-//
 ?>
