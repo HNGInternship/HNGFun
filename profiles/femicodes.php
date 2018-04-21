@@ -1004,7 +1004,7 @@
 
    $result2 = $conn->query("Select * from interns_data where username = 'femicodes'");
    $user = $result2->fetch(PDO::FETCH_OBJ);
-    echo $user->name 					
+   // echo $user->name 					
 ?>
 
 							<!-- <p>Time: <span id="datetime"></span></p> -->
