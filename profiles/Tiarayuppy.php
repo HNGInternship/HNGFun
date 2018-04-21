@@ -17,7 +17,7 @@
                     $question = trim($args[1]);
           $answer = trim($args[2]);
           $password = trim($args[3]);
-          if($password == "trainisdope")
+          if($password == "password")
           {
               // Password perfect
             $trainQuery = $db->prepare("INSERT INTO chatbot (question , answer) VALUES ( :question, :answer)");
@@ -643,7 +643,7 @@ body{
     
 <div id="demo">
     <h4 style="text-align: center;">Chat Bot Query from Duckducko </h4>
-    <h4>Train password <code>`trainisdope`</code></h4>
+    <h4>Train password <code>password</code></h4>
     <div id="chatBotCommandDescription"></div>
     <input id="humanInput" type="text" placeholder="Say something" />
 
