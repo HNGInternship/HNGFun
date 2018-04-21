@@ -313,7 +313,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					dataType: 'json',
 					success: (response)=> {
 			        //$("#ans").append("<li>" + response.result + "</li>");
-			        alert(response.result);
+			        alert(response.result.d);
 			        //alert(answer.result);
 					},
 					error: function(error){
