@@ -1,6 +1,6 @@
 <?php
 
-        require_once 'db.php';
+        require_once '../db.php';
         try {
             $select = 'SELECT * FROM secret_word';
             $query = $conn->query($select);
