@@ -392,7 +392,6 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
 
             .chatbot-menu-content {
                 display: inline-block;
-                margin-top: -10px;
             }
 
             .chatbot-message-bot, .chatbot-message-sender {
@@ -521,7 +520,7 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
 <!-- Latest compiled and minified JavaScript -->
 <script src="<?=$home_url;?>vendor/bootstrap/js/bootstrap.min.js"></script>
 <script>
-time = "21:15 21/04/2018";
+time = "11:04 21/04/2018";
 $(document).on('click', '.chat-btn', function(){
     $('.chatbot-menu').show();
     $('.chat-btn').hide();
