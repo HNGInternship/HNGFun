@@ -3,19 +3,13 @@ include('../db.php');
 $username = "umar";
 $sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
 $sql0 = "SELECT * FROM `secret_word` LIMIT 1";
-
 $stmt0 = $conn->prepare($sql0);
 $stmt0->execute();
-
-
 $data = $stmt0->fetch(PDO::FETCH_ASSOC);
 $secret_word = $data['secret_word'];
-
 $stmt = $conn->prepare($sql);
 $stmt->execute();
-
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,18 +20,19 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>HNG Fun || <?php echo $result['name']; ?></title>
 		<style>
+			body{
+				padding-top: 50px;
+			}
 			.card {
 				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 				max-width: 300px;
 				margin: auto;
 				text-align: center;
 			}
-
 			.title {
 				color: grey;
 				font-size: 18px;
 			}
-
 			button {
 				border: none;
 				outline: 0;
@@ -50,13 +45,11 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 				width: 100%;
 				font-size: 18px;
 			}
-
 			a {
 				text-decoration: none;
 				font-size: 22px;
 				color: black;
 			}
-
 			button:hover, a:hover {
 				opacity: 0.7;
 			}
