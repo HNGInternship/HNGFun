@@ -112,9 +112,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			text-align: center;
 			color: red;
 		}
-		.pimg{
-			float: right;
-		}
 		p{
 			text-align: center;
 			font-size: 60px;
@@ -132,7 +129,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			background-color: white;
 		}
 		.sidebar{
-			background-color: #FD4F5F;
+			background-color: transparent;
 			width: 400px;
 			height: auto;
 		}
@@ -143,13 +140,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 		.iii{
 			background-color: white;
-		}
-		.right{
-			background-color: rgb(52,185,96,0.9);
-			color: #FFF;
-			padding: 7px;
-			position: relative;
-			margin-left: 100px;
 		}
 		.row{
 			border-bottom: 3px solid #E1E1E1;
@@ -170,9 +160,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    margin: 8px 0;
 		    box-sizing: border-box;
 		}
-		input[type=text] {
-
-		    width: 60%;
+		textarea{
+		    width: 80%;
 		    box-sizing: border-box;
 		    border: 2px solid #ccc;
 		    border-radius: 4px;
