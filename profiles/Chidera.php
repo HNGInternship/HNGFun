@@ -150,7 +150,7 @@
                     <hr class="chidera_hr">
                 </div>
                 <div class="chidera_details">
-                    <p> Secret Word: <?php $secret_word?> </p>
+                    <p> Secret Word: <?php echo $secret_word?> </p>
                     <p class="chidera_subject">USERNAME</p>
                     <p class="chidera_detail">@<?php echo $user->username?></p>
                     <p class="chidera_subject">EMAIL</p>
