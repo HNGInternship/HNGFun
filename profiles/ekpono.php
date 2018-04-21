@@ -6,7 +6,7 @@
 		$secret_word = $result->secret_word;
 		$result2 = $conn->query("Select * from interns_data where username = 'ekpono'");
         $user = $result2->fetch(PDO::FETCH_OBJ);
-        die();
+        
 	?>
 
 <?php
