@@ -17,19 +17,20 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
   }
 }else if($_SERVER['REQUEST_METHOD']==='POST'){
     require '../../config.php';
-    try {
-      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
+    $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+            if(!$conn){
+                echo json_encode([
+                    'status'    => 1,
+                    'response'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                ]);
+                return;
+            }
     if(isset($_POST['message'])){
         if(strpos($ques, "train:") !== false){
             trainerMode($ques);
         }else{
-            $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE '$ques'");
-            $stmt->execute();
-            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            $result =$stmt->fetchAll();
+            $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
+            $result = $conn->query($query)->fetch_all();
             echo json_encode([
                 'status' => 1,
                 'response' => $result
