@@ -1,3 +1,13 @@
+<?php
+require_once('config.php');
+$connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+$result = mysqli_query($connect, "SELECT * FROM secret_word");
+$secret_word = mysqli_fetch_assoc($result)['secret_word'];
+$result = mysqli_query($connect, "SELECT * FROM interns_data WHERE username = 'japhar1'");
+if($result) $my_data = mysqli_fetch_assoc($result);
+else {echo "An error occored";}
+?>
+
 <!doctype html>
 
 <html>
@@ -9,11 +19,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <style type="text/css">
-   /*     	* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}*/
+
 #bodypage {
     font-family: 'Varela Round', sans-serif;
     font-size: 100%;
@@ -46,7 +52,7 @@
         		<img class="img-responsive text-center" src="https://res.cloudinary.com/dnx217f5z/image/upload/v1523621896/IMG-20180410-WA0000.jpg">
         	</figure>
             <div id="innercontent">
-                <p class="firstp">Balogun Olusegun | @japhar1</p>
+                <p>Hi! I'm <?php if(isset($my_data['name'])) echo $my_data['name']; ?> | @japhar1</p>
                 <p>HNG 4.0 Intern | Web/Front-End Dev</p>
                 <p><a href="https://www.facebook.com/balowtelly"><span class="fa fa-facebook"></span></a> | <a href="#"><span class="fa fa-instagram"></span></a> | <a href="https//www.twitter.com/balo_telly"><span class="fa fa-twitter"></a> </p>
                 <?php

@@ -1,3 +1,37 @@
+<?php
+if($_SERVER['REQUEST_METHOD']==='GET'){
+ try {
+     $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'nedy'");
+     $intern_data->execute();
+     $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+     $result = $intern_data->fetch();
+ 
+ 
+     $secret_code = $conn->prepare("SELECT * FROM secret_word");
+     $secret_code->execute();
+     $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+     $code = $secret_code->fetch();
+     $secret_word = $code['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }
+}else if($_SERVER['REQUEST_METHOD']==='POST'){
+    require '../../config.php';
+    try {
+      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+    if(isset($_POST['message'])){
+      echo json_encode([
+        "status" => 1,
+        "response" =>"found Message"
+      ]);
+      return ;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,6 +50,129 @@
       box-shadow: 0px 0px 10px #b4b4b4;
       width: 50%;
     }
+    .mr-auto {
+            margin-right: auto;
+        }
+
+        .ml-auto {
+            margin-left: auto;
+        }
+
+        .m-auto {
+            margin: auto;
+        }
+
+        .chat-holder {
+            width: 35%;
+            /*padding-top: 100px*/
+        }
+
+        .chat-space {
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            width: 100%;
+            border-radius: 2px;
+            box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-space-header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 10px 0;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .acc-icon {
+            vertical-align: middle;
+            font-weight: bolder;
+            color: grey;
+            font-size: 20px;
+        }
+
+        .chat-box {
+            min-height: 250px;
+            position: relative;
+            padding-bottom: 40px;
+        }
+
+        .messages-area {
+            max-height: 220px;
+            overflow: auto;
+            padding: 10px;
+        }
+
+        .sent-message {
+            display: flex;
+            justify-content: flex-end;
+            margin: 0 0 4px;
+        }
+
+        .received-message {
+            display: flex;
+            justify-content: flex-start;
+            margin: 0 0 4px;
+        }
+
+        .message {
+            padding: 5px 15px;
+            border-radius: 30px;
+            line-height: 14px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .sent {
+            background: #9BC5F1;
+            color: white;
+        }
+
+        .received {
+            background: #F2F2F2;
+            color: #C4C4C4;
+        }
+
+        .message-input-area {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            background: #E0E0E0;
+            align-items: center;
+            height: 40px;
+        }
+
+        .message-input {
+            color: #828282;
+            width: 85%;
+            border: none;
+            background: transparent;
+            height: 100%;
+            padding: 0 10px;
+        }
+
+        .message-input:focus {
+            border: none;
+            box-shadow: none;
+            outline: none;
+            outline-offset: 0;
+        }
+
+        .message-submit {
+            margin-left: 10px;
+            color: #828282;
+            cursor: pointer;
+        }
+
+        .show-typing {
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-size: 15px;
+        }
 
   </style>
 </head>
@@ -32,10 +189,51 @@
           <img src="https://res.cloudinary.com/nedy123/image/upload/v1515053242/my_d.p_paeru8.jpg" class="img-thumbnail img-fluid rounded-circle w-25 h-25" alt="avatar">
         </div>
         <p class="text-center text-primary h4 mt-3">And I am a <b class="h2">Developer</b></p>
-
       </div>
     </div>
   </div>
+  <div class="card chat-holder m-auto">
+                <!--Start from here to copy. This is main chat box-->
+                <div class="chat-space">
+                    <!--Chat header-->
+                    <div class="chat-space-header">
+                        <!--User name-->
+                        <h5 class="text-left user-name">Botler</h5>
+                        <!-- <i class="fa fa-angle-down acc-icon"></i> -->
+                    </div>
+                    <hr style="margin: 10px 0">
+                    <div class="chat-box">
+                        <!--Area where all the messages will be. Has a max-height. Can be altered-->
+                        <div class="messages-area">
+                            <!--sent message from the user-->
+                            <div class="sent-message text-left">
+                                <p class="message sent">
+                                    How you go d?
+                                </p>
+                            </div>
+                            <!--Message received-->
+                            <div class="received-message text-left">
+                                <p class="message received">
+                                    Hi there my name is <span class="font-weight-bold h3">BOTLER</span>
+                                </p>
+                            </div>
+                        </div>
+                        <!--Form to add new messages-->
+                        <div class="message-form">
+                            <div class="message-input-area">
+                                <label for="user-message"></label>
+                                <!--Input area for message-->
+                                <input type="text" class="message-input" name="user-message" id="user-message"
+                                       placeholder="Write a message" required>
+                                <!--Submit button-->
+                                <button class="btn" type="button">
+                                    <i class="fa fa-send message-submit"  onclick="sendMsg()" value="send"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

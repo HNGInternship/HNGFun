@@ -1,1 +1,10 @@
+
+db.php
+docker-compose.yml
+phpmyadmin/
+.DS_Store
+._.DS_Store
+/deploy
+.idea/
 config.php
+/null-file

@@ -9,14 +9,15 @@
 	 */
 	// The commands
 	$commands = array(
-		'echo $PWD',
-		'whoami',
-		'git reset --hard HEAD',
-		'git pull origin master',
+		//'echo $PWD',
+		//'whoami',
+		//'git reset --hard HEAD',
+		'cd /var/www/hng.fun/html/HNGFun',
+		'git pull 2>&1',
 		'git status',
-		'git submodule sync',
-		'git submodule update',
-		'git submodule status',
+		//'git submodule sync',
+		//'git submodule update',
+		//'git submodule status',
 	);
 	// Run the commands for output
 	$output = '';

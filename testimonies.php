@@ -34,6 +34,22 @@ include_once("header.php");
                     <div class="carousel-item active">
                         <!--Grid column-->
                         <div class="row justify-content-center mx-auto">
+                            <!--Grid column-->
+                            <div class="col-md-4 clearfix d-none d-md-block">
+                                <div class="testimonial">
+                                    <!--Avatar-->
+                                    <div class="avatar mx-auto">
+                                        <img src="http://res.cloudinary.com/intellitech/image/upload/v1523779243/admiral.jpg" class="rounded-circle img-fluid">
+                                    </div>
+                                    <!--Content-->
+                                    <h4>Admiral</h4>
+                                    <h6 class="blue-text font-weight-bold">Intern - HNG Internship 4</h6>
+                                    <p>
+                                        <i class="fa fa-quote-left"></i> This internship has been WOW.
+                                        I've learn how to clone, push, pull to <a href="https://www.github.com" target="NEW">github</a>, i have been able to work with a team improve my html/css and design skills, and I now know how to use <a href="https://www.figma.com" target="NEW">figma</a> to design.</p>
+                                </div>
+                            </div>
+                            <!--Grid column-->
                             <div class="col-md-4 clearfix d-none d-md-block">
                                 <div class="testimonial">
                                     <!--Avatar-->
@@ -46,7 +62,7 @@ include_once("header.php");
                                     <p>
                                         <i class="fa fa-quote-left"></i> I learnt how to design a web page with Figma, implemented the designs with HTML,CSS and PHP.
                                         I used TeamViewer for the first time yesterday and now I just had a better understanding about Git.
-                                        Isn't this internship just amazing. I can't wait to learn more
+                                        Isn't this internship just amazing. I can't wait to learn more...
                                     </p>
                                 </div>
 

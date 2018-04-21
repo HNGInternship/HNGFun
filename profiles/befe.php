@@ -1,24 +1,30 @@
 <?php 
 
 try {
-      $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE intern_id = \'befe\'';
+      $sql = "SELECT * FROM interns_data WHERE username = 'befe' LIMIT 1"; 
       $q = $conn->query($sql);
       $q->setFetchMode(PDO::FETCH_ASSOC);
       $data = $q->fetch();
-      $secret_word = $data['secret_word'];
   } catch (PDOException $e) {
       throw $e;
   }
 
-
-
+  try {
+      $sql = 'SELECT * FROM secret_word';
+      $q = $conn->query($sql);
+      $q->setFetchMode(PDO::FETCH_ASSOC);
+      $mydata = $q->fetch();
+      $secret_word = $mydata['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }
 ?>
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
-        <title><?php echo $data['name'] ?>'s Profile</title>
+        <title><?php echo $data['name']; ?>'s Profile</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
         * {

@@ -1,5 +1,5 @@
 <?php
-require '../db.php';
+
 $query = $conn->query("SELECT * FROM secret_word");
 $result = $query->fetch(PDO::FETCH_ASSOC);
 $secret_word = $result['secret_word'];
@@ -16,7 +16,8 @@ $secret_word = $result['secret_word'];
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<title>Portfolio | Adeboga Abigail</title>
 	<style type="text/css">
-	#fst::after{
+
+	#name-div::after{
 		 content: "";
  /* background: url(https://i.imgur.com/0EWDjqv.jpg);*/
   opacity: 0.35;
@@ -33,21 +34,23 @@ $secret_word = $result['secret_word'];
     -moz-background-size: cover;
     -webkit-background-size: cover;
     background-size: cover;
+    position: fixed;
 		height: 100vh;
 				width: 100%;
 				background-image: url(http://res.cloudinary.com/bogadeji/image/upload/v1523633847/happy_x89ylu.jpg);
 				/*opacity: 50%;*/
 	}
-			#fst{
+
+			#name-div{
 				
 				font-family: "Montserrat" Monospace;
 				align-items: bottom;
 			}
-			#container, #fst{
+			#about-div, #name-div, #abt-me-div{
 				height: 100vh;
 			}
-			#fst h1, #fst h4{position: absolute;}
-			#fst h1{
+			#name-div h1, #name-div h4{position: absolute;}
+			#name-div h1{
 				/*margin-top: 300px;*/
 				text-align: right;
 				font-size: 72px;
@@ -57,23 +60,24 @@ $secret_word = $result['secret_word'];
 				bottom: 10%;
 				right: 10%;
 			}
-			#fst h4{
+			#name-div h4{
 				font-family: "Muli";
 				font-size: 20px;
 				position: absolute;
 				bottom: 9%;
+				bottom: 7%;
 				right: 10%;
 			}
-		#main{
-			width: 80%;
+		#abt-me-div{
+			width: 100%;
 			margin:  auto;
 			padding: 100px;
-			height: 500px;
+			background-color: rgba(239, 239, 239, 0.6);
 		}
 		#about-me{
-			width: 40%;
+			width: 50%;
 			float: right;
-			height: 90%;
+			height: 100%;
 			border-radius: 50%;
 			background-color: white;
 			align-items: center;
@@ -90,14 +94,14 @@ $secret_word = $result['secret_word'];
 			margin: 30px 70px 70px 60px;
 		}
 		#pic img{
-			margin: 0px 70px 70px 30px;
+			/*margin: 0px 70px 70px 30px;*/
 			border-radius: 10px;
 		}
 		#contact{
 			display: inline-block;
 			background-color: #e4e4e4;
 			padding:10px 0;
-			width: 30%;
+			width: 35%;
 			border-radius: 50px;
 			margin: 0 auto;
 		}
@@ -128,23 +132,24 @@ $secret_word = $result['secret_word'];
                          position: relative;
 		}
 	</style>
+
 </head>
 <body>
-	<?php
+ 	<?php
 	$username = "Abigail";
-	$data = $conn->query("SELECT * FROM  interns_data");
-$my_data = $data->fetch(PDO::FETCH_BOTH);
+	$data = $conn->query("SELECT * FROM  interns_data WHERE username = '".$username."' ");
+	$my_data = $data->fetch(PDO::FETCH_BOTH);
 
-$name = $my_data['name'];
-$src = $my_data['image_filename'];
-$username =$my_data['username'];
+	$name = $my_data['name'];
+	$src = $my_data['image_filename'];
+	$username =$my_data['username'];
 ?>
-	<div id="fst">
+	<div id="name-div">
 		<h1><?php echo $name;?></h1>
 		<h4>FULL STACK DEVELOPER | WRITER</h4>
 	</div>
-	<div id="container">
-<div id="main" align="center">
+	<div id="about-div">
+<div id="abt-me-div" align="center">
 	<div id="about-me">
 		<p>I am a junior web developer with experience with HTML, CSS, JavaScript, Bootstrap and PHP. My love for words and solving problems brought me to the world of writing and coding(which I choose to acknowledge as writing). Want to chat, collaborate or hire me on a project, please feel free to contact me.</p>
 		<div id="contact" align="center"><a href="mailto:animashaunoluwatosin7@gmail.com">CONTACT ME</a></div>

@@ -1,3 +1,24 @@
+ <?php
+
+
+try {
+   $profile = 'SELECT * FROM interns_data_ WHERE username="bella"';
+    $select = 'SELECT * FROM secret_word';
+
+    $query = $conn->query($select);
+    $profile_query = $conn->query($profile);
+
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $profile_query->setFetchMode(PDO::FETCH_ASSOC);
+
+    $get = $query->fetch();
+    $user = $profile_query->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+$secret_word = $get['secret_word'];
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,19 +78,7 @@ button:hover, a:hover {
  <p><button>Email me at: umondiamfonobong@gmail.com</button></p>
 </div>
 
- <?php
 
-
-try {
-    $select = 'SELECT * FROM secret_word';
-    $query = $conn->query($select);
-    $query->setFetchMode(PDO::FETCH_ASSOC);
-    $get = $query->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
-$secret_word = $get['secret_word'];
-?>
 
 
 </body>

@@ -1,8 +1,20 @@
 <!DOCTYPE html>
+ <?php
+ 	try {
+ 	      $query = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'Luthfulahi\'';
+ 	      $result = $conn->query($query);
+ 	      $result->setFetchMode(PDO::FETCH_ASSOC);
+ 	      $luthfulahi = $result->fetch();
+ 	      $secret_word = $luthfulahi['secret_word'];
+ 	  } catch (PDOException $event) {
+ 	      throw $event;
+ 	  }
+  ?>
+
 <html lang="en-US">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Luthfulahi Oseni | The Optimist</title>
+  <title> <?php echo $luthfulahi['username']; ?> | The Optimist</title>
 		<link rel="shortcut icon" type="image/png" href="http://res.cloudinary.com/luthfulahi/image/upload/v1517637458/logo_gbmklw.png">
   <link href="https://fonts.googleapis.com/css?family=Supermercado+One" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
@@ -131,10 +143,10 @@
 					<a href="#learning"><i class="fa fa-briefcase icon-round animated swg"></i></a>
 				</div>
 				<div class="col-md-6">
-					<img src="http://res.cloudinary.com/luthfulahi/image/upload/v1517637435/hero_eo8j4m.jpg" alt="Luthfulahi" class="img-responsive main-img img-circle center-block" id="test">
-					<h1>LUTHFULAHI OSENI</h1>
+					<img src="<?php echo $luthfulahi['image_filename']; ?>" alt="Luthfulahi" class="img-responsive main-img img-circle center-block" id="test">
+					<h1><?php echo $luthfulahi['name']; ?></h1>
 					<code id="intro">
-					<p class="animated"><i class="fa fa-asterisk"></i>&nbsp Hi!, I am Luthfulahi <br> I learn how to write <i class="fa fa-pencil"></i> codes <br> WHY <i class="fa fa-question"></i></br>To make my day-to-day activity automated <i class="fa fa-exclamation"></i>
+					<p class="animated"><i class="fa fa-asterisk"></i>&nbsp Hi!, I am <?php echo $luthfulahi['username']; ?> <br> I learn how to write <i class="fa fa-pencil"></i> codes <br> WHY <i class="fa fa-question"></i></br>To make my day-to-day activity automated <i class="fa fa-exclamation"></i>
 					I just Joined Hotels.ng Internship 4.0 and I am really loving it
 					</p>
 					</code>
@@ -161,13 +173,13 @@
 		<div id="aboutMe">
 			<div class="row">
 				<div class="col-md-12">
-					<h1><strong>ABOUT LUTHFULAHI!</strong></h1>
+					<h1><strong>ABOUT <?php echo $luthfulahi['username']; ?>!</strong></h1>
 					<!-- <img src="img/hero.jpg" alt="Luthfulahi" class="img-responsive"> -->
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12" id="me">
-					<p class="abt">I am Luthfulahi Oseni</p>
+					<p class="abt">I am <?php echo $luthfulahi['name']; ?></p>
 					<p class="abt">An aspiring web developer</p>
 					<p class="abt">I am a Student Of Computer Science Department<br> at The Polytechnic Ibadan</p>
 					<p class="abt">Also an Intern at Hotels.ng</p>
@@ -247,7 +259,7 @@
 						<a href="tel:+2349030836199"><li><i class="fa fa-phone icon-square"></i><kbd>+234-90-308-361-99</kbd></li></a>
 						<a target="_blank" href="mailto:luteeph@gmail.com"><li><i class="fa fa-envelope icon-square"></i><kbd>luteeph@gmail.com</kbd></li></a>
 						<a target="_blank" href="https://twitter.com/LuthfulahiO"><li><i class="fa fa-twitter icon-square"></i><kbd>@LuthfulahiO</kbd></li></a>
-						<a target="_blank" href="https://www.linkedin.com/in/luthfulahi"><li><i class="fa fa-linkedin icon-square"></i><kbd>Oseni Luthfulahi</kbd></li></a>
+						<a target="_blank" href="https://www.linkedin.com/in/luthfulahi"><li><i class="fa fa-linkedin icon-square"></i><kbd><?php echo $luthfulahi['name']; ?></kbd></li></a>
 						<a target="_blank" href="https://medium.com/@luteeph"><li><i class="fa fa-pencil icon-square"></i><kbd>@Luteeph</kbd></li></a>
 					</ul>
 					<span><a href="#landingPage">Back to top</a></span>
@@ -255,7 +267,7 @@
 			</div>
 			<div class="row text-center" id="footer">
 				<div class="col-md-12">
-					Made by <strong>Luthfulahi</strong> with <i class="fa fa-heart animated swing infinite"></i> and <i class="fa fa-code animated swing infinite"></i>
+					Made by <strong><?php echo $luthfulahi['username']; ?></strong> with <i class="fa fa-heart animated swing infinite"></i> and <i class="fa fa-code animated swing infinite"></i>
 					<p>&copy 2018</p>
 				</div>
 			</div>
