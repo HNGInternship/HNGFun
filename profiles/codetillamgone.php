@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $question_lower = strtolower($question);
     $testvar = "?".$question_lower;  #Make Data Easier to compare
 
-    if(strrpos($testvar, "train") != NULL){ #In taining mode
+    if(strrpos($testvar, "train") != NULL){
 
         
         $trainInfo = explode("#", $question_lower);
@@ -30,13 +30,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $answer_temp = trim(preg_replace("([?.])", "", $answer_temp));
         $password_temp = trim(preg_replace("([?.])", "", $trainInfo[2] ));
         $password = $password_temp ;
-        if ($password !== "password"){ #Incorrect pssword entered
+        if ($password !== "password"){
             echo json_encode([
                 'status' => 1,
                 'reply' => "Wrong password, you are not authorized to train me",
               ]);
               return;
-        }else{ #correct password entered
+        }else{
             try{
             $sql = "insert into chatbot (question, answer) values (:question, :answer)";
             $initiate = $conn->prepare($sql);
@@ -56,9 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
            
         }
-        else if(strrpos($testvar, "train") == NULL){ #Question mode
+        else if(strrpos($testvar, "train") == NULL){
 
-            if(strrpos($testvar, "--help") != NULL){ #--help command
+            if(strrpos($testvar, "--help") != NULL){
                 echo json_encode([
                     'status' =>1,
                     'reply' => "Hello, thanks for talking to me, here are a list of the command I accept, <i>type</i> <b> Train: question # answer # password</b> in this format to train me , 
@@ -70,14 +70,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 return;
                 
             }
-            else if(strrpos($testvar, "hi") || strrpos($testvar, "hello") || strrpos($testvar, "what's up") || strrpos($testvar, "Fuck you")){ #frivolities..Lol
+            else if(strrpos($testvar, "hi") || strrpos($testvar, "hello") || strrpos($testvar, "what's up") || strrpos($testvar, "Fuck you")){
                 echo json_encode([
                     'status' => 1,
                     'reply' => "I've been asked not to joke around with strangers, my master musn't catch me doing that so can we go straight to the point"
                 ]);
                 return;
             }
-            else if(strrpos($testvar, "quadratic")){ #Quadratic function
+            else if(strrpos($testvar, "quadratic")){
 
                 $trainInfo = explode("#", $question_lower);
                 $firstInfo = explode(":", $trainInfo[0]);
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
            
 
-           else{ #Question exist
+           else{
 
             $question = "%$question%";
             try{
@@ -132,7 +132,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         
     }
+   
 
+ 
 
 
 
@@ -257,7 +259,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <?php
-    
+   
 try{
 
     $getData = 'SELECT * FROM interns_data WHERE username="codetillamgone"';
@@ -338,7 +340,7 @@ catch(PDOException $e){
 
 
                 $.ajax({
-				url: "../profiles/codetillamgone.php",
+				url: "/profiles/codetillamgone.php",
 				type: "post",
 				data: {question: question},
                 dataType: "json",
