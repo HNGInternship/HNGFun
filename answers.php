@@ -356,8 +356,60 @@ function getBotMenu(){
 function getTime(){
   return date("h:i:s");
 }
-<<<<<<< HEAD
+function simpleMaths($operation, $expression){
+    switch ($operation) {
+      case 'factor':
+        # factorization condition
+      $notify = "Factorize";
+        break;
 
+        case 'simplify':
+        # simplify
+      $notify = "Simplify";
+        break;
+
+        case 'derive':
+        # derivative
+      $notify = "Derivative";
+        break;
+
+        case 'integrate':
+          # Integrate
+        $notify = "Integrate";
+          break;
+
+        case 'zeroes':
+          # polinomia
+        $notify = "Polinomial, find 0S in";
+          break;
+
+        case 'tangent':
+          # tangent
+        $notify = "Find Tangent";
+          break;
+
+        case 'log':
+          # logrithms
+        $notify = 'Logarithm';
+          break;
+
+
+      
+      default:
+        # code...
+        break;
+    }
+    $url = "https://newton.now.sh/".$operation."/".$expression;
+    $result = file_get_contents($url);
+    $response = json_decode($result, true);
+    echo json_encode([
+        'question' => $notify." : ".$response['expression'],
+        'answer' =>"Your answer is: ".$response['result']
+    ]);
+}
+
+/******** End Adroit Bot Funct ********/
+/*
 // end of functions by johnayeni
 
 //////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
@@ -384,7 +436,7 @@ echo $weather = get_weather($_GET['opheusweather']);
 ////////////////////////////////
 // END OF JOHN AYENI FUNCTIONS//
 ////////////////////////////////
-
+*/
 
 /////////////////////////////////////////
 //Beginning Aniuchi A. M's Functions/////
@@ -394,7 +446,6 @@ function getCurrentDateAndTime(){
     $newTime = date("h:i:s A");
     echo "Today's date is " . $newDate . ". The time is " . $newTime;
     //A.M.A
->>>>>>> 555d23d7bb88145ab2ece7ce6eda402ebbccd911
 }
 function getCurrentDayOfTheWeek(){
     $newDate = date("l");
@@ -427,7 +478,7 @@ function getRandomQuote(){
     //A.M.A
 }
 
-<<<<<<< HEAD
+
 function bot_answer($check) {
 
 require 'db.php';
@@ -454,7 +505,9 @@ if($stmt->rowCount() > 0)
 	echo "Type ";
 	echo "train: write a question | write the answer.  ";
 	echo "to teach me.";
-=======
+}
+}
+
 function getMotivationalQuoteForTheDay(){
 	$randomQuoteJson =file_get_contents("http://quotes.rest/qod.json?category=inspire");
 	$randomQuote = json_decode($randomQuoteJson, true);
@@ -477,7 +530,7 @@ function getMediumArticle(){
 		break;
     }
     //A.M.A
->>>>>>> 555d23d7bb88145ab2ece7ce6eda402ebbccd911
+
 }
 function getPinkyCommands(){
     echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/> 
@@ -488,15 +541,6 @@ function getPinkyCommands(){
     NB. All or some of the words in bold should be included in your message. Please try to follow these patterns as I am still learning.";
     //A.M.A
 }
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
 
 function train_bot ($message) {
 function multiexplode ($delimiters,$string) {
@@ -559,67 +603,14 @@ function get_browser_name($user_agent)
     elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) return 'Internet Explorer';
 
     return 'Other';
+}
 
-=======
+
 ///////////////////////////////
 //End Aniuchi A. M's Functions/
 ///////////////////////////////
 
-/****** AdroitCode Bot Function *********/
 
-function simpleMaths($operation, $expression){
-    switch ($operation) {
-      case 'factor':
-        # factorization condition
-      $notify = "Factorize";
-        break;
-
-        case 'simplify':
-        # simplify
-      $notify = "Simplify";
-        break;
-
-        case 'derive':
-        # derivative
-      $notify = "Derivative";
-        break;
-
-        case 'integrate':
-          # Integrate
-        $notify = "Integrate";
-          break;
-
-        case 'zeroes':
-          # polinomia
-        $notify = "Polinomial, find 0S in";
-          break;
-
-        case 'tangent':
-          # tangent
-        $notify = "Find Tangent";
-          break;
-
-        case 'log':
-          # logrithms
-        $notify = 'Logarithm';
-          break;
-
-
-      
-      default:
-        # code...
-        break;
-    }
-    $url = "https://newton.now.sh/".$operation."/".$expression;
-    $result = file_get_contents($url);
-    $response = json_decode($result, true);
-    echo json_encode([
-        'question' => $notify." : ".$response['expression'],
-        'answer' =>"Your answer is: ".$response['result']
-    ]);
-}
-
-/******** End Adroit Bot Funct ********/
 
 #####################################################################################################
 #                                                                                                   #
@@ -655,10 +646,8 @@ function get_duration ($key, $url, $location1, $location2, $mode) {
         $message = ["Sorry, I currently can't retrieve the duration for this trip as I don't have enough information"];
         return $message;
     }
->>>>>>> 555d23d7bb88145ab2ece7ce6eda402ebbccd911
 }
 
-<<<<<<< HEAD
 
 function get_device_name($user_agent)
 {
@@ -670,10 +659,11 @@ function get_device_name($user_agent)
     elseif (strpos($user_agent, 'iPad') ) return 'iPad';
 
     return 'Other';
-=======
+}
+
 function show_direction ($location1, $location2, $mode) {
     return "https://www.google.com/maps/dir/?api=1&origin=$location1&destination=$location2&travelmode=$mode";
->>>>>>> 555d23d7bb88145ab2ece7ce6eda402ebbccd911
+
 }
 
 #####################################################################################################
