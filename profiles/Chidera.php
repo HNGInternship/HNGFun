@@ -32,11 +32,7 @@
             bottom: 0;
             right: 0;
             left: 0;
-<<<<<<< HEAD
-            margin: 6% auto;
-=======
             margin: 10% auto;
->>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
             background-color: #3E4447;
             box-shadow: 0px 0px 1px #3436a5, 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
             
@@ -46,11 +42,7 @@
         }
         .chidera_info{
             padding: 3px;
-<<<<<<< HEAD
-            padding-top: 20px;
-=======
             padding-top: 10px;
->>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
             text-align: center;
             color: #ffffff;
             font-family: 'Roboto Condensed', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -72,10 +64,7 @@
             margin: 4px;
             margin-top: 0;
             margin-left: 242px;
-<<<<<<< HEAD
-=======
             border-color: #FFFFFF;
->>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
         }
         .chidera_details{
             margin-top: 20px;
@@ -89,11 +78,7 @@
             font-variant: small-caps;
             font-size: 13px;
             margin: 4px;
-<<<<<<< HEAD
-            margin-top: 20px;
-=======
             margin-top: 10px;
->>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
             letter-spacing: 1px;
         }
         /* Style all font awesome icons */
@@ -157,11 +142,7 @@
     <section>
         <section class="chidera_profile-container">
             <div class="chidera_img">
-<<<<<<< HEAD
-                <img class="chideraimg" src="<?php echo $user->image_filename?>" alt="" srcset="" height="386" width="240">
-=======
                 <img class="chideraimg" src="<?php echo $user->image_filename?>" alt="CHIDERA'S PICTURE" height="386" width="240">
->>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
             </div>
             <div class="chidera_info">
                 <div class="chidera_header">
