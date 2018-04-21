@@ -143,8 +143,6 @@ require 'db.php';
 		<script src="https://code.jquery.com/jquery-git.min.js"></script>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		 <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
-		 
-		 
 		 <script>
 			$(document).ready(function() {
 				
@@ -367,12 +365,9 @@ require 'db.php';
 					
 						<div class="chatWrap">	
 							<div class="chatBody">
-								<div class="msgA">
-										<p>How may I help?</p>
-								</div>
 								<!-- Bot message -->
 								<div class="msgA">
-										<p>I can answer your questions to the best of my knowledge, 
+										<p>Hi: Am dreamtech,<br> How may I help?</p>
 								</div>
 								
 								<!-- You Questions -->
