@@ -21,7 +21,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 		<title>HNG Fun || <?php echo $result['name']; ?></title>
 		<style>
 			body{
-				padding-top: 30px;
+				padding-top: 50px;
 			}
 			.card {
 				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
