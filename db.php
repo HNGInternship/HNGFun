@@ -1,7 +1,17 @@
 <?php
+<<<<<<< HEAD
 require_once 'config.php';
+=======
 
-//require_once '../config.php';
+/*
+
+DO NOT MODIFY THIS FILE!!!
+
+*/
+>>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
+
+
+
 
 
 
