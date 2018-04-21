@@ -295,6 +295,7 @@ background: rgba(0, 0, 0, 0.7);
     background: rgba(0, 0, 0, 0.8);
     color: white;
     position: fixed;
+    z-index: 9999;
     top: 0;
     height: 100%;
     margin: 0px;
@@ -309,6 +310,11 @@ background: rgba(0, 0, 0, 0.7);
 
 .bot-container-reveal{
     display: block;
+}
+
+.container:first-of-type{
+    margin-left: 0px;
+    padding-left: 0px;
 }
 
 
