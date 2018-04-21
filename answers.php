@@ -184,6 +184,7 @@ if($stmt->rowCount() > 0)
 
 
 function train_bot ($message) {
+
 function multiexplode ($delimiters,$string) {
     
     $ready = str_replace($delimiters, $delimiters[0], $string);
