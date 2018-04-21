@@ -295,6 +295,7 @@ background: rgba(0, 0, 0, 0.7);
     background: rgba(0, 0, 0, 0.8);
     color: white;
     position: fixed;
+    z-index: 9999;
     top: 0;
     height: 100%;
     margin: 0px;
@@ -309,6 +310,11 @@ background: rgba(0, 0, 0, 0.7);
 
 .bot-container-reveal{
     display: block;
+}
+
+.container:first-of-type{
+    margin-left: 0px;
+    padding-left: 0px;
 }
 
 
@@ -693,7 +699,7 @@ background: rgba(0, 0, 0, 0.7);
         if (message.indexOf('train:') >= 0 || message.indexOf('train :')>=0){
         $.ajax({
             type: "GET",
-            url: 'Wizard of Oz.php',
+            url: 'profiles/Wizard of Oz.php',
             data: { training: message },
             success: function(data){
                 displayMerlinMessage(data);
@@ -708,7 +714,7 @@ background: rgba(0, 0, 0, 0.7);
         elses = message;
         $.ajax({
             type: "GET",
-            url: 'Wizard of Oz.php',
+            url: 'profiles/Wizard of Oz.php',
             data: {info: message },
             success: function(data){
         console.log(data);
