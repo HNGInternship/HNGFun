@@ -64,6 +64,7 @@
             margin: 4px;
             margin-top: 0;
             margin-left: 242px;
+            border-color: #FFFFFF;
         }
         .chidera_details{
             margin-top: 20px;
@@ -150,7 +151,6 @@
                     <hr class="chidera_hr">
                 </div>
                 <div class="chidera_details">
-                    <p> Secret Word: <?php echo $secret_word?> </p>
                     <p class="chidera_subject">USERNAME</p>
                     <p class="chidera_detail">@<?php echo $user->username?></p>
                     <p class="chidera_subject">EMAIL</p>
