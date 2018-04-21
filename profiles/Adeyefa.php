@@ -1,6 +1,6 @@
 <?php 
 
-require "../config.php";
+require "../db.php";
 
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -171,6 +171,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			text-align: center;
 		}
 		h2{
+			color: white;
 			font-weight: bolder;
 			font-size: 40px;
 		}

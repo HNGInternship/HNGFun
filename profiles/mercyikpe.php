@@ -23,6 +23,10 @@ global $conn;
 if ($_SERVER['REQUEST_METHOD'] === "POST")
 	{
 	$mercy = $_POST['sent_messages'];
+	if (!empty($mercy) && $mercy =='aboutBot')
+		{
+		echo json_encode(['status' => 1, 'answer' => 'mercyBotv1.0.']);
+		}
 	if (empty($mercy))
 		{
 		echo json_encode(['status' => 0]); 
