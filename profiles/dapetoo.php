@@ -69,7 +69,8 @@ try {
 		<div class='col-sm-6'>
 			<div>
 				<br><br><br><br><br><br>
-				<h1 style='font-family: "proxima-nova"; color:#fff; font-size: 22px; font-weight: 600; letter-spacing: .14em; line-height: 1em; text-transform: uppercase;'><?php echo ($my_username['username']) ?></h1>
+				<h1 style='font-family: "proxima-nova"; color:#fff; font-size: 22px; font-weight: 600; letter-spacing: .14em; line-height: 1em; text-transform: uppercase;'><?php echo "Dada Peter"?></h1>
+				<h1 style='font-family: "proxima-nova"; color:#fff; font-size: 22px; font-weight: 600; letter-spacing: .14em; line-height: 1em; text-transform: uppercase;'><?php echo $my_username?></h1>
 				<h2 style='font-family: "proxima-nova"; color:#a3a3a3; font-size: 22px; line-height: 1.15em; text-transform: none;letter-spacing: .01em; margin-bottom:26px; text-align:left;'>I am a tech enthusiast, I love to explore anything in the world of technology. I develop Android apllications and Web Applications</h2>
 				<div>
 					<h4>Connect with me on Social Media</h4>
