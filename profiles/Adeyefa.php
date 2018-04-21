@@ -125,11 +125,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			text-align: center;
 			font-size: 30px;
 		}
-		#bar{
-			background-color: white;
-		}
 		.sidebar{
-			background-color: transparent;
 			width: 400px;
 			height: 590px;
 		}
@@ -137,9 +133,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			width: 790px;
 			height: 590px;
 			float: right;
-		}
-		.iii{
-			background-color: white;
 		}
 		.row{
 			border-bottom: 3px solid #E1E1E1;
