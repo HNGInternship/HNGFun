@@ -43,7 +43,7 @@ if (isset($_POST['payload'])) {
 		}
 
 		if ($answer_data_result[$answer_data_index]["answer"] == "") {
-			return 'I don\'t get :/. If you want to train me to understand sha please type "<code>train: your question? # The answer.</code>"';
+			return 'I don\'t get :/ If you want to train me to understand sha please type "train: question # answer"';
 		}
 
 		if (containsVariables($answer_data_result[$answer_data_index]['answer']) || containsFunctions($answer_data_result[$answer_data_index]['answer'])) {
@@ -85,7 +85,7 @@ if (isset($_POST['payload'])) {
           VALUES ( :question, :answer );';
 		$q = $conn->prepare($sql);
 		$q->execute($question_data);
-		echo "Training successful.";
+		echo "No wahala, now I understand, try me again";
 		return;
 	}
 
@@ -201,8 +201,8 @@ else {
                           if (res.trim() === "") {
                                   showResponse(
                                           `
-          I don\'t understand that question. If you want to train me to understand,
-          please type <code>"train: your question? # The answer."</code>
+          I am not understanding that question. If you want to train me to understand,
+          please type "train: question # answer."
           `
                                   );
                           } else {
