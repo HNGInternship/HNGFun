@@ -1,8 +1,4 @@
-<? //DATE
- $d = date("h:i:sa");
-?>
- 
- <?php
+<?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
   require '../../config.php';
 else
@@ -89,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     return sendResponse(200, $url, 'url');
   }
 
-  function train_zoe(String $instruction = null) //''
+  function train_zoe(String $instruction = '') 
   {
     global $db_conn;
     global $format;
@@ -159,6 +155,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
       reply($message);
   }
 } 
+
+?>
+
+<?php //DATE
+ $d = date("h:i:sa");
 ?>
 <!DOCTYPE html>
 <html>
@@ -256,7 +257,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                     <div class="chat">
                         <div id="conversation">
                           <p class="bot botSend" style="margin-top:0px;left:0px;">Hi I am Zoe.
-                              <strong><?php echo $d ?></strong>
+                              <strong><?php //echo $d ?></strong>
                           </p>
                         </div>
                         <div style="position:fixed;bottom:0;">
@@ -327,7 +328,7 @@ messageForm.onsubmit = function (e) {
     };
     appendMessage(messageField.value, 'you');
     if (messageField.value.trim().toLowerCase() === 'aboutbot')
-        appendMessage('zoe', 'bot');
+        appendMessage('zoe v1.0', 'bot');
     else $.ajax({
         type: 'POST',
         url: '/profiles/foluwa.php',
