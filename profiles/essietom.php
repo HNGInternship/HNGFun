@@ -557,7 +557,7 @@
 			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: "/profiles/iam__dharmy.php",
+				url: "/profiles/essietom.php",
 				type: "post",
 				data: {question: question},
 				dataType: "json",
