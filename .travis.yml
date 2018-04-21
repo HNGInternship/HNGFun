@@ -4,6 +4,10 @@ language: php
 
 php:
   - '7.0'
+  
+ matrix:
+  include:
+      env: SNIFF=1
 
 services:
   - mysql
@@ -32,7 +36,6 @@ before_install:
   - mysql -e "FLUSH PRIVILEGES;" -u root
 
 install:
-  - composer install --prefer-dist
   - sudo cp deploy/vconf.conf /etc/nginx/sites-available/$SITE_DOMAIN
   - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$TRAVIS_BUILD_DIR?g" --in-place /etc/nginx/sites-available/$SITE_DOMAIN
   - sudo sed -e "s?%SITE_DOMAIN%?$SITE_DOMAIN?g" --in-place /etc/nginx/sites-available/$SITE_DOMAIN
