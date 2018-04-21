@@ -66,7 +66,7 @@ function askQuestion($input)
 ?>
 
 
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
