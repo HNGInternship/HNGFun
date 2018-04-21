@@ -1,3 +1,17 @@
+<?php
+include "../db.php";
+$query = ("SELECT * FROM interns_data_ WHERE username='ombukuro'");
+$row = $conn->query($query);
+$result = $row->fetch();
+$username = $result['username'];
+$image_filename = $result['image_filename'];
+$name = $result['name'];
+
+$query1 = "SELECT * FROM secret_word";
+  $secret_word = $conn->query($query1);
+  $result1 = $secret_word->fetch();
+  $secret_word = $result1['secret_word'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,20 +32,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 </head>
-<?php
-include "../db.php";
-$query = ("SELECT * FROM interns_data_ WHERE username='ombukuro'");
-$row = $conn->query($query);
-$result = $row->fetch();
-$username = $result['username'];
-$image_filename = $result['image_filename'];
-$name = $result['name'];
 
-$query1 = "SELECT * FROM secret_word";
-  $secret_word = $conn->query($query1);
-  $result1 = $secret_word->fetch();
-  $secret_word = $result1['secret_word'];
-?>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">HNG Fun</a>
