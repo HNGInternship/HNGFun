@@ -50,6 +50,7 @@ if (stripos($question, $trainString) === FALSE and stripos($question, $convertSt
 
 $q = "SELECT answer FROM chatbot WHERE question='$question'";
 $r = mysqli_query($conn, $q);
+$result = $r->fetchAll();
 
 if (mysqli_num_rows($r) > 0)
     {
