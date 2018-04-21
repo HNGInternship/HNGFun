@@ -3,6 +3,7 @@
 $user_input = "";
 $possible_questions = array();
 $sorted_possible_questions = array();
+require 'db.php';
 
 try {
         $sql = "SELECT * FROM secret_word";
