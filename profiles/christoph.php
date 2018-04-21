@@ -4,6 +4,16 @@ if (empty($_SESSION)) {
     session_start();
 }
 
+if (file_exists('config.php')) {
+    include 'config.php';
+}
+else if (file_exists('../config.php')) {
+    include '../config.php';
+}
+else if (file_exists('../../config.php')) {
+    include '../../config.php';
+}
+
 if(!defined('DB_USER')){
     require "../../config.php";		
     try {
@@ -82,6 +92,10 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
 
         body > .container {
             padding-right: 0;
+        }
+
+        .container.profile-body {
+            padding-right : 0;
         }
 
         .profile-details, .skills {
@@ -367,9 +381,9 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
             .chatbot-menu {
                 padding: 0 0 0 15px;
                 height: 523px;
-                width: 96%;
+                width: auto;
                 top: 0;
-                right: 0;
+                right: 5px;
             }
 
             .chatbot-header {
@@ -377,11 +391,12 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
             }
 
             .chatbot-menu-content {
-                margin-top: 15px;
+                display: inline-block;
+                margin-top: -10px;
             }
 
             .chatbot-message-bot, .chatbot-message-sender {
-                width: 90%;
+                width: 87%;
             }
 
             .message-box {
@@ -506,7 +521,7 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
 <!-- Latest compiled and minified JavaScript -->
 <script src="<?=$home_url;?>vendor/bootstrap/js/bootstrap.min.js"></script>
 <script>
-var last_updated = "8:40pm 21/04/2018";
+time = "21:15 21/04/2018";
 $(document).on('click', '.chat-btn', function(){
     $('.chatbot-menu').show();
     $('.chat-btn').hide();
