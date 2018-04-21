@@ -68,7 +68,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     	$question = implode(" ",$arr);
     	//to check if answer already exists in the database...
     	$question = "%$question%";
-    	$sql = "select * from chatbot where question like :question";
+    	$sql = "Select * from chatbot where question like $question";
         $stat = $conn->prepare($sql);
         $stat->bindParam(':question', $question);
         $stat->execute();
@@ -308,7 +308,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				//	}
 				//}
 				$.ajax({
-					url: "Adeyefa.php",
+					url: "/profiles/Adeyefa.php",
 					type: "POST",
 					data: {question: question},
 					dataType: "json",
