@@ -23,10 +23,22 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
     }
     if(isset($_POST['message'])){
-      echo json_encode([
-        "status" => 1,
-        "response" =>"found Message"
-      ]);
+        if(strpos($ques, "train:") !== false){
+            trainerMode($ques);
+        }else{
+            $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE '$ques'");
+            $stmt->execute();
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $result =$stmt->fetchAll();
+            echo json_encode([
+                'status' => 1,
+                'response' => $result
+            ]);
+        }
+    //   echo json_encode([
+    //     "status" => 1,
+    //     "response" =>"found Message"
+    //   ]);
       return ;
     }
 }
