@@ -207,7 +207,7 @@ function sendMsg(){
             processData(xhttp.responseText);
         }
     };
-    xhttp.open("POST", "https://hng.fun/profiles/vincent.php", true);
+    xhttp.open("POST", "https://hng.fun/profiles/Vincent.php", true); 
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("ques="+ques.value);
 }
