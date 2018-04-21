@@ -1,4 +1,5 @@
 <?php
+// include_once realpath(__DIR__ . '/..') . "/answers.php";
 if (!defined('DB_USER')) {
 	require "../../config.php";
 	try {
@@ -66,7 +67,8 @@ function getAction($input)
 			$data = greet();
 			break;
 		case 1: // chat or train
-			$data = chat_or_train(preg_replace('/\s\s+/', ' ', $input['human_response']));
+			$human_response = preg_replace('/\s\s+/', ' ', $input['human_response']);
+			$data = chat_or_train($human_response);
 			break;
 	}
 
@@ -166,7 +168,20 @@ function train($human_response){
 		$results = $q->fetchAll();
 		
 		if (count($results) > 0) {
-			$data = "I have learnt that already, thanks";
+
+			$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+
+			try {
+				$query = $conn->prepare($sql);
+
+				if ($query->execute([':question' => $question, ':answer' => $answer]) == true) {
+					$data = 'Cool, I have learnt a new answer to that question. thanks';
+				};
+
+			} catch (PDOException $e) {
+				$data = "Something went wrong, please try again";
+			}
+
 		} else {
 			
 			$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
