@@ -1,4 +1,9 @@
 <?php
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 0c2936348e390d50c6a58feae75501892470f268
 /*
 
 DO NOT MODIFY THIS FILE!!!
