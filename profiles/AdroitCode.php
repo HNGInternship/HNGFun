@@ -1,5 +1,6 @@
 <?php
     # require "../db.php";
+    # require "../answers.php";
     if (!defined('DB_USER')){
             
             require "../../config.php";
@@ -25,6 +26,61 @@
               $image = $result['image_filename'];
           }
 
+          /************Maths Function ******************/
+          function simpleMaths($operation, $expression){
+            switch ($operation) {
+              case 'factor':
+                # factorization condition
+              $notify = "Factorize";
+                break;
+
+                case 'simplify':
+                # simplify
+              $notify = "Simplify";
+                break;
+
+                case 'derive':
+                # derivative
+              $notify = "Derivative";
+                break;
+
+                case 'integrate':
+                  # Integrate
+                $notify = "Integrate";
+                  break;
+
+                case 'zeroes':
+                  # polinomia
+                $notify = "Polinomial, find 0S in";
+                  break;
+
+                case 'tangent':
+                  # tangent
+                $notify = "Find Tangent";
+                  break;
+
+                case 'log':
+                  # logrithms
+                $notify = 'Logarithm';
+                  break;
+
+
+              
+              default:
+                # code...
+                break;
+            }
+            $url = "https://newton.now.sh/".$operation."/".$expression;
+            $result = file_get_contents($url);
+            $response = json_decode($result, true);
+            echo json_encode([
+                'question' => $notify." : ".$response['expression'],
+                'answer' =>"Your answer is: ".$response['result']
+            ]);
+        }
+
+        /******** End Adroit Bot Funct ********/
+
           /* My Chat Bot */
           function processMessage($question){
             try {
@@ -39,6 +95,7 @@
               ]);
               return;
             }
+
             /* check if in training mode (checking for train: in input) */
             $is_training = stripos($question, "train:");
             if ($is_training === false) { 
@@ -107,10 +164,22 @@
               return;
               //return "undergoing training";
             }
-            echo json_encode([
+            if(strpos($question, "(") !== false){
+              list($functionName, $paramenter) = explode('(', $question) ;
+              list($paramenter, $parameterEnd) = explode(')', $paramenter);
+              $paramenterArr = explode(",", $paramenter);
+              if(strpos($paramenter, ",")!== false){
+                $paramenterArr = explode(",", $paramenter);
+                simpleMaths($paramenterArr[0], $paramenterArr[1]);
+              }
+            }
+            else{
+              echo json_encode([
               'question' => $question,
               'answer' => "Sorry am not smart enough to answer, pls train me using the train: syntax"
-            ]);
+              ]);
+            }
+            
             return;
             
           }
@@ -20520,7 +20589,8 @@
              e.preventDefault();
                 $.ajax({
                     type: "POST",
-                    cache: false,
+                    cache: false, 
+                    // fixed
                     url: "/profiles/AdroitCode.php", 
                     dataType: "json",
                     data: $('form').serialize(), 

@@ -45,7 +45,7 @@
 				<div id="bot-display" style="background-color:; height: 300px; width: 90%; overflow: scroll; font-family: 'IBM Plex Mono', monospace;">
 					<p>Ask me any question, I will give you the answer</p>
 					<p>Ask: <b>what is time</b> to get the current time</p>
-					<p>I can send you an email, type: <b>mailTo:your email</b></p>
+					
 					<!--<p>To train me: <br>
 					Tell me the question first by typing: <em><b>#your question</b></em><br>
 					Then the answer by typing: <em><b>@the answer</b></em><br>
@@ -102,7 +102,7 @@ if(!$conn){
 			echo "<p>Sorry, I could't process that, probably my knowledge is not that wide. You can train me 
 					using the correct format. <br>
 					<b>Corrrect Format:</b><br>
-					train: your question#your answer@password</p>";
+					train: your question#your answer#password</p>";
 			echo "</div>";
 			
 		}
@@ -181,8 +181,8 @@ $question = trim($question);
 	 $count_hash = 0;
 
 	 list($train_word, $question1) = explode(':', $question);
-	 list($real_question, $real_answer) = explode('#', $question1);
-	 list($real_answer, $pass) = explode('@', $real_answer);
+	 list($real_question, $real_answer, $pass) = explode('#', $question1);
+	 //list($real_answer, $pass) = explode('@', $real_answer);
 	 
 	 $pass = trim($pass);
 	 $check_pass = 'password';
@@ -213,23 +213,6 @@ $question = trim($question);
 	 	}
 
 
-	 		else if($question[0] == 'm' && $question[4] == 'T'){
-	 				list($keyword, $email) = explode(':', $question);
-	 				$email = trim($email);
-	 				if(mail($email, 'Thanks for your time', 'It was fun chatting with you!')){
-	 					echo "<div class='this'>";
-	 			echo "<p>I sent you an email, hurray go check</p>";
-	 			echo "</div>";
-	 				}else{
-
-	 					echo "<div class='this'>";
-	 			echo "<p>Sorry couldn't send an email now, my boss has not permitted it.</p>";
-	 			echo $email;
-	 			echo "</div>";
-	 				}
-	 			
-	 		
-	 	}
 
 	 	
 

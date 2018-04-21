@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 else
   require '../config.php';
 try {
-  $db_conn = new PDO("mysql:host=".DB_HOST.";dbname=".hng_fun, DB_USER, DB_PASSWORD);
+  $db_conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
   $secret_word = $db_conn->query('SELECT secret_word FROM secret_word')->fetch(PDO::FETCH_OBJ)->secret_word;
   $user = $db_conn->query('SELECT * FROM interns_data WHERE username="foluwa"')->fetch(PDO::FETCH_OBJ);
 }
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     return sendResponse(200, $url, 'url');
   }
 
-  function train_zoe(String $instruction = null) //''
+  function train_zoe(String $instruction = '') 
   {
     global $db_conn;
     global $format;
@@ -154,62 +154,124 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     default:
       reply($message);
   }
-} //else {
+} 
 
+?>
 
+<?php //DATE
+ $d = date("h:i:sa");
 ?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Page Title</title>
+  <title>Foluwa hng</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <style type="text/css">
-  body{
-    background-color: #ff0000;
-  }
+      body {
+          height: 100%;
+          background-color: #87ceeb;
+          background: linear-gradient(to bottom right, #DDA0DD,  #87ceeb);
+      }
+      img{
+          border-radius: 50%;
+          max-height: 250px;
+          max-width: 250px;
+      }
+      input[type=text] {
+          width: 50%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          box-sizing: border-box;
+          border-radius: 4px;
+          background-color: skyblue;
+          color: white;
+        }
+         input[type=text]:focus{
+           border: 3px solid #555;
+         }
+         button{
+            border: 3px solid #555;
+            text-decoration: none;
+            margin: 4px 2px;
+            border-radius: 4px;
+         }
+      .socialMediaIcons {
+          font-size: 25px;
+      }
+      #meSection{
+          border: 2px black solid;
+          width: 50%;
+          height:auto;
+      }
+
+      #botSection{
+         border: 2px red solid;
+         width: 47%;
+         height:auto;
+         overflow-y: auto;
+         padding: 10px;
+         overflow: auto;
+}
+      .botSend{
+         position: absolute; 
+        color: red;
+        right: 100px;
+        background-color: yellow;
+        border-radius: 4px;
+
+      }
+      .humanSend {
+        position: absolute; 
+        color: green;
+        right: 0px;
+        background-color: blue;
+        border-radius: 4px;
+      }
   </style>
 </head>
 <body>
-<main class="content">
-  <div class="row">
-      <div class="col-sm-6">
-            <span class="name"><?php echo $user->name; ?></span>
-               <div id="socialMedia">
-									<div id="socialicons">
-										<a href="https://facebook.com/akintola.moronfoluwar"><i class="fa fa-facebook"></i></a>
-										<a href="https://instagram.com/fantastic_foluwa"><i class="fa fa-instagram"></i></a>
-										<a href="https://twitter.com/fantasticfoluwa"><i class="fa fa-twitter"></i></a>
-										<a href="https://github.com/foluwa"><i class="fa fa-github"></i></a>
-										<a href="https://slack.com/foluwa"><i class="fa fa-slack"></i></a>
-                  </div>
+    <main class="container content">
+      <div class="row">
+            <div class="col-sm-6" id="meSection">
+                     <div class="socialMedia">
+                       <img src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg">
+                      <span class="name"><?php echo $user->name; ?></span>
+      									<div class="socialMediaIcons">
+      										<a href="https://facebook.com/akintola.moronfoluwar"><i class="fa fa-facebook"></i></a>
+      										<a href="https://instagram.com/fantastic_foluwa"><i class="fa fa-instagram"></i></a>
+      										<a href="https://twitter.com/fantasticfoluwa"><i class="fa fa-twitter"></i></a>
+      										<a href="https://github.com/foluwa"><i class="fa fa-github"></i></a>
+      										<a href="https://slack.com/foluwa"><i class="fa fa-slack"></i></a>
+                        </div>
+                      </div>
+             </div>
+          
+           <div class="col-sm-6" id="botSection">
+                <div class="chat-head">Chat Interface</div>
+                    <div class="chat">
+                        <div id="conversation">
+                          <p class="bot botSend" style="margin-top:0px;left:0px;">Hi I am Zoe.
+                              <strong><?php //echo $d ?></strong>
+                          </p>
+                        </div>
+                        <div style="position:fixed;bottom:0;">
+                        <form id="chat" class="box" action="/profiles/foluwa.php" name="message" method="post">
+                          <input type="text" id="message" class="message" placeholder="Message"  autofocus></input>
+                          <button id="send" class="send" type="submit" >Send</button>
+                        </form>
+                        </div>
+                    </div>
                 </div>
+           </div>
       </div>
-    
-    </div>
-      <div class="col-sm-6">
-    <div class="chat-head">Chat</div>
-    <div class="chat">
-      <div class="conversation" id="conversation">
-        <p class="bot">
-          Hi I am Zoe.
-          <br>
-          Send <code>show: List of commands</code> to see a list of things I can do.
-        </p>
-      </div>
-      <form id="chat" class="box" action="/profiles/foluwa.php" name="message" method="post">
-        <textarea type="text" id="message" class="message" placeholder="Message" wrap="soft" rows=1 autofocus></textarea>
-        <button id="send" class=send type=submit>Send</button>
-      </form>
-    </div></div>
-    <footer>Foluwa @ <a href="https://hotels.ng">Hotels.ng</a></footer>
-  </div>
-  </div>
-</main>
+      <footer>Foluwa @ <a href="https://hotels.ng">Hotels.ng</a></footer>
+    </main>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
@@ -280,7 +342,6 @@ messageForm.onsubmit = function (e) {
 </script>
 
 <?php
-}
 
 $db_conn = null;
 
