@@ -326,7 +326,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					type: 'POST',
 					data: {question: question},
 					success: (response)=> {
-			        console.log($("#ans").append("<li>" + response.result +  "</li>"));
+			        $("#ans").append("<li>" + response.result +  "</li>");
 			        //alert(answer.result);
 					},
 					error: function(error){
