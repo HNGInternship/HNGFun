@@ -60,7 +60,7 @@
         <p> Cameroon</p>
     </div>
     <div class="work">
-        <p> UI/UX Designer <br> FrontEnd developer</p>
+        <p>HNG 4.0 Intern</p>
     </div>
     <div class="tel">
         <p> 237693981232</p>
