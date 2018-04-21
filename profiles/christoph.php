@@ -486,9 +486,9 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
                                 <p>eg <span class="bot-command">train : Where is Yaba # Yaba is in Lagos # password</span></p>
                                 <p>2) Complex Mode: You can train me further to answer specific questions giving me variables and specific functions. To train me for complex mode: Type <span class="bot-command">train : question [preposition] {{parameter_1}} [delimiter] {{parameter_2}} # answer {{parameter1}} [delimiter] {{parameter}} (method_name) # [password]</span> where : </p>
                                 <p><span class="bot-command">[preposition]</span> can either be <span class="bot-command">between</span> or <span class="bot-command">from</span> and <span class="bot-command">[delimiter]</span> can either be <span class="bot-command">and</span> or <span class="bot-command">to</span></p>
-                                <p>eg 1) <span class="bot-command">train : What is the distance <span class="bot-command highlight">between</span> {{Yaba}} and {{Surulere}} # The distance between {{Yaba}} <span class="bot-command highlight">and</span> {{Surulere}} (calculate_distance) # password</span></p>
-                                <p>eg 2) <span class="bot-command">train : Can you calculate the distance <span class="bot-command highlight">between</span> {{Lagos Airport}} to {{Sheraton Hotels}} # Yes, I can. The distance between {{Lagos Airport}} <span class="bot-command highlight">to</span> {{Sheraton Hotels}} (calculate_distance) # password</span></p>
-                                <p>eg 3) <span class="bot-command">train : How long is it <span class="bot-command highlight">from</span> {{UNILAG}} to {{LASU}} # The distance from {{UNILAG}} <span class="bot-command highlight">to</span> {{LASU}} (calculate_distance) # password</span></p>
+                                <p>eg 1) <span class="bot-command">train : What is the distance <span class="bot-command highlight">between</span> {{Yaba}} <span class="bot-command highlight">and</span> {{Surulere}} # The distance between {{Yaba}} <span class="bot-command highlight">and</span> {{Surulere}} (calculate_distance) # password</span></p>
+                                <p>eg 2) <span class="bot-command">train : Can you calculate the distance <span class="bot-command highlight">between</span> {{Lagos Airport}} <span class="bot-command highlight">to</span> {{Sheraton Hotels}} # Yes, I can. The distance between {{Lagos Airport}} <span class="bot-command highlight">to</span> {{Sheraton Hotels}} (calculate_distance) # password</span></p>
+                                <p>eg 3) <span class="bot-command">train : How long is it <span class="bot-command highlight">from</span> {{UNILAG}} <span class="bot-command highlight">to</span> {{LASU}} # The distance from {{UNILAG}} <span class="bot-command highlight">to</span> {{LASU}} (calculate_distance) # password</span></p>
                                 <p>Use the <span class="bot-command">get duration : [mode]</span> Command to show you the approximate duration it would take you to get from one location to the other (The last two locations) where <span class="bot-command">[mode]</span> can either be <span class="bot-command">driving</span> or <span class="bot-command">walking</span></p>
                                 <p>Use the <span class="bot-command">show direction : [mode]</span> Command to show you the direction between the last two locations on map where <span class="bot-command">[mode]</span> can either be <span class="bot-command">driving</span> or <span class="bot-command">walking</span></p>
                                 <p>eg To see list of parameters and method names to train me, type <span class="bot-command">training methods</span></p>
@@ -517,7 +517,7 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
 <!-- Latest compiled and minified JavaScript -->
 <script src="<?=$home_url;?>vendor/bootstrap/js/bootstrap.min.js"></script>
 <script>
-time = "11:04 21/04/2018";
+
 $(document).on('click', '.chat-btn', function(){
     $('.chatbot-menu').show();
     $('.chat-btn').hide();
