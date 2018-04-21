@@ -23,21 +23,14 @@ global $conn;
 if ($_SERVER['REQUEST_METHOD'] === "POST")
 	{
 	$mercy = $_POST['sent_messages'];
-<<<<<<< HEAD
-	if ($mercy == 'aboutbot')
-		{
-		echo json_encode(['status' => 3, 'response' => 'mercyBotv1.0.']);
-		}
-=======
 	
->>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
 	if (empty($mercy))
 		{
 		echo json_encode(['status' => 0]); 
 		}
 
 
-if ($mercy == 'aboutbot')
+		elseif ($mercy == 'aboutbot')
 		{
 		echo json_encode(['status' => 6]); 
 		}
@@ -113,11 +106,7 @@ if ($mercy == 'aboutbot')
 		}
 	}
 
-<<<<<<< HEAD
-
-=======
 	}
->>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
 	
 	
 	
