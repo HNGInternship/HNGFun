@@ -1,5 +1,15 @@
 <?php
 
+if (!defined('DB_USER')){
+            
+            require "../../config.php";
+        }
+        try {
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+          } catch (PDOException $pe) {
+            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+          }
+
  if (isset($_POST))
  {
 
@@ -7,7 +17,7 @@
       $message=strtolower($mesuu);
       echo "<br>";
       echo $mesuu;
-       echo " awesome <br>";
+  
       trim($message);
       $train = stripos($message, "train:");
 
@@ -229,7 +239,7 @@ body
 </style>
 <head>
 	<title>
-		FIGMA
+		test bot
 
 	</title>
 </head>
@@ -259,12 +269,12 @@ include_once("../answers.php");
    $yy='<img  src="';
    $img=$user->image_filename;
    $yz= '" style="width:240px;height:240px;border-radius: 50%;">';
-
+ $sign='<br>slack @';
    $test="frank says u ra fine";
-
-    echo $user->name.' Owino';
- echo'<br><c style="color: #FBF7F7;">WELCOME TO MY PROFILE<br>';
- echo $user->username;
+echo'<br><c style="color: #FBF7F7;">WELCOME TO MY PROFILE<br>';
+    echo $user->name.' ';
+ 
+ echo "$sign$user->username";
  echo'</c><br><br><center><div id="mid">';
  echo "$yy$img$yz";
 
@@ -275,8 +285,8 @@ include_once("../answers.php");
 		 <div id="data">
 		 	
 		 	>  STUDENT<br>
-		 	>  FRONT END &BACKEND DEVELOPER<br>> ANDROID DEVELOPER
-		 	   <br> > IN LOVE WITH GRAPHICS<br>>LIVING LIFE
+		 	>  USELESS FRONT & BACKEND DEVELOPER<br>> SHITTY ANDROID DEVELOPER
+		 	   <br> > IN LOVE WITH GRAPHICS<br>> ENJOYS LIVING LIFE<br>> LAZY TO THE CORE
 
 
 		 	 
@@ -291,7 +301,7 @@ include_once("../answers.php");
             try my bot <br>
             <div class="container">
   <img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524056521/pp.jpg" alt="Avatar" style="width:100%;">
-  <p>Hello im frank's bot i can answer some of your questions try me ........He is not around im using his profile picture dont tell him &#9786; &#9786; &#9786; you can also train me to answer questions    To train me use the format: below <br> <i style="color: #fefe00;">train: question#answer#password 
+  <p>Hello im frank's bot i can answer some of your questions try me ........He is not around im using his profile picture dont tell him  &#9786; &#9786; &#9786; you can also train me to answer questions    To train me use the format: below <br> <i style="color: #fefe00;">train: question#answer#password 
   </i></p>
  
 
@@ -306,7 +316,7 @@ include_once("../answers.php");
   
 </div>
 <form id="myform" method="POST">
-  <textarea  sid="text" name="message" id="msg" rows="0" cols="0" class="textarea" style=" padding:2px; border-radius: 12px;width: 80%;background-color:rgba(155, 22, 195, 0.32);" placeholder="enter your message"></textarea> <br>
+  <textarea  sid="text" name="message" id="ter" rows="0" cols="0" class="textarea" style=" padding:2px; border-radius: 12px;width: 80%;background-color:rgba(155, 22, 195, 0.32);" placeholder="enter your message"></textarea> <br>
                                <button id="btn1" type="submit" class="button" >send</button>
                                <br><br>
 
@@ -335,15 +345,10 @@ include_once("../answers.php");
 </body>
 </html>
 <script>
- 
-
-
-
-
 $(document).ready(function(){
     $("#btn1").click(function(){
-      var valnext2 = $("#msg").val();
-      $("#msg").val('');
+      var valnext2 = $("#ter").val();
+      $("#ter").val('');
     // var valnext2 = "<?php echo $mesuu; ?>";
       var valnext = "ghjgjkhgkjhkhjhkhkjh";
       var resusr='</center><div class="container darker" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524285838/960_720.png" alt="Avatar" class="right" style="width:60%;"><p> ';
@@ -355,7 +360,6 @@ $(document).ready(function(){
       var resbot='<div class="container" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524056521/pp.jpg" alt="Avatar" class="left" style="width:60%;"><p> Sorry to disappoint as you  can see he is too lazy to train me he did not even train me to answer simple questions .........i dont even know my name  i think you should go and beat him up ....he is embarassing me <h1> &#x1F620;&#x1F620;&#x1F620; </h1>';
         $("#async").append(resusr+" "+valnext2+" </p></div>");
          $("#async").append(resbot+"</p></div>");
-         formSubmit();
 
     });
 $('form').submit(function(ev) {
