@@ -5,7 +5,7 @@ $possible_questions = array();
 $sorted_possible_questions = array();
 
 try {
-    include_once "../config.php";
+    include_once "config.php";
     try {
         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // validate input
     $user_input = validate_input($_POST["userInput"]);
     try {
-        include_once "../answers.php";
+        include_once "answers.php";
         try {
             $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
