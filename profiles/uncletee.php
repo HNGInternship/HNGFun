@@ -9,8 +9,6 @@ if(!isset($_GET['id'])){
     require "answers.php";
 }
 
-
-$botVersion = "agbero v1.0";
 try {
 
     $sql = 'SELECT * FROM interns_data,secret_word WHERE username ="'.'uncletee'.'"';
