@@ -613,6 +613,8 @@ try {
                         
                         if ($userInputValue == 'aboutbot') {
                             $chatMessages.append("<p class='chat-text'><i class='fa fa-user'></i> Version 1.0 </p>");
+                            $chatBot.scrollTop($chatBot[0].scrollHeight);
+                            $userInput.val('');
     
                         } else {
                             $.ajax({
