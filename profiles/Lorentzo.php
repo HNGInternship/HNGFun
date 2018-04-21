@@ -59,6 +59,9 @@
     <div class="country">
         <p> Cameroon</p>
     </div>
+    <div class="work">
+        <p>HNG 4.0 Intern</p>
+    </div>
     <div class="tel">
         <p> 237693981232</p>
     </div>
