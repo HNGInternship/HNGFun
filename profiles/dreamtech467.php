@@ -141,7 +141,8 @@ require 'db.php';
 		<title>Abraham Profile</title>
 		
 		<script src="https://code.jquery.com/jquery-git.min.js"></script>
-		 <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
 		 
 		 
 		 <script>
@@ -388,7 +389,7 @@ require 'db.php';
 
 							<div class="chatFooter">
 								<label for="message" class="sr-only">Message</label>
-								<textarea id="message" name="message"  placeholder="Ask Me Your Questions" >sample</textarea>
+								<textarea id="message" name="message"  placeholder="Ask Me Your Questions" ></textarea>
 							</div>
 						</div>
 					</div>
