@@ -16,6 +16,16 @@
 }
 
 
+else if(isset($_GET['func'])){
+      $function = $_GET['func'];
+      $text = $_GET['text'];
+
+      echo doSpecialFunction($func,$text);
+        exit();
+
+}
+
+
 else if(isset($_GET['info'])){
       $message = $_GET['info'];
       echo getReply($message);
@@ -58,13 +68,23 @@ else if(isset($_GET['info'])){
 
 
 
+function doSpecialFunction($func,$text){
+
+    require '../answers.php';
+
+    pig_latin($text);
+
+}
+
+
 
 function workOnTrainData($data){
 
-    require 'db.php';
+    // require '../db.php';
 
 
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+      global $conn;
     
 
 
@@ -115,10 +135,13 @@ catch(PDOException $e)
 
 function getReply($data){
 
-    require 'db.php';
+    // require '../db.php';
 
 
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+
+      global $conn;
+
 
 
     try{
@@ -320,7 +343,7 @@ background: rgba(0, 0, 0, 0.7);
     padding-left: 0%;
     margin-right: 0%;
     padding-left: 0%;
-    min-width: 100%;
+    min-width: 100%;max-width: 100%;
 }
 
 
@@ -713,6 +736,23 @@ background: rgba(0, 0, 0, 0.7);
             }
          });
 
+
+    }
+
+
+    else if(message.indexOf('pig latin:') >= 0 || message.indexOf('pig latin :')>=0){
+
+       var text=message.substring(message.indexOf(":"));
+
+          $.ajax({
+            type: "GET",
+            url: 'profiles/Wizard of Oz.php',
+            data: { func: "pigLatin",text:text },
+            success: function(data){
+                displayMerlinMessage(data);
+                
+            }
+         });
 
 
     }
