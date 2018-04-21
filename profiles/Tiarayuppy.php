@@ -676,7 +676,7 @@ body{
     {
         flex-direction: row-reverse;
     }
-    .output-ctn
+    .recieved-message-ctn
     {
         flex-direction: row;
     }
@@ -696,7 +696,7 @@ body{
         color: white;
         background-color: #ce2395;
     }
-    .output
+    .recieved-message
     {
         background-color: transparent;
         color: white;
@@ -1065,8 +1065,8 @@ body
       margin-bottom: 30px;">
             <ul></ul>
             <?php for($index = 0; $index < count($messages); $index++ ) :?>
-                      <div class="chat-container <?= ($index % 2 == 0) ? "output-ctn" : "input-ctn"  ?>">
-                          <div class="chat <?= ($index % 2 == 0) ? "output" : "input"  ?>"><?= $messages[$index] ?></div>
+                      <div class="chat-container <?= ($index % 2 == 0) ? "recieved-message-ctn" : "input-ctn"  ?>">
+                          <div class="chat <?= ($index % 2 == 0) ? "recieved-message" : "input"  ?>"><?= $messages[$index] ?></div>
                       </div>
                   <?php endfor; ?>
             <div class="msj-rta macro"> 
@@ -1088,136 +1088,7 @@ body
             </div>
         </div> 
 
-    <!--
-    <div class="chatbox">
-        <div class="chat-area">
-
-
-          <?php for($index = 0; $index < count($messages); $index++ ) :?>
-              <div class="chat-container <?= ($index % 2 == 0) ? "output-ctn" : "input-ctn"  ?>">
-                  <div class="chat <?= ($index % 2 == 0) ? "output" : "input"  ?>"><?= $messages[$index] ?></div>
-              </div>
-          <?php endfor; ?>
-
-        </div>
-        <div class="chat-controls">
-            <form action="/profile.php?id=Tiarayuppy" method="POST" style="display: flex; width: 100%;">
-                <input type="text" name="message" style="box-sizing: border-box; flex-grow: 3; border-right: 1px solid #757575; border-left: 0px;  border-top: 0px; border-bottom: 0px; background-color: transparent; margin-left: 5px; height: 50px;" placeholder="Enter a message..."/>
-                <input type="submit" style="flex-grow: 1; background-color: #1565C0; color: #FAFAFA;"/>
-            </form>
-        </div>
-    </div>
-
-    starts here-->
-<!--    
-<div id="demo">
-    <h4 style="text-align: center;">Chat Bot Query from Duckducko </h4>
-    <h4>Train password <code>`trainisdope`</code></h4>
-    <div id="chatBotCommandDescription"></div>
-    <input id="humanInput" type="text" placeholder="Say something" />
-
-    <div class="button" onclick="if (!ChatBot.playConversation(sampleConversation,4000)) {alert('conversation already running');};">Play sample conversation!</div>
-    <div class="button" onclick="$('#chatBotCommandDescription').slideToggle();" style="margin-right:10px">What can I say?</div>
-
-    <div style="clear: both;">&nbsp;</div>
-
-    <div id="chatBot">
-        <div id="chatBotThinkingIndicator"></div>
-        <div id="chatBotHistory"></div>
-    </div>
-</div>
-<div>
-     <span style="margin-top: 150px;margin-left: 400px; font-size: 37px; font-weight: 700;color: #263238;">Chat Bot from Database</span>
-
- -->
    
-
-<!--
-
-
-<div class="container text-center">
-    <div class="row">
-        
-        <div class="round hollow text-center">
-        <a href="#" id="addClass"><span class="glyphicon glyphicon-comment"></span> Open chat with bot </a>
-        </div>
-        
-        
-    </div>
-</div>
-
-<div class="popup-box chat-popup" id="qnimate">
-              <div class="popup-head">
-                <div class="popup-head-left pull-left"><img src="http://res.cloudinary.com/tiarayuppy/image/upload/v1523634049/IMG_20171025_172725.jpg" alt="Miracle"> Tiara's chat bot</div>
-                      <div class="popup-head-right pull-right">
-                        <div class="btn-group">
-                                      <button class="chat-header-button" data-toggle="dropdown" type="button" aria-expanded="false">
-                                       <i class="glyphicon glyphicon-cog"></i> </button>
-                                <ul role="menu" class="dropdown-menu pull-right">
-                                        <li><a href="#">Media</a></li>
-                                        <li><a href="#">Block</a></li>
-                                        <li><a href="#">Clear Chat</a></li>
-                                        <li><a href="#">Email Chat</a></li>
-                                </ul>
-                        </div>
-                        
-                        <button data-widget="remove" id="removeClass" class="chat-header-button pull-right" type="button"><i class="glyphicon glyphicon-off"></i></button>
-                      </div>
-              </div>
-            <div class="popup-messages chatbox">
-            
-            <div class="direct-chat-messages chat-area">
-                    
-                     <?php for($index = 0;
-                     $index < count($messages);
-                     $index++ ) :?>
-                          <div class="chat-container <?= ($index % 2 == 0) ? "output-ctn" :
-                           "input-ctn"  ?>">
-                              <div class="chat <?= ($index % 2 == 0) ? "output" 
-                              : "input"  ?>">
-                                <?= $messages[$index] ?>
-                                    
-                                </div>
-                          </div>
-                      <?php endfor; ?>
-                  
-                <div class="chatbox popup-messages">
-                    <div class="chat-area direct-chat-messages">
-                  
-                    </div>
-                    <div class="chat-controller">
-                        <form action="/profile.php?id=Tiarayuppy" method="POST">
-                            <input type="text" name="message" placeholder="Chat with me"/>
-                            <input type="submit" value="enter" />
-
-                        </form>
-                    </div>
-                   </div>
-                    
-                </div>
-            
-            </div>
-            <div class="popup-messages-footer chat-controller">
-            <form action="/profile.php?id=Tiarayuppy" method="POST">
-            <input type="text" name="message" placeholder="Chat with me">
-            <textarea id="status_message" placeholder="Type a message..." rows="10" cols="40" name="message"></textarea>
-            <input type="submit"/>
-            <div class="btn-footer">
-            </form>
-            <button class="bg_none"><i class="glyphicon glyphicon-film"></i> </button>
-            <button class="bg_none"><i class="glyphicon glyphicon-camera"></i> </button>
-            <button class="bg_none"><i class="glyphicon glyphicon-paperclip"></i> </button>
-            <button class="bg_none pull-right" type="submit"><i class="glyphicon glyphicon-thumbs-up"></i> </button>
-           
-            </div>
-            </div>
-      </div>
-
-
-
-    </div>
-</div>
-</div>-->
 <script>
     var sampleConversation = [
         "Hi",
