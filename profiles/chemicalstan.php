@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>CHEMICALSTAN PROFILE</title>
+    <title>CHEMICALSTAN'S PROFILE</title>
 
 <!--     Bootstrap core CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -37,7 +37,7 @@
 
         <div class="row">
             <!-- Blog Entries Column -->
-        
+        <hr>
             <h2 class="text-center" >Hello Guys, I'm an intern @ HNG4.0</h2>
             <hr>
             <div class="row">
