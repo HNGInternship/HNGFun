@@ -257,7 +257,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <?php
-      require_once "../db.php";
+    
 try{
 
     $getData = 'SELECT * FROM interns_data WHERE username="codetillamgone"';
@@ -338,7 +338,7 @@ catch(PDOException $e){
 
 
                 $.ajax({
-				url: "../profiles/codetillamgone.php",
+				url: "/profiles/codetillamgone.php",
 				type: "post",
 				data: {question: question},
                 dataType: "json",
