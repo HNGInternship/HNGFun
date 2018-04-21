@@ -1,4 +1,5 @@
 <?php
+require "../../config.php";
 
 
 //connection
@@ -7,7 +8,7 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 
-$conn = mysqli_connect($servername, $username, $password, $db);
+$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 // Check connection
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
