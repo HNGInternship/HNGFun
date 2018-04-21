@@ -2,7 +2,7 @@
 <?php
 
 try{
-    $sql = "SELECT * FROM secret_word" ;
+    $sql = "SELECT * FROM secret_word LIMIT 1" ;
     $query = $conn->query($sql);
     $query->setFetchMode(PDO::FETCH_ASSOC);
     $data = $query->fetch();
@@ -13,7 +13,7 @@ try{
 }
 
 try{
-    $sql = "SELECT * FROM interns_data_ WHERE username = '" . $profile_name . "'";
+    $sql = "SELECT * FROM interns_data WHERE username = 'fantastic_genius'";
     $query = $conn->query($sql);
     $query->setFetchMode(PDO::FETCH_ASSOC);
     $data = $query->fetch();

@@ -1,6 +1,7 @@
 <?php
+    require 'db.php';
     try {
-        $sql = 'SELECT intern_id, name, username, image_filename FROM interns_data WHERE username=\'Bukola\'';
+        $sql = "SELECT intern_id, name, username, image_filename FROM interns_data WHERE username='bukola'";
         $q = $conn->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetch();
@@ -11,13 +12,74 @@
     $username= $data['username'];
     $link= $data['image_filename'];
 ?>
+<?php
+    // Our bot will send a POST request to this file and we only want the code below to run only when that happens
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        require "../answers.php";
+
+        // When we are ready to send a reply to our bot we'll call this function
+        function sendReply($answer){
+            echo json_encode(['answer' => $answer]);
+            exit();
+        }
+
+        function answerBot($question){
+            global $conn;
+
+            $question = "%".$question."%";
+            $sql = "select * from chatbot where question like :question";
+            $query = $conn->prepare($sql);
+            $query->execute([':question' => $question]);
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+            $rows = $query->fetchAll();
+            
+            // If the DB query returns more than one result pick a random one and send back to the bot
+            $rowCount = count($rows);
+            if(rowCount > 0){
+                $answer = $rows[rand(0, rowCount - 1)]['answer'];
+
+                // If the answer contains '((' it means the answer contains a call to another function
+                $startParanthesesIndex = stripos($answer, '((');
+                if(startParanthesesIndex === false){
+                    sendReply($answer);
+                }else{
+                    returnInnerFunctionResponse($answer, $startParanthesesIndex);
+                }
+            }
+        }
+
+        function returnInnerFunctionResponse($answer, $startParanthesesIndex){
+            $endParanthesesIndex = stripos($answer, '))');
+            $functionToCall = substr($answer, $startParanthesesIndex + 2, $endParanthesesIndex - $startParanthesesIndex - 2);
+
+            // If the inner function in the answer does not exist in answers.php, we let the user know
+            if(!function_exists($functionToCall)){
+                sendResponse('Sorry. I do not have an answer to your query.');
+            }else{
+                $functionCallResult = $functionToCall();
+
+                // We'll now send the reply of the function call in the original answer we got from the DB
+                sendReply(str_replace("((".$functionToCall."))", functionCallResult, $answer));
+            }
+        }
+
+        // Retrieving the question from the bot's POST request
+        $question = $_POST['question'];
+        if($question){
+            $userIsTrainingBot = stripos('train:', $question);
+            if($userIsTrainingBot){
+                
+            }
+        }
+    }
+?>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Nasa Image Search Engine</title>
+    <title>My HNG Profile</title>
     <!-- css stylesheet -->
     <link href="https://fonts.googleapis.com/css?family=Overpass:300,700" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
@@ -42,10 +104,18 @@
             width: 100%;
             display: flex;
             flex-wrap: wrap;
-            flex-direction: column;
             align-items: center;
             justify-content: space-evenly;
             height: 100vh;
+        }
+        .my-profile, .bot {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 500px;
+            width: 100%;
+            flex: 1 1 50%;
+            align-items: center;
         }
         .my-face {
             background: lightblue url('https://res.cloudinary.com/do52uumgy/image/upload/v1523890291/avatar_lphsd8.png') no-repeat center;
@@ -64,32 +134,82 @@
         .my-info div a {
             color: inherit
         }
+        .bot-con {
+            border: 1px solid #535353;
+            height: 500px;
+            padding: 1em;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .chat-bubble{
+            background-color: skyblue;
+            border-radius: 5px;
+            border: 0px solid transparent;
+            list-style-type: none;
+            margin-bottom: 16px;
+            padding: 8px;
+            font-size: 14px;
+            font-family: 'Arial', sans-serif;
+        }
+        .chat-bubble > p{
+            margin: 0px;
+            padding: 0px;
+            color: rgba(0, 0, 0, 0.8);
+        }
+        /* .actions */
+        .btn {
+            background-color: #DC5960;
+            padding: 1em;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+        .actions {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .actions input {
+            padding-left: 16px;
+            width: 80%;
+            border: 0px solid transparent;
+            border-radius: 10px;
+            margin-right: 16px;
+        }
     </style>
 </head>
 
 <body>
     <div class="wrapper">
-        <div>
-            <h1>Hi, I'm Bukola!<h1>
+        <div class="my-profile">
+            <div>
+                <h1>Hi, I'm Bukola!<h1>
+            </div>
+            <div class="my-face"></div>
+            <div class="my-info">
+                <div>
+                    <span>Fullname:</span> 
+                    Bukola Bisuga
+                </div>
+                <div>
+                    <span>Nickname:</span> 
+                    bukks
+                </div>
+                <div>
+                    <span>Email:</span> 
+                    <a href="mailto:bukksbisuga@gmail.com">bukksbisuga@gmail.com</a>
+                </div>
+                <div>
+                    <span>Interests:</span> 
+                    Athletics, Singing
+                </div>
+            </div>
         </div>
-        <div class="my-face"></div>
-        <div class="my-info">
-            <div>
-                <span>Fullname:</span> 
-                Bukola Bisuga
-            </div>
-            <div>
-                <span>Nickname:</span> 
-                bukks
-            </div>
-            <div>
-                <span>Email:</span> 
-                <a href="mailto:bukksbisuga@gmail.com">bukksbisuga@gmail.com</a>
-            </div>
-            <div>
-                <span>Interests:</span> 
-                Athletics, Singing
-            </div>
+        <div class="bot">
+           
         </div>
     </div>
     <?php
@@ -103,6 +223,48 @@
         }
         $secret_word = $data['secret_word'];
     ?>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        // This is Vue.js
+        // el is for the element we want to attach Vue.js to
+        new Vue({
+            el: '.bot',
+            data: {
+                messages: [{data: "Hey, I'm Phoenix!", sender: 'bot'}, {data: "Test message", sender: 'user'}],
+                message: ''
+            },
+            methods: {
+                getBubbleColor(sender){
+                    if(sender == 'bot')
+                    return 'skyblue';
+                    
+                    return 'tomato';
+                },
+                addMessage(){
+                    this.messages.push({data: this.message, sender: 'user'});
+                    this.message = '';
+                }
+            },
+            template: `
+            <div class="bot">
+                <div class="bot-con">
+                    <ul style="height: 500px">
+                        <li class="chat-bubble" v-for="(message, index) in messages" v-key="index" :style="{'background-color': 
+                            getBubbleColor(message.sender)}">
+                            <p>{{message.data}}</p>
+                        </li>
+                    </ul>
+                    <div class="actions">
+                        <input type="text" placeholder="Type a message" @keyup.enter="addMessage" v-model="message">
+                        <button class="btn" @click="addMessage">Send</button>
+                    </div>
+                </div>
+            </div>`,
+        });
+    </script>
 </body>
 
 </html>

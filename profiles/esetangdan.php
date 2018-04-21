@@ -46,6 +46,10 @@ nav{
 		p{
 		line-height: 5px;
 }
+	#clock{
+	padding-bottom: 10px;
+	}
+	
 </style>
 
 <body>
@@ -53,7 +57,7 @@ nav{
 </nav>
 	<div>
 		<h1 class="header">DANIEL ESETANG</h1>
-		<img src="https://scontent.flos5-1.fna.fbcdn.net/v/t1.0-9/14199239_142965549488098_349539371939339548_n.jpg?_nc_cat=0&oh=75fe2f486f7cfdf74e251a64f4d2e6f0&oe=5B64C207" height="400" width="25%" style="padding-left: 255px;">
+		<img src="https://scontent.flos5-1.fna.fbcdn.net/v/t1.0-9/14199239_142965549488098_349539371939339548_n.jpg?_nc_cat=0&oh=75fe2f486f7cfdf74e251a64f4d2e6f0&oe=5B64C207" height="400" width="79%" style="padding-left: 255px;">
 		<div class="paragraph" style="margin-left:255px;">
 		<p> Objective: To enhance my development skills.</p>
 		<p> Goal: Bring indept creativity into tech development.</p>
@@ -94,3 +98,4 @@ window.onload = function() {
 
 </body>
 </html>
+

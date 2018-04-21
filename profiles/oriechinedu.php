@@ -33,86 +33,90 @@
     
     if ($_SERVER['REQUEST_METHOD']==="POST") {
 
-         $q = $_POST['chat_message'];
+        $q = $_POST['chat_message'];
 
-         $q = trim(htmlspecialchars($q));
-         $q = trim($q, "?");
+        $q = trim(htmlspecialchars($q));
+        $q = trim($q, "?");
 
         if (empty($q)){
 
             echo json_encode(['status'=>0]); //status =0 means, user submitted empty string
-        }
+       }
            
             //check if it's a trainer
            $first_test_str = explode(':', $q);
            if ($first_test_str[0]== 'train'){
 
+                $password = 'password';
+
                 $second_test_str = explode('#', $first_test_str[1]);
 
-                if(trim($second_test_str[0]) !='' && trim($second_test_str[1] != '')){
+                if (! count($second_test_str) < 3 && trim($password)===trim($second_test_str[2])){
 
-                    $question = $second_test_str[0];
-                    $ans = $second_test_str[1];
+                    if(trim($second_test_str[0]) !='' && trim($second_test_str[1] != '')){
 
-                    // preg_match_all('/\(\((.*)\)\)/', $ans, $matches);
-
-                    // $func = $matches[0];
-
-                    // echo json_encode(['status'=>1, 'answer'=>$func]);
-                    // return;
-                    // if ($func){
-
-                    //     require_once('../answers.php');
-
-                    //     if (function_exists($func)){
-
-                    //         $function_result =  $func();
-
-                    //         echo json_encode(['status'=> 5, 'response'=>$function_result]);
-                    //         return;
-                    //     }
-                    // }
-                    
-                    //check if question or answer already exists
-                        $sql = "SELECT * FROM chatbot WHERE `question` LIKE '%$question%' OR `answer` LIKE '%$ans%'";
-                        $stm = $conn->query($sql);
-                        $stm->setFetchMode(PDO::FETCH_ASSOC);
-        
-                        $res = $stm->fetchAll();
-
-                         if ($res){
-                             echo json_encode(['status'=>4, 'response'=>'Were you thinking I am that dull not to know that <code>'.$res[0]['question']. '</code> simply require <code>'. $res[0]['answer'].'</code> as the answer? <code>Could you please ask something more challenging or teach me something serious?</code>']);
-                         }
-                           
-                         //if it's a new question, save into db
-                        else{
-                            $sql = "INSERT INTO chatbot(question, answer)
-                                    VALUES(:quest, :ans)";
-                            $stm =$conn->prepare($sql);
-                            $stm->bindParam(':quest', $question);
+                        $question = $second_test_str[0];
+                        $ans = $second_test_str[1];
+                        
+                        //check if question or answer already exists
+                            
+                            $sql = "SELECT * FROM chatbot WHERE question LIKE :question OR answer LIKE :ans";
+                            $stm = $conn->prepare($sql);
+                            $stm->bindParam(':question', $question);
                             $stm->bindParam(':ans', $ans);
+                            $stm->execute();
+                 
+                            $stm->setFetchMode(PDO::FETCH_ASSOC);
+            
+                            $res = $stm->fetchAll();
 
-                            $saved = $stm->execute();
-                            if ($saved){
+                            if ($res){
+                                echo json_encode(['status'=>4, 'response'=>'Were you thinking I am that dull not to know that <code>'.$res[0]['question']. '</code> simply require <code>'. $res[0]['answer'].'</code> as the answer? <code>Could you please ask something more challenging or teach me something serious?</code>']);
+                            }
+                            
+                            //if it's a new question, save into db
+                            else{
 
-                                echo json_encode(['status'=>1, 'answer'=>'Thanks for helping me learn']);
+                                $sql = "INSERT INTO chatbot(question, answer)
+                                        VALUES(:quest, :ans)";
+                                $stm =$conn->prepare($sql);
+                                $stm->bindParam(':quest', $question);
+                                $stm->bindParam(':ans', $ans);
+
+                                $saved = $stm->execute();
+                                if ($saved){
+
+                                    echo json_encode(['status'=>1, 'answer'=>'Thanks for helping me learn']);
+                                }
+                                else {
+                                    echo json_encode(['status'=>3, 'response'=>'Opps could not understand because of my small brain, please kinly repeat']);
+                                }
                             }
-                            else {
-                                echo json_encode(['status'=>3, 'response'=>'Opps could not understand because of my small brain, please kinly repeat']);
-                            }
+                    }
+                    else{
+                          echo json_encode(['status'=>3, 'response'=>'Opps, Invalid training format']);
                         }
+                
+                
+                }        
+                    else{
+                    echo json_encode(['status'=>3, 'response'=>'Oops you are not authorized to train me']);
                 }
            }
            else {
                     
-                $sql = "SELECT * FROM chatbot WHERE `question` LIKE '%$q%'";
-                $stm = $conn->query($sql);
-                $stm->setFetchMode(PDO::FETCH_ASSOC);
+                 $query = "$q";
+                $sql = "SELECT * FROM chatbot WHERE question LIKE :question";
+                $statement = $conn->prepare($sql);
+                $statement->bindParam(':question', $query);
+                $statement->execute();
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
 
-                $result = $stm->fetchAll();
+                $result = $statement->fetchAll();
                 if ($result) {
                     
-                        $answer = $result[0]['answer'];
+                    $answer_index = rand(0, (count($result)-1));
+                        $answer = $result[$answer_index]['answer'];
 
                         echo json_encode(['status'=>1, 'answer'=>$answer]);
                 }
@@ -124,7 +128,6 @@
     }else{
 
 ?>
-
 
         <!DOCTYPE html>
         <html lang="en">
@@ -179,13 +182,15 @@
             max-height: 350px;
             overflow-x: hidden;
         }
-        
+        /* .msg_container{
+            width:100%;
+        } */
         .top-bar {
             background: #666;
             color: white;
             padding: 10px;
-            /* position: relative; */
-            /* overflow: hidden; */
+            position: relative; 
+             overflow: hidden;
         }
         
         .msg_receive {
@@ -206,7 +211,7 @@
             padding: 10px;
             border-radius: 2px;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-            max-width: 100%;
+            max-width: 80%;
         }
         
         .messages>p {
@@ -367,7 +372,7 @@
                                                 <div class="col-md-10 col-xs-10">
                                                     <div class="messages msg_sent">
                                                         <p><code>To teach me, package your lesson in the format below</code></p>
-                                                        <p><code>train:your question#your answer</code></p>
+                                                        <p><code>train:your question#your answer#password</code></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 col-xs-2"></div>
@@ -431,14 +436,21 @@
                                        
                                        if (message != ''){
 
-                                           if (message.split(':')[0] !='train')
-                                            msg_container.append(sent_msg(message));
-                                             msg_container.scrollTop(msg_container[0].scrollHeight);
+                                           if (message.split(':')[0] !='train' && message != "aboutbot"){
+                                                msg_container.append(sent_msg(message));
+                                                msg_container.scrollTop(msg_container[0].scrollHeight);
+                                           }
+                                       }
+
+                                       if (message == "aboutbot"){
+                                            msg_container.append(bot_msg('<code>Glad you want to learn about me. Well I am HNGsoftBot version 4.0. I wouldn\'t have existed if not the HNGInternship 4.0</code>'));
+                                            msg_container.scrollTop(msg_container[0].scrollHeight);
+                                             $('.message').val('');
+                                            return;
                                        }
                                         // msg_container.append(bot_msg);
                                        
-                                        
-                                $('.message-div').removeClass('has-danger')
+                            
 
                                
 
@@ -471,6 +483,11 @@
                                             msg_container.scrollTop(msg_container[0].scrollHeight);
                                         }
                                         else if(data.status===4){
+                                            $('.message').val('');
+                                            msg_container.append(bot_msg(data.response));
+                                            msg_container.scrollTop(msg_container[0].scrollHeight);
+                                        }
+                                        else if(data.status===5){
                                             $('.message').val('');
                                             msg_container.append(bot_msg(data.response));
                                             msg_container.scrollTop(msg_container[0].scrollHeight);

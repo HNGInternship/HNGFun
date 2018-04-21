@@ -1,7 +1,7 @@
 
 <?php
-
-$sql = 'SELECT * FROM interns_data WHERE username="kingsley67"';
+include '../db.php';
+$sql = 'SELECT * FROM `interns_data` WHERE `username`="kingsley67"';
     $query = $conn->query($sql);
     $query->setFetchMode(PDO::FETCH_ASSOC);  
     $result = $query->fetch();    
@@ -10,7 +10,7 @@ $sql = 'SELECT * FROM interns_data WHERE username="kingsley67"';
     $user = $result['username'];
     $image = $result['image_filename'];
 
-$sql2 = 'SELECT * FROM secret_word';
+$sql2 = 'SELECT * FROM `secret_word`';
     $query = $conn->query($sql2);
     $query->setFetchMode(PDO::FETCH_ASSOC);  
     $result2 = $query->fetch(); 
@@ -28,7 +28,7 @@ $secret_word=$result2['secret_word'];
     }
     .intro{
         background-color: black;
-        color:white;
+      
         text-align: left;
     }
    
@@ -37,6 +37,7 @@ $secret_word=$result2['secret_word'];
     html{background-color: white}
     p{color:black}
     h1{color: coral}
+    #credentials{  color:white;}
 </style>    
     
  </head>

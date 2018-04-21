@@ -1,4 +1,14 @@
 <?php
+if(!defined('DB_USER')){
+    require "../../config.php";		
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+}
+global $conn;
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $result = $conn->query("select * from secret_word LIMIT 1");
     $result = $result->fetch(PDO::FETCH_OBJ);
@@ -7,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $result2 = $conn->query("Select * from interns_data where username = 'melas'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
 } else {
-    require './../db.php';
     require '../answers.php';
     $message = trim(strtolower($_POST['message']));
 
@@ -44,27 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         || strpos($message, 'i dey') !== false) 
         && $intent !== 'greeting_response') {
             $intent = 'casual';
-    }
-
-    if ((strpos($message, 'wetin be') !== false ||
-        strpos($message, 'what is') !== false) 
-        && (strpos($message, 'hng'))) {
-        $intent = 'about_hng';
-        $response = aboutHNG();
-    }
-
-    if ((strpos($message, 'how') !== false) 
-        && 
-        (strpos($message, 'pass') !== false || strpos($message, 'cross') !== false || 
-            strpos($message, 'go about') !== false || strpos($message, 'finish') !== false)
-        && 
-        (strpos($message, 'stage {{') !== false || strpos($message, 'stage{{') !== false)
-        ) {
-            $intent = 'about_hng_stage';
-            $startIndex = strpos($message, '{{');
-            $endIndex = strpos($message, '}}');
-            $stage = (int) trim(substr($message, $startIndex + 2, $endIndex - $startIndex - 2));
-            $response =  aboutHNGStage($stage);
     }
 
     //check for a function call
@@ -130,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if ($intent === 'unrecognized') {
         $answer = '';
-        $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$message' ORDER BY rand() LIMIT 1");
+        $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE '$message' ORDER BY rand() LIMIT 1");
         $stmt->execute();
         if($stmt->rowCount() > 0) {
             $intent = 'db_question';

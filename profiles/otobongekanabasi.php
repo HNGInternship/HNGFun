@@ -82,7 +82,7 @@
 
 					img{
 
-						width: 20%;
+						width: 80%;
 
 					}
 

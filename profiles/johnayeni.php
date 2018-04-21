@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'fact'){
       echo json_encode([
         'status' => 1,
-        'answer' => getRandomFact()
+        'answer' => getRandomFacts()
       ]);
       return;
     }
@@ -175,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
       $password = trim($split_string[2]);
       //verify if training password is correct
-      define('TRAINING_PASSWORD', 'trainpwforhng');
+      define('TRAINING_PASSWORD', 'password');
       if($password !== TRAINING_PASSWORD){
         echo json_encode([
           'status' => 0,
@@ -476,7 +476,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				type: 'POST',
 				data: {question: question},
 				dataType: 'json',
-				success: (response) => { 
+				success: (response) => {
+          response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
           let newMessage = `<div class="bubble you">
                           ${response.answer}
                       </div>`;

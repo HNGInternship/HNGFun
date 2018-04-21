@@ -212,18 +212,18 @@ try {
 	<script>
 		document.querySelector('body').classList.toggle('profile');
 		document.querySelector('nav').remove();
-		document.querySelector('footer').remove();
 		const links = document.querySelectorAll('link');
-		for (let index = 0; index < 9; index++){
-			links[index].remove();		
+		for (let index = 0; index < 9; index++) {
+			links[index].remove();
 		}
-		window.onload = function() {
-            const scripts = document.body.getElementsByTagName('script');
-            if (scripts.length > 7){
-                for (let index = (scripts.length - 4); index < scripts.length; index++) {
-				    scripts[index].remove();
-                }
-            }
+		window.onload = function () {
+			document.body.querySelectorAll('footer')[1].remove();
+			const scripts = document.body.getElementsByTagName('script');
+			if (scripts.length > 7) {
+				for (let index = (scripts.length - 3); index < scripts.length; index++) {
+					scripts[index].remove();
+				}
+			}
 		}
 	</script>
   </body>

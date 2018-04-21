@@ -1,175 +1,71 @@
 <?php
-	if($_SERVER['REQUEST_METHOD'] === "GET"){
-		if(!defined('DB_USER')){
-			require "../../config.php";		
-			try {
-			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-			} catch (PDOException $pe) {
-			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-			}
-		}
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		
-		$stmt = $conn->prepare("select secret_word from secret_word limit 1");
-		$stmt->execute();
-		$secret_word = null;
-		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-		$rows = $stmt->fetchAll();
-		if(count($rows)>0){
-			$row = $rows[0];
-			$secret_word = $row['secret_word'];	
-		}
-		$name = null;
-		$username = "Tiarayuppy";
-		$image_filename = null;
-		$stmt = $conn->prepare("select * from interns_data where username = :username");
-		$stmt->bindParam(':username', $username);
-		$stmt->execute();
-		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-		$rows = $stmt->fetchAll();
-		if(count($rows)>0){
-			$row = $rows[0];
-			$name = $row['name'];	
-			$image_filename = $row['image_filename'];	
-		}
-	}
-?>
-
-<?php
-	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		if(!defined('DB_USER')){
-			require "../../config.php";		
-			try {
-			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-			} catch (PDOException $pe) {
-			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-			}
-		}
-		require "../answers.php";
-		date_default_timezone_set("Africa/Lagos");
-		
-		if(!isset($_POST['question'])){
-			echo json_encode([
-				'status' => 1,
-				'answer' => "Please provide a question"
-			]);
-			return;
-		}
-		$question = $_POST['question']; 
-		
-		$index_of_train = stripos($question, "train:");
-		if($index_of_train === false){
-			$question = preg_replace('([\s]+)', ' ', trim($question)); 
-			$question = preg_replace("([?.])", "", $question); 
-			
-			$question = "%$question%";
-			$sql = "select * from chatbot where question like :question";
-			$stmt = $conn->prepare($sql);
-			$stmt->bindParam(':question', $question);
-			$stmt->execute();
-			$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			$rows = $stmt->fetchAll();
-			if(count($rows)>0){
-				$index = rand(0, count($rows)-1);
-				$row = $rows[$index];
-				$answer = $row['answer'];	
-			
-				$index_of_parentheses = stripos($answer, "((");
-				if($index_of_parentheses === false){ 
-					echo json_encode([
-						'status' => 1,
-						'answer' => $answer
-					]);
-				}else{
-					$index_of_parentheses_closing = stripos($answer, "))");
-					if($index_of_parentheses_closing !== false){
-						$function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
-						$function_name = trim($function_name);
-						if(stripos($function_name, ' ') !== false){ 
-							echo json_encode([
-								'status' => 0,
-								'answer' => "The function name should not contain white spaces"
-							]);
-							return;
-						}
-						if(!function_exists($function_name)){
-							echo json_encode([
-								'status' => 0,
-								'answer' => "I am sorry but I could not find that function in the database"
-							]);
-						}else{
-							echo json_encode([
-								'status' => 1,
-								'answer' => str_replace("(($function_name))", $function_name(), $answer)
-							]);
-						}
-						return;
-					}
-				}
-			}else{
-				echo json_encode([
-					'status' => 0,
-					'answer' => "Unfortunately, I cannot answer your question at the moment. you can train me now. The training data format is <br> <b>train: question # answer</b>"
-				]);
-			}		
-			return;
-		}else{
-		
-			$question_and_answer_string = substr($question, 6);
-			
-			$question_and_answer_string = preg_replace('([\s]+)', ' ', trim($question_and_answer_string));
-			
-			$question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string); 
-			$split_string = explode("#", $question_and_answer_string);
-			if(count($split_string) == 1){
-				echo json_encode([
-					'status' => 0,
-					'answer' => "Invalid training format. I dont understand your commands. <br> The correct training data format is <br> <b>train: question # answer</b>"
-				]);
-				return;
-			}
-			$que = trim($split_string[0]);
-			$ans = trim($split_string[1]);
-			if(count($split_string) < 3){
-				echo json_encode([
-					'status' => 0,
-					'answer' => "You need to enter my keyword before you train me"
-				]);
-				return;
-			}
-			$password = trim($split_string[2]);
-			
-			define('TRAINING_PASSWORD', 'trainisdope');
-			if($password !== TRAINING_PASSWORD){
-				echo json_encode([
-					'status' => 0,
-					'answer' => "You are not authorized to train me"
-				]);
-				return;
-			}
-			
-			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
-			$stmt = $conn->prepare($sql);
-			$stmt->bindParam(':question', $que);
-			$stmt->bindParam(':answer', $ans);
-			$stmt->execute();
-			$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			echo json_encode([
-				'status' => 1,
-				'answer' => "Thank you, I can now do better"
-			]);
-			return;
-		}
-		echo json_encode([
-			'status' => 0,
-			'answer' => "Unfortunately, I cannot answer your question at the moment. I need to be trained further"
-		]);
-		
-	}
-?>
-
-<?php
-	if($_SERVER['REQUEST_METHOD'] === "GET"){
+    session_start();
+    require('answers.php');
+                $dsn = "mysql:host=".DB_HOST.";dbname=".DB_DATABASE;
+   $db = new PDO($dsn, DB_USER,DB_PASSWORD);
+   $codeQuery = $db->query('SELECT * FROM secret_word ORDER BY id DESC LIMIT 1', PDO::FETCH_ASSOC);
+     $secret_word = $codeQuery->fetch(PDO::FETCH_ASSOC)['secret_word'];
+                                $detailsQuery = $db->query('SELECT * FROM interns_data WHERE name = \'Tiarayuppy\' ');
+    $username = $detailsQuery->fetch(PDO::FETCH_ASSOC)['username'];
+    if(isset($_POST['message']))
+    {
+                    array_push($_SESSION['chat_history'], trim($_POST['message']));
+                    if(stripos(trim($_POST['message']), "train") === 0)
+        {
+          
+                    $args = explode("#", trim($_POST['message']));
+                    $question = trim($args[1]);
+          $answer = trim($args[2]);
+          $password = trim($args[3]);
+          if($password == "password")
+          {
+              // Password perfect
+            $trainQuery = $db->prepare("INSERT INTO chatbot (question , answer) VALUES ( :question, :answer)");
+            if($trainQuery->execute(array(':question' => $question, ':answer' => $answer)))
+            {
+                array_push($_SESSION['chat_history'], "That works! okay continue chatting");
+            }
+            else
+            {
+                array_push($_SESSION['chat_history'], "Something went wrong somewhere");
+            }
+          }
+          else
+          {
+              // Password not correct
+             array_push($_SESSION['chat_history'], "The password entered was incorrect");
+          }
+        }
+        else
+        {
+            // Not Training
+          $questionQuery = $db->prepare("SELECT * FROM chatbot WHERE question LIKE :question");
+          $questionQuery->execute(array(':question' => trim($_POST['message'])));
+          $qaPairs = $questionQuery->fetchAll(PDO::FETCH_ASSOC);
+          if(count($qaPairs) == 0)
+          {
+                    $answer = "Sorry, I cant understand your details";
+          } else
+          {
+            $answer = $qaPairs[mt_rand(0, count($qaPairs) - 1)]['answer'];
+            $bracketIndex = 0;
+            while(stripos($answer, "{{", $bracketIndex) !== false)
+            {
+              $bracketIndex = stripos($answer, "{{", $bracketIndex);
+              $endIndex = stripos($answer, "}}", $bracketIndex);
+              $bracketIndex++;
+                  $function_name = substr($answer, $bracketIndex + 1, $endIndex - $bracketIndex -1);
+                  $answer = str_replace("{{".$function_name."}}", call_user_func($function_name), $answer);
+            }
+          }
+          array_push($_SESSION['chat_history'] , $answer);
+        }
+    }
+    if(!isset($_SESSION['chat_history']))
+    {
+                $_SESSION['chat_history'] = array('Hello! How can I help? Ask for my help. To train me, enter the command "train # question # answer # password');
+    }
+    $messages = $_SESSION['chat_history'];
 ?>
 
 <!DOCTYPE html>
@@ -184,6 +80,7 @@
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js"></script>
 
 <style>
  
@@ -466,7 +363,7 @@ body{
             font-size: 14px;
             border: 1px solid #ddd;
             width: 400px;
-	    height:100px;
+        height:300px;
         }
         .button {
             display: inline-block;
@@ -487,14 +384,14 @@ body{
             display: none;
         }
         .chatBotChatEntry {
-    padding: 20px;
-    background-color: #fff;
-    border: none;
-    margin-top: 5px;
-    font-family: 'open_sanslight', sans-serif !important;
-    font-size: 17px;
-    font-weight: normal;
-}
+        padding: 20px;
+        background-color: #fff;
+        border: none;
+        margin-top: 5px;
+        font-family: 'open_sanslight', sans-serif !important;
+        font-size: 17px;
+        font-weight: normal;
+    }
 
 .chatBotChatEntry * {
     font-family: 'open_sanslight', sans-serif !important;
@@ -594,6 +491,108 @@ body{
             opacity: 1;
         }
  }
+ .my-container
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: "Work Sans", sans-serif;
+    }
+    .content
+    {
+        display: flex;
+        flex-direction: column;
+    }
+    .row
+    {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        flex-direction: row;
+    }
+    .icon-row
+    {
+        display: flex;
+        flex-direction: row;
+        width: 70px;
+        justify-content: space-between;
+    }
+    .chatbox
+    {
+        display: center;
+        flex-direction: column;
+        background-color: #c5f9f0;
+        width: 40%;
+        min-height: 500px;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 20px;
+        border-color:#1d3baf;
+        margin-top: 25px;
+        margin-bottom: 50px;
+        margin-left: 400px;
+    }
+    .chat-area
+    {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: 450px;
+        padding-top: 20px;
+        padding-bottom: 10px;
+        padding-right: 20px;
+        padding-left: 20px;
+        overflow: scroll;
+        box-sizing: border-box;
+    }
+    .chat-controller
+    {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 50px;
+        border-top: 1px solid #1d3baf;
+        box-sizing: border-box;
+        font-size: 20px;
+    }
+    .chat-container
+    {
+        box-sizing: border-box;
+        width: 100%;
+        display: flex;
+    }
+    .input-ctn
+    {
+        flex-direction: row-reverse;
+    }
+    .output-ctn
+    {
+        flex-direction: row;
+    }
+    .chat
+    {
+        min-height: 30px;
+        padding: 10px;
+        box-sizing: border-box;
+        min-width: 30px;
+        border-radius: 8px;
+        font-size: 12px;
+        margin-bottom: 5px;
+        max-width: 60%;
+    }
+    .input
+    {
+        color: #FAFAFA;
+        background-color: #1de5d1;
+    }
+    .output
+    {
+        background-color: transparent;
+        border: 0.5px solid #1E88E5;
+        color: #1E88E5;
+    }
 
 </style>
 <body class="color">
@@ -634,24 +633,17 @@ body{
                     
   
             </div>
-
         </div>
-
-
     </div>
-
-
 </div>
 <div id="time"></div>
-  
-    
+   
    
     </div>
     
-https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js
-
-
 <div id="demo">
+    <h4 style="text-align: center;">Chat Bot Query from Duckducko </h4>
+    <h4>Train password <code>password</code></h4>
     <div id="chatBotCommandDescription"></div>
     <input id="humanInput" type="text" placeholder="Say something" />
 
@@ -663,26 +655,30 @@ https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js
     <div id="chatBot">
         <div id="chatBotThinkingIndicator"></div>
         <div id="chatBotHistory"></div>
-        
     </div>
 </div>
-<script>
-   function updateClock(){
-            console.log("called ")
-            let d = new Date().toUTCString();
-            d = d.substr(0, d.indexOf("GMT")-9)
-             d += " - " + new Date().toLocaleTimeString();
-            document.getElementById('time').innerText = d;
-            
-            return 0;
-             
-               
-        }
-         window.onload = function(){
-            updateClock();
-          var j=  setInterval(updateClock, 1000);
-         }
-</script>
+<div>
+     <span style="margin-top: 150px;margin-left: 400px; font-size: 37px; font-weight: 700;color: #263238;">Chat Bot from Database</span>
+    <div class="chatbox">
+        <div class="chat-area">
+
+
+          <?php for($index = 0; $index < count($messages); $index++ ) :?>
+              <div class="chat-container <?= ($index % 2 == 0) ? "output-ctn" : "input-ctn"  ?>">
+                  <div class="chat <?= ($index % 2 == 0) ? "output" : "input"  ?>"><?= $messages[$index] ?></div>
+              </div>
+          <?php endfor; ?>
+
+        </div>
+        <div class="chat-controller">
+            <form action="/profile.php?id=Tiarayuppy" method="POST" style="display: flex; width: 100%;">
+                <input type="text" name="message" style="box-sizing: border-box; flex-grow: 3; border-right: 1px solid #757575; border-left: 0px;  border-top: 0px; border-bottom: 0px; background-color: transparent; margin-left: 5px; height: 50px;" placeholder="Enter a message..."/>
+                <input type="submit" style="flex-grow: 1; background-color: #1565C0; color: #FAFAFA;"/>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
 <script>
     var sampleConversation = [
         "Hi",
@@ -690,9 +686,7 @@ https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js
         "Where is Hotels.ng?",
         "Where is  Nigeria",
         "Bye",
-        "What is the time",
-	 "How are you"
-
+        "What is the time"
         
     ];
     var config = {
@@ -709,7 +703,6 @@ https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js
     ChatBot.addPattern("^hi$", "response", "Hello, friend", undefined, "Say 'Hi' to be greeted back.");
     ChatBot.addPattern("^What is the time$", "response", "The Time is getTime()", undefined, "Say 'What is the time' to be greeted back.");
     ChatBot.addPattern("^bye$", "response", "See you later...", undefined, "Say 'Bye' to end the conversation.");
-    ChatBot.addPattern("^How are you$", "response", "im fine and you?...", undefined, "Say 'Fine' to end the conversation.");
     ChatBot.addPattern("(?:my name is|I'm|I am) (.*)", "response", "hi $1, thanks for talking to me today", function (matches) {
         ChatBot.setHumanName(matches[1]);
     },"Say 'My name is [your name]' or 'I am [name]' to be called that by the bot");
@@ -717,45 +710,7 @@ https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js
     ChatBot.addPattern("compute ([0-9]+) plus ([0-9]+)", "response", undefined, function (matches) {
         ChatBot.addChatEntry("That would be "+(1*matches[1]+1*matches[2])+".","bot");
     },"Say 'compute [number] plus [number]' to make the bot your math calculator");
+</script>   
 
-</script>
-<script>
-    
-else if(str.indexOf("time") != -1){
-        let inStr = str.substr(str.indexOf("time") + 5, 2);
-        if(inStr !== "in"){
-            print("Usage: What is the time in New York \n or Time in New York");
-        }else {
-        let city = str.substr(str.indexOf(inStr)+3, str.length -1)
-        //city = capitalize(city);
-        console.log("citycity", city)
-        
-        if(city == " "){
-            print("Usage: What is the time in New York \n or Time in New York");
-        }else{
-            let geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address="+ city + "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
-            fetch(geocodeUrl)
-            .then(response=>{
-                return response.json()
-            })
-            .then(response=>{
-                let lat = response.results[0].geometry.location.lat;
-                let lng = response.results[0].geometry.location.lng;
-                var targetDate = new Date() // Current date/time of user computer
-                var timestamp = targetDate.getTime()/1000 + targetDate.getTimezoneOffset() * 60 
-                let url = "https://maps.googleapis.com/maps/api/timezone/json?location="+lat+"," + lng+"&timestamp=" +timestamp+ "&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U" 
-                console.log(url);  
-                
-                fetch(url)
-                .then(response=>{
-                    return response.json();
-                })
-                .then(response=>{
-                    var offsets = response.dstOffset * 1000 + response.rawOffset * 1000 // get DST and time zone offsets in milliseconds
-                    var localdate = new Date(timestamp * 1000 + offsets) // Date object containing current time of Tokyo (timestamp + dstOffset + rawOffset)
-                    print("The time in " + capitalize(city) + " is " + localdate.toLocaleString())
-                }) 
-
-</script>
 </body>
 </html>
