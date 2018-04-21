@@ -1,14 +1,133 @@
 <?php
+  // this runs only when a post is been made via the bot chat through AJAX
   if($_SERVER['REQUEST_METHOD'] === "POST"){
+    include '../answers.php';
     if(!isset($conn)) {
-        include '../db.php';
+        include '../../config.php';
 
         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
     }
 
+    // HANDLE SLACK MESSAGING
+    $q = trim($_POST['q']);
+    $slack_parts = explode(':', $q);
+    if(isset($_POST['q']) && $slack_parts[0] == 'slack') {
+      //ensure slack format is followed
+      $slack_q = explode('#', $slack_parts[1]);
+      if((count($slack_q) != 3) || (trim($slack_q[2]) != 'password')){
+        echo "Sorry, wrong slack messaging format or incorrect password used. Use <span style=\"color:pink;\">slack: message # channel # password<span>"; exit();
+      }
+
+      $message = trim($slack_q[0]);
+      $channel = trim($slack_q[1]);
+
+      if($message == '' || $channel == '') {
+        echo "message/channel can't be empty"; exit();
+      }
+
+      function slack($message, $channel)
+      {
+          $ch = curl_init("https://slack.com/api/chat.postMessage");
+          $data = http_build_query([
+              "token" => "xoxp-340958278947-342410746578-350260911380-247d36659ea61817393ba32bac06ebb7",
+          	"channel" => $channel,
+          	"text" => $message,
+          	"username" => "toribot",
+          ]);
+          curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+          curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+          $result = curl_exec($ch);
+          curl_close($ch);
+
+          return $result;
+      }
+      // Example message will post "Hello world" into the random channel
+      if(slack($message, '#'.$channel)) {
+        echo "Sent"; exit();
+      }
+      else {
+        echo "Couldn't send"; exit();
+      }
+    }
+
     if(isset($_POST['q']) && $_POST['q'] != '') {
-      $value = $_POST['q'];
-      echo $value;
+
+      // HANDLE TRAINING
+      $words = explode(':', $q);
+      if((count($words) > 1) && ($words[0] == 'train')) {
+        $QandA = explode('#', $words[1]);
+
+        // Ensure '?' is always removed question
+        $question = trim($QandA[0]);
+        $question_length = strlen($question);
+        $question = ($question[$question_length - 1] == '?') ? substr($question, 0, $question_length -1) : $question;
+
+        $answer = trim($QandA[1]);
+        $password = trim($QandA[2]);
+
+        if(count($QandA) != 3 || $question == '' || $answer == '') {
+          echo "Incorrect training format. Train me using <span style=\"color:pink;\">train: question # answer # password<span>"; exit();
+        }
+
+        if($password == 'password') {
+          // try to retrieve question from db
+          $sql = "select * from chatbot where question like '{$question}%' LIMIT 1";
+          $query = $conn->prepare($sql);
+          $query->execute();
+          $result = $query->fetch(PDO::FETCH_OBJ);
+
+          // retrain bot if retrieved
+          if($query->rowCount()) {
+            if($answer == trim($result->answer)) {
+              echo "I've been trained on this already"; exit();
+            }
+
+            $sql = "insert into chatbot(question, answer) values('{$question}', '{$answer}')";
+            $query = $conn->prepare($sql);
+            $query->execute();
+            $result = $query->fetch(PDO::FETCH_OBJ);
+
+            if($query->rowCount()) {
+              echo "I'm familiar with this quetion. Although I have taken note of this answer as well. Thanks for retraininig me."; exit();
+            }
+            else{
+              echo "Sorry, something went wrong."; exit();
+            }
+          }
+
+          // train bot if not retrieved
+          $sql = "insert into chatbot(question, answer) values('{$question}', '{$answer}')";
+          $query = $conn->prepare($sql);
+          $query->execute();
+          $result = $query->fetch(PDO::FETCH_OBJ);
+
+          if($query->rowCount()) {
+            echo "Thank you for training me. :)"; exit();
+          }
+        }
+
+        echo "Sorry, incorrect password used."; exit();
+      }
+
+      // Get answer if question is found in db : non training mode
+      $q_length = strlen($q);
+      $q = ($q[$q_length - 1] == '?') ? substr($q, 0, $q_length - 1) : $q; // Ensure '?' is always removed question
+      $sql = "select * from chatbot where question like '$q%'";
+      $query = $conn->prepare($sql);
+      $query->execute();
+      $results = $query->fetchAll(PDO::FETCH_OBJ);
+      $rowCount = $query->rowCount();
+
+      if($rowCount == 1) { // if one answer
+        echo $results[0]->answer; exit();
+      }
+      else if($rowCount > 1) { // if multiple answers, select 1 randomly from the available
+        echo $results[rand(0, $rowCount - 1)]->answer; exit();
+      }
+      else {
+        echo "I can't find an answer to that. Train me using <span style=\"color:pink;\">train: question # answer # password<span>";
+      }
       exit();
     }
 	}
@@ -23,7 +142,7 @@
   }
 
   try {
-    $result2 = $conn->query("Select * from interns_data where username = 'toriboi'");
+    $result2 = $conn->query("select * from interns_data where username = 'toriboi'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
   } catch (Exception $e) {
     die(var_dump($e));
@@ -124,19 +243,16 @@
       #t-chat-section {
         width: 90%;
         margin: auto;
-        display: flex;
-        flex-direction: column;
       }
 
       #t-message-area {
         width: 100%;
         background-color: #999;
         margin: 20px 0px;
-        flex-shrink: 10;
         height: 100%;
         min-height: 500px;
         max-height: 500px;
-        overflow: auto;
+        overflow-y: scroll;
       }
 
       #text, #submit {
@@ -175,7 +291,7 @@
         height: auto;
         background-color: green;
         margin-left: 5px;
-        margin-right: 30%;
+        margin-right: 20%;
         border-radius: 0 5px 5px 10px;
       }
 
@@ -183,7 +299,7 @@
         height: auto;
         background-color: blue;
         margin-right: 5px;
-        margin-left: 30%;
+        margin-left: 20%;
         border-radius: 5px 10px 0 5px;
       }
 
@@ -247,6 +363,18 @@
             <div class="bot-message">
               <span class="name">toribot: </span><span class="message">Hi, I'm toribot. Pleased to meet u.</span>
             </div>
+            <div class="bot-message">
+              <span class="name">toribot: </span><span class="message">
+                You can train me using <span style="color:pink;">train: question # answer # password</span>
+              </span>
+            </div>
+            <div class="bot-message">
+              <span class="name">toribot: </span><span class="message">
+                I am able to send messages to any slack channel (not locked) on the 'HNG Internship 4' workspace.
+                Use <span style="color:pink;">slack: meesage # channel # password</span> to send a message.
+                Don't add the '#' in the channel
+              </span>
+            </div>
           </div>
           <form id="t-form">
             <input type="text" id="text" name="text" value="" placeholder="Chat with me!">
@@ -270,46 +398,28 @@
         xhttp.onreadystatechange = function() {
           if(this.readyState == 4 && this.status == 200) {
             // console.log(this.responseText);
-            addMyMessage(this.responseText);
-            setTimeout(addBotMessage, 1000);
+            addMyMessage(text);
+            setTimeout(addBotMessage(this.responseText), 500);
+            messageArea.scrollTop = messageArea.scrollHeight;
           }
         }
         xhttp.open('POST', 'profiles/toriboi.php', true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send('q='+ text);
 
-
-
-        // var text = document.getElementById('text').value;
-        // if(text == 'what time is it?') {
-        //   var you = `<div class="my-message">
-        //               <span class="name">You: </span><span class="message">`+ text +`</span>
-        //             </div>`;
-        //   var toribot = `<div class="bot-message">
-        //                   <span class="name">toribot: </span><span class="message">The time is`+ new Date('h:i:s') +`</span>
-        //                 </div>`;
-        // }
-        // else {
-        //   var you = '';
-        //   var toribot = `<div class="bot-message">
-        //                   <span class="name">toribot: </span><span class="message">Answer not found. You can train me though.</span>
-        //                 </div>`;
-        // }
-        //
-        // messageArea.innerHTML += you + toribot;
         e.preventDefault();
       }
 
       function addMyMessage(message) {
         var you = `<div class="my-message">
-                    <span class="name">You: </span><span class="message">`+ message +`</span>
+                    <span class="name">you: </span><span class="message">`+ message +`</span>
                   </div>`;
         messageArea.innerHTML += you;
       }
 
-      function addBotMessage() {
+      function addBotMessage(answer) {
         var toribot = `<div class="bot-message">
-                        <span class="name">toribot: </span><span class="message">Holla</span>
+                        <span class="name">toribot: </span><span class="message">`+ answer +`</span>
                       </div>`;
         messageArea.innerHTML += toribot;
       }
