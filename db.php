@@ -1,6 +1,4 @@
 <?php
-
-
 /*
 
 DO NOT MODIFY THIS FILE!!!
