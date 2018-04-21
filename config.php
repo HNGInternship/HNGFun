@@ -9,7 +9,11 @@ define ('DB_DATABASE', "hngfun");
 =======
 define ('DB_USER', "root");
 define ('DB_PASSWORD', "");
+<<<<<<< HEAD
 define ('DB_DATABASE', "hng_fun");
 >>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
+=======
+define ('DB_DATABASE', "hng");
+>>>>>>> 187a1f806019f7e6fc36474249347aa9fa841b1f
 define ('DB_HOST', "localhost");
 ?>
