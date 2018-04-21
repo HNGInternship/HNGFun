@@ -127,9 +127,11 @@
 }
 .frame{
     background:#e0e0de;
-    height:450px;
+    height:500px;
     overflow:hidden;
     padding:0;
+    width: 50%;
+
 }
 .frame > div:last-of-type{
     position:absolute;bottom:0;width:100%;display:flex;
@@ -693,13 +695,13 @@ body{
     }
     .input
     {
-        color: white;
+        color: black;
         background-color: #ce2395;
     }
     .recieved-message
     {
         background-color: transparent;
-        color: white;
+        color: black;
     }
     form{
         display: flex; 
@@ -1058,33 +1060,38 @@ body
 
  <h4 style="text-align: center;">My Chat bot</h4>
 
-      <div class="col-sm-4 col-sm-offset-4 frame" 
+      <div class="col-sm-5 col-sm-offset-5 frame" 
       style="box-shadow:2px 2px 4px 5px #ccc;
       background-color: #e1ecf7; 
-      border: 4px; 
+      border: 2px; 
       margin-bottom: 30px;">
             <ul></ul>
+            <div>
+        
             <?php for($index = 0; $index < count($messages); $index++ ) :?>
                       <div class="chat-container <?= ($index % 2 == 0) ? "recieved-message-ctn" : "input-ctn"  ?>">
                           <div class="chat <?= ($index % 2 == 0) ? "recieved-message" : "input"  ?>"><?= $messages[$index] ?></div>
                       </div>
                   <?php endfor; ?>
+              </div>
             <div class="msj-rta macro"> 
                      
-            <div>
-                
+            
+                <div>
                 <form action="/profile.php?id=Tiarayuppy" method="POST" style="display: flex; width: 100%;">
                   
                     <div class="text text-r" style="background:lightblue !important">
                           
-                        <input type="text" class="mytext" placeholder="Type a message"/>
+                        <input type="text" name="message" class="mytext" placeholder="Type a message"/>
                     </div> 
 
                 </div>
                 <div style="padding:10px;">
                     <input type="submit" value="send your message" style=" border-radius:10px; flex-grow: 1; background-color: green; color: #FAFAFA;"/>
                 </form>
+                </div> 
                 </div>                
+            </div>
             </div>
         </div> 
 

@@ -3,20 +3,40 @@
 $user_input = "";
 $possible_questions = array();
 $sorted_possible_questions = array();
+if (!defined('DB_USER')) {
+    include "../../config.php";
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+}
+
+try {
+    $sql = "SELECT * FROM secret_word";
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $query->fetch();
+    $secret_word = $result['secret_word'];
+}
+catch (PDOException $e) {
+    throw $e;
+}
+try {        
+    $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="orinayo"';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $me = $q2->fetch();
+}
+catch (PDOException $e) {
+    throw $e;
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // validate input
     $user_input = validate_input($_POST["userInput"]);
     try {
-        include_once "../config.php";
-        include_once "../answers.php";
-        try {
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
-        } 
-        catch(PDOException $e) {
-            echo "Error: " . $e->getMessage();
-        }
+        include "../answers.php";
 
         if (strpos($user_input, 'train') === 0) {
             $user_input = substr_replace($user_input, '', 0, 5);
@@ -183,6 +203,17 @@ function Sort_Array_By_count($a, $b)
     return (count($b) - count($a));
 }
 
+function Get_Hotelsng_wikipage()
+{
+    $api = "https://en.wikipedia.org/w/api.php?action=opensearch&search="."hotels.ng"."&format=json&callback=?";
+    $result = file_get_contents($api);
+    $result = substr_replace($result, "", 0, 5);
+    $result = substr_replace($result, "", -1);
+    $result = json_decode($result, true);
+    $result = array("answer"=>"<a href=".$result[3][0].">".$result[1][0]."</a><p>".$result[2][0]."</p>");
+    return $result;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -324,24 +355,6 @@ function Sort_Array_By_count($a, $b)
 </head>
 
 <body>
-
-<?php
-$sql = "SELECT * FROM secret_word";
-$query = $conn->query($sql);
-$query->setFetchMode(PDO::FETCH_ASSOC);
-$result = $query->fetch();
-$secret_word = $result['secret_word'];
-
-try {
-    $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="orinayo"';
-    $q2 = $conn->query($sql2);
-    $q2->setFetchMode(PDO::FETCH_ASSOC);
-    $me = $q2->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
-
-?>
             <!--home-->
             <div class="container-fluid content">
                 <h3 class="text-center text-dark display-5">Hello, I'm

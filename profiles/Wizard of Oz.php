@@ -61,7 +61,10 @@ else if(isset($_GET['info'])){
 
 function workOnTrainData($data){
 
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    require 'db.php';
+
+
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
     
 
 
@@ -112,10 +115,10 @@ catch(PDOException $e)
 
 function getReply($data){
 
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    require 'db.php';
 
 
-
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 
 
     try{
@@ -295,6 +298,7 @@ background: rgba(0, 0, 0, 0.7);
     background: rgba(0, 0, 0, 0.8);
     color: white;
     position: fixed;
+    z-index: 9999;
     top: 0;
     height: 100%;
     margin: 0px;
@@ -309,6 +313,14 @@ background: rgba(0, 0, 0, 0.7);
 
 .bot-container-reveal{
     display: block;
+}
+
+.container:first-of-type{
+    margin-left: 0%;
+    padding-left: 0%;
+    margin-right: 0%;
+    padding-left: 0%;
+    min-width: 100%;
 }
 
 
