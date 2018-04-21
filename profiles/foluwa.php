@@ -154,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     default:
       reply($message);
   }
-} 
+}  else {
 
 ?>
 
@@ -257,13 +257,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                     <div class="chat">
                         <div id="conversation">
                           <p class="bot botSend" style="margin-top:0px;left:0px;">Hi I am Zoe.
-                              <strong><?php //echo $d ?></strong>
+                              <strong><?php echo $d ?></strong>
                           </p>
                         </div>
                         <div style="position:fixed;bottom:0;">
                         <form id="chat" class="box" action="/profiles/foluwa.php" name="message" method="post">
-                          <input type="text" id="message" class="message" placeholder="Message"  autofocus></input>
-                          <button id="send" class="send" type="submit" >Send</button>
+                          <textarea type="text" id="message" class="message" placeholder="Message" wrap="soft" rows=1 autofocus></textarea>
+                          <button id="send" class=send type=submit>Send</button>
                         </form>
                         </div>
                     </div>
