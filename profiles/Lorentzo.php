@@ -59,6 +59,9 @@
     <div class="country">
         <p> Cameroon</p>
     </div>
+    <div class="work">
+        <p> UI/UX Designer <br> FrontEnd developer</p>
+    </div>
     <div class="tel">
         <p> 237693981232</p>
     </div>
