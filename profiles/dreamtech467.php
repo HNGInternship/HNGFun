@@ -117,7 +117,7 @@
 				return;		
 			}
 			else{
-				$answer = "Wow, I can only answer your question to the best of my knowledge, but you can train me to be smart: By entering the following<br>
+				$answer = "Wow, I can answer your questions to the best of my knowledge, but you can train me to be smart: By entering the following<br>
 				train: question #answer #password";
 				echo json_encode([
 					'status' => 0,
@@ -174,7 +174,7 @@
 					var classname = 'sending-'+rand;
 					var selector = '.'+classname;
 					$('#message').val('');
-					$('.chatBody').append('<div class="msgB">you<br><p class="'+classname+'">Sending...</p></div>');
+					$('.chatBody').append('<div class="msgB"><strong>you</strong><br><p class="'+classname+'">Sending...</p></div>');
 					$('.chatBody').animate({scrollTop: $('.chatBody').prop("scrollHeight")}, 1000);
 					
 				  $.ajax({
@@ -186,7 +186,7 @@
 					var answer = response.answer;
 					$(selector).html(''+message+'');
 					$(selector).removeClass(classname).addClass('sent');
-					$('.chatBody').append(' <div class="msgA">dreamtech<br><p>'+answer+'</p></div>');
+					$('.chatBody').append(' <div class="msgA"><strong>dreamtech</strong><br><p>'+answer+'</p></div>');
 				  
 											
 				  },

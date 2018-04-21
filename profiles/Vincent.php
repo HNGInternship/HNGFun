@@ -156,7 +156,7 @@ $secret_word = $get['secret_word'];
 
   <div class="main d-flex justify-content-center align-content-center ">
   <div class="d-flex justify-content-end">
-          <img src="http://res.cloudinary.com/dzrvqcbdp/image/upload/v1523712826/vincent.jpg`" class="img-thumbnail img-fluid rounded-circle "  alt="avatar">
+          <img src="http://res.cloudinary.com/dzrvqcbdp/image/upload/v1523712826/vincent.jpg" class="img-thumbnail img-fluid rounded-circle "  alt="avatar">
         </div>
     <div class=" text">
       <div class="my-5">

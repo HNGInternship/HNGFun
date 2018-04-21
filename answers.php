@@ -666,6 +666,23 @@ function show_direction ($location1, $location2, $mode) {
 
 }
 
+
+function davidQuadraticEquation($a, $b, $c){
+     $discriminat = pow($b,2) - (4 * $a * $c);
+     if($discriminat == 0){
+         $x = -($b/(2 * $a));
+         return $x; 
+     }
+     else {
+         $root = sqrt($discriminat);
+         $x1 = (-$b + $root) / (2 *$a);
+         $x2 = (-$b - $root) / (2 *$a);
+         return 'x1 is ' + $x1 + 'and' + 'x2 is ' + $x2; 
+     }
+    
+     
+ }
+
 #####################################################################################################
 #                                                                                                   #
 #           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS ABOVE            #
