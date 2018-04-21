@@ -34,9 +34,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         "Ah no know that one o. Buh you can sha teach me. If you want to just kukuma type: <b>#train: Question | Answer.</b>"
     ];
 
+<<<<<<< HEAD
+    if (strpos($message, 'hello') !== false || strpos($message, 'hi') !== false) {
+        $intent = 'greeting';
+    }
+
+    if (strpos($message, 'how are you') !== false 
+            || strpos($message, 'how do you do') !== false
+            || strpos($message, 'how u dey') !== false
+            || strpos($message, 'how you') !== false
+            || strpos($message, 'how u') !== false
+            || strpos($message, 'whatsup') !== false
+            || strpos($message, 'xup') !== false
+            || strpos($message, 'sup') !== false) {
+        $intent = 'greeting_response';
+    }
+
+    if ((strpos($message, 'ah dey') !== false 
+        || strpos($message, 'i dey') !== false) 
+        && $intent !== 'greeting_response') {
+            $intent = 'casual';
+=======
     if (strpos($message, 'aboutbot') !== false) {
         $intent = 'aboutbot';
         $response = 'Mekus v' . $version;
+>>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
     }
 
     //check for a function call

@@ -445,7 +445,11 @@ else{
 	
 
         //using ajax
+<<<<<<< HEAD
+   $.post('j-replies.php',{phpques : chat}, function(data){
+=======
    $.post('profiles/j-replies.php',{phpques : chat}, function(data){
+>>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
    		reply = data;
    		reply = "<div href = 'index.php#chat-interface#bott"+ theScrollCounter +"' class = 'bot' id = 'bott" + theScrollCounter +"'><font class = 'bot-reply'><b>jobot</b><br>"+ reply + "</font><br></div>";
         $(".chats").append(reply);//should be after bot chat    
@@ -485,4 +489,8 @@ var bottString = String('#bott'+a);
 	});
 
 
+<<<<<<< HEAD
 </script>
+=======
+</script>
+>>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
