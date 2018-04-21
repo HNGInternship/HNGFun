@@ -544,7 +544,7 @@ $(document).on('click', '.chatbot-send', function(e){
             payload.message = message_string.trim().slice(0, -11);
         }
     }
-    else if (message_string.trim().slice(0, 12) === 'get duration' || message_string.trim().slice(0, 14) === 'show direction') {
+    else if (message_string.trim().split(' : ')) {
         bot_query = 'bot_command';
     }
     else if (message_string.trim() === 'help') {
@@ -731,7 +731,7 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
                     echo json_encode($response);
                 }
                 else {
-                    $response = ['response'=>'function_error', 'message'=>'Someone has tampered with my functions, check back in a bit'];
+                    $response = ['response'=>'train_command_error', 'message'=>'Sorry, that command does not exist, you can only use: <br /> <span class="bot-command">(calculate_distance)</span> function with the train command to get the distance between 2 locations <br /> <span class="bot-command">get duration : [mode]</span> Command to get the estimated trip duration between the last 2 locations <br /> <span class="bot-command">show direction : [mode]</span> Command to display the direction between the last 2 locations'];
                     echo json_encode($response);
                 }
             }
@@ -758,7 +758,7 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
             echo json_encode($response);
         }
         else {
-            $response = ['response'=>'function_error', 'message'=>'Someone has tampered with my functions, check back in a bit'];
+            $response = ['response'=>'command_error', 'message'=>'Sorry, that command does not exist.'];
             echo json_encode($response);
         }
     }
@@ -775,7 +775,7 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
             echo json_encode($response);
         }
         else {
-            $response = ['response'=>'function_error', 'message'=>$function_name];
+            $response = ['response'=>'command_error', 'message'=>'Sorry, that command does not exist.'];
             echo json_encode($response);
         }
     }
