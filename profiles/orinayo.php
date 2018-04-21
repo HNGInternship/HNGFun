@@ -3,12 +3,12 @@
 $user_input = "";
 $possible_questions = array();
 $sorted_possible_questions = array();
-require_once "../db.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // validate input
     $user_input = validate_input($_POST["userInput"]);
     try {
+        include_once "../db.php";
         include_once "../answers.php";
 
         if (strpos($user_input, 'train') === 0) {
