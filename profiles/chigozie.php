@@ -419,44 +419,6 @@
 		}
 		return $new_sentences;
 	}
-
-	function getWeather($location=''){
-      define('OW_API_KEY', "97fbc1fbe89950b7e28508aa9148bf9d");
-        if($location === ''){
-            return "Please enter location";
-        }
-
-        $url = "http://api.openweathermap.org/data/2.5/weather?q=$location&units=metric&appid=".OW_API_KEY;
-        // $curl_session = curl_init();
-        // curl_setopt($curl_session, CURLOPT_URL, $url);
-        // curl_setopt($curl_session,CURLOPT_RETURNTRANSFER,true);
-        // curl_setopt($curl_session,CURLOPT_HEADER, false); 
-        // $result=curl_exec($curl_session);
-        // curl_close($curl_session);
-        $result = file_get_contents($url);
-        $result_object = json_decode($result);
-        if(!isset($result_object->main)){
-        	return "City not found";
-        }
-        $weather = ucfirst($result_object->weather[0]->description);
-        $temperature = $result_object->main->temp;
-        $pressure = $result_object->main->pressure;
-        $humidity = $result_object->main->humidity;
-        $windspeed = $result_object->wind->speed;
-        $result = "Weather: <b>$weather</b><br>Temperature: <b>$temperature<sup>o</sup>C</b><br>Pressure: <b>$pressure"."mb</b><br>Humidity: <b>$humidity%</b><br>Windspeed: <b>$windspeed"."km/hr</b>";
-        return $result;
-    }
-
-    function getOptimusPrimeCustomFunctions(){
-      $result = array("<b>getDayOfWeek</b>", "<b>getDaysInMonth</b>", "<b>getWeather</b>");
-      $r = "My custom functions are:<br>".implode("<br>", $result);
-      $r .= "<br>I however have to be trained first before I can answer questions based on these functions.";
-      $r .= "<br>To answer questions which do not contain a parameter but whose answer uses a custom function, the training answer must contain the function name enclosed in (( )), i.e. ((<b>function_name</b>)). For example ((<b>getDayOfWeek</b>))";
-      $r .= "<br>To answer questions which contain a parameter in the question, the training question must contain the parameter enclosed in {{ }}, i.e. {{<b>parameter</b>}}";
-      $r .= "<br>and the training answer must contain the name of the function to call enclosed in (( )), i.e. ((<b>parameter</b>)). <br>An example of this is:";
-      $r .= "<br>train: How many days does {{month}} have? # {{month}} has ((getDaysInMonth)) # trainingpassword";
-      return $r;
-    }
 ?>
 
 <?php

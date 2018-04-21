@@ -1,7 +1,7 @@
 <?php
 	if($_SERVER['REQUEST_METHOD'] === "GET"){
 		if(!defined('DB_USER')){
-			require "../../config.php";		
+			//require "../config.php";		
 			try {
 			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 			} catch (PDOException $pe) {
@@ -47,7 +47,7 @@
 <?php
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if(!defined('DB_USER')){
-			require "../../config.php";		
+			require "../db.php";		
 			try {
 					$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 				} catch (PDOException $pe) {
@@ -336,7 +336,7 @@
 		function displayUsername(message) {
 			if(username.length < 6){
         username = message;
-        send_message("Nice to meet you " + username + ". <br/>You could ask me a question right now, see my list of commands by typing <b style = 'color: #d16027'>pinky commands</b> or train me with a question of your own." +
+        send_message("Nice to meet you " + username + ". <br/>You could ask me a question right now, see my list of commands by typing <b style = 'color: #d16027'>commands</b> or train me with a question of your own." +
 				"<br/> To do that, do the following: In your text field type this: <b style = 'color: #d16027'> train: question # answer </b>");
       		}
 		}
@@ -352,7 +352,6 @@
 			$(".current_message").hide();
       		$(".current_message").delay(600).fadeIn();
       		$(".current_message").removeClass("current_message");
-			$(".chat-section").scrollTop($(".chat-section").prop("scrollHeight"));
 		}
 
 		//fuction to send the message received from the user to the php script

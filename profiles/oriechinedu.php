@@ -59,13 +59,8 @@
                         $ans = $second_test_str[1];
                         
                         //check if question or answer already exists
-                            
-                            $sql = "SELECT * FROM chatbot WHERE question LIKE :question OR answer LIKE :ans";
-                            $stm = $conn->prepare($sql);
-                            $stm->bindParam(':question', $question);
-                            $stm->bindParam(':ans', $ans);
-                            $stm->execute();
-                 
+                            $sql = "SELECT * FROM chatbot WHERE `question` LIKE '%$question%' OR `answer` LIKE '%$ans%'";
+                            $stm = $conn->query($sql);
                             $stm->setFetchMode(PDO::FETCH_ASSOC);
             
                             $res = $stm->fetchAll();
@@ -76,7 +71,6 @@
                             
                             //if it's a new question, save into db
                             else{
-
                                 $sql = "INSERT INTO chatbot(question, answer)
                                         VALUES(:quest, :ans)";
                                 $stm =$conn->prepare($sql);
@@ -105,14 +99,11 @@
            }
            else {
                     
-                 $query = "$q";
-                $sql = "SELECT * FROM chatbot WHERE question LIKE :question";
-                $statement = $conn->prepare($sql);
-                $statement->bindParam(':question', $query);
-                $statement->execute();
-                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                $sql = "SELECT * FROM chatbot WHERE `question` LIKE '%$q%'";
+                $stm = $conn->query($sql);
+                $stm->setFetchMode(PDO::FETCH_ASSOC);
 
-                $result = $statement->fetchAll();
+                $result = $stm->fetchAll();
                 if ($result) {
                     
                     $answer_index = rand(0, (count($result)-1));
@@ -128,6 +119,7 @@
     }else{
 
 ?>
+
 
         <!DOCTYPE html>
         <html lang="en">
@@ -436,21 +428,14 @@
                                        
                                        if (message != ''){
 
-                                           if (message.split(':')[0] !='train' && message != "aboutbot"){
-                                                msg_container.append(sent_msg(message));
-                                                msg_container.scrollTop(msg_container[0].scrollHeight);
-                                           }
-                                       }
-
-                                       if (message == "aboutbot"){
-                                            msg_container.append(bot_msg('<code>Glad you want to learn about me. Well I am HNGsoftBot version 4.0. I wouldn\'t have existed if not the HNGInternship 4.0</code>'));
-                                            msg_container.scrollTop(msg_container[0].scrollHeight);
-                                             $('.message').val('');
-                                            return;
+                                           if (message.split(':')[0] !='train')
+                                            msg_container.append(sent_msg(message));
+                                             msg_container.scrollTop(msg_container[0].scrollHeight);
                                        }
                                         // msg_container.append(bot_msg);
                                        
-                            
+                                        
+                                $('.message-div').removeClass('has-danger')
 
                                
 

@@ -1,6 +1,5 @@
 <?php
 require('/../db.php');
-require('/../answers.php');
 
 $connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 $result = mysqli_query($connect, "SELECT * FROM secret_word");
@@ -18,10 +17,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	
 		$training_mode = stripos($question, "train:");
 		$find_average = stripos($question, "avg:");
-		$find_sum = stripos($question, "sum:");
-		$find_multiply = stripos($question, "multiply:");
-		$find_say = stripos($question, "say:");
-		$bot_info = stripos($question, "aboutbot");
 		
 		if($training_mode !== false){
 			$string = trim($question);
@@ -36,13 +31,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				echo json_encode(['state' => 0, 'msg' => "I'm sorry, something went wrong"]);
 			}
 		}
-		elseif($bot_info !== false){
-			echo json_encode(['state' => 1, 'msg' => "Bot v1.1 Developed by Afolayan Stephen"]);
-		}
 		elseif($find_average !== false){
 			$value = explode(" ", trim($question));
 			
-			$numbers = explode(",", trim($value[1], ","));
+			$numbers = explode(",", trim($value[1]));
 			$sum_of_numbers = 0;
 			
 			foreach($numbers as $num){
@@ -52,34 +44,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			$average = $sum_of_numbers/ count($numbers);
 			
 			echo json_encode(['state' => 0, 'msg' => "The average of <b>" . $value[1] . "</b> is " . $average]);
-		}
-		elseif($find_sum !== false){
-			$value = explode(" ", trim($question, ","));
-			
-			$numbers = explode(",", trim($value[1], ","));
-			$sum_of_numbers = 0;
-			
-			foreach($numbers as $num){
-				$sum_of_numbers += $num;
-			}
-			
-			echo json_encode(['state' => 0, 'msg' => "The sum of <b>" . $value[1] . "</b> is " . $sum_of_numbers]);
-		}
-		elseif($find_multiply !== false){
-			$value = explode(" ", trim($question));
-			
-			$numbers = explode(",", trim($value[1], ","));
-			$multiplied = 1;
-			
-			foreach($numbers as $num){
-				$multiplied *= $num;
-			}
-			
-			echo json_encode(['state' => 0, 'msg' => "The product of <b>" . $value[1] . "</b> is " . $multiplied]);
-		}
-		elseif($find_say !== false){
-			$words = trim($question, "say:");
-			echo json_encode(['state' => 'say', 'msg' => $words]);
 		}
 		else{
 			
@@ -103,7 +67,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			}
 			else{
 				$sanitized_question = mysqli_real_escape_string($connect, trim($question));
-				$perform_answer = mysqli_query($connect, "SELECT * FROM chatbot WHERE question LIKE '%$sanitized_question%' ORDER BY RAND()");
+				$perform_answer = mysqli_query($connect, "SELECT * FROM chatbot WHERE question LIKE '%$sanitized_question%'");
 				if($perform_answer){
 					if($rows = mysqli_num_rows($perform_answer) > 0){
 						$result = mysqli_fetch_assoc($perform_answer);
@@ -121,9 +85,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			}
 		}
 	}
-}else{
+}
 ?>
 
+<?php if($_SERVER['REQUEST_METHOD'] === 'GET'){ ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -288,7 +253,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			<h6>Let's talk</h6>
 			<ul class="connect">
 				<li><a style="color: #3b5998;" href="https://www.facebook.com/afolayan.stephen"><span class="fa fa-facebook-square"></span></a></li>
-				<li><a style="color: #db4437;" href="https://plus.google.com/100463981266653803670"><span class="fa fa-google-plus-square"></span></a></li>
+				<li><a style="color: #db4437;"href="https://plus.google.com/100463981266653803670"><span class="fa fa-google-plus-square"></span></a></li>
 				<li><a style="color: #212529;" href="https://github.com/jilh"><span class="fa fa-github-square"></span></a></li>
 			</ul>
 		</div>
@@ -305,12 +270,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 						Be free to ask me anything. I know some arithmetic,
 						and i can answer some few questions.
 						<hr>
-						<div>This are my functions</div>
-							Train me with <code>train: question # answer</code><br>
-							Find Average with <code>avg: num1,num2,..</code><br>
-							Find sum with <code>sum: num1,num2,..</code><br>
-							Find product with <code>multiply: num1,num2,..</code><br>
-							Make me talk with <code>say: word</code><br>
+						You can train me with <code>train: question # answer</code>
+						You can also find average of numbers with <code>avg: num1,num2,..</code>
 					</span>
 				</div>
 				<form action="#" method="POST" onSubmit="chatBot(); return false;">
@@ -320,7 +281,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			</div>
 		</div>
 		<script src="../HNGFun/vendor/jquery/jquery.min.js"></script>
-		<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
 		<script type="text/javascript">
 			function chatBot(){
 				let botMessage = $('#message').val();
@@ -339,23 +299,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 						data: {message: botMessage},
 						dataType: "json",
 						success: function(response){ //alert(response);
-							if(response.state === "say")
-							{
-								$('.pan-body').append('<span class="design reciever"><span class="name">Bot</span>' + response.msg + '</span>');
-								$(".pan-body").scrollTop($(".pan-body")[0].scrollHeight);
-								responsiveVoice.speak(response.msg, 'UK English Male');
-								return false;
-							}
-							else if(response.state === 1){
-								$('.pan-body').append('<span class="design reciever"><span class="name">Bot</span>' + response.msg + '</span>');
-								$(".pan-body").scrollTop($(".pan-body")[0].scrollHeight);
-								return false;
-							}
-							else{
-								$('.pan-body').append('<span class="design reciever"><span class="name">Bot</span>' + response.msg + '</span>');
-								$(".pan-body").scrollTop($(".pan-body")[0].scrollHeight);
-								return false;
-							}
+							$('.pan-body').append('<span class="design reciever"><span class="name">Bot</span>' + response.msg + '</span>');
+							$(".pan-body").scrollTop($(".pan-body")[0].scrollHeight);
+							return false;
 						}
 					});
 				}
