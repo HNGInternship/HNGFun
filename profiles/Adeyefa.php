@@ -102,7 +102,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style type="text/css">
 		body{
-			background-color: #D4F4F4;
 			background-image: url(http://res.cloudinary.com/adeyefa/image/upload/v1524267920/turntable-1109588__340.jpg);
 			height: 100%; 
 		    background-position: center;
@@ -134,11 +133,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 		.sidebar{
 			background-color: #FD4F5F;
-			width: 465px;
-			height: 590px;
+			width: 400px;
+			height: auto;
 		}
 		.bbb{
-			background-color: #3DFFDF;
 			width: 790px;
 			height: 590px;
 			float: right;
@@ -163,7 +161,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			color: #FFF;
 			padding: 7px;
 			position: absolute;
-			width: 300px;
+			width: 400px;
 			height: auto;
 		}
 		input{
