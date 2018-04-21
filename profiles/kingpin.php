@@ -1,77 +1,4 @@
-<?php
 
-if (!defined('DB_USER')){
-            
-            require "../../config.php";
-        }
-        try {
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-          } catch (PDOException $pe) {
-            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-          }
-
- if (isset($_POST))
- {
-
-      $mesuu = $_POST['message'];
-      $message=strtolower($mesuu);
-      echo "<br>";
-      echo $mesuu;
-  
-      trim($message);
-      $train = stripos($message, "train:");
-
-      if( $train)
-      {
-
-      }
-
-      if($message=='aboutbot'){
-
-           $botresp='franks bot version 1.45';
-      }
-
-
-
-
-/*
-      elseif (!$message) {
-
-
-
-        # code...
-         $result3 = $conn->query("Select * from chatbot where question = '$message'");
-        $result3->execute();
-      //  $dbresp = $result3->fetch(PDO::FETCH_OBJ);
-      $rows = $dbresp->fetchAll();
-
-
-            if(count($rows)<0)
-            {
-              $botresp = $row['answer'];
-              echo "$botresp";
-            }
-              if(count($rows)>0)
-             {
-              $index = rand(0, count($rows)-1);
-              $row= $rows[$index];
-              $botresp = $row['answer'];    
-              echo "$botresp";
-              }
-         if(count($rows)==0)
-         {
-          $botresp='sorry i have no answer to that yet .......but you an train me how to answer it ';
-          echo "$botresp";
-         }
-
-
-      }
-
-      */
-    
- }
-
-  ?>
 
 
 <!DOCTYPE html>
@@ -244,6 +171,79 @@ body
 	</title>
 </head>
 <body>
+  <?php
+
+if (!defined('DB_USER')){
+            
+            require "../../config.php";
+        }
+        try {
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+          } catch (PDOException $pe) {
+            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+          }
+
+ if (isset($_POST))
+ {
+
+      $mesuu = $_POST['message'];
+      $message=strtolower($mesuu);
+     
+  
+      trim($message);
+      $train = stripos($message, "train:");
+
+      if( $train)
+      {
+
+      }
+
+      if($message=='aboutbot'){
+
+           $botresp='franks bot version 1.45';
+      }
+
+
+
+
+/*
+      elseif (!$message) {
+
+
+
+        # code...
+         $result3 = $conn->query("Select * from chatbot where question = '$message'");
+        $result3->execute();
+      //  $dbresp = $result3->fetch(PDO::FETCH_OBJ);
+      $rows = $dbresp->fetchAll();
+
+
+            if(count($rows)<0)
+            {
+              $botresp = $row['answer'];
+              echo "$botresp";
+            }
+              if(count($rows)>0)
+             {
+              $index = rand(0, count($rows)-1);
+              $row= $rows[$index];
+              $botresp = $row['answer'];    
+              echo "$botresp";
+              }
+         if(count($rows)==0)
+         {
+          $botresp='sorry i have no answer to that yet .......but you an train me how to answer it ';
+          echo "$botresp";
+         }
+
+
+      }
+
+      */
+    
+ }
+
+  ?>
   <?php 
 //require "../db.php";
 include_once("../answers.php"); 
