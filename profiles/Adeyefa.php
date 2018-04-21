@@ -302,7 +302,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#queries").append("<li>" + question + "</li>");
+				$("#queries").append("<li>" question  "</li>");
 					//let newMessage = `<div class="iro">
 	                  //${question}
 	                //</div>`;
@@ -326,7 +326,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					type: 'POST',
 					data: {question: question},
 					success: (response)=> {
-			        $("#ans").append("<li>" + response.result +  "</li>");
+			        $("#ans").append("<li>" response.result "</li>");
 			        //alert(answer.result);
 					},
 					error: function(error){
