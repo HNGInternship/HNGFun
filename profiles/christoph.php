@@ -3,19 +3,14 @@ error_reporting(0);
 if (empty($_SESSION)) {
     session_start();
 }
-if (empty($conn)) {
-    include("../db.php");
 
-    define('DB_CHARSET', 'utf8mb4');
-    $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
-
-    $opt = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES => false
-    ];
-
-    $conn = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
+if(!defined('DB_USER')){
+    require "../../config.php";		
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
 }
 
 $intern_details_query = $conn->query(
