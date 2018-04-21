@@ -910,6 +910,7 @@ header h1 {
                                 e.preventDefault();
                             
                                 var message = $('.message').val();
+				    message = message.trim();
                                 var messenger_dezs = $('.messenger_dez');
 
                                 let bot_msg =  (answer)=>{
