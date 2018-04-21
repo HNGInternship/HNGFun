@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $initiate->execute();
             $initiate->setFetchMode(PDO::FETCH_ASSOC);
             if($initiate){
-                echo json_encode(['status' => 1, 'reply' => "I have been trained"]);
+                echo json_encode(['status' => 1, 'reply' => "I have been trained, now you can ask me anything"]);
                 return; 
             } }
             catch (PDOException $e) {
@@ -147,23 +147,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>codetillamgone page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type="text/css">
-        h1{
-            text-align : center;
-            position:fixed;
-            width:100%;
-            top:0px;
-            margin-top:0px;
-            margin-left:0px;
-            padding:10px;
-            text-align:center;
-            background-color:cornflowerblue;
-            color: white;
-        }.box{
-            margin-top:60px;
+     .box{
+            margin-top:30px;
             float:left;
             padding: 10px;
             text-align: center;
-            margin-left: 70px;
+            margin-left: 200px;
             height: 400px;
             width: 300px;
             background-color:cornflowerblue;
@@ -180,9 +169,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background-color:white;
         }.chatbotbox {
             background-color:white;
-            margin-top:50px;
+            margin-top:30px;
             float:left; 
-            margin-left:200px;
+            margin-left:100px;
             padding:20px;
             height:450px;
             width: 450px;
@@ -261,7 +250,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php
    
 try{
-
+    
     $getData = 'SELECT * FROM interns_data WHERE username="codetillamgone"';
     $query1 = $conn->query($getData);
     $query1->setFetchMode(PDO::FETCH_ASSOC);
@@ -276,7 +265,7 @@ catch(PDOException $e){
    $user = $result1['username'];
    $image = $result1['image_filename'];
  ?>
-  <h1 class= "h1">Welcome to <i>@codetillamgone</i>'s Profile</h1>  
+ 
 <br/>
     <div class="box">
         <p class="one">
@@ -340,7 +329,7 @@ catch(PDOException $e){
 
 
                 $.ajax({
-				url: "/profiles/codetillamgone.php",
+				url: "../profiles/codetillamgone.php",
 				type: "post",
 				data: {question: question},
                 dataType: "json",
