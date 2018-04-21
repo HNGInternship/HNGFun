@@ -14,6 +14,237 @@
 		$username = $data["username"];
 		$imagelink = $data["image_filename"];
 
+?>
+<?php
+
+//ini_set("output_buffering",4096);
+//session_start();
+
+if(isset($_GET['opheuslocation'])) {
+echo $time = get_time($_GET['opheuslocation']);
+}
+elseif(isset($_GET['opheusweather'])) {
+echo $weather = get_weather($_GET['opheusweather']);
+}
+elseif(isset($_GET['browser'])) {
+echo $browser = get_browser_name($_SERVER['HTTP_USER_AGENT']);
+}
+elseif(isset($_GET['opheustrain'])) {
+	$message = $_GET['opheustrain'];
+echo $train = train_bot($message);
+}
+elseif(isset($_GET['opheuscheck'])) {
+	$check = $_GET['opheuscheck'];
+echo $check = bot_answer($check);
+}
+elseif(isset($_GET['device'])) {
+$browser = get_browser_name($_SERVER['HTTP_USER_AGENT']);
+$device = get_device_name($_SERVER['HTTP_USER_AGENT']);
+echo "you are currently using a ,".$browser.", browser on a  ,".$device.", Device.";
+}
+
+
+
+
+
+
+
+
+
+
+function bot_answer($check) {
+
+require 'db.php';
+
+// Create connection
+//$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+//if ($conn->connect_error) {
+ //   die("Connection failed: " . $conn->connect_error);
+//} 
+
+
+
+$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$check' ORDER BY rand() LIMIT 1");
+$stmt->execute();
+if($stmt->rowCount() > 0)
+{
+  while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+  {
+		echo $row["answer"];
+  }
+} else {
+    echo "Well i couldnt understand what you asked. But you can teach me.";
+	echo "Type ";
+	echo "train: write a question | write the answer.  "; 
+	echo "to teach me.";
+}
+}
+
+
+
+
+
+
+
+
+
+function train_bot ($message) {
+function multiexplode ($delimiters,$string) {
+    
+    $ready = str_replace($delimiters, $delimiters[0], $string);
+    $launch = explode($delimiters[0], $ready);
+    return  $launch;
+}
+
+//$text = "#train: this a question | this my answer :)";
+$exploded = multiexplode(array(":","|"),$message);
+
+$question = trim($exploded[1]);
+
+$answer = trim($exploded[2]);
+
+require 'db.php';
+
+try {
+    
+    $sql = "INSERT INTO chatbot (id, question, answer)
+VALUES ('', '$question', '$answer')";
+    // use exec() because no results are returned
+    $conn->exec($sql);
+    
+    echo "Thank you! i just learnt something new, my master would be proud of me.";
+	
+	}
+catch(PDOException $e)
+    {
+    echo $sql . "<br>" . $e->getMessage();
+    }
+	
+$conn = null;
+//////////////////////
+
+
+//And output will be like this:
+// Array
+// (
+//    [0] => here is a sample
+//    [1] =>  this text
+//    [2] =>  and this will be exploded
+//    [3] =>  this also 
+//    [4] =>  this one too 
+//    [5] => )
+// )
+
+}
+
+
+
+function get_browser_name($user_agent)
+{
+    if (strpos($user_agent, 'Opera') || strpos($user_agent, 'OPR/')) return 'Opera';
+    elseif (strpos($user_agent, 'Edge')) return 'Edge';
+    elseif (strpos($user_agent, 'Chrome')) return 'Chrome';
+    elseif (strpos($user_agent, 'Safari')) return 'Safari';
+    elseif (strpos($user_agent, 'Firefox')) return 'Firefox';
+    elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) return 'Internet Explorer';
+    
+    return 'Other';
+
+}
+// Usage:
+
+
+function get_device_name($user_agent)
+{
+    if (strpos($user_agent, 'Macintosh') || strpos($user_agent, 'mac os')) return 'Mac';
+    elseif (strpos($user_agent, 'Linux')) return 'Linux';
+    elseif (strpos($user_agent, 'Windows NT')) return 'Windows';
+    elseif (strpos($user_agent, 'iPhone')) return 'iPhone';
+    elseif (strpos($user_agent, 'Android')) return 'Android';
+    elseif (strpos($user_agent, 'iPad') ) return 'iPad';
+    
+    return 'Other';
+}
+
+
+
+
+
+
+///https://ipapi.co/{$ip}/json\\\
+///========================// By Opheus \\========================\\\
+//$ip       = $_SERVER['REMOTE_ADDR']; 
+//$date     = gmdate("r"); 
+//$details  = json_decode(file_get_contents("https://ipapi.co/{$ip}/json")); 
+//$host     = $details->hostname; 
+//$city     = $details->city; 
+//$code     =$details->region_code;
+//$state     = $details->region; 
+//$zipcode     = $details->postal; 
+//$ccode     = $details->country; 
+//$cntry  = $details->country_name; 
+//$md5      = md5($date); 
+//$sha1     = sha1($date); 
+
+
+function get_time($city)
+{
+
+	
+	$url = "https://www.amdoren.com/api/timezone.php?api_key=u3YfnHN8xmibFPbxAjRhtWYGXhAiKy&loc=$city";
+	$ch = curl_init();  
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15); 
+	curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+	$json_string = curl_exec($ch);
+	$parsed_json = json_decode($json_string);
+	$newtime = $parsed_json->time;
+	echo $newtime;
+}
+
+function get_weather($city) {
+ 
+#Find latitude and longitude
+ 
+$url = "http://maps.googleapis.com/maps/api/geocode/json?address=Lagos";
+$json_data = file_get_contents($url);
+$result = json_decode($json_data, TRUE);
+$latitude = $result['results'][0]['geometry']['location']['lat'];
+$longitude = $result['results'][0]['geometry']['location']['lng'];
+
+
+
+
+$url2 = "https://www.amdoren.com/api/weather.php?api_key=u3YfnHN8xmibFPbxAjRhtWYGXhAiKy&lat=$latitude&lon=$longitude";
+	
+	$ch = curl_init();  
+	curl_setopt($ch, CURLOPT_URL, $url2);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15); 
+	curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+	$json_string = curl_exec($ch);
+	$parsed_json = json_decode($json_string);
+	$forecasts = $parsed_json->forecast;
+	
+	foreach ($forecasts as $forecast) {
+		$summary = $forecast->summary;
+		$icon = $forecast->icon;
+		echo "<img src=".$icon."></img> $summary";
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
 
 
 ?> 
@@ -328,35 +559,14 @@ button:hover, a:hover {
 $ip       = $_SERVER['REMOTE_ADDR']; 
 $ipsample = "197.211.58.103";
 $date     = gmdate("r"); 
-$details  = json_decode(file_get_contents("https://ipapi.co/{$ip}/json/")); 
+$details  = json_decode(file_get_contents("https://ipapi.co/{$ipsample}/json/")); 
 $city     = $details->city; 
 $code     =$details->region_code;
 $state     = $details->region; 
 $zipcode     = $details->postal; 
 $cntry  = $details->country_name; 
 
-function get_browser_name($user_agent)
-{
-    if (strpos($user_agent, 'Opera') || strpos($user_agent, 'OPR/')) return 'Opera';
-    elseif (strpos($user_agent, 'Edge')) return 'Edge';
-    elseif (strpos($user_agent, 'Chrome')) return 'Chrome';
-    elseif (strpos($user_agent, 'Safari')) return 'Safari';
-    elseif (strpos($user_agent, 'Firefox')) return 'Firefox';
-    elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) return 'Internet Explorer';
-    
-    return 'Other';
-}
-function get_device_name($user_agent)
-{
-    if (strpos($user_agent, 'Macintosh') || strpos($user_agent, 'mac os')) return 'Mac';
-    elseif (strpos($user_agent, 'Linux')) return 'Linux';
-    elseif (strpos($user_agent, 'Windows NT')) return 'Windows';
-    elseif (strpos($user_agent, 'iPhone')) return 'iPhone';
-    elseif (strpos($user_agent, 'Android')) return 'Android';
-    elseif (strpos($user_agent, 'iPad') ) return 'iPad';
-    
-    return 'Other';
-}
+
 
 // Usage:
 
@@ -447,7 +657,7 @@ function ai(message){
 		trainer = message;
 		$.ajax({
 			type: "GET",
-			url: 'answers.php',
+			url: 'profiles/opheus.php',
 			data: {opheustrain: trainer },
 			success: function(data){
 				send_message(data);
@@ -459,7 +669,7 @@ function ai(message){
 		elses = message;
 		$.ajax({
 			type: "GET",
-			url: 'answers.php',
+			url: 'profiles/opheus.php',
 			data: {opheuscheck: elses },
 			success: function(data){
 				send_message(data);

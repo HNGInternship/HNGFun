@@ -1,5 +1,16 @@
-
 <?php
+    # require "../db.php";
+    if (!defined('DB_USER')){
+            
+            require "../../config.php";
+    }
+    try {
+          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        } catch (PDOException $pe) {
+          die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+        }
+
+        global $conn;
     try {
           $query = $conn->query("SELECT * FROM secret_word");
           $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -13,6 +24,106 @@
               $fullname = $result['name'];
               $image = $result['image_filename'];
           }
+
+          /* My Chat Bot */
+          function processMessage($question){
+            try {
+                $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+            } catch (PDOException $pe) {
+                die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+            }
+            if ($question === "aboutbot") {
+              echo json_encode([
+                'question' => $question,
+                'answer' => "Adoitbot v-1.0.0"
+              ]);
+              return;
+            }
+            /* check if in training mode (checking for train: in input) */
+            $is_training = stripos($question, "train:");
+            if ($is_training === false) { 
+              /* bot not training, process question */
+              //$answer_stmt->execute()
+              $query = $conn->prepare("SELECT * FROM chatbot  WHERE question LIKE :question ORDER BY RAND() Limit 1");
+              $query->bindParam(':question', $question);
+              $query->execute();
+              $result = $query->fetch();
+              $answer = $result['answer'];
+              if (isset($answer)) {
+                echo json_encode([
+                  'question' => $question,
+                  'answer' => $answer
+                ]);
+                return;
+              }
+              /* returned message when bot can't find answer*/
+            }
+            elseif ($is_training !== false) {
+              # bot training process
+              $train = substr($question, 6);
+              $training = preg_replace('([\s]+)', ' ', trim($train));
+              $sperate_ques_ans = explode("#", $training);
+              if (count($sperate_ques_ans) == 2) {
+                # it training password was not supplied;
+                echo json_encode([
+                  'question' => $question,
+                  'answer' => "Please supply my training password to train me."
+                ]);
+                return; 
+              }
+              elseif (count($sperate_ques_ans) == 1 ) {
+                # if training question's answer was not supplied
+                echo json_encode([
+                  'question' => $question,
+                  'answer' => "Invalid training, supply training: question # answer # password to train me"
+                ]);
+                return;
+              }
+              $question = trim($sperate_ques_ans[0]);
+              $answer = trim($sperate_ques_ans[1]);
+              $password = trim($sperate_ques_ans[2]);
+              if ($password === 'password') {
+                # carry out insertion if password is supplied correctly
+                #return "good to go on";
+                $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
+                  if ($conn->exec($sql)) {
+                    # check if question was saved
+                    echo json_encode([
+                      'question' => $question,
+                      'answer' => "Thanks for the new info, Data Saved."
+                    ]);
+                    return;
+                  }
+                    echo json_encode([
+                      'question' => $question,
+                      'answer' => "Have not gotten your question"
+                    ]);
+                    return;
+                  }
+              echo json_encode([
+                'question' => $question,
+                'answer' => "You are not authorized to train me, please supply a valid password"
+              ]);
+              return;
+              //return "undergoing training";
+            }
+            echo json_encode([
+              'question' => $question,
+              'answer' => "Sorry am not smart enough to answer, pls train me using the train: syntax"
+            ]);
+            return;
+            
+          }
+          if (($_SERVER['REQUEST_METHOD'] === 'POST')) {
+            # code...
+            $message = $_POST['chatbotmessage'];
+            $answer = processMessage($message);
+            # echo $answer;
+            return;
+          }
+          
+          /* Chat Bot End */
+
       } 
   catch (PDOException $event) {
           throw $event;
@@ -20026,6 +20137,68 @@
       z-index: auto;
     }
   }
+  /* Chat Bot Styles */
+  svg{
+  width:100%;
+  height:100%;
+  overflow:hidden; 
+}
+
+#leftlid, #rightlid {
+  animation: blink 3.6s infinite;
+}
+#lefteye, #righteye {
+  animation: squeeze 3.6s infinite;
+}
+
+#left-arm {
+  animation: moveup 6s ease-in infinite;
+}
+
+.gage {
+  animation: gage 3s ease-in infinite;
+}
+
+@keyframes blink {
+  90% {
+    transform: none;
+    animation-timing-function: ease-in;
+  }
+  93% {
+    transform: translateY(15px) scaleY(0)
+  }
+  100% {
+    animation-timing-function: ease-out;
+  }
+}
+@keyframes squeeze {
+  90% {
+    transform: none;
+    animation-timing-function: ease-in;
+  }
+  93% {
+    transform: translateY(10px) scaleY(0.8)
+  }
+  100% {
+    animation-timing-function: ease-out;
+  }
+}
+
+@keyframes moveup {
+  0% {transform: translateY(0);}
+  10% {transform: translateY(-5px);}
+  13% {transform: translateY(0);}
+  100% {transform: translateY(0);}
+}
+
+@keyframes gage {
+  0% {transform: translateX(0);}
+  10% {transform: translateX(-4px);}
+  15% {transform: translateX(2px);}
+  35% {transform: translateX(14px);}
+  40% {transform: translateX(8px);}
+  100% {transform: translateX(32px);}
+}
   
     </style>
 </head>
@@ -20044,10 +20217,10 @@
                             <div class="menu lg:hidden z-50 bg-white border-2 border-grey pl-4 pb-4 pt-4 rounded-b-lg">
                                     <ul class="list-reset block">
                                         <li class="mr-6">
-                                            <a class="no-underline text-grey-dark block items-center pt-2 pb-4 border-b border-teal" href="#about">About</a>
+                                            <a class="no-underline text-teal-dark block items-center pt-2 pb-4 border-b border-teal" href="#about">About</a>
                                         </li>
                                         <li class="mr-6">
-                                            <a class="no-underline opacity-50 md:text-grey-darker md:opacity-100 block items-center pt-2 pb-4 border-b border-transparent hover:opacity-100 md:hover:border-teal" href="#portfolio">Chat</a>
+                                            <a class="no-underline text-teal-darker opacity-50 md:text-teal-darker md:opacity-100 block items-center pt-2 pb-4 border-b border-transparent hover:opacity-100 md:hover:border-teal" href="#chat">Chat</a>
                                         </li>
                                     </ul>
                             </div>
@@ -20065,6 +20238,89 @@
                             Adroit, passionately curious Software Developer based in Lagos, Nigeria. I love learning and sharing knowledge about web development/design, am currently working on been a world class software developer, "<em class="text-teal"><?php echo $username; ?></em>".
                         </span>
                     </span>
+                    <div class="h-24 mt-4">
+                      <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="172.5" height="236.5" viewBox="0 0 172.5 236.5">
+                        <defs>
+                          <style>
+                            <![CDATA[
+                              .body-colour {
+                                fill: #FE4444; 
+                              }
+                              .body-parts {
+                                fill: #332E32;
+                              }
+                            ]]>
+                          </style>
+                          <circle cx="66.543" cy="41.647" r="7.343" id="left-outer"/>
+                          <circle cx="105.404" cy="41.647" r="7.343" id="right-outer"/>
+                            <mask id="left-mask">
+                              <rect width="100%" height="100%" fill="white"></rect>
+                              <use xlink:href="#left-outer" id="leftlid" fill="black"/>
+                            </mask>
+                            <mask id="right-mask">
+                              <rect width="100%" height="100%" fill="white"></rect>
+                              <use xlink:href="#right-outer" id="rightlid" fill="black"/>
+                            </mask>
+                        </defs>
+                        <ellipse fill="#95c9de" cx="86.567" cy="226.176" rx="82.439" ry="7.011"/>
+                      <g id="head">
+                        <line x1="46" y1="10" x2="46" y2="40" stroke-width="3" stroke="black"/>
+                        <line x1="126" y1="10" x2="126" y2="40" stroke-width="3" stroke="black"/>
+                        <circle class="body-colour" cx="45.847" cy="7.221" r="4.771"/>
+                        <circle class="body-colour" cx="125.556" cy="7.221" r="4.771"/>
+                        <path class="body-parts" d="M93.073 21.262l15.334-13.28-3.004-4.195L90.48 20.1l.062.027c-1.237-.394-2.572-.62-3.973-.62-2.11 0-4.08.498-5.765 1.35L67.115 7.794l-2.575 2.48 14.245 11.882h.003c-2.123 1.72-3.448 4.132-3.448 6.81 0 5.222 5.026 9.457 11.23 9.457 6.2 0 11.23-4.235 11.23-9.458 0-3.18-1.87-5.988-4.727-7.702z"/>
+                        <rect class="body-colour" x="51" y="27" width="70" height="44" rx="7" ry="7"/>
+                        <circle class="body-colour" cx="52" cy="45" r="10"/>
+                        <circle class="body-colour" cx="120" cy="45" r="10"/>
+                        <g id="lefteye">
+                          <circle fill="white" cx="66.543" cy="41.647" r="7.343"/>
+                          <circle class="body-parts" cx="66.543" cy="41.647" r="4.045"/>
+                          <use xlink:href="#left-outer" mask="url(#left-mask)" fill="#FFFFFF"/>
+                        </g>
+                        <g id="right-eye">
+                          <circle fill="white" cx="105.404" cy="41.647" r="7.343"/>
+                          <circle class="body-parts" cx="105.403" cy="41.647" r="4.276"/>
+                          <use xlink:href="#right-outer" mask="url(#right-mask)" fill="#FFFFFF"/>
+                        </g>
+                        <use xlink:href="#right-eyelid" mask="url(#rightmask)" fill="#FFFFFF"/>
+                        <circle fill="white" cx="85.9" cy="47.273" r="3.243"/>
+                        <rect fill="white" x="70" y="60" width="32" height="5" rx="5" ry="5"/>
+                        <rect class="body-parts" x="76" y="70" width="20" height="10"/>
+                      </g>
+                      <g id="body">
+                        <rect class="body-colour" x="41" y="78" width="89" height="109" rx="10" ry="10"/>
+                        <circle class="body-parts" cx="111.296" cy="119.922" r="5.893"/>
+                        <rect fill="white" x="50" y="112" width="45" height="18" rx="4" ry="4"/>
+                        <line x1="55" y1="122" x2="55" y2="129" stroke-width="1" stroke="black"/>
+                        <line x1="60" y1="122" x2="60" y2="129" stroke-width="1" stroke="black"/>
+                        <line x1="65" y1="122" x2="65" y2="129" stroke-width="1" stroke="black"/>
+                        <line x1="70" y1="122" x2="70" y2="129" stroke-width="1" stroke="black"/>
+                        <line x1="75" y1="122" x2="75" y2="129" stroke-width="1" stroke="black"/>
+                        <line x1="80" y1="122" x2="80" y2="129" stroke-width="1" stroke="black"/>
+                        <line x1="85" y1="122" x2="85" y2="129" stroke-width="1" stroke="black"/>
+                        <line x1="90" y1="122" x2="90" y2="129" stroke-width="1" stroke="black"/>
+                        <line class="gage" x1="60" y1="115" x2="60" y2="129" stroke-width="1.5" stroke="red"/>
+                      </g>
+                      <g id="left-arm">
+                        <rect class="body-parts" x="26" y="100" width="6" height="120"/>
+                        <circle class="body-colour" cx="29.615" cy="103.38" r="7.28"/>
+                        <circle class="body-colour" cx="28.665" cy="156.831" r="5.864"/>
+                        <rect class="body-parts" x="35" y="94" width="6" height="19"/>
+                        <rect class="body-parts" x="15" y="208" width="27" height="19"/>
+                        <rect class="body-colour" x="15" y="204" width="27" height="19"/>
+                      </g>
+                      <g id="right-arm">
+                        <rect class="body-parts" x="138" y="100" width="6" height="120"/>
+                        <circle class="body-colour" cx="140.747" cy="103.38" r="7.28"/>
+                        <rect class="body-parts" x="130" y="94" width="6" height="19"/>
+                        <circle class="body-colour" cx="141.767" cy="156.831" r="5.864"/>
+                        <rect class="body-parts" x="128" y="208" width="27" height="19"/>
+                        <rect class="body-colour" x="128" y="204" width="27" height="19"/>
+                      </g>
+
+                      </svg>
+                      <span class="font-medium text-grey-darker">I'm focused and friendly, you <a href="#chat">can ask me anything.</a></span>
+                    </div>
                 </div>
                 <div class="z-10  block pin-b bg-white pin-l h-16 mt-8 flex-1 w-1/2 sm:w-full sm:fixed md:w-full md:fixed text-center text-gray border-t pt-4">
                     <a class="no-underline mr-4" href="https://www.facebook.com/bollybkampo" target="_blank">
@@ -20119,10 +20375,10 @@
                     <div class="">
                         <ul class="list-reset flex">
                             <li class="mr-6">
-                                <a class="no-underline text-grey-dark flex items-center" href="#about">About</a>
+                                <a class="no-underline text-teal-dark flex items-center" href="#about">About</a>
                             </li>
                             <li class="mr-6">
-                                <a class="no-underline text-white opacity-50 md:text-grey-darker md:opacity-100 flex items-center" href="#portfolio">Chat</a>
+                                <a class="no-underline text-teal-darker md:text-teal-darker md:opacity-100 flex items-center" href="#chat">Chat</a>
                             </li>
                         </ul>
                     </div>
@@ -20147,84 +20403,139 @@
                         <p class="mt-2">Vue Js (Beginner)</p>
                     </div>
                 </div>
-                <div id="portfolio" class="w-full h-auto border-2 bg-teal-lightest border-grey-light shadow rounded-lg p-4 mb-8">
+                <div id="chat" class="w-full h-auto border-2 bg-teal-lightest border-grey-light shadow rounded-lg p-4 mb-8">
                     <h2 class="text-base font-semibold leading-tight mb-8 pb-2 border-b">Chat</h2>
-                    <div class="w-full h-auto p-8"">
-                      
-                    </div>
-                </div>
-                <!--<div class="w-full h-auto border-2 bg-yellow-lightest border-grey-light shadow rounded-lg p-4 mb-8">
-                    <h2 class="text-base font-semibold leading-tight mb-8 pb-2 border-b">Awards</h2>
-                    <div class="w-full h-auto p-8">
-                        I'm focuced and adroitly working towards becoming a world class full-stack web developer. In my journey so far I have been encouraged with some scholarship awards and certificates.
-                        <div class="px-2 mt-8">
-                            <div class="flex -mx-2">
-                                <div class="w-1/2 px-2 rounded-lg">
-                                    <div class="w-full h-auto">
-                                        <img class="w-full rounded-lg" src="http://res.cloudinary.com/dc9kfp5gt/image/upload/c_scale,h_400,q_100,w_460/v1519840117/Google-Dev-EMEA-Badge_tahpnu.png" alt="my Google Frontend Web Developer Scholarship">
-                                    </div>
-                                </div>
-                                <div class="w-1/2 px-2 rounded-lg">
-                                    <div class="w-full h-auto">
-                                            <img class="w-full rounded-lg" src="http://res.cloudinary.com/dc9kfp5gt/image/upload/c_scale,h_400,q_100,w_460/v1519835751/DHUUexfXUAAnXn3_ahhhpp.jpg" alt="my freecodecamp certificate">
-                                    </div>
-                                </div>
+                    <div class="w-full flex h-auto p-8"">
+                      <div class="w-1/3 h-64 p-2">
+                        <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="172.5" height="236.5" viewBox="0 0 172.5 236.5">
+                          <defs>
+                            <style>
+                              <![CDATA[
+                                .body-colour {
+                                  fill: #FE4444; 
+                                }
+                                .body-parts {
+                                  fill: #332E32;
+                                }
+                              ]]>
+                            </style>
+                            <circle cx="66.543" cy="41.647" r="7.343" id="left-outer"/>
+                            <circle cx="105.404" cy="41.647" r="7.343" id="right-outer"/>
+                              <mask id="left-mask">
+                                <rect width="100%" height="100%" fill="white"></rect>
+                                <use xlink:href="#left-outer" id="leftlid" fill="black"/>
+                              </mask>
+                              <mask id="right-mask">
+                                <rect width="100%" height="100%" fill="white"></rect>
+                                <use xlink:href="#right-outer" id="rightlid" fill="black"/>
+                              </mask>
+                          </defs>
+                          <ellipse fill="#95c9de" cx="86.567" cy="226.176" rx="82.439" ry="7.011"/>
+                        <g id="head">
+                          <line x1="46" y1="10" x2="46" y2="40" stroke-width="3" stroke="black"/>
+                          <line x1="126" y1="10" x2="126" y2="40" stroke-width="3" stroke="black"/>
+                          <circle class="body-colour" cx="45.847" cy="7.221" r="4.771"/>
+                          <circle class="body-colour" cx="125.556" cy="7.221" r="4.771"/>
+                          <path class="body-parts" d="M93.073 21.262l15.334-13.28-3.004-4.195L90.48 20.1l.062.027c-1.237-.394-2.572-.62-3.973-.62-2.11 0-4.08.498-5.765 1.35L67.115 7.794l-2.575 2.48 14.245 11.882h.003c-2.123 1.72-3.448 4.132-3.448 6.81 0 5.222 5.026 9.457 11.23 9.457 6.2 0 11.23-4.235 11.23-9.458 0-3.18-1.87-5.988-4.727-7.702z"/>
+                          <rect class="body-colour" x="51" y="27" width="70" height="44" rx="7" ry="7"/>
+                          <circle class="body-colour" cx="52" cy="45" r="10"/>
+                          <circle class="body-colour" cx="120" cy="45" r="10"/>
+                          <g id="lefteye">
+                            <circle fill="white" cx="66.543" cy="41.647" r="7.343"/>
+                            <circle class="body-parts" cx="66.543" cy="41.647" r="4.045"/>
+                            <use xlink:href="#left-outer" mask="url(#left-mask)" fill="#FFFFFF"/>
+                          </g>
+                          <g id="right-eye">
+                            <circle fill="white" cx="105.404" cy="41.647" r="7.343"/>
+                            <circle class="body-parts" cx="105.403" cy="41.647" r="4.276"/>
+                            <use xlink:href="#right-outer" mask="url(#right-mask)" fill="#FFFFFF"/>
+                          </g>
+                          <use xlink:href="#right-eyelid" mask="url(#rightmask)" fill="#FFFFFF"/>
+                          <circle fill="white" cx="85.9" cy="47.273" r="3.243"/>
+                          <rect fill="white" x="70" y="60" width="32" height="5" rx="5" ry="5"/>
+                          <rect class="body-parts" x="76" y="70" width="20" height="10"/>
+                        </g>
+                        <g id="body">
+                          <rect class="body-colour" x="41" y="78" width="89" height="109" rx="10" ry="10"/>
+                          <circle class="body-parts" cx="111.296" cy="119.922" r="5.893"/>
+                          <rect fill="white" x="50" y="112" width="45" height="18" rx="4" ry="4"/>
+                          <line x1="55" y1="122" x2="55" y2="129" stroke-width="1" stroke="black"/>
+                          <line x1="60" y1="122" x2="60" y2="129" stroke-width="1" stroke="black"/>
+                          <line x1="65" y1="122" x2="65" y2="129" stroke-width="1" stroke="black"/>
+                          <line x1="70" y1="122" x2="70" y2="129" stroke-width="1" stroke="black"/>
+                          <line x1="75" y1="122" x2="75" y2="129" stroke-width="1" stroke="black"/>
+                          <line x1="80" y1="122" x2="80" y2="129" stroke-width="1" stroke="black"/>
+                          <line x1="85" y1="122" x2="85" y2="129" stroke-width="1" stroke="black"/>
+                          <line x1="90" y1="122" x2="90" y2="129" stroke-width="1" stroke="black"/>
+                          <line class="gage" x1="60" y1="115" x2="60" y2="129" stroke-width="1.5" stroke="red"/>
+                        </g>
+                        <g id="left-arm">
+                          <rect class="body-parts" x="26" y="100" width="6" height="120"/>
+                          <circle class="body-colour" cx="29.615" cy="103.38" r="7.28"/>
+                          <circle class="body-colour" cx="28.665" cy="156.831" r="5.864"/>
+                          <rect class="body-parts" x="35" y="94" width="6" height="19"/>
+                          <rect class="body-parts" x="15" y="208" width="27" height="19"/>
+                          <rect class="body-colour" x="15" y="204" width="27" height="19"/>
+                        </g>
+                        <g id="right-arm">
+                          <rect class="body-parts" x="138" y="100" width="6" height="120"/>
+                          <circle class="body-colour" cx="140.747" cy="103.38" r="7.28"/>
+                          <rect class="body-parts" x="130" y="94" width="6" height="19"/>
+                          <circle class="body-colour" cx="141.767" cy="156.831" r="5.864"/>
+                          <rect class="body-parts" x="128" y="208" width="27" height="19"/>
+                          <rect class="body-colour" x="128" y="204" width="27" height="19"/>
+                        </g>
+
+                        </svg>
+                      </div>
+                      <div class="w-2/3 h-auto p-2">
+                        <div id="chatbot" class="w-full border p-4 h-64 overflow-auto text-xs rounded-lg mb-2">
+                          <div class="w-full border-l-2 p-2 border-yellow-dark">
+                            Hello, my name is AdroitCode, hw may I help you?
+                          </div>
+                        </div>
+                        <form class="w-full max-w-xs" method="post" action="AdroitCode.php">
+                          <div class="md:flex md:items-center h-auto mb-6">
+                            <div class="md:w-2/3 pin-b">
+                              <input id="txt_question" class="appearance-none block w-full bg-white text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" name="chatbotmessage" placeholder="How may I help you?">
                             </div>
-                        </div>
+                            <div class="md:w-1/3 m-2">
+                              <input type="submit" class="shadow bg-teal-dark w-full hover:bg-teal-light text-white font-bold py-2 px-4 rounded" type="button" value="⬆">
+                            </div>
+                            </div>
+                        </form>
+                        
+                      </div>
                     </div>
                 </div>
-                <div id="contact" class="w-full h-auto border-2 bg-blue-lightest border-grey-light shadow rounded-lg p-4 mb-8">
-                    <h2 class="text-base font-semibold leading-tight mb-8 pb-2 border-b">Contact</h2>
-                    <div class="w-full h-auto p-8">
-                        I'm friendly and love sharing ideas. You can reach me on twitter, linkedin, facebook, discord, check my projects on github and codepen, read my interesting posts on medium.
-                        <div class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 flex flex-col my-2 mt-8">
-                            <form class="w-full max-w-xs">
-                                <div class="md:flex md:items-center mb-6">
-                                    <div class="md:w-1/3">
-                                        <label class="block md:text-right mb-1 md:mb-0 pr-4" for="mail-sender">
-                                            From:
-                                        </label>
-                                    </div>
-                                    <div class="md:w-2/3">
-                                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" placeholder="your@email.com">
-                                    </div>
-                                </div>
-                                <div class="md:flex md:items-center mb-6">
-                                    <div class="md:w-1/3">
-                                        <label class="block md:text-right mb-1 md:mb-0 pr-4" for="mail-receiver">
-                                            To:
-                                        </label>
-                                    </div>
-                                    <div class="md:w-2/3">
-                                        <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" value="kamponistullar@gmail.com" disabled>
-                                    </div>
-                                </div>
-                                <div class="md:flex md:items-center mb-6">
-                                    <div class="md:w-1/3">
-                                        <label class="block md:text-right mb-1 md:mb-0 pr-4" for="mail-message">
-                                            Message:
-                                        </label>
-                                    </div>
-                                    <div class="md:w-2/3">
-                                        <textarea class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" placeholder="Your Message..."></textarea>
-                                    </div>
-                                </div>
-                                <div class="md:flex md:items-center">
-                                    <div class="md:w-1/3"></div>
-                                    <div class="md:w-2/3">
-                                    <button class="shadow bg-teal-dark hover:bg-teal-light text-white font-bold py-2 px-4 rounded" type="button">
-                                        Email Me
-                                    </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>-->
             </div>
         </div>
     </div>
+    
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+            $('form').on('submit', function(e){
+             e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    cache: false, 
+                    //
+                    url: "/profiles/AdroitCode.php", 
+                    dataType: "json",
+                    data: $('form').serialize(), 
+                    success: function(result) {
+                      console.log(result);
+                      $("footer").remove();
+                      $('#chatbot').append("<div class=\"w-full border-r-2 p-2 text-right border-teal-dark\">"+result.question+"</div><div class=\"w-full border-l-2 p-2 border-yellow-dark\">"+result.answer+"</div>");
+                    }
+
+                });
+            });
+            
+            });
+    </script>
     <script>
         $( document ).ready(function() {
         $( ".menu" ).hide();

@@ -1,26 +1,39 @@
 <?php
-include('../config.php');
-
-$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-$secret_string = "SELECT secret_word FROM secret_word";
-$secret_query = mysqli_query($con, $secret_string);
-$row = mysqli_fetch_assoc($secret_query);
-$secret_word = $row['secret_word'];
 
 
-$interns_string = "SELECT * FROM interns_data_";
-$interns_query = mysqli_query($con, $interns_string);
-$row = mysqli_fetch_assoc($interns_query);
+/*
+	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt = $conn->query("SELECT * FROM secret_word LIMIT 1"); 
+    $result = $stmt->fetch();
+    $secret_word = $result['secret_word'];
+    
 
-$id = $row['intern_id'];
-$name = $row['name'];
-$username = $row['username'];
-$image = $row['image_filename'];
+    $stmt_intern_data = $conn->query("SELECT * FROM interns_data WHERE username = 'ysdhilside'"); 
+    $result = $stmt_intern_data->fetch();
+    $username = $result['username'];
+    $name = $result['name'];
+    $image = $result['image_filename']; */
 
-//echo '<h1>'.$id.$name.$username.$image.'</h1>';
+  $stmt = $conn->query("SELECT * FROM secret_word LIMIT 1");
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  $secret_word = $result['secret_word'];
+
+
+   $sql = "SELECT * FROM interns_data where username='ysdhilside'";
+   $query = $conn->query($sql);
+   $query->setFetchMode(PDO::FETCH_ASSOC); 
+   $result = $query->fetch();
+       $name = $result['name'];
+       $username = $result['username'];
+       $image = $result['image_filename'];
+    
+   
+
+
+
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE html>   
 <html>
 <head>
 	<meta charset="utf-8">

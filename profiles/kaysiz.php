@@ -4,9 +4,10 @@
   $secret_word_result = $secret_word_query->fetch();
   $secret_word = $secret_word_result['secret_word'];
 
-  $profile_query=$conn->prepare("SELECT * FROM interns_data_ where username = 'kaysiz'");
-  $profile_query->execute();
-  $profile_result = $profile_query->fetch();
+  $profile_query= "SELECT * FROM interns_data where username = 'kaysiz'";
+  $q = $conn->query($profile_query);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $profile_result = $q->fetch();
 
   $name = $profile_result['name'];
   $profile_pic = $profile_result['image_filename'];
