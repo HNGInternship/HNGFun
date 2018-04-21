@@ -263,16 +263,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 								</div>
 								<div class="iro">
 									<ul id="queries">
-										<?php
-
-										?>
+										
 									</ul>
 								</div>	
 								<div class="iio">
 									<ul id="ans">
-										<?php
-
-										?>	
+											
 									</ul>
 								</div>	
 							</div>
@@ -313,7 +309,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					url: '../profiles/Adeyefa.php',
 					type: 'POST',
 					data: {question: question},
-					dataType: "json",
+					dataType: 'json',
 					success: function(answer){
 			        $("#ans").append("<li>" + answer.result +  "</li>");
 					},
