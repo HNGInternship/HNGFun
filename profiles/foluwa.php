@@ -77,11 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     $fails = [
       'I do not know that.',
     ];
-    $contains_command = (bool) preg_match('/.*command.*/
-
-                                                      /* -delete this
-
-      ', $option);
+    $contains_command = (bool) preg_match('/.*command.*/', $option);
     if ($contains_command) return sendResponse(200, getListOfCommands());
     return sendResponse(200, pick_one($fails));
   }
