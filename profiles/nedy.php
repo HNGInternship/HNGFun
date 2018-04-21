@@ -29,6 +29,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
             $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE '$ques'");
             $stmt->execute();
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $result =$stmt->fetchAll();
             echo json_encode([
                 'status' => 1,
                 'response' => $result
