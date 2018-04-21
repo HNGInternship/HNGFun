@@ -432,7 +432,7 @@ reply = "<div href = 'index.php#chat-interface#bott"+ theScrollCounter +"' class
 else{
 
         //using ajax
-   $.post('j-replies.php',{phpques : chat}, function(data){
+   $.post('profiles/j-replies.php',{phpques : chat}, function(data){
    		reply = data;
    		reply = "<div href = 'index.php#chat-interface#bott"+ theScrollCounter +"' class = 'bot' id = 'bott" + theScrollCounter +"'><font class = 'bot-reply'>"+ reply + "</font><br></div>";
         $(".chats").append(reply);//should be after bot chat    
