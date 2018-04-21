@@ -17,6 +17,18 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
   }
 }else if($_SERVER['REQUEST_METHOD']==='POST'){
     require '../../config.php';
+<<<<<<< HEAD
+    try {
+      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+    if(isset($_POST['message'])){
+      echo json_encode([
+        "status" => 1,
+        "response" =>"found Message"
+      ]);
+=======
     $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
             if(!$conn){
                 echo json_encode([
@@ -40,6 +52,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
     //     "status" => 1,
     //     "response" =>"found Message"
     //   ]);
+>>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
       return ;
     }
 }
@@ -247,7 +260,10 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
+=======
 
+>>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>

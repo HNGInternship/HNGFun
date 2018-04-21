@@ -17,25 +17,25 @@ try {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="GODSWILL OKOKON">
+    <meta name="author" content="Ekwunife Winifred">
 
     <title><?php echo $data['name'] ?></title>
 
-    <!-- Bootstrap core CSS -->
+     <!--Bootstrap core CSS--> 
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom fonts for this template -->
+     <!--Custom fonts for this template--> 
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 
-    <!-- Custom Fonts -->
+     <!--Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="../vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 
 
-    <!-- Plugin CSS -->
+     <!--Plugin CSS-->
     <link href="../vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
 
 
@@ -60,11 +60,11 @@ a:hover{
 h1,h2,h3,h4,h5,h6{
   font-family:'Open Sans','Helvetica Neue',Arial,sans-serif}
 .bg-primary{
-  background-color:#4a423f!important}
+  background-color:#b149e8!important}
 .bg-dark{
   background-color:#212529!important}
 .text-faded{
-  color:rgba(255,255,255,.7)}
+  color:#212529}
 section{
   padding:8rem 0}
 .section-heading{
@@ -136,8 +136,8 @@ img::-moz-selection{
   }
   header.masthead{
     padding-top:10rem;padding-bottom:calc(10rem - 56px);
-    background-image:url(https://res.cloudinary.com/cyuket/image/upload/v1523892790/og.jpg);
-    background-position:center center;
+    background-image:url(http://res.cloudinary.com/winifred/image/upload/v1524156375/IMG-20180419-WA0009.jpg);
+    background-position: center;
     -webkit-background-size:cover;
     -moz-background-size:cover;
     -o-background-size:cover;
@@ -328,7 +328,7 @@ footer.footer .social-link:hover{
               <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div class="card" style="width:30%" >
-  <img src="https://res.cloudinary.com/dchvdgnh8/image/upload/v1523738881/IMG_20171111_113643.jpg" alt="Tha" style="width:100%">
+  <img src="http://res.cloudinary.com/winifred/image/upload/v1524156375/IMG-20180419-WA0009.jpg" alt="Tha" style="width:100%">
 </div>
 
               <strong>WELCOME</strong><br>
@@ -339,7 +339,7 @@ footer.footer .social-link:hover{
             <hr>
           </div>
           <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5">Godswill Okokon - Front End & Back End Developer<?php echo $data['name'] ?></p>
+            <p class="text-faded mb-5"><strong>Winifred Ekwunife - Front End </strong><?php echo $data['name'] ?></p>
             <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
           </div>
         </div>
@@ -350,16 +350,14 @@ footer.footer .social-link:hover{
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
-            <h2 class="section-heading text-white">A Little About Me</h2>
+            <h2 class="section-heading text-white">A Little About <?php echo $data['name'] ?></h2>
             <hr class="light my-4">
-            <p class="text-faded mb-4"> <?php echo $data['name'] ?> Is a Back-End Web Developer, Wanna be Full Stack.</p>
+            <p class="text-faded mb-4"> <strong>Ekwunife Winifred Is a Front-End Web Developer, I Want To Be A Technical Writer.</strong></p>
             <p>
-            My Name is Godswill Okokon, I'm a full stack web developer who loves the magic of backend, Godswill Okokon loves creating things that will make life easlier and at the same time produce solutions to real life problems.
-            <br>I'm the web developer from the future(..winks..), I'm a techie with lots of humour, I can be scaratic most times too, <br> Some people call me OG, I love creamy cakes and i also have a thing for roasted plantain, OG loves making techie friends, <br>Music is his esacpe to blow off steam when ever he's in a funk about any situation or something,<br> I'm passionate about learning and developing myself in everything that has to do with life  and Tech.<br>
-            I'm more of a twitter person than any other social media platform,
-            just make sure to follow me at the bottom of the page.
-            <br>Apart from coding and developing stuffs, <br>OG is a movie person, he also loves playing video games and  watching football.
-            </p>
+             Hey there! My name is Ekwunife Winifred.
+			    	<br>I'm a <strong> Front-end Developer</strong> who is going to be a badass programmer someday and go places. <!--I'm a 300level student of Cross River University Of Technology Calabar.//--></p>
+		    		<br> I am a crazy freak of Mandala and I am a part-time artist(I draw when I'm bored.)</br>
+				 </p>
             <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Let's Work!</a>
           </div>
         </div>
@@ -381,29 +379,29 @@ footer.footer .social-link:hover{
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box mt-5 mx-auto">
               <i class="fa fa-4x fa-diamond text-primary mb-3 sr-icons"></i>
-              <h3 class="mb-3">Full Stack Web Developer</h3>
-              <p class="text-muted mb-0">Need a Website<strong><a class="nav-link js-scroll-trigger" href="#contact">CONTACT ME</a></strong></p>
+              <h3 class="mb-3">Front-end Web Developer</h3>
+              <p class="text-muted mb-0">Need a sweet Website!<strong><a class="nav-link js-scroll-trigger" href="#contact">CONTACT ME</a></strong></p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box mt-5 mx-auto">
               <i class="fa fa-4x fa-paper-plane text-primary mb-3 sr-icons"></i>
               <h3 class="mb-3">I Work Remotely</h3>
-              <p class="text-muted mb-0">Ready For You Anywhere, Any Time</p>
+              <p class="text-muted mb-0">Ready For You Anywhere </p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box mt-5 mx-auto">
               <i class="fa fa-4x fa-newspaper-o text-primary mb-3 sr-icons"></i>
               <h3 class="mb-3">Ready To Work With Time</h3>
-              <p class="text-muted mb-0">Time is One of the most Important Factors.Time Is Money</p>
+              <p class="text-muted mb-0">Time is One of the most Important Factors.</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box mt-5 mx-auto">
               <i class="fa fa-4x fa-heart text-primary mb-3 sr-icons"></i>
               <h3 class="mb-3">Yon Can Always Get Back To Me</h3>
-              <p class="text-muted mb-0">Like i said You would never be disappointed and would always end up with a smile</p>
+              
             </div>
           </div>
         </div>
@@ -411,40 +409,40 @@ footer.footer .social-link:hover{
     </section>
 
 
-    <section id="contact" style="background-color: rgba(184, 195, 195, 0.5)">
+    <section id="contact" style="background-color: #cd83f5 ">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
             <h2 class="section-heading">Let's Get In Touch!</h2>
             <hr class="my-4">
-            <p class="mb-5">If you are looking for a strategist and experienced developer,<br>just leave me a message and I'll contact you soon.</p>
+            <p class="mb-5">If you are looking for a strategist and experienced developer,<br>just leave me a message and I'll contact you ASAP.</p>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-4 ml-auto text-center">
             <i class="fa fa-phone fa-3x mb-3 sr-contact"></i>
-            <p>+234-81-770-248-47</p>
+            <p>+234-81-854-417-15</p>
           </div>
           <div class="col-lg-4 mr-auto text-center">
             <i class="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
             <p>
-              <a href="mailto:godswillokokon3@gmail.com">feedback@OG.com</a>
+              <a href="mailto:winifredchineze22@gmail.com">feedback@winifredchineze22.com</a>
             </p>
 
     <footer class="footer text-center">
       <div class="container">
                     <ul class="list-inline text-center">
                <li class="list-inline-item">
-                  <a id="twitter" href="https://twitter.com/godswillokokon" target="_blank">
+                  <a id="twitter" href="https://twitter.com/" target="_blank">
                      <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
                      </span>
                   </a>
-               </li>
+               </li>-->
 
                <li class="list-inline-item">
-                  <a id="github" href="https://github.com/godswillokokon" target="_blank">
+                  <a id="github" href="https://github.com/winnieefred" target="_blank">
                      <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -457,14 +455,14 @@ footer.footer .social-link:hover{
         </div>
       </div>
     </section>
-    <!-- Bootstrap core JavaScript -->
+     <!--Bootstrap core JavaScript--> 
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Plugin JavaScript -->
+    <!-- Plugin JavaScript--> 
     <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="../vendor/scrollreveal/scrollreveal.min.js"></script>
     <script src="../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <!-- Custom scripts for this template -->
+     <!--Custom scripts for this template--> 
     <script src="../js/creative.min.js"></script>
   </body>
 </html>

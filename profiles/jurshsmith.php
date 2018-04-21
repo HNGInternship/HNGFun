@@ -229,12 +229,13 @@ $('document').ready(function(){
 	<br><br>
 	<div id = "chat-area" class = 'chat-area'>
 	<div style = "font-size: 10px; font-family: monospace;background-color: grey;color: white">
-		<p>Hi, I'm Jobot</p>
+		<br>
+		<p><b>Jobot</b><br>Hi, I'm Jobot</p>
 	</div>
 	<div class = "chats"></div>
 	<div id = "bott"></div>
 	</div>
-	<form id = "chatbot-text-area" class = "chatbot-text-area">
+	<div id = "chatbot-text-area" class = "chatbot-text-area">
 			<div class="form-group">
   
   <input type="text" class="form-control" id="message">
@@ -243,7 +244,7 @@ $('document').ready(function(){
 	
 		<span class="glyphicon glyphicon-send"   id = "j-send" role = "button"></span>
 	</div>
-		</form>
+		</div>
 
 	
 
@@ -444,7 +445,11 @@ else{
 	
 
         //using ajax
+<<<<<<< HEAD
+   $.post('j-replies.php',{phpques : chat}, function(data){
+=======
    $.post('profiles/j-replies.php',{phpques : chat}, function(data){
+>>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
    		reply = data;
    		reply = "<div href = 'index.php#chat-interface#bott"+ theScrollCounter +"' class = 'bot' id = 'bott" + theScrollCounter +"'><font class = 'bot-reply'><b>jobot</b><br>"+ reply + "</font><br></div>";
         $(".chats").append(reply);//should be after bot chat    
@@ -462,7 +467,7 @@ else{
  			},1000);
  	});
  }
-// $('#message').val('');
+ $('#message').val('');
 // var lastEle = $('.bot:last-child').position().top;
 // var scrollAmount = lastEle - 30;
 // $('#chat-interface').animate({scrollTop : scrollAmount}, 1000);
@@ -484,4 +489,8 @@ var bottString = String('#bott'+a);
 	});
 
 
+<<<<<<< HEAD
 </script>
+=======
+</script>
+>>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
