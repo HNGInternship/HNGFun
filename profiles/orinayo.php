@@ -8,8 +8,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // validate input
     $user_input = validate_input($_POST["userInput"]);
     try {
-        include_once "../db.php";
+        include_once "../config.php";
         include_once "../answers.php";
+        try {
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+        } 
+        catch(PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
 
         if (strpos($user_input, 'train') === 0) {
             $user_input = substr_replace($user_input, '', 0, 5);
