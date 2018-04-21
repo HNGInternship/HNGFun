@@ -1,6 +1,6 @@
 <?php 
 
-require "../config.php";
+require "../../config.php";
 
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -131,7 +131,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		.sidebar{
 			background-color: transparent;
 			width: 400px;
-			height: auto;
+			height: 590px;
 		}
 		.bbb{
 			width: 790px;
@@ -175,7 +175,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    margin: 8px 8px;
 		}
 		.head{
-			background-color: #0EEFF1;
 			text-align: center;
 		}
 		h2{
