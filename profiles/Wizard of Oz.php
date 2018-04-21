@@ -693,7 +693,7 @@ background: rgba(0, 0, 0, 0.7);
         if (message.indexOf('train:') >= 0 || message.indexOf('train :')>=0){
         $.ajax({
             type: "GET",
-            url: 'Wizard of Oz.php',
+            url: 'profiles/Wizard of Oz.php',
             data: { training: message },
             success: function(data){
                 displayMerlinMessage(data);
@@ -708,7 +708,7 @@ background: rgba(0, 0, 0, 0.7);
         elses = message;
         $.ajax({
             type: "GET",
-            url: 'Wizard of Oz.php',
+            url: 'profiles/Wizard of Oz.php',
             data: {info: message },
             success: function(data){
         console.log(data);
