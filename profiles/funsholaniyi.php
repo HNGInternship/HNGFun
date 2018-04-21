@@ -13,13 +13,14 @@
  * PLEASE ENJOY THE SEARCH AND MATCH ALGORITHM, GIVE CREDITS IF U WANT TO USE IT, OPEN SOURCED
  */
 
-if (file_exists('config.php')) {
-	require_once 'config.php';
-} else if (file_exists('../config.php')) {
-	require_once '../config.php';
-}
- if (file_exists('../../config.php')) {
-	require_once '../../config.php';
+if(!defined('DB_USER')){
+	if (file_exists('../../config.php')) {
+		require_once '../../config.php';
+	} else if (file_exists('../config.php')) {
+		require_once '../config.php';
+	} elseif (file_exists('config.php')) {
+		require_once 'config.php';
+	}
 }
 
 /**
@@ -38,13 +39,14 @@ class Database
 	protected function __construct()
 	{
 		
-		$this->connection = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE . ";charset=utf8", DB_USER, DB_PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
-		$tz = (new DateTime('now', new DateTimeZone('Africa/Lagos')))->format('P');
-		$this->connection->query("SET time_zone='$tz';");
+		$this->connection =  new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+//		$tz = (new DateTime('now', new DateTimeZone('Africa/Lagos')))->format('P');
+//		$this->connection->query("SET time_zone='$tz';");
 		// Error handling
 		if (mysqli_connect_error()) {
 			trigger_error("Failed to connect to MySQL: " . mysqli_connect_error(),
 				E_USER_ERROR);
+			die('Failed to connect to MySQL');
 		}
 	}
 	
@@ -239,18 +241,24 @@ function smartSearch($question, $questions_array)
 						$hit_count++;
 					}
 				}
-				if ($hit_count) {
-					$q_sorta[] = $item;
-				}
-				if($hit_count >= $word_count){
+				if ($hit_count === $word_count) {
 					// we match all words here already, so stop looping and return instead
 					return $item;
 				}
+				if ($hit_count && ($hit_count === count($question) || $hit_count > 2)) { // if count is more than 1 and greater that 2 or equal count of question
+					$q_sorta[] = $item;
+				}
+			
 			}
 		}
 	}
 	ksort($q_sorta);
-	return end($q_sorta);
+	$item = end($q_sorta);
+	if($item){
+	    return $item;
+    }else{
+	    return [];
+    }
 }
 
 /**
@@ -286,7 +294,7 @@ function parseAnswer($result)
 			if ($index_of_parentheses_closing !== false) {
 				$function_name = substr($answer, $index_of_parentheses + 2, $index_of_parentheses_closing - $index_of_parentheses - 2);
 				$function_name = trim($function_name);
-				if (stripos($function_name, ' ') !== false) { //if method name contains spaces, do not invoke method
+				if (stripos($function_name, ' ') === false) { //if method name contains spaces, do not invoke method
 					$answer = str_replace("(($function_name))", $function_name(), $answer);
 				}
 			}
@@ -304,6 +312,10 @@ function sendMessage()
 {
 	$m = new Model();
 	$message = clean_string($_POST['message']);
+	
+	if(strstr('aboutbot', $message)){
+		return respond('Hi, My name is Christiana, I\'m currently versioned 0.1');
+	}
 	
 	$if_training_mode = preg_match("/^train/", $message);
 	if ($if_training_mode) {
@@ -331,7 +343,7 @@ function sendMessage()
 				return respond('Oh! I already knew that. something else, please...');
 			} else {
 				$m->trainBot($question, $answer);
-				return respond('Funsho is smarter, don\'t get jealous, you made it happen');
+				return respond('Christiana is smarter, don\'t get jealous, you made it happen');
 			}
 		} else {
 			return respond('but no. I\'d prefer, train: Question # Answer # Password');
@@ -356,70 +368,71 @@ if (!empty($_POST)) {
 }
 $user = (new Model())->getProfile();
 
+
 ?>
 
-
 <main class="my-container row">
-	<div class="profile col-md-6">
-		<div class="avatar"></div>
-		<br/>
-		<ul class="list-group">
-			
-			<li class="list-group-item">
-				<i class="fa fa-user"></i>
-				&emsp;
-				<strong>
+    <div class="profile col-md-6">
+        <div class="avatar"></div>
+        <br/>
+        <ul class="list-group">
+
+            <li class="list-group-item">
+                <i class="fa fa-user"></i>
+                &emsp;
+                <strong>
 					<?php echo $user->name; ?>
-				</strong>
-			</li>
-			<li class="list-group-item">
-				<i class="fa fa-envelope"></i>
-				&emsp;
-				<strong>
-					<a href="mailto:funsholaniyi@gmail.com">funsholaniyi@gmail.com</a>
-				</strong>
-			</li>
-			<li class="list-group-item">
-				<i class="fa fa-phone-square"></i>
-				&emsp;
-				<strong>
-					<a href="tel:+2347085827380">+2347085827380
-				</strong>
-			</li>
-			
-			<li class="list-group-item text-center">
-				<a target="_blank" href="https://facebook.com/funsholaniyi/"><i class="fa fa-facebook"></i></a> &emsp;
-				<a target="_blank" href="https://twitter.com/funsholaniyi/"><i class="fa fa-twitter"></i></a> &emsp;
-				<a target="_blank" href="https://quora.com/profile/Funsho-Olaniyi/"><i class="fa fa-quora"></i></a>
-				&emsp;
-				<a target="_blank" href="https://github.com/funsholaniyi/"><i class="fa fa-github"></i></a> &emsp;
-				<a target="_blank" href="https://ng.linkedin.com/in/funsholaniyi"><i class="fa fa-linkedin"></i></a>
-			</li>
-		</ul>
-	
-	</div>
-	<div class="profile col-md-5">
-		<div class="content">
-			<div id="group-info">
-			
-			</div>
-			<div class="messages">
-				<ul id="message-outlet">
-				
-				</ul>
-			</div>
-			
-			<div class="message-input">
-				<form id="message_chat_form">
-					<div class="form-group">
-						<input type="text" class="form-control" style="width: 100%; font-size: 12px;" id="chat_message_text"
-						       placeholder="Please tell me, i'd try">
-					</div>
-					<button type="submit" class="btn btn-success btn-sm pull-right">Send</button>
-				</form>
-			</div>
-		</div>
-	</div>
+                </strong>
+            </li>
+            <li class="list-group-item">
+                <i class="fa fa-envelope"></i>
+                &emsp;
+                <strong>
+                    <a href="mailto:funsholaniyi@gmail.com">funsholaniyi@gmail.com</a>
+                </strong>
+            </li>
+            <li class="list-group-item">
+                <i class="fa fa-phone-square"></i>
+                &emsp;
+                <strong>
+                    <a href="tel:+2347085827380">+2347085827380
+                </strong>
+            </li>
+
+            <li class="list-group-item text-center">
+                <a target="_blank" href="https://facebook.com/funsholaniyi/"><i class="fa fa-facebook"></i></a> &emsp;
+                <a target="_blank" href="https://twitter.com/funsholaniyi/"><i class="fa fa-twitter"></i></a> &emsp;
+                <a target="_blank" href="https://quora.com/profile/Funsho-Olaniyi/"><i class="fa fa-quora"></i></a>
+                &emsp;
+                <a target="_blank" href="https://github.com/funsholaniyi/"><i class="fa fa-github"></i></a> &emsp;
+                <a target="_blank" href="https://ng.linkedin.com/in/funsholaniyi"><i class="fa fa-linkedin"></i></a>
+            </li>
+        </ul>
+
+    </div>
+    <div class="profile col-md-5">
+        <div class="content">
+            <div id="group-info">
+
+            </div>
+            <div class="messages">
+                <ul id="message-outlet">
+
+                </ul>
+            </div>
+
+            <div class="message-input">
+                <form id="message_chat_form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" style="width: 100%; font-size: 12px;"
+                               id="chat_message_text"
+                               placeholder="Type Something">
+                    </div>
+                    <button type="submit" class="btn btn-success btn-sm pull-right">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </main>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
@@ -431,7 +444,7 @@ $user = (new Model())->getProfile();
         this.onReady = function () {
             // send welcome messages
             var strMessages = '<li class="replies"><img src="https://res.cloudinary.com/funsholaniyi/image/upload/v1524159157/default.jpg">' +
-                '<p><small style="font-size: 10px;">Funsho</small><br>Hi, My name is Funsho</p></li><div class="clearfix"></div> ';
+                '<p><small style="font-size: 10px;">Christiana</small><br>Hi, My name is Christiana</p></li><div class="clearfix"></div> ';
             $('#message-outlet').append(strMessages);
             $(".messages").scrollTop($("#message-outlet").outerHeight());
         };
@@ -478,11 +491,11 @@ $user = (new Model())->getProfile();
                 $('#message_chat_form')[0].reset();
                 // console.log(response);
                 var strMessages = '<li class="replies"><img src="https://res.cloudinary.com/funsholaniyi/image/upload/v1524159157/default.jpg">' +
-                    '<p><small style="font-size: 10px;">Funsho</small><br>' +
+                    '<p><small style="font-size: 10px;">Christiana</small><br>' +
                     '' + response.message + '</p></li><div class="clearfix"></div> ';
                 $('#message-outlet').append(strMessages);
                 $(".messages").scrollTop($("#message-outlet").outerHeight());
-                responsiveVoice.speak(response.message ,'US English Female');
+                responsiveVoice.speak(response.message, 'US English Female');
             });
         };
 
@@ -497,196 +510,196 @@ $user = (new Model())->getProfile();
 
 
 <style>
-	.my-container {
-		margin-bottom: 100px;
-		margin-top: 100px;
-		position: relative;
-	}
-	
-	div.profile {
-		width: 100%;
-		/*max-width: 500px;*/
-		background: #fff;
-		height: 400px;
-		margin: 10px;
-		padding: 50px 20px 10px;
-	}
-	
-	div.avatar {
-		background: url(<?php echo $user->image_filename; ?>) center no-repeat;
-		background-size: 100% 100%;
-		border-radius: 100%;
-		width: 200px;
-		height: 200px;
-		box-shadow: 0 0 10px inset rgba(1, 1, 1, 0.8);
-		margin-left: auto;
-		margin-right: auto;
-		margin-top: -120px;
-		right: 0;
-		left: 0;
-		position: absolute;
-	}
-	
-	.skills i {
-		font-size: 25pt;
-		cursor: pointer;
-	}
-	
-	.skills i:hover {
-		filter: brightness(150%);
-	}
-	
-	/*chat box*/
-	
-	.content .messages {
-		height: 200px;
-		min-height: calc(100% - 200px);
-		max-height: calc(100% - 200px);
-		overflow-y: scroll;
-		/*overflow-x: hidden;*/
-	}
-	
-	@media screen and (max-width: 735px) {
-		.content .messages {
-			max-height: calc(100% - 105px);
-		}
-	}
-	
-	.content .messages::-webkit-scrollbar {
-		width: 8px;
-		background: transparent;
-	}
-	
-	.content .messages::-webkit-scrollbar-thumb {
-		background-color: rgba(0, 0, 0, 0.3);
-	}
-	
-	.content .messages ul li {
-		display: inline-block;
-		clear: both;
-		margin: 5px;
-		width: calc(100% - 25px);
-		font-size: 0.7em;
-	}
-	
-	.content .messages ul li.sent {
-		float: left;
-	}
-	
-	.content .messages ul li.replies {
-		float: right;
-	}
-	
-	.content .messages ul li:nth-last-child(1) {
-		margin-bottom: 20px;
-	}
-	
-	.content .messages ul li.sent img {
-		margin: 6px 8px 0 0;
-	}
-	
-	.content .messages ul li.sent h5 {
-		font-size: 10px;
-		color: #19a708;
-		
-	}
-	
-	.content .messages ul li.sent p {
-		background: #19a708;
-		color: #f5f5f5;
-	}
-	
-	.content .messages ul li.replies img {
-		float: right;
-		margin: 6px 0 0 8px;
-	}
-	
-	.content .messages ul li.replies h5 {
-		font-size: 10px;
-		
-	}
-	
-	.content .messages ul li.replies p {
-		background: #f5f5f5;
-		float: right;
-	}
-	
-	.content .messages ul li img {
-		width: 22px;
-		border-radius: 50%;
-		float: left;
-	}
-	
-	.content .messages ul li p {
-		display: inline-block;
-		padding: 5px 15px;
-		margin: 0;
-		border-radius: 20px;
-		max-width: 205px;
-		line-height: 130%;
-	}
-	
-	@media screen and (min-width: 735px) {
-		.content .messages ul li p {
-			max-width: 300px;
-		}
-	}
-	
-	.content .message-input {
-		/*position: absolute;*/
-		bottom: 0;
-		/*background-color: #ffffff;*/
-		width: 100%;
-		z-index: 99;
-	}
-	
-	.content .message-input .wrap {
-		position: relative;
-	}
-	
-	.content .message-input .wrap input {
-		font-family: "lato", "Source Sans Pro", sans-serif;
-		float: left;
-		border: none;
-		width: calc(100% - 60px);
-		padding: 11px 32px 10px 8px;
-		font-size: 0.8em;
-		color: #404040;
-	}
-	
-	@media screen and (max-width: 735px) {
-		.content .message-input .wrap input {
-			padding: 15px 32px 16px 8px;
-		}
-	}
-	
-	.content .message-input .wrap input:focus {
-		outline: none;
-	}
-	
-	.content .message-input .wrap button {
-		float: right;
-		border: none;
-		width: 50px;
-		padding: 12px 0;
-		cursor: pointer;
-		background: #18a706;
-		color: #f5f5f5;
-	}
-	
-	@media screen and (max-width: 735px) {
-		.content .message-input .wrap button {
-			padding: 16px 0;
-		}
-	}
-	
-	.content .message-input .wrap button:hover {
-		background: #435f7a;
-	}
-	
-	.content .message-input .wrap button:focus {
-		outline: none;
-	}
+    .my-container {
+        margin-bottom: 100px;
+        margin-top: 100px;
+        position: relative;
+    }
+
+    div.profile {
+        width: 100%;
+        /*max-width: 500px;*/
+        background: #fff;
+        height: 400px;
+        margin: 10px;
+        padding: 50px 20px 10px;
+    }
+
+    div.avatar {
+        background: url(<?php echo $user->image_filename; ?>) center no-repeat;
+        background-size: 100% 100%;
+        border-radius: 100%;
+        width: 200px;
+        height: 200px;
+        box-shadow: 0 0 10px inset rgba(1, 1, 1, 0.8);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -120px;
+        right: 0;
+        left: 0;
+        position: absolute;
+    }
+
+    .skills i {
+        font-size: 25pt;
+        cursor: pointer;
+    }
+
+    .skills i:hover {
+        filter: brightness(150%);
+    }
+
+    /*chat box*/
+
+    .content .messages {
+        height: 200px;
+        min-height: calc(100% - 200px);
+        max-height: calc(100% - 200px);
+        overflow-y: scroll;
+        /*overflow-x: hidden;*/
+    }
+
+    @media screen and (max-width: 735px) {
+        .content .messages {
+            max-height: calc(100% - 105px);
+        }
+    }
+
+    .content .messages::-webkit-scrollbar {
+        width: 8px;
+        background: transparent;
+    }
+
+    .content .messages::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .content .messages ul li {
+        display: inline-block;
+        clear: both;
+        margin: 5px;
+        width: calc(100% - 25px);
+        font-size: 0.7em;
+    }
+
+    .content .messages ul li.sent {
+        float: left;
+    }
+
+    .content .messages ul li.replies {
+        float: right;
+    }
+
+    .content .messages ul li:nth-last-child(1) {
+        margin-bottom: 20px;
+    }
+
+    .content .messages ul li.sent img {
+        margin: 6px 8px 0 0;
+    }
+
+    .content .messages ul li.sent h5 {
+        font-size: 10px;
+        color: #19a708;
+
+    }
+
+    .content .messages ul li.sent p {
+        background: #19a708;
+        color: #f5f5f5;
+    }
+
+    .content .messages ul li.replies img {
+        float: right;
+        margin: 6px 0 0 8px;
+    }
+
+    .content .messages ul li.replies h5 {
+        font-size: 10px;
+
+    }
+
+    .content .messages ul li.replies p {
+        background: #f5f5f5;
+        float: right;
+    }
+
+    .content .messages ul li img {
+        width: 22px;
+        border-radius: 50%;
+        float: left;
+    }
+
+    .content .messages ul li p {
+        display: inline-block;
+        padding: 5px 15px;
+        margin: 0;
+        border-radius: 20px;
+        max-width: 205px;
+        line-height: 130%;
+    }
+
+    @media screen and (min-width: 735px) {
+        .content .messages ul li p {
+            max-width: 300px;
+        }
+    }
+
+    .content .message-input {
+        /*position: absolute;*/
+        bottom: 0;
+        /*background-color: #ffffff;*/
+        width: 100%;
+        z-index: 99;
+    }
+
+    .content .message-input .wrap {
+        position: relative;
+    }
+
+    .content .message-input .wrap input {
+        font-family: "lato", "Source Sans Pro", sans-serif;
+        float: left;
+        border: none;
+        width: calc(100% - 60px);
+        padding: 11px 32px 10px 8px;
+        font-size: 0.8em;
+        color: #404040;
+    }
+
+    @media screen and (max-width: 735px) {
+        .content .message-input .wrap input {
+            padding: 15px 32px 16px 8px;
+        }
+    }
+
+    .content .message-input .wrap input:focus {
+        outline: none;
+    }
+
+    .content .message-input .wrap button {
+        float: right;
+        border: none;
+        width: 50px;
+        padding: 12px 0;
+        cursor: pointer;
+        background: #18a706;
+        color: #f5f5f5;
+    }
+
+    @media screen and (max-width: 735px) {
+        .content .message-input .wrap button {
+            padding: 16px 0;
+        }
+    }
+
+    .content .message-input .wrap button:hover {
+        background: #435f7a;
+    }
+
+    .content .message-input .wrap button:focus {
+        outline: none;
+    }
 
 </style>
 <div class="clearfix"></div>
