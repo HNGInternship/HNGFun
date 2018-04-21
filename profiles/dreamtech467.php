@@ -141,6 +141,7 @@ require 'db.php';
 		<title>Abraham Profile</title>
 		
 		<script src="https://code.jquery.com/jquery-git.min.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		 <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
 		 
 		 
