@@ -5,10 +5,6 @@ $possible_questions = array();
 $sorted_possible_questions = array();
 
 try {
-    include_once "config.php";
-    try {
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "SELECT * FROM secret_word";
         $query = $conn->query($sql);
         $query->setFetchMode(PDO::FETCH_ASSOC);
@@ -19,11 +15,6 @@ try {
         $q2 = $conn->query($sql2);
         $q2->setFetchMode(PDO::FETCH_ASSOC);
         $me = $q2->fetch();
-    } 
-    catch(PDOException $e) {
-        echo "Error: " . $e->getMessage();
-    }
-
 }
 catch (PDOException $e) {
     throw $e;
@@ -34,13 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_input = validate_input($_POST["userInput"]);
     try {
         include_once "answers.php";
-        try {
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
-        } 
-        catch(PDOException $e) {
-            echo "Error: " . $e->getMessage();
-        }
 
         if (strpos($user_input, 'train') === 0) {
             $user_input = substr_replace($user_input, '', 0, 5);
