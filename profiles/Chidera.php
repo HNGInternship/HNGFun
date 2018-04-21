@@ -141,7 +141,7 @@
     <section>
         <section class="chidera_profile-container">
             <div class="chidera_img">
-                <img class="chideraimg" src="<?php echo $user->image_filename?>" alt="" srcset="" height="386" width="240">
+                <img class="chideraimg" src="<?php echo $user->image_filename?>" alt="CHIDERA'S PICTURE" srcset="" height="386" width="240">
             </div>
             <div class="chidera_info">
                 <div class="chidera_header">
@@ -150,6 +150,7 @@
                     <hr class="chidera_hr">
                 </div>
                 <div class="chidera_details">
+                    <p> Secret Word: <?php $secret_word?> </p>
                     <p class="chidera_subject">USERNAME</p>
                     <p class="chidera_detail">@<?php echo $user->username?></p>
                     <p class="chidera_subject">EMAIL</p>
