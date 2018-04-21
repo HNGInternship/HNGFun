@@ -417,7 +417,7 @@ function train($human_response){
 				</div>
 
 				<h1 class="intro"><?=$name?> </h1>
-				<h3 class="text-center">Being Kind is better than being right.</h3>
+				<h3 class="text-center">Being Kind is better than being right :-)</h3>
 			</div>	
 		</section>
 	</div>
