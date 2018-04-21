@@ -80,9 +80,9 @@
     <div id="cover">
       <div id="box">
        <img src="http://res.cloudinary.com/damilola/image/upload/v1524350063/me.jpg" alt="Damilola" class="img-rounded">
-        <p>SOYEMI DAMILOLA</p>
+       <p><?php echo $name; ?></p>
         <h4>Because i'm Batman (In Batman's voice)</h4>
-
+        <h4>Username: @<?php echo $username; ?>, Phone: 08023975087, Email: dhaamie.soyemi@gmail.com, Skills: Css,Bootstrap, Javascript, PHP</h4>
         
      </div>
     </div>
