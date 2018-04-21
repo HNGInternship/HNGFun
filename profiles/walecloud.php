@@ -1,11 +1,9 @@
-<?php 
-    require_once '../db.php';
-
+<?php
     $sql = "SELECT secret_word FROM secret_word;";
     $query = $conn->query($sql);
     $result = $query->fetch(PDO::FETCH_OBJ);
     $secret_word = $result->secret_word;
-
+    
     $queryProfile = $conn->query("SELECT * FROM interns_data WHERE username = 'walecloud';");    
     $rsProfile = $queryProfile->fetch(PDO::FETCH_OBJ);
 ?>
