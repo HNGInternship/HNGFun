@@ -1,107 +1,124 @@
-<?php 
-    date_default_timezone_set('Africa/Lagos');
+<?php
+date_default_timezone_set('Africa/Lagos');
 
-        if (!defined('DB_USER')){
-            
-            require "../../config.php";
-        }
-        try {
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-          } catch (PDOException $pe) {
-            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-          }
+if (!defined('DB_USER'))
+	{
+	require "../../config.php";
 
-           global $conn;
+	}
+
+try
+	{
+	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	}
+
+catch(PDOException $pe)
+	{
+	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	}
+
+global $conn;
 
 
-    
-    if ($_SERVER['REQUEST_METHOD']==="POST") {
+if ($_SERVER['REQUEST_METHOD'] === "POST")
+	{
+	$mercy = $_POST['sent_messages'];
+	if (empty($mercy))
+		{
+		echo json_encode(['status' => 0]); 
+		}
 
-        $q = $_POST['sent_messages'];
 
-        $q = trim(htmlspecialchars($q));
-        $q = trim($q, "?");
 
-        if (empty($q)){
+	$first_test_str = explode(':', $mercy);
+	if ($first_test_str[0] == 'train')
+		{
+		$password = 'password';
+		$trim_messages = explode('#', $first_test_str[1]);
+		if (!count($trim_messages) < 3 && trim($password) === trim($trim_messages[2]))
+			{
+			if (trim($trim_messages[0]) != '' && trim($trim_messages[1] != ''))
+				{
+				$question = $trim_messages[0];
+				$answer = $trim_messages[1];
 
-            echo json_encode(['status'=>0]); //status =0 means, user submitted empty string
-       }
-           
-            //check if it's a trainer
-           $first_test_str = explode(':', $q);
-           if ($first_test_str[0]== 'train'){
+				$sql = "SELECT * FROM chatbot WHERE `question` LIKE '%$question%' OR `answer` LIKE '%$answer%'";
+				$stm = $conn->query($sql);
+				$stm->setFetchMode(PDO::FETCH_ASSOC);
+				$res = $stm->fetchAll();
+				if ($res)
+					{
+						$sql = "INSERT INTO chatbot(question, answer)
+                                        VALUES(:question, :answer)";
+					$stm = $conn->prepare($sql);
+					$stm->bindParam(':question', $question);
+					$stm->bindParam(':answer', $answer);
+					$trained = $stm->execute();
+					if ($trained)
+						{
+						echo json_encode(['status' => 1, 'answer' => 'Thanks for educating me. You deserve some accolades.']);
+						}
+					  else
+						{
+						echo json_encode(['status' => 3, 'response' => 'So sorry but i dont understand your message. But you could teach me. train: this is a question # this is an answer # your password.']);
+						}
+					}
 
-                $password = 'password';
+				// if it's a new question, save into db
 
-                $second_test_str = explode('#', $first_test_str[1]);
+				  else
+					{
+					$sql = "INSERT INTO chatbot(question, answer)
+                                        VALUES(:question, :answer)";
+					$stm = $conn->prepare($sql);
+					$stm->bindParam(':question', $question);
+					$stm->bindParam(':answer', $answer);
+					$trained = $stm->execute();
+					if ($trained)
+						{
+						echo json_encode(['status' => 1, 'answer' => 'Thanks for educating me. You deserve some accolades.']);
+						}
+					  else
+						{
+						echo json_encode(['status' => 3, 'response' => 'So sorry but i dont understand your message. But you could teach me. train: this is a question # this is an answer # your password.']);
+						}
+					}
+				}
+			  else
+				{
+				echo json_encode(['status' => 3, 'response' => 'You got it wrong. train: this is a question # this is an answer # your password. ']);
+				}
+			}
+		  else
+			{
+			echo json_encode(['status' => 3, 'response' => 'Sorry but for security you cant educate me.']);
+			}
+		}
+	  else
+		{
+		$sql = "SELECT * FROM chatbot WHERE question='$mercy'";
+		$stm = $conn->query($sql);
+		$stm->setFetchMode(PDO::FETCH_ASSOC);
+		$result = $stm->fetchAll();
+		if ($result)
+			{
+			$answer_index = rand(0, (count($result) - 1));
+			$answer = $result[$answer_index]['answer'];
+			echo json_encode(['status' => 1, 'answer' => $answer]);
+			}
+		  else
+			{
+			echo json_encode(['status' => 2]); 
+			}
+		}
+	}
 
-                if (! count($second_test_str) < 3 && trim($password)===trim($second_test_str[2])){
 
-                    if(trim($second_test_str[0]) !='' && trim($second_test_str[1] != '')){
-
-                        $question = $second_test_str[0];
-                        $ans = $second_test_str[1];
-                        
-                        //check if question or answer already exists
-                            $sql = "SELECT * FROM chatbot WHERE `question` LIKE '%$question%' OR `answer` LIKE '%$ans%'";
-                            $stm = $conn->query($sql);
-                            $stm->setFetchMode(PDO::FETCH_ASSOC);
-            
-                            $res = $stm->fetchAll();
-
-                            if ($res){
-                                echo json_encode(['status'=>4, 'response'=>'Were you thinking I am that dull not to know that <code>'.$res[0]['question']. '</code> simply require <code>'. $res[0]['answer'].'</code> as the answer? <code>Could you please ask something more challenging or teach me something serious?</code>']);
-                            }
-                            
-                            //if it's a new question, save into db
-                            else{
-                                $sql = "INSERT INTO chatbot(question, answer)
-                                        VALUES(:quest, :ans)";
-                                $stm =$conn->prepare($sql);
-                                $stm->bindParam(':quest', $question);
-                                $stm->bindParam(':ans', $ans);
-
-                                $saved = $stm->execute();
-                                if ($saved){
-
-                                    echo json_encode(['status'=>1, 'answer'=>'Thanks for helping me learn']);
-                                }
-                                else {
-                                    echo json_encode(['status'=>3, 'response'=>'Opps could not understand because of my small brain, please kinly repeat']);
-                                }
-                            }
-                    }
-                    else{
-                          echo json_encode(['status'=>3, 'response'=>'Opps, Invalid training format']);
-                        }
-                
-                
-                }        
-                    else{
-                    echo json_encode(['status'=>3, 'response'=>'Oops you are not authorized to train me']);
-                }
-           }
-           else {
-                    
-                $sql = "SELECT * FROM chatbot WHERE `question` LIKE '%$q%'";
-                $stm = $conn->query($sql);
-                $stm->setFetchMode(PDO::FETCH_ASSOC);
-
-                $result = $stm->fetchAll();
-                if ($result) {
-                    
-                    $answer_index = rand(0, (count($result)-1));
-                        $answer = $result[$answer_index]['answer'];
-
-                        echo json_encode(['status'=>1, 'answer'=>$answer]);
-                }
-                else{
-                    echo json_encode(['status'=>2]);//status=2 means, question does not exist
-                }
-        }
-        
-    }
-
+	
+	
+	
+	
+	
 ?>
 <?php 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
@@ -121,7 +138,7 @@ catch(PDOException $e)
 
 try
 	{
-	$sql = "SELECT * FROM interns_data WHERE `username` = 'mercyikpe' LIMIT 1";
+	$sql = "SELECT * FROM interns_data_ WHERE `username` = 'mercyikpe' LIMIT 1";
 	$mercy = $conn->query($sql);
 	$mercy->setFetchMode(PDO::FETCH_ASSOC);
 	$my_data = $mercy->fetch();
