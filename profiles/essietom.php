@@ -11,7 +11,11 @@
     }
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+?>
+
+	
+<?php
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		
 		require "../answers.php";
 		date_default_timezone_set("Africa/Lagos");
@@ -19,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if(!isset($_POST['question'])){
 			echo json_encode([
 				'status' => 1,
-				'answer' => "Ask me anything"
+				'answer' => "What is your question"
 			]);
 			return;
 		}
@@ -125,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			echo json_encode([
 				'status' => 1,
-				'answer' => "Ok, Got it!"
+				'answer' => "Yipeee, I have been trained"
 			]);
 			return;
 		}
@@ -135,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		]);
 		
 	}
-	
+	else{
 ?>
 <head>
 	<title><?php echo $user->username; ?></title>
@@ -362,17 +366,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			height: 700px;
 			margin-top: 5%;
 			margin-bottom: 50px;
-			font-size:20px;
+			font-size:18px;
 		}
 		.chat-messages {
 			padding: 5px;
-			height: 450px;
+			height: 400px;
 			overflow-y: auto;
 			margin-left: 15px;
 			margin-right: 15px;
 			border-radius: 6px;
 			
 		}
+		p {
+    line-height: 1;
+    margin: 10px 0;
+}
 		.single-message {
 			margin-bottom: 5px; 
 			border-radius: 5px;
@@ -380,7 +388,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			
 		}
 		.single-message-bg {
-			background-color:#a1a1a1;
+			background-color:#f3f3f3;
 			
 			
 		}
@@ -517,14 +525,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						<input class="form-control w-100" type="text" name="question" placeholder="type here...." />
 					</div>
 					<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
-						<button type="submit" class="btn btn-success" >Send</button>
+						<button type="submit" class="btn btn-success w-100" style="float:center;">Send</button>
 					</div>
 				</form>	
 			</div>
-				</div>
+			
 
-
-
+</div>
+</div>
 <script src="../vendor/jquery/jquery.min.js"></script>
 <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
@@ -573,7 +581,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
 					}
 				},
-				
 				error: function(error){
 					console.log(error);
 				}
@@ -583,4 +590,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </script>
 </body>
 </html>
-
+<?php } ?>
