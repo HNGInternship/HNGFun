@@ -61,7 +61,10 @@ else if(isset($_GET['info'])){
 
 function workOnTrainData($data){
 
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    require 'db.php';
+
+
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
     
 
 
@@ -112,10 +115,10 @@ catch(PDOException $e)
 
 function getReply($data){
 
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    require 'db.php';
 
 
-
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 
 
     try{
