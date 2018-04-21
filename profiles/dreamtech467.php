@@ -366,12 +366,9 @@ require 'db.php';
 					
 						<div class="chatWrap">	
 							<div class="chatBody">
-								<div class="msgA">
-										<p>How may I help?</p>
-								</div>
 								<!-- Bot message -->
 								<div class="msgA">
-										<p>I can answer your questions to the best of my knowledge, 
+										<p>Hi: Am dreamtech,<br> How may I help?</p>
 								</div>
 								
 								<!-- You Questions -->
