@@ -325,7 +325,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					url: '../profiles/Adeyefa.php',
 					type: 'POST',
 					data: {question: question},
-					dataType: 'json',
 					success: (response)=> {
 			        console.log($("#ans").append("<li>" + response.result +  "</li>"));
 			        //alert(answer.result);
