@@ -19,7 +19,7 @@ try {
 }
 }
 function return_version(){
-    define ('VERSION', "Waju @1.0.0");
+    define ('VERSION', "Waju @1.0.1");
 
     if( !isset( $_POST['ajax'] ) ){
         //not ajax
@@ -301,7 +301,7 @@ if( !array_key_exists('ajax', $_POST)){
     <!-- ALL printing to screen go here -->
     <style>
     .main-wrapper{
-        margin-top: 100px;
+        margin-top: 30px;
         /* opacity:0; */
         /* the animation is bad for the bot using pure php */
         /* animation: fadeIn 3s 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; */
@@ -417,15 +417,14 @@ if( !array_key_exists('ajax', $_POST)){
     <!-- bootstrap is mobile first so mf-row must come before flex-column -->
     <div class="d-flex flex-md-row flex-column mb-3 main-wrapper">
 
-        <div class="p-2 left-pane align-self-center flex-grow-0 flex-md-grow-5">
+        <div class="p-2 left-pane flex-grow-0 flex-md-grow-5">
             <div class="img-wrap">
                 <img src="<?=$intern_data['image_filename']; ?>" alt="waju">
             </div> 
             <h4 class="name text-center"><?=$intern_data['name']; ?><br>
                 <span><?="@".$intern_data['username']; ?><span class="seperator"> | </span>Fullstack Developer</span>
             </h4>
-            <ul class="list-inline">
-            </ul>
+            
         </div>
         <!-- /.left-pane -->
             
@@ -500,16 +499,20 @@ if( !array_key_exists('ajax', $_POST)){
     .chat-area{
         position:fixed;
         bottom: 0%;
-        right: 10%;
+        left: 10%;
         background: white;
         font-size: 14px;
-        height:200px;
+        height:100px;
         width:350px;
         padding:0;
         box-shadow: 3px -1px 10px 1px rgba(0,0,0,0.345);
     }
+    /* different style for game  */
+    .chat-area[data-state="game"]{
+        /*  */
+    }
     .chat-area.chat-area--js {
-        height: 350px;
+        height: 170px;
     }
     
     .chat-form{
@@ -596,13 +599,14 @@ if( !array_key_exists('ajax', $_POST)){
         border-bottom-right-radius: 5px;
     }
     </style>
-    <div class="chat-area chat-area--js">
+    <div class="chat-area chat-area--js" data-state="">
         <div class="chat-header">
             <span class="left">
                 <span class="status"></span>
                 <span class="bot-name">@Waju</span> 
             </span>               
-            <span class="toggle" data-state="down">&#x23EC;</span>
+            <span class="toggle" data-state="down">&#x23EB;</span>
+            <!-- &#x23EC; -->
         </div>
         <div class="chat-list-wrapper">
             <ul class="chat-list">
@@ -618,94 +622,226 @@ if( !array_key_exists('ajax', $_POST)){
         </form>
     </div>
 <script>
-    window.addEventListener("load", function() {
-        const chatBot = {
-                $el: $('.chat-area'),
-            init: function(){
-                this.$el.addClass('chat-area--js');
-                //add functions js can do
-                this.$el.find('.chat-list__item--bot').text("I am Waju, a bot built by Olanrewaju, i can tell the time, to play a game type #game");
-                this.cacheDome();
-                this.bindEvents();
-            },
-            cacheDome: function(){
-                this.$chatList = this.$el.find('.chat-list')
-                this.$form = this.$el.find('form');
-                this.$userInput = this.$form.find('#questionField');
-                this.$wrapper = this.$el.find('.chat-list-wrapper');
-                this.$toggle = this.$el.find('span.toggle'); 
-            },
-            runCommand: function(command){
-                console.log('running command');
-            },
-            /**
-             * Handle input from the user
-             */
-            handleInput: function(e){
-                e.preventDefault();
-                let message = this.$userInput.val();
-                if(message === '') {
-                    this.addMessage("Please input a message", 'bot');
-                    return;
-                }
-                //append the message
-                this.appendMessage(message,'user');
-                //check if its a command has a leading #, if so do the command else send it to server
-                if( message.charAt(0) == '#' ){
-                        // run command
-                        this.runCommand(message);
-                } else{
+window.addEventListener("load", function() {
+    loadQuestions = function(){
 
-                    //send question to server Assynchronously
-                    let self = this;
-                    let posting = $.post({
-                        url: 'profiles/Waju.php',
-                        data: {question: message, ajax: 'AJAX'},
-                        dataType: 'json'
-                    });
-                    posting.done(function(data){
-                        setTimeout(function(){
-                            self.appendMessage(data.message, 'bot');
-                        },700);
-                    });
-        
-                }
-                //clear the input
+        return new Promise((resolve, reject) => {
+            fetch('https://opentdb.com/api.php?amount=20&difficulty=easy&type=boolean')
+            .then(resp => resp.json())
+            .then(questions => {
+                resolve(questions);
+            });
+        });
+    
+    }
+    const chatBot = {
+            $el: $('.chat-area'),
+        init: function(){
+            this.$el.addClass('chat-area--js');
+            //add functions js can do
+            this.$el.find('.chat-list__item--bot').text("I am Waju, a bot built by Olanrewaju, i can tell the time, to play a game type #game");
+            this.cacheDome();
+            this.bindEvents();
+        },
+        cacheDome: function(){
+            this.$chatList = this.$el.find('.chat-list')
+            this.$form = this.$el.find('form');
+            this.$userInput = this.$form.find('#questionField');
+            this.$wrapper = this.$el.find('.chat-list-wrapper');
+            this.$toggle = this.$el.find('span.toggle'); 
+        },
+       
+        /**
+         * Handle input from the user
+         */
+        handleInput: function(e){
+            e.preventDefault();
+            let message = this.$userInput.val();
+            if(message === '') {
+                this.appendMessage("Please input a message", 'bot');
+                return;
+            } 
+            //append the message
+            this.appendMessage(message,'user');
+            //if input is a command run it regardless of state;
+            if( message.charAt(0) == '#' ){
+                // run command
+                this.runCommand(message);
                 this.$userInput.val('');
+                return;
+            }
+            //check if we are in a function state
+            if(this.$el.data('state') == ''){
+                //its stateless - just chat
+                //check if its a command has a leading #, if so do the command else send it to server                    //send question to server Assynchronously
+                this.sendRequest(message);
+
+            } else {
+                //its in a function state (just game for now)
+                this.evaluateResponse(message);
+            }
+
+            //clear the input
+            this.$userInput.val('');
+
+
             },
-            /**
-             * Append the message to the chat-list, takes in message and sender-type
-             */
-            appendMessage: function(message, senderType){
-                //PS; 'this' is chatBot Object
-                // console.log( `Appending message: ${message} from Sender: ${senderType}`);
-                this.$chatList.append(`
-                    <li class="chat-list__item chat-list__item--${senderType}">${message}</li>
-                `);
-    
-                //scroll the chat interface up/ down
-                this.$wrapper.animate(
-                    {scrollTop: '+=800',},
-                    {duration: 600}
-                );
+            //send a request to the serve and append it to the bot
+            sendRequest: function(message) {
+                let self = this;
+                let posting = $.post({
+                    url: 'profiles/Waju.php',
+                    data: {question: message, ajax: 'AJAX'},
+                    dataType: 'json'
+                });
+                posting.done(function(data){
+                    self.appendMessage(data.message, 'bot');;
+                });  
             },
-            toggleView: function(e){
-                this.$el.animate({ height: 250 }, { duration: 300 });
-                console.log(this.$toggle.data('state')); //=== 'down' ? "\&#x23EB;" : "\&#x23EC;" ;  
-                console.log(this.$toggle.text());
-            },
-            bindEvents: function(){
-                //handle user inputs
-                this.$form.on('submit',this.handleInput.bind(this));
-    
-                //toggle on click 
-                this.$toggle.on('click', this.toggleView.bind(this));
-            },
-            addMessage: function(){},
-            addMessage: function(){},
-        }
-    
-      chatBot.init();
+        /**
+         * Append the message to the chat-list, takes in message and sender-type
+         */
+        appendMessage: function(message, senderType){
+            //PS; 'this' is chatBot Object
+            // console.log( `Appending message: ${message} from Sender: ${senderType}`);
+            //for bots, add a 400s delay, for user dont;
+            let delay = senderType == 'bot' ? 800 : 400,
+                self = this;
+            setTimeout(function(){
+                self.$chatList.append(`
+                <li class="chat-list__item chat-list__item--${senderType}">${message}</li>
+            `);
+            }, delay);
+                   
+
+            //scroll the chat interface up/ down
+            this.$wrapper.animate(
+                {scrollTop: '+=1000',},
+                {duration: 700,
+                easing: 'swing',
+                duration: 600
+                }
+            );
+        },
+        toggleView: function(e){
+            // if height is ,170.. increase it and point down 
+            console.log(this.$el.height());
+            if( this.$el.height() <= 170 ){
+                    // <!-- &#x23EC; -->
+                    this.$toggle.html(`<span class="toggle" data-state="down">&#x23EC;</span>`);
+                    this.$el.animate({ height: 350 }, { duration: 300 })
+            } else {
+                // reduce it and point down 
+                // <!-- &#x23EC; -->
+                this.$toggle.html(`<span class="toggle" data-state="down">&#x23EB;</span>`);
+                this.$el.animate({ height: 180 }, { duration: 300 })
+            }
+        },
+         //gets the machine to switch to a command mode
+         runCommand: function(command){
+            switch(command){
+                case "#game":
+                    this.$el.trigger('startGame');
+                break;
+                case "#end":
+                    this.$el.trigger('endGame');
+                default:
+                    this.$el.data('state', '');
+            }
+        },
+        bindEvents: function(){
+            //handle user inputs
+            this.$form.on('submit',this.handleInput.bind(this));
+
+            //toggle on click 
+            this.$toggle.on('click', this.toggleView.bind(this));
+
+            //start actions based on triggered events
+
+            //start game
+            this.$el.on('startGame', this.startGame.bind(this));
+
+            //end game
+            this.$el.on('endGame', this.gameOver.bind(this));
+        },
+        // =====GAME FUNCTIONS ======= 
+        //vars
+        _score: 0,
+        _trials : 0,
+        _screens: {
+            start: `Hi there, lets play a trivia game I will ask you a question, respond with T (True) or F (False), type #end to stop the game`,
+            wrong: `Sorry that answer was wrong`,
+            correct: `Cool, you were right`,
+            gameOver: `Thanks for playing you scored ${self._score} points type #game to play again`
+        },
+        startGame: function(){
+            let self = this,
+                fetch_data = loadQuestions();
+                fetch_data.then(function(data){
+                   self._questions =data.results;                   // self._questions = data.result;
+                })
+            // reset question index in case restarting game
+            this.$el.data('state', 'game');
+            this.current_index = 0;
+            //set $el data-state to game, used in handle input to know if game is on going.
+            //send start screen message,
+            this.appendMessage(this._screens.start, 'bot');
+            
+            //send first question after some seconds
+            setTimeout(function(){
+                self.appendMessage(self._questions[self.current_index].question, 'bot');        
+            }, 1200);
+        },
+        nextQuestion: function(){
+            //increase index
+            this.current_index++;
+            if(this.current_index !=this._questions.length){
+                //show question after some seconds
+                    let self = this;
+                    setTimeout(function(){
+                        self.appendMessage(self._questions[self.current_index].question, 'bot');        
+                    }, 1200);
+            } else {
+                //we have exhasted question, game over
+                this.gameOver();
+                //unset the state 
+                this.$el.data('state','');
+            }
+            this.$wrapper.animate(
+                {scrollTop: '+=1000',},
+                {duration: 700,
+                easing: 'swing',
+                duration: 600
+                }
+            );
+        },
+        gameOver: function(){
+            this.appendMessage(`Thanks for playing you scored ${this._score} points type #game to play again or type a message to chat`, 'bot');
+        },
+        evaluateResponse:function(response){
+            let _response = response.charAt(0).toUpperCase(),
+                answer = this._questions[this.current_index].correct_answer.charAt(0).toUpperCase(),
+  
+                //check if right or wrong
+                result = (_response === answer ) ? 'Correct' : 'Wrong';          
+                //update score
+                    this.updateScore(result);
+                //show result
+                let screen = result === 'Correct' ? this._screens.correct : this._screens.wrong;
+                this.appendMessage(screen, 'bot');    
+                //next question
+                this.nextQuestion();       
+        },
+        //update the score adding 100 for correct answers of leaving it thesame
+        updateScore(verdict){
+           this._score = ( verdict === 'Correct' ) ? this._score +100 : this._score;
+        },
+        dislayQuestion: function(){},
+        current_index: 0,
+       
+    }
+   
+  chatBot.init();
 });
 </script>
 <?php

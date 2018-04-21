@@ -11,7 +11,11 @@
     }
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+?>
+
+	
+<?php
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		
 		require "../answers.php";
 		date_default_timezone_set("Africa/Lagos");
@@ -135,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		]);
 		
 	}
-	
+	else{
 ?>
 <head>
 	<title><?php echo $user->username; ?></title>
@@ -353,144 +357,64 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				#time{
     display-content:center;
 }
-		#demo {
-            
-            width: 30%;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 20px;
-            background-color: #F8F8F8;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 10px #999;
-            line-height: 1.4em;
-            font: 13px helvetica,arial,freesans,clean,sans-serif;
-            color: black;
-        }
-        #demo input {
-            padding: 8px;
-            font-size: 14px;
-            border: 1px solid #ddd;
-            width: 100%;
-	    
-        }
-        .button {
-            display: inline-block;
-            background-color: darkcyan;
-            color: #fff;
-            padding: 8px;
-            cursor: pointer;
-            float: right;
-        }
-        #chatBotCommandDescription {
-            display: none;
-            margin-bottom: 20px;
-        }
-        input:focus {
-            outline: none;
-        }
-        .chatBotChatEntry {
-            display: none;
-        }
-        .chatBotChatEntry {
-    padding: 20px;
-    background-color: #fff;
-    border: none;
-    margin-top: 5px;
-    font-family: 'open_sanslight', sans-serif !important;
-    font-size: 17px;
-    font-weight: normal;
+		
+		.chat-frame {
+			border-color: #cccccc;
+			color: #333333;
+			background-color: #ffffff;
+			padding: 20px;
+			height: 700px;
+			margin-top: 5%;
+			margin-bottom: 50px;
+			font-size:18px;
+		}
+		.chat-messages {
+			padding: 5px;
+			height: 400px;
+			overflow-y: auto;
+			margin-left: 15px;
+			margin-right: 15px;
+			border-radius: 6px;
+			
+		}
+		p {
+    line-height: 1;
+    margin: 10px 0;
 }
-.chatBotChatEntry * {
-    font-family: 'open_sanslight', sans-serif !important;
-    font-size: 17px;
-    font-weight: normal;
-}
-.chatBotChatEntry .origin {
-    font-weight: bold;
-    margin-right: 10px;
-}
-.chatBotChatEntry .imgBox {
-    position: relative;
-    width: 32%;
-    display: inline-block;
-    margin-top: 10px;
-    margin-right: 10px;
-    height: 218px;
-    overflow: hidden;
-}
-.chatBotChatEntry .imgBox .actions .button {
-    margin-top: 10px;
-    font-size: 18px;
-    padding: 5px;
-    width: 50%;
-}
-.chatBotChatEntry .imgBox .actions {
-    position: absolute;
-    display: none;
-    top: 31px;
-    width: 100%;
-    text-align: center;
-}
-.chatBotChatEntry .imgBox:hover .actions {
-    display: block;
-}
-.chatBotChatEntry .imgBox .title {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 5px;
-    color: #fff;
-    background-color: #333;
-    font-weight: normal;
-    font-size: 16px;
-}
-    .chatBotChatEntry .imgBox img {
-        width: 100%;
-    }
-    .bot {
-        /*border: 4px solid rgba(0, 132, 60, 0.2);*/
-        background-color: rgba(0, 132, 60, 0.2);
-    }
-    .human {
-        /*border: 4px solid rgba(38, 159, 202, 0.2);*/
-        background-color: rgba(38, 159, 202, 0.2);
-    }
-    #chatBotCommandDescription {
-        background-color: #333;
-        color: #fff;
-        padding: 20px;
-    }
-    .commandDescription span.phraseHighlight {
-        color: chartreuse;
-    }
-    .commandDescription span.placeholderHighlight {
-        color: deeppink;
-    }
-    .commandDescription {
-        margin-top: 5px;
-    }
-    #chatBotConversationLoadingBar {
-        background-color: darkcyan;
-        height: 2px;
-        width: 0;
-    }
-    .appear {
-        animation-duration: 0.2s;
-        animation-name: appear;
-        animation-iteration-count: 1;
-        animation-timing-function: ease-out;
-        animation-fill-mode: forwards;
-    }
-    @keyframes appear {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
- }
+		.single-message {
+			margin-bottom: 5px; 
+			border-radius: 5px;
+			min-height: 30px;
+			
+		}
+		.single-message-bg {
+			background-color:#f3f3f3;
+			
+			
+		}
+		.single-message-bg2 {
+			background-color: #f1f1f1;
+			
+		}
+		input[name=question] {
+			height: 50px;
+		}
+		button[type=submit] {
+			height: 50px;
+	
+			color: black;
+		}
+		.circle {
+			width: 60%;
+			margin-left: 20%;
+			border-radius: 50%;
+		}
+		.f-icon {
+			font-size: 40px;
+		}
+		.col-md-4{
+			border:0px;
+		}
 	</style>
 </head>
 <body>
@@ -569,24 +493,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div><!--end of page div-->
 <div style="color:white">My secret code:<?php echo $secret_word; ?></div>
 </div><!--inner ends here -->
+<div class="row">
+	<div class="col-md-4"></div>
+<div class="col-md-4 offset-md-1 chat-frame">
+			<h3 class="text-center">Bot Tom</h3>
+			<div class="row chat-messages" id="chat-messages">
+				<div class="col-md-12" id="message-frame">
+					<div class="row single-message">
+						<div class="col-md-12 single-message-bg">
+							<p>i am tom and its nice having you around</h5>
+						</div>
+					</div>
+					<div class="row single-message">
+						<div class="col-md-12 single-message-bg">
+							<p>Ask me any damn thing u need to know about Hotels.ng </p>
+						</div>
+					</div>
+					<div class="row single-message">
+						<div class="col-md-12 single-message-bg">
+							
+							<p>You can as well train me, following this format: <br/><b>train: question # answer # password</b><p>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="row" style="margin-top: 40px;">
+				<form class="form-inline col-md-12 col-sm-12" id="question-form">
+					<div class="col-md-12 col-sm-12 col-12">
+						<input class="form-control w-100" type="text" name="question" placeholder="type here...." />
+					</div>
+					<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
+						<button type="submit" class="btn btn-success w-100" style="float:center;">Send</button>
+					</div>
+				</form>	
+			</div>
+			
 
-
-
-<div id="demo">
-    <div id="chatBotCommandDescription"></div>
-    <input type="text" placeholder="Say something" />
-
-
-    <div style="clear: both;">&nbsp;</div>
-
-    <div id="chatBot">
-        <div id="chatBotThinkingIndicator"></div>
-        <div id="chatBotHistory"></div>
-        
-    </div>
 </div>
-
-
+</div>
 <script src="../vendor/jquery/jquery.min.js"></script>
 <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
@@ -611,7 +557,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: "/profiles/iam__dharmy.php",
+				url: "/profiles/essietom.php",
 				type: "post",
 				data: {question: question},
 				dataType: "json",
@@ -644,4 +590,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </script>
 </body>
 </html>
-
+<?php } ?>

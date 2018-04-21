@@ -1,20 +1,10 @@
-
-<?php
-	$result = $conn->query(“Select * from secret_word LIMIT 1”);
-	$result = $result->fetch (PDO::FETCH_OBJ);
-	$secret_word = $result->secret_word;
-
-	$result2 = $conn->query(“Secret * from interns_data where username = ‘Eduese’”);
-	$intern = $result2->fetch(PDO::FETCH_OBJ);
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Andre's HNG Profile</title>
 	<style type="text/css">
 		body {
-			background-color: rgb(101, 187, 232);
+			/*background-color: rgb(101, 187, 232);*/
 		}
 
 		#body {

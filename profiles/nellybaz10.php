@@ -3,7 +3,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono" rel="stylesheet">
 	<title>Nelson's Profile</title>
+	<style type="text/css">
+		.this{
+			font-family: 'IBM Plex Mono', monospace;
+		}
+	</style>
+
 </head>
 <body style="text-align: center; font-family: cursive;">
 	<table align="center" width="100%">
@@ -29,12 +38,14 @@
 		<div>
 			
 			<div  style="margin:30px 20% 0 0; border:1px solid gray; width: 50%; height: 500px; min-width: 300px; font-size: 14px; min-height: 300px" align="center" class="whole-content">
-				<h3 style="margin-left: 15px; color: navy">I'm Alice, Nelly's smart bot</h3>
+				<h3 style="margin-left: 15px; color: navy; font-family: 'IBM Plex Mono', monospace;">I'm Alice, Nelly's smart bot</h3>
 				<p>(Are you bored? chat with me)</p>
 				<hr>
 
-				<div id="bot-display" style="background-color:; height: 300px; width: 90%; overflow: scroll;">
+				<div id="bot-display" style="background-color:; height: 300px; width: 90%; overflow: scroll; font-family: 'IBM Plex Mono', monospace;">
 					<p>Ask me any question, I will give you the answer</p>
+					<p>Ask: <b>what is time</b> to get the current time</p>
+					
 					<!--<p>To train me: <br>
 					Tell me the question first by typing: <em><b>#your question</b></em><br>
 					Then the answer by typing: <em><b>@the answer</b></em><br>
@@ -49,7 +60,7 @@
 								<input id="input" style="width: 100%; height: 30px" type="text" name="input">
 							</td>
 							<td >
-								<button id="send" style="width: 100%; height: 35px; background-color: navy; color: white; border:none;">Send</button>
+								<button id="send" style="width: 100%; height: 32px; border-radius: 8px; background-color: navy; color: white; border:none;">Send</button>
 							</td>
 						</tr>
 					</table>
@@ -63,6 +74,7 @@
 
 <?php
 include ('../config.example.php');
+include('../answers.php');
 //include('../db.php');
 
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
@@ -73,14 +85,15 @@ if(!$conn){
 		//list($keyvalue, $real_question) = explode('?', $question);
 		$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 		$question = mysqli_real_escape_string($con, $question);
-		$display_query = "SELECT answer FROM chatbot WHERE question = '$question'";
+		$display_query = "SELECT answer FROM chatbot WHERE question = '$question' ORDER BY RAND() LIMIT 1;";
 		$result = mysqli_query($con, $display_query);
 		if(mysqli_num_rows($result) > 0){
 			$row = mysqli_fetch_array($result);
-			echo "<div class='this'>";
-			echo "<p>YOU: ".$question ;
+			echo "<div class='this'>";		
+			echo "<p><i class='material-icons'>perm_identity</i> ".$question ;
 			echo "</p>";
-			echo "<p>Alice: ".$row['answer'];
+			sleep(1);			
+			echo "<p><i class='material-icons'>child_care</i> ".$row['answer'];
 			echo "</p>";
 			echo "</div>";
 		}
@@ -89,7 +102,7 @@ if(!$conn){
 			echo "<p>Sorry, I could't process that, probably my knowledge is not that wide. You can train me 
 					using the correct format. <br>
 					<b>Corrrect Format:</b><br>
-					train: your question#your answer@password</p>";
+					train: your question#your answer#password</p>";
 			echo "</div>";
 			
 		}
@@ -105,13 +118,13 @@ if(!$conn){
 
 		//check if already exist
 
-		$check_question = "SELECT * FROM chatbot WHERE question = '$real_question'";
-		$result = mysqli_query($con, $check_question);
-		if(mysqli_num_rows($result) > 0){
-			echo "<div class='this'>";
-			echo "<p>I already know the asnwer to this question, just ask me</p>";
-			echo "</div>";
-		}else{
+		//$check_question = "SELECT * FROM chatbot WHERE question = '$real_question'";
+		//$result = mysqli_query($con, $check_question);
+		//if(mysqli_num_rows($result) > 0){
+		//	echo "<div class='this'>";
+		//	echo "<p>I already know the asnwer to this question, just ask me</p>";
+		//	echo "</div>";
+		//}else{
 		$question_query = "INSERT INTO `chatbot`(`question`, `answer`) VALUES ('{$real_question}', '{$real_answer}')";
 		
 		if(mysqli_query($con, $question_query)){
@@ -127,7 +140,7 @@ if(!$conn){
 			echo "</div>";
 		}
 		mysqli_close($con);
-	}
+	//}
 	}
 
 		function add_answer($answer){
@@ -168,8 +181,8 @@ $question = trim($question);
 	 $count_hash = 0;
 
 	 list($train_word, $question1) = explode(':', $question);
-	 list($real_question, $real_answer) = explode('#', $question1);
-	 list($real_answer, $pass) = explode('@', $real_answer);
+	 list($real_question, $real_answer, $pass) = explode('#', $question1);
+	 //list($real_answer, $pass) = explode('@', $real_answer);
 	 
 	 $pass = trim($pass);
 	 $check_pass = 'password';
@@ -190,6 +203,18 @@ $question = trim($question);
 	 					Version: Alice 1.5.2</p>";
 	 			echo "</div>";
 	 	}
+
+	 	else if($question == 'what is the time'){
+	 		date_default_timezone_set('UTC');
+	 			echo "<div class='this'>";
+
+	 			echo date('l jS \of F Y h:i:s A');
+	 			echo "</div>";
+	 	}
+
+
+
+	 	
 
 	 	else{
 	 		display_answer($question);

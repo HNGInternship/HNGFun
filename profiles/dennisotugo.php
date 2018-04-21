@@ -1,135 +1,137 @@
 <?php
+$sql = "SELECT * FROM interns_data WHERE username = 'dennisotugo'";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$data = $q->fetchAll();
+$dennisotugo = array_shift($data);
+// Secret word
+$sql = "SELECT * FROM secret_word";
+$q = $conn->query($sql);
+$q->setFetchMode(PDO::FETCH_ASSOC);
+$words = $q->fetch();
+$secret_word = $words['secret_word'];
+?>
+<?php
 
-if (!defined('DB_USER')) {
-	require "../../config.php";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        require "../answers.php";
 
-}
+        date_default_timezone_set("Africa/Lagos");
 
-try {
-	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-}
+        // header('Content-Type: application/json');
 
-catch(PDOException $pe) {
-	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
+        if (!isset($_POST['question'])) {
+                echo json_encode(['status' => 1, 'answer' => "What is your question"]);
+                return;
+        }
 
-$date_time = new DateTime('now', new DateTimezone('Africa/Lagos'));
-global $conn;
+        $question = $_POST['question']; //get the entry into the chatbot text field
 
-if (isset($_POST['payload'])) {
-	require "../answers.php";
+        // check if in training mode
 
-	$question = trim($_POST['payload']);
-	function isTraining($question)
-	{
-		if (strpos($question, 'train:') !== false) {
-			return true;
-		}
+        $index_of_train = stripos($question, "train:");
+        if ($index_of_train === false) { //then in question mode
+                $question = preg_replace('([\s]+)', ' ', trim($question)); //remove extra white space from question
+                $question = preg_replace("([?.])", "", $question); //remove ? and .
 
-		return false;
-	}
+                // check if answer already exists in database
 
-	function getAnswer()
-	{
-		global $question;
-		global $conn;
-		$sql = 'SELECT * FROM chatbot WHERE question LIKE "' . $question . '"';
-		$answer_data_query = $conn->query($sql);
-		$answer_data_query->setFetchMode(PDO::FETCH_ASSOC);
-		$answer_data_result = $answer_data_query->fetchAll();
-		$answer_data_index = 0;
-		if (count($answer_data_result) > 0) {
-			$answer_data_index = rand(0, count($answer_data_result) - 1);
-		}
+                $question = "%$question%";
+                $sql = "select * from chatbot where question like :question";
+                $stmt = $conn->prepare($sql);
+                $stmt->bindParam(':question', $question);
+                $stmt->execute();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                $rows = $stmt->fetchAll();
+                if (count($rows) > 0) {
+                        $index = rand(0, count($rows) - 1);
+                        $row = $rows[$index];
+                        $answer = $row['answer'];
 
-		if ($answer_data_result[$answer_data_index]["answer"] == "") {
-			return 'I don\'t get :/. If you want to train me to understand sha please type "<code>train: your question? # The answer.</code>"';
-		}
+                        // check if the answer is to call a function
 
-		if (containsVariables($answer_data_result[$answer_data_index]['answer']) || containsFunctions($answer_data_result[$answer_data_index]['answer'])) {
-			$answer = resolveAnswer($answer_data_result[$answer_data_index]['answer']);
-			return $answer;
-		}
-		else {
-			return $answer_data_result[$answer_data_index]['answer'];
-		}
-	}
+                        $index_of_parentheses = stripos($answer, "((");
+                        if ($index_of_parentheses === false) { //then the answer is not to call a function
+                                echo json_encode(['status' => 1, 'answer' => $answer]);
+                        }
+                        else { //otherwise call a function. but get the function name first
+                                $index_of_parentheses_closing = stripos($answer, "))");
+                                if ($index_of_parentheses_closing !== false) {
+                                        $function_name = substr($answer, $index_of_parentheses + 2, $index_of_parentheses_closing - $index_of_parentheses - 2);
+                                        $function_name = trim($function_name);
+                                        if (stripos($function_name, ' ') !== false) { //if method name contains spaces, do not invoke method
+                                                echo json_encode(['status' => 0, 'answer' => "No white spaces allowed in function name"]);
+                                                return;
+                                        }
 
-	function resolveQuestionFromTraining($question)
-	{
-		$start = 7;
-		$end = strlen($question) - strpos($question, " # ");
-		$new_question = substr($question, $start, -$end);
-		return $new_question;
-	}
+                                        if (!function_exists($function_name)) {
+                                                echo json_encode(['status' => 0, 'answer' => "Function not found"]);
+                                        }
+                                        else {
+                                                echo json_encode(['status' => 1, 'answer' => str_replace("(($function_name))", $function_name() , $answer) ]);
+                                        }
 
-	function resolveAnswerFromTraining($question)
-	{
-		$start = strpos($question, " # ") + 3;
-		$answer = substr($question, $start);
-		return $answer;
-	}
+                                        return;
+                                }
+                        }
+                }
+                else {
+                        echo json_encode(['status' => 0, 'answer' => "Sorry, I cannot answer your question.Please train me. The training data format is  <b>train: question # answer # password</b>"]);
+                }
 
-	if (isTraining($question)) {
-		$answer = resolveAnswerFromTraining($question);
-		$question = strtolower(resolveQuestionFromTraining($question));
-		$question_data = array(
-			':question' => $question,
-			':answer' => $answer
-		);
-		$sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '"';
-		$question_data_query = $conn->query($sql);
-		$question_data_query->setFetchMode(PDO::FETCH_ASSOC);
-		$question_data_result = $question_data_query->fetch();
-		$sql = 'INSERT INTO chatbot ( question, answer )
-          VALUES ( :question, :answer );';
-		$q = $conn->prepare($sql);
-		$q->execute($question_data);
-		echo "Training successful.";
-		return;
-	}
+                return;
+        }
+        else {
 
-	function containsVariables($answer)
-	{
-		if (strpos($answer, "{{") !== false && strpos($answer, "}}") !== false) {
-			return true;
-		}
+                // in training mode
+                // get the question and answer
 
-		return false;
-	}
+                $question_and_answer_string = substr($question, 6);
 
-	function containsFunctions($answer)
-	{
-		if (strpos($answer, "((") !== false && strpos($answer, "))") !== false) {
-			return true;
-		}
+                // remove excess white space in $question_and_answer_string
 
-		return false;
-	}
+                $question_and_answer_string = preg_replace('([\s]+)', ' ', trim($question_and_answer_string));
+                $question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string); //remove ? and . so that questions missing ? (and maybe .) can be recognized
+                $split_string = explode("#", $question_and_answer_string);
+                if (count($split_string) == 1) {
+                        echo json_encode(['status' => 0, 'answer' => "Invalid training format. <br /> Type  <b>train: question # answer # password</b>"]);
+                        return;
+                }
 
-	function resolveAnswer($answer)
-	{
-		if (strpos($answer, "((") == "" && strpos($answer, "((") !== 0) {
-			return $answer;
-		}
-		else {
-			$start = strpos($answer, "((") + 2;
-			$end = strlen($answer) - strpos($answer, "))");
-			$function_found = substr($answer, $start, -$end);
-			$replacable_text = substr($answer, $start, -$end);
-			$new_answer = str_replace($replacable_text, $function_found() , $answer);
-			$new_answer = str_replace("((", "", $new_answer);
-			$new_answer = str_replace("))", "", $new_answer);
-			return resolveAnswer($new_answer);
-		}
-	}
+                $que = trim($split_string[0]);
+                $ans = trim($split_string[1]);
+                if (count($split_string) < 3) {
+                        echo json_encode(['status' => 0, 'answer' => "Please enter the training password to train me."]);
+                        return;
+                }
 
-	$answer = getAnswer();
-	echo $answer;
-	exit();
+                $password = trim($split_string[2]);
+
+                // verify if training password is correct
+
+                define('TRAINING_PASSWORD', 'password');
+                if ($password !== TRAINING_PASSWORD) {
+                        echo json_encode(['status' => 0, 'answer' => "Sorry you cannot train me."]);
+                        return;
+                }
+
+                // insert into database
+
+                $sql = "insert into chatbot (question, answer) values (:question, :answer)";
+                $stmt = $conn->prepare($sql);
+                $stmt->bindParam(':question', $que);
+                $stmt->bindParam(':answer', $ans);
+                $stmt->execute();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                echo json_encode(['status' => 1, 'answer' => "I have been trained"]);
+                return;
+        }
+
+        echo json_encode(['status' => 0, 'answer' => "Sorry I cannot answer that question, please train me"]);
 }
 else {
 ?>
+
 
 <div class="profile">
 						<h1>Dennis Otugo</h1>
@@ -138,10 +140,14 @@ else {
 					</div>
   <div class="bot-body">
     <div class="messages-body">
-
       <div>
         <div class="message bot">
           <span class="content">Look alive</span>
+        </div>
+      </div>
+	<div>
+        <div class="message bot">
+          <span class="content">What do you have in mind, Let's talk :) </span>
         </div>
       </div>
     </div>
@@ -162,19 +168,7 @@ else {
           });
   }
 
-  function isUrl(string) {
-          var expression =
-                  /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
-          var regex = new RegExp(expression);
-          var t = string;
-          if (t.match(regex)) {
-                  return true;
-          } else {
-                  return false;
-          }
-  }
-
-  function stripHTML(message) {
+function stripHTML(message) {
           var re = /<\S[^><]*>/g
           return message.replace(re, "");
   }
@@ -191,63 +185,44 @@ else {
                   showResponse('version 1.1.0');
                   return;
           }
-          $.ajax({
-                  url: "profiles/dennisotugo.php",
-                  method: "POST",
-                  data: {
-                          payload: question
-                  },
-                  success: function (res) {
-                          if (res.trim() === "") {
-                                  showResponse(
-                                          `
-          I don\'t understand that question. If you want to train me to understand,
-          please type <code>"train: your question? # The answer."</code>
-          `
-                                  );
-                          } else {
-                                  showResponse(res);
-                          }
-                  }
-          });
-  }
-
-  function showResponse(response) {
-          if (response === true) {
-                  $('.messages-body').append(
-                          `<div>
-          <div class="message bot temp">
-            <span class="content">...</span>
-          </div>
-        </div>`
-                  );
-                  return;
-          }
-          $('.temp').parent().remove();
-          $('.messages-body').append(
-                  `<div>
-        <div class="message bot">
-          <span class="content">${response}</span>
-        </div>
-      </div>`
-          );
-          $('.message-box').val("");
-  }
-
-  function getQuestion() {
-          return $('.message-box').val();
-  }
-
-  function updateThread(message) {
-          message = stripHTML(message);
-          $('.messages-body').append(
-                  `<div>
-        <div class="message you">
-          <span class="content">${message}</span>
-        </div>
-      </div>`
-          );
-  }
+              $(document).ready(function(){
+		var questionForm = $('#input');
+		questionForm.submit(function(e){
+			e.preventDefault();
+			var questionBox = $('input[name=question]');
+			var question = questionBox.val();
+			
+			//display question in the message frame as a chat entry
+			var messageFrame = $('#message-body');
+			var chatToBeDisplayed = '<div class="message bot">'+question+'</div>';
+			
+			messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+			$("#message-body").scrollTop($("#message-body")[0].scrollHeight);
+			//send question to server
+			$.ajax({
+				url: "/profiles/dennisotugo.php",
+				type: "post",
+				data: {question: question},
+				dataType: "json",
+				success: function(response){
+					if(response.status == 1){
+						var chatToBeDisplayed = '<div class="message bot">'+response.answer+'</div>';
+						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+						questionBox.val("");	
+						$("#message-body").scrollTop($("#message-body")[0].scrollHeight);
+					}else if(response.status == 0){
+						var chatToBeDisplayed = '<div class="row single-message">'+
+									'<div class="message bot">'+response.answer+'</div>';
+						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+						$("#message-body").scrollTop($("#message-body")[0].scrollHeight);
+					}
+				},
+				error: function(error){
+					console.log(error);
+				}
+			})
+		});
+	});
 </script>
 <?php } 
 ?>
