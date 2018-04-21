@@ -132,6 +132,7 @@ body
     float: right;
     margin-left: 20px;
     margin-right:0;
+    
 }
 
 .fa {
@@ -261,7 +262,7 @@ body
 
       <div id="data2"><center>
             try my chat bot <br>
-            
+
              <div class="container">
   <img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524056521/pp.jpg" alt="Avatar" style="width:100%;">
   <p>Hello im frank's bot i can answer some of your questions try me ........He is not around im using his profile picture dont tell him &#9786; &#9786; &#9786; you can also train me to answer questions    To train me use the format: below <br> <i style="color: #fefe00;">train: question#answer#password 
