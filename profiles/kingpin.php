@@ -165,6 +165,32 @@ body
 
 </style>
 <head>
+  <script>
+$(document).ready(function(){
+    $("#btn1").click(function(){
+      var valnext2 = $("#ter").val();
+      $("#ter").val('');
+    // var valnext2 = "<?php echo $mesuu; ?>";
+      var valnext = "ghjgjkhgkjhkhjhkhkjh";
+      var resusr='</center><div class="container darker" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524285838/960_720.png" alt="Avatar" class="right" style="width:60%;"><p> ';
+
+
+
+
+
+      var resbot='<div class="container" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524056521/pp.jpg" alt="Avatar" class="left" style="width:60%;"><p> Sorry to disappoint as you  can see he is too lazy to train me he did not even train me to answer simple questions .........i dont even know my name  i think you should go and beat him up ....he is embarassing me <h1> &#x1F620;&#x1F620;&#x1F620; </h1>';
+        $("#async").append(resusr+" "+valnext2+" </p></div>");
+         $("#async").append(resbot+"</p></div>");
+
+    });
+$('form').submit(function(ev) {
+    ev.preventDefault();
+    // ajax stuff...
+});
+
+    
+});
+</script>
 	<title>
 		test bot
 
@@ -344,29 +370,3 @@ echo'<br><c style="color: #FBF7F7;">WELCOME TO MY PROFILE<br>';
 
 </body>
 </html>
-<script>
-$(document).ready(function(){
-    $("#btn1").click(function(){
-      var valnext2 = $("#ter").val();
-      $("#ter").val('');
-    // var valnext2 = "<?php echo $mesuu; ?>";
-      var valnext = "ghjgjkhgkjhkhjhkhkjh";
-      var resusr='</center><div class="container darker" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524285838/960_720.png" alt="Avatar" class="right" style="width:60%;"><p> ';
-
-
-
-
-
-      var resbot='<div class="container" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524056521/pp.jpg" alt="Avatar" class="left" style="width:60%;"><p> Sorry to disappoint as you  can see he is too lazy to train me he did not even train me to answer simple questions .........i dont even know my name  i think you should go and beat him up ....he is embarassing me <h1> &#x1F620;&#x1F620;&#x1F620; </h1>';
-        $("#async").append(resusr+" "+valnext2+" </p></div>");
-         $("#async").append(resbot+"</p></div>");
-
-    });
-$('form').submit(function(ev) {
-    ev.preventDefault();
-    // ajax stuff...
-});
-
-    
-});
-</script>
