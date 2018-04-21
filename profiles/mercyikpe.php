@@ -41,14 +41,15 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 				{
 				$question = $trim_messages[0];
 				$answer = $trim_messages[1];
-
-				$sql = "SELECT * FROM chatbot WHERE `question` LIKE '%$question%' OR `answer` LIKE '%$answer%'";
-				$stm = $conn->query($sql);
-				$stm->setFetchMode(PDO::FETCH_ASSOC);
-				$res = $stm->fetchAll();
-				if ($res)
+				$sql = "INSERT INTO chatbot(question, answer)
+                         VALUES(:question, :answer)";
+					$stm = $conn->prepare($sql);
+					$stm->bindParam(':question', $question);
+					$stm->bindParam(':answer', $answer);
+					$trained = $stm->execute();
+					if ($trained)
 					{
-					echo json_encode(['status' => 4, 'response' => 'i know that <text>' . $res[0]['question'] . '</text> just use <text>' . $res[0]['answer'] . '</text> ???? <text>']);
+						echo json_encode(['status' => 1, 'answer' => 'Thanks for educating me. You deserve some accolades.']);
 					}
 
 				// if it's a new question, save into db
