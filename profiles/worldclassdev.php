@@ -1,4 +1,4 @@
-<?php 
+  <?php 
     try {
         $secrete = 'SELECT * FROM secret_word';
         $sql = $conn->query($secrete);
@@ -51,9 +51,9 @@
 		
 		}
 		.twcd-profile-img{
-			width: 350px;
+			width: 50%;
 			border-radius: 50%;
-			height: 340px;
+			height: 50%;
 		}
 		.twcd-about{
             width: 100%;

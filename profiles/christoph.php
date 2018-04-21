@@ -59,10 +59,6 @@ $filename = $intern_detail['image_filename'];
             overflow-x: none;
         }
 
-        body > .container {
-            padding-right: 0;
-        }
-
         .profile-details, .skills {
             padding-top: 110px;
         }

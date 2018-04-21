@@ -1,5 +1,5 @@
 <?php
-require('db.php');
+require('/../db.php');
 
 $connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 $result = mysqli_query($connect, "SELECT * FROM secret_word");
@@ -8,6 +8,87 @@ $result = mysqli_query($connect, "SELECT * FROM interns_data WHERE username = 'j
 if($result)	$my_data = mysqli_fetch_assoc($result);
 else {echo "An error occored";}
 ?>
+
+<?php
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+	if(isset($_POST['message']) && $_POST['message'] != "")
+	{
+		$question = $_POST['message'];
+	
+		$training_mode = stripos($question, "train:");
+		$find_average = stripos($question, "avg:");
+		
+		if($training_mode !== false){
+			$string = trim($question);
+			$split = explode("#", $string);
+			$new_question = mysqli_real_escape_string($connect, ltrim($split[0], "train: "));
+			$new_answer = mysqli_real_escape_string($connect, $split[1]);
+		
+			$perform_training = mysqli_query($connect, "INSERT INTO chatbot (id, question, answer) VALUES(0, '$new_question', '$new_answer')");
+			if($perform_training){
+				echo json_encode(['state' => 1, 'msg' => "You just make me smarter! Thanks."]);
+			}else{
+				echo json_encode(['state' => 0, 'msg' => "I'm sorry, something went wrong"]);
+			}
+		}
+		elseif($find_average !== false){
+			$value = explode(" ", trim($question));
+			
+			$numbers = explode(",", trim($value[1]));
+			$sum_of_numbers = 0;
+			
+			foreach($numbers as $num){
+				$sum_of_numbers += $num;
+			}
+			
+			$average = $sum_of_numbers/ count($numbers);
+			
+			echo json_encode(['state' => 0, 'msg' => "The average of <b>" . $value[1] . "</b> is " . $average]);
+		}
+		else{
+			
+			$test_for_parenthes_start = stripos($question, "{{");
+			
+			if($test_for_parenthes_start !== false){
+				$test_for_parenthes_end = stripos($question, "}}");
+				
+				$function_name_called = substr($question, $test_for_parenthes_start+2, $test_for_parenthes_end - $test_for_parenthes_start-2);
+				
+				if(stripos($function_name_called, " ") !== false){
+					echo json_encode(['state' => 0, 'msg' => "When you put spaces in the call, i won't do it"]);	
+				}
+				elseif(!function_exists($function_name_called)){
+					echo json_encode(['state' => 0, 'msg' => "Hmm! I can't perform that function"]);
+				}
+				else{
+					$function_response = $function_name_called();
+					echo json_encode(['state' => 0, 'msg' => "The response is " . $function_response]);
+				}
+			}
+			else{
+				$sanitized_question = mysqli_real_escape_string($connect, trim($question));
+				$perform_answer = mysqli_query($connect, "SELECT * FROM chatbot WHERE question LIKE '%$sanitized_question%'");
+				if($perform_answer){
+					if($rows = mysqli_num_rows($perform_answer) > 0){
+						$result = mysqli_fetch_assoc($perform_answer);
+						$answer = $result['answer'];
+					
+						echo json_encode(['state' => 1, 'msg' => $answer]);
+					}
+					else{
+						echo json_encode(['state' => 1, 'msg' => "Oh no! I couldn't help you this time. Please train me more"]);
+					}
+				}
+				else{
+					json_encode(['state' => 0, 'msg' => "I'm sorry, something went wrong"]);
+				}
+			}
+		}
+	}
+}
+?>
+
+<?php if($_SERVER['REQUEST_METHOD'] === 'GET'){ ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -101,7 +182,63 @@ else {echo "An error occored";}
 					text-align: center;
 					border-radius: 20%;
 				}
-			
+				
+				.my-bot{
+					position: fixed;
+					right: 5px;
+					bottom: 0;
+					height: 400px;
+					width: 300px;
+					border: 1px solid #ddd;
+					background: #fff;
+					box-model: border-box;
+				}
+				.my-bot > .pan {
+					
+				}
+				.my-bot > .pan > .pan-head{
+					background: #007bff !important;
+					padding: 5px;
+					color: #fff;
+				}
+				.my-bot > .pan > .pan-head > .minimize{
+					position: absolute;
+					right: 5px;
+				}
+				.pan-body {
+					padding: 5px;
+					height: 300px;
+					overflow: auto;
+				}
+				.pan-body > .design {
+					display: block;
+					font-size: 14px;
+					border-radius: 4px;
+					width: 80%;
+					padding: 5px;
+					margin-bottom: 5px;
+				}
+				.pan-body > .design > .name{
+					display: block;
+					font-weight: bold;
+					font-size: 15px;
+				}
+				.pan-body > .sender{
+					background: #ddd;
+					float: right;
+				}
+				.pan-body > .reciever{
+					background: #abf;
+					float: left;
+				}
+				
+				.pan > form{
+					width: 100%;
+					margin: 5px;
+				}
+				.pan > form > textarea{
+					width: 290px;
+				}
 		</style>
 	</head>
 	
@@ -120,5 +257,56 @@ else {echo "An error occored";}
 				<li><a style="color: #212529;" href="https://github.com/jilh"><span class="fa fa-github-square"></span></a></li>
 			</ul>
 		</div>
+		
+		<div class="my-bot">
+			<div class="pan">
+				<div class="pan-head">Let's Chat
+					<span class="minimize fa fa-remove"></span>
+				</div>
+				<div class="pan-body">
+					<span class="design reciever">
+						<span class="name">Agent Mark</span>
+						Hi! I'm agent mark, i'm here to help.
+						Be free to ask me anything. I know some arithmetic,
+						and i can answer some few questions.
+						<hr>
+						You can train me with <code>train: question # answer</code>
+						You can also find average of numbers with <code>avg: num1,num2,..</code>
+					</span>
+				</div>
+				<form action="#" method="POST" onSubmit="chatBot(); return false;">
+					<input id="message" type="text" name="chats" placeholder="Ask me anything">
+					<input type="submit" value="Send" class="">
+				</form>
+			</div>
+		</div>
+		<script src="../HNGFun/vendor/jquery/jquery.min.js"></script>
+		<script type="text/javascript">
+			function chatBot(){
+				let botMessage = $('#message').val();
+				if(botMessage == ''){
+					$('.pan-body').append('<span class="design reciever"><span class="name">Bot</span>Common! Don\'t hide your feelings from me</span>');
+					$(".pan-body").scrollTop($(".pan-body")[0].scrollHeight);
+					return false;
+				}
+				else{
+					$('.pan-body').append('<span class="design sender"><span class="name">User</span>' + botMessage + '</span>');
+					$('#message').val('');
+					
+					$.ajax({
+						url: "profiles/jilh.php",
+						type: "POST",
+						data: {message: botMessage},
+						dataType: "json",
+						success: function(response){ //alert(response);
+							$('.pan-body').append('<span class="design reciever"><span class="name">Bot</span>' + response.msg + '</span>');
+							$(".pan-body").scrollTop($(".pan-body")[0].scrollHeight);
+							return false;
+						}
+					});
+				}
+			}
+		</script>
 	</body>
 </html>
+<?php } ?>
