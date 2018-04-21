@@ -1,6 +1,4 @@
-<?php 
-    require_once '../db.php';
-
+<?php
     $sql = "SELECT secret_word FROM secret_word;";
     $query = $conn->query($sql);
     $result = $query->fetch(PDO::FETCH_OBJ);
