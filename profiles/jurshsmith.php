@@ -1,12 +1,7 @@
-<?php 
-		require 'db.php';
-		$result = $conn->query("Select * from secret_word LIMIT 1");
-		$result = $result->fetch(PDO::FETCH_OBJ);
-		$secret_word = $result->secret_word;
-		$result2 = $conn->query("Select * from interns_data where username = 'jurshsmith'");
-		$user = $result2->fetch(PDO::FETCH_OBJ);
-	?>
+<?php
 
+  
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,10 +35,6 @@ $('document').ready(function(){
 
 <!--my css starts here-->
 <style>
-html,body{
-		background-color: #f4f4f4;
-
-}
 
 #j-background{
 		background-color: #f4f4f4;
@@ -55,10 +46,13 @@ html,body{
 		max-width: 100%;
 }
 #j-firstdiv{
-		border-right: 1px solid grey;
 		text-align: center;
 		font-family: montserrat;
 		color : grey;
+}
+.addBorder{
+		border-right: 1px solid grey !important;
+
 }
 .j-header{
 		font-family: montserrat;
@@ -69,6 +63,40 @@ html,body{
 		text-align: center;
 }
 
+/*@media screen and () {
+  
+}*/
+#j-links li{
+	display : inline;
+	list-style-type: none;
+	padding: 20px;
+}
+
+#j-links {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+#j-pc-links li{
+	display : inline;
+	list-style-type: none;
+	padding: 20px;
+}
+
+#j-pc-links {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+#j-story p{
+	font-size:17px;
+	font-family: montserrat;
+	letter-spacing: 1.2px;
+	width : 70%; 
+}
 
 /**chatbot css here**/
 #show-chatbot{
@@ -86,28 +114,40 @@ html,body{
 #chat-interface{
 
 	background-color: red;
-	height: 300px;
+	height: 370px;
+
 	width: 300px;
 	position: fixed;
 	right: 4px;
-	bottom: 33px;
+	bottom: 69px;
 	z-index: 23;
 
+	overflow-y:scroll;
+	overflow-x:hidden;
+	
+
 }
+
+ /*p:nth-child(even){
+	background: green;
+}*/
 .add-transparency{
 	background-color: #d0d0d0 !important;
 }
 #chatbot-header{
 	background-color: #a39c9c !important;
 	font-size: 16px;
+	position: fixed;
+	z-index: 8000;
+	width:100% ;
 }
 #chatbot-header span{
 	padding : 13px;
 }
 #chatbot-footer{
 	position: fixed;
-	right: 4px;
-	bottom: 33px;
+	right: 25px;
+	bottom: 35px;
 	background-color: #a39c9c;
 
 }
@@ -121,11 +161,56 @@ html,body{
 	bottom:  20px;
 	width: 264px;
 }
+.user{
+
+	margin-top: 2px;
+	margin-bottom: 6px;
+	padding: 2px;
+	background-color: red;
+	color: white;
+	width: 85%;
+	border-radius: 8px;
+	font-family: monospace;
+	font-size: 12px;
+
+
+}
+.bot{
+	position: relative;
+	left: 15%;
+	color: white;
+	margin-top: 2px;
+	margin-bottom: 6px;
+	padding: 2px;
+	background-color: green;
+	border-radius: 8px;
+	width : 85%;
+	font-family: monospace;
+	font-size: 12px;
+
+
+}
+
+#j-fullscreen{
+
+}
+
+#j-remove{
+
+}
+
+
+.chat-area{
+	height: auto;
+}
+
 </style>
 </head>
+
 <body>
 <!--chatbot html here-->
-<a id = "j-show-chatbot" style = "color:white" href = "#">
+<!-- <p class = "chats"></p> -->
+<div id = "j-show-chatbot" style = "color:white" role = "button" >
 <div id = "show-chatbot">
 	<div class = "row">
 		
@@ -134,24 +219,27 @@ html,body{
 		</div>
 	</div>
 </div>
-</a>
+</div>
 <div id = "chat-interface" style = "background-color: transparent">
 
 	<div id = "chatbot-header">
-		<span class="glyphicon glyphicon-fullscreen"></span>
-	 	<span style = "position: relative; left : 200px" class="glyphicon glyphicon-remove-sign"></span>
+		<span class="glyphicon glyphicon-fullscreen" id = "j-fullscreen" role = "button"></span>
+	 	<span style = "position: relative; left : 200px" class="glyphicon glyphicon-remove-sign" id = "j-remove" role  = "button"></span>
 	</div>
-
-
-	<form class = "chatbot-text-area">
+	<br><br>
+	<div id = "chat-area" class = 'chat-area'>
+	<div class = "chats"></div>
+	<div id = "bott"></div>
+	</div>
+	<form id = "chatbot-text-area" class = "chatbot-text-area">
 			<div class="form-group">
   
-  <input type="text" class="form-control" id="usr">
+  <input type="text" class="form-control" id="message">
 				</div></form>
-	<div id = "chatbot-footer">
+	<div id = "chatbot-footer" >
 	
-		<span class="glyphicon glyphicon-send"></span>
-		
+		<span class="glyphicon glyphicon-send"   id = "j-send" role = "button"></span>
+		</form>
 
 	</div>
 
@@ -161,7 +249,7 @@ html,body{
 html 
 ends here -->
 
-<div id = "j-background" style = "width : 100%">
+<div id = "j-background">
 	<div class = "row">
 		<div id = "j-firstdiv" class = "col-lg-5 col-md-5 col-sm-12 col-xs-12">
 			<br><br>
@@ -174,11 +262,20 @@ ends here -->
 			<br><br>
 			<br><br>
 			<br><br>
-			
 
-			 	<a href = "https://github.com/Jurshsmith"><i class="fab fa-github j-profile"></i></a>
-			 	<a href = "https://github.com/Jurshsmith"><i class="fab fa-instagram j-profile"></i></a>
-			 	<a href = "https://github.com/Jurshsmith"><i class="fab fa-twitter j-profile"></i></a>
+	<ul id = "j-pc-links">
+		<li>
+	<a href = "https://github.com/Jurshsmith"><i class="fab fa-github j-profile"></i></a>
+		</li>
+		<li>
+	<a href = "https://github.com/Jurshsmith"><i class="fab fa-instagram j-profile"></i></a>
+		</li>
+		<li>
+ 	<a href = "https://github.com/Jurshsmith"><i class="fab fa-twitter j-profile"></i></a>
+ 		</li>
+ 	</ul>
+
+			 	
 
 			<br><br>
 		</div>
@@ -186,18 +283,32 @@ ends here -->
 			<br><br>
 			<div id = "j-story">
 			<font class = "j-header">ABOUT ME &nbsp;&nbsp;    <span class="glyphicon glyphicon-pencil"></span></font>
-			<br><br><br><br><br><br>
-			<br><br><br><br><br><br>
+			<p>I am a cool guy who loves coding as an hobby.Actually studying mechanical eengineering, but damn, coding captivates me.</p>
+			<br><br><br><br><br>
+			<br><br><br><br>
 			<font class = "j-header">MY QUALIFICATIONS&nbsp;&nbsp;<span class="glyphicon glyphicon-wrench"></span></font>
+			<p>I gat no certificates being a programmer</p>
 			<br><br><br><br><br><br>
-			<br><br><br><br><br><br>
+			<br><br><br>
 			<font class = "j-header">MY SKILLS &nbsp;&nbsp;<span class="glyphicon glyphicon-briefcase"></span></font>
+			<p>I am proficient in HTML, CSS, BOOTSTRAP, JQUery, Javascript, PHP and i do AI alot for SVG.My UI/UX is bae.</p>
 			<br><br><br><br><br><br>
-			<br><br><br><br><br><br>
+			<br><br><br><br>
 			</div>
 
 		</div>
 	</div>
+	<ul id = "j-links">
+		<li>
+	<a href = "https://github.com/Jurshsmith"><i class="fab fa-github j-profile"></i></a>
+		</li>
+		<li>
+	<a href = "https://github.com/Jurshsmith"><i class="fab fa-instagram j-profile"></i></a>
+		</li>
+		<li>
+ 	<a href = "https://github.com/Jurshsmith"><i class="fab fa-twitter j-profile"></i></a>
+ 		</li>
+ 	</ul>
 </div>
 
 
@@ -214,16 +325,19 @@ if(width < 1000 )
   $('.j-profile').css({"font-size": "20px"});
   $('.j-header').css({"font-size": "16px"});
   $('#j-story').css({"text-align":"center"});
-
-
-
+   $('#j-story p').css({"margin-left":"15%"});
+  $('#j-pc-links').hide();
+  $('#j-links').show();
+	$('#j-firstdiv').removeClass('addBorder');
 
 }
 else{
   $('.j-profile').css({"font-size": "26px"});
   $('#j-story').css({"text-align":"left"});
-
-
+	$('#j-links').hide();
+	$('#j-pc-links').show();
+	$('#j-firstdiv').addClass('addBorder');
+   $('#j-story p').css({"margin-left":"0%"});
 
 }
 
@@ -242,10 +356,120 @@ $('#chat-interface').hide();
 
 $('#show-chatbot').click(function(){
 $('#chat-interface').addClass('add-transparency');
-
 $('#chat-interface').toggle(500);
-
-
 });
+$('#j-fullscreen').click(function(){
+// $('#chat-interface').addClass('make-full');
+
+// for the full screen create another 
+// ui than will show when fullscreen is clicked and small chat interface hides; and 
+// disappears while the small chat interface shows when minimized
+});
+
+$('#j-remove').click(function(){
+$('#chat-interface').hide(300);
+});
+
+//controlling what is happening in the text area
+// $('.chatbot-text-area').keyup(
+// function(){
+	$('.chatbot-text-area').keyup(function (e){
+			if (e.which == 13)
+		{
+			$('#j-send').click();
+			return false;
+		}
+	});
+	// });
+var theScrollCounter = 0;
+
+
+//what happens when you send a messge to jobot
+$('#j-send').click(
+	function(){
+        theScrollCounter++;
+
+		var chat = $('#message').val();
+		var chatHtml = "<div class = 'user'><font class = 'userchat'>"+ chat + "</font><br></div>";
+        $(".chats").append(chatHtml);//should be after bot chat
+
+//trim for all browsers
+	chat.replace(/^\s+|\s+$/gm,'');
+	chat.trim();
+
+//everystring should be in lower case
+	chat.toLowerCase();
+
+//initialize reply
+var reply;
+new Date($.now());
+
+var dt = new Date();
+var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+var d = dt.getDate();
+var m =dt.getMonth();
+m += 1;
+var y = dt.getFullYear();
+
+var theDate = d + "-"+ m + "-" + y;
+
+//searchIfItEAConstant
+if (chat.search("time") != -1){
+reply = "The time is "+time;
+reply = "<div href = 'index.php#chat-interface#bott"+ theScrollCounter +"' class = 'bot' id = 'bott" + theScrollCounter +"'><font class = 'bot-reply'>"+ reply + "</font><br></div>";
+        $(".chats").append(reply);//should be after bot chat    
+}
+else if (chat.search("date") != -1){
+reply = "The date is "+theDate;
+reply = "<div href = 'index.php#chat-interface#bott"+ theScrollCounter +"' class = 'bot' id = 'bott" + theScrollCounter +"'><font class = 'bot-reply'>"+ reply + "</font><br></div>";
+        $(".chats").append(reply);//should be after bot chat    
+}
+else if (!(isNaN(chat))){
+reply = "cool math";
+reply = "<div href = 'index.php#chat-interface#bott"+ theScrollCounter +"' class = 'bot' id = 'bott" + theScrollCounter +"'><font class = 'bot-reply'>"+ reply + "</font><br></div>";
+        $(".chats").append(reply);//should be after bot chat    
+}
+else{
+
+        //using ajax
+   $.post('replies.php',{phpques : chat}, function(data){
+   		reply = data;
+   		reply = "<div href = 'index.php#chat-interface#bott"+ theScrollCounter +"' class = 'bot' id = 'bott" + theScrollCounter +"'><font class = 'bot-reply'>"+ reply + "</font><br></div>";
+        $(".chats").append(reply);//should be after bot chat    
+        // $(".chats").append(data);//should be after bot chat
+
+       
+   });
+
+
+ }
+ $.fn.scrollView = function(){
+ 	return this.each(function(){
+ 		$('#chat-interface').animate({
+ 			scrollTop: $(this).offset().top
+ 			},1000);
+ 	});
+ }
+// $('#message').val('');
+// var lastEle = $('.bot:last-child').position().top;
+// var scrollAmount = lastEle - 30;
+// $('#chat-interface').animate({scrollTop : scrollAmount}, 1000);
+// $('#chat-interface').animate({scrollTop : $('.bot').offset().top},1000);
+// alert($('#').scrollTop());
+ // $('#chat-interface').animate({scrollTop : $('#j-send').offset().top},1000);
+ var a = theScrollCounter - 1;
+var bottString = String('#bott'+a);
+
+ $(bottString).scrollView();
+ 
+
+//  $('#chat-interface').scroll(function(){
+//  var scrollValue = $('#bott').scrollTop();
+// $('#chat-interface').scrollTop(scrollValue);
+
+//  });
+
+	});
+
 
 </script>
