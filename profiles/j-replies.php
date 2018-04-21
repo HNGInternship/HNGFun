@@ -1,4 +1,6 @@
 <?php
+
+
 //connection
 $db = "hng_fun";
 $servername = "localhost";
@@ -9,6 +11,9 @@ $conn = mysqli_connect($servername, $username, $password, $db);
 // Check connection
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
+}
+else{
+    echo 'connection successful';
 }
   global $conn;
 
@@ -110,4 +115,7 @@ else{
 
 
 }//end of the parent if statement
+else{
+    echo "error";
+}
 ?>
