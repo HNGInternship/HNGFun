@@ -64,7 +64,6 @@ body
   font-style:regular;
   line-height: normal;
   
-
    background-color:rgba(196, 196, 196, 0.50);
 }
 .fa {
@@ -195,7 +194,7 @@ body
 
 
       <div id="data2"><center>
-            try my tuyy bot <br>
+            try my chat bot <br>
         
 </center>
 
