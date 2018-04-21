@@ -5,7 +5,7 @@
 
   //intern info query
   try {
-      $sql = "SELECT name, username, image_filename FROM interns_data WHERE intern_id = 'emmaadesile'";
+      $sql = 'SELECT name, username, image_filename FROM interns_data WHERE intern_id = \'emmaadesile\'';
       $q = $conn->query($sql);
       $q->setFetchMode(PDO::FETCH_ASSOC);
       $data = $q->fetch();
@@ -19,9 +19,9 @@
     $q1 = $conn->query($sql);
     $q1->setFetchMode(PDO::FETCH_ASSOC);
     $data1 = $q1->fetch();
-  } catch (PDOException $error) {
-      throw $error;
-  }
+} catch (PDOException $error) {
+    throw $error;
+}
 $secret_word = $data1['secret_word'];
 ?>
 
@@ -41,7 +41,7 @@ $secret_word = $data1['secret_word'];
       font-family: 'Helvetica', 'Alto';
       box-sizing: border-box;
       background-position: cover;
-      color: #ddd;
+      color: white;
       font-size: 1.1rem;
       padding-top: 6rem;
     }
@@ -59,10 +59,10 @@ $secret_word = $data1['secret_word'];
 
     .profile {
       max-width: 700px;
-      padding-left: 10px;
-      padding-right: 10px;
+      padding-left: 20px;
+      padding-right: 20px;
       margin: auto;
-      text-align: center;
+      text-align: left;
       display: grid;
       grid-template-columns: 1fr;
       place-items: center;
@@ -115,10 +115,10 @@ $secret_word = $data1['secret_word'];
       <p>Hello! My name is Emmanuel Adesile and I'm a Fullstack developer based in Lagos, Nigeria. I also have a knack for UI/UX design. I like to make beautifully crafted websites that meet industry standards.
       </p>
 
-      <p>My skillset includes HTML, CSS, Bootstrap, JavaScript, Node, Python, Angular and MySQL. I do well with version control using git. I also design with Figma and Photoshop
+      <p>My skillset inlcudes HTML, CSS, Bootstrap, JavaScript, Node, Python, Angular and MySQL. I do well with version control using git. I also design with Figma and Photoshop
       </p>
 
-      <p>My code is hosted on <a href="http://www.github.com/emmaadesile" class="link">github</a>. When I'm not coding, I'm usually on <a href="http://www.twitter.com/emma_adesile" class="link">twitter</a> exploring the world of social media. Got a project for me? You can shoot me an <a href="mailto:emma2adesile@gmail.com" class="link">email</a>
+      <p>My code is hosted on <a href="http://www.github.com/emmaadesile" class="link">github</a>. When I'm not coding, I usually on <a href="http://www.twitter.com/emma_adesile" class="link">twitter</a> exploring the world of social media. Got a project for me? You can shoot me an <a href="mailto:emma2adesile@gmail.com" class="link">email</a>
       </p>
 
 
@@ -130,11 +130,7 @@ $secret_word = $data1['secret_word'];
         <a href="https://www.linkedin.com/in/emmaadesile/"><i class="fa fa-linkedin" target="_blank"></i></a>
         <a href="http://www.twitter.com/emma_adesile"><i class="fa fa-twitter" target="_blank"></i></a>
         <a href="http://www.github.com/emmaadesile" target="_blank"><i class="fa fa-github"></i></a>
-      </div> 
-
-      <div class="chatbot">
-        
-      </div>  
+      </div>   
       <p>&copy; Handcrafted by Emmanuel Adesile</p>
   <div>
 </body>

@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'fact'){
       echo json_encode([
         'status' => 1,
-        'answer' => getRandomFact()
+        'answer' => getRandomFacts()
       ]);
       return;
     }
@@ -175,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
       $password = trim($split_string[2]);
       //verify if training password is correct
-      define('TRAINING_PASSWORD', 'trainpwforhng');
+      define('TRAINING_PASSWORD', 'password');
       if($password !== TRAINING_PASSWORD){
         echo json_encode([
           'status' => 0,
@@ -217,7 +217,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta name="theme-color" content="#2f3061">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.css" rel="stylesheet">
   <style>
     body {
       font-family: 'Ubuntu';
@@ -374,6 +375,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       background-color: #eceff1;
     }
 
+    textarea {
+      resize: none !important;
+    }
+
   </style>
 </head>
 
@@ -432,28 +437,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               </div>
             </div>
           </div>
-          <div class="modal-footer">
-            <form class="form-inline" id="question-form">
-              <div class="form-group mx-sm-3 mb-2">
-                <input type="text" class="form-control" name="question" placeholder="Ask a question ...">
+          <hr>
+          <form id="question-form" style="padding:5px;">
+            <div class="form-row">
+              <div class="col-8">
+                <textarea class="form-control" rows="2" name="question" id="question"></textarea>
               </div>
-              <button type="submit" class="btn btn-primary mb-2" style="margin-left: 30px;"><i class="fa fa-send"></i></button>
-            </form>
-          </div>
+              <div class="col-4">
+                <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-send"></i></button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
   <script src="../vendor/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.js"></script>
   <script>
-	$(document).ready(function(){
+	;(function($){
 		let questionForm = $('#question-form');
+    let questionBox = $('textarea[name=question]');
+    let chatbox = $('.chat')
+    questionBox.emojioneArea();
 		questionForm.submit(function(e){
 			e.preventDefault();
-			let questionBox = $('input[name=question]');
-      let chatbox = $('.chat')
 			let question = questionBox.val();
-
 			//display question in the message frame as a chat entry
 			let newMessage = `<div class="bubble me">
                   ${question}
@@ -467,7 +476,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				type: 'POST',
 				data: {question: question},
 				dataType: 'json',
-				success: (response) => { 
+				success: (response) => {
+          response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
           let newMessage = `<div class="bubble you">
                           ${response.answer}
                       </div>`;
@@ -482,7 +492,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				}
 			})
 		});
-	});
+	})(jQuery);
 </script>	
 </body>
 </html>

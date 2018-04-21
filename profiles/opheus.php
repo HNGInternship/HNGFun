@@ -669,7 +669,7 @@ function ai(message){
 		elses = message;
 		$.ajax({
 			type: "GET",
-			url: 'answers.php',
+			url: 'profiles/opheus.php',
 			data: {opheuscheck: elses },
 			success: function(data){
 				send_message(data);

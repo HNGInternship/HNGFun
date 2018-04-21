@@ -1,10 +1,5 @@
 <html>
 <?php
-include_once "db.php";
-
-?>
-
-<?php
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
@@ -19,6 +14,7 @@ function sendResponse(){
       exit();
 			return;
     }
+    require "../answers.php";
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
   $mem = $_POST['question'];
 	$arr = explode(" ", $mem);
@@ -29,7 +25,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		$quest = $queries[0];
 		$ans = $queries[1];
 		try {
-		 $sql = "INSERT INTO nbot(question, response) VALUES ('" . $quest . "', '" . $ans . "')";
+		 $sql = "INSERT INTO chatbot(question, response) VALUES ('" . $quest . "', '" . $ans . "')";
 		 $conn->exec($sql);
 
 	$message = " Thanks for increasing my knowledgebase";
