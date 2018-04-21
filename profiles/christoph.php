@@ -4,16 +4,6 @@ if (empty($_SESSION)) {
     session_start();
 }
 
-if (file_exists('config.php')) {
-    include 'config.php';
-}
-else if (file_exists('../config.php')) {
-    include '../config.php';
-}
-else if (file_exists('../../config.php')) {
-    include '../../config.php';
-}
-
 if(!defined('DB_USER')){
     require "../../config.php";		
     try {
@@ -88,10 +78,6 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
 
         .btn {
             font-family: "Josefin Sans","Montserrat","Segoe UI","Roboto","Helvetica Neue","Arial","sans-serif";
-        }
-
-        body > .container {
-            padding-right: 0;
         }
 
         .container.profile-body {
@@ -387,11 +373,12 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
             }
 
             .chatbot-header {
-                margin: -15px 0 0 0px;
+                margin: -15px 0 -10px 0px;
             }
 
             .chatbot-menu-content {
                 display: inline-block;
+                margin-top: 20px;
             }
 
             .chatbot-message-bot, .chatbot-message-sender {
@@ -520,7 +507,7 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
 <!-- Latest compiled and minified JavaScript -->
 <script src="<?=$home_url;?>vendor/bootstrap/js/bootstrap.min.js"></script>
 <script>
-time = "11:04 21/04/2018";
+time = "11:25 21/04/2018";
 $(document).on('click', '.chat-btn', function(){
     $('.chatbot-menu').show();
     $('.chat-btn').hide();
