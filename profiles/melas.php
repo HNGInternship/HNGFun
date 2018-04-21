@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } else {
     require '../answers.php';
     $message = trim(strtolower($_POST['message']));
+    $version = '1.0';
 
     //step 1: Figure out the intent of the message
     //intents: Greeting, Find the current time, Ask about the HNG Programme
@@ -30,10 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $unrecognizedAnswers = [
         'IDK at all at all. My Oga na better empty head. But u fit train me. Kukuma type: <b>#train: Question | Answer.</b>',
         'I don\'t understand bruv. U fit teach me o. Just type: <b>#train: Question | Answer.</b>',
-        "Ah no know that one o. Buh you can sha teach me. If you want to just kukuma type: <b>#train: Question | Answer.</b>",
-        "I no understand sha. Ask another one"
+        "Ah no know that one o. Buh you can sha teach me. If you want to just kukuma type: <b>#train: Question | Answer.</b>"
     ];
 
+<<<<<<< HEAD
     if (strpos($message, 'hello') !== false || strpos($message, 'hi') !== false) {
         $intent = 'greeting';
     }
@@ -53,6 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         || strpos($message, 'i dey') !== false) 
         && $intent !== 'greeting_response') {
             $intent = 'casual';
+=======
+    if (strpos($message, 'aboutbot') !== false) {
+        $intent = 'aboutbot';
+        $response = 'Mekus v' . $version;
+>>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
     }
 
     //check for a function call
@@ -129,23 +135,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
     switch($intent) {
-        case 'greeting':
-            echo 'Hello. How u dey like this?';
-            break;
-        case 'greeting_response':
-            echo 'Ah dey my personal person';
-            break;
-        case 'about_hng':
-        case 'about_hng_stage':
+        case 'aboutbot':
         case 'function_call':
         case 'training':
             echo $response;
             break;
         case 'db_question':
             echo $answer;
-            break;
-        case 'casual':
-            echo 'Alright. No qualms';
             break;
         case 'confusion':
             echo $response;

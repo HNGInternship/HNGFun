@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php 
  	require '../db.php';
 	$result = $conn->query("Select * from secret_word LIMIT 1");
@@ -6,6 +7,22 @@
 
     $result2 = $conn->query("Select * from interns_data where username = 'larry'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
+=======
+<?php
+    require_once '../db.php';
+    try {
+        $select = 'SELECT * FROM secret_word';
+        $query = $conn->query($select);
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $query->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word']; 
+    
+    $result2 = $conn->query("Select * from interns_data where name = 'Sule Olanrewaju'");
+	$user = $result2->fetch(PDO::FETCH_OBJ);       
+>>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
 ?>
 
 <!DOCTYPE html>
@@ -58,14 +75,14 @@ img{
 					</div>
 					<div class="col-md-6 col-sm-6 col-xs-6">
 						<h1>Skill Set</h1>
-						<h3> Front End Skills: Html, Css, Js, Vue</h3>
+						<h3> Front End Skills: Html, Css, Js, Vue ...</h3>
 						<div class="progress">
 							<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width:85%;">
 								85%
 							</div>
 						</div>
 
-						<h3> Backend Skills : Php, Laravel</h3>
+						<h3> Backend Skills : Php, Laravel...</h3>
 						<div class="progress">
 							<div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%;">
 								70%
@@ -91,6 +108,7 @@ img{
 			</div>
 		</div>
 	</div>
+
 
 	
 
