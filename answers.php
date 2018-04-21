@@ -110,6 +110,18 @@ function getTime(){
 
 // end of functions by johnayeni
 
+//////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
+
+$qsam = $_REQUEST["qsam"];
+$anwerSam = "";
+
+if ($qsam === "Moses"){
+		$anwerSam = 'Nice Name, How are you ' . $qsam;
+
+}
+echo $anwerSam;
+
+////////////////////// END OF FUNCTION BY BROWN SAMSON ////////////////////////////////////
 
 /////////////////////opheus //////////
 
@@ -154,7 +166,7 @@ require 'db.php';
 // Check connection
 //if ($conn->connect_error) {
  //   die("Connection failed: " . $conn->connect_error);
-//} 
+//}
 
 
 
@@ -169,7 +181,7 @@ if($stmt->rowCount() > 0)
 } else {
     echo "Well i couldnt understand what you asked. But you can teach me.";
 	echo "Type ";
-	echo "train: write a question | write the answer.  "; 
+	echo "train: write a question | write the answer.  ";
 	echo "to teach me.";
 }
 }
@@ -184,7 +196,7 @@ if($stmt->rowCount() > 0)
 
 function train_bot ($message) {
 function multiexplode ($delimiters,$string) {
-    
+
     $ready = str_replace($delimiters, $delimiters[0], $string);
     $launch = explode($delimiters[0], $ready);
     return  $launch;
@@ -200,20 +212,20 @@ $answer = trim($exploded[2]);
 require 'db.php';
 
 try {
-    
+
     $sql = "INSERT INTO chatbot (id, question, answer)
 VALUES ('', '$question', '$answer')";
     // use exec() because no results are returned
     $conn->exec($sql);
-    
+
     echo "Thank you! i just learnt something new, my master would be proud of me.";
-	
+
 	}
 catch(PDOException $e)
     {
     echo $sql . "<br>" . $e->getMessage();
     }
-	
+
 $conn = null;
 //////////////////////
 
@@ -224,8 +236,8 @@ $conn = null;
 //    [0] => here is a sample
 //    [1] =>  this text
 //    [2] =>  and this will be exploded
-//    [3] =>  this also 
-//    [4] =>  this one too 
+//    [3] =>  this also
+//    [4] =>  this one too
 //    [5] => )
 // )
 
@@ -241,7 +253,7 @@ function get_browser_name($user_agent)
     elseif (strpos($user_agent, 'Safari')) return 'Safari';
     elseif (strpos($user_agent, 'Firefox')) return 'Firefox';
     elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) return 'Internet Explorer';
-    
+
     return 'Other';
 
 }
@@ -256,7 +268,7 @@ function get_device_name($user_agent)
     elseif (strpos($user_agent, 'iPhone')) return 'iPhone';
     elseif (strpos($user_agent, 'Android')) return 'Android';
     elseif (strpos($user_agent, 'iPad') ) return 'iPad';
-    
+
     return 'Other';
 }
 
