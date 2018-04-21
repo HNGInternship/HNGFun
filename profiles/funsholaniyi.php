@@ -15,11 +15,11 @@
 
 if(!defined('DB_USER')){
 	if (file_exists('../../config.php')) {
-		require '../../config.php';
+		require_once '../../config.php';
 	} else if (file_exists('../config.php')) {
-		require '../config.php';
+		require_once '../config.php';
 	} elseif (file_exists('config.php')) {
-		require 'config.php';
+		require_once 'config.php';
 	}
 }
 
@@ -43,12 +43,10 @@ class Database
 //		$tz = (new DateTime('now', new DateTimeZone('Africa/Lagos')))->format('P');
 //		$this->connection->query("SET time_zone='$tz';");
 		// Error handling
-		die('Failed to connect to MySQL');
-		
 		if (mysqli_connect_error()) {
-		    die('Failed to connect to MySQL');
 			trigger_error("Failed to connect to MySQL: " . mysqli_connect_error(),
 				E_USER_ERROR);
+			die('Failed to connect to MySQL');
 		}
 	}
 	
@@ -243,18 +241,24 @@ function smartSearch($question, $questions_array)
 						$hit_count++;
 					}
 				}
-				if ($hit_count) {
-					$q_sorta[] = $item;
-				}
-				if ($hit_count >= $word_count) {
+				if ($hit_count === $word_count) {
 					// we match all words here already, so stop looping and return instead
 					return $item;
 				}
+				if ($hit_count && ($hit_count === count($question) || $hit_count > 2)) { // if count is more than 1 and greater that 2 or equal count of question
+					$q_sorta[] = $item;
+				}
+			
 			}
 		}
 	}
 	ksort($q_sorta);
-	return end($q_sorta);
+	$item = end($q_sorta);
+	if($item){
+	    return $item;
+    }else{
+	    return [];
+    }
 }
 
 /**
@@ -290,7 +294,7 @@ function parseAnswer($result)
 			if ($index_of_parentheses_closing !== false) {
 				$function_name = substr($answer, $index_of_parentheses + 2, $index_of_parentheses_closing - $index_of_parentheses - 2);
 				$function_name = trim($function_name);
-				if (stripos($function_name, ' ') !== false) { //if method name contains spaces, do not invoke method
+				if (stripos($function_name, ' ') === false) { //if method name contains spaces, do not invoke method
 					$answer = str_replace("(($function_name))", $function_name(), $answer);
 				}
 			}
@@ -308,6 +312,10 @@ function sendMessage()
 {
 	$m = new Model();
 	$message = clean_string($_POST['message']);
+	
+	if(strstr('aboutbot', $message)){
+		return respond('Hi, My name is Christiana, I\'m currently versioned 0.1');
+	}
 	
 	$if_training_mode = preg_match("/^train/", $message);
 	if ($if_training_mode) {
@@ -335,7 +343,7 @@ function sendMessage()
 				return respond('Oh! I already knew that. something else, please...');
 			} else {
 				$m->trainBot($question, $answer);
-				return respond('Funsho is smarter, don\'t get jealous, you made it happen');
+				return respond('Christiana is smarter, don\'t get jealous, you made it happen');
 			}
 		} else {
 			return respond('but no. I\'d prefer, train: Question # Answer # Password');
@@ -360,10 +368,8 @@ if (!empty($_POST)) {
 }
 $user = (new Model())->getProfile();
 
-var_dump($user);
 
 ?>
-<p>New Update 1</p>
 
 <main class="my-container row">
     <div class="profile col-md-6">
@@ -438,7 +444,7 @@ var_dump($user);
         this.onReady = function () {
             // send welcome messages
             var strMessages = '<li class="replies"><img src="https://res.cloudinary.com/funsholaniyi/image/upload/v1524159157/default.jpg">' +
-                '<p><small style="font-size: 10px;">Funsho</small><br>Hi, My name is Funsho</p></li><div class="clearfix"></div> ';
+                '<p><small style="font-size: 10px;">Christiana</small><br>Hi, My name is Christiana</p></li><div class="clearfix"></div> ';
             $('#message-outlet').append(strMessages);
             $(".messages").scrollTop($("#message-outlet").outerHeight());
         };
@@ -485,7 +491,7 @@ var_dump($user);
                 $('#message_chat_form')[0].reset();
                 // console.log(response);
                 var strMessages = '<li class="replies"><img src="https://res.cloudinary.com/funsholaniyi/image/upload/v1524159157/default.jpg">' +
-                    '<p><small style="font-size: 10px;">Funsho</small><br>' +
+                    '<p><small style="font-size: 10px;">Christiana</small><br>' +
                     '' + response.message + '</p></li><div class="clearfix"></div> ';
                 $('#message-outlet').append(strMessages);
                 $(".messages").scrollTop($("#message-outlet").outerHeight());
