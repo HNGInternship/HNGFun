@@ -78,7 +78,6 @@
         position: absolute;
         bottom: 0em;
         left: 0px;
-        border-right-width: 0.2em;
      }
      img{
         margin: auto;
