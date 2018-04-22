@@ -37,7 +37,7 @@ function askQuestion($input)
     $action = "train";
     $question = strtolower($split[0]);
     if ($split[0] !== $action && !isset($split[1]) && !isset($split[2])) {
-        $result =  mysqli_query($conn,"SELECT answer FROM chatbot WHERE LOWER(question) like '%$question%'" );
+        $result =  mysqli_query($conn,"SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'" );
         $fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
         $row_cnt = $result->num_rows;
         $rand = rand(0,$row_cnt-1);

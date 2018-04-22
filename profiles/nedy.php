@@ -29,65 +29,59 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
         $question = $_POST['message'];
         if(strpos($question, "train:") !== false){
             $questionAndAnswer = substr($question, 6); //get the string after train
-            $questionAndAnswer =test_input($questionAndAnswer); //removes all shit from 'em
             $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
             $questionAndAnswer = explode("#",$questionAndAnswer);
             if((count($questionAndAnswer)==3)){
                 $question = $questionAndAnswer[0];
                 $answer = $questionAndAnswer[1];
-                $password = test_input($questionAndAnswer[2]);
+                $password = $questionAndAnswer[2];
             }else{
                 echo json_encode([
                     'status'    => 0,
-                    'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer"
+                    'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer#password"
                 ]);
                 return;
             }
-            echo json_encode([
-                'status'    => 0,
-                'response'    => "In right training mode"
-            ]);
-            return;
-            // if(!(isset($password))|| $password !== 'password'){
-            //     echo json_encode([
-            //         'status'    => 1,
-            //         'response'    => "Please insert the correct training password"
-            //     ]);
-            //     return;
-            // }
-            // if(isset($question) && isset($answer)){
-            //     //Correct training pattern
-            //     $question = test_input($question);
-            //     $answer = test_input($answer);
-            //     if($question == "" ||$answer ==""){
-            //         echo json_encode([
-            //             'status'    => 1,
-            //             'answer'    => "empty question or response"
-            //         ]);
-            //         return;
-            //     }
-            //     $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
-            //     if($conn->query($query) ===true){
-            //         echo json_encode([
-            //             'status'    => 1,
-            //             'answer'    => "trained successfully"
-            //         ]);
-            //     }else{
-            //         echo json_encode([
-            //             'status'    => 1,
-            //             'answer'    => "Error training me: ".$conn->error
-            //         ]);
-            //     }
+            if(!(isset($password))|| $password !== 'password'){
+                echo json_encode([
+                    'status'    => 1,
+                    'response'    => "Please insert the correct training password"
+                ]);
+                return;
+            }
+            if(isset($question) && isset($answer)){
+                //Correct training pattern
+                // $question = test_input($question);
+                // $answer = test_input($answer);
+                if($question == "" ||$answer ==""){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "empty question or response"
+                    ]);
+                    return;
+                }
+                $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
+                if($conn->query($query) ===true){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "trained successfully"
+                    ]);
+                }else{
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "Error training me: ".$conn->error
+                    ]);
+                }
                 
 
-            //     return;
-            // }else{ //wrong training pattern or error in string
-            // echo json_encode([
-            //     'status'    => 0,
-            //     'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer"
-            // ]);
-            // return;
-            // }
+                return;
+            }else{ //wrong training pattern or error in string
+            echo json_encode([
+                'status'    => 0,
+                'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer #password"
+            ]);
+            return;
+            }
         }
         else{
             $query = "SELECT answer FROM chatbot WHERE question LIKE '$question'";
