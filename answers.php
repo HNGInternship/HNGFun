@@ -692,7 +692,7 @@ function get_duration ($key, $url, $location1, $location2, $mode) {
     $response = json_decode(file_get_contents($request_duration), 1);
     $status = $response['status'];
     if ($status === 'OK' and $response['rows'][0]['elements'][0]['status'] === 'OK') {
-        $duration = $response['rows'][0]['elements'][0]['duration_in_traffic']['text'];
+        $duration = $response['rows'][0]['elements'][0]['duration']['text'];
         return $duration;
     }
     // If no match, return error message
@@ -702,6 +702,16 @@ function get_duration ($key, $url, $location1, $location2, $mode) {
     }
 }
 
+function show_direction ($location1, $location2, $mode) {
+    return "https://www.google.com/maps/dir/?api=1&origin=$location1&destination=$location2&travelmode=$mode";
+
+}
+
+#####################################################################################################
+#                                                                                                   #
+#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS ABOVE            #
+#                                                                                                   #
+#####################################################################################################
 
 function get_device_name($user_agent)
 {
@@ -714,12 +724,6 @@ function get_device_name($user_agent)
 
     return 'Other';
 }
-
-function show_direction ($location1, $location2, $mode) {
-    return "https://www.google.com/maps/dir/?api=1&origin=$location1&destination=$location2&travelmode=$mode";
-
-}
-
 
 function davidQuadraticEquation($a, $b, $c){  #Remember I know where you live if you tamper with this function
      $discriminat = pow($b,2) - (4 * $a * $c);
@@ -737,12 +741,6 @@ function davidQuadraticEquation($a, $b, $c){  #Remember I know where you live if
      
  }
 
-#####################################################################################################
-#                                                                                                   #
-#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS ABOVE            #
-#                                                                                                   #
-#####################################################################################################
-
 // Orinayo's function
 function Get_Hotelsng_wikipage()
 {
@@ -755,4 +753,38 @@ function Get_Hotelsng_wikipage()
     return $result;
 }
 //
+// AKINSOURCE FUNCTION ///////
+//////////////////////////////
+function count_akin($poin){
+date_default_timezone_set("Africa/Lagos");
+$date_req = strtotime($poin);
+$time_remaining = $date_req - time();
+$weeks_remaining = $time_remaining /604800;
+$days_remaining = $time_remaining / 86400;
+$hours_remaining = ($time_remaining % 86400) / 3600;
+
+if ($weeks_remaining >= 1) {
+	$weeks_remaining = floor($time_remaining / 604800);
+	$days_remaining = floor(($time_remaining % 604800)/86400);
+	$hours_remaining = floor(($time_remaining % 86400) / 3600);
+	$minutes_remaining = floor((($time_remaining % 86400) % 3600)/60);
+	$seconds_remaining = ((($time_remaining % 86400) % 3600)%60);
+	$cdown = $weeks_remaining.' weeks '.$days_remaining.' days '. $hours_remaining.' hours '.$minutes_remaining.' minutes '.$seconds_remaining.' seconds';
+} elseif ($days_remaining >= 1 ) {
+	$days_remaining = floor($time_remaining / 86400);
+	$hours_remaining = floor(($time_remaining % 86400) / 3600);
+	$minutes_remaining = floor((($time_remaining % 86400) % 3600)/60);
+	$seconds_remaining = ((($time_remaining % 86400) % 3600)%60);
+	$cdown = $days_remaining.' days '. $hours_remaining.' hours '.$minutes_remaining.' minutes '.$seconds_remaining. ' seconds';
+} elseif ($hours_remaining > 0 ) {
+	$hours_remaining = floor(($time_remaining % 86400) / 3600);
+	$minutes_remaining = floor((($time_remaining % 86400) % 3600)/60);
+	$seconds_remaining = ((($time_remaining % 86400) % 3600)%60);
+	$cdown = $hours_remaining.' hours '.$minutes_remaining.' minutes '.$seconds_remaining. ' seconds';
+}
+return $cdown;
+}
+//////// AKINSOURCE FUNCTION /////////////////////////////
+// I HAVE A PARTICULAR SET OF SKILLS. I WILL FIND YOU!/////
+//////////////////////////////////////////////////////////
 ?>
