@@ -77,7 +77,7 @@
 
 <body>
 
-    <div id="cover">
+    <div>
       <div id="box">
        <img src="http://res.cloudinary.com/damilola/image/upload/v1524350063/me.jpg" alt="Damilola" class="img-rounded">
        <p><?php echo $name; ?></p>
