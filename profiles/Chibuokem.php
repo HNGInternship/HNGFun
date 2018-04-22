@@ -26,6 +26,9 @@
     elseif($input == 'version'){
         echo get_chibuokem_bot_version();
     }
+     elseif($input == 'aboutbot'){
+        echo get_chibuokem_bot_version();
+    }
     elseif($input == 'time'){
         echo get_time();
     }
