@@ -120,7 +120,8 @@
 				return "An detect error: ". $e->getMessage();
 			}
 		}
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		//$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		global $conn;
 		if (isset($_POST['message']) && $_POST['message']!=null) {
 			$question = $_POST['message'];
 			$strippedquestion = stripquestion($question);
@@ -136,16 +137,15 @@
 				return;				
 			}
 			else{	
-						
+					
 				$strippedquestion = "%$strippedquestion%";
-				
 				$answer_stmt = $conn->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
 				$answer_stmt->bindParam(':question', $strippedquestion);
 				$answer_stmt->execute();
 				$results = $answer_stmt->fetch();
 	
 				if(($results)!=null){
-					answerBot($question);
+					answerBot($question);	
 					$answer = $results['answer'];
 					echo json_encode([
 						'status' => 1,
