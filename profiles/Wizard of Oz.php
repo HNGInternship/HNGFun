@@ -575,6 +575,10 @@ background: rgba(0, 0, 0, 0.7);
 }
 
 
+.top-area,#bot-header{
+    background: white;
+}
+
 #important{
     background-color: #667db6;
     /*background-color: #ea5a58;*/
@@ -651,7 +655,7 @@ ul{
 
      <img class="rounded-circle" id="profile-pic" src=<?php echo $profilePic?> alt="Profile picture"> 
 
-    <h3 id="school">Graduate of the University of Lagos</h3>
+    <h3 id="school">Graduate of the University of Lagos.</h3>
 
 
 </div>
@@ -697,7 +701,7 @@ ul{
                 <div class="chat-message row">
 
             <h1 class="chat-name col-2">Merlin : </h1>
-          <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <strong>Wizard of Oz^</strong><br>
+          <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <strong>Wizard of Oz</strong><br>
           You can ask me questions and i'll try my best to answer.<br>
           Some special functions i perform are: <br>
           <ul>
@@ -833,7 +837,7 @@ ul{
     }
 
 
-     else if(message.toLowerCase().indexOf('find:') >= 0 message.toLowerCase().indexOf('find :')>=0){
+     else if(message.toLowerCase().indexOf('find:') >= 0 || message.toLowerCase().indexOf('find :')>=0){
 
        var text=message.substring(message.indexOf(":")+1);
 
