@@ -169,7 +169,7 @@
         }
     }
     function aboutbot() {
-        echo "<div id='result'>LoBot version 1.0 - I am simply a bot that returns data from the database and I also can be taught new tricks!</div>";
+        echo "<div id='result'>LoBot version 1.0 - I am a bot created by Lois Thomas that returns data from the database. That's not all, I also can be taught new tricks!</div>";
     }
     function train($input) {
         $input = explode('#', $input);
@@ -222,7 +222,6 @@
 </div>
 
 </body>
-
 
 <script>
     var outputArea = $("#chat-output");
