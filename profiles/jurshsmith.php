@@ -342,7 +342,7 @@ if (message.search("train") != -1){
 		if (message.search("#") != -1){
 			//do php thing
 			var train = 1;
-			$.post('j-replies8.php',{trainValidity : train,chatMessage : message},function(data){
+			$.post('profiles/j-replies.php',{trainValidity : train,chatMessage : message},function(data){
 				reply = data;
 				msg.text = reply;
 				msg.lang = 'en-US';
@@ -372,7 +372,7 @@ if (message.search("train") != -1){
 
 //what it does with other commands
 else if (gone == 8){
-	$.post('j-replies8.php',{chatMessage : message}, function(data)
+	$.post('profiles/j-replies.php',{chatMessage : message}, function(data)
 {
 
 	reply = data;
