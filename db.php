@@ -1,13 +1,11 @@
 <?php
-
-
 /*
 
 DO NOT MODIFY THIS FILE!!!
 
 */
 
-require_once '../config.php';
+require_once 'config.php';
 
 
 try {

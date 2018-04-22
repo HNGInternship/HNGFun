@@ -74,7 +74,7 @@ function doSpecialFunction($func,$text){
 
    $text=sanitizeText($text);
     $text=strtolower($text);
-    
+
     return pig_latin($text);
 
 }
@@ -617,7 +617,7 @@ background: rgba(0, 0, 0, 0.7);
 
 
 
-    <section class="bot col-sm-10 col-lg-6">
+    <section class="bot col-xs-10 col-lg-6">
         
 
          <section class="top-area">

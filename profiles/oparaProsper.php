@@ -1,5 +1,5 @@
 <?php
-    $queryUser = $conn ->query("SELECT * FROM interns_data WHERE `username` = 'opara_prosper' LIMIT 1 " );
+    $queryUser = $conn ->query("SELECT * FROM interns_data WHERE username = 'oparaProsper' " );
 
     $prosper = $queryUser ->fetch(PDO::FETCH_OBJ);
 
