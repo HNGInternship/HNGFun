@@ -8,7 +8,7 @@
         }
     }
     global $conn;
-    
+
     if($_SERVER['REQUEST_METHOD'] === 'GET'){
         try {
             $sql = 'SELECT * FROM secret_word LIMIT 1';
@@ -63,7 +63,7 @@
 
                 // If the answer contains '((' it means the answer contains a call to another function
                 $startParanthesesIndex = stripos($answer, '((');
-                if(startParanthesesIndex === false){
+                if($startParanthesesIndex === false){
                     sendReply($answer);
                 }else{
                     returnInnerFunctionResponse($answer, $startParanthesesIndex);
