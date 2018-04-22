@@ -229,7 +229,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    flex-direction: column;
 		}
 		.irr{
-	        color: #fff;
+	        color: red;
 	        font-size: 15px;
 			font-family: Ubuntu;
 		}
@@ -242,14 +242,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 		.iro{
 			float: right;
-			color: #0DDFFF;
+			color: #red;
 			font-size: 20px;
 			font-family: Ubuntu;
 		}
 		.iio{
 			float: left;
 			margin-right: 90px;
-			color: #01DDDD;
+			color: red;
 			font-size: 20px;
 			font-family: Ubuntu;
 		}
