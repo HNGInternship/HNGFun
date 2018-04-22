@@ -486,12 +486,12 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
                                 <p>eg <span class="bot-command">train : Where is Yaba # Yaba is in Lagos # password</span></p>
                                 <p>2) Complex Mode: You can train me further to answer specific questions giving me variables and specific functions. To train me for complex mode: Type <span class="bot-command">train : question [preposition] {{parameter_1}} [delimiter] {{parameter_2}} # answer {{parameter1}} [delimiter] {{parameter}} (method_name) # [password]</span> where : </p>
                                 <p><span class="bot-command">[preposition]</span> can either be <span class="bot-command">between</span> or <span class="bot-command">from</span> and <span class="bot-command">[delimiter]</span> can either be <span class="bot-command">and</span> or <span class="bot-command">to</span></p>
-                                <p>eg 1) <span class="bot-command">train : What is the distance <span class="bot-command highlight">between</span> {{Yaba}} and {{Surulere}} # The distance between {{Yaba}} <span class="bot-command highlight">and</span> {{Surulere}} (calculate_distance) # password</span></p>
-                                <p>eg 2) <span class="bot-command">train : Can you calculate the distance <span class="bot-command highlight">between</span> {{Lagos Airport}} to {{Sheraton Hotels}} # Yes, I can. The distance between {{Lagos Airport}} <span class="bot-command highlight">to</span> {{Sheraton Hotels}} (calculate_distance) # password</span></p>
-                                <p>eg 3) <span class="bot-command">train : How long is it <span class="bot-command highlight">from</span> {{UNILAG}} to {{LASU}} # The distance from {{UNILAG}} <span class="bot-command highlight">to</span> {{LASU}} (calculate_distance) # password</span></p>
+                                <p>eg 1) <span class="bot-command">train : What is the distance <span class="bot-command highlight">between</span> {{Yaba}} <span class="bot-command highlight">and</span> {{Surulere}} # The distance between {{Yaba}} <span class="bot-command highlight">and</span> {{Surulere}} (calculate_distance) # password</span></p>
+                                <p>eg 2) <span class="bot-command">train : Can you calculate the distance <span class="bot-command highlight">between</span> {{Lagos Airport}} <span class="bot-command highlight">to</span> {{Sheraton Hotels}} # Yes, I can. The distance between {{Lagos Airport}} <span class="bot-command highlight">to</span> {{Sheraton Hotels}} (calculate_distance) # password</span></p>
+                                <p>eg 3) <span class="bot-command">train : How long is it <span class="bot-command highlight">from</span> {{UNILAG}} <span class="bot-command highlight">to</span> {{LASU}} # The distance from {{UNILAG}} <span class="bot-command highlight">to</span> {{LASU}} (calculate_distance) # password</span></p>
                                 <p>Use the <span class="bot-command">get duration : [mode]</span> Command to show you the approximate duration it would take you to get from one location to the other (The last two locations) where <span class="bot-command">[mode]</span> can either be <span class="bot-command">driving</span> or <span class="bot-command">walking</span></p>
                                 <p>Use the <span class="bot-command">show direction : [mode]</span> Command to show you the direction between the last two locations on map where <span class="bot-command">[mode]</span> can either be <span class="bot-command">driving</span> or <span class="bot-command">walking</span></p>
-                                <p>eg To see list of parameters and method names to train me, type <span class="bot-command">training methods</span></p>
+                                <p>To get the current version of Locato, type <span class="bot-command">aboutbot</span></p>
                                 <!-- <p>Use the <i class="bot-command fa fa-arrow-up"></i> and <i class="bot-command fa fa-arrow-down"></i> keys on your keyboard to navigate between previous commands.</p> -->
                                 <p>To see this help menu again, simply type <span class="bot-command">help</span> or click the <i class="fa fa-question-circle"></i> above</p>
                             </div>
@@ -517,7 +517,7 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
 <!-- Latest compiled and minified JavaScript -->
 <script src="<?=$home_url;?>vendor/bootstrap/js/bootstrap.min.js"></script>
 <script>
-time = "11:04 21/04/2018";
+
 $(document).on('click', '.chat-btn', function(){
     $('.chatbot-menu').show();
     $('.chat-btn').hide();
@@ -690,7 +690,7 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
                     include '../answers.php';
                     if (function_exists($function_name)) {
                         $distance = call_user_func($function_name, $key, $url, $location1, $location2);
-                        $response = ['response'=>'christoph_bot', 'message'=>"$answer $location_data[1] $delimiter $location_data[3] : $distance"];
+                        $response = ['response'=>'christoph_bot', 'message'=>"$answer $location_data[1] $delimiter $location_data[3] : <b>$distance</b>"];
                         echo json_encode($response);
                     }
                     else {
@@ -699,7 +699,7 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
                     }
                 }
                 else {
-                    $response = ['response'=>'parse_error', 'message'=>$unparsed_location];
+                    $response = ['response'=>'parse_error', 'message'=>"Sorry, I don't understand that delimiter, very soon I would though. <br /><br /> I'm learning really hard. But till then, you can only use the supported delimiters <span class='bot-command highlight'>and</span> or <span class='bot-command highlight'>to</span> <br /></br> Type <span class='bot-command'>help</span> for more guides."];
                     echo json_encode($response);
                 }
             }
@@ -749,7 +749,7 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
                 // Include answers.php and call the calculate_distance function if it exists
                 include "../answers.php";
                 if (function_exists($function_name) or $match_simple_mode) {
-                    $distance = call_user_func($function_name, $key, $url, $location1, $location2);
+                    $distance = "<b>".call_user_func($function_name, $key, $url, $location1, $location2)."</br>";
                     $distance .= '<br /> <br />';
 
                     $location1 = str_replace('+', ' ', $location1);
@@ -794,7 +794,7 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
                 $trip_duration = call_user_func($function_name, $key, $url, $location1, $location2, $mode);
                 $location1 = str_replace('Nigeria', '', str_replace('+', ' ', $location1));
                 $location2 = str_replace('Nigeria', '', str_replace('+', ' ', $location2));
-                $response = ['response'=>'trip_duration', 'message'=>"The $mode duration from $location1 to $location2 is estimated to be about $trip_duration"];
+                $response = ['response'=>'trip_duration', 'message'=>"The $mode duration from $location1 to $location2 is estimated to be about <b>$trip_duration</b>"];
                 echo json_encode($response);
             }
             else {
