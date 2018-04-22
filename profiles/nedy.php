@@ -38,55 +38,50 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
             }else{
                 echo json_encode([
                     'status'    => 0,
-                    'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer"
+                    'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer#password"
                 ]);
                 return;
             }
-            echo json_encode([
-                'status'    => 0,
-                'response'    => "In right training mode"
-            ]);
-            return;
-            // if(!(isset($password))|| $password !== 'password'){
-            //     echo json_encode([
-            //         'status'    => 1,
-            //         'response'    => "Please insert the correct training password"
-            //     ]);
-            //     return;
-            // }
-            // if(isset($question) && isset($answer)){
-            //     //Correct training pattern
-            //     $question = test_input($question);
-            //     $answer = test_input($answer);
-            //     if($question == "" ||$answer ==""){
-            //         echo json_encode([
-            //             'status'    => 1,
-            //             'answer'    => "empty question or response"
-            //         ]);
-            //         return;
-            //     }
-            //     $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
-            //     if($conn->query($query) ===true){
-            //         echo json_encode([
-            //             'status'    => 1,
-            //             'answer'    => "trained successfully"
-            //         ]);
-            //     }else{
-            //         echo json_encode([
-            //             'status'    => 1,
-            //             'answer'    => "Error training me: ".$conn->error
-            //         ]);
-            //     }
+            if(!(isset($password))|| $password !== 'password'){
+                echo json_encode([
+                    'status'    => 1,
+                    'response'    => "Please insert the correct training password"
+                ]);
+                return;
+            }
+            if(isset($question) && isset($answer)){
+                //Correct training pattern
+                // $question = test_input($question);
+                // $answer = test_input($answer);
+                if($question == "" ||$answer ==""){
+                    echo json_encode([
+                        'status'    => 1,
+                        'answer'    => "empty question or response"
+                    ]);
+                    return;
+                }
+                $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
+                if($conn->query($query) ===true){
+                    echo json_encode([
+                        'status'    => 1,
+                        'answer'    => "trained successfully"
+                    ]);
+                }else{
+                    echo json_encode([
+                        'status'    => 1,
+                        'answer'    => "Error training me: ".$conn->error
+                    ]);
+                }
                 
 
-            //     return;
-            // }else{ //wrong training pattern or error in string
-            // echo json_encode([
-            //     'status'    => 0,
-            //     'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer"
-            // ]);
-            // return;
-            // }
+                return;
+            }else{ //wrong training pattern or error in string
+            echo json_encode([
+                'status'    => 0,
+                'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer #password"
+            ]);
+            return;
+            }
         }
         else{
             $query = "SELECT answer FROM chatbot WHERE question LIKE '$question'";
