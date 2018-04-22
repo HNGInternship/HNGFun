@@ -51,7 +51,6 @@
 
             switch($question){
                 case 'aboutbot':
-                case 'Aboutbot':
                     sendReply('v1.0.0');
             }
 
