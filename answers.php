@@ -900,7 +900,7 @@ function getUSSD($bankName){
         case 'GTB':
         case 'gtbank':
         case 'GTBank':
-        case 'GT Bank'
+        case 'GT Bank':
         return '*737#';
 
         case 'diamond bank':
