@@ -1012,7 +1012,7 @@
 ?>
 
 							<!-- <p>Time: <span id="datetime"></span></p> -->
-						<img src="<?php echo $user->image_filename ?>" />
+						<img style="border-radius: 50%;" src="<?php echo $user->image_filename ?>" height="200px" width="200px" />
 						<h1><?php echo $user->name ?></h1>
 						<p>Android Developer &nbsp;&bull;&nbsp; Technical Writer &nbsp;&bull;&nbsp; Part Time UI/UX Designer</p>
 					
