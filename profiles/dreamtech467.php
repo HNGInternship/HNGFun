@@ -146,15 +146,17 @@
 			}
 
 
-			//get version and ussd Abraham
-
+		//get version Abraham
+		function answerBot($question){
+			global $conn;
 			switch($question){
-                case 'bot-v':
-                case 'bot-V':
-                case 'Bot-v':
-                case 'Bot-V':
-                botReply('Version 2.2');
-            }
+				case 'bot-v':
+				case 'bot-V':
+				case 'Bot-v':
+				case 'Bot-V':
+				botReply('Version 2.2');
+			}
+		}
 
             switch(true){
                 case "capital of:" === substr($question, 0, 5):
