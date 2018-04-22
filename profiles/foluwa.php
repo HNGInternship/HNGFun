@@ -1,4 +1,8 @@
-<?php
+
+<?php //DATE
+ $d = date("h:i:sa");
+?>
+<?php 
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
   require '../../config.php';
 else
@@ -33,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
   function validate_answer(String $answer)
   {
     $matches = [];
-    if (preg_match_all('/.*\(\((?<functions>[[:alnum:]_]+)\)\).*/', $answer, $matches)) {
+    if (preg_match_all('/.*\(\((?<functions>[[:alnum:]_]+)\)\).*/', $answer, $matches)) {  
       $functions = array_map(function ($function) {
         if (function_exists($function)) return $function;
         return sendResponse(200, "The function, '$function', Not Available.");
@@ -154,13 +158,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     default:
       reply($message);
   }
-} 
+}  else {
 
 ?>
 
-<?php //DATE
- $d = date("h:i:sa");
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -214,9 +215,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
          border: 2px red solid;
          width: 47%;
          height:auto;
-         overflow-y: auto;
          padding: 10px;
-         overflow: auto;
 }
       .botSend{
          position: absolute; 
@@ -256,14 +255,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                 <div class="chat-head">Chat Interface</div>
                     <div class="chat">
                         <div id="conversation">
-                          <p class="bot botSend" style="margin-top:0px;left:0px;">Hi I am Zoe.
-                              <strong><?php //echo $d ?></strong>
+                          <p class="bot botSend" style="margin-top:0px;left:0px;">
+                              <strong><?php echo $d ?></strong>
                           </p>
                         </div>
                         <div style="position:fixed;bottom:0;">
-                        <form id="chat" class="box" action="/profiles/foluwa.php" name="message" method="post">
-                          <input type="text" id="message" class="message" placeholder="Message"  autofocus></input>
-                          <button id="send" class="send" type="submit" >Send</button>
+                        <form id="chat" class="box" action="foluwa.php" name="message" method="post">
+                          <textarea type="text" id="message" class="message" placeholder="Enter your text" wrap="soft" rows=1 autofocus></textarea>
+                          <button id="send" class=send type=submit>Send</button>
                         </form>
                         </div>
                     </div>
@@ -280,11 +279,14 @@ const messageField = document.getElementById('message');
 const sendButton = document.getElementById('send');
 const conversation = document.getElementById('conversation');
 const messageForm = document.getElementById('chat');
-
 messageField.scrollIntoView();
-
 const appendMessage = function (text, from) {
     const message = document.createElement('p');
+    message.style.cssText = 'color:blue; 
+                               font-size:25px;
+                               width:auto; 
+                               border-radius:4px;
+                               background-color: yellow;';
     message.innerHTML = text;
     message.className = from;
     conversation.appendChild(message);
@@ -328,10 +330,10 @@ messageForm.onsubmit = function (e) {
     };
     appendMessage(messageField.value, 'you');
     if (messageField.value.trim().toLowerCase() === 'aboutbot')
-        appendMessage('zoe v1.0', 'bot');
+        appendMessage('zoe version1.0', 'bot');
     else $.ajax({
         type: 'POST',
-        url: '/profiles/foluwa.php',
+        url: '/profiles/foluwa.php';  //'/profiles/foluwa.php',
         data: {message: messageField.value},
         dataType: 'json',
         success: useResult,
