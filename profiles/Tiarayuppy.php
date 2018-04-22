@@ -89,6 +89,12 @@
 <script src="https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js"></script>
 
 <style>
+
+.navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 0px !important;
+}
  
  .mytext{
     border:0;padding:10px;background:whitesmoke;
@@ -781,7 +787,6 @@ body{
       margin-bottom: 30px;
       float: right;">
        <h4 style="text-align: center;">My Chat bot </h4>
-          <h4 style="text-align: center;">Train Password <code>password</code> </h4>
             <ul></ul>
             <div>
         
