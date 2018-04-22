@@ -85,6 +85,7 @@ function bamiiCountryDetails($data) {
 
 ###################### END BAMII #####################
 
+
 function getListOfCommands() {
   return 'Type "<code>show: List of commands</code>" to see a list of commands I understand.<br/>
   Type "<code>open: www.google.com</code>" to open Google.com<br/>
@@ -209,55 +210,6 @@ function predictOutcome($battle){
 }
 // End of functions by @mclint_
 
-// functions by @bukola. DO NOT MODIFY
-function getUSSD($bankName){
-    switch(trim(strtolower($bankName))){
-        case 'first bank':
-        return '*894#';
-        
-        case 'access bank':
-        return '*901#';
-
-        case 'gt bank':
-        case 'guaranty trust bank':
-        return '*737#';
-
-        case 'diamond bank':
-        return '*426#';
-
-        case 'fidelity bank':
-        return '*770#';
-
-        case 'ecobank':
-        return '*326#';
-
-        case 'sterling bank':
-        return '*822#';
-
-        case 'keystone bank':
-        return '*533#';
-
-        case 'skye bank':
-        return '*833#';
-
-        case 'union bank':
-        return '*826#';
-
-        case 'stanbic bank':
-        return '*909#';
-
-        case 'uba':
-        return '*919#';
-
-        case 'wema bank':
-        return '*945#';
-
-        case 'zenith bank':
-        return '*966#';
-    }
-}
-// End of functions by @Bukola
-
 //functions defined by @chigozie. DO NOT MODIFY!!!
 function getDayOfWeek(){
     return date("l");
@@ -378,6 +330,8 @@ Adokiye's function*/
 
 
 
+
+
 //****************************************************************************************************************************************************************
 //****************************************************************************************************************************************************************
 //****************************************************************************************************************************************************************
@@ -459,6 +413,7 @@ for($h=0;$h<sizeof($sentence);$h++){
 ////////////////////////////////////////////////
 function aboutMe(){
   return "Hi my name is Ruby, I am a chatbot, nice to meet you";
+
 }
 
 
@@ -618,7 +573,7 @@ require 'db.php';
 //}
 
 
-
+global $conn;
 $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$check' ORDER BY rand() LIMIT 1");
 $stmt->execute();
 if($stmt->rowCount() > 0)
@@ -673,32 +628,11 @@ function multiexplode ($delimiters,$string) {
     return  $launch;
 }
 
-//$text = "#train: this a question | this my answer :)";
-$exploded = multiexplode(array(":","|"),$message);
 
-$question = trim($exploded[1]);
-
-$answer = trim($exploded[2]);
 
 require 'db.php';
 
-try {
 
-    $sql = "INSERT INTO chatbot (id, question, answer)
-VALUES ('', '$question', '$answer')";
-    // use exec() because no results are returned
-    $conn->exec($sql);
-
-    echo "Thank you! i just learnt something new, my master would be proud of me.";
-
-	}
-catch(PDOException $e)
-    {
-    echo $sql . "<br>" . $e->getMessage();
-    }
-
-$conn = null;
-//////////////////////
 
 
 //And output will be like this:
@@ -778,9 +712,46 @@ function show_direction ($location1, $location2, $mode) {
 
 #####################################################################################################
 #                                                                                                   #
-#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS ABOVE            #
+#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS ABOVE           #
 #                                                                                                   #
 #####################################################################################################
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+///                                                                                  ////////'
+/// @UNCLETEE CODE STARTS HERE. bERAKING THE CODE CAN CAUSE SERIOUS HARVOC
+///
+/// ////////////////////////////////////////////////////////////////////////////////////////////
+
+function getNews($sources="techcrunch.com"){
+
+
+    $apiKey = 'f9cca98bdc5344ce8508b4a6b8110c59';
+    $url = 'https://newsapi.org/v2/everything?domains='.$sources.'&language=en&apiKey='.$apiKey;
+    $response = file_get_contents($url);
+    $foundNews = json_decode( $response , true);
+    $findOneNews = $foundNews['articles'][rand(0,count($foundNews['articles'])-1)];
+    $news = "Title-- ".$findOneNews['title']. "\n";
+    $news .= "Url--- ".$findOneNews['url'];
+    if(trim($foundNews['status'])=='ok'){
+        return  $news;
+    }else{
+        return "I cannot source for you at this time";
+    }
+}
+
+
+
+
+
+
+
+
+///
+/// eND Ehere
+///
+///
+
 
 function get_device_name($user_agent)
 {
@@ -903,5 +874,63 @@ return $cdown;
 //////// AKINSOURCE FUNCTION /////////////////////////////
 // I HAVE A PARTICULAR SET OF SKILLS. I WILL FIND YOU!/////
 //////////////////////////////////////////////////////////
+
+function getQuote()
+{
+    $url = 'https://talaikis.com/api/quotes/random/';
+    $result = file_get_contents($url);
+    return $result;
+}
+
+
+// functions by @bukola. DO NOT MODIFY
+function getUSSD($bankName){
+    switch(trim(strtolower($bankName))){
+        case 'first bank':
+        return '*894#';
+
+        case 'access bank':
+        return '*901#';
+
+        case 'gt bank':
+        case 'guaranty trust bank':
+        return '*737#';
+
+        case 'diamond bank':
+        return '*426#';
+
+        case 'fidelity bank':
+        return '*770#';
+
+        case 'ecobank':
+        return '*326#';
+
+        case 'sterling bank':
+        return '*822#';
+
+        case 'keystone bank':
+        return '*533#';
+
+        case 'skye bank':
+        return '*833#';
+
+        case 'union bank':
+        return '*826#';
+
+        case 'stanbic bank':
+        return '*909#';
+
+        case 'uba':
+        return '*919#';
+
+        case 'wema bank':
+        return '*945#';
+
+        case 'zenith bank':
+        return '*966#';
+    }
+}
+// End of functions by @Bukola
+
 
 ?>

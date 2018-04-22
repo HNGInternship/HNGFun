@@ -34,11 +34,11 @@
     }
 ?>
 <?php
-    // Our bot will send a POST request to this file and we only want the code below to run only when that happens
+    // bot will send a POST request to this file
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         require "../answers.php";
 
-        // When we are ready to send a reply to our bot we'll call this function
+        // sending a reply to bot will call this function
         function sendReply($answer){
             echo json_encode([
                 'answer' => $answer
@@ -92,12 +92,12 @@
             }else{
                 $functionCallResult = $functionToCall();
 
-                // We'll now send the reply of the function call in the original answer we got from the DB
+                // send the reply of the function call in the original answer we got from the DB
                 sendReply(str_replace("((".$functionToCall."))", $functionCallResult, $answer));
             }
         }
 
-        // We got a command to train the bot
+        // command to train the bot
         function trainBot($question){
             global $conn;
 
@@ -113,7 +113,7 @@
             $query->execute();
             $query->setFetchMode(PDO::FETCH_ASSOC);
 
-            sendReply("Hooray! You've trained me.");
+            sendReply("YAY! I have more home training now!");
         }
 
         // Retrieving the question from the bot's POST request
@@ -126,7 +126,7 @@
                 trainBot($question);
             }
 
-            // If something does not go well we'll still send a response incase
+            // send response for other errors
             sendReply("Sorry. I have no idea what you just asked of me.");
         }
     }
@@ -145,34 +145,56 @@
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
         }
         html {
             font-size: 62.5%;
-            background-color: #fbfbf5;
+            background-color: #f3f3f3;
         }
         body {
             font-family: "Overpass", sans-serif;
             font-size: 1.8rem;
             line-height: 1.6;
             color: #DC5960;
+            background-color: #f3f3f3;
+        }
+        footer {
+            position: relative !important;
         }
         .wrapper {
             width: 100%;
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-evenly;
-            height: 100vh;
+            -ms-flex-wrap: wrap;
+                flex-wrap: wrap;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+            -webkit-box-pack: space-evenly;
+                -ms-flex-pack: space-evenly;
+                    justify-content: space-evenly;
         }
         .my-profile, .bot {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            flex-direction: column;
-            justify-content: space-around;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                    flex-direction: column;
+            -ms-flex-pack: distribute;
+                justify-content: space-around;
             height: 500px;
             width: 100%;
-            flex: 1 1 50%;
-            align-items: center;
+            -webkit-box-flex: 1;
+                -ms-flex: 1 1 50%;
+                    flex: 1 1 50%;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+            padding-top: 3em;
         }
         .my-face {
             background: lightblue url('https://res.cloudinary.com/do52uumgy/image/upload/v1523890291/avatar_lphsd8.png') no-repeat center;
@@ -192,13 +214,20 @@
             color: inherit
         }
         .bot-con {
-            border: 1px solid #535353;
+            border: 1px solid #DC5960;
             height: 500px;
-            width: 350px;
+            width: 80%;
             padding: 1em;
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            flex-direction: column;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                    flex-direction: column;
             position: relative;
+            background-color: #f4e8ea;
+            border-radius: 5px;
         }
         .chat-bubble{
             background-color: skyblue;
@@ -226,8 +255,14 @@
             font-weight: 700;
         }
         .actions {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            flex-direction: row;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+                -ms-flex-direction: row;
+                    flex-direction: row;
+            height: 60px;
         }
 
         .actions input {
@@ -267,7 +302,6 @@
             </div>
         </div>
         <div class="bot">
-           
         </div>
     </div>
 
@@ -275,13 +309,14 @@
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-        // This is Vue.js
+
         // el is for the element we want to attach Vue.js to
         new Vue({
             el: '.bot',
             data: {
                 messages: [{data: "Hey, I'm Phoenix!", sender: 'bot'}, 
-                {data: "I know the USSD codes of all banks in Nigeria! Just type 'ussd: name_of_bank' e.g 'ussd: Money Bank'", sender: 'bot'}],
+                {data: "I know the USSD codes of all banks in Nigeria! Just type 'ussd: name_of_bank' e.g 'ussd: Money Bank'.To train me, use this format 'train: question # answer'", 
+                sender: 'bot'}],
                 message: ''
             },
             methods: {
@@ -319,6 +354,9 @@
             },
             template: `
             <div class="bot">
+                <div>
+                    <h1>Chat with Phoenix!<h1>
+                </div>
                 <div class="bot-con">
                     <div style="height: 500px; overflow-y: scroll;">
                         <ul>
