@@ -586,7 +586,7 @@ background: rgba(0, 0, 0, 0.7);
 }
 
 ul{
-    padding-left: 10%;
+    padding-left: 0%;
 }
 
 
@@ -697,7 +697,7 @@ ul{
                 <div class="chat-message row">
 
             <h1 class="chat-name col-2">Merlin : </h1>
-          <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <strong>Wizard of Oz/</strong><br>
+          <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <strong>Wizard of Oz*</strong><br>
           You can ask me questions and i'll try my best to answer.<br>
           Some special functions i perform are: <br>
           <ul>
