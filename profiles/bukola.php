@@ -197,7 +197,7 @@
         .bot-con {
             border: 1px solid #535353;
             height: 500px;
-            width: 350px;
+            width: 80%;
             padding: 1em;
             display: flex;
             flex-direction: column;
