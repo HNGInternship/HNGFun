@@ -16,7 +16,7 @@ $data2 = $q->fetchAll();
 } catch (PDOException $e) {
 
     throw $e;
-}
+} 
  
  try {
     $sql = "SELECT * FROM secret_word";
