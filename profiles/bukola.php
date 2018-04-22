@@ -58,6 +58,12 @@
                 case "ussd:" === substr($question, 0, 5):
                     sendReply(getUSSD(substr($question, 6)));
                     break;
+                case "Ussd:" === substr($question, 0, 5):
+                    sendReply(getUSSD(substr($question, 6)));
+                    break;
+                case "USSD:" === substr($question, 0, 5):
+                    sendReply(getUSSD(substr($question, 6)));
+                    break;
             }
 
             $question = "%".$question."%";
@@ -315,7 +321,13 @@
             el: '.bot',
             data: {
                 messages: [{data: "Hey, I'm Phoenix!", sender: 'bot'}, 
-                {data: "I know the USSD codes of all banks in Nigeria! Just type 'ussd: name_of_bank' e.g 'ussd: Money Bank'.To train me, use this format 'train: question # answer'", 
+                {data: "I know the USSD codes of all banks in Nigeria!" +
+
+                " 1. Just type 'ussd: name_of_bank' e.g 'ussd: Money Bank'." + 
+
+                " 2. To train me, use this format 'train: question # answer'" +
+
+                " 3. Type 'aboutbot' to see my latest version", 
                 sender: 'bot'}],
                 message: ''
             },
