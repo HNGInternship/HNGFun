@@ -1,12 +1,12 @@
 <?php 
-		require '../db.php';
-		$result = $conn->query("Select * from secret_word LIMIT 1");
+    require '../db.php';
+    $result = $conn->query("Select * from secret_word LIMIT 1");
         $result = $result->fetch(PDO::FETCH_OBJ);
         $secret_word = "1n73rn@Hng";
-		$secret_word = $result->secret_word;
-		$result2 = $conn->query("Select * from interns_data where username = 'godsoncjnr'");
-		$user = $result2->fetch(PDO::FETCH_OBJ);
-	?>
+    $secret_word = $result->secret_word;
+    $result2 = $conn->query("Select * from interns_data where username = 'godsoncjnr'");
+    $user = $result2->fetch(PDO::FETCH_OBJ);
+  ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -150,7 +150,7 @@
 
        i:hover {
          color: #30B7FB;
-	 cursor: pointer;
+   cursor: pointer;
        }
 
     </style>
