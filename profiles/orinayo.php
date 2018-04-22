@@ -212,146 +212,152 @@ function Get_Hotelsng_wikipage()
 }
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Homemade+Apple|Roboto|Spectral+SC" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
-    <style>
-        .content {
-            padding-top: 10px;
-            text-align: center;
-        }
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link href="https://fonts.googleapis.com/css?family=Homemade+Apple|Roboto|Spectral+SC" rel="stylesheet">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+            <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+            <style>
+                .content {
+                    padding-top: 10px;
+                    text-align: center;
+                }
 
-        .profile-pic {
-            width: 18em !important;
-        }
+                .profile-pic {
+                    width: 18em !important;
+                }
 
-        .bio {
-            text-align: center;
-            margin: 0px 10px;
-            font-family: 'Roboto', sans-serif;
-        }
+                .bio {
+                    text-align: center;
+                    margin: 0px 10px;
+                    font-family: 'Roboto', sans-serif;
+                }
 
-        #chat-window, #chat-bot, .chat-text, .chat-btn, .submitInput {
-            display: none;
-        }
+                #chat-window,
+                #chat-bot,
+                .chat-text,
+                .chat-btn,
+                .submitInput {
+                    display: none;
+                }
 
-        @media (min-width: 48em) {
-            .bio {
-                text-align: center;
-                margin: 0px 150px;
-                font-family: 'Roboto', sans-serif;
-            }
+                @media (min-width: 48em) {
+                    .bio {
+                        text-align: center;
+                        margin: 0px 150px;
+                        font-family: 'Roboto', sans-serif;
+                    }
 
-            #chat-window, #chat-bot, .chat-text, .chat-btn, .submitInput {
-            display: block;
-            }
+                    #chat-window,
+                    #chat-bot,
+                    .chat-text,
+                    .chat-btn,
+                    .submitInput {
+                        display: block;
+                    }
 
-            #chat-window {
-                width: 20%;
-                margin-right: 0.5em;
-            }
+                    #chat-window {
+                        width: 20%;
+                        margin-right: 0.5em;
+                    }
 
-            #chat-bot {
-                background-color: #15AB5F;
-                margin-top: 2px;
-                padding-top: 1em;
-                padding-bottom: 1em;
-                max-height: 25em;
-                overflow-y: scroll;
-            }
+                    #chat-bot {
+                        background-color: #15AB5F;
+                        margin-top: 2px;
+                        padding-top: 1em;
+                        padding-bottom: 1em;
+                        max-height: 25em;
+                        overflow-y: scroll;
+                    }
 
-            .chat-text {
-                background-color: #fff;
-                padding-right: 0.3em;
-                padding-left: 0.3em;
-                border-radius: 4px;
-            }
+                    .chat-text {
+                        background-color: #fff;
+                        padding-right: 0.3em;
+                        padding-left: 0.3em;
+                        border-radius: 4px;
+                    }
 
-            .chat-btn {
-                float: right;
-            }
+                    .chat-btn {
+                        float: right;
+                    }
 
-            .submitInput {
-                margin-top: 1em;
-            }
+                    .submitInput {
+                        margin-top: 1em;
+                    }
 
-        }
+                }
 
-        .checkwork {
-            border: 1px solid #f4511e;
-            color: #f4511e;
-            transition-duration: 0.4s;
-            font-family: 'Roboto', sans-serif;
-        }
+                .checkwork {
+                    border: 1px solid #f4511e;
+                    color: #f4511e;
+                    transition-duration: 0.4s;
+                    font-family: 'Roboto', sans-serif;
+                }
 
-        .checkwork:hover {
-            background-color: #f4511e;
-            color: black;
-        }
+                .checkwork:hover {
+                    background-color: #f4511e;
+                    color: black;
+                }
 
-        .carousel-control-prev-icon,
-        .carousel-control-next-icon {
-            height: 30px;
-            width: 30px;
-            outline: black;
-            background-size: 100%, 100%;
-            border-radius: 50%;
-            border: 1px solid black;
-            background-image: none;
-        }
+                .carousel-control-prev-icon,
+                .carousel-control-next-icon {
+                    height: 30px;
+                    width: 30px;
+                    outline: black;
+                    background-size: 100%, 100%;
+                    border-radius: 50%;
+                    border: 1px solid black;
+                    background-image: none;
+                }
 
-        .carousel-control-next-icon:after {
-            content: '>';
-            font-size: 15px;
-            color: red;
-        }
+                .carousel-control-next-icon:after {
+                    content: '>';
+                    font-size: 15px;
+                    color: red;
+                }
 
-        .carousel-control-prev-icon:after {
-            content: '<';
-            font-size: 15px;
-            color: red;
-        }
+                .carousel-control-prev-icon:after {
+                    content: '<';
+                    font-size: 15px;
+                    color: red;
+                }
 
-        .self-eval {
-            text-align: center;
-            padding-bottom: 20px;
-        }
+                .self-eval {
+                    text-align: center;
+                    padding-bottom: 20px;
+                }
 
-        .progress {
-            font-family: 'Roboto', sans-serif;
-            height: 53px;
-            font-size: 13px;
-            background-color: #fff;
-        }
+                .progress {
+                    font-family: 'Roboto', sans-serif;
+                    height: 53px;
+                    font-size: 13px;
+                    background-color: #fff;
+                }
 
-        .strengths {
-            font-size: 80px;
-            text-align: center;
-            display: inline-block;
-        }
+                .strengths {
+                    font-size: 80px;
+                    text-align: center;
+                    display: inline-block;
+                }
 
-        .icon-desc {
-            font-family: 'Roboto', sans-serif;
-            display: block;
-            text-align: center;
-        }
+                .icon-desc {
+                    font-family: 'Roboto', sans-serif;
+                    display: block;
+                    text-align: center;
+                }
 
-        .socialMedia {
-            font-size: 30px;
-        }
-    </style>
-</head>
+                .socialMedia {
+                    font-size: 30px;
+                }
+            </style>
+        </head>
 
-<body>
+        <body>
             <!--home-->
             <div class="container-fluid content">
                 <h3 class="text-center text-dark display-5">Hello, I'm
@@ -377,24 +383,32 @@ function Get_Hotelsng_wikipage()
                         <p class='chat-text'>
                             <i class="fa fa-user"></i> Hello, I am Orinayo's bot.</p>
                         <p class='chat-text'>
-                            <i class="fa fa-user"></i> Commands 
-                            <br> <kbd>aboutbot</kbd> returns my version number. <br>
-                            <kbd>What is your name</kbd> returns my name <br>
-                            <kbd>How were you made</kbd> returns how I was created <br>
-                            <kbd>Hotelsng wiki page</kbd> returns a link to Hotelsng wiki page <br>
-                            .</p>
+                            <i class="fa fa-user"></i> Commands
+                            <br>
+                            <kbd>aboutbot</kbd> returns my version number.
+                            <br>
+                            <kbd>What is your name</kbd> returns my name
+                            <br>
+                            <kbd>How were you made</kbd> returns how I was created
+                            <br>
+                            <kbd>Hotelsng wiki page</kbd> returns a link to Hotelsng wiki page
+                            <br> .
+                        </p>
                         <p class='chat-text'>
                             <i class="fa fa-user"></i>
-                            My training format is: <kbd>train Your question # The answer # my password</kbd>. <br>
-                            I prefer questions beginning with an uppercase letter. I don't need a question mark at the end either.<br>
-                            I'm also able to try and find answers using keywords.    
+                            My training format is:
+                            <kbd>train Your question # The answer # my password</kbd>.
+                            <br> I prefer questions beginning with an uppercase letter. I don't need a question mark at the end
+                            either.
+                            <br> I'm also able to try and find answers using keywords.
                         </p>
                     </div>
                     <form id='chatBotForm' method="post">
                         <div class='form-row'>
                             <label for="userInput" class="col-form-label">Your Message</label>
                             <br>
-                            <input name="userInput" type="text" id='userInput' class="form-control" required="required" placeholder="Type your message" />
+                            <input name="userInput" type="text" id='userInput' class="form-control" required="required" placeholder="Type your message"
+                            />
                         </div>
                         <div class='text-center submitInput'>
                             <button type='submit' class="btn btn-light">Send</button>
@@ -607,8 +621,8 @@ function Get_Hotelsng_wikipage()
                         origin: 'right'
                     });
 
-                    $(".chat-btn").click(function(){
-                    $("#chat-bot").toggle();
+                    $(".chat-btn").click(function () {
+                        $("#chat-bot").toggle();
                     });
 
                     $("#chatBotForm").submit(function (event) {
@@ -618,32 +632,32 @@ function Get_Hotelsng_wikipage()
                         let $chatBot = $('#chat-bot');
                         let $userInputValue = $userInput.val();
 
-                        $chatMessages.append("<p class='chat-text text-right'>" + $userInputValue
-                            + " <i class='fa fa-user'></i> </p>");
-                        
+                        $chatMessages.append("<p class='chat-text text-right'>" + $userInputValue +
+                            " <i class='fa fa-user'></i> </p>");
+
                         if ($userInputValue == 'aboutbot') {
-                            $chatMessages.append("<p class='chat-text'><i class='fa fa-user'></i> Version 1.0 </p>");
+                            $chatMessages.append(
+                                "<p class='chat-text'><i class='fa fa-user'></i> Version 1.0 </p>");
                             $chatBot.scrollTop($chatBot[0].scrollHeight);
                             $userInput.val('');
-    
+
                         } else {
                             $.ajax({
-                            type: 'POST',
-                            url: 'profiles/orinayo.php',
-                            data: {userInput: $userInputValue},
-                            success: function(answer) {
-                            $chatMessages.append("<p class='chat-text'><i class='fa fa-user'></i> "
-                            + answer['answer'] +"</p>");
-                            $chatBot.scrollTop($chatBot[0].scrollHeight);
-                            $userInput.val('');
-                            },
-                            dataType: 'json'
-                       });
+                                type: 'POST',
+                                url: 'profiles/orinayo.php',
+                                data: {
+                                    userInput: $userInputValue
+                                },
+                                success: function (answer) {
+                                    $chatMessages.append(
+                                        "<p class='chat-text'><i class='fa fa-user'></i> " +
+                                        answer['answer'] + "</p>");
+                                    $chatBot.scrollTop($chatBot[0].scrollHeight);
+                                    $userInput.val('');
+                                },
+                                dataType: 'json'
+                            });
                         }
-                      });
-                   });
+                    });
+                });
             </script>
-
-</body>
-
-</html>
