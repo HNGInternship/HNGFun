@@ -1,4 +1,5 @@
 <?php
+// include_once realpath(__DIR__ . '/..') . "/answers.php";
 if (!defined('DB_USER')) {
 	require "../../config.php";
 	try {
@@ -51,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
 
-// $data = getAction(['stage' => 1, 'human_response' => 'train:                   what is the             synonym of die # kill,death #     password']);
+// $data = getAction(['stage' => 1, 'human_response' => '                          train:                   what is the             synonym of die # kill,death #     password']);
 
 // echo $data;
 
@@ -66,7 +67,9 @@ function getAction($input)
 			$data = greet();
 			break;
 		case 1: // chat or train
-			$data = chat_or_train(preg_replace('/\s\s+/', ' ', $input['human_response']));
+			
+			$human_response = preg_replace('([\s]+)', ' ', trim($input['human_response']));
+			$data = chat_or_train($human_response);
 			break;
 	}
 
@@ -129,7 +132,7 @@ function train($human_response){
 	function chat_or_train($human_response){
 
 		$human_response_words = explode(' ', $human_response);
-		if (strpos(trim($human_response_words[0]), 'train') !== false && count($human_response_words) > 4) {
+		if (strpos(trim($human_response_words[0]), 'train:') !== false && count($human_response_words) > 4) {
 			return train($human_response);
 		}else{
 			return chat($human_response);
@@ -166,7 +169,20 @@ function train($human_response){
 		$results = $q->fetchAll();
 		
 		if (count($results) > 0) {
-			$data = "I have learnt that already, thanks";
+
+			$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+
+			try {
+				$query = $conn->prepare($sql);
+
+				if ($query->execute([':question' => $question, ':answer' => $answer]) == true) {
+					$data = 'Cool, I have learnt a new answer to that question. thanks';
+				};
+
+			} catch (PDOException $e) {
+				$data = "Something went wrong, please try again";
+			}
+
 		} else {
 			
 			$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
@@ -196,24 +212,18 @@ function train($human_response){
 	}
 	
 	function prepare_question_train($question){
-		$question = trim($question);
 		
-		$words = explode(' ', $question);
-		foreach ($words as $key => $word) {
-			$words[$key] = trim($word);
-		}
-		return implode(' ', $words);
+		$question = trim($question);
+		$question = preg_replace('([\s]+)', ' ', $question);		
+		return $question;
 	}
 
 	
 	function prepare_question_chat($human_response){
 		$human_response = trim($human_response);
 		$question = str_replace('?', '', $human_response);
-		$question_words = explode(' ', $question);
-		foreach ($question_words as $key => $word) {
-			$question_words[$key] = trim($word);
-		}
-		return implode(' ', $question_words);
+		$question = preg_replace('([\s]+)', ' ', $question);
+		return $question;
 	}
 
 	function is_valid_training_format($human_response){
@@ -243,7 +253,7 @@ function train($human_response){
 
 		$answer = trim($parts[1]);
 
-		return ['question' => $question, 'answer' => $answer, 'password' => $password];
+		return ['question' => trim($question), 'answer' => $answer, 'password' => $password];
 	}
 
 	
@@ -402,7 +412,7 @@ function train($human_response){
 				</div>
 
 				<h1 class="intro"><?=$name?> </h1>
-				<h3 class="text-center">Being Kind is better than being right.</h3>
+				<h3 class="text-center">Being Kind is better than being right :-)</h3>
 			</div>	
 		</section>
 	</div>

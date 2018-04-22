@@ -1,4 +1,4 @@
-
+conf-maker.sh
 db.php
 docker-compose.yml
 phpmyadmin/
@@ -7,4 +7,7 @@ phpmyadmin/
 /deploy
 .idea/
 config.php
-/null-file
+/null-
+.travis.yml
+push.sh
+/vendor/
