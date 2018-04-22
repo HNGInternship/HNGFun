@@ -32,12 +32,12 @@
 			font-family: 'open sans', san serif;
 		}
 		.image_header {
-			width: 100%;
+			width: 50%;
 			margin: auto;
 
 		}
 		.part-1 {
-			width: 38%;
+			width: 100%;
 			display: flex;
 			flex-wrap: wrap;
 		}
@@ -90,9 +90,6 @@
 			.col-1, .col-2 {
 				width: 100%;
 				max-width: 100%;
-			}
-			.vl {
-				display: none;
 			}
 			.image_header {
 				width: 50%;
