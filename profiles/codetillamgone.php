@@ -2,9 +2,9 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require "../answers.php";
 
-
+   
     if(!defined('DB_USER')){
-        require "../config.php";		
+        require "../../config.php";		
         try {
             $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
         } catch (PDOException $pe) {
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             else if(strrpos($testvar, "hi") || strrpos($testvar, "hello") || strrpos($testvar, "what's up") || strrpos($testvar, "Fuck you")){
                 echo json_encode([
                     'status' => 1,
-                    'reply' => "I've been asked not to joke around with strangers, my master musn't catch me doing that so can we go straight to the point"
+                    'reply' => "Hey buddy, how you doing?...Wwhat are we talking about today"
                 ]);
                 return;
             }
@@ -250,7 +250,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php
    
 try{
-    
+   
     $getData = 'SELECT * FROM interns_data WHERE username="codetillamgone"';
     $query1 = $conn->query($getData);
     $query1->setFetchMode(PDO::FETCH_ASSOC);

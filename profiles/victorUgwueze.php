@@ -311,7 +311,7 @@ h3{
             <h5>Software Developer</h5>
         </div>
         <div class="contact">
-            <h3>Get In Touch With Me</h3>
+            <h3>Get In Touch</h3>
             <p>Want to get in touch with me? Be it to request more info about myself or my
                 experience, to ask for my resume, or even if only for some nice coffe here in Lagos, 
                 Nigeria... just feel free to drop me a line anytime.
