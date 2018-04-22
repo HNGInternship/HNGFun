@@ -19,44 +19,39 @@ global $conn;
 if (isset($_POST['payload'])) {
 
 	$question = trim($_POST['payload']);
-	function isTraining($question)
-	{
+	
+    function isTraining($question) {
+      
 	$input = explode('#', $input);
         $question = trim($input[0]);
         $answer = trim($input[1]);
         $password = trim($input[2]);
         if($password == 'password') {
-            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
-            $q = $GLOBALS['conn']->query($sql);
-            $q->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $q->fetch();
+            $sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '"';
 
             if(empty($data)) {
-                $training_data = array(':question' => $question,
-                    ':answer' => $answer);
+                $question_data = array(':question' => $question, ':answer' => $answer);
 
-                $sql = 'INSERT INTO chatbot ( question, answer)
-              VALUES (
-                  :question,
-                  :answer
-              );';
+		    $sql = 'INSERT INTO chatbot ( question, answer )
+          			VALUES ( :question, :answer );';
 
                 try {
-                    $q = $GLOBALS['conn']->prepare($sql);
-                    if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>Training Successful!</div>";
+                    $q = $conn->prepare($sql);
+                    if ($q->execute($question_data) == true) {
+                        echo "Training Successful!";
                     };
                 } catch (PDOException $e) {
                     throw $e;
                 }
             }else{
-                echo "<div id='result'>I already understand this. Teach me something new!</div>";
+                echo "I know this already!";
             }
         }else {
-            echo "<div id='result'>Invalid Password, Try Again!</div>";
+            echo "Wrong Password";
 
         }
-	}
+	    
+    }
 
 	function getAnswer()
 	{
