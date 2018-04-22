@@ -30,16 +30,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
     try{
 
-	    /*if(!isset($_POST['question'])){
+	    if(!isset($_POST['question'])){
 	      echo json_encode([
-	        'status' => 0,
-	        'answer' => "Please provide a question"
+	        'status' => 1,
+	        'answer' => "Please ask a question."
 	      ]);
 	      return;
-	    }*/
+	    }
 
 	    //if(!isset($_POST['question'])){
-	    $mem = isset($_POST['question']);
+	    $mem = $_POST['question'];
 	    $mem = preg_replace('([\s]+)', ' ', trim($mem));
 	    $mem = preg_replace("([?.])", "", $mem);
 		$arr = explode(" ", $mem);
@@ -54,7 +54,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				# code...
 				echo json_encode([
 					'status' => 0,
-					'result' => "You need to enter a password to train me."
+					'answer' => "You need to enter the password to train me."
 				]);
 				return;
 			}
@@ -66,7 +66,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				# code...
 				echo json_encode([
 					'status'=> 0,
-					'result' => "You entered a wrong passsword"
+					'answer' => "You entered a wrong passsword"
 				]);
 				return;
 			}
@@ -77,7 +77,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			$conn->exec($sql);
 			echo json_encode([
 				'status' => 1,
-				'result' => "Thanks for training me, you can now test my knowledge"
+				'answer' => "Thanks for training me, you can now test my knowledge"
 			]);
 			return;
 		}
@@ -85,7 +85,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	    	# code...
 	    	echo json_encode([
 	    		'status'=> 1,
-	    		'result' => "I am MATRIX, Version 1.0.0. You can train me by using this format ' train: This is a question # This is the answer # password '"
+	    		'answer' => "I am MATRIX, Version 1.0.0. You can train me by using this format ' train: This is a question # This is the answer # password '"
 	    	]);
 	    	return;
 	    }
@@ -107,14 +107,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		        
 		        echo json_encode([
 		        	'status' => 1,
-		        	'result' => $answer
+		        	'answer' => $answer
 		        ]);
 		        return;
 		    }else{
 
 		    	echo json_encode([
 		    		'status' => 0,
-		    		'result' => "I am sorry, I cannot answer your question now. You could offer to train me."
+		    		'answer' => "I am sorry, I cannot answer your question now. You could offer to train me."
 		    	]);
 		    	return;
 		    }
