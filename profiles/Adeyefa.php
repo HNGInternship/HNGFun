@@ -38,7 +38,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	      return;
 	    }
 
-	    //if(!isset($_POST['question'])){
 	    $mem = $_POST['question'];
 	    $mem = preg_replace('([\s]+)', ' ', trim($mem));
 	    $mem = preg_replace("([?.])", "", $mem);
@@ -122,7 +121,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	}catch (Exception $e){
 		return $e->message ;
 	}
-}
+}else{
 ?>
 <!DOCTYPE html>
 <html>

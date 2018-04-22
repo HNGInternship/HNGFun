@@ -51,7 +51,6 @@
 
             switch($question){
                 case 'aboutbot':
-                case 'Aboutbot':
                     sendReply('v1.0.0');
             }
 
@@ -129,7 +128,7 @@
             }
 
             // send response for other errors
-            sendReply("Sorry. I have no answer to what you asked but you can tran me. Type 'train: question # answer'");
+            sendReply("Sorry. I have no answer to what you asked but you can train me. Type 'train: question # answer'");
         }
     }
 ?>
