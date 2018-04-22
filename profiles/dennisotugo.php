@@ -1,18 +1,7 @@
 <?php
-
-if (!defined('DB_USER')) {
-	require "../../config.php";
-
-}
-
-try {
-	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-}
-
-catch(PDOException $pe) {
-	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
-
+include('../answers.php')
+include('../../config.php')
+$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);	
 $date_time = new DateTime('now', new DateTimezone('Africa/Lagos'));
 global $conn;
 
@@ -69,8 +58,15 @@ if (isset($_POST['payload'])) {
 		$answer = substr($question, $start);
 		return $answer;
 	}
+	function resolvePasswordFromTraining($question)
+	{
+		$start = strpos($answer, " # ") + 3;
+		$answer = substr($question, $start);
+		return $password;
+	}
+	$check_pass = 'password';
 
-	if (isTraining($question)) {
+	if (isTraining($question) && $password == $check_pass) {
 		$answer = resolveAnswerFromTraining($question);
 		$question = strtolower(resolveQuestionFromTraining($question));
 		$question_data = array(

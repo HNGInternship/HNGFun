@@ -326,6 +326,83 @@ function get_current_time(){
 Adokiye's function*/
 
 
+
+
+
+//****************************************************************************************************************************************************************
+//****************************************************************************************************************************************************************
+//****************************************************************************************************************************************************************
+//****************************************************************************************************************************************************************
+//****************************************************************************************************************************************************************
+//****************************************************************THE WIZARD OF OZ********************************************************************************
+
+
+function pig_latin($text){
+  $vowels = "a,e,i,o,u";
+  $pigText="";
+  $intermediatePig="";
+  $firstVowelPos=0;
+  $frontConsonants="";
+
+
+    $sentence=explode ( " " , $text );
+
+for($h=0;$h<sizeof($sentence);$h++){
+  for($i=0;$i<strlen($sentence[$h]);$i++){
+    if(strpos($vowels,$sentence[$h][$i])!==FALSE){
+      $firstVowelPos=$i;
+      $intermediatePig=$intermediatePig.substr($sentence[$h],$firstVowelPos);
+      if($i===0){
+        $intermediatePig=$intermediatePig.$frontConsonants."yay";
+      break;
+      }
+      $intermediatePig=$intermediatePig.$frontConsonants."ay";
+      break;
+    }
+
+    else{
+      $frontConsonants=$frontConsonants.$sentence[$h][$i];
+
+    }
+
+  }
+
+  if($intermediatePig===""){
+  $intermediatePig=$intermediatePig.$frontConsonants;
+
+}
+
+  $frontConsonants="";
+  $pigText=$pigText.$intermediatePig." ";
+  $intermediatePig="";
+}
+
+
+
+      return $pigText;
+
+
+}
+
+
+
+//****************************************************************************************************************************************************************
+//****************************************************************************************************************************************************************
+//****************************************************************************************************************************************************************
+//****************************************************************************************************************************************************************
+//****************************************************************************************************************************************************************
+//****************************************************************END********************************************************************************
+
+
+
+
+
+
+
+
+
+
+
 /////////////////////////////////////////////////
 ////////////////////////////////////////////////
 // functions by john ayeni do not modify please//
@@ -394,7 +471,8 @@ function simpleMaths($operation, $expression){
           break;
 
 
-      
+
+
       default:
         # code...
         break;
@@ -462,7 +540,7 @@ function getFutureDate(){
 function getRandomYoMamaJoke(){
 	$randomJokeJson = file_get_contents("http://api.yomomma.info");
 	$randomJoke = json_decode($randomJokeJson);
-    echo $randomJoke->joke;	
+    echo $randomJoke->joke;
     //A.M.A
 }
 
@@ -525,7 +603,7 @@ function getMediumArticle(){
 		$mediumArticleTitle = $getSingleMediumArticle['title'];
 		$mediumArticleUrl = $getSingleMediumArticle['link'];
 		$mediumArticleThumbnail = $getSingleMediumArticle['thumbnail'];
-		echo "<a href= '$mediumArticleUrl' style='color: #ffffff'><img src='http://res.cloudinary.com/missada/image/upload/v1524225094/hng_internship.png' class= 'img-responsive' ><br/><b>$mediumArticleTitle</b></a>"; 
+		echo "<a href= '$mediumArticleUrl' style='color: #ffffff'><img src='http://res.cloudinary.com/missada/image/upload/v1524225094/hng_internship.png' class= 'img-responsive' ><br/><b>$mediumArticleTitle</b></a>";
 		$article = "<script type='text/Javascript'>window.open('$mediumArticleUrl');</script>";
 		break;
     }
@@ -533,7 +611,8 @@ function getMediumArticle(){
 
 }
 function getPinkyCommands(){
-    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/> 
+    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/>
+    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/>
     2. Get <b>motivational quote of the day.</b> or <b>inspire me today</b> <br/> 3. Get my creator <b>Ada's latest medium article</b> <br/>
     4. Get or tell you<b> a random Yo Momma Joke</b>. <br/> 5. Get or tell you <b>what day of the week it is.</b> <br/>
     6. Get the <b>date seven days or a week from now.</b> <br/> 7.Get or tell you<b> a random quote.</b> <br/>
@@ -638,7 +717,7 @@ function get_duration ($key, $url, $location1, $location2, $mode) {
     $response = json_decode(file_get_contents($request_duration), 1);
     $status = $response['status'];
     if ($status === 'OK' and $response['rows'][0]['elements'][0]['status'] === 'OK') {
-        $duration = $response['rows'][0]['elements'][0]['duration_in_traffic']['text'];
+        $duration = $response['rows'][0]['elements'][0]['duration']['text'];
         return $duration;
     }
     // If no match, return error message
@@ -648,6 +727,16 @@ function get_duration ($key, $url, $location1, $location2, $mode) {
     }
 }
 
+function show_direction ($location1, $location2, $mode) {
+    return "https://www.google.com/maps/dir/?api=1&origin=$location1&destination=$location2&travelmode=$mode";
+
+}
+
+#####################################################################################################
+#                                                                                                   #
+#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS ABOVE            #
+#                                                                                                   #
+#####################################################################################################
 
 function get_device_name($user_agent)
 {
@@ -661,33 +750,21 @@ function get_device_name($user_agent)
     return 'Other';
 }
 
-function show_direction ($location1, $location2, $mode) {
-    return "https://www.google.com/maps/dir/?api=1&origin=$location1&destination=$location2&travelmode=$mode";
+function davidQuadraticEquation($a, $b, $c)
+{  #Remember I know where you live if you tamper with this function
+    $discriminat = pow($b, 2) - (4 * $a * $c);
+    if ($discriminat == 0) {
+        $x = -($b / (2 * $a));
+        return $x;
 
+    } else {
+        $root = sqrt($discriminat);
+        $x1 = (-$b + $root) / (2 * $a);
+        $x2 = (-$b - $root) / (2 * $a);
+        return 'x1 is ' + $x1 + 'and' + 'x2 is ' + $x2;
+    }
 }
 
-
-function davidQuadraticEquation($a, $b, $c){  #Remember I know where you live if you tamper with this function
-     $discriminat = pow($b,2) - (4 * $a * $c);
-     if($discriminat == 0){
-         $x = -($b/(2 * $a));
-         return $x; 
-     }
-     else {
-         $root = sqrt($discriminat);
-         $x1 = (-$b + $root) / (2 *$a);
-         $x2 = (-$b - $root) / (2 *$a);
-         return 'x1 is ' + $x1 + 'and' + 'x2 is ' + $x2; 
-     }
-    
-     
- }
-
-#####################################################################################################
-#                                                                                                   #
-#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS ABOVE            #
-#                                                                                                   #
-#####################################################################################################
 
 /*
  * Ionware's Function
@@ -735,5 +812,53 @@ if (! function_exists("iDictionary"))
 }
 /*
  * Ionware's function ends here */
+
+
+// Orinayo's function
+function Get_Hotelsng_wikipage()
+{
+    $api = "https://en.wikipedia.org/w/api.php?action=opensearch&search="."hotels.ng"."&format=json&callback=?";
+    $result = file_get_contents($api);
+    $result = substr_replace($result, "", 0, 5);
+    $result = substr_replace($result, "", -1);
+    $result = json_decode($result, true);
+    $result = array("answer"=>"<a href=".$result[3][0].">".$result[1][0]."</a><p>".$result[2][0]."</p>");
+    return $result;
+}
+//
+// AKINSOURCE FUNCTION ///////
+//////////////////////////////
+function count_akin($poin){
+date_default_timezone_set("Africa/Lagos");
+$date_req = strtotime($poin);
+$time_remaining = $date_req - time();
+$weeks_remaining = $time_remaining /604800;
+$days_remaining = $time_remaining / 86400;
+$hours_remaining = ($time_remaining % 86400) / 3600;
+
+if ($weeks_remaining >= 1) {
+	$weeks_remaining = floor($time_remaining / 604800);
+	$days_remaining = floor(($time_remaining % 604800)/86400);
+	$hours_remaining = floor(($time_remaining % 86400) / 3600);
+	$minutes_remaining = floor((($time_remaining % 86400) % 3600)/60);
+	$seconds_remaining = ((($time_remaining % 86400) % 3600)%60);
+	$cdown = $weeks_remaining.' weeks '.$days_remaining.' days '. $hours_remaining.' hours '.$minutes_remaining.' minutes '.$seconds_remaining.' seconds';
+} elseif ($days_remaining >= 1 ) {
+	$days_remaining = floor($time_remaining / 86400);
+	$hours_remaining = floor(($time_remaining % 86400) / 3600);
+	$minutes_remaining = floor((($time_remaining % 86400) % 3600)/60);
+	$seconds_remaining = ((($time_remaining % 86400) % 3600)%60);
+	$cdown = $days_remaining.' days '. $hours_remaining.' hours '.$minutes_remaining.' minutes '.$seconds_remaining. ' seconds';
+} elseif ($hours_remaining > 0 ) {
+	$hours_remaining = floor(($time_remaining % 86400) / 3600);
+	$minutes_remaining = floor((($time_remaining % 86400) % 3600)/60);
+	$seconds_remaining = ((($time_remaining % 86400) % 3600)%60);
+	$cdown = $hours_remaining.' hours '.$minutes_remaining.' minutes '.$seconds_remaining. ' seconds';
+}
+return $cdown;
+}
+//////// AKINSOURCE FUNCTION /////////////////////////////
+// I HAVE A PARTICULAR SET OF SKILLS. I WILL FIND YOU!/////
+//////////////////////////////////////////////////////////
 
 ?>
