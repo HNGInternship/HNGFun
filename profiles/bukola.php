@@ -287,7 +287,7 @@
                     this.message = '';
                 },
                 answerQuery(query) {
-                    this.messages.push({ sender: 'bot', query: 'Coming up...' });
+                    this.messages.push({ sender: 'bot', data: 'Coming up...' });
 
                     var params = new URLSearchParams();
                     params.append('password', 'password');
@@ -297,11 +297,11 @@
                         .then(response => {
                             console.log(response);
                             this.messages.pop();
-                            this.messages.push({ sender: 'bot', query: response.data.answer });
+                            this.messages.push({ sender: 'bot', data: response.data.answer });
                         }).catch(error => {
                             console.log(error);
                             this.messages.pop();
-                            this.messages.push({ sender: 'bot', query: 'Your internet connection is down.' 
+                            this.messages.push({ sender: 'bot', data: 'Your internet connection is down.' 
                         });
                     });
                 },
