@@ -227,7 +227,7 @@ img{
   transform: translateY(4px);
 }
             .panel{
-                width:50.5%;
+                width:60.5%;
                 
             
             }
