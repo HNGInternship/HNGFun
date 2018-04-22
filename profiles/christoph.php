@@ -476,7 +476,7 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
                         <div class="chatbot-message-bot">
                             <div class="gen-message">
                                 <p>Hi! I'm Locato</p>
-                                <p>I want to help you with find distances between any two locations in Nigeria, eg distance between two addresses or cities, get the duration to move from one location to the other and also show you direction on map.</p>
+                                <p>I want to help you find distances between any two locations in Nigeria, eg distance between two addresses or cities, get the duration to move from one location to the other and also show you direction on map.</p>
                                 <p>Ask me a question like <span class="bot-command">What is the distance between [Location A] and [Location B]</span> to return the distance between the two locations, <span class="bot-command">eg What is the distance between Obalende and Yaba<span></p>
                                 <p>Or even distances between two addresses like <span class="bot-command">What is the distance between [Address A] and [Address B]</span> (I'm still learning this part, but hey you could still try) to return the distance between two addresses, <span class="bot-command">eg What is the distance between CCHub, Yaba and Ozone Cinemas<span></p>
                             </div>
