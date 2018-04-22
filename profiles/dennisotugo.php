@@ -72,19 +72,34 @@ if (isset($_POST['payload'])) {
 	if (isTraining($question)) {
 		$answer = resolveAnswerFromTraining($question);
 		$question = strtolower(resolveQuestionFromTraining($question));
-		$question_data = array(
-			':question' => $question,
-			':answer' => $answer
-		);
-		$sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '"';
-		$question_data_query = $conn->query($sql);
-		$question_data_query->setFetchMode(PDO::FETCH_ASSOC);
-		$question_data_result = $question_data_query->fetch();
-		$sql = 'INSERT INTO chatbot ( question, answer )
-          VALUES ( :question, :answer );';
-		$q = $conn->prepare($sql);
-		$q->execute($question_data);
-		echo "Now I understand. No wahala, now try me again";
+    $password = trim($question[2]);
+        if($password == 'password') {
+            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+            $q = $GLOBALS['conn']->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+            if(empty($data)) {
+                $training_data = array(':question' => $question,
+                    ':answer' => $answer);
+                $sql = 'INSERT INTO chatbot ( question, answer)
+              VALUES (
+                  :question,
+                  :answer
+              );';
+                try {
+                    $q = $GLOBALS['conn']->prepare($sql);
+                    if ($q->execute($question_data) == true) {
+                        echo "Training Successful!";
+                    };
+                } catch (PDOException $e) {
+                    throw $e;
+                }
+            }else{
+                echo "Now I understand. No wahala, now try me again";
+            }
+        }else {
+            echo "Invalid Password, Try Again";
+        }
 		return;
 	}
 
