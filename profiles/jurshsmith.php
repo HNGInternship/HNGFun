@@ -200,7 +200,7 @@ font-size: 15px !important;
 	}</style>
 <div id = "bot-interface" style = "background-color: #f4f4f4; height: 380px;width : 320px;border: 8px solid #04455d;border-bottom: 0px solid transparent; border-radius: 8px;overflow-y: auto">
 <center><div style = "width : 90%; background-color: #a39c9c;margin-top: px;border-radius:3px;font-family: monospace"><b style = "font-family: montserrat"><i style = "font-size: 17px"class="fab fa-reddit-alien"></i>&nbsp;JOBOT</b><br>
-Hello I'm Jobot. Type to see what i can do.
+Hello I'm Jobot. Type help to see what i can do.
 </div></center><br>
 <div id = "your-msg" style = "padding-bottom: 170px"></div>
 
@@ -211,7 +211,7 @@ Hello I'm Jobot. Type to see what i can do.
  	
 		<div class = "row" style = "background-color: #04455d;padding-top: 4px; padding-bottom: 9px">
     <input type="text" class="form-control col-sm-10 col-xs-10 col-lg-10 col-md-10" id="bot-chat-area">
-  <button id = "send-msg" type="submit" style = "background-color: #04455d;width: 87%;height: 65%" class="btn btn-default col-sm-2 col-xs-2 col-lg-2 col-md-2"><i class="fab fa-telegram-plane"></i></button>
+  <button id = "send-msg" type="submit" style = "background-color: #04455d;color:white;height: 65%" class="btn btn-default col-sm-2 col-xs-2 col-lg-2 col-md-2"><i class="fab fa-telegram-plane"></i></button>
 			
 	
 	</div>
