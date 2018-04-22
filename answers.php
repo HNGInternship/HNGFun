@@ -959,6 +959,11 @@ function getUSSD($bankName){
     $processed_input = explode("#", $string);
     $question = $processed_input[0];
     $answer = $processed_input[1];
+    $password = $processed_input[2];
+
+    if ($password !='password'){
+      die('Wrong password used');
+    }
 
     require 'db.php';
 
