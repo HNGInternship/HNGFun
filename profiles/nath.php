@@ -53,7 +53,7 @@
             border-radius: 50%; 
 		}
 		.info p {
-			font-size: 25px;
+			font-size: 20px;
 			margin: 0;
 			width: 100%;
 		}

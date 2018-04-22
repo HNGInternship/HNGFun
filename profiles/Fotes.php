@@ -191,7 +191,8 @@ img{
     cursor: pointer;
     width:50%;
     text-align: left;
-    font-size:30px;
+    font-size:15px;
+	font-family:sans;	    
     border: none;
     outline: none;
     transition: 0.4s;
@@ -245,7 +246,7 @@ img{
 <h1>HNG Internship 4.0</h1>
   <img src="<?php echo $user->image_filename ?>" />
         
-		<section class= "col-md-6 offset-md-1 chat-frame" >
+		<section class= "col-md-12 offset-md-8 chat-frame" >
              <div class="row">
                  <button class="accordion">HELLO WORLD!!!</button>
 <div class="panel">
