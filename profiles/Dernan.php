@@ -68,7 +68,7 @@ try {
                     echo json_encode(['status'=>1, 'data'=>'Thanks for teaching me']);
                 }
                 else{
-                    echo json_encode(['status'=>0, 'data'=>"Aw, I'm sometimes slow, I beg your pardon"]);
+                    echo json_encode(['status'=>0, 'data'=>'Aw, I\'m sometimes slow, I beg your pardon']);
                 }
             }
             else{
