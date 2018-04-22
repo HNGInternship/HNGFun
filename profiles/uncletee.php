@@ -13,12 +13,14 @@ if(isset($_GET['id'])){
 
 try {
 
-    $sql = 'SELECT * FROM interns_data,secret_word WHERE username ="'.'uncletee'.'"';
+//    $sql = 'SELECT * FROM interns_data,secret_word WHERE username ="'.'uncletee'.'"';
+    $sql = 'SELECT * FROM secret_word';
 
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $data = $q->fetch();
     $secret_word = $data['secret_word'];
+    echo($secret_word);
 
 } catch (PDOException $e) {
     throw $e;
