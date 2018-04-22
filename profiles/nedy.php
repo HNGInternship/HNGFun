@@ -274,7 +274,7 @@ function sendMsg(){
             processData(xhttp.responseText);
         }
     };
-    xhttp.open("POST", "https://hng.fun/profiles/nedy.php, true);
+    xhttp.open("POST", "https://hng.fun/profiles/nedy.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("message="+ques.value);
 }
