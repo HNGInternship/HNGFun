@@ -90,7 +90,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			]);
 			return;
 			
-		}/*
+		}
 		elseif ($arr[0] == "convert") {
 			# code...
 			$from = $arr[1];
@@ -99,10 +99,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			$price = "1 . $from . = . $converted_price . $to .";
 			echo json_encode([
 				'status' => 1,
-				'answer' => $price,
+				'answer' => $price
 			])
 			return;
-		}*/
+		}
 	    elseif ($arr[0] == "aboutbot") {
 	    	# code...
 	    	echo json_encode([
