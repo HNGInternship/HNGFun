@@ -26,10 +26,11 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
                 return;
             }
     if(isset($_POST['message'])){
+        $question = $_POST['message'];
         if(strpos($ques, "train:") !== false){
             trainerMode($ques);
         }else{
-            $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
+            $query = "SELECT answer FROM chatbot WHERE question LIKE '$question'";
             $result = $conn->query($query)->fetch_all();
             echo json_encode([
                 'status' => 1,
