@@ -3,6 +3,14 @@ error_reporting(E_ALL);
 ini_set("display_errors", 'on');
 
 
+if (!defined(DB_USER))
+    require_once __DIR__."/../../config.php";
+
+try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
 
 
 /**
@@ -359,6 +367,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Update constructed response to the previous awesome conversation.
     Response.prototype.send = function (domNode) {
         domNode.append(this.body);
+        $('.bot-conversation').animate({ 'scrollTop': $(".bot-conversation")[0].scrollHeight});
     };
 
     $("form").on('submit', function (event) {
