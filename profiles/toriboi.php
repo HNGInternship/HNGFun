@@ -9,7 +9,9 @@
     }
 
     if(isset($_POST['q']) && $_POST['q'] != '') {
-      $q = $_POST['q'];
+      $q = trim($_POST['q']);
+
+      if(strtolower($q) == 'aboutbot') {echo "Name: toribot. Version: 1.0"; exit();}
 
       // HANDLE TRAINING
       $words = explode(':', $q);

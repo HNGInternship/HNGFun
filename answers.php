@@ -338,7 +338,7 @@ Adokiye's function*/
 
 function pig_latin($text){
   $pigText="Sorry, your word/sentence/phrase/clause contains only consonants. There must be vowels to translate to pig latin.";
-  $vowels"a,e,i,o,u";
+  $vowels = "a,e,i,o,u";
   $firstVowelPos=0;
   $frontConsonants="";
 
@@ -448,7 +448,7 @@ function simpleMaths($operation, $expression){
           break;
 
 
-      
+
       default:
         # code...
         break;
@@ -516,7 +516,7 @@ function getFutureDate(){
 function getRandomYoMamaJoke(){
 	$randomJokeJson = file_get_contents("http://api.yomomma.info");
 	$randomJoke = json_decode($randomJokeJson);
-    echo $randomJoke->joke;	
+    echo $randomJoke->joke;
     //A.M.A
 }
 
@@ -579,7 +579,7 @@ function getMediumArticle(){
 		$mediumArticleTitle = $getSingleMediumArticle['title'];
 		$mediumArticleUrl = $getSingleMediumArticle['link'];
 		$mediumArticleThumbnail = $getSingleMediumArticle['thumbnail'];
-		echo "<a href= '$mediumArticleUrl' style='color: #ffffff'><img src='http://res.cloudinary.com/missada/image/upload/v1524225094/hng_internship.png' class= 'img-responsive' ><br/><b>$mediumArticleTitle</b></a>"; 
+		echo "<a href= '$mediumArticleUrl' style='color: #ffffff'><img src='http://res.cloudinary.com/missada/image/upload/v1524225094/hng_internship.png' class= 'img-responsive' ><br/><b>$mediumArticleTitle</b></a>";
 		$article = "<script type='text/Javascript'>window.open('$mediumArticleUrl');</script>";
 		break;
     }
@@ -587,7 +587,7 @@ function getMediumArticle(){
 
 }
 function getPinkyCommands(){
-    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/> 
+    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/>
     2. Get <b>motivational quote of the day.</b> or <b>inspire me today</b> <br/> 3. Get my creator <b>Ada's latest medium article</b> <br/>
     4. Get or tell you<b> a random Yo Momma Joke</b>. <br/> 5. Get or tell you <b>what day of the week it is.</b> <br/>
     6. Get the <b>date seven days or a week from now.</b> <br/> 7.Get or tell you<b> a random quote.</b> <br/>
@@ -725,16 +725,16 @@ function davidQuadraticEquation($a, $b, $c){  #Remember I know where you live if
      $discriminat = pow($b,2) - (4 * $a * $c);
      if($discriminat == 0){
          $x = -($b/(2 * $a));
-         return $x; 
+         return $x;
      }
      else {
          $root = sqrt($discriminat);
          $x1 = (-$b + $root) / (2 *$a);
          $x2 = (-$b - $root) / (2 *$a);
-         return 'x1 is ' + $x1 + 'and' + 'x2 is ' + $x2; 
+         return 'x1 is ' + $x1 + 'and' + 'x2 is ' + $x2;
      }
-    
-     
+
+
  }
 
 #####################################################################################################
