@@ -717,6 +717,23 @@ function show_direction ($location1, $location2, $mode) {
 #####################################################################################################
 
 
+// Dreamtech467 Function
+function getCapital($States){
+    switch(trim(strtolower($States))){
+        case 'abia ':
+        return 'Umuahia<br>God’s Own State';
+
+        case 'adamawa':
+        return 'Yola<br>Land of Beauty, Sunshine and Hospitality';
+
+        case 'rivers':
+        return 'Port Harcourt<br>Treasure Base';
+    }
+}
+// End dreamtech Function
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 ///                                                                                  ////////'
 /// @UNCLETEE CODE STARTS HERE. bERAKING THE CODE CAN CAUSE SERIOUS HARVOC
