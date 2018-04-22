@@ -1,5 +1,5 @@
 <?php
-// require "../db.php";
+require "../db.php";
 // x
 
 
@@ -35,7 +35,8 @@ else if(isset($_GET['info'])){
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetch();
     } catch (PDOException $e) {
-        throw $e;
+        print_r($e);
+        
     }
         
         $fullname = $data["name"];
@@ -48,7 +49,7 @@ else if(isset($_GET['info'])){
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetch();
     } catch (PDOException $e) {
-        throw $e;
+        print_r($e);
     }
 
     $secret_word=$data["secret_word"];
@@ -200,7 +201,7 @@ body{
 background: #667db6;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+
 
 font-family: "Open Sans";
 font-size:14px;
