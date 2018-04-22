@@ -123,10 +123,10 @@
     padding-right:10px;
 }
 .macro{
-    margin-top:5px;width:85%;border-radius:5px;padding:5px;display:flex;
+    margin-top:20px;width:85%;border-radius:5px;padding:5px;display:flex;
 }
 .msj-rta{
-    float:right;background:whitesmoke;
+    float:left;background:whitesmoke;
 }
 .msj{
     float:left;background:white;
@@ -785,7 +785,8 @@ body{
       background-color: #e1ecf7; 
       border: 2px; 
       margin-bottom: 30px;
-      float: right;">
+      float: right;
+      height: 100%;">
        <h4 style="text-align: center;">My Chat bot </h4>
             <ul></ul>
             <div>
@@ -796,19 +797,19 @@ body{
                       </div>
                   <?php endfor; ?>
               </div>
-            <div class="msj-rta macro"> 
+            <div class="msj-rta macro" style="background: transparent;"> 
                      
             
                 <div>
                 <form action="/profile.php?id=Tiarayuppy" method="POST" style="display: flex; width: 100%;">
                   
-                    <div class="text text-r" style="background:lightblue !important">
+                    <div class="text text-r" style="background:lightblue !important;">
                           
-                        <input type="text" name="message" class="mytext" width="100%" placeholder="Type a message"/>
+                        <input type="text" name="message" class="mytext" width="100%" placeholder="Type a message" style="background: transparent;" />
                     </div> 
 
                 </div>
-                <div style="padding-top: 10px;">
+                <div style="padding-top: 0px;">
                     <input type="submit" value="send your message" style=" border-radius:10px; flex-grow: 1; background-color: green; color: #FAFAFA; float: left;"/>
                 </form>
                 </div> 
