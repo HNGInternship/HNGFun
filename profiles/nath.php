@@ -1,3 +1,24 @@
+
+<?php
+	try {
+		$query = conn->query("SELECT * FROM secret_word");
+		$result = $query->fetch(PDO::FETCH_ASSOC);
+		$secret_word = $result['secret_word'];
+		$username = "nath";
+		$fullname = "Makinde Nathaniel";
+		$query = $conn->query("SELECT * FROM interns_data where username='$username' limit 1");
+		while($result = $query->fetch(PDO::FETCH_ASSOC)){
+              $fullname = $result['name'];
+              $image = $result['image_filename'];
+          }
+
+	}
+	catch (PDOException $event) {
+		throw $event;
+	}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,20 +26,7 @@
 	<title>HNG|Nathaniel</title>
 	<meta name="viewport" content="width= device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE-edge">
-	<?php
-		require 'db.php';
-
-		$result = $conn->query("Select * from secret_word LIMIT 1");
-		$result = $result->fetch(PDO::FETCH_OBJ);
-		$secret_word = $result->secret_word;
-
-		$result2 = $conn->query("Select * from interns_data where username = 'nath'");
-		$user = $result2->fetch(PDO::FETCH_OBJ);
-
-		$username = $user['username'];
-		$name = $user['name'];
-		$image_filename = $user['image_filename'];
-	?>
+	
 
 	<style type="text/css">
 
@@ -123,7 +131,7 @@
 
 	<div class="col-1">
 		<div class="image_header">
-			<img src="<?php echo $image_filename?>" alt="profile-image">
+			<img src="http://res.cloudinary.com/nath/image/upload/v1524182119/Image_-_Portrait.jpg" alt="profile-image">
 			<!--
 				Cloudinary link to the image 
 
@@ -133,7 +141,7 @@
 	<div class="vl"></div>
 	<div class="col-2">
 		<div class="info">
-			<h1><?php echo $username ?></h1>
+			<h1><?php echo $fullname ?></h1>
 			<p style="font-size: 40px;">Frontend developer</p>
 			<p>All time lover of tech, love creating cool stuffs and I love music.</p>
 		</div>
