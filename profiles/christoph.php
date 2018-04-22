@@ -525,6 +525,8 @@ $check_message_query = $conn->query(
 <script src="<?=$home_url;?>vendor/bootstrap/js/bootstrap.min.js"></script>
 <script>
 
+update = "21:52 22/04/2018";
+
 $(document).on('click', '.chat-btn', function(){
     $('.chatbot-menu').show();
     $('.chat-btn').hide();
