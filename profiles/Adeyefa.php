@@ -311,7 +311,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					type: 'POST',
 					data: {question: question},
 					dataType: 'json',
-					success: (response)=> {
+					success: function(response)=> {
 			        $("#ans").append("<li>"  response.result.d  "</li>");
 			        //alert(response.result.d);
 			        //alert(answer.result);
