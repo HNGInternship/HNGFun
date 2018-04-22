@@ -20,7 +20,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	    if(!isset($_POST['question'])){
 	      echo json_encode([
 	        'status' => 1,
-	        'answer' => "Please provide a question"
+	        'result' => "Please provide a question"
 	      ]);
 	      return;
 	    }
