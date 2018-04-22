@@ -12,19 +12,7 @@
 <title>
 HNG 4.0 | Jurshsmith
 </title>
-<script type = "text/javascript" src = "there/resource/jquery.js"></script>
-<script type = "text/javascript" src = "there/resource/jquery.min.js"></script>
-<script type = "text/javascript" src = "there/resource/jquery-ui.min.js"></script>
-<script type = "text/javascript" src = "there/resource/resource/jquery-ui.js"></script>
-<script type = "text/javascript" src = "there/resource/bootstrap.min.js"></script>
-<script type = "text/javascript" src = "there/resource/bootstrap.js"></script>
 
-
-<link rel = "stylesheet" href = "there/resource/bootstrap.css">
-<link rel = "stylesheet" href = "there/resource/bootstrap.min.css">
-<link rel = "stylesheet" href = "thereresource/bootstrap-theme.min.css">
-<link rel = "stylesheet" href = "there/resource/font-awesome.min.css">
-<link rel = "stylesheet" href = "there/resource/font-awesome.css">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	
@@ -197,7 +185,7 @@ html,body{
 
 <!-- botton for chatbot -->
 <button id = "toggle-bot" style = "background-color: #72beda; border: none;border-radius: 4px;color: white;"><i id = "j-icon" style = "font-size: 55px;padding:5px"class="fab fa-reddit-alien"></i>&nbsp;</button>
-<style>#j-icon:hover{font-size: 53px !important;}#toggle-bot:hover{background-color: #0c779e; !important;}#toggle-bot{position: fixed;bottom: 6px;right:6px;z-index: 800;}.dd{position: fixed;bottom: 36px;right:6px;z-index: 8000;}</style>
+<style>#j-icon:hover{font-size: 53px !important;}#toggle-bot:hover{background-color: #0c779e; !important;}#toggle-bot{position: fixed;bottom: 6px;right:6px;z-index: 800;}.dd{position: fixed;bottom: 2px;right:2px;z-index: 8000;}</style>
 <!-- chatbot new starts here -->
 <br>
 <div class = "dd">
@@ -212,22 +200,23 @@ font-size: 15px !important;
 	}</style>
 <div id = "bot-interface" style = "background-color: #f4f4f4; height: 380px;width : 320px;border: 8px solid #04455d;border-bottom: 0px solid transparent; border-radius: 8px;overflow-y: auto">
 <center><div style = "width : 90%; background-color: #a39c9c;margin-top: px;border-radius:3px;font-family: monospace"><b style = "font-family: montserrat"><i style = "font-size: 17px"class="fab fa-reddit-alien"></i>&nbsp;JOBOT</b><br>
-Hello I'm Jobot. Type 'help' to see what i can do.
+Hello I'm Jobot. Type to see what i can do.
 </div></center><br>
 <div id = "your-msg" style = "padding-bottom: 170px"></div>
 
 </div>
 	
  <div class="form-group" style = "width : 320px;position: relative;top: -5px;">
-	 <div class = "row">
- 	<div class = "col-sm-10 col-xs-10 col-lg-10 col-md-10" style = "background-color: #04455d;padding-top: 4px; padding-bottom: 9px">
-    <input type="text" class="form-control " id="bot-chat-area">
+	 
+ 	
+		<div class = "row" style = "background-color: #04455d;padding-top: 4px; padding-bottom: 9px">
+    <input type="text" class="form-control col-sm-10 col-xs-10 col-lg-10 col-md-10" id="bot-chat-area">
+  <button id = "send-msg" type="submit" style = "background-color: #04455d;width: 87%;height: 65%" class="btn btn-default col-sm-2 col-xs-2 col-lg-2 col-md-2"><i class="fab fa-telegram-plane"></i></button>
+			
+	
 	</div>
   
- <div class = "col-sm-1 col-xs-1 col-lg-1 col-md-1" style = "background-color: #04455d;width: 87%;">
-  <button id = "send-msg" type="submit" style = "margin-left: -34px;" class="btn btn-default "><i class="fab fa-telegram-plane"></i></button>
-</div>
-	 </div>
+	 
 </div>
 </div>
 

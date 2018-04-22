@@ -17,18 +17,6 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
   }
 }else if($_SERVER['REQUEST_METHOD']==='POST'){
     require '../../config.php';
-<<<<<<< HEAD
-    try {
-      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
-    if(isset($_POST['message'])){
-      echo json_encode([
-        "status" => 1,
-        "response" =>"found Message"
-      ]);
-=======
     $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
             if(!$conn){
                 echo json_encode([
@@ -52,7 +40,6 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
     //     "status" => 1,
     //     "response" =>"found Message"
     //   ]);
->>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
       return ;
     }
 }
@@ -252,18 +239,14 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
                                 <input type="text" class="message-input" name="user-message" id="user-message"
                                        placeholder="Write a message" required>
                                 <!--Submit button-->
-                                <button class="btn" type="button">
-                                    <i class="fa fa-send message-submit"  onclick="sendMsg()" value="send"></i>
+                                <button class="btn" type="button" onclick="sendMsg()">
+                                    <i class="fa fa-send message-submit"   value="send"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -290,13 +273,13 @@ function sendMsg(){
             processData(xhttp.responseText);
         }
     };
-    xhttp.open("POST", "/profiles/nedy.php", true);
+    xhttp.open("POST", "https://hng.fun/profiles/nedy.php, true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("message="+ques.value);
 }
 function processData (data){
     data = JSON.parse(data);
-    //console.log(data);
+    console.log(data);
     var answer = data.response;
     //Choose a random response from available
     if(Array.isArray(answer)){

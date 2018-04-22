@@ -14,7 +14,7 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 else{
- echo "cool";
+//for debugging conncection
 }
   global $conn;
 
@@ -33,10 +33,20 @@ if (mysqli_num_rows($r) > 0)
     {   
 
      //display random answers
-        $answer = mysqli_fetch_assoc($r);
-        $answer = $answer['answer'];
-
-
+//         $answer = mysqli_fetch_array($r);
+//         $answerAssoc = mysqli_fetch_assoc($r);
+//            $answerRow = count($answerAssoc);
+//             $randr =  $answerRow - 1;
+//              $randrr = rand(0,  $randr);
+//              $answer = $answer[$randrr];
+$rows = [];
+while($row = mysqli_fetch_assoc($r))
+{
+    $rows[] = $row;
+}
+$answerRow = count(mysqli_fetch_assoc($r)) - 1;
+$randIndex = rand(0,  $answerRow);
+$answer = $rows[$randIndex];
         //if answer has a function call in it
          // $answer =  callFunction();
         // else
