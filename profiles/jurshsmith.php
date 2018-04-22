@@ -210,8 +210,8 @@ Hello I'm Jobot. Type help to see what i can do.
 	 
  	
 		<div class = "row" style = "background-color: #04455d;padding-top: 9px">
-    <input style = "height: 65%" type="text" class="form-control col-sm-12 col-xs-12 col-lg-10 col-md-10" id="bot-chat-area">
-  <button id = "send-msg" type="submit" style = "background-color: #04455d;color: white;height: 65%;margin-top: -20px" class="btn btn-default col-sm-12 col-xs-12 col-lg-2 col-md-2"><center><i class="fab fa-telegram-plane"></i></center></button>
+    <input style = "height: 65%" type="text" class="form-control col-sm-12 col-xs-12 col-lg-12 col-md-12" id="bot-chat-area">
+  <button id = "send-msg" type="submit" style = "background-color: #04455d;color: white;" class="btn btn-default col-sm-12 col-xs-12 col-lg-12 col-md-12"><center><i class="fab fa-telegram-plane"></i></center></button>
 			
 	
 	</div>
