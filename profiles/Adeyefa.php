@@ -1,6 +1,6 @@
 <?php 
 
-require "../config.php";
+require "../../config.php";
 
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -29,43 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
     $question = $_POST['question'];
     
-    // return help manual
-    if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'help'){
-      echo json_encode([
-        'status' => 1,
-        'answer' => getBotMenu()
-      ]);
-      return;
-    }
-
-    // return fact
-    if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'fact'){
-      echo json_encode([
-        'status' => 1,
-        'answer' => getRandomFacts()
-      ]);
-      return;
-    }
-
-
-    // return time
-    if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'time'){
-      echo json_encode([
-        'status' => 1,
-        'answer' => getTime()
-      ]);
-      return;
-    }
-
-    // return about bot
-    if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'about'){
-      echo json_encode([
-        'status' => 1,
-        'answer' => aboutMe()
-      ]);
-      return;
-    }
-
     //check if in training mode
     $index_of_train = stripos($question, "train:");
     if($index_of_train === false){//then in question mode
@@ -183,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       'status' => 0,
       'answer' => "Sorry, i really dont understand you right now, you could offer to train me"
     ]);  
-  } catch (Exception $e){
+  }catch (Exception $e){
     return $e->message ;
   }
   
