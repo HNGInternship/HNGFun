@@ -149,13 +149,17 @@
         }
         html {
             font-size: 62.5%;
-            background-color: #fbfbf5;
+            background-color: #f3f3f3;
         }
         body {
             font-family: "Overpass", sans-serif;
             font-size: 1.8rem;
             line-height: 1.6;
             color: #DC5960;
+            background-color: #f3f3f3;
+        }
+        footer {
+            position: relative !important;
         }
         .wrapper {
             width: 100%;
@@ -163,7 +167,6 @@
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-evenly;
-            height: 100vh;
         }
         .my-profile, .bot {
             display: flex;
