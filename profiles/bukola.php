@@ -176,6 +176,7 @@
             width: 100%;
             flex: 1 1 50%;
             align-items: center;
+            padding-top: 3em;
         }
         .my-face {
             background: lightblue url('https://res.cloudinary.com/do52uumgy/image/upload/v1523890291/avatar_lphsd8.png') no-repeat center;
@@ -195,13 +196,15 @@
             color: inherit
         }
         .bot-con {
-            border: 1px solid #535353;
+            border: 1px solid #DC5960;
             height: 500px;
             width: 80%;
             padding: 1em;
             display: flex;
             flex-direction: column;
             position: relative;
+            background-color: #f4e8ea;
+            border-radius: 5px;
         }
         .chat-bubble{
             background-color: skyblue;
@@ -231,6 +234,7 @@
         .actions {
             display: flex;
             flex-direction: row;
+            height: 60px;
         }
 
         .actions input {
