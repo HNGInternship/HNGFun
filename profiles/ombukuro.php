@@ -1,6 +1,6 @@
 <?php
-//include '../header.php';
-//include "../db.php";
+include '../header.php';
+include "../db.php";
 $query = ("SELECT * FROM interns_data_ WHERE username='ombukuro'");
 $row = $conn->query($query);
 $result = $row->fetch();
@@ -36,5 +36,5 @@ $query1 = "SELECT * FROM secret_word";
         </div>
     </div>
 <?php 
-//include '../footer.php';
+include '../footer.php';
 ?>
