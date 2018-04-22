@@ -244,8 +244,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
             <i style="font-size: 15px">To train the bot, follow :<br />
                1. train:What is the time @The time is (timefunction) (where train: is the question and @is the answer, timefunctionis the function to handler your request)<br />
                2. train:Today's date @Todays date is (date):password:passwordkey (where password key is the official password to train the bot)<br />
-               3. My boss is working hard to give me some functions of my own very soon, I'll write them here when they're ready.<br>
-               4. To find a user, just type => find:username</i>
+               3. To find a user, just type => find:username</i>
                <div id="chatarea" style="overflow: auto; height:300px; border:1px solid whitesmoke; border-radius:5px"></div>
                <div class="input-group">
                   <input type="text" class="form-control" id="message" type="text" placeholder="Message" name="newrequest" />
