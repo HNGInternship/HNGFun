@@ -1,5 +1,5 @@
 <?php
-  require '../db.php';
+  //require 'db.php';
   $res = $conn->query("SELECT * FROM  interns_data WHERE username = 'Damilola' ");
   $row = $res->fetch(PDO::FETCH_BOTH);
   $name = $row['name'];
@@ -41,7 +41,11 @@
 
   #cover{
     width: 100%;
+<<<<<<< HEAD
     /*background: rgba(0,0,0,.95);*/
+=======
+    background: rgba(0,0,0,0);
+>>>>>>> ac0a283fcc63903d927a2ca88f44c27560fa3fa6
     height: 100vh;
     text-align: center;
   }
@@ -52,8 +56,16 @@
   #box{
     width: 100%;
     text-align: center;
+<<<<<<< HEAD
     position:;
     padding-top: 5%;
+=======
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0);
+>>>>>>> ac0a283fcc63903d927a2ca88f44c27560fa3fa6
     
   }
 
