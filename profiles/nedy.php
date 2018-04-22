@@ -26,10 +26,65 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
                 return;
             }
     if(isset($_POST['message'])){
-        if(strpos($ques, "train:") !== false){
-            trainerMode($ques);
-        }else{
-            $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
+        $question = $_POST['message'];
+        if(strpos($question, "train:") !== false){
+            $questionAndAnswer = substr($question, 6); //get the string after train
+            $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
+            $questionAndAnswer = explode("#",$questionAndAnswer);
+            if((count($questionAndAnswer)==3)){
+                $question = $questionAndAnswer[0];
+                $answer = $questionAndAnswer[1];
+                $password = $questionAndAnswer[2];
+            }else{
+                echo json_encode([
+                    'status'    => 0,
+                    'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer#password"
+                ]);
+                return;
+            }
+            if(!(isset($password))|| $password !== 'password'){
+                echo json_encode([
+                    'status'    => 1,
+                    'response'    => "Please insert the correct training password"
+                ]);
+                return;
+            }
+            if(isset($question) && isset($answer)){
+                //Correct training pattern
+                // $question = test_input($question);
+                // $answer = test_input($answer);
+                if($question == "" ||$answer ==""){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "empty question or response"
+                    ]);
+                    return;
+                }
+                $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
+                if($conn->query($query) ===true){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "trained successfully"
+                    ]);
+                }else{
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "Error training me: ".$conn->error
+                    ]);
+                }
+                
+
+                return;
+            }else{ //wrong training pattern or error in string
+            echo json_encode([
+                'status'    => 0,
+                'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer #password"
+            ]);
+            return;
+            }
+        }
+        else{
+            $query = "SELECT answer FROM chatbot WHERE question LIKE '$question'";
             $result = $conn->query($query)->fetch_all();
             echo json_encode([
                 'status' => 1,

@@ -113,7 +113,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			        	'answer' => $answer
 			        ]);
 			        return;
-		        }else{//otherwise call a function. but get the function name first
+		        }else{//to get the name of the function, before calling
 		            $index_of_parentheses_closing = stripos($answer, "))");
 		            if($index_of_parentheses_closing !== false){
 		                $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
@@ -251,7 +251,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    overflow-x: hidden;
 		    padding: 10px 5px 92px;
 		    border: none;
-		    max-height: 300px;
+		    max-height: 350px;
 		    -webkit-justify-content: flex-end;
 		    justify-content: flex-end;
 		    -webkit-flex-direction: column;
@@ -347,7 +347,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#queries").append("<li>" + question + "</li>");
+				$("#queries").append("<li>" + question + "<li>");
 					//let newMessage = `<div class="iro">
 	                  //${question}
 	                //</div>`
@@ -357,7 +357,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#ans").append("<li>"  + response.answer +  "</li>");
+			        $("#ans").append("<li>"  + response.answer +  "<li>");
 			       // console.log(response.result);
 			        //alert(response.result.d);
 			        //alert(answer.result);
