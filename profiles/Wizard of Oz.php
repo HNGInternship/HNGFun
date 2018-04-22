@@ -91,24 +91,27 @@ function workOnTrainData($data){
     
 
 
+  
     try {
 
 
-        $indexOfColon=strpos($data,"#");
+        $indexOfHash=strpos($data,"#");
 
-        if($indexOfColon===FALSE){
+        if($indexOfHash===FALSE){
 
             return "Training format used is incorrect, use : <br><span id='important'>train: question # answer # password </span>";
 
         }
 
+        $indexOfColon=strpos($data,":");
 
-        $newMessage=substr($data,$indexOfColon);
-
+        $newMessage=substr($data,$indexOfColon+1);
     $query=explode ( "#" , $newMessage );
     $question=sanitizeText($query[0]);
     $answer=sanitizeText($query[1]);
     $password=sanitizeText($query[2]);
+
+    // return $question;
 
 
     if($password==null || $password!="password"){
@@ -119,6 +122,10 @@ function workOnTrainData($data){
     $sql =  $conn->prepare("INSERT INTO chatbot (question, answer)
 VALUES (:question, :answer)");
     // use exec() because no results are returned
+
+    // $result= $sql->execute(array(':question'=>$question,':answer'=>$answer));
+    // return "Awesome! I feel smarter already.";
+
    if( $result= $sql->execute(array(':question'=>$question,':answer'=>$answer))){
     
     return "Awesome! I feel smarter already.";
