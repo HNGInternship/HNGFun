@@ -36,12 +36,12 @@
 			margin: auto;
 
 		}
-		.col-1 {
+		.part-1 {
 			width: 38%;
 			display: flex;
 			flex-wrap: wrap;
 		}
-		.col-2 {
+		.part-2 {
 			width: 58%;
 			height: 70%;
 			margin: auto;
@@ -123,7 +123,7 @@
 </head>
 <body>
 
-	<div class="col-1">
+	<div class="part-1">
 		<div class="image_header">
 			<img src="http://res.cloudinary.com/nath/image/upload/v1524182119/Image_-_Portrait.jpg" alt="profile-image">
 			<!--
@@ -133,7 +133,7 @@
 		</div>
 	</div>
 	<div class="vl"></div>
-	<div class="col-2">
+	<div class="part-2">
 		<div class="info">
 			<h1><?php echo $name ?></h1>
 			<p style="font-size: 40px;">Frontend developer</p>
