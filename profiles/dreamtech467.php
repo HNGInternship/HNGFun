@@ -174,7 +174,7 @@
 					var classname = 'sending-'+rand;
 					var selector = '.'+classname;
 					$('#message').val('');
-					$('.chatBody').append('<div class="msgB">you<br><p class="'+classname+'">Sending...</p></div>');
+					$('.chatBody').append('<div class="msgB"><strong>you</strong><br><p class="'+classname+'">Sending...</p></div>');
 					$('.chatBody').animate({scrollTop: $('.chatBody').prop("scrollHeight")}, 1000);
 					
 				  $.ajax({
@@ -186,7 +186,7 @@
 					var answer = response.answer;
 					$(selector).html(''+message+'');
 					$(selector).removeClass(classname).addClass('sent');
-					$('.chatBody').append(' <div class="msgA">dreamtech<br><p>'+answer+'</p></div>');
+					$('.chatBody').append(' <div class="msgA"><strong>dreamtech</strong><br><p>'+answer+'</p></div>');
 				  
 											
 				  },
