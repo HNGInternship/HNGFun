@@ -261,7 +261,7 @@
             el: '.bot',
             data: {
                 messages: [{data: "Hey, I'm Phoenix!", sender: 'bot'}, 
-                {data: "I know the USSD codes of all banks in Nigeria! Just type 'name of bank' bank e.g Money Bank", sender: 'bot'}],
+                {data: "I know the USSD codes of all banks in Nigeria! Just type 'ussd: name_of_bank' e.g 'ussd: Money Bank'", sender: 'bot'}],
                 message: ''
             },
             methods: {
@@ -273,6 +273,8 @@
                 },
                 addMessage(){
                     this.messages.push({data: this.message, sender: 'user'});
+
+                    this.answerQuery(this.message);
                     this.message = '';
                 },
                 answerQuery(query) {
