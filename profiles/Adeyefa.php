@@ -82,15 +82,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			]);
 			return;
 		}
-		/*elseif ($arr[0] == "help") {
+		elseif ($arr[0] == "help") {
 			echo json_encode([
 				'status' => 1,
-				'answer' => "Type 'aboutbot' to know about me  You can also convert cryptocurrencies using this syntax.
-				'convert btc to usd";
+				'answer' => "Type 'aboutbot' to know about me. You can also convert cryptocurrencies using this syntax.
+				'convert btc to usd"
 			]);
 			return;
-			# code...
-		}
+			
+		}/*
 		elseif ($arr[0] == "convert") {
 			# code...
 			$from = $arr[1];
