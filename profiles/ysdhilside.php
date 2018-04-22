@@ -35,9 +35,9 @@
 
 <div class="container">
     <br/><br/><br/><center>
-    <div class="container" style="margin: 0 auto">
+    <div class="container">
             
-            <div class="card" style="width:18rem">
+            <div class="card">
                 <img class="card-img-top" alt="yusufsd header image" src="<?php echo $image ?>">
                 <div class="card-body">
 
