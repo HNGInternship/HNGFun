@@ -224,7 +224,7 @@ Hello I'm Jobot. Type 'help' to see what i can do.
     <input type="text" class="form-control " id="bot-chat-area">
 	</div>
   
- <div class = "col-sm-1 col-xs-1 col-lg-1 col-md-1" style = "background-color: #04455d;padding-top: 4px; padding-bottom: 9px">
+ <div class = "col-sm-1 col-xs-1 col-lg-1 col-md-1" style = "background-color: #04455d;">
   <button id = "send-msg" type="submit" style = "margin-left: -27px;" class="btn btn-default "><i class="fab fa-telegram-plane"></i></button>
 </div>
 	 </div>
