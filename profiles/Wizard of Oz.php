@@ -815,7 +815,7 @@ ul{
     }
 
 
-    else if(message.indexOf('pig latin:') >= 0 || message.indexOf('pig latin :')>=0){
+    else if(message..toLowerCase().indexOf('pig latin:') >= 0 || message.toLowerCase().indexOf('pig latin :')>=0){
 
        var text=message.substring(message.indexOf(":")+1);
 
@@ -833,7 +833,7 @@ ul{
     }
 
 
-     else if(message.indexOf('find:') >= 0){
+     else if(message.toLowerCase().indexOf('find:') >= 0 message.toLowerCase().indexOf('find :')>=0){
 
        var text=message.substring(message.indexOf(":")+1);
 
