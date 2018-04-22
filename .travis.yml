@@ -27,7 +27,6 @@ hosts:
 
 before_install:
   - mysql -u root --password="" < interns_data.sql
-  - mysql -u root --password="" < hng_fun.sql
   - export PATH=vendor/bin:$PATH
   - travis_retry composer self-update
   - composer install
