@@ -393,12 +393,16 @@ function find_place($query) {
  
 // $apiKey="AIzaSyDlvWmwKX40qRKZQFRKP1qngWnTPKKWM5Y";
   $return="No results were found matching this query";
+$display='block';
+
   $place=urlencode($query);
 $placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$place."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
 
 try{
 $response = file_get_contents($placesUrl);
 $parsed_response = json_decode($response, TRUE);
+
+
 
 for($i=0;$i<sizeof($parsed_response['results']);$i+=2){
 
@@ -413,17 +417,20 @@ for($i=0;$i<sizeof($parsed_response['results']);$i+=2){
   $secondAddy=$parsed_response['results'][$i+1]['formatted_address'];
   $secondType=$parsed_response['results'][$i+1]['types'][0];
 
+  if(sizeof($parsed_response['results'])-$i==1 ){
+  $display='none';
+}
   
 
   $return='<div class="row">'
 
- .'<div class="col-xs-6 col-md-4 important">'
+ .'<div class="col-xs-6 important">'
             .'<span>'.$firstName.'</span><br>'
             .'<span>'.$firstRating.' star rating</span><br>'
             .'<span>'.$firstAddy.'</span><br>'
             .'<span>'.$firstType.'</span><br>'
           .'</div>'
-          .'<div class="col-xs-6 col-md-4 important">'
+          .'<div class="col-xs-6" style="display:'.$display.'" id="important">'
             .'<span>'.$secondName.'</span><br>'
             .'<span>'.$secondRating.' star rating</span><br>'
             .'<span>'.$secondAddy.'</span><br>'
