@@ -30,95 +30,98 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
     try{
 
-	    if(!isset($_POST['question'])){
+	    /*if(!isset($_POST['question'])){
 	      echo json_encode([
 	        'status' => 1,
 	        'answer' => "Please ask a question."
 	      ]);
 	      return;
-	    }
+	    }*/
 
 	    //if(!isset($_POST['question'])){
-	    $mem = $_POST['question'];
-	    $mem = preg_replace('([\s]+)', ' ', trim($mem));
-	    $mem = preg_replace("([?.])", "", $mem);
-		$arr = explode(" ", $mem);
-		//test for training mode
-
-		if($arr[0] == "train:"){
-
-			unset($arr[0]);
-			$q = implode(" ",$arr);
-			$queries = explode("#", $q);
-			if (count($queries) < 3) {
-				# code...
-				echo json_encode([
-					'status' => 0,
-					'answer' => "You need to enter the password to train me."
-				]);
-				return;
-			}
-			$password = trim($queries[2]);
-			//to verify training password
-			define('trainingpassword', 'password');
-			
-			if ($password !== trainingpassword) {
-				# code...
-				echo json_encode([
-					'status'=> 0,
-					'answer' => "You entered a wrong passsword"
-				]);
-				return;
-			}
-			$quest = $queries[0];
-			$ans = $queries[1];
-
-			$sql = "INSERT INTO chatbot(question, answer) VALUES ( '" . $quest . "', '" . $ans . "')";
-			$conn->exec($sql);
-			echo json_encode([
-				'status' => 1,
-				'answer' => "Thanks for training me, you can now test my knowledge"
-			]);
-			return;
-		}
-	    elseif ($arr[0] == "aboutbot") {
+	    if (isset($_POST['question'])) {
 	    	# code...
-	    	echo json_encode([
-	    		'status'=> 1,
-	    		'answer' => "I am MATRIX, Version 1.0.0. You can train me by using this format ' train: This is a question # This is the answer # password '"
-	    	]);
-	    	return;
-	    }
-	    else {
-	    	$question = implode(" ",$arr);
-	    	//to check if answer already exists in the database...
-	    	$question = "%$question%";
-	    	$sql = "Select * from chatbot where question like $question";
-	        $stat = $conn->prepare($sql);
-	        $stat->bindParam(':question', $question);
-	        $stat->execute();
+		    $mem = $_POST['question'];
+		    $mem = preg_replace('([\s]+)', ' ', trim($mem));
+		    $mem = preg_replace("([?.])", "", $mem);
+			$arr = explode(" ", $mem);
+			//test for training mode
 
-	        $stat->setFetchMode(PDO::FETCH_ASSOC);
-	        $rows = $stat->fetchAll();
-	        if(count($rows)>0){
-		        $index = rand(0, count($rows)-1);
-		        $row = $rows[$index];
-		        $answer = $row['answer'];
-		        
-		        echo json_encode([
-		        	'status' => 1,
-		        	'answer' => $answer
-		        ]);
-		        return;
-		    }else{
+			if($arr[0] == "train:"){
 
+				unset($arr[0]);
+				$q = implode(" ",$arr);
+				$queries = explode("#", $q);
+				if (count($queries) < 3) {
+					# code...
+					echo json_encode([
+						'status' => 0,
+						'answer' => "You need to enter the password to train me."
+					]);
+					return;
+				}
+				$password = trim($queries[2]);
+				//to verify training password
+				define('trainingpassword', 'password');
+				
+				if ($password !== trainingpassword) {
+					# code...
+					echo json_encode([
+						'status'=> 0,
+						'answer' => "You entered a wrong passsword"
+					]);
+					return;
+				}
+				$quest = $queries[0];
+				$ans = $queries[1];
+
+				$sql = "INSERT INTO chatbot(question, answer) VALUES ( '" . $quest . "', '" . $ans . "')";
+				$conn->exec($sql);
+				echo json_encode([
+					'status' => 1,
+					'answer' => "Thanks for training me, you can now test my knowledge"
+				]);
+				return;
+			}
+		    elseif ($arr[0] == "aboutbot") {
+		    	# code...
 		    	echo json_encode([
-		    		'status' => 0,
-		    		'answer' => "I am sorry, I cannot answer your question now. You could offer to train me."
+		    		'status'=> 1,
+		    		'answer' => "I am MATRIX, Version 1.0.0. You can train me by using this format ' train: This is a question # This is the answer # password '"
 		    	]);
 		    	return;
 		    }
-	    }
+		    else {
+		    	$question = implode(" ",$arr);
+		    	//to check if answer already exists in the database...
+		    	$question = "%$question%";
+		    	$sql = "Select * from chatbot where question like $question";
+		        $stat = $conn->prepare($sql);
+		        $stat->bindParam(':question', $question);
+		        $stat->execute();
+
+		        $stat->setFetchMode(PDO::FETCH_ASSOC);
+		        $rows = $stat->fetchAll();
+		        if(count($rows)>0){
+			        $index = rand(0, count($rows)-1);
+			        $row = $rows[$index];
+			        $answer = $row['answer'];
+			        
+			        echo json_encode([
+			        	'status' => 1,
+			        	'answer' => $answer
+			        ]);
+			        return;
+			    }else{
+
+			    	echo json_encode([
+			    		'status' => 0,
+			    		'answer' => "I am sorry, I cannot answer your question now. You could offer to train me."
+			    	]);
+			    	return;
+			    }
+		    }
+		}
 	}catch (Exception $e){
 		return $e->message ;
 	}
