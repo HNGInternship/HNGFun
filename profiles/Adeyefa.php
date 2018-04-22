@@ -18,13 +18,13 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
     
     try{
 
-	    if(!isset($_GET['question'])){
+	    /*if(!isset($_GET['question'])){
 	      echo json_encode([
 	        'status' => 422,
 	        'result' => "Please provide a question"
 	      ]);
 	      return;
-	    }
+	    }*/
 
 	    //if(!isset($_POST['question'])){
 	    $mem = $_GET['question'];
