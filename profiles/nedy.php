@@ -27,8 +27,8 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
             }
     if(isset($_POST['message'])){
         $question = $_POST['message'];
-        if(strpos($ques, "train:") !== false){
-            $questionAndAnswer = substr($ques, 6); //get the string after train
+        if(strpos($question, "train:") !== false){
+            $questionAndAnswer = substr($question, 6); //get the string after train
             $questionAndAnswer =test_input($questionAndAnswer); //removes all shit from 'em
             $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
             $questionAndAnswer = explode("#",$questionAndAnswer);
@@ -40,7 +40,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
             if(!(isset($password))|| $password !== 'password'){
                 echo json_encode([
                     'status'    => 1,
-                    'answer'    => "Please insert the correct training password"
+                    'response'    => "Please insert the correct training password"
                 ]);
                 return;
             }
@@ -73,7 +73,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
             }else{ //wrong training pattern or error in string
             echo json_encode([
                 'status'    => 0,
-                'answer'    => "Wrong training pattern<br> PLease use this<br>train: question # answer"
+                'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer"
             ]);
             return;
             }
