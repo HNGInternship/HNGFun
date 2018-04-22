@@ -58,8 +58,8 @@
             
             // If the DB query returns more than one result pick a random one and send back to the bot
             $rowCount = count($rows);
-            if(rowCount > 0){
-                $answer = $rows[rand(0, rowCount - 1)]['answer'];
+            if($rowCount > 0){
+                $answer = $rows[rand(0, $rowCount - 1)]['answer'];
 
                 // If the answer contains '((' it means the answer contains a call to another function
                 $startParanthesesIndex = stripos($answer, '((');
@@ -77,12 +77,12 @@
 
             // If the inner function in the answer does not exist in answers.php, we let the user know
             if(!function_exists($functionToCall)){
-                sendResponse('Sorry. I do not have an answer to your query.');
+                sendReply('Sorry. I do not have an answer to your query.');
             }else{
                 $functionCallResult = $functionToCall();
 
                 // We'll now send the reply of the function call in the original answer we got from the DB
-                sendReply(str_replace("((".$functionToCall."))", functionCallResult, $answer));
+                sendReply(str_replace("((".$functionToCall."))", $functionCallResult, $answer));
             }
         }
 
@@ -109,7 +109,7 @@
         $question = $_POST['question'];
         if($question){
             $userIsTrainingBot = stripos('train:', $question);
-            if($userIsTrainingBot === true){
+            if($userIsTrainingBot){
                 trainBot($question);
             }else{
                 answerBot($question);
