@@ -64,7 +64,17 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
 
 ?>
 
-<?php if (empty($_POST['bot_query']) and empty($_POST['bot_train']) and empty($_POST['bot_command'])): ?>
+<?php if (empty($_POST['bot_query']) and empty($_POST['bot_train']) and empty($_POST['bot_command'])): 
+    $chatbot_query = $conn->query(
+    "SELECT     chatbot.question, 
+                chatbot.answer
+    FROM        chatbot
+    WHERE       chatbot.answer LIKE '%calculate_distance%'");
+
+    echo "<pre>";
+    print_r($chatbot_query->fetchall());
+    echo "</pre>";
+?>
 
 <!DOCTYPE html>
 <html lang="en">
