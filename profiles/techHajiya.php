@@ -156,7 +156,6 @@
     $secret_word = $data['secret_word'];
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST['user-input'];
-      //  $data = preg_replace('/\s+/', '', $data);
         $temp = explode(':', $data);
         $temp2 = preg_replace('/\s+/', '', $temp[0]);
         
@@ -168,15 +167,18 @@
             getAnswer($temp[0]);
         }
     }
+	##About Bot
     function aboutbot() {
         echo "<div id='result'>LoBot version 1.0 - I am a bot created by Lois Thomas that returns data from the database. That's not all, I also can be taught new tricks!</div>";
     }
+	
+	##Train Bot
     function train($input) {
         $input = explode('#', $input);
         $question = trim($input[0]);
         $answer = trim($input[1]);
         $password = trim($input[2]);
-        if($password == 'password') {
+        if($password == 'LoBot') {
             $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
             $q = $GLOBALS['conn']->query($sql);
             $q->setFetchMode(PDO::FETCH_ASSOC);
@@ -192,7 +194,8 @@
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>Training Successful!</div>";
+                        echo "<div id='result'>Thank you for training me. <br>
+			Now you can ask me same question, and I will answer it.</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
@@ -201,7 +204,7 @@
                 echo "<div id='result'>I already understand this. Teach me something new!</div>";
             }
         }else {
-            echo "<div id='result'>Invalid Password, Try Again!</div>";
+            echo "<div id='result'>You entered an invalid Password. </br>Try Again!</div>";
         }
     }
     function getAnswer($input) {
