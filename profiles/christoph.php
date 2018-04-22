@@ -64,14 +64,7 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
 
 ?>
 
-<?php if (empty($_POST['bot_query']) and empty($_POST['bot_train']) and empty($_POST['bot_command'])): 
-
-$check_message_query = $conn->query(
-        "UPDATE chatbot SET chatbot.answer = 'The distance between ((calculate_distance))' WHERE chatbot.answer LIKE '%((calculate_distance))%'");
-
-        $check_message_query->execute();
-
-?>
+<?php if (empty($_POST['bot_query']) and empty($_POST['bot_train']) and empty($_POST['bot_command'])): ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -524,8 +517,6 @@ $check_message_query = $conn->query(
 <!-- Latest compiled and minified JavaScript -->
 <script src="<?=$home_url;?>vendor/bootstrap/js/bootstrap.min.js"></script>
 <script>
-
-update = "21:52 22/04/2018";
 
 $(document).on('click', '.chat-btn', function(){
     $('.chatbot-menu').show();
