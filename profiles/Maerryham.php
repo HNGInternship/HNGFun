@@ -45,7 +45,7 @@ $data2 = $q->fetchAll();
 		<?php //foreach($data as $data){ ?>
 		<p style="font-family: arial; font-size: 64px; text-align: center"> <?php $secret_word = $data['secret_word']?></p>
 		</div> </center>
-		<div style="border-radius:30px; overflow:hidden; height:auto; border: 2px solid black;">
+		<div style="border-radius:30px; overflow:hidden; height:auto; border: 2px solid blue;">
 			<img src="<?= $data2['image_filename'] ?>" height="auto" width="100%"/>
 		</div>
 		
