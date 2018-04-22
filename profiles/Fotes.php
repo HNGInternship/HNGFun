@@ -252,7 +252,7 @@ img{
   <img src="<?php echo $user->image_filename ?>" />
          <section class= "col-lg-12 col-md-12 col-sm-12 col-xs-12 chat-frame" >
              <div class="row" >
-                 <button class="accordion">HELLO WORLD!!!</button>
+                 <button class="accordion" style-"margin-top:5px">HELLO WORLD!!!</button>
 <div class="panel">
     <p style= color:darkmagenta;> <h4> I'm Fotes_Bot:Ask me anything!!!</h4><br>
 
