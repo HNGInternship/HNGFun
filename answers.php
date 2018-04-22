@@ -887,6 +887,8 @@ function getQuote()
 function getUSSD($bankName){
     switch(trim(strtolower($bankName))){
         case 'first bank':
+        case 'fbn':
+        case 'FBN':
         return '*894#';
 
         case 'access bank':
@@ -894,6 +896,8 @@ function getUSSD($bankName){
 
         case 'gt bank':
         case 'guaranty trust bank':
+        case 'gtb':
+        case 'GTB':
         return '*737#';
 
         case 'diamond bank':
