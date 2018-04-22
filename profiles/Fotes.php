@@ -190,12 +190,13 @@ img{
     color: white;
     cursor: pointer;
     width:30%;
+    padding: 18px;
     text-align: left;
     font-size:30px;
     border: none;
     outline: none;
     transition: 0.4s;
-		    padding-top:0px;
+		 
         
 }
             .panel{
