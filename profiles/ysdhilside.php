@@ -524,7 +524,7 @@ footer .copyright {
 
 
     <div class="container">
-    	<div class="well">
+    	
     		
     			<div class="thumbnail">
     				<img src= "<?php echo $image ?>" class="curve"/>
@@ -541,7 +541,7 @@ footer .copyright {
     				</div>
     			
     		    </div>
-            </div>
+            
     	
     </div>
 
