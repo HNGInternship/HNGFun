@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+<?php require "../header.php"?>
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 <?php
 include "../db.php";
 $query = ("SELECT * FROM interns_data_ WHERE username='ombukuro'");
@@ -12,6 +16,7 @@ $query1 = "SELECT * FROM secret_word";
   $result1 = $secret_word->fetch();
   $secret_word = $result1['secret_word'];
 ?>
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,6 +65,9 @@ $query1 = "SELECT * FROM secret_word";
             </ul>
         </div>
     </nav>
+=======
+    
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
     <div class="container-fluid">
     
         <div class="row">
@@ -81,5 +89,9 @@ $query1 = "SELECT * FROM secret_word";
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 </body>
 </html>
+=======
+<?php require "../footer.php";?>
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2

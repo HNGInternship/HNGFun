@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
   function validate_answer(String $answer)
   {
     $matches = [];
-    if (preg_match_all('/.*\(\((?<functions>[[:alnum:]_]+)\)\).*/', $answer, $matches)) {
+    if (preg_match_all('/.*\(\((?<functions>[[:alnum:]_]+)\)\).*/', $answer, $matches)) {  
       $functions = array_map(function ($function) {
         if (function_exists($function)) return $function;
         return sendResponse(200, "The function, '$function', is not available to me at the moment.");
@@ -78,7 +78,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     if (filter_var("http://$link", FILTER_VALIDATE_URL) === false) return sendResponse(200, 'That is an invalid link.');
     return sendResponse(200, $url, 'url');
   }
+<<<<<<< HEAD
   function train_alfred(String $instruction = '')
+=======
+
+  function train_zoe(String $instruction = '') 
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
   {
     global $db_conn;
     global $syntax;
@@ -145,11 +150,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     default:
       reply($message);
   }
+<<<<<<< HEAD
 } else {
 
 ?>
 
 
+=======
+}  else {
+
+?>
+
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 <!DOCTYPE html>
 <html>
 <head>
