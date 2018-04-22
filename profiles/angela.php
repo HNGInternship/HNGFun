@@ -70,6 +70,7 @@ function getFunction($message, $delimiter = '#') {
     // no delimiter means chatbot is not being trained
   if ($hasDelimiter === false) {
     getBotResponse($message);
+    return;
   }
 
   if ($function && in_array($function, $functions)) {
@@ -366,7 +367,7 @@ function getBotResponse($question) {
       }
 
       //-- Clear Chat
-      // resetChat();
+      resetChat();
 
       $(document).ready(function() {
         $(".mytext").on("keyup", function(e) {
@@ -411,13 +412,7 @@ function getBotResponse($question) {
         $(".mytext").trigger({type: 'keydown', which: 13, keyCode: 13});
       })
 
-      //-- Print Messages
-      insertChat("bot", "Hello. Would you like to train me?", 0);
-      // insertChat("user", "Hi, Pablo", 1500);
-      // insertChat("user", "Tell me a joke",7000);
-      // insertChat("bot", "What would you like to talk about today?", 3500);
-      // insertChat("user", "LOL", 12000);
-      // insertChat("bot", "Spaceman: Computer! Computer! Do we bring battery?!", 9500);
+      insertChat("bot", "Hello.", 0);
     </script>
   </head>
   <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
