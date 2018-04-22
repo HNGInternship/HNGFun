@@ -12,22 +12,22 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 <?php
 
-if($_SERVER['REQUEST_METHOD'] === 'GET'){
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     include "../answers.php";
     
     try{
 
-	    /*if(!isset($_GET['question'])){
+	    if(!isset($_POST['question'])){
 	      echo json_encode([
 	        'status' => 422,
 	        'result' => "Please provide a question"
 	      ]);
 	      return;
-	    }*/
+	    }
 
 	    //if(!isset($_POST['question'])){
-	    $mem = $_GET['question'];
+	    $mem = $_POST['question'];
 	    $mem = preg_replace('([\s]+)', ' ', trim($mem));
 	    $mem = preg_replace("([?.])", "", $mem);
 		$arr = explode(" ", $mem);
@@ -270,10 +270,10 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 			<div class="row-holder">
 				<div class="row2">
 					<div id="form">
-						<form id="qform" method="GET">
+						<form id="qform" method="POST">
 							<div id="textform">
 								<textarea id='questionBox' name="question" placeholder="Enter message ..."></textarea>
-								<button type="submit" id="send-button">Send</button>
+								<button type="submit" id="send-button" method ="POST">Send</button>
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
@@ -310,7 +310,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 	                //</div>`
 				$.ajax({
 					url: '../profiles/Adeyefa.php',
-					type: 'GET',
+					type: 'POST',
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
