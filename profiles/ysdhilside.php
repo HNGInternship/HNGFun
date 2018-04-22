@@ -523,8 +523,8 @@ footer .copyright {
     </nav>
 
 
-    <div class="container"><center>
-    	<br><br><br><div class="well">
+    <div class="container">
+    	
     		
     			<div class="thumbnail">
     				<img src= "<?php echo $image ?>" class="curve"/>
@@ -541,7 +541,7 @@ footer .copyright {
     				</div>
     			
     		    </div>
-            </div>
+            
     	
     </div>
 
