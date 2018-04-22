@@ -15,6 +15,7 @@ if (!$conn) {
 }
 else{
 //for debugging conncection
+    echo 'ff';
 }
   global $conn;
 
@@ -40,11 +41,11 @@ if (mysqli_num_rows($r) > 0)
 //              $randrr = rand(0,  $randr);
 //              $answer = $answer[$randrr];
 $rows = [];
-while($row = mysqli_fetch_assoc($r))
+while($row = mysqli_fetch_array($r))
 {
     $rows[] = $row;
 }
-$answerRow = count(mysqli_fetch_assoc($r)) - 1;
+$answerRow = count(mysqli_fetch_array($r)) - 1;
 $randIndex = rand(0,  $answerRow);
 $answer = $rows[$randIndex];
         //if answer has a function call in it
