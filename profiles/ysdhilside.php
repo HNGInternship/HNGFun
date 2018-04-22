@@ -68,11 +68,13 @@
     <div class="container" style="margin-top:30px auto">
             
             <div class="card" style="width:450px">
-                <img class="card-img-top" alt="Card header image" src="<?php echo $image ?>">
+                <img class="card-img-top" alt="yusufsd header image" src="<?php echo $image ?>">
                 <div class="card-body" style="margin-bottom: 5px;">
                     <h5 class="card-title"><?php echo $name ?></h5>
                     <p class="card-text">HNG - Intern, Web developer.</p>
                     <p class="card-text">Username: @<?php echo $username ?></p>
+                </div>
+                <div class="card-body">
                     <a href="https://facebook.com/yusufsd" class="btn btn-primary">Facebook</a>
                     <a href="mailto:ysdhilside@gmail.com" class="btn btn-danger">Email</a>
                 </div>
