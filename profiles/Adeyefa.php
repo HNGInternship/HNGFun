@@ -1,10 +1,6 @@
 <?php 
 
 require "../config.php";
-=======
-  require "../config.php";		
->>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
-
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
@@ -15,6 +11,9 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 
 <?php
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+}
 /*
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
