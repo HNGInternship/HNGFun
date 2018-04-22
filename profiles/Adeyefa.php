@@ -311,7 +311,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				$.ajax({
 					url: '../profiles/Adeyefa.php',
 					type: 'POST',
-					data: {question: question},
+					data: JSON.stringify({question: question}),
 					dataType: 'json',
 					success: function(response){
 
