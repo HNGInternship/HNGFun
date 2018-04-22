@@ -768,19 +768,18 @@ if (! function_exists("iDictionary"))
 {
     function iDictionary($word)
     {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/{$word}",
-            CURLOPT_HEADER => false,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => array(
-                "Accept: application/json",
-                "app_id: 8695feaa",
-                "app_key: b358014437a42bd357d1429925261d2e",
-            ),
+        $url = "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/{$word}";
+        $request_option = array("http" => array(
+            'method' => 'GET',
+            "header" => "Accept: application/json\r\n".
+                "app_id: 8695feaa\r\n".
+                "app_key: b358014437a42bd357d1429925261d2e\r\n"
         ));
+        $context = stream_context_create($request_option);
+        $api = file_get_contents($url, false, $context);
+
         try {
-            $response = json_decode(curl_exec($curl));
+            $response = json_decode($api);
             @$definition = $response->results[0]->lexicalEntries[0]->entries[0]->senses[0]->definitions[0];
             @$example = $response->results[0]->lexicalEntries[0]->entries[0]->senses[0]->examples[0]->text;
 
