@@ -1,5 +1,5 @@
 <?php
-include "config.php";
+ require "../config.php";
 // x
 
 try {
@@ -114,10 +114,9 @@ function doSpecialFunction($func,$text){
 function workOnTrainData($data){
 
     // require '../db.php';
-
+    require "../config.php";
 
     // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-      global $conn;
     
 
 
@@ -170,10 +169,9 @@ function getReply($data){
 
     // require '../db.php';
 
-
+    require "../config.php";
     // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 
-      global $conn;
 
 
 
