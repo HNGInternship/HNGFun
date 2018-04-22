@@ -7,4 +7,6 @@ phpmyadmin/
 /deploy
 .idea/
 config.php
-/null-file
+/null-
+.travis.yml
+push.sh
