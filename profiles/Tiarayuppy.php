@@ -673,6 +673,7 @@ body{
         box-sizing: border-box;
         width: 80%;
         display: flex;
+        padding-left: 30px;
     }
     .input-ctn
     {
