@@ -21,11 +21,41 @@ if (isset($_POST['payload'])) {
 	$question = trim($_POST['payload']);
 	function isTraining($question)
 	{
-		if (strpos($question, 'train:') !== false) {
-			return true;
-		}
+	$input = explode('#', $input);
+        $question = trim($input[0]);
+        $answer = trim($input[1]);
+        $password = trim($input[2]);
+        if($password == 'password') {
+            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+            $q = $GLOBALS['conn']->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
 
-		return false;
+            if(empty($data)) {
+                $training_data = array(':question' => $question,
+                    ':answer' => $answer);
+
+                $sql = 'INSERT INTO chatbot ( question, answer)
+              VALUES (
+                  :question,
+                  :answer
+              );';
+
+                try {
+                    $q = $GLOBALS['conn']->prepare($sql);
+                    if ($q->execute($training_data) == true) {
+                        echo "<div id='result'>Training Successful!</div>";
+                    };
+                } catch (PDOException $e) {
+                    throw $e;
+                }
+            }else{
+                echo "<div id='result'>I already understand this. Teach me something new!</div>";
+            }
+        }else {
+            echo "<div id='result'>Invalid Password, Try Again!</div>";
+
+        }
 	}
 
 	function getAnswer()
@@ -68,40 +98,6 @@ if (isset($_POST['payload'])) {
 		$answer = substr($question, $start);
 		return $answer;
 	}
-
-	if (isTraining($question)) {
-		 $question = explode('#', $question);
-		$answer = resolveAnswerFromTraining($question);
-		$question = strtolower(resolveQuestionFromTraining($question));
-           	$password = trim($question[2]);
-        	if($password == 'password') {
-            	$sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
-           	 $q = $GLOBALS['conn']->query($sql);
-           	 $q->setFetchMode(PDO::FETCH_ASSOC);
-          	  $data = $q->fetch();
-           	 if(empty($data)) {
-              	  $training_data = array(':question' => $question,
-                  	  ':answer' => $answer);
-               	 $sql = 'INSERT INTO chatbot ( question, answer)
-             	 VALUES (
-			  :question,
-                	  :answer
-             	 );';
-                	try {
-                  	  $q = $GLOBALS['conn']->prepare($sql);
-                  	  if ($q->execute($question_data) == true) {
-                    	    echo "<div id='result'>Training Successful!</div>";
-                  	  };
-             	   } catch (PDOException $e) {
-                  	  throw $e;
-               	 }
-          	  }else{
-              	  echo "Now I understand. No wahala, now try me again";
-           	 }
-       	 }else {
-         	   echo "<div id='result'>Invalid Password, Try Again!</div>";
-       	 }
-		}
 
 	function containsVariables($answer)
 	{

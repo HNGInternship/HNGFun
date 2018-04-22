@@ -26,7 +26,7 @@ if(!defined('DB_USER')){
             PDO::ATTR_EMULATE_PREPARES => false
         ];
 
-    $conn = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
+        $conn = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
     } catch (PDOException $pe) {
         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
     }
@@ -64,17 +64,7 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
 
 ?>
 
-<?php if (empty($_POST['bot_query']) and empty($_POST['bot_train']) and empty($_POST['bot_command'])): 
-    $chatbot_query = $conn->query(
-    "SELECT     chatbot.question, 
-                chatbot.answer
-    FROM        chatbot
-    WHERE       chatbot.answer LIKE '%calculate_distance%'");
-
-    echo "<pre>";
-    print_r($chatbot_query->fetchall());
-    echo "</pre>";
-?>
+<?php if (empty($_POST['bot_query']) and empty($_POST['bot_train']) and empty($_POST['bot_command'])): ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -692,7 +682,7 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
         }
         else {
             // Check if it is a function call
-            if (preg_match('/(.+)\(\(([A-z_]+)\)\)/', $query_result['answer'], $matches)) {
+            if (preg_match('/(.+)\(([A-z_]+)\)/', $query_result['answer'], $matches)) {
                 $unparsed_location = substr($_POST['bot_query'], strlen($query_result['question']));
                 $parsed_location = preg_match('/(.+) (and|to) (.+)/', $unparsed_location, $location_data);
                 // Strip query of unwanted symbols
@@ -701,6 +691,15 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
                 $location2      = parseLocation($location_data[3]);
                 $answer         = $matches[1];
                 $function_name  = $matches[2];
+
+                // Quick fix for duplicate preposition error
+                $array_words = explode(' ', $answer);
+                $words_length = count($array_words);
+                if ($array_words[$words_length - 2] == $array_words[$words_length - 3]) {
+                    array_pop($array_words);
+                    array_pop($array_words);
+                    $answer = trim(implode(' ', $array_words));
+                }
 
                 $_SESSION['location1'] = $location1."+Nigeria";
                 $_SESSION['location2'] = $location2."+Nigeria";
@@ -769,12 +768,12 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
                 include "../answers.php";
                 if (function_exists($function_name) or $match_simple_mode) {
                     $distance = "<b>".call_user_func($function_name, $key, $url, $location1, $location2)."</br>";
-                    $distance .= '<br /> <br />';
 
                     $location1 = str_replace('+', ' ', $location1);
                     $location2 = str_replace('+', ' ', $location2);
                     
-                    $concat_answer = "$answer $preposition ($function_name)";
+                    $concat_question = "$question $preposition";
+                    $concat_answer = "$answer ($function_name)";
                     // Insert question into database
                     $save_message = $conn->prepare(
                     "INSERT INTO chatbot (question, answer) VALUES (?, ?)");
