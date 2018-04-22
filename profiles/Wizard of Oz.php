@@ -1,13 +1,13 @@
 <?php
-include "config.php";
+// include "config.php";
 // x
 
-try {
-		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-	} 
-	catch (PDOException $pe) {
-			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-			} 
+// try {
+// 		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+// 	} 
+// 	catch (PDOException $pe) {
+// 			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+// 			} 
 
  if(isset($_GET['training'])) {
       $message = $_GET['training'];
@@ -20,7 +20,7 @@ else if(isset($_GET['func'])){
       $function = $_GET['func'];
       $text = $_GET['text'];
 
-      echo doSpecialFunction($function,$text);
+      echo doSpecialFunction($func,$text);
         exit();
 
 }
@@ -72,10 +72,7 @@ function doSpecialFunction($func,$text){
 
     require '../answers.php';
 
-   $text=sanitizeText($text);
-    $text=strtolower($text);
-
-    return pig_latin($text);
+    pig_latin($text);
 
 }
 
@@ -295,7 +292,6 @@ margin:5%;
 #bot-button{
 
     margin: 0% 30%;
-    padding-top: 3%;
     text-transform: uppercase;
     color: white;
     background: #ea5a58;
@@ -525,13 +521,7 @@ background: rgba(0, 0, 0, 0.7);
 
 
 #important{
-    background-color: #667db6;
-    /*background-color: #ea5a58;*/
-
-    
-    color: white;
-    padding: 1%;
-
+    color: #ea5a58;
 }
 
 
@@ -617,7 +607,7 @@ background: rgba(0, 0, 0, 0.7);
 
 
 
-    <section class="bot col-xs-10 col-lg-6">
+    <section class="bot col-sm-10 col-lg-6">
         
 
          <section class="top-area">
@@ -641,7 +631,7 @@ background: rgba(0, 0, 0, 0.7);
                <div class="chat-message row">
 
             <h1 class="chat-name col-2">Merlin : </h1>
-          <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <strong>Wizard of Oz</strong></span>
+          <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <span id="important">Wizard of Oz</span></span>
 
       </div>
 
@@ -752,7 +742,7 @@ background: rgba(0, 0, 0, 0.7);
 
     else if(message.indexOf('pig latin:') >= 0 || message.indexOf('pig latin :')>=0){
 
-       var text=message.substring(message.indexOf(":")+1);
+       var text=message.substring(message.indexOf(":"));
 
           $.ajax({
             type: "GET",
