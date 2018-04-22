@@ -183,7 +183,7 @@ img{
 		 }
 		 #answer{
 			 color:darkmagenta;
-             float:right;
+             float:left;
 		 }
             .accordion {
     background-color: darkmagenta;
@@ -202,6 +202,7 @@ img{
 		    width:50%;
                 overflow-x:hidden;
                 overflow-y:scroll;
+		     float:left;
             }
             .panel::-webkit:scrollbar{width:5px;
                 
