@@ -392,6 +392,7 @@ for($h=0;$h<sizeof($sentence);$h++){
 function find_place($query) {
  
 // $apiKey="AIzaSyDlvWmwKX40qRKZQFRKP1qngWnTPKKWM5Y";
+  $return="No results were found matching this query";
   $place=urlencode($query);
 $placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$place."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
 
@@ -399,30 +400,46 @@ try{
 $response = file_get_contents($placesUrl);
 $parsed_response = json_decode($response, TRUE);
 
-return $parsed_response['results'][0]['name'];
+for($i=0;$i<sizeof($parsed_response['results']);$i+=2){
+
+  $firstName=$parsed_response['results'][$i]['name'];
+  $firstRating=$parsed_response['results'][$i]['rating'];
+  $firstAddy=$parsed_response['results'][$i]['formatted_address'];
+  $firstType=$parsed_response['results'][$i]['types'][0];
+
+
+  $secondName=$parsed_response['results'][$i+1]['name'];
+  $secondRating=$parsed_response['results'][$i+1]['rating'];
+  $secondAddy=$parsed_response['results'][$i+1]['formatted_address'];
+  $secondType=$parsed_response['results'][$i+1]['types'][0];
+
+  
+
+  $return='<div class="row">'
+
+ .'<div class="col-xs-6 col-md-4 important">'
+            .'<span>'.$firstName.'</span><br>'
+            .'<span>'.$firstRating.' star rating</span><br>'
+            .'<span>'.$firstAddy.'</span><br>'
+            .'<span>'.$firstType.'</span><br>'
+          .'</div>'
+          .'<div class="col-xs-6 col-md-4 important">'
+            .'<span>'.$secondName.'</span><br>'
+            .'<span>'.$secondRating.' star rating</span><br>'
+            .'<span>'.$secondAddy.'</span><br>'
+            .'<span>'.$secondType.'</span><br>'
+          .'</div>'
+         .' </div>'.$return;
+
+}
+
+return $return;
 }
 
 catch(Exception $e){
   return $e;
 
 }
-// $placesUrl = urlencode( "https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$query."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek" );
-
-// $placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$city."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
-
-// $ch = curl_init();
-// return "under curl init";
-
-// curl_setopt($ch, CURLOPT_URL, $placesUrl);
-// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-// $geoloc = json_decode(curl_exec($ch), true);
-// print_r($geoloc);
-// return $geoloc;
-
-
-
-// $latitude = $parsed_response['results'][0]['geometry']['location']['lat'];
-// $longitude = $parsed_response['results'][0]['geometry']['location']['lng'];
 
 
 }
