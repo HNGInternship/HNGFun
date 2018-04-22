@@ -3,7 +3,7 @@ z    <!-- head here  -->
    include_once("header.php");
 
    $profile_name = $_GET['id'];
-	$secret_word = "sample_secret_word";
+	$secret_word = "1n73rn@Hng";
 
     require 'db.php';
 ?>
