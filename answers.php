@@ -214,7 +214,7 @@ function getUSSD($bankName){
     switch(trim(strtolower($bankName))){
         case 'first bank':
         return '*894#';
-        
+
         case 'access bank':
         return '*901#';
 
@@ -903,5 +903,12 @@ return $cdown;
 //////// AKINSOURCE FUNCTION /////////////////////////////
 // I HAVE A PARTICULAR SET OF SKILLS. I WILL FIND YOU!/////
 //////////////////////////////////////////////////////////
+
+function getQuote()
+{
+    $url = 'https://talaikis.com/api/quotes/random/';
+    $result = file_get_contents($url);
+    return $result;
+}
 
 ?>

@@ -131,7 +131,27 @@
     overflow:hidden;
     padding:0;
     width: 50%;
+    border: 2px;
 
+}
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
 }
 .frame > div:last-of-type{
     position:absolute;bottom:0;width:100%;display:flex;
@@ -671,8 +691,9 @@ body{
     .chat-container
     {
         box-sizing: border-box;
-        width: 100%;
+        width: 80%;
         display: flex;
+        padding-left: 30px;
     }
     .input-ctn
     {
@@ -697,6 +718,7 @@ body{
     {
         color: black;
         background-color: #ce2395;
+        padding-left: 20px;
     }
     .recieved-message
     {
@@ -720,12 +742,7 @@ body{
         height: 50px;
     }
 
-@import url(https://fonts.googleapis.com/css?family=Oswald:400,300);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
-body
-{
-    font-family: 'Open Sans', sans-serif;
-    }
+
 .popup-box {
    background-color: #ffffff;
     border: 1px solid #b0b0b0;
@@ -831,9 +848,6 @@ body
     padding: 0 0 0 1px;
     width: 21px;
 }
-
-
-
 
 
 .popup-box .popup-messages {
@@ -1049,22 +1063,20 @@ body
                     <div class="desc">Curious developer</div>
                     <div class="desc">Tech geek| Woman in Tech</div>
               
-                </div>
-               
-                    
+                </div>                 
   
             </div>
         </div>
     </div>
 </div>
 
- <h4 style="text-align: center;">My Chat bot</h4>
-
-      <div class="col-sm-5 col-sm-offset-5 frame" 
+      <div class="col-sm-6 col-sm-offset-5 frame" 
       style="box-shadow:2px 2px 4px 5px #ccc;
       background-color: #e1ecf7; 
       border: 2px; 
-      margin-bottom: 30px;">
+      margin-bottom: 30px;
+      float: right;">
+       <h4 style="text-align: center;">My Chat bot </h4>
             <ul></ul>
             <div>
         
@@ -1082,12 +1094,12 @@ body
                   
                     <div class="text text-r" style="background:lightblue !important">
                           
-                        <input type="text" name="message" class="mytext" placeholder="Type a message"/>
+                        <input type="text" name="message" class="mytext" width="100%" placeholder="Type a message"/>
                     </div> 
 
                 </div>
-                <div style="padding:10px;">
-                    <input type="submit" value="send your message" style=" border-radius:10px; flex-grow: 1; background-color: green; color: #FAFAFA;"/>
+                <div style="padding-top: 10px;">
+                    <input type="submit" value="send your message" style=" border-radius:10px; flex-grow: 1; background-color: green; color: #FAFAFA; float: left;"/>
                 </form>
                 </div> 
                 </div>                

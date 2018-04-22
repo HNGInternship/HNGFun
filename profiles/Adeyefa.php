@@ -12,16 +12,18 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 <?php
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
+/*if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    include "../answers.php";
+    require "../answers.php";
+
+    date_default_timezone_set("Africa/Lagos");
     
     try{
 
 	    if(!isset($_POST['question'])){
 	      echo json_encode([
 	        'status' => 0,
-	        'result' => "Please provide a question"
+	        'answer' => "Please provide a question"
 	      ]);
 	      return;
 	    }
@@ -110,7 +112,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	}catch (Exception $e){
 		return $e->message ;
 	}
-}
+}*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -198,7 +200,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		li{
 			size: 20px;
 		}
-		#questionBox{
+		#question{
 			font-size: 15px;
 			font-family: Ubuntu;
 			width: 400px;
@@ -272,7 +274,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					<div id="form">
 						<form id="qform" method="POST">
 							<div id="textform">
-								<textarea id='questionBox' name="question" placeholder="Enter message ..."></textarea>
+								<textarea id='question' name="question" placeholder="Enter message ..."></textarea>
 								<button type="submit" id="send-button" method ="POST">Send</button>
 							</div>
 							<div id="bot_reply">
@@ -315,7 +317,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					dataType: 'json',
 					success: function(response){
 
-			        $("#ans").append("<li>"  + response.result +  "</li>");
+			        $("#ans").append("<li>"  + response.answer +  "</li>");
 			       // console.log(response.result);
 
 			        //alert(response.result.d);
