@@ -286,18 +286,18 @@ $('#your-msg').append(strr);
 
 
 //time
-if (message.search("time") != -1){
+// if (message.search("time") != -1){
 
-reply = "The time is "+time;
+// reply = "The time is "+time;
 
-msg.text = reply;
-msg.lang = 'en-US';
-speechSynthesis.speak(msg);
+// msg.text = reply;
+// msg.lang = 'en-US';
+// speechSynthesis.speak(msg);
 
-reply = '<div id = "bb'+countt+'" style = "padding: 2px;background-color: #72beda;width:70%;position: relative;left: 30%;border-radius:4px "><b><i style = "font-size: 17px"class="fab fa-reddit-alien"></i>&nbsp;Bot</b><br><font class = "" style = "font-size: 10px; font-family: monospace">'+ reply + "</font></div><br>";
-        $("#your-msg").append(reply);  
-        gone = 0;
-}
+// reply = '<div id = "bb'+countt+'" style = "padding: 2px;background-color: #72beda;width:70%;position: relative;left: 30%;border-radius:4px "><b><i style = "font-size: 17px"class="fab fa-reddit-alien"></i>&nbsp;Bot</b><br><font class = "" style = "font-size: 10px; font-family: monospace">'+ reply + "</font></div><br>";
+//         $("#your-msg").append(reply);  
+//         gone = 0;
+// }
 
 
 
@@ -539,6 +539,16 @@ $('#toggle-bot').show();
 <script type = "text/javascript">
 $(document).ready(
 function(){
+var msg = new SpeechSynthesisUtterance();
+var voices = window.speechSynthesis.getVoices();
+msg.voice = voices[0]; // Note: some voices don't support altering params
+msg.voiceURI = 'native';
+msg.volume = 1; // 0 to 1
+msg.rate = 1; // 0.1 to 10
+msg.pitch = 2; //0 to 2
+msg.text = "Hello I'm Jobot, you can call me HNG BOT too";
+msg.lang = 'en-US';
+speechSynthesis.speak(msg);
   setInterval(function(){
 var width = $(document).innerWidth();
 if(width < 1000 )

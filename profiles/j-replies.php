@@ -1,5 +1,6 @@
 <?php
 require "../../config.php";
+require "../answers.php";
 
 
 //connection
@@ -15,24 +16,44 @@ if (!$conn) {
 }
 else{
 //for debugging conncection
+    
 }
   global $conn;
 
 //end of connection
 
+       
+  try {
+      $connn = new PDO("mysql:host=". DB_HOST. ";dbname=".DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+      die("Could not connect to the database " .DB_DATABASE . ": " . $pe->getMessage());
+  }
 
-require "../answers.php";
-$question = $_POST['chatMessage'];
 
-function getAnswerFromDB($question, $conn){
+      $question = $_POST['chatMessage'];
+      
+//end of connection
+
+function getAnswerFromDB($question, $conn, $connn){
 
 $q = "SELECT * FROM chatbot WHERE question='$question'";
 $r = mysqli_query($conn, $q);
 
 if (mysqli_num_rows($r) > 0)
     {   
-        $answer = mysqli_fetch_assoc($r);
-        $answer = $answer['answer'];
+        $sql = "select * from chatbot where question like :question";
+      $query = $connn->prepare($sql);
+      $query->execute([':question' => $question]);
+      $query->setFetchMode(PDO::FETCH_ASSOC);
+      $rows = $query->fetchAll();
+      $resultsCount = count($rows);
+
+        $index = rand(0,  $resultsCount - 1);
+        $row = $rows[$index];
+        $answer = $row['answer'];
+        // $answer = mysqli_fetch_assoc($r);
+        // $answer = $answer['answer'];
+
 
         //if answer has a function call in it
          // $answer =  callFunction();
@@ -143,7 +164,6 @@ function callFunction($answer, $open_bracket_pos){
 }
 
 
-if ($_POST){
 
 if (isset($_POST['trainValidity']))
 {
@@ -152,8 +172,8 @@ if (isset($_POST['trainValidity']))
     }
 }
 else{
-    getAnswerFromDB($question, $conn);
+    getAnswerFromDB($question, $conn, $connn);
 }
-}
+
 
 ?>
