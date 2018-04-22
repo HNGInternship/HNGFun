@@ -26,6 +26,9 @@
     elseif($input == 'version'){
         echo get_chibuokem_bot_version();
     }
+     elseif($input == 'aboutbot'){
+        echo get_chibuokem_bot_version();
+    }
     elseif($input == 'time'){
         echo get_time();
     }
@@ -60,7 +63,7 @@
             echo $result_answer;
         }
         else{
-            echo "Please teach me how to answer this question using the format train question #answer";
+            echo "Please teach me how to answer this question using the format train question #answer #password";
         }
     }
 
@@ -8243,7 +8246,7 @@ input.textarea {
 
                  $('#chat_div').append(divv);
 
-                 $('#chat_div').scrollTop($('#chat_div').scrollTop()+50);
+                 $('#chat_div').scrollTop($('#chat_div').scrollTop()+300);
 
                     $("#send").html('Sent');
             

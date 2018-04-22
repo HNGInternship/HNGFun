@@ -20,8 +20,8 @@ else if(isset($_GET['func'])){
       $function = $_GET['func'];
       $text = $_GET['text'];
 
-      echo doSpecialFunction($function,$text);
-        exit();
+        echo doSpecialFunction($function,$text);
+      exit();
 
 }
 
@@ -75,7 +75,13 @@ function doSpecialFunction($func,$text){
     $text=sanitizeText($text);
     $text=strtolower($text);
 
+    if($func=="pigLatin"){
     return pig_latin($text);
+    }
+
+    else{
+        return find_place($text);
+    }
 
 }
 
@@ -335,7 +341,7 @@ background: rgba(0, 0, 0, 0.7);
 .bot-container{
     background: rgba(0, 0, 0, 0.8);
     color: white;
-    position: fixed;
+    position: absolute;
     z-index: 9999;
     top: 0;
     height: 100%;
@@ -569,6 +575,10 @@ background: rgba(0, 0, 0, 0.7);
 }
 
 
+.top-area,#bot-header{
+    background: white;
+}
+
 #important{
     background-color: #667db6;
     /*background-color: #ea5a58;*/
@@ -578,6 +588,11 @@ background: rgba(0, 0, 0, 0.7);
     padding: 1%;
 
 }
+
+ul{
+    padding-left: 0%;
+}
+
 
 
 @media(max-width: 400px){
@@ -640,7 +655,7 @@ background: rgba(0, 0, 0, 0.7);
 
      <img class="rounded-circle" id="profile-pic" src=<?php echo $profilePic?> alt="Profile picture"> 
 
-    <h3 id="school">Graduate of the University of Lagos</h3>
+    <h3 id="school">Graduate of the University of Lagos%</h3>
 
 
 </div>
@@ -683,10 +698,18 @@ background: rgba(0, 0, 0, 0.7);
 
                 <div class="chat-body">
 
-               <div class="chat-message row">
+                <div class="chat-message row">
 
             <h1 class="chat-name col-2">Merlin : </h1>
-          <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <strong>Wizard of Oz-</strong></span>
+          <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <strong>Wizard of Oz</strong><br>
+          You can ask me questions and i'll try my best to answer.<br>
+          Some special functions i perform are: <br>
+          <ul>
+              <li><strong>Translate English to Pig Latin</strong><br>
+                Type <span id="important">pig latin: word/sentence</span>
+
+              </li>
+          </ul><span>
 
 
       </div>
@@ -796,7 +819,7 @@ background: rgba(0, 0, 0, 0.7);
     }
 
 
-    else if(message.indexOf('pig latin:') >= 0 || message.indexOf('pig latin :')>=0){
+    else if(message.toLowerCase().indexOf('pig latin:') >= 0 || message.toLowerCase().indexOf('pig latin :')>=0){
 
        var text=message.substring(message.indexOf(":")+1);
 
@@ -804,6 +827,24 @@ background: rgba(0, 0, 0, 0.7);
             type: "GET",
             url: 'profiles/Wizard of Oz.php',
             data: { func: "pigLatin",text:text },
+            success: function(data){
+                displayMerlinMessage(data);
+                
+            }
+         });
+
+
+    }
+
+
+     else if(message.toLowerCase().indexOf('find:') >= 0 || message.toLowerCase().indexOf('find :')>=0){
+
+       var text=message.substring(message.indexOf(":")+1);
+
+          $.ajax({
+            type: "GET",
+            url: 'profiles/Wizard of Oz.php',
+            data: { func: "findPlace",text:text },
             success: function(data){
                 displayMerlinMessage(data);
                 

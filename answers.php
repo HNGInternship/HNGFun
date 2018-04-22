@@ -389,6 +389,48 @@ for($h=0;$h<sizeof($sentence);$h++){
 
 
 
+function find_place($query) {
+ 
+// $apiKey="AIzaSyDlvWmwKX40qRKZQFRKP1qngWnTPKKWM5Y";
+  $place=urlencode($query);
+$placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$place."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
+
+try{
+$response = file_get_contents($placesUrl);
+$parsed_response = json_decode($response, TRUE);
+
+return $parsed_response['results'][0]['name'];
+}
+
+catch(Exception $e){
+  return $e;
+
+}
+// $placesUrl = urlencode( "https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$query."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek" );
+
+// $placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$city."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
+
+// $ch = curl_init();
+// return "under curl init";
+
+// curl_setopt($ch, CURLOPT_URL, $placesUrl);
+// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+// $geoloc = json_decode(curl_exec($ch), true);
+// print_r($geoloc);
+// return $geoloc;
+
+
+
+// $latitude = $parsed_response['results'][0]['geometry']['location']['lat'];
+// $longitude = $parsed_response['results'][0]['geometry']['location']['lng'];
+
+
+}
+
+
+
+
+
 //****************************************************************************************************************************************************************
 //****************************************************************************************************************************************************************
 //****************************************************************************************************************************************************************
@@ -717,6 +759,23 @@ function show_direction ($location1, $location2, $mode) {
 #####################################################################################################
 
 
+// Dreamtech467 Function
+function getCapital($States){
+    switch(trim(strtolower($States))){
+        case 'abia ':
+        return 'Umuahia<br>God’s Own State';
+
+        case 'adamawa':
+        return 'Yola<br>Land of Beauty, Sunshine and Hospitality';
+
+        case 'rivers':
+        return 'Port Harcourt<br>Treasure Base';
+    }
+}
+// End dreamtech Function
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 ///                                                                                  ////////'
 /// @UNCLETEE CODE STARTS HERE. bERAKING THE CODE CAN CAUSE SERIOUS HARVOC
@@ -959,6 +1018,11 @@ function getUSSD($bankName){
     $processed_input = explode("#", $string);
     $question = $processed_input[0];
     $answer = $processed_input[1];
+    $password = $processed_input[2];
+
+    if ($password !='password'){
+      die('Wrong password used');
+    }
 
     require 'db.php';
 
@@ -1174,7 +1238,7 @@ if ($data) {
  } 
 
  function chibuokem_bot_help(){
-  $help = "<span style='color:green;'>To train me use the format train question #answer"."<br/>". "To get the current time  type time and send "."<br/>"."To get love quote type love_quote and send"."<br/>". "To get funny quote type funny_quote and send"."<br/>"."to get an inspiring quote type inspiring_quote and send"."<br/>"."To get the quote of the day for students type students_quote and send"."<br/>". "to get sports quote of the day type sports_quote and send"."<br/> To get news type news and send "."<br/> to get the current bot version type version and send. Thanks </span>";
+  $help = "<span style='color:green;'>To train me use the format train question #answer #password"."<br/>". "To get the current time  type time and send "."<br/>"."To get love quote type love_quote and send"."<br/>". "To get funny quote type funny_quote and send"."<br/>"."to get an inspiring quote type inspiring_quote and send"."<br/>"."To get the quote of the day for students type students_quote and send"."<br/>". "to get sports quote of the day type sports_quote and send"."<br/> To get news type news and send "."<br/> to get the current bot version type version and send. Thanks </span>";
   return $help;
  }
   /**chibuokems functions ends here */
