@@ -397,8 +397,9 @@ function find_place($query) {
 // $parsed_response = json_decode($response, TRUE);
 
 // return $parsed_response;
-return "In function";
 $city = urlencode( $query );
+return "under encode";
+
 $placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$city."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
 
 $ch = curl_init();
