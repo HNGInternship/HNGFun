@@ -103,29 +103,29 @@
 				return;				
 			}
 			else{			
-			$strippedquestion = "%$strippedquestion%";
-			$answer_stmt = $conn->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
-			$answer_stmt->bindParam(':question', $strippedquestion);
-			$answer_stmt->execute();
-			$results = $answer_stmt->fetch();
-			if(($results)!=null){
-				$answer = $results['answer'];
-				echo json_encode([
-					'status' => 1,
-					'answer' => $answer
-				]);
-				return;		
-			}
-			else{
-				$answer = "Wow, I can only answer your question to the best of my knowledge, but you can train me to be smart: By entering the following<br>
-				train: question #answer #password";
-				echo json_encode([
-					'status' => 0,
-					'answer' => $answer
-				]);
-				return;
-				
-			}
+				$strippedquestion = "%$strippedquestion%";
+				$answer_stmt = $conn->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
+				$answer_stmt->bindParam(':question', $strippedquestion);
+				$answer_stmt->execute();
+				$results = $answer_stmt->fetch();
+				if(($results)!=null){
+					$answer = $results['answer'];
+					echo json_encode([
+						'status' => 1,
+						'answer' => $answer
+					]);
+					return;		
+				}
+				else{
+					$answer = "Wow, I can only answer your question to the best of my knowledge, but you can train me to be smart: By entering the following<br>
+					train: question #answer #password";
+					echo json_encode([
+						'status' => 0,
+						'answer' => $answer
+					]);
+					return;
+					
+				}
 			}
 		}
 }
@@ -174,7 +174,7 @@
 					var classname = 'sending-'+rand;
 					var selector = '.'+classname;
 					$('#message').val('');
-					$('.chatBody').append('<div class="msgB">you<br><p class="'+classname+'">Sending...</p></div>');
+					$('.chatBody').append('<div class="msgB"><strong>you</strong><br><p class="'+classname+'">Sending...</p></div>');
 					$('.chatBody').animate({scrollTop: $('.chatBody').prop("scrollHeight")}, 1000);
 					
 				  $.ajax({
@@ -186,7 +186,7 @@
 					var answer = response.answer;
 					$(selector).html(''+message+'');
 					$(selector).removeClass(classname).addClass('sent');
-					$('.chatBody').append(' <div class="msgA">dreamtech<br><p>'+answer+'</p></div>');
+					$('.chatBody').append(' <div class="msgA"><strong>dreamtech</strong><br><p>'+answer+'</p></div>');
 				  
 											
 				  },
