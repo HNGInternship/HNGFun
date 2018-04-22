@@ -898,6 +898,9 @@ function getUSSD($bankName){
         case 'guaranty trust bank':
         case 'gtb':
         case 'GTB':
+        case 'gtbank':
+        case 'GTBank':
+        case 'GT Bank'
         return '*737#';
 
         case 'diamond bank':
