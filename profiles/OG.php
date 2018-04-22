@@ -1,6 +1,6 @@
 <?php
 try {
-    $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'Winnie_fred\'';
+    $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'OG\'';
      $q = $conn->query($sql);
      $q->setFetchMode(PDO::FETCH_ASSOC);
       $data = $q->fetch();
@@ -435,7 +435,7 @@ footer.footer .social-link:hover{
       <div class="container">
                     <ul class="list-inline text-center">
                <li class="list-inline-item">
-                  <a id="twitter" href="https://twitter.com/godswillokokon" target="_blank">
+                  <a id="twitter" href="https://twitter.com/godswillokokon"" target="_blank">
                      <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>

@@ -1,140 +1,102 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require "../answers.php";
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-   
-    if(!defined('DB_USER')){
-        require "../../config.php";		
-        try {
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-        } catch (PDOException $pe) {
-            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-        }
-    }
-
-    $question = $_POST['question'];
-
-
-
-    $question_lower = strtolower($question);
-    $testvar = "?".$question_lower;  #Make Data Easier to compare
-
-    if(strrpos($testvar, "train") != NULL){
+        $question = $_POST['question'];
 
         
-        $trainInfo = explode("#", $question_lower);
-        $questionInfo = explode(":", $trainInfo[0]);
-        $question_temp = $questionInfo[1];
-        $answer_temp = $trainInfo[1];
-        $question_temp = trim(preg_replace("([?.])", "", $question_temp));
-        $answer_temp = trim(preg_replace("([?.])", "", $answer_temp));
-        $password_temp = trim(preg_replace("([?.])", "", $trainInfo[2] ));
-        $password = $password_temp ;
-        if ($password !== "password"){
-            echo json_encode([
-                'status' => 1,
-                'reply' => "Wrong password, you are not authorized to train me",
-              ]);
-              return;
-        }else{
-            try{
-            $sql = "insert into chatbot (question, answer) values (:question, :answer)";
-            $initiate = $conn->prepare($sql);
-            $initiate->bindParam(':question', $question_temp);
-            $initiate->bindParam(':answer', $answer_temp);
-            $initiate->execute();
-            $initiate->setFetchMode(PDO::FETCH_ASSOC);
-            if($initiate){
-                echo json_encode(['status' => 1, 'reply' => "I have been trained, now you can ask me anything"]);
-                return; 
-            } }
-            catch (PDOException $e) {
-                throw $e;
-            }
-          
-              
-            }
-           
-        }
-        else if(strrpos($testvar, "train") == NULL){
 
-            if(strrpos($testvar, "--help") != NULL){
-                echo json_encode([
-                    'status' =>1,
-                    'reply' => "Hello, thanks for talking to me, here are a list of the command I accept, <i>type</i> <b> Train: question # answer # password</b> in this format to train me , 
-                    <i>type</i> <b>aboutbot</b> to know my version number,
-                    <i>type</i> <b>aboutowner</b> to know more about my master
-                    <i>type</i> <b>quadratic: a # b # c </b> in this format so i can solve your quadratic equation for you;
-                    "
-                ]);
-                return;
+        if(!defined('DB_USER')){
+                require "../../config.php";		
+                try {
+                    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+                } catch (PDOException $pe) {
+                    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+                }
+        }
+
+        if(!isset($_POST['question'])){
+			echo json_encode([
+				'status' => 1,
+				'reply' => "Please Enter a question"
+			]);
+			return;
+        }
+
+
+        
+        
+        $query = $conn->query("SELECT * FROM chatbot");
+        $database = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+        foreach ($database as $key => $value) {
+            array_push($qArray[], ($value['question']));
+
+            array_push($aArray[], ($value['answer']));
+          }
+    
+
+        $question_lower = strtolower($question);
+        
+        
+      
+
+        if(strpos($question_lower, "train:") != false) {
+            $trainInfo = explode("#", $question_lower);
+            $question_info = explode(":", $trainInfo[0]);
+            $question_temp = trim($question_info);
+            $answer_temp = trim($trainInfo[1]);
+
+            $question_temp = preg_replace("([?.])", "", $question_temp);
+
+            try{
                 
-            }
-            else if(strrpos($testvar, "hi") || strrpos($testvar, "hello") || strrpos($testvar, "what's up") || strrpos($testvar, "Fuck you")){
+                $insert = "INSERT INTO chatbot VALUES(NULL, '".$question_temp."', '".$answer_temp."') ";
+                $conn->execute($insert);
                 echo json_encode([
                     'status' => 1,
-                    'reply' => "Hey buddy, how you doing?...Wwhat are we talking about today"
-                ]);
-                return;
-            }
-            else if(strrpos($testvar, "quadratic")){
-
-                $trainInfo = explode("#", $question_lower);
-                $firstInfo = explode(":", $trainInfo[0]);
-                $thirdValue = trim(preg_replace("([?.])", "", $trainInfo[2]));
-                $secondValue = trim(preg_replace("([?.])", "", $trainInfo[1]));
-                $firstValue = trim(preg_replace("([?.])", "", $firstInfo[1] ));
-                $result = davidQuadraticEquation($firstValue, $secondValue, $thirdValue);
-
+                    'reply' => "You've taught me something, you can ask me now and i'd answer :)",
+                  ]);
+                  return;
+            } catch (Exception $e) {
                 echo json_encode([
-                    'status'=> 1,
-                    'reply' => " ".$result
+                  'status' => 1,
+                  'reply' => "I could not be taught at this moment, please try again.",
                 ]);
-                
-               
                 return;
-            }
-           
-
-           else{
-
-            $question = "%$question%";
-            try{
-                $sql = "select * from chatbot where question like :question";
-                $initiate = $conn->prepare($sql);
-                $initiate->bindParam(':question', $question);
-                $initiate->execute();
-                $initiate->setFetchMode(PDO::FETCH_ASSOC);
-                $rows = $initiate->fetchAll();
-                if($rows){
-                 $rows_value = count($rows);
-                if($rows_value>0){
-                    $random = rand(0, $rows_value - 1);
-                    $row = $rows[$random];
-                    $answer = $row['answer'];
-                    echo json_encode([
-                        'status' => 1,
-                        'reply' => $answer,
-                      ]);
-                      return;
-                    }
-                }
-    
-            }
-            catch (PDOException $e) {
-                throw $e;
-            }
-
-           }
-            
-        }
-    
-
+              }
         
-    }
-   
+        }
+        else if (strpos($question_lower, "train:") != false){
 
- 
+            $trainInfo = explode("#", $question_lower);
+            $question_info = explode(":", $trainInfo[0]);
+            $question_temp = trim($question_info);
+
+            if(in_array($question_temp, $qArray)){
+                $qArraySize = count($qArray);
+                $random = rand(0,$qArraySize-1);
+                echo json_encode([
+                    'status' => 1,
+                    'reply' => $qArraySize[$random],
+                  ]);
+                  return;
+                } 
+            }
+            else if(strpos($data_lower, "help") !== false || $data_lower === "help"){
+                echo json_encode([
+                    'status' => 1,
+                    'reply' => "Hello there, my name is Rodrigo and I'm here to help you, this are a list of the commands i accept type to see a list of the commands I accept ",
+                  ]);
+                  return;
+            }
+            else if(strpos($data_lower, "aboutbot") !== false){
+                echo json_encode([
+                    'status' => 1,
+                    'reply' => "I'm Rodrigo <br> <b>Version 1.0<b>",
+                  ]);
+                  return;
+            }
+        }
 
 
 
@@ -147,12 +109,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>codetillamgone page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type="text/css">
-     .box{
-            margin-top:10px;
+        h1{
+            text-align : center;
+            position:fixed;
+            width:100%;
+            top:0px;
+            margin-top:0px;
+            margin-left:0px;
+            padding:10px;
+            text-align:center;
+            background-color:cornflowerblue;
+            color: white;
+        }.box{
+            margin-top:60px;
             float:left;
-            padding: 10px;
+            padding: 20px;
             text-align: center;
-            margin-left: 100px;
+            margin-left: 20px;
             height: 400px;
             width: 300px;
             background-color:cornflowerblue;
@@ -169,12 +142,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background-color:white;
         }.chatbotbox {
             background-color:white;
-            margin-top:10px;
+            margin-top:70px;
             float:left; 
-            margin-left:100px;
+            margin-left:300px;
             padding:20px;
-            height:450px;
-            width: 450px;
+            height:500px;
+            width: 500px;
             border-width:2px;
             text-align: left;
             min-width:390px;
@@ -192,9 +165,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }#chatlogs::-webkit-scrollbar-thumb{
             border-radius:5px;
             background-color:grey;
-        }.questionform input{
-            margin-left:20px;
-            height:40px;
+        }.questionform input[name=question]{
+            margin-left:10px;
+            height:50px;
             border:2px solid grey;
             border-radius:3px;
             color:grey;
@@ -204,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-top:20px;  
         }.questionform{
             width:100%;
-        }.questionform button{
+        }.questionform input[type=submit]{
             padding:10px;
             margin-top:5px;
             margin-left:5px;
@@ -248,9 +221,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <?php
-   
+
 try{
-   
     $getData = 'SELECT * FROM interns_data WHERE username="codetillamgone"';
     $query1 = $conn->query($getData);
     $query1->setFetchMode(PDO::FETCH_ASSOC);
@@ -265,7 +237,7 @@ catch(PDOException $e){
    $user = $result1['username'];
    $image = $result1['image_filename'];
  ?>
- 
+  <h1 class= "h1">Welcome to <i>@codetillamgone</i>'s Profile</h1>  
 <br/>
     <div class="box">
         <p class="one">
@@ -287,7 +259,7 @@ catch(PDOException $e){
     </div>
     <div class = "chatbotbox" >
         <div id="chatlogs"> 
-        <div > <span class= "bot" > Rodrigo :</span> Hello there, my name is Rodrigo and I'm here to help you, before that, my master instructed me to let everyone know that Manchester United is the best team in the world and supporting any other team is a complete waste of time now, type <b>--help</b> to see a list of the commands I accept  </div>
+        <div > <span class= "bot" > Rodrigo :</span> Hello there, my name is Rodrigo and I'm here to help you, type <b>help</b> to see a list of the commands I accept </div>
 
 
         
@@ -295,72 +267,55 @@ catch(PDOException $e){
             
         <div id= "chatform">
             <form  id="form" class = "questionform">
-            <input id="input" type="text"  placeholder="Lets talk, pal">
-            <button id="send" type="submit">SUBMIT</button>
+            <input id="input" type="text" name="question" placeholder="Lets talk, pal">
+            <input id="send" type="submit">
             </form>
            
         </div>
     </div> 
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script>
-
-    $(function(){
+    $(document).ready(function(){
         $("#form").submit(function(e){
-            e.preventDefault();
-            var question = $("#input").val();
-            $("#input").val("");
-            var client = document.getElementById('chatlogs');
-            if(question.trim() !== ''){
-                var text = document.createElement('div');
-                    text.innerHTML = "<br>"  + "<span class= 'username' > You: </span>" + question + "<br>";
-                    client.appendChild(text);
-                if(question.toLowerCase().includes("aboutbot")){
-                    var servertext = document.createElement('div');
-                    servertext.innerHTML = "<br>"  + "<span class= 'bot' > Rodrigo: </span>" + "Version : 1.1.0" + "<br>";
-                    client.appendChild(servertext);
-                    return false;
-                }
-                else if (question.toLowerCase().includes("aboutowner")){
-                    var servertext = document.createElement('div');
-                    servertext.innerHTML = "<br>"  + "<span class= 'bot' > Rodrigo: </span>" + "follow him on @codetillamgone across all social media platforms to know more, Oh you thought, I'd divulge personal information, <b>LOL</b>" + "<br>";
-                    client.appendChild(servertext);
-                    return false;
-                }
-
-
-                $.ajax({
-				url: "/profiles/codetillamgone.php",
+        e.preventDefault();
+         var question = $("#input").val();
+         $("#input").val("");
+         var client = document.getElementById('chatlogs');
+         if(question.trim() == ''){
+             var servertext = document.createElement('div');
+             servertext.innerHTML = "<br>"  + "<span class= 'bot' > Rodrigo: </span>" + "Please enter a question" + "<br>";
+             client.appendChild(servertext);
+         }
+         else{
+        
+         var text = document.createElement('div');
+         text.innerHTML = "<br>"  + "<span class= 'username' > You: </span>" + question + "<br>";
+         
+         client.appendChild(text);
+         }
+        
+         $.ajax({
+				url: "profiles/codetillamgone.php",
 				type: "post",
 				data: {question: question},
-                dataType: "json",
+				dataType: "json",
                 success: function(response){
-                    if(response.status === 1){
-                       
-                    var servertext = document.createElement('div');
-                    servertext.innerHTML = "<br>"  + "<span class= 'bot' > Rodrigo: </span>" + response.reply + "<br>";
-                    client.appendChild(servertext); 
-
+                    if( response.status == 1){
+                        var servertext = document.createElement('div');
+                        servertext.innerHTML = "<br>"  + "<span class= 'bot' > Rodrigo: </span>" + response.reply + "<br>";
+                        client.appendChild(servertext);
                     }
-                },          
-                    error: function(error){
-                    console.error(error);
-                    var servertext = document.createElement('div');
-                    servertext.innerHTML = "<br>"  + "<span class= 'bot' > Rodrigo: </span>" + "I don't understand what you said, it's prolly because I'm quite tired at the moment, could we talk some other time" + "<br>";
-                    client.appendChild(servertext); 
-                    
-				}                               
-                   
+                },
+                error : function(error){
+                    var errortext = document.createElement('div');
+                    errortext.innerHTML = "<br>"  + "<span class= 'bot' > Rodrigo: </span>" + "I'm quite tired at the moment, please can we talk another time...Please don't tell my Master" + "<br>";
+                    client.appendChild(errortext);
+                }
                 
-            })
-            }    
- 
-      
+         
+        });
 
-            
-           
-            
 
-        })
     });
     
     </script>

@@ -1,5 +1,4 @@
 <?php
-// include_once realpath(__DIR__ . '/..') . "/answers.php";
 if (!defined('DB_USER')) {
 	require "../../config.php";
 	try {
@@ -67,8 +66,7 @@ function getAction($input)
 			$data = greet();
 			break;
 		case 1: // chat or train
-			$human_response = preg_replace('/\s\s+/', ' ', $input['human_response']);
-			$data = chat_or_train($human_response);
+			$data = chat_or_train(preg_replace('/\s\s+/', ' ', $input['human_response']));
 			break;
 	}
 
@@ -168,20 +166,7 @@ function train($human_response){
 		$results = $q->fetchAll();
 		
 		if (count($results) > 0) {
-
-			$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
-
-			try {
-				$query = $conn->prepare($sql);
-
-				if ($query->execute([':question' => $question, ':answer' => $answer]) == true) {
-					$data = 'Cool, I have learnt a new answer to that question. thanks';
-				};
-
-			} catch (PDOException $e) {
-				$data = "Something went wrong, please try again";
-			}
-
+			$data = "I have learnt that already, thanks";
 		} else {
 			
 			$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
@@ -417,7 +402,7 @@ function train($human_response){
 				</div>
 
 				<h1 class="intro"><?=$name?> </h1>
-				<h3 class="text-center">Being Kind is better than being right :-)</h3>
+				<h3 class="text-center">Being Kind is better than being right.</h3>
 			</div>	
 		</section>
 	</div>

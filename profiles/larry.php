@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php 
  	require '../db.php';
 	$result = $conn->query("Select * from secret_word LIMIT 1");
@@ -7,22 +6,6 @@
 
     $result2 = $conn->query("Select * from interns_data where username = 'larry'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
-=======
-<?php
-    require_once '../db.php';
-    try {
-        $select = 'SELECT * FROM secret_word';
-        $query = $conn->query($select);
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $query->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    $secret_word = $data['secret_word']; 
-    
-    $result2 = $conn->query("Select * from interns_data where name = 'Sule Olanrewaju'");
-	$user = $result2->fetch(PDO::FETCH_OBJ);       
->>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
 ?>
 
 <!DOCTYPE html>

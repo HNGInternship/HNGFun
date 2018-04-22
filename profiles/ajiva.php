@@ -4,13 +4,13 @@
     <title>Ajiva Profile</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
 <<<<<<< HEAD
+    
+=======
 <<<<<<< HEAD
     
 =======
 >>>>>>> 9ffcdeb9dd95b31d85f8db38a40a268d2521bc63
-=======
-    
->>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
+>>>>>>> 34cb93c0f3ce95469dc0634e398538ac59ee848a
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <style>
         body{
@@ -19,9 +19,9 @@
             background-repeat: no-repeat;
             background-size: cover;
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
->>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
+<<<<<<< HEAD
+>>>>>>> 34cb93c0f3ce95469dc0634e398538ac59ee848a
             /* border-radius: 50%; */
         } 
         .card{
@@ -39,6 +39,7 @@
         }
 <<<<<<< HEAD
 =======
+=======
         } 
         .card{
             max-width: 30%;
@@ -46,17 +47,16 @@
             border-radius: 60%;
         }       
 >>>>>>> 9ffcdeb9dd95b31d85f8db38a40a268d2521bc63
-=======
->>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
+>>>>>>> 34cb93c0f3ce95469dc0634e398538ac59ee848a
     </style>
     
 </head>
 
 <body>
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
->>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
+<<<<<<< HEAD
+>>>>>>> 34cb93c0f3ce95469dc0634e398538ac59ee848a
 ss
     <div class="d-flex justify-content-center">
         <div class="card rounded p-0 mt-5">
@@ -84,6 +84,7 @@ ss
         </div>
     </div>
 <<<<<<< HEAD
+=======
 =======
 
     <div class="d-flex justify-content-center pt-5 mt-5">
@@ -118,8 +119,7 @@ ss
       $secret_word = $data['secret_word'];        
 ?>
 >>>>>>> 9ffcdeb9dd95b31d85f8db38a40a268d2521bc63
-=======
->>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
+>>>>>>> 34cb93c0f3ce95469dc0634e398538ac59ee848a
 
     
 </body>

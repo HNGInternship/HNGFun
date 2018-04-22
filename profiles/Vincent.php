@@ -10,8 +10,7 @@
             return $data;
         }
         function chatMode($ques){
-          require '../../config.php';
-          $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+            $conn = mysqli_connect("localhost", "root", "", "hngfun");
             if(!$conn){die("Unable to connect");}
             $query = "select answer from chatbot where question like '$ques'";
             $result = $conn->query($query)->fetch_all();
@@ -23,8 +22,6 @@
             return ;
         }
         function trainerMode($ques){
-          require '../../config.php';
-          $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
             $questionAndAnswer = substr($ques, 6); //get the string after train
             $questionAndAnswer =test_input($questionAndAnswer); //removes all shit from 'em
             $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
@@ -125,7 +122,7 @@ $secret_word = $get['secret_word'];
             width: 350px;
             height: 300px;
             overflow:auto;
-            margin-left:70%;
+            margin-left:30%;
         }
         .display nav{
             display:block;
@@ -156,7 +153,7 @@ $secret_word = $get['secret_word'];
 
   <div class="main d-flex justify-content-center align-content-center ">
   <div class="d-flex justify-content-end">
-          <img src="http://res.cloudinary.com/dzrvqcbdp/image/upload/v1523712826/vincent.jpg" class="img-thumbnail img-fluid rounded-circle "  alt="avatar">
+          <img src="http://res.cloudinary.com/dzrvqcbdp/image/upload/v1523712826/vincent.jpg`" class="img-thumbnail img-fluid rounded-circle w-40 h-40"  alt="avatar">
         </div>
     <div class=" text">
       <div class="my-5">
@@ -207,7 +204,7 @@ function sendMsg(){
             processData(xhttp.responseText);
         }
     };
-    xhttp.open("POST", "https://hng.fun/profiles/Vincent.php", true); 
+    xhttp.open("POST", "vincent.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("ques="+ques.value);
 }
@@ -230,7 +227,7 @@ function processData (data){
 function displayOnScreen(data,align){
     //console.log(data);
 
-    var lastchild = document.querySelector(".display ul:last-child");
+    var lastchild = document.querySelector("ul:last-child");
     var li = document.createElement("li");
     li.style.textAlign =align;
     li.innerHTML = data;
