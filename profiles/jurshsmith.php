@@ -15,7 +15,8 @@ HNG 4.0 | Jurshsmith
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	
+<link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=montserrat">	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -200,7 +201,7 @@ font-size: 15px !important;
 	}</style>
 <div id = "bot-interface" style = "background-color: #f4f4f4; height: 380px;width : 320px;border: 8px solid #04455d;border-bottom: 0px solid transparent; border-radius: 8px;overflow-y: auto">
 <center><div style = "width : 90%; background-color: #a39c9c;border-radius:3px;font-family: monospace"><b style = "font-family: montserrat"><i style = "font-size: 14px"class="fab fa-reddit-alien"></i>&nbsp;JOBOT</b><br>
-Hello I'm Jobot. I am your online assistant today.
+	Hello I'm Jobot. You call me <b>HNGBot</b> <i>too</i>.
 </div></center><br>
 <div id = "your-msg" style = "padding-bottom: 170px"></div>
 
@@ -285,18 +286,18 @@ $('#your-msg').append(strr);
 
 
 //time
-if (message.search("time") != -1){
+// if (message.search("time") != -1){
 
-reply = "The time is "+time;
+// reply = "The time is "+time;
 
-msg.text = reply;
-msg.lang = 'en-US';
-speechSynthesis.speak(msg);
+// msg.text = reply;
+// msg.lang = 'en-US';
+// speechSynthesis.speak(msg);
 
-reply = '<div id = "bb'+countt+'" style = "padding: 2px;background-color: #72beda;width:70%;position: relative;left: 30%;border-radius:4px "><b><i style = "font-size: 17px"class="fab fa-reddit-alien"></i>&nbsp;Bot</b><br><font class = "" style = "font-size: 10px; font-family: monospace">'+ reply + "</font></div><br>";
-        $("#your-msg").append(reply);  
-        gone = 0;
-}
+// reply = '<div id = "bb'+countt+'" style = "padding: 2px;background-color: #72beda;width:70%;position: relative;left: 30%;border-radius:4px "><b><i style = "font-size: 17px"class="fab fa-reddit-alien"></i>&nbsp;Bot</b><br><font class = "" style = "font-size: 10px; font-family: monospace">'+ reply + "</font></div><br>";
+//         $("#your-msg").append(reply);  
+//         gone = 0;
+// }
 
 
 
@@ -538,6 +539,16 @@ $('#toggle-bot').show();
 <script type = "text/javascript">
 $(document).ready(
 function(){
+var msg = new SpeechSynthesisUtterance();
+var voices = window.speechSynthesis.getVoices();
+msg.voice = voices[0]; // Note: some voices don't support altering params
+msg.voiceURI = 'native';
+msg.volume = 1; // 0 to 1
+msg.rate = 1; // 0.1 to 10
+msg.pitch = 2; //0 to 2
+msg.text = "Hello I'm Jobot, you can call me HNG BOT too";
+msg.lang = 'en-US';
+speechSynthesis.speak(msg);
   setInterval(function(){
 var width = $(document).innerWidth();
 if(width < 1000 )

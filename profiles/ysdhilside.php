@@ -33,41 +33,11 @@
 
   <body>
 
-    <!-- Navigation -->
-    <!---
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top" id="mainNav">
-      
-        <a class="navbar-brand" href="/index.php">HNG FUN</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          Menu
-          <i class="fa fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="../index.php">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../learn.php">Learn</a>
-            </li>
+<div class="container">
+    <br/><br/><br/><center>
+    <div class="container">
             
-            <li class="nav-item">
-              <a class="nav-link" href="../listing.php">Interns</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../admin.php">Register</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../testimonies.php">Testimonies</a>
-            </li>
-          </ul>
-      </div>
-    </nav>
-    -->
-
-    <div class="container" style="margin-top: 0 auto">
-            
-            <div class="card" style="width:18rem">
+            <div class="card">
                 <img class="card-img-top" alt="yusufsd header image" src="<?php echo $image ?>">
                 <div class="card-body">
 
@@ -82,34 +52,10 @@
                 </div>
             
             </div>
-        <!---
-
-    <div class="container">
-    	
-    		
-    			<div class="thumbnail">
-    				<img src= "<?php echo $image ?>" class="curve"/>
-    				<div>
-    					<h3> <?php echo $name ?></h3>
-    				</div>
-
-    				<div>
-    					<h3> <?php echo $username ?></h3>
-    				</div>
-
-    				<div>
-    					<h3 style="display: none"> <?php echo $secret_word ?></h3>
-    				</div>
-    			
-    		    </div>
-            
-    	
-    </div>
-
-    
-    	-->
     
 
+    
+</div>
 
 	
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
