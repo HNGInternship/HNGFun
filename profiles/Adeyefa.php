@@ -19,10 +19,12 @@ $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'")
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
 
-
+global $conn;
 
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+	global $conn;
 
     require "../answers.php";
 
