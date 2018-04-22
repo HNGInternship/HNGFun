@@ -1,6 +1,16 @@
 <?php 
 
-require "../config.php";
+if(!defined('DB_USER')){
+  require "../../config.php";		
+  try {
+      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
+}
+
+
+//require "../config.php";
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
@@ -8,134 +18,28 @@ $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
-?>
-
-<?php
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-	require "../answers.php";
-
-	function sendResponse($status, $answer){
-      echo json_encode([
-        'status' => $status,
-      'answer' => $answer]);
-      exit();
-    }
 
 
-    function answerQuestion($question){
-      global $conn;
-
-      $question = preg_replace('([\s]+)', ' ', trim($question));
-      $question = preg_replace("([?.])", "", $question);
-      
-      $question = "%$question%";
-      $sql = "select * from chatbot where question like :question";
-      $query = $conn->prepare($sql);
-      $query->execute([':question' => $question]);
-      $query->setFetchMode(PDO::FETCH_ASSOC);
-      $rows = $query->fetchAll();
-      
-      $resultsCount = count($rows);
-      if($resultsCount > 0){
-        $index = rand(0, $resultsCount - 1);
-        $row = $rows[$index];
-        $answer = $row['answer'];	
-        
-        $startParanthesesIndex = stripos($answer, "((");
-
-        // If the answer does not contain a function call
-        if($startParanthesesIndex === false){
-          sendResponse(200, $answer);
-        }else{
-          returnFunctionResponse($answer, $startParanthesesIndex);
-        }
-      }
-    }
-    function returnFunctionResponse($answer, $startParanthesesIndex){
-      $endParanthesesIndex = stripos($answer, "))");
-      if($endParanthesesIndex !== false){
-        $nameOfFunction = substr($answer, $startParanthesesIndex + 2, $endParanthesesIndex - $startParanthesesIndex - 2);
-        $nameOfFunction = trim($nameOfFunction);
-        
-        // If the function contains whitespace do not call it
-        if(stripos($nameOfFunction, ' ') !== false){
-          sendResponse(404, "The name of the function should not contain white spaces.");
-        }
-        
-        // If the function does not exist in answers.php, tell the user
-        if(!function_exists($nameOfFunction)){
-          sendResponse(404, "I'm sorry. I do not know what you're trying to make me do.");
-        }else{
-          $functionResult = str_replace("((".$nameOfFunction."))", $nameOfFunction(), $answer);
-          sendResponse(200, $functionResult);
-        }
-      }
-    }
 
 
-    function trainBot($question){
-        global $conn;
-
-        $trainingData = substr($question, 6);
-        $trainingData = preg_replace('([\s]+)', ' ', trim($trainingData));
-        $trainingData = preg_replace("([?.])", "", $trainingData);
-        
-        $splitString = explode("#", $trainingData);
-        if(count($splitString) == 1){
-          sendResponse(422, "Please provide valid training data.");
-        }
-        
-        $question = trim($splitString[0]);
-        $answer = trim($splitString[1]);
-
-        $sql = "insert into chatbot (question, answer) values (:question, :answer)";
-        $query = $conn->prepare($sql);
-        $query->bindParam(':question', $question);
-        $query->bindParam(':answer', $answer);
-        $query->execute();
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        
-        sendResponse(200, "I can literally feel my IQ increasing. Thanks 🙈");
-    }
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      if($_POST['password'] === 'trainpwforhng'){
-        $question = $_POST['question'];
-
-        $userIsTrainingBot = stripos($question, "train:");
-        if($userIsTrainingBot === false){
-          answerQuestion($question);
-        }else{
-          trainBot($question);
-        }
-        
-        $randomIndex = rand(0, sizeof($noIdeaResponses) - 1);
-        sendResponse(200, $noIdeaResponses[$randomIndex]);
-    }else{
-        echo json_encode([
-          'status' => 403,
-          'answer' => 'You are not authorized to train this bot.'
-        ]);
-      }
-    }
-}
-/*
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    include "../answers.php";
+    require "../answers.php";
+
+    date_default_timezone_set("Africa/Lagos");
     
     try{
 
-	    if(!isset($_POST['question'])){
+	    /*if(!isset($_POST['question'])){
 	      echo json_encode([
-	        'status' => 1,
-	        'result' => "Please provide a question"
+	        'status' => 0,
+	        'answer' => "Please provide a question"
 	      ]);
 	      return;
-	    }
+	    }*/
 
 	    //if(!isset($_POST['question'])){
-	    $mem = $_POST['question'];
+	    $mem = isset($_POST['question']);
 	    $mem = preg_replace('([\s]+)', ' ', trim($mem));
 	    $mem = preg_replace("([?.])", "", $mem);
 		$arr = explode(" ", $mem);
@@ -143,12 +47,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 		if($arr[0] == "train:"){
 
-
-
-	        //echo json_encode([
-	          //'status' => 0,
-	          //'answer' => "You need to enter the training password to train me."
-	        //]);
 			unset($arr[0]);
 			$q = implode(" ",$arr);
 			$queries = explode("#", $q);
@@ -174,15 +72,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			}
 			$quest = $queries[0];
 			$ans = $queries[1];
-<<<<<<< HEAD
-			 $sql = "INSERT INTO chatbot(question, answer) VALUES ( '" . $quest . "', '" . $ans . "')";
-			 $conn->exec($sql);
-			 echo json_encode([
-			 	'status' => 1,
-			 	'result' => "Thanks for training me, you can now test my knowledge"
-			 ]);
-			 return;
-=======
+
 			$sql = "INSERT INTO chatbot(question, answer) VALUES ( '" . $quest . "', '" . $ans . "')";
 			$conn->exec($sql);
 			echo json_encode([
@@ -190,14 +80,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				'result' => "Thanks for training me, you can now test my knowledge"
 			]);
 			return;
->>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
-	    }
-	    //else {
-	   //   $arrayName = array('result' => 'Oh my Error');
-	   //   header('Content-type: text/json');
-	   //   echo json_encode($arrayName);
-	   //   return;
-	   // }
+		}
 	    elseif ($arr[0] == "aboutbot") {
 	    	# code...
 	    	echo json_encode([
@@ -239,7 +122,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	}catch (Exception $e){
 		return $e->message ;
 	}
-}*/
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -327,7 +210,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		li{
 			size: 20px;
 		}
-		#questionBox{
+		#question{
 			font-size: 15px;
 			font-family: Ubuntu;
 			width: 400px;
@@ -346,7 +229,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    flex-direction: column;
 		}
 		.irr{
-	        color: #fff;
+	        color: red;
 	        font-size: 15px;
 			font-family: Ubuntu;
 		}
@@ -359,14 +242,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 		.iro{
 			float: right;
-			color: #0DDFFF;
+			color: red;
 			font-size: 20px;
 			font-family: Ubuntu;
 		}
 		.iio{
 			float: left;
 			margin-right: 90px;
-			color: #01DDDD;
+			color: red;
 			font-size: 20px;
 			font-family: Ubuntu;
 		}
@@ -399,10 +282,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			<div class="row-holder">
 				<div class="row2">
 					<div id="form">
-						<form id="qform" method="post">
+						<form id="qform" method="POST">
 							<div id="textform">
-								<textarea id='questionBox' name="question" placeholder="Enter message ..."></textarea>
-								<button type="submit" id="send-button">Send</button>
+								<textarea id='question' name="question" placeholder="Enter message ..."></textarea>
+								<button type="submit" id="send-button" method ="POST">Send</button>
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
@@ -440,7 +323,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				$.ajax({
 					url: '../profiles/Adeyefa.php',
 					type: 'POST',
-					data: {question: question},
+					data: JSON.stringify({question: question}),
 					dataType: 'json',
 					success: function(response){
 
@@ -454,8 +337,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					error: function(error){
 
 						console.log(error);
-				        alert(error);
-
 						//console.log(error);
 				        alert(JSON.stringify(error));
 

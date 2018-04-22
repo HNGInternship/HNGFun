@@ -6,7 +6,7 @@ phpmyadmin/
 /deploy
 .idea/
 config.php
-/null-
+
 .travis.yml
 push.sh
 /vendor/

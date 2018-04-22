@@ -26,9 +26,9 @@
             /*top:20px;*/
             width: 100%;
             /*padding-top: 300px;*/
-            height: 130px;
+            max-height: 230px;
             font-family: "Romanesco";
-            line-height: 130px;
+            line-height: 230px;
             font-size: 96px;
             text-align: center;
         }
@@ -200,12 +200,13 @@
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST['user-input'];
-        $data = preg_replace('/\s+/', '', $data);
+      //  $data = preg_replace('/\s+/', '', $data);
         $temp = explode(':', $data);
-
-        if($temp[0] === 'train'){
+        $temp2 = preg_replace('/\s+/', '', $temp[0]);
+        
+        if($temp2 === 'train'){
             train($temp[1]);
-        }elseif($temp[0] === 'aboutbot') {
+        }elseif($temp2 === 'aboutbot') {
             aboutbot();
         }else{
             getAnswer($temp[0]);
@@ -217,9 +218,9 @@
     }
     function train($input) {
         $input = explode('#', $input);
-        $question = $input[0];
-        $answer = $input[1];
-        $password = $input[2];
+        $question = trim($input[0]);
+        $answer = trim($input[1]);
+        $password = trim($input[2]);
         if($password == 'password') {
             $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
             $q = $GLOBALS['conn']->query($sql);

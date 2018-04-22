@@ -85,6 +85,7 @@ function bamiiCountryDetails($data) {
 
 ###################### END BAMII #####################
 
+
 function getListOfCommands() {
   return 'Type "<code>show: List of commands</code>" to see a list of commands I understand.<br/>
   Type "<code>open: www.google.com</code>" to open Google.com<br/>
@@ -329,6 +330,8 @@ Adokiye's function*/
 
 
 
+
+
 //****************************************************************************************************************************************************************
 //****************************************************************************************************************************************************************
 //****************************************************************************************************************************************************************
@@ -410,6 +413,7 @@ for($h=0;$h<sizeof($sentence);$h++){
 ////////////////////////////////////////////////
 function aboutMe(){
   return "Hi my name is Ruby, I am a chatbot, nice to meet you";
+
 }
 
 
@@ -569,7 +573,7 @@ require 'db.php';
 //}
 
 
-
+global $conn;
 $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$check' ORDER BY rand() LIMIT 1");
 $stmt->execute();
 if($stmt->rowCount() > 0)
@@ -611,13 +615,8 @@ function getMediumArticle(){
 
 }
 function getPinkyCommands(){
-    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/>
-    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/>
-    2. Get <b>motivational quote of the day.</b> or <b>inspire me today</b> <br/> 3. Get my creator <b>Ada's latest medium article</b> <br/>
-    4. Get or tell you<b> a random Yo Momma Joke</b>. <br/> 5. Get or tell you <b>what day of the week it is.</b> <br/>
-    6. Get the <b>date seven days or a week from now.</b> <br/> 7.Get or tell you<b> a random quote.</b> <br/>
-    8. Tell you version of the bot <b>aboutbot</b><br/>
-    NB. All or some of the words in bold should be included in your message. Please try to follow these patterns as I am still learning.";
+    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/>";
+
     //A.M.A
 }
 
@@ -629,32 +628,11 @@ function multiexplode ($delimiters,$string) {
     return  $launch;
 }
 
-//$text = "#train: this a question | this my answer :)";
-$exploded = multiexplode(array(":","|"),$message);
 
-$question = trim($exploded[1]);
-
-$answer = trim($exploded[2]);
 
 require 'db.php';
 
-try {
 
-    $sql = "INSERT INTO chatbot (id, question, answer)
-VALUES ('', '$question', '$answer')";
-    // use exec() because no results are returned
-    $conn->exec($sql);
-
-    echo "Thank you! i just learnt something new, my master would be proud of me.";
-
-	}
-catch(PDOException $e)
-    {
-    echo $sql . "<br>" . $e->getMessage();
-    }
-
-$conn = null;
-//////////////////////
 
 
 //And output will be like this:
@@ -734,9 +712,46 @@ function show_direction ($location1, $location2, $mode) {
 
 #####################################################################################################
 #                                                                                                   #
-#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS ABOVE            #
+#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS ABOVE           #
 #                                                                                                   #
 #####################################################################################################
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+///                                                                                  ////////'
+/// @UNCLETEE CODE STARTS HERE. bERAKING THE CODE CAN CAUSE SERIOUS HARVOC
+///
+/// ////////////////////////////////////////////////////////////////////////////////////////////
+
+function getNews($sources="techcrunch.com"){
+
+
+    $apiKey = 'f9cca98bdc5344ce8508b4a6b8110c59';
+    $url = 'https://newsapi.org/v2/everything?domains='.$sources.'&language=en&apiKey='.$apiKey;
+    $response = file_get_contents($url);
+    $foundNews = json_decode( $response , true);
+    $findOneNews = $foundNews['articles'][rand(0,count($foundNews['articles'])-1)];
+    $news = "Title-- ".$findOneNews['title']. "\n";
+    $news .= "Url--- ".$findOneNews['url'];
+    if(trim($foundNews['status'])=='ok'){
+        return  $news;
+    }else{
+        return "I cannot source for you at this time";
+    }
+}
+
+
+
+
+
+
+
+
+///
+/// eND Ehere
+///
+///
+
 
 function get_device_name($user_agent)
 {
@@ -750,32 +765,68 @@ function get_device_name($user_agent)
     return 'Other';
 }
 
-function davidQuadraticEquation($a, $b, $c){  #Remember I know where you live if you tamper with this function
-     $discriminat = pow($b,2) - (4 * $a * $c);
-     if($discriminat == 0){
-         $x = -($b/(2 * $a));
-<<<<<<< HEAD
-         return $x;
-=======
-         return $x;
->>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
-     }
-     else {
-         $root = sqrt($discriminat);
-         $x1 = (-$b + $root) / (2 *$a);
-         $x2 = (-$b - $root) / (2 *$a);
-<<<<<<< HEAD
-         return 'x1 is ' + $x1 + 'and' + 'x2 is ' + $x2;
-     }
+function davidQuadraticEquation($a, $b, $c)
+{  #Remember I know where you live if you tamper with this function
+    $discriminat = pow($b, 2) - (4 * $a * $c);
+    if ($discriminat == 0) {
+        $x = -($b / (2 * $a));
+        return $x;
+
+    } else {
+        $root = sqrt($discriminat);
+        $x1 = (-$b + $root) / (2 * $a);
+        $x2 = (-$b - $root) / (2 * $a);
+        return 'x1 is ' + $x1 + 'and' + 'x2 is ' + $x2;
+    }
+}
 
 
-=======
-         return 'x1 is ' + $x1 + 'and' + 'x2 is ' + $x2;
-     }
+/*
+ * Ionware's Function
+ * */
+if (! function_exists("iDictionary"))
+{
+    function iDictionary($word)
+    {
+        $url = "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/{$word}";
+        $request_option = array("http" => array(
+            'method' => 'GET',
+            "header" => "Accept: application/json\r\n".
+                "app_id: 8695feaa\r\n".
+                "app_key: b358014437a42bd357d1429925261d2e\r\n"
+        ));
+        $context = stream_context_create($request_option);
+        $api = file_get_contents($url, false, $context);
 
+        try {
+            $response = json_decode($api);
+            @$definition = $response->results[0]->lexicalEntries[0]->entries[0]->senses[0]->definitions[0];
+            @$example = $response->results[0]->lexicalEntries[0]->entries[0]->senses[0]->examples[0]->text;
 
->>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
- }
+            if (empty($definition))
+                return "Sorry, I can not find the word {$word}";
+
+            return "{$definition} <br> <b>{$example}</b>";
+        } catch (Exception $e) {
+            return "Sorry, I can not find the word {$word}.";
+        }
+
+    }
+
+    function iHNGIntern($username)
+    {
+        if (file_exists(__DIR__."/profiles/{$username}.php")) {
+            $profile = "http://hng.fun/profile.php?id={$username}";
+
+            return "Yes! {$username} is among HNG4 Internship program. View their profile at <a href='{$profile}'>{$profile}</a>";
+        }
+
+        return "Sadly, {$username} is not part of HNG4 Internship yet. But you can invite them!";
+    }
+}
+/*
+ * Ionware's function ends here */
+
 
 // Orinayo's function
 function Get_Hotelsng_wikipage()
@@ -823,4 +874,67 @@ return $cdown;
 //////// AKINSOURCE FUNCTION /////////////////////////////
 // I HAVE A PARTICULAR SET OF SKILLS. I WILL FIND YOU!/////
 //////////////////////////////////////////////////////////
+
+function getQuote()
+{
+    $url = 'https://talaikis.com/api/quotes/random/';
+    $result = file_get_contents($url);
+    return $result;
+}
+
+
+// functions by @bukola. DO NOT MODIFY
+function getUSSD($bankName){
+    switch(trim(strtolower($bankName))){
+        case 'first bank':
+        case 'fbn':
+        case 'FBN':
+        return '*894#';
+
+        case 'access bank':
+        return '*901#';
+
+        case 'gt bank':
+        case 'guaranty trust bank':
+        case 'gtb':
+        case 'GTB':
+        return '*737#';
+
+        case 'diamond bank':
+        return '*426#';
+
+        case 'fidelity bank':
+        return '*770#';
+
+        case 'ecobank':
+        return '*326#';
+
+        case 'sterling bank':
+        return '*822#';
+
+        case 'keystone bank':
+        return '*533#';
+
+        case 'skye bank':
+        return '*833#';
+
+        case 'union bank':
+        return '*826#';
+
+        case 'stanbic bank':
+        return '*909#';
+
+        case 'uba':
+        return '*919#';
+
+        case 'wema bank':
+        return '*945#';
+
+        case 'zenith bank':
+        return '*966#';
+    }
+}
+// End of functions by @Bukola
+
+
 ?>
