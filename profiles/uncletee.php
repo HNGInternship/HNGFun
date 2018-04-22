@@ -868,8 +868,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                 <img class="img-circle img-me" src="<?php  echo ($data['image_filename'])?>">
              </div>
              <div class="col-lg-7 col-md-7 col-sm-7    b0">
-                <h3 class = "name">@<?php echo ($data['username']) ?></h3>
-                 <h4 class="font-thin">Technophile</h4>
+                 <h4 class="font-thin">@<?php echo($data['username']) ?></h4>
                  <p class = "text-muted">
                     I have serious interest in the Nigeria technology startup space, as well as the use of emerging technology is resolving societal issues. However as a beginner in the technology space I am eager to be exposed to different analytical thinking and management skills.
                  </p>
