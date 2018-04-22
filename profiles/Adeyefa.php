@@ -20,14 +20,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 	    if(!isset($_POST['question'])){
 	      echo json_encode([
-	        'status' => 422,
+	        'status' => 0,
 	        'result' => "Please provide a question"
 	      ]);
 	      return;
 	    }
 
 	    //if(!isset($_POST['question'])){
-	    $mem = $_POST['question'];
+	    $mem = isset($_POST['question']);
 	    $mem = preg_replace('([\s]+)', ' ', trim($mem));
 	    $mem = preg_replace("([?.])", "", $mem);
 		$arr = explode(" ", $mem);
@@ -41,7 +41,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			if (count($queries) < 3) {
 				# code...
 				echo json_encode([
-					'status' => 403,
+					'status' => 0,
 					'result' => "You need to enter a password to train me."
 				]);
 				return;
@@ -53,7 +53,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			if ($password !== trainingpassword) {
 				# code...
 				echo json_encode([
-					'status'=> 403,
+					'status'=> 0,
 					'result' => "You entered a wrong passsword"
 				]);
 				return;
@@ -64,7 +64,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			$sql = "INSERT INTO chatbot(question, answer) VALUES ( '" . $quest . "', '" . $ans . "')";
 			$conn->exec($sql);
 			echo json_encode([
-				'status' => 200,
+				'status' => 1,
 				'result' => "Thanks for training me, you can now test my knowledge"
 			]);
 			return;
@@ -72,7 +72,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	    elseif ($arr[0] == "aboutbot") {
 	    	# code...
 	    	echo json_encode([
-	    		'status'=> 200,
+	    		'status'=> 1,
 	    		'result' => "I am MATRIX, Version 1.0.0. You can train me by using this format ' train: This is a question # This is the answer # password '"
 	    	]);
 	    	return;
@@ -94,14 +94,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		        $answer = $row['answer'];
 		        
 		        echo json_encode([
-		        	'status' => 200,
+		        	'status' => 1,
 		        	'result' => $answer
 		        ]);
 		        return;
 		    }else{
 
 		    	echo json_encode([
-		    		'status' => 403,
+		    		'status' => 0,
 		    		'result' => "I am sorry, I cannot answer your question now. You could offer to train me."
 		    	]);
 		    	return;
