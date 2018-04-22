@@ -44,6 +44,16 @@
   
 		//chatBot
 	if($_SERVER['REQUEST_METHOD'] === "POST"){
+
+		require "../answers.php";
+		// sending a reply to bot will call this function Abaraham
+        function botReply($answer){
+            echo json_encode([
+                'answer' => $answer
+                ]);
+            exit();
+        }
+
 	
 		function stripquestion($question){
 			// remove whitespace first
@@ -103,30 +113,51 @@
 				return;				
 			}
 			else{			
-			$strippedquestion = "%$strippedquestion%";
-			$answer_stmt = $conn->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
-			$answer_stmt->bindParam(':question', $strippedquestion);
-			$answer_stmt->execute();
-			$results = $answer_stmt->fetch();
-			if(($results)!=null){
-				$answer = $results['answer'];
-				echo json_encode([
-					'status' => 1,
-					'answer' => $answer
-				]);
-				return;		
+				$strippedquestion = "%$strippedquestion%";
+				$answer_stmt = $conn->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
+				$answer_stmt->bindParam(':question', $strippedquestion);
+				$answer_stmt->execute();
+				$results = $answer_stmt->fetch();
+				if(($results)!=null){
+					$answer = $results['answer'];
+					echo json_encode([
+						'status' => 1,
+						'answer' => $answer
+					]);
+					return;		
+				}
+				else{
+					$answer = "Wow, I can only answer your question to the best of my knowledge, but you can train me to be smart: By entering the following<br>
+					train: question #answer #password";
+					echo json_encode([
+						'status' => 0,
+						'answer' => $answer
+					]);
+					return;
+					
+				}
 			}
-			else{
-				$answer = "Wow, I can answer your questions to the best of my knowledge, but you can train me to be smart: By entering the following<br>
-				train: question #answer #password";
-				echo json_encode([
-					'status' => 0,
-					'answer' => $answer
-				]);
-				return;
-				
-			}
-			}
+
+
+			//get version and ussd Abraham
+
+			switch($question){
+                case 'bot-v':
+                case 'bot-V':
+                case 'Bot-v':
+                case 'Bot-V':
+                botReply('Version 2.2');
+            }
+
+            switch(true){
+                case "capital of:" === substr($question, 0, 5):
+                case "Capital of:" === substr($question, 0, 5):
+                botReply(getCapital(substr($question, 6)));
+            }
+
+
+
+
 		}
 }
 ?>
