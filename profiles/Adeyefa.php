@@ -18,7 +18,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
     
     try{
 
-	    if(!isset($_POST['question'])){
+	    if(!isset($_GET['question'])){
 	      echo json_encode([
 	        'status' => 422,
 	        'result' => "Please provide a question"
@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 	    }
 
 	    //if(!isset($_POST['question'])){
-	    $mem = $_POST['question'];
+	    $mem = $_GET['question'];
 	    $mem = preg_replace('([\s]+)', ' ', trim($mem));
 	    $mem = preg_replace("([?.])", "", $mem);
 		$arr = explode(" ", $mem);
