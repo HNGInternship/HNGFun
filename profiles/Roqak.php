@@ -1,7 +1,7 @@
 <?php
 include_once "db.php";
 // include 'answers.php'
-require "../../config.php";
+// require "../../config.php";
 
 
 ?>
