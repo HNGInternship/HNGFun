@@ -1,6 +1,6 @@
 <?php
-error_reporting(E_ALL);
-ini_set("display_errors", 'on');
+//error_reporting(E_ALL);
+//ini_set("display_errors", 'on');
 
 
 if (!defined(DB_USER))
@@ -386,10 +386,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             type: 'POST',
             success: function(data) {
                 var response = new Response("bot");
-                response.make(data.answer).send($(".bot-conversation"));
+                console.log(data.answer);
+                if (!data.answer) {
+                    response.make("iBot server is not responding properly").send($(".bot-conversation"));
+                } else {
+                    response.make(data.answer).send($(".bot-conversation"));
+                }
                 $('.bot-conversation').animate({ 'scrollTop': $(".bot-conversation")[0].scrollHeight});
             },
             error: function(error) {
+                var response = new Response("bot");
+                response.make("iBot server is not responding properly").send($(".bot-conversation"));
                 console.log(error);
             }
         })
