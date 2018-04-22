@@ -534,6 +534,8 @@ $(document).on('click', '.chatbot-close', function(){
 $(document).on('click', '.chatbot-help', function(){
     help_menu = $('.chatbot-message-bot:first').html();
     $('.chatbot-menu-content').append('<div class="chatbot-message-bot" id="last-message">'+help_menu+'</p></div>');
+    content_height = $('.chatbot-menu-content').prop('scrollHeight');
+    $('.chatbot-menu-content').scrollTop(content_height);
 });
 
 // Chatbot send button handler
