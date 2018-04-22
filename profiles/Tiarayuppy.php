@@ -131,7 +131,27 @@
     overflow:hidden;
     padding:0;
     width: 50%;
+    border: 2px;
 
+}
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
 }
 .frame > div:last-of-type{
     position:absolute;bottom:0;width:100%;display:flex;
@@ -1043,16 +1063,12 @@ body{
                     <div class="desc">Curious developer</div>
                     <div class="desc">Tech geek| Woman in Tech</div>
               
-                </div>
-               
-                    
+                </div>                 
   
             </div>
         </div>
     </div>
 </div>
-
-
 
       <div class="col-sm-6 col-sm-offset-5 frame" 
       style="box-shadow:2px 2px 4px 5px #ccc;
@@ -1082,7 +1098,7 @@ body{
                     </div> 
 
                 </div>
-                <div style="padding:10px;">
+                <div style="padding-top: 10px;">
                     <input type="submit" value="send your message" style=" border-radius:10px; flex-grow: 1; background-color: green; color: #FAFAFA; float: left;"/>
                 </form>
                 </div> 
