@@ -9,8 +9,10 @@ $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
+?>
 /////////////////////////////////
-
+<?php
+/*
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     include "../answers.php";
@@ -120,7 +122,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	}catch (Exception $e){
 		return $e->message ;
 	}
-}
+}*/
 ?>
 <!DOCTYPE html>
 <html>
