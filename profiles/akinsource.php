@@ -261,7 +261,7 @@ function hide() {//hide chat interface
 </script>
 
 
-<button onclick="hide(3000)">Click Me</button>
+<button onclick="hide(3000)" class="butto">Click Me</button>
 <div class="contain" align="center">
 <div class="scroll" id="view">
 <p class="message chat2">Hello my name is Alfred!</p>
@@ -294,7 +294,7 @@ $(document).ready(function(){
 		$.post("profiles/akinsource.php",
 			{inputw:inputw},
 			function(response, status){
-				alert(response);
+				//alert(response);
 				var replies = response.replace(/\"/g, "");
 				$( "#view" ).append('<p class = "chat2">'+'<b>Alfred: </b>'+replies+'</p>');
 				$("#view").scrollTop($("#view")[0].scrollHeight);
