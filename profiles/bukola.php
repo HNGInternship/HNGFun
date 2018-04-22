@@ -1,4 +1,25 @@
 <?php
+    if(!defined('DB_USER')){
+        require "../../config.php";		
+        try {
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        } catch (PDOException $pe) {
+            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+        }
+    }
+    global $conn;
+
+    try {
+        $sql = 'SELECT * FROM secret_word LIMIT 1';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+?>
+<?php
     require 'db.php';
     try {
         $sql = "SELECT intern_id, name, username, image_filename FROM interns_data WHERE username='bukola'";
@@ -20,7 +41,6 @@
         // When we are ready to send a reply to our bot we'll call this function
         function sendReply($answer){
             echo json_encode([
-                'status' => $status,
                 'answer' => $answer
                 ]);
             exit();
@@ -239,17 +259,6 @@
            
         </div>
     </div>
-    <?php
-        try {
-            $sql = 'SELECT * FROM secret_word LIMIT 1';
-            $q = $conn->query($sql);
-            $q->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $q->fetch();
-        } catch (PDOException $e) {
-            throw $e;
-        }
-        $secret_word = $data['secret_word'];
-    ?>
 
     
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
