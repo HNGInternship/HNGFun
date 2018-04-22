@@ -336,26 +336,45 @@ Adokiye's function*/
 //****************************************************************************************************************************************************************
 //****************************************************************THE WIZARD OF OZ********************************************************************************
 
+
 function pig_latin($text){
-  $pigText="Sorry, your word/sentence/phrase/clause contains only consonants. There must be vowels to translate to pig latin.";
-  $vowels"a,e,i,o,u";
+  $pigText="";
+  $intermediatePig="";
+  $vowels="a,e,i,o,u";
   $firstVowelPos=0;
   $frontConsonants="";
 
-  for($i=0;$i<strlen($text)-1;$i++){
-    if(strpos($vowels,$text[i])){
+
+    $sentence=explode ( " " , $text );
+
+for($h=0;$h<sizeof($sentence);$h++){ 
+  for($i=0;$i<strlen($sentence[$h]);$i++){
+    if(strpos($vowels,$sentence[$h][$i])!==FALSE){
       $firstVowelPos=$i;
-      $pigText=substr($text,firstVowelPos);
-      $pigText=$pigText.$frontConsonants;
-      return $pigText;
+      $intermediatePig=$intermediatePig.substr($sentence[$h],$firstVowelPos);
+      $intermediatePig=$intermediatePig.$frontConsonants."ay";
+      break;
     }
 
     else{
-      $frontConsonants=$frontConsonants.$text[i];
+      $frontConsonants=$frontConsonants.$sentence[$h][$i];
 
     }
 
   }
+
+  if($intermediatePig===""){
+  $intermediatePig=$intermediatePig.$frontConsonants;
+
+}
+
+  $frontConsonants="";
+  $pigText=$pigText.$intermediatePig." ";
+  $intermediatePig="";
+}
+
+
+
       return $pigText;
 
 
