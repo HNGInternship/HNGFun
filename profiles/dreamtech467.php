@@ -44,39 +44,6 @@
   
 		//chatBot
 	if($_SERVER['REQUEST_METHOD'] === "POST"){
-		
-		if (file_exists('../../answers.php')) {
-			require_once '../../answers.php';
-		} else if (file_exists('../answers.php')) {
-			require_once '../answers.php';
-		} elseif (file_exists('answers.php')) {
-			require_once 'answers.php';
-		}
-		
-		
-		function sendReply($answer){
-            echo json_encode([
-                'answer' => $answer
-                ]);
-            exit();
-        }
-
-        function answerBot($question){
-            global $conn;
-            switch($question){
-                case 'aboutbot':
-                case 'Aboutbot':
-                    sendReply('Version 2.2');
-            }
-            switch(true){
-                case "ussd:" === substr($question, 0, 5):
-                case "Ussd:" === substr($question, 0, 5):
-                case "USSD:" === substr($question, 0, 5):
-                    sendReply(getUSSD(substr($question, 6)));
-            }
-        }
-		
-		
 	
 		function stripquestion($question){
 			// remove whitespace first
@@ -120,8 +87,7 @@
 				return "An detect error: ". $e->getMessage();
 			}
 		}
-		//$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		global $conn;
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		if (isset($_POST['message']) && $_POST['message']!=null) {
 			$question = $_POST['message'];
 			$strippedquestion = stripquestion($question);
@@ -136,16 +102,13 @@
 				]);
 				return;				
 			}
-			else{	
-					
+			else{			
 				$strippedquestion = "%$strippedquestion%";
 				$answer_stmt = $conn->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
 				$answer_stmt->bindParam(':question', $strippedquestion);
 				$answer_stmt->execute();
 				$results = $answer_stmt->fetch();
-	
 				if(($results)!=null){
-					answerBot($question);	
 					$answer = $results['answer'];
 					echo json_encode([
 						'status' => 1,
@@ -164,9 +127,6 @@
 					
 				}
 			}
-
-
-
 		}
 }
 ?>
