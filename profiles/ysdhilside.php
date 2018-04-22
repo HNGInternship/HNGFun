@@ -67,18 +67,17 @@
 
     <div class="container" style="margin-top:30px">
             
-            <div class="card">
+            <div class="card" style="width:400px">
                 <img class="card-img-top" alt="Card header image" src="<?php echo $image ?>">
                 <div class="card-body">
                     <h5 class="card-title"><?php echo $name ?></h5>
                     <p class="card-text">HNG - Intern, Web developer.</p>
-                    <p class="card-text"><?php echo $username ?></p>
+                    <p class="card-text">Username: @<?php echo $username ?></p>
                     <a href="https://facebook.com/yusufsd" class="btn btn-primary">Facebook</a>
                     <a href="mailto:ysdhilside@gmail.com" class="btn btn-danger">Email</a>
-                
-            </div>
+                </div>
             
-        </div>
+            </div>
         <!---
 
     <div class="container">
