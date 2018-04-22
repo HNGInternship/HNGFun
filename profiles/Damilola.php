@@ -1,5 +1,5 @@
 <?php
-  require '../db.php';
+  //require '../db.php';
   $res = $conn->query("SELECT * FROM  interns_data WHERE username = 'Damilola' ");
   $row = $res->fetch(PDO::FETCH_BOTH);
   $name = $row['name'];
@@ -53,7 +53,7 @@
     width: 100%;
     text-align: center;
     position:;
-    padding-top: 5%;
+    padding-top: 10%;
     
   }
 
@@ -81,7 +81,10 @@
        <img src="http://res.cloudinary.com/damilola/image/upload/v1524350063/me.jpg" alt="Damilola" class="img-rounded">
         <p><?php echo $name; ?></p>
         <h4>Because i'm Batman (In Batman's voice)</h4>
-        <h4>Username: @<?php echo $username; ?>, Phone: 08023975087, Email: dhaamie.soyemi@gmail.com, Skills: Css,Bootstrap, Javascript, PHP</h4>
+        <h5>Username: @<?php echo $username; ?></h5>
+        <h5>Phone: 08023975087</h5> 
+        <h5>Email: dhaamie.soyemi@gmail.com</h5> 
+        <h5>Skills: Css,Bootstrap, Javascript, PHP</h5>
         
         
      </div>
