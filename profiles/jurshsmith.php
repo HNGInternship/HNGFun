@@ -185,7 +185,7 @@ html,body{
 
 <!-- botton for chatbot -->
 <button id = "toggle-bot" style = "background-color: #72beda; border: none;border-radius: 4px;color: white;"><i id = "j-icon" style = "font-size: 55px;padding:5px"class="fab fa-reddit-alien"></i>&nbsp;</button>
-<style>#j-icon:hover{font-size: 53px !important;}#toggle-bot:hover{background-color: #0c779e; !important;}#toggle-bot{position: fixed;bottom: 6px;right:6px;z-index: 800;}.dd{position: fixed;bottom: 2px;right:10px;z-index: 8000;}</style>
+<style>#j-icon:hover{font-size: 53px !important;}#toggle-bot:hover{background-color: #0c779e; !important;}#toggle-bot{position: fixed;bottom: 6px;right:6px;z-index: 800;}.dd{position: fixed;bottom: 2px;right:2px;z-index: 8000;}</style>
 <!-- chatbot new starts here -->
 <br>
 <div class = "dd">
@@ -200,7 +200,7 @@ font-size: 15px !important;
 	}</style>
 <div id = "bot-interface" style = "background-color: #f4f4f4; height: 380px;width : 320px;border: 8px solid #04455d;border-bottom: 0px solid transparent; border-radius: 8px;overflow-y: auto">
 <center><div style = "width : 90%; background-color: #a39c9c;margin-top: px;border-radius:3px;font-family: monospace"><b style = "font-family: montserrat"><i style = "font-size: 17px"class="fab fa-reddit-alien"></i>&nbsp;JOBOT</b><br>
-Hello I'm Jobot. Type help to see what i can do.
+Hello I'm Jobot. Type to see what i can do.
 </div></center><br>
 <div id = "your-msg" style = "padding-bottom: 170px"></div>
 
@@ -210,8 +210,8 @@ Hello I'm Jobot. Type help to see what i can do.
 	 
  	
 		<div class = "row" style = "background-color: #04455d;padding-top: 4px; padding-bottom: 9px">
-    <input type="text" class="form-control col-sm-10 col-xs-10 col-lg-10 col-md-10" id="bot-chat-area">
-  <button id = "send-msg" type="submit" style = "background-color: #04455d;color:white;height: 65%" class="btn btn-default col-sm-2 col-xs-2 col-lg-2 col-md-2"><i class="fab fa-telegram-plane"></i></button>
+    <input type="text" class="form-control col-sm-12 col-xs-12 col-lg-10 col-md-10" id="bot-chat-area">
+  <button id = "send-msg" type="submit" style = "background-color: #04455d;color: white;height: 65%" class="btn btn-default col-sm-12 col-xs-12 col-lg-2 col-md-2"><i class="fab fa-telegram-plane"></i></button>
 			
 	
 	</div>
