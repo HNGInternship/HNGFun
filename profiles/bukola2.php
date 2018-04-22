@@ -29,6 +29,35 @@
         function answerBot($question){
             global $conn;
 
+            $question = preg_replace('([\s]+)', ' ', trim($question));
+            $question = preg_replace("([?.])", "", $question);
+
+            switch(strtolower($question))
+            {
+                case "tell me a joke":
+                case "tell me another joke":
+                sendResponse(200, getAJoke());
+                break;
+
+                case "roll a dice":
+                sendResponse(200, rollADice());
+                break;
+
+                case "flip a coin":
+                sendResponse(200, flipACoin());
+                break;
+            }
+
+            switch(true){
+                case substr($question, 0, strlen('emojify:')) === "emojify:":
+                sendResponse(200, emojifyText(substr($question, strlen('emojify:') + 1, strlen($question))));
+                break;
+
+                case substr($question, 0, strlen('predict:')) === "predict:":
+                sendResponse(200, predictOutcome(substr($question, strlen('emojify:'), strlen($question))));
+                break;
+            }
+
             $question = "%".$question."%";
             $sql = "select * from chatbot where question like :question";
             $query = $conn->prepare($sql);
@@ -66,37 +95,13 @@
             }
         }
 
-        // We got a command to train the bot
-        function trainBot($question){
-            global $conn;
-
-            // Remove the 'train:' from the string and split itwith the delimiter # into the training question and answer
-            $data = explode("#", substr($question, 6));
-            $trainingQuestion = $data[0];
-            $trainingAnswer = $data[1];
-
-            $sql = "insert into chatbot (question, answer) values (:question, :answer)";
-            $query = $conn->prepare($sql);
-            $query->bindParam(':question', $trainingQuestion);
-            $query->bindParam(':answer', $trainingAnswer);
-            $query->execute();
-            $query->setFetchMode(PDO::FETCH_ASSOC);
-
-            sendReply("Hooray! You've trained me.");
-        }
-
         // Retrieving the question from the bot's POST request
         $question = $_POST['question'];
         if($question){
             $userIsTrainingBot = stripos('train:', $question);
             if($userIsTrainingBot){
-                trainBot($question);
-            }else{
-                answerBot($question);
+                
             }
-
-            // If something does not go well we'll still send a response incase
-            sendReply("Sorry. I have no idea what you just asked of me.");
         }
     }
 ?>
@@ -276,7 +281,7 @@
                     this.message = '';
                 },
                 answerQuery(query) {
-                    this.messages.push({ sender: 'bot', query: 'Coming up...' });
+                    this.messages.push({ sender: 'bot', query: 'coming up...' });
 
                     var params = new URLSearchParams();
                     params.append('password', 'password');

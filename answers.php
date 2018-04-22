@@ -209,6 +209,10 @@ function predictOutcome($battle){
 }
 // End of functions by @mclint_
 
+// functions by @mclint_. DO NOT MODIFY
+
+// End of functions by @Bukola
+
 //functions defined by @chigozie. DO NOT MODIFY!!!
 function getDayOfWeek(){
     return date("l");
