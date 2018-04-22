@@ -145,7 +145,8 @@
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
         }
         html {
             font-size: 62.5%;
@@ -163,19 +164,36 @@
         }
         .wrapper {
             width: 100%;
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-evenly;
+            -ms-flex-wrap: wrap;
+                flex-wrap: wrap;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+            -webkit-box-pack: space-evenly;
+                -ms-flex-pack: space-evenly;
+                    justify-content: space-evenly;
         }
         .my-profile, .bot {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            flex-direction: column;
-            justify-content: space-around;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                    flex-direction: column;
+            -ms-flex-pack: distribute;
+                justify-content: space-around;
             height: 500px;
             width: 100%;
-            flex: 1 1 50%;
-            align-items: center;
+            -webkit-box-flex: 1;
+                -ms-flex: 1 1 50%;
+                    flex: 1 1 50%;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
             padding-top: 3em;
         }
         .my-face {
@@ -200,8 +218,13 @@
             height: 500px;
             width: 80%;
             padding: 1em;
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            flex-direction: column;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                    flex-direction: column;
             position: relative;
             background-color: #f4e8ea;
             border-radius: 5px;
@@ -232,8 +255,13 @@
             font-weight: 700;
         }
         .actions {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            flex-direction: row;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+                -ms-flex-direction: row;
+                    flex-direction: row;
             height: 60px;
         }
 
@@ -274,7 +302,6 @@
             </div>
         </div>
         <div class="bot">
-           
         </div>
     </div>
 
@@ -327,6 +354,9 @@
             },
             template: `
             <div class="bot">
+                <div>
+                    <h1>Chat with Phoenix!<h1>
+                </div>
                 <div class="bot-con">
                     <div style="height: 500px; overflow-y: scroll;">
                         <ul>

@@ -202,7 +202,7 @@
         $data = $_POST['user-input'];
       //  $data = preg_replace('/\s+/', '', $data);
         $temp = explode(':', $data);
-        $temp2 = preg_replace('/\s+/', '', $temp[0])
+        $temp2 = preg_replace('/\s+/', '', $temp[0]);
         
         if($temp2 === 'train'){
             train($temp[1]);
@@ -218,9 +218,9 @@
     }
     function train($input) {
         $input = explode('#', $input);
-        $question = $input[0];
-        $answer = $input[1];
-        $password = preg_replace('/\s+/', '', $input[2]);
+        $question = trim($input[0]);
+        $answer = trim($input[1]);
+        $password = trim($input[2]);
         if($password == 'password') {
             $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
             $q = $GLOBALS['conn']->query($sql);
