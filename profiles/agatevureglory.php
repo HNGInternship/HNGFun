@@ -230,8 +230,6 @@ class DBHelper{
  * @return mixed|string
  */
 	function botAnswer($result){
-		require_once '../../config.php';
-		require "../answers.php";
 		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		if (empty($result)) $answer = 'I will understand you better, if you train me. To train me type; train: Question #Answer #password';
 		else {
