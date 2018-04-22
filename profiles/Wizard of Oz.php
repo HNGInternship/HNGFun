@@ -76,7 +76,7 @@ function doSpecialFunction($func,$text){
 
 function workOnTrainData($data){
 
-    require '../db.php'
+    require '../db.php';
 
 
     // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
@@ -192,7 +192,7 @@ catch(PDOException $e){
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700" rel="stylesheet" type="text/css">
 
 
-    <title>HNG FUN</title>
+    <title>HNG FUN</title>
 
 
 <style>
