@@ -1,6 +1,16 @@
 <?php 
 
-require "../config.php";
+if(!defined('DB_USER')){
+  require "../../config.php";		
+  try {
+      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
+}
+
+
+//require "../config.php";
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
@@ -8,11 +18,11 @@ $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
-?>
 
-<?php
 
-/*if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     require "../answers.php";
 
@@ -29,7 +39,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 	    }
 
 	    //if(!isset($_POST['question'])){
-	    $mem = isset($_POST['question']);
+	    /*$mem = isset($_POST['question']);
 	    $mem = preg_replace('([\s]+)', ' ', trim($mem));
 	    $mem = preg_replace("([?.])", "", $mem);
 		$arr = explode(" ", $mem);
@@ -108,11 +118,11 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		    	]);
 		    	return;
 		    }
-	    }
+	    }*/
 	}catch (Exception $e){
 		return $e->message ;
 	}
-}*/
+}
 ?>
 <!DOCTYPE html>
 <html>
