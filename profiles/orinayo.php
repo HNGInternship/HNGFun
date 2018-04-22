@@ -1,3 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Homemade+Apple|Roboto|Spectral+SC" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+    <style>
+        .content {
+            padding-top: 10px;
+            text-align: center;
+        }
+
+        .profile-pic {
+            width: 18em !important;
+        }
+
+        .bio {
+            text-align: center;
+            margin: 0px 10px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        #chat-window, #chat-bot, .chat-text, .chat-btn, .submitInput {
+            display: none;
+        }
+
+        @media (min-width: 48em) {
+            .bio {
+                text-align: center;
+                margin: 0px 150px;
+                font-family: 'Roboto', sans-serif;
+            }
+
+            #chat-window, #chat-bot, .chat-text, .chat-btn, .submitInput {
+            display: block;
+            }
+
+            #chat-window {
+                width: 20%;
+                margin-right: 0.5em;
+            }
+
+            #chat-bot {
+                background-color: #15AB5F;
+                margin-top: 2px;
+                padding-top: 1em;
+                padding-bottom: 1em;
+                max-height: 25em;
+                overflow-y: scroll;
+            }
+
+            .chat-text {
+                background-color: #fff;
+                padding-right: 0.3em;
+                padding-left: 0.3em;
+                border-radius: 4px;
+            }
+
+            .chat-btn {
+                float: right;
+            }
+
+            .submitInput {
+                margin-top: 1em;
+            }
+
+        }
+
+        .checkwork {
+            border: 1px solid #f4511e;
+            color: #f4511e;
+            transition-duration: 0.4s;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .checkwork:hover {
+            background-color: #f4511e;
+            color: black;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            height: 30px;
+            width: 30px;
+            outline: black;
+            background-size: 100%, 100%;
+            border-radius: 50%;
+            border: 1px solid black;
+            background-image: none;
+        }
+
+        .carousel-control-next-icon:after {
+            content: '>';
+            font-size: 15px;
+            color: red;
+        }
+
+        .carousel-control-prev-icon:after {
+            content: '<';
+            font-size: 15px;
+            color: red;
+        }
+
+        .self-eval {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .progress {
+            font-family: 'Roboto', sans-serif;
+            height: 53px;
+            font-size: 13px;
+            background-color: #fff;
+        }
+
+        .strengths {
+            font-size: 80px;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .icon-desc {
+            font-family: 'Roboto', sans-serif;
+            display: block;
+            text-align: center;
+        }
+
+        .socialMedia {
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
 <?php
 
 $user_input = "";
@@ -215,146 +355,6 @@ function Get_Hotelsng_wikipage()
 }
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Homemade+Apple|Roboto|Spectral+SC" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
-    <style>
-        .content {
-            padding-top: 10px;
-            text-align: center;
-        }
-
-        .profile-pic {
-            width: 18em !important;
-        }
-
-        .bio {
-            text-align: center;
-            margin: 0px 10px;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        #chat-window, #chat-bot, .chat-text, .chat-btn, .submitInput {
-            display: none;
-        }
-
-        @media (min-width: 48em) {
-            .bio {
-                text-align: center;
-                margin: 0px 150px;
-                font-family: 'Roboto', sans-serif;
-            }
-
-            #chat-window, #chat-bot, .chat-text, .chat-btn, .submitInput {
-            display: block;
-            }
-
-            #chat-window {
-                width: 20%;
-                margin-right: 0.5em;
-            }
-
-            #chat-bot {
-                background-color: #15AB5F;
-                margin-top: 2px;
-                padding-top: 1em;
-                padding-bottom: 1em;
-                max-height: 25em;
-                overflow-y: scroll;
-            }
-
-            .chat-text {
-                background-color: #fff;
-                padding-right: 0.3em;
-                padding-left: 0.3em;
-                border-radius: 4px;
-            }
-
-            .chat-btn {
-                float: right;
-            }
-
-            .submitInput {
-                margin-top: 1em;
-            }
-
-        }
-
-        .checkwork {
-            border: 1px solid #f4511e;
-            color: #f4511e;
-            transition-duration: 0.4s;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .checkwork:hover {
-            background-color: #f4511e;
-            color: black;
-        }
-
-        .carousel-control-prev-icon,
-        .carousel-control-next-icon {
-            height: 30px;
-            width: 30px;
-            outline: black;
-            background-size: 100%, 100%;
-            border-radius: 50%;
-            border: 1px solid black;
-            background-image: none;
-        }
-
-        .carousel-control-next-icon:after {
-            content: '>';
-            font-size: 15px;
-            color: red;
-        }
-
-        .carousel-control-prev-icon:after {
-            content: '<';
-            font-size: 15px;
-            color: red;
-        }
-
-        .self-eval {
-            text-align: center;
-            padding-bottom: 20px;
-        }
-
-        .progress {
-            font-family: 'Roboto', sans-serif;
-            height: 53px;
-            font-size: 13px;
-            background-color: #fff;
-        }
-
-        .strengths {
-            font-size: 80px;
-            text-align: center;
-            display: inline-block;
-        }
-
-        .icon-desc {
-            font-family: 'Roboto', sans-serif;
-            display: block;
-            text-align: center;
-        }
-
-        .socialMedia {
-            font-size: 30px;
-        }
-    </style>
-</head>
-
-<body>
             <!--home-->
             <div class="container-fluid content">
                 <h3 class="text-center text-dark display-5">Hello, I'm

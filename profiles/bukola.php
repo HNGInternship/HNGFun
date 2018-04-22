@@ -59,7 +59,7 @@
                 case "ussd:" === substr($question, 0, 5):
                 case "Ussd:" === substr($question, 0, 5):
                 case "USSD:" === substr($question, 0, 5):
-                    sendReply(getUSSD(substr($question, 6)));
+                    sendReply('The USSD for ' $bankName 'is ' getUSSD(substr($question, 6)));
             }
 
             $question = "%".$question."%";
