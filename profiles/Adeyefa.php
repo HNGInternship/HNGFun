@@ -30,13 +30,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
     try{
 
-	    if(!isset($_POST['question'])){
+	    /*if(!isset($_POST['question'])){
 	      echo json_encode([
 	        'status' => 0,
 	        'answer' => "Please provide a question"
 	      ]);
 	      return;
-	    }
+	    }*/
 
 	    //if(!isset($_POST['question'])){
 	    $mem = isset($_POST['question']);
