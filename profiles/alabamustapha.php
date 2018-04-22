@@ -52,11 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
 
-$data = getAction(['stage' => 1, 'human_response' => '                          train:                   what is the             synonym of die # kill,death #     password']);
+// $data = getAction(['stage' => 1, 'human_response' => '                          train:                   what is the             synonym of die # kill,death #     password']);
 
-echo $data;
+// echo $data;
 
-die;
+// die;
 
 function getAction($input)
 {
