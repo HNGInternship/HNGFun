@@ -56,10 +56,10 @@
             }
 
             switch(true){
-                case "ussd" === substr($question, 0, 4):
-                case "Ussd" === substr($question, 0, 4):
-                case "USSD" === substr($question, 0, 4):
-                    sendReply(getUSSD(substr($question, 5)));
+                case "ussd:" === substr($question, 0, 5):
+                case "Ussd:" === substr($question, 0, 5):
+                case "USSD:" === substr($question, 0, 5):
+                    sendReply(getUSSD(substr($question, 6)));
             }
 
             $question = "%".$question."%";
