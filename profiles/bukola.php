@@ -101,10 +101,10 @@
         function trainBot($question){
             global $conn;
 
-            // Remove the 'train:' from the string and split itwith the delimiter # into the training question and answer
+            // Remove the 'train:' from the string and split it with the delimiter # into the training question and answer
             $data = explode("#", substr($question, 6));
-            $trainingQuestion = $data[0];
-            $trainingAnswer = $data[1];
+            $trainingQuestion = trim($data[0]);
+            $trainingAnswer = trim($data[1]);
 
             $sql = "insert into chatbot (question, answer) values (:question, :answer)";
             $query = $conn->prepare($sql);
@@ -120,10 +120,10 @@
         $question = $_POST['question'];
         if($question){
             $userIsTrainingBot = stripos($question, 'train:');
-            if($userIsTrainingBot === true){
-                trainBot($question);
-            }else{
+            if($userIsTrainingBot === false){
                 answerBot($question);
+            }else{
+                trainBot($question);
             }
 
             // If something does not go well we'll still send a response incase
