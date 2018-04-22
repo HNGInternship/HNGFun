@@ -195,11 +195,17 @@ img{
     border: none;
     outline: none;
     transition: 0.4s;
+		    padding-top:0px;
         
 }
             .panel{
                 overflow-x:hidden;
                 overflow-y:scroll;
+    padding: 0 18px;
+    background-color: white;
+    display: none;
+
+
 		   
             }
             .panel::-webkit:scrollbar{width:5px;
@@ -225,6 +231,9 @@ img{
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
+			#questionfield{
+				postion:fixed;
+			}
            
 
 </body>
