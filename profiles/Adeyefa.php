@@ -90,19 +90,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			]);
 			return;
 			
-		}/*
+		}
 		elseif ($arr[0] == "convert") {
 			# code...
 			$from = $arr[1];
 			$to = $arr[3];
 			$converted_price = GetCryptoPrice($from, $to);
-			$price = "1 . $from . = . $converted_price . $to .";
+			$price = "1 " . $from . " = " . $to . " " . $converted_price ;
 			echo json_encode([
 				'status' => 1,
-				'answer' => $price,
-			])
+				'answer' => $price
+			]);
 			return;
-		}*/
+		}
 	    elseif ($arr[0] == "aboutbot") {
 	    	# code...
 	    	echo json_encode([
@@ -368,7 +368,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#queries").append("<li>" + question + "<li>");
+				$("#queries").append("<li>" + question + "</li>");
 					//let newMessage = `<div class="iro">
 	                  //${question}
 	                //</div>`
@@ -378,7 +378,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#ans").append("<li>"  + response.answer +  "<li>");
+			        $("#ans").append("<li>" + response.answer + "</li>");
 			       // console.log(response.result);
 			        //alert(response.result.d);
 			        //alert(answer.result);

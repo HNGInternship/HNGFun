@@ -135,8 +135,8 @@ h2{
 	color:white;
 	font-family: forte ;
 font-size: 50px;
-text-align: center;
-	padding-top: 50px;
+text-align: center;	
+padding:40px;
 }
 
 h1{
@@ -183,34 +183,29 @@ img{
 		 }
 		 #answer{
 			 color:darkmagenta;
-             float:left;
+             float:right;
 		 }
             .accordion {
     background-color: darkmagenta;
     color: white;
     cursor: pointer;
-    width:30%;
     padding: 18px;
+    width:50%;
     text-align: left;
     font-size:30px;
     border: none;
     outline: none;
     transition: 0.4s;
-		 
         
 }
             .panel{
                 overflow-x:hidden;
                 overflow-y:scroll;
-    padding: 0 18px;
-    background-color: white;
-    display: none;
-
-
-		   
+				
             }
-            .panel::-webkit:scrollbar{
-		    width:5px;  
+            .panel::-webkit:scrollbar{width:5px;
+                
+                
             }
             .button {
   font-size: 15px;
@@ -231,10 +226,11 @@ img{
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
-			#questionfield{
-				postion:fixed;
-			}
-           
+            .panel{
+                width:50%;
+                
+            
+            }
 
 </body>
 </html>
@@ -250,8 +246,9 @@ img{
 <h2>Welcome to</h2>
 <h1>HNG Internship 4.0</h1>
   <img src="<?php echo $user->image_filename ?>" />
-         <section class= "col-lg-12 col-md-12 col-sm-12 col-xs-12 chat-frame" >
-            <button class="accordion">HELLO WORLD!!!</button>
+         <section class= "col-md-6 offset-md-1 chat-frame" >
+             <div class="row" style="margin-top: 2px;">
+                 <button class="accordion">HELLO WORLD!!!</button>
 <div class="panel">
     <p style= color:darkmagenta;> <h4> I'm Fotes_Bot:Ask me anything!!!</h4><br>
 
