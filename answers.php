@@ -336,7 +336,6 @@ Adokiye's function*/
 //****************************************************************************************************************************************************************
 //****************************************************************THE WIZARD OF OZ********************************************************************************
 
-<<<<<<< HEAD
 
 function pig_latin($text){
   $pigText="Sorry, your word/sentence/phrase/clause contains only consonants. There must be vowels to translate to pig latin.";
@@ -498,7 +497,7 @@ function simpleMaths($operation, $expression){
 <<<<<<< HEAD
 
 =======
-      
+
 >>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
       default:
         # code...
@@ -641,7 +640,7 @@ function getPinkyCommands(){
 <<<<<<< HEAD
     echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/>
 =======
-    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/> 
+    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/>
 >>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
     2. Get <b>motivational quote of the day.</b> or <b>inspire me today</b> <br/> 3. Get my creator <b>Ada's latest medium article</b> <br/>
     4. Get or tell you<b> a random Yo Momma Joke</b>. <br/> 5. Get or tell you <b>what day of the week it is.</b> <br/>
@@ -787,7 +786,7 @@ function davidQuadraticEquation($a, $b, $c){  #Remember I know where you live if
 <<<<<<< HEAD
          return $x;
 =======
-         return $x; 
+         return $x;
 >>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
      }
      else {
@@ -800,10 +799,10 @@ function davidQuadraticEquation($a, $b, $c){  #Remember I know where you live if
 
 
 =======
-         return 'x1 is ' + $x1 + 'and' + 'x2 is ' + $x2; 
+         return 'x1 is ' + $x1 + 'and' + 'x2 is ' + $x2;
      }
-    
-     
+
+
 >>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
  }
 

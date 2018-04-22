@@ -10,7 +10,4 @@ config.php
 /null-
 .travis.yml
 push.sh
-<<<<<<< HEAD
-=======
 /vendor/
->>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
