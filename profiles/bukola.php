@@ -34,11 +34,11 @@
     }
 ?>
 <?php
-    // Our bot will send a POST request to this file and we only want the code below to run only when that happens
+    // bot will send a POST request to this file
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         require "../answers.php";
 
-        // When we are ready to send a reply to our bot we'll call this function
+        // sending a reply to bot will call this function
         function sendReply($answer){
             echo json_encode([
                 'answer' => $answer
@@ -92,12 +92,12 @@
             }else{
                 $functionCallResult = $functionToCall();
 
-                // We'll now send the reply of the function call in the original answer we got from the DB
+                // send the reply of the function call in the original answer we got from the DB
                 sendReply(str_replace("((".$functionToCall."))", $functionCallResult, $answer));
             }
         }
 
-        // We got a command to train the bot
+        // command to train the bot
         function trainBot($question){
             global $conn;
 
@@ -113,7 +113,7 @@
             $query->execute();
             $query->setFetchMode(PDO::FETCH_ASSOC);
 
-            sendReply("Hooray! You've trained me.");
+            sendReply("YAY! I have more home training now!");
         }
 
         // Retrieving the question from the bot's POST request
@@ -126,7 +126,7 @@
                 trainBot($question);
             }
 
-            // If something does not go well we'll still send a response incase
+            // send response for other errors
             sendReply("Sorry. I have no idea what you just asked of me.");
         }
     }
@@ -278,13 +278,14 @@
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-        // This is Vue.js
+
         // el is for the element we want to attach Vue.js to
         new Vue({
             el: '.bot',
             data: {
                 messages: [{data: "Hey, I'm Phoenix!", sender: 'bot'}, 
-                {data: "I know the USSD codes of all banks in Nigeria! Just type 'ussd: name_of_bank' e.g 'ussd: Money Bank'", sender: 'bot'}],
+                {data: "I know the USSD codes of all banks in Nigeria! Just type 'ussd: name_of_bank' e.g 'ussd: Money Bank'.To train me, use this format 'train: question # answer'", 
+                sender: 'bot'}],
                 message: ''
             },
             methods: {
