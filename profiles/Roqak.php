@@ -43,7 +43,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
    //   $arrayName = array('result' => 'Oh my Error');
    //   header('Content-type: text/json');
    //   echo json_encode($arrayName);
-   //   return;
+   //   return
    // }
     else {
       $mem = "%$mem%";
