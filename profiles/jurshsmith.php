@@ -200,7 +200,7 @@ font-size: 15px !important;
 	}</style>
 <div id = "bot-interface" style = "background-color: #f4f4f4; height: 380px;width : 320px;border: 8px solid #04455d;border-bottom: 0px solid transparent; border-radius: 8px;overflow-y: auto">
 <center><div style = "width : 90%; background-color: #a39c9c;margin-top: px;border-radius:3px;font-family: monospace"><b style = "font-family: montserrat"><i style = "font-size: 17px"class="fab fa-reddit-alien"></i>&nbsp;JOBOT</b><br>
-Hello I'm Jobot. Type 'help' to see what i can do.
+Hello I'm Jobot. Type to see what i can do.
 </div></center><br>
 <div id = "your-msg" style = "padding-bottom: 170px"></div>
 
