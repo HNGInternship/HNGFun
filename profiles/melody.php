@@ -202,7 +202,7 @@
         $data = $_POST['user-input'];
       //  $data = preg_replace('/\s+/', '', $data);
         $temp = explode(':', $data);
-        $temp2 = preg_replace('/\s+/', '', $temp[0])
+        $temp2 = preg_replace('/\s+/', '', $temp[0]);
         
         if($temp2 === 'train'){
             train($temp[1]);
