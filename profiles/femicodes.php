@@ -36,7 +36,7 @@
 @import url("font-awesome.min.css");
 
 
-	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
 		margin: 0;
 		padding: 0;
 		border: 0;
@@ -879,6 +879,9 @@
 			background-size: 300px auto;
 			width: 900px;
 		}
+		img {
+  			border-radius: 50%;
+		}
 
 	/* Header */
 
@@ -1009,6 +1012,7 @@
 ?>
 
 							<!-- <p>Time: <span id="datetime"></span></p> -->
+						<img src="<?php echo $user->image_filename ?>" />
 						<h1><?php echo $user->name ?></h1>
 						<p>Android Developer &nbsp;&bull;&nbsp; Technical Writer &nbsp;&bull;&nbsp; Part Time UI/UX Designer</p>
 					
