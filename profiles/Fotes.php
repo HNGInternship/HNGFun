@@ -247,10 +247,14 @@ img{
   <img src="<?php echo $user->image_filename ?>" />
         
 <<<<<<< HEAD
+<<<<<<< HEAD
 		<section class= "col-md-12 offset-md-8 chat-frame" >
 =======
 		<section class= "col-md-6 chat-frame" >
 >>>>>>> cffa47c00ddce269077478775e32ec23b53f51d7
+=======
+		<div class="col-md-6 col-sm-3 col-xs-3 offset-md-1 chat-frame">
+>>>>>>> 5884600536eeed44302a8e441af37bbe61961641
              <div class="row">
                  <button class="accordion">HELLO WORLD!!!</button>
 <div class="panel">
