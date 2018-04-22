@@ -52,16 +52,30 @@
 		} elseif (file_exists('answers.php')) {
 			require_once 'answers.php';
 		}
-		
 		// sending a reply to bot will call this function Abaraham
-        function botReply($answer){
+		function botReply($answer){
             echo json_encode([
 				'status' => 1,
                 'answer' => $answer
                 ]);
-            return;	
+            exit();
         }
-
+		
+		function answerBot($question){
+			//get version Abraham
+			switch($question){
+				case 'bot-v':
+				case 'bot-V':
+				case 'Bot-v':
+				case 'Bot-V':
+				botReply('Version 2.2');
+			}
+			switch(true){
+				case "capital:" === substr($question, 0, 29):
+				case "Capital:" === substr($question, 0, 29):
+				botReply(getCapital(substr($question, 30)));
+			}
+		}
 	
 		function stripquestion($question){
 			// remove whitespace first
@@ -120,34 +134,15 @@
 				]);
 				return;				
 			}
-			else{			
+			else{	
+				answerBot($question);		
 				$strippedquestion = "%$strippedquestion%";
+				
 				$answer_stmt = $conn->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
 				$answer_stmt->bindParam(':question', $strippedquestion);
 				$answer_stmt->execute();
 				$results = $answer_stmt->fetch();
-				
-				
-				
-				//get version Abraham
-				//global $conn;
-				switch($question){
-					case 'bot-v':
-					case 'bot-V':
-					case 'Bot-v':
-					case 'Bot-V':
-					botReply('Version 2.2');
-				}
-				
-				switch(true){
-					case "capital:" === substr($question, 0, 29):
-					case "Capital:" === substr($question, 0, 29):
-					botReply(getCapital(substr($question, 30)));
-				}
-
-				
-				
-				
+	
 				if(($results)!=null){
 					$answer = $results['answer'];
 					echo json_encode([
