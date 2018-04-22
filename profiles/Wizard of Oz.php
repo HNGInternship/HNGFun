@@ -119,12 +119,15 @@ function workOnTrainData($data){
     $sql =  $conn->prepare("INSERT INTO chatbot (question, answer)
 VALUES (:question, :answer)");
     // use exec() because no results are returned
-    $result= $sql->execute(array(
-   ':question'=>$question,
-    ':answer'=>$answer
-  ));
+   if( $result= $sql->execute(array(':question'=>$question,':answer'=>$answer))){
     
-    echo "Awesome! I feel smarter already.";
+    return "Awesome! I feel smarter already.";
+}
+
+else{
+
+    return "Something went wrong, sorry"
+}
     
     }
 catch(PDOException $e)
