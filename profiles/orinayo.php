@@ -138,11 +138,7 @@
 </head>
 
 <body>
-<?php
-
-$user_input = "";
-$possible_questions = array();
-$sorted_possible_questions = array();
+<?php 
 if (!defined('DB_USER')) {
     include "../../config.php";
     try {
@@ -172,7 +168,38 @@ catch (PDOException $e) {
     throw $e;
 }
 
+?>
+
+<?php
+function Validate_input($data) 
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+function Sort_Array_By_count($a, $b) 
+{
+    return (count($b) - count($a));
+}
+
+function Get_Hotelsng_wikipage()
+{
+    $api = "https://en.wikipedia.org/w/api.php?action=opensearch&search="."hotels.ng"."&format=json&callback=?";
+    $result = file_get_contents($api);
+    $result = substr_replace($result, "", 0, 5);
+    $result = substr_replace($result, "", -1);
+    $result = json_decode($result, true);
+    $result = array("answer"=>"<a href=".$result[3][0].">".$result[1][0]."</a><p>".$result[2][0]."</p>");
+    return $result;
+}
+$user_input = "";
+$possible_questions = array();
+$sorted_possible_questions = array();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
     // validate input
     $user_input = validate_input($_POST["userInput"]);
     try {
@@ -328,31 +355,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     catch(PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
-}
-
-function Validate_input($data) 
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
-
-function Sort_Array_By_count($a, $b) 
-{
-    return (count($b) - count($a));
-}
-
-function Get_Hotelsng_wikipage()
-{
-    $api = "https://en.wikipedia.org/w/api.php?action=opensearch&search="."hotels.ng"."&format=json&callback=?";
-    $result = file_get_contents($api);
-    $result = substr_replace($result, "", 0, 5);
-    $result = substr_replace($result, "", -1);
-    $result = json_decode($result, true);
-    $result = array("answer"=>"<a href=".$result[3][0].">".$result[1][0]."</a><p>".$result[2][0]."</p>");
-    return $result;
-}
+} else {
 
 ?>
             <!--home-->
@@ -585,7 +588,9 @@ function Get_Hotelsng_wikipage()
                     </div>
                 </div>
             </div>
-            <script>
+</body>
+</html>
+<script>
                 $(document).ready(function () {
                     $("#name").hide();
                     $("#name").fadeIn(2000);
@@ -646,7 +651,6 @@ function Get_Hotelsng_wikipage()
                       });
                    });
             </script>
-
-</body>
-
-</html>
+<?php
+}
+?>
