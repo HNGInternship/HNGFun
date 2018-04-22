@@ -1,15 +1,21 @@
 <?php
 if(!defined('DB_USER')){
-require('../config.php');
+require('../../config.php');
 }
 //require('/../answers.php');
 
 $connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-$result = mysqli_query($connect, "SELECT * FROM secret_word");
-$secret_word = mysqli_fetch_assoc($result)['secret_word'];
-$result = mysqli_query($connect, "SELECT * FROM interns_data WHERE username = 'jilh'");
-if($result)	$my_data = mysqli_fetch_assoc($result);
-else {echo "An error occored";}
+if($connect){
+	$result = mysqli_query($connect, "SELECT * FROM secret_word");
+	$secret_word = mysqli_fetch_assoc($result)['secret_word'];
+	$result = mysqli_query($connect, "SELECT * FROM interns_data WHERE username = 'jilh'");
+	if($result)	$my_data = mysqli_fetch_assoc($result);
+	else {echo "An error occored";}
+}
+else{
+	echo "Unable to connect to db";
+}
+
 ?>
 
 <?php
