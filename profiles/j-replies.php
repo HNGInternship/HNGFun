@@ -16,7 +16,7 @@ if (!$conn) {
 }
 else{
 //for debugging conncection
-    echo "hello";
+    
 }
   global $conn;
 
