@@ -1,10 +1,6 @@
 <?php 
-
 	if(!defined('DB_USER')){
-
 	require "../../config.php";
-
-	
 	try {
 		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -15,14 +11,11 @@
 	$result = $result->fetch(PDO::FETCH_OBJ);
 	$secret_word = $result->secret_word;
 
-   $result2 = $conn->query("Select * from interns_data where username = 'akinsource'");
-   $user = $result2->fetch(PDO::FETCH_OBJ);
+   	$result2 = $conn->query("Select * from interns_data where username = 'akinsource'");
+   	$user = $result2->fetch(PDO::FETCH_OBJ);
 }
 ?>
-<?php
-	
 
-?>
 <?php
 
 	function tryout($str,$dbcon) {
@@ -97,17 +90,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 	}
 	?>
-<?php
 
-?>
 <!DOCTYPE html>
 <html>
 <style>
 .scroll 
 {
 	width: 600px;
-    height: 300px;
-    overflow-y:auto;
+    	height: 300px;
+    	overflow-y:auto;
 	display:block;
 	padding: 10px;
 	background-color: #9cec9c;
@@ -146,14 +137,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	height:2px;
 }
 .butto:hover {
-    color:green;
+    	color:green;
 	border: 2px solid #ff5733;
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 .butto:active {
   <!--background-color: #3e8e41;-->
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
+  	box-shadow: 0 5px #666;
+  	transform: translateY(4px);
 }
 .message {
 	margin-bottom: 5px; 
@@ -250,20 +241,23 @@ function placeHolder() {//display Ask me questions in textBox
   document.getElementById("add").placeholder = "";
 }
 function hide() {//hide chat interface
-    var x = document.getElementById("view");
+    	var x = document.getElementById("view");
 	var c = document.getElementById("ioi");
+	var d = document.getElementById("deep");
     if (x.style.display === "none") {
         x.style.display = "block";
-		c.style.display = "block";
+	c.style.display = "block";
+	d.innerHTML = " I can show you time from present moment till any date! Try 'countdown January 1 2019'";
     } else {
         x.style.display = "none";
-		c.style.display = "none";
+	c.style.display = "none";
+	d.innerHTML = " Collective knowledge of a lot of bots!";
     }
 }
 </script>
 
 
-<button onclick="hide(3000)">Click Me</button>
+<button onclick="hide(3000)" class="butto">Click Me</button><span id="deep"> I can show you time from present moment till any date! Try 'countdown January 1 2019'</span>
 <div class="contain" align="center">
 <div class="scroll" id="view">
 <p class="message chat2">Hello my name is Alfred!</p>
@@ -296,7 +290,7 @@ $(document).ready(function(){
 		$.post("profiles/akinsource.php",
 			{inputw:inputw},
 			function(response, status){
-				alert(response);
+				//alert(response);
 				var replies = response.replace(/\"/g, "");
 				$( "#view" ).append('<p class = "chat2">'+'<b>Alfred: </b>'+replies+'</p>');
 				$("#view").scrollTop($("#view")[0].scrollHeight);
