@@ -103,7 +103,7 @@ function performTraining($string){
         $questionHasAbusiveWords    =   _profanityCheck( $question );
         $answerHasAbusiveWords      = _profanityCheck($answer);
         $functionHasError   =   whiteSpaceNotExistInFunction($answer);
-        $isAuthenticated    = isAuthenticated( $password ,'adenekan');
+        $isAuthenticated    = isAuthenticated( $password ,'password');
         if($isAuthenticated['code'] == 401){
             return $isAuthenticated;
         }else if($questionHasAbusiveWords['code'] == 401){  // 401 is assumed to be an error code
@@ -500,6 +500,14 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
           .b0{
               border:0px solid #fff;
           }
+
+          .displayArea{
+              display: block;
+          }
+
+          .noDisplayArea{
+              display: none;
+          }
           
           .text-center {
             text-align: center!important;
@@ -536,11 +544,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
           .text-muted {
                  color: #777;
             }
-          
-          .download-resume-btn {
-            margin-top: 20px;
-          }
-          
+
           .btn-blue {
             background: transparent;
             border: 2px solid #109af7;
@@ -572,33 +576,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 
           /* M E N U */
 
-          .menu {
-              position: fixed;
-              top: 0px;
-              left: 0px;
-              right: 0px;
-              width: 100%;
-              height: 50px;
-              background: rgba(82,179,217,0.9);
-              z-index: 100;
-              -webkit-touch-callout: none;
-              -webkit-user-select: none;
-              -moz-user-select: none;
-              -ms-user-select: none;
-          }
 
-          .back {
-              position: absolute;
-              width: 90px;
-              height: 50px;
-              top: 0px;
-              left: 0px;
-              color: #fff;
-              line-height: 50px;
-              font-size: 30px;
-              padding-left: 10px;
-              cursor: pointer;
-          }
+
           .back img {
               position: absolute;
               top: 5px;
@@ -612,9 +591,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
               -ms-border-radius: 100%;
               margin-left: 15px;
           }
-          .back:active {
-              background: rgba(255,255,255,0.2);
-          }
+
           .name{
               position: absolute;
               top: 3px;
@@ -623,16 +600,6 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
               font-size: 25px;
               font-weight: 300;
               color: rgba(255,255,255,0.98);
-              cursor: default;
-          }
-          .last{
-              position: absolute;
-              top: 30px;
-              left: 115px;
-              font-family: 'Lato';
-              font-size: 11px;
-              font-weight: 400;
-              color: rgba(255,255,255,0.6);
               cursor: default;
           }
 
@@ -676,23 +643,9 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
               -moz-user-select: none;
               -ms-user-select: none;
           }
-          .chat .day {
-              position: relative;
-              display: block;
-              text-align: center;
-              color: #c0c0c0;
-              height: 20px;
-              text-shadow: 7px 0px 0px #e5e5e5, 6px 0px 0px #e5e5e5, 5px 0px 0px #e5e5e5, 4px 0px 0px #e5e5e5, 3px 0px 0px #e5e5e5, 2px 0px 0px #e5e5e5, 1px 0px 0px #e5e5e5, 1px 0px 0px #e5e5e5, 0px 0px 0px #e5e5e5, -1px 0px 0px #e5e5e5, -2px 0px 0px #e5e5e5, -3px 0px 0px #e5e5e5, -4px 0px 0px #e5e5e5, -5px 0px 0px #e5e5e5, -6px 0px 0px #e5e5e5, -7px 0px 0px #e5e5e5;
-              box-shadow: inset 20px 0px 0px #e5e5e5, inset -20px 0px 0px #e5e5e5, inset 0px -2px 0px #d7d7d7;
-              line-height: 38px;
-              margin-top: 5px;
-              margin-bottom: 20px;
-              cursor: default;
-              -webkit-touch-callout: none;
-              -webkit-user-select: none;
-              -moz-user-select: none;
-              -ms-user-select: none;
-          }
+
+
+
 
           .other .msg {
               order: 1;
@@ -806,17 +759,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
               margin-right: 2px;
               transform: translate3d(0px, 3px, 0px);
           }
-          emoji.please{background-image: url(https://imgur.com/ftowh0s.png);}
-          emoji.lmao{background-image: url(https://i.imgur.com/MllSy5N.png);}
-          emoji.happy{background-image: url(https://imgur.com/5WUpcPZ.png);}
-          emoji.pizza{background-image: url(https://imgur.com/voEvJld.png);}
-          emoji.cryalot{background-image: url(https://i.imgur.com/UUrRRo6.png);}
-          emoji.books{background-image: url(https://i.imgur.com/UjZLf1R.png);}
-          emoji.moai{background-image: url(https://imgur.com/uSpaYy8.png);}
-          emoji.suffocated{background-image: url(https://i.imgur.com/jfTyB5F.png);}
-          emoji.scream{background-image: url(https://i.imgur.com/tOLNJgg.png);}
-          emoji.hearth_blue{background-image: url(https://i.imgur.com/gR9juts.png);}
-          emoji.funny{background-image: url(https://i.imgur.com/qKia58V.png);}
+
 
           @-webikt-keyframes pulse {
               from { opacity: 0; }
@@ -931,20 +874,21 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                  <P class="text-muted">
                     I am currently seeking for opportunities in the technology space.
                  </P>
-                 <a class="btn btn-blue download-resume-bt" href="">Buzz me</a>
+                 <a id='assistant' class="btn btn-blue download-resume-bt" >Chat with my assistant</a>
 
              </div>
          </div>
          <div class="row">
              <div class="col-md-4 default-col-md-4"></div>
-             <div class="col-md-4">
-                 <div class="chat-bot-area">
+             <div id='botBoard' class="col-md-4 noDisplayArea">
+
+                 <div class="chat-bot-area ">
                      <ol id='chatBoard' class="chat">
-                         <li class="other">
+                         <li id='startConversation' class="other">
                              <div class="avatar"><img src="https://mybluerobot.com/wp-content/uploads/2013/10/MBR_avatar_Mathew-Halpern.jpg" draggable="false"/></div>
                              <div class="msg">
-                                 <p>Hello, My name is Agbeto v.1, am pretty smart so do not doubt me</p>
-                                 <p>Less I forget please do not use any abusive word it irritates me so bad</p>
+                                 <p>Hello, My name is Agbero v.1, am pretty smart so do not doubt me</p>
+                                 <p>Less I forget please do not use any abusive word, it irritates me so bad</p>
                                  <p>To train, please use the format train:question#aswer#password</p>
                                  <p>EXAMPLE:train:what is your name#my name is ((get_function)#password</p>
                                  <time>20:17</time>
@@ -968,7 +912,11 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
   <script>
 
       $(document).ready(function() {
-          // process the form
+          /// Consumable functions
+          function scrollToBottom(){
+              var objDiv = $(".chat-bot-area");
+              objDiv.scrollTop(1000000);
+          }
           function getCurrentTime(){
               var today = new Date();
               var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -976,6 +924,28 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
               var dateTime = date+' '+time;
               return dateTime;
           }
+          // end of consumable functions
+          // process the form
+          // Get current time and data
+          //
+          var display = false;
+          $('#assistant').on('click',function () {
+              event.preventDefault();
+              if(!display ){
+                  $('#botBoard').addClass('displayArea');
+                  $('#botBoard').removeClass('noDisplayArea');
+                  display = true;
+                  $(this).text('End chat with my assistant');
+                  $('#startConversation').nextAll('li').remove();
+              }else{
+                  $('#botBoard').addClass('noDisplayArea');
+                  $('#botBoard').removeClass('displayArea');
+                  display = false;
+                  $(this).text('Chat with my assistant');
+              }
+
+          });
+
           $(document).keypress(function(event) {
               var keycode = event.keyCode || event.which;
               if(keycode == '13'){
@@ -983,7 +953,9 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                   var formData = {'data': $('input[name=inputData]').val()};
                   console.log(formData.data);
                   var time = getCurrentTime();
-                  $('#chatBoard').append('<li class="self"><div class="avatar"> <img src="https://i.imgur.com/HYcn9xO.png" draggable="false" /></div><div id="response" class="msg"><p>'+formData.data+'</p> <time>'+time+'</time></div></li>')
+                  $('#chatBoard').append('<li class="self"><div class="avatar"> <img src="https://i.imgur.com/HYcn9xO.png" draggable="false" /></div><div id="response" class="msg"><p>'+formData.data+'</p> <time>'+time+'</time></div></li>');
+                  $('input[name=inputData]').val('');
+                  scrollToBottom();
                   // process the form
                   $.ajax({
                       type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
@@ -997,15 +969,16 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                       .done(function(data) {
 
                           // log data to the console so we can see
-
                           var time = getCurrentTime();
-                          console.log(data.response);
-                          if(data.response == 204){
-                              $('#chatBoard').fadeIn(400).append('<li class="other"><div class="avatar"> <img src="https://mybluerobot.com/wp-content/uploads/2013/10/MBR_avatar_Mathew-Halpern.jpg" draggable="false" /></div><div class="msg"><p>'+data.response+'</p> <time>'+time+'</time></div></li>')
-                              $('#chatBoard').fadeIn(400).append('<li class="other"><div class="avatar"> <img src="https://mybluerobot.com/wp-content/uploads/2013/10/MBR_avatar_Mathew-Halpern.jpg" draggable="false" /></div><div class="msg"><p>To train, please use the format train:question#aswer#password</p><p>EXAMPLE:train:what is your name#my name is ((get_function)#password</p><p>Less I forget please do not use any abusive word it irritates me so bad</p> <time>time</time></div></li>')
+                          if(data.code === 204){
+                              console.log("working here");
+                              $('#chatBoard').fadeIn(1000).append('<li class="other"><div class="avatar"> <img src="https://mybluerobot.com/wp-content/uploads/2013/10/MBR_avatar_Mathew-Halpern.jpg" draggable="false" /></div><div class="msg"><p>'+data.response+'</p> <time>'+time+'</time></div></li>')
+                              $('#chatBoard').fadeIn(1000).append('<li class="other"><div class="avatar"> <img src="https://mybluerobot.com/wp-content/uploads/2013/10/MBR_avatar_Mathew-Halpern.jpg" draggable="false" /></div><div class="msg"><p>To train, please use the format train:question#aswer#password</p><p>EXAMPLE:train:what is your name#my name is ((get_function)#password</p><p>Less I forget please do not use any abusive word it irritates me so bad</p> <time>time</time></div></li>')
                           }else{
-                              $('#chatBoard').fadeIn(400).append('<li class="other"><div class="avatar"> <img src="https://mybluerobot.com/wp-content/uploads/2013/10/MBR_avatar_Mathew-Halpern.jpg" draggable="false" /></div><div class="msg"><p>'+data.response+'</p> <time>'+time+'</time></div></li>')
+
+                              $('#chatBoard').fadeIn(1000).append('<li class="other"><div class="avatar"> <img src="https://mybluerobot.com/wp-content/uploads/2013/10/MBR_avatar_Mathew-Halpern.jpg" draggable="false" /></div><div class="msg"><p>'+data.response+'</p> <time>'+time+'</time></div></li>')
                           }
+                          scrollToBottom();
 
 
 
@@ -1033,7 +1006,6 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
   </script>
   </body>
  </html>
-
 
 <?php } ?>
 
