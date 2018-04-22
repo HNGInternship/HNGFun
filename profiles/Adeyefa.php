@@ -128,7 +128,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style type="text/css">
 		body{
-			background-image: url(turntable.jpg);
+			background-image: url(https://res.cloudinary.com/adeyefa/image/upload/v1524267920/turntable-1109588__340.jpg);
 			height: 100%; 
 		    background-position: center;
 		    background-repeat: no-repeat;
