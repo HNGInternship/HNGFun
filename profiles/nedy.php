@@ -29,7 +29,6 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
         $question = $_POST['message'];
         if(strpos($question, "train:") !== false){
             $questionAndAnswer = substr($question, 6); //get the string after train
-            $questionAndAnswer =test_input($questionAndAnswer); //removes all shit from 'em
             $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
             $questionAndAnswer = explode("#",$questionAndAnswer);
             if((count($questionAndAnswer)==3)){
