@@ -89,7 +89,7 @@
         $question = $_POST['question'];
         if($question){
             $userIsTrainingBot = stripos('train:', $question);
-            if($userIsTrainingBot){
+            if($userIsTrainingBot === true){
                 trainBot($question);
             }else{
                 answerBot($question);
