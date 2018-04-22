@@ -94,7 +94,7 @@ class DBHelper{
 	 */
 	public function getMyProfile($username = 'agatevureglory'){
 		try {
-			// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 			$query = $conn->prepare("SELECT * FROM interns_data WHERE username='{$username}' LIMIT 1");			
 			$query->execute();
 			$query->setFetchMode(PDO::FETCH_OBJ);
@@ -109,7 +109,7 @@ class DBHelper{
 	 * @return mixed|string
 	 */
 	public function getQuestion($question){
-		// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		try {
 			$query = $conn->prepare("SELECT * FROM chatbot ORDER BY RAND()");
 			$query->execute();
@@ -127,7 +127,7 @@ class DBHelper{
 	 * @return bool|string
 	 */
 	public function PairExists($question, $answer){
-	// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+	$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		try {
 			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 			$sql = $conn->prepare("SELECT * FROM chatbot WHERE question = :question AND answer = :answer");
@@ -146,7 +146,7 @@ class DBHelper{
 	 * @return string
 	 */
 	public function trainMyBot($question, $answer){
-		// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		try {
 			$stmt = $conn->prepare("INSERT INTO chatbot (question, answer) VALUES (:question, :answer)");
 			$stmt->execute(array(
@@ -184,7 +184,7 @@ class DBHelper{
  * @return mixed
  */
 	function searchQuestion($question, $questions_array){
-		// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		$keywords = explode(' ', $question); // explode to get words
 		$word_count = count($keywords);
 		$q_sorta = [];
@@ -230,7 +230,7 @@ class DBHelper{
  * @return mixed|string
  */
 	function botAnswer($result){
-		// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		if (empty($result)) $answer = 'I will understand you better, if you train me. To train me type; train: Question #Answer #password';
 		else {
 			$question = $result['question'];
@@ -258,7 +258,7 @@ class DBHelper{
  * @return string
  */
 	function messageBot(){
-		// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		$m = new DBHelper();
 		$message =neat_string($_POST['message']);
 		

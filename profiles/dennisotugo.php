@@ -23,8 +23,8 @@ if (isset($_POST['payload'])) {
     function isTraining($question) {
       
 	$input = explode('#', $input);
-        $question = trim($input[0]);
-        $answer = trim($input[1]);
+      $answer = resolveAnswerFromTraining($question);
+      $question = strtolower(resolveQuestionFromTraining($question));
         $password = trim($input[2]);
         if($password == 'password') {
             $sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '"';
