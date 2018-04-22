@@ -1,6 +1,10 @@
 <?php 
 
+<<<<<<< HEAD
 require "../config.php";
+=======
+  require "../config.php";		
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -65,6 +69,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			}
 			$quest = $queries[0];
 			$ans = $queries[1];
+<<<<<<< HEAD
 			 $sql = "INSERT INTO chatbot(question, answer) VALUES ( '" . $quest . "', '" . $ans . "')";
 			 $conn->exec($sql);
 			 echo json_encode([
@@ -72,6 +77,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			 	'result' => "Thanks for training me, you can now test my knowledge"
 			 ]);
 			 return;
+=======
+			$sql = "INSERT INTO chatbot(question, answer) VALUES ( '" . $quest . "', '" . $ans . "')";
+			$conn->exec($sql);
+			echo json_encode([
+				'status' => 1,
+				'result' => "Thanks for training me, you can now test my knowledge"
+			]);
+			return;
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 	    }
 	    //else {
 	   //   $arrayName = array('result' => 'Oh my Error');
@@ -261,7 +275,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					HELLO WORLD
 				</p>
 				<p id="p1">
-					I am  <?php echo $user->name; ?>
+					I am  <?php echo $user->name ; ?>
 				</p>
 				<p id="info">
 					A Web developer, blogger and Software engineer
@@ -324,15 +338,25 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
+<<<<<<< HEAD
 			        //$("#ans").append("<li>"  + response.result +  "</li>");
 			        console.log(response.result);
+=======
+			        $("#ans").append("<li>"  + response.result +  "</li>");
+			       // console.log(response.result);
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 			        //alert(response.result.d);
 			        //alert(answer.result);
 			        
 					},
 					error: function(error){
+<<<<<<< HEAD
 						console.log(error);
 				        alert(error);
+=======
+						//console.log(error);
+				        alert(JSON.stringify(error));
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 					}
 				})	
 			})

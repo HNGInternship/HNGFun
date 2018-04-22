@@ -336,6 +336,7 @@ Adokiye's function*/
 //****************************************************************************************************************************************************************
 //****************************************************************THE WIZARD OF OZ********************************************************************************
 
+<<<<<<< HEAD
 
 function pig_latin($text){
   $pigText="Sorry, your word/sentence/phrase/clause contains only consonants. There must be vowels to translate to pig latin.";
@@ -364,10 +365,29 @@ for($h=0;$h<sizeof($sentence);$h++){
 
     else{
       $frontConsonants=$frontConsonants.$sentence[$h][$i];
+=======
+function pig_latin($text){
+  $pigText="Sorry, your word/sentence/phrase/clause contains only consonants. There must be vowels to translate to pig latin.";
+  $vowels = "a,e,i,o,u";
+  $firstVowelPos=0;
+  $frontConsonants="";
+
+  for($i=0;$i<strlen($text)-1;$i++){
+    if(strpos($vowels,$text[i])){
+      $firstVowelPos=$i;
+      $pigText=substr($text,firstVowelPos);
+      $pigText=$pigText.$frontConsonants;
+      return $pigText;
+    }
+
+    else{
+      $frontConsonants=$frontConsonants.$text[i];
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 
     }
 
   }
+<<<<<<< HEAD
 
   if($intermediatePig===""){
   $intermediatePig=$intermediatePig.$frontConsonants;
@@ -381,6 +401,8 @@ for($h=0;$h<sizeof($sentence);$h++){
 
 
 
+=======
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
       return $pigText;
 
 
@@ -473,7 +495,11 @@ function simpleMaths($operation, $expression){
           break;
 
 
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
       default:
         # code...
         break;
@@ -612,7 +638,11 @@ function getMediumArticle(){
 
 }
 function getPinkyCommands(){
+<<<<<<< HEAD
     echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/>
+=======
+    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/> 
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
     2. Get <b>motivational quote of the day.</b> or <b>inspire me today</b> <br/> 3. Get my creator <b>Ada's latest medium article</b> <br/>
     4. Get or tell you<b> a random Yo Momma Joke</b>. <br/> 5. Get or tell you <b>what day of the week it is.</b> <br/>
     6. Get the <b>date seven days or a week from now.</b> <br/> 7.Get or tell you<b> a random quote.</b> <br/>
@@ -754,16 +784,27 @@ function davidQuadraticEquation($a, $b, $c){  #Remember I know where you live if
      $discriminat = pow($b,2) - (4 * $a * $c);
      if($discriminat == 0){
          $x = -($b/(2 * $a));
+<<<<<<< HEAD
          return $x;
+=======
+         return $x; 
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
      }
      else {
          $root = sqrt($discriminat);
          $x1 = (-$b + $root) / (2 *$a);
          $x2 = (-$b - $root) / (2 *$a);
+<<<<<<< HEAD
          return 'x1 is ' + $x1 + 'and' + 'x2 is ' + $x2;
      }
 
 
+=======
+         return 'x1 is ' + $x1 + 'and' + 'x2 is ' + $x2; 
+     }
+    
+     
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
  }
 
 // Orinayo's function

@@ -35,6 +35,32 @@ else if(isset($_GET['info'])){
 
 
 
+ if(isset($_GET['training'])) {
+      $message = $_GET['training'];
+        echo workOnTrainData($message);
+        exit();
+}
+
+
+else if(isset($_GET['func'])){
+      $function = $_GET['func'];
+      $text = $_GET['text'];
+
+      echo doSpecialFunction($func,$text);
+        exit();
+
+}
+
+
+else if(isset($_GET['info'])){
+      $message = $_GET['info'];
+      echo getReply($message);
+        exit();
+
+}
+
+
+
     try {
         $sql = "SELECT name, username, image_filename FROM interns_data WHERE username='Wizard of Oz'";
         $q = $conn->query($sql);
@@ -72,10 +98,14 @@ function doSpecialFunction($func,$text){
 
     require '../answers.php';
 
+<<<<<<< HEAD
    $text=sanitizeText($text);
     $text=strtolower($text);
 
     return pig_latin($text);
+=======
+    pig_latin($text);
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 
 }
 
@@ -295,7 +325,10 @@ margin:5%;
 #bot-button{
 
     margin: 0% 30%;
+<<<<<<< HEAD
     padding-top: 3%;
+=======
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
     text-transform: uppercase;
     color: white;
     background: #ea5a58;
@@ -337,6 +370,7 @@ background: rgba(0, 0, 0, 0.7);
     padding: 2% 0%;
 }
 
+<<<<<<< HEAD
 
 .bot-container-reveal{
     display: block;
@@ -418,6 +452,89 @@ background: rgba(0, 0, 0, 0.7);
 }
 
 
+=======
+
+.bot-container-reveal{
+    display: block;
+}
+
+.container:first-of-type{
+    margin-left: 0%;
+    padding-left: 0%;
+    margin-right: 0%;
+    padding-left: 0%;
+    min-width: 100%;max-width: 100%;
+}
+
+
+@-webkit-keyframes dropBot{
+    0%{margin-top:-200%;
+
+    visibility: hidden;
+     }
+    50%{visibility: visible;}
+    100%{margin-top: 0%;}
+}
+
+
+@-moz-keyframes dropBot{
+    0%{margin-top:-200%; 
+
+    visibility: hidden;
+    }
+    50%{visibility: visible;}
+    100%{margin-top: 0%;}
+}
+
+@keyframes dropBot{
+    0%{margin-top:-200%; 
+
+    visibility: hidden;
+    }
+    50%{visibility: visible;}
+    100%{margin-top: 0%;}
+}
+
+
+
+.bot{
+    background:white;
+    position: relative;
+    height: 100%;
+    /*margin-top: -200%;*/
+    max-width: 600px;
+    padding: 0px;
+    
+    animation-name: dropbot;
+    animation-duration: 4s;
+    animation-fill-mode: forwards; 
+    animation-timing-function: ease-out;
+
+    -moz-animation-name: dropbot;
+    -moz-animation-duration: 4s;
+    -moz-animation-fill-mode: forwards; 
+    -moz-animation-timing-function: ease-out;
+
+    -webkit-animation-name: dropbot;
+    -webkit-animation-duration: 4s;
+   -webkit- animation-fill-mode: forwards; 
+    -webkit-animation-timing-function: ease-out;
+    
+}
+
+
+
+#cancel{
+    position: absolute;
+    top:0;
+    right:0%;
+    padding: 4%;
+    background: #ea5a58;
+    font-weight: 300;
+}
+
+
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 
 #bot-header{
     color: #696969;
@@ -525,6 +642,7 @@ background: rgba(0, 0, 0, 0.7);
 
 
 #important{
+<<<<<<< HEAD
     background-color: #667db6;
     /*background-color: #ea5a58;*/
 
@@ -532,6 +650,9 @@ background: rgba(0, 0, 0, 0.7);
     color: white;
     padding: 1%;
 
+=======
+    color: #ea5a58;
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 }
 
 
@@ -617,7 +738,11 @@ background: rgba(0, 0, 0, 0.7);
 
 
 
+<<<<<<< HEAD
     <section class="bot col-xs-10 col-lg-6">
+=======
+    <section class="bot col-sm-10 col-lg-6">
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
         
 
          <section class="top-area">
@@ -641,7 +766,11 @@ background: rgba(0, 0, 0, 0.7);
                <div class="chat-message row">
 
             <h1 class="chat-name col-2">Merlin : </h1>
+<<<<<<< HEAD
           <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <strong>Wizard of Oz</strong></span>
+=======
+          <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <span id="important">Wizard of Oz</span></span>
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 
       </div>
 
@@ -752,7 +881,11 @@ background: rgba(0, 0, 0, 0.7);
 
     else if(message.indexOf('pig latin:') >= 0 || message.indexOf('pig latin :')>=0){
 
+<<<<<<< HEAD
        var text=message.substring(message.indexOf(":")+1);
+=======
+       var text=message.substring(message.indexOf(":"));
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 
           $.ajax({
             type: "GET",
