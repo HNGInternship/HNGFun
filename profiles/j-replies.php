@@ -33,12 +33,12 @@ if (mysqli_num_rows($r) > 0)
     {   
 
         //display random answers
-        $answer = mysqli_fetch_assoc($r);
-        $index = rand(0, count($$answer)-1);
+        while($answer = mysqli_fetch_assoc($r))
+        {$index = rand(0, count($$answer)-1);
         $row = $rows[$index];
         $answer = $row['answer'];	
         $answer = $answer['answer'];
-
+        }
 
         //if answer has a function call in it
          // $answer =  callFunction();
