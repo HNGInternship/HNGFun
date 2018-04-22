@@ -487,6 +487,15 @@ footer .copyright {
 	
 	border-radius: 10px;
 }
+
+@media only screen and (max-width: 600px) {
+    .thumbnail {
+        width: 90%;
+        margin-left: 2px;
+        margin-right:2px;
+        margin-top: 10px;
+    }
+}
 </style>
  </head>
 
