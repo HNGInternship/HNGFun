@@ -195,8 +195,8 @@ try {
             }
         }
 
-        .cardd{
-            border: 1px solid #cccccc;
+        .card{
+            max-height: 500px;
         }
 
         .panel-heading{
@@ -350,15 +350,11 @@ try {
           -webkit-margin-after: 0em;
         }
 
-        .card{
-            max-height: 400px;
-            
-        }
         .card-body{
             overflow-y: scroll ;
         }
-        .message-container{
-    
+        .bot-foot{
+            padding: 0;
         }
     </style>
 </head>
@@ -413,7 +409,7 @@ try {
                                     </div> 
                                 </div>
                             </div>
-                            <footer>
+                            <footer class="bot-foot">
                                     <div class="message">
                                         <form id="chat-form">
                                             <input class="form-control chat" name="message" aria-label="With textarea" placeholder="Enter your question here..." name="qstn">
@@ -422,7 +418,7 @@ try {
                                             </div>
                                         </form>
                                     </div>
-                                </footer>
+                            </footer>
                         </div>
                     </div>
             </div>
