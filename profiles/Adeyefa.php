@@ -1,7 +1,6 @@
 <?php 
 
-  require "../config.php";		
-
+require "../config.php";
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
@@ -9,8 +8,13 @@ $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
-/////////////////////////////////
+?>
 
+<?php
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+}
+/*
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     include "../answers.php";
@@ -65,6 +69,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			}
 			$quest = $queries[0];
 			$ans = $queries[1];
+<<<<<<< HEAD
+			 $sql = "INSERT INTO chatbot(question, answer) VALUES ( '" . $quest . "', '" . $ans . "')";
+			 $conn->exec($sql);
+			 echo json_encode([
+			 	'status' => 1,
+			 	'result' => "Thanks for training me, you can now test my knowledge"
+			 ]);
+			 return;
+=======
 			$sql = "INSERT INTO chatbot(question, answer) VALUES ( '" . $quest . "', '" . $ans . "')";
 			$conn->exec($sql);
 			echo json_encode([
@@ -72,6 +85,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				'result' => "Thanks for training me, you can now test my knowledge"
 			]);
 			return;
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 	    }
 	    //else {
 	   //   $arrayName = array('result' => 'Oh my Error');
@@ -120,7 +134,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	}catch (Exception $e){
 		return $e->message ;
 	}
-}
+}*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -324,15 +338,25 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
+<<<<<<< HEAD
+			        //$("#ans").append("<li>"  + response.result +  "</li>");
+			        console.log(response.result);
+=======
 			        $("#ans").append("<li>"  + response.result +  "</li>");
 			       // console.log(response.result);
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 			        //alert(response.result.d);
 			        //alert(answer.result);
 			        
 					},
 					error: function(error){
+<<<<<<< HEAD
+						console.log(error);
+				        alert(error);
+=======
 						//console.log(error);
 				        alert(JSON.stringify(error));
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 					}
 				})	
 			})
