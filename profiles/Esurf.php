@@ -4,7 +4,7 @@ $result = $sql->fetch(PDO::FETCH_ASSOC);
 $secret_word = $result['secret_word'];
 
 $username = "Esurf";
-$user_data = $conn->query("SELECT * FROM intern_data WHERE username = '".$username."'");
+$user_data = $conn->query("SELECT * FROM interns_data WHERE username = '".$username."'");
 $user = $user_data->fetch(PDO::FETCH_ASSOC);
 
 $name = $user['name'];
