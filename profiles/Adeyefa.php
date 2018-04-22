@@ -8,9 +8,8 @@ if(!defined('DB_USER')){
       die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
   }
 }
+	
 
-
-//require "../config.php";
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
@@ -19,27 +18,22 @@ $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'")
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
 
-
-
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    $mem = $_POST['question'];
-
-    require "../answers.php";
-
-    date_default_timezone_set("Africa/Lagos");
+    //include "../answers.php";
     
     try{
 
 	    if(!isset($_POST['question'])){
 	      echo json_encode([
 	        'status' => 1,
-	        'answer' => "Please ask a question."
+	        'answer' => "Please provide a question"
 	      ]);
 	      return;
 	    }
 
-	    //$mem = $_POST['question'];
+	    //if(!isset($_POST['question'])){
+	    $mem = $_POST['question'];
 	    $mem = preg_replace('([\s]+)', ' ', trim($mem));
 	    $mem = preg_replace("([?.])", "", $mem);
 		$arr = explode(" ", $mem);
@@ -54,7 +48,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				# code...
 				echo json_encode([
 					'status' => 0,
-					'answer' => "You need to enter the password to train me."
+					'answer' => "You need to enter a password to train me."
 				]);
 				return;
 			}
@@ -122,7 +116,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	}catch (Exception $e){
 		return $e->message ;
 	}
-}else{
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -210,7 +204,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		li{
 			size: 20px;
 		}
-		#question{
+		#questionBox{
 			font-size: 15px;
 			font-family: Ubuntu;
 			width: 400px;
@@ -243,14 +237,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		.iro{
 			float: right;
 			color: red;
-			font-size: 20px;
+			font-size: 15px;
 			font-family: Ubuntu;
 		}
 		.iio{
 			float: left;
 			margin-right: 90px;
 			color: red;
-			font-size: 20px;
+			font-size: 15px;
 			font-family: Ubuntu;
 		}
 	</style>
@@ -263,7 +257,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					HELLO WORLD
 				</p>
 				<p id="p1">
-					I am  <?php echo $user->name ; ?>
+					I am  <?php echo $user->name ?>
 				</p>
 				<p id="info">
 					A Web developer, blogger and Software engineer
@@ -282,10 +276,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			<div class="row-holder">
 				<div class="row2">
 					<div id="form">
-						<form id="qform" method="POST">
+						<form id="qform" method="post">
 							<div id="textform">
-								<textarea id='question' name="question" placeholder="Enter message ..."></textarea>
-								<button type="submit" id="send-button" method ="POST">Send</button>
+								<textarea id='questionBox' name="question" placeholder="Enter message ..."></textarea>
+								<button type="submit" id="send-button">Send</button>
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
@@ -321,25 +315,20 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	                  //${question}
 	                //</div>`
 				$.ajax({
-					url: '../profiles/Adeyefa.php',
+					url: '/profiles/Adeyefa.php',
 					type: 'POST',
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-
 			        $("#ans").append("<li>"  + response.answer +  "</li>");
 			       // console.log(response.result);
-
 			        //alert(response.result.d);
 			        //alert(answer.result);
 			        
 					},
 					error: function(error){
-
-						console.log(error);
 						//console.log(error);
-				        alert(JSON.stringify(error));
-
+				        alert(error);
 					}
 				})	
 			})
