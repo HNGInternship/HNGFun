@@ -2,12 +2,12 @@
 
 		require_once '../../config.php';
 		
-		try {
+		/*try {
 		    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch (PDOException $pe) {
 		    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-		}
+		}*/
 /**
  * Class Db
  */
@@ -77,6 +77,7 @@ class DBHelper{
 	 */
 	public function getSecret_Word(){	
 		try {
+			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 			$query = $conn->prepare("SELECT * FROM secret_word LIMIT 1");
 			$query->execute();
 			$query->setFetchMode(PDO::FETCH_ASSOC);
