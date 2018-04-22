@@ -671,7 +671,7 @@ body{
     .chat-container
     {
         box-sizing: border-box;
-        width: 100%;
+        width: 80%;
         display: flex;
     }
     .input-ctn
