@@ -70,17 +70,14 @@
 		}
 		
 		.logos img {
-			max-width: 40px;
-			max-height: 40px;
+			max-width: 60px;
+			max-height: 60px;
 			border-radius: 50%;
 			padding-right: 20px;
 		}
 		.logos {
 			margin: auto;
-			margin-left: 0;
 			padding: 10px;
-			margin-top: 0;
-			margin-bottom: 0;
 		}
 
 		/*
