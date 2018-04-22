@@ -56,9 +56,9 @@
             }
 
             switch(true){
-                case "ussd " === substr($question, 0, 5):
-                case "Ussd " === substr($question, 0, 5):
-                case "USSD " === substr($question, 0, 5):
+                case "ussd" === substr($question, 0, 5):
+                case "Ussd" === substr($question, 0, 5):
+                case "USSD" === substr($question, 0, 5):
                     sendReply(getUSSD(substr($question, 6)));
             }
 
@@ -129,7 +129,7 @@
             }
 
             // send response for other errors
-            sendReply("Sorry. I have no idea what you just asked of me.");
+            sendReply("Sorry. I have no answer to what you asked but you can tran me. Type 'train: question # answer'");
         }
     }
 ?>
