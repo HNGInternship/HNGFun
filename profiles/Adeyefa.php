@@ -251,7 +251,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    overflow-x: hidden;
 		    padding: 10px 5px 92px;
 		    border: none;
-		    max-height: 300px;
+		    max-height: 350px;
 		    -webkit-justify-content: flex-end;
 		    justify-content: flex-end;
 		    -webkit-flex-direction: column;
@@ -347,7 +347,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#queries").append("<div class='iro'>" + question + "</div>");
+				$("#queries").append("<li>" + question + "<li>");
 					//let newMessage = `<div class="iro">
 	                  //${question}
 	                //</div>`
@@ -357,7 +357,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#ans").append("<div class='iio'>"  + response.answer +  "</div>");
+			        $("#ans").append("<li>"  + response.answer +  "<li>");
 			       // console.log(response.result);
 			        //alert(response.result.d);
 			        //alert(answer.result);
