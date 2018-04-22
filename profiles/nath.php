@@ -32,18 +32,16 @@
 			font-family: 'open sans', san serif;
 		}
 		.image_header {
-			width: 100%;
+			width: 50%;
 			margin: auto;
 
 		}
-		.col-1 {
-			width: 38%;
+		.part-1 {
+			width: 100%;
 			display: flex;
 			flex-wrap: wrap;
 		}
-		.col-2 {
-			width: 58%;
-			height: 70%;
+		.part-2 {
 			margin: auto;
 			display: flex;
 			flex-wrap: wrap;
@@ -55,7 +53,7 @@
             border-radius: 50%; 
 		}
 		.info p {
-			font-size: 25px;
+			font-size: 20px;
 			margin: 0;
 			width: 100%;
 		}
@@ -64,7 +62,7 @@
 			display: flex;
 			flex-wrap: wrap;
 			padding: 10px;
-			text-align: left;
+			text-align: center;
 		}
 		.info h1 {
 			text-transform: uppercase;
@@ -84,11 +82,6 @@
 			margin-top: 0;
 			margin-bottom: 0;
 		}
-		.vl {
-			border-left: 3px solid #000000;
-			height: 70%;
-			margin: auto;
-		}
 
 		/*
 		Media queries for other screens
@@ -97,9 +90,6 @@
 			.col-1, .col-2 {
 				width: 100%;
 				max-width: 100%;
-			}
-			.vl {
-				display: none;
 			}
 			.image_header {
 				width: 50%;
@@ -123,7 +113,7 @@
 </head>
 <body>
 
-	<div class="col-1">
+	<div class="part-1">
 		<div class="image_header">
 			<img src="http://res.cloudinary.com/nath/image/upload/v1524182119/Image_-_Portrait.jpg" alt="profile-image">
 			<!--
@@ -132,8 +122,7 @@
 			 http://res.cloudinary.com/nath/image/upload/v1524182119/Image_-_Portrait.jpg -->
 		</div>
 	</div>
-	<div class="vl"></div>
-	<div class="col-2">
+	<div class="part-2">
 		<div class="info">
 			<h1><?php echo $name ?></h1>
 			<p style="font-size: 40px;">Frontend developer</p>

@@ -135,8 +135,8 @@ h2{
 	color:white;
 	font-family: forte ;
 font-size: 50px;
-text-align: center;
-	padding-top: 50px;
+text-align: center;	
+padding-top:40px;
 }
 
 h1{
@@ -183,26 +183,26 @@ img{
 		 }
 		 #answer{
 			 color:darkmagenta;
-             float:left;
+             float:right;
 		 }
             .accordion {
     background-color: darkmagenta;
     color: white;
     cursor: pointer;
-    padding: 18px;
-    width:30%;
+    width:50%;
     text-align: left;
-    font-size:30px;
+    font-size:15px;
+	font-family:sans;	    
     border: none;
     outline: none;
     transition: 0.4s;
         
 }
             .panel{
-		    width:50%;
                 overflow-x:hidden;
                 overflow-y:scroll;
-		   
+				
+				
             }
             .panel::-webkit:scrollbar{width:5px;
                 
@@ -227,7 +227,9 @@ img{
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
-           
+            .panel{
+                width:70%;
+            }
 
 </body>
 </html>
@@ -243,8 +245,17 @@ img{
 <h2>Welcome to</h2>
 <h1>HNG Internship 4.0</h1>
   <img src="<?php echo $user->image_filename ?>" />
-         <section class= "col-lg-12 col-md-12 col-sm-12 col-xs-12 chat-frame" >
-             <div class="row" style="margin-top: 5px;">
+        
+<<<<<<< HEAD
+<<<<<<< HEAD
+		<section class= "col-md-12 offset-md-8 chat-frame" >
+=======
+		<section class= "col-md-6 chat-frame" >
+>>>>>>> cffa47c00ddce269077478775e32ec23b53f51d7
+=======
+		<div class="col-md-6 col-sm-3 col-xs-3 offset-md-1 chat-frame">
+>>>>>>> 5884600536eeed44302a8e441af37bbe61961641
+             <div class="row">
                  <button class="accordion">HELLO WORLD!!!</button>
 <div class="panel">
     <p style= color:darkmagenta;> <h4> I'm Fotes_Bot:Ask me anything!!!</h4><br>
@@ -258,12 +269,10 @@ train: question # answer # password<br>
 </p>
     	<form id="form">
 
-             <p id="answer"></p>
+              <p id="answer"></p>
 			<input type="text" id="questionfield" placeholder="Chat Here">
 			<button class="button">CHAT</button><br>
-			<div class="single-panel">
-            
-            </div>
+			
             
 		</form>
  
