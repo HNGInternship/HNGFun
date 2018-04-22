@@ -9,7 +9,6 @@
 
 			$fcontents = htmlentities(file_get_contents("db.php"));
 			$contains = stripos($fcontents, "../config.php");
-			// $notcontains = stripos($fcontents, "../config.php");
 
 			$this->assertTrue($contains !== false);
 			
