@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set("display_errors", 'on');
 
 
-if (!defined(DB_NAME))
+if (!defined(DB_USER))
     require_once __DIR__."/../config.php";
 
 try {
@@ -318,7 +318,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     For checking dictionary meaning: <b>command: #dictionary #word</b>
                 </p>
                 <span class="time"><?php echo date('H:i'); ?></span>
-                <img src="/images/ibot.png" alt="iBot">
+                <img src="http://res.cloudinary.com/ionware/image/upload/v1524371362/ibot.png" alt="iBot">
             </div>
         </div>
     </div>
@@ -358,7 +358,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         this.body += "<div class='response'><p>" + body + "</p><span class='time'>" + this.time() + "</span>";
         if (this.sender === 'bot')
-            this.body += "<img src='/images/ibot.png' alt='iBot'>";
+            this.body += "<img src='http://res.cloudinary.com/ionware/image/upload/v1524371362/ibot.png' alt='iBot'>";
 
         this.body += "</div></div>";
         return this;
