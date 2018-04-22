@@ -398,11 +398,12 @@ function find_place($query) {
 
 // return $parsed_response;
 $city = urlencode( $query );
-return "under encode";
 
 $placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$city."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
 
 $ch = curl_init();
+return "under curl init";
+
 curl_setopt($ch, CURLOPT_URL, $placesUrl);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $geoloc = json_decode(curl_exec($ch), true);
