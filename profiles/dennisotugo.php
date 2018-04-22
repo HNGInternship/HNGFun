@@ -1,128 +1,155 @@
 <?php
+
 if (!defined('DB_USER')) {
- require "../../config.php";
+	require "../../config.php";
+
 }
+
 try {
- $conn=new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
 }
-catch (PDOException $pe) {
- die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+
+catch(PDOException $pe) {
+	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
-$date_time=new DateTime('now', new DateTimezone('Africa/Lagos'));
+
+$date_time = new DateTime('now', new DateTimezone('Africa/Lagos'));
 global $conn;
+
 if (isset($_POST['payload'])) {
- $question=trim($_POST['payload']);
- function isTraining($question) {
-  if (strpos($question, 'train:')!==false) {
-   return true;
-  }
-  return false;
- }
- function getAnswer() {
-  global $question;
-  global $conn;
-  $sql              ='SELECT * FROM chatbot WHERE question LIKE "' . $question . '"';
-  $answer_data_query=$conn->query($sql);
-  $answer_data_query->setFetchMode(PDO::FETCH_ASSOC);
-  $answer_data_result=$answer_data_query->fetchAll();
-  $answer_data_index =0;
-  if (count($answer_data_result)>0) {
-   $answer_data_index=rand(0, count($answer_data_result)-1);
-  }
-  if ($answer_data_result[$answer_data_index]["answer"]=="") {
-   return 'Train me to understand, please type "train: your question # answer # password"';
-  }
-  if (containsVariables($answer_data_result[$answer_data_index]['answer'])||containsFunctions($answer_data_result[$answer_data_index]['answer'])) {
-   $answer=resolveAnswer($answer_data_result[$answer_data_index]['answer']);
-   return $answer;
-  } else {
-   return $answer_data_result[$answer_data_index]['answer'];
-  }
- }
- function resolveQuestionFromTraining($question) {
-  $start       =7;
-  $end         =strlen($question)-strpos($question, " # ");
-  $new_question=substr($question, $start, -$end);
-  return $new_question;
- }
- function resolveAnswerFromTraining($question) {
-  $start =strpos($question, " # ")+3;
-  $answer=substr($question, $start);
-  return $answer;
- }
- if (isTraining($question)) {
-  $answer  =resolveAnswerFromTraining($question);
-  $question=strtolower(resolveQuestionFromTraining($question));
-  $password=trim($question[2]);
-  if ($password=='password') {
-   $sql='SELECT * FROM chatbot WHERE question = "' . $question . '" and answer = "' . $answer . '" LIMIT 1';
-   $q  =$GLOBALS['conn']->query($sql);
-   $q->setFetchMode(PDO::FETCH_ASSOC);
-   $data=$q->fetch();
-   if (empty($data)) {
-    $training_data=array(
-     ':question'=>$question,
-     ':answer'=>$answer
-    );
-    $sql          ='INSERT INTO chatbot ( question, answer)
-              VALUES (
-                  :question,
-                  :answer
-              );';
-    try {
-     $q=$GLOBALS['conn']->prepare($sql);
-     if ($q->execute($question_data)==true) {
-      echo "Training Successful!";
-     }
-    }
-    catch (PDOException $e) {
-     throw $e;
-    }
-   } else {
-    echo "Now I understand. No wahala, now try me again";
-   }
-  } else {
-   echo "YOU DONT HAVE ACCESS!!! SARS!!!! EFCC!!! NAFDAC!!!! HACKER!!! USA COME AND CARRY YOUR RUSSIA :$";
-  }
-  return;
- }
- function containsVariables($answer) {
-  if (strpos($answer, "{{")!==false&&strpos($answer, "}}")!==false) {
-   return true;
-  }
-  return false;
- }
- function containsFunctions($answer) {
-  if (strpos($answer, "((")!==false&&strpos($answer, "))")!==false) {
-   return true;
-  }
-  return false;
- }
- function resolveAnswer($answer) {
-  if (strpos($answer, "((")==""&&strpos($answer, "((")!==0) {
-   return $answer;
-  } else {
-   $start          =strpos($answer, "((")+2;
-   $end            =strlen($answer)-strpos($answer, "))");
-   $function_found =substr($answer, $start, -$end);
-   $replacable_text=substr($answer, $start, -$end);
-   $new_answer     =str_replace($replacable_text, $function_found(), $answer);
-   $new_answer     =str_replace("((", "", $new_answer);
-   $new_answer     =str_replace("))", "", $new_answer);
-   return resolveAnswer($new_answer);
-  }
- }
- $answer=getAnswer();
- echo $answer;
- exit();
-} else {
+
+	$question = trim($_POST['payload']);
+	function isTraining($question)
+	{
+		if (strpos($question, 'train:') !== false) {
+			return true;
+		}
+
+		return false;
+	}
+
+	function getAnswer()
+	{
+		global $question;
+		global $conn;
+		$sql = 'SELECT * FROM chatbot WHERE question LIKE "' . $question . '"';
+		$answer_data_query = $conn->query($sql);
+		$answer_data_query->setFetchMode(PDO::FETCH_ASSOC);
+		$answer_data_result = $answer_data_query->fetchAll();
+		$answer_data_index = 0;
+		if (count($answer_data_result) > 0) {
+			$answer_data_index = rand(0, count($answer_data_result) - 1);
+		}
+
+		if ($answer_data_result[$answer_data_index]["answer"] == "") {
+			return 'Train me , please type "train: question # answer # password"';
+		}
+
+		if (containsVariables($answer_data_result[$answer_data_index]['answer']) || containsFunctions($answer_data_result[$answer_data_index]['answer'])) {
+			$answer = resolveAnswer($answer_data_result[$answer_data_index]['answer']);
+			return $answer;
+		}
+		else {
+			return $answer_data_result[$answer_data_index]['answer'];
+		}
+	}
+
+	function resolveQuestionFromTraining($question)
+	{
+		$start = 7;
+		$end = strlen($question) - strpos($question, " # ");
+		$new_question = substr($question, $start, -$end);
+		return $new_question;
+	}
+
+	function resolveAnswerFromTraining($question)
+	{
+		$start = strpos($question, " # ") + 3;
+		$answer = substr($question, $start);
+		return $answer;
+	}
+
+	if (isTraining($question)) {
+		 $question = explode('#', $question);
+		$answer = resolveAnswerFromTraining($question);
+		$question = strtolower(resolveQuestionFromTraining($question));
+           	$password = trim($question[2]);
+        	if($password == 'password') {
+            	$sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+           	 $q = $GLOBALS['conn']->query($sql);
+           	 $q->setFetchMode(PDO::FETCH_ASSOC);
+          	  $data = $q->fetch();
+           	 if(empty($data)) {
+              	  $training_data = array(':question' => $question,
+                  	  ':answer' => $answer);
+               	 $sql = 'INSERT INTO chatbot ( question, answer)
+             	 VALUES (
+			  :question,
+                	  :answer
+             	 );';
+                	try {
+                  	  $q = $GLOBALS['conn']->prepare($sql);
+                  	  if ($q->execute($question_data) == true) {
+                    	    echo "<div id='result'>Training Successful!</div>";
+                  	  };
+             	   } catch (PDOException $e) {
+                  	  throw $e;
+               	 }
+          	  }else{
+              	  echo "Now I understand. No wahala, now try me again";
+           	 }
+       	 }else {
+         	   echo "<div id='result'>Invalid Password, Try Again!</div>";
+       	 }
+		}
+
+	function containsVariables($answer)
+	{
+		if (strpos($answer, "{{") !== false && strpos($answer, "}}") !== false) {
+			return true;
+		}
+
+		return false;
+	}
+
+	function containsFunctions($answer)
+	{
+		if (strpos($answer, "((") !== false && strpos($answer, "))") !== false) {
+			return true;
+		}
+
+		return false;
+	}
+
+	function resolveAnswer($answer)
+	{
+		if (strpos($answer, "((") == "" && strpos($answer, "((") !== 0) {
+			return $answer;
+		}
+		else {
+			$start = strpos($answer, "((") + 2;
+			$end = strlen($answer) - strpos($answer, "))");
+			$function_found = substr($answer, $start, -$end);
+			$replacable_text = substr($answer, $start, -$end);
+			$new_answer = str_replace($replacable_text, $function_found() , $answer);
+			$new_answer = str_replace("((", "", $new_answer);
+			$new_answer = str_replace("))", "", $new_answer);
+			return resolveAnswer($new_answer);
+		}
+	}
+
+	$answer = getAnswer();
+	echo $answer;
+	exit();
+}
+else {
 ?>
 
 <div class="profile">
-                        <h1>Dennis Otugo</h1>
-                        <p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
+						<h1>Dennis Otugo</h1>
+						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
 
-                    </div>
+					</div>
   <div class="bot-body">
     <div class="messages-body">
       <div>
@@ -130,7 +157,7 @@ if (isset($_POST['payload'])) {
           <span class="content">Look alive</span>
         </div>
       </div>
-    <div>
+	<div>
         <div class="message bot">
           <span class="content">What do you have in mind, Let's talk :) </span>
         </div>
@@ -191,7 +218,7 @@ if (isset($_POST['payload'])) {
                           if (res.trim() === "") {
                                   showResponse(
                                           `
-        Train me to understand, please type "train: your question # answer # password
+         Train me , please type "train: question # answer # password"
           `
                                   );
                           } else {
@@ -238,6 +265,5 @@ if (isset($_POST['payload'])) {
           );
   }
 </script>
-<?php
-}
+<?php } 
 ?>
