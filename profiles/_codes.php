@@ -28,7 +28,7 @@
      .main{
         background-color: #96deda;
         margin: auto;
-        width: 55em;
+        width: 50em;
         height: 40em;
         border-style: ridge;
         border-color: grey;
@@ -37,7 +37,7 @@
      }
      .head{
         height: 7em;
-        width: 55em;
+        width: 50em;
         background-color: #625be7;
         border-radius: 1.25em 1.25em 0em 0em;
         position: absolute;
@@ -92,7 +92,7 @@
      }
      #details{
         height: 20em;
-        width: 55em;
+        width: 50em;
         position: absolute;
         bottom: 0em;
         left: 0em;
