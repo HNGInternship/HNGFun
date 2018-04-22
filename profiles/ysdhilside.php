@@ -65,9 +65,9 @@
     </nav>
     -->
 
-    <div class="container" style="margin-top:30px">
+    <div class="container" style="margin-top:30px auto">
             
-            <div class="card" style="width:400px">
+            <div class="card" style="width:450px">
                 <img class="card-img-top" alt="Card header image" src="<?php echo $image ?>">
                 <div class="card-body">
                     <h5 class="card-title"><?php echo $name ?></h5>
