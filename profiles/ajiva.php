@@ -3,7 +3,18 @@
 <head>
     <title>Ajiva Profile</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
     
+=======
+>>>>>>> 9ffcdeb9dd95b31d85f8db38a40a268d2521bc63
+=======
+    
+>>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
+=======
+
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <style>
         body{
@@ -11,6 +22,14 @@
             min-height: 100vh;
             background-repeat: no-repeat;
             background-size: cover;
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
+=======
+
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
             /* border-radius: 50%; */
         } 
         .card{
@@ -26,12 +45,39 @@
             height: 70%;
             /* border-radius: 5% 5% 0 0; */
         }
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
+        } 
+        .card{
+            max-width: 30%;
+            margin-top: 50%;
+            border-radius: 60%;
+        }       
+<<<<<<< HEAD
+>>>>>>> 9ffcdeb9dd95b31d85f8db38a40a268d2521bc63
+=======
+>>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
+=======
+
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
     </style>
     
 </head>
 
 <body>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
 ss
+=======
+
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
     <div class="d-flex justify-content-center">
         <div class="card rounded p-0 mt-5">
             <div class="card-top d-flex justify-content-center">
@@ -57,6 +103,33 @@ ss
             
         </div>
     </div>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
+
+    
+    <?php
+
+      require_once 'db.php';
+      try {
+          $select = 'SELECT * FROM secret_word';
+          $query = $conn->query($select);
+          $query->setFetchMode(PDO::FETCH_ASSOC);
+          $data = $query->fetch();
+      } catch (PDOException $e) {
+          throw $e;
+      }
+      $secret_word = $data['secret_word'];        
+?>
+<<<<<<< HEAD
+>>>>>>> 9ffcdeb9dd95b31d85f8db38a40a268d2521bc63
+=======
+>>>>>>> 5632bab160f2d8df318f8177cbaf1d32f9c16513
+=======
+
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 
     
 </body>
