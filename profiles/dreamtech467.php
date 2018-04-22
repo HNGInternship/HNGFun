@@ -54,15 +54,15 @@
 		}
 		// sending a reply to bot will call this function Abaraham
 		function botReply($answer){
-            echo json_encode([
-				'status' => 1,
+			echo json_encode([
                 'answer' => $answer
                 ]);
             exit();
         }
 		
 		function answerBot($question){
-			//get version Abraham
+			//get Bot version Abraham
+			global $conn;
 			switch($question){
 				case 'bot-v':
 				case 'bot-V':
