@@ -83,23 +83,14 @@ body {
     float: center;
 }
 
-.content  form{
-  margin-top: 70px;
-    font-family: "Lobster", Sans-serif;
-    font-size: 30px;
-    padding: 14px 16px;
-    text-align: center;
-    float: center;
-}
-
 /* Style the footer */
 .footer {
     background-color: white;
-    width:auto;
+    width:100%;
     opacity: 0.5;
     filter: alpha(opacity=50);
     bottom:0;
-    position:relative;
+    position:absolute;
 }
 
 .footer p1 {
@@ -114,8 +105,7 @@ body {
     font-family: "Comic Sans MS";
     text-decoration: none;
     font-size: 20px;
-}
-</style>
+}</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script> 
 $(document).ready(function(){
@@ -156,11 +146,6 @@ $username =$my_data['username'];
 
 <div class="w3-container w3-lobster font-effect-brick-sign">
   <h2>Welcome to dev_geaks</h2>
-  <form action="dev_gb.php" method="post">
-    Input:&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="name"><br>
-    Answer: <input type="text" name="email"><br>
-    <input type="submit">
-   </form>
 </div>  
 </div>
 

@@ -3,7 +3,7 @@
 // First off, Helper functions
 function respond($response, array $options=['chatMassage' => true]) {
 	if ($options['chatMassage'] == true) {
-		// We call this function concurrently
+		// We call this function recursively
 		respond(['message' => $response], ['chatMassage' => false]);
 	} else {
 		echo json_encode($response);
@@ -17,7 +17,6 @@ function sanitize(string $value) {
 
 // Chatbot (Jimie)
 if (!empty($_POST['message'])) {
-	
 	if(! defined('DB_USER')){
 		require "../../config.php";		
 		try {
@@ -106,16 +105,16 @@ if (!empty($_POST['message'])) {
 }
 
 $sql = "SELECT * FROM interns_data WHERE username = 'jim'";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$data = $q->fetchAll();
+$query = $conn->query($sql);
+$query->setFetchMode(PDO::FETCH_ASSOC);
+$data = $query->fetchAll();
 $jim = array_shift($data);
 
 // Secret word
 $sql = "SELECT * FROM secret_word";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$words = $q->fetch();
+$query = $conn->query($sql);
+$query->setFetchMode(PDO::FETCH_ASSOC);
+$words = $query->fetch();
 $secret_word = $words['secret_word'];
 ?>
 <div class="Jim">

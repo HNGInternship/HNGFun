@@ -6,11 +6,12 @@ if(!isset($_GET['id'])){
     require 'db.php';
 }
 try {
-    $sql = 'SELECT * FROM interns_data,secret_word WHERE username ="'.'ordooter'.'"';
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-    $secret_word = $data['secret_word'];
+    $result = $conn->query("Select * from secret_word LIMIT 1");
+    $result = $result->fetch(PDO::FETCH_OBJ);
+    $secret_word = $result->secret_word;
+
+    $result2 = $conn->query("Select * from interns_data where username = 'ordooter'");
+    $user = $result2->fetch(PDO::FETCH_OBJ);
 } catch (PDOException $e) {
     throw $e;
 }
@@ -36,7 +37,9 @@ try {
     <!-- Plugin CSS -->
     <link href="vhttps://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" type="text/css">
 
-
+    <style type="text/css">
+        body{font-family:Lato}h1,h2,h3,h4,h5,h6{font-weight:700;font-family:Montserrat}hr.star-dark,hr.star-light{max-width:15rem;padding:0;text-align:center;border:none;border-top:solid .25rem;margin-top:2.5rem;margin-bottom:2.5rem}hr.star-dark:after,hr.star-light:after{position:relative;top:-.8em;display:inline-block;padding:0 .25em;content:'\f005';font-family:FontAwesome;font-size:2em}hr.star-light{border-color:#fff}hr.star-light:after{color:#fff;background-color:#007bff}hr.star-dark{border-color:#2c3e50}hr.star-dark:after{color:#2c3e50;background-color:#fff}section{padding:6rem 0}section h2{font-size:2.25rem;line-height:2rem}@media (min-width:992px){section h2{font-size:3rem;line-height:2.5rem}}.btn-xl{padding:1rem 1.75rem;font-size:1.25rem}.btn-social{width:3.25rem;height:3.25rem;font-size:1.25rem;line-height:2rem}
+    </style>
 
   </head>
 
@@ -46,11 +49,13 @@ try {
     <section class="bg-secondary text-white text-center">
       <div class="container">
         <img class="img-fluid mb-5 d-block mx-auto" src="http://i1074.photobucket.com/albums/w416/Butu_Ordooter_A/profile1_zpsblk9vlnz.png" alt="">
+        <?php if (!empty($data)) { ?>
         <h1 class="text-uppercase mb-0"><?php echo ($data['name']); ?></h1>
+        <?php } ?>
         <hr class="star-light">
-        <h2 class="font-weight-light mb-0"><?php echo ("Web Developer -  DevOps Engineer - Backend Engineer"); ?></h2>
+        <h3 class="font-weight-light mb-0"><?php echo ("Web Developer -  DevOps Engineer - Backend Engineer"); ?></h3>
         <hr class="star-light">
-        <h2 class="font-weight-light mb-0">My Current Date is: <?php echo date("D M d, Y G:i a"); ?></h2>
+        <h3 class="font-weight-light mb-0">My Current Date is: <?php echo date("D M d, Y G:i a"); ?></h3>
       </div>
     </section>
 
