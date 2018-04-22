@@ -15,20 +15,8 @@ if (!$conn) {
 }
 else{
 //for debugging conncection
-    echo 'Hello';
 }
-
-if(!defined('DB_USER')){
-    require "../../config.php";     
-    try {
-        $connn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
-  }
-
   global $conn;
-  global $connn;
 
 //end of connection
 
@@ -43,26 +31,9 @@ $r = mysqli_query($conn, $q);
 
 if (mysqli_num_rows($r) > 0)
     {   
-        $question = "%$question%";
-      $sql = "select * from chatbot where question like :question";
-      $query = $connn->prepare($sql);
-      $query->execute([':question' => $question]);
-      $query->setFetchMode(PDO::FETCH_ASSOC);
-      $rows = $query->fetchAll();
-      
-      $resultsCount = count($rows);
-      $index = rand(0, $resultsCount - 1);
-        $row = $rows[$index];
-        $answer = $row['answer'];   
-     
-// $rows = [];
-// while($row = mysqli_fetch_assoc($r))
-// {
-//     $rows[] = $row;
-// }
-// $answerRow = count(mysqli_fetch_assoc($r)) - 1;
-// $randIndex = rand(0,  $answerRow);
-// $answer = $rows[$randIndex];
+        $answer = mysqli_fetch_assoc($r);
+        $answer = $answer['answer'];
+
         //if answer has a function call in it
          // $answer =  callFunction();
         // else
