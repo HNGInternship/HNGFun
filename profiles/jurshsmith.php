@@ -200,7 +200,7 @@ font-size: 15px !important;
 	}</style>
 <div id = "bot-interface" style = "background-color: #f4f4f4; height: 380px;width : 320px;border: 8px solid #04455d;border-bottom: 0px solid transparent; border-radius: 8px;overflow-y: auto">
 <center><div style = "width : 90%; background-color: #a39c9c;border-radius:3px;font-family: monospace"><b style = "font-family: montserrat"><i style = "font-size: 14px"class="fab fa-reddit-alien"></i>&nbsp;JOBOT</b><br>
-Hello I'm Jobot. Type help to see what i can do.
+Hello I'm Jobot. I am your online assistant today.
 </div></center><br>
 <div id = "your-msg" style = "padding-bottom: 170px"></div>
 
@@ -211,8 +211,10 @@ Hello I'm Jobot. Type help to see what i can do.
  	
 		<div class = "row" style = "background-color: #04455d;padding-top: 9px">
     <input style = "" type="text" class="form-control col-sm-12 col-xs-12 col-lg-12 col-md-12" id="bot-chat-area">
-  <button id = "send-msg" type="submit" style = "background-color: #04455d;color: white;height: 86%" class="btn btn-default col-sm-12 col-xs-12 col-lg-12 col-md-12"><center><i class="fab fa-telegram-plane"></i></center></button>
-			
+  <button id = "send-msg" type="submit" style = "background-color: #04455d;color: white;height: 77%" class="btn btn-default col-sm-12 col-xs-12 col-lg-12 col-md-12"><center><i class="fab fa-telegram-plane"></i></center></button>
+			<style>
+				#send-msg:hover{background-color: #72beda;}
+			</style>			
 	
 	</div>
   
@@ -471,10 +473,10 @@ $('#toggle-bot').show();
 		<div id = "j-firstdiv" class = "col-lg-5 col-md-5 col-sm-12 col-xs-12">
 			<br><br>
 			<center><img  src = "http://res.cloudinary.com/jurshsmith/image/upload/v1524378502/jj.png" width = "350px" id = "j-image"></center><br><br>
-			<font class = "j-profile">  <span class="glyphicon glyphicon-user"></span>  &nbsp;</font>
+			<font class = "j-profile">  <i class="fas fa-user-circle"></i>  &nbsp;</font>
 			<font class = "j-profile" style = "font-weight: 600;">OLADELE JOSHUA</font><br>
 			 <font class = "j-header" style = "font-weight: 250;">
-			 <span class="glyphicon glyphicon-ok-sign"></span> &nbsp;
+			 <i class="fas fa-badge-check"></i> &nbsp;
 			 	HNG INTERN</font><br>
 			<br><br>
 			<br><br>
@@ -499,15 +501,15 @@ $('#toggle-bot').show();
 		<div class = "col-lg-7 col-md-7 col-sm-12 col-xs-12">
 			<br><br>
 			<div id = "j-story">
-			<font class = "j-header">ABOUT ME &nbsp;&nbsp;    <span class="glyphicon glyphicon-pencil"></span></font>
+			<font class = "j-header">ABOUT ME &nbsp;&nbsp;    <i class="fas fa-pencil-alt"></i></font>
 			<p>I am a cool guy who loves coding as an hobby.Actually studying mechanical eengineering, but damn, coding captivates me.</p>
 			<br><br><br><br><br>
 			<br><br><br><br>
-			<font class = "j-header">MY QUALIFICATIONS&nbsp;&nbsp;<span class="glyphicon glyphicon-wrench"></span></font>
+			<font class = "j-header">MY QUALIFICATIONS&nbsp;&nbsp;<i class="fas fa-wrench"></i></font>
 			<p>I gat no certificates being a programmer</p>
 			<br><br><br><br><br><br>
 			<br><br><br>
-			<font class = "j-header">MY SKILLS &nbsp;&nbsp;<span class="glyphicon glyphicon-briefcase"></span></font>
+			<font class = "j-header">MY SKILLS &nbsp;&nbsp;<i class="fas fa-suitcase"></i></font>
 			<p>I am proficient in HTML, CSS, BOOTSTRAP, JQUery, Javascript, PHP and i do AI alot for SVG.My UI/UX is bae.</p>
 			<br><br><br><br><br><br>
 			<br><br><br><br>

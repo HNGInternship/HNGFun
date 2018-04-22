@@ -655,7 +655,7 @@ ul{
 
      <img class="rounded-circle" id="profile-pic" src=<?php echo $profilePic?> alt="Profile picture"> 
 
-    <h3 id="school">Graduate of the University of Lagos.</h3>
+    <h3 id="school">Graduate of the University of Lagos!</h3>
 
 
 </div>
@@ -819,7 +819,7 @@ ul{
     }
 
 
-    else if(message..toLowerCase().indexOf('pig latin:') >= 0 || message.toLowerCase().indexOf('pig latin :')>=0){
+    else if(message.toLowerCase().indexOf('pig latin:') >= 0 || message.toLowerCase().indexOf('pig latin :')>=0){
 
        var text=message.substring(message.indexOf(":")+1);
 
