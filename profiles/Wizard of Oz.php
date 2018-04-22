@@ -1,6 +1,12 @@
 <?php
-require "../db.php";
-// x
+if(!defined('DB_USER')){
+            require "../../config.php";     
+            try {
+                $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+            } catch (PDOException $pe) {
+                die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+            }
+        }
 
 
  if(isset($_GET['training'])) {
@@ -85,24 +91,27 @@ function workOnTrainData($data){
     
 
 
+  
     try {
 
 
-        $indexOfColon=strpos($data,"#");
+        $indexOfHash=strpos($data,"#");
 
-        if($indexOfColon===FALSE){
+        if($indexOfHash===FALSE){
 
             return "Training format used is incorrect, use : <br><span id='important'>train: question # answer # password </span>";
 
         }
 
+        $indexOfColon=strpos($data,":");
 
-        $newMessage=substr($data,$indexOfColon);
-
+        $newMessage=substr($data,$indexOfColon+1);
     $query=explode ( "#" , $newMessage );
     $question=sanitizeText($query[0]);
     $answer=sanitizeText($query[1]);
     $password=sanitizeText($query[2]);
+
+    // return $question;
 
 
     if($password==null || $password!="password"){
@@ -113,12 +122,19 @@ function workOnTrainData($data){
     $sql =  $conn->prepare("INSERT INTO chatbot (question, answer)
 VALUES (:question, :answer)");
     // use exec() because no results are returned
-    $result= $sql->execute(array(
-   ':question'=>$question,
-    ':answer'=>$answer
-  ));
+
+    // $result= $sql->execute(array(':question'=>$question,':answer'=>$answer));
+    // return "Awesome! I feel smarter already.";
+
+   if( $result= $sql->execute(array(':question'=>$question,':answer'=>$answer))){
     
-    echo "Awesome! I feel smarter already.";
+    return "Awesome! I feel smarter already.";
+}
+
+else{
+
+    return "Something went wrong, sorry";
+}
     
     }
 catch(PDOException $e)
@@ -670,7 +686,7 @@ background: rgba(0, 0, 0, 0.7);
                <div class="chat-message row">
 
             <h1 class="chat-name col-2">Merlin : </h1>
-          <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <strong>Wizard of Oz!</strong></span>
+          <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <strong>Wizard of Oz-</strong></span>
 
 
       </div>
