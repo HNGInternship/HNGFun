@@ -32,12 +32,12 @@
 			font-family: 'open sans', san serif;
 		}
 		.image_header {
-			width: 100%;
+			width: 50%;
 			margin: auto;
 
 		}
 		.part-1 {
-			width: 38%;
+			width: 100%;
 			display: flex;
 			flex-wrap: wrap;
 		}
@@ -53,7 +53,7 @@
             border-radius: 50%; 
 		}
 		.info p {
-			font-size: 25px;
+			font-size: 20px;
 			margin: 0;
 			width: 100%;
 		}
@@ -70,17 +70,14 @@
 		}
 		
 		.logos img {
-			max-width: 40px;
-			max-height: 40px;
+			max-width: 60px;
+			max-height: 60px;
 			border-radius: 50%;
 			padding-right: 20px;
 		}
 		.logos {
 			margin: auto;
-			margin-left: 0;
 			padding: 10px;
-			margin-top: 0;
-			margin-bottom: 0;
 		}
 
 		/*
@@ -90,9 +87,6 @@
 			.col-1, .col-2 {
 				width: 100%;
 				max-width: 100%;
-			}
-			.vl {
-				display: none;
 			}
 			.image_header {
 				width: 50%;
