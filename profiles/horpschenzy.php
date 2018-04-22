@@ -120,7 +120,7 @@ a.thumbnail:hover {
 <body>
 
 	<?php
-	require_once ('db.php');
+	require_once ('../db.php');
    $result = $conn->query("SELECT * from secret_word LIMIT 1");
    $result = $result->fetch(PDO::FETCH_OBJ);
    $secret_word = $result->secret_word;
@@ -136,8 +136,9 @@ a.thumbnail:hover {
         <img align="left" class="fb-image-profile thumbnail" src="<?= $user->image_filename; ?>" alt="Profile image example"/>
         <div class="fb-profile-text">
             <h1><?= $user->name; ?> <?= $user->username; ?></h1>
-        </div>
             <h3>Skills: </h3>
+        </div>
+            
             <div class="row">
             	<div class="col-md-4"><span class="det">CodeIgniter</span> <span class="det"> PHP</span></div>
             	<div class="col-md-4"><span class="det">HTML</span></div>

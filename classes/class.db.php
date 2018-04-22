@@ -1,6 +1,8 @@
 <?php
 
 
+
+	
 	require_once '../config.php';
 
 	class db {
@@ -12,6 +14,7 @@
 		private static $_password = DB_PASSWORD;
 		private static $_driver = 'mysql';
 		private static $_instance = null;
+
 
 
 
@@ -30,7 +33,7 @@
 
 // 
 
-		public static function getInstance($dbname = DB_DATABASE){
+		public static function getInstance($dbname = "hng_fun"){
 
 
 			if(is_null(self::$_instance)){

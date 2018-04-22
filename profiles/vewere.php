@@ -111,14 +111,48 @@
     #chat-area {
       margin-bottom: 0;
       height: 382px;
-      background: #c4c4c4;
+      background: #d3d3d3;
       overflow-y: auto;
+      scroll-behaviour: auto;
     }
 
     #input-area {
       margin-top: 0;
       height: 53px;
       background: #000000;
+    }
+
+    #bot-bubble {
+      background-color: #fffff0;
+      border-radius: 10px;
+      word-wrap: break-word;
+      max-width: 80%;
+      float: left;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      margin-right: 150px;
+    }
+
+    #user-bubble {
+      background-color: #1e90ff;
+      border-radius: 10px;
+      word-wrap: break-word;
+      max-width: 80%;
+      float: right;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      margin-left: 150px;
+    }
+
+    p {
+      margin: 5px 8px 5px 8px;
+      font-family: "Rajdhani", sans-serif;
+      font-size: 12pt;
+      font-weight: bold;
+    }
+
+    #user-bubble p {
+      color: #ffffff;
     }
     
 
@@ -127,6 +161,15 @@
   <script>
     var profile = true;
     $(function (){
+
+      function sendMessage() {
+        var input = $("#request").val();        
+        if (input) {
+          $("#chat-area").append("<div id='user-bubble'><p>"+input+"</p></div>");
+          $("#request").val("");
+        }
+      }
+
       $("#toggle-visibility").click(function (){
         if (profile) {
           $("#profile").attr('class', 'hidden');
@@ -140,6 +183,16 @@
           profile = true;
         }
       });
+
+      $("#send").click(sendMessage());
+
+      $('#request').keypress(function (e) {
+        if (e.which == 13) {
+          sendMessage();
+          return false;    //<---- Add this line
+        }
+      });
+
     });
   </script>
 </head>
@@ -171,12 +224,24 @@
 <!-- Chat Div -->
 <div class="container hidden" id="chat">
   <div class="row">
-    <div class="col-md-offset-4 col-md-4" id="chat-area"></div>
+    <div class="col-md-offset-4 col-md-4" id="chat-area">
+      <div id="bot-bubble">
+        <p>Hi there!</p>
+      </div>
+      <div id="bot-bubble">
+        <p>My name is Bot :p</p>
+      </div>
+      <div id="bot-bubble">
+        <p>Ask me a question</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-offset-4 col-md-4" id="input-area">
       <div class="input-group">
-        <input class="form-control" type="text">
+        <input class="form-control" type="text" id="request">
         <div class="input-group-btn">
-          <button class="btn btn-primary"><i class="fa fa-paper-plane"></i></button>
+          <button class="btn btn-primary" id="send"><i class="fa fa-paper-plane"></i></button>
         </div>
       </div>
     </div>

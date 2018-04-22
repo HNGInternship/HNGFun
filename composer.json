@@ -1,0 +1,13 @@
+{
+    "name": "HNGFUN",
+    "authors": [
+        {
+            "name": "Chigozie Ekwonu",
+            "email": "chygoz2@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    }
+}

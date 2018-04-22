@@ -1,39 +1,12 @@
-<?php
-include_once '../config.php';
-define('DB_CHARSET', 'utf8mb4');
-$dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
-$opt = [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES => false
-];
-$pdo = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
-$stmt1 = $pdo->query(
-    "SELECT interns_data.name,interns_data.username, interns_data.image_filename FROM interns_data WHERE interns_data.username = 'TechHajiya'");
-$stmt2 = $pdo->query(
-    "SELECT     secret_word.secret_word FROM secret_word");
-$row1 = $stmt1->fetch();
-$row2 = $stmt2->fetch();
-
-$secret_word = $row2['secret_word']; //Querying Secret Word
-
-// Profile Details
-$name = $row1['name'];
-$username = $row1['username'];
-$filename = $row1['image_filename'];
-?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lois Thomas</title>
-    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=quicksand" rel='stylesheet' type='text/css' />
-    <style>
+    <link href='https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra SC|Romanesco' rel='stylesheet'>
+    <style type="text/css">
+        .container{
+            width: 100%;
+            min-height: 100%
+        }
         body {
             font-family: "quicksand"
             color: #4A4646;
@@ -75,25 +48,73 @@ $filename = $row1['image_filename'];
         .fa-twitter {
             color: #1da1f2;
         }
-        @media screen and (max-width: 768px) {
-            .profile-details {
-                padding-top: 115px;
-            }
-            .social-links {
-                margin-bottom: 30px;
-            }
+		
+		
+		
+		
+        .chat-output {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            background: white;
+            flex-direction: column;
+            overflow-y: scroll;
+            max-height: 500px;
+        }
+        .chat-output > div {
+            margin: 0 0 20px 0;
+        }
+        .chat-output .user-message .message {
+            background: #0fb0df;
+            color: white;
+        }
+        .chat-output .bot-message {
+            text-align: right;
+        }
+        .chat-output .bot-message .message {
+            background: #eee;
+        }
+        .chat-output .message {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 10px;
+        }
+        .chat-input {
+            padding: 20px;
+            background: #eee;
+            border: 1px solid #ccc;
+            border-bottom: 0;
+        }
+        .chat-input .user-input {
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="row" style="width:1100px;">
+<div class="container">
+    <?php
+    global $conn;
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="techHajiya"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $user = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    ?>
+
+     <div class="row" style="width:1100px;">
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
-                    <img src="<?=$filename;?>" alt="Lois Thomas">
+                    <img src="<?php echo $user->image_filename ?>" alt="Lois Thomas">
                 </div>
 				<p class="text-center profile-name">
-				<span> Hi! I am  <?=$name;?>  <br/>(@<?=$username;?>) <br/> I Eat | I Code | I Repeat</span>
+				<span> Hi! I am  <?php echo $user->name ?>  <br/>(@<?php echo $user->username ?>) <br/> I Eat | I Code | I Repeat</span>
                 </p>
                 <div class="text-center social-links">
                     <a href="https://github.com/cara06" target="_blank"><i class="fa fa-2x fa-github"></i></a>
@@ -102,7 +123,129 @@ $filename = $row1['image_filename'];
                 </div>
             </div>
         </div>
+
+        <div class="col-md-6">
+            <div class="body1">
+                <div class="chat-output" id="chat-output">
+                    <div class="user-message">
+                        <div class="message">Hi there! I'm LoBot! Ask anything and I'll be sure to answer! </br>To train me, use this syntax - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
+                    </div>
+                </div>
+
+                <div class="chat-input">
+                    <form action="" method="post" id="user-input-form">
+<!--                        <input type="hidden" name="id" value="--><?php //echo htmlspecialchars($_GET['id']);?><!--">-->
+                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
+                    </form>
+                </div>
+
+            </div>
+        </div>
     </div>
+
+
+    <?php
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $data = $_POST['user-input'];
+        $temp = explode(':', $data);
+        $temp2 = preg_replace('/\s+/', '', $temp[0]);
+        
+        if($temp2 === 'train'){
+            train($temp[1]);
+        }elseif($temp2 === 'aboutbot') {
+            aboutbot();
+        }else{
+            getAnswer($temp[0]);
+        }
+    }
+	##About Bot
+    function aboutbot() {
+        echo "<div id='result'>LoBot version 1.0 - I am a bot created by Lois Thomas that returns data from the database. That's not all, I also can be taught new tricks!</div>";
+    }
+	
+	##Train Bot
+    function train($input) {
+        $input = explode('#', $input);
+        $question = trim($input[0]);
+        $answer = trim($input[1]);
+        $password = trim($input[2]);
+        if($password == 'LoBot') {
+            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+            $q = $GLOBALS['conn']->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+            if(empty($data)) {
+                $training_data = array(':question' => $question,
+                    ':answer' => $answer);
+                $sql = 'INSERT INTO chatbot ( question, answer)
+              VALUES (
+                  :question,
+                  :answer
+              );';
+                try {
+                    $q = $GLOBALS['conn']->prepare($sql);
+                    if ($q->execute($training_data) == true) {
+                        echo "<div id='result'>Thank you for training me. <br>
+			Now you can ask me same question, and I will answer it.</div>";
+                    };
+                } catch (PDOException $e) {
+                    throw $e;
+                }
+            }else{
+                echo "<div id='result'>I already understand this. Teach me something new!</div>";
+            }
+        }else {
+            echo "<div id='result'>You entered an invalid Password. </br>Try Again!</div>";
+        }
+    }
+    function getAnswer($input) {
+        $question = $input;
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+        $q = $GLOBALS['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
+        if(empty($data)){
+            echo "<div id='result'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'</div>";
+        }else {
+            $rand_keys = array_rand($data);
+            echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
+        }
+    }
+    ?>
+
+</div>
+
 </body>
 
-</html>
+<script>
+    var outputArea = $("#chat-output");
+    $("#user-input-form").on("submit", function(e) {
+        e.preventDefault();
+        var message = $("#user-input").val();
+        outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
+        $.ajax({
+            url: 'profile.php?id=techHajiya',
+            type: 'POST',
+            data:  'user-input=' + message,
+            success: function(response) {
+                var result = $($.parseHTML(response)).find("#result").text();
+                setTimeout(function() {
+                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+                    $('#chat-output').animate({
+                        scrollTop: $('#chat-output').get(0).scrollHeight
+                    }, 1500);
+                }, 250);
+            }
+        });
+        $("#user-input").val("");
+    });
+</script>

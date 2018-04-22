@@ -1,10 +1,18 @@
 <?php 
     date_default_timezone_set('Africa/Lagos');
 
-    if($_SERVER['REQUEST_METHOD']==='GET'){
-        if (!defined('DB_DATABASE')){
-        require_once('../db.php');
+        if (!defined('DB_USER')){
+            
+            require "../../config.php";
         }
+        try {
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+          } catch (PDOException $pe) {
+            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+          }
+
+           global $conn;
+
         try {
             $sql = 'SELECT * FROM secret_word LIMIT 1';
             $q = $conn->query($sql);
@@ -22,94 +30,93 @@
         } catch (PDOException $e) {
             throw $e;
         }
-    }
+    
     if ($_SERVER['REQUEST_METHOD']==="POST") {
-        if (!defined('DB_DATABASE')) {
 
-            require_once('../db.php');
-        }
+        $q = $_POST['chat_message'];
 
-         $q = $_POST['chat_message'];
-
-         $q = trim(htmlspecialchars($q));
-         $q = trim($q, "?");
+        $q = trim(htmlspecialchars($q));
+        $q = trim($q, "?");
 
         if (empty($q)){
 
             echo json_encode(['status'=>0]); //status =0 means, user submitted empty string
-        }
+       }
            
-            
             //check if it's a trainer
            $first_test_str = explode(':', $q);
            if ($first_test_str[0]== 'train'){
 
+                $password = 'password';
+
                 $second_test_str = explode('#', $first_test_str[1]);
 
-                if(trim($second_test_str[0]) !='' && trim($second_test_str[1] != '')){
+                if (! count($second_test_str) < 3 && trim($password)===trim($second_test_str[2])){
 
-                    $question = $second_test_str[0];
-                    $ans = $second_test_str[1];
+                    if(trim($second_test_str[0]) !='' && trim($second_test_str[1] != '')){
 
-                    // preg_match_all('/\(\((.*)\)\)/', $ans, $matches);
-
-                    // $func = $matches[0];
-
-                    // echo json_encode(['status'=>1, 'answer'=>$func]);
-                    // return;
-                    // if ($func){
-
-                    //     require_once('../answers.php');
-
-                    //     if (function_exists($func)){
-
-                    //         $function_result =  $func();
-
-                    //         echo json_encode(['status'=> 5, 'response'=>$function_result]);
-                    //         return;
-                    //     }
-                    // }
-                    
-                    //check if question or answer already exists
-                        $sql = "SELECT * FROM chatbot WHERE `question` LIKE '%$question%' OR `answer` LIKE '%$ans%'";
-                        $stm = $conn->query($sql);
-                        $stm->setFetchMode(PDO::FETCH_ASSOC);
-        
-                        $res = $stm->fetchAll();
-
-                         if ($res){
-                             echo json_encode(['status'=>4, 'response'=>'Were you thinking I am that dull not to know that <code>'.$res[0]['question']. '</code> simply require <code>'. $res[0]['answer'].'</code> as the answer? <code>Could you please ask something more challenging or teach me something serious?</code>']);
-                         }
-                           
-                         //if it's a new question, save into db
-                        else{
-                            $sql = "INSERT INTO chatbot(question, answer)
-                                    VALUES(:quest, :ans)";
-                            $stm =$conn->prepare($sql);
-                            $stm->bindParam(':quest', $question);
+                        $question = $second_test_str[0];
+                        $ans = $second_test_str[1];
+                        
+                        //check if question or answer already exists
+                            
+                            $sql = "SELECT * FROM chatbot WHERE question LIKE :question OR answer LIKE :ans";
+                            $stm = $conn->prepare($sql);
+                            $stm->bindParam(':question', $question);
                             $stm->bindParam(':ans', $ans);
+                            $stm->execute();
+                 
+                            $stm->setFetchMode(PDO::FETCH_ASSOC);
+            
+                            $res = $stm->fetchAll();
 
-                            $saved = $stm->execute();
-                            if ($saved){
+                            if ($res){
+                                echo json_encode(['status'=>4, 'response'=>'Were you thinking I am that dull not to know that <code>'.$res[0]['question']. '</code> simply require <code>'. $res[0]['answer'].'</code> as the answer? <code>Could you please ask something more challenging or teach me something serious?</code>']);
+                            }
+                            
+                            //if it's a new question, save into db
+                            else{
 
-                                echo json_encode(['status'=>1, 'answer'=>'Thanks for helping me learn']);
+                                $sql = "INSERT INTO chatbot(question, answer)
+                                        VALUES(:quest, :ans)";
+                                $stm =$conn->prepare($sql);
+                                $stm->bindParam(':quest', $question);
+                                $stm->bindParam(':ans', $ans);
+
+                                $saved = $stm->execute();
+                                if ($saved){
+
+                                    echo json_encode(['status'=>1, 'answer'=>'Thanks for helping me learn']);
+                                }
+                                else {
+                                    echo json_encode(['status'=>3, 'response'=>'Opps could not understand because of my small brain, please kinly repeat']);
+                                }
                             }
-                            else {
-                                echo json_encode(['status'=>3, 'response'=>'Opps could not understand because of my small brain, please kinly repeat']);
-                            }
+                    }
+                    else{
+                          echo json_encode(['status'=>3, 'response'=>'Opps, Invalid training format']);
                         }
+                
+                
+                }        
+                    else{
+                    echo json_encode(['status'=>3, 'response'=>'Oops you are not authorized to train me']);
                 }
            }
            else {
                     
-                $sql = "SELECT * FROM chatbot WHERE `question` LIKE '%$q%'";
-                $stm = $conn->query($sql);
-                $stm->setFetchMode(PDO::FETCH_ASSOC);
+                 $query = "$q";
+                $sql = "SELECT * FROM chatbot WHERE question LIKE :question";
+                $statement = $conn->prepare($sql);
+                $statement->bindParam(':question', $query);
+                $statement->execute();
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
 
-                $result = $stm->fetchAll();
+                $result = $statement->fetchAll();
                 if ($result) {
                     
-                        $answer = $result[0]['answer'];
+                    $answer_index = rand(0, (count($result)-1));
+                        $answer = $result[$answer_index]['answer'];
 
                         echo json_encode(['status'=>1, 'answer'=>$answer]);
                 }
@@ -118,12 +125,8 @@
                 }
         }
         
-    }
-?>
+    }else{
 
-
-<?php
-	if($_SERVER['REQUEST_METHOD'] === "GET"){
 ?>
 
         <!DOCTYPE html>
@@ -179,13 +182,15 @@
             max-height: 350px;
             overflow-x: hidden;
         }
-        
+        /* .msg_container{
+            width:100%;
+        } */
         .top-bar {
             background: #666;
             color: white;
             padding: 10px;
-            /* position: relative; */
-            /* overflow: hidden; */
+            position: relative; 
+             overflow: hidden;
         }
         
         .msg_receive {
@@ -206,7 +211,7 @@
             padding: 10px;
             border-radius: 2px;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-            max-width: 100%;
+            max-width: 80%;
         }
         
         .messages>p {
@@ -225,15 +230,6 @@
             overflow: hidden;
             display: flex;
         }
-        
-        /* .bot-img {
-            display: block;
-            width: 100%;
-        }
-        
-        .avatar {
-            position: relative;
-        } */
         
         .base_receive>.avatar:after {
             content: "";
@@ -317,7 +313,7 @@
                             <div class="col-lg-8 col-sm|md|xs-12">
                                 <div class="profile"> 
                                     <div class="text-center">
-                                        <img src="<?= "http://res.cloudinary.com/drjpxke9z/image/upload/v1523623738/oriechinedu_ihubdk.jpg"?>" class="rounded-circle" alt="orie chinedu" width="200px" height="200px">
+                                        <img src="<?= "https://res.cloudinary.com/drjpxke9z/image/upload/c_scale,e_auto_saturation,h_1300,q_auto:best/v1523623738/oriechinedu_ihubdk.png"?>" class="rounded-circle" alt="orie chinedu" width="200px" height="200px">
                                     </div>
                                     <h1 >Hey! <small>this is</small> <?= 'Orie Chinedu' ?></h1> 
                                     <p id="intro" style="margin-bottom: 50px; text-shadow: 2px 2px 2px #fff; color: dark;">I am a Web Developer. Proficient in HTML, CSS, JAVASCRIPT,
@@ -350,12 +346,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-sm|md|xs-12">
+                            <div class="col-lg-4 col-sm|md|xs-10">
                                 <div class="row chat-window" id="chat_window_1">
                                     <div class="card">
                                         <div class="row card-header top-bar">
                                             <div class="col-md-8 col-xs-8">
-                                                <h3><span class="fa fa-comment"></span> HNGBot</h3>   
+                                                <h3><span class="fa fa-comment"></span>ChatBot</h3>   
                                             </div>
                                             <div class="col-md-4 col-xs-4">
                                                 <a href="#"><span id="minim_chat_window" class="fa fa-minus icon_minim"></span></a>
@@ -367,7 +363,7 @@
                                             <div class="row msg_container base_sent">
                                                 <div class="col-md-10 col-xs-10">
                                                     <div class="messages msg_sent">
-                                                        <p><code>Hello, I am da bot, I am smart but you can make me smarter, I am always willing to learn</code></p>
+                                                        <p><code>Hello, I am a bot, I am smart but you can make me smarter, I am always willing to learn</code></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 col-xs-2"></div>
@@ -375,22 +371,12 @@
                                             <div class="row msg_container base_sent">
                                                 <div class="col-md-10 col-xs-10">
                                                     <div class="messages msg_sent">
-                                                        <p><code>To teach me, send train:your question#your answer</code></p>
+                                                        <p><code>To teach me, package your lesson in the format below</code></p>
+                                                        <p><code>train:your question#your answer#password</code></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 col-xs-2"></div>
                                             </div>
-                                            
-                                        <!-- Bot reply here -->
-                                            <!-- <div class="row msg_container base_receive">
-                                                <div class="col-md-2 col-xs-2 avatar"></div>
-                                                <div class="col-md-10 col-xs-10">
-                                                    <div class="messages msg_receive">
-                                                        <p>I am bot</p>
-                                                        <time datetime="2009-11-13T20:00">00:000:00</time>
-                                                    </div>
-                                                </div>
-                                            </div> -->
 
                                         </div>   <!-- message form -->
                                         <div class="card-footer message-div">
@@ -424,15 +410,14 @@
 
                                 let bot_msg =  (answer)=>{
 
-
-                                            return         '<div class="row msg_container base_sent">'+
+                                            return   '<div class="row msg_container base_sent">'+
                                                             '<div class="col-md-10 col-xs-10">'+
-                                                        '<div class="messages msg_sent">'+
-                                                                '<p>'+answer+'</p>'+
-                                                            '</div>'+
-                                                            '</div>'+
-                                                            '<div class="col-md-2 col-xs-2 avatar">'+
-                                                            '<img src="" class="bot-img img-responsive" title="">'+
+                                                                '<div class="messages msg_sent">'+
+                                                                    '<p>'+answer+'</p>'+
+                                                                '</div>'+
+                                                                '</div>'+
+                                                                '<div class="col-md-2 col-xs-2 avatar">'+
+                                                                '<img src="" class="bot-img img-responsive" title="">'+
                                                             '</div>'+
                                                         '</div>';
                                 }
@@ -451,13 +436,21 @@
                                        
                                        if (message != ''){
 
-                                           if (message.split(':')[0] !='train')
-                                            msg_container.append(sent_msg(message));
+                                           if (message.split(':')[0] !='train' && message != "aboutbot"){
+                                                msg_container.append(sent_msg(message));
+                                                msg_container.scrollTop(msg_container[0].scrollHeight);
+                                           }
+                                       }
+
+                                       if (message == "aboutbot"){
+                                            msg_container.append(bot_msg('<code>Glad you want to learn about me. Well I am HNGsoftBot version 4.0. I wouldn\'t have existed if not the HNGInternship 4.0</code>'));
+                                            msg_container.scrollTop(msg_container[0].scrollHeight);
+                                             $('.message').val('');
+                                            return;
                                        }
                                         // msg_container.append(bot_msg);
                                        
-                                        
-                                $('.message-div').removeClass('has-danger')
+                            
 
                                
 
@@ -468,34 +461,42 @@
                                     dataType: 'json',
                                     data: {chat_message: message},
                                     success: function(data) {
-                                        console.log(data);
+                                        //console.log(data);
                                         if (data.status===1){
 
                                            $('.message').val('');
                                              msg_container.append(bot_msg(data.answer));  
+                                             msg_container.scrollTop(msg_container[0].scrollHeight);
                                         }
                                         else if(data.status===2){
                                             $('.message').val('');
                                             msg_container.append(bot_msg('Oga I no know this one, abeg try again'));
-                                            // $('.message').addClass('has-danger');
-                                            // $('.message-div').addClass('has-danger');
+                                            msg_container.scrollTop(msg_container[0].scrollHeight);
                                         }
                                         else if(data.status===0){
                                             msg_container.append(bot_msg('Opps what do you really expect from me with empty question?'))
+                                            msg_container.scrollTop(msg_container[0].scrollHeight);
                                         }
                                         else if(data.status===3){
                                             $('.message').val('');
                                             msg_container.append(bot_msg(data.response));
+                                            msg_container.scrollTop(msg_container[0].scrollHeight);
                                         }
                                         else if(data.status===4){
                                             $('.message').val('');
                                             msg_container.append(bot_msg(data.response));
+                                            msg_container.scrollTop(msg_container[0].scrollHeight);
                                         }
-                                        // location.reload();
+                                        else if(data.status===5){
+                                            $('.message').val('');
+                                            msg_container.append(bot_msg(data.response));
+                                            msg_container.scrollTop(msg_container[0].scrollHeight);
+                                        }
+                                        
                                     },
                                     error: function(error) {
                                     
-                                        // console.log(error);
+                                        console.log(error);
                                     
                                         if (error) {
                                             
@@ -504,17 +505,6 @@
                                     },
                                 });
                             });
-
-                            //============jqueryui tooltip==========//
-                            // $('.img').tooltip({
-                            
-                            //     placement: 'right'
-                            
-                            // });
-                            //===========end jqueryui tooltip========//
-                            // $('.chat-window').draggable({
-
-                            // });
 
                             $(document).on('click', '.card-header span.icon_minim', function(e) {
                                 var $this = $(this);

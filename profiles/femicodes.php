@@ -20,7 +20,8 @@
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		  })(window,document,'script','
+		     s://www.google-analytics.com/analytics.js','ga');
 
 		  ga('create', 'UA-77783023-1', 'auto');
 		  ga('send', 'pageview');
@@ -31,7 +32,7 @@
 
 <style>
 
-@import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900");
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900");
 @import url("font-awesome.min.css");
 
 
@@ -997,10 +998,18 @@
 					
 					<?php
 						echo "Time " . date("h:i:sa");
-					?>
+					
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+
+   $result2 = $conn->query("Select * from interns_data where username = 'femicodes'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+    					
+?>
 
 							<!-- <p>Time: <span id="datetime"></span></p> -->
-						<h1>Aghedo Joseph Femi</h1>
+						<h1><?php echo $user->name ?></h1>
 						<p>Android Developer &nbsp;&bull;&nbsp; Technical Writer &nbsp;&bull;&nbsp; Part Time UI/UX Designer</p>
 					
 						<nav>
