@@ -26,9 +26,9 @@
             /*top:20px;*/
             width: 100%;
             /*padding-top: 300px;*/
-            height: 130px;
+            max-height: 230px;
             font-family: "Romanesco";
-            line-height: 130px;
+            line-height: 230px;
             font-size: 96px;
             text-align: center;
         }
@@ -218,9 +218,9 @@
     }
     function train($input) {
         $input = explode('#', $input);
-        $question = $input[0];
-        $answer = $input[1];
-        $password = preg_replace('/\s+/', '', $input[2]);
+        $question = trim($input[0]);
+        $answer = trim($input[1]);
+        $password = trim($input[2]);
         if($password == 'password') {
             $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
             $q = $GLOBALS['conn']->query($sql);

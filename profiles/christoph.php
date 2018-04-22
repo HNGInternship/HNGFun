@@ -658,12 +658,15 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
         }
         
         // Search db for question and return a random answer if question exists
-        $check_message_query = $conn->query(
-        "SELECT     chatbot.answer,
+        $check_message_query = $conn->prepare(
+        'SELECT     chatbot.answer,
                     chatbot.question
         FROM        chatbot
-        WHERE       chatbot.question LIKE '%$query_input%'
-        ORDER BY    RAND() LIMIT 1");
+        WHERE       chatbot.question LIKE ?
+        ORDER BY    RAND() LIMIT 1');
+
+        $check_message_query->bindValue(1, "%$query_input%");
+        $check_message_query->execute();
 
         $query_result = $check_message_query->fetch();
 
