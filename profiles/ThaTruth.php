@@ -9,36 +9,10 @@
       throw $e;
   }
 ?>
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-<?php
->>>>>>> 52b67053e12fb654879ade8c1a3050d1578a8623
-function getuserfield($field) {
-$username = $conn->query("SELECT $field FROM `interns_data_` WHERE name='Egbo Thankgod'");
-$username2 = $username->fetch();
-$username3 = $username2['name'];
-
-echo $username3;
-}
-
-
-function getsecretword() { 
-$secret = $conn->query("SELECT * FROM `secret_word`");
-$secret2 = $secret->fetch();
-$secret3 = $secret2['secret_word'];
-
-echo $secret3;
-}
-?>
-=======
->>>>>>> d1e5c57f76f7abcf6242f6f42c3ebefa9ef6c972
 <!DOCTYPE html>
 <html lang="en">
 
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
