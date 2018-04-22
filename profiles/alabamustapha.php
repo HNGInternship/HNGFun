@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
 
-// $data = getAction(['stage' => 1, 'human_response' => '                          train:                   what is the             synonym of die # kill,death #     password']);
+// $data = getAction(['stage' => 1, 'human_response' => 'train: red and blue#black#password']);
 
 // echo $data;
 
@@ -131,10 +131,11 @@ function train($human_response){
 
 	function chat_or_train($human_response){
 
-		$human_response_words = explode(' ', $human_response);
-		if (strpos(trim($human_response_words[0]), 'train:') !== false && count($human_response_words) > 4) {
+		
+		if (strpos(trim($human_response), 'train:') !== false) {
 			return train($human_response);
 		}else{
+			
 			return chat($human_response);
 		}
 
