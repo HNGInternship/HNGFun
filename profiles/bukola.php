@@ -1,37 +1,27 @@
 <?php
-    if(!defined('DB_USER')){
-        require "../../config.php";		
+    if($_SERVER['REQUEST_METHOD'] === 'GET'){
         try {
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-        } catch (PDOException $pe) {
-            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+            $sql = 'SELECT * FROM secret_word LIMIT 1';
+            $q = $conn->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+        } catch (PDOException $e) {
+            throw $e;
         }
-    }
-    global $conn;
+        $secret_word = $data['secret_word'];
 
-    try {
-        $sql = 'SELECT * FROM secret_word LIMIT 1';
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-    } catch (PDOException $e) {
-        throw $e;
+        try {
+            $sql = "SELECT intern_id, name, username, image_filename FROM interns_data WHERE username='bukola'";
+            $q = $conn->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+        $name= $data['name'];
+        $username= $data['username'];
+        $link= $data['image_filename'];
     }
-    $secret_word = $data['secret_word'];
-?>
-<?php
-    require 'db.php';
-    try {
-        $sql = "SELECT intern_id, name, username, image_filename FROM interns_data WHERE username='bukola'";
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    $name= $data['name'];
-    $username= $data['username'];
-    $link= $data['image_filename'];
 ?>
 <?php
     // Our bot will send a POST request to this file and we only want the code below to run only when that happens
