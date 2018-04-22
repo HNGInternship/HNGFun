@@ -209,55 +209,6 @@ function predictOutcome($battle){
 }
 // End of functions by @mclint_
 
-// functions by @bukola. DO NOT MODIFY
-function getUSSD($bankName){
-    switch(trim(strtolower($bankName))){
-        case 'first bank':
-        return '*894#';
-
-        case 'access bank':
-        return '*901#';
-
-        case 'gt bank':
-        case 'guaranty trust bank':
-        return '*737#';
-
-        case 'diamond bank':
-        return '*426#';
-
-        case 'fidelity bank':
-        return '*770#';
-
-        case 'ecobank':
-        return '*326#';
-
-        case 'sterling bank':
-        return '*822#';
-
-        case 'keystone bank':
-        return '*533#';
-
-        case 'skye bank':
-        return '*833#';
-
-        case 'union bank':
-        return '*826#';
-
-        case 'stanbic bank':
-        return '*909#';
-
-        case 'uba':
-        return '*919#';
-
-        case 'wema bank':
-        return '*945#';
-
-        case 'zenith bank':
-        return '*966#';
-    }
-}
-// End of functions by @Bukola
-
 //functions defined by @chigozie. DO NOT MODIFY!!!
 function getDayOfWeek(){
     return date("l");
@@ -910,5 +861,55 @@ function getQuote()
     $result = file_get_contents($url);
     return $result;
 }
+
+
+// functions by @bukola. DO NOT MODIFY
+function getUSSD($bankName){
+    switch(trim(strtolower($bankName))){
+        case 'first bank':
+        return '*894#';
+
+        case 'access bank':
+        return '*901#';
+
+        case 'gt bank':
+        case 'guaranty trust bank':
+        return '*737#';
+
+        case 'diamond bank':
+        return '*426#';
+
+        case 'fidelity bank':
+        return '*770#';
+
+        case 'ecobank':
+        return '*326#';
+
+        case 'sterling bank':
+        return '*822#';
+
+        case 'keystone bank':
+        return '*533#';
+
+        case 'skye bank':
+        return '*833#';
+
+        case 'union bank':
+        return '*826#';
+
+        case 'stanbic bank':
+        return '*909#';
+
+        case 'uba':
+        return '*919#';
+
+        case 'wema bank':
+        return '*945#';
+
+        case 'zenith bank':
+        return '*966#';
+    }
+}
+// End of functions by @Bukola
 
 ?>
