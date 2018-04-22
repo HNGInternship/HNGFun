@@ -185,7 +185,7 @@ html,body{
 
 <!-- botton for chatbot -->
 <button id = "toggle-bot" style = "background-color: #72beda; border: none;border-radius: 4px;color: white;"><i id = "j-icon" style = "font-size: 55px;padding:5px"class="fab fa-reddit-alien"></i>&nbsp;</button>
-<style>#j-icon:hover{font-size: 53px !important;}#toggle-bot:hover{background-color: #0c779e; !important;}#toggle-bot{position: fixed;bottom: 6px;right:6px;z-index: 800;}.dd{position: fixed;bottom: 2px;right:2px;z-index: 8000;}</style>
+<style>#j-icon:hover{font-size: 53px !important;}#toggle-bot:hover{background-color: #0c779e; !important;}#toggle-bot{position: fixed;bottom: 6px;right:6px;z-index: 800;}.dd{position: fixed;bottom: 2px;right:10px;z-index: 8000;}</style>
 <!-- chatbot new starts here -->
 <br>
 <div class = "dd">
