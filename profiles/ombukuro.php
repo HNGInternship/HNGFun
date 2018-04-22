@@ -1,6 +1,6 @@
 <?php
 include 'header.php';
-include "../db.php";
+//include "../db.php";
 $query = ("SELECT * FROM interns_data_ WHERE username='ombukuro'");
 $row = $conn->query($query);
 $result = $row->fetch();
