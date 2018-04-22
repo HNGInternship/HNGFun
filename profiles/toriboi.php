@@ -9,7 +9,13 @@
     }
 
     if(isset($_POST['q']) && $_POST['q'] != '') {
+<<<<<<< HEAD
+      $q = trim($_POST['q']);
+
+      if(strtolower($q) == 'aboutbot') {echo "Name: toribot. Version: 1.0"; exit();}
+=======
       $q = $_POST['q'];
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 
       // HANDLE TRAINING
       $words = explode(':', $q);
