@@ -246,7 +246,11 @@ img{
 <h1>HNG Internship 4.0</h1>
   <img src="<?php echo $user->image_filename ?>" />
         
+<<<<<<< HEAD
 		<section class= "col-md-12 offset-md-8 chat-frame" >
+=======
+		<section class= "col-md-6 chat-frame" >
+>>>>>>> cffa47c00ddce269077478775e32ec23b53f51d7
              <div class="row">
                  <button class="accordion">HELLO WORLD!!!</button>
 <div class="panel">
