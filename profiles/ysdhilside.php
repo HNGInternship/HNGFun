@@ -540,9 +540,8 @@ footer .copyright {
     					<h3 style="display: none"> <?php echo $secret_word ?></h3>
     				</div>
     			
-    		
-    		
-    	</div>
+    		    </div>
+            </div>
     	
     </div>
 
