@@ -1,6 +1,5 @@
 <?php 
 
-<<<<<<< HEAD
 require "../config.php";
 =======
   require "../config.php";		
@@ -14,7 +13,7 @@ $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'")
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
 ?>
-/////////////////////////////////
+
 <?php
 /*
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
