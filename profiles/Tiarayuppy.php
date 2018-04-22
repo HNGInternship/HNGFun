@@ -785,7 +785,8 @@ body{
       background-color: #e1ecf7; 
       border: 2px; 
       margin-bottom: 30px;
-      float: right;">
+      float: right;
+      height: 100%;">
        <h4 style="text-align: center;">My Chat bot </h4>
             <ul></ul>
             <div>
@@ -808,7 +809,7 @@ body{
                     </div> 
 
                 </div>
-                <div style="padding-top: 10px;">
+                <div style="padding-top: 20px;">
                     <input type="submit" value="send your message" style=" border-radius:10px; flex-grow: 1; background-color: green; color: #FAFAFA; float: left;"/>
                 </form>
                 </div> 
