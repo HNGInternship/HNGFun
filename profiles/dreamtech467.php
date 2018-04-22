@@ -174,7 +174,7 @@
 					var classname = 'sending-'+rand;
 					var selector = '.'+classname;
 					$('#message').val('');
-					$('.chatBody').append('<div class="msgB"><p class="'+classname+'">Sending...</p></div>');
+					$('.chatBody').append('<div class="msgB"><strong>you</strong><br><p class="'+classname+'">Sending...</p></div>');
 					$('.chatBody').animate({scrollTop: $('.chatBody').prop("scrollHeight")}, 1000);
 					
 				  $.ajax({
@@ -186,7 +186,7 @@
 					var answer = response.answer;
 					$(selector).html(''+message+'');
 					$(selector).removeClass(classname).addClass('sent');
-					$('.chatBody').append(' <div class="msgA"><p>'+answer+'</p></div>');
+					$('.chatBody').append(' <div class="msgA"><strong>dreamtech</strong><br><p>'+answer+'</p></div>');
 				  
 											
 				  },
@@ -277,6 +277,7 @@
 				font-size:12px;
 				overflow:auto;
 				overflow-x:hidden;
+				
 			}
 			
 			.msgA{
@@ -287,6 +288,7 @@
 				margin-left:20px;
 				position:relative;
 				min-height:10px;
+				border-radius:5px;
 			}
 			.msgA:before{
 				content: "";
@@ -303,10 +305,12 @@
 				margin-top: 10px;
 				margin-right:20px;
 				padding:15px;
-				background:#ffff99;
+				background:#6699ff;
 				margin-left:20px;
 				min-height:15px;
 				position:relative;
+				border-radius:5px;
+				color:#ffffff;
 			}
 			.msgB:before{
 				content: "";
@@ -317,7 +321,7 @@
 				  top: 7px;
 				  border-radius:5px;
 				  border: 15px solid;
-				  border-color: transparent  transparent transparent #ffff99;
+				  border-color: transparent  transparent transparent #6699ff;
 			}
 			#message{
 				border: transparent;
