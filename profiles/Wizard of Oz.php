@@ -126,7 +126,7 @@ VALUES (:question, :answer)");
 
 else{
 
-    return "Something went wrong, sorry"
+    return "Something went wrong, sorry";
 }
     
     }
