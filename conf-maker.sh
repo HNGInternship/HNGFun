@@ -1,5 +1,6 @@
 #! /bin/sh
 rm ../config.php
+rm config.php
 touch config.php
 cat <<EOT >> config.php
 <?php
