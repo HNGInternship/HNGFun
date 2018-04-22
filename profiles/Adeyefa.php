@@ -338,25 +338,25 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-<<<<<<< HEAD
+
 			        //$("#ans").append("<li>"  + response.result +  "</li>");
 			        console.log(response.result);
-=======
+
 			        $("#ans").append("<li>"  + response.result +  "</li>");
 			       // console.log(response.result);
->>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
+
 			        //alert(response.result.d);
 			        //alert(answer.result);
 			        
 					},
 					error: function(error){
-<<<<<<< HEAD
+
 						console.log(error);
 				        alert(error);
-=======
+
 						//console.log(error);
 				        alert(JSON.stringify(error));
->>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
+
 					}
 				})	
 			})
