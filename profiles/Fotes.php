@@ -208,9 +208,8 @@ img{
 
 		   
             }
-            .panel::-webkit:scrollbar{width:5px;
-                
-                
+            .panel::-webkit:scrollbar{
+		    width:5px;  
             }
             .button {
   font-size: 15px;
@@ -251,7 +250,7 @@ img{
 <h1>HNG Internship 4.0</h1>
   <img src="<?php echo $user->image_filename ?>" />
          <section class= "col-lg-12 col-md-12 col-sm-12 col-xs-12 chat-frame" >
-             <div class="row" style="margin-top: 3px;">
+             <div class="row" >
                  <button class="accordion">HELLO WORLD!!!</button>
 <div class="panel">
     <p style= color:darkmagenta;> <h4> I'm Fotes_Bot:Ask me anything!!!</h4><br>
