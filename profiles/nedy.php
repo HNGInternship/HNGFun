@@ -29,13 +29,12 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
         $question = $_POST['message'];
         if(strpos($question, "train:") !== false){
             $questionAndAnswer = substr($question, 6); //get the string after train
-            $questionAndAnswer =test_input($questionAndAnswer); //removes all shit from 'em
             $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
             $questionAndAnswer = explode("#",$questionAndAnswer);
             if((count($questionAndAnswer)==3)){
                 $question = $questionAndAnswer[0];
                 $answer = $questionAndAnswer[1];
-                $password = test_input($questionAndAnswer[2]);
+                $password = $questionAndAnswer[2];
             }else{
                 echo json_encode([
                     'status'    => 0,
