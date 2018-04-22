@@ -13,7 +13,7 @@ if(isset($_GET['id'])){
     try {
         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
     } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+        die("Could not connect to the database on live server " . DB_DATABASE . ": " . $pe->getMessage());
     }
 
 
@@ -46,6 +46,9 @@ $abusiveWords = ["crazy","stupid","4r5e", "5h1t", "5hit", "a55", "anal", "anus",
 $apiKey = 'f9cca98bdc5344ce8508b4a6b8110c59';
 $botVersion = "agbero v1.0";
 
+
+
+// Question engine
 if($_SERVER['REQUEST_METHOD'] == "POST"){
         header('Content-Type: application/json');
         if(isset($_POST["data"])){
@@ -53,6 +56,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             echo(json_encode($reponse));
         }
 }
+
+////////////////////////////////
 
 
 

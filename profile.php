@@ -1,4 +1,4 @@
-z    <!-- head here  -->
+<!-- head here  -->
 <?php
    include_once("header.php");
 
