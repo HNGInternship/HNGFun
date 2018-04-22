@@ -41,7 +41,7 @@
 
   #cover{
     width: 100%;
-    background: rgba(0,0,0,.95);
+    background: red;
     height: 100vh;
     text-align: center;
   }
@@ -77,7 +77,7 @@
 
 <body>
 
-    <div>
+    <div id="cover">
       <div id="box">
        <img src="http://res.cloudinary.com/damilola/image/upload/v1524350063/me.jpg" alt="Damilola" class="img-rounded">
        <p><?php echo $name; ?></p>
