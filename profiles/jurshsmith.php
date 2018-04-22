@@ -286,7 +286,7 @@ if (message.length == 0){
 }
 else{
 	//your message
-var strr = '<div style = "background-color: #ade4f8;width:70%;border-radius:4px"><font style = "font-size: 10px; font-family: monospace"><b><i style = "font-size: 17px" class="fas fa-user"></i>&nbsp;You</b><br>' +message + "</font></div><br>";
+var strr = '<div style = "padding: 2px;background-color: #ade4f8;width:70%;border-radius:4px"><font style = "font-size: 10px; font-family: monospace"><b><i style = "font-size: 17px" class="fas fa-user"></i>&nbsp;You</b><br>' +message + "</font></div><br>";
 $('#your-msg').append(strr);
 }
 
@@ -302,7 +302,7 @@ msg.text = reply;
 msg.lang = 'en-US';
 speechSynthesis.speak(msg);
 
-reply = '<div id = "bb'+countt+'" style = "background-color: #72beda;width:70%;position: relative;left: 30%;border-radius:4px "><b><i style = "font-size: 17px"class="fab fa-reddit-alien"></i>&nbsp;Bot</b><br><font class = "" style = "font-size: 10px; font-family: monospace">'+ reply + "</font></div><br>";
+reply = '<div id = "bb'+countt+'" style = "padding: 2px;background-color: #72beda;width:70%;position: relative;left: 30%;border-radius:4px "><b><i style = "font-size: 17px"class="fab fa-reddit-alien"></i>&nbsp;Bot</b><br><font class = "" style = "font-size: 10px; font-family: monospace">'+ reply + "</font></div><br>";
         $("#your-msg").append(reply);  
         gone = 0;
 }
@@ -319,7 +319,7 @@ reply = "The date is "+ theDate;
 msg.text = reply;
 msg.lang = 'en-US';
 speechSynthesis.speak(msg);
-reply = '<div id = "bb'+countt+'" style = "background-color: #72beda;width:70%;position: relative;left: 30%;border-radius:4px "><b><i style = "font-size: 17px"class="fab fa-reddit-alien"></i>&nbsp;Bot</b><br><font class = "" style = "font-size: 10px; font-family: monospace">'+ reply + "</font></div><br>";
+reply = '<div id = "bb'+countt+'" style = "padding: 2px;background-color: #72beda;width:70%;position: relative;left: 30%;border-radius:4px "><b><i style = "font-size: 17px"class="fab fa-reddit-alien"></i>&nbsp;Bot</b><br><font class = "" style = "font-size: 10px; font-family: monospace">'+ reply + "</font></div><br>";
         $("#your-msg").append(reply);
         gone = 0;
 
@@ -334,7 +334,7 @@ reply = "I am dobot "+ version;
 msg.text = reply;
 msg.lang = 'en-US';
 speechSynthesis.speak(msg);
-reply = '<div id = "bb'+countt+'" style = "background-color: #72beda;width:70%;position: relative;left: 30%;border-radius:4px "><b><i style = "font-size: 17px"class="fab fa-reddit-alien"></i>&nbsp;Bot</b><br><font class = "" style = "font-size: 10px; font-family: monospace">'+ reply + "</font></div><br>";
+reply = '<div id = "bb'+countt+'" style = "padding: 2px;background-color: #72beda;width:70%;position: relative;left: 30%;border-radius:4px "><b><i style = "font-size: 17px"class="fab fa-reddit-alien"></i>&nbsp;Bot</b><br><font class = "" style = "font-size: 10px; font-family: monospace">'+ reply + "</font></div><br>";
         $("#your-msg").append(reply);   
         gone = 0;
 }
@@ -356,7 +356,7 @@ if (message.search("train") != -1){
 				msg.text = reply;
 				msg.lang = 'en-US';
 				speechSynthesis.speak(msg);
-				reply = '<div id = "bb'+countt+'" style = "background-color: #72beda;width:70%;position: relative;left: 30%;border-radius:4px "><b><i style = "font-size: 17px"class="fab fa-reddit-alien"></i>&nbsp;Bot</b><br><font class = "" style = "font-size: 10px; font-family: monospace">'+ reply + "</font></div><br>";
+				reply = '<div id = "bb'+countt+'" style = "padding: 2px;background-color: #72beda;width:70%;position: relative;left: 30%;border-radius:4px "><b><i style = "font-size: 17px"class="fab fa-reddit-alien"></i>&nbsp;Bot</b><br><font class = "" style = "font-size: 10px; font-family: monospace">'+ reply + "</font></div><br>";
 				        $("#your-msg").append(reply); 
 			});
 		}
@@ -388,7 +388,7 @@ else if (gone == 8){
 	msg.text = reply;
 	msg.lang = 'en-US';
 	speechSynthesis.speak(msg);
-	reply = '<div id = "bb'+countt+'" style = "background-color: #72beda;width:70%;position: relative;left: 30%;border-radius:4px "><b><i style = "font-size: 17px"class="fab fa-reddit-alien"></i>&nbsp;Bot</b><br><font class = "" style = "font-size: 10px; font-family: monospace">'+ reply + "</font></div><br>";
+	reply = '<div id = "bb'+countt+'" style = "padding: 2px;background-color: #72beda;width:70%;position: relative;left: 30%;border-radius:4px "><b><i style = "font-size: 17px"class="fab fa-reddit-alien"></i>&nbsp;Bot</b><br><font class = "" style = "font-size: 10px; font-family: monospace">'+ reply + "</font></div><br>";
 	        $("#your-msg").append(reply); 
 
 });
