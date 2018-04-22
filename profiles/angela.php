@@ -1,204 +1,212 @@
 <?php
 
-if (!defined('DB_USER')) {
-  include_once("../answers.php");
-  require '../../config.php';
-  try {
-    $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-  } catch (PDOException $pe) {
-    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-  }
-}
-
-$query = "SELECT * FROM secret_word";
-$secret_word = $conn->query($query);
-$result = $secret_word->fetch();
-$secret_word = $result['secret_word'];
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  chat($_POST['message']);
-  return;
-}
-
-/**
- * first function call whenever someone types a message in the chatbot
- * @return void
- */
-function chat($message) {
-  $warning = badWord($message);
-  if (!is_null($warning)) {
-    echo $warning;
-    return;
-  }
-  getFunction($message);
-}
-
-function badWord($message) {
-  require_once('../classes/class.badwords.php');
-  $BadWords = new badWords();
-  $badWords = $BadWords::getBadWords();
-  $message = strtolower($message);
-  $words = explode(' ', $message);
-
-  foreach ($words as $word) {
-    if (in_array($word, $badWords)) {
-      $replies = [
-        'Hey! Watch your mouth!',
-        'The way you talk, yo mama would be ashamed. I\'m sure she taught you better',
-        'Yuck! So dirty.',
-        "I'll reply I didn't see that"
-      ];
-
-      return $replies[array_rand($replies)];
+  if (!defined('DB_USER')) {
+    include_once("../answers.php");
+    require '../../config.php';
+    try {
+      $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
     }
   }
-  return null;
-}
 
-function getFunction($message, $delimiter = '#') {
-  if ($message == 'about' || $message == 'aboutbot' || $message == 'about_bot') {
-    return about();
-  }
+  $query = "SELECT * FROM secret_word";
+  $secret_word = $conn->query($query);
+  $result = $secret_word->fetch();
+  $secret_word = $result['secret_word'];
 
-  $function = trim(substr($message, 0, strpos($message, ':')));
-  $functions = array(
-    'train',
-    'teach',
-    'coach'
-  );
-
-  $hasDelimiter = strpos($message, $delimiter);
-    // no delimiter means chatbot is not being trained
-  if ($hasDelimiter === false) {
-    getBotResponse($message);
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    chat($_POST['message']);
     return;
   }
 
-  if ($function && in_array($function, $functions)) {
-    $message = substr($message, strpos($message, ':')+1);
-
-    $data = explode($delimiter, $message);
-    if (isset($data[2])) {
-      $password = trim($data[2]);
-    } else {
-      echo 'you need to enter a password. contact my owner (email: angelabisibello@gmail.com or slack: @angela) if you do not know my password';
+  /**
+   * first function call whenever someone types a message in the chatbot
+   * @return void
+   */
+  function chat($message) {
+    $message = trim($message);
+    if (empty($message)) {
+      echo 'please type something';
       return;
     }
-    if ($password != 'trainpwforhng') {
-      echo 'password is incorrect. contact my owner (email: angelabisibello@gmail.com or slack: @angela) if you do not know my password';
+    $warning = badWord($message);
+    if (!is_null($warning)) {
+      echo $warning;
       return;
     }
-    $question = $answer = null;
-    if (isset($data[0])) {
-      $question = trim($data[0]);
-    }
-    if (isset($data[1])) {
-      $answer = trim($data[1]);
-    }
-    if (in_array($function, $functions)) {
-      $function($question, $answer);
-      return;
-    }
+    getFunction($message);
   }
-  echo 'no valid function detected. to train me, use the following structure without brackets (train:the question#the answer#my valid training password)';
-  return;
-}
 
-/**
- * Train the chat bot so it knows how to respond to certain questions
- * @return void
- */
-function train($question, $answer) {
-  $trainingResponses = [
-    'Great! I have learnt something new.',
-    'Watch out, I may become the smartest bot in the world!',
-    'TIL something',
-    'Interesting. I will try to remember this.',
-    'Noted'
-  ];
+  function badWord($message) {
+    require_once('../classes/class.badwords.php');
+    $BadWords = new badWords();
+    $badWords = $BadWords::getBadWords();
+    $message = strtolower($message);
+    $words = explode(' ', $message);
 
-  if (botKnowsIt($question, $answer)) {
-    echo 'Thanks, but I knew that already';
+    foreach ($words as $word) {
+      if (in_array($word, $badWords)) {
+        $replies = [
+          'Hey! Watch your mouth!',
+          'The way you talk, yo mama would be ashamed. I\'m sure she taught you better',
+          'Yuck! So dirty.',
+          "I'll reply I didn't see that"
+        ];
+
+        return $replies[array_rand($replies)];
+      }
+    }
+    return null;
+  }
+
+  function getFunction($message, $delimiter = '#') {
+    if ($message == 'about' || $message == 'aboutbot' || $message == 'about_bot') {
+      return about();
+    }
+
+    $function = trim(substr($message, 0, strpos($message, ':')));
+    $functions = array(
+      'train',
+      'teach',
+      'coach'
+    );
+
+    $hasDelimiter = strpos($message, $delimiter);
+      // no delimiter means chatbot is not being trained
+    if ($hasDelimiter === false) {
+      getBotResponse($message);
+      return;
+    }
+
+    if ($function && in_array($function, $functions)) {
+      $message = substr($message, strpos($message, ':')+1);
+
+      $data = explode($delimiter, $message);
+      if (isset($data[2])) {
+        $password = trim($data[2]);
+      } else {
+        echo 'you need to enter a password. contact my owner (email: angelabisibello@gmail.com or slack: @angela) if you do not know my password';
+        return;
+      }
+      if ($password != 'trainpwforhng') {
+        echo 'password is incorrect. contact my owner (email: angelabisibello@gmail.com or slack: @angela) if you do not know my password';
+        return;
+      }
+      $question = $answer = null;
+      if (isset($data[0])) {
+        $question = trim($data[0]);
+      }
+      if (isset($data[1])) {
+        $answer = trim($data[1]);
+      }
+      if (in_array($function, $functions)) {
+        $function($question, $answer);
+        return;
+      }
+    }
+    echo 'no valid function detected. to train me, use the following structure without brackets (train:the question#the answer#my valid training password)';
     return;
   }
 
-  try {
-    $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-    $query = $conn->prepare("INSERT INTO chatbot (question, answer) values (:question, :answer)");
-    $query->bindParam(':question', $question);
-    $query->bindParam(':answer', $answer);
-    $query->execute();
-    echo $trainingResponses[array_rand($trainingResponses)];
-    return;
-  } catch (PDOException $e) {
-    return "Error: " . $e->getMessage();
-  }
-}
+  /**
+   * Train the chat bot so it knows how to respond to certain questions
+   * @return void
+   */
+  function train($question, $answer) {
+    $trainingResponses = [
+      'Great! I have learnt something new.',
+      'Watch out, I may become the smartest bot in the world!',
+      'TIL something',
+      'Interesting. I will try to remember this.',
+      'Noted'
+    ];
 
-function botKnowsIt($question, $answer) {
-  try {
+    if (botKnowsIt($question, $answer)) {
+      echo 'Thanks, but I knew that already';
+      return;
+    }
+
+    try {
+      $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+      $query = $conn->prepare("INSERT INTO chatbot (question, answer) values (:question, :answer)");
+      $query->bindParam(':question', $question);
+      $query->bindParam(':answer', $answer);
+      $query->execute();
+      echo $trainingResponses[array_rand($trainingResponses)];
+      return;
+    } catch (PDOException $e) {
+      return "Error: " . $e->getMessage();
+    }
+  }
+
+  function botKnowsIt($question, $answer) {
+    try {
+      $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+      $sql = 'SELECT count(*) FROM chatbot WHERE question = "' . $question . '" AND answer = "' . $answer . '" LIMIT 1';
+      $query = $conn->query($sql);
+      $result = $query->fetch();
+      $count = $result["count(*)"];
+      return (bool)$count;
+    } catch (PDOException $e) {
+      return "Error: " . $e->getMessage();
+    }
+  }
+
+  function teach($question, $answer)
+  {
+    return train($question, $answer);
+  }
+
+  function coach($question, $answer)
+  {
+    return train($question, $answer);
+  }
+
+  function about() {
+    echo 'Version 1.0';
+  }
+
+  /**
+   * Train the chat bot so it knows how to respond to certain questions
+   * @return void
+   */
+  function getBotResponse($question) {
+    $lastChar = substr($question, -1);
+    $q = '"' . $question . '"';
+    if ($lastChar != '?') {
+      $q = '"' . $question . '" OR question = "' . $question . '?"';
+    }
     $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-    $sql = 'SELECT count(*) FROM chatbot WHERE question = "' . $question . '" AND answer = "' . $answer . '" LIMIT 1';
-    $query = $conn->query($sql);
+    $query = $conn->query('SELECT answer FROM chatbot WHERE question = ' . $q . ' ORDER BY RAND() LIMIT 1');
     $result = $query->fetch();
-    $count = $result["count(*)"];
-    return (bool)$count;
-  } catch (PDOException $e) {
-    return "Error: " . $e->getMessage();
-  }
-}
-
-function teach($question, $answer)
-{
-  return train($question, $answer);
-}
-
-function coach($question, $answer)
-{
-  return train($question, $answer);
-}
-
-function about() {
-  echo 'Version 1.0';
-}
-
-/**
- * Train the chat bot so it knows how to respond to certain questions
- * @return void
- */
-function getBotResponse($question) {
-  $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-  if ($question == '' || $question == ' ') {
-    $condition = '= "' . $question . '"';
-  } else {
-    $condition = "LIKE '%" . $question . "%'";
-  }
-  $query = $conn->query("SELECT answer FROM chatbot WHERE question " . $condition . " ORDER BY RAND() LIMIT 1");
-  $result = $query->fetch();
-  if ($result) {
-    // if result has a special function, call that function and append the result
-    $answer = $result['answer'];
-    if (strstr($answer, '((')) {
-      // you will see: ((getQuote))
-      $start = strpos($answer, '((');
-      $end = strpos($answer, '))');
-      $extraFunction = substr($answer, $start + 2, (strlen($answer) - ($start + 4)));
-      $quoteData = $extraFunction();
-      $quote = json_decode($quoteData);
-      echo '"' . $quote->quote . '" --' . $quote->author;
+    if ($result) {
+      // if result has a special function, call that function and append the result
+      $answer = $result['answer'];
+      if (strstr($answer, '((')) {
+        // you will see: ((getQuote))
+        $start = strpos($answer, '((');
+        $end = strpos($answer, '))');
+        $extraFunction = substr($answer, $start + 2, (strlen($answer) - ($start + 4)));
+        $quoteData = $extraFunction();
+        $quote = json_decode($quoteData);
+        echo '"' . $quote->quote . '" --' . $quote->author;
+        return;
+      }
+      echo $answer;
       return;
     }
-    echo $answer;
+    $unknownResponses = [
+      'I don\'t know.',
+      'no idea!',
+      'I guess I don\'t know everything.',
+      'interesting question! am not sure.',
+      'not sure.',
+      'sorry, don\'t know that.'
+    ];
+    echo $unknownResponses[array_rand($unknownResponses)] . ' ' . 'But you can train me so I know the answer next time.';
     return;
   }
-  $default = getBotResponse('');
-  $lastChar = substr("testers", -1);
-  $extra = ' ';
-  if ($lastChar != '.' && $lastChar != '!') {
-    $extra = '. ';
-  }
-  echo $default . $extra . 'But you can train me so I know the answer next time.';
-}
 
 ?>
 <!DOCTYPE html>
