@@ -83,7 +83,7 @@
         <h4>Because i'm Batman (In Batman's voice)</h4>
         <h5>Username: @<?php echo $username; ?></h5>
         <h5>Phone: 08023975087</h5> 
-        <h5>Email: dhaamie.soyemi@gmail.com</h5> 
+        <h5>Email: dhamie.soyemi@gmail.com</h5> 
         <h5>Skills: Css,Bootstrap, Javascript, PHP</h5>
         
         
