@@ -84,7 +84,7 @@
         }
         .body1 {
             font-family: 'Source Sans Pro', sans-serif;
-            font-size: 115%;
+            font-size: 75%;
             display: flex;
             flex-direction: column;
             max-width: 700px;
@@ -96,6 +96,8 @@
             display: flex;
             background: white;
             flex-direction: column;
+            overflow-y: scroll;
+            max-height: 500px;
         }
         .chat-output > div {
             margin: 0 0 20px 0;
@@ -123,7 +125,6 @@
         }
         .chat-input .user-input {
             width: 100%;
-            font-size: 2rem;
             border: 1px solid #ccc;
             border-radius: 4px;
             padding: 8px;
@@ -169,14 +170,14 @@
             <div class="body1">
                 <div class="chat-output" id="chat-output">
                     <div class="user-message">
-                        <div class="message">Hi! I'm a bot. What's up?</div>
+                        <div class="message">Hi there! I'm MeloBot! Say something and I'll try my possible best to answer you! </br>To train me, use this format - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
                     </div>
                 </div>
 
                 <div class="chat-input">
                     <form action="" method="post" id="user-input-form">
 <!--                        <input type="hidden" name="id" value="--><?php //echo htmlspecialchars($_GET['id']);?><!--">-->
-                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Talk to the bot.">
+                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
                     </form>
                 </div>
 
@@ -204,11 +205,16 @@
 
         if($temp[0] === 'train'){
             train($temp[1]);
+        }elseif($temp[0] === 'aboutbot') {
+            aboutbot();
         }else{
             getAnswer($temp[0]);
         }
     }
 
+    function aboutbot() {
+        echo "<div id='result'>MeloBot v1.0 - I am simply a bot that returns data from the database and I also can be taught new tricks!</div>";
+    }
     function train($input) {
         $input = explode('#', $input);
         $question = $input[0];
@@ -287,6 +293,9 @@
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
                     outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+                    $('#chat-output').animate({
+                        scrollTop: $('#chat-output').get(0).scrollHeight
+                    }, 1500);
                 }, 250);
             }
         });
