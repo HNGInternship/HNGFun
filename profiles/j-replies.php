@@ -17,6 +17,7 @@ else{
 //for debugging conncection
     echo 'Hello';
 }
+
 if(!defined('DB_USER')){
     require "../../config.php";     
     try {
