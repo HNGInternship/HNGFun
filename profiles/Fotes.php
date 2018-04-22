@@ -190,7 +190,7 @@ img{
     color: white;
     cursor: pointer;
     padding: 18px;
-    width:50%;
+    width:30%;
     text-align: left;
     font-size:30px;
     border: none;
@@ -202,7 +202,7 @@ img{
 		    width:50%;
                 overflow-x:hidden;
                 overflow-y:scroll;
-		     float:left;
+		   
             }
             .panel::-webkit:scrollbar{width:5px;
                 
