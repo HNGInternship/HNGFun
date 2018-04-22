@@ -1,26 +1,16 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 'on');
 
-//$q = $conn->query("select * from secret_word LIMIT 1");
-//$result = $q->fetch(PDO::FETCH_OBJ);
-//$secret_word = $result->secret_word;
-//
-////SQL Query
-//$query = "select name, username, image_filename from interns_data where username = 'ionware'";
-//
-//try {
-//    //Execute fetch query and harvest result.
-//    $q = $conn->query($query);
-//    $user = $q->fetch(PDO::FETCH_OBJ);
-//
-//}
-//catch (PDOException $exception) {
-//    echo "Server cannot properly establish connection to database.";
-//    exit(1);
-//}
-//catch (Exception $e) {
-//    echo "Temporary server problem.";
-//    exit(1);
-//}
+
+require_once __DIR__."/../config.php";
+
+try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+
 
 /**
  * Constructs a response object.
@@ -39,10 +29,46 @@ function makeResponse($question, $answer)
 
 function respondJson($question, $answer)
 {
+    header("Content-Type: application/json");
     echo makeResponse($question, $answer);
     exit();
 }
 
+
+/**
+ * It's a small Function that abstract Bot's interaction with the Database.
+ * [Function Generator]
+ * @param $type
+ * @return Closure
+ */
+function Model($type)
+{
+    global $conn;
+    if ($type === 'get') {
+        return function($question) use ($conn) {
+            $statement = $conn->prepare("SELECT answer, question FROM `chatbot` WHERE question LIKE ?");
+            $statement->execute(array("%$question%"));
+            $results = $statement->fetchAll(PDO::FETCH_OBJ);
+
+            if (count($results) < 1)
+                return "Sorry, I don't understand that. Perhaps you could train me. The format is: <b>train: #question #answer #password</b>";
+            return $results[mt_rand(0, count($results) - 1)]->answer;
+        };
+    }
+
+    return function ($question, $answer) use ($conn) {
+        $stmt = $conn->prepare("INSERT INTO `chatbot` (question, answer) VALUES (?, ?)");
+        try {
+            $status = $stmt->execute(array($question, $answer));
+            if ($status)
+                return "Thank you. You've given more knowledge to dummy me.";
+
+            return "I gets tired too, and I cannot assimilate right now.";
+        } catch (PDOException $e) {
+            return "There seems to be a problem with my Brain at the moment.";
+        }
+    };
+}
 
 /** Run the Build in Command from answer.php. All my Functions are prefixed with "i"
  * e.g iGitHub, iDictionary.
@@ -59,11 +85,11 @@ function taskRunner($command, $question)
 
     switch (trim($string[1])) {
         case "dictionary":
-            iDictionary($string[2]);
+            respondJson($question, iDictionary($string[2]));
             exit();
 
-        case "github":
-            iGitHub($string[2]);
+        case "intern":
+            respondJson($question, iHNGIntern($string[2]));
             exit();
 
         default:
@@ -93,10 +119,8 @@ function training($string, $question)
     if (!($string[3] === 'password'))
         respondJson($question, "Backoff! I can't trust you to feed me memory!");
 
-    //Insert Into DB
-
-    // ...and, little drop of water, makes an Ocean.
-    respondJson($question, "Thank you. You've given more knowledge to dummy me.");
+    // ->[Insert to Database]...and, little drop of water, makes an Ocean.
+    respondJson($question, Model('put')($string[1], $string[2]));
 
     exit();
 }
@@ -118,7 +142,9 @@ function processManager($question)
     if (strtolower($question) === 'aboutbot')
         respondJson($question, "I am iBot v1.0. <br> Developed by <b>ionware</b>.");
 
-    respondJson($question, "it gets down here");
+
+    // ask, said Matthew, and you shall receive
+    respondJson($question, Model('get')($question));
 }
 
 
@@ -159,144 +185,213 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400i|Roboto:700" rel="stylesheet">
 </head>
-<body>
+<style>
+    footer {
+        display: none;
+    }
+    .bot-frame {
+        height: 90vh;
+        width: 60%;
+        background-color: #ecf0f1;
+        margin: 0 auto;
+        position: relative;
+    }
+    @media screen and (max-width: 860px){
+        .bot-frame {
+            width: 100%;
+        }
+    }
+    @media screen and (min-width: 860px) and (max-width: 960px){
+        .bot-frame {
+            width: 80%;
+        }
+    }
+    .bot-title {
+        width: 100%;
+        padding: 15px 30px;
+        background-color: #3498db;
+        color: #fff;
+    }
+    .bot-title img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #fff;
+        margin-right: 5px;
 
+    }
+    .bot-title span {
+        font-weight: bold;
+        position: relative;
+        top: 3px;
+    }
+    .bot-conversation {
+        width: 100%; height: 80%;
+        padding: 10px 10px;
+        overflow-y: scroll;
+    }
+    .conversation-primary {
+        background-color: transparent;
+        border-bottom: 1px solid #bdc3c7;
+    }
+    .conversation-primary .response {
+        background-color: #fff;
+        color: #34495e;
+    }
+    .message {
+        width: 100%;
+    }
+    .response {
+        width: 43%;
+        padding: 5px 8px 10px 5px;
+        display: inline-block;
+        text-align: left;
+        position: relative;
+        font-size: .75em;
+        border-radius: 5px;
+        margin: 5px 0;
+    }
+    .message.bot-response {
+        text-align: right;
+    }
+
+    .response .time {
+        position: absolute;
+        color: #7f868d;
+        font-size: .65em;
+        bottom: 0; right: 10px;
+    }
+    .response p {
+        margin: 0; padding: 0;
+    }
+    .response a {
+        color: #3498db;
+    }
+    .response img {
+        width: 30px;
+        height: 30px;
+        background-color: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: -10px; right: -10px;
+    }
+    .bot-input {
+        border: 1px solid #3498db;
+        border-radius: 20px;
+        width: 90%;
+        margin: 8px auto 5px auto;
+        padding: 5px 5px;
+    }
+    .input-field {
+        width: 90%;
+        display: inline-block;
+        border: 0;
+        outline: none;
+        font-size: .75em;
+        padding: 0 10px 0 20px;
+        background-color: transparent;
+        font-family: Lato, sans-serif;
+    }
+    .bot-btn {
+        border: none;
+        background-color: transparent;
+        padding: 0; margin: 0;
+        font-size: .94em;
+        color: #3498db;
+    }
+</style>
+<body>
+<div class="bot-frame">
+
+    <div class="bot-title">
+        <img src="/images/ibot.png" alt="iBot">
+        <span>iBot</span>
+    </div>
+    <div class="bot-conversation conversation-primary">
+        <div class="message bot-response">
+            <div class="response">
+                <p>
+                    Hi, I am your friendly dummy bot.<br>
+                    Here's what I can do. <br>
+                    For finding intern: <b>command: #intern #intern-name</b> e.g <b>command: #intern #ionware</b><br>
+                    For checking dictionary meaning: <b>command: #dictionary #word</b>
+                </p>
+                <span class="time"><?php echo date('H:i'); ?></span>
+                <img src="/images/ibot.png" alt="iBot">
+            </div>
+        </div>
+    </div>
+    <div class="bot-input">
+        <form action="post">
+            <input type="text" name="q" placeholder="type message" class="input-field" id="feed">
+            <button class="bot-btn"><i class="fa fa-send"></i></button>
+        </form>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+    function zeroPadTime(string) {
+        if (String(string).length < 2)
+            return "0" + String(string);
+
+        return String(string);
+    }
+
+    //Constructor for making a Conversation Response of Bot and Human.
+    function Response(sender) {
+        this.sender = sender;
+    }
+    /*
+    * Returns the current time in HH:MM */
+    Response.prototype.time = function () {
+        var time = new Date();
+        return zeroPadTime(time.getHours()) + ":" + zeroPadTime(time.getUTCMinutes());
+    };
+
+    //Make an appendable response
+    Response.prototype.make = function(body) {
+        this.body = "<div class='message'>";
+        if (this.sender === 'bot')
+            this.body = "<div class='message bot-response'>";
+
+        this.body += "<div class='response'><p>" + body + "</p><span class='time'>" + this.time() + "</span>";
+        if (this.sender === 'bot')
+            this.body += "<img src='/images/ibot.png' alt='iBot'>";
+
+        this.body += "</div></div>";
+        return this;
+    };
+
+    // Update constructed response to the previous awesome conversation.
+    Response.prototype.send = function (domNode) {
+        domNode.append(this.body);
+    };
+
+    $("form").on('submit', function (event) {
+        event.preventDefault();
+        var inputNode = $("#feed");
+        var question = inputNode.val();
+        if (! question)
+            return false;
+
+        var _response = new Response();
+        _response.make(inputNode.val()).send($('.bot-conversation'));
+        inputNode.val("");
+        $.ajax({
+            url: "/profiles/ionware.php",
+            data: { q: question.trim() },
+            type: 'POST',
+            success: function(data) {
+                var response = new Response("bot");
+                response.make(data.answer).send($(".bot-conversation"));
+                $('.bot-conversation').animate({ 'scrollTop': $(".bot-conversation")[0].scrollHeight});
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        })
+    })
+</script>
 </body>
 </html>
-
-
-<!-- My profile view -->
-<!--<html>-->
-<!--<head>-->
-<!--    <!-- Roboto and Lato Google fonts cdn -->-->
-<!--    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i|Roboto:700" rel="stylesheet">-->
-<!--    <style>-->
-<!--        body {-->
-<!--            background: #FAFAF6;-->
-<!--            color: #323232;-->
-<!--            font-family: Lato, sans-serif;-->
-<!--            font-size: 16px;-->
-<!--        }-->
-<!--        p {-->
-<!--            margin: 0; padding: 0;-->
-<!--            font-size: 1.02em;-->
-<!--        }-->
-<!--        .pad-all-2x {-->
-<!--            padding: 10px;-->
-<!--        }-->
-<!--        .avater {-->
-<!--            width: 160px;-->
-<!--            height: 160px;-->
-<!--            border: 4px solid #ecf0f1;-->
-<!--            border-radius: 50%;-->
-<!--            -moz-border-radius: 50%;-->
-<!--            -webkit-border-radius: 50%;-->
-<!--        }-->
-<!--        .heading-text {-->
-<!--            font-size: 1.2em;-->
-<!--            text-transform: uppercase;-->
-<!--            font-family: Roboto, sans-serif;-->
-<!--            margin: 5px 0;-->
-<!--            color:-->
-<!--        }-->
-<!--        .social {-->
-<!--            padding: 0 0;-->
-<!--            text-align: right;-->
-<!--        }-->
-<!--        .social > a {-->
-<!--            color: inherit;-->
-<!--            font-size: 1.2em;-->
-<!--            margin: 0 5px;-->
-<!--        }-->
-<!--        .paper {-->
-<!--            background-color: #00D1FF;-->
-<!--            color: #fff;-->
-<!--            position: relative;-->
-<!--            padding: 15px 0 15px 15px;-->
-<!--            margin: 10px 10px;-->
-<!--            box-shadow: 0 0 4px 3px #ecf0f1;-->
-<!--            border-radius: 5px;-->
-<!--        }-->
-<!--        .paper > .category {-->
-<!--            display: inline-block;-->
-<!--            width: 85%;-->
-<!--            float: right;-->
-<!--        }-->
-<!--        .category > p {-->
-<!--            font-size: .84em;-->
-<!--        }-->
-<!--        .category > h4, .category > h5 {-->
-<!--            font-size: .91em;-->
-<!--            margin: 3px 0;-->
-<!--            text-transform: uppercase;-->
-<!--        }-->
-<!--        .paper > .category-icon {-->
-<!--            display: inline-block;-->
-<!--            font-size: 2.5em;-->
-<!---->
-<!--        }-->
-<!--        .clip {-->
-<!--            background-color: #fff;-->
-<!--            color: #323232;-->
-<!--            padding: 5px 8px;-->
-<!--            margin: 3px 3px;-->
-<!--            display: inline-block;-->
-<!--            font-size: .82em;-->
-<!--            border-radius: 3px;-->
-<!--        }-->
-<!--    </style>-->
-<!--</head>-->
-<!--<body>-->
-<!--<div class="container" style="margin-top: 60px;">-->
-<!--    <div class="row">-->
-<!--        <div class="col-xs-12 offset-xs-0 col-sm-8 offset-sm-2">-->
-<!--            <div class="row pad-all-2x">-->
-<!--                <div class="col-xs-12">-->
-<!--                    <img src="--><?php //echo $user->image_filename; ?><!--" alt="Profile Pic" class="avater">-->
-<!--                </div>-->
-<!--                <div class="col-xs-12">-->
-<!--                    <h3 class="heading-text">overview</h3>-->
-<!--                    <span class="username">@--><?php //echo $user->username; ?><!--</span>-->
-<!--                    <p>-->
-<!--                        Full stack Web Developer, and System Administrator. Experienced in several Web Technologies and-->
-<!--                        Application development processes and cycle. Solid background in Python, and well versed in several-->
-<!--                        Programming Languages including PHP, and Javascript. Possess great flexibility and ability to quickly-->
-<!--                        adapt to company workflow.-->
-<!--                    </p>-->
-<!--                    <div class="social">-->
-<!--                        <a href="http://facebook.com/pythonleet"><i class="fa fa-facebook"></i></a>-->
-<!--                        <a href="http://twitter.com/ionwarez"><i class="fa fa-twitter"></i></a>-->
-<!--                        <a href="http://github.com/ionware"><i class="fa fa-github"></i></a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="row pad-all-2x">-->
-<!--                <div class="col paper">-->
-<!--                    <i class="fa fa-user category-icon"></i>-->
-<!--                    <div class="category">-->
-<!--                        <h4>Biography</h4>-->
-<!--                        <p>-->
-<!--                            Stephen was born in a local town called Ogbomosho, part of Oyo;-->
-<!--                            Insatiable desire for exploring Tech. Loves good Musics, artistic works, and writing Poetry.-->
-<!--                        </p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col paper">-->
-<!--                    <i class="fa fa-database category-icon"></i>-->
-<!--                    <div class="category">-->
-<!--                        <h4>Interests</h4>-->
-<!--                        <div class="clip">Engineering</div>-->
-<!--                        <div class="clip">Developing</div>-->
-<!--                        <div class="clip">Art</div>-->
-<!--                        <div class="clip">Poetry</div>-->
-<!--                        <div class="clip">Music</div>-->
-<!--                        <div class="clip">Graphics</div>-->
-<!--                        <div class="clip">Cooking</div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--</body>-->
-<!--</html>-->

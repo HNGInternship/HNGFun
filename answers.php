@@ -689,4 +689,51 @@ function davidQuadraticEquation($a, $b, $c){  #Remember I know where you live if
 #                                                                                                   #
 #####################################################################################################
 
+/*
+ * Ionware's Function
+ * */
+if (! function_exists("iDictionary"))
+{
+    function iDictionary($word)
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/{$word}",
+            CURLOPT_HEADER => false,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => array(
+                "Accept: application/json",
+                "app_id: 8695feaa",
+                "app_key: b358014437a42bd357d1429925261d2e",
+            ),
+        ));
+        try {
+            $response = json_decode(curl_exec($curl));
+            @$definition = $response->results[0]->lexicalEntries[0]->entries[0]->senses[0]->definitions[0];
+            @$example = $response->results[0]->lexicalEntries[0]->entries[0]->senses[0]->examples[0]->text;
+
+            if (empty($definition))
+                return "Sorry, I can not find the word {$word}";
+
+            return "{$definition} <br> <b>{$example}</b>";
+        } catch (Exception $e) {
+            return "Sorry, I can not find the word {$word}.";
+        }
+
+    }
+
+    function iHNGIntern($username)
+    {
+        if (file_exists(__DIR__."/profiles/{$username}.php")) {
+            $profile = "http://hng.fun/profile.php?id={$username}";
+
+            return "Yes! {$username} is among HNG4 Internship program. View their profile at <a href='{$profile}'>{$profile}</a>";
+        }
+
+        return "Sadly, {$username} is not part of HNG4 Internship yet. But you can invite them!";
+    }
+}
+/*
+ * Ionware's function ends here */
+
 ?>
