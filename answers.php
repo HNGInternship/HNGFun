@@ -935,6 +935,4 @@ function getUSSD($bankName){
     }
 }
 // End of functions by @Bukola
-
-
 ?>
