@@ -1,5 +1,5 @@
 <?php
-require "../db.php";
+// require "../db.php";
 // x
 
 
@@ -63,7 +63,7 @@ else if(isset($_GET['info'])){
 
 
 function doSpecialFunction($func,$text){
-    require "answers.php";
+    require "../answers.php";
 
     $text=sanitizeText($text);
     $text=strtolower($text);
@@ -79,7 +79,7 @@ function workOnTrainData($data){
     require '../db.php'
 
 
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
       
     
 
@@ -136,7 +136,7 @@ function getReply($data){
     require '../db.php';
 
 
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 
 
 

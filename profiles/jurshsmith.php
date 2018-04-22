@@ -224,8 +224,8 @@ Hello I'm Jobot. Type 'help' to see what i can do.
     <input type="text" class="form-control col-sm-10 col-xs-10 col-lg-10 col-md-10 " id="bot-chat-area">
 	</div>
   
- <div class = "col-sm-2 col-xs-2 col-lg-2 col-md-2" style = "background-color: #04455d;width: 87%;">
-  <button id = "send-msg" type="submit" style = "margin-left: -34px;" class="btn btn-default "><i class="fab fa-telegram-plane"></i></button>
+ <div class = "col-sm-2 col-xs-2 col-lg-2 col-md-2" style = "background-color: #04455d;width: 87%;height: 65%">
+  <button id = "send-msg" type="submit" style = "margin-left: -64px;" class="btn btn-default "><i class="fab fa-telegram-plane"></i></button>
 </div>
 	 </div>
 </div>
