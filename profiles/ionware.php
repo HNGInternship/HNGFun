@@ -2,11 +2,7 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 'on');
 
-try {
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-} catch (PDOException $pe) {
-    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
+
 
 
 /**
@@ -314,7 +310,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     For checking dictionary meaning: <b>command: #dictionary #word</b>
                 </p>
                 <span class="time"><?php echo date('H:i'); ?></span>
-                <img src="http://res.cloudinary.com/ionware/image/upload/v1524371362/ibot.png" alt="iBot">
+                <img src="https://res.cloudinary.com/ionware/image/upload/v1524371362/ibot.png" alt="iBot">
             </div>
         </div>
     </div>
@@ -354,7 +350,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         this.body += "<div class='response'><p>" + body + "</p><span class='time'>" + this.time() + "</span>";
         if (this.sender === 'bot')
-            this.body += "<img src='http://res.cloudinary.com/ionware/image/upload/v1524371362/ibot.png' alt='iBot'>";
+            this.body += "<img src='https://res.cloudinary.com/ionware/image/upload/v1524371362/ibot.png' alt='iBot'>";
 
         this.body += "</div></div>";
         return this;
