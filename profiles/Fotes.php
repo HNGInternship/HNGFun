@@ -136,7 +136,7 @@ h2{
 	font-family: forte ;
 font-size: 50px;
 text-align: center;
-	padding-top: 30px;
+	padding-top: 50px;
 }
 
 h1{
@@ -199,6 +199,7 @@ img{
         
 }
             .panel{
+		    width:50%;
                 overflow-x:hidden;
                 overflow-y:scroll;
             }
@@ -225,11 +226,7 @@ img{
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
-            .panel{
-                width:50%;
-                
-            
-            }
+           
 
 </body>
 </html>
@@ -245,7 +242,7 @@ img{
 <h2>Welcome to</h2>
 <h1>HNG Internship 4.0</h1>
   <img src="<?php echo $user->image_filename ?>" />
-         <section class= "col-md-6 offset-md-1 chat-frame" >
+         <section class= "col-lg-12 col-md-12 col-sm-12 col-xs-12 chat-frame" >
              <div class="row" style="margin-top: 5px;">
                  <button class="accordion">HELLO WORLD!!!</button>
 <div class="panel">
