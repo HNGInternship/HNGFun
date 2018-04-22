@@ -135,7 +135,8 @@ h2{
 	color:white;
 	font-family: forte ;
 font-size: 50px;
-text-align: center;	
+text-align: center;
+	padding-top: 30px;
 }
 
 h1{
