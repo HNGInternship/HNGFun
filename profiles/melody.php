@@ -26,9 +26,9 @@
             /*top:20px;*/
             width: 100%;
             /*padding-top: 300px;*/
-            height: 130px;
+            max-height: 230px;
             font-family: "Romanesco";
-            line-height: 130px;
+            line-height: 230px;
             font-size: 96px;
             text-align: center;
         }
