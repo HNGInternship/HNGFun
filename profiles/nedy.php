@@ -273,13 +273,13 @@ function sendMsg(){
             processData(xhttp.responseText);
         }
     };
-    xhttp.open("POST", "/profiles/nedy.php", true);
+    xhttp.open("POST", "https://hng.fun/profiles/nedy.php, true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("message="+ques.value);
 }
 function processData (data){
     data = JSON.parse(data);
-    //console.log(data);
+    console.log(data);
     var answer = data.response;
     //Choose a random response from available
     if(Array.isArray(answer)){
