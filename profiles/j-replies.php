@@ -14,7 +14,7 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 else{
-
+ echo "cool";
 }
   global $conn;
 
@@ -33,7 +33,7 @@ if (mysqli_num_rows($r) > 0)
     {   
 
         //display random answers
-        $answer = mysqli_fetch_row($r)
+        $answer = mysqli_fetch_assoc($r)
 //         $index = rand(0, count($$answer)-1);
 //         $row = $rows[$index];
 //         $answer = $row['answer'];	
