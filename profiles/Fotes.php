@@ -198,7 +198,6 @@ img{
         
 }
             .panel{
-		    width:30%;
                 overflow-x:hidden;
                 overflow-y:scroll;
 		   
