@@ -813,6 +813,7 @@ if (! function_exists("iDictionary"))
 
     }
 
+
     function iHNGIntern($username)
     {
         if (file_exists(__DIR__."/profiles/{$username}.php")) {
@@ -938,4 +939,244 @@ function getUSSD($bankName){
     }
 }
 // End of functions by @Bukola
+
+ /** chibuokems functions starts here */
+  function check_if_training_chibuokem($input=''){
+    if (strpos($input, 'train') !== false) {
+         return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  function train_chibuokem_bot($input=''){
+    
+    if ($input !=""){
+
+    $string = substr($input, 6);
+
+    $processed_input = explode("#", $string);
+    $question = $processed_input[0];
+    $answer = $processed_input[1];
+
+    require 'db.php';
+
+try {
+
+    $query = "INSERT INTO chatbot (question, answer)
+VALUES ('$question', '$answer')";
+    
+    $conn->exec($query);
+
+    echo "Thanks for training me";
+
+  }
+catch(PDOException $e)
+    {
+    echo $query . "<br>" . $e->getMessage();
+    }
+
+    }
+
+  }
+
+  function check_answer_table_chibuokem($input){
+    require 'db.php';
+    
+    $statement = $conn->prepare("SELECT * FROM chatbot WHERE question='$input' ORDER BY rand() LIMIT 1");
+
+    $statement->execute();
+    if($statement->rowCount() > 0)
+    {
+      while($row = $statement->fetch(PDO::FETCH_ASSOC))
+      {
+        $answer = $row["answer"];
+      }
+      return $answer;
+    } 
+    else {
+        return  false;
+    
+    }
+
+
+  }
+
+  function get_chibuokem_bot_version(){
+    return '1 .0';
+  }
+
+  function get_chibuokem_news(){
+    $url = "https://newsapi.org/v2/top-headlines?country=ng&apiKey=79ab7fb16d12464996221c3870a39b43";
+    $data = json_decode(file_get_contents($url), true);
+    if($data['status']=='ok'){
+      $totalResults = $data['totalResults'];
+
+      $count = 0;
+
+       while($count < $totalResults){
+
+       $author = $data['articles'][$count]['author'];
+       $title =   $data['articles'][$count]['title'];
+       $description =   $data['articles'][$count]['description'];
+       $url =   $data['articles'][$count]['url'];
+       $publishedAt = $data['articles'][$count]['publishedAt'];
+       $name =  $data['articles'][$count]['source']['name'];
+
+       echo "<span style='color:green'; >Author : ".$author."<br/> Title : ".$title."<br/> Description : ".$description." <br/> link :".$url." <br/>Published ".$publishedAt." by ".$name."<br/><br/>";
+
+        $count++;
+       }
+       echo "<span style='font-weight:bold;' class='alert alert-success'>".$totalResults." articles found </span>";
+    }
+//    print_r($data);
+
+  }
+
+  function get_love_quote_chibuokem(){
+    $url = 'http://quotes.rest/qod.json?category=love';
+    $data = json_decode(file_get_contents($url), true);
+    $quote =  $data['contents']['quotes'][0]['quote'];
+    $author = $data['contents']['quotes'][0]['author'];
+    $link  = $data['contents']['quotes'][0]['permalink'];
+    $title  = $data['contents']['quotes'][0]['title'];
+
+    $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
+ 
+   return $answer;
+  }
+
+  function get_inspiring_quote_chibuokem(){
+    $url = 'http://quotes.rest/qod.json?category=inspire';
+    $data = json_decode(file_get_contents($url), true);
+    $quote =  $data['contents']['quotes'][0]['quote'];
+    $author = $data['contents']['quotes'][0]['author'];
+    $link  = $data['contents']['quotes'][0]['permalink'];
+    $title  = $data['contents']['quotes'][0]['title'];
+
+    $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
+ 
+   return $answer;
+  }
+
+  function get_sports_quote_chibuokem(){
+    $url = 'http://quotes.rest/qod.json?category=sports';
+    $data = json_decode(file_get_contents($url), true);
+    $quote =  $data['contents']['quotes'][0]['quote'];
+    $author = $data['contents']['quotes'][0]['author'];
+    $link  = $data['contents']['quotes'][0]['permalink'];
+    $title  = $data['contents']['quotes'][0]['title'];
+
+    $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
+ 
+   return $answer;
+  }
+
+  function get_funny_quote_chibuokem(){
+    $url = 'http://quotes.rest/qod.json?category=funny';
+    $data = json_decode(file_get_contents($url), true);
+    $quote =  $data['contents']['quotes'][0]['quote'];
+    $author = $data['contents']['quotes'][0]['author'];
+    $link  = $data['contents']['quotes'][0]['permalink'];
+    $title  = $data['contents']['quotes'][0]['title'];
+
+    $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
+ 
+   return $answer;
+  }
+
+  function get_student_quote_chibuokem(){
+    $url = 'http://quotes.rest/qod.json?category=students';
+    $data = json_decode(file_get_contents($url), true);
+    $quote =  $data['contents']['quotes'][0]['quote'];
+    $author = $data['contents']['quotes'][0]['author'];
+    $link  = $data['contents']['quotes'][0]['permalink'];
+    $title  = $data['contents']['quotes'][0]['title'];
+
+    $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
+ 
+   return $answer;
+  }
+
+  function chibuokem_weather_condition(){
+      $ip  = !empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
+$url = "http://freegeoip.net/json/$ip";
+$ch  = curl_init();
+
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+$data = curl_exec($ch);
+curl_close($ch);
+
+if ($data) {
+    $location = json_decode($data);
+
+    $lat = $location->latitude;
+    $lon = $location->longitude;
+
+    //$sun_info = date_sun_info(time(), $lat, $lon);
+    //print_r($sun_info);
+    
+    //$url = "http://api.weatherunlocked.com/api/current/".$lat.",".$lon."?app_id={acf8951e}&app_key={a7ecc17b1218c8bb7cc709b50cc301e3}";
+
+     $data = json_decode(file_get_contents($url), true);
+     print_r($data);
+}
+  }
+
+  function greeting_from_chibuokem(){
+
+        date_default_timezone_set("UTC");
+     $hour = date ("G");
+    $minute = date ("i");
+    $second = date ("s");
+
+
+    if ($hour == 0 && $hour <= 9 && $minute <= 59 && $second <= 59) 
+    { 
+
+      return  "Good Morning dear"; 
+
+    }
+
+    else {
+
+    if ($hour >= 10 && $hour <= 11 && $minute <= 59 && $second <= 59)
+
+    { 
+
+      return "Good Day dear";
+
+     }
+
+    if ($hour >= 12 && $hour <= 15 && $minute <= 59 && $second <= 59)
+    { 
+      return "Good Afternoon dear"; 
+
+    }
+
+    if ($hour >= 16 && $hour <= 23 && $minute <= 59 && $second <= 59)
+    { 
+      return "Good Evening dear"; 
+    }
+
+    else { 
+      return  "Welcome"; 
+
+    }
+
+
+
+  }
+
+ } 
+
+ function chibuokem_bot_help(){
+  $help = "<span style='color:green;'>To train me use the format train question #answer"."<br/>". "To get the current time  type time and send "."<br/>"."To get love quote type love_quote and send"."<br/>". "To get funny quote type funny_quote and send"."<br/>"."to get an inspiring quote type inspiring_quote and send"."<br/>"."To get the quote of the day for students type students_quote and send"."<br/>". "to get sports quote of the day type sports_quote and send"."<br/> To get news type news and send "."<br/> to get the current bot version type version and send. Thanks </span>";
+  return $help;
+ }
+  /**chibuokems functions ends here */
+
 ?>
