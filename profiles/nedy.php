@@ -239,8 +239,8 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
                                 <input type="text" class="message-input" name="user-message" id="user-message"
                                        placeholder="Write a message" required>
                                 <!--Submit button-->
-                                <button class="btn" type="button">
-                                    <i class="fa fa-send message-submit"  onclick="sendMsg()" value="send"></i>
+                                <button class="btn" type="button" onclick="sendMsg()">
+                                    <i class="fa fa-send message-submit"   value="send"></i>
                                 </button>
                             </div>
                         </div>
