@@ -49,6 +49,17 @@
         function answerBot($question){
             global $conn;
 
+            switch($question){
+                case 'aboutbot':
+                    sendReply('v1.0.0');
+            }
+
+            switch(true){
+                case "ussd:" === substr($question, 0, 5):
+                    sendReply(getUSSD(substr($question, 6)));
+                    break;
+            }
+
             $question = "%".$question."%";
             $sql = "select * from chatbot where question like :question";
             $query = $conn->prepare($sql);
@@ -301,7 +312,7 @@
                         }).catch(error => {
                             console.log(error);
                             this.messages.pop();
-                            this.messages.push({ sender: 'bot', data: 'Your internet connection is down.' 
+                            this.messages.push({ sender: 'bot', data: 'Your internet connection is down.'
                         });
                     });
                 },
@@ -309,12 +320,14 @@
             template: `
             <div class="bot">
                 <div class="bot-con">
-                    <ul style="height: 500px">
-                        <li class="chat-bubble" v-for="(message, index) in messages" v-key="index" :style="{'background-color': 
-                            getBubbleColor(message.sender)}">
-                            <p>{{message.data}}</p>
-                        </li>
-                    </ul>
+                    <div style="height: 500px; overflow-y: scroll;">
+                        <ul>
+                            <li class="chat-bubble" v-for="(message, index) in messages" v-key="index" :style="{'background-color': 
+                                getBubbleColor(message.sender)}">
+                                <p>{{message.data}}</p>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="actions">
                         <input type="text" placeholder="Type a message" @keyup.enter="addMessage" v-model="message">
                         <button class="btn" @click="addMessage">Send</button>
