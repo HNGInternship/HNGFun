@@ -63,7 +63,7 @@
             echo $result_answer;
         }
         else{
-            echo "Please teach me how to answer this question using the format train question #answer";
+            echo "Please teach me how to answer this question using the format train question #answer #password";
         }
     }
 
