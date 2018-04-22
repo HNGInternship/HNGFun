@@ -322,7 +322,7 @@ reply = '<div id = "bb'+countt+'" style = "padding: 2px;background-color: #72bed
 
 //about bot
 if (message.search("aboutbot") != -1){
-reply = "I am dobot "+ version;
+reply = "Jobot "+ version;
 msg.text = reply;
 msg.lang = 'en-US';
 speechSynthesis.speak(msg);

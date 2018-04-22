@@ -20,7 +20,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    //include "../answers.php";
+    include "../answers.php";
     
     try{
 
@@ -79,6 +79,27 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			echo json_encode([
 				'status' => 1,
 				'answer' => "Thanks for training me, you can now test my knowledge"
+			]);
+			return;
+		}
+		elseif ($arr[0] == "help") {
+			echo json_encode([
+				'status' => 1,
+				'answer' => "Type 'aboutbot' to know about me. You can also convert cryptocurrencies using this syntax.
+				'convert btc to usd"
+			]);
+			return;
+			
+		}
+		elseif ($arr[0] == "convert") {
+			# code...
+			$from = $arr[1];
+			$to = $arr[3];
+			$converted_price = GetCryptoPrice($from, $to);
+			$price = "1 " . $from . " = " . $to . " " . $converted_price ;
+			echo json_encode([
+				'status' => 1,
+				'answer' => $price
 			]);
 			return;
 		}
@@ -320,7 +341,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
-									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about me type: 'aboutbot'
+									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about what i can do type 'help'
 								</div>
 								<div class="iro">
 									<ul id="queries">
@@ -347,7 +368,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#queries").append("<li>" + question + "<li>");
+				$("#queries").append("<li>" + question + "</li>");
 					//let newMessage = `<div class="iro">
 	                  //${question}
 	                //</div>`
@@ -357,7 +378,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#ans").append("<li>"  + response.answer +  "<li>");
+			        $("#ans").append("<li>" + response.answer + "</li>");
 			       // console.log(response.result);
 			        //alert(response.result.d);
 			        //alert(answer.result);
