@@ -200,12 +200,13 @@
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST['user-input'];
-        $data = preg_replace('/\s+/', '', $data);
+      //  $data = preg_replace('/\s+/', '', $data);
         $temp = explode(':', $data);
-
-        if($temp[0] === 'train'){
+        $temp2 = preg_replace('/\s+/', '', $temp[0])
+        
+        if($temp2 === 'train'){
             train($temp[1]);
-        }elseif($temp[0] === 'aboutbot') {
+        }elseif($temp2 === 'aboutbot') {
             aboutbot();
         }else{
             getAnswer($temp[0]);
@@ -219,7 +220,7 @@
         $input = explode('#', $input);
         $question = $input[0];
         $answer = $input[1];
-        $password = $input[2];
+        $password = preg_replace('/\s+/', '', $input[2]);
         if($password == 'password') {
             $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
             $q = $GLOBALS['conn']->query($sql);
