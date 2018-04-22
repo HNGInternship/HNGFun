@@ -6,8 +6,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="Content-Language" content="en-us"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-        
+        </head>
+<style>        
   h1,h2,h3,h4,h5,h6,div,span,a,body{
   margin:0;
   padding: 0;
@@ -52,7 +52,6 @@ body {
     padding: 0;
     margin: 0;
     background: url(http://res.cloudinary.com/jconzy/image/upload/v1524411607/banner.jpg) no-repeat top center;
-    overflow: hidden;
 }
 
 .nav-bar{
@@ -62,6 +61,7 @@ body {
     background-color:#040e22;
     text-align: center;
     display: inline-block;
+    width: 100%;
 }
 
 #img-con{
@@ -72,6 +72,7 @@ body {
     border-radius: 100px;
     background: url(http://res.cloudinary.com/jconzy/image/upload/v1524411605/user_profile.jpg) no-repeat top center;
     position: absolute;
+    z-index: 100;
     border-top: 5px solid #ffffff;
     border-bottom: 5px solid #ffffff;
     border-left: 5px solid #040e22;
@@ -100,14 +101,14 @@ body {
 .nav-bar>a{
     display: inline-block;
     text-align: center;
-    margin: 0 0 0 0;
+    margin: 8px 10px 0 10px;
     text-decoration: none;
 }
 
 .nav-bar>a>img{
     width: 22px;
     height: 22px;
-    margin: 13px 10 0 10;
+    margin: 25px 10 0 10;
     opacity: 0.7;
 }
 
@@ -115,17 +116,17 @@ body {
         
         
         </style>
-	</head>
+	
     <body>
         
         <div class="col-12 main-container">
             <div class=" col-12 banner">
                 <div id="img-con"></div>
             </div> 
-            <p><strong>NNAMDI JOHNSON<br/> AKUNNA</strong></p>
+            <p><strong>NNAMDI JOHNSON<br> AKUNNA</strong></p>
             <h3>UI/UX FRONT END DEVELOPER</h3>
         </div>
-        <div class="col-12 nav-bar">
+        <div class="row nav-bar">
             <a href="https://web.facebook.com/profile.php?id=100006136516639"><img src="http://res.cloudinary.com/jconzy/image/upload/v1524413569/facebook.png" alt=""></a>
 	        <a href="https://twitter.com/j_conzy1"><img src="http://res.cloudinary.com/jconzy/image/upload/v1524413570/twitter.png" alt=""></a> 
 	        <a href="https://github.com/jconzy"><img class"github" src="http://res.cloudinary.com/jconzy/image/upload/v1524413570/github3.png" alt=""></a>
