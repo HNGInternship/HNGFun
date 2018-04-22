@@ -65,18 +65,20 @@
     </nav>
     -->
 
-    <div class="container" style="margin-top:30px auto">
+    <div class="container" style="margin-top: 0 auto">
             
-            <div class="card" style="width:450px">
+            <div class="card" style="width:18rem">
                 <img class="card-img-top" alt="yusufsd header image" src="<?php echo $image ?>">
-                <div class="card-body" style="margin-bottom: 5px;">
-                    <h5 class="card-title"><?php echo $name ?></h5>
-                    <p class="card-text">HNG - Intern, Web developer.</p>
-                    <p class="card-text">Username: @<?php echo $username ?></p>
-                </div>
                 <div class="card-body">
-                    <a href="https://facebook.com/yusufsd" class="btn btn-primary">Facebook</a>
-                    <a href="mailto:ysdhilside@gmail.com" class="btn btn-danger">Email</a>
+
+
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item"> <h5><?php echo $name ?></h5></li>
+                <li class="list-group-item">HNG - Intern, Web developer.</li>
+                <li class="list-group-item">Username: @<?php echo $username ?></li>
+                <li class="list-group-item"><a href="https://facebook.com/yusufsd" class="btn btn-primary">Facebook</a>
+                    <a href="mailto:ysdhilside@gmail.com" class="btn btn-danger">Email</a></li>
+              </ul>
                 </div>
             
             </div>
