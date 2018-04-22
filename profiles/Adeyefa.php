@@ -331,8 +331,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			        
 					},
 					error: function(error){
-						console.log(error);
-				        alert(error);
+						//console.log(error);
+				        alert(JSON.stringify(error));
 					}
 				})	
 			})
