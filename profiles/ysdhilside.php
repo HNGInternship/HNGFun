@@ -73,12 +73,9 @@
                     <h5 class="card-title"><?php echo $name ?></h5>
                     <p class="card-text">HNG - Intern, Web developer.</p>
                     <p class="card-text"><?php echo $username ?></p>
-                </div>
-            
-                <div class="card-body">
                     <a href="https://facebook.com/yusufsd" class="btn btn-primary">Facebook</a>
                     <a href="mailto:ysdhilside@gmail.com" class="btn btn-danger">Email</a>
-                </div>
+                
             </div>
             
         </div>
