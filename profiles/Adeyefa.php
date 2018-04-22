@@ -12,7 +12,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 <?php
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
+/*if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     require "../answers.php";
 
@@ -29,7 +29,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	    }
 
 	    //if(!isset($_POST['question'])){
-	    /*$mem = isset($_POST['question']);
+	    $mem = isset($_POST['question']);
 	    $mem = preg_replace('([\s]+)', ' ', trim($mem));
 	    $mem = preg_replace("([?.])", "", $mem);
 		$arr = explode(" ", $mem);
@@ -108,11 +108,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    	]);
 		    	return;
 		    }
-	    }*/
+	    }
 	}catch (Exception $e){
 		return $e->message ;
 	}
-}
+}*/
 ?>
 <!DOCTYPE html>
 <html>
