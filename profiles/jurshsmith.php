@@ -712,9 +712,3 @@ var bottString = String('#bott'+a);
 	});
 
 
-<<<<<<< HEAD
-</script>
-=======
-</script>
->>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
->>>>>>> a6663dc26928a9182067c9107843c4bba760a89d
