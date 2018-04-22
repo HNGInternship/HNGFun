@@ -67,8 +67,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			$quest = $queries[0];
 			$ans = $queries[1];
 
-			$sql = "INSERT INTO chatbot(question, answer) VALUES ( '" . $quest . "', '" . $ans . "')";
-			$conn->exec($sql);
+			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
+
+			$stmt = $conn->prepare($sql);
+	        $stmt->bindParam(':question', $quest);
+	        $stmt->bindParam(':answer', $ans);
+	        $stmt->execute();
+	        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+			
 			echo json_encode([
 				'status' => 1,
 				'answer' => "Thanks for training me, you can now test my knowledge"
@@ -87,7 +94,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	    	$question = implode(" ",$arr);
 	    	//to check if answer already exists in the database...
 	    	$question = "%$question%";
-	    	$sql = "Select * from chatbot where question like $question";
+	    	$sql = "Select * from chatbot where question like :question";
 	        $stat = $conn->prepare($sql);
 	        $stat->bindParam(':question', $question);
 	        $stat->execute();
@@ -221,7 +228,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    justify-content: flex-end;
 		    -webkit-flex-direction: column;
 		    flex-direction: column;
-		    background-color: blue;
+		    background-color: #00FFFF;
+
 		}
 		.irr{
 	        color: red;

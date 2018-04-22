@@ -67,12 +67,8 @@ function getAction($input)
 			$data = greet();
 			break;
 		case 1: // chat or train
-<<<<<<< HEAD
-			$human_response = preg_replace('/\s\s+/', ' ', $input['human_response']);
-=======
 			
 			$human_response = preg_replace('([\s]+)', ' ', trim($input['human_response']));
->>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 			$data = chat_or_train($human_response);
 			break;
 	}
