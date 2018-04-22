@@ -242,7 +242,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 		.iro{
 			float: right;
-			color: #red;
+			color: red;
 			font-size: 20px;
 			font-family: Ubuntu;
 		}
