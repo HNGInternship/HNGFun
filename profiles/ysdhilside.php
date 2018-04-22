@@ -34,10 +34,10 @@
   <body>
 
 <div class="container">
-    <br/><br/><br/>
-    <div class="container" style="margin: 0 auto">
+    <br/><br/><br/><center>
+    <div class="container">
             
-            <div class="card" style="width:18rem">
+            <div class="card">
                 <img class="card-img-top" alt="yusufsd header image" src="<?php echo $image ?>">
                 <div class="card-body">
 
