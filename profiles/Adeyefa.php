@@ -12,7 +12,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 <?php
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
+if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
     include "../answers.php";
     
@@ -270,7 +270,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			<div class="row-holder">
 				<div class="row2">
 					<div id="form">
-						<form id="qform" method="post">
+						<form id="qform" method="GET">
 							<div id="textform">
 								<textarea id='questionBox' name="question" placeholder="Enter message ..."></textarea>
 								<button type="submit" id="send-button">Send</button>
@@ -310,7 +310,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	                //</div>`
 				$.ajax({
 					url: '../profiles/Adeyefa.php',
-					type: 'POST',
+					type: 'GET',
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
