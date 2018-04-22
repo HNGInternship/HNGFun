@@ -478,7 +478,7 @@ $('#toggle-bot').show();
 	<div class = "row">
 		<div id = "j-firstdiv" class = "col-lg-5 col-md-5 col-sm-12 col-xs-12">
 			<br><br>
-			<center><img  src = "there/images/jj.png" width = "350px" id = "j-image"></center><br><br>
+			<center><img  src = "http://res.cloudinary.com/jurshsmith/image/upload/v1524378502/jj.png" width = "350px" id = "j-image"></center><br><br>
 			<font class = "j-profile">  <span class="glyphicon glyphicon-user"></span>  &nbsp;</font>
 			<font class = "j-profile" style = "font-weight: 600;">OLADELE JOSHUA</font><br>
 			 <font class = "j-header" style = "font-weight: 250;">
@@ -575,8 +575,8 @@ else{
 
 
 
-<<<<<<< HEAD
-=======
+
+
 <!-- chatbot js -->
 <script type="text/javascript">
 $('#chat-interface').hide();
@@ -668,11 +668,11 @@ else{
 	
 
         //using ajax
-<<<<<<< HEAD
+
    $.post('j-replies.php',{phpques : chat}, function(data){
-=======
+
    $.post('profiles/j-replies.php',{phpques : chat}, function(data){
->>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
+
    		reply = data;
    		reply = "<div href = 'index.php#chat-interface#bott"+ theScrollCounter +"' class = 'bot' id = 'bott" + theScrollCounter +"'><font class = 'bot-reply'><b>jobot</b><br>"+ reply + "</font><br></div>";
         $(".chats").append(reply);//should be after bot chat    
