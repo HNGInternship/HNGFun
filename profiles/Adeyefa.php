@@ -1,6 +1,6 @@
 <?php 
 
-  require "../../config.php";		
+  require "../config.php";		
 
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -324,8 +324,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        //$("#ans").append("<li>"  + response.result +  "</li>");
-			        console.log(response.answer);
+			        $("#ans").append("<li>"  + response.result +  "</li>");
+			       // console.log(response.result);
 			        //alert(response.result.d);
 			        //alert(answer.result);
 			        
