@@ -399,7 +399,7 @@ function find_place($query) {
 // return $parsed_response;
 
 $city = urlencode( $query );
-$placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$query."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
+$placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$city."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $placesUrl);

@@ -307,7 +307,7 @@ try {
             top: 0px;
             bottom: auto;
             border: 22px solid;
-            border-color:#9cb2d6 transparent transparent transparent;
+            border-color:#333333 transparent transparent transparent;
         }
 
 
@@ -335,7 +335,7 @@ try {
           top: 0px;
             bottom: auto;
             border: 20px solid;
-            border-color: #505d72 transparent transparent transparent;
+            border-color: #333333 transparent transparent transparent;
         }
 
         /* talk bubble contents */
