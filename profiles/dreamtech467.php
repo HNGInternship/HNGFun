@@ -56,9 +56,10 @@
 		// sending a reply to bot will call this function Abaraham
         function botReply($answer){
             echo json_encode([
+				'status' => 1,
                 'answer' => $answer
                 ]);
-            exit();
+            return;	
         }
 
 	
@@ -125,6 +126,28 @@
 				$answer_stmt->bindParam(':question', $strippedquestion);
 				$answer_stmt->execute();
 				$results = $answer_stmt->fetch();
+				
+				
+				
+				//get version Abraham
+				//global $conn;
+				switch($question){
+					case 'bot-v':
+					case 'bot-V':
+					case 'Bot-v':
+					case 'Bot-V':
+					botReply('Version 2.2');
+				}
+				
+				switch(true){
+					case "capital:" === substr($question, 0, 29):
+					case "Capital:" === substr($question, 0, 29):
+					botReply(getCapital(substr($question, 30)));
+				}
+
+				
+				
+				
 				if(($results)!=null){
 					$answer = $results['answer'];
 					echo json_encode([
@@ -144,26 +167,6 @@
 					
 				}
 			}
-
-
-		//get version Abraham
-		function answerBot($question){
-			global $conn;
-			switch($question){
-				case 'bot-v':
-				case 'bot-V':
-				case 'Bot-v':
-				case 'Bot-V':
-				botReply('Version 2.2');
-			}
-		}
-
-            switch(true){
-                case "capital of:" === substr($question, 0, 5):
-                case "Capital of:" === substr($question, 0, 5):
-                botReply(getCapital(substr($question, 6)));
-            }
-
 
 
 

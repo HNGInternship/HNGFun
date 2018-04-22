@@ -389,6 +389,37 @@ for($h=0;$h<sizeof($sentence);$h++){
 
 
 
+function find_place($query) {
+ 
+// $apiKey="AIzaSyDlvWmwKX40qRKZQFRKP1qngWnTPKKWM5Y";
+// $placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$query."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
+// $response = file_get_contents($placesUrl);
+// $parsed_response = json_decode($response, TRUE);
+
+// return $parsed_response;
+
+$city = urlencode( $query );
+$placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$query."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $placesUrl);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$geoloc = json_decode(curl_exec($ch), true);
+// print_r($geoloc);
+return $geoloc;
+
+
+
+// $latitude = $parsed_response['results'][0]['geometry']['location']['lat'];
+// $longitude = $parsed_response['results'][0]['geometry']['location']['lng'];
+
+
+}
+
+
+
+
+
 //****************************************************************************************************************************************************************
 //****************************************************************************************************************************************************************
 //****************************************************************************************************************************************************************
