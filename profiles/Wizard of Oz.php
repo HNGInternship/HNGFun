@@ -1,13 +1,7 @@
 <?php
-include "../config.php";
+require "../db.php";
 // x
 
-try {
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    } 
-    catch (PDOException $pe) {
-                die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-            } 
 
  if(isset($_GET['training'])) {
       $message = $_GET['training'];
@@ -82,8 +76,7 @@ function doSpecialFunction($func,$text){
 
 function workOnTrainData($data){
 
-    // require '../db.php
-include "../config.php";
+    require '../db.php'
 
 
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
@@ -140,9 +133,8 @@ catch(PDOException $e)
 
 function getReply($data){
 
-    // require '../db.php';
+    require '../db.php';
 
-include "../config.php";
 
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 
@@ -677,7 +669,7 @@ background: rgba(0, 0, 0, 0.7);
                <div class="chat-message row">
 
             <h1 class="chat-name col-2">Merlin : </h1>
-          <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <strong>Wizard of Oz.</strong></span>
+          <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <strong>Wizard of Oz!</strong></span>
 
 
       </div>
