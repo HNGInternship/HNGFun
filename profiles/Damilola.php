@@ -41,7 +41,11 @@
 
   #cover{
     width: 100%;
+<<<<<<< HEAD
+    /*background: rgba(0,0,0,.95);*/
+=======
     background: rgba(0,0,0,0);
+>>>>>>> ac0a283fcc63903d927a2ca88f44c27560fa3fa6
     height: 100vh;
     text-align: center;
   }
@@ -50,13 +54,18 @@
 
 
   #box{
-    width: 70%;
+    width: 100%;
     text-align: center;
+<<<<<<< HEAD
+    position:;
+    padding-top: 5%;
+=======
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     background: rgba(0,0,0,0);
+>>>>>>> ac0a283fcc63903d927a2ca88f44c27560fa3fa6
     
   }
 
@@ -66,6 +75,7 @@
 
   #box img{
     width: 200px;
+    border-radius: 5px;
     /*transform: rotate(360deg);*/
   }
 
@@ -81,13 +91,29 @@
     <div id="cover">
       <div id="box">
        <img src="http://res.cloudinary.com/damilola/image/upload/v1524350063/me.jpg" alt="Damilola" class="img-rounded">
-       <p><?php echo $name; ?></p>
+        <p><?php echo $name; ?></p>
         <h4>Because i'm Batman (In Batman's voice)</h4>
         <h4>Username: @<?php echo $username; ?>, Phone: 08023975087, Email: dhaamie.soyemi@gmail.com, Skills: Css,Bootstrap, Javascript, PHP</h4>
+        
         
      </div>
     </div>
 
+
+
+<div class="contact-link">
+                <div>
+                    
+                </div>
+                <div>
+                    <a  href="https://www.facebook.com/victor.c.ugwueze" target="_blank">
+                    <i class="fa fa-facebook-square fa-lg icon_up_link" aria-hidden="true"></i></a>
+                </div>
+                <div>
+                    <a  href="https://twitter.com/CVicchigo" target="_blank">
+                    <i class="fa fa-twitter-square fa-lg icon_up_link" aria-hidden="true"></i></a>
+                </div>
+            </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 <script type="text/javascript">
