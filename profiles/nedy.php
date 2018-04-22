@@ -34,7 +34,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
             if((count($questionAndAnswer)==3)){
                 $question = $questionAndAnswer[0];
                 $answer = $questionAndAnswer[1];
-                $password = test_input($questionAndAnswer[2]);
+                $password = $questionAndAnswer[2];
             }else{
                 echo json_encode([
                     'status'    => 0,
