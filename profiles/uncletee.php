@@ -58,7 +58,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
 
 //
-//print_r(askQuestion("botVersion"));
+//print_r(askQuestion("hello"));
 function askQuestion($string){
     global $botVersion;
     $questionAsked =  prepareInputParams($string);
@@ -261,7 +261,6 @@ function isTrainable($array){
 function prepareInputParams($string){
 
     $semiPrepared =  preg_replace('([\s]+)', ' ', trim($string));
-//    echo($semiPrepared)
     $prepared     =  preg_replace("([?.-])", "",trim($semiPrepared) );
     return    $prepared;
 }
