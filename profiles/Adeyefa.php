@@ -19,11 +19,9 @@ $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'")
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
 
-
-
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    $mem = $_POST['question'];
+    
 
     require "../answers.php";
 
@@ -39,7 +37,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	      return;
 	    }
 
-	    //$mem = $_POST['question'];
+	    $mem = $_POST['question'];
 	    $mem = preg_replace('([\s]+)', ' ', trim($mem));
 	    $mem = preg_replace("([?.])", "", $mem);
 		$arr = explode(" ", $mem);
@@ -123,6 +121,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		return $e->message ;
 	}
 }else{
+	
 ?>
 <!DOCTYPE html>
 <html>
