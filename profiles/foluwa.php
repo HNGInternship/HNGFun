@@ -278,14 +278,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         e.preventDefault();
         var questionBox = $('textarea[name=inputtext]');
         var question = questionBox.val();
-        $("#humanPost").append("<li class='botSend'>" + question + "<p>" + "<?php echo $d?>" + "</p>" + "</li>");
+        $("#humanPost").append("<p class='botSend'>" + question + "<p>" + "<?php echo $d?>" + "</p>" + "</p>");
         $.ajax({
           url: '/profiles/foluwa.php',
           type: 'POST',
           data: {question: question},
           dataType: 'json',
           success: function(response){
-              $("#botPost").append("<li class='humanSend'>"  + response.answer +  "</li>");
+              $("#botPost").append("<p class='humanSend'>"  + response.answer +  "</p>");
           },
           error: function(error){
                 alert(error);
