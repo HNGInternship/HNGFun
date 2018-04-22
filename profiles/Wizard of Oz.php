@@ -341,7 +341,7 @@ background: rgba(0, 0, 0, 0.7);
 .bot-container{
     background: rgba(0, 0, 0, 0.8);
     color: white;
-    position: relative;
+    position: absolute;
     z-index: 9999;
     top: 0;
     height: 100%;

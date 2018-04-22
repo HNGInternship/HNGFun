@@ -399,7 +399,7 @@ try{
 $response = file_get_contents($placesUrl);
 $parsed_response = json_decode($response, TRUE);
 
-return $parsed_response;
+return $parsed_response['results'][0]['name'];
 }
 
 catch(Exception $e){
