@@ -147,7 +147,7 @@ $username = $user['username'];
  <div class="container">
  <div class="card">
  	<div class="pic">
- 		<img src="<?php echo $imgsrc; ?>" class="img-circle center" id="hover" title="Web Developer" alt="Esurf picture">
+ 		<img src="https://cloudinary.com/console/media_library/asset/image/upload/mep" class="img-circle center" id="hover" title="Web Developer" alt="Esurf picture">
  	</div>
  	<h2><span id="flash">Hi!</span> I am <?php echo $name; ?></h2>
  	<h4 class="do">A Web Developer and Designer</h4>

@@ -1,6 +1,8 @@
 <?php
 include_once "db.php";
-// include 'answers.php';
+// include 'answers.php'
+require "../../config.php";
+
 
 ?>
 
@@ -43,7 +45,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
    //   $arrayName = array('result' => 'Oh my Error');
    //   header('Content-type: text/json');
    //   echo json_encode($arrayName);
-   //   return;
+   //   return
    // }
     else {
       $mem = "%$mem%";
@@ -119,7 +121,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	</style>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="jquery-3.3.1.min.js"></script>
+<!-- <script src="jquery-3.3.1.min.js"></script> -->
 <body>
 <div class="container">
 <div class="row">
