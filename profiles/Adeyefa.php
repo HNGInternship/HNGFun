@@ -1,6 +1,16 @@
 <?php 
 
-require "../config.php";
+if(!defined('DB_USER')){
+  require "../../config.php";		
+  try {
+      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
+}
+
+
+//require "../config.php";
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
@@ -8,11 +18,11 @@ $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
-?>
 
-<?php
 
-/*if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     require "../answers.php";
 
@@ -20,13 +30,13 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
     
     try{
 
-	    if(!isset($_POST['question'])){
+	    /*if(!isset($_POST['question'])){
 	      echo json_encode([
 	        'status' => 0,
 	        'answer' => "Please provide a question"
 	      ]);
 	      return;
-	    }
+	    }*/
 
 	    //if(!isset($_POST['question'])){
 	    $mem = isset($_POST['question']);
@@ -112,7 +122,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 	}catch (Exception $e){
 		return $e->message ;
 	}
-}*/
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -219,7 +229,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		    flex-direction: column;
 		}
 		.irr{
-	        color: #fff;
+	        color: red;
 	        font-size: 15px;
 			font-family: Ubuntu;
 		}
@@ -232,14 +242,14 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		}
 		.iro{
 			float: right;
-			color: #0DDFFF;
+			color: red;
 			font-size: 20px;
 			font-family: Ubuntu;
 		}
 		.iio{
 			float: left;
 			margin-right: 90px;
-			color: #01DDDD;
+			color: red;
 			font-size: 20px;
 			font-family: Ubuntu;
 		}
