@@ -5,6 +5,7 @@
       require 'db.php';
    }
  
+
 try {
     // Get the Secret Word from DB hush hush
     $secret_word_sql = "SELECT * FROM secret_word LIMIT 1";

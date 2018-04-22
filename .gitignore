@@ -1,4 +1,4 @@
-conf-maker.sh
+
 db.php
 docker-compose.yml
 phpmyadmin/
@@ -10,4 +10,3 @@ config.php
 /null-
 .travis.yml
 push.sh
-/vendor/
