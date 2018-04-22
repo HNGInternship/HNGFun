@@ -1,7 +1,6 @@
 <?php 
 
-  require "../config.php";		
-
+require "../config.php";
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
@@ -9,8 +8,118 @@ $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
-/////////////////////////////////
+?>
 
+<?php
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+	require "../answers.php";
+
+	function sendResponse($status, $answer){
+      echo json_encode([
+        'status' => $status,
+      'answer' => $answer]);
+      exit();
+    }
+
+
+    function answerQuestion($question){
+      global $conn;
+
+      $question = preg_replace('([\s]+)', ' ', trim($question));
+      $question = preg_replace("([?.])", "", $question);
+      
+      $question = "%$question%";
+      $sql = "select * from chatbot where question like :question";
+      $query = $conn->prepare($sql);
+      $query->execute([':question' => $question]);
+      $query->setFetchMode(PDO::FETCH_ASSOC);
+      $rows = $query->fetchAll();
+      
+      $resultsCount = count($rows);
+      if($resultsCount > 0){
+        $index = rand(0, $resultsCount - 1);
+        $row = $rows[$index];
+        $answer = $row['answer'];	
+        
+        $startParanthesesIndex = stripos($answer, "((");
+
+        // If the answer does not contain a function call
+        if($startParanthesesIndex === false){
+          sendResponse(200, $answer);
+        }else{
+          returnFunctionResponse($answer, $startParanthesesIndex);
+        }
+      }
+    }
+    function returnFunctionResponse($answer, $startParanthesesIndex){
+      $endParanthesesIndex = stripos($answer, "))");
+      if($endParanthesesIndex !== false){
+        $nameOfFunction = substr($answer, $startParanthesesIndex + 2, $endParanthesesIndex - $startParanthesesIndex - 2);
+        $nameOfFunction = trim($nameOfFunction);
+        
+        // If the function contains whitespace do not call it
+        if(stripos($nameOfFunction, ' ') !== false){
+          sendResponse(404, "The name of the function should not contain white spaces.");
+        }
+        
+        // If the function does not exist in answers.php, tell the user
+        if(!function_exists($nameOfFunction)){
+          sendResponse(404, "I'm sorry. I do not know what you're trying to make me do.");
+        }else{
+          $functionResult = str_replace("((".$nameOfFunction."))", $nameOfFunction(), $answer);
+          sendResponse(200, $functionResult);
+        }
+      }
+    }
+
+
+    function trainBot($question){
+        global $conn;
+
+        $trainingData = substr($question, 6);
+        $trainingData = preg_replace('([\s]+)', ' ', trim($trainingData));
+        $trainingData = preg_replace("([?.])", "", $trainingData);
+        
+        $splitString = explode("#", $trainingData);
+        if(count($splitString) == 1){
+          sendResponse(422, "Please provide valid training data.");
+        }
+        
+        $question = trim($splitString[0]);
+        $answer = trim($splitString[1]);
+
+        $sql = "insert into chatbot (question, answer) values (:question, :answer)";
+        $query = $conn->prepare($sql);
+        $query->bindParam(':question', $question);
+        $query->bindParam(':answer', $answer);
+        $query->execute();
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        
+        sendResponse(200, "I can literally feel my IQ increasing. Thanks 🙈");
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      if($_POST['password'] === 'trainpwforhng'){
+        $question = $_POST['question'];
+
+        $userIsTrainingBot = stripos($question, "train:");
+        if($userIsTrainingBot === false){
+          answerQuestion($question);
+        }else{
+          trainBot($question);
+        }
+        
+        $randomIndex = rand(0, sizeof($noIdeaResponses) - 1);
+        sendResponse(200, $noIdeaResponses[$randomIndex]);
+    }else{
+        echo json_encode([
+          'status' => 403,
+          'answer' => 'You are not authorized to train this bot.'
+        ]);
+      }
+    }
+}
+/*
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     include "../answers.php";
@@ -65,6 +174,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			}
 			$quest = $queries[0];
 			$ans = $queries[1];
+<<<<<<< HEAD
+			 $sql = "INSERT INTO chatbot(question, answer) VALUES ( '" . $quest . "', '" . $ans . "')";
+			 $conn->exec($sql);
+			 echo json_encode([
+			 	'status' => 1,
+			 	'result' => "Thanks for training me, you can now test my knowledge"
+			 ]);
+			 return;
+=======
 			$sql = "INSERT INTO chatbot(question, answer) VALUES ( '" . $quest . "', '" . $ans . "')";
 			$conn->exec($sql);
 			echo json_encode([
@@ -72,6 +190,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				'result' => "Thanks for training me, you can now test my knowledge"
 			]);
 			return;
+>>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 	    }
 	    //else {
 	   //   $arrayName = array('result' => 'Oh my Error');
@@ -120,7 +239,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	}catch (Exception $e){
 		return $e->message ;
 	}
-}
+}*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -324,15 +443,22 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#ans").append("<li>"  + response.result +  "</li>");
+
+			        $("#ans").append("<li>"  + response.answer +  "</li>");
 			       // console.log(response.result);
+
 			        //alert(response.result.d);
 			        //alert(answer.result);
 			        
 					},
 					error: function(error){
+
+						console.log(error);
+				        alert(error);
+
 						//console.log(error);
 				        alert(JSON.stringify(error));
+
 					}
 				})	
 			})
