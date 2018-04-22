@@ -56,7 +56,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
                 if($question == "" ||$answer ==""){
                     echo json_encode([
                         'status'    => 1,
-                        'answer'    => "empty question or response"
+                        'response'    => "empty question or response"
                     ]);
                     return;
                 }
@@ -64,12 +64,12 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
                 if($conn->query($query) ===true){
                     echo json_encode([
                         'status'    => 1,
-                        'answer'    => "trained successfully"
+                        'response'    => "trained successfully"
                     ]);
                 }else{
                     echo json_encode([
                         'status'    => 1,
-                        'answer'    => "Error training me: ".$conn->error
+                        'response'    => "Error training me: ".$conn->error
                     ]);
                 }
                 
