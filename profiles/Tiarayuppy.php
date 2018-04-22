@@ -1,38 +1,228 @@
-
-
-  <?php
-          try {
-              $sql = 'SELECT * FROM secret_word';
-              $q = $conn->query($sql);
-              $q->setFetchMode(PDO::FETCH_ASSOC);
-              $data = $q->fetch();
-          } catch (PDOException $e) {
-              throw $e;
+<?php
+    session_start();
+    require('answers.php');
+                $dsn = "mysql:host=".DB_HOST.";dbname=".DB_DATABASE;
+                $db = new PDO($dsn, DB_USER,DB_PASSWORD);
+                $codeQuery = $db->query('SELECT * FROM secret_word ORDER BY id DESC LIMIT 1', PDO::FETCH_ASSOC);
+                $secret_word = $codeQuery->fetch(PDO::FETCH_ASSOC)['secret_word'];
+                $detailsQuery = $db->query('SELECT * FROM interns_data WHERE name = \'Tiarayuppy\' ');
+    $username = $detailsQuery->fetch(PDO::FETCH_ASSOC)['username'];
+    if(isset($_POST['message']))
+    {
+                    array_push($_SESSION['chat_history'], trim($_POST['message']));
+                    if(stripos(trim($_POST['message']), "train") === 0)
+        {
+          
+                    $args = explode("#", trim($_POST['message']));
+                    $question = trim($args[1]);
+          $answer = trim($args[2]);
+          $password = trim($args[3]);
+          if($password == "[password]")
+          {
+              // Password perfect
+            $trainQuery = $db->prepare("INSERT INTO chatbot (question , answer) VALUES ( :question, :answer)");
+            if($trainQuery->execute(array(':question' => $question, ':answer' => $answer)))
+            {
+                array_push($_SESSION['chat_history'], "That works! okay continue chatting");
+            }
+            else
+            {
+                array_push($_SESSION['chat_history'], "Something went wrong somewhere");
+            }
           }
-          $secret_word = $data['secret_word'];
+          else
+          {
+              // Password not correct
+             array_push($_SESSION['chat_history'], "The password entered was incorrect");
+          }
+        }
+        else
+        {
+            // Not Training
+          $questionQuery = $db->prepare("SELECT * FROM chatbot WHERE question LIKE :question");
+          $questionQuery->execute(array(':question' => trim($_POST['message'])));
+          $qaPairs = $questionQuery->fetchAll(PDO::FETCH_ASSOC);
+          if(count($qaPairs) == 0)
+          {
+                    $answer = "Sorry, I cant understand your details";
+          } else
+          {
+            $answer = $qaPairs[mt_rand(0, count($qaPairs) - 1)]['answer'];
+            $bracketIndex = 0;
+            while(stripos($answer, "{{", $bracketIndex) !== false)
+            {
+              $bracketIndex = stripos($answer, "{{", $bracketIndex);
+              $endIndex = stripos($answer, "}}", $bracketIndex);
+              $bracketIndex++;
+                  $function_name = substr($answer, $bracketIndex + 1, $endIndex - $bracketIndex -1);
+                  $answer = str_replace("{{".$function_name."}}", call_user_func($function_name), $answer);
+            }
+          }
+          array_push($_SESSION['chat_history'] , $answer);
+        }
+    }
+    if(!isset($_SESSION['chat_history']))
+    {
+                $_SESSION['chat_history'] = array('Hello! How can I help? Ask for my help. To train me, enter the command "train # question # answer # password');
+    }
+    $messages = $_SESSION['chat_history'];
+?>
 
-
-              $profile_details_query = "SELECT name, username, image_filename 
-              FROM interns_data where username = '$profile_name' LIMIT 1";
-              $profile_details_result = $conn->query($profile_details_query);
-
-                  $profile_details_result->setFetchMode(PDO::FETCH_ASSOC);
-                      $profile_details = $profile_details_result->fetch();
-                  ?>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
- 
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
   <title>TiaraYuppy - HNG Internship</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-  <script src="https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js"></script>
+ <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js"></script>
 
 <style>
+
+.navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 0px !important;
+}
  
+ .mytext{
+    border:0;padding:10px;background:whitesmoke;
+}
+.text{
+    width:75%;display:flex;flex-direction:column;
+}
+.text > p:first-of-type{
+    width:100%;margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 12px;
+}
+.text > p:last-of-type{
+    width:100%;text-align:right;color:silver;margin-bottom:-7px;margin-top:auto;
+}
+.text-l{
+    float:left;padding-right:10px;
+}        
+.text-r{
+    float:right;padding-left:10px;
+}
+.avatar{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:25%;
+    float:left;
+    padding-right:10px;
+}
+.macro{
+    margin-top:20px;width:85%;border-radius:5px;padding:5px;display:flex;
+}
+.msj-rta{
+    float:left;background:whitesmoke;
+}
+.msj{
+    float:left;background:white;
+}
+.frame{
+    background:#e0e0de;
+    height:500px;
+    overflow:hidden;
+    padding:0;
+    width: 50%;
+    border: 2px;
+    overflow-y: scroll;
+    scroll-behavior: auto;
+
+}
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+.frame > div:last-of-type{
+    position:absolute;bottom:0;width:100%;display:flex;
+}
+body > div > div > div:nth-child(2) > span{
+    background: blue;
+    padding: 10px;
+    font-size: 21px;
+    border-radius: 50%;
+}
+body > div > div > div.msj-rta.macro{
+    margin:auto;margin-left:1%;
+}
+ul {
+    width:100%;
+    list-style-type: none;
+    padding:18px;
+    position:absolute;
+    bottom:47px;
+    display:flex;
+    flex-direction: column;
+    top:0;
+    overflow-y:scroll;
+}
+.msj:before{
+    width: 0;
+    height: 0;
+    content:"";
+    top:-5px;
+    left:-14px;
+    position:relative;
+    border-style: solid;
+    border-width: 0 13px 13px 0;
+    border-color: transparent #ffffff transparent transparent;            
+}
+.msj-rta:after{
+    width: 0;
+    height: 0;
+    content:"";
+    top:-5px;
+    left:14px;
+    position:relative;
+    border-style: solid;
+    border-width: 13px 13px 0 0;
+    border-color: whitesmoke transparent transparent transparent;           
+}  
+input:focus{
+    outline: none;
+}        
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #d4d4d4;
+}
+::-moz-placeholder { /* Firefox 19+ */
+    color: #d4d4d4;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    color: #d4d4d4;
+}
+:-moz-placeholder { /* Firefox 18- */
+    color: #d4d4d4;
+}  
+
+
 body{
     margin-bottom: 100px;
 }
@@ -288,6 +478,10 @@ body{
     color: #070707;
     background-color: #070707;
 }
+
+#time{
+    display-content:center;
+}
 #demo {
             /*background-color: #ffffff;*/
             width: 80%;
@@ -308,6 +502,7 @@ body{
             font-size: 14px;
             border: 1px solid #ddd;
             width: 400px;
+        height:300px;
         }
         .button {
             display: inline-block;
@@ -328,14 +523,14 @@ body{
             display: none;
         }
         .chatBotChatEntry {
-    padding: 20px;
-    background-color: #fff;
-    border: none;
-    margin-top: 5px;
-    font-family: 'open_sanslight', sans-serif !important;
-    font-size: 17px;
-    font-weight: normal;
-}
+        padding: 20px;
+        background-color: #fff;
+        border: none;
+        margin-top: 5px;
+        font-family: 'open_sanslight', sans-serif !important;
+        font-size: 17px;
+        font-weight: normal;
+    }
 
 .chatBotChatEntry * {
     font-family: 'open_sanslight', sans-serif !important;
@@ -435,6 +630,127 @@ body{
             opacity: 1;
         }
  }
+ .my-container
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: "Work Sans", sans-serif;
+    }
+    .content
+    {
+        display: flex;
+        flex-direction: column;
+    }
+    .row
+    {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        flex-direction: row;
+    }
+    .icon-row
+    {
+        display: flex;
+        flex-direction: row;
+        width: 70px;
+        justify-content: space-between;
+    }
+    .chatbox
+    {
+        display: center;
+        flex-direction: column;
+        background-color: #c5f9f0;
+        width: 40%;
+        min-height: 500px;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 20px;
+        border-color:#1d3baf;
+        margin-top: 25px;
+        margin-bottom: 50px;
+        margin-left: 400px;
+    }
+    .chat-area
+    {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: 450px;
+        padding-top: 20px;
+        padding-bottom: 10px;
+        padding-right: 20px;
+        padding-left: 20px;
+        overflow: scroll;
+        box-sizing: border-box;
+    }
+    .chat-controller
+    {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 50px;
+        border-top: 1px solid #1d3baf;
+        box-sizing: border-box;
+        font-size: 20px;
+    }
+    .chat-container
+    {
+        box-sizing: border-box;
+        width: 80%;
+        display: flex;
+        padding-left: 30px;
+    }
+    .input-ctn
+    {
+        flex-direction: row-reverse;
+    }
+    .recieved-message-ctn
+    {
+        flex-direction: row;
+    }
+    .chat
+    {
+        min-height: 30px;
+        padding: 10px;
+        box-sizing: border-box;
+        min-width: 30px;
+        border-radius: 8px;
+        font-size: 12px;
+        margin-bottom: 5px;
+        max-width: 60%;
+    }
+    .input
+    {
+        color: black;
+        background-color: #ce2395;
+        padding-left: 20px;
+    }
+    .recieved-message
+    {
+        background-color: transparent;
+        color: black;
+    }
+    form{
+        display: flex; 
+        width: 100%;
+    }
+    input{
+        box-sizing: border-box; 
+        flex-grow: 3; 
+        border-right: 1px solid #757575; 
+        border-left: 0px;  
+        border-top: 0px; 
+        border-bottom: 0px; 
+        background-color: 
+        transparent; 
+        margin-left: 5px; 
+        height: 50px;
+    }
+
+
 
 </style>
 <body class="color">
@@ -447,67 +763,70 @@ body{
 
                 </div>
                 <div class="avatar">
-                    <img alt="" src="<?php echo $profile_details['image_filename'] ?>">
+                    <img alt="" src="http://res.cloudinary.com/tiarayuppy/image/upload/v1523634049/IMG_20171025_172725.jpg">
                 </div>
                 <div class="info">
                     <div class="title">
-                        <a target="_blank" href="http://res.cloudinary.com/tiarayuppy/image/upload/v1523634049/IMG_20171025_172725.jpg">
-                        <?php echo $profile_details['name'] ?></a>
+                        <a target="_blank" href="http://res.cloudinary.com/tiarayuppy/image/upload/v1523634049/IMG_20171025_172725.jpg">Miracle Joseph</a>
                     </div>
-                    <p><?php echo $profile_details['username'] ?></p>
                     <div class="desc">Passionate designer</div>
                     <div class="desc">Curious developer</div>
                     <div class="desc">Tech geek| Woman in Tech</div>
-                    <div class="desc">Fast Learner</div>
-                </div>
-                <div class="bottom">
-                    
-                    <a class="btn btn-danger btn-sm-github" rel="publisher"
-                       href="https://github.com/Tiarayuppy">
-                        <i class="fa fa-github"></i>
-                    </a>
-                    <a class="btn btn-primary btn-sm" rel="publisher"
-                       href="https://facebook.com/tiarayuppy">
-                        <i class="fa fa-facebook"></i>
-                    </a>
-                    <a class="btn btn-warning btn-sm" rel="publisher" href="https://plus.google.com/tiarayuppy">
-                        <i class="fa fa-behance"></i>
-                    </a>
-                </div>
+              
+                </div>                 
+  
             </div>
-
         </div>
-
-    </div>
-
-
-</div>
-
-
-
-<div id="demo">
-    <div id="chatBotCommandDescription"></div>
-    <input id="humanInput" type="text" placeholder="Say something" />
-
-    <div class="button" onclick="if (!ChatBot.playConversation(sampleConversation,4000)) {alert('conversation already running');};">Play sample conversation!</div>
-    <div class="button" onclick="$('#chatBotCommandDescription').slideToggle();" style="margin-right:10px">What can I say?</div>
-
-    <div style="clear: both;">&nbsp;</div>
-
-    <div id="chatBot">
-        <div id="chatBotThinkingIndicator"></div>
-        <div id="chatBotHistory"></div>
     </div>
 </div>
 
+      <div class="col-sm-6 col-sm-offset-5 frame" 
+      style="box-shadow:2px 2px 4px 5px #ccc;
+      background-color: #e1ecf7; 
+      border: 2px; 
+      margin-bottom: 30px;
+      float: right;
+      height: 100%;">
+       <h4 style="text-align: center;">My Chat bot </h4>
+            <ul></ul>
+            <div>
+        
+            <?php for($index = 0; $index < count($messages); $index++ ) :?>
+                      <div class="chat-container <?= ($index % 2 == 0) ? "recieved-message-ctn" : "input-ctn"  ?>">
+                          <div class="chat <?= ($index % 2 == 0) ? "recieved-message" : "input"  ?>"><?= $messages[$index] ?></div>
+                      </div>
+                  <?php endfor; ?>
+              </div>
+            <div class="msj-rta macro" style="background: transparent;"> 
+                     
+            
+                <div>
+                <form action="/profile.php?id=Tiarayuppy" method="POST" style="display: flex; width: 100%;">
+                  
+                    <div class="text text-r" style="background:lightblue !important;">
+                          
+                        <input type="text" name="message" class="mytext" width="100%" placeholder="Type a message" style="background: transparent;" />
+                    </div> 
 
+                </div>
+                <div style="padding-top: 0px;">
+                    <input type="submit" value="send your message" style=" border-radius:10px; flex-grow: 1; background-color: green; color: #FAFAFA; float: left;"/>
+                </form>
+                </div> 
+                </div>                
+            </div>
+            </div>
+        </div> 
+
+   
 <script>
     var sampleConversation = [
         "Hi",
         "My name is [name]",
         "Where is Hotels.ng?",
-        "What is the Nigeria",
-        "Bye"
+        "Where is  Nigeria",
+        "Bye",
+        "What is the time"
         
     ];
     var config = {
@@ -522,7 +841,8 @@ body{
     ChatBot.init(config);
     ChatBot.setBotName("Tiarayuppy");
     ChatBot.addPattern("^hi$", "response", "Hello, friend", undefined, "Say 'Hi' to be greeted back.");
-    ChatBot.addPattern("^bye$", "response", "See you later buddy", undefined, "Say 'Bye' to end the conversation.");
+    ChatBot.addPattern("^What is the time$", "response", "The Time is getTime()", undefined, "Say 'What is the time' to be greeted back.");
+    ChatBot.addPattern("^bye$", "response", "See you later...", undefined, "Say 'Bye' to end the conversation.");
     ChatBot.addPattern("(?:my name is|I'm|I am) (.*)", "response", "hi $1, thanks for talking to me today", function (matches) {
         ChatBot.setHumanName(matches[1]);
     },"Say 'My name is [your name]' or 'I am [name]' to be called that by the bot");
@@ -530,8 +850,22 @@ body{
     ChatBot.addPattern("compute ([0-9]+) plus ([0-9]+)", "response", undefined, function (matches) {
         ChatBot.addChatEntry("That would be "+(1*matches[1]+1*matches[2])+".","bot");
     },"Say 'compute [number] plus [number]' to make the bot your math calculator");
+</script>   
+<script>
+    
+  $(function(){
+$("#addClass").click(function () {
+          $('#qnimate').addClass('popup-box-on');
+            });
+          
+            $("#removeClass").click(function () {
+          $('#qnimate').removeClass('popup-box-on');
+            });
+  })
 
 </script>
+
+
 
 </body>
 </html>

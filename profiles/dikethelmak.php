@@ -153,16 +153,16 @@
     
      <?php
 
-
-try {
-    $select = 'SELECT * FROM secret_word';
-    $query = $conn->query($select);
-    $query->setFetchMode(PDO::FETCH_ASSOC);
-    $get = $query->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
-$secret_word = $get['secret_word'];
+        require_once '../db.php';
+        try {
+            $select = 'SELECT * FROM secret_word';
+            $query = $conn->query($select);
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $query->fetch();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+        $secret_word = $data['secret_word'];        
 ?>
 
 </body>

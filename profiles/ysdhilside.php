@@ -1,26 +1,25 @@
 <?php
-include('../config.php');
 
-$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-$secret_string = "SELECT secret_word FROM secret_word";
-$secret_query = mysqli_query($con, $secret_string);
-$row = mysqli_fetch_assoc($secret_query);
-$secret_word = $row['secret_word'];
+  $stmt = $conn->query("SELECT * FROM secret_word LIMIT 1");
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  $secret_word = $result['secret_word'];
 
 
-$interns_string = "SELECT * FROM interns_data_";
-$interns_query = mysqli_query($con, $interns_string);
-$row = mysqli_fetch_assoc($interns_query);
+   $sql = "SELECT * FROM interns_data where username='ysdhilside'";
+   $query = $conn->query($sql);
+   $query->setFetchMode(PDO::FETCH_ASSOC); 
+   $result = $query->fetch();
+       $name = $result['name'];
+       $username = $result['username'];
+       $image = $result['image_filename'];
+    
+   
 
-$id = $row['intern_id'];
-$name = $row['name'];
-$username = $row['username'];
-$image = $row['image_filename'];
 
-//echo '<h1>'.$id.$name.$username.$image.'</h1>';
+
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE html>   
 <html>
 <head>
 	<meta charset="utf-8">
@@ -524,8 +523,8 @@ footer .copyright {
     </nav>
 
 
-    <div class="container"><center>
-    	<br><br><br><div class="well">
+    <div class="container">
+    	
     		
     			<div class="thumbnail">
     				<img src= "<?php echo $image ?>" class="curve"/>
@@ -541,9 +540,8 @@ footer .copyright {
     					<h3 style="display: none"> <?php echo $secret_word ?></h3>
     				</div>
     			
-    		
-    		
-    	</div>
+    		    </div>
+            
     	
     </div>
 

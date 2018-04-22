@@ -1,7 +1,7 @@
 <!Doctype html>
 <html>
 <head>
-<title>Eduese's Profiles</title><!---this is the reference page for every clicked NEWS pages --->
+<title>Eduese's Profiles</title>
 <meta charset= "utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel = "stylesheet" href = "patfon.css">
@@ -69,33 +69,9 @@ p, h4{color:blue}
 
 </style>
 
-<?php
-
-/*/ This file provides the information for accessing the database.and connecting 
-//to MySQL. It also sets the language coding to utf-8
-
-// First we define the constants: 
-
-DEFINE ('DB_USER', 'Eduese');
-DEFINE ('DB_PASSWORD', '');
-DEFINE ('DB_HOST', 'localhost');
-DEFINE ('DB_NAME', 'interns_data');
-
-// Next we assign the database connection to a variable that we will call $dbcon: 
-$dbcon = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
-OR die("Could not connect to server: " .mysqli_connect_error());
-
-// Finally, we set the language encoding.as utf-8
-mysqli_set_charset($dbcon, 'utf8'); 
-*/
-?>
-
-
-
-
 <div id = "wrapper" class = "row">
 
-<h2 >Eduese's Profile Page</h2>
+<h2 >Eduese Profile Page</h2>
 
 <div class="col-1">
 <caption><h3>Meet Me:</h3></caption>
@@ -104,10 +80,9 @@ mysqli_set_charset($dbcon, 'utf8');
 <?php 
 $q = "SELECT name, username, image_filename  FROM interns_data  
 		WHERE (username='Eduese')  ";
-$result = mysqli_query($dbcon, $q); // Run the query. #7
+$result = mysqli_query($dbcon, $q); 
 
 
-//$row = mysqli_fetch_array($result);
 	if($result){
 		while($row=mysqli_fetch_array($result, MYSQLI_ASSOC))
 		{
@@ -123,12 +98,13 @@ $result = mysqli_query($dbcon, $q); // Run the query. #7
 		}
 	}
 	
-/*$p = "SELECT secret_word FROM secret_word ;";	
-$result2 = mysqli_query($dbcon, $q); // Run the query. #7
+$p = "SELECT secret_word FROM secret_word ;";	
+$result2 = mysqli_query($dbcon, $q); 
 
-	*/
-	
-	?> 
+$secret_word = $row['secret_word'];
+echo $secret_word;
+
+?> 
 	
 	   <p>Thanks</i></p>
 </h4>  
@@ -143,8 +119,6 @@ $result2 = mysqli_query($dbcon, $q); // Run the query. #7
 
 <div id = "my_pics" class = "col-2">
 <figure class = "allimage" id = "logo">
-<img src = "
-http://res.cloudinary.com/duys5bnjm/image/upload/v1523634872/my_pics.jpg"
  width ="35%" height ="50%" ></figure></br>
 
 </div> 
