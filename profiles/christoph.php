@@ -690,7 +690,7 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
                     include '../answers.php';
                     if (function_exists($function_name)) {
                         $distance = call_user_func($function_name, $key, $url, $location1, $location2);
-                        $response = ['response'=>'christoph_bot', 'message'=>"$answer $location_data[1] $delimiter $location_data[3] : $distance"];
+                        $response = ['response'=>'christoph_bot', 'message'=>"$answer $location_data[1] $delimiter $location_data[3] : <b>$distance</b>"];
                         echo json_encode($response);
                     }
                     else {
@@ -699,7 +699,7 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
                     }
                 }
                 else {
-                    $response = ['response'=>'parse_error', 'message'=>$unparsed_location];
+                    $response = ['response'=>'parse_error', 'message'=>"Sorry, I don't understand that delimiter, very soon I would though. <br /><br /> I'm learning really hard. But till then, you can only use the supported delimiters <span class='bot-command highlight'>and</span> or <span class='bot-command highlight'>to</span> <br /></br> Type <span class='bot-command'>help</span> for more guides."];
                     echo json_encode($response);
                 }
             }
@@ -749,7 +749,7 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
                 // Include answers.php and call the calculate_distance function if it exists
                 include "../answers.php";
                 if (function_exists($function_name) or $match_simple_mode) {
-                    $distance = call_user_func($function_name, $key, $url, $location1, $location2);
+                    $distance = "<b>".call_user_func($function_name, $key, $url, $location1, $location2)."</br>";
                     $distance .= '<br /> <br />';
 
                     $location1 = str_replace('+', ' ', $location1);
@@ -794,7 +794,7 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
                 $trip_duration = call_user_func($function_name, $key, $url, $location1, $location2, $mode);
                 $location1 = str_replace('Nigeria', '', str_replace('+', ' ', $location1));
                 $location2 = str_replace('Nigeria', '', str_replace('+', ' ', $location2));
-                $response = ['response'=>'trip_duration', 'message'=>"The $mode duration from $location1 to $location2 is estimated to be about $trip_duration"];
+                $response = ['response'=>'trip_duration', 'message'=>"The $mode duration from $location1 to $location2 is estimated to be about <b>$trip_duration</b>"];
                 echo json_encode($response);
             }
             else {
