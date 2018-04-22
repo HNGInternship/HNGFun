@@ -228,6 +228,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    justify-content: flex-end;
 		    -webkit-flex-direction: column;
 		    flex-direction: column;
+		    background-color: #00FFFF;
 
 		}
 		.irr{
