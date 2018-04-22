@@ -1,6 +1,13 @@
 <?php
 
-		require_once '../config.php';
+		// require_once '../../config.php';
+
+		try {
+		    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		} catch (PDOException $pe) {
+		    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+		}
 /**
  * Class Db
  */
@@ -528,8 +535,8 @@ class DBHelper{
 		<!-- Profile Section -->
 	<div class="container"> 
 		<div class="row">
-		  	<div class="col-sm-5 "><span class="flow-text"><img class ="myPics" src="http://res.cloudinary.com/gconnect/image/upload/v1523730900/glory.jpg" width="300px" height="400px"></span>
-		    <h6 class="name"><a href="www.medium.com/@agatevureglory"><?php echo $name->name; ?></a></h6>
+		  	<div class="col-sm-5 "><span class="flow-text"><img src="http://res.cloudinary.com/gconnect/image/upload/v1523730900/glory.jpg" class ="myPics" width="300px" height="400px"></span>
+		    <h6 class="name"><a href="www.medium.com/@agatevureglory">Agatevure Glory</a></h6>
 		  	</div>
 		     <div class="col-sm-7 ">
 		            <h4 class="heading">Love to keep it simple</h4>
