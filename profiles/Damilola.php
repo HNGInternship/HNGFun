@@ -53,7 +53,7 @@
     width: 100%;
     text-align: center;
     position:;
-    padding-top: 10%;
+    padding-top: 80px;
     
   }
 
