@@ -302,7 +302,6 @@
             </div>
         </div>
         <div class="bot">
-           
         </div>
     </div>
 
@@ -355,6 +354,9 @@
             },
             template: `
             <div class="bot">
+                <div>
+                    <h1>Chat with Phoenix!<h1>
+                </div>
                 <div class="bot-con">
                     <div style="height: 500px; overflow-y: scroll;">
                         <ul>
