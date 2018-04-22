@@ -40,7 +40,7 @@
             <div class="col-lg-4"></div> 
 
             <div class="col-lg-4">  
-            <div class="card">
+            <div class="card" style="height: 600px">
                 <img class="card-img-top" alt="yusufsd header image" src="<?php echo $image ?>">
                 <div class="card-body">
 
