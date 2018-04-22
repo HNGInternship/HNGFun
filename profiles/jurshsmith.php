@@ -12,19 +12,7 @@
 <title>
 HNG 4.0 | Jurshsmith
 </title>
-<script type = "text/javascript" src = "there/resource/jquery.js"></script>
-<script type = "text/javascript" src = "there/resource/jquery.min.js"></script>
-<script type = "text/javascript" src = "there/resource/jquery-ui.min.js"></script>
-<script type = "text/javascript" src = "there/resource/resource/jquery-ui.js"></script>
-<script type = "text/javascript" src = "there/resource/bootstrap.min.js"></script>
-<script type = "text/javascript" src = "there/resource/bootstrap.js"></script>
 
-
-<link rel = "stylesheet" href = "there/resource/bootstrap.css">
-<link rel = "stylesheet" href = "there/resource/bootstrap.min.css">
-<link rel = "stylesheet" href = "thereresource/bootstrap-theme.min.css">
-<link rel = "stylesheet" href = "there/resource/font-awesome.min.css">
-<link rel = "stylesheet" href = "there/resource/font-awesome.css">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	
