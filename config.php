@@ -5,8 +5,8 @@
 */
 
 
-define ('DB_USER', "intern");
-define ('DB_PASSWORD', "secret");
+define ('DB_USER', "tobi.adenekan");
+define ('DB_PASSWORD', "school");
 define ('DB_DATABASE', "hng_fun");
 define ('DB_HOST', "localhost");
 
