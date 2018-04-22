@@ -235,7 +235,7 @@ $('document').ready(function(){
 	<div class = "chats"></div>
 	<div id = "bott"></div>
 	</div>
-	<form id = "chatbot-text-area" class = "chatbot-text-area">
+	<div id = "chatbot-text-area" class = "chatbot-text-area">
 			<div class="form-group">
   
   <input type="text" class="form-control" id="message">
@@ -244,7 +244,7 @@ $('document').ready(function(){
 	
 		<span class="glyphicon glyphicon-send"   id = "j-send" role = "button"></span>
 	</div>
-		</form>
+		</div>
 
 	
 
