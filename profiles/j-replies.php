@@ -1,5 +1,6 @@
 <?php
 require "../../config.php";
+require "../answers.php";
 
 
 //connection
@@ -19,17 +20,12 @@ else{
   global $conn;
 
 //end of connection
-
-
-require "../answers.php";
-$question = $_POST['chatMessage'];
-
 if(!defined('DB_USER')){
        
   try {
-      $connn = new PDO("mysql:host=". $servername. ";dbname=". $db , $username, $password);
+      $connn = new PDO("mysql:host=". DB_HOST. ";dbname=".DB_DATABASE , DB_USER, DB_PASSWORD);
   } catch (PDOException $pe) {
-      die("Could not connect to the database " . $db . ": " . $pe->getMessage());
+      die("Could not connect to the database " .DB_DATABASE . ": " . $pe->getMessage());
   }
 }
 
@@ -177,5 +173,6 @@ if (isset($_POST['trainValidity']))
 else{
     getAnswerFromDB($question, $conn, $connn);
 }
+
 
 ?>
