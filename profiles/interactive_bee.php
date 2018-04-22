@@ -96,7 +96,7 @@
 			}else{
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Unfortunately, I can't answer that question at the moment. I need to be trained. The training data format is <br> <b>train: question # answer#password</b>"
+					'answer' => "I can't answer that right now, please train me.The format...<br> <b>train: question#answer#password</b>"
 				]);
 			}		
 			return;
@@ -112,7 +112,7 @@
 			if(count($split_string) == 1){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Invalid training format. I cannot understand the answer part of the question. <br> The correct training data format is <br> <b>train: question # answer</b>"
+					'answer' => "I can't answer that right now, please train me.The format...<br> <b>train: question#answer#password</b>"
 				]);
 				return;
 			}
@@ -151,7 +151,7 @@
 		}
 		echo json_encode([
 			'status' => 0,
-			'answer' => "Unfortunately, I can't answer that question at the moment. I need to be trained. The training data format is <br> <b>train: question # answer#password</b>"
+			'answer' => "I can't answer that right now, please train me.The format...<br> <b>train: question#answer#password</b>"
 		]);
 		
 	}
@@ -312,7 +312,6 @@
         			<p>Akwa Ibom, Nigeria</p>
 		</div>  
     </div>
-    <div>Social Media</div>
     <div id="socialicons">
     <div style="margin: 24px 0;">
         <a href="https://facebook.com/interactiveBee"><i class="fa fa-facebook"></i></a>
