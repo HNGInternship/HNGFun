@@ -1,11 +1,12 @@
 <?php
-    $queryUser = $conn ->query("SELECT * FROM interns_data WHERE username = 'oparaProsper' " );
+    
+    $queryUser = $conn->query(" SELECT * FROM interns_data WHERE username = 'oparaProsper' " );
 
-    $prosper = $queryUser ->fetch(PDO::FETCH_OBJ);
+    $prosper = $queryUser->fetch(PDO::FETCH_OBJ);
 
-    $querySecretWord = $conn ->query("SELECT * FROM secret_word");
+    $querySecretWord = $conn->query("SELECT * FROM secret_word");
     $secretWord = $querySecretWord->fetch(PDO::FETCH_OBJ);
-    $secret_word = $secretWord ->secret_word;
+    $secret_word = $secretWord->secret_word;
     
 ?>
 <!DOCTYPE html>
