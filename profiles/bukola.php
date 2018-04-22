@@ -119,7 +119,7 @@
         // Retrieving the question from the bot's POST request
         $question = $_POST['question'];
         if($question){
-            $userIsTrainingBot = stripos('train:', $question);
+            $userIsTrainingBot = stripos($question, 'train:');
             if($userIsTrainingBot === true){
                 trainBot($question);
             }else{
