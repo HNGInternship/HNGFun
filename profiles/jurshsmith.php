@@ -229,7 +229,8 @@ $('document').ready(function(){
 	<br><br>
 	<div id = "chat-area" class = 'chat-area'>
 	<div style = "font-size: 10px; font-family: monospace;background-color: grey;color: white">
-		<p>Hi, I'm Jobot</p>
+		<br>
+		<p><b>Jobot</b><br>Hi, I'm Jobot</p>
 	</div>
 	<div class = "chats"></div>
 	<div id = "bott"></div>
