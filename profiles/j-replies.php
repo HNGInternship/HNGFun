@@ -14,59 +14,73 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 else{
-    echo 'connection successful';
+//for debugging conncection
 }
   global $conn;
 
 //end of connection
 
 
-if (isset($_POST['phpques'])){
-    //gets the question from the user
-$question = $_POST['phpques'];
-$question = trim($question);
-$question = strtolower($question);
+require "../answers.php";
+$question = $_POST['chatMessage'];
 
-//explode, trim and implode to make it a normal string
-$questionA = explode(" ",$question);
-$counter = 0;
-while ($counter < count($questionA)){
-   $questionA[$counter] =  trim($questionA[$counter]);
-    $counter++;
-}
-$question = implode(" ",$questionA);
-$question = trim($question);
+function getAnswerFromDB($question, $conn){
 
-
-$train = 0;
-$trainString = "train";
-//search if it starts train : 
-if (stripos($question, $trainString) === FALSE)
-{
-//if it doesn't start with train
-//do below
-
-$q = "SELECT answer FROM chatbot WHERE question='$question'";
+$q = "SELECT * FROM chatbot WHERE question='$question'";
 $r = mysqli_query($conn, $q);
 
 if (mysqli_num_rows($r) > 0)
-    {
-        $answer = mysqli_fetch_assoc($r);
-        $answer = $answer['answer'];
-        echo $answer;
+    {   
 
-    }
-else {
-    echo '<font style ="font-size:10px ">WOAH that\'s too much.Teach me using this format<i>train:yourquestion#youranswer#password</i></font>';
-    }
+     //display random answers
+//         $answer = mysqli_fetch_array($r);
+//         $answerAssoc = mysqli_fetch_assoc($r);
+//            $answerRow = count($answerAssoc);
+//             $randr =  $answerRow - 1;
+//              $randrr = rand(0,  $randr);
+//              $answer = $answer[$randrr];
+$rows = [];
+while($row = mysqli_fetch_assoc($r))
+{
+    $rows[] = $row;
+}
+$answerRow = count(mysqli_fetch_assoc($r)) - 1;
+$randIndex = rand(0,  $answerRow);
+$answer = $rows[$randIndex];
+        //if answer has a function call in it
+         // $answer =  callFunction();
+        // else
+
+        $startParanthesesIndex = stripos($answer, "((");
+            if ($startParanthesesIndex === false){
+                echo $answer;
+            }
+            else{
+            callFunction($answer, $startParanthesesIndex);
+            }
 
 }
 
-//if it contains train,check if it contains : and #; : get the postion of : and  # to be able to strip it
-//if it containes train and doesn't contain the other characters wrong format
+
+
+
 
 else{
 
+    $answer = "WOAH! I'll get there...just train me using the format; train : yourquestion # your answer # password";
+    echo $answer;
+}
+}
+
+
+
+
+
+//trainbot function
+function trainJobot($question, $conn){
+
+    $train = 0;
+    $trainString = "train";
     $colonPos = stripos($question, ":");
     $hashPos = stripos($question, "#");
     $questionLength = strlen($question);
@@ -99,7 +113,7 @@ else{
 
     $pass = trim($pass);
 
-    if ($pass === "password")
+    if ($pass === "trainpwforhng")
     {
     $train_query = "INSERT INTO chatbot (question, answer)
                     VALUES ('$ques', '$ans')";
@@ -110,13 +124,49 @@ else{
     else{
         echo "You Are Not Allowed To Train Me".$pass;
     }
-   
+}
+
+
+
+
+
+
+
+function callFunction($answer, $open_bracket_pos){
+
+      $closing_brac_pos = stripos($answer, "))");
+
+      if($closing_brac_pos !== false){
+        $nameOfFunction = substr($answer, $open_bracket_pos + 2, $closing_brac_pos - $open_bracket_pos - 2);
+        $nameOfFunction = trim($nameOfFunction);
+        
+        if(stripos($nameOfFunction, ' ') !== false){
+          echo "The name of the function is invalid for a function";
+        }
+        
+        if(!function_exists($nameOfFunction)){
+          echo "Well, the function command does not exist";
+        }
+        else{
+          $functionResult = str_replace("((".$nameOfFunction."))", $nameOfFunction(), $answer);
+          echo $functionResult;
+        }
+      }
 
 }
 
 
-}//end of the parent if statement
+if ($_POST){
+
+if (isset($_POST['trainValidity']))
+{
+    if ($_POST['trainValidity'] == 1){
+        trainJobot($question, $conn);
+    }
+}
 else{
-    echo "error";
+    getAnswerFromDB($question, $conn);
 }
+}
+
 ?>

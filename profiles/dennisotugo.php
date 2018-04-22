@@ -17,7 +17,6 @@ $date_time = new DateTime('now', new DateTimezone('Africa/Lagos'));
 global $conn;
 
 if (isset($_POST['payload'])) {
-	require "../answers_blank.php";
 
 	$question = trim($_POST['payload']);
 	function isTraining($question)
@@ -43,7 +42,7 @@ if (isset($_POST['payload'])) {
 		}
 
 		if ($answer_data_result[$answer_data_index]["answer"] == "") {
-			return 'I don\'t get :/ If you want to train me to understand sha please type "train: question # answer"';
+			return 'I don\'t get :/. Train me to understand small something sha,no vex please type "<code>train: your question? # The answer.</code> ;)"';
 		}
 
 		if (containsVariables($answer_data_result[$answer_data_index]['answer']) || containsFunctions($answer_data_result[$answer_data_index]['answer'])) {
@@ -85,7 +84,7 @@ if (isset($_POST['payload'])) {
           VALUES ( :question, :answer );';
 		$q = $conn->prepare($sql);
 		$q->execute($question_data);
-		echo "No wahala, now I understand, try me again";
+		echo "Now I understand. No wahala, now try me again";
 		return;
 	}
 
@@ -205,8 +204,8 @@ else {
                           if (res.trim() === "") {
                                   showResponse(
                                           `
-          I am not understanding that question. If you want to train me to understand,
-          please type "train: question # answer."
+          I don\'t understand that question. If you want to train me to understand,
+          please type <code>"train: your question? # The answer."</code>
           `
                                   );
                           } else {

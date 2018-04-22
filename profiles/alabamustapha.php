@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
 
-// $data = getAction(['stage' => 1, 'human_response' => 'train:                   what is the             synonym of die # kill,death #     password']);
+// $data = getAction(['stage' => 1, 'human_response' => 'train: red and blue#black#password']);
 
 // echo $data;
 
@@ -67,7 +67,8 @@ function getAction($input)
 			$data = greet();
 			break;
 		case 1: // chat or train
-			$human_response = preg_replace('/\s\s+/', ' ', $input['human_response']);
+			
+			$human_response = preg_replace('([\s]+)', ' ', trim($input['human_response']));
 			$data = chat_or_train($human_response);
 			break;
 	}
@@ -130,10 +131,11 @@ function train($human_response){
 
 	function chat_or_train($human_response){
 
-		$human_response_words = explode(' ', $human_response);
-		if (strpos(trim($human_response_words[0]), 'train') !== false && count($human_response_words) > 4) {
+		
+		if (strpos(trim($human_response), 'train:') !== false) {
 			return train($human_response);
 		}else{
+			
 			return chat($human_response);
 		}
 
@@ -211,24 +213,18 @@ function train($human_response){
 	}
 	
 	function prepare_question_train($question){
-		$question = trim($question);
 		
-		$words = explode(' ', $question);
-		foreach ($words as $key => $word) {
-			$words[$key] = trim($word);
-		}
-		return implode(' ', $words);
+		$question = trim($question);
+		$question = preg_replace('([\s]+)', ' ', $question);		
+		return $question;
 	}
 
 	
 	function prepare_question_chat($human_response){
 		$human_response = trim($human_response);
 		$question = str_replace('?', '', $human_response);
-		$question_words = explode(' ', $question);
-		foreach ($question_words as $key => $word) {
-			$question_words[$key] = trim($word);
-		}
-		return implode(' ', $question_words);
+		$question = preg_replace('([\s]+)', ' ', $question);
+		return $question;
 	}
 
 	function is_valid_training_format($human_response){
@@ -258,7 +254,7 @@ function train($human_response){
 
 		$answer = trim($parts[1]);
 
-		return ['question' => $question, 'answer' => $answer, 'password' => $password];
+		return ['question' => trim($question), 'answer' => $answer, 'password' => $password];
 	}
 
 	
