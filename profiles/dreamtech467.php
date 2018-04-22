@@ -56,9 +56,10 @@
 		// sending a reply to bot will call this function Abaraham
         function botReply($answer){
             echo json_encode([
+				'status' => 1,
                 'answer' => $answer
                 ]);
-            exit();
+            return;	
         }
 
 	
@@ -129,7 +130,7 @@
 				
 				
 				//get version Abraham
-				global $conn;
+				//global $conn;
 				switch($question){
 					case 'bot-v':
 					case 'bot-V':
@@ -139,9 +140,9 @@
 				}
 				
 				switch(true){
-					case "capital of:" === substr($question, 0, 5):
-					case "Capital of:" === substr($question, 0, 5):
-					botReply(getCapital(substr($question, 6)));
+					case "capital:" === substr($question, 0, 29):
+					case "Capital:" === substr($question, 0, 29):
+					botReply(getCapital(substr($question, 30)));
 				}
 
 				
