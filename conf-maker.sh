@@ -1,4 +1,5 @@
 #! /bin/sh
+rm ../config.php
 rm config.php
 touch config.php
 cat <<EOT >> config.php
@@ -12,3 +13,4 @@ define ('DB_DATABASE', "hng");
 define ('DB_HOST', "localhost");
 ?>
 EOT
+mv config.php ../
