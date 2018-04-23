@@ -40,7 +40,7 @@
             <div class="col-lg-4"></div> 
 
             <div class="col-lg-4">  
-            <div class="card">
+            <div class="card" style="height: 600px">
                 <img class="card-img-top" alt="yusufsd header image" src="<?php echo $image ?>">
                 <div class="card-body">
 
@@ -49,7 +49,7 @@
                 <li class="list-group-item"> <h5><?php echo $name ?></h5></li>
                 <li class="list-group-item">HNG - Intern, Web developer.</li>
                 <li class="list-group-item">Username: @<?php echo $username ?></li>
-                <li class="list-group-item"><a href="https://facebook.com/yusufsd" class="btn btn-primary">Facebook</a>
+                <li class="list-group-item" style="padding:10px;"><a href="https://facebook.com/yusufsd" class="btn btn-primary">Facebook</a>
                     <a href="mailto:ysdhilside@gmail.com" class="btn btn-danger">Email</a></li>
               </ul>
                 </div>

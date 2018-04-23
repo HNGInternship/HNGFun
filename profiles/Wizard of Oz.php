@@ -79,6 +79,14 @@ function doSpecialFunction($func,$text){
     return pig_latin($text);
     }
 
+    else if($func=="bot"){
+        return get_bot_version();
+    }
+
+     else if($func=="commands"){
+        return get_help();;
+    }
+
     else{
         return find_place($text);
     }
@@ -163,10 +171,23 @@ function getReply($data){
 
 
 
-
     try{
 
         $trimData=sanitizeText($data);
+
+        if(strtolower($trimData)=="aboutbot"){
+
+            return doSpecialFunction("bot","");
+
+        }
+
+        if(strtolower($trimData)=="commands"){
+
+            return doSpecialFunction("commands","");
+           
+        }
+
+        if(strpos($trimData, "{{")==FALSE){
 
 $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question=:question ORDER BY RAND() LIMIT 1");
 
@@ -174,11 +195,73 @@ $result= $stmt->execute(array(
    ':question'=>$trimData
   ));
 
+}
+
+else{
+
+    $trimCopy=$trimData;
+
+    $newDataFront="";
+    $newDataBack="";
+    $indexToCut=strpos($trimData, "{{");
+    if($indexToCut!=0){
+    $newDataFront=substr($trimData, 0,$indexToCut);
+
+    }
+
+    $trimCopy=substr($trimData, $indexToCut);
+
+
+    $indexToCut2=strpos($trimData, "}}");
+
+
+    if($indexToCut2!=strlen($trimData)-2){
+        $newDataBack==substr($tr, $indexToCut2);
+
+    }
+
+     $trimCopy=substr($trimCopy, 2,strlen($trimCopy)-4);
+
+    $word=$trimCopy;
+
+
+    $newData=$newDataFront."%".$newDataBack;
+
+    $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE ? ORDER BY RAND() LIMIT 1");
+
+    $stmt->bindValue(1, $newData);
+        $result=$stmt->execute(); 
+
+}
 
   while($row = $stmt->fetch(PDO::FETCH_ASSOC))
   {
 
 
+    $dataFront="";
+    $dataBack="";
+    $indexCut=strpos($row["answer"], "(");
+    if($indexCut!=0){
+    $dataFront=substr($row["answer"], 0,$indexCut);
+
+    }
+
+    $indexCut2=strpos($row["answer"], ")");
+
+
+    if($indexCut2!=strlen($row["answer"])-2){
+        $dataBack==substr($row["answer"], $indexCut2);
+
+    }
+
+        if(strpos($row["answer"], "(pig_latin)")){
+            return $dataFront.doSpecialFunction("pigLatin",$word).$dataBack;
+        }
+
+        else if(strpos($row["answer"], "(find_place)")){
+            return $dataFront.doSpecialFunction("findPlace",$word).$dataBack;
+
+        }
         return $row["answer"];
 
 
@@ -341,7 +424,7 @@ background: rgba(0, 0, 0, 0.7);
 .bot-container{
     background: rgba(0, 0, 0, 0.8);
     color: white;
-    position: relative;
+    position: fixed;
     z-index: 9999;
     top: 0;
     height: 100%;
@@ -591,8 +674,12 @@ background: rgba(0, 0, 0, 0.7);
 
 ul{
     padding-left: 0%;
+    padding-bottom: 2%;
+    
 }
 
+li{
+}
 
 
 @media(max-width: 400px){
@@ -655,7 +742,7 @@ ul{
 
      <img class="rounded-circle" id="profile-pic" src=<?php echo $profilePic?> alt="Profile picture"> 
 
-    <h3 id="school">Graduate of the University of Lagos%</h3>
+    <h3 id="school">Graduate of the University of Lagos</h3>
 
 
 </div>
@@ -703,12 +790,30 @@ ul{
             <h1 class="chat-name col-2">Merlin : </h1>
           <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <strong>Wizard of Oz</strong><br>
           You can ask me questions and i'll try my best to answer.<br>
-          Some special functions i perform are: <br>
+          Some special functions I perform are: <br>
           <ul>
+                <li><strong>Bot Version</strong><br>
+                Type <span id="important">aboutbot</span>
+            </li>
               <li><strong>Translate English to Pig Latin</strong><br>
-                Type <span id="important">pig latin: word/sentence</span>
+                Type <span id="important">pig latin: word/sentence</span><br>
+                The variable is used like so <span id="important">{{variable}}</span> and function as <span id="important">(pig_latin)</span><br>
 
               </li>
+              <li><strong>Place Locator</strong><br>
+                Used to find type of places in an area
+                Type <span id="important">find: place in area</span><br>
+                For example <span id="important">find: restaurants in nigeria</span><br>
+                <span id="important">find: hotels in yaba</span><br>
+                Also can find location of compnies or org e.g <span id="important">find: hotelsng in nigeria</span><br>
+                <span id="important">find: Chevron </span><br>
+                The variable is used like so <span id="important">{{variable}}</span> and function as <span id="important">(find_place)</span><br>
+
+              </li>
+
+               <li><strong>View available commands again</strong><br>
+                Type <span id="important">commands</span>
+            </li>
           </ul><span>
 
 

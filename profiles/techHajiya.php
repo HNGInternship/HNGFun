@@ -1,26 +1,50 @@
+<!--Created by Thomas Lois ---->
 <!DOCTYPE html>
 <html>
 <head>
-    <link href='https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra SC|Romanesco' rel='stylesheet'>
+	<link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css' />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <style type="text/css">
-        .container{
-            width: 100%;
-            min-height: 100%
-        }
-        body {
-            font-family: "quicksand"
+	 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
+       body {
+            font-family: "Josefin Sans","Montserrat","Segoe UI","Roboto","Helvetica Neue","Arial","sans-serif";
             color: #4A4646;
-			padding-left:400px;
-		}        
-		.profile-details{
-            padding-top: 30px;
+            overflow-x: hidden;
         }
+		 .container {
+            max-width: 95%;
+            padding-left: 0;
+		
+        }
+		   .chatbox {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 16px;
+            display: flex;
+            flex-direction: column;
+            max-width: 550px;
+            margin: 0 auto;
+			 border-radius: 5px;
+        }
+
+        footer {
+            display: none;
+        }
+
+		   .container.profile-body {
+            padding-right : 0;
+        }
+
+        .profile-details, .chatbox {
+            padding-top: 0px;
+			
+        }
+
         .profile-details {
-            background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+            padding-right: 0;
             height: auto;
         }
         .profile-body {
-            max-width: 100%;
+            max-width: 50%;
         }
         .profile-image img {
             margin: auto;
@@ -50,49 +74,108 @@
         }
 		
 		
-		
-		
-        .chat-output {
+		* {
+		outline: none; 
+	   tap-highlight: none;
+	   -webkit-tap-highlight: none;
+	   -webkit-tap-highlight-color: none;
+	   -moz-tap-highlight: none;
+	   -moz-tap-highlight-color: none;
+	   -khtml-tap-highlight: none;
+	   -khtml-tap-highlight-color: none;
+		}		
+        .chat-result {
             flex: 1;
-            padding: 20px;
+            padding: 10px;
             display: flex;
             background: white;
             flex-direction: column;
             overflow-y: scroll;
             max-height: 500px;
+			border-radius: 5px; 
+			
         }
-        .chat-output > div {
-            margin: 0 0 20px 0;
+        .chat-result > div {
+            margin: 0 0 10px 0;
         }
-        .chat-output .user-message .message {
-            background: #0fb0df;
+        .chat-result .user-message .message {
+            background: #DA70D6;
             color: white;
         }
-        .chat-output .bot-message {
+        .chat-result .bot-message {
             text-align: right;
         }
-        .chat-output .bot-message .message {
+        .chat-result .bot-message .message {
             background: #eee;
+			
         }
-        .chat-output .message {
+        .chat-result .message {
             display: inline-block;
-            padding: 12px 20px;
+            padding: 10px 10px;
+			margin: 5px;
             border-radius: 10px;
         }
         .chat-input {
-            padding: 20px;
-            background: #eee;
-            border: 1px solid #ccc;
-            border-bottom: 0;
+            padding: 15px;
+            background-color: #fff;
+			font-size: 16px;
         }
         .chat-input .user-input {
-            width: 100%;
+            width: 80%;
             border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 8px;
+            border-radius: 25px;
+            padding: 10px;
+			float: left;
+        }
+		#send {
+		   width: 80px;
+		   height: 45px;
+		   display: inline-block
+		   outline: none;
+		   border: none;
+		   color: #fff;
+		   background-color: #DA70D6;
+		   float: right;
+		   border-radius: 25px;
+		   padding: 0px;
+		   cursor: pointer;
+		   margin: 0px;
+		}
+		#send:active {
+		   background-color: #00A; 
+		   outline: none;
+		}
+		
+		
+
+	.chatbot-menu-header {
+            background-color: #191970;
+            padding: 7px 20px;
+            margin: 0px 0 0 0px;
+            color: #FFFFFF;
+            height: 45px;
+			border-radius:10px;
+        }
+
+        .chatbot-close, .chatbot-help {
+            display: inline-block;
+            margin-left: 20px;
+            margin-top: 2.5px;
+        }
+
+        .fa-close, .fa-question-circle {
+            font-size: 23px;
+        }
+
+        .chatbot-menu-header span {
+            font-weight: bold;
+			font-size: 24px;
+        }
+
+        .chatbot-menu-header a {
+            color: #FFFFFF;
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -102,19 +185,18 @@
         $sql2 = 'SELECT * FROM interns_data WHERE username="techHajiya"';
         $q2 = $conn->query($sql2);
         $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $user = $q2->fetch();
+        $my_data = $q2->fetch();
     } catch (PDOException $e) {
         throw $e;
     }
     ?>
-
-     <div class="row" style="width:1100px;">
+     <div class="row">
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
-                    <img src="<?php echo $user->image_filename ?>" alt="Lois Thomas">
+                    <img src="<?=$my_data['image_filename'] ?>" alt="Lois Thomas">
                 </div>
 				<p class="text-center profile-name">
-				<span> Hi! I am  <?php echo $user->name ?>  <br/>(@<?php echo $user->username ?>) <br/> I Eat | I Code | I Repeat</span>
+				<span> Hi! I am  <?=$my_data['name'] ?>  <br/>(@<?=$my_data['username'] ?>) <br/> I Eat | I Code | I Repeat</span>
                 </p>
                 <div class="text-center social-links">
                     <a href="https://github.com/cara06" target="_blank"><i class="fa fa-2x fa-github"></i></a>
@@ -122,27 +204,29 @@
                     <a href="https://facebook.com/lois.idzi5" target="_blank"><i class="fa fa-2x fa-facebook"></i></a>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-6">
-            <div class="body1">
-                <div class="chat-output" id="chat-output">
+      <div class="col-sm-6 chatbox" style='float: right; padding-top: 50px'>
+	 <div class='chatbot-menu-header'>
+                        <div class="hng-logo"></div> <span>LoBot v1.0</span>
+                    </div>
+                <div class="chat-result" id="chat-result">
                     <div class="user-message">
-                        <div class="message">Hi there! I'm LoBot! Ask anything and I'll be sure to answer! </br>To train me, use this syntax - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
+					<div class="message">Hello! I'm LoBot! Feel free to ask me anything.   </div>
+					<div class="message">Learn more about me by typing 'aboutbot'.</div>
+                    <div class="message">To train me, use this syntax - 'train: question # answer # password'.</div>
+					<div class="message">Password is LoBot. </div>
                     </div>
                 </div>
 
                 <div class="chat-input">
                     <form action="" method="post" id="user-input-form">
-<!--                        <input type="hidden" name="id" value="--><?php //echo htmlspecialchars($_GET['id']);?><!--">-->
-                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
+                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Type a message...">
+						<button id="send">SEND</button>
                     </form>
                 </div>
-
-            </div>
-        </div>
-    </div>
-
+		
+          </div>
+		   </div>
 
     <?php
     try {
@@ -169,7 +253,8 @@
     }
 	##About Bot
     function aboutbot() {
-        echo "<div id='result'>LoBot version 1.0 - I am a bot created by Lois Thomas that returns data from the database. That's not all, I also can be taught new tricks!</div>";
+        echo "<div id='result'><strong>LoBot 1.0 </strong>
+		Hey...I am a LoBot created by Lois Thomas to answer any question. You can also teach me things I don't know. Sounds fun right</div>";
     }
 	
 	##Train Bot
@@ -214,7 +299,10 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'</div>";
+            echo "<div id='result'>Oops! I've not been trained to learn that command . Would you like to train me
+You can train me to answer any question at all using: train: question # answer # password
+e.g train: Who is the president of Nigeria # Muhammadu Buhari # LoBot
+			by using the format - 'train: question # answer # password'</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
@@ -227,7 +315,7 @@
 </body>
 
 <script>
-    var outputArea = $("#chat-output");
+    var outputArea = $("#chat-result");
     $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
         var message = $("#user-input").val();
@@ -240,8 +328,8 @@
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
                     outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
-                    $('#chat-output').animate({
-                        scrollTop: $('#chat-output').get(0).scrollHeight
+                    $('#chat-result').animate({
+                        scrollTop: $('#chat-result').get(0).scrollHeight
                     }, 1500);
                 }, 250);
             }
