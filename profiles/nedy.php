@@ -17,16 +17,84 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
   }
 }else if($_SERVER['REQUEST_METHOD']==='POST'){
     require '../../config.php';
-    try {
-      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
+    $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+            if(!$conn){
+                echo json_encode([
+                    'status'    => 1,
+                    'response'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                ]);
+                return;
+            }
     if(isset($_POST['message'])){
-      echo json_encode([
-        "status" => 1,
-        "response" =>"found Message"
-      ]);
+        $question = $_POST['message'];
+        if(strpos($question, "train:") !== false){
+            $questionAndAnswer = substr($question, 6); //get the string after train
+            $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
+            $questionAndAnswer = explode("#",$questionAndAnswer);
+            if((count($questionAndAnswer)==3)){
+                $question = $questionAndAnswer[0];
+                $answer = $questionAndAnswer[1];
+                $password = $questionAndAnswer[2];
+            }else{
+                echo json_encode([
+                    'status'    => 0,
+                    'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer#password"
+                ]);
+                return;
+            }
+            if(!(isset($password))|| $password !== 'password'){
+                echo json_encode([
+                    'status'    => 1,
+                    'response'    => "Please insert the correct training password"
+                ]);
+                return;
+            }
+            if(isset($question) && isset($answer)){
+                //Correct training pattern
+                // $question = test_input($question);
+                // $answer = test_input($answer);
+                if($question == "" ||$answer ==""){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "empty question or response"
+                    ]);
+                    return;
+                }
+                $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
+                if($conn->query($query) ===true){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "trained successfully"
+                    ]);
+                }else{
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "Error training me: ".$conn->error
+                    ]);
+                }
+                
+
+                return;
+            }else{ //wrong training pattern or error in string
+            echo json_encode([
+                'status'    => 0,
+                'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer #password"
+            ]);
+            return;
+            }
+        }
+        else{
+            $query = "SELECT answer FROM chatbot WHERE question LIKE '$question'";
+            $result = $conn->query($query)->fetch_all();
+            echo json_encode([
+                'status' => 1,
+                'response' => $result
+            ]);
+        }
+    //   echo json_encode([
+    //     "status" => 1,
+    //     "response" =>"found Message"
+    //   ]);
       return ;
     }
 }
@@ -226,8 +294,8 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
                                 <input type="text" class="message-input" name="user-message" id="user-message"
                                        placeholder="Write a message" required>
                                 <!--Submit button-->
-                                <button class="btn" type="button">
-                                    <i class="fa fa-send message-submit"  onclick="sendMsg()" value="send"></i>
+                                <button class="btn" type="button" onclick="sendMsg()">
+                                    <i class="fa fa-send message-submit"   value="send"></i>
                                 </button>
                             </div>
                         </div>
@@ -235,8 +303,68 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
                 </div>
             </div>
 
-</body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js""></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" ></script>
+<script>
+  window.addEventListener("keydown", function(e){
+    if(e.keyCode ==13){
+        if(document.querySelector("#user-message").value==""||document.querySelector("#user-message").value==null){
+            //console.log("empty box");
+        }else{
+            //this.console.log("Unempty");
+            sendMsg();
+        }
+    }
+});
+function sendMsg(){
+    var ques = document.querySelector("#user-message");
+    displayOnScreen(ques.value, "sent");
+    
+    //console.log(ques.value);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function(){
+        if(xhttp.readyState ==4 && xhttp.status ==200){
+            processData(xhttp.responseText);
+        }
+    };
+    xhttp.open("POST", "https://hng.fun/profiles/nedy.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("message="+ques.value);
+}
+function processData (data){
+    data = JSON.parse(data);
+    console.log(data);
+    var answer = data.response;
+    //Choose a random response from available
+    if(Array.isArray(answer)){
+        if(answer.length !=0){
+            var res = Math.floor(Math.random()*answer.length);
+            displayOnScreen(answer[res][0], "received");
+        }else{
+            displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn<br> Here's the format: train: user-message # response","received");
+        }
+    }else{
+        displayOnScreen(answer,"received");
+    }
+    
+    
+   
+}
+function displayOnScreen(data,align){
+    //console.log(data);
+
+    var main= document.querySelector(".messages-area");
+    var div = document.createElement("div");
+    div.classList = align+"-message text-left";
+    var p = document.createElement("p");
+
+    p.classList = "message "+align;
+    p.innerHTML = data;
+    div.appendChild(p);
+    main.appendChild(div);
+    //console.log(data);
+}
+</script>
+</body>
 </html>

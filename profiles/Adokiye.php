@@ -1,4 +1,10 @@
 <?php
+
+session_start();
+
+if (!isset($_SESSION["all"])){
+    $_SESSION["all"] = [];
+}
 if(!defined('DB_USER')){
     require "../../config.php";
     $servername = DB_HOST;
@@ -12,36 +18,51 @@ if(!defined('DB_USER')){
         die("Connection failed: " . mysqli_connect_error());
     }}
 global $conn;
+
+$solution = '';
+if (isset($_POST['restart'])){
+    session_destroy();
+}
 if (isset($_POST['button'])) {
     if (isset ($_POST['input']) && $_POST['input'] !== "") {
         $asked_question_text = $_POST['input'];
-        $solution = askQuestion($asked_question_text);}}
+        $solution = askQuestion($asked_question_text) . "<br/>";
+        $_SESSION["all"][] = array($solution, $asked_question_text);
+    }
+}
 function askQuestion($input)
 {
-    $split = preg_split("/(:|#)/", $input, -1);
+    $split = preg_split("/(:|#|#)/", $input, -1);
     global $conn;
     $action = "train";
+    $question = strtolower($split[0]);
     if ($split[0] !== $action && !isset($split[1]) && !isset($split[2])) {
-        $question = strtolower($split[0]);
-        $sql = 'SELECT answer FROM chatbot WHERE question = "' . $question . '"';
-        $result = $conn->query($sql);
-            $fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
-            $row_cnt = $result->num_rows;
-            if ($row_cnt>0) {
-                return $fetched_data[0]['answer'];
-            } else
-            return "ENTER TRAIN: QUESTION#ANSWER TO ADD MORE QUESTIONS TO THE DATABASE";
-    }else if  ($split[0] == $action && isset($split[1]) && isset($split[2])) {
-            $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $split[1] . "', '" . $split[2] . "')";
-            $the_queried = $conn->query($sql);
-            if ($the_queried){
-                $saved_message = "Saved " . $split[1] ." -> " . $split[2];
-                return $saved_message;
-            }else
-                return "Please try again";
-    }
-
-
+        $result =  mysqli_query($conn,"SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'" );
+        $fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $row_cnt = $result->num_rows;
+        $rand = rand(0,$row_cnt-1);
+        if ($row_cnt>0) {
+            return $fetched_data[$rand]['answer'];
+        } else
+            return "ENTER TRAIN: QUESTION#ANSWER#password TO ADD MORE QUESTIONS TO THE DATABASE";
+    }else if  ($split[0] == $action && isset($split[1]) && isset($split[2])&&isset($split[3])) {
+        if ($split[3]= "password"){
+        $question = strtolower($split[1]);
+        $sql1 = 'SELECT question FROM chatbot WHERE LOWER(question) = "' . $question . '"';
+        $query = $conn->query($sql1);
+        $fetched_data = mysqli_fetch_all($query, MYSQLI_ASSOC);
+        $row_cnt = $query->num_rows;
+        if ($row_cnt>0) {
+            return "QUESTION ALREADY EXISTS ";
+        }else
+            $the_queried = $conn->query("INSERT INTO chatbot(question, answer) VALUES ('" . $split[1] . "', '" . $split[2] . "')");
+        if ($the_queried){
+            $saved_message = "Saved " . $split[1] ." -> " . $split[2];
+            return $saved_message;
+        }else
+            return "Please try again";
+    }else
+     return "Please enter train:question#answer#password";}
 }
 
 ?>
@@ -51,6 +72,39 @@ function askQuestion($input)
     <meta charset="utf-8">
     <title>Adokiye ---- Stage 4</title>
     <style type="text/css">
+
+                              .mycss
+                              {
+                                  text-shadow:1px 3px 1px rgba(255,255,255,1);font-weight:bold;text-transform:uppercase;color:#000000;border: 5px ridge #FFFFFF;letter-spacing:5pt;word-spacing:2pt;font-size:20px;text-align:center;font-family:arial, helvetica, sans-serif;line-height:1;
+                              }
+
+        .bot-css {
+            display: inline-block;
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+            width: 300px;
+            height: fit-content;
+            padding: 18px 0;
+            border: none;
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+            font: normal normal bold 16px/1 "Times New Roman", Times, serif;
+            color: rgba(10,6,6,1);
+            text-align: center;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            background: rgba(190,216,226,1);
+            -webkit-box-shadow: 2px 3px 0 2px rgba(201,201,211,1) ;
+            box-shadow: 2px 3px 0 2px rgba(201,201,211,1) ;
+            text-shadow: 0 1px 2px rgba(255,255,255, 0.5) , 3px 2px 1px rgba(0,0,0,0.2) ;
+            -webkit-transition: font-size 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+            -moz-transition: font-size 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+            -o-transition: font-size 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+            transition: font-size 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+            -webkit-transform: rotateX(-1.64deg) rotateY(-3.4377467707849396deg)   ;
+            transform: rotateX(-1.64deg) rotateY(-3.4377467707849396deg)   ;
+        }
         #div_main {
             width: 980px;
             margin-right: auto;
@@ -59,6 +113,7 @@ function askQuestion($input)
             text-align: center;
             background-image: url(http://res.cloudinary.com/gorge/image/upload/v1523960257/Internships-1.png);
             height: auto;
+            padding-bottom: 1px;
         }
 
         #header {
@@ -87,9 +142,57 @@ function askQuestion($input)
             color: #563F3F;
             cursor: pointer;
         }
+                              #myform{
+                     background: rgba(76, 175, 80, 0.3);
+                     display: inline-block;
+                                  width: 50px;
+                                  height: fit-content;
+                                  float: left;
+                 }#myBtn {
+                      display: none; /* Hidden by default */
+                      position: fixed; /* Fixed/sticky position */
+                      bottom: 20px; /* Place the button at the bottom of the page */
+                      right: 30px; /* Place the button 30px from the right */
+                      z-index: 99; /* Make sure it does not overlap */
+                      border: none; /* Remove borders */
+                      outline: none; /* Remove outline */
+                      background-color: red; /* Set a background color */
+                      color: white; /* Text color */
+                      cursor: pointer; /* Add a mouse pointer on hover */
+                      padding: 15px; /* Some padding */
+                      border-radius: 10px; /* Rounded corners */
+                      font-size: 18px; /* Increase font size */
+                  }
+
+                              #myBtn:hover {
+                                  background-color: #555; /* Add a dark-grey background on hover */
+                              }
 
     </style>
-</head>
+</head><script>function show_function() {
+        var x = document.getElementById("myform");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }// When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("myBtn").style.display = "block";
+        } else {
+            document.getElementById("myBtn").style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }  </script>
+
 <body>
 <?php
 if(!defined('DB_USER')){
@@ -142,21 +245,29 @@ try {
         <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
         <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
     </div>
-    Chatbot by Adokiye<br />
+    <p class="mycss"> Chatbot by Adokiye<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
     <form name = "askMe" method="post">
         <p>
             <label>
                 <input name="input" type="text" class="tb5" placeholder="Chat with me! Press Ask to send.">
             </label><label>
-                <input name="button" type="submit" class="fb7" id="button" value="ASK">
+                <input name="button" type="submit" class="fb7" id="button" value="ASK"><label>
+                    <input name="restart" type="submit" class="fb7" id="button" value="Restart">
+                </label>
             </label>
             <br />
 
         </p>
         <p>&nbsp;</p>
     </form>
-    <p style=" color: #000000;font-family: arial, sans-serif; font-size: 14px;font-weight: bold;letter-spacing: 0.3px;"><span style="font-weight: bolder">BOT :::  <?php echo $solution?></span></p>
+            <div class="bot-css"> <?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
+                <span style="color:blue"><?=  "YOU : $soln <br/>";echo "</span>";
+                echo "BOT : $asked<br/>" ?><br/><?php } ?><br/>
+        </div><div id = "myform" style="display:none"  >HAHAHA, THE PASSWORD IS PASSWORD</div>
+    <p>
 
+
+    </p> <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 </div>
 </body>
 </html>

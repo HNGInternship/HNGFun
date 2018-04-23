@@ -1,4 +1,4 @@
-<?php
+<script>
 function speak(string){
 	var utterance = new SpeechSynthesisUtterance();
 	utterance.voice = speechSynthesis.getVoices().filter(function(voice){return voice.name == "Agnes";})[0];
@@ -23,7 +23,209 @@ function getRandomNumber() {
 
 function getBotName() {
   return "the_ozmic's bot";
+}</script>
+<?php
+//////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
+
+$qsam = $_REQUEST["qsam"];
+samsonjnrBot($qsam);
+function samsonjnrBot($qsam){
+$qsam = strtolower($qsam);
+$anwerSam = "";
+$guestName = "";
+
+
+$keyword = array('newschool', 'how are you','what are you you?', 'what your do name ur name? call you your\'s', 'my name name?', 'i\'m am fine okay doing great ok all good', 'today today\'s date', 'version version? aboutbot', 'what do time? time', 'still here you there codmax jnr samson');
+
+$decisionArray = array();
+$usrKeywords = $qsam; //$_POST['keywords']
+$arr1 = explode(' ', $usrKeywords);
+foreach ($keyword as $s){
+	$arr2 = explode(' ', $s);
+	$aint = array_intersect($arr2, $arr1);
+	$percentage = (count($aint) * 100 / count($arr2));
+	array_push($decisionArray, $percentage);
 }
+if ($qsam != 'how' && $qsam != "you" && $qsam != "your" && $qsam != "are" && $qsam != "my" && $qsam != "still" && $qsam != "here" && $qsam != "there" && $qsam != "call"){
+$decisionValue = array_keys($decisionArray, max($decisionArray));
+}else{
+	$decisionValue = [0];
+}
+
+
+function trainingSam($newmessage){
+	require 'db.php';
+	$message = explode('#', $newmessage);
+	$question = explode(':', $message[0]);
+	$answer = $message[1];
+	$password = $message[2];
+
+	$question[1] = trim($question[1]);
+	$password = trim($password);
+	if ($password != "samsonjnr"){
+		echo "You are not authorize to train me.";
+
+	}else{
+	$chatbot= array(':id' => NULL, ':question' => $question[1], ':answer' => $answer);
+	$query = 'INSERT INTO chatbot ( id, question, answer) VALUES ( :id, :question, :answer)';
+
+	try {
+			$execQuery = $conn->prepare($query);
+			if ($execQuery ->execute($chatbot) == true) {
+					echo repondTraining();
+
+			};
+	} catch (PDOException $e) {
+			echo "Oops! i did't get that, Something is wrong i guess, <br> please try again";
+		}
+	}
+}
+
+function greetingSam(){
+	$greeting = array('Hi! Good to have you here. My name is Samson Jnr, but you can call me Codmax' ,
+										'Hello there, my name is Codmax, how Can i be of help?' ,
+										'Good day, You are chatting with Codmax, ask me something',
+										'Hi! My name is Samson whats up?',
+										'It\'s Codmax, Welcome on board',
+										'I\'m Codmax, let\'s get started');
+		$index = mt_rand(0, 5);
+		return $anwerSam = $greeting[$index];
+}
+
+function requestName(){
+		$requestName = array( 'Sorry I did\'t catch your name',
+													'What can I call you?',
+													'What\'s that lovely name of yours?');
+		$index = mt_rand(0, 2);
+		return $anwerSam = $requestName[$index];
+}
+
+function repondTraining(){
+		$repondTraining = array(  'Noted! Thank you for teaching me',
+															'Acknowledged, thanks, really want to learn more',
+															'A million thanks, I\'m getting smarter',
+															'i\'m getting smarter, I really appreciate');
+		$index = mt_rand(0, 3);
+		return $anwerSam = $repondTraining[$index];
+}
+
+function repondName(){
+		$repondName = array( 'Yeah! i\'m still here',
+													'I\'m with you',
+													'go ahead I\'m still here');
+		$index = mt_rand(0, 2);
+		return $anwerSam = $repondName[$index];
+}
+
+function respondDate(){
+	date_default_timezone_set("Africa/Lagos");
+	$time = date("Y/m/d");
+	$respondTime = array( 'Today\'s date is '.$time,
+												'it\'s '. $time,
+												'Today is '. $time,
+												$time);
+	$index = mt_rand(0, 3);
+	return $anwerSam = $respondTime[$index];
+}
+
+function respondTime(){
+	date_default_timezone_set("Africa/Lagos");
+	$time = date("h:i A");
+	$respondTime = array( 'The time is '.$time,
+												'it\'s '. $time,
+												$time);
+	$index = mt_rand(0, 2);
+	return $anwerSam = $respondTime[$index];
+}
+
+function respondName(){
+	$respondName = array( 'Codmax, you can still call me Samson Jnr.',
+												'Samson Jnr, I\'m still called Codmax.',
+												'Samson Jnr. or Codmax');
+	$index = mt_rand(0, 2);
+	return $anwerSam = $respondName[$index];
+}
+
+function respondOkay(){
+	$respondOkay = array( 'That\'s Great, we should keep chatting I\'m having fun',
+												'So Lovely, let\'s keep chatting',
+												'That\'s good news, so how can I help you?');
+	$index = mt_rand(0, 2);
+	return $anwerSam = $respondOkay[$index];
+}
+
+function respondGreeting (){
+	$respondGreeting = array( 'Oh, I\'m doing quite well. You?',
+												'Am fine and thanks What about you?',
+												'Am all good. and how are you too?');
+	$index = mt_rand(0, 2);
+	return $anwerSam = $respondGreeting[$index];
+}
+
+
+function checkDatabaseToo($question){
+	try{
+			require 'db.php';
+
+			$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%")');
+
+			$stmt->execute();
+			if($stmt->rowCount() > 0){
+				while($row = $stmt->fetch(PDO::FETCH_ASSOC)){ echo $row["answer"];}
+			}else{
+				return 1;
+			}
+		}
+			catch (PDOException $e){
+				 echo "Error: " . $e->getMessage();
+			}
+			$conn = null;
+		}
+
+
+if ($qsam == "intro"){
+		echo greetingSam();
+} else if($qsam == "request name"){
+		echo requestName();
+}else if (strtok($qsam, ":") == "train"){
+						trainingSam($qsam);
+}else if($qsam != "intro" && $qsam != "request name" && strtok($qsam, ":") != "train"){
+	checkDatabaseToo($qsam);
+	if (checkDatabaseToo($qsam) == 1){
+		if ( $keyword[$decisionValue[0]] == "what do time? time"){
+								echo respondTime();
+		}else if ( $keyword[$decisionValue[0]] == "what your do name ur name? call you your's" || $qsam == "your name" || $qsam == "name" || $qsam == "ur name" || $qsam == "ur name?"){
+								echo respondName();
+		} else if ( $keyword[$decisionValue[0]] == "my name name?"){
+								echo "givename";
+		}else if ( $keyword[$decisionValue[0]] == "version version? aboutbot"){
+								echo "Version: 1.0";
+		}else if ( $keyword[$decisionValue[0]] == "what are you you?"){
+								echo "I'm a ChatBot";
+		}else if ( $keyword[$decisionValue[0]] == "today today's date"){
+								echo respondDate();
+		}else if ( $keyword[$decisionValue[0]] == "i'm am fine okay doing great ok all good"){
+								echo respondOkay();
+		}else if ( $keyword[$decisionValue[0]] == "how are you"){
+								echo respondGreeting();
+		}else if (strtok($qsam, ":") == "name"){
+					echo "nice name to meet you";
+					$nameGuest = explode (":", $qsam);
+					$guestName = $nameGuest [1];
+					echo "$guestName" . ". How are you today?";
+
+		}else if ( $keyword[$decisionValue[0]] == "still here you there codmax jnr samson"){
+			echo repondName();
+		}else if ( $keyword[$decisionValue[0]] == "newschool"){
+			echo "oop! Sorry i don't understand you. But I'm a fast learner,
+						you can train me in this format 'train: question # answer #password'";
+		}
+	}
+}
+}
+
+////////////////////// END OF FUNCTION BY BROWN SAMSON ////////////////////////////////////
+
 
 function getRandomFact(){
   $facts = ["Most toilets flush in E flat",
@@ -90,8 +292,206 @@ function getAJoke(){
 
 // functions by john ayeni do not modify please
 
+
+function get_current_time(){
+    date_default_timezone_set('Africa/Lagos');
+    $currentTime = date('Y-M-D H:i:s');
+    return $currentTime;
+}
+/*end of
+Adokiye's function*/
+
+
+
+
+
+
+
+//****************************************************************************************************************************************************************
+//****************************************************************************************************************************************************************
+//****************************************************************************************************************************************************************
+//****************************************************************************************************************************************************************
+//****************************************************************************************************************************************************************
+//****************************************************************THE WIZARD OF OZ********************************************************************************
+
+
+function pig_latin($text){
+  $vowels = "a,e,i,o,u";
+  $pigText="";
+  $intermediatePig="";
+  $firstVowelPos=0;
+  $frontConsonants="";
+
+
+    $sentence=explode ( " " , $text );
+
+for($h=0;$h<sizeof($sentence);$h++){
+  for($i=0;$i<strlen($sentence[$h]);$i++){
+    if(strpos($vowels,$sentence[$h][$i])!==FALSE){
+      $firstVowelPos=$i;
+      $intermediatePig=$intermediatePig.substr($sentence[$h],$firstVowelPos);
+      if($i===0){
+        $intermediatePig=$intermediatePig.$frontConsonants."yay";
+      break;
+      }
+      $intermediatePig=$intermediatePig.$frontConsonants."ay";
+      break;
+    }
+
+    else{
+      $frontConsonants=$frontConsonants.$sentence[$h][$i];
+
+    }
+
+  }
+
+  if($intermediatePig===""){
+  $intermediatePig=$intermediatePig.$frontConsonants;
+
+}
+
+  $frontConsonants="";
+  $pigText=$pigText.$intermediatePig." ";
+  $intermediatePig="";
+}
+
+
+
+      return $pigText;
+
+
+}
+
+
+
+function find_place($query) {
+
+// $apiKey="AIzaSyDlvWmwKX40qRKZQFRKP1qngWnTPKKWM5Y";
+  $return="No results were found matching this query";
+$display='block';
+
+  $place=urlencode($query);
+$placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$place."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
+
+try{
+$response = file_get_contents($placesUrl);
+$parsed_response = json_decode($response, TRUE);
+
+
+
+for($i=0;$i<sizeof($parsed_response['results']);$i+=2){
+
+  if($i==0){
+  $return="";
+  }
+
+  $firstName=$parsed_response['results'][$i]['name'];
+  $firstRating=$parsed_response['results'][$i]['rating'];
+  $firstAddy=$parsed_response['results'][$i]['formatted_address'];
+  $firstType=$parsed_response['results'][$i]['types'][0];
+
+
+  $secondName=$parsed_response['results'][$i+1]['name'];
+  $secondRating=$parsed_response['results'][$i+1]['rating'];
+  $secondAddy=$parsed_response['results'][$i+1]['formatted_address'];
+  $secondType=$parsed_response['results'][$i+1]['types'][0];
+
+  if(sizeof($parsed_response['results'])-$i==1 ){
+  $display='none';
+}
+
+
+  $return='<div class="row">'
+
+ .'<div class="col-xs-6 col-md-4">'
+            .'<span>'.$firstName.'</span><br>'
+            .'<span>'.$firstRating.' star rating</span><br>'
+            .'<span>'.$firstAddy.'</span><br>'
+            .'<span>'.$firstType.'</span><br>'
+          .'</div>'
+          .'<div class="col-xs-6 col-md-4" style="display:"'.$display.'">'
+            .'<span>'.$secondName.'</span><br>'
+            .'<span>'.$secondRating.' star rating</span><br>'
+            .'<span>'.$secondAddy.'</span><br>'
+            .'<span>'.$secondType.'</span><br>'
+          .'</div>'
+         .' </div>'.$return;
+
+}
+
+return $return;
+}
+
+catch(Exception $e){
+  return $e;
+
+}
+
+
+}
+
+
+function get_help(){
+
+   return ' Some special functions I perform are: <br>'
+          .'<ul><li><strong>Bot Version</strong><br>'
+                .'Type <span id="important">aboutbot</span>'
+            .'</li>'
+              .'<li><strong>Translate English to Pig Latin</strong><br>'
+                .'Type <span id="important">pig latin: word/sentence</span><br>'
+                .'The variable is used like so <span id="important">{{variable}}</span> and function as <span id="important">(pig_latin)</span><br>'
+             .'</li>'
+              .'<li><strong>Place Locator</strong><br>'
+                .'Used to find type of places in an area'
+                .'Type <span id="important">find: place in area</span><br>'
+                .'For example <span id="important">find: restaurants in nigeria</span><br>'
+                .'<span id="important">find: hotels in yaba</span><br>'
+                .'Also can find location of compnies or org e.g <span id="important">find: hotelsng in nigeria</span><br>'
+                .'<span id="important">find: Chevron </span><br>'
+                .'The variable is used like so <span id="important">{{variable}}</span> and function as <span id="important">(find_place)</span><br>'
+              .'</li>'
+               .'<li><strong>View available commands again</strong><br>'
+                .'Type <span id="important">commands</span>'
+            .'</li>'
+          .'</ul>';
+}
+
+function get_bot_version(){
+
+    $bot_version=1.9;
+
+   return "Merlin Version : ".$bot_version;
+
+}
+
+
+
+//****************************************************************************************************************************************************************
+//****************************************************************************************************************************************************************
+//****************************************************************************************************************************************************************
+//****************************************************************************************************************************************************************
+//****************************************************************************************************************************************************************
+//****************************************************************END********************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////
+////////////////////////////////////////////////
+// functions by john ayeni do not modify please//
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+
 function aboutMe(){
   return "Hi my name is Ruby, I am a chatbot, nice to meet you";
+
 }
 
 function getBotMenu(){
@@ -108,20 +508,11 @@ function getTime(){
   return date("h:i:s");
 }
 
+/******** End Adroit Bot Funct ********/
+
 // end of functions by johnayeni
 
-//////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
 
-$qsam = $_REQUEST["qsam"];
-$anwerSam = "";
-
-if ($qsam === "Moses"){
-		$anwerSam = 'Nice Name, How are you ' . $qsam;
-
-}
-echo $anwerSam;
-
-////////////////////// END OF FUNCTION BY BROWN SAMSON ////////////////////////////////////
 
 /////////////////////opheus //////////
 
@@ -149,14 +540,6 @@ echo "you are currently using a ,".$browser.", browser on a  ,".$device.", Devic
 }
 
 
-
-
-
-
-
-
-
-
 function bot_answer($check) {
 
 require 'db.php';
@@ -169,7 +552,7 @@ require 'db.php';
 //}
 
 
-
+global $conn;
 $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$check' ORDER BY rand() LIMIT 1");
 $stmt->execute();
 if($stmt->rowCount() > 0)
@@ -202,32 +585,11 @@ function multiexplode ($delimiters,$string) {
     return  $launch;
 }
 
-//$text = "#train: this a question | this my answer :)";
-$exploded = multiexplode(array(":","|"),$message);
 
-$question = trim($exploded[1]);
-
-$answer = trim($exploded[2]);
 
 require 'db.php';
 
-try {
 
-    $sql = "INSERT INTO chatbot (id, question, answer)
-VALUES ('', '$question', '$answer')";
-    // use exec() because no results are returned
-    $conn->exec($sql);
-
-    echo "Thank you! i just learnt something new, my master would be proud of me.";
-
-	}
-catch(PDOException $e)
-    {
-    echo $sql . "<br>" . $e->getMessage();
-    }
-
-$conn = null;
-//////////////////////
 
 
 //And output will be like this:
@@ -255,8 +617,10 @@ function get_browser_name($user_agent)
     elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) return 'Internet Explorer';
 
     return 'Other';
-
 }
+
+
+
 // Usage:
 
 

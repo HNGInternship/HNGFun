@@ -3,10 +3,7 @@
 <head>
     <title>Ajiva Profile</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
-<<<<<<< HEAD
-    
-=======
->>>>>>> 9ffcdeb9dd95b31d85f8db38a40a268d2521bc63
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <style>
         body{
@@ -14,7 +11,7 @@
             min-height: 100vh;
             background-repeat: no-repeat;
             background-size: cover;
-<<<<<<< HEAD
+
             /* border-radius: 50%; */
         } 
         .card{
@@ -30,21 +27,21 @@
             height: 70%;
             /* border-radius: 5% 5% 0 0; */
         }
-=======
+
+
         } 
         .card{
             max-width: 30%;
             margin-top: 50%;
             border-radius: 60%;
         }       
->>>>>>> 9ffcdeb9dd95b31d85f8db38a40a268d2521bc63
+
     </style>
     
 </head>
 
 <body>
-<<<<<<< HEAD
-ss
+
     <div class="d-flex justify-content-center">
         <div class="card rounded p-0 mt-5">
             <div class="card-top d-flex justify-content-center">
@@ -70,29 +67,12 @@ ss
             
         </div>
     </div>
-=======
 
-    <div class="d-flex justify-content-center pt-5 mt-5">
-        <div class="card rounded p-0 ">
-            <img src="https://res.cloudinary.com/nedy123/image/upload/v1523911950/profilePic_xilm0r.jpg" class="card-img-top img-fluid m-0">
-            <div class="card-body text-center">
-                <p class="card-title h2 "> David Enoch Aji</p>
-                <p class="card-text h4 mb-4">Android | Graphics | UI/UX</p>
-                <a href="facebook.com/David Enoch Aji">
-                    <i class="fab fa-facebook-f fa-fw text-primary fa-2x"></i>
-                </a>
-                <a href="twitter.com/daveaji">
-                    <i class="fab fa-twitter fa-fw text-primary fa-2x"></i>  
-                </a>
-                <a href="github.com/Ajiva-D">
-                    <i class="fab fa-github fa-fw text-dark fa-2x"></i>          
-                </a>
-            </div>
-        </div>
-    </div>
+
+    
     <?php
 
-      require_once '../db.php';
+      require_once 'db.php';
       try {
           $select = 'SELECT * FROM secret_word';
           $query = $conn->query($select);
@@ -103,7 +83,7 @@ ss
       }
       $secret_word = $data['secret_word'];        
 ?>
->>>>>>> 9ffcdeb9dd95b31d85f8db38a40a268d2521bc63
+
 
     
 </body>

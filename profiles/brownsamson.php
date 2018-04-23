@@ -273,6 +273,7 @@
               }
 
               .textarea-con{
+                padding: 10px;
                 width: 100%;
                 height: 14vh;
               }
@@ -539,13 +540,16 @@
               xmlReq.onreadystatechange = function() {
                   if (this.readyState == 4 && this.status == 200) {
                       message = this.responseText;
-                      if (message == "give name"){
+                      var last8 = message.substr(message.length - 8);
+                      if (last8 == 'givename'){
                         message = senderName;
                       }
+
                       conversation.innerHTML += '<div class="bot"><div class="arrow-left"></div>' + message + '</div>';
                   }
               };
-              var messageSam = messageSam.replace("#", "%23");
+              messageSam = messageSam.replace("#", "%23");
+              messageSam = messageSam.replace("#", "%23");
               xmlReq.open("GET", "answers.php?qsam=" + messageSam, true);
               xmlReq.send();
           }
