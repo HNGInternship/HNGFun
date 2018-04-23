@@ -174,13 +174,13 @@ if($stmt->rowCount() > 0)
 
 }
 
-else {
+//else {
 
 
 ?> 
 <?php
 
-
+if($_SERVER['REQUEST_METHOD'] === "GET"){
 	//if($_SERVER['REQUEST_METHOD'] === "GET"){
 //include "../config.php";
 
@@ -709,7 +709,7 @@ function ai(message){
 		trainer = message;
 		$.ajax({
 			type: "POST",
-			url: 'profiles/opheus.php?opheus=yes&&',
+			url: 'profiles/opheus.php',
 			data: {opheustrain: trainer },
 			success: function(data){
 				send_message(data);
