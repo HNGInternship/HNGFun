@@ -68,7 +68,7 @@
 
        .Menu-bars {
          width: 70px;
-         height: 40px;
+         height: 55px;
          padding-top: 20px;
          float: right;
          
@@ -156,8 +156,8 @@
 	 cursor: pointer;
        }
 	    
-		.fixed-top {
-			height: 70px;
+		.bg-primary {
+			background-color: #F7DD30 !important;
 		}
 
     </style>
@@ -179,7 +179,7 @@
                      <a href="https://www.facebook.com/toxic.hydra"><i class="fa fa-facebook fa-2x"></i></a>
         	     <a href="https://twitter.com/Godsoncjr"><i class="fa fa-twitter fa-2x"></i></a>
         	     <a href="https://plus.google.com/u/0/+GODSONCHIBUIKEMJNRDC"><i class="fa fa-google-plus fa-2x"></i></a>
-		     <a href="https://github.com/GodsonUI"><i class="fa fa-github"></i></a>
+		     <a href="https://github.com/GodsonUI"><i class="fa fa-github fa-2x"></i></a>
 
                   </div>
             </div>
