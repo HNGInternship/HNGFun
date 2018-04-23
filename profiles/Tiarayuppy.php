@@ -17,9 +17,9 @@
                     $question = trim($args[1]);
           $answer = trim($args[2]);
           $password = trim($args[3]);
-          if($password == "[password]")
+          if($password == "password")
           {
-              // Password perfect
+              // if password is okay then
             $trainQuery = $db->prepare("INSERT INTO chatbot (question , answer) VALUES ( :question, :answer)");
             if($trainQuery->execute(array(':question' => $question, ':answer' => $answer)))
             {
@@ -32,13 +32,13 @@
           }
           else
           {
-              // Password not correct
+              // if Password is not correct then
              array_push($_SESSION['chat_history'], "The password entered was incorrect");
           }
         }
         else
         {
-            // Not Training
+            // Not Training | 
           $questionQuery = $db->prepare("SELECT * FROM chatbot WHERE question LIKE :question");
           $questionQuery->execute(array(':question' => trim($_POST['message'])));
           $qaPairs = $questionQuery->fetchAll(PDO::FETCH_ASSOC);
