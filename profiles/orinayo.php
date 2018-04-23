@@ -30,7 +30,12 @@ if (!defined('DB_USER')) {
 
 global $conn, $user_input_array2;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
+    include "../../config.php";
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);   
+    } catch (PDOException $e) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
+    }
     
 
     function Validate_input($data) 
