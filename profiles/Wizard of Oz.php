@@ -1,13 +1,13 @@
 <?php
-include "../config.php";
-// x
-
-try {
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    } 
-    catch (PDOException $pe) {
+if(!defined('DB_USER')){
+            require "../../config.php";     
+            try {
+                $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+            } catch (PDOException $pe) {
                 die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-            } 
+            }
+        }
+
 
  if(isset($_GET['training'])) {
       $message = $_GET['training'];
@@ -20,8 +20,8 @@ else if(isset($_GET['func'])){
       $function = $_GET['func'];
       $text = $_GET['text'];
 
-      echo doSpecialFunction($function,$text);
-        exit();
+        echo doSpecialFunction($function,$text);
+      exit();
 
 }
 
@@ -41,7 +41,8 @@ else if(isset($_GET['info'])){
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetch();
     } catch (PDOException $e) {
-        throw $e;
+        print_r($e);
+        
     }
         
         $fullname = $data["name"];
@@ -54,7 +55,7 @@ else if(isset($_GET['info'])){
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetch();
     } catch (PDOException $e) {
-        throw $e;
+        print_r($e);
     }
 
     $secret_word=$data["secret_word"];
@@ -69,12 +70,26 @@ else if(isset($_GET['info'])){
 
 
 function doSpecialFunction($func,$text){
-    require "answers.php";
+    require "../answers.php";
 
     $text=sanitizeText($text);
     $text=strtolower($text);
 
+    if($func=="pigLatin"){
     return pig_latin($text);
+    }
+
+    else if($func=="bot"){
+        return get_bot_version();
+    }
+
+     else if($func=="commands"){
+        return get_help();;
+    }
+
+    else{
+        return find_place($text);
+    }
 
 }
 
@@ -82,33 +97,35 @@ function doSpecialFunction($func,$text){
 
 function workOnTrainData($data){
 
-    // require '../db.php
-include "../config.php";
+    require '../db.php';
 
 
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
       
     
 
 
+  
     try {
 
 
-        $indexOfColon=strpos($data,"#");
+        $indexOfHash=strpos($data,"#");
 
-        if($indexOfColon===FALSE){
+        if($indexOfHash===FALSE){
 
             return "Training format used is incorrect, use : <br><span id='important'>train: question # answer # password </span>";
 
         }
 
+        $indexOfColon=strpos($data,":");
 
-        $newMessage=substr($data,$indexOfColon);
-
+        $newMessage=substr($data,$indexOfColon+1);
     $query=explode ( "#" , $newMessage );
     $question=sanitizeText($query[0]);
     $answer=sanitizeText($query[1]);
     $password=sanitizeText($query[2]);
+
+    // return $question;
 
 
     if($password==null || $password!="password"){
@@ -119,12 +136,19 @@ include "../config.php";
     $sql =  $conn->prepare("INSERT INTO chatbot (question, answer)
 VALUES (:question, :answer)");
     // use exec() because no results are returned
-    $result= $sql->execute(array(
-   ':question'=>$question,
-    ':answer'=>$answer
-  ));
+
+    // $result= $sql->execute(array(':question'=>$question,':answer'=>$answer));
+    // return "Awesome! I feel smarter already.";
+
+   if( $result= $sql->execute(array(':question'=>$question,':answer'=>$answer))){
     
-    echo "Awesome! I feel smarter already.";
+    return "Awesome! I feel smarter already.";
+}
+
+else{
+
+    return "Something went wrong, sorry";
+}
     
     }
 catch(PDOException $e)
@@ -140,12 +164,10 @@ catch(PDOException $e)
 
 function getReply($data){
 
-    // require '../db.php';
+    require '../db.php';
 
-include "../config.php";
 
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-
+    // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 
 
 
@@ -153,17 +175,93 @@ include "../config.php";
 
         $trimData=sanitizeText($data);
 
+        if(strtolower($trimData)=="aboutbot"){
+
+            return doSpecialFunction("bot","");
+
+        }
+
+        if(strtolower($trimData)=="commands"){
+
+            return doSpecialFunction("commands","");
+           
+        }
+
+        if(strpos($trimData, "{{")==FALSE){
+
 $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question=:question ORDER BY RAND() LIMIT 1");
 
 $result= $stmt->execute(array(
    ':question'=>$trimData
   ));
 
+}
+
+else{
+
+    $trimCopy=$trimData;
+
+    $newDataFront="";
+    $newDataBack="";
+    $indexToCut=strpos($trimData, "{{");
+    if($indexToCut!=0){
+    $newDataFront=substr($trimData, 0,$indexToCut);
+
+    }
+
+    $trimCopy=substr($trimData, $indexToCut);
+
+
+    $indexToCut2=strpos($trimData, "}}");
+
+
+    if($indexToCut2!=strlen($trimData)-2){
+        $newDataBack==substr($tr, $indexToCut2);
+
+    }
+
+     $trimCopy=substr($trimCopy, 2,strlen($trimCopy)-4);
+
+    $word=$trimCopy;
+
+
+    $newData=$newDataFront."%".$newDataBack;
+
+    $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE ? ORDER BY RAND() LIMIT 1");
+
+    $stmt->bindValue(1, $newData);
+        $result=$stmt->execute(); 
+
+}
 
   while($row = $stmt->fetch(PDO::FETCH_ASSOC))
   {
 
 
+    $dataFront="";
+    $dataBack="";
+    $indexCut=strpos($row["answer"], "(");
+    if($indexCut!=0){
+    $dataFront=substr($row["answer"], 0,$indexCut);
+
+    }
+
+    $indexCut2=strpos($row["answer"], ")");
+
+
+    if($indexCut2!=strlen($row["answer"])-2){
+        $dataBack==substr($row["answer"], $indexCut2);
+
+    }
+
+        if(strpos($row["answer"], "(pig_latin)")){
+            return $dataFront.doSpecialFunction("pigLatin",$word).$dataBack;
+        }
+
+        else if(strpos($row["answer"], "(find_place)")){
+            return $dataFront.doSpecialFunction("findPlace",$word).$dataBack;
+
+        }
         return $row["answer"];
 
 
@@ -200,7 +298,7 @@ catch(PDOException $e){
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700" rel="stylesheet" type="text/css">
 
 
-    <title>HNG FUN</title>
+    <title>HNG FUN</title>
 
 
 <style>
@@ -208,7 +306,7 @@ body{
 background: #667db6;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+
 
 font-family: "Open Sans";
 font-size:14px;
@@ -560,6 +658,10 @@ background: rgba(0, 0, 0, 0.7);
 }
 
 
+.top-area,#bot-header{
+    background: white;
+}
+
 #important{
     background-color: #667db6;
     /*background-color: #ea5a58;*/
@@ -568,6 +670,15 @@ background: rgba(0, 0, 0, 0.7);
     color: white;
     padding: 1%;
 
+}
+
+ul{
+    padding-left: 0%;
+    padding-bottom: 2%;
+    
+}
+
+li{
 }
 
 
@@ -674,10 +785,36 @@ background: rgba(0, 0, 0, 0.7);
 
                 <div class="chat-body">
 
-               <div class="chat-message row">
+                <div class="chat-message row">
 
             <h1 class="chat-name col-2">Merlin : </h1>
-          <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <strong>Wizard of Oz.</strong></span>
+          <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <strong>Wizard of Oz</strong><br>
+          You can ask me questions and i'll try my best to answer.<br>
+          Some special functions I perform are: <br>
+          <ul>
+                <li><strong>Bot Version</strong><br>
+                Type <span id="important">aboutbot</span>
+            </li>
+              <li><strong>Translate English to Pig Latin</strong><br>
+                Type <span id="important">pig latin: word/sentence</span><br>
+                The variable is used like so <span id="important">{{variable}}</span> and function as <span id="important">(pig_latin)</span><br>
+
+              </li>
+              <li><strong>Place Locator</strong><br>
+                Used to find type of places in an area
+                Type <span id="important">find: place in area</span><br>
+                For example <span id="important">find: restaurants in nigeria</span><br>
+                <span id="important">find: hotels in yaba</span><br>
+                Also can find location of compnies or org e.g <span id="important">find: hotelsng in nigeria</span><br>
+                <span id="important">find: Chevron </span><br>
+                The variable is used like so <span id="important">{{variable}}</span> and function as <span id="important">(find_place)</span><br>
+
+              </li>
+
+               <li><strong>View available commands again</strong><br>
+                Type <span id="important">commands</span>
+            </li>
+          </ul><span>
 
 
       </div>
@@ -787,7 +924,7 @@ background: rgba(0, 0, 0, 0.7);
     }
 
 
-    else if(message.indexOf('pig latin:') >= 0 || message.indexOf('pig latin :')>=0){
+    else if(message.toLowerCase().indexOf('pig latin:') >= 0 || message.toLowerCase().indexOf('pig latin :')>=0){
 
        var text=message.substring(message.indexOf(":")+1);
 
@@ -795,6 +932,24 @@ background: rgba(0, 0, 0, 0.7);
             type: "GET",
             url: 'profiles/Wizard of Oz.php',
             data: { func: "pigLatin",text:text },
+            success: function(data){
+                displayMerlinMessage(data);
+                
+            }
+         });
+
+
+    }
+
+
+     else if(message.toLowerCase().indexOf('find:') >= 0 || message.toLowerCase().indexOf('find :')>=0){
+
+       var text=message.substring(message.indexOf(":")+1);
+
+          $.ajax({
+            type: "GET",
+            url: 'profiles/Wizard of Oz.php',
+            data: { func: "findPlace",text:text },
             success: function(data){
                 displayMerlinMessage(data);
                 
