@@ -1,0 +1,1 @@
+define(["ojs/ojcore","text!./my-profile-view.html","./my-profile-viewModel","text!./component.json","css!./my-profile-styles","ojs/ojcomposite"],function(e,i,o,t){e.Composite.register("my-profile",{view:{inline:i},viewModel:{inline:o},metadata:{inline:JSON.parse(t)}})});
