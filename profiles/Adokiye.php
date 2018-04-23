@@ -81,8 +81,8 @@ $input = trim($input);
                 $question = strtolower($input);
                 $question = str_replace('?', '', $question);
                 $question = trim($question);
-                $result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'");
-                $fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                print_r($result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'"));
+                print_r($fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC));
                 $row_cnt = $result->num_rows;
                 $rand = rand(0, $row_cnt - 1);
                 if ($row_cnt > 0) {
