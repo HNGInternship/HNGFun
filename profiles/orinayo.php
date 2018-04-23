@@ -1,7 +1,4 @@
 <?php
-if (!defined('DB_USER')) {
-    require 'db.php';
-
 try {
     $sql = "SELECT * FROM secret_word";
     $query = $conn->query($sql);
