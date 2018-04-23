@@ -243,7 +243,7 @@ function showHint(str) {//display training hint
         document.getElementById("ask").innerHTML = "";
         return;
     } else {
-        document.getElementById("ask").innerHTML = "Hint: To train me <b>'Train # Question # Answer # Password'</b>";
+        document.getElementById("ask").innerHTML = "Hint: To train me <b>'Train: Question # Answer # Password'</b>";
 
     }
 }
