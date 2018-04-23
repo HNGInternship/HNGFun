@@ -1,14 +1,6 @@
 <?php
 
-		require_once '../../config.php';
-		require "../answers.php";
-
-		try {
-		    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-		    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		} catch (PDOException $pe) {
-		    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-		}
+		require_once '../config.php';
 /**
  * Class Db
  */
@@ -230,10 +222,8 @@ class DBHelper{
  * @return mixed|string
  */
 	function botAnswer($result){
-		require_once '../../config.php';
-		require "../answers.php";
 		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-		if (empty($result)) $answer = 'I will understand you better, if you train me. To train me type; train: Question #Answer #password';
+		if (empty($result)) $answer = 'I will understand you better, if you train me. To train me type; train: Question # Answer # Password';
 		else {
 			$question = $result['question'];
 			$answer = $result['answer'];
@@ -522,13 +512,10 @@ class DBHelper{
 	}
 	.sent{
 		font-family: roboto;
-		/*background-color: blue;
-		border-radius: 30px;*/
 		
 	}
 
 	.messages{
-
 		/*margin-left: 24px;*/
 	}
 </style>
@@ -538,8 +525,8 @@ class DBHelper{
 		<!-- Profile Section -->
 	<div class="container"> 
 		<div class="row">
-		  	<div class="col-sm-5 "><span class="flow-text"><img src="http://res.cloudinary.com/gconnect/image/upload/v1523730900/glory.jpg" class ="myPics" width="300px" height="400px"></span>
-		    <h6 class="name"><a href="www.medium.com/@agatevureglory">Agatevure Glory</a></h6>
+		  	<div class="col-sm-5 "><span class="flow-text"><img class ="myPics" src="http://res.cloudinary.com/gconnect/image/upload/v1523730900/glory.jpg" width="300px" height="400px"></span>
+		    <h6 class="name"><a href="www.medium.com/@agatevureglory"><?php echo $name->name; ?></a></h6>
 		  	</div>
 		     <div class="col-sm-7 ">
 		            <h4 class="heading">Love to keep it simple</h4>
@@ -659,7 +646,6 @@ class DBHelper{
                     '' + response.message + '</p></li><div class="clearfix"></div> ';
                 $('#message-outlet').append(strMessages);
                 $(".messages").scrollTop($("#message-outlet").outerHeight());
-                responsiveVoice.speak(response.message, 'UK English Female');
 
 
             });
