@@ -38,7 +38,7 @@
          background-size: cover;
        }
 
-       .container {
+       .container1 {
            width: 90%;
            height: 100%;
            margin: 0 auto;
@@ -152,10 +152,14 @@
          color: #30B7FB;
 	 cursor: pointer;
        }
+	    
+		.fixed-top {
+			height: 70px;
+		}
 
     </style>
    <body>
-      <div class="container">
+      <div class="container1">
          <div class="TxtMask">
             <div class="Menu-bars">
                <hr>
