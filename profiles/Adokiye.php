@@ -18,9 +18,11 @@ global $secret_word;
 try {
     $sql = "SELECT secret_word FROM secret_word LIMIT 1";
     $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-    $secret_word = $data['secret_word'];
+    foreach ($conn->query($sql) as $row) {
+        $name = $row['name'];
+        $username = $row['username'];
+
+    }
 } catch (PDOException $e) {
     throw $e;}
     function getTime()
@@ -256,9 +258,7 @@ $username = '';
 $sql = "SELECT * FROM interns_data where username = 'Adokiye'";
 foreach ($conn->query($sql) as $row) {
     $name = $row['name'];
-    $username = $row['username'];
-
-}
+    $username = $row['username'];}
 ?>
 <div class=".body" id="div_main">
     <div class=".header" id="header">
