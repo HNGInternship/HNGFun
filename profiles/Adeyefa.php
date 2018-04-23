@@ -82,7 +82,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			]);
 			return;
 		}
-		elseif ($arr[0] == "help") {
+		/*elseif ($arr[0] == "help") {
 			echo json_encode([
 				'status' => 1,
 				'answer' => "Type 'aboutbot' to know about me  You can also convert cryptocurrencies using this syntax.
@@ -102,7 +102,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				'answer' => $price,
 			])
 			return;
-		}
+		}*/
 	    elseif ($arr[0] == "aboutbot") {
 	    	# code...
 	    	echo json_encode([
