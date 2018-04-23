@@ -131,10 +131,8 @@
         </div></oj-module>
       </div>
     </div>
-    
+  <!--  
    <script type="text/javascript" src="profiles/worldclassdev/js/libs/require/require.js"></script>
     <script type="text/javascript" src="profiles/worldclassdev/js/main.js"></script>
-
-  
-
-<div id="js-1485780770875"></div></body>
+-->
+</body>

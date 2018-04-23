@@ -40,11 +40,10 @@
          background-size: cover;
        }
 
-       .container1 {
+       .container {
            width: 100%;
            height: 100%;
            margin: 0 auto;
-           
            padding-top: 40px;
            padding-bottom: 40px;
            padding-right: 25px;
@@ -160,7 +159,7 @@
 
     </style>
    <body>
-      <div class="container1">
+      <div class="container">
          <div class="TxtMask">
             <div class="Menu-bars">
                <hr>
