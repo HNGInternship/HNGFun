@@ -1,5 +1,4 @@
 <?php 
-    require_once ('../answers.php');
     require_once ('../db.php');
     
     try {
