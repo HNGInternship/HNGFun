@@ -23,7 +23,7 @@
    <?php
 
                 try {
-                $sql = "SELECT * FROM interns_data";
+                $sql = "SELECT * FROM interns_data WHERE username= 'genius' ";
                 $q = $conn->query($sql);
                 $q->setFetchMode(PDO::FETCH_ASSOC);
                 $data = $q->fetch();

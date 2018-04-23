@@ -478,7 +478,7 @@ function get_help(){
                .'<li><strong>View available commands again</strong><br>'
                 .'Type <span id="important">commands</span>'
             .'</li>'
-          .'</ul>'
+          .'</ul>';
 }
 
 function get_bot_version(){
