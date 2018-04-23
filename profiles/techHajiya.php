@@ -156,6 +156,11 @@
             height: 45px;
         }
 
+        .chatbot-close, .chatbot-help {
+            display: inline-block;
+            margin-left: 20px;
+            margin-top: 2.5px;
+        }
 
         .fa-close, .fa-question-circle {
             font-size: 23px;
@@ -183,7 +188,6 @@
         throw $e;
     }
     ?>
-
      <div class="row">
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
@@ -199,10 +203,9 @@
                 </div>
             </div>
 
-
       <div class="col-sm-6 chatbox" style='float: right; padding-top: 50px'>
 	 <div class='chatbot-menu-header'>
-                        <div class="hng-logo">}{</div> <span>HNG Chatbot - Locato</span>
+                        <div class="hng-logo">}{</div> <span>LoBot v1.0</span>
                         <a href="#" class="pull-right chatbot-close"><i class="fa fa-close"></i></a>
                         <a href="#" class="pull-right chatbot-help"><i class="fa fa-question-circle"></i></a>
                     </div>
