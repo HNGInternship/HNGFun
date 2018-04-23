@@ -93,7 +93,7 @@
 
                     <div class="col-xs-12 col-sm-6 img">
                     <div class="profile__image">
-                    <img height="auto" width="75%"  src="http://res.cloudinary.com/lumio/image/upload/v1524511783/'.$users->image_filename.'" alt="">
+                    <img height="auto" width="75%"  src="http://res.cloudinary.com/lumio/image/upload/v1524511783/'.$users->image_filename.'.jpg" alt="">
                     </div>
                     </div>
                     <h2>'. $users->name.'</h2>
