@@ -157,6 +157,7 @@
 						Cloudinary link to the image 
 
 					 http://res.cloudinary.com/nath/image/upload/v1524182119/Image_-_Portrait.jpg -->
+					 
 				</div>
 			</div>
 			<div class="vl">
