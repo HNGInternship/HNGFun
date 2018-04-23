@@ -25,7 +25,7 @@
 
 		$name = null;
 		$username = "chigozie";
-		$image_filename = 'http://res.cloudinary.com/dqscsuyyn/image/upload/v1523629851/pix.jpg';
+		$image_filename = '';
 
 		$stmt = $conn->prepare("select * from interns_data where username = :username");
 		$stmt->bindParam(':username', $username);
@@ -84,7 +84,16 @@
 		}
 
 		//check if in training mode
-		$index_of_train = stripos($question, "train:");
+		// $index_of_train = stripos($question, "train:");
+		$index_of_train = false;
+		$index_of_colon = stripos($question, ":");
+		if($index_of_colon !== false){
+			//check for presence of train before colon
+			$string_before_colon = trim(substr($question, 0, $index_of_colon));
+			if(stripos($string_before_colon, "train") !== false){
+				$index_of_train = $index_of_colon;
+			}
+		}
 		if($index_of_train === false){//then in question mode
 			$question = preg_replace('([\s]+)', ' ', trim($question)); //remove extra white space from question
 			$question = preg_replace("([?.])", "", $question); //remove ? and .
@@ -304,7 +313,7 @@
 		}else{
 			//in training mode
 			//get the question and answer
-			$question_and_answer_string = substr($question, 6);
+			$question_and_answer_string = substr($question, $index_of_colon+1);
 			//remove excess white space in $question_and_answer_string
 			$question_and_answer_string = preg_replace('([\s]+)', ' ', trim($question_and_answer_string));
 			
