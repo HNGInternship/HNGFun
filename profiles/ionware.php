@@ -1,7 +1,4 @@
 <?php
-//error_reporting(E_ALL);
-//ini_set("display_errors", 'on');
-
 
 if (!defined(DB_USER))
     require_once __DIR__."/../../config.php";
@@ -52,7 +49,7 @@ function Model($type)
             $results = $statement->fetchAll(PDO::FETCH_OBJ);
 
             if (count($results) < 1)
-                return "Sorry, I don't understand that. Perhaps you could train me. The format is: <b>train: #question #answer #password</b>";
+                return "Sorry, I don't understand that. Perhaps you could train me. The format is: <b>train: question #answer #password</b>";
             return $results[mt_rand(0, count($results) - 1)]->answer;
         };
     }
@@ -108,20 +105,21 @@ function taskRunner($command, $question)
 function training($string, $question)
 {
     $string = preg_split("/#\s*/", $string);
+
     //Can't figure out this error with preg_split yet, but assume there's always an empty $string[0]
-    if (count($string) < 4)
-        respondJson($question, "Invalid training format. The correct training mode is: <b>train: #question #answer #password</b>");
+    if (count($string) < 3)
+        respondJson($question, "Invalid training format. The correct training mode is: <b>train: question #answer #password</b>");
 
     // Check if question or answer supplied is empty. We don't want to learn empty word.
-    if (empty($string[1] || empty($string[2])))
+    if (empty($string[0] || empty($string[1])))
         respondJson($question, "Oh oh, seems you have an empty question or answer.");
 
     // Verify authorization to train Bot.
-    if (!($string[3] === 'password'))
+    if (!($string[2] === 'password'))
         respondJson($question, "Backoff! I can't trust you to feed me memory!");
 
     // ->[Insert to Database]...and, little drop of water, makes an Ocean.
-    respondJson($question, Model('put')($string[1], $string[2]));
+    respondJson($question, Model('put')(trim($string[0]), trim($string[1])));
 
     exit();
 }
@@ -134,8 +132,8 @@ function training($string, $question)
  */
 function processManager($question)
 {
-    if (preg_match("/train:/", $question))
-        training(trim(substr($question, 6)), $question);
+    if (preg_match("/train *:/", $question))
+        training(trim(preg_replace("/train *:/", "", $question)), $question);
 
     if (preg_match("/command:/", $question))
         taskRunner(trim(substr($question, 8)), $question);
