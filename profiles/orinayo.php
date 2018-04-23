@@ -1,21 +1,4 @@
 <?php
-try {
-    $sql = "SELECT * FROM secret_word";
-    $query = $conn->query($sql);
-    $query->setFetchMode(PDO::FETCH_ASSOC);
-    $result = $query->fetch();
-    $secret_word = $result['secret_word'];
-           
-    $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="orinayo"';
-    $q2 = $conn->query($sql2);
-    $q2->setFetchMode(PDO::FETCH_ASSOC);
-    $me = $q2->fetch();
-}
-catch (PDOException $e) {
-    throw $e;
-}
-global $conn, $user_input_array2;
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     function Validate_input($data) 
     {
@@ -238,6 +221,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
 </head>
 <body>
+    <?php 
+    if (!defined('DB_USER')) {
+        define('DB_USER', "root");
+        define('DB_PASSWORD', "");
+        define('DB_DATABASE', "hng_fun");
+        define('DB_HOST', "localhost");
+    }
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+    
+    try {
+        $sql = "SELECT * FROM secret_word";
+        $query = $conn->query($sql);
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $query->fetch();
+        $secret_word = $result['secret_word'];
+               
+        $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="orinayo"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $me = $q2->fetch();
+    }
+    catch (PDOException $e) {
+        throw $e;
+    }
+    global $conn, $user_input_array2;
+    ?>
 <div class="container-fluid content">
                 <h3 class="text-center text-dark display-5">Hello, I'm
                     <span class="display-4" id=name style="color: #f4511e">
