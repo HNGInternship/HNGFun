@@ -8,10 +8,9 @@
         	$this->assertTrue($file_exists);
 
 			$fcontents = htmlentities(file_get_contents("db.php"));
-			$contains = stripos($fcontents, "config.php");
-			$notcontains = stripos($fcontents, "../config.php");
+			$contains = stripos($fcontents, "../config.php");
 
-			$this->assertTrue($contains !== false && $notcontains === false);
+			$this->assertTrue($contains !== false);
 			
 			if($contains !== false){
 				require "db.php";

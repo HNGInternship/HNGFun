@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href='https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra SC|Romanesco' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra SC|Romanesco|Source+Sans+Pro:400,700' rel='stylesheet'>
+    <link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
     <style type="text/css">
 
         .container{
@@ -10,9 +13,6 @@
         }
         .body0 {
             height: 100%;
-            /*background-image: url('https://wallup.net/wp-content/uploads/2016/01/155420-water-dark-calm-nature.jpg');*/
-            /*background-repeat:no-repeat;*/
-            /*background-size:cover;*/
         }
 
         span {
@@ -26,9 +26,9 @@
             /*top:20px;*/
             width: 100%;
             /*padding-top: 300px;*/
-            height: 130px;
+            max-height: 230px;
             font-family: "Romanesco";
-            line-height: 130px;
+            line-height: 230px;
             font-size: 96px;
             text-align: center;
         }
@@ -70,16 +70,9 @@
             text-align: center;
             color: #000830;
         }
-        @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
-        * {
-            box-sizing: border-box;
-        }
-        html {
-            background: skyblue;
-            margin: 0px;
-
-        }
         body, html {
+            margin: 0px;
+            background-color: skyblue; !important;
             height: 100%;
         }
         .body1 {
@@ -133,7 +126,6 @@
 
 
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -151,22 +143,36 @@
     }
     ?>
 
-    <div class="row" style="padding-top: 20px">
-        <div class="col-md-6">
+    <div class="oj-flex oj-flex-items-pad oj-contrast-marker">
+        <div class="oj-sm-6 oj-md-6 oj-flex-item">
+            <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
+                <div role="img" class="oj-flex-item alignCenter">
+                    <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
+                    data-bind="attr:{'aria-label':'Avatar of Melody Okunuga'}">
+                    </oj-avatar>
+                    <img class="img-fluid " onerror="this.src='images/default.jpg'" src="<?=$my_data['image_filename'] ?>" >
+                </div>
+            </div>
             <div class="body0">
-                    <img class="img-fluid rounded" style="padding-top: 10px" onerror="this.src='images/default.jpg'" src="<?=$my_data['image_filename'] ?>" >
-                    <div class="main"><span class="text"><?=$my_data['name'] ?></span></div>
-                    <div class="under"><span>Full Stack Web Developer</span></div>
-                    <div class="under1"><span><a href="https://github.com/mokunuga">
-                        <img style="width:40px; height: 40px;" src="https://cdn1.iconfinder.com/data/icons/logotypes/32/github-512.png"></a>
+                <div class="main"><span class="text"><?=$my_data['name'] ?></span></div>
+                <div class="under"><span>Full Stack Web Developer</span></div>
+                <div class="under1"><span>
+                        <div class="oj-flex oj-md-align-items-center"><a href="https://github.com/mokunuga">
+                            <div class="oj-flex-item oj-flex oj-sm-flex-direction-column oj-sm-align-items-center oj-sm-margin-2x">
+                                <img style="width:40px; height: 40px;" src="https://cdn1.iconfinder.com/data/icons/logotypes/32/github-512.png">
+                            </div></a>
+
                             <a href="https://linkedin.com/in/mokunuga">
-                        <img style="width:40px; height: 40px;" src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-social-media/256/Linkedin-icon.png">
-                </a></span></div>
-                    <div class="under2"><span>Lagos | NG</span></div>
+                                 <div class="oj-flex-item oj-flex oj-sm-flex-direction-column oj-sm-align-items-center oj-sm-margin-2x">
+                                    <img style="width:40px; height: 40px;" src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-social-media/256/Linkedin-icon.png">
+                                 </div>
+                            </a>
+                        </div></span>
+                </div>
+                <div class="under2"><span>Lagos | NG</span></div>
             </div>
         </div>
-
-        <div class="col-md-6">
+        <div class="oj-sm-6 oj-md-6 oj-flex-item">
             <div class="body1">
                 <div class="chat-output" id="chat-output">
                     <div class="user-message">
@@ -176,7 +182,6 @@
 
                 <div class="chat-input">
                     <form action="" method="post" id="user-input-form">
-<!--                        <input type="hidden" name="id" value="--><?php //echo htmlspecialchars($_GET['id']);?><!--">-->
                         <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
                     </form>
                 </div>
@@ -184,7 +189,6 @@
             </div>
         </div>
     </div>
-
 
     <?php
 
@@ -200,12 +204,13 @@
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST['user-input'];
-        $data = preg_replace('/\s+/', '', $data);
+      //  $data = preg_replace('/\s+/', '', $data);
         $temp = explode(':', $data);
-
-        if($temp[0] === 'train'){
+        $temp2 = preg_replace('/\s+/', '', $temp[0]);
+        
+        if($temp2 === 'train'){
             train($temp[1]);
-        }elseif($temp[0] === 'aboutbot') {
+        }elseif($temp2 === 'aboutbot') {
             aboutbot();
         }else{
             getAnswer($temp[0]);
@@ -217,9 +222,9 @@
     }
     function train($input) {
         $input = explode('#', $input);
-        $question = $input[0];
-        $answer = $input[1];
-        $password = $input[2];
+        $question = trim($input[0]);
+        $answer = trim($input[1]);
+        $password = trim($input[2]);
         if($password == 'password') {
             $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
             $q = $GLOBALS['conn']->query($sql);

@@ -76,25 +76,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js"></script>
 
 <style>
+.navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 0px !important;
+}
  
  .mytext{
     border:0;padding:10px;background:whitesmoke;
 }
 .text{
-    width:75%;display:flex;flex-direction:column;
+    width:40% !important;display:flex !important;flex-direction:column !important;
 }
 .text > p:first-of-type{
     width:100%;margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 12px;
@@ -103,10 +104,11 @@
     width:100%;text-align:right;color:silver;margin-bottom:-7px;margin-top:auto;
 }
 .text-l{
-    float:left;padding-right:10px;
+    float:left ;padding-right:10px;
 }        
 .text-r{
-    float:right;padding-left:10px;
+    float:right !important;
+    padding-left:10px !important;
 }
 .avatar{
     display:flex;
@@ -117,10 +119,10 @@
     padding-right:10px;
 }
 .macro{
-    margin-top:5px;width:85%;border-radius:5px;padding:5px;display:flex;
+    margin-top:20px;width:85%;border-radius:5px;padding:5px;display:flex;
 }
 .msj-rta{
-    float:right;background:whitesmoke;
+    float:left;background:whitesmoke;
 }
 .msj{
     float:left;background:white;
@@ -131,7 +133,26 @@
     overflow:hidden;
     padding:0;
     width: 50%;
-
+    border: 2px;
+    overflow-y: scroll;
+    scroll-behavior: auto;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
 }
 .frame > div:last-of-type{
     position:absolute;bottom:0;width:100%;display:flex;
@@ -193,8 +214,6 @@ input:focus{
 :-moz-placeholder { /* Firefox 18- */
     color: #d4d4d4;
 }  
-
-
 body{
     margin-bottom: 100px;
 }
@@ -215,19 +234,16 @@ body{
     box-sizing: border-box;
     width: 100%;
 }
-
 .card .card-heading {
     padding: 0 20px;
     margin: 0;
 }
-
 .card .card-heading.simple {
     font-size: 20px;
     font-weight: 300;
     color: #777;
     border-bottom: 1px solid #e5e5e5;
 }
-
 .card .card-heading.image img {
     display: inline-block;
     width: 46px;
@@ -239,56 +255,46 @@ body{
     -moz-border-radius: 50%;
     border-radius: 50%;
 }
-
 .card .card-heading.image .card-heading-header {
     display: inline-block;
     vertical-align: top;
 }
-
 .card .card-heading.image .card-heading-header h3 {
     margin: 0;
     font-size: 14px;
     line-height: 16px;
     color: #262626;
 }
-
 .card .card-heading.image .card-heading-header span {
     font-size: 12px;
     color: #999999;
 }
-
 .card .card-body {
     padding: 0 20px;
     margin-top: 20px;
 }
-
 .card .card-media {
     padding: 0 20px;
     margin: 0 -14px;
 }
-
 .card .card-media img {
     max-width: 100%;
     max-height: 100%;
 }
-
 .card .card-actions {
     min-height: 30px;
     padding: 0 20px 20px 20px;
     margin: 20px 0 0 0;
 }
-
 .card .card-comments {
     padding: 20px;
     margin: 0;
     background-color: #f8f8f8;
 }
-
 .card .card-comments .comments-collapse-toggle {
     padding: 0;
     margin: 0 20px 12px 20px;
 }
-
 .card .card-comments .comments-collapse-toggle a,
 .card .card-comments .comments-collapse-toggle span {
     padding-right: 5px;
@@ -298,12 +304,10 @@ body{
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
 .card-comments .media-heading {
     font-size: 13px;
     font-weight: bold;
 }
-
 .card.people {
     position: relative;
     display: inline-block;
@@ -314,11 +318,9 @@ body{
     overflow: hidden;
     vertical-align: top;
 }
-
 .card.people:first-child {
     margin-left: 0;
 }
-
 .card.people .card-top {
     position: absolute;
     top: 0;
@@ -328,15 +330,12 @@ body{
     height: 150px;
     background-color: #ffffff;
 }
-
 .card.people .card-top.green {
     background-color: #53a93f;
 }
-
 .card.people .card-top.blue {
     background-color: #427fed;
 }
-
 .card.people .card-info {
     position: absolute;
     top: 150px;
@@ -349,7 +348,6 @@ body{
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
 .card.people .card-info .title {
     display: block;
     margin: 8px 14px 0 14px;
@@ -359,7 +357,6 @@ body{
     line-height: 18px;
     color: #404040;
 }
-
 .card.people .card-info .desc {
     display: block;
     margin: 8px 14px 0 14px;
@@ -369,7 +366,6 @@ body{
     color: #737373;
     text-overflow: ellipsis;
 }
-
 .card.people .card-bottom {
     position: absolute;
     bottom: 0;
@@ -383,7 +379,6 @@ body{
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
 .card.hovercard {
     position: relative;
     padding-top: 0;
@@ -391,19 +386,16 @@ body{
     text-align: center;
     background-color: rgba(214, 224, 226, 0.2);
 }
-
 .card.hovercard .cardheader {
     background: url("http://lorempixel.com/850/280/nature/4/");
     background-size: cover;
     height: 155px;
 }
-
 .card.hovercard .avatar {
     position: relative;
     top: -50px;
     margin-bottom: -50px;
 }
-
 .card.hovercard .avatar img {
     width: 100%;
     height: 100%;
@@ -414,11 +406,9 @@ body{
     border-radius: 50%;
     border: 5px solid rgba(255,255,255,0.5);
 }
-
 .card.hovercard .info {
     padding: 4px 8px 10px;
 }
-
 .card.hovercard .info .title {
     margin-bottom: 4px;
     font-size: 35px;
@@ -426,7 +416,6 @@ body{
     color: #262626;
     vertical-align: middle;
 }
-
 .card.hovercard .info .desc {
     overflow: hidden;
     font-size: 20px;
@@ -434,14 +423,11 @@ body{
     color: #737373;
     text-overflow: ellipsis;
 }
-
 .card.hovercard .bottom {
     padding: 0 20px;
     margin-bottom: 17px;
 }
-
 .btn{ border-radius: 50%; width:32px; height:32px; line-height:18px;  
-
 }
 .color{
     background-color: #e2e2e2;
@@ -450,7 +436,6 @@ body{
     color: #070707;
     background-color: #070707;
 }
-
 #time{
     display-content:center;
 }
@@ -461,7 +446,6 @@ body{
             margin-left: auto;
             margin-right: auto;
             padding: 20px;
-
             background-color: #F8F8F8;
             border: 1px solid #ccc;
             box-shadow: 0 0 10px #999;
@@ -503,13 +487,11 @@ body{
         font-size: 17px;
         font-weight: normal;
     }
-
 .chatBotChatEntry * {
     font-family: 'open_sanslight', sans-serif !important;
     font-size: 17px;
     font-weight: normal;
 }
-
 .chatBotChatEntry .origin {
     font-weight: bold;
     margin-right: 10px;
@@ -550,11 +532,9 @@ body{
     font-weight: normal;
     font-size: 16px;
 }
-
     .chatBotChatEntry .imgBox img {
         width: 100%;
     }
-
     .bot {
         /*border: 4px solid rgba(0, 132, 60, 0.2);*/
         background-color: rgba(0, 132, 60, 0.2);
@@ -563,7 +543,6 @@ body{
         /*border: 4px solid rgba(38, 159, 202, 0.2);*/
         background-color: rgba(38, 159, 202, 0.2);
     }
-
     #chatBotCommandDescription {
         background-color: #333;
         color: #fff;
@@ -578,13 +557,11 @@ body{
     .commandDescription {
         margin-top: 5px;
     }
-
     #chatBotConversationLoadingBar {
         background-color: darkcyan;
         height: 2px;
         width: 0;
     }
-
     .appear {
         animation-duration: 0.2s;
         animation-name: appear;
@@ -592,12 +569,10 @@ body{
         animation-timing-function: ease-out;
         animation-fill-mode: forwards;
     }
-
     @keyframes appear {
         from {
             opacity: 0;
         }
-
         to {
             opacity: 1;
         }
@@ -671,8 +646,9 @@ body{
     .chat-container
     {
         box-sizing: border-box;
-        width: 100%;
+        width: 80%;
         display: flex;
+        padding-left: 30px;
     }
     .input-ctn
     {
@@ -697,6 +673,7 @@ body{
     {
         color: black;
         background-color: #ce2395;
+        padding-left: 20px;
     }
     .recieved-message
     {
@@ -719,315 +696,6 @@ body{
         margin-left: 5px; 
         height: 50px;
     }
-
-@import url(https://fonts.googleapis.com/css?family=Oswald:400,300);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
-body
-{
-    font-family: 'Open Sans', sans-serif;
-    }
-.popup-box {
-   background-color: #ffffff;
-    border: 1px solid #b0b0b0;
-    bottom: 0;
-    display: none;
-    height: 415px;
-    position: fixed;
-    right: 70px;
-    width: 300px;
-    font-family: 'Open Sans', sans-serif;
-}
-.round.hollow {
-    margin: 40px 0 0;
-}
-.round.hollow a {
-    border: 2px solid #ff6701;
-    border-radius: 35px;
-    color: red;
-    color: #ff6701;
-    font-size: 23px;
-    padding: 10px 21px;
-    text-decoration: none;
-    font-family: 'Open Sans', sans-serif;
-}
-.round.hollow a:hover {
-    border: 2px solid #000;
-    border-radius: 35px;
-    color: red;
-    color: #000;
-    font-size: 23px;
-    padding: 10px 21px;
-    text-decoration: none;
-}
-.popup-box-on {
-    display: block !important;
-}
-.popup-box .popup-head {
-    background-color: #fff;
-    clear: both;
-    color: #7b7b7b;
-    display: inline-table;
-    font-size: 21px;
-    padding: 7px 10px;
-    width: 100%;
-     font-family: Oswald;
-}
-.bg_none i {
-    border: 1px solid #ff6701;
-    border-radius: 25px;
-    color: #ff6701;
-    font-size: 17px;
-    height: 33px;
-    line-height: 30px;
-    width: 33px;
-}
-.bg_none:hover i {
-    border: 1px solid #000;
-    border-radius: 25px;
-    color: #000;
-    font-size: 17px;
-    height: 33px;
-    line-height: 30px;
-    width: 33px;
-}
-.bg_none {
-    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-    border: medium none;
-}
-.popup-box .popup-head .popup-head-right {
-    margin: 11px 7px 0;
-}
-.popup-box .popup-messages {
-}
-.popup-head-left img {
-    border: 1px solid #7b7b7b;
-    border-radius: 50%;
-    width: 44px;
-}
-.popup-messages-footer > textarea {
-    border-bottom: 1px solid #b2b2b2 !important;
-    height: 34px !important;
-    margin: 7px;
-    padding: 5px !important;
-     border: medium none;
-    width: 95% !important;
-}
-.popup-messages-footer {
-    background: #fff none repeat scroll 0 0;
-    bottom: 0;
-    position: absolute;
-    width: 100%;
-}
-.popup-messages-footer .btn-footer {
-    overflow: hidden;
-    padding: 2px 5px 10px 6px;
-    width: 100%;
-}
-.simple_round {
-    background: #d1d1d1 none repeat scroll 0 0;
-    border-radius: 50%;
-    color: #4b4b4b !important;
-    height: 21px;
-    padding: 0 0 0 1px;
-    width: 21px;
-}
-
-
-
-
-
-.popup-box .popup-messages {
-    background: #3f9684 none repeat scroll 0 0;
-    height: 275px;
-    overflow: auto;
-}
-.direct-chat-messages {
-    overflow: auto;
-    padding: 10px;
-    transform: translate(0px, 0px);
-    
-}
-.popup-messages .chat-box-single-line {
-    border-bottom: 1px solid #a4c6b5;
-    height: 12px;
-    margin: 7px 0 20px;
-    position: relative;
-    text-align: center;
-}
-.popup-messages abbr.timestamp {
-    background: #3f9684 none repeat scroll 0 0;
-    color: #fff;
-    padding: 0 11px;
-}
-
-.popup-head-right .btn-group {
-    display: inline-flex;
-    margin: 0 8px 0 0;
-    vertical-align: top !important;
-}
-.chat-header-button {
-    background: transparent none repeat scroll 0 0;
-    border: 1px solid #636364;
-    border-radius: 50%;
-    font-size: 14px;
-    height: 30px;
-    width: 30px;
-}
-.popup-head-right .btn-group .dropdown-menu {
-    border: medium none;
-    min-width: 122px;
-    padding: 0;
-}
-.popup-head-right .btn-group .dropdown-menu li a {
-    font-size: 12px;
-    padding: 3px 10px;
-    color: #303030;
-}
-
-.popup-messages abbr.timestamp {
-    background: #3f9684  none repeat scroll 0 0;
-    color: #fff;
-    padding: 0 11px;
-}
-.popup-messages .chat-box-single-line {
-    border-bottom: 1px solid #a4c6b5;
-    height: 12px;
-    margin: 7px 0 20px;
-    position: relative;
-    text-align: center;
-}
-.popup-messages .direct-chat-messages {
-    height: auto;
-}
-.popup-messages .direct-chat-text {
-    background: #dfece7 none repeat scroll 0 0;
-    border: 1px solid #dfece7;
-    border-radius: 2px;
-    color: #1f2121;
-}
-
-.popup-messages .direct-chat-timestamp {
-    color: #fff;
-    opacity: 0.6;
-}
-
-.popup-messages .direct-chat-name {
-    font-size: 15px;
-    font-weight: 600;
-    margin: 0 0 0 49px !important;
-    color: #fff;
-    opacity: 0.9;
-}
-.popup-messages .direct-chat-info {
-    display: block;
-    font-size: 12px;
-    margin-bottom: 0;
-}
-.popup-messages  .big-round {
-    margin: -9px 0 0 !important;
-}
-.popup-messages  .direct-chat-img {
-    border: 1px solid #fff;
-    background: #3f9684  none repeat scroll 0 0;
-    border-radius: 50%;
-    float: left;
-    height: 40px;
-    margin: -21px 0 0;
-    width: 40px;
-}
-.direct-chat-reply-name {
-    color: #fff;
-    font-size: 15px;
-    margin: 0 0 0 10px;
-    opacity: 0.9;
-}
-
-.direct-chat-img-reply-small
-{
-    border: 1px solid #fff;
-    border-radius: 50%;
-    float: left;
-    height: 20px;
-    margin: 0 8px;
-    width: 20px;
-    background:#3f9684;
-}
-
-.popup-messages .direct-chat-msg {
-    margin-bottom: 10px;
-    position: relative;
-}
-
-.popup-messages .doted-border::after {
-    background: transparent none repeat scroll 0 0 !important;
-    border-right: 2px dotted #fff !important;
-    bottom: 0;
-    content: "";
-    left: 17px;
-    margin: 0;
-    position: absolute;
-    top: 0;
-    width: 2px;
-     display: inline;
-      z-index: -2;
-}
-
-.popup-messages .direct-chat-msg::after {
-    background: #fff none repeat scroll 0 0;
-    border-right: medium none;
-    bottom: 0;
-    content: "";
-    left: 17px;
-    margin: 0;
-    position: absolute;
-    top: 0;
-    width: 2px;
-     display: inline;
-      z-index: -2;
-}
-.direct-chat-text::after, .direct-chat-text::before {
-   
-    border-color: transparent #dfece7 transparent transparent;
-    
-}
-.direct-chat-text::after, .direct-chat-text::before {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    border-color: transparent #d2d6de transparent transparent;
-    border-image: none;
-    border-style: solid;
-    border-width: medium;
-    content: " ";
-    height: 0;
-    pointer-events: none;
-    position: absolute;
-    right: 100%;
-    top: 15px;
-    width: 0;
-}
-.direct-chat-text::after {
-    border-width: 5px;
-    margin-top: -5px;
-}
-.popup-messages .direct-chat-text {
-    background: #dfece7 none repeat scroll 0 0;
-    border: 1px solid #dfece7;
-    border-radius: 2px;
-    color: #1f2121;
-}
-.direct-chat-text {
-    background: #d2d6de none repeat scroll 0 0;
-    border: 1px solid #d2d6de;
-    border-radius: 5px;
-    color: #444;
-    margin: 5px 0 0 50px;
-    padding: 5px 10px;
-    position: relative;
-}
-
-
 </style>
 <body class="color">
 <div class="container">
@@ -1049,22 +717,21 @@ body
                     <div class="desc">Curious developer</div>
                     <div class="desc">Tech geek| Woman in Tech</div>
               
-                </div>
-               
-                    
+                </div>                 
   
             </div>
         </div>
     </div>
 </div>
 
- <h4 style="text-align: center;">My Chat bot</h4>
-
-      <div class="col-sm-5 col-sm-offset-5 frame" 
+      <div class="col-sm-6 col-sm-offset-5 frame" 
       style="box-shadow:2px 2px 4px 5px #ccc;
       background-color: #e1ecf7; 
       border: 2px; 
-      margin-bottom: 30px;">
+      margin-bottom: 30px;
+      float: right;
+      height: 100%;">
+       <h4 style="text-align: center;">My Chat bot </h4>
             <ul></ul>
             <div>
         
@@ -1074,29 +741,30 @@ body
                       </div>
                   <?php endfor; ?>
               </div>
-            <div class="msj-rta macro"> 
+            <div class="msj-rta macro" style="background: transparent;"> 
                      
             
                 <div>
-                <form action="/profile.php?id=Tiarayuppy" method="POST" style="display: flex; width: 100%;">
-                  
-                    <div class="text text-r" style="background:lightblue !important">
-                          
-                        <input type="text" name="message" class="mytext" placeholder="Type a message"/>
-                    </div> 
-
-                </div>
-                <div style="padding:10px;">
-                    <input type="submit" value="send your message" style=" border-radius:10px; flex-grow: 1; background-color: green; color: #FAFAFA;"/>
-                </form>
+                <form action="/profile.php?id=Tiarayuppy" method="POST" class="w3-container w3-card-4" style="display: flex; width: 100%;">
+                                      
                 </div> 
                 </div>                
             </div>
+            <div class="text text-r" style="background:lightblue !important;"> 
+                 
+        <input type="text" name="message" class="mytext" lenght="40%" placeholder="Type a message" style="background: transparent;" />
+        
+
+                </div>
+                <div style="padding-top: 0px;">
+                    <input type="submit" value="send your message" style=" border-radius:10px; flex-grow: 1; background-color: green; color: #FAFAFA; float: right !important; "/>
+                    </div>    
+                
+                </form>
             </div>
         </div> 
 
-   
-<script>
+   <script>
     var sampleConversation = [
         "Hi",
         "My name is [name]",
@@ -1139,7 +807,6 @@ $("#addClass").click(function () {
           $('#qnimate').removeClass('popup-box-on');
             });
   })
-
 </script>
 
 
