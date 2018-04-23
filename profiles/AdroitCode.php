@@ -1,10 +1,8 @@
 <?php
     # require "../db.php";
-<<<<<<< HEAD
-    require "../answers.php";
-=======
+
     # require "../answers.php";
->>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
+
     if (!defined('DB_USER')){
             
             require "../../config.php";
