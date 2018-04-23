@@ -11,6 +11,7 @@
 		 .container {
             max-width: 100%;
             padding-left: 0;
+			 border-radius: 5px;
         }
 		   .chatbox {
             font-family: 'Source Sans Pro', sans-serif;
@@ -19,6 +20,7 @@
             flex-direction: column;
             max-width: 500px;
             margin: 0 auto;
+			 border-radius: 5px;
         }
 
         footer {
@@ -102,17 +104,17 @@
         }
         .chat-input {
             padding: 20px;
-            background-color: #00F;
+            background-color: #fff;
 			color: #FFF;
             border-radius: 25px; 
 			padding: 10px;
 			font-size: 10pt;
         }
         .chat-input .user-input {
-            width: 100%;
+            width: 80%;
             border: 1px solid #ccc;
             border-radius: 4px;
-            padding: 8px;
+            padding: 0px;
         }
 		#send {
    width: 50px;
