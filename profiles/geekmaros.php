@@ -269,11 +269,7 @@ require 'db.php';
 
 /* CHATBOT CSS */
 
-body{
-    height:400px;
-    position: fixed;
-    bottom: 0;
-}
+
 .col-md-2, .col-md-10{
     padding:0;
 }
@@ -447,7 +443,7 @@ img {
     </div>
 </div>
 
-<div class="container">
+<div class="container pull-right">
     <div class="row chat-window col-xs-5 col-md-3" id="chat_window_1" style="margin-left:10px;">
         <div class="col-xs-12 col-md-12">
             <div class="panel panel-default">
