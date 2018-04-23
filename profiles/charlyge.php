@@ -1,126 +1,240 @@
-<Html>
+  
+  
+  <Html>
 <title>
 HNG
 </title>
 <head>
  <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
 </head>
-<style>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
 
-body{
-background-color: #ADD8E6;
-	
-}
-#firstH{
-	margin-top:100px;
-	color: #1B5E20;
-	margin-left:100px;
-	clear:both;
-	
-	
-}
-#secondH{
-	color: white;
-	
-}
-#thirdH{
-	color: orange;
-	
-}
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        } 
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #efefef;
+            background-image: url(http://res.cloudinary.com/tarrot-system-inc/image/upload/v1503349370/dot_srox60.png);
+            color: #157EFB;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 100;
+        }
+        .containers {
+            display: flex;
+            max-width: 700px;
+            height: 100vh;
+            margin: 0 auto;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .wrappers {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+        }
+        .mybio b {
+            font-size: 14px;
+            color:white;
+        }
+        .mybio{
+            color:#ccc666;
+        }
+        .avatar {
+            background-size: cover;
+            height: 190px;
+            width: 190px;
+            margin: 8px
+        }
+        .name {
+            font-size: 15px;
+            padding-left: 20px;
+            padding-right: 5px;
+        }
+        .name p {
+            padding-left: 35%;
+            padding-bottom: 5px;
+        }
+        .about {
+            line-height: 1.5;
+        }
 
-#img{
-	margin-top:30px;
-	float:left;
-}
-h4{
-	float:right;
-	
-	
-}
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
+        .about h3{
+            color: #157EFB;
+        }
+        .profile-social-links span {
+            display: none;
+        }
+        .footer-wrapper {
+            display: flex;
+            justify-content: space-between;
+            float: right;
+            margin: 0px 15px;
+        }
 
-li {
-    float: left;
-}
+        .others {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 20px;
+        }
 
-li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-/* Change the link color to #111 (black) on hover */
-li a:hover {
-    background-color: #111;
-}
-</style>
+        .task {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+            padding-right: 15px;
+            padding-bottom: 10px;
+            float: right;
+        }
+        .task a {
+            text-decoration: none;
+            color: #636b6f;
+        }
+        .fa-link {
+            padding: 10px 12px;
+            -o-transition: .5s;
+            -ms-transition: .5s;
+            -moz-transition: .5s;
+            -webkit-transition: .5s;
+            transition: .5s;
+            background-color: #00aced;
+            margin-left: 10px;
+            color: #fff;
+        }
+        .fa-link:hover {
+            background-color: #322f30;
+        }
+        .myprofile {
+            background-color: white;
+            margin-right: 20px;
+            height: 350px;
+			width:200px;
+        }
+        .profile-social-links {
+            color: #fff;
+            margin-left: 18%;
+        }
+        ul.profile-social-links {
+            align-items: center;
+            float: right;
+        }
+        .profile-social-links li {
+            vertical-align: top;
+            height: 100px;
+            display: inline;
+        }
+        .profile-social-links a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .fa-slack {
+            padding: 10px 12px;
+            -o-transition: .5s;
+            -ms-transition: .5s;
+            -moz-transition: .5s;
+            -webkit-transition: .5s;
+            transition: .5s;
+            background-color: #157EFB;
+        }
+        .fa-slack:hover {
+            background-color: #00aced;
+        }
+        .fa-github {
+            padding: 10px 12px;
+            -o-transition: .5s;
+            -ms-transition: .5s;
+            -moz-transition: .5s;
+            -webkit-transition: .5s;
+            transition: .5s;
+            background-color: #157EFB;
+        }
+        .fa-github:hover {
+            background-color:#157EFB;
+        }
+        .fa-twitter {
+            padding: 10px 12px;
+            -o-transition: .5s;
+            -ms-transition: .5s;
+            -moz-transition: .5s;
+            -webkit-transition: .5s;
+            transition: .5s;
+            background-color: #157EFB;
+        }
+        .fa-twitter:hover {
+            background-color: #157EFB;
+        }
+        .sendersname {
+            padding: 20px;
+            font-size: 14px;
+            width: 460px;
+            height: 40px;
+            border: 0px;
+        }
+        .submit {
+            padding: 10px;
+            font-size: 14px;
+            width: 460px;
+            height: 40px;
+            border: 0px;
+        }
+        .contact {
+            margin-top: 10px;
+        }
+        .submit {
+            background-color: #157EFB;
+            color: white;
+        }
+        .submit:hover {
+            background-color: #157EFB;
+        }
+        .message {
+            height: 100px;
+            padding: 20px;
+            margin-top: 5px;
+            font-size: 14px;
+            width: 460px;
+            border: 0px;
+        }
+    </style>
+</head>
 
 <body>
-<nav>
-    <div id="social">
-    
-       
-         <ul>
-            <li>
-              <a class="nav-link" href="index.php">Home</a>
-            </li>
-            <li>
-              <a class="nav-link" href="learn.php">Learn</a>
-            </li>
-   
-            <li class="nav-item">
-              <a class="nav-link" href="listing.php">Interns</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="admin.php">Register</a>
-            </li>
-            <li>
-              <a href="testimonies.php">Testimonies</a>
-            </li>
-			<li>
-              <a href="https://github.com/charlyge">Github</a>
-            </li>
-			<li>
-				<a href="https://twitter.com/charlyge2">Twitter</a>
-				</li>
-          </ul>
+    <div class="containers">
+        <div class="wrappers">
+            <div class="myprofile">
+                <img src="http://res.cloudinary.com/charlyge/image/upload/v1523623038/HNG/IMG_20150910_093320.jpg" class="avatar">
+                <div class="name" style ="color: #157EFB;"><b>Uhiara Charles</b>
+               
+            </div>
+            <div class="others socials">
+                <ul class="profile-social-links">
+                    <li>
+                        <a href="https://github.com/charlyge" class="social-icon" target="_blank"> <i class="fa fa-github"></i></a>
+                    </li>
+                
+                    <li>
+                        <a href="https://twitter.com/charlyge2" class="social-icon" target="_blank"> <i class="fa fa-twitter"></i></a>
+                    </li>
+                    <br>
+                </ul>
+            </div>
         </div>
-      </div>
-    </nav>
 
-<header>
-	
-				
-			
-				
-		
-		
-	</header>
-	
-<img id="img" height="280px" src="http://res.cloudinary.com/charlyge/image/upload/v1523623038/HNG/IMG_20150910_093320.jpg" alt="charlyge">
-
-
-	
- <h1 id="firstH">I'm Uhiara Charles</h1>
- <h2 id="thirdH">An Android App Developer</h2>
-  <h3 id="secondH">Intern at Hotels.ng</h3>
-   
-    <h4><p id="clock">
-		<?php
-			echo "Current time is </br>" . date("h:i:sa");
-		?> 
-	</p></h4>
-   
-
-</body>
-
-</Html>
+        <div class="mybio">
+            <br/><h3>Uhiara Charles</h3><br/>
+            
+            <p># Android APP Developer<br/>#ISpeakJava<br/> </b></p>
+			<p> Currently Interning at Hotels.ng</p>
+        </div>
+        <div id="Jimie"></div>
+    </div>
+    <script src="profiles/jim/dist/Jimie.js"></script>
+	</Html>
