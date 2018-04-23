@@ -758,22 +758,7 @@ a:focus {
         </div></oj-module>
       </div>
       </div>
-
-<footer class="oj-web-applayout-footer" role="contentinfo">
-          <div class="oj-web-applayout-footer-item oj-web-applayout-max-width">
-            <ul>
-              <oj-bind-for-each data="[[footerLinks]]">
-                <template>
-                  <li><a :id="[[$current.data.linkId]]" :href="[[$current.data.linkTarget]]"><oj-bind-text value="[[$current.data.name]]"></oj-bind-text></a></li>
-                </template>
-              </oj-bind-for-each>
-            </ul>
-          </div>
-
-          <div class="oj-web-applayout-footer-item oj-web-applayout-max-width oj-text-secondary-color oj-text-sm">
-            Hng
-          </div>
-        </footer> 
+ 
 </body>
 <!-- end jet -->
 
