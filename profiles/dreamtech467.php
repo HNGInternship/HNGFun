@@ -152,7 +152,7 @@
 					]);
 					return;		
 				}
-				else($results)==null){
+				else if($results)==null){
 					sendReply($answer);
 				}
 				else{
