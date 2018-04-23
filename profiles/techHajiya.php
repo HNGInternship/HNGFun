@@ -24,7 +24,6 @@
             max-width: 550px;
             margin: 0 auto;
 			 border-radius: 5px;
-			 border: 5px solid #191970;
         }
 
         footer {
@@ -36,7 +35,8 @@
         }
 
         .profile-details, .chatbox {
-            padding-top: 50px;
+            padding-top: 10px;
+			 border: 2px solid #191970;
         }
 
         .profile-details {
@@ -146,6 +146,19 @@
 		   outline: none;
 		}
 
+		#header {
+	   display: flex; 
+	   justify-content: left;
+	   align-item: center;
+	   height: 20px;
+	   padding: 15px;
+	   color: #FFF;
+	   font-size: 200%;
+	   font-weight: bolder;
+	   background-color: #191970;
+	   position: fixed;
+	   font-family: arial;
+		}
     </style>
 </head>
 <body>
@@ -179,10 +192,13 @@
 
 
       <div class="col-sm-6 chatbox" style='float: right; padding-top: 50px'>
+	  <div id="header">LoBot v1.0</div>
                 <div class="chat-result" id="chat-result">
                     <div class="user-message">
-					<div class="message">Hello! I'm LoBot! feel free to ask me anything.   </div>
-                    <div class="message">To train me, use this syntax - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
+					<div class="message">Hello! I'm LoBot! Feel free to ask me anything.   </div>
+					</br>Learn more about me by typing 'aboutbot'.</div>
+                    <div class="message">To train me, use this syntax - 'train: question # answer # password'.</div>
+					<div class="message">Password is LoBot. </div>
                     </div>
                 </div>
 
