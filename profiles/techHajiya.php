@@ -14,7 +14,7 @@
 		 .container {
             max-width: 95%;
             padding-left: 0;
-			background: red;
+		
         }
 		   .chatbox {
             font-family: 'Source Sans Pro', sans-serif;
@@ -38,7 +38,7 @@
             height: auto;
         }
         .profile-body {
-            max-width: 100%;
+            max-width: 50%;
         }
         .profile-image img {
             margin: auto;
@@ -126,8 +126,8 @@
 		   display: inline-block
 		   outline: none;
 		   border: none;
-		   color: #191970;
-		   background-color: #00F;
+		   color: #fff;
+		   background-color: #191970;
 		   float: right;
 		   border-radius: 25px;
 		   padding: 0px;
