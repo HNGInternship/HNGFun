@@ -1,6 +1,11 @@
 <?php
-
     $googleBaseURL = "https://speech.googleapis.com/v1beta1/speech:syncrecognize?key=AIzaSyDAUWqKOBYP-Y1LeuD3lFRAy9jiZwRpQP8";
+    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+        if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) && $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'POST') {
+            header('Access-Control-Allow-Origin: *');
+            header('Access-Control-Allow-Headers: X-Requested-With, content-type, access-control-allow-origin, access-control-allow-methods, access-control-allow-headers');
+        }
+        
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
        // $audio = $_POST['audio'];
         
