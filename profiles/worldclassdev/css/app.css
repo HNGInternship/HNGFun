@@ -37,18 +37,13 @@ color: #828282;
 .name{
 text-align: center;
 }
-.profile{
-border-radius: 50%;
-margin: 30px auto;
-height: 340px;
-}
+
 .profile-img{
-width: 350px;
+width: 290px;
 border-radius: 50%;
-height: 340px;
+height: 290px;
 }
 .about{
-  width: 800px;
 margin: 30px auto;
 text-align: center;
 line-height: 1.5;
