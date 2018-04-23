@@ -10,7 +10,7 @@
     $result = $result->fetch(PDO::FETCH_OBJ);
     $secret_word = "1n73rn@Hng";
     $secret_word = $result->secret_word;
-    $result2 = $conn->query("Select * from interns_data where username = 'devlen'");
+    $result2 = $conn->query("Select * from interns_data where username = 'Devlen'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 <!doctype html>
