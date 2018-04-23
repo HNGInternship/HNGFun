@@ -6,7 +6,8 @@ phpmyadmin/
 /deploy
 .idea/
 config.php
-
+/profiles/dennis/*
+/profiles/dennisotugo.php
 .travis.yml
 push.sh
 /vendor/
