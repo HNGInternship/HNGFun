@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?=$my_data['name'] ?></title>
-    <link rel="stylesheet" href="<?=$home_url;?>vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?=$home_url;?>vendor/font-awesome/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css' />
     <link href='https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra SC|Romanesco' rel='stylesheet'>
     <style type="text/css">
        body {
@@ -115,6 +111,7 @@
             padding: 8px;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -150,7 +147,6 @@
                 <div class="chat-result" id="chat-result">
                     <div class="user-message">
                         <div class="message">Hello! I'm LoBot! Ask anything and I'll be sure to answer! </br>To train me, use this syntax - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
-						<div class="message">To train me, use this syntax - 'train: question # answer # password'. </div>
                     </div>
                 </div>
 
