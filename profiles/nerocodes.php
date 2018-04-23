@@ -33,12 +33,8 @@
 
         .name{
             font-family: verdana;
-<<<<<<< HEAD
             font-size: 2em;
             margin-top: 7px;
-=======
-            font-size: 3em;
->>>>>>> 250584eaadb8eca4ffddd2ffb8b3b32d4ab0c712
         }
 
         .username{
@@ -61,6 +57,8 @@
     </style>
     <main>
         <?php
+
+            require "../db.php";
             
             $sql = $conn->query("SELECT * FROM secret_word LIMIT 1");
             $sql = $sql->fetch(PDO::FETCH_OBJ);
