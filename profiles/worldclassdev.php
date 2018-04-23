@@ -23,14 +23,11 @@
   requireJS configuration file to show how JET can be setup in a common application.
   This project template can be used in conjunction with demo code from the JET
   website to test JET component behavior and interactions.
-
   Any CSS styling with the prefix "demo-" is for demonstration only and is not
   provided as part of the JET framework.
-
   Please see the demos under Cookbook/Patterns/App Shell: Web and the CSS documentation
   under Support/API Docs/Non-Component Styling on the JET website for more information on how to use 
   the best practice patterns shown in this template.
-
   Aria Landmark role attributes are added to the different sections of the application
   for accessibility compliance. If you change the type of content for a specific
   section from what is defined, you should also change the role value for that
@@ -66,7 +63,7 @@
     </script>
 
     <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
-      <div id="pageContent" class="oj-web-applayout-page">
+       <div id="pageContent" class="oj-web-applayout-page">
         <!--
            ** Oracle JET V5.0.0 web application header pattern.
            ** Please see the demos under Cookbook/Patterns/App Shell: Web
@@ -78,12 +75,14 @@
  The Universal Permissive License (UPL), Version 1.0
  -->
 <div class="oj-hybrid-padding">
+  <my-profile>
+    </my-profile>
     <div class="twcd container">
         <div class="name">
             <h1>Justine Philip</h1>
           </div>
-          <div class="profile  mx-auto d-block">
-            <img class="profile-img  mx-auto d-block" src="http://res.cloudinary.com/worldclassdev/image/upload/v1523643285/16845555.png" alt="my-profile">
+          <div class="profile mx-auto">
+            <img class="profile-img mx-auto" src="http://res.cloudinary.com/worldclassdev/image/upload/v1523643285/16845555.png" alt="my-profile">
           </div>
           <div class="about">
               I like to call myself a developer of all things JS. But basically i love to build stuff that solves a problem irrespective of the technology involved. I'm more about the impact than the money, but somehow i find both. When im not coding, i write, game and play the guitar.
@@ -92,8 +91,9 @@
   
 </div><!-- /ko --><div data-bind="_ojNodeStorage_" style="display: none;" class="oj-subtree-hidden">
         </div></oj-module>
-      </div>      </div>
-    </div>
+      </div>
+      </div>
+   
     
     <script type="text/javascript" src="profiles/worldclassdev/js/libs/require/require.js"></script>
-    <script type="text/javascript" src="profiles/worldclassdev/js/main.js"></script>
+<script type="text/javascript" src="profiles/worldclassdev/js/main.js"></script>

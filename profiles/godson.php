@@ -44,10 +44,16 @@
            width: 100%;
            height: 100%;
            margin: 0 auto;
-           
            padding-top: 40px;
            padding-bottom: 40px;
            padding-right: 25px;
+           overflow: hidden;
+           position: relative;
+           color: #806a21;
+       }
+	    
+	    .container {
+           margin: 0 auto;
            overflow: hidden;
            position: relative;
            color: #806a21;
@@ -88,7 +94,7 @@
        .Profile-Details {
          height: 400px;
          margin-top: 110px;
-         margin-left: -150px;
+         margin-left: -130px;
          width: 600px;
          padding: 10px;
          
@@ -153,6 +159,9 @@
          color: #30B7FB;
 	 cursor: pointer;
        }
+	    .fixed-top {
+    height: 70px;
+	    }
 	    
 		.bg-primary {
 			background-color: #F7DD30 !important;
