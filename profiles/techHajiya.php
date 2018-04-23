@@ -87,7 +87,8 @@
             flex-direction: column;
             overflow-y: scroll;
             max-height: 500px;
-			border-radius: 5px; 
+			border-radius: 5px;
+			
 			
         }
         .chat-result > div {
@@ -100,10 +101,11 @@
         }
         .chat-result .bot-message {
             text-align: right;
-			
+			border: 1px solid grey;
         }
         .chat-result .bot-message .message {
             background: #eee;
+			
 			
         }
         .chat-result .message {
