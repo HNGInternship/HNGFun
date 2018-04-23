@@ -86,7 +86,7 @@
             background: white;
             flex-direction: column;
             overflow-y: scroll;
-            max-height: 400px;
+            max-height: 500px;
 			border-radius: 5px; 
 			
         }
@@ -144,7 +144,7 @@
     </style>
 </head>
 <body>
-
+<div class="container">
     <?php
     global $conn;
     try {
@@ -156,7 +156,7 @@
         throw $e;
     }
     ?>
-<div class="container">
+
      <div class="row">
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
@@ -177,8 +177,8 @@
 	    <div class="chatbox">
                 <div class="chat-result" id="chat-result">
                     <div class="user-message">
-					<div class="message">Hello! I'm LoBot! feel free to ask me anything. </div>
-                    <div class="message"></br>To train me, use this syntax - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
+					<div class="message">Hello! I'm LoBot! feel free to ask me anything.   </div>
+                    <div class="message">To train me, use this syntax - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
                     </div>
                 </div>
 
