@@ -96,12 +96,9 @@
    
     
     <script type="text/javascript" src="profiles/worldclassdev/js/libs/require/require.js"></script>
-<<<<<<< HEAD
+
     <script type="text/javascript" src="profiles/worldclassdev/js/main.js"></script>
 
   </body>
 
 </html>
-=======
-<script type="text/javascript" src="profiles/worldclassdev/js/main.js"></script>
->>>>>>> cc7d9a744907aec4e0801b509874380fd60e0d5c
