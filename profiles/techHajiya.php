@@ -24,6 +24,7 @@
             max-width: 550px;
             margin: 0 auto;
 			 border-radius: 5px;
+			 margin-bottom: 50px;
         }
 
         footer {
@@ -206,7 +207,7 @@
                 </div>
             </div>
 
-      <div class="col-sm-6 chatbox" style='float: right; padding-top: 50px'>
+      <div class="col-sm-6 chatbox" style='float: right; padding-top: 10px'>
 	 <div class='chatbot-menu-header'>
                         <div class="hng-logo"></div> <span>LoBot v1.0</span>
                     </div>
