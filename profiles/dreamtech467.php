@@ -153,7 +153,7 @@
 					return;		
 				}
 				else if(($results)==null){
-					sendReply($answer);
+					$answer = sendReply($answer);
 				}
 				else{
 					$answer = "Wow, I can only answer your question to the best of my knowledge, but you can train me to be smart: By entering the following<br>
