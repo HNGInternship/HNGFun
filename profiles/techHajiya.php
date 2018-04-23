@@ -52,7 +52,7 @@
 		
 	
  
-body {
+chatbox {
     margin: 0px;
 }
 #user {
