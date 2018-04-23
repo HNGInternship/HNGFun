@@ -2,7 +2,7 @@
 if (!defined('DB_USER')) {
     define('DB_USER', "root");
     define('DB_PASSWORD', "");
-    define('DB_DATABASE', "hngfun");
+    define('DB_DATABASE', "hng_fun");
     define('DB_HOST', "localhost");
 }
 try {
@@ -28,8 +28,7 @@ catch (PDOException $e) {
 }
 global $conn, $user_input_array2;
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") { 
-
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     function Validate_input($data) 
     {
         $data = trim($data);
@@ -233,7 +232,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             }
         }
-    }                 
+    }         
+
 } else {
 ?> 
 
