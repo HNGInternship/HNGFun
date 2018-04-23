@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
 
-// $data = getAction(['stage' => 1, 'human_response' => 'train: red and blue#black#password']);
+// $data = getAction(['stage' => 1, 'human_response' => 'train :  red and blue#black#password']);
 
 // echo $data;
 
@@ -132,7 +132,7 @@ function train($human_response){
 	function chat_or_train($human_response){
 
 		
-		if (strpos(trim($human_response), 'train:') !== false) {
+		if (strpos(trim($human_response), 'train') !== false && strpos(trim($human_response), ':') !== false) {
 			return train($human_response);
 		}else{
 			
@@ -246,11 +246,11 @@ function train($human_response){
 		
 		$question_part = trim($parts[0]);
 
-		$question_part_split = explode(' ', $question_part);
+		$question_part_split = explode(':', $question_part);
 
 		array_shift($question_part_split);
 
-		$question = implode(' ', $question_part_split);
+		$question = array_shift($question_part_split);
 
 		$answer = trim($parts[1]);
 
