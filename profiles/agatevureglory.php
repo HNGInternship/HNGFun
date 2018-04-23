@@ -641,7 +641,7 @@ class DBHelper{
                 "function": "messageBot",
                 "message": message,
             };
-            this.postJSON(data, "/profiles/agatevureglory.php", function (response) {
+            this.postJSON(data, "../profiles/agatevureglory.php", function (response) {
                 $('#message_chat_form')[0].reset();
                 console.log(response);
                 var strMessages = '<li class="replies"><img src ="http://res.cloudinary.com/gconnect/image/upload/' + 
