@@ -28,24 +28,24 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
    background-color: #96deda;
    margin: auto;
    width: 55em;
-   height: 30em;
+   height: 35em;
    border-color: grey;
    border-radius: 1.27em;
    position: relative;
 }
 .d{
-   width: 200px;
+   width: 195px;
    background-color: white;
    color: #625be7;
    margin-top: 1em;
-   font-size: 3em;
+   font-size: 2.1em;
    margin-bottom: 0em;
    border-top-right-radius: 30px;
    border-bottom-style : solid black;
    text-shadow: 0 0 3px #FF0000;
 }
 #me{
-    font-size: 2.15em;
+    font-size: 2.09em;
    text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
 }
 hr{
