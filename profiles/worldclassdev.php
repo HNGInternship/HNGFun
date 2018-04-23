@@ -77,10 +77,7 @@ $worldclassdev = array_shift($data);
            ** and the CSS documentation under Support/API Docs/Non-Component Styling
            ** on the JET website for more information on how to use this pattern.
         -->
-        <oj-module role="main" class="oj-web-applayout-max-width oj-web-applayout-content oj-complete" config="[[moduleConfig]]"><!-- ko ojModule: {"view":$properties.config.view, "viewModel":$properties.config.viewModel,"cleanupMode":$properties.config.cleanupMode,"animation":$properties.animation} --><!--
- Copyright (c) 2014, 2018, Oracle and/or its affiliates.
- The Universal Permissive License (UPL), Version 1.0
- -->
+       
 <div class="oj-hybrid-padding">
   <my-profile>
     <div class="twcd container">
@@ -95,8 +92,7 @@ $worldclassdev = array_shift($data);
           </div>
     </div>  
   </my-profile>
-</div><!-- /ko --><div data-bind="_ojNodeStorage_" style="display: none;" class="oj-subtree-hidden">
-        </div></oj-module>
+</div>
       </div>
       </div>
    
