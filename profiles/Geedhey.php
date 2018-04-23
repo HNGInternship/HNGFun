@@ -76,7 +76,7 @@
             $functionToCall = substr($answer, $startParanthesesIndex + 2, $endParanthesesIndex - $startParanthesesIndex - 2);
             // If the inner function in the answer does not exist in answers.php, we let the user know
             if(!function_exists($functionToCall)){
-                sendReply('Sorry. I do not have an answer to your query.');
+                sendReply('Sorry. I do not have an answer to your question at th moment.');
             }else{
                 $functionCallResult = $functionToCall();
                 // send the reply of the function call in the original answer we got from the DB
@@ -108,7 +108,7 @@
                 trainBot($question);
             }
             // send response for other errors
-            sendReply("Answer not available...Type 'train: question # answer'");
+            sendReply("Answer not available...Type 'train: question # answer' to train and make me smarter");
         }
     }
 ?>
@@ -462,15 +462,8 @@ h5 {
         new Vue({
             el: '.bot',
 			data: {
-                messages: [{data: "Hey, I'm Phoenix!", sender: 'bot'}, 
-                {data: "I know the USSD codes of all banks in Nigeria!" +
-
-                " 1. Just type 'ussd: name_of_bank' e.g 'ussd: Money Bank'." + 
-
-                " 2. To train me, use this format 'train: question # answer'" +
-
-                " 3. Type 'aboutbot' to see my latest version", 
-                sender: 'bot'}],
+                messages: [{data: "My Name is Crochet!", sender: 'bot'}, 
+                ],
                 message: ''
             },
             methods: {
