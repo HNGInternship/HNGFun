@@ -81,8 +81,8 @@ $input = trim($input);
                 $question = strtolower($input);
                 $question = str_replace('?', '', $question);
                 $question = trim($question);
-                $result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'");
-                $fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                print_r($result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'"));
+                print_r($fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC));
                 $row_cnt = $result->num_rows;
                 $rand = rand(0, $row_cnt - 1);
                 if ($row_cnt > 0) {
@@ -276,7 +276,7 @@ try {
         <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
         <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
     </div>
-    <p class="mycss"> Chatbot by Adokiye<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
+    <p class="mycss"> Chatbot by Adokiye!!!<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
     <form name = "askMe" method="post">
         <p>
             <label>
