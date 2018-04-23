@@ -1,24 +1,22 @@
-<?php
-  if(!defined('DB_USER')){
-    require "../config.php";
-  }
-  try {
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-  } catch (PDOException $pe) {
-    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-  }
-  $date_time = new DateTime('now', new DateTimezone('Africa/Lagos'));
-  global $conn;
-  try {
-    $sql = 'SELECT * FROM secret_word';
-    $secret_word_query = $conn->query($sql);
-    $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
-    $secret_word_result = $secret_word_query->fetch();
-  } catch (PDOException $e) {
-      throw $e;
-  }
-    $secret_word = $secret_word_result['secret_word'];
- ?>
+<?php 
+		
+		if(!defined('DB_USER')){
+			require "../../config.php";		
+			try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
+		}
+    try {
+        $q = 'SELECT * FROM secret_word';
+        $sql = $conn->query($q);
+        $sql->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $sql->fetch();
+        $secret_word = $data["secret_word"];
+    } catch (PDOException $err) {
+        throw $err;
+    }?>
 <?php
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$question = $_POST['message-box'];
