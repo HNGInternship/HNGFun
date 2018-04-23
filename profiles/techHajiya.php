@@ -13,9 +13,12 @@
             padding-left: 0;
         }
 		   .chatbox {
-            height: auto;
-            padding: <?=$padding;?>;
-            background: #FFFFFF;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 75%;
+            display: flex;
+            flex-direction: column;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         footer {
@@ -72,7 +75,7 @@
 }		
         .chat-result {
             flex: 1;
-            padding: 20px;
+            padding: 10px;
             display: flex;
             background: white;
             flex-direction: column;
@@ -111,6 +114,25 @@
             border-radius: 4px;
             padding: 8px;
         }
+		#send {
+   width: 50px;
+   height: 35px;
+   display: inline-block
+   outline: none;
+   border: none;
+   color: #FFF;
+   background-color: #00F;
+   float: left;
+   border-radius: 25px;
+   padding: 0px;
+   cursor: pointer;
+   margin: 0px;
+}
+#send:active {
+   background-color: #00A; 
+   outline: none;
+}
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 </head>
@@ -145,6 +167,7 @@
         </div>
 
       <div class="col-sm-6">
+	    <div class="chatbox">
                 <div class="chat-result" id="chat-result">
                     <div class="user-message">
                         <div class="message">Hello! I'm LoBot! Ask anything and I'll be sure to answer! </br>To train me, use this syntax - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
@@ -153,10 +176,11 @@
 
                 <div class="chat-input">
                     <form action="" method="post" id="user-input-form">
-                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
+                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Type a message...">
+						<button id="send">SEND</button>
                     </form>
                 </div>
-
+			</div>
           </div>
 
 
