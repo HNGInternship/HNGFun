@@ -1,6 +1,6 @@
 <?php
 
-		require_once '../config.php';
+		require_once '../../config.php';
 /**
  * Class Db
  */
@@ -305,6 +305,7 @@ class DBHelper{
 	$name = (new DBHelper())->getMyProfile();
 
 ?>
+<?php if($_SERVER['REQUEST_METHOD'] === "GET"){ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -590,7 +591,7 @@ class DBHelper{
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://use.fontawesome.com/477bc8d938.js"></script>
 <!-- <script src="http://code.responsivevoice.org/responsivevoice.js"></script> -->
-<script type="text/javascript" src="../js/jquery.min.js"></script>s
+<script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript">
     var chat = chat || {};
 
@@ -724,4 +725,4 @@ class DBHelper{
         });                          
     });
 </script>
-
+<?php } ?>
