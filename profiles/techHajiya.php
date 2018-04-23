@@ -13,7 +13,7 @@
             overflow-x: hidden;
         }
 		 .container {
-            max-width: 95%;
+            max-width: 40%;
             padding-left: 0;
 		
         }
@@ -22,7 +22,7 @@
             font-size: 16px;
             display: flex;
             flex-direction: column;
-            max-width: 400px;
+            max-width: 450px;
 			 border-radius: 5px;
 			 margin-bottom: 50px;
         }
@@ -92,7 +92,7 @@
         }
         .chat-result > div {
             margin: 0 0 10px 0;
-			width: 100px;
+			width: 400px;
         }
         .chat-result .user-message .message {
             background: #191970;
@@ -111,7 +111,7 @@
             padding: 5px 5px;
 			margin: 2px;
             border-radius: 10px;
-			width: 100px;
+			width: 400px;
 			  
         }
         .chat-input {
