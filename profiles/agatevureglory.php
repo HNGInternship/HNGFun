@@ -377,7 +377,7 @@ class DBHelper{
 	 	cursor: pointer; 
 	}
 	.open-more{
-	 	bottom:0px; transition:2s; 
+	 	bottom:0px; transition:2; 
 	}
 	.chat-border{
 		 border:1px solid green;
@@ -535,7 +535,7 @@ class DBHelper{
 	<div class="container"> 
 		<div class="row">
 		  	<div class="col-sm-5 "><span class="flow-text"><img class ="myPics" src="http://res.cloudinary.com/gconnect/image/upload/v1523730900/glory.jpg" width="300px" height="400px"></span>
-		    <h6 class="name"><a href="www.medium.com/@agatevureglory"><?php echo $name; ?></a></h6>
+		    <h6 class="name"><a href="www.medium.com/@agatevureglory">Agatevure Glory</a></h6>
 		  	</div>
 		     <div class="col-sm-7 ">
 		            <h4 class="heading">Love to keep it simple</h4>
