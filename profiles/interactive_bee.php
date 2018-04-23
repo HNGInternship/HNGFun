@@ -159,6 +159,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+<body style="background-color:#87bdd8;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -203,7 +204,7 @@
         font-family: 'Rhodium Libre', serif;
     }
     #head{
-        background: White;
+        background: Coral;
         min-height: 400px;
         text-align:center;
     }
@@ -213,7 +214,7 @@
     width:70%;
     }
     img{
-        border-radius:15%;
+        border-radius: 5px;
         background-color: beige;
         width:350px;
         height:300px;
@@ -262,6 +263,42 @@
 		text-align: right;
 		color: green !important;
 	}
+
+	#question{
+		width: 100%;
+		height: 50px;
+		color: green;
+		text-align: right;
+		font-size: 20px;
+
+	}
+
+	#submit-button{
+		background-color: blue;
+		width:100%;
+		height:50px;
+		background-color: blue;
+		border: 0px solid transparent;
+		border-radius: 3px;
+		color: white;
+		padding: 0px;
+	}
+	
+	.no-margin{
+		padding:0px;
+		margin:0px;
+	}
+	#header-trigger{
+		position: fixed;
+		bottom: 0;
+		right: 0;
+		z-index: 10000;
+		cursor: pointer;
+	}
+
+	#bot-head{
+		cursor: pointer;
+	}
 </style>
 <body>
     <div id="head">
@@ -273,7 +310,7 @@
 					<h1><?php echo $user->name; ?></h1>
         			<p>Writer | Android Developer | HNG Intern</p>
         			<p>Akwa Ibom, Nigeria</p>
-		</div>  </div>
+		</div>  
     </div>
     <div>Social Media</div>
     <div id="socialicons">
@@ -282,28 +319,43 @@
         <a href="https://twitter.com/interactive_bee"><i class="fa fa-twitter"></i></a>
         <a href="https://github.com/BeeAkpan"><i class="fa fa-github"></i></a>
                 </div>
-                <div class="col-sm-8">
+
+			<div class="col-md-4" id="header-trigger">
+				<div class="panel panel-default pan" >
+					<div class="panel-heading">
+					<h5>SMART CHAT-BOT</h5>
+					</div>
+				</div>
+			</div>
+
+                <div class="col-sm-8 " id="chatter">
                     <div class="row">
                         <div class="col-sm-10 col-sm-offset-1">
                     		<div class="panel panel-default pan">
-                        		<div class="panel-heading">
+                        		<div class="panel-heading" id="bot-head">
 									<h5>SMART CHAT-BOT</h5>
                         		</div>
 								<div id="chats">
 									<div class="panel-body" id="chat-interface"></div>
 								</div>
-                        	</div>
-								<div class="col-md-10 col-xs-10">
+								<div class="col-md-12 col-xs-12 no-margin">
 								<!-- New Form for input-->
 									<form action="#" method="post" id="bot-interface">
-										<input class="inputText" type="text" name="question" id="question" >
-										<input type="Submit" value="Submit" id="submit-button">
+									<div class="col-md-10 col-xs-10 no-margin" style="margin:0px">
+										<input class="inputText no-margin" type="text" name="question" id="question" >
+									</div>
+									<div class="col-md-2 col-xs-2 no-margin">
+										<input type="Submit" value="Send" id="submit-button">
+									</div>
 									</form>
-							</div> </div>
-                    	</div>
+								</div> 
+                        	</div>
+								
+						</div>
+                    </div>
                 </div>
             </div>
-                </div>
+        </div>
             </div>
         </div>
 
@@ -318,6 +370,21 @@
     <script>
 
     $(document).ready(function(){
+		// By default hide the chat bot
+		$('#chatter').hide();
+
+			// Activate Chat bot visibility
+			$('#header-trigger').click(function(){
+				$('#header-trigger').hide();
+				$('#chatter').fadeIn('3000');
+				$('#chatter').focus();
+				$('#question').focus();
+			});
+
+			$('#bot-head').click(function(){
+				$('#header-trigger').fadeIn('1000');
+				$('#chatter').hide();
+			});
 
 			$('#submit-button').click(function(){
 
@@ -381,7 +448,5 @@
 		});
 	});
 </script>
-
-
 </body>
 </html>
