@@ -221,8 +221,8 @@
 				  margin-top: 80px;
 				  padding:30px;
 				  width:100%;
-				  smargin-right:auto;
-				  smargin-left:auto;
+				  margin-right:auto;
+				  margin-left:auto;
 				  border-radius: 10px;
 				  
 
@@ -256,9 +256,9 @@
 			.chatBox{
 				cursor:pointer;
 				background:#ffffff;
-				0width:250px;
-				0right:20px;
-				mmposition:fixed;
+				width:250px;
+				right:20px;
+				position:fixed;
 				bottom:-5px;
 				border-radius: 5px 5px 0px 0px;
 			}
