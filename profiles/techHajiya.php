@@ -50,8 +50,6 @@
         }
 		
 		
-		
-		
         .chat-result {
             flex: 1;
             padding: 20px;
@@ -128,7 +126,7 @@
             <div class="body1">
                 <div class="chat-result" id="chat-result">
                     <div class="user-message">
-                        <div class="message">Hi there! I'm LoBot! Ask anything and I'll be sure to answer! </br>To train me, use this syntax - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
+                        <div class="message">Hello! I'm LoBot! Ask anything and I'll be sure to answer! </br>To train me, use this syntax - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
                     </div>
                 </div>
 
