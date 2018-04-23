@@ -1,15 +1,3 @@
-<?php      
-    
-        require "../db.php";
-
-        $secret = $conn->query("SELECT * FROM secret_word LIMIT 1");
-        $secret = $secret->fetch(PDO::FETCH_OBJ);
-        $secret_word = $secret->secret_word;
-
-        $result = $conn->query("SELECT * FROM interns_data WHERE username = 'nerocodes'");
-        $user = $result->fetch(PDO::FETCH_OBJ);
-
-?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -67,6 +55,16 @@
 
         
     </style>
+    <?php      
+
+        $sql = $conn->query("SELECT * FROM secret_word LIMIT 1");
+        $sql = $sql->fetch(PDO::FETCH_OBJ);
+        $secret_word = $sql->secret_word;
+
+        $result = $conn->query("SELECT * FROM interns_data WHERE username = 'nerocodes'");
+        $user = $result->fetch(PDO::FETCH_OBJ);
+
+    ?>
     <main>
         <h1 class="name"><?php echo $user->name ?></h1>
         <img src="<?php echo $user->image_filename ?>" alt="" class="image">
@@ -81,5 +79,4 @@
     </footer>
         
     </body>
-    
 </html>
