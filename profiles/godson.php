@@ -40,13 +40,20 @@
          background-size: cover;
        }
 
-       .container {
+       .container1 {
            width: 100%;
            height: 100%;
            margin: 0 auto;
            padding-top: 40px;
            padding-bottom: 40px;
            padding-right: 25px;
+           overflow: hidden;
+           position: relative;
+           color: #806a21;
+       }
+	    
+	    .container {
+           margin: 0 auto;
            overflow: hidden;
            position: relative;
            color: #806a21;
@@ -159,7 +166,7 @@
 
     </style>
    <body>
-      <div class="container">
+      <div class="container1">
          <div class="TxtMask">
             <div class="Menu-bars">
                <hr>
