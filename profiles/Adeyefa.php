@@ -20,7 +20,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    //include "../answers.php";
+    include "../answers.php";
     
     try{
 
@@ -82,6 +82,27 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			]);
 			return;
 		}
+		elseif ($arr[0] == "help") {
+			echo json_encode([
+				'status' => 1,
+				'answer' => "Type 'aboutbot' to know about me. You can also convert cryptocurrencies using this syntax.
+				'convert btc to usd"
+			]);
+			return;
+			
+		}
+		elseif ($arr[0] == "convert") {
+			# code...
+			$from = $arr[1];
+			$to = $arr[3];
+			$converted_price = GetCryptoPrice($from, $to);
+			$price = "1 " . $from . " = " . $to . " " . $converted_price ;
+			echo json_encode([
+				'status' => 1,
+				'answer' => $price
+			]);
+			return;
+		}
 	    elseif ($arr[0] == "aboutbot") {
 	    	# code...
 	    	echo json_encode([
@@ -113,7 +134,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			        	'answer' => $answer
 			        ]);
 			        return;
-		        }else{//otherwise call a function. but get the function name first
+		        }else{//to get the name of the function, before calling
 		            $index_of_parentheses_closing = stripos($answer, "))");
 		            if($index_of_parentheses_closing !== false){
 		                $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
@@ -251,7 +272,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    overflow-x: hidden;
 		    padding: 10px 5px 92px;
 		    border: none;
-		    max-height: 300px;
+		    max-height: 350px;
 		    -webkit-justify-content: flex-end;
 		    justify-content: flex-end;
 		    -webkit-flex-direction: column;
@@ -320,7 +341,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
-									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about me type: 'aboutbot'
+									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about what i can do type 'help'
 								</div>
 								<div class="iro">
 									<ul id="queries">
@@ -357,7 +378,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#ans").append("<li>"  + response.answer +  "</li>");
+			        $("#ans").append("<li>" + response.answer + "</li>");
 			       // console.log(response.result);
 			        //alert(response.result.d);
 			        //alert(answer.result);

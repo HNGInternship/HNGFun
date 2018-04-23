@@ -389,6 +389,108 @@ for($h=0;$h<sizeof($sentence);$h++){
 
 
 
+function find_place($query) {
+ 
+// $apiKey="AIzaSyDlvWmwKX40qRKZQFRKP1qngWnTPKKWM5Y";
+  $return="No results were found matching this query";
+$display='block';
+
+  $place=urlencode($query);
+$placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$place."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
+
+try{
+$response = file_get_contents($placesUrl);
+$parsed_response = json_decode($response, TRUE);
+
+
+
+for($i=0;$i<sizeof($parsed_response['results']);$i+=2){
+
+  if($i==0){
+  $return="";
+  }
+
+  $firstName=$parsed_response['results'][$i]['name'];
+  $firstRating=$parsed_response['results'][$i]['rating'];
+  $firstAddy=$parsed_response['results'][$i]['formatted_address'];
+  $firstType=$parsed_response['results'][$i]['types'][0];
+
+
+  $secondName=$parsed_response['results'][$i+1]['name'];
+  $secondRating=$parsed_response['results'][$i+1]['rating'];
+  $secondAddy=$parsed_response['results'][$i+1]['formatted_address'];
+  $secondType=$parsed_response['results'][$i+1]['types'][0];
+
+  if(sizeof($parsed_response['results'])-$i==1 ){
+  $display='none';
+}
+  
+
+  $return='<div class="row">'
+
+ .'<div class="col-xs-6 col-md-4">'
+            .'<span>'.$firstName.'</span><br>'
+            .'<span>'.$firstRating.' star rating</span><br>'
+            .'<span>'.$firstAddy.'</span><br>'
+            .'<span>'.$firstType.'</span><br>'
+          .'</div>'
+          .'<div class="col-xs-6 col-md-4" style="display:"'.$display.'">'
+            .'<span>'.$secondName.'</span><br>'
+            .'<span>'.$secondRating.' star rating</span><br>'
+            .'<span>'.$secondAddy.'</span><br>'
+            .'<span>'.$secondType.'</span><br>'
+          .'</div>'
+         .' </div>'.$return;
+
+}
+
+return $return;
+}
+
+catch(Exception $e){
+  return $e;
+
+}
+
+
+}
+
+
+function get_help(){
+
+   return ' Some special functions I perform are: <br>'
+          .'<ul><li><strong>Bot Version</strong><br>'
+                .'Type <span id="important">aboutbot</span>'
+            .'</li>'
+              .'<li><strong>Translate English to Pig Latin</strong><br>'
+                .'Type <span id="important">pig latin: word/sentence</span><br>'
+                .'The variable is used like so <span id="important">{{variable}}</span> and function as <span id="important">(pig_latin)</span><br>'
+             .'</li>'
+              .'<li><strong>Place Locator</strong><br>'
+                .'Used to find type of places in an area'
+                .'Type <span id="important">find: place in area</span><br>'
+                .'For example <span id="important">find: restaurants in nigeria</span><br>'
+                .'<span id="important">find: hotels in yaba</span><br>'
+                .'Also can find location of compnies or org e.g <span id="important">find: hotelsng in nigeria</span><br>'
+                .'<span id="important">find: Chevron </span><br>'
+                .'The variable is used like so <span id="important">{{variable}}</span> and function as <span id="important">(find_place)</span><br>'
+              .'</li>'
+               .'<li><strong>View available commands again</strong><br>'
+                .'Type <span id="important">commands</span>'
+            .'</li>'
+          .'</ul>';
+}
+
+function get_bot_version(){
+
+    $bot_version=1.9;
+
+   return "Merlin Version : ".$bot_version;
+
+}
+
+
+
 //****************************************************************************************************************************************************************
 //****************************************************************************************************************************************************************
 //****************************************************************************************************************************************************************
@@ -1206,5 +1308,22 @@ $dataa = json_decode(file_get_contents($url_location), true);
   return $help;
  }
   /**chibuokems functions ends here */
+
+
+
+  //////ADEYEFA OLUWATOBA FUNCTIONS, DO NOT EDIT WITHOUT PERMISSION////////
+
+  function GetCryptoPrice($from, $to) {
+    $from = (trim(strtoupper($from)));
+    $to = (trim(strtoupper($to)));
+    $url = 'curl -s -H "CB-VERSION: 2017-12-06" "https://api.coinbase.com/v2/prices/'.$from.'-'.$to.'/spot"';
+    $tmp = shell_exec($url);
+    $data = json_decode($tmp, true);
+    if ($data && $data['data'] && $data['data']['amount']) {
+      return (float)$data['data']['amount'];
+    }
+    return null;
+  }
+  ///////ADEYEFA OLUWATOBA FUNCTIONS END ///////////////////////////////////
 
 ?>
