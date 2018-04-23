@@ -79,6 +79,14 @@ function doSpecialFunction($func,$text){
     return pig_latin($text);
     }
 
+    else if($func=="bot"){
+        return get_bot_version();
+    }
+
+     else if($func=="commands"){
+        return get_help();;
+    }
+
     else{
         return find_place($text);
     }
@@ -158,7 +166,6 @@ function getReply($data){
 
     require '../db.php';
 
-    require "../answers.php";
 
     // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 
@@ -170,13 +177,13 @@ function getReply($data){
 
         if(strtolower($trimData)=="aboutbot"){
 
-            return get_bot_version();
+            return doSpecialFunction("bot","");
 
         }
 
-        if(strtolower($trimData)=="help"){
+        if(strtolower($trimData)=="commands"){
 
-            return get_help();
+            return doSpecialFunction("commands","");
            
         }
 
@@ -670,7 +677,7 @@ ul{
 }
 
 li{
-    padding-bottom: 0.5%;
+    padding-bottom: 2%;
 }
 
 
