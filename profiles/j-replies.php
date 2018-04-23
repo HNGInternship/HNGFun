@@ -121,7 +121,7 @@ function trainJobot($question, $conn){
 
     $pass = trim($pass);
 
-    if ($pass === "trainpwforhng")
+    if ($pass === "password")
     {
     $train_query = "INSERT INTO chatbot (question, answer)
                     VALUES ('$ques', '$ans')";
@@ -130,7 +130,7 @@ function trainJobot($question, $conn){
 
     }
     else{
-        echo "You Are Not Allowed To Train Me".$pass;
+        echo "You Are Not Allowed To Train Me";
     }
 }
 
