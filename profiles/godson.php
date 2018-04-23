@@ -159,6 +159,9 @@
          color: #30B7FB;
 	 cursor: pointer;
        }
+	    .fixed-top {
+    height: 70px;
+	    }
 	    
 		.bg-primary {
 			background-color: #F7DD30 !important;
