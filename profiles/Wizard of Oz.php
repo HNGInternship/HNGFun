@@ -674,10 +674,11 @@ background: rgba(0, 0, 0, 0.7);
 
 ul{
     padding-left: 0%;
+    padding-bottom: 2%;
+    
 }
 
 li{
-    padding-bottom: 2%;
 }
 
 
