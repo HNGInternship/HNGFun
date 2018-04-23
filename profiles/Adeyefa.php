@@ -96,7 +96,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			$from = $arr[1];
 			$to = $arr[3];
 			$converted_price = GetCryptoPrice($from, $to);
-			$price = "1 " . $from . " = " . $to . $converted_price ;
+			$price = "1 " . $from . " = " . $to . " " .$converted_price ;
 			echo json_encode([
 				'status' => 1,
 				'answer' => $price
