@@ -5,6 +5,26 @@
 HNG
 </title>
 <head>
+
+<?php 
+	if(defined('DB_USER') === false){
+		try {
+			require "../../config.php";
+			global $conn;	
+			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			
+		} catch (PDOException $pe) {
+			die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+		}
+	}
+        
+        $result = $conn->query("Select * from secret_word LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+		$secret_word = $result->secret_word;
+		$result2 = $conn->query("Select * from interns_data where username = 'charlyge'");
+		$user = $result2->fetch(PDO::FETCH_OBJ);
+		?>
+
  <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
 </head>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
@@ -46,7 +66,7 @@ HNG
             color:white;
         }
         .mybio{
-            color:#ccc666;
+            color:blue;
         }
         .avatar {
             background-size: cover;
