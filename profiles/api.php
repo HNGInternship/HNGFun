@@ -21,11 +21,11 @@
             $data = array(
                 "config" => array(
                     "encoding" => "LINEAR16",
-                    "sample_rate" => $bitRate,
-                    "language_code" => "en-IN"
+                    "sample_rate" => 44000,
+                    "language_code" => "en-US"
                 ),
                "audio" => array(
-                    "content" => base64_encode($uploaded_file),
+                    "content" => $audio,
                 )
             );
 
