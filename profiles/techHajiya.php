@@ -85,7 +85,9 @@
             background: white;
             flex-direction: column;
             overflow-y: scroll;
-            max-height: 500px;
+            max-height: 400px;
+			border-radius: 5px; 
+			
         }
         .chat-result > div {
             margin: 0 0 20px 0;
@@ -109,13 +111,12 @@
         .chat-input {
             padding: 15px;
             background-color: #fff;
-            border-radius: 5px; 
 			font-size: 16px;
         }
         .chat-input .user-input {
             width: 80%;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 25px;
             padding: 10px;
 			float: left;
         }
