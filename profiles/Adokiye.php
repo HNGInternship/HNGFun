@@ -1,12 +1,7 @@
 <?php
-
 session_start();
-
-if (!isset($_SESSION["all"])){
-    $_SESSION["all"] = [];
-}
 if(!defined('DB_USER')){
-    require "../../config.php";
+    require_once "../../config.php";
     $servername = DB_HOST;
     $username_ = DB_USER;
     $password = DB_PASSWORD;
@@ -19,6 +14,28 @@ if(!defined('DB_USER')){
     }}
 global $conn;
 
+global $secret_word;
+try {
+    $sql = "SELECT secret_word FROM secret_word LIMIT 1";
+    $q = $conn->query($sql);
+    foreach ($conn->query($sql) as $row) {
+        $name = $row['name'];
+        $username = $row['username'];
+
+    }
+} catch (PDOException $e) {
+    throw $e;}
+    function getTime()
+    {
+        date_default_timezone_set('Africa/Lagos');
+        return "The time is " . date("h:i:sa");
+
+}
+
+
+if (!isset($_SESSION["all"])){
+    $_SESSION["all"] = [];
+}
 $solution = '';
 if (isset($_POST['restart'])){
     session_destroy();
@@ -31,38 +48,67 @@ if (isset($_POST['button'])) {
     }
 }
 function askQuestion($input)
-{
-    $split = preg_split("/(:|#|#)/", $input, -1);
+{$input = strtolower($input);
+$input = trim($input);
+    $action = "train:";
     global $conn;
-    $action = "train";
-    $question = strtolower($split[0]);
-    if ($split[0] !== $action && !isset($split[1]) && !isset($split[2])) {
-        $result =  mysqli_query($conn,"SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'" );
-        $fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        $row_cnt = $result->num_rows;
-        $rand = rand(0,$row_cnt-1);
-        if ($row_cnt>0) {
-            return $fetched_data[$rand]['answer'];
-        } else
-            return "ENTER TRAIN: QUESTION#ANSWER#password TO ADD MORE QUESTIONS TO THE DATABASE";
-    }else if  ($split[0] == $action && isset($split[1]) && isset($split[2])&&isset($split[3])) {
-        if ($split[3]= "password"){
-        $question = strtolower($split[1]);
-        $sql1 = 'SELECT question FROM chatbot WHERE LOWER(question) = "' . $question . '"';
-        $query = $conn->query($sql1);
-        $fetched_data = mysqli_fetch_all($query, MYSQLI_ASSOC);
-        $row_cnt = $query->num_rows;
-        if ($row_cnt>0) {
-            return "QUESTION ALREADY EXISTS ";
-        }else
-            $the_queried = $conn->query("INSERT INTO chatbot(question, answer) VALUES ('" . $split[1] . "', '" . $split[2] . "')");
-        if ($the_queried){
-            $saved_message = "Saved " . $split[1] ." -> " . $split[2];
-            return $saved_message;
-        }else
-            return "Please try again";
-    }else
-     return "Please enter train:question#answer#password";}
+    $train = strpos($input,$action);
+    if ($input!==""||$input!==" ") {
+        if ($train === 0) {
+            $explode = explode(':', $input, 2);
+            if (isset($explode[1])) {
+                $explode2 = explode('#', $explode[1], 2);
+                if (isset($explode2[1])) {
+                    $explode3 = explode('#', $explode2[1], 2);
+                    if (isset($explode3[1])){
+                        if (  $explode3[1] == "password") {
+                            $sql1 = "SELECT question,answer FROM chatbot WHERE LOWER(question) ='" . $explode2[0] . "' and LOWER(answer) =  '" . $explode3[0] . "'";
+                            $query = $conn->query($sql1);
+                            $row_cnt = $query->num_rows;
+                            if ($row_cnt > 0) {
+                                return "QUESTION ALREADY EXISTS ";
+                            } else
+                                $the_queried = $conn->query("INSERT INTO chatbot(question, answer) VALUES ('" . $explode2[0] . "', '" . $explode3[0] . "')");
+                            if ($the_queried) {
+                                $saved_message = "Saved " . $explode2[0] . " -> " . $explode3[0];
+                                return $saved_message;
+                            } else
+                                return "Please try again";
+                        } else
+                            return "Please enter the right password";
+                    }else
+                        return "Please enter the password after your answer";
+                } else
+                    return "The right format is train:yourquestion#youranswer#password";
+            } else
+                return "The right format is train:yourquestion#youranswer#password";
+        } else {
+            if ($input == "aboutbot") {
+                return "Adokiye v1.0";
+            } else if ($input == "what is the time") {
+                return getTime();
+            } else if ($input == "help") {
+                return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me";
+            }else if($input=="you are mad"||$input == "you're mad"){
+                return "YOUR FATHER";
+            } else {
+                $question = strtolower($input);
+                $question = str_replace('?', '', $question);
+                $question = trim($question);
+                echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "$question";
+                print_r($result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'"));
+                print_r($fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC));
+                $row_cnt = $result->num_rows;
+                $rand = rand(0, $row_cnt - 1);
+                if ($row_cnt > 0) {
+                    return $fetched_data[$rand]['answer'];
+                } else
+                    return "Am sorry, this question wasn't found,Please ENTER TRAIN:QUESTION#ANSWER#password to make me smarter";
+
+            }
+        }
+    }
+
 }
 
 ?>
@@ -192,7 +238,6 @@ function askQuestion($input)
         document.body.scrollTop = 0; // For Safari
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     }  </script>
-
 <body>
 <?php
 if(!defined('DB_USER')){
@@ -213,20 +258,7 @@ $username = '';
 $sql = "SELECT * FROM interns_data where username = 'Adokiye'";
 foreach ($conn->query($sql) as $row) {
     $name = $row['name'];
-    $username = $row['username'];
-}
-
-global $secret_word;
-
-try {
-    $sql = "SELECT secret_word FROM secret_word";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-    $secret_word = $data['secret_word'];
-} catch (PDOException $e) {
-    throw $e;
-}
+    $username = $row['username'];}
 ?>
 <div class=".body" id="div_main">
     <div class=".header" id="header">
@@ -245,7 +277,7 @@ try {
         <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
         <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
     </div>
-    <p class="mycss"> Chatbot by Adokiye<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
+    <p class="mycss"> Chatbot by Adokiye!!!<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
     <form name = "askMe" method="post">
         <p>
             <label>
@@ -271,6 +303,4 @@ try {
 </div>
 </body>
 </html>
-
-
 
