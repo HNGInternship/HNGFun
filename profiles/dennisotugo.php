@@ -123,6 +123,14 @@ if (isset($_POST['payload'])) {
 else {
 ?>
 
+<<<<<<< HEAD
+<?php
+$doc = new DOMDocument();
+$doc->loadHTMLFile("/dennis/index.html");
+echo $doc->saveHTML();
+?>
+
+=======
 <!DOCTYPE html>
 <!--
   Copyright (c) 2015, 2018, Oracle and/or its affiliates.
@@ -288,5 +296,6 @@ else {
   </body>
 </html>
 
+>>>>>>> aadfd215cb967e2d6b216bc595f404e844e99e56
 <?php } 
 ?>

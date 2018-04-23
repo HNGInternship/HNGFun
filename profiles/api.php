@@ -5,13 +5,9 @@
             header('Access-Control-Allow-Origin: *');
             header('Access-Control-Allow-Headers: X-Requested-With, content-type, access-control-allow-origin, access-control-allow-methods, access-control-allow-headers');
         }
-        
+
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-       // $audio = $_POST['audio'];
-        
-        //this fetches the uploaded audio file 
-       $audio = file_get_contents( $_FILES['audio']['tmp_name']);
-        $uploadled_file = base64_encode($audio);
+       $audio = $_POST['audio'];
         
         $provider = $_POST['provider'];
         
