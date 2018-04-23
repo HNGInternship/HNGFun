@@ -231,9 +231,9 @@
       <body style="background:#4977bb; font-family: 'Roboto', sans-serif;">
        <div class="col-sm-12 col-xs-12">
        <br>
-       <h1 style="color:white; font-size:80px; text-align:center;">404</h1>
+       <h1 style="color:white; font-size:80px; text-align:center;">200</h1>
        
-       <h3 style="font-size:25px; color:white; font-weight:bold; text-align:center;">Lool! looks like you've come to the right profile!.</h3>
+       <h3 style="font-size:25px; color:white; font-weight:bold; text-align:center;">Lool! Hello there! You've come to the right profile!.</h3>
       
       <div class="col-sm-12 col-xs-12" style="text-align:center;margin-top: -215px;">
       <img src="http://res.cloudinary.com/amyxandra1/image/upload/v1523813494/IMG_20180223_115743.jpg" class="img-circle img-responsive" alt="@AmyXandra" style="margin:0 auto; position:relative; top:278px;" width="170px">

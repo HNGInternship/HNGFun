@@ -1,12 +1,13 @@
 <?php
-
     $googleBaseURL = "https://speech.googleapis.com/v1beta1/speech:syncrecognize?key=AIzaSyDAUWqKOBYP-Y1LeuD3lFRAy9jiZwRpQP8";
+    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+        if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) && $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'POST') {
+            header('Access-Control-Allow-Origin: *');
+            header('Access-Control-Allow-Headers: X-Requested-With, content-type, access-control-allow-origin, access-control-allow-methods, access-control-allow-headers');
+        }
+
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-       // $audio = $_POST['audio'];
-        
-        //this fetches the uploaded audio file 
-       $audio = file_get_contents( $_FILES['audio']['tmp_name']);
-        $uploadled_file = base64_encode($audio);
+       $audio = $_POST['audio'];
         
         $provider = $_POST['provider'];
         
@@ -20,11 +21,11 @@
             $data = array(
                 "config" => array(
                     "encoding" => "LINEAR16",
-                    "sample_rate" => $bitRate,
-                    "language_code" => "en-IN"
+                    "sample_rate" => 44000,
+                    "language_code" => "en-US"
                 ),
                "audio" => array(
-                    "content" => base64_encode($uploaded_file),
+                    "content" => $audio,
                 )
             );
 
