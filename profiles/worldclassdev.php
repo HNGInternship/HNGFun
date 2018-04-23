@@ -1,4 +1,10 @@
 <?php 
+$sql = "SELECT * FROM interns_data WHERE username = 'worldclassdev'";
+$query = $conn->query($sql);
+$query->setFetchMode(PDO::FETCH_ASSOC);
+$data = $query->fetchAll();
+$worldclassdev = array_shift($data);
+
     try {
         $secrete = 'SELECT * FROM secret_word';
         $sql = $conn->query($secrete);
@@ -9,6 +15,7 @@
         throw $error;
     }
 ?>
+
 
 <!DOCTYPE html>
 <!--
@@ -78,16 +85,16 @@
   <my-profile>
     <div class="twcd container">
         <div class="name">
-            <h1>Justine Philip</h1>
+            <h1><?php echo $worldclassdev['name']; ?></h1>
           </div>
           <div class="profile mx-auto">
-            <img class="profile-img mx-auto" src="http://res.cloudinary.com/worldclassdev/image/upload/v1523643285/16845555.png" alt="my-profile">
+            <img class="profile-img mx-auto" src="<?php echo $worldclassdev['image_filename']; ?>g" alt="my-profile">
           </div>
           <div class="about">
               I like to call myself a developer of all things JS. But basically i love to build stuff that solves a problem irrespective of the technology involved. I'm more about the impact than the money, but somehow i find both. When im not coding, i write, game and play the guitar.
           </div>
     </div>  
-  
+  </my-profile>
 </div><!-- /ko --><div data-bind="_ojNodeStorage_" style="display: none;" class="oj-subtree-hidden">
         </div></oj-module>
       </div>
@@ -97,7 +104,3 @@
     <script type="text/javascript" src="profiles/worldclassdev/js/libs/require/require.js"></script>
 
     <script type="text/javascript" src="profiles/worldclassdev/js/main.js"></script>
-
-  </body>
-
-</html>

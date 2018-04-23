@@ -5,7 +5,7 @@ function get_time(){
   //set the timezone to Africa/Lagos
   $datetime->setTimezone(new DateTimeZone('Africa/lagos'));
   //format the time
-  return $datetime->format('H:i:A');
+  return $datetime->format('H:i A');
 }
 
 ########################################################
@@ -1380,4 +1380,28 @@ $dataa = json_decode(file_get_contents($url_location), true);
   }
   ///////ADEYEFA OLUWATOBA FUNCTIONS END ///////////////////////////////////
 
+
+##Umar's SECTION## BEGINS HERE ##
+function bot_menu(){
+    return  "Send <b>'time'</b> to get the time. \n
+      Send <b>'about'</b> to know my version number. \n
+      Send <b>'help'</b> or <b>'menu'</b> to see this again. \n
+      To train me, send in this format => \n
+      'train:question#answer' \n
+      To get price for any cryptocurrency, send in this format \n
+      <b>crypto:'cryptoname'</b>\n
+      To clear the chat logs, just type <b>'cls'</b> or <b>'clear'</b>";
+  }
+
+function getCryptoPrice($ticker){
+    $url = "https://api.coinmarketcap.com/v1/ticker/".$ticker."/";
+    $response = @file_get_contents($url);
+    if (false === $response) {
+        return "No value";
+    }
+    $resp = json_decode($response, true);
+    $result = $resp[0]["price_usd"];
+    return $result;
+}
+## END'S HERE##
 ?>
