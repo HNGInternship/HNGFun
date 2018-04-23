@@ -1,5 +1,5 @@
 <?php
-  //require '../db.php';
+  require '../db.php';
   $res = $conn->query("SELECT * FROM  interns_data WHERE username = 'nath' ");
   $row = $res->fetch(PDO::FETCH_BOTH);
   $name = $row['name'];
@@ -92,8 +92,8 @@
 		}
 		.vl {
 			border: 2px solid #000;
-			height: 75%;
-			margin:auto;
+			margin-top: 5%;
+			margin-bottom: 5%;
 		}
 		#username {
 			font-weight: bold;
@@ -133,29 +133,29 @@
 <body>
 	<div class="all-contain">
 		<div class="part-1">
-		<div class="image_header">
-			<img src="http://res.cloudinary.com/nath/image/upload/v1524182119/Image_-_Portrait.jpg" alt="profile-image">
-			<!--
-				Cloudinary link to the image 
+			<div class="image_header">
+				<img src="http://res.cloudinary.com/nath/image/upload/v1524182119/Image_-_Portrait.jpg" alt="profile-image">
+				<!--
+					Cloudinary link to the image 
 
-			 http://res.cloudinary.com/nath/image/upload/v1524182119/Image_-_Portrait.jpg -->
+				 http://res.cloudinary.com/nath/image/upload/v1524182119/Image_-_Portrait.jpg -->
+			</div>
 		</div>
-	</div>
-	<div class="vl"></div>
-	<div class="part-2">
-		<div class="info">
-			<h1><?php echo $name ?>Makinde Nathaniel</h1>
-			<p id="username">@nath</p>
-			<p style="font-size: 40px;padding: 20px 0;">Frontend developer</p>
-			<p>All time lover of tech, love creating cool stuffs and I love music.</p>
+		<div class="vl"></div>
+		<div class="part-2">
+			<div class="info">
+				<h1><?php echo $name ?></h1>
+				<p id="username">@nath</p>
+				<p style="font-size: 40px;padding: 20px 0;">Frontend developer</p>
+				<p>All time lover of tech, love creating cool stuffs and I love music.</p>
+			</div>
+			<div class="logos">
+				<a href="https://web.facebook.com/nathanielsheun"><img src="http://res.cloudinary.com/nath/image/upload/v1524242347/facebook-letter-logo_318-40258.jpg" alt="facebook_logo"></a>
+				<a href="https://twitter.com/nathmankind"><img src="http://res.cloudinary.com/nath/image/upload/v1524242414/twitter-logo_318-40209.jpg" alt="twitter-logo"></a>
+				<a href="https://www.instagram.com/nath_mankind/"><img src="http://res.cloudinary.com/nath/image/upload/v1524242412/instagram-logo1.png" alt="instagram-logo"></a>
+				<a href="https://github.com/nathmankind"><img src="http://res.cloudinary.com/nath/image/upload/v1524250453/github-logo.svg" alt="github-logo"></a>
+			</div>
 		</div>
-		<div class="logos">
-			<a href="https://web.facebook.com/nathanielsheun"><img src="http://res.cloudinary.com/nath/image/upload/v1524242347/facebook-letter-logo_318-40258.jpg" alt="facebook_logo"></a>
-			<a href="https://twitter.com/nathmankind"><img src="http://res.cloudinary.com/nath/image/upload/v1524242414/twitter-logo_318-40209.jpg" alt="twitter-logo"></a>
-			<a href="https://www.instagram.com/nath_mankind/"><img src="http://res.cloudinary.com/nath/image/upload/v1524242412/instagram-logo1.png" alt="instagram-logo"></a>
-			<a href="https://github.com/nathmankind"><img src="http://res.cloudinary.com/nath/image/upload/v1524250453/github-logo.svg" alt="github-logo"></a>
-		</div>
-	</div>
 	</div>
 
 	
