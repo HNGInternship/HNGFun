@@ -67,7 +67,7 @@
 
             <div>
                 <p>Hi, My name is <b><?php echo $name;  ?></b> with Slack Username <b><i><?php echo $username;  ?></i></b></p>
-                <p>I am a Ghanaian based Designer, Creative Thinker, Web Developer <br>and a Professional Instructor</p>
+                <p>I'm a Ghanaian based Designer, Creative Thinker, Web Developer <br>and a Professional Instructor</p>
             </div>
 
             <div>
