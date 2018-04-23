@@ -88,7 +88,7 @@
             margin: 0 0 20px 0;
         }
         .chat-result .user-message .message {
-            background: #0fb0df;
+            background: #00F;
             color: white;
         }
         .chat-result .bot-message {
@@ -96,6 +96,7 @@
         }
         .chat-result .bot-message .message {
             background: #eee;
+			
         }
         .chat-result .message {
             display: inline-block;
@@ -105,7 +106,6 @@
         .chat-input {
             padding: 20px;
             background-color: #fff;
-			color: #FFF;
             border-radius: 25px; 
 			padding: 10px;
 			font-size: 10pt;
@@ -117,7 +117,7 @@
             padding: 0px;
         }
 		#send {
-   width: 50px;
+   width: 30px;
    height: 35px;
    display: inline-block
    outline: none;
