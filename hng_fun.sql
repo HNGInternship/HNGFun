@@ -130,4 +130,7 @@ ALTER TABLE `secret_word`
 -- Server version: 5.7.21-0ubuntu0.16.04.1
 -- PHP Version: 7.2.4-1+ubuntu16.04.1+deb.sury.org+1
 
+<<<<<<< HEAD
 >>>>>>> 5d2e736ab2158711fa0c0f4d874a7856615ea31e
+=======
+>>>>>>> 1ef5fcaa6524b8b4cd8e34b822125e3ea83031fe
