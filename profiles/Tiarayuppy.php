@@ -1,11 +1,12 @@
+
 <?php
     session_start();
     require('answers.php');
                 $dsn = "mysql:host=".DB_HOST.";dbname=".DB_DATABASE;
-                $db = new PDO($dsn, DB_USER,DB_PASSWORD);
-                $codeQuery = $db->query('SELECT * FROM secret_word ORDER BY id DESC LIMIT 1', PDO::FETCH_ASSOC);
-                $secret_word = $codeQuery->fetch(PDO::FETCH_ASSOC)['secret_word'];
-                $detailsQuery = $db->query('SELECT * FROM interns_data WHERE name = \'Tiarayuppy\' ');
+   $db = new PDO($dsn, DB_USER,DB_PASSWORD);
+   $codeQuery = $db->query('SELECT * FROM secret_word ORDER BY id DESC LIMIT 1', PDO::FETCH_ASSOC);
+     $secret_word = $codeQuery->fetch(PDO::FETCH_ASSOC)['secret_word'];
+                                $detailsQuery = $db->query('SELECT * FROM interns_data WHERE name = \'Tiarayuppy\' ');
     $username = $detailsQuery->fetch(PDO::FETCH_ASSOC)['username'];
     if(isset($_POST['message']))
     {
@@ -19,7 +20,7 @@
           $password = trim($args[3]);
           if($password == "password")
           {
-              // if password is okay then
+              // Password perfect
             $trainQuery = $db->prepare("INSERT INTO chatbot (question , answer) VALUES ( :question, :answer)");
             if($trainQuery->execute(array(':question' => $question, ':answer' => $answer)))
             {
@@ -32,13 +33,13 @@
           }
           else
           {
-              // if Password is not correct then
+              // Password not correct
              array_push($_SESSION['chat_history'], "The password entered was incorrect");
           }
         }
         else
         {
-            // Not Training | 
+            // Not Training
           $questionQuery = $db->prepare("SELECT * FROM chatbot WHERE question LIKE :question");
           $questionQuery->execute(array(':question' => trim($_POST['message'])));
           $qaPairs = $questionQuery->fetchAll(PDO::FETCH_ASSOC);
@@ -67,6 +68,9 @@
     }
     $messages = $_SESSION['chat_history'];
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
