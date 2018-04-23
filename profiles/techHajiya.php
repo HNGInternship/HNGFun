@@ -104,22 +104,21 @@
             border-radius: 10px;
         }
         .chat-input {
-            padding: 20px;
+            padding: 15px;
             background-color: #fff;
             border-radius: 5px; 
-			padding: 10px;
-			font-size: 14px;
+			font-size: 16px;
         }
         .chat-input .user-input {
             width: 80%;
             border: 1px solid #ccc;
             border-radius: 5px;
-            padding: 20px;
+            padding: 10px;
 			float: left;
         }
 		#send {
-   width: 30px;
-   height: 35px;
+   width: 50px;
+   height: 25px;
    display: inline-block
    outline: none;
    border: none;
