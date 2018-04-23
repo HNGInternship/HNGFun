@@ -39,16 +39,12 @@
   }
   $secret_word = $data2['secret_word'];
 ?>
+
+
 <?php
     // bot will send a POST request to this file
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-		if (file_exists('../../answers.php')) {
-			require_once '../../answers.php';
-		} else if (file_exists('../answers.php')) {
-			require_once '../answers.php';
-		} elseif (file_exists('answers.php')) {
-			require_once 'answers.php';
-		}
+        require "../answers.php";
         
         // sending a reply to bot will call this function
         function sendReply($answer){
@@ -395,7 +391,7 @@
 
 							<div class="chatFooter">
 								<label for="message" class="sr-only">Message</label>
-								<textarea id="message" name="message"  placeholder="Ask Me Your Questions" ></textarea>
+								<textarea id="message" name="question"  placeholder="Ask Me Your Questions" ></textarea>
 							</div>
 						</div>
 					</div>
