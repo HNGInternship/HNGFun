@@ -646,7 +646,7 @@ class DBHelper{
                 var strMessages = '<li class="replies"><img src ="http://res.cloudinary.com/gconnect/image/upload/v1524432009/robot.jpg"><small style="font-size: 15px; color:green;" ><b>Gconnect Bot</small><br>' +
                     '' + response.message + '</p></li><div class="clearfix"></div> ';
                 $('#message-outlet').append(strMessages);
-                $(".messages").scrollTop($("#message-outlet").outerHeight());
+                // $(".messages").scrollTop($("#message-outlet").outerHeight());
 
 
             });
