@@ -173,11 +173,11 @@
             </div>
         </div>
 
-      <div class="col-sm-6" style='float: right'>
+      <div class="col-sm-6" style='float: right; padding-top: 50px'>
 	    <div class="chatbox">
                 <div class="chat-result" id="chat-result">
                     <div class="user-message">
-					<div class="message">Hello! I'm LoBot! feel free to ask me anything.
+					<div class="message">Hello! I'm LoBot! feel free to ask me anything. </div
                     <div class="message"></br>To train me, use this syntax - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
                     </div>
                 </div>
