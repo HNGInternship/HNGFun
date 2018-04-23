@@ -122,7 +122,7 @@ switch ($method) {
         }
         break;
     default:
-        echo "<h1>Simple chat bot api</h1>";
+        echo "<h1>The Worldclassdev API</h1>";
         break;
 }
 
