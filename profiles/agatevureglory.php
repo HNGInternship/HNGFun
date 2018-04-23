@@ -590,7 +590,7 @@ class DBHelper{
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://use.fontawesome.com/477bc8d938.js"></script>
-<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+<!-- <script src="http://code.responsivevoice.org/responsivevoice.js"></script> -->
 <!-- <script type="text/javascript" src="../js/jquery.min.js"></script> -->
 <script type="text/javascript">
     var chat = chat || {};
