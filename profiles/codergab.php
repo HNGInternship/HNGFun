@@ -45,12 +45,12 @@
                 <img class="rounded img-thumbnail" src="<?php echo $user->image_filename; ?>" />
             </div>
             <div class="col-8">
-                <h4 class="display-6">About Me.</h4>
+                <h4 class="display-6">About Me...</h4>
                 <hr class="my-4" />
                 <h2 class="display-4"><?php echo $user->name; ?></h4>
                 <p class="lead text-center"><b>A</b> Software Developer, DJ</p>
                 <hr class="my-4" />
-                <h4>My Skills</h4>
+                <h4>My Skills...</h4>
                 <hr class="my-4" />
                 <div class="row">
                     <div class="col-2 text-center">
@@ -76,7 +76,7 @@
                     </div>
                 </div>
                 <hr class="my-4" />
-                <h4>Talk to me</h4>
+                <h4>Talk to me...</h4>
                 <hr class="my-4" />
                 <div class="row">
                     <div class="col-1">
