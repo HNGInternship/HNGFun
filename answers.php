@@ -1225,29 +1225,35 @@ catch(PDOException $e)
 
   function chibuokem_weather_condition(){
       $ip  = !empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
-$url = "http://freegeoip.net/json/$ip";
-$ch  = curl_init();
+//$url = "http://freegeoip.net/json/$ip";
 
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-$data = curl_exec($ch);
-curl_close($ch);
+$url_location = "http://freegeoip.net/json/";
 
-if ($data) {
-    $location = json_decode($data);
-
-    $lat = $location->latitude;
-    $lon = $location->longitude;
-
-    //$sun_info = date_sun_info(time(), $lat, $lon);
-    //print_r($sun_info);
+$dataa = json_decode(file_get_contents($url_location), true);
     
-    //$url = "http://api.weatherunlocked.com/api/current/".$lat.",".$lon."?app_id={acf8951e}&app_key={a7ecc17b1218c8bb7cc709b50cc301e3}";
 
-     $data = json_decode(file_get_contents($url), true);
-     print_r($data);
-}
+    $lat = $dataa['latitude'];
+    $lon = $dataa['longitude'];
+
+  
+    $url_weather = "http://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=88b7b09a022737b2bcba78b25d8c8adb";
+
+  $answer = json_decode(file_get_contents($url_weather), true);
+  
+  
+  $weather_main = $answer['weather'][0]['main'];
+ $weather_description = $answer['weather'][0]['description'];
+ $temperature = $answer['main']['temp'];
+ $pressure = $answer['main']['pressure'];
+ $humidity = $answer['main']['humidity'];
+ $temp_min = $answer['main']['temp_min'];
+ $temp_max = $answer['main']['temp_max'];
+ $visibility = $answer['visibility'];
+ $wind_speed = $answer['wind']['speed'];
+ $wind_degree = $answer['wind']['deg'];
+
+ return "<span style='color:green; font-weight:bold;'>Weather condition for your estimated location, Latitude : $lat, Longitude : $lon <br/>$weather_main , $weather_description <br/> Temperature : $temperature <br/> Pressure: $pressure <br/>Humidity : $humidity <br/> Minimum temperature : $temp_min <br/> Maximum temperature : $temp_max <br/> Visibility : $visibility <br/> Windspeed : $wind_speed <br/> wind degree : $wind_degree  </span>";
+     
   }
 
   function greeting_from_chibuokem(){
@@ -1298,7 +1304,7 @@ if ($data) {
  } 
 
  function chibuokem_bot_help(){
-  $help = "<span style='color:green;'>To train me use the format train question #answer #password"."<br/>". "To get the current time  type time and send "."<br/>"."To get love quote type love_quote and send"."<br/>". "To get funny quote type funny_quote and send"."<br/>"."to get an inspiring quote type inspiring_quote and send"."<br/>"."To get the quote of the day for students type students_quote and send"."<br/>". "to get sports quote of the day type sports_quote and send"."<br/> To get news type news and send "."<br/> to get the current bot version type version and send. Thanks </span>";
+  $help = "<span style='color:green;'>To train me use the format train question #answer #password"."<br/>". "To get the current time  type time and send "."<br/>"."To get Current weather condition type weather_condition and send "."<br/>"."To get love quote type love_quote and send"."<br/>". "To get funny quote type funny_quote and send"."<br/>"."to get an inspiring quote type inspiring_quote and send"."<br/>"."To get the quote of the day for students type students_quote and send"."<br/>". "to get sports quote of the day type sports_quote and send"."<br/> To get news type news and send "."<br/> to get the current bot version type version or aboutbot and send. Thanks </span>";
   return $help;
  }
   /**chibuokems functions ends here */
