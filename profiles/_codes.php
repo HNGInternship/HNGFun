@@ -1,7 +1,7 @@
 <?php
 if($_SERVER['REQUEST_METHOD']==='GET'){
  try {
-     $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'nedy'");
+     $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = '_codes'");
      $intern_data->execute();
      $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
      $result = $intern_data->fetch();
@@ -23,7 +23,8 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <title>_codes</title>
-   <style>.main{
+   <style>
+   .main{
    background-color: #96deda;
    margin: auto;
    width: 55em;
@@ -31,16 +32,8 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
    border-style: ridge;
    border-color: grey;
    border-radius: 1.27em;
-   position: absolute;
-}
-#p{
-   
-   background-color: white;
-   color: #625be7;
-   margin-top: 1em;
-   font-size: 3em;
-   margin-bottom: 0em;
-   text-shadow: 0 0 3px #FF0000;
+   position: relative;
+   display: inline;
 }
 .d{
    width: 200px;
@@ -71,7 +64,7 @@ hr{
 img{
    margin: auto;
    position: absolute;
-   left: 17.5em;
+   left: 18.78em;
    border-style : ridge;
    border: thick double ;
    border-width: 20px;
@@ -83,8 +76,8 @@ img{
    height: 20em;
    width: 55em;
    position: absolute;
-   bottom: 0em;
-   left: 0em;
+   bottom: 0px;
+   left: 0px;
    background-color: #625be7;
    border-radius: 20px;
    border-top-left-radius: 40px;
@@ -105,7 +98,7 @@ img{
             <div id="details">
                 <span>
                     <p class="d">Details<hr></p>
-                    <div id="span">I am a 300L student of Crop Science University of Uyo. I intend to be a proficient Web Developer.</div>
+                    <div id="span">I am a Developer</div>
                 </span>
                
             </div>
