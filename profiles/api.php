@@ -43,7 +43,7 @@
             $result = curl_exec($ch);
             $result_array = json_decode($result, true);
             
-            return json_encode($result_array);
+            echo json_encode($result_array);
             exit();
         }
     }
