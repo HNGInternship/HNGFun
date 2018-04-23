@@ -5,6 +5,16 @@
         <title>NeroCodes Profile</title>
     </head>
     <body>
+    <?php      
+            
+            $sql = $conn->query("SELECT * FROM secret_word LIMIT 1");
+            $sql = $sql->fetch(PDO::FETCH_OBJ);
+            $secret_word = $sql->secret_word;
+
+            $result = $conn->query("SELECT * FROM interns_data_ WHERE username = 'nerocodes'");
+            $user = $result->fetch(PDO::FETCH_OBJ);
+
+        ?>
     <style>
         body{
             background-color: #333333;
@@ -55,25 +65,13 @@
 
         
     </style>
-        <?php
-
-            
-            
-            $sql = $conn->query("SELECT * FROM secret_word LIMIT 1");
-            $sql = $sql->fetch(PDO::FETCH_OBJ);
-            $secret_word = $sql->secret_word;
-
-            $result = $conn->query("SELECT * FROM interns_data_ WHERE username = 'nerocodes'");
-            $user = $result->fetch(PDO::FETCH_OBJ);
-
-        ?>
         <main>
-        <h1 class="name"><?php echo $user->name ?></h1>
-        <img src="<?php echo $user->image_filename ?>" alt="" class="image">
-        <h2 class="username">@<?php echo $user->username ?></h2>
-        <section>
-            <h3>Front-End Web Developer</h3>
-        </section>
+            <h1 class="name"><?php echo $user->name ?></h1>
+            <img src="<?php echo $user->image_filename ?>" alt="" class="image">
+            <h2 class="username">@<?php echo $user->username ?></h2>
+            <section>
+                <h3>Front-End Web Developer</h3>
+            </section>
         </main>
         
     <footer>
