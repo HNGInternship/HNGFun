@@ -32,16 +32,24 @@
 			font-family: 'open sans', san serif;
 		}
 		.image_header {
-			width: 50%;
+			width: 100%;
 			margin: auto;
 
 		}
+		.all-contain {
+			width: 80%;
+			margin-left: auto;
+			margin-right: auto;
+			display: flex;
+			flex-wrap: wrap;
+		}
 		.part-1 {
-			width: 100%;
+			width: 38%;
 			display: flex;
 			flex-wrap: wrap;
 		}
 		.part-2 {
+			width: 60%;
 			margin: auto;
 			display: flex;
 			flex-wrap: wrap;
@@ -53,7 +61,7 @@
             border-radius: 50%; 
 		}
 		.info p {
-			font-size: 20px;
+			font-size: 25px;
 			margin: 0;
 			width: 100%;
 		}
@@ -62,31 +70,45 @@
 			display: flex;
 			flex-wrap: wrap;
 			padding: 10px;
-			text-align: center;
 		}
 		.info h1 {
 			text-transform: uppercase;
 			width: 100%;
+			margin: 0;
 		}
 		
 		.logos img {
-			max-width: 60px;
-			max-height: 60px;
+			max-width: 40px;
+			max-height: 40px;
 			border-radius: 50%;
 			padding-right: 20px;
 		}
 		.logos {
 			margin: auto;
+			margin-left: 0;
 			padding: 10px;
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+		.vl {
+			border: 2px solid #000;
+			height: 75%;
+			margin:auto;
+		}
+		#username {
+			font-weight: bold;
 		}
 
 		/*
 		Media queries for other screens
 		*/
 		@media screen and (max-width: 880px){
-			.col-1, .col-2 {
+			.part-1, .part-2 {
 				width: 100%;
 				max-width: 100%;
+			}
+			.vl {
+				display: none;
 			}
 			.image_header {
 				width: 50%;
@@ -109,8 +131,8 @@
 	</style>
 </head>
 <body>
-
-	<div class="part-1">
+	<div class="all-contain">
+		<div class="part-1">
 		<div class="image_header">
 			<img src="http://res.cloudinary.com/nath/image/upload/v1524182119/Image_-_Portrait.jpg" alt="profile-image">
 			<!--
@@ -119,10 +141,12 @@
 			 http://res.cloudinary.com/nath/image/upload/v1524182119/Image_-_Portrait.jpg -->
 		</div>
 	</div>
+	<div class="vl"></div>
 	<div class="part-2">
 		<div class="info">
-			<h1><?php echo $name ?></h1>
-			<p style="font-size: 40px;">Frontend developer</p>
+			<h1><?php echo $name ?>Makinde Nathaniel</h1>
+			<p id="username">@nath</p>
+			<p style="font-size: 40px;padding: 20px 0;">Frontend developer</p>
 			<p>All time lover of tech, love creating cool stuffs and I love music.</p>
 		</div>
 		<div class="logos">
@@ -132,6 +156,9 @@
 			<a href="https://github.com/nathmankind"><img src="http://res.cloudinary.com/nath/image/upload/v1524250453/github-logo.svg" alt="github-logo"></a>
 		</div>
 	</div>
+	</div>
+
+	
 	
 </body>
 </html>
