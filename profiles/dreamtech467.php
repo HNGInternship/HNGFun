@@ -42,16 +42,49 @@
   
   
   
+  
+  
+  
+  
+  
 		//chatBot
 	if($_SERVER['REQUEST_METHOD'] === "POST"){
-	
+		
+        if (file_exists('../../answers.php')) {
+			require_once '../../answers.php';
+		} else if (file_exists('../answers.php')) {
+			require_once '../answers.php';
+		} elseif (file_exists('answers.php')) {
+			require_once 'answers.php';
+		}
+			
+		function answerBot($question){
+			global $conn;
+            switch($question){
+                case 'aboutbot':
+                case 'Aboutbot':
+                return 'Version 2.2';
+            }
+            switch(true){
+                case "ussd:" === substr($question, 0, 5):
+                case "Ussd:" === substr($question, 0, 5):
+                case "USSD:" === substr($question, 0, 5):
+                return getUSSD(substr($question, 6));
+            }
+		}
+		
+		
 		function stripquestion($question){
+			
 			// remove whitespace first
 			$strippedquestion = trim(preg_replace("([\s+])", " ", $question));
 			$strippedquestion = trim(preg_replace("/[^a-zA-Z0-9\s\'\-\:\(\)#]/", "", $strippedquestion));
 			$strippedquestion = $strippedquestion;
 			return strtolower($strippedquestion);
+			
 		}
+		
+		
 		function is_training($data){
 			$keyword = stripquestion($data);
 			if ($keyword=='train') {
@@ -60,6 +93,7 @@
 				return false;
 			}
 		}
+		
 		function authorize_training($password){
 			if ($password=='password') {
 				return true;
@@ -84,7 +118,8 @@
 				$insert_stmt->execute();
 				return "Thanks!";
 			} catch (PDOException $e) {
-				return "An detect error: ". $e->getMessage();
+				//return "An detect error: ". $e->getMessage();
+				return answerBot($question);
 			}
 		}
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -102,7 +137,7 @@
 				]);
 				return;				
 			}
-			else{			
+			else{
 				$strippedquestion = "%$strippedquestion%";
 				$answer_stmt = $conn->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
 				$answer_stmt->bindParam(':question', $strippedquestion);
