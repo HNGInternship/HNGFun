@@ -82,6 +82,27 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			]);
 			return;
 		}
+		elseif ($arr[0] == "help") {
+			echo json_encode([
+				'status' => 1,
+				'answer' => "Type 'aboutbot' to know about me <br /> You can also convert cryptocurrencies using this syntax. <br />
+				'convert btc to usd";
+			]);
+			return;
+			# code...
+		}
+		elseif ($arr[0] == "convert") {
+			# code...
+			$from = $arr[1];
+			$to = $arr[3];
+			$converted_price = GetCryptoPrice($from,$to);
+			$price = "1 . $from . = . $converted_price . $to .";
+			echo json_encode([
+				'status' => 1,
+				'answer' => $price,
+			])
+			return;
+		}
 	    elseif ($arr[0] == "aboutbot") {
 	    	# code...
 	    	echo json_encode([
@@ -320,7 +341,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
-									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about me type: 'aboutbot'
+									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about what i can do type 'help'
 								</div>
 								<div class="iro">
 									<ul id="queries">
