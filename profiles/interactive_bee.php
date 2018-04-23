@@ -178,6 +178,19 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
         .pan{
             margin-top: 20px;
         }
+		.fa:hover {
+    		opacity: 0.7;
+		}
+
+		.fa-facebook {
+  			background: #3B5998;
+  			color: white;
+		}
+
+		.fa-twitter {
+ 			background: #55ACEE;
+  			color: white;
+	}
         .box1{
             padding: 5px 7px;
             color: #fff;
@@ -316,7 +329,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
                     </div>
                 </div>
             </div>
-            <div class="col-sm-8" id="header-trigger">
+            <div class="col-sm-4" id="header-trigger">
                 <div class="panel panel-default pan" >
                     <div class="panel-heading">
                         <h5>SMART CHAT-BOT</h5>
