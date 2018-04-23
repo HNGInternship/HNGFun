@@ -78,8 +78,6 @@
         }
         .para-text{
             border:0px;
-            height: 1000px;
-            width: 1000px;
             text-align: center;
         }
         .para{

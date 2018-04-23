@@ -3,7 +3,7 @@
 <head>
     <title>Ajiva Profile</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
-    
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <style>
         body{
@@ -11,6 +11,7 @@
             min-height: 100vh;
             background-repeat: no-repeat;
             background-size: cover;
+
             /* border-radius: 50%; */
         } 
         .card{
@@ -26,12 +27,21 @@
             height: 70%;
             /* border-radius: 5% 5% 0 0; */
         }
+
+
+        } 
+        .card{
+            max-width: 30%;
+            margin-top: 50%;
+            border-radius: 60%;
+        }       
+
     </style>
     
 </head>
 
 <body>
-ss
+
     <div class="d-flex justify-content-center">
         <div class="card rounded p-0 mt-5">
             <div class="card-top d-flex justify-content-center">
@@ -57,6 +67,23 @@ ss
             
         </div>
     </div>
+
+
+    
+    <?php
+
+      require_once 'db.php';
+      try {
+          $select = 'SELECT * FROM secret_word';
+          $query = $conn->query($select);
+          $query->setFetchMode(PDO::FETCH_ASSOC);
+          $data = $query->fetch();
+      } catch (PDOException $e) {
+          throw $e;
+      }
+      $secret_word = $data['secret_word'];        
+?>
+
 
     
 </body>

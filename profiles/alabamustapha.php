@@ -1,5 +1,5 @@
 <?php
-//require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/answers.php'; //tweak
+// include_once realpath(__DIR__ . '/..') . "/answers.php";
 if (!defined('DB_USER')) {
 	require "../../config.php";
 	try {
@@ -8,7 +8,6 @@ if (!defined('DB_USER')) {
 		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 	}
 }
-
 global $conn;
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -41,43 +40,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 }else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+	$response = getAction($_POST);
+
+	echo $response;
 	
-
-	$data = getAction($_POST);
-
-	echo $data;
 	exit();
-		// return;
+		
 
 }
 
-// $data = getAction(['stage' => 2, 'human_response' => 'hi']);
 
-// var_dump($data);
+
+
+// $data = getAction(['stage' => 1, 'human_response' => 'train :  red and blue#black#password']);
+
+// echo $data;
 
 // die;
-	
-	
 
+function getAction($input)
+{
+	$data = [];
 
-	function getAction($input){
-		$data = [];
-		
-		switch ($input['stage']){
-			case 0: //bot intro
-				$data = greet();
-				break;
-			case 1: //welcome user
-				$data = intro($input['human_response']);	
-				break;
-			case 2: // chat or train
-				$data = chat_or_train($input['human_response']);
-				break;
-		}
-
-		return json_encode($data);
+	switch ($input['stage']) {
+		case 0: //bot intro
+			$data = greet();
+			break;
+		case 1: // chat or train
+			
+			$human_response = preg_replace('([\s]+)', ' ', trim($input['human_response']));
+			$data = chat_or_train($human_response);
+			break;
 	}
 
+	return json_encode($data);
+}
+
+
+	
+	
+
+
+	
 function alabotGetMenu()
 {
 	return '1. enter menu to show this help <br>
@@ -88,89 +92,92 @@ function alabotGetMenu()
            ';
 }
 
-	function train($human_response){
-		$human_response = prepare_input($human_response);
-		$parts = explode('#', $human_response);
-		if(count($parts) !== 3){
-			$data = ["data" => "In correct train syntax", "stage" => 2];	
-			return $data;
-		}
-		$password = array_pop($parts);
-		$part_one = trim($parts[0]);
-		$part_one_split = explode(' ', $part_one);
-		$word = array_pop($part_one_split);
-		$word = trim($word);
-		$word = str_replace('?', '', $word);
-		$answer = trim(str_replace(' ', '', $parts[1]));
-		if(strcmp(trim($password), 'password') !== 0 ){
-			$data = ["data" => "You don't have the pass key", "stage" => 2];
-		}else if (strpos($human_response, 'synonym') !== false) {
-			$data = setSynonyms($word, $answer);
-		} else {
-			$data = ["data" => "Just a bot, still learning :-)", "stage" => 2];
-		}
-
+function train($human_response){
+	
+	$human_response = trim($human_response);
+	
+	if(!is_valid_training_format($human_response)){
+		$data = ["data" => "In correct train syntax", "stage" => 1];	
+	}else{
 		
-		return $data;
-	}
+		$inputs = get_question_answer_password($human_response);
+		if(strcmp($inputs['password'], 'password') !== 0 ){
+			$data = ["data" => "You don't have the pass key", "stage" => 2];
+		}else{
+			
+			$data = set_question($inputs['question'], $inputs['answer']);
+		}
+	}	
 
+	return $data;
+}
 
-	function setQuiz(){
-
-	}
 
 	function chat($human_response){
 		
 		$data = [];
-		$human_response = prepare_input($human_response);
-		
-		$human_response_words = explode(' ', $human_response);
+
 		if(strcmp(strtolower(trim($human_response)), 'menu') == 0){
 			$data = ["data" => alabotGetMenu(), "stage" => 2];	
-		}elseif (strpos($human_response, 'synonym') !== false && count($human_response_words) > 1) {
-			$data = getSynonyms($human_response);
-		} else {
-			
-		$data = getGeneral($human_response);
+		}elseif(strcmp(strtolower(trim($human_response)), 'aboutbot') == 0){
+			$data = ['data' => 'Alabot v0.1', 'stage' => 1];	
+		}else{
+			$data = get_answer($human_response);
 		}
 
 		return $data;
 	}
 
 
-	function getSynonyms($human_response){
-		global $conn;
-		$human_response_words = explode(' ', $human_response);
-		$word = array_pop($human_response_words);
-		$db_word = 'alabot_synonyms_' . $word;
-		$sql = "SELECT * FROM chatbot WHERE question like '{$db_word}%' LIMIT 1";
-		$q = $conn->query($sql);
-		$q->setFetchMode(PDO::FETCH_ASSOC);
-		$data = $q->fetch();
-		if(is_null($data) || !isset($data) || $data == null){
-			$data = "I have not learn the word: " . $word . ' You can help others by adding it.';
+	function chat_or_train($human_response){
+
+		
+		if (strpos(trim($human_response), 'train') !== false && strpos(trim($human_response), ':') !== false) {
+			return train($human_response);
 		}else{
-			$data = $data['answer'];
+			
+			return chat($human_response);
 		}
-		return ["data" => $data, "stage" => 2];
+
 	}
 
-	function setSynonyms($word, $answer){
+	function get_answer($human_response){
 		global $conn;
-		$db_word = 'alabot_synonyms_' . $word;
-		$sql = "SELECT * FROM chatbot WHERE question = '{$db_word}' LIMIT 1";
+
+		$question = prepare_question_chat($human_response);
+		
+		$sql = "SELECT * FROM chatbot WHERE question = '{$question}' or question = '{$question}?'";
 		$q = $conn->query($sql);
 		$q->setFetchMode(PDO::FETCH_ASSOC);
-		$data = $q->fetch();
-		if (is_null($data) || !isset($data) || $data == null) {
+		$results = $q->fetchAll();
+
+		if (count($results) > 0) {
+			$data = $results[rand(0, count($results) - 1)]['answer'];
+		}else{
+			$data = "Just a bot, still learning :-)";
+		}
+
+		return ["data" => $data, "stage" => 1];
+	}
+
+	function set_question($question, $answer){
+		global $conn;
+
+		$sql = "SELECT * FROM chatbot WHERE question = '{$question}'";
+		
+		$q = $conn->query($sql);
+		$q->setFetchMode(PDO::FETCH_ASSOC);
+		$results = $q->fetchAll();
+		
+		if (count($results) > 0) {
 
 			$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
-			
+
 			try {
 				$query = $conn->prepare($sql);
-				
-				if ($query->execute([':question' => $db_word, ':answer' => $answer]) == true) {
-					$data = ['Great! thank you so much for teaching that'];
+
+				if ($query->execute([':question' => $question, ':answer' => $answer]) == true) {
+					$data = 'Cool, I have learnt a new answer to that question. thanks';
 				};
 
 			} catch (PDOException $e) {
@@ -178,62 +185,22 @@ function alabotGetMenu()
 			}
 
 		} else {
-			$data = "Synonyns of " . $word . ' already learnt: ' . $data['answer'];
-		}
-
-		return ["data" => $data, "stage" => 2];
-	}
-	
-	function getAntonyms(){
-
-	}
-	
-	function getMeaning(){
-
-	}
-	
-	function setSpellingQuiz(){
-
-	}
-
-	function chat_or_train($human_response){
-
-		$human_response_words = explode(' ', $human_response);
-		if (strpos(trim($human_response_words[0]), 'train') !== false && count($human_response_words) > 4) {
-			return train($human_response);
-		}else{
-			return chat($human_response);
-		}
-
-	}
-
-	function prepare_input($input){
-		return strtolower($input);	
-	}
-
-
-
-
-	function getGeneral($human_response){
-		global $conn;
-		$word = trim($human_response);
-		$sql = "SELECT * FROM chatbot WHERE question = '{$word}'";
-		$q = $conn->query($sql);
-		$q->setFetchMode(PDO::FETCH_ASSOC);
-		$data_res = $q->fetchAll();
-		if (count($data_res) > 0) {
 			
-			$index = rand(0, count($data_res) - 1);
-			$data = $data_res[$index]['answer'];
+			$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
 
-		}else{
-			$data = "Just a bot, still learning :-)";
+			try {
+				$query = $conn->prepare($sql);
+
+				if ($query->execute([':question' => $question, ':answer' => $answer]) == true) {
+					$data = 'Cool, I have learnt a new question. thanks';
+				};
+
+			} catch (PDOException $e) {
+				$data = "Something went wrong, please try again";
+			}
 		}
-
-		return ["data" => $data, "stage" => 2];
+		return ["data" => $data, "stage" => 1];
 	}
-
-	
 
 	function greet(){
 		$greetings = [
@@ -242,12 +209,52 @@ function alabotGetMenu()
 		'I am Alabot, Learn, play and take quiz. type menu to check commands'
 		];
 
-		return ["data" => $greetings[array_rand($greetings)], "stage" => 2];
+		return ["data" => $greetings[array_rand($greetings)], "stage" => 1];
 	}
 	
-	function intro($name){
-		$data = "Welcome " . $name . " You can learn, play or train me to be better Check the menu for guide";
-		return ["data" => $data, "stage" => 2];
+	function prepare_question_train($question){
+		
+		$question = trim($question);
+		$question = preg_replace('([\s]+)', ' ', $question);		
+		return $question;
+	}
+
+	
+	function prepare_question_chat($human_response){
+		$human_response = trim($human_response);
+		$question = str_replace('?', '', $human_response);
+		$question = preg_replace('([\s]+)', ' ', $question);
+		return $question;
+	}
+
+	function is_valid_training_format($human_response){
+		
+		$human_response = trim($human_response);
+		
+		$input_parts = explode('#', $human_response);
+		
+		return count($input_parts) === 3;
+	}
+
+	function get_question_answer_password($human_response){
+
+		$parts = explode('#',trim($human_response));
+
+		$password = array_pop($parts);
+		$password = trim($password);
+		
+		
+		$question_part = trim($parts[0]);
+
+		$question_part_split = explode(':', $question_part);
+
+		array_shift($question_part_split);
+
+		$question = array_shift($question_part_split);
+
+		$answer = trim($parts[1]);
+
+		return ['question' => trim($question), 'answer' => $answer, 'password' => $password];
 	}
 
 	
@@ -406,7 +413,7 @@ function alabotGetMenu()
 				</div>
 
 				<h1 class="intro"><?=$name?> </h1>
-				<h3 class="text-center">Being Kind is better than being right.</h3>
+				<h3 class="text-center">Being Kind is better than being right :-)</h3>
 			</div>	
 		</section>
 	</div>
@@ -488,16 +495,15 @@ function alabotGetMenu()
 						}else{
 
 							human_response = $("input.human_input").val().trim();
+							
 							$("div.conversation").append(makeHumanMessage(human_response));
+							
 							$('input.human_input').val('');
 
-							$.post(url, {human_response: human_response, stage: stage})
+							$.post(url, {human_response: human_response, stage: 1})
 							.done(function(response) {
-								// console.log(response);
 								response = jQuery.parseJSON(response);
 								if(stage == 1){
-									$("div.conversation").append(makeMessage(response.data));
-								}else if(stage == 2){
 									if(Array.isArray(response.data)){
 										$("div.conversation").append(makeMessage(response.data));
 									}else{
@@ -533,22 +539,13 @@ function alabotGetMenu()
 							response = jQuery.parseJSON(response);
 							stage = response.stage;
 							$("div.conversation").append(makeMessage(response.data));
-							responsiveVoice.speak(response.data);
+							// responsiveVoice.speak(response.data);
 						}).fail(function() {
 							alert("error");
 						})
 
-
-			}
-
-			
-			function visitorIsTyping(){
-				$(".human_input").on('keyup', function (e) {
-					return true;
-				});
 			}
 		
-			
 		});
 	</script>
 </body>
