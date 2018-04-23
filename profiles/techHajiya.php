@@ -59,20 +59,20 @@
             overflow-y: scroll;
             max-height: 500px;
         }
-        .chat-output > div {
+        .chat-result > div {
             margin: 0 0 20px 0;
         }
-        .chat-output .user-message .message {
+        .chat-result .user-message .message {
             background: #0fb0df;
             color: white;
         }
-        .chat-output .bot-message {
+        .chat-result .bot-message {
             text-align: right;
         }
-        .chat-output .bot-message .message {
+        .chat-result .bot-message .message {
             background: #eee;
         }
-        .chat-output .message {
+        .chat-result .message {
             display: inline-block;
             padding: 12px 20px;
             border-radius: 10px;
@@ -100,7 +100,7 @@
         $sql2 = 'SELECT * FROM interns_data WHERE username="techHajiya"';
         $q2 = $conn->query($sql2);
         $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $user = $q2->fetch();
+        $my_data = $q2->fetch();
     } catch (PDOException $e) {
         throw $e;
     }
@@ -239,7 +239,7 @@
                 setTimeout(function() {
                     outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
                     $('#chat-result').animate({
-                        scrollTop: $('#chat-output').get(0).scrollHeight
+                        scrollTop: $('#chat-result').get(0).scrollHeight
                     }, 1500);
                 }, 250);
             }
