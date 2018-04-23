@@ -12,9 +12,9 @@
             overflow-x: hidden;
         }
 		 .container {
-            max-width: 100%;
+            max-width: 95%;
             padding-left: 0;
-			 border-radius: 5px;
+			background: red;
         }
 		   .chatbox {
             font-family: 'Source Sans Pro', sans-serif;
@@ -91,7 +91,7 @@
             margin: 0 0 20px 0;
         }
         .chat-result .user-message .message {
-            background: #00F;
+            background: #191970;
             color: white;
         }
         .chat-result .bot-message {
@@ -121,11 +121,11 @@
         }
 		#send {
 		   width: 80px;
-		   height: 50px;
+		   height: 45px;
 		   display: inline-block
 		   outline: none;
 		   border: none;
-		   color: #FFF;
+		   color: #191970;
 		   background-color: #00F;
 		   float: right;
 		   border-radius: 25px;
