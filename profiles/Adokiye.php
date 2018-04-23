@@ -1,5 +1,14 @@
 <?php
+function getTime(){
+    date_default_timezone_set('Africa/Lagos');
+    return "The time is " . date("h:i:sa");
+}
+
 session_start();
+
+if (!isset($_SESSION["all"])){
+    $_SESSION["all"] = [];
+}
 if(!defined('DB_USER')){
     require_once "../../config.php";
     $servername = DB_HOST;
@@ -13,29 +22,6 @@ if(!defined('DB_USER')){
         die("Connection failed: " . mysqli_connect_error());
     }}
 global $conn;
-
-global $secret_word;
-try {
-    $sql = "SELECT secret_word FROM secret_word LIMIT 1";
-    $q = $conn->query($sql);
-    foreach ($conn->query($sql) as $row) {
-        $name = $row['name'];
-        $username = $row['username'];
-
-    }
-} catch (PDOException $e) {
-    throw $e;}
-    function getTime()
-    {
-        date_default_timezone_set('Africa/Lagos');
-        return "The time is " . date("h:i:sa");
-
-}
-
-
-if (!isset($_SESSION["all"])){
-    $_SESSION["all"] = [];
-}
 $solution = '';
 if (isset($_POST['restart'])){
     session_destroy();
@@ -240,25 +226,9 @@ $input = trim($input);
     }  </script>
 <body>
 <?php
-if(!defined('DB_USER')){
-    require "../../config.php";
-    $servername = DB_HOST;
-    $username_ = DB_USER;
-    $password = DB_PASSWORD;
-    $dbname = DB_DATABASE;
-    // Create connection
-    $conn = mysqli_connect($servername, $username_, $password, $dbname);
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }}
-global $conn;
-$name = '';
-$username = '';
-$sql = "SELECT * FROM interns_data where username = 'Adokiye'";
-foreach ($conn->query($sql) as $row) {
-    $name = $row['name'];
-    $username = $row['username'];}
+$name = 'Adokiye Iruene';
+$username = 'Adokiye';
+
 ?>
 <div class=".body" id="div_main">
     <div class=".header" id="header">
