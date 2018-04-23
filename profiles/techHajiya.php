@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href='https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra SC|Romanesco' rel='stylesheet'>
 	<link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css' />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <style type="text/css">
@@ -37,7 +36,7 @@
         }
 
         .profile-details, .chatbox {
-            padding-top: 90px;
+            padding-top: 50px;
         }
 
         .profile-details {
@@ -97,7 +96,7 @@
 			
         }
         .chat-result > div {
-            margin: 0 0 20px 0;
+            margin: 0 0 10px 0;
         }
         .chat-result .user-message .message {
             background: #191970;
