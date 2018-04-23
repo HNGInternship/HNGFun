@@ -195,7 +195,13 @@
                           font-size: 3rem;
                           color: #e6ffe7;
                           font-weight:100 bold;
-                          text-align: left
+                          text-align: left;
+                        }
+                           .image{
+                          width: 50px;
+                          height: 20px;
+                          border-radius: 2000px;
+                          padding-left: 100px;
                         }
 
                       </style>
@@ -227,12 +233,17 @@
                           <!--  <div class="img">
                                <img src="https://www.instagram.com/p/Bd8dvbHBU9C/?taken-by=anny_hiss" alt=""> 
                              </div> -->
+                               <div class="image">
+                               <img src="http://res.cloudinary.com/annyhiss/image/upload/b_rgb:aeb3ba,c_scale,h_213,r_29,z_1.5/v1524441531/26864051_2033385723571357_8957167605911650304_n.jpg" alt="">
+                             </div>
+                             <div>
                              <h1 class="display">Welcome.</h1>
                              <p class="sub_display">Animashaun Oluwatosin</p>
                              <p class= "sub_display2">A front-end web developer.<br>a problem solver.</p>
                              <div class="button">
                                <a class="btn btn-primary " href="mailto:animashaunoluwatosin7@gmail.com" role="button">contact <i class="fa fa-envelope fa-0.5x icon-5"></i></a>
                              </div>
+                               </div>
                              <div class="footer">
 
                                <div class="col-md-12 col-sm-12">
