@@ -96,7 +96,7 @@ img{
             <div id="details">
                 <span>
                     <p class="d">Details<hr></p>
-                    <div id="span">I am a Developer</div>
+                    <div id="span">I am a Web developer</div>
                 </span>
                
             </div>

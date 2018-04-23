@@ -52,7 +52,7 @@
 						<p>Web developer,Python Lover and a computer Engineering Student from Obafemi Awolowo University.</p>
 						<p class="mail"><span class="fa fa-envelope">hammedb197@gmail.com </span></p>
 						<p>
-						<a href="https://www.linkedin.com/in/"><span class="fa fa-linkedin-square fa-3x ln"></span></a>&nbsp;
+						<a href="https://www.linkedin.com/in/hammedb"><span class="fa fa-linkedin-square fa-3x ln"></span></a>&nbsp;
 						<a href="https://web.facebook.com/Hbushroh"><span class="fa fa-facebook-square fa-3x fb"></span></a>&nbsp;
 						<a href="https://twitter.com/h_bushroh"><span class="fa fa-twitter-square fa-3x tw"></span></a>&nbsp;
 						<a href="https://github.com/Hammedb197/"><span class="fa fa-github fa-3x git"></span></a>
