@@ -31,10 +31,16 @@
             display: none;
         }
 
-		.profile-details{
-            padding-top: 30px;
+		   .container.profile-body {
+            padding-right : 0;
         }
+
+        .profile-details, .chatbox {
+            padding-top: 110px;
+        }
+
         .profile-details {
+            padding-right: 0;
             background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
         }
@@ -173,8 +179,7 @@
             </div>
 
 
-      <div class="col-sm-6" style='float: right; padding-top: 50px'>
-	    <div class="chatbox">
+      <div class="col-sm-6 chatbox" style='float: right; padding-top: 50px'>
                 <div class="chat-result" id="chat-result">
                     <div class="user-message">
 					<div class="message">Hello! I'm LoBot! feel free to ask me anything.   </div>
@@ -188,7 +193,7 @@
 						<button id="send">SEND</button>
                     </form>
                 </div>
-			</div>
+		
           </div>
 		   </div>
 
