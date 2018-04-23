@@ -100,7 +100,7 @@
     border:0;padding:10px;background:whitesmoke;
 }
 .text{
-    width:75%;display:flex;flex-direction:column;
+    width:40%;display:flex;flex-direction:column;
 }
 .text > p:first-of-type{
     width:100%;margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 12px;
@@ -112,7 +112,8 @@
     float:left;padding-right:10px;
 }        
 .text-r{
-    float:right;padding-left:10px;
+    float:right;
+    padding-left:10px;
 }
 .avatar{
     display:flex;
