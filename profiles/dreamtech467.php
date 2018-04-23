@@ -117,7 +117,7 @@
             sendReply("YAY! I have more home training now!");
         }
         // Retrieving the question from the bot's POST request
-        $question = $_POST['question'];
+        $question = $_POST['message'];
         if($question){
             $userIsTrainingBot = stripos($question, 'train:');
             if($userIsTrainingBot === false){
@@ -391,7 +391,7 @@
 
 							<div class="chatFooter">
 								<label for="message" class="sr-only">Message</label>
-								<textarea id="message" name="question"  placeholder="Ask Me Your Questions" ></textarea>
+								<textarea id="message" name="message"  placeholder="Ask Me Your Questions" ></textarea>
 							</div>
 						</div>
 					</div>
