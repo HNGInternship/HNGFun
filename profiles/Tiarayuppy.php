@@ -76,14 +76,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js"></script>
@@ -100,7 +96,7 @@
     border:0;padding:10px;background:whitesmoke;
 }
 .text{
-    width:75%;display:flex;flex-direction:column;
+    width:40% !important;display:flex !important;flex-direction:column !important;
 }
 .text > p:first-of-type{
     width:100%;margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 12px;
@@ -109,10 +105,11 @@
     width:100%;text-align:right;color:silver;margin-bottom:-7px;margin-top:auto;
 }
 .text-l{
-    float:left;padding-right:10px;
+    float:left ;padding-right:10px;
 }        
 .text-r{
-    float:right;padding-left:10px;
+    float:right !important;
+    padding-left:10px !important;
 }
 .avatar{
     display:flex;
@@ -801,25 +798,26 @@ body{
                      
             
                 <div>
-                <form action="/profile.php?id=Tiarayuppy" method="POST" style="display: flex; width: 100%;">
-                  
-                    <div class="text text-r" style="background:lightblue !important;">
-                          
-                        <input type="text" name="message" class="mytext" width="100%" placeholder="Type a message" style="background: transparent;" />
-                    </div> 
-
-                </div>
-                <div style="padding-top: 0px;">
-                    <input type="submit" value="send your message" style=" border-radius:10px; flex-grow: 1; background-color: green; color: #FAFAFA; float: left;"/>
-                </form>
+                <form action="/profile.php?id=Tiarayuppy" method="POST" class="w3-container w3-card-4" style="display: flex; width: 100%;">
+                                      
                 </div> 
                 </div>                
             </div>
+            <div class="text text-r" style="background:lightblue !important;"> 
+                 
+        <input type="text" name="message" class="mytext" lenght="40%" placeholder="Type a message" style="background: transparent;" />
+        
+
+                </div>
+                <div style="padding-top: 0px;">
+                    <input type="submit" value="send your message" style=" border-radius:10px; flex-grow: 1; background-color: green; color: #FAFAFA; float: right !important; "/>
+                    </div>    
+                
+                </form>
             </div>
         </div> 
 
-   
-<script>
+   <script>
     var sampleConversation = [
         "Hi",
         "My name is [name]",

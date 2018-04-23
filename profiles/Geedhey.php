@@ -282,7 +282,7 @@ h5 {
 	color: blue;
 }
 
-.chat-text{
+.chat-bubble{
             background-color: skyblue;
             border-radius: 5px;
             border: 0px solid transparent;
@@ -292,7 +292,7 @@ h5 {
             font-size: 14px;
             font-family: 'Arial', sans-serif;
         }
-        .chat-text > p{
+        .chat-bubble > p{
             margin: 0px;
             padding: 0px;
             color: rgba(0, 0, 0, 0.8);
@@ -461,9 +461,20 @@ h5 {
         // el is for the element we want to attach Vue.js to
         new Vue({
             el: '.bot',
-            
+			data: {
+                messages: [{data: "Hey, I'm Phoenix!", sender: 'bot'}, 
+                {data: "I know the USSD codes of all banks in Nigeria!" +
+
+                " 1. Just type 'ussd: name_of_bank' e.g 'ussd: Money Bank'." + 
+
+                " 2. To train me, use this format 'train: question # answer'" +
+
+                " 3. Type 'aboutbot' to see my latest version", 
+                sender: 'bot'}],
+                message: ''
+            },
             methods: {
-                getChatColor(sender){
+                getBubbleColor(sender){
                     if(sender == 'bot')
                     return 'skyblue';
                     
@@ -500,8 +511,8 @@ h5 {
             <div class="card-body">
                 <div class="card-text">
 				<ul>
-                    <li class="chat-text" v-for="(message, index) in messages" v-key="index" :style="{'background-color': 
-                                getChatColor(message.sender)}">
+                    <li class="chat-bubble" v-for="(message, index) in messages" v-key="index" :style="{'background-color': 
+                                getBubbleColor(message.sender)}">
                                 <p>{{message.data}}</p>
                     </li>
                 </ul>
@@ -513,7 +524,8 @@ h5 {
                         <input type="button" value="SEND" class="btn btn-primary form-control" @click="addMessage">
                     </form>
                 </div>
-        </div> `,
+        </div>
+		</div> `,
 		});
 	</script>
     
