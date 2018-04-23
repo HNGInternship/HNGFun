@@ -35,8 +35,8 @@
         }
 
         .profile-details, .chatbox {
-            padding-top: 10px;
-			 border: 2px solid #191970;
+            padding-top: 0px;
+			
         }
 
         .profile-details {
@@ -145,20 +145,34 @@
 		   background-color: #00A; 
 		   outline: none;
 		}
+		
+		
 
-		#header {
-	   display: flex; 
-	   justify-content: left;
-	   align-item: center;
-	   height: 20px;
-	   padding: 15px;
-	   color: #FFF;
-	   font-size: 200%;
-	   font-weight: bolder;
-	   background-color: #191970;
-	   position: fixed;
-	   font-family: "Josefin Sans","Montserrat","Segoe UI","Roboto","Helvetica Neue","Arial","sans-serif";;
-		}
+	.chatbot-menu-header {
+            background-color: #007BFF;
+            padding: 7px 25px;
+            margin: 0px 0 0 5px;
+            color: #FFFFFF;
+            height: 45px;
+        }
+
+        .chatbot-close, .chatbot-help {
+            display: inline-block;
+            margin-left: 20px;
+            margin-top: 2.5px;
+        }
+
+        .fa-close, .fa-question-circle {
+            font-size: 23px;
+        }
+
+        .chatbot-menu-header span {
+            font-weight: bold;
+        }
+
+        .chatbot-menu-header a {
+            color: #FFFFFF;
+        }
     </style>
 </head>
 <body>
@@ -174,7 +188,6 @@
         throw $e;
     }
     ?>
-
      <div class="row">
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
@@ -190,9 +203,10 @@
                 </div>
             </div>
 
-
       <div class="col-sm-6 chatbox" style='float: right; padding-top: 50px'>
-	  <div id="header">LoBot v1.0</div>
+	 <div class='chatbot-menu-header'>
+                        <div class="hng-logo"></div> <span>LoBot v1.0</span>
+                    </div>
                 <div class="chat-result" id="chat-result">
                     <div class="user-message">
 					<div class="message">Hello! I'm LoBot! Feel free to ask me anything.   </div>
@@ -237,7 +251,8 @@
     }
 	##About Bot
     function aboutbot() {
-        echo "<div id='result'>LoBot version 1.0 - I am a bot created by Lois Thomas that returns data from the database. That's not all, I also can be taught new tricks!</div>";
+        echo "<div id='result'><strong>LoBot 1.0 </strong>
+		Hey...I am a LoBot created by Lois Thomas to answer any question. You can also teach me things I don't know. Sounds fun right</div>";
     }
 	
 	##Train Bot
@@ -282,7 +297,10 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'</div>";
+            echo "<div id='result'>Oops! I've not been trained to learn that command . Would you like to train me
+You can train me to answer any question at all using: train: question # answer # password
+e.g train: Who is the president of Nigeria # Muhammadu Buhari # LoBot
+			by using the format - 'train: question # answer # password'</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
