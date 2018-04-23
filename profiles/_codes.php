@@ -1,3 +1,21 @@
+<?php
+if($_SERVER['REQUEST_METHOD']==='GET'){
+ try {
+     $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'nedy'");
+     $intern_data->execute();
+     $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+     $result = $intern_data->fetch();
+ 
+ 
+     $secret_code = $conn->prepare("SELECT * FROM secret_word");
+     $secret_code->execute();
+     $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+     $code = $secret_code->fetch();
+     $secret_word = $code['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }}
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,16 +32,6 @@
    border-color: grey;
    border-radius: 1.27em;
    position: absolute;
-}
-.head{
-   height: 7em;
-   width: 55em;
-   background-color: #625be7;
-   border-radius: 1.25em 1.25em 0em 0em;
-   position: absolute;
-   top: 0px;
-   left: 0px;
-   text-align: center;
 }
 #p{
    
