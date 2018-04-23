@@ -19,10 +19,10 @@
         }
 		   .chatbox {
             font-family: 'Source Sans Pro', sans-serif;
-            font-size: 14px;
+            font-size: 16px;
             display: flex;
             flex-direction: column;
-            max-width: 500px;
+            max-width: 400px;
             margin: 0 auto;
 			 border-radius: 5px;
         }
@@ -35,7 +35,7 @@
             padding-top: 30px;
         }
         .profile-details {
-            background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+            
             height: auto;
         }
         .profile-body {
@@ -81,7 +81,7 @@
 		}		
         .chat-result {
             flex: 1;
-            padding: 10px;
+            padding: 5px;
             display: flex;
             background: white;
             flex-direction: column;
@@ -106,9 +106,11 @@
         }
         .chat-result .message {
             display: inline-block;
-            padding: 10px 10px;
-			margin: 5px;
+            padding: 5px 5px;
+			margin: 2px;
             border-radius: 10px;
+			width: 100px;
+			  
         }
         .chat-input {
             padding: 15px;
