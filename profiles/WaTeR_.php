@@ -1,7 +1,7 @@
 
  <?php
 
- require '../db.php';
+ require 'db.php';
 
 
    $query = "Select * from secret_word LIMIT 1";
