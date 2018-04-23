@@ -1,5 +1,5 @@
 <?php
-  require '../db.php';
+  //require '../db.php';
   $res = $conn->query("SELECT * FROM  interns_data WHERE username = 'nath' ");
   $row = $res->fetch(PDO::FETCH_BOTH);
   $name = $row['name'];
