@@ -35,8 +35,8 @@
         }
 
         .profile-details, .chatbox {
-            padding-top: 10px;
-			 border: 2px solid #191970;
+            padding-top: 0px;
+			
         }
 
         .profile-details {
@@ -151,7 +151,7 @@
 	.chatbot-menu-header {
             background-color: #007BFF;
             padding: 7px 25px;
-            margin: -15px 0 0 -15px;
+            margin: 0px 0 0 5px;
             color: #FFFFFF;
             height: 45px;
         }
@@ -205,9 +205,7 @@
 
       <div class="col-sm-6 chatbox" style='float: right; padding-top: 50px'>
 	 <div class='chatbot-menu-header'>
-                        <div class="hng-logo">}{</div> <span>LoBot v1.0</span>
-                        <a href="#" class="pull-right chatbot-close"><i class="fa fa-close"></i></a>
-                        <a href="#" class="pull-right chatbot-help"><i class="fa fa-question-circle"></i></a>
+                        <div class="hng-logo"></div> <span>LoBot v1.0</span>
                     </div>
                 <div class="chat-result" id="chat-result">
                     <div class="user-message">
