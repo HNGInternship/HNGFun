@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		echo json_encode($reply);
 		return;
 	} elseif (strtolower($name) === 'aboutbot'){
-        $reply = "Alfred version 1.0";
+        $reply = "Alfred version 1.05";
 		echo json_encode($reply);
 		return;	
 	} elseif (strtolower($name) == 'alfred'){
@@ -51,11 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		 $dater = substr(strstr($name," "), 1);
 		echo json_encode(count_akin($dater));
 		return;
-    } elseif (stripos($name, "Train")===0 && count(explode('#',$name))==4) {
-		$bits = explode('#',$name);
-		$que = trim($bits[1]);
-		$answ = trim($bits[2]);
-		if (trim($bits[3])=== 'password') {
+    } elseif (stripos($name, "Train")===0 && count(explode(':',$name))==2 && count(explode('#',$name))==3) {
+		$bits1 = substr(strstr($name,":"), 1); //fixed the training spec
+		$bits = explode('#',$bits1);
+		$que = trim($bits[0]);
+		$answ = trim($bits[1]);
+		if (trim($bits[2])=== 'password') {
 			$sqlins = "Insert into chatbot (question, answer) values ('$que', '$answ')";
 			$sqlins = $conn->prepare($sqlins);
 			$sqlins->bindParam(':question', $que);
@@ -74,11 +75,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		echo json_encode($reply);
 		return;
 	} elseif (tryout($name, $conn)) {										
-        $ans = $conn->query("Select answer from chatbot where question = '$name'");
-		$ans = $ans->fetch(PDO::FETCH_OBJ);
-		$reply = tryout($name, $conn)->answer;
-		echo json_encode($reply);
-		return;
+		$stuff =  $conn->query("select count(question) as cnt from chatbot where question = '$name'");
+		$stuff = ($stuff->fetch(PDO::FETCH_OBJ));
+		if (($stuff->cnt)>1) {// fixed random choice for questions with multiple answers
+			$ans = ($conn->query("SELECT answer FROM chatbot WHERE question LIKE '$name' order by rand() LIMIT 1" ))->fetch(PDO::FETCH_OBJ);
+			$ans = $ans->answer;
+			echo json_encode($ans);
+			return;
+		} else {
+			$ans = $conn->query("Select answer from chatbot where question = '$name'");
+			$ans = $ans->fetch(PDO::FETCH_OBJ);
+			$reply = tryout($name, $conn)->answer;
+			echo json_encode($reply);
+			return;
+		}
 	} else {	
 		$reply = "It appears I do not know the answer!";
 		echo json_encode($reply);
