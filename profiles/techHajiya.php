@@ -196,7 +196,7 @@
                 <div class="chat-result" id="chat-result">
                     <div class="user-message">
 					<div class="message">Hello! I'm LoBot! Feel free to ask me anything.   </div>
-					</br>Learn more about me by typing 'aboutbot'.</div>
+					<div class="message">Learn more about me by typing 'aboutbot'.</div>
                     <div class="message">To train me, use this syntax - 'train: question # answer # password'.</div>
 					<div class="message">Password is LoBot. </div>
                     </div>
@@ -211,7 +211,6 @@
 		
           </div>
 		   </div>
-
 
     <?php
     try {
