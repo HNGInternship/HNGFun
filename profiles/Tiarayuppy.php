@@ -17,9 +17,9 @@
                     $question = trim($args[1]);
           $answer = trim($args[2]);
           $password = trim($args[3]);
-          if($password == "[password]")
+          if($password == "password")
           {
-              // Password perfect
+              // if password is okay then
             $trainQuery = $db->prepare("INSERT INTO chatbot (question , answer) VALUES ( :question, :answer)");
             if($trainQuery->execute(array(':question' => $question, ':answer' => $answer)))
             {
@@ -32,19 +32,19 @@
           }
           else
           {
-              // Password not correct
+              // if Password is not correct then
              array_push($_SESSION['chat_history'], "The password entered was incorrect");
           }
         }
         else
         {
-            // Not Training
+            // Not Training | 
           $questionQuery = $db->prepare("SELECT * FROM chatbot WHERE question LIKE :question");
           $questionQuery->execute(array(':question' => trim($_POST['message'])));
           $qaPairs = $questionQuery->fetchAll(PDO::FETCH_ASSOC);
           if(count($qaPairs) == 0)
           {
-                    $answer = "Sorry, I cant understand your details";
+                    $answer = "Sorry, I cant understand your details but you can train me tho";
           } else
           {
             $answer = $qaPairs[mt_rand(0, count($qaPairs) - 1)]['answer'];
@@ -85,7 +85,6 @@
 <script src="https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js"></script>
 
 <style>
-
 .navbar-nav > li > a {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -137,13 +136,11 @@
     border: 2px;
     overflow-y: scroll;
     scroll-behavior: auto;
-
 }
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
 }
-
 /* Track */
 ::-webkit-scrollbar-track {
     background: #f1f1f1; 
@@ -153,7 +150,6 @@
 ::-webkit-scrollbar-thumb {
     background: #888; 
 }
-
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555; 
@@ -218,8 +214,6 @@ input:focus{
 :-moz-placeholder { /* Firefox 18- */
     color: #d4d4d4;
 }  
-
-
 body{
     margin-bottom: 100px;
 }
@@ -240,19 +234,16 @@ body{
     box-sizing: border-box;
     width: 100%;
 }
-
 .card .card-heading {
     padding: 0 20px;
     margin: 0;
 }
-
 .card .card-heading.simple {
     font-size: 20px;
     font-weight: 300;
     color: #777;
     border-bottom: 1px solid #e5e5e5;
 }
-
 .card .card-heading.image img {
     display: inline-block;
     width: 46px;
@@ -264,56 +255,46 @@ body{
     -moz-border-radius: 50%;
     border-radius: 50%;
 }
-
 .card .card-heading.image .card-heading-header {
     display: inline-block;
     vertical-align: top;
 }
-
 .card .card-heading.image .card-heading-header h3 {
     margin: 0;
     font-size: 14px;
     line-height: 16px;
     color: #262626;
 }
-
 .card .card-heading.image .card-heading-header span {
     font-size: 12px;
     color: #999999;
 }
-
 .card .card-body {
     padding: 0 20px;
     margin-top: 20px;
 }
-
 .card .card-media {
     padding: 0 20px;
     margin: 0 -14px;
 }
-
 .card .card-media img {
     max-width: 100%;
     max-height: 100%;
 }
-
 .card .card-actions {
     min-height: 30px;
     padding: 0 20px 20px 20px;
     margin: 20px 0 0 0;
 }
-
 .card .card-comments {
     padding: 20px;
     margin: 0;
     background-color: #f8f8f8;
 }
-
 .card .card-comments .comments-collapse-toggle {
     padding: 0;
     margin: 0 20px 12px 20px;
 }
-
 .card .card-comments .comments-collapse-toggle a,
 .card .card-comments .comments-collapse-toggle span {
     padding-right: 5px;
@@ -323,12 +304,10 @@ body{
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
 .card-comments .media-heading {
     font-size: 13px;
     font-weight: bold;
 }
-
 .card.people {
     position: relative;
     display: inline-block;
@@ -339,11 +318,9 @@ body{
     overflow: hidden;
     vertical-align: top;
 }
-
 .card.people:first-child {
     margin-left: 0;
 }
-
 .card.people .card-top {
     position: absolute;
     top: 0;
@@ -353,15 +330,12 @@ body{
     height: 150px;
     background-color: #ffffff;
 }
-
 .card.people .card-top.green {
     background-color: #53a93f;
 }
-
 .card.people .card-top.blue {
     background-color: #427fed;
 }
-
 .card.people .card-info {
     position: absolute;
     top: 150px;
@@ -374,7 +348,6 @@ body{
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
 .card.people .card-info .title {
     display: block;
     margin: 8px 14px 0 14px;
@@ -384,7 +357,6 @@ body{
     line-height: 18px;
     color: #404040;
 }
-
 .card.people .card-info .desc {
     display: block;
     margin: 8px 14px 0 14px;
@@ -394,7 +366,6 @@ body{
     color: #737373;
     text-overflow: ellipsis;
 }
-
 .card.people .card-bottom {
     position: absolute;
     bottom: 0;
@@ -408,7 +379,6 @@ body{
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
 .card.hovercard {
     position: relative;
     padding-top: 0;
@@ -416,19 +386,16 @@ body{
     text-align: center;
     background-color: rgba(214, 224, 226, 0.2);
 }
-
 .card.hovercard .cardheader {
     background: url("http://lorempixel.com/850/280/nature/4/");
     background-size: cover;
     height: 155px;
 }
-
 .card.hovercard .avatar {
     position: relative;
     top: -50px;
     margin-bottom: -50px;
 }
-
 .card.hovercard .avatar img {
     width: 100%;
     height: 100%;
@@ -439,11 +406,9 @@ body{
     border-radius: 50%;
     border: 5px solid rgba(255,255,255,0.5);
 }
-
 .card.hovercard .info {
     padding: 4px 8px 10px;
 }
-
 .card.hovercard .info .title {
     margin-bottom: 4px;
     font-size: 35px;
@@ -451,7 +416,6 @@ body{
     color: #262626;
     vertical-align: middle;
 }
-
 .card.hovercard .info .desc {
     overflow: hidden;
     font-size: 20px;
@@ -459,14 +423,11 @@ body{
     color: #737373;
     text-overflow: ellipsis;
 }
-
 .card.hovercard .bottom {
     padding: 0 20px;
     margin-bottom: 17px;
 }
-
 .btn{ border-radius: 50%; width:32px; height:32px; line-height:18px;  
-
 }
 .color{
     background-color: #e2e2e2;
@@ -475,7 +436,6 @@ body{
     color: #070707;
     background-color: #070707;
 }
-
 #time{
     display-content:center;
 }
@@ -486,7 +446,6 @@ body{
             margin-left: auto;
             margin-right: auto;
             padding: 20px;
-
             background-color: #F8F8F8;
             border: 1px solid #ccc;
             box-shadow: 0 0 10px #999;
@@ -528,13 +487,11 @@ body{
         font-size: 17px;
         font-weight: normal;
     }
-
 .chatBotChatEntry * {
     font-family: 'open_sanslight', sans-serif !important;
     font-size: 17px;
     font-weight: normal;
 }
-
 .chatBotChatEntry .origin {
     font-weight: bold;
     margin-right: 10px;
@@ -575,11 +532,9 @@ body{
     font-weight: normal;
     font-size: 16px;
 }
-
     .chatBotChatEntry .imgBox img {
         width: 100%;
     }
-
     .bot {
         /*border: 4px solid rgba(0, 132, 60, 0.2);*/
         background-color: rgba(0, 132, 60, 0.2);
@@ -588,7 +543,6 @@ body{
         /*border: 4px solid rgba(38, 159, 202, 0.2);*/
         background-color: rgba(38, 159, 202, 0.2);
     }
-
     #chatBotCommandDescription {
         background-color: #333;
         color: #fff;
@@ -603,13 +557,11 @@ body{
     .commandDescription {
         margin-top: 5px;
     }
-
     #chatBotConversationLoadingBar {
         background-color: darkcyan;
         height: 2px;
         width: 0;
     }
-
     .appear {
         animation-duration: 0.2s;
         animation-name: appear;
@@ -617,12 +569,10 @@ body{
         animation-timing-function: ease-out;
         animation-fill-mode: forwards;
     }
-
     @keyframes appear {
         from {
             opacity: 0;
         }
-
         to {
             opacity: 1;
         }
@@ -746,9 +696,6 @@ body{
         margin-left: 5px; 
         height: 50px;
     }
-
-
-
 </style>
 <body class="color">
 <div class="container">
@@ -860,7 +807,6 @@ $("#addClass").click(function () {
           $('#qnimate').removeClass('popup-box-on');
             });
   })
-
 </script>
 
 

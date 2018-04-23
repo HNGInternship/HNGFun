@@ -1,0 +1,30 @@
+<div tabindex="0" role="group" class="demo-card-flip-container"
+  on-click="[[flipCard]]" on-keypress="[[flipCard]]" :aria-label="[[$properties.name + ' Press Enter for more info.']]">
+  <div class="demo-card-front-side">
+    <oj-avatar class="demo-card-avatar" role="img" size="lg" initials="[[initials]]" src="[[$properties.avatar]]"
+      :aria-label="[['Avatar of ' + $properties.name]]">
+    </oj-avatar>
+    <h2>
+      <oj-bind-text value="[[$properties.name]]"></oj-bind-text>
+    </h2>
+  </div>
+
+  <div class="demo-card-back-side">
+    <div class="demo-card-inner-back-side">
+      <h2>
+        <oj-bind-text value="[[$properties.name]]"></oj-bind-text>
+      </h2>
+      <h5>
+        <oj-bind-text value="[[$properties.workTitle]]"></oj-bind-text>
+      </h5>
+      <oj-bind-if test="[[$properties.workNumber != null]]">
+        <h5>Work</h5>
+        <span class="demo-card-text"><oj-bind-text value="[[workFormatted]]"></oj-bind-text></span>
+      </oj-bind-if>
+      <oj-bind-if test="[[$properties.email != null]]">
+        <h5>Email</h5>
+        <span class="demo-card-text"><oj-bind-text value="[[$properties.email]]"></oj-bind-text></span>
+      </oj-bind-if>
+    </div>
+  </div>
+</div>
