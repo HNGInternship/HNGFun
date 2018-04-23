@@ -41,12 +41,6 @@
 
   
   
-  
-  
-  
-  
-  
-  
 		//chatBot
 	if($_SERVER['REQUEST_METHOD'] === "POST"){
 		
@@ -58,20 +52,27 @@
 			require_once 'answers.php';
 		}
 			
-		function answerBot($question){
+		function sendReply($answer){
+            echo json_encode([
+                'answer' => $answer
+                ]);
+            exit();
+        }
+			
+		function answerBot($question)
 			global $conn;
             switch($question){
                 case 'aboutbot':
                 case 'Aboutbot':
-                return 'Version 2.2';
+                sendReply('Version 2.2');
             }
             switch(true){
                 case "ussd:" === substr($question, 0, 5):
                 case "Ussd:" === substr($question, 0, 5):
                 case "USSD:" === substr($question, 0, 5):
-                return getUSSD(substr($question, 6));
+                sendReply(getUSSD(substr($question, 6)));
             }
-		}
+		
 		
 		
 		function stripquestion($question){
@@ -140,17 +141,19 @@
 				$strippedquestion = "%$strippedquestion%";
 				$answer_stmt = $conn->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
 				$answer_stmt->bindParam(':question', $strippedquestion);
-				
 				$answer_stmt->execute();
 				$results = $answer_stmt->fetch();
+				
 				if(($results)!=null){
-					answerBot($question);
 					$answer = $results['answer'];
 					echo json_encode([
 						'status' => 1,
 						'answer' => $answer
 					]);
 					return;		
+				}
+				else($results)==null){
+					sendReply($answer);
 				}
 				else{
 					$answer = "Wow, I can only answer your question to the best of my knowledge, but you can train me to be smart: By entering the following<br>
