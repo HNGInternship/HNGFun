@@ -19,12 +19,13 @@
         }
 		   .chatbox {
             font-family: 'Source Sans Pro', sans-serif;
-            font-size: 14px;
+            font-size: 16px;
             display: flex;
             flex-direction: column;
-            max-width: 500px;
+            max-width: 550px;
             margin: 0 auto;
 			 border-radius: 5px;
+			 border: 5px solid #191970;
         }
 
         footer {
@@ -36,12 +37,11 @@
         }
 
         .profile-details, .chatbox {
-            padding-top: 110px;
+            padding-top: 90px;
         }
 
         .profile-details {
             padding-right: 0;
-            background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
         }
         .profile-body {
