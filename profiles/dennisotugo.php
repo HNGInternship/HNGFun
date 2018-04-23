@@ -120,7 +120,7 @@ else {
     <link rel="icon" type="image/x-icon" href="../css/images/favicon.ico">
     <link rel="apple-touch-icon-precomposed" href="../css/images/touchicon.png">
     <meta name="apple-mobile-web-app-title" content="Oracle JET">
-    <link rel="stylesheet" id="css" href="http://www.oracle.com/webfolder/technetwork/jet/css/libs/oj/v5.0.0/alta/oj-alta-min.css">
+    <link rel="stylesheet" id="css" href="https://www.oracle.com/webfolder/technetwork/jet/css/libs/oj/v5.0.0/alta/oj-alta-min.css">
     <link rel="stylesheet" href="../css/demo.css">
     <script>
       // The "oj_whenReady" global variable enables a strategy that the busy context whenReady,
@@ -128,7 +128,7 @@ else {
       // on the busy state context.
       window["oj_whenReady"] = true;
     </script>
-    <script src="http://www.oracle.com/webfolder/technetwork/jet/js/libs/require/require.js"></script>
+    <script src="https://www.oracle.com/webfolder/technetwork/jet/js/libs/require/require.js"></script>
     <!-- RequireJS bootstrap file -->
     <script src="../js/main.js"></script>
     <script src="../js/demo.js"></script>
