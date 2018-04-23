@@ -187,28 +187,23 @@ img{
 		 }
             .accordion {
     background-color: darkmagenta;
-    color: white;
+    color: #444;
     cursor: pointer;
-    width:30%;
     padding: 18px;
+    width: 30%;
     text-align: left;
-    font-size:30px;
     border: none;
     outline: none;
     transition: 0.4s;
 		 
         
 }
-            .panel{
-                overflow-x:hidden;
-                overflow-y:scroll;
+            .panel {
     padding: 0 18px;
     background-color: white;
     display: none;
-
-
-		   
-            }
+    overflow: hidden;
+}
             .panel::-webkit:scrollbar{
 		    width:5px;  
             }
