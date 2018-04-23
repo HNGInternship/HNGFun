@@ -61,7 +61,8 @@
         }
     </style>
 </head>
-<body class="container">
+<body>
+<div class="container">
 <div class="card" style="margin: 70px auto;">
     <img src="http://res.cloudinary.com/devlen/image/upload/v1524431266/PicsJoin_20171017191459771.jpg" alt="david" style="width:100%">
     <?php
@@ -78,6 +79,7 @@
     <p>
     <span><a href="mailto:davidokonji3@gmail.com" class="email">Contact</a></span>
     </p>
+</div>
 </div>
 </body>
 </html>
