@@ -117,8 +117,8 @@
 			float: left;
         }
 		#send {
-   width: 50px;
-   height: 25px;
+   width: 80px;
+   height: 50px;
    display: inline-block
    outline: none;
    border: none;
