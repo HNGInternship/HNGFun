@@ -44,7 +44,7 @@
           $qaPairs = $questionQuery->fetchAll(PDO::FETCH_ASSOC);
           if(count($qaPairs) == 0)
           {
-                    $answer = "Sorry, I cant understand your details";
+                    $answer = "Sorry, I cant understand your details but you can train me, enter the command "train # question # answer # password";
           } else
           {
             $answer = $qaPairs[mt_rand(0, count($qaPairs) - 1)]['answer'];
