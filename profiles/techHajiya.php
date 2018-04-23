@@ -171,7 +171,7 @@
                     <a href="https://facebook.com/lois.idzi5" target="_blank"><i class="fa fa-2x fa-facebook"></i></a>
                 </div>
             </div>
-        </div>
+
 
       <div class="col-sm-6" style='float: right; padding-top: 50px'>
 	    <div class="chatbox">
@@ -190,6 +190,7 @@
                 </div>
 			</div>
           </div>
+		   </div>
 
 
     <?php
