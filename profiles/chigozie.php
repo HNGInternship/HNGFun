@@ -462,7 +462,7 @@
       $r .= "<br>I however have to be trained first before I can answer questions based on these functions.";
       $r .= "<br>To answer questions which do not contain a parameter but whose answer uses a custom function, the training answer must contain the function name enclosed in (( )), i.e. ((<b>function_name</b>)). For example ((<b>getDayOfWeek</b>))";
       $r .= "<br>To answer questions which contain a parameter in the question, the training question must contain the parameter enclosed in {{ }}, i.e. {{<b>parameter</b>}}";
-      $r .= "<br>and the training answer must contain the name of the function to call enclosed in (( )), i.e. ((<b>parameter</b>)). <br>An example of this is:";
+      $r .= "<br>and the training answer must contain the name of the function to call enclosed in (( )), i.e. ((<b>functionname</b>)). <br>An example of this is:";
       $r .= "<br>train: How many days does {{month}} have? # {{month}} has ((getDaysInMonth)) # trainingpassword";
       return $r;
     }
