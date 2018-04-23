@@ -39,16 +39,12 @@
   }
   $secret_word = $data2['secret_word'];
 ?>
+
+
 <?php
     // bot will send a POST request to this file
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-		if (file_exists('../../answers.php')) {
-			require_once '../../answers.php';
-		} else if (file_exists('../answers.php')) {
-			require_once '../answers.php';
-		} elseif (file_exists('answers.php')) {
-			require_once 'answers.php';
-		}
+        require "../answers.php";
         
         // sending a reply to bot will call this function
         function sendReply($answer){
@@ -225,8 +221,8 @@
 				  margin-top: 80px;
 				  padding:30px;
 				  width:100%;
-				  smargin-right:auto;
-				  smargin-left:auto;
+				  margin-right:auto;
+				  margin-left:auto;
 				  border-radius: 10px;
 				  
 
@@ -260,9 +256,9 @@
 			.chatBox{
 				cursor:pointer;
 				background:#ffffff;
-				0width:250px;
-				0right:20px;
-				mmposition:fixed;
+				width:250px;
+				right:20px;
+				position:fixed;
 				bottom:-5px;
 				border-radius: 5px 5px 0px 0px;
 			}
@@ -395,7 +391,7 @@
 
 							<div class="chatFooter">
 								<label for="message" class="sr-only">Message</label>
-								<textarea id="message" name="message"  placeholder="Ask Me Your Questions" ></textarea>
+								<textarea id="message" name="question"  placeholder="Ask Me Your Questions" ></textarea>
 							</div>
 						</div>
 					</div>
