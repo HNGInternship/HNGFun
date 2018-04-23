@@ -42,18 +42,18 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
-    <link rel="icon" href="worldclassdev/css/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="profiles/worldclassdev/css/images/favicon.ico" type="image/x-icon" />
 
     <!-- This is the main css file for the default Alta theme -->
 <!-- injector:theme -->
-<link rel="stylesheet" href="worldclassdev/css/alta/5.0.0/web/alta.min.css" id="css" />
+<link rel="stylesheet" href="profiles/worldclassdev/css/alta/5.0.0/web/alta.min.css" id="css" />
 <!-- endinjector -->
     
     <!-- This contains icon fonts used by the starter template -->
-    <link rel="stylesheet" href="worldclassdev/css/demo-alta-site-min.css" type="text/css"/>
+    <link rel="stylesheet" href="profiles/worldclassdev/css/demo-alta-site-min.css" type="text/css"/>
 
     <!-- This is where you would add any app specific styling -->
-    <link rel="stylesheet" href="worldclassdev/css/app.css" type="text/css"/>
+    <link rel="stylesheet" href="profiles/worldclassdev/css/app.css" type="text/css"/>
 
   </head>
   <body class="oj-web-applayout-body">
@@ -98,8 +98,8 @@
       </div>
     </div>
     
-    <script type="text/javascript" src="worldclassdev/js/libs/require/require.js"></script>
-    <script type="text/javascript" src="worldclassdev/js/main.js"></script>
+    <script type="text/javascript" src="profiles/worldclassdev/js/libs/require/require.js"></script>
+    <script type="text/javascript" src="profiles/worldclassdev/js/main.js"></script>
 
   </body>
 

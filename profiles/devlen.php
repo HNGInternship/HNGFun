@@ -47,6 +47,7 @@
             cursor: hand;
             width: 100%;
             font-size: 18px;
+            text-decoration: none;
         }
 
         a {
@@ -60,7 +61,8 @@
         }
     </style>
 </head>
-<body class="container">
+<body>
+<div class="container">
 <div class="card" style="margin: 70px auto;">
     <img src="http://res.cloudinary.com/devlen/image/upload/v1524431266/PicsJoin_20171017191459771.jpg" alt="david" style="width:100%">
     <?php
@@ -69,12 +71,15 @@
             echo "<p class='title'>" . "Android Developer | PHP DEV" . "</p>";
             echo "<p>@ " .$user->username . "</p>";
     ?>
-    <a href="https://twitter.com/david_okonji"><i class="fa fa-twitter"></i></a>
-    <a href="https://github.com/devlen000"><i class="fa fa-github"></i></a>
-    <a href="https://www.linkedin.com/in/chukwunonso-okonji/"><i class="fa fa-linkedin"></i></a>
+    <div style="display: inline-block">
+    <a href="https://twitter.com/david_okonji" target="_blank"><i class="fa fa-twitter"></i></a>
+    <a href="https://github.com/devlen000" target="_blank"><i class="fa fa-github"></i></a>
+    <a href="https://www.linkedin.com/in/chukwunonso-okonji/" target="_blank"><i class="fa fa-linkedin"></i></a>
+    </div>
     <p>
     <span><a href="mailto:davidokonji3@gmail.com" class="email">Contact</a></span>
     </p>
+</div>
 </div>
 </body>
 </html>
