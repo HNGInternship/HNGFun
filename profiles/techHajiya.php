@@ -106,15 +106,15 @@
         .chat-input {
             padding: 20px;
             background-color: #fff;
-            border-radius: 25px; 
+            border-radius: 5px; 
 			padding: 10px;
 			font-size: 10pt;
         }
         .chat-input .user-input {
             width: 80%;
             border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 0px;
+            border-radius: 5px;
+            padding: 20px;
         }
 		#send {
    width: 30px;
@@ -124,7 +124,7 @@
    border: none;
    color: #FFF;
    background-color: #00F;
-   float: left;
+   float: right;
    border-radius: 25px;
    padding: 0px;
    cursor: pointer;
