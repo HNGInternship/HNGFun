@@ -3,7 +3,6 @@
 <head>
     <link href='https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra SC|Romanesco' rel='stylesheet'>
     <style type="text/css">
-	
         .container{
             width: 100%;
             min-height: 100%
@@ -50,142 +49,49 @@
             color: #1da1f2;
         }
 		
-	
- 
-chatbox {
-    margin: 0px;
-}
-#user {
-    width: 100vw;
-    position: fixed;
-    left: 0px;
-    bottom: 0px;
-    display: block;
-    background-color: #EEE;
-    white-space: nowrap;
-}
-#msgbox {
-   width: calc(30% - 12px);
-   min-height: 25px;
-   max-height: 35px;
-   padding: 5px;
-   outline: none;
-   border: solid 1px #AAA;
-   display: inline-block;
-   vertical-align: center;
-   float: left;
-   background-color: #FFF;
-   border-radius: 25px;
-   resize: none;
-   margin: 0px;
-}
-#send {
-   width: 20vw;
-   height: 35px;
-   display: inline-block
-   outline: none;
-   border: none;
-   color: #FFF;
-   background-color: #00F;
-   float: left;
-   border-radius: 25px;
-   padding: 0px;
-   cursor: pointer;
-   margin: 0px;
-}
-#send:active {
-   background-color: #00A; 
-   outline: none;
-}
-#header {
-   display: flex; 
-   justify-content: left;
-   align-items: center;
-   width: calc(50% - 30px);
-   height: 20px;
-   padding: 15px;
-   color: #FFF;
-   font-size: 200%;
-   font-weight: bolder;
-   background-color: #00F;
-   position: fixed;
-   font-family: arial;
-}
-#messages {
-   display: block;
-   width: 50vw;
-   height: calc(100% - 87px);
-   background-color: #EEE;
-   position: fixed;
-   top: 50px;
-   left: 0px;
-   overflow: auto;
-   overflow-x: hidden;
-   overflow-y: auto;
-    margin: 0 70px;;
-}
-.left {
-   text-align: left; 
-   /*
-   display: block;
-   */
-}
-.right {
-   text-align: right; 
-   /*
-   display: block;
-   */
-}
-.incoming {
-   background-color: #FFF;
-   color: #000;
-   border: solid 1px #AAA;
-}
-.outgoing {
-   background-color: #00F;
-   color: #FFF;
-}
-.section {
-   display: block; 
-   width: calc(100% - 30px);
-   padding-left: 15px;
-   padding-right: 15px;
-   margin-top: 7.5px;
-   margin-bottom: 7.5px;
-}
-.message {
-   display: inline-flex;
-   justify-content: left;
-   align-items: center;
-   border-radius: 25px; 
-   padding: 10px;
-   font-size: 10pt;
-}
-input:first {
-   color: #F00; 
-}
-.incoming:active {
-   background-color: #EEE; 
-}
-.outgoing:active {
-   background-color: #00A; 
-}
-* {
-   outline: none; 
-   tap-highlight: none;
-   -webkit-tap-highlight: none;
-   -webkit-tap-highlight-color: none;
-   -moz-tap-highlight: none;
-   -moz-tap-highlight-color: none;
-   -khtml-tap-highlight: none;
-   -khtml-tap-highlight-color: none;
-}
-a {
-   display: block; 
-   text-align: center;
-}	
+		
+		
+		
+        .chat-result {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            background: white;
+            flex-direction: column;
+            overflow-y: scroll;
+            max-height: 500px;
+        }
+        .chat-output > div {
+            margin: 0 0 20px 0;
+        }
+        .chat-output .user-message .message {
+            background: #0fb0df;
+            color: white;
+        }
+        .chat-output .bot-message {
+            text-align: right;
+        }
+        .chat-output .bot-message .message {
+            background: #eee;
+        }
+        .chat-output .message {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 10px;
+        }
+        .chat-input {
+            padding: 20px;
+            background: #eee;
+            border: 1px solid #ccc;
+            border-bottom: 0;
+        }
+        .chat-input .user-input {
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px;
+        }
     </style>
-	
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 </head>
 <body>
@@ -196,7 +102,7 @@ a {
         $sql2 = 'SELECT * FROM interns_data WHERE username="techHajiya"';
         $q2 = $conn->query($sql2);
         $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $my_data  = $q2->fetch();
+        $user = $q2->fetch();
     } catch (PDOException $e) {
         throw $e;
     }
@@ -218,14 +124,22 @@ a {
             </div>
         </div>
 
-		<div class="chatbox">
-         <div id="header">LoBot</div>
-        <div id="messages">
-        </div>
-        <div id="user" >
-            <input type="text" id="msgbox" name="msgbox"  placeholder="Type a message..." />
-            <button id="send">SEND</button>
-        </div>
+        <div class="col-md-6">
+            <div class="body1">
+                <div class="chat-result" id="chat-result">
+                    <div class="user-message">
+                        <div class="message">Hi there! I'm LoBot! Ask anything and I'll be sure to answer! </br>To train me, use this syntax - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
+                    </div>
+                </div>
+
+                <div class="chat-input">
+                    <form action="" method="post" id="user-input-form">
+<!--                        <input type="hidden" name="id" value="--><?php //echo htmlspecialchars($_GET['id']);?><!--">-->
+                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
+                    </form>
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -241,7 +155,7 @@ a {
     }
     $secret_word = $data['secret_word'];
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $data = $_POST['msgbox'];
+        $data = $_POST['user-input'];
         $temp = explode(':', $data);
         $temp2 = preg_replace('/\s+/', '', $temp[0]);
         
@@ -255,7 +169,7 @@ a {
     }
 	##About Bot
     function aboutbot() {
-        echo "<div id='result'>I am a LoBot Version 1.0 created by Lois Thomas that returns data from the database. That's not all, I also can be taught new tricks!</div>";
+        echo "<div id='result'>LoBot version 1.0 - I am a bot created by Lois Thomas that returns data from the database. That's not all, I also can be taught new tricks!</div>";
     }
 	
 	##Train Bot
@@ -270,8 +184,13 @@ a {
             $q->setFetchMode(PDO::FETCH_ASSOC);
             $data = $q->fetch();
             if(empty($data)) {
-                $training_data = array(':question' => $question,':answer' => $answer);
-                $sql = 'INSERT INTO chatbot ( question, answer) VALUES (:question,:answer);';
+                $training_data = array(':question' => $question,
+                    ':answer' => $answer);
+                $sql = 'INSERT INTO chatbot ( question, answer)
+              VALUES (
+                  :question,
+                  :answer
+              );';
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
@@ -308,25 +227,25 @@ a {
 </body>
 
 <script>
-    var outputArea = $("#messages");
-    $("#user").on("send", function(e) {
+    var outputArea = $("#chat-result");
+    $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
-        var message = $("#msgbox").val();
-        outputArea.append(`<div class='bot-message'><div id='messages'>${message}</div></div>`);
+        var message = $("#user-input").val();
+        outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
         $.ajax({
             url: 'profile.php?id=techHajiya',
             type: 'POST',
-            data:  'msgbox=' + messages,
+            data:  'user-input=' + message,
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<div id='messages'>" + result + "</div>");
-                    $('#messages').animate({
-                        scrollTop: $('#messages').get(0).scrollHeight
+                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+                    $('#chat-result').animate({
+                        scrollTop: $('#chat-output').get(0).scrollHeight
                     }, 1500);
                 }, 250);
             }
         });
-        $("#msgbox").val("");
+        $("#user-input").val("");
     });
 </script>
