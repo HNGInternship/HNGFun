@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
    background-color: #96deda;
    margin: auto;
    width: 55em;
-   height: 37em;
+   height: 35em;
    border-color: grey;
    border-radius: 1.27em;
    position: relative;
@@ -45,7 +45,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
    text-shadow: 0 0 3px #FF0000;
 }
 #me{
-    font-size: 2.35em;
+    font-size: 2.15em;
    text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
 }
 hr{
@@ -75,7 +75,7 @@ img{
    background-color: #625be7;
 }
 #details{
-   height: 20em;
+   height: 18em;
    width: 55em;
    position: absolute;
    bottom: 0px;
