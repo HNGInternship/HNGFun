@@ -309,7 +309,7 @@ a {
 
 <script>
     var outputArea = $("#messages");
-    $("#user").on("submit", function(e) {
+    $("#user").on("send", function(e) {
         e.preventDefault();
         var message = $("#msgbox").val();
         outputArea.append(`<div class='bot-message'><div id='messages'>${message}</div></div>`);
