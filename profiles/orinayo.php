@@ -2,18 +2,6 @@
 global $conn, $user_input_array2;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    if (!defined('DB_USER')) {
-        define('DB_USER', "root");
-        define('DB_PASSWORD', "");
-        define('DB_DATABASE', "hng_fun");
-        define('DB_HOST', "localhost"); 
-        try {
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
-        } catch (PDOException $pe) {
-            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-        }
-    }
-
     function Validate_input($data) 
     {
         $data = trim($data);
