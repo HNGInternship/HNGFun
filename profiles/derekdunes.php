@@ -1,7 +1,8 @@
 <?php
-	//include "config.php";
+	require_once '../db.php';
 
 	$user_name = "derekdunes";
+
 	try{
 		
 		//secret key query
