@@ -32,15 +32,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
    border-color: grey;
    border-radius: 1.27em;
    position: absolute;
-}
-#p{
-   
-   background-color: white;
-   color: #625be7;
-   margin-top: 1em;
-   font-size: 3em;
-   margin-bottom: 0em;
-   text-shadow: 0 0 3px #FF0000;
+   display: inline;
 }
 .d{
    width: 200px;
@@ -71,7 +63,7 @@ hr{
 img{
    margin: auto;
    position: absolute;
-   left: 17.5em;
+   left: 18.78em;
    border-style : ridge;
    border: thick double ;
    border-width: 20px;
@@ -83,8 +75,8 @@ img{
    height: 20em;
    width: 55em;
    position: absolute;
-   bottom: 0em;
-   left: 0em;
+   bottom: 0px;
+   left: 0px;
    background-color: #625be7;
    border-radius: 20px;
    border-top-left-radius: 40px;
