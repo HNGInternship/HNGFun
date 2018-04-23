@@ -94,7 +94,7 @@ $worldclassdev = array_shift($data);
               I like to call myself a developer of all things JS. But basically i love to build stuff that solves a problem irrespective of the technology involved. I'm more about the impact than the money, but somehow i find both. When im not coding, i write, game and play the guitar.
           </div>
     </div>  
-  
+  </my-profile>
 </div><!-- /ko --><div data-bind="_ojNodeStorage_" style="display: none;" class="oj-subtree-hidden">
         </div></oj-module>
       </div>
@@ -104,7 +104,3 @@ $worldclassdev = array_shift($data);
     <script type="text/javascript" src="profiles/worldclassdev/js/libs/require/require.js"></script>
 
     <script type="text/javascript" src="profiles/worldclassdev/js/main.js"></script>
-
-  </body>
-
-</html>
