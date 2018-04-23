@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
    background-color: #96deda;
    margin: auto;
    width: 55em;
-   height: 40em;
+   height: 37.25em;
    border-color: grey;
    border-radius: 1.27em;
    position: relative;
@@ -43,6 +43,10 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
    border-top-right-radius: 30px;
    border-bottom-style : solid black;
    text-shadow: 0 0 3px #FF0000;
+}
+#me{
+    font-size: 2.85em;
+   text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
 }
 hr{
    margin: 0px;
@@ -83,9 +87,9 @@ img{
 }
 #span{
    font-style: italic;
-   font-size: 2.85em;
+   font-size: 2em;
    text-align: center;
-   text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
+   text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }</style>
 </head>
 <body>
@@ -96,7 +100,7 @@ img{
             <div id="details">
                 <span>
                     <p class="d">Details<hr></p>
-                    <div id="span">I am a Web developer</div>
+                    <div id="span"> Hi, there! My name is <span id="me">Andikan</span> and I am a Developer</div>
                 </span>
                
             </div>
