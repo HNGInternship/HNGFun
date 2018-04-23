@@ -36,7 +36,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $arr = explode(" ", $mem);
     
 
-    /* Training the bot*/
+    /* Training the bot*/ 
     if($arr[0] == "train:"){
 
       unset($arr[0]);
@@ -149,7 +149,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   }catch (Exception $e){
     return $e->message ;
   }
-}
+}*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -210,16 +210,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
          position: absolute; 
         color: red;
         right: 100px;
-        background-color: yellow;
+        background-color: grey;
         border-radius: 4px;
+        font-size: 20px;
 
       }
       .humanSend {
         position: absolute; 
         color: green;
         right: 0px;
-        background-color: blue;
+        background-color: skyblue;
         border-radius: 4px;
+        font-size: 20px;
       }
   </style>
 </head>
@@ -244,19 +246,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 <div class="chat-head">Chat Interface</div>
                     <div class="chat">
                         <div id="conversation">
-                          <p class="bot botSend" style="margin-top:0px;left:0px;">
+                          <p class="botSend" style="margin-top:0px;left:0px;">
                               <strong><?php echo $d ?></strong>
                           </p>
-                          <div class="iro">
-                  <ul id="humanPost">
-                    
-                  </ul>
-                </div>  
-                <div class="iio">
-                  <ul id="botPost">
-                      
-                  </ul>
-                </div>  
                         </div>
                         <div style="position:fixed;bottom:0;">
                         <form id="chat" class="box" action="foluwa.php" name="message" method="post">
@@ -273,12 +265,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <script src="../vendor/jquery/jquery.min.js"></script>
   <script>
     $(document).ready(function(){
-      var Form =$('#chat');
+      var Form =$('#conversation');
       Form.submit(function(e){
         e.preventDefault();
         var questionBox = $('textarea[name=inputtext]');
         var question = questionBox.val();
-        $("#humanPost").append("<p class='botSend'>" + question + "<p>" + "<?php echo $d?>" + "</p>" + "</p>");
+        $("#conversation").append("<p class='botSend'>" + question + "<?php echo $d?>" + "</p>");
         $.ajax({
           url: '/profiles/foluwa.php',
           type: 'POST',
@@ -295,6 +287,4 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     });
   </script>
 </body>
-</body>
-
 </html>
