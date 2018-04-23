@@ -6,6 +6,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css' />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <style type="text/css">
+	 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
        body {
             font-family: "Josefin Sans","Montserrat","Segoe UI","Roboto","Helvetica Neue","Arial","sans-serif";
             color: #4A4646;
@@ -105,7 +106,8 @@
         }
         .chat-result .message {
             display: inline-block;
-            padding: 12px 20px;
+            padding: 10px 10px;
+			margin: 5px;
             border-radius: 10px;
         }
         .chat-input {
@@ -175,7 +177,8 @@
 	    <div class="chatbox">
                 <div class="chat-result" id="chat-result">
                     <div class="user-message">
-                        <div class="message">Hello! I'm LoBot! Ask anything and I'll be sure to answer! </br>To train me, use this syntax - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
+					<div class="message">Hello! I'm LoBot! feel free to ask me anything.
+                    <div class="message"></br>To train me, use this syntax - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
                     </div>
                 </div>
 
