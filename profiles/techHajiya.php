@@ -59,20 +59,20 @@
             overflow-y: scroll;
             max-height: 500px;
         }
-        .chat-output > div {
+        .chat-result > div {
             margin: 0 0 20px 0;
         }
-        .chat-output .user-message .message {
+        .chat-result .user-message .message {
             background: #0fb0df;
             color: white;
         }
-        .chat-output .bot-message {
+        .chat-result .bot-message {
             text-align: right;
         }
-        .chat-output .bot-message .message {
+        .chat-result .bot-message .message {
             background: #eee;
         }
-        .chat-output .message {
+        .chat-result .message {
             display: inline-block;
             padding: 12px 20px;
             border-radius: 10px;
