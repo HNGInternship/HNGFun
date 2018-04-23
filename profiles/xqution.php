@@ -51,7 +51,7 @@
 			echo 'My Slack username is: ' .$user->username . '</br>';
 			?>
 				<div id="im">
-				<img src="http://res.cloudinary.com/dv3ymesru/image/upload/v1523624432/piccccc.jpg" style="border-radius: 50%; margin-left: auto; margin-right: auto;  width: 90%;">
+				<img src="http://res.cloudinary.com/dv3ymesru/image/upload/v1523624432/piccccc.jpg" style="border-radius: 50%; margin-left: auto; margin-right: auto;  width: 50%;">
 				</div>
 		</div>
 		</br>
