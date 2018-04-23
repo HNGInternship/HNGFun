@@ -6,8 +6,6 @@ $result = $result->fetch(PDO::FETCH_OBJ);
 
 $secret_word = $result->secret_word;
 
-
-
 $result2 = $conn->query("Select * from interns_data where username = 'paulokoduwa'");
 
 $user = $result2->fetch(PDO::FETCH_OBJ);
@@ -31,22 +29,20 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
   </head>
 
 
-<style >
+ <style>
+  body {
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      color: #f5f6f7;
+      width:100%;
 
-body
-     {
-         font:20px Montserrat, sans-serif;
-         line-height:1.8;
-         color:#f5f6f7;
-     }
-
-
- p {font-size: 16px;}
+  }
+  p {font-size: 16px;}
   .margin {margin-bottom: 45px;}
   .bg-1 { 
       background-color: #1abc9c; /* Green */
       color: #ffffff;
-      
+      width:100%;
   }
   .bg-2 { 
       background-color: #474e5d; /* Dark Blue */
@@ -76,72 +72,27 @@ body
   .navbar-nav  li a:hover {
       color: #1abc9c !important;
   }
+    .navbar-brand h2{
 
- /* Style all font awesome icons */
- .fa {
-    padding: 20px;
-    font-size: 30px;
-    width: 50px;
-    text-align: center;
-    text-decoration: none;
-}
+        margin: 10px;
+        color:blue;
 
-/* Add a hover effect if you want */
-.fa:hover {
-    opacity: 0.7;
-}
+    }
 
-/* Set a specific color for each brand */
-
-/* Facebook */
-.fa-facebook {
-    background: #3B5998;
-    color: white;
-}
-
-/* Twitter */
-.fa-twitter {
-    background: #55ACEE;
-    color: white;
-} 
-.fa-github {
-
-    background:blue;
-    color:white;
-}
-
-
-
-.row {
-    margin:15px;
-    padding:15px;
-}
-
-</style>
+  </style>
 
 <body>
 <!-- Navbar -->
  
- <nav class="navbar navbar-default">
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse"
-    data-target="#myNavbar">
-    <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">Paul okoduwa </a>
-      </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">WHO</a></li>
-        <li><a href="#">WHAT</a></li>
-        <li><a href="#">WHERE</a></li>
-        </ul>
-     </div>
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+     
+      <a class="navbar-brand" href="#"><h2 <style="font-family:sans-serif;">Paulcode</h2></a>
     </div>
+   
+  </div>
 </nav>
-        
 
 
 

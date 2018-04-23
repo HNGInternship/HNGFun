@@ -1,4 +1,187 @@
+
+
 <?php
+    error_reporting(E_ALL);
+    ini_set("display_errors", 1);
+if($_SERVER['REQUEST_METHOD'] === "POST"){
+
+
+//ini_set("output_buffering",4096);
+//session_start();
+
+if(isset($_POST['opheuslocation'])) {
+echo $time = get_time($_POST['opheuslocation']);
+}
+elseif(isset($_POST['opheusweather'])) {
+echo $weather = get_weather($_POST['opheusweather']);
+}
+elseif(isset($_POST['browser'])) {
+echo $browser = get_browser_name($_SERVER['HTTP_USER_AGENT']);
+}
+
+
+
+////////////////////////////////////////////TRAIN OPHEUS BOT /////////////////////////////////////////////////////
+elseif(isset($_POST['opheustrain'])) {
+	
+	
+    //$train = $_GET['opheustrain'];
+	function multiexplode ($delimiters,$string) {
+    
+    $ready = str_replace($delimiters, $delimiters[0], $string);
+    $launch = explode($delimiters[0], $ready);
+    return  $launch;
+}
+ $train = $_POST['opheustrain'];
+//$text = "#train: this a question | this my answer :)";
+$exploded = multiexplode(array(":","|"),$train);
+
+$question = trim($exploded[1]);
+
+$answer = trim($exploded[2]);
+
+if (!defined('DB_USER'))
+	{
+	require "../../config.php";
+
+	}
+
+try
+	{
+	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	}
+
+catch(PDOException $pe)
+	{
+	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	}
+
+
+try {
+    
+    $sql = "INSERT INTO chatbot (id, question, answer)
+VALUES ('', '$question', '$answer')";
+    // use exec() because no results are returned
+    $conn->exec($sql);
+    
+    echo "Thank you! i just learnt something new, my master would be proud of me.";
+	
+	}
+catch(PDOException $e)
+    {
+    echo $sql . "<br>" . $e->getMessage();
+    }
+	
+$conn = null;
+
+}
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////GET OPHEUS ANSWER FROM DB////////////////////////////////////////////////////
+
+elseif(isset($_POST['opheuscheck'])) {
+	
+	if (!defined('DB_USER'))
+	{
+	require "../../config.php";
+
+	}
+
+try
+	{
+	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	}
+
+catch(PDOException $pe)
+	{
+	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	}
+
+
+$check = $_POST['opheuscheck'];
+
+$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$check' ORDER BY rand() LIMIT 1");
+$stmt->execute();
+if($stmt->rowCount() > 0)
+{
+  while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+  {
+		echo $row["answer"];
+  }
+} else {
+    echo "Well i couldnt understand what you asked. But you can teach me.";
+	echo "Type ";
+	echo "train: write a question | write the answer.  "; 
+	echo "to teach me.";
+}
+
+}
+
+
+
+
+///////////////////////////////////////////////////////END OF GET MY ANSWER/////////////////////////////////////////////////////////////////
+
+
+
+
+
+//function bot_answer($check) {
+
+
+//}
+
+
+
+
+
+
+
+
+
+//function train_bot ($train) {
+
+
+
+//And output will be like this:
+// Array
+// (
+//    [0] => here is a sample
+//    [1] =>  this text
+//    [2] =>  and this will be exploded
+//    [3] =>  this also 
+//    [4] =>  this one too 
+//    [5] => )
+// )
+
+//}
+
+
+
+
+
+
+
+
+
+
+}
+
+//else {
+
+
+?> 
+<?php
+
+if($_SERVER['REQUEST_METHOD'] === "GET"){
+	//if($_SERVER['REQUEST_METHOD'] === "GET"){
 //include "../config.php";
 
     try {
@@ -13,13 +196,12 @@
 		$name = $data["name"];
 		$username = $data["username"];
 		$imagelink = $data["image_filename"];
+	
+?>
 
-
-
-?> 
 <html>
 <head>
-
+link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
 <style>
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -323,8 +505,7 @@ button:hover, a:hover {
     </div>
 </div>
 </div>   
-             
-<?php 
+<?php
 $ip       = $_SERVER['REMOTE_ADDR']; 
 $ipsample = "197.211.58.103";
 $date     = gmdate("r"); 
@@ -334,6 +515,7 @@ $code     =$details->region_code;
 $state     = $details->region; 
 $zipcode     = $details->postal; 
 $cntry  = $details->country_name; 
+
 
 function get_browser_name($user_agent)
 {
@@ -345,7 +527,11 @@ function get_browser_name($user_agent)
     elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) return 'Internet Explorer';
     
     return 'Other';
+
 }
+// Usage:
+
+
 function get_device_name($user_agent)
 {
     if (strpos($user_agent, 'Macintosh') || strpos($user_agent, 'mac os')) return 'Mac';
@@ -358,6 +544,75 @@ function get_device_name($user_agent)
     return 'Other';
 }
 
+
+
+
+
+
+///https://ipapi.co/{$ip}/json\\\
+///========================// By Opheus \\========================\\\
+//$ip       = $_SERVER['REMOTE_ADDR']; 
+//$date     = gmdate("r"); 
+//$details  = json_decode(file_get_contents("https://ipapi.co/{$ip}/json")); 
+//$host     = $details->hostname; 
+//$city     = $details->city; 
+//$code     =$details->region_code;
+//$state     = $details->region; 
+//$zipcode     = $details->postal; 
+//$ccode     = $details->country; 
+//$cntry  = $details->country_name; 
+//$md5      = md5($date); 
+//$sha1     = sha1($date); 
+
+
+function get_time($city)
+{
+
+	
+	$url = "https://www.amdoren.com/api/timezone.php?api_key=u3YfnHN8xmibFPbxAjRhtWYGXhAiKy&loc=$city";
+	$ch = curl_init();  
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15); 
+	curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+	$json_string = curl_exec($ch);
+	$parsed_json = json_decode($json_string);
+	$newtime = $parsed_json->time;
+	echo $newtime;
+}
+
+function get_weather($city) {
+ 
+#Find latitude and longitude
+ 
+$url = "http://maps.googleapis.com/maps/api/geocode/json?address=Lagos";
+$json_data = file_get_contents($url);
+$result = json_decode($json_data, TRUE);
+$latitude = $result['results'][0]['geometry']['location']['lat'];
+$longitude = $result['results'][0]['geometry']['location']['lng'];
+
+
+
+
+$url2 = "https://www.amdoren.com/api/weather.php?api_key=u3YfnHN8xmibFPbxAjRhtWYGXhAiKy&lat=$latitude&lon=$longitude";
+	
+	$ch = curl_init();  
+	curl_setopt($ch, CURLOPT_URL, $url2);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15); 
+	curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+	$json_string = curl_exec($ch);
+	$parsed_json = json_decode($json_string);
+	$forecasts = $parsed_json->forecast;
+	
+	foreach ($forecasts as $forecast) {
+		$summary = $forecast->summary;
+		$icon = $forecast->icon;
+		echo "<img src=".$icon."></img> $summary";
+
+	}
+}
+
 // Usage:
 
 $browser = get_browser_name($_SERVER['HTTP_USER_AGENT']);
@@ -365,7 +620,10 @@ $device = get_device_name($_SERVER['HTTP_USER_AGENT']);
 
 
 
+
+
 ?>
+
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
 <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
@@ -414,18 +672,11 @@ function get_username(){
 
 // simple ai function
 function ai(message){
-        if (username.length < 3){
+        if (username.length < 1){
           username = message;
-          send_message('Hi, nice to meet you ' + username + '. Would you like to train me?. If yes type training')
-		  responsiveVoice.speak('Hi, nice to meet you ' + username + '. Would you like to train me?. If yes type training','UK English Male');
+          send_message('Hi, nice to meet you ' + username + '. Would you like to train me? If yes please use the format. train: this is a question | this is an answer.')
+		  responsiveVoice.speak('Hi, nice to meet you ' + username + '. Would you like to train me? If yes please use the format. train: this is a question | this is an answer.','UK English Male');
         }
-        
-		
-        else if ((message.indexOf('training') >= 0)){
-          send_message('to train me please use the format #train: this is a question | this is an answer.');
-          responsiveVoice.speak('to train me please use the format #train colon this is a question delimeter this is an answer.','UK English Male');
-        }
-		
 
         else if ((message.indexOf('what is the time') >= 0) || (message.indexOf('what is my time') >= 0) || (message.indexOf('what time is it') >= 0)){
         var date = new Date();
@@ -443,18 +694,22 @@ function ai(message){
           responsiveVoice.speak('you are currently in '+ state +','+ country + '.','UK English Male');
         }
 		 else if ((message.indexOf('what browser am i using') >= 0) || (message.indexOf('what device am i using') >= 0) || (message.indexOf('what is my device') >= 0) || (message.indexOf('what is my browser') >= 0)){
-			send_message('you are currently using a '+ browser +'on a '+ device + '&nbsp;Device');
+			send_message('you are currently using a&nbsp;'+ browser +'&nbsp;on a '+ device + '&nbsp;Device');
           responsiveVoice.speak('you are currently using a '+ browser +'on a '+ device + 'Device','UK English Male');
 		  }
 		 else if ((message.indexOf('what is my ip address') >= 0) || (message.indexOf('what is my ip') >= 0) || (message.indexOf('what ip am i using') >= 0) || (message.indexOf('show me my ip') >= 0)){
 			send_message('your ip address is : '+ ip +'');
           responsiveVoice.speak('your ip address is : '+ ip +'','UK English Male');
 		  }
-		else if (message.indexOf('#train') >= 0){
+		  else if ((message.indexOf('aboutbot') >= 0) || (message.indexOf('aboutBot') >= 0) || (message.indexOf('About Bot') >= 0) || (message.indexOf('botAbout') >= 0)){
+			send_message('Opheus-B0t v1.0');
+          responsiveVoice.speak('i am an opheus bot and i am currently version 1.0.');
+		  }
+		else if (message.indexOf('train:') >= 0){
 		trainer = message;
 		$.ajax({
-			type: "GET",
-			url: 'answers.php',
+			type: "POST",
+			url: 'profiles/opheus.php',
 			data: {opheustrain: trainer },
 			success: function(data){
 				send_message(data);
@@ -465,8 +720,8 @@ function ai(message){
 		else{
 		elses = message;
 		$.ajax({
-			type: "GET",
-			url: 'answers.php',
+			type: "POST",
+			url: 'profiles/opheus.php',
 			data: {opheuscheck: elses },
 			success: function(data){
 				send_message(data);
@@ -528,3 +783,6 @@ $(function() {
 
 </body>
 <html>
+<?php 
+	}
+?>

@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Samuel's Profile</title>
-	<?php 
+<?php 
   try {
       $sql = "SELECT secret_word FROM secret_word";
       $q = $conn->query($sql);
@@ -13,8 +9,10 @@
       throw $e;
   }
 ?>
-
-
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Samuel's Profile</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<style>
 	h2{
@@ -64,10 +62,10 @@
 	<div class="profile" >
 	  <img src="https://res.cloudinary.com/samuelweke/image/upload/v1523620154/2017-11-13_21.01.13.jpg" alt="Samuel Weke" >
 	  <h1>Weke Samuel</h1>
-	  <p class="title">Back End Developer</p>
+	  <p class="title">Full Stack Developer</p>
 	  <p>PHP, MySQL, Laravel</p>
 	  <div style="margin: 24px 0; padding-bottom: 20px">
-  
+
 	 </div>
 	</div>
 
