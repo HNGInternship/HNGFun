@@ -124,7 +124,7 @@
    border: none;
    color: #FFF;
    background-color: #00F;
-   float: left;
+   float: right;
    border-radius: 25px;
    padding: 0px;
    cursor: pointer;
