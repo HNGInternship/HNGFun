@@ -461,7 +461,18 @@ h5 {
         // el is for the element we want to attach Vue.js to
         new Vue({
             el: '.bot',
-            
+			data: {
+                messages: [{data: "Hey, I'm Phoenix!", sender: 'bot'}, 
+                {data: "I know the USSD codes of all banks in Nigeria!" +
+
+                " 1. Just type 'ussd: name_of_bank' e.g 'ussd: Money Bank'." + 
+
+                " 2. To train me, use this format 'train: question # answer'" +
+
+                " 3. Type 'aboutbot' to see my latest version", 
+                sender: 'bot'}],
+                message: ''
+            },
             methods: {
                 getBubbleColor(sender){
                     if(sender == 'bot')
@@ -513,7 +524,8 @@ h5 {
                         <input type="button" value="SEND" class="btn btn-primary form-control" @click="addMessage">
                     </form>
                 </div>
-        </div> `,
+        </div>
+		</div> `,
 		});
 	</script>
     
