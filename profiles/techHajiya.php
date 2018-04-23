@@ -651,7 +651,6 @@ e.g train: Who is the president of Nigeria # Muhammadu Buhari # LoBot
     ?>
 
 </div>
-
 </body>
 
 <script>
