@@ -167,6 +167,7 @@ function getReply($data){
     try{
 
         $trimData=sanitizeText($data);
+        if(strpos($trimData, "{{")==FALSE){
 
 $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question=:question ORDER BY RAND() LIMIT 1");
 
@@ -174,11 +175,70 @@ $result= $stmt->execute(array(
    ':question'=>$trimData
   ));
 
+}
+
+else{
+
+    $trimCopy=$trimData;
+
+    $newDataFront="";
+    $newDataBack="";
+    $indexToCut=strpos($trimData, "{{");
+    if($indexToCut!=0){
+    $newDataFront=substr($trimData, 0,$indexToCut);
+    $trimCopy=substr($trimData, $indexToCut);
+
+    }
+
+    $indexToCut2=strpos($trimData, "}}");
+
+
+    if($indexToCut2!=strlen($trimData)-2){
+        $newDataBack==substr($tr, $indexToCut2);
+     $trimCopy=substr($trimCopy, 2,strlen($trimCopy)-4);
+
+    }
+
+    $word=$trimCopy;
+
+
+    $newData=$newDataFront."%".$newDataBack;
+
+    $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE ? ORDER BY RAND() LIMIT 1");
+
+    $stmt->bindValue(1, $newData);
+        $result=$stmt->execute(); 
+
+}
 
   while($row = $stmt->fetch(PDO::FETCH_ASSOC))
   {
 
 
+    $dataFront="";
+    $dataBack="";
+    $indexCut=strpos($row["answer"], "(");
+    if($indexCut!=0){
+    $dataFront=substr($row["answer"], 0,$indexCut);
+
+    }
+
+    $indexCut2=strpos($row["answer"], ")");
+
+
+    if($indexCut2!=strlen($row["answer"])-2){
+        $dataBack==substr($row["answer"], $indexCut2);
+
+    }
+
+        if(strpos($row["answer"], "(pig_latin)")){
+            return $dataFront.doSpecialFunction("pigLatin",$word).$dataBack;
+        }
+
+        else if(strpos($row["answer"], "(find_place)")){
+            return $dataFront.doSpecialFunction("findPlace",$word).$dataBack;
+
+        }
         return $row["answer"];
 
 
@@ -655,7 +715,7 @@ ul{
 
      <img class="rounded-circle" id="profile-pic" src=<?php echo $profilePic?> alt="Profile picture"> 
 
-    <h3 id="school">Graduate of the University of Lagos+</h3>
+    <h3 id="school">Graduate of the University of Lagos</h3>
 
 
 </div>
@@ -706,7 +766,18 @@ ul{
           Some special functions i perform are: <br>
           <ul>
               <li><strong>Translate English to Pig Latin</strong><br>
-                Type <span id="important">pig latin: word/sentence</span>
+                Type <span id="important">pig latin: word/sentence</span><br>
+                The variable is used like so <span id="important">{{variable}}</span> and function as <span id="important">(pig_latin)</span><br>
+
+              </li>
+              <li><strong>Place Locator</strong><br>
+                Used to find type of places in an area
+                Type <span id="important">find: place in area</span><br>
+                For example <span id="important">find: restaurants in nigeria</span><br>
+                <span id="important">find: hotels in yaba</span><br>
+                Also can find location of compnies or org e.g <span id="important">find: hotelsng in nigeria</span><br>
+                <span id="important">find: Chevron </span><br>
+                The variable is used like so <span id="important">{{variable}}</span> and function as <span id="important">(find_place)</span><br>
 
               </li>
           </ul><span>
