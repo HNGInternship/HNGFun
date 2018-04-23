@@ -1,5 +1,4 @@
 <?php
-require '../db.php';
 $query = $conn->query("SELECT * FROM secret_word");
 $result = $query->fetch(PDO::FETCH_ASSOC);
 $secret_word = $result['secret_word'];
@@ -15,7 +14,7 @@ $secret_word = $result['secret_word'];
 <style>
 body {
   margin: 0;
-  background-image: url("http://res.cloudinary.com/devgeaks/image/upload/v1523731563/background.jpg");
+  background-image: url("https://res.cloudinary.com/devgeaks/image/upload/v1523891444/bot2.jpg");
   background-attachment: fixed;
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -121,7 +120,7 @@ $(document).ready(function(){
 <p id="panel">
 <?php
 require 'db.php';
-$username = "dev_geaks";
+$username = "dev_gb";
 $data = $conn->query("SELECT * FROM  interns_data WHERE username = '".$username."' ");
 $my_data = $data->fetch(PDO::FETCH_BOTH);
 $name = $my_data['name'];

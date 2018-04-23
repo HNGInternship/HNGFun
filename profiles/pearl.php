@@ -23,7 +23,6 @@
     padding: 20px;
     font-size: 24px;
     background-color: #7a8690;
-    position: fixed;
     margin-top: -10px;
 }
 .header span{
@@ -54,7 +53,8 @@
 
 .main{
     background-color: rgba(255, 255, 255, .9);
-    width: 90%;
+    width: 100%;
+    padding: 20px;
     margin: 0 auto;
     z-index: 6px;
 }
@@ -83,7 +83,7 @@ h1, h2, p{
     border: 4px solid #c1c1c1;
     padding: 8px;
     border-radius: 0px 10px;
-    margin-top: -20px;
+    margin-top: 20px;
 }
 .school{
     border-left: solid 4px #667c90;
@@ -202,102 +202,38 @@ footer #link{
 <body cz-shortcut-listen="true">
 
 <?php
-include("../config.example.php");
+    
+		require 'db.php';
 
-// Create connection
-$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
-
+		$result = $conn->query("Select * from secret_word LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+		$secret_word = $result->secret_word;
+ 
+$result2 = $conn->query("Select * from interns_data where username = 'pearl'");
+  
+$user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 
 	<div class="container">
 		<header>
 			<div class="header">
-                <span>
-
-<?php
-
-$sql = "SELECT name, username, image_filename FROM interns_data";
-$result = $conn->query($sql);
-		if ($result->num_rows > 0) {
-
-    while($row = $result->fetch_assoc()) {
-        echo $row['name'];
-    }
-}
- else {
-    echo "0 results";
-}
-?>
-            </div>
+                <span><?php echo $user->name ?></span>
+     </div>
 		</header>
-<?php
-$fetch_code = "SELECT code FROM secret_word";
-$secret_word = $conn->query($fetch_code);
 
-
-?>
         <div id="intro">
             <div id="intro-span">
                 <div id="main">
-                    Hi, I am<br /><span id="me">
-	<?php
-
-$sql = "SELECT name, username, image_filename FROM interns_data";
-$result = $conn->query($sql);
-		if ($result->num_rows > 0) {
-
-    while($row = $result->fetch_assoc()) {
-        echo $row['name'];
-    }
-}
- else {
-    echo "0 results";
-}
-?>
-</span><br />
+                    Hi, I am<br /><span id="me"><?php echo $user->name ?></span><br />
                     <span>A Software Developer</span>
                 </div>
             </div>
         </div>
 		<section class="main">
 			<div class="get-started">
-                <h1>
-	<?php
-
-$sql = "SELECT name, username, image_filename FROM interns_data";
-$result = $conn->query($sql);
-		if ($result->num_rows > 0) {
-
-    while($row = $result->fetch_assoc()) {
-        echo  "Meet " . $row['username'];
-    }
-}
- else {
-    echo "0 results";
-}
-?>
-</h1>
+                <h1>Meet <?php echo $user->username ?></h1>
                 <div>
-                    <img class="img"  src="
-	<?php
-
-$sql = "SELECT name, username, image_filename FROM interns_data";
-$result = $conn->query($sql);
-		if ($result->num_rows > 0) {
-
-    while($row = $result->fetch_assoc()) {
-        echo  $row['image_filename'];
-    }
-}
- else {
-    echo "0 results";
-}
-$conn->close();
-?>" alt="She Codes" /></div>
+                    <img class="img"  src="<?php echo $user->image_filename ?>" alt="She Codes" /></div>
                 <p class="mission" id="caption"><b>My mission for HNG Internship:</b> Be a world class developer, initiate and complete innovative projects, and have a voice in the technology ecosystem. </p>
                 
                 <p>Anyway, this is the “About” page, so I should probably tell you my story.
@@ -310,7 +246,7 @@ $conn->close();
                 <p class="school">I found the love of my life few months before Industrial Training, a friend of mine one afternoon came to my room so excited, she wanted to demonstrate something to me but I was watching movie(that’s what majority of students do with their PC, I was no different). Her excitement was overwhelming that I gave her an opportunity. Guess what! she wrote some foreign characters, opened my browser and boom!!! the miracle happened; <span id="g">G</span><span id="o1">o</span><span id="o2">o</span><span id="g">g</span><span id="l">l</span><span id="o1">e</span> written bodily with its 4 different colours appeared on the screen, immediately I fell in love.
 My love grew into passion that I gave up my little savings to learn web development using java for back end. The journey have not been easy but I have this inner peace that am doing what I love the most.</p>
                 
-                <h2>Skills</h2>
+                <h2 style="text-align:left;">Skills</h2>
                 <p>Web Development <span style="font-weight:bold;">60%</span></p>
 	
                 <p>Mobile Development <span style="font-weight:bold;">40%</span></p>

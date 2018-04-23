@@ -1,3 +1,49 @@
+<?php
+	
+	if(!defined('DB_USER')){
+		require "../config.php";
+	}
+
+	try {
+		$conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
+		// set the PDO error mode to exception
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		
+		$stmt = $conn->prepare("select secret_word from secret_word limit 1");
+		$stmt->execute();
+
+		$secret_word = null;
+
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$rows = $stmt->fetchAll();
+		if(count($rows)>0){
+			$row = $rows[0];
+			$secret_word = $row['secret_word'];	
+		}
+
+		$name = null;
+		$username = "thekinglaolu";
+		$image_filename = null;
+
+		$stmt = $conn->prepare("select * from interns_data where username = :username");
+		$stmt->bindParam(':username', $username);
+		$stmt->execute();
+
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$rows = $stmt->fetchAll();
+		if(count($rows)>0){
+			$row = $rows[0];
+			$name = $row['name'];	
+			$image_filename = $row['image_filename'];	
+		}
+
+	}
+	catch(PDOException $e)
+	{
+		echo "Connection failed: " . $e->getMessage();
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,8 +89,6 @@
 			height: 15em;
 			margin-top: 4em;
 			border-radius: 100%;
-			border-style: solid;
-			border-color: #b3b3b3;
 		}
 		.grey {
 			height: .3em;
@@ -58,12 +102,11 @@
 <body>
 	<main class="about">
 		<div class="about-me">
-			<img src="https://res.cloudinary.com/thekinglaolu/image/upload/v1523623906/1X1.jpg" alt="profile-picture" class="profile" />
+			<img src="<?php echo $image_filename; ?>" alt="profile-picture" class="profile" />
 			<h1> David Afolayan </h1>
 			<h2>FRONTEND MAGICIAN</h2>
 			<hr class="grey"/>
-			<p class="bio">David Afolayan is a young, ambitious and passionate tech enthusiast. He is a self-taught front-end developer with interests in building beautiful and user-friendly products that not only put smiles on people's faces but also make the world a better place.
-			He has a strong desire to see people grow, become better and live comfortable lives, He seeks to be of great service to humanity especially in areas involving tech and as much as he can be involved in several philanthropic activities.</p>
+			<p class="bio">David Afolayan is a young and passionate ninja geek. He has interests in javascript technologies, UI/UX design and building things that crawl on the web. He's aspiring tech influencer who's trying to get his feet steady in the sands of coding. And did I mention he's a sucker for graphics design, phtography and art? Well, He is!</p>
 		</div>
 	</main>
 </body>

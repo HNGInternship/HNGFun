@@ -1,3 +1,23 @@
+<?php
+ 
+try {
+   $profile = 'SELECT * FROM interns_data_ WHERE username="matthew"';
+    $select = 'SELECT * FROM secret_word';
+
+    $query = $conn->query($select);
+    $profile_query = $conn->query($profile);
+
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $profile_query->setFetchMode(PDO::FETCH_ASSOC);
+
+    $get = $query->fetch();
+    $user = $profile_query->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+$secret_word = $get['secret_word'];
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,52 +73,11 @@ echo "hello world!";
 echo "<br>";
 echo "The time is " . date("h:i:sa"); "<br>";
 ?>
-
-<?php
-  
-  require("../db.php");
-
-  // $emat_host =  "localhost";
-  // $emat_db   =  "hng_db";
-  // $emat_user =  "root";
-  // $emat_pass =  "";
-
-  // start connection to mysql
-  $conn2 = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-
-  // check for errors
-  if (mysqli_connect_errno())
-  {
-    echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  }
-
-  // get secret keyword
-  $query1 = " SELECT secret_word FROM secret_word ";
-  $secret_result = mysqli_query($conn2, $query1);
-  while($result_data = mysqli_fetch_assoc($secret_result)){
-    $secret_word = $result_data['secret_word'];
-  }
-
-  // fetch my information
-  $query2 = " SELECT name, username, image_filename FROM interns_data_ WHERE(username = 'ematthew') ";
-  $results = mysqli_query($conn2, $query2);
-  while($data = mysqli_fetch_assoc($results)){
-    $username = $data['username'];
-    $name = $data['name'];
-    $image_filename = $data['image_filename'];
-  }
-?>
- 
-
-
 <div class="container">
  <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="<?php echo $image_filename; ?>" alt="Card image cap">
+  <img class="card-img-top" src="http://res.cloudinary.com/hng/image/upload/v1523623156/mat1.png" alt="Card image cap">
   <div class="card-body">
-    <h5 class="card-title"><?php echo $name; ?></h5>
-    <h5>slack username: <?php echo $username; ?> </h5>
-
-    <p>My secret word: <?php echo $secret_word; ?> </p>
+    <h5 class="card-title">Matthew Bernard</h5>
     <p class="card-text">very little is needed to make a happy life thanks HNG for give us the chance!!</p>
   </div>
 </div>

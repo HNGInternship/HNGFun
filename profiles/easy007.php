@@ -1,140 +1,126 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD:profiles/easy007.php
->>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
-<?php 
-
-include('header.php')
-
- ?>
- <!DOCTYPE html>
- <html>
-	 <head>
-	 	<title>Easy | Page</title>
-	 </head>
-	 <style type="text/css">
-	 	#one{
-	 		text-align: center;
-	 		margin-top: 50px;
-	 		font-size: 70px;
-	 	}
-	 	#two{
-	 		text-align: center; 
-	 		margin-top: 20px; 
-	 		font-size: 20px;
-	 	}
-		 img{
-			width: 500px;
-			height: 500px;
-			margin-left: 400px;
-			border-radius: 250px;
-		 }
-
-	 </style>
-	 <body>
-	 	<h1 id="one">i am easy007</h1>
-	 	<h1 id="two">A  Web Developer</h1>
-
-         <img src="https://cloudinary.com/console/media_library/asset/image/upload/image-1.jpg" alt="easy007 pizure">
-	 </body>
-
- </html>
- <?php 
-	include('footer.php')
-  ?>
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077
-<?php 
-
- ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Abseejp</title>
-	<style type="text/css">
-		.cover{
-			
-			background-size: cover;
-			background-repeat: no-repeat;
-			display: table;
-			width: 100%;
-			padding: 100px;
-		}
-		.cover-text{
-			text-align: center;
-			color: white;
-			display: table-cell;
-			vertical-align: middle;
-			color: black;
-		}
-		img{
-			height: 300px; 
-			width: 300px;
-			border-radius: 100px;
-			margin-top: 100px;
+<title>Easy | Page</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+*{
+  box-sizing:border-box;
+}
+body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+.w3-row-padding img {margin-bottom: 12px}
+#about{
+	text-align:center !important;
+}
+body >div{
+	background:bisque;
+	margin-bottom:1rem;
+}
 
-		}
-		#team{
-			background-color:gray;
-			background-size:cover;
-			background-position: top;
-			background-repeat: no-repeat; 
-			color: white;
-			text-align: center;
-			color: black;
-			margin-top: 40px;
-		}
-		#name{
-			margin-top: 20px;
-			font-size: 60px;
-		}
-		
-
-	</style>
+.bgimg{
+  width: 25%;
+    margin: auto;
+}
+.bgimg img{
+  max-width:100%;
+  height:auto;
+}
+</style>
 </head>
-
-
-<?php 
-
-include('header.php')
-
- ?>
-
 <body>
-	<div class="cover">
-		<div class="cover-text">
-			<h1>You probably haven't heard of Abseejaypee</h1>
-			<p>it is really so amazing how little by little we are being groomed to become world class standard programmers with very outstanding and proficient skills</p>
-			<a href="#why-us" role="button" class="btn btn-primary btn-lg">Meet Me</a>
-		</div>
-	</div>	
-	</section>
-	<section id="team">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12">
-					<img src="http://res.cloudinary.com/abseejp/image/upload/v1523617182/abbb.jpg" id="why-us" >
-					<h4 id="name">Abseejaypee</h4>
-					<p>Am a Web Developer, A Data Scientist, A Programmer who loves deep thinking, A Writer and Someone who loves innovation</p>
-				</div>	
-			</div>
-		</div>
-		<?php 
-			include('config.php');
-		 ?>
-		
-	</section>
-	<?php 
-		include('footer.php');
 
-	 ?>
-<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-4">col-4</div>
+      <div class="col-4">col-4</div>
+      <div>
+      <nav style="margin:auto">
+  <div class="bgimg">
+  <img src="http://res.cloudinary.com/easy007/image/upload/v1523694330/image-1.jpg"  alt="My Image" max-width="100%" height="auto">
+  </div>
+</nav>
+      </div>
+    </div>
+</div>
+<!-- Sidebar with image -->
+
+    
+<div class="content" style="margin:auto">
+  <!-- Header -->
+  <header class="w3-container w3-center" id="home">
+    <h1 class="w3-jumbo" style="text-align:center;margin:1rem;">Name: &nbsp;&nbsp;<b>Adeniyi Yusuf</b></h1>
+  </header>
+
+  
+  <div class="w3-content w3-justify w3-text-grey w3-text-center w3-padding-32" id="about">
+    <h1 style="background: white;margin: 0 -1rem;">About</h1>
+    <hr class="w3-opacity">
+    <p>Student | Web developer| Computer scientist</p>
+        
+    <h2 class="w3-padding-16">My Skills</h2>
+    <p class="w3-wide">HTML 5</p>
+    <p class="w3-wide">CSS3</p>
+    <p class="w3-wide">BootStrap</p>
+    <p class="w3-wide">JQuery</p>  
+    <p class="w3-wide">JavaScript</p>
+	<p>Nodejs</p>
+    <p>Expressjs</p>
+	</div>
+  <!-- Contact Section -->
+  <div class="w3-padding-32 w3-content w3-text-grey" id="contact" style="margin-bottom:64px; text-align:center">
+    <h1 style="background: white;margin: 0 -1rem;">Contact Me</h1>
+    <hr class="w3-opacity">
+
+    <div class="w3-section">
+      <p><i class="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i>Lagos, Nigeria</p>
+      <p><i class="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i>Phone: +2348067177670</p>
+      <p><i class="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"> </i>Email: easyclick05@gmail.com</p>
+    </div>     
+   
+    <p>Send me a message:</p>
+    <form action="/action_page.php" target="_blank">
+      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Name" required name="Name"></p>
+      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Email" required name="Email"></p>
+      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Subject" required name="Subject"></p>
+      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Message" required name="Message"></p>
+      <p>
+        <button class="w3-button w3-light-grey w3-padding-large" type="submit">
+          <i class="fa fa-paper-plane"></i> SEND MESSAGE
+        </button>
+      </p>
+    </form>
+  <!-- End Contact Section -->
+  </div>  
+  
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-opacity w3-xlarge" style="margin:-24px;text-align:center;">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+    <p class="w3-medium">Designed by <a href="#" target="_blank" class="w3-hover-text-green">Easyclick</a></p>
+  </footer>
+  
+<!-- END PAGE CONTENT -->
+</div>
+
+<?php
+
+
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+?>
+
 </body>
 </html>
-<<<<<<< HEAD
-=======
->>>>>>> 41423abe05c9e89fb255c09678a8779decd2c470:profiles/Abseejp.php
->>>>>>> 5fc60e16824b56e1a303866380259ded44d6b077

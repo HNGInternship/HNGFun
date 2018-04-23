@@ -1,3 +1,19 @@
+<?php 
+  require 'db.php';
+?>
+
+<?php
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+   $sql = $conn->query("SELECT * FROM interns_data WHERE username = 'Durodolav'");   
+   $result = $conn->query("SELECT * FROM interns_data WHERE username = 'Durodolav'");
+
+   $result2 = $conn->query("Select * from interns_data where username = 'durodolav'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -23,27 +39,9 @@
     </style>
   </head>
   <body>
-     <?php
-      $db = new mysqli('localhost','root', 'ayokunumi', 'hng');
-      $sql = $db->query("SELECT * FROM interns_data WHERE username = 'Durodolav'")->fetch_assoc();   
-      $result = $db->query("SELECT * FROM interns_data");
-      $secret_word = $db->query("SELECT * FROM secret_word");
-      ?>
-      <?php
-        $sql2 = "SELECT secret_word FROM secret_word";
-        $result2 = mysqli_query($db, $sql2);
-        if (mysqli_num_rows($result2) > 0) {
-        
-        
-        global $secret_word;
-        $sql = "SELECT secret_word from secret_word";
-        foreach ($db->query($sql) as $row) {
-        $secret_word = $row['secret_word'];
-   
-}
-        }
-      ?>
-   <?php 
+     
+
+  <?php 
     
     foreach ($result as $result) {
 
@@ -68,9 +66,10 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<?php
-    }
-?>
 
-  </body>
+  <?php
+    }
+  ?>
+</body>
+
 </html>

@@ -9,10 +9,6 @@
   $result2 = $conn->query("Select * from interns_data where username = 'adeteju'");
   $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
-<<<<<<< HEAD
-
-=======
->>>>>>> 772f68dc8b562c7d899fc9fed0635b5650aa3d70
 <html>
 <head>
 <title></title>
