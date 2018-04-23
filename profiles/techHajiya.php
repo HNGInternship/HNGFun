@@ -100,7 +100,7 @@
         $sql2 = 'SELECT * FROM interns_data WHERE username="techHajiya"';
         $q2 = $conn->query($sql2);
         $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $user = $q2->fetch();
+        $my_data = $q2->fetch();
     } catch (PDOException $e) {
         throw $e;
     }
@@ -239,7 +239,7 @@
                 setTimeout(function() {
                     outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
                     $('#chat-result').animate({
-                        scrollTop: $('#chat-output').get(0).scrollHeight
+                        scrollTop: $('#chat-result').get(0).scrollHeight
                     }, 1500);
                 }, 250);
             }
