@@ -1,5 +1,6 @@
 <?php
 require "../../config.php";
+require "../answers.php";
 
 
 //connection
@@ -14,89 +15,80 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 else{
-    echo 'connection successful';
+//for debugging conncection
+    
 }
   global $conn;
 
 //end of connection
 
-
-if (isset($_POST['phpques'])){
-    //gets the question from the user
-$question = $_POST['phpques'];
-$question = trim($question);
-$question = strtolower($question);
-
-//explode, trim and implode to make it a normal string
-$questionA = explode(" ",$question);
-$counter = 0;
-while ($counter < count($questionA)){
-   $questionA[$counter] =  trim($questionA[$counter]);
-    $counter++;
-}
-$question = implode(" ",$questionA);
-$question = trim($question);
+       
+  try {
+      $connn = new PDO("mysql:host=". DB_HOST. ";dbname=".DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+      die("Could not connect to the database " .DB_DATABASE . ": " . $pe->getMessage());
+  }
 
 
-$train = 0;
-$trainString = "train";
-$convertString = "convert";
-$LocateString = "locate";
-//search if it starts train : 
-if (stripos($question, $trainString) === FALSE and stripos($question, $convertString) === FALSE)
-{
-//if it doesn't start with train
-//do below
+      $question = $_POST['chatMessage'];
+      
+//end of connection
 
-$q = "SELECT answer FROM chatbot WHERE question='$question'";
+function getAnswerFromDB($question, $conn, $connn){
+
+$q = "SELECT * FROM chatbot WHERE question='$question'";
 $r = mysqli_query($conn, $q);
 
 if (mysqli_num_rows($r) > 0)
-    {
-        $answer_index = rand(0, (count($result) - 1));
+    {   
+        $sql = "select * from chatbot where question like :question";
+      $query = $connn->prepare($sql);
+      $query->execute([':question' => $question]);
+      $query->setFetchMode(PDO::FETCH_ASSOC);
+      $rows = $query->fetchAll();
+      $resultsCount = count($rows);
 
-        while($answer = mysqli_fetch_assoc($r)){
+        $index = rand(0,  $resultsCount - 1);
+        $row = $rows[$index];
+        $answer = $row['answer'];
+        // $answer = mysqli_fetch_assoc($r);
+        // $answer = $answer['answer'];
 
-            $ans = $answer[$answer_index]['answer'];
-        }
-        echo $ans;
 
-    }
-else {
-    echo '<font style ="font-size:10px ">WOAH that\'s too much.Teach me using this format<i>train:yourquestion#youranswer#password</i></font>';
-    }
+        //if answer has a function call in it
+         // $answer =  callFunction();
+        // else
 
-}
-else if(stripos($question, $convertString) !== FALSE){
- 
-    $question = stristr($question,$trainString);
-    $questionArray = explode(":",$question);
-    $question = $questionArray[1];
-    $base_and_other = $question = explode("#",question);
-    $base = $base_and_other[0];
-    $other = $base_and_other[1];
-
-    $base = trim($base);
-    $other = trim($other);
-    $quesArray = explode(" ",$ques);
-    $qcounter = 0;
-    
-    jConvert($base, $other);
-
+        $startParanthesesIndex = stripos($answer, "((");
+            if ($startParanthesesIndex === false){
+                echo $answer;
+            }
+            else{
+            callFunction($answer, $startParanthesesIndex);
+            }
 
 }
-// else if(stripos($question, $trainString) !== FALSE){
-
-// }
 
 
 
 
-//if it contains train,check if it contains : and #; : get the postion of : and  # to be able to strip it
-//if it containes train and doesn't contain the other characters wrong format
 
-else if (stripos($question, $trainString) !== FALSE){
+else{
 
+    $answer = "WOAH! I'll get there...just train me using the format; train : yourquestion # your answer # password";
+    echo $answer;
+}
+}
+
+
+
+
+
+//trainbot function
+function trainJobot($question, $conn){
+
+    $train = 0;
+    $trainString = "train";
     $colonPos = stripos($question, ":");
     $hashPos = stripos($question, "#");
     $questionLength = strlen($question);
@@ -129,7 +121,7 @@ else if (stripos($question, $trainString) !== FALSE){
 
     $pass = trim($pass);
 
-    if ($pass === "password")
+    if ($pass === "trainpwforhng")
     {
     $train_query = "INSERT INTO chatbot (question, answer)
                     VALUES ('$ques', '$ans')";
@@ -140,54 +132,48 @@ else if (stripos($question, $trainString) !== FALSE){
     else{
         echo "You Are Not Allowed To Train Me".$pass;
     }
-   
+}
+
+
+
+
+
+
+
+function callFunction($answer, $open_bracket_pos){
+
+      $closing_brac_pos = stripos($answer, "))");
+
+      if($closing_brac_pos !== false){
+        $nameOfFunction = substr($answer, $open_bracket_pos + 2, $closing_brac_pos - $open_bracket_pos - 2);
+        $nameOfFunction = trim($nameOfFunction);
+        
+        if(stripos($nameOfFunction, ' ') !== false){
+          echo "The name of the function is invalid for a function";
+        }
+        
+        if(!function_exists($nameOfFunction)){
+          echo "Well, the function command does not exist";
+        }
+        else{
+          $functionResult = str_replace("((".$nameOfFunction."))", $nameOfFunction(), $answer);
+          echo $functionResult;
+        }
+      }
 
 }
 
 
-}//end of the parent if statement
+
+if (isset($_POST['trainValidity']))
+{
+    if ($_POST['trainValidity'] == 1){
+        trainJobot($question, $conn);
+    }
+}
 else{
-    echo "error";
+    getAnswerFromDB($question, $conn, $connn);
 }
-
-
-function jTime($location) {
-    $arrContextOptions=array(
-        "ssl"=>array(
-            "verify_peer"=>false,
-            "verify_peer_name"=>false,
-        ),
-    );
-
-     $geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=".$location. "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
-     $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
-     $response = json_decode($response, true);
-
-
-     $response = $response['results'][0]['geometry'];
-
-     $response = $response["location"];
-     $lat = $response["lat"];
-     $lng = $response["lng"];
-     $timestamp = time();;
-
-     $url = "https://maps.googleapis.com/maps/api/timezone/json?location=".$lat.",".$lng."&timestamp=".$timestamp."&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U";
-     $responseJson = file_get_contents($url,  false, stream_context_create($arrContextOptions));
-     $response = json_decode($responseJson);
-     $timezone = $response -> timeZoneId;
-     $date = new DateTime("now", new DateTimeZone($timezone));
-     echo "The time in ".ucwords($location). " is ".$date -> format('d M, Y h:i:s A');
-
- }
-
- function jConvert($base, $other){
-     $api_key = "U7VdzkfPuGyGz4KrEa6vuYXgJxy4Q8";
-     $url = "https://www.amdoren.com/api/currency.php?api_key=" . $api_key . "&from=" . $base . "&to=" . $other;
-
-     $response = file_get_contents($url);
-     $response = json_decode($response, true);
-     echo "1 ". strtoupper($base) ." is equal to ".  strtoupper($other)  ." " .$response['amount'];
- }
 
 
 ?>
