@@ -14,10 +14,10 @@
         }
 		   .chatbox {
             font-family: 'Source Sans Pro', sans-serif;
-            font-size: 75%;
+            font-size: 14px;
             display: flex;
             flex-direction: column;
-            max-width: 700px;
+            max-width: 500px;
             margin: 0 auto;
         }
 
@@ -166,7 +166,7 @@
             </div>
         </div>
 
-      <div class="col-sm-6">
+      <div class="col-sm-6" style='float: right'>
 	    <div class="chatbox">
                 <div class="chat-result" id="chat-result">
                     <div class="user-message">
