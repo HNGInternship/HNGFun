@@ -8,7 +8,8 @@ if(!defined('DB_USER')){
 		require_once 'config.php';
 	}
 }
- * Class Db
+ /*
+ Class Db
  */
 class Db{
     // a singleton pattern implementation
