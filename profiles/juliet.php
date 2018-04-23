@@ -549,7 +549,7 @@ a:focus {
         <oj-bind-text value="[[$data['name']]]"></oj-bind-text>
       </a></li>
     </script>
-
+   
     <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
        <div id="pageContent" class="oj-web-applayout-page">
         <!--
@@ -571,8 +571,13 @@ a:focus {
       <h4>Web Developer</h4>
           </div>
           <div class="profile mx-auto">
-            <img class="profile-img mx-auto" src="http://res.cloudinary.com/julietezekwe/image/upload/v1523643285/juliet.png" alt="my-profile">
-          </div>
+          <div class="oj-flex">
+            <div class="oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item"></div>
+            <div class="oj-md-6 oj-lg-6 oj-xl-6 oj-flex-item"><img class="profile-img mx-auto" src="http://res.cloudinary.com/julietezekwe/image/upload/v1523643285/juliet.png" alt="my-profile">
+</div>
+            <div class="oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item"></div>
+        </div>
+                      </div>
           <div class="about">
           <h3>Description</h3>
           <p>An Innovative web deveploper inter at HngInternship<sup>4</sup></p>
@@ -758,22 +763,7 @@ a:focus {
         </div></oj-module>
       </div>
       </div>
-
-<footer class="oj-web-applayout-footer" role="contentinfo">
-          <div class="oj-web-applayout-footer-item oj-web-applayout-max-width">
-            <ul>
-              <oj-bind-for-each data="[[footerLinks]]">
-                <template>
-                  <li><a :id="[[$current.data.linkId]]" :href="[[$current.data.linkTarget]]"><oj-bind-text value="[[$current.data.name]]"></oj-bind-text></a></li>
-                </template>
-              </oj-bind-for-each>
-            </ul>
-          </div>
-
-          <div class="oj-web-applayout-footer-item oj-web-applayout-max-width oj-text-secondary-color oj-text-sm">
-            Hng
-          </div>
-        </footer> 
+ 
 </body>
 <!-- end jet -->
 

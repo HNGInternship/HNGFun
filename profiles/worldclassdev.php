@@ -76,7 +76,6 @@
  -->
 <div class="oj-hybrid-padding">
   <my-profile>
-    </my-profile>
     <div class="twcd container">
         <div class="name">
             <h1>Justine Philip</h1>
@@ -96,4 +95,9 @@
    
     
     <script type="text/javascript" src="profiles/worldclassdev/js/libs/require/require.js"></script>
-<script type="text/javascript" src="profiles/worldclassdev/js/main.js"></script>
+
+    <script type="text/javascript" src="profiles/worldclassdev/js/main.js"></script>
+
+  </body>
+
+</html>
