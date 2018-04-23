@@ -236,7 +236,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }         
 
 } else {
-?>
+?> 
+
 <div class="container-fluid content">
                 <h3 class="text-center text-dark display-5">Hello, I'm
                     <span class="display-4" id=name style="color: #f4511e">
