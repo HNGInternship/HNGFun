@@ -37,7 +37,6 @@
 
         .profile-details{
             padding-top: 20px;
-			background
         }
 
         .profile-details {
