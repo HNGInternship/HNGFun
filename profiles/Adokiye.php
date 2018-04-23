@@ -78,6 +78,7 @@ $input = trim($input);
             }else if($input=="you are mad"||$input == "you're mad"){
                 return "YOUR FATHER";
             } else {
+                $input = $_POST['input'];
                 $question = strtolower($input);
                 $question = str_replace('?', '', $question);
                 $question = trim($question);
@@ -247,7 +248,7 @@ $username = 'Adokiye';
         <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
         <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
     </div>
-    <p class="mycss"> Chatbot by Adokiye<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
+    <p class="mycss"> Chatbot by Adokiye IrUene<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
     <form name = "askMe" method="post">
         <p>
             <label>
