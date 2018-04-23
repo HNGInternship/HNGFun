@@ -45,7 +45,7 @@
            height: 100%;
            margin: 0 auto;
            
-           padding-top: 60px;
+           padding-top: 40px;
            padding-bottom: 40px;
            padding-right: 25px;
            overflow: hidden;
@@ -58,6 +58,7 @@
            background-size: cover;
            box-shadow: 0px 7px 8px rgba(0, 0, 0, 0.25);
            height: 580px;
+	   margin-top: 30px;
            float: right;
            
            
