@@ -1,5 +1,5 @@
 <?php 
-		require '../db.php';
+		//require 'db.php';
 		$result = $conn->query("Select * from secret_word LIMIT 1");
         $result = $result->fetch(PDO::FETCH_OBJ);
         $secret_word = "1n73rn@Hng";
@@ -19,6 +19,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic,900,900italic'" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic,900,900italic'" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Risque" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
    
 
     <style>
@@ -38,7 +40,7 @@
          background-size: cover;
        }
 
-       .container {
+       .container1 {
            width: 90%;
            height: 100%;
            margin: 0 auto;
@@ -56,16 +58,15 @@
            background-size: cover;
            box-shadow: 0px 7px 8px rgba(0, 0, 0, 0.25);
            height: 580px;
+	   margin-top: 50px;
            float: right;
-           
-           
-           width: 80%;
+           width: 90%;
        }
        .clear {clear: both;}
 
        .Menu-bars {
          width: 70px;
-         height: 40px;
+         height: 55px;
          padding-top: 20px;
          float: right;
          
@@ -152,10 +153,14 @@
          color: #30B7FB;
 	 cursor: pointer;
        }
+	    
+		.bg-primary {
+			background-color: #F7DD30 !important;
+		}
 
     </style>
    <body>
-      <div class="container">
+      <div class="container1">
          <div class="TxtMask">
             <div class="Menu-bars">
                <hr>
@@ -169,10 +174,11 @@
                   <h4 class="ui-ux">UI.UX | Frontend</h4>
                   <hr>
                   <div class="social-icons">
-                     <i class="fa fa-facebook fa-2x"></i>
-                     <i class="fa fa-twitter fa-2x"></i>
-                     <i class="fa fa-instagram fa-2x"></i>
-                     <i class="fa fa-google-plus fa-2x"></i>
+                     <a href="https://www.facebook.com/toxic.hydra"><i class="fa fa-facebook fa-2x"></i></a>
+        	     <a href="https://twitter.com/Godsoncjr"><i class="fa fa-twitter fa-2x"></i></a>
+        	     <a href="https://plus.google.com/u/0/+GODSONCHIBUIKEMJNRDC"><i class="fa fa-google-plus fa-2x"></i></a>
+		     <a href="https://github.com/GodsonUI"><i class="fa fa-github fa-2x"></i></a>
+
                   </div>
             </div>
             <div class="clear"></div>
