@@ -99,7 +99,7 @@
             margin: 0 0 10px 0;
         }
         .chat-result .user-message .message {
-            background: #191970;
+            background: #DA70D6;
             color: white;
         }
         .chat-result .bot-message {
@@ -134,7 +134,7 @@
 		   outline: none;
 		   border: none;
 		   color: #fff;
-		   background-color: #191970;
+		   background-color: #DA70D6;
 		   float: right;
 		   border-radius: 25px;
 		   padding: 0px;
@@ -149,11 +149,12 @@
 		
 
 	.chatbot-menu-header {
-            background-color: #007BFF;
-            padding: 7px 25px;
-            margin: 0px 0 0 5px;
+            background-color: #191970;
+            padding: 7px 20px;
+            margin: 0px 0 0 0px;
             color: #FFFFFF;
             height: 45px;
+			border-radius:10px;
         }
 
         .chatbot-close, .chatbot-help {
@@ -168,6 +169,7 @@
 
         .chatbot-menu-header span {
             font-weight: bold;
+			font-size: 24px;
         }
 
         .chatbot-menu-header a {
@@ -309,7 +311,6 @@ e.g train: Who is the president of Nigeria # Muhammadu Buhari # LoBot
     ?>
 
 </div>
-
 </body>
 
 <script>

@@ -1,145 +1,145 @@
-<?php 
-		
-		if(!defined('DB_USER')){
-			require "../../config.php";		
-			try {
-			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-			} catch (PDOException $pe) {
-			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-			}
-		}
-    try {
-        $q = 'SELECT * FROM secret_word';
-        $sql = $conn->query($q);
-        $sql->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $sql->fetch();
-        $secret_word = $data["secret_word"];
-    } catch (PDOException $err) {
-        throw $err;
-    }?>
 <?php
-	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		$question = $_POST['message-box'];
-		$array = explode("#", $question);
-      		$question_temp = explode(":", $array[0]);
-      		$question = trim($question_temp[1]);
-      		$answer = trim($array[1]);
-		$password = $password_temp ;
-		$password_temp = trim(preg_replace("([?.])", "", $trainInfo[2] ));
-      		if(strpos($question, "train:") !== false) {
-			$question = preg_replace('([\s]+)', ' ', trim($question));
-			$question = preg_replace("([?.])", "", $question);
-			if ($password !== "password"){
-			$question = "%$question%";
-			$sql = "select * from chatbot where question like :question";
-			$stmt = $conn->prepare($sql);
-			$stmt->bindParam(':question', $question);
-			$stmt->execute();
-			$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			$rows = $stmt->fetchAll();
-			if(count($rows)>0){
-				$index = rand(0, count($rows)-1);
-				$row = $rows[$index];
-				$answer = $row['answer'];	
-				//check if the answer is to call a function
-				$index_of_parentheses = stripos($answer, "((");
-				if($index_of_parentheses === false){ //then the answer is not to call a function
-					echo json_encode([
-						'status' => 1,
-						'answer' => $answer
-					]);
-				}else{//otherwise call a function. but get the function name first
-					$index_of_parentheses_closing = stripos($answer, "))");
-					if($index_of_parentheses_closing !== false){
-						$function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
-						$function_name = trim($function_name);
-						if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
-							echo json_encode([
-								'status' => 0,
-								'answer' => "No white spaces allowed in function name"
-							]);
-							return;
-						}
-						if(!function_exists($function_name)){
-							echo json_encode([
-								'status' => 0,
-								'answer' => "Function not found"
-							]);
-						}else{
-							echo json_encode([
-								'status' => 1,
-								'answer' => str_replace("(($function_name))", $function_name(), $answer)
-							]);
-						}
-						return;
-					}
-				}
-			}else{
-				echo json_encode([
-					'status' => 0,
-					'answer' => "Sorry, I cannot answer your question.Please train me. The training data format is  <b>train: question # answer # password</b>"
-				]);
-			}		
-			return;
-		}else{
-			//in training mode
-			//get the question and answer
-			$question_and_answer_string = substr($question, 6);
-			//remove excess white space in $question_and_answer_string
-			$question_and_answer_string = preg_replace('([\s]+)', ' ', trim($question_and_answer_string));
-			
-			$question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string); //remove ? and . so that questions missing ? (and maybe .) can be recognized
-			$split_string = explode("#", $question_and_answer_string);
-			if(count($split_string) == 1){
-				echo json_encode([
-					'status' => 0,
-					'answer' => "Invalid training format. <br> Type  <b>train: question # answer # password</b>"
-				]);
-				return;
-			}
-			$que = trim($split_string[0]);
-			$ans = trim($split_string[1]);
-			if(count($split_string) < 3){
-				echo json_encode([
-					'status' => 0,
-					'answer' => "Please enter the training password to train me."
-				]);
-				return;
-			}
-			$password = trim($split_string[2]);
-			//verify if training password is correct
-			define('TRAINING_PASSWORD', 'password');
-			if($password !== TRAINING_PASSWORD){
-				echo json_encode([
-					'status' => 0,
-					'answer' => "Sorry you cannot train me."
-				]);
-				return;
-			}
-			//insert into database
-			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
-			$stmt = $conn->prepare($sql);
-			$stmt->bindParam(':question', $que);
-			$stmt->bindParam(':answer', $ans);
-			$stmt->execute();
-			$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			echo json_encode([
-				'status' => 1,
-				'answer' => "Yipeee, I have been trained"
-			]);
-			return;
-		}
-		echo json_encode([
-			'status' => 0,
-			'answer' => "Sorry I cannot answer that question, please train me"
-		]);
-		
+
+if (!defined('DB_USER')) {
+	require "../../config.php";
+
+}
+
+try {
+	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+}
+
+catch(PDOException $pe) {
+	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+
+$date_time = new DateTime('now', new DateTimezone('Africa/Lagos'));
+global $conn;
+
+if (isset($_POST['payload'])) {
+
+	$question = trim($_POST['payload']);
+	function isTraining($question)
+	{
+	$input = explode('#', $input);
+        $question = trim($input[0]);
+        $answer = trim($input[1]);
+        $password = trim($input[2]);
+        if($password == 'password') {
+            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+            $q = $GLOBALS['conn']->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+
+            if(empty($data)) {
+                $training_data = array(':question' => $question,
+                    ':answer' => $answer);
+
+                $sql = 'INSERT INTO chatbot ( question, answer)
+              VALUES (
+                  :question,
+                  :answer
+              );';
+
+                try {
+                    $q = $GLOBALS['conn']->prepare($sql);
+                    if ($q->execute($training_data) == true) {
+                        echo "<div id='result'>Training Successful!</div>";
+                    };
+                } catch (PDOException $e) {
+                    throw $e;
+                }
+            }else{
+                echo "<div id='result'>I already understand this. Teach me something new!</div>";
+            }
+        }else {
+            echo "<div id='result'>Invalid Password, Try Again!</div>";
+
+        }
 	}
-	else{
+
+	function getAnswer()
+	{
+		global $question;
+		global $conn;
+		$sql = 'SELECT * FROM chatbot WHERE question LIKE "' . $question . '"';
+		$answer_data_query = $conn->query($sql);
+		$answer_data_query->setFetchMode(PDO::FETCH_ASSOC);
+		$answer_data_result = $answer_data_query->fetchAll();
+		$answer_data_index = 0;
+		if (count($answer_data_result) > 0) {
+			$answer_data_index = rand(0, count($answer_data_result) - 1);
+		}
+
+		if ($answer_data_result[$answer_data_index]["answer"] == "") {
+			return 'Train me , please type "train: question # answer # password"';
+		}
+
+		if (containsVariables($answer_data_result[$answer_data_index]['answer']) || containsFunctions($answer_data_result[$answer_data_index]['answer'])) {
+			$answer = resolveAnswer($answer_data_result[$answer_data_index]['answer']);
+			return $answer;
+		}
+		else {
+			return $answer_data_result[$answer_data_index]['answer'];
+		}
+	}
+
+	function resolveQuestionFromTraining($question)
+	{
+		$start = 7;
+		$end = strlen($question) - strpos($question, " # ");
+		$new_question = substr($question, $start, -$end);
+		return $new_question;
+	}
+
+	function resolveAnswerFromTraining($question)
+	{
+		$start = strpos($question, " # ") + 3;
+		$answer = substr($question, $start);
+		return $answer;
+	}
+
+	function containsVariables($answer)
+	{
+		if (strpos($answer, "{{") !== false && strpos($answer, "}}") !== false) {
+			return true;
+		}
+
+		return false;
+	}
+
+	function containsFunctions($answer)
+	{
+		if (strpos($answer, "((") !== false && strpos($answer, "))") !== false) {
+			return true;
+		}
+
+		return false;
+	}
+
+	function resolveAnswer($answer)
+	{
+		if (strpos($answer, "((") == "" && strpos($answer, "((") !== 0) {
+			return $answer;
+		}
+		else {
+			$start = strpos($answer, "((") + 2;
+			$end = strlen($answer) - strpos($answer, "))");
+			$function_found = substr($answer, $start, -$end);
+			$replacable_text = substr($answer, $start, -$end);
+			$new_answer = str_replace($replacable_text, $function_found() , $answer);
+			$new_answer = str_replace("((", "", $new_answer);
+			$new_answer = str_replace("))", "", $new_answer);
+			return resolveAnswer($new_answer);
+		}
+	}
+
+	$answer = getAnswer();
+	echo $answer;
+	exit();
+}
+else {
 ?>
-
-
-
 
 <div class="profile">
 						<h1>Dennis Otugo</h1>
