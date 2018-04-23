@@ -13,6 +13,7 @@ if (!defined('DB_USER')) {
 }
     
 try {
+    global $conn;
     $sql = "SELECT * FROM secret_word";
     $query = $conn->query($sql);
     $query->setFetchMode(PDO::FETCH_ASSOC);
