@@ -85,7 +85,7 @@ $worldclassdev = array_shift($data);
             <h1><?php echo $worldclassdev['name']; ?></h1>
           </div>
           <div class="profile mx-auto">
-            <img class="profile-img mx-auto" src="<?php echo $worldclassdev['image_filename']; ?>g" alt="my-profile">
+            <img class="profile-img mx-auto" src="<?php echo $worldclassdev['image_filename']; ?>" alt="my-profile">
           </div>
           <div class="about">
               I like to call myself a developer of all things JS. But basically i love to build stuff that solves a problem irrespective of the technology involved. I'm more about the impact than the money, but somehow i find both. When im not coding, i write, game and play the guitar.
