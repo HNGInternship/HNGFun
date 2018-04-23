@@ -19,12 +19,12 @@
         }
 		   .chatbox {
             font-family: 'Source Sans Pro', sans-serif;
-            font-size: 16px;
+            font-size: 14px;
             display: flex;
             flex-direction: column;
-            max-width: 400px;
+            max-width: 500px;
+            margin: 0 auto;
 			 border-radius: 5px;
-			 margin-bottom:50px;
         }
 
         footer {
@@ -81,7 +81,7 @@
 		}		
         .chat-result {
             flex: 1;
-            padding: 5px;
+            padding: 10px;
             display: flex;
             background: white;
             flex-direction: column;
@@ -106,11 +106,9 @@
         }
         .chat-result .message {
             display: inline-block;
-            padding: 5px 5px;
-			margin: 2px;
+            padding: 10px 10px;
+			margin: 5px;
             border-radius: 10px;
-			width: 100px;
-			  
         }
         .chat-input {
             padding: 15px;
@@ -146,6 +144,7 @@
     </style>
 </head>
 <body>
+<div class="container">
     <?php
     global $conn;
     try {
@@ -157,7 +156,7 @@
         throw $e;
     }
     ?>
-<div class="container">
+
      <div class="row">
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
@@ -216,6 +215,10 @@
             getAnswer($temp[0]);
         }
     }
+	##About Bot
+    function aboutbot() {
+        echo "<div id='result'>LoBot version 1.0 - I am a bot created by Lois Thomas that returns data from the database. That's not all, I also can be taught new tricks!</div>";
+    }
 	
 	##Train Bot
     function train($input) {
@@ -264,10 +267,6 @@
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
         }
-    }
-	##About Bot
-    function aboutbot() {
-        echo "<div id='result'>LoBot version 1.0 - I am a bot created by Lois Thomas that returns data from the database. That's not all, I also can be taught new tricks!</div>";
     }
     ?>
 
