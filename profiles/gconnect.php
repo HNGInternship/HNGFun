@@ -582,15 +582,15 @@ class DBHelper{
          	</div>
      	</div>
     </div>
- 
+</body>
+</html> 
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://use.fontawesome.com/477bc8d938.js"></script>
 <!-- <script src="http://code.responsivevoice.org/responsivevoice.js"></script> -->
-<!-- <script type="text/javascript" src="../js/jquery.min.js"></script> -->
+<script type="text/javascript" src="../js/jquery.min.js"></script>s
 <script type="text/javascript">
     var chat = chat || {};
 
@@ -615,7 +615,6 @@ class DBHelper{
                 complete: function () {
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                	console.log(errorThrown)
                     return false;
                 }
             });
@@ -646,7 +645,7 @@ class DBHelper{
                 var strMessages = '<li class="replies"><img src ="http://res.cloudinary.com/gconnect/image/upload/v1524432009/robot.jpg"><small style="font-size: 15px; color:green;" ><b>Gconnect Bot</small><br>' +
                     '' + response.message + '</p></li><div class="clearfix"></div> ';
                 $('#message-outlet').append(strMessages);
-                // $(".messages").scrollTop($("#message-outlet").outerHeight());
+                $(".messages").scrollTop($("#message-outlet").outerHeight());
 
 
             });
@@ -726,5 +725,3 @@ class DBHelper{
     });
 </script>
 
-</body>
-</html>
