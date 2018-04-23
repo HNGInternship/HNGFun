@@ -60,7 +60,7 @@
            height: 580px;
 	   margin-top: 50px;
            float: right;
-           width: 80%;
+           width: 90%;
        }
        .clear {clear: both;}
 
