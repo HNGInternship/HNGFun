@@ -81,8 +81,9 @@ $input = trim($input);
                 $question = strtolower($input);
                 $question = str_replace('?', '', $question);
                 $question = trim($question);
-                $result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'");
-                $fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "$question";
+                print_r($result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'"));
+                print_r($fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC));
                 $row_cnt = $result->num_rows;
                 $rand = rand(0, $row_cnt - 1);
                 if ($row_cnt > 0) {
@@ -223,41 +224,11 @@ $input = trim($input);
         document.body.scrollTop = 0; // For Safari
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     }  </script>
-
 <body>
 <?php
-if(!defined('DB_USER')){
-    require "../../config.php";
-    $servername = DB_HOST;
-    $username_ = DB_USER;
-    $password = DB_PASSWORD;
-    $dbname = DB_DATABASE;
-    // Create connection
-    $conn = mysqli_connect($servername, $username_, $password, $dbname);
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }}
-global $conn;
-$name = '';
-$username = '';
-$sql = "SELECT * FROM interns_data where username = 'Adokiye'";
-foreach ($conn->query($sql) as $row) {
-    $name = $row['name'];
-    $username = $row['username'];
-}
+$name = 'Adokiye Iruene';
+$username = 'Adokiye';
 
-global $secret_word;
-
-try {
-    $sql = "SELECT secret_word FROM secret_word";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-    $secret_word = $data['secret_word'];
-} catch (PDOException $e) {
-    throw $e;
-}
 ?>
 <div class=".body" id="div_main">
     <div class=".header" id="header">
@@ -302,3 +273,4 @@ try {
 </div>
 </body>
 </html>
+

@@ -1,8 +1,15 @@
 <?php
-
+if(!defined('DB_USER')){
+	if (file_exists('../../config.php')) {
+		require_once '../../config.php';
+	} else if (file_exists('../config.php')) {
 		require_once '../config.php';
-/**
- * Class Db
+	} elseif (file_exists('config.php')) {
+		require_once 'config.php';
+	}
+}
+ /*
+ Class Db
  */
 class Db{
     // a singleton pattern implementation
@@ -305,6 +312,8 @@ class DBHelper{
 	$name = (new DBHelper())->getMyProfile();
 
 ?>
+<?php if($_SERVER['REQUEST_METHOD'] === "GET"){ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -368,7 +377,7 @@ class DBHelper{
 	 	cursor: pointer; 
 	}
 	.open-more{
-	 	bottom:0px; transition:2s; 
+	 	bottom:0px; transition:2; 
 	}
 	.chat-border{
 		 border:1px solid green;
@@ -526,7 +535,7 @@ class DBHelper{
 	<div class="container"> 
 		<div class="row">
 		  	<div class="col-sm-5 "><span class="flow-text"><img class ="myPics" src="http://res.cloudinary.com/gconnect/image/upload/v1523730900/glory.jpg" width="300px" height="400px"></span>
-		    <h6 class="name"><a href="www.medium.com/@agatevureglory"><?php echo $name->name; ?></a></h6>
+		    <h6 class="name"><a href="www.medium.com/@agatevureglory">Agatevure Glory</a></h6>
 		  	</div>
 		     <div class="col-sm-7 ">
 		            <h4 class="heading">Love to keep it simple</h4>
@@ -582,15 +591,15 @@ class DBHelper{
          	</div>
      	</div>
     </div>
- 
+</body>
+</html> 
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://use.fontawesome.com/477bc8d938.js"></script>
-<!-- <script src="http://code.responsivevoice.org/responsivevoice.js"></script> -->
-<!-- <script type="text/javascript" src="../js/jquery.min.js"></script> -->
+<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>s
 <script type="text/javascript">
     var chat = chat || {};
 
@@ -609,7 +618,6 @@ class DBHelper{
                 data: {"json": JSON.stringify(dataObject)},
                 dataType: 'json',
                 success: function (data) {
-                	console.log(data);
                     callback(data);
                     return true;
                 },
@@ -622,7 +630,7 @@ class DBHelper{
         };
 
         $('#message_chat_form').submit(function (e) {
-            // e.preventDefault();
+            e.preventDefault();
             chat.messageChat();
             $('#message_chat_form')[0].reset();
         });
@@ -643,12 +651,11 @@ class DBHelper{
             this.postJSON(data, "../profiles/agatevureglory.php", function (response) {
                 $('#message_chat_form')[0].reset();
                 console.log(response);
-                var strMessages = '<li class="replies"><img src ="http://res.cloudinary.com/gconnect/image/upload/' + 
-                 'v1524432009/robot.jpg"><small style="font-size: 15px; color:green;" ><b>Gconnect Bot</small><br>' +
+                var strMessages = '<li class="replies"><img src ="http://res.cloudinary.com/gconnect/image/upload/v1524432009/robot.jpg"><small style="font-size: 15px; color:green;" ><b>Gconnect Bot</small><br>' +
                     '' + response.message + '</p></li><div class="clearfix"></div> ';
                 $('#message-outlet').append(strMessages);
-                // $(".messages").scrollTop($("#message-outlet").outerHeight());
-
+                $(".messages").scrollTop($("#message-outlet").outerHeight());
+                responsiveVoice.speak(response.message, 'UK English Female');
 
             });
         };
@@ -727,5 +734,4 @@ class DBHelper{
     });
 </script>
 
-</body>
-</html>
+<?php } ?>
