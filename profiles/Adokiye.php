@@ -1,14 +1,5 @@
 <?php
-function getTime(){
-    date_default_timezone_set('Africa/Lagos');
-    return "The time is " . date("h:i:sa");
-}
-
 session_start();
-
-if (!isset($_SESSION["all"])){
-    $_SESSION["all"] = [];
-}
 if(!defined('DB_USER')){
     require_once "../../config.php";
     $servername = DB_HOST;
@@ -22,6 +13,27 @@ if(!defined('DB_USER')){
         die("Connection failed: " . mysqli_connect_error());
     }}
 global $conn;
+
+global $secret_word;
+try {
+    $sql = "SELECT secret_word FROM secret_word LIMIT 1";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+    $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+    throw $e;}
+    function getTime()
+    {
+        date_default_timezone_set('Africa/Lagos');
+        return "The time is " . date("h:i:sa");
+
+}
+
+
+if (!isset($_SESSION["all"])){
+    $_SESSION["all"] = [];
+}
 $solution = '';
 if (isset($_POST['restart'])){
     session_destroy();
@@ -225,7 +237,29 @@ $input = trim($input);
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     }  </script>
 <body>
+<?php
+if(!defined('DB_USER')){
+    require "../../config.php";
+    $servername = DB_HOST;
+    $username_ = DB_USER;
+    $password = DB_PASSWORD;
+    $dbname = DB_DATABASE;
+    // Create connection
+    $conn = mysqli_connect($servername, $username_, $password, $dbname);
+    // Check connection
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }}
+global $conn;
+$name = '';
+$username = '';
+$sql = "SELECT * FROM interns_data where username = 'Adokiye'";
+foreach ($conn->query($sql) as $row) {
+    $name = $row['name'];
+    $username = $row['username'];
 
+}
+?>
 <div class=".body" id="div_main">
     <div class=".header" id="header">
         <img src="http://res.cloudinary.com/gorge/image/upload/v1523960590/images.jpg" width="120" height="131" alt=""/>
@@ -240,10 +274,10 @@ $input = trim($input);
     </marquee>
     <div>
         <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
-        <p style="font-style: normal; font-weight: bold;">NAME : </p>
-        <p style="font-weight: bold">USERNAME :</p>
+        <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
+        <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
     </div>
-    <p class="mycss"> Chatbot by Adokiye<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
+    <p class="mycss"> Chatbot by Adokiye!!!<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
     <form name = "askMe" method="post">
         <p>
             <label>
