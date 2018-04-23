@@ -13,7 +13,7 @@
             overflow-x: hidden;
         }
 		 .container {
-            max-width: 40%;
+            max-width: 95%;
             padding-left: 0;
 		
         }
@@ -22,9 +22,9 @@
             font-size: 16px;
             display: flex;
             flex-direction: column;
-            max-width: 450px;
+            max-width: 400px;
 			 border-radius: 5px;
-			 margin-bottom: 50px;
+			 margin-bottom:50px;
         }
 
         footer {
@@ -87,13 +87,11 @@
             flex-direction: column;
             overflow-y: scroll;
             max-height: 500px;
-			border-radius: 5px;
-			
+			border-radius: 5px; 
 			
         }
         .chat-result > div {
-            margin: 0 0 10px 0;
-			width: 400px;
+            margin: 0 0 20px 0;
         }
         .chat-result .user-message .message {
             background: #191970;
@@ -101,11 +99,9 @@
         }
         .chat-result .bot-message {
             text-align: right;
-			border: 1px solid grey;
         }
         .chat-result .bot-message .message {
             background: #eee;
-			
 			
         }
         .chat-result .message {
@@ -113,7 +109,7 @@
             padding: 5px 5px;
 			margin: 2px;
             border-radius: 10px;
-			width: 400px;
+			width: 100px;
 			  
         }
         .chat-input {
@@ -150,7 +146,6 @@
     </style>
 </head>
 <body>
-<div class="container">
     <?php
     global $conn;
     try {
@@ -162,7 +157,7 @@
         throw $e;
     }
     ?>
-
+<div class="container">
      <div class="row">
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
@@ -221,10 +216,6 @@
             getAnswer($temp[0]);
         }
     }
-	##About Bot
-    function aboutbot() {
-        echo "<div id='result'>LoBot version 1.0 - I am a bot created by Lois Thomas that returns data from the database. That's not all, I also can be taught new tricks!</div>";
-    }
 	
 	##Train Bot
     function train($input) {
@@ -273,6 +264,10 @@
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
         }
+    }
+	##About Bot
+    function aboutbot() {
+        echo "<div id='result'>LoBot version 1.0 - I am a bot created by Lois Thomas that returns data from the database. That's not all, I also can be taught new tricks!</div>";
     }
     ?>
 
