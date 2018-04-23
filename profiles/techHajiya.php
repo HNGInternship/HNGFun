@@ -1,7 +1,10 @@
+<!--Created by Thomas Lois ---->
 <!DOCTYPE html>
 <html>
 <head>
     <link href='https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra SC|Romanesco' rel='stylesheet'>
+	<link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css' />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <style type="text/css">
        body {
             font-family: "Josefin Sans","Montserrat","Segoe UI","Roboto","Helvetica Neue","Arial","sans-serif";
@@ -66,15 +69,15 @@
 		
 		
 		* {
-   outline: none; 
-   tap-highlight: none;
-   -webkit-tap-highlight: none;
-   -webkit-tap-highlight-color: none;
-   -moz-tap-highlight: none;
-   -moz-tap-highlight-color: none;
-   -khtml-tap-highlight: none;
-   -khtml-tap-highlight-color: none;
-}		
+		outline: none; 
+	   tap-highlight: none;
+	   -webkit-tap-highlight: none;
+	   -webkit-tap-highlight-color: none;
+	   -moz-tap-highlight: none;
+	   -moz-tap-highlight-color: none;
+	   -khtml-tap-highlight: none;
+	   -khtml-tap-highlight-color: none;
+		}		
         .chat-result {
             flex: 1;
             padding: 10px;
@@ -117,26 +120,25 @@
 			float: left;
         }
 		#send {
-   width: 80px;
-   height: 50px;
-   display: inline-block
-   outline: none;
-   border: none;
-   color: #FFF;
-   background-color: #00F;
-   float: right;
-   border-radius: 25px;
-   padding: 0px;
-   cursor: pointer;
-   margin: 0px;
-}
-#send:active {
-   background-color: #00A; 
-   outline: none;
-}
+		   width: 80px;
+		   height: 50px;
+		   display: inline-block
+		   outline: none;
+		   border: none;
+		   color: #FFF;
+		   background-color: #00F;
+		   float: right;
+		   border-radius: 25px;
+		   padding: 0px;
+		   cursor: pointer;
+		   margin: 0px;
+		}
+		#send:active {
+		   background-color: #00A; 
+		   outline: none;
+		}
 
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 </head>
 <body>
 <div class="container">
