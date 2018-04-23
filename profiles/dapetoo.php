@@ -65,7 +65,7 @@ try {
 	<br><br>
 	<div class='row'>
 		<div class='col-sm-6' >
-			<center><img height='60%' class='img-responsive' src="http://res.cloudinary.com/dapetoo/image/upload/v1524452096/IMG-20160120-00422.jpg" alt="my_display_picture"></center>
+			<center><img height='60%' class='img-responsive' src="http://res.cloudinary.com/dapetoo/image/upload/v1524107557/photo/IMG_20180211_145414.jpg" alt="my_display_picture"></center>
 		</div>
 		<div class='col-sm-6'>
 			<div>
