@@ -701,6 +701,10 @@ function ai(message){
 			send_message('your ip address is : '+ ip +'');
           responsiveVoice.speak('your ip address is : '+ ip +'','UK English Male');
 		  }
+		  else if ((message.indexOf('aboutbot') >= 0) || (message.indexOf('aboutBot') >= 0) || (message.indexOf('About Bot') >= 0) || (message.indexOf('botAbout') >= 0)){
+			send_message('Opheus-B0t v1.0');
+          responsiveVoice.speak('i am an opheus bot and i am currently version 1.0.');
+		  }
 		else if (message.indexOf('train:') >= 0){
 		trainer = message;
 		$.ajax({
