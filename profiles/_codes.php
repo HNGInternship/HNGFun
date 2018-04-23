@@ -29,11 +29,9 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
    margin: auto;
    width: 55em;
    height: 40em;
-   border-style: ridge;
    border-color: grey;
    border-radius: 1.27em;
    position: relative;
-   display: inline;
 }
 .d{
    width: 200px;
