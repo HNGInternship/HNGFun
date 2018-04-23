@@ -249,7 +249,7 @@ img{
 
 		<section class= "col-md-6 chat-frame" >
 
-		<div class="col-md-6 col-sm-3 col-xs-3 offset-md-1 chat-frame">
+		
 
              <div class="row">
                  <button class="accordion">HELLO WORLD!!!</button>
@@ -277,7 +277,7 @@ train: question # answer # password<br>
             
             
              </div>		
-            </div>
+          
             </section>	
 
 		
