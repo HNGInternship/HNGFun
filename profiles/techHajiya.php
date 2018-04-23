@@ -212,7 +212,6 @@
           </div>
 		   </div>
 
-
     <?php
     try {
         $sql = 'SELECT * FROM secret_word';
