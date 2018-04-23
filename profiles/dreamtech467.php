@@ -118,8 +118,7 @@
 				$insert_stmt->execute();
 				return "Thanks!";
 			} catch (PDOException $e) {
-				//return "An detect error: ". $e->getMessage();
-				return answerBot($question);
+				return "An detect error: ". $e->getMessage();
 			}
 		}
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -141,9 +140,11 @@
 				$strippedquestion = "%$strippedquestion%";
 				$answer_stmt = $conn->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
 				$answer_stmt->bindParam(':question', $strippedquestion);
+				
 				$answer_stmt->execute();
 				$results = $answer_stmt->fetch();
 				if(($results)!=null){
+					answerBot($question);
 					$answer = $results['answer'];
 					echo json_encode([
 						'status' => 1,
