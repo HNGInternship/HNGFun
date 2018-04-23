@@ -119,9 +119,9 @@ class DBHelper{
 	 * @return bool|string
 	 */
 	public function PairExists($question, $answer){
-	// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+	$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		try {
-			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 			$sql = $conn->prepare("SELECT * FROM chatbot WHERE question = :question AND answer = :answer");
 			$sql->execute([':question' => $question, ':answer' => $answer]);
 			$result = $sql->fetch(PDO::FETCH_ASSOC);
@@ -138,7 +138,7 @@ class DBHelper{
 	 * @return string
 	 */
 	public function trainMyBot($question, $answer){
-		// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		try {
 			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 			$stmt = $conn->prepare("INSERT INTO chatbot (question, answer) VALUES (:question, :answer)");
