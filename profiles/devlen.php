@@ -69,9 +69,9 @@
             echo "<p class='title'>" . "Android Developer | PHP DEV" . "</p>";
             echo "<p>@ " .$user->username . "</p>";
     ?>
-    <a href="https://twitter.com/david_okonji"><i class="fa fa-twitter"></i></a>
-    <a href="https://github.com/devlen000"><i class="fa fa-github"></i></a>
-    <a href="https://www.linkedin.com/in/chukwunonso-okonji/"><i class="fa fa-linkedin"></i></a>
+    <a href="https://twitter.com/david_okonji" target="_blank"><i class="fa fa-twitter"></i></a>
+    <a href="https://github.com/devlen000" target="_blank"><i class="fa fa-github"></i></a>
+    <a href="https://www.linkedin.com/in/chukwunonso-okonji/" target="_blank"><i class="fa fa-linkedin"></i></a>
     <p>
     <span><a href="mailto:davidokonji3@gmail.com" class="email">Contact</a></span>
     </p>
