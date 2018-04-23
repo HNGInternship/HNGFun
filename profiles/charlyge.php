@@ -234,7 +234,7 @@ HNG
             <p># Android APP Developer<br/>#ISpeakJava<br/> </b></p>
 			<p> Currently Interning at Hotels.ng</p>
         </div>
-        <div id="Jimie"></div>
+     
     </div>
-    <script src="profiles/jim/dist/Jimie.js"></script>
+ 
 	</Html>
