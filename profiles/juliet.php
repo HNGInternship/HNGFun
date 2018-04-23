@@ -46,59 +46,26 @@ function decider($string){
   if($result[2] && $result[2] == $password){
     echo"<br>Training mode<br>";
     return $result;
-<<<<<<< HEAD
-<<<<<<< HEAD
-  } else echo "opssss!!! Looks like you are trying to train me without permission";   
-=======
-  } 
-  else echo "opssss!!! Looks like you are trying to train me without permission";   
->>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
-  }
-   }
-}
-
-<<<<<<< HEAD
-function tester($string){
-  if (strpos($string, ":" ) !== false) 
-  { 
-   $field = explode (":", $string);
-   $key = $field[0];
-   $key = strtolower(preg_replace('/\s+/', '', $key));
-   if(($key !== "train")){
-     
-    echo"<br>testing mode activated<br>";
-    return $string;
- }
-}
-return $string;
- }
-
-// Create connection
-// $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-// Check connection
-
-// if (!$conn) {
-//     die("Connection failed: " . mysqli_connect_error());
-// }
-=======
   } 
   else echo "opssss!!! Looks like you are trying to train me without permission";   
   }
    }
 }
 
-=======
->>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 
 function assistant($string)
 {    $reply = "";
     if ($string == 'what is my location') {
-        $reply= "This is Your Location <i class='em em-arrow_forward'></i> " . $query['city'] . ", ". $query['country'] . "!";
-        return $reply;
+       
+      
+      $ip=$_SERVER['REMOTE_ADDR'];
+      $reply =unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
+      $reply =var_export('you are in '. $reply['geoplugin_regionName'] .' in '. $reply['geoplugin_countryName']);
+      return $reply;
         
     }
     elseif ($string == 'tell me about your author') {
-        $reply= 'His name is <i class="em em-sunglasses"></i> alex idowu, he is Passionate, gifted and creative backend programmer who love to create appealing Web apps solution from concept through to completion. An enthusiastic and effective team player and always challenge the star to quo by taking up complex responsibilities. Social account <b><a href="https://twitter.com/Codexxxp">Codexxp @Twitter</a></b> <br> <b><a href="https://www.linkedin.com/in/alex-idowu-0b4142124/">Alex Idowu @Linkedin</a></b> ';
+        $reply= 'Her name is <i class="em em-sunglasses"></i> Chidimma Juliet Ezekwe, she is Passionate, gifted and creative backend programmer who love to create appealing Web apps solution from concept through to completion. An enthusiastic and effective team player and always challenge the star to quo by taking up complex responsibilities. Social account ';
         return $reply;    
     }
     elseif ($string == 'open facebook') {
@@ -144,42 +111,19 @@ function assistant($string)
 
 
 
-<<<<<<< HEAD
->>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
-=======
->>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
 $existError =false;
 $reply = "";//process starts
 if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 
   if ($_POST['msg'] == 'commands') {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    $reply= 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
-=======
-    echo 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
->>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
-  } 
-      if($reply==""){
-       $reply = assistant($_POST['msg']);
-       echo $reply;
-       
-<<<<<<< HEAD
-     $reply = assistant($_POST['msg']);
-       
-      }
-=======
-    echo 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
+    $reply = 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
+    echo $reply;
   } 
       if($reply==""){
        $reply = assistant($_POST['msg']);
        echo $reply;
        
      }
->>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
-=======
-     }
->>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
   if($reply =="") {
 
     $post= $_POST['msg'];
@@ -187,15 +131,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if($result){
       $question=$result[0]; 
       $answer= $result[1];
-<<<<<<< HEAD
-<<<<<<< HEAD
-      $sql = "SELECT * FROM chatbot";
-=======
       $sql = "SELECT * FROM chatbot WHERE question = '$question' And answer = '$answer'";
->>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
-=======
-      $sql = "SELECT * FROM chatbot WHERE question = '$question' And answer = '$answer'";
->>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
       $stm = $conn->query($sql);
       $stm->setFetchMode(PDO::FETCH_ASSOC);
 
@@ -203,18 +139,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         
         if (count(($result))> 0) {
               
-<<<<<<< HEAD
-<<<<<<< HEAD
-          while($result) {
-            $strippedQ = strtolower(preg_replace('/\s+/', '', $question));
-            $strippedA = strtolower(preg_replace('/\s+/', '', $answer));
-            $strippedRowQ = strtolower(preg_replace('/\s+/', '', $result['question']));
-            $strippedRowA = strtolower(preg_replace('/\s+/', '', $result['answer']));
-            if(($strippedRowQ == $strippedQ) && ($strippedRowA == $strippedA)){
-            $reply = "I know this already, but you can make me smarter by giving another response to this command";
-            $existError = true;
-            break;
-=======
           // while($result) {
           //   $strippedQ = strtolower(preg_replace('/\s+/', '', $question));
           //   $strippedA = strtolower(preg_replace('/\s+/', '', $answer));
@@ -224,7 +148,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           //   $reply = "I know this already, but you can make me smarter by giving another response to this command";
           //   $existError = true;
           //   break;
->>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
             
           //   }
               
@@ -281,91 +204,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
       }       
   
-=======
-          // while($result) {
-          //   $strippedQ = strtolower(preg_replace('/\s+/', '', $question));
-          //   $strippedA = strtolower(preg_replace('/\s+/', '', $answer));
-          //   $strippedRowQ = strtolower(preg_replace('/\s+/', '', $result['question']));
-          //   $strippedRowA = strtolower(preg_replace('/\s+/', '', $result['answer']));
-          //   if(($strippedRowQ == $strippedQ) && ($strippedRowA == $strippedA)){
-          //   $reply = "I know this already, but you can make me smarter by giving another response to this command";
-          //   $existError = true;
-          //   break;
-            
-          //   }
-              
-          // }  
-          $existError = true; 
-          echo "I know this already, but you can make me smarter by giving another response to this command";
-            
-        } 
-      else
-        if(!($existError)){
-          $sql = "INSERT INTO chatbot(question, answer)
-          VALUES(:quest, :ans)";
-          $stm =$conn->prepare($sql);
-          $stm->bindParam(':quest', $question);
-          $stm->bindParam(':ans', $answer);
-
-          $saved = $stm->execute();
-            
-          if ($saved) {
-              echo  "Thanks to you, I am smarter now";
-          } else {
-              echo "Error: could not understand";
-          }
-            
-          
-        }  
-  }
-  else{
-    $input = trim($post); 
->>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
- 
-  if($input){
-    
-    $sql = "SELECT * FROM chatbot WHERE question = '$input'";
-    $stm = $conn->query($sql);
-    $stm->setFetchMode(PDO::FETCH_ASSOC);
-
-    $res = $stm->fetchAll();
-    
-    if (count($res) > 0) {
-    
-      $index = rand(0, count($res)-1);
-      $response = $res[$index]['answer'];  
-
-<<<<<<< HEAD
-      echo $response;
-    
-    }
-<<<<<<< HEAD
-  
-  echo $reply;
-
-exit();
-  // function
-  }
-=======
-    else{
-       echo "I did'nt get that, please rephrase or try again later";
-    }       
-  }
-}
-          
-      
-    
-      }       
-  
  
 
 }
 else{
->>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
-=======
-}
-else{
->>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
   
 ?>
 
@@ -380,6 +222,8 @@ else{
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css" type="text/css"/>
+
 
 
 <style type="text/css">
@@ -696,40 +540,58 @@ a:focus {
 </style>
   </head>
 
-  <body>
-
-  <!-- Page Content -->
-    <div class="container">
-
-      <!-- Portfolio Item Heading -->
-      <h1 >Chidimma Juliet Ezekwe</h1>
+<!-- jet -->
+<body class="oj-web-applayout-body">
+    <!-- Template for rendering navigation items shared between nav bar and nav list -->
+    <script type="text/html" id="navTemplate">
+      <li><a href="#">
+        <span :class="[[$data['iconClass']]]"></span>
+        <oj-bind-text value="[[$data['name']]]"></oj-bind-text>
+      </a></li>
+    </script>
+   
+    <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
+       <div id="pageContent" class="oj-web-applayout-page">
+        <!--
+           ** Oracle JET V5.0.0 web application header pattern.
+           ** Please see the demos under Cookbook/Patterns/App Shell: Web
+           ** and the CSS documentation under Support/API Docs/Non-Component Styling
+           ** on the JET website for more information on how to use this pattern.
+        -->
+        <oj-module role="main" class="oj-web-applayout-max-width oj-web-applayout-content oj-complete" config="[[moduleConfig]]"><!-- ko ojModule: {"view":$properties.config.view, "viewModel":$properties.config.viewModel,"cleanupMode":$properties.config.cleanupMode,"animation":$properties.animation} --><!--
+ Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+<div class="oj-hybrid-padding">
+  <my-profile>
+    </my-profile>
+    <div class="twcd container">
+        <div class="name">
+        <h1 >Chidimma Juliet Ezekwe</h1>
       <h4>Web Developer</h4>
-
-      <!-- Portfolio Item Row -->
-      <div class="row">
-
-        <div class="col-md-6">
-          <img class="img-fluid" src="http://res.cloudinary.com/julietezekwe/image/upload/v1523620041/juliet.jpg" alt="juliet">
+          </div>
+          <div class="profile mx-auto">
+          <div class="oj-flex">
+            <div class="oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item"></div>
+            <div class="oj-md-6 oj-lg-6 oj-xl-6 oj-flex-item"><img class="profile-img mx-auto" src="http://res.cloudinary.com/julietezekwe/image/upload/v1523643285/juliet.png" alt="my-profile">
+</div>
+            <div class="oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item"></div>
         </div>
-
-        <div class="col-md-6">
-          <h3 class="my-3">Description</h3>
+                      </div>
+          <div class="about">
+          <h3>Description</h3>
           <p>An Innovative web deveploper inter at HngInternship<sup>4</sup></p>
-          <h3 class="my-3">Details</h3>
+          <h3 >Details</h3>
           <ul>
             <li>Creative</li>
             <li>Innovative</li>
             <li>Team player</li>
             <li>Result oriented and time conscious</li>
           </ul>
-        </div>
+          </div>
+    </div>  
 
-      </div>
-      <div class="row">
-        <!-- chatbot -->
-        <div class="col-md-6">
-          
-            <button type="button" class="btn btn-danger btn-lg pull-right" data-toggle="collapse" data-target="#chat">Chat now</button>
+    <button type="button" class="btn btn-danger btn-lg pull-right" data-toggle="collapse" data-target="#chat">Chat now</button>
               
               <div id="chat" class="wrapper collapse">
 
@@ -778,10 +640,10 @@ a:focus {
                        <span class="login-status">Online    | <?php
             echo "" . date("h:i:a");
             ?>, <?php
-            $query = @unserialize (file_get_contents('http://ip-api.com/php/'));
-            if ($query && $query['status'] == 'success') {
-            echo '' . $query['country'] . ', ' . $query['city'] . '!';
-            }
+            
+            $ip=$_SERVER['REMOTE_ADDR'];
+            $reply = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
+            echo var_export('you are in '. $reply['geoplugin_countryName'] .' in '. $reply['geoplugin_regionName']);
             ?></span>
                         
                       </span>
@@ -896,6 +758,26 @@ a:focus {
 
     <!-- Custom scripts for this template -->
     <script src="../js/hng.min.js"></script>
+  
+</div><!-- /ko --><div data-bind="_ojNodeStorage_" style="display: none;" class="oj-subtree-hidden">
+        </div></oj-module>
+      </div>
+      </div>
+ 
+</body>
+<!-- end jet -->
+
+
+  <body>
+
+  
+
+        
+
+      
+   
+          
+            
 
   </body>
 

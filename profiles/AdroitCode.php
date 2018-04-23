@@ -1,5 +1,10 @@
 <?php
     # require "../db.php";
+<<<<<<< HEAD
+    require "../answers.php";
+=======
+    # require "../answers.php";
+>>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
     if (!defined('DB_USER')){
             
             require "../../config.php";
@@ -25,6 +30,61 @@
               $image = $result['image_filename'];
           }
 
+          /************Maths Function ******************/
+          function simpleMaths($operation, $expression){
+            switch ($operation) {
+              case 'factor':
+                # factorization condition
+              $notify = "Factorize";
+                break;
+
+                case 'simplify':
+                # simplify
+              $notify = "Simplify";
+                break;
+
+                case 'derive':
+                # derivative
+              $notify = "Derivative";
+                break;
+
+                case 'integrate':
+                  # Integrate
+                $notify = "Integrate";
+                  break;
+
+                case 'zeroes':
+                  # polinomia
+                $notify = "Polinomial, find 0S in";
+                  break;
+
+                case 'tangent':
+                  # tangent
+                $notify = "Find Tangent";
+                  break;
+
+                case 'log':
+                  # logrithms
+                $notify = 'Logarithm';
+                  break;
+
+
+              
+              default:
+                # code...
+                break;
+            }
+            $url = "https://newton.now.sh/".$operation."/".$expression;
+            $result = file_get_contents($url);
+            $response = json_decode($result, true);
+            echo json_encode([
+                'question' => $notify." : ".$response['expression'],
+                'answer' =>"Your answer is: ".$response['result']
+            ]);
+        }
+
+        /******** End Adroit Bot Funct ********/
+
           /* My Chat Bot */
           function processMessage($question){
             try {
@@ -32,14 +92,24 @@
             } catch (PDOException $pe) {
                 die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
             }
+            if ($question === "aboutbot") {
+              echo json_encode([
+                'question' => $question,
+                'answer' => "Adoitbot v-1.0.0"
+              ]);
+              return;
+            }
+
             /* check if in training mode (checking for train: in input) */
             $is_training = stripos($question, "train:");
             if ($is_training === false) { 
               /* bot not training, process question */
-              $query = $conn->query("SELECT * FROM chatbot WHERE question LIKE '".$question."'");
-              while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
-                $answer = $result['answer'];
-              }
+              //$answer_stmt->execute()
+              $query = $conn->prepare("SELECT * FROM chatbot  WHERE question LIKE :question ORDER BY RAND() Limit 1");
+              $query->bindParam(':question', $question);
+              $query->execute();
+              $result = $query->fetch();
+              $answer = $result['answer'];
               if (isset($answer)) {
                 echo json_encode([
                   'question' => $question,
@@ -81,17 +151,16 @@
                     # check if question was saved
                     echo json_encode([
                       'question' => $question,
-                      'answer' => "Thanks very much, new data saved."
+                      'answer' => "Thanks for the new info, Data Saved."
                     ]);
                     return;
                   }
-                  echo json_encode([
-                    'question' => $question,
-                    'answer' => "Have not gotten your question"
-                  ]);
-                  return;
-                  
-              }
+                    echo json_encode([
+                      'question' => $question,
+                      'answer' => "Have not gotten your question"
+                    ]);
+                    return;
+                  }
               echo json_encode([
                 'question' => $question,
                 'answer' => "You are not authorized to train me, please supply a valid password"
@@ -99,10 +168,22 @@
               return;
               //return "undergoing training";
             }
-            echo json_encode([
+            if(strpos($question, "(") !== false){
+              list($functionName, $paramenter) = explode('(', $question) ;
+              list($paramenter, $parameterEnd) = explode(')', $paramenter);
+              $paramenterArr = explode(",", $paramenter);
+              if(strpos($paramenter, ",")!== false){
+                $paramenterArr = explode(",", $paramenter);
+                simpleMaths($paramenterArr[0], $paramenterArr[1]);
+              }
+            }
+            else{
+              echo json_encode([
               'question' => $question,
               'answer' => "Sorry am not smart enough to answer, pls train me using the train: syntax"
-            ]);
+              ]);
+            }
+            
             return;
             
           }
@@ -20513,6 +20594,7 @@
                 $.ajax({
                     type: "POST",
                     cache: false, 
+                    // fixed
                     url: "/profiles/AdroitCode.php", 
                     dataType: "json",
                     data: $('form').serialize(), 
