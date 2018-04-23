@@ -165,7 +165,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<style>
+    <link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<style type="text/css">
       body {
 			
 			background-size: cover;
