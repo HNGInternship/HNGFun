@@ -19,6 +19,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic,900,900italic'" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic,900,900italic'" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Risque" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
    
 
     <style>
@@ -56,6 +58,7 @@
            background-size: cover;
            box-shadow: 0px 7px 8px rgba(0, 0, 0, 0.25);
            height: 580px;
+	   margin-top: 30px;
            float: right;
            
            
