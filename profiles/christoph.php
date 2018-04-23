@@ -18,15 +18,15 @@ if(!defined('DB_USER')){
     require "../../config.php";		
     try {
         define('DB_CHARSET', 'utf8mb4');
-    $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
+        $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
 
-    $opt = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES => false
-    ];
+        $opt = [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES => false
+        ];
 
-    $conn = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
+        $conn = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
     } catch (PDOException $pe) {
         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
     }
@@ -482,13 +482,13 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
                             </div>
                             <div class="training-menu">
                                 <p>You can train me to understand and answer new questions. I have two training modes</p>
-                                <p>1) Simple Mode: You can train me to answer any question, I mean any question at all using: <span class="bot-command">train : question # answer # [password]</span></p> 
-                                <p>eg <span class="bot-command">train : Where is Yaba # Yaba is in Lagos # password</span></p>
-                                <p>2) Complex Mode: You can train me further to answer specific questions giving me variables and specific functions. To train me for complex mode: Type <span class="bot-command">train : question [preposition] {{parameter_1}} [delimiter] {{parameter_2}} # answer {{parameter1}} [delimiter] {{parameter}} (method_name) # [password]</span> where : </p>
+                                <p>1) Simple Mode: You can train me to answer any question, I mean any question at all using: <span class="bot-command">train: question # answer # [password]</span></p> 
+                                <p>eg <span class="bot-command">train: Where is Yaba # Yaba is in Lagos # password</span></p>
+                                <p>2) Complex Mode: You can train me further to answer specific questions giving me variables and specific functions. To train me for complex mode: Type <span class="bot-command">train: question [preposition] {{parameter_1}} [delimiter] {{parameter_2}} # answer {{parameter1}} [delimiter] {{parameter}} (method_name) # [password]</span> where : </p>
                                 <p><span class="bot-command">[preposition]</span> can either be <span class="bot-command">between</span> or <span class="bot-command">from</span> and <span class="bot-command">[delimiter]</span> can either be <span class="bot-command">and</span> or <span class="bot-command">to</span></p>
-                                <p>eg 1) <span class="bot-command">train : What is the distance <span class="bot-command highlight">between</span> {{Yaba}} <span class="bot-command highlight">and</span> {{Surulere}} # The distance between {{Yaba}} <span class="bot-command highlight">and</span> {{Surulere}} (calculate_distance) # password</span></p>
-                                <p>eg 2) <span class="bot-command">train : Can you calculate the distance <span class="bot-command highlight">between</span> {{Lagos Airport}} <span class="bot-command highlight">to</span> {{Sheraton Hotels}} # Yes, I can. The distance between {{Lagos Airport}} <span class="bot-command highlight">to</span> {{Sheraton Hotels}} (calculate_distance) # password</span></p>
-                                <p>eg 3) <span class="bot-command">train : How long is it <span class="bot-command highlight">from</span> {{UNILAG}} <span class="bot-command highlight">to</span> {{LASU}} # The distance from {{UNILAG}} <span class="bot-command highlight">to</span> {{LASU}} (calculate_distance) # password</span></p>
+                                <p>eg 1) <span class="bot-command">train: What is the distance <span class="bot-command highlight">between</span> {{Yaba}} <span class="bot-command highlight">and</span> {{Surulere}} # The distance between {{Yaba}} <span class="bot-command highlight">and</span> {{Surulere}} ((calculate_distance)) # password</span></p>
+                                <p>eg 2) <span class="bot-command">train: Can you calculate the distance <span class="bot-command highlight">between</span> {{Lagos Airport}} <span class="bot-command highlight">to</span> {{Sheraton Hotels}} # Yes, I can. The distance between {{Lagos Airport}} <span class="bot-command highlight">to</span> {{Sheraton Hotels}} ((calculate_distance)) # password</span></p>
+                                <p>eg 3) <span class="bot-command">train: How long is it <span class="bot-command highlight">from</span> {{UNILAG}} <span class="bot-command highlight">to</span> {{LASU}} # The distance from {{UNILAG}} <span class="bot-command highlight">to</span> {{LASU}} ((calculate_distance)) # password</span></p>
                                 <p>Use the <span class="bot-command">get duration : mode</span> Command to show you the approximate duration it would take you to get from one location to the other (The last two locations) where <span class="bot-command">mode</span> can either be <span class="bot-command">driving</span> or <span class="bot-command">walking</span> eg <span class="bot-command">get duration : walking</span></p>
                                 <p>Use the <span class="bot-command">show direction : mode</span> Command to show you the direction between the last two locations on map where <span class="bot-command">mode</span> can either be <span class="bot-command">driving</span> or <span class="bot-command">walking</span> eg <span class="bot-command">show direction : driving</span></p>
                                 <p>To get the current version of Locato, type <span class="bot-command">aboutbot</span></p>
@@ -557,18 +557,19 @@ $(document).on('click', '.chatbot-send', function(e){
         $('.chatbot-menu-content').append('<div class="chatbot-message-sender" id="last-message"><p>'+payload.message+'</p></div>');
     }
 
-    if (message_string.trim().slice(0, 7) === 'train :') {
+    if (message_string.trim().slice(0, 6) === 'train:') {
         bot_query = 'bot_train';
         if (!message_string.includes('# password')) {
             password = false;
             $('.chatbot-menu-content').append('<div class="chatbot-message-bot" id="last-message">Sorry, you need to input a password</p></div>');
         }
+        else if (message_string.trim().slice(-8) !== 'password') {
+            password = false;
+            $('.chatbot-menu-content').append('<div class="chatbot-message-bot" id="last-message">Sorry, I do not recognize this password, try again.</p></div>');
+        }
         else {
             payload.message = message_string.trim().slice(0, -11);
         }
-    }
-    else if (message_string.trim().split(' : ').length === 2) {
-        bot_query = 'bot_command';
     }
     else if (message_string.trim() === 'help') {
         help_menu = $('.chatbot-message-bot:first').html();
@@ -579,8 +580,11 @@ $(document).on('click', '.chatbot-send', function(e){
         version = "<div><p><span class='bot-command'>Locato v1.0</span></p></div> <div><p>Hi! I'm Locato</p><p>I want to help you with find distances between any two locations in Nigeria, eg distance between two addresses or cities, get the duration to move from one location to the other and also show you direction on map.</p></div>";
         $('.chatbot-menu-content').append('<div class="chatbot-message-bot" id="last-message">'+version+'</div>');
     }
+    else if (message_string.split(' : ').length === 2 && !message_string.includes('#')) {
+        bot_query = 'bot_command';
+    }
 
-    if (message_string.slice(0, 7) === 'train :') {
+    if (message_string.slice(0, 6) === 'train:') {
         $('.chatbot-message-sender:last').addClass('chatbot-train-message');
     }
 
@@ -688,6 +692,15 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
                 $answer         = $matches[1];
                 $function_name  = $matches[2];
 
+                // Quick fix for duplicate preposition error
+                $array_words = explode(' ', $answer);
+                $words_length = count($array_words);
+                if ($array_words[$words_length - 2] == $array_words[$words_length - 3]) {
+                    array_pop($array_words);
+                    array_pop($array_words);
+                    $answer = trim(implode(' ', $array_words));
+                }
+
                 $_SESSION['location1'] = $location1."+Nigeria";
                 $_SESSION['location2'] = $location2."+Nigeria";
                 
@@ -714,11 +727,11 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
             }
         }
     }
-    elseif (substr(strtolower(trim($_POST['bot_train'])), 0, 7) === 'train :') {
+    elseif (substr(strtolower(trim($_POST['bot_train'])), 0, 6) === 'train:') {
         // Regular expression to check if the training command is correct
         // Retrieve Questions, Location and Function Name
-        $simple_mode_pattern = '/train : (.+[^{}]) \# (.+[^{}])/';
-        $complex_mode_pattern = '/train : (.+) (between|from) {{(.+)}} .+ {{(.+)}} \# (.+) {{.+}} (and|to) {{.+}} \(([A-z_]+)\)/';
+        $simple_mode_pattern = '/train: (.+[^{}]) \# (.+[^{}])/';
+        $complex_mode_pattern = '/train: (.+) (between|from) {{(.+)}} .+ {{(.+)}} \# (.+) {{.+}} (and|to) {{.+}} \(\(([A-z_]+)\)\)/';
         $train_command = $_POST['bot_train'];
         $match_simple_mode = preg_match($simple_mode_pattern, $train_command, $match_simple);
         $match_complex_mode = preg_match($complex_mode_pattern, $train_command, $matches);
@@ -755,12 +768,12 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
                 include "../answers.php";
                 if (function_exists($function_name) or $match_simple_mode) {
                     $distance = "<b>".call_user_func($function_name, $key, $url, $location1, $location2)."</br>";
-                    $distance .= '<br /> <br />';
 
                     $location1 = str_replace('+', ' ', $location1);
                     $location2 = str_replace('+', ' ', $location2);
                     
-                    $concat_answer = "$answer $preposition ($function_name)";
+                    $concat_question = "$question $preposition";
+                    $concat_answer = "$answer ($function_name)";
                     // Insert question into database
                     $save_message = $conn->prepare(
                     "INSERT INTO chatbot (question, answer) VALUES (?, ?)");
@@ -775,7 +788,7 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
                     echo json_encode($response);
                 }
                 else {
-                    $response = ['response'=>'train_command_error', 'message'=>'Sorry, that command does not exist, you can only use: <br /><br /> <span class="bot-command">(calculate_distance)</span> function with the <span class="bot-command">train : </span> command to get the distance between 2 locations <br /><br /> <span class="bot-command">get duration : [mode]</span> Command to get the estimated trip duration between the last 2 locations <br /><br /><br /> <span class="bot-command">show direction : [mode]</span> Command to display the direction between the last 2 locations<br /><br /><br /> You can type <span class="bot-command">help</span> to learn more'];
+                    $response = ['response'=>'train_command_error', 'message'=>'Sorry, that command does not exist, you can only use: <br /><br /> <span class="bot-command">((calculate_distance))</span> function with the <span class="bot-command">train: </span> command to get the distance between 2 locations <br /><br /> <span class="bot-command">get duration : [mode]</span> Command to get the estimated trip duration between the last 2 locations <br /><br /><br /> <span class="bot-command">show direction : [mode]</span> Command to display the direction between the last 2 locations<br /><br /><br /> You can type <span class="bot-command">help</span> to learn more'];
                     echo json_encode($response);
                 }
             }
@@ -825,7 +838,7 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
             }
         }
         else {
-            $response = ['response'=>'train_command_error', 'message'=>'Sorry, that command does not exist, you can only use: <br /><br /> <span class="bot-command">(calculate_distance)</span> function with the train command to get the distance between 2 locations <br /><br /> <span class="bot-command">get duration : [mode]</span> Command to get the estimated trip duration between the last 2 locations <br /><br /> <span class="bot-command">show direction : [mode]</span> Command to display the direction between the last 2 locations'];
+            $response = ['response'=>'train_command_error', 'message'=>'Sorry, that command does not exist, you can only use: <br /><br /> <span class="bot-command">((calculate_distance))</span> function with the train command to get the distance between 2 locations <br /><br /> <span class="bot-command">get duration : [mode]</span> Command to get the estimated trip duration between the last 2 locations <br /><br /> <span class="bot-command">show direction : [mode]</span> Command to display the direction between the last 2 locations'];
             echo json_encode($response);
         }
     }

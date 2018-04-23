@@ -50,15 +50,8 @@
             color: #1da1f2;
         }
 		
-		
-
+	
  
-* {
-   margin: 0px; 
-   user-select: none;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-}
 body {
     margin: 0px;
 }

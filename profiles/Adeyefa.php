@@ -20,7 +20,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    //include "../answers.php";
+    include "../answers.php";
     
     try{
 
@@ -67,11 +67,39 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			$quest = $queries[0];
 			$ans = $queries[1];
 
-			$sql = "INSERT INTO chatbot(question, answer) VALUES ( '" . $quest . "', '" . $ans . "')";
-			$conn->exec($sql);
+			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
+
+			$stmt = $conn->prepare($sql);
+	        $stmt->bindParam(':question', $quest);
+	        $stmt->bindParam(':answer', $ans);
+	        $stmt->execute();
+	        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+			
 			echo json_encode([
 				'status' => 1,
 				'answer' => "Thanks for training me, you can now test my knowledge"
+			]);
+			return;
+		}
+		elseif ($arr[0] == "help") {
+			echo json_encode([
+				'status' => 1,
+				'answer' => "Type 'aboutbot' to know about me. You can also convert cryptocurrencies using this syntax.
+				'convert btc to usd"
+			]);
+			return;
+			
+		}
+		elseif ($arr[0] == "convert") {
+			# code...
+			$from = $arr[1];
+			$to = $arr[3];
+			$converted_price = GetCryptoPrice($from, $to);
+			$price = "1 " . $from . " = " . $to . " " . $converted_price ;
+			echo json_encode([
+				'status' => 1,
+				'answer' => $price
 			]);
 			return;
 		}
@@ -87,7 +115,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	    	$question = implode(" ",$arr);
 	    	//to check if answer already exists in the database...
 	    	$question = "%$question%";
-	    	$sql = "Select * from chatbot where question like $question";
+	    	$sql = "Select * from chatbot where question like :question";
 	        $stat = $conn->prepare($sql);
 	        $stat->bindParam(':question', $question);
 	        $stat->execute();
@@ -98,12 +126,40 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		        $index = rand(0, count($rows)-1);
 		        $row = $rows[$index];
 		        $answer = $row['answer'];
-		        
-		        echo json_encode([
-		        	'status' => 1,
-		        	'answer' => $answer
-		        ]);
-		        return;
+		        // check if answer is a function.
+		        $index_of_parentheses = stripos($answer, "((");
+		        if($index_of_parentheses === false){// if answer is not to call a function
+		        	echo json_encode([
+			        	'status' => 1,
+			        	'answer' => $answer
+			        ]);
+			        return;
+		        }else{//to get the name of the function, before calling
+		            $index_of_parentheses_closing = stripos($answer, "))");
+		            if($index_of_parentheses_closing !== false){
+		                $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
+		                $function_name = trim($function_name);
+		                if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
+		                   echo json_encode([
+		                    'status' => 0,
+		                    'answer' => "The function name should not contain white spaces"
+		                  ]);
+		                  return;
+		                }
+			            if(!function_exists($function_name)){
+			              echo json_encode([
+			                'status' => 0,
+			                'answer' => "I am sorry but I could not find that function"
+			              ]);
+			            }else{
+			              echo json_encode([
+			                'status' => 1,
+			                'answer' => str_replace("(($function_name))", $function_name(), $answer)
+			              ]);
+			            }
+			            return;
+		            }
+		        }    
 		    }else{
 
 		    	echo json_encode([
@@ -128,7 +184,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style type="text/css">
 		body{
-			background-image: url(turntable.jpg);
+			background-image: url(https://res.cloudinary.com/adeyefa/image/upload/v1524267920/turntable-1109588__340.jpg);
 			height: 100%; 
 		    background-position: center;
 		    background-repeat: no-repeat;
@@ -216,11 +272,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    overflow-x: hidden;
 		    padding: 10px 5px 92px;
 		    border: none;
-		    max-height: 300px;
+		    max-height: 350px;
 		    -webkit-justify-content: flex-end;
 		    justify-content: flex-end;
 		    -webkit-flex-direction: column;
 		    flex-direction: column;
+		    background-color: #00FFFF;
+
 		}
 		.irr{
 	        color: red;
@@ -283,7 +341,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
-									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about me type: 'aboutbot'
+									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about what i can do type 'help'
 								</div>
 								<div class="iro">
 									<ul id="queries">
@@ -315,12 +373,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	                  //${question}
 	                //</div>`
 				$.ajax({
-					url: 'Adeyefa.php',
+					url: '/profiles/Adeyefa.php',
 					type: 'POST',
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#ans").append("<li>"  + response.answer +  "</li>");
+			        $("#ans").append("<li>" + response.answer + "</li>");
 			       // console.log(response.result);
 			        //alert(response.result.d);
 			        //alert(answer.result);

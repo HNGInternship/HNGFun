@@ -7,20 +7,30 @@ if(isset($_GET['id'])){
     require "answers.php";
 
 }else{
-    require '../db.php';
+    require '../../config.php';
     require "../answers.php";
+
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        echo("dbName:".DB_DATABASE);
+        die("Could not connect to the database on live server " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+
+
 }
+
+
 
 try {
 
-//    $sql = 'SELECT * FROM interns_data,secret_word WHERE username ="'.'uncletee'.'"';
-    $sql = 'SELECT * FROM secret_word';
+  $sql = 'SELECT * FROM interns_data,secret_word WHERE username ="'.'uncletee'.'"';
+//    $sql = 'SELECT * FROM secret_word';
 
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $data = $q->fetch();
     $secret_word = $data['secret_word'];
-    echo($secret_word);
 
 } catch (PDOException $e) {
     throw $e;
@@ -37,6 +47,9 @@ $abusiveWords = ["crazy","stupid","4r5e", "5h1t", "5hit", "a55", "anal", "anus",
 $apiKey = 'f9cca98bdc5344ce8508b4a6b8110c59';
 $botVersion = "agbero v1.0";
 
+
+
+// Question engine
 if($_SERVER['REQUEST_METHOD'] == "POST"){
         header('Content-Type: application/json');
         if(isset($_POST["data"])){
@@ -44,6 +57,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             echo(json_encode($reponse));
         }
 }
+
+////////////////////////////////
 
 
 
@@ -89,10 +104,12 @@ function askQuestion($string){
 
 }
 
-//print_r(performTraining('train:Give me latest news#((getNews))#adenekan'));
+performTraining('train:Give me latest news');
 function performTraining($string){
+
     $delimeters         = [":","#"];
-    $trainnigParameters =   multiexplode ($delimeters ,$string);
+    $trainnigParameters =   multiexplode($delimeters ,$string);
+
 
     $isBotTrainnable = isTrainable($trainnigParameters);
     if( $trainnigParameters[0] == "train"){
@@ -960,7 +977,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                   // process the form
                   $.ajax({
                       type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-                       url         : 'profiles/uncletee.php', // the url where we want to POST
+                       url         : '/profiles/uncletee.php', // the url where we want to POST
                        data        : formData, // our data object
                       dataType    : 'json', // what type of data do we expect back from the server
                       encode          : true
