@@ -622,7 +622,7 @@ class DBHelper{
         };
 
         $('#message_chat_form').submit(function (e) {
-            e.preventDefault();
+            // e.preventDefault();
             chat.messageChat();
             $('#message_chat_form')[0].reset();
         });
@@ -643,7 +643,8 @@ class DBHelper{
             this.postJSON(data, "/profiles/agatevureglory.php", function (response) {
                 $('#message_chat_form')[0].reset();
                 console.log(response);
-                var strMessages = '<li class="replies"><img src ="http://res.cloudinary.com/gconnect/image/upload/v1524432009/robot.jpg"><small style="font-size: 15px; color:green;" ><b>Gconnect Bot</small><br>' +
+                var strMessages = '<li class="replies"><img src ="http://res.cloudinary.com/gconnect/image/upload/' + 
+                 'v1524432009/robot.jpg"><small style="font-size: 15px; color:green;" ><b>Gconnect Bot</small><br>' +
                     '' + response.message + '</p></li><div class="clearfix"></div> ';
                 $('#message-outlet').append(strMessages);
                 // $(".messages").scrollTop($("#message-outlet").outerHeight());
