@@ -424,13 +424,13 @@ for($i=0;$i<sizeof($parsed_response['results']);$i+=2){
 
   $return='<div class="row">'
 
- .'<div class="col-xs-6 important">'
+ .'<div class="col-xs-6 col-md-4">'
             .'<span>'.$firstName.'</span><br>'
             .'<span>'.$firstRating.' star rating</span><br>'
             .'<span>'.$firstAddy.'</span><br>'
             .'<span>'.$firstType.'</span><br>'
           .'</div>'
-          .'<div class="col-xs-6" style="display:'.$display.'" id="important">'
+          .'<div class="col-xs-6 col-md-4" style="display:"'.$display.'">'
             .'<span>'.$secondName.'</span><br>'
             .'<span>'.$secondRating.' star rating</span><br>'
             .'<span>'.$secondAddy.'</span><br>'
