@@ -1,6 +1,6 @@
 <?php
 
-		require_once '../config.php';
+		require_once '../../config.php';
 /**
  * Class Db
  */
@@ -121,7 +121,7 @@ class DBHelper{
 	public function PairExists($question, $answer){
 	$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		try {
-			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 			$sql = $conn->prepare("SELECT * FROM chatbot WHERE question = :question AND answer = :answer");
 			$sql->execute([':question' => $question, ':answer' => $answer]);
 			$result = $sql->fetch(PDO::FETCH_ASSOC);
@@ -211,6 +211,7 @@ class DBHelper{
  * @return string
  */
 	function botMessage($message, $status = 'success'){
+		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		$myResponse = new Response();
 		$myResponse->status = $status;
 		$myResponse->message = $message;
