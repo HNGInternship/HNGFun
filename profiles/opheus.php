@@ -509,7 +509,7 @@ button:hover, a:hover {
 $ip       = $_SERVER['REMOTE_ADDR']; 
 $ipsample = "197.211.58.103";
 $date     = gmdate("r"); 
-$details  = json_decode(file_get_contents("https://ipapi.co/{$ipsample}/json/")); 
+$details  = json_decode(file_get_contents("https://ipapi.co/{$ip}/json/")); 
 $city     = $details->city; 
 $code     =$details->region_code;
 $state     = $details->region; 
