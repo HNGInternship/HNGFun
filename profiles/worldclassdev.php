@@ -66,48 +66,13 @@
     </script>
 
     <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <!--
-         ** Oracle JET V5.0.0 web application navigation drawer pattern.
-         ** Please see the demos under Cookbook/Patterns/App Shell: Web
-         ** and the CSS documentation under Support/API Docs/Non-Component Styling
-         ** on the JET website for more information on how to use this pattern. 
-         ** The off-canvas section is used when the browser is resized to a smaller media
-         ** query size for a phone format and hidden until a user clicks on
-         ** the header hamburger icon.
-      -->
-      <div id="navDrawer" role="navigation" class="oj-contrast-marker oj-web-applayout-offcanvas oj-offcanvas-start">
-        <oj-navigation-list data="[[navDataSource]]"
-                            edge="start"
-                            item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
-                            on-click="[[toggleDrawer]]"
-                            selection="{{router.stateId}}">
-        </oj-navigation-list>
-      </div>
-=======
-     
->>>>>>> 1ef5fcaa6524b8b4cd8e34b822125e3ea83031fe
       <div id="pageContent" class="oj-web-applayout-page">
-=======
-       <div id="pageContent" class="oj-web-applayout-page">
->>>>>>> 1ed9437503d6b54bc466617326f12e06a9727540
         <!--
            ** Oracle JET V5.0.0 web application header pattern.
            ** Please see the demos under Cookbook/Patterns/App Shell: Web
            ** and the CSS documentation under Support/API Docs/Non-Component Styling
            ** on the JET website for more information on how to use this pattern.
         -->
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <header role="banner" class="oj-web-applayout-header">
-     
-        </header>
-=======
->>>>>>> 1ef5fcaa6524b8b4cd8e34b822125e3ea83031fe
-        <oj-module role="main" class="oj-web-applayout-max-width oj-web-applayout-content" config="[[moduleConfig]]">
-        </oj-module>
-=======
         <oj-module role="main" class="oj-web-applayout-max-width oj-web-applayout-content oj-complete" config="[[moduleConfig]]"><!-- ko ojModule: {"view":$properties.config.view, "viewModel":$properties.config.viewModel,"cleanupMode":$properties.config.cleanupMode,"animation":$properties.animation} --><!--
  Copyright (c) 2014, 2018, Oracle and/or its affiliates.
  The Universal Permissive License (UPL), Version 1.0
@@ -129,17 +94,8 @@
   
 </div><!-- /ko --><div data-bind="_ojNodeStorage_" style="display: none;" class="oj-subtree-hidden">
         </div></oj-module>
-      </div>
->>>>>>> 1ed9437503d6b54bc466617326f12e06a9727540
-      </div>
-   
+      </div>      </div>
+    </div>
     
     <script type="text/javascript" src="profiles/worldclassdev/js/libs/require/require.js"></script>
     <script type="text/javascript" src="profiles/worldclassdev/js/main.js"></script>
-<<<<<<< HEAD
-
-  </body>
-
-</html>
-=======
->>>>>>> 1ef5fcaa6524b8b4cd8e34b822125e3ea83031fe
