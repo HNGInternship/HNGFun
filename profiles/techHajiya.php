@@ -50,9 +50,7 @@
         }
 		
 		
-		
-		
-        .chat-output {
+        .chat-result {
             flex: 1;
             padding: 20px;
             display: flex;
@@ -61,20 +59,20 @@
             overflow-y: scroll;
             max-height: 500px;
         }
-        .chat-output > div {
+        .chat-result > div {
             margin: 0 0 20px 0;
         }
-        .chat-output .user-message .message {
+        .chat-result .user-message .message {
             background: #0fb0df;
             color: white;
         }
-        .chat-output .bot-message {
+        .chat-result .bot-message {
             text-align: right;
         }
-        .chat-output .bot-message .message {
+        .chat-result .bot-message .message {
             background: #eee;
         }
-        .chat-output .message {
+        .chat-result .message {
             display: inline-block;
             padding: 12px 20px;
             border-radius: 10px;
@@ -102,7 +100,7 @@
         $sql2 = 'SELECT * FROM interns_data WHERE username="techHajiya"';
         $q2 = $conn->query($sql2);
         $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $user = $q2->fetch();
+        $my_data = $q2->fetch();
     } catch (PDOException $e) {
         throw $e;
     }
@@ -111,10 +109,10 @@
      <div class="row" style="width:1100px;">
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
-                    <img src="<?php echo $user->image_filename ?>" alt="Lois Thomas">
+                    <img src="<?=$my_data['image_filename'] ?>" alt="Lois Thomas">
                 </div>
 				<p class="text-center profile-name">
-				<span> Hi! I am  <?php echo $user->name ?>  <br/>(@<?php echo $user->username ?>) <br/> I Eat | I Code | I Repeat</span>
+				<span> Hi! I am  <?=$my_data['name'] ?>  <br/>(@<?=$my_data['username'] ?>) <br/> I Eat | I Code | I Repeat</span>
                 </p>
                 <div class="text-center social-links">
                     <a href="https://github.com/cara06" target="_blank"><i class="fa fa-2x fa-github"></i></a>
@@ -126,9 +124,9 @@
 
         <div class="col-md-6">
             <div class="body1">
-                <div class="chat-output" id="chat-output">
+                <div class="chat-result" id="chat-result">
                     <div class="user-message">
-                        <div class="message">Hi there! I'm LoBot! Ask anything and I'll be sure to answer! </br>To train me, use this syntax - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
+                        <div class="message">Hello! I'm LoBot! Ask anything and I'll be sure to answer! </br>To train me, use this syntax - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
                     </div>
                 </div>
 
@@ -227,7 +225,7 @@
 </body>
 
 <script>
-    var outputArea = $("#chat-output");
+    var outputArea = $("#chat-result");
     $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
         var message = $("#user-input").val();
@@ -240,8 +238,8 @@
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
                     outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
-                    $('#chat-output').animate({
-                        scrollTop: $('#chat-output').get(0).scrollHeight
+                    $('#chat-result').animate({
+                        scrollTop: $('#chat-result').get(0).scrollHeight
                     }, 1500);
                 }, 250);
             }
