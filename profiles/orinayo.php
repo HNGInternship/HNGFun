@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     function Validate_input($data) 
@@ -208,39 +209,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 =======
    <?php 
+=======
+<?php 
+>>>>>>> 1ed9437503d6b54bc466617326f12e06a9727540
 
-   if (!defined('DB_USER')) {
-        define('DB_USER', "root");
-        define('DB_PASSWORD', "");
-        define('DB_DATABASE', "hng_fun");
-        define('DB_HOST', "localhost");
-    }
+if (!defined('DB_USER')) {
+    define('DB_USER', "root");
+    define('DB_PASSWORD', "");
+    define('DB_DATABASE', "hng_fun");
+    define('DB_HOST', "localhost"); 
     try {
         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
     } catch (PDOException $pe) {
         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
     }
-    
-    try {
-        $sql = "SELECT * FROM secret_word";
-        $query = $conn->query($sql);
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $query->fetch();
-        $secret_word = $result['secret_word'];
-               
-        $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="orinayo"';
-        $q2 = $conn->query($sql2);
-        $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $me = $q2->fetch();
-    }
-    catch (PDOException $e) {
-        throw $e;
-    }
-    
+}   
 ?>
+
 <?php
 global $conn, $user_input_array2;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    if (!defined('DB_USER')) {
+        define('DB_USER', "root");
+        define('DB_PASSWORD', "");
+        define('DB_DATABASE', "hng_fun");
+        define('DB_HOST', "localhost"); 
+        try {
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
+        } catch (PDOException $pe) {
+            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+        }
+    }
+
     function Validate_input($data) 
     {
         $data = trim($data);
@@ -464,6 +465,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <?php 
     if (!defined('DB_USER')) {
         define('DB_USER', "root");
@@ -496,6 +498,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ?>
 =======
 >>>>>>> 1ef5fcaa6524b8b4cd8e34b822125e3ea83031fe
+=======
+<?php
+try {
+    $sql = "SELECT * FROM secret_word";
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $query->fetch();
+    $secret_word = $result['secret_word'];
+       
+    $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="orinayo"';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $me = $q2->fetch();
+}
+catch (PDOException $e) {
+    throw $e;
+}
+?>
+>>>>>>> 1ed9437503d6b54bc466617326f12e06a9727540
 <div class="container-fluid content">
                 <h3 class="text-center text-dark display-5">Hello, I'm
                     <span class="display-4" id=name style="color: #f4511e">
