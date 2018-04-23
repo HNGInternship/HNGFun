@@ -158,15 +158,28 @@ function getReply($data){
 
     require '../db.php';
 
+    require "../answers.php";
 
     // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-
 
 
 
     try{
 
         $trimData=sanitizeText($data);
+
+        if(strtolower($trimData)=="aboutbot"){
+
+            return get_bot_version();
+
+        }
+
+        if(strtolower($trimData)=="help"){
+
+            return get_help();
+           
+        }
+
         if(strpos($trimData, "{{")==FALSE){
 
 $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question=:question ORDER BY RAND() LIMIT 1");
@@ -186,18 +199,21 @@ else{
     $indexToCut=strpos($trimData, "{{");
     if($indexToCut!=0){
     $newDataFront=substr($trimData, 0,$indexToCut);
-    $trimCopy=substr($trimData, $indexToCut);
 
     }
+
+    $trimCopy=substr($trimData, $indexToCut);
+
 
     $indexToCut2=strpos($trimData, "}}");
 
 
     if($indexToCut2!=strlen($trimData)-2){
         $newDataBack==substr($tr, $indexToCut2);
-     $trimCopy=substr($trimCopy, 2,strlen($trimCopy)-4);
 
     }
+
+     $trimCopy=substr($trimCopy, 2,strlen($trimCopy)-4);
 
     $word=$trimCopy;
 
@@ -653,6 +669,9 @@ ul{
     padding-left: 0%;
 }
 
+li{
+    padding-bottom: 0.5%;
+}
 
 
 @media(max-width: 400px){
@@ -763,8 +782,11 @@ ul{
             <h1 class="chat-name col-2">Merlin : </h1>
           <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <strong>Wizard of Oz</strong><br>
           You can ask me questions and i'll try my best to answer.<br>
-          Some special functions i perform are: <br>
+          Some special functions I perform are: <br>
           <ul>
+                <li><strong>Bot Version</strong><br>
+                Type <span id="important">aboutbot</span>
+            </li>
               <li><strong>Translate English to Pig Latin</strong><br>
                 Type <span id="important">pig latin: word/sentence</span><br>
                 The variable is used like so <span id="important">{{variable}}</span> and function as <span id="important">(pig_latin)</span><br>
@@ -780,6 +802,10 @@ ul{
                 The variable is used like so <span id="important">{{variable}}</span> and function as <span id="important">(find_place)</span><br>
 
               </li>
+
+               <li><strong>View available commands again</strong><br>
+                Type <span id="important">commands</span>
+            </li>
           </ul><span>
 
 

@@ -406,6 +406,10 @@ $parsed_response = json_decode($response, TRUE);
 
 for($i=0;$i<sizeof($parsed_response['results']);$i+=2){
 
+  if($i==0){
+  $return="";
+  }
+
   $firstName=$parsed_response['results'][$i]['name'];
   $firstRating=$parsed_response['results'][$i]['rating'];
   $firstAddy=$parsed_response['results'][$i]['formatted_address'];
@@ -452,6 +456,38 @@ catch(Exception $e){
 }
 
 
+function get_help(){
+
+   return ' Some special functions I perform are: <br>'
+          .'<ul><li><strong>Bot Version</strong><br>'
+                .'Type <span id="important">aboutbot</span>'
+            .'</li>'
+              .'<li><strong>Translate English to Pig Latin</strong><br>'
+                .'Type <span id="important">pig latin: word/sentence</span><br>'
+                .'The variable is used like so <span id="important">{{variable}}</span> and function as <span id="important">(pig_latin)</span><br>'
+             .'</li>'
+              .'<li><strong>Place Locator</strong><br>'
+                .'Used to find type of places in an area'
+                .'Type <span id="important">find: place in area</span><br>'
+                .'For example <span id="important">find: restaurants in nigeria</span><br>'
+                .'<span id="important">find: hotels in yaba</span><br>'
+                .'Also can find location of compnies or org e.g <span id="important">find: hotelsng in nigeria</span><br>'
+                .'<span id="important">find: Chevron </span><br>'
+                .'The variable is used like so <span id="important">{{variable}}</span> and function as <span id="important">(find_place)</span><br>'
+              .'</li>'
+               .'<li><strong>View available commands again</strong><br>'
+                .'Type <span id="important">commands</span>'
+            .'</li>'
+          .'</ul>'
+}
+
+function get_bot_version(){
+
+    $bot_version=1.9;
+
+   return "Merlin Version : ".$bot_version;
+
+}
 
 
 
