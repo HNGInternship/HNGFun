@@ -1,4 +1,5 @@
-
+/profiles/dennis/*
+/profiles/dennisotugo.php
 db.php
 config.php
 docker-compose.yml
