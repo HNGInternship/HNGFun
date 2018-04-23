@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
    background-color: #96deda;
    margin: auto;
    width: 55em;
-   height: 37.25em;
+   height: 37em;
    border-color: grey;
    border-radius: 1.27em;
    position: relative;
@@ -45,7 +45,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
    text-shadow: 0 0 3px #FF0000;
 }
 #me{
-    font-size: 2.85em;
+    font-size: 2.35em;
    text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
 }
 hr{
@@ -100,7 +100,7 @@ img{
             <div id="details">
                 <span>
                     <p class="d">Details<hr></p>
-                    <div id="span"> Hi, there! My name is <span id="me">Andikan</span> and I am a Developer</div>
+                    <div id="span"> Hi, there! My name is <span id="me">Andikan</span><br> and I am a Developer</div>
                 </span>
                
             </div>
