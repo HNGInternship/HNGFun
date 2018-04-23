@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,6 +44,19 @@
     ?>
 
 <?php
+=======
+<?php
+if (!defined('DB_USER')) {
+    include "../../config.php";
+}
+try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+
+global $conn, $user_input_array2;
+>>>>>>> cc7d9a744907aec4e0801b509874380fd60e0d5c
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     function Validate_input($data) 
     {
@@ -251,6 +265,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 } else {
 ?>
+<<<<<<< HEAD
+=======
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Homemade+Apple|Roboto|Spectral+SC" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+</head>
+<body>
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] === "GET") {
+    try {
+        $sql = "SELECT * FROM secret_word";
+        $query = $conn->query($sql);
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $query->fetch();
+        $secret_word = $result['secret_word'];
+           
+        $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="orinayo"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $me = $q2->fetch();
+    }
+    catch (PDOException $e) {
+        throw $e;
+    }
+?>
+
+>>>>>>> cc7d9a744907aec4e0801b509874380fd60e0d5c
 <div class="container-fluid content">
                 <h3 class="text-center text-dark display-5">Hello, I'm
                     <span class="display-4" id=name style="color: #f4511e">
