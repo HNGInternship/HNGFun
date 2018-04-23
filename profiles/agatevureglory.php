@@ -609,13 +609,14 @@ class DBHelper{
                 data: {"json": JSON.stringify(dataObject)},
                 dataType: 'json',
                 success: function (data) {
+                	console.log(data);
                     callback(data);
                     return true;
                 },
                 complete: function () {
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                	console.log(errorThrown)
+                	console.log(xhr);
                     return false;
                 }
             });
