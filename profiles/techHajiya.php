@@ -157,7 +157,7 @@
 	   font-weight: bolder;
 	   background-color: #191970;
 	   position: fixed;
-	   font-family: arial;
+	   font-family: "Josefin Sans","Montserrat","Segoe UI","Roboto","Helvetica Neue","Arial","sans-serif";;
 		}
     </style>
 </head>
