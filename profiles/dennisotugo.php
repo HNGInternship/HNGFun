@@ -141,6 +141,34 @@ if (isset($_POST['payload'])) {
 else {
 ?>
 
+<<<<<<< HEAD
+<html lang="en-us" style="height:100%;" dir="ltr">
+  <head>
+    <title>Composite Components - Basic</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../css/images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="../css/images/touchicon.png">
+    <meta name="apple-mobile-web-app-title" content="Oracle JET">
+    <link rel="stylesheet" id="css" href="https://www.oracle.com/webfolder/technetwork/jet/css/libs/oj/v5.0.0/alta/oj-alta-min.css">
+    <link rel="stylesheet" href="../css/demo.css">
+    <script>
+      // The "oj_whenReady" global variable enables a strategy that the busy context whenReady,
+      // will implicitly add a busy state, until the application calls applicationBootstrapComplete
+      // on the busy state context.
+      window["oj_whenReady"] = true;
+    </script>
+    <script src="https://www.oracle.com/webfolder/technetwork/jet/js/libs/require/require.js"></script>
+    <!-- RequireJS bootstrap file -->
+    <script src="../js/main.js"></script>
+    <script src="../js/demo.js"></script>
+  </head>
+
+
+=======
+>>>>>>> cc7d9a744907aec4e0801b509874380fd60e0d5c
 <div class="profile">
 						<h1>Dennis Otugo</h1>
 						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
