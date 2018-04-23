@@ -1,5 +1,16 @@
-<?php
-    require_once('../db.php');
+<?php 
+    date_default_timezone_set('Africa/Lagos');
+
+        if (!defined('DB_USER')){
+            
+            require "../../config.php";
+        }
+        try {
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+          } catch (PDOException $pe) {
+            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+          }
+        
 
     try {
     $sql = 'SELECT * FROM secret_word';
@@ -12,127 +23,70 @@
     $secret_word = $result['secret_word'];
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-      require "../answers.php";
 
-      date_default_timezone_set("Africa/Lagos");
 
-      if(!isset($_POST['ask'])){
-        echo json_encode([
-            'status' => 1,
-            'answer' => 'What do you have in mind?'
-          ]);
-        return;
-      }
       $ask = $_POST['ask'];
-
-      //get what the user asked
-      if($ask == ""){
-        echo json_encode([
-        'status' => 0,
-        'answer' => "Please type your question"
-      ]);
-      return;
-    }
     
         //check if bot is training
-        $index_of_train = stripos($ask, "train:");
-          if($index_of_train === false){
-            //then, we are now in asking mode
-            //Lets remove white spaces from the question asked
+        $train_bot = stripos($ask, "train:");
+          if($train_bot === false){
+            
+            //Bot is not training, ask your question, but remove question mark and dot
             $ask = preg_replace('([\s]+)', ' ', trim($ask));
-            //Lets remove the question mark(?) and the dot sign(.)
             $ask = preg_replace('([?.])', "", $ask);
 
             //if the answer is already in the database, do this:
-            $ask = "%$ask%";
+            $ask = "$ask";
             $sql ="SELECT * FROM chatbot WHERE question LIKE :ask";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':ask', $ask);
             $stmt->execute();
             $stmt->setFetchMode(FETCH_ASSOC);
-            $rows = $stmt->fetchAll();
-            if(count($rows)>0){
-              $index = rand(0, count($rows)-1);
-              $row= $rows[$index];
-              $answer = $row['answer'];
-
-              //Does this answer require a function? Check:
-              $index_of_parentheses = stripos($answer, "((");
-              if($index_of_parentheses === false){ 
-              //then the answer is not to call a function
-                echo json_encode([
-                  'status' => 1,
-                  'answer' => $answer
+            $results = $stmt->fetchAll();
+            if(count($results)>0){
+              $index = rand(0, count($results)-1);
+              $result= $results[$index];
+              $answer = $result['answer'];
+              echo json_encode([
+                'status' => 0, 'answer' => $answer
                 ]);
-              }else{
-              //otherwise call a function. but get the function name first
-              $index_of_parentheses_closing = stripos($answer, "))");
-              if($index_of_parentheses_closing !== false){
-                $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
-                $function_name = trim($function_name);
-                //if method name contains space, do not invoke
-                if(stripos($function_name, ' ') !== false){
-                  echo json_encode([
-                    'status' => 0,
-                    'answer' => "The function name should not contain white spaces"
-                  ]);
-                  return;
-                }
-                if(!function_exists($function_name)){
-                  echo json_encode([
-                    'status' => 0,
-                    'answer' => "Sorry i could not find this function, check your calling and try again"
-                    ]);
-                }else{
-                  echo json_encode([
-                    'status' => 1,
-                    'answer' => str_replace("(($function_name))", $function_name(), $answer)
-                    ]); 
-                }
-                return;
-              }
-            }
+              return;
           }else{
             echo json_encode([
-                'status' => 0,
-                'answer' => "I dont have an answer to that question. Am not that intelligent you know. But you can make me be. Please train me. Type <strong>train: question # answer # password"
+                'status' => 0, 'answer' => "I dont have an answer to that question. Am not that intelligent you know. But you can make me be. Please train me. Type <strong>train: question # answer # password"
               ]);
           }
           return;
       }else{
         //Enter the training mode
-        $question_and_answer_string = substr($ask, 6);
-        //remove excess white space in $question_and_answer_string
-         $question_and_answer_string = preg_replace('([\s]+)', ' ', trim($question_and_answer_string));
+        $ask_ans = substr($ask, 6);
+        //remove excess white space in $ask_ans
+         $ask_ans = preg_replace('([\s]+)', ' ', trim($ask_ans));
          //remove ? and . so that questions missing ? (and maybe .) can be recognized
-         $question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string);
-         $split_string = explode("#", $question_and_answer_string);
-         if(count($split_string) == 1){
+         $ask_ans = preg_replace("([?.])", "", $ask_ans);
+         $separate = explode("#", $ask_ans);
+         if(count($separate) == 1){
           echo json_encode([
-            'status' => 0,
-            'answer' => "It seems you didnt enter the format correctly. \n Here, Let me help you: \n Type: <strong>train: question # answer # password"
+            'status' => 0, 'answer' => "It seems you didnt enter the format correctly. \n Here, Let me help you: \n Type: <strong>train: question # answer # password"
             ]);
           return;
          }
-         $que = trim($split_string[0]);
-         $ans = trim($split_string[1]);
+         $que = trim($separate[0]);
+         $ans = trim($separate[1]);
 
-         if(count($split_string) < 3){
+         if(count($separate) < 3){
           echo json_encode([
-            'status' => 0,
-            'answer'=> "You need to type the training password to train me"
+            'status' => 0, 'answer'=> "You need to type the training password to train me"
             ]);
           return;
          }
          //Lets know what the password is
-         
-         $password = trim($split_string[2]);
-         define('TRAINING_PASSWORD', 'password');
+         $password = trim($separate[2]);
+         define('ACCESS', 'password');
          //verify if training password is correct
-         if($password !== TRAINING_PASSWORD){
+         if($password !== ACCESS){
           echo json_encode([
-            'status' => 0,
-            'answer' => "You can't train me with that password, check it and train again"
+            'status' => 0, 'answer' => "You can't train me with that password, check it and train again"
             ]);
           return;
          }
@@ -144,21 +98,20 @@
          $stmt->execute();
          $stmt->setFetchMode(FETCH_ASSOC);
          echo json_encode([
-            'status' => 1,
-            'answer' => "I have learnt a new thing today, Thank you"
+            'status' => 1, 'answer' => "I have learnt a new thing today, Thank you. You can now test me"
           ]);
          return;
       }
       echo json_encode([
-      'status' => 0,
-      'answer' => "Sorry, i really dont understand you right now, you could offer to train me"
+      'status' => 0, 'answer' => "I cant grasp this, try me another time. Thanks."
     ]); 
   }else {
-?>    
+?>   
 
 <!DOCTYPE html>
 <html>
 <head>
+
   <title>Steven</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -212,9 +165,7 @@
       padding: 0 25px 80px;
       border: none;
       max-height: 400px;
-      -webkit-justify-content: flex-end;
       justify-content: flex-end;
-      -webkit-flex-direction: column;
       flex-direction: column;
     }
     .ask {
@@ -225,8 +176,6 @@
       margin-bottom: 10px;
       padding: 13px 14px;
       vertical-align: top;
-      -moz-border-radius: 5px;
-      -webkit-border-radius: 5px;
       border-radius: 5px;
     }
     .ask:before {
@@ -235,18 +184,14 @@
       display: block;
       width: 8px;
       height: 6px;
-      
     }
     .ask.me {
       float: right;
       color: #1a1a1a;
       background-color: #edf3fd;
-      -webkit-align-self: flex-end;
-      align-self: flex-end;
-      -moz-animation-name: slideFromRight;
-      -webkit-animation-name: slideFromRight;
-      animation-name: slideFromRight;
-    }
+      max-width: 80%
+      font-weight: bold;
+      }
      .ask.me:before {
       right: -3px;
       background-color: #eceff1;
@@ -255,11 +200,9 @@
       float: left;
       color: #fff;
      background-color: #c0c0c0;
-      -webkit-align-self: flex-start;
-      align-self: flex-start;
-      -moz-animation-name: slideFromLeft;
-      -webkit-animation-name: slideFromLeft;
-      animation-name: slideFromLeft;
+     max-width: 80%;
+     font-weight: bold;
+      
     }
     .ask.you:before {
       left: -3px;
@@ -291,8 +234,7 @@
         </div>
         <h2 style="text-align: center; color: white; margin-top: 10px;">Steven Victor</h2>
         <div style="text-align: center; color: white; margin-top: 10px;">
-          Web Developer, skilled in HTML, CSS, JavaScript, PHP, Laravel, VueJS, 
-        </div>
+          Web Developer, skilled in HTML, CSS, JavaScript, PHP, Laravel, VueJS. </div>
         <div class="row">
             <div style="margin-top: 10px">
               
@@ -322,12 +264,11 @@
                 Good to have you here, am Alexa, how can i help?
               </div>
           </div>
-         
         </div>
         <form id="ask-form">
           <div class="form-row ask-input">
               <div class="col-11">
-                <input class="form-control ask-input-field" id="message" placeholder="Ask me..."></input>
+                <input class="form-control ask-input-field" id="message" placeholder="Ask me..." />
               </div>
               <div class="col-1">
                 <button type="submit" class="submit ask-btn"><i class="fa fa-send"></i></button>
@@ -337,11 +278,7 @@
       </div>
       </div>
     </div>
-  </div>
 </section>
-
-<script src="../vendor/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.js"></script>
 
 <script>
 $(document).ready(function(){
@@ -352,8 +289,7 @@ $(document).ready(function(){
     });
 
   $(".message-environment").animate({ scrollTop: $(document).height() }, "fast");
-  $("")
-  
+
     function currentMessage(){
         var msg = $('.ask-input input').val();
         if($.trim(msg) == ''){
@@ -376,7 +312,6 @@ $(document).ready(function(){
       }
     });
 
-   
     //Transfer the question asked to the server
     function getAnswer(){
       let ask = $("#message").val();
@@ -397,13 +332,12 @@ $(document).ready(function(){
           $('<div class="ask you">' + response.answer + '</div>').appendTo($('.message-environment'));
           $('.ask-input input').val(null);
             $(".message-environment").animate({ scrollTop: $(document).height() }, "fast");
-
       }
       },
       error: (error) => {
         console.log(error);
       }
-    })
+    });
   }
 });
 

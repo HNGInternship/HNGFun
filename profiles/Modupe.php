@@ -1,6 +1,6 @@
 <?php
 
-require '..db.php';
+require 'db.php';
 
 $username = "Modupe";
 
@@ -38,7 +38,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
             padding: 0;  
         }
         
-        .card{
+        .mycard{
             position: absolute;
             top:50%;
             left: 70%;
@@ -53,7 +53,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
             display: none;
 
         }
-        .profile{
+        .myprofile{
             position: absolute;
             top:45%;
             left: 50%;
@@ -70,9 +70,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
             background-size: cover;
             background-repeat: no-repeat;
         }
-       .profile img{
-           width: 100%;
-       }
+       
      
        button{
            margin-top: 110%;
@@ -113,18 +111,18 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         }
 
-        h3{
+        .about{
            margin-top: 20%;
            margin-left: 100px; 
            text-decoration: underline;
            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
            text-align: center;
         }
-        p{
+        .paragraph{
             margin-left: 160px;
            overflow: hidden;
         }
-        ul {
+        .ulList {
             margin: 0;
             padding: 0;
             position: absolute;
@@ -133,7 +131,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
             transform: translate(-50%, -50%);
             display: flex;
         }
-        ul li {
+       .ulList li {
             position: relative;
             list-style: none;
             text-align: center;
@@ -141,7 +139,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
             cursor: pointer;
         }
         
-        ul li .text {
+        .ulListl li .text {
             position: absolute;
             width: 0;
             left: 50%;
@@ -154,13 +152,13 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
             color: #0000ff;
         }
         
-        ul li .fa {
+        .ulList li .fa {
             font-size: 2em;
             color: 	 #0000e6;
             padding: 15px;
         }
         
-        ul li:hover .text {
+        .ulList li:hover .text {
             width: 120px;
             margin-left: -60px;
         }
@@ -170,11 +168,11 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 </head>
 <body>
 
-<div class="card"> 
+<div class="mycard"> 
         
 <h1 id="name"></h1>
-<h3>About Me</h3>
-<p>I am a full-stack web developer/designer in the making. MERN(Mongo, Express, React and Node) to be precise.
+<h3 class="about">About Me</h3>
+<p class="paragraph">I am a full-stack web developer/designer in the making. MERN(Mongo, Express, React and Node) to be precise.
     Comfortable with HTML5, CSS3, BOOTSTRAP and JavaScript. I've got great communication skills, attention to detail,
     ability to work independently and in mixed teams . 
  </p>
@@ -199,7 +197,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
     </div>
 
 </div>
-<div class="profile" id="pic">
+<div class="myprofile" id="pic">
     <button id="btn">Learn More</button>
 </div>
 

@@ -1,261 +1,300 @@
 
-<html lang="en">
+<?php //DATE
+ $d = date("h:i:sa");
+?>
+<?php 
 
-<?php
-require_once './db.php'
+if(!defined('DB_USER')){
+  require "../../config.php";   
+  try {
+      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
+}
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
-$result2 = $conn->query("Select * from interns_data where username = 'roqak'");
+$result2 = $conn->query("Select * from interns_data where username = 'foluwa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
-///////////////////////////////////////////////////////////////
-function sendResponse(){
-  header('Content-type: application/json');
+
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){   
+    try{
+
+      if(!isset($_POST['question'])){
+        echo json_encode([
+          'status' => 1,
+          'answer' => "Please provide a question"
+        ]);
+        return;
+      }
+
+      $mem = $_POST['question'];
+      $mem = preg_replace('([\s]+)', ' ', trim($mem));
+      $mem = preg_replace("([?.])", "", $mem);
+    $arr = explode(" ", $mem);
+    
+
+    /* Training the bot*/
+    if($arr[0] == "train:"){
+
+      unset($arr[0]);
+      $q = implode(" ",$arr);
+      $queries = explode("#", $q);
+      if (count($queries) < 3) {
+        # code...
+        echo json_encode([
+          'status' => 0,
+          'answer' => "You need to enter a password to train me."
+        ]);
+        return;
+      }
+      $password = trim($queries[2]);
+      //to verify training password
+      define('trainingpassword', 'password');
+      
+      if ($password !== trainingpassword) {
+        # code...
+        echo json_encode([
+          'status'=> 0,
+          'answer' => "You entered a wrong passsword"
+        ]);
+        return;
+      }
+      $quest = $queries[0];
+      $ans = $queries[1];
+
+      $sql = "insert into chatbot (question, answer) values (:question, :answer)";
+
+      $stmt = $conn->prepare($sql);
+          $stmt->bindParam(':question', $quest);
+          $stmt->bindParam(':answer', $ans);
+          $stmt->execute();
+          $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+      
       echo json_encode([
-        'status' => 200,
-      'answer' => 'hello'],JSON_UNESCAPED_UNICODE);
-      exit();
-			return;
+        'status' => 1,
+        'answer' => "Thanks for training me, I would love to learn more"
+      ]);
+      return;
     }
-    require "../answers.php";
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-  $mem = $_POST['question'];
-	$arr = explode(" ", $mem);
-	if($arr[0] == "train:"){
-		unset($arr[0]);
-		$q = implode(" ",$arr);
-		$queries = explode("#", $q);
-		$quest = $queries[0];
-		$ans = $queries[1];
-		try {
-		 $sql = "INSERT INTO chatbot(question, response) VALUES ('" . $quest . "', '" . $ans . "')";
-		 $conn->exec($sql);
+      elseif ($arr[0] == "aboutbot") {
+        # code...
+        echo json_encode([
+          'status'=> 1,
+          'answer' => "I am ZOE, Version 1.0.0. You can train me by using this format ' train: This is a question # This is the answer # password '"
+        ]);
+        return;
+      }
+      else {
+        $question = implode(" ",$arr);
+        //to check if answer already exists in the database...
+        $question = "%$question%";
+        $sql = "Select * from chatbot where question like :question";
+          $stat = $conn->prepare($sql);
+          $stat->bindParam(':question', $question);
+          $stat->execute();
 
-	$message = " Thanks for increasing my knowledgebase";
+          $stat->setFetchMode(PDO::FETCH_ASSOC);
+          $rows = $stat->fetchAll();
+          if(count($rows)>0){
+            $index = rand(0, count($rows)-1);
+            $row = $rows[$index];
+            $answer = $row['answer'];
+            // check if answer is a function.
+            $index_of_parentheses = stripos($answer, "((");
+            if($index_of_parentheses === false){// if answer is not to call a function
+              echo json_encode([
+                'status' => 1,
+                'answer' => $answer
+              ]);
+              return;
+            }else{//otherwise call a function. but get the function name first
+                $index_of_parentheses_closing = stripos($answer, "))");
+                if($index_of_parentheses_closing !== false){
+                    $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
+                    $function_name = trim($function_name);
+                    if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
+                       echo json_encode([
+                        'status' => 0,
+                        'answer' => "The function name should not contain white spaces"
+                      ]);
+                      return;
+                    }
+                  if(!function_exists($function_name)){
+                    echo json_encode([
+                      'status' => 0,
+                      'answer' => "I am sorry but I could not find that function"
+                    ]);
+                  }else{
+                    echo json_encode([
+                      'status' => 1,
+                      'answer' => str_replace("(($function_name))", $function_name(), $answer)
+                    ]);
+                  }
+                  return;
+                }
+            }    
+        }else{
 
- }
- catch(PDOException $e)
-		 {
-		 // echo $sql . "<br>" . $e->getMessage();
-		 }
-	} else{
-		$message = "querynnnn";
-	}
-sendResponse();
- }
-
+          echo json_encode([
+            'status' => 0,
+            'answer' => "I am sorry, I cannot answer your question now. You could offer to train me."
+          ]);
+          return;
+        }
+      }
+  }catch (Exception $e){
+    return $e->message ;
+  }
+}
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Foluwa hng</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <style type="text/css">
+      body {
+          height: 100%;
+          background-color: #87ceeb;
+          background: linear-gradient(to bottom right, #DDA0DD,  #87ceeb);
+      }
+      img{
+          border-radius: 50%;
+          max-height: 250px;
+          max-width: 250px;
+      }
+      input[type=text] {
+          width: 50%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          box-sizing: border-box;
+          border-radius: 4px;
+          background-color: skyblue;
+          color: white;
+        }
+         input[type=text]:focus{
+           border: 3px solid #555;
+         }
+         button{
+            border: 3px solid #555;
+            text-decoration: none;
+            margin: 4px 2px;
+            border-radius: 4px;
+         }
+      .socialMediaIcons {
+          font-size: 25px;
+      }
+      #meSection{
+          border: 2px black solid;
+          width: 50%;
+          height:auto;
+      }
 
+      #botSection{
+         border: 2px red solid;
+         width: 47%;
+         height:auto;
+         padding: 10px;
+}
+      .botSend{
+         position: absolute; 
+        color: red;
+        right: 100px;
+        background-color: yellow;
+        border-radius: 4px;
 
+      }
+      .humanSend {
+        position: absolute; 
+        color: green;
+        right: 0px;
+        background-color: blue;
+        border-radius: 4px;
+      }
+  </style>
+</head>
+<body>
+    <main class="container content">
+      <div class="row">
+            <div class="col-sm-6" id="meSection">
+                     <div class="socialMedia">
+                       <img src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg">
+                      <span class="name"><?php echo $user->name; ?></span>
+      									<div class="socialMediaIcons">
+      										<a href="https://facebook.com/akintola.moronfoluwar"><i class="fa fa-facebook"></i></a>
+      										<a href="https://instagram.com/fantastic_foluwa"><i class="fa fa-instagram"></i></a>
+      										<a href="https://twitter.com/fantasticfoluwa"><i class="fa fa-twitter"></i></a>
+      										<a href="https://github.com/foluwa"><i class="fa fa-github"></i></a>
+      										<a href="https://slack.com/foluwa"><i class="fa fa-slack"></i></a>
+                        </div>
+                      </div>
+             </div>
+          
+           <div class="col-sm-6" id="botSection">
+                <div class="chat-head">Chat Interface</div>
+                    <div class="chat">
+                        <div id="conversation">
+                          <p class="bot botSend" style="margin-top:0px;left:0px;">
+                              <strong><?php echo $d ?></strong>
+                          </p>
+                          <div class="iro">
+                  <ul id="humanPost">
+                    
+                  </ul>
+                </div>  
+                <div class="iio">
+                  <ul id="botPost">
+                      
+                  </ul>
+                </div>  
+                        </div>
+                        <div style="position:fixed;bottom:0;">
+                        <form id="chat" class="box" action="foluwa.php" name="message" method="post">
+                          <textarea name="inputtext" type="text" id="message" class="message" placeholder="Enter your command"></textarea>
+                          <button id="send" class=send type=submit>Send</button>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+           </div>
+      </div>
+      <footer>Foluwa @ <a href="https://hotels.ng">Hotels.ng</a></footer>
+    </main>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      var Form =$('#chat');
+      Form.submit(function(e){
+        e.preventDefault();
+        var questionBox = $('textarea[name=inputtext]');
+        var question = questionBox.val();
+        $("#humanPost").append("<p class='botSend'>" + question + "<p>" + "<?php echo $d?>" + "</p>" + "</p>");
+        $.ajax({
+          url: '/profiles/foluwa.php',
+          type: 'POST',
+          data: {question: question},
+          dataType: 'json',
+          success: function(response){
+              $("#botPost").append("<p class='humanSend'>"  + response.answer +  "</p>");
+          },
+          error: function(error){
+                alert(error);
+          }
+        })  
+      })
+    });
+  </script>
+</body>
+</body>
 
-
-
-
-<?php /* 
-	   require_once './db.php'
-	   //GET USER DETAILS 
-	   $result = $conn->query("Select * from secret_word LIMIT 1");
-	   $result = $result->fetch(PDO::FETCH_OBJ);
-	   $secret_word = $result->secret_word;
-	   $result2 = $conn->query("Select * from interns_data where username = 'foluwa'");
-	   $user = $result2->fetch(PDO::FETCH_OBJ);
-			
-	*/		
-	?>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-		<title><?php echo $user->name ?>-Hng Intern</title>
-		<style type="text/css">
-			body{
-				background-color: #87ceeb;
-				background: linear-gradient(to bottom right, #DDA0DD,  #87ceeb);
-			}
-			header{
-				padding-top: 20px;
-			}
-			footer{
-				padding-top: 25px;
-				text-align: center;
-				font-size: 25px;
-				color: blue;
-			}
-			a{
-				padding-left: 20px;
-				padding-right: 20px;
-			}
-			footer > a {
-				color: #0000ff;
-			}
-			#typingEffect {
-				padding-top: 70px;
-				font-size: 30px;
-				font-weight: 40px;
-				font-style: Arial,Verdana,Courier;
-			}
-			#socialMedia {
-				padding-top: 30px;
-				font-size: 30px;
-				text-align: center;
-			}
-			#socialicons {
-				padding-top: 20px;
-			}
-			#imageSection {
-				padding-top: 50px;
-				border: 2px solid black;
-			}
-			#myimage {
-				border-radius: 50%;
-				display: block; 
-				margin-left: auto;
-				 margin-right: auto; 
-				 width: 50%; 
-			}
-			input[type=text] {
-			    width: 100%;
-			    padding: 12px 20px;
-			    margin: 8px 0;
-			    box-sizing: border-box;
-			    border: 2px solid red;
-			    border-radius: 4px;
-			    background-color: skyblue;
-    			color: white;
-		    }
-			#botSection{
-				border: 2px solid black;
-				font-size: 50px;
-				font-weight: 50px;
-				text-align: center;
-			}
-			#headerTime {
-				text-align: right;
-				color: #f4e8af;
-			}
-
-		</style>
-	</head>
-	<body class="container-fluid" onload="textType()" width="1oo%;" height="100%;">
-		<header class="row" style="color:blue;">
-				  <div class="col-sm-4"></div>
-				  <div class="col-sm-4"></div>
-				  <div class="col-sm-4" id="headerTime"><?php echo date("l jS \of F Y h:i:s A"); ?></div>
-		</header>
-		<main>
-			<div class="row">
-				<div class="col-sm-6">
-						<section id="imageSection">
-							<img id="myimage" src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="foluwa's picture" style="width:300px;height:350px;">
-							<section id="typingEffect">
-								<div><?php echo $user->name ?>;</div>
-								<div id="socialMedia">
-									<div id="socialicons">
-										<a href="https://facebook.com/akintola.moronfoluwar"><i class="fa fa-facebook"></i></a>
-										<a href="https://instagram.com/fantastic_foluwa"><i class="fa fa-instagram"></i></a>
-										<a href="https://twitter.com/fantasticfoluwa"><i class="fa fa-twitter"></i></a>
-										<a href="https://github.com/foluwa"><i class="fa fa-github"></i></a>
-										<a href="https://slack.com/foluwa"><i class="fa fa-slack"></i></a>
-									</div>
-								</div>
-							</section>
-						</section>		
-				</div>
-				<div class="col-sm-6">
-					<div> 
-						<section id="botSection">MyBOT</section>
-							<form action="" method="POST" style="position:relative;display:flex;">
-								<label for="botInput"></label>
-								<input type="text" name="botInput" width="40%" height="20px" placeholder="Your text goes here..."/>
-								<label for="botSubmit"></label>
-								<input name="botSubmit" name="submit" type="submit" >
-							</form>
-						<div><p><?php $mybotInp = $_REQUEST['botInput'];echo "You entered " . $mybotInp;?></p></div>	
-
-
-							<div class="container-fluid">
-										<div class="row">
-											<div class="col-md-4 offset-md-1 chat-frame">
-												<h2 class="text-center">Chatbot Interface</h2>
-												<div class="row chat-messages" id="chat-messages">
-													<div class="col-md-12" id="message-frame">
-														<div class="row single-message">
-															<div class="col-md-2 single-message-bg">
-																<span class="fa fa-user f-icon"></span>
-															</div>
-									
-															<div class="col-md-8 single-message-bg">
-																<p>Hi! My name is <span style="font-weight: bold">Max</span></p>
-															</div>
-														</div>
-														<div class="row single-message">
-															<div class="col-md-2 single-message-bg">
-																<span class="fa fa-user f-icon"></span>
-															</div>
-															<div class="col-md-8 single-message-bg">
-																<p>Ask me your questions and I will try to answer them.</p>
-															</div>
-														</div>
-														<div class="row single-message">
-															<div class="col-md-2 single-message-bg">
-																<span class="fa fa-user f-icon"></span>
-															</div>
-															<div class="col-md-8 single-message-bg">
-																<p>To train me, enter the training string in this format:</p>
-																<p><b>train: question # answer</b></p>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="row" style="margin-top: 40px;">
-													<form class="form-inline col-md-12 col-sm-12" id="question-form">
-														<div class="col-md-12 col-sm-12 col-12">
-															<input class="form-control w-100" type="text" name="question" placeholder="Ask a question" />
-														</div>
-														<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
-															<button type="submit" class="btn btn-info float-right w-100">Send</button>
-														</div>
-													</form>	
-												</div>
-											</div>
-										</div>
-									</div>
-
-
-
-
-					</div>
-				</div>
-			</div>
-			<footer>Foluwa @ <a href="https://hotels.ng">Hotels.ng</a></footer>
-			<hr style="width:50%"/>
-		</main>
-		<?php
-		   try {
-		       $sql = 'SELECT * FROM secret_word';
-		       $q = $conn->query($sql);
-		       $q->setFetchMode(PDO::FETCH_ASSOC);
-		       $data = $q->fetch();
-		   } catch (PDOException $e) {
-		       throw $e;
-		   }
-		   $secret_word = $data['secret_word'];
-       ?>
-	</body>
 </html>
-
-<!--
-	$myFacts = array("Capital of Nigeria is Abuja",
-				 "Capital of Ghana is Accra", 
-				 "Capital of USA is washinton",
-				  "Capital of Ghana1 is Accra1",
-				  "Capital of Ghana2 is Accra2",
-				  "Capital of Ghana3 is Accra3",
-				  "Capital of Ghana4 is Accra4",
-				 );
-			echo myFacts(rand(0,7));
-
-		-->
