@@ -1,7 +1,5 @@
 <?php include('header.php'); ?>
 <?php   
-    require 'db.php';
-
     try {
          $query = $conn->query("SELECT * from interns_data WHERE username = 'Gwinyai'");
             $user = $query->fetch(PDO::FETCH_OBJ);
@@ -211,7 +209,7 @@
             <div class="content-body">
                 <h1>@<?php echo $user->username?></h1>
                 <p>Hi, <?php echo $user->name?> here, welcome to my profile</p>
-                <p>I'm a Chemical Engineer, entrepreneur and web developer</p>
+                <p><span id="typed"></span></p>
                 <p>
                     <img class="slack"src="https://res.cloudinary.com/itzimlabs/image/upload/v1524516425/slack.png" height="40" width="40" alt="slack">
                 
@@ -225,7 +223,23 @@
 
 </section>
        
-<?php  include('../footer.php'); ?>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.6/typed.min.js"></script>
+       <script>
+         document.addEventListener('DOMContentLoaded', function () {
+           
+                var typed = new Typed('#typed', {
+                    strings: ["I'm a Chemical Engineer... ", 'Entrepreneur ...', 'and web developer ...', 'Hope you enjoy the show :)'],
+                    typeSpeed: 32,
+                    backSpeed: 40,
+                    startDelay: 1000,
+                    loop: true,
+                    loopCount: Infinity,
+
+                });
+           
+            
+         });
+       </script>
 </body>
 
 </html>
