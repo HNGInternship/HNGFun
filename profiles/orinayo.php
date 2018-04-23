@@ -1,61 +1,30 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Homemade+Apple|Roboto|Spectral+SC" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
-</head>
-<body>
-    <?php 
-    if (!defined('DB_USER')) {
-        define('DB_USER', "root");
-        define('DB_PASSWORD', "");
-        define('DB_DATABASE', "hng_fun");
-        define('DB_HOST', "localhost");
-    }
-    try {
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
-    
-    try {
-        $sql = "SELECT * FROM secret_word";
-        $query = $conn->query($sql);
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $query->fetch();
-        $secret_word = $result['secret_word'];
-               
-        $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="orinayo"';
-        $q2 = $conn->query($sql2);
-        $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $me = $q2->fetch();
-    }
-    catch (PDOException $e) {
-        throw $e;
-    }
-    global $conn, $user_input_array2;
-    ?>
-
 <?php
-=======
-<?php
-require "../../config.php";
-
+if (!defined('DB_USER')) {
+    require "../../config.php";
+}
 try {
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
 } catch (PDOException $pe) {
     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
 
+try {
+    $sql = "SELECT * FROM secret_word";
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $query->fetch();
+    $secret_word = $result['secret_word'];
+           
+    $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="orinayo"';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $me = $q2->fetch();
+}
+catch (PDOException $e) {
+    throw $e;
+}
 global $conn, $user_input_array2;
->>>>>>> cc7d9a744907aec4e0801b509874380fd60e0d5c
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     function Validate_input($data) 
     {
@@ -69,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     function Is_Training_question($user_input)
     {
-        if (strpos($user_input, 'train') === 0) {
+        if (strpos($user_input, 'train:') === 0) {
             return true;
         }
         return false;
@@ -78,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (Is_Training_question($user_input)) {
         function Split_Training_question($user_input)
         {
-            $user_input = substr_replace($user_input, '', 0, 5);
+            $user_input = substr_replace($user_input, '', 0, 6);
             $training_statement = explode("#", $user_input);
             $training_statement = array_map('trim', $training_statement);
             return $training_statement;
@@ -119,23 +88,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             return false;
         }
-
-        function Get_Hotelsng_wikipage()
-        {
-            $api = "https://en.wikipedia.org/w/api.php?action=opensearch&search="."hotels.ng"."&format=json&callback=?";
-            $result = file_get_contents($api);
-            $result = substr_replace($result, "", 0, 5);
-            $result = substr_replace($result, "", -1);
-            $result = json_decode($result, true);
-            $result = array("answer"=>"<a href=".$result[3][0].">".$result[1][0]."</a><p>".$result[2][0]."</p>");
-            return $result;
-        }
         
         function Encode_answer($answer)
         {
             if (Answer_Is_A_function($answer)) {
-                $answer = Get_Hotelsng_wikipage();
-                return $answer['answer'];        
+                require "../../answers.php";
+                return Get_Hotelsng_wikipage();        
             } else {
                 return $answer['answer'];
             }
@@ -263,9 +221,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }         
 
 } else {
-?>
-<<<<<<< HEAD
-=======
+?> 
 
 <!DOCTYPE html>
 <html>
@@ -280,25 +236,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
 </head>
 <body>
-
-    <?php
-    try {
-        $sql = "SELECT * FROM secret_word";
-        $query = $conn->query($sql);
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $query->fetch();
-        $secret_word = $result['secret_word'];
-           
-        $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="orinayo"';
-        $q2 = $conn->query($sql2);
-        $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $me = $q2->fetch();
-    }
-    catch (PDOException $e) {
-        throw $e;
-    ?>
-
->>>>>>> cc7d9a744907aec4e0801b509874380fd60e0d5c
 <div class="container-fluid content">
                 <h3 class="text-center text-dark display-5">Hello, I'm
                     <span class="display-4" id=name style="color: #f4511e">
