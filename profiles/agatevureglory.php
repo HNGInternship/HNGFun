@@ -616,7 +616,7 @@ class DBHelper{
                 complete: function () {
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                	console.log(xhr);
+                	console.log(textStatus);
                     return false;
                 }
             });
