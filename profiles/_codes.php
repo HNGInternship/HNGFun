@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
    background-color: #96deda;
    margin: auto;
    width: 55em;
-   height: 35em;
+   height: 30em;
    border-color: grey;
    border-radius: 1.27em;
    position: relative;
