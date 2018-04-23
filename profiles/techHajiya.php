@@ -1,26 +1,50 @@
+<!--Created by Thomas Lois ---->
 <!DOCTYPE html>
 <html>
 <head>
-    <link href='https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra SC|Romanesco' rel='stylesheet'>
+	<link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css' />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <style type="text/css">
-        .container{
-            width: 100%;
-            min-height: 100%
-        }
-        body {
-            font-family: "quicksand"
+	 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
+       body {
+            font-family: "Josefin Sans","Montserrat","Segoe UI","Roboto","Helvetica Neue","Arial","sans-serif";
             color: #4A4646;
-			padding-left:400px;
-		}        
-		.profile-details{
-            padding-top: 30px;
+            overflow-x: hidden;
         }
+		 .container {
+            max-width: 95%;
+            padding-left: 0;
+		
+        }
+		   .chatbox {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 16px;
+            display: flex;
+            flex-direction: column;
+            max-width: 550px;
+            margin: 0 auto;
+			 border-radius: 5px;
+        }
+
+        footer {
+            display: none;
+        }
+
+		   .container.profile-body {
+            padding-right : 0;
+        }
+
+        .profile-details, .chatbox {
+            padding-top: 10px;
+			 border: 2px solid #191970;
+        }
+
         .profile-details {
-            background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+            padding-right: 0;
             height: auto;
         }
         .profile-body {
-            max-width: 100%;
+            max-width: 50%;
         }
         .profile-image img {
             margin: auto;
@@ -50,20 +74,32 @@
         }
 		
 		
+		* {
+		outline: none; 
+	   tap-highlight: none;
+	   -webkit-tap-highlight: none;
+	   -webkit-tap-highlight-color: none;
+	   -moz-tap-highlight: none;
+	   -moz-tap-highlight-color: none;
+	   -khtml-tap-highlight: none;
+	   -khtml-tap-highlight-color: none;
+		}		
         .chat-result {
             flex: 1;
-            padding: 20px;
+            padding: 10px;
             display: flex;
             background: white;
             flex-direction: column;
             overflow-y: scroll;
             max-height: 500px;
+			border-radius: 5px; 
+			
         }
         .chat-result > div {
-            margin: 0 0 20px 0;
+            margin: 0 0 10px 0;
         }
         .chat-result .user-message .message {
-            background: #0fb0df;
+            background: #191970;
             color: white;
         }
         .chat-result .bot-message {
@@ -71,26 +107,59 @@
         }
         .chat-result .bot-message .message {
             background: #eee;
+			
         }
         .chat-result .message {
             display: inline-block;
-            padding: 12px 20px;
+            padding: 10px 10px;
+			margin: 5px;
             border-radius: 10px;
         }
         .chat-input {
-            padding: 20px;
-            background: #eee;
-            border: 1px solid #ccc;
-            border-bottom: 0;
+            padding: 15px;
+            background-color: #fff;
+			font-size: 16px;
         }
         .chat-input .user-input {
-            width: 100%;
+            width: 80%;
             border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 8px;
+            border-radius: 25px;
+            padding: 10px;
+			float: left;
         }
+		#send {
+		   width: 80px;
+		   height: 45px;
+		   display: inline-block
+		   outline: none;
+		   border: none;
+		   color: #fff;
+		   background-color: #191970;
+		   float: right;
+		   border-radius: 25px;
+		   padding: 0px;
+		   cursor: pointer;
+		   margin: 0px;
+		}
+		#send:active {
+		   background-color: #00A; 
+		   outline: none;
+		}
+
+		#header {
+	   display: flex; 
+	   justify-content: left;
+	   align-item: center;
+	   height: 20px;
+	   padding: 15px;
+	   color: #FFF;
+	   font-size: 200%;
+	   font-weight: bolder;
+	   background-color: #191970;
+	   position: fixed;
+	   font-family: "Josefin Sans","Montserrat","Segoe UI","Roboto","Helvetica Neue","Arial","sans-serif";;
+		}
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -106,7 +175,7 @@
     }
     ?>
 
-     <div class="row" style="width:1100px;">
+     <div class="row">
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
                     <img src="<?=$my_data['image_filename'] ?>" alt="Lois Thomas">
@@ -120,27 +189,28 @@
                     <a href="https://facebook.com/lois.idzi5" target="_blank"><i class="fa fa-2x fa-facebook"></i></a>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-6">
-            <div class="body1">
+
+      <div class="col-sm-6 chatbox" style='float: right; padding-top: 50px'>
+	  <div id="header">LoBot v1.0</div>
                 <div class="chat-result" id="chat-result">
                     <div class="user-message">
-                        <div class="message">Hello! I'm LoBot! Ask anything and I'll be sure to answer! </br>To train me, use this syntax - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
+					<div class="message">Hello! I'm LoBot! Feel free to ask me anything.   </div>
+					<div class="message">Learn more about me by typing 'aboutbot'.</div>
+                    <div class="message">To train me, use this syntax - 'train: question # answer # password'.</div>
+					<div class="message">Password is LoBot. </div>
                     </div>
                 </div>
 
                 <div class="chat-input">
                     <form action="" method="post" id="user-input-form">
-<!--                        <input type="hidden" name="id" value="--><?php //echo htmlspecialchars($_GET['id']);?><!--">-->
-                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
+                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Type a message...">
+						<button id="send">SEND</button>
                     </form>
                 </div>
-
-            </div>
-        </div>
-    </div>
-
+		
+          </div>
+		   </div>
 
     <?php
     try {
