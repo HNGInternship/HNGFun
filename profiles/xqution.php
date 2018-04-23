@@ -10,13 +10,13 @@
 
     <!-- This is the main css file for the default Alta theme -->
 <!-- injector:theme -->
-<link rel="stylesheet" href="css/alta/5.0.0/web/alta.css" id="css" />
+<link rel="stylesheet" href="xqution/css/alta/5.0.0/web/alta.css" id="css" />
 <!-- endinjector -->
     <!-- This contains icon fonts used by the starter template -->
-    <link rel="stylesheet" href="css/demo-alta-site-min.css" type="text/css"/>
+    <link rel="stylesheet" href="xqution/css/demo-alta-site-min.css" type="text/css"/>
 
     <!-- This is where you would add any app specific styling -->
-    <link rel="stylesheet" href="css/app.css" type="text/css"/>
+    <link rel="stylesheet" href="xqution/css/app.css" type="text/css"/>
 
   </head>
   <body class="oj-web-applayout-body">
@@ -76,8 +76,8 @@
       </footer>
     </div>
     
-    <script type="text/javascript" src="js/libs/require/require.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="xqution/js/libs/require/require.js"></script>
+    <script type="text/javascript" src="xqution/js/main.js"></script>
 
   </body>
 
