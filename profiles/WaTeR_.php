@@ -3,8 +3,7 @@
 
  require 'db.php';
 
-
-   $query = "Select * from secret_word LIMIT 1";
+$query = "Select * from secret_word LIMIT 1";
 
 $stmt = $conn->query($query);
 
