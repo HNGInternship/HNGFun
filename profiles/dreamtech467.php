@@ -58,10 +58,7 @@
 			require_once 'answers.php';
 		}
 			
-		
-		
-		
-		function stripquestion($question){
+		function answerBot($question){
 			global $conn;
             switch($question){
                 case 'aboutbot':
@@ -74,7 +71,10 @@
                 case "USSD:" === substr($question, 0, 5):
                 return getUSSD(substr($question, 6));
             }
-			
+		}
+		
+		
+		function stripquestion($question){
 			
 			// remove whitespace first
 			$strippedquestion = trim(preg_replace("([\s+])", " ", $question));
@@ -118,7 +118,8 @@
 				$insert_stmt->execute();
 				return "Thanks!";
 			} catch (PDOException $e) {
-				return "An detect error: ". $e->getMessage();
+				//return "An detect error: ". $e->getMessage();
+				return answerBot($question);
 			}
 		}
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -136,7 +137,7 @@
 				]);
 				return;				
 			}
-			else{			
+			else{
 				$strippedquestion = "%$strippedquestion%";
 				$answer_stmt = $conn->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
 				$answer_stmt->bindParam(':question', $strippedquestion);
