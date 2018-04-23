@@ -42,7 +42,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
      return;
     }
     //else {
-   //   $arrayName = array('result' => 'Oh my Error');
+   //   $arrayName = array('result' => 'Oh my Error')
    //   header('Content-type: text/json');
    //   echo json_encode($arrayName);
    //   return
