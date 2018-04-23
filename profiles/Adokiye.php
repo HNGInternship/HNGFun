@@ -81,7 +81,7 @@ $input = trim($input);
                 $question = strtolower($input);
                 $question = str_replace('?', '', $question);
                 $question = trim($question);
-                echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";die($question);
+                echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "$question";
                 print_r($result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'"));
                 print_r($fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC));
                 $row_cnt = $result->num_rows;
@@ -224,7 +224,6 @@ $input = trim($input);
         document.body.scrollTop = 0; // For Safari
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     }  </script>
-
 <body>
 <?php
 if(!defined('DB_USER')){
@@ -247,9 +246,7 @@ foreach ($conn->query($sql) as $row) {
     $name = $row['name'];
     $username = $row['username'];
 }
-
 global $secret_word;
-
 try {
     $sql = "SELECT secret_word FROM secret_word";
     $q = $conn->query($sql);
@@ -277,7 +274,7 @@ try {
         <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
         <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
     </div>
-    <p class="mycss"> Chatbot by Adokiye<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
+    <p class="mycss"> Chatbot by Adokiye!!!<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
     <form name = "askMe" method="post">
         <p>
             <label>
@@ -303,3 +300,4 @@ try {
 </div>
 </body>
 </html>
+
