@@ -2,9 +2,9 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require "../answers.php";
 
-
+   
     if(!defined('DB_USER')){
-        require "../config.php";		
+        require "../../config.php";		
         try {
             $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
         } catch (PDOException $pe) {
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $question_lower = strtolower($question);
     $testvar = "?".$question_lower;  #Make Data Easier to compare
 
-    if(strrpos($testvar, "train") != NULL){ #In taining mode
+    if(strrpos($testvar, "train") != NULL){
 
         
         $trainInfo = explode("#", $question_lower);
@@ -30,13 +30,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $answer_temp = trim(preg_replace("([?.])", "", $answer_temp));
         $password_temp = trim(preg_replace("([?.])", "", $trainInfo[2] ));
         $password = $password_temp ;
-        if ($password !== "password"){ #Incorrect pssword entered
+        if ($password !== "password"){
             echo json_encode([
                 'status' => 1,
                 'reply' => "Wrong password, you are not authorized to train me",
               ]);
               return;
-        }else{ #correct password entered
+        }else{
             try{
             $sql = "insert into chatbot (question, answer) values (:question, :answer)";
             $initiate = $conn->prepare($sql);
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $initiate->execute();
             $initiate->setFetchMode(PDO::FETCH_ASSOC);
             if($initiate){
-                echo json_encode(['status' => 1, 'reply' => "I have been trained"]);
+                echo json_encode(['status' => 1, 'reply' => "I have been trained, now you can ask me anything"]);
                 return; 
             } }
             catch (PDOException $e) {
@@ -56,9 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
            
         }
-        else if(strrpos($testvar, "train") == NULL){ #Question mode
+        else if(strrpos($testvar, "train") == NULL){
 
-            if(strrpos($testvar, "--help") != NULL){ #--help command
+            if(strrpos($testvar, "--help") != NULL){
                 echo json_encode([
                     'status' =>1,
                     'reply' => "Hello, thanks for talking to me, here are a list of the command I accept, <i>type</i> <b> Train: question # answer # password</b> in this format to train me , 
@@ -70,14 +70,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 return;
                 
             }
-            else if(strrpos($testvar, "hi") || strrpos($testvar, "hello") || strrpos($testvar, "what's up") || strrpos($testvar, "Fuck you")){ #frivolities..Lol
+            else if(strrpos($testvar, "hi") || strrpos($testvar, "hello") || strrpos($testvar, "what's up") || strrpos($testvar, "Fuck you")){
                 echo json_encode([
                     'status' => 1,
-                    'reply' => "I've been asked not to joke around with strangers, my master musn't catch me doing that so can we go straight to the point"
+                    'reply' => "Hey buddy, how you doing?...Wwhat are we talking about today"
                 ]);
                 return;
             }
-            else if(strrpos($testvar, "quadratic")){ #Quadratic function
+            else if(strrpos($testvar, "quadratic")){
 
                 $trainInfo = explode("#", $question_lower);
                 $firstInfo = explode(":", $trainInfo[0]);
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
            
 
-           else{ #Question exist
+           else{
 
             $question = "%$question%";
             try{
@@ -132,7 +132,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         
     }
+   
 
+ 
 
 
 
@@ -145,23 +147,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>codetillamgone page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type="text/css">
-        h1{
-            text-align : center;
-            position:fixed;
-            width:100%;
-            top:0px;
-            margin-top:0px;
-            margin-left:0px;
-            padding:10px;
-            text-align:center;
-            background-color:cornflowerblue;
-            color: white;
-        }.box{
-            margin-top:60px;
+     .box{
+            margin-top:10px;
             float:left;
             padding: 10px;
             text-align: center;
-            margin-left: 70px;
+            margin-left: 100px;
             height: 400px;
             width: 300px;
             background-color:cornflowerblue;
@@ -178,9 +169,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background-color:white;
         }.chatbotbox {
             background-color:white;
-            margin-top:50px;
+            margin-top:10px;
             float:left; 
-            margin-left:200px;
+            margin-left:100px;
             padding:20px;
             height:450px;
             width: 450px;
@@ -257,9 +248,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <?php
-    
+   
 try{
-
+   
     $getData = 'SELECT * FROM interns_data WHERE username="codetillamgone"';
     $query1 = $conn->query($getData);
     $query1->setFetchMode(PDO::FETCH_ASSOC);
@@ -274,7 +265,7 @@ catch(PDOException $e){
    $user = $result1['username'];
    $image = $result1['image_filename'];
  ?>
-  <h1 class= "h1">Welcome to <i>@codetillamgone</i>'s Profile</h1>  
+ 
 <br/>
     <div class="box">
         <p class="one">

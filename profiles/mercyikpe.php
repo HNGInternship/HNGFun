@@ -1,6 +1,8 @@
 <?php
 date_default_timezone_set('Africa/Lagos');
 
+
+
 if (!defined('DB_USER'))
 	{
 	require "../../config.php";
@@ -19,20 +21,28 @@ catch(PDOException $pe)
 
 global $conn;
 
+function checkQuestionExistence($question, $conn) {
+    $sql = "SELECT * FROM chatbot WHERE question='$question'";
+    $stm = $conn->query($sql);
+    $stm->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $stm->fetchAll();
+    return $result;
+}
+
 
 if ($_SERVER['REQUEST_METHOD'] === "POST")
 	{
 	$mercy = $_POST['sent_messages'];
-	
+
 	if (empty($mercy))
 		{
-		echo json_encode(['status' => 0]); 
+		echo json_encode(['status' => 0]);
 		}
 
 
 		elseif ($mercy == 'aboutbot')
 		{
-		echo json_encode(['status' => 6]); 
+		echo json_encode(['status' => 6]);
 		}
 		else {
 	$first_test_str = explode(':', $mercy);
@@ -46,36 +56,42 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 				{
 				$question = trim($trim_messages[0]);
 				$answer = trim($trim_messages[1]);
-				$sql = "INSERT INTO chatbot(question, answer)
-                         VALUES(:question, :answer)";
-					$stm = $conn->prepare($sql);
-					$stm->bindParam(':question', $question);
-					$stm->bindParam(':answer', $answer);
-					$trained = $stm->execute();
-					if ($trained)
-					{
-						echo json_encode(['status' => 1, 'answer' => 'Thanks for educating me. You deserve some accolades.']);
-					}
+                // We'll only attempt to insert a question if the question doesnt exist before
+                if(count(checkQuestionExistence($question, $conn)) > 0) {
+                    echo json_encode(['status' => 3, 'response' => 'Sorry that quetion already exists.']);
+                } else {
+                    $sql = "INSERT INTO chatbot(question, answer) VALUES(:question, :answer)";
+    				$stm = $conn->prepare($sql);
+    				$stm->bindParam(':question', $question);
+    				$stm->bindParam(':answer', $answer);
+    				$trained = $stm->execute();
+    				if ($trained)
+    				{
+    					echo json_encode(['status' => 1, 'answer' => 'Thanks for educating me. You deserve some accolades.']);
+    				}
+                    else
+  					{
+  					$sql = "INSERT INTO chatbot(question, answer)
+                                          VALUES(:question, :answer)";
+  					$stm = $conn->prepare($sql);
+  					$stm->bindParam(':question', $question);
+  					$stm->bindParam(':answer', $answer);
+  					$trained = $stm->execute();
+  					if ($trained)
+  						{
+  						echo json_encode(['status' => 1, 'answer' => 'Thanks for educating me. You deserve some accolades.']);
+  						}
+  					  else
+  						{
+  						echo json_encode(['status' => 3, 'response' => 'So sorry but i dont understand your message. But you could teach me. train: this is a question # this is an answer # your password.']);
+  						}
+  					}
+                }
+
 
 				// if it's a new question, save into db
 
-				  else
-					{
-					$sql = "INSERT INTO chatbot(question, answer)
-                                        VALUES(:question, :answer)";
-					$stm = $conn->prepare($sql);
-					$stm->bindParam(':question', $question);
-					$stm->bindParam(':answer', $answer);
-					$trained = $stm->execute();
-					if ($trained)
-						{
-						echo json_encode(['status' => 1, 'answer' => 'Thanks for educating me. You deserve some accolades.']);
-						}
-					  else
-						{
-						echo json_encode(['status' => 3, 'response' => 'So sorry but i dont understand your message. But you could teach me. train: this is a question # this is an answer # your password.']);
-						}
-					}
+
 				}
 			  else
 				{
@@ -101,19 +117,21 @@ if ($_SERVER['REQUEST_METHOD'] === "POST")
 			}
 		  else
 			{
-			echo json_encode(['status' => 2]); 
+			echo json_encode(['status' => 2]);
 			}
 		}
 	}
 
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 ?>
-<?php 
+<?php
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
 try
 	{
@@ -147,17 +165,16 @@ catch(PDOException $e)
 	<head>
 	            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>Mercy Ikpe | Jamila</title>
-			 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-			<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
+		<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
             <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
             <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 					<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 					<style>
-					
-					
-					
+
+
+
 				@charset 'utf-8';
 
 
@@ -351,7 +368,7 @@ p {
     float: none;
     overflow: auto;
     transition: transform .15s
-   
+
 
 
 }
@@ -371,7 +388,7 @@ p {
     #botBox.mobile-hide {
 
         transform: translate3d(100%, 0,0);
-   
+
 
     }
 
@@ -633,42 +650,33 @@ header h1 {
   color: white;
 }
 
-.divider {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100px;
-  /* drop the height to have a constant angle for all screen widths */
-}
 </style>
 					<style>
         .col-md-2,
         .col-md-10 {
             padding: 0;
         }
-        
+
         .panel {
             margin-bottom: 0px;
         }
-        
+
         .messenger_boxed .card{
             width: 100%;
-         margin: 0 auto; 
+         margin: 0 auto;
         }
         .messenger_boxed.col-xs-12 {
             left: 10px;
-        } 
-         
+        }
+
         .messenger_boxed>div>.panel {
             border-radius: 5px 5px 0 0;
         }
-        
+
         .reacher {
             padding: 2px 10px;
         }
-        
+
         .messenger_dez {
             background: #17a2b8;
             margin: 0 auto;
@@ -684,23 +692,23 @@ header h1 {
             background: #00b2c5;
             color: white;
             padding: 10px;
-            position: relative; 
+            position: relative;
              overflow: hidden;
         }
-        
+
         .outbox_msg {
             padding-left: 0;
             margin-left: 0;
             background: #00b2c5 !important;
             color: #FFF;
         }
-        
+
         .inbox_msg {
             padding-bottom: 20px !important;
             margin-right: 0;
-            
+
         }
-        
+
         .responses {
             background: white;
             padding: 10px;
@@ -708,24 +716,24 @@ header h1 {
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
             max-width: 80%;
         }
-        
+
         .responses>p {
             font-size: 13px;
             margin: 0 0 0.2rem 0;
             overflow-wrap: break-word;
         }
-        
+
         .responses>time {
             font-size: 11px;
             color: #ccc;
         }
-        
+
         .messenger_dezs {
             padding: 10px;
             overflow: hidden;
             display: flex;
         }
-        
+
         .response_got>.avatar:after {
             content: "";
             position: absolute;
@@ -736,13 +744,13 @@ header h1 {
             border-left-color: rgba(0, 0, 0, 0);
             border-bottom-color: rgba(0, 0, 0, 0);
         }
-        
+
         .response_sent {
             justify-content: flex-end;
             align-items: flex-end;
-            
+
         }
-        
+
         .response_sent>.avatar:after {
             content: "";
             position: absolute;
@@ -756,17 +764,17 @@ header h1 {
             box-shadow: 1px 1px 2px rgba(black, 0.2); // not quite perfect but close } .inbox_msg > time{
             float: right;
         }
-        
+
         .messenger_dez::-webkit-scrollbar-track {
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
             background-color: #F5F5F5;
         }
-        
+
         .messenger_dez::-webkit-scrollbar {
             width: 12px;
             background-color: #F5F5F5;
         }
-        
+
         .messenger_dez::-webkit-scrollbar-thumb {
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
             background-color: #555;
@@ -792,17 +800,17 @@ header h1 {
             color:red !important;
             padding: 10px 0;
         }
-        
+
         #intro{
             padding: 0 20px;
         }
-     
+
             </style>
 					</head>
 					<br>
 					<br>
 					<br>
-					
+
 					<body>
 					<div class="container" style="margin: 100px auto">
 					<section>
@@ -810,24 +818,24 @@ header h1 {
 									<div class="col-md-6" id="imgBlock" >
 										<!-- <img class="img img-circle" src="img/bg2.png"> -->
 										<img class="img img-circle" src="https://res.cloudinary.com/mercyikpe/image/upload/w_400,h_400,c_crop,g_face,r_max/w_200/v1517443922/mercy_ownuvy.jpg" />
-										
+
 											<h1 class="ubuntu">Mercy Ikpe</h1>
 											<div class="col-md-12 col-md-offset-2">
-											<h3>@mercyikpe</h3>
+											<h3>mercyikpe</h3>
 								<ul>
-								  <li>Web Designer/Developer, Article writer</li>
+								  <li>Web Designer/Developer, Technical Article writer</li>
 								  <li>Uyo, Aks</li>
 								  <li>Nigeria</li>
-								</ul>  
+								</ul>
 
-			
+
 													</p>
 												</div>
 										</div>
-										
-										<img src="mercy/img/divider.png" class="divider" />
+
+
 									</header>
-					
+
 						<div class="col-lg-12  no-padding" align="right">
 							<div class="col-md-12 no-padding">
 						<div class="col-lg-4 col-sm|md|xs-10">
@@ -835,15 +843,15 @@ header h1 {
                                     <div class="card">
                                         <div class="row card-header heads">
                                             <div class="col-md-8 col-xs-8">
-                                                <h3>Mercy's Bot</h3>   
+                                                <h3>Mercy's Bot</h3>
                                             </div>
                                         </div>
                                         <div class="card-body  messenger_dez">
-                        
+
                                             <div class="row messenger_dezs response_sent">
                                                 <div class="col-md-10 col-xs-10">
                                                     <div class="responses inbox_msg">
-                                                        <p>Hello, I am mercy's bot. Feel Free to teach, i love learning new things.</p>
+                                                        <p>Hello, I am mercy's bot. Feel Free to teach, I love learning new things.</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 col-xs-2"></div>
@@ -864,38 +872,41 @@ header h1 {
                                                 <div class="input-group mb-3">
                                                     <input class="form-control message chat_input" name="sent_messages" aria-label="With input" placeholder="Send Message...">
                                                     <div class="input-group-append">
-                                                        <button type="submit" class="btn btn-primary btn-sm send-message" id="btn-chat"><i class="fa fa-envelope"></i></button>                                                                                 
+                                                        <button type="submit" class="btn btn-primary btn-sm send-message" id="btn-chat"><i class="fa fa-envelope"></i></button>
                                                     </div>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div>  
-									
-										
-												<div class="col-md-12 col-md-offset-12" style="display:flex;justify-content: center">
-													<a href="https://github.com/mercyikpe">
-														<i class="fa fa-github" style="color:#ccc; font-size: 25px; padding:15px; float: right"></i>
-													</i>
-												</a>
-												<a href="https://twitter.com/mercyikpee">
-													<i class="fa fa-twitter"style="color:#ccc; font-size: 25px; padding:15px; float: right"></i>
-												</i>
-											</a>
-											<a href="https://medium.com/@mercyikpe">
-												<i class="fa fa-medium" style="color:#ccc; font-size: 25px; padding:15px; float: right"></i>
-											</i>
-										</a>
-										<a href="https://web.facebook.com/mercy.ikpe.79">
-											<i class="fa fa-facebook" float style="color:#ccc; font-size: 25px; padding:15px; float: right"></i>
-										</i>
-									</a>
-							  
-								
+                            </div>
+
+
+				<div class="col-md-12 col-md-offset-12" style="display:flex;justify-content: center">
+				<a href="https://github.com/mercyikpe">
+					<i class="fa fa-github" style="color:#ccc; font-size: 25px; padding:15px; float: right"></i>
+
+				</a>
+
+				<a href="https://twitter.com/mercyikpee">
+					<i class="fa fa-twitter"style="color:#ccc; font-size: 25px; padding:15px; float: right"></i>
+
+				</a>
+
+				<a href="https://medium.com/@mercyikpe">
+					<i class="fa fa-medium" style="color:#ccc; font-size: 25px; padding:15px; float: right"></i>
+
+				</a>
+
+				<a href="https://web.facebook.com/mercy.ikpe.79">
+					<i class="fa fa-facebook" float style="color:#ccc; font-size: 25px; padding:15px; float: right"></i>
+
+				</a>
+
+
 							</section>
 						</div>
-						
+
 						</div>
 						</div>
 						</div>
@@ -908,8 +919,10 @@ header h1 {
 
                             $('#messenger').submit(function(e) {
                                 e.preventDefault();
-                            
+
                                 var message = $('.message').val();
+				    message = message.trim();
+				    if(message ==''){return;}
                                 var messenger_dezs = $('.messenger_dez');
 
                                 let bot_msg =  (answer)=>{
@@ -936,32 +949,32 @@ header h1 {
                                                             '</div>'+
                                                         '</div>';
                             }
-                                       
+
                                        if (message != ''){
 
                                            if (message.split(':')[0] !='train')
                                             messenger_dezs.append(sent_msg(message));
                                              messenger_dezs.scrollTop(messenger_dezs[0].scrollHeight);
                                        }
-                                     
-                                       
-                                        
+
+
+
                                 $('.message-div').removeClass('')
 
-                               
 
-                              
+
+
                                 $.ajax({
                                     type: 'POST',
                                     url: 'profiles/mercyikpe.php',
                                     dataType: 'json',
                                     data: {sent_messages: message},
                                     success: function(data) {
-                                        
+
                                         if (data.status===1){
 
                                            $('.message').val('');
-                                             messenger_dezs.append(bot_msg(data.answer));  
+                                             messenger_dezs.append(bot_msg(data.answer));
                                              messenger_dezs.scrollTop(messenger_dezs[0].scrollHeight);
                                         }
                                         else if(data.status===2){
@@ -994,14 +1007,14 @@ header h1 {
                                             messenger_dezs.append(bot_msg(data.response));
                                             messenger_dezs.scrollTop(messenger_dezs[0].scrollHeight);
                                         }
-                                        
+
                                     },
                                     error: function(error) {
-                                    
+
                                         console.log(error);
-                                    
+
                                         if (error) {
-                                            
+
                                             $('.message-div').addClass('has-danger');
                                         }
                                     },
@@ -1028,16 +1041,16 @@ header h1 {
                                     $('#minim_chat_window').removeClass('fa-plus').addClass('fa-minus');
                                 }
                             });
-                            $(document).on('click', '.icon_close', function(e) { 
+                            $(document).on('click', '.icon_close', function(e) {
                                 $("#chat_window_1").remove();
                             });
                 });
 
                     </script>
 
-	
+
 </body>
 </html>
-<?php 
+<?php
 	}
 ?>

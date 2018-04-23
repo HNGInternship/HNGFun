@@ -5,5 +5,10 @@
 define ('DB_USER', "root");
 define ('DB_PASSWORD', "ayodeji");
 define ('DB_DATABASE', "hng_fun");
-define ('DB_HOST', "localhost");
+<<<<<<< HEAD
+define ('DB_HOST', "Localhost");
+
 ?>
+=======
+define ('DB_HOST', "localhost");
+>>>>>>> 840295f7293af7ede937d0143af4013a3a1433fc
