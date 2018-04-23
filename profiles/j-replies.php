@@ -74,6 +74,7 @@ if (mysqli_num_rows($r) > 0)
 
 
 else{
+   
 
     $answer = "WOAH! I'll get there...just train me using the format; train : yourquestion # your answer # password";
     echo $answer;
