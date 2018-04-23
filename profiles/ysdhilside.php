@@ -34,10 +34,13 @@
   <body>
 
 <div class="container">
-    <br/><br/><br/>
-    <div class="container" style="margin: 0 auto">
-            
-            <div class="card" style="width:18rem">
+    <br/><br/><br/><center>
+    <div class="container">
+        <div class="row"> 
+            <div class="col-lg-4"></div> 
+
+            <div class="col-lg-4">  
+            <div class="card">
                 <img class="card-img-top" alt="yusufsd header image" src="<?php echo $image ?>">
                 <div class="card-body">
 
@@ -52,7 +55,9 @@
                 </div>
             
             </div>
-    
+        </div>
+        <div class="col-lg-4"></div>
+        </div>
 
     
 </div>

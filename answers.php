@@ -392,22 +392,32 @@ for($h=0;$h<sizeof($sentence);$h++){
 function find_place($query) {
  
 // $apiKey="AIzaSyDlvWmwKX40qRKZQFRKP1qngWnTPKKWM5Y";
-// $placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$query."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
-// $response = file_get_contents($placesUrl);
-// $parsed_response = json_decode($response, TRUE);
+  $place=urlencode($query);
+$placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$place."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
 
-// return $parsed_response;
-$city = urlencode( $query );
-return "under encode";
+try{
+$response = file_get_contents($placesUrl);
+$parsed_response = json_decode($response, TRUE);
 
-$placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$city."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
+return $parsed_response;
+}
 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $placesUrl);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$geoloc = json_decode(curl_exec($ch), true);
+catch(Exception $e){
+  return $e;
+
+}
+// $placesUrl = urlencode( "https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$query."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek" );
+
+// $placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$city."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
+
+// $ch = curl_init();
+// return "under curl init";
+
+// curl_setopt($ch, CURLOPT_URL, $placesUrl);
+// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+// $geoloc = json_decode(curl_exec($ch), true);
 // print_r($geoloc);
-return $geoloc;
+// return $geoloc;
 
 
 

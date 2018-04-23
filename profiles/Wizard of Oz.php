@@ -341,7 +341,7 @@ background: rgba(0, 0, 0, 0.7);
 .bot-container{
     background: rgba(0, 0, 0, 0.8);
     color: white;
-    position: fixed;
+    position: relative;
     z-index: 9999;
     top: 0;
     height: 100%;
@@ -655,7 +655,7 @@ ul{
 
      <img class="rounded-circle" id="profile-pic" src=<?php echo $profilePic?> alt="Profile picture"> 
 
-    <h3 id="school">Graduate of the University of Lagos*</h3>
+    <h3 id="school">Graduate of the University of Lagos%</h3>
 
 
 </div>
