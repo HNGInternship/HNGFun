@@ -40,6 +40,7 @@
         .username{
             font-family: verdana;
             font-size: 2em;
+            color: #ffffff;
         }
 
         section{
