@@ -87,7 +87,7 @@
        .Profile-Details {
          height: 400px;
          margin-top: 110px;
-         margin-left: -120px;
+         margin-left: -130px;
          width: 600px;
          padding: 10px;
          
