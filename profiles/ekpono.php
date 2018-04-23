@@ -33,7 +33,7 @@ body {
     height: auto;
     margin: 0 auto;
     display: flex;
-    padding-top: 170px;
+    padding-top: 20px;
     position: relative;
     color: #806a21;
 }
