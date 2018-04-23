@@ -803,23 +803,23 @@ body{
                 <div>
                 <form action="/profile.php?id=Tiarayuppy" method="POST" style="display: flex; width: 100%;">
                   
-                    <div class="text text-r" style="background:lightblue !important;">
+                    
+                </div> 
+                </div>                
+            </div>
+            <div class="text text-r" style="background:lightblue !important;">
                           
-                        <input type="text" name="message" class="mytext" width="100%" placeholder="Type a message" style="background: transparent;" />
+                        <input type="text" name="message" class="mytext" lenght="40%" placeholder="Type a message" style="background: transparent;" />
                     </div> 
 
                 </div>
                 <div style="padding-top: 0px;">
-                    <input type="submit" value="send your message" style=" border-radius:10px; flex-grow: 1; background-color: green; color: #FAFAFA; float: left;"/>
+                    <input type="submit" value="send your message" style=" border-radius:10px; flex-grow: 1; background-color: green; color: #FAFAFA; float: right;"/>
                 </form>
-                </div> 
-                </div>                
-            </div>
             </div>
         </div> 
 
-   
-<script>
+   <script>
     var sampleConversation = [
         "Hi",
         "My name is [name]",
