@@ -78,8 +78,6 @@
  The Universal Permissive License (UPL), Version 1.0
  -->
 <div class="oj-hybrid-padding">
-  <my-profile>
-    </my-profile>
     <div class="twcd container">
         <div class="name">
             <h1>Justine Philip</h1>
