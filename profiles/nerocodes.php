@@ -55,10 +55,9 @@
 
         
     </style>
-    <main>
         <?php
 
-            require "../db.php";
+            
             
             $sql = $conn->query("SELECT * FROM secret_word LIMIT 1");
             $sql = $sql->fetch(PDO::FETCH_OBJ);
@@ -75,7 +74,6 @@
             <h3>Front-End Web Developer</h3>
         </section>
         
-    </main>
     <footer>
             &copy;NeroCodes 2018
     </footer>
