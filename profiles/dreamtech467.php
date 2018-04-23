@@ -38,40 +38,97 @@
       throw $e;
   }
   $secret_word = $data2['secret_word'];
-
-  
-  
-		//chatBot
-	if($_SERVER['REQUEST_METHOD'] === "POST"){
-		
-        if (file_exists('../../answers.php')) {
-			require_once '../../answers.php';
-		} else if (file_exists('../answers.php')) {
-			require_once '../answers.php';
-		} elseif (file_exists('answers.php')) {
-			require_once 'answers.php';
-		}
-			
-		function sendReply($answer){
+?>
+<?php
+    // bot will send a POST request to this file
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        require "../answers.php";
+        
+        // sending a reply to bot will call this function
+        function sendReply($answer){
             echo json_encode([
                 'answer' => $answer
                 ]);
             exit();
         }
-			
-		function answerBot($question)
-			global $conn;
+
+        function answerBot($question){
+            global $conn;
             switch($question){
                 case 'aboutbot':
                 case 'Aboutbot':
-                sendReply('Version 2.2');
+                    sendReply('v1.0.0');
             }
             switch(true){
                 case "ussd:" === substr($question, 0, 5):
                 case "Ussd:" === substr($question, 0, 5):
                 case "USSD:" === substr($question, 0, 5):
-                sendReply(getUSSD(substr($question, 6)));
+                    sendReply(getUSSD(substr($question, 6)));
             }
+<<<<<<< HEAD
+            $question = "%".$question."%";
+            $sql = "select * from chatbot where question like :question";
+            $query = $conn->prepare($sql);
+            $query->execute([':question' => $question]);
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+            $rows = $query->fetchAll();
+            
+            // If the DB query returns more than one result pick a random one and send back to the bot
+            $rowCount = count($rows);
+            if($rowCount > 0){
+                $answer = $rows[rand(0, $rowCount - 1)]['answer'];
+                // If the answer contains '((' it means the answer contains a call to another function
+                $startParanthesesIndex = stripos($answer, '((');
+                if($startParanthesesIndex === false){
+                    sendReply($answer);
+                }else{
+                    returnInnerFunctionResponse($answer, $startParanthesesIndex);
+                }
+            }
+        }
+
+        
+        function returnInnerFunctionResponse($answer, $startParanthesesIndex){
+            $endParanthesesIndex = stripos($answer, '))');
+            $functionToCall = substr($answer, $startParanthesesIndex + 2, $endParanthesesIndex - $startParanthesesIndex - 2);
+            // If the inner function in the answer does not exist in answers.php, we let the user know
+            if(!function_exists($functionToCall)){
+                sendReply('Sorry. I do not have an answer to your query.');
+            }else{
+                $functionCallResult = $functionToCall();
+                // send the reply of the function call in the original answer we got from the DB
+                sendReply(str_replace("((".$functionToCall."))", $functionCallResult, $answer));
+            }
+        }
+        // command to train the bot
+        function trainBot($question){
+            global $conn;
+            // Remove the 'train:' from the string and split it with the delimiter # into the training question and answer
+            $data = explode("#", substr($question, 6));
+            $trainingQuestion = trim($data[0]);
+            $trainingAnswer = trim($data[1]);
+            $sql = "insert into chatbot (question, answer) values (:question, :answer)";
+            $query = $conn->prepare($sql);
+            $query->bindParam(':question', $trainingQuestion);
+            $query->bindParam(':answer', $trainingAnswer);
+            $query->execute();
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+            sendReply("YAY! I have more home training now!");
+        }
+        // Retrieving the question from the bot's POST request
+        $question = $_POST['question'];
+        if($question){
+            $userIsTrainingBot = stripos($question, 'train:');
+            if($userIsTrainingBot === false){
+                answerBot($question);
+            }else{
+                trainBot($question);
+            }
+            // send response for other errors
+            sendReply("Sorry. I have no answer to what you asked but you can train me. Type 'train: question # answer'");
+        }
+    }
+=======
 		
 		
 		
@@ -168,6 +225,7 @@
 			}
 		}
 }
+>>>>>>> origin/master
 ?>
 <!DOCTYPE html>
 <html lang="en">
