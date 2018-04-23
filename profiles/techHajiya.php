@@ -108,13 +108,14 @@
             background-color: #fff;
             border-radius: 5px; 
 			padding: 10px;
-			font-size: 10pt;
+			font-size: 14px;
         }
         .chat-input .user-input {
             width: 80%;
             border: 1px solid #ccc;
             border-radius: 5px;
             padding: 20px;
+			float: left;
         }
 		#send {
    width: 30px;
