@@ -24,6 +24,7 @@
             max-width: 550px;
             margin: 0 auto;
 			 border-radius: 5px;
+			 margin-bottom: 50px;
         }
 
         footer {
@@ -34,13 +35,14 @@
             padding-right : 0;
         }
 
-        .profile-details, .chatbox {
-            padding-top: 0px;
-			
+        .profile-details{
+            padding-top: 20px;
+			background
         }
 
         .profile-details {
             padding-right: 0;
+            background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
         }
         .profile-body {
@@ -205,7 +207,7 @@
                 </div>
             </div>
 
-      <div class="col-sm-6 chatbox" style='float: right; padding-top: 50px'>
+      <div class="col-sm-6 chatbox" style='float: right; padding-top: 10px'>
 	 <div class='chatbot-menu-header'>
                         <div class="hng-logo"></div> <span>LoBot v1.0</span>
                     </div>
@@ -254,7 +256,7 @@
 	##About Bot
     function aboutbot() {
         echo "<div id='result'><strong>LoBot 1.0 </strong>
-		Hey...I am a LoBot created by Lois Thomas to answer any question. You can also teach me things I don't know. Sounds fun right</div>";
+		Hey...I am LoBot, created by Lois Thomas to answer any question. You can also teach me things I don't know. Sounds fun right</div>";
     }
 	
 	##Train Bot
@@ -299,10 +301,9 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Oops! I've not been trained to learn that command . Would you like to train me
-You can train me to answer any question at all using: train: question # answer # password
-e.g train: Who is the president of Nigeria # Muhammadu Buhari # LoBot
-			by using the format - 'train: question # answer # password'</div>";
+            echo "<div id='result'>Oops! I've not been trained to learn that command. </br>Would you like to train me?
+</br>You can train me to answer any question at all using, train: question # answer # password
+</br>e.g train: Who is the president of Nigeria # Muhammadu Buhari # LoBot'</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
