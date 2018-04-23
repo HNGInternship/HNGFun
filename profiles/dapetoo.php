@@ -5,10 +5,6 @@
       require 'db.php';
    }
  
-<<<<<<< HEAD
-
-=======
->>>>>>> 5c663863828d43d2f4d816767f80e3c439d708a2
 try {
     // Get the Secret Word from DB hush hush
     $secret_word_sql = "SELECT * FROM secret_word LIMIT 1";
@@ -27,13 +23,15 @@ try {
     $my_username = $interns_data_data['username'];
     $my_image = $interns_data_data['image_filename'];
 
-} catch (PDOException $e) {
+    } catch (PDOException $e) {
 
     throw $e;
 }
 
 
   ?>
+
+
 
   <!DOCTYPE html>
 <html lang="en">
