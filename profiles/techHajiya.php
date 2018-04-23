@@ -23,8 +23,8 @@
             display: flex;
             flex-direction: column;
             max-width: 400px;
-            margin: 0 auto;
 			 border-radius: 5px;
+			 margin-bottom: 50px;
         }
 
         footer {
@@ -35,7 +35,7 @@
             padding-top: 30px;
         }
         .profile-details {
-            
+            background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
         }
         .profile-body {
@@ -91,7 +91,8 @@
 			
         }
         .chat-result > div {
-            margin: 0 0 20px 0;
+            margin: 0 0 10px 0;
+			width: 100px;
         }
         .chat-result .user-message .message {
             background: #191970;
@@ -99,6 +100,7 @@
         }
         .chat-result .bot-message {
             text-align: right;
+			
         }
         .chat-result .bot-message .message {
             background: #eee;
