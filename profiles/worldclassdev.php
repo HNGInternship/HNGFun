@@ -66,16 +66,7 @@
     </script>
 
     <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
-     
-      <div id="pageContent" class="oj-web-applayout-page">
-        <!--
-           ** Oracle JET V5.0.0 web application header pattern.
-           ** Please see the demos under Cookbook/Patterns/App Shell: Web
-           ** and the CSS documentation under Support/API Docs/Non-Component Styling
-           ** on the JET website for more information on how to use this pattern.
-        -->
-        <oj-module role="main" class="oj-web-applayout-max-width oj-web-applayout-content" config="[[moduleConfig]]">
-            <div class="oj-hybrid-padding">
+        <div class="oj-hybrid-padding">
   <my-profile>
     <div class="twcd container">
         <div class="name">
@@ -89,6 +80,30 @@
           </div>
     </div>  
   </my-profile>
+     
+      <div id="pageContent" class="oj-web-applayout-page">
+          <div class="oj-hybrid-padding">
+  <my-profile>
+    <div class="twcd container">
+        <div class="name">
+            <h1>Justine Philip</h1>
+          </div>
+          <div class="profile">
+            <img class="profile-img" src="http://res.cloudinary.com/worldclassdev/image/upload/v1523643285/16845555.png" alt="my-profile">
+          </div>
+          <div class="about">
+              I like to call myself a developer of all things JS. But basically i love to build stuff that solves a problem irrespective of the technology involved. I'm more about the impact than the money, but somehow i find both. When im not coding, i write, game and play the guitar.
+          </div>
+    </div>  
+  </my-profile>
+        <!--
+           ** Oracle JET V5.0.0 web application header pattern.
+           ** Please see the demos under Cookbook/Patterns/App Shell: Web
+           ** and the CSS documentation under Support/API Docs/Non-Component Styling
+           ** on the JET website for more information on how to use this pattern.
+        -->
+        <oj-module role="main" class="oj-web-applayout-max-width oj-web-applayout-content" config="[[moduleConfig]]">
+            
 </div>
         </oj-module>
       </div>
