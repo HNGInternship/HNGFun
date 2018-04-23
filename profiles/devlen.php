@@ -47,6 +47,7 @@
             cursor: hand;
             width: 100%;
             font-size: 18px;
+            text-decoration: none;
         }
 
         a {
