@@ -99,7 +99,8 @@
         }
         .chat-input {
             padding: 20px;
-            background: #EEE;
+            background-color: #00F;
+			color: #FFF;
             border-radius: 25px; 
 			padding: 10px;
 			font-size: 10pt;
