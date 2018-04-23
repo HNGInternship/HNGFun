@@ -58,11 +58,9 @@
            background-size: cover;
            box-shadow: 0px 7px 8px rgba(0, 0, 0, 0.25);
            height: 580px;
-	   margin-top: 30px;
+	   margin-top: 50px;
            float: right;
-           
-           
-           width: 80%;
+           width: 90%;
        }
        .clear {clear: both;}
 
