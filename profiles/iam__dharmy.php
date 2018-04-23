@@ -196,7 +196,7 @@
 		}
 
 		.chat-messages {
-			background-color: white;
+			background-color: lightblue;
 			padding: 5px;
 			height: 300px;
 			overflow-y: auto;
@@ -247,7 +247,7 @@
 
   </head>
 
-  <body style = "background color: skyblue">
+  <body style = "background color: white">
 
 <!-- Main Content -->
 
