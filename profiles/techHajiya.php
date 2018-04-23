@@ -3,15 +3,25 @@
 <head>
     <link href='https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra SC|Romanesco' rel='stylesheet'>
     <style type="text/css">
-        .container{
-            width: 100%;
-            min-height: 100%
-        }
-        body {
-            font-family: "quicksand"
+       body {
+            font-family: "Josefin Sans","Montserrat","Segoe UI","Roboto","Helvetica Neue","Arial","sans-serif";
             color: #4A4646;
-			padding-left:400px;
-		}        
+            overflow-x: hidden;
+        }
+		 .container {
+            max-width: 100%;
+            padding-left: 0;
+        }
+		   .chatbox {
+            height: auto;
+            padding: <?=$padding;?>;
+            background: #FFFFFF;
+        }
+
+        footer {
+            display: none;
+        }
+
 		.profile-details{
             padding-top: 30px;
         }
@@ -50,6 +60,16 @@
         }
 		
 		
+		* {
+   outline: none; 
+   tap-highlight: none;
+   -webkit-tap-highlight: none;
+   -webkit-tap-highlight-color: none;
+   -moz-tap-highlight: none;
+   -moz-tap-highlight-color: none;
+   -khtml-tap-highlight: none;
+   -khtml-tap-highlight-color: none;
+}		
         .chat-result {
             flex: 1;
             padding: 20px;
@@ -79,9 +99,10 @@
         }
         .chat-input {
             padding: 20px;
-            background: #eee;
-            border: 1px solid #ccc;
-            border-bottom: 0;
+            background: #EEE;
+            border-radius: 25px; 
+			padding: 10px;
+			font-size: 10pt;
         }
         .chat-input .user-input {
             width: 100%;
@@ -106,7 +127,7 @@
     }
     ?>
 
-     <div class="row" style="width:1100px;">
+     <div class="row">
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
                     <img src="<?=$my_data['image_filename'] ?>" alt="Lois Thomas">
@@ -122,8 +143,7 @@
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div class="body1">
+      <div class="col-sm-6">
                 <div class="chat-result" id="chat-result">
                     <div class="user-message">
                         <div class="message">Hello! I'm LoBot! Ask anything and I'll be sure to answer! </br>To train me, use this syntax - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
@@ -132,14 +152,11 @@
 
                 <div class="chat-input">
                     <form action="" method="post" id="user-input-form">
-<!--                        <input type="hidden" name="id" value="--><?php //echo htmlspecialchars($_GET['id']);?><!--">-->
                         <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
                     </form>
                 </div>
 
-            </div>
-        </div>
-    </div>
+          </div>
 
 
     <?php
