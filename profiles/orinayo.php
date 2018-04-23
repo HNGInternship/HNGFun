@@ -1,7 +1,6 @@
 <?php
-if (!defined('DB_USER')) {
-    include "../../config.php";
-}
+require "../../config.php";
+
 try {
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
 } catch (PDOException $pe) {
@@ -232,8 +231,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
-<?php
-if ($_SERVER['REQUEST_METHOD'] === "GET") {
+    <?php
     try {
         $sql = "SELECT * FROM secret_word";
         $query = $conn->query($sql);
@@ -248,8 +246,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     }
     catch (PDOException $e) {
         throw $e;
-    }
-?>
+    ?>
 
 <div class="container-fluid content">
                 <h3 class="text-center text-dark display-5">Hello, I'm
