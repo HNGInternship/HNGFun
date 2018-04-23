@@ -236,6 +236,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
 </head>
 <body>
+
+<?php 
+function Get_Hotelsng_wikipage() 
+{
+    $api = "https://en.wikipedia.org/w/api.php?action=opensearch&search="."hotels.ng"."&format=json&callback=?";
+    $result = file_get_contents($api);
+    $result = substr_replace($result, "", 0, 5);
+    $result = substr_replace($result, "", -1);
+    $result = json_decode($result, true);
+    $result = array("answer"=>"<a href=".$result[3][0].">".$result[1][0]."</a><p>".$result[2][0]."</p>");
+    return $result;
+}
+?>
 <div class="container-fluid content">
                 <h3 class="text-center text-dark display-5">Hello, I'm
                     <span class="display-4" id=name style="color: #f4511e">
@@ -634,6 +647,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             },
                             dataType: 'text',
                             success: function( answer ){
+                                if(answer == 'Get_Hotelsng_wikipage()') {
+                                    answer = <?php echo Get_Hotelsng_wikipage()?>
+                                }
                                 $chatMessages.append(
                                 "<p class='chat-text'><i class='fa fa-user'></i> " + answer + "</p>");
                                 $chatBot.scrollTop($chatBot[0].scrollHeight);
