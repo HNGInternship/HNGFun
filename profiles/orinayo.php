@@ -651,11 +651,12 @@ function Get_Hotelsng_wikipage()
                                     "<p class='chat-text'><i class='fa fa-user'></i> " + answer['answer'] + "</p>");
                                     $chatBot.scrollTop($chatBot[0].scrollHeight);
                                     $userInput.val('');
-                                }
+                                } else {
                                 $chatMessages.append(
                                 "<p class='chat-text'><i class='fa fa-user'></i> " + answer + "</p>");
                                 $chatBot.scrollTop($chatBot[0].scrollHeight);
                                 $userInput.val('');
+                                }
                             } 
                             });
                         });
