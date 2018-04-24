@@ -1,6 +1,28 @@
 <?php
-	include('../answers.php');
 
+	########DEFINING MY OWN FXNs HERE##################
+	function bot_menu(){
+		return  "Send <b>'time'</b> to get the time. \n
+		  Send <b>'about'</b> to know my version number. \n
+		  Send <b>'help'</b> or <b>'menu'</b> to see this again. \n
+		  To train me, send in this format => \n
+		  'train:question#answer' \n
+		  To get price for any cryptocurrency, send in this format \n
+		  <b>crypto:'cryptoname'</b>\n
+		  To clear the chat logs, just type <b>'cls'</b> or <b>'clear'</b>";
+	  }
+	function getCryptoPrice($ticker){
+		$url = "https://api.coinmarketcap.com/v1/ticker/".$ticker."/";
+		$response = @file_get_contents($url);
+		if (false === $response) {
+			return "No value";
+		}
+		$resp = json_decode($response, true);
+		$result = $resp[0]["price_usd"];
+		return $result;
+	}
+
+	#############################END################################
 	if(!defined('DB_USER')){
 		require_once __DIR__."/../../config.php";     
 		try {
@@ -23,10 +45,6 @@
 
 	if($_SERVER['REQUEST_METHOD'] === "POST"){
 		$quest = $_POST['question'];
-		//ob_clean();
-		//echo json_encode(['status' => 1, 'reply' => $quest]);
-		//die();
-
 		$quest_low = strtolower($quest);
 		$training_mode = stripos($quest_low, "train:");
 		$menu_mode = stripos($quest_low, "menu");
@@ -225,7 +243,7 @@
 						//to check if it includes about bot
 						if(quest.toLowerCase().includes("about") || quest.toLowerCase().includes("aboutbot")){
 							var inpi = document.createElement('p');
-							inpi.innerHTML = "<span class='bot'>Umar: </span> This is v1.0.0";
+							inpi.innerHTML = "<span class='bot'>Umar: </span> This is v1.8.0";
 							holdiv.appendChild(inpi);
 							$('#chatlogs').scrollTop($('#chatlogs')[0].scrollHeight);
 						}else if(quest.toLowerCase().includes("cls") || quest.toLowerCase().includes("clear")){
