@@ -37,9 +37,15 @@
 			]);
 			return;
 		}
+		
+		
 
 		$question = $_POST['question']; //get the entry into the chatbot text field
+		      if(strtolower($question) == 'aboutbot') {echo "v1.0"; exit();}
+		      $question = $_POST['question'];
 
+		
+		
 		//check if in training mode
 		$index_of_train = stripos($question, "train:");
 		if($index_of_train === false){//then in question mode
@@ -187,18 +193,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
-    <link rel="icon" href="profiles/dennisotugo/css/images/favicon.ico" type="image/x-icon" />
 
-    <!-- This is the main css file for the default Alta theme -->
-<!-- injector:theme -->
-<link rel="stylesheet" href="profiles/dennisotugo/css/alta/5.0.0/web/alta.css" id="css" />
-<!-- endinjector -->
-    
-    <!-- This contains icon fonts used by the starter template -->
-    <link rel="stylesheet" href="profiles/dennisotugo/css/demo-alta-site-min.css" type="text/css"/>
-
-    <!-- This is where you would add any app specific styling -->
-    <link rel="stylesheet" href="profiles/dennisotugo/css/app.css" type="text/css"/>
 <style>
 	header {
 		display: none;
@@ -208,69 +203,101 @@
 	}
 	</style>
   </head>
-  <body class="oj-web-applayout-body">
-    <!-- Template for rendering navigation items shared between nav bar and nav list -->
-    <script type="text/html" id="navTemplate">
-      <li><a href="#">
-        <span :class="[[$data['iconClass']]]"></span>
-        <oj-bind-text value="[[$data['name']]]"></oj-bind-text>
-      </a></li>
-    </script>
-
-    <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
-      <!--
-         ** Oracle JET V5.0.0 web application navigation drawer pattern.
-         ** Please see the demos under Cookbook/Patterns/App Shell: Web
-         ** and the CSS documentation under Support/API Docs/Non-Component Styling
-         ** on the JET website for more information on how to use this pattern. 
-         ** The off-canvas section is used when the browser is resized to a smaller media
-         ** query size for a phone format and hidden until a user clicks on
-         ** the header hamburger icon.
-      -->
-      <div id="navDrawer" role="navigation" class="oj-contrast-marker oj-web-applayout-offcanvas oj-offcanvas-start">
-        <oj-navigation-list data="[[navDataSource]]"
-                            edge="start"
-                            item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
-                            on-click="[[toggleDrawer]]"
-                            selection="{{router.stateId}}">
-        </oj-navigation-list>
-      </div>
-      <div id="pageContent" class="oj-web-applayout-page">
-        <!--
-           ** Oracle JET V5.0.0 web application header pattern.
-           ** Please see the demos under Cookbook/Patterns/App Shell: Web
-           ** and the CSS documentation under Support/API Docs/Non-Component Styling
-           ** on the JET website for more information on how to use this pattern.
-        -->
-        <header role="banner" class="oj-web-applayout-header">
-          <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
-            <!-- Offcanvas toggle button -->
-            <div class="oj-flex-bar-start oj-md-hide">
-              <oj-button id="drawerToggleButton" class="oj-button-lg" on-oj-action="[[toggleDrawer]]" chroming="half" display="icons">
-                <span slot="startIcon" class="oj-web-applayout-offcanvas-icon"></span>
-                <span>Application Navigation</span>
-              </oj-button>
-            </div>
-
-          </div>
-          <div role="navigation" class="oj-web-applayout-max-width oj-web-applayout-navbar">
-            <oj-navigation-list class="oj-sm-only-hide oj-md-condense oj-md-justify-content-flex-end"
-                                data="[[navDataSource]]"
-                                edge="top"
-                                item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
-                                selection="{{router.stateId}}">
-            </oj-navigation-list>
-          </div>
-        </header>
-        <oj-module role="main" class="oj-web-applayout-max-width oj-web-applayout-content" config="[[moduleConfig]]">
-        </oj-module>
-      </div>
-    </div>
-    
-    <script type="text/javascript" src="profiles/dennisotugo/js/libs/require/require.js"></script>
-    <script type="text/javascript" src="profiles/dennisotugo/profiles/dennisotugo/js/main.js"></script>
-
+  <body>
+	<div class="col-md-4 offset-md-1 chat-frame">
+			<h2 class="text-center"><u>CHATBOT</u></h2>
+			<div class="row chat-messages" id="chat-messages">
+				<div class="col-md-12" id="message-frame">
+					<div class="row single-message">
+						<div class="col-md-12 single-message-bg">
+							<h5>Hello <span style="font-weight: bold">iam__bot</span></h5>
+						</div>
+					</div>
+					<div class="row single-message">
+						<div class="col-md-12 single-message-bg">
+							<h5>Ask me your questions </h5>
+						</div>
+					</div>
+					<div class="row single-message">
+						<div class="col-md-12 single-message-bg">
+							
+							<h5>To train me, type <br/><b>train: question # answer # password</b><h5>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="row" style="margin-top: 40px;">
+				<form class="form-inline col-md-12 col-sm-12" id="question-form">
+					<div class="col-md-12 col-sm-12 col-12">
+						<input class="form-control w-100" type="text" name="question" placeholder="Enter your message" />
+					</div>
+					<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
+						<button type="submit" class="btn btn-info float-right w-100" >Enter</button>
+					</div>
+				</form>	
+			</div>
+		</div>
+	</div>
+</div>
+<script>
 	
+	$(document).ready(function(){
+		var questionForm = $('#question-form');
+		questionForm.submit(function(e){
+			e.preventDefault();
+			var questionBox = $('input[name=question]');
+			var question = questionBox.val();
+			
+			//display question in the message frame as a chat entry
+			var messageFrame = $('#message-frame');
+			var chatToBeDisplayed = '<div class="row single-message">'+
+						'<div class="col-md-12 offset-md-2 single-message-bg2">'+
+							'<h5>'+question+'</h5>'+
+						'</div>'+
+					'</div>';
+			
+
+			messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+
+			//send question to server
+			$.ajax({
+				url: "/profiles/dennisotugo.php",
+				type: "post",
+				data: {question: question},
+				dataType: "json",
+				success: function(response){
+					if(response.status == 1){
+						var chatToBeDisplayed = '<div class="row single-message">'+
+									'<div class="col-md-12 single-message-bg">'+
+										'<h5>'+response.answer+'</h5>'+
+									'</div>'+
+								'</div>';
+
+						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+						questionBox.val("");	
+						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+					}else if(response.status == 0){
+						var chatToBeDisplayed = '<div class="row single-message">'+
+									'<div class="col-md-12 single-message-bg">'+
+										'<h5>'+response.answer+'</h5>'+
+									'</div>'+
+								'</div>';
+
+						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+					}
+				},
+				error: function(error){
+					console.log(error);
+				}
+			})
+
+		});
+	});
+</script>
 </body>
 </html>
 <?php } ?>

@@ -254,14 +254,17 @@ function hide() {//hide chat interface
     	var x = document.getElementById("view");
 	var c = document.getElementById("ioi");
 	var d = document.getElementById("deep");
+	var s = document.getElementById("siri");
     if (x.style.display === "none") {
         x.style.display = "block";
-	c.style.display = "block";
+		c.style.display = "block";
+		s.style.display = "block";
 	d.innerHTML = " I can show you time from present moment till any date! Try 'countdown January 1 2019'";
     } else {
         x.style.display = "none";
-	c.style.display = "none";
-	d.innerHTML = " Collective knowledge of a lot of bots!";
+		c.style.display = "none";
+		s.style.display = "none";
+	d.innerHTML = " The collective knowledge of a lot of bots!";
     }
 }
 </script>
@@ -270,7 +273,9 @@ function hide() {//hide chat interface
 <button onclick="hide(3000)" class="butto">Click Me</button><span id="deep"> I can show you time from present moment till any date! Try 'countdown January 1 2019'</span>
 <div class="contain" align="center">
 <div class="scroll" id="view">
-<p class="message chat2">Hello my name is Alfred!</p>
+<p class="message chat2"><b>Hello my name is Alfred!</b></p>
+<p class="message chat2">To train me <b>'Train: Question # Answer # Password'</b></p>
+
    </div>
    <div class="divid"></div>
    <div id="ioi">
