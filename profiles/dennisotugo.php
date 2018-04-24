@@ -21,6 +21,7 @@
     }?>
 	
 <?php
+<<<<<<< HEAD
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		
@@ -30,6 +31,17 @@
 
 		// header('Content-Type: application/json');
 
+=======
+
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		
+		require "../answers.php";
+
+		date_default_timezone_set("Africa/Lagos");
+
+		// header('Content-Type: application/json');
+
+>>>>>>> Update profile
 		if(!isset($_POST['question'])){
 			echo json_encode([
 				'status' => 1,
@@ -166,6 +178,103 @@
 	}
 	else{
 ?>
+<<<<<<< HEAD
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<style>
+	.form-inline {
+		height: auto;
+    display: -ms-flexbox;
+    /* display: flex; */
+    -ms-flex-flow: row wrap;
+    /* flex-flow: row wrap; */
+    -ms-flex-align: center;
+    align-items: center;
+    position: fixed;
+    width: 52.3%;
+    bottom: 5%;
+}
+	#mainNav {
+    position: fixed;
+}
+	.col-12 {
+    padding: 1px;
+}
+	.btn {
+    font-size: 14px;
+    font-weight: 800;
+    padding: 15px 25px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 0;
+    border: 0;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    position: fixed;
+    bottom: 0;
+    width: 50% !important;
+    left: 0;
+    background: black;
+}
+.col-md-4 {
+    border: 0 !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 100%;
+    text-align: center;
+    position: fixed;
+    /* width: 50%; */
+    left: 0;
+    top: 10%;
+    background-color: #fff;
+}
+	.offset-md-1 {
+    margin-left: 0 !important;
+}
+	.col-md-4 {
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 50%;
+    max-width: 50%;
+    width: 50%;
+    position: fixed;
+}
+	footer { display: none;}
+	.profile {
+          height: 100%;
+    text-align: center;
+    position: fixed;
+    position: fixed;
+    position: fixed;
+    width: 50%;
+    right: 0;
+    background-color: #007bff;
+}
+	h1 {
+    color: blue;
+    color: white;
+    text-align: center;
+    bottom: 50%;
+    left: 65%;
+    position: fixed;
+    font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 700;
+}
+	p {
+    position: fixed;
+    bottom: 40%;
+    left: 58%;
+    line-height: 1.5;
+    margin: 30px 0;
+}
+      </style>
+
+
+  </head>
+
+=======
 
 <!DOCTYPE html>
 <html lang="en">
@@ -205,6 +314,7 @@
 
   </head>
 
+>>>>>>> Update profile
 		
 			<div class="body">
 <div class="profile">
