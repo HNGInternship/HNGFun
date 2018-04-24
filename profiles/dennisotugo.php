@@ -139,7 +139,7 @@
 			}
 			if($question == aboutbot){
 				echo json_encode([
-					'status' => 0,
+					'status' => 1,
 					'answer' => "v1.0"
 				]);
 				return;
