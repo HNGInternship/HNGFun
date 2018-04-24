@@ -183,7 +183,7 @@ if ($qsam == "intro"){
 		}else if ( $keyword[$decisionValue[0]] == "how are you"){
 								echo respondGreeting();
 		}else if (strtok($qsam, ":") == "name"){
-					echo "nice to meet you";
+					echo "nice name to meet you";
 					$nameGuest = explode (":", $qsam);
 					$guestName = $nameGuest [1];
 					echo "$guestName" . ". How are you today?";
@@ -209,7 +209,7 @@ function get_time(){
   //set the timezone to Africa/Lagos
   $datetime->setTimezone(new DateTimeZone('Africa/lagos'));
   //format the time
-  return $datetime->format('H:i:A');
+  return $datetime->format('H:i: A');
 }
 ########################################################
 # __   ___              __      __  ___       __   __  #
@@ -683,6 +683,7 @@ echo $weather = get_weather($_GET['opheusweather']);
 // END OF JOHN AYENI FUNCTIONS//
 ////////////////////////////////
 */
+
 /////////////////////////////////////////
 //Beginning Aniuchi A. M's Functions/////
 ////////////////////////////////////////
@@ -703,12 +704,14 @@ function getFutureDate(){
     echo "A week from now, the date will be: " . date_format($newDate, "l jS \of F Y");
     //A.M.A
 }
+
 function getRandomYoMamaJoke(){
 	$randomJokeJson = file_get_contents("http://api.yomomma.info");
 	$randomJoke = json_decode($randomJokeJson);
-    echo $randomJoke->joke;
+    echo $randomJoke->joke;	
     //A.M.A
 }
+
 function getRandomQuote(){
 	$randomQuoteJson =file_get_contents("https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en&json=?");
 	$randomQuote = json_decode($randomQuoteJson);
@@ -720,15 +723,21 @@ function getRandomQuote(){
     else  echo "<br/>" .$quoteText. "<br/> &nbsp; &nbsp; &ndash; <cite>Unknown Author</cite>" ;
     //A.M.A
 }
+
+
 function bot_answer($check) {
-require 'db.php';
+
+
+
 // Create connection
 //$conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 //if ($conn->connect_error) {
  //   die("Connection failed: " . $conn->connect_error);
 //}
-global $conn;
+
+
+
 $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$check' ORDER BY rand() LIMIT 1");
 $stmt->execute();
 if($stmt->rowCount() > 0)
@@ -744,6 +753,7 @@ if($stmt->rowCount() > 0)
 	echo "to teach me.";
 }
 }
+
 function getMotivationalQuoteForTheDay(){
 	$randomQuoteJson =file_get_contents("http://quotes.rest/qod.json?category=inspire");
 	$randomQuote = json_decode($randomQuoteJson, true);
@@ -753,6 +763,7 @@ function getMotivationalQuoteForTheDay(){
     echo "</br>" .$quoteText. "<br/> &nbsp; &nbsp; &mdash; " .$quoteAuthor. "<br/>";
     //A.M.A
 }
+
 function getMediumArticle(){
 	$getMediumUrlContents = file_get_contents("https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2F%40adamichelllle");
 	$getMediumJson = json_decode($getMediumUrlContents, true);
@@ -760,23 +771,58 @@ function getMediumArticle(){
 		$mediumArticleTitle = $getSingleMediumArticle['title'];
 		$mediumArticleUrl = $getSingleMediumArticle['link'];
 		$mediumArticleThumbnail = $getSingleMediumArticle['thumbnail'];
-		echo "<a href= '$mediumArticleUrl' style='color: #ffffff'><img src='http://res.cloudinary.com/missada/image/upload/v1524225094/hng_internship.png' class= 'img-responsive' ><br/><b>$mediumArticleTitle</b></a>";
+		echo "<a href= '$mediumArticleUrl' style='color: #ffffff'><img src='http://res.cloudinary.com/missada/image/upload/v1524225094/hng_internship.png' class= 'img-responsive' ><br/><b>$mediumArticleTitle</b></a>"; 
 		$article = "<script type='text/Javascript'>window.open('$mediumArticleUrl');</script>";
 		break;
     }
     //A.M.A
+
 }
 function getPinkyCommands(){
-    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/>";
+    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/> 
+    2. Get <b>motivational quote of the day.</b> or <b>inspire me today</b> <br/> 3. Get my creator <b>Ada's latest medium article</b> <br/>
+    4. Get or tell you<b> a random Yo Momma Joke</b>. <br/> 5. Get or tell you <b>what day of the week it is.</b> <br/>
+    6. Get the <b>date seven days or a week from now.</b> <br/> 7.Get or tell you<b> a random quote.</b> <br/>
+    8. Tell you version of the bot <b>aboutbot</b><br/>
+    NB. All or some of the words in bold should be included in your message. Please try to follow these patterns as I am still learning.";
     //A.M.A
 }
+
 function train_bot ($message) {
 function multiexplode ($delimiters,$string) {
+
     $ready = str_replace($delimiters, $delimiters[0], $string);
     $launch = explode($delimiters[0], $ready);
     return  $launch;
 }
-require 'db.php';
+
+//$text = "#train: this a question | this my answer :)";
+$exploded = multiexplode(array(":","|"),$message);
+
+$question = trim($exploded[1]);
+
+$answer = trim($exploded[2]);
+
+
+try {
+
+    $sql = "INSERT INTO chatbot (id, question, answer)
+VALUES ('', '$question', '$answer')";
+    // use exec() because no results are returned
+    $conn->exec($sql);
+
+    echo "Thank you! i just learnt something new, my master would be proud of me.";
+
+	}
+catch(PDOException $e)
+    {
+    echo $sql . "<br>" . $e->getMessage();
+    }
+
+$conn = null;
+//////////////////////
+
+
 //And output will be like this:
 // Array
 // (
@@ -787,7 +833,11 @@ require 'db.php';
 //    [4] =>  this one too
 //    [5] => )
 // )
+
 }
+
+
+
 function get_browser_name($user_agent)
 {
     if (strpos($user_agent, 'Opera') || strpos($user_agent, 'OPR/')) return 'Opera';
@@ -796,16 +846,23 @@ function get_browser_name($user_agent)
     elseif (strpos($user_agent, 'Safari')) return 'Safari';
     elseif (strpos($user_agent, 'Firefox')) return 'Firefox';
     elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) return 'Internet Explorer';
+
     return 'Other';
 }
+
+
 ///////////////////////////////
 //End Aniuchi A. M's Functions/
 ///////////////////////////////
+
+
+
 #####################################################################################################
 #                                                                                                   #
 #           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS BELOW            #
 #                                                                                                   #
 #####################################################################################################
+
 function calculate_distance($key, $url, $location1, $location2) {
     $request_distance = $url.$location1."+Nigeria&destinations=$location2+Nigeria"."&key=".$key;
     $response  = json_decode(file_get_contents($request_distance), 1);
@@ -820,12 +877,13 @@ function calculate_distance($key, $url, $location1, $location2) {
         return nl2br($message[rand(0, 2)]);
     }
 }
+
 function get_duration ($key, $url, $location1, $location2, $mode) {
     $request_duration = $url.$location1."&destinations=$location2"."&key=".$key."&mode=".$mode."&departure_time=now";
     $response = json_decode(file_get_contents($request_duration), 1);
     $status = $response['status'];
     if ($status === 'OK' and $response['rows'][0]['elements'][0]['status'] === 'OK') {
-        $duration = $response['rows'][0]['elements'][0]['duration']['text'];
+        $duration = $response['rows'][0]['elements'][0]['duration_in_traffic']['text'];
         return $duration;
     }
     // If no match, return error message
@@ -834,49 +892,8 @@ function get_duration ($key, $url, $location1, $location2, $mode) {
         return $message;
     }
 }
-function show_direction ($location1, $location2, $mode) {
-    return "https://www.google.com/maps/dir/?api=1&origin=$location1&destination=$location2&travelmode=$mode";
-}
-#####################################################################################################
-#                                                                                                   #
-#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS ABOVE           #
-#                                                                                                   #
-#####################################################################################################
-// Dreamtech467 Function
-function getCapital($States){
-    switch(trim(strtolower($States))){
-        case 'abia ':
-        return 'Umuahia<br>God’s Own State';
-        case 'adamawa':
-        return 'Yola<br>Land of Beauty, Sunshine and Hospitality';
-        case 'rivers':
-        return 'Port Harcourt<br>Treasure Base';
-    }
-}
-// End dreamtech Function
-//////////////////////////////////////////////////////////////////////////////////////////////
-///                                                                                  ////////'
-/// @UNCLETEE CODE STARTS HERE. bERAKING THE CODE CAN CAUSE SERIOUS HARVOC
-///
-/// ////////////////////////////////////////////////////////////////////////////////////////////
-function getNews($sources="techcrunch.com"){
-    $apiKey = 'f9cca98bdc5344ce8508b4a6b8110c59';
-    $url = 'https://newsapi.org/v2/everything?domains='.$sources.'&language=en&apiKey='.$apiKey;
-    $response = file_get_contents($url);
-    $foundNews = json_decode( $response , true);
-    $findOneNews = $foundNews['articles'][rand(0,count($foundNews['articles'])-1)];
-    $news = "Title-- ".$findOneNews['title']. "\n";
-    $news .= "Url--- ".$findOneNews['url'];
-    if(trim($foundNews['status'])=='ok'){
-        return  $news;
-    }else{
-        return "I cannot source for you at this time";
-    }
-}
-///
-/// eND Ehere
-///
-///
+
+
 function get_device_name($user_agent)
 {
     if (strpos($user_agent, 'Macintosh') || strpos($user_agent, 'mac os')) return 'Mac';
@@ -885,14 +902,18 @@ function get_device_name($user_agent)
     elseif (strpos($user_agent, 'iPhone')) return 'iPhone';
     elseif (strpos($user_agent, 'Android')) return 'Android';
     elseif (strpos($user_agent, 'iPad') ) return 'iPad';
+
     return 'Other';
 }
+
+
 function davidQuadraticEquation($a, $b, $c)
 {  #Remember I know where you live if you tamper with this function
     $discriminat = pow($b, 2) - (4 * $a * $c);
     if ($discriminat == 0) {
         $x = -($b / (2 * $a));
         return $x;
+
     } else {
         $root = sqrt($discriminat);
         $x1 = (-$b + $root) / (2 * $a);
@@ -900,6 +921,8 @@ function davidQuadraticEquation($a, $b, $c)
         return 'x1 is ' + $x1 + 'and' + 'x2 is ' + $x2;
     }
 }
+
+
 /*
  * Ionware's Function
  * */
@@ -916,28 +939,40 @@ if (! function_exists("iDictionary"))
         ));
         $context = stream_context_create($request_option);
         $api = file_get_contents($url, false, $context);
+
         try {
             $response = json_decode($api);
             @$definition = $response->results[0]->lexicalEntries[0]->entries[0]->senses[0]->definitions[0];
             @$example = $response->results[0]->lexicalEntries[0]->entries[0]->senses[0]->examples[0]->text;
+
             if (empty($definition))
                 return "Sorry, I can not find the word {$word}";
+
             return "{$definition} <br> <b>{$example}</b>";
+
         } catch (Exception $e) {
             return "Sorry, I can not find the word {$word}.";
         }
+
     }
+}
+if (!function_exists("iHNGIntern")){
     function iHNGIntern($username)
     {
         if (file_exists(__DIR__."/profiles/{$username}.php")) {
             $profile = "http://hng.fun/profile.php?id={$username}";
+
             return "Yes! {$username} is among HNG4 Internship program. View their profile at <a href='{$profile}'>{$profile}</a>";
         }
+
         return "Sadly, {$username} is not part of HNG4 Internship yet. But you can invite them!";
     }
 }
+
 /*
  * Ionware's function ends here */
+
+
 // Orinayo's function
 function Get_Hotelsng_wikipage()
 {
@@ -949,9 +984,9 @@ function Get_Hotelsng_wikipage()
     $result = array("answer"=>"<a href=".$result[3][0].">".$result[1][0]."</a><p>".$result[2][0]."</p>");
     return $result;
 }
-////////////////////////////////////////////////
-// AKINSOURCE FUNCTION ///////////////////////// DON'T MESS IT UP /////////
-////////////////////////////////////////////////
+//
+// AKINSOURCE FUNCTION ///////
+//////////////////////////////
 function count_akin($poin){
 date_default_timezone_set("Africa/Lagos");
 $date_req = strtotime($poin);
@@ -959,6 +994,7 @@ $time_remaining = $date_req - time();
 $weeks_remaining = $time_remaining /604800;
 $days_remaining = $time_remaining / 86400;
 $hours_remaining = ($time_remaining % 86400) / 3600;
+
 if ($weeks_remaining >= 1) {
 	$weeks_remaining = floor($time_remaining / 604800);
 	$days_remaining = floor(($time_remaining % 604800)/86400);
@@ -977,20 +1013,21 @@ if ($weeks_remaining >= 1) {
 	$minutes_remaining = floor((($time_remaining % 86400) % 3600)/60);
 	$seconds_remaining = ((($time_remaining % 86400) % 3600)%60);
 	$cdown = $hours_remaining.' hours '.$minutes_remaining.' minutes '.$seconds_remaining. ' seconds';
-} else {
-	$cdown = "please enter a valid date!";
 }
 return $cdown;
 }
 //////// AKINSOURCE FUNCTION /////////////////////////////
 // I HAVE A PARTICULAR SET OF SKILLS. I WILL FIND YOU!/////
 //////////////////////////////////////////////////////////
+
 function getQuote()
 {
     $url = 'https://talaikis.com/api/quotes/random/';
     $result = file_get_contents($url);
     return $result;
 }
+
+
 // functions by @bukola. DO NOT MODIFY
 function getUSSD($bankName){
     switch(trim(strtolower($bankName))){
@@ -998,8 +1035,10 @@ function getUSSD($bankName){
         case 'fbn':
         case 'FBN':
         return '*894#';
+
         case 'access bank':
         return '*901#';
+
         case 'gt bank':
         case 'guaranty trust bank':
         case 'gtb':
@@ -1008,29 +1047,39 @@ function getUSSD($bankName){
         case 'GTBank':
         case 'GT Bank':
         return '*737#';
+
         case 'diamond bank':
         return '*426#';
+
         case 'fidelity bank':
         return '*770#';
+
         case 'ecobank':
         return '*326#';
+
         case 'sterling bank':
         return '*822#';
+
         case 'keystone bank':
         return '*533#';
+
         case 'skye bank':
         return '*833#';
+
         case 'union bank':
         return '*826#';
+
         case 'stanbic bank':
         return '*909#';
+
         case 'uba':
         return '*919#';
+
         case 'wema bank':
         return '*945#';
-        case 'zenith bank':
-        return '*966#';
-    }
+function show_direction ($location1, $location2, $mode) {
+    return "https://www.google.com/maps/dir/?api=1&origin=$location1&destination=$location2&travelmode=$mode";
+
 }
 // End of functions by @Bukola
  /** chibuokems functions starts here */
@@ -1220,20 +1269,6 @@ $dataa = json_decode(file_get_contents($url_location), true);
   $help = "<span style='color:green;'>To train me use the format train question #answer #password"."<br/>". "To get the current time  type time and send "."<br/>"."To get Current weather condition type weather_condition and send "."<br/>"."To get love quote type love_quote and send"."<br/>". "To get funny quote type funny_quote and send"."<br/>"."to get an inspiring quote type inspiring_quote and send"."<br/>"."To get the quote of the day for students type students_quote and send"."<br/>". "to get sports quote of the day type sports_quote and send"."<br/> To get news type news and send "."<br/> to get the current bot version type version or aboutbot and send. Thanks </span>";
   return $help;
  }
-  /**chibuokems functions ends here */
-  //////ADEYEFA OLUWATOBA FUNCTIONS, DO NOT EDIT WITHOUT PERMISSION////////
-  function GetCryptoPrice($from, $to) {
-    $from = (trim(strtoupper($from)));
-    $to = (trim(strtoupper($to)));
-    $url = 'curl -s -H "CB-VERSION: 2017-12-06" "https://api.coinbase.com/v2/prices/'.$from.'-'.$to.'/spot"';
-    $tmp = shell_exec($url);
-    $data = json_decode($tmp, true);
-    if ($data && $data['data'] && $data['data']['amount']) {
-      return (float)$data['data']['amount'];
-    }
-    return null;
-  }
-  ///////ADEYEFA OLUWATOBA FUNCTIONS END ///////////////////////////////////
 
 
 ?>

@@ -2,7 +2,11 @@
 
 require 'db.php';
 
+<<<<<<< HEAD
+
+=======
 require 'answers.php';
+>>>>>>> Update profile
     $result = $conn->query("SELECT * from secret_word LIMIT 1");
     $result = $result->fetch(PDO::FETCH_OBJ);
     $secret_word = $result->secret_word;
@@ -208,6 +212,14 @@ img {
     </div>
 </div>
 
+<<<<<<< HEAD
+<?php 
+
+require 'answers.php';
+
+ ?>
+=======
+>>>>>>> Update profile
 <div class="container">
     <div class="row chat-window col-xs-5 col-md-3" id="chat_window_1" style="margin-left:10px;">
         <div class="col-xs-12 col-md-12">
@@ -355,7 +367,10 @@ $(document).on('click', '.icon_close', function (e) {
 });
 
 </script>
+<<<<<<< HEAD
+=======
 
+>>>>>>> Update profile
 
 
 
