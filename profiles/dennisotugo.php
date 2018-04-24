@@ -73,17 +73,6 @@
     margin: 5px;
 	    
 	    }
-	    	    .bot-message {
-		    float: left;
-    font-size: 16px;
-    background-color: #007bff63;
-    padding: 10px;
-    display: inline-block;
-    border-radius: 3px;
-    position: relative;
-    margin: 5px;
-	    
-	    }
 	    footer .copyright {
     font-size: 14px;
     margin-bottom: 0;
@@ -100,7 +89,7 @@
     display: inline-block;
     border-radius: 3px;
     position: relative;
-    margin: 5px;
+    margin: 15px 1px 1px 0px;
 }
     </style>
 </head>
