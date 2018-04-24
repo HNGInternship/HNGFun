@@ -41,12 +41,6 @@
 		}
 	}
 
-    $stmt = $conn->prepare("SELECT * FROM chatbot");
-		$stmt->execute();
-
-		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-		$rows = $stmt->fetchAll();
-        $json = json_encode($rows);
 ?>
 
 <html>
