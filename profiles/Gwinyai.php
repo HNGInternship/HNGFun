@@ -1,4 +1,3 @@
-<?php include('header.php'); ?>
 <?php   
     try {
          $query = $conn->query("SELECT * from interns_data WHERE username = 'Gwinyai'");
@@ -42,6 +41,8 @@
             width: 100%;
             min-height: 55vw;
             overflow: hidden;
+            margin-top: 25px;
+            padding-top: 20px;
         }
 
         .layer {
@@ -71,7 +72,7 @@
             position: absolute;
             width: 35%;
             top: -28%;
-            left: 50%;
+            left: 42%;
             transform: translate(-50%, 50%);
             
 
@@ -82,7 +83,8 @@
 
         .ball  {
             
-
+            width: 40px;
+            height: 40px;
             animation: bounce 0.5s;
             animation-direction: alternate;
             animation-timing-function: cubic-bezier(.5,0.05,1,.5);
@@ -109,8 +111,7 @@
             }
 
         .img {
-            width: 120;
-            height: 120;
+          
         border-radius: 100%; 
         border: 2px solid #fff; 
         
@@ -126,7 +127,7 @@
         }
 
         .bottom .content-body {
-            right: 5%;
+            right: 14%;
         }
 
         .bottom h1 {
@@ -141,13 +142,14 @@
         }
 
         .top .content-body {
-            left: 5%;
+            left: 1%;
             color: #222;
         }
 
         .slack{
             position: absolute;
             top: 0;
+            left: 0;
         }
         
         .skew .handle {
@@ -160,7 +162,7 @@
         .skew .top {
             transform: skew(-30deg);
             margin-left: -1000px;
-            width: calc(50vw + 1000px);
+            width: calc(42vw + 1000px);
         }
 
         .skew .top .content-wrap {
@@ -172,7 +174,48 @@
             body {
                 font-size: 75%;
             }
+            .ball {
+                width: 20px;
+                height: 20px;
+            }
+
+                   .slack {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                height: 20px; width: 20px;
+            }
+
+            h1.lead {
+                font-size:16px;
+                line-height: 1.2;
+            }
+           
         }
+
+
+          @media(min-width: 598px) and (max-width: 769px) {
+            .layer img.img {
+            position: absolute;
+            width: 24%;
+            top: 0%;
+            left: 40%;
+            transform: translate(-50%, 50%);
+            
+
+        }
+
+          .skew .top {
+                transform: skew(-30deg);
+                margin-left: -1000px;
+                width: calc(40vw + 1000px);
+            }
+
+              .bottom .content-body {
+                right: 23%;
+            }
+
+    }
     </style>
 </head>
 
@@ -181,22 +224,22 @@
     <div class="layer bottom">
         <div class="content-wrap">
             <div class="content-body">
-                <h1>Drop me a line</h1>
+                <h1 class="lead">Drop me a line</h1>
                 <p>Feel free to get in touch on</p>
 
                 <span class="social">
                     
                 <a class="ball" href="https://twitter.com/gtchax">
-                        <img class="ball" src="https://res.cloudinary.com/itzimlabs/image/upload/v1524514541/twitter-2430933_640.png" height="50"
-                            width="50" alt="">
+                        <img class="ball" src="https://res.cloudinary.com/itzimlabs/image/upload/v1524514541/twitter-2430933_640.png" 
+                             alt="twitter">
                     </a> 
                 <a href="https://web.facebook.com/gwinyai.chakonda">
-                        <img class="ball" src="https://res.cloudinary.com/itzimlabs/image/upload/v1524514540/facebook-2429746_640.png" height="50"
-                    width="50" alt="">
+                        <img class="ball" src="https://res.cloudinary.com/itzimlabs/image/upload/v1524514540/facebook-2429746_640.png" 
+                     alt="facebook">
                     </a>
                 <a href="https://www.linkedin.com/in/rodney-gwinyai-0a570115a/">
-                        <img class="ball" src="https://res.cloudinary.com/itzimlabs/image/upload/v1524520392/linkedin.png" height="50" width="50"
-                        alt="">
+                        <img class="ball" src="https://res.cloudinary.com/itzimlabs/image/upload/v1524520392/linkedin.png" 
+                        alt="linkedin">
                     </a>
                 </span>
             </div>
@@ -207,7 +250,7 @@
     <div class="layer top">
         <div class="content-wrap">
             <div class="content-body">
-                <h1>@<?php echo $user->username?></h1>
+                <h1 class="lead">@<?php echo $user->username?></h1>
                 <p>Hi, <?php echo $user->name?> here, welcome to my profile</p>
                 <p><span id="typed"></span></p>
                 <p>
