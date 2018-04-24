@@ -150,10 +150,22 @@ p {
 </style>
 </head>
 
+<?php
+if(!defined('DB_USER')){
+  require "../../config.php";
+	// require_once ('../db.php');
+}
+try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
 
-<?php 
-   require_once ('db.php');
-    $query = $conn->query("SELECT * FROM secret_word");
+global $conn;
+
+
+
+  $query = $conn->query("SELECT * FROM secret_word");
     $result = $query->fetch(PDO::FETCH_ASSOC);
     $secret_word = $result['secret_word'];
 
@@ -162,20 +174,31 @@ p {
     $user = $result2->fetch(PDO::FETCH_OBJ);
    // $user = $result2->fetch();
 
+ 
+
+?>
+
+
+
+
+<?php 
+   
+  
+
 
  ?>
 
 
 <div class="container" style="padding-top: 100px;">
 		<div class="row">	
-	<div class="col-md-6">
-		<div class="chatbox" id="boh1">
-			<img src="<?php echo $user->image_filename; ?>" alt="2boh" width= "100%" height="100%" class="img-circle">
+	<div class="col-md-6" >
+		<div class="chatbox" id="boh1" style="height: 700px;">
+			<img src="<?php echo $user->image_filename; ?>" alt="2boh" width= "300px" height="300px" class="img-circle">
 					<h1 style="color: black;"><?php echo  $user->name; ?></h1>
 					<p style=" font-size: 30px;">(<?php echo $user->username; ?>) </p>
 							<p>	(Web Developer)</p>
 						<p>I love tech stuff and cools things</p>
-						 <h6 style="font-size: 10px;"><b>Skills:</b>PHP(Code Igniter, Laravel)</h6>
+						 <h6 style="font-size: 20px;"><b>Skills:</b>PHP(Code Igniter, Laravel)</h6>
 						<a href="https://github.com/horlathunbhosun" target="_blank" style="color: black;" class="btn btn-success"><i class="fa fa-github"></i> Github</a>
 						<a href="https://twitter.com/@horlathunbhosun" target="_blank" style="color: black;" class="btn btn-info"><i class="fa fa-twitter"></i> Twitter</a>
 						<a href="https://www.linkedin.com/in/olulode-olatunbosun-458927135/" target="_blank" style="color: black;" class="btn btn-warning"><i class="fa fa-linkedin"></i> Linkedin</a>

@@ -23,19 +23,17 @@
     margin: 0;
     padding: 0;
 }
-
 body {
   font-family: 'Dosis', sans-serif;
     background: linear-gradient(to right, rgba(216,0,0,0), rgba(216,0,0,0.2));
     background-repeat: cover;
 }
-
 .container {
     width: 80%;
     height: auto;
     margin: 0 auto;
     display: flex;
-    padding-top: 170px;
+    padding-top: 20px;
     position: relative;
     color: #806a21;
 }
@@ -62,7 +60,6 @@ a {
     text-decoration: none;
      text-decoration: underline dotted;
 }
-
 </style>
 <body>
 <div class="container">
