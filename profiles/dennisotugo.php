@@ -26,7 +26,11 @@
         throw $e;
     }
     ?>
+<div class="profile">
+						<h1>Dennis Otugo</h1>
+						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
 
+					</div>
     <div class="oj-flex oj-flex-items-pad oj-contrast-marker">
 
         <div class="oj-sm-6 oj-md-6 oj-flex-item">
@@ -75,7 +79,7 @@
     }
 
     function aboutbot() {
-        echo "<div id='result'>MeloBot v1.0 - I am simply a bot that returns data from the database and I also can be taught new tricks!</div>";
+        echo "<div id='result'>v11.0</div>";
     }
     function train($input) {
         $input = explode('#', $input);
@@ -122,7 +126,7 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'</div>";
+            echo "<div id='result'>Sorry,'train: question # answer # password'</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
