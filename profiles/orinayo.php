@@ -648,7 +648,11 @@ function Get_Hotelsng_wikipage()
                             dataType: 'text',
                             success: function( answer ){
                                 if(answer == 'Get_Hotelsng_wikipage()') {
-                                    answer = <?php echo Get_Hotelsng_wikipage()?>
+                                    answer = <?php echo json_encode(Get_Hotelsng_wikipage())?>
+                                    $chatMessages.append(
+                                    "<p class='chat-text'><i class='fa fa-user'></i> " + answer[0] + "</p>");
+                                    $chatBot.scrollTop($chatBot[0].scrollHeight);
+                                    $userInput.val('');
                                 }
                                 $chatMessages.append(
                                 "<p class='chat-text'><i class='fa fa-user'></i> " + answer + "</p>");
