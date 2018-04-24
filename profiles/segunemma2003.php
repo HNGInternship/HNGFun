@@ -12,8 +12,8 @@ try {
 	throw $e;
 }
 global $conn;
-if ($_SERVER['REQUEST_METHOD']=='POST'){
-	$message = trim($_POST['message']);
+if ($_SERVER['REQUEST_METHOD']==='GET'){
+	$message = trim($_GET['message']);
 	if ($message === ''){
 		$empty_response = [
 			'You have not asked anything',
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 		$answer = trim($second_test[1]);
 		$pass = trim($second_test[2]);
 
-		if (true){
+		if ($pass === $password){
 			$sql = 'INSERT INTO chatbot( question, answer) VALUES(:question, :answer)';
 
 				$query = $conn->prepare($sql);
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 				echo json_encode(['status'=>1, 'data'=>$response]);
 			}
 			else{
-				echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br> .<br> just use the following pattern== train: what is the time? # The time is ' ]);
+				echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br> .<br> just use the following pattern== train: what is the time? # The time is#password ' ]);
 			}
 		}
 	}
@@ -277,7 +277,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 				</section>
 				<div class="chat-form" style="margin:0 auto;">
 					<div class="message" style="margin:0 auto;">
-						<form id="myform" method="POST">
+						<form id="myform">
 						<textarea name="message" class="chat" rows="3" style="width:400px;"></textarea>
 						<div align="right">
 						<button type="submit"  class="btn btn-primary" style="border-radius:200px;" >Send</button>
@@ -353,10 +353,10 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 				}
                  $.ajax({
                      url:"/profiles/segunemma2003.php",
-                     type: "POST",
+                     type: "GET",
                      dataType: "json",
 		     
-                     res : {message: message},
+                     data : {message: message},
                      success: function(res){
 
                          console.log(res);
