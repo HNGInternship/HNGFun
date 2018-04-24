@@ -6,6 +6,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
     <style type="text/css">
+	    .oj-flex {
+    height: 100%;
+    text-align: center;
+    position: fixed;
+    width: 50%;
+    left: 0;
+    background-color: #ffffff;
+}
+	    
 	.profile {
           height: 100%;
     text-align: center;
@@ -36,7 +45,26 @@
 	#mainNav {
     position: fixed;
 }
-
+input {
+    width: -webkit-fill-available;
+    border: none;
+    padding: 10px 14px;
+    font-size: 18px;
+    line-height: normal;
+}
+.user-input-form {
+	    border-right: solid black 3px;
+    position: fixed;
+    width: 50%;
+    height: 7%;
+    left: 0;
+    bottom: 0px;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 9px 0px rgba(1, 1, 1, 1);
+	    }
+	    .message {
+	    
+	    }
     </style>
 </head>
 <body>
