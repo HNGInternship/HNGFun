@@ -2,6 +2,16 @@
 <html>
 <head>
 
+    <title>Oracle JET Starter Template - Web Blank</title>
+    <meta http-equiv="x-ua-compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="viewport-fit=cover, initial-scale=1.0"/>
+    <meta name="apple-mobile-web-app-title" content="Oracle JET">
+
+<!-- injector:theme -->
+<link rel="stylesheet" href="css/alta/5.0.0/web/alta.min.css" id="css" />
+<!-- endinjector -->
+    
     <style type="text/css">
 	    .oj-flex {
     overflow-y: scroll;
@@ -93,9 +103,69 @@
     margin: 15px 1px 1px 0px;
 }
     </style>
-</head>
-<body>
-<div class="container">
+  </head>
+  <body>
+<div class="profile">
+						<h1>Dennis Otugo</h1>
+						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
+
+					</div>
+    <div class="oj-flex oj-flex-items-pad oj-contrast-marker">
+
+        <div class="oj-sm-6 oj-md-6 oj-flex-item">
+            <div class="body1">
+                <div class="chat-output" id="chat-output">
+                    <div class="user-message">
+                        <div class="message">train: question # answer # password'</div>
+                    </div>
+                </div>
+
+                <div class="chat-input">
+                    <form action="" method="post" id="user-input-form">
+                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here">
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript" src="js/libs/require/require.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+  </body>
+  <script>
+    var outputArea = $("#chat-output");
+
+    $("#user-input-form").on("submit", function(e) {
+
+        e.preventDefault();
+
+        var message = $("#user-input").val();
+
+        outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
+
+
+        $.ajax({
+            url: 'profile.php?id=dennisotugo',
+            type: 'POST',
+            data:  'user-input=' + message,
+            success: function(response) {
+                var result = $($.parseHTML(response)).find("#result").text();
+                setTimeout(function() {
+                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+                    $('#chat-output').animate({
+                        scrollTop: $('#chat-output').get(0).scrollHeight
+                    }, 1500);
+                }, 250);
+            }
+        });
+
+
+        $("#user-input").val("");
+
+    });
+</script>
+</html>
     <?php
 
     global $conn;
@@ -218,38 +288,6 @@
 
 
 
-</body>
 
 
-<script>
-    var outputArea = $("#chat-output");
 
-    $("#user-input-form").on("submit", function(e) {
-
-        e.preventDefault();
-
-        var message = $("#user-input").val();
-
-        outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
-
-
-        $.ajax({
-            url: 'profile.php?id=dennisotugo',
-            type: 'POST',
-            data:  'user-input=' + message,
-            success: function(response) {
-                var result = $($.parseHTML(response)).find("#result").text();
-                setTimeout(function() {
-                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
-                    $('#chat-output').animate({
-                        scrollTop: $('#chat-output').get(0).scrollHeight
-                    }, 1500);
-                }, 250);
-            }
-        });
-
-
-        $("#user-input").val("");
-
-    });
-</script>
