@@ -1,7 +1,7 @@
 <?php  require "db.php";
 
 try {
-	$sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = \'segunemma2003\'';
+	$sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = "segunemma2003"';
 	$q = $conn->query($sql);
 	$q->setFetchMode(PDO::FETCH_ASSOC);
 	$data = $q->fetch();
