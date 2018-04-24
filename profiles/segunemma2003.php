@@ -1,4 +1,6 @@
 <?php  require "db.php";
+error_reporting(E_ALL);
+ini_set("display_errors", "on");
 
 try {
 	$sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = "segunemma2003"';
