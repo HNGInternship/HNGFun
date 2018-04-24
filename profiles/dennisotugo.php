@@ -35,12 +35,7 @@ try {
         $message = trim($_POST['message']);
         if ($message === ''){
              $empty_response = [
-                 'You have not asked anything',
-                 'Stop that I am allergic to white space',
-                 'Ohh, stop that kind of play',
-                 'you asked me nothing, are you expecting anything',
-                 'can something come out of nothing, please be serious',
-                 'whitespace! please be serious',
+                 'Try again'
              ];
             echo json_encode(['status'=>0,'data'=> $empty_response[rand(0, (count($empty_response)-1))]]);
             return;
@@ -72,7 +67,7 @@ try {
                 }
             }
             else{
-                echo json_encode(['status'=>0, 'data'=>'You\'re not authorized to teach me']);
+                echo json_encode(['status'=>0, 'data'=>'no']);
             }
 
        }
