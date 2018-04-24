@@ -36,7 +36,7 @@ function trainingSam($newmessage){
 
 	$question[1] = trim($question[1]);
 	$password = trim($password);
-	if ($password != "samsonjnr"){
+	if ($password != "password"){
 		echo "You are not authorize to train me.";
 
 	}else{
