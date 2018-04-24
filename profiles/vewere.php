@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <?php
-    // require '../db.php';
 
     $result = $conn->query("Select * from secret_word LIMIT 1");
     $result = $result->fetch(PDO::FETCH_OBJ);
@@ -160,15 +159,7 @@
 
   <script>
     var profile = true;
-    $(function (){
-
-      function sendMessage() {
-        var input = $("#request").val();        
-        if (input) {
-          $("#chat-area").append("<div id='user-bubble'><p>"+input+"</p></div>");
-          $("#request").val("");
-        }
-      }
+    $(function (){    
 
       $("#toggle-visibility").click(function (){
         if (profile) {
@@ -184,13 +175,21 @@
         }
       });
 
-      $("#send").click(sendMessage());
+      $("#send").click(function() {
+        var input = $("#request").val();        
+        if ($.trim(input)) {
+          $("#chat-area").append("<div id='user-bubble'><p>"+input+"</p></div>");
+          $("#request").val("");
+        }
+
+        $("#chat-area").scrollTop($("#chat-area")[0].scrollHeight);
+      });
 
       $('#request').keypress(function (e) {
         if (e.which == 13) {
-          sendMessage();
-          return false;    //<---- Add this line
-        }
+          $("#send").click(); 
+          return false; 
+        } 
       });
 
     });
