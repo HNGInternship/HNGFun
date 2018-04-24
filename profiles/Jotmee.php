@@ -1,8 +1,12 @@
 <?php 
 
-    $qword = $conn->prepare("SELECT * FROM secret_word");
-    $qword->execute();
-    $secret_word = $qword->fetchAll(PDO::FETCH_OBJ);
+
+    $sql = 'SELECT secret_word FROM secret_word';
+    $qword = $conn->query($sql);
+    $qword->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $qword->fetch();
+    $secret_word = $data['secret_word'];
+?>
 
 ?>
 <!DOCTYPE html>
@@ -84,9 +88,7 @@
                     echo '
 
                     <div class="col-xs-12 col-sm-6 img">
-                    <div class="profile__image">
                     <img height="auto" width="75%"  src="http://res.cloudinary.com/lumio/image/upload/v1524511783/'.$users->image_filename.'.jpg" alt="">
-                    </div>
                     </div>
                     <h2>'. $users->name.'</h2>
                     <h4>@'.$users->username.'</h4>
@@ -96,7 +98,7 @@
                 ?>
                 <p>I am an aspiring software developer with intermediate programming skills, I actually didnt study IT or computer related course but I love Technology... It's a pity as much as I love programming I'm poor with designs...</p>
                 <div class="experience col-xs-4 col-sm-4">
-                    <h3>Technological Skills</h3>
+                    <h3>Skills</h3>
                     <p>C#, .NET, PHP, MYSQL, CSS AND HTML</p>
                 </div>
 
@@ -110,7 +112,7 @@
                 </div>
 
                 <div class="twitter-icon">
-                    <a href="https://api.whatsapp.com/send?phone=2348034048405"><i class="fab fa-whatsapp" id="slacky"></i>WhatsApp Contact</a>
+                    <a href="https://api.whatsapp.com/send?phone=2348034048405"><i class="fab fa-whatsapp"></i>WhatsApp Contact</a>
                 </div>
           </div>
         </div>
