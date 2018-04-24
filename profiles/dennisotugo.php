@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -103,7 +101,7 @@
     global $conn;
 
     try {
-        $sql2 = 'SELECT * FROM interns_data WHERE username="melody"';
+        $sql2 = 'SELECT * FROM interns_data WHERE username="dennisotugo"';
         $q2 = $conn->query($sql2);
         $q2->setFetchMode(PDO::FETCH_ASSOC);
         $my_data = $q2->fetch();
@@ -135,10 +133,8 @@
             </div>
         </div>
     </div>
-
+</div>
     <?php
-if(!$do_not_load) { include('header.php'); }
-if(!$do_not_load) { include('footer.php'); }
     try {
         $sql = 'SELECT * FROM secret_word';
         $q = $conn->query($sql);
@@ -191,13 +187,13 @@ if(!$do_not_load) { include('footer.php'); }
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>Training Successful!</div>";
+                        echo "<div id='result'>Training is Done!</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
                 }
             }else{
-                echo "<div id='result'>I already understand this. Teach me something new!</div>";
+                echo "<div id='result'>Teach me something new!</div>";
             }
         }else {
             echo "<div id='result'>Invalid Password, Try Again!</div>";
@@ -220,7 +216,7 @@ if(!$do_not_load) { include('footer.php'); }
     }
     ?>
 
-</div>
+
 
 </body>
 
@@ -238,7 +234,7 @@ if(!$do_not_load) { include('footer.php'); }
 
 
         $.ajax({
-            url: 'profile.php?id=melody',
+            url: 'profile.php?id=dennisotugo',
             type: 'POST',
             data:  'user-input=' + message,
             success: function(response) {
