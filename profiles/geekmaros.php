@@ -1,9 +1,12 @@
 <?php
 
-
 require 'db.php';
 
+<<<<<<< HEAD
+
+=======
 require 'answers.php';
+>>>>>>> Update profile
     $result = $conn->query("SELECT * from secret_word LIMIT 1");
     $result = $result->fetch(PDO::FETCH_OBJ);
     $secret_word = $result->secret_word;
@@ -209,51 +212,85 @@ img {
     </div>
 </div>
 
-<div class="container pull-right">
+<<<<<<< HEAD
+<?php 
+
+require 'answers.php';
+
+ ?>
+=======
+>>>>>>> Update profile
+<div class="container">
     <div class="row chat-window col-xs-5 col-md-3" id="chat_window_1" style="margin-left:10px;">
         <div class="col-xs-12 col-md-12">
-            <div class="panel panel-default">
+        	<div class="panel panel-default">
                 <div class="panel-heading top-bar">
                     <div class="col-md-8 col-xs-8">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> CHAT BOT</h3>
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> Chat - Miguel</h3>
                     </div>
                     <div class="col-md-4 col-xs-4" style="text-align: right;">
                         <a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>
                         <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>
                     </div>
                 </div>
-                <div class="panel-body msg_container_base"> 
-                    
-                   <div class="row msg_container base_receive">
-                        <div class="col-md-2 col-xs-2 avatar">
-                            <img src=http://res.cloudinary.com/geekmaros/image/upload/v1524569887/robot.png class=" img-responsive ">
+                <div class="panel-body msg_container_base">
+                    <div class="row msg_container base_sent">
+                        <div class="col-md-10 col-xs-10">
+                            <div class="messages msg_sent">
+                                <p>that mongodb thing looks good, huh?
+                                tiny master db, and huge document store</p>
+                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
+                            </div>
                         </div>
-                        <div class="col-xs-10 col-md-10">
+                        <div class="col-md-2 col-xs-2 avatar">
+                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
+                        </div>
+                    </div>
+                    <div class="row msg_container base_receive">
+                        <div class="col-md-2 col-xs-2 avatar">
+                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
+                        </div>
+                        <div class="col-md-10 col-xs-10">
                             <div class="messages msg_receive">
-                               <p>Hola <?php echo hola(); ?></p>
-                               
+                                <p>that mongodb thing looks good, huh?
+                                tiny master db, and huge document store</p>
+                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
                             </div>
                         </div>
                     </div>
                     <div class="row msg_container base_receive">
                         <div class="col-md-2 col-xs-2 avatar">
-                            <img src=http://res.cloudinary.com/geekmaros/image/upload/v1524569887/robot.png class=" img-responsive ">
+                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
                         </div>
                         <div class="col-xs-10 col-md-10">
                             <div class="messages msg_receive">
-                               <p>I am<span style="font-weight: bold">MarosBot</span></p>
-                               
+                                <p>that mongodb thing looks good, huh?
+                                tiny master db, and huge document store</p>
+                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row msg_container base_sent">
+                        <div class="col-xs-10 col-md-10">
+                            <div class="messages msg_sent">
+                                <p>that mongodb thing looks good, huh?
+                                tiny master db, and huge document store</p>
+                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-xs-2 avatar">
+                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
                         </div>
                     </div>
                     <div class="row msg_container base_receive">
                         <div class="col-md-2 col-xs-2 avatar">
-                            <img src=http://res.cloudinary.com/geekmaros/image/upload/v1524569887/robot.png class=" img-responsive ">
+                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
                         </div>
                         <div class="col-xs-10 col-md-10">
                             <div class="messages msg_receive">
-                               <p>How can I be of Service to you??</span></p>
-                               
+                                <p>that mongodb thing looks good, huh?
+                                tiny master db, and huge document store</p>
+                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
                             </div>
                         </div>
                     </div>
@@ -262,7 +299,7 @@ img {
                             <div class="messages msg_sent">
                                 <p>that mongodb thing looks good, huh?
                                 tiny master db, and huge document store</p>
-                               
+                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
                             </div>
                         </div>
                         <div class="col-md-2 col-xs-2 avatar">
@@ -278,7 +315,7 @@ img {
                         </span>
                     </div>
                 </div>
-            </div>
+    		</div>
         </div>
     </div>
     
@@ -289,15 +326,15 @@ img {
         </button>
         <ul class="dropdown-menu" role="menu">
             <li><a href="#" id="new_chat"><span class="glyphicon glyphicon-plus"></span> Novo</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-list"></span>list</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-remove"></span> remove</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-list"></span> Ver outras</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-remove"></span> Fechar Tudo</a></li>
             <li class="divider"></li>
-            <li><a href="#"><span class="glyphicon glyphicon-eye-close"></span>close</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-eye-close"></span> Invisivel</a></li>
         </ul>
     </div>
 </div>
 <script type="text/javascript">
-    $(document).on('click', '.panel-heading span.icon_minim', function (e) {
+	$(document).on('click', '.panel-heading span.icon_minim', function (e) {
     var $this = $(this);
     if (!$this.hasClass('panel-collapsed')) {
         $this.parents('.panel').find('.panel-body').slideUp();
@@ -330,7 +367,10 @@ $(document).on('click', '.icon_close', function (e) {
 });
 
 </script>
+<<<<<<< HEAD
+=======
 
+>>>>>>> Update profile
 
 
 
