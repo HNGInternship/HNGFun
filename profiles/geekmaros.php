@@ -241,7 +241,18 @@ img {
                         </div>
                         <div class="col-xs-10 col-md-10">
                             <div class="messages msg_receive">
-                               <p>Hola<span style="font-weight: bold">MarosBot</span></p>
+                               <p>I am<span style="font-weight: bold">MarosBot</span></p>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row msg_container base_receive">
+                        <div class="col-md-2 col-xs-2 avatar">
+                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
+                        </div>
+                        <div class="col-xs-10 col-md-10">
+                            <div class="messages msg_receive">
+                               <p>How can I be of Service to you??</span></p>
                                
                             </div>
                         </div>
