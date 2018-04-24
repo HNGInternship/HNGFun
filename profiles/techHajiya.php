@@ -1,4 +1,4 @@
-<!--Created by Thomas Lois ---->
+<!--Created by Thomas Lois -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +24,7 @@
             max-width: 550px;
             margin: 0 auto;
 			 border-radius: 5px;
+			 margin-bottom: 50px;
         }
 
         footer {
@@ -34,13 +35,13 @@
             padding-right : 0;
         }
 
-        .profile-details, .chatbox {
-            padding-top: 10px;
-			 border: 2px solid #191970;
+        .profile-details{
+            padding-top: 20px;
         }
 
         .profile-details {
             padding-right: 0;
+            background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
         }
         .profile-body {
@@ -99,7 +100,7 @@
             margin: 0 0 10px 0;
         }
         .chat-result .user-message .message {
-            background: #191970;
+            background: #DA70D6;
             color: white;
         }
         .chat-result .bot-message {
@@ -134,7 +135,7 @@
 		   outline: none;
 		   border: none;
 		   color: #fff;
-		   background-color: #191970;
+		   background-color: #DA70D6;
 		   float: right;
 		   border-radius: 25px;
 		   padding: 0px;
@@ -145,20 +146,36 @@
 		   background-color: #00A; 
 		   outline: none;
 		}
+		
+		
 
-		#header {
-	   display: flex; 
-	   justify-content: left;
-	   align-item: center;
-	   height: 20px;
-	   padding: 15px;
-	   color: #FFF;
-	   font-size: 200%;
-	   font-weight: bolder;
-	   background-color: #191970;
-	   position: fixed;
-	   font-family: "Josefin Sans","Montserrat","Segoe UI","Roboto","Helvetica Neue","Arial","sans-serif";;
-		}
+	.chatbot-menu-header {
+            background-color: #191970;
+            padding: 7px 20px;
+            margin: 0px 0 0 0px;
+            color: #FFFFFF;
+            height: 45px;
+			border-radius:10px;
+        }
+
+        .chatbot-close, .chatbot-help {
+            display: inline-block;
+            margin-left: 20px;
+            margin-top: 2.5px;
+        }
+
+        .fa-close, .fa-question-circle {
+            font-size: 23px;
+        }
+
+        .chatbot-menu-header span {
+            font-weight: bold;
+			font-size: 24px;
+        }
+
+        .chatbot-menu-header a {
+            color: #FFFFFF;
+        }
     </style>
 </head>
 <body>
@@ -174,7 +191,6 @@
         throw $e;
     }
     ?>
-
      <div class="row">
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
@@ -190,15 +206,16 @@
                 </div>
             </div>
 
-
-      <div class="col-sm-6 chatbox" style='float: right; padding-top: 50px'>
-	  <div id="header">LoBot v1.0</div>
+      <div class="col-sm-6 chatbox" style='float: right; padding-top: 10px'>
+	 <div class='chatbot-menu-header'>
+                        <div class="hng-logo"></div> <span>LoBot v1.0</span>
+                    </div>
                 <div class="chat-result" id="chat-result">
                     <div class="user-message">
 					<div class="message">Hello! I'm LoBot! Feel free to ask me anything.   </div>
 					<div class="message">Learn more about me by typing 'aboutbot'.</div>
                     <div class="message">To train me, use this syntax - 'train: question # answer # password'.</div>
-					<div class="message">Password is LoBot. </div>
+					<div class="message">Password is password. </div>
                     </div>
                 </div>
 
@@ -237,7 +254,8 @@
     }
 	##About Bot
     function aboutbot() {
-        echo "<div id='result'>LoBot version 1.0 - I am a bot created by Lois Thomas that returns data from the database. That's not all, I also can be taught new tricks!</div>";
+        echo "<div id='result'><strong>LoBot 1.0 </strong>
+		Hey...I am LoBot, created by Lois Thomas to answer any question. You can also teach me things I don't know.</div>";
     }
 	
 	##Train Bot
@@ -246,7 +264,7 @@
         $question = trim($input[0]);
         $answer = trim($input[1]);
         $password = trim($input[2]);
-        if($password == 'LoBot') {
+        if($password == 'password') {
             $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
             $q = $GLOBALS['conn']->query($sql);
             $q->setFetchMode(PDO::FETCH_ASSOC);
@@ -282,7 +300,9 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'</div>";
+            echo "<div id='result'>Oops! I've not been trained to learn that command. </br>Would you like to train me?
+</br>You can train me to answer any question at all using, train: question # answer # password
+</br>e.g train: Who is the president of Nigeria # Muhammadu Buhari # password'</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
@@ -291,7 +311,6 @@
     ?>
 
 </div>
-
 </body>
 
 <script>

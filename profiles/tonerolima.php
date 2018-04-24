@@ -6,7 +6,7 @@
     date_default_timezone_set("Africa/Lagos");
 
     if (str_replace(' ','',$question) == 'help'){
-      echo 'Below are some of the things I can help you with and example questions:<br><br>Respond to salutation: Hello<br><br>Tell the time: what is the time?<br><br>Give your location: What is my location?<br><br>Retrieve weather info: What is the weather like?';
+      echo 'Below are some of the things I can help you with and example questions:<br><br>Respond to salutation: Hello<br><br>Tell the time: what is the time?';
       return;
     }
 
@@ -22,51 +22,48 @@
     }
 
     // return user location (this is set on page load/reload)
-    if (strpos($question, 'location') !== false){
-      $lat=$_POST['lat'];
-      $long=$_POST['lon'];
+    // if (strpos($question, 'location') !== false){
+    //   $lat=$_POST['lat'];
+    //   $long=$_POST['lon'];
       
-      $url  = "http://maps.googleapis.com/maps/api/geocode/json?latlng=".$lat.",".$long."&sensor=false";
-      $json = @file_get_contents($url);
-      $data = json_decode($json);
-      $status = $data->status;
-      $address = '';
-      if($status == "OK"){
-        echo 'Your Approx. location is:<br><br>'. $address = $data->results[0]->formatted_address;
-        return;
-      }else{
-        echo "Location Data Unavailable, Try Again or Reload Page";
-        return;
-      }
-    }
+    //   $url  = "http://maps.googleapis.com/maps/api/geocode/json?latlng=".$lat.",".$long."&sensor=false";
+    //   $json = @file_get_contents($url);
+    //   $data = json_decode($json);
+    //   $status = $data->status;
+    //   $address = '';
+    //   if($status == "OK"){
+    //     echo 'Your Approx. location is:<br><br>'. $address = $data->results[0]->formatted_address;
+    //     return;
+    //   }else{
+    //     echo "Location Data Unavailable, Try Again or Reload Page";
+    //     return;
+    //   }
+    // }
 
 
-    if (strpos($question, 'weather') !== false){
-      $lat=$_POST['lat'];
-      $long=$_POST['lon'];
+    // if (strpos($question, 'weather') !== false){
+    //   $lat=$_POST['lat'];
+    //   $long=$_POST['lon'];
 
-      $url = 'https://api.darksky.net/forecast/d7ed37fea08e4f43c8e50182ba936c59/'.$lat.','.$long.'?units=si';
-      $json = @file_get_contents($url);
+    //   $url = 'https://api.darksky.net/forecast/d7ed37fea08e4f43c8e50182ba936c59/'.$lat.','.$long.'?units=si';
+    //   $json = @file_get_contents($url);
       
-      if ($json != false) {
-        $data = json_decode($json);
-        $summary = $data->currently->summary;
-        $temperature = $data->currently->temperature.' &degC';
-        $visibility = $data->currently->visibility.' km';
-        $windSpeed = $data->currently->visibility.' mps';
-        $timeZone = $data->timezone;
-        echo 'The approx. weather information for '.$timeZone.' is:<br><br>'. $summary.'<br>Temperature = '.$temperature.'<br>Visibility = '.$visibility.'<br>Wind Speed = '.$windSpeed;
-        return;
-      }else {
-        echo "Failed to get weather information, please try again";
-        return;
-      }
-    }
+    //   if ($json != false) {
+    //     $data = json_decode($json);
+    //     $summary = $data->currently->summary;
+    //     $temperature = $data->currently->temperature.' &degC';
+    //     $visibility = $data->currently->visibility.' km';
+    //     $windSpeed = $data->currently->visibility.' mps';
+    //     $timeZone = $data->timezone;
+    //     echo 'The approx. weather information for '.$timeZone.' is:<br><br>'. $summary.'<br>Temperature = '.$temperature.'<br>Visibility = '.$visibility.'<br>Wind Speed = '.$windSpeed;
+    //     return;
+    //   }else {
+    //     echo "Failed to get weather information, please try again";
+    //     return;
+    //   }
+    // }
 
-    define ('DB_USER', "root");
-    define ('DB_PASSWORD', "password");
-    define ('DB_DATABASE', "hng_fun");
-    define ('DB_HOST', "localhost");
+    require "../../config.php";
 
     try {
       $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
@@ -163,36 +160,13 @@
 ?>
 
 <?php if($_SERVER['REQUEST_METHOD'] === "GET"){ ?>
-<html>
-<head>
-  <title>Anthony Oyathelemhi</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300i,400,700" rel="stylesheet">
   <script type="text/javascript" src="https://use.fontawesome.com/8ad6e47973.js"></script>
-  <script
+<!--   <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-  <script type="text/javascript">
-    var options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0
-    };
-
-    function success(pos) {
-      var crd = pos.coords;
-      $lat = crd.latitude;
-      $lon = crd.longitude;
-    }
-
-    function error(err) {
-      console.warn(`ERROR(${err.code}): ${err.message}`);
-    }
-
-    navigator.geolocation.getCurrentPosition(success, error, options);
-
-  </script>
+  crossorigin="anonymous"></script> -->
   <style type="text/css">
     body {
       font-family: 'Fira Sans', sans-serif;
@@ -285,8 +259,8 @@
       outline: none;
       float: left;
       border-bottom-left-radius: 10px;
-      border-left: 5px solid rgb(120, 120, 120);
-      border-bottom: 5px solid rgb(120, 120, 120);
+      border-left: 5px solid rgba(0, 200, 240, 0.7);
+      border-bottom: 5px solid rgba(0, 200, 240, 0.7);
     }
 
     #send {
@@ -298,8 +272,8 @@
       float: right;
       border-bottom-right-radius: 10px;
       border-style: normal !important;
-      border-right: 5px solid rgb(120, 120, 120);
-      border-bottom: 5px solid rgb(120, 120, 120);
+      border-right: 5px solid rgba(0, 200, 240, 0.7);
+      border-bottom: 5px solid rgba(0, 200, 240, 0.7);
       border-left: none;
     }
 
@@ -307,7 +281,7 @@
       overflow: auto;
       color: black;
       background: rgb(200, 230, 240);
-      border: 5px solid rgb(120, 120, 120);
+      border: 5px solid rgba(0, 200, 240, 0.7);
       border-bottom: none;
       height: 0px;
       max-height: 600px;
@@ -377,7 +351,7 @@
       right: 0;
       width: 100%;
       height: 45px;
-      background-color: rgb(120, 120, 120);
+      background-color: rgba(0, 200, 240, 0.7);
       align-items: right;
       border-radius: 10px 10px 0 0;
       padding: 3px 5px 0 10px;
@@ -408,8 +382,7 @@
     }
 
   </style>
-</head>
-<body>
+  <body>
   <div class="main">
     <div id="fixed">
       <p id="title">
@@ -468,7 +441,7 @@
     <button class="input" id="send"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
     
   </div>
-
+  </body>
 
 
 
@@ -491,22 +464,23 @@
       var msg = '<div class="chat_msg chat_content_right"><div class="icon-block"><i class="fa fa-user" aria-hidden="true"></i></div><p class="msg">'+textArea.value+'</p></div>';
       if (textArea.value != "") {
         parent.insertAdjacentHTML('beforeend',msg);
-        $message = {question: textArea.value, lat: $lat, lon: $lon};
+        $message = {question: textArea.value};
         textArea.value = ("");
         parent.scrollTop = parent.scrollHeight;
         spinner.style.display = 'block';
         window.setTimeout(function(){
-          spinner.style.display = 'none';
           $.ajax({
             type: "POST",
             url: "profiles/tonerolima.php",
             data: $message,
             success: function(data){
               botResponse(data);
+              spinner.style.display = 'none';
               parent.scrollTop = parent.scrollHeight;
             },
             error: function(){
-              alert("Unable to retrieve answer!");
+              spinner.style.display = 'none';
+              alert("Unable to retrieve answer. Please try again");
             }
           });
         },1000)
@@ -543,11 +517,6 @@
       }
     }
 
-    function loading(){
-      var spinner = '<div class="chat_msg chat_content_left"><div class="icon-block"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div></div>';
-      parent.insertAdjacentHTML('beforeend',spinner);
-    }
-
     button.addEventListener("click", function(){
       askQuestion();
     })
@@ -578,6 +547,4 @@
 
 
   </script>
-</body>
-</html>
 <?php } ?>
