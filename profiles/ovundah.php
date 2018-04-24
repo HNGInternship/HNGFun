@@ -56,13 +56,14 @@
         <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
     </head>
     
-    <body style='padding-bottom: 200px'>
+    <body>
         <iframe src="https://hng.fun/profiles/ovundah/web/index.html"
                 scrolling='no'
                 frameborder='0'
                 width="100%" 
                 height="100%">
         </iframe>
+        <div style='padding-bottom: 200px'></div>
     </body>
 </html>
 
