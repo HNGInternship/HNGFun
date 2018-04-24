@@ -37,7 +37,12 @@
 			]);
 			return;
 		}
-      if($question == 'aboutbot') {echo "v1.0"; exit();}
+      if($question == 'aboutbot') {							
+				echo json_encode([
+								'status' => 0,
+								'answer' => "v1"
+							]);
+							return;}
 		$question = $_POST['question']; //get the entry into the chatbot text field
 
 		//check if in training mode
