@@ -332,6 +332,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		
 		<div class="myContainer">
 			<div class="myRow">
+				<div class="myRow-head">Talk To Me
+					<span class="minimize fa fa-remove"></span>
+				</div>
 				<div class="myRow-body">
 					<span class="design reciever">
 						<span class="name">Dubem</span>
