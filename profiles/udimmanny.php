@@ -15,7 +15,8 @@ if ($conn->connect_error){
 }
 $sql = "SELECT name, username, image_filename FROM intern_data where username = 'udimmanny'";
 $result = $conn->query($sql);
-$secret_word = "SELECT secret_word FROM secret_word";
+$sql = "SELECT secret_word FROM secret_word";
+$secret_word = $conn->query($sql)
  ?>
 <!DOCTYPE html>
 <html lang="en">
