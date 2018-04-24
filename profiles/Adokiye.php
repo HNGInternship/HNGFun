@@ -92,7 +92,7 @@ $input = trim($input);
                 $rand = rand(0, $row_cnt - 1);
                 if ($row_cnt > 0) {
                     return $fetched_data[$rand]['answer'];
-                } } else
+                 } else
                     return "Am sorry, this question wasn't found,Please ENTER TRAIN:QUESTION#ANSWER#password to make me smarter";
 
             }
