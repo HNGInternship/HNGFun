@@ -1030,4 +1030,32 @@ $dataa = json_decode(file_get_contents($url_location), true);
     return null;
   }
   ///////ADEYEFA OLUWATOBA FUNCTIONS END ///////////////////////////////////
+
+   function hola(){
+        date_default_timezone_set("UTC");
+     $hour = date ("G");
+    $minute = date ("i");
+    $second = date ("s");
+    if ($hour == 0 && $hour <= 9 && $minute <= 59 && $second <= 59) 
+    { 
+      return  "Buenos dias"; 
+    }
+    else {
+    if ($hour >= 10 && $hour <= 11 && $minute <= 59 && $second <= 59)
+    { 
+      return " Buenas tardes";
+     }
+    if ($hour >= 12 && $hour <= 15 && $minute <= 59 && $second <= 59)
+    { 
+      return "Buenas tardes"; 
+    }
+    if ($hour >= 16 && $hour <= 23 && $minute <= 59 && $second <= 59)
+    { 
+      return "Buenas noches"; 
+    }
+    else { 
+      return  "Welcome"; 
+    }
+  }
+ } 
 ?>
