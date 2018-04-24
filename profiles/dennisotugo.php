@@ -96,23 +96,20 @@
 			}else{
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Sorry, I cannot answer your question.Please train me. The training data format is  <b>train: question # answer # password</b>"
+					'answer' => "train: question # answer # password</b>"
 				]);
 			}		
 			return;
 		}else{
-			//in training mode
-			//get the question and answer
 			$question_and_answer_string = substr($question, 6);
-			//remove excess white space in $question_and_answer_string
 			$question_and_answer_string = preg_replace('([\s]+)', ' ', trim($question_and_answer_string));
 			
-			$question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string); //remove ? and . so that questions missing ? (and maybe .) can be recognized
+			$question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string);
 			$split_string = explode("#", $question_and_answer_string);
 			if(count($split_string) == 1){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Invalid training format. <br> Type  <b>train: question # answer # password</b>"
+					'answer' => "Wrong!"
 				]);
 				return;
 			}
@@ -122,7 +119,7 @@
 			if(count($split_string) < 3){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Please enter the training password to train me."
+					'answer' => "Enter the training password"
 				]);
 				return;
 			}
@@ -133,14 +130,7 @@
 			if($password !== TRAINING_PASSWORD){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Sorry you cannot train me."
-				]);
-				return;
-			}
-			if($question == aboutbot){
-				echo json_encode([
-					'status' => 1,
-					'answer' => "v1.0"
+					'answer' => "Sorry you will not train me."
 				]);
 				return;
 			}
@@ -154,14 +144,14 @@
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			echo json_encode([
 				'status' => 1,
-				'answer' => "Yipeee, I have been trained"
+				'answer' => "I have been trained"
 			]);
 			return;
 		}
 
 		echo json_encode([
 			'status' => 0,
-			'answer' => "Sorry I cannot answer that question, please train me"
+			'answer' => "Please train me"
 		]);
 		
 	}
