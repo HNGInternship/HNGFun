@@ -222,7 +222,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 } else {
 ?> 
-
+<?php 
+function Get_Hotelsng_wikipage() 
+{
+    $api = "https://en.wikipedia.org/w/api.php?action=opensearch&search="."hotels.ng"."&format=json&callback=?";
+    $result = file_get_contents($api);
+    $result = substr_replace($result, "", 0, 5);
+    $result = substr_replace($result, "", -1);
+    $result = json_decode($result, true);
+    $result = array("answer"=>"<a href=".$result[3][0].">".$result[1][0]."</a><p>".$result[2][0]."</p>");
+    return $result;
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -634,6 +645,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             },
                             dataType: 'text',
                             success: function( answer ){
+                                if(answer == 'Get_Hotelsng_wikipage()') {
+                                    answer = <?php echo json_encode(Get_Hotelsng_wikipage())?>;
+                                    $chatMessages.append(
+                                    "<p class='chat-text'><i class='fa fa-user'></i> " + answer['answer'] + "</p>");
+                                    $chatBot.scrollTop($chatBot[0].scrollHeight);
+                                    $userInput.val('');
+                                }
                                 $chatMessages.append(
                                 "<p class='chat-text'><i class='fa fa-user'></i> " + answer + "</p>");
                                 $chatBot.scrollTop($chatBot[0].scrollHeight);

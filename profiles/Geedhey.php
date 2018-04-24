@@ -76,7 +76,7 @@
             $functionToCall = substr($answer, $startParanthesesIndex + 2, $endParanthesesIndex - $startParanthesesIndex - 2);
             // If the inner function in the answer does not exist in answers.php, we let the user know
             if(!function_exists($functionToCall)){
-                sendReply('Sorry. I do not have an answer to your question at th moment.');
+                sendReply('Sorry. I do not have an answer to your question at the moment.');
             }else{
                 $functionCallResult = $functionToCall();
                 // send the reply of the function call in the original answer we got from the DB
@@ -491,7 +491,7 @@ h5 {
                         }).catch(error => {
                             console.log(error);
                             this.messages.pop();
-                            this.messages.push({ sender: 'bot', data: 'Your internet connection is down.'
+                            this.messages.push({ sender: 'bot', data: 'Please check Your internet connection might be down.'
                         });
                     });
                 },

@@ -1,4 +1,3 @@
-<?php include('header.php'); ?>
 <?php   
     try {
          $query = $conn->query("SELECT * from interns_data WHERE username = 'Gwinyai'");
@@ -42,6 +41,8 @@
             width: 100%;
             min-height: 55vw;
             overflow: hidden;
+            margin-top: 25px;
+            padding-top: 20px;
         }
 
         .layer {
@@ -71,7 +72,7 @@
             position: absolute;
             width: 35%;
             top: -28%;
-            left: 50%;
+            left: 42%;
             transform: translate(-50%, 50%);
             
 
@@ -126,7 +127,7 @@
         }
 
         .bottom .content-body {
-            right: 5%;
+            right: 14%;
         }
 
         .bottom h1 {
@@ -141,13 +142,14 @@
         }
 
         .top .content-body {
-            left: 5%;
+            left: 1%;
             color: #222;
         }
 
         .slack{
             position: absolute;
             top: 0;
+            left: 0;
         }
         
         .skew .handle {
@@ -160,7 +162,7 @@
         .skew .top {
             transform: skew(-30deg);
             margin-left: -1000px;
-            width: calc(50vw + 1000px);
+            width: calc(42vw + 1000px);
         }
 
         .skew .top .content-wrap {
