@@ -732,9 +732,6 @@ function multiexplode ($delimiters,$string) {
 
 
 
-require 'db.php';
-
-
 
 
 //And output will be like this:
@@ -926,6 +923,7 @@ if (! function_exists("iDictionary"))
                 return "Sorry, I can not find the word {$word}";
 
             return "{$definition} <br> <b>{$example}</b>";
+
         } catch (Exception $e) {
             return "Sorry, I can not find the word {$word}.";
         }
