@@ -1,5 +1,7 @@
 <?php
     $googleBaseURL = "https://speech.googleapis.com/v1beta1/speech:syncrecognize?key=AIzaSyDAUWqKOBYP-Y1LeuD3lFRAy9jiZwRpQP8";
+   
+   
     if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
         if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) && $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'POST') {
             header('Access-Control-Allow-Origin: *');
@@ -47,4 +49,5 @@
             exit();
         }
     }
+  }
 ?>
