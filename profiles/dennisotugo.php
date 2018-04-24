@@ -172,7 +172,62 @@
 <head>
 
 <style>
-	
+	.form-inline {
+		height: auto;
+    display: -ms-flexbox;
+    /* display: flex; */
+    -ms-flex-flow: row wrap;
+    /* flex-flow: row wrap; */
+    -ms-flex-align: center;
+    align-items: center;
+    position: fixed;
+    width: 52.3%;
+    bottom: 5%;
+}
+	#mainNav {
+    position: fixed;
+}
+	.col-12 {
+    padding: 1px;
+}
+	.btn {
+    font-size: 14px;
+    font-weight: 800;
+    padding: 15px 25px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 0;
+    border: 0;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    position: fixed;
+    bottom: 0;
+    width: 50% !important;
+    left: 0;
+    background: black;
+}
+.col-md-4 {
+    border: 0 !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 100%;
+    text-align: center;
+    position: fixed;
+    /* width: 50%; */
+    left: 0;
+    top: 10%;
+    background-color: #fff;
+}
+	.offset-md-1 {
+    margin-left: 0 !important;
+}
+	.col-md-4 {
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 50%;
+    max-width: 50%;
+    width: 50%;
+    position: fixed;
+}
 	footer { display: none;}
 	.profile {
           height: 100%;
@@ -202,6 +257,7 @@
     margin: 30px 0;
 }
       </style>
+
 
   </head>
 
