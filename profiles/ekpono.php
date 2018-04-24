@@ -10,7 +10,6 @@
         $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
         $code = $secret_code->fetch();
         $secret_word = $code['secret_word'];
-
 	?>
 
 <?php
@@ -27,7 +26,6 @@ catch(PDOException $e)
     echo "Sorry connection not found: " . $e->getMessage();
     }
 // Check connection
-
 ?>
 <?php //Chatbot 
     if($_SERVER['REQUEST_METHOD']==='POST'){
@@ -39,7 +37,6 @@ catch(PDOException $e)
             $data = preg_replace("([?.!])", "", $data);
             return $data;
         }
-
         //end of function definition
         $ques = input($_POST['ques']);
         if(strpos($ques, "train:") !== false){
@@ -108,7 +105,6 @@ catch(PDOException $e)
 						$stmt = $conn->prepare($sql);
 						$stmt->bindParam(':question', $ques);
 						$stmt->execute();
-
 						$stmt->setFetchMode(PDO::FETCH_ASSOC);
 						$rows = $stmt->fetchAll();
                     echo json_encode([
@@ -119,12 +115,6 @@ catch(PDOException $e)
             }
             return;
         }
-
-
-
-
-
-
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -141,13 +131,11 @@ catch(PDOException $e)
     margin: 0;
     padding: 0;
 }
-
 body {
   font-family: 'Dosis', sans-serif;
     background: linear-gradient(to right, rgba(216,0,0,0), rgba(216,0,0,0.2));
     background-repeat: cover;
 }
-
 .container {
     width: 80%;
     height: auto;
@@ -230,20 +218,13 @@ a {
             background: blue;
         }
             
-
-
 /* CSS button */
-
 </style>
 </head>
 <body>
 <div class="container">
     <div class="text">
-<<<<<<< HEAD
-        <h1 style="color:rgb(32, 32, 216);">Hey! I'm <?php echo $user->name ?></h1>
-=======
         <h1 style="color:rgb(32, 32, 216); padding-top: 30px">Hey! I'm <?php echo $user->name ?></h1>
->>>>>>> a7198a0f244572d1e33149df39682eec8eecde4f
         <h2 style="color:#806a21;">I'm a developer from Nigeria</h2>
         <h3 class="slogan">I work with companies</h3>
         <p>Jiggle, Thirdfloor, JandK Services, Hilltop</p>
@@ -261,11 +242,7 @@ a {
         <a href="http://www.github.com/ekpono">Github</a>
     </div>
     <div class="photo">
-<<<<<<< HEAD
-        <img src="<?php echo $user->image_filename ?>" width="300px" height="300px"  style="border-radius: 50%;" alt="Ekpono's Profile Picture" />
-=======
         <img src="<?php echo $user->image_filename ?>" width="300px" height="300px"  style="border-radius: 50%; padding-top: 30px;" alt="Ekpono's Profile Picture" />
->>>>>>> a7198a0f244572d1e33149df39682eec8eecde4f
     </div>
     <!-- Chat form -->
 
@@ -286,7 +263,6 @@ a {
 
 
  <script>
-
         window.addEventListener("keydown", function(e){
             if(e.keyCode ==13){
                 if(document.querySelector("#question").value.trim()==""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){
@@ -296,7 +272,6 @@ a {
             }
         });
         function sendMsg(){
-
             var ques = document.querySelector("#question");
             if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
             displayOnScreen(ques.value, "user");
