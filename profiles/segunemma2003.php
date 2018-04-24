@@ -351,7 +351,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 					// alert(responseMessage('I am a little bot'));
 				}
                  $.ajax({
-                     url: '/profiles/segunemma2003.php',
+                     url: url,
                      type: 'POST',
                      dataType: 'json',
                      data : {message: message},
