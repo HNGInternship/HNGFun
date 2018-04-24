@@ -1,10 +1,9 @@
 
  <?php
 
- require '../db.php';
+ require 'db.php';
 
-
-   $query = "Select * from secret_word LIMIT 1";
+$query = "Select * from secret_word LIMIT 1";
 
 $stmt = $conn->query($query);
 
@@ -15,7 +14,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 $secret_word = $row['secret_word'];
 
 
-$query1 = "SELECT * FROM interns_data_ WHERE username='WaTeR'";;
+$query1 = "SELECT * FROM interns_data_ WHERE username='WaTeR_'";;
 
 $stmt = $conn->query($query1);
 

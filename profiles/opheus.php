@@ -174,13 +174,13 @@ if($stmt->rowCount() > 0)
 
 }
 
-else {
+//else {
 
 
 ?> 
 <?php
 
-
+if($_SERVER['REQUEST_METHOD'] === "GET"){
 	//if($_SERVER['REQUEST_METHOD'] === "GET"){
 //include "../config.php";
 
@@ -201,7 +201,7 @@ else {
 
 <html>
 <head>
-
+link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
 <style>
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -709,7 +709,7 @@ function ai(message){
 		trainer = message;
 		$.ajax({
 			type: "POST",
-			url: 'profiles/opheus.php?opheus=yes&&',
+			url: 'profiles/opheus.php',
 			data: {opheustrain: trainer },
 			success: function(data){
 				send_message(data);
