@@ -183,7 +183,7 @@ if ($qsam == "intro"){
 		}else if ( $keyword[$decisionValue[0]] == "how are you"){
 								echo respondGreeting();
 		}else if (strtok($qsam, ":") == "name"){
-					echo "nice name to meet you";
+					echo "nice name, also nice to meet you";
 					$nameGuest = explode (":", $qsam);
 					$guestName = $nameGuest [1];
 					echo "$guestName" . ". How are you today?";
