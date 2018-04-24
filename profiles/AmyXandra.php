@@ -1,4 +1,49 @@
 <!DOCTYPE html>
+<?php
+	
+	if(!defined('DB_USER')){
+		require "../config.php";
+	}
+
+	try {
+		$conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
+		// set the PDO error mode to exception
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		
+		$stmt = $conn->prepare("select * from secret_word limit 1");
+		$stmt->execute();
+
+		$secret_word = null;
+
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$rows = $stmt->fetchAll();
+		if(count($rows)>0){
+			$row = $rows[0];
+			$secret_word = $row['secret_word'];	
+		}
+
+		$name = null;
+		$username = "AmyXandra";
+		$image_filename = null;
+
+		$stmt = $conn->prepare("select * from interns_data where username = :username");
+		$stmt->bindParam(':username', $username);
+		$stmt->execute();
+
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$rows = $stmt->fetchAll();
+		if(count($rows)>0){
+			$row = $rows[0];
+			$name = $row['name'];	
+			$image_filename = $row['image_filename'];	
+		}
+
+	}
+	catch(PDOException $e)
+	{
+		echo "Connection failed: " . $e->getMessage();
+	}
+?>
 <!--
  Copyright (c) 2014, 2018, Oracle and/or its affiliates.
  The Universal Permissive License (UPL), Version 1.0
@@ -33,105 +78,17 @@
     <link rel="icon" href="css/images/favicon.ico" type="image/x-icon" />
 
     <!-- This is the main css file for the default Alta theme -->
-<!-- injector:theme -->
-<link rel="stylesheet" href="css/alta/5.0.0/web/alta.css" id="css" />
-<!-- endinjector -->
+	<!-- injector:theme -->
+	<link rel="stylesheet" href="css/alta/5.0.0/web/alta.css" id="css" />
+	<!-- endinjector -->
     
     <!-- This contains icon fonts used by the starter template -->
     <link rel="stylesheet" href="css/demo-alta-site-min.css" type="text/css"/>
 
     <!-- This is where you would add any app specific styling -->
     <link rel="stylesheet" href="css/app.css" type="text/css"/>
-
-  </head>
-  <body class="oj-web-applayout-body">
-    <!-- Template for rendering navigation items shared between nav bar and nav list -->
-    <script type="text/html" id="navTemplate">
-      <li><a href="#">
-        <span :class="[[$data['iconClass']]]"></span>
-        <oj-bind-text value="[[$data['name']]]"></oj-bind-text>
-      </a></li>
-    </script>
-
-    <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
-      <!--
-         ** Oracle JET V5.0.0 web application navigation drawer pattern.
-         ** Please see the demos under Cookbook/Patterns/App Shell: Web
-         ** and the CSS documentation under Support/API Docs/Non-Component Styling
-         ** on the JET website for more information on how to use this pattern. 
-         ** The off-canvas section is used when the browser is resized to a smaller media
-         ** query size for a phone format and hidden until a user clicks on
-         ** the header hamburger icon.
-      -->
-      <div id="navDrawer" role="navigation" class="oj-contrast-marker oj-web-applayout-offcanvas oj-offcanvas-start">
-        <oj-navigation-list data="[[navDataSource]]"
-                            edge="start"
-                            item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
-                            on-click="[[toggleDrawer]]"
-                            selection="{{router.stateId}}">
-        </oj-navigation-list>
-      </div>
-      <div id="pageContent" class="oj-web-applayout-page">
-        <!--
-           ** Oracle JET V5.0.0 web application header pattern.
-           ** Please see the demos under Cookbook/Patterns/App Shell: Web
-           ** and the CSS documentation under Support/API Docs/Non-Component Styling
-           ** on the JET website for more information on how to use this pattern.
-        -->
-        <!-- <header role="banner" class="oj-web-applayout-header">
-          <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center"> -->
-            <!-- Offcanvas toggle button -->
-            <!-- <div class="oj-flex-bar-start oj-md-hide">
-              <oj-button id="drawerToggleButton" class="oj-button-lg" on-oj-action="[[toggleDrawer]]" chroming="half" display="icons">
-                <span slot="startIcon" class="oj-web-applayout-offcanvas-icon"></span>
-                <span>Application Navigation</span>
-              </oj-button>
-            </div>
-            <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
-              <span role="img" class="oj-icon demo-oracle-icon" title="Oracle Logo" alt="Oracle Logo"></span>
-              <h1 class="oj-sm-only-hide oj-web-applayout-header-title" title="Application Name"><oj-bind-text value="[[appName]]"></oj-bind-text></h1>
-            </div>
-            <div class="oj-flex-bar-end"> -->
-              <!-- Responsive Toolbar -->
-              <!-- <oj-toolbar>
-                <oj-menu-button id="userMenu" display="[[smScreen() ? 'icons' : 'all']]" chroming="half">
-                  <span><oj-bind-text value="[[userLogin]]"></oj-bind-text></span>
-                  <span slot="endIcon" :class="[[{'oj-icon demo-appheader-avatar': smScreen(), 'oj-component-icon oj-button-menu-dropdown-icon': !smScreen()}]]"></span>
-                  <oj-menu id="menu1" slot="menu" style="display:none">
-                    <oj-option id="pref" value="pref">Preferences</oj-option>
-                    <oj-option id="help" value="help">Help</oj-option>
-                    <oj-option id="about" value="about">About</oj-option>
-                    <oj-option id="out" value="out">Sign Out</oj-option>
-                  </oj-menu>
-                </oj-menu-button>
-              </oj-toolbar>
-            </div>
-          </div>
-          <div role="navigation" class="oj-web-applayout-max-width oj-web-applayout-navbar">
-            <oj-navigation-list class="oj-sm-only-hide oj-md-condense oj-md-justify-content-flex-end"
-                                data="[[navDataSource]]"
-                                edge="top"
-                                item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
-                                selection="{{router.stateId}}">
-            </oj-navigation-list>
-          </div>
-        </header> -->
-        
-<!--
- Copyright (c) 2014, 2018, Oracle and/or its affiliates.
- The Universal Permissive License (UPL), Version 1.0
- -->
- <div class="oj-hybrid-padding">
-  <!-- <h1>Dashboard Content Area</h1>
-  <div>
-      To change the content of this section, you will make edits to the dashboard.html file located in the /js/views folder.
-      <!Doctype html>
-       -->
-      
-      
-      <html>
-      <head>
-      
+     <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css" type="text/css"/>
+	     
       <!-- Latest compiled and minified CSS -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
       
@@ -223,17 +180,50 @@
       .details button:hover{
         background: linear-gradient(#00fff3, #ff00eb);
       }
-      
-      </style>
-      </head>
-      
-      
-      <body style="background:#4977bb; font-family: 'Roboto', sans-serif;">
+       </style>
+
+ </head>
+  <body class="oj-web-applayout-body" style="background:#4977bb; font-family: 'Roboto', sans-serif;">
+    <!-- Template for rendering navigation items shared between nav bar and nav list -->
+    <script type="text/html" id="navTemplate">
+      <li><a href="#">
+        <span :class="[[$data['iconClass']]]"></span>
+        <oj-bind-text value="[[$data['name']]]"></oj-bind-text>
+      </a></li>
+    </script>
+
+    <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
+      <!--
+         ** Oracle JET V5.0.0 web application navigation drawer pattern.
+         ** Please see the demos under Cookbook/Patterns/App Shell: Web
+         ** and the CSS documentation under Support/API Docs/Non-Component Styling
+         ** on the JET website for more information on how to use this pattern. 
+         ** The off-canvas section is used when the browser is resized to a smaller media
+         ** query size for a phone format and hidden until a user clicks on
+         ** the header hamburger icon.
+      -->
+      <div id="navDrawer" role="navigation" class="oj-contrast-marker oj-web-applayout-offcanvas oj-offcanvas-start">
+        <oj-navigation-list data="[[navDataSource]]"
+                            edge="start"
+                            item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
+                            on-click="[[toggleDrawer]]"
+                            selection="{{router.stateId}}">
+        </oj-navigation-list>
+      </div>
+      <div id="pageContent" class="oj-web-applayout-page">
+        
+ <div class="oj-hybrid-padding">
+  <!-- <h1>Dashboard Content Area</h1>
+  <div>
+      To change the content of this section, you will make edits to the dashboard.html file located in the /js/views folder.
+      <!Doctype html>
+       -->
+  
        <div class="col-sm-12 col-xs-12">
        <br>
        <h1 style="color:white; font-size:80px; text-align:center;">200</h1>
        
-       <h3 style="font-size:25px; color:white; font-weight:bold; text-align:center;">Lool! Hello there! You've come to the right profile!.</h3>
+       <h3 style="font-size:25px; color:white; font-weight:bold; text-align:center;">Lool! Hello there! You've come to the right profile!</h3>
       
       <div class="col-sm-12 col-xs-12" style="text-align:center;margin-top: -215px;">
       <img src="http://res.cloudinary.com/amyxandra1/image/upload/v1523813494/IMG_20180223_115743.jpg" class="img-circle img-responsive" alt="@AmyXandra" style="margin:0 auto; position:relative; top:278px;" width="170px">
@@ -415,32 +405,11 @@
       </div>
            
       </div>
-      
-      </body>
-      
-      
-      </html>
-  
+        
     </div>
 </div>
-
-        <!-- <footer class="oj-web-applayout-footer" role="contentinfo">
-          <div class="oj-web-applayout-footer-item oj-web-applayout-max-width">
-            <ul>
-              <oj-bind-for-each data="[[footerLinks]]">
-                <template>
-                  <li><a :id="[[$current.data.linkId]]" :href="[[$current.data.linkTarget]]"><oj-bind-text value="[[$current.data.name]]"></oj-bind-text></a></li>
-                </template>
-              </oj-bind-for-each>
-            </ul>
-          </div>
-          <div class="oj-web-applayout-footer-item oj-web-applayout-max-width oj-text-secondary-color oj-text-sm">
-            Copyright © 2014, 2018 Oracle and/or its affiliates All rights reserved.
-          </div>
-        </footer> -->
       </div>
-    </div>
-    
+      
     <script type="text/javascript" src="js/libs/require/require.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
 

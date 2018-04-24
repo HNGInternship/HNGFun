@@ -37,7 +37,12 @@
 			]);
 			return;
 		}
-
+      if($question == 'aboutbot') {							
+				echo json_encode([
+								'status' => 0,
+								'answer' => "v1"
+							]);
+							return;}
 		$question = $_POST['question']; //get the entry into the chatbot text field
 
 		//check if in training mode
@@ -46,19 +51,23 @@
 			$question = preg_replace('([\s]+)', ' ', trim($question)); //remove extra white space from question
 			$question = preg_replace("([?.])", "", $question); //remove ? and .
 
+			//check if answer already exists in database
 			$question = "%$question%";
 			$sql = "select * from chatbot where question like :question";
 			$stmt = $conn->prepare($sql);
 			$stmt->bindParam(':question', $question);
 			$stmt->execute();
+
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			$rows = $stmt->fetchAll();
 			if(count($rows)>0){
 				$index = rand(0, count($rows)-1);
 				$row = $rows[$index];
 				$answer = $row['answer'];	
+
+				//check if the answer is to call a function
 				$index_of_parentheses = stripos($answer, "((");
-				if($index_of_parentheses === false){ 
+				if($index_of_parentheses === false){ //then the answer is not to call a function
 					echo json_encode([
 						'status' => 1,
 						'answer' => $answer
@@ -71,14 +80,14 @@
 						if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
 							echo json_encode([
 								'status' => 0,
-								'answer' => "No whitespaces allowed"
+								'answer' => "No white spaces allowed in function name"
 							]);
 							return;
 						}
 						if(!function_exists($function_name)){
 							echo json_encode([
 								'status' => 0,
-								'answer' => "Function 404"
+								'answer' => "Function not found"
 							]);
 						}else{
 							echo json_encode([
@@ -92,7 +101,7 @@
 			}else{
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Train me. The training data format is  <b>train: question # answer # password</b>"
+					'answer' => "Sorry, I cannot answer your question.Please train me. The training data format is  <b>train: question # answer # password</b>"
 				]);
 			}		
 			return;
@@ -118,7 +127,7 @@
 			if(count($split_string) < 3){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Please enter the training password."
+					'answer' => "Please enter the training password to train me."
 				]);
 				return;
 			}
@@ -129,10 +138,13 @@
 			if($password !== TRAINING_PASSWORD){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Sorry you do not have access train me."
+					'answer' => "Sorry you cannot train me."
 				]);
 				return;
 			}
+
+
+			//insert into database
 			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
 			$stmt = $conn->prepare($sql);
 			$stmt->bindParam(':question', $que);
@@ -141,14 +153,14 @@
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			echo json_encode([
 				'status' => 1,
-				'answer' => "I have been trained"
+				'answer' => "Yipeee, I have been trained"
 			]);
 			return;
 		}
 
 		echo json_encode([
 			'status' => 0,
-			'answer' => "Please train me"
+			'answer' => "Sorry I cannot answer that question, please train me"
 		]);
 		
 	}
@@ -156,114 +168,52 @@
 ?>
 
 <!DOCTYPE html>
-<!--
- Copyright (c) 2014, 2018, Oracle and/or its affiliates.
- The Universal Permissive License (UPL), Version 1.0
- -->
+<html lang="en">
+<head>
 
-<!-- ************************ IMPORTANT INFORMATION ************************************
-  This web navigation drawer template is provided as an example of how to configure
-  a JET web application with a navigation drawer as a single page application
-  using ojRouter and oj-module.  It contains the Oracle JET framework and a default
-  requireJS configuration file to show how JET can be setup in a common application.
-  This project template can be used in conjunction with demo code from the JET
-  website to test JET component behavior and interactions.
-
-  Any CSS styling with the prefix "demo-" is for demonstration only and is not
-  provided as part of the JET framework.
-
-  Please see the demos under Cookbook/Patterns/App Shell: Web and the CSS documentation
-  under Support/API Docs/Non-Component Styling on the JET website for more information on how to use 
-  the best practice patterns shown in this template.
-
-  Aria Landmark role attributes are added to the different sections of the application
-  for accessibility compliance. If you change the type of content for a specific
-  section from what is defined, you should also change the role value for that
-  section to represent the appropriate content type.
-  ***************************** IMPORTANT INFORMATION ************************************ -->
-<html lang="en-us">
-  <head>
-    <title>Oracle JET Starter Template - Web Nav Drawer</title>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
-    <link rel="icon" href="profiles/dennisotugo/css/images/favicon.ico" type="image/x-icon" />
-
-    <!-- This is the main css file for the default Alta theme -->
-<!-- injector:theme -->
-<link rel="stylesheet" href="profiles/dennisotugo/css/alta/5.0.0/web/alta.css" id="css" />
-<!-- endinjector -->
-    
-    <!-- This contains icon fonts used by the starter template -->
-    <link rel="stylesheet" href="profiles/dennisotugo/css/demo-alta-site-min.css" type="text/css"/>
-
-    <!-- This is where you would add any app specific styling -->
-    <link rel="stylesheet" href="profiles/dennisotugo/css/app.css" type="text/css"/>
+<style>
+	
+	footer { display: none;}
+	.profile {
+          height: 100%;
+    text-align: center;
+    position: fixed;
+    position: fixed;
+    position: fixed;
+    width: 50%;
+    right: 0;
+    background-color: #007bff;
+}
+	h1 {
+    color: blue;
+    color: white;
+    text-align: center;
+    bottom: 50%;
+    left: 65%;
+    position: fixed;
+    font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 700;
+}
+	p {
+    position: fixed;
+    bottom: 40%;
+    left: 58%;
+    line-height: 1.5;
+    margin: 30px 0;
+}
+      </style>
 
   </head>
-  <body class="oj-web-applayout-body">
-    <!-- Template for rendering navigation items shared between nav bar and nav list -->
-    <script type="text/html" id="navTemplate">
-      <li><a href="#">
-        <span :class="[[$data['iconClass']]]"></span>
-        <oj-bind-text value="[[$data['name']]]"></oj-bind-text>
-      </a></li>
-    </script>
 
-    <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
-      <!--
-         ** Oracle JET V5.0.0 web application navigation drawer pattern.
-         ** Please see the demos under Cookbook/Patterns/App Shell: Web
-         ** and the CSS documentation under Support/API Docs/Non-Component Styling
-         ** on the JET website for more information on how to use this pattern. 
-         ** The off-canvas section is used when the browser is resized to a smaller media
-         ** query size for a phone format and hidden until a user clicks on
-         ** the header hamburger icon.
-      -->
-      <div id="navDrawer" role="navigation" class="oj-contrast-marker oj-web-applayout-offcanvas oj-offcanvas-start">
-        <oj-navigation-list data="[[navDataSource]]"
-                            edge="start"
-                            item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
-                            on-click="[[toggleDrawer]]"
-                            selection="{{router.stateId}}">
-        </oj-navigation-list>
-      </div>
-      <div id="pageContent" class="oj-web-applayout-page">
-        <!--
-           ** Oracle JET V5.0.0 web application header pattern.
-           ** Please see the demos under Cookbook/Patterns/App Shell: Web
-           ** and the CSS documentation under Support/API Docs/Non-Component Styling
-           ** on the JET website for more information on how to use this pattern.
-        -->
-        <header role="banner" class="oj-web-applayout-header">
-          <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
-            <!-- Offcanvas toggle button -->
-            <div class="oj-flex-bar-start oj-md-hide">
-              <oj-button id="drawerToggleButton" class="oj-button-lg" on-oj-action="[[toggleDrawer]]" chroming="half" display="icons">
-                <span slot="startIcon" class="oj-web-applayout-offcanvas-icon"></span>
-                <span>Application Navigation</span>
-              </oj-button>
-            </div>
+		
+			<div class="body">
+<div class="profile">
+						<h1>Dennis Otugo</h1>
+						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
 
-          </div>
-          <div role="navigation" class="oj-web-applayout-max-width oj-web-applayout-navbar">
-            <oj-navigation-list class="oj-sm-only-hide oj-md-condense oj-md-justify-content-flex-end"
-                                data="[[navDataSource]]"
-                                edge="top"
-                                item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
-                                selection="{{router.stateId}}">
-            </oj-navigation-list>
-          </div>
-        </header>
-        <oj-module role="main" class="oj-web-applayout-max-width oj-web-applayout-content" config="[[moduleConfig]]">
-        </oj-module>
-      </div>
-    </div>
-    
-    <script type="text/javascript" src="profiles/dennisotugo/js/libs/require/require.js"></script>
-    <script type="text/javascript" src="profiles/dennisotugo/profiles/dennisotugo/js/main.js"></script>
+					</div>
+</div>
 
-    
 	<div class="col-md-4 offset-md-1 chat-frame">
 			<h2 class="text-center"><u>CHATBOT</u></h2>
 			<div class="row chat-messages" id="chat-messages">
