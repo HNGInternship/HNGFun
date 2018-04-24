@@ -45,14 +45,14 @@
 	#mainNav {
     position: fixed;
 }
-input {
+.user-input {
     width: -webkit-fill-available;
     border: none;
     padding: 10px 14px;
     font-size: 18px;
     line-height: normal;
 }
-.user-input-form {
+#user-input-form {
 	    border-right: solid black 3px;
     position: fixed;
     width: 50%;
@@ -62,9 +62,46 @@ input {
     box-sizing: border-box;
     box-shadow: 1px 1px 9px 0px rgba(1, 1, 1, 1);
 	    }
-	    .message {
+	    .user-message {
+		    float: left;
+    font-size: 16px;
+    background-color: #007bff63;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 5px;
 	    
 	    }
+	    	    .bot-message {
+		    float: left;
+    font-size: 16px;
+    background-color: #007bff63;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 5px;
+	    
+	    }
+	    footer .copyright {
+    font-size: 14px;
+    margin-bottom: 0;
+    text-align: center;
+    left: 66% !important;
+    align-content: center;
+}
+	    
+	.bot-message {
+    float: right;
+    font-size: 16px;
+    background-color: #007bff63;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 5px;
+}
     </style>
 </head>
 <body>
