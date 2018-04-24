@@ -46,23 +46,19 @@
 			$question = preg_replace('([\s]+)', ' ', trim($question)); //remove extra white space from question
 			$question = preg_replace("([?.])", "", $question); //remove ? and .
 
-			//check if answer already exists in database
 			$question = "%$question%";
 			$sql = "select * from chatbot where question like :question";
 			$stmt = $conn->prepare($sql);
 			$stmt->bindParam(':question', $question);
 			$stmt->execute();
-
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			$rows = $stmt->fetchAll();
 			if(count($rows)>0){
 				$index = rand(0, count($rows)-1);
 				$row = $rows[$index];
 				$answer = $row['answer'];	
-
-				//check if the answer is to call a function
 				$index_of_parentheses = stripos($answer, "((");
-				if($index_of_parentheses === false){ //then the answer is not to call a function
+				if($index_of_parentheses === false){ 
 					echo json_encode([
 						'status' => 1,
 						'answer' => $answer
@@ -75,14 +71,14 @@
 						if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
 							echo json_encode([
 								'status' => 0,
-								'answer' => "No white spaces allowed in function name"
+								'answer' => "No whitespaces allowed"
 							]);
 							return;
 						}
 						if(!function_exists($function_name)){
 							echo json_encode([
 								'status' => 0,
-								'answer' => "Function not found"
+								'answer' => "Function 404"
 							]);
 						}else{
 							echo json_encode([
@@ -96,7 +92,7 @@
 			}else{
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Sorry, I cannot answer your question.Please train me. The training data format is  <b>train: question # answer # password</b>"
+					'answer' => "Train me. The training data format is  <b>train: question # answer # password</b>"
 				]);
 			}		
 			return;
@@ -122,7 +118,7 @@
 			if(count($split_string) < 3){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Please enter the training password to train me."
+					'answer' => "Please enter the training password."
 				]);
 				return;
 			}
@@ -133,13 +129,10 @@
 			if($password !== TRAINING_PASSWORD){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Sorry you cannot train me."
+					'answer' => "Sorry you do not have access train me."
 				]);
 				return;
 			}
-
-
-			//insert into database
 			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
 			$stmt = $conn->prepare($sql);
 			$stmt->bindParam(':question', $que);
@@ -148,14 +141,14 @@
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			echo json_encode([
 				'status' => 1,
-				'answer' => "Yipeee, I have been trained"
+				'answer' => "I have been trained"
 			]);
 			return;
 		}
 
 		echo json_encode([
 			'status' => 0,
-			'answer' => "Sorry I cannot answer that question, please train me"
+			'answer' => "Please train me"
 		]);
 		
 	}
@@ -163,79 +156,114 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en-us" style="height:100%;">
-<head>
-    <title>Composite Components - Basic</title>
-    <meta charset="UTF-8">
-      
-      <meta http-equiv="x-ua-compatible" content="IE=edge"/>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      <meta name="apple-mobile-web-app-title" content="Oracle JET">
-      <script src="http://www.oracle.com/webfolder/technetwork/jet/js/loadStyleSheets.min.js"></script>
-      <link rel="stylesheet" href="http://www.oracle.com/webfolder/technetwork/jet/js/spaWork.min.js">
-      <script>
-        // The "oj_whenReady" global variable enables a strategy that the busy context whenReady,
-        // will implicitly add a busy state, until the application calls applicationBootstrapComplete
-        // on the busy state context.
-        window["oj_whenReady"] = true;
-    </script>
-    <script src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
-    <!-- RequireJS bootstrap file -->
-    <script src="http://www.oracle.com/webfolder/technetwork/jet/js/spaWork.min.js"></script>
+<!--
+ Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
 
+<!-- ************************ IMPORTANT INFORMATION ************************************
+  This web navigation drawer template is provided as an example of how to configure
+  a JET web application with a navigation drawer as a single page application
+  using ojRouter and oj-module.  It contains the Oracle JET framework and a default
+  requireJS configuration file to show how JET can be setup in a common application.
+  This project template can be used in conjunction with demo code from the JET
+  website to test JET component behavior and interactions.
+
+  Any CSS styling with the prefix "demo-" is for demonstration only and is not
+  provided as part of the JET framework.
+
+  Please see the demos under Cookbook/Patterns/App Shell: Web and the CSS documentation
+  under Support/API Docs/Non-Component Styling on the JET website for more information on how to use 
+  the best practice patterns shown in this template.
+
+  Aria Landmark role attributes are added to the different sections of the application
+  for accessibility compliance. If you change the type of content for a specific
+  section from what is defined, you should also change the role value for that
+  section to represent the appropriate content type.
+  ***************************** IMPORTANT INFORMATION ************************************ -->
+<html lang="en-us">
+  <head>
+    <title>Oracle JET Starter Template - Web Nav Drawer</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
+    <link rel="icon" href="profiles/dennisotugo/css/images/favicon.ico" type="image/x-icon" />
+
+    <!-- This is the main css file for the default Alta theme -->
+<!-- injector:theme -->
+<link rel="stylesheet" href="profiles/dennisotugo/css/alta/5.0.0/web/alta.css" id="css" />
+<!-- endinjector -->
+    
+    <!-- This contains icon fonts used by the starter template -->
+    <link rel="stylesheet" href="profiles/dennisotugo/css/demo-alta-site-min.css" type="text/css"/>
+
+    <!-- This is where you would add any app specific styling -->
+    <link rel="stylesheet" href="profiles/dennisotugo/css/app.css" type="text/css"/>
 
   </head>
+  <body class="oj-web-applayout-body">
+    <!-- Template for rendering navigation items shared between nav bar and nav list -->
+    <script type="text/html" id="navTemplate">
+      <li><a href="#">
+        <span :class="[[$data['iconClass']]]"></span>
+        <oj-bind-text value="[[$data['name']]]"></oj-bind-text>
+      </a></li>
+    </script>
 
-  <body class="demo-disable-bg-image">
-    <div id="sampleDemo" style="display: none;" class="demo-padding demo-container">
-      <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
-        <style>
-  #composite-container demo-card .demo-card-front-side {
-    background-image: url('images/composites/card-background_1.png');
-  }
-</style>
+    <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
+      <!--
+         ** Oracle JET V5.0.0 web application navigation drawer pattern.
+         ** Please see the demos under Cookbook/Patterns/App Shell: Web
+         ** and the CSS documentation under Support/API Docs/Non-Component Styling
+         ** on the JET website for more information on how to use this pattern. 
+         ** The off-canvas section is used when the browser is resized to a smaller media
+         ** query size for a phone format and hidden until a user clicks on
+         ** the header hamburger icon.
+      -->
+      <div id="navDrawer" role="navigation" class="oj-contrast-marker oj-web-applayout-offcanvas oj-offcanvas-start">
+        <oj-navigation-list data="[[navDataSource]]"
+                            edge="start"
+                            item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
+                            on-click="[[toggleDrawer]]"
+                            selection="{{router.stateId}}">
+        </oj-navigation-list>
+      </div>
+      <div id="pageContent" class="oj-web-applayout-page">
+        <!--
+           ** Oracle JET V5.0.0 web application header pattern.
+           ** Please see the demos under Cookbook/Patterns/App Shell: Web
+           ** and the CSS documentation under Support/API Docs/Non-Component Styling
+           ** on the JET website for more information on how to use this pattern.
+        -->
+        <header role="banner" class="oj-web-applayout-header">
+          <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+            <!-- Offcanvas toggle button -->
+            <div class="oj-flex-bar-start oj-md-hide">
+              <oj-button id="drawerToggleButton" class="oj-button-lg" on-oj-action="[[toggleDrawer]]" chroming="half" display="icons">
+                <span slot="startIcon" class="oj-web-applayout-offcanvas-icon"></span>
+                <span>Application Navigation</span>
+              </oj-button>
+            </div>
 
-<div id="composite-container" class="oj-flex oj-sm-flex-items-initial">
-  <!-- ko foreach: employees -->
-    <demo-card class="oj-flex-item" name="[[name]]" avatar="[[avatar]]" work-title="[[title]]" 
-      work-number="[[work]]" email="[[email]]">
-    </demo-card>
-  <!-- /ko -->
-</div>
-
-<script>
-require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'jet-composites/demo-card/loader'],
-function(oj, ko, $) {
-  function model() {      
-    var self = this;
-    self.employees = [
-      {
-        name: 'Dennis Otugo',
-        avatar: 'https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701221/avatar.png',
-        title: 'IT Manager',
-        work: 08169889587,
-        email: 'otugodennis at gmail.com'
-      }
-    ];
-  }
-
-  $(function() {
-      ko.applyBindings(new model(), document.getElementById('composite-container'));
-  });
-
-});
-</script>
-
+          </div>
+          <div role="navigation" class="oj-web-applayout-max-width oj-web-applayout-navbar">
+            <oj-navigation-list class="oj-sm-only-hide oj-md-condense oj-md-justify-content-flex-end"
+                                data="[[navDataSource]]"
+                                edge="top"
+                                item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
+                                selection="{{router.stateId}}">
+            </oj-navigation-list>
+          </div>
+        </header>
+        <oj-module role="main" class="oj-web-applayout-max-width oj-web-applayout-content" config="[[moduleConfig]]">
+        </oj-module>
       </div>
     </div>
-    <pre id="codemirror-markup-example" style="display: none">&lt;div id="composite-container" class="oj-flex oj-sm-flex-items-initial">
-  &lt;!-- ko foreach: employees -->
-    &lt;demo-card class="oj-flex-item" name="[[name]]" avatar="[[avatar]]" work-title="[[title]]" 
-      work-number="[[work]]" email="[[email]]">
-    &lt;/demo-card>
-  &lt;!-- /ko -->
-&lt;/div></pre>
+    
+    <script type="text/javascript" src="profiles/dennisotugo/js/libs/require/require.js"></script>
+    <script type="text/javascript" src="profiles/dennisotugo/profiles/dennisotugo/js/main.js"></script>
+
+    
 	<div class="col-md-4 offset-md-1 chat-frame">
 			<h2 class="text-center"><u>CHATBOT</u></h2>
 			<div class="row chat-messages" id="chat-messages">
@@ -273,9 +301,6 @@ function(oj, ko, $) {
 		</div>
 	</div>
 </div>
-<script src="../vendor/jquery/jquery.min.js"></script>
-<!--<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>-->
 <script>
 	
 	$(document).ready(function(){
