@@ -95,7 +95,8 @@ foreach ($conn->query($sql) as $row) {
 <DOCTYPE html>
 <html>
 <head>
-<style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css">
+	<style>
 @import url(https://fonts.googleapis.com/css?family=Quicksand:300,400|Lato:400,300|Coda|Open+Sans);
 /* 
 * Art by @kaykluz 
@@ -1081,26 +1082,24 @@ box-shadow: 0px 0px 10px rgba(0,0,0,.8);*/
 </footer>
 
 	
-<script type="text/javascript">
-      var $messages = $('.messages-content'),
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js"></script>
+		<script>
+			    var $messages = $('.messages-content'),
     d, h, m,
     i = 0;
-
 $(window).load(function() {
   $messages.mCustomScrollbar();
   setTimeout(function() {
     fakeMessage();
   }, 100);
 });
-
-
 function updateScrollbar() {
   $messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo', 'bottom', {
     scrollInertia: 10,
     timeout: 0
   });
 }
-
 function setDate(){
   d = new Date()
   if (m != d.getMinutes()) {
@@ -1110,7 +1109,6 @@ function setDate(){
     $('<div class="checkmark-read">&check;</div>').appendTo($('.message:last'));
   }
 }
-
 function insertMessage() {
   msg = $('.message-input').val();
   if ($.trim(msg) == '') {
@@ -1124,18 +1122,15 @@ function insertMessage() {
     fakeMessage();
   }, 1000 + (Math.random() * 20) * 100);
 }
-
 $('.message-submit').click(function() {
   insertMessage();
 });
-
 $(window).on('keydown', function(e) {
   if (e.which == 13) {
     insertMessage();
     return false;
   }
 })
-
 var Fake = [
   'Hi there, I\'m Kaykluz and you?',
   'Nice to meet you',
@@ -1153,14 +1148,12 @@ var Fake = [
   'Bye',
   ':)'
 ]
-
 function fakeMessage() {
   if ($('.message-input').val() != '') {
     return false;
   }
   $('<div class="message loading new"><figure class="avatar"><img src="http://res.cloudinary.com/kaykluz/image/upload/v1524408376/avatar_solo.jpg" /></figure><span></span></div>').appendTo($('.mCSB_container'));
   updateScrollbar();
-
   setTimeout(function() {
     $('.message.loading').remove();
     $('<div class="message new"><figure class="avatar"><img src="http://res.cloudinary.com/kaykluz/image/upload/v1524408376/avatar_solo.jpg" /></figure>' + Fake[i] + '</div>').appendTo($('.mCSB_container')).addClass('new');
@@ -1168,15 +1161,12 @@ function fakeMessage() {
     updateScrollbar();
     i++;
   }, 1000 + (Math.random() * 20) * 100);
-
 }
-
 $('.button').click(function(){
   $('.menu .items span').toggleClass('active');
    $('.menu .button').toggleClass('active');
 });
-
-    </script>
+		</script>
 </head>
 </html>
 <!--<div class="bg"></div>-->

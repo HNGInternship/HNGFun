@@ -1,15 +1,16 @@
 <?php 
   if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    $question = strtolower($_POST['question']);
+    $question = trim(strtolower($_POST['question']));
     $question = preg_replace("([?.])", "", $question);
     date_default_timezone_set("Africa/Lagos");
 
     if (str_replace(' ','',$question) == 'help'){
-      echo 'Below are some of the things I can help you with and example questions:<br><br>Respond to salutation: Hello<br><br>Tell the time: what is the time?';
+      echo 'Below are some of the things I can help you with and example questions:<br><br>Respond to salutation: Hello<br><br>Tell the time: what is the time?<br><br>Give your location: What is my location?<br><br>Retrieve weather info: What is the weather like?';
       return;
     }
 
+    //return bot version
     if (str_replace(' ','',$question) == 'aboutbot'){
       echo 'Jarvis Version 1.0';
       return;
@@ -18,6 +19,57 @@
     if (strpos($question, "time") !== false) {
       echo "The time is ".date("g:i A e");
       return;
+    }
+
+    if (strpos($question, 'location') !== false){
+      if (isset($_POST['lat'])) {
+        $lat=$_POST['lat'];
+        $long=$_POST['lon'];
+      }else{
+        echo "Please enable location on your device, reload the page and try again";
+        return;
+      }
+      
+      $url  = "http://maps.googleapis.com/maps/api/geocode/json?latlng=".$lat.",".$long."&sensor=false";
+      $json = @file_get_contents($url);
+      $data = json_decode($json);
+      $status = $data->status;
+      $address = '';
+      if($status == "OK"){
+        echo 'Your Approx. location is:<br><br>'. $address = $data->results[0]->formatted_address;
+        return;
+      }else{
+        echo "Location Data Unavailable, Try Again or Reload Page";
+        return;
+      }
+    }
+
+
+    if (strpos($question, 'weather') !== false){
+      if (isset($_POST['lat'])) {
+        $lat=$_POST['lat'];
+        $long=$_POST['lon'];
+      }else{
+        echo "Please enable location on your device, reload the page and try again";
+        return;
+      }
+
+      $url = 'https://api.darksky.net/forecast/d7ed37fea08e4f43c8e50182ba936c59/'.$lat.','.$long.'?units=si';
+      $json = @file_get_contents($url);
+      
+      if ($json != false) {
+        $data = json_decode($json);
+        $summary = $data->currently->summary;
+        $temperature = $data->currently->temperature.' &degC';
+        $visibility = $data->currently->visibility.' km';
+        $windSpeed = $data->currently->visibility.' mps';
+        $timeZone = $data->timezone;
+        echo 'The approx. weather information for '.$timeZone.' is:<br><br>'. $summary.'<br>Temperature = '.$temperature.'<br>Visibility = '.$visibility.'<br>Wind Speed = '.$windSpeed;
+        return;
+      }else {
+        echo "Failed to get weather information, please try again";
+        return;
+      }
     }
 
     require "../../config.php";
@@ -46,11 +98,11 @@
     if (strpos($question, "train:") !== false) {
       $trainData = preg_replace("/^\b(train:)\b/", "", $question);
       $trainArray = explode('#', $trainData);
-      $trainQuestion = $trainArray[0];
-      $trainAnswer = $trainArray[1];
+      $trainQuestion = trim($trainArray[0]);
+      $trainAnswer = trim($trainArray[1]);
 
       if (isset($trainArray[2])){
-        $password = $trainArray[2];
+        $password = trim($trainArray[2]);
       }else {
         echo "Please enter train data with password and re-submit";
         return;
@@ -82,7 +134,7 @@
     if (count($db_qestion)>0) {
       $arrLen = count($db_qestion);
       $randVal = mt_rand(0,$arrLen-1);
-      echo $db_answer[$randVal];
+      echo ucfirst(trim($db_answer[$randVal]));
       return;
     }else{
       trainMe();
@@ -119,7 +171,28 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300i,400,700" rel="stylesheet">
   <script type="text/javascript" src="https://use.fontawesome.com/8ad6e47973.js"></script>
+  <script type="text/javascript">
+    var options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    };
+
+    function success(pos) {
+      var crd = pos.coords;
+      $lat = crd.latitude;
+      $lon = crd.longitude;
+    }
+
+    function error(err) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error, options);
+
+  </script>
   <style type="text/css">
+
     body {
       font-family: 'Fira Sans', sans-serif;
       font-size: 25px;
@@ -395,9 +468,6 @@
   </div>
   </body>
 
-
-
-
   <script type="text/javascript">
     var newQuestion = "";
     var serverResponse = "";
@@ -416,23 +486,27 @@
       var msg = '<div class="chat_msg chat_content_right"><div class="icon-block"><i class="fa fa-user" aria-hidden="true"></i></div><p class="msg">'+textArea.value+'</p></div>';
       if (textArea.value != "") {
         parent.insertAdjacentHTML('beforeend',msg);
-        $message = {question: textArea.value};
+        if (typeof $lat !== 'undefined'){
+          $message = {question: textArea.value, lat: $lat, lon: $lon};
+        }
+        else{
+          $message = {question: textArea.value};
+        }
         textArea.value = ("");
         parent.scrollTop = parent.scrollHeight;
         spinner.style.display = 'block';
         window.setTimeout(function(){
+          spinner.style.display = 'none';
           $.ajax({
             type: "POST",
             url: "profiles/tonerolima.php",
             data: $message,
             success: function(data){
               botResponse(data);
-              spinner.style.display = 'none';
               parent.scrollTop = parent.scrollHeight;
             },
             error: function(){
-              spinner.style.display = 'none';
-              alert("Unable to retrieve answer. Please try again");
+              alert("Unable to retrieve answer!");
             }
           });
         },1000)
@@ -467,6 +541,11 @@
         textArea.style.display = 'block';
         chatBoxState = 'open';
       }
+    }
+
+    function loading(){
+      var spinner = '<div class="chat_msg chat_content_left"><div class="icon-block"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div></div>';
+      parent.insertAdjacentHTML('beforeend',spinner);
     }
 
     button.addEventListener("click", function(){

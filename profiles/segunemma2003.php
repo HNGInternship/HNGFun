@@ -1,4 +1,6 @@
 <?php  require "db.php";
+error_reporting(E_ALL);
+ini_set("display_errors", "on");
 
 try {
 	$sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = "segunemma2003"';
@@ -10,7 +12,7 @@ try {
 	throw $e;
 }
 global $conn;
-if ($_SERVER['REQUEST_METHOD']==='POST'){
+if ($_SERVER['REQUEST_METHOD']=='POST'){
 	$message = trim($_POST['message']);
 	if ($message === ''){
 		$empty_response = [
@@ -73,14 +75,15 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 		}
 	}
 
-	else{
+	else{ 
+		echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br> .<br> just use the following pattern== train: what is the time? # The time is ' ]);
 		?>
 <!DOCTYPE html>
 
 <html>
 <head>
 	<title><?php echo $data['username'];?> 'profile</title>
-	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <style>
 *{
@@ -274,7 +277,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 				</section>
 				<div class="chat-form" style="margin:0 auto;">
 					<div class="message" style="margin:0 auto;">
-						<form id="myform">
+						<form id="myform" method="POST">
 						<textarea name="message" class="chat" rows="3" style="width:400px;"></textarea>
 						<div align="right">
 						<button type="submit"  class="btn btn-primary" style="border-radius:200px;" >Send</button>
@@ -314,8 +317,8 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 		canvas.arc(200,100,100,0,Math.PI*2,false);
 		canvas.fill();
 	</script> -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	
 
 	<script>
@@ -349,10 +352,11 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 					// alert(responseMessage('I am a little bot'));
 				}
                  $.ajax({
-                     url: '/profiles/segunemma2003.php',
-                     type: 'POST',
-                     dataType: 'json',
-                     data : {message: message},
+                     url:"/profiles/segunemma2003.php",
+                     type: "POST",
+                     dataType: "json",
+		     
+                     res : {message: message},
                      success: function(res){
 
                          console.log(res);
@@ -400,5 +404,6 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 	</div>
 </body>
 </html>
-<?php } ?>
+<?php
+	}?>
 
