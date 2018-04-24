@@ -1,38 +1,31 @@
 <?php
-
 if (!defined('DB_USER')) {
-    define('DB_USER', "root");
-    define('DB_PASSWORD', "");
-    define('DB_DATABASE', "hng_fun");
-    define('DB_HOST', "localhost"); 
-    try {
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
-    
-    try {
-        $sql = "SELECT * FROM secret_word";
-        $query = $conn->query($sql);
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $query->fetch();
-        $secret_word = $result['secret_word'];
-       
-        $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="orinayo"';
-        $q2 = $conn->query($sql2);
-        $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $me = $q2->fetch();
-    }
-    catch (PDOException $e) {
-        throw $e;
-    }
+    require "../../config.php";
+}
+try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
 
+try {
+    $sql = "SELECT * FROM secret_word";
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $query->fetch();
+    $secret_word = $result['secret_word'];
+           
+    $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="orinayo"';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $me = $q2->fetch();
+}
+catch (PDOException $e) {
+    throw $e;
+}
 global $conn, $user_input_array2;
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-    
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     function Validate_input($data) 
     {
         $data = trim($data);
@@ -45,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     function Is_Training_question($user_input)
     {
-        if (strpos($user_input, 'train') === 0) {
+        if (strpos($user_input, 'train:') === 0) {
             return true;
         }
         return false;
@@ -54,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (Is_Training_question($user_input)) {
         function Split_Training_question($user_input)
         {
-            $user_input = substr_replace($user_input, '', 0, 5);
+            $user_input = substr_replace($user_input, '', 0, 6);
             $training_statement = explode("#", $user_input);
             $training_statement = array_map('trim', $training_statement);
             return $training_statement;
@@ -95,23 +88,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             return false;
         }
-
-        function Get_Hotelsng_wikipage()
-        {
-            $api = "https://en.wikipedia.org/w/api.php?action=opensearch&search="."hotels.ng"."&format=json&callback=?";
-            $result = file_get_contents($api);
-            $result = substr_replace($result, "", 0, 5);
-            $result = substr_replace($result, "", -1);
-            $result = json_decode($result, true);
-            $result = array("answer"=>"<a href=".$result[3][0].">".$result[1][0]."</a><p>".$result[2][0]."</p>");
-            return $result;
-        }
         
         function Encode_answer($answer)
         {
             if (Answer_Is_A_function($answer)) {
-                $answer = Get_Hotelsng_wikipage();
-                return $answer['answer'];        
+                return Get_Hotelsng_wikipage();        
             } else {
                 return $answer['answer'];
             }
@@ -240,7 +221,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 } else {
 ?> 
-
+<?php 
+function Get_Hotelsng_wikipage() 
+{
+    $api = "https://en.wikipedia.org/w/api.php?action=opensearch&search="."hotels.ng"."&format=json&callback=?";
+    $result = file_get_contents($api);
+    $result = substr_replace($result, "", 0, 5);
+    $result = substr_replace($result, "", -1);
+    $result = json_decode($result, true);
+    $result = array("answer"=>"<a href=".$result[3][0].">".$result[1][0]."</a><p>".$result[2][0]."</p>");
+    return $result;
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -637,7 +629,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             " <i class='fa fa-user'></i> </p>");
                         if ($userInputValue == 'aboutbot') {
                             $chatMessages.append(
-                                "<p class='chat-text'><i class='fa fa-user'></i>" + $userInputValue + "</p>");
+                                "<p class='chat-text'><i class='fa fa-user'></i> Version1.0</p>");
                             $chatBot.scrollTop($chatBot[0].scrollHeight);
                             $userInput.val('');
                             return;
@@ -652,10 +644,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             },
                             dataType: 'text',
                             success: function( answer ){
+                                if(answer == 'Get_Hotelsng_wikipage()') {
+                                    answer = <?php echo json_encode(Get_Hotelsng_wikipage())?>;
+                                    $chatMessages.append(
+                                    "<p class='chat-text'><i class='fa fa-user'></i> " + answer['answer'] + "</p>");
+                                    $chatBot.scrollTop($chatBot[0].scrollHeight);
+                                    $userInput.val('');
+                                } else {
                                 $chatMessages.append(
                                 "<p class='chat-text'><i class='fa fa-user'></i> " + answer + "</p>");
                                 $chatBot.scrollTop($chatBot[0].scrollHeight);
                                 $userInput.val('');
+                                }
                             } 
                             });
                         });
