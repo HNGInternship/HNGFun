@@ -37,7 +37,12 @@
 			]);
 			return;
 		}
-
+      if($question == 'aboutbot') {							
+				echo json_encode([
+								'status' => 0,
+								'answer' => "v1"
+							]);
+							return;}
 		$question = $_POST['question']; //get the entry into the chatbot text field
 
 		//check if in training mode
@@ -137,13 +142,7 @@
 				]);
 				return;
 			}
-			if($question == aboutbot){
-				echo json_encode([
-					'status' => 1,
-					'answer' => "v1.0"
-				]);
-				return;
-			}
+
 
 			//insert into database
 			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
@@ -169,68 +168,51 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en-us" style="height:100%;">
-  <head>
-    <title>Dennis Otugo</title>
-    <meta charset="UTF-8">
-      
-      <meta http-equiv="x-ua-compatible" content="IE=edge"/>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      <meta name="apple-mobile-web-app-title" content="Oracle JET">
-      <script src="https://www.oracle.com/webfolder/technetwork/jet/js/loadStyleSheets.min.js"></script>
-      <link rel="stylesheet" href="https://www.oracle.com/webfolder/technetwork/jet/css/samples/cookbook/demo.css">
-      <script>
-        // The "oj_whenReady" global variable enables a strategy that the busy context whenReady,
-        // will implicitly add a busy state, until the application calls applicationBootstrapComplete
-        // on the busy state context.
-        window["oj_whenReady"] = true;
-    </script>
-    <script src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
-    <!-- RequireJS bootstrap file -->
-    <script src="https://www.oracle.com/webfolder/technetwork/jet/js/spaWork.min.js"></script>
-    <!--customHeaderStart-->
-    
-    <!--customHeaderEnd-->
+<html lang="en">
+<head>
+
+<style>
+	
+	footer { display: none;}
+	.profile {
+          height: 100%;
+    text-align: center;
+    position: fixed;
+    position: fixed;
+    position: fixed;
+    width: 50%;
+    right: 0;
+    background-color: #007bff;
+}
+	h1 {
+    color: blue;
+    color: white;
+    text-align: center;
+    bottom: 50%;
+    left: 65%;
+    position: fixed;
+    font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 700;
+}
+	p {
+    position: fixed;
+    bottom: 40%;
+    left: 58%;
+    line-height: 1.5;
+    margin: 30px 0;
+}
+      </style>
+
   </head>
 
-  <body class="demo-disable-bg-image">
-        <div id="demo-container">
-          <div id="avatar-container" class="demo-flex-display">
-            <div class="oj-flex">
-              <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
-                <div class="of-flex-item">
-                  <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
-                    data-bind="attr:{'aria-label':'Avatar of ' + firstName + ' ' + lastName}">
-                  </oj-avatar>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+		
+			<div class="body">
+<div class="profile">
+						<h1>Dennis Otugo</h1>
+						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
 
-<script>
-require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojcomposite',
- 'ojs/ojbutton','ojs/ojavatar','ojs/ojvalidation','ojs/ojlabel'],
-function(oj, ko, $) {
-  function model() {
-    var self = this;
-    self.firstName = 'Dennis';
-    self.lastName = 'Otugo';
-    self.initials = oj.IntlConverterUtils.getInitials(self.firstName,self.lastName);
-    self.avatarSize = ko.observable("md");
-    self.sizeOptions = ko.observableArray(['xxs', 'xs','sm','md','lg','xl','xxl']);
-  }
-
-  $(function() {
-      ko.applyBindings(new model(), document.getElementById('demo-container'));
-  });
-
-});
-</script>
-
-      </div>
-    </div>
+					</div>
+</div>
 
 	<div class="col-md-4 offset-md-1 chat-frame">
 			<h2 class="text-center"><u>CHATBOT</u></h2>
@@ -269,7 +251,7 @@ function(oj, ko, $) {
 		</div>
 	</div>
 </div>
-
+<script>
 	
 	$(document).ready(function(){
 		var questionForm = $('#question-form');
