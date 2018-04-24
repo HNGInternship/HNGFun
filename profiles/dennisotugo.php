@@ -9,7 +9,11 @@
     <meta name="apple-mobile-web-app-title" content="Oracle JET">
 
 <!-- injector:theme -->
-<link rel="stylesheet" href="css/alta/5.0.0/web/alta.min.css" id="css" />
+<!-- This is the main css file for the default Alta theme -->
+<link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.1.0/default/css/alta/oj-alta-min.css" type="text/css"/>
+...
+<!-- RequireJS bootstrap file -->
+<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/require/require.js"></script>
 <!-- endinjector -->
     
     <style type="text/css">
@@ -130,8 +134,7 @@
         </div>
     </div>
 </div>
-    <script type="text/javascript" src="js/libs/require/require.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="dennisotugo/js/main.js"></script>
   </body>
   <script>
     var outputArea = $("#chat-output");
