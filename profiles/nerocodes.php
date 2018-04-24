@@ -3,6 +3,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <title>NeroCodes Profile</title>
+        <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.0.0/3rdparty/require/require.js"></script>
+	    <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
     </head>
     <body>
     <style>
