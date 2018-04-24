@@ -1,4 +1,208 @@
 <?php
+//////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
+
+$qsam = $_REQUEST["qsam"];
+samsonjnrBot($qsam);
+function samsonjnrBot($qsam){
+$qsam = strtolower($qsam);
+$anwerSam = "";
+$guestName = "";
+
+
+$keyword = array('newschool', 'how are you','what are you you?', 'what your do name ur name? call you your\'s', 'my name name?', 'i\'m am fine okay doing great ok all good', 'today today\'s date', 'version version? aboutbot', 'what do time? time', 'still here you there codmax jnr samson');
+
+$decisionArray = array();
+$usrKeywords = $qsam; //$_POST['keywords']
+$arr1 = explode(' ', $usrKeywords);
+foreach ($keyword as $s){
+	$arr2 = explode(' ', $s);
+	$aint = array_intersect($arr2, $arr1);
+	$percentage = (count($aint) * 100 / count($arr2));
+	array_push($decisionArray, $percentage);
+}
+if ($qsam != 'how' && $qsam != "you" && $qsam != "your" && $qsam != "are" && $qsam != "my" && $qsam != "still" && $qsam != "here" && $qsam != "there" && $qsam != "call"){
+$decisionValue = array_keys($decisionArray, max($decisionArray));
+}else{
+	$decisionValue = [0];
+}
+
+
+function trainingSam($newmessage){
+	require 'db.php';
+	$message = explode('#', $newmessage);
+	$question = explode(':', $message[0]);
+	$answer = $message[1];
+	$password = $message[2];
+
+	$question[1] = trim($question[1]);
+	$password = trim($password);
+	if ($password != "samsonjnr"){
+		echo "You are not authorize to train me.";
+
+	}else{
+	$chatbot= array(':id' => NULL, ':question' => $question[1], ':answer' => $answer);
+	$query = 'INSERT INTO chatbot ( id, question, answer) VALUES ( :id, :question, :answer)';
+
+	try {
+			$execQuery = $conn->prepare($query);
+			if ($execQuery ->execute($chatbot) == true) {
+					echo repondTraining();
+
+			};
+	} catch (PDOException $e) {
+			echo "Oops! i did't get that, Something is wrong i guess, <br> please try again";
+		}
+	}
+}
+
+function greetingSam(){
+	$greeting = array('Hi! Good to have you here. My name is Samson Jnr, but you can call me Codmax' ,
+										'Hello there, my name is Codmax, how Can i be of help?' ,
+										'Good day, You are chatting with Codmax, ask me something',
+										'Hi! My name is Samson whats up?',
+										'It\'s Codmax, Welcome on board',
+										'I\'m Codmax, let\'s get started');
+		$index = mt_rand(0, 5);
+		return $anwerSam = $greeting[$index];
+}
+
+function requestName(){
+		$requestName = array( 'Sorry I did\'t catch your name',
+													'What can I call you?',
+													'What\'s that lovely name of yours?');
+		$index = mt_rand(0, 2);
+		return $anwerSam = $requestName[$index];
+}
+
+function repondTraining(){
+		$repondTraining = array(  'Noted! Thank you for teaching me',
+															'Acknowledged, thanks, really want to learn more',
+															'A million thanks, I\'m getting smarter',
+															'i\'m getting smarter, I really appreciate');
+		$index = mt_rand(0, 3);
+		return $anwerSam = $repondTraining[$index];
+}
+
+function repondName(){
+		$repondName = array( 'Yeah! i\'m still here',
+													'I\'m with you',
+													'go ahead I\'m still here');
+		$index = mt_rand(0, 2);
+		return $anwerSam = $repondName[$index];
+}
+
+function respondDate(){
+	date_default_timezone_set("Africa/Lagos");
+	$time = date("Y/m/d");
+	$respondTime = array( 'Today\'s date is '.$time,
+												'it\'s '. $time,
+												'Today is '. $time,
+												$time);
+	$index = mt_rand(0, 3);
+	return $anwerSam = $respondTime[$index];
+}
+
+function respondTime(){
+	date_default_timezone_set("Africa/Lagos");
+	$time = date("h:i A");
+	$respondTime = array( 'The time is '.$time,
+												'it\'s '. $time,
+												$time);
+	$index = mt_rand(0, 2);
+	return $anwerSam = $respondTime[$index];
+}
+
+function respondName(){
+	$respondName = array( 'Codmax, you can still call me Samson Jnr.',
+												'Samson Jnr, I\'m still called Codmax.',
+												'Samson Jnr. or Codmax');
+	$index = mt_rand(0, 2);
+	return $anwerSam = $respondName[$index];
+}
+
+function respondOkay(){
+	$respondOkay = array( 'That\'s Great, we should keep chatting I\'m having fun',
+												'So Lovely, let\'s keep chatting',
+												'That\'s good news, so how can I help you?');
+	$index = mt_rand(0, 2);
+	return $anwerSam = $respondOkay[$index];
+}
+
+function respondGreeting (){
+	$respondGreeting = array( 'Oh, I\'m doing quite well. You?',
+												'Am fine and thanks What about you?',
+												'Am all good. and how are you too?');
+	$index = mt_rand(0, 2);
+	return $anwerSam = $respondGreeting[$index];
+}
+
+
+function checkDatabaseToo($question){
+	try{
+			require 'db.php';
+
+			$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
+
+			$stmt->execute();
+			if($stmt->rowCount() > 0){
+				while($row = $stmt->fetch(PDO::FETCH_ASSOC)){ echo $row["answer"];}
+			}else{
+				return 1;
+			}
+		}
+			catch (PDOException $e){
+				 echo "Error: " . $e->getMessage();
+			}
+			$conn = null;
+		}
+
+
+if ($qsam == "intro"){
+		echo greetingSam();
+} else if($qsam == "request name"){
+		echo requestName();
+}else if (strtok($qsam, ":") == "train"){
+						trainingSam($qsam);
+}else if ( $keyword[$decisionValue[0]] == "what do time? time"){
+            echo respondTime();
+}else if ( $keyword[$decisionValue[0]] == "what your do name ur name? call you your's" || $qsam == "your name" || $qsam == "name" || $qsam == "ur name" || $qsam == "ur name?"){
+            echo respondName();
+} else if ( $keyword[$decisionValue[0]] == "my name name?"){
+            echo "givename";
+}else if ( $keyword[$decisionValue[0]] == "version version? aboutbot"){
+            echo "Version: 1.0";
+}else if ( $keyword[$decisionValue[0]] == "what are you you?"){
+            echo "I'm a ChatBot";
+}else if ( $keyword[$decisionValue[0]] == "today today's date"){
+            echo respondDate();
+}else if($qsam != "intro" && $qsam != "request name" && strtok($qsam, ":") != "train"){
+	$te = checkDatabaseToo($qsam);
+	if ($te == 1){
+		if ( $keyword[$decisionValue[0]] == "i'm am fine okay doing great ok all good"){
+								echo respondOkay();
+		}else if ( $keyword[$decisionValue[0]] == "how are you"){
+								echo respondGreeting();
+		}else if (strtok($qsam, ":") == "name"){
+					echo "nice name to meet you";
+					$nameGuest = explode (":", $qsam);
+					$guestName = $nameGuest [1];
+					echo "$guestName" . ". How are you today?";
+
+		}else if ( $keyword[$decisionValue[0]] == "still here you there codmax jnr samson"){
+			echo repondName();
+		}else if ( $keyword[$decisionValue[0]] == "newschool"){
+			echo "oop! Sorry i don't understand you. But I'm a fast learner,
+						you can train me in this format 'train: question # answer #password'";
+		}
+	}
+}
+}
+
+////////////////////// END OF FUNCTION BY BROWN SAMSON ////////////////////////////////////
+
+
+
+
 function get_time(){
   //instantiate date-time object
   $datetime = new DateTime();
@@ -309,7 +513,7 @@ for($h=0;$h<sizeof($sentence);$h++){
       return $pigText;
 }
 function find_place($query) {
- 
+
 // $apiKey="AIzaSyDlvWmwKX40qRKZQFRKP1qngWnTPKKWM5Y";
   $return="No results were found matching this query";
 $display='block';
@@ -333,7 +537,7 @@ for($i=0;$i<sizeof($parsed_response['results']);$i+=2){
   if(sizeof($parsed_response['results'])-$i==1 ){
   $display='none';
 }
-  
+
   $return='<div class="row">'
  .'<div class="col-xs-6 col-md-4">'
             .'<span>'.$firstName.'</span><br>'
@@ -839,7 +1043,7 @@ function getUSSD($bankName){
     }
   }
   function train_chibuokem_bot($input=''){
-    
+
     if ($input !=""){
     $string = substr($input, 6);
     $processed_input = explode("#", $string);
@@ -853,7 +1057,7 @@ function getUSSD($bankName){
 try {
     $query = "INSERT INTO chatbot (question, answer)
 VALUES ('$question', '$answer')";
-    
+
     $conn->exec($query);
     echo "Thanks for training me";
   }
@@ -865,7 +1069,7 @@ catch(PDOException $e)
   }
   function check_answer_table_chibuokem($input){
     require 'db.php';
-    
+
     $statement = $conn->prepare("SELECT * FROM chatbot WHERE question='$input' ORDER BY rand() LIMIT 1");
     $statement->execute();
     if($statement->rowCount() > 0)
@@ -875,10 +1079,10 @@ catch(PDOException $e)
         $answer = $row["answer"];
       }
       return $answer;
-    } 
+    }
     else {
         return  false;
-    
+
     }
   }
   function get_chibuokem_bot_version(){
@@ -912,7 +1116,7 @@ catch(PDOException $e)
     $link  = $data['contents']['quotes'][0]['permalink'];
     $title  = $data['contents']['quotes'][0]['title'];
     $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
- 
+
    return $answer;
   }
   function get_inspiring_quote_chibuokem(){
@@ -923,7 +1127,7 @@ catch(PDOException $e)
     $link  = $data['contents']['quotes'][0]['permalink'];
     $title  = $data['contents']['quotes'][0]['title'];
     $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
- 
+
    return $answer;
   }
   function get_sports_quote_chibuokem(){
@@ -934,7 +1138,7 @@ catch(PDOException $e)
     $link  = $data['contents']['quotes'][0]['permalink'];
     $title  = $data['contents']['quotes'][0]['title'];
     $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
- 
+
    return $answer;
   }
   function get_funny_quote_chibuokem(){
@@ -945,7 +1149,7 @@ catch(PDOException $e)
     $link  = $data['contents']['quotes'][0]['permalink'];
     $title  = $data['contents']['quotes'][0]['title'];
     $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
- 
+
    return $answer;
   }
   function get_student_quote_chibuokem(){
@@ -956,7 +1160,7 @@ catch(PDOException $e)
     $link  = $data['contents']['quotes'][0]['permalink'];
     $title  = $data['contents']['quotes'][0]['title'];
     $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
- 
+
    return $answer;
   }
   function chibuokem_weather_condition(){
@@ -964,14 +1168,14 @@ catch(PDOException $e)
 //$url = "http://freegeoip.net/json/$ip";
 $url_location = "http://freegeoip.net/json/";
 $dataa = json_decode(file_get_contents($url_location), true);
-    
+
     $lat = $dataa['latitude'];
     $lon = $dataa['longitude'];
-  
+
     $url_weather = "http://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=88b7b09a022737b2bcba78b25d8c8adb";
   $answer = json_decode(file_get_contents($url_weather), true);
-  
-  
+
+
   $weather_main = $answer['weather'][0]['main'];
  $weather_description = $answer['weather'][0]['description'];
  $temperature = $answer['main']['temp'];
@@ -983,35 +1187,35 @@ $dataa = json_decode(file_get_contents($url_location), true);
  $wind_speed = $answer['wind']['speed'];
  $wind_degree = $answer['wind']['deg'];
  return "<span style='color:green; font-weight:bold;'>Weather condition for your estimated location, Latitude : $lat, Longitude : $lon <br/>$weather_main , $weather_description <br/> Temperature : $temperature <br/> Pressure: $pressure <br/>Humidity : $humidity <br/> Minimum temperature : $temp_min <br/> Maximum temperature : $temp_max <br/> Visibility : $visibility <br/> Windspeed : $wind_speed <br/> wind degree : $wind_degree  </span>";
-     
+
   }
   function greeting_from_chibuokem(){
         date_default_timezone_set("UTC");
      $hour = date ("G");
     $minute = date ("i");
     $second = date ("s");
-    if ($hour == 0 && $hour <= 9 && $minute <= 59 && $second <= 59) 
-    { 
-      return  "Good Morning dear"; 
+    if ($hour == 0 && $hour <= 9 && $minute <= 59 && $second <= 59)
+    {
+      return  "Good Morning dear";
     }
     else {
     if ($hour >= 10 && $hour <= 11 && $minute <= 59 && $second <= 59)
-    { 
+    {
       return "Good Day dear";
      }
     if ($hour >= 12 && $hour <= 15 && $minute <= 59 && $second <= 59)
-    { 
-      return "Good Afternoon dear"; 
+    {
+      return "Good Afternoon dear";
     }
     if ($hour >= 16 && $hour <= 23 && $minute <= 59 && $second <= 59)
-    { 
-      return "Good Evening dear"; 
+    {
+      return "Good Evening dear";
     }
-    else { 
-      return  "Welcome"; 
+    else {
+      return  "Welcome";
     }
   }
- } 
+ }
  function chibuokem_bot_help(){
   $help = "<span style='color:green;'>To train me use the format train question #answer #password"."<br/>". "To get the current time  type time and send "."<br/>"."To get Current weather condition type weather_condition and send "."<br/>"."To get love quote type love_quote and send"."<br/>". "To get funny quote type funny_quote and send"."<br/>"."to get an inspiring quote type inspiring_quote and send"."<br/>"."To get the quote of the day for students type students_quote and send"."<br/>". "to get sports quote of the day type sports_quote and send"."<br/> To get news type news and send "."<br/> to get the current bot version type version or aboutbot and send. Thanks </span>";
   return $help;
@@ -1030,4 +1234,6 @@ $dataa = json_decode(file_get_contents($url_location), true);
     return null;
   }
   ///////ADEYEFA OLUWATOBA FUNCTIONS END ///////////////////////////////////
+
+
 ?>
