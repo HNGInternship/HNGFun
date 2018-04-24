@@ -76,8 +76,8 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 	}
 
 	else{ 
-		echo "alert('error');";
-	}		?>
+		
+		?>
 <!DOCTYPE html>
 
 <html>
@@ -404,5 +404,6 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 	</div>
 </body>
 </html>
+<?php } ?>
 
 
