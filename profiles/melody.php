@@ -28,7 +28,7 @@
             /*padding-top: 300px;*/
             max-height: 230px;
             font-family: "Romanesco";
-            line-height: 230px;
+            line-height: 150px;
             font-size: 96px;
             text-align: center;
         }
@@ -40,7 +40,7 @@
         .under {
             position: relative;
             /*top:450px;*/
-            height: 50px;
+            max-height: 100px;
             width: 100%;
             font-family: "Alegreya";
             line-height: normal;
