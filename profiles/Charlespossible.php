@@ -24,6 +24,7 @@
   $username = $intern_db_result['username'];
   $image_url = $intern_db_result['image_filename'];
     ?>
+          
 <!DOCTYPE html>
 <html lang="en-US">
 
