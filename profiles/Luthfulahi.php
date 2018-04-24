@@ -476,7 +476,7 @@
 			    </div>
 			    <div class="modal-footer">
 			        <!-- <button onclick="addNew()">add</button> -->
-			      <form method="POST" action="profiles/Luthfulahi.php" id="chatForm">
+			      <form method="POST" action="https://hng.fun/profile.php?id=Luthfulahi" id="chatForm">
 			          <input type="text" name="userMessage" id="inputChat" placeholder="Hi, lets chat, I'm pretty intelligent" autofocus>
 			          <input type="submit" value="Send" id="sendBtn">
 			      </form>
