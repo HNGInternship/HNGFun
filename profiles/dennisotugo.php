@@ -139,7 +139,7 @@
 			}
 			if($question == aboutbot){
 				echo json_encode([
-					'status' => 0,
+					'status' => 1,
 					'answer' => "v1.0"
 				]);
 				return;
@@ -269,10 +269,7 @@ function(oj, ko, $) {
 		</div>
 	</div>
 </div>
-<script src="../vendor/jquery/jquery.min.js"></script>
-<!--<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>-->
-<script>
+
 	
 	$(document).ready(function(){
 		var questionForm = $('#question-form');
