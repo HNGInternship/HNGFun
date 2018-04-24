@@ -56,7 +56,7 @@
         <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
     </head>
     
-    <body>
+    <body style='padding-bottom: 200px'>
         <iframe src="https://hng.fun/profiles/ovundah/web/index.html"
                 scrolling='no'
                 frameborder='0'
