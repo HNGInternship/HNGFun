@@ -316,9 +316,7 @@ if ($_SERVER['REQUEST_METHOD']=='post'){
 		canvas.arc(200,100,100,0,Math.PI*2,false);
 		canvas.fill();
 	</script> -->
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	
 
@@ -356,7 +354,7 @@ if ($_SERVER['REQUEST_METHOD']=='post'){
                      url:'profiles/segunemma2003.php',
                      type: 'post',
                      dataType: 'json',
-		     contentType: "application/json; charset=utf-8",
+		     
                      data : {message: message},
                      success: function(res){
 
