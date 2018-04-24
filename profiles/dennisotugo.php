@@ -137,7 +137,7 @@ try {
   
   
   <script>
-        $('document').ready(function(){
+        $('documnet').ready(function(){
             $('#send-message').submit(function(e){
                 e.preventDefault();
 
