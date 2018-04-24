@@ -1,8 +1,12 @@
 <?php 
-    $qword = $conn->prepare("SELECT * FROM secret_word");
-    $qword->execute();
-    $qword = $qword->fetchAll(PDO::FETCH_OBJ);
-    $secret_word = $qword->secret_word;
+
+
+    $sql = 'SELECT secret_word FROM secret_word';
+    $qword = $conn->query($sql);
+    $qword->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $qword->fetch();
+    $secret_word = $data['secret_word'];
+?>
 
 ?>
 <!DOCTYPE html>
