@@ -4,11 +4,14 @@
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <title>NeroCodes Profile</title>
         <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.0.0/3rdparty/require/require.js"></script>
-	    <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+        <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" type="text/css"
+	/>
     </head>
     <body>
     <style>
-        body{
+
+        .oj-panel-alt1{
             background-color: #333333;
             color: #ffffff;
             text-align: center;
@@ -37,6 +40,7 @@
             font-family: verdana;
             font-size: 2em;
             margin-top: 7px;
+            color: #ffffff;
         }
 
         .username{
@@ -55,6 +59,8 @@
             font-size: 1.5em;
             background: -webkit-linear-gradient(top, #aaaaaa 0%, #333333);
         }
+
+        
 
         
     </style>
