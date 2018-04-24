@@ -12,7 +12,7 @@ try {
 	throw $e;
 }
 global $conn;
-if ($_SERVER['REQUEST_METHOD']==='GET'){
+if ($_SERVER['REQUEST_METHOD']==='POST'){
 	$message = trim($_POST['message']);
 	if ($message === ''){
 		$empty_response = [
@@ -352,8 +352,8 @@ if ($_SERVER['REQUEST_METHOD']==='GET'){
 					// alert(responseMessage('I am a little bot'));
 				}
                  $.ajax({
-                     url:"/profiles/segunemma2003.php",
-                     type: "GET",
+                     url:"profiles/segunemma2003.php",
+                     type: "POST",
                      dataType: "json",
 		     
                      data : {message: message},

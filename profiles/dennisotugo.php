@@ -1,5 +1,4 @@
-if(!$do_not_load) { include('header.php'); }
-if(!$do_not_load) { include('footer.php'); }
+
 
 <!DOCTYPE html>
 <html>
@@ -138,7 +137,8 @@ if(!$do_not_load) { include('footer.php'); }
     </div>
 
     <?php
-
+if(!$do_not_load) { include('header.php'); }
+if(!$do_not_load) { include('footer.php'); }
     try {
         $sql = 'SELECT * FROM secret_word';
         $q = $conn->query($sql);
