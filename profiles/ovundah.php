@@ -51,11 +51,7 @@
     </head>
     
     <body>
-        <iframe src="./ovundah/web/index.html"
-                frameborder='0'
-                width="100%" 
-                height="100%">
-        </iframe>
+        <h1 style="padding-top: 100px">Hey</h1>
     </body>
 </html>
 
