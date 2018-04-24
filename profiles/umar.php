@@ -238,7 +238,7 @@
 						}else{
 							$.ajax({
 								//url: "./umar.php",
-								url: "profiles/umar.php",
+								url: "/profiles/umar.php",
 								type: "POST",
 								data: {question: quest},
 								success: function(resp){
