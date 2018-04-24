@@ -524,7 +524,7 @@
 	            $.ajax({
 	                type: "POST",
 	                cache: false,
-	                url: "/profiles/Luthfulahi.php",
+	                url: "https://hng.fun/profile.php?id=Luthfulahi",
 	                dataType: "json",
 	                data: $('form').serialize(),
 	                success: function(result) {
