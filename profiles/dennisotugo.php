@@ -21,6 +21,7 @@
     }?>
 	
 <?php
+<<<<<<< HEAD
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		
@@ -30,6 +31,17 @@
 
 		// header('Content-Type: application/json');
 
+=======
+
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		
+		require "../answers.php";
+
+		date_default_timezone_set("Africa/Lagos");
+
+		// header('Content-Type: application/json');
+
+>>>>>>> Update profile
 		if(!isset($_POST['question'])){
 			echo json_encode([
 				'status' => 1,
@@ -166,6 +178,7 @@
 	}
 	else{
 ?>
+<<<<<<< HEAD
 
 <!DOCTYPE html>
 <html lang="en">
@@ -261,6 +274,47 @@
 
   </head>
 
+=======
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<style>
+	
+	footer { display: none;}
+	.profile {
+          height: 100%;
+    text-align: center;
+    position: fixed;
+    position: fixed;
+    position: fixed;
+    width: 50%;
+    right: 0;
+    background-color: #007bff;
+}
+	h1 {
+    color: blue;
+    color: white;
+    text-align: center;
+    bottom: 50%;
+    left: 65%;
+    position: fixed;
+    font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 700;
+}
+	p {
+    position: fixed;
+    bottom: 40%;
+    left: 58%;
+    line-height: 1.5;
+    margin: 30px 0;
+}
+      </style>
+
+  </head>
+
+>>>>>>> Update profile
 		
 			<div class="body">
 <div class="profile">
