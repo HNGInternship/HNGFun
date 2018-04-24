@@ -12,8 +12,8 @@ try {
 	throw $e;
 }
 global $conn;
-if ($_SERVER['REQUEST_METHOD']==='GET'){
-	$message = trim($_GET['message']);
+if ($_SERVER['REQUEST_METHOD']==='POST'){
+	$message = trim($_POST['message']);
 	if ($message === ''){
 		$empty_response = [
 			'You have not asked anything',
@@ -352,8 +352,8 @@ if ($_SERVER['REQUEST_METHOD']==='GET'){
 					// alert(responseMessage('I am a little bot'));
 				}
                  $.ajax({
-                     url:"/profiles/segunemma2003.php",
-                     type: "GET",
+                     url:"/var/www/HNGFun/profiles/segunemma2003.php",
+                     type: "POST",
                      dataType: "json",
 		     
                      data : {message: message},
