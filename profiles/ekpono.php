@@ -10,7 +10,6 @@
         $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
         $code = $secret_code->fetch();
         $secret_word = $code['secret_word'];
-
 	?>
 
 <?php
@@ -27,7 +26,6 @@ catch(PDOException $e)
     echo "Sorry connection not found: " . $e->getMessage();
     }
 // Check connection
-
 ?>
 <?php //Chatbot 
     if($_SERVER['REQUEST_METHOD']==='POST'){
@@ -39,7 +37,6 @@ catch(PDOException $e)
             $data = preg_replace("([?.!])", "", $data);
             return $data;
         }
-
         //end of function definition
         $ques = input($_POST['ques']);
         if(strpos($ques, "train:") !== false){
@@ -108,7 +105,6 @@ catch(PDOException $e)
 						$stmt = $conn->prepare($sql);
 						$stmt->bindParam(':question', $ques);
 						$stmt->execute();
-
 						$stmt->setFetchMode(PDO::FETCH_ASSOC);
 						$rows = $stmt->fetchAll();
                     echo json_encode([
@@ -119,12 +115,6 @@ catch(PDOException $e)
             }
             return;
         }
-
-
-
-
-
-
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -141,13 +131,11 @@ catch(PDOException $e)
     margin: 0;
     padding: 0;
 }
-
 body {
   font-family: 'Dosis', sans-serif;
     background: linear-gradient(to right, rgba(216,0,0,0), rgba(216,0,0,0.2));
     background-repeat: cover;
 }
-
 .container {
     width: 80%;
     height: auto;
@@ -230,10 +218,7 @@ a {
             background: blue;
         }
             
-
-
 /* CSS button */
-
 </style>
 </head>
 <body>
@@ -278,7 +263,6 @@ a {
 
 
  <script>
-
         window.addEventListener("keydown", function(e){
             if(e.keyCode ==13){
                 if(document.querySelector("#question").value.trim()==""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){
@@ -288,7 +272,6 @@ a {
             }
         });
         function sendMsg(){
-
             var ques = document.querySelector("#question");
             if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
             displayOnScreen(ques.value, "user");
