@@ -92,7 +92,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         function Encode_answer($answer)
         {
             if (Answer_Is_A_function($answer)) {
-                require "../../answers.php";
                 return Get_Hotelsng_wikipage();        
             } else {
                 return $answer['answer'];
@@ -630,7 +629,7 @@ function Get_Hotelsng_wikipage()
                             " <i class='fa fa-user'></i> </p>");
                         if ($userInputValue == 'aboutbot') {
                             $chatMessages.append(
-                                "<p class='chat-text'><i class='fa fa-user'></i>" + $userInputValue + "</p>");
+                                "<p class='chat-text'><i class='fa fa-user'></i> Version1.0</p>");
                             $chatBot.scrollTop($chatBot[0].scrollHeight);
                             $userInput.val('');
                             return;
