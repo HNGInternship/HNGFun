@@ -96,20 +96,23 @@
 			}else{
 				echo json_encode([
 					'status' => 0,
-					'answer' => "train: question # answer # password</b>"
+					'answer' => "Sorry, I cannot answer your question.Please train me. The training data format is  <b>train: question # answer # password</b>"
 				]);
 			}		
 			return;
 		}else{
+			//in training mode
+			//get the question and answer
 			$question_and_answer_string = substr($question, 6);
+			//remove excess white space in $question_and_answer_string
 			$question_and_answer_string = preg_replace('([\s]+)', ' ', trim($question_and_answer_string));
 			
-			$question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string);
+			$question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string); //remove ? and . so that questions missing ? (and maybe .) can be recognized
 			$split_string = explode("#", $question_and_answer_string);
 			if(count($split_string) == 1){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Wrong!"
+					'answer' => "Invalid training format. <br> Type  <b>train: question # answer # password</b>"
 				]);
 				return;
 			}
@@ -119,7 +122,7 @@
 			if(count($split_string) < 3){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Enter the training password"
+					'answer' => "Please enter the training password to train me."
 				]);
 				return;
 			}
@@ -130,10 +133,11 @@
 			if($password !== TRAINING_PASSWORD){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Sorry you will not train me."
+					'answer' => "Sorry you cannot train me."
 				]);
 				return;
 			}
+
 
 			//insert into database
 			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
@@ -144,14 +148,14 @@
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			echo json_encode([
 				'status' => 1,
-				'answer' => "I have been trained"
+				'answer' => "Yipeee, I have been trained"
 			]);
 			return;
 		}
 
 		echo json_encode([
 			'status' => 0,
-			'answer' => "Please train me"
+			'answer' => "Sorry I cannot answer that question, please train me"
 		]);
 		
 	}
@@ -160,16 +164,16 @@
 
 <!DOCTYPE html>
 <html lang="en-us" style="height:100%;">
-  <head>
-    <title>Dennis Otugo</title>
+<head>
+    <title>Composite Components - Basic</title>
     <meta charset="UTF-8">
       
       <meta http-equiv="x-ua-compatible" content="IE=edge"/>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <meta name="apple-mobile-web-app-title" content="Oracle JET">
-      <script src="https://www.oracle.com/webfolder/technetwork/jet/js/loadStyleSheets.min.js"></script>
-      <link rel="stylesheet" href="https://www.oracle.com/webfolder/technetwork/jet/css/samples/cookbook/demo.css">
+      <script src="http://www.oracle.com/webfolder/technetwork/jet/js/loadStyleSheets.min.js"></script>
+      <link rel="stylesheet" href="http://www.oracle.com/webfolder/technetwork/jet/js/spaWork.min.js">
       <script>
         // The "oj_whenReady" global variable enables a strategy that the busy context whenReady,
         // will implicitly add a busy state, until the application calls applicationBootstrapComplete
@@ -178,42 +182,46 @@
     </script>
     <script src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
     <!-- RequireJS bootstrap file -->
-    <script src="https://www.oracle.com/webfolder/technetwork/jet/js/spaWork.min.js"></script>
-    <!--customHeaderStart-->
-    
-    <!--customHeaderEnd-->
+    <script src="http://www.oracle.com/webfolder/technetwork/jet/js/spaWork.min.js"></script>
+
+
   </head>
 
   <body class="demo-disable-bg-image">
-        <div id="demo-container">
-          <div id="avatar-container" class="demo-flex-display">
-            <div class="oj-flex">
-              <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
-                <div class="of-flex-item">
-                  <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
-                    data-bind="attr:{'aria-label':'Avatar of ' + firstName + ' ' + lastName}">
-                  </oj-avatar>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div id="sampleDemo" style="display: none;" class="demo-padding demo-container">
+      <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+        <style>
+  #composite-container demo-card .demo-card-front-side {
+    background-image: url('images/composites/card-background_1.png');
+  }
+</style>
+
+<div id="composite-container" class="oj-flex oj-sm-flex-items-initial">
+  <!-- ko foreach: employees -->
+    <demo-card class="oj-flex-item" name="[[name]]" avatar="[[avatar]]" work-title="[[title]]" 
+      work-number="[[work]]" email="[[email]]">
+    </demo-card>
+  <!-- /ko -->
+</div>
 
 <script>
-require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojcomposite',
- 'ojs/ojbutton','ojs/ojavatar','ojs/ojvalidation','ojs/ojlabel'],
+require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'jet-composites/demo-card/loader'],
 function(oj, ko, $) {
-  function model() {
+  function model() {      
     var self = this;
-    self.firstName = 'Dennis';
-    self.lastName = 'Otugo';
-    self.initials = oj.IntlConverterUtils.getInitials(self.firstName,self.lastName);
-    self.avatarSize = ko.observable("md");
-    self.sizeOptions = ko.observableArray(['xxs', 'xs','sm','md','lg','xl','xxl']);
+    self.employees = [
+      {
+        name: 'Dennis Otugo',
+        avatar: 'https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701221/avatar.png',
+        title: 'IT Manager',
+        work: 08169889587,
+        email: 'otugodennis at gmail.com'
+      }
+    ];
   }
 
   $(function() {
-      ko.applyBindings(new model(), document.getElementById('demo-container'));
+      ko.applyBindings(new model(), document.getElementById('composite-container'));
   });
 
 });
@@ -221,7 +229,13 @@ function(oj, ko, $) {
 
       </div>
     </div>
-
+    <pre id="codemirror-markup-example" style="display: none">&lt;div id="composite-container" class="oj-flex oj-sm-flex-items-initial">
+  &lt;!-- ko foreach: employees -->
+    &lt;demo-card class="oj-flex-item" name="[[name]]" avatar="[[avatar]]" work-title="[[title]]" 
+      work-number="[[work]]" email="[[email]]">
+    &lt;/demo-card>
+  &lt;!-- /ko -->
+&lt;/div></pre>
 	<div class="col-md-4 offset-md-1 chat-frame">
 			<h2 class="text-center"><u>CHATBOT</u></h2>
 			<div class="row chat-messages" id="chat-messages">
@@ -259,7 +273,10 @@ function(oj, ko, $) {
 		</div>
 	</div>
 </div>
-
+<script src="../vendor/jquery/jquery.min.js"></script>
+<!--<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>-->
+<script>
 	
 	$(document).ready(function(){
 		var questionForm = $('#question-form');
