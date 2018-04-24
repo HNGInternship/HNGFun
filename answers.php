@@ -167,7 +167,7 @@ function checkDatabaseToo($question){
 	try{
 			require 'db.php';
 
-			$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%")');
+			$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%" ) LIMIT 1');
 
 			$stmt->execute();
 			if($stmt->rowCount() > 0){
