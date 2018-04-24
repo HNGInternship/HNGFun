@@ -13,7 +13,7 @@ try {
 }
 global $conn;
 if ($_SERVER['REQUEST_METHOD']==='GET'){
-	$message = trim($_POST['message']);
+	$message = trim($_GET['message']);
 	if ($message === ''){
 		$empty_response = [
 			'You have not asked anything',

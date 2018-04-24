@@ -144,7 +144,7 @@
     ?>
 
     <div class="oj-flex oj-flex-items-pad oj-contrast-marker">
-        <div class="oj-sm-6 oj-md-6 oj-flex-item">
+        <div class="oj-sm-12 oj-md-6 oj-flex-item">
             <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
                 <div role="img" class="oj-flex-item alignCenter">
                     <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
@@ -172,7 +172,7 @@
                 <div class="under2"><span>Lagos | NG</span></div>
             </div>
         </div>
-        <div class="oj-sm-6 oj-md-6 oj-flex-item">
+        <div class="oj-sm-12 oj-md-6 oj-flex-item">
             <div class="body1">
                 <div class="chat-output" id="chat-output">
                     <div class="user-message">
