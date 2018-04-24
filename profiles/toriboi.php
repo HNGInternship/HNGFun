@@ -1,57 +1,17 @@
 <?php
   // this runs only when a post is been made via the bot chat through AJAX
   if($_SERVER['REQUEST_METHOD'] === "POST"){
-    include '../answers.php';
     if(!isset($conn)) {
         include '../../config.php';
 
         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
     }
 
-    // HANDLE SLACK MESSAGING
-    $q = trim($_POST['q']);
-    $slack_parts = explode(':', $q);
-    if(isset($_POST['q']) && $slack_parts[0] == 'slack') {
-      //ensure slack format is followed
-      $slack_q = explode('#', $slack_parts[1]);
-      if((count($slack_q) != 3) || (trim($slack_q[2]) != 'password')){
-        echo "Sorry, wrong slack messaging format or incorrect password used. Use <span style=\"color:pink;\">slack: message # channel # password<span>"; exit();
-      }
-
-      $message = trim($slack_q[0]);
-      $channel = trim($slack_q[1]);
-
-      if($message == '' || $channel == '') {
-        echo "message/channel can't be empty"; exit();
-      }
-
-      function slack($message, $channel)
-      {
-          $ch = curl_init("https://slack.com/api/chat.postMessage");
-          $data = http_build_query([
-              "token" => "xoxp-340958278947-342410746578-350260911380-247d36659ea61817393ba32bac06ebb7",
-          	"channel" => $channel,
-          	"text" => $message,
-          	"username" => "toribot",
-          ]);
-          curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-          curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-          $result = curl_exec($ch);
-          curl_close($ch);
-
-          return $result;
-      }
-      // Example message will post "Hello world" into the random channel
-      if(slack($message, '#'.$channel)) {
-        echo "Sent"; exit();
-      }
-      else {
-        echo "Couldn't send"; exit();
-      }
-    }
-
     if(isset($_POST['q']) && $_POST['q'] != '') {
+      $q = trim($_POST['q']);
+
+      if(strtolower($q) == 'aboutbot') {echo "Name: toribot. Version: 1.0"; exit();}
+      $q = $_POST['q'];
 
       // HANDLE TRAINING
       $words = explode(':', $q);
@@ -72,21 +32,22 @@
 
         if($password == 'password') {
           // try to retrieve question from db
-          $sql = "select * from chatbot where question like '{$question}%' LIMIT 1";
+          $sql = "select * from chatbot where question like '{$question}%'";
           $query = $conn->prepare($sql);
           $query->execute();
-          $result = $query->fetch(PDO::FETCH_OBJ);
+          $results = $query->fetchAll(PDO::FETCH_OBJ);
 
           // retrain bot if retrieved
           if($query->rowCount()) {
-            if($answer == trim($result->answer)) {
-              echo "I've been trained on this already"; exit();
+            foreach ($results as $result) {
+              if($answer == trim($result->answer)) {
+                echo "I've been trained on this already"; exit();
+              }
             }
 
             $sql = "insert into chatbot(question, answer) values('{$question}', '{$answer}')";
             $query = $conn->prepare($sql);
             $query->execute();
-            $result = $query->fetch(PDO::FETCH_OBJ);
 
             if($query->rowCount()) {
               echo "I'm familiar with this quetion. Although I have taken note of this answer as well. Thanks for retraininig me."; exit();
@@ -100,7 +61,6 @@
           $sql = "insert into chatbot(question, answer) values('{$question}', '{$answer}')";
           $query = $conn->prepare($sql);
           $query->execute();
-          $result = $query->fetch(PDO::FETCH_OBJ);
 
           if($query->rowCount()) {
             echo "Thank you for training me. :)"; exit();
@@ -366,13 +326,6 @@
             <div class="bot-message">
               <span class="name">toribot: </span><span class="message">
                 You can train me using <span style="color:pink;">train: question # answer # password</span>
-              </span>
-            </div>
-            <div class="bot-message">
-              <span class="name">toribot: </span><span class="message">
-                I am able to send messages to any slack channel (not locked) on the 'HNG Internship 4' workspace.
-                Use <span style="color:pink;">slack: meesage # channel # password</span> to send a message.
-                Don't add the '#' in the channel
               </span>
             </div>
           </div>

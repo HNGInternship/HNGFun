@@ -8,19 +8,70 @@
   } catch (PDOException $e) {
       throw $e;
   }
+
+  require_once 'answers.php';
+
+  if(isset($_POST['message'])){
+
+    $input = $_POST['message'];
+
+    $result = check_if_training_chibuokem($input);
+    if($result == true){
+        $result_training = train_chibuokem_bot($input);
+        echo $result_training;
+    }
+    elseif($input =='help'){
+        echo chibuokem_bot_help();
+    }
+    elseif($input == 'version'){
+        echo get_chibuokem_bot_version();
+    }
+     elseif($input == 'aboutbot'){
+        echo get_chibuokem_bot_version();
+    }
+    elseif($input == 'time'){
+        echo get_time();
+    }
+    elseif($input == 'love_quote'){
+        echo get_love_quote_chibuokem();
+    }
+    elseif($input =='inspiring_quote'){
+        echo get_inspiring_quote_chibuokem();
+    }
+    elseif($input =='student_quote'){
+        echo get_student_quote_chibuokem();
+    }
+
+    elseif($input =='sports_quote'){
+        echo get_sports_quote_chibuokem();
+    }
+    elseif($input =='funny_quote'){
+        echo get_funny_quote_chibuokem();
+    }
+    elseif($input =='weather_condition'){
+        echo chibuokem_weather_condition();
+    }
+    elseif($input =='news'){
+        echo get_chibuokem_news();
+    }
+
+    else{
+        
+        $result_answer = check_answer_table_chibuokem($input);
+
+        if($result_answer != false){
+            echo $result_answer;
+        }
+        else{
+            echo "Please teach me how to answer this question using the format train question #answer #password";
+        }
+    }
+
+
+    die();
+  }
+
 ?>
-<html>
-
-<head>
-    <title><?php echo $data['name'] ?></title>
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, minimum-scale=1">
-    <meta http-equiv="cleartype" content="on">
-    <meta name="msapplication-TileColor" content="#329c85">
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta name="robots" content="index">
-
     <style type="text/css">
         @font-face {
             font-family: Proxima Nova;
@@ -7981,11 +8032,95 @@
                 top: 10px
             }
         }
+
+         /* Chat containers */
+.container_chat {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+/* Darker chat container */
+.darker {
+    border-color: #ccc;
+    background-color: #ddd;
+}
+
+/* Clear floats */
+.container_chat::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Style images */
+.container_chat img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+/* Style the right image */
+.container_chat img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+}
+
+/* Style time text */
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+/* Style time text */
+.time-left {
+    float: left;
+    color: #999;
+} 
+
+input.textarea {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    height: 50px;
+    z-index: 99;
+    background: #fafafa;
+    border: none;
+    outline: none;
+    padding-left: 55px;
+    padding-right: 55px;
+    color: #666;
+    font-weight: 400;
+}
+.emojis {
+    position: fixed;
+    display: block;
+    bottom: 8px;
+    left: 7px;
+    width: 34px;
+    height: 34px;
+    background-image: url(https://i.imgur.com/5WUpcPZ.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 100;
+    cursor: pointer;
+}
+.emojis:active {
+    opacity: 0.9;
+}
     </style>
+ <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 
-</head>
 
-<body class="has-ledge">
+
+
     <div class="page-container">
         <div class="page-content color-dark profile-scope-1zgKV" data-reactroot="">
         	<nav>	</nav>
@@ -8048,6 +8183,94 @@
             <div class="ledge-content">
             </div>
         </div>
-</body>
 
-</html>
+        <!--chat starts here -->
+            <div class="container" id="chat_div" style="overflow-y: scroll; height:300px;  max-height: 300px;" >
+                 
+                 <div class="container_chat darker">
+                  <img src="https://i.imgur.com/HYcn9xO.png" alt="Avatar" class="right">
+                  <p><?php echo greeting_from_chibuokem()." type help and click on the green send button below  to see what i  can do"; ?></p>
+                  <span class="time-left"><?php  echo get_time();?></span>
+                </div> 
+
+         </div> 
+
+         <div class="row">
+
+         <div class="col-md-12">
+                <input class="form-control" type="text" placeholder="Type here!" id="message" />
+                 <button type="button" class="btn btn-success btn-lg pull-right" id="send">Send</button>
+      </div>
+               
+        
+
+       </div>      
+                 <!--<div class="emojis"></div> -->
+
+        <!--chat ends here -->
+
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                    
+                     $("#send").click(function(e){
+                e.preventDefault();
+
+                var chat_message = $("#message").val();
+                if(chat_message ==""){
+                    alert('Please enter your message');
+                }
+                else{
+
+                        var dt = new Date();
+                var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+
+                var div = "<div class='container_chat'><img src='https://i.imgur.com/DY6gND0.png' alt='Avatar'><p>"+chat_message+"</p><span class='time-right'>"+time+"</span></div>";
+
+               $('#chat_div').append(div);
+
+               $('#chat_div').scrollTop($('#chat_div').scrollTop()+200);
+
+               $("#message").val("");
+
+              data = {message:chat_message};  
+
+             $.ajax('',{
+            type : 'post',
+            data : data,
+            success: function(data){
+
+                  dt = new Date();
+                 timee = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+
+                var divv = '<div class="container_chat darker"><img src="https://i.imgur.com/HYcn9xO.png" alt="Avatar" class="right"><p>'+data+'</p><span class="time-left">'+timee+'</span></div>'; 
+
+                 $('#chat_div').append(divv);
+
+                 $('#chat_div').scrollTop($('#chat_div').scrollTop()+300);
+
+                    $("#send").html('Sent');
+            
+            
+            },
+            error : function(jqXHR,textStatus,errorThrown){
+                 if(textStatus ='error'){
+                    alert('Network Error request not completed');
+                 }
+                $("#send").html('Failed');
+            },
+            beforeSend :function(){
+
+            $("#send").html('Sending..');
+
+            },
+        });
+
+                }
+                
+   
+            }); 
+
+            
+            });
+           
+        </script>
