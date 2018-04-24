@@ -37,34 +37,32 @@
 			]);
 			return;
 		}
-		
-		
-
+      if(strtolower($question) == 'aboutbot') {echo "v1.0"; exit();}
 		$question = $_POST['question']; //get the entry into the chatbot text field
-		      if(strtolower($question) == 'aboutbot') {echo "v1.0"; exit();}
-		      $question = $_POST['question'];
 
-		
-		
 		//check if in training mode
 		$index_of_train = stripos($question, "train:");
 		if($index_of_train === false){//then in question mode
 			$question = preg_replace('([\s]+)', ' ', trim($question)); //remove extra white space from question
 			$question = preg_replace("([?.])", "", $question); //remove ? and .
 
+			//check if answer already exists in database
 			$question = "%$question%";
 			$sql = "select * from chatbot where question like :question";
 			$stmt = $conn->prepare($sql);
 			$stmt->bindParam(':question', $question);
 			$stmt->execute();
+
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			$rows = $stmt->fetchAll();
 			if(count($rows)>0){
 				$index = rand(0, count($rows)-1);
 				$row = $rows[$index];
 				$answer = $row['answer'];	
+
+				//check if the answer is to call a function
 				$index_of_parentheses = stripos($answer, "((");
-				if($index_of_parentheses === false){ 
+				if($index_of_parentheses === false){ //then the answer is not to call a function
 					echo json_encode([
 						'status' => 1,
 						'answer' => $answer
@@ -77,14 +75,14 @@
 						if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
 							echo json_encode([
 								'status' => 0,
-								'answer' => "No whitespaces allowed"
+								'answer' => "No white spaces allowed in function name"
 							]);
 							return;
 						}
 						if(!function_exists($function_name)){
 							echo json_encode([
 								'status' => 0,
-								'answer' => "Function 404"
+								'answer' => "Function not found"
 							]);
 						}else{
 							echo json_encode([
@@ -98,7 +96,7 @@
 			}else{
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Train me. The training data format is  <b>train: question # answer # password</b>"
+					'answer' => "Sorry, I cannot answer your question.Please train me. The training data format is  <b>train: question # answer # password</b>"
 				]);
 			}		
 			return;
@@ -124,7 +122,7 @@
 			if(count($split_string) < 3){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Please enter the training password."
+					'answer' => "Please enter the training password to train me."
 				]);
 				return;
 			}
@@ -135,10 +133,13 @@
 			if($password !== TRAINING_PASSWORD){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Sorry you do not have access train me."
+					'answer' => "Sorry you cannot train me."
 				]);
 				return;
 			}
+
+
+			//insert into database
 			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
 			$stmt = $conn->prepare($sql);
 			$stmt->bindParam(':question', $que);
@@ -147,14 +148,14 @@
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			echo json_encode([
 				'status' => 1,
-				'answer' => "I have been trained"
+				'answer' => "Yipeee, I have been trained"
 			]);
 			return;
 		}
 
 		echo json_encode([
 			'status' => 0,
-			'answer' => "Please train me"
+			'answer' => "Sorry I cannot answer that question, please train me"
 		]);
 		
 	}
@@ -162,48 +163,104 @@
 ?>
 
 <!DOCTYPE html>
-<!--
- Copyright (c) 2014, 2018, Oracle and/or its affiliates.
- The Universal Permissive License (UPL), Version 1.0
- -->
-
-<!-- ************************ IMPORTANT INFORMATION ************************************
-  This web navigation drawer template is provided as an example of how to configure
-  a JET web application with a navigation drawer as a single page application
-  using ojRouter and oj-module.  It contains the Oracle JET framework and a default
-  requireJS configuration file to show how JET can be setup in a common application.
-  This project template can be used in conjunction with demo code from the JET
-  website to test JET component behavior and interactions.
-
-  Any CSS styling with the prefix "demo-" is for demonstration only and is not
-  provided as part of the JET framework.
-
-  Please see the demos under Cookbook/Patterns/App Shell: Web and the CSS documentation
-  under Support/API Docs/Non-Component Styling on the JET website for more information on how to use 
-  the best practice patterns shown in this template.
-
-  Aria Landmark role attributes are added to the different sections of the application
-  for accessibility compliance. If you change the type of content for a specific
-  section from what is defined, you should also change the role value for that
-  section to represent the appropriate content type.
-  ***************************** IMPORTANT INFORMATION ************************************ -->
-<html lang="en-us">
-  <head>
-    <title>Oracle JET Starter Template - Web Nav Drawer</title>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
-
+<html lang="en">
+<head>
+ <link href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 <style>
-	header {
-		display: none;
-	}
-	footer {
-		display: none;
-	}
-	</style>
+      body {
+			
+			background-size: cover;
+		}
+		p{ color:black
+		
+		}
+		h1{ color: blue
+		}
+		h3{ color: blue
+		}
+		h5{ color: white
+		
+		}
+		
+		.chat-frame {
+			border-color: #cccccc;
+			color: #333333;
+			background-color: #ffffff;
+			padding: 20px;
+			height: 550px;
+			margin-top: 5%;
+			margin-bottom: 50px;
+		}
+
+		.chat-messages {
+			background-color: lightblue;
+			padding: 5px;
+			height: 300px;
+			overflow-y: auto;
+			margin-left: 15px;
+			margin-right: 15px;
+			border-radius: 6px;
+			
+		}
+
+		.single-message {
+			margin-bottom: 5px; 
+			border-radius: 5px;
+			min-height: 30px;
+			
+		}
+
+		.single-message-bg {
+			background-color: blue;
+			
+			
+		}
+
+		.single-message-bg2 {
+			background-color: darkblue;
+			
+		}
+
+		input[name=question] {
+			height: 50px;
+		}
+
+		button[type=submit] {
+			height: 50px;
+			background-color: blue;
+			color: black
+		}
+
+		.circle {
+			width: 60%;
+			margin-left: 20%;
+			border-radius: 50%;
+		}
+		.f-icon {
+			font-size: 40px;
+		}
+
+      </style>
+
   </head>
-  <body>
+
+  <body style = "background color: #FFFFFF" class="oj-web-applayout-body>
+
+<!-- Main Content -->
+<div class="oj-flex oj-flex-items-pad oj-contrast-marker">
+        
+			
+			<div class="body0">
+<div class="profile">
+						<h1>Dennis Otugo</h1>
+						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
+
+					</div>
+</div>
+<div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
+<div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
+<div>&nbsp;</div>
 	<div class="col-md-4 offset-md-1 chat-frame">
 			<h2 class="text-center"><u>CHATBOT</u></h2>
 			<div class="row chat-messages" id="chat-messages">
@@ -241,6 +298,9 @@
 		</div>
 	</div>
 </div>
+<script src="../vendor/jquery/jquery.min.js"></script>
+<!--<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>-->
 <script>
 	
 	$(document).ready(function(){
@@ -297,7 +357,7 @@
 
 		});
 	});
-</script>
+</script>	
 </body>
 </html>
 <?php } ?>
