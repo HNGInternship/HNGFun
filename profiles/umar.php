@@ -65,7 +65,7 @@
 		}elseif (strcasecmp($quest_low, "what is your name?") == 0){
 			echo json_encode(['status' => 1, 'reply' => 'My name is Umar']);
 			die();
-		}elseif(strcasecmp($quest_low, "help") == 0 || strcasecmp($quest_low, "menu") == 0){
+		}elseif($menu_mode !== false ){
 			$menu = bot_menu();
 			echo json_encode(['status' => 1, 'reply' => $menu]);
 			die();
@@ -202,7 +202,7 @@
 
 				<div id="chatform">
 					<form id="form" class="qform">
-						<input id="input" type="text" placeholder="Type 'help' or 'menu' to start" >
+						<input id="input" type="text" placeholder="Type 'menu' to start" >
 						<button id="send" type="submit">SEND</button>
 					</form>
 				</div>
