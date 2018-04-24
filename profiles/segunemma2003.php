@@ -11,8 +11,8 @@ try {
 } catch (PDOException $e) {
 	throw $e;
 }
-if ($_SERVER['REQUEST_METHOD']=='GET'){
-	$message = trim($_GET['message']);
+if ($_SERVER['REQUEST_METHOD']=='POST'){
+	$message = trim(htmlspecialchars($_POST['message']));
 	if ($message === ''){
 		$empty_response = [
 			'You have not asked anything',
@@ -352,7 +352,7 @@ if ($_SERVER['REQUEST_METHOD']=='GET'){
 				}
                  $.ajax({
                      url:"/profiles/segunemma2003",
-                     type: "GET",
+                     type: "POST",
                      dataType: "json",
 		     
                      data : {message: message},
