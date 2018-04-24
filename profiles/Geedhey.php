@@ -398,7 +398,8 @@ h5 {
         <div class="col-md-6 left">
         <div class="content-area card" >
             
-            <img  class="img-rounded" src="<?php echo $image; ?>" alt="profile picture">
+            <img  class="img-rounded" src="http://res.cloudinary.com/geedhey/image/upload/v1523658558/IMG_20161218_191105_542_1.jpg"
+             alt="profile picture">
            
             <h1><?php echo $name; ?></h1>
             <h3> Electrical & Electronics Engineer,IT Enthusiasts, Software Developer and Pianist.</h3>
