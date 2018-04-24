@@ -2,7 +2,7 @@
     <?php
         
     require_once 'db.php';
-    require_once 'answer.php';
+    require_once "../answers.php";
 
     try {
     $sql = "SELECT * FROM secret_word";
@@ -195,7 +195,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			$split_string = explode("#", $myString);
 			$newQuestion = mysqli_real_escape_string($connect, ltrim($split_string[0], "train: "));
 			$newAnswer = mysqli_real_escape_string($connect, $split_string[1]);
-		
+			
 			$trainBot = mysqli_query($connect, "INSERT INTO chatbot (id, question, answer) VALUES(0, '$newQuestion', '$newAnswer')");
 			if($trainBot){
 				echo json_encode(['posit' => 1, 'info' => "Thanks for your mentorship. Am gratefull!"]);
