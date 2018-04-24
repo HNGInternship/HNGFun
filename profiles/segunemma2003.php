@@ -356,7 +356,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
                      type: "POST",
                      dataType: "json",
 		     
-                     data : {message: message},
+                     res : {message: message},
                      success: function(res){
 
                          console.log(res);

@@ -3,7 +3,10 @@
 <head>
     <link href='https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra SC|Romanesco|Source+Sans+Pro:400,700' rel='stylesheet'>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-
+.oj-flex {
+    overflow-y: scroll;
+    height: 100%;
+}
     <style type="text/css">
 	    .oj-flex {
     height: 100%;
