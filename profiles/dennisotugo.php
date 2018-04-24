@@ -199,7 +199,14 @@
 
     <!-- This is where you would add any app specific styling -->
     <link rel="stylesheet" href="profiles/dennisotugo/css/app.css" type="text/css"/>
-
+<style>
+	header {
+		display: none;
+	}
+	footer {
+		display: none;
+	}
+	</style>
   </head>
   <body class="oj-web-applayout-body">
     <!-- Template for rendering navigation items shared between nav bar and nav list -->
@@ -263,101 +270,7 @@
     <script type="text/javascript" src="profiles/dennisotugo/js/libs/require/require.js"></script>
     <script type="text/javascript" src="profiles/dennisotugo/profiles/dennisotugo/js/main.js"></script>
 
-    
-	<div class="col-md-4 offset-md-1 chat-frame">
-			<h2 class="text-center"><u>CHATBOT</u></h2>
-			<div class="row chat-messages" id="chat-messages">
-				<div class="col-md-12" id="message-frame">
-					<div class="row single-message">
-						<div class="col-md-12 single-message-bg">
-							<h5>Hello <span style="font-weight: bold">iam__bot</span></h5>
-						</div>
-					</div>
-					<div class="row single-message">
-						<div class="col-md-12 single-message-bg">
-							<h5>Ask me your questions </h5>
-						</div>
-					</div>
-					<div class="row single-message">
-						<div class="col-md-12 single-message-bg">
-							
-							<h5>To train me, type <br/><b>train: question # answer # password</b><h5>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			
-			<div class="row" style="margin-top: 40px;">
-				<form class="form-inline col-md-12 col-sm-12" id="question-form">
-					<div class="col-md-12 col-sm-12 col-12">
-						<input class="form-control w-100" type="text" name="question" placeholder="Enter your message" />
-					</div>
-					<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
-						<button type="submit" class="btn btn-info float-right w-100" >Enter</button>
-					</div>
-				</form>	
-			</div>
-		</div>
-	</div>
-</div>
-<script>
 	
-	$(document).ready(function(){
-		var questionForm = $('#question-form');
-		questionForm.submit(function(e){
-			e.preventDefault();
-			var questionBox = $('input[name=question]');
-			var question = questionBox.val();
-			
-			//display question in the message frame as a chat entry
-			var messageFrame = $('#message-frame');
-			var chatToBeDisplayed = '<div class="row single-message">'+
-						'<div class="col-md-12 offset-md-2 single-message-bg2">'+
-							'<h5>'+question+'</h5>'+
-						'</div>'+
-					'</div>';
-			
-
-			messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-
-			//send question to server
-			$.ajax({
-				url: "/profiles/dennisotugo.php",
-				type: "post",
-				data: {question: question},
-				dataType: "json",
-				success: function(response){
-					if(response.status == 1){
-						var chatToBeDisplayed = '<div class="row single-message">'+
-									'<div class="col-md-12 single-message-bg">'+
-										'<h5>'+response.answer+'</h5>'+
-									'</div>'+
-								'</div>';
-
-						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-						questionBox.val("");	
-						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-					}else if(response.status == 0){
-						var chatToBeDisplayed = '<div class="row single-message">'+
-									'<div class="col-md-12 single-message-bg">'+
-										'<h5>'+response.answer+'</h5>'+
-									'</div>'+
-								'</div>';
-
-						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-					}
-				},
-				error: function(error){
-					console.log(error);
-				}
-			})
-
-		});
-	});
-</script>	
 </body>
 </html>
 <?php } ?>
