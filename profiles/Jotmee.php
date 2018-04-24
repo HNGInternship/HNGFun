@@ -8,7 +8,6 @@
     $secret_word = $data['secret_word'];
 ?>
 
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
