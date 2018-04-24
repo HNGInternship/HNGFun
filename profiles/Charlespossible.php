@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
     <?php
         
     require_once 'db.php';
@@ -179,32 +179,7 @@
 </body>
 
 </html>
-=======
-    <?php
-        
-    require_once 'db.php';
 
-    try {
-    $sql = "SELECT * FROM secret_word";
-    $secret_word_query = $conn->query($sql);
-    $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
-    $query_result = $secret_word_query->fetch();
-  
-    $sql_query = 'SELECT * FROM interns_data WHERE username="Charlespossible"';
-    $query_my_intern_db = $conn->query($sql_query);
-    $query_my_intern_db->setFetchMode(PDO::FETCH_ASSOC);
-    $intern_db_result = $query_my_intern_db->fetch();
-
-  } catch (PDOException $exceptionError) {
-    throw $exceptionError;
-  }
-
-
-  $secret_word = $query_result['secret_word'];
-  $name = $intern_db_result['name'];
-  $username = $intern_db_result['username'];
-  $image_url = $intern_db_result['image_filename'];
-    ?>
 <!DOCTYPE html>
 <html lang="en-US">
 
