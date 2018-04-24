@@ -10,7 +10,6 @@
       return;
     }
 
-    //return bot version
     if (str_replace(' ','',$question) == 'aboutbot'){
       echo 'Jarvis Version 1.0';
       return;
@@ -20,48 +19,6 @@
       echo "The time is ".date("g:i A e");
       return;
     }
-
-    // return user location (this is set on page load/reload)
-    // if (strpos($question, 'location') !== false){
-    //   $lat=$_POST['lat'];
-    //   $long=$_POST['lon'];
-      
-    //   $url  = "http://maps.googleapis.com/maps/api/geocode/json?latlng=".$lat.",".$long."&sensor=false";
-    //   $json = @file_get_contents($url);
-    //   $data = json_decode($json);
-    //   $status = $data->status;
-    //   $address = '';
-    //   if($status == "OK"){
-    //     echo 'Your Approx. location is:<br><br>'. $address = $data->results[0]->formatted_address;
-    //     return;
-    //   }else{
-    //     echo "Location Data Unavailable, Try Again or Reload Page";
-    //     return;
-    //   }
-    // }
-
-
-    // if (strpos($question, 'weather') !== false){
-    //   $lat=$_POST['lat'];
-    //   $long=$_POST['lon'];
-
-    //   $url = 'https://api.darksky.net/forecast/d7ed37fea08e4f43c8e50182ba936c59/'.$lat.','.$long.'?units=si';
-    //   $json = @file_get_contents($url);
-      
-    //   if ($json != false) {
-    //     $data = json_decode($json);
-    //     $summary = $data->currently->summary;
-    //     $temperature = $data->currently->temperature.' &degC';
-    //     $visibility = $data->currently->visibility.' km';
-    //     $windSpeed = $data->currently->visibility.' mps';
-    //     $timeZone = $data->timezone;
-    //     echo 'The approx. weather information for '.$timeZone.' is:<br><br>'. $summary.'<br>Temperature = '.$temperature.'<br>Visibility = '.$visibility.'<br>Wind Speed = '.$windSpeed;
-    //     return;
-    //   }else {
-    //     echo "Failed to get weather information, please try again";
-    //     return;
-    //   }
-    // }
 
     require "../../config.php";
 
@@ -116,8 +73,7 @@
     }
 
     foreach ($result as $val) {
-      $regex2 = '/^\b'.$val['question'].'\b.*$/i';
-      if (preg_match($regex, $val['question']) || preg_match($regex2, $question)) {
+      if (preg_match($regex, $val['question'])) {
         array_push($db_qestion, $val['question']);
         array_push($db_answer, $val['answer']);
       }
@@ -163,10 +119,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300i,400,700" rel="stylesheet">
   <script type="text/javascript" src="https://use.fontawesome.com/8ad6e47973.js"></script>
-<!--   <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script> -->
   <style type="text/css">
     body {
       font-family: 'Fira Sans', sans-serif;
