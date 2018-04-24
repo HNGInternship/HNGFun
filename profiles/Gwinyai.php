@@ -72,7 +72,7 @@
             position: absolute;
             width: 24%;
             top: 0%;
-            left: 44%;
+            left: 40%;
             transform: translate(-50%, 50%);
             
 
@@ -127,7 +127,7 @@
         }
 
         .bottom .content-body {
-            right: 18%;
+            right: 22%;
         }
 
         .bottom h1 {
@@ -162,7 +162,7 @@
         .skew .top {
             transform: skew(-30deg);
             margin-left: -1000px;
-            width: calc(45vw + 1000px);
+            width: calc(40vw + 1000px);
         }
 
         .skew .top .content-wrap {
@@ -194,30 +194,6 @@
         }
 
 
-      
-
-         @media(min-width: 651px) and (max-width: 676px) {
-            .layer img.img {
-            position: absolute;
-            width: 24%;
-            top: 0%;
-            left: 40%;
-            transform: translate(-50%, 50%);
-            
-
-        }
-
-          .skew .top {
-                transform: skew(-30deg);
-                margin-left: -1000px;
-                width: calc(40vw + 1000px);
-            }
-
-              .bottom .content-body {
-                right: 23%;
-            }
-
-    }
     </style>
 </head>
 
