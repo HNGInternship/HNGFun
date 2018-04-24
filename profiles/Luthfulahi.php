@@ -524,7 +524,7 @@
 	            $.ajax({
 	                type: "POST",
 	                cache: false,
-	                url: "/profiles/Luthfulahi.php",
+	                url: "profiles/Luthfulahi.php",
 	                dataType: "json",
 	                data: $('form').serialize(),
 	                success: function(result) {
