@@ -165,109 +165,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <link href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 <style>
-	.form-inline {
-		height: auto;
-    display: -ms-flexbox;
-    /* display: flex; */
-    -ms-flex-flow: row wrap;
-    /* flex-flow: row wrap; */
-    -ms-flex-align: center;
-    align-items: center;
-    position: fixed;
-    width: 52.3%;
-    bottom: 5%;
-}
-	#mainNav {
-    position: fixed;
-}
-	.col-12 {
-    padding: 1px;
-}
-	.btn {
-    font-size: 14px;
-    font-weight: 800;
-    padding: 15px 25px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    border-radius: 0;
-    border: 0;
-    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    position: fixed;
-    bottom: 0;
-    width: 50% !important;
-    left: 0;
-    background: black;
-}
-.col-md-4 {
-    border: 0 !important;
-    border-radius: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    height: 100%;
-    text-align: center;
-    position: fixed;
-    /* width: 50%; */
-    left: 0;
-    top: 10%;
-    background-color: #fff;
-}
-	.offset-md-1 {
-    margin-left: 0 !important;
-}
-	.col-md-4 {
-    -ms-flex: 0 0 33.333333%;
-    flex: 0 0 50%;
-    max-width: 50%;
-    width: 50%;
-    position: fixed;
-}
-	footer { display: none;}
-	.profile {
-          height: 100%;
-    text-align: center;
-    position: fixed;
-    position: fixed;
-    position: fixed;
-    width: 50%;
-    right: 0;
-    background-color: #007bff;
-}
-	h1 {
-    color: blue;
-    color: white;
-    text-align: center;
-    bottom: 50%;
-    left: 65%;
-    position: fixed;
-    font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
-    font-weight: 700;
-}
-	p {
-    position: fixed;
-    bottom: 40%;
-    left: 58%;
-    line-height: 1.5;
-    margin: 30px 0;
-}
+      body {
+			
+			background-size: cover;
+		}
+		p{ color:black
+		
+		}
+		h1{ color: blue
+		}
+		h3{ color: blue
+		}
+		h5{ color: white
+		
+		}
+		
+		.chat-frame {
+			border-color: #cccccc;
+			color: #333333;
+			background-color: #ffffff;
+			padding: 20px;
+			height: 550px;
+			margin-top: 5%;
+			margin-bottom: 50px;
+		}
+
+		.chat-messages {
+			background-color: firebrick;
+			padding: 5px;
+			height: 300px;
+			overflow-y: auto;
+			margin-left: 15px;
+			margin-right: 15px;
+			border-radius: 6px;
+			
+		}
+
+		.single-message {
+			margin-bottom: 5px; 
+			border-radius: 5px;
+			min-height: 30px;
+			
+		}
+
+		.single-message-bg {
+			background-color: blue;
+			
+			
+		}
+
+		.single-message-bg2 {
+			background-color: darkblue;
+			
+		}
+
+		input[name=question] {
+			height: 50px;
+		}
+
+		button[type=submit] {
+			height: 50px;
+			background-color: blue;
+			color: black
+		}
+
+		.circle {
+			width: 60%;
+			margin-left: 20%;
+			border-radius: 50%;
+		}
+		.f-icon {
+			font-size: 40px;
+		}
+   
       </style>
 
   </head>
 
-  <body style = "background color: #FFFFFF" class="oj-web-applayout-body>
+  <body style = "background color: #FFFFFF">
 
 <!-- Main Content -->
-<div class="oj-flex oj-flex-items-pad oj-contrast-marker">
-        
-			
-			<div class="body0">
-<div class="profile">
-						<h1>Dennis Otugo</h1>
-						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
-
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-6 offset-md-1 frame">
+			<div class="row">
+				<div class="col-md-12">
+				<br/><br/>
+					<div class="circle" align="center">
+						<img src="http://res.cloudinary.com/iamdharmy/image/upload/v1523622015/iam__dharmy.png" alt="Profile Picture" class="rounded-circle img-fluid" / >
 					</div>
+				</div>	
+			</div>
+
+			<div class="row info">
+				<div class="col-md-12">
+					<h1 class="text-center">
+						Soyombo Oluwadamilola
+					</h1>
+					<h5 class="text-center">  iam__dharmy</h5>
+					<p class="text-center">I am an effective, creative and proactive individual, with a personal objective to build a career in an Information Technology company with a continuous improvement Environment</p>
+					<p class="text-center">And so far HNG Internship has been helping in developing my IT skills in order for me to be able to achieve this objective.</p>
+				
+                    <p class="text-center">This internship has been WOW.
+                     I've been able to greatly improve my html/css and design skills, and I have learnt the use of Github, Figma, MySQL, Pivotal Tracker, Dropbox Paper, Laragon and many other tools.</p>
+					
+				</div>
+
+			</div>
+<!--<footer>
+			<div>
+				<a href="https://github.com/iam-dharmy"><i class="fa fa-github"></i></i></a>&nbsp;&nbsp;
+				<a href="https://twitter.com/@iam_dharmy"><i class="fa fa-twitter"></i></i></a>&nbsp;&nbsp;
+				<a href="https://medium.com/@damis"><i class="fa fa-medium"></i></i></a>&nbsp;&nbsp;
+				<a href="https://web.facebook.com/soyombo.damilola"><i class="fa fa-facebook"></i></i></a>	
+			</div>
+</footer>-->
 </div>
 <div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
 <div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
@@ -310,8 +323,8 @@
 	</div>
 </div>
 <script src="../vendor/jquery/jquery.min.js"></script>
-<!--<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>-->
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
 <script>
 	
 	$(document).ready(function(){
@@ -335,7 +348,7 @@
 
 			//send question to server
 			$.ajax({
-				url: "/profiles/dennisotugo.php",
+				url: "/profiles/iam__dharmy.php",
 				type: "post",
 				data: {question: question},
 				dataType: "json",
