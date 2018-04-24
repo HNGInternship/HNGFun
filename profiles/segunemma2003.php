@@ -11,9 +11,8 @@ try {
 } catch (PDOException $e) {
 	throw $e;
 }
-global $conn;
 if ($_SERVER['REQUEST_METHOD']=='POST'){
-	$message = trim($_POST['message']);
+	$message = trim(htmlspecialchars($_POST['message']));
 	if ($message === ''){
 		$empty_response = [
 			'You have not asked anything',
@@ -76,8 +75,8 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 	}
 
 	else{ 
-		echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br> .<br> just use the following pattern== train: what is the time? # The time is#password '.($_SERVER['REQUEST_METHOD']=='POST') ]);
-	}		?>
+		
+		?>
 <!DOCTYPE html>
 
 <html>
@@ -404,5 +403,6 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 	</div>
 </body>
 </html>
+<?php } ?>
 
 
