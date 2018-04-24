@@ -74,7 +74,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
 
 
-
+//
+//print_r(askQuestion("hello"));
 function askQuestion($string){
     global $botVersion;
     $questionAsked =  prepareInputParams($string);
@@ -111,7 +112,7 @@ function performTraining($string){
 
 
     $isBotTrainnable = isTrainable($trainnigParameters);
-    if( prepareInputParams($trainnigParameters[0]) == "train"){
+    if( $trainnigParameters[0] == "train"){
         if ($isBotTrainnable["code"] == 204){
             return  $isBotTrainnable;
         }
