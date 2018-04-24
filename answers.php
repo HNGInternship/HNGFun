@@ -5,7 +5,7 @@ function get_time(){
   //set the timezone to Africa/Lagos
   $datetime->setTimezone(new DateTimeZone('Africa/lagos'));
   //format the time
-  return $datetime->format('H:i:A');
+  return $datetime->format('H:i: A');
 }
 
 ########################################################
