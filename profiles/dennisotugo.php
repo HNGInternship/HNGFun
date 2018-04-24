@@ -164,16 +164,16 @@
 
 <!DOCTYPE html>
 <html lang="en-us" style="height:100%;">
-<head>
-    <title>Composite Components - Basic</title>
+  <head>
+    <title>Dennis Otugo</title>
     <meta charset="UTF-8">
       
       <meta http-equiv="x-ua-compatible" content="IE=edge"/>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <meta name="apple-mobile-web-app-title" content="Oracle JET">
-      <script src="http://www.oracle.com/webfolder/technetwork/jet/js/loadStyleSheets.min.js"></script>
-      <link rel="stylesheet" href="http://www.oracle.com/webfolder/technetwork/jet/js/spaWork.min.js">
+      <script src="https://www.oracle.com/webfolder/technetwork/jet/js/loadStyleSheets.min.js"></script>
+      <link rel="stylesheet" href="https://www.oracle.com/webfolder/technetwork/jet/css/samples/cookbook/demo.css">
       <script>
         // The "oj_whenReady" global variable enables a strategy that the busy context whenReady,
         // will implicitly add a busy state, until the application calls applicationBootstrapComplete
@@ -182,46 +182,66 @@
     </script>
     <script src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
     <!-- RequireJS bootstrap file -->
-    <script src="http://www.oracle.com/webfolder/technetwork/jet/js/spaWork.min.js"></script>
-
-
+    <script src="https://www.oracle.com/webfolder/technetwork/jet/js/spaWork.min.js"></script>
+    <!--customHeaderStart-->
+    
+    <!--customHeaderEnd-->
   </head>
 
   <body class="demo-disable-bg-image">
     <div id="sampleDemo" style="display: none;" class="demo-padding demo-container">
       <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
-        <style>
-  #composite-container demo-card .demo-card-front-side {
-    background-image: url('images/composites/card-background_1.png');
-  }
-</style>
-
-<div id="composite-container" class="oj-flex oj-sm-flex-items-initial">
-  <!-- ko foreach: employees -->
-    <demo-card class="oj-flex-item" name="[[name]]" avatar="[[avatar]]" work-title="[[title]]" 
-      work-number="[[work]]" email="[[email]]">
-    </demo-card>
-  <!-- /ko -->
+        <div id="demo-container">
+  <div style="padding:0px 16px 16px;">
+     <oj-label for="radioButtonset1" style="font-weight:bold;">Avatar Size:</oj-label>
+     <!-- Avatar Size button -->
+     <oj-buttonset-one id="radioButtonset1" class='oj-buttonset-width-auto'
+          aria-label='Choose only one setting.'
+          style='margin-bottom:2px;margin-top:2px;'
+          value='{{avatarSize}}'>
+          <!-- ko foreach: sizeOptions -->
+          <oj-option value='[[$data]]'>
+            <span data-bind="text:$data"></span>
+          </oj-option>
+         <!-- /ko -->
+     </oj-buttonset-one>
+   </div>
+  <div id="avatar-container" class="demo-flex-display">
+    <div class="oj-flex">
+      <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
+        <div class="of-flex-item">
+          <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
+            data-bind="attr:{'aria-label':'Avatar of ' + firstName + ' ' + lastName}">
+          </oj-avatar>
+        </div>
+      </div>
+      <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
+        <div class="of-flex-item">
+          <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
+            data-bind="attr:{'aria-label':'Avatar of ' + firstName + ' ' + lastName}"
+            src="images/composites/avatar-image.jpg" class="oj-avatar-image">
+          </oj-avatar>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'jet-composites/demo-card/loader'],
+require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojcomposite',
+ 'ojs/ojbutton','ojs/ojavatar','ojs/ojvalidation','ojs/ojlabel'],
 function(oj, ko, $) {
-  function model() {      
+  function model() {
     var self = this;
-    self.employees = [
-      {
-        name: 'Dennis Otugo',
-        avatar: 'https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701221/avatar.png',
-        title: 'IT Manager',
-        work: 08169889587,
-        email: 'otugodennis at gmail.com'
-      }
-    ];
+    self.firstName = 'Amy';
+    self.lastName = 'Bartlett';
+    self.initials = oj.IntlConverterUtils.getInitials(self.firstName,self.lastName);
+    self.avatarSize = ko.observable("md");
+    self.sizeOptions = ko.observableArray(['xxs', 'xs','sm','md','lg','xl','xxl']);
   }
 
   $(function() {
-      ko.applyBindings(new model(), document.getElementById('composite-container'));
+      ko.applyBindings(new model(), document.getElementById('demo-container'));
   });
 
 });
@@ -229,13 +249,7 @@ function(oj, ko, $) {
 
       </div>
     </div>
-    <pre id="codemirror-markup-example" style="display: none">&lt;div id="composite-container" class="oj-flex oj-sm-flex-items-initial">
-  &lt;!-- ko foreach: employees -->
-    &lt;demo-card class="oj-flex-item" name="[[name]]" avatar="[[avatar]]" work-title="[[title]]" 
-      work-number="[[work]]" email="[[email]]">
-    &lt;/demo-card>
-  &lt;!-- /ko -->
-&lt;/div></pre>
+
 	<div class="col-md-4 offset-md-1 chat-frame">
 			<h2 class="text-center"><u>CHATBOT</u></h2>
 			<div class="row chat-messages" id="chat-messages">
@@ -294,6 +308,10 @@ function(oj, ko, $) {
 					'</div>';
 			
 
+    if (question.toLowerCase().includes("aboutbot")) {
+      chatToBeDisplayed('1.0');
+      return;
+    }
 			messageFrame.html(messageFrame.html()+chatToBeDisplayed);
 			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
 
