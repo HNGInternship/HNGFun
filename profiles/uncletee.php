@@ -74,8 +74,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
 
 
-//
-//print_r(askQuestion("hello"));
+
 function askQuestion($string){
     global $botVersion;
     $questionAsked =  prepareInputParams($string);
