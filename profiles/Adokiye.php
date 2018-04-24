@@ -77,7 +77,7 @@ $input = trim($input);
                 return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me";
             }else if($input=="you are mad"||$input == "you're mad"){
                 return "YOUR FATHER";
-            } else {if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            } else {
 
 
                 $input = $_POST['input'];
