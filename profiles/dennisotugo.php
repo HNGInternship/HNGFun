@@ -6,8 +6,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
     <style type="text/css">
-
-
+	.profile {
+          height: 100%;
+    text-align: center;
+    position: fixed;
+    position: fixed;
+    position: fixed;
+    width: 50%;
+    right: 0;
+    background-color: #007bff;
+}
+	h1 {
+    color: blue;
+    color: white;
+    text-align: center;
+    bottom: 50%;
+    left: 65%;
+    position: fixed;
+    font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 700;
+}
+	p {
+    position: fixed;
+    bottom: 40%;
+    left: 58%;
+    line-height: 1.5;
+    margin: 30px 0;
+}
+	#mainNav {
+    position: fixed;
+}
 
     </style>
 </head>
