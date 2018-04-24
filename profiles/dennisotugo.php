@@ -37,7 +37,12 @@
 			]);
 			return;
 		}
-      if(strtolower($question) == 'aboutbot') {echo "v1.0"; exit();}
+      if($question == 'aboutbot') {							
+				echo json_encode([
+								'status' => 0,
+								'answer' => "v1"
+							]);
+							return;}
 		$question = $_POST['question']; //get the entry into the chatbot text field
 
 		//check if in training mode
@@ -165,102 +170,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <link href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
 <style>
-      body {
-			
-			background-size: cover;
-		}
-		p{ color:black
-		
-		}
-		h1{ color: blue
-		}
-		h3{ color: blue
-		}
-		h5{ color: white
-		
-		}
-		
-		.chat-frame {
-			border-color: #cccccc;
-			color: #333333;
-			background-color: #ffffff;
-			padding: 20px;
-			height: 550px;
-			margin-top: 5%;
-			margin-bottom: 50px;
-		}
-
-		.chat-messages {
-			background-color: lightblue;
-			padding: 5px;
-			height: 300px;
-			overflow-y: auto;
-			margin-left: 15px;
-			margin-right: 15px;
-			border-radius: 6px;
-			
-		}
-
-		.single-message {
-			margin-bottom: 5px; 
-			border-radius: 5px;
-			min-height: 30px;
-			
-		}
-
-		.single-message-bg {
-			background-color: blue;
-			
-			
-		}
-
-		.single-message-bg2 {
-			background-color: darkblue;
-			
-		}
-
-		input[name=question] {
-			height: 50px;
-		}
-
-		button[type=submit] {
-			height: 50px;
-			background-color: blue;
-			color: black
-		}
-
-		.circle {
-			width: 60%;
-			margin-left: 20%;
-			border-radius: 50%;
-		}
-		.f-icon {
-			font-size: 40px;
-		}
-
+	
+	footer { display: none;}
+	.profile {
+          height: 100%;
+    text-align: center;
+    position: fixed;
+    position: fixed;
+    position: fixed;
+    width: 50%;
+    right: 0;
+    background-color: #007bff;
+}
+	h1 {
+    color: blue;
+    color: white;
+    text-align: center;
+    bottom: 50%;
+    left: 65%;
+    position: fixed;
+    font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 700;
+}
+	p {
+    position: fixed;
+    bottom: 40%;
+    left: 58%;
+    line-height: 1.5;
+    margin: 30px 0;
+}
       </style>
 
   </head>
 
-  <body style = "background color: #FFFFFF" class="oj-web-applayout-body>
-
-<!-- Main Content -->
-<div class="oj-flex oj-flex-items-pad oj-contrast-marker">
-        
-			
-			<div class="body0">
+		
+			<div class="body">
 <div class="profile">
 						<h1>Dennis Otugo</h1>
 						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
 
 					</div>
 </div>
-<div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
-<div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
-<div>&nbsp;</div>
+
 	<div class="col-md-4 offset-md-1 chat-frame">
 			<h2 class="text-center"><u>CHATBOT</u></h2>
 			<div class="row chat-messages" id="chat-messages">
@@ -298,9 +251,6 @@
 		</div>
 	</div>
 </div>
-<script src="../vendor/jquery/jquery.min.js"></script>
-<!--<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>-->
 <script>
 	
 	$(document).ready(function(){
