@@ -1,4 +1,4 @@
-<!--Created by Thomas Lois ---->
+<!--Created by Thomas Lois -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -255,7 +255,7 @@
 	##About Bot
     function aboutbot() {
         echo "<div id='result'><strong>LoBot 1.0 </strong>
-		Hey...I am LoBot, created by Lois Thomas to answer any question. You can also teach me things I don't know. Sounds fun right</div>";
+		Hey...I am LoBot, created by Lois Thomas to answer any question. You can also teach me things I don't know.</div>";
     }
 	
 	##Train Bot
