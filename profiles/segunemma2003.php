@@ -1,4 +1,6 @@
 <?php  require "db.php";
+error_reporting(E_ALL);
+ini_set("display_errors", "on");
 
 try {
 	$sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = "segunemma2003"';
@@ -10,7 +12,7 @@ try {
 	throw $e;
 }
 global $conn;
-if ($_SERVER['REQUEST_METHOD']==='POST'){
+if ($_SERVER['REQUEST_METHOD']=='POST'){
 	$message = trim($_POST['message']);
 	if ($message === ''){
 		$empty_response = [
