@@ -38,11 +38,12 @@
 
         #container {
             position: relative;
-            width: 100%;
             min-height: 55vw;
             overflow: hidden;
-            margin-top: 25px;
-            padding-top: 20px;
+            margin-top: 50px;
+            padding-top: 10px;
+            width: auto;
+ 
         }
 
         .layer {

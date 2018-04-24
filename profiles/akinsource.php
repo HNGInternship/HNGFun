@@ -273,7 +273,8 @@ function hide() {//hide chat interface
 <button onclick="hide(3000)" class="butto">Click Me</button><span id="deep"> I can show you time from present moment till any date! Try 'countdown January 1 2019'</span>
 <div class="contain" align="center">
 <div class="scroll" id="view">
-<p class="message chat2"><b>Hello my name is Alfred!</b></p>
+<p class="message chat2"><b>Hello my name is Alfred!</b>
+<br>You can try 'countdown 2:30pm', 'countdown 'tomorrow', 'countdown January 1 2019'</p>
 <p class="message chat2">To train me <b>'Train: Question # Answer # Password'</b></p>
 
    </div>
