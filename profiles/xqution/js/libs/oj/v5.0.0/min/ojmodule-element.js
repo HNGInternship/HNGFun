@@ -1,0 +1,6 @@
+/**
+ * @license
+ * Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ * The Universal Permissive License (UPL), Version 1.0
+ */
+"use strict";define(["ojs/ojcore","knockout","ojs/ojmodule","ojs/ojcomposite"],function(e,o){e.Composite.register("oj-module",{view:'\x3c!-- ko ojModule: {"view":$properties.config.view, "viewModel":$properties.config.viewModel,"cleanupMode":$properties.config.cleanupMode,"animation":$properties.animation} --\x3e\x3c!-- /ko --\x3e',metadata:{properties:{config:{type:"object",properties:{viewModel:{type:"object"},view:{type:"array<object>"},cleanupMode:{type:"string",enumValues:["onDisconnect","none"],value:"onDisconnect"}}},animation:{type:"object"}},events:{transitionStart:{},transitionEnd:{},viewConnected:{},viewDisconnected:{}}},viewModel:function(e){var n=e.element,i=e.properties;function t(e){var o=e?e.view:null;return o&&o.length>0&&n.contains(o[0])}function c(e,n){var i=e&&e[n];"function"==typeof i&&o.ignoreDependencies(i,e)}this.connected=function(e){t(i&&i.config)&&c(i.config?i.config.viewModel:null,"connected")},this.disconnected=function(e){t(i&&i.config)&&c(i.config?i.config.viewModel:null,"disconnected")}}})});

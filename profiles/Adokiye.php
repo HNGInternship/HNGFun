@@ -1,125 +1,105 @@
 <?php
-global $conn;
-function validateTrainfunction($input){if(strpos($input, "train:") !== false){
-return true;
-}else{return false;
-    }
-}function validateTextFunction($input){if(strpos($input, "(") !== false){return true;
-      }else{ 
-          return false;
-      }function processAskedQuestion($input){
-    if(validateTrainfunction($input)){
-        list($trim, $question) = explode(":", $input);
-        $question = trim($question, " ");
-        if($question !== ''){
-            if(strpos($question, "#") !== false){
-                list($question,$answer)  = explode("#", $question);
-            $answer = trim($answer, " ");
-           if($answer !== ''){
-                training($question, $answer);
-            }else{
-                echo "Please enter the question and answer";
-            }
-            }else{
-                echo "Please enter the question and answer";
-            }}else{
-            echo "Please enter the question and answer";
-        }}else if(validateFunction($input)){
-       list($functionName, $paramenter) = explode('(', $str) ;
-        list($paramenter, $notUsed) = explode(')', $paramenter);
-        if(strpos($paramenter, ",")!== false){
-            $paramenterArr = explode(",", $paramenter);
-        }switch ($functionName){
-           case "time":
-           default:
-           echo "No command like that";
-       }
-    }else{
-        getAnswerFromDb($input);
-    }
-}function training($question, $answer){
-  global $conn;
-  try {
-       $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
-        $conn->exec($sql);
-        $Outputmessage = "This has been saved   " . $question ." -> " . $answer;
-        echo $Outputmessage;
-
-    }
-    catch(PDOException $e)
-        {
-        echo $sql . "<br>" . $e->getMessage();
-        }
-
-    }function getAnswerFromDb($input){
-        global $conn;
-        if(strpos($input, "deleteEmpty") === false){        
-        $input = "'%".$input."%'";
-        if($input !== ''){
-        $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $input . " ORDER BY answer ASC";
-        $result = $conn->query($sql);
-        $count = $result->rowCount();
-        if($count > 0){
-        $result->setFetchMode(PDO::FETCH_ASSOC);
-        $fetched_data = $result->fetchAll();
-        $rand = rand(0, $count - 1);
-        echo $fetched_data[$rand]["answer"]; 
-        }else{
-            echo "<p style=" color: #FFFFFF;font-family: arial, sans-serif; font-size: 14px;font-weight: bold;letter-spacing: 0.3px;">
-            ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="font-weight: bolder">TRAIN: YOUR QUESTION#YOUR ANSWER</span>
-            TO ADD MORE QUESTIONS TO THE DATABASE</p>";        
-        }else{
-            echo "Enter a valid command!";
-        }
-    }else{
-        $sql = "DELETE FROM chatbot WHERE question = '' OR answer=''";
-        $result = $conn->query($sql);
-        $count = $q->rowCount();
-        if($count > 0){
-            echo "deleted Empty fields!";
-        }else{
-            echo "no Empty field";
-        }
-
-    }
-    }
-
-
-if (isset($_GET["query"])) {
-    include_once realpath(__DIR__ . '/..') . "/answers.php"; 
-    if(!defined('DB_USER')){
-        require "../../config.php";
-      }
-      try {
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-      } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-      }
-global $conn;
-$image_filename = '';
-$name = '';
-$username = '';
-$sql = "SELECT * FROM interns_data where username = 'Adokiye'";
-foreach ($conn->query($sql) as $row) {
-    $image_filename = $row['image_filename'];
-    $name = $row['name'];
-    $username = $row['username'];
+function getTime(){
+    date_default_timezone_set('Africa/Lagos');
+    return "The time is " . date("h:i:sa");
 }
 
-global $secret_word;
+session_start();
 
-try {
-    $sql = "SELECT secret_word FROM secret_word";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-    $secret_word = $data['secret_word'];
-} catch (PDOException $e) {
-    throw $e;
-}processQuestion($_GET['query']);
-   
-}else{
-"------";
+if (!isset($_SESSION["all"])){
+    $_SESSION["all"] = [];
+}
+if(!defined('DB_USER')){
+    require_once "../../config.php";
+    $servername = DB_HOST;
+    $username_ = DB_USER;
+    $password = DB_PASSWORD;
+    $dbname = DB_DATABASE;
+    // Create connection
+    $conn = mysqli_connect($servername, $username_, $password, $dbname);
+    // Check connection
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }}
+global $conn;
+$solution = '';
+if (isset($_POST['restart'])){
+    session_destroy();
+}
+if (isset($_POST['button'])) {
+    if (isset ($_POST['input']) && $_POST['input'] !== "") {
+        $asked_question_text = $_POST['input'];
+        $solution = askQuestion($asked_question_text) . "<br/>";
+        $_SESSION["all"][] = array($solution, $asked_question_text);
+    }
+}
+function askQuestion($input)
+{$input = strtolower($input);
+$input = trim($input);
+    $action = "train:";
+    global $conn;
+    $train = strpos($input,$action);
+    if ($input!==""||$input!==" ") {
+        if ($train === 0) {
+            $explode = explode(':', $input, 2);
+            if (isset($explode[1])) {
+                $explode2 = explode('#', $explode[1], 2);
+                if (isset($explode2[1])) {
+                    $explode3 = explode('#', $explode2[1], 2);
+                    if (isset($explode3[1])){
+                        if (  $explode3[1] == "password") {
+                            $sql1 = "SELECT question,answer FROM chatbot WHERE LOWER(question) ='" . $explode2[0] . "' and LOWER(answer) =  '" . $explode3[0] . "'";
+                            $query = $conn->query($sql1);
+                            $row_cnt = $query->num_rows;
+                            if ($row_cnt > 0) {
+                                return "QUESTION ALREADY EXISTS ";
+                            } else
+                                $the_queried = $conn->query("INSERT INTO chatbot(question, answer) VALUES ('" . $explode2[0] . "', '" . $explode3[0] . "')");
+                            if ($the_queried) {
+                                $saved_message = "Saved " . $explode2[0] . " -> " . $explode3[0];
+                                return $saved_message;
+                            } else
+                                return "Please try again";
+                        } else
+                            return "Please enter the right password";
+                    }else
+                        return "Please enter the password after your answer";
+                } else
+                    return "The right format is train:yourquestion#youranswer#password";
+            } else
+                return "The right format is train:yourquestion#youranswer#password";
+        } else {
+            if ($input == "aboutbot") {
+                return "Adokiye v1.0";
+            } else if ($input == "what is the time") {
+                return getTime();
+            } else if ($input == "help") {
+                return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me";
+            }else if($input=="you are mad"||$input == "you're mad"){
+                return "YOUR FATHER";
+            } else {
+
+
+                $input = $_POST['input'];
+                $question = strtolower($input);
+                $question = str_replace('?', '', $question);
+                $question = trim($question);
+                echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";
+                $result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'");
+                $fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                $row_cnt = $result->num_rows;
+                $rand = rand(0, $row_cnt - 1);
+                if ($row_cnt > 0) {
+                    return $fetched_data[$rand]['answer'];
+                 } else
+                    return "Am sorry, this question wasn't found,Please ENTER TRAIN:QUESTION#ANSWER#password to make me smarter";
+
+            }
+        }
+    }
+
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -127,6 +107,39 @@ try {
     <meta charset="utf-8">
     <title>Adokiye ---- Stage 4</title>
     <style type="text/css">
+
+                              .mycss
+                              {
+                                  text-shadow:1px 3px 1px rgba(255,255,255,1);font-weight:bold;text-transform:uppercase;color:#000000;border: 5px ridge #FFFFFF;letter-spacing:5pt;word-spacing:2pt;font-size:20px;text-align:center;font-family:arial, helvetica, sans-serif;line-height:1;
+                              }
+
+        .bot-css {
+            display: inline-block;
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+            width: 300px;
+            height: fit-content;
+            padding: 18px 0;
+            border: none;
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+            font: normal normal bold 16px/1 "Times New Roman", Times, serif;
+            color: rgba(10,6,6,1);
+            text-align: center;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            background: rgba(190,216,226,1);
+            -webkit-box-shadow: 2px 3px 0 2px rgba(201,201,211,1) ;
+            box-shadow: 2px 3px 0 2px rgba(201,201,211,1) ;
+            text-shadow: 0 1px 2px rgba(255,255,255, 0.5) , 3px 2px 1px rgba(0,0,0,0.2) ;
+            -webkit-transition: font-size 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+            -moz-transition: font-size 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+            -o-transition: font-size 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+            transition: font-size 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+            -webkit-transform: rotateX(-1.64deg) rotateY(-3.4377467707849396deg)   ;
+            transform: rotateX(-1.64deg) rotateY(-3.4377467707849396deg)   ;
+        }
         #div_main {
             width: 980px;
             margin-right: auto;
@@ -135,6 +148,7 @@ try {
             text-align: center;
             background-image: url(http://res.cloudinary.com/gorge/image/upload/v1523960257/Internships-1.png);
             height: auto;
+            padding-bottom: 1px;
         }
 
         #header {
@@ -163,411 +177,61 @@ try {
             color: #563F3F;
             cursor: pointer;
         }
-    html, body, *{
-    margin: 0;
-    padding: 0;
-}
+                              #myform{
+                     background: rgba(76, 175, 80, 0.3);
+                     display: inline-block;
+                                  width: 50px;
+                                  height: fit-content;
+                                  float: left;
+                 }#myBtn {
+                      display: none; /* Hidden by default */
+                      position: fixed; /* Fixed/sticky position */
+                      bottom: 20px; /* Place the button at the bottom of the page */
+                      right: 30px; /* Place the button 30px from the right */
+                      z-index: 99; /* Make sure it does not overlap */
+                      border: none; /* Remove borders */
+                      outline: none; /* Remove outline */
+                      background-color: red; /* Set a background color */
+                      color: white; /* Text color */
+                      cursor: pointer; /* Add a mouse pointer on hover */
+                      padding: 15px; /* Some padding */
+                      border-radius: 10px; /* Rounded corners */
+                      font-size: 18px; /* Increase font size */
+                  }
 
-header{
-    width: 100%;
-    margin-top : 4rem;
-    text-align: center;
-    font-family: 'Ubuntu';
-    background-color: #632F2F;
-    padding: 2rem 0;
-    color: #E0D3D3;
-    font-size: 200%;
-}
+                              #myBtn:hover {
+                                  background-color: #555; /* Add a dark-grey background on hover */
+                              }
 
-section{
-    background: url("http://res.cloudinary.com/bytenaija/image/upload/v1523620935/pexels-photo-248797.jpg") no-repeat center center;
-    background-attachment: fixed;
-    background-size: cover;
-    color: #330505;
-    padding: 2rem;
-    min-height: 40rem;
-    
-}
-
-aside{
-    
-    float:right;
-    
-    margin-right: 5rem;
-    text-align: center;
-}
-
-
-aside img{
-    border-radius : 50%;
-    width: 15rem;  
-    height: 15rem; 
-    box-shadow: #330505 0 0 2rem;
-  
-       
-}
-
-aside h4{
-font-size: 150%;
-font-family: 'Roboto';
-text-shadow: white 0 0 .5rem;
-
-}
-
-section h2, h3{
-    color: #330505;
-    font-size: 300%;
-    font-family: 'Poppins';
-    text-shadow: white 0 0 .5rem;
-    
-}
-
-section h2:first-child{
-    
-    margin-top: 1rem;
-}
-
-.clear{
-    clear: both;
-}
-
-
-.left{
-    float: left;
-}
-
-.me{
-    font-size: 100%;
-}
-
-.about {
-    text-shadow: 5px 0 1rem #330505;
-    font-size: 200%;
-    color:aqua;
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.me p{
-   box-shadow: 1px 1px .5rem aqua;
-    width: 20rem;
-    margin: 1rem 2rem;
-    background-color: white;
-    font-size: 150%;
-}
-
-
-.me .left p, .me .right p{
-    transition: transform 1s  ease-in-out;
-    cursor: pointer;
-    position: relative;
-    padding:.5rem;
-
-
-}
-
-.me .left, .right{
-    position: relative;
-    top: -300px;
-    animation: mymove 5s;
-    animation-fill-mode: forwards;
-}
-
-@keyframes mymove{
-    0%{
-        top: -300px;
-        
-    }
-
-    25%{
-        top: -225px;
-        
-    }
-
-     50%{
-        top: -150px;
-    }
-    75%{
-        top: -75px;
-    }
-    100%{
-        top: 0px;
-    }
-}
-.me .right{
-    margin : 0;
-    float:right;
-
-    
-    
-}
-
-.me .right p{
-   transform: skew(20deg);
-
-}
-
-.me .left p{
-   transform: skew(-20deg);
-}
-
-.left p:hover, .right p:hover{
-    box-shadow: 1px 1px .5rem #330505;
-   transform: skew(0deg);
-   background-color:aqua;
-}
-.bot{
-    width : 60%;
-    margin: .5rem auto;
-}
-.form-control{
-    width : 100%;
-}
-
- input{
-   
-    padding: .5rem !important;
-    
-}
-
-#botresponse{
-    width: 100%;
-   
-    height: 15rem;
-    overflow-y: scroll;
-    padding: 1rem;
-    font-family: Lato;
-    color:#330505;
-    border-left: 1px solid #330505;
-    box-shadow: 1px 5px 3rem aqua;
-}
-
-.bot input{
-    height: 1.5rem;
-    box-shadow: 0 0 2rem aqua;
-    border-radius: .5rem;
-    margin-left: .5rem;
-}
-
-.bot #botresponse div{
-    margin-bottom: 1rem;
-    font-family: Lato;
-}
-
-
-
-.bot .botnet{
-   color: white;
-   background-color: black;
-   padding:.2rem;
-   margin-right: .5rem;
-   margin-bottom: .2rem;
-   display: inline-block;
-   font-family: Lato;
-}
-.bot .user{
-    color: Red;
-   background-color: rgba(0,0,0,.5);
-   padding:1rem;
-   margin-right: .5rem;
-   margin-bottom: .2rem;
-   display: inline-block;
-   font-family: Lato;
-}
-.bot .res{
-    background-color:white;
-    display: inline-block;
-    font-family: Lato;
-    padding:.5rem 1rem;
-    width: 20rem;
-    background-color: #1E73E8;
-}
-
-.bot .userres{
-    background-color:white;
-    display: inline-block;
-    font-family: Lato;
-    padding:.5rem 1rem;
-    min-width: 20rem;
-    background-color: #EB5757;
-}
-.bot #botresponse::-webkit-scrollbar {
-    width: 2rem;
-}
-
-/* Track */
-.bot #botresponse::-webkit-scrollbar-track {
-    background: aqua; 
-}
-
-/* Handle */
-.bot #botresponse::-webkit-scrollbar-thumb {
-    background: white; 
-}
-
-/* Handle on hover */
-.bot #botresponse::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-}
-
-
-.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-color: #000000;
-opacity: 1; /* Firefox */
-font-family: Lato;
-}
-
-  input:-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: #000000;
-    font-family: Lato;
-}
-.move-right{
-    animation: move  5s;
-    animation-fill-mode: forwards;
-    position: relative;
-    left: -100%;
-    
-
-}
-
-@keyframes move{
-   from{
-        left:-100%;
-    }
-
-    to{
-        left:18%;
-    }
-
-}
-@media screen and (max-width: 900px){
-
-html, body{
-    margin: 0;
-    padding: 0;
-}
-    .bot{
-        width : 100%;
-        margin: 0 0;
-    }
-
-    aside{
-    
-    float:none;
-    
-    margin-right: 0rem;
-    text-align: center;
-    width: 100%;
-}
-
-aside img{
-    border-radius : 50%;
-    width: 15rem;  
-    height: 15rem; 
-    box-shadow: #330505 0 0 2rem;
-  
-       
-}
-
-aside h4{
-font-size: 150%;
-font-family: 'Roboto';
-text-shadow: white 0 0 .5rem;
-
-}
-
-section h2, h3{
-    color: #330505;
-    font-size: 100%;
-    font-family: 'Poppins';
-    text-shadow: white 0 0 .5rem;
-    
-}
-
-section{
-   width: 100%;
-   margin-bottom: .5rem;
-}
-.me{
-    width:100%;
-}
-.left{
-    float :none;
-    width: 100%;
-    text-align: center;
-}
-
-.right{
-    float :none;
-    width: 100%;
-    text-align: center;
-}
-
-.me p{
-   box-shadow: 1px 1px .5rem aqua;
-    width: 80%;
-    margin: .5rem auto  ;
-    background-color: white;
-    font-size: 100%;
-    text-align: center;
-}
-
-header{
-    width: 100%;
-    margin-top: 4rem;
-}
-.botres{
-    float:right !important;
-}
-
-.bot .botnet{
-    font-size:80%;
-}
-.bot .user{
-    font-size:80%;
-}
-.bot .res{
-    font-size:80%;
-   
-}
-
-.about{
-    font-size: 100%;
-}
     </style>
-</head>
+</head><script>function show_function() {
+        var x = document.getElementById("myform");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }// When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("myBtn").style.display = "block";
+        } else {
+            document.getElementById("myBtn").style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }  </script>
 <body>
 <?php
-if(!defined('DB_USER')){
-    require "../../config.php";
-  }
-  try {
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-  } catch (PDOException $pe) {
-    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-  }
-global $conn;
-$image_filename = '';
-$name = '';
-$username = '';
-$sql = "SELECT * FROM interns_data where username = 'Adokiye'";
-foreach ($conn->query($sql) as $row) {
-    $image_filename = $row['image_filename'];
-    $name = $row['name'];
-    $username = $row['username'];
-}
+$name = 'Adokiye Iruene';
+$username = 'Adokiye';
 
-global $secret_word;
-
-try {
-    $sql = "SELECT secret_word FROM secret_word";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-    $secret_word = $data['secret_word'];
-} catch (PDOException $e) {
-    throw $e;
-}
 ?>
 <div class=".body" id="div_main">
     <div class=".header" id="header">
@@ -581,96 +245,35 @@ try {
             ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="font-weight: bolder">TRAIN: YOUR QUESTION#YOUR ANSWER</span>
             TO ADD MORE QUESTIONS TO THE DATABASE</p>
     </marquee>
-    <section class="content">
-        <div class="left">
-            <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
-    <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
-    <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
-    <div class="clear">&nbsp;</div>
-    <div class="clear">&nbsp;</div>
-    </div><div class="bot move-right">
-    <h2>Chatbot</h2>
-    <div id="botresponse"> </div>
-    <br />
-    <input type="text" name="input" placeholder="Chat with me! Press enter to send." onkeypress="return runScript(event)" onkeyDown="recall(event)" class="form-control">
+    <div>
+        <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
+        <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
+        <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
     </div>
-    </section>
+    <p class="mycss"> Chatbot by Adokiye<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
+    <form name = "askMe" method="post">
+        <p>
+            <label>
+                <input name="input" type="text" class="tb5" placeholder="Chat with me! Press Ask to send.">
+            </label><label>
+                <input name="button" type="submit" class="fb7" id="button" value="ASK"><label>
+                    <input name="restart" type="submit" class="fb7" id="button" value="Restart">
+                </label>
+            </label>
+            <br />
 
-<script>
-let url = "profiles/Adokiye.php?query=";
-url = window.location.href + "?query=";
+        </p>
+        <p>&nbsp;</p>
+    </form>
+            <div class="bot-css"> <?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
+                <span style="color:blue"><?=  "YOU : $soln <br/>";echo "</span>";
+                echo "BOT : $asked<br/>" ?><br/><?php } ?><br/>
+        </div><div id = "myform" style="display:none"  >HAHAHA, THE PASSWORD IS PASSWORD</div>
+    <p>
 
-let botResponse = document.querySelector("#botresponse");
-window.onload = instructions;
-let stack = [];
-let count = 0;
-function recall(e){
-    let input = e.currentTarget;
-    if(e.keyCode == 38){
-       console.log(count)
-        if(stack.length > 0){
-       if(count < stack.length){
-        let command = stack[stack.length- count -1];
-        input.value = command;
-            }else{
-                count =0
-            }
-            count++;
-        }
-    }else if(e.keyCode == 40){
-        if(count > 0){
-            count--;
-            console.log(count)
-            let command = stack[count];
-            input.value = command;
-        }
-        
-    }
-}
-function runScript(e) {
-if (e.keyCode == 13) {
-    let input = e.currentTarget;
-    let dv = document.createElement("div");
-            dv.innerHTML = "<span class='user'>You: </span> <span class='userres'>" + input.value + "</span>";
-           botResponse.appendChild(dv)
-           stack.push(input.value)
-    
-   let urlL = url + encodeURIComponent(input.value);
-   console.log(urlL);
-    fetch(urlL)
-    .then(response=>{
-        
-        return response.text();
-    })
-    .then(
-        response=>{
-            console.log(response)
-            print(response);
-        });
-        input.value = '';
-}
 
-}
-
-function print(response){
-    let dv = document.createElement("div");
-            dv.innerHTML = "<div class='botres' style='float: right;'><span class='res'>" + response + "</span><span class='botnet'>Byte9ja</span></div>";
-           botResponse.appendChild(dv)
-           botResponse.scrollTop = botResponse.scrollHeight;
-}
-
-function instructions(){
-    $string = '<div class="instructions">My name is Adokiye. I am a Robot. Type a command and I will try and answer you.<br> Meanwhile, try this commands';
-    $string += "<li><strong>deleteEmpty record - to delete any record the question or answer is empty</strong></li>";
-    $string += "<li><strong>train: question # answer - to train me and make me more intelligent</strong></li>";
-    $string += "</div>"
- 
-   print($string);
-}
-</script>
+    </p> <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 </div>
 </body>
 </html>
-<?php
-}
-?>
+

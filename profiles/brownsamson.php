@@ -57,7 +57,7 @@
 
             .container{
                 width: 100%;
-                padding: 0 8.33%;
+                /*padding: 0 8.33%;*/
                 display: table;
             }
 
@@ -66,10 +66,7 @@
                 padding-bottom: 30px;
             }
 
-            .stop-scrolling{
-                height: 100%;
-                overflow: hidden;
-            }
+
 
             .body{
                 font-family: 'Roboto', 'Rubik', sans-serif;
@@ -104,7 +101,7 @@
             /*============== BANNER ANIMATION ======================*/
             .banner-item-container{
                 max-width: 350px;
-                padding-left: 15px;
+                padding-left: 8%;
                 padding-right: 15px;
                 padding-top: 20px;
                 background: rgba(33,41,57, 0.6);
@@ -153,13 +150,13 @@
               display: inline-block;
               max-width: 350px;
               text-align: left;
-              height: 36px;
+              height: 30px;
               margin-top: -10px;
               position:absolute;
               font-weight:300;
-              padding: 0 3px 0 0 ;
+              padding: 0 5px 0 0 ;
             /*  border-right: 2px solid rgba(225, 204, 41, 1);*/
-              height: 25px;
+              /* height: 25px; */
 
             }
 
@@ -174,7 +171,19 @@
                 padding: 2px 10px;
                 text-align: center;
             }
-
+            .send-button{
+              background-color: #FFCC29;
+              border: none;
+              color: #000000 !important;
+              padding: 5px 15px;
+              margin: 0;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              /* border-radius: 7px; */
+              width: 100%;
+            }
             .button{
                 background-color: #FFCC29;
                 border: none;
@@ -188,7 +197,7 @@
                 border-radius: 7px;
             }
 
-            .button:hover{
+            .send-button:hover, .button:hover{
                 color: #ffffff !important;
                 background-color: #33648B;
                 cursor: pointer;
@@ -196,7 +205,7 @@
             }
 
             #personal-body{
-              margin-top: 70px;
+              margin-top: 90px;
               padding: 30px 0;
             }
 
@@ -204,6 +213,117 @@
               width: 100%;
               height: 30px;
             }
+
+            #chat-icon-con{
+              padding: 5px;
+              height: 60px;
+              width: 60px;
+              border-radius: 50%;
+              background-color: #749E40;
+              position: fixed;
+              right: 4%;
+              bottom: 40px;
+              transition: 1s;
+            }
+
+            #chat-icon-con:hover{
+              background-color: #FFC916;
+              cursor: pointer;
+              transition: 1s;
+            }
+
+              #icon-img{
+                width: 100%;
+              }
+
+              #chatcon{
+
+                width: 350px;
+                height: 85vh;
+                background: #F2F2F3;
+                position: fixed;
+                bottom:30px;
+                right:-100%;
+                padding: 15px 0 10px 15px;
+                border-radius: 5px;
+                transition: right 1s ease-in-out 0.05s;
+
+              }
+              .message-con{
+                width: 100%;
+                height: 55vh;
+                background-color: #FFFFFF;
+                padding: 20px 10px 10px 10px;
+                overflow-y: scroll;
+                display:flex;
+                flex-direction: column-reverse;
+
+              }
+              #conversation{
+
+              }
+              .form-group{
+                margin: 10px 0;
+                padding-right: 15px;
+              }
+              #message{
+                height: 100%;
+                width: 100%;
+                border-radius: 0;
+              }
+
+              .textarea-con{
+                padding: 10px;
+                width: 100%;
+                height: 14vh;
+              }
+              textarea{
+                resize: none;
+              }
+              .bot{
+                width: 65%;
+                background-color: #0D2147;
+                color: #ffffff;
+                float:left;
+                padding: 6px;
+                margin: 0 0 20px 10px;
+                border-radius: 5px;
+                font-size: .8em;
+                position: relative;
+              }
+
+              .arrow-left{
+                width: 0;
+                height: 0;
+                border-top:  10px solid transparent;
+                border-bottom:  10px solid transparent;
+                border-right:  10px solid #0D2147;
+                position: absolute;
+                left: -5%;
+                bottom: 20%;
+              }
+
+              .guest{
+                width: 65%;
+                background-color: #FFC916;
+                float: right;
+                padding:6px;
+                margin: 0 10px 20px 0;
+                border-radius: 5px;
+                font-size: .8em;
+                position: relative;
+              }
+
+              .arrow-right{
+                width: 0;
+                height: 0;
+                border-top:  10px solid transparent;
+                border-bottom:  10px solid transparent;
+                border-left:  10px solid #FFC916;
+                position: absolute;
+                right: -5%;
+                bottom: 20%;
+              }
 
         </style>
 
@@ -216,7 +336,6 @@
                     <h3 class="light hello">Hi! I'm </h3>
                     <h3>BROWN SAMSON DAPPA</h3>
 
-<!--                    <h4>I </h4>-->
                       <div class="space"></div>
                     <div id="dropping-texts">
                     </div>
@@ -227,9 +346,27 @@
                 <div class="space"></div>
                 <div class="space"></div>
             </div>
+        </div>
+
+        <div id="chatcon">
+          <div class="message-con">
+              <div id="conversation">
+            <!-- <div class="bot"><div class="arrow-left"></div>Hi! Good to have you here. My name is Samson Jnr, but you can call me Codmax</div>
+            <div class="bot"><div class="arrow-left"></div>Sorry i did't catch your name</div> -->
+
+          </div>
+          </div>
+          <form>
+            <div class="form-group">
+					    <div class="textarea-con"><textarea type="text" class="form-control" name="fullname" id="message" placeholder="Ask Me Something"></textarea></div>
+					  </div>
+
+            <div class="form-group"><span class="send-button" id="guest-send">Send</span></div>
+          </form>
 
         </div>
 
+        <div id="chat-icon-con"><img src="http://res.cloudinary.com/samsondappa/image/upload/v1524134592/chatIcon.png" id="icon-img"></div>
         <footer class="darkest " id ="footer">
             <div class="socials-container">
                 <a href="https://facebook.com/brownsamson.dappa" target="_blank" class="socials">
@@ -285,9 +422,9 @@
     </body>
     <script>
         typer ();
-
         function typer (){
             var y = 0;
+            var m = "#749E40"
             var skill = ["I Design   ", "I Code   ", "And I Write too   "];
             var x = 0;
 
@@ -336,6 +473,86 @@
                     y = 1;
                 }
             }, 150);
+
+
+            var messageBottonBlink = setInterval(function(){
+              var chatIco = document.getElementById('chat-icon-con');
+              chatIco.style.backgroundColor = m;
+
+                if (m == "#FFC916"){
+                    m = "#749E40";
+                } else if (m == "#749E40"){
+                    m = "#FFC916";
+                }
+
+            }, 800);
         }
+
+  // ------------.....-------......------ AJAX ---------..........---------------------------
+        var guestSend = document.getElementById('guest-send');
+        var conversation = document.getElementById('conversation');
+        var textarea = document.getElementById('message');
+        var message = "";
+        var chatIcon = document.getElementById('chat-icon-con');
+        var realMessageIcon = '<img src="http://res.cloudinary.com/samsondappa/image/upload/v1524134592/chatIcon.png" id="icon-img">'
+        var realMessageCancel = '<img src="http://res.cloudinary.com/samsondappa/image/upload/v1524444837/cancelmessage.png" id="icon-img">'
+        var firstMessage = 0;
+        var senderName = "";
+        chatIcon.addEventListener("click", function(){
+          if (this.innerHTML == realMessageCancel){
+            this.innerHTML = realMessageIcon;
+            document.getElementById('chatcon').style.right = "-100%";
+          } else {
+            this.innerHTML = realMessageCancel;
+            document.getElementById('chatcon').style.right = "10%";
+            if (firstMessage == 0){
+              getMessageSam('intro');
+              getMessageSam('request name');
+              firstMessage++;
+            }
+          }
+        });
+
+        guestSend.addEventListener('click', function(){
+          message = textarea.value;
+
+          if (message != ""){
+            conversation.innerHTML += '<div class="guest"><div class="arrow-right"></div>' + message + '</div>';
+            textarea.value = "";
+              if (firstMessage == 1){
+                getMessageSam('name: '+ message);
+                firstMessage++;
+                senderName = message;
+              }else{
+                getMessageSam(message);
+              }
+            }
+        });
+
+
+// var res = str.replace("Microsoft", "W3Schools"); trainpwforhng
+        function getMessageSam(messageSam) {
+          if (messageSam.length == 0) {
+              textarea.value = "";
+              return;
+          } else {
+              var xmlReq = new XMLHttpRequest();
+              xmlReq.onreadystatechange = function() {
+                  if (this.readyState == 4 && this.status == 200) {
+                      message = this.responseText;
+                      var last8 = message.substr(message.length - 8);
+                      if (last8 == 'givename'){
+                        message = senderName;
+                      }
+
+                      conversation.innerHTML += '<div class="bot"><div class="arrow-left"></div>' + message + '</div>';
+                  }
+              };
+              messageSam = messageSam.replace("#", "%23");
+              messageSam = messageSam.replace("#", "%23");
+              xmlReq.open("GET", "answers.php?qsam=" + messageSam, true);
+              xmlReq.send();
+          }
+      }
 </script>
 </html>
