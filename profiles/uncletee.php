@@ -74,7 +74,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
 
 
-
+//
+//print_r(askQuestion("hello"));
 function askQuestion($string){
     global $botVersion;
     $questionAsked =  prepareInputParams($string);
@@ -965,6 +966,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 
           $(document).keypress(function(event) {
               var keycode = event.keyCode || event.which;
+              console.log("on live serve");
               if(keycode == '13'){
                   // get the form data
                   var formData = {'data': $('input[name=inputData]').val()};
