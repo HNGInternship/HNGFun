@@ -33,17 +33,14 @@
 
         .name{
             font-family: verdana;
-<<<<<<< HEAD
             font-size: 2em;
             margin-top: 7px;
-=======
-            font-size: 3em;
->>>>>>> 250584eaadb8eca4ffddd2ffb8b3b32d4ab0c712
         }
 
         .username{
             font-family: verdana;
             font-size: 2em;
+            color: #ffffff;
         }
 
         section{
@@ -59,25 +56,25 @@
 
         
     </style>
+    <?php      
+
+        $sql = $conn->query("SELECT * FROM secret_word LIMIT 1");
+        $sql = $sql->fetch(PDO::FETCH_OBJ);
+        $secret_word = $sql->secret_word;
+
+        $result = $conn->query("SELECT * FROM interns_data WHERE username = 'nerocodes'");
+        $user = $result->fetch(PDO::FETCH_OBJ);
+
+    ?>
     <main>
-        <?php
-            
-            $sql = $conn->query("SELECT * FROM secret_word LIMIT 1");
-            $sql = $sql->fetch(PDO::FETCH_OBJ);
-            $secret_word = $sql->secret_word;
-
-            $result = $conn->query("SELECT * FROM interns_data_ WHERE username = 'nerocodes'");
-            $user = $result->fetch(PDO::FETCH_OBJ);
-
-        ?>
         <h1 class="name"><?php echo $user->name ?></h1>
         <img src="<?php echo $user->image_filename ?>" alt="" class="image">
         <h2 class="username">@<?php echo $user->username ?></h2>
         <section>
             <h3>Front-End Web Developer</h3>
         </section>
-        
     </main>
+        
     <footer>
             &copy;NeroCodes 2018
     </footer>

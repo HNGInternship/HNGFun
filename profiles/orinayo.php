@@ -1,13 +1,12 @@
 <?php
 if (!defined('DB_USER')) {
-    include "../../config.php";
+    require "../../config.php";
 }
 try {
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
 } catch (PDOException $pe) {
     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
-global $conn;
 
 try {
     $sql = "SELECT * FROM secret_word";
@@ -24,10 +23,9 @@ try {
 catch (PDOException $e) {
     throw $e;
 }
+global $conn, $user_input_array2;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    include "../answers.php";
-    // validate input
     function Validate_input($data) 
     {
         $data = trim($data);
@@ -35,183 +33,198 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $data = htmlspecialchars($data);
         return $data;
     }
-    
+
+    $user_input = Validate_input($_POST["userInput"]);
+
     function Is_Training_question($user_input)
     {
-        if (strpos($user_input, 'train') === 0) {
+        if (strpos($user_input, 'train:') === 0) {
             return true;
         }
         return false;
     }
-                
-    function Split_Training_question($user_input)
-    {
-        $user_input = substr_replace($user_input, '', 0, 5);
-        $training_statement = explode("#", $user_input);
-        $training_statement = array_map('trim', $training_statement);
-        return $training_statement;
-    }
 
-    function Validate_Training_question($training_statement)
-    {
-        $password = 'trainpwforhng';
-        if ($password == $training_statement[2]) {
+    if (Is_Training_question($user_input)) {
+        function Split_Training_question($user_input)
+        {
+            $user_input = substr_replace($user_input, '', 0, 6);
+            $training_statement = explode("#", $user_input);
+            $training_statement = array_map('trim', $training_statement);
+            return $training_statement;
+        }
+
+        $training_statement = Split_Training_question($user_input);
+        
+        function Validate_Training_question($training_statement)
+        {
+            $password = 'trainpwforhng';
+            if ($password == $training_statement[2]) {
                 global $conn;
                 $sql = "INSERT INTO chatbot (question, answer) VALUES ('".$training_statement[0]."', '".$training_statement[1]."')";                    
                 $conn->exec($sql);
                 $answer = array("answer"=>"New record created successfully");
-                exit(json_encode($answer));
-        } else {
-            $answer = array("answer"=>"I would love to learn something new, I just need you to put in my password.");
-            exit(json_encode($answer));
-        }                    
-    }
+                return $answer['answer'];
+            } else {
+                $answer = array("answer"=>"I would love to learn something new, I just need you to put in my password.");
+                return $answer['answer'];                
+            }                    
+        }
+        $answer = Validate_Training_question($training_statement);
+        echo $answer;
+        exit();
+    } else {
+        function Random_Question_Or_answer($q_or_a) 
+        {
+            $q_or_a_count = count($q_or_a);
+            $random_q_or_a_index = rand(0, ($q_or_a_count - 1));
+            $result = $q_or_a[$random_q_or_a_index];
+            return $result;
+        }
 
-    function Get_answer($user_input) 
-    {
-        global $conn;
-        $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='".$user_input."'"); 
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $answers = $stmt->fetchAll();
+        function Answer_Is_A_function($answer)
+        {
+            if ($answer['answer'] == "Get_Hotelsng_wikipage(") {
+                return true; 
+            }
+            return false;
+        }
+        
+        function Encode_answer($answer)
+        {
+            if (Answer_Is_A_function($answer)) {
+                require "../../answers.php";
+                return Get_Hotelsng_wikipage();        
+            } else {
+                return $answer['answer'];
+            }
+        }
+        
+        function Get_answer($user_input) 
+        {
+            global $conn;
+            $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='".$user_input."'"); 
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $answers = $stmt->fetchAll();
+            return $answers;
+        }
+
+        $answers = Get_answer($user_input);
+
         if (count($answers) > 1) {
             $answer = Random_Question_Or_answer($answers);
-            Encode_answer($answer);     
+            $answer = Encode_answer($answer);
+            echo $answer;
+            exit();     
         } elseif (count($answers) == 1) {
             $answer = $answers[0];
-            Encode_answer($answer);
-        } elseif ($answers == false) {
-            Possible_question($user_input);
+            $answer = Encode_answer($answer);
+            echo $answer;
+            exit();
+        } 
+        
+
+        function Key_Word_search($user_input_array, $and_or)
+        {      
+            foreach ($user_input_array as &$value) {
+                $value = 'question LIKE "%'.$value.'%" '.$and_or;
+            }
+            unset($value);
+            $user_input_modified = implode(" ", $user_input_array);
+            return $user_input_modified;
         }
-    }
 
-    function Random_Question_Or_answer($q_or_a) 
-    {
-        $q_or_a_count = count($q_or_a);
-        $random_q_or_a_index = rand(0, ($q_or_a_count - 1));
-        $result = $q_or_a[$random_q_or_a_index];
-        return $result;
-    }
+        function Get_Possible_question($question_modified, $empty_string, $index)
+        {
+            global $conn;
+            $question_selector = substr_replace($question_modified, $empty_string, $index);
+            $stmt = $conn->prepare("SELECT question FROM chatbot WHERE ".$question_selector); 
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $questions = $stmt->fetchAll();
+            return $questions;    
+        }
+        
+        function Sort_Array_By_count($a, $b) 
+        {
+            return (count($b) - count($a));
+        }
 
-    function Encode_answer($answer)
-    {
-        if (Answer_Is_A_function($answer)) {
-            $answer = Get_Hotelsng_wikipage();
-            exit(json_encode($answer));             
+        function Sort_Possible_questions($questions, $user_input)
+        {
+            $possible_questions = array();    
+            foreach ($questions as $each) {
+                $each_question = explode(" ", $each['question']);           
+                $common_words = array_intersect($each_question, $user_input);
+                array_push($possible_questions, $common_words);
+            }
+            usort($possible_questions, 'sort_array_by_count'); 
+            return $possible_questions;
+        }
+    
+        function Best_Matching_question($possible_questions)
+        {
+            $sorted_possible_questions = array();
+            foreach ($possible_questions as $val) {
+                if (count($possible_questions[0]) > count($val)) {
+                    array_push($sorted_possible_questions, $val);
+                }
+            }
+            $possible_questions = array_filter(
+                $possible_questions, function ($item) use ($sorted_possible_questions) {
+                    return !in_array($item, $sorted_possible_questions);
+                }
+            );
+            return $possible_questions;
+        }
+
+        function Possible_question($user_input)
+        {
+            global $user_input_array2;
+            $user_input_array = $user_input_array2 = explode(" ", $user_input);
+            $user_input_modified = Key_Word_search($user_input_array, "or");
+            $questions = Get_Possible_question($user_input_modified, '', -3);
+            return $questions;
+        }
+
+        $questions = Possible_question($user_input);
+
+        if ($questions == false) {
+            $answer = array('answer' => 'Sorry, I do not know this question. Train me maybe?');
+            echo $answer;
+            exit();
         } else {
-            exit(json_encode($answer));
-        }
-    }
-
-    function Answer_Is_A_function($answer)
-    {
-        if ($answer["answer"] == "Get_Hotelsng_wikipage()") {
-            return true; 
-        }
-        return false;
-    }
-
-    function Get_Hotelsng_wikipage()
-    {
-        $api = "https://en.wikipedia.org/w/api.php?action=opensearch&search="."hotels.ng"."&format=json&callback=?";
-        $result = file_get_contents($api);
-        $result = substr_replace($result, "", 0, 5);
-        $result = substr_replace($result, "", -1);
-        $result = json_decode($result, true);
-        $result = array("answer"=>"<a href=".$result[3][0].">".$result[1][0]."</a><p>".$result[2][0]."</p>");
-        return $result;
-    }
-
-    function Possible_question($user_input)
-    {
-        $user_input_array = $user_input_array2 = explode(" ", $user_input);
-        $user_input_modified = Key_Word_search($user_input_array, "or");
-        $answers = Get_Possible_answer($user_input_modified, '', -3);
-        if ($answers == false) {
-            exit(json_encode(array('answer' => 'Sorry, I do not know this question. Train me maybe?')));
-        } else {
+            global $user_input_array2;
             $possible_questions = Sort_Possible_questions($questions, $user_input_array2);
             $possible_questions = Best_Matching_question($possible_questions);
             if (count($possible_questions) == 1) {
                 $possible_question_modified = Key_Word_search($possible_questions[0], "and");
-                $answers = Get_Possible_answer($possible_question_modified, '', -4);
-                $answer = $answers[0];
-                Encode_answer($answer); 
+                $question = Get_Possible_question($possible_question_modified, '', -4);
+                $question = $question[0];
+                $answer = Get_answer($question);
+                $answer = Encode_answer($answer);
+                echo $answer;
+                exit(); 
             } elseif (count($possible_questions) > 1) {
                 $question = Random_Question_Or_answer($possible_questions);
                 $question_modified = Key_Word_search($question, "and");
-                $answers = Get_Possible_answer($question_modified, '', -4);
-                $answer = $answers[0];
-                Encode_answer($answer);
-            }
-        }   
-    }
-
-    function Key_Word_search($user_input_array, $and_or)
-    {      
-        foreach ($user_input_array as &$value) {
-            $value = 'question LIKE "%'.$value.'%" '.$and_or;
-        }
-        unset($value);
-        $user_input_modified = implode(" ", $user_input_array);
-        return $user_input_modified;
-    }
-
-    function Get_Possible_answer($question_modified, $empty_string, $index)
-    {
-        global $conn;
-        $question_selector = substr_replace($question_modified, $empty_string, $index);
-        $stmt = $conn->prepare("SELECT question FROM chatbot WHERE ".$question_selector); 
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $answers = $stmt->fetchAll();
-        return $answers;    
-    }
-
-    function Sort_Array_By_count($a, $b) 
-    {
-        return (count($b) - count($a));
-    }
-
-    function Sort_Possible_questions($questions, $user_input)
-    {
-        $possible_questions = array();    
-        foreach ($questions as $each) {
-            $each_question = explode(" ", $each['question']);           
-            $common_words = array_intersect($each_question, $user_input);
-            array_push($possible_questions, $common_words);
-        }
-        usort($possible_questions, 'sort_array_by_count'); 
-        return $possible_questions;
-    }
-    
-    function Best_Matching_question($possible_questions)
-    {
-        $sorted_possible_questions = array();
-        foreach ($possible_questions as $val) {
-            if (count($possible_questions[0]) > count($val)) {
-                array_push($sorted_possible_questions, $val);
+                $questions = Get_Possible_question($question_modified, '', -4);
+                $question = Random_Question_Or_answer($questions);
+                $question = $question['question'];
+                $answers = Get_answer($question);
+                $answer = Random_Question_Or_answer($answers);
+                $answer = Encode_answer($answer);
+                echo $answer;
+                exit();
             }
         }
-        $possible_questions = array_filter(
-            $possible_questions, function ($item) use ($sorted_possible_questions) {
-                return !in_array($item, $sorted_possible_questions);
-            }
-        );
-        return $possible_questions;
-    }    
-    
-    $user_input = validate_input($_POST["userInput"]);
+    }         
 
-    if (Is_Training_question($user_input)) {
-        $training_statement = Split_Training_question($user_input);
-        Validate_Training_question($training_statement);
-    } else {
-        Get_answer($user_input);
-    }
 } else {
+?> 
 
-?>
+<!DOCTYPE html>
+<html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
@@ -222,7 +235,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
 </head>
+<body>
 
+<?php 
+function Get_Hotelsng_wikipage() 
+{
+    $api = "https://en.wikipedia.org/w/api.php?action=opensearch&search="."hotels.ng"."&format=json&callback=?";
+    $result = file_get_contents($api);
+    $result = substr_replace($result, "", 0, 5);
+    $result = substr_replace($result, "", -1);
+    $result = json_decode($result, true);
+    $result = array("answer"=>"<a href=".$result[3][0].">".$result[1][0]."</a><p>".$result[2][0]."</p>");
+    return $result;
+}
+?>
 <div class="container-fluid content">
                 <h3 class="text-center text-dark display-5">Hello, I'm
                     <span class="display-4" id=name style="color: #f4511e">
@@ -594,52 +620,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     font-size: 30px;
                 }
             </style>
-
             <script>
                 $(document).ready(function () {
                     $("#chatBotForm").submit(function (event) {
                         event.preventDefault();
                         let $chatMessages = $('#chat-bot-messages');
                         let $chatBot = $('#chat-bot');
-                        $userInputValue = getUserInput();
-                        $chatMessages.append("<p class='chat-text text-right'>" + $userInputValue +
-                            " <i class='fa fa-user'></i> </p>");
-
-                        if ($userInputValue == 'aboutbot') {
-                            returnBotResponse($userInputValue);                            
-                        } else {
-                            postUserInput($userInputValue);
-                        }
-                    });
-
-                    function getUserInput() {
                         let $userInput = $('input[name="userInput"]');
                         let $userInputValue = $userInput.val();
-                        return $userInputValue;
-                    }
+                        $chatMessages.append("<p class='chat-text text-right'>" + $userInputValue +
+                            " <i class='fa fa-user'></i> </p>");
+                        if ($userInputValue == 'aboutbot') {
+                            $chatMessages.append(
+                                "<p class='chat-text'><i class='fa fa-user'></i>" + $userInputValue + "</p>");
+                            $chatBot.scrollTop($chatBot[0].scrollHeight);
+                            $userInput.val('');
+                            return;
+                        }
 
-                    function returnBotResponse($response) {
-                        $chatMessages.append(
-                            "<p class='chat-text'><i class='fa fa-user'></i>" + $response + "</p>");
-                        $chatBot.scrollTop($chatBot[0].scrollHeight);
-                        $userInput.val('');
-                        return;
-                    }
-
-                    function postUserInput($userInputValue) {
+                    
                         $.ajax({
-                                type: 'POST',
-                                url: 'profiles/orinayo.php',
-                                data: {
-                                    userInput: $userInputValue
-                                },
-                                encode: true,
-                                dataType: 'json',
-                                success: function (answer) {
-                                    returnBotResponse(answer['answer']);
-                                }, 
+                            type: 'POST',
+                            url: 'profiles/orinayo.php',
+                            data: {
+                                userInput: $userInputValue
+                            },
+                            dataType: 'text',
+                            success: function( answer ){
+                                if(answer == 'Get_Hotelsng_wikipage()') {
+                                    answer = <?php echo Get_Hotelsng_wikipage()?>
+                                }
+                                $chatMessages.append(
+                                "<p class='chat-text'><i class='fa fa-user'></i> " + answer + "</p>");
+                                $chatBot.scrollTop($chatBot[0].scrollHeight);
+                                $userInput.val('');
+                            } 
                             });
-                    }
+                        });
 
                     $("#name").hide();
                     $("#name").fadeIn(2000);
@@ -670,5 +687,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $("#chat-bot").toggle();
                     });
                 });
-            </script>
+        </script>
+    </body>
+</html>
+
 <?php } ?>

@@ -63,10 +63,7 @@
       }
     }
 
-    define ('DB_USER', "root");
-    define ('DB_PASSWORD', "password");
-    define ('DB_DATABASE', "hng_fun");
-    define ('DB_HOST', "localhost");
+    require "../../config.php";
 
     try {
       $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
@@ -285,8 +282,8 @@
       outline: none;
       float: left;
       border-bottom-left-radius: 10px;
-      border-left: 5px solid rgb(120, 120, 120);
-      border-bottom: 5px solid rgb(120, 120, 120);
+      border-left: 5px solid rgba(0, 200, 240, 0.7);
+      border-bottom: 5px solid rgba(0, 200, 240, 0.7);
     }
 
     #send {
@@ -298,8 +295,8 @@
       float: right;
       border-bottom-right-radius: 10px;
       border-style: normal !important;
-      border-right: 5px solid rgb(120, 120, 120);
-      border-bottom: 5px solid rgb(120, 120, 120);
+      border-right: 5px solid rgba(0, 200, 240, 0.7);
+      border-bottom: 5px solid rgba(0, 200, 240, 0.7);
       border-left: none;
     }
 
@@ -307,7 +304,7 @@
       overflow: auto;
       color: black;
       background: rgb(200, 230, 240);
-      border: 5px solid rgb(120, 120, 120);
+      border: 5px solid rgba(0, 200, 240, 0.7);
       border-bottom: none;
       height: 0px;
       max-height: 600px;
@@ -377,7 +374,7 @@
       right: 0;
       width: 100%;
       height: 45px;
-      background-color: rgb(120, 120, 120);
+      background-color: rgba(0, 200, 240, 0.7);
       align-items: right;
       border-radius: 10px 10px 0 0;
       padding: 3px 5px 0 10px;
@@ -496,16 +493,17 @@
         parent.scrollTop = parent.scrollHeight;
         spinner.style.display = 'block';
         window.setTimeout(function(){
-          spinner.style.display = 'none';
           $.ajax({
             type: "POST",
             url: "profiles/tonerolima.php",
             data: $message,
             success: function(data){
               botResponse(data);
+              spinner.style.display = 'none';
               parent.scrollTop = parent.scrollHeight;
             },
             error: function(){
+              spinner.style.display = 'none';
               alert("Unable to retrieve answer!");
             }
           });
@@ -541,11 +539,6 @@
         textArea.style.display = 'block';
         chatBoxState = 'open';
       }
-    }
-
-    function loading(){
-      var spinner = '<div class="chat_msg chat_content_left"><div class="icon-block"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div></div>';
-      parent.insertAdjacentHTML('beforeend',spinner);
     }
 
     button.addEventListener("click", function(){

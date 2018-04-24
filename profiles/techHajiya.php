@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href='https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra SC|Romanesco' rel='stylesheet'>
 	<link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css' />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <style type="text/css">
@@ -13,7 +12,7 @@
             overflow-x: hidden;
         }
 		 .container {
-            max-width: 40%;
+            max-width: 95%;
             padding-left: 0;
 		
         }
@@ -22,7 +21,8 @@
             font-size: 16px;
             display: flex;
             flex-direction: column;
-            max-width: 450px;
+            max-width: 550px;
+            margin: 0 auto;
 			 border-radius: 5px;
 			 margin-bottom: 50px;
         }
@@ -31,10 +31,17 @@
             display: none;
         }
 
-		.profile-details{
-            padding-top: 30px;
+		   .container.profile-body {
+            padding-right : 0;
         }
+
+        .profile-details{
+            padding-top: 20px;
+			background
+        }
+
         .profile-details {
+            padding-right: 0;
             background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
         }
@@ -81,7 +88,7 @@
 		}		
         .chat-result {
             flex: 1;
-            padding: 5px;
+            padding: 10px;
             display: flex;
             background: white;
             flex-direction: column;
@@ -92,15 +99,13 @@
         }
         .chat-result > div {
             margin: 0 0 10px 0;
-			width: 400px;
         }
         .chat-result .user-message .message {
-            background: #191970;
+            background: #DA70D6;
             color: white;
         }
         .chat-result .bot-message {
             text-align: right;
-			
         }
         .chat-result .bot-message .message {
             background: #eee;
@@ -108,11 +113,9 @@
         }
         .chat-result .message {
             display: inline-block;
-            padding: 5px 5px;
-			margin: 2px;
+            padding: 10px 10px;
+			margin: 5px;
             border-radius: 10px;
-			width: 400px;
-			  
         }
         .chat-input {
             padding: 15px;
@@ -133,7 +136,7 @@
 		   outline: none;
 		   border: none;
 		   color: #fff;
-		   background-color: #191970;
+		   background-color: #DA70D6;
 		   float: right;
 		   border-radius: 25px;
 		   padding: 0px;
@@ -144,7 +147,36 @@
 		   background-color: #00A; 
 		   outline: none;
 		}
+		
+		
 
+	.chatbot-menu-header {
+            background-color: #191970;
+            padding: 7px 20px;
+            margin: 0px 0 0 0px;
+            color: #FFFFFF;
+            height: 45px;
+			border-radius:10px;
+        }
+
+        .chatbot-close, .chatbot-help {
+            display: inline-block;
+            margin-left: 20px;
+            margin-top: 2.5px;
+        }
+
+        .fa-close, .fa-question-circle {
+            font-size: 23px;
+        }
+
+        .chatbot-menu-header span {
+            font-weight: bold;
+			font-size: 24px;
+        }
+
+        .chatbot-menu-header a {
+            color: #FFFFFF;
+        }
     </style>
 </head>
 <body>
@@ -160,7 +192,6 @@
         throw $e;
     }
     ?>
-
      <div class="row">
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
@@ -175,14 +206,17 @@
                     <a href="https://facebook.com/lois.idzi5" target="_blank"><i class="fa fa-2x fa-facebook"></i></a>
                 </div>
             </div>
-        </div>
 
-      <div class="col-sm-6" style='float: right; padding-top: 50px'>
-	    <div class="chatbox">
+      <div class="col-sm-6 chatbox" style='float: right; padding-top: 10px'>
+	 <div class='chatbot-menu-header'>
+                        <div class="hng-logo"></div> <span>LoBot v1.0</span>
+                    </div>
                 <div class="chat-result" id="chat-result">
                     <div class="user-message">
-					<div class="message">Hello! I'm LoBot! feel free to ask me anything.   </div>
-                    <div class="message">To train me, use this syntax - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
+					<div class="message">Hello! I'm LoBot! Feel free to ask me anything.   </div>
+					<div class="message">Learn more about me by typing 'aboutbot'.</div>
+                    <div class="message">To train me, use this syntax - 'train: question # answer # password'.</div>
+					<div class="message">Password is LoBot. </div>
                     </div>
                 </div>
 
@@ -192,9 +226,9 @@
 						<button id="send">SEND</button>
                     </form>
                 </div>
-			</div>
+		
           </div>
-
+		   </div>
 
     <?php
     try {
@@ -221,7 +255,8 @@
     }
 	##About Bot
     function aboutbot() {
-        echo "<div id='result'>LoBot version 1.0 - I am a bot created by Lois Thomas that returns data from the database. That's not all, I also can be taught new tricks!</div>";
+        echo "<div id='result'><strong>LoBot 1.0 </strong>
+		Hey...I am LoBot, created by Lois Thomas to answer any question. You can also teach me things I don't know. Sounds fun right</div>";
     }
 	
 	##Train Bot
@@ -266,7 +301,9 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'</div>";
+            echo "<div id='result'>Oops! I've not been trained to learn that command. </br>Would you like to train me?
+</br>You can train me to answer any question at all using, train: question # answer # password
+</br>e.g train: Who is the president of Nigeria # Muhammadu Buhari # LoBot'</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
@@ -275,7 +312,6 @@
     ?>
 
 </div>
-
 </body>
 
 <script>
