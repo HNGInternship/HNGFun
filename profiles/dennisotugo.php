@@ -137,7 +137,13 @@
 				]);
 				return;
 			}
-
+			if($question == aboutbot){
+				echo json_encode([
+					'status' => 0,
+					'answer' => "v1.0"
+				]);
+				return;
+			}
 
 			//insert into database
 			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
@@ -189,43 +195,19 @@
   </head>
 
   <body class="demo-disable-bg-image">
-    <div id="sampleDemo" style="display: none;" class="demo-padding demo-container">
-      <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
         <div id="demo-container">
-  <div style="padding:0px 16px 16px;">
-     <oj-label for="radioButtonset1" style="font-weight:bold;">Avatar Size:</oj-label>
-     <!-- Avatar Size button -->
-     <oj-buttonset-one id="radioButtonset1" class='oj-buttonset-width-auto'
-          aria-label='Choose only one setting.'
-          style='margin-bottom:2px;margin-top:2px;'
-          value='{{avatarSize}}'>
-          <!-- ko foreach: sizeOptions -->
-          <oj-option value='[[$data]]'>
-            <span data-bind="text:$data"></span>
-          </oj-option>
-         <!-- /ko -->
-     </oj-buttonset-one>
-   </div>
-  <div id="avatar-container" class="demo-flex-display">
-    <div class="oj-flex">
-      <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
-        <div class="of-flex-item">
-          <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
-            data-bind="attr:{'aria-label':'Avatar of ' + firstName + ' ' + lastName}">
-          </oj-avatar>
+          <div id="avatar-container" class="demo-flex-display">
+            <div class="oj-flex">
+              <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
+                <div class="of-flex-item">
+                  <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
+                    data-bind="attr:{'aria-label':'Avatar of ' + firstName + ' ' + lastName}">
+                  </oj-avatar>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
-        <div class="of-flex-item">
-          <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
-            data-bind="attr:{'aria-label':'Avatar of ' + firstName + ' ' + lastName}"
-            src="images/composites/avatar-image.jpg" class="oj-avatar-image">
-          </oj-avatar>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <script>
 require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojcomposite',
@@ -233,8 +215,8 @@ require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojcomposite'
 function(oj, ko, $) {
   function model() {
     var self = this;
-    self.firstName = 'Amy';
-    self.lastName = 'Bartlett';
+    self.firstName = 'Dennis';
+    self.lastName = 'Otugo';
     self.initials = oj.IntlConverterUtils.getInitials(self.firstName,self.lastName);
     self.avatarSize = ko.observable("md");
     self.sizeOptions = ko.observableArray(['xxs', 'xs','sm','md','lg','xl','xxl']);
@@ -308,10 +290,6 @@ function(oj, ko, $) {
 					'</div>';
 			
 
-    if (question.toLowerCase().includes("aboutbot")) {
-      chatToBeDisplayed('1.0');
-      return;
-    }
 			messageFrame.html(messageFrame.html()+chatToBeDisplayed);
 			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
 
