@@ -364,7 +364,7 @@
     <?php
         
         // Get the config file
-        include_once '../db.php';       
+        // include_once '../db.php';       
          
         // Set the needed variables
         $table = 'interns_data';
