@@ -112,7 +112,7 @@ function performTraining($string){
 
 
     $isBotTrainnable = isTrainable($trainnigParameters);
-    if( $trainnigParameters[0] == "train"){
+    if(prepareInputParams($trainnigParameters[0]) == "train"){
         if ($isBotTrainnable["code"] == 204){
             return  $isBotTrainnable;
         }
