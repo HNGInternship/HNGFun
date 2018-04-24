@@ -1,3 +1,84 @@
+
+<?php
+ // First check if submit is clicked
+//  if ($_SERVER['REQUEST_METHOD']== 'POST'){
+//     require ('../answers.php');
+
+//     if(!defined('DB_USER')){
+//         require "../../config.php";		
+//         try {
+//             $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+//         } catch (PDOException $pe) {
+//             die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+//         }
+//     }
+
+//     $message = $_POST['message'];
+//     $question = strtolower($message);
+//     $testvar = "?".$question_lower;
+
+//     if(strrpos($testvar, "train") != NULL){
+//         $train_detail = explode("#", $question);
+//         $question_detail = explode(":", $train_detail[0]);
+//         $question_only = $question_detail[1];
+//         $answer_only = $trainInfo[1];
+//         $question_only = trim(preg_replace("([?.])", "", $question_only));
+//         $answer_only = trim(preg_replace("([?.])", "", $answer_only));
+//         $password_only = trim(preg_replace("([?.])", "", $train_detail[2] ));
+//         $password = $password_only ;
+
+//         if ($password !== "password"){
+//             echo json_encode([
+//                 'status' => 1,
+//                 'reply' => "Wrong password, you are not authorized to train me",
+//               ]);
+//               return;
+//         }else {
+//             try{
+//                 $sql = "insert into chatbot (question, answer) values (:question, :answer)";
+//                 $initiate = $conn->prepare($sql);
+//                 $initiate->bindParam(':question', $question_only);
+//                 $initiate->bindParam(':answer', $answer_only);
+//                 $initiate->execute();
+//                 $initiate->setFetchMode(PDO::FETCH_ASSOC);
+//                 if($initiate){
+//                     echo json_encode(['status' => 1, 'reply' => "I have been trained, now you can ask me anything"]);
+//                     return; 
+//                 }
+//             }catch (PDOException $e){
+//                 throw $e;
+//             }
+//         }
+//     }else{
+//         $question = "%$question%";
+//         try{
+//             $sql = "select * from chatbot where question like :question";
+//             $initiate = $conn->prepare($sql);
+//             $initiate->bindParam(':question', $question);
+//             $initiate->execute();
+//             $initiate->setFetchMode(PDO::FETCH_ASSOC);
+//             $rows = $initiate->fetchAll();
+//             if($rows){
+//              $rows_value = count($rows);
+//             if($rows_value>0){
+//                 $random = rand(0, $rows_value - 1);
+//                 $row = $rows[$random];
+//                 $answer = $row['answer'];
+//                 echo json_encode([
+//                     'status' => 1,
+//                     'reply' => $answer,
+//                   ]);
+//                   return;
+//                 }
+//             }
+
+//         }
+//         catch (PDOException $e) {
+//             throw $e;
+//         }   
+//     }                           
+// } 
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +88,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    
 
     <style media="screen and (max-width: 600px)">
         body{
@@ -202,22 +284,22 @@
             max-width: 60%;
             min-width: 40%;
             width: 30%;
-            height: 250px;
+            height: 350px;
 
             border: 1px solid black;
         }
         div.section-chatbot h5.chatbot-title{
             margin-top: 0em;
+            margin-bottom: 0em;
             background-color: #03A9F4;
             text-align: center;
-            font-size: 1em;
+            font-size: 1.5em;
         }
 
         div.section-chatbot div.chatbot-conversation{
             overflow-y: scroll;
             height: 100%;
 
-            border: 1px solid blue;
         }
 
         div.section-chatbot div.chatbot-conversation p.chat-entry{
@@ -256,12 +338,13 @@
         }
 
         div.section-chatbot div.chatbot-input form {
-            
+            margin-top: 2em;            
         }
 
         div.section-chatbot div.chatbot-input form input {
-            size: 100%;
             color: red;
+            height: 2.5em;
+            font-size: 0.7em;
         }
 
         div.section-chatbot div.chatbot-input form p.info {
@@ -270,14 +353,18 @@
 
         div.section-chatbot div.chatbot-input form button.submit {
             float: right;
+            font-size: 0.7em;
+            margin-top: 2px;
         }
     </style>
     
 </head>
-<body ng-app="profileApp">
+<body >
+
     <?php
+        
         // Get the config file
-        // include '../db.php';
+        include_once '../db.php';       
          
         // Set the needed variables
         $table = 'interns_data';
@@ -305,26 +392,11 @@
         }
         $secret_word = $result['secret_word'];
 
-
-        // Handle form submit
-        $info = "";
-        // Check for submission of form
-        if (isset($_POST['submit'])){
-            // Check for empty entry
-            if (empty($_POST['entry-question'])){
-                // echo "Error ";
-                $info = "No Entry";
-            }else{
-                // The input entry is not empty
-                // echo "Successful";
-                $info = "Sent";
-                // Query the db with the content of the entry
-
-            }
-        }
-
+        // Handle the Chat bot interaction
+        $bot_version = 'fred v1.0.0';         
     ?>
-    <div ng-controller="controller" class="section-info">
+    
+    <div class="section-info">
         <div class ="profile-image">
             <img src="<?php echo $pics ?>" alt="<?php echo $pics ?>">
             <p class="intern-name"><?php echo $name?></p>
@@ -339,51 +411,248 @@
         </div>        
     </div>
 
-    <div class="section-chatbot card">
-        <h5 class="chatbot-title">Chat Bot {{test + 10}}</h5>
 
+    <div ng-controller="myCtrl" class="section-chatbot card">
+        <h5 class="chatbot-title"><?php echo $bot_version ?> </h5>
+        <!-- <user-input-directive></user-input-directive> -->
         <div class="chatbot-conversation card-body">
-            <p class="chat-entry bot"> Hello! My Name is Locala</p>
-            <p class="chat-entry user"> Hello i am a user</p>
-            <p class="chat-entry user"> {{test}}</p>
-
-            <p class="chat-entry bot"> Hello! My Name is Locala</p>
-            <p class="chat-entry user"> Hello i am a user</p>
-            <p class="chat-entry bot"> For the vertical bar,it will allow the content to expand up to the height you have specified. If it exceeds that height, it will show a vertical scrollbar to view the rest of the content, but will not show a scrollbar if it does not exceed the height.</p>
-            <p class="chat-entry user"> Hello i am a user</p>
-            <p class="chat-entry bot"> Hello! My Name is Locala</p>
-            <p class="chat-entry user"> Hello i am a user</p>
-            <p class="chat-entry bot"> Hello! My Name is Locala</p>
-            <p class="chat-entry user">For the vertical bar,it will allow the content to expand up to the height you have specified. If it exceeds that height, it will show a vertical scrollbar to view the rest of the content, but will not show a scrollbar if it does not exceed the height.</p>        
-
-            <p class="chat-entry bot"> Hello! My Name is Locala</p>
-            <p class="chat-entry user"> Hello i am a user</p>
-            <p class="chat-entry bot"> For the vertical bar,it will allow the content to expand up to the height you have specified. If it exceeds that height, it will show a vertical scrollbar to view the rest of the content, but will not show a scrollbar if it does not exceed the height.</p>
-            <p class="chat-entry user"> Hello i am a user</p>
-            <p class="chat-entry bot"> Hello! My Name is Locala</p>
-            <p class="chat-entry user"> Hello i am a user</p>
-            <p class="chat-entry bot"> Hello! My Name is Locala</p>
-            <p class="chat-entry user">For the vertical bar,it will allow the content to expand up to the height you have specified. If it exceeds that height, it will show a vertical scrollbar to view the rest of the content, but will not show a scrollbar if it does not exceed the height.</p>        
-
-            
+            <!-- <p id="bot" class="chat-entry bot"> {{initial}}</p> -->
+            <!-- <p class="chat-entry user"> {{user}}</p> -->
+                  
         </div>
 
-        <div class="chatbot-input">
-            <form class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-                <input class="form-control" ng-model="test" type="text" width= "100%" name="entry-question" id="question">               
-                <p class="info"><?php echo $info ?> </p>
-                <button class="btn btn-primary submit" type="submit" name="submit">Send</button>
+        <div ng-controller="myCtrl" class="chatbot-input">
+            <form  class="form" action="" method="post">
+                <input autocomplete="off" class="form-input form-control" placeholder="Type in Here" type="text" width= "70%" name="entry-question" id="question">               
+                <p class="info"><?php echo $info ?></p>
+                <button class="btn btn-primary submit" type="button" name="submit">Send</button>
             </form>
         </div>                
     </div>
 
-    <script>
-        var myApp = angular.module("profileApp",[]);
-        myApp.controller("controller", ['$scope', function($scope){
-            $scope.test = 'Hello Angular';
-            $scope.first= "first";
-            $scope.chat_container;
-        }]);
-    </script>
+        <!-- <script>
+            var myApp = angular.module('myApp', []);
+
+            // myApp.directive("x", function(){
+            //     var work;
+            //     $(.submit).on('click', work)
+            //     return {
+            //         scope:{},
+            //         restrict: 'E',
+            //         template: '<p class="chat-entry user"> Hello i am a user</p>';
+            //         link: function(scope, element, attrs){
+            //             $(this).work({
+            //                 color: blue;
+            //             })
+            //         }
+            //     }
+            // });
+
+            myApp.controller('myCtrl', ['$scope', '$http', function ($scope, $http){
+
+                $scope.initial = 'Hello my name is $bot_version';
+
+                $scope.userInput = function(message, response){
+                    $scope.user = message;
+                };
+                $scope.submitForm = function(message, response){
+                    $scope.info = "ng sent";
+                    $scope.user = "<p>" +message+ "</p>";
+                }
+            }]);
+
+            myApp.directive(makeDirective, function(){
+                return{
+                    template: "<p>Hello world</p>"
+                }
+            });
+        </script> -->
+        <!-- <script>
+         
+            function sendRequest(){
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("bot").innerHTML =
+                        this.responseText;
+                    }
+                };
+                xhttp.open("POST", "nectar.php", true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send("chat-entry = Hello");
+            }
+
+            function registerUserMessage(message){
+
+            }
+
+        </script> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+
+            function handleResponse(response){
+                
+                return response;
+            }
+
+            $(document).ready(function(){
+                var message = "";
+                var response = handleResponse("This is response quicky");
+
+                console.log('nectar.php is Ready');
+
+                $('.chatbot-conversation').append(`
+                    <p id="bot" class="chat-entry bot"> Hello I am medric ask me about any drug, use #help </p>
+                `);
+
+                $('form.form').submit(function(event){
+                        message = $('input.form-input').val().toString();
+                        console.log("Submit got this input: "+message);
+                        event.preventDefault();
+
+                        if((message.trim()) == ""){
+                            $('.chatbot-conversation').append(`
+                                <p style="background-color:#F44336; border:none" id="bot" class="chat-entry bot"> No response from you ... </p>
+                            `)
+                            return;
+                            
+                        }else if((message.trim()).startsWith("aboutbot") || (message.trim()) === "#aboutbot"){
+
+                             // Render the msg
+                             $('.chatbot-conversation').append(`
+                                    <p class="chat-entry user"> ${message} </p>
+                                `);
+
+                            $('.chatbot-conversation').append(`
+                                <p id="bot" class="chat-entry bot"> I am Medric your drug assistace, Current version 1.0                             
+                                    Tell me what you're feeling in concise sentence as much as possible
+                                    Use #help to get list of commands</p>
+                            `)
+                            return;                            
+                        }
+                        else if((message.trim()).startsWith("help") || (message.trim()) === "#help"){
+                            // Render the msg
+                            $('.chatbot-conversation').append(`
+                                <p class="chat-entry user"> ${message} </p>
+                            `);
+
+                            $('.chatbot-conversation').append(`
+                            <p id="bot" class="chat-entry bot"> Commands: Train - #train: question : answer : password 
+                               "About- #aboutbot to get info about me</p>
+                            `)
+                            return;                            
+                        }else{
+
+                        // if(message == "#help"){
+                        //     response="Commands "+"\n Train - #train: question : answer : password \n "+
+                        //     "About- #aboutbot to get info about me";
+                        //     return;
+                        // }
+                        // if((message.toLowerCase()).startsWith("hello")){
+                        //     response="Hi buddy, How can i be of help?";
+                        //     return;
+                        // }
+                        
+                        $.ajax({
+                                type: "POST",
+                                url:"nectar.php",
+                                data: {
+                                    message: message,
+                                },
+                                dataType: "json",
+                                success: function() {
+                                console.log('Msg Sent');
+
+                                // if(res.status === 1){
+                                //     console.log("Response OK");
+                                //     // response= res.reply;
+                                // }
+                                
+                                // Clear the input section
+                                $('input.form-input').val("");
+
+                                // Render the msg
+                                $('.chatbot-conversation').append(`
+                                    <p class="chat-entry user"> ${message} </p>
+                                `);
+
+                                // Get the response
+                                $('.chatbot-conversation').append(`
+                                    <p id="bot" class="chat-entry bot"> ${response} </p>
+                                `);
+                                },
+                                error: function(error){
+                                    console.log(error);
+                                    // var servertext = document.createElement('div');
+                                    // servertext.innerHTML = "<br>"  + "<span class= 'bot' > Rodrigo: </span>" + "I don't understand what you said, it's prolly because I'm quite tired at the moment, could we talk some other time" + "<br>";
+                                    // client.appendChild(servertext);      
+				                }   
+                            });
+                        }
+                                              
+                });
+
+                $('button.btn').click(function(event){
+                    message = $('input.form-input').val();
+                        console.log(message);
+                        event.preventDefault();
+
+                        if(message == ""){
+                            $('.chatbot-conversation').append(`
+                                <p style="background-color:#F44336; border:none" id="bot" class="chat-entry bot"> No response from you ... </p>
+                            `)
+                            return;
+                        }
+
+                        if(message == "#aboutbot"){
+                            response = "I am Medric your drug assistace, Current version 1.0 \n "+                            
+                            "Tell me what you're feeling in concise sentence as much as possible \n "+
+                            "Use #help to get list of commands";
+                            return;
+                        }
+
+                        if(message == "#help"){
+                            response = "Commands "+"\n Train - #train: question : answer : password \n "+
+                            "About- #aboutbot to get info about me";
+                            return;
+                        }
+                        if((message.toLowerCase()).startsWith("hello")){
+                            response="Hi buddy, How can i be of help?";
+                            return;
+                        }
+                        
+                        $.ajax({
+                                type: "POST",
+                                url:"nectar.php",
+                                data: {
+                                    message: message,
+                                },
+                                dataType: "json",
+                                success: function() {
+                                console.log('Msg Sent');
+
+                                // if(res.status === 1){
+                                //     console.log("Response OK");
+                                //     response= res.reply;
+                                // }
+                                
+                                // Clear the input section
+                                $('input.form-input').val("");
+
+                                // Render the msg
+                                $('.chatbot-conversation').append(`
+                                    <p class="chat-entry user"> ${message} </p>
+                                `);
+
+                                // Get the response
+                                $('.chatbot-conversation').append(`
+                                    <p id="bot" class="chat-entry bot"> ${response} </p>
+                                `);
+                                }
+                            });
+                });
+            });                
+        </script>
 </body>
 </html>

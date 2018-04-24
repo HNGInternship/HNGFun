@@ -689,4 +689,28 @@ function davidQuadraticEquation($a, $b, $c){  #Remember I know where you live if
 #                                                                                                   #
 #####################################################################################################
 
+##########################################################################
+# Sunday @Nectar Space starts Here: Pls don't touch
+##########################################################################
+
+function cleanInput($question){
+    return $question;
+}
+function commandCheck($question){
+    $command = null;
+
+    if ($question[0] === '#'){
+        $command = 'Train';
+    }elseif($question[0] === 'H'){
+        $command = 'Help';
+    }
+    
+    return $command;
+}
+
+##########################################################################
+# Sunday @Nectar Ends Here: Pls don't touch
+##########################################################################
+
+
 ?>
