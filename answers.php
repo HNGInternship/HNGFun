@@ -167,7 +167,7 @@ function checkDatabaseToo($question){
 	try{
 			require 'db.php';
 
-			$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%" ) LIMIT 1');
+			$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
 
 			$stmt->execute();
 			if($stmt->rowCount() > 0){
@@ -190,8 +190,8 @@ if ($qsam == "intro"){
 }else if (strtok($qsam, ":") == "train"){
 						trainingSam($qsam);
 }else if($qsam != "intro" && $qsam != "request name" && strtok($qsam, ":") != "train"){
-	checkDatabaseToo($qsam);
-	if (checkDatabaseToo($qsam) == 1){
+	$te = checkDatabaseToo($qsam);
+	if ($te == 1){
 		if ( $keyword[$decisionValue[0]] == "what do time? time"){
 								echo respondTime();
 		}else if ( $keyword[$decisionValue[0]] == "what your do name ur name? call you your's" || $qsam == "your name" || $qsam == "name" || $qsam == "ur name" || $qsam == "ur name?"){
