@@ -41,8 +41,8 @@
             width: 100%;
             min-height: 55vw;
             overflow: hidden;
-            margin-top: 5px;
-            padding-top: 5px;
+            margin-top: 25px;
+            padding-top: 20px;
         }
 
         .layer {
@@ -72,7 +72,7 @@
             position: absolute;
             width: 35%;
             top: -28%;
-            left: 50%;
+            left: 42%;
             transform: translate(-50%, 50%);
             
 
@@ -127,7 +127,7 @@
         }
 
         .bottom .content-body {
-            right: 9%;
+            right: 14%;
         }
 
         .bottom h1 {
@@ -142,7 +142,7 @@
         }
 
         .top .content-body {
-            left: 6%;
+            left: 1%;
             color: #222;
         }
 
@@ -162,7 +162,7 @@
         .skew .top {
             transform: skew(-30deg);
             margin-left: -1000px;
-            width: calc(50vw + 1000px);
+            width: calc(42vw + 1000px);
         }
 
         .skew .top .content-wrap {
