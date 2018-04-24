@@ -252,7 +252,7 @@
 									}
 								},
 								error: function(error){
-									console.error(error);
+									//console.error(error);
 									var inpi = document.createElement('p');
 									inpi.innerHTML = "<span class='bot'>Umar: </span> Unexpected Error Occured";
 									holdiv.appendChild(inpi);
