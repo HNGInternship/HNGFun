@@ -12,7 +12,7 @@ try {
 	throw $e;
 }
 global $conn;
-if ($_SERVER['REQUEST_METHOD']=='POST'){
+if ($_SERVER['REQUEST_METHOD']=='post'){
 	$message = trim($_POST['message']);
 	if ($message === ''){
 		$empty_response = [
@@ -354,7 +354,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 				}
                  $.ajax({
                      url:'profiles/segunemma2003.php',
-                     type: 'POST',
+                     type: 'post',
                      dataType: 'json',
 		     contentType: "application/json; charset=utf-8",
                      data : {message: message},
