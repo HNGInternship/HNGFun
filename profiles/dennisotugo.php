@@ -165,7 +165,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+ <link href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 <style>
 	.form-inline {
 		height: auto;
@@ -255,17 +256,23 @@
 
   </head>
 
-		
-			<div class="body">
+  <body style = "background color: #FFFFFF" class="oj-web-applayout-body>
+
+<!-- Main Content -->
+<div class="oj-flex oj-flex-items-pad oj-contrast-marker">
+        
+			
+			<div class="body0">
 <div class="profile">
 						<h1>Dennis Otugo</h1>
 						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
 
 					</div>
 </div>
-
+<div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
+<div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
+<div>&nbsp;</div>
 	<div class="col-md-4 offset-md-1 chat-frame">
-			<h2 class="text-center"><u>CHATBOT</u></h2>
 			<div class="row chat-messages" id="chat-messages">
 				<div class="col-md-12" id="message-frame">
 					<div class="row single-message">
