@@ -2,6 +2,7 @@
     <?php
         
     require_once 'db.php';
+    require_once 'answer.php';
 
     try {
     $sql = "SELECT * FROM secret_word";
@@ -276,6 +277,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					background: #fff;
 					box-model: border-box;
 				}
+				.myRow-head{
+                			background: #007bff !important;
+					padding: 5px;
+               				color: #fff;
+           			 }
 				.myContainer > .myRow{
 					
 				}
