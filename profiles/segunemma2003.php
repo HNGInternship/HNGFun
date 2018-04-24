@@ -317,7 +317,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 		canvas.arc(200,100,100,0,Math.PI*2,false);
 		canvas.fill();
 	</script> -->
-	 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	
 
@@ -352,7 +352,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 					// alert(responseMessage('I am a little bot'));
 				}
                  $.ajax({
-                     url:"profiles/segunemma2003.php",
+                     url:"profile.php?id=segunemma2003",
                      type: "POST",
                      dataType: "json",
 		     
