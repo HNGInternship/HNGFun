@@ -78,17 +78,20 @@ $input = trim($input);
             }else if($input=="you are mad"||$input == "you're mad"){
                 return "YOUR FATHER";
             } else {
+
+
+                $input = $_POST['input'];
                 $question = strtolower($input);
                 $question = str_replace('?', '', $question);
                 $question = trim($question);
-                echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "$question";
-                print_r($result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'"));
-                print_r($fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC));
+                echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";
+                $result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'");
+                $fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 $row_cnt = $result->num_rows;
                 $rand = rand(0, $row_cnt - 1);
                 if ($row_cnt > 0) {
                     return $fetched_data[$rand]['answer'];
-                } else
+                 } else
                     return "Am sorry, this question wasn't found,Please ENTER TRAIN:QUESTION#ANSWER#password to make me smarter";
 
             }
@@ -226,36 +229,9 @@ $input = trim($input);
     }  </script>
 <body>
 <?php
-if(!defined('DB_USER')){
-    require "../../config.php";
-    $servername = DB_HOST;
-    $username_ = DB_USER;
-    $password = DB_PASSWORD;
-    $dbname = DB_DATABASE;
-    // Create connection
-    $conn = mysqli_connect($servername, $username_, $password, $dbname);
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }}
-global $conn;
-$name = '';
-$username = '';
-$sql = "SELECT * FROM interns_data where username = 'Adokiye'";
-foreach ($conn->query($sql) as $row) {
-    $name = $row['name'];
-    $username = $row['username'];
-}
-global $secret_word;
-try {
-    $sql = "SELECT secret_word FROM secret_word";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-    $secret_word = $data['secret_word'];
-} catch (PDOException $e) {
-    throw $e;
-}
+$name = 'Adokiye Iruene';
+$username = 'Adokiye';
+
 ?>
 <div class=".body" id="div_main">
     <div class=".header" id="header">
@@ -274,7 +250,7 @@ try {
         <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
         <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
     </div>
-    <p class="mycss"> Chatbot by Adokiye!!!<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
+    <p class="mycss"> Chatbot by Adokiye<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
     <form name = "askMe" method="post">
         <p>
             <label>
