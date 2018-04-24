@@ -205,7 +205,7 @@ li{
     font-weight: bold;
     font-size: 20px;
     letter-spacing: 5%;
-    margin-top:70%;
+    margin-top:60%;
 }
 
 .not{
@@ -218,14 +218,14 @@ li{
 }
 
 .p_2{
-    margin-top:-8%;
+    margin-top:4%;
 }
 
 .card-subtitle2{
     font-weight: bold;
     font-size: 20px;
     letter-spacing: 5%;
-    margin-top:-17%;
+    margin-top:-8%;
 }
 
 .p_3{
@@ -280,20 +280,20 @@ li{
                             </div>
                            
   
-                            <div class="col-md-6 lol">
+                            <div class="lol">
                                 <div class=" " style="width: 18rem;">
                                     <div class="">
-                                        <div class="not">
+                                        <div class="">
                                             <h6 class="card-subtitle mb-2 text-bold">DESCRIPTION</h6>
-                                            <p class="p_2">Currently I'm working at Hotels.ng as a Software Development Intern</p>
-                                            <p class="text-center">Email ID : Umondiamfonobong@gmail.com</p>
-                                            <p class="text-center">Contact : +2348146498258</p>
+                                            <p class="p1">Currently I'm working at Hotels.ng as a Software Development Intern</p>
+                                            <p class="p1">Email ID : Umondiamfonobong@gmail.com</p>
+                                            <p class="p1">Contact : +2348146498258</p>
                                           </div>
                                           <hr>
                                             <div class="not">
                                               
                                               <h6 class="card-subtitle2 mb-2 text-bold">SOFTWARE</h6>
-                                              <p class="p_3">Android Studio, Figma, Medium ,<br>Steem, Eclipse</p>
+                                              <p class="p1">Android Studio, Figma, Medium ,<br>Steem, Eclipse</p>
                                             </div>
                         </div>
 
@@ -330,7 +330,7 @@ li{
                                         <!--Message received-->
                                         <div class="received-message text-left">
                                             <p class="message received">
-                                                Seems I am doing <span class="font-weight-bold h3"> Perfectly Ok</span>
+                                                Seems I am doing <span class=""> Perfectly Ok</span>
                                             </p>
                                         </div>
                                     </div>
