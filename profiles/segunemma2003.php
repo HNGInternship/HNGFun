@@ -12,7 +12,7 @@ try {
 	throw $e;
 }
 global $conn;
-if ($_SERVER['REQUEST_METHOD']=='post'){
+if ($_SERVER['REQUEST_METHOD']=='POST'){
 	$message = trim($_POST['message']);
 	if ($message === ''){
 		$empty_response = [
@@ -76,6 +76,7 @@ if ($_SERVER['REQUEST_METHOD']=='post'){
 	}
 
 	else{ 
+		echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br> .<br> just use the following pattern== train: what is the time? # The time is ' ]);
 		?>
 <!DOCTYPE html>
 
@@ -276,7 +277,7 @@ if ($_SERVER['REQUEST_METHOD']=='post'){
 				</section>
 				<div class="chat-form" style="margin:0 auto;">
 					<div class="message" style="margin:0 auto;">
-						<form id="myform">
+						<form id="myform" method="POST">
 						<textarea name="message" class="chat" rows="3" style="width:400px;"></textarea>
 						<div align="right">
 						<button type="submit"  class="btn btn-primary" style="border-radius:200px;" >Send</button>
@@ -351,9 +352,9 @@ if ($_SERVER['REQUEST_METHOD']=='post'){
 					// alert(responseMessage('I am a little bot'));
 				}
                  $.ajax({
-                     url:'profiles/segunemma2003.php',
-                     type: 'post',
-                     dataType: 'json',
+                     url:"profiles/segunemma2003.php",
+                     type: "POST",
+                     dataType: "json",
 		     
                      data : {message: message},
                      success: function(res){
