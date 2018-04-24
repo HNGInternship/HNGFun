@@ -125,114 +125,167 @@ else {
 
 <!DOCTYPE html>
 <!--
- Copyright (c) 2014, 2018, Oracle and/or its affiliates.
- The Universal Permissive License (UPL), Version 1.0
- -->
+  Copyright (c) 2015, 2018, Oracle and/or its affiliates.
+  The Universal Permissive License (UPL), Version 1.0
+-->
 
 <!-- ************************ IMPORTANT INFORMATION ************************************
-  This web navigation drawer template is provided as an example of how to configure
-  a JET web application with a navigation drawer as a single page application
-  using ojRouter and oj-module.  It contains the Oracle JET framework and a default
-  requireJS configuration file to show how JET can be setup in a common application.
-  This project template can be used in conjunction with demo code from the JET
-  website to test JET component behavior and interactions.
+        This blank template contains a basic web application setup with a header and sticky footer.
+        It contains the Oracle JET framework and a default requireJS
+        configuration file to show how JET can be setup in a common application.
+        This project template can be used in conjunction with demo code from the JET
+        website to test JET component behavior and interactions.
 
   Any CSS styling with the prefix "demo-" is for demonstration only and is not
   provided as part of the JET framework.
 
-  Please see the demos under Cookbook/Patterns/App Shell: Web and the CSS documentation
-  under Support/API Docs/Non-Component Styling on the JET website for more information on how to use 
-  the best practice patterns shown in this template.
+  Best practice patterns are provided as part of the JET website under the Samples section.
 
   Aria Landmark role attributes are added to the different sections of the application
   for accessibility compliance. If you change the type of content for a specific
   section from what is defined, you should also change the role value for that
   section to represent the appropriate content type.
   ***************************** IMPORTANT INFORMATION ************************************ -->
-<html lang="en-us">
+<html lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Oracle JET Starter Template - Web Nav Drawer</title>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
-    <link rel="icon" href="https://hng.fun/vendor/oracle-jet/dennisotugo/css/images/favicon.ico" type="image/x-icon" />
-
-    <!-- This is the main css file for the default Alta theme -->
+    <title>Oracle JET Starter Template - Web Blank</title>
+    <meta http-equiv="x-ua-compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="viewport-fit=cover, initial-scale=1.0"/>
+    <link rel="icon" type="image/x-icon" href="/dennis/css/images/favicon.ico"/>
+    <link rel="apple-touch-icon-precomposed" href="/dennis/css/images/touchicon.png"/>
+    <meta name="apple-mobile-web-app-title" content="Oracle JET"/>
+<style>
+.profile {height: 100%;text-align: center;position: fixed;position: fixed;position: fixed;width: 50%;right: 0;background-color: #007bff}footer {display: none;padding: 0px !important}h1, h2, h3, h4, h5, h6 {color: white;text-align: center;bottom: 50%;left: 65%;position: fixed;font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight: 700}p {position: fixed;bottom: 40%;left: 58%;line-height: 1.5;margin: 30px 0}.bot-body {max-width: 100% !important;position: fixed;margin: 32px auto;position: fixed;width: 100%;left: 0;bottom: 0px;height: 80%}.messages-body {overflow-y: scroll;height: 100%;background-color: #FFFFFF;color: #3A3A5E;padding: 10px;overflow: auto;width: 50%;padding-bottom: 50px;border-top-left-radius: 5px;border-top-right-radius: 5px}.messages-body > div {background-color: #FFFFFF;color: #3A3A5E;padding: 10px;overflow: auto;width: 100%;padding-bottom: 50px}.message {float: left;font-size: 16px;background-color: #007bff63;padding: 10px;display: inline-block;border-radius: 3px;position: relative;margin: 5px}.message: before {position: absolute;top: 0;content: '';width: 0;height: 0;border-style: solid}.message.bot: before {border-color: transparent #9cccff transparent transparent;border-width: 0 10px 10px 0;left: -9px}.color-change {border-radius: 5px;font-size: 20px;padding: 14px 80px;cursor: pointer;color: #fff;background-color: #00A6FF;font-size: 1.5rem;font-family: 'Roboto';font-weight: 100;border: 1px solid #fff;box-shadow: 2px 2px 5px #AFE9FF;transition-duration: 0.5s;-webkit-transition-duration: 0.5s;-moz-transition-duration: 0.5s}.color-change: hover {color: #006398;border: 1px solid #006398;box-shadow: 2px 2px 20px #AFE9FF}.message.you: before {border-width: 10px 10px 0 0;right: -9px;border-color: #edf3fd transparent transparent transparent}.message.you {float: right}.content {display: block;color: #000000}.send-message-body {border-right: solid black 3px;position: fixed;width: 50%;left: 0;bottom: 0px;box-sizing: border-box;box-shadow: 1px 1px 9px 0px rgba(1, 1, 1, 1)}.message-box {width: -webkit-fill-available;border: none;padding: 2px 4px;font-size: 18px}body {overflow: hidden;height: 100%;background: #FFFFFF !important}.container {max-width: 100% !important}.fixed-top {position: fixed !important;}
+</style>
 <!-- injector:theme -->
-<link rel="stylesheet" href="https://hng.fun/vendor/oracle-jet/dennisotugo/css/alta/5.0.0/web/alta.css" id="css" />
+<link rel="stylesheet" href="/dennis/css/alta/5.0.0/web/alta.css" id="css" />
 <!-- endinjector -->
     
-    <!-- This contains icon fonts used by the starter template -->
-    <link rel="stylesheet" href="https://hng.fun/vendor/oracle-jet/dennisotugo/css/demo-alta-site-min.css" type="text/css"/>
-
-    <!-- This is where you would add any app specific styling -->
-    <link rel="stylesheet" href="https://hng.fun/vendor/oracle-jet/dennisotugo/css/app.css" type="text/css"/>
-
   </head>
-  <body class="oj-web-applayout-body">
-    <!-- Template for rendering navigation items shared between nav bar and nav list -->
-    <script type="text/html" id="navTemplate">
-      <li><a href="#">
-        <span :class="[[$data['iconClass']]]"></span>
-        <oj-bind-text value="[[$data['name']]]"></oj-bind-text>
-      </a></li>
-    </script>
+  <body>
+<div class="profile">
+						<h1>Dennis Otugo</h1>
+						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
 
-    <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
-      <!--
-         ** Oracle JET V5.0.0 web application navigation drawer pattern.
-         ** Please see the demos under Cookbook/Patterns/App Shell: Web
-         ** and the CSS documentation under Support/API Docs/Non-Component Styling
-         ** on the JET website for more information on how to use this pattern. 
-         ** The off-canvas section is used when the browser is resized to a smaller media
-         ** query size for a phone format and hidden until a user clicks on
-         ** the header hamburger icon.
-      -->
-      <div id="navDrawer" role="navigation" class="oj-contrast-marker oj-web-applayout-offcanvas oj-offcanvas-start">
-        <oj-navigation-list data="[[navDataSource]]"
-                            edge="start"
-                            item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
-                            on-click="[[toggleDrawer]]"
-                            selection="{{router.stateId}}">
-        </oj-navigation-list>
+					</div>
+  <div class="bot-body">
+    <div class="messages-body">
+      <div>
+        <div class="message bot">
+          <span class="content">Look alive</span>
+        </div>
       </div>
-      <div id="pageContent" class="oj-web-applayout-page">
-        <!--
-           ** Oracle JET V5.0.0 web application header pattern.
-           ** Please see the demos under Cookbook/Patterns/App Shell: Web
-           ** and the CSS documentation under Support/API Docs/Non-Component Styling
-           ** on the JET website for more information on how to use this pattern.
-        -->
-        <header role="banner" class="oj-web-applayout-header">
-          <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
-            <!-- Offcanvas toggle button -->
-            <div class="oj-flex-bar-start oj-md-hide">
-              <oj-button id="drawerToggleButton" class="oj-button-lg" on-oj-action="[[toggleDrawer]]" chroming="half" display="icons">
-                <span slot="startIcon" class="oj-web-applayout-offcanvas-icon"></span>
-                <span>Application Navigation</span>
-              </oj-button>
-            </div>
-
-          </div>
-          <div role="navigation" class="oj-web-applayout-max-width oj-web-applayout-navbar">
-            <oj-navigation-list class="oj-sm-only-hide oj-md-condense oj-md-justify-content-flex-end"
-                                data="[[navDataSource]]"
-                                edge="top"
-                                item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
-                                selection="{{router.stateId}}">
-            </oj-navigation-list>
-          </div>
-        </header>
-        <oj-module role="main" class="oj-web-applayout-max-width oj-web-applayout-content" config="[[moduleConfig]]">
-        </oj-module>
+	<div>
+        <div class="message bot">
+          <span class="content">What do you have in mind, Let's talk :) </span>
+        </div>
       </div>
     </div>
-    
-    <script type="text/javascript" src="https://hng.fun/vendor/oracle-jet/dennisotugo/js/libs/require/require.js"></script>
-    <script type="text/javascript" src="https://hng.fun/vendor/oracle-jet/dennisotugo/js/main.js"></script>
+    <div class="send-message-body">
+      <input class="message-box" placeholder="Enter your words here..."/>
+    </div>
+  </div>
 
+  
+  
+  <script>
+  window.onload = function () {
+          $(document).keypress(function (e) {
+                  if (e.which == 13) {
+                          getResponse(getQuestion());
+                  }
+          });
+  }
+
+  function isUrl(string) {
+          var expression =
+                  /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+          var regex = new RegExp(expression);
+          var t = string;
+          if (t.match(regex)) {
+                  return true;
+          } else {
+                  return false;
+          }
+  }
+
+  function stripHTML(message) {
+          var re = /<\S[^><]*>/g
+          return message.replace(re, "");
+  }
+
+  function getResponse(question) {
+          updateThread(question);
+          showResponse(true);
+          if (question.trim() === "") {
+                  showResponse(':)');
+                  return;
+          }
+          if (question.toLowerCase().includes("aboutbot")) {
+                  var textToSay = question.toLowerCase().split("aboutbot")[1];
+                  showResponse('version 1.1.0');
+                  return;
+          }
+          $.ajax({
+                  url: "profiles/dennisotugo.php",
+                  method: "POST",
+                  data: {
+                          payload: question
+                  },
+                  success: function (res) {
+                          if (res.trim() === "") {
+                                  showResponse(
+                                          `train: question # answer # password`
+                                  );
+                          } else {
+                                  showResponse(res);
+                          }
+                  }
+          });
+  }
+
+  function showResponse(response) {
+          if (response === true) {
+                  $('.messages-body').append(
+                          `<div>
+          <div class="message bot temp">
+            <span class="content">...</span>
+          </div>
+        </div>`
+                  );
+                  return;
+          }
+          $('.temp').parent().remove();
+          $('.messages-body').append(
+                  `<div>
+        <div class="message bot">
+          <span class="content">${response}</span>
+        </div>
+      </div>`
+          );
+          $('.message-box').val("");
+  }
+
+  function getQuestion() {
+          return $('.message-box').val();
+  }
+
+  function updateThread(message) {
+          message = stripHTML(message);
+          $('.messages-body').append(
+                  `<div>
+        <div class="message you">
+          <span class="content">${message}</span>
+        </div>
+      </div>`
+          );
+  }
+</script>
+    <script type="text/javascript" src="/dennis/js/libs/require/require.js"></script>
+    <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/default/js/bundles-config.js"></script>
+    <script type="text/javascript" src="/dennis/js/main.js"></script>
   </body>
-
 </html>
 
 <?php } 
