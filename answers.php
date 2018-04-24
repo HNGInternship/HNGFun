@@ -183,11 +183,7 @@ if ($qsam == "intro"){
 		}else if ( $keyword[$decisionValue[0]] == "how are you"){
 								echo respondGreeting();
 		}else if (strtok($qsam, ":") == "name"){
-<<<<<<< HEAD
-					echo "nice to meet you";
-=======
 					echo "nice name to meet you";
->>>>>>> Update profile
 					$nameGuest = explode (":", $qsam);
 					$guestName = $nameGuest [1];
 					echo "$guestName" . ". How are you today?";
@@ -215,8 +211,6 @@ function get_time(){
   //format the time
   return $datetime->format('H:i: A');
 }
-<<<<<<< HEAD
-=======
 ########################################################
 # __   ___              __      __  ___       __   __  #
 #|  \ |__  |\ | |\ | | /__`    /  \  |  |  | / _` /  \ #
@@ -685,7 +679,6 @@ echo $time = get_time($_GET['opheuslocation']);
 elseif(isset($_GET['opheusweather'])) {
 echo $weather = get_weather($_GET['opheusweather']);
 =======
->>>>>>> 52a7a5062d115d41da3f894e2fc1a3b91108b0c1
 ////////////////////////////////
 // END OF JOHN AYENI FUNCTIONS//
 ////////////////////////////////
@@ -918,24 +911,6 @@ function show_direction ($location1, $location2, $mode) {
     return "https://www.google.com/maps/dir/?api=1&origin=$location1&destination=$location2&travelmode=$mode";
 
 }
-<<<<<<< HEAD
-
-
-function davidQuadraticEquation($a, $b, $c){  #Remember I know where you live if you tamper with this function
-     $discriminat = pow($b,2) - (4 * $a * $c);
-     if($discriminat == 0){
-         $x = -($b/(2 * $a));
-         return $x; 
-     }
-     else {
-         $root = sqrt($discriminat);
-         $x1 = (-$b + $root) / (2 *$a);
-         $x2 = (-$b - $root) / (2 *$a);
-         return 'x1 is ' + $x1 + 'and' + 'x2 is ' + $x2; 
-     }
-    
-     
-=======
 // End of functions by @Bukola
  /** chibuokems functions starts here */
   function check_if_training_chibuokem($input=''){
@@ -1123,41 +1098,8 @@ $dataa = json_decode(file_get_contents($url_location), true);
  function chibuokem_bot_help(){
   $help = "<span style='color:green;'>To train me use the format train question #answer #password"."<br/>". "To get the current time  type time and send "."<br/>"."To get Current weather condition type weather_condition and send "."<br/>"."To get love quote type love_quote and send"."<br/>". "To get funny quote type funny_quote and send"."<br/>"."to get an inspiring quote type inspiring_quote and send"."<br/>"."To get the quote of the day for students type students_quote and send"."<br/>". "to get sports quote of the day type sports_quote and send"."<br/> To get news type news and send "."<br/> to get the current bot version type version or aboutbot and send. Thanks </span>";
   return $help;
->>>>>>> 52a7a5062d115d41da3f894e2fc1a3b91108b0c1
  }
 
-<<<<<<< HEAD
-#####################################################################################################
-#                                                                                                   #
-#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS ABOVE            #
-#                                                                                                   #
-#####################################################################################################
-
-##########################################################################
-# Sunday @Nectar Space starts Here: Pls don't touch
-##########################################################################
-
-function cleanInput($question){
-    return $question;
-}
-function commandCheck($question){
-    $command = null;
-
-    if ($question[0] === '#'){
-        $command = 'Train';
-    }elseif($question[0] === 'H'){
-        $command = 'Help';
-    }
-    
-    return $command;
-}
-
-##########################################################################
-# Sunday @Nectar Ends Here: Pls don't touch
-##########################################################################
-
-=======
->>>>>>> 52a7a5062d115d41da3f894e2fc1a3b91108b0c1
 
 ?>
 =======
