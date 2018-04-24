@@ -163,104 +163,79 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us" style="height:100%;">
 <head>
- <link href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-<style>
-      body {
-			
-			background-size: cover;
-		}
-		p{ color:black
-		
-		}
-		h1{ color: blue
-		}
-		h3{ color: blue
-		}
-		h5{ color: white
-		
-		}
-		
-		.chat-frame {
-			border-color: #cccccc;
-			color: #333333;
-			background-color: #ffffff;
-			padding: 20px;
-			height: 550px;
-			margin-top: 5%;
-			margin-bottom: 50px;
-		}
+    <title>Composite Components - Basic</title>
+    <meta charset="UTF-8">
+      
+      <meta http-equiv="x-ua-compatible" content="IE=edge"/>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta name="apple-mobile-web-app-title" content="Oracle JET">
+      <script src="http://www.oracle.com/webfolder/technetwork/jet/js/loadStyleSheets.min.js"></script>
+      <link rel="stylesheet" href="http://www.oracle.com/webfolder/technetwork/jet/js/spaWork.min.js">
+      <script>
+        // The "oj_whenReady" global variable enables a strategy that the busy context whenReady,
+        // will implicitly add a busy state, until the application calls applicationBootstrapComplete
+        // on the busy state context.
+        window["oj_whenReady"] = true;
+    </script>
+    <script src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
+    <!-- RequireJS bootstrap file -->
+    <script src="http://www.oracle.com/webfolder/technetwork/jet/js/spaWork.min.js"></script>
 
-		.chat-messages {
-			background-color: lightblue;
-			padding: 5px;
-			height: 300px;
-			overflow-y: auto;
-			margin-left: 15px;
-			margin-right: 15px;
-			border-radius: 6px;
-			
-		}
-
-		.single-message {
-			margin-bottom: 5px; 
-			border-radius: 5px;
-			min-height: 30px;
-			
-		}
-
-		.single-message-bg {
-			background-color: blue;
-			
-			
-		}
-
-		.single-message-bg2 {
-			background-color: darkblue;
-			
-		}
-
-		input[name=question] {
-			height: 50px;
-		}
-
-		button[type=submit] {
-			height: 50px;
-			background-color: blue;
-			color: black
-		}
-
-		.circle {
-			width: 60%;
-			margin-left: 20%;
-			border-radius: 50%;
-		}
-		.f-icon {
-			font-size: 40px;
-		}
-
-      </style>
 
   </head>
 
-  <body style = "background color: #FFFFFF" class="oj-web-applayout-body>
+  <body class="demo-disable-bg-image">
+    <div id="sampleDemo" style="display: none;" class="demo-padding demo-container">
+      <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+        <style>
+  #composite-container demo-card .demo-card-front-side {
+    background-image: url('images/composites/card-background_1.png');
+  }
+</style>
 
-<!-- Main Content -->
-<div class="oj-flex oj-flex-items-pad oj-contrast-marker">
-        
-			
-			<div class="body0">
-<div class="profile">
-						<h1>Dennis Otugo</h1>
-						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
-
-					</div>
+<div id="composite-container" class="oj-flex oj-sm-flex-items-initial">
+  <!-- ko foreach: employees -->
+    <demo-card class="oj-flex-item" name="[[name]]" avatar="[[avatar]]" work-title="[[title]]" 
+      work-number="[[work]]" email="[[email]]">
+    </demo-card>
+  <!-- /ko -->
 </div>
-<div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
-<div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
-<div>&nbsp;</div>
+
+<script>
+require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'jet-composites/demo-card/loader'],
+function(oj, ko, $) {
+  function model() {      
+    var self = this;
+    self.employees = [
+      {
+        name: 'Dennis Otugo',
+        avatar: 'https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701221/avatar.png',
+        title: 'IT Manager',
+        work: 08169889587,
+        email: 'otugodennis at gmail.com'
+      }
+    ];
+  }
+
+  $(function() {
+      ko.applyBindings(new model(), document.getElementById('composite-container'));
+  });
+
+});
+</script>
+
+      </div>
+    </div>
+    <pre id="codemirror-markup-example" style="display: none">&lt;div id="composite-container" class="oj-flex oj-sm-flex-items-initial">
+  &lt;!-- ko foreach: employees -->
+    &lt;demo-card class="oj-flex-item" name="[[name]]" avatar="[[avatar]]" work-title="[[title]]" 
+      work-number="[[work]]" email="[[email]]">
+    &lt;/demo-card>
+  &lt;!-- /ko -->
+&lt;/div></pre>
 	<div class="col-md-4 offset-md-1 chat-frame">
 			<h2 class="text-center"><u>CHATBOT</u></h2>
 			<div class="row chat-messages" id="chat-messages">
