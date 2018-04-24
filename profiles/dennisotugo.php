@@ -155,18 +155,18 @@ else {
 
     <meta charset="UTF-8">
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
-    <link rel="icon" href="/dennisotugo/css/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="https://hng.fun/vendor/oracle-jet/dennisotugo/css/images/favicon.ico" type="image/x-icon" />
 
     <!-- This is the main css file for the default Alta theme -->
 <!-- injector:theme -->
-<link rel="stylesheet" href="/dennisotugo/css/alta/5.0.0/web/alta.css" id="css" />
+<link rel="stylesheet" href="https://hng.fun/vendor/oracle-jet/dennisotugo/css/alta/5.0.0/web/alta.css" id="css" />
 <!-- endinjector -->
     
     <!-- This contains icon fonts used by the starter template -->
-    <link rel="stylesheet" href="/dennisotugo/css/demo-alta-site-min.css" type="text/css"/>
+    <link rel="stylesheet" href="https://hng.fun/vendor/oracle-jet/dennisotugo/css/demo-alta-site-min.css" type="text/css"/>
 
     <!-- This is where you would add any app specific styling -->
-    <link rel="stylesheet" href="/dennisotugo/css/app.css" type="text/css"/>
+    <link rel="stylesheet" href="https://hng.fun/vendor/oracle-jet/dennisotugo/css/app.css" type="text/css"/>
 
   </head>
   <body class="oj-web-applayout-body">
@@ -228,8 +228,8 @@ else {
       </div>
     </div>
     
-    <script type="text/javascript" src="/dennisotugo/js/libs/require/require.js"></script>
-    <script type="text/javascript" src="/dennisotugo/js/main.js"></script>
+    <script type="text/javascript" src="https://hng.fun/vendor/oracle-jet/dennisotugo/js/libs/require/require.js"></script>
+    <script type="text/javascript" src="https://hng.fun/vendor/oracle-jet/dennisotugo/js/main.js"></script>
 
   </body>
 
