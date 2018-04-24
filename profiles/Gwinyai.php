@@ -111,8 +111,7 @@
             }
 
         .img {
-            width: 120;
-            height: 120;
+          
         border-radius: 100%; 
         border: 2px solid #fff; 
         
@@ -193,6 +192,30 @@
             }
            
         }
+
+
+          @media(min-width: 598px) and (max-width: 769px) {
+            .layer img.img {
+            position: absolute;
+            width: 24%;
+            top: 0%;
+            left: 40%;
+            transform: translate(-50%, 50%);
+            
+
+        }
+
+          .skew .top {
+                transform: skew(-30deg);
+                margin-left: -1000px;
+                width: calc(40vw + 1000px);
+            }
+
+              .bottom .content-body {
+                right: 23%;
+            }
+
+    }
     </style>
 </head>
 
