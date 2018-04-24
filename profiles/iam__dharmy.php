@@ -240,12 +240,7 @@
 		.f-icon {
 			font-size: 40px;
 		}
-		.oj-sm-align-self-center{
-			margin-left: 20%;
-		}
-		.oj-flex-item alignCenter{
-			margin-left: 20%;
-		}
+
       </style>
 
   </head>
