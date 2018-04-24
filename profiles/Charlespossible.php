@@ -182,7 +182,7 @@
 </html>
 
 <?php
- require_once "../answers.php";
+
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	if(isset($_POST['message']) && $_POST['message'] != "")
 	{
