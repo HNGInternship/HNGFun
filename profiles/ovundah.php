@@ -62,8 +62,9 @@
             <iframe src="https://hng.fun/profiles/ovundah/web/index.html"
                 scrolling='no'
                 frameborder='0'
-                width="100%" 
-                height="500%">
+                width="700%" 
+                height="1500%"
+                marginheight='1000px'>
             </iframe>
 
         </div>
