@@ -9,7 +9,7 @@
     $conn = mysqli_connect($server, $username, $pswd, $db);
 
     if(!$conn)
-        die("Could not connect to the database".mysqli_error());
+        die("-Could not connect to the database-".mysqli_error());
 
 
     //fetch-store results
