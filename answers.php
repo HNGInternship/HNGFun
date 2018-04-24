@@ -1,8 +1,8 @@
 <?php
 //////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
-
-$qsam = $_REQUEST["qsam"];
-samsonjnrBot($qsam);
+//
+//$qsam = $_REQUEST["qsam"]; You are suppose to do this in a function
+//samsonjnrBot($qsam);
 function samsonjnrBot($qsam){
 $qsam = strtolower($qsam);
 $anwerSam = "";
@@ -183,7 +183,7 @@ if ($qsam == "intro"){
 		}else if ( $keyword[$decisionValue[0]] == "how are you"){
 								echo respondGreeting();
 		}else if (strtok($qsam, ":") == "name"){
-					echo "nice name to meet you";
+					echo "nice name, also nice to meet you";
 					$nameGuest = explode (":", $qsam);
 					$guestName = $nameGuest [1];
 					echo "$guestName" . ". How are you today?";
@@ -678,7 +678,7 @@ echo $time = get_time($_GET['opheuslocation']);
 }
 elseif(isset($_GET['opheusweather'])) {
 echo $weather = get_weather($_GET['opheusweather']);
-=======
+
 ////////////////////////////////
 // END OF JOHN AYENI FUNCTIONS//
 ////////////////////////////////
@@ -1270,3 +1270,4 @@ $dataa = json_decode(file_get_contents($url_location), true);
   return $help;
  }
 ?>
+

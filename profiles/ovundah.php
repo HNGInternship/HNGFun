@@ -57,7 +57,7 @@
     </head>
     
     <body>
-        <iframe src="./ovundah/web/index.html"
+        <iframe src="https://hng.fun/profiles/ovundah/web/index.html"
                 frameborder='0'
                 width="100%" 
                 height="100%">
