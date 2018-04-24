@@ -8,7 +8,7 @@ $query = "Select * from secret_word LIMIT 1";
 $stmt = $conn->query($query);
 
 $stmt->execute();
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 $secret_word = $row['secret_word'];
@@ -119,4 +119,3 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
 <!-- /.row -->
 </body>
 </html> 
-<?php }
