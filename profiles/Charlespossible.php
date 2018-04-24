@@ -180,3 +180,213 @@
 
 </html>
 
+<?php
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+	if(isset($_POST['message']) && $_POST['message'] != "")
+	{
+		$letsTalk = $_POST['message'];
+	
+		$training = stripos($letsTalk, "train:");
+		$about_Bot = stripos($letsTalk, "botDetails");
+		
+		if($training !== false){
+			$myString = trim($letsTalk);
+			$split_string = explode("#", $myString);
+			$newQuestion = mysqli_real_escape_string($connect, ltrim($split_string[0], "train: "));
+			$newAnswer = mysqli_real_escape_string($connect, $split_string[1]);
+		
+			$trainBot = mysqli_query($connect, "INSERT INTO chatbot (id, question, answer) VALUES(0, '$newQuestion', '$newAnswer')");
+			if($trainBot){
+				echo json_encode(['posit' => 1, 'info' => "Thanks for your mentorship. Am gratefull!"]);
+			}else{
+				echo json_encode(['posit' => 0, 'info' => "It appears all is not well."]);
+			}
+		}
+		elseif($botDetails !== false){
+			echo json_encode(['posit' => 1, 'info' => "Chatbot 0.1 By Mbadugha charles"]);
+		}
+		
+	
+
+		else{
+			
+			$check1 = stripos($letsTalk, "{{");
+			
+			if($check1 !== false){
+				$check0 = stripos($letsTalk, "}}");
+				
+				$myMethod = substr($letsTalk, $check1+2, $check0 - $check1-2);
+				
+				if(stripos($myMethod, " ") !== false){
+					echo json_encode(['posit' => 0, 'info' => "Please ensure there is space in your messages"]);	
+				}
+				elseif(!function_exists($myMethod)){
+					echo json_encode(['posit' => 0, 'info' => "That appears to be beyond my capacity at the moment"]);
+				}
+				else{
+					$method_active = $myMethod();
+					echo json_encode(['posit' => 0, 'info' => "The reply is " . $method_active]);
+				}
+			}
+			else{
+				$cleanUp = mysqli_real_escape_string($connect, trim($letsTalk));
+				$myAnswer = mysqli_query($connect, "SELECT * FROM chatbot WHERE question LIKE '%$cleanUp%' ORDER BY RAND()");
+				if($myAnswer){
+					if($rows = mysqli_num_rows($myAnswer) > 0){
+						$result = mysqli_fetch_assoc($myAnswer);
+						$answer = $result['answer'];
+					
+						echo json_encode(['posit' => 1, 'info' => $answer]);
+					}
+					else{
+						echo json_encode(['posit' => 1, 'info' => "Assuming you train me, I will do better"]);
+					}
+				}
+				else{
+					json_encode(['posit' => 0, 'info' => " something has gone wrong wrong"]);
+				}
+			}
+		}
+	}
+}
+?>
+
+<?php if($_SERVER['REQUEST_METHOD'] === 'GET'){ ?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>My page</title>
+		<style type="text/css">
+            
+			body{
+					background: #ddd;
+					font-family: 'arial';
+				}
+				
+				
+				
+				.myContainer{
+					position: fixed;
+					right: 5px;
+					bottom: 0;
+					height: 400px;
+					width: 300px;
+					border: 3px dashed #ddd;
+					background: #fff;
+					box-model: border-box;
+				}
+				.myContainer > .myRow{
+					
+				}
+				.myContainer > .myRow >{
+					background: #00ff14;
+					padding: 5px;
+					color: #fff;
+				}
+				.myContainer > .myRow > .minimize{
+					position: absolute;
+					right: 5px;
+				}
+				.myRow-body {
+					padding: 5px;
+					height: 300px;
+					overflow: auto;
+				}
+				.myRow-body > .design {
+					display: block;
+					font-size: 14px;
+					border-radius: 4px;
+					width: 80%;
+					padding: 5px;
+					margin-bottom: 5px;
+				}
+				.myRow-body > .design > .name{
+					display: block;
+					font-weight: bold;
+					font-size: 15px;
+				}
+				.myRow-body > .sender{
+					background: #e3de57;
+					float: right;
+                    border-radius: 30px;
+				}
+				.myRow-body > .reciever{
+					background: #aaffeb;
+					float: left;
+                    border-radius: 30px;
+				}
+				
+				.myRow > form{
+					width: 100%;
+					margin: 5px;
+				}
+				.myRow > form > textarea{
+					width: 290px;
+				}
+		</style>
+	</head>
+	
+	<body>
+		
+		
+		<div class="myContainer">
+			<div class="myRow">
+				<div class="myRow-body">
+					<span class="design reciever">
+						<span class="name">Dubem</span>
+						I am your friend. Ask me anthing.
+					</span>
+				</div>
+				<form action="#" method="POST" onSubmit="chatBot(); return false;">
+					<input id="message" type="text" name="chats" placeholder="Ask me anything">
+                    <button type="button" value="Lets Talk" class=" btn btn-primary"></button>
+				</form>
+			</div>
+		</div>
+		<script src="../HNGFun/vendor/jquery/jquery.min.js"></script>
+		<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+		<script type="text/javascript">
+			function chatBot(){
+				let botMessage = $('#message').val();
+				if(botMessage == ''){
+					$('.myRow-body').append('<span class="design reciever"><span class="name">Bot</span>Common! Don\'t hide your feelings from me</span>');
+					$(".myRow-body").scrollTop($(".myRow-body")[0].scrollHeight);
+					return false;
+				}
+				else{
+					$('.myRow-body').append('<span class="design sender"><span class="name">User</span>' + botMessage + '</span>');
+					$('#message').val('');
+					
+					$.ajax({
+						url: "profiles/Charlespossible.php",
+						type: "POST",
+						data: {message: botMessage},
+						dataType: "json",
+						success: function(response){ //alert(response);
+							if(response.posit === "say")
+							{
+								$('.myRow-body').append('<span class="design reciever"><span class="name">Bot</span>' + response.info + '</span>');
+								$(".myRow-body").scrollTop($(".myRow-body")[0].scrollHeight);
+								responsiveVoice.speak(response.info, 'UK English Male');
+								return false;
+							}
+							else if(response.posit === 1){
+								$('.myRow-body').append('<span class="design reciever"><span class="name">Bot</span>' + response.info + '</span>');
+								$(".myRow-body").scrollTop($(".myRow-body")[0].scrollHeight);
+								return false;
+							}
+							else{
+								$('.myRow-body').append('<span class="design reciever"><span class="name">Bot</span>' + response.info + '</span>');
+								$(".myRow-body").scrollTop($(".myRow-body")[0].scrollHeight);
+								return false;
+							}
+						}
+					});
+				}
+			}
+		</script>
+	</body>
+</html>
+<?php } ?>
+
