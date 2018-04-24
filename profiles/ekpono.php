@@ -1,28 +1,19 @@
 <?php 
 		require 'db.php';
-		try {
-        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ekpono'");
-        $intern_data->execute();
-        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $intern_data->fetch();
-    
-    
-        $secret_code = $conn->prepare("SELECT * FROM secret_word");
-        $secret_code->execute();
-        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
-        $code = $secret_code->fetch();
-        $secret_word = $code['secret_word'];
-     } catch (PDOException $e) {
-         throw $e;
-     }
+		$result = $conn->query("Select * from secret_word LIMIT 1");
+        $result = $result->fetch(PDO::FETCH_OBJ);
+        $secret_word = "1n73rn@Hng";
+		$secret_word = $result->secret_word;
+		$result2 = $conn->query("Select * from interns_data where username = 'ekpono'");
+        $user = $result2->fetch(PDO::FETCH_OBJ);
+
 	?>
 
 <?php
 
-// Create connection
+// ChatBot Create connection
 try {
-	require '../../config.php';
-    $conn = new PDO("mysql:host=DB_HOST;dbname=DB_DATABASE", 'DB_USER', 'DB_PASSWORD');
+    $conn = new PDO("mysql:host=localhost;dbname=chat", 'root', '');
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     //echo "Connected"; 
@@ -76,7 +67,7 @@ catch(PDOException $e)
                     return;
                 }
                     try {
-                       $conn = new PDO("mysql:host=DB_HOST;dbname=DB_DATABASE", 'DB_USER', 'DB_PASSWORD');
+                        $conn = new PDO("mysql:host=localhost;dbname=chat", 'root', '');
                         // set the PDO error mode to exception
                         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                         //echo "Connected successfully"; 
@@ -125,7 +116,7 @@ catch(PDOException $e)
             return;
         }
 
-//chogo
+
 
 
 
@@ -166,7 +157,7 @@ body {
     display: block;
     text-align: right;
     font-size: 20px;
-    padding-top: 30px;
+    padding-top: -80px;
 }
 .photo {
     width: 50%;
@@ -180,24 +171,24 @@ body {
 h3 {
     color:rgb(32, 32, 216)
 }
-	.display{
-            position:fixed;
-            bottom:0;
-            right: 20px;
-            background-color:#fef;
-            width: 350px;
-            height: 500px;
-            overflow:auto;
-        }
 a {
     text-decoration: none;
      text-decoration: underline dotted;
 }
-
+/* ChatBot */
+.display{
+            position:fixed;
+            bottom:0;
+            right: 20px;
+            background-color:rgba(216,0,0,0.2);
+            width: 350px;
+            height: 400px;
+            overflow:auto;
+        }
         .display nav{
             display:block;
             height: 50px;
-            background-color:rgb(32, 32, 216)#f8e;
+            background-color:transparent;
             text-align: center;
             font-size: 25px;
             padding-top:7.5px;
@@ -214,6 +205,29 @@ a {
             position:fixed;
             bottom: 10px;
         }
+        .user {
+            text-align: right;
+        }
+        .user p{
+           
+            text-align: right;
+            width: auto;
+            display: inline;border-radius: 50px;background: white;
+        }
+        .bot {
+            background: width: 40px;
+        }
+        .bot p {
+            
+            display: inline;
+            
+        }
+        .notfound {
+            background: blue;
+        }
+            
+
+
 /* CSS button */
 
 </style>
@@ -249,12 +263,11 @@ a {
             <div class="myMessage-area">
                 <div class="myMessage bot">
                 </div>
-               
             </div>
         </div>
         <div class="form">
             <input type="text" name="question" id="question" required>
-            <span onclick="sendMsg()" ><i class="fa fa-send-o fa-2x"></i></span>
+            <span onclick="sendMsg()" ><button>Send</button></span>
         </div>
     </div>
 </div>
@@ -281,20 +294,22 @@ a {
                     processData(xhttp.responseText);
                 }
             };
-            xhttp.open("POST","https://hng.fun/profiles/ekpono.php", true);
+            xhttp.open("POST","ekpono.php", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("ques="+ques.value);
         }
+        
         function processData (data){
             data = JSON.parse(data);
             console.log(data);
             var answer = data['answer'];
+            //Choose a random response from available
             if(Array.isArray(answer)){
                 if(answer.length !=0){
                     var res = Math.floor(Math.random()*answer.length);
                     displayOnScreen(answer[res].answer, "bot");
                 }else{
-                    displayOnScreen("Not trained yet. Train me: train: question # response # password");
+                    displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn<br> Here's the format: train: question # response # password");
                 }
             }else{
                 displayOnScreen(answer,"bot");

@@ -1,4 +1,3 @@
-
 db.php
 docker-compose.yml
 phpmyadmin/
@@ -7,6 +6,8 @@ phpmyadmin/
 /deploy
 .idea/
 config.php
-/null-
+/profiles/dennisotugo/*
+/profiles/dennisotugo.php
 .travis.yml
 push.sh
+/vendor/
