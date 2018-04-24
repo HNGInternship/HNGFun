@@ -41,6 +41,12 @@
 		}
 	}
 
+    $stmt = $conn->prepare("SELECT * FROM chatbot");
+		$stmt->execute();
+
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$rows = $stmt->fetchAll();
+        $json = json_encode($rows);
 ?>
 
 <html>
@@ -51,7 +57,11 @@
     </head>
     
     <body>
-        <h1 style="padding-top: 100px">Hey</h1>
+        <iframe src="https://hng.fun/profiles/ovundah/web/index.html"
+                frameborder='0'
+                width="100%" 
+                height="100%">
+        </iframe>
     </body>
 </html>
 
