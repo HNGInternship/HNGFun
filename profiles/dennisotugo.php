@@ -1,3 +1,6 @@
+if(!$do_not_load) { include('header.php'); }
+if(!$do_not_load) { include('footer.php'); }
+
 <!DOCTYPE html>
 <html>
 <head>
