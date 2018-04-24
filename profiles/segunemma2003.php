@@ -10,7 +10,7 @@ try {
 	throw $e;
 }
 global $conn;
-if ($_SERVER['REQUEST_METHOD']==='POST'){
+if ($_SERVER['REQUEST_METHOD']=='POST'){
 	$message = trim($_POST['message']);
 	if ($message === ''){
 		$empty_response = [
