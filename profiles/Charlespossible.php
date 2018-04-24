@@ -2,7 +2,7 @@
     <?php
         
     require_once 'db.php';
-    require_once "../answers.php";
+   
 
     try {
     $sql = "SELECT * FROM secret_word";
@@ -182,6 +182,7 @@
 </html>
 
 <?php
+ require_once "../answers.php";
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	if(isset($_POST['message']) && $_POST['message'] != "")
 	{
