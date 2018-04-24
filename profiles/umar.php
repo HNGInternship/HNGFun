@@ -1,6 +1,15 @@
 <?php
-	include('../db.php');
 	include('../answers.php');
+
+	if(!defined('DB_USER')){
+		require_once __DIR__."/../../config.php";     
+		try {
+			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		} catch (PDOException $pe) {
+			die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+		}
+	}
+
 	$username = "umar";
 	$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
 	$sql0 = "SELECT * FROM `secret_word` LIMIT 1";
@@ -229,7 +238,7 @@
 						}else{
 							$.ajax({
 								//url: "./umar.php",
-								url: "/profiles/umar.php",
+								url: "profiles/umar.php",
 								type: "POST",
 								data: {question: quest},
 								success: function(resp){
