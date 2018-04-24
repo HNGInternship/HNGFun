@@ -215,7 +215,7 @@
 					<div class="message">Hello! I'm LoBot! Feel free to ask me anything.   </div>
 					<div class="message">Learn more about me by typing 'aboutbot'.</div>
                     <div class="message">To train me, use this syntax - 'train: question # answer # password'.</div>
-					<div class="message">Password is LoBot. </div>
+					<div class="message">Password is password. </div>
                     </div>
                 </div>
 
@@ -264,7 +264,7 @@
         $question = trim($input[0]);
         $answer = trim($input[1]);
         $password = trim($input[2]);
-        if($password == 'LoBot') {
+        if($password == 'password') {
             $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
             $q = $GLOBALS['conn']->query($sql);
             $q->setFetchMode(PDO::FETCH_ASSOC);
@@ -302,7 +302,7 @@
         if(empty($data)){
             echo "<div id='result'>Oops! I've not been trained to learn that command. </br>Would you like to train me?
 </br>You can train me to answer any question at all using, train: question # answer # password
-</br>e.g train: Who is the president of Nigeria # Muhammadu Buhari # LoBot'</div>";
+</br>e.g train: Who is the president of Nigeria # Muhammadu Buhari # password'</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
