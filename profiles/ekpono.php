@@ -103,7 +103,7 @@ catch(PDOException $e)
             $ques = input($ques);
                 $sql = "select answer from chatbot where question like :question";
 						$stmt = $conn->prepare($sql);
-						$stmt->bindParam(':question', $ques);
+	    					$stmt->bindParam(':question', $ques);
 						$stmt->execute();
 						$stmt->setFetchMode(PDO::FETCH_ASSOC);
 						$rows = $stmt->fetchAll();
@@ -214,9 +214,7 @@ a {
             display: inline;
             
         }
-        .notfound {
-            background: blue;
-        }
+        
             
 /* CSS button */
 </style>
