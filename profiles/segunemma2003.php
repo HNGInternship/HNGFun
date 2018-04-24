@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 		}
 	}
 
-	else{ echo "error";}
+	else{ 
 		?>
 <!DOCTYPE html>
 
@@ -354,6 +354,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
                      url:'profiles/segunemma2003.php',
                      type: 'POST',
                      dataType: 'json',
+		     contentType: "application/json; charset=utf-8",
                      data : {message: message},
                      success: function(res){
 
@@ -402,5 +403,6 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 	</div>
 </body>
 </html>
-
+<?php
+	}?>
 

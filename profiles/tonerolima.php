@@ -148,8 +148,6 @@
 
 <?php
   if($_SERVER['REQUEST_METHOD'] === "GET"){
-    require "../../config.php";
-    
     $sql = "SELECT * FROM `secret_word` LIMIT 1";
     $q = $conn->prepare($sql);
     $q->execute();
