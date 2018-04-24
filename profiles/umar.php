@@ -1,6 +1,37 @@
 <?php
-	include('../db.php');
-	include('../answers.php');
+
+	########DEFINING MY OWN FXNs HERE##################
+	function bot_menu(){
+		return  "Send <b>'time'</b> to get the time. \n
+		  Send <b>'about'</b> to know my version number. \n
+		  Send <b>'help'</b> or <b>'menu'</b> to see this again. \n
+		  To train me, send in this format => \n
+		  'train:question#answer' \n
+		  To get price for any cryptocurrency, send in this format \n
+		  <b>crypto:'cryptoname'</b>\n
+		  To clear the chat logs, just type <b>'cls'</b> or <b>'clear'</b>";
+	  }
+	function getCryptoPrice($ticker){
+		$url = "https://api.coinmarketcap.com/v1/ticker/".$ticker."/";
+		$response = @file_get_contents($url);
+		if (false === $response) {
+			return "No value";
+		}
+		$resp = json_decode($response, true);
+		$result = $resp[0]["price_usd"];
+		return $result;
+	}
+
+	#############################END################################
+	if(!defined('DB_USER')){
+		require_once __DIR__."/../../config.php";     
+		try {
+			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		} catch (PDOException $pe) {
+			die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+		}
+	}
+
 	$username = "umar";
 	$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
 	$sql0 = "SELECT * FROM `secret_word` LIMIT 1";
@@ -14,10 +45,6 @@
 
 	if($_SERVER['REQUEST_METHOD'] === "POST"){
 		$quest = $_POST['question'];
-		//ob_clean();
-		//echo json_encode(['status' => 1, 'reply' => $quest]);
-		//die();
-
 		$quest_low = strtolower($quest);
 		$training_mode = stripos($quest_low, "train:");
 		$menu_mode = stripos($quest_low, "menu");
@@ -56,7 +83,7 @@
 		}elseif (strcasecmp($quest_low, "what is your name?") == 0){
 			echo json_encode(['status' => 1, 'reply' => 'My name is Umar']);
 			die();
-		}elseif(strcasecmp($quest_low, "help") == 0 || strcasecmp($quest_low, "menu") == 0){
+		}elseif($menu_mode !== false ){
 			$menu = bot_menu();
 			echo json_encode(['status' => 1, 'reply' => $menu]);
 			die();
@@ -193,7 +220,7 @@
 
 				<div id="chatform">
 					<form id="form" class="qform">
-						<input id="input" type="text" placeholder="Type 'help' or 'menu' to start" >
+						<input id="input" type="text" placeholder="Type 'menu' to start" >
 						<button id="send" type="submit">SEND</button>
 					</form>
 				</div>
@@ -216,7 +243,7 @@
 						//to check if it includes about bot
 						if(quest.toLowerCase().includes("about") || quest.toLowerCase().includes("aboutbot")){
 							var inpi = document.createElement('p');
-							inpi.innerHTML = "<span class='bot'>Umar: </span> This is v1.0.0";
+							inpi.innerHTML = "<span class='bot'>Umar: </span> This is v1.8.0";
 							holdiv.appendChild(inpi);
 							$('#chatlogs').scrollTop($('#chatlogs')[0].scrollHeight);
 						}else if(quest.toLowerCase().includes("cls") || quest.toLowerCase().includes("clear")){
@@ -243,7 +270,7 @@
 									}
 								},
 								error: function(error){
-									console.error(error);
+									console.log(error);
 									var inpi = document.createElement('p');
 									inpi.innerHTML = "<span class='bot'>Umar: </span> Unexpected Error Occured";
 									holdiv.appendChild(inpi);
