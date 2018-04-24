@@ -225,7 +225,7 @@ img {
        
                     <div class="row msg_container base_receive">
                         <div class="col-md-2 col-xs-2 avatar">
-                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
+                            <img src="http://res.cloudinary.com/geekmaros/image/upload/v1524569887/robot.png" class=" img-responsive ">
                         </div>
                         <div class="col-md-10 col-xs-10">
                             <div class="messages msg_receive">
@@ -243,25 +243,12 @@ img {
                             </div>
                         </div>
                     </div>
-                    <div class="row msg_container base_sent">
-                        <div class="col-xs-10 col-md-10">
-                            <div class="messages msg_sent">
-                                <p>that mongodb thing looks good, huh?
-                                tiny master db, and huge document store</p>
-                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-xs-2 avatar">
-                            <img src="http://res.cloudinary.com/geekmaros/image/upload/v1524569887/robot.png" class=" img-responsive ">
-                        </div>
-                    </div>
-                    
+                   
                     <div class="row msg_container base_sent">
                         <div class="col-md-10 col-xs-10 ">
                             <div class="messages msg_sent">
-                                <p>that mongodb thing looks good, huh?
-                                tiny master db, and huge document store</p>
-                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
+                                <p>hard codedly sent</p>
+                                
                             </div>
                         </div>
                         <div class="col-md-2 col-xs-2 avatar">
