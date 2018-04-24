@@ -1,13 +1,14 @@
 /**
- * Copyright (c) 2014, 2017, Oracle and/or its affiliates.
+ * @license
+ * Copyright (c) 2014, 2018, Oracle and/or its affiliates.
  * The Universal Permissive License (UPL), Version 1.0
  */
 /*
  * Your application specific code will go here
  */
-define(['ojs/ojcore', 'knockout', 'ojs/ojrouter', 'ojs/ojknockout', 'ojs/ojarraytabledatasource',
+define(['ojs/ojcore', 'knockout', 'ojs/ojmodule-element-utils', 'ojs/ojmodule-element', 'ojs/ojrouter', 'ojs/ojknockout', 'ojs/ojarraytabledatasource',
   'ojs/ojoffcanvas'],
-  function(oj, ko) {
+  function(oj, ko, moduleUtils) {
      function ControllerViewModel() {
        var self = this;
 
@@ -20,23 +21,36 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojrouter', 'ojs/ojknockout', 'ojs/ojarray
        // Router setup
        self.router = oj.Router.rootInstance;
        self.router.configure({
-         'dashboard': {label: 'Dashboard', isDefault: true},
-         'incidents': {label: 'Incidents'},
-         'customers': {label: 'Customers'},
+         'dashboard': {label: 'ChatBot!', isDefault: true},
+         'incidents': {label: 'Media'},
+         'customers': {label: 'Words'},
          'about': {label: 'About'}
        });
       oj.Router.defaults['urlAdapter'] = new oj.Router.urlParamAdapter();
 
+      self.moduleConfig = ko.observable({'view':[], 'viewModel':null});
+      ko.computed(function() {
+        var name = self.router.moduleConfig.name();
+        var viewPath = 'views/' + name + '.html';
+        var modelPath = 'viewModels/' + name;
+        var masterPromise = Promise.all([
+          moduleUtils.createView({'viewPath':viewPath}),
+          moduleUtils.createViewModel({'viewModelPath':modelPath})
+        ]);
+        masterPromise.then(
+          function(values){ 
+            self.moduleConfig({'view':values[0],'viewModel':values[1]}); 
+          },
+          function(reason){}
+        );
+      });
+
       // Navigation setup
       var navData = [
-      {name: 'Dashboard', id: 'dashboard',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-chart-icon-24'},
-      {name: 'Incidents', id: 'incidents',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-fire-icon-24'},
-      {name: 'Customers', id: 'customers',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-people-icon-24'},
-      {name: 'About', id: 'about',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-info-icon-24'}
+      {name: 'ChatBot', id: 'dashboard'},
+      {name: 'Media', id: 'incidents'},
+      {name: 'Words', id: 'customers'},
+      {name: 'About', id: 'about'}
       ];
       self.navDataSource = new oj.ArrayTableDataSource(navData, {idAttribute: 'id'});
 
@@ -67,13 +81,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojrouter', 'ojs/ojknockout', 'ojs/ojarray
         this.linkId = id;
         this.linkTarget = linkTarget;
       }
-      self.footerLinks = ko.observableArray([
-        new footerLink('About Oracle', 'aboutOracle', 'http://www.oracle.com/us/corporate/index.html#menu-about'),
-        new footerLink('Contact Us', 'contactUs', 'http://www.oracle.com/us/corporate/contact/index.html'),
-        new footerLink('Legal Notices', 'legalNotices', 'http://www.oracle.com/us/legal/index.html'),
-        new footerLink('Terms Of Use', 'termsOfUse', 'http://www.oracle.com/us/legal/terms/index.html'),
-        new footerLink('Your Privacy Rights', 'yourPrivacyRights', 'http://www.oracle.com/us/legal/privacy/index.html')
-      ]);
      }
 
      return new ControllerViewModel();
