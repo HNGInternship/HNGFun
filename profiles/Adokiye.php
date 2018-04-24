@@ -77,7 +77,9 @@ $input = trim($input);
                 return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me";
             }else if($input=="you are mad"||$input == "you're mad"){
                 return "YOUR FATHER";
-            } else {
+            } else {if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+
                 $input = $_POST['input'];
                 $question = strtolower($input);
                 $question = str_replace('?', '', $question);
@@ -90,7 +92,7 @@ $input = trim($input);
                 $rand = rand(0, $row_cnt - 1);
                 if ($row_cnt > 0) {
                     return $fetched_data[$rand]['answer'];
-                } else
+                } } else
                     return "Am sorry, this question wasn't found,Please ENTER TRAIN:QUESTION#ANSWER#password to make me smarter";
 
             }
