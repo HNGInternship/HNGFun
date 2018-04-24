@@ -1,130 +1,99 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
-    <link href='https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra SC|Romanesco|Source+Sans+Pro:400,700' rel='stylesheet'>
-    <link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
     <style type="text/css">
-
-        .container{
-            width: 100%;
-            min-height: 100%
-        }
-        .body0 {
-            height: 100%;
-        }
-
-        span {
-            display: inline-block;
-            vertical-align: middle;
-            line-height: normal;
-        }
-
-        .main {
-            position: relative;
-            /*top:20px;*/
-            width: 100%;
-            /*padding-top: 300px;*/
-            max-height: 230px;
-            font-family: "Romanesco";
-            line-height: 230px;
-            font-size: 96px;
-            text-align: center;
-        }
-        .text {
-            background: -webkit-linear-gradient(0deg, #FF0F00, rgba(17, 26, 240, 0.55), #EC0F13);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .under {
-            position: relative;
-            /*top:450px;*/
-            height: 50px;
-            width: 100%;
-            font-family: "Alegreya";
-            line-height: normal;
-            font-size: 32px;
-            text-align: center;
-            color: #000830;
-        }
-        .under1 {
-            position: relative;
-            /*top:500px;*/
-            height: 40px;
-            width: 100%;
-            font-family: "Alegreya";
-            line-height: normal;
-            font-size: 32px;
-            text-align: center;
-            color: #000830;
-        }
-        .under2 {
-            position: relative;
-            /*top:540px;*/
-            height: 49.71px;
-            width: 100%;
-            font-family: "Alegreya";
-            line-height: normal;
-            font-size: 32px;
-            text-align: center;
-            color: #000830;
-        }
-        body, html {
-            margin: 0px;
-            background-color: skyblue; !important;
-            height: 100%;
-        }
-        .body1 {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 75%;
-            display: flex;
-            flex-direction: column;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        .chat-output {
-            flex: 1;
-            padding: 20px;
-            display: flex;
-            background: white;
-            flex-direction: column;
-            overflow-y: scroll;
-            max-height: 500px;
-        }
-        .chat-output > div {
-            margin: 0 0 20px 0;
-        }
-        .chat-output .user-message .message {
-            background: #0fb0df;
-            color: white;
-        }
-        .chat-output .bot-message {
-            text-align: right;
-        }
-        .chat-output .bot-message .message {
-            background: #eee;
-        }
-        .chat-output .message {
-            display: inline-block;
-            padding: 12px 20px;
-            border-radius: 10px;
-        }
-        .chat-input {
-            padding: 20px;
-            background: #eee;
-            border: 1px solid #ccc;
-            border-bottom: 0;
-        }
-        .chat-input .user-input {
-            width: 100%;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 8px;
-        }
-
-
-
+	    .oj-flex {
+    overflow-y: scroll;
+    height: 100%;
+}
+	    .oj-flex {
+    height: 100%;
+    text-align: center;
+    position: fixed;
+    width: 50%;
+    left: 0;
+    background-color: #ffffff;
+}
+	    
+	.profile {
+          height: 100%;
+    text-align: center;
+    position: fixed;
+    position: fixed;
+    position: fixed;
+    width: 50%;
+    right: 0;
+    background-color: #007bff;
+}
+	h1 {
+    color: blue;
+    color: white;
+    text-align: center;
+    bottom: 50%;
+    left: 65%;
+    position: fixed;
+    font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 700;
+}
+	p {
+    position: fixed;
+    bottom: 40%;
+    left: 58%;
+    line-height: 1.5;
+    margin: 30px 0;
+}
+	#mainNav {
+    position: fixed;
+}
+.user-input {
+    width: -webkit-fill-available;
+    border: none;
+    padding: 10px 14px;
+    font-size: 18px;
+    line-height: normal;
+}
+#user-input-form {
+	    border-right: solid black 3px;
+    position: fixed;
+    width: 50%;
+    height: 7%;
+    left: 0;
+    bottom: 0px;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 9px 0px rgba(1, 1, 1, 1);
+	    }
+	    .user-message {
+		    float: left;
+    font-size: 16px;
+    background-color: #007bff63;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 5px;
+	    
+	    }
+	    footer .copyright {
+    font-size: 14px;
+    margin-bottom: 0;
+    text-align: center;
+    left: 66% !important;
+    align-content: center;
+}
+	    
+	.bot-message {
+    float: right;
+    font-size: 16px;
+    background-color: #007bff63;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 15px 1px 1px 0px;
+}
     </style>
 </head>
 <body>
@@ -142,20 +111,24 @@
         throw $e;
     }
     ?>
+<div class="profile">
+						<h1>Dennis Otugo</h1>
+						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
 
+					</div>
     <div class="oj-flex oj-flex-items-pad oj-contrast-marker">
 
         <div class="oj-sm-6 oj-md-6 oj-flex-item">
             <div class="body1">
                 <div class="chat-output" id="chat-output">
                     <div class="user-message">
-                        <div class="message">Hi there! I'm MeloBot! Say something and I'll try my possible best to answer you! </br>To train me, use this format - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
+                        <div class="message">train: question # answer # password'</div>
                     </div>
                 </div>
 
                 <div class="chat-input">
                     <form action="" method="post" id="user-input-form">
-                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
+                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here">
                     </form>
                 </div>
 
@@ -164,7 +137,8 @@
     </div>
 
     <?php
-
+if(!$do_not_load) { include('header.php'); }
+if(!$do_not_load) { include('footer.php'); }
     try {
         $sql = 'SELECT * FROM secret_word';
         $q = $conn->query($sql);
@@ -191,7 +165,7 @@
     }
 
     function aboutbot() {
-        echo "<div id='result'>MeloBot v1.0 - I am simply a bot that returns data from the database and I also can be taught new tricks!</div>";
+        echo "<div id='result'>v11.0</div>";
     }
     function train($input) {
         $input = explode('#', $input);
@@ -238,7 +212,7 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'</div>";
+            echo "<div id='result'>Sorry,'train: question # answer # password'</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";

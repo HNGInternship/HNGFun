@@ -1,4 +1,6 @@
 <?php  require "db.php";
+error_reporting(E_ALL);
+ini_set("display_errors", "on");
 
 try {
 	$sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = "segunemma2003"';
@@ -33,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 		$answer = trim($second_test[1]);
 		$pass = trim($second_test[2]);
 
-		if (true){
+		if ($pass === $password){
 			$sql = 'INSERT INTO chatbot( question, answer) VALUES(:question, :answer)';
 
 				$query = $conn->prepare($sql);
@@ -68,13 +70,14 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 				echo json_encode(['status'=>1, 'data'=>$response]);
 			}
 			else{
-				echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br> .<br> just use the following pattern== train: what is the time? # The time is ' ]);
+				echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br> .<br> just use the following pattern== train: what is the time? # The time is#password ' ]);
 			}
 		}
 	}
 
-	else{
-		?>
+	else{ 
+		echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br> .<br> just use the following pattern== train: what is the time? # The time is ' ]);
+	}		?>
 <!DOCTYPE html>
 
 <html>
@@ -314,9 +317,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 		canvas.arc(200,100,100,0,Math.PI*2,false);
 		canvas.fill();
 	</script> -->
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	
 
@@ -351,9 +352,10 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 					// alert(responseMessage('I am a little bot'));
 				}
                  $.ajax({
-                     url:'https://hng.fun/profile.php?id=segunemma2003'
-                     type: 'POST',
-                     dataType: 'json',
+                     url:"/profiles/segunemma2003",
+                     type: "POST",
+                     dataType: "json",
+		     
                      data : {message: message},
                      success: function(res){
 
@@ -402,5 +404,5 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 	</div>
 </body>
 </html>
-<?php } ?>
+
 
