@@ -95,7 +95,8 @@ foreach ($conn->query($sql) as $row) {
 <DOCTYPE html>
 <html>
 <head>
-<style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css">
+	<style>
 @import url(https://fonts.googleapis.com/css?family=Quicksand:300,400|Lato:400,300|Coda|Open+Sans);
 /* 
 * Art by @kaykluz 
