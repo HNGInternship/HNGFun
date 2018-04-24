@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 
 	else{ 
 		echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br> .<br> just use the following pattern== train: what is the time? # The time is ' ]);
-		?>
+	}		?>
 <!DOCTYPE html>
 
 <html>
@@ -352,7 +352,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 					// alert(responseMessage('I am a little bot'));
 				}
                  $.ajax({
-                     url:"profile.php?id=segunemma2003",
+                     url:"/profiles/segunemma2003",
                      type: "POST",
                      dataType: "json",
 		     
@@ -404,6 +404,5 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 	</div>
 </body>
 </html>
-<?php
-	}?>
+
 
