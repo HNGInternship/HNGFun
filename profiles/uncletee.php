@@ -74,13 +74,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
 
 
-<<<<<<< HEAD
-
-
-=======
 //
 //print_r(askQuestion("hello"));
->>>>>>> Update profile
 function askQuestion($string){
     global $botVersion;
     $questionAsked =  prepareInputParams($string);
@@ -109,11 +104,7 @@ function askQuestion($string){
 
 }
 
-<<<<<<< HEAD
 //performTraining('train:Give me latest news');
-=======
-performTraining('train:Give me latest news');
->>>>>>> Update profile
 function performTraining($string){
 
     $delimeters         = [":","#"];
@@ -121,11 +112,7 @@ function performTraining($string){
 
 
     $isBotTrainnable = isTrainable($trainnigParameters);
-<<<<<<< HEAD
     if( prepareInputParams($trainnigParameters[0]) == "train"){
-=======
-    if(prepareInputParams($trainnigParameters[0]) == "train"){
->>>>>>> Update profile
         if ($isBotTrainnable["code"] == 204){
             return  $isBotTrainnable;
         }
@@ -979,10 +966,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 
           $(document).keypress(function(event) {
               var keycode = event.keyCode || event.which;
-<<<<<<< HEAD
               console.log("on live serve");
-=======
->>>>>>> Update profile
               if(keycode == '13'){
                   // get the form data
                   var formData = {'data': $('input[name=inputData]').val()};
