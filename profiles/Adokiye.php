@@ -84,15 +84,14 @@ $input = trim($input);
                 $question = strtolower($input);
                 $question = str_replace('?', '', $question);
                 $question = trim($question);
-                echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "$question";
-                var_dump($question);
-                print_r($result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'"));
-                print_r($fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC));
+                echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";
+                $result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'");
+                $fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 $row_cnt = $result->num_rows;
                 $rand = rand(0, $row_cnt - 1);
                 if ($row_cnt > 0) {
                     return $fetched_data[$rand]['answer'];
-                } } else
+                 } else
                     return "Am sorry, this question wasn't found,Please ENTER TRAIN:QUESTION#ANSWER#password to make me smarter";
 
             }
