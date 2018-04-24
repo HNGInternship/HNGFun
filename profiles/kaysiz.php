@@ -1,86 +1,79 @@
-<?php 
-  require 'db.php';
+<?php
+  $secret_word_query = $conn->prepare("SELECT * FROM secret_word LIMIT 1");
+  $secret_word_query->execute();
+  $secret_word_result = $secret_word_query->fetch();
+  $secret_word = $secret_word_result['secret_word'];
 
-  $secret_word_result=$conn->query("SELECT * FROM secret_word LIMIT 1");
-  $secret_word_result = $secret_word_result->fetch(PDO:: FETCH_ASSOC);
-  $secret_word = $secret_word_result->secret_word;
+  $profile_query= "SELECT * FROM interns_data where username = 'kaysiz'";
+  $q = $conn->query($profile_query);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $profile_result = $q->fetch();
 
-  $profile_result=$conn->query("SELECT * FROM interns_data where username = 'kaysiz'");
-  $profile_result = $profile_result->fetch(PDO:: FETCH_ASSOC);
-  $name = $profile_result->name;
-  $profile_pic = $profile_result->image_filename;
+  $name = $profile_result['name'];
+  $profile_pic = $profile_result['image_filename'];
+
 ?>
+<style>
+    html, body {
+    background: url(http://res.cloudinary.com/kaysiz/image/upload/v1523657757/miroslav-skopek-526075-unsplash_xvr8db.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Kaysiz</title>
-    <style>
-       html, body {
-        background: url(http://res.cloudinary.com/kaysiz/image/upload/v1523657757/miroslav-skopek-526075-unsplash_xvr8db.jpg) no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;   
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        margin: 0px;
-        padding: 0px;
-        }
-
-        .wrapper {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            background-color: azure;
-            max-width: 50%;
-            display: flex;
-            flex-direction: row;
-            height: 50%;
-        }
-
-        .left, .right {
-        
-        margin: 5px;
+    .wrapper {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        background-color: azure;
         max-width: 50%;
-        flex: 1;
         display: flex;
-        flex-direction: column;
-        }
+        flex-direction: row;
+        height: 50%;
+    }
 
-        .left {
-        align-items: center;
-        }
+    .left, .right {
+    
+    margin: 5px;
+    max-width: 50%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    }
 
-        .profile-picture {
-        border-radius: 50%;
-        }
-        .social-links {
-        list-style: none;
-        padding-left: 0px;
-        font-size: 18px;
-        }
+    .left {
+    align-items: center;
+    }
 
-        .social-links li {
-        display: inline-block;
-        margin-right: 8px;
-        }
+    .left .profile-picture {
+    border-radius: 50%;
+    }
+    .left .social-links {
+    list-style: none;
+    padding-left: 0px;
+    font-size: 18px;
+    }
 
-        .social-links a {
-        text-decoration: none;
-        padding: 4px;
-        }
+    .left .social-links li {
+    display: inline-block;
+    margin-right: 8px;
+    }
 
-        .social-links a:hover {
-        background-color: rgba(0, 0, 0, 0.1);
-        }
+    .left .social-links a {
+    text-decoration: none;
+    padding: 4px;
+    }
 
-    </style>
-</head>
-<body>
+    .left .social-links a:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    }
+
+</style>
 <div class="wrapper">
     
     <div class="left">
@@ -100,5 +93,3 @@
     </div>
     
 </div>
-</body>
-</html>

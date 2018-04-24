@@ -14,7 +14,7 @@ $secret_word = $result['secret_word'];
 <style>
 body {
   margin: 0;
-  background-image: url("http://res.cloudinary.com/devgeaks/image/upload/v1523731563/background.jpg");
+  background-image: url("https://res.cloudinary.com/devgeaks/image/upload/v1523891444/bot2.jpg");
   background-attachment: fixed;
   background-size: 100% 100%;
   background-repeat: no-repeat;

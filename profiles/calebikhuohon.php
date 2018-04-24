@@ -1,3 +1,16 @@
+<?php 
+
+    require('db.php');
+    try {
+        $secrete = 'SELECT * FROM secret_word';
+        $sql = $conn->query($secrete);
+        $sql->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $sql->fetch();
+        $secret_word = $result["secret_word"];
+    } catch (PDOException $error) {
+        throw $error;
+    }?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,25 +34,19 @@ main{
     font-size: 20px;
 }
 
-#rectangle{
+#calebikhuohon-rectangle{
     position: absolute;
     top: 60%;
     width: 100%;
     background: rgba(111, 207, 151, 0.8);
     text-align: center; 
 }
-.time{
-    font-size: 40px;
-    background-color: rgba(111, 207, 151, 0.8);
-    width: 800px;
-    margin: 0 auto;
-}
-.profile-img{
+.calebikhuohon-profile-img{
 	width: 300px;
 	border-radius: 50%;
 	height: 300px;
 }
-.profile{
+.calebikhuohon-profile{
 	width: 300px;
 	border: 1px solid #848484;
 	border-radius: 50%;
@@ -50,10 +57,10 @@ main{
 </head>
 <body>
     <main>
-    <div class="profile">
-			<img class="profile-img" src="http://res.cloudinary.com/calebikhuohon/image/upload/v1523645514/my_pic.jpg" alt="my-profile">
+    <div class="calebikhuohon-profile">
+			<img class="calebikhuohon-profile-img" src="http://res.cloudinary.com/calebikhuohon/image/upload/v1523645514/my_pic.jpg" alt="my-profile">
 		</div>
-    <div id="rectangle">
+    <div id="calebikhuohon-rectangle">
         <h1>Caleb Ikhuohon-Eboreime</h1>
         <h2>I love to learn, teach and collaborate. I am an undergraduate with skills in web development using node, react and PHP</h2>
     </div>
