@@ -708,7 +708,7 @@ function getFutureDate(){
 function getRandomYoMamaJoke(){
 	$randomJokeJson = file_get_contents("http://api.yomomma.info");
 	$randomJoke = json_decode($randomJokeJson);
-    echo $randomJoke->joke;	
+    echo $randomJoke->joke;
     //A.M.A
 }
 
@@ -771,7 +771,7 @@ function getMediumArticle(){
 		$mediumArticleTitle = $getSingleMediumArticle['title'];
 		$mediumArticleUrl = $getSingleMediumArticle['link'];
 		$mediumArticleThumbnail = $getSingleMediumArticle['thumbnail'];
-		echo "<a href= '$mediumArticleUrl' style='color: #ffffff'><img src='http://res.cloudinary.com/missada/image/upload/v1524225094/hng_internship.png' class= 'img-responsive' ><br/><b>$mediumArticleTitle</b></a>"; 
+		echo "<a href= '$mediumArticleUrl' style='color: #ffffff'><img src='http://res.cloudinary.com/missada/image/upload/v1524225094/hng_internship.png' class= 'img-responsive' ><br/><b>$mediumArticleTitle</b></a>";
 		$article = "<script type='text/Javascript'>window.open('$mediumArticleUrl');</script>";
 		break;
     }
@@ -779,7 +779,7 @@ function getMediumArticle(){
 
 }
 function getPinkyCommands(){
-    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/> 
+    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/>
     2. Get <b>motivational quote of the day.</b> or <b>inspire me today</b> <br/> 3. Get my creator <b>Ada's latest medium article</b> <br/>
     4. Get or tell you<b> a random Yo Momma Joke</b>. <br/> 5. Get or tell you <b>what day of the week it is.</b> <br/>
     6. Get the <b>date seven days or a week from now.</b> <br/> 7.Get or tell you<b> a random quote.</b> <br/>
@@ -1076,13 +1076,13 @@ function getUSSD($bankName){
         return '*919#';
 
         case 'wema bank':
-        return '*945#';
+return '*945#';}}
 function show_direction ($location1, $location2, $mode) {
     return "https://www.google.com/maps/dir/?api=1&origin=$location1&destination=$location2&travelmode=$mode";
 
 }
 // End of functions by @Bukola
- /** chibuokems functions starts here */
+ // chibuokems functions starts here
   function check_if_training_chibuokem($input=''){
     if (strpos($input, 'train') !== false) {
          return true;
@@ -1269,6 +1269,4 @@ $dataa = json_decode(file_get_contents($url_location), true);
   $help = "<span style='color:green;'>To train me use the format train question #answer #password"."<br/>". "To get the current time  type time and send "."<br/>"."To get Current weather condition type weather_condition and send "."<br/>"."To get love quote type love_quote and send"."<br/>". "To get funny quote type funny_quote and send"."<br/>"."to get an inspiring quote type inspiring_quote and send"."<br/>"."To get the quote of the day for students type students_quote and send"."<br/>". "to get sports quote of the day type sports_quote and send"."<br/> To get news type news and send "."<br/> to get the current bot version type version or aboutbot and send. Thanks </span>";
   return $help;
  }
-
-
 ?>
