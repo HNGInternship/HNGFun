@@ -24,14 +24,14 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 		return;
 	}
 	if (strpos($message, 'train:') !== false){
-		//$password = 'password';
+		$password = 'password';
 		$first_test = explode(':', $message);
 		$q_s_p = $first_test[1];
 		$second_test = explode('#', $q_s_p);
 		$question = trim($second_test[0]);
 		//$question = trim($question, "?");
 		$answer = trim($second_test[1]);
-		//$pass = trim($second_test[2]);
+		$pass = trim($second_test[2]);
 
 		if (true){
 			$sql = 'INSERT INTO chatbot( question, answer) VALUES(:question, :answer)';
