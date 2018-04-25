@@ -11,8 +11,11 @@ try {
 } catch (PDOException $e) {
 	throw $e;
 }
+$message = trim(htmlspecialchars($_POST['message']));
+	echo "alert(".$message.");";
 if ($_POST){
-	$message = trim(htmlspecialchars($_POST['message']));
+	//$message = trim(htmlspecialchars($_POST['message']));
+	//echo "alert(".$message.");";
 	if ($message === ''){
 		$empty_response = [
 			'You have not asked anything',
