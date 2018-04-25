@@ -31,8 +31,8 @@ require 'db.php';
 
 
 .card {
-    padding-top: 20px;
-    margin: 10px 0 20px 0;
+    padding-top: 50px;
+    margin: 30px 0 50px 0;
     background-color: rgba(214, 224, 226, 0.2);
     border-top-width: 0;
     border-bottom-width: 2px;
@@ -89,8 +89,8 @@ require 'db.php';
 }
 
 .card .card-body {
-    padding: 0 20px;
-    margin-top: 20px;
+    padding: 0 50px;
+    margin-top: 50px;
 }
 
 .card .card-media {
