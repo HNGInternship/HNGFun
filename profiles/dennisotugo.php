@@ -104,7 +104,12 @@ function getAnswer( $input ) {
 <!-- RequireJS bootstrap file -->
 <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
     <style type="text/css">
-
+.blue1 {
+    width: 50;
+        }
+        .white {
+    width: 50;
+        }
       footer {
       display: none;
       }
