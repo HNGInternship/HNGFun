@@ -40,6 +40,8 @@ body{
     }
 #profilePic{
     position:relative;
+    height:30%;
+    width:30%;
     top:5px;
     right:15px;
     border-radius:2px solid grey;
@@ -58,7 +60,7 @@ body{
     top:50px;
     color:blue;
     font-size:1.3rem;
-    
+
 }
 
 
