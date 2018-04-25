@@ -112,6 +112,13 @@ function getAnswer( $input ) {
     bottom: 0;
     height: 6%;
 }
+        img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 100%;
+    box-shadow: 0 0 0 1.5em #ffffff;
+    border: 0;
+}
           input#user-input.user-input {
     width: 50%;
     border: none;
@@ -132,7 +139,7 @@ function getAnswer( $input ) {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    top: 50%;
+    top: 30%;
     /* transform: translate(0, 40%); */
 }
 .white2 {
@@ -162,10 +169,8 @@ function getAnswer( $input ) {
     position: relative;
     margin: 15px 1px 1px 0px;
     }
-      .bot-message:before {
-    border-color: transparent #007bff63 transparent transparent;
-    border-width: 0 10px 10px 0;
-    left: -9px;
+        p {
+    font-weight: bolder;
 }
 .user-message {
     font-size: 16px;
@@ -189,25 +194,34 @@ function getAnswer( $input ) {
             
                       
             }
-            .user-message:before {
-    border-color: transparent #007bff63 transparent transparent;
-    border-width: 0 10px 10px 0;
-    left: -9px;
-}
+    .message {
+                    float: left;
+    font-size: 16px;
+    background-color: #ffffff;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 5px;
+            
+                      
+            }
     </style>
   </head>
   <body>
 <div class="oj-sm-flex-direction-column oj-flex oj-flex-item">
   <div class="oj-flex-item blue1">
+    <span class="avatar"><img src="https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701221/avatar.png" alt="" /></span>
     <h1>Dennis Otugo</h1>
     <p>Human Being | Cyborg | Never asked for this</p>
   </div>
   <div class="oj-flex-item white2">
     <div class="chat-output" id="chat-output">
         <div class="user-message"></div>
-        <div class="message">train: question # answer # password'<div class="chat-input"></div>
-        <form action="" method="post" id="user-input-form" name="user-input-form"></div>
-        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here" /></form></div>
+        <div class="message">train: question # answer # password</div>
+        <div class="chat-input">
+            <form action="" method="post" id="user-input-form" name="user-input-form"></div>
+            <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here" /></form></div>
   </div>
 </div></div>
 </script>
