@@ -201,7 +201,7 @@ footer #link{
 
 </style>
 </head>
-<body cz-shortcut-listen="true" class="oj-flex oj-flex-item">
+<body cz-shortcut-listen="true">
 
 <?php
     
@@ -216,6 +216,7 @@ $result2 = $conn->query("Select * from interns_data where username = 'pearl'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 
+<div class="oj-flex oj-flex-item">
 	<div class="container">
 		<header>
 			<div class="header">
@@ -263,5 +264,6 @@ My love grew into passion that I gave up my little savings to learn web developm
     </div>
 	<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.0.0/3rdparty/require/require.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</div>
 </body>
 </html>
