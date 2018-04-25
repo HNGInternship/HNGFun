@@ -99,6 +99,15 @@ function getAnswer( $input ) {
 <!-- RequireJS bootstrap file -->
 <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
     <style type="text/css">
+                .chat-output > div {
+    display: inline-block;
+    width: 100%;
+}
+            .chat-output {
+                 display: block;
+    overflow-y: scroll;
+    height: 100%;
+    }
         .oj-flex {
     background-color: #007bff;
 }
@@ -171,16 +180,6 @@ function getAnswer( $input ) {
     }
         p {
     font-weight: bolder;
-}
-.user-message {
-    font-size: 16px;
-    background-color: #ffffff;
-    padding: 10px;
-    display: inline-block;
-    border-radius: 3px;
-    position: relative;
-    margin: 5px;
-    float: left;
 }
                   .user-message message {
                     float: left;
