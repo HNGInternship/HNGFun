@@ -220,7 +220,7 @@ require 'db.php';
 .card.hovercard {
     position: relative;
     padding-top: 0;
-    margin-left:500px;
+    
     padding-bottom:60px;
     float-left:50px;
     overflow: visible;
