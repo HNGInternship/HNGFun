@@ -225,8 +225,8 @@
 
   }
   .ask-input-field{
-    height: 46px;
-    padding-right: 25px;
+    height: 47px;
+    padding-right: 30px;
 
   }
   
