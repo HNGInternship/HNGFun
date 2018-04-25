@@ -7,7 +7,7 @@
 //------------------------------------------------------------
 class Regex
 {
-    var $dbcon;
+    var $conn;
 
     function __construct($dbc){
 		$this->dbcon = $dbc;
