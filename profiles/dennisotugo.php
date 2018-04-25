@@ -112,13 +112,17 @@ function getAnswer( $input ) {
     bottom: 0;
     height: 6%;
 }
-          .user-input {
-    width: -webkit-fill-available;
+          input#user-input.user-input {
+    width: 50%;
     border: none;
     padding: 10px 14px;
     font-size: 18px;
     line-height: normal;
-    }
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    box-shadow: rgb(1, 1, 1) 1px 1px 9px 0px;
+}
 .blue1 {
     width: 50%;
     position: fixed;
@@ -131,13 +135,13 @@ function getAnswer( $input ) {
     top: 50%;
     /* transform: translate(0, 40%); */
 }
-        .white2 {
+.white2 {
     width: 50%;
     background-color: #ffffff;
     width: 50%;
     position: fixed;
     right: 0;
-    /* background-color: #007bff; */
+    background-color: #007bff;
     height: 100%;
     text-align: center;
     margin-left: auto;
@@ -147,27 +151,43 @@ function getAnswer( $input ) {
       footer {
       display: none;
       }
-      .user-message {
-                    
+        
+                .bot-message {
+    float: right;
     font-size: 16px;
-    background-color: #007bff63;
+    background-color: #ffffff;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 15px 1px 1px 0px;
+    }
+      .bot-message:before {
+    border-color: transparent #007bff63 transparent transparent;
+    border-width: 0 10px 10px 0;
+    left: -9px;
+}
+.user-message {
+    font-size: 16px;
+    background-color: #ffffff;
     padding: 10px;
     display: inline-block;
     border-radius: 3px;
     position: relative;
     margin: 5px;
-            
-            }
+    float: left;
+}
                   .user-message message {
                     float: left;
     font-size: 16px;
-    background-color: #007bff63;
+    background-color: #ffffff;
     padding: 10px;
     display: inline-block;
     border-radius: 3px;
     position: relative;
     margin: 5px;
             
+                      
             }
             .user-message:before {
     border-color: transparent #007bff63 transparent transparent;
