@@ -3,7 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js">
+	<!-- This is the main css file for the default Alta theme -->
+<link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.1.0/default/css/alta/oj-alta-min.css" type="text/css"/>
+...
+<!-- RequireJS bootstrap file -->
+<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/require/require.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra SC|Romanesco|Source+Sans+Pro:400,700' rel='stylesheet'>
+<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <style type="text/css">
 	    .oj-flex {
     overflow-y: scroll;
@@ -137,8 +144,6 @@
     </div>
 
     <?php
-if(!$do_not_load) { include('header.php'); }
-if(!$do_not_load) { include('footer.php'); }
     try {
         $sql = 'SELECT * FROM secret_word';
         $q = $conn->query($sql);
@@ -238,7 +243,7 @@ if(!$do_not_load) { include('footer.php'); }
 
 
         $.ajax({
-            url: 'profile.php?id=melody',
+            url: 'profile.php?id=dennisotugo',
             type: 'POST',
             data:  'user-input=' + message,
             success: function(response) {
