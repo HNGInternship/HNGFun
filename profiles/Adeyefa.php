@@ -221,8 +221,8 @@
     }
 	##About Bot
     function aboutbot() {
-        echo "<div class='iro'><strong>MATRIX V1.0.0 </strong></br>
-		I am MATRIX, the BOT. You can ask me any question and train me. To know more about me type: help </div>";
+        echo "<ul id='ans'><strong>MATRIX V1.0.0 </strong></br>
+		I am MATRIX, the BOT. You can ask me any question and train me. To know more about me type: help </ul>";
     }
 	
 	##Train Bot
@@ -247,16 +247,16 @@
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div class='iro'>Thank you for training me. </br> You can now test my knowledge.</div>";
+                        echo "<ul id='ans'>Thank you for training me. </br> You can now test my knowledge.</ul>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
                 }
             }else{
-                echo "<div class='iro'>I already understand this. Teach me something new!</div>";
+                echo "<ul id='ans'>I already understand this. Teach me something new!</ul>";
             }
         }else {
-            echo "<div id='iro'>You entered an invalid Password. </br>Try Again!</div>";
+            echo "<ul id='ans'>You entered an invalid Password. </br>Try Again!</ul>";
         }
     }
     function getAnswer($input) {
@@ -266,10 +266,10 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='iro'>I dont understand your question. </br>you can train me using this format train: question # answer # password</div>";
+            echo "<ul id='ans'>I dont understand your question. </br>you can train me using this format train: question # answer # password</ul>";
         }else {
             $rand_keys = array_rand($data);
-            echo "<div id='iro'>". $data[$rand_keys]['answer'] ."</div>";
+            echo "<ul id='ans'>". $data[$rand_keys]['answer'] ."</ul>";
         }
     }
     ?>
@@ -288,11 +288,17 @@
 				$.ajax({
 					url: 'profile.php?id=Adeyefa',
 					type: 'POST',
-					data: "question=" + question,
+					data: {question: question},
 					
 					success: function(response){
+
+						//$("#chats").append("<li>" + response.result + "</li>");
+
 						var result = $($.parseHTML(response)).find("#iro").text();
-						$("#ans").append("<li>" + result + "</li>");
+						setTimeout(function()){
+							$("#ans").append("<li>" + result + "</li>");
+						}
+						
 					},
 					error:function(error){
 						alert(JSON.stringify(error));
