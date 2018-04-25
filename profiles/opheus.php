@@ -42,7 +42,7 @@ $answer = trim($exploded[2]);
 
 if (!defined('DB_USER'))
 	{
-	require "../../config.php";
+	require "../config.php";
 
 	}
 
@@ -90,7 +90,7 @@ elseif(isset($_POST['opheuscheck'])) {
 	
 	if (!defined('DB_USER'))
 	{
-	require "../../config.php";
+	require "../config.php";
 
 	}
 
