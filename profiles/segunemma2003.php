@@ -11,9 +11,8 @@ try {
 } catch (PDOException $e) {
 	throw $e;
 }
-global $conn;
-if ($_SERVER['REQUEST_METHOD']==='POST'){
-	$message = trim($_POST['message']);
+if ($_SERVER['REQUEST_METHOD']=='POST'){
+	$message = trim(htmlspecialchars($_POST['message']));
 	if ($message === ''){
 		$empty_response = [
 			'You have not asked anything',
@@ -76,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 	}
 
 	else{ 
-		echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br> .<br> just use the following pattern== train: what is the time? # The time is ' ]);
+		
 		?>
 <!DOCTYPE html>
 
@@ -317,7 +316,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 		canvas.arc(200,100,100,0,Math.PI*2,false);
 		canvas.fill();
 	</script> -->
-	 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	
 
@@ -352,7 +351,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 					// alert(responseMessage('I am a little bot'));
 				}
                  $.ajax({
-                     url:"/var/www/HNGFun/profiles/segunemma2003.php",
+                     url:"/profiles/segunemma2003",
                      type: "POST",
                      dataType: "json",
 		     
@@ -404,6 +403,6 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
 	</div>
 </body>
 </html>
-<?php
-	}?>
+<?php } ?>
+
 

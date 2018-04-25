@@ -1,204 +1,5 @@
 <?php
-//////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
 
-$qsam = $_REQUEST["qsam"];
-samsonjnrBot($qsam);
-function samsonjnrBot($qsam){
-$qsam = strtolower($qsam);
-$anwerSam = "";
-$guestName = "";
-
-
-$keyword = array('newschool', 'how are you','what are you you?', 'what your do name ur name? call you your\'s', 'my name name?', 'i\'m am fine okay doing great ok all good', 'today today\'s date', 'version version? aboutbot', 'what do time? time', 'still here you there codmax jnr samson');
-
-$decisionArray = array();
-$usrKeywords = $qsam; //$_POST['keywords']
-$arr1 = explode(' ', $usrKeywords);
-foreach ($keyword as $s){
-	$arr2 = explode(' ', $s);
-	$aint = array_intersect($arr2, $arr1);
-	$percentage = (count($aint) * 100 / count($arr2));
-	array_push($decisionArray, $percentage);
-}
-if ($qsam != 'how' && $qsam != "you" && $qsam != "your" && $qsam != "are" && $qsam != "my" && $qsam != "still" && $qsam != "here" && $qsam != "there" && $qsam != "call"){
-$decisionValue = array_keys($decisionArray, max($decisionArray));
-}else{
-	$decisionValue = [0];
-}
-
-
-function trainingSam($newmessage){
-	require 'db.php';
-	$message = explode('#', $newmessage);
-	$question = explode(':', $message[0]);
-	$answer = $message[1];
-	$password = $message[2];
-
-	$question[1] = trim($question[1]);
-	$password = trim($password);
-	if ($password != "password"){
-		echo "You are not authorize to train me.";
-
-	}else{
-	$chatbot= array(':id' => NULL, ':question' => $question[1], ':answer' => $answer);
-	$query = 'INSERT INTO chatbot ( id, question, answer) VALUES ( :id, :question, :answer)';
-
-	try {
-			$execQuery = $conn->prepare($query);
-			if ($execQuery ->execute($chatbot) == true) {
-					echo repondTraining();
-
-			};
-	} catch (PDOException $e) {
-			echo "Oops! i did't get that, Something is wrong i guess, <br> please try again";
-		}
-	}
-}
-
-function greetingSam(){
-	$greeting = array('Hi! Good to have you here. My name is Samson Jnr, but you can call me Codmax' ,
-										'Hello there, my name is Codmax, how Can i be of help?' ,
-										'Good day, You are chatting with Codmax, ask me something',
-										'Hi! My name is Samson whats up?',
-										'It\'s Codmax, Welcome on board',
-										'I\'m Codmax, let\'s get started');
-		$index = mt_rand(0, 5);
-		return $anwerSam = $greeting[$index];
-}
-
-function requestName(){
-		$requestName = array( 'Sorry I did\'t catch your name',
-													'What can I call you?',
-													'What\'s that lovely name of yours?');
-		$index = mt_rand(0, 2);
-		return $anwerSam = $requestName[$index];
-}
-
-function repondTraining(){
-		$repondTraining = array(  'Noted! Thank you for teaching me',
-															'Acknowledged, thanks, really want to learn more',
-															'A million thanks, I\'m getting smarter',
-															'i\'m getting smarter, I really appreciate');
-		$index = mt_rand(0, 3);
-		return $anwerSam = $repondTraining[$index];
-}
-
-function repondName(){
-		$repondName = array( 'Yeah! i\'m still here',
-													'I\'m with you',
-													'go ahead I\'m still here');
-		$index = mt_rand(0, 2);
-		return $anwerSam = $repondName[$index];
-}
-
-function respondDate(){
-	date_default_timezone_set("Africa/Lagos");
-	$time = date("Y/m/d");
-	$respondTime = array( 'Today\'s date is '.$time,
-												'it\'s '. $time,
-												'Today is '. $time,
-												$time);
-	$index = mt_rand(0, 3);
-	return $anwerSam = $respondTime[$index];
-}
-
-function respondTime(){
-	date_default_timezone_set("Africa/Lagos");
-	$time = date("h:i A");
-	$respondTime = array( 'The time is '.$time,
-												'it\'s '. $time,
-												$time);
-	$index = mt_rand(0, 2);
-	return $anwerSam = $respondTime[$index];
-}
-
-function respondName(){
-	$respondName = array( 'Codmax, you can still call me Samson Jnr.',
-												'Samson Jnr, I\'m still called Codmax.',
-												'Samson Jnr. or Codmax');
-	$index = mt_rand(0, 2);
-	return $anwerSam = $respondName[$index];
-}
-
-function respondOkay(){
-	$respondOkay = array( 'That\'s Great, we should keep chatting I\'m having fun',
-												'So Lovely, let\'s keep chatting',
-												'That\'s good news, so how can I help you?');
-	$index = mt_rand(0, 2);
-	return $anwerSam = $respondOkay[$index];
-}
-
-function respondGreeting (){
-	$respondGreeting = array( 'Oh, I\'m doing quite well. You?',
-												'Am fine and thanks What about you?',
-												'Am all good. and how are you too?');
-	$index = mt_rand(0, 2);
-	return $anwerSam = $respondGreeting[$index];
-}
-
-
-function checkDatabaseToo($question){
-	try{
-			require 'db.php';
-
-			$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
-
-			$stmt->execute();
-			if($stmt->rowCount() > 0){
-				while($row = $stmt->fetch(PDO::FETCH_ASSOC)){ echo $row["answer"];}
-			}else{
-				return 1;
-			}
-		}
-			catch (PDOException $e){
-				 echo "Error: " . $e->getMessage();
-			}
-			$conn = null;
-		}
-
-
-if ($qsam == "intro"){
-		echo greetingSam();
-} else if($qsam == "request name"){
-		echo requestName();
-}else if (strtok($qsam, ":") == "train"){
-						trainingSam($qsam);
-}else if ( $keyword[$decisionValue[0]] == "what do time? time"){
-            echo respondTime();
-}else if ( $keyword[$decisionValue[0]] == "what your do name ur name? call you your's" || $qsam == "your name" || $qsam == "name" || $qsam == "ur name" || $qsam == "ur name?"){
-            echo respondName();
-} else if ( $keyword[$decisionValue[0]] == "my name name?"){
-            echo "givename";
-}else if ( $keyword[$decisionValue[0]] == "version version? aboutbot"){
-            echo "Version: 1.0";
-}else if ( $keyword[$decisionValue[0]] == "what are you you?"){
-            echo "I'm a ChatBot";
-}else if ( $keyword[$decisionValue[0]] == "today today's date"){
-            echo respondDate();
-}else if($qsam != "intro" && $qsam != "request name" && strtok($qsam, ":") != "train"){
-	$te = checkDatabaseToo($qsam);
-	if ($te == 1){
-		if ( $keyword[$decisionValue[0]] == "i'm am fine okay doing great ok all good"){
-								echo respondOkay();
-		}else if ( $keyword[$decisionValue[0]] == "how are you"){
-								echo respondGreeting();
-		}else if (strtok($qsam, ":") == "name"){
-					echo "nice name to meet you";
-					$nameGuest = explode (":", $qsam);
-					$guestName = $nameGuest [1];
-					echo "$guestName" . ". How are you today?";
-
-		}else if ( $keyword[$decisionValue[0]] == "still here you there codmax jnr samson"){
-			echo repondName();
-		}else if ( $keyword[$decisionValue[0]] == "newschool"){
-			echo "oop! Sorry i don't understand you. But I'm a fast learner,
-						you can train me in this format 'train: question # answer #password'";
-		}
-	}
-}
-}
-
-////////////////////// END OF FUNCTION BY BROWN SAMSON ////////////////////////////////////
 
 
 
@@ -678,7 +479,7 @@ echo $time = get_time($_GET['opheuslocation']);
 }
 elseif(isset($_GET['opheusweather'])) {
 echo $weather = get_weather($_GET['opheusweather']);
-=======
+
 ////////////////////////////////
 // END OF JOHN AYENI FUNCTIONS//
 ////////////////////////////////
@@ -708,7 +509,7 @@ function getFutureDate(){
 function getRandomYoMamaJoke(){
 	$randomJokeJson = file_get_contents("http://api.yomomma.info");
 	$randomJoke = json_decode($randomJokeJson);
-    echo $randomJoke->joke;	
+    echo $randomJoke->joke;
     //A.M.A
 }
 
@@ -771,7 +572,7 @@ function getMediumArticle(){
 		$mediumArticleTitle = $getSingleMediumArticle['title'];
 		$mediumArticleUrl = $getSingleMediumArticle['link'];
 		$mediumArticleThumbnail = $getSingleMediumArticle['thumbnail'];
-		echo "<a href= '$mediumArticleUrl' style='color: #ffffff'><img src='http://res.cloudinary.com/missada/image/upload/v1524225094/hng_internship.png' class= 'img-responsive' ><br/><b>$mediumArticleTitle</b></a>"; 
+		echo "<a href= '$mediumArticleUrl' style='color: #ffffff'><img src='http://res.cloudinary.com/missada/image/upload/v1524225094/hng_internship.png' class= 'img-responsive' ><br/><b>$mediumArticleTitle</b></a>";
 		$article = "<script type='text/Javascript'>window.open('$mediumArticleUrl');</script>";
 		break;
     }
@@ -779,7 +580,7 @@ function getMediumArticle(){
 
 }
 function getPinkyCommands(){
-    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/> 
+    echo "Hi there! You can ask me to do one of the following: <br/> 1. Get or tell you <b>today's date and current time</b> </br/>
     2. Get <b>motivational quote of the day.</b> or <b>inspire me today</b> <br/> 3. Get my creator <b>Ada's latest medium article</b> <br/>
     4. Get or tell you<b> a random Yo Momma Joke</b>. <br/> 5. Get or tell you <b>what day of the week it is.</b> <br/>
     6. Get the <b>date seven days or a week from now.</b> <br/> 7.Get or tell you<b> a random quote.</b> <br/>
@@ -1076,13 +877,13 @@ function getUSSD($bankName){
         return '*919#';
 
         case 'wema bank':
-        return '*945#';
+return '*945#';}}
 function show_direction ($location1, $location2, $mode) {
     return "https://www.google.com/maps/dir/?api=1&origin=$location1&destination=$location2&travelmode=$mode";
 
 }
 // End of functions by @Bukola
- /** chibuokems functions starts here */
+ // chibuokems functions starts here
   function check_if_training_chibuokem($input=''){
     if (strpos($input, 'train') !== false) {
          return true;
@@ -1270,5 +1071,223 @@ $dataa = json_decode(file_get_contents($url_location), true);
   return $help;
  }
 
+ //////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
+ //
+ if ($_REQUEST["qsam"]){
+ $qsam = $_REQUEST["qsam"];
+ samsonjnrBot($qsam);
+ }
+ function samsonjnrBot($qsam){
+ $qsam = strtolower($qsam);
+ $anwerSam = "";
+ $guestName = "";
 
+
+ $keyword = array('newschool', 'how are you','what are you you?', 'what your do name ur name? call you your\'s', 'my name name?', 'i\'m am fine okay doing great ok all good', 'today today\'s date', 'version version? aboutbot', 'what do time? time', 'still here you there codmax jnr samson');
+
+ $decisionArray = array();
+ $usrKeywords = $qsam; //$_POST['keywords']
+ $arr1 = explode(' ', $usrKeywords);
+ foreach ($keyword as $s){
+ 	$arr2 = explode(' ', $s);
+ 	$aint = array_intersect($arr2, $arr1);
+ 	$percentage = (count($aint) * 100 / count($arr2));
+ 	array_push($decisionArray, $percentage);
+ }
+ if ($qsam != 'how' && $qsam != "you" && $qsam != "your" && $qsam != "are" && $qsam != "my" && $qsam != "still" && $qsam != "here" && $qsam != "there" && $qsam != "call"){
+ $decisionValue = array_keys($decisionArray, max($decisionArray));
+ }else{
+ 	$decisionValue = [0];
+ }
+
+
+ function trainingSam($newmessage){
+ 	require 'db.php';
+ 	$message = explode('#', $newmessage);
+ 	$question = explode(':', $message[0]);
+ 	$answer = $message[1];
+ 	$password = $message[2];
+
+ 	$question[1] = trim($question[1]);
+ 	$password = trim($password);
+ 	if ($password != "password"){
+ 		echo "You are not authorize to train me.";
+
+ 	}else{
+ 	$chatbot= array(':id' => NULL, ':question' => $question[1], ':answer' => $answer);
+ 	$query = 'INSERT INTO chatbot ( id, question, answer) VALUES ( :id, :question, :answer)';
+
+ 	try {
+ 			$execQuery = $conn->prepare($query);
+ 			if ($execQuery ->execute($chatbot) == true) {
+ 					echo repondTraining();
+
+ 			};
+ 	} catch (PDOException $e) {
+ 			echo "Oops! i did't get that, Something is wrong i guess, <br> please try again";
+ 		}
+ 	}
+ }
+
+ function greetingSam(){
+ 	$greeting = array('Hi! Good to have you here. My name is Samson Jnr, but you can call me Codmax' ,
+ 										'Hello there, my name is Codmax, how Can i be of help?' ,
+ 										'Good day, You are chatting with Codmax, ask me something',
+ 										'Hi! My name is Samson whats up?',
+ 										'It\'s Codmax, Welcome on board',
+ 										'I\'m Codmax, let\'s get started');
+ 		$index = mt_rand(0, 5);
+ 		return $anwerSam = $greeting[$index];
+ }
+
+ function requestName(){
+ 		$requestName = array( 'Sorry I did\'t catch your name',
+ 													'What can I call you?',
+ 													'What\'s that lovely name of yours?');
+ 		$index = mt_rand(0, 2);
+ 		return $anwerSam = $requestName[$index];
+ }
+
+ function repondTraining(){
+ 		$repondTraining = array(  'Noted! Thank you for teaching me',
+ 															'Acknowledged, thanks, really want to learn more',
+ 															'A million thanks, I\'m getting smarter',
+ 															'i\'m getting smarter, I really appreciate');
+ 		$index = mt_rand(0, 3);
+ 		return $anwerSam = $repondTraining[$index];
+ }
+
+ function repondName(){
+ 		$repondName = array( 'Yeah! i\'m still here',
+ 													'I\'m with you',
+ 													'go ahead I\'m still here');
+ 		$index = mt_rand(0, 2);
+ 		return $anwerSam = $repondName[$index];
+ }
+
+ function respondDate(){
+ 	date_default_timezone_set("Africa/Lagos");
+ 	$time = date("Y/m/d");
+ 	$respondTime = array( 'Today\'s date is '.$time,
+ 												'it\'s '. $time,
+ 												'Today is '. $time,
+ 												$time);
+ 	$index = mt_rand(0, 3);
+ 	return $anwerSam = $respondTime[$index];
+ }
+
+ function respondTime(){
+ 	date_default_timezone_set("Africa/Lagos");
+ 	$time = date("h:i A");
+ 	$respondTime = array( 'The time is '.$time,
+ 												'it\'s '. $time,
+ 												$time);
+ 	$index = mt_rand(0, 2);
+ 	return $anwerSam = $respondTime[$index];
+ }
+
+ function respondName(){
+ 	$respondName = array( 'Codmax, you can still call me Samson Jnr.',
+ 												'Samson Jnr, I\'m still called Codmax.',
+ 												'Samson Jnr. or Codmax');
+ 	$index = mt_rand(0, 2);
+ 	return $anwerSam = $respondName[$index];
+ }
+
+ function respondOkay(){
+ 	$respondOkay = array( 'That\'s Great, we should keep chatting I\'m having fun',
+ 												'So Lovely, let\'s keep chatting',
+ 												'That\'s good news, so how can I help you?');
+ 	$index = mt_rand(0, 2);
+ 	return $anwerSam = $respondOkay[$index];
+ }
+
+ function respondGreeting (){
+ 	$respondGreeting = array( 'Oh, I\'m doing quite well. You?',
+ 												'Am fine and thanks What about you?',
+ 												'Am all good. and how are you too?');
+ 	$index = mt_rand(0, 2);
+ 	return $anwerSam = $respondGreeting[$index];
+ }
+
+
+ function checkDatabaseToo($question){
+ 	try{
+ 			require 'db.php';
+
+ 			$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
+
+ 			$stmt->execute();
+ 			if($stmt->rowCount() > 0){
+ 				while($row = $stmt->fetch(PDO::FETCH_ASSOC)){ echo $row["answer"];}
+ 			}else{
+ 				return 1;
+ 			}
+ 		}
+ 			catch (PDOException $e){
+ 				 echo "Error: " . $e->getMessage();
+ 			}
+ 			$conn = null;
+ 		}
+
+
+ if ($qsam == "intro"){
+ 		echo greetingSam();
+ } else if($qsam == "request name"){
+ 		echo requestName();
+ }else if (strtok($qsam, ":") == "train"){
+ 						trainingSam($qsam);
+ }else if ( $keyword[$decisionValue[0]] == "what do time? time"){
+             echo respondTime();
+ }else if ( $keyword[$decisionValue[0]] == "what your do name ur name? call you your's" || $qsam == "your name" || $qsam == "name" || $qsam == "ur name" || $qsam == "ur name?"){
+             echo respondName();
+ } else if ( $keyword[$decisionValue[0]] == "my name name?"){
+             echo "givename";
+ }else if ( $keyword[$decisionValue[0]] == "version version? aboutbot"){
+             echo "Version: 1.0";
+ }else if ( $keyword[$decisionValue[0]] == "what are you you?"){
+             echo "I'm a ChatBot";
+ }else if ( $keyword[$decisionValue[0]] == "today today's date"){
+             echo respondDate();
+ }else if($qsam != "intro" && $qsam != "request name" && strtok($qsam, ":") != "train"){
+ 	$te = checkDatabaseToo($qsam);
+ 	if ($te == 1){
+ 		if ( $keyword[$decisionValue[0]] == "i'm am fine okay doing great ok all good"){
+ 								echo respondOkay();
+ 		}else if ( $keyword[$decisionValue[0]] == "how are you"){
+ 								echo respondGreeting();
+ 		}else if (strtok($qsam, ":") == "name"){
+ 					echo "nice name, also nice to meet you";
+ 					$nameGuest = explode (":", $qsam);
+ 					$guestName = $nameGuest [1];
+ 					echo "$guestName" . ". How are you today?";
+
+ 		}else if ( $keyword[$decisionValue[0]] == "still here you there codmax jnr samson"){
+ 			echo repondName();
+ 		}else if ( $keyword[$decisionValue[0]] == "newschool"){
+ 			echo "oop! Sorry i don't understand you. But I'm a fast learner,
+ 						you can train me in this format 'train: question # answer #password'";
+ 		}
+ 	}
+ }
+ }
+
+ ////////////////////// END OF FUNCTION BY BROWN SAMSON ////////////////////////////////////
+
+
+
+ ////////////////////FUNCTIONS BY ADEYEFA OLUWATOBA///////////////////////////////////
+
+ function GetCryptoPrice($from, $to) {
+    $from = (trim(strtoupper($from)));
+    $to = (trim(strtoupper($to)));
+    $url = 'curl -s -H "CB-VERSION: 2017-12-06" "https://api.coinbase.com/v2/prices/'.$from.'-'.$to.'/spot"';
+    $tmp = shell_exec($url);
+    $data = json_decode($tmp, true);
+    if ($data && $data['data'] && $data['data']['amount']) {
+      return (float)$data['data']['amount'];
+    }
+    return null;
+  }
+  ///////////////END OF FUNCTION BY ADEYEFA OLUWATOBA////////////////////////////////
 ?>
