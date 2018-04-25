@@ -197,7 +197,7 @@ require 'db.php';
     overflow: hidden;
     font-size: 12px;
     line-height: 16px;
-    color: #737373;
+    color: #ffffff;
     text-overflow: ellipsis;
 }
 
@@ -217,9 +217,9 @@ require 'db.php';
 
 .card.hovercard {
     position: relative;
-    margin-left:50px;
+    margin-left:150px;
     padding-top: 30px;
-    padding-left:100px;
+    padding-left:50px;
     padding-bottom:50px;
     overflow: hidden;
     text-align: center;
