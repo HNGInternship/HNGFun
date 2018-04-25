@@ -99,7 +99,7 @@ $image_url = $row['image_filename'];
 
   </head>
   <body class="oj-web-applayout-body">
-      <div class="demo-flex-center">
+      <div class="oj-web-applayout-body">
 		<div class="container">
           <h1 class="oj-head">Hello....</h1>
           
