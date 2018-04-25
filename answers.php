@@ -1081,11 +1081,11 @@ $dataa = json_decode(file_get_contents($url_location), true);
  }
 
  //////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
-// // Please place your bot in a function
-// if ($_REQUEST["qsam"]){
-// $qsam = $_REQUEST["qsam"];
-// samsonjnrBot($qsam);
-// }
+
+if ($_REQUEST["qsam"]){
+$qsam = $_REQUEST["qsam"];
+samsonjnrBot($qsam);
+}
  function samsonjnrBot($qsam){
  $qsam = strtolower($qsam);
  $anwerSam = "";
