@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en-US">
 <?php
  	// require_once '../db.php';
  	try {
@@ -95,6 +93,8 @@
  	  }
  	}
   ?>
+<!DOCTYPE html>
+<html lang="en-US">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <title> <?php echo $luthfulahi['username']; ?> | The Optimist</title>
