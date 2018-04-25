@@ -11,7 +11,8 @@ try {
 } catch (PDOException $e) {
 	throw $e;
 }
-if ($_SERVER['REQUEST_METHOD']=='POST'){
+global $conn;
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 	$message = trim(htmlspecialchars($_POST['message']));
 	if ($message === ''){
 		$empty_response = [
@@ -47,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
                     echo json_encode(['status'=>1, 'data'=>'Alright gonna put it in mind']);
 				}
 				else{
-					echo json_encode(['status'=>0, 'data'=>'Aw, I don\'t get'.($store==true)]);
+					echo json_encode(['status'=>0, 'data'=>'Aw, I don\'t get']);
 		
                 }
             }
@@ -324,8 +325,9 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 	$(document).ready(function(){
 		$('.chat-form').submit(function(e){
                 e.preventDefault();
-				var chat = $('textarea');
-                var message = chat.val().trim();
+		let chat = $('textarea');
+                let message = chat.val().trim();
+		alert(message);
                 //document.write(message);
                 let container = $('.chatlogs');
                 if (message != ''){
@@ -344,14 +346,14 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 					// alert(responseMessage('I am a little bot'));
                     return;
                 }
-				if (message.startsWith('train:') ==true){
+		if (message.startsWith('train:') ==true){
                     chat.val('');
                 	container.append(sentMessage(message));
                     $('article').scrollTop($('article').scrollHeight);
 					// alert(responseMessage('I am a little bot'));
 				}
                  $.ajax({
-                     url:"/profiles/segunemma2003",
+                     url:"/profiles/segunemma2003.php",
                      type: "POST",
                      dataType: "json",
 		     

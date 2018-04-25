@@ -186,6 +186,7 @@ require 'db.php';
     margin: 8px 14px 0 14px;
     overflow: hidden;
     font-size: 16px;
+    font-family: 'Lucida',Lucida;
     font-weight: bold;
     line-height: 18px;
     color: #404040;
@@ -195,7 +196,7 @@ require 'db.php';
     display: block;
     margin: 8px 14px 0 14px;
     overflow: hidden;
-    font-size: 12px;
+    font-size: 18px;
     font-family: 'Tajawal', sans-serif;
     line-height: 16px;
     color: #00b09b;
@@ -219,8 +220,8 @@ require 'db.php';
 .card.hovercard {
     position: relative;
     padding-top: 0;
-    margin-right:70px;
-    overflow: visible;
+    margin-left:250px;
+    overflow: hidden;
     text-align: center;
     background-color: rgba(214, 224, 226, 0.2);
 }
@@ -263,9 +264,10 @@ require 'db.php';
 
 .card.hovercard .info .desc {
     overflow: hidden;
-    font-size: 12px;
+    font-size: 18px;
+    font-family: 'Tajawal', sans-serif;
     line-height: 20px;
-    color: #737373;
+    color: #00b09b;;
     text-overflow: ellipsis;
 }
 
@@ -280,9 +282,9 @@ require 'db.php';
 
 <div class="container">
 	<div class="row">
-		<div class="col-lg-8 col-md-6">
+		<div class="col-lg-8 col-md-6 center">
 
-            <div class="card hovercard">
+            <div class="card hovercard center">
                 <div class="cardheader">
 
                 </div>

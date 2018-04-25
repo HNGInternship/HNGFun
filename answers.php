@@ -660,7 +660,7 @@ function get_browser_name($user_agent)
 
 #####################################################################################################
 #                                                                                                   #
-#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS BELOW            #
+#           CHRISTOPH'S FUNCTION BEGINS HERE    |    DON'T TAMPER WITH THE FUNCTIONS BELOW          #
 #                                                                                                   #
 #####################################################################################################
 
@@ -679,6 +679,11 @@ function calculate_distance($key, $url, $location1, $location2) {
     }
 }
 
+function show_direction ($location1, $location2, $mode) {
+    return "https://www.google.com/maps/dir/?api=1&origin=$location1&destination=$location2&travelmode=$mode";
+
+}
+
 function get_duration ($key, $url, $location1, $location2, $mode) {
     $request_duration = $url.$location1."&destinations=$location2"."&key=".$key."&mode=".$mode."&departure_time=now";
     $response = json_decode(file_get_contents($request_duration), 1);
@@ -693,6 +698,12 @@ function get_duration ($key, $url, $location1, $location2, $mode) {
         return $message;
     }
 }
+
+#####################################################################################################
+#                                                                                                   #
+#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS ABOVE            #
+#                                                                                                   #
+#####################################################################################################
 
 
 function get_device_name($user_agent)
@@ -878,10 +889,7 @@ function getUSSD($bankName){
 
         case 'wema bank':
 return '*945#';}}
-function show_direction ($location1, $location2, $mode) {
-    return "https://www.google.com/maps/dir/?api=1&origin=$location1&destination=$location2&travelmode=$mode";
 
-}
 // End of functions by @Bukola
  // chibuokems functions starts here
   function check_if_training_chibuokem($input=''){
@@ -1290,4 +1298,219 @@ $dataa = json_decode(file_get_contents($url_location), true);
     return null;
   }
   ///////////////END OF FUNCTION BY ADEYEFA OLUWATOBA////////////////////////////////
+
+
+
+/***************************john code begins here*************************/
+
+
+//to check if the data was sent to the server
+
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+
+// to if the post request is not empty 
+
+  try{
+        if(!isset($_POST['question'])){
+          echo json_encode([
+            'status' => 1,
+            'answer' => "Please provide a question"
+          ]);
+          return;
+        }
+      
+        $questions = $_POST['question'];
+        $question = strtolower($questions);
+    /////////////////////////////FUNCTIONS COMES FIRST////////////////////////////////////////////////////////////////
+
+
+    // All the functions goes here
+    
+            function before ($thiss, $inthat)
+            {
+                return substr($inthat, 0, strpos($inthat, $thiss));
+             };
+             function after ($thiss, $inthat)
+            {
+                if (!is_bool(strpos($inthat, $thiss)))
+                return substr($inthat, strpos($inthat,$thiss)+strlen($thiss));
+             };
+             function between ($thiss, $that, $inthat)
+                {
+                return before ($that, after($thiss, $inthat));
+                };
+            function after_last ($thiss, $inthat)
+                 {
+                    if (!is_bool(strrevpos($inthat, $thiss)))
+                    return substr($inthat, strrevpos($inthat, $thiss)+strlen($thiss));
+                };
+
+               //use strrevpos function in case your php version does not include it
+            function strrevpos($instr, $needle)
+            {
+                $rev_pos = strpos (strrev($instr), strrev($needle));
+                if ($rev_pos===false) return false;
+                else return strlen($instr) - $rev_pos - strlen($needle);
+            };
+
+        function training($check)
+        {
+            $password="password";
+            $newquestion= between(':', '#', $check);
+            $newanswer= between('#', '#', $check);
+            $newpassword= after_last('#', $check);
+            if ($password==$newpassword)
+                {
+                    try {
+                        require 'db.php';
+                            
+                            $sql = "INSERT INTO chatbot (id, question, answer) VALUES ('', '$newquestion', '$newanswer')";
+                            // use exec() because no results are returned
+                            $conn->exec($sql);
+                            $res = "Thanks for training me";
+                            return $res;
+                            
+                        }
+                    catch(PDOException $e)
+                            {
+                            echo $sql . "<br>" . $e->getMessage();
+                            }
+                            
+                }
+            else
+                {
+                    $res = "Please enter a password and train me using train:question#answer#password this should be without space";
+                    return $res;
+                }
+        }
+        function getAns($check){
+                require 'db.php';
+
+
+                $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question= '$check' ORDER BY rand() LIMIT 1");
+                $stmt->execute();
+                if($stmt->rowCount() > 0)
+                {
+                  while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+                  {
+                        $res=$row["answer"];
+                         
+                        return $res;
+                  }
+                  
+                } 
+                else {
+                    $res="I don't seem understand what you asked. But you can train me.<br>Type<br>train:question#answer#password";
+                    return $res;
+                }
+                  
+                   
+            }
+
+ 
+
+    function currencyConverter($from_currency, $to_currency, $amount) {
+        $from_Currency = urlencode($from_currency);
+        $to_Currency = urlencode($to_currency);
+        $encode_amount = 1;
+        $get = file_get_contents("https://finance.google.com/bctzjpnsun/converter?a=$encode_amount&from=$from_Currency&to=$to_Currency");
+        $get = explode("<span class= bld>",$get);
+        $get = explode("</span>",$get[1]);
+        $rate = preg_replace("/[^0-9\.]/", null, $get[0]);
+        $rate = (float)$rate;
+        $res = $amount*$rate;
+        return $res;
+    }
+
+
+function weather($country,$city){
+    $client = new SoapClient("http://www.webservicex.net/globalweather.asmx?wsdl");
+    $params = new stdClass;
+    $params->CityName= $city;
+    $params->CountryName= $country;
+    $res = $client->GetWeather($params);
+    // Check for errors...
+    $weatherXML = $result->GetWeatherResponse;
+    return $res;
+}
+
+
+
+/////////////////////////////FUNCTIONS ENDS HERE/////////////////////////////////////////////////////////////////
+
+/////////////////////// Conditions for checking input//////////////////////////////////////////////
+
+///////////////////To check if the statement begins with train://///////////////////////
+
+        if (preg_match("/^train:/", $question)) 
+        {
+
+            $question = preg_replace( '/\s+/','', $question);
+            $res = training($question);
+            echo json_encode([
+            'status' => 1,
+            'answer' => $res
+            ]);
+            return;
+           
+        }
+
+        elseif (preg_match("/^about/", $question)) 
+        {
+           echo json_encode([
+            'status' => 1,
+            'answer' => "Robot Version1"
+            ]);
+            return;      
+        }
+        elseif (preg_match("/^currency/", $question)){
+
+             $question = preg_replace( '/\s+/','', $question);
+             $from_currency= between("(", "," , "$question");
+            $to_currency= between(",", "," , "$question");
+            $amt= between(",", ")" , "$question");
+            $amount= (float)$amt;
+            $res= currencyConverter($from_currency,$to_currency,$amount);
+            echo  json_encode([
+                'status'=>1,
+                'answer'=> $res
+            ]);
+            return;
+        }
+        elseif(preg_match("/^weather/", $question)){
+            $country=between("(", ",", $question);
+            $city= between(",", ")", $question);
+            $res= weather($country,$city);
+            echo json_encode([
+                'status'=>1,
+                'answer' =>$res
+            ]);
+            return;
+        }
+
+        else{
+            $res= getAns($question);
+            echo json_encode([
+            'status' => 1,
+            'answer' => $res
+            ]);
+            
+            return;  
+
+        
+        }
+}
+///////////////////////////Conditions Ends here///////////////////////////////
+    catch (Exception $e)
+    {
+
+        return $e->message ;
+  
+    }
+}
+
+
 ?>
