@@ -43,7 +43,6 @@
 		border-radius: 10px;
 		box-shadow: rgba(0, 0, 0, 0.3) 12px 15px 20px;
 		height: auto;
-		width: 350px;
 		margin: auto;
 	}
 	.profile-meta-container{
@@ -112,8 +111,9 @@
 	/* smartphones, iPhone, portrait 480x320 phones */
 .profile{
 		
-		width: 260px;
+		width: 19em;
 		margin: auto;
+		font-size: 0.875em;
 	}
 
 .profile-social{
@@ -121,7 +121,7 @@
 }
 
 	.about-me-title{
-		left: 20%;
+		left: 23%;
 	}
 }
 
@@ -129,7 +129,7 @@
 	/* smartphones, iPhone, portrait 480x320 phones */
 .profile{
 		
-		width: 350px;
+		width: 21em;
 		
 	}
 .about-me-title{
