@@ -201,7 +201,7 @@ footer #link{
 
 </style>
 </head>
-<body cz-shortcut-listen="true">
+<body cz-shortcut-listen="true" class="oj-flex">
 
 <?php
     
@@ -219,21 +219,21 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 	<div class="container">
 		<header>
 			<div class="header">
-                <span><?php echo $user->name ?></span>
+                <span class="oj-text-xm"><?php echo $user->name ?></span>
      </div>
 		</header>
 
         <div id="intro">
             <div id="intro-span">
                 <div id="main">
-                    Hi, I am<br /><span id="me"><?php echo $user->name ?></span><br />
+                    Hi, I am<br /><span id="me" class="oj-text-xm"><?php echo $user->name ?></span><br />
                     <span>A Software Developer</span>
                 </div>
             </div>
         </div>
 		<section class="main">
 			<div class="get-started">
-                <h1>Meet <?php echo $user->username ?></h1>
+                <h1 class="oj-text-xm">Meet <?php echo $user->username ?></h1>
                 <div>
                     <img class="img"  src="<?php echo $user->image_filename ?>" alt="She Codes" /></div>
                 <p class="mission" id="caption"><b>My mission for HNG Internship:</b> Be a world class developer, initiate and complete innovative projects, and have a voice in the technology ecosystem. </p>
@@ -244,7 +244,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
                     <em><\Insert Flashback Sequence></\Insert></em>
                 </p>
                 <p>In my younger days, I was on the track towards medical school(Medcine and Surgery), but was detoured on the way by the quest for Admission. As years passed I settled for an alternative course (Computer Science), then did I realized humanity can be helped or even saved through software development.</p>
-                <h3 class="inLove">She Fell in Love</h3>
+                <h3 class="inLove oj-text-xm">She Fell in Love</h3>
                 <p class="school">I found the love of my life few months before Industrial Training, a friend of mine one afternoon came to my room so excited, she wanted to demonstrate something to me but I was watching movie(that’s what majority of students do with their PC, I was no different). Her excitement was overwhelming that I gave her an opportunity. Guess what! she wrote some foreign characters, opened my browser and boom!!! the miracle happened; <span id="g">G</span><span id="o1">o</span><span id="o2">o</span><span id="g">g</span><span id="l">l</span><span id="o1">e</span> written bodily with its 4 different colours appeared on the screen, immediately I fell in love.
 My love grew into passion that I gave up my little savings to learn web development using java for back end. The journey have not been easy but I have this inner peace that am doing what I love the most.</p>
                 
