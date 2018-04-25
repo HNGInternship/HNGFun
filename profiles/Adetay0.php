@@ -218,6 +218,7 @@ require 'db.php';
 .card.hovercard {
     position: relative;
     padding-top: 0;
+    margin-left:70px;
     overflow: visible;
     text-align: center;
     background-color: rgba(214, 224, 226, 0.2);
@@ -227,6 +228,7 @@ require 'db.php';
     background: url("http://res.cloudinary.com/adetayo/image/upload/v1524582510/00730_HD.jpg");
     background-size: cover;
     height: 135px;
+    padding-right:30px;
 }
 
 .card.hovercard .avatar {
