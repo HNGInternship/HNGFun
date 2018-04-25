@@ -1,4 +1,5 @@
 
+    
     <?php
         
     require_once 'db.php';
@@ -162,6 +163,19 @@
             </div>
         </div>
     
+        
+    
+
+     <div class="container footer">
+        <div class="row">
+            <div>
+             <p>Copyright &copy; HNG FUN
+            <?php echo date("Y"); ?>
+             </p>   
+            </div>
+        </div>
+        
+    </div>
     
    
    
@@ -194,7 +208,7 @@
             height: 400px;
             float: right;
         }
-        .msg-output {
+        .chat-output {
             flex: 1;
             padding: 10px;
             display: flex;
@@ -203,31 +217,31 @@
             overflow-y: scroll;
             max-height: 800px;
         }
-        .msg-output > div {
+        .chat-output > div {
             margin: 0 0 20px 0;
         }
-        .msg-output .user-message .message {
+        .chat-output .user-message .message {
             background: #94edb3;
-            color: #0000;
+            color: #000;
         }
-        .msg-output .bot-message {
+        .chat-output .bot-message {
             text-align: right;
         }
-        .msg-output .bot-message .message {
+        .chat-output .bot-message .message {
             background: #d5e5be;
         }
-        .msg-output .message {
+        .chat-output .message {
             display: inline-block;
             padding: 12px 20px;
             border-radius: 20px;
         }
-        .msg-input {
+        .chat-input {
             padding: 20px;
             background: #eee;
             border: 1px solid #ccc;
             border-bottom: 0;
         }
-        .msg-input .user-input {
+        .chat-input .user-input {
             width: 100%;
             border: 1px solid #ccc;
             border-radius: 10px;
@@ -241,13 +255,13 @@
 		
 		<div class="oj-sm-12 oj-md-6 oj-flex-item">
             <div class="my-body">
-                <div class="msg-output" id="msg-output">
+                <div class="chat-output" id="chat-output">
                     <div class="user-message">
                         <div class="message"> DubemBot is my name! You can engage me in a conversation! </br>You can make me smarter by training me, use this format - 'train: question # answer # password'. </br>Type 'aboutbot' to know more about me.</div>
                     </div>
                 </div>
 
-                <div class="msg-input">
+                <div class="chat-input">
                     <form action="" method="post" id="user-input-form">
                         <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Ask me things">
                     </form>
@@ -333,27 +347,36 @@
     ?>
 
 </div>
-   
+   <div class="container footer">
+        <div class="row">
+            <div>
+             <p>Copyright &copy; HNG FUN
+            <?php echo date("Y"); ?>
+             </p>   
+            </div>
+        </div>
+        
+    </div>
 
 </body>
 
 
 <script>
-    var outputArea = $("#msg-output");
+    var outputArea = $("#chat-output");
     $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
         var message = $("#user-input").val();
         outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
         $.ajax({
-            url: 'profile.php?id=Melody',
+            url: "profiles/Charlespossible.php",
             type: 'POST',
             data:  'user-input=' + message,
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
                     outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
-                    $('#msg-output').animate({
-                        scrollTop: $('#msg-output').get(0).scrollHeight
+                    $('#chat-output').animate({
+                        scrollTop: $('#chat-output').get(0).scrollHeight
                     }, 1500);
                 }, 250);
             }
