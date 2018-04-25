@@ -1,5 +1,13 @@
 <?php 
 	
+if(!defined('DB_USER')){
+	require "../..config.php";
+	try{
+		$conn = new PDO("mysql:host=" . DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+	}catch (PDOException $pe){
+		die("Counld not connect to the database" . DB_DATABASE . ": " . $pe->getMessage());
+	}
+}
 
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -46,7 +54,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				]);
 				return;
 			}
-			/*
+			
 			$password = trim($queries[2]);
 			//to verify training password
 			define('trainingpassword', 'password');
@@ -162,7 +170,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    		'answer' => "I am sorry, I cannot answer your question now. You could offer to train me."
 		    	]);
 		    	return;
-		    }*/
+		    }
 	    }
 	}catch (Exception $e){
 		return $e->message ;
