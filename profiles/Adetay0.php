@@ -218,13 +218,14 @@ require 'db.php';
 .card.hovercard {
     position: relative;
     padding-top: 30px;
-    padding-bottom:50px;
+    padding-left:150px;
     overflow: hidden;
     text-align: center;
-    background: #a8c0ff;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #3f2b96, #a8c0ff);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #3f2b96, #a8c0ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    
+    background: #00b09b;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to top, #96c93d, #00b09b);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to top, #96c93d, #00b09b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+   
 }
 
 .card.hovercard .cardheader {
