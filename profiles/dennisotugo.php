@@ -99,6 +99,27 @@ requirejs.config({
 
 </script>
 
+<script>
+require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojcomposite',
+ 'ojs/ojbutton','ojs/ojavatar','ojs/ojvalidation','ojs/ojlabel'],
+function(oj, ko, $) {
+  function model() {
+    var self = this;
+    self.firstName = 'Dennis';
+    self.lastName = 'Otugo';
+    self.initials = oj.IntlConverterUtils.getInitials(self.firstName,self.lastName);
+    self.avatarSize = ko.observable("md");
+    self.sizeOptions = ko.observableArray(['xxs', 'xs','sm','md','lg','xl','xxl']);
+  }
+
+  $(function() {
+      ko.applyBindings(new model(), document.getElementById('demo-container'));
+  });
+
+});
+</script>
+
+
    <?php
 try {
     $sql = 'SELECT * FROM secret_word';
@@ -206,11 +227,11 @@ function getAnswer( $input ) {
 <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
     <style type="text/css">
 /*<![CDATA[*/
-            .oj-flex {
+            .chat-output {
     overflow-y: scroll;
     height: 100%;
     }
-            .oj-flex {
+            .body1 {
     height: 100%;
     text-align: center;
     position: fixed;
@@ -300,6 +321,18 @@ function getAnswer( $input ) {
   </head>
   <body>
     <div class="profile">
+         <div id="avatar-container" class="demo-flex-display">
+      <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
+        <div class="of-flex-item">
+          <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
+            data-bind="attr:{'aria-label':'Avatar of ' + firstName + ' ' + lastName}"
+            src="https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701221/avatar.png" class="oj-avatar-image">
+          </oj-avatar>
+        </div>
+      </div>
+    </div>
+  </div>
+
       <h1>
         Dennis Otugo
       </h1>

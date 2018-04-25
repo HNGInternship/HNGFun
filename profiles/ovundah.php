@@ -66,7 +66,7 @@
                 height="90%"
                 style='position: absolute;
                        z-index: 1;
-                       left: 10px'>
+                       left: 30px'>
             </iframe>
 
         </div>
