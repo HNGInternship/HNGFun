@@ -43,6 +43,7 @@
             padding-right: 0;
             background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
+			padding-bottom: 50px;
         }
         .profile-body {
             max-width: 50%;
@@ -172,7 +173,6 @@
             font-weight: bold;
 			font-size: 24px;
         }
-
         .chatbot-menu-header a {
             color: #FFFFFF;
         }
