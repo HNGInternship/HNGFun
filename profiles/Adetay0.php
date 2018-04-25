@@ -217,10 +217,14 @@ require 'db.php';
 
 .card.hovercard {
     position: relative;
-    padding-top: 0;
+    padding-top: 30px;
+    padding-bottom:50px;
     overflow: hidden;
     text-align: center;
-    background-color: rgba(214, 224, 226, 0.2);
+    background: #a8c0ff;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #3f2b96, #a8c0ff);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3f2b96, #a8c0ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
 }
 
 .card.hovercard .cardheader {
@@ -298,15 +302,10 @@ require 'db.php';
                     <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/babalasisi">
                         <i class="fa fa-twitter"></i>
                     </a>
-                    <a class="btn btn-danger btn-sm" rel="publisher"
-                       href="https://github.com/adetyaz">
-                        <i class="fa fa-github"></i>
-                    </a>
                     <a class="btn btn-primary btn-sm" rel="publisher"
-                       href="https://facebook.com/adetayo.lasisi">
-                        <i class="fa fa-facebook"></i>
-                    </a>
-                    
+                    href="https://github.com/adetyaz">
+                     <i class="fa fa-github"></i>
+                 </a>
                 </div>
             </div>
 
