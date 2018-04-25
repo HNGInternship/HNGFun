@@ -72,4 +72,6 @@
         </div>
     </body>
 </html>
-
+<script>
+    sessionStorage.setItem('answers', JSON.stringify(<?php echo $json; ?>));
+</script>
