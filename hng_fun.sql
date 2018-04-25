@@ -1,4 +1,14 @@
 <<<<<<< HEAD
+
+-- phpMyAdmin SQL Dump
+-- version 4.7.9
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Generation Time: Apr 23, 2018 at 04:29 AM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
+
 /*
 SQLyog Ultimate v9.02 
 MySQL - 5.5.5-10.1.31-MariaDB : Database - hng_fun
@@ -36,7 +46,10 @@ insert  into `chatbot`(`id`,`question`,`answer`) values (1,'i deserve','some acc
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+
 =======
+>>>>>>> 3c3383b76b4c99992df22d4b2d35ba95cd58eb45
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -105,7 +118,7 @@ INSERT INTO `secret_word` (`id`, `secret_word`) VALUES
 --
 -- AUTO_INCREMENT for table `interns_data`
 --
- 
+
 ALTER TABLE `interns_data`
 MODIFY `intern_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 
@@ -119,6 +132,10 @@ ALTER TABLE `secret_word`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+<<<<<<< HEAD
+
+=======
+>>>>>>> 3c3383b76b4c99992df22d4b2d35ba95cd58eb45
 
 
 -- phpMyAdmin SQL Dump
@@ -129,8 +146,8 @@ ALTER TABLE `secret_word`
 -- Generation Time: Apr 14, 2018 at 08:00 AM
 -- Server version: 5.7.21-0ubuntu0.16.04.1
 -- PHP Version: 7.2.4-1+ubuntu16.04.1+deb.sury.org+1
-
 <<<<<<< HEAD
->>>>>>> 5d2e736ab2158711fa0c0f4d874a7856615ea31e
+
+
 =======
->>>>>>> 1ef5fcaa6524b8b4cd8e34b822125e3ea83031fe
+>>>>>>> 3c3383b76b4c99992df22d4b2d35ba95cd58eb45

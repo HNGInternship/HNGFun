@@ -1,4 +1,10 @@
 <?php 
+$sql = "SELECT * FROM interns_data WHERE username = 'worldclassdev'";
+$query = $conn->query($sql);
+$query->setFetchMode(PDO::FETCH_ASSOC);
+$data = $query->fetchAll();
+$worldclassdev = array_shift($data);
+
     try {
         $secrete = 'SELECT * FROM secret_word';
         $sql = $conn->query($secrete);
@@ -9,6 +15,7 @@
         throw $error;
     }
 ?>
+
 
 <!DOCTYPE html>
 <!--
@@ -70,30 +77,26 @@
            ** and the CSS documentation under Support/API Docs/Non-Component Styling
            ** on the JET website for more information on how to use this pattern.
         -->
-        <oj-module role="main" class="oj-web-applayout-max-width oj-web-applayout-content oj-complete" config="[[moduleConfig]]"><!-- ko ojModule: {"view":$properties.config.view, "viewModel":$properties.config.viewModel,"cleanupMode":$properties.config.cleanupMode,"animation":$properties.animation} --><!--
- Copyright (c) 2014, 2018, Oracle and/or its affiliates.
- The Universal Permissive License (UPL), Version 1.0
- -->
+       
 <div class="oj-hybrid-padding">
   <my-profile>
-    </my-profile>
     <div class="twcd container">
         <div class="name">
-            <h1>Justine Philip</h1>
+            <h1><?php echo $worldclassdev['name']; ?></h1>
           </div>
           <div class="profile mx-auto">
-            <img class="profile-img mx-auto" src="http://res.cloudinary.com/worldclassdev/image/upload/v1523643285/16845555.png" alt="my-profile">
+            <img class="profile-img mx-auto" src="<?php echo $worldclassdev['image_filename']; ?>" alt="my-profile">
           </div>
           <div class="about">
               I like to call myself a developer of all things JS. But basically i love to build stuff that solves a problem irrespective of the technology involved. I'm more about the impact than the money, but somehow i find both. When im not coding, i write, game and play the guitar.
           </div>
     </div>  
-  
-</div><!-- /ko --><div data-bind="_ojNodeStorage_" style="display: none;" class="oj-subtree-hidden">
-        </div></oj-module>
+  </my-profile>
+</div>
       </div>
       </div>
    
     
     <script type="text/javascript" src="profiles/worldclassdev/js/libs/require/require.js"></script>
-<script type="text/javascript" src="profiles/worldclassdev/js/main.js"></script>
+
+    <script type="text/javascript" src="profiles/worldclassdev/js/main.js"></script>

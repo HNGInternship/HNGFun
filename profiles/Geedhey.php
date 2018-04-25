@@ -28,7 +28,7 @@
         }
         $name= $data['name'];
         $username= $data['username'];
-        $link= $data['image_filename'];
+        $image= $data['image_filename'];
     }
 ?>
 
@@ -48,7 +48,7 @@
             switch($question){
                 case 'aboutbot':
                 case 'Aboutbot':
-                    sendReply('v 1.0.0');
+                    sendReply(' crochet v 1.0.0.');
             }
            
             $question = "%".$question."%";
@@ -76,7 +76,7 @@
             $functionToCall = substr($answer, $startParanthesesIndex + 2, $endParanthesesIndex - $startParanthesesIndex - 2);
             // If the inner function in the answer does not exist in answers.php, we let the user know
             if(!function_exists($functionToCall)){
-                sendReply('Sorry. I do not have an answer to your query.');
+                sendReply('Sorry. I do not have an answer to your question at the moment.');
             }else{
                 $functionCallResult = $functionToCall();
                 // send the reply of the function call in the original answer we got from the DB
@@ -108,7 +108,7 @@
                 trainBot($question);
             }
             // send response for other errors
-            sendReply("Answer not available...Type 'train: question # answer'");
+            sendReply("Answer not available...Type 'train: question # answer' to train and make me smarter");
         }
     }
 ?>
@@ -295,8 +295,19 @@ h5 {
         .chat-bubble > p{
             margin: 0px;
             padding: 0px;
-            color: rgba(0, 0, 0, 0.8);
+            color: rgba(0, 0, 0.1, 0.8);
         }
+    .img-rounded{
+    align: center;
+      width: 300px;
+      height: 300px;
+      border-color: #FFF;
+      border-width: 5px;
+      border-style: solid;
+      border-radius: 50%;
+      margin-top:60px;
+     
+  } 
 
 @keyframes slidefade {
     100%{
@@ -386,7 +397,10 @@ h5 {
         <div class="row">
         <div class="col-md-6 left">
         <div class="content-area card" >
-        
+            
+            <img  class="img-rounded" src="http://res.cloudinary.com/geedhey/image/upload/v1523658558/IMG_20161218_191105_542_1.jpg"
+             alt="profile picture">
+           
             <h1><?php echo $name; ?></h1>
             <h3> Electrical & Electronics Engineer,IT Enthusiasts, Software Developer and Pianist.</h3>
         </div>
@@ -462,22 +476,18 @@ h5 {
         new Vue({
             el: '.bot',
 			data: {
-                messages: [{data: "Hey, I'm Phoenix!", sender: 'bot'}, 
-                {data: "I know the USSD codes of all banks in Nigeria!" +
-
-                " 1. Just type 'ussd: name_of_bank' e.g 'ussd: Money Bank'." + 
-
-                " 2. To train me, use this format 'train: question # answer'" +
-
-                " 3. Type 'aboutbot' to see my latest version", 
-                sender: 'bot'}],
+                messages: [{data: "My Name is Crochet! and i'm here to respond to your questions", sender: 'bot'},
+                    {data: "To input your own customized questions and answers..." + 
+                        "Type train: questions #answers" , sender: 'bot'},
+                    {data: "Use aboutbot or about bot to check for current bot version", sender: 'bot'} 
+                ],
                 message: ''
             },
             methods: {
                 getBubbleColor(sender){
                     if(sender == 'bot')
                     return 'skyblue';
-                    
+                
                     return 'grey';
                 },
                 addMessage(){
@@ -498,7 +508,7 @@ h5 {
                         }).catch(error => {
                             console.log(error);
                             this.messages.pop();
-                            this.messages.push({ sender: 'bot', data: 'Your internet connection is down.'
+                            this.messages.push({ sender: 'bot', data: 'Please check Your internet connection might be down.'
                         });
                     });
                 },
