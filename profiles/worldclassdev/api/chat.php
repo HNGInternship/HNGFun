@@ -9,7 +9,7 @@
 
 */
 
-require_once("conn/dxcon.php");
+require_once("db.php");
 require_once("regex.php");
 
 
