@@ -227,7 +227,7 @@ function getAnswer( $input ) {
     </style>
   </head>
   <body>
- 
+ <div class="oj-flex oj-flex-item oj-panel oj-margin">
        <div class="oj-flex-item oj-panel oj-margin">
     <div class="profile">
 
@@ -256,6 +256,7 @@ function getAnswer( $input ) {
             </form>
           </div>
     </div>
+         </div>
 </script>
      <script>
 //<![CDATA[
