@@ -218,7 +218,7 @@ require 'db.php';
 }
 
 .card.hovercard {
-    position: relative;
+    position: absolute;
     padding-top: 0;
     margin-left:400px;
     padding-bottom:60px;
