@@ -347,15 +347,14 @@
             }
     });
 
-    require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojmodule', 'ojs/ojrouter', 'ojs/ojinputtext', 'ojs/ojbutton'],
-    function (oj, ko, app, jquery) { // this callback gets executed when all required modules are loaded
+    require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojmodule', 'ojs/ojrouter'],
+    function (oj, ko, app) { // this callback gets executed when all required modules are loaded
       
       $(function() {
         $("#send").click(function(){
           var usernameTag = "<li><div class='right-chat'><i class='fa fa-user-circle-o fa-3x'></i><p><b>You: </b>";
           
           var prevState = $("#chatSection").html();
-          console.log(prevState.length);
           
           if(prevState.length == 189){
             var username = $("#textbox").val();
@@ -376,7 +375,7 @@
                   prevState = prevState + "<br/>";
             }
 
-            $("#chatSection").html(prevState + usernameTag + userQuestion + "</p></div></li>");
+            $("#chatSection").html(prevState + usernameTag + userQuestion + "</p><span>" +botDate+ "</span></div></li>");
             $(".chat-section").scrollTop($(".chat-section").prop("scrollHeight"));
             $("#textbox").val("");
 
