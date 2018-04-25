@@ -1,16 +1,16 @@
 <?php
-//Fetch User Details
-// require '../db.php';
-try {
-    $query = "SELECT * FROM interns_data_ WHERE username ='john'";
-    $resultSet = $conn->query($query);
-    $result = $resultSet->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e){
-    throw $e;
-}
-$username = $result['username'];
-$fullName = $result['name'];
-$picture = $result['image_filename'];
+// //Fetch User Details
+// // require '../db.php';
+// try {
+//     $query = "SELECT * FROM interns_data_ WHERE username ='john'";
+//     $resultSet = $conn->query($query);
+//     $result = $resultSet->fetch(PDO::FETCH_ASSOC);
+// } catch (PDOException $e){
+//     throw $e;
+// }
+// $username = $result['username'];
+// $fullName = $result['name'];
+// $picture = $result['image_filename'];
 //Fetch Secret Word
 try{
     $querySecret =  "SELECT * FROM secret_word LIMIT 1";

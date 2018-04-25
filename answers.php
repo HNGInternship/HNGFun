@@ -1498,7 +1498,7 @@ function weather($country,$city){
             'answer' => $res
             ]);
             
-            return;  
+            return;
 
         
         }
@@ -1511,6 +1511,6 @@ function weather($country,$city){
   
     }
 }
-
+/////////////////////////////john ends here/////////////////////////
 
 ?>
