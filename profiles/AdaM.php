@@ -237,7 +237,7 @@
 </head>
 
 <body class="oj-web-applayout-body">
-  <div id="globalBody" style="margin-top: 20px;"  class="oj-web-applayout-page">
+  <div id="globalBody" style="margin-top: 50px; margin-bottom: 0px"  class="oj-web-applayout-page">
     <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content">
       <div class="oj-flex">
         <div class="oj-flex-item oj-sm-12 oj-lg-6 oj-md-12 oj-lg-6 image-sec">
