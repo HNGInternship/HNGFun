@@ -1,7 +1,8 @@
 <?php
+
 if($_SERVER['REQUEST_METHOD'] !== "POST"){
     if(!defined('DB_USER')){
-        require "../../config.php";
+        require "../config.php";
         try {
             $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
         } catch (PDOException $e) {
@@ -25,14 +26,14 @@ if($_SERVER['REQUEST_METHOD'] !== "POST"){
 <?php
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     if(!defined('DB_USER')){
-        require "../../config.php";
+        require "../config.php";
         try {
             $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
         } catch (PDOException $e) {
             die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
         }
     }
-    require "../answers.php";
+    //require "../answers.php"; // This is the offending line that caused all the problem. I need to figure out how to use it correctly.
     date_default_timezone_set("Africa/Lagos");
     // header('Content-Type: application/json');
     if(!isset($_POST['question'])){
@@ -164,11 +165,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Rhodium+Libre" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Rhodium+Libre" rel="stylesheet"> -->
     <title>Blessing Akpan</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
 
-    <style>
+    <style type="text/css">
         .panel-body{
             background: #ccc;
         }
@@ -178,19 +180,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
         .pan{
             margin-top: 20px;
         }
-		.fa:hover {
-    		opacity: 0.7;
-		}
-
-		.fa-facebook {
-  			background: #3B5998;
-  			color: white;
-		}
-
-		.fa-twitter {
- 			background: #55ACEE;
-  			color: white;
-	}
         .box1{
             padding: 5px 7px;
             color: #fff;
@@ -216,7 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     body{
         font-family: 'Rhodium Libre', serif;
     }
-    #head{
+    .container{
         min-height: 400px;
         text-align:center;
         background-color: lightgrey;
@@ -311,12 +300,15 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     }
 </style>
 <body>
-<div id="head">
     <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <img src="http://res.cloudinary.com/dlvlxep3r/image/upload/v1523715773/interactive_bee.jpg" class="img-responsive" alt="image">
-                <div id="content">
+    <div class="oj-flex oj-flex-items-pad oj-contrast-marker">
+    <div class="oj-sm-12 oj-md-6 oj-flex-item">
+        <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
+            <div role="img" class="oj-flex-item alignCenter">
+                <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
+                data-bind="attr:{'aria-label':'Avatar of Akpan, Blessing Michael'}">
+                </oj-avatar>
+                <img class="img-fluid " onerror="this.src='images/default.jpg'" src="http://res.cloudinary.com/dlvlxep3r/image/upload/v1523715773/interactive_bee.jpg" class="img-responsive" alt="image">
                     <h1><?php echo $user->name; ?></h1>
                     <p>Writer | Android Developer | HNG Intern</p>
                     <p>Akwa Ibom, Nigeria</p>
@@ -329,14 +321,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4" id="header-trigger">
+            <div class="oj-panel oj-pale-green col-sm-4" id="header-trigger">
                 <div class="panel panel-default pan" >
                     <div class="panel-heading">
                         <h5>SMART CHAT-BOT</h5>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-8">
+            <div class="oj-panel oj-pale-green col-sm-8">
                 <div id="chatter">
                     <div class="panel panel-default pan">
                         <div class="panel-heading" id="bot-head">

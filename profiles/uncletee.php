@@ -104,7 +104,7 @@ function askQuestion($string){
 
 }
 
-performTraining('train:Give me latest news');
+//performTraining('train:Give me latest news');
 function performTraining($string){
 
     $delimeters         = [":","#"];
@@ -112,7 +112,7 @@ function performTraining($string){
 
 
     $isBotTrainnable = isTrainable($trainnigParameters);
-    if( $trainnigParameters[0] == "train"){
+    if( prepareInputParams($trainnigParameters[0]) == "train"){
         if ($isBotTrainnable["code"] == 204){
             return  $isBotTrainnable;
         }
@@ -966,6 +966,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 
           $(document).keypress(function(event) {
               var keycode = event.keyCode || event.which;
+              console.log("on live server");
               if(keycode == '13'){
                   // get the form data
                   var formData = {'data': $('input[name=inputData]').val()};

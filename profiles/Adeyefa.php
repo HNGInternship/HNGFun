@@ -1,4 +1,5 @@
 <?php 
+	
 
 if(!defined('DB_USER')){
   require "../../config.php";		
@@ -8,8 +9,6 @@ if(!defined('DB_USER')){
       die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
   }
 }
-	
-
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
@@ -33,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	    }
 
 	    //if(!isset($_POST['question'])){
-	    $mem = $_POST['question'];
+	    /*$mem = $_POST['question'];
 	    $mem = preg_replace('([\s]+)', ' ', trim($mem));
 	    $mem = preg_replace("([?.])", "", $mem);
 		$arr = explode(" ", $mem);
@@ -168,7 +167,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    	]);
 		    	return;
 		    }
-	    }
+	    }*/
 	}catch (Exception $e){
 		return $e->message ;
 	}
@@ -378,16 +377,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#ans").append("<li>" + response.answer + "</li>");
-			       // console.log(response.result);
-			        //alert(response.result.d);
-			        //alert(answer.result);
-			        
+						$("#ans").append("<li>" + response.answer + "</li>");
 					},
-					error: function(error){
-						//console.log(error);
-				        alert(error);
-					}
+					error:function(error){
+						alert(JSON.stringify(error));
+					}	
 				})	
 			})
 		});

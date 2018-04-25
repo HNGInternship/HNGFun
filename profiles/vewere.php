@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <?php
-    // require '../db.php';
 
     $result = $conn->query("Select * from secret_word LIMIT 1");
     $result = $result->fetch(PDO::FETCH_OBJ);
@@ -30,11 +29,15 @@
       border-radius: 5px;
       border-style: solid;
       border-width: thin;
-      border-color: #1e90ff;
+      border-color: #ffffff;
     }
 
     #toggle-visibility:hover {
       cursor: pointer;
+    }
+
+    body {
+      background-color: #958080;
     }
 
     div .hidden {
@@ -46,8 +49,8 @@
       text-align: center;
     }
 
-    .gray {
-      color: #c4c4c4;
+    .black {
+      color: #000000;
     }
 
     .white {
@@ -74,20 +77,9 @@
       margin-bottom: 0;
       padding-top: 20px;
       padding-bottom: 80px;
-      height: 294px;
-      background: #f67575;
-    }
-
-    #bottom {
-      margin-top: 0;
-      margin-bottom: 0;
-      height: 84px;
-      background: #c4c4c4;
-    }
-    #bottom2 {
-      margin-top: 0;
-      height: 54px;
-      background: #f67575;
+      height: 432px;
+      background: #513E3E;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
     }
 
     #image-div{
@@ -100,6 +92,7 @@
 
     img {
       border-radius: 50%;
+      border: 6px solid #958080;
     }
 
 
@@ -111,15 +104,17 @@
     #chat-area {
       margin-bottom: 0;
       height: 382px;
-      background: #d3d3d3;
+      background: #513E3E;
       overflow-y: auto;
       scroll-behaviour: auto;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
     }
 
     #input-area {
       margin-top: 0;
       height: 53px;
       background: #000000;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
     }
 
     #bot-bubble {
@@ -160,15 +155,7 @@
 
   <script>
     var profile = true;
-    $(function (){
-
-      function sendMessage() {
-        var input = $("#request").val();        
-        if (input) {
-          $("#chat-area").append("<div id='user-bubble'><p>"+input+"</p></div>");
-          $("#request").val("");
-        }
-      }
+    $(function (){    
 
       $("#toggle-visibility").click(function (){
         if (profile) {
@@ -184,13 +171,21 @@
         }
       });
 
-      $("#send").click(sendMessage());
+      $("#send").click(function() {
+        var input = $("#request").val();        
+        if ($.trim(input)) {
+          $("#chat-area").append("<div id='user-bubble'><p>"+input+"</p></div>");
+          $("#request").val("");
+        }
+
+        $("#chat-area").scrollTop($("#chat-area")[0].scrollHeight);
+      });
 
       $('#request').keypress(function (e) {
         if (e.which == 13) {
-          sendMessage();
-          return false;    //<---- Add this line
-        }
+          $("#send").click(); 
+          return false; 
+        } 
       });
 
     });
@@ -200,25 +195,18 @@
 <!-- Profile Div -->
 <div class="container" id="profile">
   <div class="row">
-    <div class="col-md-offset-4 col-md-4 shadow-lg" id="top">
+    <div class="col-md-offset-4 col-md-4" id="top">
       <div id="image-div">
         <img src="<?php echo $user->image_filename; ?>" height=180px width=180px>
       </div>
       <h1 class="text white"><?php echo $user->name; ?></h1>
-      <h3 class="text"><strong>@<?php echo $user->username; ?></strong></h3>
+      <h3 class="text black"><strong>@<?php echo $user->username; ?></strong></h3>
+      <br><br>
+      <h4 class="text white">Problem Solver | Student at</h4>
+      <h4 class="text white">University of Ibadan</h4>
     </div>
   </div>    
-  <div class="row">  
-    <div class="col-md-offset-4 col-md-4 shadow-lg" id="bottom">
-      <br>
-      <h4 class="text">Problem Solver | Student at</h4>
-      <h4 class="text">University of Ibadan</h4>
-    </div>
-  </div>
-  <div class="row">  
-    <div class="col-md-offset-4 col-md-4 shadow-lg" id="bottom2">
-    </div>
-  </div>
+  
 </div>
 
 <!-- Chat Div -->
@@ -253,7 +241,7 @@
 <!-- Switch from Profile to Chatbot button -->
 <div class="row">  
   <div class="col-md-offset-5 col-md-2" id="">
-    <div id="toggle-visibility"><h4 class="text" id="toggle-text" style="color:#1e90ff;">TEST MY BOT</h4></div>
+    <div id="toggle-visibility"><h4 class="text white" id="toggle-text">TEST MY BOT</h4></div>
   </div>
 </div>
 
