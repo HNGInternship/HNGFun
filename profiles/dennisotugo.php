@@ -199,6 +199,7 @@ function getAnswer( $input ) {
   <body>
 <div class="oj-sm-flex-direction-column oj-flex oj-flex-item">
   <div class="oj-flex-item blue1">
+    <span class="avatar"><img src="images/avatar.jpg" alt="" /></span>
     <h1>Dennis Otugo</h1>
     <p>Human Being | Cyborg | Never asked for this</p>
   </div>
