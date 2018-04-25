@@ -1,15 +1,17 @@
 <?php 
-    date_default_timezone_set('Africa/Lagos');
+    // date_default_timezone_set('Africa/Lagos');
 
-        if (!defined('DB_USER')){
+    //     if (!defined('DB_USER')){
             
-            require "../../config.php";
-        }
-        try {
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-          } catch (PDOException $pe) {
-            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-          }
+    //         require "../../config.php";
+    //     }
+    //     try {
+    //         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    //       } catch (PDOException $pe) {
+    //         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    //       }
+    //       
+        require "../db.php";
     
         
     try {
@@ -226,7 +228,7 @@
 
   }
   .ask-input-field{
-    height: 42px;
+    height: 44px;
     padding-right: 23px;
 
   }
@@ -237,7 +239,7 @@
   }
 */  .fit{
     margin-left: -30px;
-    text-align: center;
+    /*text-align: center;*/
     padding-left: 0.2em;
   
   }
