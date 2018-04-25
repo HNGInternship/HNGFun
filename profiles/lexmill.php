@@ -39,7 +39,7 @@ body{
 	 date_default_timezone_set('Africa/Lagos');
 	 $currentDateTime = date('Y-m-d H:i:s');
 	 echo $currentDateTime;
-	 ?></h1><p class="mycss">NAME: <?= $name?><br />USERNAME: <?= $username?><br/><img src="<?php echo $image_filename; ?>" alt="Author's Picture"></p>
+	 ?></h1><p class="mycss">NAME: <?= $name?><br />USERNAME: <?= $username?><br/><img src="<?php echo $image_filename; ?>" width="320" height="331" alt="Author's Picture"></p>
 	 </div>
 	 </body>
 	 </html>

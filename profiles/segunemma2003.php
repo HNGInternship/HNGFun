@@ -11,7 +11,7 @@ try {
 } catch (PDOException $e) {
 	throw $e;
 }
-
+global $conn;
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 	$message = trim(htmlspecialchars($_POST['message']));
 	if ($message === ''){
