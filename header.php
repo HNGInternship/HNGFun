@@ -31,7 +31,12 @@
       <link href="css/landing-page.min.css" rel="stylesheet">
 
       <style>
-   
+  #navbar{
+    font-size: 15px;
+    font-weight: bold;
+    padding-right: 100px;
+    padding-left: 100px;
+  } 
   
 .nav-item{
     padding-right: 15px;
