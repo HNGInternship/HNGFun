@@ -11,7 +11,6 @@
             die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
           }
         
-
     try {
     $sql = 'SELECT * FROM secret_word';
         $q = $conn->query($sql);
@@ -117,8 +116,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   
       <!-- Custom fonts for this template -->
+
+      <!--Oracle Ojet -->
+    <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
+
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -154,6 +157,7 @@
       margin-bottom: 20px;
       border: 1px solid #c0c0c0;
       border-radius: 3px solid #c0c0c0;
+      font-size: 30px;
 
     }
     .message-environment {
@@ -215,48 +219,58 @@
   .ask-btn{
     float: right;
     background-color: #fff;
+    margin: none;
+    border: none;
+    padding-left: 15px;
 
   }
   .ask-input-field{
-    height: 50px;
+    height: 42px;
+    padding-right: 23px;
   }
-
+  .align{
+    margin-left: 5em;
+  }
+  .align-w{
+    margin-left: 1em;
+    margin-right: 2em;
+  }
   </style>
 </head>
 <body>
 <section>
 
-  <div class="container">
-  <div class="row">
-    <div class="col-md-4 offset-md-1">
-        <div class="text-center">
-          <img src="http://res.cloudinary.com/chikodi/image/upload/c_mfit,w_960/v1523617871/steven.jpg" alt="Steven Victor" class="rounded circle" height="250" width="250" style="margin-top: 40px;">
+  <div class="oj-flex oj-flex-items-pad">
+    <div class="oj-row">
+        <div class="oj-md-4 oj-flex-item">
+          <img src="http://res.cloudinary.com/chikodi/image/upload/c_mfit,w_960/v1523617871/steven.jpg" alt="Steven Victor" class="rounded circle align" height="250" width="250" style="margin-top: 40px;">
         </div>
         <h2 style="text-align: center; color: white; margin-top: 10px;">Steven Victor</h2>
-        <div style="text-align: center; color: white; margin-top: 10px;">
+        <div style="text-align: center; color: white; margin-top: 10px;" class="align-w">
           Web Developer, skilled in HTML, CSS, JavaScript, PHP, Laravel, VueJS. </div>
-        <div class="row">
+        <div class="oj-flex">
             <div style="margin-top: 10px">
               
             </div>
-              <div class="col-sm-2">
+              <div class="oj-sm-2">
                 <a href="https://twitter.com/@stevensunflash"><span class="fa fa-twitter"></span></a>
               </div>
-              <div class="col-sm-2">
+              <div class="oj-sm-2">
                   <a href="https://github.com/victorsteven"><span class="fa fa-github"></span></a>
             </div>
-            <div class="col-sm-2">
+            <div class="oj-sm-2">
                 <a href="https://www.linkedin.com/in/stevenchikodi/"><span class="fa fa-linkedin"></span></a>
             </div>
-            <div class="col-sm-2">
+            <div class="oj-sm-2">
                 <a href="https://slack.com/hnginternship4/@Steven"><span class="fa fa-slack"></span></a>
             </div>
-            <div class="col-sm-2">
+            <div class="oj-sm-2">
                 <a href="https://www.instagram.com/stevensunflash/"><span class="fa fa-instagram"></span></a>
             </div>
         </div>
       </div>
-      <div class="col-md-5 offset-md-1">
+
+      <div class="oj-md-5 oj-offset-md-1">
         <div class="environment">
           <h2 class="bot-head">Steven's Bot</h2>
           <div class="message-environment">
@@ -265,18 +279,14 @@
               </div>
           </div>
         </div>
-        <form id="ask-form">
-          <div class="form-row ask-input">
-              <div class="col-11">
-                <input class="form-control ask-input-field" id="message" placeholder="Ask me..." />
-              </div>
-              <div class="col-1">
+        <div id="ask-form">
+          <div class="ask-input">
+                <input class="oj-md-10 ask-input-field" id="message" placeholder="Ask me..." />
+    
                 <button type="submit" class="submit ask-btn"><i class="fa fa-send"></i></button>
-              </div>
           </div>
-        </form>
-      </div>
-      </div>
+        </div>
+        </div>
     </div>
 </section>
 

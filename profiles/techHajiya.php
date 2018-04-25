@@ -4,6 +4,7 @@
 <head>
 	<link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css' />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+	<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
     <style type="text/css">
 	 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
        body {
@@ -189,11 +190,14 @@
         throw $e;
     }
     ?>
-     <div class="row">
-            <div class="col-sm-6 profile-details">
-                <div class="profile-image">
-                    <img src="<?=$my_data['image_filename'] ?>" alt="Lois Thomas">
-                </div>
+	<div class="oj-web-applayout-max-width oj-web-applayout-content oj-margin">
+		<div class="oj-flex oj-margin">
+			<div class="oj-xl-5 oj-lg-4 oj-sm-12 oj-flex-item oj-flex">
+				<div class="row">
+					<div class="col-sm-6 profile-details">
+						<div class="profile-image">
+							<img src="<?=$my_data['image_filename'] ?>" alt="Lois Thomas">
+						</div>
 				<p class="text-center profile-name">
 				<span> Hi! I am  <?=$my_data['name'] ?>  <br/>(@<?=$my_data['username'] ?>) <br/> iLearn | iEat | iCode</span>
                 </p>
@@ -223,10 +227,11 @@
 						<button id="send">SEND</button>
                     </form>
                 </div>
-		
+		 </div>
           </div>
 		   </div>
-
+          </div>
+		   </div>
     <?php
     try {
         $sql = 'SELECT * FROM secret_word';

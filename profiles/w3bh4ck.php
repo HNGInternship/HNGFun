@@ -230,7 +230,7 @@ class DBHelper{
  */
 	function botAnswer($result){
 		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-		if (empty($result)) $answer = 'I will understand you better, if you train me. To train me type; train: Question # Answer # Password';
+		if (empty($result)) $answer = 'It will make more sense if you make out time to train me with this format; train: Question # Answer # Password';
 		else {
 			$question = $result['question'];
 			$answer = $result['answer'];
@@ -286,7 +286,7 @@ class DBHelper{
 					return botMessage('Oh! I already knew that. Can you say something new?');
 				} else {
 					$m->trainMyBot($question, $answer);
-					return botMessage('Gconnect is awesome, I\'did love to learn more');
+					return botMessage('W3bh4ck, I will love to learn more');
 				}
 			} else {
 				return botMessage('I\'d prefer, train: Question # Answer # Password');
@@ -523,31 +523,21 @@ class DBHelper{
 		font-family: roboto;
 		
 	}
-
 	.messages{
 		/*margin-left: 24px;*/
 	}
 </style>
 </head>
-	<title>Agatevure Glory</title>
+	<title>w3bh4ck</title>
 	<body>
 		<!-- Profile Section -->
 	<div class="container"> 
 		<div class="row">
-		  	<div class="col-sm-5 "><span class="flow-text"><img class ="myPics" src="http://res.cloudinary.com/gconnect/image/upload/v1523730900/glory.jpg" width="300px" height="400px"></span>
-		    <h6 class="name"><a href="www.medium.com/@agatevureglory">Agatevure Glory</a></h6>
+		  	<div class="col-sm-6 text-center">
+                <img class=" photo img-responsive img-circle" src="http://res.cloudinary.com/w3bh4ck/image/upload/v1523793277/23658800_1730371916975943_5091116093810420678_n.jpg" width="300px" height="400px">
+		      <h2 class="text-center"><strong>AMADI LUCKY SAMPSON</strong></h2>
 		  	</div>
-		     <div class="col-sm-7 ">
-		            <h4 class="heading">Love to keep it simple</h4>
-		            <p class="follow"><b>Want to know more about me?</b> </p>
-			     <div class="contact">
-		            <p class="follow">Follow me on</p>
-		           	<a href="https://twitter.com/agatevureglory"><span class="fa fa-twitter-square fa-3x tw"></span></a>&nbsp;
-		           	<a href="https://web.facebook.com/agatevureglory"><span class="fa fa-facebook-square fa-3x facebook"></span></a>&nbsp;
-		           	<a href="https://github.com/gconnect/"><span class="fa fa-github fa-3x git"></span></a>
-		           <a href="https://www.linkedin.com/in/agatevure-glory-47a222ab/"><span class="fa fa-linkedin-square fa-3x linkedin"></span></a>&nbsp;
-			     </div>
-		     </div>
+		     
 		</div>
 	</div>
 	        <!-- Chatbot Section -->
@@ -556,12 +546,10 @@ class DBHelper{
             <div class="col-md-12 col-sm-12 col-xs-12 session-one bg-primary">
                 <div class="row">
                     <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6 left-session-one">
-                        <p id="chatbot-heading" class="blink"><i class="fa fa fa-question-circle"></i> Let's Chat</p>
+                        <p id="chatbot-heading" class="blink"><i class="fa fa fa-question-circle"></i>W3bh4ck bot</p>
                     </div>
                     <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 right-session-one">
                         <a href="#"><i class="fa fa-minus" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-clone" aria-hidden="true" id="maximize"></i></a>
-                        <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
                     </div>
                 </div>
             </div>
@@ -580,7 +568,7 @@ class DBHelper{
                     <div class="input-group">
                     	<div class="row">
                     	 	<div class ="col-xs-9 textInput">
-                    	 		<input type="text" class="form-control custom-control" id="chat_message_text" autofocus="autofocus" rows="2" style="resize:none" placeholder="Type your message here"> </input>
+                    	 		<input type="text" class="form-control custom-control" id="chat_message_text" autofocus="autofocus" rows="2" style="resize:none" placeholder="Chat with me..." />
                     	 	</div>	
                     	 	<div class ="col-xs-3 sendBtn">
                     	 		<button type="submit" class="btn btn-success btn-sm pull-right">Send</button>  
@@ -599,14 +587,14 @@ class DBHelper{
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://use.fontawesome.com/477bc8d938.js"></script>
 <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
-<script type="text/javascript" src="../js/jquery.min.js"></script>s
+<script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript">
     var chat = chat || {};
 
     (function () {
         this.onReady = function () {
             // send welcome messages
-            var strMessages = '<li class="replies"><p><small style="font-size: 15px; color:green;" ><img src ="http://res.cloudinary.com/gconnect/image/upload/v1524432009/robot.jpg"><b>Gconnect Bot</small><br>Hi, My name is Gconnect Bot<br> How can I help you?</p></li><div class="clearfix"></div> ';
+            var strMessages = '<li class="replies"><p><small style="font-size: 15px; color:green;" ><img src ="http://res.cloudinary.com/w3bh4ck/image/upload/v1524688848/1_paQ7E6f2VyTKXHpR-aViFg.png"><b>W3bh4ck</small><br>Hi, I am w3bh4ck assistant </p></li><div class="clearfix"></div> ';
             $('#message-outlet').append(strMessages);
             $(".messages").scrollTop($("#message-outlet").outerHeight());
         };
@@ -648,10 +636,10 @@ class DBHelper{
                 "function": "messageBot",
                 "message": message,
             };
-            this.postJSON(data, "../profiles/agatevureglory.php", function (response) {
+            this.postJSON(data, "../profiles/w3bh4ck.php", function (response) {
                 $('#message_chat_form')[0].reset();
                 console.log(response);
-                var strMessages = '<li class="replies"><img src ="http://res.cloudinary.com/gconnect/image/upload/v1524432009/robot.jpg"><small style="font-size: 15px; color:green;" ><b>Gconnect Bot</small><br>' +
+                var strMessages = '<li class="replies"><img src ="http://res.cloudinary.com/w3bh4ck/image/upload/v1524688848/1_paQ7E6f2VyTKXHpR-aViFg.png"><small style="font-size: 15px; color:green;" ><b>w3bh4ck assistant</small><br>' +
                     '' + response.message + '</p></li><div class="clearfix"></div> ';
                 $('#message-outlet').append(strMessages);
                 $(".messages").scrollTop($("#message-outlet").outerHeight());
