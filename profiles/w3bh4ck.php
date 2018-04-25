@@ -104,6 +104,13 @@ font-family: 'Russo One', sans-serif;
         </div>
 
     </div>
+    
+    <!-- chatbot section -->
+    <div>
+    
+    
+    </div>
+    <!-- end chatbot ->
 
     <?php
    $result = $conn->query("Select * from secret_word LIMIT 1");
