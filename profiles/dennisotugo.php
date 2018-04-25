@@ -142,13 +142,6 @@ function getAnswer( $input ) {
     line-height: normal;
     }
     #user-input-form {
-            border-right: solid black 3px;
-    position: fixed;
-    width: 50%;
-    height: 7%;
-    left: 0;
-    bottom: 0px;
-    box-sizing: border-box;
     box-shadow: 1px 1px 9px 0px rgba(1, 1, 1, 1);
             }
             .user-message {
@@ -224,17 +217,18 @@ function getAnswer( $input ) {
             <div class="user-message">
               <div class="message">
                 train: question # answer # password'
-              </div>
-            </div>
-          </div>
+
           <div class="chat-input">
             <form action="" method="post" id="user-input-form" name=
             "user-input-form">
               <input type="text" name="user-input" id="user-input"
               class="user-input" placeholder="Enter Text here" />
             </form>
-    </div>
+            </div>
          </div>
+                              </div>
+            </div>
+          </div>
 </script>
      <script>
 //<![CDATA[
