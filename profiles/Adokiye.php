@@ -82,12 +82,14 @@ function askQuestion($input)
                 $question = str_replace('?', '', $question);
                 $question = trim($question);
                 echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";
-                $result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'");
-                $fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                $query = "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'";
+                $result = $conn->query($query);
                 $row_cnt = $result->num_rows;
+                $records = $result->fetch_all(MYSQLI_ASSOC);
+                
                 $rand = rand(0, $row_cnt - 1);
                 if ($row_cnt > 0) {
-                    return $fetched_data[$rand]['answer'];
+                    return $records[$rand]['answer'];
                 } else
                     return "Am sorry, this question wasn't found,Please ENTER TRAIN:QUESTION#ANSWER#password to make me smarter";
 
