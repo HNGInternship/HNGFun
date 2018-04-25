@@ -197,7 +197,7 @@ require 'db.php';
     overflow: hidden;
     font-size: 12px;
     line-height: 16px;
-    color: white;
+    color: #737373;
     text-overflow: ellipsis;
 }
 
@@ -217,7 +217,6 @@ require 'db.php';
 
 .card.hovercard {
     position: relative;
-    margin-left:150px;
     padding-top: 30px;
     padding-left:150px;
     padding-bottom:50px;
@@ -231,7 +230,7 @@ require 'db.php';
 .card.hovercard .cardheader {
     background: url("http://res.cloudinary.com/adetayo/image/upload/v1524582510/00730_HD.jpg");
     background-size: cover;
-    height: 100%;
+    height: 135px;
 }
 
 .card.hovercard .avatar {
