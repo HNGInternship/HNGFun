@@ -12,15 +12,21 @@ if (!isset($_SESSION["all"])){
 if(!defined('DB_USER')){
     require_once "../../config.php";
     $servername = DB_HOST;
-    $username_ = DB_USER;
+    $username = DB_USER;
     $password = DB_PASSWORD;
     $dbname = DB_DATABASE;
-    // Create connection
-    $conn = mysqli_connect($servername, $username_, $password, $dbname);
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
+
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        // set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        echo "Connected successfully";
+    }
+    catch(PDOException $e)
+    {
+        echo "Connection failed: " . $e->getMessage();
     }}
+ print_r($conn);
 global $conn;
 $solution = '';
 if (isset($_POST['restart'])){
@@ -49,7 +55,7 @@ function askQuestion($input)
                     if (isset($explode3[1])){
                         if (  $explode3[1] == "password") {
                             $query = $conn->query("SELECT question, answer FROM chatbot WHERE question ='" . $explode2[0] . "' and answer =  '" . $explode3[0] . "'");
-                            $row_cnt = $query->num_rows;
+                            $row_cnt = $query->rowCount();
                             if ($row_cnt > 0) {
                                 return "QUESTION ALREADY EXISTS ";
                             } else
@@ -82,12 +88,14 @@ function askQuestion($input)
                 $question = str_replace('?', '', $question);
                 $question = trim($question);
                 echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";
-                $result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'");
-                $fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
-                $row_cnt = $result->num_rows;
+                $query = "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'";
+                $result = $conn->query($query);
+                $row_cnt = $result->rowCount();
+                $records = $result->fetchAll(PDO::FETCH_ASSOC);
+
                 $rand = rand(0, $row_cnt - 1);
                 if ($row_cnt > 0) {
-                    return $fetched_data[$rand]['answer'];
+                    return $records[$rand]['answer'];
                 } else
                     return "Am sorry, this question wasn't found,Please ENTER TRAIN:QUESTION#ANSWER#password to make me smarter";
 
@@ -247,7 +255,7 @@ $username = 'Adokiye';
         <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
         <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
     </div>
-    <p class="mycss">Chatbot by Adokiye<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
+    <p class="mycss">Chatbot by Adokiye!!!!!<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
     <form name = "askMe" method="post">
         <p>
             <label>

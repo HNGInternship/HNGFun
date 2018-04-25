@@ -14,8 +14,9 @@
   }
 ?>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link href='https://fonts.googleapis.com/css?family=Angkor' rel='stylesheet'>
+	<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="styleshet" type="text/css">
 	<style>
 	/*Global*/
 			body{
@@ -126,15 +127,15 @@
 
 	<body>
 
-		<div class="profiles">
-			<div class="top-box">
+		<div class="profiles oj-flex oj-flex-items-pad oj-contrast-marker">
+			<div class="top-box oj-sm-12 oj-md-6 oj-flex-item">
 				<h2>Weke Samuel</h2>
 				<h4>Full Stack Developer</h4>
 			</div>
-			<div class="circle">
+			<div class="circle oj-flex-item alignCenter">
 				<img src="https://res.cloudinary.com/samuelweke/image/upload/v1523620154/2017-11-13_21.01.13.jpg" alt="Samuel Weke" >
 			</div>
-			<div class="bottom-box">
+			<div class="bottom-box oj-flex">
 				<div class="down-box">
 					<hr>
 					<span class="text" >+234 817 280 9245 <i class="fa fa-whatsapp " ></i></span>

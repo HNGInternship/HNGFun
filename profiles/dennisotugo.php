@@ -293,6 +293,17 @@ function getAnswer( $input ) {
     box-shadow: 1px 1px 9px 0px rgba(1, 1, 1, 1);
             }
             .user-message {
+                    
+    font-size: 16px;
+    background-color: #007bff63;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 5px;
+            
+            }
+                  .user-message message {
                     float: left;
     font-size: 16px;
     background-color: #007bff63;
@@ -303,6 +314,12 @@ function getAnswer( $input ) {
     margin: 5px;
             
             }
+            .user-message:before {
+    border-color: transparent #007bff63 transparent transparent;
+    border-width: 0 10px 10px 0;
+    left: -9px;
+}
+      
             footer .copyright {
     font-size: 14px;
     margin-bottom: 0;
@@ -321,6 +338,11 @@ function getAnswer( $input ) {
     position: relative;
     margin: 15px 1px 1px 0px;
     }
+      .bot-message:before {
+    border-color: transparent #007bff63 transparent transparent;
+    border-width: 0 10px 10px 0;
+    left: -9px;
+}
       footer {
       display: none;
       }
@@ -369,7 +391,7 @@ function getAnswer( $input ) {
 
         var message = $("#user-input").val();
 
-        outputArea.append(`<div class='bot-message'><div class='message'>${message}<\/div><\/div>`);
+        outputArea.append(`<div class='bot-message'><div><div class='message'>${message}<\/div><\/div><\/div>`);
 
 
         $.ajax({
@@ -379,7 +401,7 @@ function getAnswer( $input ) {
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<div class='user-message'><div class='message'>" + result + "<\/div><\/div>");
+                    outputArea.append("<div class='user-message'<div><div><div class='message'>" + result + "<\/div><\/div><\/div>");
                     $('#chat-output').animate({
                         scrollTop: $('#chat-output').get(0).scrollHeight
                     }, 1500);
