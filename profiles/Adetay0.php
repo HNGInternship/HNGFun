@@ -281,7 +281,7 @@ require 'db.php';
 
 <div class="container">
 	<div class="row">
-		<div class="col-lg-3 col-md-6">
+		<div class="col-lg-8 col-md-6">
 
             <div class="card hovercard">
                 <div class="cardheader">
