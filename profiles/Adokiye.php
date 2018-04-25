@@ -15,18 +15,16 @@ if(!defined('DB_USER')){
     $username = DB_USER;
     $password = DB_PASSWORD;
     $dbname = DB_DATABASE;
-
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "Connected successfully";
+
     }
     catch(PDOException $e)
     {
         echo "Connection failed: " . $e->getMessage();
     }}
- print_r($conn);
 global $conn;
 $solution = '';
 if (isset($_POST['restart'])){
@@ -87,12 +85,10 @@ function askQuestion($input)
                 $question = strtolower($input);
                 $question = str_replace('?', '', $question);
                 $question = trim($question);
-                echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";
-                $query = "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'";
+                $query = "SELECT * FROM chatbot WHERE LOWER(question) like '$question'";
                 $result = $conn->query($query);
                 $row_cnt = $result->rowCount();
                 $records = $result->fetchAll(PDO::FETCH_ASSOC);
-
                 $rand = rand(0, $row_cnt - 1);
                 if ($row_cnt > 0) {
                     return $records[$rand]['answer'];
