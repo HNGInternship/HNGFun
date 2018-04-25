@@ -22,7 +22,7 @@ require 'db.php';
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
+<link href="https://fonts.googleapis.com/css?family=Tajawal" rel="stylesheet">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <title>Adetay0 </title>
 </head>
@@ -196,8 +196,9 @@ require 'db.php';
     margin: 8px 14px 0 14px;
     overflow: hidden;
     font-size: 12px;
+    font-family: 'Tajawal', sans-serif;
     line-height: 16px;
-    color: white;
+    color: #00b09b;
     text-overflow: ellipsis;
 }
 
@@ -217,21 +218,18 @@ require 'db.php';
 
 .card.hovercard {
     position: relative;
-    margin-left:150px;
-    padding-top: 30px;
-    padding-left:150px;
-    padding-bottom:50px;
-    overflow: hidden;
+    padding-top: 0;
+    margin-right:70px;
+    overflow: visible;
     text-align: center;
-    background: #00b09b;  /* fallback for old browsers */
-
-   
+    background-color: rgba(214, 224, 226, 0.2);
 }
 
 .card.hovercard .cardheader {
     background: url("http://res.cloudinary.com/adetayo/image/upload/v1524582510/00730_HD.jpg");
     background-size: cover;
-    height: 100%;
+    height: 135px;
+    padding-right:30px;
 }
 
 .card.hovercard .avatar {
