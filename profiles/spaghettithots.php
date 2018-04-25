@@ -155,7 +155,7 @@
 			<h3>I am Alexandrix Ikechukwu</h3>
 			<p>In one breath, I am a...</p>
 			<ul class="ul">
-				<li class="list-item top-list-item white-bkgd">Software Engineer.</li>
+				<!-- <li class="list-item top-list-item white-bkgd">Software Engineer.</li> -->
 				<li class="list-item gray-bkgd">Dataphile.</li>
 				<li class="list-item white-bkgd">Writer [of all sorts of things].</li>
 				<li class="list-item gray-bkgd">Poet.</li>
