@@ -220,9 +220,7 @@ require 'db.php';
 .card.hovercard {
     position: relative;
     padding-top: 0;
-    
-    padding-bottom:60px;
-    float-left:50px;
+   
     overflow: visible;
     text-align: center;
     background-color: rgba(214, 224, 226, 0.2);
@@ -266,9 +264,10 @@ require 'db.php';
 
 .card.hovercard .info .desc {
     overflow: hidden;
-    font-size: 12px;
+    font-size: 18px;
+    font-family: 'Tajawal', sans-serif;
     line-height: 20px;
-    color: #737373;
+    color: #00b09b;;
     text-overflow: ellipsis;
 }
 
@@ -285,7 +284,7 @@ require 'db.php';
 	<div class="row">
 		<div class="col-lg-8 col-md-6">
 
-            <div class="card hovercard">
+            <div class="card hovercard center">
                 <div class="cardheader">
 
                 </div>
