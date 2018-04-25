@@ -15,7 +15,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 	<style>
 		body {
-			background-image: url(https://res.cloudinary.com/drvtjwwxy/image/upload/v1524622580/hng/ch.jpg);
+			background-image: url(https://res.cloudinary.com/drvtjwwxy/image/upload/c_scale,w_420/v1524622580/hng/ch.jpg);
 		}
 
 		.circle {
