@@ -90,17 +90,12 @@ function getAnswer( $input ) {
     <meta name="apple-mobile-web-app-title" content="Oracle JET" />
     <!-- injector:theme -->
     <link href=
-    'https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra%20SC|Romanesco|Source+Sans+Pro:400,700'
+    'https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css'
     rel='stylesheet' type="text/css" />
     <script src=
     "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"
     type="text/javascript">
 </script>
-    <style type="text/css">
-/*<![CDATA[*/
-    @import url('//static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css');
-    /*]]>*/
-    </style><!-- endinjector -->
 <!-- RequireJS bootstrap file -->
 <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
     <style type="text/css">

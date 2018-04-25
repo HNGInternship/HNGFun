@@ -8,9 +8,8 @@ if(!defined('DB_USER')){
       die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
   }
 }
+
 	
-
-
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
@@ -384,7 +383,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 						alert(JSON.stringify(error));
 					}	
 				})	
-			});
+			})
 		});
 	</script>
 </body>
