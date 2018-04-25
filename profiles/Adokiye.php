@@ -82,9 +82,11 @@ function askQuestion($input)
                 $question = str_replace('?', '', $question);
                 $question = trim($question);
                 echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";
+                mysqli_set_charset($conn,"latin1");
                 $_result =  mysqli_query($conn, "SELECT * FROM chatbot LIMIT 5");
                 $result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'");
-                print_r($_result);die("died here");
+                print_r($_result);echo("Error description: " . mysqli_error($conn));
+                die("died here");
                 $fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 $row_cnt = $result->num_rows;
                 $rand = rand(0, $row_cnt - 1);
