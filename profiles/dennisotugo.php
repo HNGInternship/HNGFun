@@ -112,24 +112,68 @@ function getAnswer( $input ) {
     bottom: 0;
     height: 6%;
 }
+          .user-input {
+    width: -webkit-fill-available;
+    border: none;
+    padding: 10px 14px;
+    font-size: 18px;
+    line-height: normal;
+    }
 .blue1 {
     width: 50%;
     position: fixed;
     left: 0;
-    background-color: #007bff;
+    /* background-color: #007bff; */
     height: 100%;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    transform: translate(0, 40%);
+    top: 50%;
+    /* transform: translate(0, 40%); */
 }
         .white2 {
     width: 50%;
-            background-color: #ffffff;
-        }
+    background-color: #ffffff;
+    width: 50%;
+    position: fixed;
+    right: 0;
+    /* background-color: #007bff; */
+    height: 100%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    /* transform: translate(0, 40%); */
+}
       footer {
       display: none;
       }
+      .user-message {
+                    
+    font-size: 16px;
+    background-color: #007bff63;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 5px;
+            
+            }
+                  .user-message message {
+                    float: left;
+    font-size: 16px;
+    background-color: #007bff63;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 5px;
+            
+            }
+            .user-message:before {
+    border-color: transparent #007bff63 transparent transparent;
+    border-width: 0 10px 10px 0;
+    left: -9px;
+}
     </style>
   </head>
   <body>
