@@ -118,12 +118,14 @@
 			    $sql = "SELECT * FROM secret_word";
 			    $q = $conn->query($sql);
 			    $q->setFetchMode(PDO::FETCH_ASSOC);
-			    $secret_word = $q->fetch();
+			    $data = $q->fetch();
 			}
 			catch(PDOException $e)
 			{
 			    throw $e;
 			}
+
+			$secret_word = $data['secret_word'];
 		?>
 
 		<!-- Main HTML content -->
