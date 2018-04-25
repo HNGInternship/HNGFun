@@ -70,6 +70,7 @@ $image_url = $row['image_filename'];
             margin: auto;
             display: table;
 			height: 100%;
+			width: 100%;
         }
         .oj-profile{
             background-image: url('http://res.cloudinary.com/maaj/image/upload/v1523621615/profile.jpg');
@@ -77,6 +78,8 @@ $image_url = $row['image_filename'];
             background-position: center;
             background-repeat: no-repeat;
             width: 400px;
+			
+			align: center;
             height: 400px;
             border-radius: 50%;
         }
@@ -96,11 +99,12 @@ $image_url = $row['image_filename'];
 
   </head>
   <body class="oj-web-applayout-body">
-      <div class="oj-web-applayout-body">
+      <div class="demo-flex-center">
+		<div class="container">
           <h1 class="oj-head">Hello....</h1>
           
           <div class="oj-profile"></div>
-          
+          </div>
               <div class="oj-title">
                   <h2 class="oj-title"><?php echo $name;?></h2>
                   <h2 class="oj-title">Slack username: <?php echo $username;?></h2>
@@ -112,6 +116,7 @@ $image_url = $row['image_filename'];
     <a href="#"><i class="fa fa-linkedin"></i></a>
     <a href="https://github.com/dmaaj"><i class="fa fa-github"></i></a>
           
+		</div>  
       </div>    
       </div>
     
