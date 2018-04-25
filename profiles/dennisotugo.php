@@ -104,7 +104,6 @@ function getAnswer( $input ) {
 <!-- RequireJS bootstrap file -->
 <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
     <style type="text/css">
-
          .chat-output > div {
     display: inline-block;
     width: 100%;
@@ -114,23 +113,7 @@ function getAnswer( $input ) {
     overflow-y: scroll;
     height: 100%;
     }
-            .oj-flex-item oj-panel oj-margin body {
-    height: 100%;
-    text-align: center;
-    position: fixed;
-    width: 50%;
-    left: 0;
-    background-color: #ffffff;
-    }
-            
-        .oj-flex-item oj-panel oj-margin {
-          height: 100%;
-    text-align: center;
-    position: fixed;
-    width: 50%;
-    right: 0;
-    background-color: #007bff;
-    }
+
         h1 {
     color: blue;
     color: white;
@@ -236,7 +219,7 @@ function getAnswer( $input ) {
             </p>
      </div>
        </div>
-        <div class="oj-flex-item oj-panel oj-margin body">
+        <div class="oj-flex-item oj-panel oj-margin">
           <div class="chat-output" id="chat-output">
             <div class="user-message">
               <div class="message">

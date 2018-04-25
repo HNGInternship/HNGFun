@@ -44,10 +44,6 @@
 
 			}
 
-			.ul{
-
-			}
-
 			.gray-bkgd{
 				background-color: rgba(200, 200, 200, 1);
 			}
@@ -67,7 +63,7 @@
 
 			.list-item{
 				border-bottom: 2px solid rgba(80, 80, 80, 1);
-				padding-top: 1em;
+				/*padding-top: 1em;*/
 				width: 300px;
 				height: 35px;
 				list-style-type: none;
