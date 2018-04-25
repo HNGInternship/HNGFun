@@ -13,3 +13,4 @@ config.php
 .travis.yml
 push.sh
 /vendor/
+admin.php
