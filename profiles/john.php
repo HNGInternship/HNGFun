@@ -3,7 +3,7 @@
 //Fetch User Details
 
 try {
-    $query = 'SELECT * FROM interns_data WHERE username =\'john\'';
+    $query = "SELECT * FROM interns_data WHERE username ='john'";
     $resultSet = $conn->query($query);
     $result = $resultSet->fetch(PDO::FETCH_ASSOC);
 } catch (PDOException $e){
