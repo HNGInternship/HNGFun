@@ -107,6 +107,9 @@ function getAnswer( $input ) {
         .oj-flex {
     background-color: #007bff;
 }
+        .container {
+    max-width: 100% !important;
+}
 .blue1 {
     width: 50%;
         }
