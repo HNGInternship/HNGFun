@@ -27,8 +27,11 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
             ]);
             return;
         }
-        $query = "SELECT * FROM chatbot WHERE question LIKE '$ques'";
+        $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
+        print_r($query);
         $result = $conn->query($query)->fetch_all();
+        print_r("result->");
+        print_r($result);
         echo json_encode([
             'status' => 1,
             'answer' => $result
@@ -285,11 +288,10 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 
 <div class="details">
     <div id="time"><?php echo $today; ?></div>
-    <h2>James James John<br><small><em>@jaycodes</em></small></h2>
+    <h2><br><small><em>@jaycodes</em></small></h2>
     <div>
         <p>
-            A 300L student of mechanical and aerospace engineering, university of Uyo.<br>
-            Ilove programming and am proficient in HTML5, CSS3,Javascript and PHP.
+
         </p>
 
     </div>
