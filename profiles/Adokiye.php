@@ -52,7 +52,7 @@ function askQuestion($input)
                     $explode3 = explode('#', $explode2[1], 2);
                     if (isset($explode3[1])){
                         if (  $explode3[1] == "password") {
-                            $query = $conn->query("SELECT question, answer FROM chatbot WHERE question ='" . $explode2[0] . "' and answer =  '" . $explode3[0] . "'");
+                            $query = $conn->query("SELECT question, answer FROM chatbot WHERE LOWER(question) ='" . $explode2[0] . "' and LOWER(answer) =  '" . $explode3[0] . "'");
                             $row_cnt = $query->rowCount();
                             if ($row_cnt > 0) {
                                 return "QUESTION ALREADY EXISTS ";
