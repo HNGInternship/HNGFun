@@ -68,7 +68,7 @@ body{
   <h1 class="display-4">Hello, Everyone</h1>
   <p class="lead">This is a summary of my profile and skills</p>
 
-<div id="profilePic">`<img src="http://res.cloudinary.com/adetayo/image/upload/v1524582107/WIN_20171227_09_55_35_Pro.jpg" alt="ade">`</div>
+<div id="profilePic" class="col-md-4"><img src="http://res.cloudinary.com/adetayo/image/upload/v1524582107/WIN_20171227_09_55_35_Pro.jpg" alt="ade"></div>
 <div id="name"><?= $user->name?>  @<?= $user->username?></div>
 <div id="skills">Web developer</div>
 <div id="social">
