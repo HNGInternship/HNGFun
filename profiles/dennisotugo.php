@@ -1,189 +1,259 @@
-<!DOCTYPE HTML>
-<?php
-$sql = "SELECT * FROM interns_data WHERE username = 'dennisotugo'";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$data = $q->fetchAll();
-$dennisotugo = array_shift($data);
-// Secret word
-$sql = "SELECT * FROM secret_word";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$words = $q->fetch();
-$secret_word = $words['secret_word'];
-?>
+
+
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>Dennis Otugo</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="https://html5up.net/uploads/demos/aerial/assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="https://html5up.net/uploads/demos/aerial/assets/css/main.css" />	
-		<!--[if lte IE 8]><link rel="stylesheet" href="https://html5up.net/uploads/demos/aerial/assets/css/ie8.css" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="https://html5up.net/uploads/demos/aerial/assets/css/ie9.css" /><![endif]-->
-		<style>
-#overlay {
-
-    background-image: none;
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js">
+    <style type="text/css">
+	    .oj-flex {
+    overflow-y: scroll;
+    height: 100%;
 }
-#mainb {
-		text-align: center;
-		width: 100%;
-	}
-	.chat-input {
-  padding: 20px;
-  background: #eee;
-  border: 1px solid #ccc;
-  border-bottom: 0;
+	    .oj-flex {
+    height: 100%;
+    text-align: center;
+    position: fixed;
+    width: 50%;
+    left: 0;
+    background-color: #ffffff;
 }
-input {
-    background-color: #eee;
+	    
+	.profile {
+          height: 100%;
+    text-align: center;
+    position: fixed;
+    position: fixed;
+    position: fixed;
+    width: 50%;
+    right: 0;
+    background-color: #007bff;
+}
+	h1 {
+    color: blue;
+    color: white;
+    text-align: center;
+    bottom: 50%;
+    left: 65%;
+    position: fixed;
+    font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 700;
+}
+	p {
+    position: fixed;
+    bottom: 40%;
+    left: 58%;
+    line-height: 1.5;
+    margin: 30px 0;
+}
+	#mainNav {
+    position: fixed;
+}
+.user-input {
+    width: -webkit-fill-available;
     border: none;
-    font-family: sans-serif;
-    /* color: #000; */
-    /* padding: 15px 32px; */
-    text-align: center;
-    text-decoration: none;
+    padding: 10px 14px;
+    font-size: 18px;
+    line-height: normal;
+}
+#user-input-form {
+	    border-right: solid black 3px;
+    position: fixed;
+    width: 50%;
+    height: 7%;
+    left: 0;
+    bottom: 0px;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 9px 0px rgba(1, 1, 1, 1);
+	    }
+	    .user-message {
+		    float: left;
+    font-size: 16px;
+    background-color: #007bff63;
+    padding: 10px;
     display: inline-block;
-    /* font-size: 30px; */
-    width: 70%;
-    font-size: 1rem;
-    color: black;
-    /* border: 2px solid #000000; */
-    border-radius: 4px;
-    padding: 8px;
-}
-span#user {
-	display: none;
-}
-span#chatbot {
-    font-family: sans-serif;
-    padding: 15px 32px;
+    border-radius: 3px;
+    position: relative;
+    margin: 5px;
+	    
+	    }
+	    footer .copyright {
+    font-size: 14px;
+    margin-bottom: 0;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    width: 70%;
-    font-size: 1.2rem;
-    color: black;
+    left: 66% !important;
+    align-content: center;
 }
+	    
+	.bot-message {
+    float: right;
+    font-size: 16px;
+    background-color: #007bff63;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 15px 1px 1px 0px;
+}
+    </style>
+</head>
+<body>
+<div class="container">
+    <?php
 
+    global $conn;
 
-				</style>
-	</head>
-	<body class="loading">
-		<div id="wrapper">
-			<div id="bg"></div>
-			<div id="overlay"></div>
-			<div id="main">
-					
-					<header id="header">
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="melody"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    ?>
+<div class="profile">
 						<h1>Dennis Otugo</h1>
 						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
-						<nav>
-							<ul>
-								<li><a href="https://facebook.com/el.chapon.9" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-								<li><a href="https://twitter.com/wesleyotugo" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-								<li><a href="https://github.com/dennisotugo" class="icon fa-github"><span class="label">Github</span></a></li>
-								<li><a href="emailto:wesleyotugo@fedoraproject.org" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-							</ul>
-						</nav>
-					</header>
-					
-					
-						<footer id="footer">
-							<div id="mainb">
-					<div><span id="user"></span></div>
-					<div><span id="chatbot"></span></div>
-					<div><input id="input" type="text" placeholder="say anything..." autocomplete="off"/></div>
-				</div>
-				<script type="text/javascript">
-				var trigger = [
-					["hi","hey","hello"], 
-					["how are you", "how is life", "how are things"],
-					["what are you doing", "what is going on"],
-					["how old are you"],
-					["who are you", "are you human", "are you bot", "are you human or bot"],
-					["who created you", "who made you"],
-					["your name please",  "your name", "may i know your name", "what is your name"],
-					["i love you"],
-					["happy", "good"],
-					["bad", "bored", "tired"],
-					["help me", "tell me story", "tell me joke"],
-					["ah", "yes", "ok", "okay", "nice", "thanks", "thank you"],
-					["bye", "good bye", "goodbye", "see you later"]
-				];
-				var reply = [
-					["Hi","Hey","Hello"], 
-					["Fine", "Pretty well", "Fantastic"],
-					["Nothing much", "About to go to sleep", "Can you guest?", "I don't know actually"],
-					["I am 1 day old"],
-					["I am just a bot", "I am a bot. What are you?"],
-					["Kani Veri", "My God"],
-					["I am nameless", "I don't have a name"],
-					["I love you too", "Me too"],
-					["Have you ever felt bad?", "Glad to hear it"],
-					["Why?", "Why? You shouldn't!", "Try watching TV"],
-					["I will", "What about?"],
-					["Tell me a story", "Tell me a joke", "Tell me about yourself", "You are welcome"],
-					["Bye", "Goodbye", "See you later"]
-				];
-				var alternative = ["Haha...", "Eh..."];
-				document.querySelector("#input").addEventListener("keypress", function(e){
-					var key = e.which || e.keyCode;
-					if(key === 13){ //Enter button
-						var input = document.getElementById("input").value;
-						document.getElementById("user").innerHTML = input;
-						output(input);
-					}
-				});
-				function output(input){
-					try{
-						var product = input + "=" + eval(input);
-					} catch(e){
-						var text = (input.toLowerCase()).replace(/[^\w\s\d]/gi, ""); //remove all chars except words, space and 
-						text = text.replace(/ a /g, " ").replace(/i feel /g, "").replace(/whats/g, "what is").replace(/please /g, "").replace(/ please/g, "");
-						if(compare(trigger, reply, text)){
-							var product = compare(trigger, reply, text);
-						} else {
-							var product = alternative[Math.floor(Math.random()*alternative.length)];
-						}
-					}
-					document.getElementById("chatbot").innerHTML = product;
-					speak(product);
-					document.getElementById("input").value = ""; //clear input value
-				}
-				function compare(arr, array, string){
-					var item;
-					for(var x=0; x<arr.length; x++){
-						for(var y=0; y<array.length; y++){
-							if(arr[x][y] == string){
-								items = array[x];
-								item =  items[Math.floor(Math.random()*items.length)];
-							}
-						}
-					}
-					return item;
-				}
-				function speak(string){
-					var utterance = new SpeechSynthesisUtterance();
-					utterance.voice = speechSynthesis.getVoices().filter(function(voice){return voice.name == "Agnes";})[0];
-					utterance.text = string;
-					utterance.lang = "en-US";
-					utterance.volume = 1; //0-1 interval
-					utterance.rate = 1;
-					utterance.pitch = 1; //0-2 interval
-					speechSynthesis.speak(utterance);
-				}
-				</script>
-						</footer>
 
-			</div>
-		</div>
-		<!--[if lte IE 8]><script src="html5up.net/uploads/demos/aerial/assets/js/ie/respond.min.js"></script><![endif]-->
-		<script>
-			window.onload = function() { document.body.className = ''; }
-			window.ontouchmove = function() { return false; }
-			window.onorientationchange = function() { document.body.scrollTop = 0; }
-		</script>
-	</body>
-</html>
+					</div>
+    <div class="oj-flex oj-flex-items-pad oj-contrast-marker">
+
+        <div class="oj-sm-6 oj-md-6 oj-flex-item">
+            <div class="body1">
+                <div class="chat-output" id="chat-output">
+                    <div class="user-message">
+                        <div class="message">train: question # answer # password'</div>
+                    </div>
+                </div>
+
+                <div class="chat-input">
+                    <form action="" method="post" id="user-input-form">
+                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here">
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <?php
+if(!$do_not_load) { include('header.php'); }
+if(!$do_not_load) { include('footer.php'); }
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $data = $_POST['user-input'];
+      //  $data = preg_replace('/\s+/', '', $data);
+        $temp = explode(':', $data);
+        $temp2 = preg_replace('/\s+/', '', $temp[0]);
+        
+        if($temp2 === 'train'){
+            train($temp[1]);
+        }elseif($temp2 === 'aboutbot') {
+            aboutbot();
+        }else{
+            getAnswer($temp[0]);
+        }
+    }
+
+    function aboutbot() {
+        echo "<div id='result'>v11.0</div>";
+    }
+    function train($input) {
+        $input = explode('#', $input);
+        $question = trim($input[0]);
+        $answer = trim($input[1]);
+        $password = trim($input[2]);
+        if($password == 'password') {
+            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+            $q = $GLOBALS['conn']->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+
+            if(empty($data)) {
+                $training_data = array(':question' => $question,
+                    ':answer' => $answer);
+
+                $sql = 'INSERT INTO chatbot ( question, answer)
+              VALUES (
+                  :question,
+                  :answer
+              );';
+
+                try {
+                    $q = $GLOBALS['conn']->prepare($sql);
+                    if ($q->execute($training_data) == true) {
+                        echo "<div id='result'>Training Successful!</div>";
+                    };
+                } catch (PDOException $e) {
+                    throw $e;
+                }
+            }else{
+                echo "<div id='result'>I already understand this. Teach me something new!</div>";
+            }
+        }else {
+            echo "<div id='result'>Invalid Password, Try Again!</div>";
+
+        }
+    }
+
+    function getAnswer($input) {
+        $question = $input;
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+        $q = $GLOBALS['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
+        if(empty($data)){
+            echo "<div id='result'>Sorry,'train: question # answer # password'</div>";
+        }else {
+            $rand_keys = array_rand($data);
+            echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
+        }
+    }
+    ?>
+
+</div>
+
+</body>
+
+
+<script>
+    var outputArea = $("#chat-output");
+
+    $("#user-input-form").on("submit", function(e) {
+
+        e.preventDefault();
+
+        var message = $("#user-input").val();
+
+        outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
+
+
+        $.ajax({
+            url: 'profile.php?id=melody',
+            type: 'POST',
+            data:  'user-input=' + message,
+            success: function(response) {
+                var result = $($.parseHTML(response)).find("#result").text();
+                setTimeout(function() {
+                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+                    $('#chat-output').animate({
+                        scrollTop: $('#chat-output').get(0).scrollHeight
+                    }, 1500);
+                }, 250);
+            }
+        });
+
+
+        $("#user-input").val("");
+
+    });
+</script>

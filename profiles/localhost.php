@@ -1,56 +1,55 @@
 
-
  <!DOCTYPE html>
 <html>
 <head>
-	<title>My Profile Page</title>
-	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>My Profile Page</title>
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <style type="text/css">
 body{
-	background-color: aliceblue;
+  background-color: aliceblue;
 }
 .big-container{
-	width:100%;
-	height:100%;
-	background-color: floralwhite;
+  width:100%;
+  height:100%;
+  background-color: floralwhite;
 }
-	.img-fluid{
+  .img-fluid{
       width: 300px;
       height: 300px;
       border-color: #FFF;
-	    border-width: 5px;
-	    border-style: solid;
-	    border-radius: 50%;
+      border-width: 5px;
+      border-style: solid;
+      border-radius: 50%;
       margin-top:60px;
      
-	} 
-	.text-uppercase, .text-lowercase, .font-weight-light{
-		text-align: center
-	}
-	.list-inline{
-		text-align: center;
-	}
-	.footer{
-		/* padding-top: 20px; */
-		margin-left:500px;
-	}
+  } 
+  .text-uppercase, .text-lowercase, .font-weight-light{
+    text-align: center
+  }
+  .list-inline{
+    text-align: center;
+  }
+  .footer{
+    /* padding-top: 20px; */
+    margin-left:500px;
+  }
 
 </style>
 <body>
-	<?php
-	include('../header.php');
-	include('../config.php');
+  <?php
+  /*include('../header.php');
+  include('../config.php');
 
-	require '../db.php';
-	$stmt = $conn->query("SELECT * FROM secret_word");
-	
-	$result = $stmt->fetch(PDO::FETCH_ASSOC);
-	$secret_word = $result['secret_word'];
+  require '../db.php';*/
+  $stmt = $conn->query("SELECT * FROM secret_word LIMIT 1");
+  
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  $secret_word = $result['secret_word'];
 
 
-   $sql = "SELECT * FROM interns_data_ where username='@localhost'";
+   $sql = "SELECT * FROM interns_data where username='localhost'";
    $query = $conn->query($sql);
    $query->setFetchMode(PDO::FETCH_ASSOC); 
    $result = $query->fetch();
@@ -58,14 +57,14 @@ body{
        $username = $result['username'];
        $image = $result['image_filename'];
 ?>
-	<div class="big-container">
+  <div class="big-container">
         <img class="img-fluid mb-5 d-block mx-auto" src="<?php echo $image; ?>" alt="">
         <h1 class="text-uppercase mb-0"><?php echo($name) ?></h1>
         <h1 class="text-lowercase mb-0"><?php echo $username; ?></h1>
         <hr class="star-light">
        <h2 class="font-weight-light mb-5">Languages: PHP - MySQL - HTML - CSS</h2>
       </div>
-	
+  
 
 
  <!-- Footer -->
@@ -95,7 +94,9 @@ body{
           </div>
       </div>
     </footer>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js">
+
 </script>
 </div>
 </body>

@@ -27,7 +27,8 @@ class Jimie extends Component {
         },
         {
           by: 'jimie',
-          message: 'My name is Jimie. How may I assist you today?',
+          message: `My name is Jimie. How may I assist you today? \\n
+                    Type --Help to see my list of special commands.`,
         }
       ],
     }
@@ -55,6 +56,7 @@ class Jimie extends Component {
     
     this.setState({
       botBusy: true,
+      chatMessage: '',
     }, () => {
       this.scroll.scrollToBottom();
     });
@@ -70,9 +72,6 @@ class Jimie extends Component {
           message,
           by: 'jimie',
         }, { setBusy: false });
-        this.setState({
-          chatMessage: '',
-        })
       }
     })
     .catch((error) => {

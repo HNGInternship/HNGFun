@@ -1,32 +1,4 @@
 <?php
-$file = realpath(__DIR__ . '/..') . "/db.php"    ;
-include $file;
-global $conn;
-$image_filename = '';
-$name = '';
-$username = '';
-$sql = "SELECT * FROM interns_data where username = 'bytenaija'";
-foreach ($conn->query($sql) as $row) {
-    $image_filename = $row['image_filename'];
-    $name = $row['name'];
-    $username = $row['username'];
-}
-
-global $secret_word;
-
-try {
-    $sql = "SELECT secret_word FROM secret_word";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-    $secret_word = $data['secret_word'];
-} catch (PDOException $e) {
-    throw $e;
-}
-
-require realpath(__DIR__ . '/..') ."/answers.php";
-$file = realpath(__DIR__ . '/..') . "/db.php"    ;
-include $file;
 global $conn;
 
 
@@ -75,10 +47,24 @@ function processQuestion($str){
     }else if(validateFunction($str)){
        list($functionName, $paramenter) = explode('(', $str) ;
         list($paramenter, $useless) = explode(')', $paramenter);
+        if(strpos($paramenter, ",")!== false){
+            $paramenterArr = explode(",", $paramenter);
+        }
        switch ($functionName){
            case "time":
-           bytenaija_time($paramenter);
-           break;
+           //bytenaija_time(urlencode($paramenter));
+           //break;
+
+           case "convert":
+           //bytenaija_convert(trim($paramenterArr[0]), trim($paramenterArr[1]));
+           //break;
+
+           case "hodl":
+           //bytenaija_hodl();
+           //break;
+
+           default:
+           echo "That command has not been implemented yet. It has been put on hold till stage 5";
        }
     }else{
         //call database for question;
@@ -91,11 +77,13 @@ function training($question, $answer){
   global $conn;
   
     try {
+       
         $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
         
         $conn->exec($sql);
 
         $message = "Saved " . $question ." -> " . $answer;
+        
         
         echo $message;
 
@@ -108,39 +96,88 @@ function training($question, $answer){
     }
 
     function getAnswerFromDb($str){
-
         global $conn;
+        if(strpos($str, "deleteEmpty") === false){        
         $str = "'%".$str."%'";
         if($str !== ''){
-            $sql = "SELECT COUNT(*) FROM chatbot WHERE question LIKE " . $str;
+           /*  $sql = "SELECT COUNT(*) FROM chatbot WHERE question LIKE " . $str;
             if ($res = $conn->query($sql)) {
-
-                /* Check the number of rows that match the SELECT statement */
-              if ($res->fetchColumn() > 0) {
-       
-        $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $str . " ORDER BY question ASC LIMIT 1";
+               
+               
+              if ($res->fetchColumn() > 0) { */
+            
+                
+        $sql = "SELECT answer FROM chatbot WHERE question LIKE " . $str . " ORDER BY answer ASC";
+        $q = $conn->query($sql);
+        $count = $q->rowCount();
+        if($count > 0){
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
         
-      foreach ($conn->query($sql) as $row) {
-          
-            echo $row["answer"];
-        }} else{
-            echo "I don't understand that command yet. My master is very lazy. Try agin in 200 years. You could train me to understand this!";
+        $rand = rand(0, $count - 1);
+    
+        echo $data[$rand]["answer"];
+ 
+        }else{
+            echo "I don't understand that command yet. My master is very lazy. Try again in 200 years. You could train me to understand this using this format <strong>train: question # answer</strong>!";
         }
-    }
+    
         
         }else{
             echo "Enter a valid command!";
         }
+    }else{
+        $sql = "DELETE FROM chatbot WHERE question = '' OR answer=''";
+        $q = $conn->query($sql);
+        $count = $q->rowCount();
+        if($count > 0){
+            echo "All empty questions and answers deleted!";
+        }else{
+            echo "There is no question or answer that is empty!";
+        }
+
+    }
     }
 
-include_once realpath(__DIR__ . '/..') . "/answers.php"; 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  
-    processQuestion($_POST['query']);
-    
+
+if (isset($_GET["query"])) {
+    include_once realpath(__DIR__ . '/..') . "/answers.php"; 
+    if(!defined('DB_USER')){
+        require "../../config.php";
+      }
+      try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+      } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+      }
+global $conn;
+$image_filename = '';
+$name = '';
+$username = '';
+$sql = "SELECT * FROM interns_data where username = 'bytenaija'";
+foreach ($conn->query($sql) as $row) {
+    $image_filename = $row['image_filename'];
+    $name = $row['name'];
+    $username = $row['username'];
 }
 
-if($_SERVER['REQUEST_METHOD'] === "GET"){
+global $secret_word;
+
+try {
+    $sql = "SELECT secret_word FROM secret_word";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+    $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+    throw $e;
+}
+
+
+    processQuestion($_GET['query']);
+    
+}else{
+
 ?>
 
 <!DOCTYPE html>
@@ -431,7 +468,25 @@ font-family: Lato;
     color: #000000;
     font-family: Lato;
 }
+.move-right{
+    animation: move  5s;
+    animation-fill-mode: forwards;
+    position: relative;
+    left: -100%;
+    
 
+}
+
+@keyframes move{
+   from{
+        left:-100%;
+    }
+
+    to{
+        left:18%;
+    }
+
+}
 @media screen and (max-width: 900px){
 
 html, body{
@@ -440,7 +495,7 @@ html, body{
 }
     .bot{
         width : 100%;
-        margin: 0 auto;
+        margin: 0 0;
     }
 
     aside{
@@ -530,7 +585,39 @@ header{
     </style>
 </head>
 <body>
+<?php
 
+if(!defined('DB_USER')){
+    require "../../config.php";
+  }
+  try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
+global $conn;
+$image_filename = '';
+$name = '';
+$username = '';
+$sql = "SELECT * FROM interns_data where username = 'bytenaija'";
+foreach ($conn->query($sql) as $row) {
+    $image_filename = $row['image_filename'];
+    $name = $row['name'];
+    $username = $row['username'];
+}
+
+global $secret_word;
+
+try {
+    $sql = "SELECT secret_word FROM secret_word";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+    $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+    throw $e;
+}
+?>
     <header>
         <h1>Welcome to HNG  <br />Internship 4</h1>
     </header>
@@ -575,10 +662,11 @@ header{
     
     </div>
 
-    <div class="bot">
+    <div class="bot move-right">
+    <h2>Byte9ja Chatbot</h2>
     <div id="botresponse"> </div>
     <br />
-    <input type="text" name="botchat" placeholder="Chat with me!" onkeypress="return runScript(event)" onkeyDown="recall(event)" class="form-control">
+    <input type="text" name="botchat" placeholder="Chat with me! Press enter to send." onkeypress="return runScript(event)" onkeyDown="recall(event)" class="form-control">
     
     
    
@@ -586,9 +674,9 @@ header{
     </section>
 
 <script>
-let url = "https://hng.fun/profiles/bytenaija.php"
-//url = window.location.href + "?bytenaija=1";
-let trainMode = false;
+let url = "profiles/bytenaija.php?query=";
+url = window.location.href + "?query=";
+
 let botResponse = document.querySelector("#botresponse");
 window.onload = instructions;
 let stack = [];
@@ -625,22 +713,17 @@ if (e.keyCode == 13) {
             dv.innerHTML = "<span class='user'>You: </span> <span class='userres'>" + input.value + "</span>";
            botResponse.appendChild(dv)
            stack.push(input.value)
-    var data = new FormData();
-    data.append("query", input.value);
     
-   let urlL = url;
-    fetch(urlL, {
-                method: 'POST',
-                body: data,
-            
-            })
+   let urlL = url + encodeURIComponent(input.value);
+   console.log(urlL);
+    fetch(urlL)
     .then(response=>{
         
         return response.text();
     })
     .then(
         response=>{
-            
+            console.log(response)
             print(response);
         });
         input.value = '';
@@ -657,7 +740,7 @@ function print(response){
 
 function instructions(){
     $string = '<div class="instructions">My name is byte9ja. I am a Robot. Type a command and I will try and answer you.<br> Meanwhile, try this commands';
-    $string += "<li><strong>time(city) will give you the time in that city: e.g. time(abuja) </strong></li>";
+    $string += "<li><strong>deleteEmpty record - to delete any record the question or answer is empty</strong></li>";
     $string += "<li><strong>train: question # answer - to train me and make me more intelligent</strong></li>";
     $string += "</div>"
  

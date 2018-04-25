@@ -20,7 +20,8 @@
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		  })(window,document,'script','
+		     s://www.google-analytics.com/analytics.js','ga');
 
 		  ga('create', 'UA-77783023-1', 'auto');
 		  ga('send', 'pageview');
@@ -31,11 +32,11 @@
 
 <style>
 
-@import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900");
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900");
 @import url("font-awesome.min.css");
 
 
-	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
 		margin: 0;
 		padding: 0;
 		border: 0;
@@ -878,6 +879,9 @@
 			background-size: 300px auto;
 			width: 900px;
 		}
+		img {
+  			border-radius: 50%;
+		}
 
 	/* Header */
 
@@ -997,10 +1001,19 @@
 					
 					<?php
 						echo "Time " . date("h:i:sa");
-					?>
+					
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+
+   $result2 = $conn->query("Select * from interns_data where username = 'femicodes'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+    					
+?>
 
 							<!-- <p>Time: <span id="datetime"></span></p> -->
-						<h1>Aghedo Joseph Femi</h1>
+						<img style="border-radius: 50%;" src="<?php echo $user->image_filename ?>" height="200px" width="200px" />
+						<h1><?php echo $user->name ?></h1>
 						<p>Android Developer &nbsp;&bull;&nbsp; Technical Writer &nbsp;&bull;&nbsp; Part Time UI/UX Designer</p>
 					
 						<nav>

@@ -1,16 +1,10 @@
 <?php
-
-/* DO NOT TOUCH THIS FILE */
 include_once("header.php");
 require 'db.php';
-
-/* YOUR INTERNS DATA TABLE SHOULD BE named interns_data */
 $sql = 'SELECT * FROM interns_data';
 $q = $conn->query($sql);
 $q->setFetchMode(PDO::FETCH_ASSOC);
 $data = $q->fetchAll();
-
-
 ?>
 <header class="masthead" style="background-image: url('img/about-bg.jpg')">
    <div class="overlay"></div>
