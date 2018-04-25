@@ -1,4 +1,103 @@
+<script>
+     Copyright (c) 2015, 2018, Oracle and/or its affiliates.
+  The Universal Permissive License (UPL), Version 1.0
+*/
+'use strict';
 
+/**
+ * Example of Require.js boostrap javascript
+ */
+/* eslint-disable quote-props */
+
+requirejs.config(
+  {
+    baseUrl: 'js',
+
+    // Path mappings for the logical module names
+    // Update the main-release-paths.json for release mode when updating the mappings
+    paths: {
+        'knockout',
+        'ojs/ojcore',
+        'jquery',
+        'ojs/ojknockout',
+        'ojs/ojtable',
+        'ojs/ojarraytabledatasource',
+        'ojs/ojvalidation-datetime',
+        'ojs/ojvalidation-number'
+    },
+
+    // Shim configurations for modules that do not expose AMD
+    shim:
+    {
+      'jquery':
+      {
+        exports: ['jQuery', '$']
+      }
+    }
+  }
+);
+
+require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout'],
+  function (oj, ko, $) {
+    $(function () {
+      function init() {
+      }
+
+      // If running in a hybrid (e.g. Cordova) environment, we need to wait for the deviceready
+      // event before executing any code that might interact with Cordova APIs or plugins.
+      if ($(document.body).hasClass('oj-hybrid')) {
+        document.addEventListener('deviceready', init);
+      } else {
+        init();
+      }
+    });
+  }
+);
+/**
+ J ET* libraries, as well as 3rd party libraries that are distributed as part of JET, are available via a Content Delivery Network(CDN) to help provide the best  performance for your product. 
+ 
+ This also makes upgrading to new releases very quick and easy.
+ **/
+
+function _getCDNPath(paths) {
+    var cdnPath = "https://static.oracle.com/cdn/jet/";
+    var ojPath = "v5.0.0/default/js/";
+    var thirdpartyPath = "v5.0.0/3rdparty/";
+    var keys = Object.keys(paths);
+    var newPaths = {};
+    function _isoj(key) {
+        return (key.indexOf('oj') === 0 && key !== 'ojdnd');
+    }
+    keys.forEach(function(key) {
+        newPaths[key] = cdnPath + (_isoj(key) ? ojPath : thirdpartyPath) + paths[key];
+    });
+    return newPaths;
+}
+
+requirejs.config({
+    paths: _getCDNPath({
+        'knockout': 'knockout/knockout-3.4.2',
+        'jquery': 'jquery/jquery-3.3.1.min',
+        'jqueryui-amd': 'jquery/jqueryui-amd-1.12.1.min',
+        'promise': 'es6-promise/es6-promise.min',
+        'ojs': 'min',
+        'ojL10n': 'ojL10n',
+        'ojtranslations': 'resources',
+        'signals': 'js-signals/signals.min',
+        'text': 'require/text',
+        'hammerjs': 'hammer/hammer-2.0.8.min',
+        'ojdnd': 'dnd-polyfill/dnd-polyfill-1.0.0.min',
+        'customElements': 'webcomponents/custom-elements.min'
+    }),
+    // Shim configurations for modules that do not expose AMD
+    shim: {
+        'jquery': {
+            exports: ['jQuery', '$']
+        }
+    }
+});
+
+</script>
 
    <?php
 try {
@@ -103,7 +202,8 @@ function getAnswer( $input ) {
     @import url('//static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css');
     /*]]>*/
     </style><!-- endinjector -->
-
+<!-- RequireJS bootstrap file -->
+<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
     <style type="text/css">
 /*<![CDATA[*/
             .oj-flex {
@@ -207,8 +307,6 @@ function getAnswer( $input ) {
         Human Being | Cyborg | Never asked for this
       </p>
     </div>
-    <div class="oj-flex oj-flex-items-pad oj-contrast-marker">
-      <div class="oj-sm-6 oj-md-6 oj-flex-item">
         <div class="body1">
           <div class="chat-output" id="chat-output">
             <div class="user-message">
@@ -224,13 +322,9 @@ function getAnswer( $input ) {
               class="user-input" placeholder="Enter Text here" />
             </form>
           </div>
-        </div>
-      </div>
-    </div><script src=
-    "https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/require/require.js"
-    type="text/javascript">
-</script><script src="js/main.js" type="text/javascript">
-</script><script type="text/javascript">
+    </div>
+</script>
+     <script>
 //<![CDATA[
     var outputArea = $("#chat-output");
 
