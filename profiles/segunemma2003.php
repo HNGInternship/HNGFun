@@ -327,7 +327,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                 e.preventDefault();
 		let chat = $('textarea');
                 let message = chat.val().trim();
-		alert('message');
+		alert(message);
                 //document.write(message);
                 let container = $('.chatlogs');
                 if (message != ''){
