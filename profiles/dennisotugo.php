@@ -218,7 +218,7 @@ function getAnswer( $input ) {
   <div class="oj-flex-item white2">
     <div class="chat-output" id="chat-output">
         <div class="user-message"></div>
-        <div class="message">train: question # answer # password'></div>
+        <div class="message">train: question # answer # password</div>
         <div class="chat-input">
             <form action="" method="post" id="user-input-form" name="user-input-form"></div>
             <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here" /></form></div>
