@@ -19,8 +19,11 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    include "../answers.php";
+    require "../answers.php";
     
+    date_default_timezone_set("Africa/Lagos");
+
+
     try{
 
 	    if(!isset($_POST['question'])){
@@ -32,7 +35,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	    }
 
 	    //if(!isset($_POST['question'])){
-	    /*$mem = $_POST['question'];
+	    $mem = $_POST['question'];
 	    $mem = preg_replace('([\s]+)', ' ', trim($mem));
 	    $mem = preg_replace("([?.])", "", $mem);
 		$arr = explode(" ", $mem);
@@ -167,7 +170,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    	]);
 		    	return;
 		    }
-	    }*/
+	    }
 	}catch (Exception $e){
 		return $e->message ;
 	}
