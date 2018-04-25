@@ -217,14 +217,10 @@ require 'db.php';
 
 .card.hovercard {
     position: relative;
-    padding-top: 30px;
-    padding-left:150px;
-    padding-bottom:50px;
-    overflow: hidden;
+    padding-top: 0;
+    overflow: visible;
     text-align: center;
-    background: #00b09b;  /* fallback for old browsers */
-
-   
+    background-color: rgba(214, 224, 226, 0.2);
 }
 
 .card.hovercard .cardheader {
