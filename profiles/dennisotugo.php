@@ -162,11 +162,6 @@ function getAnswer( $input ) {
     position: relative;
     margin: 15px 1px 1px 0px;
     }
-      .bot-message:before {
-    border-color: transparent #007bff63 transparent transparent;
-    border-width: 0 10px 10px 0;
-    left: -9px;
-}
 .user-message {
     font-size: 16px;
     background-color: #ffffff;
@@ -201,11 +196,6 @@ function getAnswer( $input ) {
             
                       
             }
-            .user-message:before {
-    border-color: transparent #007bff63 transparent transparent;
-    border-width: 0 10px 10px 0;
-    left: -9px;
-}
     </style>
   </head>
   <body>
