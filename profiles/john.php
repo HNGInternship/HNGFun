@@ -1,5 +1,4 @@
 <?php
-require '../db.php';
 
 //Fetch User Details
 
