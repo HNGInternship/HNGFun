@@ -66,10 +66,12 @@
                 height="90%"
                 style='position: absolute;
                        z-index: 1;
-                       left: 20px'>
+                       left: 60px'>
             </iframe>
 
         </div>
     </body>
 </html>
-
+<script>
+    sessionStorage.setItem('answers', JSON.stringify(<?php echo $json; ?>));
+</script>

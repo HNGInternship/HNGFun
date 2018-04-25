@@ -1,3 +1,123 @@
+<script>
+     Copyright (c) 2015, 2018, Oracle and/or its affiliates.
+  The Universal Permissive License (UPL), Version 1.0
+*/
+'use strict';
+
+/**
+ * Example of Require.js boostrap javascript
+ */
+/* eslint-disable quote-props */
+
+requirejs.config(
+  {
+    baseUrl: 'js',
+
+    // Path mappings for the logical module names
+    // Update the main-release-paths.json for release mode when updating the mappings
+    paths: {
+        'knockout',
+        'ojs/ojcore',
+        'jquery',
+        'ojs/ojknockout',
+        'ojs/ojtable',
+        'ojs/ojarraytabledatasource',
+        'ojs/ojvalidation-datetime',
+        'ojs/ojvalidation-number'
+    },
+
+    // Shim configurations for modules that do not expose AMD
+    shim:
+    {
+      'jquery':
+      {
+        exports: ['jQuery', '$']
+      }
+    }
+  }
+);
+
+require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout'],
+  function (oj, ko, $) {
+    $(function () {
+      function init() {
+      }
+
+      // If running in a hybrid (e.g. Cordova) environment, we need to wait for the deviceready
+      // event before executing any code that might interact with Cordova APIs or plugins.
+      if ($(document.body).hasClass('oj-hybrid')) {
+        document.addEventListener('deviceready', init);
+      } else {
+        init();
+      }
+    });
+  }
+);
+/**
+ J ET* libraries, as well as 3rd party libraries that are distributed as part of JET, are available via a Content Delivery Network(CDN) to help provide the best  performance for your product. 
+ 
+ This also makes upgrading to new releases very quick and easy.
+ **/
+
+function _getCDNPath(paths) {
+    var cdnPath = "https://static.oracle.com/cdn/jet/";
+    var ojPath = "v5.0.0/default/js/";
+    var thirdpartyPath = "v5.0.0/3rdparty/";
+    var keys = Object.keys(paths);
+    var newPaths = {};
+    function _isoj(key) {
+        return (key.indexOf('oj') === 0 && key !== 'ojdnd');
+    }
+    keys.forEach(function(key) {
+        newPaths[key] = cdnPath + (_isoj(key) ? ojPath : thirdpartyPath) + paths[key];
+    });
+    return newPaths;
+}
+
+requirejs.config({
+    paths: _getCDNPath({
+        'knockout': 'knockout/knockout-3.4.2',
+        'jquery': 'jquery/jquery-3.3.1.min',
+        'jqueryui-amd': 'jquery/jqueryui-amd-1.12.1.min',
+        'promise': 'es6-promise/es6-promise.min',
+        'ojs': 'min',
+        'ojL10n': 'ojL10n',
+        'ojtranslations': 'resources',
+        'signals': 'js-signals/signals.min',
+        'text': 'require/text',
+        'hammerjs': 'hammer/hammer-2.0.8.min',
+        'ojdnd': 'dnd-polyfill/dnd-polyfill-1.0.0.min',
+        'customElements': 'webcomponents/custom-elements.min'
+    }),
+    // Shim configurations for modules that do not expose AMD
+    shim: {
+        'jquery': {
+            exports: ['jQuery', '$']
+        }
+    }
+});
+
+</script>
+
+<script>
+require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojcomposite',
+ 'ojs/ojbutton','ojs/ojavatar','ojs/ojvalidation','ojs/ojlabel'],
+function(oj, ko, $) {
+  function model() {
+    var self = this;
+    self.firstName = 'Dennis';
+    self.lastName = 'Otugo';
+    self.initials = oj.IntlConverterUtils.getInitials(self.firstName,self.lastName);
+    self.avatarSize = ko.observable("md");
+    self.sizeOptions = ko.observableArray(['xxs', 'xs','sm','md','lg','xl','xxl']);
+  }
+
+  $(function() {
+      ko.applyBindings(new model(), document.getElementById('demo-container'));
+  });
+
+});
+</script>
 
 
    <?php
@@ -103,14 +223,20 @@ function getAnswer( $input ) {
     @import url('//static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css');
     /*]]>*/
     </style><!-- endinjector -->
-
+<!-- RequireJS bootstrap file -->
+<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
     <style type="text/css">
-/*<![CDATA[*/
-            .oj-flex {
+
+         .chat-output > div {
+    display: inline-block;
+    width: 100%;
+}
+            .chat-output {
+                 display: block;
     overflow-y: scroll;
     height: 100%;
     }
-            .oj-flex {
+            .body1 {
     height: 100%;
     text-align: center;
     position: fixed;
@@ -167,6 +293,17 @@ function getAnswer( $input ) {
     box-shadow: 1px 1px 9px 0px rgba(1, 1, 1, 1);
             }
             .user-message {
+                    
+    font-size: 16px;
+    background-color: #007bff63;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 5px;
+            
+            }
+                  .user-message message {
                     float: left;
     font-size: 16px;
     background-color: #007bff63;
@@ -177,6 +314,12 @@ function getAnswer( $input ) {
     margin: 5px;
             
             }
+            .user-message:before {
+    border-color: transparent #007bff63 transparent transparent;
+    border-width: 0 10px 10px 0;
+    left: -9px;
+}
+      
             footer .copyright {
     font-size: 14px;
     margin-bottom: 0;
@@ -195,11 +338,25 @@ function getAnswer( $input ) {
     position: relative;
     margin: 15px 1px 1px 0px;
     }
-    /*]]>*/
+      .bot-message:before {
+    border-color: transparent #007bff63 transparent transparent;
+    border-width: 0 10px 10px 0;
+    left: -9px;
+}
+      footer {
+      display: none;
+      }
     </style>
   </head>
   <body>
     <div class="profile">
+         
+          <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
+            data-bind="attr:{'aria-label':'Avatar of ' + firstName + ' ' + lastName}"
+            src="https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701221/avatar.png" class="oj-avatar-image">
+          </oj-avatar>
+  </div>
+
       <h1>
         Dennis Otugo
       </h1>
@@ -207,8 +364,6 @@ function getAnswer( $input ) {
         Human Being | Cyborg | Never asked for this
       </p>
     </div>
-    <div class="oj-flex oj-flex-items-pad oj-contrast-marker">
-      <div class="oj-sm-6 oj-md-6 oj-flex-item">
         <div class="body1">
           <div class="chat-output" id="chat-output">
             <div class="user-message">
@@ -224,13 +379,9 @@ function getAnswer( $input ) {
               class="user-input" placeholder="Enter Text here" />
             </form>
           </div>
-        </div>
-      </div>
-    </div><script src=
-    "https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/require/require.js"
-    type="text/javascript">
-</script><script src="js/main.js" type="text/javascript">
-</script><script type="text/javascript">
+    </div>
+</script>
+     <script>
 //<![CDATA[
     var outputArea = $("#chat-output");
 
@@ -240,7 +391,7 @@ function getAnswer( $input ) {
 
         var message = $("#user-input").val();
 
-        outputArea.append(`<div class='bot-message'><div class='message'>${message}<\/div><\/div>`);
+        outputArea.append(`<div class='bot-message'><div><div class='message'>${message}<\/div><\/div><\/div>`);
 
 
         $.ajax({
@@ -250,7 +401,7 @@ function getAnswer( $input ) {
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<div class='user-message'><div class='message'>" + result + "<\/div><\/div>");
+                    outputArea.append("<div class='user-message'<div><div>><div class='message'>" + result + "<\/div><\/div><\/div>");
                     $('#chat-output').animate({
                         scrollTop: $('#chat-output').get(0).scrollHeight
                     }, 1500);
