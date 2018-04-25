@@ -54,7 +54,7 @@ $input = trim($input);
                             if ($row_cnt > 0) {
                                 return "QUESTION ALREADY EXISTS ";
                             } else
-                                $the_queried = $conn->query("INSERT INTO chatbot(question, answer) VALUES ('" . $explode2[0] . "', '" . $explode3[0] . "')");
+                                $the_queried = $conn->query(print_r("INSERT INTO chatbot(question, answer) VALUES ('" . $explode2[0] . "', '" . $explode3[0] . "')"));
                             if ($the_queried) {
                                 $saved_message = "Saved " . $explode2[0] . " -> " . $explode3[0];
                                 return $saved_message;
