@@ -1,0 +1,29 @@
+/*
+    Document   : override
+    Created on : <date>
+    Author     : <author>
+    Description:
+        This is where any of your application specific styles should be included
+*/
+oj-module:not(.oj-complete) {
+  visibility: hidden; 
+}
+
+oj-module {
+  display: block; 
+}
+
+@media only screen and (max-width: 1100px){
+     .row {
+         display: block;
+     }
+     
+     .info {
+         position: absolute;
+         left: -200px
+     }
+     
+     .bot {
+         display: none;
+     }
+ }
