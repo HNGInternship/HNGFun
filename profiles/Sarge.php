@@ -39,7 +39,6 @@
 	}
 
 	.profile{
-		border: 1px outline #333;
 		border-radius: 10px;
 		box-shadow: rgba(0, 0, 0, 0.3) 12px 15px 20px;
 		height: auto;
@@ -111,9 +110,9 @@
 	/* smartphones, iPhone, portrait 480x320 phones */
 .profile{
 		
-		width: 19em;
+		width: 17em;
 		margin: auto;
-		font-size: 0.875em;
+		font-size: 1em;
 	}
 
 .profile-social{
@@ -121,7 +120,7 @@
 }
 
 	.about-me-title{
-		left: 23%;
+		left: 21%;
 	}
 }
 
