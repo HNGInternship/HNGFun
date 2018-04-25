@@ -22,7 +22,7 @@ require 'db.php';
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
+<link href="https://fonts.googleapis.com/css?family=Tajawal" rel="stylesheet">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <title>Adetay0 </title>
 </head>
@@ -31,8 +31,8 @@ require 'db.php';
 
 
 .card {
-    padding-top: 20px;
-    margin: 10px 0 20px 0;
+    padding-top: 50px;
+    margin: 30px 0 50px 0;
     background-color: rgba(214, 224, 226, 0.2);
     border-top-width: 0;
     border-bottom-width: 2px;
@@ -89,8 +89,8 @@ require 'db.php';
 }
 
 .card .card-body {
-    padding: 0 20px;
-    margin-top: 20px;
+    padding: 0 50px;
+    margin-top: 50px;
 }
 
 .card .card-media {
@@ -186,6 +186,7 @@ require 'db.php';
     margin: 8px 14px 0 14px;
     overflow: hidden;
     font-size: 16px;
+    font-family: 'Lucida',Lucida;
     font-weight: bold;
     line-height: 18px;
     color: #404040;
@@ -195,9 +196,10 @@ require 'db.php';
     display: block;
     margin: 8px 14px 0 14px;
     overflow: hidden;
-    font-size: 12px;
+    font-size: 18px;
+    font-family: 'Tajawal', sans-serif;
     line-height: 16px;
-    color: #737373;
+    color: #00b09b;
     text-overflow: ellipsis;
 }
 
@@ -218,15 +220,17 @@ require 'db.php';
 .card.hovercard {
     position: relative;
     padding-top: 0;
+    margin-left:250px;
     overflow: hidden;
     text-align: center;
     background-color: rgba(214, 224, 226, 0.2);
 }
 
 .card.hovercard .cardheader {
-    background: url("http://lorempixel.com/850/280/nature/4/");
+    background: url("http://res.cloudinary.com/adetayo/image/upload/v1524582510/00730_HD.jpg");
     background-size: cover;
     height: 135px;
+    padding-right:30px;
 }
 
 .card.hovercard .avatar {
@@ -260,9 +264,10 @@ require 'db.php';
 
 .card.hovercard .info .desc {
     overflow: hidden;
-    font-size: 12px;
+    font-size: 18px;
+    font-family: 'Tajawal', sans-serif;
     line-height: 20px;
-    color: #737373;
+    color: #00b09b;;
     text-overflow: ellipsis;
 }
 
@@ -277,9 +282,9 @@ require 'db.php';
 
 <div class="container">
 	<div class="row">
-		<div class="col-lg-3 col-sm-6">
+		<div class="col-lg-8 col-md-6 center">
 
-            <div class="card hovercard">
+            <div class="card hovercard center">
                 <div class="cardheader">
 
                 </div>
@@ -298,15 +303,10 @@ require 'db.php';
                     <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/babalasisi">
                         <i class="fa fa-twitter"></i>
                     </a>
-                    <a class="btn btn-danger btn-sm" rel="publisher"
-                       href="https://github.com/adetyaz">
-                        <i class="fa fa-twitter"></i>
-                    </a>
                     <a class="btn btn-primary btn-sm" rel="publisher"
-                       href="https://facebook.com/adetayo.lasisi">
-                        <i class="fa fa-facebook"></i>
-                    </a>
-                    
+                    href="https://github.com/adetyaz">
+                     <i class="fa fa-github"></i>
+                 </a>
                 </div>
             </div>
 
