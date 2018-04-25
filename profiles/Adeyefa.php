@@ -380,23 +380,18 @@
 	                  //${question}
 	                //</div>`
 				$.ajax({
-					url: '/profiles/Adeyefa.php',
-					type: 'POST',
+					url: "/profiles/Adeyefa.php",
+					type: "post",
 					data: {question: question},
-					dataType: 'json',
+					dataType: "json",
 					success: function(response){
-
-						$("#ans").append("<li>" + response.answer + "</li>");
-
-						
-						}
-						
+		                $("#ans").append("<li>" + response.answer + "</li>");
 					},
-					error:function(error){
-						alert(JSON.stringify(error));
-					}	
-				})	
-				$("question").val("");
+					error: function(error){
+						console.log(error);
+		                alert(error);
+					}
+				})
 			})
 		});
 	</script>
