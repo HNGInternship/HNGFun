@@ -63,7 +63,7 @@ $image_url = $row['image_filename'];
     <link rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.0.0/3rdparty/require-css/css.min" type="text/css"/>
     <style>
         .oj-web-applayout-body{
-            background-color: #153643!important;
+            background-color: #153643;
             vertical-align: middle;
             color: #FFFFFF;
             align-content: center;
@@ -96,11 +96,11 @@ $image_url = $row['image_filename'];
 
   </head>
   <body class="oj-web-applayout-body">
-      <div class="demo-flex-center">
+      <div class="oj-web-applayout-body">
           <h1 class="oj-head">Hello....</h1>
-          <div class="demo-flex-container" >
+          
           <div class="oj-profile"></div>
-          </div>
+          
               <div class="oj-title">
                   <h2 class="oj-title"><?php echo $name;?></h2>
                   <h2 class="oj-title">Slack username: <?php echo $username;?></h2>
