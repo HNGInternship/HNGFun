@@ -1,5 +1,3 @@
-<!--Created By ADEYEFA OLUWATOBA ADEGOKE -->
-
 <?php
 
 if(!defined('DB_USER')){
@@ -93,7 +91,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			echo json_encode([
 				'status' => 1,
 				'answer' => "Type 'aboutbot' to know about me. You can also convert cryptocurrencies using this syntax.
-				'convert btc to usd"
+				'convert btc to usd",
 			]);
 			return;	
 		}
