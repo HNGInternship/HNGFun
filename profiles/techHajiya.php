@@ -190,7 +190,7 @@
         throw $e;
     }
     ?>
-	<div class="oj-web-applayout-max-width oj-web-applayout-content oj-margin">
+	<div class="oj-web-applayout-max-width ">
 		<div class="oj-flex oj-margin">
 			<div class="oj-xl-5 oj-lg-4 oj-sm-12 oj-flex-item oj-flex">
 				<div class="row">
