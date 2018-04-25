@@ -1,33 +1,26 @@
 <!doctype html>
 <?php
-    $server = 'localhost';
-    $username = 'root';
-    $pswd = '';
-    $db = 'hng_fun';
-
-    //connect to hng_fun table
-    $conn = mysqli_connect($server, $username, $pswd, $db);
-
-    if(!$conn)
-        die("Could not connect to the database".mysqli_error());
-
 
     //fetch-store results
-    $results = mysqli_query($conn, "SELECT * FROM interns_data WHERE intern_id = 15");  //query interns_data
-    $resultz = mysqli_query($conn, "SELECT * FROM secret_word");    //query secret_word table
+    try {
+        $sql = "SELECT * FROM secret_word";
+        $secret_word_query = $conn->query($sql);
+        $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
+        $query_result = $secret_word_query->fetch();
 
+        $sql_query = 'SELECT * FROM interns_data WHERE username="dautX"';
+        $query_my_intern_db = $conn->query($sql_query);
+        $query_my_intern_db->setFetchMode(PDO::FETCH_ASSOC);
+        $intern_db_result = $query_my_intern_db->fetch();
+   }
+   catch (PDOException $exceptionError) {
+       throw $exceptionError;
+   }
 
-    //store values for profile
-    while ($row = mysqli_fetch_assoc($results)) {
-        $name =  $row['name'];
-        $user_name = $row['username'];
-        $image_addr = $row['image_filename'];
-    }
-
-    //store values for secret_word
-    while ($row = mysqli_fetch_assoc($resultz)) {
-        $secret_word = $row['secret_word'];
-    }
+  $secret_word = $query_result['secret_word'];
+  $name = $intern_db_result['name'];
+  $username = $intern_db_result['username'];
+  $image_addr = $intern_db_result['image_filename'];
 ?>
 <html>
     <head>
@@ -78,7 +71,7 @@
         <!-- profile info display -->
         <div id="content">
             <p><strong>Name: </strong><?php echo $name; ?></p>
-            <p><strong>Username: </strong><?php echo $user_name; ?> </p>
+            <p><strong>Username: </strong><?php echo $username; ?> </p>
         </div>
 
     </body>

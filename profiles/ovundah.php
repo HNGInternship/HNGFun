@@ -56,12 +56,19 @@
         <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
     </head>
     
-    <body>
-        <iframe src="./ovundah/web/index.html"
+    <body style='margin-bottom: 200px;'>
+        
+        <div style='margin-bottom: 200px; padding-top: 10px'>
+            <iframe src="https://hng.fun/profiles/ovundah/web/index.html"
+                scrolling='no'
                 frameborder='0'
                 width="100%" 
-                height="100%">
-        </iframe>
+                height="100%"
+                style='position: absolute;
+                       z-index: 1'>
+            </iframe>
+
+        </div>
     </body>
 </html>
 
