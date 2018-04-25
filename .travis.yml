@@ -14,7 +14,7 @@ cache:
     - vendor
     - $HOME/.composer/cache/files
 
-addons:
+######### addons:
   apt:
     packages:
       - php5-fpm

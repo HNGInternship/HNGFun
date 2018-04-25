@@ -2,16 +2,10 @@
 /*
 
 DO NOT MODIFY THIS FILE!!!
-<<<<<<< HEAD
 
 */
 
 require_once 'config.php';
-=======
->>>>>>> Update profile
-
-*/
-
 
 
 
