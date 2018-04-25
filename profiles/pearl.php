@@ -201,7 +201,7 @@ footer #link{
 
 </style>
 </head>
-<body cz-shortcut-listen="true" class="oj-flex">
+<body cz-shortcut-listen="true" class="oj-flex oj-flex-item">
 
 <?php
     
