@@ -1,23 +1,7 @@
 <?php
 //require 'db.php';
-if($_SERVER['REQUEST_METHOD'] === "GET"){
-    try {
-        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'Adokiye'");
-        $intern_data->execute();
-        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $intern_data->fetch();
 
-
-        $secret_code = $conn->prepare("SELECT * FROM secret_word");
-        $secret_code->execute();
-        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
-        $code = $secret_code->fetch();
-        $secret_word = $code['secret_word'];
-    } catch (PDOException $e) {
-        throw $e;
-    }
     date_default_timezone_set("Africa/Lagos");
-    $today = date("H:i:s");
 }
 
 ?>
@@ -297,17 +281,6 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 
 <body>
 
-<img class="pic" src="http://res.cloudinary.com/djz6ymuuy/image/upload/v1523890911/newpic.jpg" alt="myPicture" width="432px" height="470px">
-
-<div class="details">
-    <div id="time"><?php echo $today; ?></div>
-    <h2>James James John<br><small><em>@jaycodes</em></small></h2>
-    <div>
-        <p>
-
-        </p>
-
-    </div>
     <div class="footer"><button class="btnM" onclick="meetB()">Meet botX</button><button class="btnN"style="display:none; border:none;box-shadow:3px 3px 3px #a1a1a1; background-color:#f8e2ea;text-shadow: 1.5px 1.5px 1px #ccc;" onclick="exitB()">Close botX</button></div>
 </div>
 
