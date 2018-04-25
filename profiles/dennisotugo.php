@@ -189,6 +189,18 @@ function getAnswer( $input ) {
             
                       
             }
+    .message {
+                    float: left;
+    font-size: 16px;
+    background-color: #ffffff;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 5px;
+            
+                      
+            }
             .user-message:before {
     border-color: transparent #007bff63 transparent transparent;
     border-width: 0 10px 10px 0;
@@ -206,9 +218,10 @@ function getAnswer( $input ) {
   <div class="oj-flex-item white2">
     <div class="chat-output" id="chat-output">
         <div class="user-message"></div>
-        <div class="message">train: question # answer # password'<div class="chat-input"></div>
-        <form action="" method="post" id="user-input-form" name="user-input-form"></div>
-        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here" /></form></div>
+        <div class="message">train: question # answer # password'></div>
+        <div class="chat-input">
+            <form action="" method="post" id="user-input-form" name="user-input-form"></div>
+            <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here" /></form></div>
   </div>
 </div></div>
 </script>
