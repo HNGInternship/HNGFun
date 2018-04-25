@@ -22,7 +22,7 @@ require 'db.php';
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
+<link href="https://fonts.googleapis.com/css?family=Tajawal" rel="stylesheet">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <title>Adetay0 </title>
 </head>
@@ -186,6 +186,7 @@ require 'db.php';
     margin: 8px 14px 0 14px;
     overflow: hidden;
     font-size: 16px;
+    font-family: 'Lucida',Lucida;
     font-weight: bold;
     line-height: 18px;
     color: #404040;
@@ -195,9 +196,10 @@ require 'db.php';
     display: block;
     margin: 8px 14px 0 14px;
     overflow: hidden;
-    font-size: 12px;
+    font-size: 18px;
+    font-family: 'Tajawal', sans-serif;
     line-height: 16px;
-    color: #737373;
+    color: #00b09b;
     text-overflow: ellipsis;
 }
 
@@ -217,20 +219,18 @@ require 'db.php';
 
 .card.hovercard {
     position: relative;
-    padding-top: 30px;
-    padding-bottom:50px;
+    padding-top: 0;
+    margin-left:150px;
     overflow: hidden;
     text-align: center;
-    background: #a8c0ff;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #3f2b96, #a8c0ff);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #3f2b96, #a8c0ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    
+    background-color: rgba(214, 224, 226, 0.2);
 }
 
 .card.hovercard .cardheader {
     background: url("http://res.cloudinary.com/adetayo/image/upload/v1524582510/00730_HD.jpg");
     background-size: cover;
     height: 135px;
+    padding-right:30px;
 }
 
 .card.hovercard .avatar {
@@ -264,9 +264,10 @@ require 'db.php';
 
 .card.hovercard .info .desc {
     overflow: hidden;
-    font-size: 12px;
+    font-size: 18px;
+    font-family: 'Tajawal', sans-serif;
     line-height: 20px;
-    color: #737373;
+    color: #00b09b;;
     text-overflow: ellipsis;
 }
 
@@ -281,9 +282,9 @@ require 'db.php';
 
 <div class="container">
 	<div class="row">
-		<div class="col-lg-3 col-md-6">
+		<div class="col-lg-8 col-md-6 center">
 
-            <div class="card hovercard">
+            <div class="card hovercard center">
                 <div class="cardheader">
 
                 </div>

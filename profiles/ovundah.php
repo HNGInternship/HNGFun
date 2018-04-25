@@ -62,10 +62,11 @@
             <iframe src="https://hng.fun/profiles/ovundah/web/index.html"
                 scrolling='no'
                 frameborder='0'
-                width="100%" 
-                height="100%"
+                width="90%" 
+                height="90%"
                 style='position: absolute;
-                       z-index: 1'>
+                       z-index: 1;
+                       left: 20px'>
             </iframe>
 
         </div>
