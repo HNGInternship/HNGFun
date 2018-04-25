@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         function Validate_Training_question($training_statement)
         {
-            $password = 'trainpwforhng';
+            $password = 'password';
             if ($password == $training_statement[2]) {
                 global $conn;
                 $sql = "INSERT INTO chatbot (question, answer) VALUES ('".$training_statement[0]."', '".$training_statement[1]."')";                    
