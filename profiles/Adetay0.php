@@ -218,12 +218,10 @@ require 'db.php';
 }
 
 .card.hovercard {
-    position: absolute;
+    position: relative;
     padding-top: 0;
-    
-    padding-bottom:60px;
-    
-    overflow: visible;
+    margin-left:100px;
+    overflow: hidden;
     text-align: center;
     background-color: rgba(214, 224, 226, 0.2);
 }
@@ -284,7 +282,7 @@ require 'db.php';
 
 <div class="container">
 	<div class="row">
-		<div class="col-lg-8 col-md-6">
+		<div class="col-lg-8 col-md-6 center">
 
             <div class="card hovercard center">
                 <div class="cardheader">
