@@ -63,12 +63,13 @@
 
 			.list-item{
 				border-bottom: 2px solid rgba(80, 80, 80, 1);
-				/*padding-top: 1em;*/
+				padding-top: 0.3em;
 				width: 300px;
 				height: 35px;
 				list-style-type: none;
 				font-family: "Raleway";
-				font-size: 0.9em;
+				font-style: italic;
+				font-size: 0.8em;
 				opacity: 0.9;
 				padding-left: 1em;
 			}
@@ -155,7 +156,7 @@
 			<h3>I am Alexandrix Ikechukwu</h3>
 			<p>In one breath, I am a...</p>
 			<ul class="ul">
-				<!-- <li class="list-item top-list-item white-bkgd">Software Engineer.</li> -->
+				<li class="list-item top-list-item white-bkgd">Software Engineer.</li>
 				<li class="list-item gray-bkgd">Dataphile.</li>
 				<li class="list-item white-bkgd">Writer [of all sorts of things].</li>
 				<li class="list-item gray-bkgd">Poet.</li>
