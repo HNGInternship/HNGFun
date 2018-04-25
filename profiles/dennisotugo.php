@@ -172,16 +172,6 @@ function getAnswer( $input ) {
         p {
     font-weight: bolder;
 }
-.user-message {
-    font-size: 16px;
-    background-color: #ffffff;
-    padding: 10px;
-    display: inline-block;
-    border-radius: 3px;
-    position: relative;
-    margin: 5px;
-    float: left;
-}
                   .user-message message {
                     float: left;
     font-size: 16px;
