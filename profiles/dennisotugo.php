@@ -201,34 +201,19 @@ function getAnswer( $input ) {
     </style>
   </head>
   <body>
- <div class="oj-flex oj-flex-item">
-       <div class="oj-flex-item oj-panel oj-margin">
-
-          <h1>
-              Dennis Otugo
-          </h1>
-         <p>
-                Human Being | Cyborg | Never asked for this
-            </p>
-     </div>
-        <div class="oj-flex-item oj-panel oj-margin">
-          <div class="chat-output" id="chat-output">
-            <div class="user-message">
-              <div class="message">
-                train: question # answer # password'
-
-          <div class="chat-input">
-            <form action="" method="post" id="user-input-form" name=
-            "user-input-form">
-              <input type="text" name="user-input" id="user-input"
-              class="user-input" placeholder="Enter Text here" />
-            </form>
-            </div>
-         </div>
-                              </div>
-            </div>
-          </div>
-            </div>
+<div class="oj-sm-flex-direction-column oj-flex oj-flex-item">
+  <div class="oj-flex-item">
+    <h1>Dennis Otugo</h1>
+    <p>Human Being | Cyborg | Never asked for this</p>
+  </div>
+  <div class="oj-flex-item">
+    <div class="chat-output" id="chat-output"></div>
+    <div class="user-message"></div>
+    <div class="message">train: question # answer # password'<div class="chat-input"></div>
+    <form action="" method="post" id="user-input-form" name="user-input-form"></div>
+    <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here" /></form></div>
+  </div>
+</div>
 </script>
      <script>
 //<![CDATA[
