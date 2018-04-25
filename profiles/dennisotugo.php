@@ -199,7 +199,7 @@ function getAnswer( $input ) {
   <body>
 <div class="oj-sm-flex-direction-column oj-flex oj-flex-item">
   <div class="oj-flex-item blue1">
-    <span class="avatar"><img src="images/avatar.jpg" alt="" /></span>
+    <span class="avatar"><img src="https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701221/avatar.png" alt="" /></span>
     <h1>Dennis Otugo</h1>
     <p>Human Being | Cyborg | Never asked for this</p>
   </div>
