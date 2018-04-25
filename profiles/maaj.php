@@ -68,7 +68,7 @@ $image_url = $row['image_filename'];
             color: #FFFFFF;
             align-content: left;
             margin: auto;
-            height: 100%;
+            
 			width: 100%;
         }
         .oj-profile{
@@ -90,7 +90,7 @@ $image_url = $row['image_filename'];
         }
 		.oj-links{
 			text-align: left;
-			margin-left: 200px;
+			margin-left: 100px;
 		}
         .oj-head{
             color: #ffffff;
