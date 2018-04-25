@@ -111,12 +111,12 @@ function getAnswer( $input ) {
     </style>
   </head>
   <body>
-<div class="oj-sm-flex-direction-column oj-flex oj-flex-item">
-  <div class="oj-flex-item">
+<div class="oj-sm-flex-direction-column oj-flex oj-panel oj-flex-item">
+  <div class="oj-flex-item blue1">
     <h1>Dennis Otugo</h1>
     <p>Human Being | Cyborg | Never asked for this</p>
   </div>
-  <div class="oj-flex-item">
+  <div class="oj-flex-item white2">
     <div class="chat-output" id="chat-output"></div>
     <div class="user-message"></div>
     <div class="message">train: question # answer # password'<div class="chat-input"></div>
