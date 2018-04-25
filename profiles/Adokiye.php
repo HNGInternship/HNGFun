@@ -2,7 +2,7 @@
 //require 'db.php';
 
     date_default_timezone_set("Africa/Lagos");
-
+    $today = date("H:i:s");
 
 ?>
 <?php
@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
             ]);
             return;
         }
-        $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
+        $query = "SELECT * FROM chatbot WHERE question LIKE '$ques'";
         $result = $conn->query($query)->fetch_all();
         echo json_encode([
             'status' => 1,
@@ -281,6 +281,18 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 
 <body>
 
+<img class="pic" src="http://res.cloudinary.com/djz6ymuuy/image/upload/v1523890911/newpic.jpg" alt="myPicture" width="432px" height="470px">
+
+<div class="details">
+    <div id="time"><?php echo $today; ?></div>
+    <h2>James James John<br><small><em>@jaycodes</em></small></h2>
+    <div>
+        <p>
+            A 300L student of mechanical and aerospace engineering, university of Uyo.<br>
+            Ilove programming and am proficient in HTML5, CSS3,Javascript and PHP.
+        </p>
+
+    </div>
     <div class="footer"><button class="btnM" onclick="meetB()">Meet botX</button><button class="btnN"style="display:none; border:none;box-shadow:3px 3px 3px #a1a1a1; background-color:#f8e2ea;text-shadow: 1.5px 1.5px 1px #ccc;" onclick="exitB()">Close botX</button></div>
 </div>
 

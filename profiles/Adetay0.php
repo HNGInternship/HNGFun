@@ -31,8 +31,8 @@ require 'db.php';
 
 
 .card {
-    padding-top: 20px;
-    margin: 10px 0 20px 0;
+    padding-top: 50px;
+    margin: 30px 0 50px 0;
     background-color: rgba(214, 224, 226, 0.2);
     border-top-width: 0;
     border-bottom-width: 2px;
@@ -89,8 +89,8 @@ require 'db.php';
 }
 
 .card .card-body {
-    padding: 0 20px;
-    margin-top: 20px;
+    padding: 0 50px;
+    margin-top: 50px;
 }
 
 .card .card-media {
@@ -197,7 +197,7 @@ require 'db.php';
     overflow: hidden;
     font-size: 12px;
     line-height: 16px;
-    color: #737373;
+    color: white;
     text-overflow: ellipsis;
 }
 
@@ -217,16 +217,21 @@ require 'db.php';
 
 .card.hovercard {
     position: relative;
-    padding-top: 0;
+    margin-left:150px;
+    padding-top: 30px;
+    padding-left:150px;
+    padding-bottom:50px;
     overflow: hidden;
     text-align: center;
-    background-color: rgba(214, 224, 226, 0.2);
+    background: #00b09b;  /* fallback for old browsers */
+
+   
 }
 
 .card.hovercard .cardheader {
-    background: url("http://lorempixel.com/850/280/nature/4/");
+    background: url("http://res.cloudinary.com/adetayo/image/upload/v1524582510/00730_HD.jpg");
     background-size: cover;
-    height: 135px;
+    height: 100%;
 }
 
 .card.hovercard .avatar {
@@ -277,7 +282,7 @@ require 'db.php';
 
 <div class="container">
 	<div class="row">
-		<div class="col-lg-3 col-sm-6">
+		<div class="col-lg-8 col-md-6">
 
             <div class="card hovercard">
                 <div class="cardheader">
@@ -298,15 +303,10 @@ require 'db.php';
                     <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/babalasisi">
                         <i class="fa fa-twitter"></i>
                     </a>
-                    <a class="btn btn-danger btn-sm" rel="publisher"
-                       href="https://github.com/adetyaz">
-                        <i class="fa fa-twitter"></i>
-                    </a>
                     <a class="btn btn-primary btn-sm" rel="publisher"
-                       href="https://facebook.com/adetayo.lasisi">
-                        <i class="fa fa-facebook"></i>
-                    </a>
-                    
+                    href="https://github.com/adetyaz">
+                     <i class="fa fa-github"></i>
+                 </a>
                 </div>
             </div>
 
