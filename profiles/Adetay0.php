@@ -218,10 +218,9 @@ require 'db.php';
 }
 
 .card.hovercard {
-    position: absolute;
+    position: relative;
     padding-top: 0;
-    padding:20px 20px 20px 20px;
-    padding-bottom:60px;
+   
     overflow: visible;
     text-align: center;
     background-color: rgba(214, 224, 226, 0.2);
