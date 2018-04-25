@@ -84,7 +84,7 @@ function askQuestion($input)
                 echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";
                 $_result =  mysqli_query($conn, "SELECT * FROM chatbot LIMIT 5");
                 $result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'");
-                print_r($_result);
+                print_r($_result);die("died here");
                 $fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 $row_cnt = $result->num_rows;
                 $rand = rand(0, $row_cnt - 1);
@@ -249,7 +249,7 @@ $username = 'Adokiye';
         <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
         <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
     </div>
-    <p class="mycss"> Chatbot by Adokiye<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
+    <p class="mycss">:: Chatbot by Adokiye:::<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
     <form name = "askMe" method="post">
         <p>
             <label>
