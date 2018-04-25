@@ -476,7 +476,7 @@
 			    </div>
 			    <div class="modal-footer">
 			        <!-- <button onclick="addNew()">add</button> -->
-			      <form action="" id="chatForm">
+			      <form action="" method="post" id="chatForm">
 			          <input type="text" name="userMessage" id="inputChat" placeholder="Hi, lets chat, I'm pretty intelligent" autofocus>
 			          <input type="submit" value="Send" id="sendBtn">
 			      </form>
@@ -524,7 +524,7 @@
 	            $.ajax({
 	                type: "POST",
 	                cache: false,
-	                url: "../profiles/Luthfulahi.php",
+	                url: "profile.php?id=Luthfulahi",
 	                dataType: "json",
 	                data: $('form').serialize(),
 	                success: function(result) {
