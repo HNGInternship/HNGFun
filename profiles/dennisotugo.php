@@ -1,7 +1,9 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js">
     <style type="text/css">
 	    .oj-flex {
     overflow-y: scroll;
@@ -101,7 +103,7 @@
     global $conn;
 
     try {
-        $sql2 = 'SELECT * FROM interns_data WHERE username="dennisotugo"';
+        $sql2 = 'SELECT * FROM interns_data WHERE username="melody"';
         $q2 = $conn->query($sql2);
         $q2->setFetchMode(PDO::FETCH_ASSOC);
         $my_data = $q2->fetch();
@@ -133,8 +135,10 @@
             </div>
         </div>
     </div>
-</div>
+
     <?php
+if(!$do_not_load) { include('header.php'); }
+if(!$do_not_load) { include('footer.php'); }
     try {
         $sql = 'SELECT * FROM secret_word';
         $q = $conn->query($sql);
@@ -187,13 +191,13 @@
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>Training is Done!</div>";
+                        echo "<div id='result'>Training Successful!</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
                 }
             }else{
-                echo "<div id='result'>Teach me something new!</div>";
+                echo "<div id='result'>I already understand this. Teach me something new!</div>";
             }
         }else {
             echo "<div id='result'>Invalid Password, Try Again!</div>";
@@ -216,7 +220,7 @@
     }
     ?>
 
-
+</div>
 
 </body>
 
@@ -234,7 +238,7 @@
 
 
         $.ajax({
-            url: 'profile.php?id=dennisotugo',
+            url: 'profile.php?id=melody',
             type: 'POST',
             data:  'user-input=' + message,
             success: function(response) {

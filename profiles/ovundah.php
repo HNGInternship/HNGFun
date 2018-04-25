@@ -63,7 +63,9 @@
                 scrolling='no'
                 frameborder='0'
                 width="100%" 
-                height="500%">
+                height="100%"
+                style='position: absolute;
+                       z-index: 1'>
             </iframe>
 
         </div>
