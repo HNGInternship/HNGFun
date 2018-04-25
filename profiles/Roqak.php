@@ -1,5 +1,5 @@
 <?php
-include_once "db.php";
+include_once "../db.php";
 // include 'answers.php'
 require "../../config.php";
 
@@ -74,16 +74,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
                 $function_name = trim($function_name);
                 if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
+                  header('Content-type: text/json');
                    echo json_encode([
                     'answer' => "The function name should not contain white spaces"
                   ]);
                   return;
                 }
               if(!function_exists($function_name)){
+                header('Content-type: text/json');
                 echo json_encode([
                   'answer' => "I am sorry but I could not find that function"
                 ]);
               }else{
+                header('Content-type: text/json');
                 echo json_encode([
                   'answer' => str_replace("(($function_name))", $function_name(), $answer)
                 ]);
@@ -92,7 +95,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             }
         }
         }else{
-
+          header('Content-type: text/json');
         echo json_encode([
         'answer' => "I am sorry, I cannot answer your question now. You could offer to train me."
         ]);
@@ -113,8 +116,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             ]);
             return;
         }
-}
-}
 
 
 
