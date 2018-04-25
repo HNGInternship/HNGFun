@@ -173,7 +173,6 @@
             font-weight: bold;
 			font-size: 24px;
         }
-
         .chatbot-menu-header a {
             color: #FFFFFF;
         }
