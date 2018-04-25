@@ -357,7 +357,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					</span>
 				</div>
 				<form action="#" method="POST" onSubmit="chatBot(); return false;">
-					<input id="message" type="text" name="chats" placeholder="Ask me anything">
+					<input id="message" type="text" name="message" placeholder="Ask me anything">
                     <button type="button" value="Lets Talk" class=" btn btn-primary"></button>
 				</form>
 			</div>
