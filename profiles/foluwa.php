@@ -1,9 +1,4 @@
-
-<?php //DATE
- $d = date("h:i:sa");
-?>
 <?php 
-
 if(!defined('DB_USER')){
   require "../../config.php";   
   try {
@@ -17,7 +12,6 @@ $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'foluwa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
-
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){   
     try{
@@ -35,7 +29,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       $mem = preg_replace("([?.])", "", $mem);
     $arr = explode(" ", $mem);
     
-
     /* Training the bot*/ 
     if($arr[0] == "train:"){
 
@@ -149,7 +142,23 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   }catch (Exception $e){
     return $e->message ;
   }
-}*/
+}
+
+  function randomQuotes () {
+    $quotes = array("I have a dream",
+                       "Children are good", 
+                       "Another quote"
+                       "Another 11 quote"
+                       "Another vbbv quote"
+                       "Another [[[]]] quote"
+                       "Anothernnn quote");
+     $myQuotes = quotes[rand(0,3);];
+     return $myQuotes;
+    }
+?>
+
+<?php //DATE
+ $d = date("h:i:sa");
 ?>
 <!DOCTYPE html>
 <html>
@@ -160,8 +169,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+
+  
   <style type="text/css">
       body {
           height: 100%;
@@ -262,7 +273,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       </div>
       <footer>Foluwa @ <a href="https://hotels.ng">Hotels.ng</a></footer>
     </main>
-    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!--<script src="../vendor/jquery/jquery.min.js"></script>-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
   <script>
     $(document).ready(function(){
       var Form =$('#conversation');
