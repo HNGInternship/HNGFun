@@ -1,79 +1,150 @@
 <?php
-   if($_SERVER['REQUEST_METHOD'] === "POST"){
-    if(!isset($conn)) {
-        include '../../config.php';
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    }
-    if(isset($_POST['q']) && $_POST['q'] != '') {
-      $q = trim($_POST['q']);
-      if(strtolower($q) == 'aboutbot') {echo "Name: KluzBot. Version: 1.0.1"; exit();}
-      $q = $_POST['q'];
-      // HANDLE TRAINING
-      $words = explode(':', $q);
-      if((count($words) > 1) && ($words[0] == 'train')) {
-        $QandA = explode('#', $words[1]);
-        // Ensure '?' is always removed question
-        $question = trim($QandA[0]);
-        $question_length = strlen($question);
-        $question = ($question[$question_length - 1] == '?') ? substr($question, 0, $question_length -1) : $question;
-        $answer = trim($QandA[1]);
-        $password = trim($QandA[2]);
-        if(count($QandA) != 3 || $question == '' || $answer == '') {
-          echo "Incorrect training format. Train me using <span style=\"color:pink;\">train: question # answer # password<span>"; exit();
-        }
-        if($password == 'password') {
-         
-          $sql = "select * from chatbot where question like '{$question}%'";
-          $query = $conn->prepare($sql);
-          $query->execute();
-          $results = $query->fetchAll(PDO::FETCH_OBJ);
-          
-          if($query->rowCount()) {
-            foreach ($results as $result) {
-              if($answer == trim($result->answer)) {
-                echo "I Know this already"; exit();
-              }
-            }
-            $sql = "insert into chatbot(question, answer) values('{$question}', '{$answer}')";
-            $query = $conn->prepare($sql);
-            $query->execute();
-            if($query->rowCount()) {
-              echo "Thanks for retraining me"; exit();
-            }
-            else{
-              echo "Error, something went wrong."; exit();
-            }
-          }
-          // train bot if not retrieved
-          $sql = "insert into chatbot(question, answer) values('{$question}', '{$answer}')";
-          $query = $conn->prepare($sql);
-          $query->execute();
-          if($query->rowCount()) {
-            echo "Thanks for training me. :)"; exit();
-          }
-        }
-        echo "Incorrect password used."; exit();
-      }
-    
-      $q_length = strlen($q);
-      $q = ($q[$q_length - 1] == '?') ? substr($q, 0, $q_length - 1) : $q;
-      $sql = "select * from chatbot where question like '$q%'";
-      $query = $conn->prepare($sql);
-      $query->execute();
-      $results = $query->fetchAll(PDO::FETCH_OBJ);
-      $rowCount = $query->rowCount();
-      if($rowCount == 1) { // if one answer
-        echo $results[0]->answer; exit();
-      }
-      else if($rowCount > 1) { 
-        echo $results[rand(0, $rowCount - 1)]->answer; exit();
-      }
-      else {
-        echo "I am not yet trained on that. Train me using <span style=\"color:black;\">train: question # answer # password<span>";
-      }
-      exit();
-    }
+   // $data = getAction(['stage' => 1, 'human_response' => 'train :  red and blue#black#password']);
+// echo $data;
+// die;
+function getAction($input)
+{
+	$data = [];
+	switch ($input['stage']) {
+		case 0: //bot intro
+			$data = greet();
+			break;
+		case 1: // chat or train
+			$human_response = preg_replace('([\s]+)', ' ', trim($input['human_response']));
+			$data = chat_or_train($human_response);
+			break;
 	}
+	return json_encode($data);
+}
+function KluzBotGetMenu()
+{
+	return '1. enter menu to show this help <br>
+            2. Find synonyms E.g: Synonyms of love? <br>
+            3. train me e.g: train synonyms of goat # goatie,goater,etc # passkey. <br>
+            3. clear screen: cls. <br>
+            4. exit bot: exit. <br>
+           ';
+}
+function train($human_response)
+{
+	$human_response = trim($human_response);
+	if (!is_valid_training_format($human_response)) {
+		$data = ["data" => "In correct train syntax", "stage" => 1];
+	} else {
+		$inputs = get_question_answer_password($human_response);
+		if (strcmp($inputs['password'], 'password') !== 0) {
+			$data = ["data" => "You don't have the pass key", "stage" => 2];
+		} else {
+			$data = set_question($inputs['question'], $inputs['answer']);
+		}
+	}
+	return $data;
+}
+function chat($human_response)
+{
+	$data = [];
+	if (strcmp(strtolower(trim($human_response)), 'menu') == 0) {
+		$data = ["data" => KluzBotGetMenu(), "stage" => 2];
+	} elseif (strcmp(strtolower(trim($human_response)), 'aboutbot') == 0) {
+		$data = ['data' => 'Kluzbot v1.0.1', 'stage' => 1];
+	} else {
+		$data = get_answer($human_response);
+	}
+	return $data;
+}
+function chat_or_train($human_response)
+{
+	if (strpos(trim($human_response), 'train') !== false && strpos(trim($human_response), ':') !== false) {
+		return train($human_response);
+	} else {
+		return chat($human_response);
+	}
+}
+function get_answer($human_response)
+{
+	global $conn;
+	$question = prepare_question_chat($human_response);
+	$sql = "SELECT * FROM chatbot WHERE question = '{$question}' or question = '{$question}?'";
+	$q = $conn->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$results = $q->fetchAll();
+	if (count($results) > 0) {
+		$data = $results[rand(0, count($results) - 1)]['answer'];
+	} else {
+		$data = "Just a bot, still learning :-)";
+	}
+	return ["data" => $data, "stage" => 1];
+}
+function set_question($question, $answer)
+{
+	global $conn;
+	$sql = "SELECT * FROM chatbot WHERE question = '{$question}'";
+	$q = $conn->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$results = $q->fetchAll();
+	if (count($results) > 0) {
+		$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+		try {
+			$query = $conn->prepare($sql);
+			if ($query->execute([':question' => $question, ':answer' => $answer]) == true) {
+				$data = 'Cool, I have learnt a new answer to that question. thanks';
+			};
+		} catch (PDOException $e) {
+			$data = "Something went wrong, please try again";
+		}
+	} else {
+		$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+		try {
+			$query = $conn->prepare($sql);
+			if ($query->execute([':question' => $question, ':answer' => $answer]) == true) {
+				$data = 'Cool, I have learnt a new question. thanks';
+			};
+		} catch (PDOException $e) {
+			$data = "Something went wrong, please try again";
+		}
+	}
+	return ["data" => $data, "stage" => 1];
+}
+function greet()
+{
+	$greetings = [
+		'Hi there, I\'m KluzBot. type menu to see what i can do',
+		'Hi there, I\'m KluzBot. type menu to see what i can do',
+		'Hi there, I\'m KluzBot. type menu to see what i can do'
+	];
+	return ["data" => $greetings[array_rand($greetings)], "stage" => 1];
+}
+function prepare_question_train($question)
+{
+	$question = trim($question);
+	$question = preg_replace('([\s]+)', ' ', $question);
+	return $question;
+}
+function prepare_question_chat($human_response)
+{
+	$human_response = trim($human_response);
+	$question = str_replace('?', '', $human_response);
+	$question = preg_replace('([\s]+)', ' ', $question);
+	return $question;
+}
+function is_valid_training_format($human_response)
+{
+	$human_response = trim($human_response);
+	$input_parts = explode('#', $human_response);
+	return count($input_parts) === 3;
+}
+function get_question_answer_password($human_response)
+{
+	$parts = explode('#', trim($human_response));
+	$password = array_pop($parts);
+	$password = trim($password);
+	$question_part = trim($parts[0]);
+	$question_part_split = explode(':', $question_part);
+	array_shift($question_part_split);
+	$question = array_shift($question_part_split);
+	$answer = trim($parts[1]);
+	return ['question' => trim($question), 'answer' => $answer, 'password' => $password];
+}
  
     try {
         $sql = 'SELECT * FROM secret_word';
@@ -114,7 +185,6 @@ a {
   margin: 1em auto;
   width: 44.23em;
 }
-
 .card {
   background: #fff;
   border-radius: 0.3rem;
@@ -122,7 +192,6 @@ a {
   border: .1em solid rgba(0, 0, 0, 0.2);
   margin-bottom: 1em; 
 }
-
 .profile-user-page .img-user-profile {
 	margin: 0 auto;
   text-align: center; 
@@ -142,8 +211,6 @@ a {
   margin-top: -10em;
   box-shadow: 0 0 .1em rgba(0, 0, 0, 0.35);
 }
-
-
 html, body {
             height: 100%;
             background-image: url('https://cdn.pixabay.com/photo/2017/03/19/11/07/light-2156209_960_720.jpg');
@@ -151,7 +218,6 @@ html, body {
             background-size:cover;
             margin: 0px;
         }
-
 .profile-user-page button {
 	position: absolute;
   font-size: 13px;
@@ -165,7 +231,6 @@ html, body {
   border-radius: 0 .6em .6em 0;
   padding: .80em;
 }
-
 .profile-user-page button:hover {
   background: #51a7e0;
   transition: background .2s ease-in-out;
@@ -247,7 +312,6 @@ html, body {
 .profile-user-page .data-user li a:hover span {
   color: #3498db; 
 }
-
 footer h4 {
   display: block;
   text-align: center;
@@ -261,8 +325,6 @@ footer h4 a {
   text-decoration: none;
   color: #3498db;
 }
-
-
 /*--------------------
 Mixins
 --------------------*/
@@ -274,12 +336,10 @@ Body
 *::after {
   box-sizing: border-box;
 }
-
 html,
 body {
   height: 100%;
 }
-
 body {
   background: linear-gradient(135deg, #044f48, #345093);
   background-size: cover;
@@ -289,7 +349,6 @@ body {
   line-height: 1.3;
   overflow: hidden;
 }
-
 .bg {
   width: 100%;
   height: 100%;
@@ -303,7 +362,6 @@ body {
           transform: scale(1.2);
   background: #fff;
 }
-
 /*--------------------
 Chat
 --------------------*/
@@ -327,7 +385,6 @@ Chat
   justify-content: space-between;
   flex-direction: column;
 }
-
 /*--------------------
 Chat Title
 --------------------*/
@@ -373,7 +430,6 @@ Chat Title
   width: 100%;
   height: auto;
 }
-
 /*--------------------
 Messages
 --------------------*/
@@ -553,7 +609,6 @@ border-left: 8px solid transparent;
   -webkit-animation-delay: .3s;
           animation-delay: .3s;
 }
-
 /*--------------------
 Message Box
 --------------------*/
@@ -611,7 +666,6 @@ Message Box
   background: #fff;
   color: #333;
 }
-
 /*--------------------
 Custom Srollbar
 --------------------*/
@@ -619,16 +673,13 @@ Custom Srollbar
   margin: 1px -3px 1px 0;
   opacity: 0;
 }
-
 .mCSB_inside > .mCSB_container {
   margin-right: 0px;
   padding: 0 10px;
 }
-
 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
   background-color: rgba(0, 0, 0, 0.5) !important;
 }
-
 /*--------------------
 Bounce
 --------------------*/
@@ -782,7 +833,6 @@ Bounce
   -webkit-transition: 0.3s all ease-out 0.1s, transform 0.2s ease-in;
   -moz-transition: 0.3s all ease-out 0.1s, transform 0.2s ease-in;
 }
-
 .avenue-messenger div.agent-face {
   position: absolute;
   left: 0;
@@ -794,12 +844,10 @@ Bounce
   background: transparent;
   z-index: 12;
 }
-
 .avenue-messenger div {
   font-size: 14px;
   color: #232323;
 }
-
 .close {
   display: block;
   width: 100px;
@@ -816,7 +864,6 @@ Bounce
   -moz-box-shadow:    0px -1px 2px 0px rgba(0, 0, 0, 0.5);
   box-shadow:         0px -1px 2px 0px rgba(0, 0, 0, 0.5);*/
 }
-
 .close:hover {
               /*
 -webkit-box-shadow:  0 1px 1px rgba(0,0,0,0.3);
@@ -824,7 +871,6 @@ Bounce
 box-shadow: 0 1px 1px rgba(0,0,0,0.3);*/
   opacity: 0.9;
 }
-
 .circle {
   display: block;
   width: 80px;
@@ -840,7 +886,6 @@ box-shadow: 0 1px 1px rgba(0,0,0,0.3);*/
   -moz-box-shadow: 0px 0px 10px rgba(0,0,0,.8);
 box-shadow: 0px 0px 10px rgba(0,0,0,.8);*/
 }
-
 .contact-icon .circle:hover {
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
@@ -849,20 +894,17 @@ box-shadow: 0px 0px 10px rgba(0,0,0,.8);*/
   -webkit-transition: 0.2s all ease-out 0.2s;
   -moz-transition: 0.2s all ease-out 0.2s;
 }
-
 .arrow_box:after {
   border-color: rgba(255, 255, 255, 0);
   border-left-color: #fff;
   border-width: 5px;
   margin-top: -5px;
 }
-
 .arrow_box {
   position: relative;
   background: #fff;
   border: 1px solid #4A90E2;
 }
-
 .arrow_box:after, .arrow_box:before {
   left: 100%;
   top: 50%;
@@ -873,7 +915,6 @@ box-shadow: 0px 0px 10px rgba(0,0,0,.8);*/
   position: absolute;
   pointer-events: none;
 }
-
 .menu div.items {
   /*  height: 140px;
     width: 180px;
@@ -883,7 +924,6 @@ box-shadow: 0px 0px 10px rgba(0,0,0,.8);*/
     z-index: 2;
     top: 20px;*/
 }
-
 .menu .items span {
   color: #111;
   z-index: 12;
@@ -906,7 +946,6 @@ box-shadow: 0px 0px 10px rgba(0,0,0,.8);*/
   -webkit-transition: .3s all ease-in-out;
   -moz-transition: .3s all ease-in-out;
 }
-
 .menu .button {
   font-size: 30px;
   z-index: 12;
@@ -927,11 +966,9 @@ box-shadow: 0px 0px 10px rgba(0,0,0,.8);*/
   -webkit-transition: .3s all ease-in-out;
   -moz-transition: .3s all ease-in-out;
 }
-
 .menu .button.active {
   background: #ccc;
 }
-
 /*
 .menu .button:hover .menu .items span {
   display: block;
@@ -947,16 +984,13 @@ box-shadow: 0px 0px 10px rgba(0,0,0,.8);*/
   -webkit-transform:translateY(0);
   -moz-transform:translateY(0);*/
 }
-
 .menu .items a {
   color: #111;
   text-decoration: none;
 }
-
 .menu .items a:hover {
   color: #777;
 }
-
 @media only screen and (max-device-width: 667px), screen and (max-width: 450px) {
   .avenue-messenger {
     z-index: 2147483001 !important;
@@ -970,28 +1004,23 @@ box-shadow: 0px 0px 10px rgba(0,0,0,.8);*/
     border-radius: 0 !important;
     background: #fff;
   }
-
   .avenue-messenger div.agent-face {
     top: -10px !important;
     /* left:initial !important;*/
   }
-
   .chat {
     border-radius: 0 !important;
     max-height: initial !important;
   }
-
   .chat-title {
     padding: 20px 20px 15px 10px !important;
     text-align: left;
   }
-
   .circle {
     width: 80px;
     height: 80px;
     border: 1px solid #fff;
   }
-
   .menu .button {
     border-top-right-radius: 0;
   }
@@ -1010,7 +1039,6 @@ box-shadow: 0px 0px 10px rgba(0,0,0,.8);*/
     -moz-box-shadow: 1px 4px 20px rgba(22, 20, 19, 0.6);
   }
 }
-
 </style>
 
 <div class="content-profile-page">
@@ -1166,6 +1194,84 @@ $('.button').click(function(){
   $('.menu .items span').toggleClass('active');
    $('.menu .button').toggleClass('active');
 });
+
+$(document).ready(function() {
+			// Perform other work here ...
+			let stage = 0;
+			var visitor = '';
+			var done_intro = 0;
+			let url = "profiles/alabamustapha.php";
+			
+			$("div#chat-bot").hide();
+			
+			$("a#start-chat-bot").click(function(e){
+				
+				$("div#chat-bot").toggle();
+				
+				stage = 0;
+				doIntro();
+				$(".human_input").on('keyup', function (e) {
+					if (e.keyCode == 13) {
+						
+						if($("input.human_input").val().trim().length < 1){
+							// $("div.conversation").append(makeMessage("Please provide an input"));
+						}else if($("input.human_input").val() == "cls"){
+							$("div.conversation").html('');
+							$("div.conversation").append(makeMessage("Clean slate, Check menu if needed"));
+							$('input.human_input').val('');
+						}else if($("input.human_input").val() == "exit"){
+							$("div.conversation").html('');
+							$('input.human_input').val('');
+							stage = 0;
+							$("div#chat-bot").hide();	
+						}else{
+							human_response = $("input.human_input").val().trim();
+							
+							$("div.conversation").append(makeHumanMessage(human_response));
+							
+							$('input.human_input').val('');
+							$.post(url, {human_response: human_response, stage: 1})
+							.done(function(response) {
+								response = jQuery.parseJSON(response);
+								if(stage == 1){
+									if(Array.isArray(response.data)){
+										$("div.conversation").append(makeMessage(response.data));
+									}else{
+										$("div.conversation").append(makeMessage(response.data));
+									}
+									
+								}
+								stage = response.stage;	
+							}).fail(function() {
+								alert( "error" );
+							})
+						}	
+					}
+				});
+			});
+		
+			function makeMessage(message){
+				return "<div class='message'> <div class='bot-message message-content text'><span>" + message + "</span></div></div>";
+			}
+			
+			function makeHumanMessage(message){
+				return "<div class='pull-right message'><div class='human-message message-content text'><span>" + message + "</span></div></div>";
+			}
+			function doIntro(human_input){
+					$.post(url, {human_response: human_input, stage: stage})
+						.done(function(response) {
+							$("div.conversation").html('');
+							response = jQuery.parseJSON(response);
+							stage = response.stage;
+							$("div.conversation").append(makeMessage(response.data));
+							// responsiveVoice.speak(response.data);
+						}).fail(function() {
+							alert("error");
+						})
+			}
+		
+		});
+
 		</script>
 </head>
 </html>
