@@ -167,10 +167,25 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     <link href="https://fonts.googleapis.com/css?family=Rhodium+Libre" rel="stylesheet">
     <title>Blessing Akpan</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" type="text/css">
+    <style type="text/css">
 
     <style>
         .panel-body{
             background: #ccc;
+        }
+        .body0 {
+            height: 100%;
+        .under {
+            position: relative;
+            /*top:450px;*/
+            height: 50px;
+            width: 100%;
+            font-family: "Alegreya";
+            line-height: normal;
+            font-size: 32px;
+            text-align: center;
+            color: #000830;
         }
         .panel-heading h5{
             display: inline;
@@ -178,19 +193,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
         .pan{
             margin-top: 20px;
         }
-		.fa:hover {
-    		opacity: 0.7;
-		}
-
-		.fa-facebook {
-  			background: #3B5998;
-  			color: white;
-		}
-
-		.fa-twitter {
- 			background: #55ACEE;
-  			color: white;
-	}
         .box1{
             padding: 5px 7px;
             color: #fff;
@@ -216,7 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     body{
         font-family: 'Rhodium Libre', serif;
     }
-    #head{
+    #container{
         min-height: 400px;
         text-align:center;
         background-color: lightgrey;
@@ -311,24 +313,34 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     }
 </style>
 <body>
-<div id="head">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <img src="http://res.cloudinary.com/dlvlxep3r/image/upload/v1523715773/interactive_bee.jpg" class="img-responsive" alt="image">
-                <div id="content">
-                    <h1><?php echo $user->name; ?></h1>
-                    <p>Writer | Android Developer | HNG Intern</p>
-                    <p>Akwa Ibom, Nigeria</p>
-                    <div id="socialicons">
-                        <div style="margin: 24px 0;">
-                            <a href="https://facebook.com/interactiveBee"><i class="fa fa-facebook"></i></a>
-                            <a href="https://twitter.com/interactive_bee"><i class="fa fa-twitter"></i></a>
-                            <a href="https://github.com/BeeAkpan"><i class="fa fa-github"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div id="container">
+<div class="oj-flex oj-flex-items-pad oj-contrast-marker">
+<div class="oj-sm-6 oj-md-6 oj-flex-item">
+    <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
+        <div role="img" class="oj-flex-item alignCenter">
+            <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
+            data-bind="attr:{'aria-label':'Avatar of Akpan, Blessing Michael'}">
+            </oj-avatar>
+            <img class="img-fluid " onerror="this.src='images/default.jpg'" src="http://res.cloudinary.com/dlvlxep3r/image/upload/v1523715773/interactive_bee.jpg">
+        </div>
+    </div>
+    <div class="body0">
+        <h1><?php echo $user->name; ?></h1>
+        <p>Writer | Android Developer | HNG Intern</p>
+        <p>Akwa Ibom, Nigeria</p>
+                <div class="oj-flex oj-md-align-items-center"><a href="https://github.com/BeeAkpan">
+                    <div class="oj-flex-item oj-flex oj-sm-flex-direction-column oj-sm-align-items-center oj-sm-margin-2x">
+                        <img style="width:40px; height: 40px;" src="https://cdn1.iconfinder.com/data/icons/logotypes/32/github-512.png">
+                    </div></a>
+
+                    <a href="https://www.linkedin.com/in/interactivebee/">
+                         <div class="oj-flex-item oj-flex oj-sm-flex-direction-column oj-sm-align-items-center oj-sm-margin-2x">
+                            <img style="width:40px; height: 40px;" src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-social-media/256/Linkedin-icon.png">
+                         </div>
+                    </a>
+                </div></span>
+    </div>
+</div>
             <div class="col-sm-4" id="header-trigger">
                 <div class="panel panel-default pan" >
                     <div class="panel-heading">
@@ -336,7 +348,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
                     </div>
                 </div>
             </div>
-            <div class="col-sm-8">
+            <div class="oj-sm-8">
                 <div id="chatter">
                     <div class="panel panel-default pan">
                         <div class="panel-heading" id="bot-head">
@@ -348,11 +360,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 
                         <!-- New Form for input-->
                         <form action="#" method="post" id="bot-interface">
-                            <div class="col-md-10 col-xs-10 no-margin" style="margin:0px">
+                            <div class="oj-md-10 col-xs-10 no-margin" style="margin:0px">
                                 <input class="inputText no-margin" type="text" name="question" id="question" >
                             </div>
-                            <div class="col-md-2 col-xs-2 no-margin">
-                                <input type="Submit" value="Send" id="submit-button">
+                            <div class="oj-md-2 oj-xs-2 no-margin">
+                                <input type="Submit" value="Send" placeholder="Write your message and press enter" id="submit-button">
                             </div>
                         </form>
 
@@ -403,7 +415,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
             //display question in the message frame as a chat entry
             var messageFrame = $('#chat-interface');
             var chatToBeDisplayed = '<div class="row message" id="user-message">'+
-                '<div class="col-md-12">'+
+                '<div class="oj-md-12">'+
                 '<p>'+question+'</p>'+
                 '</div>'+
                 '</div>';
@@ -419,10 +431,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
                 success: function(response){
                     if(response.status == 1){
                         var chatToBeDisplayed = '<div class="row message"id="bot-message">'+
-                            '<div class="col-md-1 " >'+
+                            '<div class="oj-md-1 " >'+
                             '<p>Bot:</p>'+
                             '</div>'+
-                            '<div class="col-md-11 ">'+
+                            '<div class="oj-md-11 ">'+
                             '<p>'+response.answer+'</p>'+
                             '</div>'+
                             '</div>';
@@ -430,10 +442,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
                         questionBox.val("");
                     }else if(response.status == 0){
                         var chatToBeDisplayed = '<div class="row message" id="bot-message">'+
-                            '<div class="col-md-1 " >'+
+                            '<div class="oj-md-1 " >'+
                             '<p>Bot:</p>'+
                             '</div>'+
-                            '<div class="col-md-11 ">'+
+                            '<div class="oj-md-11 ">'+
                             '<p>'+response.answer+'</p>'+
                             '</div>'+
                             '</div>';
