@@ -660,7 +660,7 @@ function get_browser_name($user_agent)
 
 #####################################################################################################
 #                                                                                                   #
-#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS BELOW            #
+#           CHRISTOPH'S FUNCTION BEGINS HERE    |    DON'T TAMPER WITH THE FUNCTIONS BELOW          #
 #                                                                                                   #
 #####################################################################################################
 
@@ -679,6 +679,11 @@ function calculate_distance($key, $url, $location1, $location2) {
     }
 }
 
+function show_direction ($location1, $location2, $mode) {
+    return "https://www.google.com/maps/dir/?api=1&origin=$location1&destination=$location2&travelmode=$mode";
+
+}
+
 function get_duration ($key, $url, $location1, $location2, $mode) {
     $request_duration = $url.$location1."&destinations=$location2"."&key=".$key."&mode=".$mode."&departure_time=now";
     $response = json_decode(file_get_contents($request_duration), 1);
@@ -693,6 +698,12 @@ function get_duration ($key, $url, $location1, $location2, $mode) {
         return $message;
     }
 }
+
+#####################################################################################################
+#                                                                                                   #
+#           CHRISTOPH'S FUNCTION ENDS HERE    |    DON'T TAMPER WITH THE FUNCTIONS ABOVE            #
+#                                                                                                   #
+#####################################################################################################
 
 
 function get_device_name($user_agent)
@@ -878,10 +889,7 @@ function getUSSD($bankName){
 
         case 'wema bank':
 return '*945#';}}
-function show_direction ($location1, $location2, $mode) {
-    return "https://www.google.com/maps/dir/?api=1&origin=$location1&destination=$location2&travelmode=$mode";
 
-}
 // End of functions by @Bukola
  // chibuokems functions starts here
   function check_if_training_chibuokem($input=''){
