@@ -1,208 +1,259 @@
-<!DOCTYPE HTML>
-<?php
-$sql = "SELECT * FROM interns_data WHERE username = 'dennisotugo'";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$data = $q->fetchAll();
-$dennisotugo = array_shift($data);
-// Secret word
-$sql = "SELECT * FROM secret_word";
-$q = $conn->query($sql);
-$q->setFetchMode(PDO::FETCH_ASSOC);
-$words = $q->fetch();
-$secret_word = $words['secret_word'];
-?>
-<html>
-	<head>
-		<title>Dennis Otugo</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="/aerial/assets/css/main.css" />	
-<style>
-#overlay {
 
-    background-image: none;
+
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js">
+    <style type="text/css">
+	    .oj-flex {
+    overflow-y: scroll;
+    height: 100%;
 }
-#mainb {
-		text-align: center;
-		width: 100%;
-	}
-	.chat-input {
-  padding: 20px;
-  background: #eee;
-  border: 1px solid #ccc;
-  border-bottom: 0;
+	    .oj-flex {
+    height: 100%;
+    text-align: center;
+    position: fixed;
+    width: 50%;
+    left: 0;
+    background-color: #ffffff;
 }
-input {
-    background-color: #eee;
+	    
+	.profile {
+          height: 100%;
+    text-align: center;
+    position: fixed;
+    position: fixed;
+    position: fixed;
+    width: 50%;
+    right: 0;
+    background-color: #007bff;
+}
+	h1 {
+    color: blue;
+    color: white;
+    text-align: center;
+    bottom: 50%;
+    left: 65%;
+    position: fixed;
+    font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 700;
+}
+	p {
+    position: fixed;
+    bottom: 40%;
+    left: 58%;
+    line-height: 1.5;
+    margin: 30px 0;
+}
+	#mainNav {
+    position: fixed;
+}
+.user-input {
+    width: -webkit-fill-available;
     border: none;
-    font-family: sans-serif;
-    /* color: #000; */
-    /* padding: 15px 32px; */
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    /* font-size: 30px; */
-    width: 70%;
-    font-size: 1rem;
-    color: black;
-    /* border: 2px solid #000000; */
-    border-radius: 4px;
-    padding: 8px;
+    padding: 10px 14px;
+    font-size: 18px;
+    line-height: normal;
 }
-span#user {
-	display: none;
-}
-span#chatbot {
-    font-family: sans-serif;
-    text-align: center;
-    text-decoration: none;
-    width: 70%;
-    font-size: 1.2rem;
-    color: black;
-}
-.bot-container {
-    border-bottom: 1px solid #bbbfbf;
-    padding-bottom: 50px;
-    width: 60%;
-    margin: 50px auto;
-  }
-  .messages-container {
-    background-color: white;
-    color: #3A3A5E;
-    padding: 10px;
-    overflow: auto;
-    width: 100%;
-    border-top: 1px solid #f1f1f1;
-    padding-bottom: 50px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-  }
-  .messages-container > div {
-    display: inline-block;
-    width: 100%;
-  }
-  .message {
-    float: left;
+#user-input-form {
+	    border-right: solid black 3px;
+    position: fixed;
+    width: 50%;
+    height: 7%;
+    left: 0;
+    bottom: 0px;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 9px 0px rgba(1, 1, 1, 1);
+	    }
+	    .user-message {
+		    float: left;
     font-size: 16px;
-    background-color: #edf3fd;
+    background-color: #007bff63;
     padding: 10px;
     display: inline-block;
     border-radius: 3px;
     position: relative;
     margin: 5px;
-  }
-  .message:before {
-    position: absolute;
-    top: 0;
-    content: '';
-    width: 0;
-    height: 0;
-    border-style: solid;
-  }
-  .message.bot:before {
-    border-color: transparent #edf3fd transparent transparent;
-    border-width: 0 10px 10px 0;
-    left: -9px;
-  }
-  .message.you:before {
-    border-width: 10px 10px 0 0;
-    right: -9px;
-    border-color: #edf3fd transparent transparent transparent;
-  }
-  
-  .message.you {
-    float: right;
-  }
-  .content {
-    display: block;
-  }
-  .send-message-container {
-    display: inline-grid;
-    background-color: #2b7ae3;
-    grid-column-gap: 10px;
-    grid-template-columns: 1px auto auto 40px 1px;
-    /* position: fixed; */
-    width: 100%;
-    left: 0;
-    bottom: 0px;
-    box-sizing: border-box;
-    padding: 10px 0px;
-    box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.25);
-    height: 60px;
-  }
-  .message-box {
-    border-radius: 3px;
-    border: none;
-    padding: 5px 10px;
-    grid-column-start: 2;
-    grid-column-end: 4;
-  }
-  .send-message-btn {
-    background-color: #fff;
-    padding: 0px;
-    border-radius: 50%;
-    border: none;
-    font-size: 16px;
-    grid-column-start: 4;
-  }
-  .send-message-btn > div {
-    margin-top: 0px;
-    margin-right: 2px;
-  }
-  .img-container {
-    margin-left: 85px;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background-color: #fff;
-    padding: 5px;
-    top: 150px;
-    left: 175px;
-  }
-  .img-container > img {
-    height: 190px;
-    width: 190px;
-    border-radius: 50%;
-  }
-  .time {
-    padding: 10px;
-    text-transform: uppercase;
-    font-size: 60px;
-    width: 100%;
-  }
-  .time-container {
-    display: flex;
-    height: 100%;
+	    
+	    }
+	    footer .copyright {
+    font-size: 14px;
+    margin-bottom: 0;
     text-align: center;
-    justify-content: center;
-    align-items: center;
-  }
-  .container {
-    height: 100%;
-  }
+    left: 66% !important;
+    align-content: center;
+}
+	    
+	.bot-message {
+    float: right;
+    font-size: 16px;
+    background-color: #007bff63;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 15px 1px 1px 0px;
+}
+    </style>
+</head>
+<body>
+<div class="container">
+    <?php
 
+    global $conn;
 
-				</style>
-	</head>
-	<body class="loading">
-		<div id="wrapper">
-			<div id="bg"></div>
-			<div id="overlay"></div>
-			<div id="main">
-					<header id="header">
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="melody"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    ?>
+<div class="profile">
 						<h1>Dennis Otugo</h1>
 						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
-						<nav>
-							<ul>
-								<li><a href="https://facebook.com/el.chapon.9" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-								<li><a href="https://twitter.com/wesleyotugo" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-								<li><a href="https://github.com/dennisotugo" class="icon fa-github"><span class="label">Github</span></a></li>
-								<li><a href="emailto:wesleyotugo@fedoraproject.org" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-							</ul>
-						</nav>
-					</header>
-					
-						<footer id="footer">
-	</body>
-</html>
+
+					</div>
+    <div class="oj-flex oj-flex-items-pad oj-contrast-marker">
+
+        <div class="oj-sm-6 oj-md-6 oj-flex-item">
+            <div class="body1">
+                <div class="chat-output" id="chat-output">
+                    <div class="user-message">
+                        <div class="message">train: question # answer # password'</div>
+                    </div>
+                </div>
+
+                <div class="chat-input">
+                    <form action="" method="post" id="user-input-form">
+                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here">
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <?php
+if(!$do_not_load) { include('header.php'); }
+if(!$do_not_load) { include('footer.php'); }
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $data = $_POST['user-input'];
+      //  $data = preg_replace('/\s+/', '', $data);
+        $temp = explode(':', $data);
+        $temp2 = preg_replace('/\s+/', '', $temp[0]);
+        
+        if($temp2 === 'train'){
+            train($temp[1]);
+        }elseif($temp2 === 'aboutbot') {
+            aboutbot();
+        }else{
+            getAnswer($temp[0]);
+        }
+    }
+
+    function aboutbot() {
+        echo "<div id='result'>v11.0</div>";
+    }
+    function train($input) {
+        $input = explode('#', $input);
+        $question = trim($input[0]);
+        $answer = trim($input[1]);
+        $password = trim($input[2]);
+        if($password == 'password') {
+            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+            $q = $GLOBALS['conn']->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+
+            if(empty($data)) {
+                $training_data = array(':question' => $question,
+                    ':answer' => $answer);
+
+                $sql = 'INSERT INTO chatbot ( question, answer)
+              VALUES (
+                  :question,
+                  :answer
+              );';
+
+                try {
+                    $q = $GLOBALS['conn']->prepare($sql);
+                    if ($q->execute($training_data) == true) {
+                        echo "<div id='result'>Training Successful!</div>";
+                    };
+                } catch (PDOException $e) {
+                    throw $e;
+                }
+            }else{
+                echo "<div id='result'>I already understand this. Teach me something new!</div>";
+            }
+        }else {
+            echo "<div id='result'>Invalid Password, Try Again!</div>";
+
+        }
+    }
+
+    function getAnswer($input) {
+        $question = $input;
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+        $q = $GLOBALS['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
+        if(empty($data)){
+            echo "<div id='result'>Sorry,'train: question # answer # password'</div>";
+        }else {
+            $rand_keys = array_rand($data);
+            echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
+        }
+    }
+    ?>
+
+</div>
+
+</body>
+
+
+<script>
+    var outputArea = $("#chat-output");
+
+    $("#user-input-form").on("submit", function(e) {
+
+        e.preventDefault();
+
+        var message = $("#user-input").val();
+
+        outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
+
+
+        $.ajax({
+            url: 'profile.php?id=melody',
+            type: 'POST',
+            data:  'user-input=' + message,
+            success: function(response) {
+                var result = $($.parseHTML(response)).find("#result").text();
+                setTimeout(function() {
+                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+                    $('#chat-output').animate({
+                        scrollTop: $('#chat-output').get(0).scrollHeight
+                    }, 1500);
+                }, 250);
+            }
+        });
+
+
+        $("#user-input").val("");
+
+    });
+</script>

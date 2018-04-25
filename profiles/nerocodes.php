@@ -3,10 +3,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <title>NeroCodes Profile</title>
+        <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.0.0/3rdparty/require/require.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+        <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" type="text/css"
+	/>
     </head>
     <body>
     <style>
-        body{
+
+        .oj-panel-alt1{
             background-color: #333333;
             color: #ffffff;
             text-align: center;
@@ -33,12 +38,15 @@
 
         .name{
             font-family: verdana;
-            font-size: 3em;
+            font-size: 2em;
+            margin-top: 7px;
+            color: #ffffff;
         }
 
         .username{
             font-family: verdana;
             font-size: 2em;
+            color: #ffffff;
         }
 
         section{
@@ -53,29 +61,37 @@
         }
 
         
-    </style>
-    <main>
-        <?php
-            
-            $sql = $conn->query("SELECT * FROM secret_word LIMIT 1");
-            $sql = $sql->fetch(PDO::FETCH_OBJ);
-            $secret_word = $sql->secret_word;
 
-            $result = $conn->query("SELECT * FROM interns_data_ WHERE username = 'nerocodes'");
-            $user = $result->fetch(PDO::FETCH_OBJ);
-
-        ?>
-        <h1 class="name"><?php echo $user->name ?></h1>
-        <img src="<?php echo $user->image_filename ?>" alt="" class="image">
-        <h2 class="username">@<?php echo $user->username ?></h2>
-        <section>
-            <h3>Front-End Web Developer</h3>
-        </section>
         
+    </style>
+    <?php      
+
+        $sql = $conn->query("SELECT * FROM secret_word LIMIT 1");
+        $sql = $sql->fetch(PDO::FETCH_OBJ);
+        $secret_word = $sql->secret_word;
+
+        $result = $conn->query("SELECT * FROM interns_data WHERE username = 'nerocodes'");
+        $user = $result->fetch(PDO::FETCH_OBJ);
+
+    ?>
+    <main class="oj-web-applayout-body">
+        
+        <div class="oj-panel oj-panel-alt1 oj-margin demo-mypanel">
+            <h1 class="oj-header-border name"><?php echo $user->name ?></h1>
+            <img src="<?php echo $user->image_filename ?>" alt="" class="image">
+            <h2 class="username">@<?php echo $user->username ?></h2>
+            <section>
+                <h3>Front-End Web Developer</h3>
+            </section>
+            <footer>
+                &copy;NeroCodes 2018
+            </footer>
+        </div>
+        
+    
     </main>
-    <footer>
-            &copy;NeroCodes 2018
-    </footer>
+        
+    
         
     </body>
 </html>
