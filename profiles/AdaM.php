@@ -1,7 +1,8 @@
 <?php
 	if($_SERVER['REQUEST_METHOD'] === "GET"){
 		if(!defined('DB_USER')){
-			require "../../config.php";		
+			require "../../config.php";
+			//require "config.php";		
 			try {
 			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 			} catch (PDOException $pe) {
@@ -47,7 +48,8 @@
 <?php
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if(!defined('DB_USER')){
-			require "../../config.php";		
+			require "../../config.php";	
+			//require "../config.php";	
 			try {
 					$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 				} catch (PDOException $pe) {
@@ -71,7 +73,8 @@
 		$indexOfQuestion = stripos($userQuestion, "train:");
 		if($indexOfQuestion === false){
 
-			//i.e it is in question answering mode		
+			//i.e it is in question answering mode
+
 			$userQuestion = preg_replace('([\s]+)', ' ', trim($userQuestion)); //remove all extra white spaces from the question
 			$userQuestion = preg_replace('([?.])', '', $userQuestion); //remove '?' and '.'
 							
@@ -153,19 +156,20 @@
 			}
 			
 			else{
-				// If everything is in place i.e training string is in order and password is correct insert into the database
-				$query = "INSERT INTO chatbot (question, answer) values (:question, :answer)";
-				$sth = $conn->prepare($query);
-				$sth->bindParam(':question', $question);
-				$sth->bindParam(':answer', $answer);
-				$sth->execute();
-				$sth->setFetchMode(PDO::FETCH_ASSOC);
-			
-				//insert is successful, prompt user to ask that question.
-				echo "Yay! Training Successful. Try asking me the same question now.";
+					// If everything is in place i.e training string is in order and password is correct insert into the database
+					$query = "INSERT INTO chatbot (question, answer) values (:question, :answer)";
+					$sth = $conn->prepare($query);
+					$sth->bindParam(':question', $question);
+					$sth->bindParam(':answer', $answer);
+					$sth->execute();
+					$sth->setFetchMode(PDO::FETCH_ASSOC);
+				
+					//insert is successful, prompt user to ask that question.
+					echo "Yay! Training Successful. Try asking me the same question now.";
+				}
+
 			}
 		}
-	}
 ?>
 
 <?php if($_SERVER['REQUEST_METHOD'] === "GET"){ ?>
@@ -175,9 +179,10 @@
   <title>Aniuchi Adaobi M. - @AdaM</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.1.0/default/css/alta/oj-alta-min.css" type="text/css"/>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+ <style>
 		@import url('https://fonts.googleapis.com/css?family=Allura|Damion');
 		@media only screen and (min-width: 600px) {
 				img.bootstrap-pic { display:inline-block; margin-top:-60px;}
@@ -185,13 +190,14 @@
 		@media only screen and (max-width: 600px) {
 				img.bootstrap-pic { display:block;}
 		}
+		.oj-lg-6.image-sec{ padding: 10px 50px 10px 50px;}
 		.panel{border:0; box-shadow:none;}
 		.hello{font-family: 'Allura', Helvetica, cursive; font-size: 35px; line-height: 1.375em; font-weight: bold;}
-		.name{font-family: 'Damion', Arial, sans-serif; font-size:55px; color: #d16027;}
+		.name{font-family: 'Damion', Arial, sans-serif; font-size:55px; color: #27a9d1;}
 		.icons{font-size: 110px;}
 		.icons.html5{color: #d16027;}
 		.icons.css3{color: #27a9d1;}
-		.details{font-size: 25px;}
+		.details{font-size: 22px;}
 		.fb{color: #3b5998;}
 		.tw{color: #1da1f2;}
 		.git{color: #333333;}
@@ -230,88 +236,205 @@
   </style>
 </head>
 
-<body>
-	<div class="container">
-	  <div class="row" style="margin-top:70px; margin-bottom:0px;">
-		<div class="col-sm-5">
-			<div class="panel panel-default" style="padding:5px 0 5px 0 border:0">
-				  <img src="https://res.cloudinary.com/missada/image/upload/v1523634470/squarequick_201671715640975.jpg" class= "img-responsive img-circle" />
-			</div>
-		</div>
-		<div class="col-sm-7">
-			<div class="panel panel-default">
-				<div class="panel-body" align="center" style="padding: 20px 10px 20px 10px">
-					<h4 class= "hello">Hello! I'm</h4>
-					<h1 class="name"><b><?php echo $name; ?></b></h1>
-					<p style="font-size:20px">IT graduate, Web Designer and Blogger from Lagos, Nigeria</p>
-					<div>
-						<span class="fa fa-html5 icons html5"></span> &nbsp; &nbsp;
-						<span class="fa fa-css3 icons css3"></span>
-						<img src="https://res.cloudinary.com/missada/image/upload/v1523807521/bootstrap.jpg" width="150px" height="150px" class="img-responsive bootstrap-pic"/>
-					</div>
-					<p class="details"><span class="fa fa-envelope"> adamichelllle@gmail.com </span></p>			
-					<p>
-						<a href="https://www.linkedin.com/in/adaobi-aniuchi-26173a105/"><span class="fa fa-linkedin-square fa-3x ln"></span></a>&nbsp;
-						<a href="https://web.facebook.com/michelle.aniuchi"><span class="fa fa-facebook-square fa-3x fb"></span></a>&nbsp;
-						<a href="https://twitter.com/AniuchiA"><span class="fa fa-twitter-square fa-3x tw"></span></a>&nbsp;
-						<a href="https://github.com/AdaM2196/"><span class="fa fa-github fa-3x git"></span></a>
-					</p>
-				</div>
-			</div>
-		</div>
-	  </div>
+<body class="oj-web-applayout-body">
+  <div id="globalBody" style="margin-top: 20px;"  class="oj-web-applayout-page">
+    <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content">
+      <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-lg-6 oj-md-12 oj-lg-6 image-sec">
+          <div class="panel panel-default" style="padding:5px 0 5px 0">
+            <img src="https://res.cloudinary.com/missada/image/upload/v1523634470/squarequick_201671715640975.jpg" class= "img-responsive img-circle" />
+          </div>
+        </div>
 
-		<!-- Chatbot Section -->
-		<div class="main-section">
-        <div class="row border-chat">
+        <div class="oj-flex-item oj-sm-12 oj-lg-6 oj-md-12 oj-lg-6">
+          <div class="panel panel-default">
+            <div class="panel-body" align="center" style="padding: 30px 10px 20px 10px">
+              <h4 class= "hello">Hello! I'm</h4>
+              <h1 class="name"><b><?php echo $name; ?></b></h1>
+              <p style="font-size:20px">IT graduate, Web Designer and Blogger from Lagos, Nigeria</p>
+              <div>
+                  <span class="fa fa-html5 icons html5"></span> &nbsp; &nbsp;
+                  <span class="fa fa-css3 icons css3"></span>
+                  <img src="https://res.cloudinary.com/missada/image/upload/v1523807521/bootstrap.jpg" width="150px" height="150px" class="img-responsive bootstrap-pic"/>
+              </div>
+              <p class="details"><span class="fa fa-envelope"> adamichelllle@gmail.com </span></p>			
+              <p>
+                <a href="https://www.linkedin.com/in/adaobi-aniuchi-26173a105/"><span class="fa fa-linkedin-square fa-2x ln"></span></a>&nbsp;
+                <a href="https://web.facebook.com/michelle.aniuchi"><span class="fa fa-facebook-square fa-2x fb"></span></a>&nbsp;
+                <a href="https://twitter.com/AniuchiA"><span class="fa fa-twitter-square fa-2x tw"></span></a>&nbsp;
+                <a href="https://github.com/AdaM2196/"><span class="fa fa-github fa-2x git"></span></a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="oj-flex">
+        <!-- Chatbot Section -->
+		    <div class="main-section">
+          <div class="row border-chat">
             <div class="col-md-12 col-sm-12 col-xs-12 first-section bg-primary">
-                <div class="row">
-                    <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6 left-first-section">
-                        <p id="chatbot-heading" class="blink"><i class="fa fa fa-question-circle"></i> Chat with Me!</p>
-                    </div>
-                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 right-first-section">
-                        <a href="#"><i class="fa fa-minus" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-clone" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
-                    </div>
+              <div class="row">
+                <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6 left-first-section">
+                  <p id="chatbot-heading" class="blink"><i class="fa fa fa-question-circle"></i> Chat with Me!</p>
                 </div>
+                <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 right-first-section">
+                  <a href="#"><i class="fa fa-minus" aria-hidden="true"></i></a>
+                  <a href="#"><i class="fa fa-clone" aria-hidden="true"></i></a>
+                  <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
 
-        <div class="row border-chat">
+          <div class="row border-chat">
             <div class="col-md-12 col-sm-12 col-xs-12 second-section">
-                <div class="chat-section">
-                    <ul id="chatSection">
-
-                    </ul>
-                </div>
+              <div class="chat-section">
+                <ul id="chatSection">
+                </ul>
+              </div>
             </div>
-        </div>
+          </div>
 
-        <div class="row border-chat">
+          <div class="row border-chat">
             <div class="col-md-12 col-sm-12 col-xs-12 third-section">
-                <form class="message-box">
-                    <div class="input-group">
-                        <textarea class="form-control custom-control" id="textbox" autofocus="autofocus" rows="2" style="resize:none" placeholder="Enter your question here"></textarea>     
-                        <span class="input-group-addon btn btn-primary" id="send"><i class="fa fa fa-paper-plane fa-lg" aria-hidden="true"></i></span>
-                    </div>
-                    <div class="checkbox">
-                        <label><input type="checkbox" checked id="enter"> Send On Pressing Enter</label>
-                    </div>
-                </form>
+              <form class="message-box">
+                <div class="input-group">
+                  <textarea class="form-control custom-control" id="textbox" autofocus="autofocus" rows="2" style="resize:none" placeholder="Enter your question here"></textarea>     
+                  <span class="input-group-addon btn btn-primary" id="send"><i class="fa fa fa-paper-plane fa-lg" aria-hidden="true"></i></span>
+                </div>
+                <div class="checkbox">
+                  <label><input type="checkbox" checked id="enter"> Send On Pressing Enter</label>
+                </div>
+              </form>
             </div>
+          </div>
         </div>
-    </div>
-	</div>
+	    </div>
 
-	<span style="z-index:50;font-size:0.9em;"><img src="https://theysaidso.com/branding/theysaidso.png" height="20" width="20" alt="theysaidso.com"/><a href="https://theysaidso.com" title="Powered by quotes from theysaidso.com" style="color: #9fcc25; margin-left: 4px; vertical-align: middle;">theysaidso.com</a></span>
+      <div class="oj-flex">
+        <span style="z-index:50;font-size:0.9em;"><img src="https://theysaidso.com/branding/theysaidso.png" height="20" width="20" alt="theysaidso.com"/><a href="https://theysaidso.com" title="Powered by quotes from theysaidso.com" style="color: #9fcc25; margin-left: 4px; vertical-align: middle;">theysaidso.com</a></span>
+      </div>
+    </div>  
+  </div>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="https://use.fontawesome.com/477bc8d938.js"></script>
+  <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/require/require.js"></script>
+  <script>
+    requirejs.config({
+      // Path mappings for the logical module names
+            paths: {
+              'knockout': 'https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/knockout/knockout-3.4.0',
+              'jquery': 'https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/jquery/jquery-3.1.1.min',
+              'jqueryui-amd': 'https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/jquery/jqueryui-amd-1.12.0.min',
+              'ojs': 'https://static.oracle.com/cdn/jet/v4.1.0/default/js/min',
+              'ojL10n': 'https://static.oracle.com/cdn/jet/v4.1.0/default/js/ojL10n',
+              'ojtranslations': 'https://static.oracle.com/cdn/jet/v4.1.0/default/js/resources',
+              'text': 'https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/require/text',
+              'promise': 'https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/es6-promise/es6-promise.min',
+              'hammerjs': 'https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/hammer/hammer-2.0.8.min',
+              'signals': 'https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/js-signals/signals.min',
+              'ojdnd': 'https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/dnd-polyfill/dnd-polyfill-1.0.0.min',
+              'css': 'https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/require-css/css.min',
+              'customElements': 'https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/webcomponents/custom-elements.min',
+              'proj4js': 'https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/proj4js/dist/proj4'
+            },
+                  
+            // Shim configuration
+            shim: {
+                'jquery': {
+                    exports: ['jQuery', '$']
+                }
+            }
+    });
 
-	<script type="text/javascript">
-		var username = "";
+    require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojmodule', 'ojs/ojrouter', 'ojs/ojinputtext', 'ojs/ojbutton'],
+    function (oj, ko, app, jquery) { // this callback gets executed when all required modules are loaded
+      
+      $(function() {
+        $("#send").click(function(){
+          var usernameTag = "<li><div class='right-chat'><i class='fa fa-user-circle-o fa-3x'></i><p><b>You: </b>";
+          
+          var prevState = $("#chatSection").html();
+          console.log(prevState.length);
+          
+          if(prevState.length == 189){
+            var username = $("#textbox").val();
+            
+            if(prevState.length > prevState.length){
+              prevState = prevState + "<br/>";
+            }
+            
+            $("#chatSection").html(prevState + usernameTag + username + "</p><span>" +botDate+ "</span></div></li>");
+            $(".chat-section").scrollTop($(".chat-section").prop("scrollHeight"));
+            $("#textbox").val("");
+
+            displayUsername(username);
+          }
+          else{
+            var userQuestion = $("#textbox").val();
+            if(prevState.length > prevState.length){
+                  prevState = prevState + "<br/>";
+            }
+
+            $("#chatSection").html(prevState + usernameTag + userQuestion + "</p></div></li>");
+            $(".chat-section").scrollTop($(".chat-section").prop("scrollHeight"));
+            $("#textbox").val("");
+
+            ai(userQuestion);
+            }
+        });
+
+        //initialization function
+        function init() {
+          oj.Router.sync().then(
+            function () {
+              // Bind your ViewModel for the content of the whole page body.
+              ko.applyBindings(app, document.getElementById('globalBody'));
+
+              $(".left-first-section").click(function(){
+                  $("#chatbot-heading").removeClass('blink');
+                  $('.main-section').toggleClass("open-more");
+              });
+
+              $(".fa-minus").click(function(){
+                $('.main-section').removeClass("open-more");
+              });
+                      
+              $('.main-section').addClass("open-more");
+
+              welcome();
+              $("#textbox").keypress(function(event){
+                if( event.which == 13){
+                  if( $("#enter").prop("checked") ){
+                    $("#send").click();
+                    event.preventDefault();
+                  }
+                }
+              });
+            },
+            function (error) {
+              oj.Logger.error('Error in root start: ' + error.message);
+            }
+          );
+        }
+  
+        // If running in a hybrid (e.g. Cordova) environment, we need to wait for the deviceready 
+        // event before executing any code that might interact with Cordova APIs or plugins.
+        if ($(document.body).hasClass('oj-hybrid')) {
+          document.addEventListener("deviceready", init);
+        } else {
+          init();
+        }
+  
+      });
+      
+      
+      
+    }
+  );
+
+
+  var username = "";
 
 		//function to add extra zeros for my botdate
 		function pad(number){
@@ -375,65 +498,7 @@
 			}
 			
 		}
-
-		//ON load of page.
-		$(document).ready(function(){
-			$(".left-first-section").click(function(){
-					$("#chatbot-heading").removeClass('blink');
-					$('.main-section').toggleClass("open-more");
-			});
-
-			$(".fa-minus").click(function(){
-				$('.main-section').removeClass("open-more");
-			});
-							
-			$('.main-section').addClass("open-more");
-
-			welcome();
-			$("#textbox").keypress(function(event){
-				if( event.which == 13){
-					if( $("#enter").prop("checked") ){
-						$("#send").click();
-						event.preventDefault();
-					}
-				}
-			});
-
-			$("#send").click(function(){
-				var usernameTag = "<li><div class='right-chat'><i class='fa fa-user-circle-o fa-3x'></i><p><b>You: </b>";
-				
-				var prevState = $("#chatSection").html();
-				
-				if(prevState.length == 194){
-					var username = $("#textbox").val();
-					
-					if(prevState.length > prevState.length){
-						prevState = prevState + "<br/>";
-					}
-					
-					$("#chatSection").html(prevState + usernameTag + username + "</p><span>" +botDate+ "</span></div></li>");
-					$(".chat-section").scrollTop($(".chat-section").prop("scrollHeight"));
-					$("#textbox").val("");
-
-					displayUsername(username);
-				}
-				else{
-					var userQuestion = $("#textbox").val();
-					if(prevState.length > prevState.length){
-         				 prevState = prevState + "<br/>";
-					}
-
-					$("#chatSection").html(prevState + usernameTag + userQuestion + "</p></div></li>");
-					$(".chat-section").scrollTop($(".chat-section").prop("scrollHeight"));
-					$("#textbox").val("");
-
-					ai(userQuestion);
-					}
-			});
-
-							
-		});
-	</script>
+  </script>
 </body>
 </html>
 <?php } ?>
