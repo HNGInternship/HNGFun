@@ -226,8 +226,13 @@ function getAnswer( $input ) {
 <!-- RequireJS bootstrap file -->
 <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
     <style type="text/css">
-/*<![CDATA[*/
+
+         .chat-output > div {
+    display: inline-block;
+    width: 100%;
+}
             .chat-output {
+                 display: block;
     overflow-y: scroll;
     height: 100%;
     }
@@ -316,21 +321,18 @@ function getAnswer( $input ) {
     position: relative;
     margin: 15px 1px 1px 0px;
     }
-    /*]]>*/
+      footer {
+      display: none;
+      }
     </style>
   </head>
   <body>
     <div class="profile">
-         <div id="avatar-container" class="demo-flex-display">
-      <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
-        <div class="of-flex-item">
+         
           <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
             data-bind="attr:{'aria-label':'Avatar of ' + firstName + ' ' + lastName}"
             src="https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701221/avatar.png" class="oj-avatar-image">
           </oj-avatar>
-        </div>
-      </div>
-    </div>
   </div>
 
       <h1>
