@@ -23,7 +23,7 @@
             flex-direction: column;
             max-width: 550px;
             margin: 0 auto;
-			 border-radius: 5px;
+			 border-radius: 0px;
 			 margin-bottom: 50px;
         }
 
@@ -43,6 +43,7 @@
             padding-right: 0;
             background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
+			padding-bottom: 50px;
         }
         .profile-body {
             max-width: 50%;
@@ -172,7 +173,6 @@
             font-weight: bold;
 			font-size: 24px;
         }
-
         .chatbot-menu-header a {
             color: #FFFFFF;
         }
@@ -197,7 +197,7 @@
                     <img src="<?=$my_data['image_filename'] ?>" alt="Lois Thomas">
                 </div>
 				<p class="text-center profile-name">
-				<span> Hi! I am  <?=$my_data['name'] ?>  <br/>(@<?=$my_data['username'] ?>) <br/> I Eat | I Code | I Repeat</span>
+				<span> Hi! I am  <?=$my_data['name'] ?>  <br/>(@<?=$my_data['username'] ?>) <br/> iLearn | iEat | iCode</span>
                 </p>
                 <div class="text-center social-links">
                     <a href="https://github.com/cara06" target="_blank"><i class="fa fa-2x fa-github"></i></a>
@@ -213,8 +213,8 @@
                 <div class="chat-result" id="chat-result">
                     <div class="user-message">
 					<div class="message">Hello! I'm LoBot! Feel free to ask me anything.   </div>
-					<div class="message">Learn more about me by typing 'aboutbot'.</div>
-                    <div class="message">To train me, use this syntax - 'train: question # answer # password'.</div>
+					<div class="message">Learn more about me by typing "aboutbot".</div>
+                    <div class="message">To train me, use this syntax - "train:question#answer#password".</div>
 					<div class="message">Password is password. </div>
                     </div>
                 </div>
@@ -242,7 +242,7 @@
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST['user-input'];
         $temp = explode(':', $data);
-        $temp2 = preg_replace('/\s+/', '', $temp[0]);
+        $temp2 = preg_replace('/\s+/','', $temp[0]);
         
         if($temp2 === 'train'){
             train($temp[1]);
@@ -254,8 +254,8 @@
     }
 	##About Bot
     function aboutbot() {
-        echo "<div id='result'><strong>LoBot 1.0 </strong>
-		Hey...I am LoBot, created by Lois Thomas to answer any question. You can also teach me things I don't know.</div>";
+        echo "<div id='result'><strong>LoBot 1.0 </strong></br>
+		Hey...I am LoBot, created by Lois Thomas to answer any question from the database. You can also teach me tricks I do not know...</br> Let's goooo...</div>";
     }
 	
 	##Train Bot
@@ -280,8 +280,8 @@
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>Thank you for training me. <br>
-			Now you can ask me same question, and I will answer it.</div>";
+                        echo "<div id='result'>Thank you for training me. </br>
+			Now you can ask me same question, and I will answer it correctly.</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
@@ -301,8 +301,8 @@
         $data = $q->fetchAll();
         if(empty($data)){
             echo "<div id='result'>Oops! I've not been trained to learn that command. </br>Would you like to train me?
-</br>You can train me to answer any question at all using, train: question # answer # password
-</br>e.g train: Who is the president of Nigeria # Muhammadu Buhari # password'</div>";
+</br>You can train me to answer any question at all using, train:question#answer#password
+</br>e.g train:Who said Nigerian youth are lazy#President Buhari#password</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
