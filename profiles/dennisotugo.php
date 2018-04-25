@@ -211,7 +211,6 @@ function getAnswer( $input ) {
                 Human Being | Cyborg | Never asked for this
             </p>
      </div>
-       </div>
         <div class="oj-flex-item oj-panel oj-margin">
           <div class="chat-output" id="chat-output">
             <div class="user-message">
@@ -229,6 +228,7 @@ function getAnswer( $input ) {
                               </div>
             </div>
           </div>
+            </div>
 </script>
      <script>
 //<![CDATA[
