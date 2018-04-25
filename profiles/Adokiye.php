@@ -2,7 +2,7 @@
 //require 'db.php';
 
     date_default_timezone_set("Africa/Lagos");
-}
+
 
 ?>
 <?php
