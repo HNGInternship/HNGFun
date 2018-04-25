@@ -1,4 +1,4 @@
-<!--Created by Thomas Lois ---->
+<!--Created by Thomas Lois -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +23,7 @@
             flex-direction: column;
             max-width: 550px;
             margin: 0 auto;
-			 border-radius: 5px;
+			 border-radius: 0px;
 			 margin-bottom: 50px;
         }
 
@@ -37,13 +37,13 @@
 
         .profile-details{
             padding-top: 20px;
-			background
         }
 
         .profile-details {
             padding-right: 0;
             background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
+			margin-bottom: 50px;
         }
         .profile-body {
             max-width: 50%;
@@ -148,8 +148,6 @@
 		   outline: none;
 		}
 		
-		
-
 	.chatbot-menu-header {
             background-color: #191970;
             padding: 7px 20px;
@@ -173,7 +171,6 @@
             font-weight: bold;
 			font-size: 24px;
         }
-
         .chatbot-menu-header a {
             color: #FFFFFF;
         }
@@ -198,7 +195,7 @@
                     <img src="<?=$my_data['image_filename'] ?>" alt="Lois Thomas">
                 </div>
 				<p class="text-center profile-name">
-				<span> Hi! I am  <?=$my_data['name'] ?>  <br/>(@<?=$my_data['username'] ?>) <br/> I Eat | I Code | I Repeat</span>
+				<span> Hi! I am  <?=$my_data['name'] ?>  <br/>(@<?=$my_data['username'] ?>) <br/> iLearn | iEat | iCode</span>
                 </p>
                 <div class="text-center social-links">
                     <a href="https://github.com/cara06" target="_blank"><i class="fa fa-2x fa-github"></i></a>
@@ -214,9 +211,9 @@
                 <div class="chat-result" id="chat-result">
                     <div class="user-message">
 					<div class="message">Hello! I'm LoBot! Feel free to ask me anything.   </div>
-					<div class="message">Learn more about me by typing 'aboutbot'.</div>
-                    <div class="message">To train me, use this syntax - 'train: question # answer # password'.</div>
-					<div class="message">Password is LoBot. </div>
+					<div class="message">Learn more about me by typing "aboutbot".</div>
+                    <div class="message">To train me, use this syntax - "train:question#answer#password".</div>
+					<div class="message">Password is password. </div>
                     </div>
                 </div>
 
@@ -243,7 +240,7 @@
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST['user-input'];
         $temp = explode(':', $data);
-        $temp2 = preg_replace('/\s+/', '', $temp[0]);
+        $temp2 = preg_replace('/\s+/','', $temp[0]);
         
         if($temp2 === 'train'){
             train($temp[1]);
@@ -255,8 +252,8 @@
     }
 	##About Bot
     function aboutbot() {
-        echo "<div id='result'><strong>LoBot 1.0 </strong>
-		Hey...I am LoBot, created by Lois Thomas to answer any question. You can also teach me things I don't know. Sounds fun right</div>";
+        echo "<div id='result'><strong>LoBot 1.0 </strong></br>
+		Hey...I am LoBot, created by Lois Thomas to answer any question from the database. You can also teach me tricks I do not know...</br> Let's goooo...</div>";
     }
 	
 	##Train Bot
@@ -265,7 +262,7 @@
         $question = trim($input[0]);
         $answer = trim($input[1]);
         $password = trim($input[2]);
-        if($password == 'LoBot') {
+        if($password == 'password') {
             $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
             $q = $GLOBALS['conn']->query($sql);
             $q->setFetchMode(PDO::FETCH_ASSOC);
@@ -281,8 +278,8 @@
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>Thank you for training me. <br>
-			Now you can ask me same question, and I will answer it.</div>";
+                        echo "<div id='result'>Thank you for training me. </br>
+			Now you can ask me same question, and I will answer it correctly.</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
@@ -302,8 +299,8 @@
         $data = $q->fetchAll();
         if(empty($data)){
             echo "<div id='result'>Oops! I've not been trained to learn that command. </br>Would you like to train me?
-</br>You can train me to answer any question at all using, train: question # answer # password
-</br>e.g train: Who is the president of Nigeria # Muhammadu Buhari # LoBot'</div>";
+</br>You can train me to answer any question at all using, train:question#answer#password
+</br>e.g train:Who said Nigerian youth are lazy#President Buhari#password</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";

@@ -1,14 +1,15 @@
 <?php 
 
 if(!defined('DB_USER')){
-  require "../../config.php";		
-  try {
-      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-  } catch (PDOException $pe) {
-      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-  }
+	require_once __DIR__."/../../config.php";
+	//require_once __DIR__."/../config.php";    
+	try {
+		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+	} catch (PDOException $pe) {
+		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	}
 }
-	
+
 
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -20,8 +21,11 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    include "../answers.php";
+    require "../answers.php";
     
+    date_default_timezone_set("Africa/Lagos");
+
+
     try{
 
 	    if(!isset($_POST['question'])){
@@ -48,10 +52,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				# code...
 				echo json_encode([
 					'status' => 0,
-					'answer' => "You need to enter a password to train me."
+					'answer' => "You need to enter a password to train me.",
 				]);
 				return;
 			}
+			
 			$password = trim($queries[2]);
 			//to verify training password
 			define('trainingpassword', 'password');
@@ -378,16 +383,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#ans").append("<li>" + response.answer + "</li>");
-			       // console.log(response.result);
-			        //alert(response.result.d);
-			        //alert(answer.result);
-			        
+						$("#ans").append("<li>" + response.answer + "</li>");
 					},
-					error: function(error){
-						//console.log(error);
-				        alert(error);
-					}
+					error:function(error){
+						alert(JSON.stringify(error));
+					}	
 				})	
 			})
 		});
