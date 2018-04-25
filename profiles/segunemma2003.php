@@ -11,7 +11,7 @@ try {
 } catch (PDOException $e) {
 	throw $e;
 }
-if ($_SERVER['REQUEST_METHOD']=='POST'){
+if ($_POST){
 	$message = trim(htmlspecialchars($_POST['message']));
 	if ($message === ''){
 		$empty_response = [
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
                     echo json_encode(['status'=>1, 'data'=>'Alright gonna put it in mind']);
 				}
 				else{
-					echo json_encode(['status'=>0, 'data'=>'Aw, I don\'t get'.($store==true)]);
+					echo json_encode(['status'=>0, 'data'=>'Aw, I don\'t get']);
 		
                 }
             }
