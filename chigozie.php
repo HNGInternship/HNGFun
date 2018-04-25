@@ -24,7 +24,7 @@
 		}
 
 		$name = null;
-		$username = "w3bh4ck";
+		$username = "chigozie";
 		$image_filename = '';
 
 		$stmt = $conn->prepare("select * from interns_data where username = :username");
@@ -475,11 +475,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>w3bh4ck</title>
+	<title>Chigozie's Corner</title>
 	<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
 
 	<style>
-		
+		body {
+			background-image: url(http://res.cloudinary.com/dqscsuyyn/image/upload/v1523631081/bg.jpg);
+		}
+
 		.circle {
 			width: 60%;
 			margin-left: 20%;
@@ -631,7 +634,7 @@
 			<div class="row" style="margin-top: 30px;">
 				<form class="form-inline col-md-12 col-sm-12" id="question-form">
 					<div class="col-md-12 col-sm-12 col-12" id="thinking-div" style="display: none;">
-						<p style="font-size: 12px; font-style: italic; font-weight: bold;">w3bh4ck AI Prime is thinking...</p>
+						<p style="font-size: 12px; font-style: italic; font-weight: bold;">Optimus Prime is thinking...</p>
 					</div>
 					<div class="col-md-12 col-sm-12 col-12">
 						<input class="form-control w-100" type="text" name="question" placeholder="Ask a question" />
