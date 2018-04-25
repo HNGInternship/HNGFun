@@ -126,6 +126,8 @@
 			}
 
 			$secret_word = $data['secret_word'];
+
+			// var_dump($secret_word);
 		?>
 
 		<!-- Main HTML content -->
