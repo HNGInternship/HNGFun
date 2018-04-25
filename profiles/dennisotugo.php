@@ -104,11 +104,15 @@ function getAnswer( $input ) {
 <!-- RequireJS bootstrap file -->
 <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
     <style type="text/css">
+        .oj-flex {
+    background-color: #007bff;
+}
 .blue1 {
     width: 50%;
         }
         .white2 {
     width: 50%;
+            background-color: #ffffff;
         }
       footer {
       display: none;
@@ -122,11 +126,11 @@ function getAnswer( $input ) {
     <p>Human Being | Cyborg | Never asked for this</p>
   </div>
   <div class="oj-flex-item white2">
-    <div class="chat-output" id="chat-output"></div>
+    <div class="chat-output" id="chat-output">
     <div class="user-message"></div>
     <div class="message">train: question # answer # password'<div class="chat-input"></div>
     <form action="" method="post" id="user-input-form" name="user-input-form"></div>
-    <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here" /></form></div>
+    <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here" /></form></div></div>
   </div>
 </div>
 </script>
