@@ -147,10 +147,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   function randomQuotes () {
     $quotes = array("I have a dream",
                        "Children are good", 
-                       "Another quote"
-                       "Another 11 quote"
-                       "Another vbbv quote"
-                       "Another [[[]]] quote"
+                       "Another quote",
+                       "Another 11 quote",
+                       "Another vbbv quote",
+                       "Another [[[]]] quote",
                        "Anothernnn quote");
      $myQuotes = quotes[rand(0,3);];
      return $myQuotes;
