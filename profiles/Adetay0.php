@@ -19,6 +19,7 @@ require 'db.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Niconne" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Tajawal" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
     <title>Adetay0 </title>
 </head>
@@ -42,11 +43,18 @@ body{
     
     height:30%;
     width:30%;
-    
-    border-radius:2px solid grey;
-    box-shadow:2px 2px 1px midnightblue;
+    border-radius:2px solid grey;  
 }
 
+h1{
+    font-family:'Tajawal', sans-serif;
+    font-size:2.0rem;
+}
+p{
+font-family:'Tajawal',sans-serif;
+font-size:2.0rem;
+
+}
 .jumbotron{
     position:absolute;
     margin:5px 5px 5px;
