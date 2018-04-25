@@ -38,50 +38,50 @@ $secret_word =  $result['secret_word'];
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 
 	<style>
-			.card {
-			  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-			  max-width: 300px;
-			  margin: auto;
-			  text-align: center;
-			  font-family: arial;
-			}
+	.card {
+	  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	  max-width: 300px;
+	  margin: auto;
+	  text-align: center;
+	  font-family: arial;
+	}
 
-			.title {
-			  color: grey;
-			  font-size: 18px;
-			}
+	.title {
+	  color: grey;
+	  font-size: 18px;
+	}
 
-			a {
-			  text-decoration: none;
-			  font-size: 22px;
-			  color: black;
-			}
+	a {
+	  text-decoration: none;
+	  font-size: 22px;
+	  color: black;
+	}
 
-			 a:hover {
-			  opacity: 0.7;
-			}
-			#modalbtn{
-				position: absolute;
-				display: fixed;
-				top:50%;
-			}
-			 .modalButton {
-		      border-radius: 6px;
-		      background-color: #008080;
-		      border: none;
-		      color: #ffffff;
-		      text-align: center;
-		      font-size: 20px;
-		      padding:20px;
-		      margin-right: 20px;
-		      transition: all 0.5s;
-		      cursor: pointer;
-		      bottom: 5%;
-		      right: 0;
-		      position: fixed;
-		      z-index: 1;
-		      box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2);
-		    }
+	 a:hover {
+	  opacity: 0.7;
+	}
+	#modalbtn{
+		position: absolute;
+		display: fixed;
+		top:50%;
+	}
+	 .modalButton {
+      border-radius: 6px;
+      background-color: #008080;
+      border: none;
+      color: #ffffff;
+      text-align: center;
+      font-size: 20px;
+      padding:20px;
+      margin-right: 20px;
+      transition: all 0.5s;
+      cursor: pointer;
+      bottom: 5%;
+      right: 0;
+      position: fixed;
+      z-index: 1;
+      box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2);
+    }
 
     .modalButton:hover {
       background-color: #ffffff;
