@@ -131,7 +131,7 @@ function getAnswer( $input ) {
     box-shadow: rgb(1, 1, 1) 1px 1px 9px 0px;
 }
 .blue1 {
-    width: 30%;
+    width: 50%;
     position: fixed;
     left: 0;
     /* background-color: #007bff; */
@@ -139,7 +139,7 @@ function getAnswer( $input ) {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    top: 50%;
+    top: 30%;
     /* transform: translate(0, 40%); */
 }
 .white2 {
