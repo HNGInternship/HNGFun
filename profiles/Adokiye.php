@@ -48,7 +48,7 @@ $input = trim($input);
                     $explode3 = explode('#', $explode2[1], 2);
                     if (isset($explode3[1])){
                         if (  $explode3[1] == "password") {
-                            $sql1 = "SELECT question,answer FROM chatbot WHERE LOWER(question) ='" . $explode2[0] . "' and LOWER(answer) =  '" . $explode3[0] . "'";
+                            $sql1 = "SELECT question,answer FROM chatbot WHERE question ='" . $explode2[0] . "' and answer =  '" . $explode3[0] . "'";
                             $query = $conn->query($sql1);
                             $row_cnt = $query->num_rows;
                             if ($row_cnt > 0) {
@@ -248,7 +248,7 @@ $username = 'Adokiye';
         <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
         <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
     </div>
-    <p class="mycss"> Chatbot by Adokiye<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
+    <p class="mycss"> Chatbot by Adokiye---<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
     <form name = "askMe" method="post">
         <p>
             <label>
