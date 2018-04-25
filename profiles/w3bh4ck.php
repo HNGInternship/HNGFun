@@ -1,286 +1,47 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>W3BH4CK || HotelNG Intern</title>
-    <link href="https://fonts.googleapis.com/css?family=Handlee" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Cinzel|Concert+One|Patua+One|Righteous|Russo+One|Shrikhand" rel="stylesheet">
-</head>
-<style type="text/css">
-    /*
-font-family: 'Patua One', cursive;
-font-family: 'Concert One', cursive;
-font-family: 'Cinzel', serif;
-font-family: 'Righteous', cursive;
-font-family: 'Shrikhand', cursive;
-font-family: 'Russo One', sans-serif;
-        */
-
-    html,
-    body {
-        margin: 0 auto;
-    }
-
-    #header {
-        font-family: 'Russo One', sans-serif;
-        color: white
-    }
-
-    body {
-        background-image: url('http://res.cloudinary.com/w3bh4ck/image/upload/v1523849170/web-wallpaper.jpg');
-    }
-
-    img {
-        margin-top: 10px;
-        border: 2px dashed white;
-    }
-
-    .skills {
-        margin-top: 20px;
-        border: 2px solid grey;
-        background-color: grey;
-        font-family: 'Patua One', cursive;
-        border-radius: 8px;
-        box-shadow: 1px 1px 2px grey;
-        opacity: 0.8;
-    }
-
-    .intro {
-        margin-top: 20px;
-        color: aliceblue;
-        padding-top: 30px;
-        font-family: 'Cinzel', serif;
-    }
-</style>
-
-<body>
-
-    <?php 
-        require 'db.php';
-    ?>
-
-    <div class="container">
-
-        <div id="header" class="section text-center">
-            <img alt="photo" class="img-circle" src="http://res.cloudinary.com/w3bh4ck/image/upload/v1523793277/23658800_1730371916975943_5091116093810420678_n.jpg" height="300px" width="300px">
-            <h2>AMADI LUCKY SAMPSON</h2>
-            <h3>Software developer</h3>
-        </div>
-        <div class="row">
-            <div class="col-md-6 intro">
-                <h2>Hello, I am <strong>W3bh4ck</strong> A software developer with eyes for intuitive designs. I'm fascinated by technology and always ready to build and learn anything that works on the web.
-                </h2>
-            </div>
-
-            <div class="col-md-6 skills">
-                <h2 class="text-center">SKILLS</h2>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:90%">
-                        JavaScript
-                    </div>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:90%">
-                        jQuery
-                    </div>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width:85%">
-                        React.js
-                    </div>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%">
-                        PHP
-                    </div>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                        Java
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- chatbot section -->
-    <div>
-
-
-
-        <div class="col-md-6 offset-md-1 chat-frame">
-            <h2 class="text-center">Chatbot Interface</h2>
-            <div class="row chat-messages" id="chat-messages">
-                <div class="col-md-12" id="message-frame">
-                    <div class="row single-message">
-                        <div class="col-md-2 single-message-bg">
-                            <span class="fa fa-user f-icon"></span>
-                        </div>
-
-                        <div class="col-md-8 single-message-bg">
-                            <p>Welcome! My name is <span style="font-weight: bold">Optimus Prime</span></p>
-                        </div>
-                    </div>
-                    <div class="row single-message">
-                        <div class="col-md-2 single-message-bg">
-                            <span class="fa fa-user f-icon"></span>
-                        </div>
-                        <div class="col-md-8 single-message-bg">
-                            <p>Ask me your questions and I will try to answer them.</p>
-                        </div>
-                    </div>
-                    <div class="row single-message">
-                        <div class="col-md-2 single-message-bg">
-                            <span class="fa fa-user f-icon"></span>
-                        </div>
-                        <div class="col-md-8 single-message-bg">
-                            <p>You can teach me answers to new questions by training me.</p>
-                            <p>To train me, enter the training string in this format:</p>
-                            <p><b>train: question # answer # password</b></p>
-                            <p>To get assistance, type: <br>
-                                <b>--help</b>
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- <div class="row single-message">
-						<div class="col-md-10">
-							<p>Welcome! How may I assist you today?</p>
-						</div>
-
-						<div class="col-md-2">
-							<span class="float-right fa fa-user f-icon"></span>
-						</div>
-					</div> -->
-                </div>
-            </div>
-            <div class="row" style="margin-top: 30px;">
-                <form class="form-inline col-md-12 col-sm-12" id="question-form">
-                    <div class="col-md-12 col-sm-12 col-12" id="thinking-div" style="display: none;">
-                        <p style="font-size: 12px; font-style: italic; font-weight: bold;">w3bh4ck AI Prime is thinking...</p>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-12">
-                        <input class="form-control w-100" type="text" name="question" placeholder="Ask a question" />
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
-                        <button type="submit" class="btn btn-info float-right w-100">Send</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-    </div>
-    <!-- end chatbot ->
-
-
-<!--script -->
-    
-    <script>
-	$(document).ready(function(){
-		var questionForm = $('#question-form');
-		questionForm.submit(function(e){
-			e.preventDefault();
-			var questionBox = $('input[name=question]');
-			var question = questionBox.val();
-			
-			//display question in the message frame as a chat entry
-			var messageFrame = $('#message-frame');
-			var chatToBeDisplayed = '<div class="row single-message">'+
-						'<div class="col-md-8 offset-md-2 single-message-bg2">'+
-							'<p>'+question+'</p>'+
-						'</div>'+
-						'<div class="col-md-2 single-message-bg2">'+
-							'<span class="float-right fa fa-user f-icon"></span>'+
-						'</div>'+
-					'</div>';
-
-			messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-
-			if(question.trim() == ''){
-				var chatToBeDisplayed = '<div class="row single-message">'+
-									'<div class="col-md-2 single-message-bg">'+
-										'<span class="fa fa-user f-icon"></span>'+
-									'</div>'+
-
-									'<div class="col-md-8 single-message-bg">'+
-										'<p>'+"Please enter a question"+'</p>'+
-									'</div>'+
-								'</div>';
-
-				messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-				questionBox.val("");	
-				$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-				return;
+<?php
+	if($_SERVER['REQUEST_METHOD'] === "GET"){
+		if(!defined('DB_USER')){
+			require "../../config.php";		
+			try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 			}
+		}
 
-			var thinkingDiv = $('#thinking-div');
-			thinkingDiv.show();
-			//send question to server
-			$.ajax({
-				url: "/profiles/chigozie.php",
-				type: "post",
-				data: {question: question},
-				dataType: "json",
-				success: function(response){
-					if(response.status == 1){
-						var chatToBeDisplayed = '<div class="row single-message">'+
-									'<div class="col-md-2 single-message-bg">'+
-										'<span class="fa fa-user f-icon"></span>'+
-									'</div>'+
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		
+		$stmt = $conn->prepare("select secret_word from secret_word limit 1");
+		$stmt->execute();
 
-									'<div class="col-md-8 single-message-bg">'+
-										'<p>'+response.answer+'</p>'+
-									'</div>'+
-								'</div>';
+		$secret_word = null;
 
-						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-						questionBox.val("");	
-						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-					}else if(response.status == 0){
-						var chatToBeDisplayed = '<div class="row single-message">'+
-									'<div class="col-md-2 single-message-bg">'+
-										'<span class="fa fa-user f-icon"></span>'+
-									'</div>'+
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$rows = $stmt->fetchAll();
+		if(count($rows)>0){
+			$row = $rows[0];
+			$secret_word = $row['secret_word'];	
+		}
 
-									'<div class="col-md-8 single-message-bg">'+
-										'<p>'+response.answer+'</p>'+
-									'</div>'+
-								'</div>';
+		$name = null;
+		$username = "w3bh4ck";
+		$image_filename = '';
 
-						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-					}
-					thinkingDiv.hide();
-				},
-				error: function(error){
-					thinkingDiv.hide();
-					console.error(error);
-					var chatToBeDisplayed = '<div class="row single-message">'+
-									'<div class="col-md-2 single-message-bg">'+
-										'<span class="fa fa-user f-icon"></span>'+
-									'</div>'+
+		$stmt = $conn->prepare("select * from interns_data where username = :username");
+		$stmt->bindParam(':username', $username);
+		$stmt->execute();
 
-									'<div class="col-md-8 single-message-bg">'+
-										'<p style="color: red">'+'An error occured. I think my cerebellum is fried'+'</p>'+
-									'</div>'+
-								'</div>';
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$rows = $stmt->fetchAll();
+		if(count($rows)>0){
+			$row = $rows[0];
+			$name = $row['name'];	
+			$image_filename = $row['image_filename'];	
+		}
+	}
+?>
 
-					messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-					$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-				}
-			})
-
-		});
-	});
-</script>	
-<!-- end script -->
-    
-    <?php
+<?php
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if(!defined('DB_USER')){
@@ -710,23 +471,285 @@ font-family: 'Russo One', sans-serif;
 <?php
 	if($_SERVER['REQUEST_METHOD'] === "GET"){
 ?>
-    
-    
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>w3bh4ck</title>
+	<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
 
+	<style>
+		
+		.circle {
+			width: 60%;
+			margin-left: 20%;
+			border-radius: 50%;
+		}
 
+		.frame {
+			border: 1px solid grey;
+			padding: 20px;
+			background-color: #ffffff;
+			margin-top: 5%;
+			height: 400px;
+		}
 
-<!--  ***************************************************************** -->
-    <?php
-   $result = $conn->query("Select * from secret_word LIMIT 1");
-   $result = $result->fetch(PDO::FETCH_OBJ);
-   $secret_word = $result->secret_word;
+		.info {
+			margin-top: 25px;
+		}
 
-   $result2 = $conn->query("Select * from interns_data where username = 'w3bh4ck'");
-   $user = $result2->fetch(PDO::FETCH_OBJ);
-?>
+		.slack_span {
+			color: #0000ff;
+		}
 
+		.occupation_span {
+			color: #ff0000;
+			font-weight: bold;
+		}
 
+		.chat-frame {
+			border: 1px solid grey;
+			padding: 20px;
+			background-color: #f8d34a;
+			margin-top: 5%;
+			margin-bottom: 50px;
+		}
+
+		.chat-messages {
+			background-color: #ffffff;
+			font-size: 14px;
+			height: 600px;
+			overflow-y: auto;
+			margin-left: 15px;
+			margin-right: 15px;
+			border-radius: 6px;
+			padding: 5px;
+		}
+
+		.single-message {
+			margin-bottom: 5px; 
+			border-radius: 5px;
+			min-height: 60px;
+		}
+
+		.single-message-bg {
+			background-color: #99ff33;
+			padding: 10px;
+		}
+
+		.single-message-bg2 {
+			background-color: #6699ff;
+			padding: 10px;
+		}
+
+		input[name=question] {
+			height: 50px;
+		}
+
+		button[type=submit] {
+			height: 50px;
+		}
+
+		.f-icon {
+			font-size: 40px;
+		}
+
+	</style>
+</head>
+
+<body>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3 offset-md-1 frame">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="circle">
+						<img src="<?php echo $image_filename; ?>" alt="Profile Picture" class="circle" />
+					</div>
+				</div>	
+			</div>
+
+			<div class="row info">
+				<div class="col-md-12">
+					<h3 class="text-center">
+						<?php echo $name; ?>
+					</h3>
+					<h5 class="text-center"><span class="slack_span">Slack Username: </span>@<?php echo $username; ?></h5>
+					<p class="text-center"><span class="occupation_span">What I do: </span>I develop web and mobile apps</p>
+				</div>
+
+			</div>
+		</div>	
+
+		<div class="col-md-6 offset-md-1 chat-frame">
+			<h2 class="text-center">Chatbot Interface</h2>
+			<div class="row chat-messages" id="chat-messages">
+				<div class="col-md-12" id="message-frame">
+					<div class="row single-message">
+						<div class="col-md-2 single-message-bg">
+							<span class="fa fa-user f-icon"></span>
+						</div>
+
+						<div class="col-md-8 single-message-bg">
+							<p>Welcome! My name is <span style="font-weight: bold">Optimus Prime</span></p>
+						</div>
+					</div>
+					<div class="row single-message">
+						<div class="col-md-2 single-message-bg">
+							<span class="fa fa-user f-icon"></span>
+						</div>
+						<div class="col-md-8 single-message-bg">
+							<p>Ask me your questions and I will try to answer them.</p>
+						</div>
+					</div>
+					<div class="row single-message">
+						<div class="col-md-2 single-message-bg">
+							<span class="fa fa-user f-icon"></span>
+						</div>
+						<div class="col-md-8 single-message-bg">
+							<p>You can teach me answers to new questions by training me.</p>
+							<p>To train me, enter the training string in this format:</p>
+							<p><b>train: question # answer # password</b></p>
+							<p>To get assistance, type: <br>
+								<b>--help</b>
+							</p>
+						</div>
+					</div>
+
+					<!-- <div class="row single-message">
+						<div class="col-md-10">
+							<p>Welcome! How may I assist you today?</p>
+						</div>
+
+						<div class="col-md-2">
+							<span class="float-right fa fa-user f-icon"></span>
+						</div>
+					</div> -->
+				</div>
+			</div>
+			<div class="row" style="margin-top: 30px;">
+				<form class="form-inline col-md-12 col-sm-12" id="question-form">
+					<div class="col-md-12 col-sm-12 col-12" id="thinking-div" style="display: none;">
+						<p style="font-size: 12px; font-style: italic; font-weight: bold;">w3bh4ck AI Prime is thinking...</p>
+					</div>
+					<div class="col-md-12 col-sm-12 col-12">
+						<input class="form-control w-100" type="text" name="question" placeholder="Ask a question" />
+					</div>
+					<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
+						<button type="submit" class="btn btn-info float-right w-100">Send</button>
+					</div>
+				</form>	
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+<script>
+	$(document).ready(function(){
+		var questionForm = $('#question-form');
+		questionForm.submit(function(e){
+			e.preventDefault();
+			var questionBox = $('input[name=question]');
+			var question = questionBox.val();
+			
+			//display question in the message frame as a chat entry
+			var messageFrame = $('#message-frame');
+			var chatToBeDisplayed = '<div class="row single-message">'+
+						'<div class="col-md-8 offset-md-2 single-message-bg2">'+
+							'<p>'+question+'</p>'+
+						'</div>'+
+						'<div class="col-md-2 single-message-bg2">'+
+							'<span class="float-right fa fa-user f-icon"></span>'+
+						'</div>'+
+					'</div>';
+
+			messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+
+			if(question.trim() == ''){
+				var chatToBeDisplayed = '<div class="row single-message">'+
+									'<div class="col-md-2 single-message-bg">'+
+										'<span class="fa fa-user f-icon"></span>'+
+									'</div>'+
+
+									'<div class="col-md-8 single-message-bg">'+
+										'<p>'+"Please enter a question"+'</p>'+
+									'</div>'+
+								'</div>';
+
+				messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+				questionBox.val("");	
+				$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+				return;
+			}
+
+			var thinkingDiv = $('#thinking-div');
+			thinkingDiv.show();
+			//send question to server
+			$.ajax({
+				url: "/profiles/chigozie.php",
+				type: "post",
+				data: {question: question},
+				dataType: "json",
+				success: function(response){
+					if(response.status == 1){
+						var chatToBeDisplayed = '<div class="row single-message">'+
+									'<div class="col-md-2 single-message-bg">'+
+										'<span class="fa fa-user f-icon"></span>'+
+									'</div>'+
+
+									'<div class="col-md-8 single-message-bg">'+
+										'<p>'+response.answer+'</p>'+
+									'</div>'+
+								'</div>';
+
+						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+						questionBox.val("");	
+						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+					}else if(response.status == 0){
+						var chatToBeDisplayed = '<div class="row single-message">'+
+									'<div class="col-md-2 single-message-bg">'+
+										'<span class="fa fa-user f-icon"></span>'+
+									'</div>'+
+
+									'<div class="col-md-8 single-message-bg">'+
+										'<p>'+response.answer+'</p>'+
+									'</div>'+
+								'</div>';
+
+						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+					}
+					thinkingDiv.hide();
+				},
+				error: function(error){
+					thinkingDiv.hide();
+					console.error(error);
+					var chatToBeDisplayed = '<div class="row single-message">'+
+									'<div class="col-md-2 single-message-bg">'+
+										'<span class="fa fa-user f-icon"></span>'+
+									'</div>'+
+
+									'<div class="col-md-8 single-message-bg">'+
+										'<p style="color: red">'+'An error occured. I think my cerebellum is fried'+'</p>'+
+									'</div>'+
+								'</div>';
+
+					messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+					$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+				}
+			})
+
+		});
+	});
+</script>	
 </body>
-
 </html>
+
+<?php 
+	}
+?>
