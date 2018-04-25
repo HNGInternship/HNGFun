@@ -44,10 +44,6 @@
 
 			}
 
-			.ul{
-
-			}
-
 			.gray-bkgd{
 				background-color: rgba(200, 200, 200, 1);
 			}
@@ -67,12 +63,13 @@
 
 			.list-item{
 				border-bottom: 2px solid rgba(80, 80, 80, 1);
-				padding-top: 1em;
+				padding-top: 0.3em;
 				width: 300px;
 				height: 35px;
 				list-style-type: none;
 				font-family: "Raleway";
-				font-size: 0.9em;
+				font-style: italic;
+				font-size: 0.8em;
 				opacity: 0.9;
 				padding-left: 1em;
 			}
@@ -94,6 +91,10 @@
 
 			.social-icons:last-child{
 				margin-left: 2em;
+			}
+
+			img{
+				padding-bottom: 0.2em;
 			}
 		</style>
 	</head>
@@ -165,7 +166,7 @@
 				<li class="list-item gray-bkgd">Poet.</li>
 				<li class="list-item white-bkgd">[Virtuous] Husband to one woman.</li>
 				<li class="list-item gray-bkgd">[Ever-improving] father.</li>
-				<li class="list-item white-bkgd">Most significantly, Disciple of Jesus Christ.</li>
+				<li class="list-item white-bkgd">Most significantly, Disciple of Christ.</li>
 				<li class="list-item social"><a href="https://facebook.com/alexandrix.ikechukwu"><img src="http://res.cloudinary.com/spaghettithots/image/upload/v1523625226/hng/facebook.png" class="social-icons"></a>&nbsp;<a href="https://twitter.com/SpaghettiThots"><img src="http://res.cloudinary.com/spaghettithots/image/upload/v1523625226/hng/twitter.png" class="social-icons"></a></li>
 			</ul>
 		</div>
