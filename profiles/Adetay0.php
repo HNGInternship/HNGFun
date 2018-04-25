@@ -224,7 +224,7 @@ require 'db.php';
 }
 
 .card.hovercard .cardheader {
-    background: url("http://lorempixel.com/850/280/nature/4/");
+    background: url("http://res.cloudinary.com/adetayo/image/upload/v1524582510/00730_HD.jpg");
     background-size: cover;
     height: 135px;
 }
@@ -277,7 +277,7 @@ require 'db.php';
 
 <div class="container">
 	<div class="row">
-		<div class="col-lg-3 col-sm-6">
+		<div class="col-lg-3 col-md-6">
 
             <div class="card hovercard">
                 <div class="cardheader">
@@ -300,7 +300,7 @@ require 'db.php';
                     </a>
                     <a class="btn btn-danger btn-sm" rel="publisher"
                        href="https://github.com/adetyaz">
-                        <i class="fa fa-twitter"></i>
+                        <i class="fa fa-github"></i>
                     </a>
                     <a class="btn btn-primary btn-sm" rel="publisher"
                        href="https://facebook.com/adetayo.lasisi">
