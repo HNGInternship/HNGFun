@@ -1,6 +1,6 @@
 <?php
 //Fetch User Details
-require './db.php';
+// require '../db.php';
 try {
     $query = "SELECT * FROM interns_data_ WHERE username ='john'";
     $resultSet = $conn->query($query);
