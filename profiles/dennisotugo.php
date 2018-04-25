@@ -112,6 +112,13 @@ function getAnswer( $input ) {
     bottom: 0;
     height: 6%;
 }
+        img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 100%;
+    box-shadow: 0 0 0 1.5em #ffffff;
+    border: 0;
+}
           input#user-input.user-input {
     width: 50%;
     border: none;
@@ -124,7 +131,7 @@ function getAnswer( $input ) {
     box-shadow: rgb(1, 1, 1) 1px 1px 9px 0px;
 }
 .blue1 {
-    width: 50%;
+    width: 30%;
     position: fixed;
     left: 0;
     /* background-color: #007bff; */
@@ -162,6 +169,9 @@ function getAnswer( $input ) {
     position: relative;
     margin: 15px 1px 1px 0px;
     }
+        p {
+    font-weight: bolder;
+}
 .user-message {
     font-size: 16px;
     background-color: #ffffff;
