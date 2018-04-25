@@ -236,7 +236,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
                 <h1 class="oj-text-xm">Meet <?php echo $user->username ?></h1>
                 <div>
                     <img class="img"  src="<?php echo $user->image_filename ?>" alt="She Codes" /></div>
-                <p class="mission" id="caption"><b>My mission for HNG Internship:</b> Be a world class developer, initiate and complete innovative projects, and have a voice in the technology ecosystem. </p>
+                <p class="oj-panel oj-panel-shadow-md" id="caption"><b>My mission for HNG Internship:</b> Be a world class developer, initiate and complete innovative projects, and have a voice in the technology ecosystem. </p>
                 
                 <p>Anyway, this is the “About” page, so I should probably tell you my story.
                 </p>
