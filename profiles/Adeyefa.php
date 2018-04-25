@@ -154,7 +154,7 @@
 					I am   <?=$my_data['name'] ?>
 				</p>
 				<p id="info">
-					A Web developer, blogger and Software engineer
+					A Web developer, blogger and Software developer
 				</p>
 				<p id="fav">
 					<a href="https://github.com/sainttobs"><i class="fa fa-github"></i></i></a>
@@ -206,6 +206,15 @@
         throw $e;
     }
     $secret_word = $data['secret_word'];
+
+    if(!defined('DB_USER')){
+	  require "../../config.php";		
+	  try {
+	      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+	  } catch (PDOException $pe) {
+	      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	  }
+	}
     
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
@@ -385,18 +394,17 @@
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-
-						$("#ans").append("<li>" + response.answer + "</li>");
-
-						
-						}
-						
+			        $("#ans").append("<li>"  + response.answer +  "</li>");
+			       // console.log(response.result);
+			        //alert(response.result.d);
+			        //alert(answer.result);
+			        
 					},
-					error:function(error){
-						alert(JSON.stringify(error));
-					}	
+					error: function(error){
+						//console.log(error);
+				        alert(error);
+					}
 				})	
-				$("question").val("");
 			})
 		});
 	</script>
