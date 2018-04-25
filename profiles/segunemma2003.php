@@ -12,8 +12,10 @@ try {
 	throw $e;
 }
 global $conn;
+echo ($conn==true);
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 	$message = trim(htmlspecialchars($_POST['message']));
+	echo $message;
 	if ($message === ''){
 		$empty_response = [
 			'You have not asked anything',

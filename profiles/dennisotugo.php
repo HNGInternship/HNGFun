@@ -114,7 +114,7 @@ function getAnswer( $input ) {
     overflow-y: scroll;
     height: 100%;
     }
-            .body1 {
+            .oj-flex-item oj-panel oj-margin body {
     height: 100%;
     text-align: center;
     position: fixed;
@@ -123,11 +123,9 @@ function getAnswer( $input ) {
     background-color: #ffffff;
     }
             
-        .profile {
+        .oj-flex-item oj-panel oj-margin {
           height: 100%;
     text-align: center;
-    position: fixed;
-    position: fixed;
     position: fixed;
     width: 50%;
     right: 0;
@@ -229,19 +227,16 @@ function getAnswer( $input ) {
   <body>
  <div class="oj-flex oj-flex-item">
        <div class="oj-flex-item oj-panel oj-margin">
-    <div class="profile">
 
-      <h1>
-        Dennis Otugo
-      </h1>
-      <p>
-        Human Being | Cyborg | Never asked for this
-      </p>
-    </div>
+          <h1>
+              Dennis Otugo
+          </h1>
+         <p>
+                Human Being | Cyborg | Never asked for this
+            </p>
      </div>
        </div>
-     <div class="oj-flex-item oj-panel oj-margin">
-        <div class="body1">
+        <div class="oj-flex-item oj-panel oj-margin body">
           <div class="chat-output" id="chat-output">
             <div class="user-message">
               <div class="message">
@@ -255,7 +250,6 @@ function getAnswer( $input ) {
               <input type="text" name="user-input" id="user-input"
               class="user-input" placeholder="Enter Text here" />
             </form>
-          </div>
     </div>
          </div>
 </script>
