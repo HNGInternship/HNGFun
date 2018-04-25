@@ -1,4 +1,6 @@
- <?php
+<!DOCTYPE html>
+<html lang="en-US">
+<?php
  	// require_once '../db.php';
  	try {
  	      $query = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'Luthfulahi\'';
@@ -93,8 +95,6 @@
  	  }
  	}
   ?>
-<!DOCTYPE html>
-<html lang="en-US">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <title> <?php echo $luthfulahi['username']; ?> | The Optimist</title>
