@@ -227,7 +227,7 @@ function getAnswer( $input ) {
     </style>
   </head>
   <body>
- <div class="oj-flex oj-flex-item oj-panel oj-margin">
+ <div class="oj-flex oj-flex-item">
        <div class="oj-flex-item oj-panel oj-margin">
     <div class="profile">
 
@@ -238,6 +238,7 @@ function getAnswer( $input ) {
         Human Being | Cyborg | Never asked for this
       </p>
     </div>
+     </div>
        </div>
      <div class="oj-flex-item oj-panel oj-margin">
         <div class="body1">
