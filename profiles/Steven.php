@@ -1,15 +1,16 @@
 <?php 
-    date_default_timezone_set('Africa/Lagos');
+    // date_default_timezone_set('Africa/Lagos');
 
-        if (!defined('DB_USER')){
+    //     if (!defined('DB_USER')){
             
-            require "../../config.php";
-        }
-        try {
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-          } catch (PDOException $pe) {
-            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-          }
+    //         require "../../config.php";
+    //     }
+    //     try {
+    //         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    //       } catch (PDOException $pe) {
+    //         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    //       }
+    require "../db.php";
         
     try {
     $sql = 'SELECT * FROM secret_word';
@@ -145,7 +146,7 @@
     }
     .environment{
       background-color: #fff;
-      margin-top: 40px;
+      margin-top: 48px;
       border: 1px solid #c0c0c0;
       border-radius: 3px solid #c0c0c0;
       
@@ -227,31 +228,36 @@
   .ask-input-field{
     height: 42px;
     padding-right: 23px;
+    
   }
-  .align{
-    margin-left: 5em;
-  }
-  .align-w{
+  
+  /*.align-w{
     margin-left: 1em;
     margin-right: 2em;
   }
+*/  .fit{
+    margin-left: -30px;
+    text-align: center;
+    padding-left: 0.2em;
+  
+  }
+
   </style>
 </head>
 <body>
+
 <section>
 
   <div class="oj-flex oj-flex-items-pad">
-    <div class="oj-row">
-        <div class="oj-md-4 oj-flex-item">
-          <img src="http://res.cloudinary.com/chikodi/image/upload/c_mfit,w_960/v1523617871/steven.jpg" alt="Steven Victor" class="rounded circle align" height="250" width="250" style="margin-top: 40px;">
-        </div>
-        <h2 style="text-align: center; color: white; margin-top: 10px;">Steven Victor</h2>
-        <div style="text-align: center; color: white; margin-top: 10px;" class="align-w">
-          Web Developer, skilled in HTML, CSS, JavaScript, PHP, Laravel, VueJS. </div>
-        <div class="oj-flex">
-            <div style="margin-top: 10px">
-              
-            </div>
+    
+        <div class="oj-md-6 oj-flex-item">
+
+          <div style="text-align: center; color: white; margin-top: 10px;" class="align-w">
+              <img src="http://res.cloudinary.com/chikodi/image/upload/c_mfit,w_960/v1523617871/steven.jpg" alt="Steven Victor" class="rounded circle" height="250" width="250" style="margin-top: 40px;">
+              <h2 style="text-align: center; color: white; margin-top: 10px;">Steven Victor</h2>
+              Web Developer, skilled in HTML, CSS, JavaScript, PHP, Laravel, VueJS. 
+          </div>
+          <div class="oj-flex">
               <div class="oj-sm-2">
                 <a href="https://twitter.com/@stevensunflash"><span class="fa fa-twitter"></span></a>
               </div>
@@ -270,7 +276,7 @@
         </div>
       </div>
 
-      <div class="oj-md-5 oj-offset-md-1">
+      <div class="oj-md-5 oj-xs-5 oj-flex-items fit">
         <div class="environment">
           <h2 class="bot-head">Steven's Bot</h2>
           <div class="message-environment">
@@ -287,6 +293,7 @@
           </div>
         </div>
         </div>
+       
     </div>
 </section>
 
