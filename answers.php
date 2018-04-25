@@ -1305,7 +1305,8 @@ $dataa = json_decode(file_get_contents($url_location), true);
 
 
 //to check if the data was sent to the server
-
+// Please place ur code in a function
+function johnsCode(){
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -1324,6 +1325,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       
         $questions = $_POST['question'];
         $question = strtolower($questions);
+
+}
+
     /////////////////////////////FUNCTIONS COMES FIRST////////////////////////////////////////////////////////////////
 
 
