@@ -66,10 +66,9 @@ $image_url = $row['image_filename'];
             background-color: #153643;
             vertical-align: middle;
             color: #FFFFFF;
-            align-content: center;
+            align-content: left;
             margin: auto;
-            display: table;
-			height: 100%;
+            
 			width: 100%;
         }
         .oj-profile{
@@ -78,16 +77,21 @@ $image_url = $row['image_filename'];
             background-position: center;
             background-repeat: no-repeat;
             width: 400px;
-			
-			align: center;
-            height: 400px;
+			height: 400px;
             border-radius: 50%;
+			text-align: center;
         }
         .oj-title{
             color: #ffffff;
-            text-align: center;
+            text-align: left;
+			margin-left: 60px; 
+			
             
         }
+		.oj-links{
+			text-align: left;
+			margin-left: 100px;
+		}
         .oj-head{
             color: #ffffff;
             text-align: center;
@@ -100,7 +104,7 @@ $image_url = $row['image_filename'];
   </head>
   <body class="oj-web-applayout-body">
       <div class="oj-web-applayout-body">
-		<div class="container">
+		
           <h1 class="oj-head">Hello....</h1>
           
           <div class="oj-profile"></div>
@@ -110,14 +114,13 @@ $image_url = $row['image_filename'];
                   <h2 class="oj-title">Slack username: <?php echo $username;?></h2>
                   
               </div>
-              <div class="oj-title">
-    <a href="https://instagram.com/wale_j"><i class="fa fa-instagram"></i></a>
+              <div class="oj-links"><a href="https://instagram.com/wale_j"><i class="fa fa-instagram"></i></a>
     <a href="#"><i class="fa fa-facebook"></i></a>
     <a href="#"><i class="fa fa-linkedin"></i></a>
     <a href="https://github.com/dmaaj"><i class="fa fa-github"></i></a>
           
 		</div>  
-      </div>    
+    
       </div>
     
 
