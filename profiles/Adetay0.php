@@ -219,7 +219,7 @@ require 'db.php';
     position: relative;
     margin-left:50px;
     padding-top: 30px;
-    padding-left:150px;
+    padding-left:100px;
     padding-bottom:50px;
     overflow: hidden;
     text-align: center;
