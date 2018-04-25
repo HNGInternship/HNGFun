@@ -386,7 +386,7 @@
 					dataType: 'json',
 					success: function(response){
 
-						$("#chats").append("<li>" + response.answer + "</li>");
+						$("#ans").append("<li>" + response.answer + "</li>");
 
 						
 						}
