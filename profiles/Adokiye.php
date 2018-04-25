@@ -35,7 +35,7 @@ if (isset($_POST['button'])) {
 }
 function askQuestion($input)
 {$input = strtolower($input);
-$input = trim($input);
+    $input = trim($input);
     $action = "train:";
     global $conn;
     $train = strpos($input,$action);
@@ -48,8 +48,7 @@ $input = trim($input);
                     $explode3 = explode('#', $explode2[1], 2);
                     if (isset($explode3[1])){
                         if (  $explode3[1] == "password") {
-                            $sql1 = "SELECT question,answer FROM chatbot WHERE LOWER(question) ='" . $explode2[0] . "' and LOWER(answer) =  '" . $explode3[0] . "'";
-                            $query = $conn->query($sql1);
+                            $query = $conn->query("SELECT question, answer FROM chatbot WHERE question ='" . $explode2[0] . "' and answer =  '" . $explode3[0] . "'");
                             $row_cnt = $query->num_rows;
                             if ($row_cnt > 0) {
                                 return "QUESTION ALREADY EXISTS ";
@@ -78,20 +77,20 @@ $input = trim($input);
             }else if($input=="you are mad"||$input == "you're mad"){
                 return "YOUR FATHER";
             } else {
-
-
                 $input = $_POST['input'];
                 $question = strtolower($input);
                 $question = str_replace('?', '', $question);
                 $question = trim($question);
                 echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";
+                $_result =  mysqli_query($conn, "SELECT * FROM chatbot LIMIT 5");
                 $result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'");
+                print_r($_result);
                 $fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 $row_cnt = $result->num_rows;
                 $rand = rand(0, $row_cnt - 1);
                 if ($row_cnt > 0) {
                     return $fetched_data[$rand]['answer'];
-                 } else
+                } else
                     return "Am sorry, this question wasn't found,Please ENTER TRAIN:QUESTION#ANSWER#password to make me smarter";
 
             }
@@ -108,10 +107,10 @@ $input = trim($input);
     <title>Adokiye ---- Stage 4</title>
     <style type="text/css">
 
-                              .mycss
-                              {
-                                  text-shadow:1px 3px 1px rgba(255,255,255,1);font-weight:bold;text-transform:uppercase;color:#000000;border: 5px ridge #FFFFFF;letter-spacing:5pt;word-spacing:2pt;font-size:20px;text-align:center;font-family:arial, helvetica, sans-serif;line-height:1;
-                              }
+        .mycss
+        {
+            text-shadow:1px 3px 1px rgba(255,255,255,1);font-weight:bold;text-transform:uppercase;color:#000000;border: 5px ridge #FFFFFF;letter-spacing:5pt;word-spacing:2pt;font-size:20px;text-align:center;font-family:arial, helvetica, sans-serif;line-height:1;
+        }
 
         .bot-css {
             display: inline-block;
@@ -177,31 +176,31 @@ $input = trim($input);
             color: #563F3F;
             cursor: pointer;
         }
-                              #myform{
-                     background: rgba(76, 175, 80, 0.3);
-                     display: inline-block;
-                                  width: 50px;
-                                  height: fit-content;
-                                  float: left;
-                 }#myBtn {
-                      display: none; /* Hidden by default */
-                      position: fixed; /* Fixed/sticky position */
-                      bottom: 20px; /* Place the button at the bottom of the page */
-                      right: 30px; /* Place the button 30px from the right */
-                      z-index: 99; /* Make sure it does not overlap */
-                      border: none; /* Remove borders */
-                      outline: none; /* Remove outline */
-                      background-color: red; /* Set a background color */
-                      color: white; /* Text color */
-                      cursor: pointer; /* Add a mouse pointer on hover */
-                      padding: 15px; /* Some padding */
-                      border-radius: 10px; /* Rounded corners */
-                      font-size: 18px; /* Increase font size */
-                  }
+        #myform{
+            background: rgba(76, 175, 80, 0.3);
+            display: inline-block;
+            width: 50px;
+            height: fit-content;
+            float: left;
+        }#myBtn {
+             display: none; /* Hidden by default */
+             position: fixed; /* Fixed/sticky position */
+             bottom: 20px; /* Place the button at the bottom of the page */
+             right: 30px; /* Place the button 30px from the right */
+             z-index: 99; /* Make sure it does not overlap */
+             border: none; /* Remove borders */
+             outline: none; /* Remove outline */
+             background-color: red; /* Set a background color */
+             color: white; /* Text color */
+             cursor: pointer; /* Add a mouse pointer on hover */
+             padding: 15px; /* Some padding */
+             border-radius: 10px; /* Rounded corners */
+             font-size: 18px; /* Increase font size */
+         }
 
-                              #myBtn:hover {
-                                  background-color: #555; /* Add a dark-grey background on hover */
-                              }
+        #myBtn:hover {
+            background-color: #555; /* Add a dark-grey background on hover */
+        }
 
     </style>
 </head><script>function show_function() {
@@ -265,10 +264,10 @@ $username = 'Adokiye';
         </p>
         <p>&nbsp;</p>
     </form>
-            <div class="bot-css"> <?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
-                <span style="color:blue"><?=  "YOU : $soln <br/>";echo "</span>";
-                echo "BOT : $asked<br/>" ?><br/><?php } ?><br/>
-        </div><div id = "myform" style="display:none"  >HAHAHA, THE PASSWORD IS PASSWORD</div>
+    <div class="bot-css"> <?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
+        <span style="color:blue"><?=  "YOU : $soln <br/>";echo "</span>";
+            echo "BOT : $asked<br/>" ?><br/><?php } ?><br/>
+    </div><div id = "myform" style="display:none"  >HAHAHA, THE PASSWORD IS PASSWORD</div>
     <p>
 
 

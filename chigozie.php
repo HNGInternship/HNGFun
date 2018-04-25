@@ -24,7 +24,7 @@
 		}
 
 		$name = null;
-		$username = "w3bh4ck";
+		$username = "chigozie";
 		$image_filename = '';
 
 		$stmt = $conn->prepare("select * from interns_data where username = :username");
@@ -475,11 +475,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>w3bh4ck</title>
+	<title>Chigozie's Corner</title>
 	<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
 
 	<style>
-		
+		body {
+			background-image: url(http://res.cloudinary.com/dqscsuyyn/image/upload/v1523631081/bg.jpg);
+		}
+
 		.circle {
 			width: 60%;
 			margin-left: 20%;
@@ -488,11 +491,10 @@
 
 		.frame {
 			border: 1px solid grey;
-            margin-top: 30px;
 			padding: 20px;
 			background-color: #ffffff;
 			margin-top: 5%;
-			height: 300px;
+			height: 400px;
 		}
 
 		.info {
@@ -506,6 +508,14 @@
 		.occupation_span {
 			color: #ff0000;
 			font-weight: bold;
+		}
+
+		.chat-frame {
+			border: 1px solid grey;
+			padding: 20px;
+			background-color: #f8d34a;
+			margin-top: 5%;
+			margin-bottom: 50px;
 		}
 
 		.chat-messages {
@@ -526,9 +536,8 @@
 		}
 
 		.single-message-bg {
-			background-color: gray;
-			padding: 5px;
-            border-radius: 8px;
+			background-color: #99ff33;
+			padding: 10px;
 		}
 
 		.single-message-bg2 {
@@ -555,7 +564,7 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-7 frame">
+		<div class="col-md-3 offset-md-1 frame">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="circle">
@@ -569,14 +578,15 @@
 					<h3 class="text-center">
 						<?php echo $name; ?>
 					</h3>
-                    <p class="text-center"><strong>Software Developer</strong></p>
+					<h5 class="text-center"><span class="slack_span">Slack Username: </span>@<?php echo $username; ?></h5>
+					<p class="text-center"><span class="occupation_span">What I do: </span>I develop web and mobile apps</p>
 				</div>
 
 			</div>
 		</div>	
 
-		<div class="col-md-4 col-md-offset-1 chat-frame">
-			<h2 class="text-center">W3BH4CK ASSISTANT</h2>
+		<div class="col-md-6 offset-md-1 chat-frame">
+			<h2 class="text-center">Chatbot Interface</h2>
 			<div class="row chat-messages" id="chat-messages">
 				<div class="col-md-12" id="message-frame">
 					<div class="row single-message">
@@ -585,25 +595,46 @@
 						</div>
 
 						<div class="col-md-8 single-message-bg">
-							<p>Hey! this is  W3bh4ck Assistant</p>
+							<p>Welcome! My name is <span style="font-weight: bold">Optimus Prime</span></p>
 						</div>
 					</div>
-					
 					<div class="row single-message">
 						<div class="col-md-2 single-message-bg">
 							<span class="fa fa-user f-icon"></span>
 						</div>
 						<div class="col-md-8 single-message-bg">
-							<p>To train me, enter the training string in this format:</p>
-							<p><b>train: question # answer # password</b></p>
+							<p>Ask me your questions and I will try to answer them.</p>
 						</div>
 					</div>
+					<div class="row single-message">
+						<div class="col-md-2 single-message-bg">
+							<span class="fa fa-user f-icon"></span>
+						</div>
+						<div class="col-md-8 single-message-bg">
+							<p>You can teach me answers to new questions by training me.</p>
+							<p>To train me, enter the training string in this format:</p>
+							<p><b>train: question # answer # password</b></p>
+							<p>To get assistance, type: <br>
+								<b>--help</b>
+							</p>
+						</div>
+					</div>
+
+					<!-- <div class="row single-message">
+						<div class="col-md-10">
+							<p>Welcome! How may I assist you today?</p>
+						</div>
+
+						<div class="col-md-2">
+							<span class="float-right fa fa-user f-icon"></span>
+						</div>
+					</div> -->
 				</div>
 			</div>
 			<div class="row" style="margin-top: 30px;">
 				<form class="form-inline col-md-12 col-sm-12" id="question-form">
 					<div class="col-md-12 col-sm-12 col-12" id="thinking-div" style="display: none;">
-						<p style="font-size: 12px; font-style: italic; font-weight: bold;">w3bh4ck AI Prime is thinking...</p>
+						<p style="font-size: 12px; font-style: italic; font-weight: bold;">Optimus Prime is thinking...</p>
 					</div>
 					<div class="col-md-12 col-sm-12 col-12">
 						<input class="form-control w-100" type="text" name="question" placeholder="Ask a question" />

@@ -1,7 +1,8 @@
 <?php
+
 if($_SERVER['REQUEST_METHOD'] !== "POST"){
     if(!defined('DB_USER')){
-        require "../../config.php";
+        require "../config.php";
         try {
             $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
         } catch (PDOException $e) {
@@ -25,14 +26,14 @@ if($_SERVER['REQUEST_METHOD'] !== "POST"){
 <?php
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     if(!defined('DB_USER')){
-        require "../../config.php";
+        require "../config.php";
         try {
             $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
         } catch (PDOException $e) {
             die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
         }
     }
-    require "../answers.php";
+    //require "../answers.php"; // This is the offending line that caused all the problem. You need to figure out how to use it correctly.
     date_default_timezone_set("Africa/Lagos");
     // header('Content-Type: application/json');
     if(!isset($_POST['question'])){
@@ -167,8 +168,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     <link href="https://fonts.googleapis.com/css?family=Rhodium+Libre" rel="stylesheet">
     <title>Blessing Akpan</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
 
-    <style>
+    <style type="text/css">
         .panel-body{
             background: #ccc;
         }
@@ -178,19 +180,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
         .pan{
             margin-top: 20px;
         }
-		.fa:hover {
-    		opacity: 0.7;
-		}
-
-		.fa-facebook {
-  			background: #3B5998;
-  			color: white;
-		}
-
-		.fa-twitter {
- 			background: #55ACEE;
-  			color: white;
-	}
         .box1{
             padding: 5px 7px;
             color: #fff;
