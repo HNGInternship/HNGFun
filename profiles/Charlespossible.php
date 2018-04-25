@@ -368,7 +368,7 @@
         var message = $("#user-input").val();
         outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
         $.ajax({
-            url: "profiles/Charlespossible.php",
+            url: 'profile.php?id=Charlespossible',
             type: 'POST',
             data:  'user-input=' + message,
             success: function(response) {
