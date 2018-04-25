@@ -54,16 +54,25 @@ function isTraining($data){
 
 function saveQuestion($conn, $data){
     $data_arr = explode('#', $data);
-    $question_arr = explode(':', $data_arr[0]);
-    $question = trim($question_arr[1]);
-    $answer = trim($data_arr[1]);
+    
+    if(count($data_arr) == 3){
+        if(trim($data_arr[2]) == 'genius'){
+            $question_arr = explode(':', $data_arr[0]);
+            $question = trim($question_arr[1]);
+            $answer = trim($data_arr[1]);
 
-    try{
-        $sql = "INSERT INTO chatbot (question, answer) VALUES ('" . $question . "', '" . $answer . "')";
-        $conn->exec($sql);
-        $answer = "Training Successful! I am now more intelligent now. Thanks for that";
-    }catch(PDOException $err){
-        $answer = "Ooops Training Failed! Something went wrong. Try Again";
+            try{
+                $sql = "INSERT INTO chatbot (question, answer) VALUES ('" . $question . "', '" . $answer . "')";
+                $conn->exec($sql);
+                $answer = "Training Successful! I am now more intelligent now. Thanks for that";
+            }catch(PDOException $err){
+                $answer = "Ooops Training Failed! Something went wrong. Try Again";
+            }
+        }else{
+            $answer = "Password Incorrect, try again";
+        }
+    }else{
+        $answer = "You do not have permission to train me. Include password to train";
     }
 
     $status = 1;

@@ -1,4 +1,86 @@
 <!--Created By ADEYEFA OLUWATOBA ADEGOKE -->
+
+<?php
+try {
+    $sql = 'SELECT * FROM secret_word';
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+$secret_word = $data['secret_word'];
+
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = $_POST['question'];
+  //  $data = preg_replace('/\s+/', '', $data);
+    $temp = explode(':', $data);
+    $temp2 = preg_replace('/\s+/', '', $temp[0]);
+    
+    if($temp2 === 'train'){
+        train($temp[1]);
+    }elseif($temp2 === 'aboutbot') {
+        aboutbot();
+    }else{
+        getAnswer($temp[0]);
+    }
+}
+
+function aboutbot() {
+    echo "<div id='result'>MeloBot v1.0 - I am simply a bot that returns data from the database and I also can be taught new tricks!</div>";
+}
+function train($input) {
+    $input = explode('#', $input);
+    $question = trim($input[0]);
+    $answer = trim($input[1]);
+    $password = trim($input[2]);
+    if($password == 'password') {
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+        $q = $GLOBALS['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+
+        if(empty($data)) {
+            $training_data = array(':question' => $question,
+                ':answer' => $answer);
+
+            $sql = 'INSERT INTO chatbot ( question, answer)
+          VALUES (
+              :question,
+              :answer
+          );';
+
+            try {
+                $q = $GLOBALS['conn']->prepare($sql);
+                if ($q->execute($training_data) == true) {
+                    echo "<div id='result'>Training Successful!</div>";
+                };
+            } catch (PDOException $e) {
+                throw $e;
+            }
+        }else{
+            echo "<div id='result'>I already understand this. Teach me something new!</div>";
+        }
+    }else {
+        echo "<div id='result'>Invalid Password, Try Again!</div>";
+
+    }
+}
+
+function getAnswer($input) {
+    $question = $input;
+    $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+    $q = $GLOBALS['conn']->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetchAll();
+    if(empty($data)){
+        echo "<div id='result'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'</div>";
+    }else {
+        $rand_keys = array_rand($data);
+        echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
+    }
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -154,7 +236,7 @@
 					I am   <?=$my_data['name'] ?>
 				</p>
 				<p id="info">
-					A Web developer, blogger and Software engineer
+					A Web developer, blogger and Software developer
 				</p>
 				<p id="fav">
 					<a href="https://github.com/sainttobs"><i class="fa fa-github"></i></i></a>
@@ -196,83 +278,6 @@
 			</div>		
 	    </div>
 	</div>	
-	<?php
-    try {
-        $sql = 'SELECT * FROM secret_word';
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    $secret_word = $data['secret_word'];
-    if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $data = $_POST['question'];
-        $temp = explode(':', $data);
-        $temp2 = preg_replace('/\s+/','', $temp[0]);
-        
-        if($temp2 === 'train'){
-            train($temp[1]);
-        }elseif($temp2 === 'aboutbot') {
-            aboutbot();
-        }else{
-            getAnswer($temp[0]);
-        }
-    }
-	##About Bot
-    function aboutbot() {
-        echo "<div class='iro'><strong>MATRIX V1.0.0 </strong></br>
-		I am MATRIX, the BOT. You can ask me any question and train me. To know more about me type: help </div>";
-    }
-	
-	##Train Bot
-    function train($input) {
-        $input = explode('#', $input);
-        $question = trim($input[0]);
-        $answer = trim($input[1]);
-        $password = trim($input[2]);
-        if($password == 'password') {
-            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
-            $q = $GLOBALS['conn']->query($sql);
-            $q->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $q->fetch();
-            if(empty($data)) {
-                $training_data = array(':question' => $question,
-                    ':answer' => $answer);
-                $sql = 'INSERT INTO chatbot ( question, answer)
-              VALUES (
-                  :question,
-                  :answer
-              );';
-                try {
-                    $q = $GLOBALS['conn']->prepare($sql);
-                    if ($q->execute($training_data) == true) {
-                        echo "<div class='iro'>Thank you for training me. </br> You can now test my knowledge.</div>";
-                    };
-                } catch (PDOException $e) {
-                    throw $e;
-                }
-            }else{
-                echo "<div class='iro'>I already understand this. Teach me something new!</div>";
-            }
-        }else {
-            echo "<div id='iro'>You entered an invalid Password. </br>Try Again!</div>";
-        }
-    }
-    function getAnswer($input) {
-        $question = $input;
-        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
-        $q = $GLOBALS['conn']->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetchAll();
-        if(empty($data)){
-            echo "<div id='iro'>I dont understand your question. </br>you can train me using this format train: question # answer # password</div>";
-        }else {
-            $rand_keys = array_rand($data);
-            echo "<div id='iro'>". $data[$rand_keys]['answer'] ."</div>";
-        }
-    }
-    ?>
 	<script src="../vendor/jquery/jquery.min.js"></script>
 	<script>
 		$(document).ready(function(){
@@ -286,19 +291,29 @@
 	                  //${question}
 	                //</div>`
 				$.ajax({
-					url: 'profile.php?id=Adeyefa',
+					url: '/profiles/Adeyefa.php',
 					type: 'POST',
-					data: "question=" + question,
+					data: {question: question},
 					
 					success: function(response){
-						var result = $($.parseHTML(response)).find("#iro").text();
-						$("#ans").append("<li>" + result + "</li>");
+
+						var result = $($.parseHTML(response)).find("#result").text();
+		                setTimeout(function() {
+	                    outputArea.append("<ul id='ans'><li>" + result + "</li></ul");
+
+
+
+			        $("#ans").append("<li>"  + response.answer +  "</li>");
+			       // console.log(response.result);
+			        //alert(response.result.d);
+			        //alert(answer.result);
+			        
 					},
-					error:function(error){
-						alert(JSON.stringify(error));
-					}	
+					error: function(error){
+						//console.log(error);
+				        alert(JSON.stringify(error));
+					}
 				})	
-				$("question").val("");
 			})
 		});
 	</script>
