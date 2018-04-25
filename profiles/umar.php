@@ -1,30 +1,7 @@
 <?php
-
-	########DEFINING MY OWN FXNs HERE##################
-	function bot_menu(){
-		return  "Send <b>'time'</b> to get the time. \n
-		  Send <b>'about'</b> to know my version number. \n
-		  Send <b>'help'</b> or <b>'menu'</b> to see this again. \n
-		  To train me, send in this format => \n
-		  'train:question#answer' \n
-		  To get price for any cryptocurrency, send in this format \n
-		  <b>crypto:'cryptoname'</b>\n
-		  To clear the chat logs, just type <b>'cls'</b> or <b>'clear'</b>";
-	  }
-	function getCryptoPrice($ticker){
-		$url = "https://api.coinmarketcap.com/v1/ticker/".$ticker."/";
-		$response = @file_get_contents($url);
-		if (false === $response) {
-			return "No value";
-		}
-		$resp = json_decode($response, true);
-		$result = $resp[0]["price_usd"];
-		return $result;
-	}
-
-	#############################END################################
 	if(!defined('DB_USER')){
-		require_once __DIR__."/../../config.php";     
+		require_once __DIR__."/../../config.php";
+		//require_once __DIR__."/../config.php";    
 		try {
 			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		} catch (PDOException $pe) {
@@ -122,6 +99,39 @@
 			}
 		}
 	}
+
+	########DEFINING MY OWN FXNs HERE##################
+	function bot_menu(){
+		return  "Send <b>'time'</b> to get the time. \n
+		  Send <b>'about'</b> to know my version number. \n
+		  Send <b>'help'</b> or <b>'menu'</b> to see this again. \n
+		  To train me, send in this format => \n
+		  'train:question#answer' \n
+		  To get price for any cryptocurrency, send in this format \n
+		  <b>crypto:'cryptoname'</b>\n
+		  To clear the chat logs, just type <b>'cls'</b> or <b>'clear'</b>";
+	  }
+	function getCryptoPrice($ticker){
+		$url = "https://api.coinmarketcap.com/v1/ticker/".$ticker."/";
+		$response = @file_get_contents($url); //the '@' is to surpress any errors if need be
+		if (false === $response) {
+			return "No value";
+		}
+		$resp = json_decode($response, true);
+		$result = $resp[0]["price_usd"];
+		return $result;
+	}
+
+	function get_time(){
+		//instantiate date-time object
+		$datetime = new DateTime();
+		//set the timezone to Africa/Lagos
+		$datetime->setTimezone(new DateTimeZone('Africa/lagos'));
+		//format the time
+		return $datetime->format('h:i A');
+	  }
+
+	#############################END################################
 ?>
 <!DOCTYPE html>
 <html>
@@ -155,6 +165,7 @@
 			#wcontainer{
 				max-width: 620px;
     			margin: auto;
+				height: 550px;
 			}
 			
 			.title {
