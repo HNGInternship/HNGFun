@@ -488,11 +488,10 @@
 
 		.frame {
 			border: 1px solid grey;
-            margin-top: 30px;
 			padding: 20px;
 			background-color: #ffffff;
 			margin-top: 5%;
-			height: 300px;
+			height: 400px;
 		}
 
 		.info {
@@ -506,6 +505,14 @@
 		.occupation_span {
 			color: #ff0000;
 			font-weight: bold;
+		}
+
+		.chat-frame {
+			border: 1px solid grey;
+			padding: 20px;
+			background-color: #f8d34a;
+			margin-top: 5%;
+			margin-bottom: 50px;
 		}
 
 		.chat-messages {
@@ -526,9 +533,8 @@
 		}
 
 		.single-message-bg {
-			background-color: gray;
-			padding: 5px;
-            border-radius: 8px;
+			background-color: #99ff33;
+			padding: 10px;
 		}
 
 		.single-message-bg2 {
@@ -569,7 +575,8 @@
 					<h3 class="text-center">
 						<?php echo $name; ?>
 					</h3>
-                    <p class="text-center"><strong>Software Developer</strong></p>
+					<h5 class="text-center"><span class="slack_span">Slack Username: </span>@<?php echo $username; ?></h5>
+					<p class="text-center"><span class="occupation_span">What I do: </span>I develop web and mobile apps</p>
 				</div>
 
 			</div>
@@ -585,19 +592,40 @@
 						</div>
 
 						<div class="col-md-8 single-message-bg">
-							<p>Hey! this is  W3bh4ck Assistant</p>
+							<p>Hey</p>
 						</div>
 					</div>
-					
 					<div class="row single-message">
 						<div class="col-md-2 single-message-bg">
 							<span class="fa fa-user f-icon"></span>
 						</div>
 						<div class="col-md-8 single-message-bg">
-							<p>To train me, enter the training string in this format:</p>
-							<p><b>train: question # answer # password</b></p>
+							<p>Ask me your questions and I will try to answer them.</p>
 						</div>
 					</div>
+					<div class="row single-message">
+						<div class="col-md-2 single-message-bg">
+							<span class="fa fa-user f-icon"></span>
+						</div>
+						<div class="col-md-8 single-message-bg">
+							<p>You can teach me answers to new questions by training me.</p>
+							<p>To train me, enter the training string in this format:</p>
+							<p><b>train: question # answer # password</b></p>
+							<p>To get assistance, type: <br>
+								<b>--help</b>
+							</p>
+						</div>
+					</div>
+
+					<!-- <div class="row single-message">
+						<div class="col-md-10">
+							<p>Welcome! How may I assist you today?</p>
+						</div>
+
+						<div class="col-md-2">
+							<span class="float-right fa fa-user f-icon"></span>
+						</div>
+					</div> -->
 				</div>
 			</div>
 			<div class="row" style="margin-top: 30px;">
