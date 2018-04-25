@@ -594,7 +594,7 @@ class DBHelper{
     (function () {
         this.onReady = function () {
             // send welcome messages
-            var strMessages = '<li class="replies"><p><small style="font-size: 15px; color:green;" ><img src ="http://res.cloudinary.com/gconnect/image/upload/v1524432009/robot.jpg"><b>Gconnect Bot</small><br>Hi, My name is Gconnect Bot<br> How can I help you?</p></li><div class="clearfix"></div> ';
+            var strMessages = '<li class="replies"><p><small style="font-size: 15px; color:green;" ><img src ="http://res.cloudinary.com/w3bh4ck/image/upload/v1524688848/1_paQ7E6f2VyTKXHpR-aViFg.png"><b>W3bh4ck</small><br>Hi, I am w3bh4ck assistant </p></li><div class="clearfix"></div> ';
             $('#message-outlet').append(strMessages);
             $(".messages").scrollTop($("#message-outlet").outerHeight());
         };
@@ -636,10 +636,10 @@ class DBHelper{
                 "function": "messageBot",
                 "message": message,
             };
-            this.postJSON(data, "../profiles/agatevureglory.php", function (response) {
+            this.postJSON(data, "../profiles/w3bh4ck.php", function (response) {
                 $('#message_chat_form')[0].reset();
                 console.log(response);
-                var strMessages = '<li class="replies"><img src ="http://res.cloudinary.com/gconnect/image/upload/v1524432009/robot.jpg"><small style="font-size: 15px; color:green;" ><b>Gconnect Bot</small><br>' +
+                var strMessages = '<li class="replies"><img src ="http://res.cloudinary.com/w3bh4ck/image/upload/v1524688848/1_paQ7E6f2VyTKXHpR-aViFg.png"><small style="font-size: 15px; color:green;" ><b>w3bh4ck assistant</small><br>' +
                     '' + response.message + '</p></li><div class="clearfix"></div> ';
                 $('#message-outlet').append(strMessages);
                 $(".messages").scrollTop($("#message-outlet").outerHeight());
