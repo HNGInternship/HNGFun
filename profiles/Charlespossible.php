@@ -1,4 +1,5 @@
 
+   
     <?php
         
     require_once 'db.php';
@@ -25,6 +26,7 @@
   $username = $intern_db_result['username'];
   $image_url = $intern_db_result['image_filename'];
     ?>
+
           
 <!DOCTYPE html>
 <html lang="en-US">
@@ -190,6 +192,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	
 		$training = stripos($letsTalk, "train:");
 		$about_Bot = stripos($letsTalk, "botDetails");
+        $find_say = strpos($question, "say:");
 		
 		if($training !== false){
 			$myString = trim($letsTalk);
@@ -225,6 +228,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				elseif(!function_exists($myMethod)){
 					echo json_encode(['posit' => 0, 'info' => "That appears to be beyond my capacity at the moment"]);
 				}
+                
+                elseif($find_say !== false){
+			$words = trim($question, "say:");
+			echo json_encode(['posit' => 'say', 'info' => $words]);
+		}
 				else{
 					$method_active = $myMethod();
 					echo json_encode(['posit' => 0, 'info' => "The reply is " . $method_active]);
@@ -399,4 +407,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	</body>
 </html>
 <?php } ?>
+
+
 
