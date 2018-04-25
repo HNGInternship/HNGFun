@@ -1,35 +1,6 @@
-
-    <?php
-        
-    require_once 'db.php';
-   
-
-    try {
-    $sql = "SELECT * FROM secret_word";
-    $secret_word_query = $conn->query($sql);
-    $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
-    $query_result = $secret_word_query->fetch();
-  
-    $sql_query = 'SELECT * FROM interns_data WHERE username="Charlespossible"';
-    $query_my_intern_db = $conn->query($sql_query);
-    $query_my_intern_db->setFetchMode(PDO::FETCH_ASSOC);
-    $intern_db_result = $query_my_intern_db->fetch();
-
-  } catch (PDOException $exceptionError) {
-    throw $exceptionError;
-  }
-
-
-  $secret_word = $query_result['secret_word'];
-  $name = $intern_db_result['name'];
-  $username = $intern_db_result['username'];
-  $image_url = $intern_db_result['image_filename'];
-    ?>
-
           
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en-US">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -102,15 +73,94 @@
             color: white;
             text-align: center;
 } 
+        body, html {
+            margin: 0px;
+            background-color: skyblue; !important;
+            height: 100%;
+        }
+        .my-body {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 85%;
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            height: 400px;
+            float: right;
+        }
+        .chat-output {
+            flex: 1;
+            padding: 10px;
+            display: flex;
+            background: white;
+            flex-direction: column;
+            overflow-y: scroll;
+            max-height: 800px;
+        }
+        .chat-output > div {
+            margin: 0 0 20px 0;
+        }
+        .chat-output .user-message .message {
+            background: #94edb3;
+            color: #000;
+        }
+        .chat-output .bot-message {
+            text-align: right;
+        }
+        .chat-output .bot-message .message {
+            background: #d5e5be;
+        }
+        .chat-output .message {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 20px;
+        }
+        .chat-input {
+            padding: 20px;
+            background: #eee;
+            border: 1px solid #ccc;
+            border-bottom: 0;
+        }
+        .chat-input .user-input {
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 8px;
+        }
 
     </style>
-        
-
- 
     
 </head>
+    
 
 <body>
+    
+    <?php
+        
+    require_once 'db.php';
+   
+
+    try {
+    $sql = "SELECT * FROM secret_word";
+    $secret_word_query = $conn->query($sql);
+    $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
+    $query_result = $secret_word_query->fetch();
+  
+    $sql_query = 'SELECT * FROM interns_data WHERE username="Charlespossible"';
+    $query_my_intern_db = $conn->query($sql_query);
+    $query_my_intern_db->setFetchMode(PDO::FETCH_ASSOC);
+    $intern_db_result = $query_my_intern_db->fetch();
+
+  } catch (PDOException $exceptionError) {
+    throw $exceptionError;
+  }
+
+
+  $secret_word = $query_result['secret_word'];
+  $name = $intern_db_result['name'];
+  $username = $intern_db_result['username'];
+  $image_url = $intern_db_result['image_filename'];
+    ?>
+    
 <header>
 <nav class="navbar navbar-expand-lg navbar-light bg-light  nav-page">
   
@@ -161,126 +211,27 @@
                 </div>
             </div>
         </div>
-    
-        
-    
-
-     <div class="container footer">
-        <div class="row">
-            <div>
-             <p>Copyright &copy; HNG FUN
-            <?php echo date("Y"); ?>
-             </p>   
-            </div>
-        </div>
-        
-    </div>
-    
-   
-   
-</body>
-
-</html>
-
-
-
-<?php if($_SERVER['REQUEST_METHOD'] === 'GET'){ ?>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-		<title>My page</title>
-		<style type="text/css">
-            
-			body, html {
-            margin: 0px;
-            background-color: skyblue; !important;
-            height: 100%;
-        }
-        .my-body {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 85%;
-            display: flex;
-            flex-direction: column;
-            max-width: 400px;
-            float: right;
-        }
-        .msg-out {
-            flex: 1;
-            padding: 15px;
-            display: flex;
-            background: white;
-            flex-direction: column;
-            overflow-y: scroll;
-            max-height: 1000px;
-        }
-        .msg-out > div {
-            margin: 0 0 20px 0;
-        }
-        .msg-out .msg-user .msg {
-            background: #ace2a9;
-            color: white;
-        }
-        .msg-out .bot-msg {
-            text-align: right;
-        }
-        .msg-out .bot-msg .msg {
-            background: #eee;
-        }
-        .msg-out .msg {
-            display: inline-block;
-            padding: 12px 20px;
-            border-radius: 10px;
-        }
-        .msg-in {
-            padding: 20px;
-            background: #eee;
-            border: 1px solid #ccc;
-            border-bottom: 0;
-        }
-        .msg-in .in-user {
-            width: 100%;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 9px;
-        }
-		</style>
-	</head>
-	
-	<body>
-		
-		
-		<div class="oj-sm-12 oj-md-6 oj-flex-item">
+    <div class="oj-sm-12 oj-md-6 oj-flex-item">
             <div class="my-body">
-                <div class="msg-out" id="msg-out">
-                    <div class="msg-user">
-                        <div class="msg">Whats up! My name is Dubembot. You can ask me anything. </br>You can also train me. This is my training format - 'train: question # answer # password'. </br>Type 'aboutbot' to know more about me.</div>
+                <div class="chat-output" id="chat-output">
+                    <div class="user-message">
+                        <div class="message"> DubemBot is my name! You can engage me in a conversation! </br>You can make me smarter by training me, use this format - 'train: question # answer # password'. </br>Type 'aboutbot' to know more about me.</div>
                     </div>
                 </div>
 
-                <div class="msg-in">
-                    <form action="" method="post" id="in-user-form">
-                        <input type="text" name="in-user" id="in-user" class="in-user" placeholder="Ask me Anything">
+                <div class="chat-input">
+                    <form action="" method="post" id="user-input-form">
+                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Ask me things">
                     </form>
                 </div>
 
             </div>
         </div>
-    </div>
-
+        
     <?php
-    try {
-        $sql = 'SELECT * FROM secret_word';
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    $secret_word = $data['secret_word'];
+   
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $data = $_POST['in-user'];
+        $data = $_POST['user-input'];
       //  $data = preg_replace('/\s+/', '', $data);
         $temp = explode(':', $data);
         $temp2 = preg_replace('/\s+/', '', $temp[0]);
@@ -294,7 +245,7 @@
         }
     }
     function aboutbot() {
-        echo "<div id='result'>DubemBot v1.0 - My name is Dubem, I am a bot, I use gabagge in gabbage out but i can be smarter with time.</div>";
+        echo "<div id='result'>Dubembot v1.0 - I am smart bot. I can learn new things if you teach me!</div>";
     }
     function train($input) {
         $input = explode('#', $input);
@@ -317,13 +268,13 @@
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>I am now smarter!</div>";
+                        echo "<div id='result'>I am Now Smarter!</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
                 }
             }else{
-                echo "<div id='result'>I am familiar with this.Please Teach me something new!</div>";
+                echo "<div id='result'>I am familiar with this. Teach me something new!</div>";
             }
         }else {
             echo "<div id='result'>Wrong Password, Try Again!</div>";
@@ -336,7 +287,7 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'> I can be better if you train me.Use the following format to make me smarter - 'train: question # answer # password'</div>";
+            echo "<div id='result'> I can be better if you train me. Use the following format to make me smarter - 'train: question # answer # password'</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
@@ -344,32 +295,37 @@
     }
     ?>
 
-</div>
 
+   
+    
+   
+   
 </body>
 
-
 <script>
-    var outputArea = $("#msg-out");
-    $("#in-user-form").on("submit", function(e) {
+    var outputArea = $("#chat-output");
+    $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
-        var msg = $("#in-user").val();
-        outputArea.append(`<div class='bot-msg'><div class='msg'>${msg}</div></div>`);
+        var message = $("#user-input").val();
+        outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
         $.ajax({
-            url: 'profile.php?id=Charlespossible',
+            url: "profile.php?id=Charlespossible",
             type: 'POST',
-            data:  'in-user=' + msg,
+            data:  'user-input=' + message,
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<div class='msg-user'><div class='msg'>" + result + "</div></div>");
-                    $('#msg-out').animate({
-                        scrollTop: $('#msg-out').get(0).scrollHeight
+                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+                    $('#chat-output').animate({
+                        scrollTop: $('#chat-output').get(0).scrollHeight
                     }, 1500);
                 }, 250);
             }
         });
-        $("#in-user").val("");
+        $("#user-input").val("");
     });
 </script>
-<?php } ?>
+
+</html>
+
+

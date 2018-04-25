@@ -1,6 +1,5 @@
 <?php  require "db.php";
-error_reporting(E_ALL);
-ini_set("display_errors", "on");
+
 
 try {
 	$sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = "segunemma2003"';
@@ -11,11 +10,11 @@ try {
 } catch (PDOException $e) {
 	throw $e;
 }
-$message = trim(htmlspecialchars($_POST['message']));
-	echo "alert(".$message.");";
-if ($_POST){
-	//$message = trim(htmlspecialchars($_POST['message']));
-	//echo "alert(".$message.");";
+global $conn;
+echo ($conn==true);
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+	$message = trim(htmlspecialchars($_POST['message']));
+	echo $message;
 	if ($message === ''){
 		$empty_response = [
 			'You have not asked anything',
@@ -327,8 +326,9 @@ if ($_POST){
 	$(document).ready(function(){
 		$('.chat-form').submit(function(e){
                 e.preventDefault();
-				var chat = $('textarea');
-                var message = chat.val().trim();
+		let chat = $('textarea');
+                let message = chat.val().trim();
+		alert(message);
                 //document.write(message);
                 let container = $('.chatlogs');
                 if (message != ''){
@@ -347,14 +347,14 @@ if ($_POST){
 					// alert(responseMessage('I am a little bot'));
                     return;
                 }
-				if (message.startsWith('train:') ==true){
+		if (message.startsWith('train:') ==true){
                     chat.val('');
                 	container.append(sentMessage(message));
                     $('article').scrollTop($('article').scrollHeight);
 					// alert(responseMessage('I am a little bot'));
 				}
                  $.ajax({
-                     url:"/profiles/segunemma2003",
+                     url:"/profiles/segunemma2003.php",
                      type: "POST",
                      dataType: "json",
 		     

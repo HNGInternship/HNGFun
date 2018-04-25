@@ -1,8 +1,10 @@
 <?php
 //Fetch User Details
-// require '../db.php';
+require '../../config.php'
+require './db.php';
+
 try {
-    $query = "SELECT * FROM interns_data_ WHERE username ='john'";
+    $query = 'SELECT * FROM interns_data_ WHERE username =\'john\'';
     $resultSet = $conn->query($query);
     $result = $resultSet->fetch(PDO::FETCH_ASSOC);
 } catch (PDOException $e){
@@ -23,15 +25,7 @@ try{
 $secret_word =  $result['secret_word'];
 
 
-
-
-
-
-
 ?>
-
-
-
 <!DOCTYPE html>
 <html>
 
