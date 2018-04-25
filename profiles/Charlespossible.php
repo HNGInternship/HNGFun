@@ -162,19 +162,6 @@
             </div>
         </div>
     
-        
-    
-
-     <div class="container footer">
-        <div class="row">
-            <div>
-             <p>Copyright &copy; HNG FUN
-            <?php echo date("Y"); ?>
-             </p>   
-            </div>
-        </div>
-        
-    </div>
     
    
    
@@ -221,7 +208,7 @@
         }
         .msg-output .user-message .message {
             background: #94edb3;
-            color: white;
+            color: #0000;
         }
         .msg-output .bot-message {
             text-align: right;
@@ -346,16 +333,7 @@
     ?>
 
 </div>
-   <div class="container footer">
-        <div class="row">
-            <div>
-             <p>Copyright &copy; HNG FUN
-            <?php echo date("Y"); ?>
-             </p>   
-            </div>
-        </div>
-        
-    </div>
+   
 
 </body>
 
@@ -367,7 +345,7 @@
         var message = $("#user-input").val();
         outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
         $.ajax({
-            url: 'profile.php?id=Charlespossible',
+            url: 'profile.php?id=Melody',
             type: 'POST',
             data:  'user-input=' + message,
             success: function(response) {
