@@ -12,17 +12,21 @@ if (!isset($_SESSION["all"])){
 if(!defined('DB_USER')){
     require_once "../../config.php";
     $servername = DB_HOST;
-    $username_ = DB_USER;
+    $username = DB_USER;
     $password = DB_PASSWORD;
     $dbname = DB_DATABASE;
-    // Create connection
-    $conn = mysqli_connect($servername, $username_, $password, $dbname);
-    print_r($conn);
 
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }}print_r($conn);
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        // set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        echo "Connected successfully";
+    }
+    catch(PDOException $e)
+    {
+        echo "Connection failed: " . $e->getMessage();
+    }}
+ print_r($conn);
 global $conn;
 $solution = '';
 if (isset($_POST['restart'])){
