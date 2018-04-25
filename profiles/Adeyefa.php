@@ -380,10 +380,10 @@
 	                  //${question}
 	                //</div>`
 				$.ajax({
-					url: 'profile.php?id=Adeyefa',
+					url: '/profiles/Adeyefa.php',
 					type: 'POST',
 					data: {question: question},
-					
+					dataType: 'json',
 					success: function(response){
 
 						$("#chats").append("<li>" + response.answer + "</li>");
