@@ -1,6 +1,6 @@
 <?php
     if(!defined('DB_USER')){
-        require "../config.php";		
+        require "../../config.php";		
         try {
             $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
         } catch (PDOException $pe) {
@@ -8,6 +8,7 @@
         }
     }
     global $conn;
+
     if($_SERVER['REQUEST_METHOD'] === 'GET'){
         try {
             $sql = 'SELECT * FROM secret_word LIMIT 1';
@@ -18,6 +19,7 @@
             throw $e;
         }
         $secret_word = $data['secret_word'];
+
         try {
             $sql = "SELECT intern_id, name, username, image_filename FROM interns_data WHERE username='Geedhey'";
             $q = $conn->query($sql);
@@ -36,6 +38,7 @@
     // bot sending POST request to answers
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         require "../answers.php";
+        
         // sending a reply to bot will call this function
         function sendReply($answer){
             echo json_encode([
@@ -529,14 +532,14 @@ h5 {
         <div class="card content-area">
         <h3 class="card-header">Geedhey Bot</h3>
             <div class="card-body">
-                <div class="card-text">
+                
 				<ul>
                     <li class="chat-bubble" v-for="(message, index) in messages" v-key="index" :style="{'background-color': 
                                 getBubbleColor(message.sender)}">
                                 <p>{{message.data}}</p>
                     </li>
                 </ul>
-                </div>
+               
             </div>
                 <div class="card-footer">
                     <form class="form-group" id="inputForm">
