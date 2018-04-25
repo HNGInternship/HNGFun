@@ -24,7 +24,7 @@
 		}
 
 		$name = null;
-		$username = "testing";
+		$username = "chigozie";
 		$image_filename = '';
 
 		$stmt = $conn->prepare("select * from interns_data where username = :username");
