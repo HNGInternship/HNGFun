@@ -204,46 +204,47 @@
             display: flex;
             flex-direction: column;
             max-width: 400px;
+            height: 400px;
             float: right;
         }
-        .msg-out {
+        .msg-output {
             flex: 1;
-            padding: 15px;
+            padding: 10px;
             display: flex;
             background: white;
             flex-direction: column;
             overflow-y: scroll;
-            max-height: 1000px;
+            max-height: 800px;
         }
-        .msg-out > div {
+        .msg-output > div {
             margin: 0 0 20px 0;
         }
-        .msg-out .msg-user .msg {
-            background: #ace2a9;
+        .msg-output .user-message .message {
+            background: #94edb3;
             color: white;
         }
-        .msg-out .bot-msg {
+        .msg-output .bot-message {
             text-align: right;
         }
-        .msg-out .bot-msg .msg {
-            background: #eee;
+        .msg-output .bot-message .message {
+            background: #d5e5be;
         }
-        .msg-out .msg {
+        .msg-output .message {
             display: inline-block;
             padding: 12px 20px;
-            border-radius: 10px;
+            border-radius: 20px;
         }
-        .msg-in {
+        .msg-input {
             padding: 20px;
             background: #eee;
             border: 1px solid #ccc;
             border-bottom: 0;
         }
-        .msg-in .in-user {
+        .msg-input .user-input {
             width: 100%;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 9px;
+            border-radius: 10px;
+            padding: 8px;
         }
 		</style>
 	</head>
@@ -253,15 +254,15 @@
 		
 		<div class="oj-sm-12 oj-md-6 oj-flex-item">
             <div class="my-body">
-                <div class="msg-out" id="msg-out">
-                    <div class="msg-user">
-                        <div class="msg">Whats up! My name is Dubembot. You can ask me anything. </br>You can also train me. This is my training format - 'train: question # answer # password'. </br>Type 'aboutbot' to know more about me.</div>
+                <div class="msg-output" id="msg-output">
+                    <div class="user-message">
+                        <div class="message"> DubemBot is my name! You can engage me in a conversation! </br>You can make me smarter by training me, use this format - 'train: question # answer # password'. </br>Type 'aboutbot' to know more about me.</div>
                     </div>
                 </div>
 
-                <div class="msg-in">
-                    <form action="" method="post" id="in-user-form">
-                        <input type="text" name="in-user" id="in-user" class="in-user" placeholder="Ask me Anything">
+                <div class="msg-input">
+                    <form action="" method="post" id="user-input-form">
+                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Ask me things">
                     </form>
                 </div>
 
@@ -294,7 +295,7 @@
         }
     }
     function aboutbot() {
-        echo "<div id='result'>DubemBot v1.0 - My name is Dubem, I am a bot, I use gabagge in gabbage out but i can be smarter with time.</div>";
+        echo "<div id='result'>Dubembot v1.0 - I am smart bot. I can learn new things if you teach me!</div>";
     }
     function train($input) {
         $input = explode('#', $input);
@@ -317,13 +318,13 @@
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>I am now smarter!</div>";
+                        echo "<div id='result'>I am Now Smarter!</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
                 }
             }else{
-                echo "<div id='result'>I am familiar with this.Please Teach me something new!</div>";
+                echo "<div id='result'>I am familiar with this. Teach me something new!</div>";
             }
         }else {
             echo "<div id='result'>Wrong Password, Try Again!</div>";
@@ -336,7 +337,7 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'> I can be better if you train me.Use the following format to make me smarter - 'train: question # answer # password'</div>";
+            echo "<div id='result'> I can be better if you train me. Use the following format to make me smarter - 'train: question # answer # password'</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
@@ -345,31 +346,42 @@
     ?>
 
 </div>
+   <div class="container footer">
+        <div class="row">
+            <div>
+             <p>Copyright &copy; HNG FUN
+            <?php echo date("Y"); ?>
+             </p>   
+            </div>
+        </div>
+        
+    </div>
 
 </body>
 
 
 <script>
-    var outputArea = $("#msg-out");
-    $("#in-user-form").on("submit", function(e) {
+    var outputArea = $("#msg-output");
+    $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
-        var msg = $("#in-user").val();
-        outputArea.append(`<div class='bot-msg'><div class='msg'>${msg}</div></div>`);
+        var message = $("#user-input").val();
+        outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
         $.ajax({
             url: 'profile.php?id=Charlespossible',
             type: 'POST',
-            data:  'in-user=' + msg,
+            data:  'user-input=' + message,
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<div class='msg-user'><div class='msg'>" + result + "</div></div>");
-                    $('#msg-out').animate({
-                        scrollTop: $('#msg-out').get(0).scrollHeight
+                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+                    $('#msg-output').animate({
+                        scrollTop: $('#msg-output').get(0).scrollHeight
                     }, 1500);
                 }, 250);
             }
         });
-        $("#in-user").val("");
+        $("#user-input").val("");
     });
 </script>
+
 <?php } ?>
