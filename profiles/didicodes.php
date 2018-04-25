@@ -159,11 +159,6 @@ font-size: 20px;
                                <br>                            
                                <small class="text-color"><b>@Didicodes</b></small>
                            </h3>
-
-                                                       <h3><br>I've always loved programing since high school<br> Join me as we make the best out of this wonderful opportunity.</h3>
-                            
-                           
-                            
                             </div>
 </head>
 <body>
