@@ -9,91 +9,8 @@
  	  } catch (PDOException $event) {
  	      throw $event;
  	  }
-
- 	if (($_SERVER['REQUEST_METHOD'] === 'POST')) {
- 	  $message = $_POST['userMessage'];
- 	  $onTrainingMode = stripos($message, "train:");
- 	  if ($message == "aboutbot") {
- 	  	echo json_encode([
- 	  		'input' => $message,
- 	  		'response' => "LuthfulahiBot V 1.1.0"
- 	  	]);
- 	  	return;
- 	  }elseif ($onTrainingMode === 0) {
- 	  	# ready to train bot
- 	  	// extract question, answer and password from input
- 	  	$trainValue = substr($message, 6);
- 	  	//remove extra white spaces
- 	  	$training = preg_replace('([\s]+)', ' ', trim($trainValue));
- 	  	// remove question mark if any
- 	  	$realValue = preg_replace("([?.])", "", $training);
- 	  	//extract the question, answer , password in an array
- 	  	$extractQuesAnsPass = explode("#", $realValue);
- 	  	//check if training was in right format
- 	  	if (count($extractQuesAnsPass) == 2) {
- 	  		echo json_encode([
- 	  			'input' => $message,
- 	  			'response' => "Please Provide a tarining password to train me!"
- 	  		]);
- 	  		return;
- 	  	} elseif (count($extractQuesAnsPass) == 1) {
- 	  		echo json_encode([
- 	  			'input' => $message,
- 	  			'response' => "Invalid Trainig format! Use <code>train:question#answer#password</code> to tarin me"
- 	  		]);
- 	  		return;
- 	  	}else {
- 	  		$userQuestion = $extractQuesAnsPass[0];
- 	  		$userAnswer = $extractQuesAnsPass[1];
- 	  		$userPassword = $extractQuesAnsPass[2];
- 	  		if ($userPassword === "password") {
- 	  			$query1 = "INSERT INTO chatbot(question, answer) VALUES ('" . $userQuestion . "', '" . $userAnswer . "')";
- 	  			$conn->exec($query1);
- 	  			if ($conn->exec($query1)) {
- 	  				echo json_encode([
- 	  					'input' => $message,
- 	  					'response' => "Thanks for training me I am smarter now!"
- 	  				]);
- 	  				return;
- 	  			}else{
- 	  				echo json_encode([
- 	  					'input' => $message,
- 	  					'response' => "Opss! seems the training process didn't go well kindly try again in the right format"
- 	  				]);
- 	  				return;
- 	  			}
- 	  		}else{
- 	  			echo json_encode([
- 	  				'input' => $message,
- 	  				'response' => "You are unauthorized to train me please provide correct password"
- 	  			]);
- 	  			return;
- 	  		}
- 	  	}
-
- 	  }else{
- 	  	$messageVal = preg_replace("([?.])", "", $message);
- 	  	// $query2 = "SELECT * FROM chatbot  WHERE question LIKE '$messageVal' ORDER BY RAND() Limit 1"
- 	  	$result = $conn->query("SELECT * FROM chatbot  WHERE question = '$messageVal' ORDER BY RAND() Limit 1");
- 	  	$result->execute();
- 	  	$returnedVal = $result->fetch(PDO::FETCH_ASSOC);
- 	  	if (isset($returnedVal['answer'])) {
- 	  		echo json_encode([
- 	  			'input' => $message,
- 	  			'response' => $returnedVal['answer']
- 	  		]);
- 	  		return;
- 	  	}else{
- 	  		echo json_encode([
- 	  			'input' => $message,
- 	  			'response' =>  "Sorry I'm to smart enough to know the answer to your question you can train me to be smart use <code>train:question#answer#password</code>"
- 	  		]);
- 	  		return;
- 	  	}
- 	  }
- 	}
   ?>
-<!DOCTYPE html>
+
 <html lang="en-US">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -203,103 +120,6 @@
   	}
   	code{
   		color: #000000 !important;
-  	}
-  	.modal{
-  	    display: none;
-  	    position: fixed; /* Stay in place */
-  	    font-family: cursive !important;
-  	    width: 100%;
-  	    top: 0;
-  	    height: auto;
-  	}
-
-  	/* Modal Content */
-  	.modal-content {
-  	    position: relative;
-  	    background-color: #fefefe;
-  	    margin: auto;
-  	    padding: 0;
-  	    border: 1px solid #888;
-  	    width: 80%;
-  	    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-  	    -webkit-animation-name: animatetop;
-  	    -webkit-animation-duration: 0.4s;
-  	    animation-name: animatetop;
-  	    animation-duration: 0.4s;
-  	}
-
-  	/* Add Animation */
-  	@-webkit-keyframes animatetop {
-  	    from {top:-300px; opacity:0}
-  	    to {top:0; opacity:1}
-  	}
-
-  	@keyframes animatetop {
-  	    from {top:-300px; opacity:0}
-  	    to {top:0; opacity:1}
-  	}
-
-  	/* The Close Button */
-  	.close {
-  	    color: white !important;
-  	    float: right;
-  	    font-size: 28px;
-  	    font-weight: bold;
-  	}
-
-  	.close:hover,
-  	.close:focus {
-  	    color: #000;
-  	    text-decoration: none;
-  	    cursor: pointer;
-
-  	}
-
-  	.modal-header,.modal-footer {
-  	    padding: 10px;
-  	    background-color: #000000;
-  	    color: white;
-  	}
-
-  	.modal-body {
-  	    padding: 2px 16px;
-  	    height: 400px;
-  	    /*overflow: all;*/
-  	    overflow-x: hidden;
-  	}
-  	#inputChat{
-  	    width: 70%;
-  	    height: 50px;
-  	    border-radius: 10px;
-  	    font-size: 15px;
-  	    color: black;
-  	}
-  	#sendBtn{
-  	    width: 50px;
-  	    height: 40px;
-  	    border-radius: 2px;
-  	    /*box-shadow: 4px 4px 3px black;*/
-  	    background-color: white;
-  	    color: black;
-  	}
-  	.user{
-  	    text-align: right;
-
-  	}
-  	.bot{
-  	    text-align: left;
-  	}
-  	.botMessage{
-  	    background-color: #e9e9e9;
-  	    border-radius: 10px;
-  	    padding: 5px;
-  	    /*width: ;*/
-  	}
-  	.userMessage{
-  	    background-color: #e3e3e3;
-  	    border-radius: 10px;
-  	    padding: 5px;
-  	    /*width: inherit;*/
   	}
   </style>
 </head>
@@ -492,9 +312,7 @@
 				</div>
 			</div>
 		</div>
-	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script> -->
-	<!-- C:\Users\Luthfulahi\Desktop\seminar pdfs\HNGFun\vendor\jquery -->
-	<script src="../vendor/jquery/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 	<script>
 		$(document).ready(function(){
 			$('#intro').addClass('swing');
