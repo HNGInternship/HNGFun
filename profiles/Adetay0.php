@@ -39,9 +39,10 @@ body{
     
     }
 #profilePic{
-    position:relative;
-    top:5px;
-    right:15px;
+    
+    height:30%;
+    width:30%;
+    
     border-radius:2px solid grey;
     box-shadow:2px 2px 1px midnightblue;
 }
@@ -58,7 +59,7 @@ body{
     top:50px;
     color:blue;
     font-size:1.3rem;
-    
+
 }
 
 
