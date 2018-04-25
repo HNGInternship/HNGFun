@@ -116,7 +116,7 @@ function getAnswer( $input ) {
     </style>
   </head>
   <body>
-<div class="oj-sm-flex-direction-column oj-flex oj-panel oj-flex-item">
+<div class="oj-sm-flex-direction-column oj-flex oj-flex-item">
   <div class="oj-flex-item blue1">
     <h1>Dennis Otugo</h1>
     <p>Human Being | Cyborg | Never asked for this</p>
