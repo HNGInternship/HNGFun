@@ -27,12 +27,13 @@ color: #ffffff;    }
 .chatbox{
    position:absolute;
   width: 350px;
-  height: 600px;
+  height: 800px;
   background: #fff;
   padding: 25px;
   margin: 20px auto;
   box-shadow: 0 3px #ccc;
     margin-top:-550px;
+    margin-right:100px;
     
 }
 
@@ -286,6 +287,6 @@ function speak(string){
         $secret_word = $data['secret_word'];       
   
 ?>
-     
+
 </body>
 </html>
