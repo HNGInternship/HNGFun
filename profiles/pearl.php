@@ -201,7 +201,7 @@ footer #link{
 
 </style>
 </head>
-<body cz-shortcut-listen="true" class="oj-flex">
+<body cz-shortcut-listen="true">
 
 <?php
     
@@ -216,6 +216,7 @@ $result2 = $conn->query("Select * from interns_data where username = 'pearl'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 
+<div class="oj-flex oj-flex-item">
 	<div class="container">
 		<header>
 			<div class="header">
@@ -236,7 +237,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
                 <h1 class="oj-text-xm">Meet <?php echo $user->username ?></h1>
                 <div>
                     <img class="img"  src="<?php echo $user->image_filename ?>" alt="She Codes" /></div>
-                <p class="mission" id="caption"><b>My mission for HNG Internship:</b> Be a world class developer, initiate and complete innovative projects, and have a voice in the technology ecosystem. </p>
+                <p class="oj-panel oj-panel-shadow-md" id="caption"><b>My mission for HNG Internship:</b> Be a world class developer, initiate and complete innovative projects, and have a voice in the technology ecosystem. </p>
                 
                 <p>Anyway, this is the “About” page, so I should probably tell you my story.
                 </p>
@@ -263,5 +264,6 @@ My love grew into passion that I gave up my little savings to learn web developm
     </div>
 	<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.0.0/3rdparty/require/require.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</div>
 </body>
 </html>
