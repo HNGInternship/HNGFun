@@ -71,6 +71,15 @@ $image_url = $row['image_filename'];
             
 			width: 100%;
         }
+		.oj-web-applayout-page{
+			background-color: #153643;
+            vertical-align: middle;
+            color: #FFFFFF;
+            align-content: left;
+            margin: auto;
+            
+			width: 100%;
+		}
         .oj-profile{
             background-image: url('http://res.cloudinary.com/maaj/image/upload/v1523621615/profile.jpg');
             background-size: cover;
@@ -84,13 +93,14 @@ $image_url = $row['image_filename'];
         .oj-title{
             color: #ffffff;
             text-align: left;
-			margin-left: 60px; 
+			margin-left: 40px; 
 			
             
         }
 		.oj-links{
 			text-align: left;
-			margin-left: 100px;
+			margin-left: 80px;
+			
 		}
         .oj-head{
             color: #ffffff;
@@ -103,18 +113,28 @@ $image_url = $row['image_filename'];
 
   </head>
   <body class="oj-web-applayout-body">
-      <div class="oj-web-applayout-body">
+	<div class="oj-web-applayout-page">
+	<div>
+		<h1 class="oj-head">Hello....</h1>
+	</div>
+      
+	  <div class="oj-flex">
 		
-          <h1 class="oj-head">Hello....</h1>
+		<div class="oj-flex-item">
           
-          <div class="oj-profile"></div>
-          </div>
-              <div class="oj-title">
+		  <div class="oj-profile"></div>
+		  <div class="oj-title">
                   <h2 class="oj-title"><?php echo $name;?></h2>
                   <h2 class="oj-title">Slack username: <?php echo $username;?></h2>
                   
               </div>
-              <div class="oj-links"><a href="https://instagram.com/wale_j"><i class="fa fa-instagram"></i></a>
+
+          </div>
+		  <div class="oj-flex-item">
+          
+          </div>
+		  </div>
+                            <div class="oj-links"><a href="https://instagram.com/wale_j"><i class="fa fa-instagram"></i></a>
     <a href="#"><i class="fa fa-facebook"></i></a>
     <a href="#"><i class="fa fa-linkedin"></i></a>
     <a href="https://github.com/dmaaj"><i class="fa fa-github"></i></a>
@@ -122,6 +142,7 @@ $image_url = $row['image_filename'];
 		</div>  
     
       </div>
+	  </div>
     
 
   </body>
