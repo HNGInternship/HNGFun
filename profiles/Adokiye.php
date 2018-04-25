@@ -54,7 +54,7 @@ $input = trim($input);
                             if ($row_cnt > 0) {
                                 return "QUESTION ALREADY EXISTS ";
                             } else
-                                $the_queried = $conn->query("INSERT INTO chatbot(question, answer) VALUES ('" . $explode2[0] . "', '" . $explode3[0] . "')");
+                                $the_queried = $conn->query(print_r("INSERT INTO chatbot(question, answer) VALUES ('" . $explode2[0] . "', '" . $explode3[0] . "')"));
                             if ($the_queried) {
                                 $saved_message = "Saved " . $explode2[0] . " -> " . $explode3[0];
                                 return $saved_message;
@@ -248,7 +248,7 @@ $username = 'Adokiye';
         <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
         <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
     </div>
-    <p class="mycss"> Chatbot by Adokiye---<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
+    <p class="mycss"> Chatbot by Adokiye<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
     <form name = "askMe" method="post">
         <p>
             <label>
