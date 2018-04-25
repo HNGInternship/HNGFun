@@ -317,15 +317,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
             <div class="col-sm-4">
                 <img src="http://res.cloudinary.com/dlvlxep3r/image/upload/v1523715773/interactive_bee.jpg" class="img-responsive" alt="image">
                 <div id="content">
-                    <h1><?php echo $user->name; ?></h1>
+                    <h1>Test</h1>
                     <p>Writer | Android Developer | HNG Intern</p>
-                    <p>Akwa Ibom, Nigeria</p>
                     <div id="socialicons">
-                        <div style="margin: 24px 0;">
-                            <a href="https://facebook.com/interactiveBee"><i class="fa fa-facebook"></i></a>
-                            <a href="https://twitter.com/interactive_bee"><i class="fa fa-twitter"></i></a>
-                            <a href="https://github.com/BeeAkpan"><i class="fa fa-github"></i></a>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
