@@ -104,10 +104,25 @@ function getAnswer( $input ) {
 }
         .container {
     max-width: 100% !important;
+                padding: 0;
+}
+   #user-input-form {
+        width: 100%;
+    position: fixed;
+    bottom: 0;
+    height: 6%;
 }
 .blue1 {
     width: 50%;
-        }
+    position: fixed;
+    left: 0;
+    background-color: #007bff;
+    height: 100%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translate(0, 40%);
+}
         .white2 {
     width: 50%;
             background-color: #ffffff;
@@ -125,12 +140,12 @@ function getAnswer( $input ) {
   </div>
   <div class="oj-flex-item white2">
     <div class="chat-output" id="chat-output">
-    <div class="user-message"></div>
-    <div class="message">train: question # answer # password'<div class="chat-input"></div>
-    <form action="" method="post" id="user-input-form" name="user-input-form"></div>
-    <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here" /></form></div></div>
+        <div class="user-message"></div>
+        <div class="message">train: question # answer # password'<div class="chat-input"></div>
+        <form action="" method="post" id="user-input-form" name="user-input-form"></div>
+        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here" /></form></div>
   </div>
-</div>
+</div></div>
 </script>
      <script>
 //<![CDATA[
