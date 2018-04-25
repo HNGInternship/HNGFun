@@ -1,9 +1,7 @@
 
-   
-    
     <?php
         
-    require_once 'db.php';
+    require_once '../db.php';
    
 
     try {
@@ -205,7 +203,7 @@
             font-size: 85%;
             display: flex;
             flex-direction: column;
-            max-width: 300px;
+            max-width: 400px;
             float: right;
         }
         .msg-out {
@@ -274,9 +272,9 @@
     <?php
     try {
         $sql = 'SELECT * FROM secret_word';
-        $case = $conn->query($sql);
-        $case->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $case->fetch();
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
     } catch (PDOException $e) {
         throw $e;
     }
@@ -305,9 +303,9 @@
         $password = trim($input[2]);
         if($password == 'password') {
             $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
-            $case = $GLOBALS['conn']->query($sql);
-            $case->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $case->fetch();
+            $q = $GLOBALS['conn']->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
             if(empty($data)) {
                 $training_data = array(':question' => $question,
                     ':answer' => $answer);
@@ -317,8 +315,8 @@
                   :answer
               );';
                 try {
-                    $case = $GLOBALS['conn']->prepare($sql);
-                    if ($case->execute($training_data) == true) {
+                    $q = $GLOBALS['conn']->prepare($sql);
+                    if ($q->execute($training_data) == true) {
                         echo "<div id='result'>I am now smarter!</div>";
                     };
                 } catch (PDOException $e) {
@@ -334,9 +332,9 @@
     function getAnswer($input) {
         $question = $input;
         $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
-        $case = $GLOBALS['conn']->query($sql);
-        $case->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $case->fetchAll();
+        $q = $GLOBALS['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
         if(empty($data)){
             echo "<div id='result'> I can be better if you train me.Use the following format to make me smarter - 'train: question # answer # password'</div>";
         }else {
