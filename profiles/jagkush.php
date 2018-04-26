@@ -12,9 +12,8 @@ $result = $conn->query("Select * from secret_word LIMIT 1");
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>Gbenga Kusade</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
 	
 	<style>
 	*{
@@ -121,7 +120,7 @@ button{
 				<h6 class="slack">Slack id: <?php echo $user->username; ?></h6>
                 
             </div>
-	    </div>
-	</div>
+	 </div>
+     </div>
 </body>
 </html>
