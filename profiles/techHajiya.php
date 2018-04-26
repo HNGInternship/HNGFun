@@ -166,9 +166,13 @@
             margin-top: 2.5px;
         }
 		.oj-panel{
-    background-color:#2B303A;
-}
-
+		background-color:#2B303A;
+		}
+		.demo-panelwrapper {
+		background-color:#2B303A;
+		max-width: 95%;
+            padding-left: 0;
+		}
         .fa-close, .fa-question-circle {
             font-size: 23px;
         }
