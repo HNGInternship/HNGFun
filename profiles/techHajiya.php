@@ -166,7 +166,7 @@
             margin-top: 2.5px;
         }
 		.oj-panel{
-		background-color:#B6BCBD;
+		background-color:#fff;
 		}
 		.demo-panelwrapper {
 		background-color:#B6BCBD;
