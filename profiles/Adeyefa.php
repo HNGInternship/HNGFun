@@ -1,6 +1,6 @@
 <?php 
 
-if(!defined('DB_USER')){
+/*if(!defined('DB_USER')){
 	require_once __DIR__."/../../config.php";
 	//require_once __DIR__."/../config.php";    
 	try {
@@ -8,7 +8,8 @@ if(!defined('DB_USER')){
 	} catch (PDOException $pe) {
 		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 	}
-}
+}*/
+require '../db.php'
 
 
 
@@ -378,7 +379,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	                  //${question}
 	                //</div>`
 				$.ajax({
-					url: '/profiles/Adeyefa.php',
+					url: 'profile.php?id=Adeyefa',
 					type: 'POST',
 					data: {question: question},
 					dataType: 'json',
