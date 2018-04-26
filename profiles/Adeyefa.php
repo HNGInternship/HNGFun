@@ -328,8 +328,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			</div>
 	    </div>	
 		<div id="sidebar" class="oj-flex">
-			<div class="head">
-				<h2 class="oj-flex-item"> Chat With MyBot</h2>
+			<div class="head" class="oj-flex-item">
+				<h2> Chat With MyBot</h2>
 			</div>
 			<div class="row-holder">
 				<div class="oj-flex-item">
