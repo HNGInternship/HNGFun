@@ -189,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			background-color:white;
 		} 
 
-		} footer{
+		footer{
 			display: none;
 		}
 
@@ -297,7 +297,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 
 		.chat-footer{
-			margin-top: 10px;
+			margin-top: 5px;
 			background-color: #F3F3F3;
 
 		}
@@ -308,7 +308,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		.input_text{			
 			width: 360px;
-			height: 50px;
+			height: 45px;
 			padding: 5px;
 			margin-top: 8px;
 			border: 0.5px solid #34495E;
@@ -317,7 +317,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		.send_button{
 			width: 70px;
-			height: 35px;
+			height: 45px;
 			padding: 5px;
 			margin-top: 8px;
 			color: white;
@@ -386,8 +386,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		</div>
 	</div>	
 	
-		<hr class="footer_line">
-		<div class="myfooter">		
+		
+		<div class="myfooter">	
+			<hr class="footer_line">
 			<div style="text-align:center">
 				<div class="footer_info">Copyright &copy; 2018 www.hng.fun - Built with
 				<span style="color: #cc023b">&hearts;</span> | HNGIternship 4.0 </div>				 

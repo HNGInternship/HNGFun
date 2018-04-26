@@ -45,7 +45,7 @@
             padding-right: 0;
             background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
-			width: 600px;
+			width: 550px;
 			margin: 10px 10px;
         }
         .profile-body {
@@ -133,7 +133,7 @@
 			float: left;
         }
 		#send {
-		   width: 60px;
+		   width: 80px;
 		   height: 45px;
 		   display: inline-block
 		   outline: none;
@@ -170,7 +170,7 @@
             margin-left: 40px;
 		}
 		.oj-flex{
-		background-color:blue;
+		background-color:white;
         padding: 0px;
 		}
         .fa-close, .fa-question-circle {
