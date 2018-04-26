@@ -115,8 +115,7 @@ if(in_array($data_lower, $q)) { # DONE
     
   }
 
-
-} else {
+  
 ?>
 <!DOCTYPE html>
 <html>
@@ -401,57 +400,6 @@ if(in_array($data_lower, $q)) { # DONE
                 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"  
                 style="width: 50%;"> 
             <span class="">50%</span> 
-	<div class="col-md-6">
-	
-						<div class="">
-						
-							<nav class="">
-								<ul class="">
-									<li><a class="scroll" href="#home">Home</a></li>
-									<li><a class="scroll" href="#about">About</a></li>
-									<li><a class="scroll" href="#portfolio">Portfolio</a></li>
-									<li><a class="scroll" href="#services">Services</a></li>
-									<li><a class="scroll" href="#contact">Contact</a></li>
-								</ul>
-							</nav>
-						
-
-				</div>
-     </div>   
-
-<div class="col-md-4 col-md-offset-2"> <img src="http://res.cloudinary.com/epospiky/image/upload/v1523739075/epo.png" class="img-responsive" height="400px"/></div>
-</div>
-	<div id = "about" class="about">
-		<div class="about-info">
-				<h3>ABOUT</h3>
-				<h4>Who I am and why I design</h4>
-				<p>I am Ernest Paul but i am porpularly known as epopsiky. I am a web designer. 
-					I design because of my passion for designing. Since my kiddies time i've 
-					always had a flare for designing and thus i started implementing it.</p>
-		</div>
-		<div class="about-grids">
-		   	<div class="col-md-6 about-grid">
-		   		<h4>What I do and my experience</h4>
-		   		<p>I design. My long time in designing have given me lots of experiences and knowledge
-		   			which i have implemented in some of my work.</p>
-		   	</div>
-		   	<div class="col-md-6 about-grid">
-		   		<h4>My goals</h4>
-		   		<p>My goal is to be the best designer ever. I Want to make great contribution to web design 
-		   			per se and bridge the gap between imagination and reality. </p>
-		   	</div>
-		   	
-		</div>   
-	</div>
-
-<div class="col-md-12 chatarea">	
- <div class="col-md-12">
-            <div class="chat">
-              <div class="msg you">
-                  Hi there! I'm Derbie.
-              </div>
-             
-
             </div>
         </div>
     </div>
@@ -589,48 +537,3 @@ if(in_array($data_lower, $q)) { # DONE
 
   </body>
 </html>
-          </div>
-</div>
-
-            <script src="../vendor/jquery/jquery.min.js"></script>
-  <script>
-	$(document).ready(function(){
-		let questionForm = $('#question-form');
-		questionForm.submit(function(e){
-			e.preventDefault();
-			let questionBox = $('input[name=question]');
-      let chatbox = $('.chat');
-			let question = questionBox.val();
-			//display question in the message frame as a chat entry
-			let newMessage = `<div class="msg me">
-                  ${question}
-              </div>`;
-			chatbox.html(`${chatbox.html()} ${newMessage}`);
-      chatbox.scrollTop(chatbox[0].scrollHeight);
-			//send question to server
-			$.ajax({
-				url: '/profiles/epospiky.php',
-				type: 'POST',
-				data: {question: question},
-				dataType: 'json',
-				success: (response) => { 
-          let newMessage = `<div class="msg you">
-                          ${response.answer}
-                      </div>`;
-          chatbox.html(`${chatbox.html()} ${newMessage}`);
-          chatbox.scrollTop(chatbox[0].scrollHeight);
-          questionBox.val('');						
-				},
-				error: (error) => {
-          alert(' an error occured')
-					console.log(error);
-				}
-			})
-		});
-	});
-</script>
-</div>
-<?php 
-   };
-?>
-
