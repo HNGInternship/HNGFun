@@ -23,7 +23,7 @@
             display: flex;
             flex-direction: column;
             max-width: 550px;
-			height: 300px;
+			height: 400px;
             margin: 0 auto;
 			border-radius: 0px;
 			margin-bottom: 50px;
@@ -157,7 +157,7 @@
             margin: 0px 0 0 0px;
             color: #FFFFFF;
             height: 45px;
-			border-radius:10px;
+			border-radius:0px;
         }
 
         .chatbot-close, .chatbot-help {
