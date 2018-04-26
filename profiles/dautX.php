@@ -86,7 +86,7 @@
                can tell so much about us.
             </p>
             
-            <div id="socials">
+            <div id="socials" style="margin-left: 50px;">
                 <p style="word-spacing: 50px;"><a href="https://github.com/patrex"><i class="fab fa-github"></i></a> <a href="https://twitter.com/patman4real"><i class="fab fa-twitter"></i></a>
                 <a href="https://www.facebook.com/patsoks.sokari"> <i class="fab fa-facebook"></i></p>
             </div>
