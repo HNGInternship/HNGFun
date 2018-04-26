@@ -1,52 +1,83 @@
 <?php
-require 'db.php';
+require'db.php';
 ?>
+
 <?php
-$result= $conn->query ("Select * from secret_word LIMIT 1");
-$result= $result->fetch(PDO::FETCH_OBJ);
-$secret_word=$result->secret_word;
+$result = $conn->query("Select * from secret_word LIMIT 1");
+$result = $result->fetch(PDO::FETCH_OBJ);
+$secret_word = $result->secret_word;
+
+$result2 = $conn->query("Select * from interns_data where username='chuka99'");
+$user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
-<?php
-
-echo $user->name  
-
-?>
-
-<?php 
-mysql_connect("localhost", "root", "");
-mysql_select_db("hng_fun");
-
-$name = $_POST['name'];
-$username = $_POST['username'];
-$username = $_POST['image_filename'];
-
-
-$qstr = "select * from `hng_fun`.`interns_data`";
-$query = mysql_query($qstr);
-
-//fetch from database
-$recs = mysql_fetch_assoc($query);
-
-?>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
+	<title>Chuka</title>
+	<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
+
+	<style>
+		body {
+			background-image: url(https://res.cloudinary.com/drvtjwwxy/image/upload/v1524622580/hng/ch.jpg);
+		}
+
+		.circle {
+			width: 60%;
+			margin-left: 20%;
+			border-radius: 50%;
+		}
+
+		.frame {
+			border: 1px solid grey;
+			padding: 20px;
+			background-color: #ffffff;
+			margin-top: 20%;
+		}
+
+		.info {
+			margin-top: 25px;
+		}
+
+		.slack_span {
+			color: #0000ff;
+		}
+
+		.occupation_span {
+			color: #ff0000;
+			font-weight: bold;
+		}
+
+	</style>
 </head>
 
 <body>
-<?php 
-if($recs)
-{
-	echo "Welcome, ".$recs['name']." ".$recs['image_filename']."<br>";
-}
-else
-{
-	echo "No record found!";
-}
-?>
-<center>
-<img src="cloudinary.com/console/media_library/asset/image/upload/hng%2Fch" />
-</center> 
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 offset-md-3 frame">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="circle">
+						<img src="https://res.cloudinary.com/drvtjwwxy/image/upload/v1524622580/hng/ch.jpg" width="400" height="400" alt="profile picture" class="circle" />
+					</div>
+				</div>	
+			</div>
+
+			<div class="row info">
+				<div class="col-md-12">
+					<h3 class="text-center">
+						<?php echo $name; ?>
+					</h3>
+					<h5 class="text-center"><span class="slack_span">Slack Username: </span>@chuka99</h5>
+					<p class="text-center"><span class="occupation_span">My Intrest: </span>Web Designer and Developer</p>
+				</div>
+
+			</div>
+		</div>	
+	</div>
+</div>
+
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
