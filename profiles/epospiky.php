@@ -227,7 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     return $e->message ;
   }
   
-} else {};
+} else {
 ?>
 
 <div class="row container">
@@ -335,3 +335,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	});
 </script>
 </div>
+<?php 
+   };
+?>
