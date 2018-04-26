@@ -172,9 +172,14 @@
             padding-left: 0px;
 		}
 		.demo-panelwrapper {
-		background-color:#DFE1E2;
+		background-color:green;
 		width: 500px;
-        padding: 40px;
+        padding: 10px;
+		}
+		.oj-flex{
+		background-color:blue;
+		width: 500px;
+        padding: 20px;
 		}
         .fa-close, .fa-question-circle {
             font-size: 23px;
