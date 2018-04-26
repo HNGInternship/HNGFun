@@ -99,6 +99,15 @@ function getAnswer( $input ) {
 <!-- RequireJS bootstrap file -->
 <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
     <style type="text/css">
+                .chat-output > div {
+    display: inline-block;
+    width: 100%;
+}
+            .chat-output {
+                 display: block;
+    overflow-y: scroll;
+    height: 100%;
+    }
         .oj-flex {
     background-color: #007bff;
 }
@@ -131,7 +140,7 @@ function getAnswer( $input ) {
     box-shadow: rgb(1, 1, 1) 1px 1px 9px 0px;
 }
 .blue1 {
-    width: 30%;
+    width: 50%;
     position: fixed;
     left: 0;
     /* background-color: #007bff; */
@@ -139,7 +148,7 @@ function getAnswer( $input ) {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    top: 50%;
+    top: 30%;
     /* transform: translate(0, 40%); */
 }
 .white2 {
@@ -171,16 +180,6 @@ function getAnswer( $input ) {
     }
         p {
     font-weight: bolder;
-}
-.user-message {
-    font-size: 16px;
-    background-color: #ffffff;
-    padding: 10px;
-    display: inline-block;
-    border-radius: 3px;
-    position: relative;
-    margin: 5px;
-    float: left;
 }
                   .user-message message {
                     float: left;

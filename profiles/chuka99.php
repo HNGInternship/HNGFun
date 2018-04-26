@@ -17,9 +17,9 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 	<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
 
 	<style>
-		body {
+		body /*{
 			background-image: url(https://res.cloudinary.com/drvtjwwxy/image/upload/v1524622580/hng/ch.jpg);
-		}
+		}*/
 
 		.circle {
 			width: 60%;
@@ -81,3 +81,4 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
+

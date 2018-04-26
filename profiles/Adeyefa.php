@@ -1,16 +1,13 @@
-<?php 
+<?php
 
-/*if(!defined('DB_USER')){
-	require_once __DIR__."/../../config.php";
-	//require_once __DIR__."/../config.php";    
-	try {
-		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-	} catch (PDOException $pe) {
-		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-	}
-}*/
-require '../db.php'
-
+if(!defined('DB_USER')){
+  require "../../config.php";		
+  try {
+      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
+}
 
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -18,6 +15,8 @@ $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
+///////////////////////////////////////////////////////////////
+
 
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -92,10 +91,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			echo json_encode([
 				'status' => 1,
 				'answer' => "Type 'aboutbot' to know about me. You can also convert cryptocurrencies using this syntax.
-				'convert btc to usd"
+				'convert btc to usd",
 			]);
-			return;
-			
+			return;	
 		}
 		elseif ($arr[0] == "convert") {
 			# code...
@@ -179,6 +177,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		return $e->message ;
 	}
 }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -187,6 +186,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
+	<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style type="text/css">
 		body{
@@ -196,29 +196,22 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    background-repeat: no-repeat;
 		    background-size: cover;
 		}
-		h1{
-			text-align: center;
-			color: red;
-		}
 		p{
 			text-align: center;
 			font-size: 60px;
 			color: red;
 		}
-		#p1{
-			text-align: center;
-			font-size: 60px;
-		}
 		#info{
 			text-align: center;
 			font-size: 30px;
 		}
-		.sidebar{
-			width: 400px;
-			height: 590px;
+		#sidebar{
+			width: 380px;
+			height: 600px;
+			position: relative;
 		}
-		.bbb{
-			width: 790px;
+		#bbb{
+			width: 780px;
 			height: 590px;
 			float: right;
 		}
@@ -232,7 +225,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			color: #FFF;
 			padding: 7px;
 			position: absolute;
-			width: 400px;
+			width: 350px;
 			height: auto;
 		}
 		input{
@@ -242,7 +235,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    box-sizing: border-box;
 		}
 		textarea{
-		    width: 80%;
+		    width: 65%;
 		    box-sizing: border-box;
 		    border: 2px solid #ccc;
 		    border-radius: 4px;
@@ -295,50 +288,51 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			left: -3px;
             background-color: #00b0ff;
 		}
-		#queries{
-			margin-left: 50px;
-		}
-		.iro{
-			float: right;
-			color: red;
-			font-size: 15px;
-			font-family: Ubuntu;
-		}
 		.iio{
 			float: left;
-			margin-right: 90px;
 			color: red;
 			font-size: 15px;
 			font-family: Ubuntu;
 		}
 	</style>
 </head>
-<body>
-	<div class="iii">
-		<div class="bbb">
-	    	<div class="main">
+<body class="oj-web-applayout-body " >
+	<div class="demo-flex-display oj-flex-items-pad oj-contrast-marker">
+		<?php
+    global $conn;
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="adeyefa"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    ?>
+		<div id="bbb">
+	    	<div>
+	    		<div class="oj-flex">
+					<div class="oj-flex-item"> <p> HELLO WORLD </p> </div>
+				</div>
+				<div class="oj-flex">
+					<div class="oj-flex-item"><p>I am   <?=$my_data['name'] ?></p> </div>
+				</div>
+				<div class="oj-flex">
+					<div class="oj-flex-item"><p>A Blogger, Web Developer and Programmer</p> </div>
+				</div>
 				<p>
-					HELLO WORLD
-				</p>
-				<p id="p1">
-					I am  <?php echo $user->name ?>
-				</p>
-				<p id="info">
-					A Web developer, blogger and Software engineer
-				</p>
-				<p id="fav">
 					<a href="https://github.com/sainttobs"><i class="fa fa-github"></i></i></a>
 					<a href="https://twitter.com/9jatechguru"><i class="fa fa-twitter"></i></i></a>
 					<a href="https://web.facebook.com/toba.adeyefa"><i class="fa fa-facebook"></i></i></a>	
 				</p>
 			</div>
 	    </div>	
-		<div class="sidebar">
+		<div id="sidebar">
 			<div class="head">
 				<h2> Chat With MyBot</h2>
 			</div>
 			<div class="row-holder">
-				<div class="row2">
+				<div>
 					<div id="form">
 						<form id="qform" method="post">
 							<div id="textform">
@@ -349,11 +343,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 								<div class="irr">
 									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about what i can do type 'help'
 								</div>
-								<div class="iro">
-									<ul id="queries">
-										
-									</ul>
-								</div>	
+									
 								<div class="iio">
 									<ul id="ans">
 											
@@ -374,21 +364,26 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#queries").append("<li>" + question + "</li>");
+				$("#ans").append("<li> You: " + question + "</li>");
 					//let newMessage = `<div class="iro">
 	                  //${question}
 	                //</div>`
 				$.ajax({
-					url: 'profile.php?id=Adeyefa',
+					url: '/profiles/Adeyefa.php',
 					type: 'POST',
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-						$("#ans").append("<li>" + response.answer + "</li>");
+			        $("#ans").append("<li> MATRIX: "  + response.answer +  "</li>");
+			       // console.log(response.result);
+			        //alert(response.result.d);
+			        //alert(answer.result);
+			        
 					},
-					error:function(error){
-						alert(JSON.stringify(error));
-					}	
+					error: function(error){
+						//console.log(error);
+				        alert(JSON.stringify(error));
+					}
 				})	
 			})
 		});
