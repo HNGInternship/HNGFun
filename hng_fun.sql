@@ -1,5 +1,4 @@
 <<<<<<< HEAD
-
 -- phpMyAdmin SQL Dump
 -- version 4.7.9
 -- https://www.phpmyadmin.net/
@@ -8,12 +7,14 @@
 -- Generation Time: Apr 23, 2018 at 04:29 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
-
+=======
+<<<<<<< HEAD
 /*
 SQLyog Ultimate v9.02 
 MySQL - 5.5.5-10.1.31-MariaDB : Database - hng_fun
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
