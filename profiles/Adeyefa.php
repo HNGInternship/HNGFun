@@ -207,7 +207,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 		#sidebar{
 			width: 380px;
-			height: 600px;
+			height: 800px;
 			position: relative;
 		}
 		#bbb{
@@ -295,10 +295,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			font-family: Ubuntu;
 
 		}
-		.user-inpu .input{
+		.user-input .input{
 			display: inline-block;
 			padding: 12px 20px;
 			border-radius: 10px;
+
 		}
 		.bot-output .output{
             display: inline-block;
