@@ -15,246 +15,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Victor's Profile</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
-  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-  
-  <style>
-    /* General */
-    #toggle-visibility {
-      padding-top: 5px;
-      padding-bottom: 5px;
-      border-radius: 5px;
-      border-style: solid;
-      border-width: thin;
-      border-color: #1e90ff;
-    }
-
-    #toggle-visibility:hover {
-      cursor: pointer;
-    }
-
-    div .hidden {
-      display: none;
-    }
-
-    .text {
-      font-family: "Rajdhani", sans-serif;
-      text-align: center;
-    }
-
-    .gray {
-      color: #c4c4c4;
-    }
-
-    .white {
-      color: #ffffff;
-    }
-
-    h1 {
-      margin-top: 10px;
-      margin-bottom: 0px
-    }
-
-    h3, h4 {
-      margin: 0px;
-    }
-
-    .col-md-4 {
-      border-style: none;
-      border-radius: 0;
-    }
-
-    /* profile-area */ 
-    #top {
-      margin-top: 4%;
-      margin-bottom: 0;
-      padding-top: 20px;
-      padding-bottom: 80px;
-      height: 294px;
-      background: #f67575;
-    }
-
-    #bottom {
-      margin-top: 0;
-      margin-bottom: 0;
-      height: 84px;
-      background: #c4c4c4;
-    }
-    #bottom2 {
-      margin-top: 0;
-      height: 54px;
-      background: #f67575;
-    }
-
-    #image-div{
-      position: relative;
-      width: 180px;
-      height: 180px;
-      display: table;
-      margin: 0 auto;     
-    }
-
-    img {
-      border-radius: 50%;
-    }
-
-
-    /* chat-bot area */
-    #chat {
-      margin-top: 4%;
-    }
-
-    #chat-area {
-      margin-bottom: 0;
-      height: 382px;
-      background: #d3d3d3;
-      overflow-y: auto;
-      scroll-behaviour: auto;
-    }
-
-    #input-area {
-      margin-top: 0;
-      height: 53px;
-      background: #000000;
-    }
-
-    #bot-bubble {
-      background-color: #fffff0;
-      border-radius: 10px;
-      word-wrap: break-word;
-      max-width: 80%;
-      float: left;
-      margin-top: 5px;
-      margin-bottom: 5px;
-      margin-right: 150px;
-    }
-
-    #user-bubble {
-      background-color: #1e90ff;
-      border-radius: 10px;
-      word-wrap: break-word;
-      max-width: 80%;
-      float: right;
-      margin-top: 5px;
-      margin-bottom: 5px;
-      margin-left: 150px;
-    }
-
-    p {
-      margin: 5px 8px 5px 8px;
-      font-family: "Rajdhani", sans-serif;
-      font-size: 12pt;
-      font-weight: bold;
-    }
-
-    #user-bubble p {
-      color: #ffffff;
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<style type="text/css">
+		#profile {
+      background-color: #513e3e;
+      margin-top: 3%;
+      height: 450px;
+      margin-bottom: 3%;
     }
     
+		.text {
+      font-family: "Rajdhani", sans-serif;
+      color: #ffffff;
+      text-align: center;
+      display: vertical;
+		}
 
-  </style>
+		body {
+			margin: 0px;
+			background-color: #958080;
+			height: 100%;
+		}
+    
+    img {
+      border-radius: 50%;
+      border: 6px solid #958080;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 10%;
+    }
 
-  <script>
-    var profile = true;
-    $(function (){    
-
-      $("#toggle-visibility").click(function (){
-        if (profile) {
-          $("#profile").attr('class', 'hidden');
-          $("#chat").removeAttr('class', 'hidden');
-          $("#toggle-text").html("VIEW PROFILE")
-          profile = false;
-        } else {
-          $("#chat").attr('class', 'hidden');
-          $("#profile").removeAttr('class', 'hidden');
-          $("#toggle-text").html("TEST MY BOT")
-          profile = true;
-        }
-      });
-
-      $("#send").click(function() {
-        var input = $("#request").val();        
-        if ($.trim(input)) {
-          $("#chat-area").append("<div id='user-bubble'><p>"+input+"</p></div>");
-          $("#request").val("");
-        }
-
-        $("#chat-area").scrollTop($("#chat-area")[0].scrollHeight);
-      });
-
-      $('#request').keypress(function (e) {
-        if (e.which == 13) {
-          $("#send").click(); 
-          return false; 
-        } 
-      });
-
-    });
-  </script>
+</style>
 </head>
 <body>
-<!-- Profile Div -->
-<div class="container" id="profile">
-  <div class="row">
-    <div class="col-md-offset-4 col-md-4 shadow-lg" id="top">
-      <div id="image-div">
-        <img src="<?php echo $user->image_filename; ?>" height=180px width=180px>
-      </div>
-      <h1 class="text white"><?php echo $user->name; ?></h1>
-      <h3 class="text"><strong>@<?php echo $user->username; ?></strong></h3>
-    </div>
-  </div>    
-  <div class="row">  
-    <div class="col-md-offset-4 col-md-4 shadow-lg" id="bottom">
-      <br>
-      <h4 class="text">Problem Solver | Student at</h4>
-      <h4 class="text">University of Ibadan</h4>
-    </div>
-  </div>
-  <div class="row">  
-    <div class="col-md-offset-4 col-md-4 shadow-lg" id="bottom2">
-    </div>
-  </div>
-</div>
 
-<!-- Chat Div -->
-<div class="container hidden" id="chat">
-  <div class="row">
-    <div class="col-md-offset-4 col-md-4" id="chat-area">
-      <div id="bot-bubble">
-        <p>Hi there!</p>
+<div class="oj-flex">
+
+  <div class="oj-flex oj-flex-item oj-sm-1 oj-md-3 oj-lg-4">
+  </div>
+
+  <div id="profile" class="oj-flex-item oj-sm-10 oj-md-6 oj-lg-4"> 
+    <div class="oj-flex">           
+      <div class="oj-flex-item oj-sm-2">
       </div>
-      <div id="bot-bubble">
-        <p>My name is Bot :p</p>
+
+      <div class="oj-flex-item oj-sm-8" role="img">
+        <img src="http://res.cloudinary.com/vewere/image/upload/q_52/v1523878772/vewere-profile-pic.jpg" width="168px" height="168px">
       </div>
-      <div id="bot-bubble">
-        <p>Ask me a question</p>
+            
+      <div class="oj-flex-item oj-sm-2">
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-offset-4 col-md-4" id="input-area">
-      <div class="input-group">
-        <input class="form-control" type="text" id="request">
-        <div class="input-group-btn">
-          <button class="btn btn-primary" id="send"><i class="fa fa-paper-plane"></i></button>
-        </div>
+
+    <div class="oj-flex">
+
+      <div class="oj-flex-item oj-sm-3 oj-md-3 oj-lg-3">
       </div>
+
+      <div class="oj-flex-item oj-sm-6 oj-md-6 oj-lg-6">
+        <p><h1 class="text" style="font-weight: medium;"><strong>Ewere Victor</strong></h1></p>
+        <p style="margin-top: 0%;"><h2 class="text" style="color: #000000;"><strong>@vewere</strong></h2></p>
+        <br>
+        <p><h4 class="text">Problem Solver | Student at University of Ibadan</h4></p>
+      </div>
+
+      <div class="oj-flex-item oj-sm-3 oj-md-3 oj-lg-3">
+      </div>
+
     </div>
-  </div>
-</div>
 
-<br>
-
-<!-- Switch from Profile to Chatbot button -->
-<div class="row">  
-  <div class="col-md-offset-5 col-md-2" id="">
-    <div id="toggle-visibility"><h4 class="text" id="toggle-text" style="color:#1e90ff;">TEST MY BOT</h4></div>
   </div>
+
+  <div class="oj-flex oj-flex-item oj-sm-1 oj-md-3 oj-lg-4">
+  </div>
+  
+  
 </div>
+ 
 
 </body>
 </html>
