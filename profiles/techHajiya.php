@@ -25,8 +25,9 @@
             max-width: 550px;
 			height: 300px;
             margin: 0 auto;
-			 border-radius: 0px;
-			 margin-bottom: 50px;
+			border-radius: 0px;
+			margin-bottom: 50px;
+			background: #BCE7FA;
         }
 
         footer {
