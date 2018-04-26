@@ -14,7 +14,7 @@ require_once("regex.php");
 var_dump("Conzz ". $conn);
 var_dump($DB_HOST." ".$DB_USER." ". $DB_PASSWORD);
 echo "new";
-$regex = new regex($dbc); 
+$regex = new regex($conn); 
 $emails = $regex->fetchanswer($_POST['chat']);
 $dd = json_encode($emails);  
 
