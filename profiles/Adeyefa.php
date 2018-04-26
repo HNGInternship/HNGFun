@@ -392,7 +392,6 @@
 		                alert(error);
 					}
 				})
-				$("question").val("");
 			})
 		});
 	</script>
