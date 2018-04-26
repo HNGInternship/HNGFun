@@ -61,7 +61,7 @@ function saveQuestion($conn, $data){
             $question = trim($question_arr[1]);
             $answer = trim($data_arr[1]);
 
-            if(isAnswerExisting($question, $answer) !== false ){
+            if(isAnswerExisting($conn, $question, $answer) === false ){
                 try{
                     $sql = "INSERT INTO chatbot (question, answer) VALUES ('" . $question . "', '" . $answer . "')";
                     $conn->exec($sql);
@@ -87,7 +87,7 @@ function saveQuestion($conn, $data){
             ]);
 }
 
-function isAnswerExisting($question, $answer){
+function isAnswerExisting($conn, $question, $answer){
     try{
         $sql = "SELECT answer FROM chatbot WHERE question = '" . $question . "'";
         $query = $conn->query($sql);
