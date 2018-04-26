@@ -215,7 +215,7 @@
                 </div>
             </div>
 			
-  <div class="oj-sm-flex-items-1" style='width: 650px;float: right;margin: -30px;'>
+  <div class="oj-sm-flex-items-1" style='width: 650px;float: right;margin-top: -30px;'>
         <div class="profile-details" style='float: right; padding-left: 10px;' >
 			<div class="col-sm-6 chatbox" >
 				<div class='chatbot-menu-header'>
