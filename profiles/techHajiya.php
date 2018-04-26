@@ -45,7 +45,7 @@
             padding-right: 0;
             background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
-			width: 400px;
+			width: 600px;
 			margin: 10px 10px;
         }
         .profile-body {
