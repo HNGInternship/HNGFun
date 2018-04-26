@@ -370,7 +370,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#que").append("<p> You: " + question + "</p>");
+				$("#que").append("<div> You: " + question + "</div>");
 					//let newMessage = `<div class="iro">
 	                  //${question}
 	                //</div>`
@@ -380,7 +380,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#que").append("<p> MATRIX: "  + response.answer +  "</p>");
+			        $("#que").append("<div> MATRIX: "  + response.answer +  "</div>");
 			       // console.log(response.result);
 			        //alert(response.result.d);
 			        //alert(answer.result);
