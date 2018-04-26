@@ -1,15 +1,12 @@
 <?php
-function getTime(){
+ini_set('display_errors',0);
+function gettTime(){
     date_default_timezone_set('Africa/Lagos');
     return "The time is " . date("h:i:sa");
-}
-
-session_start();
-
+}session_start();
 if (!isset($_SESSION["all"])){
     $_SESSION["all"] = [];
-}
-if(!defined('DB_USER')){
+}if(!defined('DB_USER')){
     require_once "../../config.php";
     $servername = DB_HOST;
     $username = DB_USER;
@@ -29,18 +26,31 @@ global $conn;
 $solution = '';
 if (isset($_POST['restart'])){
     session_destroy();
-}
-if (isset($_POST['button'])) {
+}if (isset($_POST['button'])) {
     if (isset ($_POST['input']) && $_POST['input'] !== "") {
-        $asked_question_text = $_POST['input'];
-        $solution = askQuestion($asked_question_text) . "<br/>";
-        $_SESSION["all"][] = array($solution, $asked_question_text);
+        include "../answers.php";
+        $function = $_POST['input'];
+        $functionName = explode("(", $function);
+        if (function_exists($functionName[0])&&strpos($function,"(")&&strpos($function,")")) {
+            $functionVariable = explode(')',$functionName[1],2);
+            if (!strpos($functionVariable[0],",")){
+                $response = $functionName[0]($functionVariable[0]);
+            }else
+                $functionVariable1 = explode(',',$functionVariable[0],2);
+                $response = $functionName[0]($functionVariable1[0],$functionVariable1[1]);
+            // Dynamic call using variable value as function name.
+
+}else{$asked_question_text = $_POST['input'];
+            $solution = askQuestion($asked_question_text) . "<br/>";
+            $_SESSION["all"][] = array($solution, $asked_question_text);
+        }
     }
 }
 function askQuestion($input)
 {$input = strtolower($input);
     $input = trim($input);
     $action = "train:";
+    $time = "time";
     global $conn;
     $train = strpos($input,$action);
     if ($input!==""||$input!==" ") {
@@ -72,15 +82,15 @@ function askQuestion($input)
             } else
                 return "The right format is train:yourquestion#youranswer#password";
         } else {
-            if ($input == "aboutbot") {
+            if (strpos($input,"aboutbot")) {
                 return "Adokiye v1.0";
-            } else if ($input == "what is the time") {
-                return getTime();
+            } else if (preg_match("/\b($time)\b/",$input)) {
+                return get_time();
             } else if ($input == "help") {
-                return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me";
+                return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me<br/> or enter the name of any function you want to run";
             }else if($input=="you are mad"||$input == "you're mad"){
                 return "YOUR FATHER";
-            } else {
+            }else {
                 $input = $_POST['input'];
                 $question = strtolower($input);
                 $question = str_replace('?', '', $question);
@@ -243,7 +253,7 @@ $username = 'Adokiye';
     </div>
     <marquee onmouseover="this.stop();" onmouseout="this.start();">
         <p style=" color: #FFFFFF;font-family: arial, sans-serif; font-size: 14px;font-weight: bold;letter-spacing: 0.3px;">
-            ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="font-weight: bolder">TRAIN: YOUR QUESTION#YOUR ANSWER</span>
+            ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="color: #0C1621">TRAIN: YOUR QUESTION#YOUR ANSWER#password</span>
             TO ADD MORE QUESTIONS TO THE DATABASE</p>
     </marquee>
     <div>
@@ -251,7 +261,7 @@ $username = 'Adokiye';
         <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
         <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
     </div>
-    <p class="mycss">Chatbot by Adokiye!!!!!<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
+    <p class="mycss">Chatbot by Adokiye<br />Click on show below to display the password for training me<br/>Enter any function in the answers.php file and it will run here<br/>AS FAR AS IT AS ONLY ONE VARIABLE</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
     <form name = "askMe" method="post">
         <p>
             <label>
@@ -266,7 +276,7 @@ $username = 'Adokiye';
         </p>
         <p>&nbsp;</p>
     </form>
-    <div class="bot-css"> <?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
+    <div class="bot-css"> <?php echo $response;echo "<br/>"?><?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
         <span style="color:blue"><?=  "YOU : $soln <br/>";echo "</span>";
             echo "BOT : $asked<br/>" ?><br/><?php } ?><br/>
     </div><div id = "myform" style="display:none"  >HAHAHA, THE PASSWORD IS PASSWORD</div>
