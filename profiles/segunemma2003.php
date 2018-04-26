@@ -294,7 +294,6 @@ if (!empty($_POST['message'])){
 				}
                  $.ajax({
                      url:"/profiles/segunemma2003.php",
-                     type: "POST",
                      dataType: "json",
 		     
                      data : {message: message},
