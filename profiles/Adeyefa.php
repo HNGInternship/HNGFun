@@ -186,6 +186,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
+	<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style type="text/css">
 		body{
@@ -195,29 +196,22 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    background-repeat: no-repeat;
 		    background-size: cover;
 		}
-		h1{
-			text-align: center;
-			color: red;
-		}
 		p{
 			text-align: center;
 			font-size: 60px;
 			color: red;
 		}
-		#p1{
-			text-align: center;
-			font-size: 60px;
-		}
 		#info{
 			text-align: center;
 			font-size: 30px;
 		}
-		.sidebar{
-			width: 400px;
-			height: 590px;
+		#sidebar{
+			width: 380px;
+			height: 600px;
+			position: relative;
 		}
-		.bbb{
-			width: 790px;
+		#bbb{
+			width: 780px;
 			height: 590px;
 			float: right;
 		}
@@ -231,7 +225,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			color: #FFF;
 			padding: 7px;
 			position: absolute;
-			width: 400px;
+			width: 350px;
 			height: auto;
 		}
 		input{
@@ -241,7 +235,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    box-sizing: border-box;
 		}
 		textarea{
-		    width: 80%;
+		    width: 65%;
 		    box-sizing: border-box;
 		    border: 2px solid #ccc;
 		    border-radius: 4px;
@@ -296,15 +290,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 		.iio{
 			float: left;
-			margin-right: 90px;
 			color: red;
 			font-size: 15px;
 			font-family: Ubuntu;
 		}
 	</style>
 </head>
-<body>
-	<div class="iii">
+<body class="oj-web-applayout-body " >
+	<div class="demo-flex-display oj-flex-items-pad oj-contrast-marker">
 		<?php
     global $conn;
     try {
@@ -316,30 +309,30 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         throw $e;
     }
     ?>
-		<div class="bbb">
-	    	<div class="main">
+		<div id="bbb">
+	    	<div>
+	    		<div class="oj-flex">
+					<div class="oj-flex-item"> <p> HELLO WORLD </p> </div>
+				</div>
+				<div class="oj-flex">
+					<div class="oj-flex-item"><p>I am   <?=$my_data['name'] ?></p> </div>
+				</div>
+				<div class="oj-flex">
+					<div class="oj-flex-item"><p>A Blogger, Web Developer and Programmer</p> </div>
+				</div>
 				<p>
-					HELLO WORLD
-				</p>
-				<p id="p1">
-					I am   <?=$my_data['name'] ?>
-				</p>
-				<p id="info">
-					A Web developer, blogger and Software developer
-				</p>
-				<p id="fav">
 					<a href="https://github.com/sainttobs"><i class="fa fa-github"></i></i></a>
 					<a href="https://twitter.com/9jatechguru"><i class="fa fa-twitter"></i></i></a>
 					<a href="https://web.facebook.com/toba.adeyefa"><i class="fa fa-facebook"></i></i></a>	
 				</p>
 			</div>
 	    </div>	
-		<div class="sidebar">
+		<div id="sidebar">
 			<div class="head">
 				<h2> Chat With MyBot</h2>
 			</div>
 			<div class="row-holder">
-				<div class="row2">
+				<div>
 					<div id="form">
 						<form id="qform" method="post">
 							<div id="textform">
