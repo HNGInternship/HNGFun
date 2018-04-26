@@ -90,8 +90,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		elseif ($arr[0] == "help") {
 			echo json_encode([
 				'status' => 1,
-				'answer' => "Type 'aboutbot' to know about me. You can also convert cryptocurrencies using this syntax.
-				'convert btc to usd",
+				'answer' => "Type 'aboutbot' to know more about me. You can also convert cryptocurrencies using this syntax.
+				'convert btc to usd'.  You can train me by using this format ' train: This is a question # This is the answer # password '",
 			]);
 			return;	
 		}
@@ -111,7 +111,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	    	# code...
 	    	echo json_encode([
 	    		'status'=> 1,
-	    		'answer' => "I am MATRIX, Version 1.0.0. You can train me by using this format ' train: This is a question # This is the answer # password ' I can also convert cryptocurrencies using this format: 'convert btc to usd'."
+	    		'answer' => "I am MATRIX, Version 1.0.0."
 	    	]);
 	    	return;
 	    }
