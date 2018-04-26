@@ -205,19 +205,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			font-size: 60px;
 			color: red;
 		}
-		#p1{
-			text-align: center;
-			font-size: 60px;
-		}
 		#info{
 			text-align: center;
 			font-size: 30px;
 		}
-		.sidebar{
-			width: 400px;
+		#sidebar{
+			
 			height: 590px;
 		}
-		.bbb{
+		#bbb{
 			width: 790px;
 			height: 590px;
 			float: right;
@@ -304,8 +300,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 	</style>
 </head>
-<body>
-	<div class="iii">
+<body class="oj-web-applayout-body " >
+	<div class="demo-flex-display oj-flex-items-pad oj-contrast-marker">
 		<?php
     global $conn;
     try {
@@ -317,29 +313,29 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         throw $e;
     }
     ?>
-		<div class="bbb">
-	    	<div class="main">
+		<div id="bbb" class="oj-flex" >
+	    	<div class="oj-flex-item">
 				<p>
 					HELLO WORLD
 				</p>
-				<p id="p1">
+				<p>
 					I am   <?=$my_data['name'] ?>
 				</p>
-				<p id="info">
+				<p>
 					A Web developer, blogger and Software developer
 				</p>
-				<p id="fav">
+				<p  class="oj-flex-item">
 					<a href="https://github.com/sainttobs"><i class="fa fa-github"></i></i></a>
 					<a href="https://twitter.com/9jatechguru"><i class="fa fa-twitter"></i></i></a>
 					<a href="https://web.facebook.com/toba.adeyefa"><i class="fa fa-facebook"></i></i></a>	
 				</p>
 			</div>
 	    </div>	
-		<div class="sidebar">
+		<div id="sidebar" class="oj-flex">
 			<div class="head">
-				<h2> Chat With MyBot</h2>
+				<h2 class="oj-flex-item"> Chat With MyBot</h2>
 			</div>
-			<div class="row-holder">
+			<div class="row-holder" class="oj-flex-item">
 				<div class="row2">
 					<div id="form">
 						<form id="qform" method="post">
