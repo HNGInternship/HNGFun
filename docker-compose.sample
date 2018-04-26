@@ -1,0 +1,17 @@
+web:
+    image: nginx:latest
+    ports:
+        - "8080:80"
+    volumes:
+        - /var/www/html/HNGFun:/var/www/
+        - ./site.conf:/etc/nginx/conf.d/site.conf
+    links:
+    	- php
+    ports:
+    	-"8080:80"
+
+php:
+	image: php:7-fpm
+
+	volumes:
+        - /var/www/html/HNGFun:/var/www/

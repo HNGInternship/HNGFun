@@ -1,0 +1,88 @@
+*{
+	padding: 0;
+	margin: 0;
+	font-family: "Verdana";
+}
+
+.contain{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 2%;
+}
+
+h3{
+	font-family: "Roboto Slab";
+	color: rgba(227, 0, 116, 1);
+}
+
+p{
+	font-family: "Verdana";
+	opacity: 0.7;
+}
+/*
+.biopic-wrapper{
+	border: 1px solid rgb(255, 255, 255, 1);
+	border-radius: 50%;
+}*/
+.biopic{
+	width: 100px;
+	height: 100px;
+	border: 1px solid rgb(255, 255, 255, 1);
+	border-radius: 50%;
+	margin-bottom: 1em;
+
+}
+
+.ul{
+
+}
+
+.gray-bkgd{
+	background-color: rgba(200, 200, 200, 1);
+}
+
+.gray-bkgd:hover{
+	background-color: rgba(255, 255, 255, 1);
+}
+
+.white-bkgd:hover{
+	background-color: rgba(200, 200, 200, 1);
+}
+
+.top-list-item{
+	border-top: 2px solid rgba(80, 80, 80, 1);
+	margin-top: 1em;
+}
+
+.list-item{
+	border-bottom: 2px solid rgba(80, 80, 80, 1);
+	padding-top: 1em;
+	width: 300px;
+	height: 35px;
+	list-style-type: none;
+	font-family: "Raleway";
+	font-size: 0.9em;
+	opacity: 0.9;
+	padding-left: 1em;
+}
+
+.social-icons{
+	width: 32px;
+	height: 32px;
+}
+
+.social{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.social-icons:first-child{
+	margin-right: 2em;
+}
+
+.social-icons:last-child{
+	margin-left: 2em;
+}

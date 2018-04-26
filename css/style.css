@@ -1,0 +1,28 @@
+
+#container {
+	padding: 10px;
+	border: 1px solid rgba(85, 83, 83, 0.7);
+	border-radius: 30px 0 30px 0;
+	background-color: rgba(85, 83, 83, 0.1);
+	box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.col-md-4 {
+	border: 1px solid rgba(68, 58, 58, 0.5);
+	border-radius: 5px;
+	margin: 10px;
+	padding: 10px;
+}
+
+h2 {
+	text-align: center;
+	color: rgb(34, 33, 33);
+}
+
+.card-body {
+	height: 500px;
+}
+
+.rounded-circle {
+	object-fit: cover;
+}

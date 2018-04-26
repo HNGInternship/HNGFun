@@ -1,0 +1,33 @@
+#service{
+	border-radius: 50%!important;
+	background-color: gold;
+	color: white;
+	font-size: 18px;
+	padding: 50px;
+	text-align: center;
+}
+.btn-circle{
+	width: 30px;
+	height: 30px;
+	border-radius: 15px;
+	text-align: center;
+	font-size: 12px;
+	line-height: 1.5
+}
+
+.btn-circle.btn-xl{
+	width: 200px;
+	height: 200px;
+	padding: 10px 16px;
+	border-radius: 100px;
+	font-size: 24px;
+	line-height: 1.33
+}
+
+.image-box{
+	display: inline !important;
+}
+.resources{
+	display: inline !important;
+	margin-bottom: 20px;
+}
