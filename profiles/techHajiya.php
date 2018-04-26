@@ -174,7 +174,7 @@
 		.demo-panelwrapper {
 		background-color:#DFE1E2;
 		max-width: 100%;
-            padding-left: 0;
+        padding-left: 0;
 		}
         .fa-close, .fa-question-circle {
             font-size: 23px;
