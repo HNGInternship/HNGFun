@@ -15,8 +15,7 @@ if (!empty($_POST['message'])){
 	echo json_encode(['status'=>1,'data'=>'welcome']);
 	}
 
-	else{ 
-		echo json_encode(['status'=>0,'data'=>'i think i am the problem']);
+	
 		?>
 <!DOCTYPE html>
 
@@ -341,6 +340,6 @@ if (!empty($_POST['message'])){
 	</div>
 </body>
 </html>
-<?php } ?>
+
 
 
