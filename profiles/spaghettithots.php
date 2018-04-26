@@ -92,6 +92,10 @@
 			.social-icons:last-child{
 				margin-left: 2em;
 			}
+
+			img{
+				padding-bottom: 0.2em;
+			}
 		</style>
 	</head>
 	<body>
@@ -162,7 +166,7 @@
 				<li class="list-item gray-bkgd">Poet.</li>
 				<li class="list-item white-bkgd">[Virtuous] Husband to one woman.</li>
 				<li class="list-item gray-bkgd">[Ever-improving] father.</li>
-				<li class="list-item white-bkgd">Most significantly, Disciple of Jesus Christ.</li>
+				<li class="list-item white-bkgd">Most significantly, Disciple of Christ.</li>
 				<li class="list-item social"><a href="https://facebook.com/alexandrix.ikechukwu"><img src="http://res.cloudinary.com/spaghettithots/image/upload/v1523625226/hng/facebook.png" class="social-icons"></a>&nbsp;<a href="https://twitter.com/SpaghettiThots"><img src="http://res.cloudinary.com/spaghettithots/image/upload/v1523625226/hng/twitter.png" class="social-icons"></a></li>
 			</ul>
 		</div>

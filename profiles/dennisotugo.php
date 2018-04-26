@@ -104,131 +104,31 @@ function getAnswer( $input ) {
 <!-- RequireJS bootstrap file -->
 <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
     <style type="text/css">
-         .chat-output > div {
-    display: inline-block;
-    width: 100%;
-}
-            .chat-output {
-                 display: block;
-    overflow-y: scroll;
-    height: 100%;
-    }
-
-        h1 {
-    color: blue;
-    color: white;
-    text-align: center;
-    bottom: 50%;
-    left: 65%;
-    position: fixed;
-    font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
-    font-weight: 700;
-    }
-        p {
-    position: fixed;
-    bottom: 40%;
-    left: 58%;
-    line-height: 1.5;
-    margin: 30px 0;
-    }
-        #mainNav {
-    position: fixed;
-    }
-    .user-input {
-    width: -webkit-fill-available;
-    border: none;
-    padding: 10px 14px;
-    font-size: 18px;
-    line-height: normal;
-    }
-    #user-input-form {
-    box-shadow: 1px 1px 9px 0px rgba(1, 1, 1, 1);
-            }
-            .user-message {
-                    
-    font-size: 16px;
-    background-color: #007bff63;
-    padding: 10px;
-    display: inline-block;
-    border-radius: 3px;
-    position: relative;
-    margin: 5px;
-            
-            }
-                  .user-message message {
-                    float: left;
-    font-size: 16px;
-    background-color: #007bff63;
-    padding: 10px;
-    display: inline-block;
-    border-radius: 3px;
-    position: relative;
-    margin: 5px;
-            
-            }
-            .user-message:before {
-    border-color: transparent #007bff63 transparent transparent;
-    border-width: 0 10px 10px 0;
-    left: -9px;
-}
-      
-            footer .copyright {
-    font-size: 14px;
-    margin-bottom: 0;
-    text-align: center;
-    left: 66% !important;
-    align-content: center;
-    }
-            
-        .bot-message {
-    float: right;
-    font-size: 16px;
-    background-color: #007bff63;
-    padding: 10px;
-    display: inline-block;
-    border-radius: 3px;
-    position: relative;
-    margin: 15px 1px 1px 0px;
-    }
-      .bot-message:before {
-    border-color: transparent #007bff63 transparent transparent;
-    border-width: 0 10px 10px 0;
-    left: -9px;
-}
+.blue1 {
+    width: 50%;
+        }
+        .white2 {
+    width: 50%;
+        }
       footer {
       display: none;
       }
     </style>
   </head>
   <body>
- <div class="oj-flex oj-flex-item">
-       <div class="oj-flex-item oj-panel oj-margin">
-
-          <h1>
-              Dennis Otugo
-          </h1>
-         <p>
-                Human Being | Cyborg | Never asked for this
-            </p>
-     </div>
-       </div>
-        <div class="oj-flex-item oj-panel oj-margin">
-          <div class="chat-output" id="chat-output">
-            <div class="user-message">
-              <div class="message">
-                train: question # answer # password'
-
-          <div class="chat-input">
-            <form action="" method="post" id="user-input-form" name=
-            "user-input-form">
-              <input type="text" name="user-input" id="user-input"
-              class="user-input" placeholder="Enter Text here" />
-            </form>
-            </div>
-         </div>
-                              </div>
-            </div>
-          </div>
+<div class="oj-sm-flex-direction-column oj-flex oj-panel oj-flex-item">
+  <div class="oj-flex-item blue1">
+    <h1>Dennis Otugo</h1>
+    <p>Human Being | Cyborg | Never asked for this</p>
+  </div>
+  <div class="oj-flex-item white2">
+    <div class="chat-output" id="chat-output"></div>
+    <div class="user-message"></div>
+    <div class="message">train: question # answer # password'<div class="chat-input"></div>
+    <form action="" method="post" id="user-input-form" name="user-input-form"></div>
+    <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here" /></form></div>
+  </div>
+</div>
 </script>
      <script>
 //<![CDATA[
