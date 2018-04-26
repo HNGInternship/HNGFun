@@ -8,8 +8,8 @@
  return response
 
 */
-// echo get_last_err();
-require_once("db.php");
+echo fopen("db.php");
+// require_once("db.php");
 require_once("regex.php");
 var_dump("Conzz ". $conn);
 var_dump($DB_HOST." ".$DB_USER." ". $DB_PASSWORD);
