@@ -56,7 +56,7 @@
             display: block;
             width: 200px;
 			height:300px;
-            border-radius: 100px;
+            border-radius: 0px;
 			box-shadow: 0px 0px 2px 1px grey;
         }
         .profile-name {
