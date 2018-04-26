@@ -15,47 +15,89 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
   } catch (PDOException $e) {
       throw $e;
   }
-}else if($_SERVER['REQUEST_METHOD']==='POST'){
-    require '../../config.php';
-<<<<<<< HEAD
-    try {
-      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
-    if(isset($_POST['message'])){
-      echo json_encode([
-        "status" => 1,
-        "response" =>"found Message"
-      ]);
-=======
-    $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
-            if(!$conn){
-                echo json_encode([
-                    'status'    => 1,
-                    'response'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
-                ]);
-                return;
-            }
-    if(isset($_POST['message'])){
-        if(strpos($ques, "train:") !== false){
-            trainerMode($ques);
-        }else{
-            $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
-            $result = $conn->query($query)->fetch_all();
-            echo json_encode([
-                'status' => 1,
-                'response' => $result
-            ]);
-        }
-    //   echo json_encode([
-    //     "status" => 1,
-    //     "response" =>"found Message"
-    //   ]);
->>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
-      return ;
-    }
-}
+}//else if($_SERVER['REQUEST_METHOD']==='POST'){
+    // require '../../config.php';
+    // $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+    //         if(!$conn){
+    //             echo json_encode([
+    //                 'status'    => 1,
+    //                 'response'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+    //             ]);
+    //             return;
+    //         }
+    // if(isset($_POST['message'])){
+    //     $question = $_POST['message'];
+    //     if(strpos($question, "train:") !== false){
+    //         $questionAndAnswer = substr($question, 6); //get the string after train
+    //         $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
+    //         $questionAndAnswer = explode("#",$questionAndAnswer);
+    //         if((count($questionAndAnswer)==3)){
+    //             $question = $questionAndAnswer[0];
+    //             $answer = $questionAndAnswer[1];
+    //             $password = $questionAndAnswer[2];
+    //         }else{
+    //             echo json_encode([
+    //                 'status'    => 0,
+    //                 'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer#password"
+    //             ]);
+    //             return;
+    //         }
+    //         if(!(isset($password))|| $password !== 'password'){
+    //             echo json_encode([
+    //                 'status'    => 1,
+    //                 'response'    => "Please insert the correct training password"
+    //             ]);
+    //             return;
+    //         }else{//correct training password
+    //         if(isset($question) && isset($answer)){
+    //             //Correct training pattern
+    //             if($question == "" ||$answer ==""){
+    //                 echo json_encode([
+    //                     'status'    => 1,
+    //                     'response'    => "empty question or response"
+    //                 ]);
+    //                 return;
+    //             }else{
+    //             $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
+    //             if($conn->query($query) ===true){
+    //                 echo json_encode([
+    //                     'status'    => 1,
+    //                     'response'    => "trained successfully"
+    //                 ]);
+    //             }else{
+    //                 echo json_encode([
+    //                     'status'    => 1,
+    //                     'response'    => "Error training me: ".$conn->error
+    //                 ]);
+    //             }
+                
+
+    //             return;
+    //         }
+    //         }
+    //         }else{ //wrong training pattern or error in string
+    //         echo json_encode([
+    //             'status'    => 0,
+    //             'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer #password"
+    //         ]);
+    //         return;
+    //         }
+    //     }
+//         else{
+//             $query = "SELECT answer FROM chatbot WHERE question LIKE '$question'";
+//             $result = $conn->query($query)->fetch_all();
+//             echo json_encode([
+//                 'status' => 1,
+//                 'response' => $result
+//             ]);
+//         }
+//     //   echo json_encode([
+//     //     "status" => 1,
+//     //     "response" =>"found Message"
+//     //   ]);
+//       return ;
+//     }
+// }
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +108,15 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
   <title>Profie | Nedy</title>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"> -->
+  <!-- This is the main css file for the default Alta theme -->
+<link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
+
+<!-- RequireJS bootstrap file -->
+<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
+<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/default/js"></script>
+<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/3rdparty"></script>
+<script type="text/javascript" src="../js/main.js"></script>
   <style>
     body {
       font-family: 'Ubuntu';
@@ -89,7 +139,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
         }
 
         .chat-holder {
-            width: 35%;
+            width: 35%!important;
             /*padding-top: 100px*/
         }
 
@@ -202,74 +252,115 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
 
   </style>
 </head>
-
-<body class="bg-light">
-
-  <div class="main d-flex justify-content-center align-content-center ">
-    <div class="card mt-5 py-5">
-      <div class="my-3">
-        <p class="text-center text-primary h3">Hi, there!</p>
-        <p class="text-center text-danger h3">My name is <b>Nedy</b></p>
-        <p class="text-center text-secondary">below is my picture</p>
-        <div class="d-flex justify-content-center">
-          <img src="https://res.cloudinary.com/nedy123/image/upload/v1515053242/my_d.p_paeru8.jpg" class="img-thumbnail img-fluid rounded-circle w-25 h-25" alt="avatar">
-        </div>
-        <p class="text-center text-primary h4 mt-3">And I am a <b class="h2">Developer</b></p>
-      </div>
-    </div>
-  </div>
-  <div class="card chat-holder m-auto">
-                <!--Start from here to copy. This is main chat box-->
-                <div class="chat-space">
-                    <!--Chat header-->
-                    <div class="chat-space-header">
-                        <!--User name-->
-                        <h5 class="text-left user-name">Botler</h5>
-                        <!-- <i class="fa fa-angle-down acc-icon"></i> -->
-                    </div>
-                    <hr style="margin: 10px 0">
-                    <div class="chat-box">
-                        <!--Area where all the messages will be. Has a max-height. Can be altered-->
-                        <div class="messages-area">
-                            <!--sent message from the user-->
-                            <div class="sent-message text-left">
-                                <p class="message sent">
-                                    How you go d?
-                                </p>
-                            </div>
-                            <!--Message received-->
-                            <div class="received-message text-left">
-                                <p class="message received">
-                                    Hi there my name is <span class="font-weight-bold h3">BOTLER</span>
-                                </p>
-                            </div>
+<body class="oj-web-applayout-body">
+    <div class=" ">
+       <header role="banner" class="oj-web-applayout-header">
+         <div class="oj-web-applayout-max-width oj-flex-bar oj-align-items-center">
+           <div data-bind="css: smScreen() ? 'oj-flex-bar-center-absolute' : 'oj-flex-bar-middle oj-sm-align-items-baseline'">
+             Nedy's | profile page
+           </div>
+           <div class="oj-flex-item">
+               
+           </div>
+           <div class="oj-flex-bar-end">
+             Made with Oracle Jet
+           </div>
+         </div>
+       </header>
+         
+            <div id="container">
+              <div class="demo-flex-display">
+                <div id="panelPage">
+                        
+                  <div >
+                    <div class="oj-flex demo-panelwrapper">
+                
+                      <div class="oj-flex-item oj-flex oj-sm-flex-items-1 oj-sm-12 oj-md-6 oj-lg-6 oj-xl-6">
+                        <div class="oj-flex-item oj-panel demo-mypanel">
+                          <p class="text-center text-primary h3">Hi, there!</p>
+                          <p class="text-center text-danger h3">My name is <b>Nedy</b></p>
+                          <p class="text-center text-secondary">below is my picture</p>
+                          <img src="https://res.cloudinary.com/nedy123/image/upload/v1515053242/my_d.p_paeru8.jpg" class="" width="250px" alt="avatar">
                         </div>
-                        <!--Form to add new messages-->
-                        <div class="message-form">
-                            <div class="message-input-area">
-                                <label for="user-message"></label>
-                                <!--Input area for message-->
-                                <input type="text" class="message-input" name="user-message" id="user-message"
-                                       placeholder="Write a message" required>
-                                <!--Submit button-->
-                                <button class="btn" type="button">
-                                    <i class="fa fa-send message-submit"  onclick="sendMsg()" value="send"></i>
-                                </button>
+                      </div>
+                
+                
+                      
+                      <div class="oj-flex-item oj-flex oj-sm-flex-items-1 oj-sm-12 oj-md-6 oj-lg-6 oj-xl-6 ">
+                        <div class="oj-flex-item oj-panel demo-mypanel">
+                            <!--Start from here to copy. This is main chat box-->
+                            <div class="chat-space">
+                                <!--Chat header-->
+                                <div class="chat-space-header">
+                                    <!--User name-->
+                                    <h5 class="text-left user-name">Botler</h5>
+                                    <!-- <i class="fa fa-angle-down acc-icon"></i> -->
+                                </div>
+                                <hr style="margin: 10px 0">
+                                <div class="chat-box">
+                                    <!--Area where all the messages will be. Has a max-height. Can be altered-->
+                                    <div class="messages-area">
+                                        <!--sent message from the user-->
+                                        <div class="sent-message text-left">
+                                            <p class="message sent">
+                                                How you go d?
+                                            </p>
+                                        </div>
+                                        <!--Message received-->
+                                        <div class="received-message text-left">
+                                            <p class="message received">
+                                                Hi there my name is <span class="font-weight-bold h3">BOTLER</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!--Form to add new messages-->
+                                    <div class="message-form">
+                                        <div class="message-input-area">
+                                            <label for="user-message"></label>
+                                            <!--Input area for message-->
+                                            <input type="text" class="message-input" name="user-message" id="user-message"
+                                                   placeholder="Write a message" required>
+                                            <!--Submit button-->
+                                            <button class="btn" type="button" onclick="sendMsg()">
+                                                <i class="fa fa-send message-submit"   value="send"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                       </div>
+                      </div>
+
+
+
+                
+                
+                      
                     </div>
+                  </div>
                 </div>
+        
+              </div>
             </div>
-<<<<<<< HEAD
-=======
 
->>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+         
+     </div>
+
+
+
+</body>
+
+
+
+
+ 
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" ></script> -->
 <script>
-  window.addEventListener("keydown", function(e){
+    window.addEventListener("keydown", function(e){
     if(e.keyCode ==13){
         if(document.querySelector("#user-message").value==""||document.querySelector("#user-message").value==null){
             //console.log("empty box");
@@ -278,11 +369,11 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
             sendMsg();
         }
     }
-});
-function sendMsg(){
+    });
+    function sendMsg(){
     var ques = document.querySelector("#user-message");
     displayOnScreen(ques.value, "sent");
-    
+
     //console.log(ques.value);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function(){
@@ -290,13 +381,13 @@ function sendMsg(){
             processData(xhttp.responseText);
         }
     };
-    xhttp.open("POST", "/profiles/nedy.php", true);
+    xhttp.open("POST", "https://hng.fun/profiles/nedy.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("message="+ques.value);
-}
-function processData (data){
+    }
+    function processData (data){
     data = JSON.parse(data);
-    //console.log(data);
+    console.log(data);
     var answer = data.response;
     //Choose a random response from available
     if(Array.isArray(answer)){
@@ -309,11 +400,11 @@ function processData (data){
     }else{
         displayOnScreen(answer,"received");
     }
-    
-    
-   
-}
-function displayOnScreen(data,align){
+
+
+
+    }
+    function displayOnScreen(data,align){
     //console.log(data);
 
     var main= document.querySelector(".messages-area");
@@ -326,7 +417,6 @@ function displayOnScreen(data,align){
     div.appendChild(p);
     main.appendChild(div);
     //console.log(data);
-}
+    }
 </script>
-</body>
 </html>

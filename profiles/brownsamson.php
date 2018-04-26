@@ -57,7 +57,7 @@
 
             .container{
                 width: 100%;
-                padding: 0 8.33%;
+                /*padding: 0 8.33%;*/
                 display: table;
             }
 
@@ -66,10 +66,7 @@
                 padding-bottom: 30px;
             }
 
-            .stop-scrolling{
-                height: 100%;
-                overflow: hidden;
-            }
+
 
             .body{
                 font-family: 'Roboto', 'Rubik', sans-serif;
@@ -104,7 +101,7 @@
             /*============== BANNER ANIMATION ======================*/
             .banner-item-container{
                 max-width: 350px;
-                padding-left: 15px;
+                padding-left: 8%;
                 padding-right: 15px;
                 padding-top: 20px;
                 background: rgba(33,41,57, 0.6);
@@ -208,7 +205,7 @@
             }
 
             #personal-body{
-              margin-top: 70px;
+              margin-top: 90px;
               padding: 30px 0;
             }
 
@@ -240,7 +237,7 @@
               }
 
               #chatcon{
-                /* width: 92%; */
+
                 width: 350px;
                 height: 85vh;
                 background: #F2F2F3;
@@ -250,7 +247,7 @@
                 padding: 15px 0 10px 15px;
                 border-radius: 5px;
                 transition: right 1s ease-in-out 0.05s;
-                /* z-index: 100; */
+
               }
               .message-con{
                 width: 100%;
@@ -258,6 +255,12 @@
                 background-color: #FFFFFF;
                 padding: 20px 10px 10px 10px;
                 overflow-y: scroll;
+                display:flex;
+                flex-direction: column-reverse;
+
+              }
+              #conversation{
+
               }
               .form-group{
                 margin: 10px 0;
@@ -270,6 +273,7 @@
               }
 
               .textarea-con{
+                padding: 10px;
                 width: 100%;
                 height: 14vh;
               }
@@ -332,7 +336,6 @@
                     <h3 class="light hello">Hi! I'm </h3>
                     <h3>BROWN SAMSON DAPPA</h3>
 
-<!--                    <h4>I </h4>-->
                       <div class="space"></div>
                     <div id="dropping-texts">
                     </div>
@@ -346,11 +349,12 @@
         </div>
 
         <div id="chatcon">
-          <div class="message-con" id="conversation">
+          <div class="message-con">
+              <div id="conversation">
             <!-- <div class="bot"><div class="arrow-left"></div>Hi! Good to have you here. My name is Samson Jnr, but you can call me Codmax</div>
             <div class="bot"><div class="arrow-left"></div>Sorry i did't catch your name</div> -->
 
-
+          </div>
           </div>
           <form>
             <div class="form-group">
@@ -361,9 +365,8 @@
           </form>
 
         </div>
-        <div id="chat-icon-con"><img src="../chatIcon.png" id="icon-img"></div>
 
-        <!-- <div id="chat-icon-con"><img src="http://res.cloudinary.com/samsondappa/image/upload/v1524134592/chatIcon.png" id="icon-img"></div> -->
+        <div id="chat-icon-con"><img src="http://res.cloudinary.com/samsondappa/image/upload/v1524134592/chatIcon.png" id="icon-img"></div>
         <footer class="darkest " id ="footer">
             <div class="socials-container">
                 <a href="https://facebook.com/brownsamson.dappa" target="_blank" class="socials">
@@ -419,7 +422,6 @@
     </body>
     <script>
         typer ();
-
         function typer (){
             var y = 0;
             var m = "#749E40"
@@ -474,23 +476,28 @@
 
 
             var messageBottonBlink = setInterval(function(){
-              var chatIcon = document.getElementById('chat-icon-con');
-              chatIcon.style.backgroundColor = m;
+              var chatIco = document.getElementById('chat-icon-con');
+              chatIco.style.backgroundColor = m;
 
                 if (m == "#FFC916"){
                     m = "#749E40";
                 } else if (m == "#749E40"){
                     m = "#FFC916";
-
-
                 }
 
             }, 800);
         }
+
+  // ------------.....-------......------ AJAX ---------..........---------------------------
+        var guestSend = document.getElementById('guest-send');
+        var conversation = document.getElementById('conversation');
+        var textarea = document.getElementById('message');
+        var message = "";
         var chatIcon = document.getElementById('chat-icon-con');
-        var realMessageIcon = '<img src="../chatIcon.png" id="icon-img">'
-        var realMessageCancel = '<img src="../cancelmessage.png" id="icon-img">'
+        var realMessageIcon = '<img src="http://res.cloudinary.com/samsondappa/image/upload/v1524134592/chatIcon.png" id="icon-img">'
+        var realMessageCancel = '<img src="http://res.cloudinary.com/samsondappa/image/upload/v1524444837/cancelmessage.png" id="icon-img">'
         var firstMessage = 0;
+        var senderName = "";
         chatIcon.addEventListener("click", function(){
           if (this.innerHTML == realMessageCancel){
             this.innerHTML = realMessageIcon;
@@ -506,19 +513,23 @@
           }
         });
 
-
-// ------------.....-------......------ AJAX ---------..........---------------------------
-        var guestSend = document.getElementById('guest-send');
-        var conversation = document.getElementById('conversation');
-        var textarea = document.getElementById('message');
-        var message = "";
-
         guestSend.addEventListener('click', function(){
           message = textarea.value;
-          conversation.innerHTML += '<div class="guest"><div class="arrow-right"></div>' + message + '</div>';
-          textarea.value = "";
-          getMessageSam(message);
+
+          if (message != ""){
+            conversation.innerHTML += '<div class="guest"><div class="arrow-right"></div>' + message + '</div>';
+            textarea.value = "";
+              if (firstMessage == 1){
+                getMessageSam('name: '+ message);
+                firstMessage++;
+                senderName = message;
+              }else{
+                getMessageSam(message);
+              }
+            }
         });
+
+
 // var res = str.replace("Microsoft", "W3Schools"); trainpwforhng
         function getMessageSam(messageSam) {
           if (messageSam.length == 0) {
@@ -529,11 +540,19 @@
               xmlReq.onreadystatechange = function() {
                   if (this.readyState == 4 && this.status == 200) {
                       message = this.responseText;
+                      var last8 = message.substr(message.length - 8);
+                      if (last8 == 'givename'){
+                        message = senderName;
+                      }
+
                       conversation.innerHTML += '<div class="bot"><div class="arrow-left"></div>' + message + '</div>';
                   }
               };
+              messageSam = messageSam.replace("#", "%23");
+              messageSam = messageSam.replace("#", "%23");
               xmlReq.open("GET", "answers.php?qsam=" + messageSam, true);
               xmlReq.send();
+
           }
       }
 </script>

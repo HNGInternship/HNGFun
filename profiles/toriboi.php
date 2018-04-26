@@ -1,7 +1,6 @@
 <?php
   // this runs only when a post is been made via the bot chat through AJAX
   if($_SERVER['REQUEST_METHOD'] === "POST"){
-    include '../answers.php';
     if(!isset($conn)) {
         include '../../config.php';
 
@@ -9,6 +8,9 @@
     }
 
     if(isset($_POST['q']) && $_POST['q'] != '') {
+      $q = trim($_POST['q']);
+
+      if(strtolower($q) == 'aboutbot') {echo "Name: toribot. Version: 1.0"; exit();}
       $q = $_POST['q'];
 
       // HANDLE TRAINING
