@@ -29,7 +29,7 @@
   .content {
     display: block;
     padding-top: 100px;
-    padding-left: 500px;
+    padding-left: 30%;
   }
   .about {
           font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
