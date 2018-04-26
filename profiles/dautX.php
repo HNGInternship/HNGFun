@@ -30,15 +30,11 @@
         <link href="https://fonts.googleapis.com/css?family=Advent+Pro:400,700" rel="stylesheet">
 
         <style>
-            #heading{
-                height: 30px;
-                padding-left: 5px;
-            }
 
             #content{
                 background-color: aliceblue;
                 min-height: 40px;
-                padding: 2px 0px 2px 5px;
+                padding: 2px;
                 width: 30%;
                 border-radius: 5px;
                 margin-left: auto;
@@ -70,7 +66,7 @@
 
     <body>
         <div id="heading" style="clear: both;">
-            <h3><p><?php echo $name; ?></p></h3>
+
         </div>
 
         <div id="pix">
@@ -79,7 +75,7 @@
 
         <!-- profile info display -->
         <div id="content">
-            <p><strong>Username: </strong><?php echo '@'.$username; ?> </p>
+            <p><h3><?php echo $name; ?></h3> <?php echo '@'.$username; ?> </p>
             <p>I am a passionate learner who loves to code. A born tinkerer I like to take stuff
                apart to understand what makes them tick. I am on my way to becoming a full-stack
                web developer. I also have special interest in data analytics because the data we leave
