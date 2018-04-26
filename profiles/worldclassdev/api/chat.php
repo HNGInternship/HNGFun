@@ -8,11 +8,12 @@
  return response
 
 */
-// echo get_last_err();
-require_once("../../../config.php");
+echo fopen("db.php");
+// require_once("db.php");
 require_once("regex.php");
-
-
+var_dump("Conzz ". $conn);
+var_dump($DB_HOST." ".$DB_USER." ". $DB_PASSWORD);
+echo "new";
 $regex = new regex($conn); 
 $emails = $regex->fetchanswer($_POST['chat']);
 $dd = json_encode($emails);  

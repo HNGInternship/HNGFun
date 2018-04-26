@@ -1,41 +1,33 @@
 <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "hng_fun";
-
-    // Create connection
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
-    $sql = "SELECT * FROM interns_data WHERE (username= 'Adina')";
-    $result = mysqli_query($conn, $sql);
-
-    if (mysqli_num_rows($result) > 0) {
-        // output data of each row
-        while($row = mysqli_fetch_assoc($result)) {
-            $name = $row["name"];
-            $username = $row["username"];
-            $image = $row["image_filename"];
-        }
-    } else {
-        echo "0 results";
-    }
-
-    $select_word = " SELECT * FROM secret_word LIMIT 1 ";
-    $run_query = mysqli_query($conn, $select_word);
-    if(mysqli_num_rows($run_query) > 0)
-    {
-        while($data = mysqli_fetch_array($run_query))
-        {
-            $secret_word = $data['secret_word'];
-        }
-    }
-
-    mysqli_close($conn);
+	if(!defined('DB_USER')){
+	  require "../../config.php";		//change config details when pushing
+	  try {
+	      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+	  } catch (PDOException $pe) {
+	      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	  }
+	}
+	//Fetch User Details
+	try {
+	    $query = "SELECT * FROM interns_data WHERE username ='Adina'";
+	    $resultSet = $conn->query($query);
+	    $resultData = $resultSet->fetch(PDO::FETCH_ASSOC);
+	} catch (PDOException $e){
+	    throw $e;
+	}
+	$username = $resultData['username'];
+	$fullName = $resultData['name'];
+	$picture = $resultData['image_filename'];
+	//Fetch Secret Word
+	try{
+	    $querySecret =  "SELECT * FROM secret_word LIMIT 1";
+	    $resultSet   =  $conn->query($querySecret);
+	    $resultData  =  $resultSet->fetch(PDO::FETCH_ASSOC);
+	    $secret_word =  $resultData['secret_word'];
+	}catch (PDOException $e){
+	    throw $e;
+	}
+	$secret_word =  $resultData['secret_word'];
 ?>
 <!DOCTYPE html>
 <html lang= "en">
@@ -194,7 +186,7 @@
         <div id="div1">
             <div class="divs" id= "div11">
                 <div id="img"></div>
-<!--                <img src="http://res.cloudinary.com/djdhcpx0q/image/upload/v1524662314/HNG%20Internship%204/IMG_20170924_104542.jpg">-->
+		    <img src="http://res.cloudinary.com/djdhcpx0q/image/upload/v1524662314/HNG%20Internship%204/IMG_20170924_104542.jpg">
             </div>
             <div class="divs" id="div12">
                 <div id="aboutme">
