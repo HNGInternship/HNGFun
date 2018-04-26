@@ -1,5 +1,6 @@
 <?php
- if (!defined('DB_USER')){
+ 
+if (!defined('DB_USER')){
             
   require "../../config.php";
 }
@@ -25,7 +26,8 @@ try {
   $my_data = $q->fetch();
 } catch (PDOException $e) {
   throw $e;
-}      
+}
+
   
 ?>
 

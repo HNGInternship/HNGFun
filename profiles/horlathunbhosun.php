@@ -171,6 +171,7 @@ p {
 
 
  session_start();
+ require('answers.php');
 if(!defined('DB_USER')){
   require "../../config.php";
 	// require_once ('../db.php');
@@ -190,7 +191,7 @@ global $conn;
     $user = $result2->fetch(PDO::FETCH_OBJ);
    // $user = $result2->fetch();
    
-    require('answers.php');
+    
  
  if(isset($_POST['message']))
     {
@@ -205,7 +206,7 @@ global $conn;
           if($password == "password")
           {
               // Password perfect
-            $trainQuery = $conn->prepare("INSERT INTO chatbot (question , answer) VALUES ( :question, :answer)");
+            $trainQuery = $conn->prepare("INSERT INTO chat_bot (question , answer) VALUES ( :question, :answer)");
             if($trainQuery->execute(array(':question' => $question, ':answer' => $answer)))
             {
                 array_push($_SESSION['chat_history'], "That works! okay continue chatting");
@@ -224,7 +225,7 @@ global $conn;
         else
         {
             // Not Training
-          $questionQuery = $conn->prepare("SELECT * FROM chatbot WHERE question LIKE :question");
+          $questionQuery = $conn->prepare("SELECT * FROM chat_bot WHERE question LIKE :question");
           $questionQuery->execute(array(':question' => trim($_POST['message'])));
           $qaPairs = $questionQuery->fetchAll(PDO::FETCH_ASSOC);
           if(count($qaPairs) == 0)
@@ -306,6 +307,7 @@ global $conn;
 			
 			
 		</div>
+		<!-- /profile.php?id=horlathunbhosun.php -->
 
 		<form action="/profile.php?id=horlathunbhosun.php" method="POST" >	
 
