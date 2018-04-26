@@ -187,13 +187,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			font-family: 'Roboto', sans-serif;
 			font-size: 100%;
 			background-color:white;
-		} header{
-			background-color: #34495E;
-			color: white;
+		} /**
 
 		}footer{
 			display: none;
-		}
+		} **/
 
 
 		.flex-container{
