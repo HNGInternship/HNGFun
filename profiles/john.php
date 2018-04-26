@@ -1,20 +1,9 @@
 <?php
+ require '../db.php';
 //Fetch User Details
-// require '../db.php';
-if (!defined('DB_USER'))
-	{
-	require "../../config.php";
-	}
-try
-	{
-	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-	}
-catch(PDOException $pe)
-	{
-	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-	}
+
 try {
-    $query = "SELECT * FROM interns_data_ WHERE username ='john'";
+    $query = "SELECT * FROM interns_data WHERE username ='john'";
     $resultSet = $conn->query($query);
     $result = $resultSet->fetch(PDO::FETCH_ASSOC);
 } catch (PDOException $e){
@@ -35,6 +24,128 @@ try{
 $secret_word =  $result['secret_word'];
 
 
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+
+// to if the post request is not empty 
+
+  try{
+        if(!isset($_POST['question'])){
+          echo json_encode([
+            'status' => 1,
+            'answer' => "Please provide a question"
+          ]);
+          return;
+        }
+
+        require '../answers.php';
+      
+        $questions = $_POST['question'];
+        $question = strtolower($questions);
+
+        $question = preg_replace( '/\s+/','', $question);
+
+
+        if (preg_match("/^train:/", $question)) 
+        {
+
+            $res = training($question);
+            echo json_encode([
+            'status' => 1,
+            'answer' => $res
+            ]);
+            return;
+           
+        }
+
+        elseif (preg_match("/^about/", $question)|| preg_match('/^version/',$question)) 
+        {
+           echo json_encode([
+            'status' => 1,
+            'answer' => "ChatBuddyv1.0"
+            ]);
+            return;      
+        }
+
+        elseif (preg_match("/^currency/", $question)){
+
+            $from_currency= between("(", "," , "$question");
+            $to_currency= between(",", "," , "$question");
+            $amt= between(",", ")" , "$question");
+            $amount= (float)$amt;
+            $res= currencyConverter($from_currency,$to_currency,$amount);
+            echo  json_encode([
+                'status'=>1,
+                'answer'=> $res
+            ]);
+            return;
+        }
+
+        elseif(preg_match("/^weather/", $question))
+        {
+
+            $country=between("(", ",", $question);
+            $city= between(",", ")", $question);
+            $res= weather($country,$city);
+            echo json_encode([
+                'status'=>1,
+                'answer' =>$res
+            ]);
+            return;
+        }
+        elseif(preg_match("/^citytime/", $question))
+        {
+
+        	$city =between("(",")",$question);
+        	$res= cityTime($city);
+            echo json_encode([
+                'status'=>1,
+                'answer' =>$res
+            ]);
+            return;
+
+
+        }
+
+        elseif(preg_match("/^help/", $question))
+        {
+        	echo json_encode([
+                'status'=>1,
+                'answer' =>`The following are the available commands<br>
+                To Train: train:question#answer#password <br>
+                To convert currency: currency(fromCurrency,toCurrency,amount)<br>
+                To check weather: weather(country,city)<br>
+                To check time of any city: cityTime(Continent/city)
+                `
+            ]);
+            return;
+        }
+
+        else{
+
+            $res= getAns($question);
+            echo json_encode([
+            'status' => 1,
+            'answer' => $res
+            ]);
+            
+            return;  
+
+        
+        }
+	}
+
+
+     catch (Exception $e)
+    {
+
+       return $e->message ;
+  
+    }
+  }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -49,50 +160,50 @@ $secret_word =  $result['secret_word'];
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 
 	<style>
-			.card {
-			  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-			  max-width: 300px;
-			  margin: auto;
-			  text-align: center;
-			  font-family: arial;
-			}
+	.card {
+	  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	  max-width: 300px;
+	  margin: auto;
+	  text-align: center;
+	  font-family: arial;
+	}
 
-			.title {
-			  color: grey;
-			  font-size: 18px;
-			}
+	.title {
+	  color: grey;
+	  font-size: 18px;
+	}
 
-			a {
-			  text-decoration: none;
-			  font-size: 22px;
-			  color: black;
-			}
+	a {
+	  text-decoration: none;
+	  font-size: 22px;
+	  color: black;
+	}
 
-			 a:hover {
-			  opacity: 0.7;
-			}
-			#modalbtn{
-				position: absolute;
-				display: fixed;
-				top:50%;
-			}
-			 .modalButton {
-		      border-radius: 6px;
-		      background-color: #008080;
-		      border: none;
-		      color: #ffffff;
-		      text-align: center;
-		      font-size: 20px;
-		      padding:20px;
-		      margin-right: 20px;
-		      transition: all 0.5s;
-		      cursor: pointer;
-		      bottom: 5%;
-		      right: 0;
-		      position: fixed;
-		      z-index: 1;
-		      box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2);
-		    }
+	 a:hover {
+	  opacity: 0.7;
+	}
+	#modalbtn{
+		position: absolute;
+		display: fixed;
+		top:50%;
+	}
+	 .modalButton {
+      border-radius: 6px;
+      background-color: #008080;
+      border: none;
+      color: #ffffff;
+      text-align: center;
+      font-size: 20px;
+      padding:20px;
+      margin-right: 20px;
+      transition: all 0.5s;
+      cursor: pointer;
+      bottom: 5%;
+      right: 0;
+      position: fixed;
+      z-index: 1;
+      box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2);
+    }
 
     .modalButton:hover {
       background-color: #ffffff;
@@ -192,7 +303,7 @@ $secret_word =  $result['secret_word'];
 		    <button class="btn modalButton" data-toggle="modal" data-target="#exampleModal"><i class="fab fa-android" style="font-size: 48px"></i></button>
 		    <!-- Modal -->
 		    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		      <div class="modal-dialog modal-lg" role="document">
+		      <div class="modal-dialog" role="document">
 		        <div class="modal-content">
 		          <div class="modal-header" style="background-color:#008080">
 		            <h5 class="modal-title" style="color: white;">ChatBuddy<i class="fab fa-android" style="font-size: 20px"></i></h5>
@@ -203,14 +314,9 @@ $secret_word =  $result['secret_word'];
 		          <div class="modal-body">
 		            <div class="convoArea">
 		              <div class="bubble you">
-		                  Hello, hi there?
+		                  Hello, I am chatBuddyv1.0
 		              </div>
-		              <div class="bubble you">
-		                  You can ask me question, get facts or time?
-		              </div>
-		              <div class="bubble me">
-		                  To see a list of things i can do type help
-		              </div>
+		            
 		            </div>
 		          </div>
 		          <div class="modal-footer">
@@ -218,7 +324,7 @@ $secret_word =  $result['secret_word'];
 		              <div class="form-group mx-sm-3 mb-2">
 		                <input type="text" class="form-control" id='que' name="question" placeholder="Say Something ..." style=" float:left;width: 350px">
 		              </div>
-		              <button type="submit" class="btn btn-primary mb-2" name="submit" style="margin-left: 20px;">Send</button>
+		              <button type="submit" class="btn btn-primary mb-2" style="background-color:#008080" name="submit" style="margin-left: 20px;">Send</button>
 		            </form>
 		          </div>
 		        </div>
@@ -248,7 +354,7 @@ $secret_word =  $result['secret_word'];
       		convoAreabox.scrollTop(convoAreabox[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: '../answers.php',
+				url: '/profiles/john.php',
 				type: 'POST',
 				data: {question: question},
 				dataType: 'json',
@@ -262,7 +368,7 @@ $secret_word =  $result['secret_word'];
           $('#que').val("");						
 				},
 				error: (error) => {
-          alert('error occured')
+          			alert('error occured')
 					console.log(error);
 				}
 			})
@@ -278,3 +384,4 @@ $secret_word =  $result['secret_word'];
 
 </body>
 </html>
+<?php ?>
