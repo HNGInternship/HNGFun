@@ -78,7 +78,7 @@ form .form h4{
    require '../db.php';
 
 try {
-    $query = "SELECT * FROM interns_data_ WHERE username='Esther'";
+    $query = "SELECT * FROM interns_data_ WHERE username='StarzIke'";
     $resultSet = $conn->query($query);
     $result = $resultSet->fetch(PDO::FETCH_ASSOC);
 } catch (PDOException $e){
