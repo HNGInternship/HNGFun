@@ -8,6 +8,7 @@
         }
     }
     global $conn;
+
     if($_SERVER['REQUEST_METHOD'] === 'GET'){
         try {
             $sql = 'SELECT * FROM secret_word LIMIT 1';
@@ -18,6 +19,7 @@
             throw $e;
         }
         $secret_word = $data['secret_word'];
+
         try {
             $sql = "SELECT intern_id, name, username, image_filename FROM interns_data WHERE username='Geedhey'";
             $q = $conn->query($sql);
@@ -36,6 +38,7 @@
     // bot sending POST request to answers
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         require "../answers.php";
+        
         // sending a reply to bot will call this function
         function sendReply($answer){
             echo json_encode([
@@ -120,9 +123,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Geedhey</title>
+    
+   <title>Geedhey</title>
 </head>
 <style>
     /* General Styles */
@@ -230,6 +234,7 @@ section p {
     width: 400px;
     height:300px;
     border-radius:15px;
+    justify-content: center;
 }
 h5 {
     color: black;
@@ -274,6 +279,10 @@ h5 {
     animation: 1s slidefade 1s forwards;
 }
 
+.bot {
+    margin-left: 0px;
+}
+
 .card-body {
     height: 450px;
     overflow-y : auto;
@@ -298,14 +307,16 @@ h5 {
             color: rgba(0, 0, 0.1, 0.8);
         }
     .img-rounded{
-    align: center;
-      width: 300px;
-      height: 300px;
+      
+      width: 200px;
+      height: 200px;
       border-color: #FFF;
       border-width: 5px;
       border-style: solid;
       border-radius: 50%;
       margin-top:60px;
+      margin-left: auto;
+      margin-right: auto;
      
   } 
 
@@ -389,13 +400,13 @@ h5 {
       }
  }
 </style>
-<body>
-    <header></header>
+<body class="oj-web-applayout-body">
+    <header role="banner" class="oj-web-applayout-header"></header>
     <section class="content"> 
         <div class="background-image" style="background-image: url(https://res.cloudinary.com/geedhey/image/upload/v1523662775/city.jpg) "></div>
         
-        <div class="row">
-        <div class="col-md-6 left">
+        <div class="oj-flex oj-flex-item-pads">
+        <div class="oj-md-6 oj-sm-6 oj-flex-item left">
         <div class="content-area card" >
             
             <img  class="img-rounded" src="http://res.cloudinary.com/geedhey/image/upload/v1523658558/IMG_20161218_191105_542_1.jpg"
@@ -405,7 +416,7 @@ h5 {
             <h3> Electrical & Electronics Engineer,IT Enthusiasts, Software Developer and Pianist.</h3>
         </div>
         </div>
-		<div class="col-md-6 bot">
+		<div class="oj-md-6 oj-sm-6 oj-flex-item bot">
 		</div>
 
 	
@@ -464,11 +475,13 @@ h5 {
         <ul>
             <li><a href="https://www.linkedin.com/in/ojo-babajide-tolulope/"><i class="fa fa-linkedin fa-2x"></i></a></li>
             <li><a href="https://github.com/babageedhey/"><i class="fa fa-github fa-2x"></i></a></li>
+            <li><a href="https://mailto:babageedhey@gmail.com"><i class="fa fa-google fa-2x"></i></a></li>
+
         </ul>
     </footer>
-
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    
+    
+   
 	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
@@ -479,16 +492,16 @@ h5 {
                 messages: [{data: "My Name is Crochet! and i'm here to respond to your questions", sender: 'bot'},
                     {data: "To input your own customized questions and answers..." + 
                         "Type train: questions #answers" , sender: 'bot'},
-                    {data: "Use aboutbot or about bot to check for current bot version", sender: 'bot'} 
+                    {data: "Use aboutbot to check for current bot version", sender: 'bot'} 
                 ],
                 message: ''
             },
             methods: {
                 getBubbleColor(sender){
                     if(sender == 'bot')
-                    return 'skyblue';
+                    return 'lightblue';
                 
-                    return 'grey';
+                    return 'gray';
                 },
                 addMessage(){
                     this.messages.push({data: this.message, sender: 'user'});
@@ -515,18 +528,18 @@ h5 {
             },
 			template: `
 
-        <div class="col-md-6 bot">
+        <div class="oj-md-6  oj-sm-6 oj-flex-item bot">
         <div class="card content-area">
         <h3 class="card-header">Geedhey Bot</h3>
             <div class="card-body">
-                <div class="card-text">
+                
 				<ul>
                     <li class="chat-bubble" v-for="(message, index) in messages" v-key="index" :style="{'background-color': 
                                 getBubbleColor(message.sender)}">
                                 <p>{{message.data}}</p>
                     </li>
                 </ul>
-                </div>
+               
             </div>
                 <div class="card-footer">
                     <form class="form-group" id="inputForm">

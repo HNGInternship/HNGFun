@@ -1,42 +1,56 @@
 <?php
-function getTime(){
+ini_set('display_errors',0);
+function gettTime(){
     date_default_timezone_set('Africa/Lagos');
     return "The time is " . date("h:i:sa");
-}
-
-session_start();
-
+}session_start();
 if (!isset($_SESSION["all"])){
     $_SESSION["all"] = [];
-}
-if(!defined('DB_USER')){
+}if(!defined('DB_USER')){
     require_once "../../config.php";
     $servername = DB_HOST;
-    $username_ = DB_USER;
+    $username = DB_USER;
     $password = DB_PASSWORD;
     $dbname = DB_DATABASE;
-    // Create connection
-    $conn = mysqli_connect($servername, $username_, $password, $dbname);
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        // set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    }
+    catch(PDOException $e)
+    {
+        echo "Connection failed: " . $e->getMessage();
     }}
 global $conn;
 $solution = '';
 if (isset($_POST['restart'])){
     session_destroy();
-}
-if (isset($_POST['button'])) {
+}if (isset($_POST['button'])) {
     if (isset ($_POST['input']) && $_POST['input'] !== "") {
-        $asked_question_text = $_POST['input'];
-        $solution = askQuestion($asked_question_text) . "<br/>";
-        $_SESSION["all"][] = array($solution, $asked_question_text);
+        include "../answers.php";
+        $function = $_POST['input'];
+        $functionName = explode("(", $function);
+        if (function_exists($functionName[0])&&strpos($function,"(")&&strpos($function,")")) {
+            $functionVariable = explode(')',$functionName[1],2);
+            if (!strpos($functionVariable[0],",")){
+                $response = $functionName[0]($functionVariable[0]);
+            }else
+                $functionVariable1 = explode(',',$functionVariable[0],2);
+                $response = $functionName[0]($functionVariable1[0],$functionVariable1[1]);
+            // Dynamic call using variable value as function name.
+
+}else{$asked_question_text = $_POST['input'];
+            $solution = askQuestion($asked_question_text) . "<br/>";
+            $_SESSION["all"][] = array($solution, $asked_question_text);
+        }
     }
 }
 function askQuestion($input)
 {$input = strtolower($input);
-$input = trim($input);
+    $input = trim($input);
     $action = "train:";
+    $time = "time";
     global $conn;
     $train = strpos($input,$action);
     if ($input!==""||$input!==" ") {
@@ -48,9 +62,8 @@ $input = trim($input);
                     $explode3 = explode('#', $explode2[1], 2);
                     if (isset($explode3[1])){
                         if (  $explode3[1] == "password") {
-                            $sql1 = "SELECT question,answer FROM chatbot WHERE LOWER(question) ='" . $explode2[0] . "' and LOWER(answer) =  '" . $explode3[0] . "'";
-                            $query = $conn->query($sql1);
-                            $row_cnt = $query->num_rows;
+                            $query = $conn->query("SELECT question, answer FROM chatbot WHERE LOWER(question) ='" . $explode2[0] . "' and LOWER(answer) =  '" . $explode3[0] . "'");
+                            $row_cnt = $query->rowCount();
                             if ($row_cnt > 0) {
                                 return "QUESTION ALREADY EXISTS ";
                             } else
@@ -69,29 +82,27 @@ $input = trim($input);
             } else
                 return "The right format is train:yourquestion#youranswer#password";
         } else {
-            if ($input == "aboutbot") {
+            if (strpos($input,"aboutbot")) {
                 return "Adokiye v1.0";
-            } else if ($input == "what is the time") {
-                return getTime();
+            } else if (preg_match("/\b($time)\b/",$input)) {
+                return get_time();
             } else if ($input == "help") {
-                return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me";
+                return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me<br/> or enter the name of any function you want to run";
             }else if($input=="you are mad"||$input == "you're mad"){
                 return "YOUR FATHER";
-            } else {
-
-
+            }else {
                 $input = $_POST['input'];
                 $question = strtolower($input);
                 $question = str_replace('?', '', $question);
                 $question = trim($question);
-                echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";
-                $result = mysqli_query($conn, "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'");
-                $fetched_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
-                $row_cnt = $result->num_rows;
+                $query = "SELECT * FROM chatbot WHERE LOWER(question) like '$question'";
+                $result = $conn->query($query);
+                $row_cnt = $result->rowCount();
+                $records = $result->fetchAll(PDO::FETCH_ASSOC);
                 $rand = rand(0, $row_cnt - 1);
                 if ($row_cnt > 0) {
-                    return $fetched_data[$rand]['answer'];
-                 } else
+                    return $records[$rand]['answer'];
+                } else
                     return "Am sorry, this question wasn't found,Please ENTER TRAIN:QUESTION#ANSWER#password to make me smarter";
 
             }
@@ -108,10 +119,10 @@ $input = trim($input);
     <title>Adokiye ---- Stage 4</title>
     <style type="text/css">
 
-                              .mycss
-                              {
-                                  text-shadow:1px 3px 1px rgba(255,255,255,1);font-weight:bold;text-transform:uppercase;color:#000000;border: 5px ridge #FFFFFF;letter-spacing:5pt;word-spacing:2pt;font-size:20px;text-align:center;font-family:arial, helvetica, sans-serif;line-height:1;
-                              }
+        .mycss
+        {
+            text-shadow:1px 3px 1px rgba(255,255,255,1);font-weight:bold;text-transform:uppercase;color:#000000;border: 5px ridge #FFFFFF;letter-spacing:5pt;word-spacing:2pt;font-size:20px;text-align:center;font-family:arial, helvetica, sans-serif;line-height:1;
+        }
 
         .bot-css {
             display: inline-block;
@@ -177,31 +188,31 @@ $input = trim($input);
             color: #563F3F;
             cursor: pointer;
         }
-                              #myform{
-                     background: rgba(76, 175, 80, 0.3);
-                     display: inline-block;
-                                  width: 50px;
-                                  height: fit-content;
-                                  float: left;
-                 }#myBtn {
-                      display: none; /* Hidden by default */
-                      position: fixed; /* Fixed/sticky position */
-                      bottom: 20px; /* Place the button at the bottom of the page */
-                      right: 30px; /* Place the button 30px from the right */
-                      z-index: 99; /* Make sure it does not overlap */
-                      border: none; /* Remove borders */
-                      outline: none; /* Remove outline */
-                      background-color: red; /* Set a background color */
-                      color: white; /* Text color */
-                      cursor: pointer; /* Add a mouse pointer on hover */
-                      padding: 15px; /* Some padding */
-                      border-radius: 10px; /* Rounded corners */
-                      font-size: 18px; /* Increase font size */
-                  }
+        #myform{
+            background: rgba(76, 175, 80, 0.3);
+            display: inline-block;
+            width: 50px;
+            height: fit-content;
+            float: left;
+        }#myBtn {
+             display: none; /* Hidden by default */
+             position: fixed; /* Fixed/sticky position */
+             bottom: 20px; /* Place the button at the bottom of the page */
+             right: 30px; /* Place the button 30px from the right */
+             z-index: 99; /* Make sure it does not overlap */
+             border: none; /* Remove borders */
+             outline: none; /* Remove outline */
+             background-color: red; /* Set a background color */
+             color: white; /* Text color */
+             cursor: pointer; /* Add a mouse pointer on hover */
+             padding: 15px; /* Some padding */
+             border-radius: 10px; /* Rounded corners */
+             font-size: 18px; /* Increase font size */
+         }
 
-                              #myBtn:hover {
-                                  background-color: #555; /* Add a dark-grey background on hover */
-                              }
+        #myBtn:hover {
+            background-color: #555; /* Add a dark-grey background on hover */
+        }
 
     </style>
 </head><script>function show_function() {
@@ -242,7 +253,7 @@ $username = 'Adokiye';
     </div>
     <marquee onmouseover="this.stop();" onmouseout="this.start();">
         <p style=" color: #FFFFFF;font-family: arial, sans-serif; font-size: 14px;font-weight: bold;letter-spacing: 0.3px;">
-            ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="font-weight: bolder">TRAIN: YOUR QUESTION#YOUR ANSWER</span>
+            ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="color: #0C1621">TRAIN: YOUR QUESTION#YOUR ANSWER#password</span>
             TO ADD MORE QUESTIONS TO THE DATABASE</p>
     </marquee>
     <div>
@@ -250,7 +261,7 @@ $username = 'Adokiye';
         <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
         <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
     </div>
-    <p class="mycss"> Chatbot by Adokiye<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
+    <p class="mycss">Chatbot by Adokiye<br />Click on show below to display the password for training me<br/>Enter any function in the answers.php file and it will run here<br/>AS FAR AS IT AS ONLY ONE VARIABLE</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
     <form name = "askMe" method="post">
         <p>
             <label>
@@ -265,10 +276,10 @@ $username = 'Adokiye';
         </p>
         <p>&nbsp;</p>
     </form>
-            <div class="bot-css"> <?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
-                <span style="color:blue"><?=  "YOU : $soln <br/>";echo "</span>";
-                echo "BOT : $asked<br/>" ?><br/><?php } ?><br/>
-        </div><div id = "myform" style="display:none"  >HAHAHA, THE PASSWORD IS PASSWORD</div>
+    <div class="bot-css"> <?php echo $response;echo "<br/>"?><?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
+        <span style="color:blue"><?=  "YOU : $soln <br/>";echo "</span>";
+            echo "BOT : $asked<br/>" ?><br/><?php } ?><br/>
+    </div><div id = "myform" style="display:none"  >HAHAHA, THE PASSWORD IS PASSWORD</div>
     <p>
 
 
