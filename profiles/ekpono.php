@@ -1,7 +1,5 @@
 <?php 
-		require 'db.php';
-		try {
-        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ekpono'");
+	 $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ekpono'");
         $intern_data->execute();
         $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
         $result = $intern_data->fetch();
@@ -12,17 +10,13 @@
         $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
         $code = $secret_code->fetch();
         $secret_word = $code['secret_word'];
-     } catch (PDOException $e) {
-         throw $e;
-     }
 	?>
 
 <?php
-
-// Create connection
+require '../../config.php';
+// ChatBot Create connection
 try {
-	require '../../config.php';
-    $conn = new PDO("mysql:host=DB_HOST;dbname=DB_DATABASE", 'DB_USER', 'DB_PASSWORD');
+   $conn = new PDO("mysql:host=". DB_HOST.";dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     //echo "Connected"; 
@@ -32,7 +26,6 @@ catch(PDOException $e)
     echo "Sorry connection not found: " . $e->getMessage();
     }
 // Check connection
-
 ?>
 <?php //Chatbot 
     if($_SERVER['REQUEST_METHOD']==='POST'){
@@ -44,7 +37,6 @@ catch(PDOException $e)
             $data = preg_replace("([?.!])", "", $data);
             return $data;
         }
-
         //end of function definition
         $ques = input($_POST['ques']);
         if(strpos($ques, "train:") !== false){
@@ -76,7 +68,7 @@ catch(PDOException $e)
                     return;
                 }
                     try {
-                       $conn = new PDO("mysql:host=DB_HOST;dbname=DB_DATABASE", 'DB_USER', 'DB_PASSWORD');
+                       $conn = new PDO("mysql:host=". DB_HOST.";dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
                         // set the PDO error mode to exception
                         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                         //echo "Connected successfully"; 
@@ -111,9 +103,8 @@ catch(PDOException $e)
             $ques = input($ques);
                 $sql = "select answer from chatbot where question like :question";
 						$stmt = $conn->prepare($sql);
-						$stmt->bindParam(':question', $ques);
+	    					$stmt->bindParam(':question', $ques);
 						$stmt->execute();
-
 						$stmt->setFetchMode(PDO::FETCH_ASSOC);
 						$rows = $stmt->fetchAll();
                     echo json_encode([
@@ -124,12 +115,6 @@ catch(PDOException $e)
             }
             return;
         }
-
-//chogo
-
-
-
-
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -146,13 +131,11 @@ catch(PDOException $e)
     margin: 0;
     padding: 0;
 }
-
 body {
   font-family: 'Dosis', sans-serif;
     background: linear-gradient(to right, rgba(216,0,0,0), rgba(216,0,0,0.2));
     background-repeat: cover;
 }
-
 .container {
     width: 80%;
     height: auto;
@@ -166,7 +149,7 @@ body {
     display: block;
     text-align: right;
     font-size: 20px;
-    padding-top: 30px;
+    padding-top: -80px;
 }
 .photo {
     width: 50%;
@@ -180,24 +163,24 @@ body {
 h3 {
     color:rgb(32, 32, 216)
 }
-	.display{
-            position:fixed;
-            bottom:0;
-            right: 20px;
-            background-color:#fef;
-            width: 350px;
-            height: 500px;
-            overflow:auto;
-        }
 a {
     text-decoration: none;
      text-decoration: underline dotted;
 }
-
+/* ChatBot */
+.display{
+            position:fixed;
+            bottom:0;
+            right: 20px;
+            background-color:rgba(216,0,0,0.2);
+            width: 350px;
+            height: 400px;
+            overflow:auto;
+        }
         .display nav{
             display:block;
             height: 50px;
-            background-color:rgb(32, 32, 216)#f8e;
+            background-color:transparent;
             text-align: center;
             font-size: 25px;
             padding-top:7.5px;
@@ -214,8 +197,26 @@ a {
             position:fixed;
             bottom: 10px;
         }
+        .user {
+            text-align: right;
+        }
+        .user p{
+           
+            text-align: right;
+            width: auto;
+            display: inline;border-radius: 50px;background: white;
+        }
+        .bot {
+            background: width: 40px;
+        }
+        .bot p {
+            
+            display: inline;
+            
+        }
+        
+            
 /* CSS button */
-
 </style>
 </head>
 <body>
@@ -249,19 +250,17 @@ a {
             <div class="myMessage-area">
                 <div class="myMessage bot">
                 </div>
-               
             </div>
         </div>
         <div class="form">
             <input type="text" name="question" id="question" required>
-            <span onclick="sendMsg()" ><i class="fa fa-send-o fa-2x"></i></span>
+            <span onclick="sendMsg()" ><button>Send</button></span>
         </div>
     </div>
 </div>
 
 
  <script>
-
         window.addEventListener("keydown", function(e){
             if(e.keyCode ==13){
                 if(document.querySelector("#question").value.trim()==""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){
@@ -271,7 +270,6 @@ a {
             }
         });
         function sendMsg(){
-
             var ques = document.querySelector("#question");
             if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
             displayOnScreen(ques.value, "user");
@@ -285,16 +283,18 @@ a {
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("ques="+ques.value);
         }
+        
         function processData (data){
             data = JSON.parse(data);
             console.log(data);
             var answer = data['answer'];
+            //Choose a random response from available
             if(Array.isArray(answer)){
                 if(answer.length !=0){
                     var res = Math.floor(Math.random()*answer.length);
                     displayOnScreen(answer[res].answer, "bot");
                 }else{
-                    displayOnScreen("Not trained yet. Train me: train: question # response # password");
+                    displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn<br> Here's the format: train: question # response # password");
                 }
             }else{
                 displayOnScreen(answer,"bot");
