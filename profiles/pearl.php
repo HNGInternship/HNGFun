@@ -392,8 +392,31 @@ button{
 </head>
 <body cz-shortcut-listen="true">
 
+<<<<<<< HEAD
 	<div class="oj-flex oj-flex-item">
 	<div class=" container">
+=======
+<<<<<<< HEAD
+<?php
+    
+		require 'db.php';
+
+		$result = $conn->query("Select * from secret_word LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+		$secret_word = $result->secret_word;
+ 
+$result2 = $conn->query("Select * from interns_data where username = 'pearl'");
+  
+$user = $result2->fetch(PDO::FETCH_OBJ);
+?>
+
+<div class="oj-flex oj-flex-item">
+	<div class="container">
+=======
+	<div class="oj-flex oj-flex-item">
+	<div class=" container">
+>>>>>>> 7f54a6dcb2ee3e5cc4aef6128fcc4f011449b379
+>>>>>>> afc512fff69c3973afaccba3c50463c00568edfa
 		<header>
 			<div class="header">
                 <span class="oj-text-xm"><?php echo $user->name ?></span>
@@ -472,6 +495,13 @@ My love grew into passion that I gave up my little savings to learn web developm
                 </p>
 		</footer>
     </div>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+	<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.0.0/3rdparty/require/require.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+=======
+>>>>>>> afc512fff69c3973afaccba3c50463c00568edfa
     <script type="text/javascript" src="../../bootcamp-v1/js/jquery.min.js"></script>
     <script>
         
@@ -503,7 +533,11 @@ My love grew into passion that I gave up my little savings to learn web developm
             $("#chatMessages").append('<div id="messageSent">' + message + '</div>');
 
             $.ajax({
+<<<<<<< HEAD
                 url: './profiles/pearl.php',
+=======
+                url: '/profiles/pearl.php',
+>>>>>>> afc512fff69c3973afaccba3c50463c00568edfa
                 type: 'POST',
                 data: {displayMessage: message},
                 dataType: 'json'
@@ -549,6 +583,10 @@ My love grew into passion that I gave up my little savings to learn web developm
     </script>
     <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.0.0/3rdparty/require/require.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<<<<<<< HEAD
+=======
+>>>>>>> 7f54a6dcb2ee3e5cc4aef6128fcc4f011449b379
+>>>>>>> afc512fff69c3973afaccba3c50463c00568edfa
 </div>
 </body>
 </html>

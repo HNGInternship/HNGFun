@@ -301,7 +301,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			margin-bottom: 4px
 		}
 		#que{
-			background-color: #000FFF;
+			background-color: #FF00FF;
 			margin-bottom: 4px;
 			margin-top: 4px;
 		}
@@ -359,7 +359,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 									<ul id="que">
 											
 									</ul>
-									<ul class="ans">
+									<ul id="ans">
 										
 									</ul>
 								</div>	
