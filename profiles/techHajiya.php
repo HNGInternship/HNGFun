@@ -22,10 +22,10 @@
             font-size: 16px;
             display: flex;
             flex-direction: column;
-            max-width: 450px;
+            max-width: 550px;
 			height: 400px;
 			border-radius: 0px;
-			margin: 20px 10px;
+			margin: 10px 10px;
 			background: white;
         }
 
