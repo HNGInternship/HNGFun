@@ -235,7 +235,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    box-sizing: border-box;
 		}
 		textarea{
-		    width: 70%;
+		    width: 65%;
 		    box-sizing: border-box;
 		    border: 2px solid #ccc;
 		    border-radius: 4px;
@@ -327,11 +327,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				</p>
 			</div>
 	    </div>	
-		<div id="sidebar">
+		<div id="sidebar" class="oj-flex">
 			<div class="head">
-				<h2> Chat With MyBot</h2>
+				<h2 class="oj-flex-item"> Chat With MyBot</h2>
 			</div>
-			<div class="row-holder" class="oj-flex">
+			<div class="row-holder">
 				<div class="oj-flex-item">
 					<div id="form">
 						<form id="qform" method="post">
