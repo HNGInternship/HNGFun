@@ -299,7 +299,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			background-color: #DAF7A6;
 			margin-bottom: 4px;
 			margin-top: 4px;
-			border-radius: 10%;
 		}
 	</style>
 </head>
@@ -344,7 +343,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 						<form id="qform" method="post">
 							<div id="textform">
 								<textarea id='questionBox' name="question" placeholder="Enter message ..."></textarea>
-								<button type="submit" id="send-button">Submit</button>
+								<button type="submit" id="send-button">Send</button>
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
