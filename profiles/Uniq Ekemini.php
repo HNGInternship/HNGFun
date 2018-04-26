@@ -17,11 +17,11 @@
 
 .title {
   color: grey;
-  font-size: 14px;
+  font-size: 18px;
 }
   
   .boddy {
-  font-size: 10px;
+  font-size: 14px;
 }
 
 button {
@@ -54,7 +54,7 @@ button:hover, a:hover {
 
 <div class="card">
   <img src="http://res.cloudinary.com/eshietekemini/image/upload/v1524557804/IMG_20180224_130950.jpg" alt="John"  style="width:100%">
-  <h3>Eshiet Ekemini</h3>
+  <h2>Eshiet Ekemini</h2>
   <p class="title">Android Developer, Intern at HNGInternship 4.0</p>
   <p class="boddy">I drink tea and code, and I love picking up on new Technologies</p>
   <div style="margin: 24px 0;">
