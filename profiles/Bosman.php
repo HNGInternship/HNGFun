@@ -72,8 +72,6 @@
           padding: 20px;
         }
 
-       
-
         .fa{
           padding: 0 10px;
         }
@@ -206,6 +204,11 @@
             background-color: #286090;
             border-color: #204d74;
           }
+
+          footer{
+            display: none;
+            visibility: hidden;
+          }
       </style>
 
   </head>
@@ -250,7 +253,7 @@
       </div>
       
     </div>
-    <div class="container mx-auto">  
+    <div class="container">  
       <div class="row">
         
         <div class="col-md-3">
@@ -264,16 +267,16 @@
             </div>
           
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
           
         </div>
-        <div class="col-md-7">
+        <div class="col-md-8">
 
          <div class="intro">
-           <H2> HI, MY NAME IS BOSMAN & I AM A
-            DESIGNER & DEVELOPER</H2>
-            <SPAN>I have experience and understanding working with HTML, CSS ,MYSQL, PHP and JavaScript . Exceptional knowledge of the latest Adobe Creative Suite (Photoshop, Illustrator, Fireworks).This site showcase some of my works. </SPAN>
-            <a class="btn btn-default btn-primary" data-wow-delay=".9s" href="#works">View Works</a>
+           <H3> HI, MY NAME IS BOSMAN & I AM A
+            DESIGNER & DEVELOPER</H3>
+            <p>I have experience and understanding working with HTML, CSS ,MYSQL, PHP and JavaScript . Exceptional knowledge of the latest Adobe Creative Suite (Photoshop, Illustrator, Fireworks).This site showcase some of my works. </p>
+            <p><a class="btn btn-default btn-primary" data-wow-delay=".9s" href="#works">View Works</a></p>
          </div>
 
           
