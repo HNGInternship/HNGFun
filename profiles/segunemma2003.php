@@ -11,7 +11,7 @@ try {
 	throw $e;
 }
 global $conn;
-if (!empty($_POST['message'])){
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 	echo json_encode(['status'=>1,'data'=>'welcome']);
 	}
 
@@ -292,9 +292,9 @@ if (!empty($_POST['message'])){
 					// alert(responseMessage('I am a little bot'));
 				}
                  $.ajax({
-                     url:"/profiles/segunemma2003.php",
+                     url:"/profiles/segunemma2003",
                      dataType: "json",
-		     
+		     type:"POST"
                      data : {message: message},
                      success: function(res){
 
