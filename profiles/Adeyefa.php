@@ -295,11 +295,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			font-family: Ubuntu;
 
 		}
-		#que{
-			background-color: #DAF7A6;
-			margin-bottom: 4px;
-			margin-top: 4px;
+		.user-inpu .input{
+			display: inline-block;
+			padding: 12px 20px;
+			border-radius: 10px;
 		}
+		.bot-output .output{
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 10px;
+        }
 	</style>
 </head>
 <body class="oj-web-applayout-body " >
@@ -343,7 +348,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 						<form id="qform" method="post">
 							<div id="textform">
 								<textarea id='questionBox' name="question" placeholder="Enter message ..."></textarea>
-								<button type="submit" id="send-button">Send</button>
+								<button type="submit" id="send-button">Submit</button>
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
@@ -351,7 +356,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 								</div>
 									
 								<div class="iio">
-									<div id="que">
+									<div id="que" class="que">
 											
 									</div>
 								</div>	
@@ -370,7 +375,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#que").append("<div> You: " + question + "</div>");
+				$("#que").append("<div class='user-input'><div class='input'>You: " + question + "</div></div>");
 					//let newMessage = `<div class="iro">
 	                  //${question}
 	                //</div>`
@@ -380,7 +385,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#que").append("<div> MATRIX: "  + response.answer +  "</div>");
+			        $("#que").append("<div class='bot-output'><div class='output'> MATRIX: "  + response.answer +  "</div></div>");
 			       // console.log(response.result);
 			        //alert(response.result.d);
 			        //alert(answer.result);
