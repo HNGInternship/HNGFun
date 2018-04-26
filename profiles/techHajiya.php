@@ -91,7 +91,7 @@
 		}		
         .chat-result {
             flex: 1;
-            padding: 10px;
+            padding: 0px;
             display: flex;
             background: #A6BBEC;
             flex-direction: column;
