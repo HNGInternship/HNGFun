@@ -210,7 +210,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			font-size: 30px;
 		}
 		#sidebar{
-			width: 350px;
+			width: 380px;
 			height: 600px;
 			position: absolute;
 		}
@@ -239,7 +239,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    box-sizing: border-box;
 		}
 		textarea{
-		    width: 80%;
+		    width: 380px;
 		    box-sizing: border-box;
 		    border: 2px solid #ccc;
 		    border-radius: 4px;
@@ -315,7 +315,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     ?>
 		<div id="bbb" class="oj-flex" >
 	    	<div class="oj-flex-item">
-				<p>
+				<p class="oj-flex oj-md-align-items-center">
 					HELLO WORLD
 				</p>
 				<p>
@@ -324,7 +324,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				<p>
 					A Web developer, blogger and Software developer
 				</p>
-				<p  class="oj-flex oj-md-align-items-center">
+				<p  >
 					<a href="https://github.com/sainttobs"><i class="fa fa-github"></i></i></a>
 					<a href="https://twitter.com/9jatechguru"><i class="fa fa-twitter"></i></i></a>
 					<a href="https://web.facebook.com/toba.adeyefa"><i class="fa fa-facebook"></i></i></a>	
