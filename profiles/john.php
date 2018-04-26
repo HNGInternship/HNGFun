@@ -325,6 +325,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		              <div class="bubble you">
 		                  Hello, I am chatBuddyv1.0
 		              </div>
+			      <div class="bubble you">
+		                  Type "help" to see the list of commands
+		              </div>
 		            
 		            </div>
 		          </div>
