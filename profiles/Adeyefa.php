@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 if(!defined('DB_USER')){
   require "../../config.php";		
@@ -8,7 +8,6 @@ if(!defined('DB_USER')){
       die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
   }
 }
-	
 
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -16,12 +15,17 @@ $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
+///////////////////////////////////////////////////////////////
+
 
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    include "../answers.php";
+    require "../answers.php";
     
+    date_default_timezone_set("Africa/Lagos");
+
+
     try{
 
 	    if(!isset($_POST['question'])){
@@ -48,10 +52,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				# code...
 				echo json_encode([
 					'status' => 0,
-					'answer' => "You need to enter a password to train me."
+					'answer' => "You need to enter a password to train me.",
 				]);
 				return;
 			}
+			
 			$password = trim($queries[2]);
 			//to verify training password
 			define('trainingpassword', 'password');
@@ -86,10 +91,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			echo json_encode([
 				'status' => 1,
 				'answer' => "Type 'aboutbot' to know about me. You can also convert cryptocurrencies using this syntax.
-				'convert btc to usd"
+				'convert btc to usd",
 			]);
-			return;
-			
+			return;	
 		}
 		elseif ($arr[0] == "convert") {
 			# code...
@@ -173,6 +177,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		return $e->message ;
 	}
 }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -181,6 +186,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
+	<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style type="text/css">
 		body{
@@ -289,15 +295,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			left: -3px;
             background-color: #00b0ff;
 		}
-		#queries{
-			margin-left: 50px;
-		}
-		.iro{
-			float: right;
-			color: red;
-			font-size: 15px;
-			font-family: Ubuntu;
-		}
 		.iio{
 			float: left;
 			margin-right: 90px;
@@ -309,16 +306,27 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 </head>
 <body>
 	<div class="iii">
+		<?php
+    global $conn;
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="adeyefa"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    ?>
 		<div class="bbb">
 	    	<div class="main">
 				<p>
 					HELLO WORLD
 				</p>
 				<p id="p1">
-					I am  <?php echo $user->name ?>
+					I am   <?=$my_data['name'] ?>
 				</p>
 				<p id="info">
-					A Web developer, blogger and Software engineer
+					A Web developer, blogger and Software developer
 				</p>
 				<p id="fav">
 					<a href="https://github.com/sainttobs"><i class="fa fa-github"></i></i></a>
@@ -343,11 +351,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 								<div class="irr">
 									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about what i can do type 'help'
 								</div>
-								<div class="iro">
-									<ul id="queries">
-										
-									</ul>
-								</div>	
+									
 								<div class="iio">
 									<ul id="ans">
 											
@@ -368,7 +372,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#queries").append("<li>" + question + "</li>");
+				$("#ans").append("<li> You: " + question + "</li>");
 					//let newMessage = `<div class="iro">
 	                  //${question}
 	                //</div>`
@@ -378,7 +382,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#ans").append("<li>" + response.answer + "</li>");
+			        $("#ans").append("<li> MATRIX: "  + response.answer +  "</li>");
 			       // console.log(response.result);
 			        //alert(response.result.d);
 			        //alert(answer.result);
@@ -386,7 +390,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					},
 					error: function(error){
 						//console.log(error);
-				        alert(error);
+				        alert(JSON.stringify(error));
 					}
 				})	
 			})

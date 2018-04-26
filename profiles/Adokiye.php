@@ -15,18 +15,16 @@ if(!defined('DB_USER')){
     $username = DB_USER;
     $password = DB_PASSWORD;
     $dbname = DB_DATABASE;
-
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "Connected successfully";
+
     }
     catch(PDOException $e)
     {
         echo "Connection failed: " . $e->getMessage();
     }}
- print_r($conn);
 global $conn;
 $solution = '';
 if (isset($_POST['restart'])){
@@ -54,7 +52,7 @@ function askQuestion($input)
                     $explode3 = explode('#', $explode2[1], 2);
                     if (isset($explode3[1])){
                         if (  $explode3[1] == "password") {
-                            $query = $conn->query("SELECT question, answer FROM chatbot WHERE question ='" . $explode2[0] . "' and answer =  '" . $explode3[0] . "'");
+                            $query = $conn->query("SELECT question, answer FROM chatbot WHERE LOWER(question) ='" . $explode2[0] . "' and LOWER(answer) =  '" . $explode3[0] . "'");
                             $row_cnt = $query->rowCount();
                             if ($row_cnt > 0) {
                                 return "QUESTION ALREADY EXISTS ";
@@ -87,12 +85,10 @@ function askQuestion($input)
                 $question = strtolower($input);
                 $question = str_replace('?', '', $question);
                 $question = trim($question);
-                echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";echo "<br/>";
-                $query = "SELECT * FROM chatbot WHERE LOWER(question) like '%$question%'";
+                $query = "SELECT * FROM chatbot WHERE LOWER(question) like '$question'";
                 $result = $conn->query($query);
                 $row_cnt = $result->rowCount();
                 $records = $result->fetchAll(PDO::FETCH_ASSOC);
-
                 $rand = rand(0, $row_cnt - 1);
                 if ($row_cnt > 0) {
                     return $records[$rand]['answer'];

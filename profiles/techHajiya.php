@@ -216,7 +216,7 @@
 					<div class="message">Password is password. </div>
                     </div>
                 </div>
-
+				
                 <div class="chat-input">
                     <form action="" method="post" id="user-input-form">
                         <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Type a message...">
@@ -226,7 +226,6 @@
 		
           </div>
 		   </div>
-
     <?php
     try {
         $sql = 'SELECT * FROM secret_word';
