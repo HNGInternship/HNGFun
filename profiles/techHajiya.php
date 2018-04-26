@@ -15,7 +15,6 @@
 		 .container {
             max-width: 100%;
             padding-left: 0;
-			background: white;
 		
         }
 		   .chatbox {
@@ -171,7 +170,7 @@
             margin-left: 40px;
 		}
 		.oj-flex{
-		background-color:white;
+		background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
         padding: 0px;
 		}
         .fa-close, .fa-question-circle {
