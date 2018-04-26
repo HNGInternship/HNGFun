@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
     if ($intent === 'training' && $trainingData === '') {
-        $response = 'Oga, your training data no go well o. Use this format >>> "#train: Question | Answer"';
+        $response = 'Oga, your training data no go well o. Use this format >>> "train:Question#Answer#password"';
     } else if ($trainingData !== '') {
         $intent = 'training';
         $parts = explode('#', $trainingData);
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
             
         } else {
-            $response = 'Oga, your training data no go well o. Use this format >>> "#train: Question | Answer"';
+            $response = 'Oga, your training data no go well o. Use this format >>> "train:Question#Answer#password"';
         }
     }
 
