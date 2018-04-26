@@ -229,18 +229,18 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .under {
+        .below {
             position: relative;
             /*top:450px;*/
             max-height: 100px;
             width: 100%;
             font-family: "Alegreya";
             line-height: normal;
-            font-size: 32px;
+            font-size: 28px;
             text-align: center;
             color: #000830;
         }
-        .under1 {
+        .below1 {
             position: relative;
             /*top:500px;*/
             height: 40px;
@@ -251,7 +251,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
             text-align: center;
             color: #000830;
         }
-        .under2 {
+        .below2 {
             position: relative;
             /*top:540px;*/
             height: 49.71px;
@@ -284,7 +284,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
             color:Coral;
         }
         img{
-            border-radius: 10px;
+            border-radius: 50%;
             background-color: beige;
             width:350px;
             height:300px;
@@ -293,10 +293,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
         }
         #user-message{
             text-align: right;
+            font-size; 20px
             color: green !important;
         }
         #bot-message{
             text-align: left;
+            font-size; 20px
             color: blue !important;
         }
         .inputText{
@@ -335,13 +337,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
             <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
             data-bind="attr:{'aria-label':'Avatar of Akpan, Blessing Michael'}">
             </oj-avatar>
-            <img class="img-fluid " onerror="this.src='images/default.jpg'" src="http://res.cloudinary.com/dlvlxep3r/image/upload/v1523715773/interactive_bee.jpg">
+            <img class="img-fluid " onerror="this.src='images/default.jpg'" src="http://res.cloudinary.com/dlvlxep3r/image/upload/v1523715773/interactive_bee.jpg" width="300" height="300">
         </div>
     </div>
     <div class="body0">
         <div class="main"><span class="text"><?php echo $user->name; ?></span></div>
-        <div class="under"><span>Writer | Android Developer | Hng Intern</span></div>
-        <div class="under1"><span>
+        <div class="below"><span>Writer | Android Developer | Hng Intern</span></div>
+        <div class="below1"><span>
                 <div class="oj-flex oj-md-align-items-center"><a href="https://github.com/BeeAkpan">
                     <div class="oj-flex-item oj-flex oj-sm-flex-direction-column oj-sm-align-items-center oj-sm-margin-2x">
                         <img style="width:40px; height: 40px;" src="https://cdn1.iconfinder.com/data/icons/logotypes/32/github-512.png">
@@ -354,7 +356,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
                     </a>
                 </div></span>
         </div>
-        <div class="under2"><span>Akwa Ibom | Nigeria</span></div>
+        <div class="below2"><span>Akwa Ibom | Nigeria</span></div>
     </div>
 </div>
 <div class="oj-sm-12 oj-md-6 oj-flex-item">
@@ -370,10 +372,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
                     <form action="#" method="post" id="bot-interface">
                     <div class="col-md-10 col-xs-10 no-margin" style="margin:0px">
                     <input class="inputText no-margin" type="text" name="question" id="question" class="user-input" placeholder="Say something here">
-                 </div>
-                  <div class="col-md-2 col-xs-2">
-                                <input type="Submit" value="Send" id="submit-button">
-                            </div>   
+                </div>
+                <div class="col-md-2 col-xs-2">
+                     <input type="Submit" value="Send" id="submit-button">
+                </div>   
                     </form>
                 </div>
     </div></div>

@@ -11,29 +11,16 @@
 
 <head>
   
-	
+	<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
 	
 	<style>
-      
+     
       body{
         background-image: url('http://res.cloudinary.com/devplus-devmm/image/upload/v1524619646/apple_imac_201705_thumb800_ualczl.webp');
         background-size: 100% 100%;
 
       }
-        .main {
-        width: 360px;
-        height: 300px;
-        margin: auto;
-        margin-top: 100px;
-        background: rgb(43, 108, 167);
-        }
-        .img{
-            width: 200px;
-            height: 200px;
-            margin: auto;
-            margin-left: 40%;
-        }
-         img{
+      img{
         margin-left: 100px;
         height: 150px;
         width: 150px;
@@ -45,27 +32,35 @@
         box-shadow: #2a3132 0px 4px 7px; 
         background: #fff;   
         }
-
-        .details{
-        color: #f0f0f0;
-        padding: 10px;
-        }
-
-       
-
    
 	</style>
 </head>
 <body>
-    <div class="main">
-        <div class="image">
-            <img src="<?php echo $user->image_filename; ?>" alt="Author's Picture">
-        </div>
 
-        <div class="details">
-            <hr style="background: #f0f0f0; width: 300px; height: 1px;">
-            <h3><span style="background: #f0f0f0; padding: 5px;"><i class="fa fa-user-circle" style="color: #2B63A7"></i></span> <?php echo $user->name; ?></h3>
-            <h3><span style="background: #f0f0f0; padding: 6px;"><i class="fa fa-slack" style="color: #2B63A7"></i></span> @<?php echo $user->username; ?></h3>    
-        </div>
-     </div>
+    <div class="main">
+       
+<div class="oj-flex oj-flex-items-pad">
+    <div class="oj-md-4 oj-flex-item">
+    </div>
+        <div class="oj-md-4 oj-flex-item" style="margin-top: 100px; background: rgb(43, 108, 167);">
+
+          <div class="align-w">
+              <img src="<?php echo $user->image_filename; ?>" height="250" width="250" style="margin-top:-90px;"><br><br>
+              <hr style="background: #f0f0f0; width: 300px; height: 1px;">
+              <h3>
+                <i class="fa fa-user-circle"></i> 
+                <span style="color: #ffffff;"><?php echo $user->name; ?></span>
+            </h3>
+            <h3>
+                <i class="fa fa-slack"></i>
+                <span style="color: #ffffff;"> @<?php echo $user->username; ?></span>
+            </h3>
+
+            <p align="center" style="color: #ffffff;">
+                Web developer, Skilled in HTML, CSS, JS, PHP
+            </p><br><br><br>
+          </div>
+      </div>
+</div>
+
  </body>
