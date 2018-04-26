@@ -3,8 +3,6 @@
         $intern_data->execute();
         $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
         $result = $intern_data->fetch();
-    
-    
         $secret_code = $conn->prepare("SELECT * FROM secret_word");
         $secret_code->execute();
         $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
@@ -116,16 +114,7 @@ catch(PDOException $e)
             return;
         }
  ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ekpono's Profile</title>
    <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
-   
-
 <style>
 * {
     margin: 0;
@@ -201,7 +190,6 @@ a {
             text-align: right;
         }
         .user p{
-           
             text-align: right;
             width: auto;
             display: inline;border-radius: 50px;background: white;
@@ -210,16 +198,10 @@ a {
             background: width: 40px;
         }
         .bot p {
-            
             display: inline;
-            
         }
-        
-            
 /* CSS button */
 </style>
-</head>
-<body>
 <div class="container">
     <div class="text">
         <h1 style="color:rgb(32, 32, 216); padding-top: 30px">Hey! I'm <?php echo $user->name ?></h1>
@@ -317,10 +299,3 @@ a {
             }
         }
     </script>
-
-
-
-
-</body>
-</body>
-</html>
