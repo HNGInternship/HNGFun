@@ -23,6 +23,7 @@
             display: flex;
             flex-direction: column;
             max-width: 550px;
+			height: 300px;
             margin: 0 auto;
 			 border-radius: 0px;
 			 margin-bottom: 50px;
@@ -94,7 +95,7 @@
             background: white;
             flex-direction: column;
             overflow-y: scroll;
-            max-height: 500px;
+            max-height: 400px;
 			border-radius: 5px; 
 			
         }
