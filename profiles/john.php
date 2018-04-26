@@ -1,6 +1,14 @@
 <?php
- require '../db.php';
 //Fetch User Details
+// require '../db.php';
+if(!defined('DB_USER')){
+  require "../../config.php";		
+  try {
+      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
+}
 
 try {
     $query = "SELECT * FROM interns_data WHERE username ='john'";
@@ -111,13 +119,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         elseif(preg_match("/^help/", $question))
         {
-        	echo json_encode([
-                'status'=>1,
-                'answer' =>`The following are the available commands<br>
+		$res= `The following are the available commands<br>
                 To Train: train:question#answer#password <br>
                 To convert currency: currency(fromCurrency,toCurrency,amount)<br>
                 To check weather: weather(country,city)<br>
-                To check time of any city: cityTime(Continent/city)
+                To check time of any city: cityTime(Continent/city)`
+        	echo json_encode([
+                'status'=>1,
+                'answer' =>$res
                 `
             ]);
             return;
@@ -316,6 +325,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		              <div class="bubble you">
 		                  Hello, I am chatBuddyv1.0
 		              </div>
+			      <div class="bubble you">
+		                  Type "help" to see the list of commands
+		              </div>
 		            
 		            </div>
 		          </div>
@@ -335,7 +347,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	</div>
 	
 
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
 
   <script>
 	$(document).ready(function(){
@@ -384,4 +396,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </body>
 </html>
-<?php ?>

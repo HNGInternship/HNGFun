@@ -1,6 +1,6 @@
 <?php 
 
-
+ 
     $sql = 'SELECT secret_word FROM secret_word';
     $qword = $conn->query($sql);
     $qword->setFetchMode(PDO::FETCH_ASSOC);
@@ -71,9 +71,8 @@
 </head>
 <body>
     <!--Jumbotron-->
-    <div class="oj-flex demo-panelwrapper" style='width:  95%;>
-        <div class="row">
-            <div class="oj-sm-6">
+    <div class="main">
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
                 <?php
                 $myname = 'Jotmee';
                 $profile = $conn->prepare("SELECT * FROM interns_data WHERE username =:username");
@@ -108,7 +107,6 @@
                     <a href="https://api.whatsapp.com/send?phone=2348034048405"><i class="fab fa-whatsapp"></i>WhatsApp Contact</a>
                 </div>
           </div>
-        </div>
     </div>   
 </body>
 </html>
