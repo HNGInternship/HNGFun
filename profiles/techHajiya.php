@@ -22,7 +22,7 @@
             font-size: 16px;
             display: flex;
             flex-direction: column;
-            max-width: 400px;
+            width: 50%;
 			height: 400px;
 			border-radius: 0px;
 			margin: 20px 10px;
@@ -203,7 +203,7 @@
         throw $e;
     }
     ?>
-	 <div class="oj-flex demo-panelwrapper" style='width: 1300px;'>
+	 <div class="oj-flex demo-panelwrapper" style='width: 95%;'>
             <div class="oj-flex-item oj-panel demo-mypanel">
             <div class="col-sm-6 profile-details" >
                 <div class="profile-image">
