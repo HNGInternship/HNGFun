@@ -1,3 +1,110 @@
+<?php
+
+
+ session_start();
+ require('answers.php');
+if(!defined('DB_USER')){
+  require "../../config.php";
+	// require_once ('../db.php');
+}
+
+
+global $conn;
+
+
+
+  $query = $conn->query("SELECT * FROM secret_word");
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    $secret_word = $result['secret_word'];
+
+
+    $result2 = $conn->query("SELECT * FROM interns_data WHERE  username = 'horlathunbhosun'");
+    $user = $result2->fetch(PDO::FETCH_OBJ);
+   // $user = $result2->fetch();
+   
+    
+ 
+ if(isset($_POST['message']))
+    {
+                    array_push($_SESSION['chat_history'], trim($_POST['message']));
+                    if(stripos(trim($_POST['message']), "train") === 0)
+        {
+          
+         $args = explode("#", trim($_POST['message']));
+          $question = trim($args[1]);
+          $answer = trim($args[2]);
+          $password = trim($args[3]);
+          if($password == "password")
+          {
+              // Password perfect
+            $trainQuery = $conn->prepare("INSERT INTO chat_bot (question , answer) VALUES ( :question, :answer)");
+            if($trainQuery->execute(array(':question' => $question, ':answer' => $answer)))
+            {
+                array_push($_SESSION['chat_history'], "That works! okay continue chatting");
+            }
+            else
+            {
+                array_push($_SESSION['chat_history'], "Something went wrong somewhere");
+            }
+          }
+          else
+          {
+              // Password not correct
+             array_push($_SESSION['chat_history'], "The password entered was incorrect");
+          }
+        }
+        else
+        {
+            // Not Training
+          $questionQuery = $conn->prepare("SELECT * FROM chat_bot WHERE question LIKE :question");
+          $questionQuery->execute(array(':question' => trim($_POST['message'])));
+          $qaPairs = $questionQuery->fetchAll(PDO::FETCH_ASSOC);
+          if(count($qaPairs) == 0)
+          {
+            
+            $answer = "Sorry, I cant understand your question";
+
+          } 
+          else
+          {
+            $answer = $qaPairs[mt_rand(0, count($qaPairs) - 1)]['answer'];
+            $bracketIndex = 0;
+            while(stripos($answer, "{{", $bracketIndex) !== false)
+            {
+              $bracketIndex = stripos($answer, "{{", $bracketIndex);
+              $endIndex = stripos($answer, "}}", $bracketIndex);
+              $bracketIndex++;
+                  $function_name = substr($answer, $bracketIndex + 1, $endIndex - $bracketIndex -1);
+                  $answer = str_replace("{{".$function_name."}}", call_user_func($function_name), $answer);
+            }
+          }
+          array_push($_SESSION['chat_history'] , $answer);
+        }
+    }
+    if(!isset($_SESSION['chat_history']))
+    {
+                $_SESSION['chat_history'] = array('Hello i am scoobydoo! How can I help? Ask for my help. To train me, enter the command "train # question # answer # password');
+    }
+    $messages = $_SESSION['chat_history'];
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -166,96 +273,6 @@ p {
 
 </style>
 </head>
-
-<?php
-
-
- session_start();
- require('answers.php');
-if(!defined('DB_USER')){
-  require "../../config.php";
-	// require_once ('../db.php');
-}
-
-
-global $conn;
-
-
-
-  $query = $conn->query("SELECT * FROM secret_word");
-    $result = $query->fetch(PDO::FETCH_ASSOC);
-    $secret_word = $result['secret_word'];
-
-
-    $result2 = $conn->query("SELECT * FROM interns_data WHERE  username = 'horlathunbhosun'");
-    $user = $result2->fetch(PDO::FETCH_OBJ);
-   // $user = $result2->fetch();
-   
-    
- 
- if(isset($_POST['message']))
-    {
-                    array_push($_SESSION['chat_history'], trim($_POST['message']));
-                    if(stripos(trim($_POST['message']), "train") === 0)
-        {
-          
-         $args = explode("#", trim($_POST['message']));
-          $question = trim($args[1]);
-          $answer = trim($args[2]);
-          $password = trim($args[3]);
-          if($password == "password")
-          {
-              // Password perfect
-            $trainQuery = $conn->prepare("INSERT INTO chat_bot (question , answer) VALUES ( :question, :answer)");
-            if($trainQuery->execute(array(':question' => $question, ':answer' => $answer)))
-            {
-                array_push($_SESSION['chat_history'], "That works! okay continue chatting");
-            }
-            else
-            {
-                array_push($_SESSION['chat_history'], "Something went wrong somewhere");
-            }
-          }
-          else
-          {
-              // Password not correct
-             array_push($_SESSION['chat_history'], "The password entered was incorrect");
-          }
-        }
-        else
-        {
-            // Not Training
-          $questionQuery = $conn->prepare("SELECT * FROM chat_bot WHERE question LIKE :question");
-          $questionQuery->execute(array(':question' => trim($_POST['message'])));
-          $qaPairs = $questionQuery->fetchAll(PDO::FETCH_ASSOC);
-          if(count($qaPairs) == 0)
-          {
-            
-            $answer = "Sorry, I cant understand your question";
-
-          } 
-          else
-          {
-            $answer = $qaPairs[mt_rand(0, count($qaPairs) - 1)]['answer'];
-            $bracketIndex = 0;
-            while(stripos($answer, "{{", $bracketIndex) !== false)
-            {
-              $bracketIndex = stripos($answer, "{{", $bracketIndex);
-              $endIndex = stripos($answer, "}}", $bracketIndex);
-              $bracketIndex++;
-                  $function_name = substr($answer, $bracketIndex + 1, $endIndex - $bracketIndex -1);
-                  $answer = str_replace("{{".$function_name."}}", call_user_func($function_name), $answer);
-            }
-          }
-          array_push($_SESSION['chat_history'] , $answer);
-        }
-    }
-    if(!isset($_SESSION['chat_history']))
-    {
-                $_SESSION['chat_history'] = array('Hello i am scoobydoo! How can I help? Ask for my help. To train me, enter the command "train # question # answer # password');
-    }
-    $messages = $_SESSION['chat_history'];
-?>
 
 
 
