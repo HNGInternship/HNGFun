@@ -104,7 +104,7 @@ try {
         <div id="begin">
           <div id="first_lare">
             <span role="img" title="Olamide" alt="Olamide"><img class="img-responsive" id="bobo" src="https://avatars3.githubusercontent.com/u/20623732?s=460&v=4" style="width: 300px; height: 300px; border-radius: 100px;"/></span>
-            <h1 style="color: blue; font-weight: bold">HI, I'M Olamide Faniyan<br/> A Software Developer/ Designer</h1>
+            <h3 style="color: blue; font-weight: bold">HI, I'M Olamide Faniyan<br/> A Software Developer/ Designer</h3>
           </div>
           <h4 align="center" style="color: grey; font-weight: bold; font-size: 25px">My Skills</h4>
           <div class="demo-flex-display oj-flex-items-pad">
