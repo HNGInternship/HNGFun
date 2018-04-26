@@ -1,13 +1,13 @@
 <?php
-// include "config.php";
-// x
+if(!defined('DB_USER')){
+            require "../../config.php";     
+            try {
+                $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+            } catch (PDOException $pe) {
+                die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+            }
+        }
 
-// try {
-// 		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-// 	} 
-// 	catch (PDOException $pe) {
-// 			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-// 			} 
 
  if(isset($_GET['training'])) {
       $message = $_GET['training'];
@@ -20,7 +20,7 @@ else if(isset($_GET['func'])){
       $function = $_GET['func'];
       $text = $_GET['text'];
 
-      echo doSpecialFunction($func,$text);
+      echo doSpecialFunction($function,$text);
         exit();
 
 }
@@ -41,7 +41,8 @@ else if(isset($_GET['info'])){
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetch();
     } catch (PDOException $e) {
-        throw $e;
+        print_r($e);
+        
     }
         
         $fullname = $data["name"];
@@ -54,7 +55,7 @@ else if(isset($_GET['info'])){
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetch();
     } catch (PDOException $e) {
-        throw $e;
+        print_r($e);
     }
 
     $secret_word=$data["secret_word"];
@@ -69,10 +70,12 @@ else if(isset($_GET['info'])){
 
 
 function doSpecialFunction($func,$text){
+    require "../answers.php";
 
-    require '../answers.php';
+    $text=sanitizeText($text);
+    $text=strtolower($text);
 
-    pig_latin($text);
+    return pig_latin($text);
 
 }
 
@@ -80,31 +83,36 @@ function doSpecialFunction($func,$text){
 
 function workOnTrainData($data){
 
-    // require '../db.php';
+    require '../db.php';
 
 
     // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-      global $conn;
+      
     
 
 
+  
     try {
 
 
-        $indexOfColon=strpos($data,"#");
+        $indexOfHash=strpos($data,"#");
 
-        if($indexOfColon===FALSE){
+        if($indexOfHash===FALSE){
 
             return "Training format used is incorrect, use : <br><span id='important'>train: question # answer # password </span>";
 
         }
 
-        $newMessage=substr($data,$indexOfColon);
+        $indexOfColon=strpos($data,":");
 
+        $newMessage=substr($data,$indexOfColon+1);
     $query=explode ( "#" , $newMessage );
     $question=sanitizeText($query[0]);
     $answer=sanitizeText($query[1]);
     $password=sanitizeText($query[2]);
+
+    // return $question;
+
 
     if($password==null || $password!="password"){
 
@@ -114,12 +122,19 @@ function workOnTrainData($data){
     $sql =  $conn->prepare("INSERT INTO chatbot (question, answer)
 VALUES (:question, :answer)");
     // use exec() because no results are returned
-    $result= $sql->execute(array(
-   ':question'=>$question,
-    ':answer'=>$answer
-  ));
+
+    // $result= $sql->execute(array(':question'=>$question,':answer'=>$answer));
+    // return "Awesome! I feel smarter already.";
+
+   if( $result= $sql->execute(array(':question'=>$question,':answer'=>$answer))){
     
-    echo "Awesome! I feel smarter already.";
+    return "Awesome! I feel smarter already.";
+}
+
+else{
+
+    return "Something went wrong, sorry";
+}
     
     }
 catch(PDOException $e)
@@ -135,12 +150,11 @@ catch(PDOException $e)
 
 function getReply($data){
 
-    // require '../db.php';
+    require '../db.php';
 
 
     // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 
-      global $conn;
 
 
 
@@ -195,7 +209,7 @@ catch(PDOException $e){
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700" rel="stylesheet" type="text/css">
 
 
-    <title>HNG FUN</title>
+    <title>HNG FUN</title>
 
 
 <style>
@@ -203,7 +217,7 @@ body{
 background: #667db6;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+
 
 font-family: "Open Sans";
 font-size:14px;
@@ -292,6 +306,7 @@ margin:5%;
 #bot-button{
 
     margin: 0% 30%;
+    padding-top: 3%;
     text-transform: uppercase;
     color: white;
     background: #ea5a58;
@@ -347,7 +362,7 @@ background: rgba(0, 0, 0, 0.7);
 }
 
 
-@-webkit-keyframes dropBot{
+/*@-webkit-keyframes dropBot{
     0%{margin-top:-200%;
 
     visibility: hidden;
@@ -374,18 +389,22 @@ background: rgba(0, 0, 0, 0.7);
     50%{visibility: visible;}
     100%{margin-top: 0%;}
 }
-
+*/
 
 
 .bot{
     background:white;
     position: relative;
     height: 100%;
-    /*margin-top: -200%;*/
+    /*width: 80%;*/
     max-width: 600px;
     padding: 0px;
+
+    animation: dropbot ease-out 3s forwards;
+    -webkit-animation: dropbot ease-out 3s forwards;
+    -moz-animation: dropbot ease-out 3s forwards;
     
-    animation-name: dropbot;
+    /*animation-name: dropbot;
     animation-duration: 4s;
     animation-fill-mode: forwards; 
     animation-timing-function: ease-out;
@@ -398,9 +417,39 @@ background: rgba(0, 0, 0, 0.7);
     -webkit-animation-name: dropbot;
     -webkit-animation-duration: 4s;
    -webkit- animation-fill-mode: forwards; 
-    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-timing-function: ease-out;*/
     
 }
+
+
+@-webkit-keyframes dropBot{
+    0%{top: -110%;
+
+    visibility: hidden;
+     }
+    50%{visibility: visible;}
+    100%{top: 0%;}
+}
+
+
+@-moz-keyframes dropBot{
+    0%{top: -110%;
+
+    visibility: hidden;
+     }
+    50%{visibility: visible;}
+    100%{top: 0%;}
+}
+
+@keyframes dropBot{
+   0%{top: -110%;
+
+    visibility: hidden;
+     }
+    50%{visibility: visible;}
+    100%{top: 0%;}
+}
+
 
 
 
@@ -521,7 +570,13 @@ background: rgba(0, 0, 0, 0.7);
 
 
 #important{
-    color: #ea5a58;
+    background-color: #667db6;
+    /*background-color: #ea5a58;*/
+
+    
+    color: white;
+    padding: 1%;
+
 }
 
 
@@ -607,7 +662,7 @@ background: rgba(0, 0, 0, 0.7);
 
 
 
-    <section class="bot col-sm-10 col-lg-6">
+    <section class="bot col-xs-10 col-lg-6">
         
 
          <section class="top-area">
@@ -631,7 +686,8 @@ background: rgba(0, 0, 0, 0.7);
                <div class="chat-message row">
 
             <h1 class="chat-name col-2">Merlin : </h1>
-          <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <span id="important">Wizard of Oz</span></span>
+          <span class="message col-10">Hi, I'm Merlin<br>I am a chatbot created by the <strong>Wizard of Oz-</strong></span>
+
 
       </div>
 
@@ -742,7 +798,7 @@ background: rgba(0, 0, 0, 0.7);
 
     else if(message.indexOf('pig latin:') >= 0 || message.indexOf('pig latin :')>=0){
 
-       var text=message.substring(message.indexOf(":"));
+       var text=message.substring(message.indexOf(":")+1);
 
           $.ajax({
             type: "GET",

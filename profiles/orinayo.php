@@ -1,8 +1,4 @@
 <?php
-
-$user_input = "";
-$possible_questions = array();
-$sorted_possible_questions = array();
 if (!defined('DB_USER')) {
     include "../../config.php";
     try {
@@ -18,11 +14,7 @@ try {
     $query->setFetchMode(PDO::FETCH_ASSOC);
     $result = $query->fetch();
     $secret_word = $result['secret_word'];
-}
-catch (PDOException $e) {
-    throw $e;
-}
-try {        
+       
     $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="orinayo"';
     $q2 = $conn->query($sql2);
     $q2->setFetchMode(PDO::FETCH_ASSOC);
@@ -31,7 +23,12 @@ try {
 catch (PDOException $e) {
     throw $e;
 }
+?>
 
+<?php
+$user_input = "";
+$possible_questions = array();
+$sorted_possible_questions = array();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // validate input
     $user_input = validate_input($_POST["userInput"]);

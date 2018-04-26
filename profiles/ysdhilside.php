@@ -1,19 +1,5 @@
 <?php
 
-
-/*
-	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->query("SELECT * FROM secret_word LIMIT 1"); 
-    $result = $stmt->fetch();
-    $secret_word = $result['secret_word'];
-    
-
-    $stmt_intern_data = $conn->query("SELECT * FROM interns_data WHERE username = 'ysdhilside'"); 
-    $result = $stmt_intern_data->fetch();
-    $username = $result['username'];
-    $name = $result['name'];
-    $image = $result['image_filename']; */
-
   $stmt = $conn->query("SELECT * FROM secret_word LIMIT 1");
   $result = $stmt->fetch(PDO::FETCH_ASSOC);
   $secret_word = $result['secret_word'];
@@ -537,8 +523,8 @@ footer .copyright {
     </nav>
 
 
-    <div class="container"><center>
-    	<br><br><br><div class="well">
+    <div class="container">
+    	
     		
     			<div class="thumbnail">
     				<img src= "<?php echo $image ?>" class="curve"/>
@@ -554,9 +540,8 @@ footer .copyright {
     					<h3 style="display: none"> <?php echo $secret_word ?></h3>
     				</div>
     			
-    		
-    		
-    	</div>
+    		    </div>
+            
     	
     </div>
 
