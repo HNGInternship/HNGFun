@@ -15,6 +15,7 @@
 		 .container {
             max-width: 100%;
             padding-left: 0;
+			background: white;
 		
         }
 		   .chatbox {
@@ -22,10 +23,10 @@
             font-size: 16px;
             display: flex;
             flex-direction: column;
-            max-width: 650px;
+            max-width: 600px;
 			height: 400px;
 			border-radius: 5px;
-			background: white;
+			  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
         }
 
         footer {
@@ -45,8 +46,8 @@
             padding-right: 0;
             background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
-			width: 550px;
-			margin: 10px 10px;
+			width: 600px;
+			margin: 0px;
         }
         .profile-body {
             max-width: 100%;
@@ -166,7 +167,7 @@
             margin-top: 2.5px;
         }
 		.oj-panel{
-		background-color:#DFE1E2;
+		  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             margin-left: 40px;
 		}
 		.oj-flex{
