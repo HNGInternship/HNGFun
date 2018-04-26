@@ -4,6 +4,13 @@
 <title>	Horlathunbhosun</title>
 <link rel="stylesheet" type="text/css" href="">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://rawgit.com/tiarayuppy/chatscript/master/chatbot.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+ <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Lato');
@@ -161,9 +168,12 @@ p {
 </head>
 
 <?php
+
+
+ session_start();
 if(!defined('DB_USER')){
   require "../../config.php";
-	// require_once ('db.php');
+	// require_once ('../db.php');
 }
 
 
@@ -179,7 +189,8 @@ global $conn;
     $result2 = $conn->query("SELECT * FROM interns_data WHERE  username = 'horlathunbhosun'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
    // $user = $result2->fetch();
-
+   
+    require('answers.php');
  
  if(isset($_POST['message']))
     {
@@ -194,7 +205,7 @@ global $conn;
           if($password == "password")
           {
               // Password perfect
-            $trainQuery = $db->prepare("INSERT INTO chat_bot (question , answer) VALUES ( :question, :answer)");
+            $trainQuery = $conn->prepare("INSERT INTO chatbot (question , answer) VALUES ( :question, :answer)");
             if($trainQuery->execute(array(':question' => $question, ':answer' => $answer)))
             {
                 array_push($_SESSION['chat_history'], "That works! okay continue chatting");
@@ -213,13 +224,16 @@ global $conn;
         else
         {
             // Not Training
-          $questionQuery = $db->prepare("SELECT * FROM chat_bot WHERE question LIKE :question");
+          $questionQuery = $conn->prepare("SELECT * FROM chatbot WHERE question LIKE :question");
           $questionQuery->execute(array(':question' => trim($_POST['message'])));
           $qaPairs = $questionQuery->fetchAll(PDO::FETCH_ASSOC);
           if(count($qaPairs) == 0)
           {
-                    $answer = "Sorry, I cant understand your details";
-          } else
+            
+            $answer = "Sorry, I cant understand your question";
+
+          } 
+          else
           {
             $answer = $qaPairs[mt_rand(0, count($qaPairs) - 1)]['answer'];
             $bracketIndex = 0;
@@ -237,7 +251,7 @@ global $conn;
     }
     if(!isset($_SESSION['chat_history']))
     {
-                $_SESSION['chat_history'] = array('Hello! How can I help? Ask for my help. To train me, enter the command "train # question # answer # password');
+                $_SESSION['chat_history'] = array('Hello i am scoobydoo! How can I help? Ask for my help. To train me, enter the command "train # question # answer # password');
     }
     $messages = $_SESSION['chat_history'];
 ?>
@@ -293,7 +307,7 @@ global $conn;
 			
 		</div>
 
-		<form action="/profile.php?id=horlathunbhosun" method="POST" >	
+		<form action="/profile.php?id=horlathunbhosun.php" method="POST" >	
 
 		<div class="chat-form">
 			<textarea placeholder="Ask/Train me.." name="message"></textarea>
