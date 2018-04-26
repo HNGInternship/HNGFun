@@ -368,7 +368,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $('#que').val("");						
 				},
 				error: (error) => {
-          alert('error occured')
+          			alert('error occured')
 					console.log(error);
 				}
 			})
