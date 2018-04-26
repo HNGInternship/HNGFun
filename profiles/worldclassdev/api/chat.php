@@ -9,11 +9,11 @@
 
 */
 
-require_once("../../../db.php");
+require_once("dxcon.php");
 require_once("regex.php");
 
 
-$regex = new regex($conn); 
+$regex = new regex($dbc); 
 $emails = $regex->fetchanswer($_POST['chat']);
 $dd = json_encode($emails);  
 
