@@ -208,7 +208,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		#sidebar{
 			width: 380px;
 			height: 600px;
-			position: absolute;
+			position: relative;
 		}
 		#bbb{
 			width: 780px;
