@@ -168,7 +168,7 @@
         }
 		.oj-panel{
 		background-color:#DFE1E2;
-            padding-left: 0;
+            padding-left: 70px;
 		}
 		.demo-panelwrapper {
 		background-color:#DFE1E2;
