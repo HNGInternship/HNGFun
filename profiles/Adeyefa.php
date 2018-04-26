@@ -317,7 +317,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         throw $e;
     }
     ?>
-		<div class="bbb">
+		<div class="bbb" >
 	    	<div class="oj-flex">
 				<p class="oj-flex-item">
 					HELLO WORLD
@@ -335,11 +335,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				</p>
 			</div>
 	    </div>	
-		<div class="sidebar">
+		<div class="sidebar" class="oj-flex">
 			<div class="head">
-				<h2> Chat With MyBot</h2>
+				<h2 class="oj-flex-item"> Chat With MyBot</h2>
 			</div>
-			<div class="row-holder">
+			<div class="row-holder" class="oj-flex-item">
 				<div class="row2">
 					<div id="form">
 						<form id="qform" method="post">
