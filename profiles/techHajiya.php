@@ -200,9 +200,8 @@
     }
     ?>
 	 <div class="oj-flex demo-panelwrapper">
-	 <div class="row">
                 
-                      <div class="oj-flex-item oj-flex oj-sm-flex-items-1 oj-sm-12 oj-md-6 oj-lg-6 oj-xl-6">
+                      <div class="oj-flex-item oj-flex oj-sm-flex-items-1  oj-lg-6 oj-xl-6">
                         <div class="oj-flex-item oj-panel demo-mypanel">
      
             <div class="col-sm-6 profile-details">
@@ -246,7 +245,6 @@
           </div>
 		   </div>
 		    </div>
-		     </div>
     <?php
     try {
         $sql = 'SELECT * FROM secret_word';
