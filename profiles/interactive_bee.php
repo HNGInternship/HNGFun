@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
             die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
         }
     }
-    //require "../answers.php"; // This is the offending line that caused all the problem. You need to figure out how to use it correctly.
+    //require "../answers.php"; // This is the offending line that caused all the problem. I need to figure out how to use it correctly.
     date_default_timezone_set("Africa/Lagos");
     // header('Content-Type: application/json');
     if(!isset($_POST['question'])){
@@ -159,26 +159,27 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-<body style="background-color:#87bdd8;">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Rhodium+Libre" rel="stylesheet">
-    <title>Blessing Akpan</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
+    <link href='https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra SC|Romanesco|Source+Sans+Pro:400,700' rel='stylesheet'>
+    <link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
     <style type="text/css">
+        .container{
+            width: 100%;
+            min-height: 100%
+        }
+        .body0 {
+            height: 100%;
+        }
         .panel-body{
             background: #ccc;
         }
-        .panel-heading h5{
-            display: inline;
-        }
-        .pan{
-            margin-top: 20px;
+        span {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: normal;
         }
         .box1{
             padding: 5px 7px;
@@ -196,189 +197,197 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
             border-radius: 25px;
             background: linear-gradient(-85deg, #a3c2a1, #2b0404);
         }
+        h5{
+            font-size: 2em;
+            font-style:bold;
+            color:Coral;
+            margin-left; 20px
+        }
+        #chat-interface{
+            height:300px;
+            overflow: auto;
+        }
+        .panel-heading h5{
+            display: inline;
+        }
+        .pan{
+            margin-top: 20px;
+        }
+        .main {
+            position: relative;
+            /*top:20px;*/
+            width: 100%;
+            /*padding-top: 300px;*/
+            max-height: 230px;
+            font-family: "Romanesco";
+            line-height: 150px;
+            font-size: 96px;
+            text-align: center;
+        }
+        .text {
+            background: -webkit-linear-gradient(0deg, #FF0F00, rgba(17, 26, 240, 0.55), #EC0F13);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .under {
+            position: relative;
+            /*top:450px;*/
+            max-height: 100px;
+            width: 100%;
+            font-family: "Alegreya";
+            line-height: normal;
+            font-size: 32px;
+            text-align: center;
+            color: #000830;
+        }
+        .under1 {
+            position: relative;
+            /*top:500px;*/
+            height: 40px;
+            width: 100%;
+            font-family: "Alegreya";
+            line-height: normal;
+            font-size: 32px;
+            text-align: center;
+            color: #000830;
+        }
+        .under2 {
+            position: relative;
+            /*top:540px;*/
+            height: 49.71px;
+            width: 100%;
+            font-family: "Alegreya";
+            line-height: normal;
+            font-size: 32px;
+            text-align: center;
+            color: #000830;
+        }
+        body, html {
+            margin: 0px;
+            background-color: skyblue; !important;
+            height: 100%;
+        }
+        .body1 {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 75%;
+            display: flex;
+            flex-direction: column;
+            max-width: 700px;
+            margin: 0 auto;
+        }
         .form-input{
             margin-top: 60px;
         }
+        h5{
+            font-size: 2em;
+            font-style:bold;
+            color:Coral;
+        }
+        img{
+            border-radius: 10px;
+            background-color: beige;
+            width:350px;
+            height:300px;
+            margin-top:3em;
+        
+        }
+        #user-message{
+            text-align: right;
+            color: green !important;
+        }
+        #bot-message{
+            text-align: left;
+            color: blue !important;
+        }
+        .inputText{
+            margin:16px;
+            width:70%;
+        }
+        #question{
+            width: 100%;
+            height: 50px;
+            color: green;
+            text-align: right;
+            font-size: 20px;
+        }
+        #user-message{
+            text-align: right;
+            color: green !important;
+    }
+        #submit-button{
+            background-color: blue;
+            width:100%;
+            height:50px;
+            background-color: blue;
+            border: 0px solid transparent;
+            border-radius: 3px;
+            color: white;
+            padding: 0px;
+    }
     </style>
 </head>
-<style>
-    body{
-        font-family: 'Rhodium Libre', serif;
-    }
-    #head{
-        min-height: 400px;
-        text-align:center;
-        background-color: lightgrey;
-        border: 25px solid blue;
-        padding: 25px;
-        margin: 25px;
-    }
-
-    .inputText{
-        margin:16px;
-        width:70%;
-    }
-    img{
-        border-radius: 5px;
-        background-color: beige;
-        width:350px;
-        height:300px;
-        margin-top:3em;
-    }
-    h1{
-        font-size: 2.5em;
-        margin-bottom:0px;
-        text-transform:uppercase;
-    }
-    h5{
-        font-size: 2em;
-        font-style:bold;
-        color:Coral;
-    }
-    #content{
-        text-align:centre;
-    }
-    p{
-        margin:0px;
-        font-size: 20px;
-        font-weight: bold;
-    }
-    #chat-interface{
-        height:300px;
-        overflow: auto;
-    }
-    .image-icon{
-        width:30px;
-        height:30px;
-    }
-
-    #bot-message{
-        text-align: left;
-        color: blue !important;
-    }
-
-
-    #user-message{
-        text-align: right;
-        color: green !important;
-    }
-
-    #question{
-        width: 100%;
-        height: 50px;
-        color: green;
-        text-align: right;
-        font-size: 20px;
-
-    }
-
-    #submit-button{
-        background-color: blue;
-        width:100%;
-        height:50px;
-        background-color: blue;
-        border: 0px solid transparent;
-        border-radius: 3px;
-        color: white;
-        padding: 0px;
-    }
-
-    .no-margin{
-        padding:0px;
-        margin:0px;
-    }
-     #header-trigger{
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        z-index: 10000;
-        cursor: pointer;
-    }
-
-    #bot-head{
-        cursor: pointer;
-    }
-</style>
 <body>
-<div id="head">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <img src="http://res.cloudinary.com/dlvlxep3r/image/upload/v1523715773/interactive_bee.jpg" class="img-responsive" alt="image">
-                <div id="content">
-                    <h1><?php echo $user->name; ?></h1>
-                    <p>Writer | Android Developer | HNG Intern</p>
-                    <p>Akwa Ibom, Nigeria</p>
-                    <div id="socialicons">
-                        <div style="margin: 24px 0;">
-                            <a href="https://facebook.com/interactiveBee"><i class="fa fa-facebook"></i></a>
-                            <a href="https://twitter.com/interactive_bee"><i class="fa fa-twitter"></i></a>
-                            <a href="https://github.com/BeeAkpan"><i class="fa fa-github"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4" id="header-trigger">
-                <div class="panel panel-default pan" >
-                    <div class="panel-heading">
-                        <h5>SMART CHAT-BOT</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <div id="chatter">
-                    <div class="panel panel-default pan">
-                        <div class="panel-heading" id="bot-head">
-                            <h5>SMART CHAT-BOT</h5>
-                        </div>
-                        <div id="chats">
-                            <div class="panel-body" id="chat-interface"></div>
-                        </div>
-
-                        <!-- New Form for input-->
-                        <form action="#" method="post" id="bot-interface">
-                            <div class="col-md-10 col-xs-10 no-margin" style="margin:0px">
-                                <input class="inputText no-margin" type="text" name="question" id="question" >
-                            </div>
-                            <div class="col-md-2 col-xs-2 no-margin">
-                                <input type="Submit" value="Send" id="submit-button">
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
+<div class="container">
+<div class="oj-flex oj-flex-items-pad oj-contrast-marker">
+<div class="oj-sm-12 oj-md-6 oj-flex-item">
+    <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
+        <div role="img" class="oj-flex-item alignCenter">
+            <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
+            data-bind="attr:{'aria-label':'Avatar of Akpan, Blessing Michael'}">
+            </oj-avatar>
+            <img class="img-fluid " onerror="this.src='images/default.jpg'" src="http://res.cloudinary.com/dlvlxep3r/image/upload/v1523715773/interactive_bee.jpg">
         </div>
     </div>
+    <div class="body0">
+        <div class="main"><span class="text"><?php echo $user->name; ?></span></div>
+        <div class="under"><span>Writer | Android Developer | Hng Intern</span></div>
+        <div class="under1"><span>
+                <div class="oj-flex oj-md-align-items-center"><a href="https://github.com/BeeAkpan">
+                    <div class="oj-flex-item oj-flex oj-sm-flex-direction-column oj-sm-align-items-center oj-sm-margin-2x">
+                        <img style="width:40px; height: 40px;" src="https://cdn1.iconfinder.com/data/icons/logotypes/32/github-512.png">
+                    </div></a>
+
+                    <a href="https://linkedin.com/in/interactivebee/">
+                         <div class="oj-flex-item oj-flex oj-sm-flex-direction-column oj-sm-align-items-center oj-sm-margin-2x">
+                            <img style="width:40px; height: 40px;" src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-social-media/256/Linkedin-icon.png">
+                         </div>
+                    </a>
+                </div></span>
+        </div>
+        <div class="under2"><span>Akwa Ibom | Nigeria</span></div>
+    </div>
+</div>
+<div class="oj-sm-12 oj-md-6 oj-flex-item">
+    <div id="chatter">
+        <div class="panel panel-default pan">
+            <div class="panel-heading" id="bot-head">
+                <h5>SMART CHAT-BOT</h5>
+            </div>
+        <div id="chats">
+        <div class="panel-body" id="chat-interface"></div>
+            </div>
+                <div class="chat-input">
+                    <form action="#" method="post" id="bot-interface">
+                    <div class="col-md-10 col-xs-10 no-margin" style="margin:0px">
+                    <input class="inputText no-margin" type="text" name="question" id="question" class="user-input" placeholder="Say something here">
+                 </div>
+                  <div class="col-md-2 col-xs-2">
+                                <input type="Submit" value="Send" id="submit-button">
+                            </div>   
+                    </form>
+                </div>
+    </div></div>
+</div>
 </div>
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </div>
 <script>
 
     $(document).ready(function(){
-        // By default hide the chat bot
-        $('#chatter').hide();
-
-        // Activate Chat bot visibility
-        $('#header-trigger').click(function(){
-            $('#header-trigger').hide();
-            $('#chatter').fadeIn('3000');
-            $('#chatter').focus();
-            $('#question').focus();
-        });
-
-        $('#bot-head').click(function(){
-            $('#header-trigger').fadeIn('1000');
-            $('#chatter').hide();
-        });
-
         $('#submit-button').click(function(){
 
-            $('#chat-interface').stop().animate({scrollTop: $('#chat-interface')[0].scrollHeight}, 1000);
+            $('#bot-interface').stop().animate({scrollTop: $('#bot-interface')[0].scrollHeight}, 1000);
 
         });
 
