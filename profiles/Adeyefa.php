@@ -304,8 +304,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 	</style>
 </head>
-<body>
-	<div class="iii">
+<body class="oj-web-applayout-body " >
+	<div class="demo-flex-display oj-flex-items-pad oj-contrast-marker">
 		<?php
     global $conn;
     try {
@@ -318,14 +318,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
     ?>
 		<div class="bbb">
-	    	<div class="main">
-				<p>
+	    	<div class="oj-flex">
+				<p class="oj-flex-item">
 					HELLO WORLD
 				</p>
-				<p id="p1">
+				<p id="p1" class="oj-flex-item">
 					I am   <?=$my_data['name'] ?>
 				</p>
-				<p id="info">
+				<p id="info" class="oj-flex-item">
 					A Web developer, blogger and Software developer
 				</p>
 				<p id="fav">
