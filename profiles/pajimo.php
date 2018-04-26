@@ -1,16 +1,31 @@
 <?php
+ if (!defined('DB_USER')){
+            
   require "../../config.php";
-  require_once '../db.php';
-        try {
-            $select = 'SELECT * FROM secret_word';
-            $query = $conn->query($select);
-            $query->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $query->fetch();
-        } 
-        catch (PDOException $e) {
-            throw $e;
-        }
-        $secret_word = $data['secret_word'];       
+}
+try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+ global $conn;
+ try {
+  $sql = 'SELECT * FROM secret_word LIMIT 1';
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $data = $q->fetch();
+  $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+  throw $e;
+}    
+try {
+  $sql = "SELECT * FROM interns_data WHERE `username` = 'pajimo' LIMIT 1";
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $my_data = $q->fetch();
+} catch (PDOException $e) {
+  throw $e;
+}      
   
 ?>
 
