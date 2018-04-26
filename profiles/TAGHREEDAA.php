@@ -1,11 +1,25 @@
+<?php
+
+$query = $conn->query("SELECT * FROM secret_word");
+$result = $query->fetch(PDO::FETCH_ASSOC);
+$secret_word = $result['secret_word'];
+
+	$username = "TAGHREEDAA";
+	$data = $conn->query("SELECT * FROM  interns_data WHERE username = '".$username."' ");
+	$my_data = $data->fetch(PDO::FETCH_BOTH);
+	$name = $my_data['name'];
+	$src = $my_data['image_filename'];
+	$username =$my_data['username'];
+?>
+
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" id="bootstrap-css">
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 <div class="container">
@@ -17,29 +31,28 @@
 
                 </div>
                 <div class="avatar">
-                    <img alt="" src="http://lorempixel.com/100/100/people/9/">
+                    <img alt="Taghreed Image" src="<?php echo $src; ?>">
                 </div>
                 <div class="info">
                     <div class="title">
-                        <a target="_blank" href="http://scripteden.com/">Script Eden</a>
+                        <a target="_blank" href="#"><?php echo $name; ?></a>
                     </div>
-                    <div class="desc">Passionate designer</div>
-                    <div class="desc">Curious developer</div>
+                    <div class="desc">Backend Developer</div>
                     <div class="desc">Tech geek</div>
                 </div>
                 <div class="bottom">
-                    <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/webmaniac">
+                    <a class="btn btn-primary btn-twitter btn-sm" href="#">
                         <i class="fa fa-twitter"></i>
                     </a>
                     <a class="btn btn-danger btn-xs" rel="publisher"
-                       href="https://plus.google.com/+ahmshahnuralam">
+                       href="#">
                         <i class="fa fa-google-plus"></i>
                     </a>
                     <a class="btn btn-primary btn-sm" rel="publisher"
-                       href="https://plus.google.com/shahnuralam">
+                       href="#">
                         <i class="fa fa-facebook"></i>
                     </a>
-                    <a class="btn btn-warning btn-sm" rel="publisher" href="https://plus.google.com/shahnuralam">
+                    <a class="btn btn-warning btn-sm" rel="publisher" href="#">
                         <i class="fa fa-behance"></i>
                     </a>
                 </div>

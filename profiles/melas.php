@@ -19,46 +19,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } else {
     require '../answers.php';
     $message = trim(strtolower($_POST['message']));
-    $version = '1.0';
-
-    //step 1: Figure out the intent of the message
-    //intents: Greeting, Find the current time, Ask about the HNG Programme
-    //Train the bot
-    //Provide directions for HNG Stage completions
-    //check the db
+    $version = '1.1';
 
     $intent = 'unrecognized';
     $unrecognizedAnswers = [
-        'IDK at all at all. My Oga na better empty head. But u fit train me. Kukuma type: <b>#train: Question | Answer.</b>',
-        'I don\'t understand bruv. U fit teach me o. Just type: <b>#train: Question | Answer.</b>',
-        "Ah no know that one o. Buh you can sha teach me. If you want to just kukuma type: <b>#train: Question | Answer.</b>"
+        'IDK at all at all. My Oga na better empty head. But u fit train me. Kukuma type: <b>train:Question#Answer#password.</b>',
+        'I don\'t understand bruv. U fit teach me o. Just type: <b>train:Question#Answer#password.</b>',
+        "Ah no know that one o. Buh you can sha teach me. If you want to just kukuma type: <b>train:Question#Answer#password.</b>"
     ];
 
-<<<<<<< HEAD
-    if (strpos($message, 'hello') !== false || strpos($message, 'hi') !== false) {
-        $intent = 'greeting';
-    }
-
-    if (strpos($message, 'how are you') !== false 
-            || strpos($message, 'how do you do') !== false
-            || strpos($message, 'how u dey') !== false
-            || strpos($message, 'how you') !== false
-            || strpos($message, 'how u') !== false
-            || strpos($message, 'whatsup') !== false
-            || strpos($message, 'xup') !== false
-            || strpos($message, 'sup') !== false) {
-        $intent = 'greeting_response';
-    }
-
-    if ((strpos($message, 'ah dey') !== false 
-        || strpos($message, 'i dey') !== false) 
-        && $intent !== 'greeting_response') {
-            $intent = 'casual';
-=======
     if (strpos($message, 'aboutbot') !== false) {
         $intent = 'aboutbot';
         $response = 'Mekus v' . $version;
->>>>>>> e19e8621d6637cfb7bcf6fe86ffc52d5536583cb
     }
 
     //check for a function call
@@ -80,15 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     //check for bot training
     $trainingData = '';
-    if (strpos($message, '#train:') !== false) {
+    if (strpos($message, 'train:') !== false) {
         $intent = 'training';
-        $parts = explode('#train:', $message);
-        if (count($parts) > 1) {
-            $trainingData = $parts[1];
-        }
-    } else if (strpos($message, '# train:') !== false) {
-        $intent = 'training';
-        $parts = explode('# train:', $message);
+        $parts = explode('train:', $message);
         if (count($parts) > 1) {
             $trainingData = $parts[1];
         }
@@ -101,24 +67,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
     if ($intent === 'training' && $trainingData === '') {
-        $response = 'Oga, your training data no go well o. Use this format >>> "#train: Question | Answer"';
+        $response = 'Oga, your training data no go well o. Use this format >>> "train:Question#Answer#password"';
     } else if ($trainingData !== '') {
         $intent = 'training';
-        $parts = explode('|', $trainingData);
-        if (count($parts) > 1) {
+        $parts = explode('#', $trainingData);
+        if (count($parts) === 3) {
             $question = trim($parts[0]);
             $answer = trim($parts[1]);
-            //save in db
-            $sql = "insert into chatbot (question, answer) values (:question, :answer)";
-            $query = $conn->prepare($sql);
-            $query->bindParam(':question', $question);
-            $query->bindParam(':answer', $answer);
-            $query->execute();
-            $query->setFetchMode(PDO::FETCH_ASSOC);
+            $password = trim($parts[2]);
+
+            if ($password === 'password') {
+                //save in db
+                $sql = "insert into chatbot (question, answer) values (:question, :answer)";
+                $query = $conn->prepare($sql);
+                $query->bindParam(':question', $question);
+                $query->bindParam(':answer', $answer);
+                $query->execute();
+                $query->setFetchMode(PDO::FETCH_ASSOC);
+                
+                $response = 'Omo! My head don burst o. U sabi something well well. Thank u wella';
+            } else {
+                $response = 'Your password is incorrect. Train with "train:Question#answer#password. Password is password';
+            }
             
-            $response = 'Omo! My head don burst o. U sabi something well well. Thank u wella';
         } else {
-            $response = 'Oga, your training data no go well o. Use this format >>> "#train: Question | Answer"';
+            $response = 'Oga, your training data no go well o. Use this format >>> "train:Question#Answer#password"';
         }
     }
 
