@@ -1,5 +1,5 @@
 <?php
-
+  require "../../config.php";
   require_once '../db.php';
         try {
             $select = 'SELECT * FROM secret_word';
