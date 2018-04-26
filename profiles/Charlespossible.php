@@ -1,6 +1,36 @@
+
+    
+    <?php
+        
+    require_once 'db.php';
+   
+
+    try {
+    $sql = "SELECT * FROM secret_word";
+    $secret_word_query = $conn->query($sql);
+    $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
+    $query_result = $secret_word_query->fetch();
+  
+    $sql_query = 'SELECT * FROM interns_data WHERE username="Charlespossible"';
+    $query_my_intern_db = $conn->query($sql_query);
+    $query_my_intern_db->setFetchMode(PDO::FETCH_ASSOC);
+    $intern_db_result = $query_my_intern_db->fetch();
+
+  } catch (PDOException $exceptionError) {
+    throw $exceptionError;
+  }
+
+
+  $secret_word = $query_result['secret_word'];
+  $name = $intern_db_result['name'];
+  $username = $intern_db_result['username'];
+  $image_url = $intern_db_result['image_filename'];
+    ?>
+
           
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en-US">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -73,7 +103,98 @@
             color: white;
             text-align: center;
 } 
-        body, html {
+
+    </style>
+        
+
+ 
+    
+</head>
+
+<body>
+<header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light  nav-page">
+  
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About Me</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">My Portforlio</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="#">Contact</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+</header>
+
+    <div class="img-background">
+        <img src= "<?php echo $image_url ?>" alt="My Profile Picture" class="my-pic">
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="text-center"><b>Name:</b>  <em><?php echo $username ?></em></h3>
+            </div>
+            
+        </div>
+            
+    </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4 class="head-text">Formal Introduction</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="para-text">
+                    <p class="para">Hi, My name is Mbadugha Charles. I am a web developer based in Lagos. I am very comfortable with HTML , CSS, Javascript and  PHP. I am a life long learner so improviment is assured.</p>
+                    <p class="para">I also get my hands dirty with Laravel and codeigniter. Curently and i am brushing up on React and Nodejs. I am an avid learner and a pro-active doer.</p>
+                    <p class="para"> I am a very good cook. So when not coding, I cook. I mix ingredients to produce delicious taste exactly the way i mix codes to produce quality websites.</p>
+                </div>
+            </div>
+        </div>
+    
+        
+    
+
+     <div class="container footer">
+        <div class="row">
+            <div>
+             <p>Copyright &copy; HNG FUN
+            <?php echo date("Y"); ?>
+             </p>   
+            </div>
+        </div>
+        
+    </div>
+    
+   
+   
+</body>
+
+</html>
+
+
+
+<?php if($_SERVER['REQUEST_METHOD'] === 'GET'){ ?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+		<title>My page</title>
+		<style type="text/css">
+            
+			body, html {
             margin: 0px;
             background-color: skyblue; !important;
             height: 100%;
@@ -126,92 +247,13 @@
             border-radius: 10px;
             padding: 8px;
         }
-
-    </style>
-    
-</head>
-    
-
-<body>
-    
-    <?php
-        
-    require_once 'db.php';
-   
-
-    try {
-    $sql = "SELECT * FROM secret_word";
-    $secret_word_query = $conn->query($sql);
-    $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
-    $query_result = $secret_word_query->fetch();
-  
-    $sql_query = 'SELECT * FROM interns_data WHERE username="Charlespossible"';
-    $query_my_intern_db = $conn->query($sql_query);
-    $query_my_intern_db->setFetchMode(PDO::FETCH_ASSOC);
-    $intern_db_result = $query_my_intern_db->fetch();
-
-  } catch (PDOException $exceptionError) {
-    throw $exceptionError;
-  }
-
-
-  $secret_word = $query_result['secret_word'];
-  $name = $intern_db_result['name'];
-  $username = $intern_db_result['username'];
-  $image_url = $intern_db_result['image_filename'];
-    ?>
-    
-<header>
-<nav class="navbar navbar-expand-lg navbar-light bg-light  nav-page">
-  
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">About Me</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">My Portforlio</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="#">Contact</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-</header>
-
-    <div class="img-background">
-        <img src= "<?php echo $image_url ?>" alt="My Profile Picture" class="my-pic">
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h3 class="text-center"><b>Name:</b>  <em><?php echo $username ?></em></h3>
-            </div>
-            
-        </div>
-            
-    </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <h4 class="head-text">Formal Introduction</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="para-text">
-                    <p class="para">Hi, My name is Mbadugha Charles. I am a web developer based in Lagos. I am very comfortable with HTML , CSS, Javascript and  PHP. I am a life long learner so improviment is assured.</p>
-                    <p class="para">I also get my hands dirty with Laravel and codeigniter. Curently and i am brushing up on React and Nodejs. I am an avid learner and a pro-active doer.</p>
-                    <p class="para"> I am a very good cook. So when not coding, I cook. I mix ingredients to produce delicious taste exactly the way i mix codes to produce quality websites.</p>
-                </div>
-            </div>
-        </div>
-    <div class="oj-sm-12 oj-md-6 oj-flex-item">
+		</style>
+	</head>
+	
+	<body>
+		
+		
+		<div class="oj-sm-12 oj-md-6 oj-flex-item">
             <div class="my-body">
                 <div class="chat-output" id="chat-output">
                     <div class="user-message">
@@ -227,11 +269,20 @@
 
             </div>
         </div>
-        
+    </div>
+
     <?php
-   
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $data = $_POST['user-input'];
+        $data = $_POST['in-user'];
       //  $data = preg_replace('/\s+/', '', $data);
         $temp = explode(':', $data);
         $temp2 = preg_replace('/\s+/', '', $temp[0]);
@@ -295,12 +346,20 @@
     }
     ?>
 
+</div>
+   <div class="container footer">
+        <div class="row">
+            <div>
+             <p>Copyright &copy; HNG FUN
+            <?php echo date("Y"); ?>
+             </p>   
+            </div>
+        </div>
+        
+    </div>
 
-   
-    
-   
-   
 </body>
+
 
 <script>
     var outputArea = $("#chat-output");
@@ -309,7 +368,7 @@
         var message = $("#user-input").val();
         outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
         $.ajax({
-            url: "profile.php?id=Charlespossible",
+            url: 'profile.php?id=melody',
             type: 'POST',
             data:  'user-input=' + message,
             success: function(response) {
@@ -326,6 +385,4 @@
     });
 </script>
 
-</html>
-
-
+<?php } ?>

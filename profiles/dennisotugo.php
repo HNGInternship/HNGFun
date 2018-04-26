@@ -90,139 +90,45 @@ function getAnswer( $input ) {
     <meta name="apple-mobile-web-app-title" content="Oracle JET" />
     <!-- injector:theme -->
     <link href=
-    'https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css'
+    'https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra%20SC|Romanesco|Source+Sans+Pro:400,700'
     rel='stylesheet' type="text/css" />
     <script src=
     "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"
     type="text/javascript">
 </script>
+    <style type="text/css">
+/*<![CDATA[*/
+    @import url('//static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css');
+    /*]]>*/
+    </style><!-- endinjector -->
 <!-- RequireJS bootstrap file -->
 <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
     <style type="text/css">
-                .chat-output > div {
-    display: inline-block;
-    width: 100%;
-}
-            .chat-output {
-                 display: block;
-    overflow-y: scroll;
-    height: 100%;
-    }
-        .oj-flex {
-    background-color: #007bff;
-}
-        .container {
-    max-width: 100% !important;
-                padding: 0;
-}
-   #user-input-form {
-        width: 100%;
-    position: fixed;
-    bottom: 0;
-    height: 6%;
-}
-        img {
-    display: block;
-    margin: 0 auto;
-    border-radius: 100%;
-    box-shadow: 0 0 0 1.5em #ffffff;
-    border: 0;
-}
-          input#user-input.user-input {
-    width: 50%;
-    border: none;
-    padding: 10px 14px;
-    font-size: 18px;
-    line-height: normal;
-    position: fixed;
-    right: 0px;
-    bottom: 0px;
-    box-shadow: rgb(1, 1, 1) 1px 1px 9px 0px;
-}
 .blue1 {
     width: 50%;
-    position: fixed;
-    left: 0;
-    /* background-color: #007bff; */
-    height: 100%;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    top: 30%;
-    /* transform: translate(0, 40%); */
-}
-.white2 {
+        }
+        .white2 {
     width: 50%;
-    background-color: #ffffff;
-    width: 50%;
-    position: fixed;
-    right: 0;
-    background-color: #007bff;
-    height: 100%;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    /* transform: translate(0, 40%); */
-}
+        }
       footer {
       display: none;
       }
-        
-                .bot-message {
-    float: right;
-    font-size: 16px;
-    background-color: #ffffff;
-    padding: 10px;
-    display: inline-block;
-    border-radius: 3px;
-    position: relative;
-    margin: 15px 1px 1px 0px;
-    }
-        p {
-    font-weight: bolder;
-}
-                  .user-message message {
-                    float: left;
-    font-size: 16px;
-    background-color: #ffffff;
-    padding: 10px;
-    display: inline-block;
-    border-radius: 3px;
-    position: relative;
-    margin: 5px;
-            
-                      
-            }
-    .message {
-                    float: left;
-    font-size: 16px;
-    background-color: #ffffff;
-    padding: 10px;
-    display: inline-block;
-    border-radius: 3px;
-    position: relative;
-    margin: 5px;
-            
-                      
-            }
     </style>
   </head>
   <body>
-<div class="oj-sm-flex-direction-column oj-flex oj-flex-item">
+<div class="oj-sm-flex-direction-column oj-flex oj-panel oj-flex-item">
   <div class="oj-flex-item blue1">
-    <span class="avatar"><img src="https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701221/avatar.png" alt="" /></span>
     <h1>Dennis Otugo</h1>
     <p>Human Being | Cyborg | Never asked for this</p>
   </div>
   <div class="oj-flex-item white2">
-    <div class="chat-output" id="chat-output">
-        <div class="user-message"></div>
-        <div class="message">train: question # answer # password</div>
-        <div class="chat-input">
-            <form action="" method="post" id="user-input-form" name="user-input-form"></div>
-            <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here" /></form></div>
+    <div class="chat-output" id="chat-output"></div>
+    <div class="user-message"></div>
+    <div class="message">train: question # answer # password'<div class="chat-input"></div>
+    <form action="" method="post" id="user-input-form" name="user-input-form"></div>
+    <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here" /></form></div>
   </div>
-</div></div>
+</div>
 </script>
      <script>
 //<![CDATA[
