@@ -199,7 +199,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		p{
 			text-align: center;
 			font-size: 60px;
-			color: #00FF00;
+			color: red;
 		}
 		#info{
 			text-align: center;
