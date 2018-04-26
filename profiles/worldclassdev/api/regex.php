@@ -5,7 +5,7 @@ class Regex
     var $dbcon;
 
     function __construct($conn){
-		$this->dbcon = $dbc;
+		$this->dbcon = $conn;
 	}
 
     function query($qwer){
