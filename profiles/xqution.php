@@ -1,62 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <title>Emeka's Profile</title>
-  <meta name="theme-color" content="#2f3061">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
-  <style>
-    body {
-      background-color: #02422F;
-    }
+<html lang="en-us">
+  <head>
+    <title>Xqution Profile Page</title>
 
-	.txt {
-		position:absolute;
-		top:220px;
-		left:300px;
-		color: #ffffff;
-		font-size: 45px;
-	}
-	
-    #main {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
+    <!--<link rel="icon" href="css/images/favicon.ico" type="image/x-icon" />-->
 
-    #about {
-      color: #02422F;
-    }
+    <!-- This is the main css file for the default Alta theme -->
+<!-- injector:theme -->
+<link rel="stylesheet" href="xqution/css/alta/5.0.0/web/alta.css" id="css" />
+<!-- endinjector -->
+    <!-- This contains icon fonts used by the starter template -->
+    <link rel="stylesheet" href="xqution/css/demo-alta-site-min.css" type="text/css"/>
 
-    #hello {
-      font-size: 80px;
-      color: #ffffff;
-      font-family: 'Arial';
-	  position:absolute;
-	  align: center;
-	  top:100px;
-    }
+    <!-- This is where you would add any app specific styling -->
+    <link rel="stylesheet" href="xqution/css/app.css" type="text/css"/>
 
-    #h4 {
-      font-size: 40px;
-      font-weight: bold;
-	  color: #ffffff;
-    }
-
-
-  </style>
-</head>
-
-<body>
-  <div id="main">
-    <div id="about">
+  </head>
+  <body class="oj-web-applayout-body">
+    <div id="globalBody" class="oj-web-applayout-page">
+      <!--
+         ** Oracle JET V5.0.0 web application header pattern.
+         ** Please see the demos under Cookbook/Patterns/App Shell: Web
+         ** and the CSS documentation under Support/API Docs/Non-Component Styling
+         ** on the JET website for more information on how to use this pattern.
+      -->
+      <header role="banner" class="oj-web-applayout-header">
+        <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+        </div>
+      </header>
+      <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content">
+	  <div>
+    <div>
       <div>
-        <h1 id="hello">Greetings..... </br>
-		</div>
-		<div class="txt">
+        <h1>Greetings..... </br>
+
 		<?php
 			require 'db.php';
 			
@@ -69,14 +49,36 @@
 			
 			echo 'My name is: ' .$user->name . '</br>';
 			echo 'My Slack username is: ' .$user->username . '</br>';
-		
-		?> 
+			?>
+				<div id="im">
+				<img src="http://res.cloudinary.com/dv3ymesru/image/upload/v1523624432/piccccc.jpg" style="border-radius: 50%; margin-left: auto; margin-right: auto;  width: 50%;">
+				</div>
 		</div>
 		</br>
 		</h1>
-        <h4 id="h4">Currently on the Hotels.ng Internship Program</h4>
+        <h4>Currently on the Hotels.ng Internship Program</h4>
       </div>
     </div>
-</body>
+      </div>
+      <footer class="oj-web-applayout-footer" role="contentinfo">
+        <div class="oj-web-applayout-footer-item oj-web-applayout-max-width">
+          <ul>
+            <oj-bind-for-each data="[[footerLinks]]">
+              <template>
+                <li><a :id="[[$current.data.linkId]]" :href="[[$current.data.linkTarget]]"><oj-bind-text value="[[$current.data.name]]"></oj-bind-text></a></li>
+              </template>
+            </oj-bind-for-each>
+          </ul>
+        </div>
+        <div class="oj-web-applayout-footer-item oj-web-applayout-max-width oj-text-secondary-color oj-text-sm">
+          Copyright © 2014, 2018 Oracle and/or its affiliates All rights reserved.
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="xqution/js/libs/require/require.js"></script>
+    <script type="text/javascript" src="xqution/js/main.js"></script>
+
+  </body>
 
 </html>

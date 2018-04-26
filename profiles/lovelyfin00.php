@@ -59,7 +59,14 @@
 	.kill{
 		float:left;
 	}
-	
+       div.picture1 {
+               width:350px; 
+               height:450px;
+               background-image:url('http://res.cloudinary.com/lovelyfin00/image/upload/c_scale,h_200,w_192/v1523820745/IMG_20171124_144344.jpg');
+               margin:0; 
+               padding:0;
+               background-repeat:no-repeat;
+}
 </style>
 </head>
 <body class="bg">
@@ -81,6 +88,8 @@
 			</li>
 			</ul>
 		</div>
+		 <div class="picture1">&nbsp;
+		 </div>
 		    <?php
 
     try {

@@ -40,18 +40,19 @@
 			height: auto !important;
 			margin: 1% 0 0 0 !important;
 			padding: 0;
-			background: radial-gradient(circle closest-corner, 
+			/*background: radial-gradient(circle closest-corner, 
 				#004E8C 25%,
 				#013D73 25%,  
-				#0465B2 50%);
+				#0465B2 50%);*/
+			background: inherit;
 		}
 		.first-col, .sec-col, .third-col{
-			height: auto;
+			height: 500px;
 			text-align: center;
-			color: white;
+			color: black;
 			font-weight: bold;
 			font-size: 20px;
-			padding-top: 5%;
+			padding-top: 10%;
 			padding-bottom: 5%;
 		}
 		.logo{
@@ -86,7 +87,7 @@
 		}
 		.ul li a{
 			text-decoration: none;
-			color: white;
+			color: #3b4747;
 		}
 	</style>
 </head>

@@ -19,61 +19,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } else {
     require '../answers.php';
     $message = trim(strtolower($_POST['message']));
-
-    //step 1: Figure out the intent of the message
-    //intents: Greeting, Find the current time, Ask about the HNG Programme
-    //Train the bot
-    //Provide directions for HNG Stage completions
-    //check the db
+    $version = '1.1';
 
     $intent = 'unrecognized';
     $unrecognizedAnswers = [
-        'IDK at all at all. My Oga na better empty head. But u fit train me. Kukuma type: <b>#train: Question | Answer.</b>',
-        'I don\'t understand bruv. U fit teach me o. Just type: <b>#train: Question | Answer.</b>',
-        "Ah no know that one o. Buh you can sha teach me. If you want to just kukuma type: <b>#train: Question | Answer.</b>",
-        "I no understand sha. Ask another one"
+        'IDK at all at all. My Oga na better empty head. But u fit train me. Kukuma type: <b>train:Question#Answer#password.</b>',
+        'I don\'t understand bruv. U fit teach me o. Just type: <b>train:Question#Answer#password.</b>',
+        "Ah no know that one o. Buh you can sha teach me. If you want to just kukuma type: <b>train:Question#Answer#password.</b>"
     ];
 
-    if (strpos($message, 'hello') !== false || strpos($message, 'hi') !== false) {
-        $intent = 'greeting';
-    }
-
-    if (strpos($message, 'how are you') !== false 
-            || strpos($message, 'how do you do') !== false
-            || strpos($message, 'how u dey') !== false
-            || strpos($message, 'how you') !== false
-            || strpos($message, 'how u') !== false
-            || strpos($message, 'whatsup') !== false
-            || strpos($message, 'xup') !== false
-            || strpos($message, 'sup') !== false) {
-        $intent = 'greeting_response';
-    }
-
-    if ((strpos($message, 'ah dey') !== false 
-        || strpos($message, 'i dey') !== false) 
-        && $intent !== 'greeting_response') {
-            $intent = 'casual';
-    }
-
-    if ((strpos($message, 'wetin be') !== false ||
-        strpos($message, 'what is') !== false) 
-        && (strpos($message, 'hng'))) {
-        $intent = 'about_hng';
-        $response = aboutHNG();
-    }
-
-    if ((strpos($message, 'how') !== false) 
-        && 
-        (strpos($message, 'pass') !== false || strpos($message, 'cross') !== false || 
-            strpos($message, 'go about') !== false || strpos($message, 'finish') !== false)
-        && 
-        (strpos($message, 'stage {{') !== false || strpos($message, 'stage{{') !== false)
-        ) {
-            $intent = 'about_hng_stage';
-            $startIndex = strpos($message, '{{');
-            $endIndex = strpos($message, '}}');
-            $stage = (int) trim(substr($message, $startIndex + 2, $endIndex - $startIndex - 2));
-            $response =  aboutHNGStage($stage);
+    if (strpos($message, 'aboutbot') !== false) {
+        $intent = 'aboutbot';
+        $response = 'Mekus v' . $version;
     }
 
     //check for a function call
@@ -95,15 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     //check for bot training
     $trainingData = '';
-    if (strpos($message, '#train:') !== false) {
+    if (strpos($message, 'train:') !== false) {
         $intent = 'training';
-        $parts = explode('#train:', $message);
-        if (count($parts) > 1) {
-            $trainingData = $parts[1];
-        }
-    } else if (strpos($message, '# train:') !== false) {
-        $intent = 'training';
-        $parts = explode('# train:', $message);
+        $parts = explode('train:', $message);
         if (count($parts) > 1) {
             $trainingData = $parts[1];
         }
@@ -119,19 +70,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $response = 'Oga, your training data no go well o. Use this format >>> "#train: Question | Answer"';
     } else if ($trainingData !== '') {
         $intent = 'training';
-        $parts = explode('|', $trainingData);
-        if (count($parts) > 1) {
+        $parts = explode('#', $trainingData);
+        if (count($parts) === 3) {
             $question = trim($parts[0]);
             $answer = trim($parts[1]);
-            //save in db
-            $sql = "insert into chatbot (question, answer) values (:question, :answer)";
-            $query = $conn->prepare($sql);
-            $query->bindParam(':question', $question);
-            $query->bindParam(':answer', $answer);
-            $query->execute();
-            $query->setFetchMode(PDO::FETCH_ASSOC);
+            $password = trim($parts[2]);
+
+            if ($password === 'password') {
+                //save in db
+                $sql = "insert into chatbot (question, answer) values (:question, :answer)";
+                $query = $conn->prepare($sql);
+                $query->bindParam(':question', $question);
+                $query->bindParam(':answer', $answer);
+                $query->execute();
+                $query->setFetchMode(PDO::FETCH_ASSOC);
+                
+                $response = 'Omo! My head don burst o. U sabi something well well. Thank u wella';
+            } else {
+                $response = 'Your password is incorrect. Train with "train:Question#answer#password. Password is password';
+            }
             
-            $response = 'Omo! My head don burst o. U sabi something well well. Thank u wella';
         } else {
             $response = 'Oga, your training data no go well o. Use this format >>> "#train: Question | Answer"';
         }
@@ -139,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if ($intent === 'unrecognized') {
         $answer = '';
-        $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$message' ORDER BY rand() LIMIT 1");
+        $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE '$message' ORDER BY rand() LIMIT 1");
         $stmt->execute();
         if($stmt->rowCount() > 0) {
             $intent = 'db_question';
@@ -150,23 +108,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
     switch($intent) {
-        case 'greeting':
-            echo 'Hello. How u dey like this?';
-            break;
-        case 'greeting_response':
-            echo 'Ah dey my personal person';
-            break;
-        case 'about_hng':
-        case 'about_hng_stage':
+        case 'aboutbot':
         case 'function_call':
         case 'training':
             echo $response;
             break;
         case 'db_question':
             echo $answer;
-            break;
-        case 'casual':
-            echo 'Alright. No qualms';
             break;
         case 'confusion':
             echo $response;

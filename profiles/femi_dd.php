@@ -4,23 +4,22 @@ session_start();
 if($_SERVER['REQUEST_METHOD'] == "POST") {
    if(!defined('DB_USER')){
       //live server
-      // require "../../config.php";
+      require "../../config.php";
       // localhost
-      require "../config.php";
+//       require "../config.php";
       try {
          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
       } catch (PDOException $pe) {
          die("🤖I couldn't connect to knowledge base : ".$pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
       }
    }
-
    require '../answers.php';
    global $conn;
    function train($trainData) {
       $data = [];
       $data['response'] = null;
       $data['request'] = null;
-      $temp = explode("#", $trainData);
+      $temp = explode("@", $trainData);
       $data['request']  = $temp[0];
       $data['response'] = $temp[1];
       $data['request'] = preg_replace('/(train:)/', '', $temp[0]);
@@ -44,7 +43,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
    
    function searchRequest($request) {
       global $conn;
-      $statement = $conn->prepare("select * from chatbot where question like :request");
+      $statement = $conn->prepare("select answer from chatbot where question like :request order by rand()");
       $statement->bindValue(':request', "%$request%");
       $statement->execute();
       $statement->setFetchMode(PDO::FETCH_ASSOC);
@@ -67,7 +66,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
       }
       return $response;
    }
-
    function store($request, $response) {
       global $conn;
       $statement = $conn->prepare("insert into chatbot (question, answer) values (:request, :response)");
@@ -80,31 +78,32 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
          return false;
       }
    }
-
    if(isset($_GET['new_request'])) {
       $response_and_request = [];
       $response_and_request['request'] = "";
       $response_and_request['response'] = "";
       $response_and_request['time'] = "";
-      $request = $_GET['new_request'];
+      $request = strtolower($_GET['new_request']);
       $response_and_request['request'] = trim($request);
-
       if(empty($response_and_request['request'])) {
          $response_and_request['response'] = "🤖 You haven't made any request";
          // echo json_encode($response_and_request);
-
       } else {
          if(!empty(searchRequest($response_and_request['request']))) {
             $response_and_request['response'] = searchRequest($response_and_request['request']);
             // goto send;
-
          } else if(preg_match("/(train:)/", $response_and_request['request']) && preg_match('/(@)/', $response_and_request['request'])) {
-            $response_and_request['response'] = train($response_and_request['request']);
+            if(preg_match("/(:password:trainpwforhng)/", $response_and_request['request'])) {
+               $response_and_request['request'] = preg_replace("/(:password:trainpwforhng)/", "", $response_and_request['request']);
+               $response_and_request['response'] = train($response_and_request['request']);
+            } else {
+               $response_and_request['response'] = "🤖 Training Access Denied!";
+            }
             // goto send;
-
-         } else if(preg_match('/(find:)/', $request)) {
+            } else if(preg_match("/(aboutbot)/", $response_and_request['request']) || preg_match("/(aboutbot:)/", $response_and_request['request']) || preg_match("/(about bot)/", $response_and_request['request'])) {
+               $response_and_request['response'] = "🤖 Version : 3.0.23, Cool right?";
+            } else if(preg_match('/(find:)/', $request)) {
             $ex = explode("find:", $request);
-
             if(!empty($users = findThisPerson($ex[1]))) {
                // $count = count($users);
                $response_and_request['response'] = array('resultType'=>'find', 'users'=> $users);
@@ -244,9 +243,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
             <h2>femiBot 🤖</h2>
             <i style="font-size: 15px">To train the bot, follow :<br />
                1. train:What is the time @The time is (timefunction) (where train: is the question and @is the answer, timefunctionis the function to handler your request)<br />
-               2. train:Today's date @Todays date is (date)<br />
-               3. My boss is working hard to give me some functions of my own very soon, I'll write them here when they're ready.<br>
-               4. To find a user, just type => find:username or find:name</i>
+               2. train:Today's date @Todays date is (date):password:passwordkey (where password key is the official password to train the bot)<br />
+               3. To find a user, just type => find:username</i>
                <div id="chatarea" style="overflow: auto; height:300px; border:1px solid whitesmoke; border-radius:5px"></div>
                <div class="input-group">
                   <input type="text" class="form-control" id="message" type="text" placeholder="Message" name="newrequest" />
@@ -271,14 +269,12 @@ function sendData() {
    newElement.className = "form-control form-control2 text-right";
    newElement.value = message;
    chatArea.appendChild(newElement);
-
 //request time  element
 var timeEl2 = document.createElement("p");
 timeEl2.className = "timeEl text-right";
 timeEl2.innerHTML = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
 chatArea.appendChild(timeEl2);
 //request time element
-
    var xmlhttp = new XMLHttpRequest();
    if (window.XMLHttpRequest) {
       xmlhttp = new XMLHttpRequest();
@@ -302,14 +298,17 @@ chatArea.appendChild(timeEl2);
          }
          newElement.value = response.response;
          chatArea.appendChild(newElement);
-         timeEl.innerHTML = response.time;
+         timeEl.innerHTML = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
+         newElement.setAttribute("id", response.time);
          chatArea.appendChild(timeEl);
+         document.getElementById(response.time).focus();
+         document.getElementById("message").focus();
       }
    }
    //live server
-//    xmlhttp.open("POST", "https://hng.fun/profiles/femi_dd.php?new_request="+message, true);
+   xmlhttp.open("POST", "https://hng.fun/profiles/femi_dd.php?new_request="+message, true);
    //localhost
-   xmlhttp.open("POST", "http://localhost/HNGFun/profiles/femi_dd.php?new_request="+message, true);
+//    xmlhttp.open("POST", "http://localhost/HNGFun/profiles/femi_dd.php?new_request="+message, true);
    xmlhttp.send();
    document.getElementById("message").value = "";
 }
