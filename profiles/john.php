@@ -354,7 +354,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       		convoAreabox.scrollTop(convoAreabox[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: 'john.php',
+				url: 'profiles/john.php',
 				type: 'POST',
 				data: {question: question},
 				dataType: 'json',
