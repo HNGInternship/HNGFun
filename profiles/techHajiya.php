@@ -219,7 +219,6 @@
                 </div>
             </div>
 			  </div>
-            </div>
   <div class="oj-flex-item oj-flex oj-sm-flex-items-1 oj-sm-12 oj-md-6 oj-lg-6 oj-xl-6 ">
         <div class="oj-flex-item " style='float: right; padding-top: 10px;width: 500px;'>
 			<div class="col-sm-6 chatbox" style='float: right; padding-top: 10px'>
