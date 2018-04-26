@@ -40,6 +40,7 @@
 
         .profile-details{
             padding-top: 20px;
+			 padding-left: 20px;
         }
 
         .profile-details {
@@ -54,7 +55,7 @@
         .profile-image img {
             margin: auto;
             display: block;
-            width: 250px;
+            width: 220px;
 			height:300px;
             border-radius: 0px;
 			box-shadow: 0px 0px 2px 1px grey;
