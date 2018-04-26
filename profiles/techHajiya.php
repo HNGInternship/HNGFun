@@ -203,7 +203,7 @@
     }
     ?>
 	 <div class="oj-flex demo-panelwrapper">
-            <div class="oj-flex-item oj-panel demo-mypanel" style='width: 500px;>
+            <div class="oj-flex-item oj-panel">
      
             <div class="col-sm-6 profile-details" >
                 <div class="profile-image">
