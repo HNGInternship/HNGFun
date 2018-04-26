@@ -9,7 +9,7 @@
 
 */
 
-require_once($_SERVER['SERVER_NAME']."/db.php");
+require_once("../../../db.php");
 require_once("regex.php");
 
 
