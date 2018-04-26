@@ -1,6 +1,6 @@
 <?php
 //Fetch User Details
-require '../db.php';
+// require '../db.php';
 
 try {
     $query = "SELECT * FROM interns_data WHERE username ='john'";
@@ -335,7 +335,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	</div>
 	
 
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
 
   <script>
 	$(document).ready(function(){
