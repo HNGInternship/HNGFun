@@ -4,6 +4,8 @@
 	
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>HNG Test</title>
+	<link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
 
 	<link href="res/css/style.css" rel="stylesheet" />
 <style>
@@ -259,5 +261,7 @@ My love grew into passion that I gave up my little savings to learn web developm
                 </p>
 		</footer>
     </div>
+	<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.0.0/3rdparty/require/require.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

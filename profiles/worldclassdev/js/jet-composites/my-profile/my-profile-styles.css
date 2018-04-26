@@ -1,0 +1,51 @@
+my-profile:not(.oj-complete){
+  visibility: hidden;
+}
+/*
+my-profile{
+	min-height: 50px;
+	width: 50px;
+}*/
+my-profile{
+	background-image: url(http://res.cloudinary.com/worldclassdev/image/upload/v1523643996/topography.svg),
+					linear-gradient(110deg,  #F7DF1E, #FF9020);
+	background-size: 340px, auto;
+	background-position: fixed;
+font-family: 'Poppins';
+	width: 100%;
+	height: 100vh;
+}
+::selection {
+background:  #ffc600; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+background:  #ffc600; /* Gecko Browsers */
+}
+.container{
+width: 100%;
+padding: 20px;
+}
+h1{
+color: #828282;
+}
+.name{
+text-align: center;
+}
+.profile{
+width: 350px;
+border: 1px solid #848484;
+border-radius: 50%;
+margin: 30px auto;
+height: 340px;
+}
+.profile-img{
+width: 350px;
+border-radius: 50%;
+height: 340px;
+}
+.about{
+	width: 800px;
+margin: 30px auto;
+text-align: center;
+line-height: 1.5;
+}

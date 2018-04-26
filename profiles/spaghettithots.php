@@ -4,11 +4,154 @@
 		<meta charset="UTF-8">
 		<title>SpaghettiThots</title>
 		<link href="https://fonts.googleapis.com/css?family=Raleway|Roboto+Slab" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="css/spag.css">
+		<!-- <link rel="stylesheet" type="text/css" href="css/spag.css"> -->
+
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+				font-family: "Verdana";
+			}
+
+			.contain{
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				margin-top: 2%;
+			}
+
+			h3{
+				font-family: "Roboto Slab";
+				color: rgba(227, 0, 116, 1);
+			}
+
+			p{
+				font-family: "Verdana";
+				opacity: 0.7;
+			}
+			/*
+			.biopic-wrapper{
+				border: 1px solid rgb(255, 255, 255, 1);
+				border-radius: 50%;
+			}*/
+			.biopic{
+				width: 100px;
+				height: 100px;
+				border: 1px solid rgb(255, 255, 255, 1);
+				border-radius: 0.7em;
+				margin-bottom: 1em;
+
+			}
+
+			.ul{
+
+			}
+
+			.gray-bkgd{
+				background-color: rgba(200, 200, 200, 1);
+			}
+
+			.gray-bkgd:hover{
+				background-color: rgba(255, 255, 255, 1);
+			}
+
+			.white-bkgd:hover{
+				background-color: rgba(200, 200, 200, 1);
+			}
+
+			.top-list-item{
+				border-top: 2px solid rgba(80, 80, 80, 1);
+				margin-top: 1em;
+			}
+
+			.list-item{
+				border-bottom: 2px solid rgba(80, 80, 80, 1);
+				padding-top: 1em;
+				width: 300px;
+				height: 35px;
+				list-style-type: none;
+				font-family: "Raleway";
+				font-size: 0.9em;
+				opacity: 0.9;
+				padding-left: 1em;
+			}
+
+			.social-icons{
+				width: 32px;
+				height: 32px;
+			}
+
+			.social{
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+			}
+
+			.social-icons:first-child{
+				margin-right: 2em;
+			}
+
+			.social-icons:last-child{
+				margin-left: 2em;
+			}
+		</style>
 	</head>
 	<body>
+		<?php
+
+			require_once '../config.php';
+
+			try 
+			{
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			    $sql = "SELECT * FROM interns_data WHERE username = 'spaghettithots'";
+			}
+			catch (PDOException $pe) 
+			{
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
+
+
+			try
+			{
+			    $sql = "SELECT * FROM secret_word";
+			    $q = $conn->query($sql);
+			    $q->setFetchMode(PDO::FETCH_ASSOC);
+			    $data = $q->fetch();
+			}
+			catch(PDOException $e)
+			{
+			    throw $e;
+			}
+
+			$secret_word = $data['secret_word'];
+		?>
+
+		<!-- Main HTML content -->
 		<div class="contain">
 			<div class="biopic-wrapper">
+
+				<?php
+					try
+					{
+						$imgSelect = "SELECT image_filename FROM interns_data WHERE username = 'spaghettithots'";
+
+						$result = $conn->query($imgSelect);
+					}
+
+					catch(PDOException $e)
+					{
+						echo "Please check your link: " . $e->getMessage();
+
+						exit();
+					}
+
+					while ($row = $result->fetch(PDO::FETCH_NUM))
+					{
+						$img[] = $row[0];
+					}
+				?>
 				<img src="http://res.cloudinary.com/spaghettithots/image/upload/v1523626836/hng/biopic.jpg" class="biopic" alt="Yeah, that's how I look!!!">
 			</div>
 			<h3>I am Alexandrix Ikechukwu</h3>

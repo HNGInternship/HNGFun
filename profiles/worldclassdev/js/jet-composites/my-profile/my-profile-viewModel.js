@@ -1,0 +1,1 @@
+"use strict";define(["ojs/ojcore","knockout","jquery","ojL10n!./resources/nls/my-profile-strings"],function(e,t,o){return function(o){var s=e.Context.getContext(o.element).getBusyContext();this.busyResolve=s.addBusyState({description:"CCA Startup - Waiting for data"}),this.composite=o.element,this.messageText=t.observable("Hello from Example Component"),this.busyResolve()}});

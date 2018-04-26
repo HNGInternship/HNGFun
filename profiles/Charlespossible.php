@@ -1,6 +1,8 @@
+
     <?php
         
     require_once 'db.php';
+   
 
     try {
     $sql = "SELECT * FROM secret_word";
@@ -23,6 +25,8 @@
   $username = $intern_db_result['username'];
   $image_url = $intern_db_result['image_filename'];
     ?>
+
+          
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -78,8 +82,6 @@
         }
         .para-text{
             border:0px;
-            height: 1000px;
-            width: 1000px;
             text-align: center;
         }
         .para{
@@ -179,3 +181,207 @@
 </body>
 
 </html>
+
+
+
+<?php if($_SERVER['REQUEST_METHOD'] === 'GET'){ ?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+		<title>My page</title>
+		<style type="text/css">
+            
+			body, html {
+            margin: 0px;
+            background-color: skyblue; !important;
+            height: 100%;
+        }
+        .my-body {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 85%;
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            height: 400px;
+            float: right;
+        }
+        .msg-output {
+            flex: 1;
+            padding: 10px;
+            display: flex;
+            background: white;
+            flex-direction: column;
+            overflow-y: scroll;
+            max-height: 800px;
+        }
+        .msg-output > div {
+            margin: 0 0 20px 0;
+        }
+        .msg-output .user-message .message {
+            background: #94edb3;
+            color: white;
+        }
+        .msg-output .bot-message {
+            text-align: right;
+        }
+        .msg-output .bot-message .message {
+            background: #d5e5be;
+        }
+        .msg-output .message {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 20px;
+        }
+        .msg-input {
+            padding: 20px;
+            background: #eee;
+            border: 1px solid #ccc;
+            border-bottom: 0;
+        }
+        .msg-input .user-input {
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 8px;
+        }
+		</style>
+	</head>
+	
+	<body>
+		
+		
+		<div class="oj-sm-12 oj-md-6 oj-flex-item">
+            <div class="my-body">
+                <div class="msg-output" id="msg-output">
+                    <div class="user-message">
+                        <div class="message"> DubemBot is my name! You can engage me in a conversation! </br>You can make me smarter by training me, use this format - 'train: question # answer # password'. </br>Type 'aboutbot' to know more about me.</div>
+                    </div>
+                </div>
+
+                <div class="msg-input">
+                    <form action="" method="post" id="user-input-form">
+                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Ask me things">
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <?php
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $data = $_POST['in-user'];
+      //  $data = preg_replace('/\s+/', '', $data);
+        $temp = explode(':', $data);
+        $temp2 = preg_replace('/\s+/', '', $temp[0]);
+        
+        if($temp2 === 'train'){
+            train($temp[1]);
+        }elseif($temp2 === 'aboutbot') {
+            aboutbot();
+        }else{
+            getAnswer($temp[0]);
+        }
+    }
+    function aboutbot() {
+        echo "<div id='result'>Dubembot v1.0 - I am smart bot. I can learn new things if you teach me!</div>";
+    }
+    function train($input) {
+        $input = explode('#', $input);
+        $question = trim($input[0]);
+        $answer = trim($input[1]);
+        $password = trim($input[2]);
+        if($password == 'password') {
+            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+            $q = $GLOBALS['conn']->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+            if(empty($data)) {
+                $training_data = array(':question' => $question,
+                    ':answer' => $answer);
+                $sql = 'INSERT INTO chatbot ( question, answer)
+              VALUES (
+                  :question,
+                  :answer
+              );';
+                try {
+                    $q = $GLOBALS['conn']->prepare($sql);
+                    if ($q->execute($training_data) == true) {
+                        echo "<div id='result'>I am Now Smarter!</div>";
+                    };
+                } catch (PDOException $e) {
+                    throw $e;
+                }
+            }else{
+                echo "<div id='result'>I am familiar with this. Teach me something new!</div>";
+            }
+        }else {
+            echo "<div id='result'>Wrong Password, Try Again!</div>";
+        }
+    }
+    function getAnswer($input) {
+        $question = $input;
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+        $q = $GLOBALS['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
+        if(empty($data)){
+            echo "<div id='result'> I can be better if you train me. Use the following format to make me smarter - 'train: question # answer # password'</div>";
+        }else {
+            $rand_keys = array_rand($data);
+            echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
+        }
+    }
+    ?>
+
+</div>
+   <div class="container footer">
+        <div class="row">
+            <div>
+             <p>Copyright &copy; HNG FUN
+            <?php echo date("Y"); ?>
+             </p>   
+            </div>
+        </div>
+        
+    </div>
+
+</body>
+
+
+<script>
+    var outputArea = $("#msg-output");
+    $("#user-input-form").on("submit", function(e) {
+        e.preventDefault();
+        var message = $("#user-input").val();
+        outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
+        $.ajax({
+            url: 'profile.php?id=Charlespossible',
+            type: 'POST',
+            data:  'user-input=' + message,
+            success: function(response) {
+                var result = $($.parseHTML(response)).find("#result").text();
+                setTimeout(function() {
+                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+                    $('#msg-output').animate({
+                        scrollTop: $('#msg-output').get(0).scrollHeight
+                    }, 1500);
+                }, 250);
+            }
+        });
+        $("#user-input").val("");
+    });
+</script>
+
+<?php } ?>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+  <head>
+    <title>Oracle JET Starter Template - Web Nav Bar</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
+    <link rel="icon" href="css/images/favicon.ico" type="image/x-icon" />
+
+    <!-- This is the main css file for the default Alta theme -->
+<!-- injector:theme -->
+<link rel="stylesheet" href="css/alta/5.0.0/web/alta.css" id="css" />
+<!-- endinjector -->
+    
+    <!-- This contains icon fonts used by the starter template -->
+    <link rel="stylesheet" href="css/demo-alta-site-min.css" type="text/css"/>
+
+    <!-- This is where you would add any app specific styling -->
+    <link rel="stylesheet" href="css/app.css" type="text/css"/>
+
+      <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+      
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="oj-web-applayout-body" style="background-color: #19133e">
+    <!-- Template for rendering navigation items -->
+    <script type="text/html" id="navTemplate">
+      <li><a href="#">
+        <span :class="[[$data['iconClass']]]"></span>
+        <oj-bind-text value="[[$data['name']]]"></oj-bind-text>
+      </a></li>
+    </script>
+
+    <div id="globalBody" class="oj-web-applayout-page">
+      
+      <header role="banner" class="oj-web-applayout-header">
+        <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+          <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
+            <span role="img" class="oj-icon demo-oracle-icon" title="Oracle Logo" alt="Oracle Logo"></span>
+          </div>
+        </div>
+        <div role="navigation" class="oj-web-applayout-max-width oj-web-applayout-navbar">
+          <oj-navigation-list data="[[navDataSource]]"
+                              :class="[[{'oj-md-condense oj-md-justify-content-flex-end': !smScreen()}]]"
+                              display="[[smScreen() ? 'icons' : 'all']]"
+                              edge="top"
+                              item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
+                              selection="{{router.stateId}}">
+          </oj-navigation-list>
+        </div>
+      </header>
+    <div class="row">
+        <div class='info' style="margin: 40px 700px 0px 70px; text-align: center">
+            <img src="http://res.cloudinary.com/ovu/image/upload/c_scale,o_100,r_100,w_200/a_349/v1523814132/Ovundah.png" alt="Ovundah King" >
+            
+            <div style="font-family: 'Exo 2', sans-serif;">
+                <div style='color: #ffb72d'>
+                    <h1><strong data-bind='text: name' style='color: #ffb72d'></strong></h1>
+                    <p data-bind='text: desc'></p>
+                    <p data-bind='text: tools'></p>
+                </div>
+	            <a href="https://twitter.com/OvundahKing" style='color: #5697ff'>
+                    <i class="fa fa-twitter fa-3x"></i>
+                </a>
+            </div>
+            
+        </div>
+        <div class="bot">
+            <iframe src="https://hng.fun/profiles/ovundah/index.html"
+                    scrolling='no'
+                    frameborder="0"
+                    style="position:absolute; 
+                           clip:rect(190px,11000px,800px,600px); 
+                           top: -100px;
+                           right: 20px
+                           "
+                    width="100%" 
+                    height="100%">
+            </iframe>
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="js/libs/require/require.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+        
+      </div>
+  </body>
+
+</html>
