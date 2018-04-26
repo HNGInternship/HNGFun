@@ -47,6 +47,7 @@
             background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
 			margin-bottom: 50px;
+			width: 450px;
         }
         .profile-body {
             max-width: 100%;
@@ -54,7 +55,7 @@
         .profile-image img {
             margin: auto;
             display: block;
-            width: 200px;
+            width: 250px;
 			height:300px;
             border-radius: 0px;
 			box-shadow: 0px 0px 2px 1px grey;
@@ -218,7 +219,7 @@
 			  </div>
             </div>
   <div class="oj-flex-item oj-flex oj-sm-flex-items-1 oj-sm-12 oj-md-6 oj-lg-6 oj-xl-6 ">
-        <div class="oj-flex-item  demo-mypanel" style='float: right; padding-top: 10px'>
+        <div class="oj-flex-item " style='float: right; padding-top: 10px;width: 500px;'>
 			<div class="col-sm-6 chatbox" style='float: right; padding-top: 10px'>
 				<div class='chatbot-menu-header'>
                         <div class="hng-logo"></div> <span>LoBot v1.0</span>
