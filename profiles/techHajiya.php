@@ -178,7 +178,6 @@
 		}
 		.oj-flex{
 		background-color:blue;
-		width: 1200px;
         padding: 20px;
 		}
         .fa-close, .fa-question-circle {
