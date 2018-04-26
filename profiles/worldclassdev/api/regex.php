@@ -69,7 +69,7 @@ class Regex
 	 	$lim = explode(' ', $limit);
 		foreach ($lim as $slim){
 			$add .= " or question like '%$slim%'";
-		}
+			var_dump($add);		}
 		 
 		$qrrrt = "SELECT `answer` FROM `chatbot` where $add limit 1";
 		 //echo $qrrrt;
