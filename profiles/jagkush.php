@@ -1,5 +1,5 @@
 <?php
-
+require('../db.php');
 $result = $conn->query("Select * from secret_word LIMIT 1");
         $result = $result->fetch(PDO::FETCH_ASSOC);
         $secret_word = $result['secret_word'];
@@ -121,8 +121,5 @@ button{
 				<h6 class="slack">Slack id: <?php echo $user->username; ?></h6>
                 
             </div>
-
-        </div>
-		</div>
 </body>
 </html>

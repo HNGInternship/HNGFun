@@ -212,6 +212,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		#sidebar{
 			width: 350px;
 			height: 600px;
+			position: absolute;
 		}
 		#bbb{
 			width: 790px;
@@ -228,7 +229,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			color: #FFF;
 			padding: 7px;
 			position: absolute;
-			width: 400px;
+			width: 350px;
 			height: auto;
 		}
 		input{
@@ -293,7 +294,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 		.iio{
 			float: left;
-			margin-right: 90px;
 			color: red;
 			font-size: 15px;
 			font-family: Ubuntu;
