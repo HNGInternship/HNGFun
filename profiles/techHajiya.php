@@ -27,7 +27,7 @@
             margin: 0 auto;
 			border-radius: 0px;
 			margin-bottom: 50px;
-			background: #BCE7FA;
+			background: white;
         }
 
         footer {
@@ -93,11 +93,11 @@
             flex: 1;
             padding: 10px;
             display: flex;
-            background: white;
+            background: #A6BBEC;
             flex-direction: column;
             overflow-y: scroll;
             max-height: 400px;
-			border-radius: 5px; 
+			border-radius: 0px; 
 			
         }
         .chat-result > div {
