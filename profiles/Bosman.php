@@ -273,8 +273,8 @@
         <div class="col-md-8">
 
          <div class="intro">
-           <H3> HI, MY NAME IS BOSMAN & I AM A
-            DESIGNER & DEVELOPER</H3>
+           <H4> HI, MY NAME IS BOSMAN. I AM A
+            DESIGNER & DEVELOPER</H4>
             <p>I have experience and understanding working with HTML, CSS ,MYSQL, PHP and JavaScript . Exceptional knowledge of the latest Adobe Creative Suite (Photoshop, Illustrator, Fireworks).This site showcase some of my works. </p>
             <p><a class="btn btn-default btn-primary" data-wow-delay=".9s" href="#works">View Works</a></p>
          </div>

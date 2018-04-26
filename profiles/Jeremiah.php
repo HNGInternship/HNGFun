@@ -391,7 +391,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			<div style="text-align:center">
 				<div class="footer_info">Copyright &copy; 2018 www.hng.fun - Built with
 				<span style="color: #cc023b">&hearts;</span> | HNGIternship 4.0 </div>				 
-				<span style="font-size:0.6em; "> This page re-designed by @Jeremiah - HTML5 | CSS3 | JavaScript | PHP </span>
+				<span style="font-size:0.6em; "> This page designed <strong>by <span style="color: #cc023b"> @Jeremiah </span> </strong>- HTML5 | CSS3 | JavaScript | PHP </span>
 			</div>
 		</div>
 
@@ -416,7 +416,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			        response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
 			        let response_answer = response.answer;
 			        chat_output.append("<div class='bot_chat'><div class='message'>" +response_answer+ "</div></div>");      
-			       	$('#chat-body').animate({scrollTop: $('#chat-body').get(0).scrollHeight}, 1000);     
+			       	$('#chat-body').animate({scrollTop: $('#chat-body').get(0).scrollHeight}, 1100);     
 
 				},
 				error: (error) => {
