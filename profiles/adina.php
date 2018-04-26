@@ -1,33 +1,22 @@
 <?php
-	if(!defined('DB_USER')){
-	  require "../../config.php";		//change config details when pushing
-	  try {
-	      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-	  } catch (PDOException $pe) {
-	      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-	  }
-	}
-	//Fetch User Details
-	try {
-	    $query = "SELECT * FROM interns_data WHERE username ='Adina'";
-	    $resultSet = $conn->query($query);
-	    $resultData = $resultSet->fetch(PDO::FETCH_ASSOC);
-	} catch (PDOException $e){
-	    throw $e;
-	}
-	$username = $resultData['username'];
-	$fullName = $resultData['name'];
-	$picture = $resultData['image_filename'];
-	//Fetch Secret Word
-	try{
-	    $querySecret =  "SELECT * FROM secret_word LIMIT 1";
-	    $resultSet   =  $conn->query($querySecret);
-	    $resultData  =  $resultSet->fetch(PDO::FETCH_ASSOC);
-	    $secret_word =  $resultData['secret_word'];
-	}catch (PDOException $e){
-	    throw $e;
-	}
-	$secret_word =  $resultData['secret_word'];
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "hng_fun";
+
+$query = $conn->query("SELECT * FROM secret_word");
+$result = $query->fetch(PDO::FETCH_ASSOC);
+$secret_word = $result['secret_word'];
+
+
+$username = "Adina";
+$data = $conn->query("SELECT * FROM  interns_data WHERE username = '".$username."' ");
+$my_data = $data->fetch(PDO::FETCH_BOTH);
+
+$name = $my_data['name'];
+$image = $my_data['image_filename'];
+$username =$my_data['username'];
 ?>
 <!DOCTYPE html>
 <html lang= "en">
@@ -186,15 +175,15 @@
         <div id="div1">
             <div class="divs" id= "div11">
                 <div id="img"></div>
-		    <img src="http://res.cloudinary.com/djdhcpx0q/image/upload/v1524662314/HNG%20Internship%204/IMG_20170924_104542.jpg">
+<!--                <img src="http://res.cloudinary.com/djdhcpx0q/image/upload/v1524662314/HNG%20Internship%204/IMG_20170924_104542.jpg">-->
             </div>
             <div class="divs" id="div12">
                 <div id="aboutme">
-                    <span> I am <b>@</b><b><?php echo $username; ?>!!!</span>
+                    <span> I am <b>@</b><b><?php echo $username; ?>!!!</b></span>
                     <p></p>
                         <span> Tch. Not true. Well it is true...technically. At least that is my Slack username on the HNG Internship 4 workspace. My birth name is <b><?php echo $name; ?></b>. If you are wondering what the <b>C.</b> is for, <b>Dont't!</b> You aren't going to find out. At least, not from me. If you won't call me Adina then Oluwatoyin is good, unless It is a mouthfull for you, then  you can call me Toyin.</span>
                     <p></p>
-                    <span> I live for <span style="text-decoration:line-through;">JavaScript</span> <b>jQuery</b> though I am not that good at it. I also dabble in <b>HTML</b> and <b>CSS</b>. So basically, I am a front-end developer. I am not bad at it, but I am terrible at coming up with good UI designs.</span>
+                    <span> I live for <span style="text-decoration:line-through;">JavaScript</span> <b>jQuery</b> though I am not that good at it. I also dabble in <b>HTML</b>, <b>CSS</b> and some <b>PHP</b>. So basically, I am a front-end developer. I am not bad at it, but I am terrible at coming up with good UI designs.</span>
                 </div>
             </div>
         </div>
@@ -207,34 +196,7 @@
 <script src="js/typed.js"></script>
 <script type='text/javascript' src = "js/index.js"></script>
     <script type='text/javascript'>
-    function ajaxcall()
-        {
-            $.ajax({
-                method:'GET',
-                url: 'js/gettime.php',
-                success: function(data){
-            //            alert(data);
-                    data = data.split(':');
-                    $('#hours').text(' ' + data[0] );
-                    $('#minutes').text(' ' + data[1] );
-                    $('#seconds').text(' ' + data[2]);
-                }
-            });
-        }
-        setInterval('ajaxcall()', 1000);
-    </script>
-    <script type='text/javascript'>
-//    $(document).ready(function(){
-        $.ajax({
-                method:'GET',
-                url: 'js/getdate.php',
-                success: function(data){
-            //            alert(data);
-//                    data = data.split(' ');
-                    $('#div112').html(data);
-                }
-            });
-//    }
+    
     </script>
 -->
     
