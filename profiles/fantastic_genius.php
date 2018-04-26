@@ -36,7 +36,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }else{
         $response =  json_encode([ 
                         'status' => 1,
-                        'answer' => "You have not input anything in the inpu field."
+                        'answer' => "You have not input anything in the input field."
                     ]);
     }
     
@@ -56,7 +56,7 @@ function saveQuestion($conn, $data){
     $data_arr = explode('#', $data);
     
     if(count($data_arr) == 3){
-        if(trim($data_arr[2]) == 'genius'){
+        if(trim($data_arr[2]) == 'password'){
             $question_arr = explode(':', $data_arr[0]);
             $question = trim($question_arr[1]);
             $answer = trim($data_arr[1]);
@@ -66,13 +66,13 @@ function saveQuestion($conn, $data){
                 $conn->exec($sql);
                 $answer = "Training Successful! I am now more intelligent now. Thanks for that";
             }catch(PDOException $err){
-                $answer = "Ooops Training Failed! Something went wrong. Try Again";
+                $answer = "Ooops Training Failed! Something went wrong. Try Again. type 'aboutbot' for more info";
             }
         }else{
             $answer = "Password Incorrect, try again";
         }
     }else{
-        $answer = "You do not have permission to train me. Include password to train";
+        $answer = "You do not have permission to train me. Include password to train. For more info type 'aboutbot'";
     }
 
     $status = 1;
@@ -100,7 +100,7 @@ function getAnswer($conn, $question){
             $answer = $answer['answer'];
         }else{
             $answer = "I don't understand what you are asking. You can train me to become more intelligent";
-            $answer .= "Train me by typing; 'train: your question # your answer'";
+            $answer .= "Train me by typing; 'train: your question # your answer # password'";
         }
         
     }catch(PDOException $err){
@@ -223,7 +223,8 @@ function getAbout(){
     $status = 1;
     $answer = "I am geniusBot. Version 1.0";
     $answer .= " You can ask me any question. If i am unable to respond, there is an option to train me";
-    $answer .= "To train me use; 'train: your question # your answer";
+    $answer .= "To train me use; 'train: your question # your answer # password'.";
+    $answer .= "Password = 'password'";
     $answer .= "Also, I can do basic arithmetic such as addition, subtraction, multiplication and division";
     $answer .= "For Addition use; 'sum: 1,2,3,..'  or  'sum(1,2,3,..)'";
     $answer .= "For Subtraction use; 'subtract: 1,2,3,..'  or  'subtract(1,2,3,..)'";
