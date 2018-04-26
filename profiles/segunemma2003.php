@@ -351,7 +351,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 					// alert(responseMessage('I am a little bot'));
 				}
                  $.ajax({
-                     url:"hng.fun/profile.php?id=segunemma2003",
+                     url:"profile.php?id=segunemma2003",
                      type: "POST",
                      dataType: "json",
 		     
@@ -388,10 +388,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 }
 
                 function sentMessage(response){
-                    return   '<div class="chat self">'+
-									'<div class="user-photo"></div>'+
-									'<p class="chat-message">'+ response + '</p>'+	
-										'</div>';
+                    return   `<div class="chat self"><div class="user-photo"></div><p class="chat-message">${response}</p></div>`;
 							
 							
                 }
