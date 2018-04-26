@@ -133,7 +133,7 @@
 			float: left;
         }
 		#send {
-		   width: 80px;
+		   width: 60px;
 		   height: 45px;
 		   display: inline-block
 		   outline: none;
@@ -167,7 +167,7 @@
         }
 		.oj-panel{
 		background-color:#DFE1E2;
-            padding-left: 0px;
+            padding-left: 40px;
 		}
 		.oj-flex{
 		background-color:blue;
