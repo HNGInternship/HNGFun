@@ -206,7 +206,7 @@
         throw $e;
     }
     ?>
-	 <div class="oj-flex demo-panelwrapper" style='width: 1200px;'>
+	 <div class="oj-flex demo-panelwrapper" style='width: 1300px;'>
             <div class="oj-flex-item oj-panel demo-mypanel">
             <div class="col-sm-6 profile-details" >
                 <div class="profile-image">
