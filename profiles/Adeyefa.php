@@ -311,9 +311,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     ?>
 		<div id="bbb">
 	    	<div>
-				<p>
-					HELLO WORLD
-				</p>
+	    		<div class="oj-flex">
+					<div class="oj-flex-item"> <p> HELLO WORLD </p> </div>
+				</div>
 				<p>
 					I am   <?=$my_data['name'] ?>
 				</p>
