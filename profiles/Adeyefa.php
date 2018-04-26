@@ -235,7 +235,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    box-sizing: border-box;
 		}
 		textarea{
-		    width: 380px;
+		    width: 70%;
 		    box-sizing: border-box;
 		    border: 2px solid #ccc;
 		    border-radius: 4px;
@@ -320,7 +320,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				<p>
 					A Web developer, blogger and Software developer
 				</p>
-				<p  >
+				<p>
 					<a href="https://github.com/sainttobs"><i class="fa fa-github"></i></i></a>
 					<a href="https://twitter.com/9jatechguru"><i class="fa fa-twitter"></i></i></a>
 					<a href="https://web.facebook.com/toba.adeyefa"><i class="fa fa-facebook"></i></i></a>	
@@ -332,7 +332,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				<h2> Chat With MyBot</h2>
 			</div>
 			<div class="row-holder" class="oj-flex">
-				<div class="row2">
+				<div class="oj-flex-item">
 					<div id="form">
 						<form id="qform" method="post">
 							<div id="textform">
