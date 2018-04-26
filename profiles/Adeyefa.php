@@ -309,8 +309,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         throw $e;
     }
     ?>
-		<div id="bbb">
-	    	<div>
+		<div id="bbb" class="oj-flex" >
+	    	<div class="oj-flex-item">
 				<p>
 					HELLO WORLD
 				</p>
@@ -333,7 +333,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			</div>
 			<div class="row-holder">
 				<div class="oj-flex-item">
-					<div id="form">
+					<div id="form" class="oj-flex-item">
 						<form id="qform" method="post">
 							<div id="textform">
 								<textarea id='questionBox' name="question" placeholder="Enter message ..."></textarea>
