@@ -13,7 +13,7 @@
             overflow-x: hidden;
         }
 		 .container {
-            max-width: 95%;
+            max-width: 100%;
             padding-left: 0;
 		
         }
@@ -22,11 +22,10 @@
             font-size: 16px;
             display: flex;
             flex-direction: column;
-            max-width: 400px;
+            max-width: 600px;
 			height: 400px;
-			border-radius: 0px;
-			margin: 50px;
-			background: white;
+			border-radius: 5px;
+			  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
         }
 
         footer {
@@ -37,17 +36,17 @@
             padding-right : 0;
         }
 
-        .profile-details{
+        .oj-flex-item .oj-panel .demo-mypanel{
             padding: 40px;
 			 
         }
 
-        .profile-details {
+       .oj-flex-item .oj-panel .demo-mypanel {
             padding-right: 0;
             background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
-			width: 450px;
-			margin: 10px;
+			width: 600px;
+			margin: 0px;
         }
         .profile-body {
             max-width: 100%;
@@ -92,7 +91,7 @@
 		}		
         .chat-result {
             flex: 1;
-            padding: 10px;
+            padding: 0px;
             display: flex;
             background: #A6BBEC;
             flex-direction: column;
@@ -167,14 +166,12 @@
             margin-top: 2.5px;
         }
 		.oj-panel{
-		background-color:#DFE1E2;
-		max-width: 100%;
-            padding-left: 0;
+		  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+            margin-left: 40px;
 		}
-		.demo-panelwrapper {
-		background-color:#DFE1E2;
-		max-width: 100%;
-            padding-left: 0;
+		.oj-flex{
+		background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+        padding: 0px;
 		}
         .fa-close, .fa-question-circle {
             font-size: 23px;
@@ -202,10 +199,8 @@
         throw $e;
     }
     ?>
-	 <div class="oj-flex demo-panelwrapper">
-            <div class="oj-flex-item oj-panel">
-     
-            <div class="col-sm-6 profile-details" >
+	 <div class="oj-flex demo-panelwrapper" style='width:  95%;'>
+            <div class="oj-flex-item oj-panel demo-mypanel" >
                 <div class="profile-image">
                     <img src="http://res.cloudinary.com/lois-idzi/image/upload/v1524718483/mypic.jpg" alt="Lois Thomas">
                 </div>
@@ -218,10 +213,9 @@
                     <a href="https://facebook.com/lois.idzi5" target="_blank"><i class="fa fa-2x fa-facebook"></i></a>
                 </div>
             </div>
-			  </div>
-  <div class="oj-flex-item oj-flex oj-sm-flex-items-1 oj-sm-12 oj-md-6 oj-lg-6 oj-xl-6 " style='width: 450px;'>
-        <div class="oj-flex-item demo-mypanel" style='float: right; padding-top: 10px;'>
-			<div class="col-sm-6 chatbox" style='float: right; padding-top: 10px'>
+			
+        <div class="oj-flex-item oj-panel demo-mypanel" style='float: right;' >
+			<div class="col-sm-6 chatbox" >
 				<div class='chatbot-menu-header'>
                         <div class="hng-logo"></div> <span>LoBot v1.0</span>
                     </div>
@@ -244,7 +238,6 @@
 		   </div>
           </div>
 		   </div>
-		    </div>
     <?php
     try {
         $sql = 'SELECT * FROM secret_word';

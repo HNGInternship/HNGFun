@@ -1,15 +1,70 @@
 <?php
-function getTime(){
+ini_set('display_errors',0);
+function gettTime(){
     date_default_timezone_set('Africa/Lagos');
     return "The time is " . date("h:i:sa");
+
+}function getMyquote(){
+    $random = rand(0,11);
+    $quote = array("My life is my message. Mahatma Gandhi",
+
+        "Not how long, but how well you have lived is the main thing. Seneca",
+
+        "I love those who can smile in trouble… Leonardo da Vinci",
+
+        "Time means a lot to me because, you see, I, too, am also a learner and am often lost in the joy of forever developing and simplifying. If you love life, don’t waste time, for time is what life is made up of. Bruce Lee",
+
+        "Life is what happens when you’re busy making other plans. John Lennon",
+
+        "It is better to be hated for what you are than to be loved for what you are not. Andre Gide",
+
+        "Dost thou love life? Then do not squander time, for that is the stuff life is made of. Benjamin Franklin",
+
+        "Very little is needed to make a happy life; it is all within yourself, in your way of thinking. Marcus Aurelius",
+
+        "Life is like playing a violin in public and learning the instrument as one goes on. Samuel Butler",
+
+        "In the end, it’s not the years in your life that count. It’s the life in your years. Abraham Lincoln",
+
+        "You’ve gotta dance like there’s nobody watching. William W. Purkey",
+
+        "Believe that life is worth living and your belief will help create the fact. William James");
+    return $quote[$random];
+}function getmyJoke(){
+    $random = rand(0,6);
+    $joke = array("Q. What is the biggest lie in the entire universe?
+               A. I have read and agree to the Terms & Conditions.",
+
+
+"Q. What do you call it when you have your mom’s mom on speed dial? A. Instagram.",
+
+
+"Q. What should you do after your Nintendo game ends in a tie?  A. Ask for a Wii-match!",
+
+
+"Why are iPhone chargers not called Apple Juice?!",
+
+
+"Q. How does a computer get drunk?  A. It takes screenshots.",
+
+
+"Q. Why did the PowerPoint Presentation cross the road?
+
+        A. To get to the other slide.",
+        "PATIENT: Doctor, I need your help. I’m addicted to checking my Twitter!
+
+    DOCTOR: I’m so sorry, I don’t follow.",
+
+"What’s the Gig Deal?
+
+        Have you heard of that new band “1023 Megabytes”? They’re pretty good, but they don’t have a gig just yet."
+    );
+    return $joke[$random];
 }
-
 session_start();
-
 if (!isset($_SESSION["all"])){
     $_SESSION["all"] = [];
-}
-if(!defined('DB_USER')){
+}if(!defined('DB_USER')){
     require_once "../../config.php";
     $servername = DB_HOST;
     $username = DB_USER;
@@ -29,18 +84,31 @@ global $conn;
 $solution = '';
 if (isset($_POST['restart'])){
     session_destroy();
-}
-if (isset($_POST['button'])) {
+}if (isset($_POST['button'])) {
     if (isset ($_POST['input']) && $_POST['input'] !== "") {
-        $asked_question_text = $_POST['input'];
-        $solution = askQuestion($asked_question_text) . "<br/>";
-        $_SESSION["all"][] = array($solution, $asked_question_text);
+        include "../answers.php";
+        $function = $_POST['input'];
+        $functionName = explode("(", $function);
+        if (function_exists($functionName[0])&&strpos($function,"(")&&strpos($function,")")) {
+            $functionVariable = explode(')',$functionName[1],2);
+            if (!strpos($functionVariable[0],",")){
+                $response = $functionName[0]($functionVariable[0]);
+            }else
+                $functionVariable1 = explode(',',$functionVariable[0],2);
+                $response = $functionName[0]($functionVariable1[0],$functionVariable1[1]);
+            // Dynamic call using variable value as function name.
+
+}else{$asked_question_text = $_POST['input'];
+            $solution = askQuestion($asked_question_text) . "<br/>";
+            $_SESSION["all"][] = array($solution, $asked_question_text);
+        }
     }
 }
 function askQuestion($input)
 {$input = strtolower($input);
     $input = trim($input);
     $action = "train:";
+    $time = "time";
     global $conn;
     $train = strpos($input,$action);
     if ($input!==""||$input!==" ") {
@@ -72,15 +140,20 @@ function askQuestion($input)
             } else
                 return "The right format is train:yourquestion#youranswer#password";
         } else {
-            if ($input == "aboutbot") {
+            if (preg_match('/\baboutbout\b/',$input)) {
                 return "Adokiye v1.0";
-            } else if ($input == "what is the time") {
-                return getTime();
-            } else if ($input == "help") {
-                return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me";
+            } else if (preg_match("/\b($time)\b/",$input)) {
+                return gettTime();
+            } else if (preg_match('/\bhelp\b/',$input)) {
+                return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me<br/> or enter the name of any function you want to run";
             }else if($input=="you are mad"||$input == "you're mad"){
                 return "YOUR FATHER";
-            } else {
+            }else if(preg_match("/\bquote\b/",$input)){
+                return getMyquote();
+            }else if(preg_match("/\bjoke\b/",$input)){
+                return getmyJoke();
+            }
+                else {
                 $input = $_POST['input'];
                 $question = strtolower($input);
                 $question = str_replace('?', '', $question);
@@ -243,7 +316,7 @@ $username = 'Adokiye';
     </div>
     <marquee onmouseover="this.stop();" onmouseout="this.start();">
         <p style=" color: #FFFFFF;font-family: arial, sans-serif; font-size: 14px;font-weight: bold;letter-spacing: 0.3px;">
-            ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="font-weight: bolder">TRAIN: YOUR QUESTION#YOUR ANSWER</span>
+            ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="color: #0C1621">TRAIN: YOUR QUESTION#YOUR ANSWER#password</span>
             TO ADD MORE QUESTIONS TO THE DATABASE</p>
     </marquee>
     <div>
@@ -251,7 +324,7 @@ $username = 'Adokiye';
         <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
         <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
     </div>
-    <p class="mycss">Chatbot by Adokiye!!!!!<br />Click on show below to display the password for training me</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
+    <p class="mycss">Chatbot by Adokiye<br />Click on show below to display the password for training me<br/>Enter help, quote or joke<br/>to see qhat i can do</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
     <form name = "askMe" method="post">
         <p>
             <label>
@@ -266,7 +339,7 @@ $username = 'Adokiye';
         </p>
         <p>&nbsp;</p>
     </form>
-    <div class="bot-css"> <?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
+    <div class="bot-css"> <?php echo $response;echo "<br/>"?><?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
         <span style="color:blue"><?=  "YOU : $soln <br/>";echo "</span>";
             echo "BOT : $asked<br/>" ?><br/><?php } ?><br/>
     </div><div id = "myform" style="display:none"  >HAHAHA, THE PASSWORD IS PASSWORD</div>

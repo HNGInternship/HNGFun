@@ -1,17 +1,18 @@
 <?php
 
-if (!defined('DB_USER')) {
-	require "../../config.php";
-}
-
-$result = $conn->query("Select * from secret_word LIMIT 1");
-$result = $result->fetch(PDO::FETCH_OBJ);
-$secret_word = $result->secret_word;
-
-$result2 = $conn->query("Select * from interns_data_ where username = 'pajimo'");
-$user = $result2->fetch(PDO::FETCH_OBJ);
+  require_once '../db.php';
+        try {
+            $select = 'SELECT * FROM secret_word';
+            $query = $conn->query($select);
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $query->fetch();
+        } 
+        catch (PDOException $e) {
+            throw $e;
+        }
+        $secret_word = $data['secret_word'];       
+  
 ?>
-
 <!DOCTYPE HTML>
 
 <html>
