@@ -199,8 +199,8 @@
         throw $e;
     }
     ?>
-	 <div class="oj-flex demo-panelwrapper" style='width: 1300px;'>
-            <div class="oj-flex-item oj-panel demo-mypanel" style='width: 1200px;'>
+	 <div class="oj-flex demo-panelwrapper" style='width:  95%;'>
+            <div class="oj-flex-item oj-panel demo-mypanel" style='width:  95%;'>
             <div class="col-sm-6 profile-details" >
                 <div class="profile-image">
                     <img src="http://res.cloudinary.com/lois-idzi/image/upload/v1524718483/mypic.jpg" alt="Lois Thomas">
