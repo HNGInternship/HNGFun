@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 -- phpMyAdmin SQL Dump
 -- version 4.7.9
@@ -13,7 +12,7 @@
 SQLyog Ultimate v9.02 
 MySQL - 5.5.5-10.1.31-MariaDB : Database - hng_fun
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -48,8 +47,6 @@ insert  into `chatbot`(`id`,`question`,`answer`) values (1,'i deserve','some acc
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 
-=======
->>>>>>> 3c3383b76b4c99992df22d4b2d35ba95cd58eb45
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -132,10 +129,7 @@ ALTER TABLE `secret_word`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-<<<<<<< HEAD
 
-=======
->>>>>>> 3c3383b76b4c99992df22d4b2d35ba95cd58eb45
 
 
 -- phpMyAdmin SQL Dump
@@ -146,8 +140,4 @@ ALTER TABLE `secret_word`
 -- Generation Time: Apr 14, 2018 at 08:00 AM
 -- Server version: 5.7.21-0ubuntu0.16.04.1
 -- PHP Version: 7.2.4-1+ubuntu16.04.1+deb.sury.org+1
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 3c3383b76b4c99992df22d4b2d35ba95cd58eb45
