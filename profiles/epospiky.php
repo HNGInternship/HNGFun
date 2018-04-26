@@ -378,7 +378,7 @@ if(in_array($data_lower, $q)) { # DONE
        <div class="progress progress-striped active"> 
             <div class="progress-bar progress-bar-success" role="progressbar"  
                 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"  
-                style="width: 70%;"> 
+                style="width: 80%;"> 
             <span class="">80%</span> 
             </div>
         </div>
@@ -388,7 +388,7 @@ if(in_array($data_lower, $q)) { # DONE
        <div class="progress progress-striped active"> 
             <div class="progress-bar progress-bar-success" role="progressbar"  
                 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"  
-                style="width: 50%;"> 
+                style="width: 60%;"> 
             <span class="">60%</span> 
             </div>
         </div>
