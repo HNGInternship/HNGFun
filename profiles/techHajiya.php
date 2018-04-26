@@ -166,12 +166,12 @@
             margin-top: 2.5px;
         }
 		.oj-panel{
-		background-color:#fff;
+		background-color:#DFE1E2;
 		max-width: 100%;
             padding-left: 0;
 		}
 		.demo-panelwrapper {
-		background-color:#B6BCBD;
+		background-color:#DFE1E2;
 		max-width: 100%;
             padding-left: 0;
 		}
