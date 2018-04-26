@@ -101,7 +101,7 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <div class="col-lg-6">
           <img class="img-circle " src="<?php echo $data['image_filename']; ?>" alt="Generic placeholder image" width="200" height="200" style="border:solid 5px #fff;">
-          <h2 style="color: #fff;"><?php echo $data['username']; ?>
+          <h2 style="color: #fff;">WaTeR <?php  $data['username']; ?>
             <br/><small style="color: #FFFFCC;"><?php echo $data['name']; ?></small></h2>
 
           <p class="text-primary" style="color: #F0F8FF;">FULL-STACK DEVELOPER | GRAPHICS DESIGNER | LEARNER</p>
