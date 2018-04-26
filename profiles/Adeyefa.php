@@ -297,7 +297,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 		#ans{
 			background-color: #00FF00;
-			margin-top: 2px;
+			margin-top: 4px;
+			margin-bottom: 4px
+		}
+		#que{
+			background-color: #000FFF;
+			margin-bottom: 4px;
+			margin-top: 4px;
 		}
 	</style>
 </head>
@@ -350,8 +356,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 								</div>
 									
 								<div class="iio">
-									<ul id="ans">
+									<ul id="que">
 											
+									</ul>
+									<ul class="ans">
+										
 									</ul>
 								</div>	
 							</div>
@@ -369,7 +378,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#ans").append("<li> You: " + question + "</br></li>");
+				$("#que").append("<li> You: " + question + "</br></li>");
 					//let newMessage = `<div class="iro">
 	                  //${question}
 	                //</div>`
