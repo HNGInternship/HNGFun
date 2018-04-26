@@ -167,10 +167,7 @@
         }
 		.oj-panel{
 		background-color:#DFE1E2;
-		width: 100%;
             padding-left: 0px;
-		}
-		.demo-panelwrapper {
 		}
 		.oj-flex{
 		background-color:blue;
@@ -218,7 +215,7 @@
                 </div>
             </div>
 			
-  <div class="oj-flex-item oj-sm-flex-items-1" style='width: 550px;'>
+  <div class="oj-sm-flex-items-1" style='width: 550px;'>
         <div class="profile-details" style='float: right; padding-left: 10px;' >
 			<div class="col-sm-6 chatbox" >
 				<div class='chatbot-menu-header'>
