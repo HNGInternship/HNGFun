@@ -198,6 +198,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 		img{
 			border-radius: 40%;
+			width: 380px;
+			height: 500px;
 		}
 		p{
 			text-align: center;
