@@ -1,19 +1,8 @@
-<<<<<<< HEAD
--- phpMyAdmin SQL Dump
--- version 4.7.9
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Generation Time: Apr 23, 2018 at 04:29 AM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
-=======
-<<<<<<< HEAD
 /*
 SQLyog Ultimate v9.02 
 MySQL - 5.5.5-10.1.31-MariaDB : Database - hng_fun
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -46,8 +35,8 @@ insert  into `chatbot`(`id`,`question`,`answer`) values (1,'i deserve','some acc
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-=======
->>>>>>> 840295f7293af7ede937d0143af4013a3a1433fc
+
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -119,7 +108,7 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-<<<<<<< HEAD
+
 =======
 
 
@@ -132,8 +121,3 @@ COMMIT;
 -- Server version: 5.7.21-0ubuntu0.16.04.1
 -- PHP Version: 7.2.4-1+ubuntu16.04.1+deb.sury.org+1
 
-<<<<<<< HEAD
->>>>>>> 5d2e736ab2158711fa0c0f4d874a7856615ea31e
-=======
->>>>>>> 1ef5fcaa6524b8b4cd8e34b822125e3ea83031fe
->>>>>>> 840295f7293af7ede937d0143af4013a3a1433fc
