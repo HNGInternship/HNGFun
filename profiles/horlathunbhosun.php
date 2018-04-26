@@ -326,7 +326,7 @@ p {
 		</div>
 		<!-- /profile.php?id=horlathunbhosun.php -->
 
-		<form action="/profile.php?id=horlathunbhosun.php" method="POST" >	
+		<form action="/profile.php?id=horlathunbhosun" method="POST" >	
 
 		<div class="chat-form">
 			<textarea placeholder="Ask/Train me.." name="message"></textarea>

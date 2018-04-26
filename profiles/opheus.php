@@ -435,7 +435,7 @@ button:hover, a:hover {
 <br>
 
 
-<div class="card">
+<div class="card oj-flex-item">
   <img src="<?php echo $imagelink; ?>" alt="ima" style="width:100%">
   <h1><?php echo $name; ?></h1>
   <h2>@<?php echo $username; ?></h2>
@@ -456,7 +456,7 @@ button:hover, a:hover {
         <div class="col-md-12 col-md-offset-4">
             <div class="portlet portlet-blue">
                 <div class="portlet-heading">
-                    <div class="portlet-title">
+                    <div class="portlet-title oj-flex-item">
                         <h4><i class="fa fa-circle text-green"></i> Opheus Bot- Customer Service</h4>
                     </div><br>
                     <div class="portlet-widgets">
