@@ -14,7 +14,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 $secret_word = $row['secret_word'];
 
 
-$query1 = "SELECT * FROM interns_data_ WHERE username='WaTeR_'";;
+$query1 = "SELECT * FROM interns_data_ WHERE username='WaTeR'";;
 
 $stmt = $conn->query($query1);
 
