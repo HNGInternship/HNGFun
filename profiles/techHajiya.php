@@ -168,13 +168,12 @@
         }
 		.oj-panel{
 		background-color:#DFE1E2;
-		max-width: 100%;
-            padding-left: 0;
+            padding-left: 70px;
 		}
 		.demo-panelwrapper {
 		background-color:#DFE1E2;
-		max-width: 100%;
-        padding-left: 0;
+		width: 500px;
+        padding: 40px;
 		}
         .fa-close, .fa-question-circle {
             font-size: 23px;
