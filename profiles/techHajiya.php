@@ -24,9 +24,8 @@
             flex-direction: column;
             max-width: 400px;
 			height: 400px;
-            margin: 0 auto;
 			border-radius: 0px;
-			margin-bottom: 50px;
+			margin: 50px;
 			background: white;
         }
 
