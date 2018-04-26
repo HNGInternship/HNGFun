@@ -529,7 +529,7 @@ class DBHelper{
 	<div class="section-main">
         <div class="row chat-border">
             <div class="col-md-12 col-sm-12 col-xs-12 session-one bg-primary">
-                <div class="row">
+                <div class="row" style="background-color: black; padding-bottom: 30px">
                     <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6 left-session-one">
                         <p id="chatbot-heading" class="blink">W3bh4ck bot</p>
                     </div>
