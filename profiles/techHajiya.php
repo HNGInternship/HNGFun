@@ -22,7 +22,7 @@
             font-size: 16px;
             display: flex;
             flex-direction: column;
-            width: 100%;
+            max-width: 450px;
 			height: 400px;
 			border-radius: 0px;
 			margin: 20px 10px;
