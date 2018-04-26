@@ -229,13 +229,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			height: auto;
 		}
 		input{
-			width: 100%;
+			width: 350px;
 		    padding: 12px 20px;
 		    margin: 8px 0;
 		    box-sizing: border-box;
 		}
 		textarea{
-		    width: 65%;
+		    width: 350px;
 		    box-sizing: border-box;
 		    border: 2px solid #ccc;
 		    border-radius: 4px;
