@@ -199,7 +199,7 @@ $data2 = $q->fetchAll();
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css" type="text/css"/>
 
-        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+       <!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script> -->
 		<style>
 		.font{
 			font-family: Roboto;
