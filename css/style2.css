@@ -1,0 +1,71 @@
+/*!
+ * Start Bootstrap - Portfolio Item (https://startbootstrap.com/template-overviews/portfolio-item)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-portfolio-item/blob/master/LICENSE)
+ */
+
+
+
+@media (min-width: 992px) {
+ 
+  
+}
+
+jumbotron{
+  margin-top: 100px;
+}
+
+/* -------------------------- JIM'S PROFILE PAGE STYLES ------------------------------------- */
+.Jim {
+    background: linear-gradient(180deg, #141719d1 99.99%, rgba(255, 255, 255, 0) 100%), url(https://res.cloudinary.com/nzesalem/image/upload/v1523623978/desktop.jpg);
+    background-size: cover;
+    background-position: -250px -375px;
+}
+.Jim .profile-wrap{
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+}
+
+.Jim h1, .Jim h3 {
+    margin: 5px auto;
+}
+
+.Jim h1 {
+    font-weight: 700;
+}
+.Jim h3 {
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+.Jim .photo-wrap {
+    width: 140px;
+    margin: auto;
+}
+
+.Jim .photo-wrap img {
+    border-radius: 50%;
+    width: 100%;
+    height: auto;
+}
+
+.Jim .social-icons .fa {
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+.Jim .twitter {
+    color: #00b2ff !important;
+}
+.Jim .github {
+    color: #ffffff !important;
+}
+.Jim .linkedin {
+    color: #4267b2 !important;
+}
+.Jim .facebook {
+    color: #365899 !important;
+}

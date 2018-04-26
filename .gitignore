@@ -1,0 +1,16 @@
+ HEAD
+db.php
+2e836b2479efcced25ca316ba870c553981dce2b
+docker-compose.yml
+phpmyadmin/
+.DS_Store
+._.DS_Store
+/deploy
+.idea/
+config.php
+/profiles/dennisotugo/*
+/profiles/dennisotugo.php
+.travis.yml
+push.sh
+/vendor/
+admin.php
