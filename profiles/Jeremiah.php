@@ -256,8 +256,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		    padding: 10px 20px 20px 20px;
 		    background: white;           
 		    overflow-y: scroll;
-		    height: 400px;
-		    max-height: 400px;
+		    height: 395px;
+		    max-height: 395px;
 		}
 
 		.message{
@@ -307,7 +307,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		.input_text{			
 			width: 370px;
-			height: 40px;
+			height: 35px;
 			padding: 5px;
 			margin-top: 8px;
 			border: 0.5px solid #34495E;
@@ -316,7 +316,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		.send_button{
 			width: 75px;
-			height: 40px;
+			height: 35px;
 			padding: 5px;
 			margin-top: 8px;
 			color: white;
