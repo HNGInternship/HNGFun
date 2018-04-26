@@ -50,10 +50,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				# code...
 				echo json_encode([
 					'status' => 0,
-					'answer' => "You need to enter a password to train me."
+					'answer' => "You need to enter a password to train me.",
 				]);
 				return;
 			}
+			/*
 			$password = trim($queries[2]);
 			//to verify training password
 			define('trainingpassword', 'password');
@@ -169,7 +170,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    		'answer' => "I am sorry, I cannot answer your question now. You could offer to train me."
 		    	]);
 		    	return;
-		    }
+		    }*/
 	    }
 	}catch (Exception $e){
 		return $e->message ;
