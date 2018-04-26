@@ -1,20 +1,4 @@
-<?php
 
- require 'db.php';
-
-  $result = $conn->query("Select * from secret_word LIMIT 1");
-
-  $result = $result->fetch(PDO::FETCH_OBJ);
-
-  $secret_word = $result->secret_word;
-
-
-
-  $result2 = $conn->query("Select * from interns_data where username = 'olubori'");
-
-  $user = $result2->fetch(PDO::FETCH_OBJ);
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -105,6 +89,14 @@
 <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/default/js"></script>
 
 <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/3rdparty"></script>
+<<<<<<< HEAD
+=======
+
+<script type="text/javascript" src="../js/main.js"></script>
+
+</body>
+</html>
+>>>>>>> 391841b40220499e457aed1050908abb4626df37
 
 <script type="text/javascript" src="../js/main.js"></script>
 
