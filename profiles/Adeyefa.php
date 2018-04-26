@@ -315,7 +315,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     ?>
 		<div id="bbb" class="oj-flex" >
 	    	<div class="oj-flex-item">
-				<p class="oj-flex oj-md-align-items-center">
+				<p>
 					HELLO WORLD
 				</p>
 				<p>
