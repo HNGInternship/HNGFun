@@ -91,7 +91,7 @@
 		}		
         .chat-result {
             flex: 1;
-            padding: 10px;
+            padding: 0px;
             display: flex;
             background: #A6BBEC;
             flex-direction: column;
@@ -215,7 +215,7 @@
                 </div>
             </div>
 			
-  <div class="oj-sm-flex-items-1" style='width: 550px;'>
+  <div class="oj-sm-flex-items-1" style='width: 650px;'>
         <div class="profile-details" style='float: right; padding-left: 10px;' >
 			<div class="col-sm-6 chatbox" >
 				<div class='chatbot-menu-header'>
