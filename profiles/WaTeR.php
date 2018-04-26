@@ -8,13 +8,13 @@ $query = "Select * from secret_word LIMIT 1";
 $stmt = $conn->query($query);
 
 $stmt->execute();
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 $secret_word = $row['secret_word'];
 
 
-$query1 = "SELECT * FROM interns_data_ WHERE username='WaTeR_'";;
+$query1 = "SELECT * FROM interns_data_ WHERE username='WaTeR'";;
 
 $stmt = $conn->query($query1);
 
@@ -23,11 +23,11 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
  ?>
 
-
+<!-- 
 <!DOCTYPE html>
 <html>
 <head>
-  <title>HNG INternship Task 3</title>
+  <title>HNG INternship Task 3</title> -->
   <style type="text/css">
     *{
   padding: 0px;
@@ -80,10 +80,10 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
   </style>
 
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-</head>
-<body>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ -->
+<!-- </head>
+<body> -->
 
 <div class="head">
   <h1>Hi,</h1>
@@ -101,7 +101,7 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <div class="col-lg-6">
           <img class="img-circle " src="<?php echo $data['image_filename']; ?>" alt="Generic placeholder image" width="200" height="200" style="border:solid 5px #fff;">
-          <h2 style="color: #fff;"><?php echo $data['username']; ?>
+          <h2 style="color: #fff;">WaTeR <?php  $data['username']; ?>
             <br/><small style="color: #FFFFCC;"><?php echo $data['name']; ?></small></h2>
 
           <p class="text-primary" style="color: #F0F8FF;">FULL-STACK DEVELOPER | GRAPHICS DESIGNER | LEARNER</p>
@@ -116,7 +116,4 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
 </div>
 </div>
-<!-- /.row -->
-</body>
-</html> 
-<?php }
+
