@@ -89,16 +89,9 @@
 <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/default/js"></script>
 
 <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/3rdparty"></script>
-<<<<<<< HEAD
-=======
 
 <script type="text/javascript" src="../js/main.js"></script>
 
 </body>
 </html>
->>>>>>> 391841b40220499e457aed1050908abb4626df37
 
-<script type="text/javascript" src="../js/main.js"></script>
-
-</body>
-</html>
