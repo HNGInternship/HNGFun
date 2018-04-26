@@ -331,6 +331,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			margin-bottom: 20px;
 			border: 0.5px solid #34495E;
 			background-color: #34495E;
+			width: 100%;
 		}
 
 	</style>
