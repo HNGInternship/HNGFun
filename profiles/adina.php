@@ -186,7 +186,7 @@
         <div id="div1">
             <div class="divs" id= "div11">
                 <div id="img"></div>
-<!--                <img src="http://res.cloudinary.com/djdhcpx0q/image/upload/v1524662314/HNG%20Internship%204/IMG_20170924_104542.jpg">-->
+		    <img src="http://res.cloudinary.com/djdhcpx0q/image/upload/v1524662314/HNG%20Internship%204/IMG_20170924_104542.jpg">
             </div>
             <div class="divs" id="div12">
                 <div id="aboutme">
