@@ -189,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			background-color:white;
 		} 
 
-		}footer{
+		footer{
 			display: none;
 		}
 
@@ -256,8 +256,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		    padding: 10px 20px 20px 20px;
 		    background: white;           
 		    overflow-y: scroll;
-		    height: 380px;
-		    max-height: 380px;
+		    height: 400px;
+		    max-height: 400px;
 		}
 
 		.message{
@@ -297,7 +297,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 
 		.chat-footer{
-			margin-top: 10px;
+			margin-top: 5px;
 			background-color: #F3F3F3;
 
 		}
@@ -308,7 +308,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		.input_text{			
 			width: 360px;
-			height: 20px;
+			height: 45px;
 			padding: 5px;
 			margin-top: 8px;
 			border: 0.5px solid #34495E;
@@ -317,7 +317,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		.send_button{
 			width: 70px;
-			height: 50px;
+			height: 45px;
 			padding: 5px;
 			margin-top: 8px;
 			color: white;
@@ -329,6 +329,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			margin: 100px 0px 50px 0px;
 			font-size: 0.9em;
 		}.footer_line{
+			padding: 0px;
 			margin-bottom: 20px;
 			border: 0.5px solid #34495E;
 			background-color: #34495E;
@@ -384,8 +385,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			</div>
 		</div>
 	</div>	
+	
+		
 		<div class="myfooter">	
-		<hr class="footer_line">	
+			<hr class="footer_line">
 			<div style="text-align:center">
 				<div class="footer_info">Copyright &copy; 2018 www.hng.fun - Built with
 				<span style="color: #cc023b">&hearts;</span> | HNGIternship 4.0 </div>				 
