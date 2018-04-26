@@ -46,7 +46,7 @@ button:hover, a:hover {
 </head>
 <body>
 
-<h3 style="text-align:center" style="margin-Top:50px"> My Profile Page</h3>
+
 
 <div class="card">
   <img src="http://res.cloudinary.com/eshietekemini/image/upload/v1524557804/IMG_20180224_130950.jpg" alt="John"  style="width:100%">
