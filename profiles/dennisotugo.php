@@ -1,265 +1,263 @@
-<?php 
-		
-		if(!defined('DB_USER')){
-			require "../../config.php";		
-			try {
-			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-			} catch (PDOException $pe) {
-			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-			}
-		}
-    try {
-        $q = 'SELECT * FROM secret_word';
-        $sql = $conn->query($q);
-        $sql->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $sql->fetch();
-        $secret_word = $data["secret_word"];
-    } catch (PDOException $err) {
-        throw $err;
-    }?>
 <?php
-	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		$question = $_POST['message-box'];
-		$array = explode("#", $question);
-      		$question_temp = explode(":", $array[0]);
-      		$question = trim($question_temp[1]);
-      		$answer = trim($array[1]);
-		$password = $password_temp ;
-		$password_temp = trim(preg_replace("([?.])", "", $trainInfo[2] ));
-      		if(strpos($question, "train:") !== false) {
-			$question = preg_replace('([\s]+)', ' ', trim($question));
-			$question = preg_replace("([?.])", "", $question);
-			if ($password !== "password"){
-			$question = "%$question%";
-			$sql = "select * from chatbot where question like :question";
-			$stmt = $conn->prepare($sql);
-			$stmt->bindParam(':question', $question);
-			$stmt->execute();
-			$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			$rows = $stmt->fetchAll();
-			if(count($rows)>0){
-				$index = rand(0, count($rows)-1);
-				$row = $rows[$index];
-				$answer = $row['answer'];	
-				//check if the answer is to call a function
-				$index_of_parentheses = stripos($answer, "((");
-				if($index_of_parentheses === false){ //then the answer is not to call a function
-					echo json_encode([
-						'status' => 1,
-						'answer' => $answer
-					]);
-				}else{//otherwise call a function. but get the function name first
-					$index_of_parentheses_closing = stripos($answer, "))");
-					if($index_of_parentheses_closing !== false){
-						$function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
-						$function_name = trim($function_name);
-						if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
-							echo json_encode([
-								'status' => 0,
-								'answer' => "No white spaces allowed in function name"
-							]);
-							return;
-						}
-						if(!function_exists($function_name)){
-							echo json_encode([
-								'status' => 0,
-								'answer' => "Function not found"
-							]);
-						}else{
-							echo json_encode([
-								'status' => 1,
-								'answer' => str_replace("(($function_name))", $function_name(), $answer)
-							]);
-						}
-						return;
-					}
-				}
-			}else{
-				echo json_encode([
-					'status' => 0,
-					'answer' => "Sorry, I cannot answer your question.Please train me. The training data format is  <b>train: question # answer # password</b>"
-				]);
-			}		
-			return;
-		}else{
-			//in training mode
-			//get the question and answer
-			$question_and_answer_string = substr($question, 6);
-			//remove excess white space in $question_and_answer_string
-			$question_and_answer_string = preg_replace('([\s]+)', ' ', trim($question_and_answer_string));
-			
-			$question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string); //remove ? and . so that questions missing ? (and maybe .) can be recognized
-			$split_string = explode("#", $question_and_answer_string);
-			if(count($split_string) == 1){
-				echo json_encode([
-					'status' => 0,
-					'answer' => "Invalid training format. <br> Type  <b>train: question # answer # password</b>"
-				]);
-				return;
-			}
-			$que = trim($split_string[0]);
-			$ans = trim($split_string[1]);
-			if(count($split_string) < 3){
-				echo json_encode([
-					'status' => 0,
-					'answer' => "Please enter the training password to train me."
-				]);
-				return;
-			}
-			$password = trim($split_string[2]);
-			//verify if training password is correct
-			define('TRAINING_PASSWORD', 'password');
-			if($password !== TRAINING_PASSWORD){
-				echo json_encode([
-					'status' => 0,
-					'answer' => "Sorry you cannot train me."
-				]);
-				return;
-			}
-			//insert into database
-			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
-			$stmt = $conn->prepare($sql);
-			$stmt->bindParam(':question', $que);
-			$stmt->bindParam(':answer', $ans);
-			$stmt->execute();
-			$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			echo json_encode([
-				'status' => 1,
-				'answer' => "Yipeee, I have been trained"
-			]);
-			return;
-		}
-		echo json_encode([
-			'status' => 0,
-			'answer' => "Sorry I cannot answer that question, please train me"
-		]);
-		
-	}
-	else{
+try {
+    $sql = 'SELECT * FROM secret_word';
+    $q   = $conn->query( $sql );
+    $q->setFetchMode( PDO::FETCH_ASSOC );
+    $data = $q->fetch();
+}
+catch ( PDOException $e ) {
+    throw $e;
+}
+$secret_word = $data[ 'secret_word' ];
+if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
+    $data  = $_POST[ 'user-input' ];
+    $temp  = explode( ':', $data );
+    $temp2 = preg_replace( '/\s+/', '', $temp[ 0 ] );
+    if ( $temp2 === 'train' ) {
+        train( $temp[ 1 ] );
+    } elseif ( $temp2 === 'aboutbot' ) {
+        aboutbot();
+    } else {
+        getAnswer( $temp[ 0 ] );
+    }
+}
+function aboutbot( ) {
+    echo "<div id='result'>v1.0</div>";
+}
+function train( $input ) {
+    $input    = explode( '#', $input );
+    $question = trim( $input[ 0 ] );
+    $answer   = trim( $input[ 1 ] );
+    $password = trim( $input[ 2 ] );
+    if ( $password == 'password' ) {
+        $sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '" and answer = "' . $answer . '" LIMIT 1';
+        $q   = $GLOBALS[ 'conn' ]->query( $sql );
+        $q->setFetchMode( PDO::FETCH_ASSOC );
+        $data = $q->fetch();
+        if ( empty( $data ) ) {
+            $training_data = array(
+                 ':question' => $question,
+                ':answer' => $answer 
+            );
+            $sql           = 'INSERT INTO chatbot ( question, answer)
+              VALUES (
+                  :question,
+                  :answer
+              );';
+            try {
+                $q = $GLOBALS[ 'conn' ]->prepare( $sql );
+                if ( $q->execute( $training_data ) == true ) {
+                    echo "<div id='result'>Training Successful!</div>";
+                }
+            }
+            catch ( PDOException $e ) {
+                throw $e;
+            }
+        } else {
+            echo "<div id='result'>Teach me something new!</div>";
+        }
+    } else {
+        echo "<div id='result'>Invalid Password, Try Again!</div>";
+    }
+}
+function getAnswer( $input ) {
+    $question = $input;
+    $sql      = 'SELECT * FROM chatbot WHERE question = "' . $question . '"';
+    $q        = $GLOBALS[ 'conn' ]->query( $sql );
+    $q->setFetchMode( PDO::FETCH_ASSOC );
+    $data = $q->fetchAll();
+    if ( empty( $data ) ) {
+        echo "<div id='result'>Sorry, 'train: question # answer # password'</div>";
+    } else {
+        $rand_keys = array_rand( $data );
+        echo "<div id='result'>" . $data[ $rand_keys ][ 'answer' ] . "</div>";
+    }
+}
 ?>
-
-
-
-
-<div class="profile">
-						<h1>Dennis Otugo</h1>
-						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
-
-					</div>
-  <div class="bot-body">
-    <div class="messages-body">
-      <div>
-        <div class="message bot">
-          <span class="content">Look alive</span>
-        </div>
-      </div>
-	<div>
-        <div class="message bot">
-          <span class="content">What do you have in mind, Let's talk :) </span>
-        </div>
-      </div>
-    </div>
-    <div class="send-message-body">
-      <input class="message-box" placeholder="Enter your words here..."/>
-    </div>
-  </div>
-
-<style>
-.profile {height: 100%;text-align: center;position: fixed;position: fixed;position: fixed;width: 50%;right: 0;background-color: #007bff}footer {display: none;padding: 0px !important}h1, h2, h3, h4, h5, h6 {color: white;text-align: center;bottom: 50%;left: 65%;position: fixed;font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight: 700}p {position: fixed;bottom: 40%;left: 58%;line-height: 1.5;margin: 30px 0}.bot-body {max-width: 100% !important;position: fixed;margin: 32px auto;position: fixed;width: 100%;left: 0;bottom: 0px;height: 80%}.messages-body {overflow-y: scroll;height: 100%;background-color: #FFFFFF;color: #3A3A5E;padding: 10px;overflow: auto;width: 50%;padding-bottom: 50px;border-top-left-radius: 5px;border-top-right-radius: 5px}.messages-body > div {background-color: #FFFFFF;color: #3A3A5E;padding: 10px;overflow: auto;width: 100%;padding-bottom: 50px}.message {float: left;font-size: 16px;background-color: #007bff63;padding: 10px;display: inline-block;border-radius: 3px;position: relative;margin: 5px}.message: before {position: absolute;top: 0;content: '';width: 0;height: 0;border-style: solid}.message.bot: before {border-color: transparent #9cccff transparent transparent;border-width: 0 10px 10px 0;left: -9px}.color-change {border-radius: 5px;font-size: 20px;padding: 14px 80px;cursor: pointer;color: #fff;background-color: #00A6FF;font-size: 1.5rem;font-family: 'Roboto';font-weight: 100;border: 1px solid #fff;box-shadow: 2px 2px 5px #AFE9FF;transition-duration: 0.5s;-webkit-transition-duration: 0.5s;-moz-transition-duration: 0.5s}.color-change: hover {color: #006398;border: 1px solid #006398;box-shadow: 2px 2px 20px #AFE9FF}.message.you: before {border-width: 10px 10px 0 0;right: -9px;border-color: #edf3fd transparent transparent transparent}.message.you {float: right}.content {display: block;color: #000000}.send-message-body {border-right: solid black 3px;position: fixed;width: 50%;left: 0;bottom: 0px;box-sizing: border-box;box-shadow: 1px 1px 9px 0px rgba(1, 1, 1, 1)}.message-box {width: -webkit-fill-available;border: none;padding: 2px 4px;font-size: 18px}body {overflow: hidden;height: 100%;background: #FFFFFF !important}.container {max-width: 100% !important}.fixed-top {position: fixed !important;}</style>
-<script>
-  window.onload = function () {
-          $(document).keypress(function (e) {
-                  if (e.which == 13) {
-                          getResponse(getQuestion());
-                  }
-          });
-  }
-
-  function isUrl(string) {
-          var expression =
-                  /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
-          var regex = new RegExp(expression);
-          var t = string;
-          if (t.match(regex)) {
-                  return true;
-          } else {
-                  return false;
-          }
-  }
-
-  function stripHTML(message) {
-          var re = /<\S[^><]*>/g
-          return message.replace(re, "");
-  }
-
-  function getResponse(question) {
-          updateThread(question);
-          showResponse(true);
-          if (question.trim() === "") {
-                  showResponse(':)');
-                  return;
-          }
-          if (question.toLowerCase().includes("aboutbot")) {
-                  var textToSay = question.toLowerCase().split("aboutbot")[1];
-                  showResponse('version 1.1.0');
-                  return;
-          }
-          $.ajax({
-                  url: "profiles/dennisotugo.php",
-                  method: "POST",
-                  data: {
-                          payload: question
-                  },
-                  success: function (res) {
-                          if (res.trim() === "") {
-                                  showResponse(
-                                          `
-         Train me , please type "train: question # answer # password"
-          `
-                                  );
-                          } else {
-                                  showResponse(res);
-                          }
-                  }
-          });
-  }
-
-  function showResponse(response) {
-          if (response === true) {
-                  $('.messages-body').append(
-                          `<div>
-          <div class="message bot temp">
-            <span class="content">...</span>
-          </div>
-        </div>`
-                  );
-                  return;
-          }
-          $('.temp').parent().remove();
-          $('.messages-body').append(
-                  `<div>
-        <div class="message bot">
-          <span class="content">${response}</span>
-        </div>
-      </div>`
-          );
-          $('.message-box').val("");
-  }
-
-  function getQuestion() {
-          return $('.message-box').val();
-  }
-
-  function updateThread(message) {
-          message = stripHTML(message);
-          $('.messages-body').append(
-                  `<div>
-        <div class="message you">
-          <span class="content">${message}</span>
-        </div>
-      </div>`
-          );
-  }
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us" xmlns="http://www.w3.org/1999/xhtml" xml:lang=
+"en-us">
+  <head>
+    <title>
+      Oracle JET Starter Template - Web Blank
+    </title>
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content=
+    "text/html; charset=utf-8" />
+    <meta name="viewport" content=
+    "viewport-fit=cover, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-title" content="Oracle JET" />
+    <!-- injector:theme -->
+    <link href=
+    'https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css'
+    rel='stylesheet' type="text/css" />
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"
+    type="text/javascript">
 </script>
-<?php } 
-?>
+<!-- RequireJS bootstrap file -->
+<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
+    <style type="text/css">
+                .chat-output > div {
+    display: inline-block;
+    width: 100%;
+}
+            .chat-output {
+                 display: block;
+    overflow-y: scroll;
+    height: 100%;
+    }
+        .oj-flex {
+    background-color: #007bff;
+}
+        .container {
+    max-width: 100% !important;
+                padding: 0;
+}
+   #user-input-form {
+        width: 100%;
+    position: fixed;
+    bottom: 0;
+    height: 6%;
+}
+        img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 100%;
+    box-shadow: 0 0 0 1.5em #ffffff;
+    border: 0;
+}
+          input#user-input.user-input {
+    width: 50%;
+    border: none;
+    padding: 10px 14px;
+    font-size: 18px;
+    line-height: normal;
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    box-shadow: rgb(1, 1, 1) 1px 1px 9px 0px;
+}
+.blue1 {
+    width: 50%;
+    position: fixed;
+    left: 0;
+    /* background-color: #007bff; */
+    height: 100%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    top: 30%;
+    /* transform: translate(0, 40%); */
+}
+.white2 {
+    width: 50%;
+    background-color: #ffffff;
+    width: 50%;
+    position: fixed;
+    right: 0;
+    background-color: #007bff;
+    height: 100%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    /* transform: translate(0, 40%); */
+}
+      footer {
+      display: none;
+      }
+        
+                .bot-message {
+    float: right;
+    font-size: 16px;
+    background-color: #ffffff;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 15px 1px 1px 0px;
+    }
+        p {
+    font-weight: bolder;
+}
+                  .user-message message {
+                    float: left;
+    font-size: 16px;
+    background-color: #ffffff;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 5px;
+            
+                      
+            }
+    .message {
+                    float: left;
+    font-size: 16px;
+    background-color: #ffffff;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 5px;
+            
+                      
+            }
+    </style>
+  </head>
+  <body>
+<div class="oj-sm-flex-direction-column oj-flex oj-flex-item">
+  <div class="oj-flex-item blue1">
+    <span class="avatar"><img src="https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701221/avatar.png" alt="" /></span>
+    <h1>Dennis Otugo</h1>
+    <p>Human Being | Cyborg | Never asked for this</p>
+  </div>
+  <div class="oj-flex-item white2">
+    <div class="chat-output" id="chat-output">
+        <div class="user-message"></div>
+        <div class="message">train: question # answer # password</div>
+        <div class="chat-input">
+            <form action="" method="post" id="user-input-form" name="user-input-form"></div>
+            <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here" /></form></div>
+  </div>
+</div></div>
+</script>
+     <script>
+//<![CDATA[
+    var outputArea = $("#chat-output");
+
+    $("#user-input-form").on("submit", function(e) {
+
+        e.preventDefault();
+
+        var message = $("#user-input").val();
+
+        outputArea.append(`<div class='bot-message'><div><div class='message'>${message}<\/div><\/div><\/div>`);
+
+
+        $.ajax({
+            url: 'profile.php?id=dennisotugo',
+            type: 'POST',
+            data:  'user-input=' + message,
+            success: function(response) {
+                var result = $($.parseHTML(response)).find("#result").text();
+                setTimeout(function() {
+                    outputArea.append("<div class='user-message'<div><div><div class='message'>" + result + "<\/div><\/div><\/div>");
+                    $('#chat-output').animate({
+                        scrollTop: $('#chat-output').get(0).scrollHeight
+                    }, 1500);
+                }, 250);
+            }
+        });
+
+
+        $("#user-input").val("");
+
+    });
+    //]]>
+    </script>
+  </body>
+</html>
+
