@@ -309,8 +309,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         throw $e;
     }
     ?>
-		<div id="bbb" class="oj-flex" >
-	    	<div class="oj-flex-item">
+		<div id="bbb">
+	    	<div>
 				<p>
 					HELLO WORLD
 				</p>
