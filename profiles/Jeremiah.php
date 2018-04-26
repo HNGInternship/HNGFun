@@ -391,7 +391,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			<div style="text-align:center">
 				<div class="footer_info">Copyright &copy; 2018 www.hng.fun - Built with
 				<span style="color: #cc023b">&hearts;</span> | HNGIternship 4.0 </div>				 
-				<span style="font-size:0.6em; "> This page designed <strong>by <span style="color: #cc023b"> @Jeremiah </span> </strong>- HTML5 | CSS3 | JavaScript | PHP </span>
+				<span style="font-size:0.6em; "> This page is designed <strong>by <span style="color: #cc023b"> @Jeremiah </span> </strong>- HTML5 | CSS3 | JavaScript | PHP </span>
 			</div>
 		</div>
 
