@@ -1,6 +1,12 @@
 <?php 
-
-include '../db.php';
+  if(!defined('DB_USER')){
+    require "../config.php";
+  }
+  try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
 
 try {
       $sql = "SELECT * FROM interns_data WHERE username = 'befe' LIMIT 1"; 
@@ -129,7 +135,7 @@ function fetchAnswer($msgss){
         <meta charset="utf-8">
         <title><?php echo $data['name']; ?>'s Profile</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel='stylesheet' href='../../bootstrap.min.css'>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
         <style>
             body {
                 background-color: #e6f2ff;
@@ -157,6 +163,39 @@ function fetchAnswer($msgss){
                     color: #3396FF;
                     cursor: pointer;
             }
+            #chatlog {
+                    overflow-y: auto;
+                    height: 400px;
+            }
+            #bot-ui {
+                    border: 2px solid #3396FF;
+                    border-radius: 20px;
+                    /*margin-right: -50px;*/
+                    height: 540px;
+                    /*position: absolute;*/
+                }
+                #bot-ui h3.first, #bot-ui h3.second {
+                    line-height: 2px;
+                }
+                #chatbox {
+                    position: absolute;
+                    bottom: 20px;
+                }
+                input[type=text] {
+                    box-sizing: border-box;
+                    border-radius: 4px;
+                    padding: 5px;
+                    padding-left: 10px;
+                    border: 2px solid #a6a6a6;
+                }
+                input[type=submit] {
+                    padding: 5px;
+                    border: none;
+                    padding: 8px;
+                    border-radius: 4px;
+                    background-color: #006fe6;
+                    color: #fff;
+                }
             @media (min-width: 992px){
                 #main {
                 background-color: #fff;
@@ -190,12 +229,12 @@ function fetchAnswer($msgss){
                 }
                 
                 #bot-ui {
-                    border: 2px solid #3396FF;
-                    border-radius: 20px;
+                    /*border: 2px solid #3396FF;
+                    border-radius: 20px;*/
                     margin-top: 60px;
                     /*margin-right: -50px;*/
                     margin-left: 25px;
-                    height: 540px;
+                    /*height: 540px;*/
                     /*position: absolute;*/
                 }
                 #bot-ui p {
@@ -208,35 +247,13 @@ function fetchAnswer($msgss){
                 #bot-ui h3 {
                     font-size: 15px;
                 }
-                #bot-ui h3.first, #bot-ui h3.second {
-                    line-height: 2px;
-                }
-                #chatbox {
-                    position: absolute;
-                    bottom: 20px;
-                }
-                
                 input[type=text] {
-                    box-sizing: border-box;
-                    border-radius: 4px;
-                    padding: 5px;
-                    padding-left: 10px;
                     width: 240px;
-                    border: 2px solid #a6a6a6;
                 }
                 input[type=submit] {
-                    padding: 5px;
-                    border: none;
-                    padding: 8px;
-                    border-radius: 4px;
                     width: 70px;
-                    background-color: #006fe6;
-                    color: #fff;
                 }
-                #chatlog {
-                    overflow-y: auto;
-                    height: 400px;
-                }
+                
             }
             @media (max-width: 991px){
                 body {
@@ -314,7 +331,9 @@ function fetchAnswer($msgss){
                 </article>
             </section>
         </div>
-        <script src='../../jquery-3.3.1.min.js'></script>
+        <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
         <script>
             $(function(){
                 $('#bot-ui').hide();
@@ -322,13 +341,13 @@ function fetchAnswer($msgss){
                     $('#bot-ui').fadeIn(500);
                 })
                $('input[type=text]').click(function(){
-                    $('#chatlog').prepend("<h3 class='third'>You can also train me if I can't answer your questions using: <br>'trainbot: question # answer # password'</h3>");
+                    $('#chatlog').prepend("<h3 class='third'>You can also train me if I can't answer your questions using: <br>'train: question # answer # password'</h3>");
                     $('#chatlog').prepend("<h3 class='second'>Or Simply type 'aboutbot' to know more...");
                     $('#chatlog').prepend("<h3 class='first'>Ask me anything...</h3>");
                });
 
                function bot_chat(reply){
-                    $('#chatlog').append('<p>Bot Xperience: ' + reply + '</p>');
+                    $('#chatlog').delay(10000).append('<p>Bot Xperience: ' + reply + '</p>');
                     $('.bot-box').scrollTop($('#bot-ui').height());
                }
 
@@ -342,7 +361,7 @@ function fetchAnswer($msgss){
                   
 
                   if(msg==''){
-                    $('#chatlog').append('<p>Bot Xperience: You have not typed anything</p>');
+                    $('#chatlog').delay(10000).append('<p>Bot Xperience: You have not typed anything</p>');
                     $('.bot-box').scrollTop($('.bot-box').height());
                     return false;
                     } else {

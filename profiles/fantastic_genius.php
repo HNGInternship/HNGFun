@@ -89,17 +89,12 @@ function saveQuestion($conn, $data){
 
 function isAnswerExisting($conn, $question, $answer){
     try{
-        $sql = "SELECT answer FROM chatbot WHERE question = '" . $question . "'";
+        $sql = "SELECT * FROM chatbot WHERE question = '" . $question . "'" . "AND answer = '" . $answer . "'";
         $query = $conn->query($sql);
         $query->setFetchMode(PDO::FETCH_ASSOC);
         $answer_arr = $query->fetchAll();
         if(count($answer_arr) > 0){
-            for($i = 0; $i < count($answer_arr); $i++){
-                $db_answer = $answer_arr[$i];
-                if($db_answer['answer'] == $answer){
-                    return true;
-                }
-            }
+            return true;
         }else{
             return false;
         }
