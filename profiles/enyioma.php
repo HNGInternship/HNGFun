@@ -29,7 +29,7 @@
   .content {
     display: block;
     padding-top: 100px;
-    padding-left: 500px;
+    padding-left: 30%;
   }
   .about {
           font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -44,12 +44,12 @@
       color: #563d7c;
       font-size: 30px;
       align: center;
-      padding-left: 130px;
+      padding-left: 60px;
   }
   .h4{
       color: #64b5f6;
       font-size: 20px;
-      padding-left: 130px;
+      padding-left: 60px;
   }
   p{
       color: #90caf9;

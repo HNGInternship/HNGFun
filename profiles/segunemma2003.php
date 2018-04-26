@@ -10,11 +10,10 @@ try {
 } catch (PDOException $e) {
 	throw $e;
 }
-global $conn;
-echo ($conn==true);
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-	$message = trim(htmlspecialchars($_POST['message']));
-	echo $message;
+?>
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+	$message = trim($_POST['message']);
 	if ($message === ''){
 		$empty_response = [
 			'You have not asked anything',
@@ -24,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 		];
 		echo json_encode(['status'=>0,'data'=> $empty_response[rand(0, (count($empty_response)-1))]]);
-		return;
 	}
 	if (strpos($message, 'train:') !== false){
 		$password = 'password';
@@ -37,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 		$pass = trim($second_test[2]);
 
 		if ($pass === $password){
-			$sql = 'INSERT INTO chatbot( question, answer) VALUES(:question, :answer)';
+			$sql = 'INSERT INTO chatbot(question, answer) VALUES(:question, :answer)';
 
 				$query = $conn->prepare($sql);
 				$store=$query->execute(array('question'=>$question,'answer'=>$answer));
@@ -73,11 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 			else{
 				echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br> .<br> just use the following pattern== train: what is the time? # The time is#password ' ]);
 			}
-		}
-	}
-
-	else{ 
-		
+		}else{
+	
 		?>
 <!DOCTYPE html>
 
@@ -355,9 +350,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 				}
                  $.ajax({
                      url:"/profiles/segunemma2003.php",
-                     type: "POST",
                      dataType: "json",
-		     
+		     type:"POST",
                      data : {message: message},
                      success: function(res){
 
@@ -391,10 +385,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                 }
 
                 function sentMessage(response){
-                    return   '<div class="chat self">'+
-									'<div class="user-photo"></div>'+
-									'<p class="chat-message">'+ response + '</p>'+	
-										'</div>';
+                    return   `<div class="chat self"><div class="user-photo"></div><p class="chat-message">${response}</p></div>`;
 							
 							
                 }
