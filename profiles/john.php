@@ -24,6 +24,128 @@ try{
 $secret_word =  $result['secret_word'];
 
 
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+
+// to if the post request is not empty 
+
+  try{
+        if(!isset($_POST['question'])){
+          echo json_encode([
+            'status' => 1,
+            'answer' => "Please provide a question"
+          ]);
+          return;
+        }
+
+        require '../answers.php';
+      
+        $questions = $_POST['question'];
+        $question = strtolower($questions);
+
+        $question = preg_replace( '/\s+/','', $question);
+
+
+        if (preg_match("/^train:/", $question)) 
+        {
+
+            $res = training($question);
+            echo json_encode([
+            'status' => 1,
+            'answer' => $res
+            ]);
+            return;
+           
+        }
+
+        elseif (preg_match("/^about/", $question)|| preg_match('/^version/',$question)) 
+        {
+           echo json_encode([
+            'status' => 1,
+            'answer' => "ChatBuddyv1.0"
+            ]);
+            return;      
+        }
+
+        elseif (preg_match("/^currency/", $question)){
+
+            $from_currency= between("(", "," , "$question");
+            $to_currency= between(",", "," , "$question");
+            $amt= between(",", ")" , "$question");
+            $amount= (float)$amt;
+            $res= currencyConverter($from_currency,$to_currency,$amount);
+            echo  json_encode([
+                'status'=>1,
+                'answer'=> $res
+            ]);
+            return;
+        }
+
+        elseif(preg_match("/^weather/", $question))
+        {
+
+            $country=between("(", ",", $question);
+            $city= between(",", ")", $question);
+            $res= weather($country,$city);
+            echo json_encode([
+                'status'=>1,
+                'answer' =>$res
+            ]);
+            return;
+        }
+        elseif(preg_match("/^citytime/", $question))
+        {
+
+        	$city =between("(",")",$question);
+        	$res= cityTime($city);
+            echo json_encode([
+                'status'=>1,
+                'answer' =>$res
+            ]);
+            return;
+
+
+        }
+
+        elseif(preg_match("/^help/", $question))
+        {
+        	echo json_encode([
+                'status'=>1,
+                'answer' =>`The following are the available commands<br>
+                To Train: train:question#answer#password<br>
+                To convert currency: currency(fromCurrency,toCurrency,amount)<br>
+                To check weather: weather(country,city)<br>
+                To check time of any city: cityTime(Continent/city)
+                `
+            ]);
+            return;
+        }
+
+        else{
+
+            $res= getAns($question);
+            echo json_encode([
+            'status' => 1,
+            'answer' => $res
+            ]);
+            
+            return;  
+
+        
+        }
+	}
+
+
+     catch (Exception $e)
+    {
+
+       return $e->message ;
+  
+    }
+  }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -232,7 +354,7 @@ $secret_word =  $result['secret_word'];
       		convoAreabox.scrollTop(convoAreabox[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: '../answers.php',
+				url: 'john.php',
 				type: 'POST',
 				data: {question: question},
 				dataType: 'json',
