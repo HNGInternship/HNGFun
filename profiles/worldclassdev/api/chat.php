@@ -11,7 +11,7 @@
 // echo get_last_err();
 require_once("../../../config.php");
 require_once("regex.php");
-
+var_dump("COnn ". $conn);
 
 $regex = new regex($conn); 
 $emails = $regex->fetchanswer($_POST['chat']);
