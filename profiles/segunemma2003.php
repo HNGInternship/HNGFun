@@ -15,8 +15,7 @@ if (!empty($_POST['message'])){
 	echo json_encode(['status'=>1,'data'=>'welcome']);
 	}
 
-	else{ 
-		echo json_encode(['status'=>0,'data'=>'i think i am the problem']);
+	
 		?>
 <!DOCTYPE html>
 
@@ -294,7 +293,6 @@ if (!empty($_POST['message'])){
 				}
                  $.ajax({
                      url:"/profiles/segunemma2003.php",
-                     type: "POST",
                      dataType: "json",
 		     
                      data : {message: message},
@@ -342,6 +340,6 @@ if (!empty($_POST['message'])){
 	</div>
 </body>
 </html>
-<?php } ?>
+
 
 
