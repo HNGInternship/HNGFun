@@ -8,8 +8,8 @@
  return response
 
 */
-
-//require_once("../../../db.php");
+// echo get_last_err();
+require_once("../../../config.php");
 require_once("regex.php");
 
 
