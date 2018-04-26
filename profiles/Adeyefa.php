@@ -353,7 +353,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
-									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about me type 'aboutbot'. You can also train me using this format 'train: Question # Answer # Password'
+									Hi,i am MATRIX, the bot, i can answer basic questions. To know about my special functions type 'help'. You can also train me using this format 'train: Question # Answer # Password'
 								</div>
 									
 								<div class="iio">

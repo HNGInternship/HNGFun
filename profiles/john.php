@@ -1,6 +1,6 @@
 <?php
- require '../db.php';
 //Fetch User Details
+require '../db.php'
 
 try {
     $query = "SELECT * FROM interns_data WHERE username ='john'";
