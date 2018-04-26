@@ -299,7 +299,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			background-color: #DAF7A6;
 			margin-bottom: 4px;
 			margin-top: 4px;
-			border-radius: 40px;
+			border-radius: 40%;
 		}
 	</style>
 </head>
