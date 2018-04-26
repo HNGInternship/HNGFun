@@ -193,7 +193,7 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'perkyprinc
   					<img class="smaller-image thick-green-border" src="https://res.cloudinary.com/perkyprince/image/upload/v1524667119/Perky.jpg" alt= "perkyprince">
   				</div>
     			<div class="titles flex column">
-    				<h1 class="main title">Hello I'm <span id="me"><?php echo $user->name ?></span></h1>
+    				<h1 class="main title">Hello I'm <span id="me"><?php echo $user["name"]?></span></h1>
     				<h2 class="sub title">I love creating code</h2>
     			</div>
     		</section>
