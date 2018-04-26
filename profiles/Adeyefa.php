@@ -295,11 +295,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			font-family: Ubuntu;
 
 		}
-		#que{
-			background-color: #DAF7A6;
-			margin-bottom: 4px;
-			margin-top: 4px;
+		.user-inpu .input{
+			display: inline-block;
+			padding: 12px 20px;
+			border-radius: 10px;
 		}
+		.bot-output .output{
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 10px;
+        }
 	</style>
 </head>
 <body class="oj-web-applayout-body " >
@@ -351,7 +356,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 								</div>
 									
 								<div class="iio">
-									<div id="que">
+									<div id="que" class="que">
 											
 									</div>
 								</div>	
