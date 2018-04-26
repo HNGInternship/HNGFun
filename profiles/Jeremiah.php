@@ -187,11 +187,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			font-family: 'Roboto', sans-serif;
 			font-size: 100%;
 			background-color:white;
-		} /**
+		} 
 
 		}footer{
 			display: none;
-		} **/
+		}
 
 
 		.flex-container{
@@ -251,23 +251,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			font-size: 1.5em;
 		}
 		#chat-body{			
-            display: flex;
-            flex-direction: column;
-            padding: 10px 20px 20px 20px;
-            background: white;           
-            overflow-y: scroll;
-            height: 360px;
-            max-height: 360px;
+		    display: flex;
+		    flex-direction: column;
+		    padding: 10px 20px 20px 20px;
+		    background: white;           
+		    overflow-y: scroll;
+		    height: 380px;
+		    max-height: 380px;
 		}
 
 		.message{
 			font-size: 0.8em;
 			width: 300px;
 			display: inline-block;
-            padding: 10px;
+          		padding: 10px;
 			margin: 5px;
-            border-radius: 10px;
-            line-height: 18px;
+          		border-radius: 10px;
+            		line-height: 18px;
 
 		}
 
@@ -297,6 +297,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 
 		.chat-footer{
+			margin-top: 10px;
 			background-color: #F3F3F3;
 
 		}
@@ -316,7 +317,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		.send_button{
 			width: 70px;
-			height: 34px;
+			height: 50px;
 			padding: 5px;
 			margin-top: 8px;
 			color: white;
