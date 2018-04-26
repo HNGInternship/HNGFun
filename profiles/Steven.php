@@ -10,9 +10,6 @@
           } catch (PDOException $pe) {
             die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
           }
-          
-       
-    
         
     try {
     $sql = 'SELECT * FROM secret_word';
@@ -228,8 +225,8 @@
 
   }
   .ask-input-field{
-    height: 44px;
-    padding-right: 23px;
+    height: 46px;
+    padding-right: 25px;
 
   }
   
