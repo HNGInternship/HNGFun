@@ -210,7 +210,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			font-size: 30px;
 		}
 		#sidebar{
-			width: 400px;
+			
 			height: 590px;
 		}
 		#bbb{
