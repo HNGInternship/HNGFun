@@ -33,12 +33,15 @@
             #heading{
                 height: 30px;
                 padding-left: 5px;
+                width: 200px;
+                margin-left: auto;
+                margin-right: auto;
             }
 
             #content{
                 background-color: aliceblue;
                 min-height: 40px;
-                padding: 2px 0px 2px 5px;
+                padding: 2px;
                 width: 30%;
                 border-radius: 5px;
                 margin-left: auto;
