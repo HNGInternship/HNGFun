@@ -26,6 +26,7 @@
 			height: 400px;
 			border-radius: 0px;
 			margin: 50px;
+			padding: 20px;
 			background: white;
         }
 
@@ -168,7 +169,7 @@
         }
 		.oj-panel{
 		background-color:#DFE1E2;
-            padding-left: 70px;
+            padding-left: 0px;
 		}
 		.demo-panelwrapper {
 		background-color:#DFE1E2;
