@@ -12,14 +12,23 @@
 
 
 
+	global $conn;
 
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="adeyefa"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
 
-	$result = $conn->query("Select * from secret_word LIMIT 1");
+	/*$result = $conn->query("Select * from secret_word LIMIT 1");
 	$result = $result->fetch(PDO::FETCH_OBJ);
 	$secret_word = $result->secret_word;
 	$result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
 	$user = $result2->fetch(PDO::FETCH_OBJ);
-
+*/
 
 	if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
@@ -321,7 +330,7 @@
 					HELLO WORLD
 				</p>
 				<p id="p1">
-					I am  <?php echo $user->name ?>
+					I am  <?=$my_data['name'] ?>
 				</p>
 				<p id="info">
 					A Web developer, blogger and Software engineer
