@@ -503,7 +503,7 @@ My love grew into passion that I gave up my little savings to learn web developm
             $("#chatMessages").append('<div id="messageSent">' + message + '</div>');
 
             $.ajax({
-                url: '/profiles/pearl.php',
+                url: './profiles/pearl.php',
                 type: 'POST',
                 data: {displayMessage: message},
                 dataType: 'json'

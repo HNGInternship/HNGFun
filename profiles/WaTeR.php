@@ -1,25 +1,25 @@
 
  <?php
 
- require '../db.php';
+ require 'db.php';
 
-
-   $query = "Select * from secret_word LIMIT 1";
+$query = "Select * from secret_word LIMIT 1";
 
 $stmt = $conn->query($query);
 
 $stmt->execute();
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 $secret_word = $row['secret_word'];
 
 
-$query1 = "SELECT * FROM interns_data_ WHERE username='WaTeR'";;
+$query1 = "SELECT * FROM interns_data_ WHERE username='WaTeR_'";;
 
 $stmt = $conn->query($query1);
 
 $stmt->execute();
+$data = $stmt->fetch(PDO::FETCH_ASSOC);
 
  ?>
 
@@ -80,8 +80,8 @@ $stmt->execute();
   </style>
 
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ -->
 </head>
 <body>
 
@@ -97,8 +97,7 @@ $stmt->execute();
 <div class="content">
 <div class="col-lg-3">
   </div>
-    <?php while ($data = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
-
+  
 
 <div class="col-lg-6">
           <img class="img-circle " src="<?php echo $data['image_filename']; ?>" alt="Generic placeholder image" width="200" height="200" style="border:solid 5px #fff;">
@@ -111,7 +110,6 @@ $stmt->execute();
 </div>
 
   
-  <?php } ?>
 <div class="col-lg-3">
   </div>
 <div style="background: #6A5ACD; height: 200px;max-width: 90%">
@@ -121,4 +119,3 @@ $stmt->execute();
 <!-- /.row -->
 </body>
 </html> 
-<?php }
