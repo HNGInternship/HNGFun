@@ -178,7 +178,6 @@
 		}
 		.oj-flex{
 		background-color:blue;
-		width: 500px;
         padding: 20px;
 		}
         .fa-close, .fa-question-circle {
@@ -207,7 +206,7 @@
         throw $e;
     }
     ?>
-	 <div class="oj-flex demo-panelwrapper">
+	 <div class="oj-flex demo-panelwrapper" style='width: 1200px;'>
             <div class="oj-flex-item oj-panel">
             <div class="col-sm-6 profile-details" >
                 <div class="profile-image">
