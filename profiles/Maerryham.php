@@ -85,7 +85,7 @@ $data2 = $q->fetchAll();
 //     }
      //$break = strtok('train: #question #answer');
     // echo $break[1];
-     if (substr($question, 6) === "train:") {
+     if (substr($question, 0,6) != "train:" && substr($question, 0,7) != "search:" ) {
          /* bot not training, process question */
          //$answer_stmt->execute()
        $query = $conn->prepare("SELECT * FROM chatbot  WHERE question LIKE :question ORDER BY RAND() Limit 1");
@@ -96,28 +96,34 @@ $data2 = $q->fetchAll();
          if (isset($answer)) {
              echo $answer;
              return;
+         }else{
+             echo "You have to train me now, I have no idea of what you are saying";
          }
          /* returned message when bot can't find answer*/
-     }elseif(substr($question, 7) === "search:"){
+     }elseif(substr($question, 0,7) == "search:"){
          $train = substr($question, 7);
          $training = preg_replace('([\s]+)?', ' ', trim($train));
          $split = explode("#", $training);
+         $question = trim($split[0]);
 
-         $answer = search_google($question);
-         echo $answer;
+         echo 'searching';
+         //$answer = search_google($question);
+         //echo $answer;
 
-     }else{
+     }elseif(substr($question, 0,6) == "train:"){
          # bot training process
 
-         $train = substr($question, 6);
+         $train = substr($question, 0,6);
          $training = preg_replace('([\s]+)', ' ', trim($train));
          $split = explode("#", $training);
+         //list($question, $answer) = explode("#", $training);
          if (count($split) == 2) {
              # When user didnt give password
              echo "You can only train me with a password please. Kindly supply my Password.";
              return;
          } elseif (count($split) == 1) {
              # When user didnt give answer
+            // echo $question;
              echo "Training is invalid, write train: question # answer # password to train me";
              return;
          }
@@ -263,7 +269,7 @@ $data2 = $q->fetchAll();
 		
         <div class="col-md-12 center transparent">
 			<center>
-				<div class="col-md-2 col-md-offset-2 col-xs-12 img-circle" style="overflow:hidden; height:200px; padding:5px ">
+				<div class="col-md-2 col-md-offset-2 col-xs-12 img-circle" style="overflow:hidden; height:1000px; padding:5px ">
 					<img src="<?= $data2['image_filename'] ?>"  style="height:auto; max-height:100%; width:auto; min-width:40%; border: 2px solid blue; border-radius:5px;"/>
 				</div>
 			</center>
