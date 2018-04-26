@@ -11,7 +11,7 @@
       padding: 0;
 }
 	.main {
-    font-size: 75px;
+    font-size: 45px;
 }
 	.sub {
     font-size: 30px;
