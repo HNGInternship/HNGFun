@@ -200,10 +200,11 @@
     }
     ?>
 	 <div class="oj-flex demo-panelwrapper">
+	 <div class="row">
                 
                       <div class="oj-flex-item oj-flex oj-sm-flex-items-1 oj-sm-12 oj-md-6 oj-lg-6 oj-xl-6">
                         <div class="oj-flex-item oj-panel demo-mypanel">
-     <div class="row">
+     
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
                     <img src="<?=$my_data['image_filename'] ?>" alt="Lois Thomas">
@@ -244,6 +245,7 @@
 		   </div>
           </div>
 		   </div>
+		    </div>
 		     </div>
     <?php
     try {
