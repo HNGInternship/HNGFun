@@ -25,20 +25,25 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>dautX | Profile</title>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=Advent+Pro:400,700" rel="stylesheet">
+        <title>daut.X | Profile</title>
 
         <style>
+            #top{
+                height: 40px;
+                background-color: #6FCF97;
+            }
+
+            #heading{
+                height: 30px;
+                padding-left: 5px;
+            }
 
             #content{
                 background-color: aliceblue;
                 min-height: 40px;
-                padding: 2px;
+                padding: 2px 0px 2px 5px;
                 width: 30%;
                 border-radius: 5px;
-                margin-left: auto;
-                margin-right: auto;
             }
 
             #pix{
@@ -47,26 +52,16 @@
                 border-radius: 4px;
                 height: 400px;
                 width: 30%;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            
-            #content p{
-                margin-left: 5px;
-                text-align: justify;
-                font-family: serif, sans-serif;
-            }
-            
-            a:link, a:visited, a:hover{
-                color: normal;
             }
 
         </style>
     </head>
 
     <body>
-        <div id="heading" style="clear: both;">
+        <div id="top"></div>
 
+        <div id="heading" style="clear: both;">
+            <h3>Patsoks' Profile</h3>
         </div>
 
         <div id="pix">
@@ -75,17 +70,8 @@
 
         <!-- profile info display -->
         <div id="content">
-            <p><h3><?php echo $name; ?></h3> <?php echo '@'.$username; ?> </p>
-            <p>I am a passionate learner who loves to code. A born tinkerer I like to take stuff
-               apart to understand what makes them tick. I am on my way to becoming a full-stack
-               web developer. I also have special interest in data analytics because the data we leave
-               can tell so much about us.
-            </p>
-            
-            <div id="socials" style="margin-left: 50px;">
-                <p style="word-spacing: 50px;"><a href="https://github.com/patrex"><i class="fab fa-github"></i></a> <a href="https://twitter.com/patman4real"><i class="fab fa-twitter"></i></a>
-                <a href="https://www.facebook.com/patsoks.sokari"> <i class="fab fa-facebook"></i></p>
-            </div>
+            <p><strong>Name: </strong><?php echo $name; ?></p>
+            <p><strong>Username: </strong><?php echo $username; ?> </p>
         </div>
 
     </body>

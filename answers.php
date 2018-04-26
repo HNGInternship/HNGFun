@@ -590,7 +590,6 @@ function getPinkyCommands(){
 }
 
 function train_bot ($message) {
-
 function multiexplode ($delimiters,$string) {
 
     $ready = str_replace($delimiters, $delimiters[0], $string);
@@ -1081,11 +1080,11 @@ $dataa = json_decode(file_get_contents($url_location), true);
  }
 
  //////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
-
-if ($_REQUEST["qsam"]){
-$qsam = $_REQUEST["qsam"];
-samsonjnrBot($qsam);
-}
+ //
+ if ($_REQUEST["qsam"]){
+ $qsam = $_REQUEST["qsam"];
+ samsonjnrBot($qsam);
+ }
  function samsonjnrBot($qsam){
  $qsam = strtolower($qsam);
  $anwerSam = "";
@@ -1305,88 +1304,115 @@ samsonjnrBot($qsam);
 /***************************john code begins here*************************/
 
 
+//to check if the data was sent to the server
+// Please place ur code in a function
+function johnsCode(){
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+
+// to if the post request is not empty 
+
+  try{
+        if(!isset($_POST['question'])){
+          echo json_encode([
+            'status' => 1,
+            'answer' => "Please provide a question"
+          ]);
+          return;
+        }
+      
+        $questions = $_POST['question'];
+        $question = strtolower($questions);
+
+}
+
+    /////////////////////////////FUNCTIONS COMES FIRST////////////////////////////////////////////////////////////////
+
+
     // All the functions goes here
     
-function before($thiss, $inthat)
-{
-return substr($inthat, 0, strpos($inthat, $thiss));
-};
-function after ($thiss, $inthat)
-{
-if (!is_bool(strpos($inthat, $thiss)))
-return substr($inthat, strpos($inthat,$thiss)+strlen($thiss));
-};
-function between ($thiss, $that, $inthat)
-{
-return before ($that, after($thiss, $inthat));
-};
-function after_last ($thiss, $inthat)
- {
-    if (!is_bool(strrevpos($inthat, $thiss)))
-    return substr($inthat, strrevpos($inthat, $thiss)+strlen($thiss));
-};
+            function before ($thiss, $inthat)
+            {
+                return substr($inthat, 0, strpos($inthat, $thiss));
+             };
+             function after ($thiss, $inthat)
+            {
+                if (!is_bool(strpos($inthat, $thiss)))
+                return substr($inthat, strpos($inthat,$thiss)+strlen($thiss));
+             };
+             function between ($thiss, $that, $inthat)
+                {
+                return before ($that, after($thiss, $inthat));
+                };
+            function after_last ($thiss, $inthat)
+                 {
+                    if (!is_bool(strrevpos($inthat, $thiss)))
+                    return substr($inthat, strrevpos($inthat, $thiss)+strlen($thiss));
+                };
 
-//use strrevpos function in case your php version does not include it
-function strrevpos($instr, $needle)
-{
-$rev_pos = strpos (strrev($instr), strrev($needle));
-if ($rev_pos===false) return false;
-else return strlen($instr) - $rev_pos - strlen($needle);
-};
+               //use strrevpos function in case your php version does not include it
+            function strrevpos($instr, $needle)
+            {
+                $rev_pos = strpos (strrev($instr), strrev($needle));
+                if ($rev_pos===false) return false;
+                else return strlen($instr) - $rev_pos - strlen($needle);
+            };
 
-function training($check)
-{
-$password="password";
-$newquestion= between(':', '#', $check);
-$newanswer= between('#', '#', $check);
-$newpassword= after_last('#', $check);
-if ($password==$newpassword)
-{
-    try {
-	require 'db.php';
-
-	    $sql = "INSERT INTO chatbot (id, question, answer) VALUES ('', '$newquestion', '$newanswer')";
-	    // use exec() because no results are returned
-	    $conn->exec($sql);
-	    $res = "Thanks for training me";
-	    return $res;
-
-	}
-    catch(PDOException $e)
-	    {
-	    echo $sql . "<br>" . $e->getMessage();
-	    }
-
-}
-else
-{
-    $res = "Please enter a password and train me using train:question#answer#password this should be without space";
-    return $res;
-}
-}
-	function getAns($check){
-	require 'db.php';
-
-
-	$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question= '$check' ORDER BY rand() LIMIT 1");
-	$stmt->execute();
-	if($stmt->rowCount() > 0)
-	{
-	  while($row = $stmt->fetch(PDO::FETCH_ASSOC))
-	  {
-		$res=$row["answer"];
-
-		return $res;
-	  }
-
-	} 
-	else {
-	    $res="I don't seem understand what you asked. But you can train me.<br>Type<br>train:question#answer#password";
-	    return $res;
-	}
+        function training($check)
+        {
+            $password="password";
+            $newquestion= between(':', '#', $check);
+            $newanswer= between('#', '#', $check);
+            $newpassword= after_last('#', $check);
+            if ($password==$newpassword)
+                {
+                    try {
+                        require 'db.php';
+                            
+                            $sql = "INSERT INTO chatbot (id, question, answer) VALUES ('', '$newquestion', '$newanswer')";
+                            // use exec() because no results are returned
+                            $conn->exec($sql);
+                            $res = "Thanks for training me";
+                            return $res;
+                            
+                        }
+                    catch(PDOException $e)
+                            {
+                            echo $sql . "<br>" . $e->getMessage();
+                            }
+                            
+                }
+            else
+                {
+                    $res = "Please enter a password and train me using train:question#answer#password this should be without space";
+                    return $res;
+                }
+        }
+        function getAns($check){
+                require 'db.php';
 
 
-}
+                $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question= '$check' ORDER BY rand() LIMIT 1");
+                $stmt->execute();
+                if($stmt->rowCount() > 0)
+                {
+                  while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+                  {
+                        $res=$row["answer"];
+                         
+                        return $res;
+                  }
+                  
+                } 
+                else {
+                    $res="I don't seem understand what you asked. But you can train me.<br>Type<br>train:question#answer#password";
+                    return $res;
+                }
+                  
+                   
+            }
 
  
 
@@ -1414,14 +1440,81 @@ function weather($country,$city){
     $weatherXML = $result->GetWeatherResponse;
     return $res;
 }
-function cityTime($city){
-    date_default_timezone_set($city);
-    $res = date("h:i:sa");
-    return $res;
 
+
+
+/////////////////////////////FUNCTIONS ENDS HERE/////////////////////////////////////////////////////////////////
+
+/////////////////////// Conditions for checking input//////////////////////////////////////////////
+
+///////////////////To check if the statement begins with train://///////////////////////
+
+        if (preg_match("/^train:/", $question)) 
+        {
+
+            $question = preg_replace( '/\s+/','', $question);
+            $res = training($question);
+            echo json_encode([
+            'status' => 1,
+            'answer' => $res
+            ]);
+            return;
+           
+        }
+
+        elseif (preg_match("/^about/", $question)) 
+        {
+           echo json_encode([
+            'status' => 1,
+            'answer' => "Robot Version1"
+            ]);
+            return;      
+        }
+        elseif (preg_match("/^currency/", $question)){
+
+             $question = preg_replace( '/\s+/','', $question);
+             $from_currency= between("(", "," , "$question");
+            $to_currency= between(",", "," , "$question");
+            $amt= between(",", ")" , "$question");
+            $amount= (float)$amt;
+            $res= currencyConverter($from_currency,$to_currency,$amount);
+            echo  json_encode([
+                'status'=>1,
+                'answer'=> $res
+            ]);
+            return;
+        }
+        elseif(preg_match("/^weather/", $question)){
+            $country=between("(", ",", $question);
+            $city= between(",", ")", $question);
+            $res= weather($country,$city);
+            echo json_encode([
+                'status'=>1,
+                'answer' =>$res
+            ]);
+            return;
+        }
+
+        else{
+            $res= getAns($question);
+            echo json_encode([
+            'status' => 1,
+            'answer' => $res
+            ]);
+            
+            return;  
+
+        
+        }
 }
+///////////////////////////Conditions Ends here///////////////////////////////
+    catch (Exception $e)
+    {
 
-
+        return $e->message ;
+  
+    }
+}
 
 
 ?>
