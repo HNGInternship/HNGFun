@@ -269,7 +269,7 @@ $data2 = $q->fetchAll();
 		
         <div class="col-md-12 center transparent">
 			<center>
-				<div class="col-md-2 col-md-offset-2 col-xs-12 img-circle" style="overflow:hidden; height:1000px; padding:5px ">
+				<div class="col-md-2 col-md-offset-2 col-xs-12 img-circle" style="overflow:hidden; height:200px; padding:5px ">
 					<img src="<?= $data2['image_filename'] ?>"  style="height:auto; max-height:100%; width:auto; min-width:40%; border: 2px solid blue; border-radius:5px;"/>
 				</div>
 			</center>
@@ -284,7 +284,7 @@ $data2 = $q->fetchAll();
 			<a href="#chat-now"><button class="btn btn-info">Chat me now</button></a>
 		</div>
 		<div style="margin:10px;"></div>
-		<center><div class="col-md-6 col-md-offset-3 col-xs-12" id="chat-now" data-spy="scroll" data-target=".chat-bucket" style="height: 200px; overflow: auto;">
+		<center><div class="col-md-6 col-md-offset-3 col-xs-12" id="chat-now" data-spy="scroll" data-target=".chat-bucket" style="height: 1000px; overflow: auto;">
 			<!--<div class="chat-bucket me" style="" id="chat">Hello <i class="fa fa-user"></i></div>
 			<div class="chat-bucket you" style="" id="chat"><i class="fa fa-android"></i> Hi</div> -->
 		
