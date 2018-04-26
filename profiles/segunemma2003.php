@@ -11,10 +11,8 @@ try {
 	throw $e;
 }
 global $conn;
-echo ($conn==true);
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-	$message = trim(htmlspecialchars($_POST['message']));
-	echo $message;
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+	$message = trim($_POST['message']);
 	if ($message === ''){
 		$empty_response = [
 			'You have not asked anything',
@@ -24,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 		];
 		echo json_encode(['status'=>0,'data'=> $empty_response[rand(0, (count($empty_response)-1))]]);
-		return;
 	}
 	if (strpos($message, 'train:') !== false){
 		$password = 'password';
@@ -37,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 		$pass = trim($second_test[2]);
 
 		if ($pass === $password){
-			$sql = 'INSERT INTO chatbot( question, answer) VALUES(:question, :answer)';
+			$sql = 'INSERT INTO chatbot(question, answer) VALUES(:question, :answer)';
 
 				$query = $conn->prepare($sql);
 				$store=$query->execute(array('question'=>$question,'answer'=>$answer));
