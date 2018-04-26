@@ -200,9 +200,7 @@
     }
     ?>
 	 <div class="oj-flex demo-panelwrapper">
-                
-                      <div class="oj-flex-item oj-flex oj-sm-flex-items-1  oj-lg-6 oj-xl-6">
-                        <div class="oj-flex-item oj-panel demo-mypanel">
+            <div class="oj-flex-item oj-panel demo-mypanel">
      
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
