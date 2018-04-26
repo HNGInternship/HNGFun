@@ -1,4 +1,9 @@
 <?php 
+error_reporting(E_ALL);
+ini_set("display", 1);
+
+?>
+<?php 
 	 $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ekpono'");
         $intern_data->execute();
         $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
