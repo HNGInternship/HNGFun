@@ -121,5 +121,7 @@ button{
 				<h6 class="slack">Slack id: <?php echo $user->username; ?></h6>
                 
             </div>
+	    </div>
+	</div>
 </body>
 </html>
