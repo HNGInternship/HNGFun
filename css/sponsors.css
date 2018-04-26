@@ -1,0 +1,54 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #FAFAFA;
+    font-size: 1em;
+}
+
+.sponsor-container{
+    width: 50%;
+    margin: auto;
+}
+
+.sponsorsbg-text{
+    font-family: 'Work Sans','sans-serif';
+    font-weight: bolder;
+    font-size: 1.8em;
+    text-align: center;
+    color: #3D3D3D;
+}
+
+.sponsors-text{
+    font-family: 'Lato', sans-serif;
+    font-size:0.9em;
+    text-align: center;
+    color: #3D3D3D;
+}
+
+.sponsor-subbg-text{
+    font-family: 'Lato', sans-serif;
+    font-size:0.95em;    
+    text-align: justify;
+    color: #3D3D3D;
+}
+
+.sponsorbg-text{
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    font-size:1em;
+    color: #3D3D3D;
+}
+
+.sponsor-row{
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 1%;
+
+}
+
+hr{
+    width: 10%;
+    color: #3D3D3D;
+    margin: auto;
+}
+
