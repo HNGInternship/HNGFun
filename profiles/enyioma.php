@@ -44,12 +44,12 @@
       color: #563d7c;
       font-size: 30px;
       align: center;
-      padding-left: 130px;
+      padding-left: 60px;
   }
   .h4{
       color: #64b5f6;
       font-size: 20px;
-      padding-left: 130px;
+      padding-left: 60px;
   }
   p{
       color: #90caf9;

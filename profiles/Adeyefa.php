@@ -296,12 +296,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 		}
 		#ans{
-			background-color: #00FF00;
+			background-color: #FFFF00;
 			margin-top: 4px;
 			margin-bottom: 4px
 		}
 		#que{
-			background-color: #FF00FF;
+			background-color: #FFFF00;
 			margin-bottom: 4px;
 			margin-top: 4px;
 		}
