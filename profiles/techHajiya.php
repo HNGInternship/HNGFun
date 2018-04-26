@@ -36,12 +36,12 @@
             padding-right : 0;
         }
 
-        .profile-details{
+        .oj-flex-item .oj-panel .demo-mypanel{
             padding: 40px;
 			 
         }
 
-        .profile-details {
+       .oj-flex-item .oj-panel .demo-mypanel {
             padding-right: 0;
             background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
@@ -200,8 +200,7 @@
     }
     ?>
 	 <div class="oj-flex demo-panelwrapper" style='width:  95%;'>
-            <div class="oj-flex-item oj-panel demo-mypanel" style='width:  95%;'>
-            <div class="col-sm-6 profile-details" >
+            <div class="oj-flex-item oj-panel demo-mypanel" >
                 <div class="profile-image">
                     <img src="http://res.cloudinary.com/lois-idzi/image/upload/v1524718483/mypic.jpg" alt="Lois Thomas">
                 </div>
@@ -215,8 +214,7 @@
                 </div>
             </div>
 			
-  <div class="oj-sm-flex-items-1" style='width: 650px;float: right;margin-top:30px;'>
-        <div class="profile-details" style='float: right;' >
+        <div class="oj-flex-item oj-panel demo-mypanel" style='float: right;' >
 			<div class="col-sm-6 chatbox" >
 				<div class='chatbot-menu-header'>
                         <div class="hng-logo"></div> <span>LoBot v1.0</span>
@@ -240,8 +238,6 @@
 		   </div>
           </div>
 		   </div>
-		    </div>
-			  </div>
     <?php
     try {
         $sql = 'SELECT * FROM secret_word';
