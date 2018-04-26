@@ -11,8 +11,9 @@
 // echo get_last_err();
 require_once("./conn/dxcon.php");
 require_once("regex.php");
-var_dump("COnn ". $dbc);
-
+var_dump("Con ". $dbc);
+var_dump($DB_HOST." ".$DB_USER." ". $DB_PASSWORD);
+echo "new";
 $regex = new regex($dbc); 
 $emails = $regex->fetchanswer($_POST['chat']);
 $dd = json_encode($emails);  
