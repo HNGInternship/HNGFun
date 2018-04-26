@@ -219,7 +219,7 @@
             </div>
 			
   <div class="oj-flex-item oj-sm-flex-items-1" style='width: 550px;'>
-        <div class="profile-details" style='float: right;' >
+        <div class="profile-details" style='float: right; padding-left: 10px;' >
 			<div class="col-sm-6 chatbox" >
 				<div class='chatbot-menu-header'>
                         <div class="hng-logo"></div> <span>LoBot v1.0</span>
