@@ -1,6 +1,5 @@
 <?php  require "db.php";
-error_reporting(E_ALL);
-ini_set("display_errors", "on");
+
 
 try {
 	$sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = "segunemma2003"';
@@ -11,72 +10,7 @@ try {
 } catch (PDOException $e) {
 	throw $e;
 }
-if ($_SERVER['REQUEST_METHOD']=='POST'){
-	$message = trim(htmlspecialchars($_POST['message']));
-	if ($message === ''){
-		$empty_response = [
-			'You have not asked anything',
-			'Ohh, nothing?!!!!',
-			'hey!!! what the hell is this?',
-			'come on, be serious'
-
-		];
-		echo json_encode(['status'=>0,'data'=> $empty_response[rand(0, (count($empty_response)-1))]]);
-		return;
-	}
-	if (strpos($message, 'train:') !== false){
-		$password = 'password';
-		$first_test = explode(':', $message);
-		$q_s_p = $first_test[1];
-		$second_test = explode('#', $q_s_p);
-		$question = trim($second_test[0]);
-		//$question = trim($question, "?");
-		$answer = trim($second_test[1]);
-		$pass = trim($second_test[2]);
-
-		if ($pass === $password){
-			$sql = 'INSERT INTO chatbot( question, answer) VALUES(:question, :answer)';
-
-				$query = $conn->prepare($sql);
-				$store=$query->execute(array('question'=>$question,'answer'=>$answer));
-                // $query->bindParam(':question', $question);
-                // $query->bindParam(':answer', $answer);
-                // $store = $query->execute();
-                if($store){
-
-                    echo json_encode(['status'=>1, 'data'=>'Alright gonna put it in mind']);
-				}
-				else{
-					echo json_encode(['status'=>0, 'data'=>'Aw, I don\'t get'.($store==true)]);
-		
-                }
-            }
-            else{
-                echo json_encode(['status'=>0, 'data'=>'You\'re not authorized to teach me']);
-			}
-		}
-		else{
-			//do get answer if it's not training
-			$sql = "select * from chatbot where question LIKE :question ";
-			$query = $conn->prepare($sql);
-			$query->bindParam(':question', $message);
-			$query->execute();
-			$query->setFetchMode(PDO::FETCH_ASSOC);
-			$result = $query->fetchAll();
-			if ($result){
-				$index = rand(0, count($result)-1);
-				$response = $result[$index]['answer'];
-				echo json_encode(['status'=>1, 'data'=>$response]);
-			}
-			else{
-				echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br> .<br> just use the following pattern== train: what is the time? # The time is#password ' ]);
-			}
-		}
-	}
-
-	else{ 
-		
-		?>
+?>
 <!DOCTYPE html>
 
 <html>
@@ -324,8 +258,9 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 	$(document).ready(function(){
 		$('.chat-form').submit(function(e){
                 e.preventDefault();
-				var chat = $('textarea');
-                var message = chat.val().trim();
+		let chat = $('textarea');
+                let message = chat.val().trim();
+		alert(message);
                 //document.write(message);
                 let container = $('.chatlogs');
                 if (message != ''){
@@ -344,17 +279,16 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 					// alert(responseMessage('I am a little bot'));
                     return;
                 }
-				if (message.startsWith('train:') ==true){
+		if (message.startsWith('train:') ==true){
                     chat.val('');
                 	container.append(sentMessage(message));
                     $('article').scrollTop($('article').scrollHeight);
 					// alert(responseMessage('I am a little bot'));
 				}
                  $.ajax({
-                     url:"/profiles/segunemma2003",
-                     type: "POST",
+                     url:"/profiles/segunemma2003.php",
                      dataType: "json",
-		     
+		     type:"POST",
                      data : {message: message},
                      success: function(res){
 
@@ -388,10 +322,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
                 }
 
                 function sentMessage(response){
-                    return   '<div class="chat self">'+
-									'<div class="user-photo"></div>'+
-									'<p class="chat-message">'+ response + '</p>'+	
-										'</div>';
+                    return   `<div class="chat self"><div class="user-photo"></div><p class="chat-message">${response}</p></div>`;
 							
 							
                 }
@@ -403,6 +334,67 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 	</div>
 </body>
 </html>
-<?php } ?>
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+	$message = trim($_POST['message']);
+	if ($message === ''){
+		$empty_response = [
+			'You have not asked anything',
+			'Ohh, nothing?!!!!',
+			'hey!!! what the hell is this?',
+			'come on, be serious'
 
+		];
+		echo json_encode(['status'=>0,'data'=> $empty_response[rand(0, (count($empty_response)-1))]]);
+	}
+	if (strpos($message, 'train:') !== false){
+		$password = 'password';
+		$first_test = explode(':', $message);
+		$q_s_p = $first_test[1];
+		$second_test = explode('#', $q_s_p);
+		$question = trim($second_test[0]);
+		//$question = trim($question, "?");
+		$answer = trim($second_test[1]);
+		$pass = trim($second_test[2]);
+
+		if ($pass === $password){
+			$sql = 'INSERT INTO chatbot(question, answer) VALUES(:question, :answer)';
+
+				$query = $conn->prepare($sql);
+				$store=$query->execute(array('question'=>$question,'answer'=>$answer));
+                // $query->bindParam(':question', $question);
+                // $query->bindParam(':answer', $answer);
+                // $store = $query->execute();
+                if($store){
+
+                    echo json_encode(['status'=>1, 'data'=>'Alright gonna put it in mind']);
+				}
+				else{
+					echo json_encode(['status'=>0, 'data'=>'Aw, I don\'t get']);
+		
+                }
+            }
+            else{
+                echo json_encode(['status'=>0, 'data'=>'You\'re not authorized to teach me']);
+			}
+		}
+		else{
+			//do get answer if it's not training
+			$sql = "select * from chatbot where question LIKE :question ";
+			$query = $conn->prepare($sql);
+			$query->bindParam(':question', $message);
+			$query->execute();
+			$query->setFetchMode(PDO::FETCH_ASSOC);
+			$result = $query->fetchAll();
+			if ($result){
+				$index = rand(0, count($result)-1);
+				$response = $result[$index]['answer'];
+				echo json_encode(['status'=>1, 'data'=>$response]);
+			}
+			else{
+				echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br> .<br> just use the following pattern== train: what is the time? # The time is#password ' ]);
+			}
+		}else{
+	}
+		?>
 

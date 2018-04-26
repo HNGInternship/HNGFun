@@ -1,141 +1,3 @@
- <?php
-  include_once("../answers.php"); 
-
-if (!defined('DB_USER')){
-            
-   require_once '../../config.php';
-}
-try {
-  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-} catch (PDOException $pe) {
-  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
-
- global $conn; 
-        try {
-            $select = 'SELECT * FROM secret_word';
-            $query = $conn->query($select);
-            $query->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $query->fetch();
-        } catch (PDOException $e) {
-            throw $e;
-        }
-        $secret_word = $data['secret_word'];        
-    
-try {
-  $sql = "SELECT * FROM interns_data WHERE `username` = 'Didicodes' LIMIT 1";
-  $q = $conn->query($sql);
-  $q->setFetchMode(PDO::FETCH_ASSOC);
-  $my_data = $q->fetch();
-} catch (PDOException $e) {
-  throw $e;
-}
-function decider($string){
-  
-  if (strpos($string, ":") !== false)
-  {
-    $field = explode (":", $string, 2);
-    $key = $field[0];
-    $key = strtolower(preg_replace('/\s+/', '', $key));
-  if(($key == "train")){
-     $password ="password";
-     $trainer =$field[1];
-     $result = explode ("#", $trainer);
-  if($result[2] && $result[2] == $password){
-    echo"<br>Training mode<br>";
-    return $result;
-  } else echo "opssss!!! Looks like you are trying to train me without permission";   
-  }
-   }
-}
-
-function tester($string){
-  if (strpos($string, ":" ) !== false) 
-  { 
-   $field = explode (":", $string);
-   $key = $field[0];
-   $key = strtolower(preg_replace('/\s+/', '', $key));
-   if(($key !== "train")){
-     
-    echo"<br>testing mode activated<br>";
-    return $string;
- }
-}
-return $string;
- }
- $existError =false;
-$reply = "";//process starts
-    if(!($existError)){
-      $sql = "INSERT INTO chatbot(question, answer)
-      VALUES(:quest, :ans)";
-      $stm =$conn->prepare($sql);
-      $stm->bindParam(':quest', $question);
-      $stm->bindParam(':ans', $answer);
-
-      $saved = $stm->execute();
-        
-      if ($saved) {
-          $reply = "Thanks to you, I am smarter now";
-      } else {
-          echo "Error: could not understand";
-      }
-        
-        
-    }  
-  }
-  else{
-    $input = tester($post); 
- 
-  if($input){
-    
-  
-    // $time ="what is the time";
-    // query db to look for question 
-    $answer = "";
-    $sql = "SELECT * FROM chatbot";
-    $stm = $conn->query($sql);
-    $stm->setFetchMode(PDO::FETCH_ASSOC);
-
-    $res = $stm->fetchAll();
-    
-    if (count($res) > 0) {
-    
-      $input = strtolower(trim($input));
-      $sql = "SELECT * FROM chatbot WHERE question LIKE '%$input%'";
-            $stm = $conn->query($sql);
-            $stm->setFetchMode(PDO::FETCH_ASSOC);
-
-            $result = $stm->fetchAll();
-      
-                  
-      if(count(($result)) > 0){
-        
-        $answer = $answer[array_rand($answer)];   
-      } 
-    
-    }       
-  }
-}
-          
-      if($answer != ""){
-        $reply = $answer;
-        } 
-    
-      }       
-  
- 
-
-  if($reply == ""){
-        $reply ="I did'nt get that, please rephrase or try again later";
-    }
-  
-  echo $reply;
-
-exit();
-  // function
-  }
-?>
-
 <!DOCTYPE html>
 <html>
 <head>  
@@ -165,12 +27,13 @@ color: #ffffff;    }
 .chatbox{
    position:absolute;
   width: 350px;
-  height: 600px;
+  height: 800px;
   background: #fff;
   padding: 25px;
   margin: 20px auto;
   box-shadow: 0 3px #ccc;
     margin-top:-550px;
+    margin-right:100px;
     
 }
 
@@ -296,11 +159,6 @@ font-size: 20px;
                                <br>                            
                                <small class="text-color"><b>@Didicodes</b></small>
                            </h3>
-
-                                                       <h3><br>I've always loved programing since high school<br> Join me as we make the best out of this wonderful opportunity.</h3>
-                            
-                           
-                            
                             </div>
 </head>
 <body>
@@ -408,6 +266,22 @@ function speak(string){
            </p>
                            </div>
        </div>
-<br>          
+<br>     
+ <?php
+
+        require_once '../db.php';
+        try {
+            $select = 'SELECT * FROM secret_word';
+            $query = $conn->query($select);
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $query->fetch();
+        } 
+        catch (PDOException $e) {
+            throw $e;
+        }
+        $secret_word = $data['secret_word'];       
+  
+?>
+
 </body>
 </html>
