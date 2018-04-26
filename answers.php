@@ -1083,7 +1083,7 @@ $dataa = json_decode(file_get_contents($url_location), true);
  $guestName = "";
 
 
- $keyword = array('newschool', 'how are you','what are you you?', 'what your do name ur name? call you your\'s', 'my name name?', 'i\'m am fine okay doing great ok all good', 'today today\'s date', 'version version? aboutbot', 'what do time? time', 'still here you there codmax jnr samson');
+ $keyword = array('newschool','what are you you?', 'i\'m am fine okay doing great ok all good', 'date date?', 'version version? aboutbot', 'time? time', 'still here you there codmax jnr samson');
 
  $decisionArray = array();
  $usrKeywords = $qsam; //$_POST['keywords']
@@ -1215,7 +1215,7 @@ $dataa = json_decode(file_get_contents($url_location), true);
  	try{
  			require 'db.php';
 
- 			$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
+ 			$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") ORDER BY RAND() LIMIT 1');
 
  			$stmt->execute();
  			if($stmt->rowCount() > 0){
@@ -1237,17 +1237,18 @@ $dataa = json_decode(file_get_contents($url_location), true);
  		echo requestName();
  }else if (strtok($qsam, ":") == "train"){
  						trainingSam($qsam);
- }else if ( $keyword[$decisionValue[0]] == "what do time? time"){
+ }else if ( $keyword[$decisionValue[0]] == "time? time"){
              echo respondTime();
- }else if ( $keyword[$decisionValue[0]] == "what your do name ur name? call you your's" || $qsam == "your name" || $qsam == "name" || $qsam == "ur name" || $qsam == "ur name?"){
+ }else if ($qsam == "your name" || $qsam == "what is your name" || $qsam == "what is your name?" || $qsam == "name" || $qsam == "ur name" || $qsam == "ur name?" || $qsam == "whats your name" ||
+          $qsam == "whats your name?" || $qsam == "what's your name?" || $qsam == "what's your name"){
              echo respondName();
- } else if ( $keyword[$decisionValue[0]] == "my name name?"){
+ } else if ( $qsam == "my name" || $qsam == "what is my name" || $qsam == "what is my name?" || $qsam == "whats my name?" || $qsam == "whats my name" || $qsam == "what's my name?" || $qsam == "what's my name"){
              echo "givename";
  }else if ( $keyword[$decisionValue[0]] == "version version? aboutbot"){
              echo "Version: 1.0";
  }else if ( $keyword[$decisionValue[0]] == "what are you you?"){
              echo "I'm a ChatBot";
- }else if ( $keyword[$decisionValue[0]] == "today today's date"){
+ }else if ( $keyword[$decisionValue[0]] == "date date?"){
              echo respondDate();
  }else if($qsam != "intro" && $qsam != "request name" && strtok($qsam, ":") != "train"){
  	$te = checkDatabaseToo($qsam);
