@@ -199,7 +199,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		p{
 			text-align: center;
 			font-size: 60px;
-			color: blue;
+			color: #00FF00;
 		}
 		#info{
 			text-align: center;
@@ -314,12 +314,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	    		<div class="oj-flex">
 					<div class="oj-flex-item"> <p> HELLO WORLD </p> </div>
 				</div>
-				<p>
-					I am   <?=$my_data['name'] ?>
-				</p>
-				<p>
-					A Web developer, blogger and Software developer
-				</p>
+				<div class="oj-flex">
+					<div class="oj-flex-item"><p>I am   <?=$my_data['name'] ?></p> </div>
+				</div>
+				<div class="oj-flex">
+					<div class="oj-flex-item"><p>A Blogger, Web Developer and Programmer</p> </div>
+				</div>
 				<p>
 					<a href="https://github.com/sainttobs"><i class="fa fa-github"></i></i></a>
 					<a href="https://twitter.com/9jatechguru"><i class="fa fa-twitter"></i></i></a>
