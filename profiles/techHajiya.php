@@ -22,10 +22,9 @@
             font-size: 16px;
             display: flex;
             flex-direction: column;
-            max-width: 550px;
+            max-width: 650px;
 			height: 400px;
-			border-radius: 0px;
-			margin: 10px 10px;
+			border-radius: 5px;
 			background: white;
         }
 
