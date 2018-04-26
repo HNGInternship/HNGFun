@@ -101,7 +101,7 @@
 			
         }
         .chat-result > div {
-            margin: 0 0 10px 0;
+            margin: 0 0 5px 0;
         }
         .chat-result .user-message .message {
             background: #DA70D6;
@@ -116,13 +116,13 @@
         }
         .chat-result .message {
             display: inline-block;
-            padding: 10px 10px;
+            padding: 5px 5px;
 			margin: 5px;
             border-radius: 10px;
         }
         .chat-input {
             padding: 15px;
-            background-color: #fff;
+            background: #A6BBEC;
 			font-size: 16px;
         }
         .chat-input .user-input {
@@ -165,6 +165,9 @@
             margin-left: 20px;
             margin-top: 2.5px;
         }
+		.oj-panel{
+    background-color:#2B303A;
+}
 
         .fa-close, .fa-question-circle {
             font-size: 23px;
