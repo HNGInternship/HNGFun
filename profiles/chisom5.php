@@ -1,5 +1,3 @@
-
-
 <?php
 error_reporting(0);
 if (empty($conn)) {
@@ -48,7 +46,7 @@ $filename = $intern_detail['image_filename'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Chisom Okoye</title>
+    <title><?=$name;?></title>
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -60,6 +58,17 @@ $filename = $intern_detail['image_filename'];
 			  text-align: center;
 			  font-family: arial;
 			}
+            .profile-img img {
+              margin-left: auto;
+              margin-right: auto;
+              display: block;
+              width: 300px;
+            }
+          .profile-name {
+             font-size: 25px;
+             font-weight: 600;
+             margin-top: 20px;
+             }
 
 			.title {
 			  color: grey;
@@ -90,13 +99,20 @@ $filename = $intern_detail['image_filename'];
     	<h2 style="text-align:center">My Profile Card</h2>
 
 	<div class="card">
-	
-	  <img src= "<?=$filename;?>" alt="chisom profile" style="width:100%; height: 300px">
 
-	  <h1><?=$name;?> (@<?=$username;?>)</h1>
+	<div class="profile-img">
+    	  
+        <img src="<?=$filename;?>" alt="Chisom HNG Intern">
 
+    </div>
+
+        <p class="text-center profile-name">
+            <?=$name;?> (@<?=$username;?>)
+        </p>
+        
 	  <p style="margin:10px 0px"><span class="title">FrontEnd Developer</span> <br>
-	  		  Angular and anything JS
+	  		 
+            Angular and anything JS
 
 	  </p>
 	  

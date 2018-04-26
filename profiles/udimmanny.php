@@ -1,43 +1,27 @@
-<?php
+<?php 
 error_reporting(0);
-if (empty($conn)) {
-    include("../db.php");
-
-    define('DB_CHARSET', 'utf8mb4');
-    $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
-
-    $opt = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES => false
-    ];
-
-    $conn = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
+if(empty(conn)){
+    include("..db/php");
 }
+$servername = "DB_HOST";
+$username = "DB_USERNAME";
+$password = "DB_PASSWORD":
+// CREATE CONNECTION
+$conn = new mysqli($servername, $username, $password);
 
-$intern_details_query = $conn->query(
-    "SELECT     interns_data.name, 
-                interns_data.username, 
-                interns_data.image_filename
-    FROM        interns_data
-    WHERE       interns_data.username = 'udimmanny' LIMIT 1");
-
-$secret_word_query = $conn->query(
-    "SELECT     secret_word.secret_word 
-    FROM        secret_word LIMIT 1");
-
-$intern_detail = $intern_details_query->fetch();
-$secret_word = $secret_word_query->fetch();
-
-// Secret Word
-$secret_word = $secret_word['secret_word'];
-
-// Profile Details
-$name = $intern_detail['name'];
-$username = $intern_detail['username'];
-$filename = $intern_detail['image_filename'];
-
-?>
+//check connection
+if ($conn->connect_error){
+    die("connection failed:" .$conn->conn_error);
+}
+$sql = "SELECT name, username, image_filename FROM intern_data where username = 'udimmanny'";
+$result = $conn->query($sql);
+<<<<<<< HEAD
+$sql = "SELECT secret_word FROM secret_word";
+$secret_word = $conn->query($sql)
+=======
+$secret_word = "SELECT secret_word FROM secret_word";
+>>>>>>> Update profile
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

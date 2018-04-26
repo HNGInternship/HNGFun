@@ -249,6 +249,7 @@
 		var questionForm = $('#question-form');
 		questionForm.submit(function(e){
 			e.preventDefault();
+
 			var questionBox = $('input[name=question]');
 			var question = questionBox.val();
 			//display question in the message frame as a chat entry
