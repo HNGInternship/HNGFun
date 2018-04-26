@@ -243,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		.chat-header{
 			width: 480px;
-			height: 30px;
+			height: 50px;
 			background-color: #34495E;
 			color: white;
 			text-align: center;
