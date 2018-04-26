@@ -1,11 +1,12 @@
+
 <?php
     session_start();
     require('answers.php');
                 $dsn = "mysql:host=".DB_HOST.";dbname=".DB_DATABASE;
-                $db = new PDO($dsn, DB_USER,DB_PASSWORD);
-                $codeQuery = $db->query('SELECT * FROM secret_word ORDER BY id DESC LIMIT 1', PDO::FETCH_ASSOC);
-                $secret_word = $codeQuery->fetch(PDO::FETCH_ASSOC)['secret_word'];
-                $detailsQuery = $db->query('SELECT * FROM interns_data WHERE name = \'Tiarayuppy\' ');
+   $db = new PDO($dsn, DB_USER,DB_PASSWORD);
+   $codeQuery = $db->query('SELECT * FROM secret_word ORDER BY id DESC LIMIT 1', PDO::FETCH_ASSOC);
+     $secret_word = $codeQuery->fetch(PDO::FETCH_ASSOC)['secret_word'];
+                                $detailsQuery = $db->query('SELECT * FROM interns_data WHERE name = \'Tiarayuppy\' ');
     $username = $detailsQuery->fetch(PDO::FETCH_ASSOC)['username'];
     if(isset($_POST['message']))
     {
@@ -17,7 +18,7 @@
                     $question = trim($args[1]);
           $answer = trim($args[2]);
           $password = trim($args[3]);
-          if($password == "[password]")
+          if($password == "password")
           {
               // Password perfect
             $trainQuery = $db->prepare("INSERT INTO chatbot (question , answer) VALUES ( :question, :answer)");
@@ -67,6 +68,9 @@
     }
     $messages = $_SESSION['chat_history'];
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
