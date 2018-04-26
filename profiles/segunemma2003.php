@@ -11,7 +11,7 @@ try {
 	throw $e;
 }
 global $conn;
-if (true){
+if (!empty($_POST['message'])){
 	echo json_encode(['status'=>1,'data'=>'welcome']);
 	}
 

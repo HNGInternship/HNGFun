@@ -198,9 +198,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 		.pimg{
 			border-radius: 50%;
-			width: 380px;
-			height: 380px;
-			margin-left: 600px;
+			width: 350px;
+			height: 350px;
+			margin-left: 300px;
 		}
 		p{
 			text-align: center;
