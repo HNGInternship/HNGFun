@@ -294,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                  $.ajax({
                      url:"/profiles/segunemma2003",
                      dataType: "json",
-		     type:"POST"
+		     type:"POST",
                      data : {message: message},
                      success: function(res){
 
