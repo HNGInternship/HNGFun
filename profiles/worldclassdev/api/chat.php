@@ -8,12 +8,12 @@
  return response
 
 */
-
-require_once("../../../db.php");
+// echo get_last_err();
+require_once("./conn/dxcon.php");
 require_once("regex.php");
+var_dump("COnn ". $dbc);
 
-
-$regex = new regex($conn); 
+$regex = new regex($dbc); 
 $emails = $regex->fetchanswer($_POST['chat']);
 $dd = json_encode($emails);  
 
