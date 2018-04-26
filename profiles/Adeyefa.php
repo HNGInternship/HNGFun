@@ -196,10 +196,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    background-repeat: no-repeat;
 		    background-size: cover;
 		}
-		h1{
-			text-align: center;
-			color: red;
-		}
 		p{
 			text-align: center;
 			font-size: 60px;
@@ -215,7 +211,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			position: absolute;
 		}
 		#bbb{
-			width: 790px;
+			width: 780px;
 			height: 590px;
 			float: right;
 		}
@@ -335,7 +331,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			<div class="head">
 				<h2> Chat With MyBot</h2>
 			</div>
-			<div class="row-holder" class="oj-flex-item">
+			<div class="row-holder" class="oj-flex">
 				<div class="row2">
 					<div id="form">
 						<form id="qform" method="post">
