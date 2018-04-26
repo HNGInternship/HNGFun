@@ -9,9 +9,9 @@
 
 */
 // echo get_last_err();
-require_once("./conn/dxcon.php");
+require_once("../../db.php");
 require_once("regex.php");
-var_dump("Con ". $dbc);
+var_dump("Conzz ". $conn);
 var_dump($DB_HOST." ".$DB_USER." ". $DB_PASSWORD);
 echo "new";
 $regex = new regex($dbc); 
