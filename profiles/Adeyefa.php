@@ -294,15 +294,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			left: -3px;
             background-color: #00b0ff;
 		}
-		#queries{
-			margin-left: 50px;
-		}
-		.iro{
-			float: right;
-			color: red;
-			font-size: 15px;
-			font-family: Ubuntu;
-		}
 		.iio{
 			float: left;
 			margin-right: 90px;
@@ -359,11 +350,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 								<div class="irr">
 									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about what i can do type 'help'
 								</div>
-								<div class="iro">
-									<ul id="queries">
-										
-									</ul>
-								</div>	
+									
 								<div class="iio">
 									<ul id="ans">
 											
