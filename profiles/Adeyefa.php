@@ -295,16 +295,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			font-family: Ubuntu;
 
 		}
-		#ans{
-			background-color: #00FF00;
-			margin-top: 4px;
-			margin-bottom: 4px
+		.user-input .input{
+			display: inline-block;
+			padding: 12px 20px;
+			border-radius: 10px;
+			
 		}
-		#que{
-			background-color: #FF00FF;
-			margin-bottom: 4px;
-			margin-top: 4px;
-		}
+		.bot-output .output{
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 10px;
+        }
 	</style>
 </head>
 <body class="oj-web-applayout-body " >
@@ -348,7 +349,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 						<form id="qform" method="post">
 							<div id="textform">
 								<textarea id='questionBox' name="question" placeholder="Enter message ..."></textarea>
-								<button type="submit" id="send-button">Send</button>
+								<button type="submit" id="send-button">Submit</button>
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
@@ -356,12 +357,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 								</div>
 									
 								<div class="iio">
-									<ul id="que">
+									<div id="que" class="que">
 											
-									</ul>
-									<ul id="ans">
-										
-									</ul>
+									</div>
 								</div>	
 							</div>
 						</form>
@@ -378,7 +376,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#que").append("<li> You: " + question + "</br></li>");
+				$("#que").append("<div class='user-input'><div class='input'>You: " + question + "</div></div>");
 					//let newMessage = `<div class="iro">
 	                  //${question}
 	                //</div>`
@@ -388,7 +386,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#ans").append("<li> MATRIX: "  + response.answer +  "</br></li>");
+			        $("#que").append("<div class='bot-output'><div class='output'> MATRIX: "  + response.answer +  "</div></div>");
 			       // console.log(response.result);
 			        //alert(response.result.d);
 			        //alert(answer.result);
