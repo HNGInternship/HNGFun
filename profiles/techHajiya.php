@@ -25,8 +25,7 @@
             max-width: 400px;
 			height: 400px;
 			border-radius: 0px;
-			margin: 50px;
-			padding: 20px;
+			margin: 20px 10px;
 			background: white;
         }
 
@@ -169,12 +168,10 @@
         }
 		.oj-panel{
 		background-color:#DFE1E2;
+		width: 100%;
             padding-left: 0px;
 		}
 		.demo-panelwrapper {
-		background-color:green;
-		width: 500px;
-        padding: 10px;
 		}
 		.oj-flex{
 		background-color:blue;
@@ -221,7 +218,7 @@
                     <a href="https://facebook.com/lois.idzi5" target="_blank"><i class="fa fa-2x fa-facebook"></i></a>
                 </div>
             </div>
-			  </div>
+			
   <div class="oj-flex-item oj-flex oj-sm-flex-items-1 oj-sm-12 oj-md-6 oj-lg-6 oj-xl-6 " style='width: 450px;'>
         <div class="oj-flex-item demo-mypanel" style='float: right; padding-top: 10px;'>
 			<div class="col-sm-6 chatbox" style='float: right; padding-top: 10px'>
@@ -248,6 +245,7 @@
           </div>
 		   </div>
 		    </div>
+			  </div>
     <?php
     try {
         $sql = 'SELECT * FROM secret_word';
