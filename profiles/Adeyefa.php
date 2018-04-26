@@ -293,6 +293,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			color: red;
 			font-size: 15px;
 			font-family: Ubuntu;
+
+		}
+		#ans{
+			background-color: #00FF00;
+			margin-top: 2px;
 		}
 	</style>
 </head>
@@ -364,7 +369,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#ans").append("<li> You: " + question + "</li>");
+				$("#ans").append("<li> You: " + question + "</br></li>");
 					//let newMessage = `<div class="iro">
 	                  //${question}
 	                //</div>`
@@ -374,7 +379,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#ans").append("<li> MATRIX: "  + response.answer +  "</li>");
+			        $("#ans").append("<li> MATRIX: "  + response.answer +  "</br></li>");
 			       // console.log(response.result);
 			        //alert(response.result.d);
 			        //alert(answer.result);
