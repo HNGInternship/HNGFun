@@ -8,12 +8,8 @@ if(!defined('DB_USER')){
 		require_once 'config.php';
 	}
 }
- /*
- Class Db
- */
+ 
 class Db{
-    // a singleton pattern implementation
-    
 	private static $_instance;
 	private $conn;
 	
@@ -31,9 +27,7 @@ class Db{
 		}	 
 	}
 	
-	/**
-	 * @return PDO
-	 */
+	
 	public static function getInstance(){
 		if (!self::$_instance) { // If no instance then make one
 			self::$_instance = new self();
@@ -59,22 +53,16 @@ class Response{
 	}
 }
 
-/**
- * Class DBHelper
- */
+
 class DBHelper{
 	private $dbh;
 	
-	/**
-	 * DBHelper constructor.
-	 */
+	
 	public function __construct(){
 		$this->dbh = Db::getInstance();
 	}
 	
-	/**
-	 * @return string
-	 */
+	
 	public function getSecret_Word(){	
 		try {
 			$query = $conn->prepare("SELECT * FROM secret_word LIMIT 1");
@@ -87,10 +75,7 @@ class DBHelper{
 		}
 	}
 	
-	/**
-	 * @param string $username
-	 * @return mixed|string
-	 */
+	
 	public function getMyProfile($username = 'w3bh4ck'){
 		try {
 			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
@@ -103,10 +88,7 @@ class DBHelper{
 		}
 	}
 	
-	/**
-	 * @param $question
-	 * @return mixed|string
-	 */
+	
 	public function getQuestion($question){
 		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		try {
@@ -120,11 +102,7 @@ class DBHelper{
 		}
 	}
 	
-	/**
-	 * @param $question
-	 * @param $answer
-	 * @return bool|string
-	 */
+	
 	public function PairExists($question, $answer){
 	$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		try {
@@ -139,11 +117,7 @@ class DBHelper{
 		}
 	}
 	
-	/**
-	 * @param $question
-	 * @param $answer
-	 * @return string
-	 */
+	
 	public function trainMyBot($question, $answer){
 		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		try {
@@ -160,11 +134,7 @@ class DBHelper{
 }
 
 
-/**
- * remove bad characters
- * @param $string
- * @return string
- */
+
 	function neat_string($string){
 		if (is_array($string)) {
 			$data = [];
@@ -176,12 +146,7 @@ class DBHelper{
 		}
 	}
 
-/**
 
- * @param $question
- * @param $questions_array
- * @return mixed
- */
 	function searchQuestion($question, $questions_array){
 		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		$keywords = explode(' ', $question); // explode to get words
@@ -212,11 +177,7 @@ class DBHelper{
 		return end($q_sorta);
 	}
 
-/**
- * @param $message
- * @param string $status
- * @return string
- */
+
 	function botMessage($message, $status = 'success'){
 		$myResponse = new Response();
 		$myResponse->status = $status;
@@ -323,9 +284,15 @@ class DBHelper{
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	  <style>
    
-	.myPics{
+          body{
+              background-image: url("http://res.cloudinary.com/w3bh4ck/image/upload/v1523849170/web-wallpaper.jpg");
+          }
+          
+	.my-photo{
+        margin-right: 30px;
 	        border-radius: 50%;
 	        margin-top: 36px;
+        align-self: center;
 	    }
 
 	    .fa {
@@ -353,22 +320,6 @@ class DBHelper{
 	    	font-size:36px; 
 	   		color: #d16027;
 	}    
-	.facebook{
-		color: #3b5998; 
-		margin-right:10px; 
-	}
-	.tw{
-		color: #1da1f2;
-		 margin-right:10px; 
-		}
-	.git{
-		color: #333333;
-		 margin-right:10px;
-		 }
-	.linkedin{
-		color: #0077b5;
-		 margin-right:10px;
-		}
 	.section-main{
 		 width: 330px; position: fixed; right:5px;
 		 bottom:-380px; 
@@ -533,12 +484,46 @@ class DBHelper{
 		<!-- Profile Section -->
 	<div class="container"> 
 		<div class="row">
-		  	<div class="col-sm-6 text-center">
-                <img class=" photo img-responsive img-circle" src="http://res.cloudinary.com/w3bh4ck/image/upload/v1523793277/23658800_1730371916975943_5091116093810420678_n.jpg" width="300px" height="400px">
-		      <h2 class="text-center"><strong>AMADI LUCKY SAMPSON</strong></h2>
+		  	<div class="col-md-12 text-center">
+                <img style="margin: auto" class="my-photo img-responsive img-circle" src="http://res.cloudinary.com/w3bh4ck/image/upload/v1523793277/23658800_1730371916975943_5091116093810420678_n.jpg" width="300px" height="400px">
+		      <h2><strong>AMADI LUCKY SAMPSON</strong></h2>
+                <h3>Software Developer</h3>
 		  	</div>
-		     
 		</div>
+        <div class="row" style="color: white">
+            <div class="col-md-7">
+            
+                <h2 class="text-center">SKILLS</h2>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:90%">
+                        JavaScript
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:90%">
+                        jQuery
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width:85%">
+                        React.js
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%">
+                        PHP
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                        Java
+                    </div>
+                </div>
+                
+                <h4>Contact Me: <span><a href="https://www.facebook.com/tranxamadi" target="_blank"><i class="fa fa-facebook-official" style="font-size:24px"></i></a></span><span><a href="https://www.github.com/w3bh4ck" target="_blank"><i class="fa fa-github" style="font-size:24px"></i></a></span><span><a href="https://www.twitter.com/w3bh4ck" target="_blank"><i class="fa fa-twitter" style="font-size:24px"></i></a></span></h4>
+                
+            </div>
+        </div>
 	</div>
 	        <!-- Chatbot Section -->
 	<div class="section-main">
@@ -546,7 +531,7 @@ class DBHelper{
             <div class="col-md-12 col-sm-12 col-xs-12 session-one bg-primary">
                 <div class="row">
                     <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6 left-session-one">
-                        <p id="chatbot-heading" class="blink"><i class="fa fa fa-question-circle"></i>W3bh4ck bot</p>
+                        <p id="chatbot-heading" class="blink">W3bh4ck bot</p>
                     </div>
                     <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 right-session-one">
                         <a href="#"><i class="fa fa-minus" aria-hidden="true"></i></a>
@@ -594,7 +579,7 @@ class DBHelper{
     (function () {
         this.onReady = function () {
             // send welcome messages
-            var strMessages = '<li class="replies"><p><small style="font-size: 15px; color:green;" ><img src ="http://res.cloudinary.com/w3bh4ck/image/upload/v1524688848/1_paQ7E6f2VyTKXHpR-aViFg.png"><b>W3bh4ck</small><br>Hi, I am w3bh4ck assistant </p></li><div class="clearfix"></div> ';
+            var strMessages = '<li class="replies"><p><small style="font-size: 15px; color:green;" ><img src ="http://res.cloudinary.com/w3bh4ck/image/upload/v1524688848/1_paQ7E6f2VyTKXHpR-aViFg.png" height="20px" width="20px" ><b>W3bh4ck</small><br>Hi, I am w3bh4ck assistant </p></li><div class="clearfix"></div> ';
             $('#message-outlet').append(strMessages);
             $(".messages").scrollTop($("#message-outlet").outerHeight());
         };
@@ -627,7 +612,7 @@ class DBHelper{
 
             var message = $("#chat_message_text").val();
 
-            var strMessages = '<li class="sent"><p><small style="font-size: 15px; color:blue;"><img src="http://res.cloudinary.com/gconnect/image/upload/v1524432009/person.png"><b>You</small><br>' +
+            var strMessages = '<li class="sent"><p><small style="font-size: 15px; color:blue;"><img src="http://res.cloudinary.com/gconnect/image/upload/v1524432009/person.png" height="20px" width="20px" ><b>You</small><br>' +
                 '' + message + '</p></li><div class="clearfix"></div> ';
             $('#message-outlet').append(strMessages);
             $(".messages").scrollTop($("#message-outlet").outerHeight());
@@ -639,7 +624,7 @@ class DBHelper{
             this.postJSON(data, "../profiles/w3bh4ck.php", function (response) {
                 $('#message_chat_form')[0].reset();
                 console.log(response);
-                var strMessages = '<li class="replies"><img src ="http://res.cloudinary.com/w3bh4ck/image/upload/v1524688848/1_paQ7E6f2VyTKXHpR-aViFg.png"><small style="font-size: 15px; color:green;" ><b>w3bh4ck assistant</small><br>' +
+                var strMessages = '<li class="replies"><img src ="http://res.cloudinary.com/w3bh4ck/image/upload/v1524688848/1_paQ7E6f2VyTKXHpR-aViFg.png" height="20px" width="20px" ><small style="font-size: 15px; color:green;" ><b>w3bh4ck assistant</small><br>' +
                     '' + response.message + '</p></li><div class="clearfix"></div> ';
                 $('#message-outlet').append(strMessages);
                 $(".messages").scrollTop($("#message-outlet").outerHeight());
