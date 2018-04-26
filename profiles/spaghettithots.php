@@ -44,10 +44,6 @@
 
 			}
 
-			.ul{
-
-			}
-
 			.gray-bkgd{
 				background-color: rgba(200, 200, 200, 1);
 			}
@@ -67,7 +63,7 @@
 
 			.list-item{
 				border-bottom: 2px solid rgba(80, 80, 80, 1);
-				padding-top: 1em;
+				/*padding-top: 1em;*/
 				width: 300px;
 				height: 35px;
 				list-style-type: none;
@@ -118,12 +114,16 @@
 			    $sql = "SELECT * FROM secret_word";
 			    $q = $conn->query($sql);
 			    $q->setFetchMode(PDO::FETCH_ASSOC);
-			    $secret_word = $q->fetch();
+			    $data = $q->fetch();
 			}
 			catch(PDOException $e)
 			{
 			    throw $e;
 			}
+
+			$secret_word = $data['secret_word'];
+
+			// var_dump($secret_word);
 		?>
 
 		<!-- Main HTML content -->
@@ -155,7 +155,7 @@
 			<h3>I am Alexandrix Ikechukwu</h3>
 			<p>In one breath, I am a...</p>
 			<ul class="ul">
-				<li class="list-item top-list-item white-bkgd">Software Engineer.</li>
+				<!-- <li class="list-item top-list-item white-bkgd">Software Engineer.</li> -->
 				<li class="list-item gray-bkgd">Dataphile.</li>
 				<li class="list-item white-bkgd">Writer [of all sorts of things].</li>
 				<li class="list-item gray-bkgd">Poet.</li>
