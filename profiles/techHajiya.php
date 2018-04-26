@@ -3,6 +3,7 @@
 <html>
 <head>
 	<link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css' />
+	<link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <style type="text/css">
 	 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
@@ -203,9 +204,10 @@
                     <a href="https://facebook.com/lois.idzi5" target="_blank"><i class="fa fa-2x fa-facebook"></i></a>
                 </div>
             </div>
-
-      <div class="col-sm-6 chatbox" style='float: right; padding-top: 10px'>
-	 <div class='chatbot-menu-header'>
+  <div class="oj-flex-item oj-flex oj-sm-flex-items-1 oj-sm-12 oj-md-6 oj-lg-6 oj-xl-6 ">
+        <div class="oj-flex-item  demo-mypanel">
+			<div class="col-sm-6 chatbox" style='float: right; padding-top: 10px'>
+				<div class='chatbot-menu-header'>
                         <div class="hng-logo"></div> <span>LoBot v1.0</span>
                     </div>
                 <div class="chat-result" id="chat-result">
@@ -223,7 +225,8 @@
 						<button id="send">SEND</button>
                     </form>
                 </div>
-		
+		</div>
+		   </div>
           </div>
 		   </div>
     <?php
