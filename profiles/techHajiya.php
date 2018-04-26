@@ -170,7 +170,7 @@
 		}
 		.demo-panelwrapper {
 		background-color:#B6BCBD;
-		max-width: 95%;
+		max-width: 100%;
             padding-left: 0;
 		}
         .fa-close, .fa-question-circle {
@@ -204,7 +204,7 @@
      
             <div class="col-sm-6 profile-details">
                 <div class="profile-image">
-                    <img src="<?=$my_data['image_filename'] ?>" alt="Lois Thomas">
+                    <img src="http://res.cloudinary.com/lois-idzi/image/upload/v1524718483/mypic.jpg" alt="Lois Thomas">
                 </div>
 				<p class="text-center profile-name">
 				<span> Hi! I am  <?=$my_data['name'] ?>  <br/>(@<?=$my_data['username'] ?>) <br/> iLearn | iEat | iCode</span>
