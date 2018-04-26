@@ -1,5 +1,5 @@
 <?php
-if($_SERVER['REQUEST_METHOD']==='GET'){
+
  try {
      $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'nedy'");
      $intern_data->execute();
@@ -15,7 +15,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
   } catch (PDOException $e) {
       throw $e;
   }
-}//else if($_SERVER['REQUEST_METHOD']==='POST'){
+if($_SERVER['REQUEST_METHOD']==='POST'){
     // require '../../config.php';
     // $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
     //         if(!$conn){
