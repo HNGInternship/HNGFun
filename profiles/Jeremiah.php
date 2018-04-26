@@ -297,7 +297,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 
 		.chat-footer{
-			margin-top: 5px;
 			background-color: #F3F3F3;
 
 		}
@@ -307,8 +306,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		}
 		.input_text{			
-			width: 360px;
-			height: 45px;
+			width: 370px;
+			height: 40px;
 			padding: 5px;
 			margin-top: 8px;
 			border: 0.5px solid #34495E;
@@ -316,8 +315,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		}
 		.send_button{
-			width: 70px;
-			height: 45px;
+			width: 75px;
+			height: 40px;
 			padding: 5px;
 			margin-top: 8px;
 			color: white;
