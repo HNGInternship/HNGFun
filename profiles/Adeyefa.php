@@ -203,7 +203,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		p{
 			text-align: center;
 			font-size: 60px;
-			color: red;
+			color: blue;
 		}
 		#info{
 			text-align: center;
@@ -324,7 +324,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				<p>
 					A Web developer, blogger and Software developer
 				</p>
-				<p  class="oj-flex-item">
+				<p  class="oj-flex oj-md-align-items-center">
 					<a href="https://github.com/sainttobs"><i class="fa fa-github"></i></i></a>
 					<a href="https://twitter.com/9jatechguru"><i class="fa fa-twitter"></i></i></a>
 					<a href="https://web.facebook.com/toba.adeyefa"><i class="fa fa-facebook"></i></i></a>	
