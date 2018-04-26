@@ -22,7 +22,7 @@
             font-size: 16px;
             display: flex;
             flex-direction: column;
-            width: 50%;
+            width: 100%;
 			height: 400px;
 			border-radius: 0px;
 			margin: 20px 10px;
@@ -220,8 +220,8 @@
             </div>
 			
   <div class="oj-flex-item oj-sm-flex-items-1 oj-sm-12 oj-md-6 oj-lg-6 oj-xl-6 " style='width: 450px;'>
-        <div class="oj-flex-item demo-mypanel" style='float: right; padding-top: 10px;'>
-			<div class="col-sm-6 chatbox" style='float: right; padding-top: 10px'>
+        <div class="oj-flex-item oj-panel demo-mypanel" 'float: right; padding-top: 10px'>
+			<div class="col-sm-6 chatbox" >
 				<div class='chatbot-menu-header'>
                         <div class="hng-logo"></div> <span>LoBot v1.0</span>
                     </div>
