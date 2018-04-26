@@ -202,7 +202,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 		p{
 			text-align: center;
-			font-size: 50px;
+			font-size: 60px;
 			color: red;
 		}
 		#info{
@@ -210,8 +210,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			font-size: 30px;
 		}
 		#sidebar{
-			width: 380px;
-			height: 590px;
+			width: 350px;
+			height: 600px;
 		}
 		#bbb{
 			width: 790px;
