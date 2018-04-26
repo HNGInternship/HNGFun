@@ -4,8 +4,8 @@ class Regex
 {
     var $dbcon;
 
-    function __construct($dbc){
-		$this->dbcon = $dbc;
+    function __construct($conn){
+		$this->dbcon = $conn;
 	}
 
     function query($qwer){
