@@ -205,19 +205,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			font-size: 60px;
 			color: red;
 		}
-		#p1{
-			text-align: center;
-			font-size: 60px;
-		}
 		#info{
 			text-align: center;
 			font-size: 30px;
 		}
-		.sidebar{
+		#sidebar{
 			width: 400px;
 			height: 590px;
 		}
-		.bbb{
+		#bbb{
 			width: 790px;
 			height: 590px;
 			float: right;
@@ -317,25 +313,25 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         throw $e;
     }
     ?>
-		<div class="bbb" >
-	    	<div class="oj-flex">
-				<p class="oj-flex-item">
+		<div id="bbb" class="oj-flex" >
+	    	<div class="oj-flex-item">
+				<p>
 					HELLO WORLD
 				</p>
-				<p id="p1" class="oj-flex-item">
+				<p>
 					I am   <?=$my_data['name'] ?>
 				</p>
-				<p id="info" class="oj-flex-item">
+				<p>
 					A Web developer, blogger and Software developer
 				</p>
-				<p id="fav" class="oj-flex-item">
+				<p  class="oj-flex-item">
 					<a href="https://github.com/sainttobs"><i class="fa fa-github"></i></i></a>
 					<a href="https://twitter.com/9jatechguru"><i class="fa fa-twitter"></i></i></a>
 					<a href="https://web.facebook.com/toba.adeyefa"><i class="fa fa-facebook"></i></i></a>	
 				</p>
 			</div>
 	    </div>	
-		<div class="sidebar" class="oj-flex">
+		<div id="sidebar" class="oj-flex">
 			<div class="head">
 				<h2 class="oj-flex-item"> Chat With MyBot</h2>
 			</div>
