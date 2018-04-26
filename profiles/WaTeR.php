@@ -23,11 +23,11 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
  ?>
 
-
+<!-- 
 <!DOCTYPE html>
 <html>
 <head>
-  <title>HNG INternship Task 3</title>
+  <title>HNG INternship Task 3</title> -->
   <style type="text/css">
     *{
   padding: 0px;
@@ -82,8 +82,8 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
 <!-- Latest compiled and minified CSS -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
  -->
-</head>
-<body>
+<!-- </head>
+<body> -->
 
 <div class="head">
   <h1>Hi,</h1>
@@ -116,6 +116,4 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
 </div>
 </div>
-<!-- /.row -->
-</body>
-</html> 
+
