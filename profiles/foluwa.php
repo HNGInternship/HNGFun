@@ -2,7 +2,7 @@
 
   $dt = date("Y-m-d h:i:sa");
 ?>
-<?php/*
+<?php
 if(!defined('DB_USER')){
   require "../../config.php";   
   try {
@@ -311,28 +311,5 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     <script type="text/javascript" src="http://www.oracle.com/webfolder/technetwork/jet/public_samples/jet/js/libs/require/require.js"></script>
     <script type="text/javascript" src="http://www.oracle.com/webfolder/technetwork/jet/public_samples/JET-Template-Web-NavBar/public_html/js/main.js"></script>
-    <script>/*
-    $(document).ready(function(){
-      var Form =$('#conversation');
-      Form.submit(function(e){
-        e.preventDefault();
-        var questionBox = $('textarea[name=inputtext]');
-        var question = questionBox.val();
-        $("#conversation").append("<p class='botSend'>" + question + "<?php echo $d?>" + "</p>");
-        $.ajax({
-          url: '/profiles/foluwa.php',
-          type: 'POST',
-          data: {question: question},
-          dataType: 'json',
-          success: function(response){
-              $("#botPost").append("<p class='humanSend'>"  + response.answer +  "</p>");
-          },
-          error: function(error){
-                alert(error);
-          }
-        })  
-      })
-    });*/
-  </script>
   </body>
 </html>
