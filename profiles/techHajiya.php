@@ -54,10 +54,10 @@
         .profile-image img {
             margin: auto;
             display: block;
-            width: 250px;
-			height:400px;
+            width: 200px;
+			height:300px;
             border-radius: 100px;
-			box-shadow: 0px 0px 5px 2px grey;
+			box-shadow: 0px 0px 2px 1px grey;
         }
         .profile-name {
             font-size: 25px;
@@ -166,10 +166,10 @@
             margin-top: 2.5px;
         }
 		.oj-panel{
-		background-color:#2B303A;
+		background-color:#B6BCBD;
 		}
 		.demo-panelwrapper {
-		background-color:#2B303A;
+		background-color:#B6BCBD;
 		max-width: 95%;
             padding-left: 0;
 		}
