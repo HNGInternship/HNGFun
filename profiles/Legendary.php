@@ -1,18 +1,28 @@
+
+<?php
+	
+	
+	require 'db.php';
+
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+
+   $result2 = $conn->query("Select * from interns_data where username = 'Legendary'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+
+ ?>
+
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-.John{
-  border-radius: 50%;
-}
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 300px;
   margin: auto;
   text-align: center;
   font-family: arial;
-
 }
 
 .title {
@@ -45,22 +55,32 @@ button:hover, a:hover {
 </style>
 </head>
 <body>
-
-
+<br>
+<br>
+<h2 style="text-align:center">User Profile </h2>
 
 <div class="card">
-  <img src="http://res.cloudinary.com/eshietekemini/image/upload/v1524557804/IMG_20180224_130950.jpg" alt="John"  style="width:100%">
-  <h3>Eshiet Ekemini</h3>
-  <p class="title">Android Developer, Intern at HNGInternship 4.0</p>
-  <p>I drink tea and code, and I love picking up on new Technologies</p>
+  <img src="http://res.cloudinary.com/uyo-obong/image/upload/v1524685035/legendary.jpg" alt="Akpan" style="width:100%">
+  <h1><?php
+ echo $user->name ?></h1>
+  <p class="title">CEO & Founder, of</p>
+  <p>Excellentloaded.com</p>
   <div style="margin: 24px 0;">
     <a href="#"><i class="fa fa-dribbble"></i></a> 
     <a href="#"><i class="fa fa-twitter"></i></a>  
     <a href="#"><i class="fa fa-linkedin"></i></a>  
     <a href="#"><i class="fa fa-facebook"></i></a> 
  </div>
- <p><button>Contact Me: 08165483162 </button></p>
+ <p><button>Contact</button></p>
 </div>
 
+
+
+
+
+	<?php 
+		include('footer.php');
+
+	 ?>
 </body>
 </html>

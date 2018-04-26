@@ -29,8 +29,8 @@ $result = $conn->query("SELECT * FROM secret_word LIMIT 1");
     border: 0px;
     border-radius: 0.25em;
     border: 1px solid rgba(0,0,0,.125);
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     margin-top: 83px;
 }
 
