@@ -590,6 +590,7 @@ function getPinkyCommands(){
 }
 
 function train_bot ($message) {
+
 function multiexplode ($delimiters,$string) {
 
     $ready = str_replace($delimiters, $delimiters[0], $string);
@@ -1080,11 +1081,11 @@ $dataa = json_decode(file_get_contents($url_location), true);
  }
 
  //////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
- //
- if ($_REQUEST["qsam"]){
- $qsam = $_REQUEST["qsam"];
- samsonjnrBot($qsam);
- }
+
+if ($_REQUEST["qsam"]){
+$qsam = $_REQUEST["qsam"];
+samsonjnrBot($qsam);
+}
  function samsonjnrBot($qsam){
  $qsam = strtolower($qsam);
  $anwerSam = "";
@@ -1306,26 +1307,25 @@ $dataa = json_decode(file_get_contents($url_location), true);
 
 //to check if the data was sent to the server
 // Please place ur code in a function
-function johnsCode(){
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+function johnsCode()
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 // to if the post request is not empty 
 
-  try{
-        if(!isset($_POST['question'])){
-          echo json_encode([
-            'status' => 1,
-            'answer' => "Please provide a question"
-          ]);
-          return;
-        }
-      
-        $questions = $_POST['question'];
-        $question = strtolower($questions);
 
+            if (!isset($_POST['question'])) {
+                echo json_encode([
+                    'status' => 1,
+                    'answer' => "Please provide a question"
+                ]);
+                return;
+            }
+
+            $questions = $_POST['question'];
+            $question = strtolower($questions);
+  }
 }
 
     /////////////////////////////FUNCTIONS COMES FIRST////////////////////////////////////////////////////////////////
@@ -1333,7 +1333,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // All the functions goes here
     
-            function before ($thiss, $inthat)
+            function before($thiss, $inthat)
             {
                 return substr($inthat, 0, strpos($inthat, $thiss));
              };
@@ -1449,72 +1449,73 @@ function weather($country,$city){
 
 ///////////////////To check if the statement begins with train://///////////////////////
 
-        if (preg_match("/^train:/", $question)) 
-        {
-
-            $question = preg_replace( '/\s+/','', $question);
-            $res = training($question);
-            echo json_encode([
-            'status' => 1,
-            'answer' => $res
-            ]);
-            return;
-           
-        }
-
-        elseif (preg_match("/^about/", $question)) 
-        {
-           echo json_encode([
-            'status' => 1,
-            'answer' => "Robot Version1"
-            ]);
-            return;      
-        }
-        elseif (preg_match("/^currency/", $question)){
-
-             $question = preg_replace( '/\s+/','', $question);
-             $from_currency= between("(", "," , "$question");
-            $to_currency= between(",", "," , "$question");
-            $amt= between(",", ")" , "$question");
-            $amount= (float)$amt;
-            $res= currencyConverter($from_currency,$to_currency,$amount);
-            echo  json_encode([
-                'status'=>1,
-                'answer'=> $res
-            ]);
-            return;
-        }
-        elseif(preg_match("/^weather/", $question)){
-            $country=between("(", ",", $question);
-            $city= between(",", ")", $question);
-            $res= weather($country,$city);
-            echo json_encode([
-                'status'=>1,
-                'answer' =>$res
-            ]);
-            return;
-        }
-
-        else{
-            $res= getAns($question);
-            echo json_encode([
-            'status' => 1,
-            'answer' => $res
-            ]);
-            
-            return;  
-
-        
-        }
-}
-///////////////////////////Conditions Ends here///////////////////////////////
-    catch (Exception $e)
-    {
-
-        return $e->message ;
-  
-    }
-}
+//Please place code in a a function
+//        if (preg_match("/^train:/", $question))
+//        {
+//
+//            $question = preg_replace( '/\s+/','', $question);
+//            $res = training($question);
+//            echo json_encode([
+//            'status' => 1,
+//            'answer' => $res
+//            ]);
+//            return;
+//
+//        }
+//
+//        elseif (preg_match("/^about/", $question))
+//        {
+//           echo json_encode([
+//            'status' => 1,
+//            'answer' => "Robot Version1"
+//            ]);
+//            return;
+//        }
+//        elseif (preg_match("/^currency/", $question)){
+//
+//             $question = preg_replace( '/\s+/','', $question);
+//             $from_currency= between("(", "," , "$question");
+//            $to_currency= between(",", "," , "$question");
+//            $amt= between(",", ")" , "$question");
+//            $amount= (float)$amt;
+//            $res= currencyConverter($from_currency,$to_currency,$amount);
+//            echo  json_encode([
+//                'status'=>1,
+//                'answer'=> $res
+//            ]);
+//            return;
+//        }
+//        elseif(preg_match("/^weather/", $question)){
+//            $country=between("(", ",", $question);
+//            $city= between(",", ")", $question);
+//            $res= weather($country,$city);
+//            echo json_encode([
+//                'status'=>1,
+//                'answer' =>$res
+//            ]);
+//            return;
+//        }
+//
+//        else{
+//            $res= getAns($question);
+//            echo json_encode([
+//            'status' => 1,
+//            'answer' => $res
+//            ]);
+//
+//            return;
+//
+//
+//        }
+//}
+/////////////////////////////Conditions Ends here///////////////////////////////
+//    catch (Exception $e)
+//    {
+//
+//        return $e->message ;
+//
+//    }
+//}
 
 
 ?>

@@ -27,7 +27,8 @@ $result = $conn->query("SELECT * FROM secret_word LIMIT 1");
 
 .raheem {
     border: 0px;
-    border-radius: 50%;
+    border-radius: 0.25em;
+    border: 1px solid rgba(0,0,0,.125);
     width: 186px;
     height: 190px;
     margin-top: 83px;

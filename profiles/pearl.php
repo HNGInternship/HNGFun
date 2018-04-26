@@ -392,8 +392,26 @@ button{
 </head>
 <body cz-shortcut-listen="true">
 
+<<<<<<< HEAD
+<?php
+    
+		require 'db.php';
+
+		$result = $conn->query("Select * from secret_word LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+		$secret_word = $result->secret_word;
+ 
+$result2 = $conn->query("Select * from interns_data where username = 'pearl'");
+  
+$user = $result2->fetch(PDO::FETCH_OBJ);
+?>
+
+<div class="oj-flex oj-flex-item">
+	<div class="container">
+=======
 	<div class="oj-flex oj-flex-item">
 	<div class=" container">
+>>>>>>> 7f54a6dcb2ee3e5cc4aef6128fcc4f011449b379
 		<header>
 			<div class="header">
                 <span class="oj-text-xm"><?php echo $user->name ?></span>
@@ -403,7 +421,7 @@ button{
         <div id="intro">
             <div id="intro-span">
                 <div id="main">
-                    Hi, I am<br /><span id="me"><?php echo $user->name ?></span><br />
+                    Hi, I am<br /><span id="me" class="oj-text-xm"><?php echo $user->name ?></span><br />
                     <span>A Software Developer</span>
                 </div>
             </div>
@@ -453,7 +471,7 @@ button{
                     <em><\Insert Flashback Sequence></\Insert></em>
                 </p>
                 <p>In my younger days, I was on the track towards medical school(Medcine and Surgery), but was detoured on the way by the quest for Admission. As years passed I settled for an alternative course (Computer Science), then did I realized humanity can be helped or even saved through software development.</p>
-                <h3 class="inLove">She Fell in Love</h3>
+                <h3 class="inLove oj-text-xm">She Fell in Love</h3>
                 <p class="school">I found the love of my life few months before Industrial Training, a friend of mine one afternoon came to my room so excited, she wanted to demonstrate something to me but I was watching movie(that’s what majority of students do with their PC, I was no different). Her excitement was overwhelming that I gave her an opportunity. Guess what! she wrote some foreign characters, opened my browser and boom!!! the miracle happened; <span id="g">G</span><span id="o1">o</span><span id="o2">o</span><span id="g">g</span><span id="l">l</span><span id="o1">e</span> written bodily with its 4 different colours appeared on the screen, immediately I fell in love.
 My love grew into passion that I gave up my little savings to learn web development using java for back end. The journey have not been easy but I have this inner peace that am doing what I love the most.</p>
                 
@@ -472,6 +490,10 @@ My love grew into passion that I gave up my little savings to learn web developm
                 </p>
 		</footer>
     </div>
+<<<<<<< HEAD
+	<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.0.0/3rdparty/require/require.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+=======
     <script type="text/javascript" src="../../bootcamp-v1/js/jquery.min.js"></script>
     <script>
         
@@ -549,6 +571,7 @@ My love grew into passion that I gave up my little savings to learn web developm
     </script>
     <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.0.0/3rdparty/require/require.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+>>>>>>> 7f54a6dcb2ee3e5cc4aef6128fcc4f011449b379
 </div>
 </body>
 </html>

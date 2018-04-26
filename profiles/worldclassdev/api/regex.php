@@ -4,8 +4,8 @@ class Regex
 {
     var $dbcon;
 
-    function __construct($conn){
-		$this->dbcon = $conn;
+    function __construct($dbc){
+		$this->dbcon = $dbc;
 	}
 
     function query($qwer){
@@ -69,11 +69,10 @@ class Regex
 	 	$lim = explode(' ', $limit);
 		foreach ($lim as $slim){
 			$add .= " or question like '%$slim%'";
-		//	var_dump($add);	
 		}
 		 
-		$qrrrt = "SELECT `answer` FROM `chatbot` where $add order by rand() limit 1";
-		// echo $qrrrt;
+		$qrrrt = "SELECT `answer` FROM `chatbot` where $add limit 1";
+		 //echo $qrrrt;
 	  $answer =  $this->query($qrrrt);
 	 // echo $answer;
 	 
