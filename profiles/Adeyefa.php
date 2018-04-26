@@ -90,8 +90,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		elseif ($arr[0] == "help") {
 			echo json_encode([
 				'status' => 1,
-				'answer' => "Type 'aboutbot' to know about me. You can also convert cryptocurrencies using this syntax.
-				'convert btc to usd",
+				'answer' => "Type 'aboutbot' to know more about me. You can also convert cryptocurrencies using this syntax.
+				'convert btc to usd'.  You can train me by using this format ' train: This is a question # This is the answer # password '",
 			]);
 			return;	
 		}
@@ -111,7 +111,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	    	# code...
 	    	echo json_encode([
 	    		'status'=> 1,
-	    		'answer' => "I am MATRIX, Version 1.0.0. You can train me by using this format ' train: This is a question # This is the answer # password '"
+	    		'answer' => "I am MATRIX, Version 1.0.0."
 	    	]);
 	    	return;
 	    }
@@ -293,6 +293,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			color: red;
 			font-size: 15px;
 			font-family: Ubuntu;
+
+		}
+		#ans{
+			background-color: #00FF00;
+			margin-top: 4px;
+			margin-bottom: 4px
+		}
+		#que{
+			background-color: #FF00FF;
+			margin-bottom: 4px;
+			margin-top: 4px;
 		}
 	</style>
 </head>
@@ -341,12 +352,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
-									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about what i can do type 'help'
+									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about me type 'aboutbot'. You can also train me using this format 'train: Question # Answer # Password'
 								</div>
 									
 								<div class="iio">
-									<ul id="ans">
+									<ul id="que">
 											
+									</ul>
+									<ul id="ans">
+										
 									</ul>
 								</div>	
 							</div>
@@ -364,7 +378,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#ans").append("<li> You: " + question + "</li>");
+				$("#que").append("<li> You: " + question + "</br></li>");
 					//let newMessage = `<div class="iro">
 	                  //${question}
 	                //</div>`
@@ -374,7 +388,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#ans").append("<li> MATRIX: "  + response.answer +  "</li>");
+			        $("#ans").append("<li> MATRIX: "  + response.answer +  "</br></li>");
 			       // console.log(response.result);
 			        //alert(response.result.d);
 			        //alert(answer.result);
