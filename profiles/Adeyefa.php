@@ -378,18 +378,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#ans").append("<li>" + response.answer + "</li>");
-			       // console.log(response.result);
-			        //alert(response.result.d);
-			        //alert(answer.result);
-			        
+						$("#ans").append("<li>" + response.answer + "</li>");
 					},
-					error: function(error){
-						//console.log(error);
-				        alert(JSON.stringify(error));
-					}
+					error:function(error){
+						alert(JSON.stringify(error));
+					}	
 				})	
-			})
+			});
 		});
 	</script>
 </body>
