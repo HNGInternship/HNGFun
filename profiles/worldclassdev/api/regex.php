@@ -1,16 +1,11 @@
 <?php
-//------------------------------------------------------------
-// File: Regex.php
-// Purpose: Vert Studios Regex Class
-// Author: Joseph McCullough (@joe_query) 
-// Last Updated: Dec 03, 2010
-//------------------------------------------------------------
+
 class Regex
 {
-    var $conn;
+    var $dbcon;
 
-    function __construct($dbc){
-		$this->dbcon = $dbc;
+    function __construct($conn){
+		$this->dbcon = $conn;
 	}
 
     function query($qwer){
