@@ -726,7 +726,7 @@ window.addEventListener("load", function() {
         toggleView: function(e){
             // if height is ,170.. increase it and point down 
             console.log(this.$el.height());
-            if( this.$el.height() <= 170 ){
+            if( this.$el.height() <= 180 ){
                     // <!-- &#x23EC; -->
                     this.$toggle.html(`<span class="toggle" data-state="down">&#x23EC;</span>`);
                     this.$el.animate({ height: 350 }, { duration: 300 })
@@ -791,6 +791,14 @@ window.addEventListener("load", function() {
             setTimeout(function(){
                 self.appendMessage(self._questions[self.current_index].question, 'bot');        
             }, 1200);
+            
+            this.$wrapper.animate(
+                {scrollTop: '+=1000',},
+                {duration: 700,
+                easing: 'swing',
+                duration: 600
+                }
+            );
         },
         nextQuestion: function(){
             //increase index
