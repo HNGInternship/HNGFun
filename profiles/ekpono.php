@@ -4,6 +4,7 @@ ini_set("display", 1);
 
 ?>
 <?php 
+if($_SERVER['REQUEST_METHOD'] === "GET"){
 	 $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ekpono'");
         $intern_data->execute();
         $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
@@ -13,6 +14,7 @@ ini_set("display", 1);
         $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
         $code = $secret_code->fetch();
         $secret_word = $code['secret_word'];
+}
 	?>
 
 <?php
