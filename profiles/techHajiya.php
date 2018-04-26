@@ -168,6 +168,8 @@
         }
 		.oj-panel{
 		background-color:#fff;
+		max-width: 100%;
+            padding-left: 0;
 		}
 		.demo-panelwrapper {
 		background-color:#B6BCBD;
