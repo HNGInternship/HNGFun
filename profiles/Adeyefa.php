@@ -328,12 +328,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			</div>
 	    </div>	
 		<div id="sidebar" class="oj-flex">
-			<div class="head" class="oj-flex-item">
+			<div class="head">
 				<h2> Chat With MyBot</h2>
 			</div>
 			<div class="row-holder">
 				<div class="oj-flex-item">
-					<div id="form" class="oj-flex-item">
+					<div id="form">
 						<form id="qform" method="post">
 							<div id="textform">
 								<textarea id='questionBox' name="question" placeholder="Enter message ..."></textarea>
