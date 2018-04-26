@@ -61,12 +61,16 @@ function saveQuestion($conn, $data){
             $question = trim($question_arr[1]);
             $answer = trim($data_arr[1]);
 
-            try{
-                $sql = "INSERT INTO chatbot (question, answer) VALUES ('" . $question . "', '" . $answer . "')";
-                $conn->exec($sql);
-                $answer = "Training Successful! I am now more intelligent now. Thanks for that";
-            }catch(PDOException $err){
-                $answer = "Ooops Training Failed! Something went wrong. Try Again. type 'aboutbot' for more info";
+            if(isAnswerExisting($conn, $question, $answer) === false ){
+                try{
+                    $sql = "INSERT INTO chatbot (question, answer) VALUES ('" . $question . "', '" . $answer . "')";
+                    $conn->exec($sql);
+                    $answer = "Training Successful! I am now more intelligent now. Thanks for that";
+                }catch(PDOException $err){
+                    $answer = "Ooops Training Failed! Something went wrong. Try Again. type 'aboutbot' for more info";
+                }
+            }else{
+                $answer = "Answer provided for the training already existed. You can provide an alternative answer";
             }
         }else{
             $answer = "Password Incorrect, try again";
@@ -81,6 +85,23 @@ function saveQuestion($conn, $data){
                 'status' => $status,
                 'answer' => $answer
             ]);
+}
+
+function isAnswerExisting($conn, $question, $answer){
+    try{
+        $sql = "SELECT * FROM chatbot WHERE question = '" . $question . "'" . "AND answer = '" . $answer . "'";
+        $query = $conn->query($sql);
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $answer_arr = $query->fetchAll();
+        if(count($answer_arr) > 0){
+            return true;
+        }else{
+            return false;
+        }
+
+    }catch(PDOException $err){
+        throw $err;
+    }
 }
 
 
