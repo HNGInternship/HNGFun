@@ -210,7 +210,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			font-size: 30px;
 		}
 		#sidebar{
-			
+			width: 400px;
 			height: 590px;
 		}
 		#bbb{
@@ -331,7 +331,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				</p>
 			</div>
 	    </div>	
-		<div id="sidebar" class="oj-flex">
+		<div id="sidebar">
 			<div class="head">
 				<h2 class="oj-flex-item"> Chat With MyBot</h2>
 			</div>
