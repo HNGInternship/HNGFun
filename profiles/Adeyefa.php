@@ -353,7 +353,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			        
 					},
 					error: function(error){
-						//console.log(error);
+						console.log(error);
 				        alert(error);
 					}
 				})	
