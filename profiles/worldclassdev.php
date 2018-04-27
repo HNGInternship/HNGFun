@@ -7,7 +7,7 @@ $worldclassdev = array_shift($data);
 
     try {
         $secrete = 'SELECT * FROM secret_word';
-        $sql = $conn->query($secrete);
+        $sql = $conn->query($secrete); 
         $sql->setFetchMode(PDO::FETCH_ASSOC);
         $result = $sql->fetch();
         $secret_word = $result["secret_word"];
