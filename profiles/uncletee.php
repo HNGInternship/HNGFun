@@ -966,7 +966,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 
           $(document).keypress(function(event) {
               var keycode = event.keyCode || event.which;
-              console.log("on live server");
+              console.log("updated live server");
               if(keycode == '13'){
                   // get the form data
                   var formData = {'data': $('input[name=inputData]').val()};
