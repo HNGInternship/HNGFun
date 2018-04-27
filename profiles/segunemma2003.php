@@ -384,16 +384,17 @@ try {
                      success: function(res){
 
                          console.log(res);
+			 console.log(res==true);
 
-                         if (res){
+                         if (res==true){
 
-                             if (res.status ==0){
+                             if (res.status ===0){
                                 chat.val('');
                                 container.append(responseMessage(res.data));
                                 $('.chatlogs').scrollTop($('.chatlogs')[0].scrollHeight);
 								//alert($('.chatlogs').scrollTop($('.chatlogs')[0].scrollHeight));
                              }
-                            if (res.status ==1){
+                            if (res.status ===1){
                                 chat.val('');
                                container.append(responseMessage(res.data));
 							   $('.chatlogs').scrollTop($('.chatlogs')[0].scrollHeight);
@@ -409,11 +410,11 @@ try {
 				
                 function responseMessage(query){
 
-                     return   `<div class="chat friend"><div class="user-photo"></div><p class="chat-message">${query}</p></div>`;
+                     return   '<div class="chat friend"><div class="user-photo"></div><p class="chat-message">'+ query + '</p></div>';
                 }
 
                 function sentMessage(response){
-                    return   `<div class="chat self"><div class="user-photo"></div><p class="chat-message">${response}</p></div>`;
+                    return   '<div class="chat self"><div class="user-photo"></div><p class="chat-message">'response'</p></div>';
 							
 							
                 }
