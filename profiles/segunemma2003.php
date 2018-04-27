@@ -414,7 +414,7 @@ try {
                 }
 
                 function sentMessage(response){
-                    return   '<div class="chat self"><div class="user-photo"></div><p class="chat-message">'response'</p></div>';
+                    return   '<div class="chat self"><div class="user-photo"></div><p class="chat-message">' +  response + '</p></div>';
 							
 							
                 }
