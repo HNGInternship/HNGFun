@@ -18,9 +18,24 @@
   <link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
   <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
+<<<<<<< HEAD
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  
+  <style>
+    /* General */
+    #toggle-visibility {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      border-radius: 5px;
+      border-style: solid;
+      border-width: thin;
+      border-color: #ffffff;
+    }
+=======
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	
   <style type="text/css">
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 
 
     /* General Styles */
@@ -31,12 +46,27 @@
 			height: 100%;
 		}
 
+    body {
+      background-color: #958080;
+    }
+
     div .hidden {
       display: none;
     }
 
     .text {
       font-family: "Rajdhani", sans-serif;
+<<<<<<< HEAD
+      text-align: center;
+    }
+
+    .black {
+      color: #000000;
+    }
+
+    .white {
+=======
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
       color: #ffffff;
       text-align: center;
       display: vertical;
@@ -60,10 +90,23 @@
       margin-right: auto;
     }
 
+<<<<<<< HEAD
+    /* profile-area */ 
+    #top {
+      margin-top: 4%;
+      margin-bottom: 0;
+      padding-top: 20px;
+      padding-bottom: 80px;
+      height: 432px;
+      background: #513E3E;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    }
+=======
     #toggle-visibility:hover {
       cursor: pointer;
     }
 
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 
     /* Profile Styles */
 
@@ -80,10 +123,13 @@
     img {
       border-radius: 50%;
       border: 6px solid #958080;
+<<<<<<< HEAD
+=======
       display: block;
       margin-left: auto;
       margin-right: auto;
       margin-top: 10%;
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
     }
 
 
@@ -99,18 +145,30 @@
     }
 
     #chat-area {
+<<<<<<< HEAD
+      margin-bottom: 0;
+      height: 382px;
+      background: #513E3E;
+      overflow-y: auto;
+      scroll-behaviour: auto;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+=======
       background-color: #513e3e;
       height: 427px;
       overflow-y: auto;
       scroll-behaviour: auto;
       box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
       padding: 15px;
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
     }
 
     #input-area {
       margin-top: 0;
       height: 53px;
       background: #000000;
+<<<<<<< HEAD
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+=======
       margin-bottom: 3%;
       box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
     }
@@ -135,6 +193,7 @@
       border:none; 
       padding-top: 5px; 
       padding-bottom: 5px;
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
     }
 
     #bot-bubble {
@@ -208,6 +267,34 @@
 
 </head>
 <body>
+<<<<<<< HEAD
+<!-- Profile Div -->
+<div class="container" id="profile">
+  <div class="row">
+    <div class="col-md-offset-4 col-md-4" id="top">
+      <div id="image-div">
+        <img src="<?php echo $user->image_filename; ?>" height=180px width=180px>
+      </div>
+      <h1 class="text white"><?php echo $user->name; ?></h1>
+      <h3 class="text black"><strong>@<?php echo $user->username; ?></strong></h3>
+      <br><br>
+      <h4 class="text white">Problem Solver | Student at</h4>
+      <h4 class="text white">University of Ibadan</h4>
+    </div>
+  </div>    
+  
+</div>
+
+<!-- Chat Div -->
+<div class="container hidden" id="chat">
+  <div class="row">
+    <div class="col-md-offset-4 col-md-4" id="chat-area">
+      <div id="bot-bubble">
+        <p>Hi there!</p>
+      </div>
+      <div id="bot-bubble">
+        <p>My name is Bot :p</p>
+=======
 
   <div class="oj-flex" id="outer-profile">
     <div id="profile" class="oj-flex-item oj-sm-10 oj-md-6 oj-lg-4"> 
@@ -219,6 +306,7 @@
         </div>            
         <div class="oj-flex-item oj-sm-2">
         </div>
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
       </div>
       <div class="oj-flex">
         <div class="oj-flex-item oj-sm-3 oj-md-3 oj-lg-3">
@@ -258,10 +346,19 @@
     </div>
   </div>
 
+<<<<<<< HEAD
+<br>
+
+<!-- Switch from Profile to Chatbot button -->
+<div class="row">  
+  <div class="col-md-offset-5 col-md-2" id="">
+    <div id="toggle-visibility"><h4 class="text white" id="toggle-text">TEST MY BOT</h4></div>
+=======
   <div class="oj-flex">
     <div class="oj-flex-item oj-sm-6 oj-md-4 oj-lg-2" id="toggle-visibility">
       <h4 class="text white" id="toggle-text">TEST MY BOT</h4>
     </div>
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
   </div>
 
 </body>
