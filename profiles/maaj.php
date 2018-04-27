@@ -148,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			width: 100%;
 		}
         .oj-profile{
-            background-image: url('http://res.cloudinary.com/maaj/image/upload/v1523621615/profile.jpg');
+            background-image: url('https://res.cloudinary.com/maaj/image/upload/v1523621615/profile.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -191,8 +191,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		#header h1{
 			margin: 0 0 0 30%;
+			color:#ffffff;
 		}
-		#container{
+		#contain{
 			width:80%; 
 			height: 400px;
 			margin-top:10px;
@@ -270,7 +271,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 				<h1>Maaj's bot</h1>
 			</div>
-				<div id="container">
+				<div id="contain">
 				
 				</div>
 				<div id ="controls">
@@ -293,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
 	  
     <script>
-    var message = $("#container");
+    var message = $("#contain");
 		
 	    $("#chat").on("submit", function(e) {
 	        e.preventDefault();
@@ -311,8 +312,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				success: (response) => {
 			        response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
 			        let response_answer = response.answer;
-			        message.append("<div class='bot'><div class='message'><img src='bot.png' width='30px'/>" +response_answer+ "</div></div>");      
-			       	$('#container').animate({scrollTop: $('#container').get(0).scrollHeight}, 1100);     
+			        message.append("<div class='bot'><div class='message'><img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/>" +response_answer+ "</div></div>");      
+			       	$('#contain').animate({scrollTop: $('#contain').get(0).scrollHeight}, 1100);     
 				},
 				error: (error) => {
 	          		alert('error occured')
