@@ -9,7 +9,7 @@ if(!defined('DB_USER')){
   }
 }
 	
-
+////////////////////////////////////////////////////////////////////////////////////
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
@@ -290,12 +290,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			left: -3px;
             background-color: #00b0ff;
 		}
-		.iro{
-			float: right;
-			color: red;
-			font-size: 15px;
-			font-family: Ubuntu;
-		}
 		.iio{
 			float: left;
 			margin-right: 90px;
@@ -349,9 +343,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 								<div class="irr">
 									Hi,i am MATRIX, the bot, i can answer basic questions. To know about my functions type 'help'
 								</div>
-								<div class="iro">
-									
-								</div>	
 								<div class="iio">
 									<ul id="ans">
 											
