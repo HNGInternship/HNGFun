@@ -1,6 +1,7 @@
 <?php
 
   $dt = date("Y-m-d h:i:sa");
+  $time= date("h:i:sa")
 ?>
 <?php
 if(!defined('DB_USER')){
@@ -11,6 +12,8 @@ if(!defined('DB_USER')){
       die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
   }
 }
+
+
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
@@ -163,153 +166,213 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 
 <!DOCTYPE html>
-<!--
- Copyright (c) 2014, 2017, Oracle and/or its affiliates.
- The Universal Permissive License (UPL), Version 1.0
- -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title><?php echo $user->name; ?>Foluwa hng</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" id="css" href="http://www.oracle.com/webfolder/technetwork/jet/css/libs/oj/v5.0.0/alta/oj-alta-min.css">
+    <link rel="stylesheet" href="../css/demo.css">
+    <script>
+      // The "oj_whenReady" global variable enables a strategy that the busy context whenReady,
+      // will implicitly add a busy state, until the application calls applicationBootstrapComplete
+      // on the busy state context.
+      window["oj_whenReady"] = true;
+    </script>
+    <script src="http://www.oracle.com/webfolder/technetwork/jet/js/libs/require/require.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 
-<!-- ************************ IMPORTANT INFORMATION ************************************
-  This web navigation drawer template is provided as an example of how to configure
-  a JET web application with a navigation drawer as a single page application
-  using ojRouter and ojModule.  It contains the Oracle JET framework and a default
-  requireJS configuration file to show how JET can be setup in a common application.
-  This project template can be used in conjunction with demo code from the JET
-  website to test JET component behavior and interactions.
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
+   <link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css' />
+  <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
-  Any CSS styling with the prefix "demo-" is for demonstration only and is not
-  provided as part of the JET framework.
-
-  Please see the demos under Cookbook/Patterns/App Shell: Web and the CSS documentation
-  under Support/API Docs/Non-Component Styling on the JET website for more information on how to use 
-  the best practice patterns shown in this template.
-
-  Aria Landmark role attributes are added to the different sections of the application
-  for accessibility compliance. If you change the type of content for a specific
-  section from what is defined, you should also change the role value for that
-  section to represent the appropriate content type.
-  ***************************** IMPORTANT INFORMATION ************************************ -->
-<html lang="en-us">
-  <head>
-    <title><?php echo $user->name; ?>-Hng Intern</title>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="css/images/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-    <!-- This is the main css file for the default Alta theme -->
-    <!-- injector:theme -->
-    <link rel="stylesheet" href="http://www.oracle.com/webfolder/technetwork/jet/public_samples/jet/css/libs/oj/v5.0.0/alta/oj-alta-min.css" type="text/css"/>
-    <!-- endinjector -->
-    <style type="text/css">
-    body {
+  <style type="text/css">
+     @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
+      body {
           height: 100%;
-          background-color: grey;
-          background: linear-gradient(to bottom right, #ffffff,  grey);
+          background-color: #87ceeb;
+          background: linear-gradient(to bottom right, #DDA0DD,  #87ceeb);
+          color: #4A4646;
+          overflow-x: hidden;
+          font-family: "Segoe UI","Arial","sans-serif";
+      }
+      img{
+          border-radius: 50%;
+          max-height: 250px;
+          max-width: 250px;
+      }
+      input[type=text] {
+          width: 70%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          border: 2px;
+          border-radius: 4px;
+          background-color: #4ae1aa;
+          color: white;
+        }
+      button{
+            border: 0px;
+            background-color: grey;
+         }
+    
+       .chatbox {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 16px;
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+            height: 400px;
+            border-radius: 5px;
+            background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+        }
+
+        .oj-flex-item .oj-panel .demo-mypanel{
+            padding: 40px;
+        }
+
+       .oj-flex-item .oj-panel .demo-mypanel {
+            padding-right: 0;
+            background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+            height: auto;
+            width: 600px;
+            margin: 0px;
+        }
+       
+        .image img {
+            margin: auto;
+            display: block;
+            width: 220px;
+            height:300px;
+            border-radius: 50%;
+            box-shadow: 0px 0px 2px 1px grey;
+        }
+        .myname {
+            font-size: 25px;
+            font-weight: 600;
+            margin-top: 20px;
+            color:#191970;
+        }
+        .social-links a {
+            margin-right: 20px;
+        }
+        
+  
+  .chatbot-menu-header {
+            background-color: #4ae1aa;
+            padding: 7px 20px;
+            margin: 0px 0 0 0px;
+            color: #FFF;
+        }
+
+    .oj-panel{
+          margin-left: 30px;
     }
-  header { 
-     padding-bottom: 30px;
-   }
-  img {
-    border-radius: 50%;
-    height: 300px;
-    width: 300px;
-  }
-  li {
-    font-size: 25px;
-  }
-  .foluwa {
-    font-size: 30px;
-    background-color: skyblue;
-  }
-  .hngintern {
-    font-size: 25px;
-  }
- </style>
+    .oj-flex{
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+        padding: 0px;
+    }   
+    .human-message {
+      width: auto;
+      background-color: grey;
+      right:0%;
+      margin-top: 5px;
+      display: inline-block;
+      padding: 5px 5px;
+      margin: 5px;
+      border-radius: 10px;
+      margin-top: 55px;
+    }
+    .bot-message {
+      max-width: auto;
+      background-color: skyblue;
+      left:2%;
+      margin-top: 5px;
+      display: inline-block;
+      padding: 5px 5px;
+      margin: 5px;
+      border-radius: 10px;
+    }
+    .conversation {
+      display: column;
+    }
+  </style>
+</head>
 
-  </head>
-  <body class="oj-web-applayout-body">
-    <!-- Template for rendering navigation items shared between nav bar and nav list -->
-
-    <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
-      <!--
-         ** Oracle JET V3.2.0 web application navigation drawer pattern.
-         ** Please see the demos under Cookbook/Patterns/App Shell: Web
-         ** and the CSS documentation under Support/API Docs/Non-Component Styling
-         ** on the JET website for more information on how to use this pattern. 
-         ** The off-canvas section is used when the browser is resized to a smaller media
-         ** query size for a phone format and hidden until a user clicks on
-         ** the header hamburger icon.
-      -->
-      <div id="navDrawer" class="oj-contrast-marker oj-web-applayout-offcanvas oj-offcanvas-start">
-        <div role="navigation" data-bind="click: toggleDrawer, ojComponent: {component: 'ojNavigationList',
-          navigationLevel: 'application', item: {template: 'navTemplate'}, data: navDataSource,
-          selection: router.stateId, edge: 'start'}">
+<body class="oj-web-applayout-body">
+  <nav class="oj-web-applayout-header" role="banner" class="oj-web-applayout-header bg-dark" role="banner">
+        <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+          <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
+            <span class="oj-icon" alt="My Logo"> </span> 
+            <h4 class="oj-sm-only-hide oj-web-applayout-header-title" title="Application Name">Made with Oracle JET</h4>
+            
+          </div>
+          <div class="push-right"><h3><p><?php echo $dt ?></p></h3></div>
         </div>
-      </div>
-      <div id="pageContent" class="oj-web-applayout-page">
-        <!--
-           ** Oracle JET V3.2.0 web application header pattern.
-           ** Please see the demos under Cookbook/Patterns/App Shell: Web
-           ** and the CSS documentation under Support/API Docs/Non-Component Styling
-           ** on the JET website for more information on how to use this pattern.
-        -->
-        <header role="banner" class="oj-web-applayout-header">
-          <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
-            <!-- Offcanvas toggle button -->
-            <div data-bind="css: smScreen() ? 'oj-flex-bar-center-absolute' : 'oj-flex-bar-middle oj-sm-align-items-baseline'">
-              <span role="img" class="oj-sm-only-hide oj-icon demo-oracle-icon" title="Oracle Logo" alt="Oracle Logo"></span>
-              <h1 class="oj-web-applayout-header-title" title="Application Name" data-bind="text: appName"></h1>
-            </div>
-            <div class="oj-flex-bar-end">
-              <!-- Responsive Toolbar -->
-              <div class="pull-left hngintern">HngIntern 2018</div>
-              
-            </div>
-            <div class="oj-flex-bar-end">
-              <!-- Responsive Toolbar -->
-             <div class="pull-right"><?php echo $dt; ?></div> 
-            </div>
-          </div>
-          <div role="navigation" class="oj-web-applayout-max-width oj-web-applayout-navbar">
-            <div data-bind="ojComponent: {component: 'ojNavigationList',
-              navigationLevel: 'application',
-              item: {template: 'navTemplate'}, data: navDataSource,
-              selection: router.stateId, edge: 'top'}"
-              class="oj-web-applayout-navbar oj-sm-only-hide oj-md-condense oj-md-justify-content-flex-end">
-            </div>
-          </div>
-        </header>
-        
+   </nav>
 
-        <main>
-            <div class="oj-hybrid-padding">
-                <div>
-                  <img src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Foluwa's picture">
-                  <span class="name foluwa"><?php echo $user->name; ?></span>
+   <div class="row" style="padding-top:5px;">
+   <div class="col-sm-6" style="padding-left:0px;">
+            <div class="oj-flex-item oj-panel demo-mypanel" style='float:left;width:97%;'>
+                <div class="image">
+                    <img src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture">
                 </div>
-                <div class="oj-web-applayout-footer-item oj-web-applayout-max-width oj-text-secondary-color oj-text-sm">
-            <ul>
-                          <li><a href="https://facebook.com/akintola.moronfoluwar"><i class="fa fa-facebook"></i></a></li>
-                          <li><a href="https://instagram.com/fantastic_foluwa"><i class="fa fa-instagram"></i></a></li>
-                          <li><a href="https://twitter.com/fantasticfoluwa"><i class="fa fa-twitter"></i></a></li>
-                          <li><a href="https://github.com/foluwa"><i class="fa fa-github"></i></a></li>
-                          <li><a href="https://slack.com/foluwa"><i class="fa fa-slack"></i></a></li>
-            </ul>
+                <p class="text-center myname">
+                   <span style="font-size:37px;"><?php echo $user->name; ?></span>
+                </p>
+                <div class="oj-flex">
+                <div class="text-center social-links" style="font-size:45px;">
+                  <a href="https://facebook.com/akintola.moronfoluwar"><i class="fab fa-facebook"></i></a>
+                  <a href="https://instagram.com/fantastic_foluwa"><i class="fab fa-instagram"></i></a>
+                  <a href="https://twitter.com/fantasticfoluwa"><i class="fab fa-twitter"></i></a>
+                  <a href="https://github.com/foluwa"><i class="fab fa-github"></i></a>
+                  <a href="https://slack.com/foluwa"><i class="fab fa-slack"></i></a>
+                </div>
+              </div>
+                 <button data-toggle="collapse" data-target="#aboutme">About Me<i class="fa fa-caret-down"></i></button>
+                    <div id="aboutme" class="collapse">
+                        Am Foluwa a Computer Science student. Check out my github portfolio at <a href="https://foluwa.github.io">portfolio</a>
+                    </div> 
+            </div>
+            <div style="color:red;text-align:center;"><strong>Foluwa @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
+          </div>
+      
+      <div class="col-sm-6" style="position:relative;">
+        <div class="oj-flex-item oj-panel demo-mypanel" style='float:right;width:97%;' >
+            <div class="chatbox">
+               <div class='chatbot-menu-header'>
+                    <span>ChatBot Interface</span>
+                </div>
+                <div class="" id="">
+                    <div class="conversation">
+                      <div class="bot-message">Hello! I'm ZOE! 
+                          <p><?php echo $time ?></p>
+                      </div>
+                      <div class="human-message pull-right">Hi Am Foluwa<p><?php echo $time ?></p>
+                      </div>
+                    </div>
+                </div>
+                <div>
+                    <form action="" method="post" style="position:absolute;bottom:0;" >
+                        <input type="text" name="userInput" id="user-input" class="user-input" placeholder="Enter your text">
+                        <button id="send" type="button" class="btn btn-primary btn-sm" style="background-color:#79af9c;">
+                          <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
           </div>
           </div>
-        <main>
-        
-
-        <footer class="oj-web-applayout-footer" role="contentinfo">
-          Foluwa @ <a href="https://hotels.ng">Hotels.ng</a>
-        </footer>
-      </div>
-    </div>
-
-    <script type="text/javascript" src="http://www.oracle.com/webfolder/technetwork/jet/public_samples/jet/js/libs/require/require.js"></script>
-    <script type="text/javascript" src="http://www.oracle.com/webfolder/technetwork/jet/public_samples/JET-Template-Web-NavBar/public_html/js/main.js"></script>
-  </body>
+        </div>
+          </div>
+       </div>
+       </div>
+    <hr>
+      
+</body>
 </html>
