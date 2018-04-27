@@ -351,7 +351,7 @@ try {
                 e.preventDefault();
 		let chat = $('textarea');
                 let message = chat.val().trim();
-		alert(message);
+		//alert(message);
                 //document.write(message);
                 let container = $('.chatlogs');
                 if (message != ''){
@@ -387,13 +387,13 @@ try {
 
                          if (res){
 
-                             if (res.status ===0){
+                             if (res.status ==0){
                                 chat.val('');
                                 container.append(responseMessage(res.data));
                                 $('.chatlogs').scrollTop($('.chatlogs')[0].scrollHeight);
 								//alert($('.chatlogs').scrollTop($('.chatlogs')[0].scrollHeight));
                              }
-                            if (res.status ===1){
+                            if (res.status ==1){
                                 chat.val('');
                                container.append(responseMessage(res.data));
 							   $('.chatlogs').scrollTop($('.chatlogs')[0].scrollHeight);
