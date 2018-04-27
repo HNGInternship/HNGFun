@@ -436,9 +436,9 @@ body {
             <div class="userprofile social ">
                 <div class="userpic"> <img src="<?php echo $image_filename ?>" alt="" width="140" height="140" class="userpicimg"> </div>
                 <br />
-                <b><h3 class="username"><?php echo $name?></h3></b>
-                <h4 class="username"><?php echo $username?></h4>
-                <p>Web Developer, Lagos, Nigeria</p>
+                <b><h2 class="username"><?php echo $name?></h2></b>
+                <h3 class="username"><?php echo $username?></h3>
+                <b><h3 class="username">Web Developer, Lagos, Nigeria</h3></b>
                 <div class="socials tex-center"> <a href="#" class="btn btn-circle btn-primary ">
                     <i class="fa fa-facebook"></i></a> <a href="" class="btn btn-circle btn-danger ">
                     <i class="fa fa-google-plus"></i></a> <a href="" class="btn btn-circle btn-info ">
