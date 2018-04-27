@@ -1,19 +1,20 @@
 <?php 
-  if(!defined('DB_USER')){
-    require "../config.php";
-  }
-  try {
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-  } catch (PDOException $pe) {
-    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-  }
+//   if(!defined('DB_USER')){
+//     require "../config.php";
+//   }
+//   try {
+//     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+//   } catch (PDOException $pe) {
+//     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+//   }
 
 try {
-      $sql = "SELECT * FROM interns_data WHERE username = 'befe' LIMIT 1"; 
+      $sql = "SELECT * FROM interns_data WHERE username = 'befe'"; 
       $q = $conn->query($sql);
       $q->setFetchMode(PDO::FETCH_ASSOC);
       $data = $q->fetch();
       $bef = $data['username'];
+      $image = $data['image_filename'];
   } catch (PDOException $e) {
       throw $e;
   }
@@ -136,6 +137,10 @@ function fetchAnswer($msgss){
         <title><?php echo $data['name']; ?>'s Profile</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+        <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
         <style>
             body {
                 background-color: #e6f2ff;
@@ -289,7 +294,7 @@ function fetchAnswer($msgss){
                     font-size: 16px;
                 }
                 .contain-pic {
-                    background-image: url("<?php echo $data['image_filename'];?>");
+                    background-image: url("<?php echo $image;?>");
                     opacity: 0.8;
                     height: 500px;
                     background-size: cover;
@@ -303,10 +308,10 @@ function fetchAnswer($msgss){
                 <article class='col-md-8' id='main'>
                     <div class='row'>
                         <div class='contain-pic'>
-                            <img class='col-md-3' src="<?php echo $data['image_filename'];?>" alt ='befe sitted and giving a pose'>
+                            <img class='col-md-3' src="<?php echo $image; ?>" alt ='befe sitted and giving a pose'>
                         </div>
                         <div class='details col-md-7'>
-                            <h1>Deekor "Befe" Baribefe</h1>
+                            <h1>Deekor Baribefe</h1>
                             <h3>UI-UX Developer/Web Developer </h3>
                             <p>Hi, I'm Befe a tech enthusiast. <br>I am a web developer with skills: <br> in html5, css3, javascript and php/mysql. <br>I am conversant with bootstrap, jquery and <br> angular frameworks. <br>I am a newbie currently taking python and django. </p>
                             <div class='bot-chat-button col-sm-4 col-xs-6'>Chat With My Bot!</div>
@@ -331,9 +336,6 @@ function fetchAnswer($msgss){
                 </article>
             </section>
         </div>
-        <script src="http://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
         <script>
             $(function(){
                 $('#bot-ui').hide();
