@@ -1,1 +1,0 @@
-define(["ojs/ojcore","knockout","jquery"],function(n,t,o){return new function(){this.connected=function(){},this.disconnected=function(){},this.transitionCompleted=function(){}}});
