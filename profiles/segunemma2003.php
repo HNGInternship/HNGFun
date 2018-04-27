@@ -1,4 +1,4 @@
-<?php  require "../../db.php";
+<?php  require "db.php";
 
 
 try {
