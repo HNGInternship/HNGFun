@@ -1,5 +1,5 @@
 <?php
-
+require 'db.php';
 //Fetch User Details
 
 // if(!defined('DB_USER')){
