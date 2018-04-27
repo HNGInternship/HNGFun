@@ -90,8 +90,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		elseif ($arr[0] == "help") {
 			echo json_encode([
 				'status' => 1,
-				'answer' => "Type 'aboutbot' to know more about me. You can also convert cryptocurrencies using this syntax.
-				'convert btc to usd'.  You can train me by using this format ' train: This is a question # This is the answer # password '",
+<<<<<<< HEAD
+				'answer' => "Type 'aboutbot' to know about me. You can also convert cryptocurrencies using this syntax.
+				'convert btc to usd",
+=======
+				'answer' => "You can train me by using this format ' train: This is a question # This is the answer # password '. You can also convert cryptocurrencies using this syntax.'convert btc to usd"
+				
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 			]);
 			return;	
 		}
@@ -111,7 +116,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	    	# code...
 	    	echo json_encode([
 	    		'status'=> 1,
-	    		'answer' => "I am MATRIX, Version 1.0.0."
+	    		'answer' => "I am MATRIX, Version 1.0.0. "
 	    	]);
 	    	return;
 	    }
@@ -196,15 +201,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    background-repeat: no-repeat;
 		    background-size: cover;
 		}
-		.pimg{
-			border-radius: 50%;
-			width: 350px;
-			height: 350px;
-			margin-left: 200px;
-		}
 		p{
 			text-align: center;
-			font-size: 30px;
+			font-size: 60px;
 			color: red;
 		}
 		#info{
@@ -213,7 +212,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 		#sidebar{
 			width: 380px;
-			height: 800px;
+			height: 600px;
 			position: relative;
 		}
 		#bbb{
@@ -235,13 +234,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			height: auto;
 		}
 		input{
-			width: 350px;
+			width: 100%;
 		    padding: 12px 20px;
 		    margin: 8px 0;
 		    box-sizing: border-box;
 		}
 		textarea{
-		    width: 350px;
+		    width: 65%;
 		    box-sizing: border-box;
 		    border: 2px solid #ccc;
 		    border-radius: 4px;
@@ -294,24 +293,29 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			left: -3px;
             background-color: #00b0ff;
 		}
+<<<<<<< HEAD
+=======
+		.iro{
+			float: right;
+			color: red;
+			font-size: 15px;
+			font-family: Ubuntu;
+		}
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 		.iio{
 			float: left;
 			color: red;
 			font-size: 15px;
 			font-family: Ubuntu;
-
 		}
-		.user-input .input{
-			display: inline-block;
-			padding: 12px 20px;
-			border-radius: 10px;
-
+		#bot{
+			margin-bottom: 10px;
+			margin-top: 10px;
 		}
-		.bot-output .output{
-            display: inline-block;
-            padding: 12px 20px;
-            border-radius: 10px;
-        }
+		#you{
+			margin-bottom: 10px;
+			margin-top: 10px;
+		}
 	</style>
 </head>
 <body class="oj-web-applayout-body " >
@@ -330,7 +334,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		<div id="bbb">
 	    	<div>
 	    		<div class="oj-flex">
-					<div class="oj-flex-item"> <img class="pimg" src="https://res.cloudinary.com/adeyefa/image/upload/v1523620014/Toba2.jpg"> </div>
+					<div class="oj-flex-item"> <p> HELLO WORLD </p> </div>
 				</div>
 				<div class="oj-flex">
 					<div class="oj-flex-item"><p>I am   <?=$my_data['name'] ?></p> </div>
@@ -355,17 +359,23 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 						<form id="qform" method="post">
 							<div id="textform">
 								<textarea id='questionBox' name="question" placeholder="Enter message ..."></textarea>
-								<button type="submit" id="send-button">Submit</button>
+								<button type="submit" id="send-button">Send</button>
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
-									Hi,i am MATRIX, the bot, i can answer basic questions. To know about my special functions type 'help'. You can also train me using this format 'train: Question # Answer # Password'
+									Hi,i am MATRIX, the bot, i can answer basic questions. To know about my functions type 'help'
 								</div>
+<<<<<<< HEAD
 									
+=======
+								<div class="iro">
+									
+								</div>	
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 								<div class="iio">
-									<div id="que" class="que">
+									<ul id="ans">
 											
-									</div>
+									</ul>
 								</div>	
 							</div>
 						</form>
@@ -382,7 +392,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#que").append("<div class='user-input'><div class='input'>You: " + question + "</div></div>");
+<<<<<<< HEAD
+				$("#ans").append("<li> You: " + question + "</li>");
+=======
+				$("#ans").append("<li id='you'> You: " + question + "</li>");
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 					//let newMessage = `<div class="iro">
 	                  //${question}
 	                //</div>`
@@ -392,7 +406,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#que").append("<div class='bot-output'><div class='output'> MATRIX: "  + response.answer +  "</div></div>");
+<<<<<<< HEAD
+			        $("#ans").append("<li> MATRIX: "  + response.answer +  "</li>");
+=======
+			        $("#ans").append("<li id='bot'>Bot: " + response.answer + "</li>");
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 			       // console.log(response.result);
 			        //alert(response.result.d);
 			        //alert(answer.result);

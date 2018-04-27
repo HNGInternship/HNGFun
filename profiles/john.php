@@ -1,6 +1,7 @@
 <?php
+
 //Fetch User Details
-// require '../db.php';
+
 if(!defined('DB_USER')){
   require "../../config.php";		
   try {
@@ -11,7 +12,7 @@ if(!defined('DB_USER')){
 }
 
 try {
-    $query = "SELECT * FROM interns_data WHERE username ='john'";
+    $query = "SELECT * FROM interns_data_ WHERE username ='john'";
     $resultSet = $conn->query($query);
     $result = $resultSet->fetch(PDO::FETCH_ASSOC);
 } catch (PDOException $e){
@@ -32,6 +33,9 @@ try{
 $secret_word =  $result['secret_word'];
 
 
+<<<<<<< HEAD
+?>
+=======
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -120,13 +124,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         elseif(preg_match("/^help/", $question))
         {
         	echo json_encode([
-                'status'=>1,
-                'answer' =>`The following are the available commands<br>
-                To Train: train:question#answer#password <br>
+		$res=`The following are the available commands<br>
+                To Train: train:question#answer#password<br>
                 To convert currency: currency(fromCurrency,toCurrency,amount)<br>
                 To check weather: weather(country,city)<br>
-                To check time of any city: cityTime(Continent/city)
-                `
+                To check time of any city: cityTime(Continent/city)`
+                'status'=>1,
+                'answer' => $res
             ]);
             return;
         }
@@ -153,8 +157,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
     }
   }
-
 ?>
+
+
+
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 <!DOCTYPE html>
 <html>
 
@@ -168,6 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 
 	<style>
+<<<<<<< HEAD
 	.card {
 	  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	  max-width: 300px;
@@ -212,6 +220,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       z-index: 1;
       box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2);
     }
+=======
+			.card {
+			  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+			  max-width: 300px;
+			  margin: auto;
+			  text-align: center;
+			  font-family: arial;
+			}
+
+			.title {
+			  color: grey;
+			  font-size: 18px;
+			}
+
+			a {
+			  text-decoration: none;
+			  font-size: 22px;
+			  color: black;
+			}
+
+			 a:hover {
+			  opacity: 0.7;
+			}
+			#modalbtn{
+				position: absolute;
+				display: fixed;
+				top:50%;
+			}
+			 .modalButton {
+		      border-radius: 6px;
+		      background-color: #008080;
+		      border: none;
+		      color: #ffffff;
+		      text-align: center;
+		      font-size: 20px;
+		      padding:20px;
+		      margin-right: 20px;
+		      transition: all 0.5s;
+		      cursor: pointer;
+		      bottom: 5%;
+		      right: 0;
+		      position: fixed;
+		      z-index: 1;
+		      box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2);
+		    }
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 
     .modalButton:hover {
       background-color: #ffffff;
@@ -311,7 +365,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		    <button class="btn modalButton" data-toggle="modal" data-target="#exampleModal"><i class="fab fa-android" style="font-size: 48px"></i></button>
 		    <!-- Modal -->
 		    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<<<<<<< HEAD
 		      <div class="modal-dialog" role="document">
+=======
+		      <div class="modal-dialog modal-lg" role="document">
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 		        <div class="modal-content">
 		          <div class="modal-header" style="background-color:#008080">
 		            <h5 class="modal-title" style="color: white;">ChatBuddy<i class="fab fa-android" style="font-size: 20px"></i></h5>
@@ -322,9 +380,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		          <div class="modal-body">
 		            <div class="convoArea">
 		              <div class="bubble you">
+<<<<<<< HEAD
 		                  Hello, I am chatBuddyv1.0
 		              </div>
 		            
+=======
+		                  Hello, hi there?
+		              </div>
+		              <div class="bubble you">
+		                  You can ask me question, get facts or time?
+		              </div>
+		              <div class="bubble me">
+		                  To see a list of things i can do type help
+		              </div>
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 		            </div>
 		          </div>
 		          <div class="modal-footer">
@@ -332,7 +401,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		              <div class="form-group mx-sm-3 mb-2">
 		                <input type="text" class="form-control" id='que' name="question" placeholder="Say Something ..." style=" float:left;width: 350px">
 		              </div>
+<<<<<<< HEAD
 		              <button type="submit" class="btn btn-primary mb-2" style="background-color:#008080" name="submit" style="margin-left: 20px;">Send</button>
+=======
+		              <button type="submit" class="btn btn-primary mb-2" name="submit" style="margin-left: 20px;">Send</button>
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 		            </form>
 		          </div>
 		        </div>
@@ -343,7 +416,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	</div>
 	
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
+<<<<<<< HEAD
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
+=======
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 
   <script>
 	$(document).ready(function(){
@@ -362,7 +439,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       		convoAreabox.scrollTop(convoAreabox[0].scrollHeight);
 			//send question to server
 			$.ajax({
+<<<<<<< HEAD
+				url: '../answers.php',
+=======
 				url: '/profiles/john.php',
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 				type: 'POST',
 				data: {question: question},
 				dataType: 'json',
@@ -376,7 +457,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $('#que').val("");						
 				},
 				error: (error) => {
-          			alert('error occured')
+          alert('error occured')
 					console.log(error);
 				}
 			})

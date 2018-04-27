@@ -173,36 +173,36 @@ function fetchAnswer($msgss){
                     /*margin-right: -50px;*/
                     height: 540px;
                     /*position: absolute;*/
-            }
-            #bot-ui h3.first, #bot-ui h3.second {
-                line-height: 2px;
-            }
-            #chatbox {
-                position: absolute;
-                bottom: 20px;
-            }
-            input[type=text] {
-                box-sizing: border-box;
-                border-radius: 4px;
-                padding: 5px;
-                padding-left: 10px;
-                border: 2px solid #a6a6a6;
-            }
-            input[type=submit] {
-                padding: 5px;
-                border: none;
-                padding: 8px;
-                border-radius: 4px;
-                background-color: #006fe6;
-                color: #fff;
-            }
+                }
+                #bot-ui h3.first, #bot-ui h3.second {
+                    line-height: 2px;
+                }
+                #chatbox {
+                    position: absolute;
+                    bottom: 20px;
+                }
+                input[type=text] {
+                    box-sizing: border-box;
+                    border-radius: 4px;
+                    padding: 5px;
+                    padding-left: 10px;
+                    border: 2px solid #a6a6a6;
+                }
+                input[type=submit] {
+                    padding: 5px;
+                    border: none;
+                    padding: 8px;
+                    border-radius: 4px;
+                    background-color: #006fe6;
+                    color: #fff;
+                }
             @media (min-width: 992px){
                 #main {
-                    background-color: #fff;
-                    height: 460px;
-                    margin-top: 100px;
-                    margin-left: 50px;
-                    border-top-right-radius: 150px;
+                background-color: #fff;
+                height: 460px;
+                margin-top: 100px;
+                margin-left: 50px;
+                border-top-right-radius: 150px;
                 }
                 h1 {
                     font-size: 48px;
@@ -347,7 +347,7 @@ function fetchAnswer($msgss){
                });
 
                function bot_chat(reply){
-                    $('#chatlog').delay(500).append('<p>Bot Xperience: ' + reply + '</p>');
+                    $('#chatlog').delay(10000).append('<p>Bot Xperience: ' + reply + '</p>');
                     $('.bot-box').scrollTop($('#bot-ui').height());
                }
 
@@ -361,7 +361,7 @@ function fetchAnswer($msgss){
                   
 
                   if(msg==''){
-                    $('#chatlog').delay(500).append('<p>Bot Xperience: You have not typed anything</p>');
+                    $('#chatlog').delay(10000).append('<p>Bot Xperience: You have not typed anything</p>');
                     $('.bot-box').scrollTop($('.bot-box').height());
                     return false;
                     } else {

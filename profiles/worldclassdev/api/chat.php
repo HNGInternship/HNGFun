@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 
 
@@ -8,14 +9,36 @@
  return response
 
 */
-// echo get_last_err();
-require_once("../../../config.php");
-require_once("regex.php");
-var_dump("COnn ". $conn);
 
-$regex = new regex($conn); 
+require_once("conn/dxcon.php");
+require_once("regex.php");
+
+
+$regex = new regex($dbc); 
 $emails = $regex->fetchanswer($_POST['chat']);
 $dd = json_encode($emails);  
 
 if($dd == "null"){ echo "Please train me, i do not have a response for this."; }
 else { echo $dd;}
+=======
+<?php
+
+
+/*
+ split text into words
+ check database for the best match, with the words apearing in the questio
+ check for the best fit
+ return response
+
+*/
+// echo fopen("db.php");
+require_once("./conn/dxcon.php");
+require_once("regex.php");
+// var_dump($dbc);
+$regex = new regex($dbc); 
+$emails = $regex->fetchanswer($_POST['chat']);
+$dd = json_encode($emails);  
+
+if($dd == "null"){ echo "Please train me, i do not have a response for this."; }
+else { echo $dd;}
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d

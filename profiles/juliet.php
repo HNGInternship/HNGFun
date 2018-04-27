@@ -1,5 +1,7 @@
 <?php
+
  include_once("../answers.php"); 
+
 if (!defined('DB_USER')){
             
   require "../../config.php";
@@ -9,7 +11,9 @@ try {
 } catch (PDOException $pe) {
   die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
+
  global $conn;
+
  try {
   $sql = 'SELECT * FROM secret_word LIMIT 1';
   $q = $conn->query($sql);
@@ -27,6 +31,7 @@ try {
 } catch (PDOException $e) {
   throw $e;
 }
+
 function decider($string){
   
   if (strpos($string, ":") !== false)
@@ -46,6 +51,8 @@ function decider($string){
   }
    }
 }
+
+
 function assistant($string)
 {    $reply = "";
     if ($string == 'what is my location') {
@@ -100,9 +107,14 @@ function assistant($string)
     }
   
 }
+
+
+
+
 $existError =false;
 $reply = "";//process starts
 if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
+
   if ($_POST['msg'] == 'commands') {
     $reply = 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
     echo $reply;
@@ -113,6 +125,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
        
      }
   if($reply =="") {
+
     $post= $_POST['msg'];
     $result = decider($post);
     if($result){
@@ -121,6 +134,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       $sql = "SELECT * FROM chatbot WHERE question = '$question' And answer = '$answer'";
       $stm = $conn->query($sql);
       $stm->setFetchMode(PDO::FETCH_ASSOC);
+
       $result = $stm->fetchAll();
         
         if (count(($result))> 0) {
@@ -149,6 +163,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           $stm =$conn->prepare($sql);
           $stm->bindParam(':quest', $question);
           $stm->bindParam(':ans', $answer);
+
           $saved = $stm->execute();
             
           if ($saved) {
@@ -168,12 +183,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $sql = "SELECT * FROM chatbot WHERE question = '$input'";
     $stm = $conn->query($sql);
     $stm->setFetchMode(PDO::FETCH_ASSOC);
+
     $res = $stm->fetchAll();
     
     if (count($res) > 0) {
     
       $index = rand(0, count($res)-1);
       $response = $res[$index]['answer'];  
+
       echo $response;
     
     }
@@ -188,6 +205,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       }       
   
  
+
 }
 else{
   
@@ -216,6 +234,7 @@ else{
   font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
 }
+
 html {
   font-size:75%;
 }
@@ -224,11 +243,13 @@ body {
   color: #706c72;
   background: #0bc3f7;
 }
+
 .clear:before,
 .clear:after {
    content: ' ';
    display: table;
 }
+
 .clear:after {
     clear: both;
 }
@@ -249,12 +270,15 @@ a:hover, a:focus {
 a:focus {
   outline: 1;
 }
+
 /*------------------------------------*\
     Structure
 \*------------------------------------*/
+
 .wrapper {
   width: 100%;
 }
+
 .content {
   width: 736px;
   height: 560px;
@@ -262,6 +286,7 @@ a:focus {
   border-radius: 10px;
   box-shadow: 0 15px 30px 5px rgba(0,0,0,0.4);
 }
+
 .sidebar {
   float: left;
   width: 100%;
@@ -270,6 +295,7 @@ a:focus {
   background: #2b2130;
   border-radius: 10px 0 0 10px;
 }
+
 .chatbox {
   position: relative;
   float: left;
@@ -280,10 +306,14 @@ a:focus {
   border-radius: 0 10px 10px 0;
   box-shadow: inset 20px 0 30px -20px rgba(0, 0, 0, 0.6);
 }
+
 /*------------------------------------*\
     Sidebar
 \*------------------------------------*/
+
+
 /* Contact List */
+
 .contact-list {
   margin: 0;
   padding: 0;
@@ -292,12 +322,16 @@ a:focus {
   max-height: 460px;
   overflow-y: hidden;
 }
+
+
 .contact-list .person {
   position: relative;
   padding: 12px 0;
   border-bottom: 1px solid rgba(112,108,114,0.3);
   cursor: pointer;
 }
+
+
 .contact-list .person.active:after {
   content: '';
   display: block;
@@ -306,15 +340,18 @@ a:focus {
   border-right: 4px solid #0bf9c7;
   box-shadow: inset -4px 0px 4px -4px #0bf9c7;
 }
+
 .person .avatar img {
   width: 56px;
   margin-left: 25px;
   border-radius: 50%;
 }
+
 .person .avatar {
   position: relative;
   display: inline-block;
 }
+
 .person .avatar .status {
   position: absolute;
   right: 6px;
@@ -325,29 +362,36 @@ a:focus {
   background: #9e99a1;
   border: 4px solid #222; 
 }
+
 .person .avatar .status.online {
   background: #0bf9c7;
 }
+
 .person .avatar .status.away {
   background: #f4a711;
 }
+
 .person .avatar .status.busy {
   background: #f42464;
 }
+
 .person .info {
   display: inline-block;
   width: 200px;
   padding: 0 0 0 10px; 
 }
+
 .person .name, .person .status-msg {
   display: inline-block;
 }
+
 .person .name {
   color: #fdfdfd;
   font-size: 17px;
   font-size: 1.7rem;
   font-weight: 700;
 }
+
 .person .status-msg {
   width: 180px;
   font-size: 14px;
@@ -356,53 +400,69 @@ a:focus {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+
+
 /*------------------------------------*\
     Chatbox
 \*------------------------------------*/
+
 .chatbox {
   color: #a0a0a0;
 }
+
 /* Chatbox header */
+
 .chatbox .person {
   position: relative;
   margin: 12px 20px 0 0;
   padding-bottom: 12px;
   border-bottom: 1px solid rgba(112,108,114,0.2);
 }
+
 .chatbox .person .avatar .status {
   border-color: #fff;
 }
+
 .chatbox .person .info {
   width: 290px;
   padding-left: 20px;
 }
+
 .chatbox .person .name {
   color: #a0a0a0;
   font-size: 19px;
   font-size: 1.9rem;
 }
+
 .chatbox .person .login-status {
   display: block;
 }
+
 /* Chatbox messages */
+
 .chatbox-messages {
   margin: 20px 20px 0 44px;
   height: 376px;
   overflow-y: overlay;
 }
+
 .chatbox-messages .avatar {
   float: left;
 }
+
 .chatbox-messages .avatar img {
   width: 56px;
     border-radius: 50%;
 }
+
 .chatbox-messages .message-container {
   position: relative;
   float: right;
   width: 320px;
   padding-left: 10px;
 }
+
 .chatbox-messages .message {
   display: inline-block;
   max-width: 260px;
@@ -410,23 +470,29 @@ a:focus {
   border: 1px solid #dedede;
   border-radius: 25px;
 }
+
 .chatbox-messages .sender .message {
   background: #fff;
 }
+
 .chatbox-messages .user .message {
   background: #dedede;
 }
+
 .chatbox-messages .sender .message-container:first-child .message {
   border-radius: 0 50px 50px 50px;
 }
+
 .chatbox-messages .user .message-container:first-child .message {
   border-radius: 50px 0 50px 50px;
 }
+
 .chatbox-messages .message p {
   margin: 14px 24px;
   font-size: 11px;
   font-size: 1.1rem;
 }
+
 .chatbox-messages .delivered {
   position: absolute;
   top: 0;
@@ -434,7 +500,9 @@ a:focus {
   font-size: 10px;
   font-size: 1.0rem;
 }
+
 /* Chatbox message form */
+
 .message-form-container {
   width: 400px;
   height: 74px;
@@ -444,6 +512,7 @@ a:focus {
   margin: 0 20px;
   border-top: 1px solid rgba(112,108,114,0.2);
 }
+
 .message-form textarea {
   width: 290px;
   margin: 6px 0 0 24px;
@@ -452,17 +521,22 @@ a:focus {
   color: #a0a0a0;
   outline: 0;
 }
+
 .message-form textarea::-webkit-input-placeholder { color: #a0a0a0; }
 .message-form textarea::-moz-placeholder { color: #a0a0a0;  }
 .message-form textarea::-ms-placeholder { color: #a0a0a0; }
 .message-form textarea:-moz-placeholder { color: #a0a0a0; }
+
 .message-form textarea:focus::-webkit-input-placeholder { color: transparent; }
 .message-form textarea:focus::-moz-placeholder { color: transparent;  }
 .message-form textarea:focus::-ms-placeholder { color: transparent; }
 .message-form textarea:focus:-moz-placeholder { color: transparent; }
+
 /*------------------------------------*\
     Contacts List - Custom Scrollbar
 \*------------------------------------*/
+
+
 </style>
   </head>
 
@@ -580,9 +654,13 @@ a:focus {
             var show = function() {
             hiddenDiv.fadeIn();
             play();
+
             };
+
             hiddenDiv.hide();
             setTimeout(show, 2000);
+
+
             });
                 </script>
                     <div class="chatbox-messages" >
@@ -601,6 +679,7 @@ a:focus {
                     <div class="message-form-container">
 
                       <script type="text/javascript">
+
                                   $(document).ready(function(){
                $('#msg').keypress(
                 function(e){
@@ -613,8 +692,11 @@ a:focus {
             echo "" . date("h:i:a");
             ?></span></div></div><!-- /.user --></div>').insertBefore('.push');
                   $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
+
                   formSubmit();
+
                     }
+
                 function formSubmit(){
                 var message = $("#msg").val();
                     var dataString = 'msg=' + msg;
@@ -631,6 +713,7 @@ a:focus {
                   $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
                   play();
                 },  1000);
+
                   },
                         error: function (){}
                     });
