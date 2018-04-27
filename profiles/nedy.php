@@ -20,13 +20,13 @@ try {
 if($_SERVER['REQUEST_METHOD']==='POST'){
     //require '../../config.php';
     //$conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
-    if(true){
-        echo json_encode([
-            'status'    => 1,
-            'response'    => "okay in post mode"
-        ]);
-        return;
-    }
+    // if(true){
+    //     echo json_encode([
+    //         'status'    => 1,
+    //         'response'    => "okay in post mode"
+    //     ]);
+    //     return;
+    // }
 //if(isset($_POST['message'])){
     //     $question = $_POST['message'];
     //     if(strpos($question, "train:") !== false){
@@ -99,6 +99,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 //     //   ]);
 //       return ;
 //     }
+    echo "post";
     return;
 }
 
