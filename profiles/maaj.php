@@ -23,8 +23,7 @@ $image_url = $row['image_filename'];
 // chatbot
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
-	if(isset($_POST['text_in'])){
-		$question = $_POST['text_in'];
+	$question = $_POST['text_in'];
 	
 	
 	 // bot version
@@ -82,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
 	}
 	
-	}
+	
 	else{
 	
 	
@@ -124,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="icon" href="css/images/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.js"integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+	
     <!-- This is the main css file for the default Alta theme -->
 <!-- injector:theme -->
 <link rel="stylesheet" href="css/alta/5.0.0/web/alta.css" id="css"/>
@@ -188,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			
 		}
 		#header{
-			width: 80%;
+			width: 620px;
 			height: 60px;
 			margin: 0px auto;
 			background-color:#00AFEF;
@@ -200,7 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			color:#ffffff;
 		}
 		#contain{
-			width:80%; 
+			width:620px; 
 			height: 400px;
 			margin-top:10px;
 			margin:0px auto;
@@ -301,8 +300,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
       </div>
 	  
-     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-json/2.6.0/jquery.json.min.js"></script>
  <script>
     var message = $("#contain");
@@ -316,12 +314,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	       	message.scrollTop(message[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: '/profiles/maaj.php', //location
+				url: 'maaj.php', //location
 				type: 'POST',
 				data: {text_in: text_in},
 				dataType: 'json',
 				success: (response) => {
-					console.log(response);
+					
 			        response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
 			        let response_answer = response.answer;
 			        message.append("<div class='bot'><div class='message'><img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/>" +response_answer+ "</div></div>");      
