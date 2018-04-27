@@ -1,6 +1,6 @@
 <?php 
 	if(!defined('DB_USER')){
-	require "../../config.php";
+	require "../config.php";
 	try {
 		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -30,7 +30,7 @@
 		return $data;
 	}
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-			require "../answers.php";
+			require "../dates.php";
 			$name = test_input($_POST["inputw"]);
 		
 	// collect value of input field
@@ -103,6 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <!DOCTYPE html>
 <html>
+<link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
 <style>
 .scroll 
 {
@@ -126,6 +127,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	border-radius: 12px;
 	margin:auto;
 	font:roboto;
+}
+.hid{
+	display:none;
 }
 .text_input{
 	width: 520px;
@@ -184,13 +188,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }	
 </style>
 <body style="padding:0; margin:0;">
+<div div class="oj-panel oj-panel-alt4 oj-sm-margin-2x demo-mypanel oj-panel-shadow-md">
 <table border="0" cellpadding="0" cellspacing="0" style="margin: 0; padding: 0;" width="100%">
     <tr>
-        <td align="center" valign="top" bgcolor="#ce9fe8">
+        <td align="center" valign="top" bgcolor="#fff">
 			<table width="640" cellspacing="0" cellpadding="0" bgcolor="#" class="100p">
                 <tr>
                     <td background="images/header-bg.jpg" bgcolor="#f6546a" width="640" valign="top" class="100p">
-                                <div>
+                                <div class="oj-flex">
 								    <table width="640" border="0" cellspacing="0" cellpadding="20" class="100p">
                                         <tr>
                                             <td valign="top">
@@ -237,7 +242,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </td>
     </tr>
 </table>
+</div>
 <script>
+
 function showHint(str) {//display training hint
 	if (str.length == 0) { 
         document.getElementById("ask").innerHTML = "";
@@ -251,32 +258,23 @@ function placeHolder() {//display Ask me questions in textBox
   document.getElementById("add").placeholder = "";
 }
 function hide() {//hide chat interface
-    	var x = document.getElementById("view");
-	var c = document.getElementById("ioi");
-	var d = document.getElementById("deep");
 	var s = document.getElementById("siri");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-		c.style.display = "block";
-		s.style.display = "block";
-	d.innerHTML = " I can show you time from present moment till any date! Try 'countdown January 1 2019'";
+	var d = document.getElementById("deep");
+    if (s.style.display === "block") {
+	s.style.display = "none";
+	d.innerHTML = " Collective knowledge of a lot of bots!";
     } else {
-        x.style.display = "none";
-		c.style.display = "none";
-		s.style.display = "none";
-	d.innerHTML = " The collective knowledge of a lot of bots!";
+	s.style.display = "block";
+	d.innerHTML = " I can show you time from present moment till any date! Try 'countdown January 1 2019'";
     }
 }
 </script>
-
-
-<button onclick="hide(3000)" class="butto">Click Me</button><span id="deep"> I can show you time from present moment till any date! Try 'countdown January 1 2019'</span>
-<div class="contain" align="center">
-<div class="scroll" id="view">
-<p class="message chat2"><b>Hello my name is Alfred!</b>
-<br>You can try 'countdown 2:30pm', 'countdown 'tomorrow', 'countdown January 1 2019'</p>
+<button onclick="hide(3000)" class="butto">Click Me</button><span id="deep"> Collective knowledge of a lot of bots!</span>
+<div class="oj-panel oj-panel-alt4 oj-sm-margin-2x demo-mypanel oj-panel-shadow-md hid" align="center" id="siri">
+<code>Meet my butler!</code>
+<div class="scroll oj-selected" id="view">
+<p class="message chat2"><b>Hello my name is Alfred!</b><br>I can show you time from present moment till any date! Try 'countdown January 1 2019'</p>
 <p class="message chat2">To train me <b>'Train: Question # Answer # Password'</b></p>
-
    </div>
    <div class="divid"></div>
    <div id="ioi">
@@ -286,9 +284,8 @@ function hide() {//hide chat interface
  </form>
 	</div>
 	</div>
-
 <p><span id="ask"></span></p>
-<!--<?php print_r($user) ?>-->
+<!--<?php print_r('$user') ?>-->
 
 
 <h3><i>Time is of the essence!</i></h3>
