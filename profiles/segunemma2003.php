@@ -10,23 +10,25 @@ try {
 } catch (PDOException $e) {
 	throw $e;
 }
-global $conn;
-echo ($conn==true);
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+?>
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST')
+{
 	$message = trim(htmlspecialchars($_POST['message']));
-	echo $message;
-	if ($message === ''){
-		$empty_response = [
-			'You have not asked anything',
-			'Ohh, nothing?!!!!',
-			'hey!!! what the hell is this?',
-			'come on, be serious'
+	if ($message === '')
+	{
+				$empty_response = [
+					'You have not asked anything',
+					'Ohh, nothing?!!!!',
+					'hey!!! what the hell is this?',
+					'come on, be serious'
 
-		];
-		echo json_encode(['status'=>0,'data'=> $empty_response[rand(0, (count($empty_response)-1))]]);
-		return;
+				];
+				echo json_encode(['status'=>0,'data'=> $empty_response[rand(0, (count($empty_response)-1))]]);
+				return;
 	}
-	if (strpos($message, 'train:') !== false){
+	if (strpos($message, 'train:') !== false)
+	{
 		$password = 'password';
 		$first_test = explode(':', $message);
 		$q_s_p = $first_test[1];
@@ -36,47 +38,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 		$answer = trim($second_test[1]);
 		$pass = trim($second_test[2]);
 
-		if ($pass === $password){
+		if ($pass === $password)
+		{
 			$sql = 'INSERT INTO chatbot( question, answer) VALUES(:question, :answer)';
 
-				$query = $conn->prepare($sql);
-				$store=$query->execute(array('question'=>$question,'answer'=>$answer));
+			$query = $conn->prepare($sql);
+			$store=$query->execute(array('question'=>$question, 'answer'=>$answer));
                 // $query->bindParam(':question', $question);
                 // $query->bindParam(':answer', $answer);
                 // $store = $query->execute();
-                if($store){
+                	if($store)
+			{
 
-                    echo json_encode(['status'=>1, 'data'=>'Alright gonna put it in mind']);
-				}
-				else{
-					echo json_encode(['status'=>0, 'data'=>'Aw, I don\'t get']);
-		
-                }
-            }
-            else{
-                echo json_encode(['status'=>0, 'data'=>'You\'re not authorized to teach me']);
+                    		echo json_encode(['status'=>1, 'data'=>'Alright gonna put it in mind']);
+				
 			}
+			else
+			{
+				echo json_encode(['status'=>0, 'data'=>'Aw, I don\'t get']);
+			}
+          	}
+            	else
+		{
+                	echo json_encode(['status'=>0, 'data'=>'You\'re not authorized to teach me']);
 		}
-		else{
+	}
+	else
+	{
 			//do get answer if it's not training
-			$sql = "select * from chatbot where question LIKE :question ";
+			$sql = "select * from chatbot where question LIKE :question";
 			$query = $conn->prepare($sql);
 			$query->bindParam(':question', $message);
 			$query->execute();
 			$query->setFetchMode(PDO::FETCH_ASSOC);
 			$result = $query->fetchAll();
-			if ($result){
+			if ($result)
+			{
 				$index = rand(0, count($result)-1);
 				$response = $result[$index]['answer'];
 				echo json_encode(['status'=>1, 'data'=>$response]);
 			}
-			else{
-				echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br> .<br> just use the following pattern== train: what is the time? # The time is#password ' ]);
+			else
+			{
+				echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br> 
+				just use the following pattern train: what is the time? # The time is#password']);
 			}
-		}
 	}
-
-	else{ 
+	else
+	{ 
 		
 		?>
 <!DOCTYPE html>
@@ -358,54 +367,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                      type: "POST",
                      dataType: "json",
 		     
-                     data : {message: message},
-                     success: function(res){
-
-                         console.log(res);
-
-                         if (res){
-
-                             if (res.status ===0){
-                                chat.val('');
-                                container.append(responseMessage(res.data));
-                                $('.chatlogs').scrollTop($('.chatlogs')[0].scrollHeight);
-								//alert($('.chatlogs').scrollTop($('.chatlogs')[0].scrollHeight));
-                             }
-                            if (res.status ===1){
-                                chat.val('');
-                               container.append(responseMessage(res.data));
-							   $('.chatlogs').scrollTop($('.chatlogs')[0].scrollHeight);
-                            }
-
-                         }
-                     },
-                     error: function(error){
-                         console.log(error);
-                     }
-                 });
-
-				
-                function responseMessage(query){
-
-                     return   `<div class="chat friend"><div class="user-photo"></div><p class="chat-message">${query}</p></div>`;
-                }
-
-                function sentMessage(response){
-                    return   '<div class="chat self">'+
-									'<div class="user-photo"></div>'+
-									'<p class="chat-message">'+ response + '</p>'+	
-										'</div>';
-							
-							
-                }
-               
-            });
-	
-	});
-	</script>
-	</div>
-</body>
-</html>
-<?php } ?>
-
-
