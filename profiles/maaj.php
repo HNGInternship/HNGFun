@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	else{
 	
 	
-	}
+	
 
 ?> 
 <!DOCTYPE html>
@@ -310,6 +310,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				data: {text_in: text_in},
 				dataType: 'json',
 				success: (response) => {
+				console.log(response);
 			        response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
 			        let response_answer = response.answer;
 			        message.append("<div class='bot'><div class='message'><img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/>" +response_answer+ "</div></div>");      
@@ -330,3 +331,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </body>
 
 </html>
+
