@@ -12,20 +12,6 @@ catch(PDOException $e)
 	die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
 	}
 global $conn;
-if ($_SERVER['REQUEST_METHOD'] === "GET") {
-try {
-	$sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = "segunemma2003"';
-	$q = $conn->query($sql);
-	$q->setFetchMode(PDO::FETCH_ASSOC);
-	$data = $q->fetch();
-	$secret_word = $data['secret_word'];
-} catch (PDOException $e) {
-	throw $e;
-}
-}
-?>
-<?php 
-	
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
 	$message = trim(htmlspecialchars($_POST['message']));
@@ -48,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 		$q_s_p = $first_test[1];
 		$second_test = explode('#', $q_s_p);
 		$question = trim($second_test[0]);
-		//$question = trim($question, "?");
+		$question = trim($question, "?");
 		$answer = trim($second_test[1]);
 		$pass = trim($second_test[2]);
 
@@ -101,6 +87,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 	 
 		
 		?>
+
+
+<?php 
+if ($_SERVER['REQUEST_METHOD'] === "GET") {
+try {
+	$sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = "segunemma2003"';
+	$q = $conn->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$data = $q->fetch();
+	$secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+	throw $e;
+}
+}
+?>	
 <!DOCTYPE html>
 
 <html>
