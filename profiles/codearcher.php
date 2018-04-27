@@ -1,6 +1,6 @@
 <?php
 require('db.php');
-var_dump(DB_HOST." ". DB_USER." ". DB_PASSWORD." ".DB_DATABASE);
+
 $result = $conn->query("Select * from secret_word LIMIT 1");
    $result = $result->fetch(PDO::FETCH_OBJ);
    $secret_word = $result->secret_word;
