@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 	else
 	{
 			//do get answer if it's not training
-			$sql = "select * from chatbot where question LIKE %:question%";
+			$sql = "select * from chatbot where question LIKE %':question'%";
 			$query = $conn->prepare($sql);
 			$query->bindParam(':question', $message);
 			$query->execute();
