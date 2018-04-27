@@ -251,8 +251,10 @@
       </div>
       <div id="input-area"> 
         <div class="oj-flex">
+          <!-- <form class="oj-flex"> -->
             <input id="request" placeholder="Ask a question" class="oj-padding-horizontal oj-flex-item oj-sm-9 oj-md-9 oj-lg-9"  type="text" >
             <button id="send" class="oj-flex-item oj-sm-2 oj-md-2 oj-lg-2" ><i class="fa fa-paper-plane"></i></button> 
+          <!-- </form> -->
         </div>
       </div>
     </div>

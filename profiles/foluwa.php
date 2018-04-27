@@ -297,7 +297,6 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
           <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
             <span class="oj-icon" alt="My Logo"> </span> 
             <h4 class="oj-sm-only-hide oj-web-applayout-header-title" title="Application Name">Made with Oracle JET</h4>
-            
           </div>
           <div class="push-right"><h3><?php echo $dt ?></h3></div>
         </div>
@@ -337,10 +336,10 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
                 </div>
                 <div class="" id="">
                     <div class="conversation">
-                      <div class="bot-message">Hello! I'm ZOE! 
+                      <div class="bot-message">Hello! I'm ZOE!  
                           <p><?php echo $time ?></p>
                       </div>
-                      <div class="human-message pull-right">Hi Am Foluwa
+                      <div class="human-message pull-right">Hi Zoe, Am Foluwa
                           <p><?php echo $time ?></p>
                       </div>
                     </div>

@@ -28,7 +28,7 @@
             /*padding-top: 300px;*/
             max-height: 230px;
             font-family: "Romanesco";
-            line-height: 230px;
+            line-height: 150px;
             font-size: 96px;
             text-align: center;
         }
@@ -40,7 +40,7 @@
         .under {
             position: relative;
             /*top:450px;*/
-            height: 50px;
+            max-height: 100px;
             width: 100%;
             font-family: "Alegreya";
             line-height: normal;
@@ -144,7 +144,7 @@
     ?>
 
     <div class="oj-flex oj-flex-items-pad oj-contrast-marker">
-        <div class="oj-sm-6 oj-md-6 oj-flex-item">
+        <div class="oj-sm-12 oj-md-6 oj-flex-item">
             <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
                 <div role="img" class="oj-flex-item alignCenter">
                     <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
@@ -172,7 +172,7 @@
                 <div class="under2"><span>Lagos | NG</span></div>
             </div>
         </div>
-        <div class="oj-sm-6 oj-md-6 oj-flex-item">
+        <div class="oj-sm-12 oj-md-6 oj-flex-item">
             <div class="body1">
                 <div class="chat-output" id="chat-output">
                     <div class="user-message">
