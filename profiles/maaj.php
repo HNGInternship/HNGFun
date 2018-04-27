@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	else{
 	
 	
-	
+	}
 
 ?> 
 <!DOCTYPE html>
@@ -267,19 +267,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
 		  <div class="oj-flex-item">
 			<div id ="header">
-	
-		<h1>Maaj's bot</h1>
-	</div>
-	<div id="container">
-	
-	</div>
-	<div id ="controls">
-		<form method="POST" action="" id= "chat">
-		<input type="text" id="textbox"></input>
-		<input id="send" type="submit" value="Send"></input>
-		</form>
 
-	</div>
+				<h1>Maaj's bot</h1>
+			</div>
+				<div id="container">
+				
+				</div>
+				<div id ="controls">
+					<form method="POST" action="" id= "chat">
+					<input type="text" id="textbox"></input>
+					<input id="send" type="submit" value="Send"></input>
+					</form>
+
+				</div>
 	
           </div>
 		  </div>
@@ -291,7 +291,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		</div>  
     
       </div>
-	  </div>
+	  
     <script>
     var message = $("#container");
 		
@@ -329,4 +329,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </body>
 
 </html>
-<?php } ?>
