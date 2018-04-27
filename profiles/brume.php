@@ -449,7 +449,7 @@
 			border: 1px solid grey;
 			padding: 20px;
 			background-color: #A494AA;
-			margin-top: 5%;
+			margin-left: 15%;
 			height: 400px;
 		}
 		.info {
@@ -465,12 +465,12 @@
 		.chat-frame {
 			border: 1px solid grey;
 			padding: 20px;
-			background-color: #BF29A7;
+			background-color: #BC2FED;
 			margin-top: 5%;
 			margin-bottom: 50px;
 		}
 		.chat-messages {
-			background-color: #DF3390;
+			background-color: #F1A7CF;
 			font-size: 14px;
 			height: 600px;
 			overflow-y: auto;
@@ -485,11 +485,11 @@
 			min-height: 60px;
 		}
 		.single-message-bg {
-			background-color: #DF3390;
+			background-color: #F1A7CF;
 			padding: 10px;
 		}
 		.single-message-bg2 {
-			background-color: #DF3390;
+			background-color: #F1A7CF;
 			padding: 10px;
 		}
 		input[name=question] {
@@ -520,12 +520,12 @@
 		<div class="info oj-flex-item oj-md-flex-direction-column">
 		    <h3 class="center"><?php echo $name; ?></h3>
 		    <h5 class="center"><span class="slack_span">Slack Username: </span>@<?php echo $username; ?></h5>
-		    <p class="center"><span class="occupation_span">What I do: </span>I develop web and mobile apps</p>
+		    <p class="center"><span class="occupation_span">What I do: </span>Intrested in Backend and Android Development</p>
 		</div>
     </div>
     <div class="oj-flex-item oj-md-1 oj-margin"></div>
     <div class="oj-flex-item oj-md-6 oj-margin chat-frame">
-    	<h2 class="center" id="chatbot" style="font-weight: bold">Chatbot Interface</h2>
+    	<h2 class="center" id="chatbot" style="font-weight: bold">My Chatbot</h2>
 		<div class="oj-flex chat-messages" id="chat-messages">
 		    <div class="oj-flex-item oj-md-12 oj-padding" id="message-frame">
 		        <div class="oj-flex oj-flex-item single-message">
@@ -533,7 +533,7 @@
 		                <span class="fa fa-user f-icon"></span>
 		            </div>
 		            <div class="oj-flex-item oj-md-8 single-message-bg oj-padding">
-		                <p>Welcome! My name is <span style="font-weight: bold">Optimus Prime</span></p>
+		                <p>Hola! My name is <span style="font-weight: bold">John Doe</span></p>
 		            </div>
 		        </div>
 		        <div class="oj-flex oj-flex-item single-message">
@@ -541,7 +541,7 @@
 		                <span class="fa fa-user f-icon"></span>
 		            </div>
 		            <div class="oj-flex-item oj-md-8 single-message-bg oj-padding">
-		                <p>Ask me your questions and I will try to answer them.</p>
+		                <p>What questions do you have for me today?.</p>
 		            </div>
 		        </div>
 		        <div class="oj-flex oj-flex-item single-message">
@@ -549,8 +549,9 @@
 		                <span class="fa fa-user f-icon"></span>
 		            </div>
 		            <div class="oj-flex-item oj-md-8 single-message-bg">
-		                <p>You can teach me answers to new questions by training me.</p>
-		                <p>To train me, enter the training string in this format:</p>
+		                <p>I'm a dummy chatbot, but i can be trained you know.</p>
+		                <p>You wanna try that out?</p>
+						<p>Enter the training string in this format:</p>
 		                <p><b>train: question # answer # password</b></p>
 		                <p>To get assistance, type:
 		                    <br>
