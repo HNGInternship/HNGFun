@@ -347,7 +347,7 @@ function fetchAnswer($msgss){
                });
 
                function bot_chat(reply){
-                    $('#chatlog').delay(10000).append('<p>Bot Xperience: ' + reply + '</p>');
+                    $('#chatlog').delay(500).append('<p>Bot Xperience: ' + reply + '</p>');
                     $('.bot-box').scrollTop($('#bot-ui').height());
                }
 
@@ -361,7 +361,7 @@ function fetchAnswer($msgss){
                   
 
                   if(msg==''){
-                    $('#chatlog').delay(10000).append('<p>Bot Xperience: You have not typed anything</p>');
+                    $('#chatlog').delay(500).append('<p>Bot Xperience: You have not typed anything</p>');
                     $('.bot-box').scrollTop($('.bot-box').height());
                     return false;
                     } else {
