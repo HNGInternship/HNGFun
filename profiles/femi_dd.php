@@ -306,6 +306,7 @@ chatArea.appendChild(timeEl2);
       }
    }
    //live server
+   message = message.replace("#","@");
    xmlhttp.open("POST", "https://hng.fun/profiles/femi_dd.php?new_request="+message, true);
    //localhost
 //    xmlhttp.open("POST", "http://localhost/HNGFun/profiles/femi_dd.php?new_request="+message, true);
