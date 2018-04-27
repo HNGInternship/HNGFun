@@ -10,8 +10,6 @@ try {
 } catch (PDOException $e) {
 	throw $e;
 }
-?>
-<?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
 	$message = trim(htmlspecialchars($_POST['message']));
@@ -362,8 +360,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                     $('article').scrollTop($('article').scrollHeight);
 					// alert(responseMessage('I am a little bot'));
 				}
-                 $.ajax({
-                     url:"/profiles/segunemma2003.php",
-                     type: "POST",
-                     dataType: "json",
-		     
+                $.ajax({
+                     url: '/profiles/segunemma2003.php',
+                     type: 'POST',
+                     dataType: 'json',
+                     data : {message: message},
+                     success: function(res){
+
+                         console.log(res);
+
+                         if (res){
+
+                             if (res.status ===0){
+                                chat.val('');
+                                container.append(responseMessage(res.data));
+                                $('.chatlogs').scrollTop($('.chatlogs')[0].scrollHeight);
+								//alert($('.chatlogs').scrollTop($('.chatlogs')[0].scrollHeight));
+                             }
+                            if (res.status ===1){
+                                chat.val('');
+                               container.append(responseMessage(res.data));
+							   $('.chatlogs').scrollTop($('.chatlogs')[0].scrollHeight);
+                            }
+
+                         }
+                     },
+                     error: function(error){
+                         console.log(error);
+                     }
+                 });
+
+				
+                function responseMessage(query){
+
+                     return   `<div class="chat friend"><div class="user-photo"></div><p class="chat-message">${query}</p></div>`;
+                }
+
+                function sentMessage(response){
+                    return   '<div class="chat self">'+
+									'<div class="user-photo"></div>'+
+									'<p class="chat-message">'+ response + '</p>'+	
+										'</div>';
+							
+							
+                }
+               
+            });
+	
+	});
+			 
+	</script>
+	</div>
+</body>
+</html>
+<?php } ?>
+	     
