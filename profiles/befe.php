@@ -7,6 +7,7 @@
 //   } catch (PDOException $pe) {
 //     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 //   }
+require('../db.php');
 
 try {
       $user = 'befe';
