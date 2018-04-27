@@ -90,8 +90,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		elseif ($arr[0] == "help") {
 			echo json_encode([
 				'status' => 1,
+<<<<<<< HEAD
 				'answer' => "Type 'aboutbot' to know about me. You can also convert cryptocurrencies using this syntax.
 				'convert btc to usd",
+=======
+				'answer' => "You can train me by using this format ' train: This is a question # This is the answer # password '. You can also convert cryptocurrencies using this syntax.'convert btc to usd"
+				
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 			]);
 			return;	
 		}
@@ -111,7 +116,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	    	# code...
 	    	echo json_encode([
 	    		'status'=> 1,
-	    		'answer' => "I am MATRIX, Version 1.0.0. You can train me by using this format ' train: This is a question # This is the answer # password '"
+	    		'answer' => "I am MATRIX, Version 1.0.0. "
 	    	]);
 	    	return;
 	    }
@@ -288,11 +293,28 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			left: -3px;
             background-color: #00b0ff;
 		}
+<<<<<<< HEAD
+=======
+		.iro{
+			float: right;
+			color: red;
+			font-size: 15px;
+			font-family: Ubuntu;
+		}
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 		.iio{
 			float: left;
 			color: red;
 			font-size: 15px;
 			font-family: Ubuntu;
+		}
+		#bot{
+			margin-bottom: 10px;
+			margin-top: 10px;
+		}
+		#you{
+			margin-bottom: 10px;
+			margin-top: 10px;
 		}
 	</style>
 </head>
@@ -341,9 +363,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
-									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about what i can do type 'help'
+									Hi,i am MATRIX, the bot, i can answer basic questions. To know about my functions type 'help'
 								</div>
+<<<<<<< HEAD
 									
+=======
+								<div class="iro">
+									
+								</div>	
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 								<div class="iio">
 									<ul id="ans">
 											
@@ -364,7 +392,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
+<<<<<<< HEAD
 				$("#ans").append("<li> You: " + question + "</li>");
+=======
+				$("#ans").append("<li id='you'> You: " + question + "</li>");
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 					//let newMessage = `<div class="iro">
 	                  //${question}
 	                //</div>`
@@ -374,7 +406,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
+<<<<<<< HEAD
 			        $("#ans").append("<li> MATRIX: "  + response.answer +  "</li>");
+=======
+			        $("#ans").append("<li id='bot'>Bot: " + response.answer + "</li>");
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 			       // console.log(response.result);
 			        //alert(response.result.d);
 			        //alert(answer.result);

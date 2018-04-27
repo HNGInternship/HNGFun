@@ -22,10 +22,10 @@
             font-size: 16px;
             display: flex;
             flex-direction: column;
-            max-width: 450px;
+            max-width: 400px;
 			height: 400px;
 			border-radius: 0px;
-			margin: 20px 10px;
+			margin: 50px;
 			background: white;
         }
 
@@ -47,7 +47,7 @@
             background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
             height: auto;
 			width: 450px;
-			margin: 10px 20px;
+			margin: 10px;
         }
         .profile-body {
             max-width: 100%;
@@ -168,14 +168,12 @@
         }
 		.oj-panel{
 		background-color:#DFE1E2;
-		width: 100%;
-            padding-left: 0px;
+            padding-left: 70px;
 		}
 		.demo-panelwrapper {
-		}
-		.oj-flex{
-		background-color:blue;
-        padding: 20px;
+		background-color:#DFE1E2;
+		width: 500px;
+        padding: 40px;
 		}
         .fa-close, .fa-question-circle {
             font-size: 23px;
@@ -203,8 +201,8 @@
         throw $e;
     }
     ?>
-	 <div class="oj-flex demo-panelwrapper" style='width: 95%;'>
-            <div class="oj-flex-item oj-panel demo-mypanel">
+	 <div class="oj-flex demo-panelwrapper">
+            <div class="oj-flex-item oj-panel">
             <div class="col-sm-6 profile-details" >
                 <div class="profile-image">
                     <img src="http://res.cloudinary.com/lois-idzi/image/upload/v1524718483/mypic.jpg" alt="Lois Thomas">
@@ -218,10 +216,10 @@
                     <a href="https://facebook.com/lois.idzi5" target="_blank"><i class="fa fa-2x fa-facebook"></i></a>
                 </div>
             </div>
-			
-  <div class="oj-flex-item oj-sm-flex-items-1 oj-sm-12 oj-md-6 oj-lg-6 oj-xl-6 " style='width: 450px;'>
-        <div class="col-sm-6 profile-details" style='float: right;' >
-			<div class="col-sm-6 chatbox" >
+			  </div>
+  <div class="oj-flex-item oj-flex oj-sm-flex-items-1 oj-sm-12 oj-md-6 oj-lg-6 oj-xl-6 " style='width: 450px;'>
+        <div class="oj-flex-item demo-mypanel" style='float: right; padding-top: 10px;'>
+			<div class="col-sm-6 chatbox" style='float: right; padding-top: 10px'>
 				<div class='chatbot-menu-header'>
                         <div class="hng-logo"></div> <span>LoBot v1.0</span>
                     </div>
@@ -245,7 +243,6 @@
           </div>
 		   </div>
 		    </div>
-			  </div>
     <?php
     try {
         $sql = 'SELECT * FROM secret_word';

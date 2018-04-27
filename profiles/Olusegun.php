@@ -1,5 +1,8 @@
 <?php
 
+include realpath(__DIR__ . '/..') . "/db.php" ;
+global $conn;
+
 $db_query = "SELECT * FROM interns_data WHERE username = 'Olusegun' LIMIT 1";
 $result = mysqli_query($conn, $db_query);
 

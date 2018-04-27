@@ -7,13 +7,14 @@ $worldclassdev = array_shift($data);
 
     try {
         $secrete = 'SELECT * FROM secret_word';
-        $sql = $conn->query($secrete);
+        $sql = $conn->query($secrete); 
         $sql->setFetchMode(PDO::FETCH_ASSOC);
         $result = $sql->fetch();
         $secret_word = $result["secret_word"];
     } catch (PDOException $error) {
         throw $error;
     }
+var_dump(DB_HOST." ". DB_USER." ". DB_PASSWORD." ".DB_DATABASE);
 ?>
 
 
@@ -99,6 +100,14 @@ $formaction = "profiles/worldclassdev/api/chat.php";
 </form>
     </div>  
   </my-profile>
+    <?php
+$formaction = "profiles/worldclassdev/api/chat.php";
+?>
+<form action="<?php echo $formaction; ?>" method="post" >
+<input name="chat" type="text" style="width: 100%" >
+<input   type="submit" value="chat with me" >
+</form>
+
 </div>
       </div>
       </div>
