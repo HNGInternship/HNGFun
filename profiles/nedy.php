@@ -1,5 +1,6 @@
 <?php
-
+<<<<<<< HEAD
+if($_SERVER['REQUEST_METHOD']==='GET'){
  try {
      $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'nedy'");
      $intern_data->execute();
@@ -15,7 +16,7 @@
   } catch (PDOException $e) {
       throw $e;
   }
-//if($_SERVER['REQUEST_METHOD']==='POST'){
+}//else if($_SERVER['REQUEST_METHOD']==='POST'){
     // require '../../config.php';
     // $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
     //         if(!$conn){
@@ -98,6 +99,9 @@
 //       return ;
 //     }
 // }
+=======
+
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 ?>
 
 <!DOCTYPE html>
