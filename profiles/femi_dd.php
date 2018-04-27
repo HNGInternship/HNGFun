@@ -242,8 +242,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
          <div class="inner">
             <h2>femiBot 🤖</h2>
             <i style="font-size: 15px">To train the bot, follow :<br />
-               1. train:What is the time @The time is (timefunction) (where train: is the question and @is the answer, timefunctionis the function to handler your request)<br />
-               2. train:Today's date @Todays date is (date):password:passwordkey (where password key is the official password to train the bot)<br />
+               1. train:What is the time #The time is (timefunction):password:passwordkey (where train: is the question and #is the answer, timefunctionis the function to handler your request)<br />
+               2. train:Today's date #Todays date is (date):password:passwordkey (where password key is the official password to train the bot)<br />
                3. To find a user, just type => find:username</i>
                <div id="chatarea" style="overflow: auto; height:300px; border:1px solid whitesmoke; border-radius:5px"></div>
                <div class="input-group">
