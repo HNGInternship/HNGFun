@@ -448,7 +448,7 @@
 		.frame {
 			border: 1px solid grey;
 			padding: 20px;
-			background-color: #A494AA;
+			background-color: #E0E0E0;
 			margin-left: 15%;
 			height: 400px;
 		}
@@ -465,7 +465,7 @@
 		.chat-frame {
 			border: 1px solid grey;
 			padding: 20px;
-			background-color: #BC2FED;
+			background-color: #828282;
 			margin-top: 5%;
 			margin-bottom: 50px;
 		}
@@ -485,14 +485,13 @@
 			min-height: 60px;
 		}
 		.single-message-bg {
-			background-color: #F1A7CF;
+			background-color:#E0E0E0;
 			padding: 10px;
 		}
 		.single-message-bg2 {
-			background-color: #F1A7CF;
+			background-color: #E0E0E0;
 			padding: 10px;
-		}
-		input[name=question] {
+		}input[name=question] {
 			height: 50px;
 		}
 		button[type=submit] {
