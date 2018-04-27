@@ -200,7 +200,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			border-radius: 50%;
 			width: 350px;
 			height: 350px;
-			margin-left: 300px;
+			margin-left: 200px;
 		}
 		p{
 			text-align: center;
