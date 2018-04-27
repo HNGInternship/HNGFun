@@ -7,6 +7,9 @@
 	      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 	  }
 	}
+	global $conn;
+?>
+<?php
 	//Fetch User Details
 	try {
 	    $query = "SELECT * FROM interns_data WHERE username ='Jeremiah'";
