@@ -1,11 +1,8 @@
-<<<<<<< HEAD
-=======
 
 <?php
   $dt = date("Y-m-d h:i:sa");
   $time= date("h:i:sa")?>
 
->>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 <?php 
 if(!defined('DB_USER')){
   require "../../config.php";   
@@ -22,12 +19,8 @@ $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'foluwa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
-<<<<<<< HEAD
-if($_SERVER['REQUEST_METHOD'] === 'POST'){   
-=======
 
 /*if($_SERVER['REQUEST_METHOD'] === 'POST'){   
->>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
     try{
 
       if(!isset($_POST['question'])){
@@ -43,14 +36,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       $mem = preg_replace("([?.])", "", $mem);
     $arr = explode(" ", $mem);
     
-<<<<<<< HEAD
-    /* Training the bot*/ 
-    if($arr[0] == "train:"){
-=======
 
     /* Training the bot*/
    /* if($arr[0] == "train:"){
->>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 
       unset($arr[0]);
       $q = implode(" ",$arr);
@@ -162,27 +150,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   }catch (Exception $e){
     return $e->message ;
   }
-<<<<<<< HEAD
-}
-
-  function randomQuotes () {
-    $quotes = array("I have a dream",
-                       "Children are good", 
-                       "Another quote",
-                       "Another 11 quote",
-                       "Another vbbv quote",
-                       "Another [[[]]] quote",
-                       "Anothernnn quote");
-     $myQuotes = quotes[rand(0,3);];
-     return $myQuotes;
-    }
-?>
-
-<?php //DATE
- $d = date("h:i:sa");
-=======
 }*/
->>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 ?>
 <!DOCTYPE html>
 <html>
@@ -193,12 +161,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<<<<<<< HEAD
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-
-  
-=======
   <link rel="stylesheet" id="css" href="http://www.oracle.com/webfolder/technetwork/jet/css/libs/oj/v5.0.0/alta/oj-alta-min.css">
     <link rel="stylesheet" href="../css/demo.css">
     <script>
@@ -217,7 +179,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
->>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
   <style type="text/css">
      @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
       body {
@@ -258,31 +219,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
         }
 
-<<<<<<< HEAD
-      #botSection{
-         border: 2px red solid;
-         width: 47%;
-         height:auto;
-         padding: 10px;
-}
-      .botSend{
-         position: absolute; 
-        color: red;
-        right: 100px;
-        background-color: grey;
-        border-radius: 4px;
-        font-size: 20px;
-
-      }
-      .humanSend {
-        position: absolute; 
-        color: green;
-        right: 0px;
-        background-color: skyblue;
-        border-radius: 4px;
-        font-size: 20px;
-      }
-=======
         .oj-flex-item .oj-panel .demo-mypanel{
             padding: 40px;
         }
@@ -352,7 +288,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     .conversation {
       display: column;
     }
->>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
   </style>
 </head>
 
@@ -362,7 +297,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
             <span class="oj-icon" alt="My Logo"> </span> 
             <h4 class="oj-sm-only-hide oj-web-applayout-header-title" title="Application Name">Made with Oracle JET</h4>
-            
           </div>
           <div class="push-right"><h3><?php echo $dt ?></h3></div>
         </div>
@@ -402,38 +336,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 </div>
                 <div class="" id="">
                     <div class="conversation">
-                      <div class="bot-message">Hello! I'm ZOE! 
+                      <div class="bot-message">Hello! I'm ZOE!  
                           <p><?php echo $time ?></p>
                       </div>
-                      <div class="human-message pull-right">Hi Am Foluwa
+                      <div class="human-message pull-right">Hi Zoe, Am Foluwa
                           <p><?php echo $time ?></p>
                       </div>
-<<<<<<< HEAD
-             </div>
-          
-           <div class="col-sm-6" id="botSection">
-                <div class="chat-head">Chat Interface</div>
-                    <div class="chat">
-                        <div id="conversation">
-                          <p class="botSend" style="margin-top:0px;left:0px;">
-                              <strong><?php echo $d ?></strong>
-                          </p>
-                        </div>
-                        <div style="position:fixed;bottom:0;">
-                        <form id="chat" class="box" action="foluwa.php" name="message" method="post">
-                          <textarea name="inputtext" type="text" id="message" class="message" placeholder="Enter your command"></textarea>
-                          <button id="send" class=send type=submit>Send</button>
-                        </form>
-                        </div>
-                    </div>
-                </div>
-           </div>
-      </div>
-      <footer>Foluwa @ <a href="https://hotels.ng">Hotels.ng</a></footer>
-    </main>
-    <!--<script src="../vendor/jquery/jquery.min.js"></script>-->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
-=======
                     </div>
                 </div>
                 <div>
@@ -455,15 +363,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 </body>
 </html>
     <script src="../vendor/jquery/jquery.min.js"></script>
->>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
   <script>
     $(document).ready(function(){
-      var Form =$('#conversation');
+      var Form =$('#chat');
       Form.submit(function(e){
         e.preventDefault();
         var questionBox = $('textarea[name=inputtext]');
         var question = questionBox.val();
-        $("#conversation").append("<p class='botSend'>" + question + "<?php echo $d?>" + "</p>");
+        $("#humanPost").append("<p class='botSend'>" + question + "<p>" + "<?php echo $d?>" + "</p>" + "</p>");
         $.ajax({
           url: '/profiles/foluwa.php',
           type: 'POST',
