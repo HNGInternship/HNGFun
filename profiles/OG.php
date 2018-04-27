@@ -1,5 +1,5 @@
 <?php
-require "../../config.php";
+
 try {
        $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'OG\'';
        $query = $conn->query($sql);
