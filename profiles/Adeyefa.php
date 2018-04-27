@@ -178,7 +178,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 <!DOCTYPE html>
 <html>
 <head>
-	<title>  <?=$my_data['name'] ?></title>
+	<title> <?php echo $user->name ?></title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
@@ -322,7 +322,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					HELLO WORLD
 				</p>
 				<p id="p1">
-					I am  <?=$my_data['name'] ?>
+					I am  <?php echo $user->name ?>
 				</p>
 				<p id="info">
 					A Web developer, blogger and Software engineer
