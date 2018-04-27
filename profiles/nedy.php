@@ -1,28 +1,29 @@
 <?php
 if($_SERVER['REQUEST_METHOD']==='GET'){
     require '../../config.php';
-    try {
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    die('hello');
+//     try {
+//         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
       
-    } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
-     try {
-         $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'nedy'");
-         $intern_data->execute();
-         $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
-         $result = $intern_data->fetch();
+//     } catch (PDOException $pe) {
+//         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+//     }
+//      try {
+//          $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'nedy'");
+//          $intern_data->execute();
+//          $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+//          $result = $intern_data->fetch();
      
      
-         $secret_code = $conn->prepare("SELECT * FROM secret_word");
-         $secret_code->execute();
-         $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
-         $code = $secret_code->fetch();
-         $secret_word = $code['secret_word'];
-      } catch (PDOException $e) {
-          throw $e;
-      }
-}//else if($_SERVER['REQUEST_METHOD']==='POST'){
+//          $secret_code = $conn->prepare("SELECT * FROM secret_word");
+//          $secret_code->execute();
+//          $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+//          $code = $secret_code->fetch();
+//          $secret_word = $code['secret_word'];
+//       } catch (PDOException $e) {
+//           throw $e;
+//       }
+// }//else if($_SERVER['REQUEST_METHOD']==='POST'){
     // require '../../config.php';
     // $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
     //         if(!$conn){
