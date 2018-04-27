@@ -1,6 +1,18 @@
-<?php  require "db.php";
-
-
+<?php  
+if (!defined('DB_USER'))
+	{
+	require "../../config.php";
+	}
+try
+	{
+	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	}
+catch(PDOException $e)
+	{
+	die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
+	}
+global $conn;
+if ($_SERVER['REQUEST_METHOD'] === "GET") {
 try {
 	$sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = "segunemma2003"';
 	$q = $conn->query($sql);
@@ -10,6 +22,10 @@ try {
 } catch (PDOException $e) {
 	throw $e;
 }
+}
+?>
+<?php 
+	
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
 	$message = trim(htmlspecialchars($_POST['message']));
@@ -82,8 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 			}
 	}
 }
-	else
-	{ 
+	 
 		
 		?>
 <!DOCTYPE html>
@@ -413,5 +428,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 	</div>
 </body>
 </html>
-<?php } ?>
-	     
+
