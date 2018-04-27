@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
                 ]);
                 return;
             }
-    if(isset($_POST['message'])){
+    //if(isset($_POST['message'])){
     //     $question = $_POST['message'];
     //     if(strpos($question, "train:") !== false){
     //         $questionAndAnswer = substr($question, 6); //get the string after train
