@@ -1,18 +1,16 @@
 <?php
 
 //Fetch User Details
-<<<<<<< HEAD
 
-=======
-if(!defined('DB_USER')){
-  require "../../config.php";		
-  try {
-      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-  } catch (PDOException $pe) {
-      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-  }
-}
->>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
+// if(!defined('DB_USER')){
+//   require "../../config.php";		
+//   try {
+//       $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+//   } catch (PDOException $pe) {
+//       die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+//   }
+// }
+
 try {
     $query = "SELECT * FROM interns_data_ WHERE username ='john'";
     $resultSet = $conn->query($query);
