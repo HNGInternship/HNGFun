@@ -1,4 +1,138 @@
-<?php 
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title> <?php echo $user->name ?></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
+	<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<style type="text/css">
+		body{
+			background-image: url(https://res.cloudinary.com/adeyefa/image/upload/v1524267920/turntable-1109588__340.jpg);
+			height: 100%; 
+		    background-position: center;
+		    background-repeat: no-repeat;
+		    background-size: cover;
+		}
+		h1{
+			text-align: center;
+			color: red;
+		}
+		p{
+			text-align: center;
+			font-size: 60px;
+			color: red;
+		}
+		#p1{
+			text-align: center;
+			font-size: 60px;
+		}
+		#info{
+			text-align: center;
+			font-size: 30px;
+		}
+		.sidebar{
+			width: 400px;
+			height: 590px;
+		}
+		.bbb{
+			width: 790px;
+			height: 590px;
+			float: right;
+		}
+		.row{
+			border-bottom: 3px solid #E1E1E1;
+			margin-bottom: 10px;
+			padding: 7px;
+		}
+		#form{
+			background-color: rgb(52,185,96,0.9);
+			color: #FFF;
+			padding: 7px;
+			position: absolute;
+			width: 400px;
+			height: auto;
+		}
+		input{
+			width: 100%;
+		    padding: 12px 20px;
+		    margin: 8px 0;
+		    box-sizing: border-box;
+		}
+		textarea{
+		    width: 80%;
+		    box-sizing: border-box;
+		    border: 2px solid #ccc;
+		    border-radius: 4px;
+		    font-size: 15px;
+		    padding: 12px 20px 12px 40px;
+		}
+
+		input[type=submit]{
+		    width: 80%;
+		    padding: 12px 20px;
+		    margin: 8px 8px;
+		}
+		.head{
+			text-align: center;
+		}
+		h2{
+			color: white;
+			font-weight: bolder;
+			font-size: 40px;
+		}
+		li{
+			size: 20px;
+		}
+		#questionBox{
+			font-size: 15px;
+			font-family: Ubuntu;
+			width: 400px;
+			height: auto;
+		}
+		#bot_reply{
+            position: relative;
+		    overflow: auto;
+		    overflow-x: hidden;
+		    padding: 10px 5px 92px;
+		    border: none;
+		    max-height: 350px;
+		    -webkit-justify-content: flex-end;
+		    justify-content: flex-end;
+		    -webkit-flex-direction: column;
+		    flex-direction: column;
+		    background-color: #00FFFF;
+
+		}
+		.irr{
+	        color: red;
+	        font-size: 15px;
+			font-family: Ubuntu;
+		}
+		.irr:before{
+			left: -3px;
+            background-color: #00b0ff;
+		}
+		.iio{
+			float: left;
+			color: red;
+			font-size: 15px;
+			font-family: Ubuntu;
+		}
+		#bot{
+			margin-bottom: 10px;
+			margin-top: 10px;
+		}
+		#you{
+			margin-bottom: 10px;
+			margin-top: 10px;
+		}
+	</style>
+</head>
+<body>
+	<?php 
 
 if(!defined('DB_USER')){
   require "../../config.php";		
@@ -172,156 +306,7 @@ if(!defined('DB_USER')){
 		}
 	}
 ?>
-
-
-
-<!DOCTYPE html>
-<html>
-<head>
-	<title> <?php echo $user->name ?></title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
-	<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<style type="text/css">
-		body{
-			background-image: url(https://res.cloudinary.com/adeyefa/image/upload/v1524267920/turntable-1109588__340.jpg);
-			height: 100%; 
-		    background-position: center;
-		    background-repeat: no-repeat;
-		    background-size: cover;
-		}
-		h1{
-			text-align: center;
-			color: red;
-		}
-		p{
-			text-align: center;
-			font-size: 60px;
-			color: red;
-		}
-		#p1{
-			text-align: center;
-			font-size: 60px;
-		}
-		#info{
-			text-align: center;
-			font-size: 30px;
-		}
-		.sidebar{
-			width: 400px;
-			height: 590px;
-		}
-		.bbb{
-			width: 790px;
-			height: 590px;
-			float: right;
-		}
-		.row{
-			border-bottom: 3px solid #E1E1E1;
-			margin-bottom: 10px;
-			padding: 7px;
-		}
-		#form{
-			background-color: rgb(52,185,96,0.9);
-			color: #FFF;
-			padding: 7px;
-			position: absolute;
-			width: 400px;
-			height: auto;
-		}
-		input{
-			width: 100%;
-		    padding: 12px 20px;
-		    margin: 8px 0;
-		    box-sizing: border-box;
-		}
-		textarea{
-		    width: 80%;
-		    box-sizing: border-box;
-		    border: 2px solid #ccc;
-		    border-radius: 4px;
-		    font-size: 15px;
-		    padding: 12px 20px 12px 40px;
-		}
-
-		input[type=submit]{
-		    width: 80%;
-		    padding: 12px 20px;
-		    margin: 8px 8px;
-		}
-		.head{
-			text-align: center;
-		}
-		h2{
-			color: white;
-			font-weight: bolder;
-			font-size: 40px;
-		}
-		li{
-			size: 20px;
-		}
-		#questionBox{
-			font-size: 15px;
-			font-family: Ubuntu;
-			width: 400px;
-			height: auto;
-		}
-		#bot_reply{
-            position: relative;
-		    overflow: auto;
-		    overflow-x: hidden;
-		    padding: 10px 5px 92px;
-		    border: none;
-		    max-height: 350px;
-		    -webkit-justify-content: flex-end;
-		    justify-content: flex-end;
-		    -webkit-flex-direction: column;
-		    flex-direction: column;
-		    background-color: #00FFFF;
-
-		}
-		.irr{
-	        color: red;
-	        font-size: 15px;
-			font-family: Ubuntu;
-		}
-		.irr:before{
-			left: -3px;
-            background-color: #00b0ff;
-		}
-		.iio{
-			float: left;
-			color: red;
-			font-size: 15px;
-			font-family: Ubuntu;
-		}
-		#bot{
-			margin-bottom: 10px;
-			margin-top: 10px;
-		}
-		#you{
-			margin-bottom: 10px;
-			margin-top: 10px;
-		}
-	</style>
-</head>
-<body>
 	<div class="iii">
-		<?php
-
-		    global $conn;
-
-		    try {
-		        $sql2 = 'SELECT * FROM interns_data WHERE username="adeyefa"';
-		        $q2 = $conn->query($sql2);
-		        $q2->setFetchMode(PDO::FETCH_ASSOC);
-		        $user = $q2->fetch();
-		    } catch (PDOException $e) {
-		        throw $e;
-		    }
-	    ?>
 		<div class="bbb">
 	    	<div class="main">
 				<p>
