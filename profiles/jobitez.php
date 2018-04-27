@@ -1,14 +1,14 @@
 <?php
-  require ('db.php');
-?>
+//   require ('db.php');
+// ?>
 
-<?php
-   $result = $conn->query("Select * from secret_word LIMIT 1");
-   $result = $result->fetch(PDO::FETCH_OBJ);
-   $secret_word = $result->secret_word;
+// <?php
+//    $result = $conn->query("Select * from secret_word LIMIT 1");
+//    $result = $result->fetch(PDO::FETCH_OBJ);
+//    $secret_word = $result->secret_word;
 
-   $result2 = $conn->query("Select * from interns_data where username = 'jobitez'");
-   $user = $result2->fetch(PDO::FETCH_OBJ);
+//    $result2 = $conn->query("Select * from interns_data where username = 'jobitez'");
+//    $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +18,14 @@
   <title>Jobitez | Profie</title>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"> -->
+  <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
+  <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
+<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/default/js"></script>
+<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/3rdparty"></script>
+<script type="text/javascript" src="../js/main.js"></script>
+
+
   <style>
     body {
       font-family: 'monaco';
@@ -46,7 +53,21 @@
   </style>
 </head>
 
-<body class="bg-light">
+<body class="oj-web-applayout-body">
+<header role="banner" class="oj-web-applayout-header">
+<div class="oj-web-applayout-max-width oj-flex-bar oj-align-items-center">
+<div data-bind="css: smScreen() ? 'oj-flex-bar-center-absolute' : 'oj-flex-bar-middle oj-sm-align-items-baseline'">
+Jobitez | profile page
+</div>
+<div class="oj-flex-item">
+  
+</div>
+<div class="oj-flex-bar-end">
+Made with Oracle Jet
+</div>
+</div>
+</header>
+</body>
 
   <div class="main d-flex justify-content-center align-content-center ">
     <div class="card mt-5 py-5">
@@ -69,5 +90,5 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js""></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" ></script>
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" ></script> -->
 </html>
