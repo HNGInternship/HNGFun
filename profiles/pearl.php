@@ -1,7 +1,6 @@
 <?php
     
  require 'db.php';
- include_once("../answers.php");
     
  if (!defined('DB_USER')){
             
@@ -403,7 +402,7 @@ button{
         <div id="intro">
             <div id="intro-span">
                 <div id="main">
-                    Hi, I am<br /><span id="me" class="oj-text-xm"><?php echo $user->name ?></span><br />
+                    Hi, I am<br /><span id="me"><?php echo $user->name ?></span><br />
                     <span>A Software Developer</span>
                 </div>
             </div>
@@ -472,6 +471,7 @@ My love grew into passion that I gave up my little savings to learn web developm
                 </p>
 		</footer>
     </div>
+           
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script>
         
@@ -546,8 +546,7 @@ My love grew into passion that I gave up my little savings to learn web developm
 
 
 
-    </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    </script> 
 </div>
 </body>
 </html>
