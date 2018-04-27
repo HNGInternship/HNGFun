@@ -1,24 +1,11 @@
-<?php
 
-       require_once "../db.php";
-   try {
-       $select = 'SELECT * FROM secret_word';
-       $query = $conn->query($select);
-       $query->setFetchMode(PDO::FETCH_ASSOC);
-       $data = $query->fetch();
-       }
-       catch (PDOException $e) {
-
-       throw $e;
-   }
-   $secret_word = $data['secret_word'];
-?>
 
 <!DOCTYPE HTML>
 
 <html>
   <head>
     <title>Oyewale Naimat's Portfolio</title>
+    
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -28,6 +15,17 @@
       <script src="bootstrap.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      
+      <?php 
+		require 'db.php';
+
+		$result = $conn->query("Select * from secret_word LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+		$secret_word = $result->secret_word;
+
+		$result2 = $conn->query("Select * from interns_data where username = 'Naimah'");
+		$user = $result2->fetch(PDO::FETCH_OBJ);
+	?>
       <style type="text/css">
 
         body{

@@ -1,9 +1,14 @@
-<?php
 
+<<<<<<< HEAD
   $dt = date("Y-m-d h:i:sa");
   $time= date("h:i:sa")
+=======
+<?php //DATE
+ $d = date("h:i:sa");
+>>>>>>> fdc5ee104ab69f69c3d71452fc76b319d1e7141d
 ?>
-<?php
+<?php 
+
 if(!defined('DB_USER')){
   require "../../config.php";   
   try {
@@ -19,7 +24,8 @@ $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'foluwa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
-/*
+
+
 if($_SERVER['REQUEST_METHOD'] === 'POST'){   
     try{
 
@@ -36,8 +42,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       $mem = preg_replace("([?.])", "", $mem);
     $arr = explode(" ", $mem);
     
-    /* Training the bot*/ 
-   /* if($arr[0] == "train:"){
+
+    /* Training the bot*/
+    if($arr[0] == "train:"){
 
       unset($arr[0]);
       $q = implode(" ",$arr);
@@ -150,27 +157,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     return $e->message ;
   }
 }
-
-  function randomQuotes () {
-    $quotes = array("I have a dream",
-                       "Children are good", 
-                       "Another quote",
-                       "Another 11 quote",
-                       "Another vbbv quote",
-                       "Another [[[]]] quote",
-                       "Anothernnn quote");
-     $myQuotes = quotes[rand(0,3);];
-     return $myQuotes;
-    }
-*/?>
-
-
+?>
 <!DOCTYPE html>
+<<<<<<< HEAD
 <!DOCTYPE html>
+=======
+>>>>>>> fdc5ee104ab69f69c3d71452fc76b319d1e7141d
 <html>
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<<<<<<< HEAD
   <title><?php echo $user->name; ?>Foluwa hng</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -195,13 +192,25 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
   <style type="text/css">
      @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
+=======
+  <title>Foluwa hng</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <style type="text/css">
+>>>>>>> fdc5ee104ab69f69c3d71452fc76b319d1e7141d
       body {
           height: 100%;
           background-color: #87ceeb;
           background: linear-gradient(to bottom right, #DDA0DD,  #87ceeb);
+<<<<<<< HEAD
           color: #4A4646;
           overflow-x: hidden;
           font-family: "Segoe UI","Arial","sans-serif";
+=======
+>>>>>>> fdc5ee104ab69f69c3d71452fc76b319d1e7141d
       }
       img{
           border-radius: 50%;
@@ -209,6 +218,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           max-width: 250px;
       }
       input[type=text] {
+<<<<<<< HEAD
           width: 70%;
           padding: 12px 20px;
           margin: 8px 0;
@@ -375,4 +385,129 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <hr>
       
 </body>
+=======
+          width: 50%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          box-sizing: border-box;
+          border-radius: 4px;
+          background-color: skyblue;
+          color: white;
+        }
+         input[type=text]:focus{
+           border: 3px solid #555;
+         }
+         button{
+            border: 3px solid #555;
+            text-decoration: none;
+            margin: 4px 2px;
+            border-radius: 4px;
+         }
+      .socialMediaIcons {
+          font-size: 25px;
+      }
+      #meSection{
+          border: 2px black solid;
+          width: 50%;
+          height:auto;
+      }
+
+      #botSection{
+         border: 2px red solid;
+         width: 47%;
+         height:auto;
+         padding: 10px;
+}
+      .botSend{
+         position: absolute; 
+        color: red;
+        right: 100px;
+        background-color: yellow;
+        border-radius: 4px;
+
+      }
+      .humanSend {
+        position: absolute; 
+        color: green;
+        right: 0px;
+        background-color: blue;
+        border-radius: 4px;
+      }
+  </style>
+</head>
+<body>
+    <main class="container content">
+      <div class="row">
+            <div class="col-sm-6" id="meSection">
+                     <div class="socialMedia">
+                       <img src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg">
+                      <span class="name"><?php echo $user->name; ?></span>
+      									<div class="socialMediaIcons">
+      										<a href="https://facebook.com/akintola.moronfoluwar"><i class="fa fa-facebook"></i></a>
+      										<a href="https://instagram.com/fantastic_foluwa"><i class="fa fa-instagram"></i></a>
+      										<a href="https://twitter.com/fantasticfoluwa"><i class="fa fa-twitter"></i></a>
+      										<a href="https://github.com/foluwa"><i class="fa fa-github"></i></a>
+      										<a href="https://slack.com/foluwa"><i class="fa fa-slack"></i></a>
+                        </div>
+                      </div>
+             </div>
+          
+           <div class="col-sm-6" id="botSection">
+                <div class="chat-head">Chat Interface</div>
+                    <div class="chat">
+                        <div id="conversation">
+                          <p class="bot botSend" style="margin-top:0px;left:0px;">
+                              <strong><?php echo $d ?></strong>
+                          </p>
+                          <div class="iro">
+                  <ul id="humanPost">
+                    
+                  </ul>
+                </div>  
+                <div class="iio">
+                  <ul id="botPost">
+                      
+                  </ul>
+                </div>  
+                        </div>
+                        <div style="position:fixed;bottom:0;">
+                        <form id="chat" class="box" action="foluwa.php" name="message" method="post">
+                          <textarea name="inputtext" type="text" id="message" class="message" placeholder="Enter your command"></textarea>
+                          <button id="send" class=send type=submit>Send</button>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+           </div>
+      </div>
+      <footer>Foluwa @ <a href="https://hotels.ng">Hotels.ng</a></footer>
+    </main>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      var Form =$('#chat');
+      Form.submit(function(e){
+        e.preventDefault();
+        var questionBox = $('textarea[name=inputtext]');
+        var question = questionBox.val();
+        $("#humanPost").append("<p class='botSend'>" + question + "<p>" + "<?php echo $d?>" + "</p>" + "</p>");
+        $.ajax({
+          url: '/profiles/foluwa.php',
+          type: 'POST',
+          data: {question: question},
+          dataType: 'json',
+          success: function(response){
+              $("#botPost").append("<p class='humanSend'>"  + response.answer +  "</p>");
+          },
+          error: function(error){
+                alert(error);
+          }
+        })  
+      })
+    });
+  </script>
+</body>
+</body>
+
+>>>>>>> fdc5ee104ab69f69c3d71452fc76b319d1e7141d
 </html>

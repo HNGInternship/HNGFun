@@ -1,6 +1,6 @@
 <?php 
 
- 
+
     $sql = 'SELECT secret_word FROM secret_word';
     $qword = $conn->query($sql);
     $qword->setFetchMode(PDO::FETCH_ASSOC);
@@ -15,7 +15,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JOTMEE'S PROFILE</title>
-    <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
 
     <style>
@@ -71,8 +73,9 @@
 </head>
 <body>
     <!--Jumbotron-->
-    <div class="main">
-            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+    <div class="container-fluid full-body">
+        <div class="row">
+            <div class="col-xs-12">
                 <?php
                 $myname = 'Jotmee';
                 $profile = $conn->prepare("SELECT * FROM interns_data WHERE username =:username");
@@ -83,7 +86,7 @@
                 foreach($user as $users){
                     echo '
 
-                    <div class="oj-flex-item oj-panel demo-mypanel">
+                    <div class="col-xs-12 col-sm-6 img">
                     <img height="auto" width="75%"  src="http://res.cloudinary.com/lumio/image/upload/v1524511783/'.$users->image_filename.'.jpg" alt="">
                     </div>
                     <h2>'. $users->name.'</h2>
@@ -93,20 +96,25 @@
                 }
                 ?>
                 <p>I am an aspiring software developer with intermediate programming skills, I actually didnt study IT or computer related course but I love Technology... It's a pity as much as I love programming I'm poor with designs...</p>
-                <div class="oj-sm-6">
+                <div class="experience col-xs-4 col-sm-4">
                     <h3>Skills</h3>
                     <p>C#, .NET, PHP, MYSQL, CSS AND HTML</p>
                 </div>
 
-                <div class="oj-sm-6">
+                <div class="education col-xs-4 col-sm-4">
                     <h3>Hobbies</h3>
                    <p> Surfing, Chess, Music and Talking</p>
+                </div>
+                <div class="education col-xs-4 col-sm-4">
+                    <h3>Work</h3>
+                    <p> Intern at HNG</p>
                 </div>
 
                 <div class="twitter-icon">
                     <a href="https://api.whatsapp.com/send?phone=2348034048405"><i class="fab fa-whatsapp"></i>WhatsApp Contact</a>
                 </div>
           </div>
+        </div>
     </div>   
 </body>
 </html>
