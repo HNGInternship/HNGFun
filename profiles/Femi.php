@@ -28,9 +28,9 @@
     </script>
     <script src="http://www.oracle.com/webfolder/technetwork/jet/js/libs/require/require.js"></script>
     <!-- RequireJS bootstrap file -->
-    <script src="../js/main.js"></script>
-    <script src="../js/demo.js"></script>
-    <link rel="stylesheet" href="../css/samples/cookbook/demo-grid.css" id="cookcss" type="text/css"/>
+    <script src=".http://www.oracle.com/webfolder/technetwork/jet./js/main.js"></script>
+    <script src="http://www.oracle.com/webfolder/technetwork/jet/js/demo.js"></script>
+    <link rel="stylesheet" href="http://www.oracle.com/webfolder/technetwork/jet/css/samples/cookbook/demo-grid.css" id="cookcss" type="text/css"/>
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
