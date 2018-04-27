@@ -3,7 +3,7 @@
 
 require_once("../../../config.php");
 var_dump(DB_HOST." ". DB_USER." ". DB_PASSWORD." ".DB_DATABASE);
-	$dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE);
+	$dbc = mysqli_connect(DB_HOST, DB_USER, "29gE9t*dJ2#2f-BS",DB_DATABASE);
 if (!$dbc) {
     die('Connect Error (' . mysqli_connect_errno() . ') '
             . mysqli_connect_error());
