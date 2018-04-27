@@ -9,7 +9,8 @@
 //   }
 
 try {
-      $sql = "SELECT * FROM interns_data WHERE username = 'befe'"; 
+      $user = 'befe';
+      $sql = "SELECT * FROM interns_data WHERE username = $user"; 
       $q = $conn->query($sql);
       $q->setFetchMode(PDO::FETCH_ASSOC);
       $data = $q->fetch();
@@ -82,8 +83,6 @@ if(isset($_POST['msgs'])){
             $separate[2] = trim($separate[2]);
         }
         
-        
-
         $pass = 'password';
 
         if($separatenum <= 1){
@@ -349,9 +348,9 @@ function fetchAnswer($msgss){
                 $('h3.second').hide();
                 $('h3.third').hide();
                $('input[type=text]').click(function(){
-                    $('.h3.first').show(500);
-                    $('.h3.second').show(500);
-                    $('.h3.third').show(500);
+                    $('h3.first').show(500);
+                    $('h3.second').show(500);
+                    $('h3.third').show(500);
                });
 
                function bot_chat(reply){
@@ -374,7 +373,7 @@ function fetchAnswer($msgss){
                     return false;
                     } else {
                         $.ajax({
-                        url: 'profile.php?id=befe',
+                        url: 'profiles/befe',
                         type: 'post',
                         cache: 'false',
                         data: {
