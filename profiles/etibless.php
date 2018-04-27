@@ -18,16 +18,19 @@ require ('db.php');
 <title>HNG Profile For etibless</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
+<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
+<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/default/js"></script>
+<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/3rdparty"></script>
+<script type="text/javascript" src="../js/main.js"></script>
+
 <style>
   body {
     font-family: 'Rationale', sans-serif;
+    background-color:gray;
   }
 
-  .card{
-    box-shadow: 0px 0px 2px #2196f3;
-    width: 50%;
-  }
+
 
   .h2{
       color: #563d7c;
@@ -42,21 +45,27 @@ require ('db.php');
   p{
       color: #93f990;
   }
+  .my{
+    padding-left:30%;
+  }
 
 </style>
 </head>
 
-<body class="bg-light">
+<body>
 
-<div class="main d-flex justify-content-center align-content-center ">
-  <div class="card mt-5 py-5">
-    <div class="my-3">
+
+<div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
+  <div class="oj-flex">
+    <div class="my">
             <p class="h2"><b>Hello Friend!</b></p>
-            <div class="d-flex justify-content-center">
-                <img src="http://res.cloudinary.com/dxv1e5ph1/image/upload/v1524143885/profile.jpg" class="img-thumbnail img-fluid rounded-circle w-25 h-25" alt="jobitez">
+            <div class="oj-sm-align-items-center">
+                <img src="http://res.cloudinary.com/dxv1e5ph1/image/upload/v1524143885/profile.jpg" class="img-thumbnail img-fluid rounded-circle w-10 h-10"  alt="etibless">
                   </div>
-                  <div style="padding:0 0 0 220px; text-shadow:1px 1px 1px #353435;">
-      
+                  </div>
+
+                  <div style="padding:0 0 0 220px; text-shadow:1px 1px 3px #353435;"> 
+    
       <p class="h4">My name is PRINCEWILL UDO EDWARD</p>    
       <p class="h4">This is my USERNAME: <b><i>etibless</b></p>
       <p >Thank you for stoping by</p>
@@ -64,14 +73,9 @@ require ('db.php');
           <br>A 400 Level Computer Engineering Student
           <br>of University of Uyo, Uyo.</b></p>
         </div>
-
-    
     </div>
   </div>
 </div>
 
 </body>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js""></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" ></script>
 </html>
