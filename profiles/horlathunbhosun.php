@@ -4,10 +4,14 @@
 <title>	Horlathunbhosun</title>
 <link rel="stylesheet" type="text/css" href="">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<<<<<<< HEAD
 <script
   src="http://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
+=======
+
+>>>>>>> 83406d496eb9c667c03527914e176b380315ed52
 <style>
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
@@ -81,22 +85,12 @@ p {
 }
 
 
-/*.chat .user-photo {
+.chat .user-photo {
 	width: 60px;
 	height: 60px;
 	background: #ccc;
 	border-radius: 50%;
-	 content:url('http://res.cloudinary.com/horlathunbhosun/image/upload/v1524247081/avatar.png');
 }
-
-
-.chat .user-friend {
-	width: 60px;
-	height: 60px;
-	background: #ccc;
-	border-radius: 50%;
-	 content:url('http://res.cloudinary.com/horlathunbhosun/image/upload/v1524247081/avatar-user-coder-3579ca3abc3fd60f-512x512.png');
-}*/
 
 .chat .chat-message {
 	width: 80%;
@@ -169,8 +163,37 @@ p {
 </style>
 </head>
 
-
 <?php
+if(!defined('DB_USER')){
+  require "../../config.php";
+	// require_once ('../db.php');
+}
+try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+
+global $conn;
+
+
+
+  $query = $conn->query("SELECT * FROM secret_word");
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    $secret_word = $result['secret_word'];
+
+
+    $result2 = $conn->query("SELECT * FROM interns_data WHERE  username = 'horlathunbhosun'");
+    $user = $result2->fetch(PDO::FETCH_OBJ);
+   // $user = $result2->fetch();
+
+ 
+
+<<<<<<< HEAD
+<?php
+=======
+?>
+>>>>>>> 83406d496eb9c667c03527914e176b380315ed52
 
 
  // session_start();
@@ -403,8 +426,12 @@ global $conn;
 
 
 
+<?php 
+   
+  
 
 
+ ?>
 
 
 <div class="container" style="padding-top: 100px;">
@@ -424,13 +451,10 @@ global $conn;
 						
 			</div>
 				</div>
-			<div class="col-md-6">	
-				<!-- http://localhost/HNGFun/profiles/horlathunbhosun.php -->
-			<!-- localhost/Hprofile.php?id=horlathunbhosun	 -->
+			<div class="col-md-6">			
 			<div class="chatbox">
-					<h5 style="font-size: 30px;"><center><span class="">Hi, My name is scoobydoo.</span></center>
-	</h5>
 				<div class="chatlogs">
+<<<<<<< HEAD
 					
              <div class="chat friend">
 				 
@@ -438,23 +462,49 @@ global $conn;
 				<p class="chat-message">Ask me anything. you can also train me by following the format below <code><br> train: question # answer # password</p>	
 				
 
+=======
+			<div class="chat friend">
+				<div class="user-photo"></div>
+				<p class="chat-message">What's up, Brother ..!!</p>	
 			</div>
-			
+			<div class="chat friend">
+				<div class="user-photo"></div>
+				<p class="chat-message">What's up, Brother ..!!</p>	
+>>>>>>> 83406d496eb9c667c03527914e176b380315ed52
+			</div>
 			<div class="chat self">
-				
-				<div class="user-friend"></div>
-				<!-- <p class="chat-message">What's up ..!!</p>	 -->
+				<div class="user-photo"></div>
+				<p class="chat-message">What's up ..!!</p>	
 			</div>
+<<<<<<< HEAD
 			
 			
 		</div>
 		<!-- /profile.php?id=horlathunbhosun.php -->
 
+=======
+			<div class="chat self">
+				<div class="user-photo"></div>
+				<p class="chat-message">A única área que eu acho, que vai exigir muita atenção nossa, e aí eu já aventei a hipótese de até criar um ministério. É na área de... Na área... Eu diria assim, como uma espécie de analogia com o que acontece na área agrícola.</p>	
+			</div>
+			<div class="chat friend">
+				<div class="user-photo"></div>
+				<p class="chat-message">No meu xinélo da humildade eu gostaria muito de ver o Neymar e o Ganso. Por que eu acho que.... 11 entre 10 brasileiros gostariam. Você veja, eu já vi, parei de ver. Voltei a ver, e acho que o Neymar e o Ganso têm essa capacidade de fazer a gente olhar.
+>>>>>>> 83406d496eb9c667c03527914e176b380315ed52
 
+				Todos as descrições das pessoas são sobre a humanidade do atendimento, a pessoa pega no pulso, examina, olha com carinho. Então eu acho que vai ter outra coisa, que os médicos cubanos trouxeram pro brasil, um alto grau de humanidade.
+				</p>	
+			</div>
+		</div>
 		<div class="chat-form">
+<<<<<<< HEAD
 			<!-- <input type="text" placeholder="Ask/Train me.." > -->
 			<textarea placeholder="Ask/train Me".. class="message-box"></textarea>
 			<button class="send-query" value="ask Me question">Send</button>
+=======
+			<textarea></textarea>
+			<button>Send</button>
+>>>>>>> 83406d496eb9c667c03527914e176b380315ed52
 		</div>
 	</div>
 
@@ -465,6 +515,7 @@ global $conn;
 		</div>
 	</div>	
 </body>
+<<<<<<< HEAD
 </html>
 <script type="text/javascript">
   window.onload = function() {
@@ -551,3 +602,6 @@ global $conn;
   }
 </script>
 					  <?php } ?>
+=======
+</html>
+>>>>>>> 83406d496eb9c667c03527914e176b380315ed52
