@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 if($_SERVER['REQUEST_METHOD']==='GET'){
  try {
      $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'nedy'");
@@ -98,6 +99,9 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
 //       return ;
 //     }
 // }
+=======
+
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 ?>
 
 <!DOCTYPE html>

@@ -1,13 +1,15 @@
-<?php
+<?php 
 
 if(!defined('DB_USER')){
   require "../../config.php";		
-  try {
-      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-  } catch (PDOException $pe) {
-      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-  }
+	  try {
+	    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+	  
+	} catch (PDOException $pe) {
+	    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	}
 }
+	
 
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -15,17 +17,12 @@ $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
-///////////////////////////////////////////////////////////////
-
 
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    require "../answers.php";
+    include "../answers.php";
     
-    date_default_timezone_set("Africa/Lagos");
-
-
     try{
 
 	    if(!isset($_POST['question'])){
@@ -52,11 +49,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				# code...
 				echo json_encode([
 					'status' => 0,
-					'answer' => "You need to enter a password to train me.",
+					'answer' => "You need to enter a password to train me."
 				]);
 				return;
 			}
-			
 			$password = trim($queries[2]);
 			//to verify training password
 			define('trainingpassword', 'password');
@@ -90,10 +86,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		elseif ($arr[0] == "help") {
 			echo json_encode([
 				'status' => 1,
-				'answer' => "Type 'aboutbot' to know about me. You can also convert cryptocurrencies using this syntax.
-				'convert btc to usd",
+				'answer' => "You can train me by using this format ' train: This is a question # This is the answer # password '. You can also convert cryptocurrencies using this syntax.'convert btc to usd"
+				
 			]);
-			return;	
+			return;
+			
 		}
 		elseif ($arr[0] == "convert") {
 			# code...
@@ -111,7 +108,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	    	# code...
 	    	echo json_encode([
 	    		'status'=> 1,
-	    		'answer' => "I am MATRIX, Version 1.0.0. You can train me by using this format ' train: This is a question # This is the answer # password '"
+	    		'answer' => "I am MATRIX, Version 1.0.0. "
 	    	]);
 	    	return;
 	    }
@@ -177,12 +174,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		return $e->message ;
 	}
 }
-
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>  <?php echo $user->name ?></title>
+	<title>  <?=$my_data['name'] ?></title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
@@ -196,22 +192,29 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    background-repeat: no-repeat;
 		    background-size: cover;
 		}
+		h1{
+			text-align: center;
+			color: red;
+		}
 		p{
 			text-align: center;
 			font-size: 60px;
 			color: red;
 		}
+		#p1{
+			text-align: center;
+			font-size: 60px;
+		}
 		#info{
 			text-align: center;
 			font-size: 30px;
 		}
-		#sidebar{
-			width: 380px;
-			height: 600px;
-			position: relative;
+		.sidebar{
+			width: 400px;
+			height: 590px;
 		}
-		#bbb{
-			width: 780px;
+		.bbb{
+			width: 790px;
 			height: 590px;
 			float: right;
 		}
@@ -225,7 +228,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			color: #FFF;
 			padding: 7px;
 			position: absolute;
-			width: 350px;
+			width: 400px;
 			height: auto;
 		}
 		input{
@@ -235,7 +238,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    box-sizing: border-box;
 		}
 		textarea{
-		    width: 65%;
+		    width: 80%;
 		    box-sizing: border-box;
 		    border: 2px solid #ccc;
 		    border-radius: 4px;
@@ -288,51 +291,55 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			left: -3px;
             background-color: #00b0ff;
 		}
-		.iio{
-			float: left;
+		.iro{
+			float: right;
 			color: red;
 			font-size: 15px;
 			font-family: Ubuntu;
 		}
+		.iio{
+			float: left;
+			margin-right: 90px;
+			color: red;
+			font-size: 15px;
+			font-family: Ubuntu;
+		}
+		#bot{
+			margin-bottom: 10px;
+			margin-top: 10px;
+		}
+		#you{
+			margin-bottom: 10px;
+			margin-top: 10px;
+		}
 	</style>
 </head>
-<body class="oj-web-applayout-body " >
-	<div class="demo-flex-display oj-flex-items-pad oj-contrast-marker">
-		<?php
-    global $conn;
-    try {
-        $sql2 = 'SELECT * FROM interns_data WHERE username="adeyefa"';
-        $q2 = $conn->query($sql2);
-        $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $my_data = $q2->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    ?>
-		<div id="bbb">
-	    	<div>
-	    		<div class="oj-flex">
-					<div class="oj-flex-item"> <p> HELLO WORLD </p> </div>
-				</div>
-				<div class="oj-flex">
-					<div class="oj-flex-item"><p>I am   <?=$my_data['name'] ?></p> </div>
-				</div>
-				<div class="oj-flex">
-					<div class="oj-flex-item"><p>A Blogger, Web Developer and Programmer</p> </div>
-				</div>
+<body>
+	<div class="iii">
+		<div class="bbb">
+	    	<div class="main">
 				<p>
+					HELLO WORLD
+				</p>
+				<p id="p1">
+					I am  <?=$my_data['name'] ?>
+				</p>
+				<p id="info">
+					A Web developer, blogger and Software engineer
+				</p>
+				<p id="fav">
 					<a href="https://github.com/sainttobs"><i class="fa fa-github"></i></i></a>
 					<a href="https://twitter.com/9jatechguru"><i class="fa fa-twitter"></i></i></a>
 					<a href="https://web.facebook.com/toba.adeyefa"><i class="fa fa-facebook"></i></i></a>	
 				</p>
 			</div>
 	    </div>	
-		<div id="sidebar">
+		<div class="sidebar">
 			<div class="head">
 				<h2> Chat With MyBot</h2>
 			</div>
 			<div class="row-holder">
-				<div>
+				<div class="row2">
 					<div id="form">
 						<form id="qform" method="post">
 							<div id="textform">
@@ -341,9 +348,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
-									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about what i can do type 'help'
+									Hi,i am MATRIX, the bot, i can answer basic questions. To know about my functions type 'help'
 								</div>
+								<div class="iro">
 									
+								</div>	
 								<div class="iio">
 									<ul id="ans">
 											
@@ -364,17 +373,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#ans").append("<li> You: " + question + "</li>");
-					//let newMessage = `<div class="iro">
-	                  //${question}
-	                //</div>`
+				$("#ans").append("<li id='you'> You: " + question + "</li>");
+					
 				$.ajax({
 					url: '/profiles/Adeyefa.php',
 					type: 'POST',
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#ans").append("<li> MATRIX: "  + response.answer +  "</li>");
+			        $("#ans").append("<li id='bot'>Bot: " + response.answer + "</li>");
 			       // console.log(response.result);
 			        //alert(response.result.d);
 			        //alert(answer.result);
@@ -382,7 +389,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					},
 					error: function(error){
 						//console.log(error);
-				        alert(JSON.stringify(error));
+				        alert(error);
 					}
 				})	
 			})
