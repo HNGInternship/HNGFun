@@ -84,11 +84,15 @@
   border-radius: 50%;
   font-family: serif;
   font-weight: bolder;
+  opacity: 0.2px;
+  filter: alpha;
+
   }
   img{
     width: 10rem;
     border-radius: 30%;
     margin-left: 300px;
+
   }
 </style>
 
