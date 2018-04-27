@@ -23,7 +23,9 @@ $image_url = $row['image_filename'];
 // chatbot
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
-	$question = $_POST['text_in'];
+	if(isset($_POST['text_in'])){
+		$question = $_POST['text_in'];
+	
 	
 	 // bot version
     if(stripos($question,'aboutbot') !== false){
@@ -78,13 +80,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 	
 	
+	}
 	
 	}
 	else{
 	
 	
 	
-
+}
 ?> 
 <!DOCTYPE html>
 <!--
@@ -307,10 +310,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$.ajax({
 				url: '/profiles/maaj.php', //location
 				type: 'POST',
-				data: {text_in: text_in},
+				data: {text_in:text_in},
 				dataType: 'json',
 				success: (response) => {
-				console.log(response);
+					console.log(response);
 			        response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
 			        let response_answer = response.answer;
 			        message.append("<div class='bot'><div class='message'><img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/>" +response_answer+ "</div></div>");      
