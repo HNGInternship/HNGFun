@@ -11,12 +11,11 @@ try {
 	throw $e;
 }
 global $conn;
-if (true){
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 	echo json_encode(['status'=>1,'data'=>'welcome']);
 	}
 
-	else{ 
-		echo json_encode(['status'=>0,'data'=>'i think i am the problem']);
+	
 		?>
 <!DOCTYPE html>
 
@@ -293,10 +292,9 @@ if (true){
 					// alert(responseMessage('I am a little bot'));
 				}
                  $.ajax({
-                     url:"/profiles/segunemma2003.php",
-                     type: "POST",
+                     url:"/profiles/segunemma2003",
                      dataType: "json",
-		     
+		     type:"POST",
                      data : {message: message},
                      success: function(res){
 
@@ -342,6 +340,6 @@ if (true){
 	</div>
 </body>
 </html>
-<?php } ?>
+
 
 
