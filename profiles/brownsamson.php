@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
     require_once 'db.php';
+    
     $result = $conn->query("Select * from secret_word LIMIT 1");
     $result = $result->fetch(PDO::FETCH_OBJ);
     $secret_word = $result->secret_word;
@@ -237,7 +238,6 @@
               }
 
               #chatcon{
-
                 width: 350px;
                 height: 85vh;
                 background: #F2F2F3;
@@ -246,7 +246,9 @@
                 right:-100%;
                 padding: 15px 0 10px 15px;
                 border-radius: 5px;
+                /*display: none;*/
                 transition: right 1s ease-in-out 0.05s;
+                /*transition: right 1s ease-in-out 0.05s;*/
 
               }
               .message-con{
@@ -323,6 +325,44 @@
                 position: absolute;
                 right: -5%;
                 bottom: 20%;
+              }
+
+              @media only screen and (max-width: 572px){
+                #chatcon{
+                  width: 100%;
+                  display: table;
+                  height: 450px;
+                  position: static;
+                  bottom:30px;
+                  padding: 15px 15px 10px 15px;
+                  margin: 20px 0 20px 0;
+                  border-radius: 5px;
+                  display: none;
+                  transition: right 1s ease-in-out 0.05s;
+
+                }
+
+                .message-con{
+                  width: 100%;
+                  height: 65%;
+                  background-color: #FFFFFF;
+                  padding: 20px 10px 10px 10px;
+                  overflow-y: scroll;
+                  display:flex;
+                  flex-direction: column-reverse;
+                }
+
+                .textarea-con{
+                  padding: 0px;
+                  width: 100%;
+                  height: 14vh;
+                }
+
+                .form-group{
+                  margin: 10px 0;
+                  padding-right: 0px;
+                }
+
               }
 
         </style>
@@ -474,7 +514,10 @@
                 }
             }, 150);
 
-
+            var scrollingElement = (document.scrollingElement || document.body);
+            function scrollToBottom () {
+               scrollingElement.scrollTop = scrollingElement.scrollHeight;
+            }
             var messageBottonBlink = setInterval(function(){
               var chatIco = document.getElementById('chat-icon-con');
               chatIco.style.backgroundColor = m;
@@ -501,10 +544,15 @@
         chatIcon.addEventListener("click", function(){
           if (this.innerHTML == realMessageCancel){
             this.innerHTML = realMessageIcon;
+            document.getElementById('chatcon').style.display = "none";
             document.getElementById('chatcon').style.right = "-100%";
+            scrollingElement.scrollTop = 0;
           } else {
             this.innerHTML = realMessageCancel;
+            document.getElementById('chatcon').style.display = "table";
             document.getElementById('chatcon').style.right = "10%";
+            scrollingElement = (document.scrollingElement || document.body)
+            scrollingElement.scrollTop = 435;
             if (firstMessage == 0){
               getMessageSam('intro');
               getMessageSam('request name');
