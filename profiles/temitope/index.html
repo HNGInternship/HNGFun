@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Oracle JET Starter Template - Web Basic</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
+    <link rel="icon" href="css/images/favicon.ico" type="image/x-icon" />
+
+    <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+    
+
+    <style>
+
+      body{
+        font-family: 'roboto';
+        background-image: url('https://res.cloudinary.com/dzbxciyvo/image/upload/v1524148027/imageedit_1_9203304264.gif');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+      }
+
+      .profile{
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 400px;
+        height: 400px;
+      }
+
+      .span-width{
+        width: 80%;
+      }
+
+     
+      .bot-panel{
+      height: 80vh;
+      min-height: 400px;
+      width: 90%;
+      padding: 0;
+      border: none;
+      max-width: 400px;
+    }
+
+    @media(min-width: 750px){
+      .bot-panel{
+        position: fixed;
+        right: 0;
+        bottom: 0;
+      }
+    }
+
+    .bot-panel .card-header{
+      background-color: rgba(173, 88, 31, 0.85);
+      color: #fff;
+      height: 20%;
+    }
+
+    .bot-panel .card-body{  
+      overflow-y: scroll;
+      height: 65%;
+      padding: 10px;
+      
+    }
+
+    .gracie-icon{
+      max-width: 60px;
+      border: 1px solid #fff;
+      border-radius: 50%;
+    }
+
+    .msj:before{
+        width: 0;
+        height: 0;
+        content:"";
+        top:-5px;
+        left:-14px;
+        position:relative;
+        border-style: solid;
+        border-width: 0 13px 13px 0;
+        border-color: transparent #f1a97a transparent transparent;            
+    }
+    .msj-rta:after{
+        width: 0;
+        height: 0;
+        content:"";
+        top:-5px;
+        left:14px;
+        position:relative;
+        border-style: solid;
+        border-width: 13px 13px 0 0;
+        border-color: whitesmoke transparent transparent transparent;           
+    }  
+
+    .text{
+        width:75%;display:flex;flex-direction:column;
+    }
+
+    .text-r{
+        float:right;padding-left:10px;
+    }
+
+    .avatar{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        width:25%;
+        float:left;
+        padding-right:10px;
+    }
+    .macro{
+        margin-top:5px;width:85%;border-radius:5px;padding:5px;display:flex;
+    }
+    .msj-rta{
+        float:right;background:whitesmoke;
+    }
+    .msj{
+        float:left;background:#f1a97a;
+    }
+    </style>
+
+  </head>
+  <body class="oj-web-applayout-body">
+    <div id="globalBody" class="oj-web-applayout-page">
+      
+
+      <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content">
+        
+
+        <div class="demo-flex-display">
+            <div class="oj-sm-odd-cols-12 oj-md-odd-cols-6 oj-flex-items-pad">
+              <div class="oj-flex">
+                  <div class="oj-flex-item" style="height: 100%;">
+                    <div class="profile oj-panel oj-panel-shadow-sm oj-sm-margin-2x demo-panel-customizations">
+                      <div class="profile-img" style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden; margin-left: auto; margin-right: auto;">
+                        <img style="width: 200px;" src="https://res.cloudinary.com/dzbxciyvo/image/upload/v1523701236/IMG_20180317_103431.jpg">
+                        
+                      </div>
+                      <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-center">
+                        <div class="oj-flex-item" style="text-align: center;">
+                          <h1>Ilesanmi Temitope</h1>
+                           <span> @temitope </span> <oj-button class='oj-button-primary'> <span slot="startIcon" class="fab fa-slack" width="16" height="16"></span> Slack </oj-button>
+
+                          <oj-button class='oj-button-primary span-width'>
+                            <span slot="startIcon" class="fa fa-sticky-note" width="16" height="16"></span>
+                            HNG 4.0 INTERN
+                          </oj-button>
+                        </div>
+                      </div>
+                      
+
+                    </div>
+                      
+                  </div>
+
+                  <div class="oj-flex-item" style="height: 100%;">
+                    <div class="bot-panel oj-panel oj-panel-shadow-sm oj-sm-margin-2x demo-panel-customizations">
+                      <div class="card-header">
+                        <img src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="gracie-icon"> <h4 class="ml-3 d-inline" style="font-size: 1.2rem; font-weight: 500;">Gracie</h4>
+                      </div>
+                      <div class="card-body" id="chatWindow">
+            
+                  <!-- Gracie's message -->
+                              <div class="msj macro">
+                              <div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="gracie-icon"></div>
+                                  <div class="text text-l">
+                                      <p>Hi! My name is Gracie. How may I be of service today?</p>
+                                      
+                                  </div>
+                              </div>
+                          <!-- Gracie's message -->
+                              <div class="msj macro">
+                              <div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="gracie-icon align-self-start"></div>
+                                  <div class="text text-l">
+                                      <p>You can ask me any questions, let's see if I can answer them. You could also train me by entering the following format: <br>
+                                        <code class="text-white">train: your question # the correct answer # password</code>
+                                      </p>
+                                      
+                                  </div>
+                              </div>
+                              <?php if (isset($question)) {
+                                ?>
+                              
+                          <!-- User's message -->
+                        
+                              <div class="msj-rta macro">
+                                  <div class="text text-r">
+                                      <p><?php echo $question; ?></p>
+                                      
+                                  </div>
+                              <div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="http://simpleicon.com/wp-content/uploads/user1.png" /></div>
+
+                            </div>
+
+                            <?php } ?>
+
+                        <?php if (isset($answer)) { ?>
+                    <!-- Gracie's message -->
+                              <div class="msj macro">
+                              <div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="gracie-icon"></div>
+                                  <div class="text text-l">
+                                      <p><?php echo $answer; ?></p>                                
+                                  </div>
+                              </div>
+                          <?php } ?>
+
+                      </div>
+
+                      <div class="card-footer">
+                        <form class="form-inline" method="post" id="messageForm">
+                          <div class="form-group mb-2 col-10 mr-auto">
+                            <label for="message" class="sr-only">Message</label>
+                            <input type="text" class="col-12 form-control" id="message" name="message" placeholder="Type Here">
+                          </div>
+                          <button type="submit" class="col-2 mx-auto btn btn-primary mb-2"><i class="fa fa-paper-plane"></i></button>
+
+                        </form>
+                        
+                      </div>
+                      
+
+                    </div>
+                      
+                  </div>
+              </div>       
+              
+            </div>
+          </div>  
+      </div>
+      
+    </div>
+    
+    <!-- RequireJS bootstrap file -->
+    <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty//require/require.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+  </body>
+
+</html>
