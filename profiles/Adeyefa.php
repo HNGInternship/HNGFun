@@ -172,7 +172,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	}catch (Exception $e){
 		return $e->message ;
 	}
-}
+} else{
+
+	
 ?>
 <!DOCTYPE html>
 <html>
