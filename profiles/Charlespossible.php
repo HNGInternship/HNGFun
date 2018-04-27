@@ -2,7 +2,6 @@
     <?php
         
     require_once 'db.php';
-   
 
     try {
     $sql = "SELECT * FROM secret_word";
@@ -182,7 +181,6 @@
 </html>
 
 <?php
-
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	if(isset($_POST['message']) && $_POST['message'] != "")
 	{
@@ -196,7 +194,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			$split_string = explode("#", $myString);
 			$newQuestion = mysqli_real_escape_string($connect, ltrim($split_string[0], "train: "));
 			$newAnswer = mysqli_real_escape_string($connect, $split_string[1]);
-			
+		
 			$trainBot = mysqli_query($connect, "INSERT INTO chatbot (id, question, answer) VALUES(0, '$newQuestion', '$newAnswer')");
 			if($trainBot){
 				echo json_encode(['posit' => 1, 'info' => "Thanks for your mentorship. Am gratefull!"]);
@@ -278,11 +276,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					background: #fff;
 					box-model: border-box;
 				}
-				.myRow-head{
-                			background: #007bff !important;
-					padding: 5px;
-               				color: #fff;
-           			 }
 				.myContainer > .myRow{
 					
 				}
@@ -339,9 +332,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		
 		<div class="myContainer">
 			<div class="myRow">
-				<div class="myRow-head">Talk To Me
-					<span class="minimize fa fa-remove"></span>
-				</div>
 				<div class="myRow-body">
 					<span class="design reciever">
 						<span class="name">Dubem</span>
