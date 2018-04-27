@@ -227,7 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     return $e->message ;
   }
   
-} else {};
+} else {
 ?>
 
 <div class="row container">
@@ -257,7 +257,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 	<div id = "about" class="about">
 		<div class="about-info">
-				<h3>ABOUT ME</h3>
+				<h3>ABOUT</h3>
 				<h4>Who I am and why I design</h4>
 				<p>I am Ernest Paul but i am porpularly known as epopsiky. I am a web designer. 
 					I design because of my passion for designing. Since my kiddies time i've 
@@ -335,3 +335,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	});
 </script>
 </div>
+<?php 
+   };
+?>

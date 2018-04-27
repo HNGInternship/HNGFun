@@ -1,6 +1,7 @@
 <?php
 
-if (include('config.php')){
+include realpath(__DIR__ . '/..') . "/db.php" ;
+global $conn;
 
 $db_query = "SELECT * FROM interns_data WHERE username = 'Olusegun' LIMIT 1";
 $result = mysqli_query($conn, $db_query);
@@ -16,11 +17,8 @@ $name = $result_array['name'];
 $username = $result_array['username'];
 $image_filename = $result_array['image_filename'];
 $secret = $secret_array['secret_word'];
-}
 
-else {
-	echo "Error!";
-}
+
 ?>
 
 <!DOCTYPE html>
