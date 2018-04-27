@@ -187,10 +187,10 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
       }
 
       .profile{
-        width: 80%;
+        width: 95%;
         margin-left: auto;
         margin-right: auto;
-        max-width: 400px;
+        max-width: 600px;
         height: 400px;
       }
 
