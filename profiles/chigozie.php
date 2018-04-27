@@ -337,7 +337,7 @@
 							<span class="fa fa-user f-icon"></span>
 						</div>
 
-						<div class="col-md-8 single-message-bg">
+						<div class="col-md-8 'single-message-bg">
 							<p>Welcome! My name is <span style="font-weight: bold">Optimus Prime</span></p>
 						</div>
 					</div>
