@@ -291,15 +291,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			left: -3px;
             background-color: #00b0ff;
 		}
-		.iro{
-			float: right;
-			color: red;
-			font-size: 15px;
-			font-family: Ubuntu;
-		}
 		.iio{
 			float: left;
-			margin-right: 90px;
 			color: red;
 			font-size: 15px;
 			font-family: Ubuntu;
@@ -349,9 +342,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 							<div id="bot_reply">
 								<div class="irr">
 									Hi,i am MATRIX, the bot, i can answer basic questions. To know about my functions type 'help'
-								</div>
-								<div class="iro">
-									
 								</div>	
 								<div class="iio">
 									<ul id="ans">
@@ -389,7 +379,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					},
 					error: function(error){
 						//console.log(error);
-				        alert(error);
+				        alert(JSON.stringify(error));
 					}
 				})	
 			})
