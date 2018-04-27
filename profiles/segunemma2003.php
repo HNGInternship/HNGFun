@@ -51,16 +51,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 			{
 
                     		echo json_encode(['status'=>1, 'data'=>'Alright gonna put it in mind']);
+				return;
 				
 			}
 			else
 			{
 				echo json_encode(['status'=>0, 'data'=>'Aw, I don\'t get']);
+				return;
 			}
           	}
             	else
 		{
                 	echo json_encode(['status'=>0, 'data'=>'You\'re not authorized to teach me']);
+			return;
 		}
 	}
 	else
@@ -77,10 +80,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 				$index = rand(0, count($result)-1);
 				$response = $result[$index]['answer'];
 				echo json_encode(['status'=>1, 'data'=>$response]);
+				return;
 			}
 			else
 			{
 				echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br>just use the following pattern train: what is the time? # The time is#password']);
+				return;
 			}
 	}
 }
@@ -390,12 +395,14 @@ try {
 
                              if (res.status ===0){
                                 chat.val('');
+				     console.log(res.data);
                                 container.append(responseMessage(res.data));
                                 $('.chatlogs').scrollTop($('.chatlogs')[0].scrollHeight);
 								//alert($('.chatlogs').scrollTop($('.chatlogs')[0].scrollHeight));
                              }
                             if (res.status ===1){
                                 chat.val('');
+				    console.log(res.data);
                                container.append(responseMessage(res.data));
 							   $('.chatlogs').scrollTop($('.chatlogs')[0].scrollHeight);
                             }
