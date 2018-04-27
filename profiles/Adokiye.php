@@ -151,6 +151,9 @@ function askQuestion($input)
     <title>Adokiye ---- Stage 4</title>
     <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
     <style type="text/css">
+        body{
+            background-color: white;
+        }
         .mycss
         {
             text-shadow:1px 3px 1px rgba(255,255,255,1);font-weight:bold;text-transform:uppercase;color:#000000;border: 5px ridge #FFFFFF;letter-spacing:5pt;word-spacing:2pt;font-size:20px;text-align:center;font-family:arial, helvetica, sans-serif;line-height:1;
@@ -274,7 +277,7 @@ $username = 'Adokiye';
                         style="color: #6FB0CB; font-size: 30px;">my</span></span> PROFILE</p>
     </div>
     <marquee onmouseover="this.stop();" onmouseout="this.start();">
-        <p style=" color: #FFFFFF;font-family: arial, sans-serif; font-size: 14px;font-weight: bold;letter-spacing: 0.3px;">
+        <p style=" color: #0c5460;font-family: arial, sans-serif; font-size: 14px;font-weight: bold;letter-spacing: 0.3px;">
             ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="color: #0C1621">TRAIN: YOUR QUESTION#YOUR ANSWER#password</span>
             TO ADD MORE QUESTIONS TO THE DATABASE</p>
     </marquee>
@@ -284,11 +287,12 @@ $username = 'Adokiye';
         <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
         <img src="http://res.cloudinary.com/gorge/image/upload/v1523960782/Screenshot_20180414-113840.png" width="120" height="131" alt=""/>
     </div>
-    <p class="oj-sim-6">Chatbot by Adokiye<br />Click on show below to display the password for training me<br/>Enter help, quote or joke<br/>to see qhat i can do</p><br /><button onclick="show_function()" class = "btn btn-primary mb-2">SHOW</button>
+    <p style="font-size: 26px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif">Chatbot by Adokiye<br />Enter help, quote or joke<br/>to see what i can do<br/></p><br />
+
     <form name = "askMe" class="form-inline"  method="post">
         <p>
             <label>
-                <input name="input" type="text" class="form-control"  placeholder="Chat with me! Press Ask to send.">
+                <input name="input" type="text" class="tb5"  placeholder="Chat with me! Press Ask to send.">
             </label><label>
                 <input name="button" type="submit"  class="btn btn-primary mb-2" id="button" value="ASK"><label>
                     <input name="restart" type="submit"   id="button" value="Restart">

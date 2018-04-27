@@ -251,7 +251,7 @@
             <div class="panel-body" align="center" style="padding: 30px 10px 20px 10px">
               <h4 class= "hello">Hello! I'm</h4>
               <h1 class="name"><b><?php echo $name; ?></b></h1>
-              <p style="font-size:20px">IT graduate, Web Designer and Blogger from Lagos, Nigeria</p>
+              <p style="font-size:20px">Rookie Web Developer, Writer and Blogger from Lagos, Nigeria</p>
               <div>
                   <span class="fa fa-html5 icons html5"></span> &nbsp; &nbsp;
                   <span class="fa fa-css3 icons css3"></span>
