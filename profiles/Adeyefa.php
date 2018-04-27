@@ -11,11 +11,11 @@ if(!defined('DB_USER')){
 	
 
 
-/*$result = $conn->query("Select * from secret_word LIMIT 1");
+$result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
-$user = $result2->fetch(PDO::FETCH_OBJ);*/
+$user = $result2->fetch(PDO::FETCH_OBJ);
 
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -177,7 +177,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 <!DOCTYPE html>
 <html>
 <head>
-	<title>  <?php echo $user->name ?></title>
+	<title>  <?=$my_data['name'] ?></title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
@@ -320,13 +320,23 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    global $conn;
 
 		    try {
-		        $sql2 = 'SELECT * FROM interns_data WHERE username="melody"';
+		        $sql2 = 'SELECT * FROM interns_data WHERE username="adeyefa"';
 		        $q2 = $conn->query($sql2);
 		        $q2->setFetchMode(PDO::FETCH_ASSOC);
 		        $my_data = $q2->fetch();
 		    } catch (PDOException $e) {
 		        throw $e;
 		    }
+
+		    try {
+		        $sql = 'SELECT * FROM secret_word';
+		        $q = $conn->query($sql);
+		        $q->setFetchMode(PDO::FETCH_ASSOC);
+		        $data = $q->fetch();
+		    } catch (PDOException $e) {
+		        throw $e;
+		    }
+		    $secret_word = $data['secret_word'];
 	    ?>
 		<div class="bbb">
 	    	<div class="main">
@@ -334,7 +344,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					HELLO WORLD
 				</p>
 				<p id="p1">
-					I am  <?php echo $user->name ?>
+					I am  <?=$my_data['name'] ?>
 				</p>
 				<p id="info">
 					A Web developer, blogger and Software engineer
