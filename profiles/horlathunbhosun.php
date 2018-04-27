@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>	Horlathunbhosun</title>
+<title>Horlathunbhosun| Portifolio</title>
 <link rel="stylesheet" type="text/css" href="">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <<<<<<< HEAD
