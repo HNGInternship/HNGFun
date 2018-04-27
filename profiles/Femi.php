@@ -16,21 +16,22 @@
     <meta http-equiv="x-ua-compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="http://www.oracle.com/webfolder/technetwork/jet/css/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://github.com/HNGInternship/HNGFun/tree/master/profiles/xqution/css/images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="https://github.com/HNGInternship/HNGFun/tree/master/profiles/xqution/css/images/touchicon.png">
     <meta name="apple-mobile-web-app-title" content="Oracle JET">
-    <link rel="stylesheet" id="css" href="http://www.oracle.com/webfolder/technetwork/jet/css/libs/oj/v5.0.0/alta/oj-alta-min.css">
-    <link rel="stylesheet" href="./css/app.css">
+    <link rel="stylesheet" id="css" href="https://github.com/HNGInternship/HNGFun/tree/master/profiles/xqution/css/libs/oj/v5.0.0/alta/oj-alta-min.css">
+    <link rel="stylesheet" href="https://github.com/HNGInternship/HNGFun/tree/master/profiles/xqution/css/app.css">
     <script>
       // The "oj_whenReady" global variable enables a strategy that the busy context whenReady,
       // will implicitly add a busy state, until the application calls applicationBootstrapComplete
       // on the busy state context.
       window["oj_whenReady"] = true;
     </script>
-    <script src="http://www.oracle.com/webfolder/technetwork/jet/js/libs/require/require.js"></script>
+    <script src="https://github.com/HNGInternship/HNGFun/tree/master/profiles/xqution/js/libs/require/require.js"></script>
     <!-- RequireJS bootstrap file -->
-    <script src=".http://www.oracle.com/webfolder/technetwork/jet./js/main.js"></script>
-    <script src="http://www.oracle.com/webfolder/technetwork/jet/js/demo.js"></script>
-    <link rel="stylesheet" href="http://www.oracle.com/webfolder/technetwork/jet/css/samples/cookbook/demo-grid.css" id="cookcss" type="text/css"/>
+    <script src="https://github.com/HNGInternship/HNGFun/tree/master/profiles/xqution/js/main.js"></script>
+    <script src="https://github.com/HNGInternship/HNGFun/tree/master/profiles/xqution/js/appController.js"></script>
+    <link rel="stylesheet" href="https://github.com/HNGInternship/HNGFun/tree/master/profiles/xqution/css/samples/cookbook/demo-grid.css" id="cookcss" type="text/css"/>
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
