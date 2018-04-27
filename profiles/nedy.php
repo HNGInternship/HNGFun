@@ -18,7 +18,7 @@ try {
   throw $e;
 }
 if($_SERVER['REQUEST_METHOD']==='POST'){
-    // require '../../config.php';
+    require '../../config.php';
     $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
             if(!$conn){
                 echo json_encode([
