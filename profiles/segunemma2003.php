@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 		$q_s_p = $first_test[1];
 		$second_test = explode('#', $q_s_p);
 		$question = trim($second_test[0]);
-		$question = trim($question, "?");
+		//$question = trim($question, "?");
 		$answer = trim($second_test[1]);
 		$pass = trim($second_test[2]);
 
@@ -413,10 +413,7 @@ try {
                 }
 
                 function sentMessage(response){
-                    return   '<div class="chat self">'+
-									'<div class="user-photo"></div>'+
-									'<p class="chat-message">'+ response + '</p>'+	
-										'</div>';
+                    return   `<div class="chat self"><div class="user-photo"></div><p class="chat-message">${response}</p></div>`;
 							
 							
                 }
