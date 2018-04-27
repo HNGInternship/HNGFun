@@ -118,13 +118,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         elseif(preg_match("/^help/", $question))
         {
         	echo json_encode([
-                'status'=>1,
-                'answer' =>`The following are the available commands<br>
+		$res=`The following are the available commands<br>
                 To Train: train:question#answer#password<br>
                 To convert currency: currency(fromCurrency,toCurrency,amount)<br>
                 To check weather: weather(country,city)<br>
-                To check time of any city: cityTime(Continent/city)
-                `
+                To check time of any city: cityTime(Continent/city)`
+                'status'=>1,
+                'answer' => $res
             ]);
             return;
         }
