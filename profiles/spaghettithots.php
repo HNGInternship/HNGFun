@@ -44,10 +44,6 @@
 
 			}
 
-			.ul{
-
-			}
-
 			.gray-bkgd{
 				background-color: rgba(200, 200, 200, 1);
 			}
@@ -67,12 +63,13 @@
 
 			.list-item{
 				border-bottom: 2px solid rgba(80, 80, 80, 1);
-				padding-top: 1em;
+				padding-top: 0.3em;
 				width: 300px;
 				height: 35px;
 				list-style-type: none;
 				font-family: "Raleway";
-				font-size: 0.9em;
+				font-style: italic;
+				font-size: 0.8em;
 				opacity: 0.9;
 				padding-left: 1em;
 			}
@@ -126,6 +123,8 @@
 			}
 
 			$secret_word = $data['secret_word'];
+
+			// var_dump($secret_word);
 		?>
 
 		<!-- Main HTML content -->

@@ -1,16 +1,24 @@
 <?php
-// //Fetch User Details
-// // require '../db.php';
-// try {
-//     $query = "SELECT * FROM interns_data_ WHERE username ='john'";
-//     $resultSet = $conn->query($query);
-//     $result = $resultSet->fetch(PDO::FETCH_ASSOC);
-// } catch (PDOException $e){
-//     throw $e;
-// }
-// $username = $result['username'];
-// $fullName = $result['name'];
-// $picture = $result['image_filename'];
+//Fetch User Details
+if(!defined('DB_USER')){
+  require "../../config.php";		
+  try {
+      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
+}
+global $conn;
+try {
+    $query = "SELECT * FROM interns_data_ WHERE username ='john'";
+    $resultSet = $conn->query($query);
+    $result = $resultSet->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e){
+    throw $e;
+}
+$username = $result['username'];
+$fullName = $result['name'];
+$picture = $result['image_filename'];
 //Fetch Secret Word
 try{
     $querySecret =  "SELECT * FROM secret_word LIMIT 1";
