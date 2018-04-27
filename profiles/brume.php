@@ -22,7 +22,7 @@
 			$secret_word = $row['secret_word'];	
 		}
 		$name = null;
-		$username = "chigozie";
+		$username = "brume";
 		$image_filename = '';
 		$stmt = $conn->prepare("select * from interns_data where username = :username");
 		$stmt->bindParam(':username', $username);
@@ -433,12 +433,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Chigozie's Corner</title>
+	<title>Brume Love</title>
 	<link rel="stylesheet" type="text/css" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css">
 
 	<style>
 		body {
-			background-image: url(http://res.cloudinary.com/dqscsuyyn/image/upload/v1523631081/bg.jpg);
+			background-image: url(https://res.cloudinary.com/brume/image/upload/v1523991947/IMG_20171231_182016_330.jpg);
 		}
 		.circle {
 			width: 60%;
