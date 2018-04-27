@@ -172,9 +172,6 @@ if(!defined('DB_USER')){
 		}
 	}
 ?>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
