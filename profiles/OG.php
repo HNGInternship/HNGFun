@@ -4,8 +4,8 @@ try {
        $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'OG\'';
        $query = $conn->query($sql);
        $query->setFetchMode(PDO::FETCH_ASSOC);
-       $mydata = $query->fetch();
-       $secret_word = $mydata['secret_word'];
+       $data = $query->fetch();
+       $secret_word = $data['secret_word'];
        throw $e;
     }
 ?>
