@@ -1,27 +1,19 @@
 <?php 
-error_reporting(E_ALL);
-ini_set("display", 1);
+		require 'db.php';
+		$result = $conn->query("Select * from secret_word LIMIT 1");
+        $result = $result->fetch(PDO::FETCH_OBJ);
+        $secret_word = "1n73rn@Hng";
+		$secret_word = $result->secret_word;
+		$result2 = $conn->query("Select * from interns_data where username = 'ekpono'");
+        $user = $result2->fetch(PDO::FETCH_OBJ);
 
-?>
-<?php 
-if($_SERVER['REQUEST_METHOD'] === "GET"){
-	 $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ekpono'");
-        $intern_data->execute();
-        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $intern_data->fetch();
-        $secret_code = $conn->prepare("SELECT * FROM secret_word");
-        $secret_code->execute();
-        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
-        $code = $secret_code->fetch();
-        $secret_word = $code['secret_word'];
-}
 	?>
 
 <?php
-require '../../config.php';
+
 // ChatBot Create connection
 try {
-   $conn = new PDO("mysql:host=". DB_HOST.";dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
+    $conn = new PDO("mysql:host=localhost;dbname=chat", 'root', '');
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     //echo "Connected"; 
@@ -31,6 +23,7 @@ catch(PDOException $e)
     echo "Sorry connection not found: " . $e->getMessage();
     }
 // Check connection
+
 ?>
 <?php //Chatbot 
     if($_SERVER['REQUEST_METHOD']==='POST'){
@@ -42,6 +35,7 @@ catch(PDOException $e)
             $data = preg_replace("([?.!])", "", $data);
             return $data;
         }
+
         //end of function definition
         $ques = input($_POST['ques']);
         if(strpos($ques, "train:") !== false){
@@ -73,7 +67,7 @@ catch(PDOException $e)
                     return;
                 }
                     try {
-                       $conn = new PDO("mysql:host=". DB_HOST.";dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
+                        $conn = new PDO("mysql:host=localhost;dbname=chat", 'root', '');
                         // set the PDO error mode to exception
                         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                         //echo "Connected successfully"; 
@@ -108,8 +102,9 @@ catch(PDOException $e)
             $ques = input($ques);
                 $sql = "select answer from chatbot where question like :question";
 						$stmt = $conn->prepare($sql);
-	    					$stmt->bindParam(':question', $ques);
+						$stmt->bindParam(':question', $ques);
 						$stmt->execute();
+
 						$stmt->setFetchMode(PDO::FETCH_ASSOC);
 						$rows = $stmt->fetchAll();
                     echo json_encode([
@@ -120,18 +115,35 @@ catch(PDOException $e)
             }
             return;
         }
+
+
+
+
+
+
  ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ekpono's Profile</title>
    <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+   
+
 <style>
 * {
     margin: 0;
     padding: 0;
 }
+
 body {
   font-family: 'Dosis', sans-serif;
     background: linear-gradient(to right, rgba(216,0,0,0), rgba(216,0,0,0.2));
     background-repeat: cover;
 }
+
 .container {
     width: 80%;
     height: auto;
@@ -197,6 +209,7 @@ a {
             text-align: right;
         }
         .user p{
+           
             text-align: right;
             width: auto;
             display: inline;border-radius: 50px;background: white;
@@ -205,10 +218,21 @@ a {
             background: width: 40px;
         }
         .bot p {
+            
             display: inline;
+            
         }
+        .notfound {
+            background: blue;
+        }
+            
+
+
 /* CSS button */
+
 </style>
+</head>
+<body>
 <div class="container">
     <div class="text">
         <h1 style="color:rgb(32, 32, 216); padding-top: 30px">Hey! I'm <?php echo $user->name ?></h1>
@@ -250,6 +274,7 @@ a {
 
 
  <script>
+
         window.addEventListener("keydown", function(e){
             if(e.keyCode ==13){
                 if(document.querySelector("#question").value.trim()==""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){
@@ -259,6 +284,7 @@ a {
             }
         });
         function sendMsg(){
+
             var ques = document.querySelector("#question");
             if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
             displayOnScreen(ques.value, "user");
@@ -268,7 +294,7 @@ a {
                     processData(xhttp.responseText);
                 }
             };
-            xhttp.open("POST","https://hng.fun/profiles/ekpono.php", true);
+            xhttp.open("POST","ekpono.php", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("ques="+ques.value);
         }
@@ -306,3 +332,10 @@ a {
             }
         }
     </script>
+
+
+
+
+</body>
+</body>
+</html>

@@ -1,11 +1,11 @@
 <?php
-  require "../../config.php";
 try {
-    $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'OG\'';
-     $query = $conn->query($sql);
-     $query->setFetchMode(PDO::FETCH_ASSOC);
-      $mydata = $query->fetch();
-     $secret_word = $mydata['secret_word'];
+    $sql = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'Winnie_fred\'';
+     $q = $conn->query($sql);
+     $q->setFetchMode(PDO::FETCH_ASSOC);
+      $data = $q->fetch();
+     $secret_word = $data['secret_word'];
+  } catch (PDOException $e) {
      throw $e;
  }
 ?>
@@ -19,7 +19,7 @@ try {
     <meta name="description" content="">
     <meta name="author" content="GODSWILL OKOKON">
 
-    <title><?php echo $mydata['name'] ?></title>
+    <title><?php echo $data['name'] ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -285,7 +285,7 @@ footer.footer .social-link:hover{
     	<nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top" id="mainNav">
       <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">
-<?php echo $mydata['name'] ?>
+<?php echo $data['name'] ?>
         </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -333,13 +333,13 @@ footer.footer .social-link:hover{
 
               <strong>WELCOME</strong><br>
               <small>
-       <?php echo $mydata['name'] ?>
+       <?php echo $data['name'] ?>
         </small>
             </h1>
             <hr>
           </div>
           <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5">Godswill Okokon - Front End & Back End Developer<?php echo $mydata['name'] ?></p>
+            <p class="text-faded mb-5">Godswill Okokon - Front End & Back End Developer<?php echo $data['name'] ?></p>
             <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
           </div>
         </div>
@@ -352,7 +352,7 @@ footer.footer .social-link:hover{
           <div class="col-lg-8 mx-auto text-center">
             <h2 class="section-heading text-white">A Little About Me</h2>
             <hr class="light my-4">
-            <p class="text-faded mb-4"> <?php echo $mydata['name'] ?> Is a Back-End Web Developer, Wanna be Full Stack.</p>
+            <p class="text-faded mb-4"> <?php echo $data['name'] ?> Is a Back-End Web Developer, Wanna be Full Stack.</p>
             <p>
             My Name is Godswill Okokon, I'm a full stack web developer who loves the magic of backend, Godswill Okokon loves creating things that will make life easlier and at the same time produce solutions to real life problems.
             <br>I'm the web developer from the future(..winks..), I'm a techie with lots of humour, I can be scaratic most times too, <br> Some people call me OG, I love creamy cakes and i also have a thing for roasted plantain, OG loves making techie friends, <br>Music is his esacpe to blow off steam when ever he's in a funk about any situation or something,<br> I'm passionate about learning and developing myself in everything that has to do with life  and Tech.<br>
