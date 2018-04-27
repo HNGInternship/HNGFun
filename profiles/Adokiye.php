@@ -277,7 +277,7 @@ $username = 'Adokiye';
                         style="color: #6FB0CB; font-size: 30px;">my</span></span> PROFILE</p>
     </div>
     <marquee onmouseover="this.stop();" onmouseout="this.start();">
-        <p style=" color: #FFFFFF;font-family: arial, sans-serif; font-size: 14px;font-weight: bold;letter-spacing: 0.3px;">
+        <p style=" color: #0c5460;font-family: arial, sans-serif; font-size: 14px;font-weight: bold;letter-spacing: 0.3px;">
             ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="color: #0C1621">TRAIN: YOUR QUESTION#YOUR ANSWER#password</span>
             TO ADD MORE QUESTIONS TO THE DATABASE</p>
     </marquee>
@@ -287,7 +287,7 @@ $username = 'Adokiye';
         <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
         <img src="http://res.cloudinary.com/gorge/image/upload/v1523960782/Screenshot_20180414-113840.png" width="120" height="131" alt=""/>
     </div>
-    <p style="font-size: 26px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif">Chatbot by Adokiye<br />Enter help, quote or joke<br/>to see what i can do</p><br />
+    <p style="font-size: 26px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif">Chatbot by Adokiye<br />Enter help, quote or joke<br/>to see what i can do<br/></p><br />
 
     <form name = "askMe" class="form-inline"  method="post">
         <p>
