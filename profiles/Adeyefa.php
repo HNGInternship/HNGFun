@@ -171,7 +171,7 @@ if(!defined('DB_USER')){
 		}catch (Exception $e){
 			return $e->message ;
 		}
-	}else{
+	}
 ?>
 
 
