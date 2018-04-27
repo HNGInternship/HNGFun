@@ -281,7 +281,7 @@ $username = 'Adokiye';
             ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="color: #0C1621">TRAIN: YOUR QUESTION#YOUR ANSWER#password</span>
             TO ADD MORE QUESTIONS TO THE DATABASE</p>
     </marquee>
-    <div class = "oj-sim-6">
+    <div class = "mycss">
         <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
         <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
         <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
@@ -295,7 +295,7 @@ $username = 'Adokiye';
                 <input name="input" type="text" class="tb5"  placeholder="Chat with me! Press Ask to send.">
             </label><label>
                 <input name="button" type="submit"  class="btn btn-primary mb-2" id="button" value="ASK"><label>
-                    <input name="restart" type="submit"   id="button" value="Restart">
+                    <input name="restart" type="submit"  class="btn btn-primary mb-2"  id="button" value="Restart">
                 </label>
             </label>
             <br />
@@ -303,7 +303,7 @@ $username = 'Adokiye';
         </p>
         <p>&nbsp;</p>
     </form>
-    <div class="col-md-12"> <?php echo $response;echo "<br/>"?><?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
+    <div class="bot-css"> <?php echo $response;echo "<br/>"?><?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
         <span style="color:blue"><?=  "YOU : $soln <br/>";echo "</span>";
             echo "BOT : $asked<br/>" ?><br/><?php } ?><br/>
     </div><div id = "oj-sim-6" style="display:none"  >HAHAHA, THE PASSWORD IS PASSWORD</div>
