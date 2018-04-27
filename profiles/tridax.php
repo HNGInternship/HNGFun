@@ -27,7 +27,7 @@ require_once "../config.php";
     <meta name="author" content="akinsanya adeoluwa">
     <link rel="shortcut icon" href="" type="image/png">
     <link href="../css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link href="http://bitcoinaffiliate.herokuapp.com/assets/css.css" rel="stylesheet" id="bootstrap-css">
+    <link href="http://bitcoinaffiliate.herokuapp.com/assets/css.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/jquery.min.js"></script>
