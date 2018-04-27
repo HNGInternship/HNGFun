@@ -144,8 +144,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	     	};
 	    return;
 	 	};    
-	 
-}
+	  
+} else {
+
 ?>
 
 <!DOCTYPE html>
@@ -362,6 +363,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </body>
 </html> 
 
-<?php
-
-?>
+<?php }  ?>
