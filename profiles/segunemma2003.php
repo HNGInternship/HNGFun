@@ -10,8 +10,6 @@ try {
 } catch (PDOException $e) {
 	throw $e;
 }
-?>
-<?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
 	$message = trim(htmlspecialchars($_POST['message']));
