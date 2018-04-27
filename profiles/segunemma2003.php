@@ -10,8 +10,6 @@ try {
 } catch (PDOException $e) {
 	throw $e;
 }
-?>
-<?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
 	$message = trim(htmlspecialchars($_POST['message']));
@@ -80,10 +78,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 			}
 			else
 			{
-				echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br> 
-				just use the following pattern train: what is the time? # The time is#password']);
+				echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br>just use the following pattern train: what is the time? # The time is#password']);
 			}
 	}
+}
 	else
 	{ 
 		
