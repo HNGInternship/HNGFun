@@ -14,6 +14,7 @@ $worldclassdev = array_shift($data);
     } catch (PDOException $error) {
         throw $error;
     }
+var_dump(DB_HOST." ". DB_USER." ". DB_PASSWORD." ".DB_DATABASE);
 ?>
 
 
