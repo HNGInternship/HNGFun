@@ -67,7 +67,7 @@
 			}else{
 				echo json_encode([
                 	'status' => 0,
-                	'answer' => "Some decepticon tampered with my head. I have forgotten my custom functions"
+                	'answer' => "ouch!I seem to have forgotten my custom functions"
 				]);
 			}
 			return;	
@@ -456,10 +456,10 @@
 			margin-top: 25px;
 		}
 		.slack_span {
-			color: #0000ff;
+			color: #131312;
 		}
 		.occupation_span {
-			color: #ff0000;
+			color:#131312;
 			font-weight: bold;
 		}
 		.chat-frame {
@@ -563,7 +563,7 @@
 		<div class="oj-flex" style="margin-top: 30px;">
 		    <form class="oj-flex-item oj-md-12 oj-sm-12" id="question-form">
 		        <div class="oj-flex-item oj-md-12 oj-sm-12" id="thinking-div" style="display: none;">
-		            <p style="font-size: 12px; font-style: italic; font-weight: bold;">Optimus Prime is thinking...</p>
+		            <p style="font-size: 12px; font-style: italic; font-weight: bold;">John Doe is thinking...</p>
 		        </div>
 		        <div class="oj-flex oj-flex-item oj-md-12 oj-sm-12">
 		            <input class="oj-flex-item oj-md-12 oj-sm-12 oj-margin oj-padding" type="text" name="question" placeholder="Ask a question" style="border-radius: 3px; border: none;" />
@@ -616,7 +616,7 @@
             thinkingDiv.show();
             //send question to server
             $.ajax({
-                url: "/profiles/chigozie.php",
+                url: "/profiles/brume.php",
                 type: "post",
                 data: { question: question },
                 dataType: "json",
