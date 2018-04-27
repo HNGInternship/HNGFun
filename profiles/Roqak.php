@@ -223,7 +223,7 @@ $(document).ready(function(){
 		// 		alert('error occured   ' + error);
 		// 		console.log(error);
 		// 	}
-		// })
+		// } )
 		$.ajax({
 			url: "Roqak.php",
 			type: "post",
