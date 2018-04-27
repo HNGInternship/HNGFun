@@ -70,6 +70,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $index = rand(0, count($rows)-1);
         $row = $rows[$index];
         $answer = $row['answer'];
+<<<<<<< HEAD
 /////////////////////////////////////////////////////////////////////////////////////////////
 $parentheses = stripos($answer, "((");
 if($parentheses === false){// if answer is not to call a function
@@ -88,11 +89,48 @@ if($parentheses === false){// if answer is not to call a function
             'result' => "The function name should not contain white spaces"
           ]);
           return;
+=======
+        // $open_par = stripos($answer, "((");
+        // $closing_par = stripos($answer, "))");
+        ////////////////////////////////////////////////////////////////////////////////////
+        $index_of_parentheses = stripos($answer, "((");
+        if($index_of_parentheses === false){
+          echo json_encode([
+            'answer' => $answer
+          ]);
+          return;
+        }else{
+            $index_of_parentheses_closing = stripos($answer, "))");
+            if($index_of_parentheses_closing !== false){
+                $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
+                $function_name = trim($function_name);
+                if(stripos($function_name, ' ') !== false){
+                   echo json_encode([
+                    'answer' => "Ohh Sorry!! The function name should not contain white spaces"
+                  ]);
+                  return;
+                }
+              if(!function_exists($function_name)){
+                echo json_encode([
+                  'answer' => "I am sorry but I could not find that function, please try again"
+                ]);
+              }else{
+                echo json_encode([
+                  'answer' => str_replace("(($function_name))", $function_name(), $answer)
+                ]);
+              }
+              return;
+            }
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
         }
       if(!function_exists($function_name)){
         header('Content-type: text/json');
         echo json_encode([
+<<<<<<< HEAD
           'result' => "I am sorry but I could not find that function"
+=======
+        'answer' => "I am sorry, I cannot answer your question now. Why don't you train me. Type: train: question # answer #password to train me"
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
         ]);
       }else{
         header('Content-type: text/json');
@@ -234,7 +272,7 @@ $(document).ready(function(){
 		// 		alert('error occured   ' + error);
 		// 		console.log(error);
 		// 	}
-		// })
+		// } )
 		$.ajax({
 			url: "Roqak.php",
 			type: "post",

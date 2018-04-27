@@ -590,7 +590,6 @@ function getPinkyCommands(){
 }
 
 function train_bot ($message) {
-
 function multiexplode ($delimiters,$string) {
 
     $ready = str_replace($delimiters, $delimiters[0], $string);
@@ -1081,11 +1080,11 @@ $dataa = json_decode(file_get_contents($url_location), true);
  }
 
  //////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
-
-if ($_REQUEST["qsam"]){
-$qsam = $_REQUEST["qsam"];
-samsonjnrBot($qsam);
-}
+ //
+ if ($_REQUEST["qsam"]){
+ $qsam = $_REQUEST["qsam"];
+ samsonjnrBot($qsam);
+ }
  function samsonjnrBot($qsam){
  $qsam = strtolower($qsam);
  $anwerSam = "";
@@ -1305,88 +1304,108 @@ samsonjnrBot($qsam);
 /***************************john code begins here*************************/
 
 
+//to check if the data was sent to the server
+
+
+
+// to if the post request is not empty 
+
+  try{
+        if(!isset($_POST['question'])){
+          echo json_encode([
+            'status' => 1,
+            'answer' => "Please provide a question"
+          ]);
+          return;
+        }
+      
+        $questions = $_POST['question'];
+        $question = strtolower($questions);
+    /////////////////////////////FUNCTIONS COMES FIRST////////////////////////////////////////////////////////////////
+
+
     // All the functions goes here
     
-function before($thiss, $inthat)
-{
-return substr($inthat, 0, strpos($inthat, $thiss));
-};
-function after ($thiss, $inthat)
-{
-if (!is_bool(strpos($inthat, $thiss)))
-return substr($inthat, strpos($inthat,$thiss)+strlen($thiss));
-};
-function between ($thiss, $that, $inthat)
-{
-return before ($that, after($thiss, $inthat));
-};
-function after_last ($thiss, $inthat)
- {
-    if (!is_bool(strrevpos($inthat, $thiss)))
-    return substr($inthat, strrevpos($inthat, $thiss)+strlen($thiss));
-};
+            function before ($thiss, $inthat)
+            {
+                return substr($inthat, 0, strpos($inthat, $thiss));
+             };
+             function after ($thiss, $inthat)
+            {
+                if (!is_bool(strpos($inthat, $thiss)))
+                return substr($inthat, strpos($inthat,$thiss)+strlen($thiss));
+             };
+             function between ($thiss, $that, $inthat)
+                {
+                return before ($that, after($thiss, $inthat));
+                };
+            function after_last ($thiss, $inthat)
+                 {
+                    if (!is_bool(strrevpos($inthat, $thiss)))
+                    return substr($inthat, strrevpos($inthat, $thiss)+strlen($thiss));
+                };
 
-//use strrevpos function in case your php version does not include it
-function strrevpos($instr, $needle)
-{
-$rev_pos = strpos (strrev($instr), strrev($needle));
-if ($rev_pos===false) return false;
-else return strlen($instr) - $rev_pos - strlen($needle);
-};
+               //use strrevpos function in case your php version does not include it
+            function strrevpos($instr, $needle)
+            {
+                $rev_pos = strpos (strrev($instr), strrev($needle));
+                if ($rev_pos===false) return false;
+                else return strlen($instr) - $rev_pos - strlen($needle);
+            };
 
-function training($check)
-{
-$password="password";
-$newquestion= between(':', '#', $check);
-$newanswer= between('#', '#', $check);
-$newpassword= after_last('#', $check);
-if ($password==$newpassword)
-{
-    try {
-	require 'db.php';
-
-	    $sql = "INSERT INTO chatbot (id, question, answer) VALUES ('', '$newquestion', '$newanswer')";
-	    // use exec() because no results are returned
-	    $conn->exec($sql);
-	    $res = "Thanks for training me";
-	    return $res;
-
-	}
-    catch(PDOException $e)
-	    {
-	    echo $sql . "<br>" . $e->getMessage();
-	    }
-
-}
-else
-{
-    $res = "Please enter a password and train me using train:question#answer#password this should be without space";
-    return $res;
-}
-}
-	function getAns($check){
-	require 'db.php';
-
-
-	$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question= '$check' ORDER BY rand() LIMIT 1");
-	$stmt->execute();
-	if($stmt->rowCount() > 0)
-	{
-	  while($row = $stmt->fetch(PDO::FETCH_ASSOC))
-	  {
-		$res=$row["answer"];
-
-		return $res;
-	  }
-
-	} 
-	else {
-	    $res="I don't seem understand what you asked. But you can train me.<br>Type<br>train:question#answer#password";
-	    return $res;
-	}
+        function training($check)
+        {
+            $password="password";
+            $newquestion= between(':', '#', $check);
+            $newanswer= between('#', '#', $check);
+            $newpassword= after_last('#', $check);
+            if ($password==$newpassword)
+                {
+                    try {
+                        require 'db.php';
+                            
+                            $sql = "INSERT INTO chatbot (id, question, answer) VALUES ('', '$newquestion', '$newanswer')";
+                            // use exec() because no results are returned
+                            $conn->exec($sql);
+                            $res = "Thanks for training me";
+                            return $res;
+                            
+                        }
+                    catch(PDOException $e)
+                            {
+                            echo $sql . "<br>" . $e->getMessage();
+                            }
+                            
+                }
+            else
+                {
+                    $res = "Please enter a password and train me using train:question#answer#password this should be without space";
+                    return $res;
+                }
+        }
+        function getAns($check){
+                require 'db.php';
 
 
-}
+                $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question= '$check' ORDER BY rand() LIMIT 1");
+                $stmt->execute();
+                if($stmt->rowCount() > 0)
+                {
+                  while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+                  {
+                        $res=$row["answer"];
+                         
+                        return $res;
+                  }
+                  
+                } 
+                else {
+                    $res="I don't seem understand what you asked. But you can train me.<br>Type<br>train:question#answer#password";
+                    return $res;
+                }
+                  
+                   
+            }
 
  
 
@@ -1414,6 +1433,130 @@ function weather($country,$city){
     $weatherXML = $result->GetWeatherResponse;
     return $res;
 }
+
+
+
+/////////////////////////////FUNCTIONS ENDS HERE/////////////////////////////////////////////////////////////////
+
+/////////////////////// Conditions for checking input//////////////////////////////////////////////
+
+///////////////////To check if the statement begins with train://///////////////////////
+
+/***************************john code begins here*************************/
+
+
+
+
+function before ($thiss, $inthat)
+{
+    return substr($inthat, 0, strpos($inthat, $thiss));
+};
+ function after ($thiss, $inthat)
+{
+    if (!is_bool(strpos($inthat, $thiss)))
+    return substr($inthat, strpos($inthat,$thiss)+strlen($thiss));
+ };
+ function between ($thiss, $that, $inthat)
+    {
+    return before ($that, after($thiss, $inthat));
+    };
+function after_last ($thiss, $inthat)
+     {
+        if (!is_bool(strrevpos($inthat, $thiss)))
+        return substr($inthat, strrevpos($inthat, $thiss)+strlen($thiss));
+    };
+
+   //use strrevpos function in case your php version does not include it
+function strrevpos($instr, $needle)
+{
+    $rev_pos = strpos (strrev($instr), strrev($needle));
+    if ($rev_pos===false) return false;
+    else return strlen($instr) - $rev_pos - strlen($needle);
+};
+
+function training($check)
+{
+    $password="password";
+    $newquestion= between(':', '#', $check);
+    $newanswer= between('#', '#', $check);
+    $newpassword= after_last('#', $check);
+    if ($password==$newpassword)
+        {
+            try {
+                require 'db.php';
+                    
+                    $sql = "INSERT INTO chatbot (id, question, answer) VALUES ('', '$newquestion', '$newanswer')";
+                    // use exec() because no results are returned
+                    $conn->exec($sql);
+                    $res = "Thanks for training me";
+                    return $res;
+                    
+                }
+            catch(PDOException $e)
+                    {
+                    echo $sql . "<br>" . $e->getMessage();
+                    }
+                    
+        }
+    else
+        {
+            $res = "Please enter a password and train me using train:question#answer#password this should be without space";
+            return $res;
+        }
+}
+function getAns($check)
+ {
+    require 'db.php';
+
+
+    $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question= '$check' ORDER BY rand() LIMIT 1");
+    $stmt->execute();
+    if($stmt->rowCount() > 0)
+    {
+      while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+      {
+            $res=$row["answer"];
+             
+            return $res;
+      }
+      
+    } 
+    else {
+        $res="I don't seem understand what you asked. But you can train me.<br>Type<br>train:question#answer#password";
+        return $res;
+    }
+      
+                   
+}
+
+ 
+
+function currencyConverter($from_currency, $to_currency, $amount){
+
+    $from_Currency = urlencode($from_currency);
+    $to_Currency = urlencode($to_currency);
+    $encode_amount = 1;
+    $get = file_get_contents("https://finance.google.com/bctzjpnsun/converter?a=$encode_amount&from=$from_Currency&to=$to_Currency");
+    $get = explode("<span class= bld>",$get);
+    $get = explode("</span>",$get[1]);
+    $rate = preg_replace("/[^0-9\.]/", null, $get[0]);
+    $rate = (float)$rate;
+    $res = $amount*$rate;
+    return $res;
+}
+
+
+function weather($country,$city){
+    $client = new SoapClient("http://www.webservicex.net/globalweather.asmx?wsdl");
+    $params = new stdClass;
+    $params->CityName= $city;
+    $params->CountryName= $country;
+    $res = $client->GetWeather($params);
+    // Check for errors...
+    $weatherXML = $result->GetWeatherResponse;
+    return $res;
+}
+
 function cityTime($city){
     date_default_timezone_set($city);
     $res = date("h:i:sa");
@@ -1421,7 +1564,14 @@ function cityTime($city){
 
 }
 
+/////////////////////////////FUNCTIONS ENDS HERE/////////////////////////////////////////////////////////////////
 
+/////////////////////// Conditions for checking input//////////////////////////////////////////////
+
+///////////////////To check if the statement begins with train://///////////////////////
+
+     
+///////////////////////////Conditions Ends here///////////////////////////////
 
 
 ?>
