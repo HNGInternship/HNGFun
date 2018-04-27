@@ -314,17 +314,17 @@ function fetchAnswer($msgss){
                             <h1>Deekor Baribefe</h1>
                             <h3>UI-UX Developer/Web Developer </h3>
                             <p>Hi, I'm Befe a tech enthusiast. <br>I am a web developer with skills: <br> in html5, css3, javascript and php/mysql. <br>I am conversant with bootstrap, jquery and <br> angular frameworks. <br>I am a newbie currently taking python and django. </p>
-                            <div class='bot-chat-button col-sm-4 col-xs-6'>Chat With My Bot!</div>
+                            <div class='bot-chat-button col-sm-5 col-xs-6'>Chat With My Bot!</div>
                         </div>
                     </div>
                 </article>
                 <article class='col-md-3' id='bot-ui'>
                     <h1>Welcome to Bot Xperience</h1>
                     <section id='chatlog'> 
-                        <!--<h3 class='first'>Ask me anything...</h3>
+                        <h3 class='first'>Ask me anything...</h3>
                         <h3 class='second'>Or Simply type 'aboutbot' to know more...</h3>
                         <h3 class='third'>You can also train me if I can't answer your questions using:
-                        <br>'trainbot: question # answer # password'</h3>-->
+                        <br>'trainbot: question # answer # password'</h3>
                     </section>
                     <div id='chatbox'>
                         <form class='chat' >
@@ -342,10 +342,13 @@ function fetchAnswer($msgss){
                 $('.bot-chat-button').click(function(){
                     $('#bot-ui').fadeIn(500);
                 })
+                $('.h3.first').hide();
+                $('.h3.second').hide();
+                $('.h3.third').hide();
                $('input[type=text]').click(function(){
-                    $('#chatlog').prepend("<h3 class='third'>You can also train me if I can't answer your questions using: <br>'train: question # answer # password'</h3>");
-                    $('#chatlog').prepend("<h3 class='second'>Or Simply type 'aboutbot' to know more...");
-                    $('#chatlog').prepend("<h3 class='first'>Ask me anything...</h3>");
+                    $('.h3.first').show(500);
+                    $('.h3.second').show(500);
+                    $('.h3.third').show(500);
                });
 
                function bot_chat(reply){
@@ -368,7 +371,7 @@ function fetchAnswer($msgss){
                     return false;
                     } else {
                         $.ajax({
-                        url: 'profiles/befe.php',
+                        url: 'befe.php',
                         type: 'post',
                         cache: 'false',
                         data: {

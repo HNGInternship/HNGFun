@@ -7,9 +7,6 @@
 	      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 	  }
 	}
-	global $conn;
-?>
-<?php
 	//Fetch User Details
 	try {
 	    $query = "SELECT * FROM interns_data WHERE username ='Jeremiah'";
@@ -81,14 +78,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	    }
 	    return;
 	   
-	}else{  
+	}else{		  
 		//train the chatbot to be more smarter 
 		//remove extra white space, ? and . from question
 	    $train_string  = preg_replace('([\s]+)', ' ', trim($question));
 	    $train_string  = preg_replace("([?.])", "",  $train_string); 
+
 	    //get the question and answer by removing the 'train'
 	    $train_string = substr( $train_string, 6);
+
 	    $train_string = explode("#", $train_string);
+
         //get the index of the user question
         $user_question = trim($train_string[0]);
 	        if(count($train_string) == 1){ //then the user only enter question and did'nt enter answer and password
@@ -98,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		        ]);
 	        return; 
 	        };
+
 	        //get the index of the user answer
 	        $user_answer = trim($train_string[1]);    
 	        if(count($train_string) < 3){ //then the user only enter question and answer But did'nt enter password
@@ -107,8 +108,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		        ]);
 	        return;
 	        };
+
 	         //get the index of the user password
 		    $user_password = trim($train_string[2]);
+
 	        //verify if training password is correct
 	        define('TRAINING_PASSWORD', 'password'); //this is a constant variable
 	        if($user_password !== TRAINING_PASSWORD){ //the password is incorrect
@@ -118,13 +121,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		        ]);
 	     	return;
 	    	};
-		    //check database if question exist already
-		    $user_question = "$user_question"; //return things that have the question
-		    $sql = "select * from chatbot where question like :user_question";
+
+		    //check database if answer exist already
+		    $user_answer = "$user_answer"; //return things that have the question
+		    $sql = "select * from chatbot where answer like :user_answer";
 		    $stmt = $conn->prepare($sql);
-		    $stmt->bindParam(':user_question', $user_question);
+		    $stmt->bindParam(':user_answer', $user_answer);
 		    $stmt->execute();
 		    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
 		 	$rows = $stmt->fetchAll();
 		    if(empty($rows)){// then it means the database could not fetch any existing question and answer, so	we can insect the query.      
 			    $sql = "insert into chatbot (question, answer) values (:question, :answer)";  //insert into database
@@ -136,14 +141,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			    
 			    echo json_encode([
 			    	'status' => 1,
-			        'answer' => "WOW! I'm learning new things everyday. Thanks a lot for making me more smarter! You can now ask me that question now."
+			        'answer' => "WOW! I'm learning new things everyday. Thanks Buddy! for making me more smarter. You can ask me that same question right now and i will tell you the answer OR just keep training me more Buddy! "
 			      ]);			
 	     	return;
 	     	
 	     	}else{ //then it means the the question already in the database and no need to insert it again
+
 	     		 echo json_encode([
 			    	'status' => 1,
-			        'answer' => "Sorry! your question already exist in database. Please try train me with another question. Thanks"
+			        'answer' => "Sorry! Answer already exist. Try train me again with the same question AND provide an altanative answer different from the previous one you entered OR just train me with a new question and a new answer."
 			      ]);
 			return;		
 	     	};
@@ -151,6 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	 	};    
 	  
 } else {
+
 ?>
 
 <!DOCTYPE html>
