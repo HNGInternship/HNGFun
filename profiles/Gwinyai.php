@@ -38,11 +38,12 @@
 
         #container {
             position: relative;
-            width: 100%;
             min-height: 55vw;
             overflow: hidden;
-            margin-top: 25px;
-            padding-top: 20px;
+            margin-top: 50px;
+            padding-top: 10px;
+            width: auto;
+ 
         }
 
         .layer {
@@ -70,9 +71,9 @@
 
         .layer img.img {
             position: absolute;
-            width: 35%;
-            top: -28%;
-            left: 42%;
+            width: 24%;
+            top: 0%;
+            left: 40%;
             transform: translate(-50%, 50%);
             
 
@@ -111,8 +112,7 @@
             }
 
         .img {
-            width: 120;
-            height: 120;
+          
         border-radius: 100%; 
         border: 2px solid #fff; 
         
@@ -128,7 +128,7 @@
         }
 
         .bottom .content-body {
-            right: 14%;
+            right: 22%;
         }
 
         .bottom h1 {
@@ -163,7 +163,7 @@
         .skew .top {
             transform: skew(-30deg);
             margin-left: -1000px;
-            width: calc(42vw + 1000px);
+            width: calc(40vw + 1000px);
         }
 
         .skew .top .content-wrap {
@@ -183,7 +183,7 @@
                    .slack {
                 position: absolute;
                 top: 0;
-                left: 50%;
+                left: 0;
                 height: 20px; width: 20px;
             }
 
@@ -193,6 +193,8 @@
             }
            
         }
+
+
     </style>
 </head>
 
