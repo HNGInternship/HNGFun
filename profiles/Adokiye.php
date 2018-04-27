@@ -180,6 +180,7 @@ function askQuestion($input)
 <head>
     <meta charset="utf-8">
     <title>Adokiye ---- Stage 4</title>
+    <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
     <style type="text/css">
 
         .mycss
@@ -307,9 +308,9 @@ $name = 'Adokiye Iruene';
 $username = 'Adokiye';
 
 ?>
-<div class=".body" id="div_main">
-    <div class=".header" id="header">
-        <img src="http://res.cloudinary.com/gorge/image/upload/v1523960590/images.jpg" width="120" height="131" alt=""/>
+<div class="oj-flex oj-flex-bar-center-absolute" >
+    <div class="oj-md-6 oj-flex-item">
+        <div class="col-md-4 col-md-offset-2"><img src="http://res.cloudinary.com/gorge/image/upload/v1523960590/images.jpg" width="120" height="131" alt=""/></div>
         <p style="font-size: 36px; text-align: center; color: #563F3F; font-weight: bold;"><span
                     style="font-style: italic; color: #FFFFFF; font-size: 24px;"><span
                         style="color: #6FB0CB; font-size: 30px;">my</span></span> PROFILE</p>
@@ -319,19 +320,20 @@ $username = 'Adokiye';
             ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="color: #0C1621">TRAIN: YOUR QUESTION#YOUR ANSWER#password</span>
             TO ADD MORE QUESTIONS TO THE DATABASE</p>
     </marquee>
-    <div>
+    <div class = "oj-sim-6">
         <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
         <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
         <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
+        <img src="http://res.cloudinary.com/gorge/image/upload/v1523960782/Screenshot_20180414-113840.png" width="120" height="131" alt=""/>
     </div>
-    <p class="mycss">Chatbot by Adokiye<br />Click on show below to display the password for training me<br/>Enter help, quote or joke<br/>to see qhat i can do</p><br /><button onclick="show_function()" class = "fb7" >SHOW</button>
-    <form name = "askMe" method="post">
+    <p class="oj-sim-6">Chatbot by Adokiye<br />Click on show below to display the password for training me<br/>Enter help, quote or joke<br/>to see qhat i can do</p><br /><button onclick="show_function()" class = "btn btn-primary mb-2">SHOW</button>
+    <form name = "askMe" class="form-inline"  method="post">
         <p>
             <label>
-                <input name="input" type="text" class="tb5" placeholder="Chat with me! Press Ask to send.">
+                <input name="input" type="text" class="form-control"  placeholder="Chat with me! Press Ask to send.">
             </label><label>
-                <input name="button" type="submit" class="fb7" id="button" value="ASK"><label>
-                    <input name="restart" type="submit" class="fb7" id="button" value="Restart">
+                <input name="button" type="submit"  class="btn btn-primary mb-2" id="button" value="ASK"><label>
+                    <input name="restart" type="submit"   id="button" value="Restart">
                 </label>
             </label>
             <br />
@@ -339,14 +341,14 @@ $username = 'Adokiye';
         </p>
         <p>&nbsp;</p>
     </form>
-    <div class="bot-css"> <?php echo $response;echo "<br/>"?><?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
+    <div class="col-md-12"> <?php echo $response;echo "<br/>"?><?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
         <span style="color:blue"><?=  "YOU : $soln <br/>";echo "</span>";
             echo "BOT : $asked<br/>" ?><br/><?php } ?><br/>
-    </div><div id = "myform" style="display:none"  >HAHAHA, THE PASSWORD IS PASSWORD</div>
+    </div><div id = "oj-sim-6" style="display:none"  >HAHAHA, THE PASSWORD IS PASSWORD</div>
     <p>
 
 
-    </p> <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+    </p> <button onclick="topFunction()" class="btn btn-primary mb-2" title="Go to top">Top</button>
 </div>
 </body>
 </html>
