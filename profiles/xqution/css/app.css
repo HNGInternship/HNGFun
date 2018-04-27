@@ -1,0 +1,24 @@
+/*
+    Document   : override
+    Created on : <date>
+    Author     : <author>
+    Description:
+        This is where any of your application specific styles should be included
+*/
+
+img {
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    border-radius: 50%;
+}
+
+#im{
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+	border-radius: 50%;
+	
+}
