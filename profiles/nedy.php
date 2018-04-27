@@ -18,16 +18,16 @@ try {
   throw $e;
 }
 if($_SERVER['REQUEST_METHOD']==='POST'){
-    require '../../config.php';
-    $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
-            if(!$conn){
-                echo json_encode([
-                    'status'    => 1,
-                    'response'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
-                ]);
-                return;
-            }
-    //if(isset($_POST['message'])){
+    //require '../../config.php';
+    //$conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+    if(true){
+        echo json_encode([
+            'status'    => 1,
+            'response'    => "okay in post mode"
+        ]);
+        return;
+    }
+//if(isset($_POST['message'])){
     //     $question = $_POST['message'];
     //     if(strpos($question, "train:") !== false){
     //         $questionAndAnswer = substr($question, 6); //get the string after train
