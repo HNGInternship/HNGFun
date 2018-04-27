@@ -1,58 +1,16 @@
-
-<?php
-
-        require_once "../db.php";
-    try {
-        $select = 'SELECT * FROM secret_word';
-        $query = $conn->query($select);
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $query->fetch();
-        }
-        catch (PDOException $e) {
-
-        throw $e;
-    }
-    $secret_word = $data['secret_word'];
-
-/*
- 
- if($_SERVER['REQUEST_METHOD'] === POST) {
-     require "../answers.php";
-
-     date_default_timezone_set("Africa/Lagos");
-     //
-     if(!isset($_POST['queston'])) {
-         echo json_encode([
-             'status' => 1,
-             'answer' => "What's your question?"
-         ]);
-         return;
-     }
-
-     // Retrieve the entry from the textarea
-     $que = $_POST['question'];
-
-     // Show time
-     if(preg_replace('([\s]+)', ' ', trim(strtolower($que))) === 'time'){
-         echo json_encode([
-             'status' => 1,
-             'answer' => getTime()
-         ]);
-         return;
-         }
- } else { */
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Victor Jonah</title>
+    <title> Victor Jonah</title>
   	
     <style>
-    body, .page {
+        body {
+            background-color: #44bb4a; 
+        }
+        .page {
             background-color: #44bb4a; 
 
         }
@@ -178,8 +136,6 @@
         }
 
     </style>
-</head>
-    <body>
     <!-- Bootstrap -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <!-- Font awesome -->
@@ -193,7 +149,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	   	<!-- Main Page -->
+</head>
+    <body>
         <div class="page">
             <div class="main text-center">
                 <div class="imag">
@@ -203,8 +160,10 @@
                     <h1>Hello! <i class="fa fa-angellist"></i></h1>
                     <p>This is Victor Jonah.</p>
                     <p>300l Computer science of the University of Uyo.</p>
-                    <p>HNG Intern, 2018</p>
-                    <button type="button" class="btn chat-modal-button" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i></button>
+                    <p>HNG Intern, 2018</p>            
+                    <!-- Chatbot Section -->
+                    <!-- Trigger the modal with a button -->
+                    <button type="button" id="mssgbox" class="btn chat-modal-button" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i></button>
                     <!-- Modal -->
                     <div class="modal fade" id="myModal" role="dialog">
                         <div class="modal-dialog">
@@ -241,10 +200,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Chatbot Section -->
-             <!-- Trigger the modal with a button -->
-           
-    
         </div>
         
         </div>
@@ -252,9 +207,27 @@
 	<script>
     $( document ).ready(function() {
     $('h1').addClass('animated infinite shake');
-    $('.chat-modal-button').addClass('animated infinite flash');
-    $('.main').addClass('animated bounceInDown');
+    
+    $('#mssgbox').addClass('animated infinite flash');
+   
     });
     </script>
+
+<?php
+
+    require_once '../db.php';
+    try {
+    $select = 'SELECT * FROM secret_word';
+    $query = $conn->query($select);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $query->fetch();
+    }
+    catch (PDOException $e) {
+
+    throw $e;
+    }
+    $secret_word = $data['secret_word'];
+?>
+
     </body>
 </html>
