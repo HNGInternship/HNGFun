@@ -117,7 +117,8 @@ function askQuestion($input)
             } else if (preg_match("/\b($time)\b/",$input)) {
                 return gettTime();
             } else if (preg_match('/\bhelp\b/',$input)) {
-                return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me<br/>Click on restart to clear our conversation and start again<br/>";
+                return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me<br/>
+Click on restart to clear our conversation and start again<br/>Type quote or joke and see what i can do<br/>";
             }else if($input=="you are mad"||$input == "you're mad"){
                 return "YOUR FATHER";
             }else if(preg_match("/\bquote\b/",$input)){
@@ -149,7 +150,6 @@ function askQuestion($input)
 <head>
     <meta charset="utf-8">
     <title>Adokiye ---- Stage 4</title>
-    <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
     <style type="text/css">
         body{
             background-color: #E8DBDB;
