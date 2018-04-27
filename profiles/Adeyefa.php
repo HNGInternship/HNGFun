@@ -309,6 +309,19 @@ if(!defined('DB_USER')){
 </head>
 <body>
 	<div class="iii">
+		<?php
+
+		    global $conn;
+
+		    try {
+		        $sql2 = 'SELECT * FROM interns_data WHERE username="adeyefa"';
+		        $q2 = $conn->query($sql2);
+		        $q2->setFetchMode(PDO::FETCH_ASSOC);
+		        $user = $q2->fetch();
+		    } catch (PDOException $e) {
+		        throw $e;
+		    }
+	    ?>
 		<div class="bbb">
 	    	<div class="main">
 				<p>
