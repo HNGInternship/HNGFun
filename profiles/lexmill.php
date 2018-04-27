@@ -1,7 +1,4 @@
 <<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
 <?php
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_ASSOC);
@@ -13,7 +10,6 @@ $username = $user['username'];
 $name = $user['name'];
 $image_filename = $user['image_filename'];
 ?>
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,9 +56,6 @@ $username = $user['username'];
 $name = $user['name'];
 $image_filename = $user['image_filename'];
 ?>
-=======
-
->>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,7 +78,6 @@ body{
 	 </head>
 	 <body>
 
-<<<<<<< HEAD
 	 <div class="sec1">
 	 <h1>Stage 1<br>
 	 
@@ -99,18 +91,3 @@ body{
 	 </body>
 	 </html>
 >>>>>>> 7b569ede913ccfb7111b4b055c330ee75e994117
-=======
-     <div class="oj flex center-block">
-	 <h1>Stage 1<br>
-	 
-	 HNG Internship 4<br>
-	 <div class="oj-sm-12"><?php
-	 date_default_timezone_set('Africa/Lagos');
-	 $currentDateTime = date('Y-m-d H:i:s');
-	 echo $currentDateTime;
-         ?></h1></div><p class="oj align-content-center">NAME: <?= $name?><br />USERNAME: <?= $username?><br/><img src="<?php echo $image_filename; ?>" width="320" height="331" alt="Author's Picture"></p>
-	 </div>
-	 </body>
-	 </html>
-
->>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
