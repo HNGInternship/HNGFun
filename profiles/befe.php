@@ -167,6 +167,7 @@ function fetchAnswer($msgss){
                     margin-top: 10px;
                     color: #3396FF;
                     cursor: pointer;
+                    margin-bottom: 8px;
             }
             #chatlog {
                     overflow-y: auto;
@@ -197,6 +198,7 @@ function fetchAnswer($msgss){
                     padding: 5px;
                     border: none;
                     padding: 8px;
+                    margin-top: 10px;
                     border-radius: 4px;
                     background-color: #006fe6;
                     color: #fff;
@@ -308,7 +310,7 @@ function fetchAnswer($msgss){
                 <article class='col-md-8' id='main'>
                     <div class='row'>
                         <div class='contain-pic'>
-                            <img class='col-md-3' src="<?php echo $image; ?>" alt ='befe sitted and giving a pose'>
+                            <img class='col-md-3' src="<?= $image ?>" alt ='befe sitted and giving a pose'>
                         </div>
                         <div class='details col-md-7'>
                             <h1>Deekor Baribefe</h1>
@@ -339,12 +341,13 @@ function fetchAnswer($msgss){
         <script>
             $(function(){
                 $('#bot-ui').hide();
+                
                 $('.bot-chat-button').click(function(){
                     $('#bot-ui').fadeIn(500);
                 })
-                $('.h3.first').hide();
-                $('.h3.second').hide();
-                $('.h3.third').hide();
+                $('h3.first').hide();
+                $('h3.second').hide();
+                $('h3.third').hide();
                $('input[type=text]').click(function(){
                     $('.h3.first').show(500);
                     $('.h3.second').show(500);
@@ -353,7 +356,7 @@ function fetchAnswer($msgss){
 
                function bot_chat(reply){
                     $('#chatlog').delay(500).append('<p>Bot Xperience: ' + reply + '</p>');
-                    $('.bot-box').scrollTop($('#bot-ui').height());
+                    $('#chatlog').scrollTop($('#bot-ui').height());
                }
 
                $('input[type=submit]').click(function(){
@@ -361,7 +364,7 @@ function fetchAnswer($msgss){
                   var reset = $('.msgbox').val("");   
                     if(msg){
                         $('#chatlog').append('<p> You: ' + msg + '</p>');
-                        $('.bot-box').scrollTop($('#bot-ui').height());
+                        $('#chatlog').scrollTop($('#bot-ui').height());
                     }
                   
 
@@ -371,7 +374,7 @@ function fetchAnswer($msgss){
                     return false;
                     } else {
                         $.ajax({
-                        url: 'befe.php',
+                        url: 'profile.php?id=befe',
                         type: 'post',
                         cache: 'false',
                         data: {
