@@ -1,110 +1,61 @@
+
+
 <?php
+    error_reporting(E_ALL);
+    ini_set("display_errors", 1);
+if($_SERVER['REQUEST_METHOD'] === "POST"){
 
-
-    try {
-        $sql = 'SELECT intern_id, name, username, image_filename FROM interns_data WHERE username=\'opheus\'';
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-		
-		$name = $data["name"];
-		$username = $data["username"];
-		$imagelink = $data["image_filename"];
-
-?>
-<?php
 
 //ini_set("output_buffering",4096);
 //session_start();
 
-if(isset($_GET['opheuslocation'])) {
-echo $time = get_time($_GET['opheuslocation']);
+if(isset($_POST['opheuslocation'])) {
+echo $time = get_time($_POST['opheuslocation']);
 }
-elseif(isset($_GET['opheusweather'])) {
-echo $weather = get_weather($_GET['opheusweather']);
+elseif(isset($_POST['opheusweather'])) {
+echo $weather = get_weather($_POST['opheusweather']);
 }
-elseif(isset($_GET['browser'])) {
+elseif(isset($_POST['browser'])) {
 echo $browser = get_browser_name($_SERVER['HTTP_USER_AGENT']);
 }
-elseif(isset($_GET['opheustrain'])) {
-	$message = $_GET['opheustrain'];
-echo $train = train_bot($message);
-}
-elseif(isset($_GET['opheuscheck'])) {
-	$check = $_GET['opheuscheck'];
-echo $check = bot_answer($check);
-}
-elseif(isset($_GET['device'])) {
-$browser = get_browser_name($_SERVER['HTTP_USER_AGENT']);
-$device = get_device_name($_SERVER['HTTP_USER_AGENT']);
-echo "you are currently using a ,".$browser.", browser on a  ,".$device.", Device.";
-}
 
 
 
-
-
-
-
-
-
-
-function bot_answer($check) {
-
-require 'db.php';
-
-// Create connection
-//$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-//if ($conn->connect_error) {
- //   die("Connection failed: " . $conn->connect_error);
-//} 
-
-
-
-$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$check' ORDER BY rand() LIMIT 1");
-$stmt->execute();
-if($stmt->rowCount() > 0)
-{
-  while($row = $stmt->fetch(PDO::FETCH_ASSOC))
-  {
-		echo $row["answer"];
-  }
-} else {
-    echo "Well i couldnt understand what you asked. But you can teach me.";
-	echo "Type ";
-	echo "train: write a question | write the answer.  "; 
-	echo "to teach me.";
-}
-}
-
-
-
-
-
-
-
-
-
-function train_bot ($message) {
-function multiexplode ($delimiters,$string) {
+////////////////////////////////////////////TRAIN OPHEUS BOT /////////////////////////////////////////////////////
+elseif(isset($_POST['opheustrain'])) {
+	
+	
+    //$train = $_GET['opheustrain'];
+	function multiexplode ($delimiters,$string) {
     
     $ready = str_replace($delimiters, $delimiters[0], $string);
     $launch = explode($delimiters[0], $ready);
     return  $launch;
 }
-
+ $train = $_POST['opheustrain'];
 //$text = "#train: this a question | this my answer :)";
-$exploded = multiexplode(array(":","|"),$message);
+$exploded = multiexplode(array(":","|"),$train);
 
 $question = trim($exploded[1]);
 
 $answer = trim($exploded[2]);
 
-require 'db.php';
+if (!defined('DB_USER'))
+	{
+	require "../../config.php";
+
+	}
+
+try
+	{
+	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	}
+
+catch(PDOException $pe)
+	{
+	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	}
+
 
 try {
     
@@ -122,7 +73,81 @@ catch(PDOException $e)
     }
 	
 $conn = null;
-//////////////////////
+
+}
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////GET OPHEUS ANSWER FROM DB////////////////////////////////////////////////////
+
+elseif(isset($_POST['opheuscheck'])) {
+	
+	if (!defined('DB_USER'))
+	{
+	require "../../config.php";
+
+	}
+
+try
+	{
+	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	}
+
+catch(PDOException $pe)
+	{
+	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	}
+
+
+$check = $_POST['opheuscheck'];
+
+$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$check' ORDER BY rand() LIMIT 1");
+$stmt->execute();
+if($stmt->rowCount() > 0)
+{
+  while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+  {
+		echo $row["answer"];
+  }
+} else {
+    echo "Well i couldnt understand what you asked. But you can teach me.";
+	echo "Type ";
+	echo "train: write a question | write the answer.  "; 
+	echo "to teach me.";
+}
+
+}
+
+
+
+
+///////////////////////////////////////////////////////END OF GET MY ANSWER/////////////////////////////////////////////////////////////////
+
+
+
+
+
+//function bot_answer($check) {
+
+
+//}
+
+
+
+
+
+
+
+
+
+//function train_bot ($train) {
+
 
 
 //And output will be like this:
@@ -136,8 +161,360 @@ $conn = null;
 //    [5] => )
 // )
 
+//}
+
+
+
+
+
+
+
+
+
+
 }
 
+//else {
+
+
+?> 
+<?php
+
+if($_SERVER['REQUEST_METHOD'] === "GET"){
+	//if($_SERVER['REQUEST_METHOD'] === "GET"){
+//include "../config.php";
+
+    try {
+        $sql = 'SELECT intern_id, name, username, image_filename FROM interns_data WHERE username=\'opheus\'';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+		
+		$name = $data["name"];
+		$username = $data["username"];
+		$imagelink = $data["image_filename"];
+	
+?>
+
+<html>
+<head>
+link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
+<style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  max-height: auto;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.titler {
+  color: grey;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+</style>
+<style type="text/css">
+    	                    
+.customfoo {
+    position: fixed;
+    bottom: 0;
+    width: 400;
+    right: 0;
+  }
+ .portlet {
+    margin-bottom: 15px;
+}
+
+.btn-white {
+    border-color: #cccccc;
+    color: #333333;
+    background-color: #ffffff;
+}
+
+.portlet {
+    border: 1px solid;
+}
+
+.portlet .portlet-heading {
+    padding: 0 15px;
+}
+
+.portlet .portlet-heading h4 {
+    padding: 1px 0;
+    font-size: 16px;
+}
+
+.portlet .portlet-heading a {
+    color: #fff;
+}
+
+.portlet .portlet-heading a:hover,
+.portlet .portlet-heading a:active,
+.portlet .portlet-heading a:focus {
+    outline: none;
+}
+
+.portlet .portlet-widgets .dropdown-menu a {
+    color: #333;
+}
+
+.portlet .portlet-widgets ul.dropdown-menu {
+    min-width: 0;
+}
+
+.portlet .portlet-heading .portlet-title {
+    float: left;
+}
+
+.portlet .portlet-heading .portlet-title h4 {
+    margin: 10px 0;
+}
+
+.portlet .portlet-heading .portlet-widgets {
+    float: right;
+    margin: 8px 0;
+}
+
+.portlet .portlet-heading .portlet-widgets .tabbed-portlets {
+    display: inline;
+}
+
+.portlet .portlet-heading .portlet-widgets .divider {
+    margin: 0 5px;
+}
+
+.portlet .portlet-body {
+    padding: 15px;
+    background: #fff;
+}
+
+.portlet .portlet-footer {
+    padding: 10px 15px;
+    background: #fbf0e4;
+}
+
+.portlet .portlet-footer ul {
+    margin: 0;
+}
+
+.portlet-green,
+.portlet-green>.portlet-heading {
+    border-color: #16a085;
+}
+
+.portlet-green>.portlet-heading {
+    color: #fff;
+    background-color: #16a085;
+}
+
+.portlet-orange,
+.portlet-orange>.portlet-heading {
+    border-color: #f39c12;
+}
+
+.portlet-orange>.portlet-heading {
+    color: #fff;
+    background-color: #f39c12;
+}
+
+.portlet-blue,
+.portlet-blue>.portlet-heading {
+    border-color: #2980b9;
+}
+
+.portlet-blue>.portlet-heading {
+    color: #fff;
+    background-color: #2980b9;
+}
+
+.portlet-red,
+.portlet-red>.portlet-heading {
+    border-color: #e74c3c;
+}
+
+.portlet-red>.portlet-heading {
+    color: #fff;
+    background-color: #e74c3c;
+}
+
+.portlet-purple,
+.portlet-purple>.portlet-heading {
+    border-color: #8e44ad;
+}
+
+.portlet-purple>.portlet-heading {
+    color: #fff;
+    background-color: #8e44ad;
+}
+
+.portlet-default,
+.portlet-dark-blue,
+.portlet-default>.portlet-heading,
+.portlet-dark-blue>.portlet-heading {
+    border-color: #34495e;
+}
+
+.portlet-default>.portlet-heading,
+.portlet-dark-blue>.portlet-heading {
+    color: #fff;
+    background-color: #34495e;
+}
+
+.portlet-basic,
+.portlet-basic>.portlet-heading {
+    border-color: #333;
+}
+
+.portlet-basic>.portlet-heading {
+    border-bottom: 1px solid #333;
+    color: #333;
+    background-color: #fff;
+}
+
+@media(min-width:768px) {
+    .portlet {
+        margin-bottom: 30px;
+    }
+}
+
+.text-green {
+    color: #16a085;
+}
+
+.text-orange {
+    color: #f39c12;
+}
+
+.text-red {
+    color: #e74c3c;
+}    
+.username {
+  color: blue;
+  font-weight: bold;
+}
+
+.bot {
+  color: green;
+  font-weight: bold;
+}
+
+  
+     
+    </style>
+</head>
+<body>
+<br>
+<h4 style="text-align:center">User Profile</h4>
+<br>
+
+
+<div class="card">
+  <img src="<?php echo $imagelink; ?>" alt="ima" style="width:100%">
+  <h1><?php echo $name; ?></h1>
+  <h2>@<?php echo $username; ?></h2>
+  <p class="titler">Web Designer & Developer, UI/UX Designer</p>
+  <p>Delta State Univeristy (B.Sc Physics)</p>
+  <p>Nigeria</p>
+  <div style="margin: 24px 0;">
+    <a href="https://t.me/opheus"><i class="fa fa-telegram"></i></a> 
+    <a href="https://twitter.com/orpheusohms"><i class="fa fa-twitter"></i></a>  
+    <a href="https://www.instagram.com/orpheusohms/"><i class="fa fa-instagram"></i></a>  
+    <a href="https://www.fb.com/j.ominiabohs"><i class="fa fa-facebook"></i></a> 
+ </div>
+ <p><button>Contact</button></p>
+ 
+<div class="customfoo">                  
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-md-12 col-md-offset-4">
+            <div class="portlet portlet-blue">
+                <div class="portlet-heading">
+                    <div class="portlet-title">
+                        <h4><i class="fa fa-circle text-green"></i> Opheus Bot- Customer Service</h4>
+                    </div><br>
+                    <div class="portlet-widgets">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-white dropdown-toggle btn-xs" data-toggle="dropdown">
+                                <i class="fa fa-circle text-green"></i> Online
+                            </button>
+                        </div>
+                        <span class="divider"></span>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#chat"><i class="fa fa-chevron-down"></i></a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div id="chat" class="panel-collapse collapse in">
+                    <div>
+                    <div class="portlet-body chat-widget" style="overflow-y: auto; width: 400px; height: 500px;">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="text-center text-muted small"><?php $date = date("Y-m-d h:i:sa"); echo $date;?></p>
+                            </div>
+                        </div>
+                     
+                       <div id="opheuscont">
+						
+						</div>
+                    </div>
+                    </div>
+                    <div class="portlet-footer">
+                        <form role="form">
+                            <div class="form-group">
+                                <textarea id='text-sms' name="controls-box" class="form-control" placeholder="Enter message..."></textarea>
+                            </div>
+							<div>
+							 <input checked type="checkbox" id="enter">
+							<label>Send On Enter</label></div>
+                            <div class="form-group">
+                                <button type="button" id="send-button" class="btn btn-white pull-right">Send</button>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.col-md-4 -->
+    </div>
+</div>
+</div>   
+<?php
+$ip       = $_SERVER['REMOTE_ADDR']; 
+$ipsample = "197.211.58.103";
+$date     = gmdate("r"); 
+$details  = json_decode(file_get_contents("https://ipapi.co/{$ip}/json/")); 
+$city     = $details->city; 
+$code     =$details->region_code;
+$state     = $details->region; 
+$zipcode     = $details->postal; 
+$cntry  = $details->country_name; 
 
 
 function get_browser_name($user_agent)
@@ -236,151 +613,6 @@ $url2 = "https://www.amdoren.com/api/weather.php?api_key=u3YfnHN8xmibFPbxAjRhtWY
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-?> 
-<html>
-<head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 300px;
-  margin: auto;
-  text-align: center;
-  font-family: arial;
-}
-
-.title {
-  color: grey;
-  font-size: 18px;
-}
-
-button {
-  border: none;
-  outline: 0;
-  display: inline-block;
-  padding: 8px;
-  color: white;
-  background-color: #000;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  font-size: 18px;
-}
-
-a {
-  text-decoration: none;
-  font-size: 22px;
-  color: black;
-}
-
-button:hover, a:hover {
-  opacity: 0.7;
-}
-</style>
-</head>
-<body>
-<br>
-<h4 style="text-align:center">User Profile</h4>
-<br>
-
-
-<div class="card">
-  <img src="<?php echo $imagelink; ?>" alt="imageprofile" style="width:100%">
-  <h1><?php echo $name; ?></h1>
-  <h2>@<?php echo $username; ?></h2>
-  <p class="title">Web Designer & Developer, UI/UX Designer</p>
-  <p>Delta State Univeristy (B.Sc Physics)</p>
-  <p>Nigeria</p>
-  <div style="margin: 24px 0;">
-    <a href="https://t.me/opheus"><i class="fa fa-telegram"></i></a> 
-    <a href="https://twitter.com/orpheusohms"><i class="fa fa-twitter"></i></a>  
-    <a href="https://www.instagram.com/orpheusohms/"><i class="fa fa-instagram"></i></a>  
-    <a href="https://www.fb.com/j.ominiabohs"><i class="fa fa-facebook"></i></a> 
- </div>
- <p><button>Contact</button></p>
-<<<<<<< HEAD
-=======
- 
-<div class="customfoo">                  
-<div class="container bootstrap snippet">
-    <div class="row">
-        <div class="col-md-12 col-md-offset-4">
-            <div class="portlet portlet-blue">
-                <div class="portlet-heading">
-                    <div class="portlet-title">
-                        <h4><i class="fa fa-circle text-green"></i> Opheus Bot- Customer Service</h4>
-                    </div><br>
-                    <div class="portlet-widgets">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-white dropdown-toggle btn-xs" data-toggle="dropdown">
-                                <i class="fa fa-circle text-green"></i> Online
-                            </button>
-                        </div>
-                        <span class="divider"></span>
-                        <a data-toggle="collapse" data-parent="#accordion" href="#chat"><i class="fa fa-chevron-down"></i></a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div id="chat" class="panel-collapse collapse in">
-                    <div>
-                    <div class="portlet-body chat-widget" style="overflow-y: auto; width: 400px; height: 500px;">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <p class="text-center text-muted small"><?php $date = date("Y-m-d h:i:sa"); echo $date;?></p>
-                            </div>
-                        </div>
-                     
-                       <div id="opheuscont">
-						
-						</div>
-                    </div>
-                    </div>
-                    <div class="portlet-footer">
-                        <form role="form">
-                            <div class="form-group">
-                                <textarea id='text-sms' name="controls-box" class="form-control" placeholder="Enter message..."></textarea>
-                            </div>
-							<div>
-							 <input checked type="checkbox" id="enter">
-							<label>Send On Enter</label></div>
-                            <div class="form-group">
-                                <button type="button" id="send-button" class="btn btn-white pull-right">Send</button>
-                                <div class="clearfix"></div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /.col-md-4 -->
-    </div>
-</div>
-</div>   
-             
-<?php 
-$ip       = $_SERVER['REMOTE_ADDR']; 
-$ipsample = "197.211.58.103";
-$date     = gmdate("r"); 
-$details  = json_decode(file_get_contents("https://ipapi.co/{$ipsample}/json/")); 
-$city     = $details->city; 
-$code     =$details->region_code;
-$state     = $details->region; 
-$zipcode     = $details->postal; 
-$cntry  = $details->country_name; 
-
-
-
 // Usage:
 
 $browser = get_browser_name($_SERVER['HTTP_USER_AGENT']);
@@ -388,7 +620,10 @@ $device = get_device_name($_SERVER['HTTP_USER_AGENT']);
 
 
 
+
+
 ?>
+
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
 <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
@@ -459,17 +694,21 @@ function ai(message){
           responsiveVoice.speak('you are currently in '+ state +','+ country + '.','UK English Male');
         }
 		 else if ((message.indexOf('what browser am i using') >= 0) || (message.indexOf('what device am i using') >= 0) || (message.indexOf('what is my device') >= 0) || (message.indexOf('what is my browser') >= 0)){
-			send_message('you are currently using a '+ browser +'on a '+ device + '&nbsp;Device');
+			send_message('you are currently using a&nbsp;'+ browser +'&nbsp;on a '+ device + '&nbsp;Device');
           responsiveVoice.speak('you are currently using a '+ browser +'on a '+ device + 'Device','UK English Male');
 		  }
 		 else if ((message.indexOf('what is my ip address') >= 0) || (message.indexOf('what is my ip') >= 0) || (message.indexOf('what ip am i using') >= 0) || (message.indexOf('show me my ip') >= 0)){
 			send_message('your ip address is : '+ ip +'');
           responsiveVoice.speak('your ip address is : '+ ip +'','UK English Male');
 		  }
+		  else if ((message.indexOf('aboutbot') >= 0) || (message.indexOf('aboutBot') >= 0) || (message.indexOf('About Bot') >= 0) || (message.indexOf('botAbout') >= 0)){
+			send_message('Opheus-B0t v1.0');
+          responsiveVoice.speak('i am an opheus bot and i am currently version 1.0.');
+		  }
 		else if (message.indexOf('train:') >= 0){
 		trainer = message;
 		$.ajax({
-			type: "GET",
+			type: "POST",
 			url: 'profiles/opheus.php',
 			data: {opheustrain: trainer },
 			success: function(data){
@@ -481,8 +720,8 @@ function ai(message){
 		else{
 		elses = message;
 		$.ajax({
-			type: "GET",
-			url: 'answers.php',
+			type: "POST",
+			url: 'profiles/opheus.php',
 			data: {opheuscheck: elses },
 			success: function(data){
 				send_message(data);
@@ -529,7 +768,6 @@ $(function() {
 
 
 </script>
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
  <?php
     try {
         $sql = 'SELECT * FROM secret_word';
@@ -545,3 +783,6 @@ $(function() {
 
 </body>
 <html>
+<?php 
+	}
+?>

@@ -1,3 +1,14 @@
+<?php 
+  try {
+      $sql = "SELECT secret_word FROM secret_word";
+      $q = $conn->query($sql);
+      $q->setFetchMode(PDO::FETCH_ASSOC);
+      $data = $q->fetch();
+      $secret_word = $data['secret_word'];
+  } catch (PDOException $e) {
+      throw $e;
+  }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,9 +66,6 @@
 	  <p>PHP, MySQL, Laravel</p>
 	  <div style="margin: 24px 0; padding-bottom: 20px">
 
-	    <a href="#https://web.facebook.com/segun.weke"><i class="fa fa-facebook"></i></a> 
-	    <a href="#https://twitter.com/samuelweke"><i class="fa fa-twitter"></i></a>  
-	    <a href="#"><i class="fa fa-linkedin"></i></a>  
 	 </div>
 	</div>
 

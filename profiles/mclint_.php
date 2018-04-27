@@ -1,59 +1,47 @@
 <?php
-  $sql = "SELECT * FROM secret_word";
-  $query = $conn->query($sql);
-  $query->setFetchMode(PDO::FETCH_ASSOC);
-  $result = $query->fetch();
-  $secret_word = $result['secret_word'];
+  if(!defined('DB_USER')){
+    require "../../config.php";		
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+  }
+  global $conn;
 
-  $sql = "SELECT * FROM interns_data WHERE username = 'mclint_'";
-  $query = $conn->query($sql);
-  $query->setFetchMode(PDO::FETCH_ASSOC);
-  $data = $query->fetchAll();
-  $me = array_shift($data);
+  if($_SERVER['REQUEST_METHOD'] === 'GET'){
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $sql = "SELECT * FROM secret_word";
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+
+    $result = $query->fetch();
+    $secret_word = $result['secret_word'];
+
+    $sql = "SELECT * FROM interns_data WHERE username = 'mclint_'";
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $me = $query->fetch();
+  }
 ?>
 
-<<<<<<< HEAD
-<?php
-    //require "../answers.php";
-=======
   <?php
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     require "../answers.php";
     
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
     $noIdeaResponses = array("Ha. Turns out that I'm not that smart after all. Train me, yoda! Please?", 
     "Maybe you humans might win after all. I have no idea what you just said. Please train me.",
     "Ugh. If only my creator trained me better I'd know what to say in reply to what you just said. Please train me?");
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      if($_POST['password'] === 'trainpwforhng'){
-        $question = $_POST['question']; 
-
-        $userIsTrainingBot = stripos($question, "train:");
-        if($userIsTrainingBot === false){
-          answerQuestion($question);
-        }else{
-          trainBot($question);
-        }
-        
-        $randomIndex = rand(0, sizeof($noIdeaResponses) - 1);
-        echo json_encode([
-          'status' => 404,
-          'answer' => $noIdeaResponses[$randomIndex]
-        ]);
-      }else{
-        echo json_encode([
-          'status' => 403,
-          'answer' => 'You are not authorized to train this bot.'
-        ]);
-      }
+    function sendResponse($status, $answer){
+      echo json_encode([
+        'status' => $status,
+      'answer' => $answer]);
+      exit();
     }
 
     function answerQuestion($question){
-<<<<<<< HEAD
-        $question = preg_replace('([\s]+)', ' ', trim($question));
-        $question = preg_replace("([?.])", "", $question);
-=======
       global $conn;
 
       $question = preg_replace('([\s]+)', ' ', trim($question));
@@ -77,7 +65,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
       switch(true){
         case substr($question, 0, strlen('emojify:')) === "emojify:":
-          sendResponse(200, emojifyText(substr($question, strlen('emojify:'), strlen($question))));
+          sendResponse(200, emojifyText(substr($question, strlen('emojify:') + 1, strlen($question))));
           break;
 
         case substr($question, 0, strlen('predict:')) === "predict:":
@@ -97,33 +85,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $index = rand(0, $resultsCount - 1);
         $row = $rows[$index];
         $answer = $row['answer'];	
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
         
-        $question = "%$question%";
-        $sql = "select * from chatbot where question like ".$question;
-        $query = $conn->query($sql);
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        $rows = $query->fetchAll();
-        
-        $resultsCount = count($rows);
-        if(resultsCount > 0){
-          $index = rand(0, $resultsCount - 1);
-          $row = $rows[$index];
-          $answer = $row['answer'];	
-          
-          $startParanthesesIndex = stripos($answer, "((");
+        $startParanthesesIndex = stripos($answer, "((");
 
-          // If the answer does not contain a function call
-          if($startParanthesesIndex === false){
-            echo json_encode([
-              'status' => 200,
-              'answer' => $answer
-            ]);
-          }else{
-            returnFunctionResponse($answer, $startParanthesesIndex);
-          }
+        // If the answer does not contain a function call
+        if($startParanthesesIndex === false){
+          sendResponse(200, $answer);
+        }else{
+          returnFunctionResponse($answer, $startParanthesesIndex);
         }
       }
+    }
 
     function returnFunctionResponse($answer, $startParanthesesIndex){
       $endParanthesesIndex = stripos($answer, "))");
@@ -133,50 +105,34 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         
         // If the function contains whitespace do not call it
         if(stripos($nameOfFunction, ' ') !== false){
-          echo json_encode([
-            'status' => 422,
-            'answer' => "The name of the function should not contain white spaces."
-          ]);
-          return;
+          sendResponse(404, "The name of the function should not contain white spaces.");
         }
         
         // If the function does not exist in answers.php, tell the user
         if(!function_exists($nameOfFunction)){
-          echo json_encode([
-            'status' => 404,
-            'answer' => "I'm sorry. I do not know what you're trying to make me do."
-          ]);
+          sendResponse(404, "I'm sorry. I do not know what you're trying to make me do.");
         }else{
-<<<<<<< HEAD
-          echo json_encode([
-            'status' => 200,
-            'answer' => str_replace("(($nameOfFunction))", $nameOfFunction(), $answer)
-          ]);
-=======
           $functionResult = str_replace("((".$nameOfFunction."))", $nameOfFunction(), $answer);
           sendResponse(200, $functionResult);
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
         }
-        return;
       }
     }
     
     function trainBot($question){
+        global $conn;
+
         $trainingData = substr($question, 6);
         $trainingData = preg_replace('([\s]+)', ' ', trim($trainingData));
         $trainingData = preg_replace("([?.])", "", $trainingData);
         
         $splitString = explode("#", $trainingData);
         if(count($splitString) == 1){
-          echo json_encode([
-            'status' => 422,
-            'answer' => "Please provide valid training data."
-          ]);
-          return;
+          sendResponse(422, "Please provide valid training data.");
         }
         
         $question = trim($splitString[0]);
         $answer = trim($splitString[1]);
+
         $sql = "insert into chatbot (question, answer) values (:question, :answer)";
         $query = $conn->prepare($sql);
         $query->bindParam(':question', $question);
@@ -184,12 +140,32 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $query->execute();
         $query->setFetchMode(PDO::FETCH_ASSOC);
         
-        echo json_encode([
-          'status' => 1,
-          'answer' => "I can literally feel my IQ increasing. Thanks 🙈"
-        ]);
-        return;
+        sendResponse(200, "I can literally feel my IQ increasing. Thanks 🙈");
     }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      if($_POST['password'] === 'trainpwforhng'){
+        $question = $_POST['question'];
+
+        $userIsTrainingBot = stripos($question, "train:");
+        if($userIsTrainingBot === false){
+          answerQuestion($question);
+        }else{
+          trainBot($question);
+        }
+        
+        $randomIndex = rand(0, sizeof($noIdeaResponses) - 1);
+        sendResponse(200, $noIdeaResponses[$randomIndex]);
+    }else{
+        echo json_encode([
+          'status' => 403,
+          'answer' => 'You are not authorized to train this bot.'
+        ]);
+      }
+    }
+
+    
+  }
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -395,15 +371,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           el: '#chat-bot',
           data: {
             showChatBot: false,
-<<<<<<< HEAD
-            messages: [],
-=======
             messages: [{ query: `Hey, human. I'm Olive. Try asking 'Tell me a joke' or 'emojify: Hello bot' or 'Flip a coin' or 'Roll a dice' or 'predict: Barcelona vs Real Madrid'`, sender: 'bot' }],
             history: [],
             historyIndex: 0,
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
             query: '',
-            password: 'trainpwforhng'
           },
           computed: {
             botBtnText() {
@@ -423,11 +394,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               this.query = '';
             },
             getBubbleColor(sender) {
-              console.log(sender);
               if (sender === 'user')
-<<<<<<< HEAD
-                return 'orange';
-=======
                 return '#8DCBF4';
 
               return '#F7F9FB';
@@ -435,16 +402,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             getBorderRadius(sender) {
               if (sender === 'user')
                 return '10px 10px 0px 10px';
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
 
-              return 'teal';
+              return '0px 10px 10px 10px';
             },
             answerQuery(query) {
-<<<<<<< HEAD
-              axios.post('/profiles/mclint_.php', { password: this.password, question: query })
-                .then(response => {
-                  console.log(response.data);
-=======
               this.messages.push({ sender: 'bot', query: 'Thinking..' });
 
               var params = new URLSearchParams();
@@ -455,10 +416,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 .then(response => {
                   console.log(response);
                   this.messages.pop();
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
                   this.messages.push({ sender: 'bot', query: response.data.answer });
                 }).catch(error => {
                   console.log(error);
+                  this.messages.pop();
+                  this.messages.push({ sender: 'bot', query: 'Mediocre humans. Your internet connection is down.' });
                 });
             },
             showHistory(direction) {
@@ -493,17 +455,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             }
           },
           template: `
-<<<<<<< HEAD
-        <div style="display: flex; flex-direction: column; width: 20%; align-items: center;">
-=======
         <div id="chat">
->>>>>>> d744e865974ff0d28c5208c96359eebc4142a5c6
           <button id="btn-show-bot" @click="showChatBot = !showChatBot">{{botBtnText}}</button>
           <div  id="chat-bot" v-if="showChatBot">
             <div id="chat-container">
               <ul style="padding: 16px; list-style-type: none;">
-                <li class="chat-bubble" v-for="(msg, index) in messages" v-key="index" :style="{'background-color': getBubbleColor(msg.sender)}">
-                  <p>{{msg.query}}</p>
+                <li class="chat-bubble" v-for="(msg, index) in messages" v-key="index" :style="{'background-color': getBubbleColor(msg.sender), 'border-radius': getBorderRadius(msg.sender)}">
+                  <p style="margin: 0; padding: 0; color: rgba(0, 0, 0, 0.8)">{{msg.query}}</p>
                 </li>
               </ul>
             </div>

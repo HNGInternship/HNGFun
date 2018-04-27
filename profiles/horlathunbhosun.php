@@ -1,176 +1,249 @@
-
-<!--  -->
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-	<title>Holathunbhosun Profile</title>
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<title>	Horlathunbhosun</title>
+<link rel="stylesheet" type="text/css" href="">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-	  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css?family=Lato');
 
-	      <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	         <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-
-   <style type="text/css">
-   	
-  /* body{
-   	background-color: grey;
-
-
-   }*/
-
-   #navbar{
-
-   	background: green;
-
-   }
- p{
-   	color: black;
-   	font-size: 30px;
-   	
-   }
-
- h5{
- 	text-align: center;
- 	font-size: 25px;
-
- }
- h4 , h6{
- 	text-align: center;
- 	font-size: 25px;
-
- }  
- h1{
- 	text-align: center;
-
- }
-
-
- .footer{
- 	background: green;
- 	margin-top: 800px;
- }
-
- img{
-
-
- }
-#social{
-	margin: auto;
-	padding-left: 20px;
+#boh1{
+  text-align: center;
+  font-family:'Lato', sans-serif;
+  width: 300px;
 }
-#social ul, #social ul li{
-	display:inline-flex;
-	text-decoration: none;
+body{
 
+background: grey;
 }
-#social ul li a{
-	color:black;
-     font-size: 50px;
-     text-decoration: none;
-     transition: all 0.4s ease-in-out;
-     width: 100px;
-     height: 30px;
-     line-height: 50px;
-     text-align: center;
-     vertical-align: middle;
-     position: relative;
+p {
+  color: black;
+  font-size: 20px;
 }
-   </style>
+.containerb{
+  list-style-type: none;
+  color: white;
+  padding: 30px;
+  padding-top: 200px;
+  display: inline-flex;
+  background: grey;
+}
 
-<?php 
+.contain{
+  padding: 10px;
+  margin: 50px;
+  border-radius: 2px;
+  margin-left: 80px;
+}
+.socialicons{
+    text-align: justify;
+    padding-top: 10px;
+}
+
+
+/****************************************chat Bot style ****************************/
+.chatbox {
+	width: 500px;
+	min-width: 390px;
+	height: 600px;
+	background: #fff;
+	padding: 25px;
+	margin: 20px auto;
+	box-shadow: 0 3px #ccc;
+}
+
+.chatlogs {
+	padding: 10px;
+	width: 100%;
+	height: 450px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.chatlogs::-webkit-scrollbar {
+	width: 10px;
+}
+
+.chatlogs::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	background: rgba(0,0,0,.1);
+}
+
+.chat {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: flex-start;
+	margin-bottom: 10px;
+}
+
+
+.chat .user-photo {
+	width: 60px;
+	height: 60px;
+	background: #ccc;
+	border-radius: 50%;
+}
+
+.chat .chat-message {
+	width: 80%;
+	padding: 15px;
+	margin: 5px 10px 0;
+	border-radius: 10px;
+	color: #fff;
+	font-size: 20px;
+}
+
+.friend .chat-message {
+	background: #1adda4;
+}
+
+.self .chat-message {
+	background: #1ddced;
+	order: -1;
+}
+
+.chat-form {
+	margin-top: 20px;
+	display: flex;
+	align-items: flex-start;
+}
+
+.chat-form textarea {
+	background: #fbfbfb;
+	width: 75%;
+	height: 50px;
+	border: 2px solid #eee;
+	border-radius: 3px;
+	resize: none;
+	padding: 10px;
+	font-size: 18px;
+	color: #333;
+}
+
+.chat-form textarea:focus {
+	background: #fff;
+}
+
+.chat-form button {
+	background: #1ddced;
+	padding: 5px 15px;
+	font-size: 30px;
+	color: #fff;
+	border: none;
+	margin: 0 10px;
+	border-radius: 3px;
+	box-shadow: 0 3px 0 #0eb2c1;
+	cursor: pointer;
+
+	-webkit-transaction: background .2s ease;
+	-moz-transaction: backgroud .2s ease;
+	-o-transaction: backgroud .2s ease;
+}
+
+.chat-form button:hover {
+	background: #13c8d9;
+}
 
 
 
-
-
- ?>
-
-
+</style>
 </head>
-<body>
-<nav id="navbar">
-  <p style="font-size: 50px;">My Profile</p>
-</nav>
-<br><br>
-<?php 
-   require_once ('db.php');
+
+<?php
+if(!defined('DB_USER')){
+  require "../../config.php";
+	// require_once ('../db.php');
+}
+try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+
+global $conn;
 
 
 
-      
-			$query = $conn->query("SELECT * FROM secret_word");
-			$result = $query->fetch(PDO::FETCH_ASSOC);
-			$secret_word = $result['secret_word'];
+  $query = $conn->query("SELECT * FROM secret_word");
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    $secret_word = $result['secret_word'];
 
 
-	$result2 = $conn->query("SELECT * FROM interns_data WHERE  username = 'horlathunbhosun'");
+    $result2 = $conn->query("SELECT * FROM interns_data WHERE  username = 'horlathunbhosun'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
    // $user = $result2->fetch();
 
+ 
+
+?>
+
+
+
+
+<?php 
+   
+  
+
 
  ?>
 
-	<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="col-md-6 ">
-      <!--Sidebar content-->
 
-
-			<img src="<?php echo $user->image_filename; ?>" style="border: 2px solid #f3f3f3;" alt="My Image"  class="img-circle"  width="400px" height="600px">
-
-
-    </div>
-    <div class="col-md-6">
-    	<h1>ABOUT ME</h1> <br>
-		 	<h5><b>Name:</b> <?php echo  $user->name; ?> <span>(<?php echo $user->username; ?>)</span></h5>
-		 	<h5><b>Username:</b>  </h5>
-		 	<h6>(Web Developer)</h6>
-		 	<h6><b>Skills:</b></h6> 
-        <p style="padding-right: 10px;"> PHP,HTML,CSS,BOOTSTRAP,CODEIGNITER.</p>
-		<div id="social">
-				<ul>
-
-				<li><a href="https://github.com/horlathunbhosun" target="_blank"><i class="fa fa-github"></i></a></li>
-				<li><a href="https://twitter.com/@horlathunbhosun" target="_blank"><i class="fa fa-twitter"></i></a></li>
-				<li><a href="https://www.linkedin.com/in/olulode-olatunbosun-458927135/" target="_blank"><i class="fa fa-linkedin "></i></a></li>
-				<li><a href="https://medium.com/@olulode olatunbosun" target="_blank"><i class="fa fa-medium"></i></a></li>
-				<li><a href="https://web.facebook.com/olaolulode" target="_blank"><i class="fa fa-facebook"></i></a>	</li>
-				<li><a href="https://www.instagram.com/ola_olulode" target="_blank"><i class="fa fa-instagram"></i></a></li>
-                </ul>
+<div class="container" style="padding-top: 100px;">
+		<div class="row">	
+	<div class="col-md-6" >
+		<div class="chatbox" id="boh1" style="height: 700px;">
+			<img src="<?php echo $user->image_filename; ?>" alt="2boh" width= "300px" height="300px" class="img-circle">
+					<h1 style="color: black;"><?php echo  $user->name; ?></h1>
+					<p style=" font-size: 30px;">(<?php echo $user->username; ?>) </p>
+							<p>	(Web Developer)</p>
+						<p>I love tech stuff and cools things</p>
+						 <h6 style="font-size: 20px;"><b>Skills:</b>PHP(Code Igniter, Laravel)</h6>
+						<a href="https://github.com/horlathunbhosun" target="_blank" style="color: black;" class="btn btn-success"><i class="fa fa-github"></i> Github</a>
+						<a href="https://twitter.com/@horlathunbhosun" target="_blank" style="color: black;" class="btn btn-info"><i class="fa fa-twitter"></i> Twitter</a>
+						<a href="https://www.linkedin.com/in/olulode-olatunbosun-458927135/" target="_blank" style="color: black;" class="btn btn-warning"><i class="fa fa-linkedin"></i> Linkedin</a>
+						<a href="https://web.facebook.com/olaolulode" target="_blank" style="color: black;" class="btn btn-primary"><i class="fa fa-facebook"></i>Facebook</a>
+						
 			</div>
+				</div>
+			<div class="col-md-6">			
+			<div class="chatbox">
+				<div class="chatlogs">
+			<div class="chat friend">
+				<div class="user-photo"></div>
+				<p class="chat-message">What's up, Brother ..!!</p>	
+			</div>
+			<div class="chat friend">
+				<div class="user-photo"></div>
+				<p class="chat-message">What's up, Brother ..!!</p>	
+			</div>
+			<div class="chat self">
+				<div class="user-photo"></div>
+				<p class="chat-message">What's up ..!!</p>	
+			</div>
+			<div class="chat self">
+				<div class="user-photo"></div>
+				<p class="chat-message">A única área que eu acho, que vai exigir muita atenção nossa, e aí eu já aventei a hipótese de até criar um ministério. É na área de... Na área... Eu diria assim, como uma espécie de analogia com o que acontece na área agrícola.</p>	
+			</div>
+			<div class="chat friend">
+				<div class="user-photo"></div>
+				<p class="chat-message">No meu xinélo da humildade eu gostaria muito de ver o Neymar e o Ganso. Por que eu acho que.... 11 entre 10 brasileiros gostariam. Você veja, eu já vi, parei de ver. Voltei a ver, e acho que o Neymar e o Ganso têm essa capacidade de fazer a gente olhar.
 
-                          
+				Todos as descrições das pessoas são sobre a humanidade do atendimento, a pessoa pega no pulso, examina, olha com carinho. Então eu acho que vai ter outra coisa, que os médicos cubanos trouxeram pro brasil, um alto grau de humanidade.
+				</p>	
+			</div>
+		</div>
+		<div class="chat-form">
+			<textarea></textarea>
+			<button>Send</button>
+		</div>
 	</div>
 
-    </div>
-  </div>
-</div>
-
-
-
 
 </div>
 
-
+		
+		</div>
+	</div>	
 </body>
-<div class="footer">
-
-<p> </p>
-	
-</div>
-
 </html>
-
-
-
-
-
-
-

@@ -85,6 +85,7 @@
 
 
   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+<link rel="stylesheet" id="css" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css" type="text/css"/>
 
 
 
@@ -204,7 +205,11 @@
 
 
 
-
+.oj-link {
+    color: $linkTextColor;
+    line-height: inherit;
+    text-decoration: none;
+}
 
 
 
@@ -316,11 +321,11 @@
 
 
 
-<body>
+<body class="oj-body">
 
 
 
-  <div id="main">
+  <div id="main" >
 
 
 
@@ -348,7 +353,7 @@
 
 
 
-          <div id="social">
+          <div class="oj-flex">
 
 
 
@@ -360,22 +365,23 @@
 
 
 
-                <a href="https://res.cloudinary.com/damilare1957/image/upload/v1523622655/dan.jpg">
+                  <div class="oj-md-6 oj-lg-6 oj-xl-6 oj-flex-item">
+                  
+
+                         <a class="oj-link" href="https://res.cloudinary.com/damilare1957/image/upload/v1523622655/dan.jpg">
+
+                       <img  src="<?php echo $user->image_filename; ?>" width="200" height="200"/>
 
 
 
-                  <img  src="<?php echo $user->image_filename; ?>" width="200" height="200"/>
 
 
 
 
+                    </a>
 
 
-
-                </a>
-
-
-
+                  </div>
               </li>
 
 
@@ -406,28 +412,7 @@
 
   </div>
 
-
-
-  
-
-
-
- 
-
-
-
-
-
-
-
-   
-
-
-
-
-
-
-
+    
 </body>
 
 

@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+error_reporting(-1);
 include realpath(__DIR__ . '/..') . "/db.php" ;
 global $conn;
  try {
@@ -40,6 +40,16 @@ function showtime($location){
 
 if(isset($_POST['input'])){
     $msgg=$_POST['input'];
+    if($msgg == 'aboutbot'){?>
+     <div class="in">
+     <?php echo  "$msgg";?>
+     </div>
+     <?php 
+     echo '<div class="out">';
+     echo 'Current Version is 1.0';
+     echo '</div>';
+     
+    }else{
 $msg=strtolower($msgg);
 $length=strlen($msg);
 // $msg = "train: hdgudd ifh #hiiii";
@@ -51,11 +61,11 @@ $q = explode("#", $qa);
 $qu = $q[0];
 $an = $q[1];
 $pass = $q[2];
-if($train == 'train'&& $pass != 'asdfgh'){
+if($train == 'train'&& $pass != 'password'){
     echo "Wrong Password, You need my pass word before you can train me.";
-  }elseif($train == 'train' && $pass == '1234'){
-  $in = "INSERT INTO `user`(`input`, `output`, `title`)
-     VALUES ('$qu','$an','$qu')";
+  }elseif($train == 'train' && $pass == 'password'){
+  $in = "INSERT INTO `chatbot`(`question`, `answer`)
+     VALUES ('$qu','$an')";
   $tr = mysqli_query($conf, $in);
  echo '<div class="out"> Thank You For Training Me.';
  echo "<div style=\"margin-top:10px; margin-bottom:5px;background-color:blue;color:white;\"><b>Question: $qu</b></div>";
@@ -76,7 +86,7 @@ echo '</div>';
         $result = showtime($loc);
        
       }else{
-$sql="SELECT * FROM user WHERE input LIKE '$msg%' ";
+$sql="SELECT DISTINCT question, answer  FROM chatbot WHERE question LIKE '$msg%' ORDER BY RAND() LIMIT 1";
 $send=mysqli_query($conf,$sql);
 
 $u = 'hello';
@@ -97,9 +107,9 @@ $u = 'hello';
         {
    
           $flag=1;
-          $qu = $row['input'];
-          $output=$row['output'];
-          $title=$row['title'];
+          $qu = $row['question'];
+          $output=$row['answer'];
+          $title=$row['question'];
           $result = make_links_clickable($output);
         if(!empty($title))
           {
@@ -125,6 +135,8 @@ $u = 'hello';
      </div>
     <?php
 exit();
+ }
+ exit();
  }?>
 <!DOCTYPE html>
 <html lang="en">
@@ -133,16 +145,7 @@ exit();
     
     <title>HNG Internship 4</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
     
-
-        <link rel="stylesheet" href="../../chatbot/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../../chatbot/css/font-awesome.min.css">
-        <link rel="stylesheet" href="../../chatbot/css/normalize.css">
-        <link rel="stylesheet" href="../../chatbot/css/main.css">
-        <script src="../../chatbot/js/vendor/modernizr-2.8.3.min.js"></script>
-        <script src="../../chatbot/js/vendor/jquery-1.12.0.min.js"></script>
-
 
 
     <style type="text/css">
@@ -611,7 +614,7 @@ h1 a {
     }
 
     </style>
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -698,7 +701,7 @@ h1 a {
 
 <script>
 
-$(document).ready(function(){
+$(function(){
 
     var i=0;
     var st;
@@ -732,7 +735,7 @@ $(document).ready(function(){
 
 <script type="text/javascript">
   
-  $(document).ready(function(){
+  $(function(){
 
      $("#st").click(function(){
 
@@ -751,7 +754,7 @@ $(document).ready(function(){
 
 <script>
 
-$(document).ready(function(){
+$(function(){
 
  window.alreadySubmit = false;
 
@@ -772,7 +775,7 @@ $(document).ready(function(){
             datatype: "html",
             data: $('form').serialize(), 
             success: function(result) { 
-            $('#div').append("<div class=\"stt in\""+result+"</div>");
+            $('#div').append("<div class=\"stt\""+result+"</div>");
 
                 $('#tt').val("");
 
@@ -839,40 +842,7 @@ function submitForm(oFormElement)
 
 </div>
 
-<script type="text/javascript">
-$(function() {
-    var Accordion = function(el, multiple) {
-		this.el = el || {};
-		this.multiple = multiple || false;
 
-		// Variables privadas
-		var links = this.el.find('.link');
-		// Evento
-		links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
-	}
-
-	Accordion.prototype.dropdown = function(e) {
-		var $el = e.data.el;
-			$this = $(this),
-			$next = $this.next();
-
-		$next.slideToggle();
-		$this.parent().toggleClass('open');
-
-		if (!e.data.multiple) {
-			$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
-		};
-	}	
-
-	var accordion = new Accordion($('#accordion'), false);
-});
-
-
-
-
-
-
-</script>
 </body>
 </html>
 

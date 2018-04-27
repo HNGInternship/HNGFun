@@ -55,6 +55,7 @@
 				<div>Social Media</div>
 				<div id="socialicons">
 					<a href="https://facebook.com/david_jegede91@yahoo.com"><i class="fa fa-facebook"></i></a>
+					<img src="http://res.cloudinary.com/hng4-0/image/upload/v1523637470/dav.jpg">
 					
 				</div>
 			</section>
