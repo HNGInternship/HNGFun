@@ -243,7 +243,7 @@ nav a.selected, nav a:hover {
 			<section>
 				<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
 				<h3>About</h3>
-				<p>Hi I'm basitomania, this is my design portfolio where i share all my work when i'm not surfing the net and markerting online. To follow me on twitter my handle is <a href="http://www.twitter.com">@basitomania</a>.</p>
+				<p>Hi I'm basitomania, this is my design portfolio where i share all my work when i'm not surfing the net and markerting online. To follow me on twitter my handle is <a href="http://www.twitter.com">@iamblack8</a>.</p>
 			</section>
 			<footer>
 				<p>&copy; 2017 Maniaweb.</p>
