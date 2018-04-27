@@ -1,6 +1,6 @@
 <?php 
 	if(!defined('DB_USER')){
-	require "../config.php";
+	require "../../config.php";
 	try {
 		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -30,7 +30,7 @@
 		return $data;
 	}
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-			require "../dates.php";
+			require "../answers.php";
 			$name = test_input($_POST["inputw"]);
 		
 	// collect value of input field
