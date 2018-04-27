@@ -1,9 +1,9 @@
 <?php
-if($_SERVER['REQUEST_METHOD']==='GET'){
-    require '../../config.php';
-    $secret_word = 'sample_secret_word';
-    die('hello');
-}
+// if($_SERVER['REQUEST_METHOD']==='GET'){
+//     require '../../config.php';
+//     $secret_word = 'sample_secret_word';
+//     die('hello');
+// }
 
 //     try {
 //         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
