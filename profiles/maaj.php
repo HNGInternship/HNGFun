@@ -25,6 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
 	$question = $_POST['text_in'];
 	
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
 	 // bot version
     if(stripos($question,'aboutbot') !== false){
       echo json_encode([
@@ -52,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		// Get JSON object
 		$jsondata = file_get_contents("http://timezoneapi.io/api/ip/?" . $ip_address);
+<<<<<<< HEAD
 
 		// Decode
 		$data = json_decode($jsondata, true);
@@ -84,7 +89,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
 	
 	}
+=======
+>>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
 
+		// Decode
+		$data = json_decode($jsondata, true);
+
+		// Request OK?
+		if($data['meta']['code'] == '200'){
+
+		
+
+		// Example: Get the users time
+		$time = $data['data']['datetime']['date_time_txt'];
+		
+		}
+		
+		
+		 
+		echo json_encode([
+        'status' => 1,
+        'answer' => $time 
+      ]);
+      return;
+		
+	
+	}
+	
+	
+	}
+	
+	
+	else{
+	
+	
+	
+}
 ?> 
 <!DOCTYPE html>
 <!--
@@ -120,6 +160,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
     <link rel="icon" href="css/images/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
     <!-- This is the main css file for the default Alta theme -->
 <!-- injector:theme -->
 <link rel="stylesheet" href="css/alta/5.0.0/web/alta.css" id="css"/>
@@ -128,7 +170,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- This is where you would add any app specific styling -->
 	<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.0.0/3rdparty/require-css/css.min" type="text/css"/>
-    <style>
+    
+	<style>
         .oj-web-applayout-body{
             background-color: #153643;
             vertical-align: middle;
@@ -182,7 +225,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			
 		}
 		#header{
+<<<<<<< HEAD
 			width: 80%;
+=======
+			width: 620px;
+>>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
 			height: 60px;
 			margin: 0px auto;
 			background-color:#00AFEF;
@@ -194,7 +241,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			color:#ffffff;
 		}
 		#contain{
+<<<<<<< HEAD
 			width:80%; 
+=======
+			width:620px; 
+>>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
 			height: 400px;
 			margin-top:10px;
 			margin:0px auto;
@@ -248,6 +299,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
      </style>
 
   </head>
+ 
+
   <body class="oj-web-applayout-body">
 	<div class="oj-web-applayout-page">
 	<div>
@@ -293,7 +346,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
       </div>
 	  
+<<<<<<< HEAD
     <script>
+=======
+     
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-json/2.6.0/jquery.json.min.js"></script>
+ <script>
+>>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
     var message = $("#contain");
 		
 	    $("#chat").on("submit", function(e) {
@@ -305,11 +364,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	       	message.scrollTop(message[0].scrollHeight);
 			//send question to server
 			$.ajax({
+<<<<<<< HEAD
 				url: '/profiles/maaj.php', //location
+=======
+				url: 'maaj.php', //location
+>>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
 				type: 'POST',
 				data: {text_in: text_in},
 				dataType: 'json',
 				success: (response) => {
+<<<<<<< HEAD
+=======
+					
+>>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
 			        response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
 			        let response_answer = response.answer;
 			        message.append("<div class='bot'><div class='message'><img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/>" +response_answer+ "</div></div>");      
@@ -324,9 +391,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$("#textbox").val("");
 			}
 		});
+<<<<<<< HEAD
 
 </script>
+=======
+>>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
 
+</script>
   </body>
 
 </html>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
