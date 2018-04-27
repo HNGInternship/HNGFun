@@ -289,9 +289,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			left: -3px;
             background-color: #00b0ff;
 		}
-		#queries{
-			margin-left: 50px;
-		}
 		.iro{
 			float: right;
 			color: red;
@@ -341,7 +338,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
-									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about what i can do type 'help'
+									Hi,i am MATRIX, the bot, i can answer basic questions. To know about my functions type 'help'
 								</div>
 								<div class="iro">
 									
