@@ -23,7 +23,9 @@ $image_url = $row['image_filename'];
 // chatbot
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
-	$question = $_POST['text_in'];
+	if(isset($_POST['text_in'])){
+		$question = $_POST['text_in'];
+	
 	
 	 // bot version
     if(stripos($question,'aboutbot') !== false){
@@ -78,13 +80,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 	
 	
+	}
 	
 	}
 	else{
 	
 	
 	
-
+}
 ?> 
 <!DOCTYPE html>
 <!--
@@ -120,6 +123,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
     <link rel="icon" href="css/images/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <!-- This is the main css file for the default Alta theme -->
 <!-- injector:theme -->
 <link rel="stylesheet" href="css/alta/5.0.0/web/alta.css" id="css"/>
@@ -128,7 +133,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- This is where you would add any app specific styling -->
 	<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.0.0/3rdparty/require-css/css.min" type="text/css"/>
-    <style>
+    
+	<style>
         .oj-web-applayout-body{
             background-color: #153643;
             vertical-align: middle;
@@ -148,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			width: 100%;
 		}
         .oj-profile{
-            background-image: url('http://res.cloudinary.com/maaj/image/upload/v1523621615/profile.jpg');
+            background-image: url('https://res.cloudinary.com/maaj/image/upload/v1523621615/profile.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -191,8 +197,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		#header h1{
 			margin: 0 0 0 30%;
+			color:#ffffff;
 		}
-		#container{
+		#contain{
 			width:80%; 
 			height: 400px;
 			margin-top:10px;
@@ -247,6 +254,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
      </style>
 
   </head>
+ 
+
   <body class="oj-web-applayout-body">
 	<div class="oj-web-applayout-page">
 	<div>
@@ -267,19 +276,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
 		  <div class="oj-flex-item">
 			<div id ="header">
-	
-		<h1>Maaj's bot</h1>
-	</div>
-	<div id="container">
-	
-	</div>
-	<div id ="controls">
-		<form method="POST" action="" id= "chat">
-		<input type="text" id="textbox"></input>
-		<input id="send" type="submit" value="Send"></input>
-		</form>
 
-	</div>
+				<h1>Maaj's bot</h1>
+			</div>
+				<div id="contain">
+				
+				</div>
+				<div id ="controls">
+					<form method="POST" action="" id= "chat">
+					<input type="text" id="textbox"></input>
+					<input id="send" type="submit" value="Send"></input>
+					</form>
+
+				</div>
 	
           </div>
 		  </div>
@@ -291,9 +300,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		</div>  
     
       </div>
-	  </div>
-    <script>
-    var message = $("#container");
+	  
+     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-json/2.6.0/jquery.json.min.js"></script>
+ <script>
+    var message = $("#contain");
 		
 	    $("#chat").on("submit", function(e) {
 	        e.preventDefault();
@@ -309,10 +321,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				data: {text_in: text_in},
 				dataType: 'json',
 				success: (response) => {
+					console.log(response);
 			        response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
 			        let response_answer = response.answer;
-			        message.append("<div class='bot'><div class='message'><img src='bot.png' width='30px'/>" +response_answer+ "</div></div>");      
-			       	$('#container').animate({scrollTop: $('#container').get(0).scrollHeight}, 1100);     
+			        message.append("<div class='bot'><div class='message'><img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/>" +response_answer+ "</div></div>");      
+			       	$('#contain').animate({scrollTop: $('#contain').get(0).scrollHeight}, 1100);     
 				},
 				error: (error) => {
 	          		alert('error occured')
@@ -325,8 +338,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		});
 
 </script>
-
   </body>
 
 </html>
-<?php } ?>
+
