@@ -384,9 +384,9 @@ try {
                      success: function(res){
 
                          console.log(res);
-			 console.log(res==true);
+			 //console.log(res==true);
 
-                         if (res==true){
+                         if (res){
 
                              if (res.status ===0){
                                 chat.val('');

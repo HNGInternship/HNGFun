@@ -433,7 +433,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Brume Love</title>
+	<title>Brume love</title>
 	<link rel="stylesheet" type="text/css" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css">
 
 	<style>
@@ -448,7 +448,7 @@
 		.frame {
 			border: 1px solid grey;
 			padding: 20px;
-			background-color: #ffffff;
+			background-color: #A494AA;
 			margin-top: 5%;
 			height: 400px;
 		}
@@ -465,12 +465,12 @@
 		.chat-frame {
 			border: 1px solid grey;
 			padding: 20px;
-			background-color: #f8d34a;
+			background-color: #BF29A7;
 			margin-top: 5%;
 			margin-bottom: 50px;
 		}
 		.chat-messages {
-			background-color: #ffffff;
+			background-color: #DF3390;
 			font-size: 14px;
 			height: 600px;
 			overflow-y: auto;
@@ -485,11 +485,11 @@
 			min-height: 60px;
 		}
 		.single-message-bg {
-			background-color: #99ff33;
+			background-color: #DF3390;
 			padding: 10px;
 		}
 		.single-message-bg2 {
-			background-color: #6699ff;
+			background-color: #DF3390;
 			padding: 10px;
 		}
 		input[name=question] {
