@@ -397,7 +397,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
     
     <!-- RequireJS bootstrap file -->
     <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty//require/require.js"></script>
-    <script type="text/javascript" src="temitope/js/main.js"></script>
+    <script type="text/javascript" src="https://hng.fun/profiles/temitope/js/main.js"></script>
 
 
 <script>
