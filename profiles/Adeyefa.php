@@ -1,7 +1,7 @@
 <?php 
 
 if(!defined('DB_USER')){
-  require "../../config.example.php";		
+  require "../../config.php";		
   try {
       $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
   } catch (PDOException $pe) {
@@ -16,164 +16,139 @@ $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
-
-
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-
-    include "../answers.php";
-    
-    try{
-
-	    if(!isset($_POST['question'])){
-	      echo json_encode([
-	        'status' => 1,
-	        'answer' => "Please provide a question"
-	      ]);
-	      return;
-	    }
-
-	    //if(!isset($_POST['question'])){
-	    $mem = $_POST['question'];
-	    $mem = preg_replace('([\s]+)', ' ', trim($mem));
-	    $mem = preg_replace("([?.])", "", $mem);
-		$arr = explode(" ", $mem);
-		//test for training mode
-
-		if($arr[0] == "train:"){
-
-			unset($arr[0]);
-			$q = implode(" ",$arr);
-			$queries = explode("#", $q);
-			if (count($queries) < 3) {
-				# code...
-				echo json_encode([
-					'status' => 0,
-					'answer' => "You need to enter a password to train me."
-				]);
-				return;
-			}
-			$password = trim($queries[2]);
-			//to verify training password
-			define('trainingpassword', 'password');
-			
-			if ($password !== trainingpassword) {
-				# code...
-				echo json_encode([
-					'status'=> 0,
-					'answer' => "You entered a wrong passsword"
-				]);
-				return;
-			}
-			$quest = $queries[0];
-			$ans = $queries[1];
-
-			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
-
-			$stmt = $conn->prepare($sql);
-	        $stmt->bindParam(':question', $quest);
-	        $stmt->bindParam(':answer', $ans);
-	        $stmt->execute();
-	        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-			
-			echo json_encode([
-				'status' => 1,
-				'answer' => "Thanks for training me, you can now test my knowledge"
-			]);
-			return;
-		}
-		elseif ($arr[0] == "help") {
-			echo json_encode([
-				'status' => 1,
-				'answer' => "You can train me by using this format ' train: This is a question # This is the answer # password '. You can also convert cryptocurrencies using this syntax.'convert btc to usd"
-				
-			]);
-			return;
-			
-		}
-		elseif ($arr[0] == "convert") {
-			# code...
-			$from = $arr[1];
-			$to = $arr[3];
-			$converted_price = GetCryptoPrice($from, $to);
-			$price = "1 " . $from . " = " . $to . " " . $converted_price ;
-			echo json_encode([
-				'status' => 1,
-				'answer' => $price
-			]);
-			return;
-		}
-	    elseif ($arr[0] == "aboutbot") {
-	    	# code...
-	    	echo json_encode([
-	    		'status'=> 1,
-	    		'answer' => "I am MATRIX, Version 1.0.0. "
-	    	]);
-	    	return;
-	    }
-	    else {
-	    	$question = implode(" ",$arr);
-	    	//to check if answer already exists in the database...
-	    	$question = "%$question%";
-	    	$sql = "Select * from chatbot where question like :question";
-	        $stat = $conn->prepare($sql);
-	        $stat->bindParam(':question', $question);
-	        $stat->execute();
-
-	        $stat->setFetchMode(PDO::FETCH_ASSOC);
-	        $rows = $stat->fetchAll();
-	        if(count($rows)>0){
-		        $index = rand(0, count($rows)-1);
-		        $row = $rows[$index];
-		        $answer = $row['answer'];
-		        // check if answer is a function.
-		        $index_of_parentheses = stripos($answer, "((");
-		        if($index_of_parentheses === false){// if answer is not to call a function
-		        	echo json_encode([
-			        	'status' => 1,
-			        	'answer' => $answer
-			        ]);
-			        return;
-		        }else{//to get the name of the function, before calling
-		            $index_of_parentheses_closing = stripos($answer, "))");
-		            if($index_of_parentheses_closing !== false){
-		                $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
-		                $function_name = trim($function_name);
-		                if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
-		                   echo json_encode([
-		                    'status' => 0,
-		                    'answer' => "The function name should not contain white spaces"
-		                  ]);
-		                  return;
-		                }
-			            if(!function_exists($function_name)){
-			              echo json_encode([
-			                'status' => 0,
-			                'answer' => "I am sorry but I could not find that function"
-			              ]);
-			            }else{
-			              echo json_encode([
-			                'status' => 1,
-			                'answer' => str_replace("(($function_name))", $function_name(), $answer)
-			              ]);
-			            }
-			            return;
-		            }
-		        }    
-		    }else{
-
-		    	echo json_encode([
-		    		'status' => 0,
-		    		'answer' => "I am sorry, I cannot answer your question now. You could offer to train me."
-		    	]);
-		    	return;
-		    }
-	    }
-	}catch (Exception $e){
-		return $e->message ;
-	}
-}
 ?>
+
+<?php
+//check if server method = post
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+	include "../answers.php";
+	//Get the input text from the user and store in a new vaariable called "question"
+	$question = $_POST['question'];
+	$question = preg_replace('([\s]+)', ' ', trim($question));
+	$question = preg_replace("([?.])", "", $question); 
+	 // check if question is "aboutbot"
+    if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'aboutbot'){
+      echo json_encode([
+        'status' => 1,
+        'answer' => "Hi dear! My name is Lolly. LollyBot is currently in version 1.0 and it's built by -Jeremiah Righteous-"
+      ]);
+      return;
+    };
+    //Check if user want to train the bot or ask a normal question
+	$check_for_train = stripos($question, "train:");
+    if($check_for_train === false){ //then user is asking a question
+		//remove extra white space, ? and . from question
+	    $question = preg_replace('([\s]+)', ' ', trim($question));
+	    $question = preg_replace("([?.])", "", $question); 
+	  
+	    //check database for the question and return the answer
+	    $question = "%$question%"; //return things that have the question
+	    $sql = "select * from chatbot where question like :question";
+	    $stmt = $conn->prepare($sql);
+	    $stmt->bindParam(':question', $question);
+	    $stmt->execute();
+	    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+	 	 $rows = $stmt->fetchAll();
+	    if(count($rows)>0){ //if there are multiple match row
+	        $index = rand(0, count($rows)-1); //choose any random one
+	        $row = $rows[$index];
+	        $answer = $row['answer'];
+	        echo json_encode([
+	            'status' => 1,
+	            'answer' => $answer,  //return one of the row answers to client
+	        ]);
+	    }else{ //if no answer for the question in database
+	    	 	 echo json_encode([
+	            'status' => 1,
+	            'answer' => "I can't answer your question! Please train me by typing-->  train: question #answer #password"
+	        ]);
+			
+	    }
+	    return;
+	   
+	}else{		  
+		//train the chatbot to be more smarter 
+		//remove extra white space, ? and . from question
+	    $train_string  = preg_replace('([\s]+)', ' ', trim($question));
+	    $train_string  = preg_replace("([?.])", "",  $train_string); 
+
+	    //get the question and answer by removing the 'train'
+	    $train_string = substr( $train_string, 6);
+
+	    $train_string = explode("#", $train_string);
+
+        //get the index of the user question
+        $user_question = trim($train_string[0]);
+	        if(count($train_string) == 1){ //then the user only enter question and did'nt enter answer and password
+		        echo json_encode([
+		          'status' => 1,
+		          'answer' => "Oooh! sorry....you entered an invalid training format. Please the correct format is-->  train: question #answer #password"
+		        ]);
+	        return; 
+	        };
+
+	        //get the index of the user answer
+	        $user_answer = trim($train_string[1]);    
+	        if(count($train_string) < 3){ //then the user only enter question and answer But did'nt enter password
+		        echo json_encode([
+		          'status' => 1,
+		          'answer' => "Please enter training password to train me. The password is--> password"
+		        ]);
+	        return;
+	        };
+
+	         //get the index of the user password
+		    $user_password = trim($train_string[2]);
+
+	        //verify if training password is correct
+	        define('TRAINING_PASSWORD', 'password'); //this is a constant variable
+	        if($user_password !== TRAINING_PASSWORD){ //the password is incorrect
+		        echo json_encode([
+		          'status' => 1,
+		          'answer' => "The password you entered is wrong! Please enter the correct password which is-->  password "
+		        ]);
+	     	return;
+	    	};
+
+		    //check database if answer exist already
+		    $user_answer = "$user_answer"; //return things that have the question
+		    $sql = "select * from chatbot where answer like :user_answer";
+		    $stmt = $conn->prepare($sql);
+		    $stmt->bindParam(':user_answer', $user_answer);
+		    $stmt->execute();
+		    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+		 	$rows = $stmt->fetchAll();
+		    if(empty($rows)){// then it means the database could not fetch any existing question and answer, so	we can insect the query.      
+			    $sql = "insert into chatbot (question, answer) values (:question, :answer)";  //insert into database
+			    $stmt = $conn->prepare($sql);
+			    $stmt->bindParam(':question', $user_question);
+			    $stmt->bindParam(':answer', $user_answer);
+			    $stmt->execute();
+			    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+			    
+			    echo json_encode([
+			    	'status' => 1,
+			        'answer' => "WOW! I'm learning new things everyday. Thanks Buddy! for making me more smarter. You can ask me that same question right now and i will tell you the answer OR just keep training me more Buddy! "
+			      ]);			
+	     	return;
+	     	
+	     	}else{ //then it means the the question already in the database and no need to insert it again
+
+	     		 echo json_encode([
+			    	'status' => 1,
+			        'answer' => "Sorry! Answer already exist. Try train me again with the same question AND provide an altanative answer different from the previous one you entered OR just train me with a new question and a new answer."
+			      ]);
+			return;		
+	     	};
+	    return;
+	 	};    
+	  
+} else {
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -290,12 +265,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			left: -3px;
             background-color: #00b0ff;
 		}
-		.iro{
-			float: right;
-			color: red;
-			font-size: 15px;
-			font-family: Ubuntu;
-		}
 		.iio{
 			float: left;
 			margin-right: 90px;
@@ -348,9 +317,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 							<div id="bot_reply">
 								<div class="irr">
 									Hi,i am MATRIX, the bot, i can answer basic questions. To know about my functions type 'help'
-								</div>
-								<div class="iro">
-									
 								</div>	
 								<div class="iio">
 									<ul id="ans">
