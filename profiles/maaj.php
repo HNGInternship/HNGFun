@@ -25,10 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
 	$question = $_POST['text_in'];
 	
-<<<<<<< HEAD
-=======
 	
->>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
 	 // bot version
     if(stripos($question,'aboutbot') !== false){
       echo json_encode([
@@ -56,41 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		// Get JSON object
 		$jsondata = file_get_contents("http://timezoneapi.io/api/ip/?" . $ip_address);
-<<<<<<< HEAD
-
-		// Decode
-		$data = json_decode($jsondata, true);
-
-		// Request OK?
-		if($data['meta']['code'] == '200'){
-
-		
-
-		// Example: Get the users time
-		$time = $data['data']['datetime']['date_time_txt'];
-		
-		}
-		
-		
-		 
-		echo json_encode([
-        'status' => 1,
-        'answer' => $time 
-      ]);
-      return;
-		
-	
-	}
-	
-	
-	
-	}
-	else{
-	
-	
-	}
-=======
->>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
 
 		// Decode
 		$data = json_decode($jsondata, true);
@@ -225,11 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			
 		}
 		#header{
-<<<<<<< HEAD
-			width: 80%;
-=======
-			width: 620px;
->>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
+			width: 350px;
 			height: 60px;
 			margin: 0px auto;
 			background-color:#00AFEF;
@@ -241,11 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			color:#ffffff;
 		}
 		#contain{
-<<<<<<< HEAD
-			width:80%; 
-=======
-			width:620px; 
->>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
+			width:350px; 
 			height: 400px;
 			margin-top:10px;
 			margin:0px auto;
@@ -255,13 +209,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			overflow:scroll;
 		}
 		#controls{
-			width:80%px;
+			width:350px;
 			margin:0px auto;
 			
 		}
 		#textbox{
-			margin:0 0 0 10%;
-			width:70%;
+			margin:0 0 0 0;
+			width:82%;
 			
 		}
 		#send{
@@ -346,13 +300,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
       </div>
 	  
-<<<<<<< HEAD
-    <script>
-=======
      
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-json/2.6.0/jquery.json.min.js"></script>
  <script>
->>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
     var message = $("#contain");
 		
 	    $("#chat").on("submit", function(e) {
@@ -364,19 +314,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	       	message.scrollTop(message[0].scrollHeight);
 			//send question to server
 			$.ajax({
-<<<<<<< HEAD
 				url: '/profiles/maaj.php', //location
-=======
-				url: 'maaj.php', //location
->>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
 				type: 'POST',
 				data: {text_in: text_in},
 				dataType: 'json',
 				success: (response) => {
-<<<<<<< HEAD
-=======
 					
->>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
 			        response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
 			        let response_answer = response.answer;
 			        message.append("<div class='bot'><div class='message'><img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/>" +response_answer+ "</div></div>");      
@@ -391,17 +334,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$("#textbox").val("");
 			}
 		});
-<<<<<<< HEAD
-
-</script>
-=======
->>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
 
 </script>
   </body>
 
 </html>
-<<<<<<< HEAD
-=======
 
->>>>>>> 73fcc20bf8ca275b329d164d67a366c777a9b174
