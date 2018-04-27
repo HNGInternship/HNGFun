@@ -176,7 +176,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 
 
 ?>
-<link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
 <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Montserrat'>
 <link rel="stylesheet" href="https://d1azc1qln24ryf.cloudfront.net/114779/Socicon/style-cf.css?9ukd8d">
 <link rel="stylesheet" href='https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css'>
@@ -383,8 +382,8 @@ p {
 }
 </style>
 
-<div class="oj-flex content">
-  <div class="oj-flex-item oj-md-6 my-profile">
+<div class="content">
+  <div class="my-profile">
     <p>
     <span class="name"><?php echo $user->name; ?></span>
     <br>
@@ -409,7 +408,8 @@ p {
       <a href="https://github.com/funspectre"><span class="socicon-github" title="Github"></span></a>
     </div>
   </div>
-  <div class="oj-flex-item oj-md-6 chat">
+  <div class="chat-head">Chat</div>
+  <div class="chat">
     <div class="conversation" id="conversation">
       <p class="bot">
         Hi, my name is Alfred. Feel free to ask me anything.
@@ -417,9 +417,9 @@ p {
         Send <code>show: List of commands</code> to see a list of things I can do.
       </p>
     </div>
-    <form id="chat" class="oj-flex box" action="/profiles/tobalase.php" name="message" method="post">
-      <textarea type="text" id="message" class="oj-flex-item oj-md-9 oj-sm-7 message" placeholder="Message" wrap="soft" rows=1 autofocus></textarea>
-      <button id="send" class="oj-flex-item oj-md-2 oj-sm-4 send" type=submit>Send</button>
+    <form id="chat" class="box" action="/profiles/tobalase.php" name="message" method="post">
+      <textarea type="text" id="message" class="message" placeholder="Message" wrap="soft" rows=1 autofocus></textarea>
+      <button id="send" class=send type=submit>Send</button>
     </form>
   </div>
 </div>

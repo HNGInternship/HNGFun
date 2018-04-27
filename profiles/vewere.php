@@ -113,18 +113,28 @@
       background: #000000;
       margin-bottom: 3%;
       box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-    }    
+    }
 
     #request {
-      margin-left: 10px;
+      margin-left: 15px;
       font-family: "Rajdhani", sans-serif;
       font-size: 12pt;
       margin-top: 10px;
+      margin-right: 0;
+      border-radius: 5px 0px 0px 5px; 
+      border:none; 
+      padding-top: 5px; 
+      padding-bottom: 5px;
     }
 
     #send {
       margin-top: 10px;
-      margin-left: 8px;
+      margin-left: 0;
+      background:#809595; 
+      border-radius: 0px 5px 5px 0px; 
+      border:none; 
+      padding-top: 5px; 
+      padding-bottom: 5px;
     }
 
     #bot-bubble {
@@ -139,7 +149,7 @@
     }
 
     #user-bubble {
-      background-color: #1e90ff;
+      background: #809595;
       border-radius: 10px;
       word-wrap: break-word;
       max-width: 80%;
@@ -154,10 +164,6 @@
       font-family: "Rajdhani", sans-serif;
       font-size: 12pt;
       font-weight: bold;
-    }
-
-    #user-bubble p {
-      color: #ffffff;
     }
 
   </style>
@@ -245,8 +251,8 @@
       </div>
       <div id="input-area"> 
         <div class="oj-flex">
-            <input id="request" placeholder="Ask a question" class="oj-padding-horizontal oj-flex-item oj-sm-9 oj-md-9 oj-lg-9" style="border-radius:3px; border:none; padding-top: 5px; padding-bottom: 5px;"  type="text" >
-            <button id="send" class="oj-flex-item oj-sm-2 oj-md-2 oj-lg-2" style="background:#809595; border-radius:3px; border:none; padding-top: 5px; padding-bottom: 5px;" ><small><i class="fa fa-paper-plane"></i></small></button> 
+            <input id="request" placeholder="Ask a question" class="oj-padding-horizontal oj-flex-item oj-sm-9 oj-md-9 oj-lg-9"  type="text" >
+            <button id="send" class="oj-flex-item oj-sm-2 oj-md-2 oj-lg-2" ><i class="fa fa-paper-plane"></i></button> 
         </div>
       </div>
     </div>
