@@ -302,6 +302,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			font-size: 15px;
 			font-family: Ubuntu;
 		}
+		#bot{
+			margin-bottom: 10px;
+			margin-top: 10px;
+		}
+		#you{
+			margin-bottom: 10px;
+			margin-top: 10px;
+		}
 	</style>
 </head>
 <body>
@@ -363,7 +371,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#ans").append("<li>" + question + "</li>");
+				$("#ans").append("<li id='you'> You: " + question + "</li>");
 					//let newMessage = `<div class="iro">
 	                  //${question}
 	                //</div>`
@@ -373,7 +381,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#ans").append("<li>" + response.answer + "</li>");
+			        $("#ans").append("<li id='bot'>Bot: " + response.answer + "</li>");
 			       // console.log(response.result);
 			        //alert(response.result.d);
 			        //alert(answer.result);
