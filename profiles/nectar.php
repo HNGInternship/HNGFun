@@ -364,7 +364,7 @@
     <?php
         
         // Get the config file
-        include_once '../db.php';       
+        // include_once '../db.php';       
          
         // Set the needed variables
         $table = 'interns_data';
@@ -562,7 +562,7 @@
                                 },
                                 dataType: "json",
                                 success: function() {
-                                console.log('Msg Sent');
+                                console.log('Sent ...');
 
                                 // if(res.status === 1){
                                 //     console.log("Response OK");
@@ -631,7 +631,6 @@
                                 dataType: "json",
                                 success: function() {
                                 console.log('Msg Sent');
-
                                 // if(res.status === 1){
                                 //     console.log("Response OK");
                                 //     response= res.reply;

@@ -90,6 +90,13 @@ $worldclassdev = array_shift($data);
           <div class="about">
               I like to call myself a developer of all things JS. But basically i love to build stuff that solves a problem irrespective of the technology involved. I'm more about the impact than the money, but somehow i find both. When im not coding, i write, game and play the guitar.
           </div>
+        <?php
+$formaction = "profiles/worldclassdev/api/chat.php";
+?>
+<form action="<?php echo $formaction; ?>" method="post" >
+<input name="chat" type="text" style="width: 100%" >
+<input   type="submit" value="chat with me" >
+</form>
     </div>  
   </my-profile>
 </div>

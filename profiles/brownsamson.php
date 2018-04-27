@@ -552,6 +552,7 @@
               messageSam = messageSam.replace("#", "%23");
               xmlReq.open("GET", "answers.php?qsam=" + messageSam, true);
               xmlReq.send();
+
           }
       }
 </script>
