@@ -196,9 +196,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    background-repeat: no-repeat;
 		    background-size: cover;
 		}
+		img{
+			border-radius: 40%;
+		}
 		p{
 			text-align: center;
-			font-size: 60px;
+			font-size: 30px;
 			color: red;
 		}
 		#info{
@@ -324,7 +327,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		<div id="bbb">
 	    	<div>
 	    		<div class="oj-flex">
-					<div class="oj-flex-item"> <p> HELLO WORLD </p> </div>
+					<div class="oj-flex-item"> <img src="https://res.cloudinary.com/adeyefa/image/upload/v1523620014/Toba2.jpg"> </div>
 				</div>
 				<div class="oj-flex">
 					<div class="oj-flex-item"><p>I am   <?=$my_data['name'] ?></p> </div>
