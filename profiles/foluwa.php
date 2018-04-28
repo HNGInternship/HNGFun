@@ -163,21 +163,13 @@ if(!defined('DB_USER')){
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" id="css" href="http://www.oracle.com/webfolder/technetwork/jet/css/libs/oj/v5.0.0/alta/oj-alta-min.css">
-    <link rel="stylesheet" href="../css/demo.css">
-    <script>
-      // The "oj_whenReady" global variable enables a strategy that the busy context whenReady,
-      // will implicitly add a busy state, until the application calls applicationBootstrapComplete
-      // on the busy state context.
-      window["oj_whenReady"] = true;
-    </script>
-    <script src="http://www.oracle.com/webfolder/technetwork/jet/js/libs/require/require.js"></script>
+  <link rel="stylesheet" href="../css/demo.css"></script>
+  <script src="http://www.oracle.com/webfolder/technetwork/jet/js/libs/require/require.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-
-  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
-   <link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css' />
+  <link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css'/>
   <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
   <style type="text/css">
@@ -289,6 +281,10 @@ if(!defined('DB_USER')){
     .conversation {
       display: column;
     }
+    #time{
+      font-weight: 5px;
+      font-style: "Arial","sans-serif";
+    }
   </style>
 </head>
 
@@ -338,10 +334,10 @@ if(!defined('DB_USER')){
                 <div class="" id="" style="border:5px solid green;">
                     <div id="conversation" class="conversation">
                       <div class="bot-message">Hello! I'm ZOE!  
-                          <p><?php echo $time ?></p>
+                          <p class="time"><?php echo $time ?></p>
                       </div>
                       <div class="human-message pull-right">Hi Zoe, Am Foluwa
-                          <p><?php echo $time ?></p>
+                          <p class="time"><?php echo $time ?></p>
                       </div>
                     </div>
                 </div>
@@ -370,14 +366,14 @@ if(!defined('DB_USER')){
         e.preventDefault();
         var questionBox = $('textarea[name=inputtext]');
         var question = questionBox.val();
-        $("#conversation").append("<p class='bot-message'>" + question + "<p><?php echo $time?></p>" + "</p>");
+        $("#conversation").append("<p class='bot-message'>" + question + "<p class='time'><?php echo $time?></p>" + "</p>");
         $.ajax({
           url: '/profiles/foluwa.php',
           type: 'POST',
           data: {question: question},
           dataType: 'json',
           success: function(response){
-              $("#conversation").append("<p class='human-message'>"  + response.answer + "<p><?php echo $time?></p>" + "</p>");
+              $("#conversation").append("<p class='human-message'>"  + response.answer + "<p class='time'><?php echo $time?></p>" + "</p>");
           },
           error: function(error){
                 alert(error);
