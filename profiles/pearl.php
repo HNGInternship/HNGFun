@@ -1,6 +1,6 @@
 <?php
     
- require 'db.php';
+ //require 'db.php';
     
  if (!defined('DB_USER')){
             
