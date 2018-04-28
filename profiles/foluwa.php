@@ -1,4 +1,4 @@
-
+<!--AKINTOLA MORONFOLUWA EMMANUEL-->
 <?php
   $dt = date("Y-m-d h:i:sa");
   $time= date("h:i:sa")?>
@@ -13,32 +13,31 @@ if(!defined('DB_USER')){
   }
 }
 
-$result = $conn->query("Select * from secret_word LIMIT 1");
-$result = $result->fetch(PDO::FETCH_OBJ);
-$secret_word = $result->secret_word;
-$result2 = $conn->query("Select * from interns_data where username = 'foluwa'");
-$user = $result2->fetch(PDO::FETCH_OBJ);
+  $result = $conn->query("Select * from secret_word LIMIT 1");
+  $result = $result->fetch(PDO::FETCH_OBJ);
+  $secret_word = $result->secret_word;
+  $result2 = $conn->query("Select * from interns_data where username = 'foluwa'");
+  $user = $result2->fetch(PDO::FETCH_OBJ);
 
 
-/*if($_SERVER['REQUEST_METHOD'] === 'POST'){   
-    try{
+  if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-      if(!isset($_POST['question'])){
-        echo json_encode([
-          'status' => 1,
-          'answer' => "Please provide a question"
-        ]);
-        return;
-      }
+      include "../answers.php";
+      
+      try{
 
-      $mem = $_POST['question'];
-      $mem = preg_replace('([\s]+)', ' ', trim($mem));
-      $mem = preg_replace("([?.])", "", $mem);
-    $arr = explode(" ", $mem);
+        if(!isset($_POST['question'])){
+          echo json_encode([
+            'status' => 1,
+            'answer' => "Please provide me with a question"
+          ]);
+          return;
+        }
+
     
 
     /* Training the bot*/
-   /* if($arr[0] == "train:"){
+    if($arr[0] == "train:"){
 
       unset($arr[0]);
       $q = implode(" ",$arr);
@@ -94,13 +93,14 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
         //to check if answer already exists in the database...
         $question = "%$question%";
         $sql = "Select * from chatbot where question like :question";
-          $stat = $conn->prepare($sql);
-          $stat->bindParam(':question', $question);
-          $stat->execute();
+        $stat = $conn->prepare($sql);
+        $stat->bindParam(':question', $question);
+        $stat->execute();
 
           $stat->setFetchMode(PDO::FETCH_ASSOC);
           $rows = $stat->fetchAll();
           if(count($rows)>0){
+           
             $index = rand(0, count($rows)-1);
             $row = $rows[$index];
             $answer = $row['answer'];
@@ -112,7 +112,8 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
                 'answer' => $answer
               ]);
               return;
-            }else{//otherwise call a function. but get the function name first
+            }
+            else{//otherwise call a function. but get the function name first
                 $index_of_parentheses_closing = stripos($answer, "))");
                 if($index_of_parentheses_closing !== false){
                     $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
@@ -334,8 +335,8 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
                <div class='chatbot-menu-header'>
                     <span>ChatBot Interface</span>
                 </div>
-                <div class="" id="">
-                    <div class="conversation">
+                <div class="" id="" style="border:5px solid green;">
+                    <div id="conversation" class="conversation">
                       <div class="bot-message">Hello! I'm ZOE!  
                           <p><?php echo $time ?></p>
                       </div>
@@ -346,7 +347,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
                 </div>
                 <div>
                     <form action="" method="post" style="position:absolute;bottom:0;" >
-                        <input type="text" name="userInput" id="user-input" class="user-input" placeholder="Enter your text">
+                        <input type="text" name="userInput" id="user-input" class="user-input" placeholder="Enter your text....">
                         <button id="send" type="button" class="btn btn-primary btn-sm" style="background-color:#79af9c;">
                           <i class="fas fa-paper-plane"></i>
                         </button>
@@ -358,8 +359,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
           </div>
        </div>
        </div>
-    <hr>
-      
+  
 </body>
 </html>
     <script src="../vendor/jquery/jquery.min.js"></script>
@@ -370,14 +370,14 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
         e.preventDefault();
         var questionBox = $('textarea[name=inputtext]');
         var question = questionBox.val();
-        $("#humanPost").append("<p class='botSend'>" + question + "<p>" + "<?php echo $d?>" + "</p>" + "</p>");
+        $("#conversation").append("<p class='bot-message'>" + question + "<p><?php echo $time?></p>" + "</p>");
         $.ajax({
           url: '/profiles/foluwa.php',
           type: 'POST',
           data: {question: question},
           dataType: 'json',
           success: function(response){
-              $("#botPost").append("<p class='humanSend'>"  + response.answer +  "</p>");
+              $("#conversation").append("<p class='human-message'>"  + response.answer + "<p><?php echo $time?></p>" + "</p>");
           },
           error: function(error){
                 alert(error);
@@ -388,3 +388,4 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
   </script>
 </body>
 </html>
+<!--AKINTOLA MORONFOLUWA EMMANUEL-->
