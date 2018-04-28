@@ -103,7 +103,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php //echo $user->name; ?> Hng Intern</title>
+  <title><?php echo $user->name; ?> Hng Intern</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -252,7 +252,7 @@
                     <img src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture">
                 </div>
                 <p class="text-center myname">
-                   <span style="font-size:37px;"><?php //echo $user->name; ?></span>
+                   <span style="font-size:37px;"><?php echo $user->name; ?></span>
                 </p>
                 <div class="oj-flex">
                 <div class="text-center social-links" style="font-size:45px;">
