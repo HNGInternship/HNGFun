@@ -24,7 +24,7 @@
    
 
 // Start with the training query
- if(isset($_POST['training'])) {
+ if(isset($_POST['training']) || ($_SERVER['REQUEST_METHOD'] === 'POST')) {
      include '../answers.php';
       $message = trim($_POST['training']);
       $training = strpos($message, "train:");
