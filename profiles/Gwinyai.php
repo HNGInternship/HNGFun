@@ -35,7 +35,7 @@ if(isset($_POST['training']) || ($_SERVER['REQUEST_METHOD'] === 'POST')) {
       }
         
         exit();
-    }
+    
 
 
 
@@ -221,7 +221,7 @@ function getTime(){
     
     }
 
-
+}else { 
 
 ?>
 
@@ -1381,7 +1381,7 @@ function getTime(){
 
             /* Handle Ajax response for DB query */
             function trainQuery() {
-                var message = cleanText(chatInput.val());
+                var message = cleanText(chatInput.value;
                 $.ajax({
                 type: "POST",
                 dataType : "json",
@@ -1426,3 +1426,5 @@ function getTime(){
 </body>
 
 </html>
+
+<?php } ?>
