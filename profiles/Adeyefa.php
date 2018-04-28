@@ -113,20 +113,24 @@ if(!defined('DB_USER')){
 		    	$question = implode(" ",$arr);
 		    	//to check if answer already exists in the database...
 		    	$question = "%$question%";
-		    	$sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+		    	$sql = "Select * from chatbot where question like :question";
 		        $stat = $conn->prepare($sql);
 		        $stat->bindParam(':question', $question);
 		        $stat->execute();
 
 		        $stat->setFetchMode(PDO::FETCH_ASSOC);
 		        $rows = $stat->fetchAll();
-		        if(count($rows)>0){
-			        $rand = array_rand($rows);
-			        //$index = rand(0, count($rows)-1);
-			        //$row = $rows[$index];
-			        $answer = $rows[$rand]['answer'];
-			        // check if answer is a function.
-			        $index_of_parentheses = stripos($answer, "((");
+		        if(empty($rows)){
+		        	echo json_encode([
+			    		'status' => 0,
+			    		'answer' => "I am sorry, I cannot answer your question now. You could train me to answer the question."
+			    	]);
+			    	return;
+			    }else{
+			    	$rand = array_rand($rows);
+			    	$answer = $rows[$rand]['answer'];
+
+			    	$index_of_parentheses = stripos($answer, "((");
 			        if($index_of_parentheses === false){// if answer is not to call a function
 			        	echo json_encode([
 				        	'status' => 1,
@@ -158,15 +162,8 @@ if(!defined('DB_USER')){
 				            }
 				            return;
 			            }
-			        }    
-			    }else{
-
-			    	echo json_encode([
-			    		'status' => 0,
-			    		'answer' => "I am sorry, I cannot answer your question now. You could offer to train me."
-			    	]);
-			    	return;
-			    }
+			        }
+			    }       
 		    }
 		}catch (Exception $e){
 			return $e->message ;
