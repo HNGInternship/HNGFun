@@ -168,13 +168,12 @@
         }
 		.oj-panel{
 		background-color:#DFE1E2;
-		max-width: 100%;
-            padding-left: 0;
+            padding-left: 70px;
 		}
 		.demo-panelwrapper {
 		background-color:#DFE1E2;
-		max-width: 100%;
-            padding-left: 0;
+		width: 500px;
+        padding: 40px;
 		}
         .fa-close, .fa-question-circle {
             font-size: 23px;
@@ -204,7 +203,6 @@
     ?>
 	 <div class="oj-flex demo-panelwrapper">
             <div class="oj-flex-item oj-panel">
-     
             <div class="col-sm-6 profile-details" >
                 <div class="profile-image">
                     <img src="http://res.cloudinary.com/lois-idzi/image/upload/v1524718483/mypic.jpg" alt="Lois Thomas">
