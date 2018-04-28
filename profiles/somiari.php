@@ -16,6 +16,7 @@
 			margin: 0;
 			padding: 0;
 			box-sizing: inherit;
+
 		}
 
 		html {
@@ -40,7 +41,7 @@
 		.contained {
 			margin: 0 auto;
 			height: 100%;
-			width: 80%;
+			width: 95%;
 			max-width: 2000px;
 			display: flex;
 			justify-content: center;
@@ -106,6 +107,91 @@
 			width: 90%;
 		}
 
+		.chat-box {
+			display: flex;
+			flex-direction: column;
+			margin: 50px auto 30px auto;
+			border: 1px solid rgba(0, 0, 0, .3);
+			border-radius: 30px;
+			width: 90%;
+			padding-bottom: 10px;
+		}
+
+		.chat-box .chat-box-header {
+			display: block;
+			padding-top: 20px;
+			padding-bottom: 20px;
+			border-bottom: 1px solid rgba(0, 0, 0, .3);
+			font-size: 18px;
+		}
+
+		.chat-msgs {
+			height: 300px;
+			margin: 30px auto 15px auto;
+			overflow-y: scroll;
+			width: 98%;
+		}
+
+		.guest,
+		.alan {
+			width: auto;
+			max-width: 80%;
+			border: 1px solid lightgrey;
+			padding: 5px;
+			clear: both;
+			margin: 0 5px 5px 8px;
+			border-radius: 10px;
+			font-size: 16px;
+		}
+
+		.alan {
+			text-align: left;
+			padding-left: 20px;
+		}
+
+		.guest {
+			float: right;
+			text-align: left;
+			padding-right: 20px;
+		}
+
+		.chat-type {
+			position: relative;
+			/* border: 1px solid red; */
+			width: 100%;
+			margin: 0 auto;
+		}
+
+		.chat-msg {
+			width: 95%;
+			margin: 0 auto;
+			outline: none;
+			border: 1px solid rgba(0, 0, 0, .3);
+			background: transparent;
+			/* position: relative; */
+			resize: none;
+			padding: 10px;
+			padding-right: 75px;
+			height: 90px;
+			border-radius: 10px;
+			font-size: 18px;
+		}
+
+		.chat-send {
+			position: absolute;
+			border-radius: 50%;
+			border: 1px solid rgba(0, 0, 0, .3);
+			height: 50px;
+			width: 50px;
+			background: transparent;
+			right: 20px;
+			bottom: 23px;
+			color: rgba(0, 0, 0, .6);
+			cursor: pointer;
+			outline: none;
+			/* overflow: hidden; */
+		}
+
 		@media only screen and (min-width: 600px) {
 			.socials .fa-icon {
 				flex-basis: 0;
@@ -122,6 +208,46 @@
 			}
 			.footer .icon {
 				font-size: 1.4rem;
+			}
+			.guest,
+			.alan {
+				width: auto;
+				max-width: 60%;
+			}
+
+			.chat-send {
+				line-height: 50px;
+				position: absolute;
+				border-radius: 50%;
+				border: 1px solid rgba(0, 0, 0, .3);
+				;
+				height: 50px;
+				width: 50px;
+				background: transparent;
+				right: 40px;
+				bottom: 23px;
+				color: rgba(0, 0, 0, .6);
+				cursor: pointer;
+				outline: none;
+				/* overflow: hidden; */
+			}
+			.chat-msg {
+				width: 95%;
+				margin: 0 auto;
+				outline: none;
+				border: 1px solid rgba(0, 0, 0, .3);
+				background: transparent;
+				/* position: relative; */
+				resize: none;
+				padding: 10px;
+				padding-right: 85px;
+				height: 90px;
+				border-radius: 10px;
+				font-size: 18px;
+			}
+
+			.chat-box .chat-box-header {
+				font-size: 24px;
 			}
 		}
 
@@ -174,7 +300,8 @@
 			</figure>
 			<section class="title">
 				<h1 class="name">
-					<?php echo $user->name?></h1>
+					<?php echo $user->name?>
+				</h1>
 				<p class="labels">UI/UX. Front-end. Content Development.</p>
 			</section>
 			<section class="socials">
@@ -197,6 +324,21 @@
 					<i class="fa fa-fw fa-envelope"></i>
 				</a>
 			</section>
+
+			<form class="chat-box">
+				<span class="chat-box-header">Alan is not a bot</span>
+				<div class="chat-msgs">
+					<p class="alan">Hello! My name is Alan, and I am not a bot.</p>
+					<p class="alan">I'm a fast learner. To teach me something, just type and send: train # question # answer # password</p>
+				</div>
+				<div class="chat-type">
+					<textarea class="chat-msg" required></textarea>
+					<div class="chat-send">
+						<i class="icon fa fa-fw fa-paper-plane"></i>
+					</div>
+				</div>
+			</form>
+
 			<footer class=".footer">
 				<?php
 				date_default_timezone_set('Africa/Lagos');
@@ -204,12 +346,60 @@
 				<span class="date">
 					<?php echo date("D. M d, Y"); ?>
 				</span>
-				<i class="icon fas fa-fw fa-clock"></i>
+				<i class="icon fa fa-fw fa-clock-o"></i>
 				<span class="time">
 					<?php echo date("h:i a"); ?>
 				</span>
 			</footer>
+
 		</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
+		<script>
+			const chatMsgs = document.querySelector(".chat-msgs");
+			const chatMsg = document.querySelector(".chat-msg");
+			const callAJAX = document.querySelector(".chat-send");
+
+			callAJAX.addEventListener("click", function () {
+				if (chatMsg.value != "") {
+					chatMsgs.innerHTML += '<p class="guest">' + chatMsg.value + '</p>';
+				}
+				fixScroll();
+				getAlan(chatMsg.value);
+				chatMsg.value = "";
+			});
+
+			function getAlan(messageAlan) {
+				if (messageAlan.length == 0) {
+					return;
+				} else {
+					var xmlReq = new XMLHttpRequest();
+					xmlReq.onreadystatechange = function () {
+						if (this.readyState == 4 && this.status == 200) {
+							var message = this.responseText;
+							fixScroll();
+							if (message != "") {
+								chatMsgs.innerHTML += '<p class="alan">' + message + '</p>';
+							}
+						}
+					}
+				};
+				// messageAlan = messageAlan.replace("#", "%23");
+				// messageAlan = messageAlan.replace("#", "%23");
+
+				$.ajax({
+					type: "POST",
+					url: 'profiles/somiari.php',
+					data: {
+						alan: messageAlan}
+				});
+				// xmlReq.open("GET", "answers.php?alan=" + messageAlan, true);
+				// xmlReq.send();
+			}
+
+			function fixScroll() {
+				chatMsgs.scrollTop = chatMsgs.scrollHeight - chatMsgs.clientHeight;
+			}
+		</script>
 </body>
 
 </html>
