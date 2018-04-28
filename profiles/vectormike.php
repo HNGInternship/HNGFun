@@ -1,3 +1,49 @@
+
+<?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        require "../answer.php";
+
+        date_default_timezone_set("Africa/Lagos");
+
+        try {
+            if(!isset($_POST['question'])) {
+                echo json_encode([
+                    'status' => 1,
+                    'answer' => "Please provide a question"
+                ]);
+                return;
+            }
+
+            $question = $_POST['question'];
+
+            // Getting Bot info
+            if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'help') {
+                echo json_encode([
+                    'status' => 1,
+                    'answer' => getBotInfo()
+                ]);
+                return;
+            }
+
+            // Getting Bot Menu or Manual
+            if(preg_replace('([\s])', ' ', trim(strtlower($question))) === 'help') {
+                echo json_encode([
+                    'status' => 1,
+                    'answer' => getBotManual()
+                ]);
+                return;
+            }
+            
+            //
+        
+    } catch (Exception $e){
+        return $e->message ;
+
+    }
+  
+} else {
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,57 +53,37 @@
     <title> Victor Jonah</title>
   	
     <style>
-        body {
-            background-color: #44bb4a; 
+        .profile {
+            background-color:#0af568;
         }
-        .page {
-            background-color: #44bb4a; 
-
-        }
-
-        .main {
+        .profile-section {
             justify-content: center;
             align-content: center;
             margin-bottom:50px;
             margin-right: auto;
             margin-left: auto;
-            margin-top:20px;
-            background-color:#c0c0c0;
+            margin-top:30px;
+            background-color:#ccb4cd;
             width:400px;
             height:700px;
             box-shadow:5px 10px;
-            padding:50px;
-            
+            padding:50px;   
         }
-
         .imag {
             padding:10px;
         }
-
         .about {
             padding: 10px;
             font-family: 'Gamja Flower', cursive;
-
-
+        }
         h1 {
 
             font-family: 'Jua', sans-serif;
         }
-
-        }
-
         .fa:hover {
             color: limegreen;
             padding: 3px;
         }
-        
-        .social {
-            justify-content: center;
-            display: flex;
-            margin: auto;
-            
-        }
-        
         .chat-modal-button {
             background-color:#ffff00;
             cursor:pointer;
@@ -81,7 +107,7 @@
            font-size:18px;
            padding:13px 14px;
            -moz-border-radius:10px;
-           -webkit-border-radius:10px
+           -webkit-border-radius:10px;
            border-radius:10px;
            position:relative;
            display:inline-block;
@@ -104,7 +130,7 @@
         .bubble.you {
             float: left;
             color: #000000;
-            background-color: #00b0ff;
+            background-color: #e4801b;
             -webkit-align-self: flex-start;
             align-self: flex-start;
             -moz-animation-name: slideFromLeft;
@@ -113,7 +139,7 @@
         }
         .bubble.you:before {
             left: -3px;
-            background-color: #00b0ff;
+            background-color: #e4801b; 
         }
         .bubble.me {
             float: right;
@@ -130,7 +156,6 @@
             background-color: #db4824;
           
         }
-
         textarea {
             resize: none !important;
         }
@@ -150,26 +175,25 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-    <body>
-        <div class="page">
-            <div class="main text-center">
-                <div class="imag">
-                    <img class="img-responsive img-circle img-fluid" style="margin: 0 auto;"width="350px" height="10px" src="https://res.cloudinary.com/vectormike/image/upload/v1523655733/gg.jpg" alt="This is me o!">
-                </div>
-                <div class="about">
-                    <h1>Hello! <i class="fa fa-angellist"></i></h1>
-                    <p>This is Victor Jonah.</p>
-                    <p>300l Computer science of the University of Uyo.</p>
-                    <p>HNG Intern, 2018</p>            
-                    <!-- Chatbot Section -->
-                    <!-- Trigger the modal with a button -->
-                    <button type="button" id="mssgbox" class="btn chat-modal-button" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i></button>
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal" role="dialog">
-                        <div class="modal-dialog">
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
+    <body class="profile">
+        <div class="profile-section text-center">
+            <div class="imag">
+                <img class="img-responsive img-circle img-fluid" style="margin: 0 auto;"width="350px" height="10px" src="https://res.cloudinary.com/vectormike/image/upload/v1523655733/gg.jpg" alt="This is me o!">
+            </div>
+            <div class="about">
+                <h1>Hello! <i class="fa fa-angellist"></i></h1>
+                <p>This is Victor Jonah.</p>
+                <p>300l Computer science of the University of Uyo.</p>
+                <p>HNG Intern, 2018</p>            
+                <!-- Chatbot Section -->
+                <!-- Trigger the modal with a button -->
+                <button type="button" id="mssgbox" class="btn chat-modal-button" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i></button>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
                                 <h4 class="modal-title"><i class="fa fa-user"></i> Vectormike</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
@@ -184,6 +208,9 @@
                                     <div class="bubble you">
                                         Don't be mean, please.
                                     </div>
+                                    <div class="bubble you">
+                                        Type 'help' first. 
+                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -197,13 +224,13 @@
                                     </div>
                                 </div>
                             </form>
+                        </div> 
                     </div>
                 </div>
-            </div>
+            </div>  
         </div>
-        
-        </div>
-		<!-- animate.css -->
+    </body>
+    	<!-- animate.css -->
 	<script>
     $( document ).ready(function() {
     $('h1').addClass('animated infinite shake');
@@ -228,6 +255,5 @@
     }
     $secret_word = $data['secret_word'];
 ?>
-
-    </body>
 </html>
+<?php } ?>
