@@ -16,6 +16,25 @@ $secret_word = $result['secret_word'];
 	$user = $result2->fetch(PDO:: FETCH_OBJ);
 	
 	?>
+	<?php
+	if($_SERVER['REQUEST_METHOD'] === "GET"){
+		if(!defined('DB_USER')){
+			require "../../config.php";		
+			try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
+		}
+		$result = $conn->query("Select * from secret_word LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+		$secret_word = $result->secret_word;
+
+		$result2 = $conn->query("Select * from interns_data where username='joat'");
+		$user = $result2->fetch(PDO::FETCH_OBJ);
+	}
+?>
+<link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css">
 <head>
 
 <meta charset="utf-8">
@@ -96,7 +115,9 @@ h2{
 
 
 <div class="profile">
+<div class="demo-profile-photo-container">
 <img src="https://res.cloudinary.com/akintomide/image/upload/v1523798928/michael.png" style="width: 100%">
+</div>
 <!--<img src="michael.png" style="width: 100%">-->
 <?php
 require 'db.php';
@@ -110,12 +131,29 @@ $username =$my_data['username'];
 
 <h1><?php echo $name;?></h1>
 <p class="title">Embedded Systems Designer</p>
-<p>C++ </p>
+<p>C++</p>
 
-<p>Front End Developper </p>
+<p>Front End Developper</p>
 <p class="title">HNGinternship</p>
-<p>HTML CSS </p>
+<p>HTML CSS</p>
 <p><button>contact</button></p>	
+<div class="oj-sm-odd-cols-12">
+<div class="oj-toolbar-row">
+
+<div class="oj-sm-padding-4x-horizontal">
+<div class="oj-sm-odd-cols-4">
+	<p class="title">phone</p>
+	<p>+2347057125725</p>
+</div>
+</div>
+<div class="oj-sm-padding-4x-horizontal">
+<div class="oj-sm-odd-cols-4">
+<p class="title">email</p>
+		<p>adebbileakintomide@gmail.com</p>
+</div>
+</div>
+</div>
+</div>	
 </div>
 
 

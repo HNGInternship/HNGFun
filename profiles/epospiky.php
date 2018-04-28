@@ -1,120 +1,84 @@
-<?php
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    # require "../answers.php";
-    # require_once '../db.php';
-    # User input
-    $user_val = $_POST['question'];
-
+<?php    
+    global $conn;
     if(!defined('DB_USER')){
       require "../../config.php";   
       try {
           $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-      } catch (PDOException $pe) {
-          die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+      } catch (PDOException $e) {
+         throw $e;
       }
     }
-    
-    
-                # getting  data from db
-    $sql = $conn->prepare('select * FROM chatbot');
-    $sql->execute();
-    $result = $sql->fetchAll(PDO::FETCH_ASSOC);
-
-    # arrays to populaate with db data;
-   $q = [];
-    $a = [];
-
-
-    # Populate the question array
-    foreach ($result as $key => $value) {
-      array_push($q, strtolower($value['question']));
-     array_push($a, strtolower($value['answer']));
+    try{
+     $sql = 'SELECT * FROM interns_data WHERE username="Epospiky"';
+      $query = $conn->query($sql);
+      $query->setFetchMode(PDO::FETCH_ASSOC);
+      $result1 = $query->fetch();    }
+      catch (PDOException $e){
+          throw $e;         
+      }
+         
+      try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
     }
 
-    # Make the data lower case. makes it easier to compare data.
-    $data_lower = strtolower($user_val);
-    $greet = $data_lower;
+    $secret_word = $data['secret_word'];
 
-    if(!strpos($greet, '?')) {
-      $greet = $greet . '?';
-    }
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+     #require "../answers.php";
+    # require_once '../db.php';
+    # User input
+     $user_data = $_POST['input'];
+    if (strpos($user_data, 'train') !==false) {
+      $input_val = explode(':', $user_data, 2);
+      $key_iput = $input_val[0];  #locate the input as the 1st value in the array 
+      $key_iput = strtolower($key_iput);  #force it to lowercase
+      $key_iput = preg_replace('/\s+/', '', $key_iput);   #remove whitespace
 
-    if(strpos($user_val, "train") !== false) {
-      
+        train($input_val[1]);
+    } 
 
-      $array = explode(":", $user_val, 2);
-      $key_word = $array[0];
-      $key_word = strtolower($array[0]);
-      if ($key_word == train) {
-        $password = "password";
-        $user_val2 = $array[1];
-        $quest_ans = explode("#", $user_val2);
 
-        if ($quest_ans[2] == $password ) {
-          $question = trim($quest_ans[0]);
-          $answer = trim($quest_ans[1]);
-           $question = preg_replace("([?.])", "", $question);
-           try {
-           $sql2 =  'INSERT INTO `chatbot`(`question`, `answer`) VALUES ("' . $question . '", "' . $answer . '");';
-            $conn->exec($sql2);
-            echo json_encode([
-          'status' => 1,
-          'answer' => "Thanks for your help. Now i'm smarter.", ]);  
-          return;           
-           } catch (Exception $e) {
-        echo json_encode([
-          'status' => 1,
-          'answer' => "Sorry. My Bad. Something happened. Please try again",
-        ]);   
-        return;          
-           }
+ 
 
-            return;
-        }
-        else if ($quest_ans[2] !== $password) {
-         echo json_encode([
-          'status' => 1,
-          'answer' => "OPPSS! Looks like you are trying to train me with an unuthorised password. Please get the password and try again.",
-          ]); 
-          # code...
-        }
-        return;
-        # code...
-      }
+function train($data){
+         $data =  explode('#', $input_val[1],3);
+          $question = trim($data[0]);
+          $answer = trim($data[1]);
+          $password = trim($data[2]);
+
+          if ($password === 'password') {
+             try {
+                $queryChatBot = 'SELECT * FROM chatbot';
+                $result = $conn->query($queryChatBot);
+                $resultdata = $result->fetch(PDO::FETCH_ASSOC);
+               
+             } catch (PDOException $e) {
+              throw $e;
+               
+             }
+             if (empty($user_data)) {
+               $train_info  = array(':question' => $question, ':answer' => $answer );
+               $sql = 'INSERT INTO chatbot (question, password) VALUES (:question, :answer);';
+               echo "Thank for your help. Now i'm smarter";
+             } else {
+               echo "I already understand this. Please try something new";
+             }
+             
+
+          } else {
+            echo "Sorry. Seems you are trying to train me with an unauthorised password.";# code...
+          }
+          
+
+
+}
     
-      return ;
-    } else if (strpos($user_val, "train") !== true) {
-if(in_array($data_lower, $q)) { # DONE
-        # search the stored db
-        $data_lower_2 = preg_replace("([?.])", "", $data_lower);
-  
-        $indexes = array_keys($q, $data_lower);
-        $arr_size = sizeof($indexes);
-        $random = mt_rand(0, $arr_size-1);
-  
-        $index = $indexes[$random];
-  
-        echo json_encode([
-          'status' => 1,
-          'answer' => $a[$index],
-        ]);
-        return;}
-        return;
-      } 
-      else { # 
-        echo json_encode([
-          'status' => 1,
-          'answer' => "I'm sorry, I don't understant you. You can train me with this command format  
-                        'train: question#answer#authorised password "."Or you can type help to get list of commands",
-        ]);
-        return;
-      }
-    
-
-   
-    
-  }
-
+}
   
 ?>
 <!DOCTYPE html>
@@ -126,10 +90,12 @@ if(in_array($data_lower, $q)) { # DONE
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   <!-- link to main stylesheet -->
        <link rel="stylesheet" type="text/css" href="/css/main.css">
+
        <link rel="stylesheet" type="text/css" href="https://static.oracle.com/cdn/jet/v4.1.0/default/css/alta/oj-alta-min.css">
        <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/require/require.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"> </script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
+      <script src="../vendor/jquery/jquery.min.js"></script>
         <style>
 
         ul.navi {
@@ -351,10 +317,7 @@ if(in_array($data_lower, $q)) { # DONE
   </head>
   <body class="oj-web-applayout-body">
     <?php
-      $sql = 'SELECT * FROM interns_data WHERE username="Epospiky"';
-      $query = $conn->query($sql);
-      $query->setFetchMode(PDO::FETCH_ASSOC);
-      $result1 = $query->fetch();    
+     
 
       $name = $result1['name'];
       $user = $result1['username'];
@@ -420,14 +383,13 @@ if(in_array($data_lower, $q)) { # DONE
       </ul> 
     </div>
   </div>
-   <button class="btn chat-btn" data-toggle='modal' data-target='#chatmodal'><i class="fa fa-comment-alt">Chat</i></button>
+  
  </div>
   <!--end of contact-->
-   
+    <button class="btn chat-btn" data-toggle='modal' data-target='#chatmodal'><i class="fa fa-comment-alt">Chat</i></button>
     <!--modal-->
-    <div class="modal fade" id="chatmodal" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
+
+        <div class="modal-content-">
           <div class="modal-header">
             <h5 class="modal-title" id="chatModalLabel"><i class="fa fa-user"></i>Santra</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -437,7 +399,8 @@ if(in_array($data_lower, $q)) { # DONE
           <div class="modal-body " >
             <div class="chat" id="chat">
               <p class="san">Hi there. I'm Santra.</p>
-              <p class="san">You can train me using this command format <b>train: the question # the answer #authorised password</b> or Type <b>help</b> to begin with</p>   
+              <p class="san">You can train me using this command format <b>train: the question # the answer #authorised password</b> 
+                or Type <b>help</b> to begin with</p>   
 
 
             </div>
@@ -445,7 +408,7 @@ if(in_array($data_lower, $q)) { # DONE
           <div class="clearfix"></div> 
             <form class="input " id="bot-input">
               <div class="input-group">
-                 <input class="form-control" id="txt-input" type="text" required="" placeholder="Chat me up..." />
+                 <input class="form-control" id="txt-input" type="text" name="input" required="" placeholder="Chat me up..." />
                <span class="input-group-btn">
                   <button type="submit" class="btn btn-primary"><i class="fa fa-send"></i> </button>
               </span>
@@ -453,86 +416,33 @@ if(in_array($data_lower, $q)) { # DONE
             </form>
         </div>
 
-      </div>
-    </div>
     <!--end of modal-->
     </div>
 
       <script>
-
-        $(function(){
-              var chatInput = $('#txt-input');
-              var bot_input = $('#bot-input');
-              var stack = $('#stack');
-
-              bot_input.submit(function(e) {
-                  e.preventDefault();
-                  var question = $('#txt-input').val();
-                  let chatbox = $('.chat');
-                  chatbox.scrollTop(chatbox[0].scrollHeight);
-
-                    // Append the client bubble
-                    var client = document.getElementById('chat');
-                    var ish = document.createElement('p');
-                    var text = document.createElement('span');
-                    ish.className += " " + 'me';
-                    text.className += " " + 'fa fa-user';
-                    ish.innerHTML = question;
-                    text.innerHTML = '';
-                    client.appendChild(ish);
-                    client.appendChild(text);
-                    $('#txt-input').val("");
-                    
-                    /* Scroll to the bottom */
-                    $('.chat').scrollTop($('.chat')[0].scrollHeight);
-                    $.ajax({
-                        url: './profiles/epospiky.php',
-                        type: "post",
-                        dataType: "json",
-                        data: {'question': question},
-
-                        success: function(response) {
-
-                          if(response.status === 1) {
-
-                            var resp = document.createElement('p');
-                            var respText = document.createElement('span');
-                            respText.className += " " + 'fa fa-send';
-                            resp.className += " " + 'san';
-                            respText.innerHTML = '';
-                            resp.innerHTML = response.answer;
-                            client.appendChild(respText);
-                            client.appendChild(resp);
-                           $('.chat').scrollTop($('.chat')[0].scrollHeight);
-                          } 
-                          else if (response.status === 2) {
-                            var resp = document.createElement('p');
-                            var respText = document.createElement('span');
-                            respText.className += " " + 'san';
-                            resp.className += " " + 'fa fa-send';
-                            respText.innerHTML = '';
-                            resp.innerHTML = "Sure!";
-                            client.appendChild(respText);
-                            client.appendChild(resp);
-                            open(response.answer);
-                          }
-                        },
-                        error: function(error) {
-
-                          var resp = document.createElement('p');
-                          var respText = document.createElement('span');
-                          respText.className += " " + 'fa fa-send';
-                          resp.className += " " + 'san';
-                          respText.innerHTML = '';
-                          resp.innerHTML = "Sorry, I can't respond to that now except you train me. Type <b>help</b> to see the list of commands.";
-                          client.appendChild(respText);
-                          client.appendChild(resp);
-                          console.log(error);
-                          $('.chat').scrollTop($('.chat')[0].scrollHeight);
-                        }
-                    })
-              }); // end submit
-        }); // end func
+      var chatArea = $('#chat');
+      $("#bot-input").on("submit", function(e){
+        e.preventDefault();
+        var message = $("txt-input").val();
+        chatArea.append(`<div class='bot-message'><div class=''>${message}</div></div>`);
+        $.ajax({
+          url:"epospiky.php",
+          type: 'POST',
+          data: '#txt-input='+message,
+          datatype: 'json'
+          success: function(response){
+            var output = $($.parseHTML(response)).find("#output").text();
+            setTimeout(function() {
+                    outputArea.append("<div class=''><div class=''>" + output + "</div></div>");
+                    $('#chat').animate({
+                        scrollTop: $('#chat').get(0).scrollHeight
+                    }, 1500);
+                },, 10);
+          }
+        });
+      
+      });
+        
       </script>
 
   </body>
