@@ -45,7 +45,7 @@ if(isset($_POST['message']))
                                 $countrow = $query->rowCount();
                                 if ($countrow > 0) {
                                     $answer = "Question Exist in DB<br>Train me:<br>
-                                    <code class='text-white'>train: question # answer # password</code>";
+                                    <code>train: question # answer # password</code>";
                                 } 
                                 else{
                                     $insert_qa = $con->prepare("INSERT into chatbot (question, answer) values (:question, :answer)");
@@ -87,7 +87,7 @@ if(isset($_POST['message']))
             else 
             {
                 $answer = "My Little Witty Brain Could Not Comprehend 😭.<br>Train me:<br>
-                    <code class='text-white'>train: question # answer # password</code>";
+                    <code>train: question # answer # password</code>";
             }
     }
 // session_start();
@@ -727,7 +727,7 @@ p { margin: 0; }
                         echo $_POST['message'];
                     }
                     else echo "Send a Message to get started or type codequotes to get random programming quotes.<br>Train me:<br>
-                    <code class='text-white'>train: question # answer # password</code>"; ?></p>
+                    <code>train: question # answer # password</code>"; ?></p>
                 </div>
             </div>
             <hr>
@@ -767,7 +767,7 @@ p { margin: 0; }
     }
     function sendmessage(bot_id)
     {
-        var sendmessageurl = "/profile/tridax.php";
+        var sendmessageurl = "https://hng.fun/profiles/tridax.php";
         var xmlhttp = new XMLHttpRequest();
         var message = document.getElementById("input_message").value;
         xmlhttp.open("POST", sendmessageurl, false);
