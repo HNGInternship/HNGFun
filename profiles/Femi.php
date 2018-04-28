@@ -79,7 +79,7 @@
       .border {
         border: 0.5px solid #9F9D9D;
         position: relative;
-        top: -5px;
+        top: -3px;
         margin: 0 auto;
         max-width: 200px;
       }
@@ -104,21 +104,11 @@
   </head>
   <body class="oj-web-applayout-body">
 
-  <!--<header role="banner" class="oj-web-applayout-header">
-<div class="oj-web-applayout-max-width oj-flex-bar oj-align-items-center">
-<div data-bind="css: smScreen() ? 'oj-flex-bar-center-absolute' : 'oj-flex-bar-middle oj-sm-align-items-baseline'">
-
-</div>
-<div class="oj-flex-item">
-  
-</div>
-<div class="oj-flex-bar-end">
-Made with Oracle Jet
-</div>
-</div>
-</header>-->
-    
-          <div class="main d-flex justify-content-center align-content-center">
+<div id="pageContent" class="oj-web-applayout-page">
+<header class="oj-web-applayout-header">
+  @Femi
+    </header>
+<div class="main d-flex justify-content-center align-content-center">
             <div class="square mt-5 py-5">
             <div class="my-3">
               
@@ -133,8 +123,13 @@ Made with Oracle Jet
                    I love programming and design, i am here to improve on those skill.</p>
             </div>
           </div>
-
         </div>
+  </div>
+          
+
+         <div class="oj-row">
+    <div class="oj-sm-6 oj-md-9 oj-col"></div>
+  </div>
 
         
   </body>
