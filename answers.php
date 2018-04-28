@@ -1569,20 +1569,16 @@ function cityTime($city){
 
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 /////////////////////////////FUNCTIONS ENDS HERE/////////////////////////////////////////////////////////////////
 
 /////////////////////// Conditions for checking input//////////////////////////////////////////////
 
 ///////////////////To check if the statement begins with train://///////////////////////
 
-     
+
 ///////////////////////////Conditions Ends here///////////////////////////////
-=======
-=======
->>>>>>> f9fd74f33c5011d0caff25588db477a23d3e6a0f
+
 ////////////////JONAH VICTOR VICTOR//////////////////
 ////////////////                    /////////////////
 ///////////////                     /////////////////
@@ -1591,7 +1587,7 @@ function cityTime($city){
 ////////////////                  //////////////////
 
 function getBotInfo() {
-    $bot_version=1.0.1;
+    $bot_version = "1.0.1";
     return "Heyo! I'm Vectormike's smiggle. I'm version " .$bot_version;
 }
 function getBotManual() {
@@ -1602,13 +1598,8 @@ function getBotManual() {
     To train me, send in this format: \n
     'train: question # answer # password'";
 }
-}
-<<<<<<< HEAD
->>>>>>> f2632cfa62631f5075332b5e3ea03b8d5def62b3
-=======
->>>>>>> f9fd74f33c5011d0caff25588db477a23d3e6a0f
-=======
->>>>>>> 8b630100314b93b1bbf01df9dad8b85aeb60e8e4
+
+
 
 
 ?>
