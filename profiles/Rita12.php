@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if(empty($data)){
             echo json_encode([
         		'status' => 1,
-       			 'answer' => "I don't understands you."
+       			 'answer' => "Am not sure i understand that but you can train me by typing--> train: your question # answer # password."
      		 ]);
           return;
 
