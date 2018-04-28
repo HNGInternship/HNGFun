@@ -1,34 +1,41 @@
 <?php 
+
 error_reporting(E_ALL);
 ini_set("display", 1);
+       $servername = "localhost";
+        $username = "root";
+        $password = "";
 
-?>
-<?php 
-	 $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ekpono'");
-        $intern_data->execute();
-        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $intern_data->fetch();
-        $secret_code = $conn->prepare("SELECT * FROM secret_word");
-        $secret_code->execute();
-        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
-        $code = $secret_code->fetch();
-        $secret_word = $code['secret_word'];
-	?>
+        try {
+            $conn = new PDO("mysql:host=$servername;dbname=hng_fun", $username, $password);
+            // set the PDO error mode to exception
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ekpono'");
+                $intern_data->execute();
+                $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+                $result = $intern_data->fetch();
+                // var_dump($result['name']);die();
+                $secret_code = $conn->prepare("SELECT * FROM secret_word");
+                $secret_code->execute();
+                $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+                $code = $secret_code->fetch();
+                $secret_word = $code['secret_word'];
+            } catch (PDOException $e) {
+                throw $e;
+            }
 
-<?php
-require '../../config.php';
 // ChatBot Create connection
-try {
-   $conn = new PDO("mysql:host=". DB_HOST.";dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //echo "Connected"; 
-    }
-catch(PDOException $e)
-    {
-    echo "Sorry connection not found: " . $e->getMessage();
-    }
-// Check connection
+            try {
+                $conn2 = new PDO("mysql:host=$servername;dbname=chat", $username, $password);
+                // set the PDO error mode to exception
+                $conn2->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                //echo "Connected"; 
+                }
+                catch(PDOException $e)
+                {
+                echo "Sorry connection not found: " . $e->getMessage();
+                }
+            // Check connection
 ?>
 <?php //Chatbot 
     if($_SERVER['REQUEST_METHOD']==='POST'){
@@ -71,7 +78,7 @@ catch(PDOException $e)
                     return;
                 }
                     try {
-                       $conn = new PDO("mysql:host=". DB_HOST.";dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
+                       $conn = new PDO("mysql:host=$servername;dbname=chat", $username, $password);
                         // set the PDO error mode to exception
                         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                         //echo "Connected successfully"; 
@@ -91,7 +98,8 @@ catch(PDOException $e)
 				echo json_encode([
 					'status' => 1,
 					'answer' => "Thank you, I am now smarter"
-				]);
+                ]);
+                
                 return;
             }else{ //wrong training pattern or error in string
             echo json_encode([
@@ -118,6 +126,7 @@ catch(PDOException $e)
             }
             return;
         }
+        
  ?>
    <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
 <style>
@@ -166,7 +175,7 @@ a {
             position:fixed;
             bottom:0;
             right: 20px;
-            background-color:rgba(216,0,0,0.2);
+            background-color:white;
             width: 350px;
             height: 400px;
             overflow:auto;
@@ -174,7 +183,7 @@ a {
         .display nav{
             display:block;
             height: 50px;
-            background-color:transparent;
+            background-color:#fff;
             text-align: center;
             font-size: 25px;
             padding-top:7.5px;
@@ -197,10 +206,11 @@ a {
         .user p{
             text-align: right;
             width: auto;
-            display: inline;border-radius: 50px;background: white;
-        }
-        .bot {
-            background: width: 40px;
+            display: inline;
+            border-radius: 5px;
+            background: gray;
+            color: black;
+            padding: 10px;
         }
         .bot p {
             display: inline;
@@ -209,7 +219,7 @@ a {
 </style>
 <div class="container">
     <div class="text">
-        <h1 style="color:rgb(32, 32, 216); padding-top: 30px">Hey! I'm <?php echo $user->name ?></h1>
+        <h1 style="color:rgb(32, 32, 216); padding-top: 30px">Hey! I'm <?php echo $result['name'] ?></h1>
         <h2 style="color:#806a21;">I'm a developer from Nigeria</h2>
         <h3 class="slogan">I work with companies</h3>
         <p>Jiggle, Thirdfloor, JandK Services, Hilltop</p>
@@ -227,7 +237,7 @@ a {
         <a href="http://www.github.com/ekpono">Github</a>
     </div>
     <div class="photo">
-        <img src="<?php echo $user->image_filename ?>" width="300px" height="300px"  style="border-radius: 50%; padding-top: 30px;" alt="Ekpono's Profile Picture" />
+        <img src="<?php echo $result['image_filename']; ?>" width="300px" height="300px"  style="border-radius: 50%; padding-top: 30px;" alt="Ekpono's Profile Picture" />
     </div>
     <!-- Chat form -->
 
@@ -266,7 +276,7 @@ a {
                     processData(xhttp.responseText);
                 }
             };
-            xhttp.open("POST","https://hng.fun/profiles/ekpono.php", true);
+            xhttp.open("POST","ekpono.php", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("ques="+ques.value);
         }
