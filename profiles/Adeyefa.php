@@ -378,7 +378,8 @@ if(!defined('DB_USER')){
 						//console.log(error);
 				        alert(JSON.stringify(error));
 					}
-				})			
+				})	
+				document.getElementById("questionBox").reset();		
 			})
 		});
 	</script>
