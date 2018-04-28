@@ -18,6 +18,7 @@ if(!defined('DB_USER')){
 
 	if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
+		include '../answers.php';
 	    
 	    try{
 
@@ -111,7 +112,7 @@ if(!defined('DB_USER')){
 		    else {
 		    	$question = implode(" ",$arr);
 		    	//to check if answer already exists in the database...
-		    	$question = "%$question%";
+		    	$question = "$question";
 		    	$sql = "Select * from chatbot where question like :question";
 		        $stat = $conn->prepare($sql);
 		        $stat->bindParam(':question', $question);
@@ -164,17 +165,6 @@ if(!defined('DB_USER')){
 			        }
 			    }       
 		    }
-		    function GetCryptoPrice($from, $to) {
-			    $from = (trim(strtoupper($from)));
-			    $to = (trim(strtoupper($to)));
-			    $url = 'curl -s -H "CB-VERSION: 2017-12-06" "https://api.coinbase.com/v2/prices/'.$from.'-'.$to.'/spot"';
-			    $tmp = shell_exec($url);
-			    $data = json_decode($tmp, true);
-			    if ($data && $data['data'] && $data['data']['amount']) {
-			      return (float)$data['data']['amount'];
-			    }
-			    return null;
-			}
 		}catch (Exception $e){
 			return $e->message ;
 		}

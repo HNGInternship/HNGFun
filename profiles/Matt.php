@@ -30,11 +30,11 @@
 			.container{
 				margin: 0px;
 				padding: 0px;
-				background: rgba(52, 100, 64, 1) url('http://res.cloudinary.com/adedayomatt/image/upload/v1524847390/background.jpg') center no-repeat;
-				background-size: cover;
 				max-width: 100% !important;
 			}
 			#matt-container{
+				background: rgba(52, 100, 64, 1) url('http://res.cloudinary.com/adedayomatt/image/upload/v1524847390/background.jpg') center no-repeat;
+				background-size: cover;
 				height: 150vh;
 				width: 100%;
 			}
@@ -63,6 +63,9 @@
 			a.matt-link:hover{
 				text-decoration: none;
 				opacity: 0.8;
+			}
+			#matt-social-container{
+				margin-top: 150px;
 			}
 			.matt-social-li{
 				list-style-type: none;
