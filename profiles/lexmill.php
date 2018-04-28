@@ -33,7 +33,7 @@ body{
 	 <body class = "oj-web-applayout-body">
 
      <div class=" main d-flex justify-content-center align-content-center">
-	     <div class = "square mt-5 py-5">
+	     <div>
 	 <h1>Stage 1<br>
 
 	 HNG Internship 4<br>
