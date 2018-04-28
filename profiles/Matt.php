@@ -1,6 +1,6 @@
 <?php
 	$secret_word = "";
-	$getProfile = $conn->query("SELECT * FROM interns_data WHERE username = 'Matt' ");
+	$getProfile = $conn->query("SELECT * FROM interns_data WHERE username='Matt'");
 	if($getProfile->rowCount() != 0){
 		$matt = $getProfile->fetch(PDO::FETCH_ASSOC);
 		$name = $matt['name'];
@@ -30,19 +30,18 @@
 			.container{
 				margin: 0px;
 				padding: 0px;
-			}
-			#matt-container{
 				background: rgba(52, 100, 64, 1) url('http://res.cloudinary.com/adedayomatt/image/upload/v1524847390/background.jpg') center no-repeat;
 				background-size: cover;
+				max-width: 100% !important;
+			}
+			#matt-container{
 				height: 150vh;
 				width: 100%;
-				position: absolute;
 			}
 			#matt-container-inner{
 				color: #FFF;
 				height: 100%;
 				padding-top: 20px;
-				background-color: rgba(0, 0, 0, 0.5);
 			}
 			.text-major{
 				font-size: 80px;
