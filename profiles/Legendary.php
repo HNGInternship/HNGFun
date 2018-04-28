@@ -302,7 +302,7 @@
 
                 <!-- CHAT BOT HERE -->
       <div class="chat-header">
-        <span>Le-Bot Chatbot</span>
+        <span>Le-Bot</span>
       </div>
       <div id="chat-body">
         <div class="bot_chat">
