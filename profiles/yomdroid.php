@@ -38,7 +38,7 @@
         img {
         	height: 300px;
         	width: 250px;
-        	margin-left: 900px;
+        	margin-left: 850px;
         }
         p {
         	color: #FFFFFF;
