@@ -1,4 +1,5 @@
 <?php
+	header("Access-Control-Allow-Origin: *");
 	if($_SERVER['REQUEST_METHOD'] === "GET"){
 		if(!defined('DB_USER')){
 			require "../../config.php";		
@@ -476,7 +477,7 @@
 <html lang="en">
 <head>
 	<title>Chigozie's Corner</title>
-	<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css">
 
 	<style>
 		body {
@@ -557,200 +558,182 @@
 			font-size: 40px;
 		}
 
+		.center {
+			text-align: center;
+		}
+
 	</style>
 </head>
 
-<body>
+<body id="globalBody">
 
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-3 offset-md-1 frame">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="circle">
-						<img src="<?php echo $image_filename; ?>" alt="Profile Picture" class="circle" />
-					</div>
-				</div>	
-			</div>
-
-			<div class="row info">
-				<div class="col-md-12">
-					<h3 class="text-center">
-						<?php echo $name; ?>
-					</h3>
-					<h5 class="text-center"><span class="slack_span">Slack Username: </span>@<?php echo $username; ?></h5>
-					<p class="text-center"><span class="occupation_span">What I do: </span>I develop web and mobile apps</p>
-				</div>
-
-			</div>
-		</div>	
-
-		<div class="col-md-6 offset-md-1 chat-frame">
-			<h2 class="text-center">Chatbot Interface</h2>
-			<div class="row chat-messages" id="chat-messages">
-				<div class="col-md-12" id="message-frame">
-					<div class="row single-message">
-						<div class="col-md-2 single-message-bg">
-							<span class="fa fa-user f-icon"></span>
-						</div>
-
-						<div class="col-md-8 single-message-bg">
-							<p>Welcome! My name is <span style="font-weight: bold">Optimus Prime</span></p>
-						</div>
-					</div>
-					<div class="row single-message">
-						<div class="col-md-2 single-message-bg">
-							<span class="fa fa-user f-icon"></span>
-						</div>
-						<div class="col-md-8 single-message-bg">
-							<p>Ask me your questions and I will try to answer them.</p>
-						</div>
-					</div>
-					<div class="row single-message">
-						<div class="col-md-2 single-message-bg">
-							<span class="fa fa-user f-icon"></span>
-						</div>
-						<div class="col-md-8 single-message-bg">
-							<p>You can teach me answers to new questions by training me.</p>
-							<p>To train me, enter the training string in this format:</p>
-							<p><b>train: question # answer # password</b></p>
-							<p>To get assistance, type: <br>
-								<b>--help</b>
-							</p>
-						</div>
-					</div>
-
-					<!-- <div class="row single-message">
-						<div class="col-md-10">
-							<p>Welcome! How may I assist you today?</p>
-						</div>
-
-						<div class="col-md-2">
-							<span class="float-right fa fa-user f-icon"></span>
-						</div>
-					</div> -->
-				</div>
-			</div>
-			<div class="row" style="margin-top: 30px;">
-				<form class="form-inline col-md-12 col-sm-12" id="question-form">
-					<div class="col-md-12 col-sm-12 col-12" id="thinking-div" style="display: none;">
-						<p style="font-size: 12px; font-style: italic; font-weight: bold;">Optimus Prime is thinking...</p>
-					</div>
-					<div class="col-md-12 col-sm-12 col-12">
-						<input class="form-control w-100" type="text" name="question" placeholder="Ask a question" />
-					</div>
-					<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
-						<button type="submit" class="btn btn-info float-right w-100">Send</button>
-					</div>
-				</form>	
-			</div>
+<div class="oj-flex">
+	<div class="oj-flex-item oj-md-1 oj-margin"></div>
+    <div class="oj-flex-item oj-md-3 oj-margin frame">
+    	<div class="oj-flex oj-flex-item oj-md-flex-direction-column">
+		    <div class="circle">
+		        <img src="<?php echo $image_filename; ?>" alt="Profile Picture" class="circle" />
+		    </div>
 		</div>
-	</div>
+		<div class="info oj-flex-item oj-md-flex-direction-column">
+		    <h3 class="center"><?php echo $name; ?></h3>
+		    <h5 class="center"><span class="slack_span">Slack Username: </span>@<?php echo $username; ?></h5>
+		    <p class="center"><span class="occupation_span">What I do: </span>I develop web and mobile apps</p>
+		</div>
+    </div>
+    <div class="oj-flex-item oj-md-1 oj-margin"></div>
+    <div class="oj-flex-item oj-md-6 oj-margin chat-frame">
+    	<h2 class="center" id="chatbot" style="font-weight: bold">Chatbot Interface</h2>
+		<div class="oj-flex chat-messages" id="chat-messages">
+		    <div class="oj-flex-item oj-md-12 oj-padding" id="message-frame">
+		        <div class="oj-flex oj-flex-item single-message">
+		            <div class="oj-flex-item oj-md-2 single-message-bg">
+		                <span class="fa fa-user f-icon"></span>
+		            </div>
+		            <div class="oj-flex-item oj-md-8 single-message-bg oj-padding">
+		                <p>Welcome! My name is <span style="font-weight: bold">Optimus Prime</span></p>
+		            </div>
+		        </div>
+		        <div class="oj-flex oj-flex-item single-message">
+		            <div class="oj-flex-item oj-md-2 single-message-bg">
+		                <span class="fa fa-user f-icon"></span>
+		            </div>
+		            <div class="oj-flex-item oj-md-8 single-message-bg oj-padding">
+		                <p>Ask me your questions and I will try to answer them.</p>
+		            </div>
+		        </div>
+		        <div class="oj-flex oj-flex-item single-message">
+		            <div class="oj-flex-item oj-md-2 single-message-bg oj-padding">
+		                <span class="fa fa-user f-icon"></span>
+		            </div>
+		            <div class="oj-flex-item oj-md-8 single-message-bg">
+		                <p>You can teach me answers to new questions by training me.</p>
+		                <p>To train me, enter the training string in this format:</p>
+		                <p><b>train: question # answer # password</b></p>
+		                <p>To get assistance, type:
+		                    <br>
+		                    <b>--help</b>
+		                </p>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<div class="oj-flex" style="margin-top: 30px;">
+		    <form class="oj-flex-item oj-md-12 oj-sm-12" id="question-form">
+		        <div class="oj-flex-item oj-md-12 oj-sm-12" id="thinking-div" style="display: none;">
+		            <p style="font-size: 12px; font-style: italic; font-weight: bold;">Optimus Prime is thinking...</p>
+		        </div>
+		        <div class="oj-flex oj-flex-item oj-md-12 oj-sm-12">
+		            <input class="oj-flex-item oj-md-12 oj-sm-12 oj-margin oj-padding" type="text" name="question" placeholder="Ask a question" style="border-radius: 3px; border: none;" />
+		        </div>
+		        <div class="oj-flex oj-flex-item oj-md-12 oj-sm-12" style="margin-top: 15px">
+		            <button type="submit" class="oj-flex-item oj-md-12 oj-sm-12 oj-margin" style="background: #3385ff; border: none; border-radius: 3px">Send</button>
+		        </div>
+		    </form>
+		</div>
+    </div>
 </div>
 
 <script src="../vendor/jquery/jquery.min.js"></script>
-<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-<script>
-	$(document).ready(function(){
-		var questionForm = $('#question-form');
-		questionForm.submit(function(e){
-			e.preventDefault();
-			var questionBox = $('input[name=question]');
-			var question = questionBox.val();
-			
-			//display question in the message frame as a chat entry
-			var messageFrame = $('#message-frame');
-			var chatToBeDisplayed = '<div class="row single-message">'+
-						'<div class="col-md-8 offset-md-2 single-message-bg2">'+
-							'<p>'+question+'</p>'+
-						'</div>'+
-						'<div class="col-md-2 single-message-bg2">'+
-							'<span class="float-right fa fa-user f-icon"></span>'+
-						'</div>'+
-					'</div>';
-
-			messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-
-			if(question.trim() == ''){
-				var chatToBeDisplayed = '<div class="row single-message">'+
-									'<div class="col-md-2 single-message-bg">'+
-										'<span class="fa fa-user f-icon"></span>'+
-									'</div>'+
-
-									'<div class="col-md-8 single-message-bg">'+
-										'<p>'+"Please enter a question"+'</p>'+
-									'</div>'+
-								'</div>';
-
-				messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-				questionBox.val("");	
-				$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-				return;
-			}
-
-			var thinkingDiv = $('#thinking-div');
-			thinkingDiv.show();
-			//send question to server
-			$.ajax({
-				url: "/profiles/chigozie.php",
-				type: "post",
-				data: {question: question},
-				dataType: "json",
-				success: function(response){
-					if(response.status == 1){
-						var chatToBeDisplayed = '<div class="row single-message">'+
-									'<div class="col-md-2 single-message-bg">'+
-										'<span class="fa fa-user f-icon"></span>'+
-									'</div>'+
-
-									'<div class="col-md-8 single-message-bg">'+
-										'<p>'+response.answer+'</p>'+
-									'</div>'+
-								'</div>';
-
-						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-						questionBox.val("");	
-						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-					}else if(response.status == 0){
-						var chatToBeDisplayed = '<div class="row single-message">'+
-									'<div class="col-md-2 single-message-bg">'+
-										'<span class="fa fa-user f-icon"></span>'+
-									'</div>'+
-
-									'<div class="col-md-8 single-message-bg">'+
-										'<p>'+response.answer+'</p>'+
-									'</div>'+
-								'</div>';
-
-						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-					}
-					thinkingDiv.hide();
-				},
-				error: function(error){
-					thinkingDiv.hide();
-					console.error(error);
-					var chatToBeDisplayed = '<div class="row single-message">'+
-									'<div class="col-md-2 single-message-bg">'+
-										'<span class="fa fa-user f-icon"></span>'+
-									'</div>'+
-
-									'<div class="col-md-8 single-message-bg">'+
-										'<p style="color: red">'+'An error occured. I think my cerebellum is fried'+'</p>'+
-									'</div>'+
-								'</div>';
-
-					messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-					$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-				}
-			})
-
-		});
-	});
-</script>	
 </body>
+<script>
+	$(document).ready(function() {
+        var questionForm = $('#question-form');
+        questionForm.submit(function(e) {
+            e.preventDefault();
+            var questionBox = $('input[name=question]');
+            var question = questionBox.val();
+
+            //display question in the message frame as a chat entry
+            var messageFrame = $('#message-frame');
+            var chatToBeDisplayed = '<div class="oj-flex oj-flex-item oj-padding single-message" style="margin-left: 20%; padding-right: 10px">' +
+                '<div class="oj-flex-item oj-md-10 oj-padding single-message-bg2">' +
+                '<p style="text-align: right">' + question + '</p>' +
+                '</div>' +
+                '<div class="oj-flex-item oj-md-2 oj-padding single-message-bg2">' +
+                '<span class="fa fa-user f-icon"></span>' +
+                '</div>' +
+                '</div>';
+
+            messageFrame.html(messageFrame.html() + chatToBeDisplayed);
+            $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+
+            if (question.trim() == '') {
+                var chatToBeDisplayed = '<div class="oj-flex oj-flex-item single-message">' +
+                    '<div class="oj-flex-item oj-md-2 oj-padding single-message-bg">' +
+                    '<span class="fa fa-user f-icon"></span>' +
+                    '</div>' +
+                    '<div class="oj-flex-item oj-md-8 single-message-bg">' +
+                    '<p>' + "Please enter a question" + '</p>' +
+                    '</div>' +
+                    '</div>';
+
+                messageFrame.html(messageFrame.html() + chatToBeDisplayed);
+                questionBox.val("");
+                $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+                return;
+            }
+
+            var thinkingDiv = $('#thinking-div');
+            thinkingDiv.show();
+            //send question to server
+            $.ajax({
+                url: "/profiles/chigozie.php",
+                type: "post",
+                data: { question: question },
+                dataType: "json",
+                success: function(response) {
+                    if (response.status == 1) {
+                        var chatToBeDisplayed = '<div class="oj-flex oj-flex-item single-message">' +
+                            '<div class="oj-flex-item oj-md-2 oj-padding single-message-bg">' +
+                            '<span class="fa fa-user f-icon"></span>' +
+                            '</div>' +
+
+                            '<div class="oj-flex-item oj-md-8 single-message-bg">' +
+                            '<p>' + response.answer + '</p>' +
+                            '</div>' +
+                            '</div>';
+
+                        messageFrame.html(messageFrame.html() + chatToBeDisplayed);
+                        questionBox.val("");
+                        $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+                    } else if (response.status == 0) {
+                        var chatToBeDisplayed = '<div class="oj-flex oj-flex-item single-message">' +
+                            '<div class="oj-flex-item oj-md-2 oj-padding single-message-bg">' +
+                            '<span class="fa fa-user f-icon"></span>' +
+                            '</div>' +
+
+                            '<div class="oj-flex-item oj-md-8 single-message-bg">' +
+                            '<p>' + response.answer + '</p>' +
+                            '</div>' +
+                            '</div>';
+
+                        messageFrame.html(messageFrame.html() + chatToBeDisplayed);
+                        $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+                    }
+                    thinkingDiv.hide();
+                },
+                error: function(error) {
+                    thinkingDiv.hide();
+                    console.error(error);
+                    var chatToBeDisplayed = '<div class="oj-flex oj-flex-item single-message">' +
+                        '<div class="oj-flex-item oj-md-2 oj-padding single-message-bg">' +
+                        '<span class="fa fa-user f-icon"></span>' +
+                        '</div>' +
+
+                        '<div class="oj-flex-item oj-md-8 single-message-bg">' +
+                        '<p style="color: red">' + 'An error occured. Is that a valid question?' + '</p>' +
+                        '</div>' +
+                        '</div>';
+
+                    messageFrame.html(messageFrame.html() + chatToBeDisplayed);
+                    $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+                }
+            });
+        });
+    });
+</script>	
 </html>
 
 <?php 
