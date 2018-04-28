@@ -1564,14 +1564,26 @@ function cityTime($city){
 
 }
 
-/////////////////////////////FUNCTIONS ENDS HERE/////////////////////////////////////////////////////////////////
+////////////////JONAH VICTOR VICTOR//////////////////
+////////////////                    /////////////////
+///////////////                     /////////////////
+///////////////     vectormike     /////////////////
+////////////////                  //////////////////
+////////////////                  //////////////////
 
-/////////////////////// Conditions for checking input//////////////////////////////////////////////
-
-///////////////////To check if the statement begins with train://///////////////////////
-
-     
-///////////////////////////Conditions Ends here///////////////////////////////
+function getBotInfo() {
+    $bot_version=1.0.1;
+    return "Heyo! I'm Vectormike's smiggle. I'm version " .$bot_version;
+}
+function getBotManual() {
+    return  "Send 'fact' to get a fact. \n
+    Send 'time' to get the time. \n
+    Send 'about' to know me. \n
+    Send 'help' to see this again. \n
+    To train me, send in this format: \n
+    'train: question # answer # password'";
+}
+}
 
 
 ?>
