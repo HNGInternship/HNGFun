@@ -767,7 +767,7 @@ p { margin: 0; }
     }
     function sendmessage(bot_id)
     {
-        var sendmessageurl = "https://hng.fun/profile.php?id=tridax";
+        var sendmessageurl = "/profile/tridax.php";
         var xmlhttp = new XMLHttpRequest();
         var message = document.getElementById("input_message").value;
         xmlhttp.open("POST", sendmessageurl, false);
