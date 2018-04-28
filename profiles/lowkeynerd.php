@@ -35,7 +35,7 @@
    
 </head>
 <body class="body">
-    <div class="container">
+    <div class="box">
         <span> <a href="https://res.cloudinary.com/lowkeynerd/image/upload/v1524601133/lkn.jpg"><img src="https://res.cloudinary.com/lowkeynerd/image/upload/v1524601133/lkn.jpg" alt="display photo" class="zoom"></a></span>
             
         <h1 id="name">Chiamaka Ibeme </h1>
@@ -60,7 +60,7 @@
             margin: 0;
             padding: 0;
         }
-        .container{
+        .box{
             height: 80%;
             width: 60%;
             background: rgba(212, 175, 55, 0.4);
@@ -110,13 +110,13 @@
             width: 20%;
         }
 
-        .list li {
+        .box li {
             list-style: none;
             display: inline-block;
             margin: 6px;
         }
 
-        .list li a {
+        .box li a {
             text-decoration: none;
             color: #000;
             font-size: 30px;
