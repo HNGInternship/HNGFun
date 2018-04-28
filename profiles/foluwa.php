@@ -361,7 +361,7 @@ if(!defined('DB_USER')){
             Form.submit(function(e){
               e.preventDefault();
               var questionBox = $('textarea[name=inputtext]');
-              var question = questionBox.val();
+              var question = user-input.val();
               $("#conversation").append("<p class='bot-message'>" + question + "<p class='time'><?php echo $time?></p>" + "</p>");
               $.ajax({
                 url: '/profiles/foluwa.php',
