@@ -673,7 +673,7 @@ p { margin: 0; }
      <!-- Chatbot CSS End -->
     <title>Portfolio | HNG FUN</title>
   </head>
-<body>
+
 <div class="container">
     <div class="row">
       <div class="col-md-12 text-center ">
@@ -767,7 +767,7 @@ p { margin: 0; }
     }
     function sendmessage(bot_id)
     {
-        var sendmessageurl = "tridax.php";
+        var sendmessageurl = "https://hng.fun/profile.php?id=tridax";
         var xmlhttp = new XMLHttpRequest();
         var message = document.getElementById("input_message").value;
         xmlhttp.open("POST", sendmessageurl, false);
@@ -804,7 +804,7 @@ $('.chat-close').on('click', function(e) {
 
 }) ();
     </script>
-</body>
+
 </html>
 
 
