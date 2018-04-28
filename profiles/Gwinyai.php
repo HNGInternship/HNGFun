@@ -35,6 +35,7 @@ if(isset($_POST['training']) || ($_SERVER['REQUEST_METHOD'] === 'POST')) {
       }
         
         exit();
+    }
 
 
 
@@ -220,7 +221,7 @@ function getTime(){
     
     }
 
-} else {
+
 
 ?>
 
@@ -1425,5 +1426,3 @@ function getTime(){
 </body>
 
 </html>
-
-<?php } ?>
