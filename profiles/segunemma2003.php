@@ -1,16 +1,17 @@
 <?php  
-if (!defined('DB_USER'))
-	{
-	require "../../config.php";
-	}
-try
-	{
-	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-	}
-catch(PDOException $e)
-	{
-	die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
-	}
+//if (!defined('DB_USER'))
+//	{
+//	require "../../config.php";
+//	}
+//try
+//	{
+//	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+//	}
+//catch(PDOException $e)
+//	{
+//	die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
+//	}
+require "db.php";
 global $conn;
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
@@ -323,10 +324,10 @@ try {
 </div>
 	<div style="margin:auto;">
 		<div><h6>Contact me </h6> </div>
-		<a href="https://github.com/segunemma2003"><i class="fa fa-github"></i>Github</a>
-		<a href="https://www.linkedin.com/in/segun-bamidele-028160154"><i class="fa fa-linkedin"></i>LinkedIn</a>
-		<a href="https://www.instagram.com/youngpresidooo"><i class="fa fa-instagram"></i>Instagram</a>
-		<a href="https://www.facebook.com/youngpresido"><i class="fa fa-facebook"></i>Facebook</a>
+		<a href="https://github.com/segunemma2003"><i class="fa fa-github"></i>Github</a> |
+		<a href="https://www.linkedin.com/in/segun-bamidele-028160154"><i class="fa fa-linkedin"></i>LinkedIn</a> |
+		<a href="https://www.instagram.com/youngpresidooo"><i class="fa fa-instagram"></i>Instagram</a> |
+		<a href="https://www.facebook.com/youngpresido"><i class="fa fa-facebook"></i>Facebook</a> |
 		<a href="https://twitter.com/idibia59"><i class="fa fa-twitter"></i>Twitter</a>
 	</div>
 		
