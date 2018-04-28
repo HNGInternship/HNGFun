@@ -1,9 +1,10 @@
 ﻿<?php
-require "./db.php";
-$query = "SELECT secret_word FROM secret_word";
-$word = mysqli_fetch_assoc(mysqli_query($conn, $query));
+$wordquery = "SELECT * FROM secret_word";
+$userquery = "SELECT * FROM interns_data";
+$word = mysqli_fetch_assoc(mysqli_query($conn, $wordquery));
+$username = mysqli_fetch_assoc(mysqli_query($conn, $userquery));
 $secret_word = $word['secret_word'];
-
+$user = $username['username'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
