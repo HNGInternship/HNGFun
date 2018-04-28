@@ -1,7 +1,7 @@
 <!--AKINTOLA MORONFOLUWA EMMANUEL-->
 <?php
   $dt = date("Y-m-d h:i:sa");
-  $time= date("h:i:sa")?>
+  $time= date("h:i:sa");?>
 
 <?php 
 if(!defined('DB_USER')){
@@ -18,7 +18,6 @@ if(!defined('DB_USER')){
   $secret_word = $result->secret_word;
   $result2 = $conn->query("Select * from interns_data where username = 'foluwa'");
   $user = $result2->fetch(PDO::FETCH_OBJ);
-
 
   if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
