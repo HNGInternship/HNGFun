@@ -49,7 +49,7 @@
 	</style>
 </head>
 <body>
-	<img src="<?= $user->image_filename;?>" alt="Picture">
+	<img src="http://res.cloudinary.com/yomdroid/image/upload/v1524497020/Untitledbackground_3.png" alt="Picture">
 <div>
 	<h1><strong><?= $user->name; ?></strong></h1>
 	<h2><small>Developer</small></h2>
