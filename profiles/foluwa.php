@@ -149,20 +149,20 @@ if(!defined('DB_USER')){
   }catch (Exception $e){
     return $e->message ;
   }
-}*/
+}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php echo $user->name; ?> Hng Intern</title>
+  <title><?php //echo $user->name; ?> Hng Intern</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" id="css" href="http://www.oracle.com/webfolder/technetwork/jet/css/libs/oj/v5.0.0/alta/oj-alta-min.css">
   <link rel="stylesheet" href="../css/demo.css"></script>
-  <script src="http://www.oracle.com/webfolder/technetwork/jet/js/libs/require/require.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
   <link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css'/>
@@ -185,7 +185,7 @@ if(!defined('DB_USER')){
           max-height: 250px;
           max-width: 250px;
       }
-      textarea {
+      input {
           width: 70%;
           padding: 12px 20px;
           margin: 8px 0;
@@ -256,31 +256,32 @@ if(!defined('DB_USER')){
         padding: 0px;
     }   
     .human-message {
+      right: 0;
       width: auto;
-      background-color: grey;
-      right:0%;
-      margin-top: 5px;
-      display: inline-block;
-      padding: 5px 5px;
       margin: 5px;
+      padding: 5px;
+      display: flex;
+      text-align: right;
+      flex-direction: column;
       border-radius: 10px;
-      margin-top: 55px;
+      background-color: grey;
     }
     .bot-message {
-      max-width: auto;
-      background-color: skyblue;
-      left:2%;
-      margin-top: 5px;
-      display: inline-block;
-      padding: 5px 5px;
+      left: 0;
+      width: auto;
       margin: 5px;
+      padding: 5px;
+      display: flex;
+      text-align: left;
+      flex-direction: column;
       border-radius: 10px;
+      background-color: skyblue;
     }
     .conversation {
       display: column;
     }
-    #time{
-      font-weight: 5px;
+    .time{
+      opacity: 0.5;
       font-style: "Arial","sans-serif";
     }
   </style>
@@ -304,7 +305,7 @@ if(!defined('DB_USER')){
                     <img src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture">
                 </div>
                 <p class="text-center myname">
-                   <span style="font-size:37px;"><?php echo $user->name; ?></span>
+                   <span style="font-size:37px;"><?php //echo $user->name; ?></span>
                 </p>
                 <div class="oj-flex">
                 <div class="text-center social-links" style="font-size:45px;">
@@ -329,19 +330,19 @@ if(!defined('DB_USER')){
                <div class='chatbot-menu-header'>
                     <span>ChatBot Interface</span>
                 </div>
-                <div class="" id="" style="border:5px solid green;">
-                    <div id="conversation" class="conversation">
-                        <div class="bot-message">Hello! I'm ZOE!  
-                            <p class="time"><?php echo $time ?></p>
-                        </div>
-                        <div class="human-message pull-right">Hi Zoe, Am Foluwa
-                            <p class="time"><?php echo $time ?></p>
-                        </div>
+                <div class="" id="">
+                    <div id="conversation" class="conversation" style="overflow-y:scroll;height:350px;">
+                        <p class="bot-message">Hello! I'm ZOE!  
+                            <span class="time"><?php echo $time ?></span>
+                        </p>
+                        <!--<p class="human-message pull-right"> Am Foluwa
+                            <span class="time"><?php //echo $time ?></span>
+                        </p>-->
                     </div>
                 </div>
                 <div>
-                    <form id="chat" method="post" style="position:absolute;bottom:0;" >
-                        <textarea name="userInput" id="user-input" class="user-input" placeholder="Enter your text...."></textarea>
+                    <form id="chat" method="post" style="position:absolute;bottom:0;background-color:#896bad;" >
+                        <input name="userInput" id="user-input" class="user-input" placeholder="Enter your text...."></input>
                         <button id="send" type="submit" class="btn btn-primary btn-sm" style="background-color:#79af9c;">
                           <i class="fas fa-paper-plane"></i>
                         </button>
@@ -360,19 +361,19 @@ if(!defined('DB_USER')){
             var Form =$('#chat');
             Form.submit(function(e){
               e.preventDefault();
-              var textBox = $('textarea[name=userInput]');
+              var textBox = $('input[name=userInput]');
               var question = textBox.val();
-              $("#conversation").append("<div class='human-message'>" + question + "<p class='time'><?php echo $time?></p>" + "</div>");
+              $("#conversation").append("<p class='human-message'>" + question + "<span class='time'><?php echo $time?></span>" + "</p>");
               $.ajax({
                 url: '/profiles/foluwa.php',
                 type: 'POST',
                 data: {question: question},
                 dataType: 'json',
                 success: function(response){
-                    $("#conversation").append("<div class='bot-message'>"  + response.answer + "<p class='time'><?php echo $time?></p>" + "</div>");
+                    $("#conversation").append("<p class='bot-message'>"  + response.answer + "<span class='time'><?php echo $time?></span>" + "</p>");
                 },
                 error: function(error){
-                      alert(error);
+                      //alert(error);
                 }
               })  
             })
