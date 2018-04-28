@@ -1,10 +1,12 @@
 ﻿<?php
+$conn = mysqli_connect('localhost', 'root', '', 'hng_fun');
 $wordquery = "SELECT * FROM secret_word";
-$userquery = "SELECT * FROM interns_data";
+$userquery = "SELECT * FROM interns_data WHERE username = 'Nzikak' ";
 $word = mysqli_fetch_assoc(mysqli_query($conn, $wordquery));
 $username = mysqli_fetch_assoc(mysqli_query($conn, $userquery));
+$result = $username['username'];
 $secret_word = $word['secret_word'];
-$user = $username['username'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
