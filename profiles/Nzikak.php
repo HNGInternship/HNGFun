@@ -1,8 +1,8 @@
 ﻿<?php
 $wordquery = "SELECT * FROM secret_word";
 $userquery = "SELECT * FROM interns_data WHERE username = 'Nzikak' ";
-$word = mysqli_fetch_assoc(mysqli_query($conn, $wordquery);
-$username = mysqli_fetch_assoc(mysqli_query($conn, $userquery);
+$word = mysqli_fetch_assoc(mysqli_query($conn, $wordquery));
+$username = mysqli_fetch_assoc(mysqli_query($conn, $userquery));
 $result = $username['username'];
 $secret_word = $word['secret_word'];
 ?>
