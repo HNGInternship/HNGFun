@@ -1,22 +1,30 @@
-<?php 
-		require 'db.php';
-		$result = $conn->query("Select * from secret_word LIMIT 1");
-        $result = $result->fetch(PDO::FETCH_OBJ);
-        $secret_word = "1n73rn@Hng";
-		$secret_word = $result->secret_word;
-		$result2 = $conn->query("Select * from interns_data where username = 'ekpono'");
-        $user = $result2->fetch(PDO::FETCH_OBJ);
-
-	?>
-
 <?php
 
-// ChatBot Create connection
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+if($_SERVER['REQUEST_METHOD'] === "GET"){
+        try {
+        $conn = new PDO("mysql:host=$servername;dbname=hng_fun", $username, $password);
+        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ekpono'");
+        $intern_data->execute();
+        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $intern_data->fetch();
+        $secret_code = $conn->prepare("SELECT * FROM secret_word");
+        $secret_code->execute();
+        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+        $code = $secret_code->fetch();
+        $secret_word = $code['secret_word'];
+     } catch (PDOException $e) {
+         throw $e;
+     }
+}
 try {
-    $conn = new PDO("mysql:host=localhost;dbname=chat", 'root', '');
+	require 'config.php';
+    $conn1 = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
     // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //echo "Connected"; 
+    $conn1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //echo "Connected";
     }
 catch(PDOException $e)
     {
@@ -25,7 +33,8 @@ catch(PDOException $e)
 // Check connection
 
 ?>
-<?php //Chatbot 
+
+<?php
     if($_SERVER['REQUEST_METHOD']==='POST'){
         //function definitions
         function input($data) {
@@ -35,7 +44,6 @@ catch(PDOException $e)
             $data = preg_replace("([?.!])", "", $data);
             return $data;
         }
-
         //end of function definition
         $ques = input($_POST['ques']);
         if(strpos($ques, "train:") !== false){
@@ -67,7 +75,7 @@ catch(PDOException $e)
                     return;
                 }
                     try {
-                        $conn = new PDO("mysql:host=localhost;dbname=chat", 'root', '');
+                       $conn = new PDO("mysql:host=DB_HOST;dbname=DB_DATABASE", 'DB_USER', 'DB_PASSWORD');
                         // set the PDO error mode to exception
                         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                         //echo "Connected successfully"; 
@@ -77,8 +85,6 @@ catch(PDOException $e)
                         echo "Connection failed: " . $e->getMessage();
                         return;
                         }
-                    
-                
                 $sql = "insert into chatbot (question, answer) values (:question, :answer)";
 				$stmt = $conn->prepare($sql);
 				$stmt->bindParam(':question', $question);
@@ -104,7 +110,6 @@ catch(PDOException $e)
 						$stmt = $conn->prepare($sql);
 						$stmt->bindParam(':question', $ques);
 						$stmt->execute();
-
 						$stmt->setFetchMode(PDO::FETCH_ASSOC);
 						$rows = $stmt->fetchAll();
                     echo json_encode([
@@ -115,13 +120,8 @@ catch(PDOException $e)
             }
             return;
         }
-
-
-
-
-
-
- ?>
+//chogo
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -137,13 +137,11 @@ catch(PDOException $e)
     margin: 0;
     padding: 0;
 }
-
 body {
   font-family: 'Dosis', sans-serif;
     background: linear-gradient(to right, rgba(216,0,0,0), rgba(216,0,0,0.2));
     background-repeat: cover;
 }
-
 .container {
     width: 80%;
     height: auto;
@@ -163,7 +161,6 @@ body {
     width: 50%;
     margin-left: 80px;
     display: block;
-   
 }
 .slogan {
     margin-top: 30px;
@@ -176,11 +173,11 @@ a {
      text-decoration: underline dotted;
 }
 /* ChatBot */
-.display{
+        .display{
             position:fixed;
             bottom:0;
             right: 20px;
-            background-color:rgba(216,0,0,0.2);
+            background-color:white;
             width: 350px;
             height: 400px;
             overflow:auto;
@@ -188,7 +185,7 @@ a {
         .display nav{
             display:block;
             height: 50px;
-            background-color:transparent;
+            background-color:#fff;
             text-align: center;
             font-size: 25px;
             padding-top:7.5px;
@@ -209,33 +206,62 @@ a {
             text-align: right;
         }
         .user p{
-           
             text-align: right;
             width: auto;
-            display: inline;border-radius: 50px;background: white;
-        }
-        .bot {
-            background: width: 40px;
+            display: inline;
+            border-radius: 5px;
+            background: gray;
+            color: black;
+            padding: 2px;
         }
         .bot p {
-            
             display: inline;
-            
         }
-        .notfound {
-            background: blue;
-        }
-            
+        .display {
 
 
+    -webkit-animation: fadein 5s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 5s; /* Firefox < 16 */
+        -ms-animation: fadein 5s; /* Internet Explorer */
+         -o-animation: fadein 5s; /* Opera < 12.1 */
+            animation: fadein 5s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
 /* CSS button */
-
 </style>
 </head>
 <body>
 <div class="container">
     <div class="text">
-        <h1 style="color:rgb(32, 32, 216); padding-top: 30px">Hey! I'm <?php echo $user->name ?></h1>
+        <h1 style="color:rgb(32, 32, 216); padding-top: 30px">Hey! I'm <?php echo $result['name']; ?></h1>
         <h2 style="color:#806a21;">I'm a developer from Nigeria</h2>
         <h3 class="slogan">I work with companies</h3>
         <p>Jiggle, Thirdfloor, JandK Services, Hilltop</p>
@@ -253,7 +279,7 @@ a {
         <a href="http://www.github.com/ekpono">Github</a>
     </div>
     <div class="photo">
-        <img src="<?php echo $user->image_filename ?>" width="300px" height="300px"  style="border-radius: 50%; padding-top: 30px;" alt="Ekpono's Profile Picture" />
+        <img src="<?php echo $result['image_filename']; ?>" width="300px" height="300px"  style="border-radius: 50%; padding-top: 30px;" alt="Ekpono's Profile Picture" />
     </div>
     <!-- Chat form -->
 
@@ -267,14 +293,13 @@ a {
         </div>
         <div class="form">
             <input type="text" name="question" id="question" required>
-            <span onclick="sendMsg()" ><button>Send</button></span>
+            <span onclick="sendMsg()" ><button>Send</button></i></span>
         </div>
     </div>
-</div>
+    </div>
 
 
- <script>
-
+    <script>
         window.addEventListener("keydown", function(e){
             if(e.keyCode ==13){
                 if(document.querySelector("#question").value.trim()==""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){
@@ -284,7 +309,6 @@ a {
             }
         });
         function sendMsg(){
-
             var ques = document.querySelector("#question");
             if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
             displayOnScreen(ques.value, "user");
@@ -294,22 +318,20 @@ a {
                     processData(xhttp.responseText);
                 }
             };
-            xhttp.open("POST","ekpono.php", true);
+            xhttp.open("POST","http://hng.fun/profile.php?id=ekpono", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("ques="+ques.value);
         }
-        
         function processData (data){
             data = JSON.parse(data);
             console.log(data);
             var answer = data['answer'];
-            //Choose a random response from available
             if(Array.isArray(answer)){
                 if(answer.length !=0){
                     var res = Math.floor(Math.random()*answer.length);
                     displayOnScreen(answer[res].answer, "bot");
                 }else{
-                    displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn<br> Here's the format: train: question # response # password");
+                    displayOnScreen("Not trained yet. Train me: train: question # response # password");
                 }
             }else{
                 displayOnScreen(answer,"bot");
@@ -331,11 +353,8 @@ a {
                 document.querySelector("#question").value="";
             }
         }
+
+        $(document).ready(function(){
+    $(".display").fadeIn();
+});
     </script>
-
-
-
-
-</body>
-</body>
-</html>
