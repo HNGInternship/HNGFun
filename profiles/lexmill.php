@@ -30,9 +30,9 @@ body{
 
 </style>
 	 </head>
-	 <body class = "oj-web-applayout-body">
+	 <body>
 
-     <div class=" main d-flex justify-content-center align-content-center">
+     
 	     <div>
 	 <h1>Stage 1<br>
 
@@ -43,7 +43,7 @@ body{
 	 echo $currentDateTime;
          ?></h1></div><p class="oj align-content-center">NAME: <?= $name?><br />USERNAME:: <?= $username?><br/><img src="<?php echo $image_filename; ?>" width="320" height="331" alt="Author's Picture"></p>
 	 </div>
-	     </div>
+	     
 	 </body>
 	 </html>
 
