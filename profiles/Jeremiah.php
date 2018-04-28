@@ -49,7 +49,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //Check if user want to train the bot or ask a normal question
 	$check_for_train = stripos($question, "train:");
     if($check_for_train === false){ //then user is asking a question
-		//remove extra white space, ? and . from question
+	$question = $question;
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+        $q = $GLOBALS['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
+        if(empty($data)){
+            echo json_encode([
+        		'status' => 1,
+       			 'answer' => "I don't understands you."
+     		 ]);
+          return;
+
+        }else {
+            $rand_keys = array_rand($data);
+            $answer = $data[$rand_keys]['answer'];
+
+            echo json_encode([
+        		'status' => 1,
+       			 'answer' => $answer,
+     		 ]);
+           return;
+        }      
+	    
+	    
+	    
+/**	    
+	    //remove extra white space, ? and . from question
 	    $question = preg_replace('([\s]+)', ' ', trim($question));
 	    $question = preg_replace("([?.])", "", $question); 
 	  
@@ -77,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			
 	    }
 	    return;
-	   
+	   **/
 	}else{		  
 		//train the chatbot to be more smarter 
 		//remove extra white space, ? and . from question
