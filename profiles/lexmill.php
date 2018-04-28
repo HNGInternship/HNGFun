@@ -32,7 +32,7 @@ body{
 	 </head>
 	 <body>
 
-     <div class="oj flex center-block">
+     <div class=" main d-flex justify-content-center align-content-center">
 	 <h1>Stage 1<br>
 
 	 HNG Internship 4<br>
