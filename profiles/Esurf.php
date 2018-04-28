@@ -4,7 +4,7 @@ $result = $sql->fetch(PDO::FETCH_ASSOC);
 $secret_word = $result['secret_word'];
 
 $username = "Esurf";
-$user_data = $conn->query("SELECT * FROM intern_data WHERE username = '".$username."'");
+$user_data = $conn->query("SELECT * FROM interns_data WHERE username = '".$username."'");
 $user = $user_data->fetch(PDO::FETCH_ASSOC);
 
 $name = $user['name'];
@@ -147,7 +147,7 @@ $username = $user['username'];
  <div class="container">
  <div class="card">
  	<div class="pic">
- 		<img src="<?php echo $imgsrc; ?>" class="img-circle center" id="hover" title="Web Developer" alt="Esurf picture">
+ 		<img src="https://res.cloudinary.com/esteve/image/upload/v1524228509/mep.jpg" class="img-circle center" id="hover" title="Web Developer" alt="Esurf picture">
  	</div>
  	<h2><span id="flash">Hi!</span> I am <?php echo $name; ?></h2>
  	<h4 class="do">A Web Developer and Designer</h4>

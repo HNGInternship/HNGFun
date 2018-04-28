@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <?php
     require_once 'db.php';
+
     $result = $conn->query("Select * from secret_word LIMIT 1");
     $result = $result->fetch(PDO::FETCH_OBJ);
     $secret_word = $result->secret_word;
-
     $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'brownsamson'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
@@ -27,7 +27,6 @@
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
             }
-
             img{
                 user-drag: none;
             user-select: none;
@@ -36,17 +35,13 @@
             -webkit-user-select: none;
             -ms-user-select: none;
             }
-
             p{
                 margin: 20px 0;
                 line-height: 30px;
             }
-
-
             a{
                 text-decoration: none;
             }
-
             .dark{ background-color: #33648B; color: #ffffff;}
             .darker{ background-color: #212939;  color: #ffffff;}
             .darkest{ background-color: #212129;  color: #ffffff;}
@@ -54,87 +49,66 @@
             .fullwidth{width: 100%; display:block;}
             .float-right{float: right;}
             .float-left{float: left;}
-
             .container{
                 width: 100%;
-                padding: 0 8.33%;
+                /*padding: 0 8.33%;*/
                 display: table;
             }
-
             .body{
                 padding-top: 30px;
                 padding-bottom: 30px;
             }
-
-            .stop-scrolling{
-                height: 100%;
-                overflow: hidden;
-            }
-
             .body{
                 font-family: 'Roboto', 'Rubik', sans-serif;
                 font-size: 12pt;
                 width: 100%;
                 background-color: #212939;
             }
-
             #footer{
                 height: 60px;
                 padding: 15px 0;
                 text-align: center;
             }
-
             .socials-container{
                 max-width: 200px;
                 text-align: center;
                 margin-top: 0px;
                 display: inline-block;
             }
-
             .socials{
                 margin: 0 10px;
             }
-
-
             .banner{
               margin-top: 50px;
                 /*height: 10px;*/
             }
-
             /*============== BANNER ANIMATION ======================*/
             .banner-item-container{
                 max-width: 350px;
-                padding-left: 15px;
+                padding-left: 8%;
                 padding-right: 15px;
                 padding-top: 20px;
                 background: rgba(33,41,57, 0.6);
             }
-
             .banner-item{
                 border-left: 2px solid #8CDEF7;
                 padding-left: 15px;
                 padding-top: 10px;
             }
-
             .banner-item>h4{
                 display: inline;
             }
-
-
             .banner-item>h3{
                 margin-bottom: 5px;
             }
-
             .hello{
                 margin-bottom: 5px;
                 font-weight: 100 !important;
             }
-
             .banner-item>p{
                 margin-bottom: 25px;
                 font-weight: 100 !important;
             }
-
             .banner {
               margin:0px;
               text-align:left;
@@ -148,7 +122,6 @@
               background: url(http://res.cloudinary.com/samsondappa/image/upload/v1523983445/samsonnewautonew.png) no-repeat bottom right;
                 background-color: #212939;
             }
-
             #dropping-texts {
               display: inline-block;
               max-width: 350px;
@@ -160,14 +133,11 @@
               padding: 0 5px 0 0 ;
             /*  border-right: 2px solid rgba(225, 204, 41, 1);*/
               /* height: 25px; */
-
             }
-
             #aboutme{
                 max-width: 650px;
                 margin: auto;
             }
-
             button{
                 border: none;
                 margin: 5px;
@@ -199,24 +169,20 @@
                 font-size: 16px;
                 border-radius: 7px;
             }
-
             .send-button:hover, .button:hover{
                 color: #ffffff !important;
                 background-color: #33648B;
                 cursor: pointer;
                 transition: .5s;
             }
-
             #personal-body{
-              margin-top: 70px;
+              margin-top: 90px;
               padding: 30px 0;
             }
-
             .space{
               width: 100%;
               height: 30px;
             }
-
             #chat-icon-con{
               padding: 5px;
               height: 60px;
@@ -228,29 +194,26 @@
               bottom: 40px;
               transition: 1s;
             }
-
             #chat-icon-con:hover{
               background-color: #FFC916;
               cursor: pointer;
               transition: 1s;
             }
-
               #icon-img{
                 width: 100%;
               }
-
               #chatcon{
-                /* width: 92%; */
                 width: 350px;
                 height: 85vh;
                 background: #F2F2F3;
                 position: fixed;
                 bottom:30px;
                 right:-100%;
-                padding: 15px 0 10px 15px;
+                padding: 15px 15px 10px 15px;
                 border-radius: 5px;
+                /*display: none;*/
                 transition: right 1s ease-in-out 0.05s;
-                /* z-index: 100; */
+                /*transition: right 1s ease-in-out 0.05s;*/
               }
               .message-con{
                 width: 100%;
@@ -258,18 +221,22 @@
                 background-color: #FFFFFF;
                 padding: 20px 10px 10px 10px;
                 overflow-y: scroll;
+                /*display:flex;
+                flex-direction: column-reverse;*/
+              }
+              #conversation{
               }
               .form-group{
                 margin: 10px 0;
-                padding-right: 15px;
+                /*padding-right: 15px;*/
               }
               #message{
                 height: 100%;
                 width: 100%;
                 border-radius: 0;
               }
-
               .textarea-con{
+                /*padding: 10px;*/
                 width: 100%;
                 height: 14vh;
               }
@@ -287,7 +254,6 @@
                 font-size: .8em;
                 position: relative;
               }
-
               .arrow-left{
                 width: 0;
                 height: 0;
@@ -295,10 +261,9 @@
                 border-bottom:  10px solid transparent;
                 border-right:  10px solid #0D2147;
                 position: absolute;
-                left: -5%;
+                left: -2.5%;
                 bottom: 20%;
               }
-
               .guest{
                 width: 65%;
                 background-color: #FFC916;
@@ -309,7 +274,6 @@
                 font-size: .8em;
                 position: relative;
               }
-
               .arrow-right{
                 width: 0;
                 height: 0;
@@ -317,10 +281,41 @@
                 border-bottom:  10px solid transparent;
                 border-left:  10px solid #FFC916;
                 position: absolute;
-                right: -5%;
+                right: -2.5%;
                 bottom: 20%;
               }
+              @media only screen and (max-width: 572px){
+                #chatcon{
+                  width: 100%;
+                  display: table;
+                  height: 550px;
+                  position: static;
+                  bottom:30px;
+                  padding: 15px 15px 10px 15px;
+                  margin: 20px 0 20px 0;
+                  border-radius: 5px;
+                  display: none;
+                  transition: right 1s ease-in-out 0.05s;
+                }
+                .message-con{
+                  width: 100%;
+                  height: 70%;
+                  background-color: #FFFFFF;
+                  padding: 20px 10px 10px 10px;
+                  overflow-y: scroll;
+                  display: static;
 
+                }
+                .textarea-con{
+                  padding: 0px;
+                  width: 100%;
+                  height: 14vh;
+                }
+                .form-group{
+                  margin: 10px 0;
+                  padding-right: 0px;
+                }
+              }
         </style>
 
     </head>
@@ -332,7 +327,6 @@
                     <h3 class="light hello">Hi! I'm </h3>
                     <h3>BROWN SAMSON DAPPA</h3>
 
-<!--                    <h4>I </h4>-->
                       <div class="space"></div>
                     <div id="dropping-texts">
                     </div>
@@ -346,11 +340,12 @@
         </div>
 
         <div id="chatcon">
-          <div class="message-con" id="conversation">
+          <div class="message-con" id="messageCon">
+              <div id="conversation">
             <!-- <div class="bot"><div class="arrow-left"></div>Hi! Good to have you here. My name is Samson Jnr, but you can call me Codmax</div>
             <div class="bot"><div class="arrow-left"></div>Sorry i did't catch your name</div> -->
 
-
+          </div>
           </div>
           <form>
             <div class="form-group">
@@ -361,9 +356,8 @@
           </form>
 
         </div>
-        <div id="chat-icon-con"><img src="../chatIcon.png" id="icon-img"></div>
 
-        <!-- <div id="chat-icon-con"><img src="http://res.cloudinary.com/samsondappa/image/upload/v1524134592/chatIcon.png" id="icon-img"></div> -->
+        <div id="chat-icon-con"><img src="http://res.cloudinary.com/samsondappa/image/upload/v1524134592/chatIcon.png" id="icon-img"></div>
         <footer class="darkest " id ="footer">
             <div class="socials-container">
                 <a href="https://facebook.com/brownsamson.dappa" target="_blank" class="socials">
@@ -419,21 +413,17 @@
     </body>
     <script>
         typer ();
-
         function typer (){
             var y = 0;
             var m = "#749E40"
             var skill = ["I Design   ", "I Code   ", "And I Write too   "];
             var x = 0;
-
-
             function printSentence(id, sentence, speed) {
               var index = 0;
                   timer = setInterval(function() {
                     var char= sentence.charAt(index);
                     if(char === '<') index= sentence.indexOf('>',index);
                     document.getElementById(id).innerHTML= sentence.substr(0,index);
-
                     if(index++ === sentence.length){
                         clearInterval(timer);
                         removeSentence('dropping-texts', skill[x], 50);
@@ -443,14 +433,12 @@
                     }
                   }, speed);
             } //printSentence
-
             function removeSentence(id, sentence, speed) {
               var index = sentence.length;
                   timer = setInterval(function() {
                     var char= sentence.charAt(index);
                     if(char === '<') index= sentence.indexOf('>',index);
                     document.getElementById(id).innerHTML= sentence.substr(0,index);
-
                     if(index-- === 0){
                         clearInterval(timer);
                         x++;
@@ -458,46 +446,57 @@
                     }
                   }, speed);
             } //removeSentence
-
         //    printSentence('intro', intro, 30);
             printSentence('dropping-texts', skill[x], 150);
-
             blink = setInterval(function(){
             document.getElementById('dropping-texts').style.borderRight = "2px solid rgba(225, 204, 41, " + y + ")";
-
                 if (y == 1){
                     y = 0;
                 } else if (y == 0){
                     y = 1;
                 }
             }, 150);
-
-
+            var scrollingElement = (document.scrollingElement || document.body);
+            function scrollToBottom () {
+               scrollingElement.scrollTop = scrollingElement.scrollHeight;
+            }
             var messageBottonBlink = setInterval(function(){
-              var chatIcon = document.getElementById('chat-icon-con');
-              chatIcon.style.backgroundColor = m;
-
+              var chatIco = document.getElementById('chat-icon-con');
+              chatIco.style.backgroundColor = m;
                 if (m == "#FFC916"){
                     m = "#749E40";
                 } else if (m == "#749E40"){
                     m = "#FFC916";
-
-
                 }
-
             }, 800);
         }
+
+        function scrollToBottom(id){
+           var div = document.getElementById(id);
+           div.scrollTop = div.scrollHeight - div.clientHeight;
+        }
+  // ------------.....-------......------ AJAX ---------..........---------------------------
+        var guestSend = document.getElementById('guest-send');
+        var conversation = document.getElementById('conversation');
+        var textarea = document.getElementById('message');
+        var message = "";
         var chatIcon = document.getElementById('chat-icon-con');
-        var realMessageIcon = '<img src="../chatIcon.png" id="icon-img">'
-        var realMessageCancel = '<img src="../cancelmessage.png" id="icon-img">'
+        var realMessageIcon = '<img src="http://res.cloudinary.com/samsondappa/image/upload/v1524134592/chatIcon.png" id="icon-img">'
+        var realMessageCancel = '<img src="http://res.cloudinary.com/samsondappa/image/upload/v1524444837/cancelmessage.png" id="icon-img">'
         var firstMessage = 0;
+        var senderName = "";
         chatIcon.addEventListener("click", function(){
           if (this.innerHTML == realMessageCancel){
             this.innerHTML = realMessageIcon;
+            document.getElementById('chatcon').style.display = "none";
             document.getElementById('chatcon').style.right = "-100%";
+            scrollingElement.scrollTop = 0;
           } else {
             this.innerHTML = realMessageCancel;
+            document.getElementById('chatcon').style.display = "table";
             document.getElementById('chatcon').style.right = "10%";
+            scrollingElement = (document.scrollingElement || document.body)
+            scrollingElement.scrollTop = 600;
             if (firstMessage == 0){
               getMessageSam('intro');
               getMessageSam('request name');
@@ -505,19 +504,20 @@
             }
           }
         });
-
-
-// ------------.....-------......------ AJAX ---------..........---------------------------
-        var guestSend = document.getElementById('guest-send');
-        var conversation = document.getElementById('conversation');
-        var textarea = document.getElementById('message');
-        var message = "";
-
         guestSend.addEventListener('click', function(){
           message = textarea.value;
-          conversation.innerHTML += '<div class="guest"><div class="arrow-right"></div>' + message + '</div>';
-          textarea.value = "";
-          getMessageSam(message);
+          if (message != ""){
+            conversation.innerHTML += '<div class="guest"><div class="arrow-right"></div>' + message + '</div>';
+            scrollToBottom('messageCon');
+            textarea.value = "";
+              if (firstMessage == 1){
+                getMessageSam('name: '+ message);
+                firstMessage++;
+                senderName = message;
+              }else{
+                getMessageSam(message);
+              }
+            }
         });
 // var res = str.replace("Microsoft", "W3Schools"); trainpwforhng
         function getMessageSam(messageSam) {
@@ -529,9 +529,16 @@
               xmlReq.onreadystatechange = function() {
                   if (this.readyState == 4 && this.status == 200) {
                       message = this.responseText;
+                      var last8 = message.substr(message.length - 8);
+                      if (last8 == 'givename'){
+                        message = senderName;
+                      }
                       conversation.innerHTML += '<div class="bot"><div class="arrow-left"></div>' + message + '</div>';
+                      scrollToBottom('messageCon');
                   }
               };
+              messageSam = messageSam.replace("#", "%23");
+              messageSam = messageSam.replace("#", "%23");
               xmlReq.open("GET", "answers.php?qsam=" + messageSam, true);
               xmlReq.send();
           }

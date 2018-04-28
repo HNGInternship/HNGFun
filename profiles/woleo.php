@@ -2,7 +2,7 @@
         try {
       
             if (!defined('DB_USER')){
-        
+                require('../../config.php');
             }
               
         $profile = 'SELECT * FROM interns_data WHERE username="woleo"';

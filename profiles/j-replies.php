@@ -1,5 +1,6 @@
 <?php
 require "../../config.php";
+require "../answers.php";
 
 
 //connection
@@ -15,38 +16,45 @@ if (!$conn) {
 }
 else{
 //for debugging conncection
+    
 }
   global $conn;
 
 //end of connection
 
+       
+  try {
+      $connn = new PDO("mysql:host=". DB_HOST. ";dbname=".DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+      die("Could not connect to the database " .DB_DATABASE . ": " . $pe->getMessage());
+  }
 
-require "../answers.php";
-$question = $_POST['chatMessage'];
 
-function getAnswerFromDB($question, $conn){
+      $question = $_POST['chatMessage'];
+      
+//end of connection
+
+function getAnswerFromDB($question, $conn, $connn){
 
 $q = "SELECT * FROM chatbot WHERE question='$question'";
 $r = mysqli_query($conn, $q);
 
 if (mysqli_num_rows($r) > 0)
     {   
+        $sql = "select * from chatbot where question like :question";
+      $query = $connn->prepare($sql);
+      $query->execute([':question' => $question]);
+      $query->setFetchMode(PDO::FETCH_ASSOC);
+      $rows = $query->fetchAll();
+      $resultsCount = count($rows);
 
-     //display random answers
-//         $answer = mysqli_fetch_array($r);
-//         $answerAssoc = mysqli_fetch_assoc($r);
-//            $answerRow = count($answerAssoc);
-//             $randr =  $answerRow - 1;
-//              $randrr = rand(0,  $randr);
-//              $answer = $answer[$randrr];
-$rows = [];
-while($row = mysqli_fetch_assoc($r))
-{
-    $rows[] = $row;
-}
-$answerRow = count(mysqli_fetch_assoc($r)) - 1;
-$randIndex = rand(0,  $answerRow);
-$answer = $rows[$randIndex];
+        $index = rand(0,  $resultsCount - 1);
+        $row = $rows[$index];
+        $answer = $row['answer'];
+        // $answer = mysqli_fetch_assoc($r);
+        // $answer = $answer['answer'];
+
+
         //if answer has a function call in it
          // $answer =  callFunction();
         // else
@@ -66,6 +74,7 @@ $answer = $rows[$randIndex];
 
 
 else{
+   
 
     $answer = "WOAH! I'll get there...just train me using the format; train : yourquestion # your answer # password";
     echo $answer;
@@ -113,7 +122,7 @@ function trainJobot($question, $conn){
 
     $pass = trim($pass);
 
-    if ($pass === "trainpwforhng")
+    if ($pass === "password")
     {
     $train_query = "INSERT INTO chatbot (question, answer)
                     VALUES ('$ques', '$ans')";
@@ -122,7 +131,7 @@ function trainJobot($question, $conn){
 
     }
     else{
-        echo "You Are Not Allowed To Train Me".$pass;
+        echo "You Are Not Allowed To Train Me";
     }
 }
 
@@ -156,7 +165,6 @@ function callFunction($answer, $open_bracket_pos){
 }
 
 
-if ($_POST){
 
 if (isset($_POST['trainValidity']))
 {
@@ -165,8 +173,8 @@ if (isset($_POST['trainValidity']))
     }
 }
 else{
-    getAnswerFromDB($question, $conn);
+    getAnswerFromDB($question, $conn, $connn);
 }
-}
+
 
 ?>
