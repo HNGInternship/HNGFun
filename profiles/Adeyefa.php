@@ -12,10 +12,10 @@ if(!defined('DB_USER')){
 ///////////////////////////////////////////////////////////////////////////////
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
-$result = $result->fetch(PDO::FETCH_ASSOC);
+$result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
-$user = $result2->fetch(PDO::FETCH_ASSOC);
+$user = $result2->fetch(PDO::FETCH_OBJ);
 
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
