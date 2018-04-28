@@ -184,43 +184,29 @@ function getTime(){
 
                 $answer_has_function = check_answer($question['answer']);
                 if(!$answer_has_function){
-
-                    if( !isset( $_POST['ajax'] ) ){
-                        $answer = $question['answer'];
-                        $ans = json_encode($answer);
-                        echo $ans;
-                    } else {
-                        echo json_encode([
-                            "message" => $question['answer']
-                        ]);
+                   
+                    echo json_encode([
+                        "message" => $question['answer']
+                    ]);
+                    return;
+                    
+                } else {
+                    
+                    echo json_encode([
+                        "message" => parse_answer($question['answer'])
+                    ]);
                         return;
-                    }
-                } else{
-                    
-                    if( !isset( $_POST['ajax'] ) ){
-                        $answer = parse_answer($question['answer']);
-                    
-                    } else {
-                            return json_encode([
-                            "message" => parse_answer($question['answer'])
-                        ]);
-                        
-                    }
                     
                 }
             } else {
                 
-                if( !isset( $_POST['ajax'] ) ){
-                    $answer = "Sorry I don't have an answer for that, please train me";
-                    return $answer;
+
+                   
+                return json_encode([
+                    "message" =>  "Sorry I don't have an answer for that, please train me"
+                ]);
+                   
                 
-                } else {
-                   
-                    return json_encode([
-                        "message" =>  "Sorry I don't have an answer for that, please train me"
-                    ]);
-                   
-                }
             }
         }
         
@@ -1388,11 +1374,12 @@ function getTime(){
                 var message = cleanText(chatInput.value);
                 $.ajax({
                 type: "POST",
+                dataType : "json",
                 url: 'profiles/Gwinyai.php',
                 data: { training: message },
                 success: function(data){
                     showBotMessage(data);
-                         console.log(data);
+                      
                     }
                 });
             }
