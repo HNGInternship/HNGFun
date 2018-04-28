@@ -338,7 +338,7 @@ if(!defined('DB_USER')){
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
-									Hi,i am MATRIX, the bot, i can answer basic questions. To know about my functions type 'help'
+									Hi,i am MATRIX, the bot, i can answer basic questions. To know about my functions type 'aboutbot'
 								</div>	
 								<div class="iio">
 									<ul id="ans">
