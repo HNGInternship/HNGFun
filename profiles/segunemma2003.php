@@ -113,7 +113,8 @@ try {
 <head>
 	<title><?php echo $data['username'];?> 'profile</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
 <style>
 *{
 	border:0px;
@@ -320,6 +321,14 @@ try {
 		</div>
 	</div>
 </div>
+	<div style="margin:auto">
+		<div><h6>Contact me </h6> </div>
+		<a href="https://github.com/segunemma2003"><i class="fa fa-github"></i></div>
+		<a href="https://www.linkedin.com/in/segun-bamidele-028160154"><i class="fa fa-linkedin"></i></div>
+		<a href="https://www.instagram.com/youngpresidooo"><i class="fa fa-instagram"></i></div>
+		<a href="https://www.facebook.com/youngpresido"><i class="fa fa-facebook"></i></div>
+		<a href="https://twitter.com/idibia59"><i class="fa fa-twitter"></i></div>
+	</div>
 		
 	
 <!-- 		
