@@ -35,7 +35,7 @@
    
 </head>
 <body class="body">
-    <div class="box">
+    <div class="container">
         <span> <a href="https://res.cloudinary.com/lowkeynerd/image/upload/v1524601133/lkn.jpg"><img src="https://res.cloudinary.com/lowkeynerd/image/upload/v1524601133/lkn.jpg" alt="display photo" class="zoom"></a></span>
             
         <h1 id="name">Chiamaka Ibeme </h1>
@@ -60,7 +60,7 @@
             margin: 0;
             padding: 0;
         }
-        .box{
+        .container{
             height: 80%;
             width: 60%;
             background: rgba(212, 175, 55, 0.4);
@@ -110,13 +110,13 @@
             width: 20%;
         }
 
-        .box li {
+        .list li {
             list-style: none;
             display: inline-block;
-            margin: 10px;
+            margin: 6px;
         }
 
-        .box li a {
+        .list li a {
             text-decoration: none;
             color: #000;
             font-size: 30px;
@@ -129,7 +129,7 @@
             transition: transform 1.5s;
 			}
         
-        .box li a:hover {
+        .list li a:hover {
             transform: scale(1.3);
 			}
         
