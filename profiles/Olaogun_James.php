@@ -159,7 +159,7 @@ $my_details = $result2->fetch(PDO::FETCH_OBJ);
   <?php
                       
     if (isset($_POST['payload'])) {
-    require "../answers.php"; 
+    // require "../answers.php"; 
     $question = $_POST['payload'];
     function trainningMode($question) {
       if (strpos($question, 'train:') !== false) {

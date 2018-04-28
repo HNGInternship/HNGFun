@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 
 
@@ -9,36 +8,15 @@
  return response
 
 */
-
-require_once("conn/dxcon.php");
+echo fopen("db.php");
+// require_once("db.php");
 require_once("regex.php");
-
-
-$regex = new regex($dbc); 
+var_dump("Conzz ". $conn);
+var_dump($DB_HOST." ".$DB_USER." ". $DB_PASSWORD);
+echo "new";
+$regex = new regex($conn); 
 $emails = $regex->fetchanswer($_POST['chat']);
 $dd = json_encode($emails);  
 
 if($dd == "null"){ echo "Please train me, i do not have a response for this."; }
 else { echo $dd;}
-=======
-<?php
-
-
-/*
- split text into words
- check database for the best match, with the words apearing in the questio
- check for the best fit
- return response
-
-*/
-// echo fopen("db.php");
-require_once("./conn/dxcon.php");
-require_once("regex.php");
-// var_dump($dbc);
-$regex = new regex($dbc); 
-$emails = $regex->fetchanswer($_POST['chat']);
-$dd = json_encode($emails);  
-
-if($dd == "null"){ echo "Please train me, i do not have a response for this."; }
-else { echo $dd;}
->>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d

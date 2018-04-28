@@ -1,29 +1,7 @@
 <?php
-//require '../../config.php';
-
-    
-try {
- $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'nedy'");
- $intern_data->execute();
- $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
- $result = $intern_data->fetch();
-
-
- $secret_code = $conn->prepare("SELECT * FROM secret_word");
- $secret_code->execute();
- $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
- $code = $secret_code->fetch();
- $secret_word = $code['secret_word'];
-} catch (PDOException $e) {
-  throw $e;
-}
-if($_SERVER['REQUEST_METHOD']==='POST'){
-    
-    echo "post";
-    return;
-}
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

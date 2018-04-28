@@ -1,18 +1,21 @@
 
+
 <!DOCTYPE HTML>
 
 <html>
   <head>
     <title>Oyewale Naimat's Portfolio</title>
-    	<meta charset="utf-8">
-    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
       <link rel="stylesheet" href="bootstrap.min.css">
       <script src="bootstrap.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      
       <?php 
 		require 'db.php';
 
@@ -27,13 +30,12 @@
 
         body{
            font-family: Roboto;
-           background-color: #ffffff;
+           background-color: #00000f;
           }
      #first{
   background-size: cover;
   background-position: center;
   color: #5563DE; 
-  background-color: #00000f;
 }
 #skillset{
   background-size: cover;
@@ -102,17 +104,17 @@ hr {
   <body>
     <div id="first">
       <div id="dev">
-        <img class="img-responsive" id="bobo" src="http://res.cloudinary.com/dmitjmci6/image/upload/v1524591075/Naimat.jpg" style="width: 200px; height: 200px; border-radius: 140px;" align="right"  />
+        <img class="img-responsive" id="bobo" src="http://res.cloudinary.com/dmitjmci6/image/upload/v1524591075/Naimat.jpg" style="width: 300px; height: 300px; border-radius: 100px;" align="right"  />
         <h3>My name is Oyewale Naimah</h3>
         <hr>
-        <p style ="text-align: center; font-size: 20px;">a Front-end Web Developement intern</p>
+        <h1>A Front-end Web Developement intern</h1>
       </div>
     </div>
     <div class = "container">
       <div id="skillset">
-          
-          <h2 style ="text-align: center; margin-top: 0px; padding-top: 20px;"><strong> Skills </strong></h2>
-          
+      
+          <h2 style ="text-align: center; margin-top: 0px; padding-top: 20px;"><strong> What I do and the skills I use</strong></h2>
+          <p style ="text-align: center; font-size: 24px;"> I am a Front-end Web Developement intern</p>
         
         <div id="hskills" class = "container" style="margin-bottom: 0px;">
           <div class = "row" id="skills">
@@ -143,14 +145,38 @@ hr {
           
           <div class="container" id="contact" style="margin-top: 0px;">
             <hr>
-      <h2 style ="text-align: center; margin-bottom: 26px; font-weight: 700px; color: grey"><b>Contact Info</strong></b>
-      
+      <h2 style ="text-align: center; margin-bottom: 30px; font-weight: 700px; color: grey"><strong>Contact Info</strong></h2>
+      <div style ="text-align: center; margin-bottom: 30px;" id="bnext">
+        <div id="next">
+          <a href="https://twitter.com/DoyinNaimah" style ="text-align: center;" class="btn btn-circle" target ="_blank"><i class="fa fa-twitter"></i></a>
+        </div>
+        <div id="next">
+          <a href="https://www.facebook.com/OyewaleNahimah" class="btn btn-circle" target = "_blank"><i class="fa fa-facebook"></i></a>
+ 
+        </div>
+        <div id="next">
+          <a href="https://github.com/Naimahtech" class="btn btn-circle" target ="_blank"><i class="fa fa-github"></i></a>
+
+        </div>
+        <div id="next">
+          <a href="www.linkedin.com/in/naimat-oyewale-828a88154" class="btn btn-circle" target ="_blank"><i class="fa fa-linkedin"></i></a>
+
+        </div>
+      </div>
+
       <div style="text-align: center;" class="row">
         <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
           <h4>Email: <a href="">naimatoyewale@yahoo.com</a></h4>
         </div>
-  
+      </div>
     </div>
+    <div style="text-align: center">
+    <h5 style="color: grey;">Naimah  ©. 
+      <script type="text/javascript">
+        document.write(new Date().getFullYear())
+      </script>  All rights reserved
+    </h5>
+  </div>
 
      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
      <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>

@@ -1,11 +1,9 @@
 <?php
 
-include '../config.php';
-
-
+if (include('config.php')){
 
 $db_query = "SELECT * FROM interns_data WHERE username = 'Olusegun' LIMIT 1";
-$result = mysqli_query( $conn, $db_query);
+$result = mysqli_query($conn, $db_query);
 
 $secret_query = "SELECT secret_word FROM secret_word LIMIT 1";
 $secret_result = mysqli_query($conn, $secret_query);
@@ -18,7 +16,11 @@ $name = $result_array['name'];
 $username = $result_array['username'];
 $image_filename = $result_array['image_filename'];
 $secret = $secret_array['secret_word'];
+}
 
+else {
+	echo "Error!";
+}
 ?>
 
 <!DOCTYPE html>
