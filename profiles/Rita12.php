@@ -414,7 +414,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 					//after appending user question, send it to server for processing
 				$.ajax({
-						url: "Rita12.php",
+						url: "/profiles/Rita12.php",
 						dataType : "json",
 						type: "POST",
 						data: {question: question},
