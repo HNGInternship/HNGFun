@@ -318,7 +318,7 @@ a {
                     processData(xhttp.responseText);
                 }
             };
-            xhttp.open("POST","ekpono.php", true);
+            xhttp.open("POST","https://hng.fun/profile.php?id=ekpono", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("ques="+ques.value);
         }
