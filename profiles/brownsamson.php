@@ -299,7 +299,7 @@
                 }
                 .message-con{
                   width: 100%;
-                  height: 75%;
+                  height: 70%;
                   background-color: #FFFFFF;
                   padding: 20px 10px 10px 10px;
                   overflow-y: scroll;
@@ -508,6 +508,7 @@
           message = textarea.value;
           if (message != ""){
             conversation.innerHTML += '<div class="guest"><div class="arrow-right"></div>' + message + '</div>';
+            scrollToBottom('messageCon');
             textarea.value = "";
               if (firstMessage == 1){
                 getMessageSam('name: '+ message);
