@@ -59,7 +59,7 @@ if (isset($_POST['restart'])){
     session_destroy();
 }if (isset($_POST['button'])) {
     if (isset ($_POST['input']) && $_POST['input'] !== "") {
-        include "../answers.php";
+
         $function = $_POST['input'];
         $functionName = explode("(", $function);
         if (function_exists($functionName[0])&&strpos($function,"(")&&strpos($function,")")) {
@@ -117,8 +117,7 @@ function askQuestion($input)
             } else if (preg_match("/\b($time)\b/",$input)) {
                 return gettTime();
             } else if (preg_match('/\bhelp\b/',$input)) {
-                return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me<br/>
-Click on restart to clear our conversation and start again<br/>Type quote or joke and see what i can do<br/>";
+                return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me<br/>Click on restart to clear our conversation and start again<br/>";
             }else if($input=="you are mad"||$input == "you're mad"){
                 return "YOUR FATHER";
             }else if(preg_match("/\bquote\b/",$input)){
@@ -190,10 +189,10 @@ Click on restart to clear our conversation and start again<br/>Type quote or jok
                 height: 54px;
                 background: #28123E;
                 border-radius: 19.1076px;
-                left: 127px;
-                top: 176px;
+                left: 121px;
                 color: #FFFFFF;
                 text-align: center;
+                top: 281px;
             }.PROGRAMMER_enthusiast{
                  position: absolute;
                  width: 253.35px;
@@ -206,8 +205,8 @@ Click on restart to clear our conversation and start again<br/>Type quote or jok
                  text-align: center;
                  letter-spacing: 0.01em;
                  color: #F2F2F2;
-                 left: 20px;
-                 top: 15px;
+                 left: 34px;
+                 top: -25px;
              }.Adokiye{
                   position: absolute;
                   width: 262.26px;
@@ -216,11 +215,13 @@ Click on restart to clear our conversation and start again<br/>Type quote or jok
                   font-style: italic;
                   font-weight: normal;
                   line-height: normal;
-                  font-size: 18px;
+                  font-size: 36px;
                   text-align: center;
-                  color: #1F0000;
-                  left: 145px;
-                  top: 251px;
+                  color: #F5EEEE;
+                  left: 147px;
+                  top: 346px;
+                  border-radius: 19.1076px;
+                  background-color: #28123E;
               }.rectangle3{
                    position: absolute;
                    text-align: center;
@@ -313,12 +314,11 @@ Click on restart to clear our conversation and start again<br/>Type quote or jok
     }  </script>
 <body>
 <div class="rectangle">
-    <div class="RECTANGLE2">
-        <p class="PROGRAMMER_enthusiast">PROGRAMMER</p>
-    </div>
-    <p class="Adokiye">@Adokiye</p>
     <p style="font-family: Arial; font-size: xx-large; text-align: center;">&nbsp;</p>
+    <p style="font-family: Arial; font-size: 48px; text-align: center;">&nbsp;</p>
+    <p style="font-family: Arial; font-size: 48px; text-align: center;">&nbsp;</p>
     <p style="font-family: Arial; font-size: 48px; text-align: center;">IRUENE ADOKIYE</p>
+    <p style="font-family: Consolas, 'Andale Mono', 'Lucida Console', 'Lucida Sans Typewriter', Monaco, 'Courier New', monospace; font-size: 24px; text-align: center;">@Adokiye</p>
 </div><div class="rectangle3"><div class="chatbotimage"></div>
 
     <p style="color: #FFFFFF">&nbsp;
