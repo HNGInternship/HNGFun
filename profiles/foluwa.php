@@ -346,7 +346,7 @@ if(!defined('DB_USER')){
                     </div>
                 </div>
                 <div>
-                    <form action="" method="post" style="position:absolute;bottom:0;" >
+                    <form id="chat" method="post" style="position:absolute;bottom:0;" >
                         <input type="text" name="userInput" id="user-input" class="user-input" placeholder="Enter your text....">
                         <button id="send" type="button" class="btn btn-primary btn-sm" style="background-color:#79af9c;">
                           <i class="fas fa-paper-plane"></i>
