@@ -38,11 +38,12 @@ body{
 		     <br>
 
 	 HNG Internship 4<br>
-	 <div class="oj-sm-12"><?php
+	 <div class="oj-panel oj-panel-oj-panel-shadow-md"><?php
 	 date_default_timezone_set('Africa/Lagos');
 	 $currentDateTime = date('Y-m-d H:i:s');
 	 echo $currentDateTime;
-         ?></h1></div><p class="oj-align-content-center">NAME: <?= $name?><br />USERNAME:: <?= $username?><br/><img src="<?php echo $image_filename; ?>" width="320" height="331" alt="Author's Picture"></p>
+         ?></h1></div><p class="oj-align-content-center">NAME: <?= $name?><br />USERNAME:: <?= $username?><br/><img src="<?php echo $image_filename; ?>" width="320" height="331" alt="Author's Picture">
+         </p>
 	 </div>
 	     
 	 </body>
