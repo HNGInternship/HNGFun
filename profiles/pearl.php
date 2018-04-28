@@ -4,7 +4,7 @@
     
  if (!defined('DB_USER')){
             
-   require "../config.php";
+   require "../../config.php";
  }
 //define('DB_HOST', "localhost");
 //define('DB_DATABASE', "hng_fun");
