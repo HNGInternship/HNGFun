@@ -19,6 +19,13 @@
   color: grey;
   font-size: 18px;
 }
+<<<<<<< HEAD
+=======
+  
+  .boddy {
+  font-size: 14px;
+}
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 
 button {
   border: none;
@@ -50,9 +57,15 @@ button:hover, a:hover {
 
 <div class="card">
   <img src="http://res.cloudinary.com/eshietekemini/image/upload/v1524557804/IMG_20180224_130950.jpg" alt="John"  style="width:100%">
-  <h3>Eshiet Ekemini</h3>
+<<<<<<< HEAD
+  <h1>Eshiet Ekemini</h1>
   <p class="title">Android Developer, Intern at HNGInternship 4.0</p>
   <p>I drink tea and code, and I love picking up on new Technologies</p>
+=======
+  <h2>Eshiet Ekemini</h2>
+  <p class="title">Android Developer, Intern at HNGInternship 4.0</p>
+  <p class="boddy">I drink tea and code, and I love picking up on new Technologies</p>
+>>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
   <div style="margin: 24px 0;">
     <a href="#"><i class="fa fa-dribbble"></i></a> 
     <a href="#"><i class="fa fa-twitter"></i></a>  
