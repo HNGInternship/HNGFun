@@ -1,6 +1,6 @@
 <?php   
 	if(!defined('DB_USER')){
-	  require "../../config.php";		
+	  require "../config.php";		
 	  try {
 	      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 	  } catch (PDOException $e) {
@@ -35,7 +35,7 @@
       }
         
         exit();
-}
+
 
 
 
@@ -1230,7 +1230,7 @@ function getTime(){
 
                 function showBotMessage(info) {
 
-                    var botBubble = ''
+                    var botBubble = '';
                     let span = document.createElement('span');
                     span.classList.add('bot', 'first');
                     var today = new Date();
@@ -1380,11 +1380,12 @@ function getTime(){
 
             /* Handle Ajax response for DB query */
             function trainQuery() {
-                var message = cleanText(chatInput.value);
+                var message = cleanText(chatInput.val());
                 $.ajax({
                 type: "POST",
                 dataType : "json",
                 url: 'profiles/Gwinyai.php',
+                contentType: "application/json; charset=utf-8",
                 data: { training: message },
                 success: function(data){
                     if(data.status == 1) {
@@ -1424,3 +1425,5 @@ function getTime(){
 </body>
 
 </html>
+
+<?php } ?>
