@@ -8,7 +8,7 @@
 <?php
     global $conn;
     try {
-        $sql2 = 'SELECT * FROM interns_data WHERE username="techHajiya"';
+        $sql2 = 'SELECT * FROM interns_data WHERE username="foluwa"';
         $q2 = $conn->query($sql2);
         $q2->setFetchMode(PDO::FETCH_ASSOC);
         $my_data = $q2->fetch();
@@ -42,8 +42,8 @@
     }
   ##About Bot
     function aboutbot() {
-        echo "<div id='result'><strong>LoBot 1.0 </strong></br>
-    Hey...I am LoBot, created by Lois Thomas to answer any question from the database. You can also teach me tricks I do not know...</br> Let's goooo...</div>";
+        echo "<div id='result'><strong>ZOE VER1.0 </strong></br>
+    HELLO AM ZOE</div>";
     }
   
   ##Train Bot
@@ -68,17 +68,17 @@
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>Thank you for training me. </br>
+                        echo "<div id='conversation' class='bot-message'>Thank you for training me. </br>
       Now you can ask me same question, and I will answer it correctly.</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
                 }
             }else{
-                echo "<div id='result'>I already understand this. Teach me something new!</div>";
+                echo "<div id='conversation' class='bot-message'>I already understand this. Teach me something new!</div>";
             }
         }else {
-            echo "<div id='result'>You entered an invalid Password. </br>Try Again!</div>";
+            echo "<div id='conversation' class='bot-message'>You entered an invalid Password. <br>Try Again!</div>";
         }
     }
     function getAnswer($input) {
@@ -88,12 +88,12 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Oops! I've not been trained to learn that command. </br>Would you like to train me?
-</br>You can train me to answer any question at all using, train:question#answer#password
-</br>e.g train:Who said Nigerian youth are lazy#President Buhari#password</div>";
+            echo "<div id='conversation' class='human-message'>Oops! I've not been trained to learn that command. <br>Would you like to train me?
+<br>You can train me to answer any question at all using, train:question#answer#password
+<br>e.g train:WHICH CONTINENT IS NIGERIA#AFRICA#password</div>";
         }else {
             $rand_keys = array_rand($data);
-            echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
+            echo "<div id='conversation' class='bot-message'>". $data[$rand_keys]['answer'] ."</div>";
         }
     }
     ?>
