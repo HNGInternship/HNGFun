@@ -245,19 +245,21 @@ nav a.selected, nav a:hover {
 				<h3>About</h3>
 				<p>Hi I'm basitomania, this is my design portfolio where i share all my work when i'm not surfing the net and markerting online. To follow me on twitter my handle is <a href="http://www.twitter.com">@iamblack8</a>.</p>
 			</section>
-			<section id="primary">
-				<h3>General Information</h3>
-				<p>I am not currently looking for new design work, but I am available for speaking gigs and similar engagements. If you have any questions, please don't hesitate to contact me!</p>
-				<p>Please only use phone contact for urgent inquiries. Otherwise twitter and email are thre best way to reach me</p>
-			</section>
+			
 			<section id="secondary">
-				<h3>Contact Details</h3>
-				<ul class="contact-info">
-					<li class="phone"><a href="tel:+2348166380172">+2348166380172</a></li>
-					<li class="mail"><a href="mailto:basitomania@gmail.com">basitomania@gmail.com</a></li>
-					<li class="twitter"><a href="http://twitter.com/intent/tweet?screen_name=basitomania">@basitomania</a></li>
-				</ul>
-			</section>
+            <h3>Contact Details</h3>
+            <ul class="contact-info">
+                <li class="phone">
+                    <a href="tel:+2348166380172">+2348166380172</a>
+                </li>
+                <li class="mail">
+                    <a href="mailto:basitomania@gmail.com">basitomania@gmail.com</a>
+                </li>
+                <li class="twitter">
+                    <a href="http://twitter.com/intent/tweet?screen_name=iamblack8">@iamblack8</a>
+                </li>
+            </ul>
+        </section>
 			<footer>
 				<p>&copy; 2017 Maniaweb.</p>
 			</footer>
