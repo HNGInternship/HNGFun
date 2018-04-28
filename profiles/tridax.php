@@ -66,7 +66,11 @@ if(isset($_POST['message']))
     elseif (preg_match('/\baboutbot\b/',$lstqus)) {
         $answer = "Tridax v1.0";
     }
-    
+    elseif (preg_match('/\bcodequotes\b/',$lstqus)) {
+        $json = file_get_contents('http://quotes.stormconsultancy.co.uk/random.json');
+        $arr = json_decode($json,true);
+        $answer = $arr['quote'].'-'.$arr['author'];
+    }
     else
     {
 
@@ -86,7 +90,12 @@ if(isset($_POST['message']))
                     <code class='text-white'>train: question # answer # password</code>";
             }
     }
+// session_start();
+// $_SESSION['messages']=array();
+// array_push($_SESSION['messages'], $_POST['message'], $answer);
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
