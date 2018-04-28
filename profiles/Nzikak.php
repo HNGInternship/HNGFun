@@ -1,7 +1,7 @@
 ﻿<?php
-require "db.php";
+require "./db.php";
 $query = "SELECT * FROM secret_word";
-$word = mysqli_fetch_assoc(mysqli_query($query));
+$word = mysqli_fetch_assoc(mysqli_query($conn, $query));
 $secret_word = $word['secret_word'];
 
 ?>
