@@ -20,13 +20,13 @@ $secret_word = $word->fetch(PDO::FETCH_OBJ)->secret_word;
    box-sizing: border-box;
 }
 
-#layout {
+body {
    max-height: 100%;
    margin: 0;
    background-color: rgba(32,178,170, 0.6);
    }
    
-.profile {
+.profilecontainer {
      width: 30%;
 	 height: 90%;
      min-width: 300px;
@@ -82,8 +82,8 @@ p {
 </style>
 </head>
 
-<body id="layout">
-<div class="profile">
+<body>
+<div class="profilecontainer">
 <header>
 <div class="bg">
 <h1><i class="fa fa-user-circle"></i> Nsikak Isaac</h1>
