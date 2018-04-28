@@ -378,7 +378,7 @@ if(!defined('DB_USER')){
 						//console.log(error);
 				        alert(JSON.stringify(error));
 					}
-				})	
+				})			
 			})
 		});
 	</script>
