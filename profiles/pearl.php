@@ -422,7 +422,7 @@ button{
                 </div>
                 <div id="main_chat">
                     <div id="chatMessages">
-                        <div id="message" style="background-color:#dedede;">Hi I am Pearlbot, I have been created to read user location, read user ip address</div>
+                        <div id="message" style="background-color:#dedede;">Hi I am Pearlbot</div>
 
                     </div>
                 </div>
