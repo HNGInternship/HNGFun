@@ -124,12 +124,15 @@
             </div>
           </div>
         </div>
+        <footer role="contentinfo" class="oj-web-applayout-footer">
+  <div class="oj-web-applayout-footer-item oj-web-applayout-max-width">
+    @Femi Really Really hoping it works.
+  </div>
+</footer>
   </div>
           
 
-         <div class="oj-row">
-    <div class="oj-sm-6 oj-md-9 oj-col"></div>
-  </div>
+         
 
         
   </body>
