@@ -1,5 +1,5 @@
 <?php
-  require '../db.php';
+  //require '../db.php';
   $res = $conn->query("SELECT * FROM  interns_data WHERE username = 'Damilola' ");
   $row = $res->fetch(PDO::FETCH_BOTH);
   $name = $row['name'];
@@ -41,7 +41,8 @@
 
   #cover{
     width: 100%;
-    background: rgba(0,0,0,.95);
+    /*background: rgba(0,0,0,.95);*/
+
     height: 100vh;
     text-align: center;
   }
@@ -50,12 +51,11 @@
 
 
   #box{
-    width: 70%;
+    width: 100%;
     text-align: center;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    position:;
+    padding-top: 80px;
+
     
   }
 
@@ -80,10 +80,15 @@
     <div id="cover">
       <div id="box">
        <img src="http://res.cloudinary.com/damilola/image/upload/v1524350063/me.jpg" alt="Damilola" class="img-rounded">
-        <p>SOYEMI DAMILOLA</p>
-        <h4>Because i'm Batman (In Batman's voice)</h4>
 
+        <p><?php echo $name; ?></p>
+        <h4>Because i'm Batman (In Batman's voice)</h4>
+        <h5>Username: @<?php echo $username; ?></h5>
+        <h5>Phone: 08023975087</h5> 
+        <h5>Email: dhamie.soyemi@gmail.com</h5> 
+        <h5>Skills: Css,Bootstrap, Javascript, PHP</h5>
         
+
      </div>
     </div>
 

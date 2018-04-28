@@ -1,12 +1,12 @@
 <?php
 // ob_start();
-session_start();  
+session_start();
 if($_SERVER['REQUEST_METHOD'] == "POST") {
    if(!defined('DB_USER')){
       //live server
       require "../../config.php";
       // localhost
-//       require "../config.php";
+      // require "../config.php";
       try {
          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
       } catch (PDOException $pe) {
@@ -15,32 +15,27 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
    }
    require '../answers.php';
    global $conn;
-   function train($trainData) {
-      $data = [];
-      $data['response'] = null;
-      $data['request'] = null;
-      $temp = explode("@", $trainData);
-      $data['request']  = $temp[0];
-      $data['response'] = $temp[1];
-      $data['request'] = preg_replace('/(train:)/', '', $temp[0]);
-      $data['response'] = preg_replace('/@/', '', $temp[1]);
-      if(store($data['request'], $data['response'])) {
+
+   function train($question, $answer) {
+      $question = trim($question);
+      $answer = trim($answer);
+      if(store($question, $answer)) {
          return "🤖 I just learnt something new, thanks to you 😎";
       } else {
          return "🤖 I'm sorry, An error occured while trying to store what i learnt 😔";
       }
    }
-   
+
    function findThisPerson($user){
       global $conn;
-      $statement = $conn->prepare("select * from interns_data where username like :user limit 1");
+      $statement = $conn->prepare("select * from interns_data where username like :user or name like :user limit 1");
       $statement->bindValue(':user', "%$user%");
       $statement->execute();
       $statement->setFetchMode(PDO::FETCH_ASSOC);
       $rows = $statement->fetchObject();
       return $rows;
    }
-   
+
    function searchRequest($request) {
       global $conn;
       $statement = $conn->prepare("select answer from chatbot where question like :request order by rand()");
@@ -59,13 +54,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
          $functionName = str_replace(')', '', $functionName);
          if(function_exists($functionName)) {
             $response = str_replace($functionName, $functionName(), $response);
-            $response = "🤖 ".$response;
          } else {
             $response = "🤖 I'm sorry, The function doesn't exist";
          }
       }
       return $response;
    }
+
    function store($request, $response) {
       global $conn;
       $statement = $conn->prepare("insert into chatbot (question, answer) values (:request, :response)");
@@ -78,47 +73,47 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
          return false;
       }
    }
-   if(isset($_GET['new_request'])) {
-      $response_and_request = [];
-      $response_and_request['request'] = "";
-      $response_and_request['response'] = "";
-      $response_and_request['time'] = "";
-      $request = strtolower($_GET['new_request']);
-      $response_and_request['request'] = trim($request);
-      if(empty($response_and_request['request'])) {
-         $response_and_request['response'] = "🤖 You haven't made any request";
-         // echo json_encode($response_and_request);
+
+   if(isset($_POST['new_request'])) {
+      $bot_response['response'] = [];
+      $user_request = "";
+      $bot_response['response'] = "";
+      $request = strtolower($_POST['new_request']);
+      $user_request = trim($request);
+      if(empty($user_request)) {
+         $bot_response['response'] = "🤖 You haven't made any request";
       } else {
-         if(!empty(searchRequest($response_and_request['request']))) {
-            $response_and_request['response'] = searchRequest($response_and_request['request']);
-            // goto send;
-         } else if(preg_match("/(train:)/", $response_and_request['request']) && preg_match('/(@)/', $response_and_request['request'])) {
-            if(preg_match("/(:password:password)/", $response_and_request['request'])) {
-               $response_and_request['request'] = preg_replace("/(:password:password)/", "", $response_and_request['request']);
-               $response_and_request['response'] = train($response_and_request['request']);
+         if(!empty(searchRequest($user_request))) {
+            $bot_response['response'] = searchRequest($user_request);
+         } else if(preg_match("/(train:)/", $user_request)) {
+
+            $power_split = explode("#", $request);
+            $question = trim(preg_replace("/(train:)/", "", $power_split[0]));
+            $answer = trim($power_split[1]);
+            $password = trim($power_split[2]);
+            if($password != "password") {
+               $bot_response['response'] = "🤖 Training Access Denied!";
             } else {
-               $response_and_request['response'] = "🤖 Training Access Denied!";
+               $bot_response['response'] = train($question, $answer);
             }
-            // goto send;
-            } else if(preg_match("/(aboutbot)/", $response_and_request['request']) || preg_match("/(aboutbot:)/", $response_and_request['request']) || preg_match("/(about bot)/", $response_and_request['request'])) {
-               $response_and_request['response'] = "🤖 Version : 3.0.23, Cool right?";
-            } else if(preg_match('/(find:)/', $request)) {
+
+         } else if(preg_match("/(aboutbot)/", $user_request) || preg_match("/(aboutbot:)/", $user_request) || preg_match("/(about bot)/", $user_request)) {
+            $bot_response['response'] = "🤖 Version 4.0";
+         } else if(preg_match('/(find:)/', $request)) {
             $ex = explode("find:", $request);
+
             if(!empty($users = findThisPerson($ex[1]))) {
-               // $count = count($users);
-               $response_and_request['response'] = array('resultType'=>'find', 'users'=> $users);
+               $bot_response['response'] = array('resultType'=>'find', 'users'=> $users);
             } else {
-               $response_and_request['response'] = "🤖 I couldn't find a user by that username or name";
+               $bot_response['response'] = "🤖 I couldn't find a user by that username or name";
             }
-            // goto send;
+
          } else {
-            $response_and_request['response'] = "🤖 I  don't understand your request, I hope you wouldn't mind training me?";
-            // goto send;
+            $bot_response['response'] = "🤖 I  don't understand your request, I hope you wouldn't mind training me?";
          }
       }
       send:
-      $response_and_request['time'] = date('h:i:s A');
-      echo json_encode($response_and_request);
+      echo json_encode($bot_response);
    }
 }
 if($_SERVER['REQUEST_METHOD'] == "GET") {
@@ -241,11 +236,9 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
       <div class="bot round-corners">
          <div class="inner">
             <h2>femiBot 🤖</h2>
-            <i style="font-size: 15px">To train the bot, follow :<br />
-               1. train:What is the time @The time is (timefunction) (where train: is the question and @is the answer, timefunctionis the function to handler your request)<br />
-               2. train:Today's date @Todays date is (date):password:passwordkey (where password key is the official password to train the bot)<br />
-               3. My boss is working hard to give me some functions of my own very soon, I'll write them here when they're ready.<br>
-               4. To find a user, just type => find:username or find:name</i>
+            <i style="font-size: 15px">Bot Tips :<br />
+               1. train: question # answer # password<br />
+               2. To find a user, just type find:username or find:name</i>
                <div id="chatarea" style="overflow: auto; height:300px; border:1px solid whitesmoke; border-radius:5px"></div>
                <div class="input-group">
                   <input type="text" class="form-control" id="message" type="text" placeholder="Message" name="newrequest" />
@@ -263,56 +256,71 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
 </body>
 
 <script type="text/javascript">
+
+function newElementsForUser(userRequest) {
+   var chatArea = document.getElementById("chatarea");
+   var messageElement = document.createElement("input");
+   messageElement.className = "form-control form-control2 text-right";
+   messageElement.value = userRequest;
+   var id = Date.now();
+   messageElement.setAttribute("id", id);
+   chatArea.appendChild(messageElement);
+   var timeElement = document.createElement("p");
+   timeElement.className = "timeEl text-right";
+   var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
+   timeElement.innerHTML = time
+   chatArea.appendChild(timeElement);
+}
+
+function newElementsForBot(botResponse) {
+   var chatArea = document.getElementById("chatarea");
+   if(botResponse.response.resultType == "find") {
+      var messageElement = document.createElement("div");
+      messageElement.innerHTML = "Intern ID => " + botResponse.response.users.intern_id + "\n" +
+      "Intern Name => " + botResponse.response.users.name + "\n" +
+      "Intern Username => " + botResponse.response.users.username + "\n" +
+      "Intern Profile Picture => " + botResponse.response.users.image_filename;
+   } else {
+      var messageElement = document.createElement("input");
+      messageElement.value = botResponse.response;
+   }
+   messageElement.className = "form-control form-control2 text-left";
+   var id = Date.now();
+   messageElement.setAttribute("id", id);
+   chatArea.appendChild(messageElement);
+   var timeElement = document.createElement("p");
+   timeElement.className = "timeEl text-left";
+   var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true , milliseconds: true});
+   timeElement.innerHTML = time;
+   chatArea.appendChild(timeElement);
+}
+
 function sendData() {
    var message = document.getElementById("message").value;
-   var chatArea = document.getElementById("chatarea");
-   var newElement = document.createElement("input");
-   newElement.className = "form-control form-control2 text-right";
-   newElement.value = message;
-   chatArea.appendChild(newElement);
-//request time  element
-var timeEl2 = document.createElement("p");
-timeEl2.className = "timeEl text-right";
-timeEl2.innerHTML = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
-chatArea.appendChild(timeEl2);
-//request time element
-   var xmlhttp = new XMLHttpRequest();
-   if (window.XMLHttpRequest) {
-      xmlhttp = new XMLHttpRequest();
-   } else if (window.ActiveXObject) {
-      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-   }
-   xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-         var response = JSON.parse(xmlhttp.responseText);
-         var newElement = document.createElement("input");
-         var timeEl = document.createElement("p");
-      timeEl.className = "timeEl text-left";
-         newElement.className = "form-control form-control2 text-left";
-         if(response.response.resultType === "find") {
-            var newElement = document.createElement("div");
-            newElement.className = "form-control form-control2 text-left";
-            newElement.innerHTML = "Intern ID => " + response.response.users.intern_id + "\n" +
-            "Intern Name => " + response.response.users.name + "\n" +
-            "Intern Username => " + response.response.users.username + "\n" +
-            "Intern Profile Picture => " + response.response.users.image_filename;
+   if(message.includes('open:')) {
+      url = message.split('open:')
+      window.open('http://' + url[1]);
+      newElementsForUser(message);
+   } else {
+      newElementsForUser(message);
+      $.ajax({
+         //localhost
+         // url: "http://localhost/HNGFuns/profiles/femi_dd.php",
+         // live server
+         url: "https://hng.fun/profiles/femi_dd.php",
+         type: "post",
+         data: {new_request: message},
+         dataType: "json",
+         success: function(botResponse) {
+            newElementsForBot(botResponse);
+            $("#message").val("");
+            // document.getElementById("message").focus();
+            $("#chatarea").scrollTop($("#chatarea")[0].scrollHeight);
          }
-         newElement.value = response.response;
-         chatArea.appendChild(newElement);
-         timeEl.innerHTML = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
-         newElement.setAttribute("id", response.time);
-         chatArea.appendChild(timeEl);
-         document.getElementById(response.time).focus();
-         document.getElementById("message").focus();
-      }
+      });
    }
-   //live server
-   xmlhttp.open("POST", "https://hng.fun/profiles/femi_dd.php?new_request="+message, true);
-   //localhost
-//    xmlhttp.open("POST", "http://localhost/HNGFun/profiles/femi_dd.php?new_request="+message, true);
-   xmlhttp.send();
-   document.getElementById("message").value = "";
 }
 </script>
+
 </html>
 <?php } ?>
