@@ -48,6 +48,7 @@
         border-radius: 5px;
         width: 460px;
         height: 600px;
+        font-family: "Open Sans";
         /*text-align: center;
         position: relative;
         top: 50px;*/
@@ -79,8 +80,8 @@
         border: 0.5px solid #9F9D9D;
         /*position: relative;
         top: 70px;*/
-        /*margin: 0 auto;*/
-        width: 200px;
+        margin: 0 auto;
+        max-width: 200px;
       }
 
 .about {
@@ -102,7 +103,7 @@
   </head>
   <body class="oj-web-applayout-body">
 
-  <header role="banner" class="oj-web-applayout-header">
+  <!--<header role="banner" class="oj-web-applayout-header">
 <div class="oj-web-applayout-max-width oj-flex-bar oj-align-items-center">
 <div data-bind="css: smScreen() ? 'oj-flex-bar-center-absolute' : 'oj-flex-bar-middle oj-sm-align-items-baseline'">
 
@@ -114,9 +115,9 @@
 Made with Oracle Jet
 </div>
 </div>
-</header>
+</header>-->
     
-          <div class="main d-flex justify-content-center align-content-center ">
+          <div class="main d-flex justify-content-center align-content-center">
             <div class="square mt-5 py-5">
             <div class="my-3">
               
@@ -127,7 +128,7 @@ Made with Oracle Jet
                 <p class="text-center h1"><b>AWOJANA</b></p>
                 <div class="text-center border"></div>
                 <p class="nick text-center h4">@femi</p>
-                <span class="in text-center h5 mt-3">UI/UX Designer|Web Developer</span><br>
+                <span class="in text-center h6">UI/UX Designer|Web Developer</span><br>
                 <p class="about text-center h4 mt-3">Hello! I am Femi.<br> I am also an intern in Hotels.ng internship program.<br>
                    I love programming and design, i am here to improve on those skill.</p>
             </div>
