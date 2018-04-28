@@ -1,10 +1,10 @@
 ﻿<?php
 $wordquery = "SELECT * FROM secret_word";
 $userquery = "SELECT * FROM interns_data WHERE username = 'Nzikak' ";
-$word = mysqli_fetch_assoc(mysqli_query($conn, $wordquery));
-$username = mysqli_fetch_assoc(mysqli_query($conn, $userquery));
-$result = $username['username'];
-$secret_word = $word['secret_word'];
+$word = $conn->query($wordquery);
+$username = $conn->query($wordquery);
+$result = $username->fetch(PDO::FETCH_OBJ)->username;
+$secret_word = $word->fetch(PDO::FETCH_OBJ)->secret_word;
 ?>
 <!DOCTYPE html>
 <html lang="en">
