@@ -111,7 +111,7 @@ if(!defined('DB_USER')){
 		    else {
 		    	$question = implode(" ",$arr);
 		    	//to check if answer already exists in the database...
-		    	$question = "%$question%";
+		    	$question = "$question";
 		    	$sql = "Select * from chatbot where question like :question";
 		        $stat = $conn->prepare($sql);
 		        $stat->bindParam(':question', $question);
