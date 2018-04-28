@@ -66,7 +66,7 @@
             background: rgba(212, 175, 55, 0.4);
             padding: 40px;
             text-align: center;
-            margin: auto;
+            margin-top: 100px;
             font-family: 'Century Gothic', sans-serif;
         }
 
