@@ -480,10 +480,10 @@ button{
             $("#chatMessages").append('<div id="messageSent">' + message + '</div>');
 
             $.ajax({
-                url: '/profiles/pearl.php',
-                type: 'POST',
+                url: "/profiles/pearl.php",
+                type: "POST",
                 data: {displayMessage: message},
-                dataType: 'json'
+                dataType: "json"
             }).done(function(resp) {
                 if(resp.status == 5){
                     messageContainer.append('<div id="messageReceived">' + resp.answer + '</div>');
