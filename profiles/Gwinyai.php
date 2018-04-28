@@ -1,9 +1,9 @@
 <?php   
 
-//  REMOVE DATAABSE CREDENTIALS HARD CODED
+require_once ('../config.php');
 try {
-    // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-     $conn = new PDO("mysql:host=". "localhost". ";dbname=". "hng_fun" , "root", "root");
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+
 } catch (PDOException $pe) {
     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
@@ -22,24 +22,98 @@ try {
     }
    
 
-
- if(isset($_GET['training'])) {
-      $message = $_GET['training'];
+// Start with the training query
+ if(isset($_POST['training'])) {
+      $message = trim($_POST['training']);
+      $training = strpos($message, "train:");
+      if ($training === 0) {
         echo train($message, $conn);
+      } else {
+         echo botAnswer($message, $conn);
+      }
+        
         exit();
 }
 
+
+
+function check_question($q, $conn){
+
+    try{
+        $sql ='Select * from chatbot where question like :question';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(array(
+            'question'=> "%$q%",
+        ));
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $question = $stmt->fetchAll();
+       
+       
+       
+        if( $question ) {
+                if( count( $question ) === 1 ){
+              
+                    return $question[0];
+                } else {
+                     $random_answer_index = rand(0, count($question)-1);
+                     return ($question[$random_answer_index]);
+                 }
+          
+        } else {
+          
+           return false;
+        }
+
+    } catch(PDOException $e) {
+      
+        throw $e;
+    }
+}
+ 
+function check_answer($question){
+    $opening_paren = strpos($question,'((');
+    $closing_paren = strpos($question,'))');
+
+    if( $opening_paren === false && $closing_paren === false ) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function parse_answer($answer){
+    $func_start = '(';
+    $ffunc_end = ')';
+
+    $brace_start = '{';
+    $brace_end = '}';
+    
+   
+    $start_pos = strpos($answer, $func_start);
+    $end_pos = strpos($answer, $ffunc_end, $start_pos);
+  
+    $function_name = substr($answer, $start_pos+2, ($end_pos-2)-$start_pos);
+   
+    $response = remove_brackets($answer);
+
+    return str_replace($function_name, call_user_func($function_name), $response);
+
+}
+
+
+function remove_brackets($string){
+       return str_replace(['{{', '}}', '((', '))' ], '', $string);
+}
 
 function train($bot_training, $conn){
     
 
     $bot_training = str_replace('train:', '', $bot_training);
 
-     //ckeck presence of #
      $pos = strpos($bot_training,'#');
      if( $pos === false) {
  
-         return 'Oops! to train me please enter use the format, <code>train: question # answer # password <code> ';
+         return 'To train me please use the format <br/> <code>train: question # answer # password <code> ';
      }
      define ('PASSWORD', "ubuntu");
     
@@ -73,9 +147,83 @@ function train($bot_training, $conn){
    
 }
 
+function getTime(){
+   
+     $time = new DateTime();
+     $time->setTimezone(new DateTimeZone('Africa/harare'));
+     return $time->format('h:i A');
+ }
+
+ function getCommands(){
+    return '<code><ol><h6 class="white">List of commands</h6><li>To hear a joke type joke:</li><li>To check my version type aboutme</li><li>To check the time type time: </li><li>To show list of commands type list commands:</li></ol>
+     <code>';
+ }
 
 
+ function botAnswer($q, $conn) {
+       
+        $question = $q;
+        $question = trim(strtolower($question));
+        
+        $question = str_replace('?', '', $question);
+            
 
+        if($question == "list commands:"){
+                
+            return getCommands();
+        } else if($question == "time:"){
+                $answer = getTime();
+                return $answer;
+        } else {
+
+            $question = check_question($question, $conn);
+                
+            if($question){
+
+                $answer_has_function = check_answer($question['answer']);
+                if(!$answer_has_function){
+
+                    if( !isset( $_POST['ajax'] ) ){
+                        $answer = $question['answer'];
+                        $ans = json_encode($answer);
+                        echo $ans;
+                    } else {
+                        echo json_encode([
+                            "message" => $question['answer']
+                        ]);
+                        return;
+                    }
+                } else{
+                    
+                    if( !isset( $_POST['ajax'] ) ){
+                        $answer = parse_answer($question['answer']);
+                    
+                    } else {
+                            return json_encode([
+                            "message" => parse_answer($question['answer'])
+                        ]);
+                        
+                    }
+                    
+                }
+            } else {
+                
+                if( !isset( $_POST['ajax'] ) ){
+                    $answer = "Sorry I don't have an answer for that, please train me";
+                    return $answer;
+                
+                } else {
+                   
+                    return json_encode([
+                        "message" =>  "Sorry I don't have an answer for that, please train me"
+                    ]);
+                   
+                }
+            }
+        }
+        
+    
+}
 
 ?>
 
@@ -647,7 +795,7 @@ function train($bot_training, $conn){
         /*==========================
             Chatbot typing animation   */
 
-        .typing_loader {
+        /* .typing_loader {
             width: 6px;
             height: 6px;
             border-radius: 50%;
@@ -659,7 +807,7 @@ function train($bot_training, $conn){
             
             margin: 7px 15px 6px;
             color: #ccc;
-        }
+        } */
 
         #message {
             border-radius: 20px;
@@ -689,7 +837,7 @@ function train($bot_training, $conn){
             clear: both;
         }
 
-        .to .typing_loader {
+        /* .to .typing_loader {
             animation: typing-black 1s linear infinite alternate
         }
 
@@ -706,7 +854,7 @@ function train($bot_training, $conn){
                 background-color: rgba(74, 74, 74, .2);
                 box-shadow: 12px 0 0 0 rgba(74, 74, 74, .4), 24px 0 0 0 rgba(74, 74, 74, 1)
             }
-        }
+        } */
 
     
       
@@ -932,7 +1080,7 @@ function train($bot_training, $conn){
                                     </span>
                                 </span>
                                 <span class="bot last">
-                                    For a List of my commands enter 'List commands' 
+                                    For a List of my commands enter 'list commands:' 
                                     <span class="time">
                                         <?php echo(date("h:i")); ?>
                                     </span>
@@ -944,12 +1092,12 @@ function train($bot_training, $conn){
                             </div>
 
                             <div class="msg-box">
-                                <input type="text" class="ip-msg" placeholder="Say hi,">
-                                <span class="btn-group">
-                                    <button type="submit" class="chat-button">
-                                        <i class="fa fa-paper-plane"></i>
-                                    </button>
-                                </span>
+                                    <input type="text" class="ip-msg" placeholder="Say hi,">
+                                    <span class="btn-group">
+                                        <button type="submit" class="chat-button">
+                                            <i class="fa fa-paper-plane"></i>
+                                        </button>
+                                    </span>
                             </div>
                         </div>
                     </div>
@@ -1193,34 +1341,23 @@ function train($bot_training, $conn){
                     switch(userInput) {
                         case 'about me':
                             chatResponse();
-                                setTimeout(botResponse, 2000);
+                                setTimeout(botResponse, 1500);
                         break;
                         case 'aboutme':
                             chatResponse();
-                            // botTyping()
-                            setTimeout(botResponse, 2000);
+                            setTimeout(botResponse, 1500);
                         break;
                         case "":
-                            showBotMessage("Don't be shy, your input should contain words");
-                        //    botTyping()
+                            showBotMessage("Don't be shy, ask a question to start chatting");
                         break;
-                        case 'train:':
-                            chatResponse();
-                            ajaxQuery()
-                            
-                        break;
-                        case 'joke':
+                    
+                        case 'joke:':
                             chatResponse();
                             getJoke();
                             
                         break;
-                        case 'train:':
-                            chatResponse();
-                            ajaxQuery();
-                            
-                        break;
                         default:
-                            ajaxQuery()
+                            trainQuery()
                             chatResponse();
                             
                     }
@@ -1245,10 +1382,10 @@ function train($bot_training, $conn){
             });
 
             /* Handle Ajax response for DB query */
-            function ajaxQuery() {
+            function trainQuery() {
                 var message = cleanText(chatInput.value);
                 $.ajax({
-                type: "GET",
+                type: "POST",
                 url: 'profiles/Gwinyai.php',
                 data: { training: message },
                 success: function(data){
