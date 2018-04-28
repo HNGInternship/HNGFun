@@ -16,7 +16,9 @@ $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
+?>
 
+<?php
 //check if server method = post
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -142,9 +144,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	     	};
 	    return;
 	 	};    
-	  
-} else {
-
+	 
+}
 ?>
 
 <!DOCTYPE html>
