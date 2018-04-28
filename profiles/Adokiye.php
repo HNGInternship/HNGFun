@@ -189,10 +189,10 @@ function askQuestion($input)
                 height: 54px;
                 background: #28123E;
                 border-radius: 19.1076px;
-                left: 124px;
-                top: 273px;
+                left: 121px;
                 color: #FFFFFF;
                 text-align: center;
+                top: 281px;
             }.PROGRAMMER_enthusiast{
                  position: absolute;
                  width: 253.35px;
@@ -205,8 +205,8 @@ function askQuestion($input)
                  text-align: center;
                  letter-spacing: 0.01em;
                  color: #F2F2F2;
-                 left: 23px;
-                 top: 6px;
+                 left: 34px;
+                 top: -25px;
              }.Adokiye{
                   position: absolute;
                   width: 262.26px;
@@ -215,11 +215,13 @@ function askQuestion($input)
                   font-style: italic;
                   font-weight: normal;
                   line-height: normal;
-                  font-size: 18px;
+                  font-size: 36px;
                   text-align: center;
-                  color: #1F0000;
+                  color: #F5EEEE;
                   left: 147px;
                   top: 346px;
+                  border-radius: 19.1076px;
+                  background-color: #28123E;
               }.rectangle3{
                    position: absolute;
                    text-align: center;
@@ -312,14 +314,11 @@ function askQuestion($input)
     }  </script>
 <body>
 <div class="rectangle">
-    <div class="RECTANGLE2">
-        <p class="PROGRAMMER_enthusiast">PROGRAMMER</p>
-    </div>
-    <p class="Adokiye">@Adokiye</p>
     <p style="font-family: Arial; font-size: xx-large; text-align: center;">&nbsp;</p>
     <p style="font-family: Arial; font-size: 48px; text-align: center;">&nbsp;</p>
     <p style="font-family: Arial; font-size: 48px; text-align: center;">&nbsp;</p>
     <p style="font-family: Arial; font-size: 48px; text-align: center;">IRUENE ADOKIYE</p>
+    <p style="font-family: Consolas, 'Andale Mono', 'Lucida Console', 'Lucida Sans Typewriter', Monaco, 'Courier New', monospace; font-size: 24px; text-align: center;">@Adokiye</p>
 </div><div class="rectangle3"><div class="chatbotimage"></div>
 
     <p style="color: #FFFFFF">&nbsp;
