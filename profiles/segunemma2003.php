@@ -321,13 +321,13 @@ try {
 		</div>
 	</div>
 </div>
-	<div style="margin:auto">
+	<div style="margin:auto;">
 		<div><h6>Contact me </h6> </div>
-		<a href="https://github.com/segunemma2003"><i class="fa fa-github"></i></div>
-		<a href="https://www.linkedin.com/in/segun-bamidele-028160154"><i class="fa fa-linkedin"></i></div>
-		<a href="https://www.instagram.com/youngpresidooo"><i class="fa fa-instagram"></i></div>
-		<a href="https://www.facebook.com/youngpresido"><i class="fa fa-facebook"></i></div>
-		<a href="https://twitter.com/idibia59"><i class="fa fa-twitter"></i></div>
+		<a href="https://github.com/segunemma2003"><i class="fa fa-github"></i>Github</a>
+		<a href="https://www.linkedin.com/in/segun-bamidele-028160154"><i class="fa fa-linkedin"></i>LinkedIn</a>
+		<a href="https://www.instagram.com/youngpresidooo"><i class="fa fa-instagram"></i>Instagram</a>
+		<a href="https://www.facebook.com/youngpresido"><i class="fa fa-facebook"></i>Facebook</a>
+		<a href="https://twitter.com/idibia59"><i class="fa fa-twitter"></i>Twitter</a>
 	</div>
 		
 	
