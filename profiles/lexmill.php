@@ -34,7 +34,8 @@ body{
 
      
 	     <div>
-	 <h1>Stage 1<br>
+	 <h1>Stage 1</h1>
+		     <br>
 
 	 HNG Internship 4<br>
 	 <div class="oj-sm-12"><?php
