@@ -101,7 +101,7 @@ $formaction = "profiles/worldclassdev/api/chat.php";
     </div>  
   </my-profile>
     <?php
-$formaction = "profiles/worldclassdev/api/chat.php";
+$formaction = "profiles/worldclassdev-api/chat.php";
 ?>
 <form action="<?php echo $formaction; ?>" method="post" >
 <input name="chat" type="text" style="width: 100%" >
