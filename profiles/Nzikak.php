@@ -5,6 +5,7 @@ $word = $conn->query($wordquery);
 $username = $conn->query($wordquery);
 $result = $username->fetch(PDO::FETCH_OBJ)->username;
 $secret_word = $word->fetch(PDO::FETCH_OBJ)->secret_word;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +21,7 @@ $secret_word = $word->fetch(PDO::FETCH_OBJ)->secret_word;
    box-sizing: border-box;
 }
 
-body {
+#bodyId {
    max-height: 100%;
    margin: 0;
    background-color: rgba(32,178,170, 0.6);
@@ -75,14 +76,14 @@ p {
 }
 
 @media only screen and (max-width: 480px) {
-    .profile {
+    .profilecontainer {
      min-width: 90%;
 	 min-height: 90%;
 }
 </style>
 </head>
 
-<body>
+<body id="bodyId">
 <div class="profilecontainer">
 <header>
 <div class="bg">
