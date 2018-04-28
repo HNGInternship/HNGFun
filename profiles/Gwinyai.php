@@ -157,8 +157,12 @@ function getTime(){
  }
 
  function getCommands(){
-    return '<code><ol><h6 class="white">List of commands</h6><li>To hear a joke type joke:</li><li>To check my version type aboutme</li><li>To check the time type time: </li><li>To show list of commands type list commands:</li></ol>
-     <code>';
+    
+    echo json_encode([
+            "status" => 1,
+            "message" => "<code><ol><h6 class='white'>List of commands</h6><li>To hear a joke type joke:</li><li>To check my version type aboutme</li><li>To check the time type time: </li><li>To show list of commands type list commands:</li></ol>
+     <code>"
+        ]);
  }
 
 
@@ -186,6 +190,7 @@ function getTime(){
                 if(!$answer_has_function){
                    
                     echo json_encode([
+                         "status" => 1,
                         "message" => $question['answer']
                     ]);
                     return;
@@ -193,6 +198,7 @@ function getTime(){
                 } else {
                     
                     echo json_encode([
+                         "status" => 1,
                         "message" => parse_answer($question['answer'])
                     ]);
                         return;
@@ -203,6 +209,7 @@ function getTime(){
 
                    
                 return json_encode([
+                     "status" => 1,
                     "message" =>  "Sorry I don't have an answer for that, please train me"
                 ]);
                    
@@ -1380,9 +1387,15 @@ function getTime(){
                 url: 'profiles/Gwinyai.php',
                 data: { training: message },
                 success: function(data){
-                    showBotMessage(data);
-                      
+                    if(data.status == 1) {
+                        showBotMessage(data);
                     }
+               
+                      
+                    },
+                    error: function(error){
+							console.log(error);
+						}
                 });
             }
             
