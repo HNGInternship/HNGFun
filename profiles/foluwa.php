@@ -2,178 +2,102 @@
   $dt = date("Y-m-d h:i:sa");
   $time= date("h:i:sa");?>
 
-<?php 
 
-if(!defined('DB_USER')){
-  require "../../config.php";   
-  try {
-      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-  }catch (PDOException $pe) {
-     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-  }
-}
- 
-  $result = $conn->query("Select * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
-  $result2 = $conn->query("Select * from interns_data where username = 'foluwa'");
-  $user = $result2->fetch(PDO::FETCH_OBJ);
-
-
-  if($_SERVER['REQUEST_METHOD'] === 'POST'){
-
-    include '../answers.php';
-      
-      try{
-
-        if(!isset($_POST['question'])){
-          echo json_encode([
-            'status' => 1,
-            'answer' => "Please provide a question"
-          ]);
-          return;
-        }
-
-        //if(!isset($_POST['question'])){
-        $mem = $_POST['question'];
-        $mem = preg_replace('([\s]+)', ' ', trim($mem));
-        $mem = preg_replace("([?.])", "", $mem);
-      $arr = explode(" ", $mem);
-      //test for training mode
-
-      if($arr[0] == "train:"){
-
-        unset($arr[0]);
-        $q = implode(" ",$arr);
-        $queries = explode("#", $q);
-        if (count($queries) < 3) {
-          # code...
-          echo json_encode([
-            'status' => 0,
-            'answer' => "You need to enter a password to train me."
-          ]);
-          return;
-        }
-        $password = trim($queries[2]);
-        //to verify training password
-        define('trainingpassword', 'password');
-        
-        if ($password !== trainingpassword) {
-          # code...
-          echo json_encode([
-            'status'=> 0,
-            'answer' => "You entered a wrong passsword"
-          ]);
-          return;
-        }
-        $quest = $queries[0];
-        $ans = $queries[1];
-
-        $sql = "insert into chatbot (question, answer) values (:question, :answer)";
-
-        $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':question', $quest);
-            $stmt->bindParam(':answer', $ans);
-            $stmt->execute();
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-        
-        echo json_encode([
-          'status' => 1,
-          'answer' => "Thanks for training me, you can now test my knowledge"
-        ]);
-        return;
-      }
-      elseif ($arr[0] == "help") {
-        echo json_encode([
-          'status' => 1,
-          'answer' => "You can train me by using this format ' train: This is a question # This is the answer # password '. You can also convert cryptocurrencies using this syntax.'convert btc to usd"
-          
-        ]);
-        return;
-        
-      }
-      elseif ($arr[0] == "convert") {
-        # code...
-        $from = $arr[1];
-        $to = $arr[3];
-        $converted_price = GetCryptoPrice($from, $to);
-        $price = "1 " . $from . " = " . $to . " " . $converted_price ;
-        echo json_encode([
-          'status' => 1,
-          'answer' => $price
-        ]);
-        return;
-      }
-        elseif ($arr[0] == "aboutbot") {
-          # code...
-          echo json_encode([
-            'status'=> 1,
-            'answer' => "I am ZoE version1.0"
-          ]);
-          return;
-        }
-        else {
-          $question = implode(" ",$arr);
-          //to check if answer already exists in the database...
-          $question = "$question";
-          $sql = "Select * from chatbot where question like :question";
-            $stat = $conn->prepare($sql);
-            $stat->bindParam(':question', $question);
-            $stat->execute();
-
-            $stat->setFetchMode(PDO::FETCH_ASSOC);
-            $rows = $stat->fetchAll();
-            if(empty($rows)){
-              echo json_encode([
-              'status' => 0,
-              'answer' => "I am sorry, I cannot answer your question now. You could train me to answer the question."
-            ]);
-            return;
-          }else{
-            $rand = array_rand($rows);
-            $answer = $rows[$rand]['answer'];
-
-            $index_of_parentheses = stripos($answer, "((");
-              if($index_of_parentheses === false){// if answer is not to call a function
-                echo json_encode([
-                  'status' => 1,
-                  'answer' => $answer
-                ]);
-                return;
-              }else{//to get the name of the function, before calling
-                  $index_of_parentheses_closing = stripos($answer, "))");
-                  if($index_of_parentheses_closing !== false){
-                      $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
-                      $function_name = trim($function_name);
-                      if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
-                         echo json_encode([
-                          'status' => 0,
-                          'answer' => "The function name should not contain white spaces"
-                        ]);
-                        return;
-                      }
-                    if(!function_exists($function_name)){
-                      echo json_encode([
-                        'status' => 0,
-                        'answer' => "I am sorry but I could not find that function"
-                      ]);
-                    }else{
-                      echo json_encode([
-                        'status' => 1,
-                        'answer' => str_replace("(($function_name))", $function_name(), $answer)
-                      ]);
-                    }
-                    return;
-                  }
-              }
-          }       
-        }
-    }catch (Exception $e){
-      return $e->message ;
-    }
-  }
 ?>
+
+<?php
+    global $conn;
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="techHajiya"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    ?>
+
+    <?php
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $data = $_POST['user-input'];
+        $temp = explode(':', $data);
+        $temp2 = preg_replace('/\s+/','', $temp[0]);
+        
+        if($temp2 === 'train'){
+            train($temp[1]);
+        }elseif($temp2 === 'aboutbot') {
+            aboutbot();
+        }else{
+            getAnswer($temp[0]);
+        }
+    }
+  ##About Bot
+    function aboutbot() {
+        echo "<div id='result'><strong>LoBot 1.0 </strong></br>
+    Hey...I am LoBot, created by Lois Thomas to answer any question from the database. You can also teach me tricks I do not know...</br> Let's goooo...</div>";
+    }
+  
+  ##Train Bot
+    function train($input) {
+        $input = explode('#', $input);
+        $question = trim($input[0]);
+        $answer = trim($input[1]);
+        $password = trim($input[2]);
+        if($password == 'password') {
+            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+            $q = $GLOBALS['conn']->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+            if(empty($data)) {
+                $training_data = array(':question' => $question,
+                    ':answer' => $answer);
+                $sql = 'INSERT INTO chatbot ( question, answer)
+              VALUES (
+                  :question,
+                  :answer
+              );';
+                try {
+                    $q = $GLOBALS['conn']->prepare($sql);
+                    if ($q->execute($training_data) == true) {
+                        echo "<div id='result'>Thank you for training me. </br>
+      Now you can ask me same question, and I will answer it correctly.</div>";
+                    };
+                } catch (PDOException $e) {
+                    throw $e;
+                }
+            }else{
+                echo "<div id='result'>I already understand this. Teach me something new!</div>";
+            }
+        }else {
+            echo "<div id='result'>You entered an invalid Password. </br>Try Again!</div>";
+        }
+    }
+    function getAnswer($input) {
+        $question = $input;
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+        $q = $GLOBALS['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
+        if(empty($data)){
+            echo "<div id='result'>Oops! I've not been trained to learn that command. </br>Would you like to train me?
+</br>You can train me to answer any question at all using, train:question#answer#password
+</br>e.g train:Who said Nigerian youth are lazy#President Buhari#password</div>";
+        }else {
+            $rand_keys = array_rand($data);
+            echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
+        }
+    }
+    ?>
+
 <!DOCTYPE html>
 <html>
 <head>
