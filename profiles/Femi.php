@@ -78,8 +78,8 @@
 
       .border {
         border: 0.5px solid #9F9D9D;
-        /*position: relative;
-        top: 70px;*/
+        position: relative;
+        top: 5px;
         margin: 0 auto;
         max-width: 200px;
       }
@@ -129,8 +129,7 @@ Made with Oracle Jet
                 <p class="text-center h1"><b>AWOJANA</b></p>
                 <div class="text-center border"></div>
                 <p class="nick text-center h4">@femi</p>
-                <span class="in text-center h6">UI/UX Designer|Web Developer</span><br>
-                <p class="about text-center h4 mt-3">Hello! I am Femi.<br> I am also an intern in Hotels.ng internship program.<br>
+                <p class="about text-center h4 mt-3"><span class="in h6">UI/UX Designer|Web Developer</span><br>Hello! I am Femi.<br> I am also an intern in Hotels.ng internship program.<br>
                    I love programming and design, i am here to improve on those skill.</p>
             </div>
           </div>
