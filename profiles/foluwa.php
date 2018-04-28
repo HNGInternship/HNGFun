@@ -185,7 +185,7 @@ if(!defined('DB_USER')){
           max-height: 250px;
           max-width: 250px;
       }
-      input[type=text] {
+      textarea {
           width: 70%;
           padding: 12px 20px;
           margin: 8px 0;
@@ -331,17 +331,17 @@ if(!defined('DB_USER')){
                 </div>
                 <div class="" id="" style="border:5px solid green;">
                     <div id="conversation" class="conversation">
-                      <div class="bot-message">Hello! I'm ZOE!  
-                          <p class="time"><?php echo $time ?></p>
-                      </div>
-                      <div class="human-message pull-right">Hi Zoe, Am Foluwa
-                          <p class="time"><?php echo $time ?></p>
-                      </div>
+                        <div class="bot-message">Hello! I'm ZOE!  
+                            <p class="time"><?php echo $time ?></p>
+                        </div>
+                        <div class="human-message pull-right">Hi Zoe, Am Foluwa
+                            <p class="time"><?php echo $time ?></p>
+                        </div>
                     </div>
                 </div>
                 <div>
                     <form id="chat" method="post" style="position:absolute;bottom:0;" >
-                        <input type="text" name="userInput" id="user-input" class="user-input" placeholder="Enter your text....">
+                        <textarea name="userInput" id="user-input" class="user-input" placeholder="Enter your text...."></textarea>
                         <button id="send" type="submit" class="btn btn-primary btn-sm" style="background-color:#79af9c;">
                           <i class="fas fa-paper-plane"></i>
                         </button>
@@ -360,16 +360,16 @@ if(!defined('DB_USER')){
             var Form =$('#chat');
             Form.submit(function(e){
               e.preventDefault();
-              var questionBox = $('textarea[name=inputtext]');
-              var question = user-input.val();
-              $("#conversation").append("<p class='bot-message'>" + question + "<p class='time'><?php echo $time?></p>" + "</p>");
+              var textBox = $('textarea[name=userInput]');
+              var question = textBox.val();
+              $("#conversation").append("<div class='human-message'>" + question + "<p class='time'><?php echo $time?></p>" + "</div>");
               $.ajax({
                 url: '/profiles/foluwa.php',
                 type: 'POST',
                 data: {question: question},
                 dataType: 'json',
                 success: function(response){
-                    $("#conversation").append("<p class='human-message'>"  + response.answer + "<p class='time'><?php echo $time?></p>" + "</p>");
+                    $("#conversation").append("<div class='bot-message'>"  + response.answer + "<p class='time'><?php echo $time?></p>" + "</div>");
                 },
                 error: function(error){
                       alert(error);
