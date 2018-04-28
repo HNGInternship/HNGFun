@@ -1,4 +1,5 @@
 <?php
+//PLEASE NOBODY SHOULD COPY MY CODES AGAIN! BY JEREMIAH RIGHTEOUS
 	if(!defined('DB_USER')){
 	  require "../../config.php";		//change config details when pushing
 	  try {
@@ -49,15 +50,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //Check if user want to train the bot or ask a normal question
 	$check_for_train = stripos($question, "train:");
     if($check_for_train === false){ //then user is asking a question
+	
+	//remove extra white space, ? and . from question
+	$question = preg_replace('([\s]+)', ' ', trim($question));
+	$question = preg_replace("([?.])", "", $question); 
+	
+	 //check database for the question and return the answer
 	$question = $question;
         $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
         $q = $GLOBALS['conn']->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
-        if(empty($data)){
+        if(empty($data)){ //That means your answer was not found on the database
             echo json_encode([
         		'status' => 1,
-       			 'answer' => "I don't understands you."
+       			 'answer' =>  "I can't answer your question! Please train me by typing-->  train: question #answer #password"
      		 ]);
           return;
 
@@ -67,43 +74,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             echo json_encode([
         		'status' => 1,
-       			 'answer' => $answer,
+       			 'answer' => $answer,  //return one of the the answers to client
      		 ]);
            return;
-        }      
+        	};      
 	    
 	    
-	    
-/**	    
-	    //remove extra white space, ? and . from question
-	    $question = preg_replace('([\s]+)', ' ', trim($question));
-	    $question = preg_replace("([?.])", "", $question); 
-	  
-	    //check database for the question and return the answer
-	    $question = "%$question%"; //return things that have the question
-	    $sql = "select * from chatbot where question like :question";
-	    $stmt = $conn->prepare($sql);
-	    $stmt->bindParam(':question', $question);
-	    $stmt->execute();
-	    $stmt->setFetchMode(PDO::FETCH_ASSOC);
-	 	 $rows = $stmt->fetchAll();
-	    if(count($rows)>0){ //if there are multiple match row
-	        $index = rand(0, count($rows)-1); //choose any random one
-	        $row = $rows[$index];
-	        $answer = $row['answer'];
-	        echo json_encode([
-	            'status' => 1,
-	            'answer' => $answer,  //return one of the row answers to client
-	        ]);
-	    }else{ //if no answer for the question in database
-	    	 	 echo json_encode([
-	            'status' => 1,
-	            'answer' => "I can't answer your question! Please train me by typing-->  train: question #answer #password"
-	        ]);
-			
-	    }
-	    return;
-	   **/
 	}else{		  
 		//train the chatbot to be more smarter 
 		//remove extra white space, ? and . from question
