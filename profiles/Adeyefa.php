@@ -379,7 +379,7 @@ if(!defined('DB_USER')){
 				        alert(JSON.stringify(error));
 					}
 				})	
-				document.getElementById("questionBox").reset();		
+				document.getElementById("qform").reset();		
 			})
 		});
 	</script>
