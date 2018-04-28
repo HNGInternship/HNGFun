@@ -9,236 +9,132 @@
  ?>
 
 <!DOCTYPE html>
-<html ng-app="app">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale = 1">
-        
-        <style>
+<html lang="en-us">
+  <head>
+    <title>@Femi Profile Page</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-* {
-  padding: 0;
-  margin: 0;
-}
-
-body {
-  width: 100%;
-  height: 100%;
-  background-image: url("./pattern2.jpg");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  background-color: #0C1621;
-  overflow-x: hidden;
-  }
-
-.square {
-  position: relative;
-  left: 350px;
-  text-align: center;
-  background-color: #FBFEFE;
-  border: 2px solid #4F4F4F;
-  border-radius: 5px;
-  width: 460px;
-  height: 850px;
-}
-
-.image {
-  position: relative;
-  top: 60px;
-  /*left: 87px;*/
-}
-
-img {
-  width: 236px;
-  height: 236px;
-}
-
-/*.container {
-  display: flex;
-  justify-content: center;
-}
-
-.example {
-  display: flex;
-  justify-content: space-around;
-
-  background-color: #FBFEFE;
-  width: 602px;
-}
-
-.item img {
-  display: block;
-  height: 366px;
-  width: 366px;
-  display: relative;
-  top: 89px;
-}*/
-
-h1 {
-  color: #000000;
-  text-align: center;
-  position: relative;
-  top: 70px;
-  font-size: 34px;
-  font-family: "Open sans";
-  font-weight: bold;
-  line-height: 39px;
-}
-
-p {
-  color: #333333;
-  font-family: "Montserrat";
-  font-size: 26px;
-  position: relative;
-  top: 55px;
-}
-
-.border {
-  border: 2px solid #000000;
-  position: relative;
-  top: 70px;
-  width: 220px;
-  left: 120px;
-}
-
-.input {
-  font-size: 20px;
-  font-family: "Montserrat";
-  position: relative;
-  top: 150px;
-  text-align: center;
-}
-
-/*.course {
-  position: relative;
-  right: 60px;
   
-}*/
+    <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css">
+  
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
-.course {
+    <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
+    <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/default/js"></script>
+    <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/3rdparty"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
+
+    <style>
+
+      body {
+        /*width: 100%;
+        height: 100%;
+        background-image: url("./pattern2.jpg");
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;*/
+        background-color: #0C1621;
+        /*overflow-x: hidden;*/
+      }
+
+      .square {
+        background-color: #FBFEFE;
+        border: 2px solid #4F4F4F;
+        border-radius: 5px;
+        width: 460px;
+        height: 600px;
+        /*text-align: center;
+        position: relative;
+        top: 50px;*/
+      }
+
+      img {
+        max-width: 236px;
+        max-height: 236px;
+        /*min-height: 140px;
+        min-width: 140px;
+        margin: 0 auto;
+        padding-top: 25px;*/
+      }
+
+      /*h1 {
+        line-height: 30px;
+        font-weight: bold;
+        color: #000000;
+        font-size: px;
+      }*/
+
+      .nick {
+        /*font-size:24px;*/
+        color: #333333;
+        /*margin-bottom: 38px;*/
+      }
+
+      .border {
+        border: 0.5px solid #9F9D9D;
+        /*position: relative;
+        top: 70px;*/
+        /*margin: 0 auto;*/
+        width: 200px;
+      }
+
+.about {
+  font-family: "Open Sans";
+  /*font-size: 15px;
+  font-weight: normal;
+  width: 380px;
+  margin: 0 auto;*/
+}
+
+.in {
+  /*font-weight: 300;
+  font-style: italic;
+  font-size: 12px;*/
   font-family: "Montserrat";
-  font-size: 18px;
-  color: #000000;
-  position: relative;
-  top: 110px;
-  margin-right: 140px;
 }
 
-.studied {
-  font-family: "Montserrat";
-  font-size: 18px;
-  color: #000000;
-  position: relative;
-  top: 100px;
-  margin-right: 180px;
-}
+    </style>
+  </head>
+  <body class="oj-web-applayout-body">
 
-.internship {
-  font-family: "Montserrat";
-  font-size: 18px;
-  color: #000000;
-  position: relative;
-  top: 90px;
-  margin-right: 100px;
-}
+  <header role="banner" class="oj-web-applayout-header">
+<div class="oj-web-applayout-max-width oj-flex-bar oj-align-items-center">
+<div data-bind="css: smScreen() ? 'oj-flex-bar-center-absolute' : 'oj-flex-bar-middle oj-sm-align-items-baseline'">
 
-.para1 {
-  position: relative;
-  top: 100px;
-  font-size: 18px;
-  font-weight: 400;
-}
+</div>
+<div class="oj-flex-item">
+  
+</div>
+<div class="oj-flex-bar-end">
+Made with Oracle Jet
+</div>
+</div>
+</header>
+    
+          <div class="main d-flex justify-content-center align-content-center ">
+            <div class="square mt-5 py-5">
+            <div class="my-3">
+              
+              <div class="d-flex justify-content-center">
+                <img src="https://res.cloudinary.com/dnxuvszxh/image/upload/v1524614743/profile.jpg" class="img-thumbnail img-fluid rounded-circle w-25 h-25" alt="Femi">
+              </div>
+                <p class="text-center h1"><b>OLUWAFEMI</b></p>
+                <p class="text-center h1"><b>AWOJANA</b></p>
+                <div class="text-center border"></div>
+                <p class="nick text-center h4">@femi</p>
+                <span class="in text-center h5 mt-3">UI/UX Designer|Web Developer</span><br>
+                <p class="about text-center h4 mt-3">Hello! I am Femi.<br> I am also an intern in Hotels.ng internship program.<br>
+                   I love programming and design, i am here to improve on those skill.</p>
+            </div>
+          </div>
 
-.para2 {
-  position: relative;
-  top: 100px;
-  font-size: 18px;
-  font-weight: 400;
-}
-
-.para3 {
-  position: relative;
-  top: 100px;
-  font-size: 18px;
-  font-weight: 400;
-}
-
-pre {
-  position: relative;
-  top: 65px;
-  font-size: 16px;
-  /*width: 100px;
-  background-color: #333333;
-  border-radius: 3px;*/
-}
-        </style>
-    </head>
-    <body ng-controller="disappear">
-      <!--<div class = "container">
-        <div class="example">
-          <div class="item"><img src="./profile.jpg" class="circle"/></div>
         </div>
-      </div>-->
 
-      <div class="square">
-        <div class="image"><img src="https://res.cloudinary.com/dnxuvszxh/image/upload/v1524614743/profile.jpg" alt="image"></div>
-        <h1>OLUWAFEMI</h1>
-        <h1>AWOJANA</h1>
-        <div class="border"></div>
-        <p>@femi</p>
-        <form action="" method="">
-
-          <div class="course"><input type="radio" id="course" name="studiedAt" value="Electrical Electronics Engineering" ng-model="model.course" ng-click="removeCourse('Electrical Electronics Engineering')"/>
-          <label for="course">Course studied?</label></div>
-
-          <div class="studied"><input type="radio" id="studied" name="studiedAt" value="Afe Babalola University" ng-model="model.study" ng-click="removeStudy('Afe Babalola University')"/>
-            <label for="studied">Studied at?</label></div>
-
-            <div class="internship"><input type="radio" id="intern" name="studiedAt" value="The internship offers the opportunity for a change in career path" ng-model="model.school" ng-click="removeSchool('Opportunity for a change in career path')"/>
-              <label for="intern">Why this internship?</label></div>
-        </form>
-
-        <p ng-show="model.course" class="para1">Course studied</p>
-        <p ng-show="model.study" class="para2">Studied at</p>
-        <p ng-show="model.school" class="para3">Why this internship</p>
-        <pre>{{model.mainDish}}</pre>
-
-        <!--<p class="display"></p>
-        <input type="textbox" name="text">-->
-      </div>
-
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-
-      <script type="text/javascript">
-
-      var app = angular.module ("app", []); 
-
-      app.controller ("disappear", [
-    '$scope',
-     function ($scope) {
-
-        $scope.removeCourse = function (item) {
-            $scope.model.study = false;
-            $scope.model.school = false;
-            $scope.model.mainDish = item;
-        }
-
-        $scope.removeStudy = function (item) {
-            $scope.model.course = false;
-            $scope.model.school = false;
-            $scope.model.mainDish = item;
-        }
-
-        $scope.removeSchool = function (item) {
-            $scope.model.course = false;
-            $scope.model.study = false;
-            $scope.model.mainDish = item;
-        }
-     }
-]);
-      </script>
-
-    </body>
+        
+  </body>
 </html>
