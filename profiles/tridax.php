@@ -17,6 +17,70 @@ require_once "../config.php";
     $r_secret = $conn->query($secret);
     
     $secret_word = $r_secret->fetch_assoc()["secret_word"];
+    $con = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+if(isset($_POST['message']))
+{
+    
+    $question = $_POST['message'];
+    $stripqus = trim(preg_replace("([\s+])", " ", $question));
+    $stqus = trim(preg_replace("/[^a-zA-Z0-9\s\'\-\:\(\)#]/", "", $stripqus));
+    $lstqus = strtolower($stqus);
+    if(stripos(trim($_POST['message']), "train") === 0)
+    {
+    $explodequsdata = explode(':', $lstqus);
+
+    if ($explodequsdata[0] == 'train') 
+        { 
+            $explodequsdata2 = explode('#', $explodequsdata[1], 2);
+
+            if (isset($explodequsdata2[1])) 
+                {
+                    $explodequsdata3 = explode('#', $explodequsdata2[1], 2);
+                    if (isset($explodequsdata3[1]))
+                    {
+                        if (  $explodequsdata3[1] == "password") 
+                        {
+                            $query = $con->prepare("SELECT * FROM chatbot WHERE strtolower(question) ='" . $explodequsdata2[0] . "' and strtolower(answer) =  '" . $explodequsdata3[0] . "'");
+                            $query->execute();
+                            $countrow = $query->rowCount();
+                            if ($countrow > 0) {
+                                $answer = "Question Exist in DB<br>Train me:<br>
+                                <code class='text-white'>train: question # answer # password</code>";
+                            } 
+                            else{
+                                $insert_qa = $con->prepare("INSERT into chatbot (question, answer) values (:question, :answer)");
+                                $insert_qa->bindParam(':question', $explodequsdata2[0]);
+                                $insert_qa->bindParam(':answer', $explodequsdata3[0]);
+                                $insert_qa->execute();
+                                $answer = "New Response Added to database👍";
+                            }
+                        }
+                        else
+                        {
+                            $answer="Password Incorrect😶";
+                        }
+                    }
+                }
+        }
+    }
+    else{
+
+    $lstqus = "%$lstqus%";
+    $query_lstqus = $con->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
+    $query_lstqus->bindParam(':question', $lstqus);
+    $query_lstqus->execute();
+    $row = $query_lstqus->fetch();
+
+		if($row){
+            $answer = $row['answer'];	
+            }
+        else {
+            $answer = "My Little Witty Brain Could Not Comprehend 😭.<br>Train me:<br>
+                <code class='text-white'>train: question # answer # password</code>";
+                
+        }
+        }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +93,8 @@ require_once "../config.php";
     <link href="../css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
+
+<!-- Profile Page Css start -->
     <style>
     
 body {
@@ -426,6 +492,170 @@ body {
 }
     
     </style>
+    <!-- Profile Page Css End -->
+
+
+    <!-- Chatbot CSS Start -->
+    <style>
+@charset "utf-8";
+/* CSS Document */
+
+/* ---------- GENERAL ---------- */
+
+
+fieldset {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+h4, h5 {
+	line-height: 1.5em;
+	margin: 0;
+}
+
+hr {
+	background: #e9e9e9;
+    
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    
+}
+
+img {
+    border: 0;
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+
+input {
+	border: 0;
+	color: inherit;
+    font-family: inherit;
+    font-size: 100%;
+    line-height: normal;
+    margin: 0;
+}
+
+p { margin: 0; }
+
+.clearfix { *zoom: 1; } /* For IE 6/7 */
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:after { clear: both; }
+
+/* ---------- LIVE-CHAT ---------- */
+
+#live-chat {
+	bottom: 0;
+	font-size: 12px;
+	right: 24px;
+	position: fixed;
+	width: 300px;
+}
+
+#live-chat header {
+	background: #293239;
+	border-radius: 5px 5px 0 0;
+	color: #fff;
+	cursor: pointer;
+	padding: 16px 24px;
+}
+
+#live-chat h4:before {
+	background: #1a8a34;
+	border-radius: 50%;
+	content: "";
+	display: inline-block;
+	height: 8px;
+	margin: 0 8px 0 0;
+	width: 8px;
+}
+
+#live-chat h4 {
+	font-size: 12px;
+}
+
+#live-chat h5 {
+	font-size: 10px;
+}
+
+#live-chat form {
+	padding: 24px;
+}
+
+
+
+.chat-message-counter {
+	background: #e62727;
+	border: 1px solid #fff;
+	border-radius: 50%;
+	display: none;
+	font-size: 12px;
+	font-weight: bold;
+	height: 28px;
+	left: 0;
+	line-height: 28px;
+	margin: -15px 0 0 -15px;
+	position: absolute;
+	text-align: center;
+	top: 0;
+	width: 28px;
+}
+
+.chat-close {
+	background: #1b2126;
+	border-radius: 50%;
+	color: #fff;
+	display: block;
+	float: right;
+	font-size: 10px;
+	height: 16px;
+	line-height: 16px;
+	margin: 2px 0 0 0;
+	text-align: center;
+	width: 16px;
+}
+
+.chat {
+	background: #fff;
+}
+
+.chat-history {
+	height: 252px;
+	padding: 8px 24px;
+	overflow-y: scroll;
+}
+
+.chat-message {
+	margin: 16px 0;
+}
+
+.chat-message img {
+	border-radius: 50%;
+	float: left;
+}
+
+.chat-message-content {
+	margin-left: 56px;
+}
+
+.chat-time {
+	float: right;
+	font-size: 10px;
+}
+
+.chat-feedback {
+	font-style: italic;	
+	margin: 0 0 0 80px;
+}
+
+
+    </style>
+     <!-- Chatbot CSS End -->
     <title>Portfolio | HNG FUN</title>
   </head>
 <body>
@@ -463,8 +693,102 @@ body {
       </div>
     </div>
 </div>
+
+<div id="live-chat">	
+	<header class="clearfix">	
+		<a href="#" class="chat-close">x</a>
+		<h4>Tridax Bot</h4>
+	</header>
+	<div id='widget_message_list' class="chat">    
+		<div id="user_chat" class="chat-history">
+			<div class="chat-message clearfix">
+				<img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">
+                <div class="chat-message-content clearfix">
+                    
+                    <h4>chat</h4>
+                    <p><?php 
+                    if(isset($_POST['message']))
+                    {
+                        echo $_POST['message'];
+                    }
+                    else echo "Send a Message to get started.<br>Train me:<br>
+                    <code class='text-white'>train: question # answer # password</code>"; ?></p>
+                </div>
+            </div>
+            <hr>
+            <?php if(isset($_POST['message'])) :?>
+            <div class="chat-message clearfix">
+                <img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">
+                <div class="chat-message-content clearfix">
+                    
+                    <h4>Tridax Bot</h4>
+                    <p><?php 
+                        echo $answer;
+            
+                ?></p>
+                </div>
+            </div>
+            <hr>
+            <?php endif ?>
+            
+		</div>
+		<div class="form-group m-b-30"> 
+        	<input type="text" onkeypress="handle(event)" id="input_message" name="message" class="form-control floating-label" placeholder="Enter Message" required autofocus>
+			<button type="reset" onclick='sendmessage()' href="javascript:;" class="btn btn-embossed btn-sm btn-primary m-b-10 m-r-0">SEND</button>
+		</div>
+    </div> <!-- end live-chat -->
+</div>
 <script src="../js/bootstrap.min.js"></script>
     <script src="../js/jquery.min.js"></script>
+
+
+    <script>
+    function handle(event)
+    {
+        if(event.keyCode==13)
+        {
+        sendmessage()
+        }
+    }
+    function sendmessage(bot_id)
+    {
+        var sendmessageurl = "http://stage3/profiles/tridax.php";
+        var xmlhttp = new XMLHttpRequest();
+        var message = document.getElementById("input_message").value;
+        xmlhttp.open("POST", sendmessageurl, false);
+
+        xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xmlhttp.send("message=" + message);
+
+        document.getElementById("user_chat").innerHTML=xmlhttp.responseText;
+        $("#input_message").val('')
+        // var objDiv = document.getElementById("user_chat");
+        // objDiv.scrollTop = objDiv.scrollHeight;
+        $("#user_chat").scrollTop($("#user_chat")[0].scrollHeight);
+
+    }
+
+    </script>
+   
+    <script>
+(function() {
+
+$('#live-chat header').on('click', function() {
+
+    $('.chat').slideToggle(300, 'swing');
+    $('.chat-message-counter').fadeToggle(300, 'swing');
+
+});
+
+$('.chat-close').on('click', function(e) {
+
+    e.preventDefault();
+    $('#live-chat').fadeOut(300);
+
+});
+
+}) ();
+    </script>
 </body>
 </html>
 
