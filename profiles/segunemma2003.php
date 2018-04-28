@@ -1,17 +1,17 @@
 <?php  
-//if (!defined('DB_USER'))
-//	{
-//	require "../../config.php";
-//	}
-//try
-//	{
-//	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-//	}
-//catch(PDOException $e)
-//	{
-//	die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
-//	}
-require "db.php";
+if (!defined('DB_USER'))
+	{
+	require "../../config.php";
+	}
+try
+	{
+	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	}
+catch(PDOException $e)
+	{
+	die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
+	}
+
 global $conn;
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
