@@ -1,6 +1,6 @@
 <?php
 	$secret_word = "";
-	$getProfile = $conn->query("SELECT * FROM interns_data");
+	$getProfile = $conn->query("SELECT * FROM interns_data WHERE username = 'Matt' ");
 	if($getProfile->rowCount() != 0){
 		$matt = $getProfile->fetch(PDO::FETCH_ASSOC);
 		$name = $matt['name'];
