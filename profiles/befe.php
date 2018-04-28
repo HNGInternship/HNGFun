@@ -7,8 +7,6 @@
 //   } catch (PDOException $pe) {
 //     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 //   }
-require('../db.php');
-
 try {
       $user = 'befe';
       $sql = "SELECT * FROM interns_data WHERE username = $user"; 
@@ -355,8 +353,8 @@ function fetchAnswer($msgss){
                });
 
                function bot_chat(reply){
-                    $('#chatlog').delay(500).append('<p>Bot Xperience: ' + reply + '</p>');
-                    $('#chatlog').scrollTop($('#bot-ui').height());
+                    $('#chatlog').append('<p>Bot Xperience: ' + reply + '</p>');
+                    $('#chatlog').scrollTop($('#chatlog').height());
                }
 
                $('input[type=submit]').click(function(){
@@ -364,17 +362,17 @@ function fetchAnswer($msgss){
                   var reset = $('.msgbox').val("");   
                     if(msg){
                         $('#chatlog').append('<p> You: ' + msg + '</p>');
-                        $('#chatlog').scrollTop($('#bot-ui').height());
+                        $('#chatlog').scrollTop($('#chatlog').height());
                     }
                   
 
                   if(msg==''){
-                    $('#chatlog').delay(500).append('<p>Bot Xperience: You have not typed anything</p>');
-                    $('.bot-box').scrollTop($('.bot-box').height());
+                    $('#chatlog').append('<p>Bot Xperience: You have not typed anything</p>');
+                    $('#chatlog').scrollTop($('#chatlog').height());
                     return false;
                     } else {
                         $.ajax({
-                        url: 'profiles/befe',
+                        url: 'profiles/befe.php',
                         type: 'post',
                         cache: 'false',
                         data: {
