@@ -97,6 +97,7 @@
   font-style: italic;
   font-size: 12px;*/
   font-family: "Montserrat";
+  margin: 0 auto;
 }
 
     </style>
