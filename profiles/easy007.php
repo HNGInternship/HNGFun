@@ -408,7 +408,7 @@ let question = $textarea.val().trim();
     $(`<p class=chat-space-text-2 tabindex=0>${question}</p>`).appendTo($chatSpace)[0].focus();
     $textarea.val('');
         $.ajax({
-            url: "/hng/HNGFun/profiles/easy007.php",
+            url: "/profiles/easy007.php",
             type: "post",
             data: {q: question},
             dataType: "json",

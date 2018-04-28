@@ -165,9 +165,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
+	<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-<style>
+<style type="text/css">
       body {
 			
 			background-size: cover;
@@ -182,6 +182,19 @@
 		h5{ color: white
 		
 		}
+		.container{
+            width: 100%;
+            min-height: 100%
+        }
+        .body0 {
+            height: 100%;
+        }
+
+        span {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: normal;
+        }
 		
 		.chat-frame {
 			border-color: #cccccc;
@@ -240,12 +253,12 @@
 		.f-icon {
 			font-size: 40px;
 		}
-
+   
       </style>
 
   </head>
 
-  <body style = "background color: #FFFFFF" class="oj-web-applayout-body>
+  <body style = "background color: #FFFFFF">
 
 <!-- Main Content -->
 <div class="oj-flex oj-flex-items-pad oj-contrast-marker">
@@ -258,10 +271,9 @@
                     <img class="img-fluid " onerror="this.src='images/default.jpg'" src="http://res.cloudinary.com/iamdharmy/image/upload/v1523622015/iam__dharmy.png" >
                 </div>
             </div>
-			
 			<div class="body0">
-				<div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
-					<h1 class="oj-sm-align-self-center">
+				<div class="oj-sm-align-self-center">
+					<h1 class="text-center">
 						Soyombo Oluwadamilola
 					</h1>
 					<h5 class="text-center">  iam__dharmy</h5>
@@ -323,9 +335,10 @@
 		</div>
 	</div>
 </div>
-<script src="../vendor/jquery/jquery.min.js"></script>
-<!--<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>-->
+
 <script>
 	
 	$(document).ready(function(){
