@@ -439,29 +439,6 @@ button{
 		
         
         
-        <section class="main">
-			<div class="get-started">
-                <h1 class="oj-text-xm">Meet <?php echo $user->username ?></h1>
-                <div>
-                    <img class="img"  src="<?php echo $user->image_filename ?>" alt="She Codes" /></div>
-                <p class="oj-panel oj-panel-shadow-md" id="caption"><b>My mission for HNG Internship:</b> Be a world class developer, initiate and complete innovative projects, and have a voice in the technology ecosystem. </p>
-                
-                <p>Anyway, this is the “About” page, so I should probably tell you my story.
-                </p>
-                <p>
-                    <em><\Insert Flashback Sequence></\Insert></em>
-                </p>
-                <p>In my younger days, I was on the track towards medical school(Medcine and Surgery), but was detoured on the way by the quest for Admission. As years passed I settled for an alternative course (Computer Science), then did I realized humanity can be helped or even saved through software development.</p>
-                <h3 class="inLove">She Fell in Love</h3>
-                <p class="school">I found the love of my life few months before Industrial Training, a friend of mine one afternoon came to my room so excited, she wanted to demonstrate something to me but I was watching movie(that’s what majority of students do with their PC, I was no different). Her excitement was overwhelming that I gave her an opportunity. Guess what! she wrote some foreign characters, opened my browser and boom!!! the miracle happened; <span id="g">G</span><span id="o1">o</span><span id="o2">o</span><span id="g">g</span><span id="l">l</span><span id="o1">e</span> written bodily with its 4 different colours appeared on the screen, immediately I fell in love.
-My love grew into passion that I gave up my little savings to learn web development using java for back end. The journey have not been easy but I have this inner peace that am doing what I love the most.</p>
-                
-                <h2 style="text-align:left;" class="oj-listview-card-layout">Skills</h2>
-                <p>Web Development <span style="font-weight:bold;">60%</span>(HTML, CSS. JAVASCRIPT, JQUERY, JAVA EE)</p>
-	
-                <p>Mobile Development <span style="font-weight:bold;">40%</span>(JAVA)</p>
-            </div>
-        </section>
         
 		<footer>
 				<p class="meta">
