@@ -1,12 +1,18 @@
 <?php   
+
+//  REMOVE DATAABSE CREDENTIALS HARD CODED
+try {
+    // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+     $conn = new PDO("mysql:host=". "localhost". ";dbname=". "hng_fun" , "root", "root");
+} catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
     try {
          $query = $conn->query("SELECT * from interns_data WHERE username = 'Gwinyai'");
             $user = $query->fetch(PDO::FETCH_OBJ);
     } catch (PDOException $e) {
         throw $e;
     }
-?>
-<?php
     try {
          $data = $conn->query("SELECT * from secret_word LIMIT 1");
             $result = $data->fetch(PDO::FETCH_OBJ);
@@ -15,6 +21,62 @@
         throw $e;
     }
    
+
+
+ if(isset($_GET['training'])) {
+      $message = $_GET['training'];
+        echo train($message, $conn);
+        exit();
+}
+
+
+function train($bot_training, $conn){
+    
+
+    $bot_training = str_replace('train:', '', $bot_training);
+
+     //ckeck presence of #
+     $pos = strpos($bot_training,'#');
+     if( $pos === false) {
+ 
+         return 'Oops! to train me please enter use the format, <code>train: question # answer # password <code> ';
+     }
+     define ('PASSWORD', "ubuntu");
+    
+     $pos = strpos($bot_training, PASSWORD);
+     if( $pos === false) {
+ 
+         return 'Training denied, a password is required ';
+     } else {
+        
+        $train_question = trim(substr($bot_training, 0, strpos($bot_training,'#')));
+    
+        $train_answer = trim(str_replace(['#', PASSWORD, $train_question], '', $bot_training));
+  
+    
+        try{
+
+            $sql  = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+            $stmt = $conn->prepare($sql);
+            $stmt->execute(
+                array(
+                ':question' => $train_question,
+                ':answer' => $train_answer,
+                )
+            );
+            return 'Fanatastic, my intelligence is rising, teach me more';
+
+        } catch(PDOException $e){
+            throw $e;
+        }
+    }
+   
+}
+
+
+
+
+
 ?>
 
 
@@ -348,7 +410,33 @@
              overflow-y: auto;
          }
 
+         .chat-messages .chat::-webkit-scrollbar {
+                width: 0;
+                height: 0;
+                background: 0 0;
+         }
+         
+        .option-wrap {
+            word-wrap: normal;
+            white-space: nowrap;
+            overflow-x: scroll;
+            position: absolute;
+            bottom: 100%;
+            width: 100%;
+            transform: translateY(-5px);
+        }
 
+        .options {
+            padding: 7px 12px;
+            border: 1px solid rgba(6,153,184,0.3);
+            display: inline-block;
+            margin: 5px;
+            background: #fff;
+            color: #06c5a6;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 0.9rem;
+         }
      
 
          .chat .chat-content > span {
@@ -411,6 +499,23 @@
                          inset -10px -10px 55px rgba(255,255,255,0.1);
 
          }
+.chat .chat-content span.bot.joke-bg{
+
+     background: #032b51;
+}
+         
+
+            .chat .chat-content span.bot-typing {
+             position: relative;
+             float: right;
+             width: 30%;
+             height: auto;
+             background: #ccc;
+             display: inline-block;
+             box-shadow: 2px 2px 20px rgba(60,51,176,0.2),
+                         inset -10px -10px 55px rgba(255,255,255,0.1);
+
+         }
 
          .chat .chat-content span.bot span.time {
              position: absolute;
@@ -440,6 +545,11 @@
          }
 
           .chat .chat-content span.bot.last {
+             border-radius: 15px 2px 15px 15px;
+             
+         }
+
+           .chat .chat-content span.bot-typing.last {
              border-radius: 15px 2px 15px 15px;
              
          }
@@ -533,6 +643,72 @@
              transition: transform 800ms ease-in-out;
           } 
 
+  
+        /*==========================
+            Chatbot typing animation   */
+
+        .typing_loader {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            -webkit-animation: typing 1s linear infinite alternate;
+            -moz-animation: typing 1s linear infinite alternate;
+            -ms-animation: typing 1s linear infinite alternate;
+            animation: typing 1s linear infinite alternate;
+            left: -12px;
+            
+            margin: 7px 15px 6px;
+            color: #ccc;
+        }
+
+        #message {
+            border-radius: 20px;
+            padding: 12px 22px;
+            font-size: 0.905rem;
+            color: #333;
+            display: inline-block;
+            padding: 10px 15px 8px;
+            border-radius: 20px;
+            margin-bottom: 5px;
+            float: right;
+            clear: both;
+            max-width: 65%;
+            word-wrap: break-word;
+        }
+
+        #message .to {
+            background: #efefef; */
+            color: #6f6f6f; 
+            float: left; 
+            border-top-left-radius: 0;
+        }
+
+        #message:after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        .to .typing_loader {
+            animation: typing-black 1s linear infinite alternate
+        }
+
+        @keyframes typing-black {
+            0% {
+                background-color: rgba(74, 74, 74, 1);
+                box-shadow: 12px 0 0 0 rgba(74, 74, 74, .4), 24px 0 0 0 rgba(74, 74, 74, .2)
+            }
+            50% {
+                background-color: rgba(74, 74, 74, .4);
+                box-shadow: 12px 0 0 0 rgba(74, 74, 74, 1), 24px 0 0 0 rgba(74, 74, 74, .4)
+            }
+            100% {
+                background-color: rgba(74, 74, 74, .2);
+                box-shadow: 12px 0 0 0 rgba(74, 74, 74, .4), 24px 0 0 0 rgba(74, 74, 74, 1)
+            }
+        }
+
+    
       
         /*==========================
                 Responsiveness           */
@@ -784,7 +960,7 @@
      <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.6/typed.min.js"></script>
        <script>
          /* Configure auto typing*/
-        //  document.addEventListener("DOMContentLoaded", ready);
+     
       
            (function ready() {
                 var typed = new Typed('#typed', {
@@ -803,14 +979,11 @@
                 let chatHeader = document.querySelector('.head');
                 let chatInput = document.querySelector('input.ip-msg');
                 let chatSubmit = document.querySelector('.btn-group');
-           
-              
                 let check = 1;
-                let chatNumber = 0;
                 let chevron = document.querySelector('.fa-chevron-up');
                 let span = document.createElement('span');
                
-             
+       
                 
                 /* Toggle Chat */
               
@@ -836,12 +1009,8 @@
 
             } 
 
-          
-
-
-           
-
-             /* Clean user text */
+        
+             /* Cleanup user input */
              function cleanText(str) {
                  
                  return str.trim().replace('-','').toLowerCase();
@@ -849,81 +1018,214 @@
 
 
 
-                    /* Handle user chat bubbles */
-                    function chatResponse() {
-                        var userInput = chatInput.value
-                        var userBubble = ''
-                        let span = document.createElement('span');
-                        span.classList.add('user-input', 'last');
-                        var today = new Date();
-                        var h = today.getHours();
-                        var m = today.getMinutes();
-                        
-                        h.toString();
-                        m.toString();
-                   
-                        userBubble += `
-                                    ${userInput}
-                                    <span class="time">
-                                        ${h}:${m}
-                                    </span>
-                                    <span class="user">You</span>
-                            `
-                        span.innerHTML = userBubble;
-                        chatBoard.appendChild(span);
-                       chatInput.value = '';
-                        chatBoard.lastChild.scrollIntoView({ behavior: "smooth"});
-                    }
+            /* Handle user chat bubbles */
+            function chatResponse() {
+                var userInput = chatInput.value;
+                var userBubble = '';
+                let span = document.createElement('span');
+                span.classList.add('user-input', 'last');
+                var today = new Date();
+                var h = today.getHours();
+                var m = today.getMinutes();
+                
+                h.toString();
+                m.toString();
+            
+                userBubble += `
+                            ${userInput}
+                            <span class="time">
+                                ${h}:${m}
+                            </span>
+                            <span class="user">You</span>
+                    `
+                span.innerHTML = userBubble;
+                chatBoard.appendChild(span);
+                chatInput.value = '';
+                chatBoard.lastChild.scrollIntoView({ behavior: "smooth"});
+            }
 
-                      /* Handle user chat bubbles */
-                      function botResponse(){
-                        
-                            var botBubble = ''
-                            let span = document.createElement('span');
-                            span.classList.add('bot', 'first');
-                            var today = new Date();
-                            var h = today.getHours();
-                            var m = today.getMinutes();
-                          
-                            h.toString();
-                            m.toString();
+                /* Handle user chat bubbles */
+                function botResponse(){
+                
+                    var botBubble = ''
+                    let span = document.createElement('span');
+                    span.classList.add('bot', 'first');
+                    var today = new Date();
+                    var h = today.getHours();
+                    var m = today.getMinutes();
+                    
+                    h.toString();
+                    m.toString();
+                    
+                    botBubble += `
+                                Version 0.1
+                                <span class="time">
+                                    ${h}:${m}
+                                </span>
+                                <span class="user">Ubuntu Bot</span>
+                        `
+                    span.innerHTML = botBubble;
+                    chatBoard.appendChild(span);
+                chatInput.value = '';
+                chatBoard.lastChild.scrollIntoView({ behavior: "smooth"});
+                }
+
+                /* Handle bot typing*/
+                // function botTyping(){
+                //     var typingBubble = '';
+                //     let span = document.createElement('span');
+                //     span.classList.add('bot-typing', 'last');
+                //     typingBubble += `<span id="message"><span class="to typing message">
+                //                         <span class="typing_loader"></span>
+                //                     </span></span>`;
+                //     span.innerHTML =  typingBubble;
+                //     chatBoard.appendChild(span);
+                //     chatBoard.lastChild.scrollIntoView({ behavior: "smooth"});
+                // }
+
+                function showBotMessage(info) {
+
+                    var botBubble = ''
+                    let span = document.createElement('span');
+                    span.classList.add('bot', 'first');
+                    var today = new Date();
+                    var h = today.getHours();
+                    var m = today.getMinutes();
+                    
+                    h.toString();
+                    m.toString();
+                    
+                    botBubble += `
+                                ${info}
+                                <span class="time">
+                                    ${h}:${m}
+                                </span>
+                                <span class="user">Ubuntu Bot</span>
+                        `
+                    span.innerHTML = botBubble;
+                    chatBoard.appendChild(span);
+                    chatInput.value = '';
+                    chatBoard.lastChild.scrollIntoView({ behavior: "smooth"});
+                }
+
+                function jokeBotMessage(joke) {
+                    var botBubble = ''
+                    let span = document.createElement('span');
+                    span.classList.add('bot', 'first', 'joke-bg');
+                    var today = new Date();
+                    var h = today.getHours();
+                    var m = today.getMinutes();
+                    
+                    h.toString();
+                    m.toString();
+                    
+                    botBubble += `
+                                ${JSON.stringify(joke.setup)}
+                                <span class="time">
+                                    ${h}:${m}
+                                </span>
+                                <span class="user">Ubuntu Bot is smiling</span>
+                        `
+                    span.innerHTML = botBubble;
+                    chatBoard.appendChild(span);
+                    chatInput.value = '';
+                    
+                    setTimeout(function() {
+                        jokeBotOptions();
+                    }, 3400);
+            
+                    setTimeout(function() {
+                        jokeBotPunchline(joke);
+                    }, 5900);
+              
+                chatBoard.lastChild.scrollIntoView({ behavior: "smooth"});
+                }
+
+                function jokeBotPunchline(ans) {
+                    var botBubble = ''
+                    let span = document.createElement('span');
+                    span.classList.add('bot', 'first', 'joke-bg');
+                    var today = new Date();
+                    var h = today.getHours();
+                    var m = today.getMinutes();
+                    
+                    h.toString();
+                    m.toString();
+                    
+                    botBubble += `
+                                ${JSON.stringify(ans.punchline)}
                             
-                            botBubble += `
-                                        Version 0.1
-                                        <span class="time">
-                                            ${h}:${m}
-                                        </span>
-                                        <span class="user">Ubuntu Bot</span>
-                                `
-                            span.innerHTML = botBubble;
-                            chatBoard.appendChild(span);
-                        chatInput.value = '';
-                        chatBoard.lastChild.scrollIntoView({ behavior: "smooth"});
-                      }
+                                <span class="user">Ubuntu Bot lol</span>
+                        `
+                    span.innerHTML = botBubble;
+                    chatBoard.appendChild(span);
+                    chatInput.value = '';
+                    chatBoard.lastChild.scrollIntoView({ behavior: "smooth"});
+                }
 
-                    function showResponse() {
-                        var userInput = cleanText(chatInput.value);
-                        
-                        switch(userInput) {
-                            case 'about me':
-                                chatResponse();
+                function jokeBotOptions() {
+                    var botBubble = ''
+                    let span = document.createElement('span');
+                    span.classList.add( 'options-wrap', );
+                    var today = new Date();
+                    var h = today.getHours();
+                    var m = today.getMinutes();
+                    
+                    h.toString();
+                    m.toString();
+                    
+                    botBubble += `
+                                <span class="options">
+                                Punchline: wait for it ...
+                                </span>
+                        `
+                    span.innerHTML = botBubble;
+                    chatBoard.appendChild(span);
+                    chatInput.value = '';
+                    chatBoard.lastChild.scrollIntoView({ behavior: "smooth"});
+                }
+
+
+                function showResponse() {
+                    var userInput = cleanText(chatInput.value);
+
+                                            
+                    switch(userInput) {
+                        case 'about me':
+                            chatResponse();
                                 setTimeout(botResponse, 2000);
-                            break;
-                            case 'aboutme':
-                                chatResponse();
-                                setTimeout(botResponse, 2000);
-                            break;
-                            case "":
-                                alert('blank input not allowed')
-                            break;
-                            case 'hello':
-                                chatResponse();
-                            break;
-                            default:
-                                chatResponse();
-                        }
-                     
+                        break;
+                        case 'aboutme':
+                            chatResponse();
+                            // botTyping()
+                            setTimeout(botResponse, 2000);
+                        break;
+                        case "":
+                            showBotMessage("Don't be shy, your input should contain words");
+                        //    botTyping()
+                        break;
+                        case 'train:':
+                            chatResponse();
+                            ajaxQuery()
+                            
+                        break;
+                        case 'joke':
+                            chatResponse();
+                            getJoke();
+                            
+                        break;
+                        case 'train:':
+                            chatResponse();
+                            ajaxQuery();
+                            
+                        break;
+                        default:
+                            ajaxQuery()
+                            chatResponse();
+                            
                     }
+                     
+        }
 
             /* Handle user chat bubbles */
             if(chatSubmit) {
@@ -935,19 +1237,47 @@
                    
                 }) 
 
-              document.body.addEventListener( 'keyup', function (e) {
-                if ( e.keyCode == 13 ) {
-               
-                    chatSubmit.click();
-                }
+                document.body.addEventListener( 'keyup', function (e) {
+                    if ( e.keyCode == 13 ) {
+                
+                        chatSubmit.click();
+                    }
             });
+
+            /* Handle Ajax response for DB query */
+            function ajaxQuery() {
+                var message = cleanText(chatInput.value);
+                $.ajax({
+                type: "GET",
+                url: 'profiles/Gwinyai.php',
+                data: { training: message },
+                success: function(data){
+                    showBotMessage(data);
+                         console.log(data);
+                    }
+                });
+            }
+            
+
+            function getJoke() {
+               
+                $.ajax({
+                    type: "GET",
+                    url: 'https://08ad1pao69.execute-api.us-east-1.amazonaws.com/dev/random_joke',
+                    success: function(data){
+                    jokeBotMessage(data);
+                        
+                    }
+                });
+            }
+
               
-            };
+        };
             
     
-           })();
+    })();
            
-       </script>
+    </script>
      
        
 </body>
