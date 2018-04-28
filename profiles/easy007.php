@@ -264,8 +264,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             height: 25rem;
             border-radius: 50%;
             width: 27rem;
-            background:url('https://res.cloudinary.com/easy007/image/upload/v1524607286/image-3.jpg') center no-repeat;
-            background-position: right top;
+            background:url('https://res.cloudinary.com/easy007/image/upload/v1524607286/image-3.jpg') no-repeat;
+            background-position-x: -20rem;
+            background-position-y: -6rem;
         }
 
         .bgimg img {
