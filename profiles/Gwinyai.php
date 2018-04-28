@@ -35,7 +35,7 @@
       }
         
         exit();
-}
+
 
 
 
@@ -1425,3 +1425,5 @@ function getTime(){
 </body>
 
 </html>
+
+<?php } ?>
