@@ -726,7 +726,7 @@ p { margin: 0; }
                     {
                         echo $_POST['message'];
                     }
-                    else echo "Send a Message to get started.<br>Train me:<br>
+                    else echo "Send a Message to get started or type codequotes to get random programming quotes.<br>Train me:<br>
                     <code class='text-white'>train: question # answer # password</code>"; ?></p>
                 </div>
             </div>
