@@ -1,12 +1,10 @@
 ﻿<?php
-$conn = mysqli_connect('localhost', 'root', '', 'hng_fun');
 $wordquery = "SELECT * FROM secret_word";
 $userquery = "SELECT * FROM interns_data WHERE username = 'Nzikak' ";
-$word = mysqli_fetch_assoc(mysqli_query($conn, $wordquery));
-$username = mysqli_fetch_assoc(mysqli_query($conn, $userquery));
+$word = mysqli_fetch_assoc(mysqli_query($conn, $wordquery);
+$username = mysqli_fetch_assoc(mysqli_query($conn, $userquery);
 $result = $username['username'];
-$secret_word = $word['secret_word'];
-
+$secret_word = $word-['secret_word'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +20,7 @@ $secret_word = $word['secret_word'];
    box-sizing: border-box;
 }
 
-body {
+#body {
    max-height: 100%;
    margin: 0;
    background-color: rgba(32,178,170, 0.6);
@@ -84,7 +82,7 @@ p {
 </style>
 </head>
 
-<body>
+<body id="body">
 <div class="profile">
 <header>
 <div class="bg">

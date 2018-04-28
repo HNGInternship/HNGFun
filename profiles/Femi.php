@@ -79,7 +79,7 @@
       .border {
         border: 0.5px solid #9F9D9D;
         position: relative;
-        top: -15px;
+        top: -5px;
         margin: 0 auto;
         max-width: 200px;
       }
