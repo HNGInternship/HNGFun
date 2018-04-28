@@ -27,59 +27,65 @@ if(isset($_POST['message']))
     $lstqus = strtolower($stqus);
     if(stripos(trim($_POST['message']), "train") === 0)
     {
-    $explodequsdata = explode(':', $lstqus);
+        $explodequsdata = explode(':', $lstqus);
 
-    if ($explodequsdata[0] == 'train') 
-        { 
-            $explodequsdata2 = explode('#', $explodequsdata[1], 2);
+        if ($explodequsdata[0] == 'train') 
+            { 
+                $explodequsdata2 = explode('#', $explodequsdata[1], 2);
 
-            if (isset($explodequsdata2[1])) 
-                {
-                    $explodequsdata3 = explode('#', $explodequsdata2[1], 2);
-                    if (isset($explodequsdata3[1]))
+                if (isset($explodequsdata2[1])) 
                     {
-                        if (  $explodequsdata3[1] == "password") 
+                        $explodequsdata3 = explode('#', $explodequsdata2[1], 2);
+                        if (isset($explodequsdata3[1]))
                         {
-                            $query = $con->prepare("SELECT * FROM chatbot WHERE strtolower(question) ='" . $explodequsdata2[0] . "' and strtolower(answer) =  '" . $explodequsdata3[0] . "'");
-                            $query->execute();
-                            $countrow = $query->rowCount();
-                            if ($countrow > 0) {
-                                $answer = "Question Exist in DB<br>Train me:<br>
-                                <code class='text-white'>train: question # answer # password</code>";
-                            } 
-                            else{
-                                $insert_qa = $con->prepare("INSERT into chatbot (question, answer) values (:question, :answer)");
-                                $insert_qa->bindParam(':question', $explodequsdata2[0]);
-                                $insert_qa->bindParam(':answer', $explodequsdata3[0]);
-                                $insert_qa->execute();
-                                $answer = "New Response Added to database👍";
+                            if (  $explodequsdata3[1] == " password") 
+                            {
+                                $query = $con->prepare("SELECT * FROM chatbot WHERE strtolower(question) ='" . $explodequsdata2[0] . "' and strtolower(answer) =  '" . $explodequsdata3[0] . "'");
+                                $query->execute();
+                                $countrow = $query->rowCount();
+                                if ($countrow > 0) {
+                                    $answer = "Question Exist in DB<br>Train me:<br>
+                                    <code class='text-white'>train: question # answer # password</code>";
+                                } 
+                                else{
+                                    $insert_qa = $con->prepare("INSERT into chatbot (question, answer) values (:question, :answer)");
+                                    $insert_qa->bindParam(':question', $explodequsdata2[0]);
+                                    $insert_qa->bindParam(':answer', $explodequsdata3[0]);
+                                    $insert_qa->execute();
+                                    $answer = "New Response Added to database👍";
+                                }
+                            }
+                            else
+                            {
+                                $answer="Password Incorrect😶";
                             }
                         }
-                        else
-                        {
-                            $answer="Password Incorrect😶";
-                        }
                     }
-                }
-        }
-    }
-    else{
-
-    $lstqus = "%$lstqus%";
-    $query_lstqus = $con->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
-    $query_lstqus->bindParam(':question', $lstqus);
-    $query_lstqus->execute();
-    $row = $query_lstqus->fetch();
-
-		if($row){
-            $answer = $row['answer'];	
             }
-        else {
-            $answer = "My Little Witty Brain Could Not Comprehend 😭.<br>Train me:<br>
-                <code class='text-white'>train: question # answer # password</code>";
-                
-        }
-        }
+    }
+    elseif (preg_match('/\baboutbot\b/',$lstqus)) {
+        $answer = "Tridax v1.0";
+    }
+    
+    else
+    {
+
+        $lstqus = "%$lstqus%";
+        $query_lstqus = $con->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
+        $query_lstqus->bindParam(':question', $lstqus);
+        $query_lstqus->execute();
+        $row = $query_lstqus->fetch();
+
+            if($row)
+            {
+                $answer = $row['answer'];	
+            }
+            else 
+            {
+                $answer = "My Little Witty Brain Could Not Comprehend 😭.<br>Train me:<br>
+                    <code class='text-white'>train: question # answer # password</code>";
+            }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -752,7 +758,7 @@ p { margin: 0; }
     }
     function sendmessage(bot_id)
     {
-        var sendmessageurl = "http://stage3/profiles/tridax.php";
+        var sendmessageurl = "tridax.php";
         var xmlhttp = new XMLHttpRequest();
         var message = document.getElementById("input_message").value;
         xmlhttp.open("POST", sendmessageurl, false);
