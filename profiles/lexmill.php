@@ -42,7 +42,8 @@ body{
 	 date_default_timezone_set('Africa/Lagos');
 	 $currentDateTime = date('Y-m-d H:i:s');
 	 echo $currentDateTime;
-         ?></h1></div><p class="oj-align-content-center">NAME: <?= $name?><br />USERNAME:: <?= $username?><br/><img src="<?php echo $image_filename; ?>" width="320" height="331" alt="Author's Picture">
+         ?></h1></div><p class="oj-align-content-center">NAME: <?= $name?><br />USERNAME:: <?= $username?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
+		 <img src="<?php echo $image_filename; ?>" width="320" height="331" alt="Author's Picture"></div>
          </p>
 	 </div>
 	     
