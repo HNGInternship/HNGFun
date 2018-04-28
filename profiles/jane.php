@@ -184,7 +184,6 @@
 						}
 
 						#connect{
-							/*border: 1px solid black;*/
 							padding-top: 10px;
 							padding-bottom: 10px;
 							margin-left: auto;
@@ -217,12 +216,10 @@
 
 						#bot{
 							z-index: 1000;
-							/*margin-top: 100vh;*/
 							position: fixed;
 							bottom: 0px;
 							right: 0px;
-							padding: 10px 70px 23px;/*
-							border: 1px solid red;*/
+							padding: 10px 70px 23px;
 						}
 
 						button:hover{
@@ -251,7 +248,6 @@
 						#output{
 							background: white;
 							padding: 10px;
-							/*box-shadow: 0px 0px 3px 2px #ddd;*/
 							display: none;
 						}
 
@@ -275,7 +271,6 @@
 							float: right;
 							right: 10px;
 							color: white;
-							/*line-height: 1.5em;*/
 							box-shadow: none;
 							padding: 5px 8px;
 							transition: color 200ms;
@@ -313,10 +308,7 @@
 
 						#chat-btn{
 							float: right;
-							width: 100%;/*
-							position: relative;
-							top: 300px;*/
-							/*border: 1px solid grey;*/
+							width: 100%;
 						}
 
 						#chat-btn button{
