@@ -1,13 +1,162 @@
 <?php
   $dt = date("Y-m-d h:i:sa");
-  $time= date("h:i:sa");
+  $time= date("h:i:sa");?>
+
+<?php 
+if(!defined('DB_USER')){
+  require "../../config.php";   
+  try {
+      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
+}
+
+  $result = $conn->query("Select * from secret_word LIMIT 1");
+  $result = $result->fetch(PDO::FETCH_OBJ);
+  $secret_word = $result->secret_word;
+  $result2 = $conn->query("Select * from interns_data where username = 'foluwa'");
+  $user = $result2->fetch(PDO::FETCH_OBJ);
+
+  if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+      include "../answers.php";
+      
+      try{
+
+        if(!isset($_POST['question'])){
+          echo json_encode([
+            'status' => 1,
+            'answer' => "Please provide me with a question"
+          ]);
+          return;
+        }
+
+    
+
+    /* Training the bot*/
+    if($arr[0] == "train:"){
+
+      unset($arr[0]);
+      $q = implode(" ",$arr);
+      $queries = explode("#", $q);
+      if (count($queries) < 3) {
+        # code...
+        echo json_encode([
+          'status' => 0,
+          'answer' => "You need to enter a password to train me."
+        ]);
+        return;
+      }
+      $password = trim($queries[2]);
+      //to verify training password
+      define('trainingpassword', 'password');
+      
+      if ($password !== trainingpassword) {
+        # code...
+        echo json_encode([
+          'status'=> 0,
+          'answer' => "You entered a wrong passsword"
+        ]);
+        return;
+      }
+      $quest = $queries[0];
+      $ans = $queries[1];
+
+      $sql = "insert into chatbot (question, answer) values (:question, :answer)";
+
+      $stmt = $conn->prepare($sql);
+          $stmt->bindParam(':question', $quest);
+          $stmt->bindParam(':answer', $ans);
+          $stmt->execute();
+          $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+      
+      echo json_encode([
+        'status' => 1,
+        'answer' => "Thanks for training me, I would love to learn more"
+      ]);
+      return;
+    }
+      elseif ($arr[0] == "aboutbot") {
+        # code...
+        echo json_encode([
+          'status'=> 1,
+          'answer' => "I am ZOE, Version 1.0.0. You can train me by using this format ' train: This is a question # This is the answer # password '"
+        ]);
+        return;
+      }
+      else {
+        $question = implode(" ",$arr);
+        //to check if answer already exists in the database...
+        $question = "%$question%";
+        $sql = "Select * from chatbot where question like :question";
+        $stat = $conn->prepare($sql);
+        $stat->bindParam(':question', $question);
+        $stat->execute();
+
+          $stat->setFetchMode(PDO::FETCH_ASSOC);
+          $rows = $stat->fetchAll();
+          if(count($rows)>0){
+           
+            $index = rand(0, count($rows)-1);
+            $row = $rows[$index];
+            $answer = $row['answer'];
+            // check if answer is a function.
+            $index_of_parentheses = stripos($answer, "((");
+            if($index_of_parentheses === false){// if answer is not to call a function
+              echo json_encode([
+                'status' => 1,
+                'answer' => $answer
+              ]);
+              return;
+            }
+            else{//otherwise call a function. but get the function name first
+                $index_of_parentheses_closing = stripos($answer, "))");
+                if($index_of_parentheses_closing !== false){
+                    $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
+                    $function_name = trim($function_name);
+                    if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
+                       echo json_encode([
+                        'status' => 0,
+                        'answer' => "The function name should not contain white spaces"
+                      ]);
+                      return;
+                    }
+                  if(!function_exists($function_name)){
+                    echo json_encode([
+                      'status' => 0,
+                      'answer' => "I am sorry but I could not find that function"
+                    ]);
+                  }else{
+                    echo json_encode([
+                      'status' => 1,
+                      'answer' => str_replace("(($function_name))", $function_name(), $answer)
+                    ]);
+                  }
+                  return;
+                }
+            }    
+        }else{
+
+          echo json_encode([
+            'status' => 0,
+            'answer' => "I am sorry, I cannot answer your question now. You could offer to train me."
+          ]);
+          return;
+        }
+      }
+  }catch (Exception $e){
+    return $e->message ;
+  }
+}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php echo $user->name; ?> Hng Intern</title>
+  <title><?php //echo $user->name; ?> Hng Intern</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -139,17 +288,6 @@
 </head>
 
 <body class="oj-web-applayout-body">
-  <?php
-    global $conn;
-    try {
-        $sql2 = 'SELECT * FROM interns_data WHERE username="foluwa"';
-        $q2 = $conn->query($sql2);
-        $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $my_data = $q2->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    ?>
   <nav class="oj-web-applayout-header" role="banner" class="oj-web-applayout-header bg-dark" role="banner">
         <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
           <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
@@ -167,7 +305,7 @@
                     <img src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture">
                 </div>
                 <p class="text-center myname">
-                   <span style="font-size:37px;"><?php echo $user->name; ?></span>
+                   <span style="font-size:37px;"><?php //echo $user->name; ?></span>
                 </p>
                 <div class="oj-flex">
                 <div class="text-center social-links" style="font-size:45px;">
@@ -183,7 +321,7 @@
                         Am Foluwa a Computer Science student. Check out my github portfolio at <a href="https://foluwa.github.io">portfolio</a>
                     </div> 
             </div>
-            <div style="text-align:center;"><strong>Foluwa @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
+            <div style="color:red;text-align:center;"><strong>Foluwa @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
           </div>
       
       <div class="col-sm-6" style="position:relative;">
@@ -215,93 +353,6 @@
         </div>
           </div>
        </div>
-
-
-
-
-       
-
-    <?php
-    try {
-        $sql = 'SELECT * FROM secret_word';
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    $secret_word = $data['secret_word'];
-    if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $data = $_POST['user-input'];
-        $temp = explode(':', $data);
-        $temp2 = preg_replace('/\s+/','', $temp[0]);
-        
-        if($temp2 === 'train'){
-            train($temp[1]);
-        }elseif($temp2 === 'aboutbot') {
-            aboutbot();
-        }else{
-            getAnswer($temp[0]);
-        }
-    }
-  ##About Bot
-    function aboutbot() {
-        echo "<div id='result'><strong>ZOE VER1.0 </strong></br>
-    HELLO AM ZOE</div>";
-    }
-  
-  ##Train Bot
-    function train($input) {
-        $input = explode('#', $input);
-        $question = trim($input[0]);
-        $answer = trim($input[1]);
-        $password = trim($input[2]);
-        if($password == 'password') {
-            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
-            $q = $GLOBALS['conn']->query($sql);
-            $q->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $q->fetch();
-            if(empty($data)) {
-                $training_data = array(':question' => $question,
-                    ':answer' => $answer);
-                $sql = 'INSERT INTO chatbot ( question, answer)
-              VALUES (
-                  :question,
-                  :answer
-              );';
-                try {
-                    $q = $GLOBALS['conn']->prepare($sql);
-                    if ($q->execute($training_data) == true) {
-                        echo "<div id='conversation' class='bot-message'>Thank you for training me. </br>
-      Now you can ask me same question, and I will answer it correctly.</div>";
-                    };
-                } catch (PDOException $e) {
-                    throw $e;
-                }
-            }else{
-                echo "<div id='conversation' class='bot-message'>I already understand this. Teach me something new!</div>";
-            }
-        }else {
-            echo "<div id='conversation' class='bot-message'>You entered an invalid Password. <br>Try Again!</div>";
-        }
-    }
-    function getAnswer($input) {
-        $question = $input;
-        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
-        $q = $GLOBALS['conn']->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetchAll();
-        if(empty($data)){
-            echo "<div id='conversation' class='human-message'>Oops! I've not been trained to learn that command. <br>Would you like to train me?
-<br>You can train me to answer any question at all using, train:question#answer#password
-<br>e.g train:WHICH CONTINENT IS NIGERIA#AFRICA#password</div>";
-        }else {
-            $rand_keys = array_rand($data);
-            echo "<div id='conversation' class='bot-message'>". $data[$rand_keys]['answer'] ."</div>";
-        }
-    }
-    ?>
-
        </div>
 
           <script src="../vendor/jquery/jquery.min.js"></script>
