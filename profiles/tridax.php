@@ -728,11 +728,9 @@ p { margin: 0; }
             <br />
             <div class="clearfix"></div>
         </div>
+        
       </div>
-    </div>
-</div>
-
-<div id="live-chat">	
+      <div id="live-chat">	
 	<header class="clearfix">	
 		<a href="#" class="chat-close">x</a>
 		<h4>Tridax Bot</h4>
@@ -778,6 +776,9 @@ p { margin: 0; }
         </form>
     </div> <!-- end live-chat -->
 </div>
+    </div>
+</div>
+
 <script src="../js/bootstrap.min.js"></script>
     <script src="../js/jquery.min.js"></script>
 
@@ -871,12 +872,7 @@ $(document).ready(function() {
     <script>
 (function() {
 
-$('#live-chat header').on('click', function() {
 
-    $('.chat').slideToggle(300, 'swing');
-    $('.chat-message-counter').fadeToggle(300, 'swing');
-
-});
 
 $('.chat-close').on('click', function(e) {
 
