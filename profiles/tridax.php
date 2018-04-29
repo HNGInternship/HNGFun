@@ -1,9 +1,7 @@
 
 <?php
 
-
-require "../config.php";
-require "../../config.php";
+require_once "../config.php";
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
     $sql = 'SELECT * FROM interns_data WHERE username="tridax"';
@@ -701,7 +699,7 @@ p { margin: 0; }
     <title>Portfolio | HNG FUN</title>
   </head>
 
-<div>
+<div class="container">
     <div class="row">
       <div class="col-md-12 text-center ">
         <div class="panel panel-default">
@@ -804,7 +802,7 @@ $(document).ready(function() {
   function sendMessage(e) {
     var message = $('#message').val();
     if (message.length>0) {
-      
+      // I'm adding this because of delay in network, so the messages don't overlap
       var rand = Math.floor(Math.random()*100);
       var classname = 'sending-'+rand;
       var selector = '.'+classname;
@@ -823,7 +821,7 @@ $(document).ready(function() {
 
 
       $.ajax({
-        url: "https://hng.fun/profiles/tridax.php",
+        url: "/profiles/tridax.php",
         type: "post",
         data: {message: message},
         dataType: "json",
