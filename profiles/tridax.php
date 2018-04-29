@@ -700,7 +700,7 @@ p { margin: 0; }
     <title>Portfolio | HNG FUN</title>
   </head>
 
-<div class="container">
+<div>
     <div class="row">
       <div class="col-md-12 text-center ">
         <div class="panel panel-default">
@@ -803,7 +803,7 @@ $(document).ready(function() {
   function sendMessage(e) {
     var message = $('#message').val();
     if (message.length>0) {
-      // I'm adding this because of delay in network, so the messages don't overlap
+      
       var rand = Math.floor(Math.random()*100);
       var classname = 'sending-'+rand;
       var selector = '.'+classname;
