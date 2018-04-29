@@ -1,6 +1,6 @@
 <?php   
 	if(!defined('DB_USER')){
-	  require "../config.php";		
+	  require "../../config.php";		
 	  try {
 	      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 	  } catch (PDOException $e) {
@@ -25,22 +25,42 @@
 ?>
 <?php   
 
-// Start with the training query
-if(isset($_POST['training']) || ($_SERVER['REQUEST_METHOD'] === 'POST')) {
-     include '../answers.php';
-      $message = trim($_POST['training']);
-      $training = strpos($message, "train:");
-      if ($training === 0) {
-        echo train($message, $conn);
-      } else {
-         echo botAnswer($message, $conn);
-      }
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		 
+
+	$question = $_POST['message'];
+
+	$question = preg_replace('([\s]+)', ' ', trim($question)); 
+	$question = preg_replace("([?.])", "", $question); 
+    $training = strpos($question, "train:");
+
+    if ($training === 0) {
+        echo train($question, $conn);
+        return;
+    } else if (strtolower(trim($question)) === "aboutme") {
+			  echo json_encode([
+			     'status' => 1,
+       			 'answer' => "Version 0.1"
+     		 ]);
+
+		return;
+    } else if (strtolower(trim($question)) === "time:") {
+        echo getTime();
+        return;
+
+    } else if (strtolower(trim($question)) === "list commands:") {
+        echo getCommands();
+        return;
+
+    } else {
+        echo botAnswer($question, $conn);
+    }
+   
+     
         
         exit();
-    
 
-
-
+}
 
 function check_question($q, $conn){
 
@@ -111,59 +131,106 @@ function remove_brackets($string){
 }
 
 function train($bot_training, $conn){
-    
 
-    $bot_training = str_replace('train:', '', $bot_training);
+    $userText = preg_replace('([\s]+)', ' ', trim($question)); 
+	    $userText = preg_replace("([?.])", "", $userText); 
 
-     $pos = strpos($bot_training,'#');
-     if( $pos === false) {
- 
-         return 'To train me please use the format <br/> <code>train: question # answer # password <code> ';
-     }
-     define ('PASSWORD', "ubuntu");
-    
-     $pos = strpos($bot_training, PASSWORD);
-     if( $pos === false) {
- 
-         return 'Training denied, a password is required ';
-     } else {
-        
-        $train_question = trim(substr($bot_training, 0, strpos($bot_training,'#')));
-    
-        $train_answer = trim(str_replace(['#', PASSWORD, $train_question], '', $bot_training));
-  
-    
-        try{
+		$userText = substr($userText, 6);
 
+     	$userText = explode("#", $userText);
+
+     	$user_question = trim($userText[0]);
+		if(count($userText) == 1){
+			echo json_encode([
+				'status' => 1,
+				'answer' => "To train me please use the format <br/> <code>train: question # answer # password <code>"
+			]);
+			return;
+		};
+
+
+	    $user_answer = trim($userText[1]);    
+        if(count($userText) < 3){ //the user only enter question and answer without password
+	        echo json_encode([
+	          'status' => 1,
+	          'answer' => "Please enter training password to train me. The password is: password"
+	        ]);
+        	return;
+        };
+
+         //get the index of the user password
+	    $user_password = trim($userText[2]);
+
+        //verify if training password is correct
+        define('PASSWORD', 'password'); //constant variable
+        if($user_password !== PASSWORD){ 
+	        echo json_encode([
+	          'status' => 1,
+	          'answer' => "Your password is not correct, you cannot train me."
+	        ]);
+     		return;
+    	};
+
+	    //check database if answer exist already
+   		$user_answer = "$user_answer"; 
+	    $sql = "SELECT * FROM chatbot WHERE answer LIKE :user_answer";
+	    $stmt = $conn->prepare($sql);
+	    $stmt->bindParam(':user_answer', $user_answer);
+	    $stmt->execute();
+	    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+	 	$rows = $stmt->fetchAll();
+	    if(empty($rows)){     
+		
             $sql  = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
             $stmt = $conn->prepare($sql);
             $stmt->execute(
                 array(
-                ':question' => $train_question,
-                ':answer' => $train_answer,
+                ':question' => $user_question,
+                ':answer' => $user_answer,
                 )
             );
-            return 'Fanatastic, my intelligence is rising, teach me more';
+            
+		    
+		    echo json_encode([
+		    	'status' => 1,
+		        'answer' =>  "Fanatastic, my intelligence is rising, teach me more "
+		      ]);			
+     		return;
+     	
+     	}else{
 
-        } catch(PDOException $e){
-            throw $e;
-        }
-    }
-   
-}
+     		 echo json_encode([
+		    	'status' => 1,
+		        'answer' => "Sorry! Answer already exist. Try a different response or question"
+		      ]);
+			return;		
+     	};
+    	return;
+	};
+    
+
+ // Extend chatbot
+
+
 
 function getTime(){
    
      $time = new DateTime();
      $time->setTimezone(new DateTimeZone('Africa/harare'));
-     return $time->format('h:i A');
+      echo json_encode([
+            "status" => 1,
+            "answer" => $time->format('h:i A')
+        ]);
+
+     return;
  }
 
  function getCommands(){
     
     echo json_encode([
             "status" => 1,
-            "message" => "<code><ol><h6 class='white'>List of commands</h6><li>To hear a joke type joke:</li><li>To check my version type aboutme</li><li>To check the time type time: </li><li>To show list of commands type list commands:</li></ol>
+            "answer" => "<code><ol><h6 class='white'>List of commands</h6><li>To hear a joke type joke:</li><li>To check my version type aboutme</li><li>To check the time type time: </li><li>To show list of commands type list commands:</li></ol>
      <code>"
         ]);
  }
@@ -194,7 +261,7 @@ function getTime(){
                    
                     echo json_encode([
                          "status" => 1,
-                        "message" => $question['answer']
+                        "answer" => $question['answer']
                     ]);
                     return;
                     
@@ -202,7 +269,7 @@ function getTime(){
                     
                     echo json_encode([
                          "status" => 1,
-                        "message" => parse_answer($question['answer'])
+                        "answer" => parse_answer($question['answer'])
                     ]);
                         return;
                     
@@ -213,7 +280,7 @@ function getTime(){
                    
                 return json_encode([
                      "status" => 1,
-                    "message" =>  "Sorry I don't have an answer for that, please train me"
+                    "answer" =>  "Sorry I don't have an answer for that, please train me"
                 ]);
                    
                 
@@ -222,8 +289,6 @@ function getTime(){
         
     
     }
-
-} else {
 
 ?>
 
@@ -1102,8 +1167,7 @@ function getTime(){
                 </section>
     
 </section>
-<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.6/typed.min.js"></script>
        <script>
@@ -1381,29 +1445,23 @@ function getTime(){
                     }
             });
 
-            /* Handle Ajax response for DB query */
+            /* Handle Ajax request and response to and from server */
             function trainQuery() {
                 var message = cleanText(chatInput.value);
                 $.ajax({
-                type: "POST",
-                dataType : "json",
-                url: 'profiles/Gwinyai.php',
-                contentType: "application/json; charset=utf-8",
-                data: { training: message },
-                success: function(data){
-                    if(data.status == 1) {
-                        showBotMessage(data);
+                    type: "POST",
+                    dataType : "json",
+                    url: 'profiles/Gwinyai.php',
+                    data: {message},
+                    success: function(data){
+                        if(data.status == 1) {
+                            showBotMessage(data.answer);
+                        }
+                        
                     }
-               
-                      
-                    },
-                    error: function(error){
-							console.log(error);
-						}
                 });
             }
-            
-
+         
             function getJoke() {
                
                 $.ajax({
@@ -1429,4 +1487,3 @@ function getTime(){
 
 </html>
 
-<?php } ?>
