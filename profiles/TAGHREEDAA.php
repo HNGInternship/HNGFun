@@ -81,7 +81,7 @@ catch (Exception $exception)
         <div class="chatbox">
             <div class="chatlogs">
                 <div class="chat friend">
-                    <div class="user-photo"><img src="./images/guest-avatar.jpeg"></div>
+                    <div class="user-photo"><img src="/images/guest-avatar.jpeg"></div>
                     <p class="chat-message">xxxxxxxxxx xxxxxxxxx xxxxxx</p>
                 </div>
                 <div class="chat self">
@@ -305,7 +305,7 @@ catch (Exception $exception)
 
 .card.hovercard .cardheader {
     /*background: url("http://lorempixel.com/850/280/nature/4/");*/
-    background: url("./images/nature-cover.jpeg");
+    background: url("/images/nature-cover.jpeg");
     background-size: cover;
     height: 150px;
 }
@@ -502,7 +502,7 @@ catch (Exception $exception)
         var clientmsg = $("#usermsg").val().trim();
 
         if (clientmsg != '') {
-            var msg='<div class="chat friend"><div class="user-photo"><img src="./images/guest-avatar.jpeg"></div> <p class="chat-message">'+
+            var msg='<div class="chat friend"><div class="user-photo"><img src="/images/guest-avatar.jpeg"></div> <p class="chat-message">'+
                 clientmsg.replace(/\n/g, '<br />') +
                 '</p></div>';
 
