@@ -1,14 +1,14 @@
 <?php
 //Fetch User Details
-// if(!defined('DB_USER')){
-//   require "../../config.php";		
-//   try {
-//       $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-//   } catch (PDOException $pe) {
-//       die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-//   }
-// }
-// global $conn;
+if(!defined('DB_USER')){
+  require "../../config.php";		
+  try {
+      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
+}
+global $conn;
 try {
     $query = "SELECT * FROM interns_data_ WHERE username ='john'";
     $resultSet = $conn->query($query);
@@ -32,11 +32,144 @@ $secret_word =  $result['secret_word'];
 
 
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
+// to if the post request is not empty 
+
+  try{
+        if(!isset($_POST['question'])){
+          echo json_encode([
+            'status' => 1,
+            'answer' => "Please provide a question"
+          ]);
+          return;
+        }
+
+        require '../answers.php';
+      
+        $questions = $_POST['question'];
+        $question = strtolower($questions);
+
+        $question = preg_replace( '/\s+/','', $question);
 
 
+        if (preg_match("/^train:/", $question)) 
+        {
+
+            $res = training($question);
+            echo json_encode([
+            'status' => 1,
+            'answer' => $res
+            ]);
+            return;
+           
+        }
+
+        elseif (preg_match("/^about/", $question)|| preg_match('/^version/',$question)) 
+        {
+           echo json_encode([
+            'status' => 1,
+            'answer' => "ChatBuddyv1.0"
+            ]);
+            return;      
+        }
+
+        elseif (preg_match("/^currency/", $question)){
+
+            $from_currency= between("(", "," , "$question");
+            $to_currency= between(",", "," , "$question");
+            $amt= between(",", ")" , "$question");
+            $amount= (float)$amt;
+            $res= currencyConverter($from_currency,$to_currency,$amount);
+            echo  json_encode([
+                'status'=>1,
+                'answer'=> $res
+            ]);
+            return;
+        }
+
+        elseif(preg_match("/^weather/", $question))
+        {
+
+            $country=between("(", ",", $question);
+            $city= between(",", ")", $question);
+            $res= weather($country,$city);
+            echo json_encode([
+                'status'=>1,
+                'answer' =>$res
+            ]);
+            return;
+        }
+        elseif(preg_match("/^citytime/", $question))
+        {
+
+        	$city =between("(",")",$question);
+        	$res= cityTime($city);
+            echo json_encode([
+                'status'=>1,
+                'answer' =>$res
+            ]);
+            return;
+
+
+        }
+
+        elseif(preg_match("/^help/", $question))
+        {
+        	echo json_encode([
+                'status'=>1,
+                'answer' =>`The following are the available commands<br>
+                To Train: train:question#answer#password<br>
+                To convert currency: currency(fromCurrency,toCurrency,amount)<br>
+                To check weather: weather(country,city)<br>
+                To check time of any city: cityTime(Continent/city)
+                `
+            ]);
+            return;
+        }
+
+        else{
+
+            $res= getAns($question);
+            echo json_encode([
+            'status' => 1,
+            'answer' => $res
+            ]);
+            
+            return;  
+
+        
+        }
+	}
+
+
+     catch (Exception $e)
+    {
+
+       return $e->message ;
+  
+    }
+  }
 ?>
+
+<?php 
+if ($_SERVER['REQUEST_METHOD'] === "GET") {
+try {
+	$sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = "segunemma2003"';
+	$resultSet = $conn->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$result = $resultSet->fetch();
+	$secret_word = $result['secret_word'];
+	$username = $result['username'];
+	$fullName = $result['name'];
+	$picture = $result['image_filename'];
+} catch (PDOException $e) {
+	throw $e;
+}
+}
+?>
+
 
 
 
