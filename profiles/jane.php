@@ -614,7 +614,10 @@
 									// 	add_bot_text(data);
 									// }
 									
-								}										
+								}
+								else{
+									alert("No data");
+								}									
 							}
 						});
 					}
