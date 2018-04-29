@@ -1,103 +1,7 @@
 <?php
   $dt = date("Y-m-d h:i:sa");
   $time= date("h:i:sa");
-
-
 ?>
-
-<?php
-    global $conn;
-    try {
-        $sql2 = 'SELECT * FROM interns_data WHERE username="foluwa"';
-        $q2 = $conn->query($sql2);
-        $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $my_data = $q2->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    ?>
-
-    <?php
-    try {
-        $sql = 'SELECT * FROM secret_word';
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    $secret_word = $data['secret_word'];
-    if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $data = $_POST['user-input'];
-        $temp = explode(':', $data);
-        $temp2 = preg_replace('/\s+/','', $temp[0]);
-        
-        if($temp2 === 'train'){
-            train($temp[1]);
-        }elseif($temp2 === 'aboutbot') {
-            aboutbot();
-        }else{
-            getAnswer($temp[0]);
-        }
-    }
-  ##About Bot
-    function aboutbot() {
-        echo "<div id='result'><strong>ZOE VER1.0 </strong></br>
-    HELLO AM ZOE</div>";
-    }
-  
-  ##Train Bot
-    function train($input) {
-        $input = explode('#', $input);
-        $question = trim($input[0]);
-        $answer = trim($input[1]);
-        $password = trim($input[2]);
-        if($password == 'password') {
-            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
-            $q = $GLOBALS['conn']->query($sql);
-            $q->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $q->fetch();
-            if(empty($data)) {
-                $training_data = array(':question' => $question,
-                    ':answer' => $answer);
-                $sql = 'INSERT INTO chatbot ( question, answer)
-              VALUES (
-                  :question,
-                  :answer
-              );';
-                try {
-                    $q = $GLOBALS['conn']->prepare($sql);
-                    if ($q->execute($training_data) == true) {
-                        echo "<div id='conversation' class='bot-message'>Thank you for training me. </br>
-      Now you can ask me same question, and I will answer it correctly.</div>";
-                    };
-                } catch (PDOException $e) {
-                    throw $e;
-                }
-            }else{
-                echo "<div id='conversation' class='bot-message'>I already understand this. Teach me something new!</div>";
-            }
-        }else {
-            echo "<div id='conversation' class='bot-message'>You entered an invalid Password. <br>Try Again!</div>";
-        }
-    }
-    function getAnswer($input) {
-        $question = $input;
-        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
-        $q = $GLOBALS['conn']->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetchAll();
-        if(empty($data)){
-            echo "<div id='conversation' class='human-message'>Oops! I've not been trained to learn that command. <br>Would you like to train me?
-<br>You can train me to answer any question at all using, train:question#answer#password
-<br>e.g train:WHICH CONTINENT IS NIGERIA#AFRICA#password</div>";
-        }else {
-            $rand_keys = array_rand($data);
-            echo "<div id='conversation' class='bot-message'>". $data[$rand_keys]['answer'] ."</div>";
-        }
-    }
-    ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -235,6 +139,17 @@
 </head>
 
 <body class="oj-web-applayout-body">
+  <?php
+    global $conn;
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="foluwa"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    ?>
   <nav class="oj-web-applayout-header" role="banner" class="oj-web-applayout-header bg-dark" role="banner">
         <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
           <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
@@ -300,6 +215,93 @@
         </div>
           </div>
        </div>
+
+
+
+
+       
+
+    <?php
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $data = $_POST['user-input'];
+        $temp = explode(':', $data);
+        $temp2 = preg_replace('/\s+/','', $temp[0]);
+        
+        if($temp2 === 'train'){
+            train($temp[1]);
+        }elseif($temp2 === 'aboutbot') {
+            aboutbot();
+        }else{
+            getAnswer($temp[0]);
+        }
+    }
+  ##About Bot
+    function aboutbot() {
+        echo "<div id='result'><strong>ZOE VER1.0 </strong></br>
+    HELLO AM ZOE</div>";
+    }
+  
+  ##Train Bot
+    function train($input) {
+        $input = explode('#', $input);
+        $question = trim($input[0]);
+        $answer = trim($input[1]);
+        $password = trim($input[2]);
+        if($password == 'password') {
+            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+            $q = $GLOBALS['conn']->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+            if(empty($data)) {
+                $training_data = array(':question' => $question,
+                    ':answer' => $answer);
+                $sql = 'INSERT INTO chatbot ( question, answer)
+              VALUES (
+                  :question,
+                  :answer
+              );';
+                try {
+                    $q = $GLOBALS['conn']->prepare($sql);
+                    if ($q->execute($training_data) == true) {
+                        echo "<div id='conversation' class='bot-message'>Thank you for training me. </br>
+      Now you can ask me same question, and I will answer it correctly.</div>";
+                    };
+                } catch (PDOException $e) {
+                    throw $e;
+                }
+            }else{
+                echo "<div id='conversation' class='bot-message'>I already understand this. Teach me something new!</div>";
+            }
+        }else {
+            echo "<div id='conversation' class='bot-message'>You entered an invalid Password. <br>Try Again!</div>";
+        }
+    }
+    function getAnswer($input) {
+        $question = $input;
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+        $q = $GLOBALS['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
+        if(empty($data)){
+            echo "<div id='conversation' class='human-message'>Oops! I've not been trained to learn that command. <br>Would you like to train me?
+<br>You can train me to answer any question at all using, train:question#answer#password
+<br>e.g train:WHICH CONTINENT IS NIGERIA#AFRICA#password</div>";
+        }else {
+            $rand_keys = array_rand($data);
+            echo "<div id='conversation' class='bot-message'>". $data[$rand_keys]['answer'] ."</div>";
+        }
+    }
+    ?>
+
        </div>
 
           <script src="../vendor/jquery/jquery.min.js"></script>
