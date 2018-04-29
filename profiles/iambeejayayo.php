@@ -1,16 +1,3 @@
-<?php
-        require_once '../db.php';
-        try {
-            $select = 'SELECT * FROM secret_word';
-            $query = $conn->query($select);
-            $query->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $query->fetch();
-        } catch (PDOException $e) {
-            throw $e;
-        }
-        $secret_word = $data['secret_word'];
-        ?>
-
 <!DOCTYPE html>
 <html lang="en">
         <title>BOLAJI AYODEJI | HNG4 Internship Profile</title>
@@ -60,27 +47,23 @@
        <!-- BODY SECTION -->
 
         <body class="bg-dark text-light">
-    <div class="container">
-        <div class="row">
-        <div class="col">
+            <div class="row">
+        <div class="col-sm-4 bg-dark text-light">
             <br />
-                <img class="rounded-circle" src="https://res.cloudinary.com/iambeejayayo/image/upload/v1524882640/BolajiAyodeji.jpg" alt="My Picture">
+                <img class="rounded-circle" style="width:60%" src="http://res.cloudinary.com/iambeejayayo/image/upload/v1524882640/BolajiAyodeji.jpg" alt="My Picture">
                 <br /><br /><br />
                          <p> Hello World! <br />
-            I'm Bolaji E.A. Ayodeji <br />
+            I'm Bolaji Ayodeji<br />
             Tech Geek <i class="fa fa-user text-primary"></i>&nbsp & Web Developer <i class="fa fa-laptop text-primary"></i></p>
-            
-            I believe i can change the world with Brilliant Innovations <br />
-            With God & Code, i'ld get there.
-        </p>
+                   </p>
         </div> 
 
-                <div class="col bg-dark">
+                <div class="col-sm-6 bg-dark">
             <div id="bio">
                 <br />
                         <br />
             <div class="social">
-                <br /><br /><br />
+                <br /><br />
                     <a class="navbar-brand btn btn-outline-primary" href="#">Contact Me!</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -92,8 +75,8 @@
                       <p><i class="fa fa-phone text-primary"></i> +234 8109445504</p>
                       <p><i class="fa fa-envelope text-primary"> </i> Sirbeejay1@gmail.com</p>
                       
-                <a href="https://hnginternship4.slack.com" style="text-decoration:none"
-                class="fa fa-slack social text-light"></a>&nbsp
+                <a href="https://github.com/iambeejayayo" style="text-decoration:none"
+                class="fa fa-github social text-light"></a>&nbsp
                 <a href="https://facebook.com/ayodeji.beejay" style="text-decoration:none"
                 class="fa fa-facebook-official social text-light"></a>&nbsp
                 <a href="https://instagram.com/iambeejayayo" style="text-decoration:none"
@@ -104,18 +87,14 @@
                 class="fa fa-linkedin social text-light"></a>&nbsp
                 <a href="https://medium.com/@BolajiAyodeji" style="text-decoration:none"
                 class="fa fa-medium social text-light"></a>&nbsp
-                <a href="https://github.com/iambeejayayo"  style="text-decoration:none"
-                class="fa fa-github social text-light"></a>
-                    </div><br>
-                        </div></div></div>
+                <a href="https://slack.com/hnginternship4" style="text-decoration:none"
+                class="fa fa-slack social text-light"></a>&nbsp
+                <br /><br /><br />
+                </div></div></div></div>
+                                
                     </body>
-                    <div class="container expand-lg">
-                    <br /><br /><br />
-            <footer class="footer bg-dark">
-                <hr class="bg-light" />
-                Developed with <i class="fa fa-heart text-danger"></i> & <i class="fa fa-coffee text-warning"></i>
-            </footer>
-            </div></html>
+                    <div "container expand-lg">         
+                    </html>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
