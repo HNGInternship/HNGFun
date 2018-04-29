@@ -602,7 +602,8 @@
 							data: {chat: a},
 							success: function(data,status){
 								if(data != ""){
-									data = data.substr(data.indexOf("dustybot::"));
+									// alert(data.indexOf("dustybot::"));
+									// data = data.substr(data.indexOf("dustybot::"));
 									if (data.indexOf("::def") >= 0) {
 										
 										data = data.replace("::def","");
@@ -613,7 +614,10 @@
 										add_bot_text(data);
 									}
 									
-								}										
+								}
+								else{
+									alert("No data");
+								}									
 							}
 						});
 					}
