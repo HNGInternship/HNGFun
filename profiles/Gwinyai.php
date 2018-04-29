@@ -29,26 +29,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		 
 
 	$question = $_POST['message'];
-
-	$question = preg_replace('([\s]+)', ' ', trim($question)); 
-	$question = preg_replace("([?.])", "", $question); 
     $training = stripos($question, "train:");
+	$spaceRemoved = preg_replace('([\s]+)', ' ', trim($question)); 
+    $cleanedInput = preg_replace("([?.])", "", $spaceRemoved); 
+    $inputFormat = strtolower($cleanedInput);
+ 
 
     if ($training === 0) {
-        echo train($question, $conn);
+        echo train($cleanedInput, $conn);
         return;
-    } else if (strtolower(trim($question)) === "aboutme") {
+    } else if ($inputFormat === "aboutme") {
 			  echo json_encode([
 			     'status' => 1,
        			 'answer' => "Version 0.1"
      		 ]);
 
 		return;
-    } else if (strtolower(trim($question)) === "time:") {
+    } else if ($inputFormat === "time:") {
         echo getTime();
         return;
 
-    } else if (strtolower(trim($question)) === "list commands:") {
+    } else if ($inputFormat === "list commands:") {
         echo getCommands();
         return;
 
