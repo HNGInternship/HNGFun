@@ -1,149 +1,4 @@
-
-
-<!DOCTYPE html>
-<html>
-<head>
-	<!-- This is the main css file for the default Alta theme -->
-<link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.1.0/default/css/alta/oj-alta-min.css" type="text/css"/>
-...
-<!-- RequireJS bootstrap file -->
-<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/require/require.js"></script>
-<link href='https://fonts.googleapis.com/css?family=Alegreya|Allura|Almendra SC|Romanesco|Source+Sans+Pro:400,700' rel='stylesheet'>
-<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <style type="text/css">
-	    .oj-flex {
-    overflow-y: scroll;
-    height: 100%;
-}
-	    .oj-flex {
-    height: 100%;
-    text-align: center;
-    position: fixed;
-    width: 50%;
-    left: 0;
-    background-color: #ffffff;
-}
-	    
-	.profile {
-          height: 100%;
-    text-align: center;
-    position: fixed;
-    position: fixed;
-    position: fixed;
-    width: 50%;
-    right: 0;
-    background-color: #007bff;
-}
-	h1 {
-    color: blue;
-    color: white;
-    text-align: center;
-    bottom: 50%;
-    left: 65%;
-    position: fixed;
-    font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
-    font-weight: 700;
-}
-	p {
-    position: fixed;
-    bottom: 40%;
-    left: 58%;
-    line-height: 1.5;
-    margin: 30px 0;
-}
-	#mainNav {
-    position: fixed;
-}
-.user-input {
-    width: -webkit-fill-available;
-    border: none;
-    padding: 10px 14px;
-    font-size: 18px;
-    line-height: normal;
-}
-#user-input-form {
-	    border-right: solid black 3px;
-    position: fixed;
-    width: 50%;
-    height: 7%;
-    left: 0;
-    bottom: 0px;
-    box-sizing: border-box;
-    box-shadow: 1px 1px 9px 0px rgba(1, 1, 1, 1);
-	    }
-	    .user-message {
-		    float: left;
-    font-size: 16px;
-    background-color: #007bff63;
-    padding: 10px;
-    display: inline-block;
-    border-radius: 3px;
-    position: relative;
-    margin: 5px;
-	    
-	    }
-	    footer .copyright {
-    font-size: 14px;
-    margin-bottom: 0;
-    text-align: center;
-    left: 66% !important;
-    align-content: center;
-}
-	    
-	.bot-message {
-    float: right;
-    font-size: 16px;
-    background-color: #007bff63;
-    padding: 10px;
-    display: inline-block;
-    border-radius: 3px;
-    position: relative;
-    margin: 15px 1px 1px 0px;
-}
-    </style>
-</head>
-<body>
-<div class="container">
-    <?php
-
-    global $conn;
-
-    try {
-        $sql2 = 'SELECT * FROM interns_data WHERE username="melody"';
-        $q2 = $conn->query($sql2);
-        $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $my_data = $q2->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    ?>
-<div class="profile">
-						<h1>Dennis Otugo</h1>
-						<p>Human Being &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
-
-					</div>
-    <div class="oj-flex oj-flex-items-pad oj-contrast-marker">
-
-        <div class="oj-sm-6 oj-md-6 oj-flex-item">
-            <div class="body1">
-                <div class="chat-output" id="chat-output">
-                    <div class="user-message">
-                        <div class="message">train: question # answer # password'</div>
-                    </div>
-                </div>
-
-                <div class="chat-input">
-                    <form action="" method="post" id="user-input-form">
-                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here">
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-   <?php
+<?php
 try {
     $sql = 'SELECT * FROM secret_word';
     $q   = $conn->query( $sql );
@@ -219,12 +74,158 @@ function getAnswer( $input ) {
     }
 }
 ?>
-</div>
-
-</body>
-
-
-<script>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us" xmlns="http://www.w3.org/1999/xhtml" xml:lang=
+"en-us">
+  <head>
+    <title>
+      Oracle JET Starter Template - Web Blank
+    </title>
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content=
+    "text/html; charset=utf-8" />
+    <meta name="viewport" content=
+    "viewport-fit=cover, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-title" content="Oracle JET" />
+    <!-- injector:theme -->
+    <link href=
+    'https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css'
+    rel='stylesheet' type="text/css" />
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"
+    type="text/javascript">
+</script>
+<!-- RequireJS bootstrap file -->
+<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
+    <style type="text/css">
+                .chat-output > div {
+    display: inline-block;
+    width: 100%;
+}
+            .chat-output {
+                 display: block;
+    overflow-y: scroll;
+    height: 100%;
+    }
+        .oj-flex {
+    background-color: #007bff;
+}
+        .container {
+    max-width: 100% !important;
+                padding: 0;
+}
+   #user-input-form {
+        width: 100%;
+    position: fixed;
+    bottom: 0;
+    height: 6%;
+}
+        img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 100%;
+    box-shadow: 0 0 0 1.5em #ffffff;
+    border: 0;
+}
+          input#user-input.user-input {
+    width: 50%;
+    border: none;
+    padding: 10px 14px;
+    font-size: 18px;
+    line-height: normal;
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    box-shadow: rgb(1, 1, 1) 1px 1px 9px 0px;
+}
+.blue1 {
+    width: 50%;
+    position: fixed;
+    left: 0;
+    /* background-color: #007bff; */
+    height: 100%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    top: 30%;
+    /* transform: translate(0, 40%); */
+}
+.white2 {
+    width: 50%;
+    background-color: #ffffff;
+    width: 50%;
+    position: fixed;
+    right: 0;
+    background-color: #007bff;
+    height: 100%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    /* transform: translate(0, 40%); */
+}
+      footer {
+      display: none;
+      }
+        
+                .bot-message {
+    float: right;
+    font-size: 16px;
+    background-color: #ffffff;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 15px 1px 1px 0px;
+    }
+        p {
+    font-weight: bolder;
+}
+                  .user-message message {
+                    float: left;
+    font-size: 16px;
+    background-color: #ffffff;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 5px;
+            
+                      
+            }
+    .message {
+                    float: left;
+    font-size: 16px;
+    background-color: #ffffff;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    margin: 5px;
+            
+                      
+            }
+    </style>
+  </head>
+  <body>
+<div class="oj-sm-flex-direction-column oj-flex oj-flex-item">
+  <div class="oj-flex-item blue1">
+    <span class="avatar"><img src="https://res.cloudinary.com/dekstar-incorporated/image/upload/v1523701221/avatar.png" alt="" /></span>
+    <h1>Dennis Otugo</h1>
+    <p>Human Being | Cyborg | Never asked for this</p>
+  </div>
+  <div class="oj-flex-item white2">
+    <div class="chat-output" id="chat-output">
+        <div class="user-message"></div>
+        <div class="message">train: question # answer # password</div>
+        <div class="chat-input">
+            <form action="" method="post" id="user-input-form" name="user-input-form"></div>
+            <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Enter Text here" /></form></div>
+  </div>
+</div></div>
+</script>
+     <script>
+//<![CDATA[
     var outputArea = $("#chat-output");
 
     $("#user-input-form").on("submit", function(e) {
@@ -233,7 +234,7 @@ function getAnswer( $input ) {
 
         var message = $("#user-input").val();
 
-        outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
+        outputArea.append(`<div class='bot-message'><div><div class='message'>${message}<\/div><\/div><\/div>`);
 
 
         $.ajax({
@@ -243,7 +244,7 @@ function getAnswer( $input ) {
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+                    outputArea.append("<div class='user-message'<div><div><div class='message'>" + result + "<\/div><\/div><\/div>");
                     $('#chat-output').animate({
                         scrollTop: $('#chat-output').get(0).scrollHeight
                     }, 1500);
@@ -255,4 +256,8 @@ function getAnswer( $input ) {
         $("#user-input").val("");
 
     });
-</script>
+    //]]>
+    </script>
+  </body>
+</html>
+

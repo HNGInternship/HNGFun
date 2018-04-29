@@ -1,0 +1,35 @@
+body{
+    background-color: #C195A3;
+    color: rgb(37, 31, 34);
+    font-family: Arial, Helvetica, sans-serif;
+}
+#big_wrapper{
+    position: relative;
+    right: 60px;
+    top: 30px;
+    display: flex;
+    justify-content: center;
+    background-color: #D3BDC6;
+    margin: -10px 50px;
+    width: 950px;
+    height: 600px;
+    padding: 5px;
+    text-align: center;
+    border: 3px dashed #EAEAEC;
+}
+.main_img{
+    position: relative;
+    left: ;
+    border-radius: 50px;
+}
+p{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    
+}
+#social{
+    display: flex;
+    align-items: flex-end;
+    justify-items: center;
+}
