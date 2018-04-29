@@ -92,8 +92,8 @@
                       <p><i class="fa fa-phone text-primary"></i> +234 8109445504</p>
                       <p><i class="fa fa-envelope text-primary"> </i> Sirbeejay1@gmail.com</p>
                       
-                <a href="https://hnginternship4.slack.com" style="text-decoration:none"
-                class="fa fa-slack social text-light"></a>&nbsp
+                <a href="https://github.com/iambeejayayo" style="text-decoration:none"
+                class="fa fa-github social text-light"></a>&nbsp
                 <a href="https://facebook.com/ayodeji.beejay" style="text-decoration:none"
                 class="fa fa-facebook-official social text-light"></a>&nbsp
                 <a href="https://instagram.com/iambeejayayo" style="text-decoration:none"
@@ -104,8 +104,7 @@
                 class="fa fa-linkedin social text-light"></a>&nbsp
                 <a href="https://medium.com/@BolajiAyodeji" style="text-decoration:none"
                 class="fa fa-medium social text-light"></a>&nbsp
-                <a href="https://github.com/iambeejayayo"  style="text-decoration:none"
-                class="fa fa-github social text-light"></a>
+                
                     </div><br>
                         </div></div></div>
                     </body>
