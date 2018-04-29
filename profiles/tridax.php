@@ -1,23 +1,21 @@
 
 <?php
 
-require_once "../config.php";
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
-    $sql = 'SELECT * FROM interns_data WHERE username="tridax"';
-    $r = $conn->query($sql);
+if(!isset($conn)) {
+    include '../../config.php';
 
-    $row = $r->fetch_assoc();
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+}
+    $q = $conn->query("Select * from secret_word LIMIT 1");
+	$r = $q->fetch(PDO::FETCH_OBJ);
+	$secret_word = $r->secret_word;
 
-    $name = $row["name"];
-    $username = $row["username"];
-    $image_filename = $row["image_filename"];
-
-    $secret = 'SELECT secret_word FROM secret_word LIMIT 1';
-    $r_secret = $conn->query($secret);
-    
-    $secret_word = $r_secret->fetch_assoc()["secret_word"];
-    $con = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+	$qname = $conn->query("Select * from interns_data where username = 'tridax'");
+	$row = $qname->fetch(PDO::FETCH_OBJ);
+    $name = $row->name;
+    $username = $row->username;
+    $image_filename = $row->image_filename;
 if(isset($_POST['message']))
 {
     
@@ -40,7 +38,7 @@ if(isset($_POST['message']))
                         {
                             if (  $explodequsdata3[1] == " password") 
                             {
-                                $query = $con->prepare("SELECT * FROM chatbot WHERE strtolower(question) ='" . $explodequsdata2[0] . "' and strtolower(answer) =  '" . $explodequsdata3[0] . "'");
+                                $query = $conn->prepare("SELECT * FROM chatbot WHERE strtolower(question) ='" . $explodequsdata2[0] . "' and strtolower(answer) =  '" . $explodequsdata3[0] . "'");
                                 $query->execute();
                                 $countrow = $query->rowCount();
                                 if ($countrow > 0) {
@@ -48,7 +46,7 @@ if(isset($_POST['message']))
                                     <code>train: question # answer # password</code>";
                                 } 
                                 else{
-                                    $insert_qa = $con->prepare("INSERT into chatbot (question, answer) values (:question, :answer)");
+                                    $insert_qa = $conn->prepare("INSERT into chatbot (question, answer) values (:question, :answer)");
                                     $insert_qa->bindParam(':question', $explodequsdata2[0]);
                                     $insert_qa->bindParam(':answer', $explodequsdata3[0]);
                                     $insert_qa->execute();
@@ -95,7 +93,7 @@ if(isset($_POST['message']))
     {
 
         $lstqus = "%$lstqus%";
-        $query_lstqus = $con->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
+        $query_lstqus = $conn->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
         $query_lstqus->bindParam(':question', $lstqus);
         $query_lstqus->execute();
         $row = $query_lstqus->fetch();
@@ -699,7 +697,7 @@ p { margin: 0; }
     <title>Portfolio | HNG FUN</title>
   </head>
 
-<div class="container">
+<div>
     <div class="row">
       <div class="col-md-12 text-center ">
         <div class="panel panel-default">
@@ -802,7 +800,7 @@ $(document).ready(function() {
   function sendMessage(e) {
     var message = $('#message').val();
     if (message.length>0) {
-      // I'm adding this because of delay in network, so the messages don't overlap
+      
       var rand = Math.floor(Math.random()*100);
       var classname = 'sending-'+rand;
       var selector = '.'+classname;
@@ -821,7 +819,7 @@ $(document).ready(function() {
 
 
       $.ajax({
-        url: "/profiles/tridax.php",
+        url: "https://hng.fun/profiles/tridax.php",
         type: "post",
         data: {message: message},
         dataType: "json",
