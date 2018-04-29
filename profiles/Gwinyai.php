@@ -1,6 +1,6 @@
 <?php   
 	if(!defined('DB_USER')){
-	  require "../config.php";		
+	  require "../../config.php";		
 	  try {
 	      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 	  } catch (PDOException $e) {
@@ -25,22 +25,42 @@
 ?>
 <?php   
 
-// Start with the training query
-if(isset($_POST['training']) || ($_SERVER['REQUEST_METHOD'] === 'POST')) {
-     include '../answers.php';
-      $message = trim($_POST['training']);
-      $training = strpos($message, "train:");
-      if ($training === 0) {
-        echo train($message, $conn);
-      } else {
-         echo botAnswer($message, $conn);
-      }
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		 
+
+	$question = $_POST['message'];
+
+	$question = preg_replace('([\s]+)', ' ', trim($question)); 
+	$question = preg_replace("([?.])", "", $question); 
+    $training = strpos($question, "train:");
+
+    if ($training === 0) {
+        echo train($question, $conn);
+        return;
+    } else if (strtolower(trim($question)) === "aboutme") {
+			  echo json_encode([
+			     'status' => 1,
+       			 'answer' => "Version 0.1"
+     		 ]);
+
+		return;
+    } else if (strtolower(trim($question)) === "time:") {
+        echo getTime();
+        return;
+
+    } else if (strtolower(trim($question)) === "list commands:") {
+        echo getCommands();
+        return;
+
+    } else {
+        echo botAnswer($question, $conn);
+    }
+   
+     
         
         exit();
-    
 
-
-
+}
 
 function check_question($q, $conn){
 
@@ -117,15 +137,21 @@ function train($bot_training, $conn){
 
      $pos = strpos($bot_training,'#');
      if( $pos === false) {
- 
-         return 'To train me please use the format <br/> <code>train: question # answer # password <code> ';
+         echo json_encode([
+            "status" => 1,
+            "answer" => "To train me please use the format <br/> <code>train: question # answer # password <code>"
+        ]);
+         return; 
      }
      define ('PASSWORD', "ubuntu");
     
      $pos = strpos($bot_training, PASSWORD);
      if( $pos === false) {
- 
-         return 'Training denied, a password is required ';
+         echo json_encode([
+            "status" => 1,
+            "answer" => "Training denied, a password is required"
+        ]);
+        return; ;
      } else {
         
         $train_question = trim(substr($bot_training, 0, strpos($bot_training,'#')));
@@ -156,14 +182,19 @@ function getTime(){
    
      $time = new DateTime();
      $time->setTimezone(new DateTimeZone('Africa/harare'));
-     return $time->format('h:i A');
+      echo json_encode([
+            "status" => 1,
+            "answer" => $time->format('h:i A')
+        ]);
+
+     return;
  }
 
  function getCommands(){
     
     echo json_encode([
             "status" => 1,
-            "message" => "<code><ol><h6 class='white'>List of commands</h6><li>To hear a joke type joke:</li><li>To check my version type aboutme</li><li>To check the time type time: </li><li>To show list of commands type list commands:</li></ol>
+            "answer" => "<code><ol><h6 class='white'>List of commands</h6><li>To hear a joke type joke:</li><li>To check my version type aboutme</li><li>To check the time type time: </li><li>To show list of commands type list commands:</li></ol>
      <code>"
         ]);
  }
@@ -194,7 +225,7 @@ function getTime(){
                    
                     echo json_encode([
                          "status" => 1,
-                        "message" => $question['answer']
+                        "answer" => $question['answer']
                     ]);
                     return;
                     
@@ -202,7 +233,7 @@ function getTime(){
                     
                     echo json_encode([
                          "status" => 1,
-                        "message" => parse_answer($question['answer'])
+                        "answer" => parse_answer($question['answer'])
                     ]);
                         return;
                     
@@ -213,7 +244,7 @@ function getTime(){
                    
                 return json_encode([
                      "status" => 1,
-                    "message" =>  "Sorry I don't have an answer for that, please train me"
+                    "answer" =>  "Sorry I don't have an answer for that, please train me"
                 ]);
                    
                 
@@ -223,7 +254,7 @@ function getTime(){
     
     }
 
-} else {
+// } else {
 
 ?>
 
@@ -1102,8 +1133,8 @@ function getTime(){
                 </section>
     
 </section>
-<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.6/typed.min.js"></script>
        <script>
@@ -1388,11 +1419,10 @@ function getTime(){
                 type: "POST",
                 dataType : "json",
                 url: 'profiles/Gwinyai.php',
-                contentType: "application/json; charset=utf-8",
-                data: { training: message },
+                data: {message},
                 success: function(data){
                     if(data.status == 1) {
-                        showBotMessage(data);
+                        showBotMessage(data.answer);
                     }
                
                       
@@ -1402,7 +1432,27 @@ function getTime(){
 						}
                 });
             }
-            
+            function testQuery() {
+                var question = cleanText(chatInput.value);
+            	$.ajax({
+						url: "/profiles/Gwinyai.php",
+						dataType : "json",
+						type: "POST",
+						data: {question},
+						success: function(data) {
+							if(data.status == 1){
+								
+                            showBotMessage(data.answer);
+		       				
+
+							} 
+			       		},
+
+						error: function(error){
+							console.log(error);
+						}
+				});
+            }
 
             function getJoke() {
                
@@ -1429,4 +1479,3 @@ function getTime(){
 
 </html>
 
-<?php } ?>
