@@ -1,0 +1,21 @@
+.hero-main-text{
+	font-size: 800%;
+	text-transform: uppercase;
+	margin: 0!important;
+	padding: 0!important;
+}
+.hero-sub-text-1{
+	font-size: 400%;
+	text-transform: capitalize;
+	margin: -6% 0 0 0;
+	padding: 0!important;
+}
+.hero-sub-text-2{
+	font-size: 200%;
+	/*text-transform: capitalize;*/
+	margin: -1% 0 0 0;
+	padding: 0!important;
+}
+.font-icon{
+	font-size: 200%;
+}

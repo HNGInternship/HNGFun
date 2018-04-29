@@ -1,31 +1,33 @@
 <?php
+//require '../../config.php';
 
- try {
-     $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'nedy'");
-     $intern_data->execute();
-     $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
-     $result = $intern_data->fetch();
- 
- 
-     $secret_code = $conn->prepare("SELECT * FROM secret_word");
-     $secret_code->execute();
-     $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
-     $code = $secret_code->fetch();
-     $secret_word = $code['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
+    
+try {
+ $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'nedy'");
+ $intern_data->execute();
+ $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+ $result = $intern_data->fetch();
+
+
+ $secret_code = $conn->prepare("SELECT * FROM secret_word");
+ $secret_code->execute();
+ $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+ $code = $secret_code->fetch();
+ $secret_word = $code['secret_word'];
+} catch (PDOException $e) {
+  throw $e;
+}
 //if($_SERVER['REQUEST_METHOD']==='POST'){
-    // require '../../config.php';
-    // $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
-    //         if(!$conn){
-    //             echo json_encode([
-    //                 'status'    => 1,
-    //                 'response'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
-    //             ]);
-    //             return;
-    //         }
-    // if(isset($_POST['message'])){
+    //require '../../config.php';
+    //$conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+    // if(true){
+    //     echo json_encode([
+    //         'status'    => 1,
+    //         'response'    => "okay in post mode"
+    //     ]);
+    //     return;
+    // }
+//if(isset($_POST['message'])){
     //     $question = $_POST['message'];
     //     if(strpos($question, "train:") !== false){
     //         $questionAndAnswer = substr($question, 6); //get the string after train
@@ -97,9 +99,11 @@
 //     //   ]);
 //       return ;
 //     }
+//     echo "post";
+//     return;
 // }
-?>
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
