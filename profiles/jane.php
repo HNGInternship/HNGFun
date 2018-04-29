@@ -602,7 +602,9 @@
 							data: {chat: a},
 							success: function(data,status){
 								if(data != ""){
+									console.log(data+"\n");
 									data = data.substr(data.indexOf("dustybot::"));
+									console.log(data);
 									if (data.indexOf("::def") >= 0) {
 										
 										data = data.replace("::def","");
