@@ -3,11 +3,6 @@
 DO NOT MODIFY THIS FILE!!!
  */
 require '../config.php';
-/*
->>>>>>> Update profile
-
-*/
-
 
 // try {
 //     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
@@ -16,9 +11,9 @@ require '../config.php';
 //     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 // }
 
-?>
 
- */
+
+ 
 try {
     $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
 
@@ -26,3 +21,4 @@ try {
     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
 
+?>

@@ -2,7 +2,7 @@
     //error_reporting(0);
 
 require_once("../../../config.php");
-	$dbc = mysqli_connect(DB_HOST, "29gE9t*dJ2#2f-BS", DB_PASSWORD,DB_DATABASE);
+	$dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE);
 if (!$dbc) {
     die('Connect Error (' . mysqli_connect_errno() . ') '
             . mysqli_connect_error());
@@ -12,5 +12,5 @@ if (!$dbc) {
 // 	mysqli_query($dbc, "SET NAMES `utf8`") or $error = mysqli_error($dbc);
 // 	var_dump("error:". $error);
 	
-	var_dump(DB_HOST." ". DB_USER." ". DB_PASSWORD." ".DB_DATABASE);
+//	var_dump(DB_HOST." ". DB_USER." ". DB_PASSWORD." ".DB_DATABASE);
 // 	if(@$error){ die($error);}

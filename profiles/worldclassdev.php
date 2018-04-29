@@ -101,7 +101,25 @@ $formaction = "profiles/worldclassdev-api/chat.php";
 </form>
     </div>  
   </my-profile>
+<<<<<<< HEAD
+    <?php
+$formaction = "profiles/worldclassdev-api/chat.php";
+?>
+<form action="<?php echo $formaction; ?>" method="post" >
+<input name="chat" type="text" style="width: 100%" >
+<input   type="submit" value="chat with me" >
+</form>
+||||||| merged common ancestors
+    <?php
+$formaction = "profiles/worldclassdev/api/chat.php";
+?>
+<form action="<?php echo $formaction; ?>" method="post" >
+<input name="chat" type="text" style="width: 100%" >
+<input   type="submit" value="chat with me" >
+</form>
+=======
 
+>>>>>>> eeccdd734718fa2940b000e5386e2a4ec2575fcd
 
 </div>
       </div>
