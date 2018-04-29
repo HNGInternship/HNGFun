@@ -1,14 +1,5 @@
 <?php
-
-	// $servername = "localhost";
-	// $dbname = "hng_fun";
-	// $conn = new PDO("mysql:host=$servername;dbname=$dbname", "root", "");
-	// $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	// $name = $username = $image_filename = $secret_word = "";
-
-
-	// Profile
-
+	
 	try {
 
 
@@ -80,16 +71,16 @@
 								
 							} catch (PDOException $e) {
 								echo $e->getMessage();
-								exit();
+								die();
 							}
 
 							print_r($train_success);
-							exit();
+							die();
 						}
 
 						else{
 							print_r($wrong_password[rand(0,2)]);
-							exit();
+							die();
 						}
 
 					}
@@ -110,27 +101,27 @@
 
 					if ($result <= 18.5) {
 						echo $result.$bmi_result[0];
-						exit();
+						die();
 					} 
 
 					else if($result > 18.5 && $result <= 24.9){
 						echo $result.$bmi_result[1];
-						exit();
+						die();
 					}
 
 					else if ($result >= 25 && $result <= 29.9) {
 						echo $result.$bmi_result[2];
-						exit();
+						die();
 					}
 
 					else{
 						echo $result.$bmi_result[3];
-						exit();
+						die();
 					}
 				}
 				else{
 					echo "Enter a valid input";
-					exit();
+					die();
 				}
 			}
 
@@ -149,7 +140,7 @@
 					
 				} catch (PDOException $e) {
 					echo $e->getMessage();
-					exit();
+					die();
 				}
 
 				if($answer == ""){
@@ -157,7 +148,7 @@
 				}
 
 				echo $answer;
-				exit();
+				die();
 			}
 		}
 			return;
@@ -190,18 +181,10 @@
 				background: #fff;
 			}
 
-			/*.container{
-				height: 100vh;
-				margin: 0px;
-				padding: 0px;
-				min-height: 800px;
-				position: relative;
-			}
-*/
 			#whole{
 				padding: 20px;
-				margin: 0px;
-				min-height: 500px;
+				margin-top: 10px;
+				min-height: 800px;
 			}
 
 			#whole div:nth-child(2){
