@@ -143,7 +143,7 @@ function train($bot_training, $conn){
 		if(count($userText) == 1){
 			echo json_encode([
 				'status' => 1,
-				'answer' => "You have entered an invalid format.You can enter the correct format by typing-->train: question # answer # password"
+				'answer' => "To train me please use the format <br/> <code>train: question # answer # password <code>"
 			]);
 			return;
 		};
