@@ -1,7 +1,8 @@
 
 <?php
 
-require_once "../config.php";
+
+require "../../config.php";
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
     $sql = 'SELECT * FROM interns_data WHERE username="tridax"';
@@ -263,12 +264,12 @@ body {
 .countlist {
 	text-transform: uppercase
 }
-.countlist li {
+.countlist {
 	padding: 15px 30px 15px 0;
 	font-size: 14px;
 	text-align: left;
 }
-.countlist li small {
+.countlist small {
 	font-size: 12px;
 	margin: 0
 }
@@ -699,7 +700,7 @@ p { margin: 0; }
     <title>Portfolio | HNG FUN</title>
   </head>
 
-<div class="container">
+<div>
     <div class="row">
       <div class="col-md-12 text-center ">
         <div class="panel panel-default">
@@ -775,7 +776,7 @@ p { margin: 0; }
         <form method="post" id="messageForm">
 		<div class="form-group m-b-30"> 
         	<input type="text" onkeypress="handle(event)" id="message" name="message" class="form-control floating-label" placeholder="Enter Message" required autofocus>
-			<button type="reset" type="submit" class="btn btn-embossed btn-sm btn-primary m-b-10 m-r-0">SEND</button>
+			<button type="submit" class="btn btn-embossed btn-sm btn-primary m-b-10 m-r-0">SEND</button>
 		</div>
         </form>
     </div> <!-- end live-chat -->
@@ -802,7 +803,7 @@ $(document).ready(function() {
   function sendMessage(e) {
     var message = $('#message').val();
     if (message.length>0) {
-      // I'm adding this because of delay in network, so the messages don't overlap
+      
       var rand = Math.floor(Math.random()*100);
       var classname = 'sending-'+rand;
       var selector = '.'+classname;
@@ -812,16 +813,10 @@ $(document).ready(function() {
       '<div class="chat-message-content clearfix"><h4>chat</h4><p class="'+classname+'">'+message+'</p></div></div><hr>');
       $('#user_chat').animate({scrollTop: $('#user_chat').prop("scrollHeight")}, 1000);
       
-				
-                
-                    
-                   
-                    
-                
-
+	
 
       $.ajax({
-        url: "/profiles/tridax.php",
+        url: "https://hng.fun/profiles/tridax.php",
         type: "post",
         data: {message: message},
         dataType: "json",
