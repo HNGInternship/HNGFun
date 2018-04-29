@@ -190,14 +190,14 @@
 				background: #fff;
 			}
 
-			.container{
+			/*.container{
 				/*height: 100vh;*/
 				margin: 0px;
 				padding: 0px;
 				min-height: 800px;
 				position: relative;
 			}
-
+*/
 			#whole{
 				padding: 20px;
 				margin: 0px;
@@ -485,7 +485,7 @@
 	<body>
 
 
-		<div class="container">
+		<!-- <div class="container"> -->
 			<div id="whole">
 				<div class="row">
 					<div class="hidden-xs col-md-2"></div>
@@ -556,7 +556,7 @@
 					</div>
 				</div>
 				
-			</div>
+			<!-- </div> -->
 			
 	</body>
 
