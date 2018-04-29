@@ -106,24 +106,25 @@
 				$height = $array2[1];
 				if(is_numeric($weight) && is_numeric($height)){
 					$result = $weight/($height*$height);
+					$result = "Your BMI is ".$result."\n";
 
 					if ($result <= 18.5) {
-						echo $bmi_result[0];
+						echo $result.$bmi_result[0];
 						exit();
 					} 
 
 					else if($result > 18.5 && $result <= 24.9){
-						echo $bmi_result[1];
+						echo $result.$bmi_result[1];
 						exit();
 					}
 
 					else if ($result >= 25 && $result <= 29.9) {
-						echo $bmi_result[2];
+						echo $result.$bmi_result[2];
 						exit();
 					}
 
 					else{
-						echo $bmi_result[3];
+						echo $result.$bmi_result[3];
 						exit();
 					}
 				}
@@ -190,7 +191,7 @@
 			}
 
 			.container{
-				height: 100vh;
+				/*height: 100vh;*/
 				margin: 0px;
 				padding: 0px;
 				min-height: 800px;
