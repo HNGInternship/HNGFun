@@ -3,32 +3,26 @@
 if(!defined('DB_USER')){
   require "../../config.php";		
   try {
-      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-  } catch (PDOException $pe) {
-      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-  }
-}
-global $conn;
-try {
-    $query = "SELECT * FROM interns_data_ WHERE username ='john'";
-    $resultSet = $conn->query($query);
-    $result = $resultSet->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e){
-    throw $e;
-}
-$username = $result['username'];
-$fullName = $result['name'];
-$picture = $result['image_filename'];
-//Fetch Secret Word
-try{
-    $querySecret =  "SELECT * FROM secret_word LIMIT 1";
-    $resultSet   =  $conn->query($querySecret);
-    $result  =  $resultSet->fetch(PDO::FETCH_ASSOC);
-    $secret_word =  $result['secret_word'];
-}catch (PDOException $e){
-    throw $e;
-}
-$secret_word =  $result['secret_word'];
+	  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+	  } catch (PDOException $pe) {
+	      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	  }
+	}
+	global $conn;
+	if ($_SERVER['REQUEST_METHOD'] === "GET") {
+		try {
+		    $query = "SELECT name,username,image_filename,secret_word FROM secret_word, interns_data WHERE username ='john'";
+		    $resultSet = $conn->query($query);
+		    $result = $resultSet->fetch(PDO::FETCH_ASSOC);
+		} catch (PDOException $e){
+		    throw $e;
+		}
+		$username = $result['username'];
+		$fullName = $result['name'];
+		$picture = $result['image_filename'];
+		//Fetch Secret Word
+		$secret_word =  $result['secret_word'];
+	}
 
 
 
