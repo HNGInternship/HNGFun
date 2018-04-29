@@ -154,7 +154,7 @@ function train($bot_training, $conn){
         if(count($userText) < 3){ 
 	        echo json_encode([
 	          'status' => 1,
-	          'answer' => "Please enter training password to train me. The password is: password"
+	          'answer' => "Please enter training password to train me. "
 	        ]);
         	return;
         };
@@ -167,7 +167,7 @@ function train($bot_training, $conn){
         if($user_password !== PASSWORD){ 
 	        echo json_encode([
 	          'status' => 1,
-	          'answer' => "Your password is not correct, you cannot train me."
+	          'answer' => "Please enter the correct training password to train me."
 	        ]);
      		return;
     	};
