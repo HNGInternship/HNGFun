@@ -29,26 +29,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		 
 
 	$question = $_POST['message'];
-
-	$question = preg_replace('([\s]+)', ' ', trim($question)); 
-	$question = preg_replace("([?.])", "", $question); 
-    $training = strpos($question, "train:");
+    $training = stripos($question, "train:");
+	$spaceRemoved = preg_replace('([\s]+)', ' ', trim($question)); 
+    $cleanedInput = preg_replace("([?.])", "", $spaceRemoved); 
+    $inputFormat = strtolower($cleanedInput);
+ 
 
     if ($training === 0) {
-        echo train($question, $conn);
+        echo train($cleanedInput, $conn);
         return;
-    } else if (strtolower(trim($question)) === "aboutme") {
+    } else if ($inputFormat === "aboutme") {
 			  echo json_encode([
 			     'status' => 1,
        			 'answer' => "Version 0.1"
      		 ]);
 
 		return;
-    } else if (strtolower(trim($question)) === "time:") {
+    } else if ($inputFormat === "time:") {
         echo getTime();
         return;
 
-    } else if (strtolower(trim($question)) === "list commands:") {
+    } else if ($inputFormat === "list commands:") {
         echo getCommands();
         return;
 
@@ -96,8 +97,8 @@ function check_question($q, $conn){
 }
  
 function check_answer($question){
-    $opening_paren = strpos($question,'((');
-    $closing_paren = strpos($question,'))');
+    $opening_paren = stripos($question,'((');
+    $closing_paren = stripos($question,'))');
 
     if( $opening_paren === false && $closing_paren === false ) {
         return false;
@@ -114,8 +115,8 @@ function parse_answer($answer){
     $brace_end = '}';
     
    
-    $start_pos = strpos($answer, $func_start);
-    $end_pos = strpos($answer, $ffunc_end, $start_pos);
+    $start_pos = stripos($answer, $func_start);
+    $end_pos = stripos($answer, $ffunc_end, $start_pos);
   
     $function_name = substr($answer, $start_pos+2, ($end_pos-2)-$start_pos);
    
@@ -132,8 +133,8 @@ function remove_brackets($string){
 
 function train($bot_training, $conn){
 
-    $userText = preg_replace('([\s]+)', ' ', trim($question)); 
-	    $userText = preg_replace("([?.])", "", $userText); 
+    $userText = preg_replace('([\s]+)', ' ', trim($bot_training)); 
+	    $userText = preg_replace("([?.:])", "", $userText); 
 
 		$userText = substr($userText, 6);
 
@@ -150,10 +151,10 @@ function train($bot_training, $conn){
 
 
 	    $user_answer = trim($userText[1]);    
-        if(count($userText) < 3){ //the user only enter question and answer without password
+        if(count($userText) < 3){ 
 	        echo json_encode([
 	          'status' => 1,
-	          'answer' => "Please enter training password to train me. The password is: password"
+	          'answer' => "Please enter training password to train me. "
 	        ]);
         	return;
         };
@@ -161,12 +162,12 @@ function train($bot_training, $conn){
          //get the index of the user password
 	    $user_password = trim($userText[2]);
 
-        //verify if training password is correct
-        define('PASSWORD', 'password'); //constant variable
+      
+        define('PASSWORD', 'password'); 
         if($user_password !== PASSWORD){ 
 	        echo json_encode([
 	          'status' => 1,
-	          'answer' => "Your password is not correct, you cannot train me."
+	          'answer' => "Please enter the correct training password to train me."
 	        ]);
      		return;
     	};
