@@ -3,6 +3,7 @@
 
 
 require "../config.php";
+require "../../config.php";
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
     $sql = 'SELECT * FROM interns_data WHERE username="tridax"';
