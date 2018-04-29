@@ -187,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			
 		}
 		#header{
-			width: 620px;
+			width: 350px;
 			height: 60px;
 			margin: 0px auto;
 			background-color:#00AFEF;
@@ -199,7 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			color:#ffffff;
 		}
 		#contain{
-			width:620px; 
+			width:350px; 
 			height: 400px;
 			margin-top:10px;
 			margin:0px auto;
@@ -209,13 +209,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			overflow:scroll;
 		}
 		#controls{
-			width:80%px;
+			width:350px;
 			margin:0px auto;
 			
 		}
 		#textbox{
-			margin:0 0 0 10%;
-			width:70%;
+			margin:0 0 0 0;
+			width:82%;
 			
 		}
 		#send{
@@ -314,7 +314,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	       	message.scrollTop(message[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: 'maaj.php', //location
+				url: '/profiles/maaj.php', //location
 				type: 'POST',
 				data: {text_in: text_in},
 				dataType: 'json',

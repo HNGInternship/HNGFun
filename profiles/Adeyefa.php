@@ -2,11 +2,10 @@
 
 if(!defined('DB_USER')){
   require "../../config.php";		
-	  try {
+	try {
 	    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-	  
-	} catch (PDOException $pe) {
-	    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	}catch (PDOException $pe) {
+	   die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 	}
 }
  
@@ -19,7 +18,7 @@ if(!defined('DB_USER')){
 
 	if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-	    include "../answers.php";
+		include '../answers.php';
 	    
 	    try{
 
@@ -113,7 +112,7 @@ if(!defined('DB_USER')){
 		    else {
 		    	$question = implode(" ",$arr);
 		    	//to check if answer already exists in the database...
-		    	$question = "%$question%";
+		    	$question = "$question";
 		    	$sql = "Select * from chatbot where question like :question";
 		        $stat = $conn->prepare($sql);
 		        $stat->bindParam(':question', $question);
@@ -121,12 +120,17 @@ if(!defined('DB_USER')){
 
 		        $stat->setFetchMode(PDO::FETCH_ASSOC);
 		        $rows = $stat->fetchAll();
-		        if(count($rows)>0){
-			        $index = rand(0, count($rows)-1);
-			        $row = $rows[$index];
-			        $answer = $row['answer'];
-			        // check if answer is a function.
-			        $index_of_parentheses = stripos($answer, "((");
+		        if(empty($rows)){
+		        	echo json_encode([
+			    		'status' => 0,
+			    		'answer' => "I am sorry, I cannot answer your question now. You could train me to answer the question."
+			    	]);
+			    	return;
+			    }else{
+			    	$rand = array_rand($rows);
+			    	$answer = $rows[$rand]['answer'];
+
+			    	$index_of_parentheses = stripos($answer, "((");
 			        if($index_of_parentheses === false){// if answer is not to call a function
 			        	echo json_encode([
 				        	'status' => 1,
@@ -158,24 +162,14 @@ if(!defined('DB_USER')){
 				            }
 				            return;
 			            }
-			        }    
-			    }else{
-
-			    	echo json_encode([
-			    		'status' => 0,
-			    		'answer' => "I am sorry, I cannot answer your question now. You could offer to train me."
-			    	]);
-			    	return;
-			    }
+			        }
+			    }       
 		    }
 		}catch (Exception $e){
 			return $e->message ;
 		}
 	}
 ?>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -383,6 +377,7 @@ if(!defined('DB_USER')){
 				        alert(JSON.stringify(error));
 					}
 				})	
+				document.getElementById("qform").reset();		
 			})
 		});
 	</script>
