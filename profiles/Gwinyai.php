@@ -132,7 +132,7 @@ function remove_brackets($string){
 
 function train($bot_training, $conn){
 
-    $userText = preg_replace('([\s]+)', ' ', trim($question)); 
+    $userText = preg_replace('([\s]+)', ' ', trim($bot_training)); 
 	    $userText = preg_replace("([?.])", "", $userText); 
 
 		$userText = substr($userText, 6);
@@ -150,7 +150,7 @@ function train($bot_training, $conn){
 
 
 	    $user_answer = trim($userText[1]);    
-        if(count($userText) < 3){ //the user only enter question and answer without password
+        if(count($userText) < 3){ 
 	        echo json_encode([
 	          'status' => 1,
 	          'answer' => "Please enter training password to train me. The password is: password"
@@ -161,8 +161,8 @@ function train($bot_training, $conn){
          //get the index of the user password
 	    $user_password = trim($userText[2]);
 
-        //verify if training password is correct
-        define('PASSWORD', 'password'); //constant variable
+      
+        define('PASSWORD', 'password'); 
         if($user_password !== PASSWORD){ 
 	        echo json_encode([
 	          'status' => 1,
