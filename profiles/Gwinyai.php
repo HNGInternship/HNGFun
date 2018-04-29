@@ -21,7 +21,9 @@
     } catch (PDOException $e) {
         throw $e;
     }
-   
+
+?>
+<?php   
 
 // Start with the training query
 if(isset($_POST['training']) || ($_SERVER['REQUEST_METHOD'] === 'POST')) {
