@@ -4,9 +4,9 @@ session_start();
 if($_SERVER['REQUEST_METHOD'] == "POST") {
    if(!defined('DB_USER')){
       //live server
-      require "../../config.php";
+      // require "../../config.php";
       // localhost
-      // require "../config.php";
+      require "../config.php";
       try {
          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
       } catch (PDOException $pe) {
@@ -259,9 +259,9 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
 
 function newElementsForUser(userRequest) {
    var chatArea = document.getElementById("chatarea");
-   var messageElement = document.createElement("input");
+   var messageElement = document.createElement("div");
    messageElement.className = "form-control form-control2 text-right";
-   messageElement.value = userRequest;
+   messageElement.innerHTML = userRequest;
    var id = Date.now();
    messageElement.setAttribute("id", id);
    chatArea.appendChild(messageElement);
@@ -274,14 +274,13 @@ function newElementsForUser(userRequest) {
 
 function newElementsForBot(botResponse) {
    var chatArea = document.getElementById("chatarea");
+   var messageElement = document.createElement("div");
    if(botResponse.response.resultType == "find") {
-      var messageElement = document.createElement("div");
       messageElement.innerHTML = "Intern ID => " + botResponse.response.users.intern_id + "\n" +
       "Intern Name => " + botResponse.response.users.name + "\n" +
       "Intern Username => " + botResponse.response.users.username + "\n" +
       "Intern Profile Picture => " + botResponse.response.users.image_filename;
    } else {
-      var messageElement = document.createElement("input");
       messageElement.value = botResponse.response;
    }
    messageElement.className = "form-control form-control2 text-left";
@@ -305,9 +304,9 @@ function sendData() {
       newElementsForUser(message);
       $.ajax({
          //localhost
-         // url: "http://localhost/HNGFuns/profiles/femi_dd.php",
+         url: "http://localhost/HNGFuns/profiles/femi_dd.php",
          // live server
-         url: "https://hng.fun/profiles/femi_dd.php",
+         // url: "https://hng.fun/profiles/femi_dd.php",
          type: "post",
          data: {new_request: message},
          dataType: "json",
