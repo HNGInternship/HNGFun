@@ -1,6 +1,7 @@
 <?php
-  $dt = date("Y-m-d h:i:sa");
-  $time= date("h:i:sa");?>
+      $dt = date("Y-m-d h:i:sa");
+      $time= date("h:i:sa");
+  ?>
 
 <?php 
 if(!defined('DB_USER')){
@@ -18,7 +19,6 @@ if(!defined('DB_USER')){
   $result2 = $conn->query("Select * from interns_data where username = 'foluwa'");
   $user = $result2->fetch(PDO::FETCH_OBJ);
 
-
   if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     include '../answers.php';
@@ -33,18 +33,17 @@ if(!defined('DB_USER')){
           return;
         }
 
-        //if(!isset($_POST['question'])){
-        $mem = $_POST['question'];
-        $mem = preg_replace('([\s]+)', ' ', trim($mem));
-        $mem = preg_replace("([?.])", "", $mem);
-      $arr = explode(" ", $mem);
+        if(!isset($_POST['question'])){
+        $store = $_POST['question'];
+        $store = preg_replace('([\s]+)', ' ', trim($store));
+        $store = preg_replace("([?.])", "", $store);
+        $my_Array = explode(" ", $store);
       //test for training mode
 
-      if($arr[0] == "train:"){
-
-        unset($arr[0]);
-        $q = implode(" ",$arr);
-        $queries = explode("#", $q);
+      if($my_Array[0] == "train:"){
+        unset($my_Array[0]);
+        $imp_exp = implode(" ",$my_Array);
+        $queries = explode("#", $imp_exp);
         if (count($queries) < 3) {
           # code...
           echo json_encode([
@@ -57,11 +56,11 @@ if(!defined('DB_USER')){
         //to verify training password
         define('trainingpassword', 'password');
         
-        if ($password !== trainingpassword) {
-          # code...
+        if ($password !== password) {//trainingpassword
+          // code...
           echo json_encode([
             'status'=> 0,
-            'answer' => "You entered a wrong passsword"
+            'answer' => "Your passsword is incorrect"
           ]);
           return;
         }
@@ -70,41 +69,77 @@ if(!defined('DB_USER')){
 
         $sql = "insert into chatbot (question, answer) values (:question, :answer)";
 
-        $stmt = $conn->prepare($sql);
+            $stmt = $conn->prepare($sql);
             $stmt->bindParam(':question', $quest);
             $stmt->bindParam(':answer', $ans);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-        
+  
         echo json_encode([
           'status' => 1,
           'answer' => "Thanks for training me, you can now test my knowledge"
         ]);
         return;
       }
-      elseif ($arr[0] == "help") {
+      elseif ($my_Array[0] == "help") {
         echo json_encode([
           'status' => 1,
-          'answer' => "You can train me by using this format ' train: This is a question # This is the answer # password '. You can also convert cryptocurrencies using this syntax.'convert btc to usd"
+          'answer' => "You can train me by using this format ' train: This is a question # This is the answer # password .'"
           
         ]);
         return;
         
       }
-      elseif ($arr[0] == "convert") {
-        # code...
-        $from = $arr[1];
-        $to = $arr[3];
-        $converted_price = GetCryptoPrice($from, $to);
-        $price = "1 " . $from . " = " . $to . " " . $converted_price ;
+      elseif($my_Array[0] == "randomJokes") {
+
+            $jokes = array("Joke: Why do programmers always get Christmas and Halloween mixed up?Because DEC 25 = OCT 31", 
+                            
+                            "Joke: A system programmer came home from work almost at dawn and told his wife enthusiastically:     Tonight I have installed a new release of MVS/ESA together with VM/CMS and CICS/VS
+                              G.O.O.D answered his wife.",
+
+                            "Joke: - 'Have you heard about the object-oriented way to become wealthy?'
+                             - 'No...'
+                             - 'Inheritance.'",  
+
+                            "Joke: Once a programmer drowned in the sea. Many Marines where at that time on the beach, but the programmer was shouting 'F1 F1' and nobody understood it.",
+
+                            "Joke: Why all Pascal programmers ask to live in Atlantis?
+                             Because it is below C level.",
+                             
+                             "Joke: Unix is user friendly. It's just very particular about who it's friends are.",
+
+                            "Joke: All programmers are playwrights and all computers are lousy actors.",
+
+                            "Joke: The programmer to his son: 'Here, I brought you a new basketball'.
+                              Thank you, daddy, but 'where is the users guide?'",
+
+                            "Joke: The problem with physicists is that they tend to cheat in order to get results.
+                              The problem with mathematicians is that they tend to work on toy problems in order to get results.
+                              The problem with program verifiers is that they tend to cheat at toy problems in order to get results.",
+
+                            "Joke: Have you heard about the new Cray super computer? It's so fast, it executes an infinite loop in 6 seconds.",
+
+                            "Joke: Windows 95 is a 32 bit extension for a 16 bit patch to an 8 bit operating system originally coded for a 4 bit microprocessor by a 2 bit company that can't stand 1 bit of competition.",
+
+                            "Joke: Don't get sucked in by comments--only debug code.",
+
+                            "Joke: Demo-oriented programming: A programming style, typically used by startups, focusing on the demo of the program being developed, so it will easily catch the prospective investor.",
+                            
+                            "Joke: There are only 10 types of people in the world: Those that understand binary and those that don't.",
+
+                            "Joke: Why did the private boarding school reject OO software designer go to work in defence?
+                             Because someone said there would be 'class' warfare!",
+
+                             );
+        
+        $pickedJoke = $joke[rand(1, 15)]
         echo json_encode([
           'status' => 1,
-          'answer' => $price
+          'answer' => $pickedJoke
         ]);
         return;
       }
-        elseif ($arr[0] == "aboutbot") {
+        elseif ($my_Array[0] == "aboutbot") {
           # code...
           echo json_encode([
             'status'=> 1,
@@ -113,8 +148,8 @@ if(!defined('DB_USER')){
           return;
         }
         else {
-          $question = implode(" ",$arr);
-          //to check if answer already exists in the database...
+         $question = implode(" ",$my_Array);
+          //Checking if answer already exists in the database...
           $question = "$question";
           $sql = "Select * from chatbot where question like :question";
             $stat = $conn->prepare($sql);
@@ -126,7 +161,7 @@ if(!defined('DB_USER')){
             if(empty($rows)){
               echo json_encode([
               'status' => 0,
-              'answer' => "I am sorry, I cannot answer your question now. You could train me to answer the question."
+              'answer' => "I wasnt trained for that. Would you plase train me"
             ]);
             return;
           }else{
@@ -162,15 +197,15 @@ if(!defined('DB_USER')){
                         'status' => 1,
                         'answer' => str_replace("(($function_name))", $function_name(), $answer)
                       ]);
-                    }
+                 }
                     return;
                   }
               }
           }       
         }
-    }catch (Exception $e){
+   }catch (Exception $e){
       return $e->message ;
-    }
+    }  
   }
 ?>
 <!DOCTYPE html>
@@ -178,7 +213,7 @@ if(!defined('DB_USER')){
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php //echo $user->name; ?> Hng Intern</title>
+  <title><?php echo $user->name; ?> Hng Intern</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -327,7 +362,7 @@ if(!defined('DB_USER')){
                     <img src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture">
                 </div>
                 <p class="text-center myname">
-                   <span style="font-size:37px;"><?php //echo $user->name; ?></span>
+                   <span style="font-size:37px;"><?php echo $user->name; ?></span>
                 </p>
                 <div class="oj-flex">
                 <div class="text-center social-links" style="font-size:45px;">
@@ -395,7 +430,7 @@ if(!defined('DB_USER')){
                     $("#conversation").append("<p class='bot-message'>"  + response.answer + "<span class='time'><?php echo $time?></span>" + "</p>");
                 },
                 error: function(error){
-                      //alert(error);
+                      console.log(error);
                 }
               })  
             })
