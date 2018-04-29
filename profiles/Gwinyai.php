@@ -131,52 +131,88 @@ function remove_brackets($string){
 }
 
 function train($bot_training, $conn){
-    
 
-    $bot_training = str_replace('train:', '', $bot_training);
+    $userText = preg_replace('([\s]+)', ' ', trim($question)); 
+	    $userText = preg_replace("([?.])", "", $userText); 
 
-     $pos = strpos($bot_training,'#');
-     if( $pos === false) {
-         echo json_encode([
-            "status" => 1,
-            "answer" => "To train me please use the format <br/> <code>train: question # answer # password <code>"
-        ]);
-         return; 
-     }
-     define ('PASSWORD', "password");
-    
-     $pos = strpos($bot_training, PASSWORD);
-     if( $pos === false) {
-         echo json_encode([
-            "status" => 1,
-            "answer" => "Training denied, a password is required"
-        ]);
-        return; ;
-     } else {
-        
-        $train_question = trim(substr($bot_training, 0, strpos($bot_training,'#')));
-    
-        $train_answer = trim(str_replace(['#', PASSWORD, $train_question], '', $bot_training));
-  
-    
-        try{
+		$userText = substr($userText, 6);
 
+     	$userText = explode("#", $userText);
+
+     	$user_question = trim($userText[0]);
+		if(count($userText) == 1){
+			echo json_encode([
+				'status' => 1,
+				'answer' => "You have entered an invalid format.You can enter the correct format by typing-->train: question # answer # password"
+			]);
+			return;
+		};
+
+
+	    $user_answer = trim($userText[1]);    
+        if(count($userText) < 3){ //the user only enter question and answer without password
+	        echo json_encode([
+	          'status' => 1,
+	          'answer' => "Please enter training password to train me. The password is: password"
+	        ]);
+        	return;
+        };
+
+         //get the index of the user password
+	    $user_password = trim($userText[2]);
+
+        //verify if training password is correct
+        define('PASSWORD', 'password'); //constant variable
+        if($user_password !== PASSWORD){ 
+	        echo json_encode([
+	          'status' => 1,
+	          'answer' => "Your password is not correct, you cannot train me."
+	        ]);
+     		return;
+    	};
+
+	    //check database if answer exist already
+   		$user_answer = "$user_answer"; 
+	    $sql = "SELECT * FROM chatbot WHERE answer LIKE :user_answer";
+	    $stmt = $conn->prepare($sql);
+	    $stmt->bindParam(':user_answer', $user_answer);
+	    $stmt->execute();
+	    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+	 	$rows = $stmt->fetchAll();
+	    if(empty($rows)){     
+		
             $sql  = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
             $stmt = $conn->prepare($sql);
             $stmt->execute(
                 array(
-                ':question' => $train_question,
-                ':answer' => $train_answer,
+                ':question' => $user_question,
+                ':answer' => $user_answer,
                 )
             );
-            return 'Fanatastic, my intelligence is rising, teach me more';
+            
+		    
+		    echo json_encode([
+		    	'status' => 1,
+		        'answer' =>  "Fanatastic, my intelligence is rising, teach me more "
+		      ]);			
+     		return;
+     	
+     	}else{
 
-        } catch(PDOException $e){
-            throw $e;
-        }
-    }
-   
-}
+     		 echo json_encode([
+		    	'status' => 1,
+		        'answer' => "Sorry! Answer already exist. Try a different response or question"
+		      ]);
+			return;		
+     	};
+    	return;
+	};
+    
+
+ // Extend chatbot
+
+
 
 function getTime(){
    
