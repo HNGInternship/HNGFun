@@ -10,6 +10,21 @@
         }
         $secret_word = $data['secret_word'];
         ?>
+        
+<?php
+
+    $query = $conn->query("SELECT * FROM secret_word");
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    $secret_word = $result['secret_word'];
+
+	$username = "iambeejayayo";
+	$data = $conn->query("SELECT * FROM  interns_data WHERE username = '".$username."' ");
+	$my_data = $data->fetch(PDO::FETCH_BOTH);
+	$name = $my_data['name'];
+	$src = $my_data['image_filename'];
+	$username =$my_data['username'];
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,10 +79,10 @@
         <div class="row">
         <div class="col">
             <br />
-                <img class="rounded-circle" src="https://res.cloudinary.com/iambeejayayo/image/upload/v1524882640/BolajiAyodeji.jpg" alt="My Picture">
+                <img class="rounded-circle" src="<?php echo $src; ?>" alt="My Picture">
                 <br /><br /><br />
                          <p> Hello World! <br />
-            I'm Bolaji E.A. Ayodeji <br />
+            I'm <?php echo $name; ?> <br />
             Tech Geek <i class="fa fa-user text-primary"></i>&nbsp & Web Developer <i class="fa fa-laptop text-primary"></i></p>
             
             I believe i can change the world with Brilliant Innovations <br />
@@ -104,8 +119,8 @@
                 class="fa fa-linkedin social text-light"></a>&nbsp
                 <a href="https://medium.com/@BolajiAyodeji" style="text-decoration:none"
                 class="fa fa-medium social text-light"></a>&nbsp
-                
-                    </div><br>
+              
+                                  </div><br>
                         </div></div></div>
                     </body>
                     <div class="container expand-lg">
