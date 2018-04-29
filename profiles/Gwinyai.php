@@ -21,7 +21,9 @@
     } catch (PDOException $e) {
         throw $e;
     }
-   
+
+?>
+<?php   
 
 // Start with the training query
 if(isset($_POST['training']) || ($_SERVER['REQUEST_METHOD'] === 'POST')) {
@@ -35,6 +37,7 @@ if(isset($_POST['training']) || ($_SERVER['REQUEST_METHOD'] === 'POST')) {
       }
         
         exit();
+    
 
 
 
@@ -1380,7 +1383,7 @@ function getTime(){
 
             /* Handle Ajax response for DB query */
             function trainQuery() {
-                var message = cleanText(chatInput.val());
+                var message = cleanText(chatInput.value);
                 $.ajax({
                 type: "POST",
                 dataType : "json",
