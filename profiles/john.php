@@ -8,8 +8,8 @@ if(!defined('DB_USER')){
   catch (PDOException $pe) {
       die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
   }
- global $conn;
 }
+ global $conn;
 	
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
