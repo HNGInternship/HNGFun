@@ -1,10 +1,10 @@
 <?php
 
-	$servername = "localhost";
-	$dbname = "hng_fun";
-	$conn = new PDO("mysql:host=$servername;dbname=$dbname", "root", "");
-	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	$name = $username = $image_filename = $secret_word = "";
+	// $servername = "localhost";
+	// $dbname = "hng_fun";
+	// $conn = new PDO("mysql:host=$servername;dbname=$dbname", "root", "");
+	// $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	// $name = $username = $image_filename = $secret_word = "";
 
 
 	// Profile
@@ -158,10 +158,8 @@
 				echo $answer;
 				exit();
 			}
-			exit();
+			return false;
 		}
-	}
-	else{
 	}
 
 ?>		
