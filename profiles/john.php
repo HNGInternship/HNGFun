@@ -271,7 +271,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 		      font-size: 20px;
 		      padding:20px;
 		      margin-right: 20px;
-		      transition: all 0.5s;
+		      transition: all 0.6s;
 		      cursor: pointer;
 		      bottom: 5%;
 		      right: 0;
