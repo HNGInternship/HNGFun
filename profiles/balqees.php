@@ -91,7 +91,7 @@
   img{
     width: 10rem;
     border-radius: 30%;
-    margin-left: 300px;
+    margin-left: 150px;
 
   }
 </style>
