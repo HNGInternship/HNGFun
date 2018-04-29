@@ -1,10 +1,10 @@
 <?php
 
-	// $servername = "localhost";
-	// $dbname = "hng_fun";
-	// $conn = new PDO("mysql:host=$servername;dbname=$dbname", "root", "");
-	// $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	// $name = $username = $image_filename = $secret_word = "";
+	$servername = "localhost";
+	$dbname = "hng_fun";
+	$conn = new PDO("mysql:host=$servername;dbname=$dbname", "root", "");
+	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$name = $username = $image_filename = $secret_word = "";
 
 
 	// Profile
@@ -36,7 +36,7 @@
 
 
 	// Chat Bot
-	if($_SERVER['REQUEST_METHOD'] == "POST"){
+	if($_SERVER['REQUEST_METHOD'] === "POST"){
 		if(isset($_POST['chat'])){
 			$a = $_POST['chat'];
 			$question = $answer = $password = "";
@@ -63,15 +63,14 @@
 				if(preg_match('/train: /', $a, $match)){
 					$string = substr($a, 7, strlen($a)-7);
 					$arr = explode("# ", $string);
-					$question = $arr[0];
-					$answer = $arr[1];
-					$password = $arr[2];
-
-					if($question == "" || $answer == "" || password == ""){
-						$answer = $no_answer[rand(0,3)];
+					if(sizeof($arr) != 3){
+						$answer = $no_answer[rand(0,3)]."::def";
+						echo $answer;
 					}
-
 					else{
+						$question = $arr[0];
+						$answer = $arr[1];
+						$password = $arr[2];
 
 						if ($password == "password") {
 							try {
@@ -161,6 +160,8 @@
 			}
 			exit();
 		}
+	}
+	else{
 	}
 
 ?>		
@@ -474,7 +475,7 @@
 				color: red;
 				font-family: 'Courier New';
 				font-size: 13px;
-				text-shadow:0px 0px 5px #FB8DC4;
+				text-shadow:0px 0px 2px #FB8DC4;
 				margin-bottom: 20px;
 			}
 
@@ -690,6 +691,7 @@
 
 				div.classList.add("bot-text");
 				span1.classList.add("bmi");
+				span6.classList.add("bmi");
 				span2.classList.add("languages");
 				span4.classList.add("languages");
 
@@ -704,7 +706,7 @@
 				var e = "Also, you can train me to answer new questions in this format ";
 				var f = "train: question # answer # password";
 				var g = ". For example:";
-				var h = "train: How are you today # Doing great #password";
+				var h = "train: How are you today # Doing great # password";
 
 
 				var p1text = document.createTextNode(a);
