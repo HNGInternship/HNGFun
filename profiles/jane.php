@@ -97,6 +97,7 @@
 				$height = $array2[1];
 				if(is_numeric($weight) && is_numeric($height)){
 					$result = $weight/($height*$height);
+					$result = round($result,2);
 					$result = "Your BMI is ".$result."\n";
 
 					if ($result <= 18.5) {
@@ -151,7 +152,7 @@
 				die();
 			}
 		}
-			return;
+		exit;
 	}
 
 ?>		
