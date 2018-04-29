@@ -158,8 +158,8 @@
 				echo $answer;
 				exit();
 			}
-			return false;
 		}
+			return false;
 	}
 
 ?>		
