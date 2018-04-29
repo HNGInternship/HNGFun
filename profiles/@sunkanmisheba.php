@@ -19,7 +19,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Sunkanmi Sheba's Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="http://res.cloudinary.com/sunkanmisheba/raw/upload/v1524912657/CSS/sheba.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="sheba.css" />
     <script src="main.js"></script>
 </head>
 <body>
