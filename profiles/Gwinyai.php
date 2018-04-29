@@ -143,7 +143,7 @@ function train($bot_training, $conn){
         ]);
          return; 
      }
-     define ('PASSWORD', "ubuntu");
+     define ('PASSWORD', "password");
     
      $pos = strpos($bot_training, PASSWORD);
      if( $pos === false) {
@@ -253,8 +253,6 @@ function getTime(){
         
     
     }
-
-// } else {
 
 ?>
 
@@ -1134,7 +1132,6 @@ function getTime(){
     
 </section>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.6/typed.min.js"></script>
        <script>
@@ -1412,48 +1409,23 @@ function getTime(){
                     }
             });
 
-            /* Handle Ajax response for DB query */
+            /* Handle Ajax request and response to and from server */
             function trainQuery() {
                 var message = cleanText(chatInput.value);
                 $.ajax({
-                type: "POST",
-                dataType : "json",
-                url: 'profiles/Gwinyai.php',
-                data: {message},
-                success: function(data){
-                    if(data.status == 1) {
-                        showBotMessage(data.answer);
+                    type: "POST",
+                    dataType : "json",
+                    url: 'profiles/Gwinyai.php',
+                    data: {message},
+                    success: function(data){
+                        if(data.status == 1) {
+                            showBotMessage(data.answer);
+                        }
+                        
                     }
-               
-                      
-                    },
-                    error: function(error){
-							console.log(error);
-						}
                 });
             }
-            function testQuery() {
-                var question = cleanText(chatInput.value);
-            	$.ajax({
-						url: "/profiles/Gwinyai.php",
-						dataType : "json",
-						type: "POST",
-						data: {question},
-						success: function(data) {
-							if(data.status == 1){
-								
-                            showBotMessage(data.answer);
-		       				
-
-							} 
-			       		},
-
-						error: function(error){
-							console.log(error);
-						}
-				});
-            }
-
+         
             function getJoke() {
                
                 $.ajax({
