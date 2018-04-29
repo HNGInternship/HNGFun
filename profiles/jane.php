@@ -602,18 +602,17 @@
 							data: {chat: a},
 							success: function(data,status){
 								if(data != ""){
-									console.log(data+"\n");
-									data = data.substr(data.indexOf("dustybot::"));
-									console.log(data);
-									if (data.indexOf("::def") >= 0) {
+									alert(data.indexOf("dustybot::"));
+									// data = data.substr(data.indexOf("dustybot::"));
+									// if (data.indexOf("::def") >= 0) {
 										
-										data = data.replace("::def","");
-										add_bot_text(data);
-										add_bot_default();
-									}
-									else{
-										add_bot_text(data);
-									}
+									// 	data = data.replace("::def","");
+									// 	add_bot_text(data);
+									// 	add_bot_default();
+									// }
+									// else{
+									// 	add_bot_text(data);
+									// }
 									
 								}										
 							}
