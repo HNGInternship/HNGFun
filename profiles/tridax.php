@@ -813,16 +813,10 @@ $(document).ready(function() {
       '<div class="chat-message-content clearfix"><h4>chat</h4><p class="'+classname+'">'+message+'</p></div></div><hr>');
       $('#user_chat').animate({scrollTop: $('#user_chat').prop("scrollHeight")}, 1000);
       
-				
-                
-                    
-                   
-                    
-                
-
+	
 
       $.ajax({
-        url: "/profiles/tridax.php",
+        url: "https://hng.fun/profiles/tridax.php",
         type: "post",
         data: {message: message},
         dataType: "json",
