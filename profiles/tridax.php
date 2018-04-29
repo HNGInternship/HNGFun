@@ -775,7 +775,7 @@ p { margin: 0; }
 		</div>
         <form method="post" id="messageForm">
 		<div class="form-group m-b-30"> 
-        	<input type="text" onkeypress="handle(event)" id="message" name="message" class="form-control floating-label" placeholder="Enter Message" required autofocus>
+        	<input type="text" onkeypress="handle(event)" id="message" name="message" class="form-control floating-label" placeholder="Enter Message and press Enter" required autofocus>
 			<button type="submit" class="btn btn-embossed btn-sm btn-primary m-b-10 m-r-0">SEND</button>
 		</div>
         </form>
