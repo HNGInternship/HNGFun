@@ -1,3 +1,7 @@
+
+<!DOCTYPE HTML>
+<html>
+	<head>
 <?php
 
 	// $servername = "localhost";
@@ -164,10 +168,6 @@
 	}
 
 ?>		
-<!DOCTYPE HTML>
-<html>
-	<head>
-
 		
 
 		<title>
