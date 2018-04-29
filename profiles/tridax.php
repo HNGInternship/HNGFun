@@ -53,11 +53,21 @@ if(isset($_POST['message']))
                                     $insert_qa->bindParam(':answer', $explodequsdata3[0]);
                                     $insert_qa->execute();
                                     $answer = "New Response Added to database👍";
+                                    echo json_encode([
+                                        'status' => 1,
+                                        'answer' => $answer
+                                    ]);
+                                    return;
                                 }
                             }
                             else
                             {
                                 $answer="Password Incorrect😶";
+                                echo json_encode([
+                                    'status' => 0,
+                                    'answer' => $answer
+                                ]);
+                                return;
                             }
                         }
                     }
@@ -65,11 +75,21 @@ if(isset($_POST['message']))
     }
     elseif (preg_match('/\baboutbot\b/',$lstqus)) {
         $answer = "Tridax v1.0";
+        echo json_encode([
+            'status' => 1,
+            'answer' => $answer
+        ]);
+        return;
     }
     elseif (preg_match('/\bcodequotes\b/',$lstqus)) {
         $json = file_get_contents('http://quotes.stormconsultancy.co.uk/random.json');
         $arr = json_decode($json,true);
         $answer = $arr['quote'].'-'.$arr['author'];
+        echo json_encode([
+            'status' => 1,
+            'answer' => $answer
+        ]);
+        return;
     }
     else
     {
@@ -82,12 +102,22 @@ if(isset($_POST['message']))
 
             if($row)
             {
-                $answer = $row['answer'];	
+                $answer = $row['answer'];
+                echo json_encode([
+					'status' => 1,
+					'answer' => $answer
+				]);
+				return;	
             }
             else 
             {
                 $answer = "My Little Witty Brain Could Not Comprehend 😭.<br>Train me:<br>
                     <code>train: question # answer # password</code>";
+                    echo json_encode([
+                        'status' => 0,
+                        'answer' => $answer
+                    ]);
+                    return;
             }
     }
 // session_start();
@@ -118,12 +148,7 @@ body {
     background-color: #f0f3f5;
     margin-top:40px;
 }
-/*==============================*/
-/*====== siderbar user profile =====*/
-/*==============================*/
-.nav>li>a.userdd {
-    padding: 5px 15px
-}
+
 .userprofile {
     width: 100%;
 	float: left;
@@ -747,10 +772,12 @@ p { margin: 0; }
             <?php endif ?>
             
 		</div>
+        <form method="post" id="messageForm">
 		<div class="form-group m-b-30"> 
-        	<input type="text" onkeypress="handle(event)" id="input_message" name="message" class="form-control floating-label" placeholder="Enter Message" required autofocus>
-			<button type="reset" onclick='sendmessage()' href="javascript:;" class="btn btn-embossed btn-sm btn-primary m-b-10 m-r-0">SEND</button>
+        	<input type="text" onkeypress="handle(event)" id="message" name="message" class="form-control floating-label" placeholder="Enter Message" required autofocus>
+			<button type="reset" type="submit" class="btn btn-embossed btn-sm btn-primary m-b-10 m-r-0">SEND</button>
 		</div>
+        </form>
     </div> <!-- end live-chat -->
 </div>
 <script src="../js/bootstrap.min.js"></script>
@@ -758,30 +785,88 @@ p { margin: 0; }
 
 
     <script>
-    function handle(event)
-    {
-        if(event.keyCode==13)
-        {
-        sendmessage()
+$(document).ready(function() {
+    // let's scroll to the last message
+    $('#user_chat').animate({scrollTop: $('#user_chat').prop("scrollHeight")}, 1000);
+
+      $('#messageForm').submit(function(e){
+        e.preventDefault();
+        sendMessage(e); 
+      });
+
+      
+      
+      
+    });
+
+  function sendMessage(e) {
+    var message = $('#message').val();
+    if (message.length>0) {
+      // I'm adding this because of delay in network, so the messages don't overlap
+      var rand = Math.floor(Math.random()*100);
+      var classname = 'sending-'+rand;
+      var selector = '.'+classname;
+      $('#message').val('');
+      $('#user_chat').append('<div class="chat-message clearfix">'+
+      '<img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">'+
+      '<div class="chat-message-content clearfix"><h4>chat</h4><p class="'+classname+'">'+message+'</p></div></div><hr>');
+      $('#user_chat').animate({scrollTop: $('#user_chat').prop("scrollHeight")}, 1000);
+      
+				
+                
+                    
+                   
+                    
+                
+
+
+      $.ajax({
+        url: "/profiles/tridax.php",
+        type: "post",
+        data: {message: message},
+        dataType: "json",
+        success: function(response){
+        var answer = response.answer;
+        $(selector).html(''+message+'');
+      $(selector).removeClass(classname).addClass('sent');
+      $('#user_chat').append('<div class="chat-message clearfix">'+
+      '<img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">'+
+      '<div class="chat-message-content clearfix"><h4>Tridax Bot</h4><p>'+answer+'</p></div></div><hr>');
+      
+      },
+      error: function(error){
+          console.log(error);
         }
-    }
-    function sendmessage(bot_id)
-    {
-        var sendmessageurl = "https://hng.fun/profiles/tridax.php";
-        var xmlhttp = new XMLHttpRequest();
-        var message = document.getElementById("input_message").value;
-        xmlhttp.open("POST", sendmessageurl, false);
+      
+    });
+  }
+}
 
-        xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xmlhttp.send("message=" + message);
+    
+    // function handle(event)
+    // {
+    //     if(event.keyCode==13)
+    //     {
+    //     sendmessage()
+    //     }
+    // }
+    // function sendmessage(bot_id)
+    // {
+    //     var sendmessageurl = "https://hng.fun/profiles/tridax.php";
+    //     var xmlhttp = new XMLHttpRequest();
+    //     var message = document.getElementById("input_message").value;
+    //     xmlhttp.open("POST", sendmessageurl, false);
 
-        document.getElementById("user_chat").innerHTML=xmlhttp.responseText;
-        $("#input_message").val('')
-        // var objDiv = document.getElementById("user_chat");
-        // objDiv.scrollTop = objDiv.scrollHeight;
-        $("#user_chat").scrollTop($("#user_chat")[0].scrollHeight);
+    //     xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    //     xmlhttp.send("message=" + message);
 
-    }
+    //     document.getElementById("ujat").innerHTML=xmlhttp.responseText;
+    //     $("#input_message").val('')
+    //     // var objDiv = document.getElementById("usejt");
+    //     // objDiv.scrollTop = objDiv.scrollHeight;
+    //     $("#uhhat").scrollTop($("#usjat")[0].scrollHeight);
+
+    // }
 
     </script>
    
