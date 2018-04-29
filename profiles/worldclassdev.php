@@ -14,7 +14,7 @@ $worldclassdev = array_shift($data);
     } catch (PDOException $error) {
         throw $error;
     }
-var_dump(DB_HOST." ". DB_USER." ". DB_PASSWORD." ".DB_DATABASE);
+
 ?>
 
 
@@ -91,8 +91,9 @@ var_dump(DB_HOST." ". DB_USER." ". DB_PASSWORD." ".DB_DATABASE);
           <div class="about">
               I like to call myself a developer of all things JS. But basically i love to build stuff that solves a problem irrespective of the technology involved. I'm more about the impact than the money, but somehow i find both. When im not coding, i write, game and play the guitar.
           </div>
+        <?php var_dump(DB_HOST." ". DB_USER." ". DB_PASSWORD." ".DB_DATABASE); ?>
         <?php
-$formaction = "profiles/worldclassdev/api/chat.php";
+$formaction = "profiles/worldclassdev-api/chat.php";
 ?>
 <form action="<?php echo $formaction; ?>" method="post" >
 <input name="chat" type="text" style="width: 100%" >
@@ -100,6 +101,15 @@ $formaction = "profiles/worldclassdev/api/chat.php";
 </form>
     </div>  
   </my-profile>
+<<<<<<< HEAD
+    <?php
+$formaction = "profiles/worldclassdev-api/chat.php";
+?>
+<form action="<?php echo $formaction; ?>" method="post" >
+<input name="chat" type="text" style="width: 100%" >
+<input   type="submit" value="chat with me" >
+</form>
+||||||| merged common ancestors
     <?php
 $formaction = "profiles/worldclassdev/api/chat.php";
 ?>
@@ -107,6 +117,9 @@ $formaction = "profiles/worldclassdev/api/chat.php";
 <input name="chat" type="text" style="width: 100%" >
 <input   type="submit" value="chat with me" >
 </form>
+=======
+
+>>>>>>> eeccdd734718fa2940b000e5386e2a4ec2575fcd
 
 </div>
       </div>

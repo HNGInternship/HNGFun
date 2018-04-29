@@ -1,4 +1,93 @@
+<?php
 
+ if(!defined('DB_USER')){
+     require "../../config.php";
+     try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        } catch (PDOException $pe) {
+            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+ }
+ 
+    $sql = 'SELECT * FROM secret_word';
+    $result = $conn->query($sql);
+    $result->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $result->fetch();
+
+    $secret_word = $data['secret_word'];
+
+try {
+     $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="osawaru"';
+     $q2 = $conn->query($sql2);
+     $q2->setFetchMode(PDO::FETCH_ASSOC);
+     $mydata = $q2->fetch();
+    }
+    catch (PDOException $e) {
+        throw $e;
+    }
+?>
+<?php //the start of my chatbot
+global $response;
+    require "answers.php";  
+
+    function checkinput($input) 
+    {
+        $input = trim($input);
+        $input = stripslashes($input);
+        $input = htmlspecialchars($input);
+        return $input;
+    }
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $question = checkinput($_POST["userinput"]); 
+
+    if (preg_match("train:", $question)) {
+        if (preg_match("#password", $question)) { //Seacrh for pattern called 'password'
+                $strgpos= strpos($question, "#password"); //check the position
+                $strglen = $strgpos . 8; 
+                $password = substr($question, $strgpos, $strglen); // removes the word 'password'
+
+            if ($password !== "password") {
+                json_encode(["answers" => "Oops! You put in the wrong password! Try again."]);
+            } 
+
+            elseif (strtolower($question) === "about bot") {
+                json_encode(["answers" => "VERSION 1.0"]);
+            }
+
+            else {
+                    $question =trim($question); 
+                    $trainpos = stripos('train:', $question);
+                    $trainlen = $trainpos . 4 ; 
+                    $newquestion = substr($question, $trainpos, $trainlen);
+                    $answerpos = stripos("#answer:");
+                    $answerlen = $answerpos . 6 ;
+                    $newanswer = substr($question, $answerpos, $answerlen);
+          
+                    $sql1= "INSERT INTO chatbox (questions,answers) VALUES ($newquestion, $newanswer)";
+                    $conn->exec($sql1);
+                     exit(json_encode(array('answers' => "Thanks for that, now I am smarter")));
+            } 
+        }
+    }
+   
+    else {      
+          $sql= "SELECT * FROM chatbox WHERE questions = '$question'LIMIT 1";   /* OR '%who%'";*/
+          $stmt = $conn->query($sql);
+          $stmt->setFetchMode(PDO::FETCH_ASSOC);
+          $response = $stmt->fetch();         //$response is the answer to the user's question($question)
+        if ($response == null) {
+            exit(json_encode(
+            array('answers' => "I am sorry, I do not have an answer, I am still an infant. You can train me and make me smarter. Type 'Train: *** #answer: *** #Password: *** '"))
+            );
+        }
+        else { 
+        exit(json_encode($response));
+        }
+    }
+}; 
+    
+?>
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
@@ -144,4 +233,38 @@ try {
     </p>
 </body>
 
+    <script>
+    $(document).ready(function () {
+   /* $("#chatbot").click(function () {
+                        $("#chatcontainer1").toggle();
+                    });*/
+        
+        $("form").submit(function(e) {
+            e.preventDefault();
+            var inputbox = $('input[name=userinput]');
+            var userinputval=  $('input[name=userinput]').val();
+            if (userinputval !== null) {
+               var newinput = "<p class='msgoutput'>" + userinputval +
+               "<img style='height: 2.5em;'class='rounded-circle'"
+               " src='http://res.cloudinary.com/osawaru/image/upload/e_grayscale/v1524047363/avatar.png'></p>";
+               $('#chatbody').append(newinput); 
+               $.ajax ({
+                  method: "POST",
+                  url: "profiles/osawaru.php",
+                  data: {userinput:userinputval},
+                  dataType : "json",
+                    success: function (result) {
+                        var successmsg = result.answers;
+                          var result1 ="<p class='mybot'><img style='height: 2.5em;'class='rounded-circle mr-2'" + 
+                          "src='http://res.cloudinary.com/osawaru/image/upload/e_grayscale/v1524047363/avatar.png'>" + 
+                          successmsg + "</p>";
+                          console.log('got it!')
+                          $('#chatbody').append(result1);
+                          userinput = ""; //function that runs what the request succeeds
+                    }
+               });       
+            }; 
+        });
+    });
+    </script>
 </html>

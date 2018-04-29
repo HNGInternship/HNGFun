@@ -1,12 +1,19 @@
 <?php   
+	if(!defined('DB_USER')){
+	  require "../../config.php";		
+	  try {
+	      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+	  } catch (PDOException $e) {
+	      die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
+	  }
+	}
+
     try {
          $query = $conn->query("SELECT * from interns_data WHERE username = 'Gwinyai'");
             $user = $query->fetch(PDO::FETCH_OBJ);
     } catch (PDOException $e) {
         throw $e;
     }
-?>
-<?php
     try {
          $data = $conn->query("SELECT * from secret_word LIMIT 1");
             $result = $data->fetch(PDO::FETCH_OBJ);
@@ -14,10 +21,276 @@
     } catch (PDOException $e) {
         throw $e;
     }
-   
+
 ?>
+<?php   
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		 
+
+	$question = $_POST['message'];
+
+	$question = preg_replace('([\s]+)', ' ', trim($question)); 
+	$question = preg_replace("([?.])", "", $question); 
+    $training = strpos($question, "train:");
+
+    if ($training === 0) {
+        echo train($question, $conn);
+        return;
+    } else if (strtolower(trim($question)) === "aboutme") {
+			  echo json_encode([
+			     'status' => 1,
+       			 'answer' => "Version 0.1"
+     		 ]);
+
+		return;
+    } else if (strtolower(trim($question)) === "time:") {
+        echo getTime();
+        return;
+
+    } else if (strtolower(trim($question)) === "list commands:") {
+        echo getCommands();
+        return;
+
+    } else {
+        echo botAnswer($question, $conn);
+    }
+   
+     
+        
+        exit();
+
+}
+
+function check_question($q, $conn){
+
+    try{
+        $sql ='Select * from chatbot where question like :question';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(array(
+            'question'=> "%$q%",
+        ));
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $question = $stmt->fetchAll();
+       
+       
+       
+        if( $question ) {
+                if( count( $question ) === 1 ){
+              
+                    return $question[0];
+                } else {
+                     $random_answer_index = rand(0, count($question)-1);
+                     return ($question[$random_answer_index]);
+                 }
+          
+        } else {
+          
+           return false;
+        }
+
+    } catch(PDOException $e) {
+      
+        throw $e;
+    }
+}
+ 
+function check_answer($question){
+    $opening_paren = strpos($question,'((');
+    $closing_paren = strpos($question,'))');
+
+    if( $opening_paren === false && $closing_paren === false ) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function parse_answer($answer){
+    $func_start = '(';
+    $ffunc_end = ')';
+
+    $brace_start = '{';
+    $brace_end = '}';
+    
+   
+    $start_pos = strpos($answer, $func_start);
+    $end_pos = strpos($answer, $ffunc_end, $start_pos);
+  
+    $function_name = substr($answer, $start_pos+2, ($end_pos-2)-$start_pos);
+   
+    $response = remove_brackets($answer);
+
+    return str_replace($function_name, call_user_func($function_name), $response);
+
+}
 
 
+function remove_brackets($string){
+       return str_replace(['{{', '}}', '((', '))' ], '', $string);
+}
+
+function train($bot_training, $conn){
+
+    $userText = preg_replace('([\s]+)', ' ', trim($question)); 
+	    $userText = preg_replace("([?.])", "", $userText); 
+
+		$userText = substr($userText, 6);
+
+     	$userText = explode("#", $userText);
+
+     	$user_question = trim($userText[0]);
+		if(count($userText) == 1){
+			echo json_encode([
+				'status' => 1,
+				'answer' => "To train me please use the format <br/> <code>train: question # answer # password <code>"
+			]);
+			return;
+		};
+
+
+	    $user_answer = trim($userText[1]);    
+        if(count($userText) < 3){ //the user only enter question and answer without password
+	        echo json_encode([
+	          'status' => 1,
+	          'answer' => "Please enter training password to train me. The password is: password"
+	        ]);
+        	return;
+        };
+
+         //get the index of the user password
+	    $user_password = trim($userText[2]);
+
+        //verify if training password is correct
+        define('PASSWORD', 'password'); //constant variable
+        if($user_password !== PASSWORD){ 
+	        echo json_encode([
+	          'status' => 1,
+	          'answer' => "Your password is not correct, you cannot train me."
+	        ]);
+     		return;
+    	};
+
+	    //check database if answer exist already
+   		$user_answer = "$user_answer"; 
+	    $sql = "SELECT * FROM chatbot WHERE answer LIKE :user_answer";
+	    $stmt = $conn->prepare($sql);
+	    $stmt->bindParam(':user_answer', $user_answer);
+	    $stmt->execute();
+	    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+	 	$rows = $stmt->fetchAll();
+	    if(empty($rows)){     
+		
+            $sql  = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+            $stmt = $conn->prepare($sql);
+            $stmt->execute(
+                array(
+                ':question' => $user_question,
+                ':answer' => $user_answer,
+                )
+            );
+            
+		    
+		    echo json_encode([
+		    	'status' => 1,
+		        'answer' =>  "Fanatastic, my intelligence is rising, teach me more "
+		      ]);			
+     		return;
+     	
+     	}else{
+
+     		 echo json_encode([
+		    	'status' => 1,
+		        'answer' => "Sorry! Answer already exist. Try a different response or question"
+		      ]);
+			return;		
+     	};
+    	return;
+	};
+    
+
+ // Extend chatbot
+
+
+
+function getTime(){
+   
+     $time = new DateTime();
+     $time->setTimezone(new DateTimeZone('Africa/harare'));
+      echo json_encode([
+            "status" => 1,
+            "answer" => $time->format('h:i A')
+        ]);
+
+     return;
+ }
+
+ function getCommands(){
+    
+    echo json_encode([
+            "status" => 1,
+            "answer" => "<code><ol><h6 class='white'>List of commands</h6><li>To hear a joke type joke:</li><li>To check my version type aboutme</li><li>To check the time type time: </li><li>To show list of commands type list commands:</li></ol>
+     <code>"
+        ]);
+ }
+
+
+ function botAnswer($q, $conn) {
+       
+        $question = $q;
+        $question = trim(strtolower($question));
+        
+        $question = str_replace('?', '', $question);
+            
+
+        if($question == "list commands:"){
+                
+            return getCommands();
+        } else if($question == "time:"){
+                $answer = getTime();
+                return $answer;
+        } else {
+
+            $question = check_question($question, $conn);
+                
+            if($question){
+
+                $answer_has_function = check_answer($question['answer']);
+                if(!$answer_has_function){
+                   
+                    echo json_encode([
+                         "status" => 1,
+                        "answer" => $question['answer']
+                    ]);
+                    return;
+                    
+                } else {
+                    
+                    echo json_encode([
+                         "status" => 1,
+                        "answer" => parse_answer($question['answer'])
+                    ]);
+                        return;
+                    
+                }
+            } else {
+                
+
+                   
+                return json_encode([
+                     "status" => 1,
+                    "answer" =>  "Sorry I don't have an answer for that, please train me"
+                ]);
+                   
+                
+            }
+        }
+        
+    
+    }
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -348,7 +621,33 @@
              overflow-y: auto;
          }
 
+         .chat-messages .chat::-webkit-scrollbar {
+                width: 0;
+                height: 0;
+                background: 0 0;
+         }
+         
+        .option-wrap {
+            word-wrap: normal;
+            white-space: nowrap;
+            overflow-x: scroll;
+            position: absolute;
+            bottom: 100%;
+            width: 100%;
+            transform: translateY(-5px);
+        }
 
+        .options {
+            padding: 7px 12px;
+            border: 1px solid rgba(6,153,184,0.3);
+            display: inline-block;
+            margin: 5px;
+            background: #fff;
+            color: #06c5a6;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 0.9rem;
+         }
      
 
          .chat .chat-content > span {
@@ -411,6 +710,23 @@
                          inset -10px -10px 55px rgba(255,255,255,0.1);
 
          }
+.chat .chat-content span.bot.joke-bg{
+
+     background: #032b51;
+}
+         
+
+            .chat .chat-content span.bot-typing {
+             position: relative;
+             float: right;
+             width: 30%;
+             height: auto;
+             background: #ccc;
+             display: inline-block;
+             box-shadow: 2px 2px 20px rgba(60,51,176,0.2),
+                         inset -10px -10px 55px rgba(255,255,255,0.1);
+
+         }
 
          .chat .chat-content span.bot span.time {
              position: absolute;
@@ -440,6 +756,11 @@
          }
 
           .chat .chat-content span.bot.last {
+             border-radius: 15px 2px 15px 15px;
+             
+         }
+
+           .chat .chat-content span.bot-typing.last {
              border-radius: 15px 2px 15px 15px;
              
          }
@@ -533,6 +854,72 @@
              transition: transform 800ms ease-in-out;
           } 
 
+  
+        /*==========================
+            Chatbot typing animation   */
+
+        /* .typing_loader {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            -webkit-animation: typing 1s linear infinite alternate;
+            -moz-animation: typing 1s linear infinite alternate;
+            -ms-animation: typing 1s linear infinite alternate;
+            animation: typing 1s linear infinite alternate;
+            left: -12px;
+            
+            margin: 7px 15px 6px;
+            color: #ccc;
+        } */
+
+        #message {
+            border-radius: 20px;
+            padding: 12px 22px;
+            font-size: 0.905rem;
+            color: #333;
+            display: inline-block;
+            padding: 10px 15px 8px;
+            border-radius: 20px;
+            margin-bottom: 5px;
+            float: right;
+            clear: both;
+            max-width: 65%;
+            word-wrap: break-word;
+        }
+
+        #message .to {
+            background: #efefef; */
+            color: #6f6f6f; 
+            float: left; 
+            border-top-left-radius: 0;
+        }
+
+        #message:after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        /* .to .typing_loader {
+            animation: typing-black 1s linear infinite alternate
+        }
+
+        @keyframes typing-black {
+            0% {
+                background-color: rgba(74, 74, 74, 1);
+                box-shadow: 12px 0 0 0 rgba(74, 74, 74, .4), 24px 0 0 0 rgba(74, 74, 74, .2)
+            }
+            50% {
+                background-color: rgba(74, 74, 74, .4);
+                box-shadow: 12px 0 0 0 rgba(74, 74, 74, 1), 24px 0 0 0 rgba(74, 74, 74, .4)
+            }
+            100% {
+                background-color: rgba(74, 74, 74, .2);
+                box-shadow: 12px 0 0 0 rgba(74, 74, 74, .4), 24px 0 0 0 rgba(74, 74, 74, 1)
+            }
+        } */
+
+    
       
         /*==========================
                 Responsiveness           */
@@ -756,7 +1143,7 @@
                                     </span>
                                 </span>
                                 <span class="bot last">
-                                    For a List of my commands enter 'List commands' 
+                                    For a List of my commands enter 'list commands:' 
                                     <span class="time">
                                         <?php echo(date("h:i")); ?>
                                     </span>
@@ -768,12 +1155,12 @@
                             </div>
 
                             <div class="msg-box">
-                                <input type="text" class="ip-msg" placeholder="Say hi,">
-                                <span class="btn-group">
-                                    <button type="submit" class="chat-button">
-                                        <i class="fa fa-paper-plane"></i>
-                                    </button>
-                                </span>
+                                    <input type="text" class="ip-msg" placeholder="Say hi,">
+                                    <span class="btn-group">
+                                        <button type="submit" class="chat-button">
+                                            <i class="fa fa-paper-plane"></i>
+                                        </button>
+                                    </span>
                             </div>
                         </div>
                     </div>
@@ -781,10 +1168,11 @@
     
 </section>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.6/typed.min.js"></script>
        <script>
          /* Configure auto typing*/
-        //  document.addEventListener("DOMContentLoaded", ready);
+     
       
            (function ready() {
                 var typed = new Typed('#typed', {
@@ -803,14 +1191,11 @@
                 let chatHeader = document.querySelector('.head');
                 let chatInput = document.querySelector('input.ip-msg');
                 let chatSubmit = document.querySelector('.btn-group');
-           
-              
                 let check = 1;
-                let chatNumber = 0;
                 let chevron = document.querySelector('.fa-chevron-up');
                 let span = document.createElement('span');
                
-             
+       
                 
                 /* Toggle Chat */
               
@@ -836,12 +1221,8 @@
 
             } 
 
-          
-
-
-           
-
-             /* Clean user text */
+        
+             /* Cleanup user input */
              function cleanText(str) {
                  
                  return str.trim().replace('-','').toLowerCase();
@@ -849,81 +1230,203 @@
 
 
 
-                    /* Handle user chat bubbles */
-                    function chatResponse() {
-                        var userInput = chatInput.value
-                        var userBubble = ''
-                        let span = document.createElement('span');
-                        span.classList.add('user-input', 'last');
-                        var today = new Date();
-                        var h = today.getHours();
-                        var m = today.getMinutes();
-                        
-                        h.toString();
-                        m.toString();
-                   
-                        userBubble += `
-                                    ${userInput}
-                                    <span class="time">
-                                        ${h}:${m}
-                                    </span>
-                                    <span class="user">You</span>
-                            `
-                        span.innerHTML = userBubble;
-                        chatBoard.appendChild(span);
-                       chatInput.value = '';
-                        chatBoard.lastChild.scrollIntoView({ behavior: "smooth"});
-                    }
+            /* Handle user chat bubbles */
+            function chatResponse() {
+                var userInput = chatInput.value;
+                var userBubble = '';
+                let span = document.createElement('span');
+                span.classList.add('user-input', 'last');
+                var today = new Date();
+                var h = today.getHours();
+                var m = today.getMinutes();
+                
+                h.toString();
+                m.toString();
+            
+                userBubble += `
+                            ${userInput}
+                            <span class="time">
+                                ${h}:${m}
+                            </span>
+                            <span class="user">You</span>
+                    `
+                span.innerHTML = userBubble;
+                chatBoard.appendChild(span);
+                chatInput.value = '';
+                chatBoard.lastChild.scrollIntoView({ behavior: "smooth"});
+            }
 
-                      /* Handle user chat bubbles */
-                      function botResponse(){
-                        
-                            var botBubble = ''
-                            let span = document.createElement('span');
-                            span.classList.add('bot', 'first');
-                            var today = new Date();
-                            var h = today.getHours();
-                            var m = today.getMinutes();
-                          
-                            h.toString();
-                            m.toString();
+                /* Handle user chat bubbles */
+                function botResponse(){
+                
+                    var botBubble = ''
+                    let span = document.createElement('span');
+                    span.classList.add('bot', 'first');
+                    var today = new Date();
+                    var h = today.getHours();
+                    var m = today.getMinutes();
+                    
+                    h.toString();
+                    m.toString();
+                    
+                    botBubble += `
+                                Version 0.1
+                                <span class="time">
+                                    ${h}:${m}
+                                </span>
+                                <span class="user">Ubuntu Bot</span>
+                        `
+                    span.innerHTML = botBubble;
+                    chatBoard.appendChild(span);
+                chatInput.value = '';
+                chatBoard.lastChild.scrollIntoView({ behavior: "smooth"});
+                }
+
+                /* Handle bot typing*/
+                // function botTyping(){
+                //     var typingBubble = '';
+                //     let span = document.createElement('span');
+                //     span.classList.add('bot-typing', 'last');
+                //     typingBubble += `<span id="message"><span class="to typing message">
+                //                         <span class="typing_loader"></span>
+                //                     </span></span>`;
+                //     span.innerHTML =  typingBubble;
+                //     chatBoard.appendChild(span);
+                //     chatBoard.lastChild.scrollIntoView({ behavior: "smooth"});
+                // }
+
+                function showBotMessage(info) {
+
+                    var botBubble = '';
+                    let span = document.createElement('span');
+                    span.classList.add('bot', 'first');
+                    var today = new Date();
+                    var h = today.getHours();
+                    var m = today.getMinutes();
+                    
+                    h.toString();
+                    m.toString();
+                    
+                    botBubble += `
+                                ${info}
+                                <span class="time">
+                                    ${h}:${m}
+                                </span>
+                                <span class="user">Ubuntu Bot</span>
+                        `
+                    span.innerHTML = botBubble;
+                    chatBoard.appendChild(span);
+                    chatInput.value = '';
+                    chatBoard.lastChild.scrollIntoView({ behavior: "smooth"});
+                }
+
+                function jokeBotMessage(joke) {
+                    var botBubble = ''
+                    let span = document.createElement('span');
+                    span.classList.add('bot', 'first', 'joke-bg');
+                    var today = new Date();
+                    var h = today.getHours();
+                    var m = today.getMinutes();
+                    
+                    h.toString();
+                    m.toString();
+                    
+                    botBubble += `
+                                ${JSON.stringify(joke.setup)}
+                                <span class="time">
+                                    ${h}:${m}
+                                </span>
+                                <span class="user">Ubuntu Bot is smiling</span>
+                        `
+                    span.innerHTML = botBubble;
+                    chatBoard.appendChild(span);
+                    chatInput.value = '';
+                    
+                    setTimeout(function() {
+                        jokeBotOptions();
+                    }, 3400);
+            
+                    setTimeout(function() {
+                        jokeBotPunchline(joke);
+                    }, 5900);
+              
+                chatBoard.lastChild.scrollIntoView({ behavior: "smooth"});
+                }
+
+                function jokeBotPunchline(ans) {
+                    var botBubble = ''
+                    let span = document.createElement('span');
+                    span.classList.add('bot', 'first', 'joke-bg');
+                    var today = new Date();
+                    var h = today.getHours();
+                    var m = today.getMinutes();
+                    
+                    h.toString();
+                    m.toString();
+                    
+                    botBubble += `
+                                ${JSON.stringify(ans.punchline)}
                             
-                            botBubble += `
-                                        Version 0.1
-                                        <span class="time">
-                                            ${h}:${m}
-                                        </span>
-                                        <span class="user">Ubuntu Bot</span>
-                                `
-                            span.innerHTML = botBubble;
-                            chatBoard.appendChild(span);
-                        chatInput.value = '';
-                        chatBoard.lastChild.scrollIntoView({ behavior: "smooth"});
-                      }
+                                <span class="user">Ubuntu Bot lol</span>
+                        `
+                    span.innerHTML = botBubble;
+                    chatBoard.appendChild(span);
+                    chatInput.value = '';
+                    chatBoard.lastChild.scrollIntoView({ behavior: "smooth"});
+                }
 
-                    function showResponse() {
-                        var userInput = cleanText(chatInput.value);
-                        
-                        switch(userInput) {
-                            case 'about me':
-                                chatResponse();
-                                setTimeout(botResponse, 2000);
-                            break;
-                            case 'aboutme':
-                                chatResponse();
-                                setTimeout(botResponse, 2000);
-                            break;
-                            case "":
-                                alert('blank input not allowed')
-                            break;
-                            case 'hello':
-                                chatResponse();
-                            break;
-                            default:
-                                chatResponse();
-                        }
-                     
+                function jokeBotOptions() {
+                    var botBubble = ''
+                    let span = document.createElement('span');
+                    span.classList.add( 'options-wrap', );
+                    var today = new Date();
+                    var h = today.getHours();
+                    var m = today.getMinutes();
+                    
+                    h.toString();
+                    m.toString();
+                    
+                    botBubble += `
+                                <span class="options">
+                                Punchline: wait for it ...
+                                </span>
+                        `
+                    span.innerHTML = botBubble;
+                    chatBoard.appendChild(span);
+                    chatInput.value = '';
+                    chatBoard.lastChild.scrollIntoView({ behavior: "smooth"});
+                }
+
+
+                function showResponse() {
+                    var userInput = cleanText(chatInput.value);
+
+                                            
+                    switch(userInput) {
+                        case 'about me':
+                            chatResponse();
+                                setTimeout(botResponse, 1500);
+                        break;
+                        case 'aboutme':
+                            chatResponse();
+                            setTimeout(botResponse, 1500);
+                        break;
+                        case "":
+                            showBotMessage("Don't be shy, ask a question to start chatting");
+                        break;
+                    
+                        case 'joke:':
+                            chatResponse();
+                            getJoke();
+                            
+                        break;
+                        default:
+                            trainQuery()
+                            chatResponse();
+                            
                     }
+                     
+        }
 
             /* Handle user chat bubbles */
             if(chatSubmit) {
@@ -935,21 +1438,52 @@
                    
                 }) 
 
-              document.body.addEventListener( 'keyup', function (e) {
-                if ( e.keyCode == 13 ) {
-               
-                    chatSubmit.click();
-                }
+                document.body.addEventListener( 'keyup', function (e) {
+                    if ( e.keyCode == 13 ) {
+                
+                        chatSubmit.click();
+                    }
             });
+
+            /* Handle Ajax request and response to and from server */
+            function trainQuery() {
+                var message = cleanText(chatInput.value);
+                $.ajax({
+                    type: "POST",
+                    dataType : "json",
+                    url: 'profiles/Gwinyai.php',
+                    data: {message},
+                    success: function(data){
+                        if(data.status == 1) {
+                            showBotMessage(data.answer);
+                        }
+                        
+                    }
+                });
+            }
+         
+            function getJoke() {
+               
+                $.ajax({
+                    type: "GET",
+                    url: 'https://08ad1pao69.execute-api.us-east-1.amazonaws.com/dev/random_joke',
+                    success: function(data){
+                    jokeBotMessage(data);
+                        
+                    }
+                });
+            }
+
               
-            };
+        };
             
     
-           })();
+    })();
            
-       </script>
+    </script>
      
        
 </body>
 
 </html>
+
