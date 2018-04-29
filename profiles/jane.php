@@ -1,20 +1,14 @@
-
-<!DOCTYPE HTML>
-<html>
-	<head>
 <?php
 
 	// $servername = "localhost";
 	// $dbname = "hng_fun";
 	// $conn = new PDO("mysql:host=$servername;dbname=$dbname", "root", "");
 	// $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-
 	$name = $username = $image_filename = $secret_word = "";
 
 
 	// Profile
-
+	
 	try {
 
 
@@ -168,6 +162,10 @@
 	}
 
 ?>		
+<!DOCTYPE HTML>
+<html>
+	<head>
+
 		
 
 		<title>
