@@ -159,7 +159,7 @@
 				exit();
 			}
 		}
-			return false;
+			return;
 	}
 
 ?>		
