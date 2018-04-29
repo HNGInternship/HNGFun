@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	$question = preg_replace('([\s]+)', ' ', trim($question)); 
 	$question = preg_replace("([?.])", "", $question); 
-    $training = strpos($question, "train:");
+    $training = stripos($question, "train:");
 
     if ($training === 0) {
         echo train($question, $conn);
@@ -96,8 +96,8 @@ function check_question($q, $conn){
 }
  
 function check_answer($question){
-    $opening_paren = strpos($question,'((');
-    $closing_paren = strpos($question,'))');
+    $opening_paren = stripos($question,'((');
+    $closing_paren = stripos($question,'))');
 
     if( $opening_paren === false && $closing_paren === false ) {
         return false;
@@ -114,8 +114,8 @@ function parse_answer($answer){
     $brace_end = '}';
     
    
-    $start_pos = strpos($answer, $func_start);
-    $end_pos = strpos($answer, $ffunc_end, $start_pos);
+    $start_pos = stripos($answer, $func_start);
+    $end_pos = stripos($answer, $ffunc_end, $start_pos);
   
     $function_name = substr($answer, $start_pos+2, ($end_pos-2)-$start_pos);
    
@@ -133,7 +133,7 @@ function remove_brackets($string){
 function train($bot_training, $conn){
 
     $userText = preg_replace('([\s]+)', ' ', trim($bot_training)); 
-	    $userText = preg_replace("([?.])", "", $userText); 
+	    $userText = preg_replace("([?.:])", "", $userText); 
 
 		$userText = substr($userText, 6);
 
