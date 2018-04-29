@@ -1,7 +1,6 @@
-<!--AKINTOLA MORONFOLUWA EMMANUEL-->
 <?php
   $dt = date("Y-m-d h:i:sa");
-  $time= date("h:i:sa")?>
+  $time= date("h:i:sa");?>
 
 <?php 
 if(!defined('DB_USER')){
@@ -18,7 +17,6 @@ if(!defined('DB_USER')){
   $secret_word = $result->secret_word;
   $result2 = $conn->query("Select * from interns_data where username = 'foluwa'");
   $user = $result2->fetch(PDO::FETCH_OBJ);
-
 
   if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
@@ -187,7 +185,7 @@ if(!defined('DB_USER')){
           max-height: 250px;
           max-width: 250px;
       }
-      input[type=text] {
+      textarea {
           width: 70%;
           padding: 12px 20px;
           margin: 8px 0;
@@ -333,18 +331,18 @@ if(!defined('DB_USER')){
                 </div>
                 <div class="" id="" style="border:5px solid green;">
                     <div id="conversation" class="conversation">
-                      <div class="bot-message">Hello! I'm ZOE!  
-                          <p class="time"><?php echo $time ?></p>
-                      </div>
-                      <div class="human-message pull-right">Hi Zoe, Am Foluwa
-                          <p class="time"><?php echo $time ?></p>
-                      </div>
+                        <div class="bot-message">Hello! I'm ZOE!  
+                            <p class="time"><?php echo $time ?></p>
+                        </div>
+                        <div class="human-message pull-right">Hi Zoe, Am Foluwa
+                            <p class="time"><?php echo $time ?></p>
+                        </div>
                     </div>
                 </div>
                 <div>
                     <form id="chat" method="post" style="position:absolute;bottom:0;" >
-                        <input type="text" name="userInput" id="user-input" class="user-input" placeholder="Enter your text....">
-                        <button id="send" type="button" class="btn btn-primary btn-sm" style="background-color:#79af9c;">
+                        <textarea name="userInput" id="user-input" class="user-input" placeholder="Enter your text...."></textarea>
+                        <button id="send" type="submit" class="btn btn-primary btn-sm" style="background-color:#79af9c;">
                           <i class="fas fa-paper-plane"></i>
                         </button>
                     </form>
@@ -355,33 +353,30 @@ if(!defined('DB_USER')){
           </div>
        </div>
        </div>
-  
+
+          <script src="../vendor/jquery/jquery.min.js"></script>
+          <script>
+          $(document).ready(function(){
+            var Form =$('#chat');
+            Form.submit(function(e){
+              e.preventDefault();
+              var textBox = $('textarea[name=userInput]');
+              var question = textBox.val();
+              $("#conversation").append("<div class='human-message'>" + question + "<p class='time'><?php echo $time?></p>" + "</div>");
+              $.ajax({
+                url: '/profiles/foluwa.php',
+                type: 'POST',
+                data: {question: question},
+                dataType: 'json',
+                success: function(response){
+                    $("#conversation").append("<div class='bot-message'>"  + response.answer + "<p class='time'><?php echo $time?></p>" + "</div>");
+                },
+                error: function(error){
+                      alert(error);
+                }
+              })  
+            })
+          });
+        </script>
 </body>
 </html>
-    <script src="../vendor/jquery/jquery.min.js"></script>
-  <script>
-    $(document).ready(function(){
-      var Form =$('#chat');
-      Form.submit(function(e){
-        e.preventDefault();
-        var questionBox = $('textarea[name=inputtext]');
-        var question = questionBox.val();
-        $("#conversation").append("<p class='bot-message'>" + question + "<p class='time'><?php echo $time?></p>" + "</p>");
-        $.ajax({
-          url: '/profiles/foluwa.php',
-          type: 'POST',
-          data: {question: question},
-          dataType: 'json',
-          success: function(response){
-              $("#conversation").append("<p class='human-message'>"  + response.answer + "<p class='time'><?php echo $time?></p>" + "</p>");
-          },
-          error: function(error){
-                alert(error);
-          }
-        })  
-      })
-    });
-  </script>
-</body>
-</html>
-<!--AKINTOLA MORONFOLUWA EMMANUEL-->
