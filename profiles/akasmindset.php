@@ -57,7 +57,7 @@ $filename = $intern_detail['image_filename'];
         max-width:350px;
         text-align: center; 
         font-family: Arial,sans-serif;
-        height: 150px;
+        
     }
     .logo{
         color:red;
@@ -81,7 +81,7 @@ $filename = $intern_detail['image_filename'];
         color: gray;
     }
     #twitter{
-        color:##00aced;
+        color:#00aced;
     }
     #facebook{
         color:#3b5998;
