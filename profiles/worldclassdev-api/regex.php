@@ -42,7 +42,7 @@ class Regex
         //seperate # to get question and answer
         $array = explode('#', $var);
         //insert the rest 
-            $insert = $this->query3( "INSERT INTO `chatbot` (`id`, `question`, `answer` ) VALUES ('', '".$array[0]."', '".$array[1]."') ");
+            $insert = $this->query3( "INSERT INTO `chatbot` (`id`, `question`, `answer` ) VALUES (null, '".$array[0]."', '".$array[1]."') ");
 			if($insert){$insertCount++;}
         return "I have been trained! Thank You!";
     }
