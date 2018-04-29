@@ -1,27 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Profile - John Olubori David</title>
-	<?php 
-		$result = $conn->query("Select * from secret_word LIMIT 1");
-		$result = $result->fetch(PDO::FETCH_OBJ);
-		$secret_word = $result->secret_word;
+<?php 
+	$result = $conn->query("Select * from secret_word LIMIT 1");
+	$result = $result->fetch(PDO::FETCH_OBJ);
+	$secret_word = $result->secret_word;
 
-		$result2 = $conn->query("Select * from interns_data where username = 'olubori'");
-		$user = $result2->fetch(PDO::FETCH_OBJ);
-	?>
+	$result2 = $conn->query("Select * from interns_data where username = 'olubori'");
+	$user = $result2->fetch(PDO::FETCH_OBJ);
+?>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 	<style type="text/css">
+	  #main {
+	  	width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	  }
+	  #main > div {
+	  	border: 1px solid red;
+	  	width: 100%;
+	  	height: 100vh;
+	  }
+
+	  #chat-box {
+	  	position: relative;
+	  }
+
+	  @media only screen and (min-width: 993px) {
+	  	#main > div {
+	  	  border: 1px solid red;
+	  	  width: 50%;
+	    }
+
+	    #menu {
+	      display: none;
+	    }
+
+	  }
 		/*html, body{
 			height: 100%;
 			margin: 0px;
 		}
 
-		#app {
-		  height: 100%;
-		  display: flex;
-		  flex-direction: column;
-		  justify-content: space-between;
-		}
+		
 		header > h3, footer > p {
 			margin: auto;
 		}
@@ -78,9 +97,32 @@
 
 		*/
 	</style>
-</head>
-<body>
+
 <section id="app">
+	<div id="menu">
+		<a href="#">Profile</a>
+		<a href="#">Chat Bot</a>
+	</div>
+  <div id="main">
+  	<div id="profile-box">
+  		Profile
+  	</div>
+  	<div id="chat-box">
+  		Chat Bit
+  	</div>
+  </div>
+  
+</section>
+
+
+<script type="text/javascript">
+	var app = new Vue({
+	  el: '#app',
+	  data: {
+	    message: 'Hello Vue!'
+	  }
+	})
+</script>
 	<!--<header class="bg-grey flex">
 		<h3><?php echo $user->name ?> <small>(@<?php echo $user->username ?>)</small></h3>
 	</header>
@@ -90,7 +132,5 @@
 	  	<img src="<?php echo $user->image_filename ?>" />
 	  </div>		
 	</main>-->
-</section>
-</body>
-</html>
+
 

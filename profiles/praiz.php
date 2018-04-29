@@ -252,7 +252,7 @@ if(isset($_POST['chatspace'])){
       </div>
       <div class="duby">
          <div class="darker"> My name is Dan <img src="avatar.png" class="avatar" style="margin-left: 5px; display: inline-block;"> </div>
-      </div>  
+      </div> 
       <div class="ruby">
          <div class="lighter"> <img src="avatar.png" class="avatar">Hi Dan</div></div>   
       </div>
@@ -260,19 +260,29 @@ if(isset($_POST['chatspace'])){
    </div> 
 </div>
       <div class="butt"> <input type="text" name="chatspace"> 
-      <button type="submit" id="button" name="submit" onclick="fun()">send</button></div>
+      <button type="submit" id="button" name="submit" onclick="return fun()">send</button></div>
 </form>   
 </center>
 </div>
-<script type="text/javascript">
-   function fun(){
-      alert("i have been clicked");
-   }
-</script>
 
 <script src="../vendor/jquery/jquery.min.js"></script>
-<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+   function fun(){
+
+
+      var chatbox = $('input[name=chatspace]');
+      var question = chatbox.val();
+      $( "#chats" ).append('<div class="duby"><div class="darker"> ' + question + ' <img src="avatar.png" class="avatar" style="margin-left: 5px; display: inline-block;"> </div></div>' );
+      $('input[name=chatspace]').val('');
+      //alert(el);
+      //el.appendChild('<p>I amhere</p>');
+      /*var el = document.getElementById('chats');
+      el.html(el.html() + '<div class="duby"><div class="darker"> My name is Dan <img src="avatar.png" class="avatar" style="margin-left: 5px; display: inline-block;"> </div></div>');*/
+
+      return false;
+   }
+</script>
 
 
 <script type="text/javascript">
