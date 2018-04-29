@@ -1,7 +1,3 @@
-<?php 
-  require 'db.php';
-?>
-
 <?php
    $result = $conn->query("Select * from secret_word LIMIT 1");
    $result = $result->fetch(PDO::FETCH_OBJ);
@@ -12,62 +8,47 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Comurule</title>
+<html>
+  <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title> Comurule Project </title>
+   
+   <meta name="viewport"
+         content= "width=device-width,initial-scale=1";>
 
-<meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
+   
 
-<style type="text/css">
- * { 
-  margin: 0;
-  padding: 0;
-  font-family: tahoma, sans-serif;
-  box-sizing: border-box;
-}
+   <style type="text/css">
+   	*{
+   	   box-sizing: border-box;   	}
 
-  body{
-  	width: 100%
-  	padding:20px;
+   	   /*style of body*/
+   	   body {
+   	   	background-color:rgb(100,100,255);
+   	   	border: 10px;
+   	   	color: white;
+        padding: 20px
+   	   	
+   	   }
 
-  	}
-	.majleft{
-		width: 30%;
-		padding: 10px;
-		float: left;
-		border: 2px, solid, solid-grey;
-		background-color: #eeeeee;
-	}
-	.minleft{
-		width: 10vw;
-		height: 50px;
-		float: right;
-		box-shadow: 5px;
-		background-color: white;
+   	   
+
+   </style>
+         
+  </head>
+
+  <body>
+    <div style="width: 60vw; height: 60%; background-color: rgba(240, 240, 240, 180); box-shadow: 5px, solid; padding: 0px; position: middle;">
+    	<div style="width: 20vw; height: 90%; float: left;"> 
+    		<img src="http://res.cloudinary.com/comurule/image/upload/v1524716649/IMAG0270.jpg" style="width: 100%; height: 50%;">
+    		<h4 style="text-align: center; color: rgba(255,60,60); text-shadow: 5px; ">Umechukwu Chibuike</h4>
+    	</div>
+    <div style="width: 39.6vw; height: 38vw; background-color: rgba(200, 200, 240, 90); float: right; color: black; padding: 20px">
+    	I'm an aspiring Full-stack web developer.
+    	
+    </div>
 
 
-	}
-
-	.minleft a:hover, .minleft a:focus{background-color: rgb(128,128,128); color: rgb(255,255,255);}
-	.minleft a:active{background-color: 128,128,255; color: rgb(255,255,255);}
-	
-	.majright{width: 60%;
-		padding: 30px;
-		float: right;
-		box-shadow: 5px;
-		background-color: #dddddd;
-
-	}
-
-</style>
-
-</head>	
-
-<body>
-	<div style="width: 200px; height: 400px; position: center;"><img src="http://res.cloudinary.com/comurule/image/upload/v1524716649/IMAG0270.jpg" 
-		style="width: 200px; height: 400px; position: relative; border-image: 2px solid solid-grey;"></div>
-	<h1 style="text-align: center; color: rgb(128,128,255); ">UMECHUKWU CHIBUIKE</h1><br>
-	<h4 style="text-align: center; color:rgb(255,128,128);">A Programming beginner who's very determined to succeed in this feld</h4>
-</body>
+    </div>
+  </body>
 </html>
