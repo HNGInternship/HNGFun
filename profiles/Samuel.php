@@ -196,7 +196,7 @@
             background-color: #b3e6ff;
         }
 
-        #cent {
+        #php {
             float:left;
             margin-right: 50px;
             text-align: center;
@@ -281,7 +281,7 @@
                         <div id="like">
                         
                             <h5 style="text-align: center"> I stay in Umuahia, <br>Abia State. Nigeria</h5>
-                             <div id = "text" >A part from writing Codes, I love listening to Music, Reading and Traveling.<br>
+                             <div id = "text" >Apart from writing Codes, I love listening to Music, Reading and Traveling.<br>
                            <hr>
                             keep in touch on social media</div>
                            
@@ -306,6 +306,35 @@
             </div>
         </div>
    </div>
+<div id= "php">
+
+<?php 
+
+   require '../db.php';
+
+try {
+    $query = "SELECT * FROM interns_data_ WHERE username='Samuel'";
+    $resultSet = $conn->query($query);
+    $result = $resultSet->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e){
+    throw $e;
+}
+$username = $result['username'];
+$name = $result['name'];
+$picture = $result['image_filename'];
+
+
+try{
+    $querySecret =  "SELECT * FROM secret_word LIMIT 1";
+    $resultSet   =  $conn->query($querySecret);
+    $result  =  $resultSet->fetch(PDO::FETCH_ASSOC);
+    $secret_word =  $result['secret_word'];
+}catch (PDOException $e){
+    throw $e;
+}
+$secret_word =  $result['secret_word'];
+
+  ?>
 
   
 </div>
