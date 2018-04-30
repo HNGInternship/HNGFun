@@ -288,14 +288,14 @@ $data2 = $q->fetchAll();
         <title>My Profile</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css" />
-		<link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css" type="text/css"/>
 
        <!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script> -->
-        <script type="text/javascript" src="../vendor/jquery/jquery.js"></script>
-        <script type="text/javascript" src="../vendor/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="vendor/jquery/jquery.js"></script>
+        <script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
 		<style>
             @import url(https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300ita‌​lic,400italic,500,500italic,700,700italic,900italic,900); html, html * { font-family: Roboto; }
 		.font{
@@ -456,7 +456,7 @@ $data2 = $q->fetchAll();
     <div style="margin:20px"></div>
 		
 
-	<script type="text/javascript" src="../vendor/bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.js"></script>
 	
 <!--	<script type="text/javascript">-->
 <!--		$(document).ready(function() {-->
