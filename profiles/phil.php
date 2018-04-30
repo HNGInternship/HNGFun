@@ -1,48 +1,88 @@
-<?php 
-  require 'db.php';
-?>
 <?php
-  $result = $conn->query("Select * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
+require '../db.php';
 
-  $result2 = $conn->query("Select * from interns_data where username = 'phil'");
-  $user = $result2->fetch(PDO::FETCH_OBJ);
+  try {
+    $sql = "SELECT * FROM secret_word";
+    $secret_word_query = $conn->query($sql);
+    $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
+    $query_result = $secret_word_query->fetch();
+  
+    $sql_query = 'SELECT * FROM interns_data WHERE username="phil"';
+    $query_my_intern_db = $conn->query($sql_query);
+    $query_my_intern_db->setFetchMode(PDO::FETCH_ASSOC);
+    $intern_db_result = $query_my_intern_db->fetch();
+
+  } catch (PDOException $exceptionError) {
+    throw $exceptionError;
+  }
+
+  $secret_word = $query_result['secret_word'];
+  $name = $intern_db_result['name'];
+  $username = $intern_db_result['username'];
+  $image_url = $intern_db_result['image_filename'];
 ?>
-<html>
+
+
 <head>
-<title></title>
-<style>
-body {background-color: 87ceeb;}
-h2 {
-    border-style: solid;
-    border-color: coral;}
-
-</style>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Profile Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .profile-h1 {
+    text-align: center;
+    font-size: 25px;
+    margin-top: 40px;
+    margin-bottom: -30px;
+  }
+  .profile-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+  margin-top: 70px;
+}
+.profile-image {
+  height: 70%;
+  width: 100%;
+}
+.profile-title {
+  color: black;
+  font-size: 30px;
+  font-family: 'Open Sans Condensed';
+  margin-top: 15px;
+}
+.prop-username {
+  letter-spacing: 1px;
+  font-size: 15px;
+}
+.prop-name {
+  padding-bottom: 40px;
+  letter-spacing: 1px;
+  font-size: 15px;
+}
+.profile-name {
+  font-family: 'Open Sans Condensed';
+  font-size: 30px;
+}
+  </style>
 </head>
-<body>
-<img src= "http://res.cloudinary.com/diwu3x3tr/image/upload/v1523637541/rsz_img_20170213_081525_594.jpg" alt="phil" align="center" width="300" height="300" ></center>
-<div class="jumbotron jumbotron-fluid" style= "jumbotron{ color: red;}">
-  <div class="container">
-    <h1 class="display-4">Hello Guys!</h1>
-    <p class="lead">This is a summary of my profile and my skills</p>
-  </div>
-</div>
-<div class = "col-md-4">
-<h2> PROFILE</h2>
-<h3>My Name is phil Adeleye </h4>
-</div>
-<div class = "col-md-4">
-<h2> SKILLS</h2>
-<h3> Software Development </h3>
-</div>
-<div class = "col-md-4" >
-<h2> CONTACT </h2>
-<h3> Slack: @phil </h3>
-</div>
 
-</body>
-</html>
+<main id="profileContainer" class="container">
+          <h1 class="profile-h1">My Profile</h1>
+          <div class="profile-card">
+            <img src="<?php echo $image_url ?>" alt="John" class="profile-image" />
+            <p class="profile-title">Username</p>
+            <p>
+            <?php
+              echo $username;
+            ?>
+            </p>
+            <p class="profile-name">Name</p>
+            <p class="prop-name"><?php
+              echo $name;
+            ?>  </p>
+          </div>
+        </main>
+
