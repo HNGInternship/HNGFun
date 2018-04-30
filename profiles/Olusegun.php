@@ -9,6 +9,9 @@ try {
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $data = $q->fetch();
+    $name = $data['name'];
+	$username = $data['username'];
+	$image_filename = $data['image_filename'];
 } catch (PDOException $e) {
     throw $e;
 }
@@ -18,14 +21,13 @@ try {
     $q2 = $conn->query($sql2);
     $q2->setFetchMode(PDO::FETCH_ASSOC);
     $data2 = $q2->fetch();
+    $secret = $data2['secret_word'];
 } catch (PDOException $e) {
     throw $e;
 }
 
-$name = $data['name'];
-$username = $data['username'];
-$image_filename = $data['image_filename'];
-$secret = $data2['secret_word'];
+
+
 
 ?>
 
