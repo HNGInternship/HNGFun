@@ -6,7 +6,12 @@ if(!isset($_GET['id'])){
     require 'db.php';
  }
 
+// $result = $conn->query("Select * from secret_word");
+// $result = $result->fetch(PDO::FETCH_OBJ);
+// $secret_word = $result['secret_word'];
 
+// $result2 = $conn->query("Select * from interns_data where username = 'Syfon'");
+// $user = $result2->fetch(PDO::FETCH_OBJ);
 
 try{
    $sql = 'SELECT * FROM secret_word';
@@ -47,12 +52,11 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 .card-body{
     background-color: rgb(1, 1, 41);
-    padding-left:300px;
 }
 .rounded-circle{
     border-radius:50%;
-    height: 200px;
-    width:200px;
+    height: 300px;
+    width:300px;
     position: absolute;
     top:40px;
     left: 40%;

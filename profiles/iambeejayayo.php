@@ -47,6 +47,7 @@
        <!-- BODY SECTION -->
 
         <body class="bg-dark text-light">
+        <br /><br /><br />
             <div class="row">
         <div class="col-sm-4 bg-dark text-light">
             <br />
@@ -59,7 +60,6 @@
         </div> 
 
                 <div class="col-sm-6 bg-dark">
-            <div id="bio">
                 <br />
                         <br />
             <div class="social">
@@ -77,25 +77,27 @@
                       
                 <a href="https://github.com/iambeejayayo" style="text-decoration:none"
                 class="fa fa-github social text-light"></a>&nbsp
+                <a href="https://medium.com/@BolajiAyodeji" style="text-decoration:none"
+                class="fa fa-medium social text-light"></a>&nbsp
+                <a href="https://slack.com/hnginternship4" style="text-decoration:none"
+                class="fa fa-slack social text-light"></a>&nbsp
                 <a href="https://facebook.com/ayodeji.beejay" style="text-decoration:none"
                 class="fa fa-facebook-official social text-light"></a>&nbsp
                 <a href="https://instagram.com/iambeejayayo" style="text-decoration:none"
                 class="fa fa-instagram social text-light"></a>&nbsp
                 <a href="https://twitter.com/iambeejayayo" style="text-decoration:none"
                 class="fa fa-twitter social text-light"></a>&nbsp
-                <a href="https://linkedin.com/iambeejayayo" style="text-decoration:none"
+                <a href="https://linkedin.com/in/iambeejayayo" style="text-decoration:none"
                 class="fa fa-linkedin social text-light"></a>&nbsp
-                <a href="https://medium.com/@BolajiAyodeji" style="text-decoration:none"
-                class="fa fa-medium social text-light"></a>&nbsp
-                <a href="https://slack.com/hnginternship4" style="text-decoration:none"
-                class="fa fa-slack social text-light"></a>&nbsp
+                <a href="https://whatsapp.com/08109445504" style="text-decoration:none"
+                class="fa fa-whatsapp social text-light"></a>&nbsp
+                
                 <br /><br /><br />
                 </div></div></div></div>
                                 
                     </body>
-                    <div "container expand-lg">         
                     </html>
-
+                    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
