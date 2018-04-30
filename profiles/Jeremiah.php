@@ -1,5 +1,4 @@
 <?php
-//PLEASE NOBODY SHOULD COPY MY CODES AGAIN! BY JEREMIAH RIGHTEOUS
 	if(!defined('DB_USER')){
 	  require "../../config.php";		//change config details when pushing
 	  try {
@@ -47,24 +46,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       ]);
       return;
     };
-    //Check if user want to train the bot or ask a normal question
+       //Check if user want to train the bot or ask a normal question
 	$check_for_train = stripos($question, "train:");
     if($check_for_train === false){ //then user is asking a question
-	
-	//remove extra white space, ? and . from question
-	$question = preg_replace('([\s]+)', ' ', trim($question));
-	$question = preg_replace("([?.])", "", $question); 
-	
-	 //check database for the question and return the answer
-	$question = $question;
+
+        $question = $question;
         $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
         $q = $GLOBALS['conn']->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
-        if(empty($data)){ //That means your answer was not found on the database
+        if(empty($data)){
             echo json_encode([
         		'status' => 1,
-       			 'answer' =>  "I can't answer your question! Please train me by typing-->  train: question #answer #password"
+       			 'answer' => "I don't understands you."
      		 ]);
           return;
 
@@ -74,12 +68,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             echo json_encode([
         		'status' => 1,
-       			 'answer' => $answer,  //return one of the the answers to client
+       			 'answer' => $answer,
      		 ]);
            return;
-        	};      
-	    
-	    
+        }
 	}else{		  
 		//train the chatbot to be more smarter 
 		//remove extra white space, ? and . from question
@@ -312,7 +304,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				<h1 id="hello">HELLO,</h1>
 			</div>
 			<div class="about"> <!--I may need to fetch my fullname from database-->
-				<p>I'm <strong> <?php echo $fullName; ?> </strong> From Lagos, NG. I'm a Software Engineer | UI/UX designer | Technology enthusiast | Barcelona FC Fan | I L♥️ve music...Always God first! 😉💯 <br></p>
+				<p>I'm <strong> <?php echo $fullName; ?> </strong> From Lagos, NG. I'm a Software Engineer | UI/UX designer | Technology enthusiast | Barcelona FC Fan | I L♥️ve music...Always God first! 😉<br></p>
 				<p style=" line-height: -100px;"> </p>
 			</div>
 			<div class="link">
@@ -385,7 +377,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						console.log(error);
 				}
 				
-			});
+			}); //end of ajax jquery function
 			document.getElementById("chat-input-form").reset(); //clear the fields
 		});	
 </script>
