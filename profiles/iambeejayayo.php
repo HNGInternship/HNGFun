@@ -87,7 +87,7 @@
                 class="fa fa-instagram social text-light"></a>&nbsp
                 <a href="https://twitter.com/iambeejayayo" style="text-decoration:none"
                 class="fa fa-twitter social text-light"></a>&nbsp
-                <a href="https://linkedin.com/iambeejayayo" style="text-decoration:none"
+                <a href="https://linkedin.com/in/iambeejayayo" style="text-decoration:none"
                 class="fa fa-linkedin social text-light"></a>&nbsp
                 <a href="https://whatsapp.com/08109445504" style="text-decoration:none"
                 class="fa fa-whatsapp social text-light"></a>&nbsp
