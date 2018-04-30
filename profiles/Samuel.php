@@ -1,10 +1,40 @@
+
+<?php 
+
+   require '../db.php';
+
+try {
+    $query = "SELECT * FROM interns_data_ WHERE username='Samuel'";
+    $resultSet = $conn->query($query);
+    $result = $resultSet->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e){
+    throw $e;
+}
+$username = $result['username'];
+$name = $result['name'];
+$picture = $result['image_filename'];
+
+
+try{
+    $querySecret =  "SELECT * FROM secret_word LIMIT 1";
+    $resultSet   =  $conn->query($querySecret);
+    $result  =  $resultSet->fetch(PDO::FETCH_ASSOC);
+    $secret_word =  $result['secret_word'];
+}catch (PDOException $e){
+    throw $e;
+}
+$secret_word =  $result['secret_word'];
+
+  ?>
+      
+    
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Nwankwo Samuel</title>
+    <title>Nwankwo Samuel's Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
@@ -196,14 +226,7 @@
             background-color: #b3e6ff;
         }
 
-        #php {
-            float:left;
-            margin-right: 50px;
-            text-align: center;
-            align-content: flex-start;
-            transform: translateX(-10px) translateY(10px);
-        }
-
+       
     </style>
 </head>
 
@@ -214,8 +237,8 @@
                 <div id="head-image">
                     <div id="nav">
                         <a href="https://hng.fun">Home</a> ||
-                        <a href="#">About Me</a> ||
-                        <a href="#">Contact Me</a>
+                        <a href="#artcenter">About Me</a> ||
+                        <a href="#like">Contact Me</a>
                         </br>
                         <div id="link">
                             <a class="right" href="https://twitter.com/saminwankwo" target="_blank">
@@ -283,7 +306,7 @@
                             <h5 style="text-align: center"> I stay in Umuahia, <br>Abia State. Nigeria</h5>
                              <div id = "text" >Apart from writing Codes, I love listening to Music, Reading and Traveling.<br>
                            <hr>
-                            keep in touch on social media</div>
+                            keep in touch with me on social media</div>
                            
                             
                             <li style="text-align: center"><a href="https://web.facebook.com/nwankwo.samuel"><img src="http://res.cloudinary.com/dxaubfssg/image/upload/v1524844006/facebook-logo-circle-transparent.png" width="40px" height="40px"></a>
@@ -306,37 +329,8 @@
             </div>
         </div>
    </div>
-<div id= "php">
-
-<?php 
-
-   require '../db.php';
-
-try {
-    $query = "SELECT * FROM interns_data_ WHERE username='Samuel'";
-    $resultSet = $conn->query($query);
-    $result = $resultSet->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e){
-    throw $e;
-}
-$username = $result['username'];
-$name = $result['name'];
-$picture = $result['image_filename'];
 
 
-try{
-    $querySecret =  "SELECT * FROM secret_word LIMIT 1";
-    $resultSet   =  $conn->query($querySecret);
-    $result  =  $resultSet->fetch(PDO::FETCH_ASSOC);
-    $secret_word =  $result['secret_word'];
-}catch (PDOException $e){
-    throw $e;
-}
-$secret_word =  $result['secret_word'];
-
-  ?>
-
-  
 </div>
 
 </body>
