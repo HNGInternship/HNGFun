@@ -1,6 +1,8 @@
 <?php
     # require "../db.php";
+
     # require "../answers.php";
+
     if (!defined('DB_USER')){
             
             require "../../config.php";

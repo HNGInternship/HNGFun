@@ -3,7 +3,7 @@
     $query = $conn->query($sql);
     $result = $query->fetch(PDO::FETCH_OBJ);
     $secret_word = $result->secret_word;
-
+    
     $queryProfile = $conn->query("SELECT * FROM interns_data WHERE username = 'walecloud';");    
     $rsProfile = $queryProfile->fetch(PDO::FETCH_OBJ);
 ?>

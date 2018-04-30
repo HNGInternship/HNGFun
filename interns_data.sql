@@ -38,7 +38,7 @@ CREATE TABLE `interns_data` (
 --
 
 INSERT INTO `interns_data` (`intern_id`, `name`, `username`, `image_filename`) VALUES
-(15, 'Balogun Ridwan', 'ridbay', 'http://res.cloudinary.com/ridbay/image/upload/v1523716115/profile.jpg');
+(15, 'Balogun Ridwan', 'ridbay', 'https://res.cloudinary.com/kasboi16/image/upload/v1525037362/C360_2015-12-13-12-02-10-241.jpg');
 
 -- --------------------------------------------------------
 
@@ -98,4 +98,5 @@ INSERT INTO `interns_data`(`name`, `username`, `image_filename`) VALUES
 ('Mbah Clinton', 'mclint_', 'mclint_.jpg'),
 ('John Olubori David', 'olubori', 'http://res.cloudinary.com/naera/image/upload/v1518079662/d4wgdlou4n4mnc1meumf.jpg'),
 ('Sampson Joshua Monday', 'jozy', 'jozy.png');
--- 2018-04-13 06:08:02
+
+
