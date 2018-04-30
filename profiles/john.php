@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'status' => 1,
             'answer' => $res
             ]);
-            return;
+//             return;
            
         }
 

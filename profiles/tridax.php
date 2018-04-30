@@ -3,7 +3,7 @@
 
 
 if(!isset($conn)) {
-    include '../../config.php';
+    include '../config.php';
 
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 }
@@ -125,19 +125,9 @@ if(isset($_POST['message']))
 
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="description" content="hng intern">
-    <meta name="author" content="akinsanya adeoluwa">
-    <link rel="shortcut icon" href="" type="image/png">
-    <link href="../css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="../css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
-
-<!-- Profile Page Css start -->
     <style>
     
 body {
@@ -189,23 +179,6 @@ body {
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
-.settingbtn {
-	height: 30px;
-	width: 30px;
-	border-radius: 30px;
-	display: block;
-	position: absolute;
-	bottom: 0px;
-	right: 0px;
-	line-height: 30px;
-	vertical-align: middle;
-	text-align: center;
-	padding: 0;
-	box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.15);
-	-moz-box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.15);
-	-webkit-box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.15);
-	-ms-box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.15);
-}
 .userprofile.small {
 	width: auto;
 	clear: both;
@@ -250,9 +223,7 @@ body {
 	width: 100%;
 	margin: 0;
 }
-/*==============================*/
-/*====== Social Profile css =====*/
-/*==============================*/
+
 .countlist h3 {
 	margin: 0;
 	font-weight: 400;
@@ -287,70 +258,9 @@ body {
 	color: #ffffff;
 	opacity: 0.8
 }
-.postbtn {
-	position: absolute;
-	right: 5px;
-	top: 5px;
-	z-index: 9
-}
-.status-upload {
-	width: 100%;
-	float: left;
-	margin-bottom: 15px
-}
-.posttimeline .panel {
-	margin-bottom: 15px
-}
-.commentsblock {
-	background: #f8f9fb;
-}
-.nopaddingbtm {
-	margin-bottom: 0
-}
-/*==============================*/
-/*====== Recently connected  heading =====*/
-/*==============================*/
-.memberblock {
-	width: 100%;
-	float: left;
-	clear: both;
-	margin-bottom: 15px
-}
-.member {
-	width: 24%;
-	float: left;
-	margin: 2px 1% 2px 0;
-	background: #ffffff;
-	border: 1px solid #d8d0c3;
-	padding: 3px;
-	position: relative;
-	overflow: hidden
-}
-.memmbername {
-	position: absolute;
-	bottom: -30px;
-	background: rgba(0, 0, 0, 0.8);
-	color: #ffffff;
-	line-height: 30px;
-	padding: 0 5px;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	width: 100%;
-	font-size: 11px;
-	transition: 0.5s ease all;
-}
-.member:hover .memmbername {
-	bottom: 0
-}
-.member img {
-	width: 100%;
-	transition: 0.5s ease all;
-}
-.member:hover img {
-	opacity: 0.8;
-	transform: scale(1.2)
-}
+
+
+
 
 .panel-default>.panel-heading {
     color: #607D8B;
@@ -373,16 +283,8 @@ body {
     line-height: 1.428571429;
 }
 
-.page-header.small {
-    position: relative;
-    line-height: 22px;
-    font-weight: 400;
-    font-size: 20px;
-}
 
-.favorite i {
-    color: #eb3147;
-}
+
 
 .btn i {
     font-size: 17px;
@@ -405,129 +307,7 @@ body {
     width: 100%;
 }
 
-.panel-footer {
-    padding: 10px 15px;
-    background-color: #ffffff;
-    border-top: 1px solid #eef2f4;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    color: #607d8b;
-}
 
-.panel-blue {
-    color: #ffffff;
-    background-color: #03A9F4;
-}
-
-.panel-red.userlist .username, .panel-green.userlist .username, .panel-yellow.userlist .username, .panel-blue.userlist .username {
-    color: #ffffff;
-}
-
-.panel-red.userlist p, .panel-green.userlist p, .panel-yellow.userlist p, .panel-blue.userlist p {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.panel-red.userlist p a, .panel-green.userlist p a, .panel-yellow.userlist p a, .panel-blue.userlist p a {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.progress-bar-success, .status.active, .panel-green, .panel-green > .panel-heading, .btn-success, .fc-event, .badge.green, .event_green {
-    color: white;
-    background-color: #8BC34A;
-}
-
-.progress-bar-warning, .panel-yellow, .status.pending, .panel-yellow > .panel-heading, .btn-warning, .fc-unthemed .fc-today, .badge.yellow, .event_yellow {
-    color: white;
-    background-color: #FFC107;
-}
-
-.progress-bar-danger, .panel-red, .status.inactive, .panel-red > .panel-heading, .btn-danger, .badge.red, .event_red {
-    color: white;
-    background-color: #F44336;
-}
-
-.media-object {
-    max-width: 50px;
-    border-radius: 50px;
-    box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-    -webkit-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-    -ms-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-}
-
-.media:first-child {
-    margin-top: 15px;
-}
-
-.media-object {
-    display: block;
-}
-
-.dotbtn {
-    height: 40px;
-    width: 40px;
-    background: none;
-    border: 0;
-    line-height: 40px;
-    vertical-align: middle;
-    padding: 0;
-    margin-right: -15px;
-}
-
-.dots {
-    height: 4px;
-    width: 4px;
-    position: relative;
-    display: block;
-    background: rgba(0,0,0,0.5);
-    border-radius: 2px;
-    margin: 0 auto;
-}
-
-.dots:after, .dots:before {
-    content: " ";
-    height: 4px;
-    width: 4px;
-    position: absolute;
-    display: inline-block;
-    background: rgba(0,0,0,0.5);
-    border-radius: 2px;
-    top: -7px;
-    left: 0;
-}
-
-.dots:after {
-    content: " ";
-    top: auto;
-    bottom: -7px;
-    left: 0;
-}
-
-.photolist img {
-    width: 100%;
-}
-
-.photolist {
-    background: #e1eaef;
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
-
-.profilegallery .grid-item a {
-    height: 100%;
-    display: block;
-}
-
-.grid a {
-    width: 100%;
-    display: block;
-    float: left;
-}
-
-.media-body {
-    color: #607D8B;
-    overflow: visible;
-}
     
     </style>
     <!-- Profile Page Css End -->
@@ -535,11 +315,6 @@ body {
 
     <!-- Chatbot CSS Start -->
     <style>
-@charset "utf-8";
-/* CSS Document */
-
-/* ---------- GENERAL ---------- */
-
 
 fieldset {
 	border: 0;
@@ -693,9 +468,7 @@ p { margin: 0; }
 
 
     </style>
-     <!-- Chatbot CSS End -->
-    <title>Portfolio | HNG FUN</title>
-  </head>
+    
 
 <div>
     <div class="row">
@@ -728,58 +501,41 @@ p { margin: 0; }
             <br />
             <div class="clearfix"></div>
         </div>
+        
       </div>
     </div>
 </div>
-
-<div id="live-chat">	
-	<header class="clearfix">	
-		<a href="#" class="chat-close">x</a>
-		<h4>Tridax Bot</h4>
-	</header>
-	<div id='widget_message_list' class="chat">    
-		<div id="user_chat" class="chat-history">
-			<div class="chat-message clearfix">
-				<img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">
-                <div class="chat-message-content clearfix">
+        <div id="live-chat">	
+            <header class="clearfix">	
+                <a href="#" class="chat-close">x</a>
+                <h4>Tridax Botdfdz</h4>
+            </header>
+            <div id='widget_message_list' class="chat">    
+                <div id="user_chat" class="chat-history">
+                    <div class="chat-message clearfix">
+                        <img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">
+                        <div class="chat-message-content clearfix">
+                            
+                            <h4>chat</h4>
+                            <p><?php 
+                             echo "Send a Message to get started or type codequotes to get random programming quotes.<br>Train me:<br>
+                            <code>train: question # answer # password</code>"; ?></p>
+                        </div>
+                    </div>
+                    <hr>
                     
-                    <h4>chat</h4>
-                    <p><?php 
-                    if(isset($_POST['message']))
-                    {
-                        echo $_POST['message'];
-                    }
-                    else echo "Send a Message to get started or type codequotes to get random programming quotes.<br>Train me:<br>
-                    <code>train: question # answer # password</code>"; ?></p>
-                </div>
-            </div>
-            <hr>
-            <?php if(isset($_POST['message'])) :?>
-            <div class="chat-message clearfix">
-                <img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">
-                <div class="chat-message-content clearfix">
                     
-                    <h4>Tridax Bot</h4>
-                    <p><?php 
-                        echo $answer;
-            
-                ?></p>
                 </div>
-            </div>
-            <hr>
-            <?php endif ?>
-            
-		</div>
-        <form method="post" id="messageForm">
-		<div class="form-group m-b-30"> 
-        	<input type="text" onkeypress="handle(event)" id="message" name="message" class="form-control floating-label" placeholder="Enter Message" required autofocus>
-			<button type="submit" class="btn btn-embossed btn-sm btn-primary m-b-10 m-r-0">SEND</button>
-		</div>
-        </form>
-    </div> <!-- end live-chat -->
-</div>
+                <form method="post" id="messageForm">
+                <div class="form-group m-b-30"> 
+                    <input type="text" onkeypress="handle(event)" id="message" name="message" class="form-control floating-label" placeholder="Enter Message" required autofocus>
+                    <button type="submit" class="btn btn-embossed btn-sm btn-primary m-b-10 m-r-0">SEND</button>
+                </div>
+                </form>
+            </div> <!-- end live-chat -->
+        </div>
 <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
     <script>
@@ -814,12 +570,9 @@ $(document).ready(function() {
                 
                     
                    
-                    
-                
-
 
       $.ajax({
-        url: "https://hng.fun/profiles/tridax.php",
+        url: "/profiles/tridax.php",
         type: "post",
         data: {message: message},
         dataType: "json",
@@ -837,6 +590,7 @@ $(document).ready(function() {
         }
       
     });
+    document.getElementById("messageForm").reset();
   }
 }
 
@@ -867,28 +621,7 @@ $(document).ready(function() {
     // }
 
     </script>
-   
-    <script>
-(function() {
 
-$('#live-chat header').on('click', function() {
-
-    $('.chat').slideToggle(300, 'swing');
-    $('.chat-message-counter').fadeToggle(300, 'swing');
-
-});
-
-$('.chat-close').on('click', function(e) {
-
-    e.preventDefault();
-    $('#live-chat').fadeOut(300);
-
-});
-
-}) ();
-    </script>
-
-</html>
 
 
 
