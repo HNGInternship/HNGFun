@@ -508,7 +508,7 @@ p { margin: 0; }
         <div id="live-chat">	
             <header class="clearfix">	
                 <a href="#" class="chat-close">x</a>
-                <h4>Tridax Bot</h4>
+                <h4>Tridax Botdfdz</h4>
             </header>
             <div id='widget_message_list' class="chat">    
                 <div id="user_chat" class="chat-history">
@@ -523,20 +523,7 @@ p { margin: 0; }
                         </div>
                     </div>
                     <hr>
-                    <?php if(isset($_POST['message'])) :?>
-                    <div class="chat-message clearfix">
-                        <img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">
-                        <div class="chat-message-content clearfix">
-                            
-                            <h4>Tridax Bot</h4>
-                            <p><?php 
-                                echo $answer;
                     
-                        ?></p>
-                        </div>
-                    </div>
-                    <hr>
-                    <?php endif ?>
                     
                 </div>
                 <form method="post" id="messageForm">
