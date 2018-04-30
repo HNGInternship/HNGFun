@@ -1,6 +1,5 @@
 <?php
- require_once "../db.php";
-// change to ../db.php before pushing
+
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
