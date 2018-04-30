@@ -1,7 +1,5 @@
 <?php
 
-include_once 'config.php' ;
-global $conn;
 
 try {
     $sql = "SELECT * FROM interns_data WHERE username ='Olusegun'";
