@@ -3,13 +3,13 @@
 
 
 if(!isset($conn)) {
-    include '../config.php';
+    include '../../config.php';
 
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 }
     $q = $conn->query("Select * from secret_word LIMIT 1");
-	$r = $q->fetch(PDO::FETCH_OBJ);
-	$secret_word = $r->secret_word;
+	$r = $q->fetch(PDO::FETCH_ASSOC);
+	$secret_word = $r['secret_word'];
 
 	$qname = $conn->query("Select * from interns_data where username = 'tridax'");
 	$row = $qname->fetch(PDO::FETCH_OBJ);
