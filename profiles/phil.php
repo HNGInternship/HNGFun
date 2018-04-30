@@ -3,14 +3,6 @@
 <head>
 	<title>Tobi</title>
 
-<?php 
-		$result = $conn->query("Select * from secret_word LIMIT 1");
-		$result = $result->fetch(PDO::FETCH_OBJ);
-		$secret_word = $result->secret_word;
-
-		$result2 = $conn->query("Select * from interns_data where username = 'phil'");
-		$user = $result2->fetch(PDO::FETCH_OBJ);
-	?>
 
 
 <head>
@@ -62,17 +54,16 @@
 <main id="profileContainer" class="container">
           <h1 class="profile-h1">My Profile</h1>
           <div class="profile-card">
-            <img src="<?php echo $image_url ?>" alt="Phil" class="profile-image" />
+            <img src="alt="Phil" class="profile-image" />
             <p class="profile-title">Username</p>
             <p>
-            <?php
-              echo $username;
-            ?>
+           
             </p>
             <p class="profile-name">Name</p>
-            <p class="prop-name"><?php
-              echo $name;
-            ?>  </p>
+            <p class="prop-name">  </p>
           </div>
         </main>
+
+
+
 
