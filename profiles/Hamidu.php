@@ -40,7 +40,7 @@ $secret_word = (($result1[0]->secret_word));
       text-transform: uppercase;
       border-bottom: 0.25em solid;
       font-size: 1.5em;
-      border-radius: 15%;
+      /* border-radius: 15%; */
     }
 
     #container {
@@ -48,7 +48,7 @@ $secret_word = (($result1[0]->secret_word));
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 70vh;
+      /* height: 70vh; */
     }
 
     .pic {
@@ -113,14 +113,15 @@ $secret_word = (($result1[0]->secret_word));
 
 <body>
   <div id="container">
-    <h1>Hi!</h1>
+
     <figure>
       <img src="<?php echo ($image_filename); ?>" alt="Headshot/Potrait Image of Hamidu Abu"
         class="pic">
       <figcaption>
-        My Name is <?php echo ($username); ?> and I am Learning Fullstack Web Development.
+        <h1>Hi!</h1>
       </figcaption>
     </figure>
+<p>My Name is <?php echo ($username); ?> and I am Learning Fullstack Web Development.</p>
     <p>My Learning path is currently something like this:</p>
     <p>
       <span class="learnpath">HTML</span>
@@ -128,7 +129,7 @@ $secret_word = (($result1[0]->secret_word));
       <span class="learnpath">JAVASCRIPT</span>
       <span class="learnpath">PHP</span>
     </p>
-    <br>
+
     <p>
       <span class="learnpath">MYSQL</span>
       <span class="learnpath">MONGODB</span>
