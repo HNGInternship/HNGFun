@@ -135,7 +135,8 @@ $data2 = $q->fetchAll();
              echo $answer;
              return;
          }else{
-             echo "You have to train me now, I have no idea of what you are saying";
+             echo "You have to train me now, I have no idea of what you are saying.";
+             echo " Write train: question#answer#password to train me";
              //echo stripos($question, "train:");
                  return;
          }
@@ -392,6 +393,8 @@ $data2 = $q->fetchAll();
                             if(e.which == 13) {
                                 jQuery(this).blur();
                                 jQuery('#send').focus().click();
+                                jQuery('#quest').focus();
+
                             }
                         });
 
@@ -414,7 +417,9 @@ $data2 = $q->fetchAll();
 									//alert(output);
                                 var you = '<div class="chat-bucket you" style="" id="chat"><i class="fa fa-android"></i>'+ output +'</div>';
                                 $("#content").append(you) ;
-                                }
+                                };
+
+                                $("#quest").value = '';
 
 
                              });
@@ -423,6 +428,8 @@ $data2 = $q->fetchAll();
                             $('html, body').animate({
                                 scrollTop: $("#content").offset().top
                             },1000);
+
+
 
                         });
                     });
