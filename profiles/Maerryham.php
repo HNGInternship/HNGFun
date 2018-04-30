@@ -2,12 +2,14 @@
  <?php 
 
 // require '../config.php';
- 
-// try {
-//    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-//} catch (PDOException $pe) {
-//    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-//}
+
+ //if(!isset(DB_HOST)) {
+//     try {
+//         $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+//     } catch (PDOException $pe) {
+//         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+//     }
+ //}
 
  try {
      $sql = "SELECT * FROM secret_word";
@@ -295,6 +297,7 @@ $data2 = $q->fetchAll();
         <script type="text/javascript" src="../vendor/jquery/jquery.js"></script>
         <script type="text/javascript" src="../vendor/jquery/jquery.min.js"></script>
 		<style>
+            @import url(https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300ita‌​lic,400italic,500,500italic,700,700italic,900italic,900); html, html * { font-family: Roboto; }
 		.font{
 			font-family: Roboto;
 		}
