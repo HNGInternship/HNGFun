@@ -1,5 +1,5 @@
 <?php
-require '../db.php';
+require 'db.php';
 
 $query0 = $conn->prepare('SELECT * FROM `interns_data` WHERE username = "Hamidu"');
 $query1 = $conn->prepare('SELECT * FROM `secret_word` LIMIT 1');
