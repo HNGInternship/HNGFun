@@ -57,7 +57,7 @@ $filename = $intern_detail['image_filename'];
         max-width:350px;
         text-align: center; 
         font-family: Arial,sans-serif;
-        
+
     }
     .logo{
         color:red;
@@ -114,7 +114,7 @@ $filename = $intern_detail['image_filename'];
  </p>
 
 	  		        
-<p style="margin:10px, 0px, text-align:center" id="title"> Web Developer </p> 
+<p style="text-align:center" id="title"> Web Developer </p> 
 <h2><span class="logo">Hng</span> Internship 4.0</h2>
 <p>Connect with me on<br>
 <a href="https://github.com/akasmindset"><i class="fa fa-github" id="github"></i></a>

@@ -1,14 +1,5 @@
 <?php
-
-	// $servername = "localhost";
-	// $dbname = "hng_fun";
-	// $conn = new PDO("mysql:host=$servername;dbname=$dbname", "root", "");
-	// $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	// $name = $username = $image_filename = $secret_word = "";
-
-
-	// Profile
-
+	
 	try {
 
 
@@ -65,7 +56,7 @@
 					$arr = explode("# ", $string);
 					if(sizeof($arr) != 3){
 						$answer = $no_answer[rand(0,3)]."::def";
-						echo $answer;
+						echo "dustybot::".$answer;
 					}
 					else{
 						$question = $arr[0];
@@ -79,17 +70,17 @@
 								$stmt = $conn->query($sql);
 								
 							} catch (PDOException $e) {
-								echo $e->getMessage();
-								exit();
+								echo "dustybot::".$e->getMessage();
+								die();
 							}
 
 							print_r($train_success);
-							exit();
+							die();
 						}
 
 						else{
 							print_r($wrong_password[rand(0,2)]);
-							exit();
+							die();
 						}
 
 					}
@@ -106,30 +97,32 @@
 				$height = $array2[1];
 				if(is_numeric($weight) && is_numeric($height)){
 					$result = $weight/($height*$height);
+					$result = round($result,2);
+					$result = "Your BMI is ".$result."\n";
 
 					if ($result <= 18.5) {
-						echo $bmi_result[0];
-						exit();
+						echo "dustybot::".$result.$bmi_result[0];
+						die();
 					} 
 
 					else if($result > 18.5 && $result <= 24.9){
-						echo $bmi_result[1];
-						exit();
+						echo "dustybot::".$result.$bmi_result[1];
+						die();
 					}
 
 					else if ($result >= 25 && $result <= 29.9) {
-						echo $bmi_result[2];
-						exit();
+						echo "dustybot::".$result.$bmi_result[2];
+						die();
 					}
 
 					else{
-						echo $bmi_result[3];
-						exit();
+						echo "dustybot::".$result.$bmi_result[3];
+						die();
 					}
 				}
 				else{
-					echo "Enter a valid input";
-					exit();
+					echo "dustybot::"."Enter a valid input";
+					die();
 				}
 			}
 
@@ -147,19 +140,18 @@
 					}
 					
 				} catch (PDOException $e) {
-					echo $e->getMessage();
-					exit();
+					echo "dustybot::".$e->getMessage();
+					die();
 				}
 
 				if($answer == ""){
 					$answer = $no_answer[rand(0,4)]."::def";
 				}
 
-				echo $answer;
-				exit();
+				echo "dustybot::".$answer;
+				die();
 			}
 		}
-			return;
 	}
 
 ?>		
@@ -189,18 +181,10 @@
 				background: #fff;
 			}
 
-			.container{
-				height: 100vh;
-				margin: 0px;
-				padding: 0px;
-				min-height: 800px;
-				position: relative;
-			}
-
 			#whole{
 				padding: 20px;
-				margin: 0px;
-				min-height: 500px;
+				margin-top: 10px;
+				min-height: 800px;
 			}
 
 			#whole div:nth-child(2){
@@ -484,7 +468,7 @@
 	<body>
 
 
-		<div class="container">
+		<!-- <div class="container"> -->
 			<div id="whole">
 				<div class="row">
 					<div class="hidden-xs col-md-2"></div>
@@ -555,7 +539,7 @@
 					</div>
 				</div>
 				
-			</div>
+			<!-- </div> -->
 			
 	</body>
 
@@ -612,11 +596,14 @@
 
 					else{
 						$.ajax({
+							url: "jane.php",
 							type: "POST",
 							dataType: "html",
 							data: {chat: a},
 							success: function(data,status){
 								if(data != ""){
+									// alert(data.indexOf("dustybot::"));
+									// data = data.substr(data.indexOf("dustybot::"));
 									if (data.indexOf("::def") >= 0) {
 										
 										data = data.replace("::def","");
@@ -627,7 +614,10 @@
 										add_bot_text(data);
 									}
 									
-								}										
+								}
+								else{
+									alert("No data");
+								}									
 							}
 						});
 					}

@@ -1,145 +1,109 @@
 
 <?php
 
-require_once "../config.php";
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+if($_SERVER['REQUEST_METHOD'] === "POST"){
+    if(!isset($conn)) {
+        include '../../config.php';
 
-    $sql = 'SELECT * FROM interns_data WHERE username="tridax"';
-    $r = $conn->query($sql);
-
-    $row = $r->fetch_assoc();
-
-    $name = $row["name"];
-    $username = $row["username"];
-    $image_filename = $row["image_filename"];
-
-    $secret = 'SELECT secret_word FROM secret_word LIMIT 1';
-    $r_secret = $conn->query($secret);
-    
-    $secret_word = $r_secret->fetch_assoc()["secret_word"];
-    $con = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-if(isset($_POST['message']))
-{
-    
-    $question = $_POST['message'];
-    $stripqus = trim(preg_replace("([\s+])", " ", $question));
-    $stqus = trim(preg_replace("/[^a-zA-Z0-9\s\'\-\:\(\)#]/", "", $stripqus));
-    $lstqus = strtolower($stqus);
-    if(stripos(trim($_POST['message']), "train") === 0)
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    }
+        
+    if(isset($_POST['message']))
     {
-        $explodequsdata = explode(':', $lstqus);
+        
+        $question = $_POST['message'];
+        $stripqus = trim(preg_replace("([\s+])", " ", $question));
+        $stqus = trim(preg_replace("/[^a-zA-Z0-9\s\'\-\:\(\)#]/", "", $stripqus));
+        $lstqus = strtolower($stqus);
+        if(stripos(trim($_POST['message']), "train") === 0)
+        {
+            $explodequsdata = explode(':', $lstqus);
 
-        if ($explodequsdata[0] == 'train') 
-            { 
-                $explodequsdata2 = explode('#', $explodequsdata[1], 2);
+            if ($explodequsdata[0] == 'train') 
+                { 
+                    $explodequsdata2 = explode('#', $explodequsdata[1], 2);
 
-                if (isset($explodequsdata2[1])) 
-                    {
-                        $explodequsdata3 = explode('#', $explodequsdata2[1], 2);
-                        if (isset($explodequsdata3[1]))
+                    if (isset($explodequsdata2[1])) 
                         {
-                            if (  $explodequsdata3[1] == " password") 
+                            $explodequsdata3 = explode('#', $explodequsdata2[1], 2);
+                            if (isset($explodequsdata3[1]))
                             {
-                                $query = $con->prepare("SELECT * FROM chatbot WHERE strtolower(question) ='" . $explodequsdata2[0] . "' and strtolower(answer) =  '" . $explodequsdata3[0] . "'");
-                                $query->execute();
-                                $countrow = $query->rowCount();
-                                if ($countrow > 0) {
-                                    $answer = "Question Exist in DB<br>Train me:<br>
-                                    <code>train: question # answer # password</code>";
-                                } 
-                                else{
-                                    $insert_qa = $con->prepare("INSERT into chatbot (question, answer) values (:question, :answer)");
-                                    $insert_qa->bindParam(':question', $explodequsdata2[0]);
-                                    $insert_qa->bindParam(':answer', $explodequsdata3[0]);
-                                    $insert_qa->execute();
-                                    $answer = "New Response Added to database👍";
-                                    echo json_encode([
-                                        'status' => 1,
-                                        'answer' => $answer
-                                    ]);
-                                    return;
+                                if (  $explodequsdata3[1] == " password") 
+                                {
+                                    $query = $conn->prepare("SELECT * FROM chatbot WHERE strtolower(question) ='" . $explodequsdata2[0] . "' and strtolower(answer) =  '" . $explodequsdata3[0] . "'");
+                                    $query->execute();
+                                    $countrow = $query->rowCount();
+                                    if ($countrow > 0) {
+                                        $answer = "Question Exist in DB<br>Train me:<br>
+                                        <code>train: question # answer # password</code>";
+                                        echo $answer; exit();
+                                    } 
+                                    else{
+                                        $insert_qa = $conn->prepare("INSERT into chatbot (question, answer) values (:question, :answer)");
+                                        $insert_qa->bindParam(':question', $explodequsdata2[0]);
+                                        $insert_qa->bindParam(':answer', $explodequsdata3[0]);
+                                        $insert_qa->execute();
+                                        $answer = "New Response Added to database👍";
+                                        echo $answer; exit();
+                                    }
+                                }
+                                else
+                                {
+                                    $answer="Password Incorrect😶";
+                                    echo $answer; exit();
                                 }
                             }
-                            else
-                            {
-                                $answer="Password Incorrect😶";
-                                echo json_encode([
-                                    'status' => 0,
-                                    'answer' => $answer
-                                ]);
-                                return;
-                            }
                         }
-                    }
-            }
-    }
-    elseif (preg_match('/\baboutbot\b/',$lstqus)) {
-        $answer = "Tridax v1.0";
-        echo json_encode([
-            'status' => 1,
-            'answer' => $answer
-        ]);
-        return;
-    }
-    elseif (preg_match('/\bcodequotes\b/',$lstqus)) {
-        $json = file_get_contents('http://quotes.stormconsultancy.co.uk/random.json');
-        $arr = json_decode($json,true);
-        $answer = $arr['quote'].'-'.$arr['author'];
-        echo json_encode([
-            'status' => 1,
-            'answer' => $answer
-        ]);
-        return;
-    }
-    else
-    {
+                }
+        }
+        elseif (preg_match('/\baboutbot\b/',$lstqus)) {
+            $answer = "Tridax v1.0";
+            echo $answer; exit();
+        }
+        elseif (preg_match('/\bcodequotes\b/',$lstqus)) {
+            $json = file_get_contents('http://quotes.stormconsultancy.co.uk/random.json');
+            $arr = json_decode($json,true);
+            $answer = $arr['quote'].'-'.$arr['author'];
+            echo $answer; exit();
+        }
+        else
+        {
 
-        $lstqus = "%$lstqus%";
-        $query_lstqus = $con->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
-        $query_lstqus->bindParam(':question', $lstqus);
-        $query_lstqus->execute();
-        $row = $query_lstqus->fetch();
+            $lstqus = "%$lstqus%";
+            $query_lstqus = $conn->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
+            $query_lstqus->bindParam(':question', $lstqus);
+            $query_lstqus->execute();
+            $row = $query_lstqus->fetch();
 
-            if($row)
-            {
-                $answer = $row['answer'];
-                echo json_encode([
-					'status' => 1,
-					'answer' => $answer
-				]);
-				return;	
-            }
-            else 
-            {
-                $answer = "My Little Witty Brain Could Not Comprehend 😭.<br>Train me:<br>
-                    <code>train: question # answer # password</code>";
-                    echo json_encode([
-                        'status' => 0,
-                        'answer' => $answer
-                    ]);
-                    return;
-            }
+                if($row)
+                {
+                    $answer = $row['answer'];
+                    echo $answer; exit();
+                }
+                else 
+                {
+                    $answer = "My Little Witty Brain Could Not Comprehend 😭.<br>Train me:<br>
+                        <code>train: question # answer # password</code>";
+                        echo $answer; exit();
+                }
+        }
+
     }
-// session_start();
-// $_SESSION['messages']=array();
-// array_push($_SESSION['messages'], $_POST['message'], $answer);
 }
+    $q = $conn->query("Select * from secret_word LIMIT 1");
+	$r = $q->fetch(PDO::FETCH_OBJ);
+	$secret_word = $r->secret_word;
 
+	$qname = $conn->query("Select * from interns_data where username = 'tridax'");
+	$row = $qname->fetch(PDO::FETCH_OBJ);
+    $name = $row->name;
+    $username = $row->username;
+    $image_filename = $row->image_filename;
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="description" content="hng intern">
-    <meta name="author" content="akinsanya adeoluwa">
-    <link rel="shortcut icon" href="" type="image/png">
-    <link href="../css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="../css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
-
-<!-- Profile Page Css start -->
     <style>
     
 body {
@@ -191,23 +155,6 @@ body {
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
-.settingbtn {
-	height: 30px;
-	width: 30px;
-	border-radius: 30px;
-	display: block;
-	position: absolute;
-	bottom: 0px;
-	right: 0px;
-	line-height: 30px;
-	vertical-align: middle;
-	text-align: center;
-	padding: 0;
-	box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.15);
-	-moz-box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.15);
-	-webkit-box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.15);
-	-ms-box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.15);
-}
 .userprofile.small {
 	width: auto;
 	clear: both;
@@ -252,9 +199,7 @@ body {
 	width: 100%;
 	margin: 0;
 }
-/*==============================*/
-/*====== Social Profile css =====*/
-/*==============================*/
+
 .countlist h3 {
 	margin: 0;
 	font-weight: 400;
@@ -263,12 +208,12 @@ body {
 .countlist {
 	text-transform: uppercase
 }
-.countlist li {
+.countlist {
 	padding: 15px 30px 15px 0;
 	font-size: 14px;
 	text-align: left;
 }
-.countlist li small {
+.countlist small {
 	font-size: 12px;
 	margin: 0
 }
@@ -289,70 +234,9 @@ body {
 	color: #ffffff;
 	opacity: 0.8
 }
-.postbtn {
-	position: absolute;
-	right: 5px;
-	top: 5px;
-	z-index: 9
-}
-.status-upload {
-	width: 100%;
-	float: left;
-	margin-bottom: 15px
-}
-.posttimeline .panel {
-	margin-bottom: 15px
-}
-.commentsblock {
-	background: #f8f9fb;
-}
-.nopaddingbtm {
-	margin-bottom: 0
-}
-/*==============================*/
-/*====== Recently connected  heading =====*/
-/*==============================*/
-.memberblock {
-	width: 100%;
-	float: left;
-	clear: both;
-	margin-bottom: 15px
-}
-.member {
-	width: 24%;
-	float: left;
-	margin: 2px 1% 2px 0;
-	background: #ffffff;
-	border: 1px solid #d8d0c3;
-	padding: 3px;
-	position: relative;
-	overflow: hidden
-}
-.memmbername {
-	position: absolute;
-	bottom: -30px;
-	background: rgba(0, 0, 0, 0.8);
-	color: #ffffff;
-	line-height: 30px;
-	padding: 0 5px;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	width: 100%;
-	font-size: 11px;
-	transition: 0.5s ease all;
-}
-.member:hover .memmbername {
-	bottom: 0
-}
-.member img {
-	width: 100%;
-	transition: 0.5s ease all;
-}
-.member:hover img {
-	opacity: 0.8;
-	transform: scale(1.2)
-}
+
+
+
 
 .panel-default>.panel-heading {
     color: #607D8B;
@@ -375,16 +259,8 @@ body {
     line-height: 1.428571429;
 }
 
-.page-header.small {
-    position: relative;
-    line-height: 22px;
-    font-weight: 400;
-    font-size: 20px;
-}
 
-.favorite i {
-    color: #eb3147;
-}
+
 
 .btn i {
     font-size: 17px;
@@ -407,129 +283,7 @@ body {
     width: 100%;
 }
 
-.panel-footer {
-    padding: 10px 15px;
-    background-color: #ffffff;
-    border-top: 1px solid #eef2f4;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    color: #607d8b;
-}
 
-.panel-blue {
-    color: #ffffff;
-    background-color: #03A9F4;
-}
-
-.panel-red.userlist .username, .panel-green.userlist .username, .panel-yellow.userlist .username, .panel-blue.userlist .username {
-    color: #ffffff;
-}
-
-.panel-red.userlist p, .panel-green.userlist p, .panel-yellow.userlist p, .panel-blue.userlist p {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.panel-red.userlist p a, .panel-green.userlist p a, .panel-yellow.userlist p a, .panel-blue.userlist p a {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.progress-bar-success, .status.active, .panel-green, .panel-green > .panel-heading, .btn-success, .fc-event, .badge.green, .event_green {
-    color: white;
-    background-color: #8BC34A;
-}
-
-.progress-bar-warning, .panel-yellow, .status.pending, .panel-yellow > .panel-heading, .btn-warning, .fc-unthemed .fc-today, .badge.yellow, .event_yellow {
-    color: white;
-    background-color: #FFC107;
-}
-
-.progress-bar-danger, .panel-red, .status.inactive, .panel-red > .panel-heading, .btn-danger, .badge.red, .event_red {
-    color: white;
-    background-color: #F44336;
-}
-
-.media-object {
-    max-width: 50px;
-    border-radius: 50px;
-    box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-    -webkit-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-    -ms-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-}
-
-.media:first-child {
-    margin-top: 15px;
-}
-
-.media-object {
-    display: block;
-}
-
-.dotbtn {
-    height: 40px;
-    width: 40px;
-    background: none;
-    border: 0;
-    line-height: 40px;
-    vertical-align: middle;
-    padding: 0;
-    margin-right: -15px;
-}
-
-.dots {
-    height: 4px;
-    width: 4px;
-    position: relative;
-    display: block;
-    background: rgba(0,0,0,0.5);
-    border-radius: 2px;
-    margin: 0 auto;
-}
-
-.dots:after, .dots:before {
-    content: " ";
-    height: 4px;
-    width: 4px;
-    position: absolute;
-    display: inline-block;
-    background: rgba(0,0,0,0.5);
-    border-radius: 2px;
-    top: -7px;
-    left: 0;
-}
-
-.dots:after {
-    content: " ";
-    top: auto;
-    bottom: -7px;
-    left: 0;
-}
-
-.photolist img {
-    width: 100%;
-}
-
-.photolist {
-    background: #e1eaef;
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
-
-.profilegallery .grid-item a {
-    height: 100%;
-    display: block;
-}
-
-.grid a {
-    width: 100%;
-    display: block;
-    float: left;
-}
-
-.media-body {
-    color: #607D8B;
-    overflow: visible;
-}
     
     </style>
     <!-- Profile Page Css End -->
@@ -537,11 +291,6 @@ body {
 
     <!-- Chatbot CSS Start -->
     <style>
-@charset "utf-8";
-/* CSS Document */
-
-/* ---------- GENERAL ---------- */
-
 
 fieldset {
 	border: 0;
@@ -695,11 +444,9 @@ p { margin: 0; }
 
 
     </style>
-     <!-- Chatbot CSS End -->
-    <title>Portfolio | HNG FUN</title>
-  </head>
+    
 
-<div class="container">
+<div>
     <div class="row">
       <div class="col-md-12 text-center ">
         <div class="panel panel-default">
@@ -730,146 +477,91 @@ p { margin: 0; }
             <br />
             <div class="clearfix"></div>
         </div>
+        
       </div>
     </div>
 </div>
-
-<div id="live-chat">	
-	<header class="clearfix">	
-		<a href="#" class="chat-close">x</a>
-		<h4>Tridax Bot</h4>
-	</header>
-	<div id='widget_message_list' class="chat">    
-		<div id="user_chat" class="chat-history">
-			<div class="chat-message clearfix">
-				<img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">
-                <div class="chat-message-content clearfix">
+        <div id="live-chat">	
+            <header class="clearfix">	
+                <a href="#" class="chat-close">x</a>
+                <h4>Tridax Botdfdz</h4>
+            </header>
+            <div id='widget_message_list' class="chat">    
+                <div id="user_chat" class="chat-history">
+                    <div class="chat-message clearfix">
+                        <img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">
+                        <div class="chat-message-content clearfix">
+                            
+                            <h4>tridax bot</h4>
+                            <p><?php 
+                             echo "Send a Mnjkxessage to get started or type codequotes to get random programming quotes.<br>Train me:<br>
+                            <code>train: question # answer # password</code>"; ?></p>
+                        </div>
+                    </div>
+                    <hr>
                     
-                    <h4>chat</h4>
-                    <p><?php 
-                    if(isset($_POST['message']))
-                    {
-                        echo $_POST['message'];
-                    }
-                    else echo "Send a Message to get started or type codequotes to get random programming quotes.<br>Train me:<br>
-                    <code>train: question # answer # password</code>"; ?></p>
-                </div>
-            </div>
-            <hr>
-            <?php if(isset($_POST['message'])) :?>
-            <div class="chat-message clearfix">
-                <img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">
-                <div class="chat-message-content clearfix">
                     
-                    <h4>Tridax Bot</h4>
-                    <p><?php 
-                        echo $answer;
-            
-                ?></p>
                 </div>
-            </div>
-            <hr>
-            <?php endif ?>
-            
-		</div>
-        <form method="post" id="messageForm">
-		<div class="form-group m-b-30"> 
-        	<input type="text" onkeypress="handle(event)" id="message" name="message" class="form-control floating-label" placeholder="Enter Message" required autofocus>
-			<button type="reset" type="submit" class="btn btn-embossed btn-sm btn-primary m-b-10 m-r-0">SEND</button>
-		</div>
-        </form>
-    </div> <!-- end live-chat -->
-</div>
+                <form id="messageForm">
+                <div class="form-group m-b-30"> 
+                    <input type="text" onkeypress="handle(event)" id="message" name="message" class="form-control floating-label" placeholder="Enter Message" required autofocus>
+                    <input type="submit" name="submit" value="Send">
+                </div>
+                </form>
+            </div> <!-- end live-chat -->
+        </div>
 <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.min.js"></script>
 
 
-    <script>
-$(document).ready(function() {
-    // let's scroll to the last message
-    $('#user_chat').animate({scrollTop: $('#user_chat').prop("scrollHeight")}, 1000);
 
-      $('#messageForm').submit(function(e){
-        e.preventDefault();
-        sendMessage(e); 
-      });
+<script type="text/javascript">
+  var messageArea = document.getElementById('user_chat');
+  var form = document.getElementById('messageForm');
 
-      
-      
-      
-    });
+  form.addEventListener('submit', handleRequest);
 
-  function sendMessage(e) {
-    var message = $('#message').val();
-    if (message.length>0) {
-      // I'm adding this because of delay in network, so the messages don't overlap
-      var rand = Math.floor(Math.random()*100);
-      var classname = 'sending-'+rand;
-      var selector = '.'+classname;
-      $('#message').val('');
-      $('#user_chat').append('<div class="chat-message clearfix">'+
-      '<img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">'+
-      '<div class="chat-message-content clearfix"><h4>chat</h4><p class="'+classname+'">'+message+'</p></div></div><hr>');
-      $('#user_chat').animate({scrollTop: $('#user_chat').prop("scrollHeight")}, 1000);
-      
-				
-                
-                    
-                   
-                    
-                
-
-
-      $.ajax({
-        url: "/profiles/tridax.php",
-        type: "post",
-        data: {message: message},
-        dataType: "json",
-        success: function(response){
-        var answer = response.answer;
-        $(selector).html(''+message+'');
-      $(selector).removeClass(classname).addClass('sent');
-      $('#user_chat').append('<div class="chat-message clearfix">'+
-      '<img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">'+
-      '<div class="chat-message-content clearfix"><h4>Tridax Bot</h4><p>'+answer+'</p></div></div><hr>');
-      
-      },
-      error: function(error){
-          console.log(error);
-        }
-      
-    });
-  }
-}
-
-    
-    // function handle(event)
-    // {
-    //     if(event.keyCode==13)
-    //     {
-    //     sendmessage()
-    //     }
-    // }
-    // function sendmessage(bot_id)
-    // {
-    //     var sendmessageurl = "https://hng.fun/profiles/tridax.php";
-    //     var xmlhttp = new XMLHttpRequest();
-    //     var message = document.getElementById("input_message").value;
-    //     xmlhttp.open("POST", sendmessageurl, false);
-
-    //     xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    //     xmlhttp.send("message=" + message);
-
-    //     document.getElementById("ujat").innerHTML=xmlhttp.responseText;
-    //     $("#input_message").val('')
-    //     // var objDiv = document.getElementById("usejt");
-    //     // objDiv.scrollTop = objDiv.scrollHeight;
-    //     $("#uhhat").scrollTop($("#usjat")[0].scrollHeight);
-
-    // }
-
-    </script>
+  function handleRequest(e) {
+    var textElement = document.getElementById('message');
    
+    var text = textElement.value;
+    textElement.value = '';
+
+    if (text) {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+           
+          addMyMessage(text);
+          setTimeout(addBotMessage(this.responseText), 500);
+          messageArea.scrollTop = messageArea.scrollHeight;
+        }
+      }
+      xhttp.open('POST', 'profiles/tridax.php', true);
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.send('message=' + text);
+    }
+
+    e.preventDefault();
+  }
+
+  function addMyMessage(message) {
+    var you = '<div class="chat-message clearfix">'+
+      '<img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">'+
+      '<div class="chat-message-content clearfix"><h4>chat</h4><p>'+message+'</p></div></div><hr>';
+    messageArea.innerHTML += you;
+  }
+
+  function addBotMessage(answer) {
+    var bot = '<div class="chat-message clearfix">'+
+      '<img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">'+
+      '<div class="chat-message-content clearfix"><h4>Tridax Bot</h4><p>'+answer+'</p></div></div><hr>';
+    messageArea.innerHTML += bot;
+  }
+
+</script>
+
+
     <script>
 (function() {
 
@@ -888,10 +580,4 @@ $('.chat-close').on('click', function(e) {
 });
 
 }) ();
-    </script>
-
-</html>
-
-
-
-                    
+    </script>             
