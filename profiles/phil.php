@@ -1,26 +1,16 @@
-<?php
-require '../db.php';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Tobi</title>
 
-  try {
-    $sql = "SELECT * FROM secret_word";
-    $secret_word_query = $conn->query($sql);
-    $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
-    $query_result = $secret_word_query->fetch();
-  
-    $sql_query = 'SELECT * FROM interns_data WHERE username="phil"';
-    $query_my_intern_db = $conn->query($sql_query);
-    $query_my_intern_db->setFetchMode(PDO::FETCH_ASSOC);
-    $intern_db_result = $query_my_intern_db->fetch();
+<?php 
+		$result = $conn->query("Select * from secret_word LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+		$secret_word = $result->secret_word;
 
-  } catch (PDOException $exceptionError) {
-    throw $exceptionError;
-  }
-
-  $secret_word = $query_result['secret_word'];
-  $name = $intern_db_result['name'];
-  $username = $intern_db_result['username'];
-  $image_url = $intern_db_result['image_filename'];
-?>
+		$result2 = $conn->query("Select * from interns_data where username = 'phil'");
+		$user = $result2->fetch(PDO::FETCH_OBJ);
+	?>
 
 
 <head>
@@ -72,7 +62,7 @@ require '../db.php';
 <main id="profileContainer" class="container">
           <h1 class="profile-h1">My Profile</h1>
           <div class="profile-card">
-            <img src="<?php echo $image_url ?>" alt="John" class="profile-image" />
+            <img src="<?php echo $image_url ?>" alt="Phil" class="profile-image" />
             <p class="profile-title">Username</p>
             <p>
             <?php
