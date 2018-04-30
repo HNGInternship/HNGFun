@@ -503,6 +503,8 @@ p { margin: 0; }
         </div>
         
       </div>
+    </div>
+</div>
         <div id="live-chat">	
             <header class="clearfix">	
                 <a href="#" class="chat-close">x</a>
@@ -516,11 +518,7 @@ p { margin: 0; }
                             
                             <h4>chat</h4>
                             <p><?php 
-                            if(isset($_POST['message']))
-                            {
-                                echo $_POST['message'];
-                            }
-                            else echo "Send a Message to get started or type codequotes to get random programming quotes.<br>Train me:<br>
+                             echo "Send a Message to get started or type codequotes to get random programming quotes.<br>Train me:<br>
                             <code>train: question # answer # password</code>"; ?></p>
                         </div>
                     </div>
@@ -541,7 +539,7 @@ p { margin: 0; }
                     <?php endif ?>
                     
                 </div>
-                <form id="messageForm">
+                <form method="post" id="messageForm">
                 <div class="form-group m-b-30"> 
                     <input type="text" onkeypress="handle(event)" id="message" name="message" class="form-control floating-label" placeholder="Enter Message" required autofocus>
                     <button type="submit" class="btn btn-embossed btn-sm btn-primary m-b-10 m-r-0">SEND</button>
@@ -549,9 +547,6 @@ p { margin: 0; }
                 </form>
             </div> <!-- end live-chat -->
         </div>
-    </div>
-</div>
-
 <script src="../js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -593,7 +588,7 @@ $(document).ready(function() {
 
 
       $.ajax({
-        url: "/tridax.php",
+        url: "/profiles/tridax.php",
         type: "post",
         data: {message: message},
         dataType: "json",
