@@ -518,7 +518,7 @@ p { margin: 0; }
                             
                             <h4>chat</h4>
                             <p><?php 
-                             echo "Send a Message to get started or type codequotes to get random programming quotes.<br>Train me:<br>
+                             echo "Send a Mnjkxessage to get started or type codequotes to get random programming quotes.<br>Train me:<br>
                             <code>train: question # answer # password</code>"; ?></p>
                         </div>
                     </div>
