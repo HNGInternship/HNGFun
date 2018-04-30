@@ -1,128 +1,104 @@
 
 <?php
 
+if($_SERVER['REQUEST_METHOD'] === "POST"){
+    if(!isset($conn)) {
+        include '../../config.php';
 
-if(!isset($conn)) {
-    include '../../config.php';
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    }
+        
+    if(isset($_POST['message']))
+    {
+        
+        $question = $_POST['message'];
+        $stripqus = trim(preg_replace("([\s+])", " ", $question));
+        $stqus = trim(preg_replace("/[^a-zA-Z0-9\s\'\-\:\(\)#]/", "", $stripqus));
+        $lstqus = strtolower($stqus);
+        if(stripos(trim($_POST['message']), "train") === 0)
+        {
+            $explodequsdata = explode(':', $lstqus);
 
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+            if ($explodequsdata[0] == 'train') 
+                { 
+                    $explodequsdata2 = explode('#', $explodequsdata[1], 2);
+
+                    if (isset($explodequsdata2[1])) 
+                        {
+                            $explodequsdata3 = explode('#', $explodequsdata2[1], 2);
+                            if (isset($explodequsdata3[1]))
+                            {
+                                if (  $explodequsdata3[1] == " password") 
+                                {
+                                    $query = $conn->prepare("SELECT * FROM chatbot WHERE strtolower(question) ='" . $explodequsdata2[0] . "' and strtolower(answer) =  '" . $explodequsdata3[0] . "'");
+                                    $query->execute();
+                                    $countrow = $query->rowCount();
+                                    if ($countrow > 0) {
+                                        $answer = "Question Exist in DB<br>Train me:<br>
+                                        <code>train: question # answer # password</code>";
+                                        echo $answer; exit();
+                                    } 
+                                    else{
+                                        $insert_qa = $conn->prepare("INSERT into chatbot (question, answer) values (:question, :answer)");
+                                        $insert_qa->bindParam(':question', $explodequsdata2[0]);
+                                        $insert_qa->bindParam(':answer', $explodequsdata3[0]);
+                                        $insert_qa->execute();
+                                        $answer = "New Response Added to database👍";
+                                        echo $answer; exit();
+                                    }
+                                }
+                                else
+                                {
+                                    $answer="Password Incorrect😶";
+                                    echo $answer; exit();
+                                }
+                            }
+                        }
+                }
+        }
+        elseif (preg_match('/\baboutbot\b/',$lstqus)) {
+            $answer = "Tridax v1.0";
+            echo $answer; exit();
+        }
+        elseif (preg_match('/\bcodequotes\b/',$lstqus)) {
+            $json = file_get_contents('http://quotes.stormconsultancy.co.uk/random.json');
+            $arr = json_decode($json,true);
+            $answer = $arr['quote'].'-'.$arr['author'];
+            echo $answer; exit();
+        }
+        else
+        {
+
+            $lstqus = "%$lstqus%";
+            $query_lstqus = $conn->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
+            $query_lstqus->bindParam(':question', $lstqus);
+            $query_lstqus->execute();
+            $row = $query_lstqus->fetch();
+
+                if($row)
+                {
+                    $answer = $row['answer'];
+                    echo $answer; exit();
+                }
+                else 
+                {
+                    $answer = "My Little Witty Brain Could Not Comprehend 😭.<br>Train me:<br>
+                        <code>train: question # answer # password</code>";
+                        echo $answer; exit();
+                }
+        }
+
+    }
 }
     $q = $conn->query("Select * from secret_word LIMIT 1");
-	$r = $q->fetch(PDO::FETCH_ASSOC);
-	$secret_word = $r['secret_word'];
+	$r = $q->fetch(PDO::FETCH_OBJ);
+	$secret_word = $r->secret_word;
 
 	$qname = $conn->query("Select * from interns_data where username = 'tridax'");
 	$row = $qname->fetch(PDO::FETCH_OBJ);
     $name = $row->name;
     $username = $row->username;
     $image_filename = $row->image_filename;
-if(isset($_POST['message']))
-{
-    
-    $question = $_POST['message'];
-    $stripqus = trim(preg_replace("([\s+])", " ", $question));
-    $stqus = trim(preg_replace("/[^a-zA-Z0-9\s\'\-\:\(\)#]/", "", $stripqus));
-    $lstqus = strtolower($stqus);
-    if(stripos(trim($_POST['message']), "train") === 0)
-    {
-        $explodequsdata = explode(':', $lstqus);
-
-        if ($explodequsdata[0] == 'train') 
-            { 
-                $explodequsdata2 = explode('#', $explodequsdata[1], 2);
-
-                if (isset($explodequsdata2[1])) 
-                    {
-                        $explodequsdata3 = explode('#', $explodequsdata2[1], 2);
-                        if (isset($explodequsdata3[1]))
-                        {
-                            if (  $explodequsdata3[1] == " password") 
-                            {
-                                $query = $conn->prepare("SELECT * FROM chatbot WHERE strtolower(question) ='" . $explodequsdata2[0] . "' and strtolower(answer) =  '" . $explodequsdata3[0] . "'");
-                                $query->execute();
-                                $countrow = $query->rowCount();
-                                if ($countrow > 0) {
-                                    $answer = "Question Exist in DB<br>Train me:<br>
-                                    <code>train: question # answer # password</code>";
-                                } 
-                                else{
-                                    $insert_qa = $conn->prepare("INSERT into chatbot (question, answer) values (:question, :answer)");
-                                    $insert_qa->bindParam(':question', $explodequsdata2[0]);
-                                    $insert_qa->bindParam(':answer', $explodequsdata3[0]);
-                                    $insert_qa->execute();
-                                    $answer = "New Response Added to database👍";
-                                    echo json_encode([
-                                        'status' => 1,
-                                        'answer' => $answer
-                                    ]);
-                                    return;
-                                }
-                            }
-                            else
-                            {
-                                $answer="Password Incorrect😶";
-                                echo json_encode([
-                                    'status' => 0,
-                                    'answer' => $answer
-                                ]);
-                                return;
-                            }
-                        }
-                    }
-            }
-    }
-    elseif (preg_match('/\baboutbot\b/',$lstqus)) {
-        $answer = "Tridax v1.0";
-        echo json_encode([
-            'status' => 1,
-            'answer' => $answer
-        ]);
-        return;
-    }
-    elseif (preg_match('/\bcodequotes\b/',$lstqus)) {
-        $json = file_get_contents('http://quotes.stormconsultancy.co.uk/random.json');
-        $arr = json_decode($json,true);
-        $answer = $arr['quote'].'-'.$arr['author'];
-        echo json_encode([
-            'status' => 1,
-            'answer' => $answer
-        ]);
-        return;
-    }
-    else
-    {
-
-        $lstqus = "%$lstqus%";
-        $query_lstqus = $conn->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
-        $query_lstqus->bindParam(':question', $lstqus);
-        $query_lstqus->execute();
-        $row = $query_lstqus->fetch();
-
-            if($row)
-            {
-                $answer = $row['answer'];
-                echo json_encode([
-					'status' => 1,
-					'answer' => $answer
-				]);
-				return;	
-            }
-            else 
-            {
-                $answer = "My Little Witty Brain Could Not Comprehend 😭.<br>Train me:<br>
-                    <code>train: question # answer # password</code>";
-                    echo json_encode([
-                        'status' => 0,
-                        'answer' => $answer
-                    ]);
-                    return;
-            }
-    }
-// session_start();
-// $_SESSION['messages']=array();
-// array_push($_SESSION['messages'], $_POST['message'], $answer);
-}
-
 
 ?>
 <link href="../css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -516,7 +492,7 @@ p { margin: 0; }
                         <img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">
                         <div class="chat-message-content clearfix">
                             
-                            <h4>chat</h4>
+                            <h4>tridax bot</h4>
                             <p><?php 
                              echo "Send a Mnjkxessage to get started or type codequotes to get random programming quotes.<br>Train me:<br>
                             <code>train: question # answer # password</code>"; ?></p>
@@ -526,103 +502,82 @@ p { margin: 0; }
                     
                     
                 </div>
-                <form method="post" id="messageForm">
+                <form id="messageForm">
                 <div class="form-group m-b-30"> 
                     <input type="text" onkeypress="handle(event)" id="message" name="message" class="form-control floating-label" placeholder="Enter Message" required autofocus>
-                    <button type="submit" class="btn btn-embossed btn-sm btn-primary m-b-10 m-r-0">SEND</button>
+                    <input type="submit" name="submit" value="Send">
                 </div>
                 </form>
             </div> <!-- end live-chat -->
         </div>
 <script src="../js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="../js/jquery.min.js"></script>
+
+
+
+<script type="text/javascript">
+  var messageArea = document.getElementById('user_chat');
+  var form = document.getElementById('messageForm');
+
+  form.addEventListener('submit', handleRequest);
+
+  function handleRequest(e) {
+    var textElement = document.getElementById('message');
+   
+    var text = textElement.value;
+    textElement.value = '';
+
+    if (text) {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+           
+          addMyMessage(text);
+          setTimeout(addBotMessage(this.responseText), 500);
+          messageArea.scrollTop = messageArea.scrollHeight;
+        }
+      }
+      xhttp.open('POST', 'profiles/tridax.php', true);
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.send('message=' + text);
+    }
+
+    e.preventDefault();
+  }
+
+  function addMyMessage(message) {
+    var you = '<div class="chat-message clearfix">'+
+      '<img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">'+
+      '<div class="chat-message-content clearfix"><h4>chat</h4><p>'+message+'</p></div></div><hr>';
+    messageArea.innerHTML += you;
+  }
+
+  function addBotMessage(answer) {
+    var bot = '<div class="chat-message clearfix">'+
+      '<img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">'+
+      '<div class="chat-message-content clearfix"><h4>Tridax Bot</h4><p>'+answer+'</p></div></div><hr>';
+    messageArea.innerHTML += bot;
+  }
+
+</script>
 
 
     <script>
-$(document).ready(function() {
-    // let's scroll to the last message
-    $('#user_chat').animate({scrollTop: $('#user_chat').prop("scrollHeight")}, 1000);
+(function() {
 
-      $('#messageForm').submit(function(e){
-        e.preventDefault();
-        sendMessage(e); 
-      });
+$('#live-chat header').on('click', function() {
 
-      
-      
-      
-    });
+    $('.chat').slideToggle(300, 'swing');
+    $('.chat-message-counter').fadeToggle(300, 'swing');
 
-  function sendMessage(e) {
-    var message = $('#message').val();
-    if (message.length>0) {
-      
-      var rand = Math.floor(Math.random()*100);
-      var classname = 'sending-'+rand;
-      var selector = '.'+classname;
-      $('#message').val('');
-      $('#user_chat').append('<div class="chat-message clearfix">'+
-      '<img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">'+
-      '<div class="chat-message-content clearfix"><h4>chat</h4><p class="'+classname+'">'+message+'</p></div></div><hr>');
-      $('#user_chat').animate({scrollTop: $('#user_chat').prop("scrollHeight")}, 1000);
-      
-				
-                
-                    
-                   
+});
 
-      $.ajax({
-        url: "/profiles/tridax.php",
-        type: "post",
-        data: {message: message},
-        dataType: "json",
-        success: function(response){
-        var answer = response.answer;
-        $(selector).html(''+message+'');
-      $(selector).removeClass(classname).addClass('sent');
-      $('#user_chat').append('<div class="chat-message clearfix">'+
-      '<img src="https://res.cloudinary.com/tridax/image/upload/v1524846848/sample.jpg" alt="" width="32" height="32">'+
-      '<div class="chat-message-content clearfix"><h4>Tridax Bot</h4><p>'+answer+'</p></div></div><hr>');
-      
-      },
-      error: function(error){
-          console.log(error);
-        }
-      
-    });
-    document.getElementById("messageForm").reset();
-  }
-}
+$('.chat-close').on('click', function(e) {
 
-    
-    // function handle(event)
-    // {
-    //     if(event.keyCode==13)
-    //     {
-    //     sendmessage()
-    //     }
-    // }
-    // function sendmessage(bot_id)
-    // {
-    //     var sendmessageurl = "https://hng.fun/profiles/tridax.php";
-    //     var xmlhttp = new XMLHttpRequest();
-    //     var message = document.getElementById("input_message").value;
-    //     xmlhttp.open("POST", sendmessageurl, false);
+    e.preventDefault();
+    $('#live-chat').fadeOut(300);
 
-    //     xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    //     xmlhttp.send("message=" + message);
+});
 
-    //     document.getElementById("ujat").innerHTML=xmlhttp.responseText;
-    //     $("#input_message").val('')
-    //     // var objDiv = document.getElementById("usejt");
-    //     // objDiv.scrollTop = objDiv.scrollHeight;
-    //     $("#uhhat").scrollTop($("#usjat")[0].scrollHeight);
-
-    // }
-
-    </script>
-
-
-
-
-                    
+}) ();
+    </script>             
