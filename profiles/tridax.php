@@ -570,9 +570,6 @@ $(document).ready(function() {
                 
                     
                    
-                    
-                
-
 
       $.ajax({
         url: "/profiles/tridax.php",
@@ -593,6 +590,7 @@ $(document).ready(function() {
         }
       
     });
+    document.getElementById("messageForm").reset();
   }
 }
 
