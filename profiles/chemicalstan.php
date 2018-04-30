@@ -1,10 +1,16 @@
-<?php
-		$result = $conn->query("Select * from secret_word LIMIT 1");
-		$result = $result->fetch(PDO::FETCH_OBJ);
-		$secret_word = $result;
-		$result2 = $conn->query("Select * from interns_data where username = 'chemicalstan'");
-		$user = $result2->fetch(PDO::FETCH_OBJ);
-	?><!DOCTYPE html>
+<?php	require 'db.php';
+
+$select = $conn->query("SELECT * FROM secret_word LIMIT 1");
+    $select->setFetchMode(PDO::FETCH_ASSOC);
+    $result= $select->fetch();
+    $secret_word = $result['secret_word'];
+
+
+$result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'chemicalstan'");
+    $result2->setFetchMode(PDO::FETCH_ASSOC);
+    $user = $result2->fetch();
+?>
+<!DOCTYPE html>
 <html lang="en">
 
   <head>
@@ -14,7 +20,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+<<<<<<< HEAD
+    <title>CHEMICALSTAN PROFILE</title>
+=======
     <title>CHEMICALSTAN'S PROFILE</title>
+>>>>>>> c84ccd984aebe2daf14a59cc781cce4877321c88
 
 <!--     Bootstrap core CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -37,7 +47,11 @@
 
         <div class="row">
             <!-- Blog Entries Column -->
+<<<<<<< HEAD
+        
+=======
         <hr>
+>>>>>>> c84ccd984aebe2daf14a59cc781cce4877321c88
             <h2 class="text-center" >Hello Guys, I'm an intern @ HNG4.0</h2>
             <hr>
             <div class="row">
