@@ -286,8 +286,7 @@
         <button type="submit" class="btn btn-primary btn-sm send-message" id="btn-chat"><i class="fa fa-paper-plane"></i></button>
         </div></div></div></div>
         <div class="text-light">
-        
-           <br /> <br /> <br />
+         <br /> <br /> <br />
            <h4 id="text1">Time:</h4>
            <?php echo date("h:i:s:A") ;?>
            <h4 id="text1">Date:</h4>
