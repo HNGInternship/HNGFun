@@ -26,7 +26,6 @@
 			height: 400px;
 			border-radius: 0px;
 			margin: 50px;
-			padding: 20px;
 			background: white;
         }
 
@@ -169,16 +168,12 @@
         }
 		.oj-panel{
 		background-color:#DFE1E2;
-            padding-left: 0px;
+            padding-left: 70px;
 		}
 		.demo-panelwrapper {
-		background-color:green;
+		background-color:#DFE1E2;
 		width: 500px;
-        padding: 10px;
-		}
-		.oj-flex{
-		background-color:blue;
-        padding: 20px;
+        padding: 40px;
 		}
         .fa-close, .fa-question-circle {
             font-size: 23px;
@@ -206,7 +201,7 @@
         throw $e;
     }
     ?>
-	 <div class="oj-flex demo-panelwrapper" style='width: 1200px;'>
+	 <div class="oj-flex demo-panelwrapper">
             <div class="oj-flex-item oj-panel">
             <div class="col-sm-6 profile-details" >
                 <div class="profile-image">
