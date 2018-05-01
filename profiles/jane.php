@@ -56,7 +56,7 @@
 					$arr = explode("# ", $string);
 					if(sizeof($arr) != 3){
 						$answer = $no_answer[rand(0,3)]."::def";
-						echo "dustybot::".$answer;
+						echo $answer;
 					}
 					else{
 						$question = $arr[0];
@@ -70,7 +70,7 @@
 								$stmt = $conn->query($sql);
 								
 							} catch (PDOException $e) {
-								echo "dustybot::".$e->getMessage();
+								echo $e->getMessage();
 								die();
 							}
 
@@ -101,27 +101,27 @@
 					$result = "Your BMI is ".$result."\n";
 
 					if ($result <= 18.5) {
-						echo "dustybot::".$result.$bmi_result[0];
+						echo $result.$bmi_result[0];
 						die();
 					} 
 
 					else if($result > 18.5 && $result <= 24.9){
-						echo "dustybot::".$result.$bmi_result[1];
+						echo $result.$bmi_result[1];
 						die();
 					}
 
 					else if ($result >= 25 && $result <= 29.9) {
-						echo "dustybot::".$result.$bmi_result[2];
+						echo $result.$bmi_result[2];
 						die();
 					}
 
 					else{
-						echo "dustybot::".$result.$bmi_result[3];
+						echo $result.$bmi_result[3];
 						die();
 					}
 				}
 				else{
-					echo "dustybot::"."Enter a valid input";
+					echo "Enter a valid input";
 					die();
 				}
 			}
@@ -140,7 +140,7 @@
 					}
 					
 				} catch (PDOException $e) {
-					echo "dustybot::".$e->getMessage();
+					echo $e->getMessage();
 					die();
 				}
 
@@ -148,7 +148,7 @@
 					$answer = $no_answer[rand(0,4)]."::def";
 				}
 
-				echo "dustybot::".$answer;
+				echo $answer;
 				die();
 			}
 		}
@@ -602,8 +602,6 @@
 							data: {chat: a},
 							success: function(data,status){
 								if(data != ""){
-									// alert(data.indexOf("dustybot::"));
-									// data = data.substr(data.indexOf("dustybot::"));
 									if (data.indexOf("::def") >= 0) {
 										
 										data = data.replace("::def","");
