@@ -180,14 +180,6 @@
 				background: #fff;
 			}
 
-			.container{
-				/*height: 100vh;*/
-				/*margin: 0px;
-				padding: 0px;
-				min-height: 800px;
-				position: relative;*/
-			}
-
 			#whole{
 				padding: 20px;
 				margin: 0px;
@@ -586,61 +578,52 @@
 				add_bot_default();
 			});
 
+
+
 			$send_btn.click(function(){
 				var a = $text_input.val();
 				if(a != ""){
-					alert(a);
-					text_input.val("");
-					text_input.focus();
-				}
-			});
+					add_user_text(a);
 
+					$output.animate({scrollTop: $output[0].scrollHeight}, 500);
 
+					if(a == "aboutbot"){
+						add_about_bot();
+						$text_input.focus();
+					}
 
-			// $send_btn.click(function(){
-			// 	var a = $text_input.val();
-			// 	if(a != ""){
-			// 		// add_user_text(a);
-
-			// 		// $output.animate({scrollTop: $output[0].scrollHeight}, 500);
-
-			// 		// if(a == "aboutbot"){
-			// 		// 	add_about_bot();
-			// 		// 	$text_input.focus();
-			// 		// }
-
-			// 		// else{
-			// 		// 	$.ajax({
-			// 		// 		url: "jane.php",
-			// 		// 		type: "POST",
-			// 		// 		dataType: "html",
-			// 		// 		data: {chat: a},
-			// 		// 		success: function(data,status){
-			// 		// 			if(data != ""){
-			// 		// 				if (data.indexOf("::def") >= 0) {
+					else{
+						$.ajax({
+							url: "jane.php",
+							type: "POST",
+							dataType: "html",
+							data: {chat: a},
+							success: function(data,status){
+								if(data != ""){
+									if (data.indexOf("::def") >= 0) {
 										
-			// 		// 					data = data.replace("::def","");
-			// 		// 					add_bot_text(data);
-			// 		// 					add_bot_default();
-			// 		// 				}
-			// 		// 				else{
-			// 		// 					add_bot_text(data);
-			// 		// 				}
+										data = data.replace("::def","");
+										add_bot_text(data);
+										add_bot_default();
+									}
+									else{
+										add_bot_text(data);
+									}
 									
-			// 		// 			}										
-			// 		// 		}
-			// 		// 	});
-			// 		// }
-			// 		alert(a);
-			// 		$text_input.val("");
-			// 	}
+								}										
+							}
+						});
+					}
+					alert(a);
+					$text_input.val("");
+				}
 
 
-			// 	else{
-			// 		$text_input.focus();
-			// 	}
+				else{
+					$text_input.focus();
+				}
 				
-			// });
+			});
 
 			function add_user_text(user_text){
 				var div = document.createElement("div");
