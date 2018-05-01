@@ -183,7 +183,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 else{
   ?>
-
+</br>
+</br>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -723,4 +724,7 @@ function train( $input ) {
     } else {
         echo "<div id='result'>Invalid Password, Try Again!</div>";
     }
+
+    </br>
+    </br>
 }?>
