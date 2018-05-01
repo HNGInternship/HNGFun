@@ -1,15 +1,11 @@
 <?php
-
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
 if($_SERVER['REQUEST_METHOD'] === "GET"){
         try {
-        $conn = new PDO("mysql:host=$servername;dbname=hng_fun", $username, $password);
         $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ekpono'");
         $intern_data->execute();
         $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
         $result = $intern_data->fetch();
+		
         $secret_code = $conn->prepare("SELECT * FROM secret_word");
         $secret_code->execute();
         $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
@@ -19,11 +15,13 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
          throw $e;
      }
 }
+?>
+
+<?php
 try {
-	global $conn;
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
     // set the PDO error mode to exception
-    $conn1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     //echo "Connected";
     }
 catch(PDOException $e)
