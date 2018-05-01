@@ -53,14 +53,6 @@
 				background: #fff;
 			}
 
-			.container{
-				/*height: 100vh;*/
-				/*margin: 0px;
-				padding: 0px;
-				min-height: 800px;
-				position: relative;*/
-			}
-
 			#whole{
 				padding: 20px;
 				margin: 0px;
@@ -390,7 +382,7 @@
 
 				</div>
 
-				<div>
+			<!-- 	<div>
 					<div class="col-xs-6 col-sm-4 col-md-7"></div>
 					<div id="bot" class="col-xs-6 col-sm-8 col-md-5">
 						<div class="row">
@@ -418,7 +410,7 @@
 						</div>
 					</div>
 				</div>
-				
+				 -->
 			<!-- </div> -->
 			
 	</body>
