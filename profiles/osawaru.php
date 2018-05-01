@@ -1,4 +1,105 @@
+<?php
 
+if (!defined('DB_USER')) {
+    require "../config.php";
+}
+try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
+} 
+catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+ 
+ //the start of my chatbot
+
+global $response,$question,$conn;
+require "answers.php";  
+
+function checkinput($input) {
+    $input = trim($input);
+    $input = stripslashes($input);
+    $input = htmlspecialchars($input);
+    return $input;
+}
+
+function trainbot($question) {
+    if (preg_match("/#password:/", $question)) { //Seacrh for pattern called 'password'
+                $question = trim($question);
+                $trainingarray = explode( '#', $question );
+                
+                $password = trim($trainingarray[2]);  
+                $password = substr($password,10);; // removes the word 'password'
+                $password = trim($password); 
+                
+                $newquestion = trim($trainingarray[0]);
+                $newquestion = substr($newquestion,7);
+
+                $newanswer = trim($trainingarray[1]);
+                $newanswer = substr($newanswer,8);
+         
+        if ($password == 'password') { 
+            global $conn;
+                $sql1= "INSERT INTO chatbox (question,answer) VALUES ('$newquestion', '$newanswer')";
+                $conn->exec($sql1);
+                return ['answer' => "Thanks for that, now I am smarter"]; 
+        }
+        else {
+            return ['answer' => "Looks like you used the wrong password. The correct password is required."];
+        }
+    }
+    else {
+        return ["answer" => "Sorry! No password, No access. Please follow the training format."];
+        }
+    
+}
+//special function
+function getLatestNews() {
+    global $news,$err;
+    $api = 'https://newsapi.org/v2/top-headlines?sources=business-insider&apiKey=0b02db71635441abafa624c218e64192';
+    $data = file_get_contents($api);
+    $news = json_decode($data,true);
+    return $news;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    global $question,$conn;
+    $question = checkinput($_POST["userinput"]); 
+
+    if (preg_match("/train:/", $question)) {
+        exit(json_encode(trainbot($question)));   
+    }
+    
+    elseif (strtolower($question) === "about bot") {
+        exit(json_encode(["answer" => "IZZY version 1.0"]));
+    }
+
+    elseif (ucfirst($question) == 'Latest business news')  {
+        getLatestNews();
+        $title =  $news['articles'][0]['title'];
+        $time = $news['articles'][0]['publishedAt'];
+        $newsurl = $news['articles'][0]['url']; 
+            exit(json_encode(["answers" => "<strong >Title: $title </strong><br> $time <br> <a href = '$newsurl' style='color: #423ab7'>Read more..</a>"]));
+    }
+   
+    else {      
+          $sql= "SELECT * FROM chatbox WHERE question = '$question'ORDER BY RAND() LIMIT 1";    
+          $stmt = $conn->query($sql);
+          $stmt->setFetchMode(PDO::FETCH_ASSOC);
+          $response = $stmt->fetchAll();         //$response is the answer to the user's question($question)
+
+
+        if ($response == null) {
+            exit(json_encode(
+            array('answers' => "I am sorry, I do not have an answer, I am still an infant. You can train me and make me smarter. Type 'train: *** #answer: *** #password: *** '"))
+            );
+        }
+        else { 
+            exit(json_encode($response));
+        }
+    }
+} 
+   
+?>
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
@@ -36,6 +137,62 @@
     #carouselExampleControls  img {
       margin-left: 38%; 
     }
+    .chatcontainer {
+            padding-top: 3em;
+            border-radius: 0.5em;
+            width: 30%;
+            background-color: whitesmoke;
+            border-top-style: solid;
+            border-top-width: 45px;
+            border-top-color: rgba(4, 13, 15,0.8);
+            margin-right: 0px;
+            margin-bottom: 0px;
+            height: 70%;
+            max-height: 200%;
+        }
+
+        #chatbody {
+            background-color: white;
+            border-style: solid;
+            border-width: 1px;
+            border-color: rgba(29, 49, 56, 0.849);
+            border-radius: 10px;
+            margin-bottom: 3%;
+            color: black;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            overflow: auto;
+            height:75%;
+            max-height:180%;
+        }
+
+        input {
+            width: 90%;
+            max-width: 1000px;
+            line-height: 1.5em;
+            margin: 4% 4% 0% 4%;
+        }
+
+        .mybot {
+            background-color: rgba(238, 111, 111, 0.911);
+            max-width: 70%;
+            padding: 0.5em;
+            margin: 1em 2em 0.3em 1em;
+            border-radius: 2em 1.5em 1.5em 0em;
+            font-size: 1.05em;
+        }
+
+        input:focus {
+            background-color: rgb(248, 243, 232);
+        }
+
+        .msgoutput {
+            background-color: rgb(185, 179, 179);
+            max-width: 70%;
+            padding: 0.5em;
+            margin: 1em 2em 0.3em 7em;
+            border-radius: 1.5em 2em 0em 1.5em;
+            font-size: 1.05em;
+        }
 </style>
 <title>Osawaru Oyelade Efe-osa</title>
 </head>
@@ -142,6 +299,65 @@ try {
             </a>
         </span>
     </p>
-</body>
+    <button id="chatbutton" class="btn btn-primary fixed-bottom">Chat with me</a>
+    </button>
+    <div id="chatcontainer1" class="chatcontainer container fixed-bottom mr-1">
+       
+        <div id="chatbody">
+        <p class='mybot'><img style='height: 2.5em;' class='rounded-circle mr-2'
+        src='http://res.cloudinary.com/osawaru/image/upload/e_grayscale/v1524047363/avatar.png' alt='Izzy avatar'>
+        Welcome.. <br> My training format is: <strong>train: *** #answer: ***  #password: ***. </strong><br> My commands
+         <strong>about bot</strong>- returns my version number.
+        <br><strong>about creator</strong>- returns information on my creator.
+        <br><strong>Latest business news</strong>- returns latest Business insider news.
+        </p>
+        </div>
 
+        <form id="userinput" method="post">
+            
+            <input type="text" id-"userinput" name="userinput" width="30"
+            placeholder="Enter your message here" required>
+               
+                <div class="text-center text-capitalize">
+                    <button  type="submit" class="btn mt-1 mb-1 font-bold">
+                        Send
+                    </button>
+                </div>
+        </form>
+    </div> <script>
+    $(document).ready(function () {
+        $("#chatcontainer1").hide()
+        $("#chatbutton").click(function(e){
+            $("#chatcontainer1").toggle()
+        })
+            
+        $("form").submit(function(e) {
+            e.preventDefault();
+            var inputbox = $('input[name=userinput]');
+            var userinputval=  $('input[name=userinput]').val();
+            if (userinputval !== null) {
+               var newinput = "<p class='msgoutput'>" + userinputval +
+               "<img style='height: 2.5em;'class='rounded-circle'"
+               " src='http://res.cloudinary.com/osawaru/image/upload/e_grayscale/v1524047363/avatar.png'></p>";
+               $('#chatbody').append(newinput); 
+               $.ajax ({
+                  method: "POST",
+                  url: "profiles/osawaru.php",
+                  data: {userinput:userinputval},
+                  dataType : "json",
+                    success: function (result) {
+                        var successmsg = result.answer;
+                          var result1 ="<p class='mybot'><img style='height: 2.5em;'class='rounded-circle mr-2'" + 
+                          "src='http://res.cloudinary.com/osawaru/image/upload/e_grayscale/v1524047363/avatar.png'>" + 
+                          successmsg + "</p>";
+                          $('#chatbody').append(result1);
+                          userinputval = " "; //function that runs what the request succeeds
+                    }
+               });       
+            }; 
+        });
+    });
+    
+    </script>
+</body>
 </html>

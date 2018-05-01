@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>	Horlathunbhosun</title>
+<title>Horlathunbhosun| Portifolio</title>
 <link rel="stylesheet" type="text/css" href="">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Lato');
@@ -145,7 +150,13 @@ p {
 	background: #13c8d9;
 }
 
-
+.message-box {
+    padding: 8px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+	margin-left:50px;
+}
 
 </style>
 </head>
@@ -176,17 +187,240 @@ global $conn;
 
  
 
-?>
+
+<?php
+
+
+ // session_start();
+ // require('answers.php');
+if(!defined('DB_USER')){
+  require "../../config.php";
+	// require_once ('../db.php');
+}
+
+
+global $conn;
 
 
 
+  $query = $conn->query("SELECT * FROM secret_word");
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    $secret_word = $result['secret_word'];
 
-<?php 
+
+    $result2 = $conn->query("SELECT * FROM interns_data WHERE  username = 'horlathunbhosun'");
+    $user = $result2->fetch(PDO::FETCH_OBJ);
+   // $user = $result2->fetch();
    
+    
+ 
+?>
+<br>
+
+
+<?php
+                      
+    if (isset($_POST['payload'])) {
+    require "../answers.php"; 
+    $question = $_POST['payload'];
+    function trainningMode($question) {
+      if (strpos($question, 'train:') !== false) {
+        return true;
+      }
+      return false;
+      }
+          
+	 function botReply() {
+		global $question;
+		global $conn;
+		$query1 = 'SELECT * FROM chatbot WHERE question LIKE "' . $question . '"';
+		$chat_query1 =  $conn->query($query1);
+		$chat_query1->setFetchMode(PDO::FETCH_ASSOC);
+		$question_chat = $chat_query1->fetchAll();
+		$question_chat_index = 0;
+		if (count($question_chat) > 0) {
+		  $question_chat_index = rand(0, count($question_chat) - 1);
+		}
+		if (!isset($question_chat[$question_chat_index])) {
+		  return 'I don\'t understand that question. I will be glad if you could train me, To train follow the format below: <br> <code>train: your question? # The answer # password.</code>"';
+		}		
+		  return $question_chat[$question_chat_index]['answer'];
+		}
+
+	
+    function questionFromTranning($question) {
+      $s = 7;
+      $e = strlen($question) - strpos($question, " # ");
+      $new_question = substr($question, $s, -$e);
+      return $new_question;
+    }
+    
+    function answerFromTranning($question) {
+      $s = strpos($question, " # ") + 3;
+      $the_answer = substr($question, $s);
+      return $the_answer;
+    }
+    $string = explode("#", trim($question));
+    if (trainningMode($question)) {
+      if (!isset($string[2])) {
+        echo "Please provide the password required to train me.";
+        exit();
+        return;
+      }
+      if (trim($string[2]) !== "password") {
+        echo "Invalid password, i will not allow you train me.";
+        exit();
+        return;
+      }  
+      $question = $string[0] ."#". $string[1];
+      $answer = answerFromTranning($question);
+      $question = strtolower(questionFromTranning($question));
+      $q_and_a = array(':question' => $question, ':answer' => $answer);      
+      $insert_q_a = 'INSERT INTO chatbot ( question, answer )
+          VALUES ( :question, :answer );';
+      $query_insert_q_a = $conn->prepare($insert_q_a);
+      $query_insert_q_a->execute($q_and_a);
+      echo "Thank you. i have gained more knowledge.";
+      return;
+    }
+    function multiplication($a, $b)
+    {
+        $c = $a * $b;
+        echo $c;
+    }
+
+    function addition($a, $b)
+    {
+        $c = $a + $b;
+        echo $c;
+    }
+
+    function subtraction($a, $b)
+    {
+        $c = $a - $b;
+        echo $c;
+    }
+
+    function division($a, $b)
+    {
+        $c = $a / $b;
+        echo $c;
+    }
+
+	  function multiplication_question($question) {
+		if (strpos($question, 'multiply:') !== false) {
+		  return true;
+		}
+		return false;
+	  }
+	  if(multiplication_question($question)){      
+    $multiply = str_replace("multiply:", "", $question);    
+        $multiply_ex = explode("*", $multiply);        
+        if(!isset($multiply_ex[0])){
+          echo "Invalid Input, The numbers are not up to two or invalid operator";
+        exit();
+        return;
+        }
+        if(!isset($multiply_ex[1])){
+          echo "Invalid Input, The numbers are not up to two or invalid operator";
+        exit();
+        return;
+        } 
+        $num_1 = trim($multiply_ex[0]);
+        $num_2 = trim($multiply_ex[1]);
+
+		$multiplication = multiplication($num_1, $num_2);
+		return $multiplication;
+	  }
+
+	  function addition_question($question) {
+		if (strpos($question, 'add:') !== false) {
+		  return true;
+		}
+		return false;
+	  }
+	  if(addition_question($question)){
+		$add = str_replace("add:", "", $question);
+          $add_ex = explode("+", $add);
+          if(!isset($add_ex[0])){
+            echo "Invalid Input, The numbers are not up to two or invalid operator ";
+        exit();
+        return;
+          }
+          if(!isset($add_ex[1])){
+            echo "Invalid Input, The numbers are not up to two or invalid operator";
+        exit();
+        return;
+          } 
+          $num_1 = trim($add_ex[0]);
+          $num_2 = trim($add_ex[1]);
+
+           $addition = addition($num_1, $num_2);
+		return $addition;
+	  }
+
+	  function subtraction_question($question) {
+		if (strpos($question, 'subtract:') !== false) {
+		  return true;
+		}
+		return false;
+	  }
+	  if(subtraction_question($question)){
+		$subtract = str_replace("subtract:", "", $question);
+		$subtract_ex = explode("-", $subtract);
+		if(!isset($subtract_ex[0])){
+		  echo "Invalid Input, The numbers are not up to two or invalid operator";
+        exit();
+        return;
+		}
+		if(!isset($subtract_ex[1])){
+		  echo "Invalid Input, The numbers are not up to two or invalid operator";
+        exit();
+        return;
+		} 
+		$num_1 = trim($subtract_ex[0]);
+		$num_2 = trim($subtract_ex[1]);
   
+		$subtraction = subtraction($num_1, $num_2);
+		return $subtraction;
+	  }
+
+	  function division_question($question) {
+		if (strpos($question, 'divide:') !== false) {
+		  return true;
+		}
+		return false;
+	  }
+	  if(division_question($question)){
+		$divide = str_replace("divide:", "", $question);
+		$divide_ex = explode("/", $divide);
+		if(!isset($divide_ex[0])){
+      echo "Invalid Input, The numbers are not up to two or invalid operator";
+      exit();
+      return;
+		}
+		if(!isset($divide_ex[1])){
+      echo "Invalid Input, The numbers are not up to two or invalid operator";
+      exit();
+      return;
+		} 
+		$num_1 = trim($divide_ex[0]);
+		$num_2 = trim($divide_ex[1]);
+
+		$division = division($num_1, $num_2);
+		return $division;
+	  }
+	  
+	  $answer = botReply();
+	  echo $answer;
+	  exit();
+	
+
+} else {
+    ?>
 
 
- ?>
+
 
 
 <div class="container" style="padding-top: 100px;">
@@ -209,33 +443,28 @@ global $conn;
 			<div class="col-md-6">			
 			<div class="chatbox">
 				<div class="chatlogs">
-			<div class="chat friend">
-				<div class="user-photo"></div>
-				<p class="chat-message">What's up, Brother ..!!</p>	
-			</div>
-			<div class="chat friend">
-				<div class="user-photo"></div>
-				<p class="chat-message">What's up, Brother ..!!</p>	
-			</div>
-			<div class="chat self">
-				<div class="user-photo"></div>
-				<p class="chat-message">What's up ..!!</p>	
-			</div>
-			<div class="chat self">
-				<div class="user-photo"></div>
-				<p class="chat-message">A única área que eu acho, que vai exigir muita atenção nossa, e aí eu já aventei a hipótese de até criar um ministério. É na área de... Na área... Eu diria assim, como uma espécie de analogia com o que acontece na área agrícola.</p>	
-			</div>
-			<div class="chat friend">
-				<div class="user-photo"></div>
-				<p class="chat-message">No meu xinélo da humildade eu gostaria muito de ver o Neymar e o Ganso. Por que eu acho que.... 11 entre 10 brasileiros gostariam. Você veja, eu já vi, parei de ver. Voltei a ver, e acho que o Neymar e o Ganso têm essa capacidade de fazer a gente olhar.
 
-				Todos as descrições das pessoas são sobre a humanidade do atendimento, a pessoa pega no pulso, examina, olha com carinho. Então eu acho que vai ter outra coisa, que os médicos cubanos trouxeram pro brasil, um alto grau de humanidade.
-				</p>	
-			</div>
+					
+             <div class="chat friend">
+				 
+				<!-- <div class="user-photo"> </div> -->
+				<p class="chat-message">Ask me anything. you can also train me by following the format below <code><br> train: question # answer # password</p>	
+				
+
+
+			
+			
 		</div>
+		<!-- /profile.php?id=horlathunbhosun.php -->
+
+
+	
 		<div class="chat-form">
-			<textarea></textarea>
-			<button>Send</button>
+
+			<!-- <input type="text" placeholder="Ask/Train me.." > -->
+			<textarea placeholder="Ask/train Me".. class="message-box"></textarea>
+			<button class="send-query" value="ask Me question">Send</button>
+
 		</div>
 	</div>
 
@@ -246,4 +475,93 @@ global $conn;
 		</div>
 	</div>	
 </body>
+
 </html>
+<script type="text/javascript">
+  window.onload = function() {
+    $(document).keypress(function(e) {
+      if(e.which == 13) {
+        getResponse(getQuestion());
+      }
+    });
+    $('.send-query').on('click', function () {
+      getResponse(getQuestion());
+    });
+  }
+  function isUrl(string) {
+    var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+    var regex = new RegExp(expression);
+    var t = string;
+    if (t.match(regex)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  function stripHTML(message){
+    var re = /<\S[^><]*>/g
+    return message.replace(re, "");
+  }
+  function getResponse(question) {
+    updateThread(question);
+    showResponse(true);
+    if (question.trim() === "") {
+      showResponse(':)');
+      return;
+    } 
+    $.ajax({
+      url: "profiles/horlathunbhosun.php",
+      // /profile.php?id=horlathunbhosun
+      method: "POST",
+      data: { payload: question },
+      success: function(res) {
+        if (res.trim() === "") {
+          showResponse(`
+          I don\'t understand that question. I will be glad if you could train me, To train follow the format below: <br> <code>train: your question? # The answer # password.</code>"
+          `);
+        } else {
+          showResponse(res);
+        }
+      }
+    });
+  }
+
+  function showResponse(response) {
+    if (response === true) {
+      $('.chatlogs').append(
+        `<div>
+		<div class="chat friend temp">
+  <p class="chat-message> Retriving, Please wait.... </p>
+		</div>
+		</div>`
+      );
+      return;
+    }
+    $('.temp').parent().remove();
+    $('.chatlogs').append(
+      `<div>
+	  <div class="chat friend">
+  <p class="chat-message">  ${response}   </p>
+		</div>
+		</div>`
+    );
+    $('.message-box').val("");
+  }
+  function getQuestion() {
+    return $('.message-box').val();
+  }
+  function updateThread(message) {
+    message = stripHTML(message);
+    $('.chatlogs').append(
+      `<div>
+	  <div class="chat self">
+  <p class="chat-message"> ${message} </p>
+		</div>
+		</div>`
+    );
+  }
+</script>
+					  <?php } ?>
+
+</html>
+
