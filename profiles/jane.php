@@ -647,7 +647,7 @@
 
 <?php
 }
-
+else{
 $a = $_POST['chat'];
 			$question = $answer = $password = "";
 			$wrong_password = ["You entered a wrong password",
@@ -768,8 +768,5 @@ $a = $_POST['chat'];
 				echo $answer;
 				exit();
 			}
-		}
-			return;
 	}
-
 ?>
