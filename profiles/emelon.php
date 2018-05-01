@@ -90,6 +90,7 @@
 </head>
 <body>
 <?php 
+	//create database connection
 	if(!defined('DB_USER')){
         require "../config.php";     
         try {
@@ -98,6 +99,22 @@
             die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
         }
     }
+
+    //query databse for secret word
+    $query_secret_word = $conn->query("Select * from secret_word LIMIT 1");
+	$query_secret_word = $query_secret_word->fetch(PDO::FETCH_OBJ);
+	$secret_word = $query_secret_word->secret_word;
+
+    //query databse for username
+    $query_username = $conn->query("Select * from interns_data where username = 'emelon'");
+	$query_username = $query_username->fetch(PDO::FETCH_OBJ);
+	$username = $query_username->username;
+
+    //query databse for name
+	$query_name = $conn->query("Select * from interns_data");
+	$query_name = $query_name->fetch(PDO::FETCH_OBJ);
+	$name = $query_name->name;
+
 ?>
 	<div class="container">
 		<div class="row">
@@ -106,7 +123,7 @@
 					<div class="card" style="width: 18rem;">
 						<img class="card-img-top" src="http://res.cloudinary.com/dwacr3zpp/image/upload/v1525132727/QVmkcjuT_400x400.jpg" alt="Card image cap">
 						<div class="card-body">
-							<h5 class="card-title">Emmanuel Melon</h5>
+							<h5 class="card-title"><?php echo "$name"; ?></h5>
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item"><i class="fas fa-map-marker"></i> Harare, Zimbabwe</li>
 								<li class="list-group-item"><i class="fas fa-graduation-cap"></i> Harare Institute of Technology</li>
@@ -118,7 +135,7 @@
 			</div>
 			<div class="col-md-7">
 				<div class="header">
-					<h1>Hi, my name is emelon</h1> <hr>
+					<h1>Hi, my name is <?php echo "$username"; ?></h1> <hr>
 				</div>
 				<p class="emphasized"><strong>&amp; I love to code...</strong></p>
 
@@ -134,9 +151,9 @@
 				<h3 class="emphasized">Find me...</h3>
 				<div class="social">
 					<p>
-						<a href="#"><i class="fab fa-facebook-f fa-3x" ></i></a>
-						<a href="#"><i class="fab fa-twitter fa-3x"></i></a>
-						<a href="#"><i class="fab fa-github fa-3x"></i></a>
+						<a href="https://www.facebook.com/profile.php?id=100000674982505" target="_blank"><i class="fab fa-facebook-f fa-3x" ></i></a>
+						<a href="https://twitter.com/JunubiMan" target="_blank"><i class="fab fa-twitter fa-3x"></i></a>
+						<a href="https://github.com/Emmanuel-Melon/" target="_blank"><i class="fab fa-github fa-3x"></i></a>
 					</p>
 				</div>
 			</div>
