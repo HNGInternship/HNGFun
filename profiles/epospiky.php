@@ -31,7 +31,7 @@
 
 <?php
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $data = $_POST['user-input'];
+        $data = $_POST['input'];
       //  $data = preg_replace('/\s+/', '', $data);
         $temp = explode(':', $data);
         $temp2 = preg_replace('/\s+/', '', $temp[0]);
@@ -380,7 +380,7 @@ class='me'>${$message}</p></div>`);
         $.ajax({
             url: 'profile.php?id=epospiky',
             type: 'POST',
-            data:  'user-input=' + $message,
+            data:  'txt-input=' + $message,
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
