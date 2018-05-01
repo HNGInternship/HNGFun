@@ -228,6 +228,7 @@ if(isset($_POST['chat'])){
             border-radius: 10px;
             color: #ffffff;
             font-size: 20px;
+            overflow-x: auto;
         }
 
         .friend .chat-message{
