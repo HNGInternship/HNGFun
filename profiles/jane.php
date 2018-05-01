@@ -1,5 +1,6 @@
 <?php
-	
+	// Profile
+
 	try {
 
 
@@ -71,16 +72,16 @@
 								
 							} catch (PDOException $e) {
 								echo $e->getMessage();
-								die();
+								exit();
 							}
 
 							print_r($train_success);
-							die();
+							exit();
 						}
 
 						else{
 							print_r($wrong_password[rand(0,2)]);
-							die();
+							exit();
 						}
 
 					}
@@ -97,32 +98,31 @@
 				$height = $array2[1];
 				if(is_numeric($weight) && is_numeric($height)){
 					$result = $weight/($height*$height);
-					$result = round($result,2);
 					$result = "Your BMI is ".$result."\n";
 
 					if ($result <= 18.5) {
 						echo $result.$bmi_result[0];
-						die();
+						exit();
 					} 
 
 					else if($result > 18.5 && $result <= 24.9){
 						echo $result.$bmi_result[1];
-						die();
+						exit();
 					}
 
 					else if ($result >= 25 && $result <= 29.9) {
 						echo $result.$bmi_result[2];
-						die();
+						exit();
 					}
 
 					else{
 						echo $result.$bmi_result[3];
-						die();
+						exit();
 					}
 				}
 				else{
 					echo "Enter a valid input";
-					die();
+					exit();
 				}
 			}
 
@@ -141,7 +141,7 @@
 					
 				} catch (PDOException $e) {
 					echo $e->getMessage();
-					die();
+					exit();
 				}
 
 				if($answer == ""){
@@ -149,9 +149,10 @@
 				}
 
 				echo $answer;
-				die();
+				exit();
 			}
 		}
+			return;
 	}
 
 ?>		
@@ -181,10 +182,18 @@
 				background: #fff;
 			}
 
+			.container{
+				/*height: 100vh;*/
+				/*margin: 0px;
+				padding: 0px;
+				min-height: 800px;
+				position: relative;*/
+			}
+
 			#whole{
 				padding: 20px;
-				margin-top: 10px;
-				min-height: 800px;
+				margin: 0px;
+				min-height: 500px;
 			}
 
 			#whole div:nth-child(2){
@@ -612,10 +621,7 @@
 										add_bot_text(data);
 									}
 									
-								}
-								else{
-									alert("No data");
-								}									
+								}										
 							}
 						});
 					}
