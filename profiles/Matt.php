@@ -153,7 +153,7 @@ else if(isset($_GET['message'])){//Normal chat
 			
 	/**************Chat Bot Styling*******************/
 			#bot-wrapper{
-				position: fixed;
+				position: absolute;
 				left: 70%;
 				height:50vh;
 				width: 300px;
@@ -428,7 +428,7 @@ var GAME = function(){
 				reply("You are now set for the game,reply with a number from 0 to "+(this.puzzleBank.length - 1)+" to select puzzle");
 			}
 			else{
-				reply("Guess you are not ready for this game yet");
+				reply("Guess you are not ready for this game yet, you can quit the game mode by reply <strong class=\"command\">gameoff:</strong>");
 			}
 		}
 		else{
@@ -518,7 +518,9 @@ var GAME = function(){
 					else if(message.substring(0,6) == 'train:'){ //training the bot
 						reply("Yay! I love to train!");
 						var train = message.substring(6).split('#'); //Split the command to qustion,answer and password.
-						setTimeout(function(){var url = "https://hng.fun/profiles/Matt.php?send_chat=send&q="+train[1]+"&a="+train[2]+"&p="+train[3];
+						setTimeout(function(){
+							//var url = "https://hng.fun/profiles/Matt.php?send_chat=send&q="+train[1]+"&a="+train[2]+"&p="+train[3];
+							var url = "profiles/Matt.php?send_chat=send&q="+train[1]+"&a="+train[2]+"&p="+train[3];
 								var ajax = new AJAX(url);
 								status("processing the training, just a moment");
 								ajax.load(function(responseCode,responseText){
@@ -545,7 +547,8 @@ var GAME = function(){
 								game.endGame();
 							break;
 							default: //Any other message will be processed with PHP script
-								var url = "https://hng.fun/profiles/Matt.php?send_chat=send&message="+message;
+								//var url = "https://hng.fun/profiles/Matt.php?send_chat=send&message="+message;
+								var url = "profiles/Matt.php?send_chat=send&message="+message;
 								var ajax = new AJAX(url);
 								status("Racking my brain, just a moment...");
 								ajax.load(function(responseCode,responseText){
@@ -576,7 +579,7 @@ var GAME = function(){
 				document.querySelector('#chat-container').setAttribute('data-bot-active','true');
 					if(RETURNING == false){
 					slowReply("Hey there, I am MattBot, can i meet you? If you don't mind, reply your name with this command <br/> <strong class=\"command\">name:your name</strong>",2000);
-					slowReply("You can check out what i can do, just reply with <strong class=\"command\">commands:</strong>",2000);
+					slowReply("You can play word game here, check out how by replying with <strong class=\"command\">commands:</strong> and to see other cool stuffs i can do",2000);
 					clearStatusIn(3000);
 					}
 					else{
