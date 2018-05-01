@@ -1,5 +1,6 @@
 <?php
-	
+	// Profile
+
 	try {
 
 
@@ -56,7 +57,7 @@
 					$arr = explode("# ", $string);
 					if(sizeof($arr) != 3){
 						$answer = $no_answer[rand(0,3)]."::def";
-						echo "dustybot::".$answer;
+						echo $answer;
 					}
 					else{
 						$question = $arr[0];
@@ -70,17 +71,17 @@
 								$stmt = $conn->query($sql);
 								
 							} catch (PDOException $e) {
-								echo "dustybot::".$e->getMessage();
-								die();
+								echo $e->getMessage();
+								exit();
 							}
 
 							print_r($train_success);
-							die();
+							exit();
 						}
 
 						else{
 							print_r($wrong_password[rand(0,2)]);
-							die();
+							exit();
 						}
 
 					}
@@ -97,32 +98,31 @@
 				$height = $array2[1];
 				if(is_numeric($weight) && is_numeric($height)){
 					$result = $weight/($height*$height);
-					$result = round($result,2);
 					$result = "Your BMI is ".$result."\n";
 
 					if ($result <= 18.5) {
-						echo "dustybot::".$result.$bmi_result[0];
-						die();
+						echo $result.$bmi_result[0];
+						exit();
 					} 
 
 					else if($result > 18.5 && $result <= 24.9){
-						echo "dustybot::".$result.$bmi_result[1];
-						die();
+						echo $result.$bmi_result[1];
+						exit();
 					}
 
 					else if ($result >= 25 && $result <= 29.9) {
-						echo "dustybot::".$result.$bmi_result[2];
-						die();
+						echo $result.$bmi_result[2];
+						exit();
 					}
 
 					else{
-						echo "dustybot::".$result.$bmi_result[3];
-						die();
+						echo $result.$bmi_result[3];
+						exit();
 					}
 				}
 				else{
-					echo "dustybot::"."Enter a valid input";
-					die();
+					echo "Enter a valid input";
+					exit();
 				}
 			}
 
@@ -140,18 +140,19 @@
 					}
 					
 				} catch (PDOException $e) {
-					echo "dustybot::".$e->getMessage();
-					die();
+					echo $e->getMessage();
+					exit();
 				}
 
 				if($answer == ""){
 					$answer = $no_answer[rand(0,4)]."::def";
 				}
 
-				echo "dustybot::".$answer;
-				die();
+				echo $answer;
+				exit();
 			}
 		}
+			return;
 	}
 
 ?>		
@@ -181,10 +182,18 @@
 				background: #fff;
 			}
 
+			.container{
+				/*height: 100vh;*/
+				/*margin: 0px;
+				padding: 0px;
+				min-height: 800px;
+				position: relative;*/
+			}
+
 			#whole{
 				padding: 20px;
-				margin-top: 10px;
-				min-height: 800px;
+				margin: 0px;
+				min-height: 500px;
 			}
 
 			#whole div:nth-child(2){
@@ -550,6 +559,8 @@
 		
 		$(function(){
 
+			alert("JS Enabled");
+
 			$bot = $("#bot");
 			$user_input = $("#user-input");
 			$output = $("#output");
@@ -602,8 +613,6 @@
 							data: {chat: a},
 							success: function(data,status){
 								if(data != ""){
-									// alert(data.indexOf("dustybot::"));
-									// data = data.substr(data.indexOf("dustybot::"));
 									if (data.indexOf("::def") >= 0) {
 										
 										data = data.replace("::def","");
@@ -614,10 +623,7 @@
 										add_bot_text(data);
 									}
 									
-								}
-								else{
-									alert("No data");
-								}									
+								}										
 							}
 						});
 					}

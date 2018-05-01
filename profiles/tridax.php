@@ -484,7 +484,7 @@ p { margin: 0; }
         <div id="live-chat">	
             <header class="clearfix">	
                 <a href="#" class="chat-close">x</a>
-                <h4>Tridax Botdfdz</h4>
+                <h4>Tridax Bot</h4>
             </header>
             <div id='widget_message_list' class="chat">    
                 <div id="user_chat" class="chat-history">
@@ -494,7 +494,7 @@ p { margin: 0; }
                             
                             <h4>tridax bot</h4>
                             <p><?php 
-                             echo "Send a Mnjkxessage to get started or type codequotes to get random programming quotes.<br>Train me:<br>
+                             echo "Send a Message to get started or type codequotes to get random programming quotes.<br>Train me:<br>
                             <code>train: question # answer # password</code>"; ?></p>
                         </div>
                     </div>
