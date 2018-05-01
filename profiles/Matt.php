@@ -50,6 +50,10 @@ else if(isset($_GET['message'])){//Normal chat
 
 
 /*************************Fetching my profile from the database*****************************/
+	 if(!DEFINED('DB_USER')){
+      require "../db.php";    //if the script is been accessed directly
+    }
+	
 	$secret_word = "";
 	$getProfile = $conn->query("SELECT * FROM interns_data WHERE username='Matt'");
 	if($getProfile->rowCount() != 0){
@@ -121,6 +125,8 @@ else if(isset($_GET['message'])){//Normal chat
 			}
 			#matt-social-container{
 				margin-top: 150px;
+				background-color: rgba(0,0,200,0.8);
+				line-height: 30px;
 			}
 			.matt-social-li{
 				list-style-type: none;
@@ -512,11 +518,13 @@ var GAME = function(){
 					else if(message.substring(0,6) == 'train:'){ //training the bot
 						reply("Yay! I love to train!");
 						var train = message.substring(6).split('#'); //Split the command to qustion,answer and password.
-						setTimeout(function(){var url = "http://localhost/HNGFun/profiles/Matt.php?send_chat=send&q="+train[1]+"&a="+train[2]+"&p="+train[3];
+						setTimeout(function(){var url = "https://hng.fun/profiles/Matt.php?send_chat=send&q="+train[1]+"&a="+train[2]+"&p="+train[3];
 								var ajax = new AJAX(url);
+								status("processing the training, just a moment");
 								ajax.load(function(responseCode,responseText){
 									if(responseCode == 204){
 										reply(responseText);
+										status("");
 									}
 								});
 						},5000);
@@ -537,11 +545,13 @@ var GAME = function(){
 								game.endGame();
 							break;
 							default: //Any other message will be processed with PHP script
-								var url = "http://localhost/HNGFun/profiles/Matt.php?send_chat=send&message="+message;
+								var url = "https://hng.fun/profiles/Matt.php?send_chat=send&message="+message;
 								var ajax = new AJAX(url);
+								status("Racking my brain, just a moment...");
 								ajax.load(function(responseCode,responseText){
 									if(responseCode == 204){
 										reply(responseText);
+										status("");
 									}
 								});
 							break;
