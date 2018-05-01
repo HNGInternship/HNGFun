@@ -407,7 +407,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             processData(xhttp.responseText);
         }
     };
-    xhttp.open("POST", "/profiles/jaycodes.php", true);
+    xhttp.open("POST", "/profiles/nedy.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("ques="+ques.value);
 
