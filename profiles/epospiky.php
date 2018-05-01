@@ -10,140 +10,149 @@
   }
 
   //Fetch User Details and secret
-  try {
+
       $query = "SELECT * FROM interns_data WHERE username ='Epospiky'";
       $result = $conn->query($query);
       $result = $result->fetch(PDO::FETCH_ASSOC);
-  } catch (PDOException $e){
-      throw $e;
-  }
+
 
   //get and set the name and user name
   $username = $result['username'];
   $name = $result['name'];
   //query the secret word table to Fetch Secret Word
-  try{
+
       $queryKey =  "SELECT * FROM secret_word LIMIT 1";
-      $result   =  $conn->query($queryKey);
-      $result  =  $result->fetch(PDO::FETCH_ASSOC);
-      $secret_word =  $result['secret_word'];
-  }catch (PDOException $e){
-      throw $e;
-  }
-  $secret_word =  $result['secret_word'];
+      $result2   =  $conn->query($queryKey);
+      $result2  =  $result2->fetch(PDO::FETCH_ASSOC);
+      
+
+  $secret_word =  $result2['secret_word'];
 ?>
 
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
   include '../answers.php';
 
   $question = $_POST['input'];
   $question = preg_replace('([\s]+)', ' ', trim($question)); 
   $question = preg_replace("([?.])", "", $question); 
+  $question = strtolower(trim($question));
 
   //Version of the bot
-  if (strtolower(trim($question)) === "aboutbot") {
+  if ($question === "aboutbot") {
         echo json_encode([
            'status' => 1,
              'answer' => "Santra v1.0",
          ]);
     return;
   };
+
+
     
     // check if the string begins with the string train: 
-  $checking = stripos($question, "train:");
   
-  if ($checking === false) { 
-      $question = preg_replace('([\s]+)', ' ', trim($question)); 
-      $question = preg_replace("([?.])", "", $question); 
-      
-      //check if answer already exists in database
-      $question = $question;
-        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
-        $q = $GLOBALS['conn']->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetchAll();
-        if(empty($data)){
-            echo json_encode([
-            'status' => 1,
-             'answer' => "Am not sure i understand that but you can train me by typing--> train: your question # answer # password.",
-         ]);
+      if($question == "train:"){
+
+        unset($question);
+        $q = implode(" ",$question);
+        $queries = explode("#", $q);
+        if (count($queries) < 3) {
+          # code...
+          echo json_encode([
+            'status' => 0,
+            'answer' => "You need to enter a password to train me."
+          ]);
           return;
-        }else {
-            $random = array_rand($data);
-            $answer = $data[$random]['answer'];
-            echo json_encode([
-            'status' => 1,
-             'answer' => $answer,
-         ]);
-           return;
         }
-  }else{ // in training mode
-    
-    //Get the question and answer from the user
-    $userText = preg_replace('([\s]+)', ' ', trim($question)); 
-      $userText = preg_replace("([?.])", "", $userText); 
-    $userText = substr($userText, 6);
-      $userText = explode("#", $userText);
-      $user_question = trim($userText[0]);
-    if(count($userText) == 1){
-      echo json_encode([
-        'status' => 1,
-        'answer' => "You entered an incorrect format. Enter the correct format by typing-->train:question#answer#password",
-      ]);
-      return;
-    };
-      $user_answer = trim($userText[1]);    
-        if(count($userText) < 3){ //the user only enter question and answer without password
+        $password = trim($queries[2]);
+        //to verify training password
+        define('PASSWORD', 'password');
+        
+        if ($password !== PASSWORD) {
+          # code...
           echo json_encode([
-            'status' => 1,
-            'answer' => "Please enter the password to train me.",
+            'status'=> 0,
+            'answer' => "You entered a wrong passsword"
           ]);
           return;
-        };
-         //get the index of the user password
-      $user_password = trim($userText[2]);
-        //verify if training password is correct
-        define('PASSWORD', 'password'); //constant variable
-        if($user_password !== PASSWORD){ 
-          echo json_encode([
-            'status' => 1,
-            'answer' => "oops! Seems you're trying to train me with an unauthorised password. Please get the password and try again",
-          ]);
-        return;
-      };
-      //check database if answer exist already
-      $user_answer = "$user_answer"; 
-      $sql = "SELECT * FROM chatbot WHERE answer LIKE :user_answer";
-      $stmt = $conn->prepare($sql);
-      $stmt->bindParam(':user_answer', $user_answer);
-      $stmt->execute();
-      $stmt->setFetchMode(PDO::FETCH_ASSOC);
-    $rows = $stmt->fetchAll();
-      if(empty($rows)){     
-        $sql = "INSERT INTO chatbot (question, answer) VALUES (:question, :answer)";  //insert into database
+        }
+        $quest = $queries[0];
+        $ans = $queries[1];
+
+        $sql = "insert into chatbot (question, answer) values (:question, :answer)";
+
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':question', $user_question);
-        $stmt->bindParam(':answer', $user_answer);
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $stmt->bindParam(':question', $quest);
+            $stmt->bindParam(':answer', $ans);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
         
         echo json_encode([
           'status' => 1,
-            'answer' =>  "Now I'm smarter! Thanks for your help.",
-          ]);     
+          'answer' => "Thanks for training me, you can now test my knowledge"
+        ]);
         return;
-      
-      }else{
-         echo json_encode([
-          'status' => 1,
-            'answer' => "Sorry! I know the answer. You can train me again with same question but with an alternative answer.",
-          ]);
-      return;   
-      };
-      return;
-  };
-}else{ 
+      }
+      else{
+
+        $question = implode(" ",$arr);
+          //to check if answer already exists in the database...
+          $question = "$question";
+          $sql = "Select * from chatbot where question like :question";
+            $stat = $conn->prepare($sql);
+            $stat->bindParam(':question', $question);
+            $stat->execute();
+
+            $stat->setFetchMode(PDO::FETCH_ASSOC);
+            $rows = $stat->fetchAll();
+              if(empty($rows)){
+              echo json_encode([
+              'status' => 0,
+              'answer' => "I am sorry, I cannot answer your question now. You could train me to answer the question."
+            ]);
+            return;
+          }else{
+            $rand = array_rand($rows);
+            $answer = $rows[$rand]['answer'];
+
+            $index_of_parentheses = stripos($answer, "((");
+              if($index_of_parentheses === false){// if answer is not to call a function
+                echo json_encode([
+                  'status' => 1,
+                  'answer' => $answer
+                ]);
+                return;
+              }else{//to get the name of the function, before calling
+                  $index_of_parentheses_closing = stripos($answer, "))");
+                  if($index_of_parentheses_closing !== false){
+                      $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
+                      $function_name = trim($function_name);
+                      if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
+                         echo json_encode([
+                          'status' => 0,
+                          'answer' => "The function name should not contain white spaces"
+                        ]);
+                        return;
+                      }
+                    if(!function_exists($function_name)){
+                      echo json_encode([
+                        'status' => 0,
+                        'answer' => "I am sorry but I could not find that function"
+                      ]);
+                    }else{
+                      echo json_encode([
+                        'status' => 1,
+                        'answer' => str_replace("(($function_name))", $function_name(), $answer)
+                      ]);
+                    }
+                    return;
+                  }
+              }
+      }
+    }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -410,43 +419,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   </body>
 </html>
-<script type="text/javascript"> 
-    $(document).ready(function(){  
-      var showDisplay = $("#chat"); 
-        $("#send").click(function(event){ 
-        event.preventDefault();
-        var newMessage = $("#txt-input");
-        var question = newMessage.val(); 
 
-              showDisplay.append(
-                '<div class="chat">'
-                +'<p class="me">'+question+'</p>'+'</div>'
-              );
-              $("#chat").scrollTop($("#chat")[0].scrollHeight);
-           
-          //after appending user question, send it to server for processing
+  <script>
+    $(document).ready(function(){
+      var Form =$('#bot-input');
+      Form.submit(function(e){
+        e.preventDefault();
+        var questionBox = $('input[name=input]');
+        var question = questionBox.val();
+        $("#ans").append("<div class='chat'><p class='me'>" + question + "</p></div>");
+          
         $.ajax({
-            url: "/profiles/epospiky.php",
-            dataType : "json",
-            type: "POST",
-            data: {question: question},
-            success: function(response) {
-              if(response.status === 1){
-                showDisplay.append(           
-                  '<div class="chat">'
-                  +'<p class="san">'+response.answer+'</p>'+'</div>'
-                );
-                    $("#chat").scrollTop($("#chat")[0].scrollHeight);
-              } 
-                },
-            error: function(error){
-              console.log(error);
-            }
-        });
-        newMessage.val("");         
-      });
-    }); 
+          url: '/profiles/epospiky.php',
+          type: 'POST',
+          data: {question: question},
+          dataType: 'json',
+          success: function(response){
+              $("#ans").append("<div class='chat'><p class='san'> " + response.answer + "</p></div>");
+             // console.log(response.result);
+              //alert(response.result.d);
+              //alert(answer.result);
+              
+          },
+          error: function(error){
+            //console.log(error);
+                alert(JSON.stringify(error));
+          }
+        })  
+        document.getElementById("bot-input").reset();   
+      })
+    });
   </script>
 </body>
 </html>
-<?php } ?>

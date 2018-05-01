@@ -407,15 +407,15 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             processData(xhttp.responseText);
         }
     };
-    xhttp.open("POST", "https://old.hng.fun/profiles/nedy.php", true);
+    xhttp.open("POST", "/profiles/nedy.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("message="+ques.value);
+    xhttp.send("ques="+ques.value);
 
     }
     function processData (data){
     data = JSON.parse(data);
     console.log(data);
-    var answer = data.response;
+    var answer = data.answer;
     //Choose a random response from available
     if(Array.isArray(answer)){
         if(answer.length !=0){
