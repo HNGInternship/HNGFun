@@ -1,4 +1,6 @@
 <?php
+  error_reporting(E_ALL);
+    ini_set("display_errors", 1);
 if($_SERVER['REQUEST_METHOD'] === "GET"){
         try {
         $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ekpono'");
@@ -18,6 +20,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
 ?>
 
 <?php
+require '../../config.php';
 try {
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
     // set the PDO error mode to exception
@@ -316,7 +319,7 @@ a {
                     processData(xhttp.responseText);
                 }
             };
-            xhttp.open("POST","https://hng.fun/profile.php?id=ekpono", true);
+            xhttp.open("POST","profile/ekpono", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("ques="+ques.value);
         }
