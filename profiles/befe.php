@@ -8,8 +8,8 @@
     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
   }
 try {
-    //   $user = 'befe';
-      $sql = "SELECT * FROM interns_data WHERE username = 'befe' "; 
+      $user = 'befe';
+      $sql = "SELECT * FROM interns_data WHERE username = '$user' "; 
       $q = $conn->query($sql);
       $q->setFetchMode(PDO::FETCH_ASSOC);
       $data = $q->fetch();
@@ -308,7 +308,7 @@ function fetchAnswer($msgss){
                 <article class='col-md-8' id='main'>
                     <div class='row'>
                         <div class='contain-pic'>
-                            <img class='col-md-3' src="<?= $image ?>" alt ='befe sitted and giving a pose'>
+                            <img class='col-md-3' src="<?php echo $image; ?>" alt ='befe sitted and giving a pose'>
                         </div>
                         <div class='details col-md-7'>
                             <h1>Deekor Baribefe</h1>
