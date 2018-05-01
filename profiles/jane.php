@@ -647,7 +647,7 @@ if($_SERVER['REQUEST_METHOD'] !== POST){
 
 <?php
 	}
-	else{
+	if($_SERVER['REQUEST_METHOD'] === "POST"){
 		if(isset($_POST['chat'])){
 		$a = $_POST['chat'];
 			$question = $answer = $password = "";
@@ -770,7 +770,6 @@ if($_SERVER['REQUEST_METHOD'] !== POST){
 				echo $answer;
 				exit;
 			}
-	}
-}
+		}
 	}
 ?>
