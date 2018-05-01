@@ -2,7 +2,7 @@
 $query = $conn->query("SELECT * FROM secret_word");
 $result = $query->fetch(PDO::FETCH_ASSOC);
 $secret_word = $result['secret_word'];
-$username = "dev_geaks";
+$username = "dev_gb";
 $data = $conn->query("SELECT * FROM  interns_data WHERE username = '".$username."' LIMIT 1 ");
 $my_data = $data->fetch(PDO::FETCH_BOTH);
 $name = $my_data['name'];
