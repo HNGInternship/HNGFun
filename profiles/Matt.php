@@ -2,7 +2,7 @@
 /*******************************Chat Bot Server Side Brain************************************/
 // This is where the chat message will be received, I'm using $_GET because i'll pass the message via AJAX
 if(isset($_GET['send_chat'])){//if chat was sent
-	require('../config.php');
+	require('../../config.php');
 	try {
           $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
       } catch (PDOException $pe) {
@@ -245,6 +245,7 @@ else if(isset($_GET['message'])){//Normal chat
 			@media all and (max-width: 768px){/*In mobile view*/
 				#bot-wrapper{
 					width: 95%;
+					left: 2.5%;
 					height:100%;
 					left: 0px;
 				}
