@@ -15,6 +15,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 // to if the post request is not empty 
+	function before ($thiss, $inthat)
+{
+    return substr($inthat, 0, strpos($inthat, $thiss));
+}
+ function after ($thiss, $inthat)
+{
+    if (!is_bool(strpos($inthat, $thiss)))
+    return substr($inthat, strpos($inthat,$thiss)+strlen($thiss));
+ }
+ function between ($thiss, $that, $inthat)
+    {
+    return before ($that, after($thiss, $inthat));
+    }
+function after_last ($thiss, $inthat)
+     {
+        if (!is_bool(strrevpos($inthat, $thiss)))
+        return substr($inthat, strrevpos($inthat, $thiss)+strlen($thiss));
+    }
+   //use strrevpos function in case your php version does not include it
+function strrevpos($instr, $needle)
+{
+    $rev_pos = strpos (strrev($instr), strrev($needle));
+    if ($rev_pos===false) return false;
+    else return strlen($instr) - $rev_pos - strlen($needle);
+}
+function training($check)
+{
+    $password="password";
+    $newquestion= between(':', '#', $check);
+    $newanswer= between('#', '#', $check);
+    $newpassword= after_last('#', $check);
+    if ($password==$newpassword)
+        {
+            try {
+                    $sql = "INSERT INTO chatbot (id, question, answer) VALUES ('', '$newquestion', '$newanswer')";
+                    // use exec() because no results are returned
+                    $conn->exec($sql);
+                    $res = "Thanks for training me";
+                    return $res;
+                }
+            catch(PDOException $e)
+                    {
+                    echo $sql . "<br>" . $e->getMessage();
+                    }
+        }
+    else
+        {
+            $res = "Please enter a password and train me using train:question#answer#password this should be without space";
+            return $res;
+        }
+}
+function getAns($check)
+ {
+    $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question= '$check' ORDER BY rand() LIMIT 1");
+    $stmt->execute();
+    if($stmt->rowCount() > 0)
+    {
+      while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+      {
+            $res=$row["answer"];
+            return $res;
+      }
+    }
+    else {
+        $res="I don't seem understand what you asked. But you can train me.<br>Type<br>train:question#answer#password";
+        return $res;
+    }
+}
 
   try{
         if(!isset($_POST['question'])){
@@ -41,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'status' => 1,
             'answer' => $res
             ]);
-            return;
+//             return;
            
         }
 
@@ -128,74 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        return $e->message ;
   
     }
-	function before ($thiss, $inthat)
-{
-    return substr($inthat, 0, strpos($inthat, $thiss));
-}
- function after ($thiss, $inthat)
-{
-    if (!is_bool(strpos($inthat, $thiss)))
-    return substr($inthat, strpos($inthat,$thiss)+strlen($thiss));
- }
- function between ($thiss, $that, $inthat)
-    {
-    return before ($that, after($thiss, $inthat));
-    }
-function after_last ($thiss, $inthat)
-     {
-        if (!is_bool(strrevpos($inthat, $thiss)))
-        return substr($inthat, strrevpos($inthat, $thiss)+strlen($thiss));
-    }
-   //use strrevpos function in case your php version does not include it
-function strrevpos($instr, $needle)
-{
-    $rev_pos = strpos (strrev($instr), strrev($needle));
-    if ($rev_pos===false) return false;
-    else return strlen($instr) - $rev_pos - strlen($needle);
-}
-function training($check)
-{
-    $password="password";
-    $newquestion= between(':', '#', $check);
-    $newanswer= between('#', '#', $check);
-    $newpassword= after_last('#', $check);
-    if ($password==$newpassword)
-        {
-            try {
-                    $sql = "INSERT INTO chatbot (id, question, answer) VALUES ('', '$newquestion', '$newanswer')";
-                    // use exec() because no results are returned
-                    $conn->exec($sql);
-                    $res = "Thanks for training me";
-                    return $res;
-                }
-            catch(PDOException $e)
-                    {
-                    echo $sql . "<br>" . $e->getMessage();
-                    }
-        }
-    else
-        {
-            $res = "Please enter a password and train me using train:question#answer#password this should be without space";
-            return $res;
-        }
-}
-function getAns($check)
- {
-    $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question= '$check' ORDER BY rand() LIMIT 1");
-    $stmt->execute();
-    if($stmt->rowCount() > 0)
-    {
-      while($row = $stmt->fetch(PDO::FETCH_ASSOC))
-      {
-            $res=$row["answer"];
-            return $res;
-      }
-    }
-    else {
-        $res="I don't seem understand what you asked. But you can train me.<br>Type<br>train:question#answer#password";
-        return $res;
-    }
-}
+
 
   }
 ?>
@@ -415,7 +416,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 	</div>
 	
 
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
+ <script src="../vendor/jquery/jquery.min.js"></script>
 
   <script>
 	$(document).ready(function(){
@@ -434,7 +435,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
       		convoAreabox.scrollTop(convoAreabox[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: '../answers.php',
+				url: '/profiles/john.php',
 				type: 'POST',
 				data: {question: question},
 				dataType: 'json',
@@ -453,7 +454,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 				}
 			})
 		});
-	});(jQuery);
+	})(jQuery);
 </script>	
 
 
