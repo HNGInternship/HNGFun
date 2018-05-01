@@ -25,8 +25,9 @@
 	} catch (PDOException $e) {
 		echo $e->getMessage();
 	}
+?>
 
-
+<?php
 	// Chat Bot
 	if($_SERVER['REQUEST_METHOD'] === "POST"){
 		if(isset($_POST['chat'])){
@@ -558,9 +559,6 @@
 	<script type="text/javascript">
 		
 		$(function(){
-
-			alert("JS Enabled");
-
 			$bot = $("#bot");
 			$user_input = $("#user-input");
 			$output = $("#output");
