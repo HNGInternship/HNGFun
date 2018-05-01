@@ -9,7 +9,7 @@
 		<title>JEGEDE DAVID- Hng Intern</title>
 		<script type="text/javascript">
 				var i = 0;
-        var text = "Jegede David, i am a Web Developer";
+        var text = "Jegede David, I am a Web Developer";
         var speed = 50;
         var j = text.length;
         
