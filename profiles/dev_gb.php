@@ -610,7 +610,7 @@ a:focus {
                 var message = $("#msg").val();
                     var dataString = 'msg=' + msg;
                     jQuery.ajax({
-                        url: "/profiles/dev_gb",
+                        url: "/profiles/dev_gb.php",
                         data: dataString,
                         type: "POST",
                          cache: false,
