@@ -1441,8 +1441,15 @@ function weather($country,$city){
     return $res;
 }
 
-
-
+////////-----Osawaru's function------////////
+function getLatestNews() {
+    global $news,$err;
+    $api = 'https://newsapi.org/v2/top-headlines?sources=business-insider&apiKey=0b02db71635441abafa624c218e64192';
+    $data = file_get_contents($api);
+    $news = json_decode($data,true);
+    return $news;
+}
+/////////////////////////////////////////////
 /////////////////////////////FUNCTIONS ENDS HERE/////////////////////////////////////////////////////////////////
 
 /////////////////////// Conditions for checking input//////////////////////////////////////////////

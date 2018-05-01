@@ -52,6 +52,14 @@ function trainbot($question) {
         }
     
 }
+//special function
+function getLatestNews() {
+    global $news,$err;
+    $api = 'https://newsapi.org/v2/top-headlines?sources=business-insider&apiKey=0b02db71635441abafa624c218e64192';
+    $data = file_get_contents($api);
+    $news = json_decode($data,true);
+    return $news;
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     global $question,$conn;
@@ -63,6 +71,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     elseif (strtolower($question) === "about bot") {
         exit(json_encode(["answer" => "IZZY version 1.0"]));
+    }
+
+    elseif (ucfirst($question) == 'Latest business news')  {
+        getLatestNews();
+        $title =  $news['articles'][0]['title'];
+        $time = $news['articles'][0]['publishedAt'];
+        $newsurl = $news['articles'][0]['url']; 
+            exit(json_encode(["answers" => "<strong >Title: $title </strong><br> $time <br> <a href = '$newsurl' style='color: #423ab7'>Read more..</a>"]));
     }
    
     else {      
@@ -129,7 +145,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border-top-color: rgba(4, 13, 15,0.8);
             margin-right: 0px;
             margin-bottom: 0px;
-            max-height: 100%;
+            height: 70%;
+            max-height: 200%;
         }
 
         #chatbody {
@@ -142,7 +159,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: black;
             font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
             overflow: auto;
-            max-height:200px;
+            height:75%;
+            max-height:180%;
         }
 
         input {
@@ -285,8 +303,12 @@ try {
        
         <div id="chatbody">
         <p class='mybot'><img style='height: 2.5em;' class='rounded-circle mr-2'
-        src='http://res.cloudinary.com/osawaru/image/upload/e_grayscale/v1524047363/avatar.png'>
-         Hi. Welcome to my chatroom.<br>How can I help you?</p>
+        src='http://res.cloudinary.com/osawaru/image/upload/e_grayscale/v1524047363/avatar.png' alt='Izzy avatar'>
+        Welcome.. <br> My training format is: <strong>train: *** #answer: ***  #password: ***. </strong><br> My commands
+         <strong>about bot</strong>- returns my version number.
+        <br><strong>about creator</strong>- returns information on my creator.
+        <br><strong>Latest business news</strong>- returns latest Business insider news.
+        </p>
         </div>
 
         <form id="userinput" method="post">
@@ -326,9 +348,8 @@ try {
                           var result1 ="<p class='mybot'><img style='height: 2.5em;'class='rounded-circle mr-2'" + 
                           "src='http://res.cloudinary.com/osawaru/image/upload/e_grayscale/v1524047363/avatar.png'>" + 
                           successmsg + "</p>";
-                          console.log('got it!')
                           $('#chatbody').append(result1);
-                          userinputval = ""; //function that runs what the request succeeds
+                          userinputval = " "; //function that runs what the request succeeds
                     }
                });       
             }; 
