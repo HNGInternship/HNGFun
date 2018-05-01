@@ -470,21 +470,21 @@
 
 					else{
 						$.ajax({
-							url: "jane.php",
 							type: "POST",
 							dataType: "html",
 							data: {chat: a},
 							success: function(data,status){
 								if(data != ""){
-									if (data.indexOf("::def") >= 0) {
+									alert(data);
+									// if (data.indexOf("::def") >= 0) {
 										
-										data = data.replace("::def","");
-										add_bot_text(data);
-										add_bot_default();
-									}
-									else{
-										add_bot_text(data);
-									}
+									// 	data = data.replace("::def","");
+									// 	add_bot_text(data);
+									// 	add_bot_default();
+									// }
+									// else{
+									// 	add_bot_text(data);
+									// }
 									
 								}										
 							}
