@@ -419,7 +419,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
  <script src="../vendor/jquery/jquery.min.js"></script>
 
   <script>
-	;$(document).ready(function(){
+	$(document).ready(function(){
 		let questionForm = $('#senderRequest');
 		questionForm.submit(function(e){
 			e.preventDefault();
