@@ -25,136 +25,11 @@
 	} catch (PDOException $e) {
 		echo $e->getMessage();
 	}
+?>
 
-
-	// Chat Bot
-	if($_SERVER['REQUEST_METHOD'] === "POST"){
-		if(isset($_POST['chat'])){
-			$a = $_POST['chat'];
-			$question = $answer = $password = "";
-			$wrong_password = ["You entered a wrong password",
-								"Enter the right password to teach me new things",
-								"You can try again with the right password"];
-
-			$no_answer = ["Sorry, I'm not familiar with that question, could you teach it to me?",
-							"Ouch, I really wish there was something I could do about that",
-							"Right now, I can't answer that, but I could if you train me to",
-							"I can't help you with that, if only you could teach me",
-							"This is so embarrassing....and I thought I was the smart one"];
-
-			$bmi_result = ["You are underweight\nLooks like you need to put on some extra weight",
-							"You are within good range\nNice!!, you're on track",
-							"You are overweight\nLooks like you need a little work on your weight",
-							"You are obese\nOMG!! You need a complete transformation"];
-
-			$train_success = "Training successful!";
-
-
-
-			if (substr($a,0,7) == "train: ") {
-				if(preg_match('/train: /', $a, $match)){
-					$string = substr($a, 7, strlen($a)-7);
-					$arr = explode("# ", $string);
-					if(sizeof($arr) != 3){
-						$answer = $no_answer[rand(0,3)]."::def";
-						echo $answer;
-					}
-					else{
-						$question = $arr[0];
-						$answer = $arr[1];
-						$password = $arr[2];
-
-						if ($password == "password") {
-							try {
-
-								$sql = "INSERT INTO chatbot(question,answer) VALUES('$question','$answer')";
-								$stmt = $conn->query($sql);
-								
-							} catch (PDOException $e) {
-								echo $e->getMessage();
-								exit();
-							}
-
-							print_r($train_success);
-							exit();
-						}
-
-						else{
-							print_r($wrong_password[rand(0,2)]);
-							exit();
-						}
-
-					}
-
-
-					
-				}
-			}
-			else if (substr($a,0,14) == "calculate_bmi[" && substr($a,strlen($a)-1,1) == "]") {
-				$array = explode('[', $a,2);
-				$stmt = substr($array[1],0,strlen($array[1])-1);
-				$array2 = explode(',', $stmt);
-				$weight = $array2[0];
-				$height = $array2[1];
-				if(is_numeric($weight) && is_numeric($height)){
-					$result = $weight/($height*$height);
-
-					if ($result <= 18.5) {
-						echo "Your BMI is ".round($result,3)."\n".$bmi_result[0];
-						exit();
-					} 
-
-					else if($result > 18.5 && $result <= 24.9){
-						echo "Your BMI is ".round($result,3)."\n".$bmi_result[1];
-						exit();
-					}
-
-					else if ($result >= 25 && $result <= 29.9) {
-						echo "Your BMI is ".round($result,3)."\n".$bmi_result[2];
-						exit();
-					}
-
-					else{
-						echo "Your BMI is ".round($result,3)."\n".$bmi_result[3];
-						exit();
-					}
-				}
-				else{
-					echo "Enter a valid input";
-					exit();
-				}
-			}
-
-			else{
-
-				try {
-
-					$sql = "SELECT * FROM chatbot WHERE question = '$a'";
-					$stmt = $conn->query($sql);
-
-					if($stmt){
-						foreach($stmt as $row){
-							$answer = $row['answer'];
-						}
-					}
-					
-				} catch (PDOException $e) {
-					echo $e->getMessage();
-					exit();
-				}
-
-				if($answer == ""){
-					$answer = $no_answer[rand(0,4)]."::def";
-				}
-
-				echo $answer;
-				exit();
-			}
-		}
-			return;
-	}
-
-?>		
+<?php
+		if(!isset($_POST['chat'])){?>
+			
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -769,3 +644,129 @@
 	</script>
 
 </html>
+
+<?php
+}
+else{
+$a = $_POST['chat'];
+			$question = $answer = $password = "";
+			$wrong_password = ["You entered a wrong password",
+								"Enter the right password to teach me new things",
+								"You can try again with the right password"];
+
+			$no_answer = ["Sorry, I'm not familiar with that question, could you teach it to me?",
+							"Ouch, I really wish there was something I could do about that",
+							"Right now, I can't answer that, but I could if you train me to",
+							"I can't help you with that, if only you could teach me",
+							"This is so embarrassing....and I thought I was the smart one"];
+
+			$bmi_result = ["You are underweight\nLooks like you need to put on some extra weight",
+							"You are within good range\nNice!!, you're on track",
+							"You are overweight\nLooks like you need a little work on your weight",
+							"You are obese\nOMG!! You need a complete transformation"];
+
+			$train_success = "Training successful!";
+
+
+
+			if (substr($a,0,7) == "train: ") {
+				if(preg_match('/train: /', $a, $match)){
+					$string = substr($a, 7, strlen($a)-7);
+					$arr = explode("# ", $string);
+					if(sizeof($arr) != 3){
+						$answer = $no_answer[rand(0,3)]."::def";
+						echo $answer;
+					}
+					else{
+						$question = $arr[0];
+						$answer = $arr[1];
+						$password = $arr[2];
+
+						if ($password == "password") {
+							try {
+
+								$sql = "INSERT INTO chatbot(question,answer) VALUES('$question','$answer')";
+								$stmt = $conn->query($sql);
+								
+							} catch (PDOException $e) {
+								echo $e->getMessage();
+								exit();
+							}
+
+							print_r($train_success);
+							exit();
+						}
+
+						else{
+							print_r($wrong_password[rand(0,2)]);
+							exit();
+						}
+
+					}
+
+
+					
+				}
+			}
+			else if (substr($a,0,14) == "calculate_bmi[" && substr($a,strlen($a)-1,1) == "]") {
+				$array = explode('[', $a,2);
+				$stmt = substr($array[1],0,strlen($array[1])-1);
+				$array2 = explode(',', $stmt);
+				$weight = $array2[0];
+				$height = $array2[1];
+				if(is_numeric($weight) && is_numeric($height)){
+					$result = $weight/($height*$height);
+
+					if ($result <= 18.5) {
+						echo "Your BMI is ".round($result,3)."\n".$bmi_result[0];
+						exit();
+					} 
+
+					else if($result > 18.5 && $result <= 24.9){
+						echo "Your BMI is ".round($result,3)."\n".$bmi_result[1];
+						exit();
+					}
+
+					else if ($result >= 25 && $result <= 29.9) {
+						echo "Your BMI is ".round($result,3)."\n".$bmi_result[2];
+						exit();
+					}
+
+					else{
+						echo "Your BMI is ".round($result,3)."\n".$bmi_result[3];
+						exit();
+					}
+				}
+				else{
+					echo "Enter a valid input";
+					exit();
+				}
+			}
+
+			else{
+
+				try {
+
+					$sql = "SELECT * FROM chatbot WHERE question = '$a'";
+					$stmt = $conn->query($sql);
+
+					if($stmt){
+						foreach($stmt as $row){
+							$answer = $row['answer'];
+						}
+					}
+					
+				} catch (PDOException $e) {
+					echo $e->getMessage();
+					exit();
+				}
+
+				if($answer == ""){
+					$answer = $no_answer[rand(0,4)]."::def";
+				}
+
+				echo $answer;
+				exit();
+			}
+	}
+?>
