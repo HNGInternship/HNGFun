@@ -72,16 +72,16 @@
 								
 							} catch (PDOException $e) {
 								echo $e->getMessage();
-								exit();
+								
 							}
 
 							print_r($train_success);
-							exit();
+							
 						}
 
 						else{
 							print_r($wrong_password[rand(0,2)]);
-							exit();
+							
 						}
 
 					}
@@ -102,27 +102,27 @@
 
 					if ($result <= 18.5) {
 						echo $result.$bmi_result[0];
-						exit();
+						
 					} 
 
 					else if($result > 18.5 && $result <= 24.9){
 						echo $result.$bmi_result[1];
-						exit();
+						
 					}
 
 					else if ($result >= 25 && $result <= 29.9) {
 						echo $result.$bmi_result[2];
-						exit();
+						
 					}
 
 					else{
 						echo $result.$bmi_result[3];
-						exit();
+						
 					}
 				}
 				else{
 					echo "Enter a valid input";
-					exit();
+					
 				}
 			}
 
@@ -141,7 +141,7 @@
 					
 				} catch (PDOException $e) {
 					echo $e->getMessage();
-					exit();
+					
 				}
 
 				if($answer == ""){
@@ -149,7 +149,7 @@
 				}
 
 				echo $answer;
-				exit();
+				
 			}
 		}
 
@@ -591,39 +591,38 @@
 			$send_btn.click(function(){
 				var a = $text_input.val();
 				if(a != ""){
-					add_user_text(a);
+					// add_user_text(a);
 
-					$output.animate({scrollTop: $output[0].scrollHeight}, 500);
+					// $output.animate({scrollTop: $output[0].scrollHeight}, 500);
 
-					if(a == "aboutbot"){
-						add_about_bot();
-						$text_input.focus();
-					}
+					// if(a == "aboutbot"){
+					// 	add_about_bot();
+					// 	$text_input.focus();
+					// }
 
-					else{
-						$.ajax({
-							url: "jane.php",
-							type: "POST",
-							dataType: "html",
-							data: {chat: a},
-							success: function(data,status){
-								if(data != ""){
-									if (data.indexOf("::def") >= 0) {
+					// else{
+					// 	$.ajax({
+					// 		url: "jane.php",
+					// 		type: "POST",
+					// 		dataType: "html",
+					// 		data: {chat: a},
+					// 		success: function(data,status){
+					// 			if(data != ""){
+					// 				if (data.indexOf("::def") >= 0) {
 										
-										data = data.replace("::def","");
-										add_bot_text(data);
-										add_bot_default();
-									}
-									else{
-										add_bot_text(data);
-									}
+					// 					data = data.replace("::def","");
+					// 					add_bot_text(data);
+					// 					add_bot_default();
+					// 				}
+					// 				else{
+					// 					add_bot_text(data);
+					// 				}
 									
-								}										
-							}
-						});
-					}
-					
-
+					// 			}										
+					// 		}
+					// 	});
+					// }
+					alert(a);
 					$text_input.val("");
 				}
 
