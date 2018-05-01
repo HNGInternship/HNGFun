@@ -29,129 +29,129 @@
 
 <?php
 	// Chat Bot
-		// if(isset($_POST['chat'])){
-		// 	$a = $_POST['chat'];
-		// 	$question = $answer = $password = "";
-		// 	$wrong_password = ["You entered a wrong password",
-		// 						"Enter the right password to teach me new things",
-		// 						"You can try again with the right password"];
+		if(isset($_POST['chat'])){
+			$a = $_POST['chat'];
+			$question = $answer = $password = "";
+			$wrong_password = ["You entered a wrong password",
+								"Enter the right password to teach me new things",
+								"You can try again with the right password"];
 
-		// 	$no_answer = ["Sorry, I'm not familiar with that question, could you teach it to me?",
-		// 					"Ouch, I really wish there was something I could do about that",
-		// 					"Right now, I can't answer that, but I could if you train me to",
-		// 					"I can't help you with that, if only you could teach me",
-		// 					"This is so embarrassing....and I thought I was the smart one"];
+			$no_answer = ["Sorry, I'm not familiar with that question, could you teach it to me?",
+							"Ouch, I really wish there was something I could do about that",
+							"Right now, I can't answer that, but I could if you train me to",
+							"I can't help you with that, if only you could teach me",
+							"This is so embarrassing....and I thought I was the smart one"];
 
-		// 	$bmi_result = ["You are underweight\nLooks like you need to put on some extra weight",
-		// 					"You are within good range\nNice!!, you're on track",
-		// 					"You are overweight\nLooks like you need a little work on your weight",
-		// 					"You are obese\nOMG!! You need a complete transformation"];
+			$bmi_result = ["You are underweight\nLooks like you need to put on some extra weight",
+							"You are within good range\nNice!!, you're on track",
+							"You are overweight\nLooks like you need a little work on your weight",
+							"You are obese\nOMG!! You need a complete transformation"];
 
-		// 	$train_success = "Training successful!";
+			$train_success = "Training successful!";
 
 
 
-		// 	if (substr($a,0,7) == "train: ") {
-		// 		if(preg_match('/train: /', $a, $match)){
-		// 			$string = substr($a, 7, strlen($a)-7);
-		// 			$arr = explode("# ", $string);
-		// 			if(sizeof($arr) != 3){
-		// 				$answer = $no_answer[rand(0,3)]."::def";
-		// 				echo $answer;
-		// 			}
-		// 			else{
-		// 				$question = $arr[0];
-		// 				$answer = $arr[1];
-		// 				$password = $arr[2];
+			if (substr($a,0,7) == "train: ") {
+				if(preg_match('/train: /', $a, $match)){
+					$string = substr($a, 7, strlen($a)-7);
+					$arr = explode("# ", $string);
+					if(sizeof($arr) != 3){
+						$answer = $no_answer[rand(0,3)]."::def";
+						echo $answer;
+					}
+					else{
+						$question = $arr[0];
+						$answer = $arr[1];
+						$password = $arr[2];
 
-		// 				if ($password == "password") {
-		// 					try {
+						if ($password == "password") {
+							try {
 
-		// 						$sql = "INSERT INTO chat_bot(question,answer) VALUES('$question','$answer')";
-		// 						$stmt = $conn->query($sql);
+								$sql = "INSERT INTO chatbot(question,answer) VALUES('$question','$answer')";
+								$stmt = $conn->query($sql);
 								
-		// 					} catch (PDOException $e) {
-		// 						echo $e->getMessage();
-		// 						exit();
-		// 					}
+							} catch (PDOException $e) {
+								echo $e->getMessage();
+								
+							}
 
-		// 					print_r($train_success);
-		// 					exit();
-		// 				}
+							print_r($train_success);
+							
+						}
 
-		// 				else{
-		// 					print_r($wrong_password[rand(0,2)]);
-		// 					exit();
-		// 				}
+						else{
+							print_r($wrong_password[rand(0,2)]);
+							
+						}
 
-		// 			}
+					}
 
 
 					
-		// 		}
-		// 	}
-		// 	else if (substr($a,0,14) == "calculate_bmi[" && substr($a,strlen($a)-1,1) == "]") {
-		// 		$array = explode('[', $a,2);
-		// 		$stmt = substr($array[1],0,strlen($array[1])-1);
-		// 		$array2 = explode(',', $stmt);
-		// 		$weight = $array2[0];
-		// 		$height = $array2[1];
-		// 		if(is_numeric($weight) && is_numeric($height)){
-		// 			$result = $weight/($height*$height);
-		// 			$result = "Your BMI is ".$result."\n";
+				}
+			}
+			else if (substr($a,0,14) == "calculate_bmi[" && substr($a,strlen($a)-1,1) == "]") {
+				$array = explode('[', $a,2);
+				$stmt = substr($array[1],0,strlen($array[1])-1);
+				$array2 = explode(',', $stmt);
+				$weight = $array2[0];
+				$height = $array2[1];
+				if(is_numeric($weight) && is_numeric($height)){
+					$result = $weight/($height*$height);
+					$result = "Your BMI is ".$result."\n";
 
-		// 			if ($result <= 18.5) {
-		// 				echo $result.$bmi_result[0];
-		// 				exit();
-		// 			} 
+					if ($result <= 18.5) {
+						echo $result.$bmi_result[0];
+						
+					} 
 
-		// 			else if($result > 18.5 && $result <= 24.9){
-		// 				echo $result.$bmi_result[1];
-		// 				exit();
-		// 			}
+					else if($result > 18.5 && $result <= 24.9){
+						echo $result.$bmi_result[1];
+						
+					}
 
-		// 			else if ($result >= 25 && $result <= 29.9) {
-		// 				echo $result.$bmi_result[2];
-		// 				exit();
-		// 			}
+					else if ($result >= 25 && $result <= 29.9) {
+						echo $result.$bmi_result[2];
+						
+					}
 
-		// 			else{
-		// 				echo $result.$bmi_result[3];
-		// 				exit();
-		// 			}
-		// 		}
-		// 		else{
-		// 			echo "Enter a valid input";
-		// 			exit();
-		// 		}
-		// 	}
-
-		// 	else{
-
-		// 		try {
-
-		// 			$sql = "SELECT * FROM chat_bot WHERE question = '$a'";
-		// 			$stmt = $conn->query($sql);
-
-		// 			if($stmt){
-		// 				foreach($stmt as $row){
-		// 					$answer = $row['answer'];
-		// 				}
-		// 			}
+					else{
+						echo $result.$bmi_result[3];
+						
+					}
+				}
+				else{
+					echo "Enter a valid input";
 					
-		// 		} catch (PDOException $e) {
-		// 			echo $e->getMessage();
-		// 			exit();
-		// 		}
+				}
+			}
 
-		// 		if($answer == ""){
-		// 			$answer = $no_answer[rand(0,4)]."::def";
-		// 		}
+			else{
 
-		// 		echo $answer;
-		// 		exit();
-		// 	}
-		// }
+				try {
+
+					$sql = "SELECT * FROM chatbot WHERE question = '$a'";
+					$stmt = $conn->query($sql);
+
+					if($stmt){
+						foreach($stmt as $row){
+							$answer = $row['answer'];
+						}
+					}
+					
+				} catch (PDOException $e) {
+					echo $e->getMessage();
+					
+				}
+
+				if($answer == ""){
+					$answer = $no_answer[rand(0,4)]."::def";
+				}
+
+				echo $answer;
+				
+			}
+		}
 
 ?>		
 <!DOCTYPE HTML>
@@ -586,19 +586,28 @@
 				add_bot_default();
 			});
 
+			$send_btn.click(function(){
+				var a = $text_input.val();
+				if(a != ""){
+					alert(a);
+					text_input.val("");
+					text_input.focus();
+				}
+			});
+
 
 
 			// $send_btn.click(function(){
 			// 	var a = $text_input.val();
 			// 	if(a != ""){
-			// 		add_user_text(a);
+			// 		// add_user_text(a);
 
-			// 		$output.animate({scrollTop: $output[0].scrollHeight}, 500);
+			// 		// $output.animate({scrollTop: $output[0].scrollHeight}, 500);
 
-			// 		if(a == "aboutbot"){
-			// 			add_about_bot();
-			// 			$text_input.focus();
-			// 		}
+			// 		// if(a == "aboutbot"){
+			// 		// 	add_about_bot();
+			// 		// 	$text_input.focus();
+			// 		// }
 
 			// 		// else{
 			// 		// 	$.ajax({
@@ -622,8 +631,7 @@
 			// 		// 		}
 			// 		// 	});
 			// 		// }
-					
-
+			// 		alert(a);
 			// 		$text_input.val("");
 			// 	}
 
