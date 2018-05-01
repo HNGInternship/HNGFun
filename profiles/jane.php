@@ -594,7 +594,6 @@
 
 					else{
 						$.ajax({
-							url: "jane.php",
 							type: "POST",
 							dataType: "html",
 							data: {chat: a},
@@ -614,7 +613,6 @@
 							}
 						});
 					}
-					alert(a);
 					$text_input.val("");
 				}
 
