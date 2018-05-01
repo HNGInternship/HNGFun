@@ -18,6 +18,7 @@
 			margin: 0;
 		}
 		.container {
+			margin-top: 2.5em;
 			padding: 2.5em;
 			max-height: 100vh;
 		}
@@ -111,9 +112,11 @@
 	$username = $query_username->username;
 
     //query databse for name
-	$query_name = $conn->query("Select * from interns_data");
+	$query_name = $conn->query("Select * from interns_data where name = 'Emmanuel Daniel'");
 	$query_name = $query_name->fetch(PDO::FETCH_OBJ);
 	$name = $query_name->name;
+
+	echo "$name";
 
 ?>
 	<div class="container">
