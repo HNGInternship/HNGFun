@@ -4,9 +4,9 @@ session_start();
 if($_SERVER['REQUEST_METHOD'] == "POST") {
    if(!defined('DB_USER')){
       //live server
-      // require "../../config.php";
+      require "../../config.php";
       // localhost
-      require "../config.php";
+//       require "../config.php";
       try {
          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
       } catch (PDOException $pe) {
@@ -306,7 +306,7 @@ function sendData() {
          //localhost
          // url: "http://localhost/HNGFuns/profiles/femi_dd.php",
          // live server
-         url: "https://old.hng.fun/profiles/femi_dd.php",
+         url: "profiles/femi_dd.php",
          type: "post",
          data: {new_request: message},
          dataType: "json",
