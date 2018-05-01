@@ -428,7 +428,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         var questionBox = $('#txt-input');
         var question = questionBox.val();
         $("#chat").append("<div class='chat'><p class='me'>" + question + "</p></div>");
-          
+        $('.chat').scrollTop($('.chat')[0].scrollHeight); 
+        
         $.ajax({
           url: '/profiles/epospiky.php',
           type: 'POST',
@@ -436,6 +437,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           dataType: 'json',
           success: function(response){
               $("#chat").append("<div class='chat'><p class='san'> " + response.answer + "</p></div>");
+               $('.chat').scrollTop($('.chat')[0].scrollHeight);
              // console.log(response.result);
               //alert(response.result.d);
               //alert(answer.result);
