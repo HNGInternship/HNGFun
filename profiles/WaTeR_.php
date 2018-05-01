@@ -19,6 +19,7 @@ $query1 = "SELECT * FROM interns_data_ WHERE username='WaTeR_'";;
 $stmt = $conn->query($query1);
 
 $stmt->execute();
+$data = $stmt->fetch(PDO::FETCH_ASSOC);
 
  ?>
 
@@ -96,8 +97,7 @@ $stmt->execute();
 <div class="content">
 <div class="col-lg-3">
   </div>
-    <?php while ($data = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
-
+  
 
 <div class="col-lg-6">
           <img class="img-circle " src="<?php echo $data['image_filename']; ?>" alt="Generic placeholder image" width="200" height="200" style="border:solid 5px #fff;">
@@ -110,7 +110,6 @@ $stmt->execute();
 </div>
 
   
-  <?php } ?>
 <div class="col-lg-3">
   </div>
 <div style="background: #6A5ACD; height: 200px;max-width: 90%">

@@ -1,14 +1,8 @@
-
-<<<<<<< HEAD
+<?php
   $dt = date("Y-m-d h:i:sa");
-  $time= date("h:i:sa")
-=======
-<?php //DATE
- $d = date("h:i:sa");
->>>>>>> fdc5ee104ab69f69c3d71452fc76b319d1e7141d
-?>
-<?php 
+  $time= date("h:i:sa");?>
 
+<?php 
 if(!defined('DB_USER')){
   require "../../config.php";   
   try {
@@ -18,29 +12,26 @@ if(!defined('DB_USER')){
   }
 }
 
+  $result = $conn->query("Select * from secret_word LIMIT 1");
+  $result = $result->fetch(PDO::FETCH_OBJ);
+  $secret_word = $result->secret_word;
+  $result2 = $conn->query("Select * from interns_data where username = 'foluwa'");
+  $user = $result2->fetch(PDO::FETCH_OBJ);
 
-$result = $conn->query("Select * from secret_word LIMIT 1");
-$result = $result->fetch(PDO::FETCH_OBJ);
-$secret_word = $result->secret_word;
-$result2 = $conn->query("Select * from interns_data where username = 'foluwa'");
-$user = $result2->fetch(PDO::FETCH_OBJ);
+  if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
+      include "../answers.php";
+      
+      try{
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){   
-    try{
+        if(!isset($_POST['question'])){
+          echo json_encode([
+            'status' => 1,
+            'answer' => "Please provide me with a question"
+          ]);
+          return;
+        }
 
-      if(!isset($_POST['question'])){
-        echo json_encode([
-          'status' => 1,
-          'answer' => "Please provide a question"
-        ]);
-        return;
-      }
-
-      $mem = $_POST['question'];
-      $mem = preg_replace('([\s]+)', ' ', trim($mem));
-      $mem = preg_replace("([?.])", "", $mem);
-    $arr = explode(" ", $mem);
     
 
     /* Training the bot*/
@@ -100,13 +91,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         //to check if answer already exists in the database...
         $question = "%$question%";
         $sql = "Select * from chatbot where question like :question";
-          $stat = $conn->prepare($sql);
-          $stat->bindParam(':question', $question);
-          $stat->execute();
+        $stat = $conn->prepare($sql);
+        $stat->bindParam(':question', $question);
+        $stat->execute();
 
           $stat->setFetchMode(PDO::FETCH_ASSOC);
           $rows = $stat->fetchAll();
           if(count($rows)>0){
+           
             $index = rand(0, count($rows)-1);
             $row = $rows[$index];
             $answer = $row['answer'];
@@ -118,7 +110,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 'answer' => $answer
               ]);
               return;
-            }else{//otherwise call a function. but get the function name first
+            }
+            else{//otherwise call a function. but get the function name first
                 $index_of_parentheses_closing = stripos($answer, "))");
                 if($index_of_parentheses_closing !== false){
                     $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
@@ -159,66 +152,40 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 ?>
 <!DOCTYPE html>
-<<<<<<< HEAD
-<!DOCTYPE html>
-=======
->>>>>>> fdc5ee104ab69f69c3d71452fc76b319d1e7141d
 <html>
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<<<<<<< HEAD
-  <title><?php echo $user->name; ?>Foluwa hng</title>
+  <title><?php //echo $user->name; ?> Hng Intern</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" id="css" href="http://www.oracle.com/webfolder/technetwork/jet/css/libs/oj/v5.0.0/alta/oj-alta-min.css">
-    <link rel="stylesheet" href="../css/demo.css">
-    <script>
-      // The "oj_whenReady" global variable enables a strategy that the busy context whenReady,
-      // will implicitly add a busy state, until the application calls applicationBootstrapComplete
-      // on the busy state context.
-      window["oj_whenReady"] = true;
-    </script>
-    <script src="http://www.oracle.com/webfolder/technetwork/jet/js/libs/require/require.js"></script>
+  <link rel="stylesheet" href="../css/demo.css"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-
-  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
-   <link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css' />
+  <link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css'/>
   <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
   <style type="text/css">
      @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
-=======
-  <title>Foluwa hng</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <style type="text/css">
->>>>>>> fdc5ee104ab69f69c3d71452fc76b319d1e7141d
       body {
           height: 100%;
           background-color: #87ceeb;
           background: linear-gradient(to bottom right, #DDA0DD,  #87ceeb);
-<<<<<<< HEAD
           color: #4A4646;
           overflow-x: hidden;
           font-family: "Segoe UI","Arial","sans-serif";
-=======
->>>>>>> fdc5ee104ab69f69c3d71452fc76b319d1e7141d
       }
       img{
           border-radius: 50%;
           max-height: 250px;
           max-width: 250px;
       }
-      input[type=text] {
-<<<<<<< HEAD
+      input {
           width: 70%;
           padding: 12px 20px;
           margin: 8px 0;
@@ -289,28 +256,33 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         padding: 0px;
     }   
     .human-message {
+      right: 0;
       width: auto;
-      background-color: grey;
-      right:0%;
-      margin-top: 5px;
-      display: inline-block;
-      padding: 5px 5px;
       margin: 5px;
+      padding: 5px;
+      display: flex;
+      text-align: right;
+      flex-direction: column;
       border-radius: 10px;
-      margin-top: 55px;
+      background-color: grey;
     }
     .bot-message {
-      max-width: auto;
-      background-color: skyblue;
-      left:2%;
-      margin-top: 5px;
-      display: inline-block;
-      padding: 5px 5px;
+      left: 0;
+      width: auto;
       margin: 5px;
+      padding: 5px;
+      display: flex;
+      text-align: left;
+      flex-direction: column;
       border-radius: 10px;
+      background-color: skyblue;
     }
     .conversation {
       display: column;
+    }
+    .time{
+      opacity: 0.5;
+      font-style: "Arial","sans-serif";
     }
   </style>
 </head>
@@ -321,9 +293,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
             <span class="oj-icon" alt="My Logo"> </span> 
             <h4 class="oj-sm-only-hide oj-web-applayout-header-title" title="Application Name">Made with Oracle JET</h4>
-            
           </div>
-          <div class="push-right"><h3><p><?php echo $dt ?></p></h3></div>
+          <div class="push-right"><h3><?php echo $dt ?></h3></div>
         </div>
    </nav>
 
@@ -334,7 +305,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     <img src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture">
                 </div>
                 <p class="text-center myname">
-                   <span style="font-size:37px;"><?php echo $user->name; ?></span>
+                   <span style="font-size:37px;"><?php //echo $user->name; ?></span>
                 </p>
                 <div class="oj-flex">
                 <div class="text-center social-links" style="font-size:45px;">
@@ -360,18 +331,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     <span>ChatBot Interface</span>
                 </div>
                 <div class="" id="">
-                    <div class="conversation">
-                      <div class="bot-message">Hello! I'm ZOE! 
-                          <p><?php echo $time ?></p>
-                      </div>
-                      <div class="human-message pull-right">Hi Am Foluwa<p><?php echo $time ?></p>
-                      </div>
+                    <div id="conversation" class="conversation" style="overflow-y:scroll;height:350px;">
+                        <p class="bot-message">Hello! I'm ZOE!  
+                            <span class="time"><?php echo $time ?></span>
+                        </p>
+                        <!--<p class="human-message pull-right"> Am Foluwa
+                            <span class="time"><?php //echo $time ?></span>
+                        </p>-->
                     </div>
                 </div>
                 <div>
-                    <form action="" method="post" style="position:absolute;bottom:0;" >
-                        <input type="text" name="userInput" id="user-input" class="user-input" placeholder="Enter your text">
-                        <button id="send" type="button" class="btn btn-primary btn-sm" style="background-color:#79af9c;">
+                    <form id="chat" method="post" style="position:absolute;bottom:0;background-color:#896bad;" >
+                        <input name="userInput" id="user-input" class="user-input" placeholder="Enter your text...."></input>
+                        <button id="send" type="submit" class="btn btn-primary btn-sm" style="background-color:#79af9c;">
                           <i class="fas fa-paper-plane"></i>
                         </button>
                     </form>
@@ -382,132 +354,30 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           </div>
        </div>
        </div>
-    <hr>
-      
-</body>
-=======
-          width: 50%;
-          padding: 12px 20px;
-          margin: 8px 0;
-          box-sizing: border-box;
-          border-radius: 4px;
-          background-color: skyblue;
-          color: white;
-        }
-         input[type=text]:focus{
-           border: 3px solid #555;
-         }
-         button{
-            border: 3px solid #555;
-            text-decoration: none;
-            margin: 4px 2px;
-            border-radius: 4px;
-         }
-      .socialMediaIcons {
-          font-size: 25px;
-      }
-      #meSection{
-          border: 2px black solid;
-          width: 50%;
-          height:auto;
-      }
 
-      #botSection{
-         border: 2px red solid;
-         width: 47%;
-         height:auto;
-         padding: 10px;
-}
-      .botSend{
-         position: absolute; 
-        color: red;
-        right: 100px;
-        background-color: yellow;
-        border-radius: 4px;
-
-      }
-      .humanSend {
-        position: absolute; 
-        color: green;
-        right: 0px;
-        background-color: blue;
-        border-radius: 4px;
-      }
-  </style>
-</head>
-<body>
-    <main class="container content">
-      <div class="row">
-            <div class="col-sm-6" id="meSection">
-                     <div class="socialMedia">
-                       <img src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg">
-                      <span class="name"><?php echo $user->name; ?></span>
-      									<div class="socialMediaIcons">
-      										<a href="https://facebook.com/akintola.moronfoluwar"><i class="fa fa-facebook"></i></a>
-      										<a href="https://instagram.com/fantastic_foluwa"><i class="fa fa-instagram"></i></a>
-      										<a href="https://twitter.com/fantasticfoluwa"><i class="fa fa-twitter"></i></a>
-      										<a href="https://github.com/foluwa"><i class="fa fa-github"></i></a>
-      										<a href="https://slack.com/foluwa"><i class="fa fa-slack"></i></a>
-                        </div>
-                      </div>
-             </div>
-          
-           <div class="col-sm-6" id="botSection">
-                <div class="chat-head">Chat Interface</div>
-                    <div class="chat">
-                        <div id="conversation">
-                          <p class="bot botSend" style="margin-top:0px;left:0px;">
-                              <strong><?php echo $d ?></strong>
-                          </p>
-                          <div class="iro">
-                  <ul id="humanPost">
-                    
-                  </ul>
-                </div>  
-                <div class="iio">
-                  <ul id="botPost">
-                      
-                  </ul>
-                </div>  
-                        </div>
-                        <div style="position:fixed;bottom:0;">
-                        <form id="chat" class="box" action="foluwa.php" name="message" method="post">
-                          <textarea name="inputtext" type="text" id="message" class="message" placeholder="Enter your command"></textarea>
-                          <button id="send" class=send type=submit>Send</button>
-                        </form>
-                        </div>
-                    </div>
-                </div>
-           </div>
-      </div>
-      <footer>Foluwa @ <a href="https://hotels.ng">Hotels.ng</a></footer>
-    </main>
-    <script src="../vendor/jquery/jquery.min.js"></script>
-  <script>
-    $(document).ready(function(){
-      var Form =$('#chat');
-      Form.submit(function(e){
-        e.preventDefault();
-        var questionBox = $('textarea[name=inputtext]');
-        var question = questionBox.val();
-        $("#humanPost").append("<p class='botSend'>" + question + "<p>" + "<?php echo $d?>" + "</p>" + "</p>");
-        $.ajax({
-          url: '/profiles/foluwa.php',
-          type: 'POST',
-          data: {question: question},
-          dataType: 'json',
-          success: function(response){
-              $("#botPost").append("<p class='humanSend'>"  + response.answer +  "</p>");
-          },
-          error: function(error){
-                alert(error);
-          }
-        })  
-      })
-    });
-  </script>
+          <script src="../vendor/jquery/jquery.min.js"></script>
+          <script>
+          $(document).ready(function(){
+            var Form =$('#chat');
+            Form.submit(function(e){
+              e.preventDefault();
+              var textBox = $('input[name=userInput]');
+              var question = textBox.val();
+              $("#conversation").append("<p class='human-message'>" + question + "<span class='time'><?php echo $time?></span>" + "</p>");
+              $.ajax({
+                url: '/profiles/foluwa.php',
+                type: 'POST',
+                data: {question: question},
+                dataType: 'json',
+                success: function(response){
+                    $("#conversation").append("<p class='bot-message'>"  + response.answer + "<span class='time'><?php echo $time?></span>" + "</p>");
+                },
+                error: function(error){
+                      //alert(error);
+                }
+              })  
+            })
+          });
+        </script>
 </body>
-</body>
-
->>>>>>> fdc5ee104ab69f69c3d71452fc76b319d1e7141d
 </html>
