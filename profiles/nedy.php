@@ -399,7 +399,10 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
     function sendMsg(){
     var ques = document.querySelector("#user-message");
     displayOnScreen(ques.value, "sent");
-
+    if(ques.value === 'aboutbot'){
+        displayOnScreen('Name: BOTLER<br>Version: 1.0 beta*', 'received');
+        return;
+    }
     //console.log(ques.value);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function(){
@@ -422,7 +425,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             var res = Math.floor(Math.random()*answer.length);
             displayOnScreen(answer[res][0], "received");
         }else{
-            displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn<br> Here's the format: train: user-message # response","received");
+            displayOnScreen("Ooops!! I don't understand what you just said<br>To teach me use this  format<br>train# question # answer # password","received");
         }
     }else{
         displayOnScreen(answer,"received");

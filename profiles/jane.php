@@ -474,15 +474,18 @@
 							data: {chat: a},
 							success: function(data,status){
 								if(data != ""){
-									if (data.indexOf("::def") >= 0) {
+									if(data.indexOf("dustybot::") >= 0){
+										echo data.indexOf("dustybot::");
+									}
+									// if (data.indexOf("::def") >= 0) {
 										
-										data = data.replace("::def","");
-										add_bot_text(data);
-										add_bot_default();
-									}
-									else{
-										add_bot_text(data);
-									}
+									// 	data = data.replace("::def","");
+									// 	add_bot_text(data);
+									// 	add_bot_default();
+									// }
+									// else{
+									// 	add_bot_text(data);
+									// }
 									
 								}										
 							}
@@ -676,7 +679,7 @@ if($_SERVER['REQUEST_METHOD'] === POST){
 					$arr = explode("# ", $string);
 					if(sizeof($arr) != 3){
 						$answer = $no_answer[rand(0,3)]."::def";
-						echo $answer;
+						echo "dustybot::"."dustybot::".$answer;
 					}
 					else{
 						$question = $arr[0];
@@ -690,14 +693,14 @@ if($_SERVER['REQUEST_METHOD'] === POST){
 								$stmt = $conn->query($sql);
 								
 							} catch (PDOException $e) {
-								echo $e->getMessage();
+								echo "dustybot::".$e->getMessage();
 							}
 
-							print_r($train_success);
+							echo "dustybot::".$train_success;
 						}
 
 						else{
-							print_r($wrong_password[rand(0,2)]);
+							echo "dustybot::".$wrong_password[rand(0,2)];
 						}
 
 					}
@@ -716,27 +719,27 @@ if($_SERVER['REQUEST_METHOD'] === POST){
 					$result = $weight/($height*$height);
 
 					if ($result <= 18.5) {
-						echo "Your BMI is ".round($result,3)."\n".$bmi_result[0];
+						echo "dustybot::"."Your BMI is ".round($result,3)."\n".$bmi_result[0];
 						
 					} 
 
 					else if($result > 18.5 && $result <= 24.9){
-						echo "Your BMI is ".round($result,3)."\n".$bmi_result[1];
+						echo "dustybot::"."Your BMI is ".round($result,3)."\n".$bmi_result[1];
 						
 					}
 
 					else if ($result >= 25 && $result <= 29.9) {
-						echo "Your BMI is ".round($result,3)."\n".$bmi_result[2];
+						echo "dustybot::"."Your BMI is ".round($result,3)."\n".$bmi_result[2];
 						
 					}
 
 					else{
-						echo "Your BMI is ".round($result,3)."\n".$bmi_result[3];
+						echo "dustybot::"."Your BMI is ".round($result,3)."\n".$bmi_result[3];
 						
 					}
 				}
 				else{
-					echo "Enter a valid input";
+					echo "dustybot::"."Enter a valid input";
 					
 				}
 			}
@@ -755,7 +758,7 @@ if($_SERVER['REQUEST_METHOD'] === POST){
 					}
 					
 				} catch (PDOException $e) {
-					echo $e->getMessage();
+					echo "dustybot::".$e->getMessage();
 					
 				}
 
@@ -763,7 +766,7 @@ if($_SERVER['REQUEST_METHOD'] === POST){
 					$answer = $no_answer[rand(0,4)]."::def";
 				}
 
-				echo $answer;
+				echo "dustybot::".$answer;
 				
 			}
 	}
