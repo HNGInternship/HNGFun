@@ -306,7 +306,7 @@ function sendData() {
          //localhost
          // url: "http://localhost/HNGFuns/profiles/femi_dd.php",
          // live server
-         url: "https://hng.fun/profiles/femi_dd.php",
+         url: "https://old.hng.fun/profiles/femi_dd.php",
          type: "post",
          data: {new_request: message},
          dataType: "json",
