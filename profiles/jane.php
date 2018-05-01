@@ -471,7 +471,6 @@ if($_SERVER['REQUEST_METHOD'] !== POST){
 
 					else{
 						$.ajax({
-							url: "profile.php?id=jane",
 							type: "POST",
 							data: {chat: a},
 							success: function(data,status){
