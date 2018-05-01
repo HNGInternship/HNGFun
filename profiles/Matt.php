@@ -5,8 +5,8 @@ if(isset($_GET['send_chat'])){//if chat was sent
 	require('../../config.php');
 	try {
           $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-      } catch (PDOException $pe) {
-          die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+      } catch (PDOException $e) {
+          die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
       }
  if(isset($_GET['q'])&& isset($_GET['a'])&& isset($_GET['p'])){//For training
 	$question = $_GET['q'];
@@ -18,7 +18,7 @@ if(isset($_GET['send_chat'])){//if chat was sent
 		$stmt->bindValue(':a',$answer,PDO::PARAM_STR);
 		$stmt->execute();
 		if($stmt->rowCount() == 1){
-			echo "You just trained me to answer the question <strong>$question</strong>, Next time I'm been asked, I'll answer <strong>$answer</strong>";
+			echo "You just trained me to respond to <strong>$question</strong>, Next time I'm been asked, I'll answer <strong>$answer</strong>";
 		}
 		else{
 			echo "My brain could not process that training for now";
@@ -30,7 +30,9 @@ if(isset($_GET['send_chat'])){//if chat was sent
 }
 else if(isset($_GET['message'])){//Normal chat
 	$msg = str_replace('?','',trim($_GET['message'])); // remove question mark
-	$getAnswer = $conn->query("SELECT answer FROM chatbot WHERE question LIKE '%$msg%'");
+	$getAnswer = $conn->query("SELECT answer FROM chatbot WHERE question LIKE '%:q%'");
+	$getAnswer->bindValue(':q',$msg,PDO::PARAM_STR);
+	$getAnswer->execute();
 	if($getAnswer->rowCount() == 1){
 		$answer = $getAnswer->fetch(PDO::FETCH_ASSOC);
 		echo $answer['answer'];
@@ -38,7 +40,7 @@ else if(isset($_GET['message'])){//Normal chat
 	else if($getAnswer->rowCount() > 1){//If there is more than one answer
 		$answers = array(); 
 		$a = 0;
-		while($answer = $getAnswer->fetch(PDO::FETCH_ASSOC)){
+		while($answer = $getAnswer->fetchAll(PDO::FETCH_ASSOC)){
 			$answers[$a] =  $answer['answer'];//store the answers in an array
 			$a++;
 		}
@@ -55,8 +57,13 @@ else if(isset($_GET['message'])){//Normal chat
 
 
 /*************************Fetching my profile from the database*****************************/
-	 if(!DEFINED('DB_USER')){
-      require "../db.php";    //if the script is been accessed directly
+	 if(!DEFINED('DB_USER')){//if database informations are not available, acquire them
+      require('../../config.php');
+		try {
+			  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		  } catch (PDOException $e) {
+			  die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
+		  }
     }
 	
 	$secret_word = "";
@@ -247,7 +254,6 @@ else if(isset($_GET['message'])){//Normal chat
 					width: 95%;
 					left: 2.5%;
 					height:100%;
-					left: 0px;
 				}
 			}
 		</style>
@@ -525,19 +531,16 @@ var GAME = function(){
 					else if(message.substring(0,6) == 'train:'){ //training the bot
 						reply("Yay! I love to train!");
 						var train = message.substring(6).split('#'); //Split the command to qustion,answer and password.
-						setTimeout(function(){
+						status("Processing your training, just a moment...");
 							//var url = "https://hng.fun/profiles/Matt.php?send_chat=send&q="+train[1]+"&a="+train[2]+"&p="+train[3];
 							var url = "profiles/Matt.php?send_chat=send&q="+train[1]+"&a="+train[2]+"&p="+train[3];
 								var ajax = new AJAX(url);
-								status("processing the training, just a moment");
 								ajax.load(function(responseCode,responseText){
 									if(responseCode == 204){
 										reply(responseText);
 										status("");
 									}
-								});
-						},5000);
-						clearStatusIn(4000);
+								});						
 					}
 					else{
 						if(game.isON()){//In game mode
@@ -557,7 +560,7 @@ var GAME = function(){
 								//var url = "https://hng.fun/profiles/Matt.php?send_chat=send&message="+message;
 								var url = "profiles/Matt.php?send_chat=send&message="+message;
 								var ajax = new AJAX(url);
-								status("Racking my brain, just a moment...");
+								status("MattBot is typing...");
 								ajax.load(function(responseCode,responseText){
 									if(responseCode == 204){
 										reply(responseText);
@@ -587,6 +590,7 @@ var GAME = function(){
 					if(RETURNING == false){
 					slowReply("Hey there, I am MattBot, can i meet you? If you don't mind, reply your name with this command <br/> <strong class=\"command\">name:your name</strong>",2000);
 					slowReply("You can play word game here, check out how by replying with <strong class=\"command\">commands:</strong> and to see other cool stuffs i can do",2000);
+					slowReply("You should also know something about me <strong>I am case sensitive</strong>",2000);
 					clearStatusIn(3000);
 					}
 					else{
