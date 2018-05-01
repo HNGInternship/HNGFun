@@ -611,7 +611,7 @@ a:focus {
                 function formSubmit(){
                 var message = $("#msg").val();
                     var dataString = 'msg=' + msg;
-                    jQuery.ajax({
+                    $.ajax({
                         url: "profile.php?id=dev_gb",
                         data: dataString,
                         type: "POST",

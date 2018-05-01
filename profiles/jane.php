@@ -471,7 +471,6 @@ if($_SERVER['REQUEST_METHOD'] !== POST){
 
 					else{
 						$.ajax({
-							url: "../profiles/jane.php",
 							type: "POST",
 							data: {chat: a},
 							success: function(data,status){
@@ -773,6 +772,6 @@ if($_SERVER['REQUEST_METHOD'] !== POST){
 		}
 	}
 	else{
-		exit;
+		continue;
 	}
 ?>
