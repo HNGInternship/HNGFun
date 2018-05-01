@@ -1,5 +1,4 @@
 <?php
-  require_once"../db.php";
   $result = $conn->query("SELECT * from secret_word LIMIT 1");
   $result = $result->fetch(PDO::FETCH_OBJ);
   $secret_word = $result->secret_word;
@@ -9,6 +8,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Okobiah Ogheneyoma Obomate">
 	<title>Yomdroid | Developer</title>
 	<style type="text/css">
 		html {font-family: 'Podkova', serif;
@@ -35,7 +38,7 @@
         img {
         	height: 300px;
         	width: 250px;
-        	margin-left: 1020px;
+        	margin-left: 850px;
         }
         p {
         	color: #FFFFFF;
@@ -46,7 +49,7 @@
 	</style>
 </head>
 <body>
-	<img src="<?= $user->image_filename;?>" alt="Picture">
+	<img src="http://res.cloudinary.com/yomdroid/image/upload/v1524497020/Untitledbackground_3.png" alt="Picture">
 <div>
 	<h1><strong><?= $user->name; ?></strong></h1>
 	<h2><small>Developer</small></h2>
