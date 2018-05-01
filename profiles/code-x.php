@@ -69,7 +69,7 @@ a {
   </div>
   <div class="column">
 <?php
-$con=mysqli_connect("localhost","codex","MerCury@001","hng_fun");
+$con=mysqli_connect("localhost","","","hng_fun");
 // Check connection
 if (mysqli_connect_errno())
   {
