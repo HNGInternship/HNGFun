@@ -409,7 +409,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
     };
     xhttp.open("POST", "/profiles/jaycodes.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("message="+ques.value);
+    xhttp.send("ques="+ques.value);
 
     }
     function processData (data){
