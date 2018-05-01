@@ -471,7 +471,6 @@
 					else{
 						$.ajax({
 							type: "POST",
-							dataType: "html",
 							data: {chat: a},
 							success: function(data,status){
 								if(data != ""){
