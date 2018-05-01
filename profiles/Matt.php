@@ -30,7 +30,7 @@ if(isset($_GET['send_chat'])){//if chat was sent
 }
 else if(isset($_GET['message'])){//Normal chat
 	$msg = str_replace('?','',trim($_GET['message'])); // remove question mark
-	$getAnswer = $conn->query("SELECT answer FROM chatbot WHERE question LIKE '%:q%'");
+	$getAnswer = $conn->query("SELECT answer FROM chatbot WHERE question LIKE %:q%");
 	$getAnswer->bindValue(':q',$msg,PDO::PARAM_STR);
 	$getAnswer->execute();
 	if($getAnswer->rowCount() == 1){
