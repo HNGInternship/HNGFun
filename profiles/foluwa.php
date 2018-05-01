@@ -239,51 +239,50 @@ if(!defined('DB_USER')){
         .social-links a {
             margin-right: 20px;
         }
-        
-  
-  .chatbot-menu-header {
+    
+        .chatbot-menu-header {
             background-color: #4ae1aa;
             padding: 7px 20px;
             margin: 0px 0 0 0px;
             color: #FFF;
         }
 
-    .oj-panel{
-          margin-left: 30px;
-    }
-    .oj-flex{
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-        padding: 0px;
-    }   
-    .human-message {
-      right: 0;
-      width: auto;
-      margin: 5px;
-      padding: 5px;
-      display: flex;
-      text-align: right;
-      flex-direction: column;
-      border-radius: 10px;
-      background-color: grey;
-    }
-    .bot-message {
-      left: 0;
-      width: auto;
-      margin: 5px;
-      padding: 5px;
-      display: flex;
-      text-align: left;
-      flex-direction: column;
-      border-radius: 10px;
-      background-color: skyblue;
-    }
-    .conversation {
-      display: column;
-    }
-    .time{
-      opacity: 0.5;
-      font-style: "Arial","sans-serif";
-    }
+        .oj-panel{
+            margin-left: 30px;
+        }
+        .oj-flex{
+            padding: 0px;   
+            background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+        }  
+        .human-message {
+            right: 0;
+            width: auto;
+            margin: 5px;
+            padding: 5px;
+            display: flex;
+            text-align: right;
+            flex-direction: column;
+            border-radius: 10px;
+            background-color: grey;
+        }
+        .bot-message {
+            left: 0;
+            width: auto;
+            margin: 5px;
+            padding: 5px;
+            display: flex;
+            text-align: left;
+            flex-direction: column;
+            border-radius: 10px;
+            background-color: skyblue;
+        }
+         .conversation {
+            display: column;
+        }
+         .time{
+            opacity: 0.5;
+            font-style: "Arial","sans-serif";
+        }
   </style>
 </head>
 
