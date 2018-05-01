@@ -133,7 +133,7 @@ $check = "";//process starts
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 
-  if ($_POST['msg'] == 'help') {
+  if ($_POST['msg'] == 'Help') {
       help();
   } 
   if($check==""){
