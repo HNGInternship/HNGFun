@@ -647,6 +647,9 @@
 
 <?php
 }
+?>
+<?php
+if($_SERVER['REQUEST_METHOD'] === POST){
 	if(isset($_POST['chat'])){
 		$a = $_POST['chat'];
 			$question = $answer = $password = "";
@@ -690,16 +693,13 @@
 								
 							} catch (PDOException $e) {
 								echo $e->getMessage();
-								exit();
 							}
 
 							print_r($train_success);
-							exit();
 						}
 
 						else{
 							print_r($wrong_password[rand(0,2)]);
-							exit();
 						}
 
 					}
@@ -719,27 +719,27 @@
 
 					if ($result <= 18.5) {
 						echo "Your BMI is ".round($result,3)."\n".$bmi_result[0];
-						exit();
+						
 					} 
 
 					else if($result > 18.5 && $result <= 24.9){
 						echo "Your BMI is ".round($result,3)."\n".$bmi_result[1];
-						exit();
+						
 					}
 
 					else if ($result >= 25 && $result <= 29.9) {
 						echo "Your BMI is ".round($result,3)."\n".$bmi_result[2];
-						exit();
+						
 					}
 
 					else{
 						echo "Your BMI is ".round($result,3)."\n".$bmi_result[3];
-						exit();
+						
 					}
 				}
 				else{
 					echo "Enter a valid input";
-					exit();
+					
 				}
 			}
 
@@ -758,7 +758,7 @@
 					
 				} catch (PDOException $e) {
 					echo $e->getMessage();
-					exit();
+					
 				}
 
 				if($answer == ""){
@@ -766,7 +766,8 @@
 				}
 
 				echo $answer;
-				exit();
+				
 			}
 	}
+}
 ?>
