@@ -1,4 +1,6 @@
 <?php
+ require_once "../db.php";
+// change to ../db.php before pushing
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
@@ -31,9 +33,6 @@ body, h1, h2, h3, h4, h5, h6, p, nav, div, span
 .wrapper {
     display: flex;
     align-items: stretch;
-    position: absolute;
-    left: 0;
-    top: 0;
 }
 
 #side-nav {
@@ -42,8 +41,9 @@ body, h1, h2, h3, h4, h5, h6, p, nav, div, span
     min-width: 250px;
     max-width: 250px;
     min-height: 100vh;
+    float: left;
     
-   }
+}
 
 #side-nav.active {
     margin-left: -250px;
@@ -61,39 +61,33 @@ body, h1, h2, h3, h4, h5, h6, p, nav, div, span
     {
         list-style-type: none;
     }
-    
-#image-frame
+
+#content
     {
-        padding: 0 50px;
-    }
-#sidenavCollapse
-    {
-     text-align: left; !important
+        float: left;
+        margin-left:0px;
     }
 </style>
 </head>
     
 <body>
 <div id="wrapper">
-<div class="row">
-<nav id="side-nav" class="col-lg-3">
+<div id="side-nav">
 <br><br><br><br>
-<div id="image-frame" >
-<?php echo '<img src="'.$user->image_filename.'" width="150px" class="rounded">'; ?>
-</div>
+<?php echo '<img src="'.$user->image_filename.'" width="150px" class="rounded mx-auto">'; ?>
 <ul>
+<!--name icon-->
 <li><i class="fa fa-user"></i> <?php echo $user->name; ?></li>
-<li><i class="fa fa-slack"></i> @<?php echo $user->username; ?></li>
+<!-- slack icon-->
+<li><i class="fa fa-slack"></i> <?php echo $user->username; ?></li>
 <li><i class="fa fa-lock"></i> <?php echo $secret_word?></li>
 </ul>
-</nav>
-    
-<div id="content" class="col-lg-9">
+</div>
+<div id="content">
 <button type="button" id="sidenavCollapse" class="btn btn-info navbar-btn">
 <i class="glyphicon glyphicon-align-left"></i>
 Toggle Sidebar
 </button>
-</div>
 </div>
 </div>    
 <script>

@@ -1310,7 +1310,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
   .chat-message.left .chat-avatar {
     float: left;
-    background: url("//res.cloudinary.com/thecommunity-ng/image/upload/v1525046460/robot-2154228_640_zq40sa.png") no-repeat;
+    background: url("http://res.cloudinary.com/thecommunity-ng/image/upload/v1525046460/robot-2154228_640_zq40sa.png") no-repeat;
     background-position: center;
     background-size: contain;
   }
@@ -1383,10 +1383,6 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
   .msg-wrapper {
     display: table;
     width: 100%;
-  }
-
-  footer {
-    background: transparent;
   }
 </style>
 
@@ -1486,7 +1482,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
           </div>
           <div class="chat-toolbar">
             <b style="margin-left: 66.22px;">Nosa's Chatbot</b>
-            <button type="button" class="close-chat" data-toggle="dropdown" data-target="#chatContainer" aria-controls="chatContainer" aria-expanded="false">
+            <button type="button" class="close-chat" data-toggle="collapse" data-target="#chatContainer">
               <i class="fa fa-times icon"></i>
             </button>
           </div>

@@ -140,7 +140,7 @@ h3{
                      
                 <div class="name text-center">
           <label class="text-center" >Name: </label>
-          <h3 id="namep" class="text-center" name="KAS"><?php echo $name?></h3>
+          <h3 id="namep" class="text-center" name="Ogedengbe Samuel"><?php echo $name?></h3>
           
         </div>
         <div class="profession text-center">

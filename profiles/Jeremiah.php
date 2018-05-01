@@ -67,9 +67,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        			 'answer' =>  "I can't answer your question! Please train me by typing-->  train: question #answer #password"
      		 ]);
           return;
+
         }else {
             $rand_keys = array_rand($data);
             $answer = $data[$rand_keys]['answer'];
+
             echo json_encode([
         		'status' => 1,
        			 'answer' => $answer,  //return one of the the answers to client
@@ -83,9 +85,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		//remove extra white space, ? and . from question
 	    $train_string  = preg_replace('([\s]+)', ' ', trim($question));
 	    $train_string  = preg_replace("([?.])", "",  $train_string); 
+
 	    //get the question and answer by removing the 'train'
 	    $train_string = substr( $train_string, 6);
+
 	    $train_string = explode("#", $train_string);
+
         //get the index of the user question
         $user_question = trim($train_string[0]);
 	        if(count($train_string) == 1){ //then the user only enter question and did'nt enter answer and password
@@ -95,6 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		        ]);
 	        return; 
 	        };
+
 	        //get the index of the user answer
 	        $user_answer = trim($train_string[1]);    
 	        if(count($train_string) < 3){ //then the user only enter question and answer But did'nt enter password
@@ -104,8 +110,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		        ]);
 	        return;
 	        };
+
 	         //get the index of the user password
 		    $user_password = trim($train_string[2]);
+
 	        //verify if training password is correct
 	        define('TRAINING_PASSWORD', 'password'); //this is a constant variable
 	        if($user_password !== TRAINING_PASSWORD){ //the password is incorrect
@@ -115,6 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		        ]);
 	     	return;
 	    	};
+
 		    //check database if answer exist already
 		    $user_answer = "$user_answer"; //return things that have the question
 		    $sql = "select * from chatbot where answer like :user_answer";
@@ -122,6 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		    $stmt->bindParam(':user_answer', $user_answer);
 		    $stmt->execute();
 		    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
 		 	$rows = $stmt->fetchAll();
 		    if(empty($rows)){// then it means the database could not fetch any existing question and answer, so	we can insect the query.      
 			    $sql = "insert into chatbot (question, answer) values (:question, :answer)";  //insert into database
@@ -138,6 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	     	return;
 	     	
 	     	}else{ //then it means the the question already in the database and no need to insert it again
+
 	     		 echo json_encode([
 			    	'status' => 1,
 			        'answer' => "Sorry! Answer already exist. Try train me again with the same question AND provide an altanative answer different from the previous one you entered OR just train me with a new question and a new answer."
@@ -148,6 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	 	};    
 	  
 } else {
+
 ?>
 
 <!DOCTYPE html>

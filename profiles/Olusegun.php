@@ -1,31 +1,23 @@
 <?php
 
-
-try {
-    $sql = "SELECT * FROM interns_data WHERE username ='Olusegun'";
-
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-    $name = $data['name'];
-	$username = $data['username'];
-	$image_filename = $data['image_filename'];
-} catch (PDOException $e) {
-    throw $e;
-}
-
-try {
-    $sql2 = 'SELECT * FROM secret_word';
-    $q2 = $conn->query($sql2);
-    $q2->setFetchMode(PDO::FETCH_ASSOC);
-    $data2 = $q2->fetch();
-    $secret = $data2['secret_word'];
-} catch (PDOException $e) {
-    throw $e;
-}
+include '../config.php';
 
 
 
+$db_query = "SELECT * FROM interns_data WHERE username = 'Olusegun' LIMIT 1";
+$result = mysqli_query( $conn, $db_query);
+
+$secret_query = "SELECT secret_word FROM secret_word LIMIT 1";
+$secret_result = mysqli_query($conn, $secret_query);
+
+
+$result_array = mysqli_fetch_assoc($result);
+$secret_array = mysqli_fetch_assoc($secret_result);
+
+$name = $result_array['name'];
+$username = $result_array['username'];
+$image_filename = $result_array['image_filename'];
+$secret = $secret_array['secret_word'];
 
 ?>
 
@@ -112,20 +104,6 @@ try {
 	
 	</table>
 
-	<!-- <div class="chatbot">
-		<p class="bot-name">Spartan</p>
-		<div class="text-area">
-			<p class="mytext">Hi! My name is Spartan. Ask me anything! :)</p>
-			<div class="input">
-				<input type="text" name="message" id="message" placeholder="Ask Spartan">
-				<input type="button" name="" id="send" value="Go" method= "POST">
-			</div>
-			
-
-		</div>
-		
-	</div> -->
-
 
 <style type="text/css">
 
@@ -175,13 +153,7 @@ try {
 	.git { color: #4078c0; background-color: white; width: 25px; border-radius: 105px; float: center;}
 	.subinfo { width: 400px; }
 	.progress {width: 300px;}
-	.chatbot {background-color: rgba(0,0,0,0.5); margin-left : 230px; height: 600px; width: 350px; border-radius: 10px; }
-	.bot-name { text-align: center; color: white; margin-top: 10px; font-size: 30px; }
-	.text-area {background-color: white; height: 500px; width: 320px; margin-left: 15px; }
-	 #message {  margin-left: 10px; height: 25px; width: 240px; border-radius: 15px; border-bottom-color: red;border: 1px solid black; margin-bottom: 20px; vertical-align: bottom;}
-	 #send { height: 30px; width: 30px; margin-left: 10px; background-color: green; border-radius: 15px; color: white; border: none; }
-	 .mytext {background-color: #F64C72; color: white; height: 25px; border-radius: 10px;}
-	 .input { vertical-align: bottom; background-color: black; position: relative; }
+	
 </style>	
     
 
