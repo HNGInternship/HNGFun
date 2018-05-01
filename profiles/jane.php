@@ -149,7 +149,8 @@ if($_SERVER['REQUEST_METHOD'] === POST){
 			}
 	}
 }
-else{?>
+else{
+	?>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -762,6 +763,7 @@ else{?>
 	</script>
 
 </html>
+
 <?php
-}
+	}
 ?>
