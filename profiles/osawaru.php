@@ -39,16 +39,16 @@ function trainbot($question) {
          
         if ($password == 'password') { 
             global $conn;
-                $sql1= "INSERT INTO chatbox (questions,answers) VALUES ('$newquestion', '$newanswer')";
+                $sql1= "INSERT INTO chatbox (question,answer) VALUES ('$newquestion', '$newanswer')";
                 $conn->exec($sql1);
-                return ['answers' => "Thanks for that, now I am smarter"]; 
+                return ['answer' => "Thanks for that, now I am smarter"]; 
         }
         else {
-            return ['answers' => "Looks like you used the wrong password. The correct password is required."];
+            return ['answer' => "Looks like you used the wrong password. The correct password is required."];
         }
     }
     else {
-        return ["answers" => "Sorry! No password, No access. Please follow the training format."];
+        return ["answer" => "Sorry! No password, No access. Please follow the training format."];
         }
     
 }
@@ -62,11 +62,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     elseif (strtolower($question) === "about bot") {
-        exit(json_encode(["answers" => "IZZY version 1.0"]));
+        exit(json_encode(["answer" => "IZZY version 1.0"]));
     }
    
     else {      
-          $sql= "SELECT * FROM chatbox WHERE questions = '$question'LIMIT 1";   
+          $sql= "SELECT * FROM chatbox WHERE question = '$question'LIMIT 1";   
           $stmt = $conn->query($sql);
           $stmt->setFetchMode(PDO::FETCH_ASSOC);
           $response = $stmt->fetch();         //$response is the answer to the user's question($question)
@@ -322,7 +322,7 @@ try {
                   data: {userinput:userinputval},
                   dataType : "json",
                     success: function (result) {
-                        var successmsg = result.answers;
+                        var successmsg = result.answer;
                           var result1 ="<p class='mybot'><img style='height: 2.5em;'class='rounded-circle mr-2'" + 
                           "src='http://res.cloudinary.com/osawaru/image/upload/e_grayscale/v1524047363/avatar.png'>" + 
                           successmsg + "</p>";
