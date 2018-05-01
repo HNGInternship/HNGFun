@@ -471,7 +471,7 @@ if($_SERVER['REQUEST_METHOD'] !== POST){
 
 					else{
 						$.ajax({
-							url: "../profiles/jane.php",
+							url: "profile.php?id=jane",
 							type: "POST",
 							data: {chat: a},
 							success: function(data,status){
@@ -647,7 +647,7 @@ if($_SERVER['REQUEST_METHOD'] !== POST){
 
 <?php
 	}
-	else if($_SERVER['REQUEST_METHOD'] === 'POST'){
+	if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		if(isset($_POST['chat'])){
 		$a = $_POST['chat'];
 			$question = $answer = $password = "";
@@ -771,8 +771,5 @@ if($_SERVER['REQUEST_METHOD'] !== POST){
 				exit;
 			}
 		}
-	}
-	else{
-		exit;
 	}
 ?>
