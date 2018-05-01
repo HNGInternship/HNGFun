@@ -425,9 +425,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       var Form =$('#bot-input');
       Form.submit(function(e){
         e.preventDefault();
-        var questionBox = $('input[name=input]');
+        var questionBox = $('#txt-input');
         var question = questionBox.val();
-        $("#ans").append("<div class='chat'><p class='me'>" + question + "</p></div>");
+        $("#chat").append("<div class='chat'><p class='me'>" + question + "</p></div>");
           
         $.ajax({
           url: '/profiles/epospiky.php',
@@ -435,7 +435,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           data: {question: question},
           dataType: 'json',
           success: function(response){
-              $("#ans").append("<div class='chat'><p class='san'> " + response.answer + "</p></div>");
+              $("#chat").append("<div class='chat'><p class='san'> " + response.answer + "</p></div>");
              // console.log(response.result);
               //alert(response.result.d);
               //alert(answer.result);
