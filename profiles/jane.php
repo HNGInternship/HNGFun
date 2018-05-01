@@ -180,14 +180,6 @@
 				background: #fff;
 			}
 
-			.container{
-				/*height: 100vh;*/
-				/*margin: 0px;
-				padding: 0px;
-				min-height: 800px;
-				position: relative;*/
-			}
-
 			#whole{
 				padding: 20px;
 				margin: 0px;
