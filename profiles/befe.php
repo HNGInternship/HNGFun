@@ -184,6 +184,7 @@ function fetchAnswer($msgss){
                 #chatbox {
                     position: absolute;
                     bottom: 20px;
+                    margin-top: 20px;
                 }
                 input[type=text] {
                     box-sizing: border-box;
@@ -307,8 +308,8 @@ function fetchAnswer($msgss){
             <section class='row'>
                 <article class='col-md-8' id='main'>
                     <div class='row'>
-                        <div class='contain-pic'>
-                            <img class='col-md-3' src="<?php echo $image; ?>" alt ='befe sitted and giving a pose'>
+                        <div class='contain-pic col-md-3'>
+                            <img class='' src="<?php echo $image; ?>" alt ='befe sitted and giving a pose'>
                         </div>
                         <div class='details col-md-7'>
                             <h1>Deekor Baribefe</h1>
