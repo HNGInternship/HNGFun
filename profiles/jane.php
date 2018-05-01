@@ -25,10 +25,10 @@
 	} catch (PDOException $e) {
 		echo $e->getMessage();
 	}
-?>
 
-<?php
+
 	// Chat Bot
+	if($_SERVER['REQUEST_METHOD'] === "POST"){
 		if(isset($_POST['chat'])){
 			$a = $_POST['chat'];
 			$question = $answer = $password = "";
@@ -72,16 +72,16 @@
 								
 							} catch (PDOException $e) {
 								echo $e->getMessage();
-								
+								exit();
 							}
 
 							print_r($train_success);
-							
+							exit();
 						}
 
 						else{
 							print_r($wrong_password[rand(0,2)]);
-							
+							exit();
 						}
 
 					}
@@ -98,31 +98,30 @@
 				$height = $array2[1];
 				if(is_numeric($weight) && is_numeric($height)){
 					$result = $weight/($height*$height);
-					$result = "Your BMI is ".$result."\n";
 
 					if ($result <= 18.5) {
-						echo $result.$bmi_result[0];
-						
+						echo "Your BMI is ".round($result,3)."\n".$bmi_result[0];
+						exit();
 					} 
 
 					else if($result > 18.5 && $result <= 24.9){
-						echo $result.$bmi_result[1];
-						
+						echo "Your BMI is ".round($result,3)."\n".$bmi_result[1];
+						exit();
 					}
 
 					else if ($result >= 25 && $result <= 29.9) {
-						echo $result.$bmi_result[2];
-						
+						echo "Your BMI is ".round($result,3)."\n".$bmi_result[2];
+						exit();
 					}
 
 					else{
-						echo $result.$bmi_result[3];
-						
+						echo "Your BMI is ".round($result,3)."\n".$bmi_result[3];
+						exit();
 					}
 				}
 				else{
 					echo "Enter a valid input";
-					
+					exit();
 				}
 			}
 
@@ -141,7 +140,7 @@
 					
 				} catch (PDOException $e) {
 					echo $e->getMessage();
-					
+					exit();
 				}
 
 				if($answer == ""){
@@ -149,9 +148,11 @@
 				}
 
 				echo $answer;
-				
+				exit();
 			}
 		}
+			return;
+	}
 
 ?>		
 <!DOCTYPE HTML>
@@ -594,6 +595,7 @@
 
 					else{
 						$.ajax({
+							url: "jane.php",
 							type: "POST",
 							dataType: "html",
 							data: {chat: a},
@@ -613,6 +615,8 @@
 							}
 						});
 					}
+					
+
 					$text_input.val("");
 				}
 

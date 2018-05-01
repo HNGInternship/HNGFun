@@ -415,7 +415,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
     function processData (data){
     data = JSON.parse(data);
     console.log(data);
-    var answer = data.answer;
+    var answer = data.response;
     //Choose a random response from available
     if(Array.isArray(answer)){
         if(answer.length !=0){
