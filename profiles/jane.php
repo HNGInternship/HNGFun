@@ -559,6 +559,8 @@
 		
 		$(function(){
 
+			alert("JS Enabled");
+
 			$bot = $("#bot");
 			$user_input = $("#user-input");
 			$output = $("#output");
