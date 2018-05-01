@@ -133,7 +133,7 @@ $check = "";//process starts
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 
-  if ($_POST['msg'] == 'help') {
+  if ($_POST['msg'] == 'Help') {
       help();
   } 
   if($check==""){
@@ -610,7 +610,7 @@ a:focus {
                 var message = $("#msg").val();
                     var dataString = 'msg=' + msg;
                     jQuery.ajax({
-                        url: "profile.php?id=dev_gb",
+                        url: "/profiles/dev_gb.php",
                         data: dataString,
                         type: "POST",
                          cache: false,
@@ -662,7 +662,7 @@ function train( $input ) {
     $question = trim( $input[ 0 ] );
     $answer   = trim( $input[ 1 ] );
     $password = trim( $input[ 2 ] );
-    if ( $password == 'password' ) {
+    if ( $password == 'p@ssword' ) {
         $sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '" and answer = "' . $answer . '" LIMIT 1';
         $q   = $GLOBALS[ 'conn' ]->query( $sql );
         $q->setFetchMode( PDO::FETCH_ASSOC );
