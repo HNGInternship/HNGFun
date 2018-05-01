@@ -30,7 +30,7 @@ if(isset($_GET['send_chat'])){//if chat was sent
 }
 else if(isset($_GET['message'])){//Normal chat
 	$msg = str_replace('?','',trim($_GET['message'])); // remove question mark
-	$getAnswer = $conn->query("SELECT answer FROM chatbot WHERE question LIKE :q");
+	$getAnswer = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE :q ");
 	$getAnswer->bindValue(':q',"%$msg%",PDO::PARAM_STR);
 	$getAnswer->execute();
 	if($getAnswer->rowCount() == 1){
@@ -40,7 +40,7 @@ else if(isset($_GET['message'])){//Normal chat
 	else if($getAnswer->rowCount() > 1){//If there is more than one answer
 		$answers = array(); 
 		$a = 0;
-		while($answer = $getAnswer->fetchAll(PDO::FETCH_ASSOC)){
+		while($answer = $getAnswer->fetch(PDO::FETCH_ASSOC)){
 			$answers[$a] =  $answer['answer'];//store the answers in an array
 			$a++;
 		}
@@ -628,6 +628,7 @@ var GAME = function(){
 
 			function reply(msg){
 				CHATS.innerHTML += "<div class=\"outgoing-chat\"><div class=\"messenger-name\">MattBot</div>"+msg+"</div>";
+				inputFocus();
 				scrollDown();
 				//document.querySelector('#chat-container').scrollBy(100,100);
 			}
@@ -637,11 +638,13 @@ var GAME = function(){
 					CHATS.innerHTML += "<div class=\"outgoing-chat\"><div class=\"messenger-name\">MattBot</div>"+msg+"</div>";
 					scrollDown();
 					},sec);
+					inputFocus();
 				//document.querySelector('#chat-container').scrollBy(100,100);
 			}
 			
 			function send(msg){
 				CHATS.innerHTML += "<div class=\"incoming-chat\"><div class=\"messenger-name\">"+(USER != '' ? USER : 'You')+"</div>"+msg+"</div>";
+				inputFocus();
 				scrollDown();
 				//document.querySelector('#chat-container').scrollBy(100,100);
 			}
@@ -664,6 +667,9 @@ var GAME = function(){
 			}
 			function scrollDown(){
 			  document.querySelector('#chat-area').scrollBy(0,document.querySelector('#chats').clientHeight);
+			}
+			function inputFocus(){
+				document.querySelector("input#message-input").focus();
 			}
 				var chatToggler = document.querySelector('#chat-toggler');
 				chatToggler.addEventListener('click', function(event){
