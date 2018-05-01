@@ -1,5 +1,6 @@
 <?php
-	
+	// Profile
+
 	try {
 
 
@@ -24,10 +25,10 @@
 	} catch (PDOException $e) {
 		echo $e->getMessage();
 	}
+?>
 
-
+<?php
 	// Chat Bot
-	if($_SERVER['REQUEST_METHOD'] === "POST"){
 		if(isset($_POST['chat'])){
 			$a = $_POST['chat'];
 			$question = $answer = $password = "";
@@ -56,7 +57,7 @@
 					$arr = explode("# ", $string);
 					if(sizeof($arr) != 3){
 						$answer = $no_answer[rand(0,3)]."::def";
-						echo "dustybot::".$answer;
+						echo $answer;
 					}
 					else{
 						$question = $arr[0];
@@ -66,21 +67,21 @@
 						if ($password == "password") {
 							try {
 
-								$sql = "INSERT INTO chat_bot(question,answer) VALUES('$question','$answer')";
+								$sql = "INSERT INTO chatbot(question,answer) VALUES('$question','$answer')";
 								$stmt = $conn->query($sql);
 								
 							} catch (PDOException $e) {
-								echo "dustybot::".$e->getMessage();
-								die();
+								echo $e->getMessage();
+								
 							}
 
 							print_r($train_success);
-							die();
+							
 						}
 
 						else{
 							print_r($wrong_password[rand(0,2)]);
-							die();
+							
 						}
 
 					}
@@ -97,32 +98,31 @@
 				$height = $array2[1];
 				if(is_numeric($weight) && is_numeric($height)){
 					$result = $weight/($height*$height);
-					$result = round($result,2);
 					$result = "Your BMI is ".$result."\n";
 
 					if ($result <= 18.5) {
-						echo "dustybot::".$result.$bmi_result[0];
-						die();
+						echo $result.$bmi_result[0];
+						
 					} 
 
 					else if($result > 18.5 && $result <= 24.9){
-						echo "dustybot::".$result.$bmi_result[1];
-						die();
+						echo $result.$bmi_result[1];
+						
 					}
 
 					else if ($result >= 25 && $result <= 29.9) {
-						echo "dustybot::".$result.$bmi_result[2];
-						die();
+						echo $result.$bmi_result[2];
+						
 					}
 
 					else{
-						echo "dustybot::".$result.$bmi_result[3];
-						die();
+						echo $result.$bmi_result[3];
+						
 					}
 				}
 				else{
-					echo "dustybot::"."Enter a valid input";
-					die();
+					echo "Enter a valid input";
+					
 				}
 			}
 
@@ -130,7 +130,7 @@
 
 				try {
 
-					$sql = "SELECT * FROM chat_bot WHERE question = '$a'";
+					$sql = "SELECT * FROM chatbot WHERE question = '$a'";
 					$stmt = $conn->query($sql);
 
 					if($stmt){
@@ -140,19 +140,18 @@
 					}
 					
 				} catch (PDOException $e) {
-					echo "dustybot::".$e->getMessage();
-					die();
+					echo $e->getMessage();
+					
 				}
 
 				if($answer == ""){
 					$answer = $no_answer[rand(0,4)]."::def";
 				}
 
-				echo "dustybot::".$answer;
-				die();
+				echo $answer;
+				
 			}
 		}
-	}
 
 ?>		
 <!DOCTYPE HTML>
@@ -183,8 +182,8 @@
 
 			#whole{
 				padding: 20px;
-				margin-top: 10px;
-				min-height: 800px;
+				margin: 0px;
+				min-height: 500px;
 			}
 
 			#whole div:nth-child(2){
@@ -549,7 +548,6 @@
 	<script type="text/javascript">
 		
 		$(function(){
-
 			$bot = $("#bot");
 			$user_input = $("#user-input");
 			$output = $("#output");
@@ -602,8 +600,6 @@
 							data: {chat: a},
 							success: function(data,status){
 								if(data != ""){
-									// alert(data.indexOf("dustybot::"));
-									// data = data.substr(data.indexOf("dustybot::"));
 									if (data.indexOf("::def") >= 0) {
 										
 										data = data.replace("::def","");
@@ -614,15 +610,11 @@
 										add_bot_text(data);
 									}
 									
-								}
-								else{
-									alert("No data");
-								}									
+								}										
 							}
 						});
 					}
-					
-
+					alert(a);
 					$text_input.val("");
 				}
 
