@@ -470,7 +470,6 @@
 
 					else{
 						$.ajax({
-							url: "jane.php",
 							type: "POST",
 							dataType: "html",
 							data: {chat: a},
