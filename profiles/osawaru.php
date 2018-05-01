@@ -82,10 +82,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
    
     else {      
-          $sql= "SELECT * FROM chatbox WHERE question = '$question'LIMIT 1";   
+          $sql= "SELECT * FROM chatbox WHERE question = '$question'ORDER BY RAND() LIMIT 1";    
           $stmt = $conn->query($sql);
           $stmt->setFetchMode(PDO::FETCH_ASSOC);
-          $response = $stmt->fetch();         //$response is the answer to the user's question($question)
+          $response = $stmt->fetchAll();         //$response is the answer to the user's question($question)
+
+
         if ($response == null) {
             exit(json_encode(
             array('answers' => "I am sorry, I do not have an answer, I am still an infant. You can train me and make me smarter. Type 'train: *** #answer: *** #password: *** '"))
