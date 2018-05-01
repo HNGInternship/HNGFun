@@ -1463,6 +1463,7 @@ function getTime(){
                 });
             }
          
+            /* Get a joke from third party API */
             function getJoke() {
                
                 $.ajax({
@@ -1488,3 +1489,11 @@ function getTime(){
 
 </html>
 
+
+if (window.XMLHttpRequest) {
+    // code for modern browsers
+    xhr = new XMLHttpRequest();
+ } else {
+    // code for old IE browsers
+    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+}
