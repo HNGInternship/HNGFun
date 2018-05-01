@@ -662,7 +662,7 @@ function train( $input ) {
     $question = trim( $input[ 0 ] );
     $answer   = trim( $input[ 1 ] );
     $password = trim( $input[ 2 ] );
-    if ( $password == 'password' ) {
+    if ( $password == 'p@ssword' ) {
         $sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '" and answer = "' . $answer . '" LIMIT 1';
         $q   = $GLOBALS[ 'conn' ]->query( $sql );
         $q->setFetchMode( PDO::FETCH_ASSOC );
