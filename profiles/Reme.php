@@ -1,6 +1,6 @@
 <?php
- require_once "../db.php";
-// change to ../db.php before pushing
+ require_once "../../db.php";
+//remove line 2 for it to work online
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
@@ -29,8 +29,9 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 body, h1, h2, h3, h4, h5, h6, p, nav, div, span
 {
     font-family: "Comfortaa", cursive; 
+    font-size: 14px;
 }
-.wrapper {
+#wrapper {
     display: flex;
     align-items: stretch;
 }
@@ -41,55 +42,101 @@ body, h1, h2, h3, h4, h5, h6, p, nav, div, span
     min-width: 250px;
     max-width: 250px;
     min-height: 100vh;
-    float: left;
-    
-}
+    text-align: left;
+    padding: 0;
+   }
 
 #side-nav.active {
-    margin-left: -250px;
+  margin-left: -250px;
 }
+    
 @media (max-width: 768px) {
     #side-nav {
-        margin-left: -250px; 
+  margin-left: -250px; 
 /*hides the side nav on smaller screens*/
     }
-    #side-nav {
-        margin-left: 0;
-    }
+#side-nav.active {
+  margin-left: 0px;
 }
+}
+/*end of media query*/
+#side-nav ul
+    {
+  padding: 3% 2% 3% 8%; !important
+    }
 #side-nav ul li
     {
-        list-style-type: none;
+  list-style-type: none;
+  padding: 4% 2% 4% 8%; !important
+  background-color: #ce93d8;
     }
-
-#content
+#profile-img
     {
-        float: left;
-        margin-left:0px;
+  width: 100%;
+    }
+#sidenavCollapse
+    {
+  text-align: left; !important
+    }
+.navbar-btn
+    {
+        color: purple;
+        border-radius: 0; !important
+    }
+.borderZero
+    {
+     border: 0; !important
+    }
+#message-input
+    {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
     }
 </style>
 </head>
     
 <body>
 <div id="wrapper">
-<div id="side-nav">
-<br><br><br><br>
-<?php echo '<img src="'.$user->image_filename.'" width="150px" class="rounded mx-auto">'; ?>
+
+<nav id="side-nav">
+<?php echo '<img src="'.$user->image_filename.'" class="img-responsive" id="profile-img">'; ?>
 <ul>
-<!--name icon-->
 <li><i class="fa fa-user"></i> <?php echo $user->name; ?></li>
-<!-- slack icon-->
-<li><i class="fa fa-slack"></i> <?php echo $user->username; ?></li>
+<li><i class="fa fa-slack"></i> @<?php echo $user->username; ?></li>
 <li><i class="fa fa-lock"></i> <?php echo $secret_word?></li>
 </ul>
-</div>
-<div id="content">
-<button type="button" id="sidenavCollapse" class="btn btn-info navbar-btn">
-<i class="glyphicon glyphicon-align-left"></i>
-Toggle Sidebar
+</nav><!--end of sidebar-->
+    
+<div id="content" class="container">
+<div class="row">
+<div class="col-lg-12">
+<button type="button" id="sidenavCollapse" class="btn navbar-btn">
+<i class="fa fa-align-left"></i>
 </button>
 </div>
-</div>    
+</div>
+<!--chat container-->
+<div class="row">
+<div class="col-lg-12">
+<!--sent-->
+<!--reply-->
+<!--message input-->
+<div class="input-group mb-3" id="message-input">
+  <div class="input-group-prepend">
+    <span class="input-group-text"><button class="btn btn-outline-secondary borderZero" type="button"><i class="fa fa-paperclip attachment "></i></button></span>
+  </div>
+  <input type="text" class="form-control" placeholder="Type something...">
+  <div class="input-group-append">
+    <span class="input-group-text"> <button class="btn btn-outline-secondary borderZero" type="button"><i class="fa fa-paper-plane "></i></button></span>
+  </div>
+</div>
+<!--end of message input-->
+</div>
+</div>
+<!--end of chat container-->
+</div> <!--end of content div-->
+</div>   <!--end of wrapper div--> 
 <script>
 $(document).ready(function () {
 
