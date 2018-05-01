@@ -21,10 +21,11 @@ h1 {
 	text-align: center;
 }
 h3 {
-	font-size: 24px;
+	font-size: 15px;
 	font-family: Ubuntu;
-	color: #ececec;
-	text-align: left;
+	color: #FFFF00;
+	background: #000000;
+	text-align: center;
 }
 
 a {
@@ -68,37 +69,27 @@ a {
   <div class="column">
 <img src="http://res.cloudinary.com/code-x/image/upload/v1525118313/code-x.jpg" alt="Ndueze Ifeanyi Code-X" width="250" height="250">
 </br>
-  <a href="https://www.facebook.com/engrify"><i class="fab fa-facebook-square"></i></a>
-  <a href="https://twitter.com/IfeanyiOghene"> <i class="fab fa-twitter-square"></i></a>
-  <a href="https://www.instagram.com/davidify/"> <i class="fab fa-instagram"></i></a>
-  <a href="https://github.com/DavidIfeanyichukwu"> <i class="fab fa-github-square"></i></a>
+<h3>Ndueze Ifeanyi David (Code-X) </br> Web Apps || Mobile Apps </h3>
+  <a href="https://www.facebook.com/engrify"><i class="fa fa-facebook-official  fa-3x" aria-hidden="true"></i></a>
+  <a href="https://twitter.com/IfeanyiOghene"> <i class="fa fa-twitter-square fa-3x" aria-hidden="true"></i></a>
+  <a href="https://www.instagram.com/davidify/"> <i class="fa fa-instagram fa-3x" aria-hidden="true"></i></i></a>
+  <a href="https://github.com/DavidIfeanyichukwu"> <i class="fa fa-github fa-3x" aria-hidden="true"></i></a>
   </div>
   <div class="column">
-	  <h3> Name: Ndueze Ifeanyi David </br> Username: @Code X</h3>
 <?php
-$con=mysqli_connect("localhost","","","hng_fun");
-// Check connection
-if (mysqli_connect_errno())
-  {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  }
+  //require '../db.php';
+  $res = $conn->query("SELECT * FROM  interns_data WHERE username = 'code-x' ");
+  $row = $res->fetch(PDO::FETCH_BOTH);
+  $name = $row['name'];
+  $img = $row['image_filename'];
+  $username =$row['username'];
 
-$sql="SELECT name,username,image_filename FROM interns_data";
 
-if ($result=mysqli_query($con,$sql))
-  {
-  // Fetch one and one row
-  while ($row=mysqli_fetch_row($result))
-    {
-    printf ("%s (%s)\n",$row[0],$row[1]);
-    }
-  // Free result set
-  mysqli_free_result($result);
-}
 
-mysqli_close($con);
-
-?> 
+  $res1 = $conn->query("SELECT * FROM secret_word");
+  $res2 = $res1->fetch(PDO::FETCH_ASSOC);
+  $secret_word = $res2['secret_word'];
+?>
   </div>
 </div> 
 
