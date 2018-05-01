@@ -320,7 +320,7 @@ if(!defined('DB_USER')){
                         Am Foluwa a Computer Science student. Check out my github portfolio at <a href="https://foluwa.github.io">portfolio</a>
                     </div> 
             </div>
-            <div style="color:red;text-align:center;"><strong>Foluwa @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
+            <div style="text-align:center;"><strong>Foluwa @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
           </div>
       
       <div class="col-sm-6" style="position:relative;">
