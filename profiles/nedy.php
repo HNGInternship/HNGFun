@@ -388,8 +388,13 @@ try {
     xhttp.open("POST", "https://hng.fun/profiles/nedy.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("message="+ques.value);
+<<<<<<< HEAD
+}
+function processData (data){
+=======
     }
     function processData (data){
+>>>>>>> c84ccd984aebe2daf14a59cc781cce4877321c88
     data = JSON.parse(data);
     console.log(data);
     var answer = data.response;

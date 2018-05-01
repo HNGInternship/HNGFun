@@ -1,10 +1,10 @@
 <?php
     
- require 'db.php';
+ //require 'db.php';
     
  if (!defined('DB_USER')){
             
-   require "../config.php";
+   require "../../config.php";
  }
 //define('DB_HOST', "localhost");
 //define('DB_DATABASE', "hng_fun");
@@ -422,7 +422,7 @@ button{
                 </div>
                 <div id="main_chat">
                     <div id="chatMessages">
-                        <div id="message" style="background-color:#dedede;">Hi I am Pearlbot, I have been created to read user location, read user ip address</div>
+                        <div id="message" style="background-color:#dedede;">Hi I am Pearlbot</div>
 
                     </div>
                 </div>
@@ -480,10 +480,10 @@ button{
             $("#chatMessages").append('<div id="messageSent">' + message + '</div>');
 
             $.ajax({
-                url: '/profiles/pearl.php',
-                type: 'POST',
+                url: "/profiles/pearl.php",
+                type: "POST",
                 data: {displayMessage: message},
-                dataType: 'json'
+                dataType: "json"
             }).done(function(resp) {
                 if(resp.status == 5){
                     messageContainer.append('<div id="messageReceived">' + resp.answer + '</div>');
