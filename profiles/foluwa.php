@@ -2,17 +2,6 @@
   $dt = date("Y-m-d h:i:sa");
   $time= date("h:i:sa");
 ?>
-<?php
-    global $conn;
-    try {
-        $sql2 = 'SELECT * FROM interns_data WHERE username="foluwa"';
-        $q2 = $conn->query($sql2);
-        $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $my_data = $q2->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-?>
 
 <!DOCTYPE html>
 <html>
@@ -159,169 +148,98 @@
           <div class="push-right"><h3><?php echo $dt ?></h3></div>
         </div>
    </nav>
+   <?php
+    global $conn;
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="foluwa"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+?>
 
    <div class="row" style="padding-top:5px;">
-   <div class="col-sm-6" style="padding-left:0px;">
-            <div class="oj-flex-item oj-panel demo-mypanel" style='float:left;width:97%;'>
-                <div class="image">
-                    <img src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture">
+         <div class="col-sm-6" style="padding-left:0px;">
+                  <div class="oj-flex-item oj-panel demo-mypanel" style='float:left;width:97%;'>
+                      <div class="image">
+                          <img src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture">
+                      </div>
+                      <p class="text-center myname">
+                         <span style="font-size:37px;"><?php echo $user->name; ?></span>
+                      </p>
+                      <div class="oj-flex">
+                      <div class="text-center social-links" style="font-size:45px;">
+                        <a href="https://facebook.com/akintola.moronfoluwar"><i class="fab fa-facebook"></i></a>
+                        <a href="https://instagram.com/fantastic_foluwa"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/fantasticfoluwa"><i class="fab fa-twitter"></i></a>
+                        <a href="https://github.com/foluwa"><i class="fab fa-github"></i></a>
+                        <a href="https://slack.com/foluwa"><i class="fab fa-slack"></i></a>
+                      </div>
+                    </div>
+                       <button data-toggle="collapse" data-target="#aboutme">About Me<i class="fa fa-caret-down"></i></button>
+                          <div id="aboutme" class="collapse">
+                              Am Foluwa a Computer Science student. Check out my github portfolio at <a href="https://foluwa.github.io">portfolio</a>
+                          </div> 
+                  </div>
+                  <div style="text-align:center;"><strong>Foluwa @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
                 </div>
-                <p class="text-center myname">
-                   <span style="font-size:37px;"><?php echo $user->name; ?></span>
-                </p>
-                <div class="oj-flex">
-                <div class="text-center social-links" style="font-size:45px;">
-                  <a href="https://facebook.com/akintola.moronfoluwar"><i class="fab fa-facebook"></i></a>
-                  <a href="https://instagram.com/fantastic_foluwa"><i class="fab fa-instagram"></i></a>
-                  <a href="https://twitter.com/fantasticfoluwa"><i class="fab fa-twitter"></i></a>
-                  <a href="https://github.com/foluwa"><i class="fab fa-github"></i></a>
-                  <a href="https://slack.com/foluwa"><i class="fab fa-slack"></i></a>
-                </div>
-              </div>
-                 <button data-toggle="collapse" data-target="#aboutme">About Me<i class="fa fa-caret-down"></i></button>
-                    <div id="aboutme" class="collapse">
-                        Am Foluwa a Computer Science student. Check out my github portfolio at <a href="https://foluwa.github.io">portfolio</a>
-                    </div> 
-            </div>
-            <div style="text-align:center;"><strong>Foluwa @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
-          </div>
       
       <div class="col-sm-6" style="position:relative;">
-        <div class="oj-flex-item oj-panel demo-mypanel" style='float:right;width:97%;' >
+        <div class="oj-flex-item oj-panel demo-mypanel" style="float:right;width:97%;">
             <div class="chatbox">
-               <div class='chatbot-menu-header'>
-                    <span>ChatBot Interface</span>
-                </div>
-                <div class="" id="">
+                   <div class="chatbot-menu-header">
+                        <span>ChatBot Interface</span>
+                    </div>
                     <div id="conversation" class="conversation" style="overflow-y:scroll;height:350px;">
                         <p class="bot-message">Hello! I'm ZOE!  
                             <span class="time"><?php echo $time ?></span>
                         </p>
-                        <!--<p class="human-message pull-right"> Am Foluwa
-                            <span class="time"><?php //echo $time ?></span>
-                        </p>-->
                     </div>
-   
-    <?php
-    try {
-        $sql = 'SELECT * FROM secret_word';
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    $secret_word = $data['secret_word'];
-    if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $data = $_POST['user-input'];
-        $temp = explode(':', $data);
-        $temp2 = preg_replace('/\s+/','', $temp[0]);
-        
-        if($temp2 === 'train'){
-            train($temp[1]);
-        }elseif($temp2 === 'aboutbot') {
-            aboutbot();
-        }else{
-            getAnswer($temp[0]);
-        }
-    }
-  ##About Bot
-    function aboutbot() {
-        echo "<p class='bot-message'><strong>Zoe version 1.0 </strong></br>
-                 Hi...I am ZOE</p>";
-    }
-  
-  ##Train Bot
-    function train($input) {
-        $input = explode('#', $input);
-        $question = trim($input[0]);
-        $answer = trim($input[1]);
-        $password = trim($input[2]);
-        if($password == 'password') {
-            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
-            $q = $GLOBALS['conn']->query($sql);
-            $q->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $q->fetch();
-            if(empty($data)) {
-                $training_data = array(':question' => $question,
-                    ':answer' => $answer);
-                $sql = 'INSERT INTO chatbot ( question, answer)
-              VALUES (
-                  :question,
-                  :answer
-              );';
-                try {
-                    $q = $GLOBALS['conn']->prepare($sql);
-                    if ($q->execute($training_data) == true) {
-                        echo "<p class='bot-message'>Thank you for training me.
-                                  would you offer to tell me more</p>";
-                    };
-                } catch (PDOException $e) {
-                    throw $e;
-                }
-            }else{
-                echo "<p class='bot-message'>I already understand this. Teach me something new!</p>";
-            }
-        }else {
-            echo "<p class='bot-message'>You entered an invalid Password.</p>";
-        }
-    }
-    function getAnswer($input) {
-        $question = $input;
-        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
-        $q = $GLOBALS['conn']->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetchAll();
-        if(empty($data)){
-            echo "<p class='bot-message'>Oops! I've not been trained to learn that command.                Would you like to train me?You can train me to answer any question at all using, train:question#answer#password
-              e.g train:Who said Nigerian youth are lazy#President Buhari#password</p>";
-        }else {
-            $rand_keys = array_rand($data);
-            echo "<p class='bot-message'>". $data[$rand_keys]['answer'] ."</p>";
-        }
-    }
-    ?>
-
-
-              </div>
-                <div>
-                    <form id="chat" method="post" style="position:absolute;bottom:0;background-color:#896bad;" >
-                        <input name="userInput" id="user-input" class="user-input" placeholder="Enter your text...."></input>
-                        <button id="send" type="submit" class="btn btn-primary btn-sm" style="background-color:#79af9c;">
-                          <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </form>
-                </div>
-          </div>
-          </div>
+                    <div>
+                        <form id="chat" method="post" style="position:absolute;bottom:0;background-color:#896bad;" >
+                            <input name="userInput" id="user-input" class="user-input" placeholder="Enter your text...."></input>
+                            <button id="send" type="submit" class="btn btn-primary btn-sm" style="background-color:#79af9c;">
+                              <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+             </div>
         </div>
-          </div>
-       </div>
-       </div>
-
-          <script src="../vendor/jquery/jquery.min.js"></script>
-          <script>
-          $(document).ready(function(){
-            var Form =$('#chat');
-            Form.submit(function(e){
-              e.preventDefault();
-              var textBox = $('input[name=userInput]');
-              var question = textBox.val();
-              $("#conversation").append("<p class='human-message'>" + question + "<span class='time'><?php echo $time?></span>" + "</p>");
-              $.ajax({
-                url: '/profiles/foluwa.php',
-                type: 'POST',
-                data: {question: question},
-                dataType: 'json',
-                success: function(response){
-                    $("#conversation").append("<p class='bot-message'>"  + response.answer + "<span class='time'><?php echo $time?></span>" + "</p>");
-                },
-                error: function(error){
-                      //alert(error);
-                }
-              })  
-            })
-          });
-        </script>
+      </div>
 </body>
+
+<script src="../vendor/jquery/jquery.min.js"></script>
+          <script>
+          var outputArea = $("#conversation");
+            $("#chat").on("submit", function(e) {
+
+        e.preventDefault();
+
+        var message = $("#user-input").val();
+
+        outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
+
+
+        $.ajax({
+            url: 'profile.php?id=foluwa',
+            type: 'POST',
+            data:  'user-input=' + message,
+            success: function(response) {
+                var result = $($.parseHTML(response)).find("#result").text();
+                setTimeout(function() {
+                    outputArea.append("<p class='message'>" + result + "</p>");
+                    $('#chat-output').animate({
+                        scrollTop: $('#chat-output').get(0).scrollHeight
+                    }, 1500);
+                }, 250);
+            }
+        });
+
+
+        $("#user-input").val("");
+
+    });
+        </script>
 </html>
