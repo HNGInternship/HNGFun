@@ -20,6 +20,12 @@ h1 {
 	background: #000000;
 	text-align: center;
 }
+h3 {
+	font-size: 24px;
+	font-family: Ubuntu;
+	color: #ececec;
+	text-align: left;
+}
 
 a {
 	text-align: center;
@@ -68,8 +74,9 @@ a {
   <a href="https://github.com/DavidIfeanyichukwu"> <i class="fab fa-github-square"></i></a>
   </div>
   <div class="column">
+	  <h3> Name: Ndueze Ifeanyi David </br> Username: @Code X</h3>
 <?php
-$con=mysqli_connect("localhost","codex","MerCury@001","hng_fun");
+$con=mysqli_connect("localhost","","","hng_fun");
 // Check connection
 if (mysqli_connect_errno())
   {
