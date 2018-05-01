@@ -1,15 +1,38 @@
 <?php
-$query = $conn->query("SELECT * FROM secret_word");
-$result = $query->fetch(PDO::FETCH_ASSOC);
-$secret_word = $result['secret_word'];
-$username = "dev_geaks";
-$data = $conn->query("SELECT * FROM  interns_data WHERE username = '".$username."' LIMIT 1 ");
-$my_data = $data->fetch(PDO::FETCH_BOTH);
-$name = $my_data['name'];
-$img = $my_data['image_filename'];
-$username =$my_data['username'];
 
-function decifer($string){
+ include_once("../answers.php"); 
+
+if (!defined('DB_USER')){
+            
+  require "../../config.php";
+}
+try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+
+ global $conn;
+
+ try {
+  $sql = 'SELECT * FROM secret_word LIMIT 1';
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $data = $q->fetch();
+  $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+  throw $e;
+}    
+try {
+  $sql = "SELECT * FROM interns_data WHERE `username` = 'juliet' LIMIT 1";
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $my_data = $q->fetch();
+} catch (PDOException $e) {
+  throw $e;
+}
+
+function decider($string){
   
   if (strpos($string, ":") !== false)
   {
@@ -31,128 +54,69 @@ function decifer($string){
 
 
 function assistant($string)
- {  
-    $reply = "";
-    
-    if ($string == 'what is the capital of Lagos') {
-      $reply =var_export('The capital of Lagos is Ikeja');
-      return $reply;
-        
-    }
-    elseif ($string == 'what is the capital of Ogun') {
-      $reply =var_export('The capital of Ogun is Abeokuta');
-      return $reply;
-        
-    }
-    elseif ($string == 'what is the capital of Oyo') {
-      $reply =var_export('The capital of Oyo is Ibadan');
-      return $reply;     
-    }
-    elseif ($string == 'what is the capital of Ondo') {
-      $reply =var_export('The capital of Ondo is Akure');
-      return $reply;     
-    }
-   elseif ($string == 'what is the capital of Imo') {
+{    $reply = "";
+    if ($string == 'what is my location') {
        
-      $reply =var_export('The capital of Imo is Owerri');
-      return $reply;     
+      
+      $ip=$_SERVER['REMOTE_ADDR'];
+      $reply =unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
+      $reply =var_export('you are in '. $reply['geoplugin_regionName'] .' in '. $reply['geoplugin_countryName']);
+      return $reply;
+        
     }
-    elseif ($string == 'what is the capital of Akwa-Ibom') { 
-      $reply =var_export('The capital of Akwa-Ibom is Uyo');
-      return $reply;     
+    elseif ($string == 'tell me about your author') {
+        $reply= 'Her name is <i class="em em-sunglasses"></i> Chidimma Juliet Ezekwe, she is Passionate, gifted and creative backend programmer who love to create appealing Web apps solution from concept through to completion. An enthusiastic and effective team player and always challenge the star to quo by taking up complex responsibilities. Social account ';
+        return $reply;    
     }
-    elseif ($string == 'what is the capital of Adamawa') { 
-      $reply =var_export('The capital of Adamawa is Yola');
-      return $reply;     
+    elseif ($string == 'open facebook') {
+        $reply= "<p>Facebook opened successfully </p> <script language='javascript'> window.open(
+    'https://www.facebook.com/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
     }
-    elseif ($string == 'what is the capital of Ekiti') { 
-      $reply =var_export('The capital of Ekiti is Ado-Ekiti');
-      return $reply;     
+    elseif ($string == 'open twitter') {
+        $reply = "<p>Twitter opened successfully </p> <script language='javascript'> window.open(
+    'https://twitter.com/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }elseif ($string == 'open linkedin') {
+        $reply= "<p>Linkedin opened successfully </p> <script language='javascript'> window.open(
+    'https://www.linkedin.com/jobs/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
     }
-    elseif ($string == 'what is the capital of Bauchi') { 
-      $reply =var_export('The capital of Bauchi is Bauchi');
-      return $reply;     
-    }
-    elseif ($string == 'what is the capital of Bayelsa') { 
-      $reply =var_export('The capital of Bayelsa is Yenagoa');
-      return $reply;     
-    }
-    elseif ($string == 'what is the capital of Abia') { 
-      $reply =var_export('The capital of Abia is Umuahia');
-      return $reply;     
-    }
-    elseif ($string == 'what is the capital of Anambra') { 
-      $reply =var_export('The capital of Anambra is Awka');
-      return $reply;     
-    }
-    elseif ($string == 'what is the capital of Borno') { 
-      $reply =var_export('The capital of Borno is Maiduguiri');
-      return $reply;     
-    }
-    elseif ($string == 'what is the capital of Cross-River') { 
-      $reply =var_export('The capital of Cross-River is Calabar');
-      return $reply;     
-    }
-    elseif ($string == 'what is the capital of Delta') { 
-      $reply =var_export('The capital of Delta is Asaba');
-      return $reply;     
-    }
-    elseif ($string == 'what is the capital of Benue') { 
-      $reply =var_export('The capital of Benue is Makurdi');
-      return $reply;     
-    }
-    elseif ($string == 'what is the capital of Edo') { 
-      $reply =var_export('The capital of Edo is Benin');
-      return $reply;     
-    }
-    elseif ($string == 'what is the capital of Enugu') { 
-      $reply =var_export('The capital of Enugu is Enugu');
-      return $reply;     
-    }
-    elseif ($string == 'what is the capital of Kebbi') { 
-      $reply =var_export('The capital of Kebbi is Birnin Kebbi');
-      return $reply;     
-    }
-    elseif ($string == 'what is the capital of Katsina') { 
-      $reply =var_export('The capital of Katsina is Katsina');
-      return $reply;     
-    }
-    elseif ($string == 'what is the capital of Kano') { 
-      $reply =var_export('The capital of Kano is Kano');
-      return $reply;     
-    }
-    elseif ($string == 'what is the capital of Kaduna') { 
-      $reply =var_export('The capital of Kaduna is Kaduna');
-      return $reply;     
-    }
-    elseif ($string == 'what is the capital of Jigawa') { 
-      $reply =var_export('The capital of Dutse is Dutse');
-      return $reply;     
-    }
-    elseif ($string == 'what is the capital of Kwara') { 
-      $reply =var_export('The capital of Kwara is Ilorin');
-      return $reply;     
-    }
-    elseif ($string == 'what is the capital of Gombe') { 
-      $reply =var_export('The capital of Gombe is Gombe');
-      return $reply;     
-    }
-    elseif ($string == 'what is the capital of Nasarawa') { 
-      $reply =var_export('The capital of Nasarawa is Lafia');
-      return $reply;     
-    }
-    else {
-        $reply = "Please enter a valid question";
+    elseif ($string == 'shutdown my pc') {
+        $reply =  exec ('shutdown -s -t 0');
+        return $reply;
+    }elseif ($string == 'get my pc name') {
+        $reply = getenv('username');
         return $reply;
     }
+    else{
+        $reply = "";
+        return $reply;
+    }
+  
 }
+
+
+
 
 $existError =false;
 $reply = "";//process starts
 if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 
-  if ($_POST['msg'] == 'Help') {
-    $reply = 'These is a sample format of a question <p>what is the capital of Lagos</br>For compound names separate with a dash </br>e.g what is the capital of Ado-Ekiti</p>';
+  if ($_POST['msg'] == 'commands') {
+    $reply = 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
     echo $reply;
   } 
       if($reply==""){
@@ -160,12 +124,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
        echo $reply;
        
      }
-$reply=="";
-$testfor = "train";
-if(substr( $reply, 0, strlen($testfor) ) === "train") {
+  if($reply =="") {
 
     $post= $_POST['msg'];
-    $result = decifer($post);
+    $result = decider($post);
     if($result){
       $question=$result[0]; 
       $answer= $result[1];
@@ -196,7 +158,8 @@ if(substr( $reply, 0, strlen($testfor) ) === "train") {
         } 
       else
         if(!($existError)){
-          $sql = "INSERT INTO chatbot(question, answer) VALUES(:quest, :ans)";
+          $sql = "INSERT INTO chatbot(question, answer)
+          VALUES(:quest, :ans)";
           $stm =$conn->prepare($sql);
           $stm->bindParam(':quest', $question);
           $stm->bindParam(':ans', $answer);
@@ -204,9 +167,9 @@ if(substr( $reply, 0, strlen($testfor) ) === "train") {
           $saved = $stm->execute();
             
           if ($saved) {
-              echo  "I am smarter now";
+              echo  "Thanks to you, I am smarter now";
           } else {
-              echo "oops, I could not execute your command";
+              echo "Error: could not understand";
           }
             
           
@@ -232,7 +195,7 @@ if(substr( $reply, 0, strlen($testfor) ) === "train") {
     
     }
     else{
-       echo "";
+       echo "I did'nt get that, please rephrase or try again later";
     }       
   }
 }
@@ -244,9 +207,8 @@ if(substr( $reply, 0, strlen($testfor) ) === "train") {
  
 
 }
-    else{
-       echo "";
-    }  
+else{
+  
 ?>
 
 <!DOCTYPE html>
@@ -256,7 +218,7 @@ if(substr( $reply, 0, strlen($testfor) ) === "train") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
    
-    <title>dev_gb</title>
+    <title>Juliet - HNG Internship 4</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -278,8 +240,8 @@ html {
 }
 body {
   font: 400 normal 14px/1.4 'Lato', sans-serif;
-  color: #000000;
-  background: #F0F0F0;
+  color: #706c72;
+  background: #0bc3f7;
 }
 
 .clear:before,
@@ -330,7 +292,7 @@ a:focus {
   width: 100%;
   max-width: 296px;
   height: 100%;
-  background: #F0F0F0;
+  background: #2b2130;
   border-radius: 10px 0 0 10px;
 }
 
@@ -373,16 +335,16 @@ a:focus {
 .contact-list .person.active:after {
   content: '';
   display: block;
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
+    position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
   border-right: 4px solid #0bf9c7;
   box-shadow: inset -4px 0px 4px -4px #0bf9c7;
 }
 
 .person .avatar img {
-  width: 200px;
+  width: 56px;
   margin-left: 25px;
-  border-radius: 100%;
+  border-radius: 50%;
 }
 
 .person .avatar {
@@ -397,7 +359,7 @@ a:focus {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background: #F0F0F0;
+  background: #9e99a1;
   border: 4px solid #222; 
 }
 
@@ -415,19 +377,16 @@ a:focus {
 
 .person .info {
   display: inline-block;
-  width: auto;
+  width: 200px;
   padding: 0 0 0 10px; 
-  font-size: 16px;
-  font-style: italic;
 }
 
 .person .name, .person .status-msg {
   display: inline-block;
-  width: auto; 
 }
 
 .person .name {
-  color: #FFFFFF;
+  color: #fdfdfd;
   font-size: 17px;
   font-size: 1.7rem;
   font-weight: 700;
@@ -576,9 +535,65 @@ a:focus {
 /*------------------------------------*\
     Contacts List - Custom Scrollbar
 \*------------------------------------*/
-</style>
-</head>
 
+
+</style>
+  </head>
+
+<!-- jet -->
+<body class="oj-web-applayout-body">
+    <!-- Template for rendering navigation items shared between nav bar and nav list -->
+    <script type="text/html" id="navTemplate">
+      <li><a href="#">
+        <span :class="[[$data['iconClass']]]"></span>
+        <oj-bind-text value="[[$data['name']]]"></oj-bind-text>
+      </a></li>
+    </script>
+   
+    <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
+       <div id="pageContent" class="oj-web-applayout-page">
+        <!--
+           ** Oracle JET V5.0.0 web application header pattern.
+           ** Please see the demos under Cookbook/Patterns/App Shell: Web
+           ** and the CSS documentation under Support/API Docs/Non-Component Styling
+           ** on the JET website for more information on how to use this pattern.
+        -->
+        <oj-module role="main" class="oj-web-applayout-max-width oj-web-applayout-content oj-complete" config="[[moduleConfig]]"><!-- ko ojModule: {"view":$properties.config.view, "viewModel":$properties.config.viewModel,"cleanupMode":$properties.config.cleanupMode,"animation":$properties.animation} --><!--
+ Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+<div class="oj-hybrid-padding">
+  <my-profile>
+    </my-profile>
+    <div class="twcd container">
+        <div class="name">
+        <h1 >Chidimma Juliet Ezekwe</h1>
+      <h4>Web Developer</h4>
+          </div>
+          <div class="profile mx-auto">
+          <div class="oj-flex">
+            <div class="oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item"></div>
+            <div class="oj-md-6 oj-lg-6 oj-xl-6 oj-flex-item"><img class="profile-img mx-auto" src="http://res.cloudinary.com/julietezekwe/image/upload/v1523643285/juliet.png" alt="my-profile">
+</div>
+            <div class="oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item"></div>
+        </div>
+                      </div>
+          <div class="about">
+          <h3>Description</h3>
+          <p>An Innovative web deveploper inter at HngInternship<sup>4</sup></p>
+          <h3 >Details</h3>
+          <ul>
+            <li>Creative</li>
+            <li>Innovative</li>
+            <li>Team player</li>
+            <li>Result oriented and time conscious</li>
+          </ul>
+          </div>
+    </div>  
+
+    <button type="button" class="btn btn-danger btn-lg pull-right" data-toggle="collapse" data-target="#chat">Chat now</button>
+              
+              <div id="chat" class="wrapper collapse">
 
                 <div class="content">
 
@@ -590,14 +605,24 @@ a:focus {
 
                    <li class="person">
                           <span class="avatar">
-                            <img src="http://res.cloudinary.com/devgeaks/image/upload/v1523731563/2017-03-02_08.30.03.jpg" alt="Sacha Griffin" />
+                            <img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964193/human.png" alt="Sacha Griffin" />
                             <span class="status online"></span>
                           </span>
                           <span class="info">
-                            <br/>
-                            “My name is Akinduko Olugbenga.<br/><br/>I enjoy meeting new people and finding ways to help them have an uplifting experience.<br/><br/>I have had a variety of Software development opportunities, through which I was able to solve real life problems.<br/><br/>Would you like to reach me? Drop a message” 
-                        </span>
+                            <span class="status-msg">You Are Currently Logged In </span>
+                          </span>
                         </li>
+                           <li class="person">
+                          <span class="avatar">
+                            <img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964204/robot.jpg" alt="NitroChatBot" />
+                            <span class="status online"></span>
+                          </span>
+                          <span class="info">
+                            <span class="name">Julie's Assist</span>
+                            <span class="status-msg">I am Julies's Assistant</span>
+                          </span>
+                        </li>
+
                       </ul><!-- /.contact-list -->
 
                     </div><!-- /.contacts -->
@@ -607,6 +632,10 @@ a:focus {
                   <div class="chatbox">
 
                     <div class="person">
+                      <span class="avatar">
+                        <img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964193/human.png" alt="human Image" />
+                        <span class="status online"></span>
+                      </span>
                       <span class="info">
                        <span class="login-status">Online    | <?php
             echo "" . date("h:i:a");
@@ -614,7 +643,7 @@ a:focus {
             
             $ip=$_SERVER['REMOTE_ADDR'];
             $reply = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
-            echo var_export('Glad to have a vistor from '. $reply['geoplugin_regionName'] .','.$reply['geoplugin_countryName'] );
+            echo var_export('you are in '. $reply['geoplugin_countryName'] .' in '. $reply['geoplugin_regionName']);
             ?></span>
                         
                       </span>
@@ -635,16 +664,13 @@ a:focus {
             });
                 </script>
                     <div class="chatbox-messages" >
-                      <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390" alt="Support" /></span><div class="sender"><div class="message-container"><div class="message"><p>
-                      Welcome to Dev_GB's profile page <i class="em em-sunglasses"></i> How can i be of help to you? <i class="em em-smiley"></i></p>
-                              <p>Tips: Type "Help' to see FAQ.<br>To train use the format: train#Question#Answer#Password</p>
-                              </div><span class="delivered">
-                                <?php echo "" . date("h:i:a");?>
-                                  
-                                </span>
-                              </div>
-                    </div>
-                    </div>
+                      <div class="messages clear"><span class="avatar"><img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964204/robot.jpg"alt="Debby Jones" /></span><div class="sender"><div class="message-container"><div class="message"><p>
+                      Hi My name is Cutie <i class="em em-sunglasses"></i> I can tell you about My Author <i class="em em-smiley"></i></p>
+                              <p>You can tell me what to do i promise not to fail you, just type "commands' to see the list of what i can do.<br>You can train me too by simply using the key word "train", seperate the command and response with "#", and ofourse, the password</p>
+                              </div><span class="delivered"><?php
+            echo "" . date("h:i:a");
+            ?></span></div><!-- /.message-container -</div><!-- /.sender --></div><!-- /.messages -->
+                            </div>
                             <div class="push"></div>
 
                     </div><!-- /.chatbox-messages -->
@@ -665,7 +691,7 @@ a:focus {
                   $('<div class="messages clear"><div class="user"><div class="message-container"><div class="message"><p>'+msg+'</p></div><span class="delivered"><?php
             echo "" . date("h:i:a");
             ?></span></div></div><!-- /.user --></div>').insertBefore('.push');
-                  
+                  $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
 
                   formSubmit();
 
@@ -675,16 +701,16 @@ a:focus {
                 var message = $("#msg").val();
                     var dataString = 'msg=' + msg;
                     jQuery.ajax({
-                        url: "dev_gb.php",
+                        url: "/profiles/juliet.php",
                         data: dataString,
                         type: "POST",
                          cache: false,
                              success: function(response) {
             setTimeout(function(){
-                     $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message"><p>'+response+'</p></div><span class="delivered"><?php
+                     $(' <div class="messages clear"><span class="avatar"><img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964204/robot.jpg"alt="Debby Jones" /></span><div class="sender"><div class="message-container"><div class="message"><p>'+response+'</p></div><span class="delivered"><?php
             echo "" . date("h:i:a");
-            ?></span></div>').insertBefore('.push');
-                  
+            ?></span></div><!-- /.message-container -</div><!-- /.sender --></div><!-- /.messages --></div>').insertBefore('.push');
+                  $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
                   play();
                 },  1000);
 
@@ -695,8 +721,12 @@ a:focus {
                 }
                     });
             });
-             
+                  function play(){
+                   var audio = document.getElementById("audio");
+                   audio.play();
+                             }                
             </script>
+            <audio id="audio" src="https://res.cloudinary.com/julietezekwe/video/upload/v1523964158/beep.mp3" ></audio>
 
                       <form class="message-form" method="POST" action="" >
                         <textarea id="msg" name="msg" value=""  placeholder="Type a message here..."></textarea>
@@ -707,6 +737,10 @@ a:focus {
 
                   </div><!-- /.chatbox -->
 
+                </div><!-- /.content -->
+
+              </div><!-- /.wrapper -->
+
 
         </div>
       </div>
@@ -715,5 +749,29 @@ a:focus {
     
 
     </div>
+    <!-- /.container -->
+
+
+
+    <!-- Bootstrap core JavaScript -->
+    
+
+    <!-- Custom scripts for this template -->
+    <script src="../js/hng.min.js"></script>
+  
+</div><!-- /ko --><div data-bind="_ojNodeStorage_" style="display: none;" class="oj-subtree-hidden">
+        </div></oj-module>
+      </div>
+      </div>
+ 
+</body>
+<!-- end jet -->
+
+  <body>           
+
+  </body>
 
 </html>
+
+<?php 
+}?>
