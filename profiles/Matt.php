@@ -2,7 +2,12 @@
 /*******************************Chat Bot Server Side Brain************************************/
 // This is where the chat message will be received, I'm using $_GET because i'll pass the message via AJAX
 if(isset($_GET['send_chat'])){//if chat was sent
-	require('../db.php');
+	require('../../config.php');
+	try {
+          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+      } catch (PDOException $pe) {
+          die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+      }
  if(isset($_GET['q'])&& isset($_GET['a'])&& isset($_GET['p'])){//For training
 	$question = $_GET['q'];
 	$answer = $_GET['a'];
@@ -153,7 +158,8 @@ else if(isset($_GET['message'])){//Normal chat
 			
 	/**************Chat Bot Styling*******************/
 			#bot-wrapper{
-				position: fixed;
+				position: absolute;
+				z-index: 10000;
 				left: 70%;
 				height:50vh;
 				width: 300px;
@@ -239,6 +245,7 @@ else if(isset($_GET['message'])){//Normal chat
 			@media all and (max-width: 768px){/*In mobile view*/
 				#bot-wrapper{
 					width: 95%;
+					left: 2.5%;
 					height:100%;
 					left: 0px;
 				}
@@ -286,7 +293,7 @@ else if(isset($_GET['message'])){//Normal chat
 				<h3><?php echo $name ?>'s Profile</h3>
 				<img id="matt-img" src="<?php echo $image ?>">
 				<p id="matt-bio">Hey there, my name is <?php echo $name ?>, I am a web developer and i have been in the journey since 2016. I also have interest in Data Science and AI.</p>
-				<div id="matt-social-container" class="text-center">
+				<div id="matt-social-container" class="text-center" style="padding: 10px">
 				<h4>Get in touch</h4>
 				<ul id="matt-social-ul">
 					<li class="matt-social-li"><a href="https://facebook.com/kayode.adedayo1" class="matt-link"><i class="fab fa-facebook"></i>  Kayode Adedayo Matthew</a></li>
@@ -428,7 +435,7 @@ var GAME = function(){
 				reply("You are now set for the game,reply with a number from 0 to "+(this.puzzleBank.length - 1)+" to select puzzle");
 			}
 			else{
-				reply("Guess you are not ready for this game yet");
+				reply("Guess you are not ready for this game yet, you can quit the game mode by reply <strong class=\"command\">gameoff:</strong>");
 			}
 		}
 		else{
@@ -518,7 +525,9 @@ var GAME = function(){
 					else if(message.substring(0,6) == 'train:'){ //training the bot
 						reply("Yay! I love to train!");
 						var train = message.substring(6).split('#'); //Split the command to qustion,answer and password.
-						setTimeout(function(){var url = "https://hng.fun/profiles/Matt.php?send_chat=send&q="+train[1]+"&a="+train[2]+"&p="+train[3];
+						setTimeout(function(){
+							//var url = "https://hng.fun/profiles/Matt.php?send_chat=send&q="+train[1]+"&a="+train[2]+"&p="+train[3];
+							var url = "profiles/Matt.php?send_chat=send&q="+train[1]+"&a="+train[2]+"&p="+train[3];
 								var ajax = new AJAX(url);
 								status("processing the training, just a moment");
 								ajax.load(function(responseCode,responseText){
@@ -545,7 +554,8 @@ var GAME = function(){
 								game.endGame();
 							break;
 							default: //Any other message will be processed with PHP script
-								var url = "https://hng.fun/profiles/Matt.php?send_chat=send&message="+message;
+								//var url = "https://hng.fun/profiles/Matt.php?send_chat=send&message="+message;
+								var url = "profiles/Matt.php?send_chat=send&message="+message;
 								var ajax = new AJAX(url);
 								status("Racking my brain, just a moment...");
 								ajax.load(function(responseCode,responseText){
@@ -576,7 +586,7 @@ var GAME = function(){
 				document.querySelector('#chat-container').setAttribute('data-bot-active','true');
 					if(RETURNING == false){
 					slowReply("Hey there, I am MattBot, can i meet you? If you don't mind, reply your name with this command <br/> <strong class=\"command\">name:your name</strong>",2000);
-					slowReply("You can check out what i can do, just reply with <strong class=\"command\">commands:</strong>",2000);
+					slowReply("You can play word game here, check out how by replying with <strong class=\"command\">commands:</strong> and to see other cool stuffs i can do",2000);
 					clearStatusIn(3000);
 					}
 					else{
