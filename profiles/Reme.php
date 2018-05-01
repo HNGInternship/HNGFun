@@ -91,7 +91,26 @@ body, h1, h2, h3, h4, h5, h6, p, nav, div, span
     {
     position: fixed;
     bottom: 0;
-    width: 100%;
+    width: 75%;
+    }
+.sent
+    {
+      width: 55%;  
+      background-color: #9c27b0;
+      border-radius: 10px;
+      float: right;
+      padding: 10px;
+      margin: 2%;
+      color: #ffffff;
+    }
+ .reply
+    {
+      width: 55%;
+      background-color: #dedede;
+      border-radius: 10px;
+      float: left;
+      padding: 10px;
+      margin: 2%;
     }
 </style>
 </head>
@@ -120,7 +139,13 @@ body, h1, h2, h3, h4, h5, h6, p, nav, div, span
 <div class="row">
 <div class="col-lg-12">
 <!--sent-->
+<div class="sent">
+<p>Hello</p>
+</div>
 <!--reply-->
+<div class="reply">
+<p>Hullo</p>
+</div>
 <!--message input-->
 <div class="input-group mb-3" id="message-input">
   <div class="input-group-prepend">
