@@ -13,11 +13,6 @@
 		body {
 			background: linear-gradient(to left top, #EAE2D6, #D5C3AA); /* Linen, Oyster */
 		}
-		.container {
-			margin-top: 2.5em;
-			padding: 2.5em;
-			max-height: 100vh;
-		}
 		/* typography */
 		h1, h2, h3, h4, h5, h6 {
 			font-family: 'Orbitron', sans-serif;
