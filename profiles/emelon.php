@@ -12,10 +12,6 @@
 	<style type="text/css">
 		body {
 			background: linear-gradient(to left top, #EAE2D6, #D5C3AA); /* Linen, Oyster */
-			height: 100vh;
-			max-width: 100vw;
-			padding: 0;
-			margin: 0;
 		}
 		.container {
 			margin-top: 2.5em;
@@ -115,8 +111,6 @@
 	$query_name = $conn->query("Select * from interns_data where name = 'Emmanuel Daniel'");
 	$query_name = $query_name->fetch(PDO::FETCH_OBJ);
 	$name = $query_name->name;
-
-	echo "$name";
 
 ?>
 	<div class="container">
