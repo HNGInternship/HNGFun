@@ -30,128 +30,71 @@
 ?>
 
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-  include '../answers.php';
-
-  $question = $_POST['input'];
-  $question = preg_replace('([\s]+)', ' ', trim($question)); 
-  $question = preg_replace("([?.])", "", $question); 
-  $question = strtolower(trim($question));
-
-  //Version of the bot
-  if ($question === "aboutbot") {
-        echo json_encode([
-           'status' => 1,
-             'answer' => "Santra v1.0",
-         ]);
-    return;
-  };
-
-
-    
-    // check if the string begins with the string train: 
-  
-      if($question == "train:"){
-
-        unset($question);
-        $q = implode(" ",$question);
-        $queries = explode("#", $q);
-        if (count($queries) < 3) {
-          # code...
-          echo json_encode([
-            'status' => 0,
-            'answer' => "You need to enter a password to train me."
-          ]);
-          return;
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $data = $_POST['user-input'];
+      //  $data = preg_replace('/\s+/', '', $data);
+        $temp = explode(':', $data);
+        $temp2 = preg_replace('/\s+/', '', $temp[0]);
+        if($temp2 === 'train'){
+            train($temp[1]);
+        }elseif($temp2 === 'aboutbot') {
+            aboutbot();
+        }else{
+            getAnswer($temp[0]);
         }
-        $password = trim($queries[2]);
-        //to verify training password
-        define('PASSWORD', 'password');
-        
-        if ($password !== PASSWORD) {
-          # code...
-          echo json_encode([
-            'status'=> 0,
-            'answer' => "You entered a wrong passsword"
-          ]);
-          return;
-        }
-        $quest = $queries[0];
-        $ans = $queries[1];
-
-        $sql = "insert into chatbot (question, answer) values (:question, :answer)";
-
-        $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':question', $quest);
-            $stmt->bindParam(':answer', $ans);
-            $stmt->execute();
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-        
-        echo json_encode([
-          'status' => 1,
-          'answer' => "Thanks for training me, you can now test my knowledge"
-        ]);
-        return;
-      }
-      else{
-
-        $question = implode(" ",$arr);
-          //to check if answer already exists in the database...
-          $question = "$question";
-          $sql = "Select * from chatbot where question like :question";
-            $stat = $conn->prepare($sql);
-            $stat->bindParam(':question', $question);
-            $stat->execute();
-
-            $stat->setFetchMode(PDO::FETCH_ASSOC);
-            $rows = $stat->fetchAll();
-              if(empty($rows)){
-              echo json_encode([
-              'status' => 0,
-              'answer' => "I am sorry, I cannot answer your question now. You could train me to answer the question."
-            ]);
-            return;
-          }else{
-            $rand = array_rand($rows);
-            $answer = $rows[$rand]['answer'];
-
-            $index_of_parentheses = stripos($answer, "((");
-              if($index_of_parentheses === false){// if answer is not to call a function
-                echo json_encode([
-                  'status' => 1,
-                  'answer' => $answer
-                ]);
-                return;
-              }else{//to get the name of the function, before calling
-                  $index_of_parentheses_closing = stripos($answer, "))");
-                  if($index_of_parentheses_closing !== false){
-                      $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
-                      $function_name = trim($function_name);
-                      if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
-                         echo json_encode([
-                          'status' => 0,
-                          'answer' => "The function name should not contain white spaces"
-                        ]);
-                        return;
-                      }
-                    if(!function_exists($function_name)){
-                      echo json_encode([
-                        'status' => 0,
-                        'answer' => "I am sorry but I could not find that function"
-                      ]);
-                    }else{
-                      echo json_encode([
-                        'status' => 1,
-                        'answer' => str_replace("(($function_name))", $function_name(), $answer)
-                      ]);
-                    }
-                    return;
-                  }
-              }
-      }
     }
+    function aboutbot() {
+        echo "<div id='result'>Santra v1.0</div>";
+    }
+    function train($input) {
+        $input = explode('#', $input);
+        $question = trim($input[0]);
+        $answer = trim($input[1]);
+        $password = trim($input[2]);
+        if($password == 'password') {
+            $sql = 'SELECT * FROM chatbot WHERE question = "'.
+$question .'" and answer = "'. $answer .'" LIMIT 1';
+            $q = $GLOBALS['conn']->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+            if(empty($data)) {
+                $training_data = array(':question' => $question,
+                    ':answer' => $answer);
+                $sql = 'INSERT INTO chatbot ( question, answer)
+              VALUES (
+                  :question,
+                  :answer
+              );';
+                try {
+                    $q = $GLOBALS['conn']->prepare($sql);
+                    if ($q->execute($training_data) == true) {
+                        echo "<div id='result'>Training Successful!</div>";
+                    };
+                } catch (PDOException $e) {
+                    throw $e;
+                }
+            }else{
+                echo "<div id='result'>I already understand this.
+Teach me something new!</div>";
+            }
+        }else {
+            echo "<div id='result'>Invalid Password, Try Again!</div>";
+        }
+    }
+    function getAnswer($input) {
+        $question = $input;
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+        $q = $GLOBALS['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
+        if(empty($data)){
+            echo "<div id='result'>Sorry, I do not understand this Commmand.
+You can train me simply by using the format - 'train: question #
+answer #password'</div>";
+        }else {
+            $rand_keys = array_rand($data);
+            echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
+        }
     }
 ?>
 
@@ -421,35 +364,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </html>
 
   <script>
-    $(document).ready(function(){
-      var Form =$('#bot-input');
-      Form.submit(function(e){
+  var outputArea = $('#chat');
+    $("#bot-input").on("submit", function(e) {
         e.preventDefault();
-        var questionBox = $('#txt-input');
-        var question = questionBox.val();
-        $("#chat").append("<div class='chat'><p class='me'>" + question + "</p></div>");
-        $('.chat').scrollTop($('.chat')[0].scrollHeight); 
-        
+        var $message = $("#txt-input").val(); 
+        if($message !== ''){
+            
+           $('.message').hide(); 
+           
+           $("#txt-input").val("");
+        }
+        outputArea.append(`<div class='chat'><p
+class='me'>${$message}</p></div>`);
+    
         $.ajax({
-          url: '/profiles/epospiky.php',
-          type: 'POST',
-          data: {question: question},
-          dataType: 'json',
-          success: function(response){
-              $("#chat").append("<div class='chat'><p class='san'> " + response.answer + "</p></div>");
-               $('.chat').scrollTop($('.chat')[0].scrollHeight);
-             // console.log(response.result);
-              //alert(response.result.d);
-              //alert(answer.result);
-              
-          },
-          error: function(error){
-            //console.log(error);
-                alert(JSON.stringify(error));
-          }
-        })  
-        document.getElementById("bot-input").reset();   
-      })
+            url: 'profile.php?id=epospiky',
+            type: 'POST',
+            data:  'user-input=' + $message,
+            success: function(response) {
+                var result = $($.parseHTML(response)).find("#result").text();
+                setTimeout(function() {
+                    outputArea.append("<div class='chat'><p class='san'>" + result + "</p></div>");
+                    $('#chat').animate({
+                        scrollTop: $('#chat').get(0).scrollHeight
+                    }, 1500);
+                }, 250);
+            }
+        });
+        $("#txt-input").val("");
     });
   </script>
 </body>
