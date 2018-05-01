@@ -2,7 +2,12 @@
 /*******************************Chat Bot Server Side Brain************************************/
 // This is where the chat message will be received, I'm using $_GET because i'll pass the message via AJAX
 if(isset($_GET['send_chat'])){//if chat was sent
-	require('../db.php');
+	require('../config.php');
+	try {
+          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+      } catch (PDOException $pe) {
+          die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+      }
  if(isset($_GET['q'])&& isset($_GET['a'])&& isset($_GET['p'])){//For training
 	$question = $_GET['q'];
 	$answer = $_GET['a'];
@@ -287,7 +292,7 @@ else if(isset($_GET['message'])){//Normal chat
 				<h3><?php echo $name ?>'s Profile</h3>
 				<img id="matt-img" src="<?php echo $image ?>">
 				<p id="matt-bio">Hey there, my name is <?php echo $name ?>, I am a web developer and i have been in the journey since 2016. I also have interest in Data Science and AI.</p>
-				<div id="matt-social-container" class="text-center">
+				<div id="matt-social-container" class="text-center" style="padding: 10px">
 				<h4>Get in touch</h4>
 				<ul id="matt-social-ul">
 					<li class="matt-social-li"><a href="https://facebook.com/kayode.adedayo1" class="matt-link"><i class="fab fa-facebook"></i>  Kayode Adedayo Matthew</a></li>
