@@ -474,16 +474,15 @@
 							data: {chat: a},
 							success: function(data,status){
 								if(data != ""){
-									alert(data);
-									// if (data.indexOf("::def") >= 0) {
+									if (data.indexOf("::def") >= 0) {
 										
-									// 	data = data.replace("::def","");
-									// 	add_bot_text(data);
-									// 	add_bot_default();
-									// }
-									// else{
-									// 	add_bot_text(data);
-									// }
+										data = data.replace("::def","");
+										add_bot_text(data);
+										add_bot_default();
+									}
+									else{
+										add_bot_text(data);
+									}
 									
 								}										
 							}
