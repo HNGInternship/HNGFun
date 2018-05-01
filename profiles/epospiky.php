@@ -1,6 +1,5 @@
 <?php
 
-//require '../db.php';
   if(!defined('DB_USER')){
     require "../../config.php";   
     try {
@@ -36,7 +35,7 @@
 
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  require 'answers.php';
+  include '../answers.php';
 
   $question = $_POST['input'];
   $question = preg_replace('([\s]+)', ' ', trim($question)); 
