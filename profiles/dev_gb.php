@@ -161,7 +161,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                   }
                   else{
                      echo "<div id='result'>Tips: Type 'Help' to see FAQ.</br> To add new states ==> 'train:Question#answer#password'</div>";
-                     
+
       
                   }       
                 }
@@ -678,7 +678,7 @@ a:focus {
 <?php 
 }
 function help() {
-    echo '<div id='result'>These is a sample format of a question <p>What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ado-Ekiti</div>';
+    echo "<div id='result'>These is a sample format of a question <p>What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ado-Ekiti</div>";
 }
 function train( $input ) {
     $input    = explode( '#', $input );
