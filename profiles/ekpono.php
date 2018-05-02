@@ -257,12 +257,31 @@ a {
     to   { opacity: 1; }
 }
 /* CSS button */
+	.send {
+    padding: 8px 20px ;
+    background-color: blue;
+    border-radius: 5px;
+    color: #fff;
+}
+
+input[type=text] {
+    border-bottom: 5px solid #ccc;
+    width: 250px;
+    padding: 5px
+}
+
+.bot {
+    width: 80%;
+    text-align: justify;
+    height: auto;
+}
+
 </style>
 </head>
 <body>
 <div class="container">
     <div class="text">
-        <h1 style="color:rgb(32, 32, 216); padding-top: 30px">Hey! I'm <?php echo $result->name; ?></h1>
+        <h1 style="color:rgb(32, 32, 216); padding-top: 30px">Hey! I'm Ekpono ?></h1>
         <h2 style="color:#806a21;">I'm a developer from Nigeria</h2>
         <h3 class="slogan">I work with companies</h3>
         <p>Jiggle, Thirdfloor, JandK Services, Hilltop</p>
@@ -280,7 +299,7 @@ a {
         <a href="http://www.github.com/ekpono">Github</a>
     </div>
     <div class="photo">
-        <img src="<?php echo $result->image_filename; ?>" width="300px" height="300px"  style="border-radius: 50%; padding-top: 30px;" alt="Ekpono's Profile Picture" />
+        <img src="http://res.cloudinary.com/ambrose/image/upload/r_29/v1523629415/dp2.jpg" width="300px" height="300px"  style="border-radius: 50%; padding-top: 30px;" alt="Ekpono's Profile Picture" />
     </div>
     <!-- Chat form -->
 
