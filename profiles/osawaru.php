@@ -78,7 +78,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $title =  $news['articles'][0]['title'];
         $time = $news['articles'][0]['publishedAt'];
         $newsurl = $news['articles'][0]['url']; 
-            exit(json_encode(["answers" => "<strong >Title: $title </strong><br> $time <br> <a href = '$newsurl' style='color: #423ab7'>Read more..</a>"]));
+        $title1 =  $news['articles'][1]['title'];
+        $time1 = $news['articles'][1]['publishedAt'];
+        $newsurl1 = $news['articles'][1]['url'];
+            exit(json_encode(["answers" => "<strong >Title: $title </strong><br> $time <br> <a href = '$newsurl' alt='Powered by Newsapi.org' style='color: #423ab7'>Read more..</a><br/><strong >Title: $title1 </strong><br> $time1 <br> <a href = '$newsurl1' style='color: #423ab7'>Read more..</a>"]));
     }
    
     else {      
