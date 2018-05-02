@@ -409,9 +409,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				dataType: 'json',
 				success: (response) => {
 					
-			        response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
-			        let response_answer = response.answer;
-			        message.append("<div class='bot'><div class='message'><img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/>" +response_answer+ "</div></div>");      
+			        //response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
+			        //let response_answer = response.answer;
+			        message.append("<div class='bot'><div class='message'><img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/>" + response.answer + "</div></div>");      
 			       	$('#contain').animate({scrollTop: $('#contain').get(0).scrollHeight}, 1100);     
 				},
 				error: (error) => {
@@ -421,7 +421,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				}
 				
 			});
-			$("#text_in").val("");
+			$("#textbox").val("");
 			}
 		});
 		
