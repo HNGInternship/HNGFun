@@ -29,7 +29,7 @@
                  'status' => 1,
                         'answer' => "thanks for enlarging my knowledge base"
                         ]);
-
+return;
 }
 else {echo json_encode([
    'status' => 1,
@@ -54,6 +54,7 @@ return;
            'status' => 1,
            'answer' => "franks bot version 1.45"
          ]);
+return;
       }
      if ($message!=''){
 $result2 = $conn->query("select * from chatbot where question = '$message' order by rand()");
@@ -66,6 +67,7 @@ echo json_encode([
    'status' => 1,
    'answer' => $rows
  ]);
+return;
 }
 else
 {
@@ -73,7 +75,7 @@ else
      'status' => 1,
      'answer' =>"sorry i have no answer to that yet .......but you an train me how to annswer questions "
    ]);
-
+return;
 }
 
 if ($message==""){
@@ -81,6 +83,7 @@ if ($message==""){
      'status' => 1,
      'answer' => "enter a question  you can also   remember train me "
    ]);
+return;
 }
 }
 	return;
