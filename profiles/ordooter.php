@@ -52,7 +52,7 @@ try {
 <section class="bg-secondary text-white text-center">
     <div class="container">
         <img class="img-fluid mb-5 d-block mx-auto" src="http://i1074.photobucket.com/albums/w416/Butu_Ordooter_A/profile1_zpsblk9vlnz.png" alt="">
-        <?php if (!empty($data)) { ?>
+        <?php if (!empty($my_data)) { ?>
             <h1 class="text-uppercase mb-0"><?php echo ($my_data['name']); ?></h1>
         <?php } ?>
         <hr class="star-light">
