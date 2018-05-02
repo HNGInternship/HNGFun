@@ -177,7 +177,7 @@
 						<p>Also, you can train me to answer new questions in this format</p>
 						<p>train: question # answer # password</p>
 						<p>For example:</p>
-						<p class='bmi'>train: waddup today # Doing great # password</p>
+						<p class='bmi'>train: How are you today # Doing great # password</p>
 					</div>";
 			}
 ?>
@@ -551,12 +551,12 @@
 								<?php
 									add_default();
 									add_default();
-									// if($_SERVER['REQUEST_METHOD'] === 'POST'){
-									// 	if(isset($_POST['submit'])){
-									// 		$a = $_POST['user_text'];
-									// 		add_user_text($a);
-									// 	}
-									// }
+									if($_SERVER['REQUEST_METHOD'] === 'POST'){
+										if(isset($_POST['submit'])){
+											$a = $_POST['user_text'];
+											add_user_text($a);
+										}
+									}
 								?>
 							</div>
 
