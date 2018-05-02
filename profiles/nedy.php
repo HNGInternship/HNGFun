@@ -1,7 +1,131 @@
 <?php
+if($_SERVER['REQUEST_METHOD'] === "GET"){
+    try {
+        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'nedy'");
+        $intern_data->execute();
+        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $intern_data->fetch();
+    
+    
+        $secret_code = $conn->prepare("SELECT * FROM secret_word");
+        $secret_code->execute();
+        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+        $code = $secret_code->fetch();
+        $secret_word = $code['secret_word'];
+     } catch (PDOException $e) {
+         throw $e;
+     }
+     date_default_timezone_set("Africa/Lagos");
+     $today = date("H:i:s");
+}
+
+ ?>
+ <?php 
+    if($_SERVER['REQUEST_METHOD']==='POST'){
+        //function definitions
+        function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            $data = preg_replace("([?.!])", "", $data);
+            $data = preg_replace("(['])", "\'", $data);
+            return $data;
+        }
+        function chatMode($ques){
+            require '../../config.php';
+            $ques = test_input($ques);
+            $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+            if(!$conn){
+                echo json_encode([
+                    'status'    => 1,
+                    'response'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                ]);
+                return;
+            }
+            $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
+            $result = $conn->query($query)->fetch_all();
+            echo json_encode([
+                'status' => 1,
+                'response' => $result
+            ]);
+            return;
+        }
+        function trainerMode($ques){
+            require '../../config.php';
+            $questionAndAnswer = substr($ques, 6); //get the string after train
+            $questionAndAnswer =test_input($questionAndAnswer); //removes all shit from 'em
+            $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
+            $questionAndAnswer = explode("#",$questionAndAnswer);
+            if((count($questionAndAnswer)==3)){
+                $question = $questionAndAnswer[0];
+                $answer = $questionAndAnswer[1];
+                $password = test_input($questionAndAnswer[2]);
+            }
+            if(!(isset($password))|| $password !== 'password'){
+                echo json_encode([
+                    'status'    => 1,
+                    'response'    => "Please insert the correct training password"
+                ]);
+                return;
+            }
+            if(isset($question) && isset($answer)){
+                //Correct training pattern
+                $question = test_input($question);
+                $answer = test_input($answer);
+                if($question == "" ||$answer ==""){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "empty question or response"
+                    ]);
+                    return;
+                }
+                $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+                if(!$conn){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                    ]);
+                    return;
+                }
+                $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
+                if($conn->query($query) ===true){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "trained successfully"
+                    ]);
+                }else{
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "Error training me: ".$conn->error
+                    ]);
+                }
+                
+
+                return;
+            }else{ //wrong training pattern or error in string
+            echo json_encode([
+                'status'    => 0,
+                'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer"
+            ]);
+            return;
+            }
+        }
+
+        //end of function definition
+        
+        $ques = test_input($_POST['ques']);
+        if(strpos($ques, "train:") !== false){
+            trainerMode($ques);
+        }else{
+            chatMode($ques);
+        }
+
+       
+        return;
+    }
+ 
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -275,7 +399,10 @@
     function sendMsg(){
     var ques = document.querySelector("#user-message");
     displayOnScreen(ques.value, "sent");
-
+    if(ques.value === 'aboutbot'){
+        displayOnScreen('Name: BOTLER<br>Version: 1.0 beta*', 'received');
+        return;
+    }
     //console.log(ques.value);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function(){
@@ -283,9 +410,10 @@
             processData(xhttp.responseText);
         }
     };
-    xhttp.open("POST", "https://hng.fun/profiles/nedy.php", true);
+    xhttp.open("POST", "/profiles/nedy.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("message="+ques.value);
+    xhttp.send("ques="+ques.value);
+
     }
     function processData (data){
     data = JSON.parse(data);
@@ -297,7 +425,7 @@
             var res = Math.floor(Math.random()*answer.length);
             displayOnScreen(answer[res][0], "received");
         }else{
-            displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn<br> Here's the format: train: user-message # response","received");
+            displayOnScreen("Ooops!! I don't understand what you just said<br>To teach me use this  format<br>train# question # answer # password","received");
         }
     }else{
         displayOnScreen(answer,"received");
@@ -307,7 +435,7 @@
 
     }
     function displayOnScreen(data,align){
-    //console.log(data);
+    console.log(data);
 
     var main= document.querySelector(".messages-area");
     var div = document.createElement("div");

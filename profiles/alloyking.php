@@ -18,28 +18,32 @@
   $user = $result2->fetch(PDO::FETCH_OBJ);  // assign to array
 
 ?>
-</!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>My Portfolio</title>
 	<style type="text/css">
 		body{
-			background-color: #1D1C33;
 			text-align: center;
 			margin: 0px;
+		}
+		.dark{
+			background-color: #1D1C33;
+			border-radius: 20px 15px 20px 15px;
+			padding-top:10%;
 		}
 		.light{
 			margin-top:10%;
 			background-color: #FFF;
-			height: 50%;
+			height: 40%;
+			border-radius: 20px 15px 20px 15px;
 		}
 		.about{
-			padding-top:5%;
+			padding-top:1%;
 		}
 
 		.container{
-			width: 100%;
-			margin-top:10%; 
+			width: 100%; 
 		}
 		.second_heading{
 			color: #F3F2FF;
@@ -66,14 +70,17 @@
 			color: #6cd54c;
 			font-family: 'Roboto', sans-serif;
 			font-size: 20px;
+			top:0px;
 		}
 		.blue{
-			color:#1D1C33;
+			color:#1A165A;
 		}
 		.img{
+			margin-top:5%;
+			border-radius:100%;
 			border: solid 2px rgba(92, 122, 227, 0.5);
-			width: 60%;
-			height: 60%;
+			width: 40%;
+			height: 30%;
 		}
 		.profile_pix{
 			width: 100%;
@@ -90,11 +97,9 @@
 			<h1 class="heading">Software Developer Intern</h1>
 			<h4 class="second_heading">My HNG Internship Portfolio</h4>
 			<p class="name">
-				Anumadu Udodiri Moses (alloyking1) 
 				<?php 
-					echo $user->name; //print user name from array 
+					echo $user->name." (".$user->username." )"; //print user name from array 
 				?>
-				(<?php echo $user->username;?>)
 			</p>
 			
 		</section>
