@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html><head>
 <meta http-equiv="content-type" content="text/html">
 <title>Profile | Ogundiran Al-Ameen</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
 
 <style type="text/css">
 html,body{
@@ -13,18 +11,17 @@ html,body{
 }
 html{
     height:100%;
+    background:#e7f8ec;
+    background:-moz-linear-gradient(top, #e7f8ec 0%, #ddf4f4 100%);
+    background:-webkit-linear-gradient(top, #e7f8ec 0%, #ddf4f4 100%);
+    background:linear-gradient(to bottom, #e7f8ec 0%, #ddf4f4 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='$light', endColorstr='$darker',GradientType=0 )
 }
 body{
     height:100%;
     display:flex;
     justify-content:center;
-    align-items:center;
-    background:#e7f8ec !important;
-    background:-moz-linear-gradient(top, #e7f8ec 0%, #ddf4f4 100%) !important;
-    background:-webkit-linear-gradient(top, #e7f8ec 0%, #ddf4f4 100%) !important;
-    background:linear-gradient(to bottom, #e7f8ec 0%, #ddf4f4 100%) !important;
-    filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='$light', endColorstr='$darker',GradientType=0 )
-
+    align-items:center
 }
 h1,h4{
     width:100%;
@@ -154,7 +151,7 @@ a{
 
 <body>
 <?php
-//comment db before moving to live
+
 //include "../db.php";
 global $conn;
 $image_filename = '';
@@ -172,14 +169,14 @@ global $secret_word;
 $sql = "SELECT secret_word from secret_word";
 foreach ($conn->query($sql) as $row) {
     $secret_word = $row['secret_word'];
-
+   
 }
 ?>
-<div class="oj-flex oj-md-flex-items-1 container">
+<div class="container">
       <h1 class="title fader"><?php echo $name; ?></h1>
       <h4 class="name fader">Software Developer</h4>
 
-      <div class="oj-flex-item time-container">
+      <div class="time-container">
         <?php
           date_default_timezone_set('Africa/Lagos');
           echo date('h:i A', time());
@@ -190,8 +187,5 @@ foreach ($conn->query($sql) as $row) {
 
 
 
-<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
-<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/default/js"></script>
-<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/3rdparty"></script>
-</body>
-</html>
+
+</body></html>

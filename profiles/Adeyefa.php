@@ -2,182 +2,185 @@
 
 if(!defined('DB_USER')){
   require "../../config.php";		
-	try {
-	    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-	}catch (PDOException $pe) {
-	   die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-	}
+  try {
+      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
 }
- 
-	$result = $conn->query("Select * from secret_word LIMIT 1");
-	$result = $result->fetch(PDO::FETCH_OBJ);
-	$secret_word = $result->secret_word;
-	$result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
-	$user = $result2->fetch(PDO::FETCH_OBJ);
+	
 
 
-	if($_SERVER['REQUEST_METHOD'] === 'POST'){
+$result = $conn->query("Select * from secret_word LIMIT 1");
+$result = $result->fetch(PDO::FETCH_OBJ);
+$secret_word = $result->secret_word;
+$result2 = $conn->query("Select * from interns_data where username = 'adeyefa'");
+$user = $result2->fetch(PDO::FETCH_OBJ);
 
-		include '../answers.php';
-	    
-	    try{
 
-		    if(!isset($_POST['question'])){
-		      echo json_encode([
-		        'status' => 1,
-		        'answer' => "Please provide a question"
-		      ]);
-		      return;
-		    }
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-		    //if(!isset($_POST['question'])){
-		    $mem = $_POST['question'];
-		    $mem = preg_replace('([\s]+)', ' ', trim($mem));
-		    $mem = preg_replace("([?.])", "", $mem);
-			$arr = explode(" ", $mem);
-			//test for training mode
+    include "../answers.php";
+    
+    try{
 
-			if($arr[0] == "train:"){
+	    if(!isset($_POST['question'])){
+	      echo json_encode([
+	        'status' => 1,
+	        'answer' => "Please provide a question"
+	      ]);
+	      return;
+	    }
 
-				unset($arr[0]);
-				$q = implode(" ",$arr);
-				$queries = explode("#", $q);
-				if (count($queries) < 3) {
-					# code...
-					echo json_encode([
-						'status' => 0,
-						'answer' => "You need to enter a password to train me."
-					]);
-					return;
-				}
-				$password = trim($queries[2]);
-				//to verify training password
-				define('trainingpassword', 'password');
-				
-				if ($password !== trainingpassword) {
-					# code...
-					echo json_encode([
-						'status'=> 0,
-						'answer' => "You entered a wrong passsword"
-					]);
-					return;
-				}
-				$quest = $queries[0];
-				$ans = $queries[1];
+	    //if(!isset($_POST['question'])){
+	    $mem = $_POST['question'];
+	    $mem = preg_replace('([\s]+)', ' ', trim($mem));
+	    $mem = preg_replace("([?.])", "", $mem);
+		$arr = explode(" ", $mem);
+		//test for training mode
 
-				$sql = "insert into chatbot (question, answer) values (:question, :answer)";
+		if($arr[0] == "train:"){
 
-				$stmt = $conn->prepare($sql);
-		        $stmt->bindParam(':question', $quest);
-		        $stmt->bindParam(':answer', $ans);
-		        $stmt->execute();
-		        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-				
-				echo json_encode([
-					'status' => 1,
-					'answer' => "Thanks for training me, you can now test my knowledge"
-				]);
-				return;
-			}
-			elseif ($arr[0] == "help") {
-				echo json_encode([
-					'status' => 1,
-					'answer' => "You can train me by using this format ' train: This is a question # This is the answer # password '. You can also convert cryptocurrencies using this syntax.'convert btc to usd"
-					
-				]);
-				return;
-				
-			}
-			elseif ($arr[0] == "convert") {
+			unset($arr[0]);
+			$q = implode(" ",$arr);
+			$queries = explode("#", $q);
+			if (count($queries) < 3) {
 				# code...
-				$from = $arr[1];
-				$to = $arr[3];
-				$converted_price = GetCryptoPrice($from, $to);
-				$price = "1 " . $from . " = " . $to . " " . $converted_price ;
 				echo json_encode([
-					'status' => 1,
-					'answer' => $price
+					'status' => 0,
+					'answer' => "You need to enter a password to train me."
 				]);
 				return;
 			}
-		    elseif ($arr[0] == "aboutbot") {
-		    	# code...
+			$password = trim($queries[2]);
+			//to verify training password
+			define('trainingpassword', 'password');
+			
+			if ($password !== trainingpassword) {
+				# code...
+				echo json_encode([
+					'status'=> 0,
+					'answer' => "You entered a wrong passsword"
+				]);
+				return;
+			}
+			$quest = $queries[0];
+			$ans = $queries[1];
+
+			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
+
+			$stmt = $conn->prepare($sql);
+	        $stmt->bindParam(':question', $quest);
+	        $stmt->bindParam(':answer', $ans);
+	        $stmt->execute();
+	        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+			
+			echo json_encode([
+				'status' => 1,
+				'answer' => "Thanks for training me, you can now test my knowledge"
+			]);
+			return;
+		}
+		elseif ($arr[0] == "help") {
+			echo json_encode([
+				'status' => 1,
+				'answer' => "Type 'aboutbot' to know about me. You can also convert cryptocurrencies using this syntax.
+				'convert btc to usd"
+			]);
+			return;
+			
+		}
+		elseif ($arr[0] == "convert") {
+			# code...
+			$from = $arr[1];
+			$to = $arr[3];
+			$converted_price = GetCryptoPrice($from, $to);
+			$price = "1 " . $from . " = " . $to . " " . $converted_price ;
+			echo json_encode([
+				'status' => 1,
+				'answer' => $price
+			]);
+			return;
+		}
+	    elseif ($arr[0] == "aboutbot") {
+	    	# code...
+	    	echo json_encode([
+	    		'status'=> 1,
+	    		'answer' => "I am MATRIX, Version 1.0.0. You can train me by using this format ' train: This is a question # This is the answer # password '"
+	    	]);
+	    	return;
+	    }
+	    else {
+	    	$question = implode(" ",$arr);
+	    	//to check if answer already exists in the database...
+	    	$question = "%$question%";
+	    	$sql = "Select * from chatbot where question like :question";
+	        $stat = $conn->prepare($sql);
+	        $stat->bindParam(':question', $question);
+	        $stat->execute();
+
+	        $stat->setFetchMode(PDO::FETCH_ASSOC);
+	        $rows = $stat->fetchAll();
+	        if(count($rows)>0){
+		        $index = rand(0, count($rows)-1);
+		        $row = $rows[$index];
+		        $answer = $row['answer'];
+		        // check if answer is a function.
+		        $index_of_parentheses = stripos($answer, "((");
+		        if($index_of_parentheses === false){// if answer is not to call a function
+		        	echo json_encode([
+			        	'status' => 1,
+			        	'answer' => $answer
+			        ]);
+			        return;
+		        }else{//to get the name of the function, before calling
+		            $index_of_parentheses_closing = stripos($answer, "))");
+		            if($index_of_parentheses_closing !== false){
+		                $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
+		                $function_name = trim($function_name);
+		                if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
+		                   echo json_encode([
+		                    'status' => 0,
+		                    'answer' => "The function name should not contain white spaces"
+		                  ]);
+		                  return;
+		                }
+			            if(!function_exists($function_name)){
+			              echo json_encode([
+			                'status' => 0,
+			                'answer' => "I am sorry but I could not find that function"
+			              ]);
+			            }else{
+			              echo json_encode([
+			                'status' => 1,
+			                'answer' => str_replace("(($function_name))", $function_name(), $answer)
+			              ]);
+			            }
+			            return;
+		            }
+		        }    
+		    }else{
+
 		    	echo json_encode([
-		    		'status'=> 1,
-		    		'answer' => "I am MATRIX, Version 1.0.0. "
+		    		'status' => 0,
+		    		'answer' => "I am sorry, I cannot answer your question now. You could offer to train me."
 		    	]);
 		    	return;
 		    }
-		    else {
-		    	$question = implode(" ",$arr);
-		    	//to check if answer already exists in the database...
-		    	$question = "$question";
-		    	$sql = "Select * from chatbot where question like :question";
-		        $stat = $conn->prepare($sql);
-		        $stat->bindParam(':question', $question);
-		        $stat->execute();
-
-		        $stat->setFetchMode(PDO::FETCH_ASSOC);
-		        $rows = $stat->fetchAll();
-		        if(empty($rows)){
-		        	echo json_encode([
-			    		'status' => 0,
-			    		'answer' => "I am sorry, I cannot answer your question now. You could train me to answer the question."
-			    	]);
-			    	return;
-			    }else{
-			    	$rand = array_rand($rows);
-			    	$answer = $rows[$rand]['answer'];
-
-			    	$index_of_parentheses = stripos($answer, "((");
-			        if($index_of_parentheses === false){// if answer is not to call a function
-			        	echo json_encode([
-				        	'status' => 1,
-				        	'answer' => $answer
-				        ]);
-				        return;
-			        }else{//to get the name of the function, before calling
-			            $index_of_parentheses_closing = stripos($answer, "))");
-			            if($index_of_parentheses_closing !== false){
-			                $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
-			                $function_name = trim($function_name);
-			                if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
-			                   echo json_encode([
-			                    'status' => 0,
-			                    'answer' => "The function name should not contain white spaces"
-			                  ]);
-			                  return;
-			                }
-				            if(!function_exists($function_name)){
-				              echo json_encode([
-				                'status' => 0,
-				                'answer' => "I am sorry but I could not find that function"
-				              ]);
-				            }else{
-				              echo json_encode([
-				                'status' => 1,
-				                'answer' => str_replace("(($function_name))", $function_name(), $answer)
-				              ]);
-				            }
-				            return;
-			            }
-			        }
-			    }       
-		    }
-		}catch (Exception $e){
-			return $e->message ;
-		}
+	    }
+	}catch (Exception $e){
+		return $e->message ;
 	}
+}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title> <?php echo $user->name ?></title>
+	<title>  <?php echo $user->name ?></title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
-	<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<style type="text/css">
 		body{
@@ -286,19 +289,21 @@ if(!defined('DB_USER')){
 			left: -3px;
             background-color: #00b0ff;
 		}
-		.iio{
-			float: left;
+		#queries{
+			margin-left: 50px;
+		}
+		.iro{
+			float: right;
 			color: red;
 			font-size: 15px;
 			font-family: Ubuntu;
 		}
-		#bot{
-			margin-bottom: 10px;
-			margin-top: 10px;
-		}
-		#you{
-			margin-bottom: 10px;
-			margin-top: 10px;
+		.iio{
+			float: left;
+			margin-right: 90px;
+			color: red;
+			font-size: 15px;
+			font-family: Ubuntu;
 		}
 	</style>
 </head>
@@ -336,7 +341,12 @@ if(!defined('DB_USER')){
 							</div>
 							<div id="bot_reply">
 								<div class="irr">
-									Hi,i am MATRIX, the bot, i can answer basic questions. To know about my functions type 'help'
+									Hi,i am MATRIX, the bot, i can answer basic questions. To know more about what i can do type 'help'
+								</div>
+								<div class="iro">
+									<ul id="queries">
+										
+									</ul>
 								</div>	
 								<div class="iio">
 									<ul id="ans">
@@ -358,15 +368,17 @@ if(!defined('DB_USER')){
 				e.preventDefault();
 				var questionBox = $('textarea[name=question]');
 				var question = questionBox.val();
-				$("#ans").append("<li id='you'> You: " + question + "</li>");
-					
+				$("#queries").append("<li>" + question + "</li>");
+					//let newMessage = `<div class="iro">
+	                  //${question}
+	                //</div>`
 				$.ajax({
 					url: '/profiles/Adeyefa.php',
 					type: 'POST',
 					data: {question: question},
 					dataType: 'json',
 					success: function(response){
-			        $("#ans").append("<li id='bot'>Bot: " + response.answer + "</li>");
+			        $("#ans").append("<li>" + response.answer + "</li>");
 			       // console.log(response.result);
 			        //alert(response.result.d);
 			        //alert(answer.result);
@@ -374,10 +386,9 @@ if(!defined('DB_USER')){
 					},
 					error: function(error){
 						//console.log(error);
-				        alert(JSON.stringify(error));
+				        alert(error);
 					}
 				})	
-				document.getElementById("qform").reset();		
 			})
 		});
 	</script>

@@ -10,27 +10,6 @@ $secret_word = $result['secret_word'];
 	$name = $my_data['name'];
 	$src = $my_data['image_filename'];
 	$username =$my_data['username'];
-
-
-session_start();
-require('answers.php');
-include "../answers.php";
-
-try {
-
-    if (isset($_POST['message'])) {
-
-        echo json_encode([
-            'status' => 1,
-            'answer' => "Please provide a question"
-        ]);
-        exit;
-    }
-}
-catch (Exception $exception)
-{
-    throw $exception;
-}
 ?>
 
 
@@ -44,11 +23,13 @@ catch (Exception $exception)
 
 
 <div class="container">
-    <div class="row">
+	<div class="row">
+		<div class="col-lg-12 col-sm-12">
 
-        <div class="col-lg-6 col-sm-6">
             <div class="card hovercard">
-                <div class="cardheader"></div>
+                <div class="cardheader">
+
+                </div>
                 <div class="avatar">
                     <img alt="Taghreed Image" src="<?php echo $src; ?>">
                 </div>
@@ -75,35 +56,12 @@ catch (Exception $exception)
                         <i class="fa fa-behance"></i>
                     </a>
                 </div>
-
-            </div>
-        </div>
-        <div class="chatbox">
-            <div class="chatlogs">
-                <div class="chat friend">
-                    <div class="user-photo"><img src="./images/guest-avatar.jpeg"></div>
-                    <p class="chat-message">xxxxxxxxxx xxxxxxxxx xxxxxx</p>
-                </div>
-                <div class="chat self">
-                    <div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div>
-                    <p class="chat-message">lorem epsum</p>
-                </div>
-            </div>
-
-            <div class="chat-form">
-                <textarea id="usermsg" required></textarea>
-                <button id="submitmsg"><i class="fa fa-paper-plane"></i></button>
             </div>
 
         </div>
-    </div>
 
-
-
-
+	</div>
 </div>
-
-
 
 
 <style>
@@ -141,8 +99,8 @@ catch (Exception $exception)
 
 .card .card-heading.image img {
     display: inline-block;
-    width: 50px;
-    height: 50px;
+    width: 46px;
+    height: 46px;
     margin-right: 15px;
     vertical-align: top;
     border: 0;
@@ -304,10 +262,9 @@ catch (Exception $exception)
 }
 
 .card.hovercard .cardheader {
-    /*background: url("http://lorempixel.com/850/280/nature/4/");*/
-    background: url("./images/nature-cover.jpeg");
+    background: url("http://lorempixel.com/850/280/nature/4/");
     background-size: cover;
-    height: 150px;
+    height: 135px;
 }
 
 .card.hovercard .avatar {
@@ -317,10 +274,10 @@ catch (Exception $exception)
 }
 
 .card.hovercard .avatar img {
-    width: 250px;
-    height: 250px;
-    max-width: 250px;
-    max-height: 250px;
+    width: 100px;
+    height: 100px;
+    max-width: 100px;
+    max-height: 100px;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
@@ -355,185 +312,3 @@ catch (Exception $exception)
 .btn{ border-radius: 50%; width:32px; height:32px; line-height:18px;  }
 
 </style>
-
-<style>
-
-    .chatbox {
-        float: right;
-        width: 500px;
-        min-width : 390px;
-        height: 570px;
-        background: rgba(51, 51, 51, 0.5);
-        padding: 25px;
-        margin: 20px auto;
-        box-shadow: 0 3px #ccc;
-        border-radius: 10px;
-
-    }
-
-    .chatlogs {
-        padding: 10px;
-        width: 100%;
-        height: 450px;
-        background: #eee;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        border-radius: 10px;
-    }
-
-    .chatlogs::-webkit-scrollbar {
-        width: 10px;
-    }
-    
-    .chatlogs::-webkit-scrollbar-thumb {
-        border-radius: 5px;
-        background: rgba(0,0,0,0.1);
-    }
-
-    .chat {
-        display: flex;
-        flex-flow: row wrap;
-        align-items: flex-start;
-        margin-bottom: 10px;
-    }
-
-    .chat .user-photo {
-        width: 60px;
-        height: 60px;
-        background: #ccc;
-        border-radius: 50%;
-        overflow: hidden;
-    }
-
-    .chat .user-photo img{
-        width: 100%;
-    }
-
-    .chat .chat-message {
-        width: 80%;
-        padding: 15px;
-        margin: 5px 10px 0;
-        /*background: #1ddced;*/
-        border-radius: 10px;
-        color: #fff;
-        font-size: 20px;
-    }
-
-    .friend .chat-message {
-        background: #0c779e;
-    }
-
-
-    .self .chat-message {
-        background: #0eb2c1;
-        order: -1;
-    }
-
-    .chat-form {
-        margin-top: 20px;
-        display: flex;
-        align-items: flex-start;
-    }
-
-    .chat-form textarea{
-        background: #fbfbfb;
-        width: 90%;
-        height: 50px;
-        border: 2px solid #eee;
-        border-radius: 3px;
-        resize: none;
-        padding: 10px;
-        font-size: 18px;
-        color: #595959;
-        overflow-y: scroll;
-        overflow-x: hidden;
-
-    }
-
-    .chat-form textarea::-webkit-scrollbar {
-        width: 10px;
-    }
-
-    .chat-form textarea::-webkit-scrollbar-thumb {
-        border-radius: 5px;
-        background: rgba(0,0,0,0.1);
-    }
-
-    .chat-form textarea:focus{
-        background: #fff;
-    }
-
-    .chat-form button {
-        background: #0eb2c1;
-        padding: 5px 15px;
-        font-size: 27px;
-        color: #fff;
-        border: none;
-        margin: 0 10px;
-        border-radius: 3px;
-        box-shadow: 0 3px 0 #0eb2c1;
-        cursor: pointer;
-
-        -webkit-transition: background .2s ease;
-        -moz-transition: background .2s ease;
-        -p-transition: background  .2s ease;
-
-    }
-
-    .chat-form button:hover {
-        background: #13c8d9;
-    }
-
-
-</style>
-
-
-
-
-<script>
-    //If user submits the form
-    $("#usermsg").keypress(function() {
-       if (window.event.keyCode == 13 && !window.event.shiftKey) {
-           $("#submitmsg").click();
-       }
-    });
-
-    $("#submitmsg").click(function() {
-        var clientmsg = $("#usermsg").val().trim();
-
-        if (clientmsg != '') {
-            var msg='<div class="chat friend"><div class="user-photo"><img src="./images/guest-avatar.jpeg"></div> <p class="chat-message">'+
-                clientmsg.replace(/\n/g, '<br />') +
-                '</p></div>';
-
-            $('.chatlogs').append(msg);
-            $('#usermsg').val('');
-
-            $.ajax({
-                url: 'profiles/TAGHREEDAA.php',
-                type: 'post',
-                data: {message: clientmsg},
-                success: function(response){
-                    console.log(response);
-                }
-            });
-            //
-            //
-            // $.ajax({
-            //     type: "POST",
-            //     dataType: "json",
-            //     url: window.location, //Relative or absolute path to response.php file
-            //     data: {message: clientmsg},
-            //     success: function(data) {
-            //         alert("Form submitted successfully.\nReturned json: " + data["json"]);
-            //     }
-            // });
-            //
-
-            // $.post("TAGHREEDAA.php", {message: clientmsg});
-            // $("#usermsg").attr("value", "");
-        }
-
-        return false;
-    });
-</script>

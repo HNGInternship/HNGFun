@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $result2 = $conn->query("Select * from interns_data where username = 'melas'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
 } else {
-    //require '../answers.php';
+    require '../answers.php';
     $message = trim(strtolower($_POST['message']));
     $version = '1.0';
 
@@ -416,12 +416,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     data: {message: message},
                     success: function(response) {
                         $("#chats").append(`<p class="chat received">${response}</p>`);
-                        $("#chats").animate({scrollTop: $('#chats').prop("scrollHeight")}, 1000);
+                        $('#chats').animate({scrollTop: $('#chats').prop("scrollHeight")}, 1000);
                     },
 
                     error: function(error) {
-                        $("#chats").append(`<p class="chat received">Sorry, I cannot give you a response at this time.</p>`);
-                        $("#chats").animate({scrollTop: $('#chats').prop("scrollHeight")}, 1000);
+                        console.log(error);
                     }
                 });
             }
