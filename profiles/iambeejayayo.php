@@ -126,7 +126,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: .5rem;
             border-radius: 10px;
             margin-bottom: 1rem;
-            max-width: 70%;
             box-shadow: 0 3px 1px rgba(0, 0, 0, .06), 0 1px 2px 1px rgba(105, 105, 105, .4);
         }
 
