@@ -231,6 +231,15 @@ if(isset($_POST['chat'])){
             overflow-x: auto;
         }
 
+        .chat-message::-webkit-scrollbar{
+            width: 10px;
+        }
+
+        .chat-message::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background: rgba(0, 0, 0, .1);
+        }
+
         .friend .chat-message{
             background: -webkit-linear-gradient(top, #ffffff 0%, #aaaaaa);
             color: #333333;
