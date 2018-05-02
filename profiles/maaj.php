@@ -1,6 +1,13 @@
 <?php
 
-require 'db.php';
+if(!defined('DB_USER')){
+  require "../../config.php";		
+	try {
+	    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+	}catch (PDOException $pe) {
+	   die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	}
+}
 
 $sec = $conn->query("Select * from secret_word LIMIT 1");
 $sec = $sec->fetch(PDO::FETCH_OBJ);
@@ -210,7 +217,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <link rel="icon" href="css/images/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <!-- This is the main css file for the default Alta theme -->
 <!-- injector:theme -->
 <link rel="stylesheet" href="css/alta/5.0.0/web/alta.css" id="css"/>
