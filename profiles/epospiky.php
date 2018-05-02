@@ -31,7 +31,7 @@
 
 <?php
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $data = $_POST['input'];
+        $data = $_POST['user-input'];
       //  $data = preg_replace('/\s+/', '', $data);
         $temp = explode(':', $data);
         $temp2 = preg_replace('/\s+/', '', $temp[0]);
@@ -337,15 +337,17 @@ answer #password'</div>";
           
           </div>
           </div>  
-          <div class="clearfix"></div> 
-            <form class="input " id="bot-input" method="POST">
+          <div class="clearfix"></div>
+          <div  class = "chat-input">
+            <form class="input " id="bot-input-form" method="POST">
               <div class="input-group">
-                 <input class="form-control" id="txt-input"  type="text" name="input" required="" placeholder="Chat me up..." />
+                 <input class="form-control" id="user-input"  type="text" name="user-input" required="" placeholder="Chat me up..." />
                <span class="input-group-btn">
                   <button type="submit" id="send" class="btn btn-primary"><i class="fa fa-send"></i> </button>
               </span>
               </div>
             </form>
+            </div>
         </div>
      <!-- </div>
     </div>-->
@@ -365,14 +367,14 @@ answer #password'</div>";
 
   <script>
   var outputArea = $('#chat');
-    $("#bot-input").on("submit", function(e) {
+    $("#bot-input-form").on("submit", function(e) {
         e.preventDefault();
-        var $message = $("#txt-input").val(); 
+        var $message = $("#user-input").val(); 
         if($message !== ''){
             
            $('.message').hide(); 
            
-           $("#txt-input").val("");
+           $("#user-input").val("");
         }
         outputArea.append(`<div class='chat'><p
 class='me'>${$message}</p></div>`);
@@ -380,7 +382,7 @@ class='me'>${$message}</p></div>`);
         $.ajax({
             url: 'profile.php?id=epospiky',
             type: 'POST',
-            data:  'txt-input=' + $message,
+            data:  'ussr-input=' + $message,
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
@@ -391,7 +393,7 @@ class='me'>${$message}</p></div>`);
                 }, 250);
             }
         });
-        $("#txt-input").val("");
+        $("#user-input").val("");
     });
   </script>
 </body>
