@@ -3,8 +3,6 @@
 <head>
 	<title>Profile - John Olubori David</title>
 	<?php 
-		require 'db.php';
-
 		$result = $conn->query("Select * from secret_word LIMIT 1");
 		$result = $result->fetch(PDO::FETCH_OBJ);
 		$secret_word = $result->secret_word;
@@ -13,7 +11,7 @@
 		$user = $result2->fetch(PDO::FETCH_OBJ);
 	?>
 	<style type="text/css">
-		html, body{
+		/*html, body{
 			height: 100%;
 			margin: 0px;
 		}
@@ -78,12 +76,12 @@
 			border-radius: 50%;
 		 }
 
-
+		*/
 	</style>
 </head>
 <body>
 <section id="app">
-	<header class="bg-grey flex">
+	<!--<header class="bg-grey flex">
 		<h3><?php echo $user->name ?> <small>(@<?php echo $user->username ?>)</small></h3>
 	</header>
 	<main class="flex">
@@ -91,7 +89,7 @@
 	  <div class="flex time-box">
 	  	<img src="<?php echo $user->image_filename ?>" />
 	  </div>		
-	</main>
+	</main>-->
 </section>
 </body>
 </html>

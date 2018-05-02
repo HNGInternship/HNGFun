@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'answer' => "Hello, I am maaj's assistant. Version 1.0, currently running on PHP 5.7."
       ]);
       return;
-    };
+    }
 	
 	//greeting
 	if((stripos($question,'hey') !== false) || (stripos($question,'hi') !== false) || (stripos($question,'hello') !== false)){
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'answer' => "Hello, how are you?"
       ]);
       return;
-    };
+    }
 	
 	// time
 	if(stripos($question,'time') !== false){
@@ -213,7 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			margin:0px auto;
 			
 		}
-		#textbox{
+		#text_in{
 			margin:0 0 0 0;
 			width:82%;
 			
@@ -283,8 +283,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				</div>
 				<div id ="controls">
 					<form method="POST" action="" id= "chat">
-					<input type="text" id="textbox"></input>
+					<input type="text" id="text_in"></input>
 					<input id="send" type="submit" value="Send"></input>
+					new head1
 					</form>
 
 				</div>
@@ -303,12 +304,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
      
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-json/2.6.0/jquery.json.min.js"></script>
  <script>
+ $(document).ready(function(){
     var message = $("#contain");
 		
 	    $("#chat").on("submit", function(e) {
 	        e.preventDefault();
-			if($("#textbox").val() !== ''){
-	        var text_in = $("#textbox").val();
+			if($("#text_in").val() !== ''){
+	        var text_in = $("#text_in").val();
 			var username = "You:  ";
 	        message.append("<div class='username'>"+ username + text_in+"</div>");
 	       	message.scrollTop(message[0].scrollHeight);
@@ -328,12 +330,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				error: (error) => {
 	          		alert('error occured')
 						console.log(error);
+						
 				}
 				
 			});
-			$("#textbox").val("");
+			$("#text_in").val("");
 			}
 		});
+		
+	});
 
 </script>
   </body>
