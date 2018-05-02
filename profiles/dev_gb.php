@@ -1,5 +1,8 @@
 <?php
-require 'db.php';
+</br>
+</br>
+</br>
+</br>
 $query = $conn->query("SELECT * FROM secret_word");
 $result = $query->fetch(PDO::FETCH_ASSOC);
 $secret_word = $result['secret_word'];
@@ -715,4 +718,10 @@ function train( $input ) {
     } else {
         echo "<div id='result'>Invalid Password, Try Again!</div>";
     }
-}?>
+
+}
+</br>
+</br>
+</br>
+</br>
+?>
