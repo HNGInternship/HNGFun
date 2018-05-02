@@ -51,7 +51,20 @@ return;
                 // code...
               }
 return;
-      }
+      }if ($message==""){
+  echo json_encode([
+     'status' => 1,
+     'answer' => "enter a question  you can also   remember train me "
+   ]);
+return;
+}
+if ($message==""){
+echo json_encode([
+'status' => 1,
+'answer' => "enter a question  you can also   remember train me "
+]);
+return;
+}
 
       if($message=='aboutbot'){
         echo json_encode([
