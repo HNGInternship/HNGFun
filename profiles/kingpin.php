@@ -31,10 +31,13 @@
                         ]);
 return;
 }
-else {echo json_encode([
+else {
+
+echo json_encode([
    'status' => 1,
    'answer' => "sorry something went wrong"
  ]);
+return;
   // code...
 }
               }
@@ -315,7 +318,7 @@ if (!defined('DB_USER')){
     $("#async").append(resusr+" "+valnext2+" </p></div>");
       $.ajax({
 
-        url: 'http://old.hng.fun/profile.php?id=kingpin',
+        url: 'profiles/kingpin',
         url: '#',
         type: 'POST',
         data: {question: question},

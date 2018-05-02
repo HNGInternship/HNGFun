@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             display: table;
             position: relative;
             background: #000;
-            color: #ffff;
+            color: white;
             padding: .5rem;
             border-radius: 10px;
             margin-bottom: 1rem;
@@ -231,7 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class=" bg-dark row justify-content-center chatbox">
         <div class="col-lg-3 bg-light">
             <header class="row justify-content-center chatbox-header">
-            <div class="card" align="center">
+            <div class="card bg-danger" align="center">
             
                     <img class="chatbox-logo" src="https://res.cloudinary.com/iambeejayayo/image/upload/v1525095528/bot.png" alt="Alpha Bot">
                     <h2 class="chatbox-title text-dark">Alpha Bot</h2>
