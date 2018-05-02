@@ -1,5 +1,4 @@
 <?php
-
 $query = $conn->query("SELECT * FROM secret_word");
 $result = $query->fetch(PDO::FETCH_ASSOC);
 $secret_word = $result['secret_word'];
@@ -183,8 +182,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 else{
   ?>
-</br>
-</br>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -197,7 +195,7 @@ else{
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- 
+  <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css" type="text/css"/>
 
 
 
@@ -618,21 +616,22 @@ a:focus {
                          cache: false,
                              success: function(response) {
                               var result = $($.parseHTML(response)).text();
-            setTimeout(function(){ 
-                     $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message"><p>'+result+'</p></div><span class="delivered"><?php
+            setTimeout(function(){
+                     $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message"></br>/</br/<p>'+result+'</p></br>/</br/</div><span class="delivered"><?php
             echo "" . date("h:i:a");
             ?></span></div>').insertBefore('.push');
-                     $('chatbox-messages').animate({
+                                         $('chatbox-messages').animate({
                         scrollTop: $('chatbox-messages').get(0).scrollHeight
                     }, 1500);
                   
+        
                 },  1000);
 
                   },
                         error: function (){}
                     });
                 return true;
-                }
+                } 
                     });
             });
              
@@ -647,6 +646,8 @@ a:focus {
 
                   </div><!-- /.chatbox -->
 
+
+
                 </div><!-- /.content -->
 
               </div><!-- /.wrapper -->
@@ -659,18 +660,7 @@ a:focus {
     
 
     </div>
-        <!-- Custom scripts for this template -->
-    <script src="../js/hng.min.js"></script>
-  
-</div><!-- /ko -->
-      </div>
-      </div>
- 
-</body>
-<!-- end jet -->
 
-
-  <body>
 
   
 
@@ -686,15 +676,15 @@ a:focus {
 </html>
 <?php 
 }
-function help( ) {
-    echo 'This is a sample format of a question <p>What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ado-Ekiti</p>';
+function help() {
+    echo 'These is a sample format of a question <p>What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ado-Ekiti</p>';
 }
 function train( $input ) {
     $input    = explode( '#', $input );
     $question = trim( $input[ 0 ] );
     $answer   = trim( $input[ 1 ] );
     $password = trim( $input[ 2 ] );
-    if ( $password == 'p@ssword' ) {
+    if ( $password == 'password' ) {
         $sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '" and answer = "' . $answer . '" LIMIT 1';
         $q   = $GLOBALS[ 'conn' ]->query( $sql );
         $q->setFetchMode( PDO::FETCH_ASSOC );
@@ -725,6 +715,6 @@ function train( $input ) {
         echo "<div id='result'>Invalid Password, Try Again!</div>";
     }
 
-    </br>
-    </br>
-}?>
+}
+
+?>
