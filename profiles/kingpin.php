@@ -32,10 +32,13 @@
 return;
 
 }
-else {echo json_encode([
+else {
+
+echo json_encode([
    'status' => 1,
    'answer' => "sorry something went wrong"
  ]);
+return;
   // code...
 }
               }
@@ -319,7 +322,7 @@ if (!defined('DB_USER')){
         url: 'profiles/kingpin.php',
 
 
-        url: 'http://old.hng.fun/profile.php?id=kingpin',
+        url: 'profiles/kingpin',
         url: '#',
 
         type: 'POST',
