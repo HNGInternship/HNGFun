@@ -552,8 +552,8 @@
 									add_default();
 									add_default();
 									if($_SERVER['REQUEST_METHOD'] === 'POST'){
-										if(isset($_POST['submit'])){
-											$a = $_POST['user_text'];
+										if(isset($_POST['chat'])){
+											$a = $_POST['chat'];
 											add_user_text($a);
 										}
 									}
@@ -619,7 +619,24 @@
 			});
 
 
+			send_btn.click(function(){
+				var a = $text_input.val();
 
+				if(a == "aboutbot"){
+					add_about_bot();
+					$text_input.focus();
+				}
+
+				else{
+					$.ajax({
+						type:"POST";
+						data:{chat: a},
+						success:function(){
+							$text_input.focus();
+						}
+					});
+				}
+			});
 		
 			// }	// $send_btn.click(function(){
 			// 	var a = $text_input.val();
@@ -663,7 +680,26 @@
 			// 		$text_input.focus();
 			// 	}
 				
-			// });
+			// });			
+			function add_about_bot(){
+				var div = document.createElement("div");
+				var p1 = document.createElement("p");
+				var p2 = document.createElement("p");
+
+				div.classList.add("bot-text");
+
+				var p1text = document.createTextNode("dusty v1.0");
+				var p2text = document.createTextNode("I can calculate your Body-Mass-Index(BMI) if you provide me with your details");
+
+				p1.appendChild(p1text);
+				p2.appendChild(p2text);
+
+				div.appendChild(p1);
+				div.appendChild(p2);
+
+				$output.append(div);
+				$text_input.focus();
+			}
 
 			$text_input.keyup(function(event){
 				if(event.keyCode == 13){
