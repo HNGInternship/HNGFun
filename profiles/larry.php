@@ -1,4 +1,5 @@
 <?php
+    require_once '../db.php';
     try {
         $select = 'SELECT * FROM secret_word';
         $query = $conn->query($select);
@@ -10,7 +11,7 @@
     $secret_word = $data['secret_word']; 
     
     $result2 = $conn->query("Select * from interns_data where name = 'Sule Olanrewaju'");
-	$user = $result2->fetch(PDO::FETCH_OBJ);  
+	$user = $result2->fetch(PDO::FETCH_OBJ);       
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +60,7 @@ img{
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="col-md-6 col-sm-6 col-xs-6">
 						<img src="http://res.cloudinary.com/olanrewaju/image/upload/v1523722036/a.png" class="img-responsive img-circle">
-						<h1 class="text-success"> Sule Olanrewaju </h1>
+						<h1 class="text-success"> <?php echo $user->name;?> </h1>
 					</div>
 					<div class="col-md-6 col-sm-6 col-xs-6">
 						<h1>Skill Set</h1>
