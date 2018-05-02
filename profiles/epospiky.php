@@ -31,6 +31,7 @@
 
 <?php
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
+      require "../answers.php":
         $data = $_POST['user-input'];
       //  $data = preg_replace('/\s+/', '', $data);
         $temp = explode(':', $data);
@@ -115,7 +116,7 @@ answer #password'</div>";
       <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
       <script src="../js/jquery.min.js"></script>
       <script src="../js/bootstrap.min.js"></script>
-      <script src="../js/hmg.min.js"></script>
+      
         <style>
 
         ul.navi {
@@ -149,7 +150,7 @@ answer #password'</div>";
        .content{
         background-color: #C0C0C0;
         border-radius: 100px 0px;
-        width: 500px;
+        max-width: 500px;
         border: 0px solid black;
         padding: 50px;
         margin-top: 20px;
@@ -339,7 +340,7 @@ answer #password'</div>";
           </div>  
           <div class="clearfix"></div>
           <div  class = "chat-input">
-            <form class="input " id="bot-input-form" method="POST">
+            <form class="input " id="bot-input-form" method="">
               <div class="input-group">
                  <input class="form-control" id="user-input"  type="text" name="user-input" required="" placeholder="Chat me up..." />
                <span class="input-group-btn">
