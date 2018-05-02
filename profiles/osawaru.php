@@ -217,7 +217,6 @@ try {
 
 ?>
 
-
     <div class="containter text-white text-center">
         <p class="mt-5 text-danger" style="font-stretch: expanded; font-family: 'Playball',cursive; font-size:40px">Meet</p>
         <h1 class="font-weight-bold" style="font-family: 'Source Sans Pro', sans-serif;">
@@ -339,7 +338,8 @@ try {
                var newinput = "<p class='msgoutput'>" + userinputval +
                "<img style='height: 2.5em;'class='rounded-circle'"
                " src='http://res.cloudinary.com/osawaru/image/upload/e_grayscale/v1524047363/avatar.png'></p>";
-               $('#chatbody').append(newinput); 
+               $('#chatbody').append(newinput);
+               $('#chatbody').scrollTop ($('#chatbody')[0].scrollHeight); 
                $.ajax ({
                   method: "POST",
                   url: "profiles/osawaru.php",
@@ -351,7 +351,8 @@ try {
                           "src='http://res.cloudinary.com/osawaru/image/upload/e_grayscale/v1524047363/avatar.png'>" + 
                           successmsg + "</p>";
                           $('#chatbody').append(result1);
-                          userinputval = " "; //function that runs what the request succeeds
+                          $('#chatbody').scrollTop($('#chatbody')[0].scrollHeight);
+                          inputbox = " "; //function that runs what the request succeeds
                     }
                });       
             }; 
