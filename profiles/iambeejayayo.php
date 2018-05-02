@@ -238,6 +238,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
                     <img class="chatbox-logo" src="https://res.cloudinary.com/iambeejayayo/image/upload/v1525095528/bot.png" alt="Alpha Bot">
                     <h2 class="chatbox-title text-dark">Alpha Bot</h2>
+                    <hr class="bg-light" />
                     <p class=" text-center text-light"> Click the 'Lets Chat' button to begin! </p>
                     
                 </div>
