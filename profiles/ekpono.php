@@ -1,15 +1,13 @@
 <?php
-
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
+  error_reporting(E_ALL);
+    ini_set("display_errors", 1);
 if($_SERVER['REQUEST_METHOD'] === "GET"){
         try {
-        $conn = new PDO("mysql:host=$servername;dbname=hng_fun", $username, $password);
         $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ekpono'");
         $intern_data->execute();
         $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
         $result = $intern_data->fetch();
+		
         $secret_code = $conn->prepare("SELECT * FROM secret_word");
         $secret_code->execute();
         $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
@@ -19,11 +17,15 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
          throw $e;
      }
 }
+?>
+
+<?php
+
 try {
-	require 'config.php';
-    $conn1 = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+	
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
     // set the PDO error mode to exception
-    $conn1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     //echo "Connected";
     }
 catch(PDOException $e)
@@ -256,12 +258,31 @@ a {
     to   { opacity: 1; }
 }
 /* CSS button */
+	.send {
+    padding: 8px 20px ;
+    background-color: blue;
+    border-radius: 5px;
+    color: #fff;
+}
+
+input[type=text] {
+    border-bottom: 5px solid #ccc;
+    width: 250px;
+    padding: 5px
+}
+
+.bot {
+    width: 80%;
+    text-align: justify;
+    height: auto;
+}
+
 </style>
 </head>
 <body>
 <div class="container">
     <div class="text">
-        <h1 style="color:rgb(32, 32, 216); padding-top: 30px">Hey! I'm <?php echo $result['name']; ?></h1>
+        <h1 style="color:rgb(32, 32, 216); padding-top: 30px">Hey! I'm Ekpono </h1>
         <h2 style="color:#806a21;">I'm a developer from Nigeria</h2>
         <h3 class="slogan">I work with companies</h3>
         <p>Jiggle, Thirdfloor, JandK Services, Hilltop</p>
@@ -279,7 +300,7 @@ a {
         <a href="http://www.github.com/ekpono">Github</a>
     </div>
     <div class="photo">
-        <img src="<?php echo $result['image_filename']; ?>" width="300px" height="300px"  style="border-radius: 50%; padding-top: 30px;" alt="Ekpono's Profile Picture" />
+        <img src="http://res.cloudinary.com/ambrose/image/upload/r_29/v1523629415/dp2.jpg" width="300px" height="300px"  style="border-radius: 50%; padding-top: 30px;" alt="Ekpono's Profile Picture" />
     </div>
     <!-- Chat form -->
 
@@ -318,7 +339,7 @@ a {
                     processData(xhttp.responseText);
                 }
             };
-            xhttp.open("POST","http://hng.fun/profile.php?id=ekpono", true);
+            xhttp.open("POST","profile/ekpono", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("ques="+ques.value);
         }
