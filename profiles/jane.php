@@ -28,7 +28,7 @@
 ?>
 
 <?php
-	else if($_SERVER['REQUEST_METHOD'] === 'POST'){
+	if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		if(isset($_POST['submit'])){
 			$a = $_POST['user_text'];
 			add_user_text($a);
@@ -163,6 +163,12 @@
 			function add_user_text($u_text){
 				echo "<div class='user-text'>
 						<p>".$u_text."</p>
+					  </div>";
+			}
+
+			function add_bot_text($bot_text){
+				echo "<div class='bot-text'>
+						<p>".$bot_text."</p>
 					  </div>";
 			}
 		}
@@ -596,7 +602,8 @@
 
 
 
-			// $send_btn.click(function(){
+		
+			// }	// $send_btn.click(function(){
 			// 	var a = $text_input.val();
 			// 	if(a != ""){
 			// 		add_user_text(a);
@@ -669,87 +676,87 @@
 			// 	$text_input.focus();
 			// }
 
-			// function add_bot_default(){
-			// 	var div = document.createElement("div");
-			// 	var p1 = document.createElement("p");
-			// 	var p2 = document.createElement("p");
-			// 	var p3 = document.createElement("p");
-			// 	var p4 = document.createElement("p");
-			// 	var p5 = document.createElement("p");
-			// 	var p6 = document.createElement("p");
-			// 	var span1 = document.createElement("span");
-			// 	var span2 = document.createElement("span");
-			// 	var span3 = document.createElement("span");
-			// 	var span4 = document.createElement("span");
-			// 	var span5 = document.createElement("span");
-			// 	var span5 = document.createElement("span");
-			// 	var span6 = document.createElement("span");
+			function add_bot_default(){
+				var div = document.createElement("div");
+				var p1 = document.createElement("p");
+				var p2 = document.createElement("p");
+				var p3 = document.createElement("p");
+				var p4 = document.createElement("p");
+				var p5 = document.createElement("p");
+				var p6 = document.createElement("p");
+				var span1 = document.createElement("span");
+				var span2 = document.createElement("span");
+				var span3 = document.createElement("span");
+				var span4 = document.createElement("span");
+				var span5 = document.createElement("span");
+				var span5 = document.createElement("span");
+				var span6 = document.createElement("span");
 
-			// 	div.classList.add("bot-text");
-			// 	span1.classList.add("bmi");
-			// 	span6.classList.add("bmi");
-			// 	span2.classList.add("languages");
-			// 	span4.classList.add("languages");
+				div.classList.add("bot-text");
+				span1.classList.add("bmi");
+				span6.classList.add("bmi");
+				span2.classList.add("languages");
+				span4.classList.add("languages");
 
-			// 	var a = "Hi there! I'm jane...my friends call me dusty";
-			// 	var b = "I can calculate your Body Mass Index(BMI) if you simply enter your weight(in kg) and your height(in metres). Kindly follow the format:";
-			// 	var c1 = "calculate_bmi[weight,height]";
-			// 	var c2 = "";
-			// 	var c3 = "";
-			// 	var c4 = "";
-			// 	var c5 = "";
-			// 	var d = "";
-			// 	var e = "Also, you can train me to answer new questions in this format ";
-			// 	var f = "train: question # answer # password";
-			// 	var g = ". For example:";
-			// 	var h = "train: How are you today # Doing great # password";
+				var a = "Hi there! I'm jane...my friends call me dusty";
+				var b = "I can calculate your Body Mass Index(BMI) if you simply enter your weight(in kg) and your height(in metres). Kindly follow the format:";
+				var c1 = "calculate_bmi[weight,height]";
+				var c2 = "";
+				var c3 = "";
+				var c4 = "";
+				var c5 = "";
+				var d = "";
+				var e = "Also, you can train me to answer new questions in this format ";
+				var f = "train: question # answer # password";
+				var g = ". For example:";
+				var h = "train: How are you today # Doing great # password";
 
 
-			// 	var p1text = document.createTextNode(a);
-			// 	var p2text = document.createTextNode(b);
-			// 	var span1text = document.createTextNode(c1);
-			// 	var span2text = document.createTextNode(c2);
-			// 	var span3text = document.createTextNode(c3);
-			// 	var span4text = document.createTextNode(c4);
-			// 	var span5text = document.createTextNode(c5);
-			// 	var p4text = document.createTextNode(d);
-			// 	var p5text = document.createTextNode(e);
-			// 	var p5text2 = document.createTextNode(g);
-			// 	var span5text = document.createTextNode(f);
-			// 	var span6text = document.createTextNode(h);
+				var p1text = document.createTextNode(a);
+				var p2text = document.createTextNode(b);
+				var span1text = document.createTextNode(c1);
+				var span2text = document.createTextNode(c2);
+				var span3text = document.createTextNode(c3);
+				var span4text = document.createTextNode(c4);
+				var span5text = document.createTextNode(c5);
+				var p4text = document.createTextNode(d);
+				var p5text = document.createTextNode(e);
+				var p5text2 = document.createTextNode(g);
+				var span5text = document.createTextNode(f);
+				var span6text = document.createTextNode(h);
 
-			// 	span1.appendChild(span1text);
-			// 	span2.appendChild(span2text);
-			// 	span3.appendChild(span3text);
-			// 	span4.appendChild(span4text);
-			// 	span5.appendChild(span5text);
+				span1.appendChild(span1text);
+				span2.appendChild(span2text);
+				span3.appendChild(span3text);
+				span4.appendChild(span4text);
+				span5.appendChild(span5text);
 
-			// 	span5.appendChild(span5text);
-			// 	span6.appendChild(span6text);
+				span5.appendChild(span5text);
+				span6.appendChild(span6text);
 
-			// 	p1.appendChild(p1text);
-			// 	p2.appendChild(p2text);
-			// 	p3.appendChild(span1);
-			// 	p3.appendChild(span2);
-			// 	p3.appendChild(span3);
-			// 	p3.appendChild(span4);
-			// 	p3.appendChild(span5);
-			// 	p4.appendChild(p4text);
-			// 	p5.appendChild(p5text);
-			// 	p5.appendChild(span5);
-			// 	p5.appendChild(p5text2);
-			// 	p6.appendChild(span6);
+				p1.appendChild(p1text);
+				p2.appendChild(p2text);
+				p3.appendChild(span1);
+				p3.appendChild(span2);
+				p3.appendChild(span3);
+				p3.appendChild(span4);
+				p3.appendChild(span5);
+				p4.appendChild(p4text);
+				p5.appendChild(p5text);
+				p5.appendChild(span5);
+				p5.appendChild(p5text2);
+				p6.appendChild(span6);
 
-			// 	div.appendChild(p1);
-			// 	div.appendChild(p2);
-			// 	div.appendChild(p3);
-			// 	div.appendChild(p4);
-			// 	div.appendChild(p5);
-			// 	div.appendChild(p6);
+				div.appendChild(p1);
+				div.appendChild(p2);
+				div.appendChild(p3);
+				div.appendChild(p4);
+				div.appendChild(p5);
+				div.appendChild(p6);
 
-			// 	$output.append(div);
-			// 	$text_input.focus();
-			// }
+				$output.append(div);
+				$text_input.focus();
+			}
 
 			// function add_about_bot(){
 			// 	var div = document.createElement("div");
@@ -769,7 +776,6 @@
 
 			// 	$output.append(div);
 			// 	$text_input.focus();
-			// }
 
 			$text_input.keyup(function(event){
 				if(event.keyCode == 13){
