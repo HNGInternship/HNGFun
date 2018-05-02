@@ -257,6 +257,25 @@ a {
     to   { opacity: 1; }
 }
 /* CSS button */
+	.send {
+    padding: 8px 20px ;
+    background-color: blue;
+    border-radius: 5px;
+    color: #fff;
+}
+
+input[type=text] {
+    border-bottom: 5px solid #ccc;
+    width: 250px;
+    padding: 5px
+}
+
+.bot {
+    width: 80%;
+    text-align: justify;
+    height: auto;
+}
+
 </style>
 </head>
 <body>
