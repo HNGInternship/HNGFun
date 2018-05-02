@@ -126,7 +126,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: .5rem;
             border-radius: 10px;
             margin-bottom: 1rem;
-            max-width: 70%;
             box-shadow: 0 3px 1px rgba(0, 0, 0, .06), 0 1px 2px 1px rgba(105, 105, 105, .4);
         }
 
@@ -229,7 +228,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 </div>
 
-<div class="row justify-content-center chatbox">
+<div class=" bg-dark row justify-content-center chatbox">
         <div class="col-lg-3 bg-light">
             <header class="row justify-content-center chatbox-header">
             <div class="card" align="center">
@@ -325,7 +324,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 startTyping()
                 setTimeout(() => {
                     addMessage({
-                        message: 'Im here to help you?'
+                        message: 'Im here to help you!'
                     })
                     startTyping()
                 setTimeout(() => {
