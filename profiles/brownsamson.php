@@ -1,13 +1,37 @@
 <!DOCTYPE html>
 <?php
-    require_once 'db.php';
+// chdir(dirname(__FILE__));
+if(isset($_GET['id'])){
+  require_once 'db.php';
+  require "answers.php";
 
-    $result = $conn->query("Select * from secret_word LIMIT 1");
-    $result = $result->fetch(PDO::FETCH_OBJ);
-    $secret_word = $result->secret_word;
-    $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'brownsamson'");
-    $user = $result2->fetch(PDO::FETCH_OBJ);
-?>
+}else{
+  require '../../config.php';
+  require "../answers.php";
+
+  try {
+      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  }catch (PDOException $pe) {
+      echo("dbName:".DB_DATABASE);
+      die("Could not connect to the database on live server " . DB_DATABASE . ": " . $pe->getMessage());
+  }
+
+
+}
+    
+$result = $conn->query("Select * from secret_word LIMIT 1");
+$result = $result->fetch(PDO::FETCH_OBJ);
+$secret_word = $result->secret_word;
+$result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'brownsamson'");
+$user = $result2->fetch(PDO::FETCH_OBJ);
+        
+if (isset($_POST['message'])) {
+  echo $message = $_POST['message'];
+  samsonjnrBot($message);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "GET"){ ?>
+
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -347,12 +371,12 @@
 
           </div>
           </div>
-          <form>
+          <form id="ajax-contact" method="post" action="profiles/brownsamson.php">
             <div class="form-group">
-					    <div class="textarea-con"><textarea type="text" class="form-control" name="fullname" id="message" placeholder="Ask Me Something"></textarea></div>
+					    <div class="textarea-con"><textarea type="text" class="form-control" name="message" id="message" placeholder="Ask Me Something"></textarea></div>
 					  </div>
 
-            <div class="form-group"><span class="send-button" id="guest-send">Send</span></div>
+            <div class="form-group"><button type="submit" class="send-button" id="guest-send">Send</button></div>
           </form>
 
         </div>
@@ -411,6 +435,7 @@
         </footer>
 
     </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
     <script>
         typer ();
         function typer (){
@@ -497,25 +522,60 @@
             document.getElementById('chatcon').style.right = "10%";
             scrollingElement = (document.scrollingElement || document.body)
             scrollingElement.scrollTop = 600;
-            if (firstMessage == 0){
-              getMessageSam('intro');
-              getMessageSam('request name');
-              firstMessage++;
-            }
+            // if (firstMessage == 0){
+            //   getMessageSam('intro');
+            //   getMessageSam('request name');
+            //   firstMessage++;
+            // }
           }
         });
+        
+        $(function() {
+    // Get the form.
+    var form = $('#ajax-contact');
+
+    // Set up an event listener for the contact form.
+    $(form).submit(function(event) {
+        // Stop the browser from submitting the form.
+        event.preventDefault();
+
+       // Serialize the form data.
+      var formData = $(form).serialize();
+      // Submit the form using AJAX.
+      alert(formData);
+      $.ajax({
+          type: 'POST',
+          url: $(form).attr('action'),
+          data: formData,
+      }).done(function(response) {
+        console.log(response);
+            conversation.innerHTML += '<div class="bot"><div class="arrow-left"></div>' + response + '</div>';
+
+      })
+
+    });
+});
+
+
+
+        // form.addEventListener('submit', function(e){
+        //   alert('yes');
+        //   e.preventDefault();
+
+
+        // });
         guestSend.addEventListener('click', function(){
           message = textarea.value;
           if (message != ""){
             conversation.innerHTML += '<div class="guest"><div class="arrow-right"></div>' + message + '</div>';
             scrollToBottom('messageCon');
-            textarea.value = "";
+            // textarea.value = "";
               if (firstMessage == 1){
-                getMessageSam('name: '+ message);
+                // getMessageSam('name: '+ message);
                 firstMessage++;
                 senderName = message;
               }else{
-                getMessageSam(message);
+                // getMessageSam(message);
               }
             }
         });
@@ -539,9 +599,10 @@
               };
               messageSam = messageSam.replace("#", "%23");
               messageSam = messageSam.replace("#", "%23");
-              xmlReq.open("GET", "answers.php?qsam=" + messageSam, true);
+              xmlReq.open("GET", "profile/brownsamson.php?qsam=" + messageSam, true);
               xmlReq.send();
           }
       }
 </script>
 </html>
+<?php } ?>
