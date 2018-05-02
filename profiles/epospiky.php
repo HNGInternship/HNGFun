@@ -21,7 +21,7 @@
         throw $e;
     }
     $secret_word = $data['secret_word'];
-    
+
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST['user-input'];
         $temp = explode(':', $data);
@@ -326,11 +326,11 @@
           </div>
           <div class="modal-body "  >
                 <div class="chat-result" id="chat-result">
-                    <div class="user-message">
-          <div class="message">Hello! I'm Dan_Bot! You are free to ask me anything.   </div>
-          <div class="message">Learn more about me by typing "aboutbot".</div>
-                    <div class="message">To train me, use this syntax - "train:question#answer#password".</div>
-          <div class="message">Password is password. </div>
+                    <div class="chat">
+          <p class="san">Hello! I'm Dan_Bot! You are free to ask me anything.   </p>
+          <p class="san">Learn more about me by typing "aboutbot".</p>
+                    <p class="san">To train me, use this syntax - "train:question#answer#password".</p>
+          <p class="san">Password is password. </p>
                     </div>
                 </div>
           </div>  
@@ -338,7 +338,7 @@
                 <div class="chat-input">
                     <form action="" method="post" id="user-input-form">
                         <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Type a message...">
-            <button id="send">SEND</button>
+            <button class="btn btn-primary" id="send">SEND</button>
                     </form>
                 </div>
         </div>
@@ -363,7 +363,7 @@
     $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
         var message = $("#user-input").val();
-        outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
+        outputArea.append(`<div class='bot-message'><p class='me'>${message}</p></div>`);
         $.ajax({
             url: 'profile.php?id=Ddan',
             type: 'POST',
@@ -371,7 +371,7 @@
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+                    outputArea.append("<div class='chat'><p class='san'>" + result + "</p></div>");
                     $('#chat-result').animate({
                         scrollTop: $('#chat-result').get(0).scrollHeight
                     }, 1500);
