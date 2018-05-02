@@ -8,7 +8,6 @@ require "../../config.php";
 
 include_once "db.php";
 // include 'answers.php';
-
 ?>
 
 <?php
