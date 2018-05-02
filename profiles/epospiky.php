@@ -150,7 +150,7 @@ answer #password'</div>";
        .content{
         background-color: #C0C0C0;
         border-radius: 100px 0px;
-        max-width: 500px;
+        width: 500px;
         border: 0px solid black;
         padding: 50px;
         margin-top: 20px;
