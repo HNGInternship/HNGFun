@@ -1,3 +1,153 @@
+<?php
+if (!defined('DB_USER')){
+            
+  require "../config.php";
+}
+try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+
+ global $conn;
+
+       
+        try {
+  $sql = 'SELECT * FROM secret_word LIMIT 1';
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $data = $q->fetch();
+  $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+  throw $e;
+}    
+try {
+  $sql = "SELECT * FROM interns_data WHERE `username` = 'didicodes' LIMIT 1";
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $my_data = $q->fetch();
+} catch (PDOException $e) {
+  throw $e;
+}   
+?>
+<?php
+if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+    if(!defined('DB_USER')){
+        require "../config.php";
+        try {
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        } catch (PDOException $e) {
+            die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
+        }
+    }
+    $question = $_POST['question']; 
+    $index_of_train = stripos($question, "train:");
+    if($index_of_train === false){
+        $question = preg_replace('([\s]+)', ' ', trim($question)); 
+        $question = preg_replace("([?.])", "", $question); 
+        $question = "%$question%";
+        $sql = "select * from chatbot where question like :question";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':question', $question);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $rows = $stmt->fetchAll();
+        if(count($rows)>0){
+            $index = rand(0, count($rows)-1);
+            $row = $rows[$index];
+            $answer = $row['answer'];
+            $index_of_parentheses = stripos($answer, "((");
+            if($index_of_parentheses === false){ 
+                echo json_encode([
+                    'status' => 1,
+                    'answer' => $answer
+                ]);
+            }else{
+                $index_of_parentheses_closing = stripos($answer, "))");
+                if($index_of_parentheses_closing !== false){
+                    $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
+                    $function_name = trim($function_name);
+                    if(stripos($function_name, ' ') !== false){ 
+                        echo json_encode([
+                            'status' => 0,
+                            'answer' => "The function name should be without white spaces"
+                        ]);
+                        return;
+                    }
+                    if(!function_exists($function_name)){
+                        echo json_encode([
+                            'status' => 0,
+                            'answer' => "I am unable to find the function you require"
+                        ]);
+                    }else{
+                        echo json_encode([
+                            'status' => 1,
+                            'answer' => str_replace("(($function_name))", $function_name(), $answer)
+                        ]);
+                    }
+                    return;
+                }
+            }
+        }else{
+            echo json_encode([
+                'status' => 0,
+                'answer' => "I can't answer that right now, please train me.The format...<br> <b>train: question#answer#password</b>"
+            ]);
+        }
+        return;
+    }else{
+        $question_and_answer_string = substr($question, 6);
+        $question_and_answer_string = preg_replace('([\s]+)', ' ', trim($question_and_answer_string));
+
+        $question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string);  
+        $split_string = explode("#", $question_and_answer_string);
+        if(count($split_string) == 1){
+            echo json_encode([
+                'status' => 0,
+                'answer' => "I can't answer that right now, please train me.The format...<br> <b>train: question#answer#password</b>"
+            ]);
+            return;
+        }
+        $que = trim($split_string[0]);
+        $ans = trim($split_string[1]);
+        if(count($split_string) < 3){
+            echo json_encode([
+                'status' => 0,
+                'answer' => "training password required"
+            ]);
+            return;
+        }
+        $password = trim($split_string[2]);
+        //verify if training password is correct
+        define('TRAINING_PASSWORD', 'password');
+        if($password !== TRAINING_PASSWORD){
+            echo json_encode([
+                'status' => 0,
+                'answer' => "invalid training password"
+            ]);
+            return;
+        }
+
+        //insert into database
+        $sql = "insert into chatbot (question, answer) values (:question, :answer)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':question', $que);
+        $stmt->bindParam(':answer', $ans);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        echo json_encode([
+            'status' => 1,
+            'answer' => "Thank you, I am now smarter"
+        ]);
+        return;
+    }
+    echo json_encode([
+        'status' => 0,
+        'answer' => "I can't answer that right now, please train me.The format...<br> <b>train: question#answer#password</b>"
+    ]);
+
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>  
@@ -27,13 +177,13 @@ color: #ffffff;    }
 .chatbox{
    position:absolute;
   width: 350px;
-  height: 800px;
+  height: 600px;
   background: #fff;
   padding: 25px;
   margin: 20px auto;
   box-shadow: 0 3px #ccc;
     margin-top:-550px;
-    margin-right:100px;
+    margin-right:-600px;
     
 }
 
@@ -95,10 +245,11 @@ font-size: 20px;
   margin-top: 20px;
   display: flex;
   align-items: flex-start;
+  width: 400px;
 }
 .chat-form textarea{
   background: #fbfbfb;
-  width: 75%;
+  width: 750%;
   height: 50px;
   border: 2px solid #1ddced;
   border-radius: 3px;
@@ -128,7 +279,7 @@ font-size: 20px;
   border: none;
   margin: 0 10px;
   border-radius: 3px
-  box-shadow: 0 3px 0 #0eb2c1;
+  box-shadow: 0 5px 0 #0eb2c1;
   cursor: pointer;
 
   -webkit-transition: background .2s ease;
@@ -159,6 +310,8 @@ font-size: 20px;
                                <br>                            
                                <small class="text-color"><b>@Didicodes</b></small>
                            </h3>
+
+                                                     
                             </div>
 </head>
 <body>
@@ -173,7 +326,7 @@ font-size: 20px;
     <div id="main">
 </div>
 </div>
-      <div class="chat-form"><input id="input" type="text" placeholder="Ask me anything..." autocomplete="off" />
+      <div class="chat-form"><input id="input" type="text" placeholder="Press enter after typing" autocomplete="off" />
   </div>
 <script type="text/javascript">
 var trigger = [
@@ -206,7 +359,6 @@ var reply = [
   ["Tell me a story", "Tell me a joke", "Tell me about yourself", "You are welcome"],
   ["Bye", "Goodbye", "See you later"]
 ];
-var alternative = ["Haha...", "Eh..."];
 document.querySelector("#input").addEventListener("keypress", function(e){
   var key = e.which || e.keyCode;
   if(key === 13){ //Enter button
@@ -245,7 +397,7 @@ function compare(arr, array, string){
 }
 function speak(string){
   var utterance = new SpeechSynthesisUtterance();
-  utterance.voice = speechSynthesis.getVoices().filter(function(voice){return voice.name == "Agnes";})[0];
+  utterance.voice = speechSynthesis.getVoices().filter(function(voice){return voice.name == "DidiBot";})[0];
   utterance.text = string;
   utterance.lang = "en-US";
   utterance.volume = 1; //0-1 interval
@@ -267,21 +419,6 @@ function speak(string){
                            </div>
        </div>
 <br>     
- <?php
-
-        require_once '../db.php';
-        try {
-            $select = 'SELECT * FROM secret_word';
-            $query = $conn->query($select);
-            $query->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $query->fetch();
-        } 
-        catch (PDOException $e) {
-            throw $e;
-        }
-        $secret_word = $data['secret_word'];       
-  
-?>
 
 </body>
 </html>
