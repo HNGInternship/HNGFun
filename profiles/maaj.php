@@ -370,7 +370,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				</div>
 				<div id ="controls">
 					<form method="POST" action="" id= "chat">
-					<input type="text" id="text_in"></input>
+					<input type="text" id="text_in" name="text_in"></input>
 					<input id="send" type="submit" value="Send"></input>
 					new head1
 					</form>
