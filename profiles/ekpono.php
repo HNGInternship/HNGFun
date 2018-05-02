@@ -1,8 +1,6 @@
 <?php
   error_reporting(E_ALL);
     ini_set("display_errors", 1);
-if($_SERVER['REQUEST_METHOD'] === "GET"){
-        try {
         $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ekpono'");
         $intern_data->execute();
         $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
@@ -13,24 +11,20 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
         $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
         $code = $secret_code->fetch();
         $secret_word = $code['secret_word'];
-     } catch (PDOException $e) {
-         throw $e;
-     }
-}
-?>
+  ?>
 
 <?php
-require '../../config.php';
-try {
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //echo "Connected";
-    }
-catch(PDOException $e)
-    {
-    echo "Sorry connection not found: " . $e->getMessage();
-    }
+//require '../../config.php';
+// try {
+//     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+//     // set the PDO error mode to exception
+//     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//     //echo "Connected";
+//     }
+// catch(PDOException $e)
+//     {
+//     echo "Sorry connection not found: " . $e->getMessage();
+//     }
 // Check connection
 
 ?>
