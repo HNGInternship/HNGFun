@@ -79,7 +79,7 @@ $question .'" and answer = "'. $answer .'" LIMIT 1';
 Teach me something new!</div>";
             }
         }else {
-            echo "<div id='result'>Invalid Password, Try Again!</div>";
+            echo "<div id='result'>You entered an invalid Password, Try Again!</div>";
         }
     }
     function getAnswer($input) {
