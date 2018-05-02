@@ -25,11 +25,10 @@
 	} catch (PDOException $e) {
 		echo $e->getMessage();
 	}
-?>
+	?>
 
-<?php
-if($_SERVER['REQUEST_METHOD'] !== POST){
-	
+	<?php
+		if(!isset($_POST['chat'])){
 	?>
 <!DOCTYPE HTML>
 <html>
@@ -646,8 +645,7 @@ if($_SERVER['REQUEST_METHOD'] !== POST){
 
 <?php
 	}
-	else if($_SERVER['REQUEST_METHOD'] === 'POST'){
-		if(isset($_POST['chat'])){
+	else{
 		$a = $_POST['chat'];
 			$question = $answer = $password = "";
 			$wrong_password = ["You entered a wrong password",
@@ -770,8 +768,4 @@ if($_SERVER['REQUEST_METHOD'] !== POST){
 				exit;
 			}
 		}
-	}
-	else{
-		continue;
-	}
 ?>

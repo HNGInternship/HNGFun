@@ -51,6 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     die;
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <title>BOLAJI AYODEJI | HNG4 Internship Profile</title>
@@ -120,11 +122,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             display: table;
             position: relative;
             background: #000;
-            color: #ffff;
+            color: white;
             padding: .5rem;
             border-radius: 10px;
             margin-bottom: 1rem;
-            max-width: 70%;
             box-shadow: 0 3px 1px rgba(0, 0, 0, .06), 0 1px 2px 1px rgba(105, 105, 105, .4);
         }
 
@@ -169,11 +170,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <br />
             <br />
             <br />
-            <p> Hello World!
-                <br /> I'm Bolaji Ayodeji
-                <br /> Tech Geek
-                <i class="fa fa-user text-primary"></i>&nbsp & Web Developer
-                <i class="fa fa-laptop text-primary"></i>
+            &nbsp <h3>Hello World!</h3>
+                <br />
+                <h1> I'm Bolaji Ayodeji<i class="fa fa-smile text-primary"></i> </h1>
+                <h2>Tech Geek <i class="fa fa-user text-primary"></i>
+                &nbsp & Web Developer
+                <i class="fa fa-laptop text-primary"></i></h2>
+                <br />
+                <h4><i class="fa fa-graduation-cap text-primary"></i> B.SC Federal University Lokoja
+                <br />(Computer Science)</h4>
             </p>
             <br />
 
@@ -183,11 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <br />
             <br />
             <div class="social">
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
+                
 
                 <a class="navbar-brand btn btn-outline-primary" href="#">Contact Me!</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -214,26 +215,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <a href="https://linkedin.com/in/iambeejayayo" style="text-decoration:none" class="fa fa-linkedin social text-light"></a>&nbsp
                     <a href="https://whatsapp.com/08109445504" style="text-decoration:none" class="fa fa-whatsapp social text-light"></a>&nbsp
                     <br />
-                    <br />
-                    <button class="navbar-brand btn btn-danger justify-content-center" id="chatbox-trigger">
-                        <span>Let's Chat!</span>
-                        <i class="fa fa-rocket"></i>
-                    </button>
+                    
 
                 </div>
             </div>
         </div>
 </div>
-<div class="row justify-content-center chatbox">
+<br /><br />
+<hr class="bg-light" />
+<div class="" align="center">
+<button class="navbar-brand btn btn-danger justify-content-center" id="chatbox-trigger">
+                        <span>Let's Chat!</span>
+                        <i class="fa fa-rocket"></i>
+                    </button>
+                </div>
+                <br />
+    
+<div class=" bg-dark row justify-content-center chatbox">
         <div class="col-lg-3 bg-light">
             <header class="row justify-content-center chatbox-header">
-            <div class="card" align="center">
+            <div class="card bg-danger" align="center">
             
                     <img class="chatbox-logo" src="https://res.cloudinary.com/iambeejayayo/image/upload/v1525095528/bot.png" alt="Alpha Bot">
                     <h2 class="chatbox-title text-dark">Alpha Bot</h2>
+                    <hr class="bg-light" />
+                    <p class=" text-center text-light"> Click the 'Lets Chat' button to begin! </p>
+                    
                 </div>
             </header>
             <div class="d-flex chatbox-content" id="chatbox-content"></div>
+               <p class="text-center text-muted small">
+                <?php $date = date("Y-m-d h:i:sa"); echo $date;?></p>
             <form class="row chatbox-footer">
                 <input class="form-control chatbox-input" id="chatbox-input" autocomplete="off" placeholder="Talk to me! buddy" type="text">
                 
@@ -242,6 +254,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script src="https://unpkg.com/dayjs@1.5.16/dist/dayjs.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
+   <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
     <script>
         const typingIndicator = 'random-string-for-indicator-id'
         const openChatbox = document.getElementById('chatbox-trigger')
@@ -317,11 +331,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 startTyping()
                 setTimeout(() => {
                     addMessage({
-                        message: 'What is your name?'
+                        message: 'Im here to help you!'
                     })
-                }, 450)
+                    startTyping()
+                setTimeout(() => {
+                    addMessage({
+                        message: 'Type: Aboutbot -to learn about me'
+                    })
+                    startTyping()
+                setTimeout(() => {
+                    addMessage({
+                        message: 'Type: Listcommands -to see the commands i accept'
+                    })
+                    }, 500)
+                  }, 500)
+                }, 500)
             }, 1000)
+            
         })
+        
 
         chatboxInput.addEventListener('keydown', function (event) {
             if (event.keyCode === 13) {
@@ -351,6 +379,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 this.value = ''
             }
         })
+
+// get the username
+function get_username(){
+    send_message('Hello Buddy!, what should i call you....?');
+	responsiveVoice.speak('Welcome, i am online if you need me. Click the chat and enter your name only to begin.','UK English Male');
+}
+
+
+// simple ai function
+function ai(message){
+        if (username.length < 1){
+          username = message;
+          send_message('Hi, nice to meet you ' + username + '. Would you like to train me? If yes please use the format. train: this is a question | this is an answer.')
+		  responsiveVoice.speak('Hi, nice to meet you ' + username + '. Would you like to train me? If yes please use the format. train: this is a question | this is an answer.','UK English Male');
+        }
+
+        else if ((message.indexOf('what is the time') >= 0) || (message.indexOf('what is my time') >= 0) || (message.indexOf('what time is it') >= 0)){
+        var date = new Date();
+        var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+        var am_pm = date.getHours() >= 12 ? "PM" : "AM";
+        hours = hours < 10 ? "0" + hours : hours;
+        var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+        var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+        time = hours + ":" + minutes + ":" + seconds + " " + am_pm;
+          send_message('your current time is: ' + time +'.' );
+          responsiveVoice.speak('your current time is: ' + time +'.' ,'UK English Male');
+        }
+		 else if ((message.indexOf('can you locate me') >= 0) || (message.indexOf('what is my location') >= 0) || (message.indexOf('where am i') >= 0)){
+          send_message('you are currently in '+ state +','+ country + '.');
+          responsiveVoice.speak('you are currently in '+ state +','+ country + '.','UK English Male');
+        }
+		 else if ((message.indexOf('what browser am i using') >= 0) || (message.indexOf('what device am i using') >= 0) || (message.indexOf('what is my device') >= 0) || (message.indexOf('what is my browser') >= 0)){
+			send_message('you are currently using a&nbsp;'+ browser +'&nbsp;on a '+ device + '&nbsp;Device');
+          responsiveVoice.speak('you are currently using a '+ browser +'on a '+ device + 'Device','UK English Male');
+		  }
+		 else if ((message.indexOf('what is my ip address') >= 0) || (message.indexOf('what is my ip') >= 0) || (message.indexOf('what ip am i using') >= 0) || (message.indexOf('show me my ip') >= 0)){
+			send_message('your ip address is : '+ ip +'');
+          responsiveVoice.speak('your ip address is : '+ ip +'','UK English Male');
+		  }
+		  else if ((message.indexOf('aboutbot') >= 0) || (message.indexOf('aboutBot') >= 0) || (message.indexOf('About Bot') >= 0) || (message.indexOf('botAbout') >= 0)){
+			send_message('Opheus-B0t v1.0');
+          responsiveVoice.speak('i am an opheus bot and i am currently version 1.0.');
+		  }
+		else if (message.indexOf('train:') >= 0){
+		trainer = message;
+		$.ajax({
+			type: "POST",
+			url: 'profiles/opheus.php',
+			data: {opheustrain: trainer },
+			success: function(data){
+				send_message(data);
+				responsiveVoice.speak(data ,'UK English Male');
+				
+			}
+		 });}
+		else{
+		elses = message;
+		$.ajax({
+			type: "POST",
+			url: 'profiles/opheus.php',
+			data: {opheuscheck: elses },
+			success: function(data){
+				send_message(data);
+				responsiveVoice.speak(data ,'UK English Male');
+			}
+		 });}
+}
+
     </script>
 </body>
 </html>
