@@ -1,40 +1,32 @@
-<?php
-
-  if(!defined('DB_USER')){
-    require "../../config.php";   
+    <?php
+    global $conn;
     try {
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+        $sql2 = 'SELECT * FROM interns_data WHERE username="Epospiky"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
     }
-  }
+    ?>
 
-  //Fetch User Details and secret
-
-      $query = "SELECT * FROM interns_data WHERE username ='Epospiky'";
-      $result = $conn->query($query);
-      $result = $result->fetch(PDO::FETCH_ASSOC);
-
-
-  //get and set the name and user name
-  $username = $result['username'];
-  $name = $result['name'];
-  //query the secret word table to Fetch Secret Word
-
-      $queryKey =  "SELECT * FROM secret_word LIMIT 1";
-      $result2   =  $conn->query($queryKey);
-      $result2  =  $result2->fetch(PDO::FETCH_ASSOC);
-      
-
-  $secret_word =  $result2['secret_word'];
-?>
 
 <?php
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $data = $_POST['input'];
-      //  $data = preg_replace('/\s+/', '', $data);
+        $data = $_POST['user-input'];
         $temp = explode(':', $data);
-        $temp2 = preg_replace('/\s+/', '', $temp[0]);
+        $temp2 = preg_replace('/\s+/','', $temp[0]);
+        
         if($temp2 === 'train'){
             train($temp[1]);
         }elseif($temp2 === 'aboutbot') {
@@ -43,17 +35,19 @@
             getAnswer($temp[0]);
         }
     }
+  ##About Bot
     function aboutbot() {
-        echo "<div id='result'>Santra v1.0</div>";
+        echo "<div id='result'><strong>Santra v1.0 </strong></div>";
     }
+  
+  ##Train Bot
     function train($input) {
         $input = explode('#', $input);
         $question = trim($input[0]);
         $answer = trim($input[1]);
         $password = trim($input[2]);
         if($password == 'password') {
-            $sql = 'SELECT * FROM chatbot WHERE question = "'.
-$question .'" and answer = "'. $answer .'" LIMIT 1';
+            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
             $q = $GLOBALS['conn']->query($sql);
             $q->setFetchMode(PDO::FETCH_ASSOC);
             $data = $q->fetch();
@@ -68,17 +62,17 @@ $question .'" and answer = "'. $answer .'" LIMIT 1';
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>Training Successful!</div>";
+                        echo "<div id='result'>Thank you for training me. </br>
+      Now you can ask me same question, and I will answer it correctly.</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
                 }
             }else{
-                echo "<div id='result'>I already understand this.
-Teach me something new!</div>";
+                echo "<div id='result'>I already understand this. Teach me something new!</div>";
             }
         }else {
-            echo "<div id='result'>Invalid Password, Try Again!</div>";
+            echo "<div id='result'>You entered an invalid Password. </br>Try Again!</div>";
         }
     }
     function getAnswer($input) {
@@ -88,15 +82,15 @@ Teach me something new!</div>";
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Sorry, I do not understand this Commmand.
-You can train me simply by using the format - 'train: question #
-answer #password'</div>";
+            echo "<div id='result'>Sorry! I've not been trained to learn that command. </br>Would you like to train me?
+</br>You can train me to answer any question at all using, train:question#answer#password
+</br>e.g train:Who is your maker#Damilare Daniel#password</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
         }
     }
-?>
+    ?>
 
 <!DOCTYPE html>
 <html>
@@ -115,7 +109,7 @@ answer #password'</div>";
       <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
       <script src="../js/jquery.min.js"></script>
       <script src="../js/bootstrap.min.js"></script>
-      <script src="../js/hmg.min.js"></script>
+      
         <style>
 
         ul.navi {
@@ -330,22 +324,22 @@ answer #password'</div>";
             </button>-->
           </div>
           <div class="modal-body "  >
-          <div class="chat" id = "chat">
-              <p class="san">Hi there. I'm Santra.</p>
-              <p class="san">You can train me using this command format <b>train: the question # the answer #authorised password</b> 
-                or Type <b>help</b> to begin with</p>   
-          
-          </div>
+                <div class="chat-result" id="chat-result">
+                    <div class="chat">
+          <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
+          <p class="san">Learn more about me by typing "aboutbot".</p>
+                    <p class="san">To train me, use this syntax - "train:question#answer#password".</p>
+          <p class="san">Password is password. </p>
+                    </div>
+                </div>
           </div>  
-          <div class="clearfix"></div> 
-            <form class="input " id="bot-input" method="POST">
-              <div class="input-group">
-                 <input class="form-control" id="txt-input"  type="text" name="input" required="" placeholder="Chat me up..." />
-               <span class="input-group-btn">
-                  <button type="submit" id="send" class="btn btn-primary"><i class="fa fa-send"></i> </button>
-              </span>
-              </div>
-            </form>
+          <div class="clearfix"></div>
+                <div class="chat-input">
+                    <form action="" method="post" id="user-input-form">
+                        <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="Type a message...">
+            <button class="btn btn-primary" id="send">SEND</button>
+                    </form>
+                </div>
         </div>
      <!-- </div>
     </div>-->
@@ -363,36 +357,28 @@ answer #password'</div>";
   </body>
 </html>
 
-  <script>
-  var outputArea = $('#chat');
-    $("#bot-input").on("submit", function(e) {
+<script>
+    var outputArea = $("#chat-result");
+    $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
-        var $message = $("#txt-input").val(); 
-        if($message !== ''){
-            
-           $('.message').hide(); 
-           
-           $("#txt-input").val("");
-        }
-        outputArea.append(`<div class='chat'><p
-class='me'>${$message}</p></div>`);
-    
+        var message = $("#user-input").val();
+        outputArea.append(`<div class='bot-message'><p class='me'>${message}</p></div>`);
         $.ajax({
-            url: 'profile.php?id=epospiky',
+            url: 'profile.php?id=Ddan',
             type: 'POST',
-            data:  'txt-input=' + $message,
+            data:  'user-input=' + message,
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
                     outputArea.append("<div class='chat'><p class='san'>" + result + "</p></div>");
-                    $('#chat').animate({
-                        scrollTop: $('#chat').get(0).scrollHeight
+                    $('#chat-result').animate({
+                        scrollTop: $('#chat-result').get(0).scrollHeight
                     }, 1500);
                 }, 250);
             }
         });
-        $("#txt-input").val("");
+        $("#user-input").val("");
     });
-  </script>
+</script>
 </body>
 </html>

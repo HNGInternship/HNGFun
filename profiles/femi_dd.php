@@ -238,9 +238,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
       <div class="bot round-corners">
          <div class="inner">
                <h2>The femiBot 🤖</h2>
-               <i style="font-size: 15px"><b>Bot Tips</b> :<br />
-                  1. train: question # answer # password<br />
-                  2. To find a hng friend, just type find:username or find:name</i>
                   <div id="chatarea" style="overflow: auto; height:300px; border:1px solid whitesmoke; border-radius:5px"></div>
                   <div class="input-group">
                      <input type="text" class="form-control" id="message" type="text" placeholder="Message" name="newrequest" />
@@ -294,6 +291,11 @@ function newElementsForBot(botResponse) {
    timeElement.innerHTML = time;
    chatArea.appendChild(timeElement);
 }
+
+$(document).ready(function() {
+    response = {"response" : "Hello there, I'm femiBot.<br/>Here's a couple of things i can do.<br/> 1. You can ask me anything<br/>2. You can find a friend who's in the dope HNGInternship<br/>3. You open a URL by typing open:your_url"};
+    newElementsForBot(response);
+});
 
 $(document).ready(function chargeBot() {
    $("#send").click(function() {
