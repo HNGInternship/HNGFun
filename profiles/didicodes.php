@@ -177,7 +177,7 @@ color: #ffffff;    }
 .chatbox{
    position:absolute;
   width: 350px;
-  height: 600px;
+  height: 700px;
   background: #fff;
   padding: 25px;
   margin: 20px auto;
@@ -406,19 +406,5 @@ function speak(string){
   speechSynthesis.speak(utterance);
 }
 </script>
-        
-                            
-                            
-
-
-                            <p id="fav">
-<a href="https://github.com/edyasikpo"><i class="fa fa-github fa-2x"></i></a>&nbsp;
-           <a href="https://twitter.com/didicodes"><i class="fa fa-twitter fa-2x"></i></a>&nbsp;
-           <a href="https://facebook.com/Didicodes"><i class="fa fa-facebook fa-2x"></i></a>
-           </p>
-                           </div>
-       </div>
-<br>     
-
 </body>
 </html>
