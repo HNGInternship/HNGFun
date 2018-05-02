@@ -339,8 +339,8 @@ try {
             var userinputval=  $('input[name=userinput]').val();
             if (userinputval !== null) {
                var newinput = "<p class='msgoutput'>" + userinputval +
-               "<img style='height: 2.5em;'class='rounded-circle'"
-               " src='http://res.cloudinary.com/osawaru/image/upload/e_grayscale/v1524047363/avatar.png'></p>";
+               "<img style='height: 2.5em;'class='rounded-circle ml-2'"
+               " src='http://res.cloudinary.com/osawaru/image/upload/v1525257218/img_264157.png'></p>";
                $('#chatbody').append(newinput);
                $('#chatbody').scrollTop ($('#chatbody')[0].scrollHeight); 
                $.ajax ({
