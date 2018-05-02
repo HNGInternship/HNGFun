@@ -550,12 +550,13 @@
 							<div id="output" class="col-xs-12">
 								<?php
 									add_default();
-									if($_SERVER['REQUEST_METHOD'] === 'POST'){
-										if(isset($_POST['submit'])){
-											$a = $_POST['user_text'];
-											add_user_text($a);
-										}
-									}
+									add_default();
+									// if($_SERVER['REQUEST_METHOD'] === 'POST'){
+									// 	if(isset($_POST['submit'])){
+									// 		$a = $_POST['user_text'];
+									// 		add_user_text($a);
+									// 	}
+									// }
 								?>
 							</div>
 
