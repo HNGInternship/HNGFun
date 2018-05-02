@@ -89,12 +89,15 @@ Teach me something new!</div>";
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Sorry, I do not understand this Commmand.
-You can train me simply by using the format - 'train: question #
-answer #password'</div>";
+            echo json_encode(['status' => 1,
+              'answer' =>"Sorry, I do not understand this Commmand.
+              You can train me simply by using the format - 'train: question #
+              answer #password'"]);
+            return;
         }else {
             $rand_keys = array_rand($data);
-            echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
+            echo json_encode(['status' =>1,
+              'answer' =>$data[$rand_keys]['answer'] ]);
         }
     }
 ?>
@@ -370,21 +373,27 @@ answer #password'</div>";
   var outputArea = $('#chat');
     $("#bot-input-form").on("submit", function(e) {
         e.preventDefault();
-        var $message = $("#user-input").val(); 
-        if($message !== ''){
-            
-           $('.message').hide(); 
-           
-           $("#user-input").val("");
-        }
-        outputArea.append(`<div class='chat'><p
-class='me'>${$message}</p></div>`);
+        var question = $("#user-input").val(); 
+       // if($message !== ''){
+          //  
+          /// $('.message').hide(); 
+          // 
+           //$("#user-input").val("");
+      //  }
+        outputArea.append("<div class='chat'><p
+              class='me'>"+question+"</p></div>");
     
         $.ajax({
             url: 'profile.php?id=epospiky',
             type: 'POST',
-            data:  'ussr-input=' + $message,
+            data:  {question:question},
+            datatype: 'json',
             success: function(response) {
+              outputArea.append("<div class='bot'><p class='san'> " + response.answer + "</p></li>");
+             // console.log(response.result);
+              //alert(response.result.d);
+              //alert(answer.result);
+              
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
                     outputArea.append("<div class='chat'><p class='san'>" + result + "</p></div>");
