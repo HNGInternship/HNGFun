@@ -320,11 +320,6 @@ if (!defined('DB_USER')){
       $.ajax({
 <
         url: 'profiles/kingpin.php',
-
-
-        url: 'profiles/kingpin',
-        url: '#',
-
         type: 'POST',
         data: {question: question},
         dataType: 'json',
