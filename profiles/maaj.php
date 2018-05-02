@@ -297,8 +297,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
      
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-json/2.6.0/jquery.json.min.js"></script>
  <script>
- $(document).ready(function(){
-    var message = $("#contain");
+     var message = $("#contain");
 		
 	    $("#chat").on("submit", function(e) {
 	        e.preventDefault();
@@ -330,7 +329,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			}
 		});
 		
-	});
+
 
 </script>
   </body>
