@@ -173,12 +173,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             &nbsp <h3>Hello World!</h3>
                 <br />
                 <h1> I'm Bolaji Ayodeji<i class="fa fa-smile text-primary"></i> </h1>
-                <br />
+                
                 <h2>Tech Geek
                 <i class="fa fa-user text-primary"></i>&nbsp & Web Developer
                 <i class="fa fa-laptop text-primary"></i></h2>
                 <br />
-                <h4><i class="fa fa-graduation-cap text-primary"></i> B.SC Federal University Lokoja (Computer Science)</h4>
+                <h4><i class="fa fa-graduation-cap text-primary"></i> B.SC Federal University Lokoja
+                <br />(Computer Science)</h4>
             </p>
             <br />
 
