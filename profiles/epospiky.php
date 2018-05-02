@@ -31,7 +31,7 @@
 
 <?php
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-      require "../answers.php":
+      require "../answers.php";
         $data = $_POST['user-input'];
       //  $data = preg_replace('/\s+/', '', $data);
         $temp = explode(':', $data);
