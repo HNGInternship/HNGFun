@@ -283,7 +283,7 @@ if (!defined('DB_USER')){
 <div id="async">
 </div>
 <form id="myform" method="POST">
-  <textarea  sid="text" name="question" id="ter" rows="0" cols="0" class="textarea" style=" padding:2px; border-radius: 12px;width: 80%;background-color:rgba(155, 22, 195, 0.32);" placeholder="enter your message"></textarea> <br>
+  <textarea  sid="text" name="question" id="ter" rows="0" cols="0" class="textarea" style=" padding:2px; border-radius: 12px;width: 80%;background-color:rgba(155, 22, 195, 0.32);  font-size: 16px;" placeholder="enter your message"></textarea> <br>
                                <button id="btn1" type="submit" class="button" >send</button>
                                <br><br>
 </center>
@@ -309,7 +309,7 @@ if (!defined('DB_USER')){
     var resusr='</center><div class="container1 darker" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524285838/960_720.png" alt="Avatar" class="right" style="width:60%;"><p> ';
     $("#async").append(resusr+" "+valnext2+" </p></div>");
       $.ajax({
-        url: '#',
+        url: 'http://old.hng.fun/profile.php?id=kingpin',
         type: 'POST',
         data: {question: question},
         dataType: 'json',

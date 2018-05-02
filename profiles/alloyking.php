@@ -31,12 +31,12 @@
 			background-color: #1D1C33;
 			border-radius: 20px 15px 20px 15px;
 			padding-top:10%;
-			margin-top:7%;
 		}
 		.light{
 			margin-top:10%;
 			background-color: #FFF;
-			height: 50%;
+			height: 40%;
+			border-radius: 20px 15px 20px 15px;
 		}
 		.about{
 			padding-top:1%;
