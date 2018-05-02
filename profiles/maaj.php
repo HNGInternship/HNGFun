@@ -23,7 +23,7 @@ $image_url = $row['image_filename'];
 // chatbot
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
-	$question = $_POST['textbox'];
+	$question = $_POST['text_in'];
 	
 	
 	 // bot version
@@ -213,7 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			margin:0px auto;
 			
 		}
-		#textbox{
+		#text_in{
 			margin:0 0 0 0;
 			width:82%;
 			
@@ -283,7 +283,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				</div>
 				<div id ="controls">
 					<form method="POST" action="" id= "chat">
-					<input type="text" id="textbox"></input>
+					<input type="text" id="text_in"></input>
 					<input id="send" type="submit" value="Send"></input>
 					new head1
 					</form>
@@ -309,8 +309,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		
 	    $("#chat").on("submit", function(e) {
 	        e.preventDefault();
-			if($("#textbox").val() !== ''){
-	        var text_in = $("#textbox").val();
+			if($("#text_in").val() !== ''){
+	        var text_in = $("#text_in").val();
 			var username = "You:  ";
 	        message.append("<div class='username'>"+ username + text_in+"</div>");
 	       	message.scrollTop(message[0].scrollHeight);
@@ -334,7 +334,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				}
 				
 			});
-			$("#textbox").val("");
+			$("#text_in").val("");
 			}
 		});
 		
