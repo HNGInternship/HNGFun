@@ -38,7 +38,7 @@ a {
 }
 
 img {
-	max-width: 100%;
+	max-width: 50%;
 }
 
 
@@ -243,8 +243,23 @@ nav a.selected, nav a:hover {
 			<section>
 				<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
 				<h3>About</h3>
-				<p>Hi I'm basitomania, this is my design portfolio where i share all my work when i'm not surfing the net and markerting online. To follow me on twitter my handle is <a href="http://www.twitter.com">@basitomania</a>.</p>
+				<p>Hi I'm basitomania, this is my design portfolio where i share all my work when i'm not surfing the net and markerting online. To follow me on twitter my handle is <a href="http://www.twitter.com">@iamblack8</a>.</p>
 			</section>
+			
+			<section id="secondary">
+            <h3>Contact Details</h3>
+            <ul class="contact-info">
+                <li class="phone">
+                    <a href="tel:+2348166380172">+2348166380172</a>
+                </li>
+                <li class="mail">
+                    <a href="mailto:basitomania@gmail.com">basitomania@gmail.com</a>
+                </li>
+                <li class="twitter">
+                    <a href="http://twitter.com/intent/tweet?screen_name=iamblack8">@iamblack8</a>
+                </li>
+            </ul>
+        </section>
 			<footer>
 				<p>&copy; 2017 Maniaweb.</p>
 			</footer>
