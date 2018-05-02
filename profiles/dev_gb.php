@@ -1,5 +1,5 @@
 <?php
-include_once("../answers.php"); 
+
 $query = $conn->query("SELECT * FROM secret_word");
 $result = $query->fetch(PDO::FETCH_ASSOC);
 $secret_word = $result['secret_word'];
@@ -687,7 +687,7 @@ a:focus {
 <?php 
 }
 function help( ) {
-    echo 'These is a sample format of a question <p>What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ado-Ekiti</p>';
+    echo 'This is a sample format of a question <p>What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ado-Ekiti</p>';
 }
 function train( $input ) {
     $input    = explode( '#', $input );
