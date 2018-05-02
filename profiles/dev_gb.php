@@ -617,7 +617,7 @@ a:focus {
                         type: "POST",
                          cache: false,
                              success: function(response) {
-                              var result = $($.parseHTML(response)[1]).text() + $($.parseHTML(response)[0]).text();
+                              var result = $($.parseHTML(response)[0]).text()
             setTimeout(function(){
                      $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message"><p>'+result+'</p></div><span class="delivered"><?php
             echo "" . date("h:i:a");
