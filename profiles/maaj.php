@@ -24,6 +24,8 @@ $image_url = $row['image_filename'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
 	$question = $_POST['text_in'];
+	$question = preg_replace('([\s]+)', ' ', trim($question));
+	$question = preg_replace("([?.])", "", $question); 
 	
 	
 	 // bot version
@@ -276,6 +278,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					<form method="POST" action="" id= "chat">
 					<input type="text" id="textbox"></input>
 					<input id="send" type="submit" value="Send"></input>
+					new head
 					</form>
 
 				</div>
