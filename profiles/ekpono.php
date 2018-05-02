@@ -117,15 +117,7 @@
 //         }
 //chogo
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ekpono's Profile</title>
-   <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
-   
+
 
 <style>
 * {
@@ -252,8 +244,7 @@ a {
 }
 /* CSS button */
 </style>
-</head>
-<body>
+
 <div class="container">
     <div class="text">
         <h1 style="color:rgb(32, 32, 216); padding-top: 30px">Hey! I'm <?php echo $result['name']; ?></h1>
@@ -292,7 +283,6 @@ a {
         </div>
     </div>
     </div>
-</body>
-</html>
+
 
   
