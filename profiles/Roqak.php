@@ -1,12 +1,13 @@
 <?php
+if(!defined('DB_USER')){
 require "../../config.php";
  try {
      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
  } catch (PDOException $pe) {
      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
  }
-
-include_once "db.php";
+}
+// include_once "db.php";
 // include 'answers.php';
 ?>
 
@@ -50,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       ]);
       return;
     }else {
-		 $sql = "INSERT INTO nbot(question, answer) VALUES ('" . $quest . "', '" . $ans . "')";
+		 $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $quest . "', '" . $ans . "')";
 		 $conn->exec($sql);
      header('Content-type: text/json');
      $arrayName = array('result' => 'Thanks for uprading my knowledge.... You can now test me');
@@ -66,7 +67,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
    // }
     else {
       $mem = "%$mem%";
-      $sql = "select * from nbot where question like :mem";
+      $sql = "select * from chatbot where question like :mem";
       $stmt = $conn->prepare($sql);
       $stmt->bindParam(':mem', $mem);
       $stmt->execute();
