@@ -25,12 +25,11 @@
 	} catch (PDOException $e) {
 		echo $e->getMessage();
 	}
-?>
+	?>
 
-<?php
-if(!isset[$_POST['chat']){
-	
-?>
+	<?php
+		if(!isset($_POST['chat'])){
+	?>
 <!DOCTYPE HTML>
 <html>
 	<head>
