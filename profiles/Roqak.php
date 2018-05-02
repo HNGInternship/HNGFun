@@ -51,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       ]);
       return;
     }else {
-		 $sql = "INSERT INTO nbot(question, answer) VALUES ('" . $quest . "', '" . $ans . "')";
+		 $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $quest . "', '" . $ans . "')";
 		 $conn->exec($sql);
      header('Content-type: text/json');
      $arrayName = array('result' => 'Thanks for uprading my knowledge.... You can now test me');
@@ -67,7 +67,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
    // }
     else {
       $mem = "%$mem%";
-      $sql = "select * from nbot where question like :mem";
+      $sql = "select * from chatbot where question like :mem";
       $stmt = $conn->prepare($sql);
       $stmt->bindParam(':mem', $mem);
       $stmt->execute();
