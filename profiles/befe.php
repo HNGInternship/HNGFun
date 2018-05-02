@@ -1,6 +1,6 @@
 <?php 
   if(!defined('DB_USER')){
-    require "../config.php";
+    require "../../config.php";
   }
   try {
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
@@ -8,8 +8,8 @@
     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
   }
 try {
-    //   $user = 'befe';
-      $sql = "SELECT * FROM interns_data WHERE username = 'befe' "; 
+      $user = 'befe';
+      $sql = "SELECT * FROM interns_data WHERE username = '$user' "; 
       $q = $conn->query($sql);
       $q->setFetchMode(PDO::FETCH_ASSOC);
       $data = $q->fetch();
@@ -184,6 +184,7 @@ function fetchAnswer($msgss){
                 #chatbox {
                     position: absolute;
                     bottom: 20px;
+                    margin-top: 20px;
                 }
                 input[type=text] {
                     box-sizing: border-box;
@@ -307,8 +308,8 @@ function fetchAnswer($msgss){
             <section class='row'>
                 <article class='col-md-8' id='main'>
                     <div class='row'>
-                        <div class='contain-pic'>
-                            <img class='col-md-3' src="<?= $image ?>" alt ='befe sitted and giving a pose'>
+                        <div class='contain-pic col-md-3'>
+                            <img class='' src="<?php echo $image; ?>" alt ='befe sitted and giving a pose'>
                         </div>
                         <div class='details col-md-7'>
                             <h1>Deekor Baribefe</h1>
