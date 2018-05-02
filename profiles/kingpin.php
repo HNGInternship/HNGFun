@@ -30,6 +30,7 @@
                         'answer' => "thanks for enlarging my knowledge base"
                         ]);
 return;
+
 }
 else {
 
@@ -317,9 +318,13 @@ if (!defined('DB_USER')){
     var resusr='</center><div class="container1 darker" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524285838/960_720.png" alt="Avatar" class="right" style="width:60%;"><p> ';
     $("#async").append(resusr+" "+valnext2+" </p></div>");
       $.ajax({
+<
+        url: 'profiles/kingpin.php',
+
 
         url: 'profiles/kingpin',
         url: '#',
+
         type: 'POST',
         data: {question: question},
         dataType: 'json',
