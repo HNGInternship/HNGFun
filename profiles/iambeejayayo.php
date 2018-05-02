@@ -325,7 +325,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 startTyping()
                 setTimeout(() => {
                     addMessage({
-                        message: 'Im here to help you?'
+                        message: 'Im here to help you!'
                     })
                     startTyping()
                 setTimeout(() => {
