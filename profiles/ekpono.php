@@ -358,7 +358,7 @@ input[type=text] {
                     processData(xhttp.responseText);
                 }
             };
-            xhttp.open("POST","http://old.hng.fun/profiles/ekpono.php", true);
+            xhttp.open("POST","https://old.hng.fun/profiles/ekpono.php", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("ques="+ques.value);
         }
