@@ -160,7 +160,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                   
                   }
                   else{
-                     echo "Tips: Type 'Help' to see FAQ.</br> To add new states ==> 'train:Question#answer#password'";
+                     echo "<div id='result'>Tips: Type 'Help' to see FAQ.</br> To add new states ==> 'train:Question#answer#password'</div>";
+                     
       
                   }       
                 }
@@ -615,9 +616,9 @@ a:focus {
                         type: "POST",
                          cache: false,
                              success: function(response) {
-                              var result = $($.parseHTML(response)).text();
+                              var result = $($.parseHTML(response)).find("#result").text();
             setTimeout(function(){
-                     $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message"></br>/</br/<p>'+result+'</p></br>/</br/</div><span class="delivered"><?php
+                     $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message"><p>'+result+'</p></div><span class="delivered"><?php
             echo "" . date("h:i:a");
             ?></span></div>').insertBefore('.push');
                                          $('chatbox-messages').animate({
@@ -677,7 +678,7 @@ a:focus {
 <?php 
 }
 function help() {
-    echo 'These is a sample format of a question <p>What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ado-Ekiti</p>';
+    echo '<div id='result'>These is a sample format of a question <p>What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ado-Ekiti</div>';
 }
 function train( $input ) {
     $input    = explode( '#', $input );
@@ -703,6 +704,7 @@ function train( $input ) {
                 $q = $GLOBALS[ 'conn' ]->prepare( $sql );
                 if ( $q->execute( $training_data ) == true ) {
                     echo "<div id='result'>Training Successful!</div>";
+
                 }
             }
             catch ( PDOException $e ) {
