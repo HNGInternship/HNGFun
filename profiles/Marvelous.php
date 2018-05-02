@@ -63,13 +63,7 @@ body
 </style>
 </head>
 <body>
-<?php
-   $result = $conn->query("Select * from secret_word LIMIT 1");
-   $result = $result->fetch(PDO::FETCH_OBJ);
-   $secret_word = $result->secret_word;
-   $result2 = $conn->query("Select * from interns_data where username = 'Marvelous'");
-   $user = $result2->fetch(PDO::FETCH_OBJ);
-	?>
+
 
 <div class="card">
 <img src="http://res.cloudinary.com/marvelous/image/upload/b_rgb:3b2f2f,c_fill,h_2653,w_2456/a_0/v1524660197/DSC_0772.jpg" alt="Marvelous" style="width:100%">
@@ -88,7 +82,15 @@ body
  </div>
 
 <p><button>Contact<a href="time.php"></a></button></p>
+	
 
 </div>
+	<?php
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+   $result2 = $conn->query("Select * from interns_data where username = 'Marvelous'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+	?>
 </body>
 </html>
