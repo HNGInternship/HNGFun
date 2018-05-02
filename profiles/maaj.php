@@ -297,7 +297,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
      
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-json/2.6.0/jquery.json.min.js"></script>
  <script>
-     var message = $("#contain");
+ $(document).ready(function(){
+    var message = $("#contain");
 		
 	    $("#chat").on("submit", function(e) {
 	        e.preventDefault();
@@ -312,16 +313,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				type: 'POST',
 				data: {text_in: text_in},
 				dataType: 'json',
-				success: function(response) => {
+				success: (response) => {
 					
 			        response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
 			        let response_answer = response.answer;
 			        message.append("<div class='bot'><div class='message'><img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/>" +response_answer+ "</div></div>");      
 			       	$('#contain').animate({scrollTop: $('#contain').get(0).scrollHeight}, 1100);     
 				},
-				error: function(error) => {
+				error: (error) => {
 	          		alert('error occured')
 						console.log(error);
+						
 				}
 				
 			});
@@ -329,7 +331,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			}
 		});
 		
-
+	});
 
 </script>
   </body>
