@@ -281,7 +281,7 @@ input[type=text] {
 <body>
 <div class="container">
     <div class="text">
-        <h1 style="color:rgb(32, 32, 216); padding-top: 30px">Hey! I'm Ekpono ?></h1>
+        <h1 style="color:rgb(32, 32, 216); padding-top: 30px">Hey! I'm Ekpono </h1>
         <h2 style="color:#806a21;">I'm a developer from Nigeria</h2>
         <h3 class="slogan">I work with companies</h3>
         <p>Jiggle, Thirdfloor, JandK Services, Hilltop</p>
