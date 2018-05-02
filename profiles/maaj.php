@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'answer' => "Hello, I am maaj's assistant. Version 1.0, currently running on PHP 5.7."
       ]);
       return;
-    };
+    }
 	
 	//greeting
 	if((stripos($question,'hey') !== false) || (stripos($question,'hi') !== false) || (stripos($question,'hello') !== false)){
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'answer' => "Hello, how are you?"
       ]);
       return;
-    };
+    }
 	
 	// time
 	if(stripos($question,'time') !== false){
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       return;
 		
 	
-	};
+	}
 	
 	
 	}
