@@ -8,7 +8,7 @@ if (!$dbc) {
             . mysqli_connect_error());
 }
 // 	mysqli_select_db($dbc,DB_DATABASE) or $error = mysqli_error($dbc);
-var_dump("DBC: ". $dbc);
+// var_dump("DBC: ". $dbc);
 // 	mysqli_query($dbc, "SET NAMES `utf8`") or $error = mysqli_error($dbc);
 // 	var_dump("error:". $error);
 // 	if(@$error){ die($error);}
