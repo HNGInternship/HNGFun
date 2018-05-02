@@ -37,8 +37,7 @@
     }
   ##About Bot
     function aboutbot() {
-        echo "<div id='result'><strong>Dan_Bot v 2lite </strong></br>
-    Hello...I am Dan_Bot, created by Damilare Daniel to answer any question from the database. You can also train me to answer any questions...</div>";
+        echo "<div id='result'><strong>Santra v1.0 </strong></div>";
     }
   
   ##Train Bot
@@ -327,7 +326,7 @@
           <div class="modal-body "  >
                 <div class="chat-result" id="chat-result">
                     <div class="chat">
-          <p class="san">Hello! I'm Dan_Bot! You are free to ask me anything.   </p>
+          <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
           <p class="san">Learn more about me by typing "aboutbot".</p>
                     <p class="san">To train me, use this syntax - "train:question#answer#password".</p>
           <p class="san">Password is password. </p>
@@ -337,7 +336,7 @@
           <div class="clearfix"></div>
                 <div class="chat-input">
                     <form action="" method="post" id="user-input-form">
-                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Type a message...">
+                        <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="Type a message...">
             <button class="btn btn-primary" id="send">SEND</button>
                     </form>
                 </div>
