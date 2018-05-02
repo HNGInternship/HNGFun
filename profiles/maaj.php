@@ -300,7 +300,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			margin:0px auto;
 			
 		}
-		#text_in{
+		#textbox{
 			margin:0 0 0 0;
 			width:82%;
 			
@@ -369,8 +369,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				
 				</div>
 				<div id ="controls">
-					<form method="POST" action="" id= "chat">
-					<input type="text" id="text_in" name="text_in"></input>
+					<form method="POST" action="" id="chat">
+					<input type="text" id="textbox" name="text_in"></input>
 					<input id="send" type="submit" value="Send"></input>
 					new head1
 					</form>
@@ -396,8 +396,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		
 	    $("#chat").on("submit", function(e) {
 	        e.preventDefault();
-			if($("#text_in").val() !== ''){
-	        var text_in = $("#text_in").val();
+			if($("#textbox").val() !== ''){
+	        var text_in = $("#textbox").val();
 			var username = "You:  ";
 	        message.append("<div class='username'>"+ username + text_in+"</div>");
 	       	message.scrollTop(message[0].scrollHeight);
@@ -415,7 +415,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			       	$('#contain').animate({scrollTop: $('#contain').get(0).scrollHeight}, 1100);     
 				},
 				error: (error) => {
-	          		alert('error occured')
+	          		alert(JSON.stringify(error));
 						console.log(error);
 						
 				}
