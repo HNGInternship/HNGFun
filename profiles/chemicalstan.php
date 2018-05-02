@@ -20,11 +20,9 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'chemicalst
     <meta name="description" content="">
     <meta name="author" content="">
 
-<<<<<<< HEAD
+
     <title>CHEMICALSTAN PROFILE</title>
-=======
     <title>CHEMICALSTAN'S PROFILE</title>
->>>>>>> c84ccd984aebe2daf14a59cc781cce4877321c88
 
 <!--     Bootstrap core CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -47,11 +45,11 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'chemicalst
 
         <div class="row">
             <!-- Blog Entries Column -->
-<<<<<<< HEAD
+
         
-=======
+
         <hr>
->>>>>>> c84ccd984aebe2daf14a59cc781cce4877321c88
+
             <h2 class="text-center" >Hello Guys, I'm an intern @ HNG4.0</h2>
             <hr>
             <div class="row">
