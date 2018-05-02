@@ -286,11 +286,9 @@ if (!defined('DB_USER')){
 <div id="async">
 </div>
 <form id="myform" method="POST">
-<<<<<<< HEAD
+
   <textarea  sid="text" name="question" id="ter" rows="0" cols="0" class="textarea" style=" padding:2px; border-radius: 12px;width: 80%;background-color:rgba(155, 22, 195, 0.32);  font-size: 16px;" placeholder="enter your message"></textarea> <br>
-=======
-  <textarea  sid="text" name="question" id="ter" rows="0" cols="0" class="textarea" style=" padding:2px; border-radius: 12px;width: 80%;background-color:rgba(155, 22, 195, 0.32);" placeholder="enter your message"></textarea> <br>
->>>>>>> ae44fbc96cf78cd05746a32ec9b31ceb8ac1f09e
+  
                                <button id="btn1" type="submit" class="button" >send</button>
                                <br><br>
 </center>
