@@ -103,10 +103,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } 
    
 ?>
-<!DOCTYPE html>
-<html>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <!-- jQuery library -->
@@ -119,6 +115,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro|Playball" rel="stylesheet">
 
 <style>
+    nav {
+        color : white;
+    }
     #projects {
         background-image: url(" http://res.cloudinary.com/osawaru/image/upload/v1523637993/bg-img.jpg");
     }
