@@ -70,7 +70,7 @@ body
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "hng_fun";
+$dbname = "hngfun";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
