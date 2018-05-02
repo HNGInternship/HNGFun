@@ -18,7 +18,7 @@
   $user = $result2->fetch(PDO::FETCH_OBJ);  // assign to array
 
 ?>
-</!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>My Portfolio</title>
@@ -30,6 +30,8 @@
 		.dark{
 			background-color: #1D1C33;
 			border-radius: 20px 15px 20px 15px;
+			padding-top:10%;
+			margin-top:7%;
 		}
 		.light{
 			margin-top:10%;
@@ -41,8 +43,7 @@
 		}
 
 		.container{
-			width: 100%;
-			margin-top:10%; 
+			width: 100%; 
 		}
 		.second_heading{
 			color: #F3F2FF;
