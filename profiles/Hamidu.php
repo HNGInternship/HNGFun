@@ -1,15 +1,22 @@
 <?php
-require '../db.php';
+require 'db.php';
 
-$query0 = $conn->prepare('SELECT * FROM `interns_data`');
-$query1 = $conn->prepare('SELECT * FROM `secret_word`');
+$query0 = $conn->prepare('SELECT * FROM `interns_data` WHERE username = "Hamidu"');
+$query1 = $conn->prepare('SELECT * FROM `secret_word` LIMIT 1');
 $query0->execute();
 $query1->execute();
 
-
 $result0 = $query0->fetchAll(PDO::FETCH_OBJ);
 $result1 = $query1->fetchAll(PDO::FETCH_OBJ);
-$secret_word = ($result1[0]->secret_word);
+
+
+
+$name = ($result0[0]->name);
+$username = ($result0[0]->username);
+$image_filename = ($result0[0]->image_filename);
+$secret_word = (($result1[0]->secret_word));
+
+
 ?>
 
 
@@ -19,7 +26,7 @@ $secret_word = ($result1[0]->secret_word);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title><?php echo ($result0[0]->name); ?></title>
+  <title><?php echo ($name); ?></title>
   <style>
     body {
       background: #4169e1;
@@ -31,9 +38,9 @@ $secret_word = ($result1[0]->secret_word);
     h1 {
       font-weight: 600;
       text-transform: uppercase;
-      border-bottom: 5px solid;
-      font-size: 3em;
-      border-radius: 15%;
+      border-bottom: 0.25em solid;
+      font-size: 1.5em;
+      /* border-radius: 15%; */
     }
 
     #container {
@@ -41,11 +48,11 @@ $secret_word = ($result1[0]->secret_word);
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 90vh;
+      /* height: 70vh; */
     }
 
     .pic {
-      height: 9em;
+      height: 7em;
       border-radius: 15%;
     }
 
@@ -60,14 +67,14 @@ $secret_word = ($result1[0]->secret_word);
     }
 
     p {
-      font-size: 1.1em;
+      font-size: 0.8em;
     }
 
     span.learnpath {
       border: 1px solid;
       text-align: center;
-      letter-spacing: 4px;
-      padding: 1em;
+      letter-spacing: 0.125em;
+      padding: 0.5em;
       border-radius: 15%;
     }
 
@@ -79,7 +86,7 @@ $secret_word = ($result1[0]->secret_word);
     }
 
     svg {
-      width: 3em;
+      width: 1.5em;
       border: 1px solid #fff;
       border-radius: 15%;
     }
@@ -106,14 +113,15 @@ $secret_word = ($result1[0]->secret_word);
 
 <body>
   <div id="container">
-    <h1>Hi!</h1>
+
     <figure>
-      <img src="<?php echo ($result0[0]->image_filename); ?>" alt="Headshot/Potrait Image of Hamidu Abu"
+      <img src="<?php echo ($image_filename); ?>" alt="Headshot/Potrait Image of Hamidu Abu"
         class="pic">
       <figcaption>
-        My Name is <?php echo ($result0[0]->name); ?> and I am Learning Fullstack Web Development.
+        <h1>Hi!</h1>
       </figcaption>
     </figure>
+<p>My Name is <?php echo ($username); ?> and I am Learning Fullstack Web Development.</p>
     <p>My Learning path is currently something like this:</p>
     <p>
       <span class="learnpath">HTML</span>
@@ -121,7 +129,7 @@ $secret_word = ($result1[0]->secret_word);
       <span class="learnpath">JAVASCRIPT</span>
       <span class="learnpath">PHP</span>
     </p>
-    <br>
+
     <p>
       <span class="learnpath">MYSQL</span>
       <span class="learnpath">MONGODB</span>
