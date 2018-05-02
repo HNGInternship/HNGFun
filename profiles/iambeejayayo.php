@@ -170,13 +170,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <br />
             <br />
             <br />
-            <p> Hello World!
-                <br /> I'm Bolaji Ayodeji
-                <br /> Tech Geek
+            &nbsp <h3>Hello World!</h3>
+                <br /> <h1> I'm Bolaji Ayodeji<i class="fa fa-smile text-primary"></i> </h1>
+                <br /> <h2>Tech Geek
                 <i class="fa fa-user text-primary"></i>&nbsp & Web Developer
-                <i class="fa fa-laptop text-primary"></i>
+                <i class="fa fa-laptop text-primary"></i></h2>
                 <br />
-                <i class="fa fa-graduation-cap text-primary"></i> B.SC Federal University Lokoja (Computer Science)
+                <h4><i class="fa fa-graduation-cap text-primary"></i> B.SC Federal University Lokoja (Computer Science)</h4>
             </p>
             <br />
 
@@ -222,6 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <span>Let's Chat!</span>
                         <i class="fa fa-rocket"></i>
                     </button>
+                    <br /><br />
 
                 </div>
             </div>
