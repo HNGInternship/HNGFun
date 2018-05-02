@@ -188,11 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <br />
             <br />
             <div class="social">
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
+                
 
                 <a class="navbar-brand btn btn-outline-primary" href="#">Contact Me!</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -219,18 +215,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <a href="https://linkedin.com/in/iambeejayayo" style="text-decoration:none" class="fa fa-linkedin social text-light"></a>&nbsp
                     <a href="https://whatsapp.com/08109445504" style="text-decoration:none" class="fa fa-whatsapp social text-light"></a>&nbsp
                     <br />
-                    <br />
-                    <button class="navbar-brand btn btn-danger justify-content-center" id="chatbox-trigger">
-                        <span>Let's Chat!</span>
-                        <i class="fa fa-rocket"></i>
-                    </button>
-                    <br /><br />
+                    
 
                 </div>
             </div>
         </div>
 </div>
-
+<br /><br />
+<hr class="bg-light" />
+<div class="" align="center">
+<button class="navbar-brand btn btn-danger justify-content-center" id="chatbox-trigger">
+                        <span>Let's Chat!</span>
+                        <i class="fa fa-rocket"></i>
+                    </button>
+                </div>
+                <br />
+    
 <div class=" bg-dark row justify-content-center chatbox">
         <div class="col-lg-3 bg-light">
             <header class="row justify-content-center chatbox-header">
@@ -238,10 +238,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
                     <img class="chatbox-logo" src="https://res.cloudinary.com/iambeejayayo/image/upload/v1525095528/bot.png" alt="Alpha Bot">
                     <h2 class="chatbox-title text-dark">Alpha Bot</h2>
+                    <p class=" text-center text-light"> Click the 'Lets Chat' button to begin! </p>
+                    
                 </div>
             </header>
             <div class="d-flex chatbox-content" id="chatbox-content"></div>
-            <p class="text-center text-muted small"><?php $date = date("Y-m-d h:i:sa"); echo $date;?></p>
+               <p class="text-center text-muted small">
+                <?php $date = date("Y-m-d h:i:sa"); echo $date;?></p>
             <form class="row chatbox-footer">
                 <input class="form-control chatbox-input" id="chatbox-input" autocomplete="off" placeholder="Talk to me! buddy" type="text">
                 
