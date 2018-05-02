@@ -46,25 +46,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
 	// time
 	if(stripos($question,'time') !== false){
-		
-		
 		// Get IP address
 		$ip_address = getenv('HTTP_CLIENT_IP') ?: getenv('HTTP_X_FORWARDED_FOR') ?: getenv('HTTP_X_FORWARDED') ?: getenv('HTTP_FORWARDED_FOR') ?: getenv('HTTP_FORWARDED') ?: getenv('REMOTE_ADDR');
-
 		// Get JSON object
 		$jsondata = file_get_contents("http://timezoneapi.io/api/ip/?" . $ip_address);
-
 		// Decode
 		$data = json_decode($jsondata, true);
-
 		// Request OK?
 		if($data['meta']['code'] == '200'){
-
-		
-
 		// Example: Get the users time
-		$time = $data['data']['datetime']['date_time_txt'];
-		
+			$time = $data['data']['datetime']['date_time_txt'];
 		}
 		
 		
@@ -76,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       return;
 		
 	
-	}
+	};
 	
 	
 	}
