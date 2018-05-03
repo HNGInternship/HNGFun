@@ -329,7 +329,7 @@
                    
                     <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
                     <p class="san">To train me, use this syntax - "train:question#answer#password".</p>
-                    <p class="san">The Password is <b>password</b>. </p>
+                    <p class="san">The Password is: <b>password</b>. </p>
                     </div>
                 
           </div>  
@@ -364,7 +364,7 @@
         var message = $("#user-input").val();
         outputArea.append(`<p class='me'>${message}</p>`);
         $.ajax({
-            url: 'profile.php?id=Ddan',
+            url: 'profile.php?id=epospiky',
             type: 'POST',
             data:  'user-input=' + message,
             success: function(response) {
