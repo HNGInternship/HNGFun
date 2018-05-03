@@ -324,7 +324,7 @@
             </button>-->
           </div>
           <div class="modal-body "  > 
-            <div class="chat">
+            <div class="chat" id="chat">
                 
                    
                     <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
