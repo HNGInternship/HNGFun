@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'answer' => "Hi dear! My name is Lolly. LollyBot is currently in version 1.0 and it's built by -Jeremiah Righteous-"
       ]);
       return;
-    };
+    }
     //Check if user want to train the bot or ask a normal question
 	$check_for_train = stripos($question, "train:");
     if($check_for_train === false){ //then user is asking a question
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        			 'answer' => $answer,  //return one of the the answers to client
      		 ]);
            return;
-        	};      
+        	}      
 	    
 	    
 	}else{		  
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		          'answer' => "Oooh! sorry....you entered an invalid training format. Please the correct format is-->  train: question #answer #password"
 		        ]);
 	        return; 
-	        };
+	        }
 	        //get the index of the user answer
 	        $user_answer = trim($train_string[1]);    
 	        if(count($train_string) < 3){ //then the user only enter question and answer But did'nt enter password
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		          'answer' => "Please enter training password to train me. The password is--> password"
 		        ]);
 	        return;
-	        };
+	        }
 	         //get the index of the user password
 		    $user_password = trim($train_string[2]);
 	        //verify if training password is correct
@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		          'answer' => "The password you entered is wrong! Please enter the correct password which is-->  password "
 		        ]);
 	     	return;
-	    	};
+	    	}
 		    //check database if answer exist already
 		    $user_answer = "$user_answer"; //return things that have the question
 		    $sql = "select * from chatbot where answer like :user_answer";
@@ -131,9 +131,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			        'answer' => "Sorry! Answer already exist. Try train me again with the same question AND provide an altanative answer different from the previous one you entered OR just train me with a new question and a new answer."
 			      ]);
 			return;		
-	     	};
+	     	}
 	    return;
-	 	};    
+	 	}    
 	  
 } else {
 	
@@ -334,10 +334,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				
 				</div>
 				<div id ="controls">
-					<form method="POST" action="" id="chat">
+					<form method="post" action="" id="chat">
 					<input type="text" id="textbox" name="text_in" required class="text_in"></input>
 					<input id="send" type="submit" value="Send"></input>
-					new head2
+					new head3
 					</form>
 
 				</div>
@@ -354,7 +354,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
 	  
      
-	 <script src="../vendor/jquery/jquery.min.js"></script>
+	 
 
  <script>
  $(document).ready(function(){
