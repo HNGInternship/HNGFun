@@ -285,9 +285,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				</div>
 				<div id ="controls">
 					<form method="POST" action="" id="chat">
-					<input type="text" id="textbox" name="text_in"></input>
+					<input type="text" id="textbox" name="text_in" required class="text_in"></input>
 					<input id="send" type="submit" value="Send"></input>
-					new head3
+					new head2
 					</form>
 
 				</div>
