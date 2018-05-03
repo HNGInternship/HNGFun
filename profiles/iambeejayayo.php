@@ -165,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="row">
         <div class="col-sm bg-dark text-light">
             <br />
-            <img class="rounded-circle" style="width:60%" src="http://res.cloudinary.com/iambeejayayo/image/upload/v1524882640/BolajiAyodeji.jpg"
+            <img class="rounded-circle" style="width:30%" src="http://res.cloudinary.com/iambeejayayo/image/upload/v1524882640/BolajiAyodeji.jpg"
                 alt="My Picture">
             <br />
             <br />
