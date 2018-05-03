@@ -1,7 +1,7 @@
 <?php
 if($_SERVER['REQUEST_METHOD'] === "GET"){
     try {
-        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
+        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ekpono'");
         $intern_data->execute();
         $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
         $result = $intern_data->fetch();
@@ -370,7 +370,6 @@ input[type=text] {
                 }
             };
 
-            xhttp.open("POST","http://localhost/hng/hngfun/profiles/ekpono.php", true);
             xhttp.open("POST","http://old.hng.fun/profile.php?id=ekpono", true);
 
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
