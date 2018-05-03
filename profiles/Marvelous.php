@@ -2,6 +2,8 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Username</title>
 <style>
 .img
@@ -62,7 +64,6 @@ body
 </head>
 <body>
 
-
 <div class="card">
 <img src="http://res.cloudinary.com/marvelous/image/upload/b_rgb:3b2f2f,c_fill,h_2653,w_2456/a_0/v1524660197/DSC_0772.jpg" alt="Marvelous" style="width:100%">
 <h1>Ikechi Marvelous</h1>
@@ -79,10 +80,8 @@ body
   
  </div>
 
-<p><button>Contact<a href="#"></a></button></p>
-	
+<p><button>Contact<a href="time.php"></a></button></p>
 
 </div>
-	
 </body>
 </html>
