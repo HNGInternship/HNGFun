@@ -156,7 +156,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     $index = rand(0, count($res)-1);
                     $feed = $res[$index]['answer'];  
 
-                    echo "<div id='result'>".$feed."</div>";
+                    echo "<div id='result'>".$feed."</br>/</br></div>";
                   
                   }
                   else{
@@ -472,6 +472,7 @@ a:focus {
 
 .chatbox-messages .delivered {
   position: absolute;
+  height: auto;
   top: 0;
   right: 0;
   font-size: 10px;
