@@ -73,25 +73,6 @@
             }
         }else {
             echo "<div id='result'>You entered an invalid Password. </br>Try Again!</div>";
-<<<<<<< HEAD
-        }
-    }
-    function getAnswer($input) {
-        $question = $input;
-        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
-        $q = $GLOBALS['conn']->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetchAll();
-        if(empty($data)){
-            echo "<div id='result'>Sorry! I've not been trained to learn that command. </br>Would you like to train me?
-</br>You can train me to answer any question at all using, train:question#answer#password
-</br>e.g train:Who is your maker#Damilare Daniel#password</div>";
-        }else {
-            $rand_keys = array_rand($data);
-            echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
-        }
-    }
-=======
         }
     }
     function getAnswer($input) {
@@ -109,7 +90,6 @@
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
         }
     }
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
     ?>
 
 <!DOCTYPE html>
@@ -343,25 +323,15 @@
               <span aria-hidden="true">&times;</span>
             </button>-->
           </div>
-<<<<<<< HEAD
-          <div class="modal-body "  >
-                <div class="chat-result" id="chat-result">
-                    <div class="chat">
-          <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
-          <p class="san">Learn more about me by typing "aboutbot".</p>
-                    <p class="san">To train me, use this syntax - "train:question#answer#password".</p>
-          <p class="san">Password is password. </p>
-=======
           <div class="modal-body "  > 
             <div class="chat">
-                <div class="chat-result" id="chat-result">
+                
                    
                     <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
                     <p class="san">To train me, use this syntax - "train:question#answer#password".</p>
-                    <p class="san">Password is password. </p>
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
+                    <p class="san">The Password is <b>password</b>. </p>
                     </div>
-                </div>
+                
           </div>  
           <div class="clearfix"></div>
                 <div class="chat-input">
@@ -388,11 +358,11 @@
 </html>
 
 <script>
-    var outputArea = $("#chat-result");
+    var outputArea = $("#chat");
     $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
         var message = $("#user-input").val();
-        outputArea.append(`<div class='bot-message'><p class='me'>${message}</p></div>`);
+        outputArea.append(`<p class='me'>${message}</p>`);
         $.ajax({
             url: 'profile.php?id=Ddan',
             type: 'POST',
@@ -400,9 +370,9 @@
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<div class='chat'><p class='san'>" + result + "</p></div>");
+                    outputArea.append("<p class='san'>" + result + "</p>");
                     $('#chat-result').animate({
-                        scrollTop: $('#chat-result').get(0).scrollHeight
+                        scrollTop: $('#chat').get(0).scrollHeight
                     }, 1500);
                 }, 250);
             }
