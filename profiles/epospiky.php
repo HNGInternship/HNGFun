@@ -327,10 +327,9 @@
             <div class="chat">
                 <div class="chat-result" id="chat-result">
                    
-          <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
-          <p class="san">Learn more about me by typing "aboutbot".</p>
+                    <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
                     <p class="san">To train me, use this syntax - "train:question#answer#password".</p>
-          <p class="san">Password is password. </p>
+                    <p class="san">Password is password. </p>
                     </div>
                 </div>
           </div>  
