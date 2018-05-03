@@ -514,14 +514,81 @@ a:focus {
     Contacts List - Custom Scrollbar
 \*------------------------------------*/
 </style>
+                <script>
+            $(document).ready(function(){
+            var hiddenDiv = $(".messages");
+            var show = function() {
+            hiddenDiv.fadeIn();
+            play();
+
+            };
+
+            hiddenDiv.hide();
+            setTimeout(show, 2000);
+
+
+            });
+                </script>
+
+                <script type="text/javascript">
+
+                                      $(document).ready(function(){
+                   $('#msg').keypress(
+                    function(e){
+                        if (e.keyCode == 13) {
+                            e.preventDefault();
+                            var msg = $(this).val();
+                      $(this).val('');
+                            if(msg !== '' )
+                      $('<div class="messages clear"><div class="user"><div class="message-container"><div class="message"><p>'+msg+'</p></div><span class="delivered"><?php
+                echo "" . date("h:i:a");
+                ?></span></div></div><!-- /.user --></div>').insertBefore('.push');
+                $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
+
+                      formSubmit();
+
+                        }
+
+                    function formSubmit(){
+                    var message = $("#msg").val();
+                        var dataString = 'msg=' + msg;
+                        $.ajax({
+                            url: "profile.php?id=dev_gb",
+                            data: dataString,
+                            type: "POST",
+                             cache: false,
+                                 success: function(response) {
+                                  var result = $($.parseHTML(response)).text();
+                setTimeout(function(){
+                         $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message"><p>'+result+'</p></div><span class="delivered"><?php
+                echo "" . date("h:i:a");
+                ?></span></div>').insertBefore('.push');
+                                             $('chatbox-messages').animate({
+                            scrollTop: $('chatbox-messages').get(0).scrollHeight
+                        }, 1500);
+                      
+                
+                    },  1000);
+
+                      },
+                            error: function (){}
+                        });
+                    return true;
+                    } 
+                        });
+                });
+                 
+                </script>
+
 </head>
 
+<body>
 
                 <div class="content">
 
                   <div class="sidebar">
 
-                <br><br>
+                </br></br>
 
                     <div class="contacts">
 
@@ -556,21 +623,6 @@ a:focus {
                         
                       </span>
                     </div><!-- /.person -->
-                <script>
-            $(document).ready(function(){
-            var hiddenDiv = $(".messages");
-            var show = function() {
-            hiddenDiv.fadeIn();
-            play();
-
-            };
-
-            hiddenDiv.hide();
-            setTimeout(show, 2000);
-
-
-            });
-                </script>
                     <div class="chatbox-messages" >
                       <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390" alt="Support" /></span><div class="sender"><div class="message-container"><div class="message"><p>
                       Welcome to Dev_GB's profile page <i class="em em-sunglasses"></i> You can check State capitals by just asking. <i class="em em-smiley"></i></p>
@@ -588,57 +640,6 @@ a:focus {
 
 
                     <div class="message-form-container">
-
-                      <script type="text/javascript">
-
-                                  $(document).ready(function(){
-               $('#msg').keypress(
-                function(e){
-                    if (e.keyCode == 13) {
-                        e.preventDefault();
-                        var msg = $(this).val();
-                  $(this).val('');
-                        if(msg !== '' )
-                  $('<div class="messages clear"><div class="user"><div class="message-container"><div class="message"><p>'+msg+'</p></div><span class="delivered"><?php
-            echo "" . date("h:i:a");
-            ?></span></div></div><!-- /.user --></div>').insertBefore('.push');
-            $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
-
-                  formSubmit();
-
-                    }
-
-                function formSubmit(){
-                var message = $("#msg").val();
-                    var dataString = 'msg=' + msg;
-                    $.ajax({
-                        url: "profile.php?id=dev_gb",
-                        data: dataString,
-                        type: "POST",
-                         cache: false,
-                             success: function(response) {
-                              var result = $($.parseHTML(response)).text();
-            setTimeout(function(){
-                     $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message"><p>'+result+'</p></div><span class="delivered"><?php
-            echo "" . date("h:i:a");
-            ?></span></div>').insertBefore('.push');
-                                         $('chatbox-messages').animate({
-                        scrollTop: $('chatbox-messages').get(0).scrollHeight
-                    }, 1500);
-                  
-        
-                },  1000);
-
-                  },
-                        error: function (){}
-                    });
-                return true;
-                } 
-                    });
-            });
-             
-            </script>
-
                       <form class="message-form" method="POST" action="" >
                         <textarea id="msg" name="msg" value=""  placeholder="Type a message here..."></textarea>
                           </form><!-- /.search-form -->
@@ -651,27 +652,6 @@ a:focus {
 
 
                 </div><!-- /.content -->
-
-              </div><!-- /.wrapper -->
-
-
-        </div>
-      </div>
-      <!-- /.row -->
-
-    
-
-    </div>
-
-
-  
-
-        
-
-      
-   
-          
-            
 
   </body>
 
