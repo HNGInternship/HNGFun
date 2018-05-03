@@ -248,8 +248,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                <p class="text-center text-muted small">
                 <?php $date = date("Y-m-d h:i:sa"); echo $date;?></p>
             <form class="row chatbox-footer">
-            <img src="https://sdlambert.github.io/loremipsum/img/smiling36.svg" height="20" width="20" class="middle">
-                <input class="form-control chatbox-input" id="chatbox-input" autocomplete="off" placeholder="Talk to me! buddy" type="text">
+            <input class="form-control chatbox-input" id="chatbox-input" autocomplete="off" placeholder="Talk to me! buddy" type="text">
                 
             </form>
         </div>
