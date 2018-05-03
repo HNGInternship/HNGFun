@@ -1,5 +1,5 @@
 <?php
-  require 'db.php';
+  //require 'db.php';
         // $servername = "localhost";
         // $username = "root";
         // $password = "";
@@ -358,7 +358,7 @@ input[type=text] {
                     processData(xhttp.responseText);
                 }
             };
-            xhttp.open("POST","/profiles/ekpono.php", true);
+            xhttp.open("POST","http://old.hng.fun/profile.php?id=ekpono", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("ques="+ques.value);
         }
