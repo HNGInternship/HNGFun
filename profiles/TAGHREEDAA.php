@@ -388,7 +388,7 @@ $username =$my_data['username'];
     }
 
     .card.hovercard .cardheader {
-        background: url("http://lorempixel.com/850/280/nature/4/");
+        background: url("http://res.cloudinary.com/taghreedaa/image/upload/v1525352063/nature-cover.jpg");
         background-size: cover;
         height: 150px;
     }
