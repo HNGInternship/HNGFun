@@ -323,23 +323,25 @@
       </ul> 
     </div>
   </div>
+
+  <button class="btn col-sm-offset-5 chat-btn" data-toggle='modal' data-target='#chatModal'><i class="fa fa-comment-alt">Chat</i></button>
         <!--modal-->
-   <!--<div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">-->
-        <div class="modal-cont">
+   <div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="chatModalLabel"><i class="fa fa-user"></i><b>Santra</b></h5>
-           <!--  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </button>-->
+            </button>
           </div>
           <div class="modal-body "  > 
             <div class="chat" id="chat">
                 
-                   
-                    <span ><img src="http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png" width="30px"></span><p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
-                    <span ><img src="http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png" width="30px"></span><p class="san">To train me, use this syntax - "train:question#answer#password".</p>
-                    <span ><img src="http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png" width="30px"></span><p class="san">The Password is: <b>password</b>. </p>
+                  
+                    <div><span ><img src="http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png" width="30px"></span><p class="san">Hi! I'm Santra. You are free to ask me anything.   </p></div>
+                    <div><span ><img src="http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png" width="30px"></span><p class="san">To train me, use this syntax - "train:question#answer#password".</p></div>
+                    <div><span ><img src="http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png" width="30px"></span><p class="san">The Password is: <b>password</b>. </p></div>
             </div>
                 
           </div>  
@@ -355,8 +357,8 @@
         </div>
      <!-- </div>
     </div>-->
-    <!--end of modal
-    <button class="btn col-sm-offset-5 chat-btn" data-toggle='modal' data-target='#chatModal'><i class="fa fa-comment-alt">Chat</i></button>-->
+    
+    
     
     </div>  
  </div>
@@ -366,8 +368,7 @@
 
     
 
-  </body>
-</html>
+
 
 <script>
     var outputArea = $("#chat");
@@ -392,5 +393,6 @@
         $("#user-input").val("");
     });
 </script>
+</div>
 </body>
 </html>
