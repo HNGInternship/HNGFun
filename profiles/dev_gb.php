@@ -156,7 +156,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     $index = rand(0, count($res)-1);
                     $feed = $res[$index]['answer'];  
 
-                    echo "<div id='result'>".$feed."</br>/</br></div>";
+                    echo "<div id='result'>".$feed.text()."</br></br></div>";
                   
                   }
                   else{
@@ -679,7 +679,7 @@ a:focus {
 <?php 
 }
 function help() {
-    echo "<div id='result'>These is a sample format of a question <p>What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ado-Ekiti</br></div>";
+    echo "<div id='result'>These is a sample format of a question <p>What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ekiti</br></div>";
 }
 function train( $input ) {
     $input    = explode( '#', $input );
