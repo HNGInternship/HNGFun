@@ -426,32 +426,9 @@ a:focus {
 }
 .chatbox-message {
   margin: 20px 20px 0 44px;
-  height: 376px;
+  height: 100px;
+  width: 100px;
   overflow-y: overlay;
-}
-
-.chatbox-message .message-container {
-  position: relative;
-  float: right;
-  width: auto;
-  padding-left: 10px;
-}
-
-.chatbox-message .message {
-  display: inline-block;
-  max-width: 100;
-  margin-bottom: 12px;
-  border: 1px solid #dedede;
-  border-radius: 25px;
-}
-
-.chatbox-message .avatar img {
-  width: 56px;
-    border-radius: 50%;
-}
-
-.chatbox-message .avatar {
-  float: left;
 }
 
 .chatbox-messages .avatar {
@@ -495,6 +472,12 @@ a:focus {
 }
 
 .chatbox-messages .message p {
+  margin: 14px 24px;
+  font-size: 11px;
+  font-size: 1.1rem;
+}
+
+.message .chatbox-messages c {
   margin: 14px 24px;
   font-size: 11px;
   font-size: 1.1rem;
@@ -617,7 +600,7 @@ a:focus {
                                          success: function(response) {
                                           var result = $($.parseHTML(response)).text();
                         setTimeout(function(){
-                                 $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message">'+response+'</div><span class="delivered"><?php echo "<b>Support</b>  " . date("h:i:a"); ?></span></div>').insertBefore('.push');
+                                 $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="message-container"><c>'+response+'</c></div><span class="delivered"><?php echo "<b>Support</b>  " . date("h:i:a"); ?></span></div>').insertBefore('.push');
                                 $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
                              
                               },  1000);
@@ -681,7 +664,7 @@ a:focus {
 <?php 
 }
 function help() {
-    echo "<div id='result'>These is a sample format of a question <p>What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ado-Ekiti</div>";
+    echo "<div id='result'>These is a sample format of a question </br> What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ekiti</div>";
 }
 function train( $input ) {
     $input    = explode( '#', $input );
