@@ -4,7 +4,7 @@ include "../answers.php";
 
 function getmenu()
 {
-    return 'Main Menu: <ul><li>AboutBot</li><li>Time</li><li>Acronym</li></ul>';
+    return 'Main Menu: <ul><li>AboutBot</li><li>Time</li></ul>';
 }
 try {
     if($_SERVER['REQUEST_METHOD'] === "POST"){
@@ -584,7 +584,7 @@ $username =$my_data['username'];
 
 
         var menu = window.setTimeout(function(){
-                var menu_message ='<div class="chat self"> <div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">Main Menu: <ul> <li>AboutBot</li> <li>Time</li><li>Acronym</li> </ul> </div> </div>';
+                var menu_message ='<div class="chat self"> <div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">Main Menu: <ul> <li>AboutBot</li> <li>Time</li> </ul> </div> </div>';
                 $('.chatlogs').append(menu_message);
                 playMessageSound();
                 window.clearTimeout(menu);
@@ -595,13 +595,17 @@ $username =$my_data['username'];
         var aSound = document.createElement('audio');
         aSound.setAttribute('src', './files/sounds/facebook_tone.mp3');
         aSound.setAttribute('autoplay', 'true');
-        console.log(aSound);
+
         aSound.play();
     }
     //If user submits the form
     $("#usermsg").keypress(function(e) {
        if (e.keyCode == 13 && !e.shiftKey) {
            $("#submitmsg").click();
+       }
+       if (e.keyCode == 38 && !e.shiftKey) {
+           // get the last message chat friend and put it into the textarea
+           $('#usermsg').val($('.chatlogs').children('.friend').last()[0].innerText);
        }
     });
 
@@ -614,7 +618,8 @@ $username =$my_data['username'];
                 '</div></div>';
 
             $('.chatlogs').append(msg);
-            $('#usermsg').val('');
+            $('#usermsg').val('').focus();
+            $('#usermsg').animate({scrollTop: $('#usermsg').height});
 
             $.ajax({
                 url: 'profiles/TAGHREEDAA.php',
@@ -622,13 +627,21 @@ $username =$my_data['username'];
                 dataType: 'json',
                 data: {message: clientmsg},
                 success: function(response){
-                    console.log(response);
                     var received_message = '<div class="chat self"><div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">'+
                             response.message
                             +'</div></div>';
 
                     $('.chatlogs').append(received_message);
                     playMessageSound();
+
+                    var height = 0;
+                    $('.chatlogs .chat').each(function(i, value){
+                        height += parseInt($(this).height());
+                    });
+
+                    height += '';
+
+                    $('.chatlogs').animate({scrollTop: height});
                 }
             });
         }
