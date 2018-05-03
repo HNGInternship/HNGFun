@@ -249,6 +249,16 @@
         .modal-cont{
           background-color: #fff;
         }
+        .san-img{
+          background: url('http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png');
+          background-repeat: no-repeat;
+          background-size: 30px;
+        }
+        .me-img{
+          background: url('http://res.cloudinary.com/epospiky/image/upload/v1525365549/human.png');
+          background-repeat: no-repeat;
+          background-size: 30px;
+        }
     </style>
   </head>
   <body class="oj-web-applayout-body">
@@ -327,16 +337,16 @@
             <div class="chat" id="chat">
                 
                    
-                    <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
-                    <p class="san">To train me, use this syntax - "train:question#answer#password".</p>
-                    <p class="san">The Password is: <b>password</b>. </p>
-                    </div>
+                    <p class="san"><span class="san-img"></span>Hi! I'm Santra. You are free to ask me anything.   </p>
+                    <p class="san"><span class="san-img"></span>To train me, use this syntax - "train:question#answer#password".</p>
+                    <p class="san"><span class="san-img"></span>The Password is: <b>password</b>. </p>
+            </div>
                 
           </div>  
           <div class="clearfix"></div>
                 <div class="chat-input">
                     <form action="" method="post" id="user-input-form">
-                        <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="Type a message...">
+                        <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="chat me up...">
             <button class="btn btn-primary" id="send">SEND</button>
                     </form>
                 </div>
@@ -362,7 +372,7 @@
     $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
         var message = $("#user-input").val();
-        outputArea.append(`<p class='me'>${message}</p>`);
+        outputArea.append(`<p class='me'><span class="san-img"></span>${message}</p>`);
         $.ajax({
             url: 'profile.php?id=epospiky',
             type: 'POST',
@@ -370,7 +380,7 @@
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<p class='san'>" + result + "</p>");
+                    outputArea.append("<span class='hum-img'></span><p class='san'>" + result + "</p>");
                     $('#chat-result').animate({
                         scrollTop: $('#chat').get(0).scrollHeight
                     }, 1500);
