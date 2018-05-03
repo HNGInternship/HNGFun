@@ -176,7 +176,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $data  = $_POST[ 'msg' ];
     $temp  = explode( ':', $data );
     $temp2 = preg_replace( '/\s+/', '', $temp[ 0 ] );
-  if( $temp2  === "train") {
+  if( $temp2  === "Train") {
     train( $temp[ 1 ] );
     
       }       
