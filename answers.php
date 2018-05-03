@@ -1082,13 +1082,7 @@ $dataa = json_decode(file_get_contents($url_location), true);
 
  //////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
 
-<<<<<<< HEAD
-=======
-if ($_REQUEST["qsam"]){
-$qsam = $_REQUEST["qsam"];
-samsonjnrBot($qsam);
-}
->>>>>>> c6488dc76f33b0c2a6e24d97eb06247aaf300221
+
  function samsonjnrBot($qsam){
  $qsam = strtolower($qsam);
  $anwerSam = "";

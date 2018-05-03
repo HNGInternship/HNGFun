@@ -5,17 +5,7 @@ DO NOT MODIFY THIS FILE!!!
 
 */
 
-<<<<<<< HEAD
-
-
 require'../config.php';
-/*
->>>>>>> Update profile
-=======
-require_once 'config.php';
-
->>>>>>> c6488dc76f33b0c2a6e24d97eb06247aaf300221
-
 
 
 try {
