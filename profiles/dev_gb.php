@@ -733,10 +733,16 @@ a:focus {
                                           var result = $($.parseHTML(response)).text();
                         setTimeout(function(){
 <<<<<<< HEAD
+       $('<div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message"><p>'+result+'</p></div><span class="delivered"><?php
+            echo "" . date("h:i:a");
+            ?></span></div>').insertBefore('.push');
+=======
+<<<<<<< HEAD
                                  $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message">'+result+'</div><span class="delivered"><?php echo "<b>Support</b>  " . date("h:i:a"); ?></span></div>').insertBefore('.push');
 =======
                                  $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="message-container"><c>'+response+'</c></div><span class="delivered"><?php echo "<b>Support</b>  " . date("h:i:a"); ?></span></div>').insertBefore('.push');
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
+>>>>>>> 714d11c274ddd1189760fcb41edfba1b2850fb13
                                 $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
                              
                               },  1000);
