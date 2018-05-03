@@ -1,11 +1,11 @@
 <?php
-/*
 
-DO NOT MODIFY THIS FILE!!!
+//=======
+# PRODUCTION
+//require_once '../config.php';
 
-*/
 
-require_once '../config.php';
+require_once '../../config.php';
 
 
 try {
