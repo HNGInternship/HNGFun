@@ -194,13 +194,19 @@ else{
    
     <title>dev_gb</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css" type="text/css"/>
-
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="viewport-fit=cover, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-title" content="Oracle JET" />
+    <!-- injector:theme -->
+    <link href='https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css' rel='stylesheet' type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js" type="text/javascript"/>
 
 
 <style type="text/css">
+
   *, *:after, *:before {
   -moz-box-sizing:border-box;
   box-sizing:border-box;
