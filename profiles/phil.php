@@ -16,15 +16,15 @@ $secret_word = $result['secret_word'];
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css" type="text/css"/>
-	<title>Portfolio | Tobi Ayanwola</title>
+	<title>Portfolio | Adeboga Abigail</title>
 	<style type="text/css">
-	 @import url('https://fonts.googleapis.com/css?family=Tangerine:bold,bolditalic|Inconsolata:italic|Droid+Sans');
+	 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 	
 
 	#name-div::after{
 		 content: "";
-
-  opacity: 0.65;
+ /* background: url(https://i.imgur.com/0EWDjqv.jpg);*/
+  opacity: 0.35;
   top: 0;
   left: 0;
   bottom: 0;
@@ -39,22 +39,22 @@ $secret_word = $result['secret_word'];
     -webkit-background-size: cover;
     background-size: cover;
     position: fixed;
-		height: 100%;
+		height: 100vh;
 				width: 100%;
-				background-image : url(http://res.cloudinary.com/tobividz/image/upload/v1525350131/pexels-photo-273222.jpg);
-				
+				background-image: url(disruption.png);
+				/*opacity: 50%;*/
 	}
 
 			#name-div{
 				
-				font-family: "Serif" Monospace;
+				font-family: "Montserrat" Monospace;
 				font-weight: 500;
 				align-items: bottom;
 			}
 			#about-div, #name-div, #abt-me-div{
 				height: 100vh;
 			}
-			#name-div h1, #name-div h2{position: absolute;}
+			#name-div h1, #name-div h4{position: absolute;}
 			#name-div h1{
 				/*margin-top: 300px;*/
 				text-align: right;
@@ -65,8 +65,8 @@ $secret_word = $result['secret_word'];
 				bottom: 10%;
 				right: 10%;
 			}
-			#name-div h2{
-				font-family: "Serif";
+			#name-div h4{
+				font-family: "Muli";
 				font-size: 20px;
 				position: absolute;
 				bottom: 9%;
@@ -152,24 +152,20 @@ $secret_word = $result['secret_word'];
 
 </head>
 <body>
- 	<?php   
+ 	<?php
 	$username = "phil";
 	$data = $conn->query("SELECT * FROM  interns_data WHERE username = '".$username."' ");
 	$my_data = $data->fetch(PDO::FETCH_BOTH);
 
 	$name = $my_data['name'];
-	$src = $my_data[ 'image_filename' ];
+	$src = $my_data['image_filename'];
 	$username =$my_data['username'];
-	
-
 ?>
 	<div class="ot oj-flex oj-flex-item oj-sm-only-flex-direction-column oj-md-only-flex-direction-column">
   
     <div id="name-div">
     <h1><?php echo $name;?></h1>
-    <h2 >Software Engineer</h2>
-	
-	
+    <h4>FULL STACK DEVELOPER | WRITER</h4>
   </div>
 </div>
 <div id="abt-me-div" align="center">
@@ -184,14 +180,15 @@ $secret_word = $result['secret_word'];
   <div id="about-me">
     <div id="social-media">
         <ul>
-       <div> <li><a href="https://github.com/tobividz"><i class="fa fa-github"></i></a></li> </div>
-		<li> &nbsp&nbsp&nbsp&nbsp</li>
-       <div> <li><a href="https://twitter.com/hnginternship"><i class="fa fa-twitter"></i></a></li> </div>
-
+        <li><a href="https://github.com/bogadeji"><i class="fa fa-github"></i></a></li>
+        <li><a href="https://twitter.com/Adebogaphil"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://medium.com/@bogadeji"><i class="fa fa-medium"></i></a></li>
+        <li><a href="https://web.facebook.com/olufadejimi"><i class="fa fa-facebook"></i></a> </li>
+        <li><a href="https://www.instagram.com/bogadeji/"><i class="fa fa-instagram"></i></a></li>
                 </ul>
       </div>
-    <p>Newbie programmer,student and eager learner. Seeking projects to collaboraytye, please feel free to contact me.</p>
-    <div id="contact" align="center"><a href="mailto:tobividz150@gmail.com">CONTACT</a></div>
+    <p>I am a junior web developer with experience with HTML, CSS, JavaScript, Bootstrap and PHP. My love for words and solving problems brought me to the world of writing and coding(which I choose to acknowledge as writing). Want to chat, collaborate or hire me on a project, please feel free to contact me.</p>
+    <div id="contact" align="center"><a href="mailto:animashaunoluwatosin7@gmail.com">CONTACT</a></div>
 
       
 
