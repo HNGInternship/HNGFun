@@ -206,6 +206,7 @@ else{
 
 
 <style type="text/css">
+
   *, *:after, *:before {
   -moz-box-sizing:border-box;
   box-sizing:border-box;
@@ -543,6 +544,7 @@ a:focus {
   overflow-y: overlay;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 .chatbox-message {
   margin: 20px 20px 0 44px;
@@ -551,6 +553,8 @@ a:focus {
   overflow-y: overlay;
 }
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
+=======
+>>>>>>> cd77971fb8a9dcafbdce185543f0406cd8d5f103
 
 .chatbox-messages .avatar {
   float: left;
@@ -599,6 +603,7 @@ a:focus {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 .message .chatbox-messages c {
   margin: 14px 24px;
@@ -607,6 +612,8 @@ a:focus {
 }
 
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
+=======
+>>>>>>> cd77971fb8a9dcafbdce185543f0406cd8d5f103
 .chatbox-messages .delivered {
   position: absolute;
   top: 0;
@@ -645,6 +652,7 @@ a:focus {
 .message-form textarea:focus::-moz-placeholder { color: transparent;  }
 .message-form textarea:focus::-ms-placeholder { color: transparent; }
 .message-form textarea:focus:-moz-placeholder { color: transparent; }
+
 
 /*------------------------------------*\
     Contacts List - Custom Scrollbar
