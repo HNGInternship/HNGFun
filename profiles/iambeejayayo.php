@@ -171,14 +171,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <br />
             <br />
             &nbsp <h3>Hello World!</h3>
+                <h2> I'm Bolaji Ayodeji<i class="fa fa-smile text-primary"></i> </h2>
+                <h3>Tech Geek
+                <i class="fa fa-user text-primary"></i>&nbsp & Web Developer
+                <i class="fa fa-laptop text-primary"></i></h3>
                 <br />
-                <h1> I'm Bolaji Ayodeji<i class="fa fa-smile text-primary"></i> </h1>
-                <h2>Tech Geek <i class="fa fa-user text-primary"></i>
-                &nbsp & Web Developer
-                <i class="fa fa-laptop text-primary"></i></h2>
-                <br />
-                <h4><i class="fa fa-graduation-cap text-primary"></i> B.SC Federal University Lokoja
-                <br />(Computer Science)</h4>
+                <h5><i class="fa fa-graduation-cap text-primary"></i> B.SC Federal University Lokoja
+                <br />&nbsp&nbsp&nbsp&nbsp&nbsp(Computer Science)</h5>
             </p>
             <br />
 
@@ -215,6 +214,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <a href="https://linkedin.com/in/iambeejayayo" style="text-decoration:none" class="fa fa-linkedin social text-light"></a>&nbsp
                     <a href="https://whatsapp.com/08109445504" style="text-decoration:none" class="fa fa-whatsapp social text-light"></a>&nbsp
                     <br />
+                    <br />
+                    <br />
+                    <button a href="#bot" class=" btn btn-outline-light bg-primary"> Chat with my Bot</button>
                     
 
                 </div>
@@ -222,15 +224,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 </div>
 <br /><br />
+<div class="bg-dark">
 <hr class="bg-light" />
-<div class="" align="center">
-<button class="navbar-brand btn btn-danger justify-content-center" id="chatbox-trigger">
+<div class="" align="center" id="bot">
+<button class="navbar-brand btn btn-outline-light bg-danger justify-content-center" id="chatbox-trigger">
                         <span>Let's Chat!</span>
                         <i class="fa fa-rocket"></i>
                     </button>
                 </div>
-                <br />
-    
+            
 <div class=" bg-dark row justify-content-center chatbox">
         <div class="col-lg-3 bg-light">
             <header class="row justify-content-center chatbox-header">
@@ -247,11 +249,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                <p class="text-center text-muted small">
                 <?php $date = date("Y-m-d h:i:sa"); echo $date;?></p>
             <form class="row chatbox-footer">
+            <img src="https://sdlambert.github.io/loremipsum/img/smiling36.svg" height="20" width="20" class="middle">
                 <input class="form-control chatbox-input" id="chatbox-input" autocomplete="off" placeholder="Talk to me! buddy" type="text">
                 
             </form>
         </div>
     </div>
+</div>
 
     <script src="https://unpkg.com/dayjs@1.5.16/dist/dayjs.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
@@ -302,10 +306,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     message: 'Bolaji Ayodeji created me'
                 })
                 addMessage({
+                    message: 'I love learning new things'
+                })
+                addMessage({
                     message: 'You can teach me new tricks using the command...'
                 })
                 addMessage({
                     message: 'train: question #answer #password'
+                })
+                addMessage({
+                    message: 'to know the commands i accept, type "listcommands"'
                 })
             }, 1000)
         }
@@ -318,7 +328,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 addMessage({
                     message: 'listcommands: to see what i can do'
                 })
+                addMessage({
+                    message: 'botversion: to know my current version'
+                })
+                addMessage({
+                    message: 'aboutbolaji: to learn about my creator'
+                })
+                addMessage({
+                    message: 'botlocation: to know where i live'
+                })
+                addMessage({
+                    message: 'yourage: to know my age'
+                })
+                addMessage({
+                    message: 'yourgender: to know my gender'
+                })
+                addMessage({
+                    message: 'currentdate: to to know todays date'
+                })
+                addMessage({
+                    message: 'currenttime: to know the time'
+                })
+                addMessage({
+                    message: 'birthday: to know the day i was created'
+                })
+                addMessage({
+                    message: 'yournumber: to get my private number'
+                })
             }, 1000)
+        }
+        function aboutBolaji() {
+            setTimeout(() => {
+                addMessage({
+                    message: 'Bolaji Ayodeji is my creator'
+                })
+                addMessage({
+                    message: 'I cant live without him'
+                })
+                addMessage({
+                    message: 'He is a Tech Geek! & Web Developer'
+                })
+                addMessage({
+                    message: 'All he cares about is God, Code & Music'
+                })
+                addMessage({
+                    message: 'He plays the Acoustic Guitar & Piano'
+                })
+                addMessage({
+                    message: 'His favorite food is Yam/Potatoe Porridge & Plaintain'
+                })
+                addMessage({
+                    message: 'To know more about my creator'
+                })
+                addMessage({
+                    message: 'Follow him on social media'
+                })
+                addMessage({
+                    message: 'FACEBOOK @Bolaji Ayodeji'
+                })
+                addMessage({
+                    message: 'TWITTER @iamBeejayAyo'
+                })
+                addMessage({
+                    message: 'INSTAGRAM @iamBeejayAyo'
+                })
+                addMessage({
+                    message: 'MEDIUM @BolajiAyodeji'
+                })
+            }, 500)
         }
         
 
@@ -346,7 +423,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }, 500)
                   }, 500)
                 }, 500)
-            }, 1000)
+            }, 500)
             
         })
         
@@ -361,9 +438,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (this.value.toLowerCase() === 'aboutbot') return botDetails()
                 if (this.value.toLowerCase() === 'listcommands') return listCommands()
                 if (this.value.toLowerCase() === 'botversion') return botVersion()
-                if (this.value.toLowerCase() === 'aboutcreator') return creatorDetails()
-                if (this.value.toLowerCase() === 'location') return botLocation()
+                if (this.value.toLowerCase() === 'aboutbolaji') return aboutBolaji()
+                if (this.value.toLowerCase() === 'botlocation') return botLocation()
                 if (this.value.toLowerCase() === 'yourage') return botAge()
+                if (this.value.toLowerCase() === 'yourgender') return botGender()
+                if (this.value.toLowerCase() === 'birthday') return botCraetionDate()
+                if (this.value.toLowerCase() === 'currenttime') return currentTime()
+                if (this.value.toLowerCase() === 'currentdate') return currentDate()
+                if (this.value.toLowerCase() === 'yournumber') return botNumber()
+
 
                 const data = isTrainingCommand(this.value)
                     ? { train: this.value }
