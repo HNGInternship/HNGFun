@@ -249,6 +249,16 @@
         .modal-cont{
           background-color: #fff;
         }
+        .san-img{
+          background: url('http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png');
+          background-repeat: no-repeat;
+          background-size: 30px;
+        }
+        .me-img{
+          background: url('http://res.cloudinary.com/epospiky/image/upload/v1525365549/human.png');
+          background-repeat: no-repeat;
+          background-size: 30px;
+        }
     </style>
   </head>
   <body class="oj-web-applayout-body">
@@ -313,38 +323,42 @@
       </ul> 
     </div>
   </div>
+
+  <button class="btn col-sm-offset-5 chat-btn" data-toggle='modal' data-target='#chatModal'><i class="fa fa-comment-alt">Chat</i></button>
         <!--modal-->
-   <!--<div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">-->
-        <div class="modal-cont">
+   <div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="chatModalLabel"><i class="fa fa-user"></i><b>Santra</b></h5>
-           <!--  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </button>-->
+            </button>
           </div>
           <div class="modal-body "  > 
             <div class="chat" id="chat">
                 
-                   
-                    <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
-                    <p class="san">To train me, use this syntax - "train:question#answer#password".</p>
-                    <p class="san">The Password is: <b>password</b>. </p>
-                    </div>
+                  
+                    <div><span ><img src="http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png" width="30px"></span><p class="san">Hi! I'm Santra. You are free to ask me anything.   </p></div>
+                    <div><span ><img src="http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png" width="30px"></span><p class="san">To train me, use this syntax - "train:question#answer#password".</p></div>
+                    <div><span ><img src="http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png" width="30px"></span><p class="san">The Password is: <b>password</b>. </p></div>
+            </div>
                 
           </div>  
           <div class="clearfix"></div>
                 <div class="chat-input">
                     <form action="" method="post" id="user-input-form">
-                        <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="Type a message...">
-            <button class="btn btn-primary" id="send">SEND</button>
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="chat me up...">
+                          <span class="input-group-addon"><button class="btn btn-primary" id="send"><i class="fa fa-send"></i></button></span>
+                      </div>
                     </form>
                 </div>
         </div>
      <!-- </div>
     </div>-->
-    <!--end of modal
-    <button class="btn col-sm-offset-5 chat-btn" data-toggle='modal' data-target='#chatModal'><i class="fa fa-comment-alt">Chat</i></button>-->
+    
+    
     
     </div>  
  </div>
@@ -354,15 +368,14 @@
 
     
 
-  </body>
-</html>
+
 
 <script>
     var outputArea = $("#chat");
     $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
         var message = $("#user-input").val();
-        outputArea.append(`<p class='me'>${message}</p>`);
+        outputArea.append(`<p class='me'><span ></span>${message}</p>`);
         $.ajax({
             url: 'profile.php?id=epospiky',
             type: 'POST',
@@ -370,8 +383,8 @@
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<p class='san'>" + result + "</p>");
-                    $('#chat-result').animate({
+                    outputArea.append("<span></span><p class='san'>" + result + "</p>");
+                    $('#chat').animate({
                         scrollTop: $('#chat').get(0).scrollHeight
                     }, 1500);
                 }, 250);
@@ -380,5 +393,6 @@
         $("#user-input").val("");
     });
 </script>
+</div>
 </body>
 </html>

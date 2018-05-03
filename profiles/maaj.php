@@ -19,127 +19,74 @@ $username= $row['username'];
 $image_url = $row['image_filename'];
 
 ?>
-
 <?php
 // chatbot
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	//Get the input text from the user and store in a new vaariable called "question"
+	
 	$question = $_POST['text_in'];
-	$question = preg_replace('([\s]+)', ' ', trim($question));
-	$question = preg_replace("([?.])", "", $question); 
-	 // check if question is "aboutbot"
-    if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'aboutbot'){
+	
+	
+	 // bot version
+    if(stripos($question,'aboutbot') !== false){
       echo json_encode([
         'status' => 1,
-        'answer' => "Hi dear! My name is Lolly. LollyBot is currently in version 1.0 and it's built by -Jeremiah Righteous-"
+        'answer' => "Hello, I am maaj's assistant. Version 1.0, currently running on PHP 5.7."
       ]);
       return;
     }
-    //Check if user want to train the bot or ask a normal question
-	$check_for_train = stripos($question, "train:");
-    if($check_for_train === false){ //then user is asking a question
 	
-	//remove extra white space, ? and . from question
-	$question = preg_replace('([\s]+)', ' ', trim($question));
-	$question = preg_replace("([?.])", "", $question); 
+	//greeting
+	if((stripos($question,'hey') !== false) || (stripos($question,'hi') !== false) || (stripos($question,'hello') !== false)){
+      echo json_encode([
+        'status' => 1,
+        'answer' => "Hello, how are you?"
+      ]);
+      return;
+    }
 	
-	 //check database for the question and return the answer
-	$question = $question;
-        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
-        $q = $GLOBALS['conn']->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetchAll();
-        if(empty($data)){ //That means your answer was not found on the database
-            echo json_encode([
-        		'status' => 1,
-       			 'answer' =>  "I can't answer your question! Please train me by typing-->  train: question #answer #password"
-     		 ]);
-          return;
-        }else {
-            $rand_keys = array_rand($data);
-            $answer = $data[$rand_keys]['answer'];
-            echo json_encode([
-        		'status' => 1,
-       			 'answer' => $answer,  //return one of the the answers to client
-     		 ]);
-           return;
-        	}      
-	    
-	    
-	}else{		  
-		//train the chatbot to be more smarter 
-		//remove extra white space, ? and . from question
-	    $train_string  = preg_replace('([\s]+)', ' ', trim($question));
-	    $train_string  = preg_replace("([?.])", "",  $train_string); 
-	    //get the question and answer by removing the 'train'
-	    $train_string = substr( $train_string, 6);
-	    $train_string = explode("#", $train_string);
-        //get the index of the user question
-        $user_question = trim($train_string[0]);
-	        if(count($train_string) == 1){ //then the user only enter question and did'nt enter answer and password
-		        echo json_encode([
-		          'status' => 1,
-		          'answer' => "Oooh! sorry....you entered an invalid training format. Please the correct format is-->  train: question #answer #password"
-		        ]);
-	        return; 
-	        }
-	        //get the index of the user answer
-	        $user_answer = trim($train_string[1]);    
-	        if(count($train_string) < 3){ //then the user only enter question and answer But did'nt enter password
-		        echo json_encode([
-		          'status' => 1,
-		          'answer' => "Please enter training password to train me. The password is--> password"
-		        ]);
-	        return;
-	        }
-	         //get the index of the user password
-		    $user_password = trim($train_string[2]);
-	        //verify if training password is correct
-	        define('TRAINING_PASSWORD', 'password'); //this is a constant variable
-	        if($user_password !== TRAINING_PASSWORD){ //the password is incorrect
-		        echo json_encode([
-		          'status' => 1,
-		          'answer' => "The password you entered is wrong! Please enter the correct password which is-->  password "
-		        ]);
-	     	return;
-	    	}
-		    //check database if answer exist already
-		    $user_answer = "$user_answer"; //return things that have the question
-		    $sql = "select * from chatbot where answer like :user_answer";
-		    $stmt = $conn->prepare($sql);
-		    $stmt->bindParam(':user_answer', $user_answer);
-		    $stmt->execute();
-		    $stmt->setFetchMode(PDO::FETCH_ASSOC);
-		 	$rows = $stmt->fetchAll();
-		    if(empty($rows)){// then it means the database could not fetch any existing question and answer, so	we can insect the query.      
-			    $sql = "insert into chatbot (question, answer) values (:question, :answer)";  //insert into database
-			    $stmt = $conn->prepare($sql);
-			    $stmt->bindParam(':question', $user_question);
-			    $stmt->bindParam(':answer', $user_answer);
-			    $stmt->execute();
-			    $stmt->setFetchMode(PDO::FETCH_ASSOC);
-			    
-			    echo json_encode([
-			    	'status' => 1,
-			        'answer' => "WOW! I'm learning new things everyday. Thanks Buddy! for making me more smarter. You can ask me that same question right now and i will tell you the answer OR just keep training me more Buddy! "
-			      ]);			
-	     	return;
-	     	
-	     	}else{ //then it means the the question already in the database and no need to insert it again
-	     		 echo json_encode([
-			    	'status' => 1,
-			        'answer' => "Sorry! Answer already exist. Try train me again with the same question AND provide an altanative answer different from the previous one you entered OR just train me with a new question and a new answer."
-			      ]);
-			return;		
-	     	}
-	    return;
-	 	}    
-	  
-} else {
-	
-	
-	
+	// time
+	if(stripos($question,'time') !== false){
+		
+		
+		// Get IP address
+		$ip_address = getenv('HTTP_CLIENT_IP') ?: getenv('HTTP_X_FORWARDED_FOR') ?: getenv('HTTP_X_FORWARDED') ?: getenv('HTTP_FORWARDED_FOR') ?: getenv('HTTP_FORWARDED') ?: getenv('REMOTE_ADDR');
 
+		// Get JSON object
+		$jsondata = file_get_contents("http://timezoneapi.io/api/ip/?" . $ip_address);
+
+		// Decode
+		$data = json_decode($jsondata, true);
+
+		// Request OK?
+		if($data['meta']['code'] == '200'){
+
+		
+
+		// Example: Get the users time
+		$time = $data['data']['datetime']['date_time_txt'];
+		
+		}
+		
+		
+		 
+		echo json_encode([
+        'status' => 1,
+        'answer' => $time 
+      ]);
+      return;
+		
+	
+	}
+	
+	
+	}
+	
+	
+	else{
+	
+	
+	
+}
 ?> 
 <!DOCTYPE html>
 <!--
@@ -369,7 +316,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	       	message.scrollTop(message[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: 'maaj.php', //location
+				url: 'profiles/maaj.php', //location
 				type: 'POST',
 				data: {text_in: text_in},
 				dataType: 'json',
@@ -398,4 +345,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </html>
 
-<?php } ?>
+

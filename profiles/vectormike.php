@@ -387,13 +387,15 @@ if(!defined('DB_USER')){
                                     <div class="bubble you">
                                         Type 'help' first. 
                                     </div>
+                                    <div class="bubble me">
+                                    </div>
                                 </div>
                             </div>
                             <hr>
                             <form id="question-section">
                                 <div class="row">
                                     <div class="col-md-9">
-                                        <textarea name="chatbox" class="form-control" cols="10" rows="2"></textarea>
+                                        <textarea name="question" id="question" class="form-control" cols="10" rows="2"></textarea>
                                     </div>
                                     <div class="col-md-3">
                                         <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-send"></i></button>
@@ -414,49 +416,35 @@ if(!defined('DB_USER')){
     $('#mssgbox').addClass('animated infinite flash');
 
     </script>
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.js"></script>
-	<script>
-    ;function($) {        
-        //
-        let questionForm = $('#question-section');
-        let questionBox = $('textarea[name=chatbox]');
-        let chatbox = $('.chat')
-        questionBox.emojioneArea();
-        questionForm.submit(function(e) {
-            e.preventDefault();
-            let question = questionBox.val();
-            // Displays the questions in the message frame a chat entry
-            let newMessage = `<div class="bubble me">
-                  ${question}
-              </div>`;
-            chatbox.html(`${chatbox.html()} ${newMessage}`);
-            chatbox.scrollTop(chatbox[0].scrollHeight);
-            // Sendng question to server
-            $.ajax({
+    <script>
+        $(document).ready(function(){
+            $('#question-section').submit(functon(e){
+                e.preventDefault();
+                var question = $('#question').val();
+                var questionBox = $('#question').val();
+                var resusr = '<div class="bubble me"> ';
+                $(".bubble me").append(resusr+" "+questionBox+"</div>");
+
+                $.ajax({
                 url: '/profiles/vectormike.php',
                 type: 'POST',
                 data: {question: question},
                 dataType: 'json',
-                success: (response) => {
-                    response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />');
-                    let newMessage = `<div class="bubble you">
-                          ${response.answer}
-                      </div>`;
-
-                    chatbox.html(`${chatbox.html()} ${newMessage}`);
-                    chatbox.scrollTop(chatbox[0].scrollHeight);
+                success: function(response){
+                    console.log(response);
+                    let resbot = '<div class="bubble you">;
+                    $(".bubble you").append(resbot+" "+response.answer+" </div>)';
                     questionBox.val('');
-                },
+                }
                 error: (error) => {
                     alert('error occured')
                     console.log(error);
                 }
             })
-        })    
-    
-    })(jQuery);
+            })
+        });
     </script>
+    
 
 <?php
 
