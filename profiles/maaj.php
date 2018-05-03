@@ -334,10 +334,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				
 				</div>
 				<div id ="controls">
-					<form method="POST" action="" id="chat">
+					<form method="post" action="" id="chat">
 					<input type="text" id="textbox" name="text_in" required class="text_in"></input>
 					<input id="send" type="submit" value="Send"></input>
-					new head2
+					new head3
 					</form>
 
 				</div>
@@ -354,7 +354,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
 	  
      
-	 <script src="../vendor/jquery/jquery.min.js"></script>
+	 
 
  <script>
  $(document).ready(function(){
