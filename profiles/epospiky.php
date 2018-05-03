@@ -362,7 +362,7 @@
     $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
         var message = $("#user-input").val();
-        outputArea.append(`<div class='bot-message'><p class='me'>${message}</p></div>`);
+        outputArea.append(`<div class='chat'><p class='me'>${message}</p></div>`);
         $.ajax({
             url: 'profile.php?id=Ddan',
             type: 'POST',
