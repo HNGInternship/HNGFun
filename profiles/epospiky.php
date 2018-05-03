@@ -324,14 +324,14 @@
             </button>-->
           </div>
           <div class="modal-body "  > 
-            <div class="chat">
-                <div class="chat-result" id="chat-result">
+            <div class="chat" id="chat">
+                
                    
                     <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
                     <p class="san">To train me, use this syntax - "train:question#answer#password".</p>
-                    <p class="san">Password is password. </p>
+                    <p class="san">The Password is: <b>password</b>. </p>
                     </div>
-                </div>
+                
           </div>  
           <div class="clearfix"></div>
                 <div class="chat-input">
@@ -358,21 +358,21 @@
 </html>
 
 <script>
-    var outputArea = $("#chat-result");
+    var outputArea = $("#chat");
     $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
         var message = $("#user-input").val();
-        outputArea.append(`<div class='chat'><p class='me'>${message}</p></div>`);
+        outputArea.append(`<p class='me'>${message}</p>`);
         $.ajax({
-            url: 'profile.php?id=Ddan',
+            url: 'profile.php?id=epospiky',
             type: 'POST',
             data:  'user-input=' + message,
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<div class='chat'><p class='san'>" + result + "</p></div>");
+                    outputArea.append("<p class='san'>" + result + "</p>");
                     $('#chat-result').animate({
-                        scrollTop: $('#chat-result').get(0).scrollHeight
+                        scrollTop: $('#chat').get(0).scrollHeight
                     }, 1500);
                 }, 250);
             }
