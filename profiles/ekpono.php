@@ -388,6 +388,7 @@ input[type=text] {
             p.innerHTML = data;
             div.className = "myMessage "+sender;
             div.append(p);
+
             msgArea.append(div)
             if(data != document.querySelector("#question").value){
                 document.querySelector("#question").value="";
