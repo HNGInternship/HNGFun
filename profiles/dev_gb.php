@@ -425,9 +425,9 @@ a:focus {
   overflow-y: overlay;
 }
 .chatbox-message {
-  margin: 20px 20px 0 44px;
+  /*margin: 20px 20px 0 44px;*/
   height: 100px;
-  width: 100px;
+  width: 150px;
   overflow-y: overlay;
 }
 
