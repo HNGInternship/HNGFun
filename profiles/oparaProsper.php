@@ -1,22 +1,74 @@
 <?php
 
-//
     if($_SERVER['REQUEST_METHOD'] === "POST"){
 
         // require config.php to get database login details
         include '../../config.php';
-        
+        // Establish connection to the database using PDO
         $conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
+        $userPost = trim($_POST['userInput']);
 
-        $userPost = $_POST['userInput'];
-        
+        if(isset($userPost)  && isset($userPost) != '' ) {
 
-        echo $userPost;
-        exit();
+            // train the bot if the userInput questions are not on the database
+            $userInputExplode = explode(":", $userPost);
+   
+            if($userInputExplode[0] == 'train'){
 
-        
-    } 
+                $explode = explode("#", $userInputExplode[1]);
+                $question = trim($explode[0]);
+                $answer = trim($explode[1]);
+                $password = trim($explode[2]);
+                // Sql connection to db
+                $sql = "insert into chatbot(`question`, `answer`) values ('{$question}', '{$answer}')";
+                $status = $conn->prepare($sql);
+                $status->execute();   
 
+                if($password != 'password'){
+                    echo "Password is incorrect use 'password' as the password";
+                    exit();
+                } else{
+                    echo 'you successfully trained me';
+                    exit();
+                }
+            }
+            
+            //get the length of the user input
+            $userInputLength = strlen($userPost);
+            //query chatbot table with user input
+            $dbCheck = "SELECT * FROM chatbot WHERE question LIKE '$userPost%' ";
+            $querydb = $conn->prepare($dbCheck);
+            $querydb->execute();
+
+            //return all the results from the query
+            $queryResult = $querydb ->fetchAll(PDO::FETCH_OBJ);
+            $queryResultRowCount = $querydb ->rowCount();
+
+            if($queryResultRowCount == 1) {
+                echo $queryResult[0]->answer;
+                exit();
+            }else if($queryResultRowCount > 1) {
+                echo $queryResult[rand(0, $queryResultRowCount - 1)] ->answer;
+                exit();
+            }else if(strtolower($userPost) == 'aboutbot'){ 
+                echo "version --1.0.0";
+            }else{
+                echo " I don't understand you. Please train me ";
+                exit();
+            }
+
+
+           
+            exit();
+        }else if($userPost == ''){
+            echo "please enter a word into the text field";
+            exit();
+        }
+
+    }
+
+
+    //PDO connection to database to get username, imag file.
     try{
         $queryUser = $conn->query(" SELECT * FROM interns_data WHERE username = 'oparaProsper' " );
         $prosper = $queryUser->fetch(PDO::FETCH_OBJ);
@@ -49,12 +101,14 @@
     <script src="https://use.fontawesome.com/7c7493657e.js"></script>
 
     <style>
+     @import url('https://fonts.googleapis.com/css?family=Asap');
         body{
             margin: 0;
             padding: 0;
             font-family: arial;
             background:rgb(116, 116, 116);
             height:100vh;
+            font-family: 'Asap', sans-serif;
         }
         .about{
             width: 80%;
@@ -158,7 +212,7 @@
 
        /*my bot css styling*/
        #hngBot{
-          background: rgba(0,0,0,0.8);
+           background: rgba(0,0,0,0.7);
            margin: 0;
            padding-bottom: 70%; 
            position: absolute;
@@ -167,6 +221,8 @@
            z-index: 1;
            left: 0;
            display: none;
+           
+           font-style: bold;
        }
        #bot{
            position: fixed;
@@ -180,22 +236,23 @@
        }
        #botForm{
            background: rgb(255, 255, 255);
-           width: 30%;
-           top: 4.5em;
-           left: 69%;
-           font-size: 18px;
+           width: 35%;
+           bottom: 6em;
+           left: 64%;
+           font-size: 15px;
            position: fixed;
            color: white;
            border-top-right-radius:20px;
            border-top-left-radius: 20px;
-           text-align: center;
+           text-align: left;
        }
        #botForm span{
            color: black;
+           text-transform: uppercase;
        }
        #botIntro{
            width: 100%;
-           text-align: center;
+           text-align: left;
            height: 250px;
            background:rgb(9, 167, 240);
            padding: 0 10%;
@@ -203,7 +260,14 @@
            border-top-left-radius: 20px;
            margin: 0 0 1em;
            box-shadow: 0 0 10px rgba(0,0,0,0.9);
-           text-transform: capitalize;
+           display: flex;
+           align-content: center;
+           justify-content: space-between;
+           font-style: bold;
+       }
+       #botIntro p{
+           width: 80%;
+           margin: 3% 0 0;
        }
        #botForm input{
            width: 100%;
@@ -218,23 +282,23 @@
           text-align: left;
           overflow-y: scroll;
           margin-top: 0;
-          height: 310px;
+          height: 300px;
       }
       #conversationPortal p{
           float: left;
           clear: both;
           padding: .5em 2em;
-          background: rgb(48, 47, 47);;
+          background: gray;
           color: white;
           margin: .5em 1em;
-          text-align: center;
+          text-align: left;
           border-bottom-Left-radius: 20px;
           border-bottom-right-radius: 5px;
           border-top-right-radius: 5px;
           box-shadow: 0 0 -3px rgba(0,0,0,0.9);
       }
        #botIntro img{
-           margin: 1em auto 0;
+           margin: 1em 0 0;
            width: 15%;
            height: 25%;
            border-radius: 100%;
@@ -257,22 +321,19 @@
            /* border-radius: 100%; */
        }
        .botIntro{
-           -webkit-animation: botIntro 3s ease-out 0s 1;
-           border-top-right-radius: 30px;
-           border-bottom-right-radius: 30px;
-           -webkit-animation-fill-mode: backwards;
+           width: 34%;
+           -webkit-animation: botIntro 3s ease-out;
+           -webkit-animation-fill-mode: forwards;
+           font-size: 15px;
+           margin: 0;
        }
        @-webkit-keyframes botIntro{
            from{
             width: 0%;
-            border-top-right-radius: 100%;
-            border-bottom-right-radius: 100%;
            }
            to{
-            width: 17%;
-            border-top-right-radius: 30px;
-            border-bottom-right-radius: 30px;
-           padding: 0 0 0 10px;
+            width: 34%;
+            padding: 0 0 0 10px;
            }
        }
 
@@ -289,8 +350,10 @@
                 <div id="botIntro">
                     <img src="<?php echo $prosper->image_filename ?>" alt="bot picture">
                     <p>
-                        Hello i'm <span>prosper</span> and am learning to be human <i style="color: yellow" class="fa fa-smile-o fa-2x"></i>.
-                        I need your help to become human
+                        <span>Quick guide</span><br/>
+                        * type -- Help [to get a list of special commands.]<br>
+                        * To train me type -- train: question # answer # password 
+
                     </p>
                 </div>
 
@@ -308,7 +371,8 @@
         <i id="bot" class="fa fa-envelope fa-2x"></i>
 
         <div id="introBot">
-            hello am prosper!
+            hello i'm PROSPER <i style="color: red" class="fa fa-smile-o fa-1x"></i>.
+            I need your help to become human.
         </div>
     <section>
        
@@ -416,6 +480,7 @@
         http.onreadystatechange = function () {
             if( http.readyState == 4 && http.status == 200){
                 botReply.textContent = http.responseText;
+                botReply.style.background = "gray";
                 // console.log(http.response);
             }
         };
