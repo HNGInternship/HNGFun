@@ -409,12 +409,5 @@ input[type=text] {
                 document.querySelector("#question").value="";
             } 
 
-<<<<<<< HEAD
         }
 </script>
-=======
-        $(document).ready(function(){
-    $(".display").fadeIn();
-});
-    </script>
->>>>>>> 1204e8005d1189119941a550909d89d22bf80493

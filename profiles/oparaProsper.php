@@ -351,9 +351,7 @@
                     <img src="<?php echo $prosper->image_filename ?>" alt="bot picture">
                     <p>
                         <span>Quick guide</span><br/>
-                        * type -- Help [to get a list of special commands.]<br>
                         * To train me type -- train: question # answer # password 
-
                     </p>
                 </div>
 
