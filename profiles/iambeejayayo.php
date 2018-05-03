@@ -21,7 +21,8 @@ function trainBot($command) {
         $response = 'Make sure the command structure matches "train: question #answer #password"';
     }
 
-    return compact('response');
+    echo json_encode('response');
+    exit;
 }
 
 function findAnswer($question) {
@@ -165,18 +166,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="row">
         <div class="col-sm bg-dark text-light">
             <br />
-            <img class="rounded-circle" style="width:60%" src="http://res.cloudinary.com/iambeejayayo/image/upload/v1524882640/BolajiAyodeji.jpg"
+            <img class="rounded-circle" style="width:30%" src="http://res.cloudinary.com/iambeejayayo/image/upload/v1524882640/BolajiAyodeji.jpg"
                 alt="My Picture">
             <br />
             <br />
             <br />
-            &nbsp <h3>Hello World!</h3>
+            &nbsp <h3>Hello World!<i class="fa fa-thumbs-up"></i></h3>
+            <p class="text-primary" style="font-size:300%"> I'm Bolaji Ayodeji </p>
                 <h3>Tech Geek <i class="fa fa-user text-primary"></i>&nbsp 
                 & Web Developer <i class="fa fa-laptop text-primary"></i></h3>
                 <br />
-                <h5><i class="fa fa-graduation-cap text-primary"></i> B.SC Federal University Lokoja
-                <br />&nbsp&nbsp&nbsp&nbsp&nbsp(Computer Science)</h5>
-            </p>
+                </p>
             <br />
 
         </div>
@@ -214,7 +214,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <br />
                     <br />
                     <br />
-                    <button a href="#bot" class=" btn btn-outline-light bg-primary"> Chat with my Bot</button>
+                     
+                    <a class="navbar-brand btn btn-outline-light bg-danger btn-lg" href="#bot">Chat with my BOT!&nbsp<i class="fa fa-angle-double-down"></i></a>
+                    </button>
                     
 
                 </div>
@@ -234,7 +236,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class=" bg-dark row justify-content-center chatbox">
         <div class="col-lg-3 bg-light">
             <header class="row justify-content-center chatbox-header">
-            <div class="card bg-danger" align="center">
+            <div class="card bg-danger" align="center" id="bot">
             
                     <img class="chatbox-logo" src="https://res.cloudinary.com/iambeejayayo/image/upload/v1525095528/bot.png" alt="Alpha Bot">
                     <h2 class="chatbox-title text-dark">Alpha Bot</h2>
@@ -524,72 +526,6 @@ function currentDate() {
             }
         })
 
-// get the username
-function get_username(){
-    send_message('Hello Buddy!, what should i call you....?');
-	responsiveVoice.speak('Welcome, i am online if you need me. Click the chat and enter your name only to begin.','UK English Male');
-}
-
-
-// simple ai function
-function ai(message){
-        if (username.length < 1){
-          username = message;
-          send_message('Hi, nice to meet you ' + username + '. Would you like to train me? If yes please use the format. train: this is a question | this is an answer.')
-		  responsiveVoice.speak('Hi, nice to meet you ' + username + '. Would you like to train me? If yes please use the format. train: this is a question | this is an answer.','UK English Male');
-        }
-
-        else if ((message.indexOf('what is the time') >= 0) || (message.indexOf('what is my time') >= 0) || (message.indexOf('what time is it') >= 0)){
-        var date = new Date();
-        var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
-        var am_pm = date.getHours() >= 12 ? "PM" : "AM";
-        hours = hours < 10 ? "0" + hours : hours;
-        var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-        var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-        time = hours + ":" + minutes + ":" + seconds + " " + am_pm;
-          send_message('your current time is: ' + time +'.' );
-          responsiveVoice.speak('your current time is: ' + time +'.' ,'UK English Male');
-        }
-		 else if ((message.indexOf('can you locate me') >= 0) || (message.indexOf('what is my location') >= 0) || (message.indexOf('where am i') >= 0)){
-          send_message('you are currently in '+ state +','+ country + '.');
-          responsiveVoice.speak('you are currently in '+ state +','+ country + '.','UK English Male');
-        }
-		 else if ((message.indexOf('what browser am i using') >= 0) || (message.indexOf('what device am i using') >= 0) || (message.indexOf('what is my device') >= 0) || (message.indexOf('what is my browser') >= 0)){
-			send_message('you are currently using a&nbsp;'+ browser +'&nbsp;on a '+ device + '&nbsp;Device');
-          responsiveVoice.speak('you are currently using a '+ browser +'on a '+ device + 'Device','UK English Male');
-		  }
-		 else if ((message.indexOf('what is my ip address') >= 0) || (message.indexOf('what is my ip') >= 0) || (message.indexOf('what ip am i using') >= 0) || (message.indexOf('show me my ip') >= 0)){
-			send_message('your ip address is : '+ ip +'');
-          responsiveVoice.speak('your ip address is : '+ ip +'','UK English Male');
-		  }
-		  else if ((message.indexOf('aboutbot') >= 0) || (message.indexOf('aboutBot') >= 0) || (message.indexOf('About Bot') >= 0) || (message.indexOf('botAbout') >= 0)){
-			send_message('Opheus-B0t v1.0');
-          responsiveVoice.speak('i am an opheus bot and i am currently version 1.0.');
-		  }
-		else if (message.indexOf('train:') >= 0){
-		trainer = message;
-		$.ajax({
-			type: "POST",
-			url: 'profiles/opheus.php',
-			data: {opheustrain: trainer },
-			success: function(data){
-				send_message(data);
-				responsiveVoice.speak(data ,'UK English Male');
-				
-			}
-		 });}
-		else{
-		elses = message;
-		$.ajax({
-			type: "POST",
-			url: 'profiles/opheus.php',
-			data: {opheuscheck: elses },
-			success: function(data){
-				send_message(data);
-				responsiveVoice.speak(data ,'UK English Male');
-			}
-		 });}
-}
 
     </script>
 </body>

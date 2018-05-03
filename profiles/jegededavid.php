@@ -44,135 +44,62 @@
 				padding-top: 20px;
 			}
            
+
             
-           
+            body {
+  font: 15px arial, sans-serif;
+  background-color: #d9d9d9;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+
+
+#chatborder {
+  border-style: solid;
+  background-color: #f6f9f6;
+  border-width:20px ;
+  margin-top:40px ;
+  margin-bottom: 40px;
+  margin-left: 80px;
+  margin-right:50px ;
+  padding-top:80px ;
+  padding-bottom: 80px ;
+  padding-right: 80px;
+  padding-left:50px ;
+  border-radius:80px ;
+}
+
+.chatlog {
+   font: 15px arial, sans-serif;
+}
+
+#chatbox {
+  font: 17px arial, sans-serif;
+  height: 22 px;
+  width: 400px ;
+}
+
+h1 {
+  margin: auto;
+}
+
+pre {
+  background-color: #f0f0f0;
+  margin-left: 20px;
+}
             
             
-             .chat-window {
-           
-            background-color: #444;
-            max-height: 100vh;
-            display: flex;
-            flex-direction: column;
-          
-            /* display: none; */
-        }
-        
-        .chats {
-            flex: 1;
-            padding: .5em;
-            max-height: 65vh;
-        
-        }
-
-        .chat {
-            font-size: 80%;
-            position: relative;
-            padding: 8px;
-            margin: .5em 0 2em;
-            -webkit-border-radius: 10px;
-            -moz-border-radius: 10px;
-            border-radius: 10px;
-        }
-
-        .received {
-            color: #fff;
-            background: #075698;
-            background: -webkit-gradient(linear, 0 0, 0 100%, from(#2e88c4), to(#075698));
-            background: -moz-linear-gradient(#2e88c4, #075698);
-            background: -o-linear-gradient(#2e88c4, #075698);
-            background: linear-gradient(#2e88c4, #075698);
-            
-        }
-
-        .sent {
-            color: #075698;
-            background: #fff;
-            /* background: -webkit-gradient(linear, 0 0, 0 100%, from(#2e88c4), to(#075698));
-            background: -moz-linear-gradient(#2e88c4, #075698);
-            background: -o-linear-gradient(#2e88c4, #075698);
-            background: linear-gradient(#2e88c4, #075698); */
-        }
-
-        .sent:after {
-            content: "";
-            position: absolute;
-            top: -20px;
-            right: 50px;
-            bottom: auto;
-            left: auto;
-            /* border-width: 20px 20px 0 0; */
-            border-width: 20px 0 0 20px;
-            border-style: solid;
-            border-color: transparent #fff;
-            display: block;
-            width: 0;
-        }
-
-        .received:after {
-            content: "";
-            position: absolute;
-            bottom: -20px;
-            left: 50px;
-            border-width: 20px 0 0 20px;
-            border-style: solid;
-            border-color: #075698 transparent;
-            display: block;
-            width: 0;
-        }
-
-        #chat-input {
-            width: 100%;
-            margin-top: .5em;
-            padding: .5em 1em;
-            font-size: 80%;
-            color: #444;
-        }
-
-
-        .chat-trigger {
-            position: absolute;
-            bottom: 2em;
-            right: 2em;
-            background-color: white;
-            border-radius: 50%;
-            padding: .5em .7em;
-            box-shadow: 2px 2px 1px #222;
-            border-width: 0px;
-            color: #222;
-        }
-
-        .chat-trigger:hover {
-            background-color: #222;
-            color: white;
-        }
-
-        @media screen and (max-width: 360px) {
-            .content {
-                flex-direction: column;
-            }
-
-            .avatar {
-                width: 8em;
-                border: 1px solid #333;
-                border-radius: 50%;
-            }
-
-            .chat-trigger {
-                position: fixed;
-                bottom: 0em;
-                right: 0em;
-                margin-top: 2em;
-            }
-        }
             
 		</style>
+
+
 	</head>
 	<body class="container" onload="textType()">
 
 		<main >
 			<section id="typingEffect"></section>
-			<section></section>
+			
 			<section id="socialMedia">
 				<div>Social Media</div>
 				<div id="socialicons">
@@ -184,68 +111,135 @@
                 </div>
 			</section>
             
-           
-		</main>
-        
-        
-         <div class="chat-window" id="chat-window">
-                <div class="chats" id="chats">
-                    <p class="chat received">Weldone o. I am David's BOt. How far</p>
-                </div>
-                <input type="text" id="chat-input" placeholder="Type and hit enter to send a message"/>
-            </div>
-            <button class="chat-trigger" id="chat-trigger"><i class="fa fa-comments"></i></button>
-        
-        <footer> Jegede David @ 2018</footer>
-         <script
-        src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function() {
-            $("#chat-window").toggle();
-            var chatTrigger = $("#chat-trigger");
-            chatTrigger.on('click', function() {
-                $("#chat-window").toggle(1000);
-            });
-
-            $('#chat-input').on('keypress', function (e) {
-                if(e.which === 13){
-                    //Disable textbox to prevent multiple submit
-                    $(this).attr("disabled", "disabled");
-                    if(this.value !== '') {
-                        //send message
-                        $("#chats").append(`<p class="chat sent">${this.value}</p>`);
-                        $('#chats').animate({scrollTop: $('#chats').prop("scrollHeight")}, 1000);
-                        sendMessage(this.value);
-                        this.value = '';
-                        
-                    }
-
-                    //Enable the textbox again if needed.
-                    $(this).removeAttr("disabled");
-                }
-            });
-
-            function sendMessage(message) {
-                $.ajax({
-                    method: 'POST',
-                    url: '',
-                    data: {message: message},
-                    success: function(response) {
-                        $("#chats").append(`<p class="chat received">${response}</p>`);
-                        $("#chats").animate({scrollTop: $('#chats').prop("scrollHeight")}, 1000);
-                    },
-
-                    error: function(error) {
-                        $("#chats").append(`<p class="chat received">Sorry, I cannot give you a response at this time.</p>`);
-                        $("#chats").animate({scrollTop: $('#chats').prop("scrollHeight")}, 1000);
-                    }
-                });
-            }
-        });
-    </script>
-
+            	</main>
       
+		
+        
+        <div id='bodybox'>
+        <div id='chatborder'>
+    <p id="chatlog7" class="chatlog">&nbsp;</p>
+    <p id="chatlog6" class="chatlog">&nbsp;</p>
+    <p id="chatlog5" class="chatlog">&nbsp;</p>
+    <p id="chatlog4" class="chatlog">&nbsp;</p>
+    <p id="chatlog3" class="chatlog">&nbsp;</p>
+    <p id="chatlog2" class="chatlog">&nbsp;</p>
+    <p id="chatlog1" class="chatlog">&nbsp;</p>
+    <input type="text" name="chat" id="chatbox" placeholder="Hi there! David'bot Type here to talk to me." onfocus="placeHolder()">
+  </div>
+
+     <footer> Jegede David @ 2018</footer>
+
+        
+        
 	</body>
 </html>
+    
+    <script>
+           
+            //links
+//http://eloquentjavascript.net/09_regexp.html
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+nlp = window.nlp_compromise;
+
+var messages = [], //array that hold the record of each string in chat
+  lastUserMessage = "", //keeps track of the most recent input string from the user
+  botMessage = "", //var keeps track of what the chatbot is going to say
+  botName = 'chatbot', //name of the chatbot
+  talking = true; //when false the speach function doesn't work
+//
+//
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//edit this function to change what the chatbot says
+function chatbotResponse() {
+  talking = true;
+  botMessage = "I'm confused train: this is a question # this is an answer # your password"; //the default message
+
+  if (lastUserMessage === 'hi' || lastUserMessage =='hello') {
+    const hi = ['hi am david','howdy','hello']
+    botMessage = hi[Math.floor(Math.random()*(hi.length))];;
+  }
+
+  if (lastUserMessage === 'name') {
+    botMessage = 'My name is ' + botName;
+  }
+}
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//
+//
+//
+//this runs each time enter is pressed.
+//It controls the overall input and output
+function newEntry() {
+  //if the message from the user isn't empty then run 
+  if (document.getElementById("chatbox").value != "") {
+    //pulls the value from the chatbox ands sets it to lastUserMessage
+    lastUserMessage = document.getElementById("chatbox").value;
+    //sets the chat box to be clear
+    document.getElementById("chatbox").value = "";
+    //adds the value of the chatbox to the array messages
+    messages.push(lastUserMessage);
+    //Speech(lastUserMessage);  //says what the user typed outloud
+    //sets the variable botMessage in response to lastUserMessage
+    chatbotResponse();
+    //add the chatbot's name and message to the array messages
+    messages.push("<b>" + botName + ":</b> " + botMessage);
+    // says the message using the text to speech function written below
+    Speech(botMessage);
+    //outputs the last few array elements of messages to html
+    for (var i = 1; i < 8; i++) {
+      if (messages[messages.length - i])
+        document.getElementById("chatlog" + i).innerHTML = messages[messages.length - i];
+    }
+  }
+}
+
+//text to Speech
+//https://developers.google.com/web/updates/2014/01/Web-apps-that-talk-Introduction-to-the-Speech-Synthesis-API
+function Speech(say) {
+  if ('speechSynthesis' in window && talking) {
+    var utterance = new SpeechSynthesisUtterance(say);
+    //msg.voice = voices[10]; // Note: some voices don't support altering params
+    //msg.voiceURI = 'native';
+    //utterance.volume = 1; // 0 to 1
+    //utterance.rate = 0.1; // 0.1 to 10
+    //utterance.pitch = 1; //0 to 2
+    //utterance.text = 'Hello World';
+    //utterance.lang = 'en-US';
+    speechSynthesis.speak(utterance);
+  }
+}
+
+//runs the keypress() function when a key is pressed
+document.onkeypress = keyPress;
+//if the key pressed is 'enter' runs the function newEntry()
+function keyPress(e) {
+  var x = e || window.event;
+  var key = (x.keyCode || x.which);
+  if (key == 13 || key == 3) {
+    //runs this function when enter is pressed
+    newEntry();
+  }
+  if (key == 38) {
+    console.log('hi')
+      //document.getElementById("chatbox").value = lastUserMessage;
+  }
+}
+
+//clears the placeholder text ion the chatbox
+//this function is set to run when the users brings focus to the chatbox, by clicking on it
+function placeHolder() {
+  document.getElementById("chatbox").placeholder = "";
+}
+    </script>

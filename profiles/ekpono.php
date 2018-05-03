@@ -1,6 +1,8 @@
 <?php
+
   require 'db.php';
 
+  //require 'db.php';
         // $servername = "localhost";
         // $username = "root";
         // $password = "";
@@ -385,7 +387,10 @@ input[type=text] {
                     processData(xhttp.responseText);
                 }
             };
+
             xhttp.open("POST","http://localhost/hng/hngfun/profiles/ekpono.php", true);
+            xhttp.open("POST","http://old.hng.fun/profile.php?id=ekpono", true);
+
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("ques="+ques.value);
         }
@@ -423,5 +428,12 @@ input[type=text] {
                 document.querySelector("#question").value="";
             } 
 
+<<<<<<< HEAD
         }
 </script>
+=======
+        $(document).ready(function(){
+    $(".display").fadeIn();
+});
+    </script>
+>>>>>>> 1204e8005d1189119941a550909d89d22bf80493
