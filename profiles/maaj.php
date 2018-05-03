@@ -79,10 +79,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 	
 	
+	$check_train = stripos($question, "train:");
+	if($check_for_train === false){
+	$question = preg_replace('([\s]+)', ' ', trim($question));
+	$question = preg_replace("([?.])", "", $question);
+	
+	$question = $question;
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+        $q = $GLOBALS['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
+	
 	}
 	
 	
-	else{
+}
+	
+	
+	
+else{
 	
 	
 	
@@ -228,24 +243,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		.username{
 			margin:5px;
 			padding:10px;
+			font-size:14px;
 			background-color: #f1f1f1;
 			border-radius:5px;
 			height: auto;
 			float: right;
 			width: 70%;
 			color:blue;
-			font-weight: bold;
+			font-weight: regular;
 			}
 			
 		.bot{
 			margin: 5px;
 			padding:10px;
 			background-color: #ddd;
+			font-size:14px;
 			border-radius:5px;
 			height: auto;
 			float: left;
 			color:green;
-			font-weight: bold;
+			font-weight: regular;
 			width: 70%;
 			}	
 		
