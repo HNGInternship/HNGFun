@@ -1,18 +1,12 @@
 <?php
-
-  require 'db.php';
-
-  //require 'db.php';
-        // $servername = "localhost";
-        // $username = "root";
-        // $password = "";
 if($_SERVER['REQUEST_METHOD'] === "GET"){
-        try {
-       // $conn = new PDO("mysql:host=$servername;dbname=hng_fun", $username, $password);
-        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ekpono'");
+    try {
+        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'jaycodes'");
         $intern_data->execute();
         $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
         $result = $intern_data->fetch();
+    
+    
         $secret_code = $conn->prepare("SELECT * FROM secret_word");
         $secret_code->execute();
         $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
@@ -21,48 +15,52 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
      } catch (PDOException $e) {
          throw $e;
      }
+     date_default_timezone_set("Africa/Lagos");
+     $today = date("H:i:s");
 }
-try {
-	// require 'config.php';
-    //$conn1 = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //echo "Connected";
-    }
-catch(PDOException $e)
-    {
-    echo "Sorry connection not found: " . $e->getMessage();
-    }
-// Check connection
 
-?>
-<?php //Chatbot 
+ ?>
+ <?php 
     if($_SERVER['REQUEST_METHOD']==='POST'){
         //function definitions
-        function input($data) {
-            $data = stripslashes($data);
+        function test_input($data) {
             $data = trim($data);
+            $data = stripslashes($data);
             $data = htmlspecialchars($data);
             $data = preg_replace("([?.!])", "", $data);
+            $data = preg_replace("(['])", "\'", $data);
             return $data;
         }
-
-        
-
-        //end of function definition
-        $ques = input($_POST['ques']);
-        if(strpos($ques, "train:") !== false){
-            $q_a = substr($ques, 6); //get the string after train
-            $q_a =input($q_a); //removes all shit from 'em
-            $q_a = preg_replace("([?.])", "", $q_a);  //to remove all ? and .
-            $q_a = explode("#",$q_a);
-            if((count($q_a)==3)){
-                $question = $q_a[0];
-                $answer = $q_a[1];
-                $password = $q_a[2];
+        function chatMode($ques){
+            require '../../config.php';
+            $ques = test_input($ques);
+            $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+            if(!$conn){
+                echo json_encode([
+                    'status'    => 1,
+                    'answer'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                ]);
+                return;
             }
-
-           
+            $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
+            $result = $conn->query($query)->fetch_all();
+            echo json_encode([
+                'status' => 1,
+                'answer' => $result
+            ]);
+            return;
+        }
+        function trainerMode($ques){
+            require '../../config.php';
+            $questionAndAnswer = substr($ques, 6); //get the string after train
+            $questionAndAnswer =test_input($questionAndAnswer); //removes all shit from 'em
+            $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //to remove all ? and .
+            $questionAndAnswer = explode("#",$questionAndAnswer);
+            if((count($questionAndAnswer)==3)){
+                $question = $questionAndAnswer[0];
+                $answer = $questionAndAnswer[1];
+                $password = test_input($questionAndAnswer[2]);
+            }
             if(!(isset($password))|| $password !== 'password'){
                 echo json_encode([
                     'status'    => 1,
@@ -72,8 +70,8 @@ catch(PDOException $e)
             }
             if(isset($question) && isset($answer)){
                 //Correct training pattern
-                $question = input($question);
-                $answer = input($answer);
+                $question = test_input($question);
+                $answer = test_input($answer);
                 if($question == "" ||$answer ==""){
                     echo json_encode([
                         'status'    => 1,
@@ -81,63 +79,50 @@ catch(PDOException $e)
                     ]);
                     return;
                 }
-                    try {
-                        //$conn = new PDO("mysql:host=localhost;dbname=chat", 'root', '');
-                        // set the PDO error mode to exception
-                        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                        //echo "Connected successfully"; 
-                        }
-                    catch(PDOException $e)
-                        {
-                        echo "Connection failed: " . $e->getMessage();
-                        return;
-                        }
+                $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+                if(!$conn){
+                    echo json_encode([
+                        'status'    => 1,
+                        'answer'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                    ]);
+                    return;
+                }
+                $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
+                if($conn->query($query) ===true){
+                    echo json_encode([
+                        'status'    => 1,
+                        'answer'    => "trained successfully"
+                    ]);
+                }else{
+                    echo json_encode([
+                        'status'    => 1,
+                        'answer'    => "Error training me: ".$conn->error
+                    ]);
+                }
+                
 
-                $sql = "insert into chatbot (question, answer) values (:question, :answer)";
-				$stmt = $conn->prepare($sql);
-				$stmt->bindParam(':question', $question);
-				$stmt->bindParam(':answer', $answer);
-				$stmt->execute();
-				echo json_encode([
-					'status' => 1,
-					'answer' => "Thank you, I am now smarter"
-				]);
                 return;
             }else{ //wrong training pattern or error in string
             echo json_encode([
                 'status'    => 0,
-                'answer'    => "To train me, use<br>train: question # answer"
+                'answer'    => "Wrong training pattern<br> PLease use this<br>train: question # answer"
             ]);
             return;
             }
-        }else{
-            //chat mode
-            $ques = input($ques);
-                $sql = "select answer from chatbot where question like :question";
-						$stmt = $conn->prepare($sql);
-						$stmt->bindParam(':question', $ques);
-						$stmt->execute();
-
-						$stmt->setFetchMode(PDO::FETCH_ASSOC);
-						$rows = $stmt->fetchAll();
-                    echo json_encode([
-                        'status' => 1,
-                        'answer' => $rows
-                    ]);
-           
-            }
-             if ($ques == "what is the current time") {
-                $time = date("H:i:sa");
-                return;
-            }
-            return;
         }
 
-//chogo
+        //end of function definition
+        
+        $ques = test_input($_POST['ques']);
+        if(strpos($ques, "train:") !== false){
+            trainerMode($ques);
+        }else{
+            chatMode($ques);
+        }
 
-
-
-
+       
+        return;
+    }
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -369,10 +354,7 @@ input[type=text] {
         function sendMsg(){
 
             var ques = document.querySelector("#question");
-            if(ques.value == ":close:"){
-                exitB();
-                return;
-            }
+            
             if(ques.value.toLowerCase() ==":about bot:"){
                 displayOnScreen(ques.value, "user");
                 displayOnScreen("Name: Robotech <br> V:1.0");
