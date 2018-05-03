@@ -1,36 +1,126 @@
 <?php
+session_start();
+include "../answers.php";
+
+function getmenu()
+{
+    return 'Main Menu: <ul><li>AboutBot</li><li>Time</li><li>Acronym</li></ul>';
+}
+try {
+    if($_SERVER['REQUEST_METHOD'] === "POST"){
+        if(!isset($conn)) {
+            include '../config.php';
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        }
+
+        if(isset($_POST['message']) && $_POST['message'] != '') {
+            $question = trim($_POST['message']);
+
+            switch (strtolower($question) ) {
+                case 'aboutbot':
+                    {
+                        echo json_encode(['message' => 'TAGHREEDAA. Version: 1.0']);
+                        break;
+
+                    }
+                case 'time':
+                    {
+                        echo json_encode(['message' => getTime()]);
+                        break;
+
+                    }
+                case 'menu':
+                    {
+                        echo json_encode(['message' => getmenu()]);
+                        break;
+
+                    }
+                case (explode(':',$question)[0] === 'train'):
+                    {
+                        $training_question = trim(explode('#',explode(':',$question)[1])[0]);
+                        $training_answer = trim(explode('#',explode(':',$question)[1])[1]);
+                        $training_password = trim(explode('#',explode(':',$question)[1])[2]);
+                        if ($training_question != "" && $training_answer != "" && $training_password!= "")
+                        {
+                            try {
+
+                                if($training_password === 'password')
+                                {
+                                    // do insert in the sql table
+                                    $sql = $conn->prepare("insert into chatbot (question, answer) values (:question, :answer)");
+                                    $sql->execute(array('question' => $training_question, 'answer' => $training_answer));
+                                    echo json_encode(['message'=> '<div class="alert alert-success" role="alert">Trained Successfully</div>']);
+                                }
+                                else
+                                {
+                                    echo json_encode(['message'=> '<div class="alert alert-danger" role="alert">Incorrect Password!</div>']);
+                                }
+                                break;
+                            }
+                            catch (Exception $ex) {
+                                var_dump($ex);
+                            }
+                        }
+                        else
+                        {
+                            echo json_encode(['message' => "I can't understand it, you can train me using: <h3>train: question # answer # password</h3>" ]);
+                            break;
+                        }
+                    }
+                default:
+                    {
+                        try {
+                            $q_length = strlen($question);
+                            $question = ($question[$q_length - 1] == '?') ? substr($question, 0, $q_length - 1) : $question;
+
+                            $sql = "select * from chatbot where question like '$question%'";
+
+                            $query = $conn->prepare($sql);
+
+                            $res = $query->execute();
+
+
+                            $results = $query->fetchAll(PDO::FETCH_OBJ);
+                            $rowCount = $query->rowCount();
+                            if($rowCount == 1) { // if one answer
+                                echo json_encode(['message' => $results[0]->answer]);
+                            }
+                            else if($rowCount > 1) { // if multiple answers, select 1 randomly from the available
+                                echo json_encode(['message' => $results[rand(0, $rowCount - 1)]->answer]);
+                            }
+                            else
+                            {
+                                echo json_encode(['message' => "I can't understand it, you can train me using: <h3>train: question # answer # password</h3>" ]);
+                            }
+                        }
+                        catch (Exception $ex) {
+                            var_dump($ex);
+                        }
+                    }
+            }
+            exit;
+        }
+
+    }
+}
+catch (Exception $exception)
+{
+    var_dump($exception);
+}
+
+
+
 
 $query = $conn->query("SELECT * FROM secret_word");
 $result = $query->fetch(PDO::FETCH_ASSOC);
 $secret_word = $result['secret_word'];
 
-	$username = "TAGHREEDAA";
-	$data = $conn->query("SELECT * FROM  interns_data WHERE username = '".$username."' ");
-	$my_data = $data->fetch(PDO::FETCH_BOTH);
-	$name = $my_data['name'];
-	$src = $my_data['image_filename'];
-	$username =$my_data['username'];
-
-
-session_start();
-require('answers.php');
-include "../answers.php";
-
-try {
-
-    if (isset($_POST['message'])) {
-
-        echo json_encode([
-            'status' => 1,
-            'answer' => "Please provide a question"
-        ]);
-        exit;
-    }
-}
-catch (Exception $exception)
-{
-    throw $exception;
-}
+$username = "TAGHREEDAA";
+$data = $conn->query("SELECT * FROM  interns_data WHERE username = '".$username."' ");
+$my_data = $data->fetch(PDO::FETCH_BOTH);
+$name = $my_data['name'];
+$src = $my_data['image_filename'];
+$username =$my_data['username'];
 ?>
 
 
@@ -80,14 +170,11 @@ catch (Exception $exception)
         </div>
         <div class="chatbox">
             <div class="chatlogs">
-                <div class="chat friend">
-                    <div class="user-photo"><img src="./images/guest-avatar.jpeg"></div>
-                    <p class="chat-message">xxxxxxxxxx xxxxxxxxx xxxxxx</p>
-                </div>
-                <div class="chat self">
-                    <div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div>
-                    <p class="chat-message">lorem epsum</p>
-                </div>
+<!--                <div class="chat friend">-->
+<!--                    <div class="user-photo"><img src="./images/guest-avatar.jpeg"></div>-->
+<!--                    <div class="chat-message">xxxxxxxxxx xxxxxxxxx xxxxxx</div>-->
+<!--                </div>-->
+
             </div>
 
             <div class="chat-form">
@@ -97,9 +184,6 @@ catch (Exception $exception)
 
         </div>
     </div>
-
-
-
 
 </div>
 
@@ -487,13 +571,36 @@ catch (Exception $exception)
 
 </style>
 
-
-
-
 <script>
+
+    $(document).ready(function () {
+            var message1 = window.setTimeout(function(){
+                var default_message = '<div class="chat self"><div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">Hello I\'m TAGHREEDAA, <br> I\'m here to help you choose an option from the menu. :)</div> </div>';
+                $('.chatlogs').append(default_message);
+                playMessageSound();
+                window.clearTimeout(message1);
+            }, 1000);
+
+
+
+        var menu = window.setTimeout(function(){
+                var menu_message ='<div class="chat self"> <div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">Main Menu: <ul> <li>AboutBot</li> <li>Time</li><li>Acronym</li> </ul> </div> </div>';
+                $('.chatlogs').append(menu_message);
+                playMessageSound();
+                window.clearTimeout(menu);
+        }, 2000);
+    });
+
+    function playMessageSound() {
+        var aSound = document.createElement('audio');
+        aSound.setAttribute('src', './files/sounds/facebook_tone.mp3');
+        aSound.setAttribute('autoplay', 'true');
+        console.log(aSound);
+        aSound.play();
+    }
     //If user submits the form
-    $("#usermsg").keypress(function() {
-       if (window.event.keyCode == 13 && !window.event.shiftKey) {
+    $("#usermsg").keypress(function(e) {
+       if (e.keyCode == 13 && !e.shiftKey) {
            $("#submitmsg").click();
        }
     });
@@ -502,9 +609,9 @@ catch (Exception $exception)
         var clientmsg = $("#usermsg").val().trim();
 
         if (clientmsg != '') {
-            var msg='<div class="chat friend"><div class="user-photo"><img src="./images/guest-avatar.jpeg"></div> <p class="chat-message">'+
+            var msg='<div class="chat friend"><div class="user-photo"><img src="./images/guest-avatar.jpeg"></div> <div class="chat-message">'+
                 clientmsg.replace(/\n/g, '<br />') +
-                '</p></div>';
+                '</div></div>';
 
             $('.chatlogs').append(msg);
             $('#usermsg').val('');
@@ -512,26 +619,18 @@ catch (Exception $exception)
             $.ajax({
                 url: 'profiles/TAGHREEDAA.php',
                 type: 'post',
+                dataType: 'json',
                 data: {message: clientmsg},
                 success: function(response){
                     console.log(response);
+                    var received_message = '<div class="chat self"><div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">'+
+                            response.message
+                            +'</div></div>';
+
+                    $('.chatlogs').append(received_message);
+                    playMessageSound();
                 }
             });
-            //
-            //
-            // $.ajax({
-            //     type: "POST",
-            //     dataType: "json",
-            //     url: window.location, //Relative or absolute path to response.php file
-            //     data: {message: clientmsg},
-            //     success: function(data) {
-            //         alert("Form submitted successfully.\nReturned json: " + data["json"]);
-            //     }
-            // });
-            //
-
-            // $.post("TAGHREEDAA.php", {message: clientmsg});
-            // $("#usermsg").attr("value", "");
         }
 
         return false;
