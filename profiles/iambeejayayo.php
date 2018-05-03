@@ -21,7 +21,8 @@ function trainBot($command) {
         $response = 'Make sure the command structure matches "train: question #answer #password"';
     }
 
-    return compact('response');
+    echo json_encode('response');
+    exit;
 }
 
 function findAnswer($question) {
