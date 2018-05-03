@@ -369,7 +369,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	       	message.scrollTop(message[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: '/profiles/maaj.php', //location
+				url: 'maaj.php', //location
 				type: 'POST',
 				data: {text_in: text_in},
 				dataType: 'json',
