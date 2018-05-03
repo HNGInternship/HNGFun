@@ -1,6 +1,6 @@
 <?php
 
-require 'db.php';
+require '../db.php';
 
 $sec = $conn->query("Select * from secret_word LIMIT 1");
 $sec = $sec->fetch(PDO::FETCH_OBJ);
@@ -302,9 +302,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	  
      
 	 
-
+<script src="../vendor/jquery/jquery.min.js"></script>
  <script>
- $(document).ready(function(){
     var message = $("#contain");
 		
 	    $("#chat").on("submit", function(e) {
@@ -316,15 +315,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	       	message.scrollTop(message[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: 'profiles/maaj.php', //location
+				url: 'maaj.php', //location
 				type: 'POST',
 				data: {text_in: text_in},
 				dataType: 'json',
 				success: (response) => {
-					
-			        response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
-			        let response_answer = response.answer;
-			        message.append("<div class='bot'><div class='message'><img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/>" + response_answer + "</div></div>");      
+					var message = $("#contain");
+			        //response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
+			        //let response_answer = response.answer;
+			        message.append("<div class='bot'><div class='message'><img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/>" + response.answer + "</div></div>");      
 			       	$('#contain').animate({scrollTop: $('#contain').get(0).scrollHeight}, 1100);     
 				},
 				error: (error) => {
@@ -338,7 +337,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			}
 		});
 		
-	});
 
 </script>
   </body>
