@@ -45,126 +45,25 @@
 			}
            
             
-           
-            
-            
-             .chat-window {
-           
-            background-color: #444;
-            max-height: 100vh;
-            display: flex;
-            flex-direction: column;
-          
-            /* display: none; */
-        }
-        
-        .chats {
-            flex: 1;
-            padding: .5em;
-            max-height: 65vh;
-        
-        }
-
-        .chat {
-            font-size: 80%;
-            position: relative;
-            padding: 8px;
-            margin: .5em 0 2em;
-            -webkit-border-radius: 10px;
-            -moz-border-radius: 10px;
-            border-radius: 10px;
-        }
-
-        .received {
-            color: #fff;
-            background: #075698;
-            background: -webkit-gradient(linear, 0 0, 0 100%, from(#2e88c4), to(#075698));
-            background: -moz-linear-gradient(#2e88c4, #075698);
-            background: -o-linear-gradient(#2e88c4, #075698);
-            background: linear-gradient(#2e88c4, #075698);
-            
-        }
-
-        .sent {
-            color: #075698;
-            background: #fff;
-            /* background: -webkit-gradient(linear, 0 0, 0 100%, from(#2e88c4), to(#075698));
-            background: -moz-linear-gradient(#2e88c4, #075698);
-            background: -o-linear-gradient(#2e88c4, #075698);
-            background: linear-gradient(#2e88c4, #075698); */
-        }
-
-        .sent:after {
-            content: "";
-            position: absolute;
-            top: -20px;
-            right: 50px;
-            bottom: auto;
-            left: auto;
-            /* border-width: 20px 20px 0 0; */
-            border-width: 20px 0 0 20px;
-            border-style: solid;
-            border-color: transparent #fff;
-            display: block;
-            width: 0;
-        }
-
-        .received:after {
-            content: "";
-            position: absolute;
-            bottom: -20px;
-            left: 50px;
-            border-width: 20px 0 0 20px;
-            border-style: solid;
-            border-color: #075698 transparent;
-            display: block;
-            width: 0;
-        }
-
-        #chat-input {
-            width: 100%;
-            margin-top: .5em;
-            padding: .5em 1em;
-            font-size: 80%;
-            color: #444;
-        }
+            #output, #container {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
 
 
-        .chat-trigger {
-            position: absolute;
-            bottom: 2em;
-            right: 2em;
-            background-color: white;
-            border-radius: 50%;
-            padding: .5em .7em;
-            box-shadow: 2px 2px 1px #222;
-            border-width: 0px;
-            color: #222;
-        }
-
-        .chat-trigger:hover {
-            background-color: #222;
-            color: white;
-        }
-
-        @media screen and (max-width: 360px) {
-            .content {
-                flex-direction: column;
-            }
-
-            .avatar {
-                width: 8em;
-                border: 1px solid #333;
-                border-radius: 50%;
-            }
-
-            .chat-trigger {
-                position: fixed;
-                bottom: 0em;
-                right: 0em;
-                margin-top: 2em;
-            }
-        }
+input {
+    background-color: #eee;
+    border: none;
+    font-family: sans-serif;
+    color: #000;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px;
+}
+      
             
 		</style>
 	</head>
@@ -183,69 +82,76 @@
                     <img class = "img img-circle" src="http://res.cloudinary.com/hng4-0/image/upload/v1523637470/dav.jpg">
                 </div>
 			</section>
-            
-           
 		</main>
         
+        <div id="output"></div>
+        <div id="container">
+            <input type ="text" id ="input" value="">
+        </div>
         
-         <div class="chat-window" id="chat-window">
-                <div class="chats" id="chats">
-                    <p class="chat received">Weldone o. I am David's BOt. How far</p>
-                </div>
-                <input type="text" id="chat-input" placeholder="Type and hit enter to send a message"/>
-            </div>
-            <button class="chat-trigger" id="chat-trigger"><i class="fa fa-comments"></i></button>
+        <!--jquery for enter key press -->
         
-        <footer> Jegede David @ 2018</footer>
-         <script
-        src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function() {
-            $("#chat-window").toggle();
-            var chatTrigger = $("#chat-trigger");
-            chatTrigger.on('click', function() {
-                $("#chat-window").toggle(1000);
-            });
-
-            $('#chat-input').on('keypress', function (e) {
-                if(e.which === 13){
-                    //Disable textbox to prevent multiple submit
-                    $(this).attr("disabled", "disabled");
-                    if(this.value !== '') {
-                        //send message
-                        $("#chats").append(`<p class="chat sent">${this.value}</p>`);
-                        $('#chats').animate({scrollTop: $('#chats').prop("scrollHeight")}, 1000);
-                        sendMessage(this.value);
-                        this.value = '';
-                        
-                    }
-
-                    //Enable the textbox again if needed.
-                    $(this).removeAttr("disabled");
-                }
-            });
-
-            function sendMessage(message) {
-                $.ajax({
-                    method: 'POST',
-                    url: '',
-                    data: {message: message},
-                    success: function(response) {
-                        $("#chats").append(`<p class="chat received">${response}</p>`);
-                        $("#chats").animate({scrollTop: $('#chats').prop("scrollHeight")}, 1000);
-                    },
-
-                    error: function(error) {
-                        $("#chats").append(`<p class="chat received">Sorry, I cannot give you a response at this time.</p>`);
-                        $("#chats").animate({scrollTop: $('#chats').prop("scrollHeight")}, 1000);
-                    }
-                });
-            }
-        });
-    </script>
-
+        <script src= "https://code.jquery.com/jquery-3.0.0.js" integrity="sha256-jrPLZ+8vDxt2FnE1zvZXCkCcebI/C8Dt5xyaQBjxQIo=" crossorigin="anonymous"></script>
+       
+        
       
+        <script>
+            var questionNum = 0;													// keep count of question, used for IF condition.
+var question = '<h1>Welcome to david bot what is your name?</h1>';				  // first question
+
+var output = document.getElementById('output');				// store id="output" in output variable
+output.innerHTML = question;													// output first question
+
+function bot() { 
+    var input = document.getElementById("input").value;
+    console.log(input);
+
+    if (questionNum == 0) {
+    output.innerHTML = '<h1>hello ' + input + '</h1>';// output response
+    document.getElementById("input").value = "";   		// clear text box
+    question = '<h1>how old are you?</h1>';			    	// load next question		
+    setTimeout(timedQuestion, 2000);									// output next question after 2sec delay
+    }
+
+    else if (questionNum == 1) {
+    output.innerHTML = '<h1>That means you were born in ' + (2018 - input) + '</h1>';
+    document.getElementById("input").value = "";   
+    question = '<h1>will be happy if you can train me?</h1>';					      	
+    setTimeout(timedQuestion, 2000);
+    }   
+    else if (questionNum == 2){
+    output.innerHTML= '<h1>so sorry but i don\'t\ understand your message. But you could teach me. train: this is a question # this is an answer # your password</h1>';
+    document.getElementById("input").value = "";
+    question='<h1>Thank you for attempting to train me</h1>';
+    setTimeout(timedQuestion, 2000);
+    
+    }
+    else if (questionNum == 3){
+    output.innerHTML='<h1>did you get this is a question 3 this is an answer # your password</h1>';
+    document.getElementById("input").value="";
+    }
+}
+            
+            
+   
+function timedQuestion() {
+    output.innerHTML = question;
+}
+            
+            
+            
+
+//push enter key (using jquery), to run bot function.
+$(document).keypress(function(e) {
+  if (e.which == 13) {
+    bot();																						// run bot function when enter key pressed
+    questionNum++;																		// increase questionNum count by 1
+  }
+});
+
+        </script>
+        
+		
+		<footer> Jegede David @ 2018</footer>
 	</body>
 </html>
