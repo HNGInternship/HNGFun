@@ -516,8 +516,7 @@ a:focus {
 \*------------------------------------*/
 </style>
 </head>
-
-
+<body>
                 <div class="content">
 
                   <div class="sidebar">
@@ -545,36 +544,30 @@ a:focus {
                   <div class="chatbox">
 
                     <div class="person">
-                      <span class="info">
-                       <span class="login-status">Online    | <?php
-            echo "" . date("h:i:a");
-            ?>, <?php
+            <span class="info">
+            <span class="login-status">Online    | <?php echo "" . date("h:i:a"); ?>, 
+            <?php
             
             $ip=$_SERVER['REMOTE_ADDR'];
             $reply = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
             echo var_export('Glad to have a vistor from '. $reply['geoplugin_regionName'] .','.$reply['geoplugin_countryName'] );
-            ?></span>
-                        
-                      </span>
+            ?>
+            </span>
+            </span>
                     </div><!-- /.person -->
-                <script>
+            <script>
             $(document).ready(function(){
             var hiddenDiv = $(".messages");
             var show = function() {
             hiddenDiv.fadeIn();
-            play();
-
             };
-
             hiddenDiv.hide();
             setTimeout(show, 2000);
-
-
             });
-                </script>
+            </script>
                     <div class="chatbox-messages" >
                       <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390" alt="Support" /></span><div class="sender"><div class="message-container"><div class="message"><p>
-                      Welcome to Dev_GB's profile page <i class="em em-sunglasses"></i> </br>You can check State capitals by just asking. <i class="em em-smiley"></i></p>
+                      Welcome to Dev_GB's profile page</br>You can check State capitals by just asking.</p>
                               <p></br>Tips: Type "Help' to see FAQ.</br>To add new states ==> 'train:Question#answer#password'</p>
                               </div><span class="delivered">
                                 <?php echo "" . date("h:i:a");?>
@@ -593,16 +586,14 @@ a:focus {
                       <script type="text/javascript">
 
                                   $(document).ready(function(){
-               $('#msg').keypress(
+            $('#msg').keypress(
                 function(e){
-                    if (e.keyCode == 13) {
+            if (e.keyCode == 13) {
                         e.preventDefault();
                         var msg = $(this).val();
-                  $(this).val('');
+            $(this).val('');
                         if(msg !== '' )
-                  $('<div class="messages clear"><div class="user"><div class="message-container"><div class="message"><p>'+msg+'</p></div><span class="delivered"><?php
-            echo "" . date("h:i:a");
-            ?></span></div></div><!-- /.user --></div>').insertBefore('.push');
+            $('<div class="messages clear"><div class="user"><div class="message-container"><div class="message"><p>'+msg+'</p></div><span class="delivered"> <?php echo "" . date("h:i:a"); ?> </span></div></div></div>').insertBefore('.push');
             $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
 
                   formSubmit();
@@ -617,21 +608,14 @@ a:focus {
                         data: dataString,
                         type: "POST",
                          cache: false,
-                             success: function(response) {
+      success: function(response) {
                               
-                              var result = $($.parseHTML(response)).find('#result').text();
+          var result = $($.parseHTML(response)).find('#result').text();
             setTimeout(function(){
-                     $(' <div class="messages clear"><span class="avatar"><img style="height:50px; width:50px;" src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message"><p>'+result+'</p></div><span class="delivered"><?php
-            echo "" . date("h:i:a");
-            ?></span></div>').insertBefore('.push');
-                                         $('chatbox-messages').animate({
-                        scrollTop: $('chatbox-messages').get(0).scrollHeight
-                    }, 1500);
-                  
-        
-                },  1000);
-
-                  },
+          $(' <div class="messages clear"><span class="avatar"><img style="height:50px; width:50px;" src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message"><p>'+result+'</p></div><span class="delivered"> <?php echo "" . date("h:i:a"); ?></span></div>').insertBefore('.push');
+          $('chatbox-messages').animate({ scrollTop: $('chatbox-messages').get(0).scrollHeight }, 1500);
+          },  1000);
+      },
                         error: function (){}
                     });
                 return true;
@@ -642,8 +626,8 @@ a:focus {
             </script>
 
                       <form class="message-form" method="POST" action="" >
-                        <textarea id="msg" name="msg" value=""  placeholder="Type a message here..."></textarea>
-                          </form><!-- /.search-form -->
+                      <textarea id="msg" name="msg" value=""  placeholder="Type a message here..."></textarea>
+                      </form><!-- /.search-form -->
 
 
                     </div><!-- /.message-form-container -->
@@ -681,9 +665,9 @@ a:focus {
 <?php 
 }
 function help() {
-    echo "<div id='result'>These is a sample format of a question <p>What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ekiti</br></div>";
+    echo "<div id='result'>These is a sample format of a question</br></br>What is the capital of Lagos</br></br>For compound names separate with a dash</br></br>e.g What is the capital of Ekiti</br></div>";
 }
-function train( $input ) {
+function train($input) {
     $input    = explode( '#', $input );
     $question = trim( $input[ 0 ] );
     $answer   = trim( $input[ 1 ] );
@@ -698,14 +682,14 @@ function train( $input ) {
                  ':question' => $question,
                 ':answer' => $answer 
             );
-            $sql           = 'INSERT INTO chatbot ( question, answer)
+            $sql = 'INSERT INTO chatbot ( question, answer)
               VALUES (
                   :question,
                   :answer
               );';
             try {
                 $q = $GLOBALS[ 'conn' ]->prepare( $sql );
-                if ( $q->execute( $training_data ) == true ) {
+                if ( $q->execute($training_data) == true ) {
                     echo "<div id='result'>Training Successful!</br></div>";
 
                 }
