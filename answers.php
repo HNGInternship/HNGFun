@@ -1549,7 +1549,7 @@ function getAge() {
     return "Vectormike is just 20 years old. As for me, I have got no idea of age. Still " .$bot_version;
 }
 function getTime() {
-    return date(h:i:sA);
+    return date("h:i:sA");
 }
 
 function get_client_ip() {
