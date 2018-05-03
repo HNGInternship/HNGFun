@@ -31,14 +31,22 @@
             train($temp[1]);
         }elseif($temp2 === 'aboutbot') {
             aboutbot();
+        }elseif($temp2==='help'){
+            help();
+        }elseif($temp2 === 'version'){
+            echo "<div id='result'> <b>Santra v1.0</b></div>";
         }else{
             getAnswer($temp[0]);
         }
     }
   ##About Bot
     function aboutbot() {
-        echo "<div id='result'><strong>Santra v1.0 </strong></div>";
+        echo "<div id='result'><strong>I am Santra, a power chatbot created by Epospiky </strong></div>";
     }
+   function help(){
+   echo "<div id ='result'>Type <b>about</b> to know about me.<br/>Type <b>version</b> to know my version.<br/>To train me,use this format:<b>train:question#answer#password</b> where password is password </div>";
+   
+   }
   
   ##Train Bot
     function train($input) {
@@ -143,10 +151,10 @@
        .content{
         background-color: #C0C0C0;
         border-radius: 100px 0px;
-        width: 500px;
+        max-width: 500px;
         border: 0px solid black;
         padding: 50px;
-        margin-top: 20px;
+        margin-top: 50px;
         margin-bottom: 20px;
         box-shadow: -5px 0px 5px #000, 0px 5px 5px #000;
        }
@@ -297,7 +305,7 @@
         </div>
     </div>
     <div class="skill oj-flex-item oj-sm-4">
-      <p>UI</p>
+      <p>UI/UX</p>
        <div class="progress progress-striped active"> 
             <div class="progress-bar progress-bar-success" role="progressbar"  
                 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"  
@@ -339,9 +347,10 @@
             <div class="chat" id="chat">
                 
                   
-                    <div><span ><img src="http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png" width="30px"></span><p class="san">Hi! I'm Santra. You are free to ask me anything.   </p></div>
-                    <div><span ><img src="http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png" width="30px"></span><p class="san">To train me, use this syntax - "train:question#answer#password".</p></div>
-                    <div><span ><img src="http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png" width="30px"></span><p class="san">The Password is: <b>password</b>. </p></div>
+                    <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
+                    <p class="san">To train me, use this syntax - "train:question#answer#password".</p>
+                   <p class="san">The Password is: <b>password</b>. </p>
+                    <p class="san">Type help to begin with.</p>
             </div>
                 
           </div>  
@@ -355,8 +364,8 @@
                     </form>
                 </div>
         </div>
-     <!-- </div>
-    </div>-->
+     </div>
+    </div>
     
     
     
@@ -375,7 +384,7 @@
     $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
         var message = $("#user-input").val();
-        outputArea.append(`<p class='me'><span ></span>${message}</p>`);
+        outputArea.append(`<p class='me'>${message}</p>`);
         $.ajax({
             url: 'profile.php?id=epospiky',
             type: 'POST',
@@ -383,7 +392,7 @@
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<span></span><p class='san'>" + result + "</p>");
+                    outputArea.append("<p class='san'>" + result + "</p>");
                     $('#chat').animate({
                         scrollTop: $('#chat').get(0).scrollHeight
                     }, 1500);
