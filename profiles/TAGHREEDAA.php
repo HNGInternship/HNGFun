@@ -126,7 +126,7 @@ $username =$my_data['username'];
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" id="bootstrap-css">
 
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -170,10 +170,10 @@ $username =$my_data['username'];
         </div>
         <div class="chatbox">
             <div class="chatlogs">
-<!--                <div class="chat friend">-->
-<!--                    <div class="user-photo"><img src="./images/guest-avatar.jpeg"></div>-->
-<!--                    <div class="chat-message">xxxxxxxxxx xxxxxxxxx xxxxxx</div>-->
-<!--                </div>-->
+                <!--                <div class="chat friend">-->
+                <!--                    <div class="user-photo"><img src="./images/guest-avatar.jpeg"></div>-->
+                <!--                    <div class="chat-message">xxxxxxxxxx xxxxxxxxx xxxxxx</div>-->
+                <!--                </div>-->
 
             </div>
 
@@ -194,249 +194,249 @@ $username =$my_data['username'];
 
 
 
-.card {
-    padding-top: 20px;
-    margin: 10px 0 20px 0;
-    background-color: rgba(214, 224, 226, 0.2);
-    border-top-width: 0;
-    border-bottom-width: 2px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
+    .card {
+        padding-top: 20px;
+        margin: 10px 0 20px 0;
+        background-color: rgba(214, 224, 226, 0.2);
+        border-top-width: 0;
+        border-bottom-width: 2px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
 
-.card .card-heading {
-    padding: 0 20px;
-    margin: 0;
-}
+    .card .card-heading {
+        padding: 0 20px;
+        margin: 0;
+    }
 
-.card .card-heading.simple {
-    font-size: 20px;
-    font-weight: 300;
-    color: #777;
-    border-bottom: 1px solid #e5e5e5;
-}
+    .card .card-heading.simple {
+        font-size: 20px;
+        font-weight: 300;
+        color: #777;
+        border-bottom: 1px solid #e5e5e5;
+    }
 
-.card .card-heading.image img {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    margin-right: 15px;
-    vertical-align: top;
-    border: 0;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-}
+    .card .card-heading.image img {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        margin-right: 15px;
+        vertical-align: top;
+        border: 0;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+    }
 
-.card .card-heading.image .card-heading-header {
-    display: inline-block;
-    vertical-align: top;
-}
+    .card .card-heading.image .card-heading-header {
+        display: inline-block;
+        vertical-align: top;
+    }
 
-.card .card-heading.image .card-heading-header h3 {
-    margin: 0;
-    font-size: 14px;
-    line-height: 16px;
-    color: #262626;
-}
+    .card .card-heading.image .card-heading-header h3 {
+        margin: 0;
+        font-size: 14px;
+        line-height: 16px;
+        color: #262626;
+    }
 
-.card .card-heading.image .card-heading-header span {
-    font-size: 12px;
-    color: #999999;
-}
+    .card .card-heading.image .card-heading-header span {
+        font-size: 12px;
+        color: #999999;
+    }
 
-.card .card-body {
-    padding: 0 20px;
-    margin-top: 20px;
-}
+    .card .card-body {
+        padding: 0 20px;
+        margin-top: 20px;
+    }
 
-.card .card-media {
-    padding: 0 20px;
-    margin: 0 -14px;
-}
+    .card .card-media {
+        padding: 0 20px;
+        margin: 0 -14px;
+    }
 
-.card .card-media img {
-    max-width: 100%;
-    max-height: 100%;
-}
+    .card .card-media img {
+        max-width: 100%;
+        max-height: 100%;
+    }
 
-.card .card-actions {
-    min-height: 30px;
-    padding: 0 20px 20px 20px;
-    margin: 20px 0 0 0;
-}
+    .card .card-actions {
+        min-height: 30px;
+        padding: 0 20px 20px 20px;
+        margin: 20px 0 0 0;
+    }
 
-.card .card-comments {
-    padding: 20px;
-    margin: 0;
-    background-color: #f8f8f8;
-}
+    .card .card-comments {
+        padding: 20px;
+        margin: 0;
+        background-color: #f8f8f8;
+    }
 
-.card .card-comments .comments-collapse-toggle {
-    padding: 0;
-    margin: 0 20px 12px 20px;
-}
+    .card .card-comments .comments-collapse-toggle {
+        padding: 0;
+        margin: 0 20px 12px 20px;
+    }
 
-.card .card-comments .comments-collapse-toggle a,
-.card .card-comments .comments-collapse-toggle span {
-    padding-right: 5px;
-    overflow: hidden;
-    font-size: 12px;
-    color: #999;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
+    .card .card-comments .comments-collapse-toggle a,
+    .card .card-comments .comments-collapse-toggle span {
+        padding-right: 5px;
+        overflow: hidden;
+        font-size: 12px;
+        color: #999;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 
-.card-comments .media-heading {
-    font-size: 13px;
-    font-weight: bold;
-}
+    .card-comments .media-heading {
+        font-size: 13px;
+        font-weight: bold;
+    }
 
-.card.people {
-    position: relative;
-    display: inline-block;
-    width: 170px;
-    height: 300px;
-    padding-top: 0;
-    margin-left: 20px;
-    overflow: hidden;
-    vertical-align: top;
-}
+    .card.people {
+        position: relative;
+        display: inline-block;
+        width: 170px;
+        height: 300px;
+        padding-top: 0;
+        margin-left: 20px;
+        overflow: hidden;
+        vertical-align: top;
+    }
 
-.card.people:first-child {
-    margin-left: 0;
-}
+    .card.people:first-child {
+        margin-left: 0;
+    }
 
-.card.people .card-top {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: inline-block;
-    width: 170px;
-    height: 150px;
-    background-color: #ffffff;
-}
+    .card.people .card-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: inline-block;
+        width: 170px;
+        height: 150px;
+        background-color: #ffffff;
+    }
 
-.card.people .card-top.green {
-    background-color: #53a93f;
-}
+    .card.people .card-top.green {
+        background-color: #53a93f;
+    }
 
-.card.people .card-top.blue {
-    background-color: #427fed;
-}
+    .card.people .card-top.blue {
+        background-color: #427fed;
+    }
 
-.card.people .card-info {
-    position: absolute;
-    top: 150px;
-    display: inline-block;
-    width: 100%;
-    height: 101px;
-    overflow: hidden;
-    background: #ffffff;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
+    .card.people .card-info {
+        position: absolute;
+        top: 150px;
+        display: inline-block;
+        width: 100%;
+        height: 101px;
+        overflow: hidden;
+        background: #ffffff;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
 
-.card.people .card-info .title {
-    display: block;
-    margin: 8px 14px 0 14px;
-    overflow: hidden;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 18px;
-    color: #404040;
-}
+    .card.people .card-info .title {
+        display: block;
+        margin: 8px 14px 0 14px;
+        overflow: hidden;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 18px;
+        color: #404040;
+    }
 
-.card.people .card-info .desc {
-    display: block;
-    margin: 8px 14px 0 14px;
-    overflow: hidden;
-    font-size: 12px;
-    line-height: 16px;
-    color: #737373;
-    text-overflow: ellipsis;
-}
+    .card.people .card-info .desc {
+        display: block;
+        margin: 8px 14px 0 14px;
+        overflow: hidden;
+        font-size: 12px;
+        line-height: 16px;
+        color: #737373;
+        text-overflow: ellipsis;
+    }
 
-.card.people .card-bottom {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    display: inline-block;
-    width: 100%;
-    padding: 10px 20px;
-    line-height: 29px;
-    text-align: center;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
+    .card.people .card-bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: inline-block;
+        width: 100%;
+        padding: 10px 20px;
+        line-height: 29px;
+        text-align: center;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
 
-.card.hovercard {
-    position: relative;
-    padding-top: 0;
-    overflow: hidden;
-    text-align: center;
-    background-color: rgba(214, 224, 226, 0.2);
-}
+    .card.hovercard {
+        position: relative;
+        padding-top: 0;
+        overflow: hidden;
+        text-align: center;
+        background-color: rgba(214, 224, 226, 0.2);
+    }
 
-.card.hovercard .cardheader {
-    /*background: url("http://lorempixel.com/850/280/nature/4/");*/
-    background: url("./images/nature-cover.jpeg");
-    background-size: cover;
-    height: 150px;
-}
+    .card.hovercard .cardheader {
+        /*background: url("http://lorempixel.com/850/280/nature/4/");*/
+        background: url("./images/nature-cover.jpeg");
+        background-size: cover;
+        height: 150px;
+    }
 
-.card.hovercard .avatar {
-    position: relative;
-    top: -50px;
-    margin-bottom: -50px;
-}
+    .card.hovercard .avatar {
+        position: relative;
+        top: -50px;
+        margin-bottom: -50px;
+    }
 
-.card.hovercard .avatar img {
-    width: 250px;
-    height: 250px;
-    max-width: 250px;
-    max-height: 250px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    border: 5px solid rgba(255,255,255,0.5);
-}
+    .card.hovercard .avatar img {
+        width: 250px;
+        height: 250px;
+        max-width: 250px;
+        max-height: 250px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        border: 5px solid rgba(255,255,255,0.5);
+    }
 
-.card.hovercard .info {
-    padding: 4px 8px 10px;
-}
+    .card.hovercard .info {
+        padding: 4px 8px 10px;
+    }
 
-.card.hovercard .info .title {
-    margin-bottom: 4px;
-    font-size: 24px;
-    line-height: 1;
-    color: #262626;
-    vertical-align: middle;
-}
+    .card.hovercard .info .title {
+        margin-bottom: 4px;
+        font-size: 24px;
+        line-height: 1;
+        color: #262626;
+        vertical-align: middle;
+    }
 
-.card.hovercard .info .desc {
-    overflow: hidden;
-    font-size: 12px;
-    line-height: 20px;
-    color: #737373;
-    text-overflow: ellipsis;
-}
+    .card.hovercard .info .desc {
+        overflow: hidden;
+        font-size: 12px;
+        line-height: 20px;
+        color: #737373;
+        text-overflow: ellipsis;
+    }
 
-.card.hovercard .bottom {
-    padding: 0 20px;
-    margin-bottom: 17px;
-}
+    .card.hovercard .bottom {
+        padding: 0 20px;
+        margin-bottom: 17px;
+    }
 
-.btn{ border-radius: 50%; width:32px; height:32px; line-height:18px;  }
+    .btn{ border-radius: 50%; width:32px; height:32px; line-height:18px;  }
 
 </style>
 
@@ -468,7 +468,7 @@ $username =$my_data['username'];
     .chatlogs::-webkit-scrollbar {
         width: 10px;
     }
-    
+
     .chatlogs::-webkit-scrollbar-thumb {
         border-radius: 5px;
         background: rgba(0,0,0,0.1);
@@ -574,20 +574,20 @@ $username =$my_data['username'];
 <script>
 
     $(document).ready(function () {
-            var message1 = window.setTimeout(function(){
-                var default_message = '<div class="chat self"><div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">Hello I\'m TAGHREEDAA, <br> I\'m here to help you choose an option from the menu. :)</div> </div>';
-                $('.chatlogs').append(default_message);
-                playMessageSound();
-                window.clearTimeout(message1);
-            }, 1000);
+        var message1 = window.setTimeout(function(){
+            var default_message = '<div class="chat self"><div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">Hello I\'m TAGHREEDAA, <br> I\'m here to help you choose an option from the menu. :)</div> </div>';
+            $('.chatlogs').append(default_message);
+            playMessageSound();
+            window.clearTimeout(message1);
+        }, 1000);
 
 
 
         var menu = window.setTimeout(function(){
-                var menu_message ='<div class="chat self"> <div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">Main Menu: <ul> <li>AboutBot</li> <li>Time</li> </ul> </div> </div>';
-                $('.chatlogs').append(menu_message);
-                playMessageSound();
-                window.clearTimeout(menu);
+            var menu_message ='<div class="chat self"> <div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">Main Menu: <ul> <li>AboutBot</li> <li>Time</li> </ul> </div> </div>';
+            $('.chatlogs').append(menu_message);
+            playMessageSound();
+            window.clearTimeout(menu);
         }, 2000);
     });
 
@@ -600,13 +600,13 @@ $username =$my_data['username'];
     }
     //If user submits the form
     $("#usermsg").keypress(function(e) {
-       if (e.keyCode == 13 && !e.shiftKey) {
-           $("#submitmsg").click();
-       }
-       if (e.keyCode == 38 && !e.shiftKey) {
-           // get the last message chat friend and put it into the textarea
-           $('#usermsg').val($('.chatlogs').children('.friend').last()[0].innerText);
-       }
+        if (e.keyCode == 13 && !e.shiftKey) {
+            $("#submitmsg").click();
+        }
+        if (e.keyCode == 38 && !e.shiftKey) {
+            // get the last message chat friend and put it into the textarea
+            $('#usermsg').val($('.chatlogs').children('.friend').last()[0].innerText);
+        }
     });
 
     $("#submitmsg").click(function() {
@@ -628,8 +628,8 @@ $username =$my_data['username'];
                 data: {message: clientmsg},
                 success: function(response){
                     var received_message = '<div class="chat self"><div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">'+
-                            response.message
-                            +'</div></div>';
+                        response.message
+                        +'</div></div>';
 
                     $('.chatlogs').append(received_message);
                     playMessageSound();
