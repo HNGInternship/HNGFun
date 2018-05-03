@@ -154,9 +154,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                   if (count($res) > 0) {
                   
                     $index = rand(0, count($res)-1);
-                    $response = $res[$index]['answer'];  
+                    $feed = $res[$index]['answer'];  
 
-                    echo "<div id='result'>".$response."</div>";
+                    echo "<div id='result'>".$feed."</div>";
                   
                   }
                   else{
