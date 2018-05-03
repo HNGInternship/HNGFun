@@ -176,7 +176,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $data  = $_POST[ 'msg' ];
     $temp  = explode( ':', $data );
     $temp2 = preg_replace( '/\s+/', '', $temp[ 0 ] );
+<<<<<<< HEAD
+  if( $temp2  === "train") {
+=======
   if( $temp2  === "Train") {
+>>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
     train( $temp[ 1 ] );
     
       }       
@@ -202,6 +206,7 @@ else{
 
 
 <style type="text/css">
+
   *, *:after, *:before {
   -moz-box-sizing:border-box;
   box-sizing:border-box;
@@ -296,6 +301,7 @@ a:focus {
   height: 100%;
   max-height: 460px;
   overflow-y: hidden;
+<<<<<<< HEAD
 }
 
 
@@ -407,6 +413,119 @@ a:focus {
   padding-left: 20px;
 }
 
+=======
+}
+
+
+.contact-list .person {
+  position: relative;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(112,108,114,0.3);
+  cursor: pointer;
+}
+
+
+.contact-list .person.active:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  border-right: 4px solid #0bf9c7;
+  box-shadow: inset -4px 0px 4px -4px #0bf9c7;
+}
+
+.person .avatar img {
+  width: 200px;
+  margin-left: 25px;
+  border-radius: 100%;
+}
+
+.person .avatar {
+  position: relative;
+  display: inline-block;
+}
+
+.person .avatar .status {
+  position: absolute;
+  right: 6px;
+  bottom: 0;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #F0F0F0;
+  border: 4px solid #222; 
+}
+
+.person .avatar .status.online {
+  background: #0bf9c7;
+}
+
+.person .avatar .status.away {
+  background: #f4a711;
+}
+
+.person .avatar .status.busy {
+  background: #f42464;
+}
+
+.person .info {
+  display: inline-block;
+  width: auto;
+  padding: 0 0 0 10px; 
+  font-size: 16px;
+  font-style: italic;
+}
+
+.person .name, .person .status-msg {
+  display: inline-block;
+  width: auto; 
+}
+
+.person .name {
+  color: #FFFFFF;
+  font-size: 17px;
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.person .status-msg {
+  width: 180px;
+  font-size: 14px;
+  font-size: 1.4rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+
+/*------------------------------------*\
+    Chatbox
+\*------------------------------------*/
+
+.chatbox {
+  color: #a0a0a0;
+}
+
+/* Chatbox header */
+
+.chatbox .person {
+  position: relative;
+  margin: 12px 20px 0 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(112,108,114,0.2);
+}
+
+.chatbox .person .avatar .status {
+  border-color: #fff;
+}
+
+.chatbox .person .info {
+  width: 290px;
+  padding-left: 20px;
+}
+
+>>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
 .chatbox .person .name {
   color: #a0a0a0;
   font-size: 19px;
@@ -424,12 +543,18 @@ a:focus {
   height: 376px;
   overflow-y: overlay;
 }
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 .chatbox-message {
   margin: 20px 20px 0 44px;
   height: 100px;
   width: 100px;
   overflow-y: overlay;
 }
+>>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
+=======
+>>>>>>> cd77971fb8a9dcafbdce185543f0406cd8d5f103
 
 .chatbox-messages .avatar {
   float: left;
@@ -477,12 +602,18 @@ a:focus {
   font-size: 1.1rem;
 }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 .message .chatbox-messages c {
   margin: 14px 24px;
   font-size: 11px;
   font-size: 1.1rem;
 }
 
+>>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
+=======
+>>>>>>> cd77971fb8a9dcafbdce185543f0406cd8d5f103
 .chatbox-messages .delivered {
   position: absolute;
   top: 0;
@@ -521,6 +652,7 @@ a:focus {
 .message-form textarea:focus::-moz-placeholder { color: transparent;  }
 .message-form textarea:focus::-ms-placeholder { color: transparent; }
 .message-form textarea:focus:-moz-placeholder { color: transparent; }
+
 
 /*------------------------------------*\
     Contacts List - Custom Scrollbar
@@ -600,7 +732,17 @@ a:focus {
                                          success: function(response) {
                                           var result = $($.parseHTML(response)).text();
                         setTimeout(function(){
+<<<<<<< HEAD
+       $('<div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message"><p>'+result+'</p></div><span class="delivered"><?php
+            echo "" . date("h:i:a");
+            ?></span></div>').insertBefore('.push');
+=======
+<<<<<<< HEAD
+                                 $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message">'+result+'</div><span class="delivered"><?php echo "<b>Support</b>  " . date("h:i:a"); ?></span></div>').insertBefore('.push');
+=======
                                  $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="message-container"><c>'+response+'</c></div><span class="delivered"><?php echo "<b>Support</b>  " . date("h:i:a"); ?></span></div>').insertBefore('.push');
+>>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
+>>>>>>> 714d11c274ddd1189760fcb41edfba1b2850fb13
                                 $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
                              
                               },  1000);
@@ -628,7 +770,11 @@ a:focus {
                         
                       </span>
                     </div><!-- /.person -->
+<<<<<<< HEAD
+                    <div class="chatbox-messages" >
+=======
                     <div class="chatbox-message" >
+>>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
                       <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390" alt="Support" /></span><div class="sender"><div class="message-container"><div class="message"><p>
                       Welcome to Dev_GB's profile page <i class="em em-sunglasses"></i> You can check State capitals by just asking. <i class="em em-smiley"></i></p>
                               <p>Tips: Type "Help' to see FAQ.<br>To add new states ==> 'Train:Question#Answer#password'</p>
@@ -664,7 +810,11 @@ a:focus {
 <?php 
 }
 function help() {
+<<<<<<< HEAD
+    echo "<div id='result'>These is a sample format of a question <p>What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ado-Ekiti</div>";
+=======
     echo "<div id='result'>These is a sample format of a question </br> What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ekiti</div>";
+>>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
 }
 function train( $input ) {
     $input    = explode( '#', $input );
