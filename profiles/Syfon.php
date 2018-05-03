@@ -70,7 +70,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 </head>
   <body>
     <div id="container">
-                <div class="card" style="width: ; height: 44rem;">
+                <div class="card" style="width:30rem ; height: 44rem;">
                         <img class="card-img-top" src="https://res.cloudinary.com/syfon/image/upload/v1523631972/pic.jpg" alt="Card image cap">
                             <img src="https://res.cloudinary.com/syfon/image/upload/v1523630065/syfon.jpg" class="rounded-circle">
                         
