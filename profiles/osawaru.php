@@ -78,7 +78,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $title =  $news['articles'][0]['title'];
         $time = $news['articles'][0]['publishedAt'];
         $newsurl = $news['articles'][0]['url']; 
-            exit(json_encode(["answers" => "<strong >Title: $title </strong><br> $time <br> <a href = '$newsurl' style='color: #423ab7'>Read more..</a>"]));
+        $title1 =  $news['articles'][1]['title'];
+        $time1 = $news['articles'][1]['publishedAt'];
+        $newsurl1 = $news['articles'][1]['url'];
+            exit(json_encode(["answers" => "<strong >Title: $title </strong><br> $time <br> <a href = '$newsurl' alt='Powered by Newsapi.org' style='color: #423ab7'>Read more..</a><br/><strong >Title: $title1 </strong><br> $time1 <br> <a href = '$newsurl1' style='color: #423ab7'>Read more..</a>"]));
     }
    
     else {      
@@ -100,10 +103,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } 
    
 ?>
-<!DOCTYPE html>
-<html>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <!-- jQuery library -->
@@ -116,6 +115,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro|Playball" rel="stylesheet">
 
 <style>
+    nav {
+        color : white;
+    }
     #projects {
         background-image: url(" http://res.cloudinary.com/osawaru/image/upload/v1523637993/bg-img.jpg");
     }
@@ -216,7 +218,6 @@ try {
 }
 
 ?>
-
 
     <div class="containter text-white text-center">
         <p class="mt-5 text-danger" style="font-stretch: expanded; font-family: 'Playball',cursive; font-size:40px">Meet</p>
@@ -337,9 +338,10 @@ try {
             var userinputval=  $('input[name=userinput]').val();
             if (userinputval !== null) {
                var newinput = "<p class='msgoutput'>" + userinputval +
-               "<img style='height: 2.5em;'class='rounded-circle'"
-               " src='http://res.cloudinary.com/osawaru/image/upload/e_grayscale/v1524047363/avatar.png'></p>";
-               $('#chatbody').append(newinput); 
+               "<img style='height: 2.5em;'class='rounded-circle ml-2'"
+               " src='http://res.cloudinary.com/osawaru/image/upload/v1525257218/img_264157.png'></p>";
+               $('#chatbody').append(newinput);
+               $('#chatbody').scrollTop ($('#chatbody')[0].scrollHeight); 
                $.ajax ({
                   method: "POST",
                   url: "profiles/osawaru.php",
@@ -351,7 +353,8 @@ try {
                           "src='http://res.cloudinary.com/osawaru/image/upload/e_grayscale/v1524047363/avatar.png'>" + 
                           successmsg + "</p>";
                           $('#chatbody').append(result1);
-                          userinputval = " "; //function that runs what the request succeeds
+                          $('#chatbody').scrollTop($('#chatbody')[0].scrollHeight);
+                          inputbox = " "; //function that runs what the request succeeds
                     }
                });       
             }; 

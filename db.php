@@ -5,7 +5,7 @@ DO NOT MODIFY THIS FILE!!!
 
 */
 
-require'../config.php';
+require_once '../config.php';
 
 
 try {

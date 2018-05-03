@@ -1,6 +1,6 @@
 <?php
 
-require 'db.php';
+require '../db.php';
 
 $sec = $conn->query("Select * from secret_word LIMIT 1");
 $sec = $sec->fetch(PDO::FETCH_OBJ);
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'answer' => "Hello, I am maaj's assistant. Version 1.0, currently running on PHP 5.7."
       ]);
       return;
-    };
+    }
 	
 	//greeting
 	if((stripos($question,'hey') !== false) || (stripos($question,'hi') !== false) || (stripos($question,'hello') !== false)){
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'answer' => "Hello, how are you?"
       ]);
       return;
-    };
+    }
 	
 	// time
 	if(stripos($question,'time') !== false){
@@ -122,8 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
     <link rel="icon" href="css/images/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <!-- This is the main css file for the default Alta theme -->
 <!-- injector:theme -->
 <link rel="stylesheet" href="css/alta/5.0.0/web/alta.css" id="css"/>
@@ -282,8 +281,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				
 				</div>
 				<div id ="controls">
-					<form method="POST" action="" id= "chat">
-					<input type="text" id="textbox"></input>
+					<form method="post" action="" id="chat">
+					<input type="text" id="textbox" name="text_in" required class="text_in"></input>
 					<input id="send" type="submit" value="Send"></input>
 					</form>
 
@@ -301,7 +300,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
 	  
      
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-json/2.6.0/jquery.json.min.js"></script>
+	 
+<script src="../vendor/jquery/jquery.min.js"></script>
  <script>
     var message = $("#contain");
 		
@@ -314,29 +314,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	       	message.scrollTop(message[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: '/profiles/maaj.php', //location
+				url: 'maaj.php', //location
 				type: 'POST',
 				data: {text_in: text_in},
 				dataType: 'json',
 				success: (response) => {
-					
-			        response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
-			        let response_answer = response.answer;
-			        message.append("<div class='bot'><div class='message'><img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/>" +response_answer+ "</div></div>");      
+					var message = $("#contain");
+			        //response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
+			        //let response_answer = response.answer;
+			        message.append("<div class='bot'><div class='message'><img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/>" + response.answer + "</div></div>");      
 			       	$('#contain').animate({scrollTop: $('#contain').get(0).scrollHeight}, 1100);     
 				},
 				error: (error) => {
-	          		alert('error occured')
+	          		alert(JSON.stringify(error));
 						console.log(error);
+						
 				}
 				
 			});
 			$("#textbox").val("");
 			}
 		});
+		
 
 </script>
   </body>
 
 </html>
+
 
