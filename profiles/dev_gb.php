@@ -16,110 +16,115 @@ function assistant($string)
     $reply = "";
     
     if ($string == 'What is the capital of Lagos?') {
-      $reply =var_export('The capital of Lagos is Ikeja');
+      $reply =var_export("The capital of Lagos is Ikeja");
       return $reply;
-        
     }
+
     elseif ($string == 'What is the capital of Ogun?') {
-      $reply =var_export('The capital of Ogun is Abeokuta');
+      $reply =var_export("The capital of Ogun is Abeokuta");
       return $reply;
-        
     }
+
     elseif ($string == 'What is the capital of Oyo?') {
-      $reply =var_export('The capital of Oyo is Ibadan');
+      $reply =var_export("The capital of Oyo is Ibadan");
       return $reply;     
     }
+
     elseif ($string == 'What is the capital of Ondo?') {
-      $reply =var_export('The capital of Ondo is Akure');
+      $reply =var_export("The capital of Ondo is Akure");
       return $reply;     
     }
+
    elseif ($string == 'What is the capital of Imo?') {
-       
-      $reply =var_export('The capital of Imo is Owerri');
+      $reply =var_export("The capital of Imo is Owerri");
       return $reply;     
     }
+
     elseif ($string == 'What is the capital of Akwa-Ibom?') { 
-      $reply =var_export('The capital of Akwa-Ibom is Uyo');
-      return $reply;     
+      $reply =var_export("The capital of Akwa-Ibom is Uyo");
+      return $reply; 
+
     }
     elseif ($string == 'What is the capital of Adamawa?') { 
-      $reply =var_export('The capital of Adamawa is Yola');
+      $reply =var_export("The capital of Adamawa is Yola");
       return $reply;     
     }
+
     elseif ($string == 'What is the capital of Ekiti?') { 
-      $reply =var_export('The capital of Ekiti is Ado-Ekiti');
+      $reply =var_export("The capital of Ekiti is Ado-Ekiti");
       return $reply;     
     }
+
     elseif ($string == 'What is the capital of Bauchi?') { 
-      $reply =var_export('The capital of Bauchi is Bauchi');
+      $reply =var_export("The capital of Bauchi is Bauchi");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Bayelsa?') { 
-      $reply =var_export('The capital of Bayelsa is Yenagoa');
+      $reply =var_export("The capital of Bayelsa is Yenagoa");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Abia?') { 
-      $reply =var_export('The capital of Abia is Umuahia');
+      $reply =var_export("The capital of Abia is Umuahia");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Anambra?') { 
-      $reply =var_export('The capital of Anambra is Awka');
+      $reply =var_export("The capital of Anambra is Awka");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Borno?') { 
-      $reply =var_export('The capital of Borno is Maiduguiri');
+      $reply =var_export("The capital of Borno is Maiduguiri");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Cross-River?') { 
-      $reply =var_export('The capital of Cross-River is Calabar');
+      $reply =var_export("The capital of Cross-River is Calabar");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Delta?') { 
-      $reply =var_export('The capital of Delta is Asaba');
+      $reply =var_export("The capital of Delta is Asaba");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Benue?') { 
-      $reply =var_export('The capital of Benue is Makurdi');
+      $reply =var_export("The capital of Benue is Makurdi");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Edo?') { 
-      $reply =var_export('The capital of Edo is Benin');
+      $reply =var_export("The capital of Edo is Benin");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Enugu?') { 
-      $reply =var_export('The capital of Enugu is Enugu');
+      $reply =var_export("The capital of Enugu is Enugu");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Kebbi?') { 
-      $reply =var_export('The capital of Kebbi is Birnin Kebbi';
+      $reply =var_export("The capital of Kebbi is Birnin Kebbi");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Katsina?') { 
-      $reply =var_export('The capital of Katsina is Katsina');
+      $reply =var_export("The capital of Katsina is Katsina");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Kano?') { 
-      $reply =var_export('The capital of Kano is Kano');
+      $reply =var_export("The capital of Kano is Kano");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Kaduna?') { 
-      $reply =var_export('The capital of Kaduna is Kaduna');
+      $reply =var_export("The capital of Kaduna is Kaduna");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Jigawa?') { 
-      $reply =var_export('The capital of Dutse is Dutse');
+      $reply =var_export("The capital of Dutse is Dutse");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Kwara?') { 
-      $reply =var_export('The capital of Kwara is Ilorin');
+      $reply =var_export("The capital of Kwara is Ilorin");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Gombe?') { 
-      $reply =var_export('The capital of Gombe is Gombe');
+      $reply =var_export("The capital of Gombe is Gombe");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Nasarawa?') { 
-      $reply =var_export('The capital of Nasarawa is Lafia');
+      $reply =var_export("The capital of Nasarawa is Lafia");
       return $reply;     
     }
     else {
@@ -151,7 +156,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
                   $res = $stm->fetchAll();
                   
-                  if (count($res) > 0) {
+              if (count($res) > 0) {
                   
                     $index = rand(0, count($res)-1);
                     $feed = $res[$index]['answer'];  
@@ -159,10 +164,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     echo "<div id='result'>".$feed."</br></br></div>";
                   
                   }
-                  else{
-                     echo "<div id='result'>Tips: Type 'Help' to see FAQ.</br> To add new states ==> 'train:Question#answer#password</br>'</div>";
-
-      
+              else{
+              echo "<div id='result'>Tips: Type 'Help' to see FAQ. </br> To add new states ==> 'train:Question#answer#password</br>'</div>";
                   }       
                 }
 
@@ -174,10 +177,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
      }
     $data  = $_POST[ 'msg' ];
     $temp  = explode( ':', $data );
-    $temp2 = preg_replace( '/\s+/', '', $temp[ 0 ] );
-  if( $temp2  === "train") {
-    train( $temp[ 1 ] );
-    
+    $temp2 = preg_replace( '/\s+/', '', $temp[0] );
+  if( $temp2  === "Train") {
+    train( $temp[1] );
       }       
 
 }
@@ -188,24 +190,17 @@ else{
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   
-    <title>dev_gb</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css" type="text/css"/>
-    <meta http-equiv="x-ua-compatible" content="IE=edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="viewport-fit=cover, initial-scale=1.0" />
-    <meta name="apple-mobile-web-app-title" content="Oracle JET" />
-    <!-- injector:theme -->
-    <link href='https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css' rel='stylesheet' type="text/css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js" type="text/javascript"/>
+  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta http-equiv = "x-ua-compatible" content="IE=edge" />
+    <meta http-equiv = "Content-Type" content="text/html; charset=utf-8" />
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js" type="text/javascript" />
 
+<title>dev_gb</title>  
 
-<style type="text/css">
+<style type="text/css" >
 
   *, *:after, *:before {
   -moz-box-sizing:border-box;
@@ -527,7 +522,7 @@ a:focus {
 
                   <div class="sidebar">
 
-                <br><br>
+                </br></br>
 
                     <div class="contacts">
 
@@ -580,7 +575,7 @@ a:focus {
                     <div class="chatbox-messages" >
                       <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390" alt="Support" /></span><div class="sender"><div class="message-container"><div class="message"><p>
                       Welcome to Dev_GB's profile page <i class="em em-sunglasses"></i> </br>You can check State capitals by just asking. <i class="em em-smiley"></i></p>
-                              <p></br>Tips: Type "Help' to see FAQ.<br>To add new states ==> 'train:Question#answer#password'</p>
+                              <p></br>Tips: Type "Help' to see FAQ.</br>To add new states ==> 'train:Question#answer#password'</p>
                               </div><span class="delivered">
                                 <?php echo "" . date("h:i:a");?>
                                   
