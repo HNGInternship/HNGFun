@@ -493,6 +493,9 @@
 </div><!--end of page div-->
 <div style="color:white">My secret code:<?php echo $secret_word; ?></div>
 </div><!--inner ends here -->
+
+ <button type="button" class="btn btn-danger btn-lg pull-right" data-toggle="collapse" data-target="#chat">Chat now</button>
+ <div id="chat" class="wrapper collapse">
 <div class="row">
 	<div class="col-md-4"></div>
 <div class="col-md-4 offset-md-1 chat-frame">
@@ -530,7 +533,7 @@
 				</form>	
 			</div>
 			
-
+	 </div>
 </div>
 </div>
 <script src="../vendor/jquery/jquery.min.js"></script>
