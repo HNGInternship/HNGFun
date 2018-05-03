@@ -19,113 +19,26 @@ $worldclassdev = array_shift($data);
 
 
 <!DOCTYPE html>
-<!--
- Copyright (c) 2014, 2018, Oracle and/or its affiliates.
- The Universal Permissive License (UPL), Version 1.0
- -->
+<html lang="en">
 
-<!-- ************************ IMPORTANT INFORMATION ************************************
-  This web navigation drawer template is provided as an example of how to configure
-  a JET web application with a navigation drawer as a single page application
-  using ojRouter and oj-module.  It contains the Oracle JET framework and a default
-  requireJS configuration file to show how JET can be setup in a common application.
-  This project template can be used in conjunction with demo code from the JET
-  website to test JET component behavior and interactions.
-  Any CSS styling with the prefix "demo-" is for demonstration only and is not
-  provided as part of the JET framework.
-  Please see the demos under Cookbook/Patterns/App Shell: Web and the CSS documentation
-  under Support/API Docs/Non-Component Styling on the JET website for more information on how to use 
-  the best practice patterns shown in this template.
-  Aria Landmark role attributes are added to the different sections of the application
-  for accessibility compliance. If you change the type of content for a specific
-  section from what is defined, you should also change the role value for that
-  section to represent the appropriate content type.
-  ***************************** IMPORTANT INFORMATION ************************************ -->
-<html lang="en-us">
-  <head>
-    <title>Justine Philip</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="profiles/worldclassdev/build/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <title>The World CLass Developer</title>
+    <link href="profiles/worldclassdev/build/static/css/main.3aff5c70.css" rel="stylesheet">
+</head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
-    <link rel="icon" href="profiles/worldclassdev/css/images/favicon.ico" type="image/x-icon" />
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script src="profiles/worldclassdev/build/vendor/jquery/jquery.min.js"></script>
+    <script src="profiles/worldclassdev/build/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>$("#menu-toggle").click(function (e) { e.preventDefault(), $("#wrapper").toggleClass("toggled") })</script>
+    <script type="text/javascript" src="profiles/worldclassdev/build/static/js/main.b0a309ef.js"></script>
+</body>
 
-    <!-- This is the main css file for the default Alta theme -->
-<!-- injector:theme -->
-<link rel="stylesheet" href="profiles/worldclassdev/css/alta/5.0.0/web/alta.min.css" id="css" />
-<!-- endinjector -->
-    
-    <!-- This contains icon fonts used by the starter template -->
-    <link rel="stylesheet" href="profiles/worldclassdev/css/demo-alta-site-min.css" type="text/css"/>
-
-    <!-- This is where you would add any app specific styling -->
-    <link rel="stylesheet" href="profiles/worldclassdev/css/app.css" type="text/css"/>
-
-  </head>
-  <body class="oj-web-applayout-body">
-    <!-- Template for rendering navigation items shared between nav bar and nav list -->
-    <script type="text/html" id="navTemplate">
-      <li><a href="#">
-        <span :class="[[$data['iconClass']]]"></span>
-        <oj-bind-text value="[[$data['name']]]"></oj-bind-text>
-      </a></li>
-    </script>
-
-    <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
-       <div id="pageContent" class="oj-web-applayout-page">
-        <!--
-           ** Oracle JET V5.0.0 web application header pattern.
-           ** Please see the demos under Cookbook/Patterns/App Shell: Web
-           ** and the CSS documentation under Support/API Docs/Non-Component Styling
-           ** on the JET website for more information on how to use this pattern.
-        -->
-       
-<div class="oj-hybrid-padding">
-  <my-profile>
-    <div class="twcd container">
-        <div class="name">
-            <h1><?php echo $worldclassdev['name']; ?></h1>
-          </div>
-          <div class="profile mx-auto">
-            <img class="profile-img mx-auto" src="<?php echo $worldclassdev['image_filename']; ?>" alt="my-profile">
-          </div>
-          <div class="about">
-              I like to call myself a developer of all things JS. But basically i love to build stuff that solves a problem irrespective of the technology involved. I'm more about the impact than the money, but somehow i find both. When im not coding, i write, game and play the guitar.
-          </div>
-        <?php var_dump(DB_HOST." ". DB_USER." ". DB_PASSWORD." ".DB_DATABASE); ?>
-        <?php
-$formaction = "profiles/worldclassdev-api/chat.php";
-?>
-<form action="<?php echo $formaction; ?>" method="post" >
-<input name="chat" type="text" style="width: 100%" >
-<input   type="submit" value="chat with me" >
-</form>
-    </div>  
-  </my-profile>
-<<<<<<< HEAD
-    <?php
-$formaction = "profiles/worldclassdev-api/chat.php";
-?>
-<form action="<?php echo $formaction; ?>" method="post" >
-<input name="chat" type="text" style="width: 100%" >
-<input   type="submit" value="chat with me" >
-</form>
-||||||| merged common ancestors
-    <?php
-$formaction = "profiles/worldclassdev/api/chat.php";
-?>
-<form action="<?php echo $formaction; ?>" method="post" >
-<input name="chat" type="text" style="width: 100%" >
-<input   type="submit" value="chat with me" >
-</form>
-=======
-
->>>>>>> eeccdd734718fa2940b000e5386e2a4ec2575fcd
-
-</div>
-      </div>
-      </div>
-   
-    
-    <script type="text/javascript" src="profiles/worldclassdev/js/libs/require/require.js"></script>
-
-    <script type="text/javascript" src="profiles/worldclassdev/js/main.js"></script>
+</html>

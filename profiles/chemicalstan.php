@@ -15,16 +15,16 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'chemicalst
 
   <head>
 
+   
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-<<<<<<< HEAD
-    <title>CHEMICALSTAN PROFILE</title>
-=======
+<!--
+
     <title>CHEMICALSTAN'S PROFILE</title>
->>>>>>> c84ccd984aebe2daf14a59cc781cce4877321c88
+-->
 
 <!--     Bootstrap core CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -34,24 +34,28 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'chemicalst
   <body>
 
     <!-- Navigation -->
+<!--
     <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top" id="mainNav">
       <div class="container">
         <h1 class="text-center">ChemicalStan's Profile.</h1>
       </div>
     </nav>
+-->
 <!--header end-->
     
     
      <!-- Page Content -->
+             <h1 class="text-center bg-success">Profile.</h1>
+
     <div class="container">
 
         <div class="row">
             <!-- Blog Entries Column -->
-<<<<<<< HEAD
+
         
-=======
+
         <hr>
->>>>>>> c84ccd984aebe2daf14a59cc781cce4877321c88
+
             <h2 class="text-center" >Hello Guys, I'm an intern @ HNG4.0</h2>
             <hr>
             <div class="row">

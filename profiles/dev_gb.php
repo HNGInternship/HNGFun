@@ -1,5 +1,5 @@
 <?php
-include_once("../answers.php"); 
+
 $query = $conn->query("SELECT * FROM secret_word");
 $result = $query->fetch(PDO::FETCH_ASSOC);
 $secret_word = $result['secret_word'];
@@ -22,105 +22,105 @@ function assistant($string)
         
     }
     elseif ($string == 'What is the capital of Ogun?') {
-      $reply =var_export('The capital of Ogun is Abeokuta');
+      $reply =var_export("<div id='result'>The capital of Ogun is Abeokuta</div>");
       return $reply;
         
     }
     elseif ($string == 'What is the capital of Oyo?') {
-      $reply =var_export('The capital of Oyo is Ibadan');
+      $reply =var_export("<div id='result'>The capital of Oyo is Ibadan</div>" );
       return $reply;     
     }
     elseif ($string == 'What is the capital of Ondo?') {
-      $reply =var_export('The capital of Ondo is Akure');
+      $reply =var_export( "<div id='result'>The capital of Ondo is Akure</div>");
       return $reply;     
     }
    elseif ($string == 'What is the capital of Imo?') {
        
-      $reply =var_export('The capital of Imo is Owerri');
+      $reply =var_export("<div id='result'>The capital of Imo is Owerri</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Akwa-Ibom?') { 
-      $reply =var_export('The capital of Akwa-Ibom is Uyo');
+      $reply =var_export("<div id='result'>The capital of Akwa-Ibom is Uyo</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Adamawa?') { 
-      $reply =var_export('The capital of Adamawa is Yola');
+      $reply =var_export("<div id='result'> The capital of Adamawa is Yola</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Ekiti?') { 
-      $reply =var_export('The capital of Ekiti is Ado-Ekiti');
+      $reply =var_export("<div id='result'> The capital of Ekiti is Ado-Ekiti</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Bauchi?') { 
-      $reply =var_export('The capital of Bauchi is Bauchi');
+      $reply =var_export("<div id='result'> The capital of Bauchi is Bauchi</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Bayelsa?') { 
-      $reply =var_export('The capital of Bayelsa is Yenagoa');
+      $reply =var_export("<div id='result'> The capital of Bayelsa is Yenagoa</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Abia?') { 
-      $reply =var_export('The capital of Abia is Umuahia');
+      $reply =var_export("<div id='result'> The capital of Abia is Umuahia</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Anambra?') { 
-      $reply =var_export('The capital of Anambra is Awka');
+      $reply =var_export("<div id='result'> The capital of Anambra is Awka</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Borno?') { 
-      $reply =var_export('The capital of Borno is Maiduguiri');
+      $reply =var_export("<div id='result'>The capital of Borno is Maiduguiri</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Cross-River?') { 
-      $reply =var_export('The capital of Cross-River is Calabar');
+      $reply =var_export("<div id='result'> The capital of Cross-River is Calabar</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Delta?') { 
-      $reply =var_export('The capital of Delta is Asaba');
+      $reply =var_export("<div id='result'>The capital of Delta is Asaba</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Benue?') { 
-      $reply =var_export('The capital of Benue is Makurdi');
+      $reply =var_export("<div id='result'>The capital of Benue is Makurdi</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Edo?') { 
-      $reply =var_export('The capital of Edo is Benin');
+      $reply =var_export("<div id='result'> The capital of Edo is Benin</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Enugu?') { 
-      $reply =var_export('The capital of Enugu is Enugu');
+      $reply =var_export("<div id='result'> The capital of Enugu is Enugu</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Kebbi?') { 
-      $reply =var_export('The capital of Kebbi is Birnin Kebbi');
+      $reply =var_export("<div id='result'>The capital of Kebbi is Birnin Kebbi</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Katsina?') { 
-      $reply =var_export('The capital of Katsina is Katsina');
+      $reply =var_export("<div id='result'> The capital of Katsina is Katsina</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Kano?') { 
-      $reply =var_export('The capital of Kano is Kano?');
+      $reply =var_export("<div id='result'>The capital of Kano is Kano</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Kaduna?') { 
-      $reply =var_export('The capital of Kaduna is Kaduna');
+      $reply =var_export("<div id='result'>The capital of Kaduna is Kaduna</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Jigawa?') { 
-      $reply =var_export('The capital of Dutse is Dutse');
+      $reply =var_export("<div id='result'>The capital of Dutse is Dutse</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Kwara?') { 
-      $reply =var_export('The capital of Kwara is Ilorin');
+      $reply =var_export("<div id='result'>The capital of Kwara is Ilorin</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Gombe?') { 
-      $reply =var_export('The capital of Gombe is Gombe');
+      $reply =var_export("<div id='result'>The capital of Gombe is Gombe</div>");
       return $reply;     
     }
     elseif ($string == 'What is the capital of Nasarawa?') { 
-      $reply =var_export('The capital of Nasarawa is Lafia');
+      $reply =var_export("<div id='result'>The capital of Nasarawa is Lafia</div>");
       return $reply;     
     }
     else {
@@ -161,7 +161,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                   
                   }
                   else{
-                     echo "Tips: Type 'Help' to see FAQ.</br> To add new states ==> 'train:Question#answer#password'";
+                     echo "<div id='result'>Tips: Type 'Help' to see FAQ.</br> To add new states ==> 'Train:Question#Answer#password</br>'</div>";
+
       
                   }       
                 }
@@ -175,7 +176,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $data  = $_POST[ 'msg' ];
     $temp  = explode( ':', $data );
     $temp2 = preg_replace( '/\s+/', '', $temp[ 0 ] );
-  if( $temp2  === "train") {
+  if( $temp2  === "Train") {
     train( $temp[ 1 ] );
     
       }       
@@ -183,8 +184,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 else{
   ?>
-</br>
-</br>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -197,7 +197,7 @@ else{
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- 
+  <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css" type="text/css"/>
 
 
 
@@ -424,6 +424,35 @@ a:focus {
   height: 376px;
   overflow-y: overlay;
 }
+.chatbox-message {
+  margin: 20px 20px 0 44px;
+  height: 376px;
+  overflow-y: overlay;
+}
+
+.chatbox-message .message-container {
+  position: relative;
+  float: right;
+  width: auto;
+  padding-left: 10px;
+}
+
+.chatbox-message .message {
+  display: inline-block;
+  max-width: 100;
+  margin-bottom: 12px;
+  border: 1px solid #dedede;
+  border-radius: 25px;
+}
+
+.chatbox-message .avatar img {
+  width: 56px;
+    border-radius: 50%;
+}
+
+.chatbox-message .avatar {
+  float: left;
+}
 
 .chatbox-messages .avatar {
   float: left;
@@ -516,12 +545,13 @@ a:focus {
 </style>
 </head>
 
+<body>
 
                 <div class="content">
 
                   <div class="sidebar">
 
-                <br><br>
+                </br></br>
 
                     <div class="contacts">
 
@@ -535,13 +565,72 @@ a:focus {
                             “My name is Akinduko Olugbenga.<br/><br/>I enjoy meeting new people and finding ways to help them have an uplifting experience.<br/><br/>I have had a variety of Software development opportunities, through which I was able to solve real life problems.<br/>” 
                         </span>
                         </li>
-                      </ul><!-- /.contact-list -->
 
                     </div><!-- /.contacts -->
 
                   </div><!-- /.sidebar -->
 
                   <div class="chatbox">
+                        <script>
+                    $(document).ready(function(){
+                    var hiddenDiv = $(".messages");
+                    var show = function() {
+                    hiddenDiv.fadeIn();
+                    play();
+
+                    };
+
+                    hiddenDiv.hide();
+                    setTimeout(show, 2000);
+
+
+                    });
+                        </script>
+
+                        <script type="text/javascript">
+
+                                              $(document).ready(function(){
+                           $('#msg').keypress(
+                            function(e){
+                                if (e.keyCode == 13) {
+                                    e.preventDefault();
+                                    var msg = $(this).val();
+                              $(this).val('');
+                                    if(msg !== '' )
+                              $('<div class="messages clear"><div class="user"><div class="message-container"><div class="message"><p>'+msg+'</p></div><span class="delivered"><?php
+                        echo "" . date("h:i:a");
+                        ?></span></div></div><!-- /.user --></div>').insertBefore('.push');
+                        $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
+
+                              formSubmit();
+
+                                }
+
+                            function formSubmit(){
+                            var message = $("#msg").val();
+                                var dataString = 'msg=' + msg;
+                                $.ajax({
+                                    url: "profile.php?id=dev_gb",
+                                    data: dataString,
+                                    type: "POST",
+                                     cache: false,
+                                         success: function(response) {
+                                          var result = $($.parseHTML(response)).text();
+                        setTimeout(function(){
+                                 $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message">'+response+'</div><span class="delivered"><?php echo "<b>Support</b>  " . date("h:i:a"); ?></span></div>').insertBefore('.push');
+                                $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
+                             
+                              },  1000);
+
+                              },
+                                    error: function (){}
+                                });
+                            return true;
+                            } 
+                                });
+                        });
+                         
+                        </script>
 
                     <div class="person">
                       <span class="info">
@@ -556,88 +645,23 @@ a:focus {
                         
                       </span>
                     </div><!-- /.person -->
-                <script>
-            $(document).ready(function(){
-            var hiddenDiv = $(".messages");
-            var show = function() {
-            hiddenDiv.fadeIn();
-            play();
-
-            };
-
-            hiddenDiv.hide();
-            setTimeout(show, 2000);
-
-
-            });
-                </script>
-                    <div class="chatbox-messages" >
+                    <div class="chatbox-message" >
                       <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390" alt="Support" /></span><div class="sender"><div class="message-container"><div class="message"><p>
                       Welcome to Dev_GB's profile page <i class="em em-sunglasses"></i> You can check State capitals by just asking. <i class="em em-smiley"></i></p>
-                              <p>Tips: Type "Help' to see FAQ.<br>To add new states ==> 'train:Question#answer#password'</p>
+                              <p>Tips: Type "Help' to see FAQ.<br>To add new states ==> 'Train:Question#Answer#password'</p>
                               </div><span class="delivered">
-                                <?php echo "" . date("h:i:a");?>
+                                <?php echo "<b>Support</b>   " . date("h:i:a");?>
                                   
                                 </span>
                               </div>
                     </div>
                     </div>
-                            <div class="push"></div>
+                    <div class="push"></div>
 
                     </div><!-- /.chatbox-messages -->
 
 
                     <div class="message-form-container">
-
-                      <script type="text/javascript">
-
-                                  $(document).ready(function(){
-               $('#msg').keypress(
-                function(e){
-                    if (e.keyCode == 13) {
-                        e.preventDefault();
-                        var msg = $(this).val();
-                  $(this).val('');
-                        if(msg !== '' )
-                  $('<div class="messages clear"><div class="user"><div class="message-container"><div class="message"><p>'+msg+'</p></div><span class="delivered"><?php
-            echo "" . date("h:i:a");
-            ?></span></div></div><!-- /.user --></div>').insertBefore('.push');
-            $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
-
-                  formSubmit();
-
-                    }
-
-                function formSubmit(){
-                var message = $("#msg").val();
-                    var dataString = 'msg=' + msg;
-                    $.ajax({
-                        url: "profile.php?id=dev_gb",
-                        data: dataString,
-                        type: "POST",
-                         cache: false,
-                             success: function(response) {
-                              var result = $($.parseHTML(response)).text();
-            setTimeout(function(){ 
-                     $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message"><p>'+result+'</p></div><span class="delivered"><?php
-            echo "" . date("h:i:a");
-            ?></span></div>').insertBefore('.push');
-                     $('chatbox-messages').animate({
-                        scrollTop: $('chatbox-messages').get(0).scrollHeight
-                    }, 1500);
-                  
-                },  1000);
-
-                  },
-                        error: function (){}
-                    });
-                return true;
-                }
-                    });
-            });
-             
-            </script>
-
                       <form class="message-form" method="POST" action="" >
                         <textarea id="msg" name="msg" value=""  placeholder="Type a message here..."></textarea>
                           </form><!-- /.search-form -->
@@ -647,54 +671,24 @@ a:focus {
 
                   </div><!-- /.chatbox -->
 
+
+
                 </div><!-- /.content -->
-
-              </div><!-- /.wrapper -->
-
-
-        </div>
-      </div>
-      <!-- /.row -->
-
-    
-
-    </div>
-        <!-- Custom scripts for this template -->
-    <script src="../js/hng.min.js"></script>
-  
-</div><!-- /ko -->
-      </div>
-      </div>
- 
-</body>
-<!-- end jet -->
-
-
-  <body>
-
-  
-
-        
-
-      
-   
-          
-            
 
   </body>
 
 </html>
 <?php 
 }
-function help( ) {
-    echo 'These is a sample format of a question <p>What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ado-Ekiti</p>';
+function help() {
+    echo "<div id='result'>These is a sample format of a question <p>What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ado-Ekiti</div>";
 }
 function train( $input ) {
     $input    = explode( '#', $input );
     $question = trim( $input[ 0 ] );
     $answer   = trim( $input[ 1 ] );
     $password = trim( $input[ 2 ] );
-    if ( $password == 'p@ssword' ) {
+    if ( $password == 'password' ) {
         $sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '" and answer = "' . $answer . '" LIMIT 1';
         $q   = $GLOBALS[ 'conn' ]->query( $sql );
         $q->setFetchMode( PDO::FETCH_ASSOC );
@@ -713,18 +707,19 @@ function train( $input ) {
                 $q = $GLOBALS[ 'conn' ]->prepare( $sql );
                 if ( $q->execute( $training_data ) == true ) {
                     echo "<div id='result'>Training Successful!</div>";
+
                 }
             }
             catch ( PDOException $e ) {
                 throw $e;
             }
         } else {
-            echo "<div id='result'>Teach me something new!</div>";
+            echo "Teach me something new!";
         }
     } else {
-        echo "<div id='result'>Invalid Password, Try Again!</div>";
+        echo "<div id='result'>Invalid Password, Try Again!";
     }
 
-    </br>
-    </br>
-}?>
+}
+
+?>

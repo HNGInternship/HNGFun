@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
 <?php
 $profile_query = "SELECT name, username, image_filename FROM interns_data WHERE username = '$profile_name' LIMIT 1";
 $profile_result = $conn->query($profile_query);
@@ -13,12 +10,28 @@ $secret_word_result->setFetchMode(PDO::FETCH_ASSOC);
 $secret = $secret_word_result->fetch();
 $secret_word = $secret['secret_word'];
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Rebby - HNGINTERN</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
     <style>
+    /*Border-box reset*/
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
         body{
             padding:0;
             margin:0;
@@ -27,8 +40,11 @@ $secret_word = $secret['secret_word'];
             background-repeat: no-repeat;
             background-size: cover;
             opacity: 0.8;
+            display: flex;
+    justify-content: center;
+    align-items: center;
         }
-        header{
+        .header{
             border-radius: 25px;
             border: 2px solid;
             background-color: white;
@@ -106,12 +122,76 @@ $secret_word = $secret['secret_word'];
     color: white;
 }
 
+.chatbox {
+
+     border-radius: 25px;
+            border: 2px solid black;
+            margin:30px;
+            text-align: center;
+            font-size: 1rem;
+            background-color: silver;
+            position: relative;
+            width: 40%;
+
+}
+
+.chat {
+    max-width: 400px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.chat #chatOutput {
+    overflow-y: scroll;
+    height: 280px;
+    width: 120%;
+    border: 1px solid #777;
+}
+
+.chat #chatOutput p{
+    margin:0;
+    padding:5px;
+    border-bottom: 1px solid #bbb;
+    word-break: break-all;
+    background-color: teal;
+    color: white;
+    border-radius: 25px;
+    width: 100%;
+}
+
+.chat #chatInput {
+    width: 75%;
+    border-radius: 5px;
+}
+
+.chat #chatSend {
+    width: 25%;
+    border-radius: 20px;
+}
+
+.header1 {
+color: white;
+background-color: black;
+
+}
+
+/**.mssg {
+    background-color: teal;
+    color: white;
+    border-radius: 25px;
+    text-align: center;
+    width: 55%;
+}
+**/
+
+
 
     </style>
 </head>
 <body>
         <!-- PICTURE AREA -->
-        <header> 
+        <header class = "header"> 
                <img  class='img' src='<?php echo $profile_details['image_filename']?>'>
                <p> Welcome to my profile</p>
                <p>"A journey of a thousand mile begins with a step" - Never Give Up! </p>
@@ -206,6 +286,143 @@ $secret_word = $secret['secret_word'];
                         <p><b> @ <?php echo $profile_details['username'] ?></b> </p>
                </div>
         </div>
- 
+<!-- rebbychatbot area -->
+ <div class="container">
+ <div class="chatbox">
+       
+        <h1 class="header1"> rebby_bot</h1>
+        
+        <div class="oj-sm-6 oj-md-6 oj-flex-item">
+            <div class="chat">
+                <div id="chatOutput" class = "chatOutput">
+
+                    <div class="user-message">
+                        <div class="message">
+                           Lets Chat, Ask Me a question and I will try and find An answer </br>You can also
+                           train me using this format - 'train: question # answer # password'.
+                           </br>To learn more about me, simply type - 'Aboutbot'.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+               
+                <form action="" method="post" id = "userInput">
+                      <input id="chatInput" type="text" placeholder="Input Text here" maxlength="128">
+                      <input type="submit" id="chatSend">
+               </form>                
+ </div>
+        
+</div  >
+</div>
+    </div>
+<?php
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    $mssg = $_POST['chatInput'];
+    //  $mssg = preg_replace('/\s+/', '', $mssg);
+    $text1 = explode(":", $mssg);
+    $text2 =  preg_replace('/\s+/', '',  $text1[0]);
+
+    if ($text2 === "train") {
+        train($text1[1]);
+    } elseif ($text2 === "Aboutbot") {
+        Aboutbot();
+    }else {
+        getAnswer($text1[0])
+    }
+
+}
+
+function Aboutbot() 
+{
+    echo "<div> rebby_bot was dev by rebby v1.0 2018. </div>";
+}
+
+function train($input)
+{
+    $input = explode ("#", $input);
+    $question = trim($input[0]);
+    $answer = trim($input[1]);
+    $password = trim($input[2]);
+
+    if ($password === 'password') {
+        $command = 'SELECT * FROM chatbot WHERE question = "'.
+        $question .'" and answer = "'. $answer .'" LIMIT 1';
+                    $query = $GLOBALS['conn']->query($command);
+                    $query->setFetchMode(PDO::FETCH_ASSOC);
+                    $mssg = $query->fetch();
+                    if(empty($mssg)) {
+                        $training_data = array(':question' => $question,
+                            ':answer' => $answer);
+                        $command = 'INSERT INTO chatbot ( question, answer)
+                      VALUES (
+                          :question,
+                          :answer
+                      );';
+                        try {
+                            $query = $GLOBALS['conn']->prepare($command);
+                            if ($query->execute($training_data) == true) {
+                                echo "<div id='result'> Hurray Successful Training!</div>";
+                            };
+                        } catch (PDOException $e) {
+                            throw $e;
+                        }
+                    }else{
+                        echo "<div id='result'>Train me on something new!</div>";
+                    }
+                }else {
+                    echo "<div id='result'>Please check your password and try agian!</div>";
+                }
+            } 
+    }
+}
+
+function getAnswer($input) {
+    $question = $input;
+    $command = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+    $query = $GLOBALS['conn']->query($command);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $mssg = $query->fetchAll();
+    if(empty($mssg)){
+        echo "<div id='result'>Sorry invalid command.You can train me simply by using the format - 'train: question #
+answer #password'</div>";
+    }else {
+        $rand_keys = array_rand($mssg);
+        echo "<div id='result'>". $mssg[$rand_keys]['answer'] ."</div>";
+    }
+}
+?>
+
+<script>
+    var outputArea = $('#chatOutput');
+    $("#userInput").on("submit", function(e) {
+        e.preventDefault();
+        var $message = $("#chatInput").val(); 
+        if($message !== ''){
+            
+           $('.message').hide(); 
+           
+           $("chatInput").val("");
+        }
+        outputArea.append(`<div class='user-message'><div
+class='message'>${$message}</div></div>`);
+    
+        $.ajax({
+            url: 'profile.php?id=rebby',
+            type: 'POST',
+            data:  'chatInput=' + $message,
+            success: function(response) {
+                var result = $($.parseHTML(response)).find("#result").text();
+                setTimeout(function() {
+                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+                    $('#chatOutput').animate({
+                        scrollTop: $('#chatOutput').get(0).scrollHeight
+                    }, 1500);
+                }, 250);
+            }
+        });
+        $("#chatInput").val("");
+    });
+</script>
 </body>
 </html>
