@@ -3,7 +3,6 @@
   $dt = date("Y-m-d h:i:sa");
   $time= date("h:i:sa");
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,36 +25,13 @@
       <link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
-    <style type="text/css">
+      <style type="text/css">
         span {
             display: inline-block;
             vertical-align: middle;
             line-height: normal;
         }
-        .under1 {
-            position: relative;
-            /*top:500px;*/
-            height: 40px;
-            width: 100%;
-            font-family: "Alegreya";
-            line-height: normal;
-            font-size: 32px;
-            text-align: center;
-            color: #000830;
-        }
-        body, html {
-            margin: 0px;
-            background-color: skyblue; !important;
-            height: 100%;
-        }
-        .body1 {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 75%;
-            display: flex;
-            flex-direction: column;
-            max-width: 700px;
-            margin: 0 auto;
-        }
+        
         .chat-output {
             flex: 1;
             padding: 20px;
@@ -90,26 +66,53 @@
             border-bottom: 0;
         }
         .chat-input .user-input {
-            width: 100%;
+            width: 50%;
             border: 1px solid #ccc;
             border-radius: 4px;
             padding: 8px;
         }
 
 
-/* MY STLES */
-.time{
-      opacity: 0.5;
-      font-style: "Arial","sans-serif";
-    }
-
-
+/* MAIN STLES */
+          .chatbot-menu-header {
+                    background-color: #4ae1aa;
+                    padding: 7px 20px;
+                    margin: 0px 0 0 0px;
+                    color: #FFF;
+        }
+        .my-name {
+                    position: relative;
+                    line-height: normal;
+                    font-size: 32px;
+                    text-align: center;
+                    color: #000830;
+        }
+        .time{
+              opacity: 0.5;
+              font-style: "Arial","sans-serif";
+         }
+        img {
+            margin: auto;
+            display: block;
+            width: 220px;
+            height:300px;
+            border-radius: 50%;
+            box-shadow: 0px 0px 2px 1px grey
+        }
+         body{
+            margin: 0px;
+            height: 100%;
+            background-color: #87ceeb;
+            background: linear-gradient(to bottom right, #DDA0DD,  #87ceeb);
+            color: #4A4646;
+            overflow-x: hidden;
+            font-family: "Segoe UI","Arial","sans-serif";
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <?php
-
     global $conn;
 
     try {
@@ -132,22 +135,17 @@
         </div>
    </nav>
 
-
-
-
-
-<div class="row">
-    <div class="col-sm-6">
-       <div class="oj-flex oj-flex-items-pad oj-contrast-marker">
+    <div class="row">
+     
+     <div class="col-sm-6" style="border: green solid 2px;position:relative;" height="100%;">
             <div class="oj-sm-12 oj-md-6 oj-flex-item">
                 <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
                     <div role="img" class="oj-flex-item alignCenter">
                         <img class="img-fluid " src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture" >
                     </div>
-
                 </div>
-                    <div class="under1">
-                            <span><?php echo $user->name; ?></span>
+                    <div class="my-name">
+                            <span>Akintola<?php echo $user->name; ?></span>
                     </div>
 
                     <div class="oj-flex">
@@ -159,30 +157,32 @@
                         <a href="https://slack.com/foluwa"><i class="fab fa-slack"></i></a>
                       </div>
                     </div>
-
             </div>
+            <button data-toggle="collapse" data-target="#aboutme">About Me<i class="fa fa-caret-down"></i></button>
+              <div id="aboutme" class="collapse"> Am Foluwa, Majored in Computer Science.                                      Check out my github portfolio at <a href="https://foluwa.github.io">portfolio</a>
+             </div> 
+             <div style="text-align:center;"><strong>Foluwa @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
         </div>
 
-        <div class="col-sm-6">
-        <div class="oj-sm-12 oj-md-6 oj-flex-item">
-            <div class="body1">
-                <div class="chat-output" id="chat-output">
+        <div class="col-sm-6" style="border: red solid 2px;">
+        <div class="oj-sm-12 oj-flex-item">
+            <div class='chatbot-menu-header'>
+                    <span>ChatBot Interface</span>
+            </div>
+            <div class="chat-output" id="chat-output" data-spy="scroll" height="100%;">
                     <div class="user-message">
-                        <div class="message">Hi there! I'm MeloBot! Say something and I'll try my possible best to answer you! </br>To train me, use this format - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
+                        <div class="message">Hi there! I'm Zoe!</br>To train me, use this format - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.
+                        </div>
                     </div>
-                </div>
-
+            </div>
+      </div>
                 <div class="chat-input">
-                    <form action="" method="post" id="user-input-form">
+                    <form action="" method="post" id="user-input-form" style="position:absolute;bottom:0;background-color:#896bad;">
                         <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
+                        <button>Send</button>
                     </form>
                 </div>
-
-            </div>
-        </div>
-    </div>
       </div>
-    </div>
 
     <?php
 
@@ -267,10 +267,7 @@
     }
     ?>
 
-</div>
-
 </body>
-
 
 <script>
     var outputArea = $("#chat-output");

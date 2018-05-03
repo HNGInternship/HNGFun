@@ -47,7 +47,7 @@ button:hover, a:hover
 {
   opacity: 0.7;
   }
-  .h1{
+  h1{
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 100%;
     text-align: center;
@@ -66,48 +66,9 @@ body
 
 <div class="card">
 <img src="http://res.cloudinary.com/marvelous/image/upload/b_rgb:3b2f2f,c_fill,h_2653,w_2456/a_0/v1524660197/DSC_0772.jpg" alt="Marvelous" style="width:100%">
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "hng_fun";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "SELECT name, username, image_filename FROM interns_data";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        echo "<p class='h1'>".(nl2br ($row["name"]. "\n"))."</p>";
-       echo "<p class ='h1'>". (nl2br (" Slack: ". $row["username"]. "\n"))."</p>";
-       echo "<p class ='title'>". (nl2br(" image_filename: " . $row["image_filename"]. "\n"))."</p>";
-    }
-} else {
-    echo "0 results";
-}
-$sql = "SELECT id, secret_word FROM secret_word";
-$result = mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        echo "<p class ='title'>".(nl2br("ID: " . $row["id"]."\n"))."</p>";
-        echo "<p class ='title'>".(nl2br( " secret_word: " . $row["secret_word"]."\n"))."</p>";
-    }
-} else {
-    echo "0 results";
-}
-
-$conn->close();
-?>
-  
+<h1>Ikechi Marvelous</h1>
+  <p class="title">Programmer</p>
+  <p>Slack: Marvelous</p>
   
   <p class="title">Full stack Programmer</p>
  

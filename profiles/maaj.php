@@ -21,159 +21,74 @@ $image_url = $row['image_filename'];
 ?>
 <?php
 // chatbot
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
+<?php
+// chatbot
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+	
+	$question = $_POST['text_in'];
+	
+	
+	 // bot version
+    if(stripos($question,'aboutbot') !== false){
+      echo json_encode([
+        'status' => 1,
+        'answer' => "Hello, I am maaj's assistant. Version 1.0, currently running on PHP 5.7."
+      ]);
+      return;
+    }
+	
+	//greeting
+	if((stripos($question,'hey') !== false) || (stripos($question,'hi') !== false) || (stripos($question,'hello') !== false)){
+      echo json_encode([
+        'status' => 1,
+        'answer' => "Hello, how are you?"
+      ]);
+      return;
+    }
+	
+	// time
+	if(stripos($question,'time') !== false){
+		
+		
+		// Get IP address
+		$ip_address = getenv('HTTP_CLIENT_IP') ?: getenv('HTTP_X_FORWARDED_FOR') ?: getenv('HTTP_X_FORWARDED') ?: getenv('HTTP_FORWARDED_FOR') ?: getenv('HTTP_FORWARDED') ?: getenv('REMOTE_ADDR');
 
-		include '../answers.php';
-	    
-	    try{
+		// Get JSON object
+		$jsondata = file_get_contents("http://timezoneapi.io/api/ip/?" . $ip_address);
 
-		    if(!isset($_POST['text_in'])){
-		      echo json_encode([
-		        'status' => 1,
-		        'answer' => "Please provide a question"
-		      ]);
-		      return;
-		    }
+		// Decode
+		$data = json_decode($jsondata, true);
 
-		    //if(!isset($_POST['question'])){
-		    $mem = $_POST['text_in'];
-		    $mem = preg_replace('([\s]+)', ' ', trim($mem));
-		    $mem = preg_replace("([?.])", "", $mem);
-			$arr = explode(" ", $mem);
-			//test for training mode
+		// Request OK?
+		if($data['meta']['code'] == '200'){
 
-			if($arr[0] == "train:"){
+		
 
-				unset($arr[0]);
-				$q = implode(" ",$arr);
-				$queries = explode("#", $q);
-				if (count($queries) < 3) {
-					# code...
-					echo json_encode([
-						'status' => 0,
-						'answer' => "You need to enter a password to train me."
-					]);
-					return;
-				}
-				$password = trim($queries[2]);
-				//to verify training password
-				define('trainingpassword', 'password');
-				
-				if ($password !== trainingpassword) {
-					# code...
-					echo json_encode([
-						'status'=> 0,
-						'answer' => "You entered a wrong passsword"
-					]);
-					return;
-				}
-				$quest = $queries[0];
-				$ans = $queries[1];
-
-				$sql = "insert into chatbot (question, answer) values (:question, :answer)";
-
-				$stmt = $conn->prepare($sql);
-		        $stmt->bindParam(':question', $quest);
-		        $stmt->bindParam(':answer', $ans);
-		        $stmt->execute();
-		        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-				
-				echo json_encode([
-					'status' => 1,
-					'answer' => "Thanks for training me, you can now test my knowledge"
-				]);
-				return;
-			}
-			elseif ($arr[0] == "help") {
-				echo json_encode([
-					'status' => 1,
-					'answer' => "You can train me by using this format ' train: This is a question # This is the answer # password '. You can also convert cryptocurrencies using this syntax.'convert btc to usd"
-					
-				]);
-				return;
-				
-			}
-			elseif ($arr[0] == "convert") {
-				# code...
-				$from = $arr[1];
-				$to = $arr[3];
-				$converted_price = GetCryptoPrice($from, $to);
-				$price = "1 " . $from . " = " . $to . " " . $converted_price ;
-				echo json_encode([
-					'status' => 1,
-					'answer' => $price
-				]);
-				return;
-			}
-		    elseif ($arr[0] == "aboutbot") {
-		    	# code...
-		    	echo json_encode([
-		    		'status'=> 1,
-		    		'answer' => "I am MATRIX, Version 1.0.0. "
-		    	]);
-		    	return;
-		    }
-		    else {
-		    	$question = implode(" ",$arr);
-		    	//to check if answer already exists in the database...
-		    	$question = "$question";
-		    	$sql = "Select * from chatbot where question like :question";
-		        $stat = $conn->prepare($sql);
-		        $stat->bindParam(':question', $question);
-		        $stat->execute();
-
-		        $stat->setFetchMode(PDO::FETCH_ASSOC);
-		        $rows = $stat->fetchAll();
-		        if(empty($rows)){
-		        	echo json_encode([
-			    		'status' => 0,
-			    		'answer' => "I am sorry, I cannot answer your question now. You could train me to answer the question."
-			    	]);
-			    	return;
-			    }else{
-			    	$rand = array_rand($rows);
-			    	$answer = $rows[$rand]['answer'];
-
-			    	$index_of_parentheses = stripos($answer, "((");
-			        if($index_of_parentheses === false){// if answer is not to call a function
-			        	echo json_encode([
-				        	'status' => 1,
-				        	'answer' => $answer
-				        ]);
-				        return;
-			        }else{//to get the name of the function, before calling
-			            $index_of_parentheses_closing = stripos($answer, "))");
-			            if($index_of_parentheses_closing !== false){
-			                $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
-			                $function_name = trim($function_name);
-			                if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
-			                   echo json_encode([
-			                    'status' => 0,
-			                    'answer' => "The function name should not contain white spaces"
-			                  ]);
-			                  return;
-			                }
-				            if(!function_exists($function_name)){
-				              echo json_encode([
-				                'status' => 0,
-				                'answer' => "I am sorry but I could not find that function"
-				              ]);
-				            }else{
-				              echo json_encode([
-				                'status' => 1,
-				                'answer' => str_replace("(($function_name))", $function_name(), $answer)
-				              ]);
-				            }
-				            return;
-			            }
-			        }
-			    }       
-		    }
-		}catch (Exception $e){
-			return $e->message ;
+		// Example: Get the users time
+		$time = $data['data']['datetime']['date_time_txt'];
+		
 		}
+		
+		
+		 
+		echo json_encode([
+        'status' => 1,
+        'answer' => $time 
+      ]);
+      return;
+		
+	
 	}
+	
+	
+	}
+	
+	
+	else{
+	
+	
+	
+}
 ?> 
 <!DOCTYPE html>
 <!--
@@ -210,7 +125,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <link rel="icon" href="css/images/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <!-- This is the main css file for the default Alta theme -->
 <!-- injector:theme -->
 <link rel="stylesheet" href="css/alta/5.0.0/web/alta.css" id="css"/>
@@ -372,7 +287,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					<form method="POST" action="" id="chat">
 					<input type="text" id="textbox" name="text_in"></input>
 					<input id="send" type="submit" value="Send"></input>
-					new head1
+					new head2
 					</form>
 
 				</div>
@@ -389,7 +304,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       </div>
 	  
      
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-json/2.6.0/jquery.json.min.js"></script>
+	 <script src="../vendor/jquery/jquery.min.js"></script>
+
  <script>
  $(document).ready(function(){
     var message = $("#contain");

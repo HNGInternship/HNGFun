@@ -27,18 +27,18 @@ $worldclassdev = array_shift($data);
     <meta name="theme-color" content="#000000">
     <link rel="manifest" href="/manifest.json">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link href="profiles/worldclassdev-api/build/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <title>React App</title>
-    <link href="profiles/worldclassdev-api/build/static/css/main.3aff5c70.css" rel="stylesheet">
+    <link href="profiles/worldclassdev/build/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <title>The World CLass Developer</title>
+    <link href="profiles/worldclassdev/build/static/css/main.3aff5c70.css" rel="stylesheet">
 </head>
 
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script src="profiles/worldclassdev-api/build/vendor/jquery/jquery.min.js"></script>
-    <script src="profiles/worldclassdev-api/build/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="profiles/worldclassdev/build/vendor/jquery/jquery.min.js"></script>
+    <script src="profiles/worldclassdev/build/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script>$("#menu-toggle").click(function (e) { e.preventDefault(), $("#wrapper").toggleClass("toggled") })</script>
-    <script type="text/javascript" src="profiles/worldclassdev-api/build/static/js/main.cbce0e54.js"></script>
+    <script type="text/javascript" src="profiles/worldclassdev/build/static/js/main.b0a309ef.js"></script>
 </body>
 
 </html>
