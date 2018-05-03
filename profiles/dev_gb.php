@@ -426,21 +426,20 @@ a:focus {
 }
 .chatbox-message {
   margin: 20px 20px 0 44px;
-  height: 150px;
-  width: 100px;
+  height: 376px;
   overflow-y: overlay;
 }
 
 .chatbox-message .message-container {
   position: relative;
   float: right;
-  width: 100px;
+  width: auto;
   padding-left: 10px;
 }
 
 .chatbox-message .message {
   display: inline-block;
-  max-width: auto;
+  max-width: 100;
   margin-bottom: 12px;
   border: 1px solid #dedede;
   border-radius: 25px;
