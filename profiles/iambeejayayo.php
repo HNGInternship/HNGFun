@@ -348,7 +348,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     message: 'currenttime: to know the time'
                 })
                 addMessage({
-                    message: 'birthday: to know the day i was created'
+                    message: 'botbirthday: to know the day i was created'
                 })
                 addMessage({
                     message: 'yournumber: to get my private number'
@@ -395,6 +395,70 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 })
             }, 500)
         }
+
+function botVersion() {
+    setTimeout(() => {
+        addMessage({
+            message: 'AlphaBot V 1.0.0'
+        })
+    }, 1000)
+}
+
+function botLocation() {
+    setTimeout(() => {
+        addMessage({
+            message: 'Im currently at Lokoja, Kogi State, Nigeria'
+        })
+    }, 1000)
+}
+
+function botBirthday() {
+    setTimeout(() => {
+        addMessage({
+            message: 'I was created on xx May 2018'
+        })
+    }, 1000)
+}
+
+function botAge() {
+    setTimeout(() => {
+        addMessage({
+            message: 'Im a couple days old!'
+        })
+    }, 1000)
+}
+
+function botGender() {
+    setTimeout(() => {
+        addMessage({
+            message: 'Im male buddy!'
+        })
+    }, 1000)
+}
+
+function botNumber() {
+    setTimeout(() => {
+        addMessage({
+            message: '+234 8109445504 Dont tell my mom please!'
+        })
+    }, 1000)
+}
+
+function currentTime() {
+    setTimeout(() => {
+        addMessage({
+            message: 'Chill!'
+        })
+    }, 1000)
+}
+
+function currentDate() {
+    setTimeout(() => {
+        addMessage({
+            message: 'Chill!'
+        })
+    }, 1000)
+        }
         
 
         openChatbox.addEventListener('click', function () {
@@ -440,7 +504,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (this.value.toLowerCase() === 'botlocation') return botLocation()
                 if (this.value.toLowerCase() === 'yourage') return botAge()
                 if (this.value.toLowerCase() === 'yourgender') return botGender()
-                if (this.value.toLowerCase() === 'birthday') return botCraetionDate()
+                if (this.value.toLowerCase() === 'botbirthday') return botBirthday()
                 if (this.value.toLowerCase() === 'currenttime') return currentTime()
                 if (this.value.toLowerCase() === 'currentdate') return currentDate()
                 if (this.value.toLowerCase() === 'yournumber') return botNumber()
