@@ -339,15 +339,17 @@
                    
                     <p class="san"><span class="san-img"></span>Hi! I'm Santra. You are free to ask me anything.   </p>
                     <p class="san"><span class="san-img"></span>To train me, use this syntax - "train:question#answer#password".</p>
-                    <p class="san"><span class="san-img"></span>The Password is: <b>password</b>. </p>
+                    <p class="san"><span class="san-img"></span>The Password is <b>password</b>. </p>
             </div>
                 
           </div>  
           <div class="clearfix"></div>
                 <div class="chat-input">
                     <form action="" method="post" id="user-input-form">
+                      <div class="input-group">
                         <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="chat me up...">
-            <button class="btn btn-primary" id="send">SEND</button>
+                          <span class="input-group-addon"><button class="btn btn-primary" id="send"><i class="fa fa-send"></i></button></span>
+                      </div>
                     </form>
                 </div>
         </div>
@@ -372,7 +374,7 @@
     $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
         var message = $("#user-input").val();
-        outputArea.append(`<p class='me'><span class="san-img"></span>${message}</p>`);
+        outputArea.append(`<p class='me'><span class="san-img">..</span>${message}</p>`);
         $.ajax({
             url: 'profile.php?id=epospiky',
             type: 'POST',
@@ -381,7 +383,7 @@
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
                     outputArea.append("<span class='hum-img'></span><p class='san'>" + result + "</p>");
-                    $('#chat-result').animate({
+                    $('#chat').animate({
                         scrollTop: $('#chat').get(0).scrollHeight
                     }, 1500);
                 }, 250);
