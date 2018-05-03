@@ -1,5 +1,6 @@
 <?php
   require 'db.php';
+
         // $servername = "localhost";
         // $username = "root";
         // $password = "";
@@ -339,26 +340,52 @@ input[type=text] {
     </div>
 
 
-    <script>
+   <script>
+        function meetB(){
+            var display= document.querySelector(".display");
+            display.style.display = "block";
+            var btnM = document.querySelector(".btnM");
+            btnM.style.display ="none"
+            document.querySelector(".btnN").style.display ="inline"
+        }
+        function exitB(){
+            var display= document.querySelector(".display");
+            display.style.display = "none";
+            document.querySelector(".btnN").style.display = "none";
+            document.querySelector(".btnM").style.display = "inline";
+        }
         window.addEventListener("keydown", function(e){
             if(e.keyCode ==13){
                 if(document.querySelector("#question").value.trim()==""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){
+                    //console.log("empty box");
                 }else{
+                    //this.console.log("Unempty");
                     sendMsg();
                 }
             }
         });
         function sendMsg(){
+
             var ques = document.querySelector("#question");
+            if(ques.value == ":close:"){
+                exitB();
+                return;
+            }
+            if(ques.value.toLowerCase() ==":about bot:"){
+                displayOnScreen(ques.value, "user");
+                displayOnScreen("Name: Robotech <br> V:1.0");
+                return;
+            }
             if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
             displayOnScreen(ques.value, "user");
+            //console.log(ques.value);
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function(){
                 if(xhttp.readyState ==4 && xhttp.status ==200){
                     processData(xhttp.responseText);
                 }
             };
-            xhttp.open("POST","profiles/ekpono.php", true);
+            xhttp.open("POST","http://localhost/hng/hngfun/profiles/ekpono.php", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("ques="+ques.value);
         }
@@ -366,18 +393,20 @@ input[type=text] {
             data = JSON.parse(data);
             console.log(data);
             var answer = data['answer'];
+            //Choose a random response from available
             if(Array.isArray(answer)){
                 if(answer.length !=0){
                     var res = Math.floor(Math.random()*answer.length);
                     displayOnScreen(answer[res].answer, "bot");
                 }else{
-                    displayOnScreen("Not trained yet. Train me: train: question # response # password");
+                    displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn<br> Here's the format: train: question # response # password");
                 }
             }else{
                 displayOnScreen(answer,"bot");
             }
         }
         function displayOnScreen(data,sender){
+            //console.log(data);
             if(!sender){
                 sender = "bot"
             }
@@ -386,16 +415,13 @@ input[type=text] {
             var div = document.createElement("div");
             var p = document.createElement("p");
             p.innerHTML = data;
+            //console.log(data);
             div.className = "myMessage "+sender;
             div.append(p);
-
             msgArea.append(div)
             if(data != document.querySelector("#question").value){
                 document.querySelector("#question").value="";
-            }
-        }
+            } 
 
-        $(document).ready(function(){
-    $(".display").fadeIn();
-});
-    </script>
+        }
+</script>
