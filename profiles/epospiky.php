@@ -337,9 +337,9 @@
             <div class="chat" id="chat">
                 
                    
-                    <p class="san"><span class="san-img"></span>Hi! I'm Santra. You are free to ask me anything.   </p>
-                    <p class="san"><span class="san-img"></span>To train me, use this syntax - "train:question#answer#password".</p>
-                    <p class="san"><span class="san-img"></span>The Password is <b>password</b>. </p>
+                    <span ><img src="http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png" width="30px"></span><p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
+                    <span ><img src="http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png" width="30px"></span><p class="san">To train me, use this syntax - "train:question#answer#password".</p>
+                    <span ><img src="http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png" width="30px"></span><p class="san">The Password is: <b>password</b>. </p>
             </div>
                 
           </div>  
@@ -374,7 +374,7 @@
     $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
         var message = $("#user-input").val();
-        outputArea.append(`<p class='me'><span class="san-img">..</span>${message}</p>`);
+        outputArea.append(`<p class='me'><span ></span>${message}</p>`);
         $.ajax({
             url: 'profile.php?id=epospiky',
             type: 'POST',
@@ -382,7 +382,7 @@
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<span class='hum-img'></span><p class='san'>" + result + "</p>");
+                    outputArea.append("<span></span><p class='san'>" + result + "</p>");
                     $('#chat').animate({
                         scrollTop: $('#chat').get(0).scrollHeight
                     }, 1500);
