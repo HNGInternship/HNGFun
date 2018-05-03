@@ -165,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="row">
         <div class="col-sm bg-dark text-light">
             <br />
-            <img class="rounded-circle" style="width:60%" src="http://res.cloudinary.com/iambeejayayo/image/upload/v1524882640/BolajiAyodeji.jpg"
+            <img class="rounded-circle" style="width:30%" src="http://res.cloudinary.com/iambeejayayo/image/upload/v1524882640/BolajiAyodeji.jpg"
                 alt="My Picture">
             <br />
             <br />
@@ -215,8 +215,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <br />
                     <br />
                     <br />
-                    <img src="https://res.cloudinary.com/iambeejayayo/image/upload/v1525095528/bot.png" alt="Alpha Bot" style="width:30%" align="center">
-                    <br /> 
+                     
                     <a class="navbar-brand btn btn-outline-light bg-danger btn-lg" href="#bot">Chat with my BOT!&nbsp<i class="fa fa-angle-double-down"></i></a>
                     </button>
                     
