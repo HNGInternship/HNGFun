@@ -612,7 +612,7 @@ $username =$my_data['username'];
         var clientmsg = $("#usermsg").val().trim();
 
         if (clientmsg != '') {
-            var msg='<div class="chat friend"><div class="user-photo"><img src="./images/guest-avatar.jpeg"></div> <div class="chat-message">'+
+            var msg='<div class="chat friend"><div class="user-photo"><img src="http://res.cloudinary.com/taghreedaa/image/upload/v1525351717/guest-avatar.jpg"></div> <div class="chat-message">'+
                 clientmsg.replace(/\n/g, '<br />') +
                 '</div></div>';
 
