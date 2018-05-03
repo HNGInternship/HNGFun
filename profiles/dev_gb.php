@@ -202,6 +202,7 @@ else{
 
 
 <style type="text/css">
+
   *, *:after, *:before {
   -moz-box-sizing:border-box;
   box-sizing:border-box;
@@ -424,12 +425,6 @@ a:focus {
   height: 376px;
   overflow-y: overlay;
 }
-.chatbox-message {
-  margin: 20px 20px 0 44px;
-  height: 100px;
-  width: 100px;
-  overflow-y: overlay;
-}
 
 .chatbox-messages .avatar {
   float: left;
@@ -477,12 +472,6 @@ a:focus {
   font-size: 1.1rem;
 }
 
-.message .chatbox-messages c {
-  margin: 14px 24px;
-  font-size: 11px;
-  font-size: 1.1rem;
-}
-
 .chatbox-messages .delivered {
   position: absolute;
   top: 0;
@@ -521,6 +510,7 @@ a:focus {
 .message-form textarea:focus::-moz-placeholder { color: transparent;  }
 .message-form textarea:focus::-ms-placeholder { color: transparent; }
 .message-form textarea:focus:-moz-placeholder { color: transparent; }
+
 
 /*------------------------------------*\
     Contacts List - Custom Scrollbar
