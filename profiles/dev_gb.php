@@ -156,7 +156,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     $index = rand(0, count($res)-1);
                     $response = $res[$index]['answer'];  
 
-                    echo $response;
+                    echo "<div id='result'>".$response."</div>";
                   
                   }
                   else{
