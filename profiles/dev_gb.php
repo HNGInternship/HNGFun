@@ -176,7 +176,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $data  = $_POST[ 'msg' ];
     $temp  = explode( ':', $data );
     $temp2 = preg_replace( '/\s+/', '', $temp[ 0 ] );
-  if( $temp2  === "train") {
+  if( $temp2  === "Train") {
     train( $temp[ 1 ] );
     
       }       
@@ -424,6 +424,35 @@ a:focus {
   height: 376px;
   overflow-y: overlay;
 }
+.chatbox-message {
+  margin: 20px 20px 0 44px;
+  height: 376px;
+  overflow-y: overlay;
+}
+
+.chatbox-message .message-container {
+  position: relative;
+  float: right;
+  width: auto;
+  padding-left: 10px;
+}
+
+.chatbox-message .message {
+  display: inline-block;
+  max-width: 100;
+  margin-bottom: 12px;
+  border: 1px solid #dedede;
+  border-radius: 25px;
+}
+
+.chatbox-message .avatar img {
+  width: 56px;
+    border-radius: 50%;
+}
+
+.chatbox-message .avatar {
+  float: left;
+}
 
 .chatbox-messages .avatar {
   float: left;
@@ -588,7 +617,7 @@ a:focus {
                                          success: function(response) {
                                           var result = $($.parseHTML(response)).text();
                         setTimeout(function(){
-                                 $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message">'+result+'</div><span class="delivered"><?php echo "<b>Support</b>  " . date("h:i:a"); ?></span></div>').insertBefore('.push');
+                                 $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message">'+response+'</div><span class="delivered"><?php echo "<b>Support</b>  " . date("h:i:a"); ?></span></div>').insertBefore('.push');
                                 $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
                              
                               },  1000);
@@ -616,7 +645,7 @@ a:focus {
                         
                       </span>
                     </div><!-- /.person -->
-                    <div class="chatbox-messages" >
+                    <div class="chatbox-message" >
                       <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390" alt="Support" /></span><div class="sender"><div class="message-container"><div class="message"><p>
                       Welcome to Dev_GB's profile page <i class="em em-sunglasses"></i> You can check State capitals by just asking. <i class="em em-smiley"></i></p>
                               <p>Tips: Type "Help' to see FAQ.<br>To add new states ==> 'Train:Question#Answer#password'</p>

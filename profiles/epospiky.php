@@ -84,7 +84,7 @@
         if(empty($data)){
             echo "<div id='result'>Sorry! I've not been trained to learn that command. </br>Would you like to train me?
 </br>You can train me to answer any question at all using, train:question#answer#password
-</br>e.g train:Who is your maker#Damilare Daniel#password</div>";
+</br>You can type in <b>help</b> to begin with.</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
@@ -323,9 +323,10 @@
               <span aria-hidden="true">&times;</span>
             </button>-->
           </div>
-          <div class="modal-body "  >
+          <div class="modal-body "  > 
+            <div class="chat">
                 <div class="chat-result" id="chat-result">
-                    <div class="chat">
+                   
           <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
           <p class="san">Learn more about me by typing "aboutbot".</p>
                     <p class="san">To train me, use this syntax - "train:question#answer#password".</p>
