@@ -19,8 +19,7 @@ $username= $row['username'];
 $image_url = $row['image_filename'];
 
 ?>
-<?php
-// chatbot
+
 <?php
 // chatbot
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
