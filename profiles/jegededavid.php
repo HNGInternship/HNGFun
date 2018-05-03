@@ -230,7 +230,7 @@
             function sendMessage(message) {
                 $.ajax({
                     method: 'POST',
-                    url: 'profiles/jegededavid.php',
+                    url: '',
                     data: {message: message},
                     success: function(response) {
                         $("#chats").append(`<p class="chat received">${response}</p>`);
