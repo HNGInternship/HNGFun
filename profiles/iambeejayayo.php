@@ -215,7 +215,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <br />
                     <br />
                     <br />
-                    <button a href="#bot" class=" btn btn-outline-light bg-primary"> Chat with my Bot</button>
+                    <img src="https://res.cloudinary.com/iambeejayayo/image/upload/v1525095528/bot.png" alt="Alpha Bot" style="width:30%" align="center">
+                    <br /> 
+                    <a class="navbar-brand btn btn-outline-light bg-danger btn-lg" href="#bot">Chat with my BOT!&nbsp<i class="fa fa-angle-double-down"></i></a>
+                    </button>
                     
 
                 </div>
@@ -235,7 +238,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class=" bg-dark row justify-content-center chatbox">
         <div class="col-lg-3 bg-light">
             <header class="row justify-content-center chatbox-header">
-            <div class="card bg-danger" align="center">
+            <div class="card bg-danger" align="center" id="bot">
             
                     <img class="chatbox-logo" src="https://res.cloudinary.com/iambeejayayo/image/upload/v1525095528/bot.png" alt="Alpha Bot">
                     <h2 class="chatbox-title text-dark">Alpha Bot</h2>
