@@ -1,6 +1,4 @@
 <<<<<<< HEAD
-=======
-<<<<<<< HEAD
 <?php
 $selfURL = /* $_SERVER['HTTP_HOST']. */$_SERVER['REQUEST_URI'];
 $password = 'password';
@@ -534,7 +532,6 @@ function currentDate() {
 </body>
 </html>
 =======
->>>>>>> master
 <?php
 $selfURL = /* $_SERVER['HTTP_HOST']. */$_SERVER['REQUEST_URI'];
 $password = 'password';
@@ -1067,7 +1064,4 @@ function currentDate() {
     </script>
 </body>
 </html>
-<<<<<<< HEAD
-=======
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
->>>>>>> master

@@ -1,6 +1,4 @@
 <<<<<<< HEAD
-=======
-<<<<<<< HEAD
 <?php
 
 
@@ -21,7 +19,6 @@ $dd = json_encode($emails);
 if($dd == "null"){ echo "Please train me, i do not have a response for this."; }
 else { echo $dd;}
 =======
->>>>>>> master
 <?php
 
 
@@ -41,7 +38,4 @@ $dd = json_encode($emails);
 
 if($dd == "null"){ echo "Please train me, i do not have a response for this."; }
 else { echo $dd;}
-<<<<<<< HEAD
-=======
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
->>>>>>> master

@@ -1,6 +1,4 @@
 <<<<<<< HEAD
-=======
-<<<<<<< HEAD
 <!--Created by Thomas Lois -->
 <!DOCTYPE html>
 <html>
@@ -353,7 +351,6 @@
         $("#user-input").val("");
     });
 =======
->>>>>>> master
 <!--Created by Thomas Lois -->
 <!DOCTYPE html>
 <html>
@@ -705,8 +702,5 @@
         });
         $("#user-input").val("");
     });
-<<<<<<< HEAD
-=======
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
->>>>>>> master
 </script>

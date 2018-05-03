@@ -85,7 +85,7 @@
         if(empty($data)){
             echo "<div id='result'>Sorry! I've not been trained to learn that command. </br>Would you like to train me?
 </br>You can train me to answer any question at all using, train:question#answer#password
-</br>You can type in <b>help</b> to begin with.</div>";
+</br>e.g train:Who is your maker#Damilare Daniel#password</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
@@ -344,19 +344,12 @@
             </button>-->
           </div>
 <<<<<<< HEAD
-          <div class="modal-body "  > 
-            <div class="chat">
-=======
-<<<<<<< HEAD
           <div class="modal-body "  >
->>>>>>> master
                 <div class="chat-result" id="chat-result">
-                   
-                    <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
+                    <div class="chat">
+          <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
+          <p class="san">Learn more about me by typing "aboutbot".</p>
                     <p class="san">To train me, use this syntax - "train:question#answer#password".</p>
-<<<<<<< HEAD
-                    <p class="san">Password is password. </p>
-=======
           <p class="san">Password is password. </p>
 =======
           <div class="modal-body "  > 
@@ -367,7 +360,6 @@
                     <p class="san">To train me, use this syntax - "train:question#answer#password".</p>
                     <p class="san">Password is password. </p>
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
->>>>>>> master
                     </div>
                 </div>
           </div>  

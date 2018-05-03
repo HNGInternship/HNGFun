@@ -1,6 +1,4 @@
 <<<<<<< HEAD
-=======
-<<<<<<< HEAD
 <?php
 $profile_query = "SELECT name, username, image_filename FROM interns_data WHERE username = '$profile_name' LIMIT 1";
 $profile_result = $conn->query($profile_query);
@@ -430,7 +428,6 @@ class='message'>${$message}</div></div>`);
 </body>
 </html>
 =======
->>>>>>> master
 <?php
 $profile_query = "SELECT name, username, image_filename FROM interns_data WHERE username = '$profile_name' LIMIT 1";
 $profile_result = $conn->query($profile_query);
@@ -859,7 +856,4 @@ class='message'>${$message}</div></div>`);
 </script>
 </body>
 </html>
-<<<<<<< HEAD
-=======
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
->>>>>>> master

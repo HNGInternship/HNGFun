@@ -1,6 +1,4 @@
 <<<<<<< HEAD
-=======
-<<<<<<< HEAD
           
  <!DOCTYPE html>
 <html lang="en-US">
@@ -333,7 +331,6 @@
 
 
 =======
->>>>>>> master
           
  <!DOCTYPE html>
 <html lang="en-US">
@@ -665,7 +662,4 @@
 </html>
 
 
-<<<<<<< HEAD
-=======
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
->>>>>>> master

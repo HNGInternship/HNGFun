@@ -1,6 +1,4 @@
 <<<<<<< HEAD
-=======
-<<<<<<< HEAD
 <svg width="33" height="33" viewBox="0 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="Canvas" fill="none">
 <g id="outbox">
@@ -12,7 +10,6 @@
 </svg>
 
 =======
->>>>>>> master
 <svg width="33" height="33" viewBox="0 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="Canvas" fill="none">
 <g id="outbox">
@@ -23,7 +20,4 @@
 </g>
 </svg>
 
-<<<<<<< HEAD
-=======
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
->>>>>>> master

@@ -1,6 +1,4 @@
 <<<<<<< HEAD
-=======
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -240,7 +238,6 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'perkyprinc
     </footer>
 </body>
 =======
->>>>>>> master
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -479,7 +476,4 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'perkyprinc
     	</div>
     </footer>
 </body>
-<<<<<<< HEAD
-=======
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
->>>>>>> master

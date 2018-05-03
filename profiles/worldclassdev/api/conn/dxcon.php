@@ -1,6 +1,4 @@
 <<<<<<< HEAD
-=======
-<<<<<<< HEAD
 <?php
     //error_reporting(0);
 
@@ -16,7 +14,6 @@ if (!$dbc) {
 // 	var_dump("error:". $error);
 // 	if(@$error){ die($error);}
 =======
->>>>>>> master
 <?php
     //error_reporting(0);
 
@@ -31,7 +28,4 @@ if (!$dbc) {
 // 	mysqli_query($dbc, "SET NAMES `utf8`") or $error = mysqli_error($dbc);
 // 	var_dump("error:". $error);
 // 	if(@$error){ die($error);}
-<<<<<<< HEAD
-=======
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
->>>>>>> master

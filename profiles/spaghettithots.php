@@ -1,7 +1,5 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
-=======
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -206,7 +204,6 @@
 >>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
 =======
 <<<<<<< HEAD
->>>>>>> master
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -409,8 +406,5 @@
 		</div>
 	</body>
 >>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
-<<<<<<< HEAD
-=======
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
->>>>>>> master
 </html>

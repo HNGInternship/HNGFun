@@ -177,14 +177,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $temp  = explode( ':', $data );
     $temp2 = preg_replace( '/\s+/', '', $temp[ 0 ] );
 <<<<<<< HEAD
-  if( $temp2  === "Train") {
-=======
-<<<<<<< HEAD
   if( $temp2  === "train") {
 =======
   if( $temp2  === "Train") {
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
->>>>>>> master
     train( $temp[ 1 ] );
     
       }       
@@ -737,14 +733,10 @@ a:focus {
                                           var result = $($.parseHTML(response)).text();
                         setTimeout(function(){
 <<<<<<< HEAD
-                                 $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="message-container"><c>'+response+'</c></div><span class="delivered"><?php echo "<b>Support</b>  " . date("h:i:a"); ?></span></div>').insertBefore('.push');
-=======
-<<<<<<< HEAD
                                  $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="sender"><div class="message-container"><div class="message">'+result+'</div><span class="delivered"><?php echo "<b>Support</b>  " . date("h:i:a"); ?></span></div>').insertBefore('.push');
 =======
                                  $(' <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390"/></span><div class="message-container"><c>'+response+'</c></div><span class="delivered"><?php echo "<b>Support</b>  " . date("h:i:a"); ?></span></div>').insertBefore('.push');
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
->>>>>>> master
                                 $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
                              
                               },  1000);
@@ -773,14 +765,10 @@ a:focus {
                       </span>
                     </div><!-- /.person -->
 <<<<<<< HEAD
-                    <div class="chatbox-message" >
-=======
-<<<<<<< HEAD
                     <div class="chatbox-messages" >
 =======
                     <div class="chatbox-message" >
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
->>>>>>> master
                       <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390" alt="Support" /></span><div class="sender"><div class="message-container"><div class="message"><p>
                       Welcome to Dev_GB's profile page <i class="em em-sunglasses"></i> You can check State capitals by just asking. <i class="em em-smiley"></i></p>
                               <p>Tips: Type "Help' to see FAQ.<br>To add new states ==> 'Train:Question#Answer#password'</p>
@@ -817,14 +805,10 @@ a:focus {
 }
 function help() {
 <<<<<<< HEAD
-    echo "<div id='result'>These is a sample format of a question </br> What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ekiti</div>";
-=======
-<<<<<<< HEAD
     echo "<div id='result'>These is a sample format of a question <p>What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ado-Ekiti</div>";
 =======
     echo "<div id='result'>These is a sample format of a question </br> What is the capital of Lagos</br>For compound names separate with a dash </br>e.g What is the capital of Ekiti</div>";
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
->>>>>>> master
 }
 function train( $input ) {
     $input    = explode( '#', $input );

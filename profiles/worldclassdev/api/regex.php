@@ -1,6 +1,4 @@
 <<<<<<< HEAD
-=======
-<<<<<<< HEAD
 <?php
 
 class Regex
@@ -226,7 +224,6 @@ class Regex
 }
 ?>
 =======
->>>>>>> master
 <?php
 
 class Regex
@@ -451,7 +448,4 @@ class Regex
 	}	
 }
 ?>
-<<<<<<< HEAD
-=======
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
->>>>>>> master
