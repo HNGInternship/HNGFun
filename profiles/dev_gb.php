@@ -17,7 +17,7 @@ function assistant($string)
     $reply = "";
     
     if ($string == 'What is the capital of Lagos?') {
-      $reply =var_export("<div id='result'>The capital of Lagos is Ikeja</div>");
+      $reply =var_export('The capital of Lagos is Ikeja');
       return $reply;
         
     }
@@ -686,10 +686,10 @@ function train( $input ) {
                 throw $e;
             }
         } else {
-            echo "<div id='result'>Teach me something new!</div>";
+            echo "Teach me something new!";
         }
     } else {
-        echo "<div id='result'>Invalid Password, Try Again!</div>";
+        echo "<div id='result'>Invalid Password, Try Again!";
     }
 
 }
