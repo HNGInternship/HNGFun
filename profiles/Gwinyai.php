@@ -1,12 +1,13 @@
 <?php   
+	if(!defined('DB_USER')){
+	  require "../../config.php";		
+	  try {
+	      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+	  } catch (PDOException $e) {
+	      die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
+	  }
+	}
 
-require_once ('../config.php');
-try {
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-
-} catch (PDOException $pe) {
-    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
     try {
          $query = $conn->query("SELECT * from interns_data WHERE username = 'Gwinyai'");
             $user = $query->fetch(PDO::FETCH_OBJ);
@@ -20,23 +21,47 @@ try {
     } catch (PDOException $e) {
         throw $e;
     }
-   
 
-// Start with the training query
- if(isset($_POST['training'])) {
-     include '../answers.php';
-      $message = trim($_POST['training']);
-      $training = strpos($message, "train:");
-      if ($training === 0) {
-        echo train($message, $conn);
-      } else {
-         echo botAnswer($message, $conn);
-      }
+?>
+<?php   
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		 
+
+	$question = $_POST['message'];
+    $training = stripos($question, "train:");
+	$spaceRemoved = preg_replace('([\s]+)', ' ', trim($question)); 
+    $cleanedInput = preg_replace("([?.])", "", $spaceRemoved); 
+    $inputFormat = strtolower($cleanedInput);
+ 
+
+    if ($training === 0) {
+        echo train($cleanedInput, $conn);
+        return;
+    } else if ($inputFormat === "aboutme") {
+			  echo json_encode([
+			     'status' => 1,
+       			 'answer' => "Version 0.1"
+     		 ]);
+
+		return;
+    } else if ($inputFormat === "time:") {
+        echo getTime();
+        return;
+
+    } else if ($inputFormat === "list commands:") {
+        echo getCommands();
+        return;
+
+    } else {
+        echo botAnswer($question, $conn);
+    }
+   
+     
         
         exit();
+
 }
-
-
 
 function check_question($q, $conn){
 
@@ -72,8 +97,8 @@ function check_question($q, $conn){
 }
  
 function check_answer($question){
-    $opening_paren = strpos($question,'((');
-    $closing_paren = strpos($question,'))');
+    $opening_paren = stripos($question,'((');
+    $closing_paren = stripos($question,'))');
 
     if( $opening_paren === false && $closing_paren === false ) {
         return false;
@@ -90,8 +115,8 @@ function parse_answer($answer){
     $brace_end = '}';
     
    
-    $start_pos = strpos($answer, $func_start);
-    $end_pos = strpos($answer, $ffunc_end, $start_pos);
+    $start_pos = stripos($answer, $func_start);
+    $end_pos = stripos($answer, $ffunc_end, $start_pos);
   
     $function_name = substr($answer, $start_pos+2, ($end_pos-2)-$start_pos);
    
@@ -107,57 +132,108 @@ function remove_brackets($string){
 }
 
 function train($bot_training, $conn){
-    
 
-    $bot_training = str_replace('train:', '', $bot_training);
+    $userText = preg_replace('([\s]+)', ' ', trim($bot_training)); 
+	    $userText = preg_replace("([?.:])", "", $userText); 
 
-     $pos = strpos($bot_training,'#');
-     if( $pos === false) {
- 
-         return 'To train me please use the format <br/> <code>train: question # answer # password <code> ';
-     }
-     define ('PASSWORD', "ubuntu");
-    
-     $pos = strpos($bot_training, PASSWORD);
-     if( $pos === false) {
- 
-         return 'Training denied, a password is required ';
-     } else {
-        
-        $train_question = trim(substr($bot_training, 0, strpos($bot_training,'#')));
-    
-        $train_answer = trim(str_replace(['#', PASSWORD, $train_question], '', $bot_training));
-  
-    
-        try{
+		$userText = substr($userText, 6);
 
+     	$userText = explode("#", $userText);
+
+     	$user_question = trim($userText[0]);
+		if(count($userText) == 1){
+			echo json_encode([
+				'status' => 1,
+				'answer' => "To train me please use the format <br/> <code>train: question # answer # password <code>"
+			]);
+			return;
+		};
+
+
+	    $user_answer = trim($userText[1]);    
+        if(count($userText) < 3){ 
+	        echo json_encode([
+	          'status' => 1,
+	          'answer' => "Please enter training password to train me. "
+	        ]);
+        	return;
+        };
+
+         //get the index of the user password
+	    $user_password = trim($userText[2]);
+
+      
+        define('PASSWORD', 'password'); 
+        if($user_password !== PASSWORD){ 
+	        echo json_encode([
+	          'status' => 1,
+	          'answer' => "Please enter the correct training password to train me."
+	        ]);
+     		return;
+    	};
+
+	    //check database if answer exist already
+   		$user_answer = "$user_answer"; 
+	    $sql = "SELECT * FROM chatbot WHERE answer LIKE :user_answer";
+	    $stmt = $conn->prepare($sql);
+	    $stmt->bindParam(':user_answer', $user_answer);
+	    $stmt->execute();
+	    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+	 	$rows = $stmt->fetchAll();
+	    if(empty($rows)){     
+		
             $sql  = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
             $stmt = $conn->prepare($sql);
             $stmt->execute(
                 array(
-                ':question' => $train_question,
-                ':answer' => $train_answer,
+                ':question' => $user_question,
+                ':answer' => $user_answer,
                 )
             );
-            return 'Fanatastic, my intelligence is rising, teach me more';
+            
+		    
+		    echo json_encode([
+		    	'status' => 1,
+		        'answer' =>  "Fanatastic, my intelligence is rising, teach me more "
+		      ]);			
+     		return;
+     	
+     	}else{
 
-        } catch(PDOException $e){
-            throw $e;
-        }
-    }
-   
-}
+     		 echo json_encode([
+		    	'status' => 1,
+		        'answer' => "Sorry! Answer already exist. Try a different response or question"
+		      ]);
+			return;		
+     	};
+    	return;
+	};
+    
+
+ // Extend chatbot
+
+
 
 function getTime(){
    
      $time = new DateTime();
      $time->setTimezone(new DateTimeZone('Africa/harare'));
-     return $time->format('h:i A');
+      echo json_encode([
+            "status" => 1,
+            "answer" => $time->format('h:i A')
+        ]);
+
+     return;
  }
 
  function getCommands(){
-    return '<code><ol><h6 class="white">List of commands</h6><li>To hear a joke type joke:</li><li>To check my version type aboutme</li><li>To check the time type time: </li><li>To show list of commands type list commands:</li></ol>
-     <code>';
+    
+    echo json_encode([
+            "status" => 1,
+            "answer" => "<code><ol><h6 class='white'>List of commands</h6><li>To hear a joke type joke:</li><li>To check my version type aboutme</li><li>To check the time type time: </li><li>To show list of commands type list commands:</li></ol>
+     <code>"
+        ]);
  }
 
 
@@ -183,52 +259,39 @@ function getTime(){
 
                 $answer_has_function = check_answer($question['answer']);
                 if(!$answer_has_function){
-
-                    if( !isset( $_POST['ajax'] ) ){
-                        $answer = $question['answer'];
-                        $ans = json_encode($answer);
-                        echo $ans;
-                    } else {
-                        echo json_encode([
-                            "message" => $question['answer']
-                        ]);
+                   
+                    echo json_encode([
+                         "status" => 1,
+                        "answer" => $question['answer']
+                    ]);
+                    return;
+                    
+                } else {
+                    
+                    echo json_encode([
+                         "status" => 1,
+                        "answer" => parse_answer($question['answer'])
+                    ]);
                         return;
-                    }
-                } else{
-                    
-                    if( !isset( $_POST['ajax'] ) ){
-                        $answer = parse_answer($question['answer']);
-                    
-                    } else {
-                            return json_encode([
-                            "message" => parse_answer($question['answer'])
-                        ]);
-                        
-                    }
                     
                 }
             } else {
                 
-                if( !isset( $_POST['ajax'] ) ){
-                    $answer = "Sorry I don't have an answer for that, please train me";
-                    return $answer;
+
+                   
+                return json_encode([
+                     "status" => 1,
+                    "answer" =>  "Sorry I don't have an answer for that, please train me"
+                ]);
+                   
                 
-                } else {
-                   
-                    return json_encode([
-                        "message" =>  "Sorry I don't have an answer for that, please train me"
-                    ]);
-                   
-                }
             }
         }
         
     
-}
+    }
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -1105,7 +1168,8 @@ function getTime(){
                 </section>
     
 </section>
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
      <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.6/typed.min.js"></script>
        <script>
          /* Configure auto typing*/
@@ -1234,7 +1298,7 @@ function getTime(){
 
                 function showBotMessage(info) {
 
-                    var botBubble = ''
+                    var botBubble = '';
                     let span = document.createElement('span');
                     span.classList.add('bot', 'first');
                     var today = new Date();
@@ -1382,21 +1446,24 @@ function getTime(){
                     }
             });
 
-            /* Handle Ajax response for DB query */
+            /* Handle Ajax request and response to and from server */
             function trainQuery() {
                 var message = cleanText(chatInput.value);
                 $.ajax({
-                type: "POST",
-                url: 'profiles/Gwinyai.php',
-                data: { training: message },
-                success: function(data){
-                    showBotMessage(data);
-                         console.log(data);
+                    type: "POST",
+                    dataType : "json",
+                    url: 'profiles/Gwinyai.php',
+                    data: {message},
+                    success: function(data){
+                        if(data.status == 1) {
+                            showBotMessage(data.answer);
+                        }
+                        
                     }
                 });
             }
-            
-
+         
+            /* Get a joke from third party API */
             function getJoke() {
                
                 $.ajax({
@@ -1421,3 +1488,12 @@ function getTime(){
 </body>
 
 </html>
+
+
+if (window.XMLHttpRequest) {
+    // code for modern browsers
+    xhr = new XMLHttpRequest();
+ } else {
+    // code for old IE browsers
+    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+}
