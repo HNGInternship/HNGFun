@@ -1,105 +1,266 @@
 
 <?php
 
-        require_once "../db.php";
+if(!defined('DB_USER')){
+    require "../../config.php";		
     try {
-        $select = 'SELECT * FROM secret_word';
-        $query = $conn->query($select);
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $query->fetch();
-        }
-        catch (PDOException $e) {
-
-        throw $e;
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
     }
-    $secret_word = $data['secret_word'];
+ }
+  //Fetch User Details
+  try {
+      $query = "SELECT * FROM interns_data WHERE username ='johnayeni'";
+      $resultSet = $conn->query($query);
+      $resultData = $resultSet->fetch(PDO::FETCH_ASSOC);
+  } catch (PDOException $e){
+      throw $e;
+  }
+  $username = $resultData['username'];
+  $fullName = $resultData['name'];
+  $picture = $resultData['image_filename'];
+  //Fetch Secret Word
+  try{
+      $querySecret =  "SELECT * FROM secret_word LIMIT 1";
+      $resultSet   =  $conn->query($querySecret);
+      $resultData  =  $resultSet->fetch(PDO::FETCH_ASSOC);
+      $secret_word =  $resultData['secret_word'];
+  }catch (PDOException $e){
+      throw $e;
+  }
+  $secret_word =  $resultData['secret_word'];
+  
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-/*
- 
- if($_SERVER['REQUEST_METHOD'] === POST) {
-     require "../answers.php";
+        require "../answers.php";
 
-     date_default_timezone_set("Africa/Lagos");
-     //
-     if(!isset($_POST['queston'])) {
-         echo json_encode([
-             'status' => 1,
-             'answer' => "What's your question?"
-         ]);
-         return;
-     }
+        date_default_timezone_set("Africa/Lagos");
 
-     // Retrieve the entry from the textarea
-     $que = $_POST['question'];
+        try {
+            if(!isset($_POST['question'])) {
+                echo json_encode([
+                    'status' => 1,
+                    'answer' => "Please provide a question"
+                ]);
+                return;
+            }
 
-     // Show time
-     if(preg_replace('([\s]+)', ' ', trim(strtolower($que))) === 'time'){
-         echo json_encode([
-             'status' => 1,
-             'answer' => getTime()
-         ]);
-         return;
-         }
- } else { */
+            $question = $_POST['question'];
+
+            // Getting Bot info
+            if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'help') {
+                echo json_encode([
+                    'status' => 1,
+                    'answer' => getBotInfo()
+                ]);
+                return;
+            }
+
+            // Getting Bot Menu or Manual
+            if(preg_replace('([\s])', ' ', trim(strtlower($question))) === 'help') {
+                echo json_encode([
+                    'status' => 1,
+                    'answer' => getBotManual()
+                ]);
+                return;
+            }
+            
+            // Asking for age
+            if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'age') {
+                echo json_encode([
+                    'status' => 1,
+                    'answer' => getAge()
+                ]);
+                return;
+            }
+
+            // Asking for time
+            if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'time') {
+                echo json_encode([
+                    'status' => 1,
+                    'answer' => getTime()       
+                ]);
+                return;
+            }
+
+            // Asking for location
+            if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'location') {
+                echo json_encode([
+                    'status' => 1,
+                    'answer' => getLocationDetails(get_client_ip())
+                ]);
+                return;
+            }
+
+            //check if in training mode
+            $index_of_train = stripos($question, "train:");
+            if($index_of_train === false){//then in question mode
+                $question = preg_replace('([\s]+)', ' ', trim($question)); //remove extra white space from question
+                $question = preg_replace("([?.])", "", $question); //remove ? and .
+            
+            // check if answer already exists in database
+            $question = "%$question%";
+            $sql = "select * from chatbot where question like :question";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':question', $question);
+            $stmt->execute();
+
+            $stmt->setFetchmode(PDO::FETCH_ASSOC);
+            $rows = $stmt->fetchAll();
+            if(count($rows)>0) {
+                $index = rand(0, count($rows)-1);
+				$row = $rows[$index];
+                $answer = $row['answer'];	
+                
+                //check if the answer is to call a function
+            $index_of_parentheses = stripos($answer, "((");
+            if($index_of_parentheses === false){ //then the answer is not to call a function
+                 echo json_encode([
+		            'answer' => $answer
+				]);
+            } else{
+                
+                //otherwise call a function. but get the function name first
+                $index_of_parentheses_closing = stripos($answer, "))");
+                if($index_of_parentheses_closing !== false){
+                  $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
+                  $function_name = trim($function_name);
+                  if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
+                    echo json_encode([
+                      'status' => 0,
+                      'answer' => "The function name should not contain white spaces"
+                    ]);
+                    return;
+                  }
+                  if(!function_exists($function_name)){
+                    echo json_encode([
+                      'status' => 0,
+                      'answer' => "I am sorry but I could not find that function"
+                    ]);
+                  }else{
+                    echo json_encode([
+                      'status' => 1,
+                      'answer' => str_replace("(($function_name))", $function_name(), $answer)
+                    ]);
+                  }
+                  return;
+                }
+              }
+            }else{
+              echo json_encode([
+                'status' => 0,
+                'answer' => "Unfortunately, I cannot answer your question at the moment. I need to be trained further. The training data format is <br> <b>train: question # answer</b>"
+              ]);
+            }		
+            return;
+
+        }else{
+            //in training mode
+            //get the question and answer
+            $question_and_answer_string = substr($question, 6);
+            //remove excess white space in $question_and_answer_string
+            $question_and_answer_string = preg_replace('([\s]+)', ' ', trim($question_and_answer_string));
+            
+            $question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string); //remove ? and . so that questions missing ? (and maybe .) can be recognized
+            $split_string = explode("#", $question_and_answer_string);
+            if(count($split_string) == 1){
+              echo json_encode([
+                'status' => 0,
+                'answer' => "Invalid training format. I cannot decipher the answer part of the question \n
+                            The correct format is training: question # answer # password"
+              ]);
+              return;
+            }
+            $que = trim($split_string[0]);
+            $ans = trim($split_string[1]);
+        
+            if(count($split_string) < 3){
+              echo json_encode([
+                'status' => 0,
+                'answer' => "You need to enter the training password to train me."
+              ]);
+              return;
+            }
+        
+            $password = trim($split_string[2]);
+            //verify if training password is correct
+            define('TRAINING_PASSWORD', 'password');
+            if($password !== TRAINING_PASSWORD){
+              echo json_encode([
+                'status' => 0,
+                'answer' => "You are not authorized to train me"
+              ]);
+              return;
+            }
+        
+            //insert into database
+            $sql = "insert into chatbot (question, answer) values (:question, :answer)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':question', $que);
+            $stmt->bindParam(':answer', $ans);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            echo json_encode([
+              'status' => 1,
+              'answer' => "Thanks alot for your help"
+            ]);
+            return;
+          }
+        
+          echo json_encode([
+            'status' => 0,
+            'answer' => "Sorry, i really dont understand you right now, you could offer to train me"
+          ]);  
+            
+        
+    } catch (Exception $e){
+        return $e->message ;
+
+    }
+  
+} else {
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Victor Jonah</title>
+    <title> Victor Jonah</title>
   	
     <style>
-    body, .page {
-            background-color: #44bb4a; 
-
+        .profile {
+            background-color:#0af568;
         }
-
-        .main {
+        .profile-section {
             justify-content: center;
             align-content: center;
             margin-bottom:50px;
             margin-right: auto;
             margin-left: auto;
-            margin-top:20px;
-            background-color:#c0c0c0;
+            margin-top:30px;
+            background-color:#ccb4cd;
             width:400px;
             height:700px;
             box-shadow:5px 10px;
-            padding:50px;
-            
+            padding:50px;   
         }
-
         .imag {
             padding:10px;
         }
-
         .about {
             padding: 10px;
             font-family: 'Gamja Flower', cursive;
-
-
+        }
         h1 {
 
             font-family: 'Jua', sans-serif;
         }
-
-        }
-
         .fa:hover {
             color: limegreen;
             padding: 3px;
         }
-        
-        .social {
-            justify-content: center;
-            display: flex;
-            margin: auto;
-            
-        }
-        
         .chat-modal-button {
             background-color:#ffff00;
             cursor:pointer;
@@ -123,7 +284,7 @@
            font-size:18px;
            padding:13px 14px;
            -moz-border-radius:10px;
-           -webkit-border-radius:10px
+           -webkit-border-radius:10px;
            border-radius:10px;
            position:relative;
            display:inline-block;
@@ -146,7 +307,7 @@
         .bubble.you {
             float: left;
             color: #000000;
-            background-color: #00b0ff;
+            background-color: #e4801b;
             -webkit-align-self: flex-start;
             align-self: flex-start;
             -moz-animation-name: slideFromLeft;
@@ -155,7 +316,7 @@
         }
         .bubble.you:before {
             left: -3px;
-            background-color: #00b0ff;
+            background-color: #e4801b; 
         }
         .bubble.me {
             float: right;
@@ -172,14 +333,11 @@
             background-color: #db4824;
           
         }
-
         textarea {
             resize: none !important;
         }
 
     </style>
-</head>
-    <body>
     <!-- Bootstrap -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <!-- Font awesome -->
@@ -193,24 +351,26 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	   	<!-- Main Page -->
-        <div class="page">
-            <div class="main text-center">
-                <div class="imag">
-                    <img class="img-responsive img-circle img-fluid" style="margin: 0 auto;"width="350px" height="10px" src="https://res.cloudinary.com/vectormike/image/upload/v1523655733/gg.jpg" alt="This is me o!">
-                </div>
-                <div class="about">
-                    <h1>Hello! <i class="fa fa-angellist"></i></h1>
-                    <p>This is Victor Jonah.</p>
-                    <p>300l Computer science of the University of Uyo.</p>
-                    <p>HNG Intern, 2018</p>
-                    <button type="button" class="btn chat-modal-button" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i></button>
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal" role="dialog">
-                        <div class="modal-dialog">
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
+</head>
+    <body class="profile">
+        <div class="profile-section text-center">
+            <div class="imag">
+                <img class="img-responsive img-circle img-fluid" style="margin: 0 auto;"width="350px" height="10px" src="https://res.cloudinary.com/vectormike/image/upload/v1523655733/gg.jpg" alt="This is me o!">
+            </div>
+            <div class="about">
+                <h1>Hello! <i class="fa fa-angellist"></i></h1>
+                <p>This is Victor Jonah.</p>
+                <p>300l Computer science of the University of Uyo.</p>
+                <p>HNG Intern, 2018</p>            
+                <!-- Chatbot Section -->
+                <!-- Trigger the modal with a button -->
+                <button type="button" id="mssgbox" class="btn chat-modal-button" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i></button>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
                                 <h4 class="modal-title"><i class="fa fa-user"></i> Vectormike</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
@@ -225,6 +385,9 @@
                                     <div class="bubble you">
                                         Don't be mean, please.
                                     </div>
+                                    <div class="bubble you">
+                                        Type 'help' first. 
+                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -238,23 +401,78 @@
                                     </div>
                                 </div>
                             </form>
+                        </div> 
                     </div>
                 </div>
-            </div>
-            <!-- Chatbot Section -->
-             <!-- Trigger the modal with a button -->
-           
-    
+            </div>  
         </div>
-        
-        </div>
-		<!-- animate.css -->
-	<script>
-    $( document ).ready(function() {
-    $('h1').addClass('animated infinite shake');
-    $('.chat-modal-button').addClass('animated infinite flash');
-    $('.main').addClass('animated bounceInDown');
-    });
-    </script>
     </body>
+
+    <script>
+    
+    $('h1').addClass('animated infinite shake');
+    
+    $('#mssgbox').addClass('animated infinite flash');
+
+    </script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.js"></script>
+	<script>
+    ;function($) {        
+        //
+        let questionForm = $('#question-section');
+        let questionBox = $('textarea[name=chatbox]');
+        let chatbox = $('.chat')
+        questionBox.emojioneArea();
+        questionForm.submit(function(e) {
+            e.preventDefault();
+            let question = questionBox.val();
+            // Displays the questions in the message frame a chat entry
+            let newMessage = `<div class="bubble me">
+                  ${question}
+              </div>`;
+            chatbox.html(`${chatbox.html()} ${newMessage}`);
+            chatbox.scrollTop(chatbox[0].scrollHeight);
+            // Sendng question to server
+            $.ajax({
+                url: '/profiles/vectormike.php',
+                type: 'POST',
+                data: {question: question},
+                dataType: 'json',
+                success: (response) => {
+                    response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />');
+                    let newMessage = `<div class="bubble you">
+                          ${response.answer}
+                      </div>`;
+
+                    chatbox.html(`${chatbox.html()} ${newMessage}`);
+                    chatbox.scrollTop(chatbox[0].scrollHeight);
+                    questionBox.val('');
+                },
+                error: (error) => {
+                    alert('error occured')
+                    console.log(error);
+                }
+            })
+        })    
+    
+    })(jQuery);
+    </script>
+
+<?php
+
+    require_once '../db.php';
+    try {
+    $select = 'SELECT * FROM secret_word';
+    $query = $conn->query($select);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $query->fetch();
+    }
+    catch (PDOException $e) {
+
+    throw $e;
+    }
+    $secret_word = $data['secret_word'];
+?>
 </html>
+<?php } ?>
