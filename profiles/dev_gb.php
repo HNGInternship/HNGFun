@@ -425,10 +425,34 @@ a:focus {
   overflow-y: overlay;
 }
 .chatbox-message {
-  margin: 20px 0 0 44px;
+  margin: 20px 20px 0 44px;
   height: 150px;
   width: 100px;
   overflow-y: overlay;
+}
+
+.chatbox-message .message-container {
+  position: relative;
+  float: right;
+  width: 100px;
+  padding-left: 10px;
+}
+
+.chatbox-message .message {
+  display: inline-block;
+  max-width: auto;
+  margin-bottom: 12px;
+  border: 1px solid #dedede;
+  border-radius: 25px;
+}
+
+.chatbox-message .avatar img {
+  width: 56px;
+    border-radius: 50%;
+}
+
+.chatbox-message .avatar {
+  float: left;
 }
 
 .chatbox-messages .avatar {
