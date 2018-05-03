@@ -141,6 +141,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>My HNG Profile</title>
     <!-- css stylesheet -->
+    <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
     <link href="https://fonts.googleapis.com/css?family=Overpass:300,700" rel="stylesheet">
     
     <style>

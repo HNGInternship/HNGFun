@@ -63,7 +63,7 @@
             echo $result_answer;
         }
         else{
-            echo "Please teach me how to answer this question using the format train question #answer";
+            echo "Please teach me how to answer this question using the format train question #answer #password";
         }
     }
 
@@ -8189,7 +8189,7 @@ input.textarea {
                  
                  <div class="container_chat darker">
                   <img src="https://i.imgur.com/HYcn9xO.png" alt="Avatar" class="right">
-                  <p><?php echo greeting_from_chibuokem()." type help and click on the green send button below  to see what the bot can do"; ?></p>
+                  <p><?php echo greeting_from_chibuokem()." type help and click on the green send button below  to see what i  can do"; ?></p>
                   <span class="time-left"><?php  echo get_time();?></span>
                 </div> 
 
@@ -8246,7 +8246,7 @@ input.textarea {
 
                  $('#chat_div').append(divv);
 
-                 $('#chat_div').scrollTop($('#chat_div').scrollTop()+50);
+                 $('#chat_div').scrollTop($('#chat_div').scrollTop()+300);
 
                     $("#send").html('Sent');
             

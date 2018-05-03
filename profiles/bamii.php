@@ -45,7 +45,7 @@
       ################################
       ######## Train the bot #########
       ################################
-<<<<<<< HEAD
+
 
       # Split into question & answer array.
       $array = explode("#", $data);
@@ -184,7 +184,7 @@
       }
     }
 
-=======
+
 
       # Split into question & answer array.
       $array = explode("#", $data);
@@ -323,7 +323,7 @@
       }
     }
 
->>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+
    /*  if(in_array($data_lower, $q)) { # DONE
       # search the stored db
       $data_lower_2 = preg_replace("([?.])", "", $data_lower);
@@ -691,15 +691,13 @@
         .server-reply,
         .client-send {
           padding: 10px 20px;
-<<<<<<< HEAD
-<<<<<<< HEAD
+
           font-size: small;
-=======
+
           font-size: medium;
->>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
-=======
+
           font-size: medium;
->>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
+
           font-family: 'Tajawal';
           min-width: 30%;
           max-width: 60%;

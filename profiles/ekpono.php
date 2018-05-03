@@ -1,12 +1,15 @@
-<?php 
-		require 'db.php';
-		try {
+<?php
+  require 'db.php';
+        // $servername = "localhost";
+        // $username = "root";
+        // $password = "";
+if($_SERVER['REQUEST_METHOD'] === "GET"){
+        try {
+       // $conn = new PDO("mysql:host=$servername;dbname=hng_fun", $username, $password);
         $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ekpono'");
         $intern_data->execute();
         $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
         $result = $intern_data->fetch();
-    
-    
         $secret_code = $conn->prepare("SELECT * FROM secret_word");
         $secret_code->execute();
         $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
@@ -15,17 +18,13 @@
      } catch (PDOException $e) {
          throw $e;
      }
-	?>
-
-<?php
-
-// Create connection
+}
 try {
-	require '../../config.php';
-    $conn = new PDO("mysql:host=DB_HOST;dbname=DB_DATABASE", 'DB_USER', 'DB_PASSWORD');
+	// require 'config.php';
+    //$conn1 = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //echo "Connected"; 
+    //echo "Connected";
     }
 catch(PDOException $e)
     {
@@ -45,6 +44,8 @@ catch(PDOException $e)
             return $data;
         }
 
+        
+
         //end of function definition
         $ques = input($_POST['ques']);
         if(strpos($ques, "train:") !== false){
@@ -57,6 +58,8 @@ catch(PDOException $e)
                 $answer = $q_a[1];
                 $password = $q_a[2];
             }
+
+           
             if(!(isset($password))|| $password !== 'password'){
                 echo json_encode([
                     'status'    => 1,
@@ -76,7 +79,7 @@ catch(PDOException $e)
                     return;
                 }
                     try {
-                       $conn = new PDO("mysql:host=DB_HOST;dbname=DB_DATABASE", 'DB_USER', 'DB_PASSWORD');
+                        //$conn = new PDO("mysql:host=localhost;dbname=chat", 'root', '');
                         // set the PDO error mode to exception
                         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                         //echo "Connected successfully"; 
@@ -86,8 +89,7 @@ catch(PDOException $e)
                         echo "Connection failed: " . $e->getMessage();
                         return;
                         }
-                    
-                
+
                 $sql = "insert into chatbot (question, answer) values (:question, :answer)";
 				$stmt = $conn->prepare($sql);
 				$stmt->bindParam(':question', $question);
@@ -105,7 +107,6 @@ catch(PDOException $e)
             ]);
             return;
             }
-            
         }else{
             //chat mode
             $ques = input($ques);
@@ -121,6 +122,10 @@ catch(PDOException $e)
                         'answer' => $rows
                     ]);
            
+            }
+             if ($ques == "what is the current time") {
+                $time = date("H:i:sa");
+                return;
             }
             return;
         }
@@ -146,13 +151,11 @@ catch(PDOException $e)
     margin: 0;
     padding: 0;
 }
-
 body {
   font-family: 'Dosis', sans-serif;
     background: linear-gradient(to right, rgba(216,0,0,0), rgba(216,0,0,0.2));
     background-repeat: cover;
 }
-
 .container {
     width: 80%;
     height: auto;
@@ -166,13 +169,12 @@ body {
     display: block;
     text-align: right;
     font-size: 20px;
-    padding-top: 30px;
+    padding-top: -80px;
 }
 .photo {
     width: 50%;
     margin-left: 80px;
     display: block;
-   
 }
 .slogan {
     margin-top: 30px;
@@ -180,24 +182,25 @@ body {
 h3 {
     color:rgb(32, 32, 216)
 }
-	.display{
-            position:fixed;
-            bottom:0;
-            right: 20px;
-            background-color:#fef;
-            width: 350px;
-            height: 500px;
-            overflow:auto;
-        }
 a {
     text-decoration: none;
      text-decoration: underline dotted;
 }
-
+/* ChatBot */
+        .display{
+            position:fixed;
+            bottom:0;
+            right: 20px;
+            background-color:white;
+            width: 350px;
+            height: 400px;
+            overflow:auto;
+            padding-bottom: 20px;
+        }
         .display nav{
             display:block;
             height: 50px;
-            background-color:rgb(32, 32, 216)#f8e;
+            background-color:#fff;
             text-align: center;
             font-size: 25px;
             padding-top:7.5px;
@@ -214,14 +217,88 @@ a {
             position:fixed;
             bottom: 10px;
         }
-/* CSS button */
+        .user {
+            text-align: right;
+        }
+        .user p{
+            text-align: right;
+            width: auto;
+            display: inline;
+            border-radius: 5px;
+            background: gray;
+            color: black;
+            padding: 2px;
+        }
+        .bot p {
+            display: inline;
+        }
+        .display {
+            padding: 15px;
 
+    -webkit-animation: fadein 5s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 5s; /* Firefox < 16 */
+        -ms-animation: fadein 5s; /* Internet Explorer */
+         -o-animation: fadein 5s; /* Opera < 12.1 */
+            animation: fadein 5s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+.send {
+    padding: 8px 20px ;
+    background-color: blue;
+    border-radius: 5px;
+    color: #fff;
+}
+
+input[type=text] {
+    border-bottom: 5px solid #ccc;
+    width: 250px;
+    padding: 5px
+}
+
+.bot {
+    width: 80%;
+    text-align: justify;
+    height: auto;
+}
+
+
+
+
+/* CSS button */
 </style>
 </head>
 <body>
 <div class="container">
     <div class="text">
-        <h1 style="color:rgb(32, 32, 216); padding-top: 30px">Hey! I'm <?php echo $user->name ?></h1>
+        <h1 style="color:rgb(32, 32, 216); padding-top: 30px">Hey! I'm Ekpono </h1>
         <h2 style="color:#806a21;">I'm a developer from Nigeria</h2>
         <h3 class="slogan">I work with companies</h3>
         <p>Jiggle, Thirdfloor, JandK Services, Hilltop</p>
@@ -239,29 +316,30 @@ a {
         <a href="http://www.github.com/ekpono">Github</a>
     </div>
     <div class="photo">
-        <img src="<?php echo $user->image_filename ?>" width="300px" height="300px"  style="border-radius: 50%; padding-top: 30px;" alt="Ekpono's Profile Picture" />
+        <img src="http://res.cloudinary.com/ambrose/image/upload/r_29/v1523629415/dp2.jpg" width="300px" height="300px"  style="border-radius: 50%; padding-top: 30px;" alt="Ekpono's Profile Picture" />
     </div>
     <!-- Chat form -->
 
     <div class="display">
+
         <div>
             <nav>Robotech</nav>
             <div class="myMessage-area">
                 <div class="myMessage bot">
                 </div>
-               
             </div>
         </div>
+
         <div class="form">
-            <input type="text" name="question" id="question" required>
-            <span onclick="sendMsg()" ><i class="fa fa-send-o fa-2x"></i></span>
+            <input type="text" name="question" id="question" required class="textarea">
+            <span onclick="sendMsg()" ><button class="send">Send</button></i></span>
         </div>
+        </div>
+
     </div>
-</div>
 
 
- <script>
-
+    <script>
         window.addEventListener("keydown", function(e){
             if(e.keyCode ==13){
                 if(document.querySelector("#question").value.trim()==""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){
@@ -271,7 +349,6 @@ a {
             }
         });
         function sendMsg(){
-
             var ques = document.querySelector("#question");
             if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
             displayOnScreen(ques.value, "user");
@@ -281,7 +358,7 @@ a {
                     processData(xhttp.responseText);
                 }
             };
-            xhttp.open("POST","https://hng.fun/profiles/ekpono.php", true);
+            xhttp.open("POST","/profiles/ekpono.php", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("ques="+ques.value);
         }
@@ -316,11 +393,8 @@ a {
                 document.querySelector("#question").value="";
             }
         }
+
+        $(document).ready(function(){
+    $(".display").fadeIn();
+});
     </script>
-
-
-
-
-</body>
-</body>
-</html>
