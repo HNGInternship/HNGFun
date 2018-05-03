@@ -17,7 +17,7 @@ function assistant($string)
     $reply = "";
     
     if ($string == 'What is the capital of Lagos?') {
-      $reply =var_export("<div id='result'>The capital of Lagos is Ikeja</div>");
+      $reply =var_export('The capital of Lagos is Ikeja');
       return $reply;
         
     }
@@ -161,7 +161,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                   
                   }
                   else{
-                     echo "<div id='result'>Tips: Type 'Help' to see FAQ.</br> To add new states ==> 'train:Question#answer#password</br>'</div>";
+                     echo "<div id='result'>Tips: Type 'Help' to see FAQ.</br> To add new states ==> 'Train:Question#Answer#password</br>'</div>";
 
       
                   }       
@@ -620,7 +620,7 @@ a:focus {
                     <div class="chatbox-messages" >
                       <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390" alt="Support" /></span><div class="sender"><div class="message-container"><div class="message"><p>
                       Welcome to Dev_GB's profile page <i class="em em-sunglasses"></i> You can check State capitals by just asking. <i class="em em-smiley"></i></p>
-                              <p>Tips: Type "Help' to see FAQ.<br>To add new states ==> 'train:Question#answer#password'</p>
+                              <p>Tips: Type "Help' to see FAQ.<br>To add new states ==> 'Train:Question#Answer#password'</p>
                               </div><span class="delivered">
                                 <?php echo "" . date("h:i:a");?>
                                   
@@ -686,10 +686,10 @@ function train( $input ) {
                 throw $e;
             }
         } else {
-            echo "<div id='result'>Teach me something new!</div>";
+            echo "Teach me something new!";
         }
     } else {
-        echo "<div id='result'>Invalid Password, Try Again!</div>";
+        echo "<div id='result'>Invalid Password, Try Again!";
     }
 
 }
