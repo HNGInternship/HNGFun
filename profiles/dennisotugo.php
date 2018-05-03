@@ -242,7 +242,7 @@ function getAnswer( $input ) {
             type: 'POST',
             data:  'user-input=' + message,
             success: function(response) {
-                var result = $($.parseHTML(response)).find(#result).text();
+                var result = $($.parseHTML(response)).find('#result').text();
                 setTimeout(function() {
                     outputArea.append("<div class='user-message'<div><div><div class='message'>" + result + "<\/div><\/div><\/div>");
                     $('#chat-output').animate({
