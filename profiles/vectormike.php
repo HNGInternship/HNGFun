@@ -1,4 +1,3 @@
-
 <?php
 
 if(!defined('DB_USER')){
@@ -11,7 +10,7 @@ if(!defined('DB_USER')){
  }
   //Fetch User Details
   try {
-      $query = "SELECT * FROM interns_data WHERE username ='johnayeni'";
+      $query = "SELECT * FROM interns_data WHERE username ='vectormike'";
       $resultSet = $conn->query($query);
       $resultData = $resultSet->fetch(PDO::FETCH_ASSOC);
   } catch (PDOException $e){
@@ -461,7 +460,7 @@ if(!defined('DB_USER')){
 
 <?php
 
-    require_once '../db.php';
+    require_once '../../db.php';
     try {
     $select = 'SELECT * FROM secret_word';
     $query = $conn->query($select);
