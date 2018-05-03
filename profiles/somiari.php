@@ -157,7 +157,6 @@
 
 		.chat-type {
 			position: relative;
-			/* border: 1px solid red; */
 			width: 100%;
 			margin: 0 auto;
 		}
@@ -383,8 +382,6 @@
 						}
 					}
 				};
-				// messageAlan = messageAlan.replace("#", "%23");
-				// messageAlan = messageAlan.replace("#", "%23");
 
 				$.ajax({
 					type: "POST",
@@ -401,5 +398,4 @@
 			}
 		</script>
 </body>
-
 </html>
