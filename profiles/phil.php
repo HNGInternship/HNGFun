@@ -53,7 +53,7 @@ $secret_word = $result['secret_word'];
     position: fixed;
 		height: 100%;
 				width: 100%;
-				background-image : url(http://res.cloudinary.com/tobividz/image/upload/v1525350131/pexels-photo-273222.jpg);
+				background-image : url();
 				
 	}
 
