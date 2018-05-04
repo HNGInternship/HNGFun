@@ -651,7 +651,8 @@ a:focus {
 <?php 
 }
 function help() {
-    echo "<div id='result'>These is a sample format of a question</br></br>What is the capital of Lagos</br></br>For compound names separate with a dash</br></br>e.g What is the capital of Ekiti</br></div>";
+   $help = "<div id='result'>These is a sample format of a question  </br></br>What is the capital of Lagos?  </br></br>For compound names separate with a dash  </br></br>e.g What is the capital of Ekiti?</br></div>"
+    echo $help;
 }
 function train($input) {
     $input    = explode( '#', $input );
