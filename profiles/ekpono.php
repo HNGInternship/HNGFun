@@ -369,7 +369,7 @@ input[type=text] {
         function processData (data){
             data = JSON.parse(data);
             console.log(data);
-            var answer = data.answer;
+            var answer = data['answer'];
             console.log(answer);
             //Choose a random response from available
             if(Array.isArray(answer)){
