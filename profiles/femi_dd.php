@@ -4,16 +4,16 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (!defined('DB_USER')) {
         //live server
-        require "../../config.php";
+        // require "../../config.php";
         //   localhost
-        // require "../config.example.php";
+        require "../config.example.php";
         try {
             $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
         } catch (PDOException $pe) {
             echo ("🤖I couldn't connect to knowledge base : " . $pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
         }
     }
-    require '../answers.php';
+    // require '../answers.php';
     global $conn;
 
     function train($question, $answer)
@@ -51,7 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $response = "🤖 " . $response;
         endif;
         //check for function
-        if (preg_match('/(\(+[a-zA-Z_]+\))/', $response, $match)) {
+        try {
+            if (preg_match('/(\(+[a-zA-Z_]+\))/', $response, $match)) {
             $functionName = $match[0];
             $functionName = str_replace('(', '', $functionName);
             $functionName = str_replace(')', '', $functionName);
@@ -60,6 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             } else {
                 $response = "🤖 I'm sorry, The function doesn't exist";
             }
+        }
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
         }
         return $response;
     }
