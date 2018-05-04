@@ -3,9 +3,9 @@
 
 include '../answers.php';
 $sql = 'SELECT * FROM interns_data WHERE username="kingsley67"';
-=======
+
 $sql = 'SELECT * FROM `interns_data` WHERE `username`="kingsley67"';
->>>>>>> 0d13d9356270629f92591e13d07e709318f450cc
+
     $query = $conn->query($sql);
     $query->setFetchMode(PDO::FETCH_ASSOC);  
     $result = $query->fetch();    
