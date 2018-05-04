@@ -349,7 +349,7 @@ input[type=text] {
             }
             if(ques.value.toLowerCase() ==":about bot:"){
                 displayOnScreen(ques.value, "user");
-                displayOnScreen("Name: botX <br> Version: 1.0.0");
+                displayOnScreen("Name: Robotech <br> Version: 1.0.0");
                 return;
             }
             if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
