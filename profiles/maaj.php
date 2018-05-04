@@ -409,7 +409,7 @@ else{
 	  
      
 	 
-<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="vendor/jquery/jquery.min.js"></script>
  <script>
     var message = $("#contain");
 		
@@ -422,7 +422,7 @@ else{
 	       	message.scrollTop(message[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: 'maaj.php', //location
+				url: 'profiles/maaj.php', //location
 				type: 'POST',
 				data: {text_in: text_in},
 				dataType: 'json',
