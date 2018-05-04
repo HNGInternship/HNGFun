@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		          'answer' => "Oooh! sorry....you entered an invalid training format. Please the correct format is-->  train: question #answer #password"
 		        ]);
 	        return; 
-	        };
+	        }
 	        //get the index of the user answer
 	        $user_answer = trim($train_string[1]);    
 	        if(count($train_string) < 3){ //then the user only enter question and answer But did'nt enter password
@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		          'answer' => "Please enter training password to train me. The password is--> password"
 		        ]);
 	        return;
-	        };
+	        }
 	         //get the index of the user password
 		    $user_password = trim($train_string[2]);
 	        //verify if training password is correct
@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		          'answer' => "The password you entered is wrong! Please enter the correct password which is-->  password "
 		        ]);
 	     	return;
-	    	};
+	    	}
 		    //check database if answer exist already
 		    $user_answer = "$user_answer"; //return things that have the question
 		    $sql = "select * from chatbot where answer like :user_answer";
@@ -169,9 +169,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			        'answer' => "Sorry! Answer already exist. Try train me again with the same question AND provide an altanative answer different from the previous one you entered OR just train me with a new question and a new answer."
 			      ]);
 			return;		
-	     	};
+	     	}
 	    return;
-	 	};    
+	 	}    
 	  
 } 
 	
