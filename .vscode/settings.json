@@ -1,5 +1,5 @@
 {
     // Controls the font family.
-  "editor.fontFamily": "Lucida Handwriting",
+  "editor.fontFamily": "Source Code Pro",
   "php.validate.executablePath": "hngfun",
 }

@@ -310,7 +310,7 @@ $(document).ready(function chargeBot() {
          // newElementsForUser("opening...");
          window.open('http://' + url[1]);
       } else if (message.includes("randomquote:") || message.includes("random quote:")) {
-         $.getJSON("https://talaikis.com/api/quotes/", function (json) {
+         $.getJSON("https://talaikis.com/api/quotes/random/", function (json) {
             response = json['quote'] + '<br/> Author : ' + json['author'];
             botResponse = { 'response': response };
             newElementsForBot(botResponse);
