@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $question = trim(preg_replace("/(train:)/", "", $power_split[0]));
                 $answer = trim($power_split[1]);
                 $password = trim($power_split[2]);
-                
+
                 if ($password != "password") {
                     $bot_response['response'] = "🤖 Training Access Denied!";
                 } else {
@@ -291,33 +291,46 @@ function newElementsForBot(botResponse) {
 }
 
 $(document).ready(function() {
-    response = {"response" : "Hello there, I'm femiBot.<br/>Here's a couple of things i can do.<br/> 1. You can ask me anything<br/>2. You can find a friend who's in the dope HNGInternship<br/>3. You open a URL by typing open:your_url"};
+    response = {"response" : "Hello there, I'm femiBot.<br/>Here's a couple of things i can do.<br/> 1. You can ask me anything<br/>2. You can find a friend who's in the dope HNGInternship<br/>3. You open a URL by typing open:your_url<br/> 4. Get a random quote by typing randomquote:"};
     newElementsForBot(response);
 });
 
 $(document).ready(function chargeBot() {
-   $("#send").click(function() {
+   $("#send").click(function () {
       var message = $("#message").val();
-      newElementsForUser(message);
-      if(message.includes('open:')) {
-         url = message.split('open:')
+      if (message == "" || message == null) {
+         response = { 'response': 'Please type something' };
+         newElementsForUser(message);
+         newElementsForBot(response);
+      }else if (message.includes('open:')) {
+         url = message.split('open:');
+         // newElementsForUser("opening...");
          window.open('http://' + url[1]);
+      } else if (message.includes("randomquote:")) {
+         $.getJSON("https://talaikis.com/api/quotes/", function (json) {
+            var quote = "";
+            var author = "";
+            var numRand = Math.floor((Math.random() * json.length));
+            response = json[numRand]['quote'] + '<br/> Author : ' + json[numRand]['author'];
+            botResponse = { 'response': response };
+            newElementsForBot(botResponse);
+         });
       } else if (message.includes("aboutbot") || message.includes("about bot") || message.includes("aboutbot:")) {
-          response = {'response' : 'Version 4.0'};
-          newElementsForBot(response);
+         response = { 'response': 'Version 4.0' };
+         newElementsForBot(response);
       } else {
          $.ajax({
             url: "profiles/femi_dd.php",
             type: "POST",
-            data: {new_request: message},
+            data: { new_request: message },
             dataType: "json",
-            success: function(botResponse) {
+            success: function (botResponse) {
                newElementsForBot(botResponse);
                $("#message").val("");
-               $("#chatarea").scrollTop($("#chatarea")[0].scrollHeight);
             }
          });
       }
+      $("#chatarea").scrollTop($("#chatarea")[0].scrollHeight);
    });
 });
 
