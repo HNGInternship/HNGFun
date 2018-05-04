@@ -159,7 +159,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                   
                   }
               else{
-              echo "<div id='result'></br> </br>Tips: Type 'Help' to see FAQ. </br> To add new states ==> 'train:Question#answer#password</br>'</div>";
+              echo "<div id='result'>     Tips: Type 'Help' to see FAQ. </br> To add new states ==> 'train:Question#answer#password</br>'</div>";
                   }       
                 }
 
