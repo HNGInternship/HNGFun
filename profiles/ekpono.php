@@ -370,6 +370,7 @@ input[type=text] {
             data = JSON.parse(data);
             console.log(data);
             var answer = data.answer;
+            console.log(answer);
             //Choose a random response from available
             if(Array.isArray(answer)){
                 if(answer.length !=0){
