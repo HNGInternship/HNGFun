@@ -308,10 +308,7 @@ $(document).ready(function chargeBot() {
          window.open('http://' + url[1]);
       } else if (message.includes("randomquote:")) {
          $.getJSON("https://talaikis.com/api/quotes/", function (json) {
-            var quote = "";
-            var author = "";
-            var numRand = Math.floor((Math.random() * json.length));
-            response = json[numRand]['quote'] + '<br/> Author : ' + json[numRand]['author'];
+            response = json['quote'] + '<br/> Author : ' + json['author'];
             botResponse = { 'response': response };
             newElementsForBot(botResponse);
          });
