@@ -16,8 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    // require '../answers.php';
    global $conn;
 
-   function train($question, $answer)
-   {
+   function train($question, $answer) {
       $question = trim($question);
       $answer = trim($answer);
       if (store($question, $answer)) {
@@ -27,8 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       }
    }
 
-   function findThisPerson($user)
-   {
+   function findThisPerson($user) {
       global $conn;
       $statement = $conn->prepare("select * from interns_data where username like :user or name like :user limit 1");
       $statement->bindValue(':user', "%$user%");
@@ -38,8 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       return $rows;
    }
 
-   function searchRequest($request)
-   {
+   function searchRequest($request) {
       global $conn;
       $statement = $conn->prepare("select answer from chatbot where question like :request order by rand()");
       $statement->bindValue(':request', "%$request%");
@@ -277,12 +274,14 @@ function newElementsForUser(userRequest) {
 function newElementsForBot(botResponse) {
    var chatArea = document.getElementById("chatarea");
    var messageElement = document.createElement("div");
+
    if(botResponse.response.resultType == "find") {
       messageElement.innerHTML = "Question => " + botResponse.response.question + "\n" +
       "Answer => " + botResponse.response.answer + "\n";
    } else {
       messageElement.innerHTML = botResponse.response;
    }
+
    messageElement.className = "form-control form-control2 text-left";
    var id = Date.now();
    messageElement.setAttribute("id", id);
