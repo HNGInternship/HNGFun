@@ -307,8 +307,8 @@ $(document).ready(function chargeBot() {
       } else {
          newElementsForUser(message);
          $.ajax({
-            url: "http://old.hng.fun/profiles/femi_dd.php",
-            type: "post",
+            url: "profiles/femi_dd.php",
+            type: "POST",
             data: {new_request: message},
             dataType: "json",
             success: function(botResponse) {
