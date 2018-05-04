@@ -1,8 +1,12 @@
 
 <?php
 include '../db.php';
+<<<<<<< HEAD
 include '../answers.php';
 $sql = 'SELECT * FROM interns_data WHERE username="kingsley67"';
+=======
+$sql = 'SELECT * FROM `interns_data` WHERE `username`="kingsley67"';
+>>>>>>> 0d13d9356270629f92591e13d07e709318f450cc
     $query = $conn->query($sql);
     $query->setFetchMode(PDO::FETCH_ASSOC);  
     $result = $query->fetch();    
@@ -11,7 +15,7 @@ $sql = 'SELECT * FROM interns_data WHERE username="kingsley67"';
     $user = $result['username'];
     $image = $result['image_filename'];
 
-$sql2 = 'SELECT * FROM secret_word';
+$sql2 = 'SELECT * FROM `secret_word`';
     $query = $conn->query($sql2);
     $query->setFetchMode(PDO::FETCH_ASSOC);  
     $result2 = $query->fetch(); 

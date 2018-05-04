@@ -1,6 +1,6 @@
 <?php
   if(!defined('DB_USER')){
-    require "../../config.php";
+    require "../config.php";
   }
   try {
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
@@ -15,11 +15,6 @@
     $secret_word_query = $conn->query($sql);
     $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
     $secret_word_result = $secret_word_query->fetch();
-
-    $sql = 'SELECT * FROM interns_data WHERE username = "the_ozmic"';
-    $intern_data_query = $conn->query($sql);
-    $intern_data_query->setFetchMode(PDO::FETCH_ASSOC);
-    $intern_data_result = $intern_data_query->fetch();
   } catch (PDOException $e) {
       throw $e;
   }

@@ -122,7 +122,7 @@
 			}
 			$password = trim($split_string[2]);
 			//verify if training password is correct
-			define('TRAINING_PASSWORD', 'trainpwforhng');
+			define('TRAINING_PASSWORD', 'password');
 			if($password !== TRAINING_PASSWORD){
 				echo json_encode([
 					'status' => 0,
@@ -249,6 +249,7 @@
 		var questionForm = $('#question-form');
 		questionForm.submit(function(e){
 			e.preventDefault();
+
 			var questionBox = $('input[name=question]');
 			var question = questionBox.val();
 			//display question in the message frame as a chat entry

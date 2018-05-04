@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+:root{
+    --theme-color:#0B6F6E;
+    --theme-black: #212121;
+}
+*{
+    font-family: 'Poppins', 'sans-serif';
+}
+.container-fluid{
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.navbar{
+  background-color: var(--theme-color);
+}
+
+body {
+  overflow-x: hidden;
+  background-color: #F1F1F1 !important;
+}
+
+#wrapper {
+  padding-left: 0;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+  padding-left: 250px;
+}
+
+#sidebar-wrapper {
+  z-index: 1000;
+  position: fixed;
+  left: 250px;
+  width: 0;
+  height: 100%;
+  margin-left: -250px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #000;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  width: 250px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  position: absolute;
+  background-color: #F1F1F1;
+}
+
+#wrapper.toggled #page-content-wrapper {
+  position: absolute;
+  margin-right: -250px;
+}
+
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav li {
+  text-indent: 20px;
+  line-height: 40px;
+}
+
+.sidebar-nav li a {
+  display: block;
+  text-decoration: none;
+  color: #999999;
+}
+
+.sidebar-nav li a:hover {
+  text-decoration: none;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-nav li a:active, .sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.sidebar-nav>.sidebar-brand {
+  height: 65px;
+  font-size: 18px;
+  line-height: 60px;
+}
+
+.sidebar-nav>.sidebar-brand a {
+  color: #999999;
+}
+
+.sidebar-nav>.sidebar-brand a:hover {
+  color: #fff;
+  background: none;
+}
+
+@media(min-width:768px) {
+  #wrapper {
+    padding-left: 0;
+  }
+  #wrapper.toggled {
+    padding-left: 250px;
+  }
+  #sidebar-wrapper {
+    width: 0;
+  }
+  #wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+  }
+  #page-content-wrapper {
+    position: relative;
+  }
+  #wrapper.toggled #page-content-wrapper {
+    position: relative;
+    margin-right: 0;
+  }
+}
+
+/*====================Side Menu ======================*/
+.twcd-profile{
+  height: 100%;
+  background-color: #F6F6F6;
+}
+.twcd-profile-header{
+  width: 0;
+  height: 0;
+  border-left: 350px solid transparent;
+  border-top: 250px solid var(--theme-color);
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.twcd-profile-footer{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0; 
+  height: 0; 
+  border-right: 338px solid transparent;
+  border-bottom: 239px solid var(--theme-black);
+} 
+.twcd-profile img{
+  position: absolute;
+  left: 25% !important;
+  top: 15% !important;
+  border-radius: 50% !important;
+  width: 50% !important;
+}
+.twcd-profile .profile-info{
+  padding-top: 100% !important; 
+}
+/*====================Chat Window ========================*/
+.twcd-chat{
+  background-color: #F1F1F1;
+  padding: 70px 0 0 0;
+}
+.twcd-bot-message{
+  display: grid;
+  padding: 10px !important;
+  grid-template-columns: auto auto 1fr;
+}
+.twcd-bot-message img{
+  border: 4px solid #BDBDBD;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 60px;
+  border-radius: 50%;
+  margin-right: 20px !important;
+}
+.twcd-bot-message .chat-bubble{
+  background-color: #ffffff;
+  border-radius: 0px 50px 50px 50px;
+  padding: 20px !important;
+  line-height: 20px;
+}
+.twcd-bot-message .timestamp{
+  line-height: 50px;
+  color: #767676;
+  padding: 10px !important;
+}
+
+.twcd-user-message{
+  float: right;
+  display: grid;
+  padding: 10px !important;
+  grid-template-columns: 1fr auto auto;
+}
+.twcd-user-message img{
+  border: 4px solid #BDBDBD;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 60px;
+  border-radius: 50%;
+  margin-left: 20px !important;
+}
+.twcd-user-message .chat-bubble{
+  background-color: #ffffff;
+  border-radius: 50px 0px 50px 50px;
+  padding: 20px !important;
+  line-height: 20px;
+}
+.twcd-user-message .timestamp{
+  line-height: 50px;
+  color: #767676;
+  padding: 10px !important;
+}
+.twcd-user-message:last-child{
+  padding-bottom: 50px;
+}
+.twcd-user-message-filler{
+    margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.twcd-chat-input{
+  position: fixed;
+  bottom: 0px;
+  background-color: var(--theme-black);
+  height: 60px;
+  width: -moz-available;
+  padding: 1px !important;
+}
+.twcd-chat-input input, input:focus{
+  border: none;
+  width: 80% !important;
+  padding: 10px !important;
+}
+
+
+/*======================Media Queries ====================== *//
+
+@media (max-width: 400px) {
+  .twcd-bot-message{
+      display: grid;
+      padding: 5px !important;
+      grid-template-columns: auto auto 1fr;
+  }
+  .twcd-bot-message img{
+      border: 2px solid #BDBDBD;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+      width: 30px;
+      border-radius: 50%;
+      margin-right: 10px !important;
+  }
+  .twcd-bot-message .chat-bubble{
+      background-color: #ffffff;
+      border-radius: 0px 50px 50px 50px;
+      padding: 10px !important;
+      line-height: 20px;
+  }
+  .twcd-bot-message .timestamp{
+      line-height: 20px;
+      color: #767676;
+      padding: 10px !important;
+  }
+  
+  .twcd-user-message{
+      float: right;
+      display: grid;
+      padding: 5px !important;
+      grid-template-columns: 1fr auto auto;
+  }
+  .twcd-user-message img{
+      border: 2px solid #BDBDBD;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+      width: 30px;
+      border-radius: 50%;
+      margin-left: 10px !important;
+  }
+  .twcd-user-message .chat-bubble{
+      background-color: #ffffff;
+      border-radius: 50px 0px 50px 50px;
+      padding: 20px !important;
+      line-height: 20px;
+  }
+  .twcd-user-message .timestamp{
+      line-height: 20px;
+      color: #767676;
+      padding: 10px !important;
+  }
+}

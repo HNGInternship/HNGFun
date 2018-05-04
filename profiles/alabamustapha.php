@@ -1,7 +1,7 @@
 <?php
-
+// include_once realpath(__DIR__ . '/..') . "/answers.php";
 if (!defined('DB_USER')) {
-	require_once $_SERVER['DOCUMENT_ROOT'] . '/HNGFun' . '/config.php'; //tweak
+	require "../../config.php";
 	try {
 		$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
 	} catch (PDOException $pe) {
@@ -9,7 +9,6 @@ if (!defined('DB_USER')) {
 	}
 }
 global $conn;
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
@@ -30,190 +29,252 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 		$name = $data['name'];
 		$image_filename = $data['image_filename'];
+
 	} catch (PDOException $e) {
+
 		$secret_word = "sample_secret_word";
 		$name = "Alaba Mustapha O.";
 		$image_filename = 'https://res.cloudinary.com/alabamustapha/image/upload/v1523619685/me.jpg';
 	}
 
 
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+	$response = getAction($_POST);
+
+	echo $response;
+
+	exit();
+
+
 }
 
-// $data = getAction(['stage' => 2, 'human_response' => 'synonym of love']);
 
-// var_dump($data);
+
+
+// $data = getAction(['stage' => 1, 'human_response' => 'train :  red and blue#black#password']);
+
+// echo $data;
 
 // die;
-	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-		$data = getAction($_POST);
-	
-		echo $data;
-		exit();
-		// return;
+function getAction($input)
+{
+	$data = [];
 
-	}
-	
+	switch ($input['stage']) {
+		case 0: //bot intro
+			$data = greet();
+			break;
+		case 1: // chat or train
 
-
-	function getAction($input){
-		$data = [];
-		
-		switch ($input['stage']){
-			case 0: //bot intro
-				$data = greet();
-				break;
-			case 1: //welcome user
-				$data = intro($input['human_response']);	
-				break;
-			case 2: // chat or train
-				$data = chat_or_train($input['human_response']);
-				break;
-		}
-
-		return json_encode($data);
+			$human_response = preg_replace('([\s]+)', ' ', trim($input['human_response']));
+			$data = chat_or_train($human_response);
+			break;
 	}
 
+	return json_encode($data);
+}
 
-	function train($human_response){
-		$human_response = prepare_input($human_response);
-		$parts = explode('#', $human_response);
-		$part_one = trim($parts[0]);
-		$part_one_split = explode(' ', $part_one);
-		$word = array_pop($part_one_split);
-		$word = trim($word);
-		$word = str_replace('?', '', $word);
-		$answer = trim(str_replace(' ', '', $parts[1]));
 
-		if (strpos($human_response, 'synonym') !== false) {
-			$data = setSynonyms($word, $answer);
+
+
+
+
+
+function alabotGetMenu()
+{
+	return '1. enter menu to show this help <br>
+            2. Find synonyms E.g: Synonyms of love? <br>
+            3. train me e.g: train synonyms of goat # goatie,goater,etc # passkey. <br>
+            3. clear screen: cls. <br>
+            4. exit bot: exit. <br>
+           ';
+}
+
+function train($human_response)
+{
+
+	$human_response = trim($human_response);
+
+	if (!is_valid_training_format($human_response)) {
+		$data = ["data" => "In correct train syntax", "stage" => 1];
+	} else {
+
+		$inputs = get_question_answer_password($human_response);
+		if (strcmp($inputs['password'], 'password') !== 0) {
+			$data = ["data" => "You don't have the pass key", "stage" => 2];
 		} else {
-			$data = ["data" => "Just a bot, still learning :-)", "stage" => 2];
+
+			$data = set_question($inputs['question'], $inputs['answer']);
+		}
+	}
+
+	return $data;
+}
+
+
+function chat($human_response)
+{
+
+	$data = [];
+
+	if (strcmp(strtolower(trim($human_response)), 'menu') == 0) {
+		$data = ["data" => alabotGetMenu(), "stage" => 2];
+	} elseif (strcmp(strtolower(trim($human_response)), 'aboutbot') == 0) {
+		$data = ['data' => 'Alabot v0.1', 'stage' => 1];
+	} else {
+		$data = get_answer($human_response);
+	}
+
+	return $data;
+}
+
+
+function chat_or_train($human_response)
+{
+
+
+	if (strpos(trim($human_response), 'train') !== false && strpos(trim($human_response), ':') !== false) {
+		return train($human_response);
+	} else {
+
+		return chat($human_response);
+	}
+
+}
+
+function get_answer($human_response)
+{
+	global $conn;
+
+	$question = prepare_question_chat($human_response);
+
+	$sql = "SELECT * FROM chatbot WHERE question = '{$question}' or question = '{$question}?'";
+	$q = $conn->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$results = $q->fetchAll();
+
+	if (count($results) > 0) {
+		$data = $results[rand(0, count($results) - 1)]['answer'];
+	} else {
+		$data = "Just a bot, still learning :-)";
+	}
+
+	return ["data" => $data, "stage" => 1];
+}
+
+function set_question($question, $answer)
+{
+	global $conn;
+
+	$sql = "SELECT * FROM chatbot WHERE question = '{$question}'";
+
+	$q = $conn->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$results = $q->fetchAll();
+
+	if (count($results) > 0) {
+
+		$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+
+		try {
+			$query = $conn->prepare($sql);
+
+			if ($query->execute([':question' => $question, ':answer' => $answer]) == true) {
+				$data = 'Cool, I have learnt a new answer to that question. thanks';
+			};
+
+		} catch (PDOException $e) {
+			$data = "Something went wrong, please try again";
 		}
 
-		
-		return $data;
-	}
+	} else {
 
+		$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
 
-	function setQuiz(){
+		try {
+			$query = $conn->prepare($sql);
 
-	}
+			if ($query->execute([':question' => $question, ':answer' => $answer]) == true) {
+				$data = 'Cool, I have learnt a new question. thanks';
+			};
 
-	function chat($human_response){
-		
-		$data = [];
-		$human_response = prepare_input($human_response);
-		
-		$human_response_words = explode(' ', $human_response);
-		if (strpos($human_response, 'synonym') !== false && count($human_response_words) > 1) {
-			$data = getSynonyms($human_response);
-		} else {
-		$data = ["data" => "Just a bot, still learning :-)", "stage" => 2];
+		} catch (PDOException $e) {
+			$data = "Something went wrong, please try again";
 		}
-
-		return $data;
 	}
+	return ["data" => $data, "stage" => 1];
+}
 
-	function getSynonyms($human_response){
-		global $conn;
-		$human_response_words = explode(' ', $human_response);
-		$word = array_pop($human_response_words);
-		$db_word = 'alabot_synonyms_' . $word;
-		$sql = "SELECT * FROM chatbot WHERE question like '{$db_word}%' LIMIT 1";
-		$q = $conn->query($sql);
-		$q->setFetchMode(PDO::FETCH_ASSOC);
-		$data = $q->fetch();
-		if(is_null($data) || !isset($data) || $data == null){
-			$data = "I have not learn the word: " . $word . ' You can help others by adding it.';
-		}else{
-			$data = $data['answer'];
-		}
-		return ["data" => $data, "stage" => 2];
-	}
+function greet()
+{
+	$greetings = [
+		'Hi, I am Alabot, Learn, play and take quiz. type menu to check commands',
+		'Howdy, I am Alabot, Learn, play and take quiz. type menu to check commands',
+		'I am Alabot, Learn, play and take quiz. type menu to check commands'
+	];
 
-	function setSynonyms($word, $answer){
-		global $conn;
-		$db_word = 'alabot_synonyms_' . $word;
-		$sql = "SELECT * FROM chatbot WHERE question = '{$db_word}' LIMIT 1";
-		$q = $conn->query($sql);
-		$q->setFetchMode(PDO::FETCH_ASSOC);
-		$data = $q->fetch();
-		if (is_null($data) || !isset($data) || $data == null) {
+	return ["data" => $greetings[array_rand($greetings)], "stage" => 1];
+}
 
-			$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
-			
-			try {
-				$query = $conn->prepare($sql);
-				
-				if ($query->execute([':question' => $db_word, ':answer' => $answer]) == true) {
-					$data = ['Great! thank you so much for teaching that'];
-				};
+function prepare_question_train($question)
+{
 
-			} catch (PDOException $e) {
-				$data = "Something went wrong, please try again";
-			}
-
-		} else {
-			$data = "Synonyns of " . $word . ' already learnt: ' . $data['answer'];
-		}
-
-		return ["data" => $data, "stage" => 2];
-	}
-	
-	function getAntonyms(){
-
-	}
-	
-	function getMeaning(){
-
-	}
-	
-	function setSpellingQuiz(){
-
-	}
-
-	function chat_or_train($human_response){
-
-		$human_response_words = explode(' ', $human_response);
-		if (strpos(trim($human_response_words[0]), 'train') !== false && count($human_response_words) > 4) {
-			return train($human_response);
-		}else{
-			return chat($human_response);
-		}
-
-	}
-
-	function prepare_input($input){
-		return strtolower($input);	
-	}
+	$question = trim($question);
+	$question = preg_replace('([\s]+)', ' ', $question);
+	return $question;
+}
 
 
-	
+function prepare_question_chat($human_response)
+{
+	$human_response = trim($human_response);
+	$question = str_replace('?', '', $human_response);
+	$question = preg_replace('([\s]+)', ' ', $question);
+	return $question;
+}
 
-	
+function is_valid_training_format($human_response)
+{
 
-	function greet(){
-		$greetings = [
-						'Hi, I am Alabot, What is your name?', 
-						'Howdy, I am Alabot, your name?',
-						'I am Alabot, What is your name'
-					];
+	$human_response = trim($human_response);
 
-		return ["data" => $greetings[array_rand($greetings)], "stage" => 1];
-	}
-	
-	function intro($name){
-		$data = "Welcome " . $name . " You can learn, play or train me to be better Check the menu for guide";
-		return ["data" => $data, "stage" => 2];
-	}
-	
+	$input_parts = explode('#', $human_response);
+
+	return count($input_parts) === 3;
+}
+
+function get_question_answer_password($human_response)
+{
+
+	$parts = explode('#', trim($human_response));
+
+	$password = array_pop($parts);
+	$password = trim($password);
+
+
+	$question_part = trim($parts[0]);
+
+	$question_part_split = explode(':', $question_part);
+
+	array_shift($question_part_split);
+
+	$question = array_shift($question_part_split);
+
+	$answer = trim($parts[1]);
+
+	return ['question' => trim($question), 'answer' => $answer, 'password' => $password];
+}
+
+
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>HNGInternship 4.0</title>
+	<link rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css">
 	<style type="text/css">
 			
 			body{
@@ -332,15 +393,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			}
 
 			div#chat-bot-container > .conversation > .message > .message-content {
-				color: #007bff;
+				color: #3908fc;
 				background-color: #fff;
-				font-size: 18px;
-				line-height: 1;
+				font-size: 16px;
+				line-height: 1.2;
 				padding: 7px 13px;
 				border-radius: 15px;
 				width: auto;
 				max-width: 85%;
 				display: inline-block;
+				letter-spacing: 1px;
 			}
 
 			
@@ -351,63 +413,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	</style>
 </head>
 <body>
-	<div class="profile-body">
-		<section class="main">
-			<div class="profile-container">
-				
-				<div class="time-circle" style="background-image: url(<?=$image_filename?>)">
-					<div class="time">
-						
-					</div>
-				</div>
 
-				<h1 class="intro"><?=$name?> </h1>
-				<h3 class="text-center">Being Kind is better than being right</h3>
-			</div>	
-		</section>
-	</div>
+ 	<div role="main" class="oj-web-applayout-max-width oj-web-applayout-content">
+        
+        <div id="avatar-container" class="demo-flex-display oj-flex-items-pad">
+            <div class="oj-flex oj-sm-align-items-center oj-sm-justify-content-space-around">
+                <div class="of-flex-item time-circle" style="background-image: url(<?= $image_filename ?>)">
+                </div>
+              </div>
+          </div>
 
-	<div id="start-bot">
-		<a id="start-chat-bot">
-			<span class="fa-stack fa-lg">
-			<i class="fa fa-circle fa-stack-2x"></i>
-			<i class="fa fa-comments fa-stack-1x fa-inverse"></i>
-			</span>
-		</a>
-	</div>
-	<!-- <button id="start-bot" class="btn">
-		let's chat	
+          <div class="demo-flex-display oj-flex-items-pad">
+            <div class="oj-flex oj-sm-align-items-center oj-sm-justify-content-space-around">
+                  <h1 class="oj-sm-align-items-center intro"><?= $name ?></h1>
+              </div>
+          </div>
 
-	</button> -->
+          <div class="demo-flex-display oj-flex-items-pad">
+            <div class="oj-flex oj-sm-align-items-center oj-sm-justify-content-space-around">
+                  <h2 class="oj-sm-align-items-center">Being Kind is better than being right</h2>
+              </div>
+          </div>
+
+      </div>
+
+
+		<div id="start-bot">
+			<a id="start-chat-bot">
+				<span class="fa-stack fa-lg">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-comments fa-stack-1x fa-inverse"></i>
+				</span>
+			</a>
+		</div>
+	
+
 	<div id="chat-bot">
 			<div id="chat-bot-container">
 				
 				<div class="conversation">
-
-					
-					<!-- <div class="message">
-						<div class="bot-message message-content text">
-							<span>Awesome! You can hdhd .</span> 
-						</div>
-					</div>
-				
-					<div class="message">
-						<div class="human-message message-content text">
-							<span>Awesome! You.</span> 
-						</div>
-					</div> -->
-					
 					
 				</div>
 				<input type="text" class="human_input" name="human_input">		
-				<button class="btn btn-primary pull-right btn-sm">Menu</button>		
-				
+					
 			</div>
 	</div>
 	
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+	<!-- <script src='https://code.responsivevoice.org/responsivevoice.js'></script> -->
 
 	<script>
 		$(document).ready(function() {
@@ -415,7 +469,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			// Perform other work here ...
 			let stage = 0;
 			var visitor = '';
-			var visitor_input = '';
+			var done_intro = 0;
 			let url = "profiles/alabamustapha.php";
 			
 
@@ -424,34 +478,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			$("a#start-chat-bot").click(function(e){
 				
 				$("div#chat-bot").toggle();
+				
+				stage = 0;
 
 				doIntro();
-
-
-
 
 				$(".human_input").on('keyup', function (e) {
 					if (e.keyCode == 13) {
 						
 						if($("input.human_input").val().trim().length < 1){
-							$("div.conversation").append(makeMessage("Please provide an input"));
+							// $("div.conversation").append(makeMessage("Please provide an input"));
 						}else if($("input.human_input").val() == "cls"){
 							$("div.conversation").html('');
 							$("div.conversation").append(makeMessage("Clean slate, Check menu if needed"));
 							$('input.human_input').val('');
+						}else if($("input.human_input").val() == "exit"){
+							$("div.conversation").html('');
+							$('input.human_input').val('');
+							stage = 0;
+							$("div#chat-bot").hide();	
 						}else{
 
 							human_response = $("input.human_input").val().trim();
+							
 							$("div.conversation").append(makeHumanMessage(human_response));
+							
 							$('input.human_input').val('');
 
-							$.post(url, {human_response: human_response, stage: stage})
+							$.post(url, {human_response: human_response, stage: 1})
 							.done(function(response) {
-								console.log(response);
 								response = jQuery.parseJSON(response);
 								if(stage == 1){
-									$("div.conversation").append(makeMessage(response.data));
-								}else if(stage == 2){
 									if(Array.isArray(response.data)){
 										$("div.conversation").append(makeMessage(response.data));
 									}else{
@@ -480,31 +537,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 				return "<div class='pull-right message'><div class='human-message message-content text'><span>" + message + "</span></div></div>";
 			}
 
-			function doIntro(){
-				if(visitor == ''){
-
-					$.post(url, {human_response: 'Hi', stage: stage})
+			function doIntro(human_input){
+					$.post(url, {human_response: human_input, stage: stage})
 						.done(function(response) {
+							$("div.conversation").html('');
 							response = jQuery.parseJSON(response);
 							stage = response.stage;
 							$("div.conversation").append(makeMessage(response.data));
-							responsiveVoice.speak(response.data);
+							// responsiveVoice.speak(response.data);
 						}).fail(function() {
 							alert("error");
 						})
 
-				}
-
-			}
-
-			
-			function visitorIsTyping(){
-				$(".human_input").on('keyup', function (e) {
-					return true;
-				});
 			}
 		
-			
 		});
 	</script>
 </body>

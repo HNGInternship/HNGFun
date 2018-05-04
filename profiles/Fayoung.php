@@ -1,26 +1,18 @@
 <!DOCTYPE html>
+ <?php  
+	require('db.php');
+		$connect = mysqli_connect( localhost, root, Freeborn01, hng_fun );
+		$result = mysqli_query($connect, "SELECT * FROM secret_word");
+		$secret_word = mysqli_fetch_assoc($result)['secret_word'];
+		$result = mysqli_query($connect, "SELECT * FROM interns_data_ WHERE username = 'Fayoung'");
+	if($result) $my_data = mysqli_fetch_assoc($result);
+	else {echo "An error occured";}
+    }
+	$name= $result['name'];
+	$username= $result['username'];
+	$link= $result['image_filename'];
+?>
 <html lang="en">
- <?php 
-            require_once 'db.php';
-
-
-            $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'Fayoung'");
-            $intern_data->execute();
-            $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
-            $result = $intern_data->fetch();
-
-
-            $secret_code = $conn->prepare("SELECT * FROM secret_word");
-            $secret_code->execute();
-            $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
-            $code = $secret_code->fetch();
-            $secret_word = $code['secret_word'];
-            // echo ($secret_word);
-            // $result = $intern_data->fetchAll();
-            // print_r($result);
-
-        ?>
-
   <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -79,7 +71,27 @@
   </head>
 
   <body>
-
+<<<<<<< HEAD
+<<<<<<< HEAD
+  <?php  
+	require('db.php');
+		$connect = mysqli_connect( localhost, root, Freeborn01, hng_fun );
+		$result = mysqli_query($connect, "SELECT * FROM secret_word");
+		$secret_word = mysqli_fetch_assoc($result)['secret_word'];
+		$result = mysqli_query($connect, "SELECT * FROM interns_data_ WHERE username = 'Fayoung'");
+	if($result) $my_data = mysqli_fetch_assoc($result);
+	else {echo "An error occured";}
+    }
+	$name= $result['name'];
+	$username= $result['username'];
+	$link= $result['image_filename'];
+?>
+=======
+ 
+>>>>>>> bd2f0bd6ed0524d8ebad0192685f46723fe7657b
+=======
+ 
+>>>>>>> fd9b122a5b6f212003a947cab91714cde2dd93da
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top" id="mainNav">
         <div class="container">
@@ -115,14 +127,14 @@
     <hr><br>
 
     <!--Avatar-->
-    <img src=<?php echo $user_info['image_filename']?> width="300px" style="border-radius: 50%" alt="Fayoung" width="300" height="290" radius="10px" border="7px"><span id="name"><?php echo $user_info['username'];?></span>
+    <img src="https://res.cloudinary.com/fayoung/image/upload/v1523738849/me.jpg" width="300px" style="border-radius: 50%" alt="Fayoung" width="300" height="290" radius="10px" border="7px"><span id="name"> Fayoung </span>
     
     <!--content-->
     <span id="main">
      
-      <h3><hr><hr><br>
-      Hello, my name is <strong><?php echo $user_info['name']?></strong>
-      Mechanical Engineer and Full Stack Developer.<br><br>
+      <h3><hr><hr><br>  
+      Hello, my name is <strong> Faith Uhie. </strong>
+      Mechanical Engineering student and Full Stack Developer.<br><br>
       I read and write HTML/CSS,
       Javascript and Python.<br>
       I love to learn and I’m very open to new ideas.
@@ -135,41 +147,27 @@
     
     <!-- my footer -->
     <footer>
-      <p style="font-size: 28px">Contact:</p>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            <ul class="list-inline text-center">
-              <li class="list-inline-item">
-                <a id="twitter" href="https://twitter.com/_Fayoung" target="_blank">
-                    <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                    </span>
-                </a>  
-              </li>
-                 
-              <li class="list-inline-item">
-                <a id="facebook" href="https://web.facebook.com/faith.uhie" target="_blank">
-                    <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                    </span>
-                </a>
-              </li>
-                 
-              <li class="list-inline-item">
-                <a id="github" href="https://github.com/Fayoung01" target="_blank">
-                    <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                    </span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+	
+		<ul class="social-icons animated">
+			<li>
+				<a href="https://web.facebook.com/faith.uhie" target="_blank" class="social-icon">
+					<span class="fa" data-hover="&#xf0e1;">&#xf0e1;</span>
+				</a>
+			</li>
+			<li>
+				<a href="https://twitter.com/_Fayoung" target="_blank" class="social-icon">
+					<span class="fa" data-hover="&#xf099;">&#xf099;</span>
+				</a>
+			</li>
+			<li>
+				<a href="https://www.github.com/Fayoung01" target="_blank" class="social-icon">
+					<span class="fa" data-hover="&#xf09b;">&#xf09b;</span>
+				</a>
+			</li>
+		</ul>
+	
+      <p style="font-size: 28px">Contact</p>
+        
     </footer>
     <br>
     <br>
@@ -177,43 +175,12 @@
     <script type="text/javascript">document.getElementById('secret').style.display = 'block';</script>
     </body>
 
-
-    <!-- HNG footer -->
-    <footer>
-      <div class="container">
-        <div class="row">
-         <div class="col-lg-8 col-md-10 mx-auto">
-            <ul class="list-inline text-center">
-               <li class="list-inline-item">
-                  <a id="twitter" href="https://twitter.com/hnginternship?lang=en" target="_blank">
-                     <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                     </span>
-                  </a>
-               </li>
-               <li class="list-inline-item">
-                  <a id="facebook" href="https://web.facebook.com/hotelsng/" target="_blank">
-                     <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                     </span>
-                  </a>
-               </li>
-               <li class="list-inline-item">
-                  <a id="github" href="https://github.com/HNGInternship/" target="_blank">
-                     <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                      </span>
-                      </a>
-                  </li>
-    
-                </ul>
-               <p class="copyright text-muted">Copyright &copy; HNG FUN 2018</p>
-            </div>
-          </div>
-        </div>
+	<?php
+   try {
+       $sql = 'SELECT * FROM secret_word';
+	   }
+	   $secret_word = $data['secret_word'];
+   ?>
     </footer>
 
     <!-- Bootstrap core JavaScript -->
