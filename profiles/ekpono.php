@@ -330,8 +330,7 @@ input[type=text] {
 
 
    <script>
-       
-        window.addEventListener("keydown", function(e){
+       window.addEventListener("keydown", function(e){
             if(e.keyCode ==13){
                 if(document.querySelector("#question").value.trim()==""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){
                     //console.log("empty box");
@@ -344,26 +343,15 @@ input[type=text] {
         function sendMsg(){
 
             var ques = document.querySelector("#question");
-            
-            if(ques.value.toLowerCase() ==":about bot:"){
-                displayOnScreen(ques.value, "user");
-                displayOnScreen("Name: Robotech <br> V:1.0");
+            if(ques.value == ":close:"){
+                exitB();
                 return;
             }
-            if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
-            displayOnScreen(ques.value, "user");
-            //console.log(ques.value);
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function(){
-                if(xhttp.readyState ==4 && xhttp.status ==200){
-                    processData(xhttp.responseText);
-                }
-            };
-
-            xhttp.open("POST","http://old.hng.fun/profile.php?id=ekpono", true);
-
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("ques="+ques.value);
+            if(ques.value.toLowerCase() ==":about bot:"){
+                displayOnScreen(ques.value, "user");
+                displayOnScreen("Name: Robotech <br> Version: 1.0.0");
+                return;
+            }
         }
         function processData (data){
             data = JSON.parse(data);
@@ -375,7 +363,7 @@ input[type=text] {
                     var res = Math.floor(Math.random()*answer.length);
                     displayOnScreen(answer[res].answer, "bot");
                 }else{
-                    displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn<br> Here's the format: train: question # response # password");
+                    displayOnScreen("what did you say? Train me pls<br> Here's the format: train: question # response # password");
                 }
             }else{
                 displayOnScreen(answer,"bot");
@@ -397,7 +385,8 @@ input[type=text] {
             msgArea.append(div)
             if(data != document.querySelector("#question").value){
                 document.querySelector("#question").value="";
-            } 
+            }
+        } 
 
 
 
