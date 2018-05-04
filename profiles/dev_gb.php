@@ -159,7 +159,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                   
                   }
               else{
-              echo "<div id='result'>Tips: Type 'Help' to see FAQ. </br> To add new states ==> 'train:Question#answer#password</br>'</div>";
+              echo "<div id='result'></br> </br>Tips: Type 'Help' to see FAQ. </br> To add new states ==> 'train:Question#answer#password</br>'</div>";
                   }       
                 }
 
@@ -651,7 +651,7 @@ a:focus {
 <?php 
 }
 function help() {
-   $help = "These is a sample format of a question  </br></br>What is the capital of Lagos?  </br></br>For compound names separate with a dash  </br></br>e.g What is the capital of Ekiti?";
+   $help = "These are question sample formats  1.What is the capital of Lagos?  2.What is the capital of Akwa-Ibom?";
     echo "<div id='result'>".$help. "</br></div>";
 }
 function train($input) {
