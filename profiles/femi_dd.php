@@ -321,6 +321,12 @@ $(document).ready(function chargeBot() {
    });
 });
 
+document.body.addEventListener('keyup', function (e) {
+   if (e.keyCode == 13) {
+      document.getElementById("send").click();
+   }
+});
+
 </script>
 
 </html>
