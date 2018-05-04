@@ -90,19 +90,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if (!empty(searchRequest($user_request))) {
                 $bot_response['response'] = searchRequest($user_request);
             } else if (preg_match("/(train:)/", $user_request)) {
-
                 $power_split = explode("#", $request);
                 $question = trim(preg_replace("/(train:)/", "", $power_split[0]));
                 $answer = trim($power_split[1]);
                 $password = trim($power_split[2]);
+                
                 if ($password != "password") {
                     $bot_response['response'] = "🤖 Training Access Denied!";
                 } else {
                     $bot_response['response'] = train($question, $answer);
                 }
 
-            } else if (preg_match("/(aboutbot)/", $user_request) || preg_match("/(aboutbot:)/", $user_request) || preg_match("/(about bot)/", $user_request)) {
-                $bot_response['response'] = "🤖 Version 4.0";
             } else if (preg_match('/(find:)/', $request)) {
                 $ex = explode("find:", $request);
 
@@ -300,12 +298,14 @@ $(document).ready(function() {
 $(document).ready(function chargeBot() {
    $("#send").click(function() {
       var message = $("#message").val();
+      newElementsForUser(message);
       if(message.includes('open:')) {
          url = message.split('open:')
          window.open('http://' + url[1]);
-         newElementsForUser(message);
+      } else if (message.includes("aboutbot") || message.includes("about bot") || message.includes("aboutbot:")) {
+          response = {'response' : 'Version 4.0'};
+          newElementsForBot(response);
       } else {
-         newElementsForUser(message);
          $.ajax({
             url: "profiles/femi_dd.php",
             type: "POST",
