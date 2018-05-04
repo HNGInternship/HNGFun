@@ -4,9 +4,9 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (!defined('DB_USER')) {
         //live server
-        require "../../config.php";
+        // require "../../config.php";
         //   localhost
-        // require "../config.php";
+        // require "../config.example.php";
         try {
             $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
         } catch (PDOException $pe) {
@@ -298,9 +298,9 @@ $(document).ready(function() {
 $(document).ready(function chargeBot() {
    $("#send").click(function () {
       var message = $("#message").val();
+      newElementsForUser(message);
       if (message == "" || message == null) {
          response = { 'response': 'Please type something' };
-         newElementsForUser(message);
          newElementsForBot(response);
       }else if (message.includes('open:')) {
          url = message.split('open:');
