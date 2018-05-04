@@ -1,25 +1,13 @@
-<?php
-<<<<<<< HEAD
-  require 'db.php';
-        // $servername = "localhost";
-        // $username = "root";
-        // $password = "";
-if($_SERVER['REQUEST_METHOD'] === "GET"){
-        try {
-       // $conn = new PDO("mysql:host=$servername;dbname=hng_fun", $username, $password);
-=======
+<?php 
+//require 'db.php';
 if($_SERVER['REQUEST_METHOD'] === "GET"){
     try {
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
         $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ekpono'");
         $intern_data->execute();
         $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
         $result = $intern_data->fetch();
-<<<<<<< HEAD
-=======
     
     
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
         $secret_code = $conn->prepare("SELECT * FROM secret_word");
         $secret_code->execute();
         $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
@@ -28,50 +16,6 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
      } catch (PDOException $e) {
          throw $e;
      }
-<<<<<<< HEAD
-}
-try {
-	// require 'config.php';
-    //$conn1 = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //echo "Connected";
-    }
-catch(PDOException $e)
-    {
-    echo "Sorry connection not found: " . $e->getMessage();
-    }
-// Check connection
-
-?>
-<?php //Chatbot 
-    if($_SERVER['REQUEST_METHOD']==='POST'){
-        //function definitions
-        function input($data) {
-            $data = stripslashes($data);
-            $data = trim($data);
-            $data = htmlspecialchars($data);
-            $data = preg_replace("([?.!])", "", $data);
-            return $data;
-        }
-
-        
-
-        //end of function definition
-        $ques = input($_POST['ques']);
-        if(strpos($ques, "train:") !== false){
-            $q_a = substr($ques, 6); //get the string after train
-            $q_a =input($q_a); //removes all shit from 'em
-            $q_a = preg_replace("([?.])", "", $q_a);  //to remove all ? and .
-            $q_a = explode("#",$q_a);
-            if((count($q_a)==3)){
-                $question = $q_a[0];
-                $answer = $q_a[1];
-                $password = $q_a[2];
-            }
-
-           
-=======
      date_default_timezone_set("Africa/Lagos");
      $today = date("H:i:s");
 }
@@ -118,7 +62,6 @@ catch(PDOException $e)
                 $answer = $questionAndAnswer[1];
                 $password = test_input($questionAndAnswer[2]);
             }
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
             if(!(isset($password))|| $password !== 'password'){
                 echo json_encode([
                     'status'    => 1,
@@ -128,13 +71,8 @@ catch(PDOException $e)
             }
             if(isset($question) && isset($answer)){
                 //Correct training pattern
-<<<<<<< HEAD
-                $question = input($question);
-                $answer = input($answer);
-=======
                 $question = test_input($question);
                 $answer = test_input($answer);
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
                 if($question == "" ||$answer ==""){
                     echo json_encode([
                         'status'    => 1,
@@ -142,29 +80,6 @@ catch(PDOException $e)
                     ]);
                     return;
                 }
-<<<<<<< HEAD
-                    try {
-                        //$conn = new PDO("mysql:host=localhost;dbname=chat", 'root', '');
-                        // set the PDO error mode to exception
-                        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                        //echo "Connected successfully"; 
-                        }
-                    catch(PDOException $e)
-                        {
-                        echo "Connection failed: " . $e->getMessage();
-                        return;
-                        }
-
-                $sql = "insert into chatbot (question, answer) values (:question, :answer)";
-				$stmt = $conn->prepare($sql);
-				$stmt->bindParam(':question', $question);
-				$stmt->bindParam(':answer', $answer);
-				$stmt->execute();
-				echo json_encode([
-					'status' => 1,
-					'answer' => "Thank you, I am now smarter"
-				]);
-=======
                 $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
                 if(!$conn){
                     echo json_encode([
@@ -187,45 +102,10 @@ catch(PDOException $e)
                 }
                 
 
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
                 return;
             }else{ //wrong training pattern or error in string
             echo json_encode([
                 'status'    => 0,
-<<<<<<< HEAD
-                'answer'    => "To train me, use<br>train: question # answer"
-            ]);
-            return;
-            }
-        }else{
-            //chat mode
-            $ques = input($ques);
-                $sql = "select answer from chatbot where question like :question";
-						$stmt = $conn->prepare($sql);
-						$stmt->bindParam(':question', $ques);
-						$stmt->execute();
-
-						$stmt->setFetchMode(PDO::FETCH_ASSOC);
-						$rows = $stmt->fetchAll();
-                    echo json_encode([
-                        'status' => 1,
-                        'answer' => $rows
-                    ]);
-           
-            }
-             if ($ques == "what is the current time") {
-                $time = date("H:i:sa");
-                return;
-            }
-            return;
-        }
-
-//chogo
-
-
-
-
-=======
                 'answer'    => "Wrong training pattern<br> PLease use this<br>train: question # answer"
             ]);
             return;
@@ -244,7 +124,6 @@ catch(PDOException $e)
        
         return;
     }
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -368,7 +247,6 @@ a {
     from { opacity: 0; }
     to   { opacity: 1; }
 }
-<<<<<<< HEAD
 
 /* Internet Explorer */
 @-ms-keyframes fadein {
@@ -388,27 +266,6 @@ a {
     color: #fff;
 }
 
-=======
-
-/* Internet Explorer */
-@-ms-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-/* Opera < 12.1 */
-@-o-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-.send {
-    padding: 8px 20px ;
-    background-color: blue;
-    border-radius: 5px;
-    color: #fff;
-}
-
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
 input[type=text] {
     border-bottom: 5px solid #ccc;
     width: 250px;
@@ -449,28 +306,7 @@ input[type=text] {
     </div>
     <div class="photo">
         <img src="http://res.cloudinary.com/ambrose/image/upload/r_29/v1523629415/dp2.jpg" width="300px" height="300px"  style="border-radius: 50%; padding-top: 30px;" alt="Ekpono's Profile Picture" />
-<<<<<<< HEAD
-    </div>
-    <!-- Chat form -->
 
-    <div class="display">
-
-        <div>
-            <nav>Robotech</nav>
-            <div class="myMessage-area">
-                <div class="myMessage bot">
-                </div>
-            </div>
-        </div>
-
-        <div class="form">
-            <input type="text" name="question" id="question" required class="textarea">
-            <span onclick="sendMsg()" ><button class="send">Send</button></i></span>
-        </div>
-        </div>
-
-=======
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
     </div>
     <!-- Chat form -->
 
@@ -494,19 +330,7 @@ input[type=text] {
 
 
    <script>
-        function meetB(){
-            var display= document.querySelector(".display");
-            display.style.display = "block";
-            var btnM = document.querySelector(".btnM");
-            btnM.style.display ="none"
-            document.querySelector(".btnN").style.display ="inline"
-        }
-        function exitB(){
-            var display= document.querySelector(".display");
-            display.style.display = "none";
-            document.querySelector(".btnN").style.display = "none";
-            document.querySelector(".btnM").style.display = "inline";
-        }
+       
         window.addEventListener("keydown", function(e){
             if(e.keyCode ==13){
                 if(document.querySelector("#question").value.trim()==""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){
@@ -544,7 +368,7 @@ input[type=text] {
         function processData (data){
             data = JSON.parse(data);
             console.log(data);
-            var answer = data['answer'];
+            var answer = data.answer;
             //Choose a random response from available
             if(Array.isArray(answer)){
                 if(answer.length !=0){
@@ -575,68 +399,8 @@ input[type=text] {
                 document.querySelector("#question").value="";
             } 
 
-<<<<<<< HEAD
 
-    <script>
-        window.addEventListener("keydown", function(e){
-            if(e.keyCode ==13){
-                if(document.querySelector("#question").value.trim()==""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){
-                }else{
-                    sendMsg();
-                }
-            }
-        });
-        function sendMsg(){
-            var ques = document.querySelector("#question");
-            if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
-            displayOnScreen(ques.value, "user");
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function(){
-                if(xhttp.readyState ==4 && xhttp.status ==200){
-                    processData(xhttp.responseText);
-                }
-            };
-            xhttp.open("POST","/profiles/ekpono.php", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("ques="+ques.value);
-        }
-        function processData (data){
-            data = JSON.parse(data);
-            console.log(data);
-            var answer = data['answer'];
-            if(Array.isArray(answer)){
-                if(answer.length !=0){
-                    var res = Math.floor(Math.random()*answer.length);
-                    displayOnScreen(answer[res].answer, "bot");
-                }else{
-                    displayOnScreen("Not trained yet. Train me: train: question # response # password");
-                }
-            }else{
-                displayOnScreen(answer,"bot");
-            }
-        }
-        function displayOnScreen(data,sender){
-            if(!sender){
-                sender = "bot"
-            }
-            var display = document.querySelector(".display");
-            var msgArea = document.querySelector(".myMessage-area");
-            var div = document.createElement("div");
-            var p = document.createElement("p");
-            p.innerHTML = data;
-            div.className = "myMessage "+sender;
-            div.append(p);
-            msgArea.append(div)
-            if(data != document.querySelector("#question").value){
-                document.querySelector("#question").value="";
-            }
-        }
 
-        $(document).ready(function(){
-    $(".display").fadeIn();
-});
-    </script>
-=======
-        }
-</script>
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
+</script> 
+</body>
+</html>
