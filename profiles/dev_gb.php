@@ -15,110 +15,110 @@ function assistant($string)
  {  
     $reply = "";
     if ($string == 'What is the capital of Lagos?') {
-      $reply = "<div id='result'>The capital of Lagos is Ikeja</br></div>";
+      $reply = "The capital of Lagos is Ikeja";
       return $reply;
         
     }
     elseif ($string == 'What is the capital of Ogun?') {
-      $reply =var_export("<div id='result'>The capital of Ogun is Abeokuta</br></div>");
+      $reply ="The capital of Ogun is Abeokuta";
       return $reply;
         
     }
     elseif ($string == 'What is the capital of Oyo?') {
-      $reply =var_export("<div id='result'>The capital of Oyo is Ibadan</br></div>" );
+      $reply = "The capital of Oyo is Ibadan";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Ondo?') {
-      $reply =var_export( "<div id='result'>The capital of Ondo is Akure</br></div>");
+      $reply = "The capital of Ondo is Akure";
       return $reply;     
     }
    elseif ($string == 'What is the capital of Imo?') {
        
-      $reply =var_export("<div id='result'>The capital of Imo is Owerri</br></div>");
+      $reply = "The capital of Imo is Owerri";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Akwa-Ibom?') { 
-      $reply =var_export("<div id='result'>The capital of Akwa-Ibom is Uyo</br></div>");
+      $reply = "The capital of Akwa-Ibom is Uyo";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Adamawa?') { 
-      $reply =var_export("<div id='result'> The capital of Adamawa is Yola</br></div>");
+      $reply ="The capital of Adamawa is Yola";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Ekiti?') { 
-      $reply =var_export("<div id='result'> The capital of Ekiti is Ado-Ekiti</br></div>");
+      $reply ="The capital of Ekiti is Ado-Ekiti";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Bauchi?') { 
-      $reply =var_export("<div id='result'> The capital of Bauchi is Bauchi</br></div>");
+      $reply = " The capital of Bauchi is Bauchi";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Bayelsa?') { 
-      $reply =var_export("<div id='result'> The capital of Bayelsa is Yenagoa</br></div>");
+      $reply = "The capital of Bayelsa is Yenagoa";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Abia?') { 
-      $reply =var_export("<div id='result'> The capital of Abia is Umuahia</br></div>");
+      $reply = "The capital of Abia is Umuahia";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Anambra?') { 
-      $reply =var_export("<div id='result'> The capital of Anambra is Awka</br></div>");
+      $reply = "The capital of Anambra is Awka";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Borno?') { 
-      $reply =var_export("<div id='result'>The capital of Borno is Maiduguiri</br></div>");
+      $reply = "The capital of Borno is Maiduguiri";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Cross-River?') { 
-      $reply =var_export("<div id='result'> The capital of Cross-River is Calabar</br></div>");
+      $reply = "The capital of Cross-River is Calabar";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Delta?') { 
-      $reply =var_export("<div id='result'>The capital of Delta is Asaba</br></div>");
+      $reply = "The capital of Delta is Asaba";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Benue?') { 
-      $reply =var_export("<div id='result'>The capital of Benue is Makurdi</br></div>");
+      $reply ="The capital of Benue is Makurdi";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Edo?') { 
-      $reply =var_export("<div id='result'> The capital of Edo is Benin</br></div>");
+      $reply ="The capital of Edo is Benin";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Enugu?') { 
-      $reply =var_export("<div id='result'> The capital of Enugu is Enugu</br></div>");
+      $reply ="The capital of Enugu is Enugu";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Kebbi?') { 
-      $reply =var_export("<div id='result'>The capital of Kebbi is Birnin Kebbi</br></div>");
+      $reply ="The capital of Kebbi is Birnin Kebbi";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Katsina?') { 
-      $reply =var_export("<div id='result'> The capital of Katsina is Katsina</br></div>");
+      $reply ="The capital of Katsina is Katsina";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Kano?') { 
-      $reply =var_export("<div id='result'>The capital of Kano is Kano</br></div>");
+      $reply ="The capital of Kano is Kano";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Kaduna?') { 
-      $reply =var_export("<div id='result'>The capital of Kaduna is Kaduna</br></div>");
+      $reply ="The capital of Kaduna is Kaduna";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Jigawa?') { 
-      $reply =var_export("<div id='result'>The capital of Dutse is Dutse</br></div>");
+      $reply = "The capital of Dutse is Dutse";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Kwara?') { 
-      $reply =var_export("<div id='result'>The capital of Kwara is Ilorin</br></div>");
+      $reply ="The capital of Kwara is Ilorin";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Gombe?') { 
-      $reply =var_export("<div id='result'>The capital of Gombe is Gombe</br></div>");
+      $reply ="The capital of Gombe is Gombe";
       return $reply;     
     }
     elseif ($string == 'What is the capital of Nasarawa?') { 
-      $reply =var_export("<div id='result'>The capital of Nasarawa is Lafia</br></div>");
+      $reply ="The capital of Nasarawa is Lafia";
       return $reply;     
     }
     else {
@@ -566,7 +566,7 @@ a:focus {
                       Welcome to Dev_GB's profile page</br>You can check State capitals by just asking.</p>
                               <p></br>Tips: Type "Help' to see FAQ.</br>To add new states ==> 'train:Question#answer#password'</p>
                               </div><span class="delivered">
-                                <?php echo "" . date("h:i:a");?>
+                                <?php echo "<b>Support</b>" . date("h:i:a");?>
                                   
                                 </span>
                               </div>
@@ -589,7 +589,7 @@ a:focus {
                         var msg = $(this).val();
             $(this).val('');
                         if(msg !== '' )
-            $('<div class="messages clear"><div class="user"><div class="message-container"><div class="message"><p>'+msg+'</p></div><span class="delivered"> <?php echo "" . date("h:i:a"); ?> </span></div></div></div>').insertBefore('.push');
+            $('<div class="messages clear"><div class="user"><div class="message-container"><div class="message"><p>'+msg+'</p></div><span class="delivered"> <?php echo "<b>Support</b>" . date("h:i:a"); ?> </span></div></div></div>').insertBefore('.push');
             $('.chatbox-messages').scrollTop($('.chatbox-messages')[0].scrollHeight);
 
                   formSubmit();
