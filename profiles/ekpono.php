@@ -375,8 +375,8 @@ input[type=text] {
             if(Array.isArray(answer)){
                 if(answer.length !=0){
                     var res = Math.floor(Math.random()*answer.length);
-                    console.log(answer[res][0]);
-                    displayOnScreen(answer[res].answer, "bot");
+                    //console.log(answer[res][0]);
+                    displayOnScreen(answer[res][0], "bot");
                 }else{
                     displayOnScreen("what did you say? Train me pls<br> Here's the format: train: question # response # password");
                 }
