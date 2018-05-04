@@ -232,7 +232,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
 
         .received {
             background: #F2F2F2;
-            color: #C4C4C4;
+            color: #000000;
         }
 
         .message-input-area {
@@ -333,7 +333,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
                                         </div>
                                                                              <div class="received-message text-left">
                                             <p class="message received">
-                                                Ask me anything and if i cant answer train me with the format train: question#answer#password?
+                                                Ask me anything and if i cant answer train me with the format train: question#answer#passwordss
                                             </p>
                                         </div>
                                     </div>
