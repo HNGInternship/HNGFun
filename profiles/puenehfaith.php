@@ -97,13 +97,6 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
 
 
 ?>
-    <?php
-
-$botman->hears('Hello am JAYO!', function($bot) {
-    $bot->reply('Hello!');
-    $bot->ask('?', function($answer, $bot) {
-        $bot->say('i want to learn how to make beads,alot of beads designs if you can train me simlply use the keyword "train" your question #your answer #password '.$answer->getText()); $bot->reply('i want to learn how to make beads,alot of beads designs if you can train me simlply use the keyword "train" your question #your answer #password '!');
-    });
     
 <div id="wrapper">
     
