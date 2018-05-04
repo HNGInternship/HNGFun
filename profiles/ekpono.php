@@ -349,9 +349,22 @@ input[type=text] {
             }
             if(ques.value.toLowerCase() ==":about bot:"){
                 displayOnScreen(ques.value, "user");
-                displayOnScreen("Name: Robotech <br> Version: 1.0.0");
+                displayOnScreen("Name: botX <br> Version: 1.0.0");
                 return;
             }
+            if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
+            displayOnScreen(ques.value, "user");
+            
+            //console.log(ques.value);
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(xhttp.readyState ==4 && xhttp.status ==200){
+                    processData(xhttp.responseText);
+                }
+            };
+            xhttp.open("POST", "http://old.hng.fun/profiles/jaycodes.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("ques="+ques.value);
         }
         function processData (data){
             data = JSON.parse(data);
