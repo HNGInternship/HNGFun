@@ -1,7 +1,6 @@
 
 <?php
-include '../db.php';
-<<<<<<< HEAD
+
 include '../answers.php';
 $sql = 'SELECT * FROM interns_data WHERE username="kingsley67"';
 =======
