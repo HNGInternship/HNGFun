@@ -8,6 +8,7 @@
         <meta name="author" content="Princewill Iwuala">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
         <style type="text/css">
 
           body {
@@ -21,9 +22,15 @@
             background-image: url(http://res.cloudinary.com/perkyprince/image/upload/v1525407435/classic.jpg);
             background-size:cover;
             max-width: 350px;
-            margin: auto;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 67px;
+            margin-bottom: auto;
             text-align: center;
             background-color: white;
+          }
+          img {
+            margin: auto;
           }
 
           .main {
@@ -112,11 +119,13 @@
               <li>GIS Analyst</li>
               <li>Owerri, Imo state, Nigeria</li>
             </ul>
-          <a href="https://github.com/Perkyprince" target="_blank"><i class="fa fa-github"></i></a>
-          <a href="https://www.instagram.com/princewillherberts/" target="_blank"><i class="fa fa-instagram"></i></a>
-          <a href="https://twitter.com/Perkyprince33" target="_blank"><i class="fa fa-twitter"></i></a>
-          <a href="https://www.linkedin.com/in/princewill-herberts-63b399126/" target="_blank"><i class="fa fa-linkedin"></i></a>
-          <a href="https://web.facebook.com/perky.prince.14" target="_blank"><i class="fa fa-facebook"></i></a>
+          <div>
+            <a href="https://github.com/Perkyprince" target="_blank"><i class="fa fa-github"></i></a>
+            <a href="https://www.instagram.com/princewillherberts/" target="_blank"><i class="fa fa-instagram"></i></a>
+            <a href="https://twitter.com/Perkyprince33" target="_blank"><i class="fa fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/princewill-herberts-63b399126/" target="_blank"><i class="fa fa-linkedin"></i></a>
+            <a href="https://web.facebook.com/perky.prince.14" target="_blank"><i class="fa fa-facebook"></i></a>
+          </div>
           <p><button>HNG Chat Bot</button></p>
         </div> 
         </body>
