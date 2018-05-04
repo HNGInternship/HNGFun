@@ -350,6 +350,7 @@ if(!defined('DB_USER')){
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
 </head>
     <body class="profile">
         <div class="profile-section text-center">
@@ -387,8 +388,7 @@ if(!defined('DB_USER')){
                                     <div class="bubble you">
                                         Type 'help' first. 
                                     </div>
-                                    <div class="bubble me">
-                                    </div>
+                                    
                                 </div>
                             </div>
                             <hr>
@@ -416,33 +416,48 @@ if(!defined('DB_USER')){
     $('#mssgbox').addClass('animated infinite flash');
 
     </script>
+    
     <script>
-        $(document).ready(function(){
-            $('#question-section').submit(functon(e){
-                e.preventDefault();
-                var question = $('#question').val();
-                var questionBox = $('#question').val();
-                var resusr = '<div class="bubble me"> ';
-                $(".bubble me").append(resusr+" "+questionBox+"</div>");
+      $(document).ready(function(){
+          var questionForm = $('#question-secton');
+          questionForm.submit(function(e){
+              e.preventDefault();
+              var questionBox = $('textarea[name=question]');
+              var question = questionBox.val();
 
-                $.ajax({
-                url: '/profiles/vectormike.php',
-                type: 'POST',
-                data: {question: question},
-                dataType: 'json',
-                success: function(response){
-                    console.log(response);
-                    let resbot = '<div class="bubble you">;
-                    $(".bubble you").append(resbot+" "+response.answer+" </div>)';
-                    questionBox.val('');
-                }
-                error: (error) => {
-                    alert('error occured')
-                    console.log(error);
-                }
-            })
-            })
-        });
+              // Display question in the message frame as a chat entry
+              var messageFrame = $('.chat');
+              var chatToBeDisplayed = '<div class="bubble me">'+question+'</div>';
+
+              messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+              $(".modal-body").scrollTop($(".modal-body")[0].scrollHeight);
+
+              // Send questions to the server
+              $.ajax({
+                  url: "profiles/vectormike.php",
+                  type: "post",
+                  data: {question: question},
+                  dataType: "json",
+                  success: function(response){
+                      if(response.status == 1){
+                          var chatToBeDisplayed = '<div class="bubble you">'+response.answer+'</div>';
+                          
+                          messageFrame.html(messageFrame.html()+chatToBeDispalyed);
+                          questionBox.val("");
+                          $(".modal-body").scrollTop($(".modal-body")[0].scrollHeight);
+                      }else if(response.status == 0){
+                          var chatToBeDispalyed = '<div class="bubble you">'+response.answer+'</div>';
+                          
+                          messageFrame.html(messageFrame.html()+chatToBeDispalyed);
+                          $(".modal-body").scrollTop($(".modal-body")[0].scrollHeight);
+                      }
+                  },
+                  error: function(error){
+                      console.log(error);
+                  }
+              })
+          });
+      });
     </script>
     
 
