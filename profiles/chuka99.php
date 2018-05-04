@@ -2,7 +2,7 @@
 	header("Access-Control-Allow-Origin: *");
 	if($_SERVER['REQUEST_METHOD'] === "GET"){
 		if(!defined('DB_USER')){
-			require "../../config.php";		
+		require "../config.php";		
 			try {
 			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 			} catch (PDOException $pe) {
@@ -21,8 +21,8 @@
 			$secret_word = $row['secret_word'];	
 		}
 		$name = null;
-		$username = "brume";
-		$image_filename = '';
+		$username = "chuka99";
+		$image_filename = 'https://res.cloudinary.com/drvtjwwxy/image/upload/v1524622580/hng/ch.jpg';
 		$stmt = $conn->prepare("select * from interns_data where username = :username");
 		$stmt->bindParam(':username', $username);
 		$stmt->execute();
@@ -48,26 +48,26 @@
 		}
 		require "../answers.php";
 		date_default_timezone_set("Africa/Lagos");
-		// header('Content-Type: application/json');
+		 header('Content-Type: application/json');
 		if(!isset($_POST['question'])){
-			echo json_encode([
-				'status' => 1,
-				'answer' => "Please provide a question"
-			]);
+			//echo json_encode([
+				//'status'=> 1,
+				//'answer'=> "Please provide a question"
+			//]);
 			return;
 		}
 		$question = $_POST['question']; //get the entry into the chatbot text field
 		if(stripos(trim($question),'--help') !== false){
 			if(function_exists('getOptimusPrimeCustomFunctions')){
-				echo json_encode([
-					'status' => 1,
-					'answer' => getOptimusPrimeCustomFunctions()
-				]);
+				//echo json_encode([
+				//	'status' => 1,
+				//	'answer' => getOptimusPrimeCustomFunctions()
+			//	]);
 			}else{
-				echo json_encode([
-                	'status' => 0,
-                	'answer' => "ouch!I seem to have forgotten my custom functions"
-				]);
+			//echo json_encode([
+              //  	'status' => 0,
+                //	'answer' => "ouch!I seem to have forgotten my custom functions"
+			//	]);
 			}
 			return;	
 		}
@@ -103,10 +103,10 @@
 				//check if the answer is to call a function
 				$index_of_parentheses = stripos($answer, "((");
 				if($index_of_parentheses === false){ //then the answer is not to call a function
-					echo json_encode([
-						'status' => 1,
-						'answer' => $answer
-					]);
+				//	echo json_encode([
+					//	'status' => 1,
+					//	'answer' => $answer
+				//	]);
 					return;
 				}else{//otherwise call a function. but get the function name first
 					$index_of_parentheses_closing = stripos($answer, "))");
@@ -114,22 +114,22 @@
 						$function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
 						$function_name = trim($function_name);
 						if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
-							echo json_encode([
-								'status' => 0,
-								'answer' => "The function name should not contain white spaces"
-							]);
+					//		echo json_encode([
+						//		'status' => 0,
+							//	'answer' => "The function name should not contain white spaces"
+						//	]);
 							return;
 						}
 						if(!function_exists($function_name)){
-							echo json_encode([
-								'status' => 0,
-								'answer' => "I am sorry but I could not find that function"
-							]);
+						//	echo json_encode([
+							//	'status' => 0,
+							//	'answer' => "I am sorry but I could not find that function"
+						//	]);
 						}else{
-							echo json_encode([
-								'status' => 1,
-								'answer' => str_replace("(($function_name))", $function_name(), $answer)
-							]);
+						//	echo json_encode([
+							//	'status' => 1,
+							//	'answer' => str_replace("(($function_name))", $function_name(), $answer)
+						//	]);
 						}
 						return;
 					}
@@ -175,11 +175,11 @@
 							}
 							//check if the answer is to call a function
 							$index_of_parentheses = stripos($answer, "((");
-							if($index_of_parentheses === false){ //then the answer is not to call a function
-								echo json_encode([
-									'status' => 1,
-									'answer' => $answer
-								]);
+							if($index_of_parentheses === false){ //then the answer is not to call a function 
+						//	echo json_encode([
+							//		'status' => 1,
+								//	'answer' => $answer
+							//	]);
 								return;
 							}else{//otherwise call a function. but get the function name first
 								$index_of_parentheses_closing = stripos($answer, "))");
@@ -187,22 +187,22 @@
 									$function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
 									$function_name = trim($function_name);
 									if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
-										echo json_encode([
-											'status' => 0,
-											'answer' => "The function name should not contain white spaces"
-										]);
+								//		echo json_encode([
+									//		'status' => 0,
+										//	'answer' => "The function name should not contain white spaces"
+									//	]);
 										return;
 									}
 									if(!function_exists($function_name)){
-										echo json_encode([
-											'status' => 0,
-											'answer' => "I am sorry but I could not find that function"
-										]);
+									//	echo json_encode([
+										//	'status' => 0,
+										//	'answer' => "I am sorry but I could not find that function"
+									//	]);
 									}else{
-										echo json_encode([
-											'status' => 1,
-											'answer' => str_replace("(($function_name))", $function_name($parameter), $answer)
-										]);
+									//	echo json_encode([
+									//		'status' => 1,
+							//				'answer' => str_replace("(($function_name))", $function_name($parameter), $answer)
+								//		]);
 									}
 									return;
 								}
@@ -238,10 +238,10 @@
 							//check if the answer is to call a function
 							$index_of_parentheses = stripos($answer, "((");
 							if($index_of_parentheses === false){ //then the answer is not to call a function
-								echo json_encode([
-									'status' => 1,
-									'answer' => $answer
-								]);
+							//	echo json_encode([
+								//	'status' => 1,
+							//		'answer' => $answer
+							//	]);
 								return;
 							}else{//otherwise call a function. but get the function name first
 								$index_of_parentheses_closing = stripos($answer, "))");
@@ -249,22 +249,22 @@
 									$function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
 									$function_name = trim($function_name);
 									if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
-										echo json_encode([
-											'status' => 0,
-											'answer' => "The function name should not contain white spaces"
-										]);
+								//		echo json_encode([
+									//		'status' => 0,
+										//	'answer' => "The function name should not contain white spaces"
+									//	]);
 										return;
 									}
 									if(!function_exists($function_name)){
-										echo json_encode([
-											'status' => 0,
-											'answer' => "I am sorry but I could not find that function"
-										]);
+									//	echo json_encode([
+										//	'status' => 0,
+										//	'answer' => "I am sorry but I could not find that function"
+									//	]);
 									}else{
-										echo json_encode([
-											'status' => 1,
-											'answer' => str_replace("(($function_name))", $function_name($parameter), $answer)
-										]);
+									//	echo json_encode([
+									//		'status' => 1,
+									//		'answer' => str_replace("(($function_name))", $function_name($parameter), $answer)
+									//	]);
 									}
 									return;
 								}
@@ -272,10 +272,10 @@
 						}
 					}
 				}
-				echo json_encode([
-					'status' => 0,
-					'answer' => "Unfortunately, I cannot answer your question at the moment. I need to be trained further. The training data format is <br> <b>train: question # answer # trainingpassword</b>"
-				]);
+		//		echo json_encode([
+			//		'status' => 0,
+				//	'answer' => "Unfortunately, I cannot answer your question at the moment. I need to be trained further. The training data format is <br> <b>train: question # answer # trainingpassword</b>"
+			//	]);
 			}		
 			return;
 		}else{
@@ -288,19 +288,19 @@
 			$question_and_answer_string = preg_replace("([?.])", "", $question_and_answer_string); //remove ? and . so that questions missing ? (and maybe .) can be recognized
 			$split_string = explode("#", $question_and_answer_string);
 			if(count($split_string) == 1){
-				echo json_encode([
-					'status' => 0,
-					'answer' => "Invalid training format. I cannot decipher the answer part of the question. <br> The correct training data format is <br> <b>train: question # answer # trainingpassword</b>"
-				]);
+			//	echo json_encode([
+				//	'status' => 0,
+				//	'answer' => "Invalid training format. I cannot decipher the answer part of the question. <br> The correct training data format is <br> <b>train: question # answer # trainingpassword</b>"
+			//	]);
 				return;
 			}
 			$que = trim($split_string[0]);
 			$ans = trim($split_string[1]);
 			if(count($split_string) < 3){
-				echo json_encode([
-					'status' => 0,
-					'answer' => "You need to enter the training password to train me."
-				]);
+			//	echo json_encode([
+			//		'status' => 0,
+			//		'answer' => "You need to enter the training password to train me."
+			//	]);
 				return;
 			}
 			
@@ -308,10 +308,10 @@
 			//verify if training password is correct
 			define('TRAINING_PASSWORD', 'password');
 			if($password !== TRAINING_PASSWORD){
-				echo json_encode([
-					'status' => 0,
-					'answer' => "You are not authorized to train me"
-				]);
+			//	echo json_encode([
+			//		'status' => 0,
+			//		'answer' => "You are not authorized to train me"
+			//	]);
 				return;
 			}
 			//check if question contains parameter
@@ -323,10 +323,10 @@
 				$stmt->bindParam(':question', $que);
 				$stmt->bindParam(':answer', $ans);
 				$stmt->execute();
-				echo json_encode([
-					'status' => 1,
-					'answer' => "Thank you, I am now smarter"
-				]);
+			//	echo json_encode([
+			//		'status' => 1,
+			//		'answer' => "Thank you, I am now smarter"
+			//     ]);
 				return;
 			}else{
 				//parameter present in question
@@ -336,10 +336,10 @@
 					// $parameter_name2 = trim($parameter_name);
 					//check if paramenter_name contains more than one word
 					if(count(explode(" ", $parameter_name))>1){
-						echo json_encode([
-							'status' => 1,
-							'answer' => "I am sorry, but I can only learn to accept a question with a parameter if the parameter has only one word in it"
-						]);
+				///		echo json_encode([
+					//		'status' => 1,
+						//	'answer' => "I am sorry, but I can only learn to accept a question with a parameter if the parameter has only one word in it"
+					//	]);
 						return;
 					}
 					//remove {{parameter_name}} from the question string and move it to the end of the string
@@ -353,27 +353,27 @@
 					$stmt->bindParam(':question', $que2);
 					$stmt->bindParam(':answer', $ans);
 					$stmt->execute();
-					echo json_encode([
-						'status' => 1,
-						'answer' => "Thank you, I am now smarter"
-					]);
+				//	echo json_encode([
+					//	'status' => 1,
+					//	'answer' => "Thank you, I am now smarter"
+				//	]);
 					return;
 				}else{
-					echo json_encode([
-						'status' => 1,
-						'answer' => "Invalid format for parameter"
-					]);
+				//	echo json_encode([
+					//	'status' => 1,
+				//		'answer' => "Invalid format for parameter"
+				//	]);
 				}
 			}
 		}
-		echo json_encode([
-			'status' => 0,
-			'answer' => "Unfortunately, I cannot answer your question at the moment. I need to be trained further"
-		]);
+	//	echo json_encode([
+	//		'status' => 0,
+		//	'answer' => "Unfortunately, I cannot answer your question at the moment. I need to be trained further"
+	//	]);
 		
 	}
 	function generate_arrangements($sentence){
-		$new_sentences = [];
+	//	$new_sentences = [];
 		$split_sentence = preg_split("([\s]+)", $sentence);
 		for($i=count($split_sentence)-1; $i >= 0; $i--){
 			$word = $split_sentence[$i];
