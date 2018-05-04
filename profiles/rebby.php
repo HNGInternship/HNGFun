@@ -403,7 +403,7 @@ $question .'" and answer = "'. $answer .'" LIMIT 1';
                 }
             }else{
                 echo "<div id='result'> <img src='http://res.cloudinary.com/rebby/image/upload/v1525095822/rebby.jpg' alt='Avatar' style='width:20px' class='avater'>
-                 Noted... can you teach me something new now!
+                 i know this! can you teach me something else?
                  </div>";
             }
         }else {
@@ -446,7 +446,7 @@ answer #password'</div>";
         var $message = $("#user-input").val(); 
         if($message !== ''){
             
-           $('.message').hide(); 
+          // $('.message').hide(); 
            
            $("#user-input").val("");
         }
