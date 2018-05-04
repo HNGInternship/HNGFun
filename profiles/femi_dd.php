@@ -306,7 +306,7 @@ $(document).ready(function chargeBot() {
          url = message.split('open:');
          // newElementsForUser("opening...");
          window.open('http://' + url[1]);
-      } else if (message.includes("randomquote:")) {
+      } else if (message.includes("randomquote:") || message.includes("random quote:")) {
          $.getJSON("https://talaikis.com/api/quotes/", function (json) {
             response = json['quote'] + '<br/> Author : ' + json['author'];
             botResponse = { 'response': response };
