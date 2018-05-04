@@ -333,7 +333,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
                                         </div>
                                                                              <div class="received-message text-left">
                                             <p class="message received">
-                                                Ask me anything and if i cant answer train me with the format train: question#answer#passwordss
+                                                Ask me anything and if i cant answer train me with the format train: question#answer#password
                                             </p>
                                         </div>
                                     </div>
