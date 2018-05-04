@@ -343,7 +343,9 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
                                             <label for="user-message"></label>
                                            
                                             <input type="text" class="message-input" name="user-message" id="user-message"
-                                                   placeholder="Ask a question and press enter" required>
+                                                   placeholder="Ask me anything" required>
+                                        
+                                            <button class="btn" type="button" onclick="sendMsg()">
                                                 <i class="fa fa-send message-submit"   value="send"></i>
                                             </button>
                                         </div>
