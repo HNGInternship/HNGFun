@@ -1,6 +1,13 @@
 <?php
 
-require 'db.php';
+require_once '../config.php';
+
+
+try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
 
 $sec = $conn->query("Select * from secret_word LIMIT 1");
 $sec = $sec->fetch(PDO::FETCH_OBJ);
@@ -36,13 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 	
 	//greeting
-	if((stripos($question,'hey') !== false) || (stripos($question,'hi') !== false) || (stripos($question,'hello') !== false)){
-      echo json_encode([
-        'status' => 1,
-        'answer' => "Hello, how are you?"
-      ]);
-      return;
-    }
+
 	
 	// time
 	if(stripos($question,'time') !== false){
@@ -77,25 +78,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		
 	
 	}
-	
-	
+	//training
 	$check_train = stripos($question, "train:");
-	if($check_train === false){
-	$question = preg_replace('([\s]+)', ' ', trim($question));
-	$question = preg_replace("([?.])", "", $question);
+    if($check_train === false){ //then user is asking a question
 	
+	//remove extra white space, ? and . from question
+	$question = preg_replace('([\s]+)', ' ', trim($question));
+	$question = preg_replace("([?.])", "", $question); 
+	
+	 //check database for the question and return the answer
 	$question = $question;
         $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
         $q = $GLOBALS['conn']->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
-		if(empty($data)){ //That means your answer was not found on the database
+        if(empty($data)){ //That means your answer was not found on the database
             echo json_encode([
         		'status' => 1,
-       			 'answer' =>  "I can't answer your question! Please train me by typing-->  train: question #answer #password"
+       			 'answer' =>  "I dont have answers to your question! Please train me by typing-->  train: question #answer #password"
      		 ]);
           return;
-        }else{
+        }else {
             $rand_keys = array_rand($data);
             $answer = $data[$rand_keys]['answer'];
             echo json_encode([
@@ -104,7 +107,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
      		 ]);
            return;
         	}      
-	    }else{		  
+	    
+	    
+	}else{		  
 		//train the chatbot to be more smarter 
 		//remove extra white space, ? and . from question
 	    $train_string  = preg_replace('([\s]+)', ' ', trim($question));
@@ -117,10 +122,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	        if(count($train_string) == 1){ //then the user only enter question and did'nt enter answer and password
 		        echo json_encode([
 		          'status' => 1,
-		          'answer' => "Oooh! sorry....you entered an invalid training format. Please the correct format is-->  train: question #answer #password"
+		          'answer' => "Oooh! sorry....you entered an invalid training format. Please the correct format its-->  train: question #answer #password"
 		        ]);
 	        return; 
-	        };
+	        }
 	        //get the index of the user answer
 	        $user_answer = trim($train_string[1]);    
 	        if(count($train_string) < 3){ //then the user only enter question and answer But did'nt enter password
@@ -129,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		          'answer' => "Please enter training password to train me. The password is--> password"
 		        ]);
 	        return;
-	        };
+	        }
 	         //get the index of the user password
 		    $user_password = trim($train_string[2]);
 	        //verify if training password is correct
@@ -140,9 +145,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		          'answer' => "The password you entered is wrong! Please enter the correct password which is-->  password "
 		        ]);
 	     	return;
-	    	};
+	    	}
 		    //check database if answer exist already
-		    $user_answer = "$user_answer"; //return things that have the question
+		    $user_answer = "$user_answer"; 
 		    $sql = "select * from chatbot where answer like :user_answer";
 		    $stmt = $conn->prepare($sql);
 		    $stmt->bindParam(':user_answer', $user_answer);
@@ -159,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			    
 			    echo json_encode([
 			    	'status' => 1,
-			        'answer' => "WOW! I'm learning new things everyday. Thanks Buddy! for making me more smarter. You can ask me that same question right now and i will tell you the answer OR just keep training me more Buddy! "
+			        'answer' => "Cool. I just got smarter. Thanks a lot! You can ask me that same question right now and i will tell you the answer OR just keep training me "
 			      ]);			
 	     	return;
 	     	
@@ -169,9 +174,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			        'answer' => "Sorry! Answer already exist. Try train me again with the same question AND provide an altanative answer different from the previous one you entered OR just train me with a new question and a new answer."
 			      ]);
 			return;		
-	     	};
+	     	}
 	    return;
-	 	};    
+	 	}
+	
+	
+	
 	  
 } 
 	
@@ -385,7 +393,7 @@ else{
 					<input type="text" id="textbox" name="text_in" required class="text_in"></input>
 					<input id="send" type="submit" value="Send"></input>
 					</form>
-
+					
 				</div>
 	
           </div>

@@ -163,12 +163,6 @@ $secret_word = $secret['secret_word'];
             margin: 0 0 20px 0;
             width: 350px;
         }
-        
-        .avater {
-        border-radius: 50%;     
-        }
-        
-        
         .chat-output .user-message .message {
             background: teal;
             color: pink;
@@ -190,6 +184,10 @@ $secret_word = $secret['secret_word'];
             
             
         }
+
+        .avater {
+        border-radius: 50%;     
+}
         
         .chat-input {
             padding: 20px;
@@ -333,9 +331,8 @@ $secret_word = $secret['secret_word'];
                 <!-- rebbychatbot head area -->
                 <h4 class = "bothead"> rebby_bot </h4>
                     <div class="user-message">
-                        <div class="message">
-                            <img src="http://res.cloudinary.com/rebby/image/upload/v1525095822/rebby.jpg" alt="Avatar" style="width:20px" class="avater">
-                            Ask me a question and get an answer right away.    </br>Train me by typing - 'train: question # answer # password'.
+                        <div class="message"><img src="http://res.cloudinary.com/rebby/image/upload/v1525095822/rebby.jpg" alt="Avatar" style="width:20px" class="avater">
+                         Ask me a question and get an answer right away.    </br>Train me by typing - 'train: question # answer # password'.
 </br>Get to know me better by typing - 'aboutbot'.</div>
                     </div>
                 </div>
@@ -369,7 +366,10 @@ id="user-input" class="user-input" placeholder="Hi,rebby_bot here.....">
         }
     }
     function aboutbot() {
-        echo "<div id='result'> rebby_bot was developed by rebby v1.0 2018. </div>";
+        echo "<div id='result'> 
+        <img src='http://res.cloudinary.com/rebby/image/upload/v1525095822/rebby.jpg' alt='Avatar' style='width:20px' class='avater'>
+        Fact - rebby_bot was developed by rebby v1.0 2018.
+         </div>";
     }
     function train($input) {
         $input = explode('#', $input);
@@ -395,19 +395,22 @@ $question .'" and answer = "'. $answer .'" LIMIT 1';
                     if ($q->execute($training_data) == true) {
                         echo "<div id='result'>
                         <img src='http://res.cloudinary.com/rebby/image/upload/v1525095822/rebby.jpg' alt='Avatar' style='width:20px' class='avater'>
-                        Training Was Successful!</div>";
+                        Training Was Successful!
+                        </div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
                 }
             }else{
-                echo "<div id='result'>
-                <img src='http://res.cloudinary.com/rebby/image/upload/v1525095822/rebby.jpg' alt='Avatar' style='width:20px' class='avater'>
-                Noted... can you teach me something new now!</div>";
+                echo "<div id='result'> <img src='http://res.cloudinary.com/rebby/image/upload/v1525095822/rebby.jpg' alt='Avatar' style='width:20px' class='avater'>
+                 i know this! can you teach me something else?
+                 </div>";
             }
         }else {
-            echo "<div id='result'><img src='http://res.cloudinary.com/rebby/image/upload/v1525095822/rebby.jpg' alt='Avatar' style='width:20px' class='avater'>
-            Incorrect Password, Try Again!</div>";
+            echo "<div id='result'>
+            <img src='http://res.cloudinary.com/rebby/image/upload/v1525095822/rebby.jpg' alt='Avatar' style='width:20px' class='avater'>
+            Incorrect Password, Try Again!
+            </div>";
         }
     }
     function getAnswer($input) {
@@ -417,7 +420,8 @@ $question .'" and answer = "'. $answer .'" LIMIT 1';
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'><img src='http://res.cloudinary.com/rebby/image/upload/v1525095822/rebby.jpg' alt='Avatar' style='width:20px' class='avater'>
+            echo "<div id='result'>
+            <img src='http://res.cloudinary.com/rebby/image/upload/v1525095822/rebby.jpg' alt='Avatar' style='width:20px' class='avater'>
             Sorry, invalid Commmand.
 You can train me simply by using the format - 'train: question #
 answer #password'</div>";
@@ -442,12 +446,12 @@ answer #password'</div>";
         var $message = $("#user-input").val(); 
         if($message !== ''){
             
-           $('.message').hide(); 
+          // $('.message').hide(); 
            
            $("#user-input").val("");
         }
         outputArea.append(`<div class='user-message'><div
-class='message'>${$message}</div></div>`);
+class='message'><img src='https://res.cloudinary.com/rebby/image/upload/v1525427128/dummy.jpg' alt='Avatar' style='width:20px' class='avater'> ${$message}</div></div>`);
     
         $.ajax({
             url: 'profile.php?id=rebby',
@@ -456,7 +460,7 @@ class='message'>${$message}</div></div>`);
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+                    outputArea.append("<div class='user-message'><div class='message'><img src='http://res.cloudinary.com/rebby/image/upload/v1525095822/rebby.jpg' alt='Avatar' style='width:20px' class='avater'>" + result + "</div></div>");
                     $('#chat-output').animate({
                         scrollTop: $('#chat-output').get(0).scrollHeight
                     }, 1500);
