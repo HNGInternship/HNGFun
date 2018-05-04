@@ -1,4 +1,3 @@
-
 <?php
 
 if(!defined('DB_USER')){
@@ -11,7 +10,7 @@ if(!defined('DB_USER')){
  }
   //Fetch User Details
   try {
-      $query = "SELECT * FROM interns_data WHERE username ='johnayeni'";
+      $query = "SELECT * FROM interns_data WHERE username ='vectormike'";
       $resultSet = $conn->query($query);
       $resultData = $resultSet->fetch(PDO::FETCH_ASSOC);
   } catch (PDOException $e){
@@ -351,6 +350,7 @@ if(!defined('DB_USER')){
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
 </head>
     <body class="profile">
         <div class="profile-section text-center">
@@ -388,13 +388,14 @@ if(!defined('DB_USER')){
                                     <div class="bubble you">
                                         Type 'help' first. 
                                     </div>
+                                    
                                 </div>
                             </div>
                             <hr>
                             <form id="question-section">
                                 <div class="row">
                                     <div class="col-md-9">
-                                        <textarea name="chatbox" class="form-control" cols="10" rows="2"></textarea>
+                                        <textarea name="question" id="question" class="form-control" cols="10" rows="2"></textarea>
                                     </div>
                                     <div class="col-md-3">
                                         <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-send"></i></button>
@@ -415,53 +416,54 @@ if(!defined('DB_USER')){
     $('#mssgbox').addClass('animated infinite flash');
 
     </script>
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.js"></script>
-	<script>
-    ;function($) {        
-        //
-        let questionForm = $('#question-section');
-        let questionBox = $('textarea[name=chatbox]');
-        let chatbox = $('.chat')
-        questionBox.emojioneArea();
-        questionForm.submit(function(e) {
-            e.preventDefault();
-            let question = questionBox.val();
-            // Displays the questions in the message frame a chat entry
-            let newMessage = `<div class="bubble me">
-                  ${question}
-              </div>`;
-            chatbox.html(`${chatbox.html()} ${newMessage}`);
-            chatbox.scrollTop(chatbox[0].scrollHeight);
-            // Sendng question to server
-            $.ajax({
-                url: '/profiles/vectormike.php',
-                type: 'POST',
-                data: {question: question},
-                dataType: 'json',
-                success: (response) => {
-                    response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />');
-                    let newMessage = `<div class="bubble you">
-                          ${response.answer}
-                      </div>`;
-
-                    chatbox.html(`${chatbox.html()} ${newMessage}`);
-                    chatbox.scrollTop(chatbox[0].scrollHeight);
-                    questionBox.val('');
-                },
-                error: (error) => {
-                    alert('error occured')
-                    console.log(error);
-                }
-            })
-        })    
     
-    })(jQuery);
+    <script>
+      $(document).ready(function(){
+          var questionForm = $('#question-secton');
+          questionForm.submit(function(e){
+              e.preventDefault();
+              var questionBox = $('textarea[name=question]');
+              var question = questionBox.val();
+
+              // Display question in the message frame as a chat entry
+              var messageFrame = $('.chat');
+              var chatToBeDisplayed = '<div class="bubble me">'+question+'</div>';
+
+              messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+              $(".modal-body").scrollTop($(".modal-body")[0].scrollHeight);
+
+              // Send questions to the server
+              $.ajax({
+                  url: "profiles/vectormike.php",
+                  type: "post",
+                  data: {question: question},
+                  dataType: "json",
+                  success: function(response){
+                      if(response.status == 1){
+                          var chatToBeDisplayed = '<div class="bubble you">'+response.answer+'</div>';
+                          
+                          messageFrame.html(messageFrame.html()+chatToBeDispalyed);
+                          questionBox.val("");
+                          $(".modal-body").scrollTop($(".modal-body")[0].scrollHeight);
+                      }else if(response.status == 0){
+                          var chatToBeDispalyed = '<div class="bubble you">'+response.answer+'</div>';
+                          
+                          messageFrame.html(messageFrame.html()+chatToBeDispalyed);
+                          $(".modal-body").scrollTop($(".modal-body")[0].scrollHeight);
+                      }
+                  },
+                  error: function(error){
+                      console.log(error);
+                  }
+              })
+          });
+      });
     </script>
+    
 
 <?php
 
-    require_once '../db.php';
+    require_once '../../db.php';
     try {
     $select = 'SELECT * FROM secret_word';
     $query = $conn->query($select);

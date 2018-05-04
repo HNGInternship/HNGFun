@@ -1,6 +1,13 @@
 <?php
 
-require 'db.php';
+require_once '../config.php';
+
+
+try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
 
 $sec = $conn->query("Select * from secret_word LIMIT 1");
 $sec = $sec->fetch(PDO::FETCH_OBJ);
@@ -19,25 +26,85 @@ $username= $row['username'];
 $image_url = $row['image_filename'];
 
 ?>
-
 <?php
 // chatbot
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	//Get the input text from the user and store in a new vaariable called "question"
+	
 	$question = $_POST['text_in'];
-	$question = preg_replace('([\s]+)', ' ', trim($question));
-	$question = preg_replace("([?.])", "", $question); 
-	 // check if question is "aboutbot"
-    if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'aboutbot'){
+	
+	
+	 // bot version
+    if(stripos($question,'aboutbot') !== false){
       echo json_encode([
         'status' => 1,
-        'answer' => "Hi dear! My name is Lolly. LollyBot is currently in version 1.0 and it's built by -Jeremiah Righteous-"
+        'answer' => "Hello, I am maaj's assistant. Version 1.0, currently running on PHP 5.7."
       ]);
       return;
     }
-    //Check if user want to train the bot or ask a normal question
-	$check_for_train = stripos($question, "train:");
-    if($check_for_train === false){ //then user is asking a question
+	
+	//age
+	if(stripos($question, 'age') !== false){
+	
+	$question = preg_replace('([\s]+)', ' ', trim($question));
+	$question = preg_replace("([?.])", "", $question);
+	$question = $question;
+	$age_string  = preg_replace('([\s]+)', ' ', trim($question));
+	    $age_string  = preg_replace("([?.])", "",  $age_string); 
+	    //get the question and answer by removing the 'train'
+	    
+	    $age_string = explode("#", $age_string);
+        //get the index of the user question
+        $dateofbirth = trim($age_string[1]);
+		$today = date("Y-m-d");
+		$diff = date_diff(date_create($dateofbirth), date_create($today));
+		   
+		echo json_encode([
+		  'status' => 1,
+		  'answer' => "Age is ".$diff->format('%y')
+		]);
+	return; 
+	     
+	
+	
+	}
+	
+	
+	// time
+	if(stripos($question,'time') !== false){
+		
+		
+		// Get IP address
+		$ip_address = getenv('HTTP_CLIENT_IP') ?: getenv('HTTP_X_FORWARDED_FOR') ?: getenv('HTTP_X_FORWARDED') ?: getenv('HTTP_FORWARDED_FOR') ?: getenv('HTTP_FORWARDED') ?: getenv('REMOTE_ADDR');
+
+		// Get JSON object
+		$jsondata = file_get_contents("http://timezoneapi.io/api/ip/?" . $ip_address);
+
+		// Decode
+		$data = json_decode($jsondata, true);
+
+		// Request OK?
+		if($data['meta']['code'] == '200'){
+
+		
+
+		// Example: Get the users time
+		$time = $data['data']['datetime']['date_time_txt'];
+		
+		}
+		
+		
+		 
+		echo json_encode([
+        'status' => 1,
+        'answer' => $time 
+      ]);
+      return;
+		
+	
+	}
+	//training
+	$check_train = stripos($question, "train:");
+    if($check_train === false){ //then user is asking a question
 	
 	//remove extra white space, ? and . from question
 	$question = preg_replace('([\s]+)', ' ', trim($question));
@@ -52,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if(empty($data)){ //That means your answer was not found on the database
             echo json_encode([
         		'status' => 1,
-       			 'answer' =>  "I can't answer your question! Please train me by typing-->  train: question #answer #password"
+       			 'answer' =>  "I dont have answers to your question! Please train me by typing-->  train: question #answer #password"
      		 ]);
           return;
         }else {
@@ -79,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	        if(count($train_string) == 1){ //then the user only enter question and did'nt enter answer and password
 		        echo json_encode([
 		          'status' => 1,
-		          'answer' => "Oooh! sorry....you entered an invalid training format. Please the correct format is-->  train: question #answer #password"
+		          'answer' => "Oooh! sorry....you entered an invalid training format. Please the correct format its-->  train: question #answer #password"
 		        ]);
 	        return; 
 	        }
@@ -104,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	     	return;
 	    	}
 		    //check database if answer exist already
-		    $user_answer = "$user_answer"; //return things that have the question
+		    $user_answer = "$user_answer"; 
 		    $sql = "select * from chatbot where answer like :user_answer";
 		    $stmt = $conn->prepare($sql);
 		    $stmt->bindParam(':user_answer', $user_answer);
@@ -121,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			    
 			    echo json_encode([
 			    	'status' => 1,
-			        'answer' => "WOW! I'm learning new things everyday. Thanks Buddy! for making me more smarter. You can ask me that same question right now and i will tell you the answer OR just keep training me more Buddy! "
+			        'answer' => "Cool. I just got smarter. Thanks a lot! You can ask me that same question right now and i will tell you the answer OR just keep training me "
 			      ]);			
 	     	return;
 	     	
@@ -133,13 +200,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			return;		
 	     	}
 	    return;
-	 	}    
-	  
-} else {
+	 	}
 	
+	
+	
+	  
+} 
 	
 	
 
+	
+	
+	
+else{
+	
+	
+	
+}
 ?> 
 <!DOCTYPE html>
 <!--
@@ -281,24 +358,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		.username{
 			margin:5px;
 			padding:10px;
+			font-size:14px;
 			background-color: #f1f1f1;
 			border-radius:5px;
 			height: auto;
 			float: right;
 			width: 70%;
 			color:blue;
-			font-weight: bold;
+			font-weight: regular;
 			}
 			
 		.bot{
 			margin: 5px;
 			padding:10px;
 			background-color: #ddd;
+			font-size:14px;
 			border-radius:5px;
 			height: auto;
 			float: left;
 			color:green;
-			font-weight: bold;
+			font-weight: regular;
 			width: 70%;
 			}	
 		
@@ -331,15 +410,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				<h1>Maaj's bot</h1>
 			</div>
 				<div id="contain">
-				
+					
+					<div class='bot'>
+						<img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/> Hi... i'm Maaj's assistant. My boss is away, but i am available to answer all your questions
+					</div>
+					<div class='bot'>
+						<img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/> I can tell the current time and date with 'time' and i can tell you your current age with 'age # 23-01-1994'
+					</div>
+					
 				</div>
 				<div id ="controls">
 					<form method="post" action="" id="chat">
 					<input type="text" id="textbox" name="text_in" required class="text_in"></input>
 					<input id="send" type="submit" value="Send"></input>
-					new head3
 					</form>
-
+					
 				</div>
 	
           </div>
@@ -355,9 +440,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	  
      
 	 
-
+<script src="vendor/jquery/jquery.min.js"></script>
  <script>
- $(document).ready(function(){
     var message = $("#contain");
 		
 	    $("#chat").on("submit", function(e) {
@@ -369,15 +453,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	       	message.scrollTop(message[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: '/profiles/maaj.php', //location
+				url: 'profiles/maaj.php', //location
 				type: 'POST',
 				data: {text_in: text_in},
 				dataType: 'json',
 				success: (response) => {
-					
-			        response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
-			        let response_answer = response.answer;
-			        message.append("<div class='bot'><div class='message'><img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/>" + response_answer + "</div></div>");      
+					var message = $("#contain");
+			        //response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
+			        //let response_answer = response.answer;
+			        message.append("<div class='bot'><div class='message'><img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/>" + response.answer + "</div></div>");      
 			       	$('#contain').animate({scrollTop: $('#contain').get(0).scrollHeight}, 1100);     
 				},
 				error: (error) => {
@@ -391,11 +475,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			}
 		});
 		
-	});
 
 </script>
   </body>
 
 </html>
 
-<?php } ?>
+

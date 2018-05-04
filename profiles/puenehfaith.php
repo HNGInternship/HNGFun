@@ -97,6 +97,7 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
 
 
 ?>
+    
 <div id="wrapper">
     
   <div id="header">

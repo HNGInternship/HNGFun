@@ -1,0 +1,5 @@
+{
+    // Controls the font family.
+  "editor.fontFamily": "Source Code Pro",
+  "php.validate.executablePath": "hngfun",
+}
