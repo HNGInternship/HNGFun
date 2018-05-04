@@ -159,7 +159,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                   
                   }
               else{
-              echo "<div id='result'>     Tips: Type 'Help' to see FAQ. </br> To add new states ==> 'train:Question#answer#password</br>'</div>";
+              echo "<div id='result'>     Tips: Type 'Help' to see FAQ. </br> To add new states ==> 'Train:Question#answer#password</br>'</div>";
                   }       
                 }
 
@@ -564,7 +564,7 @@ a:focus {
                     <div class="chatbox-messages" >
                       <div class="messages clear"><span class="avatar"><img src="https://store.storeimages.cdn-apple.com/4974/as-images.apple.com/is/image/AppleInc/aos/published/images/H/LJ/HLJ02/HLJ02?wid=572&hei=572&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1503083822390" alt="Support" /></span><div class="sender"><div class="message-container"><div class="message"><p>
                       Welcome to Dev_GB's profile page</br>You can check State capitals by just asking.</p>
-                              <p></br>Tips: Type "Help' to see FAQ.</br>To add new states ==> 'train:Question#answer#password'</p>
+                              <p></br>Tips: Type "Help' to see FAQ.</br>To add new states ==> 'Train:Question#answer#password'</p>
                               </div><span class="delivered">
                                 <?php echo "" . date("h:i:a");?>
                                   
@@ -677,7 +677,7 @@ function train($input) {
             try {
                 $q = $GLOBALS[ 'conn' ]->prepare( $sql );
                 if ( $q->execute($training_data) == true ) {
-                    echo "<div id='result'>Training Successful!</br></div>";
+                    echo "<div id='result'></br></br>   Training Successful!</br></div>";
 
                 }
             }
@@ -685,10 +685,10 @@ function train($input) {
                 throw $e;
             }
         } else {
-            echo "<div id='result'>Teach me something new!</br></div>";
+            echo "<div id='result'></br></br>   Teach me something new!</br></div>";
         }
     } else {
-        echo "<div id='result'>Invalid Password, Try Again!</br></div>";
+        echo "<div id='result'></br></br>   Invalid Password, Try Again!</br></div>";
     }
 
 }
