@@ -42,8 +42,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       return;
     }
 	
-	//greeting
-
+	//age
+	if(stripos($question, 'age') !== false){
+	
+	$question = preg_replace('([\s]+)', ' ', trim($question));
+	$question = preg_replace("([?.])", "", $question);
+	
+	
+	}
+	
 	
 	// time
 	if(stripos($question,'time') !== false){
@@ -85,6 +92,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	//remove extra white space, ? and . from question
 	$question = preg_replace('([\s]+)', ' ', trim($question));
 	$question = preg_replace("([?.])", "", $question); 
+	
+	$question = $question;
+	$age_string  = preg_replace('([\s]+)', ' ', trim($question));
+	    $age_string  = preg_replace("([?.])", "",  $age_string); 
+	    //get the question and answer by removing the 'train'
+	    
+	    $age_string = explode("#", $age_string);
+		$dateofbirth = age_string[1];
+		$today = date("Y-m-d");
+		$diff = date_diff(date_create($dateofbirth), date_create($today));
+		echo  json_encode([
+			'status' =>1,
+			'answer' => "Age is ".$diff->format('%y');
+		]);
+		return;
+	}
 	
 	 //check database for the question and return the answer
 	$question = $question;
@@ -386,7 +409,14 @@ else{
 				<h1>Maaj's bot</h1>
 			</div>
 				<div id="contain">
-				
+					
+					<div class='bot'>
+						<img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/> Hi... i'm Maaj's assistant. My boss is away, but i am available to answer all your questions
+					</div>
+					<div class='bot'>
+						<img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/> I can tell the current time and date with 'time', I can also tell you your age with 'age #23-01-1994'
+					</div>
+					
 				</div>
 				<div id ="controls">
 					<form method="post" action="" id="chat">
