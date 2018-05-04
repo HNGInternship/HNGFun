@@ -4,13 +4,13 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (!defined('DB_USER')) {
         //live server
-        // require "../../config.php";
+        require "../../config.php";
         //   localhost
         // require "../config.example.php";
         try {
             $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
         } catch (PDOException $pe) {
-            die("🤖I couldn't connect to knowledge base : " . $pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
+            echo ("🤖I couldn't connect to knowledge base : " . $pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
         }
     }
     require '../answers.php';
