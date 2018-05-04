@@ -451,7 +451,7 @@ class='message'><img src='https://res.cloudinary.com/rebby/image/upload/v1525427
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<div class='user-message'><div class='message'> <img src='http://res.cloudinary.com/rebby/image/upload/v1525095822/rebby.jpg' alt='Avatar' style='width:20px' class='avater'> " + result + "</div></div>");
+                    outputArea.append("<div class='user-message'><div class='message'><img src='http://res.cloudinary.com/rebby/image/upload/v1525095822/rebby.jpg' alt='Avatar' style='width:20px' class='avater'> " + result + "</div></div>");
                     $('#chat-output').animate({
                         scrollTop: $('#chat-output').get(0).scrollHeight
                     }, 1500);
