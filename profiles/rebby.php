@@ -447,7 +447,7 @@ answer #password'</div>";
            $("#user-input").val("");
         }
         outputArea.append(`<div class='user-message'><div
-class='message'>${$message}</div></div>`);
+class='message'><img src='https://res.cloudinary.com/rebby/image/upload/v1525427128/dummy.jpg' alt='Avatar' style='width:20px' class='avater'>${$message}</div></div>`);
     
         $.ajax({
             url: 'profile.php?id=rebby',
