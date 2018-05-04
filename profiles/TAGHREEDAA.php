@@ -594,7 +594,7 @@ $username =$my_data['username'];
     function playMessageSound() {
         var aSound = document.createElement('audio');
         aSound.setAttribute('src', 'http://res.cloudinary.com/taghreedaa/video/upload/v1525350931/sound/facebook_tone.mp3');
-        aSound.setAttribute('autoplay', 'true');
+        // aSound.setAttribute('autoplay', 'true');
 
         aSound.play();
     }
