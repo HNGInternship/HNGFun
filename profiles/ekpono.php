@@ -19,7 +19,6 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
      date_default_timezone_set("Africa/Lagos");
      $today = date("H:i:s");
 }
-
  ?>
  <?php 
     if($_SERVER['REQUEST_METHOD']==='POST'){
@@ -101,7 +100,6 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
                     ]);
                 }
                 
-
                 return;
             }else{ //wrong training pattern or error in string
             echo json_encode([
@@ -111,7 +109,6 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             return;
             }
         }
-
         //end of function definition
         
         $ques = test_input($_POST['ques']);
@@ -120,7 +117,6 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
         }else{
             chatMode($ques);
         }
-
        
         return;
     }
@@ -223,37 +219,31 @@ a {
         }
         .display {
             padding: 15px;
-
     -webkit-animation: fadein 5s; /* Safari, Chrome and Opera > 12.1 */
        -moz-animation: fadein 5s; /* Firefox < 16 */
         -ms-animation: fadein 5s; /* Internet Explorer */
          -o-animation: fadein 5s; /* Opera < 12.1 */
             animation: fadein 5s;
 }
-
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
 }
-
 /* Firefox < 16 */
 @-moz-keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
 }
-
 /* Safari, Chrome and Opera > 12.1 */
 @-webkit-keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
 }
-
 /* Internet Explorer */
 @-ms-keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
 }
-
 /* Opera < 12.1 */
 @-o-keyframes fadein {
     from { opacity: 0; }
@@ -265,22 +255,16 @@ a {
     border-radius: 5px;
     color: #fff;
 }
-
 input[type=text] {
     border-bottom: 5px solid #ccc;
     width: 250px;
     padding: 5px
 }
-
 .bot {
     width: 80%;
     text-align: justify;
     height: auto;
 }
-
-
-
-
 /* CSS button */
 </style>
 </head>
@@ -341,7 +325,6 @@ input[type=text] {
             }
         });
         function sendMsg(){
-
             var ques = document.querySelector("#question");
             if(ques.value == ":close:"){
                 exitB();
@@ -369,14 +352,14 @@ input[type=text] {
         function processData (data){
             data = JSON.parse(data);
             console.log(data);
-            var answer = data['answer'];
+            var answer = data.answer;
             console.log(answer);
             //Choose a random response from available
             if(Array.isArray(answer)){
                 if(answer.length !=0){
                     var res = Math.floor(Math.random()*answer.length);
                     //console.log(answer[res][0]);
-                    displayOnScreen(answer[res].answer, "bot");
+                    displayOnScreen(answer[res][0], "bot");
                 }else{
                     displayOnScreen("what did you say? Train me pls<br> Here's the format: train: question # response # password");
                 }
@@ -402,9 +385,6 @@ input[type=text] {
                 document.querySelector("#question").value="";
             }
         } 
-
-
-
 </script> 
 </body>
 </html>
