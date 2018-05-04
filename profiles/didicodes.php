@@ -327,7 +327,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
 
                                         <div class="sent-message text-left">
                                             <p class="message sent">
-                                                Hi there my name is <span class="font-weight-bold h3">Didibot</span>
+                                               I am Didi's bot
 
                                             </p>
                                         </div>
@@ -343,9 +343,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
                                             <label for="user-message"></label>
                                            
                                             <input type="text" class="message-input" name="user-message" id="user-message"
-                                                   placeholder="Write a message" required>
-                                        
-                                            <button class="btn" type="button" onclick="sendMsg()">
+                                                   placeholder="Ask a question and press enter" required>
                                                 <i class="fa fa-send message-submit"   value="send"></i>
                                             </button>
                                         </div>
@@ -353,30 +351,15 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
                                 </div>
                             </div>
                        </div>
-                      </div>
-
-
-
-                
-                
-                      
+                      </div>                 
                     </div>
                   </div>
                 </div>
         
               </div>
             </div>
-
-
-
-         
      </div>
-
-
-
 </body>
-
-
 <script>
     window.addEventListener("keydown", function(e){
     if(e.keyCode ==13){
@@ -392,7 +375,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
     var ques = document.querySelector("#user-message");
     displayOnScreen(ques.value, "sent");
     if(ques.value === 'aboutbot'){
-        displayOnScreen('Name: Didibot<br>Version: 1.34.1 beta*', 'received');
+        displayOnScreen('Name: Didibot<br>Version: 1.3.54', 'received');
         return;
     }
    
@@ -422,9 +405,6 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
     }else{
         displayOnScreen(answer,"received");
     }
-
-
-
     }
     function displayOnScreen(data,align){
     console.log(data);
