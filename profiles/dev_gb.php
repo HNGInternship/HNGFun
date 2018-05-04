@@ -651,7 +651,7 @@ a:focus {
 <?php 
 }
 function help() {
-   $help = "These is a sample format of a question  </br></br>What is the capital of Lagos?  </br></br>For compound names separate with a dash  </br></br>e.g What is the capital of Ekiti?"
+   $help = "These is a sample format of a question  </br></br>What is the capital of Lagos?  </br></br>For compound names separate with a dash  </br></br>e.g What is the capital of Ekiti?";
     echo "<div id='result'>".$help. "</br></div>";
 }
 function train($input) {
