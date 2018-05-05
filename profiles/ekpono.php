@@ -255,10 +255,12 @@ a {
     border-radius: 5px;
     color: #fff;
 }
-input[type=text] {
-    border-bottom: 5px solid #ccc;
+input[type="text"] {
+    border:0px;
+    border-bottom: 1px solid #bbb;
     width: 250px;
-    padding: 5px
+    padding: 5px;
+    background: none;
 }
 .bot {
     width: 80%;
