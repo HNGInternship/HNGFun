@@ -552,11 +552,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				type: 'POST',
 				data: {yourinput: yourinput},
 				dataType: 'json',
-				success: (reply) => {
+				success: (response) => {
                     alert("worked");
-			        reply.answer = reply.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
-			        let reply_answer = reply.answer;
-			        $("#cbmain").append("<div class='bot'><div class='note'>" + reply_answer + "</div></div>");      
+			        response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
+			        let response_answer = response.answer;
+			        $("#cbmain").append("<div class='bot'><div class='note'>" + response_answer + "</div></div>");      
 			       	$('#cbmain').animate({scrollTop: $('#cbmain').get(0).scrollHeight}, 1100);     
 
 				},
