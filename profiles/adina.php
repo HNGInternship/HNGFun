@@ -494,6 +494,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         
+        @media (max-width:461px) {
+            #chatbot
+            {
+                width: 100%;
+                left: 0%;
+            }
+            
+            .note
+            {
+                width: 200px;
+            }
+        }
+        
         @media (max-width:374px) {
             #img
             {
@@ -573,7 +586,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				data: {yourinput: yourinput},
 				dataType: 'json',
 				success: (response) => {
-                    alert("worked");
+//                    alert("worked");
 			        response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
 			        let response_answer = response.answer;
 			        $("#cbmain").append("<div class='bot'><div class='note'>" + response_answer + "</div></div>");      
