@@ -1388,6 +1388,10 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
   footer {
     background: transparent;
   }
+  
+  .is-loading {
+    margin-top: 80px;
+  }
 </style>
 
 <div class="is-loading">

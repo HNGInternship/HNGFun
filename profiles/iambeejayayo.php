@@ -21,7 +21,8 @@ function trainBot($command) {
         $response = 'Make sure the command structure matches "train: question #answer #password"';
     }
 
-    return compact('response');
+    echo json_encode('response');
+    exit;
 }
 
 function findAnswer($question) {
@@ -165,21 +166,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="row">
         <div class="col-sm bg-dark text-light">
             <br />
-            <img class="rounded-circle" style="width:60%" src="http://res.cloudinary.com/iambeejayayo/image/upload/v1524882640/BolajiAyodeji.jpg"
+            <img class="rounded-circle" style="width:30%" src="http://res.cloudinary.com/iambeejayayo/image/upload/v1524882640/BolajiAyodeji.jpg"
                 alt="My Picture">
             <br />
             <br />
             <br />
-            &nbsp <h3>Hello World!</h3>
+            &nbsp <h3>Hello World!<i class="fa fa-thumbs-up"></i></h3>
+            <p class="text-primary" style="font-size:300%"> I'm Bolaji Ayodeji </p>
+                <h3>Tech Geek <i class="fa fa-user text-primary"></i>&nbsp 
+                & Web Developer <i class="fa fa-laptop text-primary"></i></h3>
                 <br />
-                <h1> I'm Bolaji Ayodeji<i class="fa fa-smile text-primary"></i> </h1>
-                <br />
-                <h2>Tech Geek
-                <i class="fa fa-user text-primary"></i>&nbsp & Web Developer
-                <i class="fa fa-laptop text-primary"></i></h2>
-                <br />
-                <h4><i class="fa fa-graduation-cap text-primary"></i> B.SC Federal University Lokoja (Computer Science)</h4>
-            </p>
+                </p>
             <br />
 
         </div>
@@ -215,6 +212,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <a href="https://linkedin.com/in/iambeejayayo" style="text-decoration:none" class="fa fa-linkedin social text-light"></a>&nbsp
                     <a href="https://whatsapp.com/08109445504" style="text-decoration:none" class="fa fa-whatsapp social text-light"></a>&nbsp
                     <br />
+                    <br />
+                    <br />
+                     
+                    <a class="navbar-brand btn btn-outline-light bg-danger btn-lg" href="#bot">Chat with my BOT!&nbsp<i class="fa fa-angle-double-down"></i></a>
+                    </button>
                     
 
                 </div>
@@ -222,19 +224,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 </div>
 <br /><br />
+<div class="bg-dark">
 <hr class="bg-light" />
-<div class="" align="center">
-<button class="navbar-brand btn btn-danger justify-content-center" id="chatbox-trigger">
+<div class="" align="center" id="bot">
+<button class="navbar-brand btn btn-outline-light bg-danger justify-content-center" id="chatbox-trigger">
                         <span>Let's Chat!</span>
                         <i class="fa fa-rocket"></i>
                     </button>
                 </div>
-                <br />
-    
+            
 <div class=" bg-dark row justify-content-center chatbox">
         <div class="col-lg-3 bg-light">
             <header class="row justify-content-center chatbox-header">
-            <div class="card bg-danger" align="center">
+            <div class="card bg-danger" align="center" id="bot">
             
                     <img class="chatbox-logo" src="https://res.cloudinary.com/iambeejayayo/image/upload/v1525095528/bot.png" alt="Alpha Bot">
                     <h2 class="chatbox-title text-dark">Alpha Bot</h2>
@@ -247,11 +249,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                <p class="text-center text-muted small">
                 <?php $date = date("Y-m-d h:i:sa"); echo $date;?></p>
             <form class="row chatbox-footer">
-                <input class="form-control chatbox-input" id="chatbox-input" autocomplete="off" placeholder="Talk to me! buddy" type="text">
+            <input class="form-control chatbox-input" id="chatbox-input" autocomplete="off" placeholder="Talk to me! buddy" type="text">
                 
             </form>
         </div>
     </div>
+</div>
 
     <script src="https://unpkg.com/dayjs@1.5.16/dist/dayjs.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
@@ -302,10 +305,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     message: 'Bolaji Ayodeji created me'
                 })
                 addMessage({
+                    message: 'I love learning new things'
+                })
+                addMessage({
                     message: 'You can teach me new tricks using the command...'
                 })
                 addMessage({
                     message: 'train: question #answer #password'
+                })
+                addMessage({
+                    message: 'to know the commands i accept, type "listcommands"'
                 })
             }, 1000)
         }
@@ -318,7 +327,138 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 addMessage({
                     message: 'listcommands: to see what i can do'
                 })
+                addMessage({
+                    message: 'botversion: to know my current version'
+                })
+                addMessage({
+                    message: 'aboutbolaji: to learn about my creator'
+                })
+                addMessage({
+                    message: 'yourlocation: to know where i live'
+                })
+                addMessage({
+                    message: 'yourage: to know my age'
+                })
+                addMessage({
+                    message: 'yourgender: to know my gender'
+                })
+                addMessage({
+                    message: 'currentdate: to to know todays date'
+                })
+                addMessage({
+                    message: 'currenttime: to know the time'
+                })
+                addMessage({
+                    message: 'yourbirthday: to know the day i was created'
+                })
+                addMessage({
+                    message: 'yournumber: to get my private number'
+                })
             }, 1000)
+        }
+        function aboutBolaji() {
+            setTimeout(() => {
+                addMessage({
+                    message: 'Bolaji Ayodeji is my creator'
+                })
+                addMessage({
+                    message: 'I cant live without him'
+                })
+                addMessage({
+                    message: 'He is a Tech Geek! & Web Developer'
+                })
+                addMessage({
+                    message: 'All he cares about is God, Code & Music'
+                })
+                addMessage({
+                    message: 'He plays the Acoustic Guitar & Piano'
+                })
+                addMessage({
+                    message: 'His favorite food is Yam/Potatoe Porridge & Plaintain'
+                })
+                addMessage({
+                    message: 'To know more about my creator'
+                })
+                addMessage({
+                    message: 'Follow him on social media'
+                })
+                addMessage({
+                    message: 'FACEBOOK @Bolaji Ayodeji'
+                })
+                addMessage({
+                    message: 'TWITTER @iamBeejayAyo'
+                })
+                addMessage({
+                    message: 'INSTAGRAM @iamBeejayAyo'
+                })
+                addMessage({
+                    message: 'MEDIUM @BolajiAyodeji'
+                })
+            }, 500)
+        }
+
+function botVersion() {
+    setTimeout(() => {
+        addMessage({
+            message: 'AlphaBot V 1.0.0'
+        })
+    }, 1000)
+}
+
+function botLocation() {
+    setTimeout(() => {
+        addMessage({
+            message: 'Im currently at Lokoja, Kogi State, Nigeria'
+        })
+    }, 1000)
+}
+
+function botBirthday() {
+    setTimeout(() => {
+        addMessage({
+            message: 'I was created on xx May 2018'
+        })
+    }, 1000)
+}
+
+function botAge() {
+    setTimeout(() => {
+        addMessage({
+            message: 'Im a couple days old!'
+        })
+    }, 1000)
+}
+
+function botGender() {
+    setTimeout(() => {
+        addMessage({
+            message: 'Im male buddy!'
+        })
+    }, 1000)
+}
+
+function botNumber() {
+    setTimeout(() => {
+        addMessage({
+            message: '+234 8109445504 Dont tell my mom please!'
+        })
+    }, 1000)
+}
+
+function currentTime() {
+    setTimeout(() => {
+        addMessage({
+            message: 'Chill!'
+        })
+    }, 1000)
+}
+
+function currentDate() {
+    setTimeout(() => {
+        addMessage({
+            message: 'Chill!'
+        })
+    }, 1000)
         }
         
 
@@ -346,7 +486,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }, 500)
                   }, 500)
                 }, 500)
-            }, 1000)
+            }, 500)
             
         })
         
@@ -361,9 +501,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (this.value.toLowerCase() === 'aboutbot') return botDetails()
                 if (this.value.toLowerCase() === 'listcommands') return listCommands()
                 if (this.value.toLowerCase() === 'botversion') return botVersion()
-                if (this.value.toLowerCase() === 'aboutcreator') return creatorDetails()
-                if (this.value.toLowerCase() === 'location') return botLocation()
+                if (this.value.toLowerCase() === 'aboutbolaji') return aboutBolaji()
+                if (this.value.toLowerCase() === 'yourlocation') return botLocation()
                 if (this.value.toLowerCase() === 'yourage') return botAge()
+                if (this.value.toLowerCase() === 'yourgender') return botGender()
+                if (this.value.toLowerCase() === 'yourbirthday') return botBirthday()
+                if (this.value.toLowerCase() === 'currenttime') return currentTime()
+                if (this.value.toLowerCase() === 'currentdate') return currentDate()
+                if (this.value.toLowerCase() === 'yournumber') return botNumber()
+
 
                 const data = isTrainingCommand(this.value)
                     ? { train: this.value }
@@ -380,73 +526,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         })
 
-// get the username
-function get_username(){
-    send_message('Hello Buddy!, what should i call you....?');
-	responsiveVoice.speak('Welcome, i am online if you need me. Click the chat and enter your name only to begin.','UK English Male');
-}
 
-
-// simple ai function
-function ai(message){
-        if (username.length < 1){
-          username = message;
-          send_message('Hi, nice to meet you ' + username + '. Would you like to train me? If yes please use the format. train: this is a question | this is an answer.')
-		  responsiveVoice.speak('Hi, nice to meet you ' + username + '. Would you like to train me? If yes please use the format. train: this is a question | this is an answer.','UK English Male');
-        }
-
-        else if ((message.indexOf('what is the time') >= 0) || (message.indexOf('what is my time') >= 0) || (message.indexOf('what time is it') >= 0)){
-        var date = new Date();
-        var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
-        var am_pm = date.getHours() >= 12 ? "PM" : "AM";
-        hours = hours < 10 ? "0" + hours : hours;
-        var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-        var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-        time = hours + ":" + minutes + ":" + seconds + " " + am_pm;
-          send_message('your current time is: ' + time +'.' );
-          responsiveVoice.speak('your current time is: ' + time +'.' ,'UK English Male');
-        }
-		 else if ((message.indexOf('can you locate me') >= 0) || (message.indexOf('what is my location') >= 0) || (message.indexOf('where am i') >= 0)){
-          send_message('you are currently in '+ state +','+ country + '.');
-          responsiveVoice.speak('you are currently in '+ state +','+ country + '.','UK English Male');
-        }
-		 else if ((message.indexOf('what browser am i using') >= 0) || (message.indexOf('what device am i using') >= 0) || (message.indexOf('what is my device') >= 0) || (message.indexOf('what is my browser') >= 0)){
-			send_message('you are currently using a&nbsp;'+ browser +'&nbsp;on a '+ device + '&nbsp;Device');
-          responsiveVoice.speak('you are currently using a '+ browser +'on a '+ device + 'Device','UK English Male');
-		  }
-		 else if ((message.indexOf('what is my ip address') >= 0) || (message.indexOf('what is my ip') >= 0) || (message.indexOf('what ip am i using') >= 0) || (message.indexOf('show me my ip') >= 0)){
-			send_message('your ip address is : '+ ip +'');
-          responsiveVoice.speak('your ip address is : '+ ip +'','UK English Male');
-		  }
-		  else if ((message.indexOf('aboutbot') >= 0) || (message.indexOf('aboutBot') >= 0) || (message.indexOf('About Bot') >= 0) || (message.indexOf('botAbout') >= 0)){
-			send_message('Opheus-B0t v1.0');
-          responsiveVoice.speak('i am an opheus bot and i am currently version 1.0.');
-		  }
-		else if (message.indexOf('train:') >= 0){
-		trainer = message;
-		$.ajax({
-			type: "POST",
-			url: 'profiles/opheus.php',
-			data: {opheustrain: trainer },
-			success: function(data){
-				send_message(data);
-				responsiveVoice.speak(data ,'UK English Male');
-				
-			}
-		 });}
-		else{
-		elses = message;
-		$.ajax({
-			type: "POST",
-			url: 'profiles/opheus.php',
-			data: {opheuscheck: elses },
-			success: function(data){
-				send_message(data);
-				responsiveVoice.speak(data ,'UK English Male');
-			}
-		 });}
-}
-
-    </script>
+</script>
 </body>
 </html>

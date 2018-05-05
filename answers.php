@@ -1,16 +1,12 @@
 <?php
 
-
-
-
-
 function get_time(){
-  //instantiate date-time object
-  $datetime = new DateTime();
-  //set the timezone to Africa/Lagos
-  $datetime->setTimezone(new DateTimeZone('Africa/lagos'));
-  //format the time
-  return $datetime->format('H:i: A');
+    //instantiate date-time object
+    $datetime = new DateTime();
+    //set the timezone to Africa/Lagos
+    $datetime->setTimezone(new DateTimeZone('Africa/lagos'));
+    //format the time
+    return $datetime->format('H:i: A');
 }
 ########################################################
 # __   ___              __      __  ___       __   __  #
@@ -31,8 +27,8 @@ function bamiiChuckNorris() {
         "ssl"=>array(
             "verify_peer"=>false,
             "verify_peer_name"=>false,
-            ),
-        );
+        ),
+    );
     $geocodeUrl = "http://api.icndb.com/jokes/random";
     $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
     $a =json_decode($response, true);
@@ -76,22 +72,22 @@ function bamiiCountryDetails($data) {
 }
 ###################### END BAMII #####################
 function getListOfCommands() {
-  return 'Type "<code>show: List of commands</code>" to see a list of commands I understand.<br/>
+    return 'Type "<code>show: List of commands</code>" to see a list of commands I understand.<br/>
   Type "<code>open: www.google.com</code>" to open Google.com<br/>
   Type "<code>train: Your question # My reply</code>" to train me to understand how to reply to more things';
 }
 function getRandomNumber() {
-  return (rand(10,10000));
+    return (rand(10,10000));
 }
 function getBotName() {
-  return "the_ozmic's bot";
+    return "the_ozmic's bot";
 }
 function getRandomFact(){
-  $facts = ["Most toilets flush in E flat",
-  "“Almost” is the longest word in English with all the letters in alphabetical order.",
-  "All swans in England belong to the queen.",
-  "No piece of square paper can be folded more than 7 times in half."];
-  return $facts[rand(0, count($facts) - 1)];
+    $facts = ["Most toilets flush in E flat",
+        "“Almost” is the longest word in English with all the letters in alphabetical order.",
+        "All swans in England belong to the queen.",
+        "No piece of square paper can be folded more than 7 times in half."];
+    return $facts[rand(0, count($facts) - 1)];
 }
 //functions by melas. MODIFY NOT
 function aboutHNG()
@@ -153,10 +149,10 @@ function aboutHNGStage($stage)
 // functions by @mclint_. DO NOT MODIFY
 function getAJoke(){
     $jokes = ["My dog used to chase people on a bike a lot. It got so bad, finally I had to take his bike away.", "What is the difference between a snowman and a snowwoman? Snowballs.",
-    "I invented a new word. Plagiarism.", "Helvetica and Times New Roman walk into a bar. 'Get out of here!' shouts the bartender. 'We don't serve your type.'",
-     "Why don’t scientists trust atoms? Because they make up everything.", "Where are average things manufactured? The satisfactory.", "How do you drown a hipster? Throw him in the mainstream",
-    "How does Moses make tea? He brews!", "Why can’t you explain puns to kleptomaniacs? They always take things literally.", "I got called pretty yesterday and it felt good! Actually, the full sentence was 'You're pretty annoying.' but I'm choosing to focus on the positive.",
-    "Two cannibals eating a clown. 'Does this taste funny to you?'", "Why can’t you hear a pterodactyl in the bathroom? Because it has a silent pee.", "Where does a sheep go for a haircut? To the baaaaa baaaaa shop!"];
+        "I invented a new word. Plagiarism.", "Helvetica and Times New Roman walk into a bar. 'Get out of here!' shouts the bartender. 'We don't serve your type.'",
+        "Why don’t scientists trust atoms? Because they make up everything.", "Where are average things manufactured? The satisfactory.", "How do you drown a hipster? Throw him in the mainstream",
+        "How does Moses make tea? He brews!", "Why can’t you explain puns to kleptomaniacs? They always take things literally.", "I got called pretty yesterday and it felt good! Actually, the full sentence was 'You're pretty annoying.' but I'm choosing to focus on the positive.",
+        "Two cannibals eating a clown. 'Does this taste funny to you?'", "Why can’t you hear a pterodactyl in the bathroom? Because it has a silent pee.", "Where does a sheep go for a haircut? To the baaaaa baaaaa shop!"];
     return $jokes[rand(0, count($jokes) - 1)];
 }
 function emojifyText($text){
@@ -225,43 +221,43 @@ function bytenaija_time($location) {
             "verify_peer_name"=>false,
         ),
     );
-     $geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=".$location. "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
-     $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
-     $response = json_decode($response, true);
-     $response = $response['results'][0]['geometry'];
-     $response = $response["location"];
-     $lat = $response["lat"];
-     $lng = $response["lng"];
-     $timestamp = time();;
-     $url = "https://maps.googleapis.com/maps/api/timezone/json?location=".$lat.",".$lng."&timestamp=".$timestamp."&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U";
-     $responseJson = file_get_contents($url,  false, stream_context_create($arrContextOptions));
-     $response = json_decode($responseJson);
-     $timezone = $response -> timeZoneId;
-     $date = new DateTime("now", new DateTimeZone($timezone));
-     echo "The time in ".ucwords($location). " is ".$date -> format('d M, Y h:i:s A');
- }
- function bytenaija_convert($base, $other){
-     $api_key = "U7VdzkfPuGyGz4KrEa6vuYXgJxy4Q8";
-     $url = "https://www.amdoren.com/api/currency.php?api_key=" . $api_key . "&from=" . $base . "&to=" . $other;
-     $response = file_get_contents($url);
-     $response = json_decode($response, true);
-     echo "1 ". strtoupper($base) ." is equal to ".  strtoupper($other)  ." " .$response['amount'];
- }
- //bitcoin price index
- function bytenaija_hodl(){
-     $url ="https://api.coindesk.com/v1/bpi/currentprice.json";
-     $response = file_get_contents($url);
-     $response = json_decode($response, true);
-     //curl_close($curl);
-     $responseStr = "<h4 class='hodl'>Bitcoin Price as at " . $response["time"]["updated"] . "</h4><br> <div><h4>Prices</h4><li>"
-     . $response["bpi"]["USD"]["code"] . " " . $response["bpi"]["USD"]["rate"] . "</li>
+    $geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=".$location. "&sensor=true&key=AIzaSyCWLZLW__GC8TvE1s84UtokiVH_XoV0lGM";
+    $response = file_get_contents($geocodeUrl, false, stream_context_create($arrContextOptions));
+    $response = json_decode($response, true);
+    $response = $response['results'][0]['geometry'];
+    $response = $response["location"];
+    $lat = $response["lat"];
+    $lng = $response["lng"];
+    $timestamp = time();;
+    $url = "https://maps.googleapis.com/maps/api/timezone/json?location=".$lat.",".$lng."&timestamp=".$timestamp."&key=AIzaSyBk2blfsVOf_t1Z5st7DapecOwAHSQTi4U";
+    $responseJson = file_get_contents($url,  false, stream_context_create($arrContextOptions));
+    $response = json_decode($responseJson);
+    $timezone = $response -> timeZoneId;
+    $date = new DateTime("now", new DateTimeZone($timezone));
+    echo "The time in ".ucwords($location). " is ".$date -> format('d M, Y h:i:s A');
+}
+function bytenaija_convert($base, $other){
+    $api_key = "U7VdzkfPuGyGz4KrEa6vuYXgJxy4Q8";
+    $url = "https://www.amdoren.com/api/currency.php?api_key=" . $api_key . "&from=" . $base . "&to=" . $other;
+    $response = file_get_contents($url);
+    $response = json_decode($response, true);
+    echo "1 ". strtoupper($base) ." is equal to ".  strtoupper($other)  ." " .$response['amount'];
+}
+//bitcoin price index
+function bytenaija_hodl(){
+    $url ="https://api.coindesk.com/v1/bpi/currentprice.json";
+    $response = file_get_contents($url);
+    $response = json_decode($response, true);
+    //curl_close($curl);
+    $responseStr = "<h4 class='hodl'>Bitcoin Price as at " . $response["time"]["updated"] . "</h4><br> <div><h4>Prices</h4><li>"
+        . $response["bpi"]["USD"]["code"] . " " . $response["bpi"]["USD"]["rate"] . "</li>
      <li>"
-     . $response["bpi"]["EUR"]["code"] . " " . $response["bpi"]["EUR"]["rate"] . "</li>
+        . $response["bpi"]["EUR"]["code"] . " " . $response["bpi"]["EUR"]["rate"] . "</li>
      <li>"
-     . $response["bpi"]["GBP"]["code"] . " " . $response["bpi"]["GBP"]["rate"] . "</li>
+        . $response["bpi"]["GBP"]["code"] . " " . $response["bpi"]["GBP"]["rate"] . "</li>
      </div>";
-     echo $responseStr;
- }
+    echo $responseStr;
+}
 /***************************Bytenaija ends here*************************/
 /* Adokiye's function starts here, do not edit
 for any reason*/
@@ -282,110 +278,110 @@ Adokiye's function*/
 //****************************************************************************************************************************************************************
 //****************************************************************THE WIZARD OF OZ********************************************************************************
 function pig_latin($text){
-  $vowels = "a,e,i,o,u";
-  $pigText="";
-  $intermediatePig="";
-  $firstVowelPos=0;
-  $frontConsonants="";
+    $vowels = "a,e,i,o,u";
+    $pigText="";
+    $intermediatePig="";
+    $firstVowelPos=0;
+    $frontConsonants="";
     $sentence=explode ( " " , $text );
-for($h=0;$h<sizeof($sentence);$h++){
-  for($i=0;$i<strlen($sentence[$h]);$i++){
-    if(strpos($vowels,$sentence[$h][$i])!==FALSE){
-      $firstVowelPos=$i;
-      $intermediatePig=$intermediatePig.substr($sentence[$h],$firstVowelPos);
-      if($i===0){
-        $intermediatePig=$intermediatePig.$frontConsonants."yay";
-      break;
-      }
-      $intermediatePig=$intermediatePig.$frontConsonants."ay";
-      break;
+    for($h=0;$h<sizeof($sentence);$h++){
+        for($i=0;$i<strlen($sentence[$h]);$i++){
+            if(strpos($vowels,$sentence[$h][$i])!==FALSE){
+                $firstVowelPos=$i;
+                $intermediatePig=$intermediatePig.substr($sentence[$h],$firstVowelPos);
+                if($i===0){
+                    $intermediatePig=$intermediatePig.$frontConsonants."yay";
+                    break;
+                }
+                $intermediatePig=$intermediatePig.$frontConsonants."ay";
+                break;
+            }
+            else{
+                $frontConsonants=$frontConsonants.$sentence[$h][$i];
+            }
+        }
+        if($intermediatePig===""){
+            $intermediatePig=$intermediatePig.$frontConsonants;
+        }
+        $frontConsonants="";
+        $pigText=$pigText.$intermediatePig." ";
+        $intermediatePig="";
     }
-    else{
-      $frontConsonants=$frontConsonants.$sentence[$h][$i];
-    }
-  }
-  if($intermediatePig===""){
-  $intermediatePig=$intermediatePig.$frontConsonants;
-}
-  $frontConsonants="";
-  $pigText=$pigText.$intermediatePig." ";
-  $intermediatePig="";
-}
-      return $pigText;
+    return $pigText;
 }
 function find_place($query) {
 
 // $apiKey="AIzaSyDlvWmwKX40qRKZQFRKP1qngWnTPKKWM5Y";
-  $return="No results were found matching this query";
-$display='block';
-  $place=urlencode($query);
-$placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$place."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
-try{
-$response = file_get_contents($placesUrl);
-$parsed_response = json_decode($response, TRUE);
-for($i=0;$i<sizeof($parsed_response['results']);$i+=2){
-  if($i==0){
-  $return="";
-  }
-  $firstName=$parsed_response['results'][$i]['name'];
-  $firstRating=$parsed_response['results'][$i]['rating'];
-  $firstAddy=$parsed_response['results'][$i]['formatted_address'];
-  $firstType=$parsed_response['results'][$i]['types'][0];
-  $secondName=$parsed_response['results'][$i+1]['name'];
-  $secondRating=$parsed_response['results'][$i+1]['rating'];
-  $secondAddy=$parsed_response['results'][$i+1]['formatted_address'];
-  $secondType=$parsed_response['results'][$i+1]['types'][0];
-  if(sizeof($parsed_response['results'])-$i==1 ){
-  $display='none';
-}
+    $return="No results were found matching this query";
+    $display='block';
+    $place=urlencode($query);
+    $placesUrl="https://maps.googleapis.com/maps/api/place/textsearch/json?query=".$place."&key=AIzaSyAAv9jKlS7LysppJQxkunTFQxihTgPLsek";
+    try{
+        $response = file_get_contents($placesUrl);
+        $parsed_response = json_decode($response, TRUE);
+        for($i=0;$i<sizeof($parsed_response['results']);$i+=2){
+            if($i==0){
+                $return="";
+            }
+            $firstName=$parsed_response['results'][$i]['name'];
+            $firstRating=$parsed_response['results'][$i]['rating'];
+            $firstAddy=$parsed_response['results'][$i]['formatted_address'];
+            $firstType=$parsed_response['results'][$i]['types'][0];
+            $secondName=$parsed_response['results'][$i+1]['name'];
+            $secondRating=$parsed_response['results'][$i+1]['rating'];
+            $secondAddy=$parsed_response['results'][$i+1]['formatted_address'];
+            $secondType=$parsed_response['results'][$i+1]['types'][0];
+            if(sizeof($parsed_response['results'])-$i==1 ){
+                $display='none';
+            }
 
-  $return='<div class="row">'
- .'<div class="col-xs-6 col-md-4">'
-            .'<span>'.$firstName.'</span><br>'
-            .'<span>'.$firstRating.' star rating</span><br>'
-            .'<span>'.$firstAddy.'</span><br>'
-            .'<span>'.$firstType.'</span><br>'
-          .'</div>'
-          .'<div class="col-xs-6 col-md-4" style="display:"'.$display.'">'
-            .'<span>'.$secondName.'</span><br>'
-            .'<span>'.$secondRating.' star rating</span><br>'
-            .'<span>'.$secondAddy.'</span><br>'
-            .'<span>'.$secondType.'</span><br>'
-          .'</div>'
-         .' </div>'.$return;
-}
-return $return;
-}
-catch(Exception $e){
-  return $e;
-}
+            $return='<div class="row">'
+                .'<div class="col-xs-6 col-md-4">'
+                .'<span>'.$firstName.'</span><br>'
+                .'<span>'.$firstRating.' star rating</span><br>'
+                .'<span>'.$firstAddy.'</span><br>'
+                .'<span>'.$firstType.'</span><br>'
+                .'</div>'
+                .'<div class="col-xs-6 col-md-4" style="display:"'.$display.'">'
+                .'<span>'.$secondName.'</span><br>'
+                .'<span>'.$secondRating.' star rating</span><br>'
+                .'<span>'.$secondAddy.'</span><br>'
+                .'<span>'.$secondType.'</span><br>'
+                .'</div>'
+                .' </div>'.$return;
+        }
+        return $return;
+    }
+    catch(Exception $e){
+        return $e;
+    }
 }
 function get_help(){
-   return ' Some special functions I perform are: <br>'
-          .'<ul><li><strong>Bot Version</strong><br>'
-                .'Type <span id="important">aboutbot</span>'
-            .'</li>'
-              .'<li><strong>Translate English to Pig Latin</strong><br>'
-                .'Type <span id="important">pig latin: word/sentence</span><br>'
-                .'The variable is used like so <span id="important">{{variable}}</span> and function as <span id="important">(pig_latin)</span><br>'
-             .'</li>'
-              .'<li><strong>Place Locator</strong><br>'
-                .'Used to find type of places in an area'
-                .'Type <span id="important">find: place in area</span><br>'
-                .'For example <span id="important">find: restaurants in nigeria</span><br>'
-                .'<span id="important">find: hotels in yaba</span><br>'
-                .'Also can find location of compnies or org e.g <span id="important">find: hotelsng in nigeria</span><br>'
-                .'<span id="important">find: Chevron </span><br>'
-                .'The variable is used like so <span id="important">{{variable}}</span> and function as <span id="important">(find_place)</span><br>'
-              .'</li>'
-               .'<li><strong>View available commands again</strong><br>'
-                .'Type <span id="important">commands</span>'
-            .'</li>'
-          .'</ul>';
+    return ' Some special functions I perform are: <br>'
+        .'<ul><li><strong>Bot Version</strong><br>'
+        .'Type <span id="important">aboutbot</span>'
+        .'</li>'
+        .'<li><strong>Translate English to Pig Latin</strong><br>'
+        .'Type <span id="important">pig latin: word/sentence</span><br>'
+        .'The variable is used like so <span id="important">{{variable}}</span> and function as <span id="important">(pig_latin)</span><br>'
+        .'</li>'
+        .'<li><strong>Place Locator</strong><br>'
+        .'Used to find type of places in an area'
+        .'Type <span id="important">find: place in area</span><br>'
+        .'For example <span id="important">find: restaurants in nigeria</span><br>'
+        .'<span id="important">find: hotels in yaba</span><br>'
+        .'Also can find location of compnies or org e.g <span id="important">find: hotelsng in nigeria</span><br>'
+        .'<span id="important">find: Chevron </span><br>'
+        .'The variable is used like so <span id="important">{{variable}}</span> and function as <span id="important">(find_place)</span><br>'
+        .'</li>'
+        .'<li><strong>View available commands again</strong><br>'
+        .'Type <span id="important">commands</span>'
+        .'</li>'
+        .'</ul>';
 }
 function get_bot_version(){
     $bot_version=1.9;
-   return "Merlin Version : ".$bot_version;
+    return "Merlin Version : ".$bot_version;
 }
 //****************************************************************************************************************************************************************
 //****************************************************************************************************************************************************************
@@ -399,17 +395,17 @@ function get_bot_version(){
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
 function aboutMe(){
-  return "Hi my name is Ruby, I am a chatbot, nice to meet you";
+    return "Hi my name is Ruby, I am a chatbot, nice to meet you";
 }
 function getRandomFacts(){
-  $facts = ["Most toilets flush in E flat",
-  "“Almost” is the longest word in English with all the letters in alphabetical order.",
-  "All swans in England belong to the queen.",
-  "No piece of square paper can be folded more than 7 times in half."];
-  return $facts[rand(0, count($facts) - 1)];
+    $facts = ["Most toilets flush in E flat",
+        "“Almost” is the longest word in English with all the letters in alphabetical order.",
+        "All swans in England belong to the queen.",
+        "No piece of square paper can be folded more than 7 times in half."];
+    return $facts[rand(0, count($facts) - 1)];
 }
 function getBotMenu(){
-  return  "Send 'fact' to get a fact. \n
+    return  "Send 'fact' to get a fact. \n
     Send 'time' to get the time. \n
     Send 'about' to know me. \n
     Send 'help' to see this again. \n
@@ -418,41 +414,41 @@ function getBotMenu(){
     'train: question # answer # password'";
 }
 function getTime(){
-  return date("h:i:s");
+    return date("h:i:s a");
 }
 function simpleMaths($operation, $expression){
     switch ($operation) {
-      case 'factor':
-        # factorization condition
-      $notify = "Factorize";
-        break;
+        case 'factor':
+            # factorization condition
+            $notify = "Factorize";
+            break;
         case 'simplify':
-        # simplify
-      $notify = "Simplify";
-        break;
+            # simplify
+            $notify = "Simplify";
+            break;
         case 'derive':
-        # derivative
-      $notify = "Derivative";
-        break;
+            # derivative
+            $notify = "Derivative";
+            break;
         case 'integrate':
-          # Integrate
-        $notify = "Integrate";
-          break;
+            # Integrate
+            $notify = "Integrate";
+            break;
         case 'zeroes':
-          # polinomia
-        $notify = "Polinomial, find 0S in";
-          break;
+            # polinomia
+            $notify = "Polinomial, find 0S in";
+            break;
         case 'tangent':
-          # tangent
-        $notify = "Find Tangent";
-          break;
+            # tangent
+            $notify = "Find Tangent";
+            break;
         case 'log':
-          # logrithms
-        $notify = 'Logarithm';
-          break;
-      default:
-        # code...
-        break;
+            # logrithms
+            $notify = 'Logarithm';
+            break;
+        default:
+            # code...
+            break;
     }
     $url = "https://newton.now.sh/".$operation."/".$expression;
     $result = file_get_contents($url);
@@ -507,16 +503,16 @@ function getFutureDate(){
 }
 
 function getRandomYoMamaJoke(){
-	$randomJokeJson = file_get_contents("http://api.yomomma.info");
-	$randomJoke = json_decode($randomJokeJson);
+    $randomJokeJson = file_get_contents("http://api.yomomma.info");
+    $randomJoke = json_decode($randomJokeJson);
     echo $randomJoke->joke;
     //A.M.A
 }
 
 function getRandomQuote(){
-	$randomQuoteJson =file_get_contents("https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en&json=?");
-	$randomQuote = json_decode($randomQuoteJson);
-	$quoteText = $randomQuote->quoteText;
+    $randomQuoteJson =file_get_contents("https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en&json=?");
+    $randomQuote = json_decode($randomQuoteJson);
+    $quoteText = $randomQuote->quoteText;
     $quoteAuthor = $randomQuote->quoteAuthor;
     if(!empty($quoteAuthor) ){
         echo "<br/>" .$quoteText. "<br/> &nbsp; &nbsp; &ndash; <cite>" .$quoteAuthor. "</cite>";
@@ -534,47 +530,47 @@ function bot_answer($check) {
 //$conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 //if ($conn->connect_error) {
- //   die("Connection failed: " . $conn->connect_error);
+    //   die("Connection failed: " . $conn->connect_error);
 //}
 
 
 
-$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$check' ORDER BY rand() LIMIT 1");
-$stmt->execute();
-if($stmt->rowCount() > 0)
-{
-  while($row = $stmt->fetch(PDO::FETCH_ASSOC))
-  {
-		echo $row["answer"];
-  }
-} else {
-    echo "Well i couldnt understand what you asked. But you can teach me.";
-	echo "Type ";
-	echo "train: write a question | write the answer.  ";
-	echo "to teach me.";
-}
+    $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$check' ORDER BY rand() LIMIT 1");
+    $stmt->execute();
+    if($stmt->rowCount() > 0)
+    {
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            echo $row["answer"];
+        }
+    } else {
+        echo "Well i couldnt understand what you asked. But you can teach me.";
+        echo "Type ";
+        echo "train: write a question | write the answer.  ";
+        echo "to teach me.";
+    }
 }
 
 function getMotivationalQuoteForTheDay(){
-	$randomQuoteJson =file_get_contents("http://quotes.rest/qod.json?category=inspire");
-	$randomQuote = json_decode($randomQuoteJson, true);
-	$quoteTitle = $randomQuote['contents']['quotes'][0]['title'];
-	$quoteText = $randomQuote['contents']['quotes'][0]['quote'];
+    $randomQuoteJson =file_get_contents("http://quotes.rest/qod.json?category=inspire");
+    $randomQuote = json_decode($randomQuoteJson, true);
+    $quoteTitle = $randomQuote['contents']['quotes'][0]['title'];
+    $quoteText = $randomQuote['contents']['quotes'][0]['quote'];
     $quoteAuthor = $randomQuote['contents']['quotes'][0]['author'];
     echo "</br>" .$quoteText. "<br/> &nbsp; &nbsp; &mdash; " .$quoteAuthor. "<br/>";
     //A.M.A
 }
 
 function getMediumArticle(){
-	$getMediumUrlContents = file_get_contents("https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2F%40adamichelllle");
-	$getMediumJson = json_decode($getMediumUrlContents, true);
-	foreach($getMediumJson['items'] as $getSingleMediumArticle){
-		$mediumArticleTitle = $getSingleMediumArticle['title'];
-		$mediumArticleUrl = $getSingleMediumArticle['link'];
-		$mediumArticleThumbnail = $getSingleMediumArticle['thumbnail'];
-		echo "<a href= '$mediumArticleUrl' style='color: #ffffff'><img src='http://res.cloudinary.com/missada/image/upload/v1524225094/hng_internship.png' class= 'img-responsive' ><br/><b>$mediumArticleTitle</b></a>";
-		$article = "<script type='text/Javascript'>window.open('$mediumArticleUrl');</script>";
-		break;
+    $getMediumUrlContents = file_get_contents("https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2F%40adamichelllle");
+    $getMediumJson = json_decode($getMediumUrlContents, true);
+    foreach($getMediumJson['items'] as $getSingleMediumArticle){
+        $mediumArticleTitle = $getSingleMediumArticle['title'];
+        $mediumArticleUrl = $getSingleMediumArticle['link'];
+        $mediumArticleThumbnail = $getSingleMediumArticle['thumbnail'];
+        echo "<a href= '$mediumArticleUrl' style='color: #ffffff'><img src='http://res.cloudinary.com/missada/image/upload/v1524225094/hng_internship.png' class= 'img-responsive' ><br/><b>$mediumArticleTitle</b></a>";
+        $article = "<script type='text/Javascript'>window.open('$mediumArticleUrl');</script>";
+        break;
     }
     //A.M.A
 
@@ -591,37 +587,37 @@ function getPinkyCommands(){
 
 function train_bot ($message) {
 
-function multiexplode ($delimiters,$string) {
+    function multiexplode ($delimiters,$string) {
 
-    $ready = str_replace($delimiters, $delimiters[0], $string);
-    $launch = explode($delimiters[0], $ready);
-    return  $launch;
-}
-
-//$text = "#train: this a question | this my answer :)";
-$exploded = multiexplode(array(":","|"),$message);
-
-$question = trim($exploded[1]);
-
-$answer = trim($exploded[2]);
-
-
-try {
-
-    $sql = "INSERT INTO chatbot (id, question, answer)
-VALUES ('', '$question', '$answer')";
-    // use exec() because no results are returned
-    $conn->exec($sql);
-
-    echo "Thank you! i just learnt something new, my master would be proud of me.";
-
-	}
-catch(PDOException $e)
-    {
-    echo $sql . "<br>" . $e->getMessage();
+        $ready = str_replace($delimiters, $delimiters[0], $string);
+        $launch = explode($delimiters[0], $ready);
+        return  $launch;
     }
 
-$conn = null;
+//$text = "#train: this a question | this my answer :)";
+    $exploded = multiexplode(array(":","|"),$message);
+
+    $question = trim($exploded[1]);
+
+    $answer = trim($exploded[2]);
+
+
+    try {
+
+        $sql = "INSERT INTO chatbot (id, question, answer)
+VALUES ('', '$question', '$answer')";
+        // use exec() because no results are returned
+        $conn->exec($sql);
+
+        echo "Thank you! i just learnt something new, my master would be proud of me.";
+
+    }
+    catch(PDOException $e)
+    {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+
+    $conn = null;
 //////////////////////
 
 
@@ -737,6 +733,40 @@ function davidQuadraticEquation($a, $b, $c)
 
 
 /*
+<<<<<<< HEAD
+|=================================================================|
+|               JIM (JIMIE) Functions Ends                        |
+|=================================================================|
+*/
+/*******************************************************************************************
+****************************START OF KINGSLEY67'S HOROSCOPE FUNCTION*********************************
+*/
+function
+ zodiac($birthdate) {
+ 
+   $zodiac = '';     
+   list ($year, $month, $day) = explode ('-', $birthdate); 
+         
+   if ( ( $month == 3 && $day > 20 ) || ( $month == 4 && $day < 20 ) ) { $zodiac = "Aries"; } 
+   elseif ( ( $month == 4 && $day > 19 ) || ( $month == 5 && $day < 21 ) ) { $zodiac = "Taurus"; } 
+   elseif ( ( $month == 5 && $day > 20 ) || ( $month == 6 && $day < 21 ) ) { $zodiac = "Gemini"; } 
+   elseif ( ( $month == 6 && $day > 20 ) || ( $month == 7 && $day < 23 ) ) { $zodiac = "Cancer"; } 
+   elseif ( ( $month == 7 && $day > 22 ) || ( $month == 8 && $day < 23 ) ) { $zodiac = "Leo"; } 
+   elseif ( ( $month == 8 && $day > 22 ) || ( $month == 9 && $day < 23 ) ) { $zodiac = "Virgo"; } 
+   elseif ( ( $month == 9 && $day > 22 ) || ( $month == 10 && $day < 23 ) ) { $zodiac = "Libra"; } 
+   elseif ( ( $month == 10 && $day > 22 ) || ( $month == 11 && $day < 22 ) ) { $zodiac = "Scorpio"; } 
+   elseif ( ( $month == 11 && $day > 21 ) || ( $month == 12 && $day < 22 ) ) { $zodiac = "Sagittarius"; } 
+   elseif ( ( $month == 12 && $day > 21 ) || ( $month == 1 && $day < 20 ) ) { $zodiac = "Capricorn"; } 
+   elseif ( ( $month == 1 && $day > 19 ) || ( $month == 2 && $day < 19 ) ) { $zodiac = "Aquarius"; } 
+   elseif ( ( $month == 2 && $day > 18 ) || ( $month == 3 && $day < 21 ) ) { $zodiac = "Pisces"; } 
+ 
+ return $zodiac; 
+} 
+
+/*************************************************************************************************
+****************************END OF KINGSLEY67'S HOROSCOPE FUNCTION*********************************
+******************************88PLEASE DO NOT EDIT OR REMOVE**************************************/
+=======
  * Ionware's Function
  * */
 if (! function_exists("iDictionary"))
@@ -801,33 +831,33 @@ function Get_Hotelsng_wikipage()
 // AKINSOURCE FUNCTION ///////
 //////////////////////////////
 function count_akin($poin){
-date_default_timezone_set("Africa/Lagos");
-$date_req = strtotime($poin);
-$time_remaining = $date_req - time();
-$weeks_remaining = $time_remaining /604800;
-$days_remaining = $time_remaining / 86400;
-$hours_remaining = ($time_remaining % 86400) / 3600;
+    date_default_timezone_set("Africa/Lagos");
+    $date_req = strtotime($poin);
+    $time_remaining = $date_req - time();
+    $weeks_remaining = $time_remaining /604800;
+    $days_remaining = $time_remaining / 86400;
+    $hours_remaining = ($time_remaining % 86400) / 3600;
 
-if ($weeks_remaining >= 1) {
-	$weeks_remaining = floor($time_remaining / 604800);
-	$days_remaining = floor(($time_remaining % 604800)/86400);
-	$hours_remaining = floor(($time_remaining % 86400) / 3600);
-	$minutes_remaining = floor((($time_remaining % 86400) % 3600)/60);
-	$seconds_remaining = ((($time_remaining % 86400) % 3600)%60);
-	$cdown = $weeks_remaining.' weeks '.$days_remaining.' days '. $hours_remaining.' hours '.$minutes_remaining.' minutes '.$seconds_remaining.' seconds';
-} elseif ($days_remaining >= 1 ) {
-	$days_remaining = floor($time_remaining / 86400);
-	$hours_remaining = floor(($time_remaining % 86400) / 3600);
-	$minutes_remaining = floor((($time_remaining % 86400) % 3600)/60);
-	$seconds_remaining = ((($time_remaining % 86400) % 3600)%60);
-	$cdown = $days_remaining.' days '. $hours_remaining.' hours '.$minutes_remaining.' minutes '.$seconds_remaining. ' seconds';
-} elseif ($hours_remaining > 0 ) {
-	$hours_remaining = floor(($time_remaining % 86400) / 3600);
-	$minutes_remaining = floor((($time_remaining % 86400) % 3600)/60);
-	$seconds_remaining = ((($time_remaining % 86400) % 3600)%60);
-	$cdown = $hours_remaining.' hours '.$minutes_remaining.' minutes '.$seconds_remaining. ' seconds';
-}
-return $cdown;
+    if ($weeks_remaining >= 1) {
+        $weeks_remaining = floor($time_remaining / 604800);
+        $days_remaining = floor(($time_remaining % 604800)/86400);
+        $hours_remaining = floor(($time_remaining % 86400) / 3600);
+        $minutes_remaining = floor((($time_remaining % 86400) % 3600)/60);
+        $seconds_remaining = ((($time_remaining % 86400) % 3600)%60);
+        $cdown = $weeks_remaining.' weeks '.$days_remaining.' days '. $hours_remaining.' hours '.$minutes_remaining.' minutes '.$seconds_remaining.' seconds';
+    } elseif ($days_remaining >= 1 ) {
+        $days_remaining = floor($time_remaining / 86400);
+        $hours_remaining = floor(($time_remaining % 86400) / 3600);
+        $minutes_remaining = floor((($time_remaining % 86400) % 3600)/60);
+        $seconds_remaining = ((($time_remaining % 86400) % 3600)%60);
+        $cdown = $days_remaining.' days '. $hours_remaining.' hours '.$minutes_remaining.' minutes '.$seconds_remaining. ' seconds';
+    } elseif ($hours_remaining > 0 ) {
+        $hours_remaining = floor(($time_remaining % 86400) / 3600);
+        $minutes_remaining = floor((($time_remaining % 86400) % 3600)/60);
+        $seconds_remaining = ((($time_remaining % 86400) % 3600)%60);
+        $cdown = $hours_remaining.' hours '.$minutes_remaining.' minutes '.$seconds_remaining. ' seconds';
+    }
+    return $cdown;
 }
 //////// AKINSOURCE FUNCTION /////////////////////////////
 // I HAVE A PARTICULAR SET OF SKILLS. I WILL FIND YOU!/////
@@ -847,10 +877,10 @@ function getUSSD($bankName){
         case 'first bank':
         case 'fbn':
         case 'FBN':
-        return '*894#';
+            return '*894#';
 
         case 'access bank':
-        return '*901#';
+            return '*901#';
 
         case 'gt bank':
         case 'guaranty trust bank':
@@ -859,115 +889,115 @@ function getUSSD($bankName){
         case 'gtbank':
         case 'GTBank':
         case 'GT Bank':
-        return '*737#';
+            return '*737#';
 
         case 'diamond bank':
-        return '*426#';
+            return '*426#';
 
         case 'fidelity bank':
-        return '*770#';
+            return '*770#';
 
         case 'ecobank':
-        return '*326#';
+            return '*326#';
 
         case 'sterling bank':
-        return '*822#';
+            return '*822#';
 
         case 'keystone bank':
-        return '*533#';
+            return '*533#';
 
         case 'skye bank':
-        return '*833#';
+            return '*833#';
 
         case 'union bank':
-        return '*826#';
+            return '*826#';
 
         case 'stanbic bank':
-        return '*909#';
+            return '*909#';
 
         case 'uba':
-        return '*919#';
+            return '*919#';
 
         case 'wema bank':
-return '*945#';}}
+            return '*945#';}}
 
 // End of functions by @Bukola
- // chibuokems functions starts here
-  function check_if_training_chibuokem($input=''){
+// chibuokems functions starts here
+function check_if_training_chibuokem($input=''){
     if (strpos($input, 'train') !== false) {
-         return true;
+        return true;
     }
     else{
-      return false;
+        return false;
     }
-  }
-  function train_chibuokem_bot($input=''){
+}
+function train_chibuokem_bot($input=''){
 
     if ($input !=""){
-    $string = substr($input, 6);
-    $processed_input = explode("#", $string);
-    $question = $processed_input[0];
-    $answer = $processed_input[1];
-    $password = $processed_input[2];
-    if ($password !='password'){
-      die('Wrong password used');
-    }
-    require 'db.php';
-try {
-    $query = "INSERT INTO chatbot (question, answer)
+        $string = substr($input, 6);
+        $processed_input = explode("#", $string);
+        $question = $processed_input[0];
+        $answer = $processed_input[1];
+        $password = $processed_input[2];
+        if ($password !='password'){
+            die('Wrong password used');
+        }
+        require 'db.php';
+        try {
+            $query = "INSERT INTO chatbot (question, answer)
 VALUES ('$question', '$answer')";
 
-    $conn->exec($query);
-    echo "Thanks for training me";
-  }
-catch(PDOException $e)
-    {
-    echo $query . "<br>" . $e->getMessage();
+            $conn->exec($query);
+            echo "Thanks for training me";
+        }
+        catch(PDOException $e)
+        {
+            echo $query . "<br>" . $e->getMessage();
+        }
     }
-    }
-  }
-  function check_answer_table_chibuokem($input){
+}
+function check_answer_table_chibuokem($input){
     require 'db.php';
 
     $statement = $conn->prepare("SELECT * FROM chatbot WHERE question='$input' ORDER BY rand() LIMIT 1");
     $statement->execute();
     if($statement->rowCount() > 0)
     {
-      while($row = $statement->fetch(PDO::FETCH_ASSOC))
-      {
-        $answer = $row["answer"];
-      }
-      return $answer;
+        while($row = $statement->fetch(PDO::FETCH_ASSOC))
+        {
+            $answer = $row["answer"];
+        }
+        return $answer;
     }
     else {
         return  false;
 
     }
-  }
-  function get_chibuokem_bot_version(){
+}
+function get_chibuokem_bot_version(){
     return '1 .0';
-  }
-  function get_chibuokem_news(){
+}
+function get_chibuokem_news(){
     $url = "https://newsapi.org/v2/top-headlines?country=ng&apiKey=79ab7fb16d12464996221c3870a39b43";
     $data = json_decode(file_get_contents($url), true);
     if($data['status']=='ok'){
-      $totalResults = $data['totalResults'];
-      $count = 0;
-       while($count < $totalResults){
-       $author = $data['articles'][$count]['author'];
-       $title =   $data['articles'][$count]['title'];
-       $description =   $data['articles'][$count]['description'];
-       $url =   $data['articles'][$count]['url'];
-       $publishedAt = $data['articles'][$count]['publishedAt'];
-       $name =  $data['articles'][$count]['source']['name'];
-       echo "<span style='color:green'; >Author : ".$author."<br/> Title : ".$title."<br/> Description : ".$description." <br/> link :".$url." <br/>Published ".$publishedAt." by ".$name."<br/><br/>";
-        $count++;
-       }
-       echo "<span style='font-weight:bold;' class='alert alert-success'>".$totalResults." articles found </span>";
+        $totalResults = $data['totalResults'];
+        $count = 0;
+        while($count < $totalResults){
+            $author = $data['articles'][$count]['author'];
+            $title =   $data['articles'][$count]['title'];
+            $description =   $data['articles'][$count]['description'];
+            $url =   $data['articles'][$count]['url'];
+            $publishedAt = $data['articles'][$count]['publishedAt'];
+            $name =  $data['articles'][$count]['source']['name'];
+            echo "<span style='color:green'; >Author : ".$author."<br/> Title : ".$title."<br/> Description : ".$description." <br/> link :".$url." <br/>Published ".$publishedAt." by ".$name."<br/><br/>";
+            $count++;
+        }
+        echo "<span style='font-weight:bold;' class='alert alert-success'>".$totalResults." articles found </span>";
     }
 //    print_r($data);
-  }
-  function get_love_quote_chibuokem(){
+}
+function get_love_quote_chibuokem(){
     $url = 'http://quotes.rest/qod.json?category=love';
     $data = json_decode(file_get_contents($url), true);
     $quote =  $data['contents']['quotes'][0]['quote'];
@@ -976,9 +1006,9 @@ catch(PDOException $e)
     $title  = $data['contents']['quotes'][0]['title'];
     $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
 
-   return $answer;
-  }
-  function get_inspiring_quote_chibuokem(){
+    return $answer;
+}
+function get_inspiring_quote_chibuokem(){
     $url = 'http://quotes.rest/qod.json?category=inspire';
     $data = json_decode(file_get_contents($url), true);
     $quote =  $data['contents']['quotes'][0]['quote'];
@@ -987,9 +1017,9 @@ catch(PDOException $e)
     $title  = $data['contents']['quotes'][0]['title'];
     $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
 
-   return $answer;
-  }
-  function get_sports_quote_chibuokem(){
+    return $answer;
+}
+function get_sports_quote_chibuokem(){
     $url = 'http://quotes.rest/qod.json?category=sports';
     $data = json_decode(file_get_contents($url), true);
     $quote =  $data['contents']['quotes'][0]['quote'];
@@ -998,9 +1028,9 @@ catch(PDOException $e)
     $title  = $data['contents']['quotes'][0]['title'];
     $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
 
-   return $answer;
-  }
-  function get_funny_quote_chibuokem(){
+    return $answer;
+}
+function get_funny_quote_chibuokem(){
     $url = 'http://quotes.rest/qod.json?category=funny';
     $data = json_decode(file_get_contents($url), true);
     $quote =  $data['contents']['quotes'][0]['quote'];
@@ -1009,9 +1039,9 @@ catch(PDOException $e)
     $title  = $data['contents']['quotes'][0]['title'];
     $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
 
-   return $answer;
-  }
-  function get_student_quote_chibuokem(){
+    return $answer;
+}
+function get_student_quote_chibuokem(){
     $url = 'http://quotes.rest/qod.json?category=students';
     $data = json_decode(file_get_contents($url), true);
     $quote =  $data['contents']['quotes'][0]['quote'];
@@ -1020,72 +1050,98 @@ catch(PDOException $e)
     $title  = $data['contents']['quotes'][0]['title'];
     $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
 
-   return $answer;
-  }
-  function chibuokem_weather_condition(){
-      $ip  = !empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
+    return $answer;
+}
+function chibuokem_weather_condition(){
+    $ip  = !empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
 //$url = "http://freegeoip.net/json/$ip";
-$url_location = "http://freegeoip.net/json/";
-$dataa = json_decode(file_get_contents($url_location), true);
+    $url_location = "http://freegeoip.net/json/";
+    $dataa = json_decode(file_get_contents($url_location), true);
 
     $lat = $dataa['latitude'];
     $lon = $dataa['longitude'];
 
     $url_weather = "http://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=88b7b09a022737b2bcba78b25d8c8adb";
-  $answer = json_decode(file_get_contents($url_weather), true);
+    $answer = json_decode(file_get_contents($url_weather), true);
 
 
-  $weather_main = $answer['weather'][0]['main'];
- $weather_description = $answer['weather'][0]['description'];
- $temperature = $answer['main']['temp'];
- $pressure = $answer['main']['pressure'];
- $humidity = $answer['main']['humidity'];
- $temp_min = $answer['main']['temp_min'];
- $temp_max = $answer['main']['temp_max'];
- $visibility = $answer['visibility'];
- $wind_speed = $answer['wind']['speed'];
- $wind_degree = $answer['wind']['deg'];
- return "<span style='color:green; font-weight:bold;'>Weather condition for your estimated location, Latitude : $lat, Longitude : $lon <br/>$weather_main , $weather_description <br/> Temperature : $temperature <br/> Pressure: $pressure <br/>Humidity : $humidity <br/> Minimum temperature : $temp_min <br/> Maximum temperature : $temp_max <br/> Visibility : $visibility <br/> Windspeed : $wind_speed <br/> wind degree : $wind_degree  </span>";
+    $weather_main = $answer['weather'][0]['main'];
+    $weather_description = $answer['weather'][0]['description'];
+    $temperature = $answer['main']['temp'];
+    $pressure = $answer['main']['pressure'];
+    $humidity = $answer['main']['humidity'];
+    $temp_min = $answer['main']['temp_min'];
+    $temp_max = $answer['main']['temp_max'];
+    $visibility = $answer['visibility'];
+    $wind_speed = $answer['wind']['speed'];
+    $wind_degree = $answer['wind']['deg'];
+    return "<span style='color:green; font-weight:bold;'>Weather condition for your estimated location, Latitude : $lat, Longitude : $lon <br/>$weather_main , $weather_description <br/> Temperature : $temperature <br/> Pressure: $pressure <br/>Humidity : $humidity <br/> Minimum temperature : $temp_min <br/> Maximum temperature : $temp_max <br/> Visibility : $visibility <br/> Windspeed : $wind_speed <br/> wind degree : $wind_degree  </span>";
 
-  }
-  function greeting_from_chibuokem(){
-        date_default_timezone_set("UTC");
-     $hour = date ("G");
+}
+function greeting_from_chibuokem(){
+    date_default_timezone_set("UTC");
+    $hour = date ("G");
     $minute = date ("i");
     $second = date ("s");
     if ($hour == 0 && $hour <= 9 && $minute <= 59 && $second <= 59)
     {
-      return  "Good Morning dear";
+        return  "Good Morning dear";
     }
     else {
-    if ($hour >= 10 && $hour <= 11 && $minute <= 59 && $second <= 59)
-    {
-      return "Good Day dear";
-     }
-    if ($hour >= 12 && $hour <= 15 && $minute <= 59 && $second <= 59)
-    {
-      return "Good Afternoon dear";
+        if ($hour >= 10 && $hour <= 11 && $minute <= 59 && $second <= 59)
+        {
+            return "Good Day dear";
+        }
+        if ($hour >= 12 && $hour <= 15 && $minute <= 59 && $second <= 59)
+        {
+            return "Good Afternoon dear";
+        }
+        if ($hour >= 16 && $hour <= 23 && $minute <= 59 && $second <= 59)
+        {
+            return "Good Evening dear";
+        }
+        else {
+            return  "Welcome";
+        }
     }
-    if ($hour >= 16 && $hour <= 23 && $minute <= 59 && $second <= 59)
-    {
-      return "Good Evening dear";
-    }
-    else {
-      return  "Welcome";
-    }
-  }
- }
- function chibuokem_bot_help(){
-  $help = "<span style='color:green;'>To train me use the format train question #answer #password"."<br/>". "To get the current time  type time and send "."<br/>"."To get Current weather condition type weather_condition and send "."<br/>"."To get love quote type love_quote and send"."<br/>". "To get funny quote type funny_quote and send"."<br/>"."to get an inspiring quote type inspiring_quote and send"."<br/>"."To get the quote of the day for students type students_quote and send"."<br/>". "to get sports quote of the day type sports_quote and send"."<br/> To get news type news and send "."<br/> to get the current bot version type version or aboutbot and send. Thanks </span>";
-  return $help;
- }
+}
+function chibuokem_bot_help(){
+    $help = "<span style='color:green;'>To train me use the format train question #answer #password"."<br/>". "To get the current time  type time and send "."<br/>"."To get Current weather condition type weather_condition and send "."<br/>"."To get love quote type love_quote and send"."<br/>". "To get funny quote type funny_quote and send"."<br/>"."to get an inspiring quote type inspiring_quote and send"."<br/>"."To get the quote of the day for students type students_quote and send"."<br/>". "to get sports quote of the day type sports_quote and send"."<br/> To get news type news and send "."<br/> to get the current bot version type version or aboutbot and send. Thanks </span>";
+    return $help;
+}
 
- //////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
+//////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
 
 if ($_REQUEST["qsam"]){
-$qsam = $_REQUEST["qsam"];
-samsonjnrBot($qsam);
+    $qsam = $_REQUEST["qsam"];
+    samsonjnrBot($qsam);
 }
+function samsonjnrBot($qsam){
+    $qsam = strtolower($qsam);
+    $anwerSam = "";
+    $guestName = "";
+
+
+    $keyword = array('newschool', 'how are you','what are you you?', 'what your do name ur name? call you your\'s', 'my name name?', 'i\'m am fine okay doing great ok all good', 'today today\'s date', 'version version? aboutbot', 'what do time? time', 'still here you there codmax jnr samson');
+
+    $decisionArray = array();
+    $usrKeywords = $qsam; //$_POST['keywords']
+    $arr1 = explode(' ', $usrKeywords);
+    foreach ($keyword as $s){
+        $arr2 = explode(' ', $s);
+        $aint = array_intersect($arr2, $arr1);
+        $percentage = (count($aint) * 100 / count($arr2));
+        array_push($decisionArray, $percentage);
+    }
+    if ($qsam != 'how' && $qsam != "you" && $qsam != "your" && $qsam != "are" && $qsam != "my" && $qsam != "still" && $qsam != "here" && $qsam != "there" && $qsam != "call"){
+        $decisionValue = array_keys($decisionArray, max($decisionArray));
+    }else{
+        $decisionValue = [0];
+    }
+
+
+<<<<<<< HEAD
+
  function samsonjnrBot($qsam){
  $qsam = strtolower($qsam);
  $anwerSam = "";
@@ -1275,30 +1331,197 @@ samsonjnrBot($qsam);
  			echo repondName();
  		}else if ( $keyword[$decisionValue[0]] == "newschool"){
  			echo "oop! Sorry i don't understand you. But I'm a fast learner,
+=======
+    function trainingSam($newmessage){
+        require 'db.php';
+        $message = explode('#', $newmessage);
+        $question = explode(':', $message[0]);
+        $answer = $message[1];
+        $password = $message[2];
+
+        $question[1] = trim($question[1]);
+        $password = trim($password);
+        if ($password != "password"){
+            echo "You are not authorize to train me.";
+
+        }else{
+            $chatbot= array(':id' => NULL, ':question' => $question[1], ':answer' => $answer);
+            $query = 'INSERT INTO chatbot ( id, question, answer) VALUES ( :id, :question, :answer)';
+
+            try {
+                $execQuery = $conn->prepare($query);
+                if ($execQuery ->execute($chatbot) == true) {
+                    echo repondTraining();
+
+                };
+            } catch (PDOException $e) {
+                echo "Oops! i did't get that, Something is wrong i guess, <br> please try again";
+            }
+        }
+    }
+
+    function greetingSam(){
+        $greeting = array('Hi! Good to have you here. My name is Samson Jnr, but you can call me Codmax' ,
+            'Hello there, my name is Codmax, how Can i be of help?' ,
+            'Good day, You are chatting with Codmax, ask me something',
+            'Hi! My name is Samson whats up?',
+            'It\'s Codmax, Welcome on board',
+            'I\'m Codmax, let\'s get started');
+        $index = mt_rand(0, 5);
+        return $anwerSam = $greeting[$index];
+    }
+
+    function requestName(){
+        $requestName = array( 'Sorry I did\'t catch your name',
+            'What can I call you?',
+            'What\'s that lovely name of yours?');
+        $index = mt_rand(0, 2);
+        return $anwerSam = $requestName[$index];
+    }
+
+    function repondTraining(){
+        $repondTraining = array(  'Noted! Thank you for teaching me',
+            'Acknowledged, thanks, really want to learn more',
+            'A million thanks, I\'m getting smarter',
+            'i\'m getting smarter, I really appreciate');
+        $index = mt_rand(0, 3);
+        return $anwerSam = $repondTraining[$index];
+    }
+
+    function repondName(){
+        $repondName = array( 'Yeah! i\'m still here',
+            'I\'m with you',
+            'go ahead I\'m still here');
+        $index = mt_rand(0, 2);
+        return $anwerSam = $repondName[$index];
+    }
+
+    function respondDate(){
+        date_default_timezone_set("Africa/Lagos");
+        $time = date("Y/m/d");
+        $respondTime = array( 'Today\'s date is '.$time,
+            'it\'s '. $time,
+            'Today is '. $time,
+            $time);
+        $index = mt_rand(0, 3);
+        return $anwerSam = $respondTime[$index];
+    }
+
+    function respondTime(){
+        date_default_timezone_set("Africa/Lagos");
+        $time = date("h:i A");
+        $respondTime = array( 'The time is '.$time,
+            'it\'s '. $time,
+            $time);
+        $index = mt_rand(0, 2);
+        return $anwerSam = $respondTime[$index];
+    }
+
+    function respondName(){
+        $respondName = array( 'Codmax, you can still call me Samson Jnr.',
+            'Samson Jnr, I\'m still called Codmax.',
+            'Samson Jnr. or Codmax');
+        $index = mt_rand(0, 2);
+        return $anwerSam = $respondName[$index];
+    }
+
+    function respondOkay(){
+        $respondOkay = array( 'That\'s Great, we should keep chatting I\'m having fun',
+            'So Lovely, let\'s keep chatting',
+            'That\'s good news, so how can I help you?');
+        $index = mt_rand(0, 2);
+        return $anwerSam = $respondOkay[$index];
+    }
+
+    function respondGreeting (){
+        $respondGreeting = array( 'Oh, I\'m doing quite well. You?',
+            'Am fine and thanks What about you?',
+            'Am all good. and how are you too?');
+        $index = mt_rand(0, 2);
+        return $anwerSam = $respondGreeting[$index];
+    }
+
+
+    function checkDatabaseToo($question){
+        try{
+            require 'db.php';
+
+            $stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
+
+            $stmt->execute();
+            if($stmt->rowCount() > 0){
+                while($row = $stmt->fetch(PDO::FETCH_ASSOC)){ echo $row["answer"];}
+            }else{
+                return 1;
+            }
+        }
+        catch (PDOException $e){
+            echo "Error: " . $e->getMessage();
+        }
+        $conn = null;
+    }
+
+
+    if ($qsam == "intro"){
+        echo greetingSam();
+    } else if($qsam == "request name"){
+        echo requestName();
+    }else if (strtok($qsam, ":") == "train"){
+        trainingSam($qsam);
+    }else if ( $keyword[$decisionValue[0]] == "what do time? time"){
+        echo respondTime();
+    }else if ( $keyword[$decisionValue[0]] == "what your do name ur name? call you your's" || $qsam == "your name" || $qsam == "name" || $qsam == "ur name" || $qsam == "ur name?"){
+        echo respondName();
+    } else if ( $keyword[$decisionValue[0]] == "my name name?"){
+        echo "givename";
+    }else if ( $keyword[$decisionValue[0]] == "version version? aboutbot"){
+        echo "Version: 1.0";
+    }else if ( $keyword[$decisionValue[0]] == "what are you you?"){
+        echo "I'm a ChatBot";
+    }else if ( $keyword[$decisionValue[0]] == "today today's date"){
+        echo respondDate();
+    }else if($qsam != "intro" && $qsam != "request name" && strtok($qsam, ":") != "train"){
+        $te = checkDatabaseToo($qsam);
+        if ($te == 1){
+            if ( $keyword[$decisionValue[0]] == "i'm am fine okay doing great ok all good"){
+                echo respondOkay();
+            }else if ( $keyword[$decisionValue[0]] == "how are you"){
+                echo respondGreeting();
+            }else if (strtok($qsam, ":") == "name"){
+                echo "nice name, also nice to meet you";
+                $nameGuest = explode (":", $qsam);
+                $guestName = $nameGuest [1];
+                echo "$guestName" . ". How are you today?";
+
+            }else if ( $keyword[$decisionValue[0]] == "still here you there codmax jnr samson"){
+                echo repondName();
+            }else if ( $keyword[$decisionValue[0]] == "newschool"){
+                echo "oop! Sorry i don't understand you. But I'm a fast learner,
+>>>>>>> 7e0b22e8fbc84c86c4af16b3b961fc89e5728cdc
  						you can train me in this format 'train: question # answer #password'";
- 		}
- 	}
- }
- }
+            }
+        }
+    }
+}
 
- ////////////////////// END OF FUNCTION BY BROWN SAMSON ////////////////////////////////////
+////////////////////// END OF FUNCTION BY BROWN SAMSON ////////////////////////////////////
 
 
 
- ////////////////////FUNCTIONS BY ADEYEFA OLUWATOBA///////////////////////////////////
+////////////////////FUNCTIONS BY ADEYEFA OLUWATOBA///////////////////////////////////
 
- function GetCryptoPrice($from, $to) {
+function GetCryptoPrice($from, $to) {
     $from = (trim(strtoupper($from)));
     $to = (trim(strtoupper($to)));
     $url = 'curl -s -H "CB-VERSION: 2017-12-06" "https://api.coinbase.com/v2/prices/'.$from.'-'.$to.'/spot"';
     $tmp = shell_exec($url);
     $data = json_decode($tmp, true);
     if ($data && $data['data'] && $data['data']['amount']) {
-      return (float)$data['data']['amount'];
+        return (float)$data['data']['amount'];
     }
     return null;
-  }
-  ///////////////END OF FUNCTION BY ADEYEFA OLUWATOBA////////////////////////////////
+}
+///////////////END OF FUNCTION BY ADEYEFA OLUWATOBA////////////////////////////////
 
 
 
@@ -1332,7 +1555,7 @@ function johnsCode()
 
 
     // All the functions goes here
-    
+
             function before($thiss, $inthat)
             {
                 return substr($inthat, 0, strpos($inthat, $thiss));
@@ -1352,13 +1575,13 @@ function johnsCode()
                     return substr($inthat, strrevpos($inthat, $thiss)+strlen($thiss));
                 };
 
-               //use strrevpos function in case your php version does not include it
-            function strrevpos($instr, $needle)
-            {
-                $rev_pos = strpos (strrev($instr), strrev($needle));
-                if ($rev_pos===false) return false;
-                else return strlen($instr) - $rev_pos - strlen($needle);
-            };
+//use strrevpos function in case your php version does not include it
+function strrevpos($instr, $needle)
+{
+    $rev_pos = strpos (strrev($instr), strrev($needle));
+    if ($rev_pos===false) return false;
+    else return strlen($instr) - $rev_pos - strlen($needle);
+};
 
         function training($check)
         {
@@ -1370,19 +1593,19 @@ function johnsCode()
                 {
                     try {
                         require 'db.php';
-                            
+
                             $sql = "INSERT INTO chatbot (id, question, answer) VALUES ('', '$newquestion', '$newanswer')";
                             // use exec() because no results are returned
                             $conn->exec($sql);
                             $res = "Thanks for training me";
                             return $res;
-                            
+
                         }
                     catch(PDOException $e)
                             {
                             echo $sql . "<br>" . $e->getMessage();
                             }
-                            
+
                 }
             else
                 {
@@ -1401,20 +1624,20 @@ function johnsCode()
                   while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                   {
                         $res=$row["answer"];
-                         
+
                         return $res;
                   }
-                  
-                } 
+
+                }
                 else {
                     $res="I don't seem understand what you asked. But you can train me.<br>Type<br>train:question#answer#password";
                     return $res;
                 }
-                  
-                   
+
+
             }
 
- 
+
 
     function currencyConverter($from_currency, $to_currency, $amount) {
         $from_Currency = urlencode($from_currency);
@@ -1534,7 +1757,7 @@ function getLatestNews() {
 /////// If you want to touch something, 
 ///////      don't touch this side  ///////////////// 
 function getBotInfo() {
-    $bot_version=1.0.1;
+    $bot_version="1.0.1";
     return "Heyo! I'm Vectormike's smiggle. I'm version " .$bot_version;
 }
 function getBotManual() {
@@ -1546,10 +1769,8 @@ function getBotManual() {
     'train: question # answer # password'";
 }
 function getAge() {
+    $bot_version="1.0.1";
     return "Vectormike is just 20 years old. As for me, I have got no idea of age. Still " .$bot_version;
-}
-function getTime() {
-    return date(h:i:sA);
 }
 
 function get_client_ip() {
@@ -1570,12 +1791,12 @@ function get_client_ip() {
         $ipaddress = 'UNKNOWN';
     return $ipaddress;
 
-$PublicIP = get_client_ip(); 
-$json  = file_get_contents("https://freegeoip.net/json/$PublicIP");
-$json  =  json_decode($json ,true);
-$country =  $json['country_name'];
-$region= $json['region_name'];
-$city = $json['city'];
+    $PublicIP = get_client_ip();
+    $json  = file_get_contents("https://freegeoip.net/json/$PublicIP");
+    $json  =  json_decode($json ,true);
+    $country =  $json['country_name'];
+    $region= $json['region_name'];
+    $city = $json['city'];
 }
 
 
@@ -1586,7 +1807,6 @@ $city = $json['city'];
 
 
 
+>>>>>>> 0d13d9356270629f92591e13d07e709318f450cc
 
-
-}
 ?>
