@@ -473,18 +473,20 @@
 							type: "POST",
 							data: {chat: a},
 							success: function(data,status){
-								if(data != ""){
-									if (data.indexOf("::def") >= 0) {
+								data = JSON.parse(data);
+								add_bot_text(data['data']);
+								// if(data != ""){
+								// 	if (data.indexOf("::def") >= 0) {
 										
-										data = data.replace("::def","");
-										add_bot_text(data);
-										add_bot_default();
-									}
-									else{
-										add_bot_text(data);
-									}
+								// 		data = data.replace("::def","");
+								// 		add_bot_text(data);
+								// 		add_bot_default();
+								// 	}
+								// 	else{
+								// 		add_bot_text(data);
+								// 	}
 									
-								}										
+								// }										
 							}
 						});
 					}
@@ -752,6 +754,9 @@
 					if($stmt){
 						foreach($stmt as $row){
 							$answer = $row['answer'];
+							$stat = strlen($answer);
+							$myJSON = ['data'=>$answer,'stat'=>$stat];
+							echo json_encode($myJSON);
 						}
 					}
 					
@@ -762,10 +767,13 @@
 
 				if($answer == ""){
 					$answer = $no_answer[rand(0,4)]."::def";
+					$stat = strlen($answer);
+					$myJSON = ['data'=>$answer,'stat'=>$stat];
+					echo json_encode($myJSON);
 				}
 
-				echo $answer;
-				exit;
+				// echo $answer;
+				// exit;
 			}
 		}
 ?>
