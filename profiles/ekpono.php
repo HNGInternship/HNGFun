@@ -154,7 +154,7 @@ body {
     display: block;
     text-align: right;
     font-size: 20px;
-    padding-top: -80px;
+    padding-top: 40px;
 }
 .photo {
     width: 50%;
@@ -174,7 +174,7 @@ a {
 /* ChatBot */
        .display{
             position:fixed;
-            bottom: 30px;
+            bottom: 50px;
             right: 50px;
             background-color:white;
             width: 350px;
