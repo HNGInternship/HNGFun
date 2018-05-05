@@ -482,12 +482,12 @@
 								// if(data != ""){
 
 									if (data['data'].indexOf("::def") >= 0) {
-										data['data'] = data['data'].replace("::def","");
-										add_bot_text(data['data']);
+										// data['data'] = data['data'].replace("::def","");
+										// add_bot_text(data['data']);
 										add_bot_default();
 									}
 									else{
-										add_bot_text(data['data']);
+										add_bot_text("done");
 									}
 									
 								// }										
