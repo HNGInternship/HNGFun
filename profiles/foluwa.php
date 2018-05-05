@@ -93,7 +93,7 @@
               font-style: "Arial","sans-serif";
          }
          .col-sm-6 {
-            padding-top: 10px;
+            padding-top: 15px;
             background-color: transparent;
          }
          i {
