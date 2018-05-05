@@ -172,15 +172,16 @@ a {
      text-decoration: underline dotted;
 }
 /* ChatBot */
-        .display{
+       .display{
             position:fixed;
-            bottom:0;
-            right: 20px;
+            bottom: 30px;
+            right: 50px;
             background-color:white;
             width: 350px;
             height: 400px;
             overflow:auto;
-            padding-bottom: 20px;
+            padding: 0 10px 0 10px;
+            margin-bottom: auto;
         }
         .display nav{
             display:block;
