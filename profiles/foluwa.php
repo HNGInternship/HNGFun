@@ -8,7 +8,7 @@
 <head>
       <meta charset="utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title><?php echo $user->name; ?> Hng Intern</title>
+      <title><?php //echo $user->name; ?> Hng Intern</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -88,18 +88,28 @@
                     color: #000830;
         }
         .time{
+            padding-top: 2px;
               opacity: 0.5;
               font-style: "Arial","sans-serif";
+         }
+         .col-sm-6 {
+            padding-top: 10px;
+            background-color: transparent;
+         }
+         i {
+            padding-left: 5px;
          }
         img {
             margin: auto;
             display: block;
-            width: 220px;
-            height:300px;
+            max-height: 250px;
+            max-width: 250px;
             border-radius: 50%;
-            box-shadow: 0px 0px 2px 1px grey
+            box-shadow: 0px 0px 2px 1px grey;
+          
         }
          body{
+            padding-top: 50px;
             margin: 0px;
             height: 100%;
             background-color: #87ceeb;
@@ -112,7 +122,7 @@
 </head>
 <body>
 <div class="container">
-    <?php
+    <?php/*
     global $conn;
 
     try {
@@ -122,7 +132,7 @@
         $my_data = $q2->fetch();
     } catch (PDOException $e) {
         throw $e;
-    }
+    }*/
     ?>
 
     <nav class="oj-web-applayout-header" role="banner" class="oj-web-applayout-header bg-dark" role="banner">
@@ -131,21 +141,21 @@
             <span class="oj-icon" alt="My Logo"> </span> 
             <h4 class="oj-sm-only-hide oj-web-applayout-header-title" title="Application Name">Made with Oracle JET</h4>
           </div>
-          <div class="push-right"><h3><?php echo $dt ?></h3></div>
+          <div class="push-right"><h3><?php //echo $dt ?></h3></div>
         </div>
    </nav>
 
     <div class="row">
      
-     <div class="col-sm-6" style="border: green solid 2px;position:relative;" height="100%;">
+     <div class="col-sm-6" style="border: green solid 2px;position:relative;background-color:white;" height="100%;">
             <div class="oj-sm-12 oj-md-6 oj-flex-item">
                 <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
-                    <div role="img" class="oj-flex-item alignCenter">
-                        <img class="img-fluid " src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture" >
+                    <div role="img" class="oj-flex-item oj-sm-align-items-center alignCenter">
+                        <img class="img-fluid " src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture" height="250" >
                     </div>
                 </div>
                     <div class="my-name">
-                            <span>Akintola<?php echo $user->name; ?></span>
+                            <span><?php //echo $user->name; ?></span>
                     </div>
 
                     <div class="oj-flex">
@@ -154,7 +164,6 @@
                         <a href="https://instagram.com/fantastic_foluwa"><i class="fab fa-instagram"></i></a>
                         <a href="https://twitter.com/fantasticfoluwa"><i class="fab fa-twitter"></i></a>
                         <a href="https://github.com/foluwa"><i class="fab fa-github"></i></a>
-                        <a href="https://slack.com/foluwa"><i class="fab fa-slack"></i></a>
                       </div>
                     </div>
             </div>
@@ -169,7 +178,7 @@
             <div class='chatbot-menu-header'>
                     <span>ChatBot Interface</span>
             </div>
-            <div class="chat-output" id="chat-output" data-spy="scroll" height="100%;">
+            <div class="chat-output" id="chat-output" data-spy="scroll" height="70%;">
                     <div class="user-message">
                         <div class="message">Hi there! I'm Zoe!</br>To train me, use this format - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.
                         </div>
@@ -184,7 +193,7 @@
                 </div>
       </div>
 
-    <?php
+    <?php/*
 
     try {
         $sql = 'SELECT * FROM secret_word';
@@ -264,7 +273,7 @@
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."<span class='time'><?php echo $time ?></span></div>";
         }
-    }
+    }*/
     ?>
 
 </body>
@@ -278,7 +287,7 @@
 
         var message = $("#user-input").val();
 
-        outputArea.append(`<div class='bot-message'><div class='message'>${message}<span class='time'><?php echo $time ?></span></div></div>`);
+        outputArea.append(`<div class='bot-message'><div class='message'>${message}<p class='time'><?php echo $time ?></p></div></div>`);
 
 
         $.ajax({
@@ -288,7 +297,7 @@
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<div class='user-message'><div class='message'>" + result + "<span class='time'><?php echo $time ?></span></div></div>");
+                    outputArea.append("<div class='user-message'><div class='message'>" + result + "<p class='time'><?php echo $time ?></p></div></div>");
                     $('#chat-output').animate({
                         scrollTop: $('#chat-output').get(0).scrollHeight
                     }, 1500);
