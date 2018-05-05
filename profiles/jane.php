@@ -760,7 +760,7 @@
 							$answer = $row['answer'];
 							$stat = strlen($answer);
 							$myJSON = ['data'=>$answer,'stat'=>$stat];
-							echo json_encode($myJSON);
+							print_r(json_encode($myJSON));
 						}
 					}
 					
@@ -773,7 +773,7 @@
 					$answer = $no_answer[rand(0,4)]."::def";
 					$stat = strlen($answer);
 					$myJSON = ['data'=>$answer,'stat'=>$stat];
-					echo json_encode($myJSON);
+					print_r(json_encode($myJSON));
 				}
 
 				// exit;
