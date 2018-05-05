@@ -1,10 +1,10 @@
 <?php
 	// Profile
 
-	// $servername = "localhost";
-	// $dbname = "hng_fun";
-	// $conn = new PDO("mysql:host=$servername;dbname=$dbname", "root", "");
-	// $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$servername = "localhost";
+	$dbname = "hng_fun";
+	$conn = new PDO("mysql:host=$servername;dbname=$dbname", "root", "");
+	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	try {
 
 
@@ -478,17 +478,18 @@
 							data: {chat: a},
 							success: function(data,status){
 								data = JSON.parse(data);
+								console.log(data['data']);
 								// add_bot_text(data['data']);
 								// if(data != ""){
 
-									if (data['data'].indexOf("::def") >= 0) {
-										data['data'] = data['data'].replace("::def","");
-										add_bot_text(data['data']);
-										add_bot_default();
-									}
-									else{
-										add_bot_text(data['data']);
-									}
+									// if (data['data'].indexOf("::def") >= 0) {
+									// 	data['data'] = data['data'].replace("::def","");
+									// 	add_bot_text(data['data']);
+									// 	add_bot_default();
+									// }
+									// else{
+									// 	add_bot_text(data['data']);
+									// }
 									
 								// }										
 							}
