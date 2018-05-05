@@ -168,9 +168,9 @@
                     </div>
             </div>
             <button data-toggle="collapse" data-target="#aboutme">About Me<i class="fa fa-caret-down"></i></button>
-              <div id="aboutme" class="collapse"> Am Foluwa, Majored in Computer Science.Check out my github portfolio at <a href="https://foluwa.github.io">portfolio</a>
+              <div id="aboutme" class="collapse"> Am Foluwa, majored in Computer Science.Check out my github portfolio at <a href="https://foluwa.github.io">portfolio</a>
              </div> 
-             <div style="text-align:center;"><strong>Foluwa @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
+             <div style="text-align:center;"><strong>Foluwa 2018 @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
         </div>
 
         <div class="col-sm-6" style="border: red solid 2px;">
