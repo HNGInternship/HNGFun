@@ -419,7 +419,7 @@ if(!defined('DB_USER')){
     
     <script>
       $(document).ready(function(){
-          var questionForm = $('#question-secton');
+          var questionForm = $('#question-section');
           questionForm.submit(function(e){
               e.preventDefault();
               var questionBox = $('textarea[name=question]');
@@ -434,7 +434,7 @@ if(!defined('DB_USER')){
 
               // Send questions to the server
               $.ajax({
-                  url: "profiles/vectormike.php",
+                  url: "/profiles/vectormike.php",
                   type: "post",
                   data: {question: question},
                   dataType: "json",
