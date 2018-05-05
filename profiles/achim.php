@@ -1,7 +1,7 @@
 <?php 
 	//create database connection
 	if(!defined('DB_USER')){
-        require "./../db.php";     
+        /*require "./../db.php"; */    
         try {
             $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
         } catch (PDOException $pe) {
@@ -175,7 +175,7 @@ body {
     <div class="container">
         <div class="row centered">
             <div class="col-lg-12">
-                <h1 style="padding-top:100;"><?php echo  $name ?></h1>
+                <h1 style="padding-top:300;"><?php echo  $name ?></h1>
                 <h3>Deep Learning Engineer | achim_munene@hotmail.com</h3>
             </div><!--/.col-lg-12 -->
         </div><!--/.row -->
