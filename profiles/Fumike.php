@@ -23,9 +23,9 @@
             background-color: white;
 }
 #wrap {
-                width:100%;
+                width:50%;
                 margin:0 auto;
-                padding-top: 160px;
+                padding-top: 100px;
                 
         }
         .container{
@@ -138,7 +138,7 @@ p {
     <!-- </form> -->
     
     You can <a href="mailto:iribirimary@gmail.com"> email me </a>  for any web based projects.
-
+<br>
     <!-- Add icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
