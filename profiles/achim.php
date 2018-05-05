@@ -2,7 +2,7 @@
 	//create database connection
 	if(!defined('DB_USER')){
         /*require "./../db.php"; */  
-        require "../../../config.php";  
+        require "../../../config.php"; 
         try {
             $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
         } catch (PDOException $pe) {
@@ -196,7 +196,7 @@ body {
                 <p>I am a self taught Full stack python developer, i mainly work with the Flask Microframework, an Artificial Intelligence fanatic and UI/UX designer....</p>
             </div>
             <div class="col-lg-3">
-                
+                <h2><?php echo  $name ?></h2>
             </div>
             
         </div><!--/.row -->
