@@ -142,11 +142,11 @@ footer {
 PAGE: ABOUT
 *********************/
 .profile-photo {
-	display: block;
-	max-width: 50%;
-	margin: 0 auto 30px;
-	border-radius: 100%;
-}
+            display: block;
+            max-width: 20%;
+            margin: 0 auto 50px;
+            border-radius: 50%;
+        }
 
 
 
