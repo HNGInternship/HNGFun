@@ -147,7 +147,7 @@
 
     <div class="row">
      
-     <div class="col-sm-6" style="border: green solid 2px;position:relative;background-color:white;" height="100%;">
+     <div class="col-sm-6" style="position:relative;background-color:white;" height="100%;">
             <div class="oj-sm-12 oj-md-6 oj-flex-item">
                 <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
                     <div role="img" class="oj-flex-item oj-sm-align-items-center alignCenter">
@@ -173,7 +173,7 @@
              <div style="text-align:center;"><strong>Foluwa 2018 @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
         </div>
 
-        <div class="col-sm-6" style="border: red solid 2px;">
+        <div class="col-sm-6">
         <div class="oj-sm-12 oj-flex-item">
             <div class='chatbot-menu-header'>
                     <span>ChatBot Interface</span>
