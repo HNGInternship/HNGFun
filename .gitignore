@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+/profiles/dennis/*
+/profiles/dennisotugo.php
+=======
+>>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
 db.php
 docker-compose.yml
 phpmyadmin/
@@ -6,8 +11,8 @@ phpmyadmin/
 /deploy
 .idea/
 config.php
-/profiles/dennisotugo/*
-/profiles/dennisotugo.php
+
 .travis.yml
 push.sh
 /vendor/
+disruption.png

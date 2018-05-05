@@ -163,14 +163,6 @@ try{
               float: right;
             }
         }
-
-        .chatbot{
-            position: static;
-            bottom: 0;
-            right: 0;
-            background: #56CCF2;
-            color: #000080;            
-        }
     
     </style>
     
@@ -212,9 +204,6 @@ try{
                                         <li><a href="www.linkedin.com/in/hamzah-abdulfattah-81419694"><i class="fa fa-linkedin"></i></a></li>
                                         <li><a href="https://twitter.com/Fantastigenius"><i class="fa fa-twitter"></i></a></li>
                                     <ul>
-                                </div>
-                                <div class="chatbot">
-                                    geniusBot
                                 </div>
                             </div>                            
                         </div>
