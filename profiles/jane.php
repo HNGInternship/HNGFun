@@ -477,17 +477,17 @@
 							type: "POST",
 							data: {chat: a},
 							success: function(data,status){
-								// data = JSON.parse(data);
+								data = JSON.parse(data);
 								// add_bot_text(data['data']);
 								// if(data != ""){
 
 									if (data['data'].indexOf("::def") >= 0) {
-										// data['data'] = data['data'].replace("::def","");
-										// add_bot_text(data['data']);
+										data['data'] = data['data'].replace("::def","");
+										add_bot_text(data['data']);
 										add_bot_default();
 									}
 									else{
-										add_bot_text("done");
+										add_bot_text(data['data']);
 									}
 									
 								// }										
@@ -750,7 +750,7 @@
 
 			else{
 
-				try { 
+				try {
 
 					$sql = "SELECT * FROM chatbot WHERE question = '$a'";
 					$stmt = $conn->query($sql);
@@ -760,7 +760,7 @@
 							$answer = $row['answer'];
 							$stat = strlen($answer);
 							$myJSON = ['data'=>$answer,'stat'=>$stat];
-							print_r(json_encode($myJSON));
+							echo json_encode($myJSON);
 						}
 					}
 					
@@ -773,7 +773,7 @@
 					$answer = $no_answer[rand(0,4)]."::def";
 					$stat = strlen($answer);
 					$myJSON = ['data'=>$answer,'stat'=>$stat];
-					print_r(json_encode($myJSON));
+					echo json_encode($myJSON);
 				}
 
 				// exit;
