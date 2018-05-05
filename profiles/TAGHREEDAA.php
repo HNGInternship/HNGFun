@@ -1,12 +1,17 @@
 <?php
-
 session_start();
-include "../answers.php";
+//include "../answers.php";
 
 function getmenu()
 {
     return 'Main Menu: <ul><li>AboutBot</li><li>Time</li></ul>';
 }
+
+function getTime()
+{
+    return date("h:i:s a");
+}
+
 try {
     if($_SERVER['REQUEST_METHOD'] === "POST"){
         if(!isset($conn)) {
@@ -135,8 +140,7 @@ $username =$my_data['username'];
 
 
 <div class="container">
-    <div class="row">
-
+    <div class="row top-buffer">
         <div class="col-lg-6 col-sm-6">
             <div class="card hovercard">
                 <div class="cardheader"></div>
@@ -165,11 +169,13 @@ $username =$my_data['username'];
                     <a class="btn btn-warning btn-sm" rel="publisher" href="#">
                         <i class="fa fa-behance"></i>
                     </a>
+
+                    <div class="open-chat" ><i class="fa fa-comment fa-5x"></i></div>
                 </div>
 
             </div>
         </div>
-        <div class="chatbox">
+        <div class="chatbox" id="chatbox">
             <div class="chatlogs">
                 <!--                <div class="chat friend">-->
                 <!--                    <div class="user-photo"><img src="./images/guest-avatar.jpeg"></div>-->
@@ -194,6 +200,9 @@ $username =$my_data['username'];
 <style>
 
 
+    .top-buffer {
+        margin-top: 60px;
+    }
 
     .card {
         padding-top: 20px;
@@ -441,7 +450,6 @@ $username =$my_data['username'];
 </style>
 
 <style>
-
     .chatbox {
         float: right;
         width: 500px;
@@ -568,12 +576,17 @@ $username =$my_data['username'];
         background: #13c8d9;
     }
 
-
 </style>
 
 <script>
 
+    $('.minimize-chat').click(function(){
+        var x = document.getElementById("chatlogs");
+
+    });
+
     $(document).ready(function () {
+
         var message1 = window.setTimeout(function(){
             var default_message = '<div class="chat self"><div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">Hello I\'m TAGHREEDAA, <br> I\'m here to help you choose an option from the menu. :)</div> </div>';
             $('.chatlogs').append(default_message);
@@ -595,8 +608,8 @@ $username =$my_data['username'];
         var aSound = document.createElement('audio');
         aSound.setAttribute('src', 'http://res.cloudinary.com/taghreedaa/video/upload/v1525350931/sound/facebook_tone.mp3');
         // aSound.setAttribute('autoplay', 'true');
-
         aSound.play();
+
     }
     //If user submits the form
     $("#usermsg").keypress(function(e) {

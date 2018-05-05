@@ -3,11 +3,11 @@
     $result = $result->fetch(PDO::FETCH_OBJ);
     $secret_word = $result->secret_word;
 
-    $result2 = $conn->query("SELECT * from interns_data where username = 'Fumike'");
+    $result2 = $conn->query("SELECT * FROM interns_data where username = 'Fumike'");
     $user = $result2->fetch(PDO::FETCH_ASSOC);
 
-    $name = $user['name'];
     $username = $user['username'];
+    $name = $user['name'];
     $image_filename = $user['image_filename'];
 ?>
 
@@ -21,7 +21,15 @@
         body {
             color: blue;
             background-color: white;
-
+}
+#wrap {
+                width:100%;
+                margin:0 auto;
+                
+        }
+        .container{
+            margin: 50px auto;
+        }
 p {
             font-family: verdana;
             font-size: 16px;
@@ -47,11 +55,7 @@ p {
                 padding-right: 80px;
         }
 
-        #wrap {
-                width:100%;
-                margin:0 auto;
-                
-        }
+       
 
         .fa-instagram {
             background: red;
@@ -93,6 +97,7 @@ p {
 </style>
 </head>
 <body>
+<div class="container">
     <div id="wrap">
     
         
@@ -144,7 +149,7 @@ p {
     <a href="https://linkedin.com/in/mary-iribiri" class="fa fa-linkedin"></a>
     <a href="https://instagram.com/mayrieh" class="fa fa-instagram"></a>
 </div>
-
+</div>
     
 
     
