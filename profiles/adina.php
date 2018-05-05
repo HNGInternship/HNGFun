@@ -556,7 +556,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div id="cbmain">
                     <div class="bot"><div class="note">Hi, I am PROTOTYPE; a chatbot.</div></div>
                 <div class="bot"><div class="note">You can ask me a question you want me to answer. You can train me to answer a specific question with a specific answer like so: <b>train: question #answer #password</b>. You can find out about me like so: <b>aboutbot</b>. You can decide to delete a question and all its possible answers from my memory, though they can be added back! like so <b>deletequest('your question')</b>.</div></div>
-                <div class="you"><div class="note">Yalla</div></div>
                 </div>
                 <div id="cbtextfld">
                     <form action="" method="post" id="thisform">
