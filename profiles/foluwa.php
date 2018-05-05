@@ -173,7 +173,7 @@
         </div>
 
         <div class="col-sm-6">
-        <div class="oj-sm-12 oj-flex-item">
+        <div class="oj-sm-12 oj-flex-item" style"background: white;">
             <div class='chatbot-menu-header'>
                     <span>ChatBot Interface</span>
             </div>
