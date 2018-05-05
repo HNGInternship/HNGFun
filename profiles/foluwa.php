@@ -1,6 +1,6 @@
 
 <?php
-  $dt = date("Y-m-d h:i:sa");
+  $Ctime = date("Y-m-d h:i:sa");
   $time= date("h:i:sa");
 ?>
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 <head>
       <meta charset="utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title><?php //echo $user->name; ?> Hng Intern</title>
+      <title><?php echo $user->name; ?> Hng Intern</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -122,7 +122,7 @@
 </head>
 <body>
 <div class="container">
-    <?php/*
+    <?php
     global $conn;
 
     try {
@@ -132,7 +132,7 @@
         $my_data = $q2->fetch();
     } catch (PDOException $e) {
         throw $e;
-    }*/
+    }
     ?>
 
     <nav class="oj-web-applayout-header" role="banner" class="oj-web-applayout-header bg-dark" role="banner">
@@ -141,7 +141,7 @@
             <span class="oj-icon" alt="My Logo"> </span> 
             <h4 class="oj-sm-only-hide oj-web-applayout-header-title" title="Application Name">Made with Oracle JET</h4>
           </div>
-          <div class="push-right"><h3><?php //echo $dt ?></h3></div>
+          <div class="push-right"><h3><?php echo $Ctime ?></h3></div>
         </div>
    </nav>
 
@@ -155,7 +155,7 @@
                     </div>
                 </div>
                     <div class="my-name">
-                            <span><?php //echo $user->name; ?></span>
+                            <span><?php echo $user->name; ?></span>
                     </div>
 
                     <div class="oj-flex">
@@ -168,7 +168,7 @@
                     </div>
             </div>
             <button data-toggle="collapse" data-target="#aboutme">About Me<i class="fa fa-caret-down"></i></button>
-              <div id="aboutme" class="collapse"> Am Foluwa, Majored in Computer Science.                                      Check out my github portfolio at <a href="https://foluwa.github.io">portfolio</a>
+              <div id="aboutme" class="collapse"> Am Foluwa, Majored in Computer Science.Check out my github portfolio at <a href="https://foluwa.github.io">portfolio</a>
              </div> 
              <div style="text-align:center;"><strong>Foluwa @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
         </div>
@@ -193,7 +193,7 @@
                 </div>
       </div>
 
-    <?php/*
+    <?php
 
     try {
         $sql = 'SELECT * FROM secret_word';
@@ -304,10 +304,7 @@
                 }, 250);
             }
         });
-
-
         $("#user-input").val("");
-
     });
 </script>
 </html>
