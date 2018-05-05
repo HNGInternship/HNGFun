@@ -200,7 +200,7 @@ body {
             
         </div><!--/.row -->
     </div><!--/.container -->
-</div><!--/ #intro -->
+</div>
 
 </body>
 </html>
