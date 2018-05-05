@@ -471,6 +471,7 @@
 					else{
 						$.ajax({
 							type: "POST",
+							dataType: 'json',
 							data: {chat: a},
 							success: function(data,status){
 								data = JSON.parse(data);
