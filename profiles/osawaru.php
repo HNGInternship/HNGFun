@@ -103,7 +103,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } 
    
 ?>
+<?php
+$sql = "SELECT * FROM secret_word";
+$query = $conn->query($sql);
+$query->setFetchMode(PDO::FETCH_ASSOC);
+$result = $query->fetch();
+$secret_word = $result['secret_word'];
 
+try {
+    $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="osawaru"';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $mydata = $q2->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -201,23 +220,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-<?php
-$sql = "SELECT * FROM secret_word";
-$query = $conn->query($sql);
-$query->setFetchMode(PDO::FETCH_ASSOC);
-$result = $query->fetch();
-$secret_word = $result['secret_word'];
-
-try {
-    $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="osawaru"';
-    $q2 = $conn->query($sql2);
-    $q2->setFetchMode(PDO::FETCH_ASSOC);
-    $mydata = $q2->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
-
-?>
 
     <div class="containter text-white text-center">
         <p class="mt-5 text-danger" style="font-stretch: expanded; font-family: 'Playball',cursive; font-size:40px">Meet</p>
@@ -325,7 +327,9 @@ try {
                     </button>
                 </div>
         </form>
-    </div> <script>
+    </div>
+    
+    <script>
     $(document).ready(function () {
         $("#chatcontainer1").hide()
         $("#chatbutton").click(function(e){
