@@ -477,7 +477,7 @@
 							type: "POST",
 							data: {chat: a},
 							success: function(data,status){
-								data = JSON.parse(data);
+								// data = JSON.parse(data);
 								// add_bot_text(data['data']);
 								// if(data != ""){
 
