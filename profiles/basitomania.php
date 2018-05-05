@@ -106,7 +106,7 @@ PAGE: PORTFOLIO
 		float: left;
 	}
 
-	#secondary {
+#secondary {
 		width: 40%;
 		float: right;
 	}
@@ -151,9 +151,9 @@ footer {
 PAGE: ABOUT
 *********************/
 .profile-photo {
-            display: block;
+            /*display: block;
             max-width: 20%;
-            margin: 0 auto 50px;
+            margin: 0 auto 50px;*/
             border-radius: 50%;
         }
 
