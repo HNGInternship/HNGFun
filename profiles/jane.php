@@ -750,7 +750,7 @@
 
 			else{
 
-				try { 
+				try {
 
 					$sql = "SELECT * FROM chatbot WHERE question = '$a'";
 					$stmt = $conn->query($sql);
