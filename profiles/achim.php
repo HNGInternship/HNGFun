@@ -196,7 +196,7 @@ body {
                 <p>I am a self taught Full stack python developer, i mainly work with the Flask Microframework, an Artificial Intelligence fanatic and UI/UX designer....</p>
             </div>
             <div class="col-lg-3">
-                <h2><?php echo  $name ?></h2>
+                <h5><small>I am</small> <?php echo  $name ?></h5>
             </div>
             
         </div><!--/.row -->
