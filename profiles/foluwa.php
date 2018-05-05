@@ -3,6 +3,18 @@
   $Ctime = date("Y-m-d h:i:sa");
   $time= date("h:i:sa");
 ?>
+<?php
+    global $conn;
+
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="foluwa"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -122,19 +134,6 @@
 </head>
 <body>
 <div class="container">
-    <?php
-    global $conn;
-
-    try {
-        $sql2 = 'SELECT * FROM interns_data WHERE username="foluwa"';
-        $q2 = $conn->query($sql2);
-        $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $my_data = $q2->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    ?>
-
     <nav class="oj-web-applayout-header" role="banner" class="oj-web-applayout-header bg-dark" role="banner">
         <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
           <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
