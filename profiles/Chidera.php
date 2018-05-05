@@ -1,6 +1,6 @@
 <?php
             
-        require 'C:\xampp\htdocs\allthingsHNG\HNGFUN\db.php';
+        require 'db.php';
         try {
             $select = 'SELECT * FROM secret_word';
             $query = $conn->query($select);
@@ -33,7 +33,7 @@
                     die('Connection to database failed: ' . $e->getMessage());
                 }
             }
-            // require "C:\\xampp\htdocs\allthingsHNG\HNGFUN\answers.php"; //get the file named answers.php
+            // require "answers.php"; //get the file named answers.php
             $userInput = $_POST['chidera_userInput']; //variable to store userInput
             $userInput = trim($userInput);
             $userInput = strtolower($userInput);        
