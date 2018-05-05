@@ -107,7 +107,7 @@ p {
     
 
     <div id="column1">
-<img src= "http://res.cloudinary.com/fumike/image/upload/v1524527784/IMG_20170816_172409.jpg" width="350px" height="300px" alt="My Profile Picture">
+<img src= "https://res.cloudinary.com/fumike/image/upload/v1524527784/IMG_20170816_172409.jpg" width="350px" height="300px" alt="My Profile Picture">
     <script type="text/javascript">
     
     document.write("<p>I am Iribiri Mary Onome, a UX/UI Designer, Front End Developer. I enjoy every moment of this process of turning complex problems into simple, beautiful and intuitive interface designs. When I'm not coding, I'm definitely singing somewhere, desining a bag or watching movies. I am an unstoppable Dreamer. I'm always looking for the good side of life, I love to learn new things and if you want to make me happy, create a challenge for me. I consider myself a unique skilled problem solver.</p>");
