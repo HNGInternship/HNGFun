@@ -78,13 +78,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 'status' => 1,
                                 'answer' => $answer,  //returns one row answer
                             ]);
+                        return;
 
                     }else{ //if input is not a question in db
                              echo json_encode([
                             'status' => 1,
                             'answer' => "Training Unsuccessfull! You forgot to add your desired answer. Do like so: 'train: question #answer #password' without the quote ofcourse."
                         ]);
-
                     }
             }
             else // if there is answer
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             'status' => 1,
                             'answer' => "Training successful!! Ask the same question to get an answer!"
                         ]);
-    //                return;
+                    return;
                 }
                 else //if password is not correct
                 {
@@ -142,6 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'status' => 1,
                         'answer' => $answer,  //returns one row answer
                     ]);
+                return;
 
             }else{ //if no answer for the question in database
                 if(substr_count($question, "#") === 1) //if it has 1 hashtag
@@ -213,6 +214,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             'status' => 1,
                             'answer' => $answer,  //returns one row answer
                         ]);
+                return;
 
             }else{ //if no answer for the question in database
                      echo json_encode([
