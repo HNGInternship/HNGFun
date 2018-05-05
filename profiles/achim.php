@@ -1,34 +1,32 @@
-<?php 
-	//create database connection
+<?php   
 	if(!defined('DB_USER')){
-        /*require "./../db.php"; */  
-        require "../../../config.php"; 
-        try {
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-        } catch (PDOException $pe) {
-            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-        }
+      require "../../config.php";		
+	  try {
+	      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+	  } catch (PDOException $e) {
+	      die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
+	  }
+	}
+
+    try {
+         $query = $conn->query("SELECT * from interns_data WHERE username = 'achim'");
+            $user = $query->fetch(PDO::FETCH_OBJ);
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    try {
+         $data = $conn->query("SELECT * from secret_word LIMIT 1");
+            $result = $data->fetch(PDO::FETCH_OBJ);
+            $secret_word = $result->secret_word;
+    } catch (PDOException $e) {
+        throw $e;
     }
 
-    //query databse for secret word
-    $query_secret_word = $conn->query("Select * from secret_word LIMIT 1");
-	$query_secret_word = $query_secret_word->fetch(PDO::FETCH_OBJ);
-	$secret_word = $query_secret_word->secret_word;
-
-    //query databse for username
-    $query_username = $conn->query("Select * from interns_data where username = 'achim'");
-	$query_username = $query_username->fetch(PDO::FETCH_OBJ);
-	$username = $query_username->username;
-
-    //query databse for name
-	$query_name = $conn->query("Select * from interns_data where name = 'Achim Munene'");
-	$query_name = $query_name->fetch(PDO::FETCH_OBJ);
-    $name = $query_name->name;
-
 ?>
+
 <html >
 
-<title><?php echo $name ?></title>
+<title><?php echo $user->$name?></title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -176,7 +174,7 @@ body {
     <div class="container">
         <div class="row centered">
             <div class="col-lg-12">
-                <h1 style="padding-top:300;"><?php echo  $name ?></h1>
+                <h1 style="padding-top:300;"><?php echo  $user->username?></h1>
                 <h3>Deep Learning Engineer | achim_munene@hotmail.com</h3>
             </div><!--/.col-lg-12 -->
         </div><!--/.row -->
@@ -196,7 +194,7 @@ body {
                 <p>I am a self taught Full stack python developer, i mainly work with the Flask Microframework, an Artificial Intelligence fanatic and UI/UX designer....</p>
             </div>
             <div class="col-lg-3">
-                <h5><small>I am</small> <?php echo  $name ?></h5>
+                <h5><small>I am</small> <?php echo  $user->name?></h5>
             </div>
             
         </div><!--/.row -->
