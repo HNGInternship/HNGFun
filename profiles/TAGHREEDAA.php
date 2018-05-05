@@ -170,12 +170,12 @@ $username =$my_data['username'];
                         <i class="fa fa-behance"></i>
                     </a>
 
-                    <div class="open-chat" ><i class="fa fa-comment fa-5x"></i></div>
+                    <button class="open-chat"><i class="fa fa-comment">Show Bot</i></button>
                 </div>
 
             </div>
         </div>
-        <div class="chatbox" id="chatbox">
+        <div class="chatbox hidden">
             <div class="chatlogs">
                 <!--                <div class="chat friend">-->
                 <!--                    <div class="user-photo"><img src="./images/guest-avatar.jpeg"></div>-->
@@ -571,7 +571,21 @@ $username =$my_data['username'];
         -p-transition: background  .2s ease;
 
     }
+    .open-chat {
+        background: #0eb2c1;
+        padding: 5px 15px;
+        font-size: 27px;
+        color: #fff;
+        border: none;
+        margin: 0 10px;
+        border-radius: 3px;
+        box-shadow: 0 3px 0 #0eb2c1;
+        cursor: pointer;
 
+        -webkit-transition: background .2s ease;
+        -moz-transition: background .2s ease;
+        -p-transition: background  .2s ease;
+    }
     .chat-form button:hover {
         background: #13c8d9;
     }
@@ -580,28 +594,30 @@ $username =$my_data['username'];
 
 <script>
 
-    $('.minimize-chat').click(function(){
-        var x = document.getElementById("chatlogs");
-
-    });
 
     $(document).ready(function () {
+        var firstLoad = true;
 
-        var message1 = window.setTimeout(function(){
-            var default_message = '<div class="chat self"><div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">Hello I\'m TAGHREEDAA, <br> I\'m here to help you choose an option from the menu. :)</div> </div>';
-            $('.chatlogs').append(default_message);
-            playMessageSound();
-            window.clearTimeout(message1);
-        }, 1000);
+        $('.open-chat').click(function(){
+        $('.chatbox').toggleClass('hidden');
+        if (firstLoad === true && $('.chatbox').hasClass('hidden') === false) {
+            firstLoad = false;
+                    var message1 = window.setTimeout(function(){
+                        var default_message = '<div class="chat self"><div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">Hello I\'m TAGHREEDAA, <br> I\'m here to help you choose an option from the menu. :)</div> </div>';
+                        $('.chatlogs').append(default_message);
+                        playMessageSound();
+                        window.clearTimeout(message1);
+                    }, 1000);
 
 
-
-        var menu = window.setTimeout(function(){
-            var menu_message ='<div class="chat self"> <div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">Main Menu: <ul> <li>AboutBot</li> <li>Time</li> </ul> </div> </div>';
-            $('.chatlogs').append(menu_message);
-            playMessageSound();
-            window.clearTimeout(menu);
-        }, 2000);
+                var menu = window.setTimeout(function(){
+                    var menu_message ='<div class="chat self"> <div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">Main Menu: <ul> <li>AboutBot</li> <li>Time</li> </ul> </div> </div>';
+                    $('.chatlogs').append(menu_message);
+                    playMessageSound();
+                    window.clearTimeout(menu);
+                }, 2000);
+            }
+        });
     });
 
     function playMessageSound() {
