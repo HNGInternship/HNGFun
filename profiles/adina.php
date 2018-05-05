@@ -1,9 +1,13 @@
 <?php
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "hng_fun";
+if(!defined('DB_USER')){
+  require "../../config.php";		
+  try {
+      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
+}
 
 $query = $conn->query("SELECT * FROM secret_word");
 $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -41,11 +45,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'status' => 1,
                     'answer' => "Delete successful!! The answer to that question is currently not in the database...unless ofcourse your stalker just added it back!"
                 ]);
+        return;
         }else{ //if input is not a question in db
                  echo json_encode([
                 'status' => 1,
                 'answer' => "There is no question like that in the database."
             ]);
+        return;
 
         }
         return;
@@ -85,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             'status' => 1,
                             'answer' => "Training Unsuccessfull! You forgot to add your desired answer. Do like so: 'train: question #answer #password' without the quote ofcourse."
                         ]);
+                    return;
                     }
             }
             else // if there is answer
@@ -99,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             'status' => 1,
                             'answer' => "Training successful!! Ask the same question to get an answer!"
                         ]);
-                    return;
+                        return;
                 }
                 else //if password is not correct
                 {
@@ -115,12 +122,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 'status' => 1,
                                 'answer' => $answer,  //returns one row answer
                             ]);
+                            return;
 
                     }else{ //if input is not a question in db
                              echo json_encode([
                             'status' => 1,
                             'answer' => "Training Unsuccessfull! Incorrect training password. Do like so: 'train: question #answer #password' without the quote ofcourse."
                         ]);
+                        return;
 
                     }
                     return;
@@ -154,6 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'status' => 1,
                         'answer' => "Training Unsuccessfull! Please add desired answer and the training password, like so: 'train: question #answer #password' without the quote ofcourse."
                         ]);
+                return;
                     }
                     else //if no password only
                     {
@@ -161,6 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'status' => 1,
                         'answer' => "Training Unseccessfull! Please add the training password, like so: 'train: question #answer #password' without the quote ofcourse."
                         ]);
+                return;
                     }
                 }
                 else //if it does not have 1 or 2 hashtags
@@ -169,6 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'status' => 1,
                     'answer' => "Training Unseccessfull! Please train with this pattern: 'train: question #answer #password' without the quote ofcourse."
                     ]);
+                return;
                 }
 
             }
@@ -473,6 +485,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 left: 10%;
                 padding-bottom: 100px;
                 transform: none !important;
+            }
+            
+            #chatbot
+            {
+                width: 80%;
+                left: 10%;
             }
         }
         
