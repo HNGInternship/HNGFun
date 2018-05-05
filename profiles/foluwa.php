@@ -179,7 +179,7 @@
             </div>
             <div class="chat-output" id="chat-output" data-spy="scroll" height="70%;">
                     <div class="user-message">
-                        <div class="message">Hi there! I'm Zoe!</br>To train me, use this format - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.
+                        <div class="message">Hi there! I'm Zoe!</br>To train me, use this format - 'train: question # answer # password'. </br> type - 'aboutbot'.
                         </div>
                     </div>
             </div>
@@ -242,7 +242,6 @@
                   :question,
                   :answer
               );';
-
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
@@ -272,7 +271,7 @@
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."<span class='time'><?php echo $time ?></span></div>";
         }
-    }*/
+    }
     ?>
 
 </body>
@@ -287,8 +286,6 @@
         var message = $("#user-input").val();
 
         outputArea.append(`<div class='bot-message'><div class='message'>${message}<p class='time'><?php echo $time ?></p></div></div>`);
-
-
         $.ajax({
             url: 'profile.php?id=foluwa',
             type: 'POST',
