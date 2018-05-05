@@ -446,7 +446,7 @@ form {
       </div>
     </section>
 
-<div class="chatbox" id="chat">
+<div name="chat" class="chatbox" id="chat">
 		<div class="chatlogs">
 			<div class="chat friend">
 				<div class="user-photo"></div>

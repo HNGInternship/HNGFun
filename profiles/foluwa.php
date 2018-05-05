@@ -93,7 +93,7 @@
               font-style: "Arial","sans-serif";
          }
          .col-sm-6 {
-            padding-top: 10px;
+            padding-top: 15px;
             background-color: transparent;
          }
          i {
@@ -169,17 +169,17 @@
             <button data-toggle="collapse" data-target="#aboutme">About Me<i class="fa fa-caret-down"></i></button>
               <div id="aboutme" class="collapse"> Am Foluwa, majored in Computer Science.Check out my github portfolio at <a href="https://foluwa.github.io">portfolio</a>
              </div> 
-             <div style="text-align:center;color:skyblue;"><strong>Foluwa 2018 @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
+             <div style="text-align:center;color:skyblue;padding-top:30px;"><strong>Foluwa 2018 @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
         </div>
 
         <div class="col-sm-6">
-        <div class="oj-sm-12 oj-flex-item">
+        <div class="oj-sm-12 oj-flex-item" style"background: white;">
             <div class='chatbot-menu-header'>
                     <span>ChatBot Interface</span>
             </div>
             <div class="chat-output" id="chat-output" data-spy="scroll" height="70%;">
                     <div class="user-message">
-                        <div class="message">Hi there! I'm Zoe!</br>To train me, use this format - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.
+                        <div class="message">Hi there! I'm Zoe!</br>To train me, use this format - 'train: question # answer # password'. </br> type - 'aboutbot'.
                         </div>
                     </div>
             </div>
@@ -242,7 +242,6 @@
                   :question,
                   :answer
               );';
-
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
@@ -272,7 +271,7 @@
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."<span class='time'><?php echo $time ?></span></div>";
         }
-    }*/
+    }
     ?>
 
 </body>
@@ -287,8 +286,6 @@
         var message = $("#user-input").val();
 
         outputArea.append(`<div class='bot-message'><div class='message'>${message}<p class='time'><?php echo $time ?></p></div></div>`);
-
-
         $.ajax({
             url: 'profile.php?id=foluwa',
             type: 'POST',
