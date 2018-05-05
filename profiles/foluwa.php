@@ -169,7 +169,7 @@
             <button data-toggle="collapse" data-target="#aboutme">About Me<i class="fa fa-caret-down"></i></button>
               <div id="aboutme" class="collapse"> Am Foluwa, majored in Computer Science.Check out my github portfolio at <a href="https://foluwa.github.io">portfolio</a>
              </div> 
-             <div style="text-align:center;color:skyblue;"><strong>Foluwa 2018 @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
+             <div style="text-align:center;color:skyblue;padding-top:30px;"><strong>Foluwa 2018 @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
         </div>
 
         <div class="col-sm-6">
