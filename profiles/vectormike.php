@@ -227,6 +227,8 @@ if(!defined('DB_USER')){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title> Victor Jonah</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
   	
     <style>
         .profile {
@@ -359,11 +361,12 @@ if(!defined('DB_USER')){
             </div>
             <div class="about">
                 <h1>Hello! <i class="fa fa-angellist"></i></h1>
-                <p>This is Victor Jonah.</p>
-                <p>300l Computer science of the University of Uyo.</p>
+                <p>I'm Victor Jonah</p>
+                <p>Computer Science Estudiante.</p>
                 <p>HNG Intern, 2018</p>            
                 <!-- Chatbot Section -->
                 <!-- Trigger the modal with a button -->
+            </div>
                 <button type="button" id="mssgbox" class="btn chat-modal-button" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i></button>
                 <!-- Modal -->
                 <div class="modal fade" id="myModal" role="dialog">
@@ -404,17 +407,15 @@ if(!defined('DB_USER')){
                             </form>
                         </div> 
                     </div>
-                </div>
-            </div>  
+                </div> 
         </div>
     </body>
 
     <script>
-    
-    $('h1').addClass('animated infinite shake');
-    
+    $('h1').addClass('animated infinite hinge');
     $('#mssgbox').addClass('animated infinite flash');
-
+    $('.imag').addClass('animated zoomInDown');
+    $('.about').addClass('animated zoomInUp');
     </script>
     
     <script>
