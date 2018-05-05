@@ -25,6 +25,7 @@
 #wrap {
                 width:100%;
                 margin:0 auto;
+                padding-top: 60px;
                 
         }
         .container{
@@ -49,13 +50,13 @@ p {
                 width:400px;
                 
         }
-        #column2 {
+       /* #column2 {
                 float:right;
                 width:500px;
                 padding-right: 80px;
         }
 
-       
+       */
 
         .fa-instagram {
             background: red;
@@ -114,9 +115,7 @@ p {
     
     </script>
 </div>
-    <div id="column2">
-        <br> 
-        <br>
+    
         
         
 
@@ -138,6 +137,7 @@ p {
 
     <!-- </form> -->
     <br>
+    <br>
     You can <a href="mailto:iribirimary@gmail.com"> email me </a>  for any web based projects.
 
     <!-- Add icon library -->
@@ -148,8 +148,8 @@ p {
     <a href="https://github.com/OnomeMary" class="fa fa-github"></a>
     <a href="https://linkedin.com/in/mary-iribiri" class="fa fa-linkedin"></a>
     <a href="https://instagram.com/mayrieh" class="fa fa-instagram"></a>
-</div>
-</div>
+
+
     
 
     
