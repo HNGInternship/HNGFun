@@ -25,7 +25,7 @@
 #wrap {
                 width:100%;
                 margin:0 auto;
-                padding-top: 60px;
+                padding-top: 160px;
                 
         }
         .container{
@@ -114,7 +114,7 @@ p {
     document.write("<p>I am Iribiri Mary Onome, a UX/UI Designer, Front End Developer. I enjoy every moment of this process of turning complex problems into simple, beautiful and intuitive interface designs. When I'm not coding, I'm definitely singing somewhere, desining a bag or watching movies. I am an unstoppable Dreamer. I'm always looking for the good side of life, I love to learn new things and if you want to make me happy, create a challenge for me. I consider myself a unique skilled problem solver.</p>");
     
     </script>
-</div>
+
     
         
         
@@ -136,8 +136,7 @@ p {
     <!-- Prompt box     <input type="button" onclick="show_prompt()" value="SUBMIT" /> -->
 
     <!-- </form> -->
-    <br>
-    <br>
+    
     You can <a href="mailto:iribirimary@gmail.com"> email me </a>  for any web based projects.
 
     <!-- Add icon library -->
@@ -156,6 +155,7 @@ p {
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/script.js"></script>
+</div>
 </div>
 </body>
 </html>
