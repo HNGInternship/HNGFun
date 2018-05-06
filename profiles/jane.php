@@ -473,7 +473,7 @@
 							type: "POST",
 							data: {chat: a},
 							success: function(data){
-								console.log(result);
+								console.log(data);
 								// if(data != ""){
 								// 	if (data.indexOf("::def") >= 0) {
 								// 		data = data.replace("::def","");
