@@ -55,6 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $functionName = str_replace(')', '', $functionName);
             if (function_exists($functionName)) {
                $response = str_replace($functionName, $functionName(), $response);
+               $response = str_replace('(', '', $response);
+               $response = str_replace(')', '', $response);
             } else {
                $response = "🤖 I'm sorry, The function doesn't exist";
             }
@@ -83,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $bot_response['response'] = [];
       $user_request = "";
       $bot_response['response'] = "";
-      $request = strtolower($_POST['new_request']);
+      $request = $_POST['new_request'];
       $user_request = trim($request);
       if (empty($user_request)) {
          $bot_response['response'] = "🤖 You haven't made any request";
@@ -257,44 +259,31 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 <script type="text/javascript">
 
 function newElementsForUser(userRequest) {
-   var chatArea = document.getElementById("chatarea");
-   var messageElement = document.createElement("div");
-   messageElement.className = "form-control form-control2 text-right";
-   messageElement.innerHTML = userRequest;
-   var id = Date.now();
-   messageElement.setAttribute("id", id);
-   chatArea.appendChild(messageElement);
-   var timeElement = document.createElement("p");
-   timeElement.className = "timeEl text-right";
+   var chatArea = $("#chatarea");
+   var messageElement = "<div class='form-control form-control2 text-right'>" + userRequest + "</div>";
+   chatArea.html(chatArea.html() + messageElement);
    var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
-   timeElement.innerHTML = time
-   chatArea.appendChild(timeElement);
+   var timeElement = "<p class='timeEl text-right'>" + time + "</p>";
+   chatArea.html(chatArea.html() + timeElement);
+   chatArea.scrollTop($("#chatarea")[0].scrollHeight);
 }
 
 function newElementsForBot(botResponse) {
-   var chatArea = document.getElementById("chatarea");
-   var messageElement = document.createElement("div");
-
-   if(botResponse.response.resultType == "find") {
-      messageElement.innerHTML = "Question => " + botResponse.response.question + "\n" +
-      "Answer => " + botResponse.response.answer + "\n";
-   } else {
-      messageElement.innerHTML = botResponse.response;
+   var chatArea = $("#chatarea");
+   if (botResponse.response.resultType == "find") {
+      var messageElement = "<div class='form-control form-control2 text-left'>Intern ID => " + botResponse.response.users.intern_id + "<br/>Name => " + botResponse.response.users.name + "<br/>Intern Username => " + botResponse.response.users.username + "<br/>Intern Profile Picture => " + botResponse.response.users.image_filename + "</div>";
+   } else { 
+      var messageElement = "<div class='form-control form-control2 text-left'>" + botResponse.response + "</div>";
    }
-
-   messageElement.className = "form-control form-control2 text-left";
-   var id = Date.now();
-   messageElement.setAttribute("id", id);
-   chatArea.appendChild(messageElement);
-   var timeElement = document.createElement("p");
-   timeElement.className = "timeEl text-left";
+   chatArea.html(chatArea.html() + messageElement);
    var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true , milliseconds: true});
-   timeElement.innerHTML = time;
-   chatArea.appendChild(timeElement);
+   var timeElement = "<p class='timeEl text-left'>" + time + "</p>";
+   chatArea.html(chatArea.html() + timeElement);
+   chatArea.scrollTop($("#chatarea")[0].scrollHeight);
 }
 
 $(document).ready(function() {
-   response = {"response" : "Hello there, I'm femiBot.<br/>Here's a couple of things i can do.<br/> 1. You can ask me anything<br/>2. You can find a friend who's in the dope HNGInternship<br/>3. You open a URL by typing open:your_url<br/> 4. Get a random quote by typing randomquote:"};
+   response = {"response" : "Hello there, I'm femiBot.<br/>Here's a couple of things i can do.<br/> 1. You can ask me anything<br/>2. You can find a friend who's in the dope HNGInternship<br/>syntax : find: username or find: name<br/>3. You open open a URL by typing open:your_url"};
    newElementsForBot(response);
 });
 
@@ -307,14 +296,14 @@ $(document).ready(function chargeBot() {
          newElementsForBot(response);
       }else if (message.includes('open:')) {
          url = message.split('open:');
-         // newElementsForUser("opening...");
          window.open('http://' + url[1]);
-      } else if (message.includes("randomquote:") || message.includes("random quote:")) {
+      } else if (message.includes("randomquote:") || message.includes("random quotes:")) {
          $.getJSON("https://talaikis.com/api/quotes/random/", function (json) {
             response = json['quote'] + '<br/> Author : ' + json['author'];
             botResponse = { 'response': response };
             newElementsForBot(botResponse);
          });
+         $("#chatarea").scrollTop($("#chatarea")[0].scrollHeight);
       } else if (message.includes("aboutbot") || message.includes("about bot") || message.includes("aboutbot:")) {
          response = { 'response': 'Version 4.0' };
          newElementsForBot(response);
@@ -330,13 +319,12 @@ $(document).ready(function chargeBot() {
          });
       }
       $("#message").val("");
-      $("#chatarea").scrollTop($("#chatarea")[0].scrollHeight);
    });
 });
 
 document.body.addEventListener('keyup', function (e) {
-   if (e.keyCode == 13) {
-      document.getElementById("send").click();
+   if (e.keyCode == "13") {
+      $("#send").click();
    }
 });
 

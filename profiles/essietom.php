@@ -415,6 +415,126 @@
 		.col-md-4{
 			border:0px;
 		}
+		
+		#chatbot{ 
+    float: right;
+    width: 320px;
+    max-height: 320px;
+    background-color: #fff;
+    text-align: center;
+    margin-top: 0px;
+    margin-left: 20px; 
+    margin-bottom: 100px;
+    margin-right: 20px;
+    position: absolute;
+    display: none;
+}
+#chat, #displayHidden{
+  height: 60px;
+    background-color: #7a8690;
+    width: 100%;
+    padding-top: 10px;
+    color: #e5e5e5;
+    font-size: 20px;
+    font-weight:bold;
+}
+#displayHidden:hover{
+    color: #7a8690;
+    background-color: #fff;
+}#button:hover{
+    color: #7a8690;
+    background-color: #fff;
+}
+#chatMessages{ 
+    width: 100%;
+    overflow-x: hidden;
+    max-height: 250px;
+}
+button{
+    font-size: 20px;
+    font-weight:bold;
+}
+#messageReceived, #messageSent, #message{
+    margin: 10px;
+    padding: 15px;
+    text-align: center;
+}
+#messageReceived{
+    background-color: blue;
+    width: 50%;
+    float: left;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border: #fff 2px solid;
+}#messageSent{
+    background-color: #fff;
+    float: right;
+    width: 50%;
+    border: #dedede 2px solid;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+#chat_message{
+    height: 40px;
+}
+@media only screen and (max-width: 500px) {
+    .img{
+        width: 0px;
+        height: 0px;
+    }.img2{
+        width: 100%;
+        height: 400px;
+        margin-top: -45px;
+        padding: 20px;
+    }
+    #caption{
+       width: 100%;
+        margin-top: -20px;
+    }
+    .get-started{
+        padding: 20px;
+    }
+}
+@media only screen and (min-width: 501px) {
+    .img{
+        width: 40%;
+        float: right;
+        height: auto;
+    }
+    #caption{
+        width: 60%;
+    }
+}@media only screen and (max-width: 420px) {
+    #chatbot{
+        width: 80%;
+    }
+    
+}@media only screen and (max-width: 460px) {
+    .header span{
+        margin-left: 0px;
+    }
+    #intro-span #main{
+        width: 90%;
+    }
+    .img2{
+        width: 0px;
+        height: 0px;
+    }
+    .mission{
+        width: 100%;
+        text-align: left;
+    }
+    #caption{
+        margin-top: -20px;
+    }
+    .get-started{
+        padding: 10px;
+    }
+    .get-started h1{
+        text-align: left;
+    }
 	</style>
 </head>
 <body>
@@ -462,135 +582,103 @@
 	
 </div><!--end of banner-->
 
-
-<div class="page">
-<div class="minbox mybackground" style="">
-
-	<h3>Background</h3>
-	<p>
-		I wrote my first line of code "Hello World" in my first year in College.I have always been thrilled and fascinated by codes. I started with python, writing code for mathematical calculations like  "fibonnaci series", "Tower of Hanoi"...<a href="background.php">read more</a>
-	</p>
-	
-</div>
-
-<div class="bbg minbox">
-	<h3>Skills</h3>
-	
-</div>
-<div class="box2 minbox">
-	<h3>Works</h3>
-
-	<p>
-		<ul class="box2list">
-		<li><a href="github.com/cmstom" style="">Course Management System</a></li>
-		<li><a href="github.com/cmstom">Expenses Manager</a></li>
-		<li><a href="github.com/cmstom" >Website Design</a></li>
-		<li><a href="#" >And many more</a></li>
-		</ul>
-	</p>
-</div>
-
-</div><!--end of page div-->
-<div style="color:white">My secret code:<?php echo $secret_word; ?></div>
 </div><!--inner ends here -->
 
- <button type="button" class="btn btn-danger btn-lg pull-right" data-toggle="collapse" data-target="#chat">Chat now</button>
+ <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#chat">Let's Chat</button>
  <div id="chat" class="wrapper collapse">
-<div class="row">
-	<div class="col-md-4"></div>
-<div class="col-md-4 offset-md-1 chat-frame">
-			<h3 class="text-center">Bot Tom</h3>
-			<div class="row chat-messages" id="chat-messages">
-				<div class="col-md-12" id="message-frame">
-					<div class="row single-message">
-						<div class="col-md-12 single-message-bg">
-							<p>i am tom and its nice having you around</h5>
-						</div>
-					</div>
-					<div class="row single-message">
-						<div class="col-md-12 single-message-bg">
-							<p>Ask me any damn thing u need to know about Hotels.ng </p>
-						</div>
-					</div>
-					<div class="row single-message">
-						<div class="col-md-12 single-message-bg">
-							
-							<p>You can as well train me, following this format: <br/><b>train: question # answer # password</b><p>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			
-			<div class="row" style="margin-top: 40px;">
-				<form class="form-inline col-md-12 col-sm-12" id="question-form">
-					<div class="col-md-12 col-sm-12 col-12">
-						<input class="form-control w-100" type="text" name="question" placeholder="type here...." />
-					</div>
-					<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
-						<button type="submit" class="btn btn-success w-100" style="float:center;">Send</button>
-					</div>
-				</form>	
-			</div>
-			
-	 </div>
+<div class="oj-panel oj-panel-shadow-md" id="displayHidden" style="width:120px;height:50px;text-align:center;position:relative;margin:10px 20px;float:right;">Let's Chat</div>
+            <div id="chatbot" style="margin:-100px 20px;">
+                <div id="chat" style="">
+                    <span>Tom Bot</span>
+                    <button id="button" style="float:right; margin-right:10px;"><span>-</span></button>
+                   
+                </div>
+                <div id="main_chat">
+                    <div id="chatMessages">
+                        <div id="message" style="background-color:blue;">Xup! I am Tombot. I am here to keep you company. You are free to ask me questions and in case i dunoo, well then train me!!</div>
+
+                    </div>
+                </div>
+          
+
+                <form action="" id="Essiebot" method="post">
+                     <div class="input-group">
+                       <input class="form-control chat_input" id="chat_message" name="entered_message" placeholder="Type here...">
+                        
+                     </div>
+               </form>
+            </div>
+        </div>
 </div>
-</div>
-<script src="../vendor/jquery/jquery.min.js"></script>
-<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-<script>
-	
-	$(document).ready(function(){
-		var questionForm = $('#question-form');
-		questionForm.submit(function(e){
-			e.preventDefault();
-			var questionBox = $('input[name=question]');
-			var question = questionBox.val();
-			
-			//display question in the message frame as a chat entry
-			var messageFrame = $('#message-frame');
-			var chatToBeDisplayed = '<div class="row single-message">'+
-						'<div class="col-md-12 offset-md-2 single-message-bg2">'+
-							'<h5>'+question+'</h5>'+
-						'</div>'+
-					'</div>';
-			
-			messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-			//send question to server
-			$.ajax({
-				url: "/profiles/essietom.php",
-				type: "post",
-				data: {question: question},
-				dataType: "json",
-				success: function(response){
-					if(response.status == 1){
-						var chatToBeDisplayed = '<div class="row single-message">'+
-									'<div class="col-md-12 single-message-bg">'+
-										'<h5>'+response.answer+'</h5>'+
-									'</div>'+
-								'</div>';
-						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-						questionBox.val("");	
-						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-					}else if(response.status == 0){
-						var chatToBeDisplayed = '<div class="row single-message">'+
-									'<div class="col-md-12 single-message-bg">'+
-										'<h5>'+response.answer+'</h5>'+
-									'</div>'+
-								'</div>';
-						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-					}
-				},
-				error: function(error){
-					console.log(error);
-				}
-			})
-		});
-	});
-</script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>
+        
+        var chatting = document.querySelector("#chatbot");
+        var chat = document.querySelector("#displayHidden");
+        chat.addEventListener("click", function(){
+            chat.style.display="none";
+            chatting.style.display="block";
+        });
+        var button = document.querySelector("#button");
+        button.addEventListener("click", function(){
+        chatbot.style.display="none";
+            chat.style.display="block";
+        });
+      
+    </script>
+    <script>
+        $(document).ready(function() {
+    $("#Essiebot").on("submit", function (event) {
+        event.preventDefault();
+        
+        var message = $("#chat_message").val();
+        var messageContainer = $("#chatMessages");
+        if (message == "") {
+            $("#chat_message").focus();
+        } else {
+            $("#chatMessages").append('<div id="messageSent">' + message + '</div>');
+            $.ajax({
+                url: "/profiles/essietom.php",
+                type: "POST",
+                data: {displayMessage: message},
+                dataType: "json"
+            }).done(function(resp) {
+                if(resp.status == 5){
+                    messageContainer.append('<div id="messageReceived">' + resp.answer + '</div>');
+                    messageContainer.scrollTop(messageContainer[0].scrollHeight);
+                    $("#chat_message").val("")
+                }
+                else if(resp.status == 4){
+                    messageContainer.append('<div id="messageReceived">' + resp.answer + '</div>');
+                    messageContainer.scrollTop(messageContainer[0].scrollHeight);
+                    $("#chat_message").val("")
+                }
+                else if(resp.status == 3){
+                    messageContainer.append('<div id="messageReceived">' + resp.answer + '</div>');
+                    messageContainer.scrollTop(messageContainer[0].scrollHeight);
+                    $("#chat_message").val("")
+                }
+                else if (resp.status == 2) {
+                    messageContainer.append('<div id="messageReceived">' + resp.answer + '</div>');
+                    messageContainer.scrollTop(messageContainer[0].scrollHeight);
+                    $("#chat_message").val("")
+                } else if (resp.status == 1) {
+                    messageContainer.append('<div id="messageReceived">' + resp.answer + '</div>');
+                    messageContainer.scrollTop(messageContainer[0].scrollHeight);
+                    $("#chat_message").val("")
+                }
+                else {
+                    alert(resp.answer);
+                }
+            }).fail(function(error) {
+                console.log("Request failed: " + error.statusText)
+                console.log(error)
+            })
+        }
+    });
+    
+});
+    </script>
 </body>
 </html>
 <?php } ?>
