@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $bot_response['response'] = [];
       $user_request = "";
       $bot_response['response'] = "";
-      $request = strtolower($_POST['new_request']);
+      $request = $_POST['new_request'];
       $user_request = trim($request);
       if (empty($user_request)) {
          $bot_response['response'] = "🤖 You haven't made any request";
