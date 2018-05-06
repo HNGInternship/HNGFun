@@ -1,5 +1,5 @@
  <?php
- 	require_once '../db.php';
+ 	// require_once '../db.php';
  	try {
  	      $query = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'Luthfulahi\'';
  	      $result = $conn->query($query);
