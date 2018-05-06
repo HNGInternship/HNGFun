@@ -280,6 +280,10 @@ function newElementsForBot(botResponse) {
    chatArea.scrollTop($("#chatarea")[0].scrollHeight);
 }
 
+$(document).ready(function() {
+   response = {"response" : "Hello there, I'm femiBot.<br/>Here's a couple of things i can do.<br/> 1. You can ask me anything<br/>2. You can find a friend who's in the dope HNGInternship<br/>3. You open open a URL by typing open:your_url"};
+   newElementsForBot(response);
+});
 
 $(document).ready(function chargeBot() {
    $("#send").click(function () {
