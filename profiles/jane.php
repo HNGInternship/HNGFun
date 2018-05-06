@@ -684,7 +684,7 @@
 					if(sizeof($arr) != 3){
 						$answer = $no_answer[rand(0,3)]."::def";
 						echo $answer;
-						exit;
+						
 					}
 					else{
 						$question = $arr[0];
@@ -699,16 +699,16 @@
 								
 							} catch (PDOException $e) {
 								echo $e->getMessage();
-								exit;
+								
 							}
 
 							print_r($train_success);
-							exit;
+							
 						}
 
 						else{
 							print_r($wrong_password[rand(0,2)]);
-							exit;
+							
 						}
 
 					}
@@ -728,27 +728,22 @@
 
 					if ($result <= 18.5) {
 						echo "Your BMI is ".round($result,3)."\n".$bmi_result[0];
-						exit;
 					} 
 
 					else if($result > 18.5 && $result <= 24.9){
 						echo "Your BMI is ".round($result,3)."\n".$bmi_result[1];
-						exit;
 					}
 
 					else if ($result >= 25 && $result <= 29.9) {
 						echo "Your BMI is ".round($result,3)."\n".$bmi_result[2];
-						exit;
 					}
 
 					else{
 						echo "Your BMI is ".round($result,3)."\n".$bmi_result[3];
-						exit;
 					}
 				}
 				else{
 					echo "Enter a valid input";
-					exit;
 				}
 			}
 
@@ -761,26 +756,25 @@
 
 					if($stmt){
 						foreach($stmt as $row){
-							$answer = $row['answer'];
-							$stat = strlen($answer);
-							$myJSON = ['data'=>$answer,'stat'=>$stat];
-							echo json_encode($myJSON);
+							$response = $row['answer'];
+						}
+						if(is_array($response)){
+							$answer = $response[rand(0,sizeof($response))];
+						}
+						else{
+							$answer = $response;
 						}
 					}
 					
 				} catch (PDOException $e) {
 					echo $e->getMessage();
-					exit;	
+						
 				}
 
 				if($answer == ""){
 					$answer = $no_answer[rand(0,4)]."::def";
-					$stat = strlen($answer);
-					$myJSON = ['data'=>$answer,'stat'=>$stat];
-					echo json_encode($myJSON);
 				}
-
-				// exit;
+				echo $answer;
 			}
 		}
 ?>
