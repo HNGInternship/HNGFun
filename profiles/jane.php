@@ -473,30 +473,21 @@
 							type: "POST",
 							data: {chat: a},
 							success: function(data){
-								console.log(data);
+								var result = $($.parseHTML(data)).find(".container").text();
+								console.log(result);
+								// if(data != ""){
+								// 	if (data.indexOf("::def") >= 0) {
+								// 		data = data.replace("::def","");
+								// 		add_bot_text(data);
+								// 		add_bot_default();
+								// 	}
+								// 	else{
+								// 		add_bot_text(data);
+								// 	}
+									
+								// }					
 							}
 						});
-						// $.ajax({
-						// 	type: "POST",
-						// 	data: {chat: a},
-						// 	success: function(data,status){
-						// 		// data = JSON.parse(data);
-						// 		console.log(data);
-						// 		// add_bot_text(data['data']);
-						// 		// if(data != ""){
-
-						// 			// if (data['data'].indexOf("::def") >= 0) {
-						// 			// 	data['data'] = data['data'].replace("::def","");
-						// 			// 	add_bot_text(data['data']);
-						// 			// 	add_bot_default();
-						// 			// }
-						// 			// else{
-						// 			// 	add_bot_text(data['data']);
-						// 			// }
-									
-						// 		// }										
-						// 	}
-						// });
 					}
 					
 
