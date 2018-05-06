@@ -234,8 +234,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <div class=" bg-dark row justify-content-center chatbox">
         <div class="col-lg-3 bg-light">
-            <header class="row justify-content-center chatbox-header" id="bot">
-            <div class="card bg-danger" align="center">
+            <header class="row justify-content-center chatbox-header">
+            <div class="card bg-danger" align="center" id="bot">
 
                     <img class="chatbox-logo" src="https://res.cloudinary.com/iambeejayayo/image/upload/v1525095528/bot.png" alt="Alpha Bot" style="width:20%">
                     <h4 class="chatbox-title text-dark">Alpha Bot</h4>
