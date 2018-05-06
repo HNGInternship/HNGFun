@@ -177,12 +177,12 @@
         <main class="mdl-layout__content">
           <div class="page-content">
             <!-- Your content goes here -->
-            <div class="bot">
+            <!--<div class="bot">
               <div>
                 <h3>codehacks bot</h3>
                 <hr>
               </div>
-              <!-- <div class="bot-chat">
+               <div class="bot-chat">
                 <div id="chat-area">
                   
                 </div>
@@ -191,8 +191,8 @@
                 <button onclick="askQuestion();">Send</button>
                 </div>
                 
-              </div> -->
-            </div>
+              </div> 
+            </div>-->
 
           </div>
 
