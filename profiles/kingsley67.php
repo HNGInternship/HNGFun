@@ -19,7 +19,6 @@ $secret_word=$result2['secret_word'];
 
 
 
-    if($_POST){
    
 if($_POST['question']){
     
@@ -153,7 +152,7 @@ if(isset($_POST['question'])){
   
     }
     }
-    }
+    
 
 
 ?>
@@ -200,7 +199,7 @@ if(isset($_POST['question'])){
     #chatOutput{
         height: 500px;
         border:black solid 1px;
-        width: 390px;
+        width: 500px;
         overflow: scroll;
          border-radius: 10px;
     }
@@ -428,7 +427,7 @@ $.ajax({
     question:input,
     
    }, 
-     beforeSend: function() { $('#results').append($("#ques").append("<div class=\"you\"><strong>You:</strong><br></div><div class=\"bot\"><strong>BOT:</strong><br>"));},
+     beforeSend: function() { $('#results').append('please wait');},
         success: function(result) { 
          $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
        console.log(result);
