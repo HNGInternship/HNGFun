@@ -2,130 +2,131 @@
 // ob_start();
 session_start();
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    if (!defined('DB_USER')) {
-        //live server
-        require "../../config.php";
-        //   localhost
-        // require "../config.php";
-        try {
-            $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-        } catch (PDOException $pe) {
-            die("🤖I couldn't connect to knowledge base : " . $pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
-        }
-    }
-    require '../answers.php';
-    global $conn;
+   if (!defined('DB_USER')) {
+      //live server
+      require "../../config.php";
+      //   localhost
+      // require "../config.example.php";
+      try {
+         $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+      } catch (PDOException $pe) {
+         echo ("🤖I couldn't connect to knowledge base : " . $pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
+      }
+   }
+   // require '../answers.php';
+   global $conn;
 
-    function train($question, $answer)
-    {
-        $question = trim($question);
-        $answer = trim($answer);
-        if (store($question, $answer)) {
-            return "🤖 I just learnt something new, thanks to you 😎";
-        } else {
-            return "🤖 I'm sorry, An error occured while trying to store what i learnt 😔";
-        }
-    }
+   function train($question, $answer) {
+      $question = trim($question);
+      $answer = trim($answer);
+      if (store($question, $answer)) {
+         return "🤖 I just learnt something new, thanks to you 😎";
+      } else {
+         return "🤖 I'm sorry, An error occured while trying to store what i learnt 😔";
+      }
+   }
 
-    function findThisPerson($user)
-    {
-        global $conn;
-        $statement = $conn->prepare("select * from interns_data where username like :user or name like :user limit 1");
-        $statement->bindValue(':user', "%$user%");
-        $statement->execute();
-        $statement->setFetchMode(PDO::FETCH_ASSOC);
-        $rows = $statement->fetchObject();
-        return $rows;
-    }
+   function findThisPerson($user) {
+      global $conn;
+      $statement = $conn->prepare("select * from interns_data where username like :user or name like :user limit 1");
+      $statement->bindValue(':user', "%$user%");
+      $statement->execute();
+      $statement->setFetchMode(PDO::FETCH_ASSOC);
+      $rows = $statement->fetchObject();
+      return $rows;
+   }
 
-    function searchRequest($request)
-    {
-        global $conn;
-        $statement = $conn->prepare("select answer from chatbot where question like :request order by rand()");
-        $statement->bindValue(':request', "%$request%");
-        $statement->execute();
-        $statement->setFetchMode(PDO::FETCH_ASSOC);
-        $rows = $statement->fetch();
-        $response = $rows['answer'];
-        if (!empty($response)):
-            $response = "🤖 " . $response;
-        endif;
-        //check for function
-        if (preg_match('/(\(+[a-zA-Z_]+\))/', $response, $match)) {
+   function searchRequest($request) {
+      global $conn;
+      $statement = $conn->prepare("select answer from chatbot where question like :request order by rand()");
+      $statement->bindValue(':request', "%$request%");
+      $statement->execute();
+      $statement->setFetchMode(PDO::FETCH_ASSOC);
+      $rows = $statement->fetch();
+      $response = $rows['answer'];
+      if (!empty($response)):
+         $response = "🤖 " . $response;
+      endif;
+      //check for function
+      try {
+         if (preg_match('/(\(+[a-zA-Z_]+\))/', $response, $match)) {
             $functionName = $match[0];
             $functionName = str_replace('(', '', $functionName);
             $functionName = str_replace(')', '', $functionName);
             if (function_exists($functionName)) {
-                $response = str_replace($functionName, $functionName(), $response);
+               $response = str_replace($functionName, $functionName(), $response);
+               $response = str_replace('(', '', $response);
+               $response = str_replace(')', '', $response);
             } else {
-                $response = "🤖 I'm sorry, The function doesn't exist";
+               $response = "🤖 I'm sorry, The function doesn't exist";
             }
-        }
-        return $response;
-    }
+         }
+      } catch (Exception $ex) {
+         echo $ex->getMessage();
+      }
+      return $response;
+   }
 
-    function store($request, $response)
-    {
-        global $conn;
-        $statement = $conn->prepare("insert into chatbot (question, answer) values (:request, :response)");
-        $statement->bindValue(':request', $request);
-        $statement->bindValue(':response', $response);
-        $statement->execute();
-        if ($statement->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+   function store($request, $response)
+   {
+      global $conn;
+      $statement = $conn->prepare("insert into chatbot (question, answer) values (:request, :response)");
+      $statement->bindValue(':request', $request);
+      $statement->bindValue(':response', $response);
+      $statement->execute();
+      if ($statement->execute()) {
+         return true;
+      } else {
+         return false;
+      }
+   }
 
-    if (isset($_POST['new_request'])) {
-        $bot_response['response'] = [];
-        $user_request = "";
-        $bot_response['response'] = "";
-        $request = strtolower($_POST['new_request']);
-        $user_request = trim($request);
-        if (empty($user_request)) {
-            $bot_response['response'] = "🤖 You haven't made any request";
-        } else {
-            if (!empty(searchRequest($user_request))) {
-                $bot_response['response'] = searchRequest($user_request);
-            } else if (preg_match("/(train:)/", $user_request)) {
+   if (isset($_POST['new_request'])) {
+      $bot_response['response'] = [];
+      $user_request = "";
+      $bot_response['response'] = "";
+      $request = $_POST['new_request'];
+      $user_request = trim($request);
+      if (empty($user_request)) {
+         $bot_response['response'] = "🤖 You haven't made any request";
+      } else {
+         if (!empty(searchRequest($user_request))) {
+            $bot_response['response'] = searchRequest($user_request);
+         } else if (preg_match("/(train:)/", $user_request)) {
+            $power_split = explode("#", $request);
+            $question = trim(preg_replace("/(train:)/", "", $power_split[0]));
+            $answer = trim($power_split[1]);
+            $password = trim($power_split[2]);
 
-                $power_split = explode("#", $request);
-                $question = trim(preg_replace("/(train:)/", "", $power_split[0]));
-                $answer = trim($power_split[1]);
-                $password = trim($power_split[2]);
-                if ($password != "password") {
-                    $bot_response['response'] = "🤖 Training Access Denied!";
-                } else {
-                    $bot_response['response'] = train($question, $answer);
-                }
-
-            } else if (preg_match("/(aboutbot)/", $user_request) || preg_match("/(aboutbot:)/", $user_request) || preg_match("/(about bot)/", $user_request)) {
-                $bot_response['response'] = "🤖 Version 4.0";
-            } else if (preg_match('/(find:)/', $request)) {
-                $ex = explode("find:", $request);
-
-                if (!empty($users = findThisPerson($ex[1]))) {
-                    $bot_response['response'] = array('resultType' => 'find', 'users' => $users);
-                } else {
-                    $bot_response['response'] = "🤖 I couldn't find a user by that username or name";
-                }
-
+            if ($password != "password") {
+               $bot_response['response'] = "🤖 Training Access Denied!";
             } else {
-                $bot_response['response'] = "🤖 I  don't understand your request, I hope you wouldn't mind training me?";
+               $bot_response['response'] = train($question, $answer);
             }
-        }
-        send:
-        echo json_encode($bot_response);
-    }
+
+         } else if (preg_match('/(find:)/', $request)) {
+            $ex = explode("find:", $request);
+
+            if (!empty($users = findThisPerson($ex[1]))) {
+               $bot_response['response'] = array('resultType' => 'find', 'users' => $users);
+            } else {
+               $bot_response['response'] = "🤖 I couldn't find a user by that username or name";
+            }
+
+         } else {
+            $bot_response['response'] = "🤖 I  don't understand your request, I hope you wouldn't mind training me?";
+         }
+      }
+      send:
+      echo json_encode($bot_response);
+   }
 }
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
-    $result = $conn->query("Select * from secret_word LIMIT 1");
-    $result = $result->fetch(PDO::FETCH_OBJ);
-    $secret_word = $result->secret_word;
-    $result2 = $conn->query("Select * from interns_data where username = 'femi_dd'");
-    $user = $result2->fetch(PDO::FETCH_OBJ);
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+   $result2 = $conn->query("Select * from interns_data where username = 'femi_dd'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
 }?>
 <?php if ($_SERVER['REQUEST_METHOD'] == "GET") {?>
    <style>
@@ -237,88 +238,94 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
       </div>
       <div class="bot round-corners">
          <div class="inner">
-               <h2>The femiBot 🤖</h2>
-                  <div id="chatarea" style="overflow: auto; height:300px; border:1px solid whitesmoke; border-radius:5px"></div>
-                  <div class="input-group">
-                     <input type="text" class="form-control" id="message" type="text" placeholder="Message" name="newrequest" />
-                     <div class="input-group-btn">
-                        <button class="btn btn-success pull-right" id="send" type="button">Send 💬</button>
-                     </div>
-                  </div>
+            <h2>The femiBot 🤖</h2>
+            <div id="chatarea" style="overflow: auto; height:300px; border:1px solid whitesmoke; border-radius:5px"></div>
+            <div class="input-group">
+               <input type="text" class="form-control" id="message" type="text" placeholder="Message" name="newrequest" />
+               <div class="input-group-btn">
+                  <button class="btn btn-success pull-right" id="send" type="button">Send 💬</button>
                </div>
             </div>
+         </div>
       </div>
    </div>
-   <footer style="margin-bottom:0px; text-align:center; padding-top:25px;" id="footer">
-      <p>Femi_DD @ 2018 HNG</p>
-   </footer>
+</div>
+<footer style="margin-bottom:0px; text-align:center; padding-top:25px;" id="footer">
+   <p>Femi_DD @ 2018 HNG</p>
+</footer>
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 
 function newElementsForUser(userRequest) {
-   var chatArea = document.getElementById("chatarea");
-   var messageElement = document.createElement("div");
-   messageElement.className = "form-control form-control2 text-right";
-   messageElement.innerHTML = userRequest;
-   var id = Date.now();
-   messageElement.setAttribute("id", id);
-   chatArea.appendChild(messageElement);
-   var timeElement = document.createElement("p");
-   timeElement.className = "timeEl text-right";
+   var chatArea = $("#chatarea");
+   var messageElement = "<div class='form-control form-control2 text-right'>" + userRequest + "</div>";
+   chatArea.html(chatArea.html() + messageElement);
    var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
-   timeElement.innerHTML = time
-   chatArea.appendChild(timeElement);
+   var timeElement = "<p class='timeEl text-right'>" + time + "</p>";
+   chatArea.html(chatArea.html() + timeElement);
+   chatArea.scrollTop($("#chatarea")[0].scrollHeight);
 }
 
 function newElementsForBot(botResponse) {
-   var chatArea = document.getElementById("chatarea");
-   var messageElement = document.createElement("div");
-   if(botResponse.response.resultType == "find") {
-      messageElement.innerHTML = "Question => " + botResponse.response.question + "\n" +
-      "Answer => " + botResponse.response.answer + "\n";
-   } else {
-      messageElement.innerHTML = botResponse.response;
+   var chatArea = $("#chatarea");
+   if (botResponse.response.resultType == "find") {
+      var messageElement = "<div class='form-control form-control2 text-left'>Intern ID => " + botResponse.response.users.intern_id + "<br/>Name => " + botResponse.response.users.name + "<br/>Intern Username => " + botResponse.response.users.username + "<br/>Intern Profile Picture => " + botResponse.response.users.image_filename + "</div>";
+   } else { 
+      var messageElement = "<div class='form-control form-control2 text-left'>" + botResponse.response + "</div>";
    }
-   messageElement.className = "form-control form-control2 text-left";
-   var id = Date.now();
-   messageElement.setAttribute("id", id);
-   chatArea.appendChild(messageElement);
-   var timeElement = document.createElement("p");
-   timeElement.className = "timeEl text-left";
+   chatArea.html(chatArea.html() + messageElement);
    var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true , milliseconds: true});
-   timeElement.innerHTML = time;
-   chatArea.appendChild(timeElement);
+   var timeElement = "<p class='timeEl text-left'>" + time + "</p>";
+   chatArea.html(chatArea.html() + timeElement);
+   chatArea.scrollTop($("#chatarea")[0].scrollHeight);
 }
 
 $(document).ready(function() {
-    response = {"response" : "Hello there, I'm femiBot.<br/>Here's a couple of things i can do.<br/> 1. You can ask me anything<br/>2. You can find a friend who's in the dope HNGInternship<br/>3. You open a URL by typing open:your_url"};
-    newElementsForBot(response);
+   response = {"response" : "Hello there, I'm femiBot.<br/>Here's a couple of things i can do.<br/> 1. You can ask me anything<br/>2. You can find a friend who's in the dope HNGInternship<br/>syntax : find: username or find: name<br/>3. You open open a URL by typing open:your_url"};
+   newElementsForBot(response);
 });
 
 $(document).ready(function chargeBot() {
-   $("#send").click(function() {
+   $("#send").click(function () {
       var message = $("#message").val();
-      if(message.includes('open:')) {
-         url = message.split('open:')
+      newElementsForUser(message);
+      if (message == "" || message == null) {
+         response = { 'response': 'Please type something' };
+         newElementsForBot(response);
+      }else if (message.includes('open:')) {
+         url = message.split('open:');
          window.open('http://' + url[1]);
-         newElementsForUser(message);
+      } else if (message.includes("randomquote:") || message.includes("random quotes:")) {
+         $.getJSON("https://talaikis.com/api/quotes/random/", function (json) {
+            response = json['quote'] + '<br/> Author : ' + json['author'];
+            botResponse = { 'response': response };
+            newElementsForBot(botResponse);
+         });
+         $("#chatarea").scrollTop($("#chatarea")[0].scrollHeight);
+      } else if (message.includes("aboutbot") || message.includes("about bot") || message.includes("aboutbot:")) {
+         response = { 'response': 'Version 4.0' };
+         newElementsForBot(response);
       } else {
-         newElementsForUser(message);
          $.ajax({
-            url: "http://old.hng.fun/profiles/femi_dd.php",
-            type: "post",
-            data: {new_request: message},
+            url: "profiles/femi_dd.php",
+            type: "POST",
+            data: { new_request: message },
             dataType: "json",
-            success: function(botResponse) {
+            success: function (botResponse) {
                newElementsForBot(botResponse);
-               $("#message").val("");
-               $("#chatarea").scrollTop($("#chatarea")[0].scrollHeight);
             }
          });
       }
+      $("#message").val("");
    });
+});
+
+document.body.addEventListener('keyup', function (e) {
+   if (e.keyCode == "13") {
+      $("#send").click();
+   }
 });
 
 </script>
