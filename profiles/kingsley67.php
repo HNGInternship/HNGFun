@@ -197,14 +197,14 @@ if(isset($_POST['question'])){
     #credentials{  color:white;}
    
     
-    #chatoutput{
+    #chatOutput{
         height: 500px;
         border:black solid 1px;
         width: 530px;
         overflow: scroll;
          border-radius: 10px;
     }
-    #chatinput{
+    #chatInput{
         width: 450px;
         height: 80PX;
         border-radius: 10px;
