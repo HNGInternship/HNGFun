@@ -21,9 +21,12 @@ $image_url = $row['image_filename'];
 ?>
 <?php
 // chatbot
+<?php
+// chatbot
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
 	$question = $_POST['text_in'];
+	
 	
 	 // bot version
     if(stripos($question,'aboutbot') !== false){
@@ -32,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'answer' => "Hello, I am maaj's assistant. Version 1.0, currently running on PHP 5.7."
       ]);
       return;
-    };
+    }
 	
 	//greeting
 	if((stripos($question,'hey') !== false) || (stripos($question,'hi') !== false) || (stripos($question,'hello') !== false)){
@@ -41,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'answer' => "Hello, how are you?"
       ]);
       return;
-    };
+    }
 	
 	// time
 	if(stripos($question,'time') !== false){
@@ -78,13 +81,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 	
 	
-	
 	}
+	
+	
 	else{
 	
 	
-	}
-
+	
+}
 ?> 
 <!DOCTYPE html>
 <!--
@@ -120,6 +124,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
     <link rel="icon" href="css/images/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <!-- This is the main css file for the default Alta theme -->
 <!-- injector:theme -->
 <link rel="stylesheet" href="css/alta/5.0.0/web/alta.css" id="css"/>
@@ -128,7 +134,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- This is where you would add any app specific styling -->
 	<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.0.0/3rdparty/require-css/css.min" type="text/css"/>
-    <style>
+    
+	<style>
         .oj-web-applayout-body{
             background-color: #153643;
             vertical-align: middle;
@@ -182,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			
 		}
 		#header{
-			width: 80%;
+			width: 350px;
 			height: 60px;
 			margin: 0px auto;
 			background-color:#00AFEF;
@@ -194,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			color:#ffffff;
 		}
 		#contain{
-			width:80%; 
+			width:350px; 
 			height: 400px;
 			margin-top:10px;
 			margin:0px auto;
@@ -204,13 +211,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			overflow:scroll;
 		}
 		#controls{
-			width:80%px;
+			width:350px;
 			margin:0px auto;
 			
 		}
 		#textbox{
-			margin:0 0 0 10%;
-			width:70%;
+			margin:0 0 0 0;
+			width:82%;
 			
 		}
 		#send{
@@ -248,6 +255,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
      </style>
 
   </head>
+ 
+
   <body class="oj-web-applayout-body">
 	<div class="oj-web-applayout-page">
 	<div>
@@ -275,9 +284,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				
 				</div>
 				<div id ="controls">
-					<form method="POST" action="" id= "chat">
-					<input type="text" id="textbox"></input>
+					<form method="POST" action="" id="chat">
+					<input type="text" id="textbox" name="text_in"></input>
 					<input id="send" type="submit" value="Send"></input>
+					new head3
 					</form>
 
 				</div>
@@ -293,7 +303,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
       </div>
 	  
-    <script>
+     
+	 <script src="../vendor/jquery/jquery.min.js"></script>
+
+ <script>
+ $(document).ready(function(){
     var message = $("#contain");
 		
 	    $("#chat").on("submit", function(e) {
@@ -310,23 +324,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				data: {text_in: text_in},
 				dataType: 'json',
 				success: (response) => {
-			        response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
-			        let response_answer = response.answer;
-			        message.append("<div class='bot'><div class='message'><img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/>" +response_answer+ "</div></div>");      
+					
+			        //response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
+			        //let response_answer = response.answer;
+			        message.append("<div class='bot'><div class='message'><img src='https://res.cloudinary.com/maaj/image/upload/v1524822457/bot.png' width='30px'/>" + response.answer + "</div></div>");      
 			       	$('#contain').animate({scrollTop: $('#contain').get(0).scrollHeight}, 1100);     
 				},
 				error: (error) => {
-	          		alert('error occured')
+	          		alert(JSON.stringify(error));
 						console.log(error);
+						
 				}
 				
 			});
 			$("#textbox").val("");
 			}
 		});
+		
+	});
 
 </script>
-
   </body>
 
 </html>
+

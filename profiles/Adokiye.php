@@ -59,7 +59,7 @@ if (isset($_POST['restart'])){
     session_destroy();
 }if (isset($_POST['button'])) {
     if (isset ($_POST['input']) && $_POST['input'] !== "") {
-        include "../answers.php";
+
         $function = $_POST['input'];
         $functionName = explode("(", $function);
         if (function_exists($functionName[0])&&strpos($function,"(")&&strpos($function,")")) {
@@ -117,7 +117,7 @@ function askQuestion($input)
             } else if (preg_match("/\b($time)\b/",$input)) {
                 return gettTime();
             } else if (preg_match('/\bhelp\b/',$input)) {
-                return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me<br/> or enter the name of any function you want to run";
+                return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me<br/>Click on restart to clear our conversation and start again<br/>";
             }else if($input=="you are mad"||$input == "you're mad"){
                 return "YOUR FATHER";
             }else if(preg_match("/\bquote\b/",$input)){
@@ -149,55 +149,111 @@ function askQuestion($input)
 <head>
     <meta charset="utf-8">
     <title>Adokiye ---- Stage 4</title>
-    <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
     <style type="text/css">
-        .mycss
-        {
-            text-shadow:1px 3px 1px rgba(255,255,255,1);font-weight:bold;text-transform:uppercase;color:#000000;border: 5px ridge #FFFFFF;letter-spacing:5pt;word-spacing:2pt;font-size:20px;text-align:center;font-family:arial, helvetica, sans-serif;line-height:1;
-        }
-        .bot-css {
-            display: inline-block;
-            -webkit-box-sizing: content-box;
-            -moz-box-sizing: content-box;
-            box-sizing: content-box;
-            width: 300px;
-            height: fit-content;
-            padding: 18px 0;
-            border: none;
-            -webkit-border-radius: 2px;
-            border-radius: 2px;
-            font: normal normal bold 16px/1 "Times New Roman", Times, serif;
-            color: rgba(10,6,6,1);
-            text-align: center;
-            -o-text-overflow: ellipsis;
-            text-overflow: ellipsis;
-            background: rgba(190,216,226,1);
-            -webkit-box-shadow: 2px 3px 0 2px rgba(201,201,211,1) ;
-            box-shadow: 2px 3px 0 2px rgba(201,201,211,1) ;
-            text-shadow: 0 1px 2px rgba(255,255,255, 0.5) , 3px 2px 1px rgba(0,0,0,0.2) ;
-            -webkit-transition: font-size 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
-            -moz-transition: font-size 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
-            -o-transition: font-size 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
-            transition: font-size 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
-            -webkit-transform: rotateX(-1.64deg) rotateY(-3.4377467707849396deg)   ;
-            transform: rotateX(-1.64deg) rotateY(-3.4377467707849396deg)   ;
-        }
-        #div_main {
-            width: 980px;
-            margin-right: auto;
-            margin-left: auto;
-            font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
-            text-align: center;
-            background-image: url(http://res.cloudinary.com/gorge/image/upload/v1523960257/Internships-1.png);
-            height: auto;
-            padding-bottom: 1px;
-        }
-        #header {
-            background-color: #FFFFFF;
-            width: 980px;
-            margin-right: auto;
-            margin-left: auto;
-        }
+        body{
+            background-color: #E8DBDB;
+        }.rectangle{
+             position: absolute;
+             width: 523.25px;
+             height: 423.16px;
+             background: #FFFFFF;
+             box-shadow: 0px 5.09535px 5.09535px rgba(0, 0, 0, 0.25);
+             left: 629px;
+             top: 19px;
+         }.Screenshot{
+              position: absolute;
+              width: 463.41px;
+              height: 441px;
+              background: url(http://res.cloudinary.com/gorge/image/upload/v1523960782/Screenshot_20180414-113840.png);
+              box-shadow: 0px 8.91686px 3.82151px rgba(0, 0, 0, 0.25);
+              border-radius: 76.4303px 10.1907px 10.1907px 0px;
+              left: 178px;
+              top: 12px;
+          }.iruene_Adokiye{
+               position: absolute;
+               width: 264.81px;
+               height: 115.99px;
+               font-family: Arial;
+               font-style: normal;
+               font-weight: normal;
+               line-height: normal;
+               font-size: 61.1442px;
+               text-align: center;
+               color: #000000;
+               mix-blend-mode: darken;
+               left: 139px;
+               top: 0px;
+           }.RECTANGLE2{
+                position: absolute;
+                width: 295.36px;
+                height: 54px;
+                background: #28123E;
+                border-radius: 19.1076px;
+                left: 121px;
+                color: #FFFFFF;
+                text-align: center;
+                top: 281px;
+            }.PROGRAMMER_enthusiast{
+                 position: absolute;
+                 width: 253.35px;
+                 height: 21.67px;
+                 font-family: Arial, sans-serif;
+                 font-style: normal;
+                 font-weight: normal;
+                 line-height: normal;
+                 font-size: 17.8337px;
+                 text-align: center;
+                 letter-spacing: 0.01em;
+                 color: #F2F2F2;
+                 left: 34px;
+                 top: -25px;
+             }.Adokiye{
+                  position: absolute;
+                  width: 262.26px;
+                  height: 75.2px;
+                  font-family: "Arial Narrow";
+                  font-style: italic;
+                  font-weight: normal;
+                  line-height: normal;
+                  font-size: 36px;
+                  text-align: center;
+                  color: #F5EEEE;
+                  left: 147px;
+                  top: 346px;
+                  border-radius: 19.1076px;
+                  background-color: #28123E;
+              }.rectangle3{
+                   position: absolute;
+                   text-align: center;
+                   -o-text-overflow: ellipsis;
+                   text-overflow: ellipsis;
+                   width: 975px;
+                   height: auto;
+                   background: #28123E;
+                   left: 180px;
+                   top: 444px;
+               }.myCahtbottext{
+                    position: absolute;
+                    width: 414px;
+                    height: 12px;
+                    font-family: "Calibri", "Roboto", sans-serif;
+                    font-style: normal;
+                    font-weight: normal;
+                    line-height: normal;
+                    font-size: 17.8337px;
+                    text-align: center;
+                    letter-spacing: 0.01em;
+                    color: #DF2424;
+                    left: -71px;
+                    top: 94px;
+                }.chatbotimage{
+                     position: absolute;
+                     width: 96px;
+                     height: 82px;
+                     background: url(http://res.cloudinary.com/gorge/image/upload/v1524842679/chatbot-06-512.png);
+                     left: -47px;
+                     top: 3px;
+                 }
         .tb5 {
             border: 2px solid #456879;
             border-radius: 10px;
@@ -215,12 +271,7 @@ function askQuestion($input)
             color: #563F3F;
             cursor: pointer;
         }
-        #myform{
-            background: rgba(76, 175, 80, 0.3);
-            display: inline-block;
-            width: 50px;
-            height: fit-content;
-            float: left;
+
         }#myBtn {
              display: none; /* Hidden by default */
              position: fixed; /* Fixed/sticky position */
@@ -262,51 +313,39 @@ function askQuestion($input)
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     }  </script>
 <body>
-<?php
-$name = 'Adokiye Iruene';
-$username = 'Adokiye';
-?>
-<div class="oj-flex oj-flex-bar-center-absolute" >
-    <div class="oj-md-6 oj-flex-item">
-        <div class="col-md-4 col-md-offset-2"><img src="http://res.cloudinary.com/gorge/image/upload/v1523960590/images.jpg" width="120" height="131" alt=""/></div>
-        <p style="font-size: 36px; text-align: center; color: #563F3F; font-weight: bold;"><span
-                    style="font-style: italic; color: #FFFFFF; font-size: 24px;"><span
-                        style="color: #6FB0CB; font-size: 30px;">my</span></span> PROFILE</p>
-    </div>
-    <marquee onmouseover="this.stop();" onmouseout="this.start();">
-        <p style=" color: #FFFFFF;font-family: arial, sans-serif; font-size: 14px;font-weight: bold;letter-spacing: 0.3px;">
-            ASK ANY QUESTION IN THE TEXT BOX BELOW OR TYPE IN <span style="color: #0C1621">TRAIN: YOUR QUESTION#YOUR ANSWER#password</span>
-            TO ADD MORE QUESTIONS TO THE DATABASE</p>
-    </marquee>
-    <div class = "oj-sim-6">
-        <p style="font-style: normal; font-weight: bold;">&nbsp;</p>
-        <p style="font-style: normal; font-weight: bold;">NAME : <?php echo $name ?></p>
-        <p style="font-weight: bold">USERNAME : <?php echo $username ?></p>
-        <img src="http://res.cloudinary.com/gorge/image/upload/v1523960782/Screenshot_20180414-113840.png" width="120" height="131" alt=""/>
-    </div>
-    <p class="oj-sim-6">Chatbot by Adokiye<br />Click on show below to display the password for training me<br/>Enter help, quote or joke<br/>to see qhat i can do</p><br /><button onclick="show_function()" class = "btn btn-primary mb-2">SHOW</button>
-    <form name = "askMe" class="form-inline"  method="post">
-        <p>
-            <label>
-                <input name="input" type="text" class="form-control"  placeholder="Chat with me! Press Ask to send.">
-            </label><label>
-                <input name="button" type="submit"  class="btn btn-primary mb-2" id="button" value="ASK"><label>
-                    <input name="restart" type="submit"   id="button" value="Restart">
-                </label>
-            </label>
-            <br />
+<div class="rectangle">
+    <p style="font-family: Arial; font-size: xx-large; text-align: center;">&nbsp;</p>
+    <p style="font-family: Arial; font-size: 48px; text-align: center;">&nbsp;</p>
+    <p style="font-family: Arial; font-size: 48px; text-align: center;">&nbsp;</p>
+    <p style="font-family: Arial; font-size: 48px; text-align: center;">IRUENE ADOKIYE</p>
+    <p style="font-family: Consolas, 'Andale Mono', 'Lucida Console', 'Lucida Sans Typewriter', Monaco, 'Courier New', monospace; font-size: 24px; text-align: center;">@Adokiye</p>
+</div><div class="rectangle3"><div class="chatbotimage"></div>
 
-        </p>
-        <p>&nbsp;</p>
-    </form>
-    <div class="col-md-12"> <?php echo $response;echo "<br/>"?><?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
-        <span style="color:blue"><?=  "YOU : $soln <br/>";echo "</span>";
-            echo "BOT : $asked<br/>" ?><br/><?php } ?><br/>
-    </div><div id = "oj-sim-6" style="display:none"  >HAHAHA, THE PASSWORD IS PASSWORD</div>
+    <p style="color: #FFFFFF">&nbsp;
+    </p>
+    <p style="color: #FFFFFF; font-size: 24px; font-weight: bolder;">CHATBOT    </p>
+    <p style="color: #FFFFFF">TYPE IN HELP FOR INSTRUCTIONS ON HOW TO USE ME</p>
+    <p style="color: #FFFFFF">    <form name = "askMe" method="post">
     <p>
+        <label>
+            <input name="input" type="text" class="tb5"  placeholder="Chat with me! Press Ask to send.">
+        </label><label>
+            <input name="button" type="submit"  class="btn btn-primary mb-2" id="button" value="ASK"><label>
+                <input name="restart" type="submit"  class="btn btn-primary mb-2"  id="button" value="Restart">
+            </label>
+        </label>
+        <br />
 
-
-    </p> <button onclick="topFunction()" class="btn btn-primary mb-2" title="Go to top">Top</button>
+    </p>
+    <p>&nbsp;</p>
+    </form>&nbsp;</p>
+    <p><?php echo $response;echo "<br/>"?>
+        <?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
+        <span style="color:greenyellow"><?=  "YOU : $soln <br/>";echo "</span>";echo "<span style=\"color:white\">";
+            echo "BOT : $asked<br/>" ?><br/></span></p>
+    <?php }?>
 </div>
+<br/><div class="Screenshot"></div>
+
 </body>
 </html>
