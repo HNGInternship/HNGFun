@@ -1,11 +1,8 @@
 
 <?php
-
+include '../db.php';
 include '../answers.php';
 $sql = 'SELECT * FROM interns_data WHERE username="kingsley67"';
-
-$sql = 'SELECT * FROM `interns_data` WHERE `username`="kingsley67"';
-
     $query = $conn->query($sql);
     $query->setFetchMode(PDO::FETCH_ASSOC);  
     $result = $query->fetch();    
@@ -14,7 +11,7 @@ $sql = 'SELECT * FROM `interns_data` WHERE `username`="kingsley67"';
     $user = $result['username'];
     $image = $result['image_filename'];
 
-$sql2 = 'SELECT * FROM `secret_word`';
+$sql2 = 'SELECT * FROM secret_word';
     $query = $conn->query($sql2);
     $query->setFetchMode(PDO::FETCH_ASSOC);  
     $result2 = $query->fetch(); 
@@ -22,7 +19,6 @@ $secret_word=$result2['secret_word'];
 
 
 
-    if($_POST){
    
 if($_POST['question']){
     
@@ -114,7 +110,7 @@ if(isset($_POST['question'])){
         if($password=="trainpwforhng"){
          
             try {
-    $sql3 = "INSERT INTO  `chatbot` (`question`, `answer`) VALUES ('" . $question . "','" . $answerm . "')";
+    $sql3 = "INSERT INTO  `chatbot` (`question`, `answer`) VALUES ('". $question ."','". $answer ."')";
     $query = $conn->query($sql3);
 } catch(PDOException $e) {
     echo $e->getMessage();
@@ -156,7 +152,7 @@ if(isset($_POST['question'])){
   
     }
     }
-    }
+    
 
 
 ?>
@@ -184,43 +180,46 @@ if(isset($_POST['question'])){
     height:250px
     }
     .intro{
-        background-color: darkblue;
+        background-color: #E8EEEF;
       
-        text-align: left;
+        text-align: center;
     }
    
-    h3{background-color: coral;
-    width:250px}
+    h3{background-color: #2A88AD;
+    width:250px;
+    margin: 20px 210px;
+  }
    
     p{color:black}
-    h1{color: coral}
+    h1{color: #327CA7;
+    text-align: center}
     #credentials{  color:white;}
-    p,li{
-        color:white
-    }
+   
     
-    #chatoutput{
+    #chatOutput{
         height: 500px;
         border:black solid 1px;
-        width: 530px;
+        width: 500px;
         overflow: scroll;
+         border-radius: 10px;
     }
-    #chatinput{
+    #chatInput{
         width: 450px;
         height: 80PX;
-        
+        border-radius: 10px;
+        margin: 0px 5px;
     }
     
     
     #rim{
-        padding-left:50px
+        padding-left:50px;
+        
     }
-    #chatsend{
-        height: 70px
-    }
+  
+    
     
     .you{
-        background-color:lawngreen;
+        background-color:#E8EEEF;
         width:500px;
         padding-left: 390px;
         border: 1px solid black;
@@ -228,22 +227,98 @@ if(isset($_POST['question'])){
         overflow-wrap: break-word;
     }
     .bot{
-        background-color:lightskyblue;
+        background-color:#109177;
         width:500px;
-        white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+       
+         overflow-wrap: break-word;
+    
         
     }
-    .chatbot{
-        background-color: antiquewhite;
-       
+    #chatbot{
+        background-color: #F4F7F8;
+       display: none;
     }
     #chathead{
-        background-color: burlywood;
+        background-color: #E8EEEF;
         padding: -10px 0px;
-        margin:-10 0px;
+        margin:0px 0px;
         
+    }
+    
+    
+    
+    
+    .push_button {
+	position: relative;
+	width:70px;
+	height:50px;
+	text-align:center;
+	color:#FFF;
+	text-decoration:none;
+	line-height:43px;
+	font-family:'Oswald', Helvetica;
+	
+	
+}
+.push_button:before {
+	background:#f0f0f0;
+	background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#D0D0D0), to(#f0f0f0));
+	
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	
+	-webkit-box-shadow:0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF; 
+	-moz-box-shadow:0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF; 
+	box-shadow:0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF;
+	
+	position: absolute;
+	content: "";
+	left: -6px; right: -6px;
+	top: -6px; bottom: -10px;
+	z-index: -1;
+}
+
+.push_button:active {
+	-webkit-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset;
+	top:5px;
+}
+.push_button:active:before{
+	top: -11px;
+	bottom: -5px;
+	content: "";
+}
+
+
+
+
+.blue {
+	text-shadow:-1px -1px 0 #109177;
+	background: #109177;
+	border:1px solid #109177;
+	
+	
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	
+	-webkit-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #338A94, 0 4px 2px rgba(0, 0, 0, .5);
+	-moz-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #338A94, 0 4px 2px rgba(0, 0, 0, .5);
+	box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #338A94, 0 4px 2px rgba(0, 0, 0, .5);
+}
+
+.blue:hover {
+	background:#109177;
+	
+}
+    .but{
+        background-color: #F4F7F8;
+    }
+    #appear{
+        margin: 50%;
+       
+        border-radius: 10px;
+      width: 100px;
     }
 </style> 
     
@@ -289,22 +364,22 @@ https://res.cloudinary.com/dyngnvcre/image/upload/v1524083992/king.jpg" alt="kin
     
    
         
-    <div class="col-md-6 " class="chatbot">
+    <div class="col-md-6 but">
        
        
-        
+        <button type="submit" id="appear" class="push_button blue" onclick = "appear()">Let's Chat</button>
 
     
-       <div class="chatbody">
-            <h1 id="rim"><strong>RIM CHATBOT</strong></h1>
-           <h4>Welcome User, my name is <span style="color:red"><strong>Rim67</strong></span>,and I am a bot</h4>
-        <h4>You can ask me any question and i'll do my best to suggest you answers</h4>
+       <div class="chatbody" id="chatbot">
+            <h2 id="rim"><strong>RIM CHATBOT</strong></h2>
+           <p>Welcome User, my name is <span style="color:#109177"><strong>Rim67</strong></span>,and I am a bot</p>
+        <p>You can ask me any question and i'll do my best to suggest you answers</p>
             <div class="chat">
                 <div id="chatOutput">
                     <div id="chathead">
-                        <h4>You can train me with your personal questions using the keyword/format <span style="color:red"><strong>train:your-Question#your-Answer#password<br>N.B:</strong></span>the training password is<span style="color:red"><strong>trainpwforhng</strong> </span></h4>
-             <h4>I also have the ability to tell you your zodiac sign. To know your zodiac sign, enter the following keyword followed by your birthday<span style="color:red"><strong>
-                 Birthday:yyyy-mm-dd</strong></span></h4>
+                        <p>You can train me with your personal questions using the keyword/format <span style="color:#109177"><strong>train:your-Question#your-Answer#password<br>N.B:</strong></span>the training password is<span style="color:#109177"><strong>trainpwforhng</strong> </span></p>
+             <p>I also have the ability to tell you your zodiac sign. To know your zodiac sign, enter the following keyword followed by your birthday<span style="color:#109177"><strong>
+                 Birthday:yyyy-mm-dd</strong></span></p>
         </div>
                     <div><h4></h4></div>
                     <div id="results">
@@ -314,7 +389,7 @@ https://res.cloudinary.com/dyngnvcre/image/upload/v1524083992/king.jpg" alt="kin
                 </div>
                 <form method="post" action="#" onsubmit="button();return false" name="myForm" id="myform" >
                 <input  id="chatInput" type="text" placeholder="Input Text here" maxlength="400">
-                <button type="submit" id="chatSend">Send</button>
+                <button type="submit" class="push_button blue">Send</button>
                 </form>
             </div>
                 </div>
@@ -331,6 +406,12 @@ https://res.cloudinary.com/dyngnvcre/image/upload/v1524083992/king.jpg" alt="kin
 
 
 <script>
+ $('#appear').click(function() {
+  $('#chatbot').toggle('slow', function() {
+   $('#appear').toggle();
+  });
+});
+    
   
 
  function button(){
@@ -338,7 +419,7 @@ https://res.cloudinary.com/dyngnvcre/image/upload/v1524083992/king.jpg" alt="kin
 var input=$('#chatInput').val();
        
 $.ajax({
-       url:'',
+       url:'../profiles/kingsley67.php',
     method:'post',
         cache: false,
      dataType: "json",
@@ -346,13 +427,22 @@ $.ajax({
     question:input,
     
    }, 
-        beforeSend: function() { $('#results').append('Please wait...'); },
+     beforeSend: function() { $('#results').append('please wait');},
         success: function(result) { 
-         $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT :</strong><br>"+result['answers']+"</div><br>"));
+         $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
        console.log(result);
         }
         });
 };
+    
+     function updateScroll(){
+    var element = document.getElementById("chatOutput");
+    element.scrollTop = element.scrollHeight;
+}
+
+
+setInterval(updateScroll,1000);
+                    
 </script>
 
 
