@@ -101,6 +101,15 @@ PAGE: PORTFOLIO
 	color: #bdc3cf;
 }
 
+#primary {
+		width: 50%;
+		float: left;
+	}
+
+#secondary {
+		width: 40%;
+		float: right;
+	}
 
 /********************
 NAVIGATION
@@ -142,11 +151,11 @@ footer {
 PAGE: ABOUT
 *********************/
 .profile-photo {
-	display: block;
-	max-width: 50%;
-	margin: 0 auto 30px;
-	border-radius: 100%;
-}
+            /*display: block;
+            max-width: 20%;
+            margin: 0 auto 50px;*/
+            border-radius: 50%;
+        }
 
 
 
@@ -240,8 +249,8 @@ nav a.selected, nav a:hover {
 			</nav>
 		</header>
 		<div id="wrapper">
-			<section>
-				<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
+		<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
+			<section id = "primary">
 				<h3>About</h3>
 				<p>Hi I'm basitomania, this is my design portfolio where i share all my work when i'm not surfing the net and markerting online. To follow me on twitter my handle is <a href="http://www.twitter.com">@iamblack8</a>.</p>
 			</section>

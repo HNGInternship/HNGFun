@@ -1,6 +1,10 @@
 <?php
 	// Profile
 
+	$servername = "localhost";
+	$dbname = "hng_fun";
+	$conn = new PDO("mysql:host=$servername;dbname=$dbname", "root", "");
+	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	try {
 
 
@@ -473,18 +477,21 @@
 							type: "POST",
 							data: {chat: a},
 							success: function(data,status){
-								if(data != ""){
-									if (data.indexOf("::def") >= 0) {
-										
-										data = data.replace("::def","");
-										add_bot_text(data);
-										add_bot_default();
-									}
-									else{
-										add_bot_text(data);
-									}
+								// data = JSON.parse(data);
+								console.log(data);
+								// add_bot_text(data['data']);
+								// if(data != ""){
+
+									// if (data['data'].indexOf("::def") >= 0) {
+									// 	data['data'] = data['data'].replace("::def","");
+									// 	add_bot_text(data['data']);
+									// 	add_bot_default();
+									// }
+									// else{
+									// 	add_bot_text(data['data']);
+									// }
 									
-								}										
+								// }										
 							}
 						});
 					}
@@ -553,7 +560,7 @@
 
 				var a = "Hi there! I'm jane...my friends call me dusty";
 				var b = "I can calculate your Body Mass Index(BMI) if you simply enter your weight(in kg) and your height(in metres). Kindly follow the format:";
-				var c1 = "calculate_bmi[weight,height]";
+				var c1 = "bmi[weight,height]";
 				var c2 = "";
 				var c3 = "";
 				var c4 = "";
@@ -707,7 +714,7 @@
 					
 				}
 			}
-			else if (substr($a,0,14) == "calculate_bmi[" && substr($a,strlen($a)-1,1) == "]") {
+			else if (substr($a,0,4) == "bmi[" && substr($a,strlen($a)-1,1) == "]") {
 				$array = explode('[', $a,2);
 				$stmt = substr($array[1],0,strlen($array[1])-1);
 				$array2 = explode(',', $stmt);
@@ -752,6 +759,9 @@
 					if($stmt){
 						foreach($stmt as $row){
 							$answer = $row['answer'];
+							$stat = strlen($answer);
+							$myJSON = ['data'=>$answer,'stat'=>$stat];
+							echo json_encode($myJSON);
 						}
 					}
 					
@@ -762,10 +772,12 @@
 
 				if($answer == ""){
 					$answer = $no_answer[rand(0,4)]."::def";
+					$stat = strlen($answer);
+					$myJSON = ['data'=>$answer,'stat'=>$stat];
+					echo json_encode($myJSON);
 				}
 
-				echo $answer;
-				exit;
+				// exit;
 			}
 		}
 ?>

@@ -19,7 +19,6 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
      date_default_timezone_set("Africa/Lagos");
      $today = date("H:i:s");
 }
-
  ?>
  <?php 
     if($_SERVER['REQUEST_METHOD']==='POST'){
@@ -101,7 +100,6 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
                     ]);
                 }
                 
-
                 return;
             }else{ //wrong training pattern or error in string
             echo json_encode([
@@ -111,7 +109,6 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             return;
             }
         }
-
         //end of function definition
         
         $ques = test_input($_POST['ques']);
@@ -120,7 +117,6 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
         }else{
             chatMode($ques);
         }
-
        
         return;
     }
@@ -158,7 +154,7 @@ body {
     display: block;
     text-align: right;
     font-size: 20px;
-    padding-top: -80px;
+    padding-top: 40px;
 }
 .photo {
     width: 50%;
@@ -176,15 +172,16 @@ a {
      text-decoration: underline dotted;
 }
 /* ChatBot */
-        .display{
+       .display{
             position:fixed;
-            bottom:0;
-            right: 20px;
+            bottom: 50px;
+            right: 50px;
             background-color:white;
             width: 350px;
             height: 400px;
             overflow:auto;
-            padding-bottom: 20px;
+            padding: 0 10px 0 10px;
+            margin-bottom: auto;
         }
         .display nav{
             display:block;
@@ -223,37 +220,31 @@ a {
         }
         .display {
             padding: 15px;
-
     -webkit-animation: fadein 5s; /* Safari, Chrome and Opera > 12.1 */
        -moz-animation: fadein 5s; /* Firefox < 16 */
         -ms-animation: fadein 5s; /* Internet Explorer */
          -o-animation: fadein 5s; /* Opera < 12.1 */
             animation: fadein 5s;
 }
-
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
 }
-
 /* Firefox < 16 */
 @-moz-keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
 }
-
 /* Safari, Chrome and Opera > 12.1 */
 @-webkit-keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
 }
-
 /* Internet Explorer */
 @-ms-keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
 }
-
 /* Opera < 12.1 */
 @-o-keyframes fadein {
     from { opacity: 0; }
@@ -265,22 +256,18 @@ a {
     border-radius: 5px;
     color: #fff;
 }
-
-input[type=text] {
-    border-bottom: 5px solid #ccc;
+input[type="text"] {
+    border:0px;
+    border-bottom: 1px solid #bbb;
     width: 250px;
-    padding: 5px
+    padding: 5px;
+    background: none;
 }
-
 .bot {
     width: 80%;
     text-align: justify;
     height: auto;
 }
-
-
-
-
 /* CSS button */
 </style>
 </head>
@@ -330,8 +317,7 @@ input[type=text] {
 
 
    <script>
-       
-        window.addEventListener("keydown", function(e){
+       window.addEventListener("keydown", function(e){
             if(e.keyCode ==13){
                 if(document.querySelector("#question").value.trim()==""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){
                     //console.log("empty box");
@@ -342,16 +328,19 @@ input[type=text] {
             }
         });
         function sendMsg(){
-
             var ques = document.querySelector("#question");
-            
+            if(ques.value == ":close:"){
+                exitB();
+                return;
+            }
             if(ques.value.toLowerCase() ==":about bot:"){
                 displayOnScreen(ques.value, "user");
-                displayOnScreen("Name: Robotech <br> V:1.0");
+                displayOnScreen("Name: Robotech <br> Version: 1.0.0");
                 return;
             }
             if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
             displayOnScreen(ques.value, "user");
+            
             //console.log(ques.value);
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function(){
@@ -359,9 +348,7 @@ input[type=text] {
                     processData(xhttp.responseText);
                 }
             };
-
-            xhttp.open("POST","http://old.hng.fun/profile.php?id=ekpono", true);
-
+            xhttp.open("POST", "http://old.hng.fun/profiles/ekpono.php", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("ques="+ques.value);
         }
@@ -369,13 +356,15 @@ input[type=text] {
             data = JSON.parse(data);
             console.log(data);
             var answer = data.answer;
+            console.log(answer);
             //Choose a random response from available
             if(Array.isArray(answer)){
                 if(answer.length !=0){
                     var res = Math.floor(Math.random()*answer.length);
-                    displayOnScreen(answer[res].answer, "bot");
+                    //console.log(answer[res][0]);
+                    displayOnScreen(answer[res][0], "bot");
                 }else{
-                    displayOnScreen("Sorry I don't understand what you said <br>But You could help me learn<br> Here's the format: train: question # response # password");
+                    displayOnScreen("what did you say? Train me pls<br> Here's the format: train: question # response # password");
                 }
             }else{
                 displayOnScreen(answer,"bot");
@@ -397,10 +386,8 @@ input[type=text] {
             msgArea.append(div)
             if(data != document.querySelector("#question").value){
                 document.querySelector("#question").value="";
-            } 
-
-
-
+            }
+        } 
 </script> 
 </body>
 </html>

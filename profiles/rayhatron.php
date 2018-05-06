@@ -180,7 +180,7 @@ footer{
     <div class="messages">
         <p class="welcomeMessage">Hey! I'm Spideybot, your friendly neighbourhood bot and it's nice to meet you.</p> 
         <p class="welcomeMessage">You can send me messages and we'll be sure to have a webtastic conversation. However, if my spidey senses fail me and I'm unable to respond, you can train me with the command: <br><span class="highlight">train: your question # the answer # password</span></p>
-        <p class="welcomeMessage">Note, the password is just password ;) Okay, enough swinging around, let's get chatting :)</p>
+        <p class="welcomeMessage">Note, the password is just password ;) <br>You can also send <span class="highlight">aboutbot</span> to get information about me. <br>Okay, enough swinging around, let's get chatting :)</p>
     </div>
     
         <input type="text" name="message" id="message" class="rayMessage">
@@ -302,7 +302,7 @@ function getAnswer($question, $previousAnswer){
 
         // If someone enters aboutbot , let's just send them info about the bot
         if( preg_match("/aboutbot/", $question) ){
-            return 'Version: 1.0.0<br>Created by: <a href="https://twitter.com/rayhatron" target="_blank">@rayhatron</a>';
+            return 'Version: 1.0.1<br>Created by: <a href="https://twitter.com/rayhatron" target="_blank">@rayhatron</a>';
         }
         
         // Handle the training command

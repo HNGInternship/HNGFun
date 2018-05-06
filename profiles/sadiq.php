@@ -8,150 +8,36 @@
     $result2 = $conn->query("Select * from interns_data where username = 'sadiq'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
-<?php
-
- // enter bot {pam pararam}
-if($_SERVER['REQUEST_METHOD'] === "POST"){
-    
-        function stripquestion($question){
-            // remove whitespace first
-            $strippedquestion = trim(preg_replace("([\s+])", " ", $question));
-            // now let's remove any other character asides :, (, ), ', and whitespace
-            $strippedquestion = trim(preg_replace("/[^a-zA-Z0-9\s\'\-\:\(\)#]/", "", $strippedquestion));
-            $strippedquestion = $strippedquestion;
-            return strtolower($strippedquestion);
-        }
-        function is_training($data){
-            $keyword = stripquestion($data);
-            if ($keyword=='train') {
-                return true;
-            }else{
-                return false;
-            }
-        }
-        function authorize_training($password){
-            if ($password=='password') {
-                return true;
-            }else{
-                return false;
-            }
-        }
-        function training_data($body){
-            $array_data = explode('#', $body);
-
-            // clear
-            foreach ($array_data as $key => $value) {
-                $value = stripquestion($value);
-            }
-            return array('question' => $array_data[0], 'answer' => $array_data[1], 'password'=> $array_data[2]);
-        }
-        function train($question, $answer){
-            global $conn;
-            try {
-                $insert_stmt = $conn->prepare("INSERT into chatbot (question, answer) values (:question, :answer)");
-                $insert_stmt->bindParam(':question', $question);
-                $insert_stmt->bindParam(':answer', $answer);
-                $insert_stmt->execute();
-                return "Thanks for the new Jutsu, Sensei!";
-            } catch (PDOException $e) {
-                return "An error occured: ". $e->getMessage();
-            }
-        }
-        // set to debug mode
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
-        // Let's prepare a statement to just randomly fetch any answer like so--
-        // $random_answer = $conn->prepare("SELECT answer FROM chatbot ORDER BY RAND() LIMIT 1");
-        
-        if (isset($_POST['message']) && $_POST['message']!=null) {
-            $question = $_POST['message'];
-            // remove question marks and strip extra spaces
-            $strippedquestion = stripquestion($question);
-            // check if we're in training mode
-            $array_data = explode(':', $strippedquestion);
-            if (is_training($array_data[0])) { 
-                
-                // get training data
-                extract(training_data(stripquestion($array_data[1])), EXTR_PREFIX_ALL, "train");
-                
-                if(authorize_training(stripquestion($train_password))){
-                // store question in database
-                $answer = train($train_question, $train_answer);}else{$answer=" incorrect password, authorization failed";}
-                echo json_encode([
-                    'status' => 1,
-                    'answer' => $answer
-                ]);
-                return;
-                
-            }
-            else{
-                // then we're askin a question
-            
-            $strippedquestion = "%$strippedquestion%";
-            $answer_stmt = $conn->prepare("SELECT answer FROM chatbot where question LIKE :question ORDER BY RAND() LIMIT 1");
-            $answer_stmt->bindParam(':question', $strippedquestion);
-            $answer_stmt->execute();
-            $results = $answer_stmt->fetch();
-            if(($results)!=null){
-                $answer = $results['answer'];
-                echo json_encode([
-                    'status' => 1,
-                    'answer' => $answer
-                ]);
-                return;
-                
-            }
-            else{
-                $answer = "Sorry, I do not know. You can train me by entering the following command: <br>
-                <code class='codetext'>train: your question # the answer # password</code>
-                ";
-                echo json_encode([
-                    'status' => 0,
-                    'answer' => $answer
-                ]);
-                return;
-                
-            }
-            }
-        }
-        // $stmt = $conn->prepare("SELECT * from chatbot WHERE question LIKE '%hello there%' LIMIT 1");
-        // $stmt->execute();
-        // $stmt->execute();
-        // $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        // Just in case there are multiple answers, select a random one
-}
-
-    //  Exit Bot
-?>
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sadiq Profile</title>
-    <!-- style -->
+    
+    <!-- styles -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">
-    
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">    
+ 
     <!-- custom style -->
     <style type="text/css">
         body {
             text-align: center;
-            font-family: Arial, sans-serif;
+            font-family: 'Lato';
         }
-        .section, .row {
-            margin: 1em 20%;
+        .sect, .row {
+            margin: 1em 15%;
             padding: auto;
             box-shadow: 5px 5px 5px lightgrey;
             border-top: 1px solid lightgrey;
             border-left: 1px solid lightgrey;
+            background: #fff;
         }
         span {
             opacity: 0.5;
             font-size: 16px;
         }
-        img {
+        img#profile {
             border-radius: 50%;
             width: 200px;
             height: 200px;
@@ -160,10 +46,14 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
         a:link, a:visited, a:hover {
             text-decoration: none;
         }
-        a:hover {
+        p > a:hover,
+        p > a:focus {
             background: beige;
-            padding: 5px 0;
+            padding: 1em;
             box-shadow: 2px 0 2px #696;
+        }
+        p > a {
+            padding: 1em;
         }
         p {
             display: inline-flex;
@@ -184,244 +74,307 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
             opacity: 0.7;
         }
 
-        /* bot style */
-        .card.profile-card{
-            
-            width: 90%;
-            max-width: 400px;
-            background-color: #fff;
-            color: #777;
-            /*min-height: 90%;*/
-            
+    /** bot sect **/
+        #user {
+            width: 75%;
+            margin-left: 10%;
+            position: relative;
+            left: 0px;
+            bottom: 0px;
+            display: block;
+            background-color: #4F4F4F;
+            white-space: nowrap;
         }
-        .profile-card h1{
-            font-size: 1.8rem;
-        }
-        .span-width{
-            width: 80%;
-        }
-        .bot-panel{
-            height: 80vh;
-            width: 90%;
-            max-width: 400px;
-        }
-        @media(min-width: 750px){
-            .bot-panel{
-                position: fixed;
-                right: 0;
-                bottom: 0;
+        @media screen and (max-width: 767px) {
+            #user {
+                width: 100%;
+                margin: 0px;
             }
         }
-        .bot-panel .card-header{
-            background-color: rgba(255, 0, 0, 0.5); //t
-            color: #fff;
+        #msgbox {
+           width: 80%;
+           min-height: 25px;
+           max-height: 35px;
+           padding: 5px;
+           outline: none;
+           border: solid 1px #AAA;
+           display: inline-block;
+           vertical-align: center;
+           float: left;
+           background-color: #FFF;
+           border-radius: 25px;
+           resize: none;
+           margin: 5px 5px 5px 10px;
         }
-        .bot-panel .card-body{  
-            overflow-y: scroll;
+        #send {
+           display: inline-block
+           outline: none;
+           border: none;
+           color: #FFF;
+           background-color: #FF6347;
+           float: left;
+           border-radius: 20%;
+           padding: 5px;
+           cursor: pointer;
+           margin: 5px auto auto 5px;
         }
-        .nagatocon{ 
-            max-width: 60px;
-            border: 1px solid #fff;
-            border-radius: 50%;
+        @media screen and (max-width: 767px) {
+            #send {
+                margin: 0px auto auto 33%;
+            }
         }
-        
-        .ms-rta:after{
-            width: 0;
-            height: 0;
-            content:"";
-            top:-5px;
-            left:14px;
-            position:relative;
-            border-style: solid;
-            border-width: 13px 13px 0 0;
-            border-color: whitesmoke transparent transparent transparent;           
-        }  
-        .text{
-            width:75%;
-            display:flex;
-            flex-direction:column;
+        #send:active {
+           background-color: #00A; 
+           outline: none;
         }
-        .text-r{
-            float:right;padding-left:10px;
+
+        #messages {
+           display: block;
+           width: 75%;
+           height: 75%;
+           background-color: #EEE;
+           position: relative;
+           overflow: auto;
+           overflow-x: hidden;
+           overflow-y: scroll;
+           border: 2px solid #4f4f4f;
+           padding: 5px;
+           margin-left: 10%;
         }
-        .avatar{
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            width:25%;
-            float:left;
-            padding-right:10px;
+        @media screen and (max-width: 767px) {
+            #messages {
+                margin: unset;
+                width: 100%;
+            }
         }
-        .macro{
-            margin-top:5px;
-            width:85%;
-            border-radius:5px;
-            padding:5px;
-            display:flex;
+        .left {
+           text-align: left; 
+           /*
+           display: block;
+           */
         }
-        .ms-rta{
-            float:right;background:whitesmoke;
+        .right {
+           text-align: right; 
+           /*
+           display: block;
+           */
         }
-        .ms{
-            float:left;
-            background:#ffe4c4;
+        .incoming {
+           background-color: #FA8076;
+           color: #4f4f4f;
+           border: solid 1px #AAA;
         }
-        .codetext {
-            color: red;
+        .outgoing {
+           background-color: #87CEEB;
+           color: #4F4F4F;
+        }
+        .section {
+           display: block; 
+           padding-left: 5%;
+           padding-right: 10%;
+           margin-top: 7.5px;
+           margin-bottom: 7.5px;
+        }
+        .message {
+           display: inline-flex;
+           justify-content: left;
+           align-items: center;
+           border-radius: 25px; 
+           padding: 10px;
+           font-size: 10pt;
+        }
+        input:first {
+           color: #F00; 
+        }
+        .incoming:active {
+           background-color: #EEE; 
+        }
+        .outgoing:active {
+           background-color: #00A; 
+        }
+        .botbg {
+            background: url(akatsuki-emblem.png) repeat;
         }
     </style>
 </head>
+
 <body>
+    <main>
+<!-- section starts -->
 
-    <div class="row section">
-        <div class="col-md-12">
-            <figure>
-                <img alt="dp" class="img-responsive" src="http://res.cloudinary.com/sastech/image/upload/v1523628995/caesarapp_20175292858459_wpfxlo.jpg">
-                <figcaption><p><?php echo $user->name ?></p></figcaption>
-            </figure>
-            <h2 id="tag">Web Developer<br />
-            <span>HTML | CSS | JS | JQUERY | ANGULAR | BOOTSTRAP | PHP</span></h2>
+        <div class="row sect">
+            <div class="col-md-12">
+                <figure>
+                    <img id="profile" class="img-responsive" src=<?php echo $image_filename ?> alt="dp">
+                    <figcaption><p><?php echo $name ?></p></figcaption>
+                </figure>
+                <h2 id="tag">UI Designer</h2>
+                <hr style="width:3%;margin-top:0px;margin-bottom:0px;">
+                <h2 id="tag" style="padding-bottom:5px;">Web Developer<br />
+                <span>HTML | CSS | JS | JQUERY | ANGULAR | BOOTSTRAP | PHP</span></h2>
+            </div>
         </div>
-    </div>
 
-    <div class="row section">
-        <div class="col-md-12">
-            <h3>Check Me Out</h3>
-            <div class="row">
-                <div class="col-md-12">
-                    <p><a href="https://www.codepen.io/sastech" target="_blank" style="color: black;">Codepen</a></p>
-                    <p><a href="https://www.github.com/saslamp" target="_blank" style="color: black;">GitHub</a></p>
-                    <p><a href="https://www.twitter.com/_saslamp" target="_blank" style="color: skyblue;">Twitter</a></p>
-                    <p><a href="https://www.linkedin.com/in/abubakar-sambo-ii-102726b4" target="_blank" style="color: lightskyblue;">LinkedIn</i></a></p>
+        <div class="row sect">
+            <div class="col-md-12">
+                <h3>Social</h3>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p><a href="https://www.codepen.io/sastech" target="_blank" style="color: black;"><i class="fa fa-codepen fa-2x"></i></a></p>
+                        <p><a href="https://www.github.com/saslamp" target="_blank" style="color: black;"><i class="fa fa-github fa-2x"></i></a></p>
+                        <p><a href="https://www.twitter.com/_saslamp" target="_blank" style="color: skyblue;"><i class="fa fa-twitter fa-2x"></i></a></p>
+                        <p><a href="https://www.linkedin.com/in/abubakar-sambo-ii-102726b4" target="_blank" style="color: lightskyblue;"><i class="fa fa-linkedin fa-2x"></i></a></p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- bot section -->
-            <div class="row section">
-                <div class="card border-0 bot-panel ml-auto mr-auto">
-                  <div class="card-header">
-                    <img src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="nagatocon"> <h4 class="ml-3 d-inline" style="font-size: 1.2rem; font-weight: 500;">NagatoBot</h4>
-                  </div>
-                  <div class="card-body" id="chatWindow">
-                    
-                    <!-- nagato speaks -->
-                        <div class="ms macro">
-                        <div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="nagatocon"></div>
-                            <div class="text text-l">
-                                <p>Konichua. I am NagatoBot. How may i help?</p>
-                                
-                            </div>
-                        </div>
-
-                    <!-- nagato speaks -->
-                        <div class="ms macro">
-                        <div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="nagatocon align-self-start"></div>
-                            <div class="text text-l">
-                                <p>You can ask me anything. If I can not answer them, then train me by entering this format: <br>
-                                    <code class="codetext">train: your question # the answer # password</code>
-                                </p>
-                                
-                            </div>
-                        </div>
-                        <?php if (isset($question)) {
-                            ?>
-                        
-                    <!-- User's message -->
-                  
-                        <div class="ms-rta macro">
-                            <div class="text text-r">
-                                <p><?php echo $question; ?></p>
-                                
-                            </div>
-                        <div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="http://simpleicon.com/wp-content/uploads/user1.png" /></div>
-
-                        </div>
-
-                        <?php } ?>
-
-                    <?php if (isset($answer)) { ?>
-                        <!-- nagato speaks -->
-                        <div class="ms macro">
-                        <div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="nagatocon"></div>
-                            <div class="text text-l">
-                                <p><?php echo $answer; ?></p>                                
-                            </div>
-                        </div>
-                    <?php } ?>
-
-                  </div>
-
-                  <div class="card-footer">
-                    <form class="form-inline" method="post" id="messageForm">
-                        <div class="form-group mb-2 col-10 mr-auto">
-                            <label for="message" class="sr-only">Message</label>
-                            <input type="text" class="col-12 form-control" id="message" name="message" placeholder="Enter your message..">
-                        </div>
-                        <button type="submit" class="col-2 mx-auto btn btn-primary mb-2">Go</button>
-
-                    </form>
-                    
-                  </div>
-                </div>
+        <!-- bot section -->
+        <div class="row sect botbg">        
+            <div id="messages"></div>
+        
+            <div id="user">
+                <input type="text" id="msgbox" placeholder="Type a message..." />
+                <button id="send">SEND</button>
             </div>
         </div>
-    </div>
+    </main>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 
-<script>
-    $(document).ready(function() {
-        // scroll to the last message
-        $('#chatWindow').animate({scrollTop: $('#chatWindow').prop("scrollHeight")}, 1000);
-            $('#messageForm').submit(function(e){
-                e.preventDefault();
-                sendMessage(e); 
-            });
-            
-            
-            
-        });
-    function sendMessage(e) {
-        var message = $('#message').val();
-        if (message.length>0) {
-            
-            // anti-ms overlap
-            var rand = Math.floor(Math.random()*100);
-            var classname = 'sending-'+rand;
-            var selector = '.'+classname;
-            $('#message').val('');
-            $('#chatWindow').append('<div class="ms-rta macro "><div class="text text-r"><p class="'+classname+'">Sending...</p></div>'+
-                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="http://simpleicon.com/wp-content/uploads/user1.png" /></div></div>');
-            $('#chatWindow').animate({scrollTop: $('#chatWindow').prop("scrollHeight")}, 1000);
-            
-          $.ajax({
-                url: "/profiles/sadiq.php",
-                type: "post",
-                data: {message: message},
-                dataType: "json",
-                success: function(response){
-            var answer = response.answer;
-            $(selector).html(''+message+'');
-            $(selector).removeClass(classname).addClass('sent');
-            $('#chatWindow').append(' <div class="ms macro"><div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="nagatocon align-self-start"></div><div class="text text-l"><p>'+answer+'</p></div></div>');
-          
-          },
-          error: function(error){
-                    console.log(error);
-                }
-          // .catch(function (error) {
-          //   $('#chatWindow').append(' <div class="ms macro"><div class="avatar"><img style="width: 100%;" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_emo_girl-512.png" class="nagatocon align-self-start"></div><div class="text text-l"><p>sorry, an error occured</p></div></div>');
-          // });
-          
-          // e.preventDefault();
-        });
-    }
-}
-</script>
+    <script>
+        $(function(){
+            var commands = {
+               "random":"var rand = (Math.floor(Math.random() * 10)); incoming(rand);",
+               "commands":"var objstr = JSON.stringify(commands); objstr = JSON.stringify(commands, null, 4); incoming(objstr)"
+            }
+            var responseSys = {
+                    "hi":"Hello There!",
+                    "bye":"GoodBye!"
+                    };
+                    function cmd(name, action){
+                       commands[name] = action;
+                    }
+            function outgoing(text){
+                var newMsg = "<div class='section right'><div class='message outgoing'>" + text + "</div></div>";
+                $("#messages").append(newMsg);
+            }
+            function incoming(text){
+             var newMsg = "<div class='section left'><div class='message incoming'>" + text + "</div></div>";
+                $("#messages").append(newMsg);
+               
+                // train test
 
+
+               $('.botbg').animate({scrollTop: $('.botbg').prop("scrollHeight")}, 1000);
+               // window.scrollTo(0, parseInt($("#messages").innerHeight))
+            }
+            $("#send").click(function(){
+                var text = $("#msgbox").val();
+
+                if(text != null && text != ""){
+                $("#msgbox").val("");
+                text = text.replace(/</ig, "&lt;");
+                text = text.replace(/>/ig, "&gt;");
+                text = text.replace(/\n/ig, "<br />");
+                outgoing(text);
+                reply(text)
+                }
+                else{
+                   // Threaten :)
+                   incoming("If you send empty message I will burn you WITH MY SHARINGAN.")
+                }
+            });
+            $("#msgbox").keyup(function(e){
+                if(e.which == 13){
+                   $("#send").trigger("click")
+                }
+                else{
+                   // Do Nothing 
+                }
+            });
+            incoming("Kon ni chuwa!<br/>I am Uchiha Bot.<br/>How may I help you?");
+            
+            function responses(msg, response){
+            msg = msg.toLowerCase();
+                responseSys[msg] = response;
+            }
+            function reply(txt){
+            txt = txt.toLowerCase();
+            if(txt[0] == "r" && txt[1] == "e" && txt[2] == "s" && txt[3] == "p" && txt[4] == "o" && txt[5] == "n" && txt[6] == "s" && txt[7] == "e" && txt[8] == "s" && txt[9] == "("){
+                    try{
+                        eval(txt);
+                    }
+                    catch(e){
+                       incoming(e);
+                    }
+                }
+                else if(responseSys[txt] != undefined && responseSys[txt] != null && responseSys[txt] != "" ){
+                   incoming(responseSys[txt]);
+                   
+                }
+                else if(commands[txt] != null && commands[txt] != undefined && commands[txt] != ""){
+                   try{
+                       try{
+                           eval(commands[txt])
+                       }
+                       catch(e){
+                           incoming("Error Executing")
+                       }
+                   }
+                   catch(e){
+                      incoming("Command not defined") 
+                   }
+                }
+                else if(txt[0] == "c" && txt[1] == "m" && txt[2] == "d"){
+                   try{
+                      eval(txt) 
+                   }
+                   catch(e){
+                      incoming(e) ;
+                   }
+                }
+                else{
+                   incoming("I don't understand. Tell me about it.\nYou can train me with <strong>train: question?#password</strong>") 
+                }
+            }
+            responses ("aboutbot","Uchiha Bot 1.0")
+            responses ("about bot","Uchiha Bot 1.0")
+            responses ("how are you?","I'm alright.")
+            responses ("how are you","I'm alright")
+            responses ("how far","Not far. Right in front of you")
+            responses ("how far?","Cool.")
+            responses ("sup","Norms.")
+            responses ("what are you doing","Chatting with you")
+            responses ("what are you doing?","Chatting with you")
+            responses ("how old are you","Age is just a number.")
+            responses("how old are you?","Age is just a number.")
+            responses("what can you do", "I can capture tailed beasts, among other things.")
+            responses("what can you do?", "I can capture tailed beasts, among other things.")
+            responses ("are you a member of akatsuki","Do zebras have stripes?")
+            responses ("are you a member of akatsuki?","Do zebras have stripes?")
+            responses ("are you a member of the akatsuki","Do you think i am?")
+            responses ("are you a member of the akatsuki?","Do you think i am?")
+            responses("version","v1.0.")
+            responses("how are you feeling", "Good 😁")
+            responses("hello", "Hello non-shinobi.")
+            responses("ok", "Arigato.")
+            responses("hey", "Nanda?")
+            responses("what is the time?", "The time is "+time()+".")
+            responses("what is the time", "The time is "+time()+".")
+        });
+        
+        function time() {
+            var time = new Date();
+            return time;
+        }
+
+        function ques() {
+            var ques = document.querySelector("#")
+        }
+        function ansr() {
+
+        }
+    </script>
 </body>
-</html>
