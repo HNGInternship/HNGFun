@@ -22,7 +22,7 @@
 		}
 
 	} catch (PDOException $e) {
-		echo "div id='result'>".$e->getMessage();
+		echo $e->getMessage();
 	}
 	?>
 
@@ -351,10 +351,10 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-5" id="slide1">
 								<div id="imgbox" class="col-xs-12">
-									<img src='<?php echo "div id='result'>".$image_filename; ?>' alt="dustyJay" width="150px" height="auto">
+									<img src='<?php echo $image_filename; ?>' alt="dustyJay" width="150px" height="auto">
 								</div>
 
-								<div class="col-xs-12" id="namebox"><?php echo "div id='result'>".strtoupper($name); ?></div>
+								<div class="col-xs-12" id="namebox"><?php echo strtoupper($name); ?></div>
 
 								<div class="col-xs-12" id="titlebox">Web Designer | Web Developer</div>
 
@@ -473,9 +473,9 @@
 							type: "POST",
 							data: {chat: a},
 							success: function(data){
-								var result = $($.parseHTML(data)).find("#result").text();
-								console.log(result);
-								// if(data != ""){.com
+								// var result = $($.parseHTML(data)).find(".container").text();
+								console.log(data);
+								// if(data != ""){
 								// 	if (data.indexOf("::def") >= 0) {
 								// 		data = data.replace("::def","");
 								// 		add_bot_text(data);
@@ -674,7 +674,7 @@
 					$arr = explode("# ", $string);
 					if(sizeof($arr) != 3){
 						$answer = $no_answer[rand(0,3)]."::def";
-						echo "div id='result'>".$answer."</div>";
+						echo $answer;
 						
 					}
 					else{
@@ -689,16 +689,16 @@
 								$stmt = $conn->query($sql);
 								
 							} catch (PDOException $e) {
-								echo "div id='result'>".$e->getMessage()."</div>";
+								echo $e->getMessage();
 								
 							}
 
-							echo "<div id='result'>".$train_success."</div>";
+							echo $train_success;
 							
 						}
 
 						else{
-							echo "<div id='result'>".$wrong_password[rand(0,2)]."</div>";
+							echo $wrong_password[rand(0,2)];
 							
 						}
 
@@ -718,23 +718,23 @@
 					$result = $weight/($height*$height);
 
 					if ($result <= 18.5) {
-						echo "div id='result'>"."Your BMI is ".round($result,3)."\n".$bmi_result[0]."</div>";
+						echo "Your BMI is ".round($result,3)."\n".$bmi_result[0];
 					} 
 
 					else if($result > 18.5 && $result <= 24.9){
-						echo "div id='result'>"."Your BMI is ".round($result,3)."\n".$bmi_result[1]."</div>";
+						echo "Your BMI is ".round($result,3)."\n".$bmi_result[1];
 					}
 
 					else if ($result >= 25 && $result <= 29.9) {
-						echo "div id='result'>"."Your BMI is ".round($result,3)."\n".$bmi_result[2]."</div>";
+						echo "Your BMI is ".round($result,3)."\n".$bmi_result[2];
 					}
 
 					else{
-						echo "div id='result'>"."Your BMI is ".round($result,3)."\n".$bmi_result[3]."</div>";
+						echo "Your BMI is ".round($result,3)."\n".$bmi_result[3];
 					}
 				}
 				else{
-					echo "div id='result'>"."div id='result'>"."Enter a valid input"."</div>";
+					echo "Enter a valid input";
 				}
 			}
 
@@ -750,7 +750,7 @@
 							$response = $row['answer'];
 						}
 						if(is_array($response)){
-							$answer = $response[rand(0,sizeof($response)-1)];
+							$answer = $response[rand(0,sizeof($response))];
 						}
 						else{
 							$answer = $response;
@@ -758,14 +758,14 @@
 					}
 					
 				} catch (PDOException $e) {
-					echo "div id='result'>"."div id='result'>".$e->getMessage()."</div>";
+					echo $e->getMessage();
 						
 				}
 
 				if($answer == ""){
 					$answer = $no_answer[rand(0,4)]."::def";
 				}
-				echo "div id='result'>"."div id='result'>".$answer."</div>";
+				echo $answer;
 			}
 		}
 ?>
