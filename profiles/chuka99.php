@@ -7,7 +7,7 @@ $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
 
-$result2 = $conn->query("Select * from interns_data where username='chuka99'");
+$result2 = $conn->query("Select * from interns_data where username='brume'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 <!DOCTYPE html>
@@ -81,4 +81,3 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
-
