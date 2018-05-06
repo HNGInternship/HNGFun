@@ -280,8 +280,8 @@
     .bot-title {
         width: 100%;
         padding: 15px 30px;
-        background-color: #3498db;
-        color: #fff;
+        background-color: #FA8076;
+        color: #000;
     }
     .bot-title img {
         width: 30px;
@@ -412,8 +412,8 @@
 <div class="bot-frame">
 
     <div class="bot-title">
-        <img src="/images/ibot.png" alt="iBot">
-        <span>iBot</span>
+        <img src="https://res.cloudinary.com/sastech/image/upload/v1525646123/1577739_show_default_oookay.png" alt="uchiha-bot">
+        <span>Uchiha Bot</span>
     </div>
     <div class="bot-conversation conversation-primary">
         <div class="message bot-response">
