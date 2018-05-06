@@ -473,7 +473,7 @@
 							type: "POST",
 							data: {chat: a},
 							success: function(data){
-								var result = $($.parseHTML(data)).find(".container").text();
+								var result = $($.parseHTML(data)).find("#output").text();
 								console.log(result);
 								// if(data != ""){
 								// 	if (data.indexOf("::def") >= 0) {
