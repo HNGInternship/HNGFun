@@ -7,6 +7,8 @@
 
     $result2 = $conn->query("Select * from interns_data where username = 'sadiq'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
+
+    $name = "Sambo Abubakar";
 ?>
 <head>
     <meta charset="UTF-8">
@@ -205,11 +207,11 @@
         <div class="row sect">
             <div class="col-md-12">
                 <figure>
-                    <img id="profile"> class="img-responsive" src=<?php echo $image_filename ?> alt="dp">
+                    <img id="profile" class="img-responsive" src="http://res.cloudinary.com/sastech/image/upload/v1523628995/caesarapp_20175292858459_wpfxlo.jpg" alt="dp">
                     <figcaption><p><?php echo $name ?></p></figcaption>
                 </figure>
                 <h2 id="tag">UI Designer</h2>
-                <hr style="width:3%;margin-top:0px;margin-bottom:0px;">
+                <hr style="width:5%;margin-top:0px;margin-bottom:0px;">
                 <h2 id="tag" style="padding-bottom:5px;">Web Developer<br />
                 <span>HTML | CSS | JS | JQUERY | ANGULAR | BOOTSTRAP | PHP</span></h2>
             </div>
