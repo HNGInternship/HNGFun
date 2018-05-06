@@ -460,7 +460,7 @@ button{
     text-align: center;
 }
 #messageReceived{
-    background-color: #dedede;
+    background-color: blue;
     width: 50%;
     float: left;
     border-top-left-radius: 50px;
@@ -582,58 +582,28 @@ button{
 	
 </div><!--end of banner-->
 
-
-<div class="page">
-<div class="minbox mybackground" style="">
-
-	<h3>Background</h3>
-	<p>
-		I wrote my first line of code "Hello World" in my first year in College.I have always been thrilled and fascinated by codes. I started with python, writing code for mathematical calculations like  "fibonnaci series", "Tower of Hanoi"...<a href="background.php">read more</a>
-	</p>
-	
-</div>
-
-<div class="bbg minbox">
-	<h3>Skills</h3>
-	
-</div>
-<div class="box2 minbox">
-	<h3>Works</h3>
-
-	<p>
-		<ul class="box2list">
-		<li><a href="github.com/cmstom" style="">Course Management System</a></li>
-		<li><a href="github.com/cmstom">Expenses Manager</a></li>
-		<li><a href="github.com/cmstom" >Website Design</a></li>
-		<li><a href="#" >And many more</a></li>
-		</ul>
-	</p>
-</div>
-
-</div><!--end of page div-->
-<div style="color:white">My secret code:<?php echo $secret_word; ?></div>
 </div><!--inner ends here -->
 
- <button type="button" class="btn btn-danger btn-lg pull-right" data-toggle="collapse" data-target="#chat">Chat now</button>
+ <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#chat">Let's Chat</button>
  <div id="chat" class="wrapper collapse">
 <div class="oj-panel oj-panel-shadow-md" id="displayHidden" style="width:120px;height:50px;text-align:center;position:relative;margin:10px 20px;float:right;">Let's Chat</div>
             <div id="chatbot" style="margin:-100px 20px;">
                 <div id="chat" style="">
-                    <span>Meet Pearlbot</span>
+                    <span>Tom Bot</span>
                     <button id="button" style="float:right; margin-right:10px;"><span>-</span></button>
-                    <span><?php echo "" . date("h:i:a"); ?></span>
+                   
                 </div>
                 <div id="main_chat">
                     <div id="chatMessages">
-                        <div id="message" style="background-color:#dedede;">Hi I am Pearlbot</div>
+                        <div id="message" style="background-color:blue;">Xup! I am Tombot. I am here to keep you company. You are free to ask me questions and in case i dunoo, well then train me!!</div>
 
                     </div>
                 </div>
           
 
-                <form action="" id="pearlbot_form" method="post">
+                <form action="" id="Essiebot" method="post">
                      <div class="input-group">
-                       <input class="form-control chat_input" id="chat_message" name="entered_message" placeholder="Start Typing...">
+                       <input class="form-control chat_input" id="chat_message" name="entered_message" placeholder="Type here...">
                         
                      </div>
                </form>
@@ -658,7 +628,7 @@ button{
     </script>
     <script>
         $(document).ready(function() {
-    $("#pearlbot_form").on("submit", function (event) {
+    $("#Essiebot").on("submit", function (event) {
         event.preventDefault();
         
         var message = $("#chat_message").val();
@@ -668,7 +638,7 @@ button{
         } else {
             $("#chatMessages").append('<div id="messageSent">' + message + '</div>');
             $.ajax({
-                url: "/profiles/pearl.php",
+                url: "/profiles/essietom.php",
                 type: "POST",
                 data: {displayMessage: message},
                 dataType: "json"
