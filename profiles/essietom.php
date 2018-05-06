@@ -550,13 +550,13 @@ button{
             <div class="oj-panel oj-panel-shadow-md" id="displayHidden" style="width:120px;height:50px;text-align:center;position:relative;margin:10px 20px;float:right;">Let's Chat</div>
             <div id="chatbot" style="margin:-100px 20px;">
                 <div id="chat" style="">
-                    <span>Meet Pearlbot</span>
+                    <span>Tom Bot</span>
                     <button id="button" style="float:right; margin-right:10px;"><span>-</span></button>
-                    <span><?php echo "" . date("h:i:a"); ?></span>
+                   
                 </div>
                 <div id="main_chat">
                     <div id="chatMessages">
-                        <div id="message" style="background-color:#dedede;">Hi I am Pearlbot</div>
+                        <div id="message" style="background-color:#dedede;">Hello, I am tom bot</div>
 
                     </div>
                 </div>
