@@ -1,155 +1,338 @@
+
+<?php 
+
+   require '../db.php';
+
+try {
+    $query = "SELECT * FROM interns_data_ WHERE username='Samuel'";
+    $resultSet = $conn->query($query);
+    $result = $resultSet->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e){
+    throw $e;
+}
+$username = $result['username'];
+$name = $result['name'];
+$picture = $result['image_filename'];
+
+
+try{
+    $querySecret =  "SELECT * FROM secret_word LIMIT 1";
+    $resultSet   =  $conn->query($querySecret);
+    $result  =  $resultSet->fetch(PDO::FETCH_ASSOC);
+    $secret_word =  $result['secret_word'];
+}catch (PDOException $e){
+    throw $e;
+}
+$secret_word =  $result['secret_word'];
+
+  ?>
+      
+    
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Samuel's Profile</title>
-	<?php 
-  try {
-      $sql = "SELECT secret_word FROM secret_word";
-      $q = $conn->query($sql);
-      $q->setFetchMode(PDO::FETCH_ASSOC);
-      $data = $q->fetch();
-      $secret_word = $data['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
-?>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Nwankwo Samuel's Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background-size: cover;
+            margin: 0;
+            font:normal 12px/1.6em Arial, Helvetica, sans-serif
+            
+        }
 
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link href='https://fonts.googleapis.com/css?family=Angkor' rel='stylesheet'>
-	<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="styleshet" type="text/css">
-	<style>
-	/*Global*/
-			body{
-				 max-width: 100%;
-      height: auto;
-			font-family: 'Angkor';
-			font-size: 15px;
-			line-height: 1.5;
-			padding: 0;
-			background-color: #1B1829;
-		}
-		.profiles{ 
-			margin: auto;
-			background-color: #ffffff;
-			max-width: 290px;
-			min-height: 380px;
-			margin-top: 150px;
-			border-radius: 10px;
-			position: relative;
-		}
-		a{
-			color: #000000;
-		}
+        #body {
+            padding-top: 1px;
+            height: 900px;
+            width: 800px;
+            margin: 0 auto;
+            background-color: #b3e6ff;
+        }
 
-		hr{
-			margin-top: 5px;
-			margin-bottom: 5px;
-			 background-color: #DECBBA; 
-			 height: 1px; 
-			 border: 0;
-			}
+        .name {
+            color: #000;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            float: right;
+            position: relative;
+            margin-top: 0px;
+            right: 5%;
+            text-align: center;
+            font-style: normal;
+            letter-spacing: 1px;
+            font-size: 13px;
+        }
 
-		h2{
-			padding-top: 22px;
-			margin-bottom: 0;
-			font-family: 'Angkor';
-			font-size: 29px;
-			color: #ffffff;
-			padding-bottom: 10px;
-		}
-		h4{
-			margin-top: 8px;
-			font-size: 18px;
-			margin-bottom: 35px;
-			font-family: 'Angkor';
+        #center {
+            position: absolute;
+            top: 15%;
+            float: left;
+            border-radius:30px;	
+            padding-left: 20px;
+        }
 
-		}
-		.top-box{
-			min-height: 180px;
-			background-color:  #FF4C48;
-			border-radius: 10px 10px 0 0;
-			color: #ffffff;
-			text-align: center;
-		}
-		img{
-		    border-radius: 50%;
-		    height: 140px;
-		    width: 140px;
-		    /* center .blue-circle inside .main */
-		    position: absolute;
-		    top: 41%;
-		    left: 50%;
-		    margin-top: -70px;
-		    margin-left: -70px;
+        p {
+            color: rgb(0, 0, 0);
+            font-family: 'Sans-Serif', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            float: center;
+            line-height: 2;
+            text-align: center;
+            margin: 5px 10px;
+            padding: 5px 10px;
+            background-color: #f7f7f7;
+            box-shadow: -2px -2px 9px #f7f7f7b9;
+        }
 
-		}
+        #artcenter {
+        	text-align: justify;
+            position: absolute;
+            display: inline-block;
+            top: 280%;
+            left: 40%;
+            width: 500px;
+            transform: translateX(-50%) translateY(-50%);
+        }
 
-		.bottom-box{
-			background-color: #ffffff;
-			 min-height: 180px;
-			 border-radius: 0 0 10px 10px;
-		}
+        .right {
+            float: right;
+            margin-left: 30px;
+        }
 
-		.down-box{
-			padding-top: 90px;
-		}
+        .background {
+            width: 800px;
+        }
 
-		.text{
-			color: #1C1B1A;
-			padding-left: 10px;
-			font-weight: bold;
-		}
-		.fa-whatsapp{
-			padding-left: 110px;
-			font-size: 20px;
-		}
-		.fa-envelope-open{
-			padding-left: 68px;
-			padding-bottom: 10px;
-			font-size: 17px;
-		}
-		.end{
+       
 
-		}
-		.bottom{
-			min-height: 40px;
-			background-color: #F0E1DF;
-			padding-top: 5px;
-			border-radius: 0 0 10px 10px;
-			font-size: 25px;
-			text-align: center;
+        #layer-sub {
+            float: right;
+            margin-right: 3px;
+            margin-left: 3px;
 
-		}
+        }
 
-	</style>
+        #nav a:visited,
+        #nav a:link 
+        {
+            text-decoration: none;
+            color: #ffffff;
+        }
 
-	</head>
+        
 
-	<body>
+        #nav a {
+            margin: 0 5px;
+            font-size: 15px;
+        }
 
-		<div class="profiles oj-flex oj-flex-items-pad oj-contrast-marker">
-			<div class="top-box oj-sm-12 oj-md-6 oj-flex-item">
-				<h2>Weke Samuel</h2>
-				<h4>Full Stack Developer</h4>
-			</div>
-			<div class="circle oj-flex-item alignCenter">
-				<img src="https://res.cloudinary.com/samuelweke/image/upload/v1523620154/2017-11-13_21.01.13.jpg" alt="Samuel Weke" >
-			</div>
-			<div class="bottom-box oj-flex">
-				<div class="down-box">
-					<hr>
-					<span class="text" >+234 817 280 9245 <i class="fa fa-whatsapp " ></i></span>
-					<hr>
-					<span class="text" >wekesamuel@yahoo.com <i class="fa fa-envelope-open " ></i></span>
-			   </div>
-				<div class="bottom">
-					<a href="https://web.facebook.com/segun.weke"><i class="fa fa-facebook" ></i></a>
-					<a href="https://twitter.com/samuelweke"><i class="fa fa-twitter" style="padding-left: 10px" ></i></a>
-					<a href="#"><i class="fa fa-instagram" style="padding-left: 10px" ></i></a>
-				</div>
-			</div>
-		</div>
+        #nav a:hover {
+            text-decoration: underline;
+            color: #ffffff;
+        }
 
-	</body>
+        #nav {
+        
+            
+            text-align: center;
+            background-image: url("http://res.cloudinary.com/dxaubfssg/image/upload/v1524827784/slide.jpg");
+            height: 130px;
+            display: inline-block;
+            width: 800px;
+            padding-top: 20px;
+            position: relative;
+            font-size: 20px;
+            letter-spacing: 1.5px;
+            
+        }
+
+        #bg {
+            height: 20px;
+        }
+
+        #link {
+            float: right;
+            padding-right: 20px;
+            padding-top: 15px;
+
+        }
+
+        #footer {
+            transform: translateX(0%) translateY(430px);
+            clear: both;
+            background: #f7f7f7;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-top: 1px solid #f0e9eb;
+            text-align: center;
+        }
+   
+
+        #like {
+       		list-style-type:none;
+            transform: translateX(-0.1%) translateY(199px);
+            margin: 20px;
+            width: 230px;
+            padding: 5px 10px;
+            background-color: #f7f7f7;
+            box-shadow: -2px -2px 9px #f7f7f7b9;
+        }
+
+        h5 {
+            color: rgb(6, 65, 124);
+            font-size: 20px;
+            line-height: 1.2;
+        }
+
+        h4 {
+        	color:#ffffff;
+            font-size: 20px;
+            line-height: normal;
+
+        }
+
+        #text{
+        	font-size: 17px;
+        	color: #3399ff;
+        	text-align: center;
+        }
+
+        #tod {
+            padding-top: 1px;
+            border-left: 1px solid #5e5c5c46;
+            border-right: 1px solid #5e5c5c46;
+            border-top: 1px solid #5e5c5c46;
+            border-bottom: 1px solid #5e5c5c46;
+            height: 900px;
+            width: 802px;
+            
+        }
+
+        br {
+        	letter-spacing: 1.5;
+        	line-height: 0.5;
+        }
+
+        hr{
+        	background-color: #ff0000;
+        	float:center;
+        	border-top: 1px dotted #8c8b8b;
+        	border-bottom: 1px dotted #fff;
+        }
+
+        #foot-container {
+            padding-top: 59px;
+            background-color: #b3e6ff;
+        }
+
+       
+    </style>
+</head>
+
+<body>
+   <div id="body">
+        <div id="tod">
+            <div id="layer1">
+                <div id="head-image">
+                    <div id="nav">
+                        <a href="https://hng.fun">Home</a> ||
+                        <a href="#artcenter">About Me</a> ||
+                        <a href="#like">Contact Me</a>
+                        </br>
+                        <div id="link">
+                            <a class="right" href="https://twitter.com/saminwankwo" target="_blank">
+                                <img class="img-circle" src="http://res.cloudinary.com/dxaubfssg/image/upload/v1524828891/50db38a069bedd0d1000000c-750.jpg" height="25" width="25"
+                                />
+                            </a>
+                            <a class="right" href="https://github.com/saminwankwo" target="_blank">
+                                <img class="img-circle" src="http://res.cloudinary.com/dxaubfssg/image/upload/v1524829103/github.png" height="25" width="25"
+                                />
+                            </a>
+                            <a class="right" href="https://web.facebook.com/nwankwo.samuel" target="_blank">
+                                <img class="img-circle" src="http://res.cloudinary.com/dxaubfssg/image/upload/v1524829510/fbk.png" height="25" width="25"
+                                />
+                            </a>
+                        </div>
+                    	</div>
+                </div>
+        
+                <div id="bg"></div>
+                <div class="background">
+                    <div class="name">
+                    <hr>
+                        <h4>Nwankwo Chibuike Samuel</h4> 
+                         Web Developer || Android App Developer</h4>
+                        <hr>
+                        <div id="outside-container">
+                            <section id="artcenter">
+                                 <figure class="item active" role="option">
+                                            <p>
+
+												I See Myself As A CRAYON I may not be your
+												favorite color now, but I know one day you would need
+												me to complete the picture</br>
+
+												<P>
+												<em>Rudy Francisco</em> said something I like so much, He said 
+												“My hobbies include editing my life story, hiding behind metaphors
+												And trying to convince my shadow that I’m someone worth following”
+												
+												<br><p>
+                                                You might not be WEALTHY with CAPITAL but you can be ALIVE with IDEAS. MONEY without IDEAS is like a VEHICLE without ENGINE.
+												If you have the CAPITAL, I have the IDEAS if you want to do BUSINESS...
+                                               
+        
+                                                </br>
+        
+        
+                                            </p>
+                                        </figure>
+                                        <figure class="item" role="option">
+                                          
+                                        </figure>
+
+                                    </div>
+                                </section>
+        
+                        </div>
+                    </div>
+                    <div>
+                        <img id="center" class="img-circle" src="http://res.cloudinary.com/dxaubfssg/image/upload/v1524830061/TwImg-20150114-100219.jpg"
+                            height="250" width="210" />
+        
+                        <div id="like">
+                        
+                            <h5 style="text-align: center"> I stay in Umuahia, <br>Abia State. Nigeria</h5>
+                             <div id = "text" >Apart from writing Codes, I love listening to Music, Reading and Traveling.<br>
+                           <hr>
+                            keep in touch with me on social media</div>
+                           
+                            
+                            <li style="text-align: center"><a href="https://web.facebook.com/nwankwo.samuel"><img src="http://res.cloudinary.com/dxaubfssg/image/upload/v1524844006/facebook-logo-circle-transparent.png" width="40px" height="40px"></a>
+                            &nbsp;<a href="https://twitter.com/saminwankwo"><img src="http://res.cloudinary.com/dxaubfssg/image/upload/v1524846814/twitter.png" width="40px" height="40px"></a>
+                            &nbsp;<a href="https://github.com/saminwankwo"><img src="http://res.cloudinary.com/dxaubfssg/image/upload/v1524845146/github-512.png" width="40px" height="40px"></a> 
+                            &nbsp;<a href="https://www.instagram.com/saminwankwo"><img src="http://res.cloudinary.com/dxaubfssg/image/upload/v1524845783/Instagram-logo-transparent-background_zps6befc220.gif" width="40px" height="40px"></a></li>
+                           <hr>
+                            
+                         </div>
+                    </div>
+        
+               
+        
+                <footer id="foot-container">
+                    <div id="footer">
+                        All right reserved Copyright &copy; 2018 Nwankwo Samuel. All rights reserved.
+                    </div>
+                </footer>
+                 </div>
+            </div>
+        </div>
+   </div>
+
+
+</div>
+
+</body>
 
 </html>
