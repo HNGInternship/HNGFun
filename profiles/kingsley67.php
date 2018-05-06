@@ -428,8 +428,7 @@ $.ajax({
     question:input,
     
    }, 
-       before: function(result) { 
-         $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
+     beforeSend: function() { $('#results').append($("#ques").append("<div class=\"you\"><strong>You:</strong><br></div><div class=\"bot\"><strong>BOT:</strong><br>"));},
         success: function(result) { 
          $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
        console.log(result);
