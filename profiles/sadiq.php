@@ -8,6 +8,109 @@
     $result2 = $conn->query("Select * from interns_data where username = 'sadiq'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
+
+<?php 
+    if($_SERVER['REQUEST_METHOD']==='POST'){
+        //function definitions
+        function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            $data = preg_replace("([?.!])", "", $data);
+            $data = preg_replace("(['])", "\'", $data);
+            return $data;
+        }
+        function chatMode($ques){
+            require '../../config.php';
+            $ques = test_input($ques);
+            $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+            if(!$conn){
+                echo json_encode([
+                    'status'    => 1,
+                    'answer'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                ]);
+                return;
+            }
+            $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
+            $result = $conn->query($query)->fetch_all();
+            echo json_encode([
+                'status' => 1,
+                'answer' => $result
+            ]);
+            return;
+        }
+        function trainerMode($ques){
+            require '../../config.php';
+            $questionAndAnswer = substr($ques, 6); //get the string after train
+            $questionAndAnswer =test_input($questionAndAnswer);
+            $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  //remove all ? and .
+            $questionAndAnswer = explode("#",$questionAndAnswer);
+            if((count($questionAndAnswer)==3)){
+                $question = $questionAndAnswer[0];
+                $answer = $questionAndAnswer[1];
+                $password = test_input($questionAndAnswer[2]);
+            }
+            if(!(isset($password))|| $password !== 'password'){
+                echo json_encode([
+                    'status'    => 1,
+                    'answer'    => "You don't know the password? Burn! Amaterasu."
+                ]);
+                return;
+            }
+            if(isset($question) && isset($answer)){
+                //Correct training pattern
+                $question = test_input($question);
+                $answer = test_input($answer);
+                if($question == "" ||$answer ==""){
+                    echo json_encode([
+                        'status'    => 1,
+                        'answer'    => "empty question or response"
+                    ]);
+                    return;
+                }
+                $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+                if(!$conn){
+                    echo json_encode([
+                        'status'    => 1,
+                        'answer'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                    ]);
+                    return;
+                }
+                $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
+                if($conn->query($query) ===true){
+                    echo json_encode([
+                        'status'    => 1,
+                        'answer'    => "Arigato Sensei, for the training."
+                    ]);
+                }else{
+                    echo json_encode([
+                        'status'    => 1,
+                        'answer'    => "Error training me: ".$conn->error
+                    ]);
+                }
+                
+                return;
+            }else{ //wrong training pattern or error in string
+            echo json_encode([
+                'status'    => 0,
+                'answer'    => "Wrong training pattern<br> PLease use this<br>train: question # answer"
+            ]);
+            return;
+            }
+        }
+        //end of function definition
+        
+        $ques = test_input($_POST['ques']);
+        if(strpos($ques, "train:") !== false){
+            trainerMode($ques);
+        }else{
+            chatMode($ques);
+        }
+       
+        return;
+    }
+ ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,6 +125,7 @@
     <!-- custom style -->
     <style type="text/css">
         body {
+            background: linear-gradient(to bottom right, black, lightgrey, black, red, yellow);          
             text-align: center;
             font-family: 'Lato';
         }
@@ -75,127 +179,108 @@
         }
 
     /** bot sect **/
-        #user {
-            width: 75%;
-            margin-left: 10%;
-            position: relative;
-            left: 0px;
-            bottom: 0px;
-            display: block;
-            background-color: #4F4F4F;
-            white-space: nowrap;
+  /* ChatBot */
+       .display{
+            position:relative;
+            bottom: 50px;
+            right: 50px;
+            background-color:white;
+            width: 350px;
+            height: 400px;
+            overflow:auto;
+            padding: 0 10px 0 10px;
+            margin-bottom: auto;
         }
-        @media screen and (max-width: 767px) {
-            #user {
-                width: 100%;
-                margin: 0px;
-            }
+        .display nav{
+            display:block;
+            height: 50px;
+            background-color:#fff;
+            text-align: center;
+            font-size: 25px;
+            padding-top:7.5px;
+            font-weight: normal;
+            box-shadow: 2px 2px 2px #4f4f4f;
+            text-shadow: 1.5px 1.5px 1px #ccc;
         }
-        #msgbox {
-           width: 80%;
-           min-height: 25px;
-           max-height: 35px;
-           padding: 5px;
-           outline: none;
-           border: solid 1px #AAA;
-           display: inline-block;
-           vertical-align: center;
-           float: left;
-           background-color: #FFF;
-           border-radius: 25px;
-           resize: none;
-           margin: 5px 5px 5px 10px;
+        .display li{
+            list-style-type:none;
+            display:block;
+            border-bottom: 1px dotted #aaa;
         }
-        #send {
-           display: inline-block
-           outline: none;
-           border: none;
-           color: #FFF;
-           background-color: #FF6347;
-           float: left;
-           border-radius: 20%;
-           padding: 5px;
-           cursor: pointer;
-           margin: 5px auto auto 5px;
+        .display .form{
+            position:fixed;
+            bottom: 10px;
         }
-        @media screen and (max-width: 767px) {
-            #send {
-                margin: 0px auto auto 33%;
-            }
+        .user {
+            text-align: right;
         }
-        #send:active {
-           background-color: #00A; 
-           outline: none;
+        .user p{
+            text-align: right;
+            width: auto;
+            display: inline;
+            border-radius: 5px;
+            background: gray;
+            color: black;
+            padding: 2px 5px;
         }
-
-        #messages {
-           display: block;
-           width: 75%;
-           height: 75%;
-           background-color: #EEE;
-           position: relative;
-           overflow: auto;
-           overflow-x: hidden;
-           overflow-y: scroll;
-           border: 2px solid #4f4f4f;
-           padding: 5px;
-           margin-left: 10%;
+        .bot p {
+            display: inline;
         }
-        @media screen and (max-width: 767px) {
-            #messages {
-                margin: unset;
-                width: 100%;
-            }
-        }
-        .left {
-           text-align: left; 
-           /*
-           display: block;
-           */
-        }
-        .right {
-           text-align: right; 
-           /*
-           display: block;
-           */
-        }
-        .incoming {
-           background-color: #FA8076;
-           color: #4f4f4f;
-           border: solid 1px #AAA;
-        }
-        .outgoing {
-           background-color: #87CEEB;
-           color: #4F4F4F;
-        }
-        .section {
-           display: block; 
-           padding-left: 5%;
-           padding-right: 10%;
-           margin-top: 7.5px;
-           margin-bottom: 7.5px;
-        }
-        .message {
-           display: inline-flex;
-           justify-content: left;
-           align-items: center;
-           border-radius: 25px; 
-           padding: 10px;
-           font-size: 10pt;
-        }
-        input:first {
-           color: #F00; 
-        }
-        .incoming:active {
-           background-color: #EEE; 
-        }
-        .outgoing:active {
-           background-color: #00A; 
-        }
-        .botbg {
-            background: url(akatsuki-emblem.png) repeat;
-        }
-    </style>
+        .display {
+            padding: 15px;
+    -webkit-animation: fadein 5s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 5s; /* Firefox < 16 */
+        -ms-animation: fadein 5s; /* Internet Explorer */
+         -o-animation: fadein 5s; /* Opera < 12.1 */
+            animation: fadein 5s;
+  }
+  @keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  /* Firefox < 16 */
+  @-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  /* Safari, Chrome and Opera > 12.1 */
+  @-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  /* Internet Explorer */
+  @-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  /* Opera < 12.1 */
+  @-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  .send {
+    padding: 8px 20px ;
+    background-color: blue;
+    border-radius: 5px;
+    color: #fff;
+  }
+  input[type="text"] {
+    border:0px;
+    border-bottom: 1px solid #bbb;
+    width: 250px;
+    padding: 5px;
+    background: none;
+  }
+  .bot {
+    width: 80%;
+    text-align: justify;
+    height: auto;
+  }
+   
+ .botbg {
+    background: url(akatsuki-emblem.png) repeat;
+  }
+  </style>
 </head>
 
 <body>
@@ -230,151 +315,100 @@
         </div>
 
         <!-- bot section -->
-        <div class="row sect botbg">        
-            <div id="messages"></div>
-        
-            <div id="user">
-                <input type="text" id="msgbox" placeholder="Type a message..." />
-                <button id="send">SEND</button>
+
+    <div class="display">
+
+        <div>
+            <nav>Uchiha Bot</nav>
+            <div class="myMessage-area">
+                <div class="myMessage bot">
+                </div>
             </div>
         </div>
+
+        <div class="form">
+            <input type="text" name="question" id="question" required class="textarea">
+            <span onclick="sendMsg()" ><button class="send">Send</button></i></span>
+        </div>
+        </div>
+
+    </div>
     </main>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        $(function(){
-            var commands = {
-               "random":"var rand = (Math.floor(Math.random() * 10)); incoming(rand);",
-               "commands":"var objstr = JSON.stringify(commands); objstr = JSON.stringify(commands, null, 4); incoming(objstr)"
-            }
-            var responseSys = {
-                    "hi":"Hello There!",
-                    "bye":"GoodBye!"
-                    };
-                    function cmd(name, action){
-                       commands[name] = action;
-                    }
-            function outgoing(text){
-                var newMsg = "<div class='section right'><div class='message outgoing'>" + text + "</div></div>";
-                $("#messages").append(newMsg);
-            }
-            function incoming(text){
-             var newMsg = "<div class='section left'><div class='message incoming'>" + text + "</div></div>";
-                $("#messages").append(newMsg);
-               
-                // train test
-
-
-               $('.botbg').animate({scrollTop: $('.botbg').prop("scrollHeight")}, 1000);
-               // window.scrollTo(0, parseInt($("#messages").innerHeight))
-            }
-            $("#send").click(function(){
-                var text = $("#msgbox").val();
-
-                if(text != null && text != ""){
-                $("#msgbox").val("");
-                text = text.replace(/</ig, "&lt;");
-                text = text.replace(/>/ig, "&gt;");
-                text = text.replace(/\n/ig, "<br />");
-                outgoing(text);
-                reply(text)
-                }
-                else{
-                   // Threaten :)
-                   incoming("If you send empty message I will burn you WITH MY SHARINGAN.")
-                }
-            });
-            $("#msgbox").keyup(function(e){
-                if(e.which == 13){
-                   $("#send").trigger("click")
-                }
-                else{
-                   // Do Nothing 
-                }
-            });
-            incoming("Kon ni chuwa!<br/>I am Uchiha Bot.<br/>How may I help you?");
-            
-            function responses(msg, response){
-            msg = msg.toLowerCase();
-                responseSys[msg] = response;
-            }
-            function reply(txt){
-            txt = txt.toLowerCase();
-            if(txt[0] == "r" && txt[1] == "e" && txt[2] == "s" && txt[3] == "p" && txt[4] == "o" && txt[5] == "n" && txt[6] == "s" && txt[7] == "e" && txt[8] == "s" && txt[9] == "("){
-                    try{
-                        eval(txt);
-                    }
-                    catch(e){
-                       incoming(e);
-                    }
-                }
-                else if(responseSys[txt] != undefined && responseSys[txt] != null && responseSys[txt] != "" ){
-                   incoming(responseSys[txt]);
-                   
-                }
-                else if(commands[txt] != null && commands[txt] != undefined && commands[txt] != ""){
-                   try{
-                       try{
-                           eval(commands[txt])
-                       }
-                       catch(e){
-                           incoming("Error Executing")
-                       }
-                   }
-                   catch(e){
-                      incoming("Command not defined") 
-                   }
-                }
-                else if(txt[0] == "c" && txt[1] == "m" && txt[2] == "d"){
-                   try{
-                      eval(txt) 
-                   }
-                   catch(e){
-                      incoming(e) ;
-                   }
-                }
-                else{
-                   incoming("I don't understand. Tell me about it.\nYou can train me with <strong>train: question?#password</strong>") 
+  <script>
+       window.addEventListener("keydown", function(e){
+            if(e.keyCode ==13){
+                if(document.querySelector("#question").value.trim()==""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){
+                    //console.log("empty box");
+                }else{
+                    //this.console.log("Unempty");
+                    sendMsg();
                 }
             }
-            responses ("aboutbot","Uchiha Bot 1.0")
-            responses ("about bot","Uchiha Bot 1.0")
-            responses ("how are you?","I'm alright.")
-            responses ("how are you","I'm alright")
-            responses ("how far","Not far. Right in front of you")
-            responses ("how far?","Cool.")
-            responses ("sup","Norms.")
-            responses ("what are you doing","Chatting with you")
-            responses ("what are you doing?","Chatting with you")
-            responses ("how old are you","Age is just a number.")
-            responses("how old are you?","Age is just a number.")
-            responses("what can you do", "I can capture tailed beasts, among other things.")
-            responses("what can you do?", "I can capture tailed beasts, among other things.")
-            responses ("are you a member of akatsuki","Do zebras have stripes?")
-            responses ("are you a member of akatsuki?","Do zebras have stripes?")
-            responses ("are you a member of the akatsuki","Do you think i am?")
-            responses ("are you a member of the akatsuki?","Do you think i am?")
-            responses("version","v1.0.")
-            responses("how are you feeling", "Good 😁")
-            responses("hello", "Hello non-shinobi.")
-            responses("ok", "Arigato.")
-            responses("hey", "Nanda?")
-            responses("what is the time?", "The time is "+time()+".")
-            responses("what is the time", "The time is "+time()+".")
         });
-        
-        function time() {
-            var time = new Date();
-            return time;
+        function sendMsg(){
+            var ques = document.querySelector("#question");
+            if(ques.value == ":close:"){
+                exitB();
+                return;
+            }
+            if(ques.value.toLowerCase() ==":about bot:"){
+                displayOnScreen(ques.value, "user");
+                displayOnScreen("Name: Uchiha Bot <br> Version: 1.0");
+                return;
+            }
+            if(ques.value.trim()== ""||document.querySelector("#question").value==null||document.querySelector("#question").value==undefined){return;}
+            displayOnScreen(ques.value, "user");
+            
+            //console.log(ques.value);
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(xhttp.readyState ==4 && xhttp.status ==200){
+                    processData(xhttp.responseText);
+                }
+            };
+            xhttp.open("POST", "http://old.hng.fun/profiles/sadiq.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("ques="+ques.value);
         }
-
-        function ques() {
-            var ques = document.querySelector("#")
+        function processData (data){
+            data = JSON.parse(data);
+            console.log(data);
+            var answer = data.answer;
+            console.log(answer);
+            //Choose a random response from available
+            if(Array.isArray(answer)){
+                if(answer.length !=0){
+                    var res = Math.floor(Math.random()*answer.length);
+                    //console.log(answer[res][0]);
+                    displayOnScreen(answer[res][0], "bot");
+                }else{
+                    displayOnScreen("Nanda? Train me pls<br> Here's the format: train: question # response # password");
+                }
+            }else{
+                displayOnScreen(answer,"bot");
+            }
         }
-        function ansr() {
-
-        }
-    </script>
+        function displayOnScreen(data,sender){
+            //console.log(data);
+            if(!sender){
+                sender = "bot"
+            }
+            var display = document.querySelector(".display");
+            var msgArea = document.querySelector(".myMessage-area");
+            var div = document.createElement("div");
+            var p = document.createElement("p");
+            p.innerHTML = data;
+            //console.log(data);
+            div.className = "myMessage "+sender;
+            div.append(p);
+            msgArea.append(div)
+            if(data != document.querySelector("#question").value){
+                document.querySelector("#question").value="";
+            }
+        } 
+  </script>
 </body>
