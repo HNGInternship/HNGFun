@@ -19,14 +19,6 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 </style>
 <body>
 
-<!-- Sidebar with image -->
-<nav class="w3-sidebar w3-hide-medium w3-hide-small" style="width:40%">
-  <div class="bgimg"></div>
-</nav>
-
-
-<div class="w3-main w3-padding-large" style="margin-left:40%">
-
   <!-- Header -->
   <header class="w3-container w3-center" style="padding:128px 16px" id="home">
     <h1 class="w3-jumbo"><b>Efa-iwa Eleng</b></h1>
@@ -41,7 +33,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <hr class="w3-opacity">
     <p>I'm a Web Developer, FullStack Enthusiast and an Aspiring Data Scientist</p>
         
-    <h3 class="w3-padding-16">My Skills</h3>
+    <!-- <h3 class="w3-padding-16">My Skills</h3>
     <p class="w3-wide">HTML 5</p>
     <div class="w3-light-grey">
       <div class="w3-container w3-center w3-padding-small w3-dark-grey" style="width:95%">95%</div>
@@ -61,7 +53,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <p class="w3-wide">Vanilla JavaScript</p>
     <div class="w3-light-grey">
       <div class="w3-container w3-center w3-padding-small w3-dark-grey" style="width:50%">50%</div>
-    </div><br> 
+    </div><br>  -->
 
   <!-- Contact Section -->
   <div class="w3-padding-32 w3-content w3-text-grey" id="contact" style="margin-bottom:64px">

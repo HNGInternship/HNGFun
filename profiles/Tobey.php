@@ -2,8 +2,107 @@
 <html>
 <head>
     <title>Ezike Tobenna</title>
+
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <style>
-	
+
+.bot{
+    height:250px;
+    width:320px;
+    background:white;
+    position: fixed;
+    right:0;
+    bottom:40%;
+    border: 1px solid #8e44ad;
+    margin-right:3%;   
+}
+
+
+.top-bar {
+  background:#e0e7e8;
+  height:50px;
+  color: #34495e;
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+  border-radius:4%;
+  font-size: 28px;
+   
+}
+
+.input{
+    height:50px;
+    width:200%;
+}
+
+
+.panel-body{
+    height:300px;
+    position:relative;
+    overflow-y:auto;
+    background:#34495e;
+    padding: 10px;
+}
+
+
+.human-message{
+    background:#e0e7e8; 
+    margin: 10px 10px;
+    margin-left:65px;
+    font-size: 16px;
+    color: #34495e;
+    padding:15px;
+    border-radius:4%;
+}
+
+.human-message:before{
+    width: 0;
+    height: 0;
+    content:"";
+    top:0px;
+    margin-left:60px;
+    margin-right:50px;
+    left:-4px;
+    position:absolute;
+    font-size:15px;
+    border-style: solid;
+    border-width: 13px 13px 0 0;
+    border-color: whitesmoke transparent transparent transparent;  
+}
+
+.bot-message{
+    background:#e0e7e8;
+    color: blue;
+    margin: 10px 10px;
+    font-size: 16px;
+    margin-right:60px;
+    margin-left:10px;
+    border-radius:4%;
+    padding:4px;
+}
+
+.bot-message:after{
+    width: 0;
+    height: 0;
+    content:"";
+    position:absolute;
+    top:-5px;
+    right:0;
+    border-style: solid;
+    border-width: 13px 13px 0 0;
+    border-color: transparent transparent transparent #e0e7e8;  
+}
+
 body {
     font:normal 12px/1.6em Arial, Helvetica, sans-serif;
 	color:#2a3845;
@@ -159,6 +258,7 @@ ul {
 	color:#300820;
 }
 </style>
+
 </head>
 <body>
 <div id="wrapper">
@@ -184,19 +284,33 @@ ul {
 					<li>Tech Blogger</li>
 				</ul>
 			</div>
-			<h2>A Few Famous Quotes I like</h2>
-			<p>
-				<img src="http://res.cloudinary.com/dk1btjvhc/image/upload/v1523630359/C360_2015-04-03-08-40-28-091.png
-" width="139" height="150" style="margin: 0 10px 10px 0;float:left;" />
-				<em>“Service to others is the rent you pay for your room here on Earth.”</em> - Muhammad Ali<br/>
-				<em>"What is the essence of life? To serve others and to do good."</em> - Aristotle<br/>
-				<em>“We make a living by what we get, but we make a life by what we give.” </em> - Winston Churchill<br/>
-				<em>“Only a life lived for others is worth living."</em> - Albert Einstein<br/>
-			</p>
+			<div class="container">
+			<div class="bot panel panel-default body1">
+            <div class="panel-heading top-bar ">
+            TundeChat
+            </div>
+            <div class="chat-output" id="chat-output">
+                <div class="panel-body user-message">
+                <div class ="bot-message row message">Hi, my name is Tunde. Type <br> <span style="color: red">help</span> to see what I can do.</div>
+                <div class="bot-message row message">To train me use this format <br> <span style="color: red">train: question #answer #password</span></div>
+                
+                </div>
+            <div class="input chat-input" >
+            <form action="" class="form-inline" method="post" id="user-input-form">
+                    <div class="input-group mb-2 mr-sm-2">
+                        <input type="text" class="form-control question-input" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
+                            <div class="input-group-append">
+                                <div class="input-group-text btn-primary"><input class="btn-success" id="send" type="submit" onclick="return false;"></div>
+                            </div>
+                    </div>
+            </form>	
+			</div>
+            </div>
+        </div>
 		</div>
 		<div id="right-column">
 			<div id="main-image"><img src="http://res.cloudinary.com/dk1btjvhc/image/upload/v1523630359/C360_2015-04-03-08-40-28-091.png
-" width="160" height="188" /></div>
+		" width="160" height="188" /></div>
 			<div class="sidebar">
 				<h3>Blurb About Me</h3>
 				<p>My name is Ezike Tobenna.</p>
@@ -214,27 +328,117 @@ ul {
 	<div id="footer">
 		Copyright &copy; 2018 Ezike Tobenna. All rights reserved.<br/>
 	</div>
-</div>
+</div>  
+
 <?php
 
-$result = $conn->query("Select * from secret_word LIMIT 1");
+  $result = $conn->query("Select * from secret_word LIMIT 1");
   $result = $result->fetch(PDO::FETCH_OBJ);
   $secret_word = $result->secret_word;
-
-  $result2 = $conn->query("Select * from interns_data where username = 'olubori'");
+  $result2 = $conn->query("Select * from interns_data where username = 'Tobey'");
   $user = $result2->fetch(PDO::FETCH_OBJ);
   
-  try {
-      $sql = "SELECT secret_word FROM secret_word";
-      $q = $conn->query($sql);
-      $q->setFetchMode(PDO::FETCH_ASSOC);
-      $data = $q->fetch();
-      $secret_word = $data['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
 
-?>
+try {
+    $sql = 'SELECT * FROM secret_word';
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+
+$secret_word = $data['secret_word'];
+
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = $_POST['user-input'];
+  //  $data = preg_replace('/\s+/', '', $data);
+    $temp = explode(':', $data);
+    $temp2 = preg_replace('/\s+/', '', $temp[0]);
+    
+    if($temp2 === 'train'){
+        train($temp[1]);
+    }elseif($temp2 === 'aboutbot') {
+        aboutbot();
+    }else{
+        getAnswer($temp[0]);
+    }
+}
+
+function aboutbot() {
+    echo "<div id='result'>TundeChat 1.0 </div>";
+}
+function train($input) {
+    $input = explode('#', $input);
+    $question = trim($input[0]);
+    $answer = trim($input[1]);
+    $password = trim($input[2]);
+    if($password == 'password') {
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+        $q = $GLOBALS['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+
+        if(empty($data)) {
+            $training_data = array(':question' => $question,
+                ':answer' => $answer);
+
+            $sql = 'INSERT INTO chatbot ( question, answer)
+          VALUES (
+              :question,
+              :answer
+          );';
+
+            try {
+                $q = $GLOBALS['conn']->prepare($sql);
+                if ($q->execute($training_data) == true) {
+                    echo "<div id='result'>Training Successful!</div>";
+                };
+            } catch (PDOException $e) {
+                throw $e;
+            }
+        }else{
+            echo "<div id='result'>I already understand this. Teach me something new!</div>";
+        }
+    }else {
+        echo "<div id='result'>Invalid Password, Try Again!</div>";
+
+    }
+}
+
+   ?>
+   <script>
+    var outputArea = $("#chat-output");
+
+    $("#user-input-form").on("submit", function(e) {
+
+        e.preventDefault();
+
+        var message = $("#user-input").val();
+
+        outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
+
+
+        $.ajax({
+            url: 'profile.php?id=Tobey',
+            type: 'POST',
+            data:  'user-input=' + message,
+            success: function(response) {
+                var result = $($.parseHTML(response)).find("#result").text();
+                setTimeout(function() {
+                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+                    $('#chat-output').animate({
+                        scrollTop: $('#chat-output').get(0).scrollHeight
+                    }, 1500);
+                }, 250);
+            }
+        });
+
+
+        $("#user-input").val("");
+
+    });
+</script>
 
 </body>
 </html>
