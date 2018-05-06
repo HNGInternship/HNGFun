@@ -198,14 +198,14 @@ if(isset($_POST['question'])){
    
     
     #chatOutput{
-        height: 500px;
+        height: 200px;
         border:black solid 1px;
-        width: 530px;
+        width: 200px;
         overflow: scroll;
          border-radius: 10px;
     }
     #chatInput{
-        width: 450px;
+        width: 200px;
         height: 80PX;
         border-radius: 10px;
         margin: 0px 5px;
