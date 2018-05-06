@@ -269,7 +269,7 @@ function newElementsForUser(userRequest) {
 function newElementsForBot(botResponse) {
    var chatArea = $("#chatarea");
    if (botResponse.response.resultType == "find") {
-      var messageElement = "<div class='form-control form-control2 text-left'>Question => " + botResponse.response.question + "<br/>Answer => " + botResponse.response.answer + "<br/></div>";
+      var messageElement = "<div class='form-control form-control2 text-left'>Intern ID => " + botResponse.response.intern_id + "<br/>Name => " + botResponse.response.name + "<br/>Intern Username => " + botResponse.response.username + " Intern Profile Picture => " + botResponse.response.image_filename + "</div>";
    } else { 
       var messageElement = "<div class='form-control form-control2 text-left'>" + botResponse.response + "</div>";
    }
@@ -281,7 +281,7 @@ function newElementsForBot(botResponse) {
 }
 
 $(document).ready(function() {
-   response = {"response" : "Hello there, I'm femiBot.<br/>Here's a couple of things i can do.<br/> 1. You can ask me anything<br/>2. You can find a friend who's in the dope HNGInternship<br/>3. You open open a URL by typing open:your_url"};
+   response = {"response" : "Hello there, I'm femiBot.<br/>Here's a couple of things i can do.<br/> 1. You can ask me anything<br/>2. You can find a friend who's in the dope HNGInternship<br/>syntax : find: username or find: name<br/>3. You open open a URL by typing open:your_url"};
    newElementsForBot(response);
 });
 
