@@ -546,32 +546,30 @@ button{
 
 </div><!--inner ends here -->
 
- <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#chat">Let's Chat</button>
- <div id="chat" class="wrapper collapse">
-<div class="oj-panel oj-panel-shadow-md" id="displayHidden" style="width:120px;height:50px;text-align:center;position:relative;margin:10px 20px;float:right;">Let's Chat</div>
+    <!--Chat Bot-->
+            <div class="oj-panel oj-panel-shadow-md" id="displayHidden" style="width:120px;height:50px;text-align:center;position:relative;margin:10px 20px;float:right;">Let's Chat</div>
             <div id="chatbot" style="margin:-100px 20px;">
                 <div id="chat" style="">
-                    <span>Tom Bot</span>
+                    <span>Meet Pearlbot</span>
                     <button id="button" style="float:right; margin-right:10px;"><span>-</span></button>
-                   
+                    <span><?php echo "" . date("h:i:a"); ?></span>
                 </div>
                 <div id="main_chat">
                     <div id="chatMessages">
-                        <div id="message" style="background-color:blue;">Xup! I am Tombot. I am here to keep you company. You are free to ask me questions and in case i dunoo, well then train me!!</div>
+                        <div id="message" style="background-color:#dedede;">Hi I am Pearlbot</div>
 
                     </div>
                 </div>
           
 
-                <form action="" id="Essiebot" method="post">
+                <form action="" id="pearlbot_form" method="post">
                      <div class="input-group">
-                       <input class="form-control chat_input" id="chat_message" name="entered_message" placeholder="Type here...">
+                       <input class="form-control chat_input" id="chat_message" name="entered_message" placeholder="Start Typing...">
                         
                      </div>
                </form>
             </div>
         </div>
-</div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script>
         
@@ -590,7 +588,7 @@ button{
     </script>
     <script>
         $(document).ready(function() {
-    $("#Essiebot").on("submit", function (event) {
+    $("#pearlbot_form").on("submit", function (event) {
         event.preventDefault();
         
         var message = $("#chat_message").val();
