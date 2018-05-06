@@ -750,7 +750,7 @@
 							$response = $row['answer'];
 						}
 						if(is_array($response)){
-							$answer = $response[rand(0,sizeof($response))];
+							$answer = $response[rand(0,sizeof($response)-1)];
 						}
 						else{
 							$answer = $response;
