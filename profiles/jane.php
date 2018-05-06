@@ -1,10 +1,5 @@
 <?php
 	// Profile
-
-	$servername = "localhost";
-	$dbname = "hng_fun";
-	$conn = new PDO("mysql:host=$servername;dbname=$dbname", "root", "");
-	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	try {
 
 
@@ -476,7 +471,7 @@
 					else{
 						$.ajax({
 							type: "POST",
-							data: {chat:a},
+							data: {chat: a},
 							success: function(data){
 								console.log(data);
 							}
