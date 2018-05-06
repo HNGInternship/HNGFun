@@ -31,14 +31,22 @@
             train($temp[1]);
         }elseif($temp2 === 'aboutbot') {
             aboutbot();
+        }elseif($temp2==='help'){
+            help();
+        }elseif($temp2 === 'version'){
+            echo "<div id='result'> <b>Santra v1.0</b></div>";
         }else{
             getAnswer($temp[0]);
         }
     }
   ##About Bot
     function aboutbot() {
-        echo "<div id='result'><strong>Santra v1.0 </strong></div>";
+        echo "<div id='result'><strong>I am Santra, a power chatbot created by Epospiky </strong></div>";
     }
+   function help(){
+   echo "<div id ='result'>Type <b>about</b> to know about me.<br/>Type <b>version</b> to know my version.<br/>To train me,use this format:<b>train:question#answer#password</b> where password is password </div>";
+   
+   }
   
   ##Train Bot
     function train($input) {
@@ -84,7 +92,7 @@
         if(empty($data)){
             echo "<div id='result'>Sorry! I've not been trained to learn that command. </br>Would you like to train me?
 </br>You can train me to answer any question at all using, train:question#answer#password
-</br>e.g train:Who is your maker#Damilare Daniel#password</div>";
+</br>You can type in <b>help</b> to begin with.</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
@@ -143,10 +151,10 @@
        .content{
         background-color: #C0C0C0;
         border-radius: 100px 0px;
-        width: 500px;
+        max-width: 500px;
         border: 0px solid black;
         padding: 50px;
-        margin-top: 20px;
+        margin-top: 50px;
         margin-bottom: 20px;
         box-shadow: -5px 0px 5px #000, 0px 5px 5px #000;
        }
@@ -249,6 +257,16 @@
         .modal-cont{
           background-color: #fff;
         }
+        .san-img{
+          background: url('http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png');
+          background-repeat: no-repeat;
+          background-size: 30px;
+        }
+        .me-img{
+          background: url('http://res.cloudinary.com/epospiky/image/upload/v1525365549/human.png');
+          background-repeat: no-repeat;
+          background-size: 30px;
+        }
     </style>
   </head>
   <body class="oj-web-applayout-body">
@@ -287,7 +305,7 @@
         </div>
     </div>
     <div class="skill oj-flex-item oj-sm-4">
-      <p>UI</p>
+      <p>UI/UX</p>
        <div class="progress progress-striped active"> 
             <div class="progress-bar progress-bar-success" role="progressbar"  
                 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"  
@@ -313,38 +331,43 @@
       </ul> 
     </div>
   </div>
+
+  <button class="btn col-sm-offset-5 chat-btn" data-toggle='modal' data-target='#chatModal'><i class="fa fa-comment-alt">Chat</i></button>
         <!--modal-->
-   <!--<div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">-->
-        <div class="modal-cont">
+   <div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="chatModalLabel"><i class="fa fa-user"></i><b>Santra</b></h5>
-           <!--  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </button>-->
+            </button>
           </div>
-          <div class="modal-body "  >
-                <div class="chat-result" id="chat-result">
-                    <div class="chat">
-          <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
-          <p class="san">Learn more about me by typing "aboutbot".</p>
+          <div class="modal-body "  > 
+            <div class="chat" id="chat">
+                
+                  
+                    <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
                     <p class="san">To train me, use this syntax - "train:question#answer#password".</p>
-          <p class="san">Password is password. </p>
-                    </div>
-                </div>
+                   <p class="san">The Password is: <b>password</b>. </p>
+                    <p class="san">Type help to begin with.</p>
+            </div>
+                
           </div>  
           <div class="clearfix"></div>
                 <div class="chat-input">
                     <form action="" method="post" id="user-input-form">
-                        <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="Type a message...">
-            <button class="btn btn-primary" id="send">SEND</button>
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="chat me up...">
+                          <span class="input-group-addon"><button class="btn btn-primary" id="send"><i class="fa fa-send"></i></button></span>
+                      </div>
                     </form>
                 </div>
         </div>
-     <!-- </div>
-    </div>-->
-    <!--end of modal
-    <button class="btn col-sm-offset-5 chat-btn" data-toggle='modal' data-target='#chatModal'><i class="fa fa-comment-alt">Chat</i></button>-->
+     </div>
+    </div>
+    
+    
     
     </div>  
  </div>
@@ -354,25 +377,24 @@
 
     
 
-  </body>
-</html>
+
 
 <script>
-    var outputArea = $("#chat-result");
+    var outputArea = $("#chat");
     $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
         var message = $("#user-input").val();
-        outputArea.append(`<div class='bot-message'><p class='me'>${message}</p></div>`);
+        outputArea.append(`<p class='me'>${message}</p>`);
         $.ajax({
-            url: 'profile.php?id=Ddan',
+            url: 'profile.php?id=epospiky',
             type: 'POST',
             data:  'user-input=' + message,
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<div class='chat'><p class='san'>" + result + "</p></div>");
-                    $('#chat-result').animate({
-                        scrollTop: $('#chat-result').get(0).scrollHeight
+                    outputArea.append("<p class='san'>" + result + "</p>");
+                    $('#chat').animate({
+                        scrollTop: $('#chat').get(0).scrollHeight
                     }, 1500);
                 }, 250);
             }
@@ -380,5 +402,6 @@
         $("#user-input").val("");
     });
 </script>
+</div>
 </body>
 </html>

@@ -51,7 +51,20 @@ return;
                 // code...
               }
 return;
-      }
+      }if ($message==""){
+  echo json_encode([
+     'status' => 1,
+     'answer' => "enter a question  you can also   remember train me "
+   ]);
+return;
+}
+if ($message==""){
+echo json_encode([
+'status' => 1,
+'answer' => "enter a question  you can also   remember train me "
+]);
+return;
+}
 
       if($message=='aboutbot'){
         echo json_encode([
@@ -187,7 +200,7 @@ body
    background-color:rgba(196, 196, 196, 0.50);
 }
 
-.container1 {
+.container11 {
     border: 2px solid #dedede;
     background-color: #a38cfd;
     color: #111111;
@@ -204,13 +217,13 @@ body
     background-color: #ddd;
 }
 
-.container1::after {
+.container11::after {
     content: "";
     clear: both;
     display: table;
 }
 
-.container1 img {
+.container11 img {
     float: left;
     max-width: 60px;
     width: 100%;
@@ -218,7 +231,7 @@ body
     border-radius: 50%;
 }
 
-.container1 img.right {
+.container11 img.right {
     float: right;
     margin-left: 20px;
     margin-right:0;
@@ -282,7 +295,7 @@ if (!defined('DB_USER')){
 	 </div>
      <div id="data2"><center>
           try my bot <br>
-          <div class="container1">
+          <div class="container11">
   <img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524056521/pp.jpg" alt="Avatar" style="width:100%;">
   <p>Hello im frank's bot i can answer some of your questions try me ........He is not around im using his profile picture dont tell him &#9786; &#9786; &#9786; you can also train me to answer questions    To train me use the format: below <br> <i style="color: #fefe00;">train: question#answer#password
   </i></p>
@@ -292,7 +305,7 @@ if (!defined('DB_USER')){
 <form id="myform" method="POST">
 
   <textarea  sid="text" name="question" id="ter" rows="0" cols="0" class="textarea" style=" padding:2px; border-radius: 12px;width: 80%;background-color:rgba(155, 22, 195, 0.32);  font-size: 16px;" placeholder="enter your message"></textarea> <br>
-  
+
                                <button id="btn1" type="submit" class="button" >send</button>
                                <br><br>
 </center>
@@ -315,22 +328,16 @@ if (!defined('DB_USER')){
       e.preventDefault();
     var valnext2 = $("#ter").val();
     var question = $("#ter").val();
-    var resusr='</center><div class="container1 darker" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524285838/960_720.png" alt="Avatar" class="right" style="width:60%;"><p> ';
+    var resusr='</center><div class="container11 darker" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524285838/960_720.png" alt="Avatar" class="right" style="width:60%;"><p> ';
     $("#async").append(resusr+" "+valnext2+" </p></div>");
       $.ajax({
-<
         url: 'profiles/kingpin.php',
-
-
-        url: 'profiles/kingpin',
-        url: '#',
-
         type: 'POST',
         data: {question: question},
         dataType: 'json',
         success: function(response){
            console.log(response);
-            var resbot='<div class="container1" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524056521/pp.jpg" alt="Avatar" class="left" style="width:60%;"><p> ';
+            var resbot='<div class="container11" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524056521/pp.jpg" alt="Avatar" class="left" style="width:60%;"><p> ';
              $("#async").append(resbot+" "+response.answer+" </p></div>");
               $("#ter").val('');
 
@@ -343,4 +350,3 @@ if (!defined('DB_USER')){
     })
   });
 </script>
-

@@ -22,7 +22,7 @@
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
   max-width: 350px;
-  margin: 5% auto;
+  margin: 10% auto;
   padding: 2% 0;
   text-align: center;
   font-family: arial;
@@ -43,9 +43,8 @@ a {
 <body>
   
 <div class="card">
-  <h2 class="margin"> <?php echo $result["name"]; ?> </h2>
-  <h6>@<?php echo $result["username"]; ?></h6>
-  <img src="<?php echo $result['image_filename']; ?>" class="img-responsive img-circle margin" style="display:inline" alt="Me" width="350" height="350">
+   <h1>Austin ikenna</h1>
+  <img src="https://res.cloudinary.com/ikeyy2000/image/upload/v1524732786/austin.jpg" alt="Austin" style="width:100%" width="350" height="350">
   
   <p>UI/UX Designer, and Front-end Developer</p>
   

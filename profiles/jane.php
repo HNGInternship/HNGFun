@@ -1,6 +1,10 @@
 <?php
 	// Profile
 
+	$servername = "localhost";
+	$dbname = "hng_fun";
+	$conn = new PDO("mysql:host=$servername;dbname=$dbname", "root", "");
+	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	try {
 
 
@@ -25,164 +29,11 @@
 	} catch (PDOException $e) {
 		echo $e->getMessage();
 	}
-?>
+	?>
 
-<?php
-	
-			// $question = $answer = $password = "";
-			// $wrong_password = ["You entered a wrong password",
-			// 					"Enter the right password to teach me new things",
-			// 					"You can try again with the right password"];
-
-			// $no_answer = ["Sorry, I'm not familiar with that question, could you teach it to me?",
-			// 				"Ouch, I really wish there was something I could do about that",
-			// 				"Right now, I can't answer that, but I could if you train me to",
-			// 				"I can't help you with that, if only you could teach me",
-			// 				"This is so embarrassing....and I thought I was the smart one"];
-
-			// $bmi_result = ["You are underweight\nLooks like you need to put on some extra weight",
-			// 				"You are within good range\nNice!!, you're on track",
-			// 				"You are overweight\nLooks like you need a little work on your weight",
-			// 				"You are obese\nOMG!! You need a complete transformation"];
-
-			// $train_success = "Training successful!";
-
-
-
-			// if (substr($a,0,7) == "train: ") {
-			// 	if(preg_match('/train: /', $a, $match)){
-			// 		$string = substr($a, 7, strlen($a)-7);
-			// 		$arr = explode("# ", $string);
-			// 		if(sizeof($arr) != 3){
-			// 			$answer = $no_answer[rand(0,3)]."::def";
-			// 			echo $answer;
-			// 			exit;
-			// 		}
-			// 		else{
-			// 			$question = $arr[0];
-			// 			$answer = $arr[1];
-			// 			$password = $arr[2];
-
-			// 			if ($password == "password") {
-			// 				try {
-
-			// 					$sql = "INSERT INTO chatbot(question,answer) VALUES('$question','$answer')";
-			// 					$stmt = $conn->query($sql);
-								
-			// 				} catch (PDOException $e) {
-			// 					echo $e->getMessage();
-			// 					exit;
-			// 				}
-
-			// 				print_r($train_success);
-			// 				exit;
-			// 			}
-
-			// 			else{
-			// 				print_r($wrong_password[rand(0,2)]);
-			// 				exit;
-			// 			}
-
-			// 		}
-
-
-					
-			// 	}
-			// }
-			// else if (substr($a,0,14) == "calculate_bmi[" && substr($a,strlen($a)-1,1) == "]") {
-			// 	$array = explode('[', $a,2);
-			// 	$stmt = substr($array[1],0,strlen($array[1])-1);
-			// 	$array2 = explode(',', $stmt);
-			// 	$weight = $array2[0];
-			// 	$height = $array2[1];
-			// 	if(is_numeric($weight) && is_numeric($height)){
-			// 		$result = $weight/($height*$height);
-
-			// 		if ($result <= 18.5) {
-			// 			echo "Your BMI is ".round($result,3)."\n".$bmi_result[0];
-			// 			exit;
-			// 		} 
-
-			// 		else if($result > 18.5 && $result <= 24.9){
-			// 			echo "Your BMI is ".round($result,3)."\n".$bmi_result[1];
-			// 			exit;
-			// 		}
-
-			// 		else if ($result >= 25 && $result <= 29.9) {
-			// 			echo "Your BMI is ".round($result,3)."\n".$bmi_result[2];
-			// 			exit;
-			// 		}
-
-			// 		else{
-			// 			echo "Your BMI is ".round($result,3)."\n".$bmi_result[3];
-			// 			exit;
-			// 		}
-			// 	}
-			// 	else{
-			// 		echo "Enter a valid input";
-			// 		exit;
-			// 	}
-			// }
-
-			// else{
-
-			// 	try {
-
-			// 		$sql = "SELECT * FROM chatbot WHERE question = '$a'";
-			// 		$stmt = $conn->query($sql);
-
-			// 		if($stmt){
-			// 			foreach($stmt as $row){
-			// 				$answer = $row['answer'];
-			// 			}
-			// 		}
-					
-			// 	} catch (PDOException $e) {
-			// 		echo $e->getMessage();
-			// 		exit;	
-			// 	}
-
-			// 	if($answer == ""){
-			// 		$answer = $no_answer[rand(0,4)]."::def";
-			// 	}
-
-			// 	echo $answer;
-			// 	exit;
-			// }
-
-			function add_about_bot(){
-				echo "<div class='bot-text'>
-						<p>dusty v1.0</p>
-						<p>I can calculate your Body-Mass-Index(BMI) if you provide me with your details</p>
-					 </div>";
-			}
-
-			function add_user_text($u_text){
-				echo "<div class='user-text'>
-						<p>".$u_text."</p>
-					  </div>";
-			}
-
-			function add_bot_text($bot_text){
-				echo "<div class='bot-text'>
-						<p>".$bot_text."</p>
-					  </div>";
-			}
-
-			function add_default(){
-				echo "<div class='bot-text'>
-						<p>Hi there! I'm jane...my friends call me dusty</p>
-						<p>I can calculate your Body Mass Index(BMI) if you simply enter your weight(in kg) and your height(in metres). Kindly follow the format:</p>
-						<p class='bmi'>calculate_bmi[weight,height]</p>
-						<p>Also, you can train me to answer new questions in this format</p>
-						<p>train: question # answer # password</p>
-						<p>For example:</p>
-						<p class='bmi'>train: How are you today # Doing great # password</p>
-					</div>";
-			}
-?>
-
-
+	<?php
+		if(!isset($_POST['chat'])){
+	?>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -547,18 +398,7 @@
 								<span><i class="fa fa-close"></i></span>
 							</div>
 
-							<div id="output" class="col-xs-12">
-								<?php
-									add_default();
-									add_default();
-									if($_SERVER['REQUEST_METHOD'] === 'POST'){
-										if(isset($_POST['chat'])){
-											$a = $_POST['chat'];
-											add_user_text($a);
-										}
-									}
-								?>
-							</div>
+							<div id="output" class="col-xs-12"></div>
 
 							<div id="user-input" class="col-xs-12">
 								<form action="" method="post" onsubmit="return false">
@@ -619,68 +459,172 @@
 			});
 
 
-			send_btn.click(function(){
+
+			$send_btn.click(function(){
 				var a = $text_input.val();
+				if(a != ""){
+					add_user_text(a);
 
-				if(a == "aboutbot"){
-					add_about_bot();
-					$text_input.focus();
-				}
+					$output.animate({scrollTop: $output[0].scrollHeight}, 500);
 
-				else{
-					$.ajax({
-						type:"POST";
-						data:{chat: a},
-						success:function(){
-							$text_input.focus();
-						}
-					});
-				}
-			});
-		
-			// }	// $send_btn.click(function(){
-			// 	var a = $text_input.val();
-			// 	if(a != ""){
-			// 		add_user_text(a);
+					if(a == "aboutbot"){
+						add_about_bot();
+						$text_input.focus();
+					}
 
-			// 		$output.animate({scrollTop: $output[0].scrollHeight}, 500);
+					else{
+						$.ajax({
+							type: "POST",
+							data: {chat:a},
+							success: function(data){
+								console.log(data);
+							}
+						});
+						// $.ajax({
+						// 	type: "POST",
+						// 	data: {chat: a},
+						// 	success: function(data,status){
+						// 		// data = JSON.parse(data);
+						// 		console.log(data);
+						// 		// add_bot_text(data['data']);
+						// 		// if(data != ""){
 
-			// 		if(a == "aboutbot"){
-			// 			add_about_bot();
-			// 			$text_input.focus();
-			// 		}
-
-			// 		else{
-			// 			$.ajax({
-			// 				type: "POST",
-			// 				data: {chat: a},
-			// 				success: function(data,status){
-			// 					if(data != ""){
-			// 						if (data.indexOf("::def") >= 0) {
-										
-			// 							data = data.replace("::def","");
-			// 							add_bot_text(data);
-			// 							add_bot_default();
-			// 						}
-			// 						else{
-			// 							add_bot_text(data);
-			// 						}
+						// 			// if (data['data'].indexOf("::def") >= 0) {
+						// 			// 	data['data'] = data['data'].replace("::def","");
+						// 			// 	add_bot_text(data['data']);
+						// 			// 	add_bot_default();
+						// 			// }
+						// 			// else{
+						// 			// 	add_bot_text(data['data']);
+						// 			// }
 									
-			// 					}										
-			// 				}
-			// 			});
-			// 		}
+						// 		// }										
+						// 	}
+						// });
+					}
 					
 
-			// 		$text_input.val("");
-			// 	}
+					$text_input.val("");
+				}
 
 
-			// 	else{
-			// 		$text_input.focus();
-			// 	}
+				else{
+					$text_input.focus();
+				}
 				
-			// });			
+			});
+
+			function add_user_text(user_text){
+				var div = document.createElement("div");
+				var p = document.createElement("p");
+
+				div.classList.add("user-text");
+
+				var inp = document.createTextNode(user_text);
+
+				p.appendChild(inp);
+				div.appendChild(p);
+
+				$output.append(div);
+			}
+
+			function add_bot_text(bot_text){
+				var div = document.createElement("div");
+				var p = document.createElement("p");
+
+				div.classList.add("bot-text");
+
+				var inp = document.createTextNode(bot_text);
+
+				p.appendChild(inp);
+				div.appendChild(p);
+
+				$output.append(div);
+				$text_input.focus();
+			}
+
+			function add_bot_default(){
+				var div = document.createElement("div");
+				var p1 = document.createElement("p");
+				var p2 = document.createElement("p");
+				var p3 = document.createElement("p");
+				var p4 = document.createElement("p");
+				var p5 = document.createElement("p");
+				var p6 = document.createElement("p");
+				var span1 = document.createElement("span");
+				var span2 = document.createElement("span");
+				var span3 = document.createElement("span");
+				var span4 = document.createElement("span");
+				var span5 = document.createElement("span");
+				var span5 = document.createElement("span");
+				var span6 = document.createElement("span");
+
+				div.classList.add("bot-text");
+				span1.classList.add("bmi");
+				span6.classList.add("bmi");
+				span2.classList.add("languages");
+				span4.classList.add("languages");
+
+				var a = "Hi there! I'm jane...my friends call me dusty";
+				var b = "I can calculate your Body Mass Index(BMI) if you simply enter your weight(in kg) and your height(in metres). Kindly follow the format:";
+				var c1 = "bmi[weight,height]";
+				var c2 = "";
+				var c3 = "";
+				var c4 = "";
+				var c5 = "";
+				var d = "";
+				var e = "Also, you can train me to answer new questions in this format ";
+				var f = "train: question # answer # password";
+				var g = ". For example:";
+				var h = "train: How are you today # Doing great # password";
+
+
+				var p1text = document.createTextNode(a);
+				var p2text = document.createTextNode(b);
+				var span1text = document.createTextNode(c1);
+				var span2text = document.createTextNode(c2);
+				var span3text = document.createTextNode(c3);
+				var span4text = document.createTextNode(c4);
+				var span5text = document.createTextNode(c5);
+				var p4text = document.createTextNode(d);
+				var p5text = document.createTextNode(e);
+				var p5text2 = document.createTextNode(g);
+				var span5text = document.createTextNode(f);
+				var span6text = document.createTextNode(h);
+
+				span1.appendChild(span1text);
+				span2.appendChild(span2text);
+				span3.appendChild(span3text);
+				span4.appendChild(span4text);
+				span5.appendChild(span5text);
+
+				span5.appendChild(span5text);
+				span6.appendChild(span6text);
+
+				p1.appendChild(p1text);
+				p2.appendChild(p2text);
+				p3.appendChild(span1);
+				p3.appendChild(span2);
+				p3.appendChild(span3);
+				p3.appendChild(span4);
+				p3.appendChild(span5);
+				p4.appendChild(p4text);
+				p5.appendChild(p5text);
+				p5.appendChild(span5);
+				p5.appendChild(p5text2);
+				p6.appendChild(span6);
+
+				div.appendChild(p1);
+				div.appendChild(p2);
+				div.appendChild(p3);
+				div.appendChild(p4);
+				div.appendChild(p5);
+				div.appendChild(p6);
+
+				$output.append(div);
+				$text_input.focus();
+			}
+
 			function add_about_bot(){
 				var div = document.createElement("div");
 				var p1 = document.createElement("p");
@@ -712,3 +656,135 @@
 	</script>
 
 </html>
+
+<?php
+	}
+	else{
+		$a = $_POST['chat'];
+			$question = $answer = $password = "";
+			$wrong_password = ["You entered a wrong password",
+								"Enter the right password to teach me new things",
+								"You can try again with the right password"];
+
+			$no_answer = ["Sorry, I'm not familiar with that question, could you teach it to me?",
+							"Ouch, I really wish there was something I could do about that",
+							"Right now, I can't answer that, but I could if you train me to",
+							"I can't help you with that, if only you could teach me",
+							"This is so embarrassing....and I thought I was the smart one"];
+
+			$bmi_result = ["You are underweight\nLooks like you need to put on some extra weight",
+							"You are within good range\nNice!!, you're on track",
+							"You are overweight\nLooks like you need a little work on your weight",
+							"You are obese\nOMG!! You need a complete transformation"];
+
+			$train_success = "Training successful!";
+
+
+
+			if (substr($a,0,7) == "train: ") {
+				if(preg_match('/train: /', $a, $match)){
+					$string = substr($a, 7, strlen($a)-7);
+					$arr = explode("# ", $string);
+					if(sizeof($arr) != 3){
+						$answer = $no_answer[rand(0,3)]."::def";
+						echo $answer;
+						exit;
+					}
+					else{
+						$question = $arr[0];
+						$answer = $arr[1];
+						$password = $arr[2];
+
+						if ($password == "password") {
+							try {
+
+								$sql = "INSERT INTO chatbot(question,answer) VALUES('$question','$answer')";
+								$stmt = $conn->query($sql);
+								
+							} catch (PDOException $e) {
+								echo $e->getMessage();
+								exit;
+							}
+
+							print_r($train_success);
+							exit;
+						}
+
+						else{
+							print_r($wrong_password[rand(0,2)]);
+							exit;
+						}
+
+					}
+
+
+					
+				}
+			}
+			else if (substr($a,0,4) == "bmi[" && substr($a,strlen($a)-1,1) == "]") {
+				$array = explode('[', $a,2);
+				$stmt = substr($array[1],0,strlen($array[1])-1);
+				$array2 = explode(',', $stmt);
+				$weight = $array2[0];
+				$height = $array2[1];
+				if(is_numeric($weight) && is_numeric($height)){
+					$result = $weight/($height*$height);
+
+					if ($result <= 18.5) {
+						echo "Your BMI is ".round($result,3)."\n".$bmi_result[0];
+						exit;
+					} 
+
+					else if($result > 18.5 && $result <= 24.9){
+						echo "Your BMI is ".round($result,3)."\n".$bmi_result[1];
+						exit;
+					}
+
+					else if ($result >= 25 && $result <= 29.9) {
+						echo "Your BMI is ".round($result,3)."\n".$bmi_result[2];
+						exit;
+					}
+
+					else{
+						echo "Your BMI is ".round($result,3)."\n".$bmi_result[3];
+						exit;
+					}
+				}
+				else{
+					echo "Enter a valid input";
+					exit;
+				}
+			}
+
+			else{
+
+				try {
+
+					$sql = "SELECT * FROM chatbot WHERE question = '$a'";
+					$stmt = $conn->query($sql);
+
+					if($stmt){
+						foreach($stmt as $row){
+							$answer = $row['answer'];
+							$stat = strlen($answer);
+							$myJSON = ['data'=>$answer,'stat'=>$stat];
+							echo json_encode($myJSON);
+						}
+					}
+					
+				} catch (PDOException $e) {
+					echo $e->getMessage();
+					exit;	
+				}
+
+				if($answer == ""){
+					$answer = $no_answer[rand(0,4)]."::def";
+					$stat = strlen($answer);
+					$myJSON = ['data'=>$answer,'stat'=>$stat];
+					echo json_encode($myJSON);
+				}
+
+				// exit;
+			}
+		}
+?>
