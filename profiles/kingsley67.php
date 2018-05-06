@@ -221,15 +221,15 @@ if(isset($_POST['question'])){
     
     .you{
         background-color:#E8EEEF;
-        width:500px;
-        padding-left: 390px;
+        width:200px;
+        padding-left: 150px;
         border: 1px solid black;
        
         overflow-wrap: break-word;
     }
     .bot{
         background-color:#109177;
-        width:500px;
+        width:200px;
        
          overflow-wrap: break-word;
     
