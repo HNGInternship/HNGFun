@@ -1,8 +1,11 @@
 <?php
-$selfURL = /* $_SERVER['HTTP_HOST']. */$_SERVER['REQUEST_URI'];
+date_default_timezone_set('Africa/Lagos');
+
+$selfURL = './iambeejayayo.php';
 $password = 'password';
 
-function trainBot($command) {
+function trainBot($command)
+{
     $command = str_replace('train:', '', $command);
     $commands = explode('#', $command);
 
@@ -25,7 +28,8 @@ function trainBot($command) {
     exit;
 }
 
-function findAnswer($question) {
+function findAnswer($question)
+{
     // find question in database and return answer
     $answer = '';
 
@@ -34,7 +38,7 @@ function findAnswer($question) {
     }
 
     return [
-        'response' => $answer
+        'response' => $answer,
     ];
 }
 
@@ -45,8 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     die;
 
     $response = isset($_POST['train'])
-        ? trainBot($_POST['train'])
-        : findAnswer($_POST['question']);
+    ? trainBot($_POST['train'])
+    : findAnswer($_POST['question']);
 
     echo json_encode($response);
     die;
@@ -117,6 +121,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             flex-wrap: wrap;
             flex-direction: column;
             padding-top: 1rem;
+            height: 350px;
+            overflow-y: auto;
         }
 
         .chatbox-response {
@@ -173,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <br />
             &nbsp <h3>Hello World!<i class="fa fa-thumbs-up"></i></h3>
             <p class="text-primary" style="font-size:300%"> I'm Bolaji Ayodeji </p>
-                <h3>Tech Geek <i class="fa fa-user text-primary"></i>&nbsp 
+                <h3>Tech Geek <i class="fa fa-user text-primary"></i>&nbsp
                 & Web Developer <i class="fa fa-laptop text-primary"></i></h3>
                 <br />
                 </p>
@@ -185,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <br />
             <br />
             <div class="social">
-                
+
 
                 <a class="navbar-brand btn btn-outline-primary" href="#">Contact Me!</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -214,43 +220,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <br />
                     <br />
                     <br />
-                     
+
                     <a class="navbar-brand btn btn-outline-light bg-danger btn-lg" href="#bot">Chat with my BOT!&nbsp<i class="fa fa-angle-double-down"></i></a>
                     </button>
-                    
+
 
                 </div>
             </div>
         </div>
 </div>
 <br /><br />
-<div class="bg-dark">
-<hr class="bg-light" />
-<div class="" align="center" id="bot">
-<button class="navbar-brand btn btn-outline-light bg-danger justify-content-center" id="chatbox-trigger">
-                        <span>Let's Chat!</span>
-                        <i class="fa fa-rocket"></i>
-                    </button>
-                </div>
-            
+
+
 <div class=" bg-dark row justify-content-center chatbox">
         <div class="col-lg-3 bg-light">
-            <header class="row justify-content-center chatbox-header">
-            <div class="card bg-danger" align="center" id="bot">
-            
-                    <img class="chatbox-logo" src="https://res.cloudinary.com/iambeejayayo/image/upload/v1525095528/bot.png" alt="Alpha Bot">
-                    <h2 class="chatbox-title text-dark">Alpha Bot</h2>
-                    <hr class="bg-light" />
-                    <p class=" text-center text-light"> Click the 'Lets Chat' button to begin! </p>
-                    
+            <header class="row justify-content-center chatbox-header" id="bot">
+            <div class="card bg-danger" align="center">
+
+                    <img class="chatbox-logo" src="https://res.cloudinary.com/iambeejayayo/image/upload/v1525095528/bot.png" alt="Alpha Bot" style="width:20%">
+                    <h4 class="chatbox-title text-dark">Alpha Bot</h4>
+
                 </div>
             </header>
-            <div class="d-flex chatbox-content" id="chatbox-content"></div>
+            <div class="d-flex- chatbox-content card-body" id="chatbox-content">
+                </div>
+                <!-- chat messages goes here -->
+
                <p class="text-center text-muted small">
-                <?php $date = date("Y-m-d h:i:sa"); echo $date;?></p>
+                <?php $date = date("Y-m-d h:i:sa");
+echo $date;
+?>
+
+            <div class="" align="center">
+            <button class="navbar-brand btn btn-outline-light bg-danger justify-content-center" id="chatbox-trigger">
+                <span>Let's Chat!</span>
+                    <i class="fa fa-rocket"></i>
+            </button>
+            </div>
             <form class="row chatbox-footer">
-            <input class="form-control chatbox-input" id="chatbox-input" autocomplete="off" placeholder="Talk to me! buddy" type="text">
-                
+            <input class="form-control chatbox-input" id="chatbox-input" autocomplete="off" placeholder="Talk to me Buddy!" type="text">
+
             </form>
         </div>
     </div>
@@ -288,7 +297,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     element.classList.add('is-mine')
 
                 element.textContent = data.message
-                chatboxContent.appendChild(element)
+
+                const timeout = data.delay || 0
+
+                setTimeout(() => {
+                    chatboxContent.appendChild(element)
+                    chatboxContent.scrollTo(0, chatboxContent.scrollHeight)
+                }, timeout)
             }
         }
 
@@ -297,199 +312,227 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         function botDetails() {
-            setTimeout(() => {
-                addMessage({
-                    message: 'My name is Alpha'
-                })
-                addMessage({
-                    message: 'Bolaji Ayodeji created me'
-                })
-                addMessage({
-                    message: 'I love learning new things'
-                })
-                addMessage({
-                    message: 'You can teach me new tricks using the command...'
-                })
-                addMessage({
-                    message: 'train: question #answer #password'
-                })
-                addMessage({
-                    message: 'to know the commands i accept, type "listcommands"'
-                })
-            }, 1000)
+            addMessage({
+                message: 'My name is Alpha',
+                delay:500,
+            })
+            addMessage({
+                message: 'Bolaji Ayodeji created me',
+                delay:1000,
+            })
+            addMessage({
+                message: 'I love learning new things',
+                delay:1500,
+            })
+            addMessage({
+                message: 'You can teach me new tricks using the command...',
+                delay:2000,
+            })
+            addMessage({
+                message: 'train: question #answer #password',
+                delay:2500,
+            })
+            addMessage({
+                message: 'to know the commands i accept, type "listcommands"',
+                delay:3000,
+            })
         }
 
         function listCommands() {
-            setTimeout(() => {
-                addMessage({
-                    message: 'aboutbot: to learn about me'
-                })
-                addMessage({
-                    message: 'listcommands: to see what i can do'
-                })
-                addMessage({
-                    message: 'botversion: to know my current version'
-                })
-                addMessage({
-                    message: 'aboutbolaji: to learn about my creator'
-                })
-                addMessage({
-                    message: 'yourlocation: to know where i live'
-                })
-                addMessage({
-                    message: 'yourage: to know my age'
-                })
-                addMessage({
-                    message: 'yourgender: to know my gender'
-                })
-                addMessage({
-                    message: 'currentdate: to to know todays date'
-                })
-                addMessage({
-                    message: 'currenttime: to know the time'
-                })
-                addMessage({
-                    message: 'yourbirthday: to know the day i was created'
-                })
-                addMessage({
-                    message: 'yournumber: to get my private number'
-                })
-            }, 1000)
+            addMessage({
+                message: 'aboutbot: to learn about me',
+                delay:500,
+            })
+            addMessage({
+                message: 'listcommands: to see what i can do',
+                delay:1000,
+            })
+            addMessage({
+                message: 'botversion: to know my current version',
+                delay:1500,
+            })
+            addMessage({
+                message: 'aboutbolaji: to learn about my creator',
+                delay:2000,
+            })
+            addMessage({
+                message: 'yourlocation: to know where i live',
+                delay:2500,
+            })
+            addMessage({
+                message: 'yourage: to know my age',
+                delay:3000,
+            })
+            addMessage({
+                message: 'yourgender: to know my gender',
+                delay:3500,
+            })
+            addMessage({
+                message: 'currentdate: to to know todays date',
+                delay:4000,
+            })
+            addMessage({
+                message: 'currenttime: to know the time',
+                delay:4500,
+            })
+            addMessage({
+                message: 'yourbirthday: to know the day i was created',
+                delay:5000,
+            })
+            addMessage({
+                message: 'yournumber: to get my private number',
+                delay: 5500
+            })
         }
+
         function aboutBolaji() {
-            setTimeout(() => {
-                addMessage({
-                    message: 'Bolaji Ayodeji is my creator'
-                })
-                addMessage({
-                    message: 'I cant live without him'
-                })
-                addMessage({
-                    message: 'He is a Tech Geek! & Web Developer'
-                })
-                addMessage({
-                    message: 'All he cares about is God, Code & Music'
-                })
-                addMessage({
-                    message: 'He plays the Acoustic Guitar & Piano'
-                })
-                addMessage({
-                    message: 'His favorite food is Yam/Potatoe Porridge & Plaintain'
-                })
-                addMessage({
-                    message: 'To know more about my creator'
-                })
-                addMessage({
-                    message: 'Follow him on social media'
-                })
-                addMessage({
-                    message: 'FACEBOOK @Bolaji Ayodeji'
-                })
-                addMessage({
-                    message: 'TWITTER @iamBeejayAyo'
-                })
-                addMessage({
-                    message: 'INSTAGRAM @iamBeejayAyo'
-                })
-                addMessage({
-                    message: 'MEDIUM @BolajiAyodeji'
-                })
-            }, 500)
+            addMessage({
+                message: 'Bolaji Ayodeji is my creator',
+                delay:500,
+            })
+            addMessage({
+                message: 'I cant live without him',
+                delay:1000,
+            })
+            addMessage({
+                message: 'He is a Tech Geek! & Web Developer',
+                delay:1500,
+            })
+            addMessage({
+                message: 'All he cares about is God, Code & Music',
+                delay:2000,
+            })
+            addMessage({
+                message: 'He plays the Acoustic Guitar & Piano',
+                delay:2500,
+            })
+            addMessage({
+                message: 'His favorite food is Yam/Potatoe Porridge & Plaintain',
+                delay:3000,
+            })
+            addMessage({
+                message: 'To know more about my creator',
+                delay:3500,
+            })
+            addMessage({
+                message: 'Follow him on social media',
+                delay:4000,
+            })
+            addMessage({
+                message: 'FACEBOOK @Bolaji Ayodeji',
+                delay:4500,
+            })
+            addMessage({
+                message: 'TWITTER @iamBeejayAyo',
+                delay:5000,
+            })
+            addMessage({
+                message: 'INSTAGRAM @iamBeejayAyo',
+                delay:5500,
+            })
+            addMessage({
+                message: 'MEDIUM @BolajiAyodeji',
+                delay:6000,
+            })
         }
 
-function botVersion() {
-    setTimeout(() => {
-        addMessage({
-            message: 'AlphaBot V 1.0.0'
-        })
-    }, 1000)
-}
-
-function botLocation() {
-    setTimeout(() => {
-        addMessage({
-            message: 'Im currently at Lokoja, Kogi State, Nigeria'
-        })
-    }, 1000)
-}
-
-function botBirthday() {
-    setTimeout(() => {
-        addMessage({
-            message: 'I was created on xx May 2018'
-        })
-    }, 1000)
-}
-
-function botAge() {
-    setTimeout(() => {
-        addMessage({
-            message: 'Im a couple days old!'
-        })
-    }, 1000)
-}
-
-function botGender() {
-    setTimeout(() => {
-        addMessage({
-            message: 'Im male buddy!'
-        })
-    }, 1000)
-}
-
-function botNumber() {
-    setTimeout(() => {
-        addMessage({
-            message: '+234 8109445504 Dont tell my mom please!'
-        })
-    }, 1000)
-}
-
-function currentTime() {
-    setTimeout(() => {
-        addMessage({
-            message: 'Chill!'
-        })
-    }, 1000)
-}
-
-function currentDate() {
-    setTimeout(() => {
-        addMessage({
-            message: 'Chill!'
-        })
-    }, 1000)
+        function botVersion() {
+            addMessage({
+                message: 'AlphaBot V 1.0.0',
+                delay:1000,
+            })
         }
-        
+
+        function botLocation() {
+            addMessage({
+                message: 'Im currently at Lokoja, Kogi State, Nigeria',
+                delay: 1000,
+            })
+        }
+
+        function botBirthday() {
+            addMessage({
+                message: 'I was created on xx May 2018',
+                delay: 1000,
+            })
+        }
+
+        function botAge() {
+            addMessage({
+                message: 'Im a couple days old!',
+                delay:1000,
+            })
+        }
+
+        function botGender() {
+            addMessage({
+                message: 'Im male buddy!',
+                delay:1000,
+            })
+        }
+
+        function botNumber() {
+            addMessage({
+                message: '+234 8109445504 Dont tell my mom please!',
+                delay:1000,
+            })
+        }
+
+        function currentTime() {
+            const date = new Date
+            const currentHour = date.getHours()
+            const time = currentHour > 12 ? currentHour - 12 : currentHour
+            const meridian = currentHour > 12 ? 'PM' : 'AM'
+
+            addMessage({
+                message: `The current time is ${time}:${date.getMinutes()} ${meridian}`,
+                delay:1000,
+            })
+        }
+
+        function currentDate() {
+            const date = new Date
+            const day = date.getDate()
+            const weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][date.getDay()]
+            const month = [
+                'January', 'February', 'March', 'April',
+                'May', 'June', 'July', 'August', 'September',
+                'October', 'November', 'December'
+            ][date.getMonth()]
+
+            addMessage({
+                message: `Today is ${weekday} ${day} of ${month} ${date.getFullYear()}`,
+                delay:1000,
+            })
+        }
+
 
         openChatbox.addEventListener('click', function () {
             startTyping()
-            setTimeout(() => {
-                addMessage({
-                    message: 'Hello, My name is alpha'
-                })
-                startTyping()
-                setTimeout(() => {
-                    addMessage({
-                        message: 'Im here to help you!'
-                    })
-                    startTyping()
-                setTimeout(() => {
-                    addMessage({
-                        message: 'Type: Aboutbot -to learn about me'
-                    })
-                    startTyping()
-                setTimeout(() => {
-                    addMessage({
-                        message: 'Type: Listcommands -to see the commands i accept'
-                    })
-                    }, 500)
-                  }, 500)
-                }, 500)
-            }, 500)
-            
+            addMessage({
+            message: 'Hello, My name is alpha',
+            delay:500,
+            })
+            startTyping()
+
+            addMessage({
+                message: 'Im here to help you!',
+                delay:1000,
+            })
+            startTyping()
+
+            addMessage({
+                message: 'Type: Aboutbot -to learn about me',
+                delay:1500,
+            })
+            startTyping()
+
+            addMessage({
+                message: 'Type: Listcommands -to see the commands i accept',
+                delay:2000,
+            })
         })
-        
+
 
         chatboxInput.addEventListener('keydown', function (event) {
             if (event.keyCode === 13) {
