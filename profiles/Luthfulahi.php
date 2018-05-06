@@ -19,6 +19,7 @@
  	  		'response' => "LuthfulahiBot V 1.1.0"
  	  	]);
  	  	return;
+ 	  	die();
  	  }elseif ($onTrainingMode === 0) {
  	  	# ready to train bot
  	  	// extract question, answer and password from input
@@ -36,12 +37,14 @@
  	  			'response' => "Please Provide a tarining password to train me!"
  	  		]);
  	  		return;
+ 	  		die();
  	  	} elseif (count($extractQuesAnsPass) == 1) {
  	  		echo json_encode([
  	  			'input' => $message,
  	  			'response' => "Invalid Trainig format! Use <code>train:question#answer#password</code> to tarin me"
  	  		]);
  	  		return;
+ 	  		die();
  	  	}else {
  	  		$userQuestion = $extractQuesAnsPass[0];
  	  		$userAnswer = $extractQuesAnsPass[1];
@@ -55,12 +58,14 @@
  	  					'response' => "Thanks for training me I am smarter now!"
  	  				]);
  	  				return;
+ 	  				die();
  	  			}else{
  	  				echo json_encode([
  	  					'input' => $message,
  	  					'response' => "Opss! seems the training process didn't go well kindly try again in the right format"
  	  				]);
  	  				return;
+ 	  				die();
  	  			}
  	  		}else{
  	  			echo json_encode([
@@ -68,6 +73,7 @@
  	  				'response' => "You are unauthorized to train me please provide correct password"
  	  			]);
  	  			return;
+ 	  			die();
  	  		}
  	  	}
 
@@ -83,12 +89,14 @@
  	  			'response' => $returnedVal['answer']
  	  		]);
  	  		return;
+ 	  		die();
  	  	}else{
  	  		echo json_encode([
  	  			'input' => $message,
  	  			'response' =>  "Sorry I'm to smart enough to know the answer to your question you can train me to be smart use <code>train:question#answer#password</code>"
  	  		]);
  	  		return;
+ 	  		die();
  	  	}
  	  }
  	}
@@ -524,7 +532,7 @@
 	            $.ajax({
 	                type: "POST",
 	                // cache: false,
-	                url: "/profiles/Luthfulahi.php",
+	                url: "",
 	                dataType: "json",
 	                data: $('form').serialize(),
 	                success: function(result) {
