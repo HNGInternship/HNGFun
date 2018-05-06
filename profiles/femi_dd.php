@@ -269,7 +269,7 @@ function newElementsForUser(userRequest) {
 function newElementsForBot(botResponse) {
    var chatArea = $("#chatarea");
    if (botResponse.response.resultType == "find") {
-      var messageElement = "<div class='form-control form-control2 text-left'>Intern ID => " + botResponse.response.users.intern_id + "<br/>Name => " + botResponse.response.users.name + "<br/>Intern Username => " + botResponse.response.users.username + " Intern Profile Picture => " + botResponse.response.users.image_filename + "</div>";
+      var messageElement = "<div class='form-control form-control2 text-left'>Intern ID => " + botResponse.response.users.intern_id + "<br/>Name => " + botResponse.response.users.name + "<br/>Intern Username => " + botResponse.response.users.username + "<br/>Intern Profile Picture => " + botResponse.response.users.image_filename + "</div>";
    } else { 
       var messageElement = "<div class='form-control form-control2 text-left'>" + botResponse.response + "</div>";
    }
