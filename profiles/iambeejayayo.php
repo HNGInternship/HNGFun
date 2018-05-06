@@ -233,7 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <div class=" bg-dark row justify-content-center chatbox">
-        <div class="col-lg-3 bg-light">
+        <div class="col-lg-5 bg-light">
             <header class="row justify-content-center chatbox-header">
             <div class="card bg-danger" align="center" id="bot">
 
