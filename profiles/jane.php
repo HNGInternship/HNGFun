@@ -462,6 +462,7 @@
 
 			$send_btn.click(function(){
 				var a = $text_input.val();
+
 				if(a != ""){
 					add_user_text(a);
 
