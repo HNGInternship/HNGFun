@@ -198,14 +198,14 @@ if(isset($_POST['question'])){
    
     
     #chatOutput{
-        height: 200px;
+        height: 500px;
         border:black solid 1px;
-        width: 200px;
+        width: 390px;
         overflow: scroll;
          border-radius: 10px;
     }
     #chatInput{
-        width: 200px;
+        width: 450px;
         height: 80PX;
         border-radius: 10px;
         margin: 0px 5px;
@@ -221,15 +221,15 @@ if(isset($_POST['question'])){
     
     .you{
         background-color:#E8EEEF;
-        width:200px;
-        padding-left: 150px;
+        width:500px;
+        padding-left: 390px;
         border: 1px solid black;
        
         overflow-wrap: break-word;
     }
     .bot{
         background-color:#109177;
-        width:200px;
+        width:500px;
        
          overflow-wrap: break-word;
     
