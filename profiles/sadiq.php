@@ -7,6 +7,8 @@
 
     $result2 = $conn->query("Select * from interns_data where username = 'sadiq'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
+
+    $name = "Sambo Abubakar";
 ?>
 <head>
     <meta charset="UTF-8">
