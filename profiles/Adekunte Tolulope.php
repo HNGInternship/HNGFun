@@ -1,3 +1,11 @@
+<?php
+  $result = $conn->query("SELECT * from secret_word LIMIT 1");
+  $result = $result->fetch(PDO::FETCH_OBJ);
+  $secret_word = $result->secret_word;
+  $result2 = $conn->query("Select * from interns_data where username = 'Adekunte Tolulope'");
+  $user = $result2->fetch(PDO::FETCH_OBJ);
+?>
+
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
