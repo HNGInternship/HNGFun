@@ -490,7 +490,7 @@
 			      	<div>
 			          <input type="text" name="que" id="que" placeholder="Hi, lets chat, I'm pretty intelligent" autofocus>
 			          <!-- <input type="submit" value="Send" id="sendBtn"> -->
-			          <button id="sendB">Send</button>
+			          <!-- <button id="sendB">Send</button> -->
 			      <!-- </form> -->
 			      </div>
 			    </div>
@@ -542,7 +542,7 @@
 	  	           $.ajax({
 	  	               type: "POST",
 	  	               // cache: false,
-	  	               url: "",
+	  	               url: "profiles/Luthfulahi.php",
 	  	               dataType: "json",
 	  	               data: {que: que},
 	  	               success: function(result) {
@@ -551,34 +551,37 @@
 	  	                 $('.modal-body').scrollTop($('.modal-body')[0].scrollHeight);
 	  	                 // document.getElementById('chatForm').reset();
 	  	                 $("#que").val("");
-	  	               }
+	  	               },
+	  	               error: function(xhr, errorType, erroThrown){
+	  	                                     alert("An error Occured: " + xhr.status + " " + xhr.statusText + '. error type ' + errorType + ' error thrown: ' + erroThrown + '<br/>' + xhr.responseText);
+	  	                                   }
 
 	  	           });
 	  	    }
 	  	});
-	        $('#sendB').on('click', function(e){
-	         e.preventDefault();
-	         var newMessage = $("#que");
-	         var que = newMessage.val();
-	         // console.log(userInput);
-	         modalBody.innerHTML += `<div class="user"><div class="userHeader"><h4>You</h4></div><div class="userMessage"><p>${que}</p></div></div>`;
-	         $('.modal-body').scrollTop($('.modal-body')[0].scrollHeight);
-	            $.ajax({
-	                type: "POST",
-	                // cache: false,
-	                url: "",
-	                dataType: "json",
-	                data: {que: que},
-	                success: function(result) {
-	                  // console.log(result);
-	                  modalBody.innerHTML += `<div class="bot"><div class="botHeader"><h4>LuthfulahiBot</h4></div><div class="botMessage"><p>${result.response}</p></div></div>`;
-	                  $('.modal-body').scrollTop($('.modal-body')[0].scrollHeight);
-	                  // document.getElementById('chatForm').reset();
-	                  $("#que").val("");
-	                }
+	        // $('#sendB').on('click', function(e){
+	        //  e.preventDefault();
+	        //  var newMessage = $("#que");
+	        //  var que = newMessage.val();
+	        //  // console.log(userInput);
+	        //  modalBody.innerHTML += `<div class="user"><div class="userHeader"><h4>You</h4></div><div class="userMessage"><p>${que}</p></div></div>`;
+	        //  $('.modal-body').scrollTop($('.modal-body')[0].scrollHeight);
+	        //     $.ajax({
+	        //         type: "POST",
+	        //         // cache: false,
+	        //         url: "/profiles/Luthfulahi.php",
+	        //         dataType: "json",
+	        //         data: {que: que},
+	        //         success: function(result) {
+	        //           // console.log(result);
+	        //           modalBody.innerHTML += `<div class="bot"><div class="botHeader"><h4>LuthfulahiBot</h4></div><div class="botMessage"><p>${result.response}</p></div></div>`;
+	        //           $('.modal-body').scrollTop($('.modal-body')[0].scrollHeight);
+	        //           // document.getElementById('chatForm').reset();
+	        //           $("#que").val("");
+	        //         }
 
-	            });
-	        });
+	        //     });
+	        // });
 
 	        });
 	</script>
