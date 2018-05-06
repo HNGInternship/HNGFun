@@ -205,7 +205,7 @@
         <div class="row sect">
             <div class="col-md-12">
                 <figure>
-                    <img id="profile"> class="img-responsive" src=<?php echo $image_filename ?> alt="dp">
+                    <img id="profile" class="img-responsive" src=<?php echo $image_filename ?> alt="dp">
                     <figcaption><p><?php echo $name ?></p></figcaption>
                 </figure>
                 <h2 id="tag">UI Designer</h2>
