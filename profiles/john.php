@@ -10,7 +10,24 @@ if(!defined('DB_USER')){
   }
 }
  global $conn;
-	
+
+
+if ($_SERVER['REQUEST_METHOD'] === "GET") {
+		try {
+		    $query = "SELECT name,username,image_filename,secret_word FROM secret_word, interns_data WHERE username ='john'";
+		    $resultSet = $conn->query($query);
+		    $result = $resultSet->fetch(PDO::FETCH_ASSOC);
+		} catch (PDOException $e){
+		    throw $e;
+		}
+		$username = $result['username'];
+		$fullName = $result['name'];
+		$picture = $result['image_filename'];
+		//Fetch Secret Word
+		$secret_word =  $result['secret_word'];
+	}
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
@@ -200,26 +217,6 @@ function getAns($check)
 
   }
 ?>
-
-<?php 
-
-if ($_SERVER['REQUEST_METHOD'] === "GET") {
-		try {
-		    $query = "SELECT name,username,image_filename,secret_word FROM secret_word, interns_data WHERE username ='john'";
-		    $resultSet = $conn->query($query);
-		    $result = $resultSet->fetch(PDO::FETCH_ASSOC);
-		} catch (PDOException $e){
-		    throw $e;
-		}
-		$username = $result['username'];
-		$fullName = $result['name'];
-		$picture = $result['image_filename'];
-		//Fetch Secret Word
-		$secret_word =  $result['secret_word'];
-	}
-
-?>
-
 
 
 
