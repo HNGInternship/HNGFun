@@ -222,13 +222,12 @@
             getAnswer($temp[0]);
         }
     }
-    
+
      function randomJokes () {
 
         $jokes = array("Joke: Why do programmers always get Christmas and Halloween mixed up?Because DEC 25 = OCT 31", 
                             
-                            "Joke: A system programmer came home from work almost at dawn and told his wife enthusiastically:     Tonight I have installed a new release of MVS/ESA together with VM/CMS and CICS/VS
-                              G.O.O.D answered his wife.",
+                            "Joke: A system programmer came home from work almost at dawn and told his wife enthusiastically:Tonight I have installed a new release of MVS/ESA together with VM/CMS and CICS/VS G.O.O.D answered his wife.",
 
                             "Joke: - 'Have you heard about the object-oriented way to become wealthy?'
                              - 'No...'
@@ -236,8 +235,7 @@
 
                             "Joke: Once a programmer drowned in the sea. Many Marines where at that time on the beach, but the programmer was shouting 'F1 F1' and nobody understood it.",
 
-                            "Joke: Why all Pascal programmers ask to live in Atlantis?
-                             Because it is below C level.",
+                            "Joke: Why all Pascal programmers ask to live in Atlantis? Because it is below C level.",
                              
                              "Joke: Unix is user friendly. It's just very particular about who it's friends are.",
 
@@ -271,7 +269,7 @@
     }
 
     function aboutbot() {
-        echo "<div id='result'>Hi am ZOE, a bot version 1.0</div>";
+        echo "<div id='result'>Hi am ZOE, am Foluwas bot version 1.0</div>";
     }
     function train($input) {
         $input = explode('#', $input);
