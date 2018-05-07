@@ -67,9 +67,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Bolaji Ayodeji">
 
-    <!-- FONT Styles -->
+    <!-- Style Sheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -172,15 +173,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="row">
         <div class="col-sm bg-dark text-light">
             <br />
-            <img class="rounded-circle" style="width:30%" src="http://res.cloudinary.com/iambeejayayo/image/upload/v1524882640/BolajiAyodeji.jpg"
+            <img class="rounded-circle" style="width:50%" src="http://res.cloudinary.com/iambeejayayo/image/upload/v1524882640/BolajiAyodeji.jpg"
                 alt="My Picture">
             <br />
             <br />
             <br />
             &nbsp <h3>Hello World!<i class="fa fa-thumbs-up"></i></h3>
             <p class="text-primary" style="font-size:300%"> I'm Bolaji Ayodeji </p>
-                <h3>Tech Geek <i class="fa fa-user text-primary"></i>&nbsp
-                & Web Developer <i class="fa fa-laptop text-primary"></i></h3>
+                <h4>Tech Geek <i class="fa fa-user text-primary"></i>&nbsp
+                & Web Developer <i class="fa fa-laptop text-primary"></i></h4>
                 <br />
                 </p>
             <br />
@@ -221,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <br />
                     <br />
 
-                    <a class="navbar-brand btn btn-outline-light bg-danger btn-lg" href="#bot">Chat with my BOT!&nbsp<i class="fa fa-angle-double-down"></i></a>
+                    <a class="btn btn-outline-light bg-danger btn-lg" href="#bot">Chat with my BOT!&nbsp<i class="fa fa-angle-double-down"></i></a>
                     </button>
 
 
@@ -233,8 +234,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <div class=" bg-dark row justify-content-center chatbox">
-        <div class="col-lg-5 bg-light">
-            <header class="row justify-content-center chatbox-header">
+        <div class="col-lg-6 bg-light">
+            <header class="justify-content-center chatbox-header">
             <div class="card bg-danger" align="center" id="bot">
 
                     <img class="chatbox-logo" src="https://res.cloudinary.com/iambeejayayo/image/upload/v1525095528/bot.png" alt="Alpha Bot" style="width:20%">
@@ -253,7 +254,7 @@ echo $date;
 
             <div class="" align="center">
             <button class="navbar-brand btn btn-outline-light bg-danger justify-content-center" id="chatbox-trigger">
-                <span>Let's Chat!</span>
+                <span>Click me buddy!</span>
                     <i class="fa fa-rocket"></i>
             </button>
             </div>
@@ -267,7 +268,7 @@ echo $date;
 
     <script src="https://unpkg.com/dayjs@1.5.16/dist/dayjs.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
-   <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+      
     <script>
         const typingIndicator = 'random-string-for-indicator-id'
         const openChatbox = document.getElementById('chatbox-trigger')
@@ -452,7 +453,7 @@ echo $date;
 
         function botBirthday() {
             addMessage({
-                message: 'I was created on xx May 2018',
+                message: 'I was created on 30th, April 2018',
                 delay: 1000,
             })
         }
