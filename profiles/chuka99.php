@@ -76,6 +76,12 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		</div>	
 	</div>
 </div>
+	
+	<iframe
+width="350"
+height="430"
+src= "https://console.dialogflow.com/api-client/demo/embedded/f5950a39-d2c5-4c22-9f51-208bd6e35a14">
+</iframe>
 
 <script src="../vendor/jquery/jquery.min.js"></script>
 <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
