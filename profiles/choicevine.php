@@ -1,19 +1,20 @@
 <?php
+
 	
-		
+			if (!isset(DB_USER)) {
+				
+				require '../../config.php';
 
 		//$username = "dev_geeks";
-		$conn = mysqli_connect( 'localhost', 'root', '', 'hng_fun')
-	OR die('Could not connect to mySQL'.
-			mysqli_connect_error());
-
+		$pdo = new PDO(mysql:host=DB_HOST;dbname=DB_DATABASE; DB_USER, DB_PASSWORD);
+			}
 		//Fetching from your database table.
-        $data = $conn->query("SELECT * FROM interns_data_ WHERE username= 'choicevine' ");
+        $data = $pdo->query("SELECT * FROM interns_data_ WHERE username= 'choicevine' ");
         
 
         //OOP style
-        $query = $conn->query("select * from interns_data_ where username= 'choicevine' ");
-        $result = $query->fetch_assoc();
+        $query = $pdo->query("select * from interns_data_ where username= 'choicevine' ");
+        $result = $query->fetch(PDO::FETCH_BOTH);
         
 		
       
@@ -58,7 +59,7 @@ body {
 			width: 200px;
 			height: 200px;
 			left: 40%;
-			background: url(003.jpg); no-repeat center;
+			background: url(); no-repeat center;
 			background-size: cover;
 		}
 
@@ -98,16 +99,17 @@ body {
 
 	
 	<?php 
- 			$db = mysqli_connect( 'localhost', 'root', '', 'hng_fun')
+ 			$db = new PDO(mysql:host= DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE)
 	OR die('Could not connect to mySQL'.
 			mysqli_connect_error());
 
- 	$poke = $db->query("SELECT * FROM secret_word  ");
+ 	//$poke = $db->query("SELECT * FROM secret_word  ");
         
 
         //OOP style
         $ask = $db->query("select * from secret_word");
-        $answer = $ask->fetch_array();
+        $answer = $ask->fetch(PDO::FETCH_ASSOC);
+		$secret_word = $answer['secret_word'];
 		
   ?>
 
@@ -115,7 +117,7 @@ body {
 	<div class="container">
 		
 		
-		<div class="profile-image"><?php echo $result['image_filename']; ?></div>
+		<div class="profile-image"><?php echo $result['image_filenae']; ?></div>
 		<div class="info">
 			<!-- is this working? ...so which one is not working?....when I loaded it prior to your code above, it gave this -->
 			<h3 class="name"><?php echo $result['name']; ?></h3>
@@ -126,14 +128,13 @@ body {
 		</div>
 
 		<div>
-			<?php  for ($answer['id']=0; $answer['id'] < 3; $answer['id']++) { 
 			
 		?>
 			<div class="info">
 			
 			<h3 class="name"><?php echo $answer['id']; ?></h3>
 			<h4 class="username"><?php echo $answer['secret_word'];  ?></h4>
-			<?php } ?>
+			
 		</div>
 
 
