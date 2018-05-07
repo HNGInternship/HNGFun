@@ -1,5 +1,4 @@
 <?php 
-
 require 'db.php';
 try {
     $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ogopedia'");
@@ -47,12 +46,7 @@ try {
 // $secret_word = "sample_secret_word";
 
   ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>Ogopedia's Profile</title>
+
 	<link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
 	<style>
 		@import url(https://fonts.googleapis.com/css?family=Montserrat:400,500,300,200,700);
