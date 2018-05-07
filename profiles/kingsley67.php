@@ -419,7 +419,7 @@ https://res.cloudinary.com/dyngnvcre/image/upload/v1524083992/king.jpg" alt="kin
 var input=$('#chatInput').val();
        
 $.ajax({
-       url:'',
+       url:'../profiles/kingsley67.php',
     method:'post',
         cache: false,
      dataType: "json",
