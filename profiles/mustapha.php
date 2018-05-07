@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set('Africa/Lagos');
+
 if (!defined('DB_USER'))
 	{
 	require "../../config.php";
