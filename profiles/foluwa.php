@@ -88,12 +88,12 @@
                     color: #000830;
         }
         .time{
-            padding-top: 2px;
+              padding-top: 2px;
               opacity: 0.5;
               font-style: "Arial","sans-serif";
          }
          .col-sm-6 {
-            padding-top: 15px;
+            padding-top: 25px;
             background-color: transparent;
          }
          i {
@@ -134,7 +134,7 @@
         }
     ?>
 <div class="container">
-    <nav class="oj-web-applayout-header" role="banner" class="oj-web-applayout-header bg-dark" role="banner">
+    <nav class="oj-web-applayout-header" style="margin-top: 25px;" role="banner" class="oj-web-applayout-header bg-dark" role="banner">
         <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
           <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
             <span class="oj-icon" alt="My Logo"> </span> 
@@ -150,7 +150,7 @@
             <div class="oj-sm-12 oj-md-6 oj-flex-item">
                 <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
                     <div role="img" class="oj-flex-item oj-sm-align-items-center alignCenter">
-                        <img class="img-fluid " src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture" height="250" >
+                        <img class="img-fluid " src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture" height="250px;" >
                     </div>
                 </div>
                     <div class="my-name">
@@ -172,14 +172,14 @@
              <div style="text-align:center;color:skyblue;padding-top:30px;"><strong>Foluwa 2018 @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-6"  style="position:relative;" height="100%;">
         <div class="oj-sm-12 oj-flex-item" style"background: white;">
             <div class='chatbot-menu-header'>
                     <span>ChatBot Interface</span>
             </div>
             <div class="chat-output" id="chat-output" data-spy="scroll" height="70%;">
                     <div class="user-message">
-                        <div class="message">Hi there! I'm Zoe!</br>To train me, use this format - 'train: question # answer # password'. </br> type - 'aboutbot'.
+                        <div class="message">Hi there! I'm Zoe, am a bot!</br>To train me, use this format - 'train: question # answer # password'. </br> type - 'aboutbot'.
                         </div>
                     </div>
             </div>
@@ -206,7 +206,6 @@
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST['user-input'];
-      //  $data = preg_replace('/\s+/', '', $data);
         $temp = explode(':', $data);
         $temp2 = preg_replace('/\s+/', '', $temp[0]);
         
@@ -214,13 +213,64 @@
             train($temp[1]);
         }elseif($temp2 === 'aboutbot') {
             aboutbot();
-        }else{
+        }
+        else{
             getAnswer($temp[0]);
         }
     }
+/*elseif($temp2 === 'jokes') {
+            randomJokes();
+        }
+*/
+     function randomJokes () {
+
+        $jokes = array("Joke: Why do programmers always get Christmas and Halloween mixed up?Because DEC 25 = OCT 31", 
+                            
+                            "Joke: A system programmer came home from work almost at dawn and told his wife enthusiastically:     Tonight I have installed a new release of MVS/ESA together with VM/CMS and CICS/VS
+                              G.O.O.D answered his wife.",
+
+                            "Joke: - 'Have you heard about the object-oriented way to become wealthy?'
+                             - 'No...'
+                             - 'Inheritance.'",  
+
+                            "Joke: Once a programmer drowned in the sea. Many Marines where at that time on the beach, but the programmer was shouting 'F1 F1' and nobody understood it.",
+
+                            "Joke: Why all Pascal programmers ask to live in Atlantis?
+                             Because it is below C level.",
+                             
+                             "Joke: Unix is user friendly. It's just very particular about who it's friends are.",
+
+                            "Joke: All programmers are playwrights and all computers are lousy actors.",
+
+                            "Joke: The programmer to his son: 'Here, I brought you a new basketball'.
+                              Thank you, daddy, but 'where is the users guide?'",
+
+                            "Joke: The problem with physicists is that they tend to cheat in order to get results.
+                              The problem with mathematicians is that they tend to work on toy problems in order to get results.
+                              The problem with program verifiers is that they tend to cheat at toy problems in order to get results.",
+
+                            "Joke: Have you heard about the new Cray super computer? It's so fast, it executes an infinite loop in 6 seconds.",
+
+                            "Joke: Windows 95 is a 32 bit extension for a 16 bit patch to an 8 bit operating system originally coded for a 4 bit microprocessor by a 2 bit company that can't stand 1 bit of competition.",
+
+                            "Joke: Don't get sucked in by comments--only debug code.",
+
+                            "Joke: Demo-oriented programming: A programming style, typically used by startups, focusing on the demo of the program being developed, so it will easily catch the prospective investor.",
+                            
+                            "Joke: There are only 10 types of people in the world: Those that understand binary and those that don't.",
+
+                            "Joke: Why did the private boarding school reject OO software designer go to work in defence?
+                             Because someone said there would be 'class' warfare!",
+
+                             );
+                            //$pickedJoke = $joke[rand(1, 15)]
+                            echo "<div id='result'><?php $jokes[array_rand($jokes)]; ?><span class='time'><?php echo $time ?></span></div>";
+
+
+    }
 
     function aboutbot() {
-        echo "<div id='result'>Hi am ZOE version 1.0</div>";
+        echo "<div id='result'>Hi am ZOE, a bot version 1.0</div>";
     }
     function train($input) {
         $input = explode('#', $input);
@@ -245,16 +295,16 @@
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>Training Successful!</div>";
+                        echo "<div id='result'>Trained Successfully!!!</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
                 }
             }else{
-                echo "<div id='result'>I already understand this. Teach me something new!<span class='time'><?php echo $time ?></span></div>";
+                echo "<div id='result'>I already know this. Would you teach me something else<span class='time'><?php echo $time ?></span></div>";
             }
         }else {
-            echo "<div id='result'>Invalid Password, Try Again!<span class='time'><?php echo $time ?></span></div>";
+            echo "<div id='result'>Password not Correct!!<span class='time'><?php echo $time ?></span></div>";
 
         }
     }
@@ -266,7 +316,7 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'<span class='time'><?php echo $time ?></span></div>";
+            echo "<div id='result'>Sorry, I do not understandthat command. Train me with the command format - 'train: question # answer # password'<span class='time'><?php echo $time ?></span></div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."<span class='time'><?php echo $time ?></span></div>";
