@@ -41,6 +41,7 @@ body {
   min-height: 300px;
   max-height: 720px;
   background: #E6EAEA;
+  margin: 10% auto;
 }
 @media screen and (max-width: 360px) {
   #frame {
@@ -323,6 +324,7 @@ body {
 #frame .content .message-input .wrap button:focus {
   outline: none;
 }
+/*fixed the footer position online*/
 </style></head><body>
 
 
