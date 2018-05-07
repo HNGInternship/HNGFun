@@ -289,7 +289,7 @@ nav a.selected, nav a:hover {
 				<div>
 					<div>User: <span id="user"></span></div>
 					<div>Chatbot: <span id="chatbot"></span></div>
-					<div> <input type="text"> </div>
+					<div> <input id="input" type="text"> </div>
 				</div>
 			<footer>
 				<p>&copy; 2017 Maniaweb.</p>
