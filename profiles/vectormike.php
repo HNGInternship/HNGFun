@@ -4,7 +4,7 @@ function getBotInfo() {
     $bot_version="1.0.1";
     return "Heyo! I'm Vectormike's smiggle. I'm version " .$bot_version;
 }
-function getBotManual() {
+function getBotMan() {
     return  "Send 'location' to know your location. \n
     Send 'time' to get the time. \n
     Send 'about' to know me. \n
@@ -91,7 +91,7 @@ if(!defined('DB_USER')){
             $question = $_POST['question'];
 
             // Getting Bot info
-            if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'help') {
+            if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'info') {
                 echo json_encode([
                     'status' => 1,
                     'answer' => getBotInfo()
@@ -103,7 +103,7 @@ if(!defined('DB_USER')){
             if(preg_replace('([\s])', ' ', trim(strtolower($question))) === 'help') {
                 echo json_encode([
                     'status' => 1,
-                    'answer' => getBotManual()
+                    'answer' => getBotMan()
                 ]);
                 return;
             }
