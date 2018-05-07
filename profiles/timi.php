@@ -11,7 +11,6 @@ function respond($response, array $options=['chatMassage' => true]) {
 		exit();
 	}
 }
-
 //Sanitize string
 function sanitize(string $value) {
 	return trim(filter_var($value, FILTER_SANITIZE_STRING));
