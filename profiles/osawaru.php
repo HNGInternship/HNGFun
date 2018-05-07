@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('DB_USER')) {
-    require "../config.php";
+    // require "../config.php";
 }
 try {
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
@@ -52,6 +52,14 @@ function trainbot($question) {
         }
     
 }
+//special function
+function getLatestNews() {
+    global $news,$err;
+    $api = 'https://newsapi.org/v2/top-headlines?sources=business-insider&apiKey=0b02db71635441abafa624c218e64192';
+    $data = file_get_contents($api);
+    $news = json_decode($data,true);
+    return $news;
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     global $question,$conn;
@@ -64,12 +72,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     elseif (strtolower($question) === "about bot") {
         exit(json_encode(["answer" => "IZZY version 1.0"]));
     }
+
+    elseif (ucfirst($question) == 'Latest business news')  {
+        getLatestNews();
+        $title =  $news['articles'][0]['title'];
+        $time = $news['articles'][0]['publishedAt'];
+        $newsurl = $news['articles'][0]['url']; 
+        $title1 =  $news['articles'][1]['title'];
+        $time1 = $news['articles'][1]['publishedAt'];
+        $newsurl1 = $news['articles'][1]['url'];
+            exit(json_encode(["answers" => "<strong >Title: $title </strong><br> $time <br> <a href = '$newsurl' alt='Powered by Newsapi.org' style='color: #423ab7'>Read more..</a><br/><strong >Title: $title1 </strong><br> $time1 <br> <a href = '$newsurl1' style='color: #423ab7'>Read more..</a>"]));
+    }
    
     else {      
-          $sql= "SELECT * FROM chatbox WHERE question = '$question'LIMIT 1";   
+          $sql= "SELECT * FROM chatbox WHERE question = '$question'ORDER BY RAND() LIMIT 1";    
           $stmt = $conn->query($sql);
           $stmt->setFetchMode(PDO::FETCH_ASSOC);
-          $response = $stmt->fetch();         //$response is the answer to the user's question($question)
+          $response = $stmt->fetchAll();         //$response is the answer to the user's question($question)
+
+
         if ($response == null) {
             exit(json_encode(
             array('answers' => "I am sorry, I do not have an answer, I am still an infant. You can train me and make me smarter. Type 'train: *** #answer: *** #password: *** '"))
@@ -82,11 +103,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } 
    
 ?>
+<?php
+$sql = "SELECT * FROM secret_word";
+$query = $conn->query($sql);
+$query->setFetchMode(PDO::FETCH_ASSOC);
+$result = $query->fetch();
+$secret_word = $result['secret_word'];
+
+try {
+    $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="osawaru"';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $mydata = $q2->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+
+?>
 <!DOCTYPE html>
 <html>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+<head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -98,6 +134,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro|Playball" rel="stylesheet">
 
 <style>
+    nav {
+        color : white;
+    }
     #projects {
         background-image: url(" http://res.cloudinary.com/osawaru/image/upload/v1523637993/bg-img.jpg");
     }
@@ -129,7 +168,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border-top-color: rgba(4, 13, 15,0.8);
             margin-right: 0px;
             margin-bottom: 0px;
-            max-height: 100%;
+            height: 70%;
+            max-height: 200%;
         }
 
         #chatbody {
@@ -142,7 +182,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: black;
             font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
             overflow: auto;
-            max-height:200px;
+            height:75%;
+            max-height:180%;
         }
 
         input {
@@ -178,24 +219,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-
-<?php
-$sql = "SELECT * FROM secret_word";
-$query = $conn->query($sql);
-$query->setFetchMode(PDO::FETCH_ASSOC);
-$result = $query->fetch();
-$secret_word = $result['secret_word'];
-
-try {
-    $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="osawaru"';
-    $q2 = $conn->query($sql2);
-    $q2->setFetchMode(PDO::FETCH_ASSOC);
-    $mydata = $q2->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
-
-?>
 
 
     <div class="containter text-white text-center">
@@ -285,8 +308,12 @@ try {
        
         <div id="chatbody">
         <p class='mybot'><img style='height: 2.5em;' class='rounded-circle mr-2'
-        src='http://res.cloudinary.com/osawaru/image/upload/e_grayscale/v1524047363/avatar.png'>
-         Hi. Welcome to my chatroom.<br>How can I help you?</p>
+        src='http://res.cloudinary.com/osawaru/image/upload/e_grayscale/v1524047363/avatar.png' alt='Izzy avatar'>
+        Welcome.. <br> My training format is: <strong>train: *** #answer: ***  #password: ***. </strong><br> My commands
+         <strong>about bot</strong>- returns my version number.
+        <br><strong>about creator</strong>- returns information on my creator.
+        <br><strong>Latest business news</strong>- returns latest Business insider news.
+        </p>
         </div>
 
         <form id="userinput" method="post">
@@ -300,7 +327,9 @@ try {
                     </button>
                 </div>
         </form>
-    </div> <script>
+    </div>
+    
+    <script>
     $(document).ready(function () {
         $("#chatcontainer1").hide()
         $("#chatbutton").click(function(e){
@@ -313,9 +342,10 @@ try {
             var userinputval=  $('input[name=userinput]').val();
             if (userinputval !== null) {
                var newinput = "<p class='msgoutput'>" + userinputval +
-               "<img style='height: 2.5em;'class='rounded-circle'"
-               " src='http://res.cloudinary.com/osawaru/image/upload/e_grayscale/v1524047363/avatar.png'></p>";
-               $('#chatbody').append(newinput); 
+               "<img style='height: 2.5em;'class='rounded-circle ml-2'"
+               " src='http://res.cloudinary.com/osawaru/image/upload/v1525257218/img_264157.png'></p>";
+               $('#chatbody').append(newinput);
+               $('#chatbody').scrollTop ($('#chatbody')[0].scrollHeight); 
                $.ajax ({
                   method: "POST",
                   url: "profiles/osawaru.php",
@@ -326,9 +356,9 @@ try {
                           var result1 ="<p class='mybot'><img style='height: 2.5em;'class='rounded-circle mr-2'" + 
                           "src='http://res.cloudinary.com/osawaru/image/upload/e_grayscale/v1524047363/avatar.png'>" + 
                           successmsg + "</p>";
-                          console.log('got it!')
                           $('#chatbody').append(result1);
-                          userinputval = ""; //function that runs what the request succeeds
+                          $('#chatbody').scrollTop($('#chatbody')[0].scrollHeight);
+                          inputbox = " "; //function that runs what the request succeeds
                     }
                });       
             }; 

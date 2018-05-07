@@ -1,159 +1,104 @@
-<?php
-
-  if(!defined('DB_USER')){
-    require "../../config.php";   
+    <?php
+    global $conn;
     try {
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+        $sql2 = 'SELECT * FROM interns_data WHERE username="Epospiky"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
     }
-  }
+    ?>
 
-  //Fetch User Details and secret
-
-      $query = "SELECT * FROM interns_data WHERE username ='Epospiky'";
-      $result = $conn->query($query);
-      $result = $result->fetch(PDO::FETCH_ASSOC);
-
-
-  //get and set the name and user name
-  $username = $result['username'];
-  $name = $result['name'];
-  //query the secret word table to Fetch Secret Word
-
-      $queryKey =  "SELECT * FROM secret_word LIMIT 1";
-      $result2   =  $conn->query($queryKey);
-      $result2  =  $result2->fetch(PDO::FETCH_ASSOC);
-      
-
-  $secret_word =  $result2['secret_word'];
-?>
 
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
 
-  include '../answers.php';
-
-  $question = $_POST['input'];
-  $question = preg_replace('([\s]+)', ' ', trim($question)); 
-  $question = preg_replace("([?.])", "", $question); 
-  $question = strtolower(trim($question));
-
-  //Version of the bot
-  if ($question === "aboutbot") {
-        echo json_encode([
-           'status' => 1,
-             'answer' => "Santra v1.0",
-         ]);
-    return;
-  };
-
-
-    
-    // check if the string begins with the string train: 
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $data = $_POST['user-input'];
+        $temp = explode(':', $data);
+        $temp2 = preg_replace('/\s+/','', $temp[0]);
+        
+        if($temp2 === 'train'){
+            train($temp[1]);
+        }elseif($temp2 === 'aboutbot') {
+            aboutbot();
+        }elseif($temp2==='help'){
+            help();
+        }elseif($temp2 === 'version'){
+            echo "<div id='result'> <b>Santra v1.0</b></div>";
+        }else{
+            getAnswer($temp[0]);
+        }
+    }
+  ##About Bot
+    function aboutbot() {
+        echo "<div id='result'><strong>I am Santra, a power chatbot created by Epospiky </strong></div>";
+    }
+   function help(){
+   echo "<div id ='result'>Type <b>about</b> to know about me.<br/>Type <b>version</b> to know my version.<br/>To train me,use this format:<b>train:question#answer#password</b> where password is password </div>";
+   
+   }
   
-      if($question == "train:"){
-
-        unset($question);
-        $q = implode(" ",$question);
-        $queries = explode("#", $q);
-        if (count($queries) < 3) {
-          # code...
-          echo json_encode([
-            'status' => 0,
-            'answer' => "You need to enter a password to train me."
-          ]);
-          return;
+  ##Train Bot
+    function train($input) {
+        $input = explode('#', $input);
+        $question = trim($input[0]);
+        $answer = trim($input[1]);
+        $password = trim($input[2]);
+        if($password == 'password') {
+            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+            $q = $GLOBALS['conn']->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+            if(empty($data)) {
+                $training_data = array(':question' => $question,
+                    ':answer' => $answer);
+                $sql = 'INSERT INTO chatbot ( question, answer)
+              VALUES (
+                  :question,
+                  :answer
+              );';
+                try {
+                    $q = $GLOBALS['conn']->prepare($sql);
+                    if ($q->execute($training_data) == true) {
+                        echo "<div id='result'>Thank you for training me. </br>
+      Now you can ask me same question, and I will answer it correctly.</div>";
+                    };
+                } catch (PDOException $e) {
+                    throw $e;
+                }
+            }else{
+                echo "<div id='result'>I already understand this. Teach me something new!</div>";
+            }
+        }else {
+            echo "<div id='result'>You entered an invalid Password. </br>Try Again!</div>";
         }
-        $password = trim($queries[2]);
-        //to verify training password
-        define('PASSWORD', 'password');
-        
-        if ($password !== PASSWORD) {
-          # code...
-          echo json_encode([
-            'status'=> 0,
-            'answer' => "You entered a wrong passsword"
-          ]);
-          return;
+    }
+    function getAnswer($input) {
+        $question = $input;
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+        $q = $GLOBALS['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
+        if(empty($data)){
+            echo "<div id='result'>Sorry! I've not been trained to learn that command. </br>Would you like to train me?
+</br>You can train me to answer any question at all using, train:question#answer#password
+</br>You can type in <b>help</b> to begin with.</div>";
+        }else {
+            $rand_keys = array_rand($data);
+            echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
         }
-        $quest = $queries[0];
-        $ans = $queries[1];
-
-        $sql = "insert into chatbot (question, answer) values (:question, :answer)";
-
-        $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':question', $quest);
-            $stmt->bindParam(':answer', $ans);
-            $stmt->execute();
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-        
-        echo json_encode([
-          'status' => 1,
-          'answer' => "Thanks for training me, you can now test my knowledge"
-        ]);
-        return;
-      }
-      else{
-
-        $question = implode(" ",$arr);
-          //to check if answer already exists in the database...
-          $question = "$question";
-          $sql = "Select * from chatbot where question like :question";
-            $stat = $conn->prepare($sql);
-            $stat->bindParam(':question', $question);
-            $stat->execute();
-
-            $stat->setFetchMode(PDO::FETCH_ASSOC);
-            $rows = $stat->fetchAll();
-              if(empty($rows)){
-              echo json_encode([
-              'status' => 0,
-              'answer' => "I am sorry, I cannot answer your question now. You could train me to answer the question."
-            ]);
-            return;
-          }else{
-            $rand = array_rand($rows);
-            $answer = $rows[$rand]['answer'];
-
-            $index_of_parentheses = stripos($answer, "((");
-              if($index_of_parentheses === false){// if answer is not to call a function
-                echo json_encode([
-                  'status' => 1,
-                  'answer' => $answer
-                ]);
-                return;
-              }else{//to get the name of the function, before calling
-                  $index_of_parentheses_closing = stripos($answer, "))");
-                  if($index_of_parentheses_closing !== false){
-                      $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
-                      $function_name = trim($function_name);
-                      if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
-                         echo json_encode([
-                          'status' => 0,
-                          'answer' => "The function name should not contain white spaces"
-                        ]);
-                        return;
-                      }
-                    if(!function_exists($function_name)){
-                      echo json_encode([
-                        'status' => 0,
-                        'answer' => "I am sorry but I could not find that function"
-                      ]);
-                    }else{
-                      echo json_encode([
-                        'status' => 1,
-                        'answer' => str_replace("(($function_name))", $function_name(), $answer)
-                      ]);
-                    }
-                    return;
-                  }
-              }
-      }
     }
-    }
-?>
+    ?>
 
 <!DOCTYPE html>
 <html>
@@ -172,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
       <script src="../js/jquery.min.js"></script>
       <script src="../js/bootstrap.min.js"></script>
-      <script src="../js/hmg.min.js"></script>
+      
         <style>
 
         ul.navi {
@@ -206,10 +151,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        .content{
         background-color: #C0C0C0;
         border-radius: 100px 0px;
-        width: 500px;
+        max-width: 500px;
         border: 0px solid black;
         padding: 50px;
-        margin-top: 20px;
+        margin-top: 50px;
         margin-bottom: 20px;
         box-shadow: -5px 0px 5px #000, 0px 5px 5px #000;
        }
@@ -312,6 +257,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .modal-cont{
           background-color: #fff;
         }
+        .san-img{
+          background: url('http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png');
+          background-repeat: no-repeat;
+          background-size: 30px;
+        }
+        .me-img{
+          background: url('http://res.cloudinary.com/epospiky/image/upload/v1525365549/human.png');
+          background-repeat: no-repeat;
+          background-size: 30px;
+        }
     </style>
   </head>
   <body class="oj-web-applayout-body">
@@ -350,7 +305,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
     <div class="skill oj-flex-item oj-sm-4">
-      <p>UI</p>
+      <p>UI/UX</p>
        <div class="progress progress-striped active"> 
             <div class="progress-bar progress-bar-success" role="progressbar"  
                 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"  
@@ -376,38 +331,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </ul> 
     </div>
   </div>
+
+  <button class="btn col-sm-offset-5 chat-btn" data-toggle='modal' data-target='#chatModal'><i class="fa fa-comment-alt">Chat</i></button>
         <!--modal-->
-   <!--<div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">-->
-        <div class="modal-cont">
+   <div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="chatModalLabel"><i class="fa fa-user"></i><b>Santra</b></h5>
-           <!--  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </button>-->
+            </button>
           </div>
-          <div class="modal-body "  >
-          <div class="chat" id = "chat">
-              <p class="san">Hi there. I'm Santra.</p>
-              <p class="san">You can train me using this command format <b>train: the question # the answer #authorised password</b> 
-                or Type <b>help</b> to begin with</p>   
-          
-          </div>
+          <div class="modal-body "  > 
+            <div class="chat" id="chat">
+                
+                  
+                    <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
+                    <p class="san">To train me, use this syntax - "train:question#answer#password".</p>
+                   <p class="san">The Password is: <b>password</b>. </p>
+                    <p class="san">Type help to begin with.</p>
+            </div>
+                
           </div>  
-          <div class="clearfix"></div> 
-            <form class="input " id="bot-input" method="POST">
-              <div class="input-group">
-                 <input class="form-control" id="txt-input"  type="text" name="input" required="" placeholder="Chat me up..." />
-               <span class="input-group-btn">
-                  <button type="submit" id="send" class="btn btn-primary"><i class="fa fa-send"></i> </button>
-              </span>
-              </div>
-            </form>
+          <div class="clearfix"></div>
+                <div class="chat-input">
+                    <form action="" method="post" id="user-input-form">
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="chat me up...">
+                          <span class="input-group-addon"><button class="btn btn-primary" id="send"><i class="fa fa-send"></i></button></span>
+                      </div>
+                    </form>
+                </div>
         </div>
-     <!-- </div>
-    </div>-->
-    <!--end of modal
-    <button class="btn col-sm-offset-5 chat-btn" data-toggle='modal' data-target='#chatModal'><i class="fa fa-comment-alt">Chat</i></button>-->
+     </div>
+    </div>
+    
+    
     
     </div>  
  </div>
@@ -417,38 +377,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     
 
-  </body>
-</html>
 
-  <script>
-    $(document).ready(function(){
-      var Form =$('#bot-input');
-      Form.submit(function(e){
+
+<script>
+    var outputArea = $("#chat");
+    $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
-        var questionBox = $('input[name=input]');
-        var question = questionBox.val();
-        $("#ans").append("<div class='chat'><p class='me'>" + question + "</p></div>");
-          
+        var message = $("#user-input").val();
+        outputArea.append(`<p class='me'>${message}</p>`);
         $.ajax({
-          url: '/profiles/epospiky.php',
-          type: 'POST',
-          data: {question: question},
-          dataType: 'json',
-          success: function(response){
-              $("#ans").append("<div class='chat'><p class='san'> " + response.answer + "</p></div>");
-             // console.log(response.result);
-              //alert(response.result.d);
-              //alert(answer.result);
-              
-          },
-          error: function(error){
-            //console.log(error);
-                alert(JSON.stringify(error));
-          }
-        })  
-        document.getElementById("bot-input").reset();   
-      })
+            url: 'profile.php?id=epospiky',
+            type: 'POST',
+            data:  'user-input=' + message,
+            success: function(response) {
+                var result = $($.parseHTML(response)).find("#result").text();
+                setTimeout(function() {
+                    outputArea.append("<p class='san'>" + result + "</p>");
+                    $('#chat').animate({
+                        scrollTop: $('#chat').get(0).scrollHeight
+                    }, 1500);
+                }, 250);
+            }
+        });
+        $("#user-input").val("");
     });
-  </script>
+</script>
+</div>
 </body>
 </html>
