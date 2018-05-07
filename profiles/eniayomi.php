@@ -21,7 +21,7 @@
               $mQuestion= $sets[0];
               $mAns= $sets[1];
               $mPwd= $sets[2];
-              if($mPwd=='passcode'){
+              if($mPwd=='password'){
               $resultIns = $conn->query("insert into chatbot (`question`, `answer`) values ('$mQuestion','$mAns')" );
               if($resultIns)
               {
