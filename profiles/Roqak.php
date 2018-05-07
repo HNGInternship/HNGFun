@@ -9,9 +9,7 @@ require "../../config.php";
 }
 // include_once "db.php";
 // include 'answers.php';
-?>
 
-<?php
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
@@ -21,7 +19,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 <?php
 $password = "password";
-include_once 'answers.php';
+// include_once 'answers.php';
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
   $mem = $_POST['question'];
   // $mem = preg_replace('([\s]+)', ' ', trim($mem)); //remove extra white space from question
