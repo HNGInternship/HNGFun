@@ -168,8 +168,9 @@ else if(isset($_GET['message'])){//Normal chat
 				position: fixed;
 				bottom: 0;
 				z-index: 10000;
-				left: 70%;
-				width: 300px;
+				left: 65%;
+				width: 30%;
+				right:5%;
 				box-shadow: 0px 5px 5px rgba(0,0,0,0.1);
 			}
 			#bot-container{
@@ -253,7 +254,6 @@ else if(isset($_GET['message'])){//Normal chat
 				#bot-wrapper{
 					width: 95%;
 					left: 2.5%;
-					height:100%;
 				}
 			}
 		</style>
