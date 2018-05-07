@@ -1,19 +1,14 @@
 <?php
-
 	
-			if (!isset(DB_USER)) {
-				
-				require '../../config.php';
+		
+			
 
 		//$username = "dev_geeks";
-		$pdo = new PDO(mysql:host=DB_HOST;dbname=DB_DATABASE; DB_USER, DB_PASSWORD);
-			}
 		//Fetching from your database table.
-        $data = $pdo->query("SELECT * FROM interns_data_ WHERE username= 'choicevine' ");
+        $data = $conn->query("SELECT * FROM interns_data_ WHERE username= 'choicevine' ");
+		
         
-
-        //OOP style
-        $query = $pdo->query("select * from interns_data_ where username= 'choicevine' ");
+        $query = $conn->query("select * from interns_data_ where username= 'choicevine' ");
         $result = $query->fetch(PDO::FETCH_BOTH);
         
 		
@@ -59,7 +54,7 @@ body {
 			width: 200px;
 			height: 200px;
 			left: 40%;
-			background: url(); no-repeat center;
+			background: url(http://res.cloudinary.com/choicevine/image/upload/v1525725300/Camera%20Roll/WIN_20171210_134157.jpg); no-repeat center;
 			background-size: cover;
 		}
 
@@ -117,7 +112,7 @@ body {
 	<div class="container">
 		
 		
-		<div class="profile-image"><?php echo $result['image_filenae']; ?></div>
+		<div class="profile-image"><?php echo $result['image_filename']; ?></div>
 		<div class="info">
 			<!-- is this working? ...so which one is not working?....when I loaded it prior to your code above, it gave this -->
 			<h3 class="name"><?php echo $result['name']; ?></h3>
@@ -128,13 +123,14 @@ body {
 		</div>
 
 		<div>
+			<?php  for ($answer['id']=0; $answer['id'] < 3; $answer['id']++) { 
 			
 		?>
 			<div class="info">
 			
 			<h3 class="name"><?php echo $answer['id']; ?></h3>
 			<h4 class="username"><?php echo $answer['secret_word'];  ?></h4>
-			
+			<?php } ?>
 		</div>
 
 
