@@ -1,9 +1,6 @@
 <?php
 	
-		
-			
 
-		//$username = "dev_geeks";
 		//Fetching from your database table.
         $data = $conn->query("SELECT * FROM interns_data_ WHERE username= 'choicevine' ");
 		
