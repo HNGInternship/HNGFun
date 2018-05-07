@@ -265,7 +265,7 @@
                              );
 
                             //$pickedJoke = $joke[rand(1, 15)]
-                            echo $jokes[array_rand($jokes)];
+                            echo "<div id='result'><?php $jokes[array_rand($jokes)]; ?><span class='time'><?php echo $time ?></span></div>";
 
 
     }
