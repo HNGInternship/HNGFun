@@ -329,7 +329,7 @@ echo $date;
                 delay:2000,
             })
             addMessage({
-                message: 'train: question #answer #password',
+                message: 'Train: Question #answer #password',
                 delay:2500,
             })
             addMessage({
