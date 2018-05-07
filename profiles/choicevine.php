@@ -1,9 +1,9 @@
 <?php
 	
-		
+		require '../../config.php'
 
 		//$username = "dev_geeks";
-		$conn = mysqli_connect( 'localhost', 'root', '', 'hng_fun')
+		$conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE)
 	OR die('Could not connect to mySQL'.
 			mysqli_connect_error());
 
