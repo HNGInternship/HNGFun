@@ -253,6 +253,8 @@ else if(isset($_GET['message'])){//Normal chat
 				#bot-wrapper{
 					width: 100%;
 					max-height: 80vh;
+					left: 0;
+					right:0;
 				}
 			}
 		</style>
