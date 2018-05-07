@@ -260,8 +260,9 @@
                              Because someone said there would be 'class' warfare!",
 
                              );
-                            //$pickedJoke = $joke[rand(1, 15)]
-                            echo "<div id='result'><?php $jokes[array_rand($jokes)]; ?><span class='time'><?php echo $time ?></span></div>";
+                            //$pickedJoke = $joke[rand(1, 15)];
+
+                            echo "<div id='result'><?php $jokes'[array_rand($jokes)]'; ?><span class='time'><?php echo $time ?></span></div>";
 
 
     }
