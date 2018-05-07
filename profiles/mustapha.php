@@ -1,6 +1,5 @@
 <?php
 
-include_once("../answers.php"); 
 
 if (!defined('DB_USER')){
             
