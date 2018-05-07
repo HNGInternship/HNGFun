@@ -529,7 +529,7 @@ button{
 
 <div class="banner-main">
 	
-	<img src="http://res.cloudinary.com/essietom/image/upload/v1523719246/<?php echo $user->image_filename; ?>" width="100px" height="110px" class="round-border roll-image">
+	<img src="<?php echo $user->image_filename; ?>" width="100px" height="110px" class="round-border roll-image">
 	<h2><?php echo $user->name; ?></h2>
 	<h4>Web developer and designer</h4>
 	<p style="text-align: justify; padding-right:10px;margin-left: 10px;">
