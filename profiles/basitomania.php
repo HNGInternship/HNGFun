@@ -11,6 +11,23 @@
   $image_filename = $user['image_filename'];
 ?>
 
+<?php
+$servername = "localhost";
+$username = "username";
+$password = "password";
+
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=myDB", $username, $password);
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Connected successfully"; 
+    }
+catch(PDOException $e)
+    {
+    echo "Connection failed: " . $e->getMessage();
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -249,29 +266,55 @@ nav a.selected, nav a:hover {
 			</nav>
 		</header>
 		<div id="wrapper">
-		<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
-			<section id = "primary">
-				<h3>About</h3>
-				<p>Hi I'm basitomania, this is my design portfolio where i share all my work when i'm not surfing the net and markerting online. To follow me on twitter my handle is <a href="http://www.twitter.com">@iamblack8</a>.</p>
-			</section>
-			
-			<section id="secondary">
-            <h3>Contact Details</h3>
-            <ul class="contact-info">
-                <li class="phone">
-                    <a href="tel:+2348166380172">+2348166380172</a>
-                </li>
-                <li class="mail">
-                    <a href="mailto:basitomania@gmail.com">basitomania@gmail.com</a>
-                </li>
-                <li class="twitter">
-                    <a href="http://twitter.com/intent/tweet?screen_name=iamblack8">@iamblack8</a>
-                </li>
-            </ul>
-        </section>
+			<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
+				<section id = "primary">
+					<h3>About</h3>
+					<p>Hi I'm basitomania, this is my design portfolio where i share all my work when i'm not surfing the net and markerting online. To follow me on twitter my handle is <a href="http://www.twitter.com">@iamblack8</a>.</p>
+				</section>
+				
+				<section id="secondary">
+					<h3>Contact Details</h3>
+					<ul class="contact-info">
+						<li class="phone">
+							<a href="tel:+2348166380172">+2348166380172</a>
+						</li>
+						<li class="mail">
+							<a href="mailto:basitomania@gmail.com">basitomania@gmail.com</a>
+						</li>
+						<li class="twitter">
+							<a href="http://twitter.com/intent/tweet?screen_name=iamblack8">@iamblack8</a>
+						</li>
+					</ul>
+				</section>
+				<div>
+					<div>User: <span id="user"></span></div>
+					<div>Chatbot: <span id="chatbot"></span></div>
+					<div> <input type="text"> </div>
+				</div>
 			<footer>
 				<p>&copy; 2017 Maniaweb.</p>
 			</footer>
+			<script type = text/javascript>
+				document.queryselector("#input").addEventListener("keypress", function(e){
+					var key = e.which || e.keyCode;
+					if(key == 13){
+						var input = document.getElementById("input").value;
+						document.getElementById("user").innerHTML = input;
+						output(input);
+						}
+					});
+
+					function output(input){
+						try{
+							var product = input + "=" + eval(input);
+						} catch(e){
+							var text = (input.toLowerCase()).replace(/[^\w\s\d]/gi, "");
+							var product = text;
+						}
+						document.getELementById("chatbot").innerHTML = input;
+						document.getElementById("input").value = "";
+					}
+			</script>
 		</div>
 	</body>
 </html>
