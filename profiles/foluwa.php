@@ -213,14 +213,15 @@
             train($temp[1]);
         }elseif($temp2 === 'aboutbot') {
             aboutbot();
-        }elseif($temp2 === 'jokes') {
-            randomJokes();
         }
         else{
             getAnswer($temp[0]);
         }
     }
-
+/*elseif($temp2 === 'jokes') {
+            randomJokes();
+        }
+*/
      function randomJokes () {
 
         $jokes = array("Joke: Why do programmers always get Christmas and Halloween mixed up?Because DEC 25 = OCT 31", 
