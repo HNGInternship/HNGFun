@@ -179,7 +179,7 @@
             </div>
             <div class="chat-output" id="chat-output" data-spy="scroll" height="70%;">
                     <div class="user-message">
-                        <div class="message">Hi there! I'm Zoe!</br>To train me, use this format - 'train: question # answer # password'. </br> type - 'aboutbot'.
+                        <div class="message">Hi there! I'm Zoe, am a bot!</br>To train me, use this format - 'train: question # answer # password'. </br> type - 'aboutbot'.
                         </div>
                     </div>
             </div>
@@ -262,7 +262,6 @@
                              Because someone said there would be 'class' warfare!",
 
                              );
-
                             //$pickedJoke = $joke[rand(1, 15)]
                             echo "<div id='result'><?php $jokes[array_rand($jokes)]; ?><span class='time'><?php echo $time ?></span></div>";
 
@@ -270,7 +269,7 @@
     }
 
     function aboutbot() {
-        echo "<div id='result'>Hi am ZOE version 1.0</div>";
+        echo "<div id='result'>Hi am ZOE, a bot version 1.0</div>";
     }
     function train($input) {
         $input = explode('#', $input);
@@ -304,7 +303,7 @@
                 echo "<div id='result'>I already know this. Would you teach me something else<span class='time'><?php echo $time ?></span></div>";
             }
         }else {
-            echo "<div id='result'>Password not Correct!, Try Again!<span class='time'><?php echo $time ?></span></div>";
+            echo "<div id='result'>Password not Correct!!<span class='time'><?php echo $time ?></span></div>";
 
         }
     }
