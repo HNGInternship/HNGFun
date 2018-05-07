@@ -1,6 +1,34 @@
-<head>
 
-<style>
+<!DOCTYPE html>
+
+<?php
+
+    //fetch-store results
+    try {
+
+        $sql = "SELECT * FROM secret_word";
+        $secret_word_query = $conn->query($sql);
+        $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
+        $query_result = $secret_word_query->fetch();
+
+        $sql_queryname = 'SELECT * FROM interns_data WHERE username="Dan"';
+        $query_my_intern_db = $conn->query($sql_queryname);
+        $query_my_intern_db->setFetchMode(PDO::FETCH_ASSOC);
+        $intern_db_result = $query_my_intern_db->fetch();
+    }
+    catch (PDOException $exceptionError) {
+        throw $exceptionError;
+   }
+
+        $secret_word = $query_result['secret_word'];
+        $name = $intern_db_result['name'];
+        $username = $intern_db_result['username'];
+        $image_addr = $intern_db_result['image_filename'];
+?>
+<html>
+
+
+  <style>
 
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -36,41 +64,16 @@ a {
 button:hover, a:hover {
     opacity: 0.7;
 }
-</style>
+  </style>
+  <head>
+  <title>My Profile</title>
  
-</head>
+  </head>
 
 
 
-
- <!--
-   // try {  //query to select intern data
-   //  $myname = "SELECT * FROM interns_data WHERE username='Dan'" ; 
-   //  $q = $conn->query($myname);
-//     $q->setFetchMode(PDO::FETCH_ASSOC);
-//     $data = $q->fetch();
-//     $name=$data['name'];
-//     $username=$data['username'];
-   
-// } 
-// catch (PDOException $e) {
-
-//     throw $e;
-// } 
-//  try {  //query to get secret word
-//     $word = "SELECT * FROM secret_word" ; 
-//     $q = $conn->query($word);
-//     $q->setFetchMode(PDO::FETCH_ASSOC);
-//     $data = $q->fetch();
-//     $secret_word=$data['secret_word'];
-   
-// }
-
-// catch (PDOException $e) {
-
-//     throw $e;
-// }
-//?> -->
+<body>
+ 
 
 <div class="card">
   
@@ -85,9 +88,8 @@ button:hover, a:hover {
 
 <br>
   <?php
-  $data1 = "Username :";
-  $result = "$data1 $username";
-  echo "<p>" .$result. "<p>";
+  
+  echo "<p>" "Username :" .$username."<p>";
   ?>
   <p>Slack : @Dan </p>
   <br>
@@ -96,3 +98,6 @@ button:hover, a:hover {
   
   <p><button>Contact</button></p>
 </div>
+
+</body>
+</html>
