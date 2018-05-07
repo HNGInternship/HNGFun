@@ -1,15 +1,4 @@
 <?php
-<<<<<<< HEAD
-    $queryUser = $conn ->query("SELECT * FROM interns_data WHERE username = 'oparaProsper' " );
-
-    $prosper = $queryUser ->fetch(PDO::FETCH_OBJ);
-
-    $querySecretWord = $conn ->query("SELECT * FROM secret_word");
-    $secretWord = $querySecretWord->fetch(PDO::FETCH_OBJ);
-    $secret_word = $secretWord ->secret_word;
-    
-?>
-=======
 
     if($_SERVER['REQUEST_METHOD'] === "POST"){
 
@@ -101,7 +90,6 @@
     
 ?>
 
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
 <!DOCTYPE html>
 
 <html>
