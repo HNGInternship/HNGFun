@@ -2,18 +2,6 @@
   $Ctime = date("Y-m-d h:i:sa");
   $time= date("h:i:sa");
 ?>
-<?php
-        global $conn;
-
-        try {
-            $sql2 = 'SELECT * FROM interns_data WHERE username="foluwa"';
-            $q2 = $conn->query($sql2);
-            $q2->setFetchMode(PDO::FETCH_ASSOC);
-            $my_data = $q2->fetch();
-        } catch (PDOException $e) {
-            throw $e;
-        }
-    ?>
 
 <!DOCTYPE html>
 <html>
@@ -133,8 +121,20 @@
     </style>
 </head>
 <body>
+    <?php
+        global $conn;
+
+        try {
+            $sql2 = 'SELECT * FROM interns_data WHERE username="foluwa"';
+            $q2 = $conn->query($sql2);
+            $q2->setFetchMode(PDO::FETCH_ASSOC);
+            $my_data = $q2->fetch();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    ?>
 <div class="container">
-    <nav class="oj-web-applayout-header" style="margin-top: 25px;" role="banner" class="oj-web-applayout-header bg-dark" role="banner">
+    <nav class="oj-web-applayout-header" role="banner" class="oj-web-applayout-header bg-dark" role="banner">
         <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
           <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
             <span class="oj-icon" alt="My Logo"> </span> 
@@ -150,7 +150,7 @@
             <div class="oj-sm-12 oj-md-6 oj-flex-item">
                 <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
                     <div role="img" class="oj-flex-item oj-sm-align-items-center alignCenter">
-                        <img class="img-fluid " src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture" height="250px;" >
+                        <img class="img-fluid " src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture" height="250" >
                     </div>
                 </div>
                     <div class="my-name">
@@ -172,14 +172,14 @@
              <div style="text-align:center;color:skyblue;padding-top:30px;"><strong>Foluwa 2018 @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
         </div>
 
-        <div class="col-sm-6"  style="position:relative;" height="100%;">
+        <div class="col-sm-6">
         <div class="oj-sm-12 oj-flex-item" style"background: white;">
             <div class='chatbot-menu-header'>
                     <span>ChatBot Interface</span>
             </div>
             <div class="chat-output" id="chat-output" data-spy="scroll" height="70%;">
                     <div class="user-message">
-                        <div class="message">Hi there! I'm Zoe, am a bot!</br>To train me, use this format - 'train: question # answer # password'. </br> type - 'aboutbot'.</br> To get random programmer jokes use the command 'jokes'
+                        <div class="message">Hi there! I'm Zoe!</br>To train me, use this format - 'train: question # answer # password'. </br> type - 'aboutbot'.
                         </div>
                     </div>
             </div>
@@ -206,25 +206,23 @@
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST['user-input'];
+      //  $data = preg_replace('/\s+/', '', $data);
         $temp = explode(':', $data);
         $temp2 = preg_replace('/\s+/', '', $temp[0]);
         
         if($temp2 === 'train'){
             train($temp[1]);
-        }
-        elseif($temp2 === 'jokes') {
-            randomJokes();
-        }
-        elseif($temp2 === 'aboutbot') {
+        }elseif($temp2 === 'aboutbot') {
             aboutbot();
-        }
-        else{
+        }elseif($temp2 === 'jokes') {
+            randomJokes();
+        }else{
             getAnswer($temp[0]);
         }
     }
 
-     function randomJokes () {
 
+    function randomJokes() {
         $jokes = array("Joke: Why do programmers always get Christmas and Halloween mixed up?Because DEC 25 = OCT 31", 
                             
                             "Joke: A system programmer came home from work almost at dawn and told his wife enthusiastically:Tonight I have installed a new release of MVS/ESA together with VM/CMS and CICS/VS G.O.O.D answered his wife.",
@@ -258,18 +256,18 @@
                             
                             "Joke: There are only 10 types of people in the world: Those that understand binary and those that don't.",
 
-                            "Joke: Why did the private boarding school reject OO software designer go to work in defence?
-                             Because someone said there would be 'class' warfare!",
-
-                             );
-                            //$pickedJoke = $joke[rand(1, 15)]
-                            echo "<div id='result'><?php $jokes[array_rand($jokes)]; ?><span class='time'><?php echo $time ?></span></div>";
+                         "Joke: Why did the private boarding school reject OO software designer go to work in defence?
+                         Because someone said there would be 'class' warfare!",);
+                           
+                            //$jokes'[array_rand($jokes)]';
+                         $pickedJoke = $joke[rand(1, 15)];
+                         echo "<div id='result'><?php $pickedJoke; ?><span class='time'><?php echo $time ?></span></div>";
 
 
     }
 
     function aboutbot() {
-        echo "<div id='result'>Hi am ZOE, am Foluwas bot version 1.0</div>";
+        echo "<div id='result'>Hi am ZOE version 1.0</div>";
     }
     function train($input) {
         $input = explode('#', $input);
@@ -294,16 +292,16 @@
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>Trained Successfully!!!</div>";
+                        echo "<div id='result'>Trained Successfully</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
                 }
             }else{
-                echo "<div id='result'>I already know this. Would you teach me something else<span class='time'><?php echo $time ?></span></div>";
+                echo "<div id='result'>I already understand this. Teach me something new!<span class='time'><?php echo $time ?></span></div>";
             }
         }else {
-            echo "<div id='result'>Password not Correct!!<span class='time'><?php echo $time ?></span></div>";
+            echo "<div id='result'>Invalid Password, Try Again!<span class='time'><?php echo $time ?></span></div>";
 
         }
     }
@@ -315,7 +313,7 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Sorry, I do not understand that command. Train me with the command format - 'train: question # answer # password'<span class='time'><?php echo $time ?></span></div>";
+            echo "<div id='result'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'<span class='time'><?php echo $time ?></span></div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."<span class='time'><?php echo $time ?></span></div>";

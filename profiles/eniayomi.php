@@ -21,7 +21,7 @@
               $mQuestion= $sets[0];
               $mAns= $sets[1];
               $mPwd= $sets[2];
-              if($mPwd=='passcode'){
+              if($mPwd=='password'){
               $resultIns = $conn->query("insert into chatbot (`question`, `answer`) values ('$mQuestion','$mAns')" );
               if($resultIns)
               {
@@ -69,7 +69,7 @@ return;
       if($message=='aboutbot'){
         echo json_encode([
            'status' => 1,
-           'answer' => "franks bot version 1.45"
+           'answer' => "eniayomi's bot version 1.45"
          ]);
 return;
       }
@@ -328,7 +328,7 @@ if (!defined('DB_USER')){
       e.preventDefault();
     var valnext2 = $("#ter").val();
     var question = $("#ter").val();
-    var resusr='</center><div class="container11 darker" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524285838/960_720.png" alt="Avatar" class="right" style="width:60%;"><p> ';
+    var resusr='</center><div class="container11 darker" ><img src="http://res.cloudinary.com/eniayomi/image/upload/v1525702188/botty.png" alt="Avatar" class="right" style="width:60%;"><p> ';
     $("#async").append(resusr+" "+valnext2+" </p></div>");
       $.ajax({
         url: 'profiles/kingpin.php',
@@ -337,7 +337,7 @@ if (!defined('DB_USER')){
         dataType: 'json',
         success: function(response){
            console.log(response);
-            var resbot='<div class="container11" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524056521/pp.jpg" alt="Avatar" class="left" style="width:60%;"><p> ';
+            var resbot='<div class="container11" ><img src="http://res.cloudinary.com/eniayomi/image/upload/v1524007065/pe.png" alt="Avatar" class="left" style="width:60%;"><p> ';
              $("#async").append(resbot+" "+response.answer+" </p></div>");
               $("#ter").val('');
 

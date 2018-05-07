@@ -9,6 +9,20 @@ try {
 catch (PDOException $pe) {
     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
+$sql = "SELECT * FROM secret_word";
+$query = $conn->query($sql);
+$query->setFetchMode(PDO::FETCH_ASSOC);
+$result = $query->fetch();
+$secret_word = $result['secret_word'];
+
+try {
+    $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="osawaru"';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $mydata = $q2->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
  
  //the start of my chatbot
 
@@ -22,36 +36,7 @@ function checkinput($input) {
     return $input;
 }
 
-function trainbot($question) {
-    if (preg_match("/#password:/", $question)) { //Seacrh for pattern called 'password'
-                $question = trim($question);
-                $trainingarray = explode( '#', $question );
-                
-                $password = trim($trainingarray[2]);  
-                $password = substr($password,10);; // removes the word 'password'
-                $password = trim($password); 
-                
-                $newquestion = trim($trainingarray[0]);
-                $newquestion = substr($newquestion,7);
 
-                $newanswer = trim($trainingarray[1]);
-                $newanswer = substr($newanswer,8);
-         
-        if ($password == 'password') { 
-            global $conn;
-                $sql1= "INSERT INTO chatbox (question,answer) VALUES ('$newquestion', '$newanswer')";
-                $conn->exec($sql1);
-                return ['answer' => "Thanks for that, now I am smarter"]; 
-        }
-        else {
-            return ['answer' => "Looks like you used the wrong password. The correct password is required."];
-        }
-    }
-    else {
-        return ["answer" => "Sorry! No password, No access. Please follow the training format."];
-        }
-    
-}
 //special function
 function getLatestNews() {
     global $news,$err;
@@ -66,6 +51,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $question = checkinput($_POST["userinput"]); 
 
     if (preg_match("/train:/", $question)) {
+        function trainbot($question) {
+            if (preg_match("/#password:/", $question)) { //Seacrh for pattern called 'password'
+                        $question = trim($question);
+                        $trainingarray = explode( '#', $question );
+                        
+                        $password = trim($trainingarray[2]);  
+                        $password = substr($password,10);; // removes the word 'password'
+                        $password = trim($password); 
+                        
+                        $newquestion = trim($trainingarray[0]);
+                        $newquestion = substr($newquestion,7);
+        
+                        $newanswer = trim($trainingarray[1]);
+                        $newanswer = substr($newanswer,8);
+                 
+                if ($password == 'password') { 
+                    global $conn;
+                        $sql1= "INSERT INTO chatbox (question,answer) VALUES ('$newquestion', '$newanswer')";
+                        $conn->exec($sql1);
+                        return ['answer' => "Thanks for that, now I am smarter"]; 
+                }
+                else {
+                    return ['answer' => "Looks like you used the wrong password. The correct password is required."];
+                }
+            }
+            else {
+                return ["answer" => "Sorry! No password, No access. Please follow the training format."];
+                }
+            
+        }
         exit(json_encode(trainbot($question)));   
     }
     
@@ -103,23 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } 
    
 ?>
-<?php
-$sql = "SELECT * FROM secret_word";
-$query = $conn->query($sql);
-$query->setFetchMode(PDO::FETCH_ASSOC);
-$result = $query->fetch();
-$secret_word = $result['secret_word'];
 
-try {
-    $sql2 = 'SELECT name,username,image_filename FROM interns_data WHERE username="osawaru"';
-    $q2 = $conn->query($sql2);
-    $q2->setFetchMode(PDO::FETCH_ASSOC);
-    $mydata = $q2->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
-
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -133,88 +132,6 @@ try {
 <!--Font -->
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro|Playball" rel="stylesheet">
 
-<style>
-    nav {
-        color : white;
-    }
-    #projects {
-        background-image: url(" http://res.cloudinary.com/osawaru/image/upload/v1523637993/bg-img.jpg");
-    }
-
-    body {
-        background-color: black;
-    }
-
-    h4 {
-        background-color: rgba(10, 67, 83, 0.658);
-        padding: 20px;
-    }
-    #projects h1 {
-        margin: 10px 300px;
-        padding: 5px;
-        background-color: rgba(4, 13, 15, 0.658);
-        text-decoration: underline;
-    }
-    #carouselExampleControls  img {
-      margin-left: 38%; 
-    }
-    .chatcontainer {
-            padding-top: 3em;
-            border-radius: 0.5em;
-            width: 30%;
-            background-color: whitesmoke;
-            border-top-style: solid;
-            border-top-width: 45px;
-            border-top-color: rgba(4, 13, 15,0.8);
-            margin-right: 0px;
-            margin-bottom: 0px;
-            height: 70%;
-            max-height: 200%;
-        }
-
-        #chatbody {
-            background-color: white;
-            border-style: solid;
-            border-width: 1px;
-            border-color: rgba(29, 49, 56, 0.849);
-            border-radius: 10px;
-            margin-bottom: 3%;
-            color: black;
-            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-            overflow: auto;
-            height:75%;
-            max-height:180%;
-        }
-
-        input {
-            width: 90%;
-            max-width: 1000px;
-            line-height: 1.5em;
-            margin: 4% 4% 0% 4%;
-        }
-
-        .mybot {
-            background-color: rgba(238, 111, 111, 0.911);
-            max-width: 70%;
-            padding: 0.5em;
-            margin: 1em 2em 0.3em 1em;
-            border-radius: 2em 1.5em 1.5em 0em;
-            font-size: 1.05em;
-        }
-
-        input:focus {
-            background-color: rgb(248, 243, 232);
-        }
-
-        .msgoutput {
-            background-color: rgb(185, 179, 179);
-            max-width: 70%;
-            padding: 0.5em;
-            margin: 1em 2em 0.3em 7em;
-            border-radius: 1.5em 2em 0em 1.5em;
-            font-size: 1.05em;
-        }
-</style>
 <title>Osawaru Oyelade Efe-osa</title>
 </head>
 
@@ -329,6 +246,89 @@ try {
         </form>
     </div>
     
+    <style>
+    nav {
+        color : white;
+    }
+    #projects {
+        background-image: url(" http://res.cloudinary.com/osawaru/image/upload/v1523637993/bg-img.jpg");
+    }
+
+    body {
+        background-color: black;
+    }
+
+    h4 {
+        background-color: rgba(10, 67, 83, 0.658);
+        padding: 20px;
+    }
+    #projects h1 {
+        margin: 10px 300px;
+        padding: 5px;
+        background-color: rgba(4, 13, 15, 0.658);
+        text-decoration: underline;
+    }
+    #carouselExampleControls  img {
+      margin-left: 38%; 
+    }
+    .chatcontainer {
+            padding-top: 3em;
+            border-radius: 0.5em;
+            width: 30%;
+            background-color: whitesmoke;
+            border-top-style: solid;
+            border-top-width: 45px;
+            border-top-color: rgba(4, 13, 15,0.8);
+            margin-right: 0px;
+            margin-bottom: 0px;
+            height: 70%;
+            max-height: 200%;
+        }
+
+        #chatbody {
+            background-color: white;
+            border-style: solid;
+            border-width: 1px;
+            border-color: rgba(29, 49, 56, 0.849);
+            border-radius: 10px;
+            margin-bottom: 3%;
+            color: black;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            overflow: auto;
+            height:75%;
+            max-height:180%;
+        }
+
+        input {
+            width: 90%;
+            max-width: 1000px;
+            line-height: 1.5em;
+            margin: 4% 4% 0% 4%;
+        }
+
+        .mybot {
+            background-color: rgba(238, 111, 111, 0.911);
+            max-width: 70%;
+            padding: 0.5em;
+            margin: 1em 2em 0.3em 1em;
+            border-radius: 2em 1.5em 1.5em 0em;
+            font-size: 1.05em;
+        }
+
+        input:focus {
+            background-color: rgb(248, 243, 232);
+        }
+
+        .msgoutput {
+            background-color: rgb(185, 179, 179);
+            max-width: 70%;
+            padding: 0.5em;
+            margin: 1em 2em 0.3em 7em;
+            border-radius: 1.5em 2em 0em 1.5em;
+            font-size: 1.05em;
+        }
+</style>
+
     <script>
     $(document).ready(function () {
         $("#chatcontainer1").hide()

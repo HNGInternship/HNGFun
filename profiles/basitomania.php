@@ -289,12 +289,18 @@ nav a.selected, nav a:hover {
 				<div>
 					<div>User: <span id="user"></span></div>
 					<div>Chatbot: <span id="chatbot"></span></div>
-					<div> <input type="text"> </div>
+					<div> <input id="input" type="text"> </div>
 				</div>
 			<footer>
 				<p>&copy; 2017 Maniaweb.</p>
 			</footer>
 			<script type = text/javascript>
+				var trigger = [
+					["hi"]
+				];
+				var reply = [
+					["Hey"]
+				];
 				document.queryselector("#input").addEventListener("keypress", function(e){
 					var key = e.which || e.keyCode;
 					if(key == 13){
@@ -309,10 +315,26 @@ nav a.selected, nav a:hover {
 							var product = input + "=" + eval(input);
 						} catch(e){
 							var text = (input.toLowerCase()).replace(/[^\w\s\d]/gi, "");
-							var product = text;
+							if(compare(trigger, reply, text)){
+								var product = compare(trigger, reply, text);
+							} else {
+								var product = text;
+							}
 						}
 						document.getELementById("chatbot").innerHTML = input;
 						document.getElementById("input").value = "";
+					}
+					function compare(arr, array, string){
+						var item;
+						for(var x= 0; x<arr.length; x++){
+							for(var y = 0; y<array.length; y++){
+								if(arr[x][y] == string){
+									items = array[x];
+									item = items[Math.floor(Math.random()*items.length)];
+								}
+							}
+						}
+						return item
 					}
 			</script>
 		</div>

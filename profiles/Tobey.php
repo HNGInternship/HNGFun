@@ -1,108 +1,147 @@
+
+<?php   
+include '../config.php';
+global $conn;
+
+$result = $conn->query("Select * from secret_word LIMIT 1");
+  $result = $result->fetch(PDO::FETCH_OBJ);
+  $secret_word = $result->secret_word;
+
+  $result2 = $conn->query("Select * from interns_data where username = 'Tobey'");
+  $user = $result2->fetch(PDO::FETCH_OBJ);
+
+  try {
+    $sql = 'SELECT * FROM secret_word';
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+
+
+if($_SERVER['REQUEST_METHOD'] === 'POST')
+{
+          if (!defined('DB_USER')){
+              require '../config.php';
+          }
+          try {
+              $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+            } catch (PDOException $pe) {
+              die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+            }
+     $mesuu = $_POST['message'];
+     $message=strtolower($mesuu);
+     trim($message);
+     $statusTrain = stripos($message, "train:");
+     if($statusTrain)
+     {
+       $newstring=str_replace("train:","","$message");
+        $sets = explode("#", $newstring);
+             $mQuestion= $sets[0];
+             $mAns= $sets[1];
+             $mPwd= $sets[2];
+             if($mPwd=='passcode'){
+             $resultIns = $conn->query("insert into chatbot (`question`, `answer`) values ('$mQuestion','$mAns')" );
+             if($resultIns)
+             {
+               echo json_encode([
+                'status' => 1,
+                       'answer' => "thanks for enlarging my knowledge base"
+                       ]);
+return;
+}
+else {
+echo json_encode([
+  'status' => 1,
+  'answer' => "sorry something went wrong"
+]);
+return;
+ // code...
+}
+             }
+             else {
+               echo json_encode([
+                  'status' => 1,
+                  'answer' => "sorry wrong password"
+                ]);
+               // code...
+             }
+return;
+     }
+     
+     if ($message==""){
+ echo json_encode([
+    'status' => 1,
+    'answer' => "enter a question  you can also train me "
+  ]);
+return;
+}
+if ($message==""){
+echo json_encode([
+'status' => 1,
+'answer' => "enter a question or you can train me "
+]);
+return;
+}
+     if($message=='aboutbot'){
+       echo json_encode([
+          'status' => 1,
+          'answer' => "TundeChat v1.0"
+        ]);
+return;
+     }
+    if ($message!=''){
+$result2 = $conn->query("select * from chatbot where question = '$message' order by rand()");
+$user = $result2->fetch(PDO::FETCH_OBJ);
+if($user){
+$rows=$user->answer;
+echo json_encode([
+  'status' => 1,
+  'answer' => $rows
+]);
+return;
+}
+else
+{
+ echo json_encode([
+    'status' => 1,
+    'answer' =>"sorry i have no answer to that yet .......but you can train me to annswer questions "
+  ]);
+return;
+}
+if ($message==""){
+ echo json_encode([
+    'status' => 1,
+    'answer' => "enter a question  or train me"
+  ]);
+return;
+}
+}
+   return;
+}
+ ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Ezike Tobenna</title>
 
-    <!-- Latest compiled and minified CSS -->
+<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 
 <!-- jQuery library -->
-<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
 <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+<title>Ezike Tobenna</title>
+
 <style>
-
-.bot{
-    height:250px;
-    width:320px;
-    background:white;
-    position: fixed;
-    right:0;
-    bottom:40%;
-    border: 1px solid #8e44ad;
-    margin-right:3%;   
-}
-
-
-.top-bar {
-  background:#e0e7e8;
-  height:50px;
-  color: #34495e;
-  padding: 10px;
-  position: relative;
-  overflow: hidden;
-  border-radius:4%;
-  font-size: 28px;
-   
-}
-
-.input{
-    height:50px;
-    width:200%;
-}
-
-
-.panel-body{
-    height:300px;
-    position:relative;
-    overflow-y:auto;
-    background:#34495e;
-    padding: 10px;
-}
-
-
-.human-message{
-    background:#e0e7e8; 
-    margin: 10px 10px;
-    margin-left:65px;
-    font-size: 16px;
-    color: #34495e;
-    padding:15px;
-    border-radius:4%;
-}
-
-.human-message:before{
-    width: 0;
-    height: 0;
-    content:"";
-    top:0px;
-    margin-left:60px;
-    margin-right:50px;
-    left:-4px;
-    position:absolute;
-    font-size:15px;
-    border-style: solid;
-    border-width: 13px 13px 0 0;
-    border-color: whitesmoke transparent transparent transparent;  
-}
-
-.bot-message{
-    background:#e0e7e8;
-    color: blue;
-    margin: 10px 10px;
-    font-size: 16px;
-    margin-right:60px;
-    margin-left:10px;
-    border-radius:4%;
-    padding:4px;
-}
-
-.bot-message:after{
-    width: 0;
-    height: 0;
-    content:"";
-    position:absolute;
-    top:-5px;
-    right:0;
-    border-style: solid;
-    border-width: 13px 13px 0 0;
-    border-color: transparent transparent transparent #e0e7e8;  
-}
-
+	
 body {
     font:normal 12px/1.6em Arial, Helvetica, sans-serif;
 	color:#2a3845;
@@ -206,7 +245,7 @@ h1 {
 	color:#7a2e40;
 	margin:0 0 10px;
 	padding-bottom:10px;
-	font:normal 23px Georgia, serif;
+	font:normal 17px Georgia, serif;
 	border-bottom:1px solid #efece7;
 }
 
@@ -254,17 +293,105 @@ ul {
 
 #logo {
 	margin-bottom:50px;
-	font:normal 30px Georgia, serif;
+	font:normal 18px Georgia, serif;
 	color:#300820;
 }
-</style>
 
+.bot{
+    height:300px;
+    width:305px;
+    background:white;
+    position: fixed;
+    right:0;
+    bottom:38%;
+    border: 1px solid #8e44ad;
+    margin-right:10%;   
+}
+
+
+.top-bar {
+  background:#e0e7e8;
+  height:38px;
+  color: #34495e;
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+  border-radius:4%;
+  font-size: 28px;
+   
+}
+
+.input{
+    height:50px;
+    width:100%;
+}
+
+
+.panel-body{
+    height:350px;
+    position:relative;
+    overflow-y:auto;
+    background:#34495e;
+    padding: 10px;
+}
+
+
+.human-message{
+    background:#e0e7e8; 
+    margin: 10px 10px;
+    margin-left:65px;
+    font-size: 16px;
+    color: #34495e;
+    padding:15px;
+    border-radius:4%;
+}
+
+.human-message:before{
+    width: 0;
+    height: 0;
+    content:"";
+    top:0px;
+    margin-left:60px;
+    margin-right:50px;
+    left:-4px;
+    position:absolute;
+    font-size:15px;
+    border-style: solid;
+    border-width: 13px 13px 0 0;
+    border-color: whitesmoke transparent transparent transparent;  
+}
+
+.bot-message{
+    background:#e0e7e8;
+    color: blue;
+    margin: 10px 10px;
+    font-size: 16px;
+    margin-right:60px;
+    margin-left:10px;
+    border-radius:4%;
+    padding:4px;
+}
+
+.bot-message:after{
+    width: 0;
+    height: 0;
+    content:"";
+    position:absolute;
+    top:-5px;
+    right:0;
+    border-style: solid;
+    border-width: 13px 13px 0 0;
+    border-color: transparent transparent transparent #e0e7e8;  
+}
+
+
+</style>
 </head>
 <body>
 <div id="wrapper">
     
     <div id="header">
-		<div id="nav"><a href="index.html">Home</a> | <a href="#">About Me</a> | <a href="#">Contact Me</a> | <a href="#">My Photos</a> </div>
+		<div id="nav"><a href="index.html">Home</a> | <a href="#">About Me</a> | <a href="#">Contact Me</a> | <a href="#">My Photos</a> | <a href="#">My Videos</a></div>
 		<div id="bg"></div>
 	</div>
 	
@@ -275,8 +402,8 @@ ul {
 			</div>
 			<div class="box">
         		<h1>What You'll Find Here</h1>
-        		<p>This is my space. Here are some of my skills and interests: </p>
-				<ul style="margin-top:17px;">
+        		<p>This is my space. Here are some of my interests: </p>
+				<ul style="margin-top:10px;">
 					<li>Android Development"</li>
 					<li>UX Enthusiast</li>
 					<li>Web Developer</li>
@@ -284,33 +411,19 @@ ul {
 					<li>Tech Blogger</li>
 				</ul>
 			</div>
-			<div class="container">
-			<div class="bot panel panel-default body1">
-            <div class="panel-heading top-bar ">
-            TundeChat
-            </div>
-            <div class="chat-output" id="chat-output">
-                <div class="panel-body user-message">
-                <div class ="bot-message row message">Hi, my name is Tunde. Type <br> <span style="color: red">help</span> to see what I can do.</div>
-                <div class="bot-message row message">To train me use this format <br> <span style="color: red">train: question #answer #password</span></div>
-                
-                </div>
-            <div class="input chat-input" >
-            <form action="" class="form-inline" method="post" id="user-input-form">
-                    <div class="input-group mb-2 mr-sm-2">
-                        <input type="text" class="form-control question-input" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
-                            <div class="input-group-append">
-                                <div class="input-group-text btn-primary"><input class="btn-success" id="send" type="submit" onclick="return false;"></div>
-                            </div>
-                    </div>
-            </form>	
-			</div>
-            </div>
-        </div>
+			<h2>A Few of My Famous Quotes</h2>
+			<p>
+				<img src="http://res.cloudinary.com/dk1btjvhc/image/upload/v1523630359/C360_2015-04-03-08-40-28-091.png
+" width="139" height="150" style="margin: 0 10px 10px 0;float:left;" />
+				<em>“Service to others is the rent you pay for your room here on Earth.”</em> - Muhammad Ali<br/>
+				<em>"What is the essence of life? To serve others and to do good."</em> - Aristotle<br/>
+				<em>“We make a living by what we get, but we make a life by what we give.” </em> - Winston Churchill<br/>
+				<em>“Only a life lived for others is worth living."</em> - Albert Einstein<br/>
+			</p>
 		</div>
 		<div id="right-column">
 			<div id="main-image"><img src="http://res.cloudinary.com/dk1btjvhc/image/upload/v1523630359/C360_2015-04-03-08-40-28-091.png
-		" width="160" height="188" /></div>
+" width="160" height="188" /></div>
 			<div class="sidebar">
 				<h3>Blurb About Me</h3>
 				<p>My name is Ezike Tobenna.</p>
@@ -321,124 +434,64 @@ ul {
 						<li><a href="http://twitter.com/ezike" target="_blank">Twitter</a></li>
 						<li><a href="https://www.linkedin.com/in/tobenna-ezike-896439a8/" target="_blank">LinkedIn</a></li>
 					</ul>
-				</div>
+				
 			</div>
 		</div>
 	</div>
 	<div id="footer">
 		Copyright &copy; 2018 Ezike Tobenna. All rights reserved.<br/>
 	</div>
-</div>  
+</div>
 
-<?php
+        <div class="bot panel panel-default">
+            <div class="panel-heading top-bar">TundeChat</div>
+            <div class="panel-body">
+                <div class ="bot-message row">Hi, my name is Tunde. Type <br> <span style="color: red">help</span> to see what I can do.</div>
+                <div class="bot-message row">To train me use this format <br> <span style="color: red">train: question #answer #password</span></div>
+                <div class ="bot-message row">Ask me anything</div>
+            </div>
+            <div class="input" id="async">
+            <form action="" class="form-inline" method="POST" id="form">
+                    <div class="input-group mb-2 mr-sm-2">
+                        <input type="text" class="form-control question-input message" name = "message" id="input" placeholder="type your message">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                            <input class="btn-primary" id="send" type="submit"></div>
+                        </div>
+                    </div>
+            </form>
 
-  $result = $conn->query("Select * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
-  $result2 = $conn->query("Select * from interns_data where username = 'Tobey'");
-  $user = $result2->fetch(PDO::FETCH_OBJ);
-  
+            </div>
+        </div>
+   
+<script>
 
-try {
-    $sql = 'SELECT * FROM secret_word';
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
-
-$secret_word = $data['secret_word'];
-
-if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = $_POST['user-input'];
-  //  $data = preg_replace('/\s+/', '', $data);
-    $temp = explode(':', $data);
-    $temp2 = preg_replace('/\s+/', '', $temp[0]);
-    
-    if($temp2 === 'train'){
-        train($temp[1]);
-    }elseif($temp2 === 'aboutbot') {
-        aboutbot();
-    }else{
-        getAnswer($temp[0]);
-    }
-}
-
-function aboutbot() {
-    echo "<div id='result'>TundeChat 1.0 </div>";
-}
-function train($input) {
-    $input = explode('#', $input);
-    $question = trim($input[0]);
-    $answer = trim($input[1]);
-    $password = trim($input[2]);
-    if($password == 'password') {
-        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
-        $q = $GLOBALS['conn']->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-
-        if(empty($data)) {
-            $training_data = array(':question' => $question,
-                ':answer' => $answer);
-
-            $sql = 'INSERT INTO chatbot ( question, answer)
-          VALUES (
-              :question,
-              :answer
-          );';
-
-            try {
-                $q = $GLOBALS['conn']->prepare($sql);
-                if ($q->execute($training_data) == true) {
-                    echo "<div id='result'>Training Successful!</div>";
-                };
-            } catch (PDOException $e) {
-                throw $e;
-            }
-        }else{
-            echo "<div id='result'>I already understand this. Teach me something new!</div>";
+    $(document).ready(function(){
+        $('#form').on('submit', function(e){
+            e.preventDefault();
+			var input = $("#input").val();
+            var resusr = '</center><div class = "panel-body"><p> ';
+            $("#async").append(resusr+" "+input+" </p></div>);
+            $.ajax({
+                type:'POST',
+                url:'profiles/Tobey.php',
+                dataType:'json',
+                data:{'message':input},
+                success:function(response){
+                    console.log(response);
+            var resbot='<div class="panel-body" ><p> ';
+             $("#async").append(resbot+" "+response.answer+" </p></div>");
+              $("#input").val('');
+        },
+        error: function(error){
+          console.log(error);
         }
-    }else {
-        echo "<div id='result'>Invalid Password, Try Again!</div>";
-
-    }
-}
-
-   ?>
-   <script>
-    var outputArea = $("#chat-output");
-
-    $("#user-input-form").on("submit", function(e) {
-
-        e.preventDefault();
-
-        var message = $("#user-input").val();
-
-        outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
-
-
-        $.ajax({
-            url: 'profile.php?id=Tobey',
-            type: 'POST',
-            data:  'user-input=' + message,
-            success: function(response) {
-                var result = $($.parseHTML(response)).find("#result").text();
-                setTimeout(function() {
-                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
-                    $('#chat-output').animate({
-                        scrollTop: $('#chat-output').get(0).scrollHeight
-                    }, 1500);
-                }, 250);
-            }
-        });
-
-
-        $("#user-input").val("");
-
+             });
+        })
     });
+
 </script>
+</div>
 
 </body>
 </html>
