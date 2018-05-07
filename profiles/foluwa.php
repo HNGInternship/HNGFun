@@ -222,8 +222,7 @@
     }
 
 
-    function randomJokes () {
-
+    function randomJokes() {
         $jokes = array("Joke: Why do programmers always get Christmas and Halloween mixed up?Because DEC 25 = OCT 31", 
                             
                             "Joke: A system programmer came home from work almost at dawn and told his wife enthusiastically:Tonight I have installed a new release of MVS/ESA together with VM/CMS and CICS/VS G.O.O.D answered his wife.",
