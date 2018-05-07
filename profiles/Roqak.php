@@ -1,7 +1,14 @@
 <?php
-include_once "db.php";
+if(!defined('DB_USER')){
+require "../../config.php";
+ try {
+     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+ } catch (PDOException $pe) {
+     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+ }
+}
+// include_once "db.php";
 // include 'answers.php';
-
 ?>
 
 <?php
@@ -44,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       ]);
       return;
     }else {
-		 $sql = "INSERT INTO nbot(question, answer) VALUES ('" . $quest . "', '" . $ans . "')";
+		 $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $quest . "', '" . $ans . "')";
 		 $conn->exec($sql);
      header('Content-type: text/json');
      $arrayName = array('result' => 'Thanks for uprading my knowledge.... You can now test me');
@@ -60,7 +67,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
    // }
     else {
       $mem = "%$mem%";
-      $sql = "select * from nbot where question like :mem";
+      $sql = "select * from chatbot where question like :mem";
       $stmt = $conn->prepare($sql);
       $stmt->bindParam(':mem', $mem);
       $stmt->execute();
@@ -70,7 +77,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $index = rand(0, count($rows)-1);
         $row = $rows[$index];
         $answer = $row['answer'];
-<<<<<<< HEAD
 /////////////////////////////////////////////////////////////////////////////////////////////
 $parentheses = stripos($answer, "((");
 if($parentheses === false){// if answer is not to call a function
@@ -89,7 +95,6 @@ if($parentheses === false){// if answer is not to call a function
             'result' => "The function name should not contain white spaces"
           ]);
           return;
-=======
         // $open_par = stripos($answer, "((");
         // $closing_par = stripos($answer, "))");
         ////////////////////////////////////////////////////////////////////////////////////
@@ -121,16 +126,12 @@ if($parentheses === false){// if answer is not to call a function
               }
               return;
             }
->>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
         }
       if(!function_exists($function_name)){
         header('Content-type: text/json');
         echo json_encode([
-<<<<<<< HEAD
           'result' => "I am sorry but I could not find that function"
-=======
-        'answer' => "I am sorry, I cannot answer your question now. Why don't you train me. Type: train: question # answer #password to train me"
->>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
+        // 'answer' => "I am sorry, I cannot answer your question now. Why don't you train me. Type: train: question # answer #password to train me"
         ]);
       }else{
         header('Content-type: text/json');

@@ -1,287 +1,427 @@
-<!DOCTYPE html>
-<html>
-<head>  
-<title>HNG FUN PROFILE</title>
-<meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   <meta name="description" content="">
-   <meta name="author" content="">
-  
-</head>
-<style type="text/css">
-
-    * { 
-  margin: 0;
-  padding: 0;
-  font-family: tahoma, sans-serif;
-  box-sizing: border-box;
-}
-body{
-  background: #1ddced;
-}
-
-.profile-body {
-       text-align: center;
-color: #ffffff;    }
-
-.chatbox{
-   position:absolute;
-  width: 350px;
-  height: 800px;
-  background: #fff;
-  padding: 25px;
-  margin: 20px auto;
-  box-shadow: 0 3px #ccc;
-    margin-top:-550px;
-    margin-right:100px;
+<?php
+if($_SERVER['REQUEST_METHOD'] === "GET"){
+    try {
+        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'didicodes'");
+        $intern_data->execute();
+        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $intern_data->fetch();
     
+    
+        $secret_code = $conn->prepare("SELECT * FROM secret_word");
+        $secret_code->execute();
+        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+        $code = $secret_code->fetch();
+        $secret_word = $code['secret_word'];
+     } catch (PDOException $e) {
+         throw $e;
+     }
+     date_default_timezone_set("Africa/Lagos");
+     $today = date("H:i:s");
 }
 
-.chatlogs{
-  padding: 10px;
-  width: 100%;
-  height: 450px;
-    overflow-x: hidden;
-    overflow-y: scroll;
-}
-.chatlogs::-webkit-scrollbar{
-  width: 10px;
-}
+ ?>
+ <?php 
+    if($_SERVER['REQUEST_METHOD']==='POST'){
+        function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            $data = preg_replace("([?.!])", "", $data);
+            $data = preg_replace("(['])", "\'", $data);
+            return $data;
+        }
+        function chatMode($ques){
+            require '../../config.php';
+            $ques = test_input($ques);
+            $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+            if(!$conn){
+                echo json_encode([
+                    'status'    => 1,
+                    'response'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                ]);
+                return;
+            }
+            $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
+            $result = $conn->query($query)->fetch_all();
+            echo json_encode([
+                'status' => 1,
+                'response' => $result
+            ]);
+            return;
+        }
+        function trainerMode($ques){
+            require '../../config.php';
+            $questionAndAnswer = substr($ques, 6); 
+            $questionAndAnswer =test_input($questionAndAnswer); 
+            $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  
+            $questionAndAnswer = explode("#",$questionAndAnswer);
+            if((count($questionAndAnswer)==3)){
+                $question = $questionAndAnswer[0];
+                $answer = $questionAndAnswer[1];
+                $password = test_input($questionAndAnswer[2]);
+            }
+            if(!(isset($password))|| $password !== 'password'){
+                echo json_encode([
+                    'status'    => 1,
+                    'response'    => "Please insert the correct training password"
+                ]);
+                return;
+            }
+            if(isset($question) && isset($answer)){
+                $question = test_input($question);
+                $answer = test_input($answer);
+                if($question == "" ||$answer ==""){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "empty question or response"
+                    ]);
+                    return;
+                }
+                $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+                if(!$conn){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                    ]);
+                    return;
+                }
+                $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
+                if($conn->query($query) ===true){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "trained successfully"
+                    ]);
+                }else{
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "Error training me: ".$conn->error
+                    ]);
+                }
+                
 
-.chatlogs::-webkit-scrollbar-thumb{
-  border-radius: 5px;
-  background: rgba(0,0,0,.1);
-}
+                return;
+            }else{ 
+            echo json_encode([
+                'status'    => 0,
+                'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer"
+            ]);
+            return;
+            }
+        }
 
-.chat{
-  display: flex;
-  flex-flow: row wrap;
-  align-items: flex-start;
-  margin-bottom: 10px;
-}
+        
+        $ques = test_input($_POST['ques']);
+        if(strpos($ques, "train:") !== false){
+            trainerMode($ques);
+        }else{
+            chatMode($ques);
+        }
 
-.chat .user-photo {
-  width: 60px;
-  height: 60px;
-  background: #ccc;
-  border-radius: 50%;
-  overflow: hidden;
-}
-.chat .user-photo img {
-width: 100%;
-}
+       
+        return;
+    }
+ 
 
-.chat .chat-message {
-  width: 70%;
-  padding: 15px;
-  margin: 5px 10px 0;
-  background: #1ddced;
-color: #fff;
-font-size: 20px;
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Didicodes Profile page</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="https://fonts.googleapis.co
+  m/css?family=Alfa+Slab+One|Arial" rel="stylesheet">
 
-}
-
-.friend .chat-message{
-  background: #1adda4;
-}
-
-.self .chat-message{
-  background: #1ddced;
+<link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
 
 
-}
+<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
+<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/default/js"></script>
+<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/3rdparty"></script>
+<script type="text/javascript" src="../js/main.js"></script>
+  <style>
+    body {
+      font-family: 'Arial';
+       background: #1ddced;
+    }
 
-.chat-form{
-  margin-top: 20px;
-  display: flex;
-  align-items: flex-start;
-}
-.chat-form textarea{
-  background: #fbfbfb;
-  width: 75%;
-  height: 50px;
-  border: 2px solid #1ddced;
-  border-radius: 3px;
-  resize: none;
-  padding: 10px;
-  font-size: 20px;
-  color: #333;
+  .card{
+      box-shadow: 0px 0px 10px #b4b4b4;
+      width: 50%;
+    }
+    .mr-auto {
+            margin-right: auto;
+        }
 
-}
-.chat-form textarea:focus{
-  background: #fff;
-}
+        .ml-auto {
+            margin-left: auto;
+        }
 
-.chatlogs::-webkit-scrollbar{
-  width: 10px;
-}
+        .m-auto {
+            margin: auto;
+        }
 
-.chatlogs::-webkit-scrollbar-thumb{
-  border-radius: 5px;
-  background: rgba(0,0,0,.1);
-}
-.chat-form button{
-  background: #1ddced;
-  padding: 5px 15px;
-  font-size: 30px;
-  color: #fff;
-  border: none;
-  margin: 0 10px;
-  border-radius: 3px
-  box-shadow: 0 3px 0 #0eb2c1;
-  cursor: pointer;
+        .chat-holder {
+            width: 35%!important;
+                    }
 
-  -webkit-transition: background .2s ease;
-  -moz-transition: background .2s ease;
-  -o-transition: background .2s ease;
-}
-.game{
-  padding:12px;
-  background-color: #1ddced;
-  border-radius:15px;
-}
+        .chat-space {
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            width: 100%;
+            border-radius: 2px;
+            box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
+        }
 
-.chat-form button:hover{
-  background: #13c8d9; 
-}
-   </style>
-<body>
+        .chat-space-header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 10px 0;
+        }
 
-<div class="profile">
- <div class="profile-top"></div>
- <div class="text-center">
- <center><img src="http://res.cloudinary.com/didicodes/image/upload/c_crop,h_491/v1523639579/IMG-20180201-WA0022.jpg" alt="profile-image"></center>
- </div>
- <div class="profile-body">
-               <h3>Edidiong Asikpo
+        .user-name {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .acc-icon {
+            vertical-align: middle;
+            font-weight: bolder;
+            color: grey;
+            font-size: 20px;
+        }
+
+        .chat-box {
+            min-height: 250px;
+            position: relative;
+            padding-bottom: 40px;
+            background: #1ddced;
+        }
+
+        .messages-area {
+            max-height: 220px;
+            overflow: auto;
+            padding: 10px;
+        }
+
+        .sent-message {
+            display: flex;
+            justify-content: flex-end;
+            margin: 0 0 4px;
+        }
+
+        .received-message {
+            display: flex;
+            justify-content: flex-start;
+            margin: 0 0 4px;
+        }
+
+        .message {
+            padding: 5px 15px;
+            border-radius: 30px;
+            line-height: 14px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .sent {
+            background: #000000;
+            color: white;
+        }
+
+        .received {
+            background: #F2F2F2;
+            color: #000000;
+        }
+
+        .message-input-area {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            background: #000000;
+            align-items: center;
+            height: 40px;
+        }
+
+        .message-input {
+            color: #1ddced;
+            width: 85%;
+            border: none;
+            background: transparent;
+            height: 100%;
+            padding: 0 10px;
+        }
+
+        .message-input:focus {
+            border: none;
+            box-shadow: none;
+            outline: none;
+            outline-offset: 0;
+        }
+
+        .message-submit {
+            margin-left: 10px;
+            color: #828282;
+            cursor: pointer;
+        }
+
+        .show-typing {
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-size: 15px;
+        }
+
+  </style>
+</head>
+<body class="oj-web-applayout-body">
+    <div class=" ">
+       <header role="banner" class="oj-web-applayout-header">
+         <div class="oj-web-applayout-max-width oj-flex-bar oj-align-items-center">
+           <div data-bind="css: smScreen() ? 'oj-flex-bar-center-absolute' : 'oj-flex-bar-middle oj-sm-align-items-baseline'">
+          
+           </div>
+           <div class="oj-flex-item">
+               
+           </div>
+           <div class="oj-flex-bar-end">
+           </div>
+         </div>
+       </header>
+         
+            <div id="container">
+              <div class="demo-flex-display">
+                <div id="panelPage">
+                  
+                    <div class="oj-flex demo-panelwrapper">
+                
+                      <div class="oj-flex-item oj-flex oj-sm-flex-items-1 oj-sm-12 oj-md-6 oj-lg-6 oj-xl-6">
+                        <div class="oj-flex-item oj-panel demo-mypanel">
+                         <center><img src="http://res.cloudinary.com/didicodes/image/upload/c_crop,h_491/v1523639579/IMG-20180201-WA0022.jpg" alt="profile-image"></center>
+                         <center><h3>Edidiong Asikpo
                                <br>
                                <small>Android Developer</small>
                                <br>                            
-                               <small class="text-color"><b>@Didicodes</b></small>
+                               <small class="text-color">@Didicodes</small>
                            </h3>
+                           </center>
+                         
+                        </div>
+                      </div>
+                
+                
+                      
+                      <div class="oj-flex-item oj-flex oj-sm-flex-items-1 oj-sm-12 oj-md-6 oj-lg-6 oj-xl-6 ">
+                        <div class="oj-flex-item oj-panel demo-mypanel">
+                   <div class="chat-space">
+                                <div class="chat-space-header">
+                                    
+                                <h5 class="text-left user-name">DidiBot V1.3.54</h5>
+
+                                </div>
+                                <hr style="margin: 10px 0">
+                                <div class="chat-box">
+                                  
+                                    <div class="messages-area">
+
+                                        <div class="sent-message text-left">
+                                            <p class="message sent">
+                                               I am Didi's bot
+
+                                            </p>
+                                        </div>
+                                                                             <div class="received-message text-left">
+                                            <p class="message received">
+                                                Ask me anything and if i cant answer train me with the format train: question#answer#password
+                                            </p>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="message-form">
+                                        <div class="message-input-area">
+                                            <label for="user-message"></label>
+                                           
+                                            <input type="text" class="message-input" name="user-message" id="user-message"
+                                                   placeholder="Ask me anything" required>
+                                        
+                                            <button class="btn" type="button" onclick="sendMsg()">
+                                                <i class="fa fa-send message-submit"   value="send"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-</head>
-<body>
-   
-    <div class="chatbox"><!--This is a bot-->
-    <p class="game">DidiBot V1.3.54</p>
-    <div class="chatlogs">
-    <div class="chat friend">user: <span id="user"></span> 
-    </div>
-      <div class="chat self">chatbot: <span id="chatbot"></span> 
-      </div>
-    <div id="main">
-</div>
-</div>
-      <div class="chat-form"><input id="input" type="text" placeholder="Ask me anything..." autocomplete="off" />
-  </div>
-<script type="text/javascript">
-var trigger = [
-  ["hi","hey","hello"], 
-  ["how are you", "how is life", "how are things"],
-  ["what are you doing", "what is going on"],
-  ["how old are you"],
-  ["who are you", "are you human", "are you bot", "are you human or bot"],
-  ["who created you", "who made you"],
-  ["your name please",  "your name", "may i know your name", "what is your name"],
-  ["i love you"],
-  ["happy", "good"],
-  ["bad", "bored", "tired"],
-  ["help me", "tell me story", "tell me joke"],
-  ["ah", "yes", "ok", "okay", "nice", "thanks", "thank you"],
-  ["bye", "good bye", "goodbye", "see you later"]
-];
-var reply = [
-  ["Hi","Hey","Hello"], 
-  ["Fine", "Pretty well", "Fantastic"],
-  ["Nothing much", "About to go to sleep", "Can you guest?", "I don't know actually"],
-  ["I am 1 day old"],
-  ["I am just a bot", "I am a bot. What about you?"],
-  ["Kani Veri", "My God"],
-  ["I am nameless", "I don't have a name"],
-  ["I love you too", "Me too"],
-  ["Have you ever felt bad?", "Glad to hear it"],
-  ["Why?", "Why? You shouldn't!", "Try watching TV"],
-  ["I will", "What about?"],
-  ["Tell me a story", "Tell me a joke", "Tell me about yourself", "You are welcome"],
-  ["Bye", "Goodbye", "See you later"]
-];
-var alternative = ["Haha...", "Eh..."];
-document.querySelector("#input").addEventListener("keypress", function(e){
-  var key = e.which || e.keyCode;
-  if(key === 13){ //Enter button
-    var input = document.getElementById("input").value;
-    document.getElementById("user").innerHTML = input;
-    output(input);
-  }
-});
-function output(input){
-  try{
-    var product = input + "=" + eval(input);
-  } catch(e){
-    var text = (input.toLowerCase()).replace(/[^\w\s\d]/gi, ""); //remove all chars except words, space and 
-    text = text.replace(/ a /g, " ").replace(/i feel /g, "").replace(/whats/g, "what is").replace(/please /g, "").replace(/ please/g, "");
-    if(compare(trigger, reply, text)){
-      var product = compare(trigger, reply, text);
-    } else {
-      var product = alternative[Math.floor(Math.random()*alternative.length)];
-    }
-  }
-  document.getElementById("chatbot").innerHTML = product;
-  speak(product);
-  document.getElementById("input").value = ""; //clear input value
-}
-function compare(arr, array, string){
-  var item;
-  for(var x=0; x<arr.length; x++){
-    for(var y=0; y<array.length; y++){
-      if(arr[x][y] == string){
-        items = array[x];
-        item =  items[Math.floor(Math.random()*items.length)];
-      }
-    }
-  }
-  return item;
-}
-function speak(string){
-  var utterance = new SpeechSynthesisUtterance();
-  utterance.voice = speechSynthesis.getVoices().filter(function(voice){return voice.name == "Agnes";})[0];
-  utterance.text = string;
-  utterance.lang = "en-US";
-  utterance.volume = 1; //0-1 interval
-  utterance.rate = 1;
-  utterance.pitch = 2; //0-2 interval
-  speechSynthesis.speak(utterance);
-}
-</script>
+                       </div>
+                      </div>                 
+                    </div>
+                  </div>
+                </div>
         
-                            
-                            
-
-
-                            <p id="fav">
-<a href="https://github.com/edyasikpo"><i class="fa fa-github fa-2x"></i></a>&nbsp;
-           <a href="https://twitter.com/didicodes"><i class="fa fa-twitter fa-2x"></i></a>&nbsp;
-           <a href="https://facebook.com/Didicodes"><i class="fa fa-facebook fa-2x"></i></a>
-           </p>
-                           </div>
-       </div>
-<br>     
- <?php
-
-        require_once '../db.php';
-        try {
-            $select = 'SELECT * FROM secret_word';
-            $query = $conn->query($select);
-            $query->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $query->fetch();
-        } 
-        catch (PDOException $e) {
-            throw $e;
-        }
-        $secret_word = $data['secret_word'];       
-  
-?>
-
+              </div>
+            </div>
+     </div>
 </body>
+<script>
+    window.addEventListener("keydown", function(e){
+    if(e.keyCode ==13){
+        if(document.querySelector("#user-message").value==""||document.querySelector("#user-message").value==null){
+           
+        }else{
+          
+            sendMsg();
+        }
+    }
+    });
+    function sendMsg(){
+    var ques = document.querySelector("#user-message");
+    displayOnScreen(ques.value, "sent");
+    if(ques.value === 'aboutbot'){
+        displayOnScreen('Name: Didibot<br>Version: 1.3.54', 'received');
+        return;
+    }
+   
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function(){
+        if(xhttp.readyState ==4 && xhttp.status ==200){
+            processData(xhttp.responseText);
+        }
+    };
+    xhttp.open("POST", "/profiles/didicodes.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("ques="+ques.value);
+
+    }
+    function processData (data){
+    data = JSON.parse(data);
+    console.log(data);
+    var answer = data.response;
+   
+    if(Array.isArray(answer)){
+        if(answer.length !=0){
+            var res = Math.floor(Math.random()*answer.length);
+            displayOnScreen(answer[res][0], "received");
+        }else{
+            displayOnScreen("Hey there, sorry but I don't understand what you just said<br>To teach me use this format<br>train: question#answer#password","received");
+        }
+    }else{
+        displayOnScreen(answer,"received");
+    }
+    }
+    function displayOnScreen(data,align){
+    console.log(data);
+
+    var main= document.querySelector(".messages-area");
+    var div = document.createElement("div");
+    div.classList = align+"-message text-left";
+    var p = document.createElement("p");
+
+    p.classList = "message "+align;
+    p.innerHTML = data;
+    div.appendChild(p);
+    main.appendChild(div);
+  
+    }
+</script>
 </html>
+
