@@ -1,19 +1,12 @@
 <?php
 	
-		require '../../config.php';
-
-		//$username = "dev_geeks";
-		$conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE)
-	OR die('Could not connect to mySQL'.
-			mysqli_connect_error());
 
 		//Fetching from your database table.
         $data = $conn->query("SELECT * FROM interns_data_ WHERE username= 'choicevine' ");
+		
         
-
-        //OOP style
         $query = $conn->query("select * from interns_data_ where username= 'choicevine' ");
-        $result = $query->fetch_assoc();
+        $result = $query->fetch(PDO::FETCH_BOTH);
         
 		
       
@@ -58,7 +51,7 @@ body {
 			width: 200px;
 			height: 200px;
 			left: 40%;
-			background: url(003.jpg); no-repeat center;
+			background: url(http://res.cloudinary.com/choicevine/image/upload/v1525725300/Camera%20Roll/WIN_20171210_134157.jpg); no-repeat center;
 			background-size: cover;
 		}
 
@@ -98,16 +91,17 @@ body {
 
 	
 	<?php 
- 			$db = mysqli_connect( 'localhost', 'root', '', 'hng_fun')
+ 			$db = new PDO(mysql:host= DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE)
 	OR die('Could not connect to mySQL'.
 			mysqli_connect_error());
 
- 	$poke = $db->query("SELECT * FROM secret_word  ");
+ 	//$poke = $db->query("SELECT * FROM secret_word  ");
         
 
         //OOP style
         $ask = $db->query("select * from secret_word");
-        $answer = $ask->fetch_array();
+        $answer = $ask->fetch(PDO::FETCH_ASSOC);
+		$secret_word = $answer['secret_word'];
 		
   ?>
 
