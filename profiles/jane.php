@@ -1,10 +1,5 @@
 <?php
 	// Profile
-
-	$servername = "localhost";
-	$dbname = "hng_fun";
-	$conn = new PDO("mysql:host=$servername;dbname=$dbname", "root", "");
-	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	try {
 
 
@@ -462,6 +457,7 @@
 
 			$send_btn.click(function(){
 				var a = $text_input.val();
+
 				if(a != ""){
 					add_user_text(a);
 
@@ -475,32 +471,23 @@
 					else{
 						$.ajax({
 							type: "POST",
-							data: {chat:a},
+							data: {chat: a},
 							success: function(data){
+								// var result = $($.parseHTML(data)).find(".container").text();
 								console.log(data);
+								// if(data != ""){
+								// 	if (data.indexOf("::def") >= 0) {
+								// 		data = data.replace("::def","");
+								// 		add_bot_text(data);
+								// 		add_bot_default();
+								// 	}
+								// 	else{
+								// 		add_bot_text(data);
+								// 	}
+									
+								// }					
 							}
 						});
-						// $.ajax({
-						// 	type: "POST",
-						// 	data: {chat: a},
-						// 	success: function(data,status){
-						// 		// data = JSON.parse(data);
-						// 		console.log(data);
-						// 		// add_bot_text(data['data']);
-						// 		// if(data != ""){
-
-						// 			// if (data['data'].indexOf("::def") >= 0) {
-						// 			// 	data['data'] = data['data'].replace("::def","");
-						// 			// 	add_bot_text(data['data']);
-						// 			// 	add_bot_default();
-						// 			// }
-						// 			// else{
-						// 			// 	add_bot_text(data['data']);
-						// 			// }
-									
-						// 		// }										
-						// 	}
-						// });
 					}
 					
 
@@ -673,9 +660,9 @@
 							"This is so embarrassing....and I thought I was the smart one"];
 
 			$bmi_result = ["You are underweight\nLooks like you need to put on some extra weight",
-							"You are within good range\nNice!!, you're on track",
+							"You are within good range\nNice!! you're on track",
 							"You are overweight\nLooks like you need a little work on your weight",
-							"You are obese\nOMG!! You need a complete transformation"];
+							"OMG!! You are obese\nYou need a complete transformation"];
 
 			$train_success = "Training successful!";
 
@@ -688,7 +675,7 @@
 					if(sizeof($arr) != 3){
 						$answer = $no_answer[rand(0,3)]."::def";
 						echo $answer;
-						exit;
+						
 					}
 					else{
 						$question = $arr[0];
@@ -703,16 +690,16 @@
 								
 							} catch (PDOException $e) {
 								echo $e->getMessage();
-								exit;
+								
 							}
 
-							print_r($train_success);
-							exit;
+							echo $train_success;
+							
 						}
 
 						else{
-							print_r($wrong_password[rand(0,2)]);
-							exit;
+							echo $wrong_password[rand(0,2)];
+							
 						}
 
 					}
@@ -732,27 +719,22 @@
 
 					if ($result <= 18.5) {
 						echo "Your BMI is ".round($result,3)."\n".$bmi_result[0];
-						exit;
 					} 
 
 					else if($result > 18.5 && $result <= 24.9){
 						echo "Your BMI is ".round($result,3)."\n".$bmi_result[1];
-						exit;
 					}
 
 					else if ($result >= 25 && $result <= 29.9) {
 						echo "Your BMI is ".round($result,3)."\n".$bmi_result[2];
-						exit;
 					}
 
 					else{
 						echo "Your BMI is ".round($result,3)."\n".$bmi_result[3];
-						exit;
 					}
 				}
 				else{
 					echo "Enter a valid input";
-					exit;
 				}
 			}
 
@@ -765,26 +747,25 @@
 
 					if($stmt){
 						foreach($stmt as $row){
-							$answer = $row['answer'];
-							$stat = strlen($answer);
-							$myJSON = ['data'=>$answer,'stat'=>$stat];
-							echo json_encode($myJSON);
+							$response[] = $row['answer'];
+						}
+						if(is_array($response)){
+							$answer = $response[rand(0,sizeof($response))];
+						}
+						else{
+							$answer = $response;
 						}
 					}
 					
 				} catch (PDOException $e) {
 					echo $e->getMessage();
-					exit;	
+						
 				}
 
 				if($answer == ""){
 					$answer = $no_answer[rand(0,4)]."::def";
-					$stat = strlen($answer);
-					$myJSON = ['data'=>$answer,'stat'=>$stat];
-					echo json_encode($myJSON);
 				}
-
-				// exit;
+				echo $answer;
 			}
 		}
 ?>
