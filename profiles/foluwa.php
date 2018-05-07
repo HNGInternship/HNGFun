@@ -292,7 +292,7 @@
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>Training Successful!</div>";
+                        echo "<div id='result'>Trained Successfully</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
