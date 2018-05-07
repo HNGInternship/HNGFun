@@ -25,6 +25,7 @@
         $username = $intern_db_result['username'];
         $image_addr = $intern_db_result['image_filename'];
 ?>
+
 <html>
 
 
@@ -65,6 +66,7 @@ button:hover, a:hover {
     opacity: 0.7;
 }
   </style>
+
   <head>
   <title>My Profile</title>
  
@@ -89,7 +91,7 @@ button:hover, a:hover {
 <br>
   <?php
   
-  echo "<p>" "Username :" .$username."<p>";
+  echo "<p> Username :" .$username. "<p>";
   ?>
   <p>Slack : @Dan </p>
   <br>
