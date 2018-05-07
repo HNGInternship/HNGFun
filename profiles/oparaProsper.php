@@ -101,33 +101,11 @@
     <script src="https://use.fontawesome.com/7c7493657e.js"></script>
 
     <style>
-<<<<<<< HEAD
-=======
      @import url('https://fonts.googleapis.com/css?family=Asap');
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
         body{
             margin: 0;
             padding: 0;
             font-family: arial;
-<<<<<<< HEAD
-        }
-        
-        .about{
-            width: 50%;
-            text-align: center;
-            margin: 10% auto auto;
-            border: 1px dashed black;
-            padding: 2% 0;
-            border-radius: 10px;
-        }
-        .about img{
-            width: 250px;
-            height: 250px;
-            border-radius: 100%;
-            box-shadow: 0 0 10px rgba(0,0,0,0.7);
-            border: 1px solid #00b2ff;
-            margin-bottom: 1em;
-=======
             background:rgb(116, 116, 116);
             height:100vh;
             font-family: 'Asap', sans-serif;
@@ -147,48 +125,21 @@
             border-radius: 100%;
             border: 5px dashed rgb(205, 205, 206);
            
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
         }
         h1{
             text-align: center;
             text-transform: uppercase;
-<<<<<<< HEAD
-            color: white;
-            background: rgb(43, 40, 40);
-            width: 80%;
-            margin: auto;
-            padding: .3em 0;
-            border-radius: 10px;
-=======
             color:rgb(59, 57, 57);
             width: 100%;
             margin: auto auto 1em;
             padding: .3em 0;
             font-size: 30px;
             background: white;
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
         }
         .about span{
             color: #00b2ff;
         }
         #name{
-<<<<<<< HEAD
-            margin-top: 1%;
-        }
-        #about{
-            width: 80%;
-            margin: auto;
-            text-align: left;
-        }
-       #icon .fa{
-           background: #365899;
-           padding: 1em 0;
-           border-radius: 100%;
-           color: black;
-           width: 3em;
-           text-align: center;
-       }
-=======
             width: 100%;
             display: flex;
             background: rgb(205, 205, 206);
@@ -387,15 +338,10 @@
        }
 
       
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
     </style>
 </head>
 
 <body>
-<<<<<<< HEAD
-
-
-=======
     <!-- Javis(bot) -->
     <section id="botSection">
         <div id="hngBot">
@@ -429,34 +375,10 @@
     <section>
        
     <!-- My profile -->
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
     <article class="about">
         
         <section>
 
-<<<<<<< HEAD
-            <img src="<?php echo $prosper->image_filename ?>" alt="This is my picture">
-            <div id="name">
-
-                <?php
-                    echo"<h1> $prosper->username </h1>";
-                ?>
-
-            </div>
-
-            <article id="about">
-                <p>
-                    I am <span><?php echo $prosper->name ?></span>, i'm a web developer based in aba and currently an undergraduate at the federal university of technology owerri. I am a knowledge junkie and always seek to learn new things [ that's why am working hard to become proficient in php]. 
-                </p>
-            </article>
-
-            <div id="icon">
-                <a href="https://twitter.com/opara.prosper"><i class="fa fa-facebook "></i></a>
-                <a href="https://twitter.com/opara_prosper"><i class="fa fa-twitter "></i></a>
-                <a href="https://github/opara-prosper"><i class="fa fa-github "></i></a>
-                <a href="https://medium.com/@oparaprosper79"><i class="fa fa-medium "></i></a>
-            </div>
-=======
             <div id="name">
 
                 <div class="nameContent">
@@ -497,16 +419,12 @@
             </article>
 
             
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
 
         </section>
         
        
     </article>
 
-<<<<<<< HEAD
-         
-=======
     
 
     <script>
@@ -592,6 +510,5 @@
     })
 
     </script>     
->>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
 </body>
 </html>
