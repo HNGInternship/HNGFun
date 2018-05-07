@@ -207,10 +207,10 @@ if(!defined('DB_USER')){
             return;
           }
         
-          echo json_encode([
+        echo json_encode([
             'status' => 0,
             'answer' => "Sorry, i really dont understand you right now, you could offer to train me"
-          ]);  
+          ]);    
             
         
     } catch (Exception $e){
@@ -435,7 +435,7 @@ if(!defined('DB_USER')){
 
               // Send questions to the server
               $.ajax({
-                  url: "/profiles/vectormike.php",
+                  url: "profiles/vectormike.php",
                   type: "post",
                   data: {question: question},
                   dataType: "json",
