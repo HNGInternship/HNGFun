@@ -1,31 +1,18 @@
 <?php
-$file = realpath(__DIR__ . '/..') . "/db.php" ;
-include $file;
-global $conn;
-    
-    try {
-        $sql = "SELECT * FROM interns_data WHERE username='{$_GET['id']}'";
-    
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
+date_default_timezone_set('Africa/Lagos');
+if (!defined('DB_USER'))
+	{
+	require "../../config.php";
+	}
+try
+	{
+	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	}
+catch(PDOException $pe)
+	{
+	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	}
 
-    $name = $data['name'];
-    $username = $data['username'];
-    $image = $data['image_filename'];
-
-    try {
-        $sql = 'SELECT * FROM secret_word';
-        $q= $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    $secret_word = $data['secret_word'];
 ?>
 
 <!DOCTYPE html>
