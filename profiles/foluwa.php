@@ -2,6 +2,18 @@
   $Ctime = date("Y-m-d h:i:sa");
   $time= date("h:i:sa");
 ?>
+<?php
+        global $conn;
+
+        try {
+            $sql2 = 'SELECT * FROM interns_data WHERE username="foluwa"';
+            $q2 = $conn->query($sql2);
+            $q2->setFetchMode(PDO::FETCH_ASSOC);
+            $my_data = $q2->fetch();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    ?>
 
 <!DOCTYPE html>
 <html>
@@ -121,18 +133,6 @@
     </style>
 </head>
 <body>
-    <?php
-        global $conn;
-
-        try {
-            $sql2 = 'SELECT * FROM interns_data WHERE username="foluwa"';
-            $q2 = $conn->query($sql2);
-            $q2->setFetchMode(PDO::FETCH_ASSOC);
-            $my_data = $q2->fetch();
-        } catch (PDOException $e) {
-            throw $e;
-        }
-    ?>
 <div class="container">
     <nav class="oj-web-applayout-header" style="margin-top: 25px;" role="banner" class="oj-web-applayout-header bg-dark" role="banner">
         <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
@@ -316,7 +316,7 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Sorry, I do not understandthat command. Train me with the command format - 'train: question # answer # password'<span class='time'><?php echo $time ?></span></div>";
+            echo "<div id='result'>Sorry, I do not understand that command. Train me with the command format - 'train: question # answer # password'<span class='time'><?php echo $time ?></span></div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."<span class='time'><?php echo $time ?></span></div>";
