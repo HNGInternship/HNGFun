@@ -1,5 +1,48 @@
 <?php
 
+function getBotInfo() {
+    $bot_version="1.0.1";
+    return "Heyo! I'm Vectormike's smiggle. I'm version " .$bot_version;
+}
+function getBotMan() {
+    return  "Send 'location' to know your location. \n
+    Send 'time' to get the time. \n
+    Send 'about' to know me. \n
+    Send 'help' to see this again. \n
+    To train me, send in this format: \n
+    'train: question # answer # password'";
+}
+function getAge() {
+    $bot_version="1.0.1";
+    return "Vectormike is just 20 years old. As for me, I have got no idea of age. Still " .$bot_version;
+}
+
+function get_client_ip() {
+    $ipaddress = '';
+    if (isset($_SERVER['HTTP_CLIENT_IP']))
+        $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+    else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    else if(isset($_SERVER['HTTP_X_FORWARDED']))
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+    else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+        $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+    else if(isset($_SERVER['HTTP_FORWARDED']))
+        $ipaddress = $_SERVER['HTTP_FORWARDED'];
+    else if(isset($_SERVER['REMOTE_ADDR']))
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+    else
+        $ipaddress = 'UNKNOWN';
+    return $ipaddress;
+
+    $PublicIP = get_client_ip();
+    $json  = file_get_contents("https://freegeoip.net/json/$PublicIP");
+    $json  =  json_decode($json ,true);
+    $country =  $json['country_name'];
+    $region= $json['region_name'];
+    $city = $json['city'];
+}
+
 if(!defined('DB_USER')){
     require "../../config.php";		
     try {
@@ -32,7 +75,7 @@ if(!defined('DB_USER')){
   
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        require "../answers.php";
+        //require "../answers.php";
 
         date_default_timezone_set("Africa/Lagos");
 
@@ -48,7 +91,7 @@ if(!defined('DB_USER')){
             $question = $_POST['question'];
 
             // Getting Bot info
-            if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'help') {
+            if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'info') {
                 echo json_encode([
                     'status' => 1,
                     'answer' => getBotInfo()
@@ -57,10 +100,10 @@ if(!defined('DB_USER')){
             }
 
             // Getting Bot Menu or Manual
-            if(preg_replace('([\s])', ' ', trim(strtlower($question))) === 'help') {
+            if(preg_replace('([\s])', ' ', trim(strtolower($question))) === 'help') {
                 echo json_encode([
                     'status' => 1,
-                    'answer' => getBotManual()
+                    'answer' => getBotMan()
                 ]);
                 return;
             }
@@ -207,10 +250,10 @@ if(!defined('DB_USER')){
             return;
           }
         
-          echo json_encode([
+        echo json_encode([
             'status' => 0,
             'answer' => "Sorry, i really dont understand you right now, you could offer to train me"
-          ]);  
+          ]);    
             
         
     } catch (Exception $e){
@@ -227,6 +270,8 @@ if(!defined('DB_USER')){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title> Victor Jonah</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
   	
     <style>
         .profile {
@@ -359,11 +404,12 @@ if(!defined('DB_USER')){
             </div>
             <div class="about">
                 <h1>Hello! <i class="fa fa-angellist"></i></h1>
-                <p>This is Victor Jonah.</p>
-                <p>300l Computer science of the University of Uyo.</p>
+                <p>I'm Victor Jonah</p>
+                <p>Computer Science Estudiante.</p>
                 <p>HNG Intern, 2018</p>            
                 <!-- Chatbot Section -->
                 <!-- Trigger the modal with a button -->
+            </div>
                 <button type="button" id="mssgbox" class="btn chat-modal-button" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i></button>
                 <!-- Modal -->
                 <div class="modal fade" id="myModal" role="dialog">
@@ -404,22 +450,20 @@ if(!defined('DB_USER')){
                             </form>
                         </div> 
                     </div>
-                </div>
-            </div>  
+                </div> 
         </div>
     </body>
 
     <script>
-    
-    $('h1').addClass('animated infinite shake');
-    
+    $('h1').addClass('animated infinite hinge');
     $('#mssgbox').addClass('animated infinite flash');
-
+    $('.imag').addClass('animated zoomInDown');
+    $('.about').addClass('animated zoomInUp');
     </script>
     
     <script>
       $(document).ready(function(){
-          var questionForm = $('#question-secton');
+          var questionForm = $('#question-section');
           questionForm.submit(function(e){
               e.preventDefault();
               var questionBox = $('textarea[name=question]');
@@ -428,8 +472,7 @@ if(!defined('DB_USER')){
               // Display question in the message frame as a chat entry
               var messageFrame = $('.chat');
               var chatToBeDisplayed = '<div class="bubble me">'+question+'</div>';
-
-              messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+              messageFrame.append(chatToBeDisplayed);
               $(".modal-body").scrollTop($(".modal-body")[0].scrollHeight);
 
               // Send questions to the server
@@ -439,18 +482,10 @@ if(!defined('DB_USER')){
                   data: {question: question},
                   dataType: "json",
                   success: function(response){
-                      if(response.status == 1){
-                          var chatToBeDisplayed = '<div class="bubble you">'+response.answer+'</div>';
-                          
-                          messageFrame.html(messageFrame.html()+chatToBeDispalyed);
-                          questionBox.val("");
-                          $(".modal-body").scrollTop($(".modal-body")[0].scrollHeight);
-                      }else if(response.status == 0){
-                          var chatToBeDispalyed = '<div class="bubble you">'+response.answer+'</div>';
-                          
-                          messageFrame.html(messageFrame.html()+chatToBeDispalyed);
-                          $(".modal-body").scrollTop($(".modal-body")[0].scrollHeight);
-                      }
+                    var chatToBeDisplayed = '<div class="bubble you">'+response.answer+'</div>';
+                    messageFrame.append(chatToBeDisplayed);
+                    questionBox.val('');
+                    $(".modal-body").scrollTop($(".modal-body")[0].scrollHeight);
                   },
                   error: function(error){
                       console.log(error);
