@@ -69,7 +69,7 @@ return;
       if($message=='aboutbot'){
         echo json_encode([
            'status' => 1,
-           'answer' => "franks bot version 1.45"
+           'answer' => "Eniayomi bot version 1.45"
          ]);
 return;
       }
