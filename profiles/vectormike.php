@@ -472,8 +472,7 @@ if(!defined('DB_USER')){
               // Display question in the message frame as a chat entry
               var messageFrame = $('.chat');
               var chatToBeDisplayed = '<div class="bubble me">'+question+'</div>';
-
-              messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+              messageFrame.append(chatToBeDisplayed);
               $(".modal-body").scrollTop($(".modal-body")[0].scrollHeight);
 
               // Send questions to the server
@@ -483,18 +482,10 @@ if(!defined('DB_USER')){
                   data: {question: question},
                   dataType: "json",
                   success: function(response){
-                      if(response.status == 1){
-                          var chatToBeDisplayed = '<div class="bubble you">'+response.answer+'</div>';
-                          
-                          messageFrame.html(messageFrame.html()+chatToBeDispalyed);
-                          questionBox.val("");
-                          $(".modal-body").scrollTop($(".modal-body")[0].scrollHeight);
-                      }else if(response.status == 0){
-                          var chatToBeDispalyed = '<div class="bubble you">'+response.answer+'</div>';
-                          
-                          messageFrame.html(messageFrame.html()+chatToBeDispalyed);
-                          $(".modal-body").scrollTop($(".modal-body")[0].scrollHeight);
-                      }
+                    var chatToBeDisplayed = '<div class="bubble you">'+response.answer+'</div>';
+                    messageFrame.append(chatToBeDisplayed);
+                    questionBox.val('');
+                    $(".modal-body").scrollTop($(".modal-body")[0].scrollHeight);
                   },
                   error: function(error){
                       console.log(error);
