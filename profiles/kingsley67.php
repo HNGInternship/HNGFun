@@ -19,6 +19,7 @@ $secret_word=$result2['secret_word'];
 
 
 
+    if($_POST){
    
 if($_POST['question']){
     
@@ -64,11 +65,11 @@ if(isset($_POST['question'])){
                
       } else{
 
- $sql3="SELECT * FROM chatbot where question='$text ' LIMIT 1";
+ $sql3="SELECT * FROM chatbot where question='$text '";
  $query = $conn->query($sql3);
     $query->setFetchMode(PDO::FETCH_ASSOC);  
     $result3 = $query->fetch(); 
- $ans=$result3['answers'];
+ $ans=$result3['answer'];
         
    
      if (isset($ans)) {
@@ -117,7 +118,7 @@ if(isset($_POST['question'])){
 }
      
             echo json_encode([
-                  'question' => $answer,
+                  'question' => $question,
                   'answers'=>"<strong>Your data was saved successfully</strong>"
                 ]);
                 
@@ -152,7 +153,7 @@ if(isset($_POST['question'])){
   
     }
     }
-    
+    }
 
 
 ?>
@@ -199,7 +200,7 @@ if(isset($_POST['question'])){
     #chatOutput{
         height: 500px;
         border:black solid 1px;
-        width: 500px;
+        width: 530px;
         overflow: scroll;
          border-radius: 10px;
     }
@@ -427,7 +428,7 @@ $.ajax({
     question:input,
     
    }, 
-     beforeSend: function() { $('#results').append('please wait');},
+       beforeSend: function() { $('#results').append($("#ques").append("<div class=\"you\"><strong>You:</strong><br></div><div class=\"bot\"><strong>BOT:</strong><br>"));},
         success: function(result) { 
          $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
        console.log(result);
