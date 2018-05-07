@@ -179,7 +179,7 @@
             </div>
             <div class="chat-output" id="chat-output" data-spy="scroll" height="70%;">
                     <div class="user-message">
-                        <div class="message">Hi there! I'm Zoe, am a bot!</br>To train me, use this format - 'train: question # answer # password'. </br> type - 'aboutbot'.
+                        <div class="message">Hi there! I'm Zoe, am a bot!</br>To train me, use this format - 'train: question # answer # password'. </br> type - 'aboutbot'.</br> To get random programmer jokes use the command 'jokes'
                         </div>
                     </div>
             </div>
@@ -211,17 +211,18 @@
         
         if($temp2 === 'train'){
             train($temp[1]);
-        }elseif($temp2 === 'aboutbot') {
+        }
+        elseif($temp2 === 'jokes') {
+            randomJokes();
+        }
+        elseif($temp2 === 'aboutbot') {
             aboutbot();
         }
         else{
             getAnswer($temp[0]);
         }
     }
-/*elseif($temp2 === 'jokes') {
-            randomJokes();
-        }
-*/
+    
      function randomJokes () {
 
         $jokes = array("Joke: Why do programmers always get Christmas and Halloween mixed up?Because DEC 25 = OCT 31", 
