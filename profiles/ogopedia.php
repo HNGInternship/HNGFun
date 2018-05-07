@@ -1,5 +1,15 @@
 <?php 
 
+  if (!defined('DB_USER')) {
+    include_once("../answers.php");
+    require '../../config.php';
+    try {
+      $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+  }
+
 try {
     $query = "SELECT * FROM interns_data_ WHERE username='ogopedia'";
     $resultSet = $conn->query($query);
@@ -22,7 +32,7 @@ try{
 }
 // $secret_word =  $result['sample_secret_word'];
 
-$secret_word = "sample_secret_word";
+// $secret_word = "sample_secret_word";
 
   ?>
 <!DOCTYPE html>
