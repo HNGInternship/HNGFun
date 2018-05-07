@@ -252,7 +252,6 @@ else if(isset($_GET['message'])){//Normal chat
 			@media all and (max-width: 768px){/*In mobile view*/
 				#bot-wrapper{
 					width: 100%;
-					max-height: 80vh;
 					left: 0;
 					right:0;
 				}
