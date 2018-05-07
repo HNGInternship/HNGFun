@@ -165,10 +165,10 @@ else if(isset($_GET['message'])){//Normal chat
 			
 	/**************Chat Bot Styling*******************/
 			#bot-wrapper{
-				position: absolute;
+				position: fixed;
+				bottom: 0;
 				z-index: 10000;
 				left: 70%;
-				height:50vh;
 				width: 300px;
 				box-shadow: 0px 5px 5px rgba(0,0,0,0.1);
 			}
