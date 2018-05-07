@@ -1,163 +1,4 @@
- <!DOCTYPE html>
-<html>
-    <head>
-        <title>Profle of Perkyprince</title>
-        <meta charset="utf-8">
-        <meta name="description" content="This page is a personal profile page about the author">
-        <meta name="keywords" content="HTML5, CSS, Javascript, PHP, Profile, HNG, About, Internship, Chat, Chatbot">
-        <meta name="author" content="Princewill Iwuala">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-        <script src="https://use.fontawesome.com/dfb23fb58f.js"></script>
-        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/3.3.4/css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="https://static.oracle.com/cdn/jet/v4.1.0/default/css/alta/oj-alta-min.css">
-        <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/require/require.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"> </script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
-        <script src="../js/jquery.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
-        <style type="text/css">
-
-          body {
-            background-size:cover;
-            background-color: #f2ca85;
-            color: #333333;
-            font-family: 'Courier New', Courier, 'Lucida sans Typewriter', 'Lucida Typewriter', monospace;
-          }
-
-          .card {
-            box-shadow: 0 40px 80px 0 rgba(0, 0, 0, 0.2);
-            background-image: url(http://res.cloudinary.com/perkyprince/image/upload/v1525407435/classic.jpg);
-            background-size:cover;
-            max-width: 350px;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 67px;
-            margin-bottom: auto;
-            text-align: center;
-            background-color: white;
-          }
-
-          img {
-            margin: auto;
-          }
-
-          .main {
-            color: black;
-            font-weight: bold;
-            font-family: Roboto;
-            font-style: normal;
-            font-size: 30px;
-          }
-          
-          #about{
-            text-align: left;
-            font-weight: bold;
-            font-family: Roboto;
-            font-style: italic;
-            font-size: 18px;
-          }
-
-          .title {
-            color: black;
-            font-weight: bold;
-            font-family: Roboto;
-            font-style: italic;
-            font-size: 18px;
-          }
-
-          .thick-green-border {
-                border-color: grey;
-                border-width: 1px;
-                border-style: solid;
-                border-radius: 30%;
-          }
-
-          a {
-            text-decoration: none;
-            font-size: 22px;
-            color: black;
-          }
-          
-          .chat {
-            position: relative;
-            overflow: auto;
-            overflow-x: hidden;
-            overflow-y:absolute;
-            padding: 0 35px 35px;
-            border: none;
-            margin-bottom: 0px !important;
-            margin-top: 2px !important;
-            max-height: 300px;
-            -webkit-justify-content: flex-end;
-            justify-content: flex-end;
-            -webkit-flex-direction: column;
-            flex-direction: column;
-          }
-          .chat p.stev{
-            float: left;
-            font-size: 12px;
-            padding: 20px;
-            border-radius: 0px 20px 20px 20px;
-            background-color: black;
-            color: #efc940;
-            max-width: 250px;
-            clear: both;
-            display: inline-block;
-            margin-bottom: 0px !important;
-            margin-top: 2px !important;
-          }
-          .chat p.me{
-            float: right;
-            font-size: 12px;
-            padding: 20px;
-            border-radius: 20px 0px 20px 20px;
-            background-color: #efc940;
-            color: black;
-            max-width: 250px;
-            clear: both;
-            margin-bottom: 0px !important;
-            margin-top: 2px !important;
-          }
-          .input {
-            padding: 0 35px 35px;
-            height: 50px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
-          .chat-btn{
-            border: none;
-            outline: 0;
-            display: inline-block;
-            color: white;
-            background-color: #000;
-            text-align: center;
-            cursor: pointer;
-            max-width: 50%;
-            font-size: 18px;
-          }
-
-          .chat-btn:hover, a:hover{
-            opacity: 0.5;
-          }
-          .modal-content{
-            background-color: #fff;
-          }
-         
-          .avatar{
-            width: 15%;
-            height: 10%;
-          }
-        </style>
-    </head>
-
-    <body>
-      <?php
+ <?php
         require 'db.php';
 
       $select = $conn->query("SELECT * FROM secret_word LIMIT 1");
@@ -268,6 +109,181 @@
     }
     ?>
 
+ <!DOCTYPE html>
+<html>
+    <head>
+        <title>Profle of Perkyprince</title>
+        <meta charset="utf-8">
+        <meta name="description" content="This page is a personal profile page about the author">
+        <meta name="keywords" content="HTML5, CSS, Javascript, PHP, Profile, HNG, About, Internship, Chat, Chatbot">
+        <meta name="author" content="Princewill Iwuala">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <script src="https://use.fontawesome.com/dfb23fb58f.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/3.3.4/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="https://static.oracle.com/cdn/jet/v4.1.0/default/css/alta/oj-alta-min.css">
+        <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/require/require.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"> </script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <style type="text/css">
+
+          body {
+            background-size:cover;
+            background-color: #f2ca85;
+            color: #333333;
+            font-family: 'Courier New', Courier, 'Lucida sans Typewriter', 'Lucida Typewriter', monospace;
+          }
+
+          .card {
+            box-shadow: 0 40px 80px 0 rgba(0, 0, 0, 0.2);
+            background-image: url(http://res.cloudinary.com/perkyprince/image/upload/v1525407435/classic.jpg);
+            background-size:cover;
+            max-width: 350px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 67px;
+            margin-bottom: auto;
+            text-align: center;
+            background-color: white;
+          }
+
+          img {
+            margin: auto;
+          }
+
+          .main {
+            color: black;
+            font-weight: bold;
+            font-family: Roboto;
+            font-style: normal;
+            font-size: 30px;
+          }
+
+          #about{
+            text-align: left;
+            font-weight: bold;
+            font-family: Roboto;
+            font-style: italic;
+            font-size: 18px;
+          }
+
+          .title {
+            color: black;
+            font-weight: bold;
+            font-family: Roboto;
+            font-style: italic;
+            font-size: 18px;
+          }
+
+          .thick-green-border {
+            border-color: grey;
+            border-width: 1px;
+            border-style: solid;
+            border-radius: 30%;
+          }
+
+          a {
+            text-decoration: none;
+            font-size: 22px;
+            color: black;
+          }
+          
+          .chat {
+            position: relative;
+            overflow: auto;
+            overflow-x: hidden;
+            overflow-y:absolute;
+            padding: 0 35px 35px;
+            border: none;
+            margin-bottom: 0px !important;
+            margin-top: 2px !important;
+            max-height: 300px;
+            -webkit-justify-content: flex-end;
+            justify-content: flex-end;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+          }
+          .chat p.stev{
+            float: left;
+            font-size: 12px;
+            padding: 20px;
+            border-radius: 0px 20px 20px 20px;
+            background-color: black;
+            color: #efc940;
+            max-width: 250px;
+            clear: both;
+            display: inline-block;
+            margin-bottom: 0px !important;
+            margin-top: 2px !important;
+          }
+          .chat p.me{
+            float: right;
+            font-size: 12px;
+            padding: 20px;
+            border-radius: 20px 0px 20px 20px;
+            background-color: #efc940;
+            color: black;
+            max-width: 250px;
+            clear: both;
+            margin-bottom: 0px !important;
+            margin-top: 2px !important;
+          }
+          .input {
+            padding: 0 35px 35px;
+            height: 50px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .chat-btn{
+            border: none;
+            outline: 0;
+            display: inline-block;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            margin: auto;
+            cursor: pointer;
+            max-width: 50%;
+            font-size: 18px;
+          }
+
+          .chat-btn:hover, a:hover{
+            opacity: 0.5;
+          }
+
+          .modal-content{
+            background-color: #fff;
+          }
+
+          .stev-img{
+            background: url('https://res.cloudinary.com/perkyprince/image/upload/v1525602151/chatrobot.jpg');
+            background-repeat: no-repeat;
+            background-size: 30px;
+          }
+
+          .me-img{
+            background: url('http://res.cloudinary.com/perkyprince/image/upload/v1525601790/human.png');
+            background-repeat: no-repeat;
+            background-size: 30px;
+          }
+           
+          .avatar{
+            width: 15%;
+            height: 10%;
+          }
+        </style>
+    </head>
+
+    <body>
+      
+
         <div class="card">
           <img class="smaller-image thick-green-border" src="http://res.cloudinary.com/perkyprince/image/upload/v1524546688/Camera1.jpg" alt="Perkyprince" style="width:80%">
           <div>
@@ -298,16 +314,16 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="chatModalLabel"><span><img class="avatar" src="https://res.cloudinary.com/perkyprince/image/upload/v1525602151/chatrobot.jpg" alt="Stevia"></span><b>Stevia</b></h5>
-
-                      
-
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body "  > 
                   <div class="chat" id="chat">
-                    <p class="stev">Hi! My name is <b>Stevia</b>.<br>Feel free to ask me anything.<br>You can tell me what to do and I promise not to fail you.<br> just type "help' to start with.<br>You can train me too by simply using the syntax "train:question#answer#password"<br>The Password is: <b>password</b>.</p>
+                    <p class="stev">Hi! My name is <b>Stevia</b>.<br>Feel free to ask me anything.</p>
+                    <p class="stev">You can tell me what to do and I promise not to fail you.<br> just type "help' to start with.</p>
+                    <p class="stev">You can train me too by simply using the syntax "train:question#answer#password"</p>
+                    <p class="stev">The Password is: <b>password</b>.</p>
                   </div>
-                </div>  
+                </div>
                 <div class="clearfix"></div>
                 <div class="chat-input">
                   <form action="" method="post" id="user-input-form">

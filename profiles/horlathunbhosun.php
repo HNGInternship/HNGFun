@@ -3,12 +3,14 @@
 <head>
 <title>Horlathunbhosun| Portifolio</title>
 <link rel="stylesheet" type="text/css" href="">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 
 <script
   src="http://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="js/jquery.min.js"></script>
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Lato');
@@ -161,29 +163,6 @@ p {
 </style>
 </head>
 
-<?php
-if(!defined('DB_USER')){
-  require "../../config.php";
-	// require_once ('../db.php');
-}
-try {
-  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-} catch (PDOException $pe) {
-  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
-
-global $conn;
-
-
-
-  $query = $conn->query("SELECT * FROM secret_word");
-    $result = $query->fetch(PDO::FETCH_ASSOC);
-    $secret_word = $result['secret_word'];
-
-
-    $result2 = $conn->query("SELECT * FROM interns_data WHERE  username = 'horlathunbhosun'");
-    $user = $result2->fetch(PDO::FETCH_OBJ);
-   // $user = $result2->fetch();
 
  
 
@@ -221,7 +200,7 @@ global $conn;
 <?php
                       
     if (isset($_POST['payload'])) {
-    require "../answers.php"; 
+    // require "../answers.php"; 
     $question = $_POST['payload'];
     function trainningMode($question) {
       if (strpos($question, 'train:') !== false) {
@@ -233,7 +212,7 @@ global $conn;
 	 function botReply() {
 		global $question;
 		global $conn;
-		$query1 = 'SELECT * FROM chatbot WHERE question LIKE "' . $question . '"';
+		$query1 = 'SELECT * FROM chat_bot WHERE question LIKE "' . $question . '"';
 		$chat_query1 =  $conn->query($query1);
 		$chat_query1->setFetchMode(PDO::FETCH_ASSOC);
 		$question_chat = $chat_query1->fetchAll();
@@ -306,6 +285,60 @@ global $conn;
         $c = $a / $b;
         echo $c;
     }
+
+
+    function area($radius, $pie){
+	  	$circleArea  = pow($radius, 2)*$pie;
+
+	  	return $circleArea;
+
+
+	  }
+
+ function areaofacircle($question) {
+		if (strpos($question, 'circle:') !== false) {
+		  return true;
+		}
+		return false;
+	  }
+	  if(areaofacircle($question)){      
+    $circle = str_replace("circle:", "", $question);    
+        $circle_ex = explode("*", $circle);        
+        if(!isset($circle_ex[0])){
+          echo "Invalid Input, The numbers are not up to two or invalid operator";
+        exit();
+        return;
+        }
+        if(!isset($circle_ex[1])){
+          echo "Invalid Input, The numbers are not up to two or invalid operator";
+        exit();
+        return;
+        } 
+        $num_1 = trim($circle_ex[0]);
+        $num_2 = trim($circle_ex[1]);
+
+		$area = area($num_1, $num_2);
+		return $area;
+	  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	  function multiplication_question($question) {
 		if (strpos($question, 'multiply:') !== false) {
@@ -409,7 +442,20 @@ global $conn;
 
 		$division = division($num_1, $num_2);
 		return $division;
+
 	  }
+
+	  function area($radius, $pie){
+	  	$circleArea  = pow($radius, 2)*$pie;
+
+
+
+
+	  }
+
+
+
+
 	  
 	  $answer = botReply();
 	  echo $answer;
