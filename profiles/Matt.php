@@ -165,12 +165,12 @@ else if(isset($_GET['message'])){//Normal chat
 			
 	/**************Chat Bot Styling*******************/
 			#bot-wrapper{
-				position: absolute;
+				position: fixed;
+				bottom: 0;
 				z-index: 10000;
-				left: 70%;
-				height:50vh;
-				width: 300px;
-				box-shadow: 0px 5px 5px rgba(0,0,0,0.1);
+				left: 65%;
+				width: 30%;
+				right:5%;
 			}
 			#bot-container{
 				font-size: 14px;
@@ -251,9 +251,8 @@ else if(isset($_GET['message'])){//Normal chat
 			}
 			@media all and (max-width: 768px){/*In mobile view*/
 				#bot-wrapper{
-					width: 95%;
-					left: 2.5%;
-					height:100%;
+					width: 100%;
+					max-height: 80vh;
 				}
 			}
 		</style>

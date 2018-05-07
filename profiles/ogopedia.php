@@ -1,7 +1,5 @@
 <?php 
 
-   require '../db.php';
-
 try {
     $query = "SELECT * FROM interns_data_ WHERE username='ogopedia'";
     $resultSet = $conn->query($query);
@@ -22,7 +20,7 @@ try{
 }catch (PDOException $e){
     throw $e;
 }
-$secret_word =  $result['secret_word'];
+
 
   ?>
 <!DOCTYPE html>
