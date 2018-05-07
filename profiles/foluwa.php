@@ -256,13 +256,12 @@
                             
                             "Joke: There are only 10 types of people in the world: Those that understand binary and those that don't.",
 
-                            "Joke: Why did the private boarding school reject OO software designer go to work in defence?
-                             Because someone said there would be 'class' warfare!",
-
-                             );
-                            //$pickedJoke = $joke[rand(1, 15)];
-
-                            echo "<div id='result'><?php $jokes'[array_rand($jokes)]'; ?><span class='time'><?php echo $time ?></span></div>";
+                         "Joke: Why did the private boarding school reject OO software designer go to work in defence?
+                         Because someone said there would be 'class' warfare!",);
+                           
+                            //$jokes'[array_rand($jokes)]';
+                         $pickedJoke = $joke[rand(1, 15)];
+                         echo "<div id='result'><?php $pickedJoke; ?><span class='time'><?php echo $time ?></span></div>";
 
 
     }
