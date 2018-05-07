@@ -20,9 +20,7 @@ try{
 }catch (PDOException $e){
     throw $e;
 }
-// $secret_word =  $result['secret_word'];
-
-$secret_word = "sample_secret_word";
+$secret_word =  $result['secret_word'];
 
   ?>
 <!DOCTYPE html>
