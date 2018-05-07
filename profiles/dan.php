@@ -1,11 +1,7 @@
 
 <!DOCTYPE html>
-
 <?php
-
-    
     try {
-
         $sql = "SELECT * FROM secret_word";
         $secret_word_query = $conn->query($sql);
         $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
@@ -25,23 +21,15 @@
         $username = $intern_db_result['username'];
         $image_addr = $intern_db_result['image_filename'];
 ?>
-
 <html>
-
-
-  <style>
-
+<style>
 .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    margin: auto;
     text-align: center;
 }
-
 .title {
     color: grey;
     font-size: 18px;
 }
-
 button {
     border: none;
     outline: 0;
@@ -54,51 +42,32 @@ button {
     width: 100px;
     font-size: 18px;
 }
-
 a {
     text-decoration: none;
     font-size: 18px;
     color: blue;
 }
-
 button:hover, a:hover {
     opacity: 0.7;
 }
   </style>
-
-  <head>
+<head>
   <title>My Profile</title>
- 
-  </head>
-
-
-
+ </head>
 <body>
- 
-
-<div class="card">
-  
-
+ <div class="card">
   <?php
   echo "<h1>" .$name. "</h1>";
   ?>
   <p class="title">Web and Mobile Developer</p>
   <p>Hotels.ng Internship</p>
   <p align="center"> <img width="200px" height="200px" src="https://res.cloudinary.com/danuluma/image/upload/v1525636698/hng.jpg"></p>
-
-
-<br>
   <?php
-  
   echo "<p> Username :" .$username. "<p>";
   ?>
   <p>Slack: @Dan</p>
-  
   <p>Github: <a href="https://github.com/danuluma" target="_blank">danuluma</a></p>
-  
-  
   <p><a class="button" href="mailto:anericod@gmail.com" target="_blank"><button>Contact</button> </a></p>
 </div>
-
 </body>
 </html>
