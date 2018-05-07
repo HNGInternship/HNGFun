@@ -88,12 +88,12 @@
                     color: #000830;
         }
         .time{
-            padding-top: 2px;
+              padding-top: 2px;
               opacity: 0.5;
               font-style: "Arial","sans-serif";
          }
          .col-sm-6 {
-            padding-top: 15px;
+            padding-top: 25px;
             background-color: transparent;
          }
          i {
@@ -134,7 +134,7 @@
         }
     ?>
 <div class="container">
-    <nav class="oj-web-applayout-header" role="banner" class="oj-web-applayout-header bg-dark" role="banner">
+    <nav class="oj-web-applayout-header" style="margin-top: 25px;" role="banner" class="oj-web-applayout-header bg-dark" role="banner">
         <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
           <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
             <span class="oj-icon" alt="My Logo"> </span> 
@@ -150,7 +150,7 @@
             <div class="oj-sm-12 oj-md-6 oj-flex-item">
                 <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
                     <div role="img" class="oj-flex-item oj-sm-align-items-center alignCenter">
-                        <img class="img-fluid " src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture" height="250" >
+                        <img class="img-fluid " src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture" height="250px;" >
                     </div>
                 </div>
                     <div class="my-name">
@@ -172,7 +172,7 @@
              <div style="text-align:center;color:skyblue;padding-top:30px;"><strong>Foluwa 2018 @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-6"  style="position:relative;" height="100%;">
         <div class="oj-sm-12 oj-flex-item" style"background: white;">
             <div class='chatbot-menu-header'>
                     <span>ChatBot Interface</span>
@@ -245,16 +245,16 @@
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>Training Successful!</div>";
+                        echo "<div id='result'>Trained Successfully!!!</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
                 }
             }else{
-                echo "<div id='result'>I already understand this. Teach me something new!<span class='time'><?php echo $time ?></span></div>";
+                echo "<div id='result'>I already know this. Would you teach me something else<span class='time'><?php echo $time ?></span></div>";
             }
         }else {
-            echo "<div id='result'>Invalid Password, Try Again!<span class='time'><?php echo $time ?></span></div>";
+            echo "<div id='result'>Password not Correct!, Try Again!<span class='time'><?php echo $time ?></span></div>";
 
         }
     }
@@ -266,11 +266,14 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'<span class='time'><?php echo $time ?></span></div>";
+            echo "<div id='result'>Sorry, I do not understandthat command. Train me with the command format - 'train: question # answer # password'<span class='time'><?php echo $time ?></span></div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."<span class='time'><?php echo $time ?></span></div>";
         }
+    }
+    function randomJokes () {
+
     }
     ?>
 
