@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('Africa/Lagos');
 
-$selfURL = './iambeejayayo.php';
+$selfURL = '../iambeejayayo.php';
 $password = 'password';
 
 function trainBot($command)
