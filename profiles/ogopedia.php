@@ -1,34 +1,47 @@
 <?php 
 
-  if (!defined('DB_USER')) {
-    require '../../config.php';
-    try {
-      $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
-      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
-  }
-
+require 'db.php';
 try {
-    $query = "SELECT * FROM interns_data_ WHERE username='ogopedia'";
-    $resultSet = $conn->query($query);
-    $result = $resultSet->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e){
-    throw $e;
-}
-$username = $result['username'];
-$name = $result['name'];
-$picture = $result['image_filename'];
+    $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'ogopedia'");
+    $intern_data->execute();
+    $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $intern_data->fetch();
+  
+    $secret_code = $conn->prepare("SELECT * FROM secret_word");
+    $secret_code->execute();
+    $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+    $code = $secret_code->fetch();
+    $secret_word = $code['secret_word'];
+ } catch (PDOException $e) {
+     throw $e;
+    }
+  $result = $conn->query("SELECT * from secret_word LIMIT 1");
+  $result = $result->fetch(PDO::FETCH_OBJ);
+  $secret_word = $result->secret_word;
+  $result2 = $conn->query("Select * from interns_data where username = 'ogopedia");
+  $user = $result2->fetch(PDO::FETCH_OBJ);
 
 
-try{
-    $querySecret =  "SELECT * FROM secret_word LIMIT 1";
-    $resultSet   =  $conn->query($querySecret);
-    $result  =  $resultSet->fetch(PDO::FETCH_ASSOC);
-    $secret_word =  $result['secret_word'];
-}catch (PDOException $e){
-    throw $e;
-}
+// try {
+//     $query = "SELECT * FROM interns_data_ WHERE username='ogopedia'";
+//     $resultSet = $conn->query($query);
+//     $result = $resultSet->fetch(PDO::FETCH_ASSOC);
+// } catch (PDOException $e){
+//     throw $e;
+// }
+// $username = $result['username'];
+// $name = $result['name'];
+// $picture = $result['image_filename'];
+
+
+// try{
+//     $querySecret =  "SELECT * FROM secret_word LIMIT 1";
+//     $resultSet   =  $conn->query($querySecret);
+//     $result  =  $resultSet->fetch(PDO::FETCH_ASSOC);
+//     $secret_word =  $result['secret_word'];
+// }catch (PDOException $e){
+//     throw $e;
+// }
 // $secret_word =  $result['sample_secret_word'];
 
 // $secret_word = "sample_secret_word";
