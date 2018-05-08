@@ -1,12 +1,15 @@
 <?php
-include_once "db.php";
-// include 'answers.php'
+if(!defined('DB_USER')){
 require "../../config.php";
+ try {
+     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+ } catch (PDOException $pe) {
+     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+ }
+}
+// include_once "db.php";
+// include 'answers.php';
 
-
-?>
-
-<?php
 $result = $conn->query("Select * from secret_word LIMIT 1");
 $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
@@ -15,6 +18,8 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 ///////////////////////////////////////////////////////////////
 ?>
 <?php
+$password = "password";
+// include_once 'answers.php';
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
   $mem = $_POST['question'];
   // $mem = preg_replace('([\s]+)', ' ', trim($mem)); //remove extra white space from question
@@ -29,23 +34,34 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   //$mem = preg_replace("([?.])", "", $mem);
 	$arr = explode(" ", $mem);
 	if($arr[0] == "train:"){
+    // if () {
+    //   // code...
+    // }
 		unset($arr[0]);
 		$q = implode(" ",$arr);
 		$queries = explode("#", $q);
 		$quest = $queries[0];
 		$ans = $queries[1];
-		 $sql = "INSERT INTO nbot(question, answer) VALUES ('" . $quest . "', '" . $ans . "')";
+    if($queries[2] != $password){
+       header('Content-type: text/json');
+      echo json_encode([
+        'result' => "You are not authorized to train me, please enter the correct password"
+      ]);
+      return;
+    }else {
+		 $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $quest . "', '" . $ans . "')";
 		 $conn->exec($sql);
      header('Content-type: text/json');
      $arrayName = array('result' => 'Thanks for uprading my knowledge.... You can now test me');
      echo json_encode($arrayName);
      return;
     }
+  }
     //else {
-   //   $arrayName = array('result' => 'Oh my Error')
+   //   $arrayName = array('result' => 'Oh my Error');
    //   header('Content-type: text/json');
    //   echo json_encode($arrayName);
-   //   return
+   //   return;
    // }
     else {
       $mem = "%$mem%";
@@ -59,29 +75,47 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $index = rand(0, count($rows)-1);
         $row = $rows[$index];
         $answer = $row['answer'];
+/////////////////////////////////////////////////////////////////////////////////////////////
+$parentheses = stripos($answer, "((");
+if($parentheses === false){// if answer is not to call a function
+  echo json_encode([
+    'result' => $answer
+  ]);
+  return;
+}else{//otherwise call a function. but get the function name first
+    $parentheses_closing = stripos($answer, "))");
+    if($parentheses_closing !== false){
+        $function_name = substr($answer, $parentheses+2, $parentheses_closing-$index_of_parentheses-2);
+        $function_name = trim($function_name);
+        if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
+          header('Content-type: text/json');
+           echo json_encode([
+            'result' => "The function name should not contain white spaces"
+          ]);
+          return;
         // $open_par = stripos($answer, "((");
         // $closing_par = stripos($answer, "))");
         ////////////////////////////////////////////////////////////////////////////////////
         $index_of_parentheses = stripos($answer, "((");
-        if($index_of_parentheses === false){// if answer is not to call a function
+        if($index_of_parentheses === false){
           echo json_encode([
             'answer' => $answer
           ]);
           return;
-        }else{//otherwise call a function. but get the function name first
+        }else{
             $index_of_parentheses_closing = stripos($answer, "))");
             if($index_of_parentheses_closing !== false){
                 $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
                 $function_name = trim($function_name);
-                if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
+                if(stripos($function_name, ' ') !== false){
                    echo json_encode([
-                    'answer' => "The function name should not contain white spaces"
+                    'answer' => "Ohh Sorry!! The function name should not contain white spaces"
                   ]);
                   return;
                 }
               if(!function_exists($function_name)){
                 echo json_encode([
-                  'answer' => "I am sorry but I could not find that function"
+                  'answer' => "I am sorry but I could not find that function, please try again"
                 ]);
               }else{
                 echo json_encode([
@@ -91,29 +125,43 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               return;
             }
         }
-        }else{
-
-        echo json_encode([
-        'answer' => "I am sorry, I cannot answer your question now. You could offer to train me."
-        ]);
-        return;
-        }
-        }
-        /////////////////////////////////////////////////////////////////////////////////////
-
+      if(!function_exists($function_name)){
         header('Content-type: text/json');
-          echo json_encode([
-            'result' => $answer
-          ]);
-          return;
-        }else {
-          header('Content-type: text/json');
-            echo json_encode([
-              'result' => "I'm sorry, i didn't understand you, why don't you train me HUMMAN? type: train: question # answer to train me"
-            ]);
-            return;
-        }
+        echo json_encode([
+          'result' => "I am sorry but I could not find that function"
+        // 'answer' => "I am sorry, I cannot answer your question now. Why don't you train me. Type: train: question # answer #password to train me"
+        ]);
+      }else{
+        header('Content-type: text/json');
+        echo json_encode([
+          'result' => str_replace("(($function_name))", $function_name(), $answer)
+        ]);
+      }
+      return;
+    }
 }
+}else{
+  header('Content-type: text/json');
+echo json_encode([
+'result' => "I am sorry, I cannot answer your question now. You could offer to train me."
+]);
+return;
+}
+}
+////////////////////////////////////////////////////////////////////////////////////////////
+//         header('Content-type: text/json');
+//           echo json_encode([
+//             'result' => $answer
+//           ]);
+//           return;
+//         }else {
+//           header('Content-type: text/json');
+//             echo json_encode([
+//               'result' => "I'm sorry, i didn't understand you, why don't you train me HUMMAN? type: train: question # answer to train me"
+//             ]);
+//             return;
+//         }
+// }
 }
 
 
@@ -159,8 +207,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   }
 	</style>
 </head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- <script src="jquery-3.3.1.min.js"></script> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<script src="jquery-3.3.1.min.js"></script>
 <body>
 <div class="container">
 <div class="row">
@@ -223,7 +271,7 @@ $(document).ready(function(){
 		// 		alert('error occured   ' + error);
 		// 		console.log(error);
 		// 	}
-		// })
+		// } )
 		$.ajax({
 			url: "Roqak.php",
 			type: "post",

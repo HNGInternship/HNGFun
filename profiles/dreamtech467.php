@@ -44,24 +44,6 @@
   
 		//chatBot
 	if($_SERVER['REQUEST_METHOD'] === "POST"){
-		
-		if (file_exists('../../answers.php')) {
-			require_once '../../answers.php';
-		} else if (file_exists('../answers.php')) {
-			require_once '../answers.php';
-		} elseif (file_exists('answers.php')) {
-			require_once 'answers.php';
-		}
-		
-		// sending a reply to bot will call this function Abaraham
-        function botReply($answer){
-            echo json_encode([
-				'status' => 1,
-                'answer' => $answer
-                ]);
-            return;	
-        }
-
 	
 		function stripquestion($question){
 			// remove whitespace first
@@ -126,28 +108,6 @@
 				$answer_stmt->bindParam(':question', $strippedquestion);
 				$answer_stmt->execute();
 				$results = $answer_stmt->fetch();
-				
-				
-				
-				//get version Abraham
-				//global $conn;
-				switch($question){
-					case 'bot-v':
-					case 'bot-V':
-					case 'Bot-v':
-					case 'Bot-V':
-					botReply('Version 2.2');
-				}
-				
-				switch(true){
-					case "capital:" === substr($question, 0, 29):
-					case "Capital:" === substr($question, 0, 29):
-					botReply(getCapital(substr($question, 30)));
-				}
-
-				
-				
-				
 				if(($results)!=null){
 					$answer = $results['answer'];
 					echo json_encode([
@@ -167,9 +127,6 @@
 					
 				}
 			}
-
-
-
 		}
 }
 ?>

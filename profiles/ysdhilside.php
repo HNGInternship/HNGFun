@@ -33,83 +33,34 @@
 
   <body>
 
-    <!-- Navigation -->
-    <!---
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top" id="mainNav">
-      
-        <a class="navbar-brand" href="/index.php">HNG FUN</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          Menu
-          <i class="fa fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="../index.php">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../learn.php">Learn</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link" href="../listing.php">Interns</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../admin.php">Register</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../testimonies.php">Testimonies</a>
-            </li>
-          </ul>
-      </div>
-    </nav>
-    -->
-
-    <div class="container" style="margin-top:30px">
-            
-            <div class="card">
-                <img class="card-img-top" alt="Card header image" src="<?php echo $image ?>">
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $name ?></h5>
-                    <p class="card-text">HNG - Intern, Web developer.</p>
-                    <p class="card-text"><?php echo $username ?></p>
-                </div>
-            
-                <div class="card-body">
-                    <a href="https://facebook.com/yusufsd" class="btn btn-primary">Facebook</a>
-                    <a href="mailto:ysdhilside@gmail.com" class="btn btn-danger">Email</a>
-                </div>
-            </div>
-            
-        </div>
-        <!---
-
+<div class="container">
+    <br/><br/><br/><center>
     <div class="container">
-    	
-    		
-    			<div class="thumbnail">
-    				<img src= "<?php echo $image ?>" class="curve"/>
-    				<div>
-    					<h3> <?php echo $name ?></h3>
-    				</div>
+        <div class="row"> 
+            <div class="col-lg-4"></div> 
 
-    				<div>
-    					<h3> <?php echo $username ?></h3>
-    				</div>
+            <div class="col-lg-4">  
+            <div class="card" style="height: 600px">
+                <img class="card-img-top" alt="yusufsd header image" src="<?php echo $image ?>">
+                <div class="card-body">
 
-    				<div>
-    					<h3 style="display: none"> <?php echo $secret_word ?></h3>
-    				</div>
-    			
-    		    </div>
+
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item"> <h5><?php echo $name ?></h5></li>
+                <li class="list-group-item">HNG - Intern, Web developer.</li>
+                <li class="list-group-item">Username: @<?php echo $username ?></li>
+                <li class="list-group-item" style="padding:10px;"><a href="https://facebook.com/yusufsd" class="btn btn-primary">Facebook</a>
+                    <a href="mailto:ysdhilside@gmail.com" class="btn btn-danger">Email</a></li>
+              </ul>
+                </div>
             
-    	
-    </div>
+            </div>
+        </div>
+        <div class="col-lg-4"></div>
+        </div>
 
     
-    	-->
-    
-
+</div>
 
 	
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
