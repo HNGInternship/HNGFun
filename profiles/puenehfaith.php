@@ -190,7 +190,35 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
   </div>
     Copyright &copy; 2018 Pueneh Faith. All rights reserved.<br/>
   </div>
-</div>
+</div>div id='bodybox'>
+  <div id='chatborder'>
+    <p id="chatlog7" class="chatlog">&nbsp;</p>
+    <p id="chatlog6" class="chatlog">&nbsp;</p>
+    <p id="chatlog5" class="chatlog">&nbsp;</p>
+    <p id="chatlog4" class="chatlog">&nbsp;</p>
+    <p id="chatlog3" class="chatlog">&nbsp;</p>
+    <p id="chatlog2" class="chatlog">&nbsp;</p>
+    <p id="chatlog1" class="chatlog">&nbsp;</p>
+    <input type="hello" name="Jayo" id="chatbox" placeholder="Heloo am Jayo! can you train me?." onfocus="placeHolder()">
+  </div>
+  <br>
+  <br>
+  <h2>jayo</h2>
+  <p>i love making beads but i don't know alot about making one can you teach me how to make a beautiful neck piece? to train me use the keyword "train" your question #your answer #password.</p>
+  <ul style="list-style-type:disc">
+    <li>hello.</li>
+    <li>hi dear you are welcome.</li>
+  </ul>
+  <br><pre><code>if (lastUserMessage === 'hi'){
+  botMessage = 'hello!';
+}</pre></code>
+  <pre><code>if (lastUserMessage === 'what is your name'){
+  botMessage = 'My name is' Jayo;
+}</pre></code><pre><b>User:</b> I love beadmaking
+<b>Chatbot:</b> Tell me more about bead making.</pre>
+
+
+
 
 </body>
 </html>
