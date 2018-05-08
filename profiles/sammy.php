@@ -89,7 +89,7 @@
 <style>
         body {
             background-size: cover;
-            margin-top: 20px;
+            margin-top: 40px;
             font:normal 12px/1.6em Arial, Helvetica, sans-serif
             
         }
@@ -493,6 +493,37 @@
                     </div>
                     
                 </footer>
+                <!--New Bot -->
+                    </div>
+                            <div class="bot panel panel-default">
+                                <div class="panel-heading top-bar">TundeChat</div>
+                            <div class="panel-body">
+                            <div class="oj-sm-12 oj-flex-item">
+                                <div class="body1">
+                                    <div class="chat-output" id="chat-output">
+                                        <div class="user-message">
+                                            <div class="message">Hey there! it's TundeBot at your service. </div>
+                                            <div class="message">To teach me new stuff, use this format - <span style="color: yellow">'train: question # answer # password'.</span> </div>
+                                        
+                                        <div class="message">To learn more about me, simply type - <span style="color: orange">'aboutbot'.</span></div>
+                                      
+                                        </div>
+                                       
+                                    </div>
+
+                                    <div class="chat-input">
+                                        <form action="" method="post" id="user-input-form">
+                                            <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                <!--End -->
+
                 <div  class="con">
                          <!-- <div><button class="botButton" onclick="myChatBot()">Chat</button></div> -->
                         <div id="myBot" class="container-fluid">
