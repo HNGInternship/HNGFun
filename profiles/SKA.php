@@ -9,13 +9,20 @@
 	// echo htmlentities($row['_message']);
 	
 	
-	$mysqli = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-	if (mysqli_connect_errno($mysqli)) {
-		echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	}
+	// $mysqli = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+	// if (mysqli_connect_errno($mysqli)) {
+		// echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	// }	
 
-	$res = mysqli_query($mysqli, "SELECT * from interns_data");
-	$row = mysqli_fetch_assoc($res);
+	// $res = mysqli_query($mysqli, "SELECT * from interns_data");
+	// $row = mysqli_fetch_assoc($res);
+	
+	$conn = new PDO('mysql:host='.DB_HOST.';dbname='.DB_DATABASE, DB_USER, DB_PASSWORD);
+	$sql = "SELECT * from interns_data";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $row = $q->fetch();
+	
 	$name = $row['name'];
 	$username = $row['username'];
 	$imageUrl = $row['image_filename'];
