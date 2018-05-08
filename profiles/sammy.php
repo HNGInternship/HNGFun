@@ -89,7 +89,7 @@
 <style>
         body {
             background-size: cover;
-            margin: 0;
+            margin-top: 20px;
             font:normal 12px/1.6em Arial, Helvetica, sans-serif
             
         }
