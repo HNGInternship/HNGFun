@@ -91,14 +91,14 @@
             margin: 0 0 20px 0;
         }
         .chat-output .user-message .message {
-            background: #0fb0df;
+            background: #0fb0df; /*#68676c*/
             color: white;
         }
         .chat-output .bot-message {
             text-align: right;
         }
         .chat-output .bot-message .message {
-            background: #eee;
+            background: #68676c;
         }
         .chat-output .message {
             display: inline-block;
@@ -178,7 +178,7 @@
             </div>
             <div class="chat-output" id="chat-output" data-spy="scroll" height="70%;">
                     <div class="user-message">
-                        <div class="message">Hi there! I'm Zoe!</br>To train me, use this format - 'train: question # answer # password'. </br> type - 'aboutbot'.
+                        <div class="message">Hi there! I'm Zoe a bot!</br>To train me, use this format - 'train: question # answer # password'.<br/> Use 'aboutbot' to learn more about me.
                         </div>
                     </div>
             </div>
@@ -261,7 +261,7 @@
     }*/
 
     function aboutbot() {
-        echo "<div id='result'>Hi am ZOE version 1.0</div>";
+        echo "<div id='mydisplay'>Hi am ZOE version 1.0</div>";
     }
     function train($input) {
         $input = explode('#', $input);
@@ -286,16 +286,16 @@
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>Trained Successfully</div>";
+                        echo "<div id='mydisplay'>Trained Successfully</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
                 }
             }else{
-                echo "<div id='result'>I already understand this. Teach me something new!<span class='time'><?php echo $time ?></span></div>";
+                echo "<div id='mydisplay'>I already understand this. Teach me something new!<span class='time'><?php echo $time ?></span></div>";
             }
         }else {
-            echo "<div id='result'>Invalid Password, Try Again!<span class='time'><?php echo $time ?></span></div>";
+            echo "<div id='mydisplay'>Invalid Password, Try Again!<span class='time'><?php echo $time ?></span></div>";
 
         }
     }
@@ -307,10 +307,10 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'<span class='time'><?php echo $time ?></span></div>";
+            echo "<div id='mydisplay'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'<span class='time'><?php echo $time ?></span></div>";
         }else {
             $rand_keys = array_rand($data);
-            echo "<div id='result'>". $data[$rand_keys]['answer'] ."<span class='time'><?php echo $time ?></span></div>";
+            echo "<div id='mydisplay'>". $data[$rand_keys]['answer'] ."<span class='time'><?php echo $time ?></span></div>";
         }
     }
     ?>
@@ -332,9 +332,9 @@
             type: 'POST',
             data:  'user-input=' + message,
             success: function(response) {
-                var result = $($.parseHTML(response)).find("#result").text();
+                var mydisplay = $($.parseHTML(response)).find("#mydisplay").text();
                 setTimeout(function() {
-                    outputArea.append("<div class='user-message'><div class='message'>" + result + "<p class='time'><?php echo $time ?></p></div></div>");
+                    outputArea.append("<div class='user-message'><div class='message'>" + mydisplay + "<p class='time'><?php echo $time ?></p></div></div>");
                     $('#chat-output').animate({
                         scrollTop: $('#chat-output').get(0).scrollHeight
                     }, 1500);
