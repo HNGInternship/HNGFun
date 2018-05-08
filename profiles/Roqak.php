@@ -19,7 +19,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 <?php
 $password = "password";
-// include_once 'answers.php';
+include_once 'answers.php';
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
   $mem = $_POST['question'];
   // $mem = preg_replace('([\s]+)', ' ', trim($mem)); //remove extra white space from question
@@ -274,7 +274,7 @@ $(document).ready(function(){
 		// 	}
 		// } )
 		$.ajax({
-			url: "Roqak.php",
+			url: "/profiles/Roqak.php",
 			type: "post",
 			data: {question: question},
 			dataType: "json",
