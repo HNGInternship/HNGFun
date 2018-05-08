@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 
-	include 'config.php';
+	// include 'config.php';
 	
 	// $pdo = new PDO('mysql:host=db;dbname=hng_fun', 'ska', 'ska');
 	// $statement = $pdo->query("SELECT 'Hello, dear MySQL user!' AS _message FROM DUAL");
@@ -27,24 +27,14 @@
     $data = $q->fetch();
 	$secret_word = $data['secret_word'];
 	
-	$sql = "SELECT * from interns_data where username = 'SKA'";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $row = $q->fetch();
+	// $sql = "SELECT * from interns_data";
+    // $q = $conn->query($sql);
+    // $q->setFetchMode(PDO::FETCH_ASSOC);
+    // $row = $q->fetch();
 	
-	$name = $row['name'];
-	$username = $row['username'];
-	$imageUrl = $row['image_filename'];
-
-	// $mysqli = new mysqli("db", "ska", "ska", "hng_fun");
-	// if ($mysqli->connect_errno) {
-		// echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-	// }
-
-	// $res = $mysqli->query("SELECT 'choices to please everybody.' AS _msg FROM DUAL");
-	// $row = $res->fetch_assoc();
-	// echo $row['_msg'];
-
+	// $name = $row['name'];
+	// $username = $row['username'];
+	// $imageUrl = $row['image_filename'];
 	
 ?>
 <html>
@@ -75,11 +65,11 @@
 			<br/>
 			<div class="flex">
 				<div class="label">Name:</div>
-				<div class="value"><? echo $name; ?></div>
+				<div class="value">SAKA</div>
 			</div>
 			<div class="flex">
-				<div class="label">Username:</div>
-				<div class="value"><? echo $username; ?></div>
+				<div class="label">Secret Word:</div>
+				<div class="value"><? echo $secret_word; ?></div>
 			</div>
 		</div>        		
         <div id="footer">
