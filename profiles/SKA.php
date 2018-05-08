@@ -16,8 +16,14 @@
 
 	// $res = mysqli_query($mysqli, "SELECT * from interns_data");
 	// $row = mysqli_fetch_assoc($res);
-	
-	$conn = new PDO('mysql:host='.DB_HOST.';dbname='.DB_DATABASE, DB_USER, DB_PASSWORD);
+	$error = false;
+	$conn = null;
+	try {
+		$conn = new PDO('mysql:host='.DB_HOST.';dbname='.DB_DATABASE, DB_USER, DB_PASSWORD);
+	} catch (PDOException $e) {
+		print "Error!: " . $e->getMessage() . "<br/>";
+		$error = true;
+	}
 	
 	
 	$secret_word = "sample_secret_word";
@@ -67,11 +73,11 @@
 				<div class="label">Name(Dan):</div>
 				<div class="value"><? echo $name; ?></div>
 			</div>
-			<div class="flex">
-				<div class="label">Username2:</div>
-				<div class="value"><? echo $username; ?></div>
-			</div>
 		</div>        		
+			<div class="flex">
+				<div class="label">Connection:</div>
+				<div class="value"><? if($error) echo 'Error...'; ?></div>
+			</div>
         <div id="footer">
             
         </div>        
