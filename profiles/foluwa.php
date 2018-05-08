@@ -26,11 +26,57 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
       <style type="text/css">
+      /* MAIN STLES */
+       body{
+            padding-top: 50px;
+            margin: 0px;
+            height: 100%;
+            background-color: #87ceeb;
+            background: linear-gradient(to bottom right, #DDA0DD,  #87ceeb);
+            color: #4A4646;
+            overflow-x: hidden;
+            font-family: "Segoe UI","Arial","sans-serif";
+        }
+        i {
+            padding-left: 5px;
+         }
+        img {
+            margin: auto;
+            display: block;
+            max-height: 250px;
+            max-width: 250px;
+            border-radius: 50%;
+            box-shadow: 0px 0px 2px 1px grey;
+          
+        }
         span {
             display: inline-block;
             vertical-align: middle;
             line-height: normal;
         }
+        
+          .chatbot-menu-header {
+                    background-color: #4ae1aa;
+                    padding: 7px 20px;
+                    margin: 0px 0 0 0px;
+                    color: #FFF;
+        }
+        .my-name {
+                    position: relative;
+                    line-height: normal;
+                    font-size: 32px;
+                    text-align: center;
+                    color: #000830;
+        }
+        .time{
+              padding-top: 2px;
+              opacity: 0.5;
+              font-style: "Arial","sans-serif";
+         }
+         .col-sm-6 {
+            padding-top: 25px;
+            background-color: transparent;
+         }
         
         .chat-output {
             flex: 1;
@@ -70,53 +116,6 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             padding: 8px;
-        }
-
-
-/* MAIN STLES */
-          .chatbot-menu-header {
-                    background-color: #4ae1aa;
-                    padding: 7px 20px;
-                    margin: 0px 0 0 0px;
-                    color: #FFF;
-        }
-        .my-name {
-                    position: relative;
-                    line-height: normal;
-                    font-size: 32px;
-                    text-align: center;
-                    color: #000830;
-        }
-        .time{
-              padding-top: 2px;
-              opacity: 0.5;
-              font-style: "Arial","sans-serif";
-         }
-         .col-sm-6 {
-            padding-top: 25px;
-            background-color: transparent;
-         }
-         i {
-            padding-left: 5px;
-         }
-        img {
-            margin: auto;
-            display: block;
-            max-height: 250px;
-            max-width: 250px;
-            border-radius: 50%;
-            box-shadow: 0px 0px 2px 1px grey;
-          
-        }
-         body{
-            padding-top: 50px;
-            margin: 0px;
-            height: 100%;
-            background-color: #87ceeb;
-            background: linear-gradient(to bottom right, #DDA0DD,  #87ceeb);
-            color: #4A4646;
-            overflow-x: hidden;
-            font-family: "Segoe UI","Arial","sans-serif";
         }
     </style>
 </head>
@@ -204,9 +203,9 @@
     }
     $secret_word = $data['secret_word'];
 
+// checking server request method
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST['user-input'];
-      //  $data = preg_replace('/\s+/', '', $data);
         $temp = explode(':', $data);
         $temp2 = preg_replace('/\s+/', '', $temp[0]);
         
@@ -214,38 +213,52 @@
             train($temp[1]);
         }elseif($temp2 === 'aboutbot') {
             aboutbot();
-        }elseif($temp2 === 'jokes') {
-            randomJokes();
         }else{
             getAnswer($temp[0]);
         }
     }
 
-
+/*
     function randomJokes() {
-      /*  $jokes = array(
+        $jokes = array(
                 "Joke: Why do programmers always get Christmas and Halloween mixed up?Because DEC 25 = OCT31",         
                  "Joke: A system programmer came home from work almost at dawn and told his wife enthusiastically:Tonight I have installed a new release of MVS/ESA together with VM/CMS and CICS/VS G.O.O.D answered his wife.",
                   "Joke: - 'Have you heard about the object-oriented way to become wealthy?'
                    - 'No...'
                    - 'Inheritance.'",  
                    "Joke: Once a programmer drowned in the sea. Many Marines where at that time on the beach, but the programmer was shouting 'F1 F1' and nobody understood it.", 
-                   "Joke: Why all Pascal programmers ask to live in Atlantis? Because it is below C level.",);*/
+                   "Joke: Why all Pascal programmers ask to live in Atlantis? Because it is below C level.",
+                     "Joke: Unix is user friendly. It's just very particular about who it's friends are.",
+
+                            "Joke: All programmers are playwrights and all computers are lousy actors.",
+
+                            "Joke: The programmer to his son: 'Here, I brought you a new basketball'.
+                              Thank you, daddy, but 'where is the users guide?'",
+
+                            "Joke: The problem with physicists is that they tend to cheat in order to get results.
+                              The problem with mathematicians is that they tend to work on toy problems in order to get results.
+                              The problem with program verifiers is that they tend to cheat at toy problems in order to get results.",
+
+                            "Joke: Have you heard about the new Cray super computer? It's so fast, it executes an infinite loop in 6 seconds.",
+
+                            "Joke: Windows 95 is a 32 bit extension for a 16 bit patch to an 8 bit operating system originally coded for a 4 bit microprocessor by a 2 bit company that can't stand 1 bit of competition.",
+
+                            "Joke: Don't get sucked in by comments--only debug code.",
+                   );
                            
                   //$jokes'[array_rand($jokes)]';
-                  
-            $a=array("red","green","blue","yellow","brown");
-            $random_keys=array_rand($a,3);
-            echo "<div id='result'><?php $a[$random_keys[0]]; ?><span class='time'><?php echo $time ?></span></div>";
-
-               //  echo "<div id='result'><?php $display; ?><span class='time'><?php echo $time ?></span></div>";
+                  $random_keys=array_rand($jokes,3);
+                  $display = $jokes[$random_keys[0]];
+                 echo "<div id='result'><?php $display; ?><span class='time'><?php echo $time ?></span></div>";
 
                         /*$a=array("red","green","blue","yellow","brown");
                         $random_keys=array_rand($a,3);
-                        echo $a[$random_keys[0]];*/
+                        echo $a[$random_keys[0]];
 
-                        
-    }
+                        $a=array("red","green","blue","yellow","brown");
+                        $random_keys=array_rand($a,3);
+                    echo $a[$random_keys[0]];
+    }*/
 
     function aboutbot() {
         echo "<div id='result'>Hi am ZOE version 1.0</div>";
