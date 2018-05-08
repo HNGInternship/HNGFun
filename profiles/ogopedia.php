@@ -1,31 +1,14 @@
-<?php 
-
-try {
-    $query = "SELECT * FROM interns_data_ WHERE username='ogopedia'";
-    $resultSet = $conn->query($query);
-    $result = $resultSet->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e){
-    throw $e;
-}
-$username = $result['username'];
-$name = $result['name'];
-$picture = $result['image_filename'];
-
-
-try{
-    $querySecret =  "SELECT * FROM secret_word LIMIT 1";
-    $resultSet   =  $conn->query($querySecret);
-    $result  =  $resultSet->fetch(PDO::FETCH_ASSOC);
-    $secret_word =  $result['secret_word'];
-}catch (PDOException $e){
-    throw $e;
-}
-
-
-  ?>
+<?php
+$result = $conn->query("SELECT * from secret_word LIMIT 1");
+$result = $result->fetch(PDO::FETCH_OBJ);
+$secret_word = $result->secret_word;
+$result2 = $conn->query("Select * from interns_data where username = 'ogopedia'");
+$user = $result2->fetch(PDO::FETCH_OBJ);
+?>
 <!DOCTYPE html>
 <html>
 <head>
+<!-- <img src="../img/post-bg.jpg"> -->
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<title>Ogopedia's Profile</title>
