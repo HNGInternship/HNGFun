@@ -87,35 +87,35 @@
 
 </script>
 <style>
-body {
+        body {
             background-size: cover;
             margin: 0;
             font:normal 12px/1.6em Arial, Helvetica, sans-serif
             
-}
+        }
 
-#body {
+        #body {
             padding-top: 1px;
             height: 900px;
             width: 800px;
             margin: 0 auto;
-}
+        }
 
-.carousel-inner>.item>img,
-.carousel-inner>.item>a>img {
+        .carousel-inner>.item>img,
+        .carousel-inner>.item>a>img {
             width: 70%;
             margin: auto;
-}
+        }
 
-.carousel-inner {
+        .carousel-inner {
             text-align: center;
-}
+        }
 
-.carousel .item>p {
+        .carousel .item>p {
             display: inline-block;
-}
+        }
 
-.name {
+        .name {
             color: rgb(0, 0, 0);
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             float: right;
@@ -126,16 +126,16 @@ body {
             font-style: normal;
             letter-spacing: 1px;
             font-size: 13px;
-}
+        }
 
-#center {
+        #center {
             position: absolute;
             top: 15%;
             float: left;
             padding-left: 20px;
-}
+        }
 
-p {
+        p {
             color: rgb(0, 0, 0);
             font-family: 'Sans-Serif', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             float: center;
@@ -145,58 +145,58 @@ p {
             padding: 5px 10px;
             background-color: #f7f7f7;
             box-shadow: -2px -2px 9px #f7f7f7b9;
-}
+        }
 
-#artcenter {
+        #artcenter {
             position: absolute;
             display: inline-block;
             top: 340%;
             left: 52%;
             width: 500px;
             transform: translateX(-50%) translateY(-50%);
-}
+        }
 
-.right {
+        .right {
             float: right;
             margin-left: 30px;
-}
+        }
 
-.background {
+        .background {
             width: 800px;
-}
+        }
 
        
 
-#layer-sub {
+        #layer-sub {
             float: right;
             margin-right: 3px;
             margin-left: 3px;
 
-}
+        }
 
-#nav a:visited,
-#nav a:link 
+        #nav a:visited,
+        #nav a:link 
         {
             text-decoration: none;
             color: #ffffff;
-}
+        }
 
-#nav a:hover {
+        #nav a:hover {
             text-decoration: none;
             color: #ffffff;
-}
+        }
 
-#nav a {
+        #nav a {
             margin: 0 5px;
             font-size: 15px;
-}
+        }
 
-#nav a:hover {
+        #nav a:hover {
             text-decoration: underline;
             color: #ffffff;
-}
+        }
 
-#nav {
+        #nav {
             color: snow;
             text-align: center;
             background-image: url("https://res.cloudinary.com/dyuuulmg0/image/upload/v1523622023/sammm.jpg");
@@ -207,20 +207,20 @@ p {
             position: relative;
             letter-spacing: 1.5px;
             
-}
+        }
 
-#bg {
+        #bg {
             height: 20px;
-}
+        }
 
-#link {
+        #link {
             float: right;
             padding-right: 20px;
             padding-top: 15px;
 
-}
+        }
 
-#footer {
+        #footer {
             transform: translateX(0%) translateY(430px);
             clear: both;
             background: #f7f7f7;
@@ -228,28 +228,28 @@ p {
             padding-bottom: 10px;
             border-top: 1px solid #f0e9eb;
             text-align: center;
-}
+        }
 
-#like {
+        #like {
             transform: translateX(-0.1%) translateY(199px);
             margin: 20px;
             width: 230px;
             padding: 5px 10px;
             background-color: #f7f7f7;
             box-shadow: -2px -2px 9px #f7f7f7b9;
-}
+        }
 
-h5 {
+        h5 {
             color: rgb(6, 65, 124);
             font-size: 20px;
-}
+        }
 
-h4 {
+        h4 {
             color: rgb(105, 15, 19);
             font-size: 20px;
-}
+        }
 
-#tod {
+        #tod {
             padding-top: 1px;
             border-left: 1px solid #5e5c5c46;
             border-right: 1px solid #5e5c5c46;
@@ -258,20 +258,22 @@ h4 {
             height: 900px;
             width: 802px;
             
-}
+        }
 
-#foot-container {
+        #foot-container {
             padding-top: 59px;
-}
+        }
 
-#cent {
+        #cent {
             float:left;
             margin-right: 50px;
             text-align: center;
             align-content: flex-start;
             transform: translateX(-10px) translateY(10px);
-}
+        }
 
+    
+}
 
 .bot{
     height:250px;
@@ -308,17 +310,18 @@ h4 {
 }
 
 
+
+
 .con {
             transform: translateX(800px) translateY(-420%);
             clear: both;
-            height: -100px;
+            height: 50px;
             width: 300px;
-            top: 70%;
             position: fixed;
             text-align: center;
 }
 
-.chat-output {
+      .chat-output {
             flex: 1;
             padding: 10px;
             display: flex;
@@ -327,99 +330,58 @@ h4 {
             font-size: 12px;
             overflow-y: scroll;
             max-height: 500px;
-}
-.chat-output > div {
+        }
+        .chat-output > div {
             margin: 0 0 20px 0;
-}
-.chat-output .user-message .message {
+        }
+        .chat-output .user-message .message {
             background: purple;
             color: white;
-}
+        }
         .chat-output .bot-message {
             text-align: right;
-}
-.chat-output .bot-message .message {
+        }
+        .chat-output .bot-message .message {
             background: #eee;
-}
-.chat-output .message {
+        }
+        .chat-output .message {
             display: inline-block;
             padding: 12px 20px;
-            margin: 3px;
             border-radius: 10px;
-}
-.chat-input {
-            margin-top: 50px;
+        }
+        .chat-input {
+            margin-top: 80px;
             padding: 10px;
             background: #eee;
             font-size:14px;       
             border: 1px solid #ccc;
             border-bottom: 0;
             border-radius: 5%;
-}
-.chat-input .user-input {
+        }
+     .chat-input .user-input {
             width: 98%;
             border: 1px solid #ccc;
             border-radius: 20px;
             padding: 9px;
             margin-right:10px;
 
-}
+        }
 
-.message {
+        .message {
             text-align: justify;
             background-color: purple;
-}
+        }
 
-.text {
+        .text {
             background: -webkit-linear-gradient(0deg, #FF0F00, rgba(17, 26, 240, 0.55), #EC0F13);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-}
+        }
 .inc {
     color: cyan;
 }
 
-.under {
-            position: relative;
-            /*top:450px;*/
-            max-height: 100px;
-            width: 100%;
-            font-family: "Alegreya";
-            line-height: normal;
-            font-size: 32px;
-            text-align: center;
-            color: #000830;
-}
-.under1 {
-            position: relative;
-            /*top:500px;*/
-            height: 40px;
-            width: 100%;
-            font-family: "Alegreya";
-            line-height: normal;
-            font-size: 32px;
-            text-align: center;
-            color: #000830;
-}
-.under2 {
-            position: relative;
-            /*top:540px;*/
-            height: 49.71px;
-            width: 100%;
-            font-family: "Alegreya";
-            line-height: normal;
-            font-size: 32px;
-            text-align: center;
-            color: #000830;
-}
-
-span {
-            display: inline-block;
-            vertical-align: middle;
-            line-height: normal;
-}
-
-</style>
+    </style>
 </head>
 
 <body>
@@ -544,8 +506,8 @@ span {
                                     </div>
 
                                     <div class="chat-input">
-                                        <form action="" method="post" id="user-input-form" >
-                                            <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Type something here">
+                                        <form action="" method="post" id="  user-input-form">
+                                            <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
                                         </form>
                                     </div>
                                 </div>
@@ -587,7 +549,7 @@ span {
     }
 
     function aboutbot() {
-        echo "<div id='result'>SammyBot v1.0.1- I am smart, but if you think you can make me smarter then train me</div>";
+        echo "<div id='result'>SammyBot v1.0.1- I am smart, but if you think you can make me smarter then <em>train<em> me</div>";
     }
     function train($input) {
         $input = explode('#', $input);
@@ -634,7 +596,7 @@ span {
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Oh waoh!, I'm not familiar with that command. You can train me though by simply using the format - 'train: question # answer # password'</div>";
+            echo "<div id='result'>Oh waoh!, </br> I'm not familiar with that command. You can train me though by simply using the format - 'train: question # answer # password'</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
@@ -642,14 +604,14 @@ span {
     }
     ?>
 
-</div>
+   </div>
   
 
-<div id="cent">
+    <div id="cent">
 
-<?php
+        <?php
         
-global $conn;
+     global $conn;
 
 try {
     $sql2 = 'SELECT * FROM interns_data WHERE username="melody"';
@@ -658,11 +620,9 @@ try {
     $my_data = $q2->fetch();
 } catch (PDOException $e) {
     throw $e;
-}   
-
-?>
-    
-</div>
+}        
+        ?>
+    </div>
 
 </body>
 
