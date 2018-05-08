@@ -56,10 +56,10 @@
         }
         
           .chatbot-menu-header {
-                    background-color: #4ae1aa;
-                    padding: 7px 20px;
-                    margin: 0px 0 0 0px;
-                    color: #FFF;
+             background-color: #4ae1aa;
+             padding: 7px 20px;
+             margin: 0px 0 0 0px;
+             color: #FFF;
         }
         .my-name {
                     position: relative;
@@ -119,6 +119,7 @@
         }
     </style>
 </head>
+
 <body>
     <?php
         global $conn;
@@ -185,7 +186,7 @@
       </div>
                 <div class="chat-input">
                     <form action="" method="post" id="user-input-form" style="position:absolute;bottom:0;background-color:#896bad;">
-                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
+                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Your Text goes here...">
                         <button>Send</button>
                     </form>
                 </div>
