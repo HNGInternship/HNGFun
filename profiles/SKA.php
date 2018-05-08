@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <?php
 
-	include '../db.php';
+	include($_SERVER["DOCUMENT_ROOT"] . "/db.php");
+
 	
 	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
 	
