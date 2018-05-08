@@ -29,18 +29,22 @@
 	$secret_word = "sample_secret_word";
 	$sql = "SELECT * FROM secret_word LIMIT 1";
     $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-	$secret_word = $data['secret_word'];
+    // $q->setFetchMode(PDO::FETCH_ASSOC);
+    // $data = $q->fetch();
+	// $secret_word = $data['secret_word'];
+		
+    $data = $q->fetch(PDO::FETCH_OBJ);
+	$secret_word = $data->secret_word;
 	
 	$sql2 = "SELECT * from interns_data WHERE username = 'dan'";
     $q2 = $conn->query($sql2);
-    $q2->setFetchMode(PDO::FETCH_ASSOC);
-    $row = $q2->fetch();
-	
-	$name = $row['name'];
-	$username = $row['username'];
-	$imageUrl = $row['image_filename'];
+    // $q2->setFetchMode(PDO::FETCH_ASSOC);
+    // $row = $q2->fetch();
+
+    $row = $q2->fetch(PDO::FETCH_OBJ);
+	$name = $row->name;
+	$username = $row->username;
+	$imageUrl = $row->image_filename;
 	
 ?>
 <html>
