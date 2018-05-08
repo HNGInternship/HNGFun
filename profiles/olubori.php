@@ -92,11 +92,11 @@
 	  .suggestion {
 	  	position: absolute;
 	  	bottom: 30px;
-	  	background: white;
+	  	background: rgba(255, 255, 255, 0.5);
 	  	width: 100%;
 	  	margin-bottom: 0px;
 	  	list-style: none;
-	  	padding: 2rem 0 2rem 0;
+	  	padding: 1rem 0 1rem 0;
 	  }
 
 	  .suggestion li {
@@ -217,15 +217,12 @@
   			<h4>HNG assist</h4>
   		</header>
   		<main >
-  			<p v-for="msg in messages" :class="{ 'bot-msg': n%2==0, 'human-msg': n%2!=0}">These are text {{n}}</p>
+  			<p v-for="msg in messages" :class="msg.human ? 'human-msg': 'bot-msg'">{{msg.text}}</p>
   		</main>
   		<ul class="suggestion" v-show="suggestedCommands" ref="list">
-		  <li v-for="(command, index) in suggestedCommands" :key="command.key" class="my-2 px-2">
-			<span class="title">#{{command.key}}</span> <span class="format">{{command.format}}</span>
-			<span class="description d-block">{{command.description}}</span>	
-		  </li>
+  			<command-item v-for="(command, index) in suggestedCommands" :command="command" :key="command.key" :on-item-click="handleCommandClick"></command-item>
   		</ul>
-  		<input type="text" v-model="humanMessage" placeholder="Type # followed by command you want to give e.g. #train" id="human-text" />
+  		<input type="text" v-model="humanMessage" placeholder="Type # followed by command you want to give e.g. #train" id="human-text" v-on:keyup.enter="handleSubmit" />
   	</div>
   </div>
   
@@ -244,8 +241,14 @@
 	               {key: 'aboutbot', description: 'This command is get the current time of day in any of the world location', format: ''}
 	              ],
         humanMessage: '',
-        messages: []
-	  },
+        choice: '',
+        messages: [
+                    {
+                    	human: false, 
+                    	text: `Hi, I am Bori Bot, I can do many things. To get list of commands you can use on me just type # in the textbox`
+                    }
+                  ]
+      },
 	  computed: {
 	  	suggestedCommands: function(){
 	  	  let command;
@@ -265,11 +268,62 @@
           return suggestion;
 	  	}
 	  },
-	  watch: {
-	  	suggestedCommands: function(currentVal){
-	  		this.$refs["list"].focus();
+	  methods: {
+	  	handleCommandClick(item){
+	  	  let c = this.commands.find(function(cmd){
+	  	  	        return cmd.key === item
+	  	          });
+	  	  this.choice = c.key;
+	  	  this.humanMessage = '#' + c.key + ' ' + c.format;
+	  	},
+	  	handleSubmit: async function(){
+          this.messages.push({human: true, text: this.humanMessage});
+          let answer = await this.getAnswer();
+          this.humanMessage = '';
+          this.messages.push({human: false, text: answer});
+	  	},
+	  	getAnswer: function(){
+	  		switch(this.choice){
+	  		  case 'aboutbot':
+	  		    return 'Bori Bot Version 1.0, I tell day of the week from date, and I can tell time in any location too.';
+	  		  case 'dayOfWeek':
+	  		    return this.getDayOfWeek();
+	  		  case 'timeofday':
+	  		    return this.getTimeOfDay();
+	  		  case 'chitchat':
+	  		    return this.doChat();
+	  		  case 'train':
+	  		    return this.doTrainBot();
+	  		  default:
+	  		    return "I can't help with that please, give me a correct command";
+	  		}
+	  	},
+	  	getDayOfWeek: function(){
+	  	  return 'This is the day of the week';
+	  	},
+	  	getTimeOfDay: function(){
+	  	  return  'This is the time at soso';
+	  	},
+	  	doChat: function(){
+	  	  return 'You want to chat';
+	  	},
+	  	doTrainBot: function(){
+	  	  return 'You can train me';
 	  	}
 	  }
+	})
+
+	Vue.component('command-item', {
+	  props: ['command', 'onItemClick'],
+	  data: function () {
+	    return {
+	      count: 0
+	    }
+	  },
+	  template: `<li class="my-2 px-2" @click="onItemClick(command.key)">
+			       <span class="title">#{{command.key}}</span> <span class="format">{{command.format}}</span>
+			       <span class="description d-block">{{command.description}}</span>	
+		        </li>`
 	})
 </script>
 	<!--<header class="bg-grey flex">
