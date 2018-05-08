@@ -17,7 +17,7 @@
 	// $res = mysqli_query($mysqli, "SELECT * from interns_data");
 	// $row = mysqli_fetch_assoc($res);
 	
-	// $conn = new PDO('mysql:host='.DB_HOST.';dbname='.DB_DATABASE, DB_USER, DB_PASSWORD);
+	$conn = new PDO('mysql:host='.DB_HOST.';dbname='.DB_DATABASE, DB_USER, DB_PASSWORD);
 	
 	
 	$secret_word = "sample_secret_word";
@@ -68,7 +68,7 @@
 				<div class="value"><? echo $name; ?></div>
 			</div>
 			<div class="flex">
-				<div class="label">Username:</div>
+				<div class="label">Username2:</div>
 				<div class="value"><? echo $username; ?></div>
 			</div>
 		</div>        		
