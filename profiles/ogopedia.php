@@ -243,6 +243,15 @@ p {
     .container {
     max-width: 100% !important;
 }
+
+#mainNav .navbar-toggler {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 1);
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgb(255, 255, 255);
+}
 	</style>
 </head>
 <body class="site-bg">
