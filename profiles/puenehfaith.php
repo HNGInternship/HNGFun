@@ -77,7 +77,8 @@ h3{
 .fa-instagram {
   background: #125688;
   color: white;
-} #bodybox {
+}
+#bodybox {
   margin: auto;
   max-width: 550px;
   font: 15px arial, sans-serif;
@@ -94,28 +95,27 @@ h3{
 
 #chatborder {
   border-style: solid;
-  background-color: #f6f9f6;
+  background-color: #D2691E;
   border-width: 3px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
   margin-right: 20px;
   padding-top: 10px;
   padding-bottom: 15px;
-  padding-right: 20px;
-  padding-left: 15px;
-  border-radius: 15px;
+  padding-right: 10px;
+  padding-left: 5px;
+  border-radius:15px;
 }
 
 .chatlog {
-   font: 15px arial, sans-serif;
+   font: 10px arial, sans-serif;
 }
-
 #chatbox {
-  font: 17px arial, sans-serif;
-  height: 22px;
+  font: 10px arial, sans-serif;
+  height: 15px;
   width: 100%;
-}
+
 
 h2 {
   margin: auto;
@@ -123,7 +123,7 @@ h2 {
 
 pre {
   background-color: #f0f0f0;
-  margin-left: 20px;
+  margin-left: 15px;
 }     
 </style>
 </head>
@@ -140,8 +140,7 @@ $select = $conn->query("SELECT * FROM secret_word LIMIT 1");
 
 $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfaith'");
     $result2->setFetchMode(PDO::FETCH_ASSOC);
-    $user = $result2->fetch();
-
+    $user = $result2->fetch()
 
 ?>
     
