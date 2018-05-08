@@ -98,7 +98,7 @@
             text-align: right;
         }
         .chat-output .bot-message .message {
-            background: #68676c;
+            background: #4ae1aa; 
         }
         .chat-output .message {
             display: inline-block;
