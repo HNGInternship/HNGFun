@@ -200,9 +200,14 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
     <li>hello.</li>
     <li>hi dear you are welcome.</li>
   </ul>
-  <br>
+  <br><pre><code>if (lastUserMessage === 'hi'){
+  botMessage = 'hello!';
+}</pre></code
+  <pre><code>if (lastUserMessage === 'what is your name'){
+  botMessage = 'My name is' Jayo;
+}</pre></code>
    <input type="hello" name="Jayo" id="chatbox" placeholder="" onfocus="placeHolder()">
-  </div>
+   </div>
   
 </body>
 </html>
