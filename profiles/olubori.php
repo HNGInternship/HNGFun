@@ -175,7 +175,7 @@
   		<main >
   			<p v-for="n in 20" :class="{ 'bot-msg': n%2==0, 'human-msg': n%2!=0}">These are text {{n}}</p>
   		</main>
-  		<input type="text" @onchange="suggestCommand" id="human-text" />
+  		<input type="text" v-model="humanMessage" placeholder="Type # followed by command you want to give e.g. #train" id="human-text" />
   	</div>
   </div>
   
@@ -186,11 +186,20 @@
 	var app = new Vue({
 	  el: '#app',
 	  data: {
-	    commands: ['train', 'timeofday', 'chitchat', 'dayOfWeek']
+	    commands: ['train', 'timeofday', 'chitchat', 'dayOfWeek'],
+        humanMessage: '',
+	  },
+	  watch: {
+        humanMessage(currentValue){
+          if(currentValue.startsWith('#') && currentValue.length > 1){
+          	this.doSuggestCommand();
+          }
+        }
 	  },
 	  methods: {
-	  	suggestCommand(){
-	  		console.log('I was changed');
+	  	doSuggestCommand(){
+	  	  let command  = this.humanMessage.substr(1);
+	  	  console.log('I am suggesting ' + command)
 	  	}
 	  }
 	})
