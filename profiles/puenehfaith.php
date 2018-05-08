@@ -20,13 +20,14 @@ try {
   throw $e;
 }    
 try {
-  $sql = "SELECT * FROM interns_data WHERE `username` = 'juliet' LIMIT 1";
+  $sql = "SELECT * FROM interns_data WHERE `username` = 'puenehfaith' LIMIT 1";
   $q = $conn->query($sql);
   $q->setFetchMode(PDO::FETCH_ASSOC);
   $my_data = $q->fetch();
 } catch (PDOException $e) {
   throw $e;
 }
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
