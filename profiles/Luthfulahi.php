@@ -39,6 +39,15 @@
 
       $question = $_POST['que'];
 
+      if (strtolower(trim($question)) === "aboutbot") {
+            echo json_encode([
+               'status' => 1,
+                 'answer' => "LuthfulahiBot V 1.1.0"
+             ]);
+
+        return;
+      };
+
      // check if the string begins with train: string
    $checking = stripos($question, "train:");
 
