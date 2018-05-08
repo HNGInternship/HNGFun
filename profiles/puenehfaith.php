@@ -192,7 +192,7 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
 </div>
     <div id='bodybox'>
   <div id='chatborder'>
-    <p id="chatlog7" class="chatlog">&nbsp;</p>
+    <h1 id="chatlog7" class="chatlog">HELLO AM JAYO;</h1>
     <p id="chatlog6" class="chatlog">&nbsp;</p>
     <p id="chatlog5" class="chatlog">&nbsp;</p>
     <p id="chatlog4" class="chatlog">&nbsp;</p>
