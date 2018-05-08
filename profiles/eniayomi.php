@@ -279,14 +279,14 @@ if (!defined('DB_USER')){
   $secret_word = $result->secret_word;
    $result2 = $conn->query("Select * from interns_data where username = 'eniayomi'");
    $user = $result2->fetch(PDO::FETCH_OBJ);
-   $yy='<img  src="';
-   $img=$user->image_filename;
-   $yz= '" style="width:240px;height:240px;border-radius: 50%;">';  echo $user->name.' Eniayomi';
+    echo $user->name.' Eniayomi';
  echo'<br><c style="color: #FBF7F7;">WELCOME TO MY PROFILE<br>';
  echo $user->username;
  echo'</c><br><br><center><div id="mid">';
- echo "$yy$img$yz";
   ?>
+    
+    <img src="http://res.cloudinary.com/eniayomi/image/upload/v1524007065/pe.png" style="width:240px;height:240px;border-radius: 50%;">
+    
     		 <div id="data">
 
 		 	>  STUDENT<br>
