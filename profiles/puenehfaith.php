@@ -78,6 +78,53 @@ h3{
   background: #125688;
   color: white;
 }
+#bodybox {
+  margin: auto;
+  max-width: 550px;
+  font: 15px arial, sans-serif;
+  background-color: white;
+  border-style: solid;
+  border-width: 1px;
+  padding-top: 20px;
+  padding-bottom: 25px;
+  padding-right: 25px;
+  padding-left: 25px;
+  box-shadow: 5px 5px 5px grey;
+  border-radius: 15px;
+}
+
+#chatborder {
+  border-style: solid;
+  background-color: #D2691E;
+  border-width: 3px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  padding-right: 10px;
+  padding-left: 5px;
+  border-radius:15px;
+}
+
+.chatlog {
+   font: 10px arial, sans-serif;
+}
+#chatbox {
+  font: 10px arial, sans-serif;
+  height: 15px;
+  width: 100%;
+
+
+h2 {
+  margin: auto;
+}
+
+pre {
+  background-color: #f0f0f0;
+  margin-left: 15px;
+}     
 </style>
 </head>
 
@@ -93,8 +140,7 @@ $select = $conn->query("SELECT * FROM secret_word LIMIT 1");
 
 $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfaith'");
     $result2->setFetchMode(PDO::FETCH_ASSOC);
-    $user = $result2->fetch();
-
+    $user = $result2->fetch()
 
 ?>
     
@@ -143,7 +189,32 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
   </div>
     Copyright &copy; 2018 Pueneh Faith. All rights reserved.<br/>
   </div>
-</div>
+</div>div id='bodybox'>
+  <div id='chatborder'>
+    <p id="chatlog7" class="chatlog">&nbsp;</p>
+    <p id="chatlog6" class="chatlog">&nbsp;</p>
+    <p id="chatlog5" class="chatlog">&nbsp;</p>
+    <p id="chatlog4" class="chatlog">&nbsp;</p>
+    <p id="chatlog3" class="chatlog">&nbsp;</p>
+    <p id="chatlog2" class="chatlog">&nbsp;</p>
+    <p id="chatlog1" class="chatlog">&nbsp;</p>
+    <input type="hello" name="Jayo" id="chatbox" placeholder="Heloo am Jayo! can you train me?." onfocus="placeHolder()">
+  </div>
+  <br>
+  <br>
+  <h2>jayo</h2>
+  <p>i love making beads but i don't know alot about making one can you teach me how to make a beautiful neck piece? to train me use the keyword "train" your question #your answer #password.</p>
+  <ul style="list-style-type:disc">
+    <li>hello.</li>
+    <li>hi dear you are welcome.</li>
+  </ul>
+  <br><pre><code>if (lastUserMessage === 'hi'){
+  botMessage = 'hello!';
+}</pre></code>
+  <pre><code>if (lastUserMessage === 'what is your name'){
+  botMessage = 'My name is' Jayo;
+}</pre></code><pre><b>User:</b> I love beadmaking
+<b>Chatbot:</b> Tell me more about bead making.</pre>
 
 </body>
 </html>
