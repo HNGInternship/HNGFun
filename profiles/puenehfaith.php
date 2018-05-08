@@ -27,7 +27,6 @@ try {
 } catch (PDOException $e) {
   throw $e;
 }
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
