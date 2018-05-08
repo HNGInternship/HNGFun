@@ -203,6 +203,7 @@
     }
     $secret_word = $data['secret_word'];
 
+// checking server request method
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST['user-input'];
         $temp = explode(':', $data);
@@ -212,8 +213,6 @@
             train($temp[1]);
         }elseif($temp2 === 'aboutbot') {
             aboutbot();
-        }elseif($temp2 === 'jokes') {
-            randomJokes();
         }else{
             getAnswer($temp[0]);
         }
