@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
    
 <script>
@@ -488,7 +489,7 @@
                 </div>
                 <div  class="con">
                          <!-- <div><button class="botButton" onclick="myChatBot()">Chat</button></div> -->
-                        <div id="myBot" class="container-fluid">
+                        <div id="myBot">
                           <div class="bot panel panel-default">
                                 <div class="panel-heading top-bar">SammyBot</div>
                                 <div class="panel-body">
