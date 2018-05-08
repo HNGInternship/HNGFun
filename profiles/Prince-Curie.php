@@ -89,7 +89,7 @@ width: 30%;
  //charset=utf8', 'root', ''); 
 // $pdo->setAttribute(PDO::ATTR_ERRMODE, 
  PDO::ERRMODE_EXCEPTION); 
- $sql = "SELECT * FROM interns_data WHERE username = 'prince-curie' LIMIT 1"; 
+ $sql = "SELECT * FROM interns_data WHERE username = 'Prince-Curie' LIMIT 1"; 
  $result = $pdo->query($sql);
  foreach ($result as $row) {
  # code...
