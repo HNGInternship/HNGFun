@@ -122,7 +122,7 @@ h2 {
 }
 
 pre {
-  background-color: #f0f0f0;
+  background-color: #ffffff;
   margin-left: 15px;
 }     
 </style>
@@ -192,21 +192,25 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
 </div>
     <div id='bodybox'>
   <div id='chatborder'>
+      <h2>JAYO</h2>
     <h1 id="chatlog7" class="chatlog">HELLO AM JAYO can you train me?</h1>
-    <br>
-  <h2>jayo</h2>
-  <p>i love making beads but i don't know alot about making one can you teach me how to make a beautiful neck piece? to train me use the keyword "train" your question #your answer #password.</p>
-  <ul style="list-style-type:disc">
-    <li>hello.</li>
-    <li>hi dear you are welcome.</li>
-  </ul>
-  <br><pre><code>if (lastUserMessage === 'hi'){
-  botMessage = 'hello!';
-}</pre></code
+<pre><code>if (lastUserMessage === 'hi'){
+  JAYO = 'hello!';
+ }</pre></code
+ 
   <pre><code>if (lastUserMessage === 'what is your name'){
-  botMessage = 'My name is' Jayo;
+  Jayo = 'My name is' Jayo;
+}</pre></code
+
+ <pre><code>if (lastUserMessage === 'how may i help you'){
+  Jayo = 'i love making beads but i don't know alot about making one can you teach me how to make a beautiful neck piece? to train me use the keyword "train" your question #your answer #password.</p>
+ }</pre></code
+      
+  <pre><code>if (lastUserMessage === 'okay i will help you'){
+  Jayo = 'Thank you for wanting to help;
 }</pre></code>
-   <input type="hello" name="Jayo" id="chatbox" placeholder="" onfocus="placeHolder()">
+        
+  <input type="hello" name="Jayo" id="chatbox" placeholder="" onfocus="placeHolder()">
    </div>
   
 </body>
