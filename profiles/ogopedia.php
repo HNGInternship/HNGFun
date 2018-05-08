@@ -14,6 +14,64 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 	<title>Ogopedia's Profile</title>
 	<link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
 	<style>
+
+    /* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+/*html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}*/
+
+/*Reset*/
+
+.bg-primary {
+    background: transparent !important;
+}
+
+footer {
+    display: none !important;
+}
 		@import url(https://fonts.googleapis.com/css?family=Montserrat:400,500,300,200,700);
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,200,700);
 
@@ -83,7 +141,8 @@ img.ogo {
 
 .apa-otun {
     float: right;
-    padding-top: 100px;
+    /*padding-top: 100px;*/
+    padding-top: 20%;
 }
 
 .apa-otun ul {
@@ -104,11 +163,11 @@ img.social {
 }
 
 
-
+/*
 h1, p {
     padding: 0;
     margin: 0;
-}
+}*/
 
 h1 {
     font-size: 70px;
@@ -116,13 +175,19 @@ h1 {
     font-weight: 500;
     max-width: 100px;
     padding-top: 40%;
+    font-family: 'Montserrat';
+    color: #e9eaee;
 }
 
 p {
     font-family: 'Roboto';
     font-size: 50px;
-    font-weight: 100;
+    /*font-weight: 100;*/
+    line-height: normal;
+    margin: 0;
+    font-weight: 200;
 }
+
 
 @media(max-width: 999px) {
     .apa-osi {
@@ -176,6 +241,24 @@ p {
     color: #b3b8ce;
     transition: color 300ms;
 	}
+
+    .container {
+        max-width: 100% !important;
+    }
+
+    @media (min-width: 1200px){}
+    .container {
+    max-width: 100% !important;
+}
+
+#mainNav .navbar-toggler {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 1);
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgb(255, 255, 255);
+}
 	</style>
 </head>
 <body class="site-bg">
@@ -185,10 +268,10 @@ p {
 	</div>
 	<div id="site-main">
 		<header>
-				<a href="./"><img class="logo" src="../img/logo.png" alt="logo"></a>
+<!-- 				<a href="./"><img class="logo" src="../img/logo.png" alt="logo"></a>
 			<div class="menu">
 				<a href="#."><img class="menu" src="https://res.cloudinary.com/ogopedia/image/upload/v1525665779/menu.png" alt="menu"></a>
-			</div>
+			</div> -->
 		</header>
 
 		<div class="apa-osi">
