@@ -1,6 +1,6 @@
 <?php
 	
-		require '../../db.php';
+		require '../db.php';
 
 		//$username = "dev_geeks";
 		//Fetching from your database table.
