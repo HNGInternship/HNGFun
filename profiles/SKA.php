@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 
-	include '../config.php';
+	require '../db.php';
 	
 	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
 	
@@ -49,7 +49,7 @@
 			</div>
 			<br/>
 			<div class="flex">
-				<div class="label">Name:</div>
+				<div class="label">Name (SKA):</div>
 				<div class="value"><? echo $name; ?></div>
 			</div>
 			<div class="flex">
