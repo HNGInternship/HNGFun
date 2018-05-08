@@ -89,8 +89,8 @@
 <style>
         body {
             background-size: cover;
-            margin-top: 20px;
-            font:normal 12px/1.6em Arial, Helvetica, sans-serif
+            margin-top: 50px;
+            font:normal 12px/1.6em Arial, Helvetica, 'San serif';
             
         }
 
@@ -350,7 +350,7 @@
             border-radius: 10px;
         }
         .chat-input {
-            margin-top: 80px;
+            margin-top: 60px;
             padding: 10px;
             background: #eee;
             font-size:14px;       
@@ -486,13 +486,6 @@
                     </div>
         
                 </div>
-        
-                <footer id="foot-container">
-                    <div id="footer">
-                        Copyright &copy; 2018 Achem Samuel. All rights reserved.
-                    </div>
-                    
-                </footer>
                 <div  class="con">
                          <!-- <div><button class="botButton" onclick="myChatBot()">Chat</button></div> -->
                         <div id="myBot" class="container-fluid">
@@ -511,8 +504,7 @@
                                     
                                     </div>
 
-                                    <div style="text-align: right; color: white;                                        
-                                                " id="result">
+                                    <divs>
                                         
                                     </div>
 
@@ -527,6 +519,14 @@
                           </div>
                         </div>
                     </div>
+        
+                <footer id="foot-container">
+                    <div id="footer">
+                        Copyright &copy; 2018 Achem Samuel. All rights reserved.
+                    </div>
+                    
+                </footer>
+                
             </div>
         </div>
 
