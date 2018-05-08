@@ -56,7 +56,10 @@
 	  	display: flex;
 	  	flex-direction: column;
 	  	margin-top: 35px;
-	  	height: 87%;
+	  	position: absolute;
+	  	bottom: 30px;
+	  	height: 90%;
+	  	width: 100%;
 	
 	  }
 
