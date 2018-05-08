@@ -95,7 +95,7 @@ h3{
 
 #chatborder {
   border-style: solid;
-  background-color: #D2691E;
+  background-color: #0000ff;
   border-width: 3px;
   margin-top: 10px;
   margin-bottom: 10px;
