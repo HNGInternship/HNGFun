@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 
-	// include 'config.php';
+	include 'config.php';
 	
 	// $pdo = new PDO('mysql:host=db;dbname=hng_fun', 'ska', 'ska');
 	// $statement = $pdo->query("SELECT 'Hello, dear MySQL user!' AS _message FROM DUAL");
@@ -27,14 +27,14 @@
     $data = $q->fetch();
 	$secret_word = $data['secret_word'];
 	
-	// $sql = "SELECT * from interns_data";
-    // $q = $conn->query($sql);
-    // $q->setFetchMode(PDO::FETCH_ASSOC);
-    // $row = $q->fetch();
+	$sql = "SELECT * from interns_data";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $row = $q->fetch();
 	
-	// $name = $row['name'];
-	// $username = $row['username'];
-	// $imageUrl = $row['image_filename'];
+	$name = $row['name'];
+	$username = $row['username'];
+	$imageUrl = $row['image_filename'];
 	
 ?>
 <html>
@@ -68,8 +68,8 @@
 				<div class="value">SAKA</div>
 			</div>
 			<div class="flex">
-				<div class="label">Secret Word:</div>
-				<div class="value"><? echo $secret_word; ?></div>
+				<div class="label">Username:</div>
+				<div class="value"><? echo $username; ?></div>
 			</div>
 		</div>        		
         <div id="footer">
