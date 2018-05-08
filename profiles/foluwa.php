@@ -91,14 +91,14 @@
             margin: 0 0 20px 0;
         }
         .chat-output .user-message .message {
-            background: #68676c;
+            background: #0fb0df; /*#68676c*/
             color: white;
         }
         .chat-output .bot-message {
             text-align: right;
         }
         .chat-output .bot-message .message {
-            background: #eee;
+            background: #68676c;
         }
         .chat-output .message {
             display: inline-block;
@@ -178,7 +178,7 @@
             </div>
             <div class="chat-output" id="chat-output" data-spy="scroll" height="70%;">
                     <div class="user-message">
-                        <div class="message">Hi there! I'm Zoe!</br>To train me, use this format - 'train: question # answer # password'. </br> type - 'aboutbot'.
+                        <div class="message">Hi there! I'm Zoe a bot!</br>To train me, use this format - 'train: question # answer # password'.<br/> Use 'aboutbot' to learn more about me.
                         </div>
                     </div>
             </div>
