@@ -245,7 +245,7 @@ return;
 				</ul>
 			<footer>
 				<form class="padedd" methood="post" id="formm">
-	    <input type="text" placeholder="message" name="message"><button id="send" name="send">Send</button>
+	    <input type="text" placeholder="message" name="question"><button id="send" name="send">Send</button>
 			</form>
 			</footer>
 	    </div>
@@ -258,7 +258,7 @@ $(document).ready(function(){
 	var Form = $('#formm');
 	Form.submit(function(e){
 		e.preventDefault();
-		var MBox = $('input[name=message]');
+		var MBox = $('input[name=question]');
 		var question = MBox.val();
 		$("#chats").append("<li>" + question + "</li>");
 
