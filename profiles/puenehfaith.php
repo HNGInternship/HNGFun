@@ -217,8 +217,5 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
 }</pre></code><pre><b>User:</b> I love beadmaking
 <b>Chatbot:</b> Tell me more about bead making.</pre>
 
-
-
-
 </body>
 </html>
