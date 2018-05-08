@@ -17,25 +17,24 @@
 	// $res = mysqli_query($mysqli, "SELECT * from interns_data");
 	// $row = mysqli_fetch_assoc($res);
 	
-	$conn = new PDO('mysql:host='.DB_HOST.';dbname='.DB_DATABASE, DB_USER, DB_PASSWORD);
-	$sql = "SELECT * from interns_data";
+	// $conn = new PDO('mysql:host='.DB_HOST.';dbname='.DB_DATABASE, DB_USER, DB_PASSWORD);
+	
+	
+	$secret_word = "sample_secret_word";
+	$sql = "SELECT * FROM secret_word LIMIT 1";
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
-    $row = $q->fetch();
+    $data = $q->fetch();
+	$secret_word = $data['secret_word'];
+	
+	$sql2 = "SELECT * from interns_data WHERE username = 'SKA'";
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $row = $q2->fetch();
 	
 	$name = $row['name'];
 	$username = $row['username'];
 	$imageUrl = $row['image_filename'];
-
-	// $mysqli = new mysqli("db", "ska", "ska", "hng_fun");
-	// if ($mysqli->connect_errno) {
-		// echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-	// }
-
-	// $res = $mysqli->query("SELECT 'choices to please everybody.' AS _msg FROM DUAL");
-	// $row = $res->fetch_assoc();
-	// echo $row['_msg'];
-
 	
 ?>
 <html>
@@ -69,7 +68,7 @@
 				<div class="value"><? echo $name; ?></div>
 			</div>
 			<div class="flex">
-				<div class="label">Username:</div>
+				<div class="label">Username2:</div>
 				<div class="value"><? echo $username; ?></div>
 			</div>
 		</div>        		
