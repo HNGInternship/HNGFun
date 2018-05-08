@@ -189,7 +189,8 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
   </div>
     Copyright &copy; 2018 Pueneh Faith. All rights reserved.<br/>
   </div>
-</div>div id='bodybox'>
+</div>
+    <div id='bodybox'>
   <div id='chatborder'>
     <p id="chatlog7" class="chatlog">&nbsp;</p>
     <p id="chatlog6" class="chatlog">&nbsp;</p>
