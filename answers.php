@@ -18,48 +18,7 @@ function get_time(){
 /////// If you want to touch something, 
 ///////      don't touch this side  ///////////////// 
 
-function getBotInfo() {
-    $bot_version="1.0.1";
-    return "Heyo! I'm Vectormike's smiggle. I'm version " .$bot_version;
-}
-function getBotManual() {
-    return  "Send 'location' to know your location. \n
-    Send 'time' to get the time. \n
-    Send 'about' to know me. \n
-    Send 'help' to see this again. \n
-    To train me, send in this format: \n
-    'train: question # answer # password'";
-}
-function getAge() {
-    $bot_version="1.0.1";
-    return "Vectormike is just 20 years old. As for me, I have got no idea of age. Still " .$bot_version;
-}
 
-function get_client_ip() {
-    $ipaddress = '';
-    if (isset($_SERVER['HTTP_CLIENT_IP']))
-        $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-    else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-        $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    else if(isset($_SERVER['HTTP_X_FORWARDED']))
-        $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-    else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
-        $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-    else if(isset($_SERVER['HTTP_FORWARDED']))
-        $ipaddress = $_SERVER['HTTP_FORWARDED'];
-    else if(isset($_SERVER['REMOTE_ADDR']))
-        $ipaddress = $_SERVER['REMOTE_ADDR'];
-    else
-        $ipaddress = 'UNKNOWN';
-    return $ipaddress;
-
-    $PublicIP = get_client_ip();
-    $json  = file_get_contents("https://freegeoip.net/json/$PublicIP");
-    $json  =  json_decode($json ,true);
-    $country =  $json['country_name'];
-    $region= $json['region_name'];
-    $city = $json['city'];
-}
 
 
 ///////////////////////////////////////////////////////////////////
@@ -824,6 +783,8 @@ function
  
  return $zodiac; 
 } 
+<<<<<<< HEAD
+=======
 
 /*************************************************************************************************
 ****************************END OF KINGSLEY67'S HOROSCOPE FUNCTION*********************************
@@ -1811,9 +1772,34 @@ function getLatestNews() {
 //}
 
 
+/*******************************************************************************************
+****************************START OF KINGSLEY67'S HOROSCOPE FUNCTION*********************************
+*/
+function
+ zodiac($birthdate) {
+ 
+   $zodiac = '';     
+   list ($year, $month, $day) = explode ('-', $birthdate); 
+         
+   if ( ( $month == 3 && $day > 20 ) || ( $month == 4 && $day < 20 ) ) { $zodiac = "Aries"; } 
+   elseif ( ( $month == 4 && $day > 19 ) || ( $month == 5 && $day < 21 ) ) { $zodiac = "Taurus"; } 
+   elseif ( ( $month == 5 && $day > 20 ) || ( $month == 6 && $day < 21 ) ) { $zodiac = "Gemini"; } 
+   elseif ( ( $month == 6 && $day > 20 ) || ( $month == 7 && $day < 23 ) ) { $zodiac = "Cancer"; } 
+   elseif ( ( $month == 7 && $day > 22 ) || ( $month == 8 && $day < 23 ) ) { $zodiac = "Leo"; } 
+   elseif ( ( $month == 8 && $day > 22 ) || ( $month == 9 && $day < 23 ) ) { $zodiac = "Virgo"; } 
+   elseif ( ( $month == 9 && $day > 22 ) || ( $month == 10 && $day < 23 ) ) { $zodiac = "Libra"; } 
+   elseif ( ( $month == 10 && $day > 22 ) || ( $month == 11 && $day < 22 ) ) { $zodiac = "Scorpio"; } 
+   elseif ( ( $month == 11 && $day > 21 ) || ( $month == 12 && $day < 22 ) ) { $zodiac = "Sagittarius"; } 
+   elseif ( ( $month == 12 && $day > 21 ) || ( $month == 1 && $day < 20 ) ) { $zodiac = "Capricorn"; } 
+   elseif ( ( $month == 1 && $day > 19 ) || ( $month == 2 && $day < 19 ) ) { $zodiac = "Aquarius"; } 
+   elseif ( ( $month == 2 && $day > 18 ) || ( $month == 3 && $day < 21 ) ) { $zodiac = "Pisces"; } 
+ 
+ return $zodiac; 
+} 
 
+/*************************************************************************************************
+****************************END OF KINGSLEY67'S HOROSCOPE FUNCTION*********************************
+******************************88PLEASE DO NOT EDIT OR REMOVE**************************************/
 
-
->>>>>>> 0d13d9356270629f92591e13d07e709318f450cc
 
 ?>

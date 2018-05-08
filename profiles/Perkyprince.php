@@ -27,6 +27,7 @@
             color: #333333;
             font-family: 'Courier New', Courier, 'Lucida sans Typewriter', 'Lucida Typewriter', monospace;
           }
+
           .card {
             box-shadow: 0 40px 80px 0 rgba(0, 0, 0, 0.2);
             background-image: url(http://res.cloudinary.com/perkyprince/image/upload/v1525407435/classic.jpg);
@@ -39,6 +40,7 @@
             text-align: center;
             background-color: white;
           }
+
           img {
             margin: auto;
           }
@@ -50,6 +52,7 @@
             font-style: normal;
             font-size: 30px;
           }
+          
           #about{
             text-align: left;
             font-weight: bold;
@@ -78,100 +81,81 @@
             font-size: 22px;
             color: black;
           }
-
-        
-        
-
-
-
-           .chat {
-      position: relative;
-      overflow: auto;
-      overflow-x: hidden;
-      overflow-y:absolute;
-      padding: 0 35px 35px;
-      border: none;
-        margin-bottom: 0px !important;
-        margin-top: 2px !important;
-      max-height: 300px;
-      -webkit-justify-content: flex-end;
-      justify-content: flex-end;
-      -webkit-flex-direction: column;
-      flex-direction: column;
-    }
-    .chat p.stev{
-      float: left;
-        font-size: 12px;
-        padding: 10px;
-        border-radius: 0px 10px 10px 10px;
-        background-color: black;
-        color: #efc940;
-        max-width: 250px;
-        clear: both;
-        display: inline-block;
-        margin-bottom: 0px !important;
-        margin-top: 2px !important;
-    }
-    .chat p.me{
-      float: right;
-        font-size: 12px;
-        padding: 20px;
-        border-radius: 50px 0px 50px 50px;
-        background-color: #efc940;
-        color: black;
-         max-width: 250px;
-         clear: both;
-         margin-bottom: 0px !important;
-         margin-top: 2px !important;
-    }
-        .input {
-          padding: 0 35px 35px;
-          height: 50px;
-          width: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .chat-btn{
-          border: none;
-          outline: 0;
-          display: inline-block;
-          padding: 8px;
-          color: white;
-          background-color: #000;
-          text-align: center;
-          cursor: pointer;
-          max-width: 50%;
-          font-size: 18px;
+          
+          .chat {
+            position: relative;
+            overflow: auto;
+            overflow-x: hidden;
+            overflow-y:absolute;
+            padding: 0 35px 35px;
+            border: none;
+            margin-bottom: 0px !important;
+            margin-top: 2px !important;
+            max-height: 300px;
+            -webkit-justify-content: flex-end;
+            justify-content: flex-end;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+          }
+          .chat p.stev{
+            float: left;
+            font-size: 12px;
+            padding: 20px;
+            border-radius: 0px 20px 20px 20px;
+            background-color: black;
+            color: #efc940;
+            max-width: 250px;
+            clear: both;
+            display: inline-block;
+            margin-bottom: 0px !important;
+            margin-top: 2px !important;
+          }
+          .chat p.me{
+            float: right;
+            font-size: 12px;
+            padding: 20px;
+            border-radius: 20px 0px 20px 20px;
+            background-color: #efc940;
+            color: black;
+            max-width: 250px;
+            clear: both;
+            margin-bottom: 0px !important;
+            margin-top: 2px !important;
+          }
+          .input {
+            padding: 0 35px 35px;
+            height: 50px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .chat-btn{
+            border: none;
+            outline: 0;
+            display: inline-block;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            max-width: 50%;
+            font-size: 18px;
           }
 
-        .chat-btn:hover, a:hover{
-          opacity: 0.4;
-        }
-        .modal-content{
-          background-color: #fff;
-        }
-        .stev-img{
-          background: url('https://res.cloudinary.com/perkyprince/image/upload/v1525602151/chatrobot.jpg');
-          background-repeat: no-repeat;
-          background-size: 30px;
-        }
-        .me-img{
-          background: url('https://res.cloudinary.com/perkyprince/image/upload/v1525601790/human.png');
-          background-repeat: no-repeat;
-          background-size: 30px;
-        }
-        .avatar{
-          width: 10%;
-          height: 5%;
-        }
-
-
-
-
-
+          .chat-btn:hover, a:hover{
+            opacity: 0.5;
+          }
+          .modal-content{
+            background-color: #fff;
+          }
+         
+          .avatar{
+            width: 15%;
+            height: 10%;
+          }
         </style>
     </head>
+
     <body>
       <?php
         require 'db.php';
@@ -218,7 +202,7 @@
         }elseif($temp2==='help'){
             help();
         }elseif($temp2 === 'version'){
-            echo "<div id='result'> <b>Santra v1.0</b></div>";
+            echo "<div id='result'> <b>Stevia v1.0</b></div>";
         }else{
             getAnswer($temp[0]);
         }
@@ -306,9 +290,9 @@
             <a href="https://web.facebook.com/perky.prince.14" target="_blank"><i class="fa fa-facebook"></i></a>
           </div>
 
-
+          <div>
           <button class="btn col-sm-offset-5 chat-btn" data-toggle='modal' data-target='#chatModal'><i class="fa fa-comment-alt">Chat Now</i></button>
-          <!--modal-->
+          </div>
           <div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -328,7 +312,7 @@
                 <div class="chat-input">
                   <form action="" method="post" id="user-input-form">
                     <div class="input-group">
-                      <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="chat me up..."><span class="input-group-addon"><button class="btn btn-primary" id="send"><i class="fa fa-send"></i></button></span>
+                      <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="Ask me your questions"><span class="input-group-addon"><button class="btn btn-primary" id="send"><i class="fa fa-send"></i></button></span>
                     </div>
                   </form>
                 </div>
