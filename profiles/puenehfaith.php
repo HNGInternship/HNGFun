@@ -85,12 +85,12 @@ h3{
   background-color: white;
   border-style: solid;
   border-width: 1px;
-  padding-top: 20px;
-  padding-bottom: 25px;
-  padding-right: 25px;
-  padding-left: 25px;
-  box-shadow: 5px 5px 5px grey;
-  border-radius: 15px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  padding-right: 15px;
+  padding-left: 15px;
+  box-shadow: 3px 3px 3px grey;
+  border-radius: 10px;
 }
 
 #chatborder {
