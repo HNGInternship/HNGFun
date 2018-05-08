@@ -20,7 +20,7 @@ try {
   throw $e;
 }    
 try {
-  $sql = "SELECT * FROM interns_data WHERE `username` = 'juliet' LIMIT 1";
+  $sql = "SELECT * FROM interns_data WHERE `username` = 'puenehfaith' LIMIT 1";
   $q = $conn->query($sql);
   $q->setFetchMode(PDO::FETCH_ASSOC);
   $my_data = $q->fetch();
@@ -247,4 +247,114 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
 <b>Chatbot:</b> Tell me more about bead making.</pre>
  </div>
 </body>
+<script src="<?=$home_url;?>vendor/jquery/jquery.min.js" type="text/javascript"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="<?=$home_url;?>vendor/bootstrap/js/bootstrap.min.js"></script>
+<script>
+$(document).on('click', '.chat-btn', function(){
+    $('.chatbot-menu').show();
+    $('.chat-btn').hide();
+    if ($(window).width() <= 767) {
+        $(window).scrollTop($(window).height());
+    }
+});
+$(document).on('click', '.chatbot-close', function(){
+    $('.chatbot-menu').hide();
+    $('.chat-btn').show();
+});
+$(document).on('click', '.chatbot-help', function(){
+    help_menu = $('.chatbot-message-bot:first').html();
+    $('.chatbot-menu-content').append('<div class="chatbot-message-bot" id="last-message">'+help_menu+'</p></div>');
+    content_height = $('.chatbot-menu-content').prop('scrollHeight');
+    $('.chatbot-menu-content').scrollTop(content_height);
+});
+// Chatbot send button handler
+$(document).on('click', '.chatbot-send', function(e){
+    e.preventDefault();
+    bot_query = 'bot_query';
+    message_string = $('input[name="chatbot-input"]').val();
+    password = true;
+    aboutbot = false;
+    $('input[name="chatbot-input"]').val('');
+    if (message_string.trim() === '') {
+        message_string = '';
+        payload = {'response':'empty', 'message':'Sorry, you cannot send an empty message.'};
+        $('.chatbot-menu-content').append('<div class="chatbot-message-bot" id="last-message"><p>'+payload.message+'</p></div>');
+    }
+    else {
+        message_string = message_string.trim();
+        payload = {'response':'success', 'message':message_string};
+        $('.chatbot-menu-content').append('<div class="chatbot-message-sender" id="last-message"><p>'+payload.message+'</p></div>');
+    }
+    if (message_string.split(':')[0].trim() === 'train') {
+        bot_query = 'bot_train';
+        if (!message_string.includes('# password') && !message_string.includes('#password')) {
+            password = false;
+            $('.chatbot-menu-content').append('<div class="chatbot-message-bot" id="last-message">Sorry, you need to input a password</p></div>');
+        }
+        else if (message_string.trim().slice(-8) !== 'password') {
+            password = false;
+            $('.chatbot-menu-content').append('<div class="chatbot-message-bot" id="last-message">Sorry, I do not recognize this password, try again.</p></div>');
+        }
+        else {
+            array_words = message_string.trim().split(':');
+            parse_colon_delimiter = array_words[0].trim() + ': ' + array_words[1].trim();
+            parse_hash_delimiter = parse_colon_delimiter.split('#');
+            payload.message = parse_hash_delimiter[0].trim() + ' # ' + parse_hash_delimiter[1].trim();
+            console.log(payload.message);
+        }
+    }
+    else if (message_string.trim() === 'help') {
+        help_menu = $('.chatbot-message-bot:first').html();
+        $('.chatbot-menu-content').append('<div class="chatbot-message-bot" id="last-message">'+help_menu+'</p></div>');
+    }
+    else if (message_string.trim() === 'aboutbot') {
+        aboutbot = true;
+        version = "<div><p><span class='bot-command'>Locato v1.0</span></p></div> <div><p>Hi! I'm Locato</p><p>I want to help you with find distances between any two locations in Nigeria, eg distance between two addresses or cities, get the duration to move from one location to the other and also show you direction on map.</p></div>";
+        $('.chatbot-menu-content').append('<div class="chatbot-message-bot" id="last-message">'+version+'</div>');
+    }
+    else if (message_string.split(' : ').length === 2 && !message_string.includes('#')) {
+        bot_query = 'bot_command';
+    }
+    if (message_string.slice(0, 6) === 'train:') {
+        $('.chatbot-message-sender:last').addClass('chatbot-train-message');
+    }
+    content_height = $('.chatbot-menu-content').prop('scrollHeight');
+    $('.chatbot-menu-content').scrollTop(content_height);
+    url = './profiles/christoph.php';
+    if (location.pathname.includes('christoph.php')) {
+        url = '../profiles/christoph.php'
+    }
+    
+    // Use AJAX to query DB and look for matches to user's query
+    if(message_string !== '' && message_string.trim() !== 'help' && password && !aboutbot) {
+        $.ajax({
+            url: url,
+            data: bot_query+'='+payload.message,
+            type: 'POST',
+            dataType: 'JSON',
+            beforeSend: function() {
+                $('.chatbot-menu-content').append('<div class="chatbot-message-bot" id="last-message"><p>Give me some time, it takes some time for me to process...</p></div>');
+                content_height = $('.chatbot-menu-content').prop('scrollHeight');
+                $('.chatbot-menu-content').scrollTop(content_height);
+                $('.chatbot-send').attr('disable');
+            },
+            success: function(data){
+                console.log(data);
+                $('.chatbot-message-bot:last > p').html(data.message);
+                if (data.response === 'show_direction') {
+                    $('.chatbot-message-bot:last > p').html('Click on <a href="'+data.message+'" target="_blank">'+data.message+'</a> to view directions on map');
+                }
+                if (data.response === 'training_error') {
+                    training_menu = $('.training-menu').clone();
+                    $('.chatbot-message-bot:last').html(data.message);
+                    $('.chatbot-message-bot:last').append(training_menu);
+                }
+                $('.chatbot-send').removeAttr('disable');
+            }
+        });
+    }
+});
+</script>
 </html>
+<?php endif; ?
