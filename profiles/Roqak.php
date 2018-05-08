@@ -78,6 +78,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 /////////////////////////////////////////////////////////////////////////////////////////////
 $parentheses = stripos($answer, "((");
 if($parentheses === false){// if answer is not to call a function
+  header('Content-type: text/json');
   echo json_encode([
     'result' => $answer
   ]);
@@ -98,8 +99,9 @@ if($parentheses === false){// if answer is not to call a function
         ////////////////////////////////////////////////////////////////////////////////////
         $index_of_parentheses = stripos($answer, "((");
         if($index_of_parentheses === false){
+          header('Content-type: text/json');
           echo json_encode([
-            'answer' => $answer
+            'result' => $answer
           ]);
           return;
         }else{
@@ -108,18 +110,20 @@ if($parentheses === false){// if answer is not to call a function
                 $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
                 $function_name = trim($function_name);
                 if(stripos($function_name, ' ') !== false){
+                  header('Content-type: text/json');
                    echo json_encode([
-                    'answer' => "Ohh Sorry!! The function name should not contain white spaces"
+                    'result' => "Ohh Sorry!! The function name should not contain white spaces"
                   ]);
                   return;
                 }
               if(!function_exists($function_name)){
+                header('Content-type: text/json');
                 echo json_encode([
-                  'answer' => "I am sorry but I could not find that function, please try again"
+                  'result' => "I am sorry but I could not find that function, please try again"
                 ]);
               }else{
                 echo json_encode([
-                  'answer' => str_replace("(($function_name))", $function_name(), $answer)
+                  'result' => str_replace("(($function_name))", $function_name(), $answer)
                 ]);
               }
               return;
@@ -209,7 +213,7 @@ return;
 	</style>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="jquery-3.3.1.min.js"></script>
+<!-- <script src="jquery-3.3.1.min.js"></script> -->
 <body>
 <div class="container">
 <div class="row">
