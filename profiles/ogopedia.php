@@ -238,6 +238,11 @@ p {
     .container {
         max-width: 100% !important;
     }
+
+    @media (min-width: 1200px){}
+    .container {
+    max-width: 100% !important;
+}
 	</style>
 </head>
 <body class="site-bg">
