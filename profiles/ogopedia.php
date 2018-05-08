@@ -141,7 +141,8 @@ img.ogo {
 
 .apa-otun {
     float: right;
-    padding-top: 100px;
+    /*padding-top: 100px;*/
+    padding-top: 20%;
 }
 
 .apa-otun ul {
@@ -174,13 +175,19 @@ h1 {
     font-weight: 500;
     max-width: 100px;
     padding-top: 40%;
+    font-family: 'Montserrat';
+    color: #e9eaee;
 }
 
 p {
     font-family: 'Roboto';
     font-size: 50px;
-    font-weight: 100;
+    /*font-weight: 100;*/
+    line-height: normal;
+    margin: 0;
+    font-weight: 200;
 }
+
 
 @media(max-width: 999px) {
     .apa-osi {
