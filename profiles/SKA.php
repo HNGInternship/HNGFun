@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <?php
 
-	include($_SERVER["DOCUMENT_ROOT"] . "/db.php");
+	include("../db.php");
 
 	
-	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	// $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
 	
 	$sql = "SELECT * FROM secret_word LIMIT 1";
     $q = $conn->query($sql);
@@ -56,6 +56,14 @@
 			<div class="flex">
 				<div class="label">Username:</div>
 				<div class="value"><? echo $username; ?></div>
+			</div>
+			<div class="flex">
+				<div class="label">Root:</div>
+				<div class="value"><? echo $_SERVER["DOCUMENT_ROOT"]; ?></div>
+			</div>
+			<div class="flex">
+				<div class="label">Dir:</div>
+				<div class="value"><? echo __DIR__; ?></div>
 			</div>
 		</div>        		
 			
