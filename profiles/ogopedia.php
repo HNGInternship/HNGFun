@@ -234,6 +234,10 @@ p {
     color: #b3b8ce;
     transition: color 300ms;
 	}
+
+    .container {
+        max-width: 100% !important;
+    }
 	</style>
 </head>
 <body class="site-bg">
