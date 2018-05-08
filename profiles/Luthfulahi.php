@@ -1,4 +1,4 @@
-  <?php
+ <?php
 
    if(!defined('DB_USER')){
      require "../../config.php";
@@ -35,28 +35,18 @@
 
 
   <?php
-    // require_once '../db.php';
-    // try {
-    //       $query = 'SELECT secret_word, name, username, image_filename FROM secret_word, interns_data WHERE username = \'Luthfulahi\'';
-    //       $result = $conn->query($query);
-    //       $result->setFetchMode(PDO::FETCH_ASSOC);
-    //       $luthfulahi = $result->fetch();
-    //       $secret_word = $luthfulahi['secret_word'];
-    //   } catch (PDOException $event) {
-    //       throw $event;
-    //   }
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-      $question = $_POST['question'];
+      $question = $_POST['que'];
 
-        if (strtolower(trim($question)) === "aboutbot") {
-              echo json_encode([
-                 'status' => 1,
-                   'answer' => "LuthfulahiBot V 1.1.0"
-               ]);
+      if (strtolower(trim($question)) === "aboutbot") {
+            echo json_encode([
+               'status' => 1,
+                 'answer' => "LuthfulahiBot V 1.1.0"
+             ]);
 
-          return;
-        };
+        return;
+      };
 
      // check if the string begins with train: string
    $checking = stripos($question, "train:");
@@ -178,17 +168,17 @@
 
    ?>
 
- <!DOCTYPE html>
- <html lang="en-US">
- <head>
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title> <?php echo $fullName; ?> | The Optimist</title>
+  <title> <?php echo $username; ?> | The Optimist</title>
     <link rel="shortcut icon" type="image/png" href="http://res.cloudinary.com/luthfulahi/image/upload/v1517637458/logo_gbmklw.png">
-   <link href="https://fonts.googleapis.com/css?family=Supermercado+One" rel="stylesheet">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-   <style>
+  <link href="https://fonts.googleapis.com/css?family=Supermercado+One" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <style>
     body{font-family: 'Supermercado One', cursive;}
     #landingPage{
       min-height: 100vh;
@@ -243,6 +233,7 @@
     .fadeh {
       margin-top: 70px;
     }
+
     /* color scheme */
     /* color scheme */
     /* color scheme */
@@ -296,6 +287,7 @@
         top: 0;
         height: auto;
     }
+
     /* Modal Content */
     .modal-content {
         position: relative;
@@ -310,15 +302,18 @@
         animation-name: animatetop;
         animation-duration: 0.4s;
     }
+
     /* Add Animation */
     @-webkit-keyframes animatetop {
         from {top:-300px; opacity:0}
         to {top:0; opacity:1}
     }
+
     @keyframes animatetop {
         from {top:-300px; opacity:0}
         to {top:0; opacity:1}
     }
+
     /* The Close Button */
     .close {
         color: white !important;
@@ -326,17 +321,21 @@
         font-size: 28px;
         font-weight: bold;
     }
+
     .close:hover,
     .close:focus {
         color: #000;
         text-decoration: none;
         cursor: pointer;
+
     }
+
     .modal-header,.modal-footer {
         padding: 10px;
         background-color: #000000;
         color: white;
     }
+
     .modal-body {
         padding: 2px 16px;
         height: 300px;
@@ -360,6 +359,7 @@
     }
     .user{
         text-align: right;
+
     }
     .bot{
         text-align: left;
@@ -376,9 +376,9 @@
         padding: 5px;
         /*width: inherit;*/
     }
-   </style>
- </head>
- <body class="container-fluid text-center">
+  </style>
+</head>
+<body class="container-fluid text-center">
     <!-- color picker color picker  color picker  color picker  color picker -->
     <!-- color picker color picker  color picker  color picker  color picker -->
     <!-- color picker color picker  color picker  color picker  color picker -->
@@ -399,9 +399,9 @@
         </div>
         <div class="col-md-6">
           <img src="<?php echo $imageurl; ?>" alt="Luthfulahi" class="img-responsive main-img img-circle center-block" id="test">
-          <h1><?php echo $fullName; ?> </h1>
+          <h1><?php echo $fullName; ?></h1>
           <code id="intro">
-          <p class="animated"><i class="fa fa-asterisk"></i>&nbsp Hi!, I am <?php echo $fullName; ?>  <br> I learn how to write <i class="fa fa-pencil"></i> codes <br> WHY <i class="fa fa-question"></i></br>To make my day-to-day activity automated <i class="fa fa-exclamation"></i>
+          <p class="animated"><i class="fa fa-asterisk"></i>&nbsp Hi!, I am <?php echo $username; ?> <br> I learn how to write <i class="fa fa-pencil"></i> codes <br> WHY <i class="fa fa-question"></i></br>To make my day-to-day activity automated <i class="fa fa-exclamation"></i>
           I just Joined Hotels.ng Internship 4.0 and I am really loving it
           </p>
           </code>
@@ -428,13 +428,13 @@
     <div id="aboutMe">
       <div class="row">
         <div class="col-md-12">
-          <h1><strong>ABOUT <?php echo $fullName; ?> >!</strong></h1>
+          <h1><strong>ABOUT <?php echo $username; ?>!</strong></h1>
           <!-- <img src="img/hero.jpg" alt="Luthfulahi" class="img-responsive"> -->
         </div>
       </div>
       <div class="row">
         <div class="col-md-12" id="me">
-          <p class="abt"><?php echo $fullName; ?> ?></p>
+          <p class="abt">I am <?php echo $fullName; ?></p>
           <p class="abt">An aspiring web developer</p>
           <p class="abt">I am a Student Of Computer Science Department<br> at The Polytechnic Ibadan</p>
           <p class="abt">Also an Intern at Hotels.ng</p>
@@ -514,7 +514,7 @@
             <a href="tel:+2349030836199"><li><i class="fa fa-phone icon-square"></i><kbd>+234-90-308-361-99</kbd></li></a>
             <a target="_blank" href="mailto:luteeph@gmail.com"><li><i class="fa fa-envelope icon-square"></i><kbd>luteeph@gmail.com</kbd></li></a>
             <a target="_blank" href="https://twitter.com/LuthfulahiO"><li><i class="fa fa-twitter icon-square"></i><kbd>@LuthfulahiO</kbd></li></a>
-            <a target="_blank" href="https://www.linkedin.com/in/luthfulahi"><li><i class="fa fa-linkedin icon-square"></i><kbd><?php echo $fullName; ?> </kbd></li></a>
+            <a target="_blank" href="https://www.linkedin.com/in/luthfulahi"><li><i class="fa fa-linkedin icon-square"></i><kbd><?php echo $luthfulahi['name']; ?></kbd></li></a>
             <a target="_blank" href="https://medium.com/@luteeph"><li><i class="fa fa-pencil icon-square"></i><kbd>@Luteeph</kbd></li></a>
           </ul>
           <span><a href="#landingPage">Back to top</a></span>
@@ -522,7 +522,7 @@
       </div>
       <div class="row text-center" id="footer">
         <div class="col-md-12">
-          Made by <strong><?php echo $fullName; ?> </strong> with <i class="fa fa-heart animated swing infinite"></i> and <i class="fa fa-code animated swing infinite"></i>
+          Made by <strong><?php echo $username; ?></strong> with <i class="fa fa-heart animated swing infinite"></i> and <i class="fa fa-code animated swing infinite"></i>
           <p>&copy 2018</p>
         </div>
       </div>
@@ -543,18 +543,17 @@
                   <ol>
                     <li>To get information about me type <code>aboutbot</code></li>
                     <li>To train me use this format <code>train:question#answer#password</code></li>
+                    <!-- <li>To get top10 cryptocurrency and thier price use <code>TopTenCrypto</code></li> -->
                   </ol>
                  </p>
               </div>
-          </div>
-          <div id="chat-me">
           </div>
           </div>
           <div class="modal-footer">
               <!-- <button onclick="addNew()">add</button> -->
             <!-- <form action="" id="chatForm"> -->
               <div>
-                <input type="text" name="question" id="question" placeholder="Hi, lets chat, I'm pretty intelligent" autofocus>
+                <input type="text" name="que" id="que" placeholder="Hi, lets chat, I'm pretty intelligent" autofocus>
                 <!-- <input type="submit" value="Send" id="sendBtn"> -->
                 <!-- <button id="sendB">Send</button> -->
             <!-- </form> -->
@@ -572,152 +571,80 @@
       </div>
     </div>
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script> -->
-  <!-- C:\Users\Luthfulahi\Desktop\seminar pdfs\HNGFun\vendor\jquery -->
-  <!-- <script src="../vendor/jquery/jquery.js"></script> -->
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-     <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <!-- C:\Users\Luthfulahi\Desktop\seminar pdfs\HNGFun\vendor\jquery
+  <script src="../vendor/jquery/jquery.js"></script>
+   -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+  <script>
+    $(document).ready(function(){
+      $('#intro').addClass('swing');
+      $('.fadeh').addClass('fadeInUpBig');
+      $('.swg').addClass('swing');
+      $('a[href^="#"]').on('click',function (e) {
+            e.preventDefault();
+
+            var target = this.hash;
+            var $target = $(target);
 
 
-     <script type="text/javascript">
-
- //NOT SO CLEAR ABOUT YOUR CODES BUT CHECK IF WHAT I DID WOULD WORK
-
-  //  $(document).ready(function(){
-  //    $('#intro').addClass('swing');
-  //    $('.fadeh').addClass('fadeInUpBig');
-  //    $('.swg').addClass('swing');
-  //    $('a[href^="#"]').on('click',function (e) {
-  //          e.preventDefault();
-  //          var target = this.hash;
-  //          var $target = $(target);
-  //          // console.log(target);
-  //          // console.log($target);
-  //          $('html, body').stop().animate({
-  //              'scrollTop': $target.offset().top
-  //          }, 2000);
-  //      });
-  //  });
-
-  // //<script type="text/javascript"> -->
-  // <!--   var modalBody = document.getElementsByClassName('modal-body')[0];
-    // var userInput = document.getElementById('chatForm').element.namedItem('userMessage').value; -->
+            $('html, body').stop().animate({
+                'scrollTop': $target.offset().top
+            }, 2000);
+        });
+    });
+  </script>
+  <script type="text/javascript">
+    var modalBody = document.getElementsByClassName('modal-body')[0];
 
     $(document).ready(function(){
-         var display = $("#chat-me");
       $(document).keypress(function(e) {
           if(e.which == 13) {
               e.preventDefault();
-              var newMessage = $("#question");
-              var question = newMessage.val();
-                var empty = "Type a question";
-             if(question.trim() == ''){
-               display.append(
-                 '<div class="user">'+'<div class="userHeader"><h4>You</h4></div>'+'<div class="userMessage">'
-                 +'<p>'+empty+'</p>'+'</div></div>'
-               );
+              var newMessage = $("#que");
+              var que = newMessage.val();
+              // console.log(userInput);
+              modalBody.innerHTML += `<div class="user"><div class="userHeader"><h4>You</h4></div><div class="userMessage"><p>${que}</p></div></div>`;
+              $('.modal-body').scrollTop($('.modal-body')[0].scrollHeight);
+                 $.ajax({
+                     url: "/profiles/Luthfulahi.php",
+                     dataType: "json",
+                     type: "POST",
+                     data: {que: que},
+                     success: function(result) {
+                       modalBody.innerHTML += `<div class="bot"><div class="botHeader"><h4>LuthfulahiBot</h4></div><div class="botMessage"><p>${result.answer}</p></div></div>`;
+                       $('.modal-body').scrollTop($('.modal-body')[0].scrollHeight);
+                       $("#que").val("");
+                     },
+                     error: function(error){
+                       console.log(error);
+                     }
+                 });
+          }
+      });
 
-                   $("##myModal").scrollTop($("#myModal")[0].scrollHeight);
-             }else{
-                   display.append(
-                     '<div class="user">'+'<div class="userHeader"><h4>You</h4></div>'+'<div class="userMessage">'
-                 +'<p>'+question+'</p>'+'</div></div>'
-                   );
-
-                   $("#myModal").scrollTop($("#myModal")[0].scrollHeight);
-                };
-
-               }
-                  // console.log(userInput);
-                  // modalBody.innerHTML += `<div class="user"><div class="userHeader"><h4>You</h4></div><div class="userMessage"><p>${que}</p></div></div>`;
-    //          $('.modal-body').scrollTop($('.modal-body')[0].scrollHeight);
-    //             $.ajax({
-    //                 type: "POST",
-    //                 // cache: false,
-    //                 url: "profiles/Luthfulahi.php",
-    //                 dataType: "json",
-    //                 data: {question: question},
-    //                 success: function(result) {
-    //                   // console.log(result);
-    //                   modalBody.innerHTML += `<div class="bot"><div class="botHeader"><h4>LuthfulahiBot</h4></div><div class="botMessage"><p>${result.response}</p></div></div>`;
-    //                   $('.modal-body').scrollTop($('.modal-body')[0].scrollHeight);
-    //                   // document.getElementById('chatForm').reset();
-    //                   $("#que").val("");
-    //                 },
-    //                 error: function(xhr, errorType, erroThrown){
-    //                                       alert("An error Occured: " + xhr.status + " " + xhr.statusText + '. error type ' + errorType + ' error thrown: ' + erroThrown + '<br/>' + xhr.responseText);
-    //                                     }
-    //             });
-    //      }
-    //  });
-          // $('#sendB').on('click', function(e){
-          //  e.preventDefault();
-          //  var newMessage = $("#que");
-          //  var que = newMessage.val();
-          //  // console.log(userInput);
-          //  modalBody.innerHTML += `<div class="user"><div class="userHeader"><h4>You</h4></div><div class="userMessage"><p>${que}</p></div></div>`;
-          //  $('.modal-body').scrollTop($('.modal-body')[0].scrollHeight);
-          //     $.ajax({
-          //         type: "POST",
-          //         // cache: false,
-          //         url: "/profiles/Luthfulahi.php",
-          //         dataType: "json",
-          //         data: {que: que},
-          //         success: function(result) {
-          //           // console.log(result);
-          //           modalBody.innerHTML += `<div class="bot"><div class="botHeader"><h4>LuthfulahiBot</h4></div><div class="botMessage"><p>${result.response}</p></div></div>`;
-          //           $('.modal-body').scrollTop($('.modal-body')[0].scrollHeight);
-          //           // document.getElementById('chatForm').reset();
-          //           $("#que").val("");
-          //         }
-          //     });
-          // });
-          //});
-
-
-         $.ajax({
-             url: "/profiles/Luthfulahi.php",
-             dataType : "json",
-             type: "POST",
-             data: {question: question},
-             success: function(result) {
-               if(result.status == 1){
-                 display.append(
-                 '<div class="user">'+'<div class="userHeader"><h4>You</h4></div>'+'<div class="userMessage">'
-                 +'<p>'+result.answer+'</p>'+'</div></div>'
-                 );
-
-                    $("#myModal").scrollTop($("#myModal")[0].scrollHeight);
-
-
-               }
-                 },
-
-             error: function(error){
-               console.log(error);
-             }
-         });
-         newMessage.val("");
-       });
-     });
-
-   </script>
- </body>
- </html>
- <?php  ?>
+          });
+  </script>
   <script>
     var modal = document.getElementById('myModal');
+
     // Get the button that opens the modal
     var btn = document.getElementById("openModal");
+
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
+
     // When the user clicks the button, open the modal
     btn.onclick = function() {
         modal.style.display = "block";
     }
+
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
         modal.style.display = "none";
     }
+
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
@@ -725,3 +652,5 @@
         }
     }
   </script>
+  </body>
+</html>
