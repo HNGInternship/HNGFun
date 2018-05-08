@@ -63,6 +63,16 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
+/*Reset*/
+
+.bg-primary {
+    background: transparent !important;
+}
+
+footer {
+    display: none !important;
+}
 		@import url(https://fonts.googleapis.com/css?family=Montserrat:400,500,300,200,700);
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,200,700);
 
@@ -234,10 +244,10 @@ p {
 	</div>
 	<div id="site-main">
 		<header>
-				<a href="./"><img class="logo" src="../img/logo.png" alt="logo"></a>
+<!-- 				<a href="./"><img class="logo" src="../img/logo.png" alt="logo"></a>
 			<div class="menu">
 				<a href="#."><img class="menu" src="https://res.cloudinary.com/ogopedia/image/upload/v1525665779/menu.png" alt="menu"></a>
-			</div>
+			</div> -->
 		</header>
 
 		<div class="apa-osi">
