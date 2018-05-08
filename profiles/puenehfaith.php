@@ -1,60 +1,32 @@
 <?php
-error_reporting(0);
-if (empty($_SESSION)) {
-    session_start();
+ include_once("../answers.php"); 
+if (!defined('DB_USER')){
+            
+  require "../../config.php";
 }
-// if (file_exists('config.php')) {
-//     include 'config.php';
-// }
-// else if (file_exists('../config.php')) {
-//     include '../config.php';
-// }
-// else if (file_exists('../../config.php')) {
-//     include '../../config.php';
-// }
-if(!defined('DB_USER')){
-    require "../../config.php";		
-    try {
-        define('DB_CHARSET', 'utf8mb4');
-        $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
-        $opt = [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES => false
-        ];
-        $conn = new PDO($dsn, DB_USER, DB_PASSWORD, $opt);
-    } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
+try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
-$intern_details_query = $conn->query(
-    "SELECT     interns_data.name, 
-                interns_data.username, 
-                interns_data.image_filename
-    FROM        interns_data
-    WHERE       interns_data.username = 'puenehfaith' LIMIT 1");
-$secret_word_query = $conn->query(
-    "SELECT     secret_word.secret_word 
-    FROM        secret_word LIMIT 1");
-$intern_detail = $intern_details_query->fetch();
-$secret_word = $secret_word_query->fetch();
-// Secret Word
-$secret_word = $secret_word['secret_word'];
-// Profile Details
-$name = $intern_detail['name'];
-$username = $intern_detail['username'];
-$filename = $intern_detail['image_filename'];
-$padding = '50px 80px';
-$home_url = '';
-if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
-    $padding = '80px 70px';
-    $home_url = '../';
+ global $conn;
+ try {
+  $sql = 'SELECT * FROM secret_word LIMIT 1';
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $data = $q->fetch();
+  $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+  throw $e;
+}    
+try {
+  $sql = "SELECT * FROM interns_data WHERE `username` = 'juliet' LIMIT 1";
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $my_data = $q->fetch();
+} catch (PDOException $e) {
+  throw $e;
 }
-?>
-
-<?php if (empty($_POST['bot_query']) and empty($_POST['bot_train']) and empty($_POST['bot_command'])): ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
