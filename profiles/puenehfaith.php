@@ -245,6 +245,6 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
   botMessage = 'My name is' Jayo;
 }</pre></code><pre><b>User:</b> I love beadmaking
 <b>Chatbot:</b> Tell me more about bead making.</pre>
-
+ </div>
 </body>
 </html>
