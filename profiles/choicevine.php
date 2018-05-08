@@ -1,17 +1,14 @@
 <?php
 	
+		require '../../db.php';
 
+		//$username = "dev_geeks";
 		//Fetching from your database table.
-        $data = $conn->query("SELECT * FROM interns_data_ WHERE username= 'choicevine' ");
-		
+        $data = $pdo->query("SELECT * FROM interns_data_ WHERE username= 'choicevine' ");
         
-        $query = $conn->query("select * from interns_data_ where username= 'choicevine' ");
+        $query = $pdo->query("select * from interns_data_ where username= 'choicevine' ");
         $result = $query->fetch(PDO::FETCH_BOTH);
         
-        // think this should go here
-        $ask = $conn->query("select * from secret_word");
-        $answer = $ask->fetch(PDO::FETCH_ASSOC);
-		$secret_word = $answer['secret_word'];
 		
       
  ?>
@@ -94,29 +91,23 @@ body {
 <body>
 
 	
-	<?php 
-
-// don't need this, you need conn from db.php
- // 			$db = new PDO(mysql:host= DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE)
-	// OR die('Could not connect to mySQL'.
-	// 		mysqli_connect_error());
-
+	 <?php 
+ 			
  	//$poke = $db->query("SELECT * FROM secret_word  ");
         
 
         //OOP style
-
+        $ask = $pdo->query("select * from secret_word");
+        $answer = $ask->fetch(PDO::FETCH_ASSOC);
+		$secret_word = $answer['secret_word'];
 		
   ?>
 
 
 	<div class="container">
 		
-		<!-- The image can't show, it's not in an img tag -->
-
-		<div class="profile-image">
-			<img src="<?php echo $result['image_filename']; ?>">
-		</div>
+		
+		<div class="profile-image"><?php echo $result['image_filename']; ?></div>
 		<div class="info">
 			<!-- is this working? ...so which one is not working?....when I loaded it prior to your code above, it gave this -->
 			<h3 class="name"><?php echo $result['name']; ?></h3>
@@ -126,9 +117,20 @@ body {
 				
 		</div>
 
-		<!-- -->
+		<div>
+			<?php  for ($answer['id']=0; $answer['id'] < 3; $answer['id']++) { 
+			
+		?>
+			<div class="info">
+			
+			<h3 class="name"><?php echo $answer['id']; ?></h3>
+			<h4 class="username"><?php echo $answer['secret_word'];  ?></h4>
+			<?php } ?>
+		</div>
 
-	</div>
+
+		
+    </div>
 
 
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
