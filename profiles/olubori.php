@@ -89,6 +89,47 @@
 	  	margin-left: 1rem;
 	  }
 
+	  .suggestion {
+	  	position: absolute;
+	  	bottom: 30px;
+	  	background: white;
+	  	width: 100%;
+	  	margin-bottom: 0px;
+	  	list-style: none;
+	  	padding: 2rem 0 2rem 0;
+	  }
+
+	  .suggestion li {
+	  	font-size: 18px;
+
+	  }
+
+	  .suggestion li:hover{
+	  	background-color: #2d9ee0;
+	  	cursor: pointer;
+	  	color: white !important;
+	  }
+
+	  .suggestion li:hover .description {
+	  	color: white;
+	  }
+
+	  .suggestion .title {
+	  	font-weight: bold;
+
+	  }
+
+	  .suggestion .description {
+	  	display: block;
+   		overflow: hidden;
+    	color: #717274;
+    	text-overflow: ellipsis;
+	  }
+
+	  ul:focus {
+	  	background: #ff122d;
+	  }
+
 	  @media only screen and (min-width: 993px) {
 	  	#main > div {
 	  	  width: 50%;
@@ -176,8 +217,14 @@
   			<h4>HNG assist</h4>
   		</header>
   		<main >
-  			<p v-for="n in 20" :class="{ 'bot-msg': n%2==0, 'human-msg': n%2!=0}">These are text {{n}}</p>
+  			<p v-for="msg in messages" :class="{ 'bot-msg': n%2==0, 'human-msg': n%2!=0}">These are text {{n}}</p>
   		</main>
+  		<ul class="suggestion" v-show="suggestedCommands" ref="list">
+		  <li v-for="(command, index) in suggestedCommands" :key="command.key" class="my-2 px-2">
+			<span class="title">#{{command.key}}</span> <span class="format">{{command.format}}</span>
+			<span class="description d-block">{{command.description}}</span>	
+		  </li>
+  		</ul>
   		<input type="text" v-model="humanMessage" placeholder="Type # followed by command you want to give e.g. #train" id="human-text" />
   	</div>
   </div>
@@ -189,20 +236,38 @@
 	var app = new Vue({
 	  el: '#app',
 	  data: {
-	    commands: ['train', 'timeofday', 'chitchat', 'dayOfWeek'],
+	    commands: [
+	               {key: 'train', description: 'This command is to train the bot', format: '[question] [answer]'}, 
+	               {key: 'timeofday', description: 'This command is to get the current time of day in any of the world location', format: '[location]'},
+	               {key: 'chitchat', description: 'This command is get the current time of day in any of the world location', format: '[question]'},
+	               {key: 'dayOfWeek', description: 'This command is get the current time of day in any of the world location', format: '[dd-mm-yyyy]'},
+	               {key: 'aboutbot', description: 'This command is get the current time of day in any of the world location', format: ''}
+	              ],
         humanMessage: '',
+        messages: []
+	  },
+	  computed: {
+	  	suggestedCommands: function(){
+	  	  let command;
+	  	  let suggestion = null;  
+	  	  if(this.humanMessage.startsWith('#')){
+	        command = this.humanMessage.substr(1).toLowerCase();
+	        if(command.length > 0){
+  	          suggestion = this.commands.filter(function(cmd){
+                return cmd['key'].indexOf(command) !== -1;
+  	          });
+
+  	          suggestion.length == 0 && (suggestion = null)
+	        }else
+	          suggestion = this.commands;
+	  	  }
+	  	  
+          return suggestion;
+	  	}
 	  },
 	  watch: {
-        humanMessage(currentValue){
-          if(currentValue.startsWith('#') && currentValue.length > 1){
-          	this.doSuggestCommand();
-          }
-        }
-	  },
-	  methods: {
-	  	doSuggestCommand(){
-	  	  let command  = this.humanMessage.substr(1);
-	  	  console.log('I am suggesting ' + command)
+	  	suggestedCommands: function(currentVal){
+	  		this.$refs["list"].focus();
 	  	}
 	  }
 	})
