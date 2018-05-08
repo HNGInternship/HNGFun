@@ -6,8 +6,13 @@
 	$result2 = $conn->query("Select * from interns_data where username = 'olubori'");
 	$user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300" rel="stylesheet" type="text/css">
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
 	<style type="text/css">
+	  #app{
+	  	font-family: "Source Sans Pro", sans-serif;
+	  }
 	  #main {
 	  	width: 100%;
 		display: flex;
@@ -15,18 +20,74 @@
 		justify-content: space-between;
 	  }
 	  #main > div {
-	  	border: 1px solid red;
+	  	/*border: 1px solid red;*/
 	  	width: 100%;
-	  	height: 100vh;
+	  	height: 80vh;
+	  	margin-top: 5rem;
 	  }
 
 	  #chat-box {
 	  	position: relative;
+	  	background: url('../img/banner-image-1.png');
+	  	background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+
+
+	  }
+
+	  #chat-box > #human-text {
+	  	position: absolute;
+	  	bottom: 0;
+	  	width: 100%;
+	  }
+
+	  #chat-box > header {
+	  	position: absolute;
+	  	top: 0;
+	  	background: #F5F5F5; /* rgba(184, 196, 196, 0.5); */
+	  	width: 100%;
+	  }
+
+
+	  #chat-box > main {
+	  	overflow-y: scroll;
+	  	display: flex;
+	  	flex-direction: column;
+	  	margin-top: 35px;
+	  	height: 87%;
+	
+	  }
+
+	  #chat-box > main > p{
+	  	border-radius: 20px;
+	  	padding: 10px;
+	  	margin-top: 0.5rem;
+	  	margin-bottom: 0.5rem;
+	  	font-size: 15px;
+	  	
+	  }
+
+	  #chat-box .human-msg {
+	  	max-width: 65%;
+	  	align-self: flex-end;
+	  	background: #F5F5F5;
+	  	margin-right: 1rem;
+	  	color: #32465a;
+
+
+	  }
+
+	  #chat-box .bot-msg {
+	  	background: #435f7a;
+	  	color: #F5F5F5;
+	  	max-width: 65%;
+	  	margin-left: 1rem;
 	  }
 
 	  @media only screen and (min-width: 993px) {
 	  	#main > div {
-	  	  border: 1px solid red;
 	  	  width: 50%;
 	    }
 
@@ -98,7 +159,7 @@
 		*/
 	</style>
 
-<section id="app">
+<section id="app" class="mt-4">
 	<div id="menu">
 		<a href="#">Profile</a>
 		<a href="#">Chat Bot</a>
@@ -108,7 +169,13 @@
   		Profile
   	</div>
   	<div id="chat-box">
-  		Chat Bit
+  		<header>
+  			<h4>HNG assist</h4>
+  		</header>
+  		<main >
+  			<p v-for="n in 20" :class="{ 'bot-msg': n%2==0, 'human-msg': n%2!=0}">These are text {{n}}</p>
+  		</main>
+  		<input type="text" @onchange="suggestCommand" id="human-text" />
   	</div>
   </div>
   
@@ -119,7 +186,12 @@
 	var app = new Vue({
 	  el: '#app',
 	  data: {
-	    message: 'Hello Vue!'
+	    commands: ['train', 'timeofday', 'chitchat', 'dayOfWeek']
+	  },
+	  methods: {
+	  	suggestCommand(){
+	  		console.log('I was changed');
+	  	}
 	  }
 	})
 </script>
