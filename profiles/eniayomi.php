@@ -1,352 +1,332 @@
 <?php
-
- 	if($_SERVER['REQUEST_METHOD'] === 'POST')
- {
-           if (!defined('DB_USER')){
-               require '../config.php';
-           }
-           try {
-               $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-             } catch (PDOException $pe) {
-               die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-             }
-      $mesuu = $_POST['question'];
-      $message=strtolower($mesuu);
-      trim($message);
-      $statusTrain = stripos($message, "rain:");
-      if($statusTrain)
-      {
-        $newstring=str_replace("train:","","$message");
-         $sets = explode("#", $newstring);
-              $mQuestion= $sets[0];
-              $mAns= $sets[1];
-              $mPwd= $sets[2];
-              if($mPwd=='password'){
-              $resultIns = $conn->query("insert into chatbot (`question`, `answer`) values ('$mQuestion','$mAns')" );
-              if($resultIns)
-              {
-                echo json_encode([
-                 'status' => 1,
-                        'answer' => "thanks for enlarging my knowledge base"
-                        ]);
-return;
-
-}
-else {
-
-echo json_encode([
-   'status' => 1,
-   'answer' => "sorry something went wrong"
- ]);
-return;
-  // code...
-}
-              }
-              else {
-
-                echo json_encode([
-                   'status' => 1,
-                   'answer' => "sorry wrong password"
-                 ]);
-                // code...
-              }
-return;
-      }if ($message==""){
-  echo json_encode([
-     'status' => 1,
-     'answer' => "enter a question  you can also   remember train me "
-   ]);
-return;
-}
-if ($message==""){
-echo json_encode([
-'status' => 1,
-'answer' => "enter a question  you can also   remember train me "
-]);
-return;
-}
-
-      if($message=='aboutbot'){
-        echo json_encode([
-           'status' => 1,
-           'answer' => "eniayomi's bot version 1.45"
-         ]);
-return;
+// ob_start();
+session_start();
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+   if (!defined('DB_USER')) {
+      //live server
+      require "../../config.php";
+      //   localhost
+      // require "../config.example.php";
+      try {
+         $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+      } catch (PDOException $pe) {
+         echo ("🤖I couldn't connect to knowledge base : " . $pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
       }
-     if ($message!=''){
-$result2 = $conn->query("select * from chatbot where question = '$message' order by rand()");
-$user = $result2->fetch(PDO::FETCH_OBJ);
+   }
+   // require '../answers.php';
+   global $conn;
 
-if($user){
-$rows=$user->answer;
+   function train($question, $answer) {
+      $question = trim($question);
+      $answer = trim($answer);
+      if (store($question, $answer)) {
+         return "🤖 I just learnt something new, thanks to you 😎";
+      } else {
+         return "🤖 I'm sorry, An error occured while trying to store what i learnt 😔";
+      }
+   }
 
-echo json_encode([
-   'status' => 1,
-   'answer' => $rows
- ]);
-return;
+   function findThisPerson($user) {
+      global $conn;
+      $statement = $conn->prepare("select * from interns_data where username like :user or name like :user limit 1");
+      $statement->bindValue(':user', "%$user%");
+      $statement->execute();
+      $statement->setFetchMode(PDO::FETCH_ASSOC);
+      $rows = $statement->fetchObject();
+      return $rows;
+   }
+
+   function searchRequest($request) {
+      global $conn;
+      $statement = $conn->prepare("select answer from chatbot where question like :request order by rand()");
+      $statement->bindValue(':request', "%$request%");
+      $statement->execute();
+      $statement->setFetchMode(PDO::FETCH_ASSOC);
+      $rows = $statement->fetch();
+      $response = $rows['answer'];
+      if (!empty($response)):
+         $response = "🤖 " . $response;
+      endif;
+      //check for function
+      try {
+         if (preg_match('/(\(+[a-zA-Z_]+\))/', $response, $match)) {
+            $functionName = $match[0];
+            $functionName = str_replace('(', '', $functionName);
+            $functionName = str_replace(')', '', $functionName);
+            if (function_exists($functionName)) {
+               $response = str_replace($functionName, $functionName(), $response);
+               $response = str_replace('(', '', $response);
+               $response = str_replace(')', '', $response);
+            } else {
+               $response = "🤖 I'm sorry, The function doesn't exist";
+            }
+         }
+      } catch (Exception $ex) {
+         echo $ex->getMessage();
+      }
+      return $response;
+   }
+
+   function store($request, $response)
+   {
+      global $conn;
+      $statement = $conn->prepare("insert into chatbot (question, answer) values (:request, :response)");
+      $statement->bindValue(':request', $request);
+      $statement->bindValue(':response', $response);
+      $statement->execute();
+      if ($statement->execute()) {
+         return true;
+      } else {
+         return false;
+      }
+   }
+
+   if (isset($_POST['new_request'])) {
+      $bot_response['response'] = [];
+      $user_request = "";
+      $bot_response['response'] = "";
+      $request = $_POST['new_request'];
+      $user_request = trim($request);
+      if (empty($user_request)) {
+         $bot_response['response'] = "🤖 You haven't made any request";
+      } else {
+         if (!empty(searchRequest($user_request))) {
+            $bot_response['response'] = searchRequest($user_request);
+         } else if (preg_match("/(train:)/", $user_request)) {
+            $power_split = explode("#", $request);
+            $question = trim(preg_replace("/(train:)/", "", $power_split[0]));
+            $answer = trim($power_split[1]);
+            $password = trim($power_split[2]);
+
+            if ($password != "password") {
+               $bot_response['response'] = "🤖 Training Access Denied!";
+            } else {
+               $bot_response['response'] = train($question, $answer);
+            }
+
+         } else if (preg_match('/(find:)/', $request)) {
+            $ex = explode("find:", $request);
+
+            if (!empty($users = findThisPerson($ex[1]))) {
+               $bot_response['response'] = array('resultType' => 'find', 'users' => $users);
+            } else {
+               $bot_response['response'] = "🤖 I couldn't find a user by that username or name";
+            }
+
+         } else {
+            $bot_response['response'] = "🤖 I  don't understand your request, I hope you wouldn't mind training me?";
+         }
+      }
+      send:
+      echo json_encode($bot_response);
+   }
 }
-else
-{
-  echo json_encode([
-     'status' => 1,
-     'answer' =>"sorry i have no answer to that yet .......but you an train me how to annswer questions "
-   ]);
-return;
-}
-
-if ($message==""){
-  echo json_encode([
-     'status' => 1,
-     'answer' => "enter a question  you can also   remember train me "
-   ]);
-return;
-}
-}
-	return;
- }
-
-  ?>
-
-
-<!DOCTYPE html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<html>
-<link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Righteous">
-<link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Overpass">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<style type="text/css">
-#mid
-{
-
-   color: #FBF7F7;
-   width: 95%;
-   border-radius: 30px;
-   padding-top: 30px;
-   font-size: 38px;
-   padding-bottom: 40px;
-   font-family: 'Font Name',Overpass;
-   background-color:rgba(238, 29, 29, 0.34);
-}
-.button {
-  display: inline-block;
-  padding: 5px 15px;
-  font-size: 24px;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  outline: none;
-  color: #fff;
-  background-color: #111111;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 5px #999;
-}
-
-.button:hover {background-color: #3e8e41}
-
-.button:active {
-  background-color: #3e8e41;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
-}
-
-
-
-#data
-{
-
-   color: #FBF7F7;
-   width: 85%;
-   text-decoration:bold ;
-   border-radius: 30px;
-   padding-top: 3px;
-   font-size: 16px;
-   text-align: left;
-   padding-bottom: 4px;
-
-   /*background-color:rgba(238, 29, 29, 0.34);*/
-}
-#data2
-{
-
-   color: #FBF7F7;
-   width: 88%;
-   font-family: 'Font Name',Righteous;
-   border-radius: 30px;
-   padding-top: 3px;
-   font-size: 28px;
-   text-align: left;
-   text-decoration:bold ;
-   padding-bottom: 4px;
-
-   background-color:rgba(238, 29, 29, 0.34);
-}
-body
-{
-  width: 100%;
-  color: #FBF7F7;
-  padding-top: 100px;
-  background-image: url('http://res.cloudinary.com/eniayomi/image/upload/v1525687967/cd2e6e5aa573e9dc9a6da6f99fa557dc817cb78b.jpg');
-  font-family: 'Font Name',Righteous;
-  text-align: center;
-  font-size: 28px;
-  font-style:regular;
-  line-height: normal;
-
-
-   background-color:rgba(196, 196, 196, 0.50);
-}
-
-.container11 {
-    border: 2px solid #dedede;
-    background-color: #a38cfd;
-    color: #111111;
-    font-size: 14px;
-    border-radius: 25px;
-    padding: 10px;
-    margin: 10px 0;
-    width: 70%;
-}
-
-.darker {
-  width: 70%;
-    border-color: #111111;
-    background-color: #ddd;
-}
-
-.container11::after {
-    content: "";
-    clear: both;
-    display: table;
-}
-
-.container11 img {
-    float: left;
-    max-width: 60px;
-    width: 100%;
-    margin-right: 20px;
-    border-radius: 50%;
-}
-
-.container11 img.right {
-    float: right;
-    margin-left: 20px;
-    margin-right:0;
-}
-
-.fa {
-            padding: 10px;
-            font-size: 15px;
-            width: 35px;
-            text-align: center;
-            margin: 3px 2px;
-             background: #000000;
-            color: rgb(255, 0, 0);
-            border-radius: 50%;
-            text-decoration: none;
-        }
-
-        .fa:hover {
-            opacity: 0.7;
-            box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.35);
-            transition: 0.2s;
-        }
-
-
-</style>
-<head>
-	<title>
-		Oluwaseyi Oluwapelumi
-
-	</title>
-</head>
-<body>
-  <?php
-//require "../db.php";
-if (!defined('DB_USER')){
-
-            require '../config.php';
-        }
-        try {
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-          } catch (PDOException $pe) {
-            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-          }  $result = $conn->query("Select * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
+if ($_SERVER['REQUEST_METHOD'] == "GET") {
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
    $result2 = $conn->query("Select * from interns_data where username = 'eniayomi'");
    $user = $result2->fetch(PDO::FETCH_OBJ);
-    echo $user->name.' Eniayomi';
- echo'<br><c style="color: #FBF7F7;">WELCOME TO MY PROFILE<br>';
- echo $user->username;
- echo'</c><br><br><center><div id="mid">';
-  ?>
-    
-    <img src="http://res.cloudinary.com/eniayomi/image/upload/v1524007065/pe.png" style="width:240px;height:240px;border-radius: 50%;">
-    
-    		 <div id="data">
-
-		 	>  STUDENT<br>
-		 	>  FRONT END &BACKEND DEVELOPER<br>> ANDROID DEVELOPER
-		 	   <br> > IN LOVE WITH GRAPHICS<br>>LIVING LIFE
-	 </div>
-     <div id="data2"><center>
-          This is my Bot <br>
-          <div class="container11">
-  <img src="http://res.cloudinary.com/eniayomi/image/upload/v1524007065/pe.png" alt="Avatar" style="width:100%;">
-  <p>Hello im eniayomi's bot i can answer some of your questions try me ........He is not around im using his profile picture dont tell him &#9786; &#9786; &#9786; you can also train me to answer questions    To train me use the format: below <br> <i style="color: #fefe00;">train: question#answer#password
-  </i></p>
+}?>
+<?php if ($_SERVER['REQUEST_METHOD'] == "GET") {?>
+   <style>
+   body {
+      background: #DAE3E7;
+      padding: 10px;
+      /* border: 25px solid; */
+      font-family: 'Lato', arial, sans-serif;
+      margin: 20px;
+   }
+   a{
+      color: #434343;
+   }
+   #top {
+      background-color: #DAE3E7;
+      background: white;
+      height: 35%;
+      margin: 20px;
+      border-radius: 20px;
+   }
+   #intro{
+      margin: 29px;
+      display: block;
+      font-size: 16px;
+      padding: 20px;
+   }
+   h1{
+      color: #434343;
+      font-size: 38px;
+      margin-bottom: 5px;
+      margin-top: 30px;
+      padding-top: 10px;
+      font-family: 'Montserrat', sans-serif;
+   }
+   h2{
+      color: #778492;
+      font-size: 26px
+   }
+   img {
+      border-radius: 50%;
+      float: left;
+      width: 15%;
+      margin: 15px;
+   }
+   li{
+      padding-right: 25px;
+      margin-right: 9px;
+      list-style: none;
+      display: inline;
+      font-size: 30px;
+      padding-top: 10px;
+      border-radius: 50%;
+      color: #fff;
+      text-align: center;
+   }
+   .round-corners{
+      border-radius: 20px;
+      /* background-color: #DAE3E7; */
+      background: white;
+      margin: 20px;
+   }
+   .inner{
+      padding: 20px;
+   }
+   #id{
+      border:2px black;
+   }
+   p,i,li{
+      font-family:'Lato', arial, sans-serif;
+   }
+   #all_content{
+      padding-top:21px
+   }
+   .form-control2{
+      margin-bottom:20px;
+   }
+   .timeEl{color:#495057;font-size:12px}
+</style>
+<!DOCTYPE HTML5>
+<head>
+   <link href='https://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic' rel='stylesheet' type='text/css' />
+   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+   <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css' />
+</head>
+<html>
+<body>
+   <div id="all_content">
+      <div id="top">
+         <img src="http://res.cloudinary.com/eniayomi/image/upload/v1524007065/pe.png" alt="Oluwaseyi Oluwapelumi">
+         <div id="intro">
+            <h1><?php echo $user->name; ?></h1>
+            <h2 style="text-align:left">Backend Developer</h2>
+            <ul class="list-inline">
+               <li><a target="_blank" title="Twitter" href="https://twitter.com/techteel"><i class="fa fa-twitter"></i></a></li>
+               <li><a target="_blank" title="Github/eniayomi" href="https://github.com/eniayomi"><i class="fa fa-github-alt"></i></a></li>
+               <li><a style="font-size:20px;" class="btn btn-cta-primary pull-right" href="mailto:nathanoluwaseyi@gmail.com" target="_blank"><i class="fa fa-paper-plane"></i> Contact Me</a></li>
+            </ul>
+         </div>
+      </div>
+      <div class="round-corners">
+         <div style="font-size: 17px" class="inner">
+            <h2>About Me</h2>
+            <p>Frontend Developer, Java && MySQL. Currently learning core JavaScript.</p>
+            <p>The things i like aren't so much: #peace #solitude #mylaptop</p>
+         </div>
+      </div>
+      <div class="bot round-corners">
+         <div class="inner">
+            <h2>Eniayomi's Bot 🤖</h2>
+            <div id="chatarea" style="overflow: auto; height:300px; border:1px solid whitesmoke; border-radius:5px"></div>
+            <div class="input-group">
+               <input type="text" class="form-control" id="message" type="text" placeholder="Message" name="newrequest" />
+               <div class="input-group-btn">
+                  <button class="btn btn-success pull-right" id="send" type="button">Send 💬</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 </div>
-<div id="async">
-</div>
-<form id="myform" method="POST">
-
-  <textarea  sid="text" name="question" id="ter" rows="0" cols="0" class="textarea" style=" padding:2px; border-radius: 12px;width: 80%;background-color:rgba(155, 22, 195, 0.32);  font-size: 16px;" placeholder="enter your message"></textarea> <br>
-
-                               <button id="btn1" type="submit" class="button" >send</button>
-                               <br><br>
-</center>
-      </div><br>
-			<div id="data2"><center>
-		 	   	  LINK ME UP<br>
-		 	  <a href="#" class="fa fa-twitter"></a>
-<a href="#" class="fa fa-google"></a>
-<a href="#" class="fa fa-linkedin"></a>
-<a href="#" class="fa fa-github"></a>
-<a href="#" class="fa fa-instagram"></a>
-<a href="#" class="fa fa-slack"></a>
-</center> 	</div></div></center>
-
+<footer style="margin-bottom:0px; text-align:center; padding-top:25px;" id="footer">
+   <p>Eniayomi @ 2018 HNG</p>
+</footer>
 </body>
-</html>
-<script>
-  $(document).ready(function(){
-    $('#myform').submit(function(e){
-      e.preventDefault();
-    var valnext2 = $("#ter").val();
-    var question = $("#ter").val();
-    var resusr='</center><div class="container11 darker" ><img src="http://res.cloudinary.com/eniayomi/image/upload/v1525702188/botty.png" alt="Avatar" class="right" style="width:60%;"><p> ';
-    $("#async").append(resusr+" "+valnext2+" </p></div>");
-      $.ajax({
-        url: 'profiles/kingpin.php',
-        type: 'POST',
-        data: {question: question},
-        dataType: 'json',
-        success: function(response){
-           console.log(response);
-            var resbot='<div class="container11" ><img src="http://res.cloudinary.com/eniayomi/image/upload/v1524007065/pe.png" alt="Avatar" class="left" style="width:60%;"><p> ';
-             $("#async").append(resbot+" "+response.answer+" </p></div>");
-              $("#ter").val('');
 
-        },
-        error: function(error){
-          console.log(error);
-        }
-      })
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
 
-    })
-  });
+function newElementsForUser(userRequest) {
+   var chatArea = $("#chatarea");
+   var messageElement = "<div class='form-control form-control2 text-right'>" + userRequest + "</div>";
+   chatArea.html(chatArea.html() + messageElement);
+   var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
+   var timeElement = "<p class='timeEl text-right'>" + time + "</p>";
+   chatArea.html(chatArea.html() + timeElement);
+   chatArea.scrollTop($("#chatarea")[0].scrollHeight);
+}
+
+function newElementsForBot(botResponse) {
+   var chatArea = $("#chatarea");
+   if (botResponse.response.resultType == "find") {
+      var messageElement = "<div class='form-control form-control2 text-left'>Intern ID => " + botResponse.response.users.intern_id + "<br/>Name => " + botResponse.response.users.name + "<br/>Intern Username => " + botResponse.response.users.username + "<br/>Intern Profile Picture => " + botResponse.response.users.image_filename + "</div>";
+   } else { 
+      var messageElement = "<div class='form-control form-control2 text-left'>" + botResponse.response + "</div>";
+   }
+   chatArea.html(chatArea.html() + messageElement);
+   var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true , milliseconds: true});
+   var timeElement = "<p class='timeEl text-left'>" + time + "</p>";
+   chatArea.html(chatArea.html() + timeElement);
+   chatArea.scrollTop($("#chatarea")[0].scrollHeight);
+}
+
+$(document).ready(function() {
+   response = {"response" : "Hello there, I'm eniayomi Bot.<br/>Here's a couple of things i can do.<br/> 1. You can ask me anything<br/>2. You can find a friend who's in the dope HNGInternship<br/>syntax : find: username or find: name<br/>3. You open open a URL by typing open:your_url"};
+   newElementsForBot(response);
+});
+
+$(document).ready(function chargeBot() {
+   $("#send").click(function () {
+      var message = $("#message").val();
+      newElementsForUser(message);
+      if (message == "" || message == null) {
+         response = { 'response': 'Please type something' };
+         newElementsForBot(response);
+      }else if (message.includes('open:')) {
+         url = message.split('open:');
+         window.open('http://' + url[1]);
+      } else if (message.includes("randomquote:") || message.includes("random quotes:")) {
+         $.getJSON("https://talaikis.com/api/quotes/random/", function (json) {
+            response = json['quote'] + '<br/> Author : ' + json['author'];
+            botResponse = { 'response': response };
+            newElementsForBot(botResponse);
+         });
+         $("#chatarea").scrollTop($("#chatarea")[0].scrollHeight);
+      } else if (message.includes("aboutbot") || message.includes("about bot") || message.includes("aboutbot:")) {
+         response = { 'response': 'Version 4.0' };
+         newElementsForBot(response);
+      } else {
+         $.ajax({
+            url: "profiles/eniayomi.php",
+            type: "POST",
+            data: { new_request: message },
+            dataType: "json",
+            success: function (botResponse) {
+               newElementsForBot(botResponse);
+            }
+         });
+      }
+      $("#message").val("");
+   });
+});
+
+document.body.addEventListener('keyup', function (e) {
+   if (e.keyCode == "13") {
+      $("#send").click();
+   }
+});
+
 </script>
+
+</html>
+
+<?php }?>
