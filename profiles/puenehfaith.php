@@ -194,20 +194,22 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
   <div id='chatborder'>
       <h2>JAYO</h2>
     <h1 id="chatlog7" class="chatlog">HELLO AM JAYO can you train me?</h1>
-    <br>
-  <p>i love making beads but i don't know alot about making one can you teach me how to make a beautiful neck piece? to train me use the keyword "train" your question #your answer #password.</p>
-  <br><pre><code>if (lastUserMessage === 'hi'){
+<pre><code>if (lastUserMessage === 'hi'){
   JAYO = 'hello!';
-}</pre></code
+ }</pre></code
+ 
   <pre><code>if (lastUserMessage === 'what is your name'){
   Jayo = 'My name is' Jayo;
 }</pre></code
+
  <pre><code>if (lastUserMessage === 'how may i help you'){
   Jayo = 'i love making beads but i don't know alot about making one can you teach me how to make a beautiful neck piece? to train me use the keyword "train" your question #your answer #password.</p>
  }</pre></code
+      
   <pre><code>if (lastUserMessage === 'okay i will help you'){
   Jayo = 'Thank you for wanting to help;
 }</pre></code>
+        
   <input type="hello" name="Jayo" id="chatbox" placeholder="" onfocus="placeHolder()">
    </div>
   
