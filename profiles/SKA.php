@@ -1,33 +1,22 @@
 <!DOCTYPE html>
 <?php
 
-	include 'config.php';
+	if(!defined('DB_USER')){
+     require "../../config.php";
+     try {
+         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+     } catch (PDOException $pe) {
+         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+     }
+   }
 	
-	// $pdo = new PDO('mysql:host=db;dbname=hng_fun', 'ska', 'ska');
-	// $statement = $pdo->query("SELECT 'Hello, dear MySQL user!' AS _message FROM DUAL");
-	// $row = $statement->fetch(PDO::FETCH_ASSOC);
-	// echo htmlentities($row['_message']);
-	
-	
-	// $mysqli = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-	// if (mysqli_connect_errno($mysqli)) {
-		// echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	// }	
-
-	// $res = mysqli_query($mysqli, "SELECT * from interns_data");
-	// $row = mysqli_fetch_assoc($res);
-	
-	$conn = new PDO('mysql:host='.DB_HOST.';dbname='.DB_DATABASE, DB_USER, DB_PASSWORD);
-	
-	
-	$secret_word = "sample_secret_word";
 	$sql = "SELECT * FROM secret_word LIMIT 1";
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $data = $q->fetch();
 	$secret_word = $data['secret_word'];
 	
-	$sql2 = "SELECT * from interns_data WHERE username = 'dan'";
+	$sql2 = "SELECT * from interns_data WHERE username = 'SKA'";
     $q2 = $conn->query($sql2);
     $q2->setFetchMode(PDO::FETCH_ASSOC);
     $row = $q2->fetch();
@@ -54,6 +43,7 @@
 		</style>
     </head>
     <body>
+		<br/>
         <div id="header">
             <h3 style="">WELCOME TO HNG INTERNSHIP 4</h3>              
         </div>
@@ -64,14 +54,23 @@
 			</div>
 			<br/>
 			<div class="flex">
-				<div class="label">Name(Dan):</div>
+				<div class="label">Name :</div>
 				<div class="value"><? echo $name; ?></div>
 			</div>
 			<div class="flex">
-				<div class="label">Username2:</div>
+				<div class="label">Username:</div>
 				<div class="value"><? echo $username; ?></div>
 			</div>
+			<div class="flex">
+				<div class="label">Root:</div>
+				<div class="value"><? echo $_SERVER["DOCUMENT_ROOT"]; ?></div>
+			</div>
+			<div class="flex">
+				<div class="label">Dir:</div>
+				<div class="value"><? echo __DIR__; ?></div>
+			</div>
 		</div>        		
+			
         <div id="footer">
             
         </div>        
