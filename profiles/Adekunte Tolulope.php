@@ -279,7 +279,7 @@ div {
             <div class="body1">
                 <div class="chat-output" id="chat-output">
                     <div class="user-message">
-                        <div class="message">Hey there! it's Adtrexbot at your service. </div>
+                        <div class="message">Hey there! Adtrexbot at your service. </div>
                         <div class="message">To teach me new stuff, use this format - <span style="color: yellow">'train: question # answer # password'.</span> </div>
                     
                     <div class="message">To learn more about me, simply type - <span style="color: orange">'aboutbot'.</span></div>
