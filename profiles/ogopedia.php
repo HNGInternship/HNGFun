@@ -196,7 +196,7 @@ p {
 
 .bg-primary {
     background: transparent !important;
-    border-bottom: 1px solid rgba(233, 234, 238, 0.1);
+    border-bottom: 1px solid rgba(233, 234, 238, 0.1) !important;
 }
 
 footer {
