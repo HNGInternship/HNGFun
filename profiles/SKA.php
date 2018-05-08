@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
 
+	require 'db.php';
 	include 'config.php';
 	
 	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
