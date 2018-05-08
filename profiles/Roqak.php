@@ -29,7 +29,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $arrayName = array('result' => 'Akin\'s chatbot Version 0.1');
     echo json_encode($arrayName);
     return;
-  
+  }
   //$mem = preg_replace('([\s]+)', ' ', trim($mem));
   //$mem = preg_replace("([?.])", "", $mem);
 	$arr = explode(" ", $mem);
@@ -161,7 +161,7 @@ return;
 //             ]);
 //             return;
 //         }
-// }
+}
 }
 
 
