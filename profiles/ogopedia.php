@@ -20,7 +20,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
+/*html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -40,7 +40,6 @@ time, mark, audio, video {
     font: inherit;
     vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
     display: block;
@@ -62,7 +61,7 @@ q:before, q:after {
 table {
     border-collapse: collapse;
     border-spacing: 0;
-}
+}*/
 
 /*Reset*/
 
@@ -163,11 +162,11 @@ img.social {
 }
 
 
-
+/*
 h1, p {
     padding: 0;
     margin: 0;
-}
+}*/
 
 h1 {
     font-size: 70px;
