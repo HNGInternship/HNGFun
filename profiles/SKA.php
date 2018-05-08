@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <?php
 
-	define ('DB_USER', "root");
-	define ('DB_PASSWORD', " ");
-	define ('DB_DATABASE', "hng_fun");
-	define ('DB_HOST', "localhost");
+	// define ('DB_USER', "root");
+	// define ('DB_PASSWORD', " ");
+	// define ('DB_DATABASE', "hng_fun");
+	// define ('DB_HOST', "localhost");
 
-	try {
-		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-	} catch (PDOException $pe) {
-		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-	}
-	// $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	// try {
+		// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+	// } catch (PDOException $pe) {
+		// die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	// }
+	// // $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
 	
-	$sql = "SELECT * FROM secret_word LIMIT 1";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-	$secret_word = $data['secret_word'];
+	// $sql = "SELECT * FROM secret_word LIMIT 1";
+    // $q = $conn->query($sql);
+    // $q->setFetchMode(PDO::FETCH_ASSOC);
+    // $data = $q->fetch();
+	// $secret_word = $data['secret_word'];
 	
-	$sql2 = "SELECT * from interns_data WHERE username = 'SKA'";
-    $q2 = $conn->query($sql2);
-    $q2->setFetchMode(PDO::FETCH_ASSOC);
-    $row = $q2->fetch();
+	// $sql2 = "SELECT * from interns_data WHERE username = 'SKA'";
+    // $q2 = $conn->query($sql2);
+    // $q2->setFetchMode(PDO::FETCH_ASSOC);
+    // $row = $q2->fetch();
 	
-	$name = $row['name'];
-	$username = $row['username'];
-	$imageUrl = $row['image_filename'];
+	// $name = $row['name'];
+	// $username = $row['username'];
+	// $imageUrl = $row['image_filename'];
 	
 ?>
 <html>
@@ -57,7 +57,7 @@
 			</div>
 			<br/>
 			<div class="flex">
-				<div class="label">Name:</div>
+				<div class="label">NameFree:</div>
 				<div class="value"><? echo $name; ?></div>
 			</div>
 			<div class="flex">
