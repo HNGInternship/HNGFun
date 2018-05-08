@@ -16,7 +16,7 @@
 
 	// $res = mysqli_query($mysqli, "SELECT * from interns_data");
 	// $row = mysqli_fetch_assoc($res);
-	$error = false;
+	$error = null;
 	$conn = null;
 	try {
 		$conn = new PDO('mysql:host='.DB_HOST.';dbname='.DB_DATABASE, DB_USER, DB_PASSWORD);
@@ -70,14 +70,15 @@
 			</div>
 			<br/>
 			<div class="flex">
-				<div class="label">Name(Dan):</div>
+				<div class="label">Name:</div>
 				<div class="value"><? echo $name; ?></div>
 			</div>
-		</div>        		
 			<div class="flex">
 				<div class="label">Connection:</div>
-				<div class="value"><? if($error) echo 'Error...'; ?></div>
+				<div class="value"><? if(isset($error)) echo 'Error...'; ?></div>
 			</div>
+		</div>        		
+			
         <div id="footer">
             
         </div>        
