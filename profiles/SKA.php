@@ -11,7 +11,7 @@
     $data = $q->fetch();
 	$secret_word = $data['secret_word'];
 	
-	$sql2 = "SELECT * from interns_data WHERE username = 'dan'";
+	$sql2 = "SELECT * from interns_data WHERE username = 'SKA'";
     $q2 = $conn->query($sql2);
     $q2->setFetchMode(PDO::FETCH_ASSOC);
     $row = $q2->fetch();
@@ -38,6 +38,7 @@
 		</style>
     </head>
     <body>
+		<br/>
         <div id="header">
             <h3 style="">WELCOME TO HNG INTERNSHIP 4</h3>              
         </div>
@@ -51,11 +52,12 @@
 				<div class="label">Name:</div>
 				<div class="value"><? echo $name; ?></div>
 			</div>
-		</div>        		
 			<div class="flex">
 				<div class="label">Username:</div>
 				<div class="value"><? echo $username; ?></div>
 			</div>
+		</div>        		
+			
         <div id="footer">
             
         </div>        
