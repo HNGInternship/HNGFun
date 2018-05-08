@@ -384,7 +384,7 @@
     </style>
 </head>
 
-<body class="container">
+<body>
 
     
 </div>
@@ -507,6 +507,13 @@
                                             </div>
                                             </div>
                                         </div>
+                                    </br>
+                                    
+                                    </div>
+
+                                    <div style="text-align: right; color: white;                                        
+                                                " id="result">
+                                        
                                     </div>
 
                                     <div class="chat-input">
