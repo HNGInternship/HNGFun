@@ -1,28 +1,10 @@
-<?php 
-
-try {
-    $query = "SELECT * FROM interns_data_ WHERE username='ogopedia'";
-    $resultSet = $conn->query($query);
-    $result = $resultSet->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e){
-    throw $e;
-}
-$username = $result['username'];
-$name = $result['name'];
-$picture = $result['image_filename'];
-
-
-try{
-    $querySecret =  "SELECT * FROM secret_word LIMIT 1";
-    $resultSet   =  $conn->query($querySecret);
-    $result  =  $resultSet->fetch(PDO::FETCH_ASSOC);
-    $secret_word =  $result['secret_word'];
-}catch (PDOException $e){
-    throw $e;
-}
-
-
-  ?>
+<?php
+$result = $conn->query("SELECT * from secret_word LIMIT 1");
+$result = $result->fetch(PDO::FETCH_OBJ);
+$secret_word = $result->secret_word;
+$result2 = $conn->query("Select * from interns_data where username = 'ogopedia'");
+$user = $result2->fetch(PDO::FETCH_OBJ);
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +13,7 @@ try{
 	<title>Ogopedia's Profile</title>
 	<link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
 	<style>
-		@import url(https://fonts.googleapis.com/css?family=Montserrat:400,500,300,200,700);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,500,300,200,700);
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,200,700);
 
 html{
@@ -100,7 +82,7 @@ img.ogo {
 
 .apa-otun {
     float: right;
-    padding-top: 100px;
+    padding-top: 20%;
 }
 
 .apa-otun ul {
@@ -112,19 +94,10 @@ img.social {
     padding-bottom: 20px;
 }
 
-
-
 .apa-osi {
     width: 65%;
     float: left;
     mix-blend-mode: exclusion;
-}
-
-
-
-h1, p {
-    padding: 0;
-    margin: 0;
 }
 
 h1 {
@@ -132,13 +105,18 @@ h1 {
     line-height: 80px;
     font-weight: 500;
     max-width: 100px;
-    padding-top: 40%;
+    padding-top: 55%;
+    font-family: 'Montserrat';
+    color: #e9eaee;
 }
 
 p {
     font-family: 'Roboto';
     font-size: 50px;
     font-weight: 100;
+    line-height: normal;
+    margin: 0;
+    letter-spacing: 1px;
 }
 
 @media(max-width: 999px) {
@@ -193,6 +171,38 @@ p {
     color: #b3b8ce;
     transition: color 300ms;
 	}
+
+    .container {
+        max-width: 100% !important;
+    }
+
+    @media (min-width: 1200px){}
+    .container {
+    max-width: 100% !important;
+}
+
+#mainNav .navbar-toggler {
+    color: #e9eaee;
+    border-color: #e9eaee;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #e9eaee;
+}
+
+#mainNav .navbar-brand {
+    color: #e9eaee;
+}
+
+.bg-primary {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(233, 234, 238, 0.1) !important;
+}
+
+footer {
+    display: none !important;
+}
+
 	</style>
 </head>
 <body class="site-bg">
@@ -202,10 +212,10 @@ p {
 	</div>
 	<div id="site-main">
 		<header>
-				<a href="./"><img class="logo" src="../img/logo.png" alt="logo"></a>
+<!-- 				<a href="./"><img class="logo" src="../img/logo.png" alt="logo"></a>
 			<div class="menu">
 				<a href="#."><img class="menu" src="https://res.cloudinary.com/ogopedia/image/upload/v1525665779/menu.png" alt="menu"></a>
-			</div>
+			</div> -->
 		</header>
 
 		<div class="apa-osi">

@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1); 
+error_reporting(E_ALL);
 if(!defined('DB_USER')){
 require "../../config.php";
  try {
@@ -15,11 +17,11 @@ $result = $result->fetch(PDO::FETCH_OBJ);
 $secret_word = $result->secret_word;
 $result2 = $conn->query("Select * from interns_data where username = 'roqak'");
 $user = $result2->fetch(PDO::FETCH_OBJ);
-///////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
 ?>
 <?php
 $password = "password";
-// include_once 'answers.php';
+include_once 'answers.php';
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
   $mem = $_POST['question'];
   // $mem = preg_replace('([\s]+)', ' ', trim($mem)); //remove extra white space from question
@@ -78,6 +80,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 /////////////////////////////////////////////////////////////////////////////////////////////
 $parentheses = stripos($answer, "((");
 if($parentheses === false){// if answer is not to call a function
+  header('Content-type: text/json');
   echo json_encode([
     'result' => $answer
   ]);
@@ -98,8 +101,9 @@ if($parentheses === false){// if answer is not to call a function
         ////////////////////////////////////////////////////////////////////////////////////
         $index_of_parentheses = stripos($answer, "((");
         if($index_of_parentheses === false){
+          header('Content-type: text/json');
           echo json_encode([
-            'answer' => $answer
+            'result' => $answer
           ]);
           return;
         }else{
@@ -108,18 +112,20 @@ if($parentheses === false){// if answer is not to call a function
                 $function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
                 $function_name = trim($function_name);
                 if(stripos($function_name, ' ') !== false){
+                  header('Content-type: text/json');
                    echo json_encode([
-                    'answer' => "Ohh Sorry!! The function name should not contain white spaces"
+                    'result' => "Ohh Sorry!! The function name should not contain white spaces"
                   ]);
                   return;
                 }
               if(!function_exists($function_name)){
+                header('Content-type: text/json');
                 echo json_encode([
-                  'answer' => "I am sorry but I could not find that function, please try again"
+                  'result' => "I am sorry but I could not find that function, please try again"
                 ]);
               }else{
                 echo json_encode([
-                  'answer' => str_replace("(($function_name))", $function_name(), $answer)
+                  'result' => str_replace("(($function_name))", $function_name(), $answer)
                 ]);
               }
               return;
@@ -139,7 +145,7 @@ if($parentheses === false){// if answer is not to call a function
       }
       return;
     }
-}
+// }
 }else{
   header('Content-type: text/json');
 echo json_encode([
@@ -161,7 +167,8 @@ return;
 //             ]);
 //             return;
 //         }
-// }
+}
+}
 }
 
 
@@ -207,8 +214,8 @@ return;
   }
 	</style>
 </head>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-<script src="jquery-3.3.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- <script src="jquery-3.3.1.min.js"></script> -->
 <body>
 <div class="container">
 <div class="row">
@@ -240,7 +247,7 @@ return;
 				</ul>
 			<footer>
 				<form class="padedd" methood="post" id="formm">
-	    <input type="text" placeholder="message" name="message"><button id="send" name="send">Send</button>
+	    <input type="text" placeholder="message" name="question"><button id="send" name="send">Send</button>
 			</form>
 			</footer>
 	    </div>
@@ -253,7 +260,7 @@ $(document).ready(function(){
 	var Form = $('#formm');
 	Form.submit(function(e){
 		e.preventDefault();
-		var MBox = $('input[name=message]');
+		var MBox = $('input[name=question]');
 		var question = MBox.val();
 		$("#chats").append("<li>" + question + "</li>");
 
@@ -273,7 +280,7 @@ $(document).ready(function(){
 		// 	}
 		// } )
 		$.ajax({
-			url: "Roqak.php",
+			url: "/profiles/Roqak.php",
 			type: "post",
 			data: {question: question},
 			dataType: "json",
@@ -291,3 +298,4 @@ $(document).ready(function(){
 </script>
 </body>
 </html>
+

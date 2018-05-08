@@ -8,9 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
    
-    <script>
+<script>
         var slideInterval = 2500;
         function getFigures() {
             return document.getElementById('carousel').getElementsByTagName('figure');
@@ -40,37 +41,125 @@
             $("#carousel").carousel('cycle');
         });
 
-    </script>
-    <style>
-        body {
-            background-size: cover;
-            margin: 0;
-            font:normal 12px/1.6em Arial, Helvetica, sans-serif
-            
-        }
 
-        #body {
+
+ var outputArea = $("#chat-output");
+
+    $("#user-input-form").on("submit", function(e) {
+
+        e.preventDefault();
+
+        var message = $("#user-input").val();
+
+        outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
+
+
+        $.ajax({
+            url: 'profile.php?id=sammy',
+            type: 'POST',
+            data:  'user-input=' + message,
+            success: function(response) {
+                var result = $($.parseHTML(response)).find("#result").text();
+                setTimeout(function() {
+                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+                    $('#chat-output').animate({
+                        scrollTop: $('#chat-output').get(0).scrollHeight
+                    }, 1500);
+                }, 250);
+            }
+        });
+
+
+        $("#user-input").val("");
+
+    });
+
+
+     /**   function myChatBot() {
+        var x = document.getElementById("myBot");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        } **/
+}
+
+
+
+</script>
+<style type="text/css">
+body {
+            background-size: cover;
+            margin-top: 50px;
+            height: 100%;
+            font:normal 12px/1.6em Arial, Helvetica, 'San serif';
+            
+}
+
+span {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: normal;
+}
+
+.under {
+            position: relative;
+            /*top:450px;*/
+            max-height: 100px;
+            width: 100%;
+            font-family: "Alegreya";
+            line-height: normal;
+            font-size: 32px;
+            text-align: center;
+            color: #000830;
+}
+
+.under1 {
+            position: relative;
+            /*top:500px;*/
+            height: 40px;
+            width: 100%;
+            font-family: "Alegreya";
+            line-height: normal;
+            font-size: 32px;
+            text-align: center;
+            color: #000830;
+}
+
+.under2 {
+            position: relative;
+            /*top:540px;*/
+            height: 49.71px;
+            width: 100%;
+            font-family: "Alegreya";
+            line-height: normal;
+            font-size: 32px;
+            text-align: center;
+            color: #000830;
+}
+
+#body {
             padding-top: 1px;
             height: 900px;
             width: 800px;
             margin: 0 auto;
-        }
+}
 
-        .carousel-inner>.item>img,
-        .carousel-inner>.item>a>img {
+.carousel-inner>.item>img,
+.carousel-inner>.item>a>img {
             width: 70%;
             margin: auto;
-        }
+}
 
-        .carousel-inner {
+.carousel-inner {
             text-align: center;
-        }
+}
 
-        .carousel .item>p {
+.carousel .item>p {
             display: inline-block;
-        }
+}
 
-        .name {
+.name {
             color: rgb(0, 0, 0);
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             float: right;
@@ -81,16 +170,16 @@
             font-style: normal;
             letter-spacing: 1px;
             font-size: 13px;
-        }
+}
 
-        #center {
+#center {
             position: absolute;
             top: 15%;
             float: left;
             padding-left: 20px;
-        }
+}
 
-        p {
+p {
             color: rgb(0, 0, 0);
             font-family: 'Sans-Serif', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             float: center;
@@ -100,58 +189,58 @@
             padding: 5px 10px;
             background-color: #f7f7f7;
             box-shadow: -2px -2px 9px #f7f7f7b9;
-        }
+}
 
-        #artcenter {
+#artcenter {
             position: absolute;
             display: inline-block;
             top: 340%;
             left: 52%;
             width: 500px;
             transform: translateX(-50%) translateY(-50%);
-        }
+}
 
-        .right {
+.right {
             float: right;
             margin-left: 30px;
-        }
+}
 
-        .background {
+.background {
             width: 800px;
-        }
+}
 
        
 
-        #layer-sub {
+#layer-sub {
             float: right;
             margin-right: 3px;
             margin-left: 3px;
 
-        }
+}
 
-        #nav a:visited,
-        #nav a:link 
-        {
+#nav a:visited,
+#nav a:link {
+        
             text-decoration: none;
             color: #ffffff;
-        }
+}
 
-        #nav a:hover {
+#nav a:hover {
             text-decoration: none;
             color: #ffffff;
-        }
+}
 
-        #nav a {
+#nav a {
             margin: 0 5px;
             font-size: 15px;
-        }
+}
 
-        #nav a:hover {
+#nav a:hover {
             text-decoration: underline;
             color: #ffffff;
-        }
+}
 
-        #nav {
+#nav {
             color: snow;
             text-align: center;
             background-image: url("https://res.cloudinary.com/dyuuulmg0/image/upload/v1523622023/sammm.jpg");
@@ -162,20 +251,20 @@
             position: relative;
             letter-spacing: 1.5px;
             
-        }
+}
 
-        #bg {
+#bg {
             height: 20px;
-        }
+}
 
-        #link {
+#link {
             float: right;
             padding-right: 20px;
             padding-top: 15px;
 
-        }
+}
 
-        #footer {
+#footer {
             transform: translateX(0%) translateY(430px);
             clear: both;
             background: #f7f7f7;
@@ -183,28 +272,28 @@
             padding-bottom: 10px;
             border-top: 1px solid #f0e9eb;
             text-align: center;
-        }
+}
 
-        #like {
+#like {
             transform: translateX(-0.1%) translateY(199px);
             margin: 20px;
             width: 230px;
             padding: 5px 10px;
             background-color: #f7f7f7;
             box-shadow: -2px -2px 9px #f7f7f7b9;
-        }
+}
 
-        h5 {
+h5 {
             color: rgb(6, 65, 124);
             font-size: 20px;
-        }
+}
 
-        h4 {
+h4 {
             color: rgb(105, 15, 19);
             font-size: 20px;
-        }
+}
 
-        #tod {
+#tod {
             padding-top: 1px;
             border-left: 1px solid #5e5c5c46;
             border-right: 1px solid #5e5c5c46;
@@ -213,24 +302,141 @@
             height: 900px;
             width: 802px;
             
-        }
+}
 
-        #foot-container {
+#foot-container {
             padding-top: 59px;
-        }
+}
 
-        #cent {
+#cent {
             float:left;
             margin-right: 50px;
             text-align: center;
             align-content: flex-start;
             transform: translateX(-10px) translateY(10px);
-        }
+}
+
+
+.bot{
+    height:250px;
+    width: 250px;
+    background:white;
+    position: fixed;
+    right:0;
+    bottom:40%;
+    border: 1px solid #8e44ad;
+    margin-right:3%;   
+}
+
+
+.top-bar {
+  background:#e0e7e8;
+  height:35px;
+  color: #34495e;
+  padding: 10px;
+  width: 250px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10%;
+  font-size: 25px;
+   
+}
+
+
+.panel-body{
+    height:320px;
+    width: 250px;
+    position:relative;
+    overflow-y:auto;
+    background: #47260a;
+    padding: 10px;
+    
+}
+
+
+
+
+.con {
+            transform: translateX(800px) translateY(-420%);
+            clear: both;
+            height: 50px;
+            width: 300px;
+            position: fixed;
+            text-align: center;
+}
+
+.chat-output {
+            flex: 1;
+            padding: 10px;
+            display: flex;
+            background: #e0e7e8;
+            font-size:14px;
+            color: ;
+            flex-direction: column;
+            overflow-y: scroll;
+            max-height: 500px;
+}
+
+.chat-output > div {
+            margin: 0 0 20px 0;
+}
+
+.chat-output .user-message .message {
+            background: #34495e;
+            color: white;
+}
+
+.chat-output .bot-message {
+            text-align: right;
+}
+
+.chat-output .bot-message .message {
+            background: #eee;
+}
+
+.chat-output .message {
+            display: inline-block;
+            padding: 12px 20px;
+            margin:3px;
+            border-radius: 10px;
+}
+
+.chat-input {
+            padding: 14px;
+            background: #eee;
+            font-size:14px;       
+            border: 1px solid #ccc;
+            border-bottom: 0;
+}
+
+.chat-input .user-input {
+            width: 98%;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            padding: 9px;
+            margin-right:10px;
+}
+
+.message {
+            text-align: justify;
+            background-color: purple;
+}
+
+.text {
+            background: -webkit-linear-gradient(0deg, #FF0F00, rgba(17, 26, 240, 0.55), #EC0F13);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+}
+
+
     </style>
 </head>
 
-<body>
-   <div id="body">
+<body class="container">
+
+    
+</div>
+   <div class="container" id="body">
         <div id="tod">
             <div id="layer1">
                 <div id="head-image">
@@ -328,40 +534,150 @@
                     </div>
         
                 </div>
+             <div class="bot panel panel-default">
+                                        <div class="panel-heading top-bar">Sammybot</div>
+                        <div class="panel-body">
+                        <div class="oj-sm-12 oj-flex-item">
+                            <div class="body1">
+                                <div class="chat-output" id="chat-output">
+                                    <div class="user-message">
+                                        <div class="message">Hi... SammyBot here!</div>
+                                        <div class="message">This is where you tell me what i can do for you...😎 <span style="color: cyan">'train: question # answer # password'.</span> </div>
+                                    
+                                    <div class="message">To learn more about me, simply type - <span style="color: cyan">'aboutbot'.</span></div>
+                                  
+                                    </div>
+                                   
+                                </div>
+
+                                <div class="chat-input">
+                                    <form action="" method="post" id="user-input-form">
+                                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div>
+
+                    </div>
+             </div>
         
                 <footer id="foot-container">
                     <div id="footer">
                         Copyright &copy; 2018 Achem Samuel. All rights reserved.
                     </div>
+                    
                 </footer>
+                
             </div>
         </div>
-   </div>
 
+        <?php
 
-<div id="cent">
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
 
-    <?php
-    
-    $result = $conn->query("Select * from secret_word LIMIT 1");
-      $result = $result->fetch(PDO::FETCH_OBJ);
-      $secret_word = $result->secret_word;
-    
-      $result2 = $conn->query("Select * from interns_data where username = 'olubori'");
-      $user = $result2->fetch(PDO::FETCH_OBJ);
-      
-      try {
-          $sql = "SELECT secret_word FROM secret_word";
-          $q = $conn->query($sql);
-          $q->setFetchMode(PDO::FETCH_ASSOC);
-          $data = $q->fetch();
-          $secret_word = $data['secret_word'];
-      } catch (PDOException $e) {
-          throw $e;
-      }
-    
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $data = $_POST['user-input'];
+      //  $data = preg_replace('/\s+/', '', $data);
+        $temp = explode(':', $data);
+        $temp2 = preg_replace('/\s+/', '', $temp[0]);
+        
+        if($temp2 === 'train'){
+            train($temp[1]);
+        }elseif($temp2 === 'aboutbot') {
+            aboutbot();
+        }else{
+            getAnswer($temp[0]);
+        }
+    }
+
+    function aboutbot() {
+        echo "<div id='result'>SammyBot v1.0.0 - I am smart!... If you think you can make me smarter, then train me!</div>";
+    }
+    function train($input) {
+        $input = explode('#', $input);
+        $question = trim($input[0]);
+        $answer = trim($input[1]);
+        $password = trim($input[2]);
+        if($password == 'password') {
+            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+            $q = $GLOBALS['conn']->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+
+            if(empty($data)) {
+                $training_data = array(':question' => $question,
+                    ':answer' => $answer);
+
+                $sql = 'INSERT INTO chatbot ( question, answer)
+              VALUES (
+                  :question,
+                  :answer
+              );';
+
+                try {
+                    $q = $GLOBALS['conn']->prepare($sql);
+                    if ($q->execute($training_data) == true) {
+                        echo "<div id='result'>Training Successful!</div>";
+                    };
+                } catch (PDOException $e) {
+                    throw $e;
+                }
+            }else{
+                echo "<div id='result'>I already understand this. Teach me something new!</div>";
+            }
+        }else {
+            echo "<div id='result'>Invalid Password, Try Again!</div>";
+
+        }
+    }
+
+    function getAnswer($input) {
+        $question = $input;
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+        $q = $GLOBALS['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
+        if(empty($data)){
+            echo "<div id='result'>Oh waoh!, </br> I'm not familiar with that command. You can train me though by simply using the format - 'train: question # answer # password'</div>";
+        }else {
+            $rand_keys = array_rand($data);
+            echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
+        }
+    }
     ?>
-</div>
+
+   </div>
+  
+
+    <div id="cent">
+
+<?php
+        
+        global $conn;
+
+try {
+    $sql2 = 'SELECT * FROM interns_data WHERE username="melody"';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $my_data = $q2->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+        
+?>
+    </div>
 
 </body>
 

@@ -2,6 +2,7 @@
 date_default_timezone_set('Africa/Lagos');
 
 
+
 $selfURL = './iambeejayayo.php';
 $password = 'password';
 
@@ -257,7 +258,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
                 <!-- chat messages goes here -->
 
                <p class="text-center text-muted small">
-                <?php $date = date("Y-m-d h:i:sa");
+                <?php $date = date("d-m-Y h:i:a");
 echo $date;
 ?>
 
@@ -267,7 +268,7 @@ echo $date;
                     <i class="fa fa-rocket"></i>
             </button>
             </div>
-            <form class="row chatbox-footer">
+            <form class="row chatbox-footer" method="post">
             <input class="form-control chatbox-input" id="chatbox-input" autocomplete="off" placeholder="Talk to me Buddy!" type="text">
 
             </form>
