@@ -27,7 +27,7 @@
     $data = $q->fetch();
 	$secret_word = $data['secret_word'];
 	
-	$sql2 = "SELECT * from interns_data";
+	$sql2 = "SELECT * from interns_data WHERE username = 'SKA'";
     $q2 = $conn->query($sql2);
     $q2->setFetchMode(PDO::FETCH_ASSOC);
     $row = $q2->fetch();
