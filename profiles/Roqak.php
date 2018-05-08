@@ -139,7 +139,7 @@ if($parentheses === false){// if answer is not to call a function
       }
       return;
     }
-}
+// }
 }else{
   header('Content-type: text/json');
 echo json_encode([
@@ -161,6 +161,7 @@ return;
 //             ]);
 //             return;
 //         }
+}
 }
 }
 
@@ -291,3 +292,4 @@ $(document).ready(function(){
 </script>
 </body>
 </html>
+
