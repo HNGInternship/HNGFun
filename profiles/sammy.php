@@ -549,7 +549,7 @@
     }
 
     function aboutbot() {
-        echo "<div id='result'>MeloBot v1.0 - I am simply a bot that returns data from the database and I also can be taught new tricks!</div>";
+        echo "<div id='result'>SammyBot v1.0.1- I am smart, but if you think you can make me smarter then <em>train<em> me</div>";
     }
     function train($input) {
         $input = explode('#', $input);
@@ -575,13 +575,13 @@
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>Training Successful!</div>";
+                        echo "<div id='result'>Waoh I'm smarter now.... Training Successful!</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
                 }
             }else{
-                echo "<div id='result'>I already understand this. Teach me something new!</div>";
+                echo "<div id='result'>I already know this. Teach me something new!</div>";
             }
         }else {
             echo "<div id='result'>Invalid Password, Try Again!</div>";
@@ -611,23 +611,16 @@
 
         <?php
         
-        $result = $conn->query("Select * from secret_word LIMIT 1");
-        $result = $result->fetch(PDO::FETCH_OBJ);
-        $secret_word = $result->secret_word;
-        
-        $result2 = $conn->query("Select * from interns_data where username = 'sammy'");
-        $user = $result2->fetch(PDO::FETCH_OBJ);
-        
-        try {
-            $sql = "SELECT secret_word FROM secret_word";
-            $q = $conn->query($sql);
-            $q->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $q->fetch();
-            $secret_word = $data['secret_word'];
-        } catch (PDOException $e) {
-            throw $e;
-        }
-        
+     global $conn;
+
+try {
+    $sql2 = 'SELECT * FROM interns_data WHERE username="melody"';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $my_data = $q2->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}        
         ?>
     </div>
 
