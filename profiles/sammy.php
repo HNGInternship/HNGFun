@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
    
 <script>
@@ -86,36 +87,36 @@
 
 
 </script>
-<style>
-        body {
+<style type="text/css">
+body {
             background-size: cover;
-            margin-top: 20px;
-            font:normal 12px/1.6em Arial, Helvetica, sans-serif
+            margin-top: 50px;
+            font:normal 12px/1.6em Arial, Helvetica, 'San serif';
             
-        }
+}
 
-        #body {
+#body {
             padding-top: 1px;
             height: 900px;
             width: 800px;
             margin: 0 auto;
-        }
+}
 
-        .carousel-inner>.item>img,
-        .carousel-inner>.item>a>img {
+.carousel-inner>.item>img,
+.carousel-inner>.item>a>img {
             width: 70%;
             margin: auto;
-        }
+}
 
-        .carousel-inner {
+.carousel-inner {
             text-align: center;
-        }
+}
 
-        .carousel .item>p {
+.carousel .item>p {
             display: inline-block;
-        }
+}
 
-        .name {
+.name {
             color: rgb(0, 0, 0);
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             float: right;
@@ -126,16 +127,16 @@
             font-style: normal;
             letter-spacing: 1px;
             font-size: 13px;
-        }
+}
 
-        #center {
+#center {
             position: absolute;
             top: 15%;
             float: left;
             padding-left: 20px;
-        }
+}
 
-        p {
+p {
             color: rgb(0, 0, 0);
             font-family: 'Sans-Serif', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             float: center;
@@ -145,58 +146,58 @@
             padding: 5px 10px;
             background-color: #f7f7f7;
             box-shadow: -2px -2px 9px #f7f7f7b9;
-        }
+}
 
-        #artcenter {
+#artcenter {
             position: absolute;
             display: inline-block;
             top: 340%;
             left: 52%;
             width: 500px;
             transform: translateX(-50%) translateY(-50%);
-        }
+}
 
-        .right {
+.right {
             float: right;
             margin-left: 30px;
-        }
+}
 
-        .background {
+.background {
             width: 800px;
-        }
+}
 
        
 
-        #layer-sub {
+#layer-sub {
             float: right;
             margin-right: 3px;
             margin-left: 3px;
 
-        }
+}
 
-        #nav a:visited,
-        #nav a:link 
-        {
+#nav a:visited,
+#nav a:link {
+        
             text-decoration: none;
             color: #ffffff;
-        }
+}
 
-        #nav a:hover {
+#nav a:hover {
             text-decoration: none;
             color: #ffffff;
-        }
+}
 
-        #nav a {
+#nav a {
             margin: 0 5px;
             font-size: 15px;
-        }
+}
 
-        #nav a:hover {
+#nav a:hover {
             text-decoration: underline;
             color: #ffffff;
-        }
+}
 
-        #nav {
+#nav {
             color: snow;
             text-align: center;
             background-image: url("https://res.cloudinary.com/dyuuulmg0/image/upload/v1523622023/sammm.jpg");
@@ -207,20 +208,20 @@
             position: relative;
             letter-spacing: 1.5px;
             
-        }
+}
 
-        #bg {
+#bg {
             height: 20px;
-        }
+}
 
-        #link {
+#link {
             float: right;
             padding-right: 20px;
             padding-top: 15px;
 
-        }
+}
 
-        #footer {
+#footer {
             transform: translateX(0%) translateY(430px);
             clear: both;
             background: #f7f7f7;
@@ -228,28 +229,28 @@
             padding-bottom: 10px;
             border-top: 1px solid #f0e9eb;
             text-align: center;
-        }
+}
 
-        #like {
+#like {
             transform: translateX(-0.1%) translateY(199px);
             margin: 20px;
             width: 230px;
             padding: 5px 10px;
             background-color: #f7f7f7;
             box-shadow: -2px -2px 9px #f7f7f7b9;
-        }
+}
 
-        h5 {
+h5 {
             color: rgb(6, 65, 124);
             font-size: 20px;
-        }
+}
 
-        h4 {
+h4 {
             color: rgb(105, 15, 19);
             font-size: 20px;
-        }
+}
 
-        #tod {
+#tod {
             padding-top: 1px;
             border-left: 1px solid #5e5c5c46;
             border-right: 1px solid #5e5c5c46;
@@ -258,26 +259,24 @@
             height: 900px;
             width: 802px;
             
-        }
+}
 
-        #foot-container {
+#foot-container {
             padding-top: 59px;
-        }
+}
 
-        #cent {
+#cent {
             float:left;
             margin-right: 50px;
             text-align: center;
             align-content: flex-start;
             transform: translateX(-10px) translateY(10px);
-        }
-
-    
 }
+
 
 .bot{
     height:250px;
-    width:320px;
+    width: 250px;
     background:white;
     position: fixed;
     right:0;
@@ -292,6 +291,7 @@
   height:35px;
   color: #34495e;
   padding: 10px;
+  width: 250px;
   position: relative;
   overflow: hidden;
   border-radius: 10%;
@@ -301,7 +301,8 @@
 
 
 .panel-body{
-    height:450px;
+    height:320px;
+    width: 250px;
     position:relative;
     overflow-y:auto;
     background: #47260a;
@@ -321,70 +322,75 @@
             text-align: center;
 }
 
-      .chat-output {
+.chat-output {
             flex: 1;
             padding: 10px;
             display: flex;
             background: purple;
             flex-direction: column;
-            font-size: 12px;
+            font-size: 13px;
             overflow-y: scroll;
             max-height: 500px;
-        }
-        .chat-output > div {
+}
+
+.chat-output > div {
             margin: 0 0 20px 0;
-        }
-        .chat-output .user-message .message {
+}
+
+.chat-output .user-message .message {
             background: purple;
             color: white;
-        }
-        .chat-output .bot-message {
+}
+
+.chat-output .bot-message {
             text-align: right;
-        }
-        .chat-output .bot-message .message {
+}
+
+.chat-output .bot-message .message {
             background: #eee;
-        }
-        .chat-output .message {
+}
+
+.chat-output .message {
             display: inline-block;
             padding: 12px 20px;
             border-radius: 10px;
-        }
-        .chat-input {
-            margin-top: 80px;
-            padding: 10px;
+            margin: 3px;
+}
+
+.chat-input {
+            padding: 14px;
             background: #eee;
             font-size:14px;       
             border: 1px solid #ccc;
             border-bottom: 0;
             border-radius: 5%;
-        }
-     .chat-input .user-input {
+}
+
+.chat-input .user-input {
             width: 98%;
             border: 1px solid #ccc;
             border-radius: 20px;
             padding: 9px;
             margin-right:10px;
 
-        }
+}
 
-        .message {
+.message {
             text-align: justify;
             background-color: purple;
-        }
+}
 
-        .text {
+.text {
             background: -webkit-linear-gradient(0deg, #FF0F00, rgba(17, 26, 240, 0.55), #EC0F13);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-.inc {
-    color: cyan;
 }
+ 
 
     </style>
 </head>
 
-<body>
+<body class="container">
 
     
 </div>
@@ -486,6 +492,33 @@
                     </div>
         
                 </div>
+             <div class="bot panel panel-default">
+                                        <div class="panel-heading top-bar">Sammybot</div>
+                        <div class="panel-body">
+                        <div class="oj-sm-12 oj-flex-item">
+                            <div class="body1">
+                                <div class="chat-output" id="chat-output">
+                                    <div class="user-message">
+                                        <div class="message">Hi... SammyBot here!</div>
+                                        <div class="message">This is where you tell me what i can do for you...😎 <span style="color: cyan">'train: question # answer # password'.</span> </div>
+                                    
+                                    <div class="message">To learn more about me, simply type - <span style="color: cyan">'aboutbot'.</span></div>
+                                  
+                                    </div>
+                                   
+                                </div>
+
+                                <div class="chat-input">
+                                    <form action="" method="post" id="user-input-form">
+                                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+             </div>
         
                 <footer id="foot-container">
                     <div id="footer">
@@ -493,40 +526,7 @@
                     </div>
                     
                 </footer>
-                <div  class="con">
-                         <!-- <div><button class="botButton" onclick="myChatBot()">Chat</button></div> -->
-                        <div id="myBot" class="container-fluid">
-                          <div class="bot panel panel-default">
-                                <div class="panel-heading top-bar">SammyBot</div>
-                                <div class="panel-body">
-                                    <div class="oj-sm-12 oj-md-6 oj-flex-item">
-                                 <div class="body1">
-                                    <div class="chat-output" id="chat-output">
-                                        <div class="user-message">
-                                            <div class="message">Hi... SammyBot here!  </br> <div class="message"> This is where you tell me what i can do for you...😎</div> </br> <div class="message"> To train me, use this format - <span class="inc"> 'train: question # answer # password' </span> </div></br> <div class="message"> To learn more about me, simply type - <span class="inc">'aboutbot'</span>
-                                            </div>
-                                            </div>
-                                        </div>
-                                    </br>
-                                    
-                                    </div>
-
-                                    <div style="text-align: right; color: white;                                        
-                                                " id="result">
-                                        
-                                    </div>
-
-                                    <div class="chat-input">
-                                        <form action="" method="post" id="  user-input-form">
-                                            <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
-                                        </form>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>  
-                          </div>
-                        </div>
-                    </div>
+                
             </div>
         </div>
 
@@ -558,7 +558,7 @@
     }
 
     function aboutbot() {
-        echo "<div id='result'>MeloBot v1.0 - I am simply a bot that returns data from the database and I also can be taught new tricks!</div>";
+        echo "<div id='result'>SammyBot v1.0.0 - I am smart!... If you think you can make me smarter, then train me!</div>";
     }
     function train($input) {
         $input = explode('#', $input);
