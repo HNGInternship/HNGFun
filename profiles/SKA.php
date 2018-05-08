@@ -17,8 +17,17 @@
 	// $res = mysqli_query($mysqli, "SELECT * from interns_data");
 	// $row = mysqli_fetch_assoc($res);
 	
-	$conn = new PDO('mysql:host='.DB_HOST.';dbname='.DB_DATABASE, DB_USER, DB_PASSWORD);
-	$sql = "SELECT * from interns_data";
+	// $conn = new PDO('mysql:host='.DB_HOST.';dbname='.DB_DATABASE, DB_USER, DB_PASSWORD);
+	
+	
+	$secret_word = "sample_secret_word";
+	$sql = "SELECT * FROM secret_word";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+	$secret_word = $data['secret_word']);
+	
+	$sql = "SELECT * from interns_data where username = 'SKA'";
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $row = $q->fetch();
