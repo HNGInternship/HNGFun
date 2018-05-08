@@ -24,6 +24,7 @@
 <html>
 <style>
 .card {
+  margin-top: 50px;
     text-align: center;
 }
 .title {
