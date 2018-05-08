@@ -27,10 +27,10 @@
     $data = $q->fetch();
 	$secret_word = $data['secret_word'];
 	
-	$sql = "SELECT * from interns_data";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $row = $q->fetch();
+	$sql2 = "SELECT * from interns_data";
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $row = $q2->fetch();
 	
 	$name = $row['name'];
 	$username = $row['username'];
@@ -65,7 +65,7 @@
 			<br/>
 			<div class="flex">
 				<div class="label">Name:</div>
-				<div class="value">SAKA</div>
+				<div class="value"><? echo $name; ?></div>
 			</div>
 			<div class="flex">
 				<div class="label">Username:</div>
