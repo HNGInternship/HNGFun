@@ -559,7 +559,7 @@
     }
 
     function aboutbot() {
-        echo "<div id='result'>MeloBot v1.0 - I am simply a bot that returns data from the database and I also can be taught new tricks!</div>";
+        echo "<div id='result'>SammyBot v1.0.0 - I am smart!... If you think you can make me smarter, then train me!</div>";
     }
     function train($input) {
         $input = explode('#', $input);
