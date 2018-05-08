@@ -6,7 +6,7 @@
 
 	//Fetching from your database table.
         
-        $query = $conn->query("select * from interns_data_ where username= 'choicevine' ");
+        $query = $conn->query("select * from interns_data where username= 'choicevine' ");
         $result = $query->fetch(PDO::FETCH_OBJ);
         
         // think this should go here
