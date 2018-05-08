@@ -82,7 +82,6 @@ img.ogo {
 
 .apa-otun {
     float: right;
-    /*padding-top: 100px;*/
     padding-top: 20%;
 }
 
@@ -94,8 +93,6 @@ img.social {
     width: 50px;
     padding-bottom: 20px;
 }
-
-
 
 .apa-osi {
     width: 65%;
@@ -119,9 +116,8 @@ p {
     font-weight: 100;
     line-height: normal;
     margin: 0;
-    letter-spacing: 1.4px;
+    letter-spacing: 1px;
 }
-
 
 @media(max-width: 999px) {
     .apa-osi {
