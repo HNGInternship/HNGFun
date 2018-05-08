@@ -1,4 +1,55 @@
-<!DOCTYPE html>
+function chatbotResponse(Hi) {
+  talking = true;
+  botMessage = "I'm confused"; //the default message
+
+  if (lastUserMessage === 'hi' || lastUserMessage =='hello') {
+    const hi = ['hi','hello']
+    Jayo = hello[" ?"];;
+  }
+
+  if (lastUserMessage === 'what is your name') {
+    Jayo = 'My name is ' jayo;
+  }
+  if (lastUserMessage === 'how may i help you') {
+    Jayo = 'i love making beads but i don't know alot about making one can you teach me how to make a beautiful neck piece? to train me use the keyword "train" your question #your answer #password'.);;
+  }
+  if (lastUserMessage === 'okay i will help you') {
+    Jayo = 'Thank you for wanting to help';
+  }
+}
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//
+//
+//
+function newEntry() {
+  //if the message from the user isn't empty then run 
+  if (document.getElementById("chatbox").value != "hi ") {
+    //pulls the value from the chatbox ands sets it to lastUserMessage
+    lastUserMessage = document.getElementById("chatbox").value;
+    //sets the chat box to be clear
+    document.getElementById("chatbox").value = "";
+    //adds the value of the chatbox to the array messages
+    messages.push(lastUserMessage);
+    //Speech(lastUserMessage);  //says what the user typed outloud
+    //sets the variable botMessage in response to lastUserMessage
+    chatbotResponse();
+    //add the chatbot's name and message to the array messages
+    messages.push("<b>" + Jayo + ":</b> "i love making beads but i don't know alot about making one can you teach me how to make a beautiful neck piece? to train me use the keyword "train" your question #your answer #password.);
+    // says the message using the text to speech function written below
+    Speech(botMessage);
+    //outputs the last few array elements of messages to html
+    for (var i = 1; i < 8; i++) {
+      if (messages[messages.length - i])
+        document.getElementById("chatlog" + i).innerHTML = messages[messages.length - i];
+    }
+  }
+}<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -78,6 +129,53 @@ h3{
   background: #125688;
   color: white;
 }
+#bodybox {
+  margin: auto;
+  max-width: 550px;
+  font: 15px arial, sans-serif;
+  background-color: white;
+  border-style: solid;
+  border-width: 1px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  padding-right: 15px;
+  padding-left: 15px;
+  box-shadow: 3px 3px 3px grey;
+  border-radius: 10px;
+}
+
+#chatborder {
+  border-style: solid;
+  background-color: #0000ff;
+  border-width: 3px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  padding-right: 10px;
+  padding-left: 5px;
+  border-radius:15px;
+}
+
+.chatlog {
+   font: 10px arial, sans-serif;
+}
+#chatbox {
+  font: 10px arial, sans-serif;
+  height: 15px;
+  width: 100%;
+
+
+h2 {
+  margin: auto;
+}
+
+pre {
+  background-color: #ffffff;
+  margin-left: 15px;
+}     
 </style>
 </head>
 
@@ -93,8 +191,7 @@ $select = $conn->query("SELECT * FROM secret_word LIMIT 1");
 
 $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfaith'");
     $result2->setFetchMode(PDO::FETCH_ASSOC);
-    $user = $result2->fetch();
-
+    $user = $result2->fetch()
 
 ?>
     
@@ -144,6 +241,28 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
     Copyright &copy; 2018 Pueneh Faith. All rights reserved.<br/>
   </div>
 </div>
+    <div id='bodybox'>
+  <div id='chatborder'>
+      <h2>JAYO</h2>
+    <h1 id="chatlog7" class="chatlog">HELLO AM JAYO can you train me?</h1>
+<pre><code>if (lastUserMessage === 'hi'){
+  JAYO = 'hello!';
+ }</pre></code
+ 
+  <pre><code>if (lastUserMessage === 'what is your name'){
+  Jayo = 'My name is' Jayo;
+}</pre></code
 
+ <pre><code>if (lastUserMessage === 'how may i help you'){
+  Jayo = 'i love making beads but i don't know alot about making one can you teach me how to make a beautiful neck piece? to train me use the keyword "train" your question #your answer #password.</p>
+ }</pre></code
+      
+  <pre><code>if (lastUserMessage === 'okay i will help you'){
+  Jayo = 'Thank you for wanting to help;
+}</pre></code>
+        
+  <input type="hello" name="Jayo" id="chatbox" placeholder="" onfocus="placeHolder()">
+   </div>
+  
 </body>
 </html>

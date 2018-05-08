@@ -1,36 +1,77 @@
-<?php 
-
-try {
-    $query = "SELECT * FROM interns_data_ WHERE username='ogopedia'";
-    $resultSet = $conn->query($query);
-    $result = $resultSet->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e){
-    throw $e;
-}
-$username = $result['username'];
-$name = $result['name'];
-$picture = $result['image_filename'];
-
-
-try{
-    $querySecret =  "SELECT * FROM secret_word LIMIT 1";
-    $resultSet   =  $conn->query($querySecret);
-    $result  =  $resultSet->fetch(PDO::FETCH_ASSOC);
-    $secret_word =  $result['secret_word'];
-}catch (PDOException $e){
-    throw $e;
-}
-
-
-  ?>
+<?php
+$result = $conn->query("SELECT * from secret_word LIMIT 1");
+$result = $result->fetch(PDO::FETCH_OBJ);
+$secret_word = $result->secret_word;
+$result2 = $conn->query("Select * from interns_data where username = 'ogopedia'");
+$user = $result2->fetch(PDO::FETCH_OBJ);
+?>
 <!DOCTYPE html>
 <html>
 <head>
+<!-- <img src="../img/post-bg.jpg"> -->
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<title>Ogopedia's Profile</title>
 	<link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
 	<style>
+
+    /* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+/*html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}*/
+
+/*Reset*/
+
+.bg-primary {
+    background: transparent !important;
+}
+
+footer {
+    display: none !important;
+}
 		@import url(https://fonts.googleapis.com/css?family=Montserrat:400,500,300,200,700);
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,200,700);
 
@@ -121,11 +162,11 @@ img.social {
 }
 
 
-
+/*
 h1, p {
     padding: 0;
     margin: 0;
-}
+}*/
 
 h1 {
     font-size: 70px;
@@ -193,6 +234,15 @@ p {
     color: #b3b8ce;
     transition: color 300ms;
 	}
+
+    .container {
+        max-width: 100% !important;
+    }
+
+    @media (min-width: 1200px){}
+    .container {
+    max-width: 100% !important;
+}
 	</style>
 </head>
 <body class="site-bg">
@@ -202,10 +252,10 @@ p {
 	</div>
 	<div id="site-main">
 		<header>
-				<a href="./"><img class="logo" src="../img/logo.png" alt="logo"></a>
+<!-- 				<a href="./"><img class="logo" src="../img/logo.png" alt="logo"></a>
 			<div class="menu">
 				<a href="#."><img class="menu" src="https://res.cloudinary.com/ogopedia/image/upload/v1525665779/menu.png" alt="menu"></a>
-			</div>
+			</div> -->
 		</header>
 
 		<div class="apa-osi">

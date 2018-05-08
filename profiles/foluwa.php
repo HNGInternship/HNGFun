@@ -2,18 +2,6 @@
   $Ctime = date("Y-m-d h:i:sa");
   $time= date("h:i:sa");
 ?>
-<?php
-        global $conn;
-
-        try {
-            $sql2 = 'SELECT * FROM interns_data WHERE username="foluwa"';
-            $q2 = $conn->query($sql2);
-            $q2->setFetchMode(PDO::FETCH_ASSOC);
-            $my_data = $q2->fetch();
-        } catch (PDOException $e) {
-            throw $e;
-        }
-    ?>
 
 <!DOCTYPE html>
 <html>
@@ -38,11 +26,57 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
       <style type="text/css">
+      /* MAIN STLES */
+       body{
+            padding-top: 50px;
+            margin: 0px;
+            height: 100%;
+            background-color: #87ceeb;
+            background: linear-gradient(to bottom right, #DDA0DD,  #87ceeb);
+            color: #4A4646;
+            overflow-x: hidden;
+            font-family: "Segoe UI","Arial","sans-serif";
+        }
+        i {
+            padding-left: 5px;
+         }
+        img {
+            margin: auto;
+            display: block;
+            max-height: 250px;
+            max-width: 250px;
+            border-radius: 50%;
+            box-shadow: 0px 0px 2px 1px grey;
+          
+        }
         span {
             display: inline-block;
             vertical-align: middle;
             line-height: normal;
         }
+        
+          .chatbot-menu-header {
+             background-color: #4ae1aa;
+             padding: 7px 20px;
+             margin: 0px 0 0 0px;
+             color: #FFF;
+        }
+        .my-name {
+                    position: relative;
+                    line-height: normal;
+                    font-size: 32px;
+                    text-align: center;
+                    color: #000830;
+        }
+        .time{
+              padding-top: 2px;
+              opacity: 0.5;
+              font-style: "Arial","sans-serif";
+         }
+         .col-sm-6 {
+            padding-top: 25px;
+            background-color: transparent;
+         }
         
         .chat-output {
             flex: 1;
@@ -57,14 +91,14 @@
             margin: 0 0 20px 0;
         }
         .chat-output .user-message .message {
-            background: #0fb0df;
+            background: #0fb0df; /*#68676c*/
             color: white;
         }
         .chat-output .bot-message {
             text-align: right;
         }
         .chat-output .bot-message .message {
-            background: #eee;
+            background: #4ae1aa; 
         }
         .chat-output .message {
             display: inline-block;
@@ -83,58 +117,24 @@
             border-radius: 4px;
             padding: 8px;
         }
-
-
-/* MAIN STLES */
-          .chatbot-menu-header {
-                    background-color: #4ae1aa;
-                    padding: 7px 20px;
-                    margin: 0px 0 0 0px;
-                    color: #FFF;
-        }
-        .my-name {
-                    position: relative;
-                    line-height: normal;
-                    font-size: 32px;
-                    text-align: center;
-                    color: #000830;
-        }
-        .time{
-              padding-top: 2px;
-              opacity: 0.5;
-              font-style: "Arial","sans-serif";
-         }
-         .col-sm-6 {
-            padding-top: 25px;
-            background-color: transparent;
-         }
-         i {
-            padding-left: 5px;
-         }
-        img {
-            margin: auto;
-            display: block;
-            max-height: 250px;
-            max-width: 250px;
-            border-radius: 50%;
-            box-shadow: 0px 0px 2px 1px grey;
-          
-        }
-         body{
-            padding-top: 50px;
-            margin: 0px;
-            height: 100%;
-            background-color: #87ceeb;
-            background: linear-gradient(to bottom right, #DDA0DD,  #87ceeb);
-            color: #4A4646;
-            overflow-x: hidden;
-            font-family: "Segoe UI","Arial","sans-serif";
-        }
     </style>
 </head>
+
 <body>
+    <?php
+        global $conn;
+
+        try {
+            $sql2 = 'SELECT * FROM interns_data WHERE username="foluwa"';
+            $q2 = $conn->query($sql2);
+            $q2->setFetchMode(PDO::FETCH_ASSOC);
+            $my_data = $q2->fetch();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    ?>
 <div class="container">
-    <nav class="oj-web-applayout-header" style="margin-top: 25px;" role="banner" class="oj-web-applayout-header bg-dark" role="banner">
+    <nav class="oj-web-applayout-header" role="banner" class="oj-web-applayout-header bg-dark" role="banner">
         <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
           <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
             <span class="oj-icon" alt="My Logo"> </span> 
@@ -150,7 +150,7 @@
             <div class="oj-sm-12 oj-md-6 oj-flex-item">
                 <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
                     <div role="img" class="oj-flex-item oj-sm-align-items-center alignCenter">
-                        <img class="img-fluid " src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture" height="250px;" >
+                        <img class="img-fluid " src="http://res.cloudinary.com/dv7xj0ovh/image/upload/v1523625641/foludp_ryerff.jpg" alt="Akintola Moronfoluwa's picture" height="250" >
                     </div>
                 </div>
                     <div class="my-name">
@@ -172,21 +172,21 @@
              <div style="text-align:center;color:skyblue;padding-top:30px;"><strong>Foluwa 2018 @ </strong><a href="https://hotels.ng">Hotels.ng</a></div>
         </div>
 
-        <div class="col-sm-6"  style="position:relative;" height="100%;">
+        <div class="col-sm-6">
         <div class="oj-sm-12 oj-flex-item" style"background: white;">
             <div class='chatbot-menu-header'>
                     <span>ChatBot Interface</span>
             </div>
             <div class="chat-output" id="chat-output" data-spy="scroll" height="70%;">
                     <div class="user-message">
-                        <div class="message">Hi there! I'm Zoe, am a bot!</br>To train me, use this format - 'train: question # answer # password'. </br> type - 'aboutbot'.</br> To get random programmer jokes use the command 'jokes'
+                        <div class="message">Hi there! I'm Zoe a bot!</br>To train me, use this format - 'train: question # answer # password'.<br/> Use 'aboutbot' to learn more about me.
                         </div>
                     </div>
             </div>
       </div>
                 <div class="chat-input">
                     <form action="" method="post" id="user-input-form" style="position:absolute;bottom:0;background-color:#896bad;">
-                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
+                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Your Text goes here...">
                         <button>Send</button>
                     </form>
                 </div>
@@ -204,6 +204,7 @@
     }
     $secret_word = $data['secret_word'];
 
+// checking server request method
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST['user-input'];
         $temp = explode(':', $data);
@@ -211,33 +212,24 @@
         
         if($temp2 === 'train'){
             train($temp[1]);
-        }
-        elseif($temp2 === 'jokes') {
-            randomJokes();
-        }
-        elseif($temp2 === 'aboutbot') {
+        }elseif($temp2 === 'aboutbot') {
             aboutbot();
-        }
-        else{
+        }else{
             getAnswer($temp[0]);
         }
     }
 
-     function randomJokes () {
-
-        $jokes = array("Joke: Why do programmers always get Christmas and Halloween mixed up?Because DEC 25 = OCT 31", 
-                            
-                            "Joke: A system programmer came home from work almost at dawn and told his wife enthusiastically:Tonight I have installed a new release of MVS/ESA together with VM/CMS and CICS/VS G.O.O.D answered his wife.",
-
-                            "Joke: - 'Have you heard about the object-oriented way to become wealthy?'
-                             - 'No...'
-                             - 'Inheritance.'",  
-
-                            "Joke: Once a programmer drowned in the sea. Many Marines where at that time on the beach, but the programmer was shouting 'F1 F1' and nobody understood it.",
-
-                            "Joke: Why all Pascal programmers ask to live in Atlantis? Because it is below C level.",
-                             
-                             "Joke: Unix is user friendly. It's just very particular about who it's friends are.",
+/*
+    function randomJokes() {
+        $jokes = array(
+                "Joke: Why do programmers always get Christmas and Halloween mixed up?Because DEC 25 = OCT31",         
+                 "Joke: A system programmer came home from work almost at dawn and told his wife enthusiastically:Tonight I have installed a new release of MVS/ESA together with VM/CMS and CICS/VS G.O.O.D answered his wife.",
+                  "Joke: - 'Have you heard about the object-oriented way to become wealthy?'
+                   - 'No...'
+                   - 'Inheritance.'",  
+                   "Joke: Once a programmer drowned in the sea. Many Marines where at that time on the beach, but the programmer was shouting 'F1 F1' and nobody understood it.", 
+                   "Joke: Why all Pascal programmers ask to live in Atlantis? Because it is below C level.",
+                     "Joke: Unix is user friendly. It's just very particular about who it's friends are.",
 
                             "Joke: All programmers are playwrights and all computers are lousy actors.",
 
@@ -253,23 +245,24 @@
                             "Joke: Windows 95 is a 32 bit extension for a 16 bit patch to an 8 bit operating system originally coded for a 4 bit microprocessor by a 2 bit company that can't stand 1 bit of competition.",
 
                             "Joke: Don't get sucked in by comments--only debug code.",
+                   );
+                           
+                  //$jokes'[array_rand($jokes)]';
+                  $random_keys=array_rand($jokes,3);
+                  $display = $jokes[$random_keys[0]];
+                 echo "<div id='result'><?php $display; ?><span class='time'><?php echo $time ?></span></div>";
 
-                            "Joke: Demo-oriented programming: A programming style, typically used by startups, focusing on the demo of the program being developed, so it will easily catch the prospective investor.",
-                            
-                            "Joke: There are only 10 types of people in the world: Those that understand binary and those that don't.",
+                        /*$a=array("red","green","blue","yellow","brown");
+                        $random_keys=array_rand($a,3);
+                        echo $a[$random_keys[0]];
 
-                            "Joke: Why did the private boarding school reject OO software designer go to work in defence?
-                             Because someone said there would be 'class' warfare!",
-
-                             );
-                            //$pickedJoke = $joke[rand(1, 15)]
-                            echo "<div id='result'><?php $jokes[array_rand($jokes)]; ?><span class='time'><?php echo $time ?></span></div>";
-
-
-    }
+                        $a=array("red","green","blue","yellow","brown");
+                        $random_keys=array_rand($a,3);
+                    echo $a[$random_keys[0]];
+    }*/
 
     function aboutbot() {
-        echo "<div id='result'>Hi am ZOE, am Foluwas bot version 1.0</div>";
+        echo "<div id='mydisplay'>Hi am ZOE version 1.0</div>";
     }
     function train($input) {
         $input = explode('#', $input);
@@ -294,16 +287,16 @@
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>Trained Successfully!!!</div>";
+                        echo "<div id='mydisplay'>Trained Successfully</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
                 }
             }else{
-                echo "<div id='result'>I already know this. Would you teach me something else<span class='time'><?php echo $time ?></span></div>";
+                echo "<div id='mydisplay'>I already understand this. Teach me something new!<span class='time'><?php echo $time ?></span></div>";
             }
         }else {
-            echo "<div id='result'>Password not Correct!!<span class='time'><?php echo $time ?></span></div>";
+            echo "<div id='mydisplay'>Invalid Password, Try Again!<span class='time'><?php echo $time ?></span></div>";
 
         }
     }
@@ -315,10 +308,10 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Sorry, I do not understand that command. Train me with the command format - 'train: question # answer # password'<span class='time'><?php echo $time ?></span></div>";
+            echo "<div id='mydisplay'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'<span class='time'><?php echo $time ?></span></div>";
         }else {
             $rand_keys = array_rand($data);
-            echo "<div id='result'>". $data[$rand_keys]['answer'] ."<span class='time'><?php echo $time ?></span></div>";
+            echo "<div id='mydisplay'>". $data[$rand_keys]['answer'] ."<span class='time'><?php echo $time ?></span></div>";
         }
     }
     ?>
@@ -340,9 +333,9 @@
             type: 'POST',
             data:  'user-input=' + message,
             success: function(response) {
-                var result = $($.parseHTML(response)).find("#result").text();
+                var mydisplay = $($.parseHTML(response)).find("#mydisplay").text();
                 setTimeout(function() {
-                    outputArea.append("<div class='user-message'><div class='message'>" + result + "<p class='time'><?php echo $time ?></p></div></div>");
+                    outputArea.append("<div class='user-message'><div class='message'>" + mydisplay + "<p class='time'><?php echo $time ?></p></div></div>");
                     $('#chat-output').animate({
                         scrollTop: $('#chat-output').get(0).scrollHeight
                     }, 1500);
