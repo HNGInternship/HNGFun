@@ -10,11 +10,7 @@
 
   <?php
 
-  if(!isset($_GET['id'])){
-       require '../db.php';
-     }else{
-        require 'db.php';
-     }
+  global $conn;
 
     try {
       $sql = "SELECT * FROM secret_word";
