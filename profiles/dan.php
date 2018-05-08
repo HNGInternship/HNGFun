@@ -59,15 +59,15 @@ button:hover, a:hover {
   <?php
   echo "<h1>" .$name. "</h1>";
   ?>
-  <p class="title">Web and Mobile Developer</p>
-  <p>Hotels.ng Internship</p>
-  <p align="center"> <img width="200px" height="200px" src="https://res.cloudinary.com/danuluma/image/upload/v1525636698/hng.jpg"></p>
+  <div class="title">Web and Mobile Developer</div>
+  <div>Hotels.ng Internship</div>
+  <div align="center"> <img width="200px" height="200px" src="https://res.cloudinary.com/danuluma/image/upload/v1525636698/hng.jpg"></div>
   <?php
-  echo "<p> Username :" .$username. "<p>";
+  echo "<div> Username :" .$username. "<div>";
   ?>
-  <p>Slack: @Dan</p>
-  <p>Github: <a href="https://github.com/danuluma" target="_blank">danuluma</a></p>
-  <p><a class="button" href="mailto:anericod@gmail.com" target="_blank"><button>Contact</button> </a></p>
+  <div>Slack: @Dan</div>
+  <div>Github: <a href="https://github.com/danuluma" target="_blank">danuluma</a></div>
+  <div><a class="button" href="mailto:anericod@gmail.com" target="_blank"><button>Contact</button> </a></div>
 </div>
 </body>
 </html>
