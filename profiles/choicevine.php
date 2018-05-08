@@ -1,20 +1,20 @@
 <?php
 	
-	if(!isset(DB_DATABASE)){
+	if(!defined('DB_USER')){
 		require '../db.php';
 	}
 
 	//Fetching from your database table.
-        $data = $conn->query("SELECT * FROM interns_data_ WHERE username= 'choicevine' ");
-		
         
         $query = $conn->query("select * from interns_data_ where username= 'choicevine' ");
         $result = $query->fetch(PDO::FETCH_BOTH);
         
         // think this should go here
         $ask = $conn->query("select * from secret_word LIMIT 1");
-        $answer = $ask->fetch(PDO::FETCH_ASSOC);
-	$secret_word = $answer['secret_word'];
+	
+	//fetch as an object
+        $answer = $ask->fetch(PDO::FETCH_OBJ);
+	$secret_word = $answer->secret_word;
 		
       
  ?>
