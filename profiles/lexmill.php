@@ -9,10 +9,12 @@ $username = $user['username'];
 $name = $user['name'];
 $image_filename = $user['image_filename'];
 ?>
+<?php
 function gettTime(){
     date_default_timezone_set('Africa/Lagos');
     return "The time is " . date("h:i:sa");
-}function getMyquote(){
+}
+function getMyquote(){
     $random = rand(0,11);
     $quote = array("The past is always TENSE, the future PERFECT",
         "I will JOS go first because you play too much",
