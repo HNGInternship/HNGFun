@@ -188,6 +188,7 @@
             x.style.display = "none";
         } **/
 /** Let's fix the SammyBot chat area */
+
     $(document).ready(function() {
                 
                 $('.chatWrap').hide();
@@ -218,11 +219,11 @@
                         var classname = 'sending-'+rand;
                         var selector = '.'+classname;
                         $('#message').val('');
-                        $('.chatBody').append('<div class="msgB"><strong>you</strong><br><p class="'+classname+'">Sending...</p></div>');
+                        $('.chatBody').append('<div class="second"><strong>You:</strong><br><p class="'+classname+'">Sending...</p></div>');
                         $('.chatBody').animate({scrollTop: $('.chatBody').prop("scrollHeight")}, 1000);
                         
                   $.ajax({
-                        url: "/profiles/dreamtech467.php",
+                        url: "/profiles/sammy.php",
                         type: "post",
                         data: {message: message},
                         dataType: "json",
@@ -230,7 +231,7 @@
                     var answer = response.answer;
                     $(selector).html(''+message+'');
                     $(selector).removeClass(classname).addClass('sent');
-                    $('.chatBody').append(' <div class="msgA"><strong>dreamtech</strong><br><p>'+answer+'</p></div>');
+                    $('.chatBody').append(' <div class="first"><strong>SammyBot</strong><br><p>'+answer+'</p></div>');
                   
                                             
                   },
@@ -518,6 +519,15 @@ h4 {
             box-sizing: border-box;
 }
 
+.con {
+        transform: translateX(800px) translateY(-420%);
+        clear: both;
+        height: 50px;
+        width: 300px;
+        position: fixed;
+        text-align: center;
+}
+
 </style>
 </head>
 
@@ -625,7 +635,8 @@ h4 {
 
                 <div class="col-md-3">
                     
-                    <div class="con">
+                    <div class="ycontainer-fluid">
+                        <div class="con">
                         <div class="chatHead">
                             SammyBot
                         </div>
@@ -657,6 +668,10 @@ h4 {
                                 <textarea id="message" name="message"  placeholder="Say something here!" ></textarea>
                             </div>
                         </div>
+                    </div>
+
+
+
                     </div>
                     
                 </div>
