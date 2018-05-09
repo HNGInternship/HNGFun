@@ -206,7 +206,9 @@ body{
 
     </p>
     <p>&nbsp;</p>
-    </form>&nbsp;</p>
+    </form>
+&nbsp;
+</p>
     <p><?php echo $response;echo "<br/>"?>
         <?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
         <span style="color:greenyellow"><?=  "YOU : $soln <br/>";echo "</span>";echo "<span style=\"color:white\">";
