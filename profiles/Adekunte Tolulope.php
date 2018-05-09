@@ -66,35 +66,7 @@ a {
 button:hover, a:hover {
   opacity: 0.7;
 }
-    .chat-box{
-    position: absolute;
-    bottom: 0;
-    right: 0;
-	
-	font-size:36px;
-	color:#CCC;
-}
-.box{
-    transition: height 1s ease-out;
-    width: 300px;
-    height: 0px;
-    background:#003;
-    z-index: 9999;
-	
-}
-.open:hover>.box{
-  height:400px;
-      transition: height 1s ease-out;
-	 
-}
-.open {
-    text-align: center;
-    font-size: 20px;
-    border: 2px solid #3F51B5;
-    background:#666;
-    color:#999;
-}
-
+   
 
  
 
@@ -124,10 +96,7 @@ button:hover, a:hover {
 </div>
 </div>
 
-<div class="chat-box">
-  <div class="open">ChatBot
-  <div class="box">
-    <br>
+
     
 </body>
 </html>
