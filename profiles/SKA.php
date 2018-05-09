@@ -66,27 +66,19 @@
             <h3 style="">WELCOME TO HNG INTERNSHIP 4</h3>              
         </div>
 		<div id="middle">
-			<div id="image"  style="background-image: URL(<? echo $imageUrl; ?>); background-size: cover; background-repeat:   no-repeat;
+			<div id="image"  style="background-image: url(<? echo $imageUrl; ?>); background-size: cover; background-repeat:   no-repeat;
                      background-position: center center; -webkit-background-size: cover; -moz-background-size: cover;
                      -o-background-size: cover;"  >           
 			</div>
 			<br/>
 			<div class="flex">
-				<div class="label">NameNew:</div>
+				<div class="label">Name:</div>
 				<div class="value"><?php echo $name; ?></div>
 			</div>
 			<div class="flex">
 				<div class="label">Username:</div>
 				<div class="value"><?php echo $username; ?></div>
-			</div>
-			<div class="flex">
-				<div class="label">Root:</div>
-				<div class="value"><?php echo $_SERVER["DOCUMENT_ROOT"]; ?></div>
-			</div>
-			<div class="flex">
-				<div class="label">Dir:</div>
-				<div class="value"><?php echo __DIR__; ?></div>
-			</div>
+			</div>			
 		</div>        		
 			
         <div id="footer">
