@@ -237,7 +237,7 @@
 	               {key: 'train', description: 'This command is to train the bot', format: '[question] [answer]'}, 
 	               {key: 'timeofday', description: 'This command is to get the current time of day in any of the world location', format: '[location]'},
 	               {key: 'chitchat', description: 'This command is get the current time of day in any of the world location', format: '[question]'},
-	               {key: 'dayofweek', description: 'This command is get the current time of day in any of the world location', format: '[dd-mm-yyyy]'},
+	               {key: 'dayofweek', description: 'This command is get the current time of day in any of the world location', format: '[yyyy-mm-dd]'},
 	               {key: 'aboutbot', description: 'This command is get the current time of day in any of the world location', format: ''}
 	              ],
         humanMessage: '',
@@ -305,7 +305,18 @@
             
 	  	},
 	  	getDayOfWeek: function(){
-	  	  return 'This is the day of the week';
+	  		var date;
+	  		try{
+	          date = this.choice['message'].match(/\[(\d{4}-\d{2}-\d{2})\]/)[1];
+	  		}catch(ex){
+	  		  return "Follow the correct syntax #dayofweek [yyyy-mm-dd]";
+	  		}
+
+	  		date = new Date(date);
+            let days = ['Sunday', 'Monday', 'Tuesday', 'Wednessday', 'Thursday', 'Friday', 'Saturday'];
+            return `${date} - <strong>${days[date.getDay()]}</strong>`;
+
+
 	  	},
 	  	getTimeOfDay: async function(){
 	  		var location;
@@ -335,8 +346,9 @@
 	  	    return output;
 
 	  	},
-	  	doChat: function(){
-	  	  return 'You want to chat';
+	  	doChat: async function(){
+	  	  const answer = await fetch('profiles/olubori.php');
+	  	  console.log(answer);
 	  	},
 	  	doTrainBot: function(){
 	  	  return 'You can train me';
