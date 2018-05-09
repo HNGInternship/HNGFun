@@ -1,27 +1,7 @@
-<?php
-require 'db.php';
-try {
-    $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'Adekunte Tolulope'");
-    $intern_data->execute();
-    $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
-    $result = $intern_data->fetch();
-  
-    $secret_code = $conn->prepare("SELECT * FROM secret_word");
-    $secret_code->execute();
-    $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
-    $code = $secret_code->fetch();
-    $secret_word = $code['secret_word'];
- } catch (PDOException $e) {
-     throw $e;
-    }
-  $result = $conn->query("SELECT * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
-  $result2 = $conn->query("Select * from interns_data where username = 'Adekunte Tolulope'");
-  $user = $result2->fetch(PDO::FETCH_OBJ);
-?>
-
-<!-- Add icon library -->
+<!Doctype html>
+<html>
+   <head>
+       <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
@@ -56,8 +36,9 @@ a {
 button:hover, a:hover {
   opacity: 0.7;
 }
+       
 </style>
-</head>
+    </head>
 <body>
 
 
@@ -76,10 +57,6 @@ button:hover, a:hover {
     <a href="#"><i class="fa fa-facebook"></i></a> 
  </div>
  <p><button>Contact</button></p>
-</div>
-
-
-</div>
 </div>
 </body>
 </html>

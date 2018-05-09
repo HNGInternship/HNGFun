@@ -112,7 +112,7 @@
  <!DOCTYPE html>
 <html>
     <head>
-        <title>Profle of Perkyprince</title>
+        <title>Profile of Perkyprince</title>
         <meta charset="utf-8">
         <meta name="description" content="This page is a personal profile page about the author">
         <meta name="keywords" content="HTML5, CSS, Javascript, PHP, Profile, HNG, About, Internship, Chat, Chatbot">
