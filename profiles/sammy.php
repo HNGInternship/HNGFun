@@ -487,13 +487,12 @@ h4 {
 
 .second{
 
-        margin-top: 20px;
+        margin-top: 10px;
         margin-right:20px;
-        padding:15px;
-        background:rgb(6, 65, 124);
+        padding:5px;
+        background:#6699ff;
         margin-left:20px;
         min-height:15px;
-        max-height: 20px;
         position:relative;
         border-radius:5px;
         color:#ffffff;
@@ -501,15 +500,15 @@ h4 {
 
 
 .second:before{
-                content: "";
-                position: absolute;
-                width: 0px;
-                height: 0px;
-                right: -28px;
-                top: 10px;
-                border-radius:5px;
-                border: 10px solid;
-                border-color: transparent  transparent transparent #6699ff;
+                  content: "";
+                  position: absolute;
+                  width: 0px;
+                  height: 0px;
+                  right: -28px;
+                  top: 7px;
+                  border-radius:5px;
+                  border: 15px solid;
+                  border-color: transparent  transparent transparent #6699ff;
 }
 
 #message{
@@ -530,7 +529,7 @@ h4 {
 .con {
         transform: translateX(800px) translateY(-420%);
         clear: both;
-        height: 50px;
+        height: 20px;
         width: 300px;
         position: fixed;
         text-align: center;
