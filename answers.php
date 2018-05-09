@@ -8,6 +8,27 @@ function get_time(){
     //format the time
     return $datetime->format('H:i: A');
 }
+
+///////////////JONAH VICTOR VICTOR//////////////////
+////////////////                    /////////////////
+///////////////                     /////////////////
+///////////////     vectormike     /////////////////
+////////////////                  //////////////////
+////////////////                  //////////////////
+/////// If you want to touch something, 
+///////      don't touch this side  ///////////////// 
+
+
+
+
+///////////////////////////////////////////////////////////////////
+/////////////////// THE    END ////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+
+
+
+
 ########################################################
 # __   ___              __      __  ___       __   __  #
 #|  \ |__  |\ | |\ | | /__`    /  \  |  |  | / _` /  \ #
@@ -733,571 +754,6 @@ function davidQuadraticEquation($a, $b, $c)
 
 
 /*
- * Ionware's Function
- * */
-if (! function_exists("iDictionary"))
-{
-    function iDictionary($word)
-    {
-        $url = "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/{$word}";
-        $request_option = array("http" => array(
-            'method' => 'GET',
-            "header" => "Accept: application/json\r\n".
-                "app_id: 8695feaa\r\n".
-                "app_key: b358014437a42bd357d1429925261d2e\r\n"
-        ));
-        $context = stream_context_create($request_option);
-        $api = file_get_contents($url, false, $context);
-
-        try {
-            $response = json_decode($api);
-            @$definition = $response->results[0]->lexicalEntries[0]->entries[0]->senses[0]->definitions[0];
-            @$example = $response->results[0]->lexicalEntries[0]->entries[0]->senses[0]->examples[0]->text;
-
-            if (empty($definition))
-                return "Sorry, I can not find the word {$word}";
-
-            return "{$definition} <br> <b>{$example}</b>";
-
-        } catch (Exception $e) {
-            return "Sorry, I can not find the word {$word}.";
-        }
-
-    }
-}
-if (!function_exists("iHNGIntern")){
-    function iHNGIntern($username)
-    {
-        if (file_exists(__DIR__."/profiles/{$username}.php")) {
-            $profile = "http://hng.fun/profile.php?id={$username}";
-
-            return "Yes! {$username} is among HNG4 Internship program. View their profile at <a href='{$profile}'>{$profile}</a>";
-        }
-
-        return "Sadly, {$username} is not part of HNG4 Internship yet. But you can invite them!";
-    }
-}
-
-/*
- * Ionware's function ends here */
-
-
-// Orinayo's function
-function Get_Hotelsng_wikipage()
-{
-    $api = "https://en.wikipedia.org/w/api.php?action=opensearch&search="."hotels.ng"."&format=json&callback=?";
-    $result = file_get_contents($api);
-    $result = substr_replace($result, "", 0, 5);
-    $result = substr_replace($result, "", -1);
-    $result = json_decode($result, true);
-    $result = array("answer"=>"<a href=".$result[3][0].">".$result[1][0]."</a><p>".$result[2][0]."</p>");
-    return $result;
-}
-//
-// AKINSOURCE FUNCTION ///////
-//////////////////////////////
-function count_akin($poin){
-    date_default_timezone_set("Africa/Lagos");
-    $date_req = strtotime($poin);
-    $time_remaining = $date_req - time();
-    $weeks_remaining = $time_remaining /604800;
-    $days_remaining = $time_remaining / 86400;
-    $hours_remaining = ($time_remaining % 86400) / 3600;
-
-    if ($weeks_remaining >= 1) {
-        $weeks_remaining = floor($time_remaining / 604800);
-        $days_remaining = floor(($time_remaining % 604800)/86400);
-        $hours_remaining = floor(($time_remaining % 86400) / 3600);
-        $minutes_remaining = floor((($time_remaining % 86400) % 3600)/60);
-        $seconds_remaining = ((($time_remaining % 86400) % 3600)%60);
-        $cdown = $weeks_remaining.' weeks '.$days_remaining.' days '. $hours_remaining.' hours '.$minutes_remaining.' minutes '.$seconds_remaining.' seconds';
-    } elseif ($days_remaining >= 1 ) {
-        $days_remaining = floor($time_remaining / 86400);
-        $hours_remaining = floor(($time_remaining % 86400) / 3600);
-        $minutes_remaining = floor((($time_remaining % 86400) % 3600)/60);
-        $seconds_remaining = ((($time_remaining % 86400) % 3600)%60);
-        $cdown = $days_remaining.' days '. $hours_remaining.' hours '.$minutes_remaining.' minutes '.$seconds_remaining. ' seconds';
-    } elseif ($hours_remaining > 0 ) {
-        $hours_remaining = floor(($time_remaining % 86400) / 3600);
-        $minutes_remaining = floor((($time_remaining % 86400) % 3600)/60);
-        $seconds_remaining = ((($time_remaining % 86400) % 3600)%60);
-        $cdown = $hours_remaining.' hours '.$minutes_remaining.' minutes '.$seconds_remaining. ' seconds';
-    }
-    return $cdown;
-}
-//////// AKINSOURCE FUNCTION /////////////////////////////
-// I HAVE A PARTICULAR SET OF SKILLS. I WILL FIND YOU!/////
-//////////////////////////////////////////////////////////
-
-function getQuote()
-{
-    $url = 'https://talaikis.com/api/quotes/random/';
-    $result = file_get_contents($url);
-    return $result;
-}
-
-
-// functions by @bukola. DO NOT MODIFY
-function getUSSD($bankName){
-    switch(trim(strtolower($bankName))){
-        case 'first bank':
-        case 'fbn':
-        case 'FBN':
-            return '*894#';
-
-        case 'access bank':
-            return '*901#';
-
-        case 'gt bank':
-        case 'guaranty trust bank':
-        case 'gtb':
-        case 'GTB':
-        case 'gtbank':
-        case 'GTBank':
-        case 'GT Bank':
-            return '*737#';
-
-        case 'diamond bank':
-            return '*426#';
-
-        case 'fidelity bank':
-            return '*770#';
-
-        case 'ecobank':
-            return '*326#';
-
-        case 'sterling bank':
-            return '*822#';
-
-        case 'keystone bank':
-            return '*533#';
-
-        case 'skye bank':
-            return '*833#';
-
-        case 'union bank':
-            return '*826#';
-
-        case 'stanbic bank':
-            return '*909#';
-
-        case 'uba':
-            return '*919#';
-
-        case 'wema bank':
-            return '*945#';}}
-
-// End of functions by @Bukola
-// chibuokems functions starts here
-function check_if_training_chibuokem($input=''){
-    if (strpos($input, 'train') !== false) {
-        return true;
-    }
-    else{
-        return false;
-    }
-}
-function train_chibuokem_bot($input=''){
-
-    if ($input !=""){
-        $string = substr($input, 6);
-        $processed_input = explode("#", $string);
-        $question = $processed_input[0];
-        $answer = $processed_input[1];
-        $password = $processed_input[2];
-        if ($password !='password'){
-            die('Wrong password used');
-        }
-        require 'db.php';
-        try {
-            $query = "INSERT INTO chatbot (question, answer)
-VALUES ('$question', '$answer')";
-
-            $conn->exec($query);
-            echo "Thanks for training me";
-        }
-        catch(PDOException $e)
-        {
-            echo $query . "<br>" . $e->getMessage();
-        }
-    }
-}
-function check_answer_table_chibuokem($input){
-    require 'db.php';
-
-    $statement = $conn->prepare("SELECT * FROM chatbot WHERE question='$input' ORDER BY rand() LIMIT 1");
-    $statement->execute();
-    if($statement->rowCount() > 0)
-    {
-        while($row = $statement->fetch(PDO::FETCH_ASSOC))
-        {
-            $answer = $row["answer"];
-        }
-        return $answer;
-    }
-    else {
-        return  false;
-
-    }
-}
-function get_chibuokem_bot_version(){
-    return '1 .0';
-}
-function get_chibuokem_news(){
-    $url = "https://newsapi.org/v2/top-headlines?country=ng&apiKey=79ab7fb16d12464996221c3870a39b43";
-    $data = json_decode(file_get_contents($url), true);
-    if($data['status']=='ok'){
-        $totalResults = $data['totalResults'];
-        $count = 0;
-        while($count < $totalResults){
-            $author = $data['articles'][$count]['author'];
-            $title =   $data['articles'][$count]['title'];
-            $description =   $data['articles'][$count]['description'];
-            $url =   $data['articles'][$count]['url'];
-            $publishedAt = $data['articles'][$count]['publishedAt'];
-            $name =  $data['articles'][$count]['source']['name'];
-            echo "<span style='color:green'; >Author : ".$author."<br/> Title : ".$title."<br/> Description : ".$description." <br/> link :".$url." <br/>Published ".$publishedAt." by ".$name."<br/><br/>";
-            $count++;
-        }
-        echo "<span style='font-weight:bold;' class='alert alert-success'>".$totalResults." articles found </span>";
-    }
-//    print_r($data);
-}
-function get_love_quote_chibuokem(){
-    $url = 'http://quotes.rest/qod.json?category=love';
-    $data = json_decode(file_get_contents($url), true);
-    $quote =  $data['contents']['quotes'][0]['quote'];
-    $author = $data['contents']['quotes'][0]['author'];
-    $link  = $data['contents']['quotes'][0]['permalink'];
-    $title  = $data['contents']['quotes'][0]['title'];
-    $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
-
-    return $answer;
-}
-function get_inspiring_quote_chibuokem(){
-    $url = 'http://quotes.rest/qod.json?category=inspire';
-    $data = json_decode(file_get_contents($url), true);
-    $quote =  $data['contents']['quotes'][0]['quote'];
-    $author = $data['contents']['quotes'][0]['author'];
-    $link  = $data['contents']['quotes'][0]['permalink'];
-    $title  = $data['contents']['quotes'][0]['title'];
-    $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
-
-    return $answer;
-}
-function get_sports_quote_chibuokem(){
-    $url = 'http://quotes.rest/qod.json?category=sports';
-    $data = json_decode(file_get_contents($url), true);
-    $quote =  $data['contents']['quotes'][0]['quote'];
-    $author = $data['contents']['quotes'][0]['author'];
-    $link  = $data['contents']['quotes'][0]['permalink'];
-    $title  = $data['contents']['quotes'][0]['title'];
-    $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
-
-    return $answer;
-}
-function get_funny_quote_chibuokem(){
-    $url = 'http://quotes.rest/qod.json?category=funny';
-    $data = json_decode(file_get_contents($url), true);
-    $quote =  $data['contents']['quotes'][0]['quote'];
-    $author = $data['contents']['quotes'][0]['author'];
-    $link  = $data['contents']['quotes'][0]['permalink'];
-    $title  = $data['contents']['quotes'][0]['title'];
-    $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
-
-    return $answer;
-}
-function get_student_quote_chibuokem(){
-    $url = 'http://quotes.rest/qod.json?category=students';
-    $data = json_decode(file_get_contents($url), true);
-    $quote =  $data['contents']['quotes'][0]['quote'];
-    $author = $data['contents']['quotes'][0]['author'];
-    $link  = $data['contents']['quotes'][0]['permalink'];
-    $title  = $data['contents']['quotes'][0]['title'];
-    $answer = $quote." <br/>Author: ".$author."<br/> Title: ".$title."<br/> Quote is  from  ". $link;
-
-    return $answer;
-}
-function chibuokem_weather_condition(){
-    $ip  = !empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
-//$url = "http://freegeoip.net/json/$ip";
-    $url_location = "http://freegeoip.net/json/";
-    $dataa = json_decode(file_get_contents($url_location), true);
-
-    $lat = $dataa['latitude'];
-    $lon = $dataa['longitude'];
-
-    $url_weather = "http://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=88b7b09a022737b2bcba78b25d8c8adb";
-    $answer = json_decode(file_get_contents($url_weather), true);
-
-
-    $weather_main = $answer['weather'][0]['main'];
-    $weather_description = $answer['weather'][0]['description'];
-    $temperature = $answer['main']['temp'];
-    $pressure = $answer['main']['pressure'];
-    $humidity = $answer['main']['humidity'];
-    $temp_min = $answer['main']['temp_min'];
-    $temp_max = $answer['main']['temp_max'];
-    $visibility = $answer['visibility'];
-    $wind_speed = $answer['wind']['speed'];
-    $wind_degree = $answer['wind']['deg'];
-    return "<span style='color:green; font-weight:bold;'>Weather condition for your estimated location, Latitude : $lat, Longitude : $lon <br/>$weather_main , $weather_description <br/> Temperature : $temperature <br/> Pressure: $pressure <br/>Humidity : $humidity <br/> Minimum temperature : $temp_min <br/> Maximum temperature : $temp_max <br/> Visibility : $visibility <br/> Windspeed : $wind_speed <br/> wind degree : $wind_degree  </span>";
-
-}
-function greeting_from_chibuokem(){
-    date_default_timezone_set("UTC");
-    $hour = date ("G");
-    $minute = date ("i");
-    $second = date ("s");
-    if ($hour == 0 && $hour <= 9 && $minute <= 59 && $second <= 59)
-    {
-        return  "Good Morning dear";
-    }
-    else {
-        if ($hour >= 10 && $hour <= 11 && $minute <= 59 && $second <= 59)
-        {
-            return "Good Day dear";
-        }
-        if ($hour >= 12 && $hour <= 15 && $minute <= 59 && $second <= 59)
-        {
-            return "Good Afternoon dear";
-        }
-        if ($hour >= 16 && $hour <= 23 && $minute <= 59 && $second <= 59)
-        {
-            return "Good Evening dear";
-        }
-        else {
-            return  "Welcome";
-        }
-    }
-}
-function chibuokem_bot_help(){
-    $help = "<span style='color:green;'>To train me use the format train question #answer #password"."<br/>". "To get the current time  type time and send "."<br/>"."To get Current weather condition type weather_condition and send "."<br/>"."To get love quote type love_quote and send"."<br/>". "To get funny quote type funny_quote and send"."<br/>"."to get an inspiring quote type inspiring_quote and send"."<br/>"."To get the quote of the day for students type students_quote and send"."<br/>". "to get sports quote of the day type sports_quote and send"."<br/> To get news type news and send "."<br/> to get the current bot version type version or aboutbot and send. Thanks </span>";
-    return $help;
-}
-
-//////////////////////////// BROWN SAMSON DO NOT MODIFY ////////////////////////////////////
-
-if ($_REQUEST["qsam"]){
-    $qsam = $_REQUEST["qsam"];
-    samsonjnrBot($qsam);
-}
-function samsonjnrBot($qsam){
-    $qsam = strtolower($qsam);
-    $anwerSam = "";
-    $guestName = "";
-
-
-    $keyword = array('newschool', 'how are you','what are you you?', 'what your do name ur name? call you your\'s', 'my name name?', 'i\'m am fine okay doing great ok all good', 'today today\'s date', 'version version? aboutbot', 'what do time? time', 'still here you there codmax jnr samson');
-
-    $decisionArray = array();
-    $usrKeywords = $qsam; //$_POST['keywords']
-    $arr1 = explode(' ', $usrKeywords);
-    foreach ($keyword as $s){
-        $arr2 = explode(' ', $s);
-        $aint = array_intersect($arr2, $arr1);
-        $percentage = (count($aint) * 100 / count($arr2));
-        array_push($decisionArray, $percentage);
-    }
-    if ($qsam != 'how' && $qsam != "you" && $qsam != "your" && $qsam != "are" && $qsam != "my" && $qsam != "still" && $qsam != "here" && $qsam != "there" && $qsam != "call"){
-        $decisionValue = array_keys($decisionArray, max($decisionArray));
-    }else{
-        $decisionValue = [0];
-    }
-
-
-<<<<<<< HEAD
-
- function samsonjnrBot($qsam){
- $qsam = strtolower($qsam);
- $anwerSam = "";
- $guestName = "";
-
-
- $keyword = array('newschool', 'how are you','what are you you?', 'what your do name ur name? call you your\'s', 'my name name?', 'i\'m am fine okay doing great ok all good', 'today today\'s date', 'version version? aboutbot', 'what do time? time', 'still here you there codmax jnr samson');
-
- $decisionArray = array();
- $usrKeywords = $qsam; //$_POST['keywords']
- $arr1 = explode(' ', $usrKeywords);
- foreach ($keyword as $s){
- 	$arr2 = explode(' ', $s);
- 	$aint = array_intersect($arr2, $arr1);
- 	$percentage = (count($aint) * 100 / count($arr2));
- 	array_push($decisionArray, $percentage);
- }
- if ($qsam != 'how' && $qsam != "you" && $qsam != "your" && $qsam != "are" && $qsam != "my" && $qsam != "still" && $qsam != "here" && $qsam != "there" && $qsam != "call"){
- $decisionValue = array_keys($decisionArray, max($decisionArray));
- }else{
- 	$decisionValue = [0];
- }
-
-
- function trainingSam($newmessage){
- 	require 'db.php';
- 	$message = explode('#', $newmessage);
- 	$question = explode(':', $message[0]);
- 	$answer = $message[1];
- 	$password = $message[2];
-
- 	$question[1] = trim($question[1]);
- 	$password = trim($password);
- 	if ($password != "password"){
- 		echo "You are not authorize to train me.";
-
- 	}else{
- 	$chatbot= array(':id' => NULL, ':question' => $question[1], ':answer' => $answer);
- 	$query = 'INSERT INTO chatbot ( id, question, answer) VALUES ( :id, :question, :answer)';
-
- 	try {
- 			$execQuery = $conn->prepare($query);
- 			if ($execQuery ->execute($chatbot) == true) {
- 					echo repondTraining();
-
- 			};
- 	} catch (PDOException $e) {
- 			echo "Oops! i did't get that, Something is wrong i guess, <br> please try again";
- 		}
- 	}
- }
-
- function greetingSam(){
- 	$greeting = array('Hi! Good to have you here. My name is Samson Jnr, but you can call me Codmax' ,
- 										'Hello there, my name is Codmax, how Can i be of help?' ,
- 										'Good day, You are chatting with Codmax, ask me something',
- 										'Hi! My name is Samson whats up?',
- 										'It\'s Codmax, Welcome on board',
- 										'I\'m Codmax, let\'s get started');
- 		$index = mt_rand(0, 5);
- 		return $anwerSam = $greeting[$index];
- }
-
- function requestName(){
- 		$requestName = array( 'Sorry I did\'t catch your name',
- 													'What can I call you?',
- 													'What\'s that lovely name of yours?');
- 		$index = mt_rand(0, 2);
- 		return $anwerSam = $requestName[$index];
- }
-
- function repondTraining(){
- 		$repondTraining = array(  'Noted! Thank you for teaching me',
- 															'Acknowledged, thanks, really want to learn more',
- 															'A million thanks, I\'m getting smarter',
- 															'i\'m getting smarter, I really appreciate');
- 		$index = mt_rand(0, 3);
- 		return $anwerSam = $repondTraining[$index];
- }
-
- function repondName(){
- 		$repondName = array( 'Yeah! i\'m still here',
- 													'I\'m with you',
- 													'go ahead I\'m still here');
- 		$index = mt_rand(0, 2);
- 		return $anwerSam = $repondName[$index];
- }
-
- function respondDate(){
- 	date_default_timezone_set("Africa/Lagos");
- 	$time = date("Y/m/d");
- 	$respondTime = array( 'Today\'s date is '.$time,
- 												'it\'s '. $time,
- 												'Today is '. $time,
- 												$time);
- 	$index = mt_rand(0, 3);
- 	return $anwerSam = $respondTime[$index];
- }
-
- function respondTime(){
- 	date_default_timezone_set("Africa/Lagos");
- 	$time = date("h:i A");
- 	$respondTime = array( 'The time is '.$time,
- 												'it\'s '. $time,
- 												$time);
- 	$index = mt_rand(0, 2);
- 	return $anwerSam = $respondTime[$index];
- }
-
- function respondName(){
- 	$respondName = array( 'Codmax, you can still call me Samson Jnr.',
- 												'Samson Jnr, I\'m still called Codmax.',
- 												'Samson Jnr. or Codmax');
- 	$index = mt_rand(0, 2);
- 	return $anwerSam = $respondName[$index];
- }
-
- function respondOkay(){
- 	$respondOkay = array( 'That\'s Great, we should keep chatting I\'m having fun',
- 												'So Lovely, let\'s keep chatting',
- 												'That\'s good news, so how can I help you?');
- 	$index = mt_rand(0, 2);
- 	return $anwerSam = $respondOkay[$index];
- }
-
- function respondGreeting (){
- 	$respondGreeting = array( 'Oh, I\'m doing quite well. You?',
- 												'Am fine and thanks What about you?',
- 												'Am all good. and how are you too?');
- 	$index = mt_rand(0, 2);
- 	return $anwerSam = $respondGreeting[$index];
- }
-
-
- function checkDatabaseToo($question){
- 	try{
- 			require 'db.php';
-
- 			$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
-
- 			$stmt->execute();
- 			if($stmt->rowCount() > 0){
- 				while($row = $stmt->fetch(PDO::FETCH_ASSOC)){ echo $row["answer"];}
- 			}else{
- 				return 1;
- 			}
- 		}
- 			catch (PDOException $e){
- 				 echo "Error: " . $e->getMessage();
- 			}
- 			$conn = null;
- 		}
-
-
- if ($qsam == "intro"){
- 		echo greetingSam();
- } else if($qsam == "request name"){
- 		echo requestName();
- }else if (strtok($qsam, ":") == "train"){
- 						trainingSam($qsam);
- }else if ( $keyword[$decisionValue[0]] == "what do time? time"){
-             echo respondTime();
- }else if ( $keyword[$decisionValue[0]] == "what your do name ur name? call you your's" || $qsam == "your name" || $qsam == "name" || $qsam == "ur name" || $qsam == "ur name?"){
-             echo respondName();
- } else if ( $keyword[$decisionValue[0]] == "my name name?"){
-             echo "givename";
- }else if ( $keyword[$decisionValue[0]] == "version version? aboutbot"){
-             echo "Version: 1.0";
- }else if ( $keyword[$decisionValue[0]] == "what are you you?"){
-             echo "I'm a ChatBot";
- }else if ( $keyword[$decisionValue[0]] == "today today's date"){
-             echo respondDate();
- }else if($qsam != "intro" && $qsam != "request name" && strtok($qsam, ":") != "train"){
- 	$te = checkDatabaseToo($qsam);
- 	if ($te == 1){
- 		if ( $keyword[$decisionValue[0]] == "i'm am fine okay doing great ok all good"){
- 								echo respondOkay();
- 		}else if ( $keyword[$decisionValue[0]] == "how are you"){
- 								echo respondGreeting();
- 		}else if (strtok($qsam, ":") == "name"){
- 					echo "nice name, also nice to meet you";
- 					$nameGuest = explode (":", $qsam);
- 					$guestName = $nameGuest [1];
- 					echo "$guestName" . ". How are you today?";
-
- 		}else if ( $keyword[$decisionValue[0]] == "still here you there codmax jnr samson"){
- 			echo repondName();
- 		}else if ( $keyword[$decisionValue[0]] == "newschool"){
- 			echo "oop! Sorry i don't understand you. But I'm a fast learner,
-=======
     function trainingSam($newmessage){
         require 'db.php';
         $message = explode('#', $newmessage);
@@ -1463,12 +919,12 @@ function samsonjnrBot($qsam){
                 echo repondName();
             }else if ( $keyword[$decisionValue[0]] == "newschool"){
                 echo "oop! Sorry i don't understand you. But I'm a fast learner,
->>>>>>> 7e0b22e8fbc84c86c4af16b3b961fc89e5728cdc
  						you can train me in this format 'train: question # answer #password'";
             }
         }
     }
 }
+*/
 
 ////////////////////// END OF FUNCTION BY BROWN SAMSON ////////////////////////////////////
 
@@ -1549,7 +1005,7 @@ function strrevpos($instr, $needle)
     else return strlen($instr) - $rev_pos - strlen($needle);
 };
 
-        function training($check)
+        function trainings($check)
         {
             $password="password";
             $newquestion= between(':', '#', $check);
@@ -1714,64 +1170,35 @@ function getLatestNews() {
 //    }
 //}
 
-////////////////JONAH VICTOR VICTOR//////////////////
-////////////////                    /////////////////
-///////////////                     /////////////////
-///////////////     vectormike     /////////////////
-////////////////                  //////////////////
-////////////////                  //////////////////
-/////// If you want to touch something, 
-///////      don't touch this side  ///////////////// 
-function getBotInfo() {
-    $bot_version="1.0.1";
-    return "Heyo! I'm Vectormike's smiggle. I'm version " .$bot_version;
-}
-function getBotManual() {
-    return  "Send 'location' to know your location. \n
-    Send 'time' to get the time. \n
-    Send 'about' to know me. \n
-    Send 'help' to see this again. \n
-    To train me, send in this format: \n
-    'train: question # answer # password'";
-}
-function getAge() {
-    $bot_version="1.0.1";
-    return "Vectormike is just 20 years old. As for me, I have got no idea of age. Still " .$bot_version;
-}
 
-function get_client_ip() {
-    $ipaddress = '';
-    if (isset($_SERVER['HTTP_CLIENT_IP']))
-        $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-    else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-        $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    else if(isset($_SERVER['HTTP_X_FORWARDED']))
-        $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-    else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
-        $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-    else if(isset($_SERVER['HTTP_FORWARDED']))
-        $ipaddress = $_SERVER['HTTP_FORWARDED'];
-    else if(isset($_SERVER['REMOTE_ADDR']))
-        $ipaddress = $_SERVER['REMOTE_ADDR'];
-    else
-        $ipaddress = 'UNKNOWN';
-    return $ipaddress;
+/*******************************************************************************************
+****************************START OF KINGSLEY67'S HOROSCOPE FUNCTION*********************************
+*/
+function
+ zodiac($birthdate) {
+ 
+   $zodiac = '';     
+   list ($year, $month, $day) = explode ('-', $birthdate); 
+         
+   if ( ( $month == 3 && $day > 20 ) || ( $month == 4 && $day < 20 ) ) { $zodiac = "Aries"; } 
+   elseif ( ( $month == 4 && $day > 19 ) || ( $month == 5 && $day < 21 ) ) { $zodiac = "Taurus"; } 
+   elseif ( ( $month == 5 && $day > 20 ) || ( $month == 6 && $day < 21 ) ) { $zodiac = "Gemini"; } 
+   elseif ( ( $month == 6 && $day > 20 ) || ( $month == 7 && $day < 23 ) ) { $zodiac = "Cancer"; } 
+   elseif ( ( $month == 7 && $day > 22 ) || ( $month == 8 && $day < 23 ) ) { $zodiac = "Leo"; } 
+   elseif ( ( $month == 8 && $day > 22 ) || ( $month == 9 && $day < 23 ) ) { $zodiac = "Virgo"; } 
+   elseif ( ( $month == 9 && $day > 22 ) || ( $month == 10 && $day < 23 ) ) { $zodiac = "Libra"; } 
+   elseif ( ( $month == 10 && $day > 22 ) || ( $month == 11 && $day < 22 ) ) { $zodiac = "Scorpio"; } 
+   elseif ( ( $month == 11 && $day > 21 ) || ( $month == 12 && $day < 22 ) ) { $zodiac = "Sagittarius"; } 
+   elseif ( ( $month == 12 && $day > 21 ) || ( $month == 1 && $day < 20 ) ) { $zodiac = "Capricorn"; } 
+   elseif ( ( $month == 1 && $day > 19 ) || ( $month == 2 && $day < 19 ) ) { $zodiac = "Aquarius"; } 
+   elseif ( ( $month == 2 && $day > 18 ) || ( $month == 3 && $day < 21 ) ) { $zodiac = "Pisces"; } 
+ 
+ return $zodiac; 
+} 
 
-    $PublicIP = get_client_ip();
-    $json  = file_get_contents("https://freegeoip.net/json/$PublicIP");
-    $json  =  json_decode($json ,true);
-    $country =  $json['country_name'];
-    $region= $json['region_name'];
-    $city = $json['city'];
-}
-
-
-///////////////////////////////////////////////////////////////////
-/////////////////// THE    END ////////////////////////////////////
-///////////////////////////////////////////////////////////////////
-
-
-
+/*************************************************************************************************
+****************************END OF KINGSLEY67'S HOROSCOPE FUNCTION*********************************
+******************************88PLEASE DO NOT EDIT OR REMOVE**************************************/
 
 
 ?>

@@ -1,12 +1,17 @@
 <?php
-
 session_start();
-include "../answers.php";
+//include "../answers.php";
 
 function getmenu()
 {
     return 'Main Menu: <ul><li>AboutBot</li><li>Time</li></ul>';
 }
+
+function getTime()
+{
+    return date("h:i:s a");
+}
+
 try {
     if($_SERVER['REQUEST_METHOD'] === "POST"){
         if(!isset($conn)) {
@@ -135,8 +140,7 @@ $username =$my_data['username'];
 
 
 <div class="container">
-    <div class="row">
-
+    <div class="row top-buffer">
         <div class="col-lg-6 col-sm-6">
             <div class="card hovercard">
                 <div class="cardheader"></div>
@@ -165,11 +169,13 @@ $username =$my_data['username'];
                     <a class="btn btn-warning btn-sm" rel="publisher" href="#">
                         <i class="fa fa-behance"></i>
                     </a>
+
+                    <button class="open-chat"><i class="fa fa-comment">Show Bot</i></button>
                 </div>
 
             </div>
         </div>
-        <div class="chatbox">
+        <div class="chatbox hidden">
             <div class="chatlogs">
                 <!--                <div class="chat friend">-->
                 <!--                    <div class="user-photo"><img src="./images/guest-avatar.jpeg"></div>-->
@@ -194,6 +200,9 @@ $username =$my_data['username'];
 <style>
 
 
+    .top-buffer {
+        margin-top: 60px;
+    }
 
     .card {
         padding-top: 20px;
@@ -441,7 +450,6 @@ $username =$my_data['username'];
 </style>
 
 <style>
-
     .chatbox {
         float: right;
         width: 500px;
@@ -563,40 +571,61 @@ $username =$my_data['username'];
         -p-transition: background  .2s ease;
 
     }
+    .open-chat {
+        background: #0eb2c1;
+        padding: 5px 15px;
+        font-size: 27px;
+        color: #fff;
+        border: none;
+        margin: 0 10px;
+        border-radius: 3px;
+        box-shadow: 0 3px 0 #0eb2c1;
+        cursor: pointer;
 
+        -webkit-transition: background .2s ease;
+        -moz-transition: background .2s ease;
+        -p-transition: background  .2s ease;
+    }
     .chat-form button:hover {
         background: #13c8d9;
     }
-
 
 </style>
 
 <script>
 
+
     $(document).ready(function () {
-        var message1 = window.setTimeout(function(){
-            var default_message = '<div class="chat self"><div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">Hello I\'m TAGHREEDAA, <br> I\'m here to help you choose an option from the menu. :)</div> </div>';
-            $('.chatlogs').append(default_message);
-            playMessageSound();
-            window.clearTimeout(message1);
-        }, 1000);
+        var firstLoad = true;
+
+        $('.open-chat').click(function(){
+        $('.chatbox').toggleClass('hidden');
+        if (firstLoad === true && $('.chatbox').hasClass('hidden') === false) {
+            firstLoad = false;
+                    var message1 = window.setTimeout(function(){
+                        var default_message = '<div class="chat self"><div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">Hello I\'m TAGHREEDAA, <br> I\'m here to help you choose an option from the menu. :)</div> </div>';
+                        $('.chatlogs').append(default_message);
+                        playMessageSound();
+                        window.clearTimeout(message1);
+                    }, 1000);
 
 
-
-        var menu = window.setTimeout(function(){
-            var menu_message ='<div class="chat self"> <div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">Main Menu: <ul> <li>AboutBot</li> <li>Time</li> </ul> </div> </div>';
-            $('.chatlogs').append(menu_message);
-            playMessageSound();
-            window.clearTimeout(menu);
-        }, 2000);
+                var menu = window.setTimeout(function(){
+                    var menu_message ='<div class="chat self"> <div class="user-photo"><img alt="Taghreed Image" src="<?php echo $src; ?>"></div> <div class="chat-message">Main Menu: <ul> <li>AboutBot</li> <li>Time</li> </ul> </div> </div>';
+                    $('.chatlogs').append(menu_message);
+                    playMessageSound();
+                    window.clearTimeout(menu);
+                }, 2000);
+            }
+        });
     });
 
     function playMessageSound() {
         var aSound = document.createElement('audio');
         aSound.setAttribute('src', 'http://res.cloudinary.com/taghreedaa/video/upload/v1525350931/sound/facebook_tone.mp3');
-        aSound.setAttribute('autoplay', 'true');
-
+        // aSound.setAttribute('autoplay', 'true');
         aSound.play();
+
     }
     //If user submits the form
     $("#usermsg").keypress(function(e) {
