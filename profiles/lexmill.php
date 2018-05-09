@@ -8,8 +8,7 @@ $user = $result2->fetch(PDO::FETCH_ASSOC);
 $username = $user['username'];
 $name = $user['name'];
 $image_filename = $user['image_filename'];
-?>
-<?php
+
 function gettTime(){
     date_default_timezone_set('Africa/Lagos');
     return "The time is " . date("h:i:sa");
