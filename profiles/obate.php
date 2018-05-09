@@ -11,13 +11,7 @@
   <?php
 
   if(!defined('DB_USER')){
-        if (file_exists('../../config.php')) {
-            require_once '../../config.php';
-        } else if (file_exists('../config.php')) {
-            require_once '../config.php';
-        } elseif (file_exists('config.php')) {
-            require_once 'config.php';
-        }
+        require_once "../../config.php";
 
         try {
             $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
@@ -338,7 +332,7 @@
                 chat_output.scrollTop(chat_output[0].scrollHeight);
             //send question to server
             $.ajax({
-              url: 'answer.php',
+              url: 'profiles/obate.php',
               type: 'POST',
               data: {input_text: input_text},
               dataType: 'json',
