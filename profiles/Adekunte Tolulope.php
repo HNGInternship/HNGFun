@@ -100,7 +100,7 @@ button:hover, a:hover {
 #Chatbot-holder{
 		position: fixed;
 		right:5px;
-		bottom:-330px;
+		bottom:-340px;
 		z-index: 4;
 		height:410px;
 		transition: 1s;
@@ -112,7 +112,6 @@ button:hover, a:hover {
 	#botImg{
 		border-radius:100%;
 		padding:6px;
-		border:ridge 1px gray;
 		width:50px;
 		height:50px;
 		text-align: center;
