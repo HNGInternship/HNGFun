@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1); 
+error_reporting(E_ALL);
 if(!defined('DB_USER')){
 require "../../config.php";
  try {
