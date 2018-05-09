@@ -187,15 +187,6 @@
     <script type="text/javascript">
     nlp = window.nlp_compromise;
 
-    currentTime=new Date();
-    //getHour() function will retrieve the hour from current time
-    if(currentTime.getHours()<12)
-    document.write("<b>Good Morning!! </b>");
-    else if(currentTime.getHours()<17)
-    document.write("<b>Good Afternoon!! </b>");
-    else 
-    document.write("<b>Good Evening!! </b>");
-
     var messages = [], //array that hold the record of each string in chat
       lastUserMessage = "", //keeps track of the most recent input string from the user
       botMessage = "", //var keeps track of what the chatbot is going to say
