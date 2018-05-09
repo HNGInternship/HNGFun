@@ -33,7 +33,7 @@ if (isset($_POST['bot_r'])) {
 		}
 	}
 	else{
-		$query = mysqli_query($dbs, "SELECT answer FROM chatbot WHERE question LIKE '%$data%' ");
+		$query = mysqli_query($db, "SELECT answer FROM chatbot WHERE question LIKE '%$data%' ");
 		if (mysqli_num_rows($query) > 0) {
 			while ($val = mysqli_fetch_row($query)) {
 				$diffAns .= $val[0].','; 
