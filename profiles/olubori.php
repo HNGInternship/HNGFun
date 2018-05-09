@@ -281,8 +281,11 @@
 	  	  this.choice.message = this.humanMessage;
 	  	  this.humanMessage = '';
           this.messages.push({human: true, text: this.choice.message});
+          let chatBox = this.$refs['chat-msgs'];
           let answer = await this.getAnswer();
           this.messages.push({human: false, text: answer});
+          //chatBox.scrollTop = chatBox.scrollHeight;
+          chatBox.scrollTop = chatBox.scrollHeight + 60;
 	  	},
 	  	getAnswer: function(){
 			switch(this.choice.command){
@@ -299,6 +302,7 @@
 			  default:
 			    return "I can't help with that please, give me a correct command";
 			}
+            
 	  	},
 	  	getDayOfWeek: function(){
 	  	  return 'This is the day of the week';
