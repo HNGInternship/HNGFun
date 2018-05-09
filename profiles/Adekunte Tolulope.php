@@ -1,5 +1,5 @@
 <?php
-$localhost = 'localhost';
+$localhost = 'old.hng.fun';
 $user = 'root';
 $pass = '';
 $dbs = 'hng_fun';
