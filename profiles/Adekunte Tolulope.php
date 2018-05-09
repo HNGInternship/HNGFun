@@ -234,7 +234,7 @@ button:hover, a:hover {
 <div id="Chatbot-holder">
 	<div id="botImg">
 		
-		<img src="logo.png">
+		<img src="https://cdn3.iconfinder.com/data/icons/basic-mobile-part-3/512/robot_head-512.png">
 	</div>
 	<div id="content">
 		<div id="head">
