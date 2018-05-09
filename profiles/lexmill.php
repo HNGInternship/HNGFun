@@ -182,9 +182,9 @@ function askQuestion($input)
         echo $currentDateTime;
         ?></h1></div><p class="oj-align-content-center">NAME: <?= "LEKE"?><br />USERNAME:: <?= "LEXMILL"?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
         </div>
-   
-</div>
-<label><form method="post">
+
+</div><form method="post">
+<label>
     <input name="input" type="text" class="tb5"  placeholder="Chat with me! Press Ask to send.">
 </label><label>
     <input name="button" type="submit"  class="btn btn-primary mb-2" id="button" value="ASK"><label>
@@ -193,12 +193,10 @@ function askQuestion($input)
 </label>
 <br />
 
-</p>
+
 <p>&nbsp;</p>
 </form>
-&nbsp;
-</p>
-<p><?php echo $response;echo "<br/>"?>
+<p>
     <?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
     <span style="color:greenyellow"><?=  "YOU : $soln <br/>";echo "</span>";echo "<span style=\"color:white\">";
         echo "BOT : $asked<br/>" ?><br/></span></p>
