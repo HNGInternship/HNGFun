@@ -427,4 +427,37 @@ function getPinkyCommands(){
     NB. All or some of the words in bold should be included in your message.";
     //A.M.A
 }
+
+
+//////////////////////  VICTOR JONAH ///////////////////////////////////
+/////////////////////                ///////////////////////////////////
+////////////////////                 ///////////////////////////////////
+///////////////// If you want to touch 
+///////////////// anything, don't touch ////////////////////////////////
+/////////////////         this side    /////////////////////////////////
+
+function getBotInfo() {
+    $bot_version = 1.01;
+    return: "This is Vector, version " .$bot_version;
+}
+function getBotManual() {
+        return  "Send 'location' to get your location. \n
+          Send 'time' to get the time. \n
+          Send 'about' to know me. \n
+          Send 'help' to see this again. \n
+          Send 'age' to know my age. \n
+          If its just a question send the question plain. \n
+          To train me, send in this format => \n
+          'train: question # answer # password'";
+}
+function getAge() {
+        return: "Vectormike is 20 years old. \n
+        Vector is " .$bot_version;
+}
+function getTime() {
+    return: date(h:i:sA);
+}
+
+///////////////////// THE END /////////////////////////////
+//////////////////////////////////////////////////////////
 ?>

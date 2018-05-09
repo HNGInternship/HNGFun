@@ -47,7 +47,12 @@ button:hover, a:hover {
 </head>
 <body>
 <?php
-
+  
+  include_once("../answers.php"); 
+  if (!defined('DB_USER')){
+            
+  require "../../config.php";
+  }
   try{
   //get secret_word 
   $sql = 'SELECT * FROM secret_word';

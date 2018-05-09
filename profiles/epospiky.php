@@ -1,23 +1,18 @@
-<?php    
+    <?php
     global $conn;
-    if(!defined('DB_USER')){
-      require "../../config.php";   
-      try {
-          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-      } catch (PDOException $e) {
-         throw $e;
-      }
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="Epospiky"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
     }
-    try{
-     $sql = 'SELECT * FROM interns_data WHERE username="Epospiky"';
-      $query = $conn->query($sql);
-      $query->setFetchMode(PDO::FETCH_ASSOC);
-      $result1 = $query->fetch();    }
-      catch (PDOException $e){
-          throw $e;         
-      }
-         
-      try {
+    ?>
+
+
+<?php
+    try {
         $sql = 'SELECT * FROM secret_word';
         $q = $conn->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
@@ -25,62 +20,86 @@
     } catch (PDOException $e) {
         throw $e;
     }
-
     $secret_word = $data['secret_word'];
 
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-     #require "../answers.php";
-    # require_once '../db.php';
-    # User input
-     $user_data = $_POST['input'];
-    if (strpos($user_data, 'train') !==false) {
-      $input_val = explode(':', $user_data, 2);
-      $key_iput = $input_val[0];  #locate the input as the 1st value in the array 
-      $key_iput = strtolower($key_iput);  #force it to lowercase
-      $key_iput = preg_replace('/\s+/', '', $key_iput);   #remove whitespace
-
-        train($input_val[1]);
-    } 
-
-
- 
-
-function train($data){
-         $data =  explode('#', $input_val[1],3);
-          $question = trim($data[0]);
-          $answer = trim($data[1]);
-          $password = trim($data[2]);
-
-          if ($password === 'password') {
-             try {
-                $queryChatBot = 'SELECT * FROM chatbot';
-                $result = $conn->query($queryChatBot);
-                $resultdata = $result->fetch(PDO::FETCH_ASSOC);
-               
-             } catch (PDOException $e) {
-              throw $e;
-               
-             }
-             if (empty($user_data)) {
-               $train_info  = array(':question' => $question, ':answer' => $answer );
-               $sql = 'INSERT INTO chatbot (question, password) VALUES (:question, :answer);';
-               echo "Thank for your help. Now i'm smarter";
-             } else {
-               echo "I already understand this. Please try something new";
-             }
-             
-
-          } else {
-            echo "Sorry. Seems you are trying to train me with an unauthorised password.";# code...
-          }
-          
-
-
-}
-    
-}
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $data = $_POST['user-input'];
+        $temp = explode(':', $data);
+        $temp2 = preg_replace('/\s+/','', $temp[0]);
+        
+        if($temp2 === 'train'){
+            train($temp[1]);
+        }elseif($temp2 === 'aboutbot') {
+            aboutbot();
+        }elseif($temp2==='help'){
+            help();
+        }elseif($temp2 === 'version'){
+            echo "<div id='result'> <b>Santra v1.0</b></div>";
+        }else{
+            getAnswer($temp[0]);
+        }
+    }
+  ##About Bot
+    function aboutbot() {
+        echo "<div id='result'><strong>I am Santra, a power chatbot created by Epospiky </strong></div>";
+    }
+   function help(){
+   echo "<div id ='result'>Type <b>about</b> to know about me.<br/>Type <b>version</b> to know my version.<br/>To train me,use this format:<b>train:question#answer#password</b> where password is password </div>";
+   
+   }
   
-?>
+  ##Train Bot
+    function train($input) {
+        $input = explode('#', $input);
+        $question = trim($input[0]);
+        $answer = trim($input[1]);
+        $password = trim($input[2]);
+        if($password == 'password') {
+            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+            $q = $GLOBALS['conn']->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+            if(empty($data)) {
+                $training_data = array(':question' => $question,
+                    ':answer' => $answer);
+                $sql = 'INSERT INTO chatbot ( question, answer)
+              VALUES (
+                  :question,
+                  :answer
+              );';
+                try {
+                    $q = $GLOBALS['conn']->prepare($sql);
+                    if ($q->execute($training_data) == true) {
+                        echo "<div id='result'>Thank you for training me. </br>
+      Now you can ask me same question, and I will answer it correctly.</div>";
+                    };
+                } catch (PDOException $e) {
+                    throw $e;
+                }
+            }else{
+                echo "<div id='result'>I already understand this. Teach me something new!</div>";
+            }
+        }else {
+            echo "<div id='result'>You entered an invalid Password. </br>Try Again!</div>";
+        }
+    }
+    function getAnswer($input) {
+        $question = $input;
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+        $q = $GLOBALS['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
+        if(empty($data)){
+            echo "<div id='result'>Sorry! I've not been trained to learn that command. </br>Would you like to train me?
+</br>You can train me to answer any question at all using, train:question#answer#password
+</br>You can type in <b>help</b> to begin with.</div>";
+        }else {
+            $rand_keys = array_rand($data);
+            echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
+        }
+    }
+    ?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -89,13 +108,16 @@ function train($data){
     <script src="https://use.fontawesome.com/dfb23fb58f.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   <!-- link to main stylesheet -->
-       <link rel="stylesheet" type="text/css" href="/css/main.css">
+       <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/3.3.4/css/bootstrap.css">
+       <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 
        <link rel="stylesheet" type="text/css" href="https://static.oracle.com/cdn/jet/v4.1.0/default/css/alta/oj-alta-min.css">
        <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/require/require.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"> </script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
-      <script src="../vendor/jquery/jquery.min.js"></script>
+      <script src="../js/jquery.min.js"></script>
+      <script src="../js/bootstrap.min.js"></script>
+      
         <style>
 
         ul.navi {
@@ -129,12 +151,12 @@ function train($data){
        .content{
         background-color: #C0C0C0;
         border-radius: 100px 0px;
-        width: 500px;
-        border: 1px solid black;
+        max-width: 500px;
+        border: 0px solid black;
         padding: 50px;
-        margin-top: 20px;
+        margin-top: 50px;
         margin-bottom: 20px;
-        box-shadow: -5px 0px 3px #000, 0px 5px 3px #000;
+        box-shadow: -5px 0px 5px #000, 0px 5px 5px #000;
        }
        .img-grid img{
         border-radius: 50%;
@@ -148,87 +170,7 @@ function train($data){
        .skill p {
         text-align: center;
        }
-      /*--.about-grids {
-        margin-top: 60px;
-      }
-      .about {
-        background:#76b852;
-        padding: 80px 0;
-      }
-      .about-info h3 {
-        font-family: 'Jockey One', sans-serif;
-        margin: 0;
-        color:#323b43;
-        font-size: 44px;
-        text-align: center;
-        font-weight: 400;
-      }
-      .about-info h4 {
-        text-align: center;
-        font-size: 17px;
-        color:#d9ffc4;
-        font-weight: 600;
-        margin: 10px 0 16px 0;
-        font-style: italic;
-      }
-      .about-info p {
-        text-align: center;
-        font-size: 14px;
-        color: #fff;
-        width: 71%;
-        margin: 0 auto;
-        line-height: 1.8em;
-      }
-      .about-grid h4{
-        font-family: 'Jockey One', sans-serif;
-        text-align: center;
-        color: #d9ffc4;
-        font-size: 24px;
-        text-transform: uppercase;
-      }
-      .about-grid p{
-        text-align: center;
-        color: #fff;
-        font-size: 14px;
-        line-height: 1.8em;
-        padding: 2em 0 0 0;
-      }
-      .our-skills{
-      background:#323b43;
-      padding:80px 0px 80px 0px !important;
 
-      }
-      .circles-text-wrp {
-        font-size: 30px;
-        color: #fff;
-        font-weight: 300;
-        }
-      /*--- //circles 
-      .skill-grids {
-        margin-top: 60px;
-      }
-      .skills-grid p{
-        margin: 34px 0 0 0;
-        font-size: 22px;
-        color: #ced7df;
-        }
-      .skill-info h2{
-      font-family: 'Jockey One', sans-serif;
-        margin: 0;
-        color: #ced7df;
-        font-size: 44px;
-        text-align:center;
-        font-weight:400;
-        }
-      .contact{
-        padding:20px 0px 10px 0px !important;
-        text-align: center;
-        background-color: #ccc000;
-      }
-      .contact-grids{
-        width: 200px;
-         margin: 0 auto;
-      }--*/
       .logo{
         padding-top: 30px;
         width: 40px;
@@ -270,7 +212,7 @@ function train($data){
         font-size: 14px;
         padding: 20px;
         border-radius: 0px 50px 50px 50px;
-        background-color: #f8f000;
+        background-color: #b0bfff;
         max-width: 250px;
         clear: both;
         display: inline-block;
@@ -282,11 +224,11 @@ function train($data){
         font-size: 14px;
         padding: 20px;
         border-radius: 50px 0px 50px 50px;
-        background-color: #b8b000;
-       max-width: 250px;
-       clear: both;
-       margin-bottom: 0px !important;
-       margin-top: 2px !important;
+        background-color: #e0e0f0;
+         max-width: 250px;
+         clear: both;
+         margin-bottom: 0px !important;
+         margin-top: 2px !important;
     }
 
 
@@ -299,12 +241,11 @@ function train($data){
           align-items: center;
         }
         .chat-btn{
-          position: fixed;
+         
            border-radius: 6px;
            cursor: pointer;
            z-index: 1;
-           bottom: 0;
-           right: 0;
+
            color: #fff;
            background-color: blue;
            transition: all 0.5s;
@@ -313,16 +254,23 @@ function train($data){
           color: #000;
           background-color: #6bcfcf;
         }
+        .modal-cont{
+          background-color: #fff;
+        }
+        .san-img{
+          background: url('http://res.cloudinary.com/epospiky/image/upload/v1525365569/san.png');
+          background-repeat: no-repeat;
+          background-size: 30px;
+        }
+        .me-img{
+          background: url('http://res.cloudinary.com/epospiky/image/upload/v1525365549/human.png');
+          background-repeat: no-repeat;
+          background-size: 30px;
+        }
     </style>
   </head>
   <body class="oj-web-applayout-body">
-    <?php
-     
 
-      $name = $result1['name'];
-      $user = $result1['username'];
-      $image = $result1['image_filename'];
-    ?>
 <div class="container oj-web-applayout-page">
  <div class="content oj-web-applayout-max-width oj-web-applayout-content">
   <div class="img-grid  oj-flex  oj-sm-12 oj-lg-offset-6">
@@ -357,7 +305,7 @@ function train($data){
         </div>
     </div>
     <div class="skill oj-flex-item oj-sm-4">
-      <p>UI</p>
+      <p>UI/UX</p>
        <div class="progress progress-striped active"> 
             <div class="progress-bar progress-bar-success" role="progressbar"  
                 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"  
@@ -383,67 +331,77 @@ function train($data){
       </ul> 
     </div>
   </div>
-  
- </div>
-  <!--end of contact-->
-    <button class="btn chat-btn" data-toggle='modal' data-target='#chatmodal'><i class="fa fa-comment-alt">Chat</i></button>
-    <!--modal-->
 
-        <div class="modal-content-">
+  <button class="btn col-sm-offset-5 chat-btn" data-toggle='modal' data-target='#chatModal'><i class="fa fa-comment-alt">Chat</i></button>
+        <!--modal-->
+   <div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="chatModalLabel"><i class="fa fa-user"></i>Santra</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title" id="chatModalLabel"><i class="fa fa-user"></i><b>Santra</b></h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body " >
+          <div class="modal-body "  > 
             <div class="chat" id="chat">
-              <p class="san">Hi there. I'm Santra.</p>
-              <p class="san">You can train me using this command format <b>train: the question # the answer #authorised password</b> 
-                or Type <b>help</b> to begin with</p>   
-
-
+                
+                  
+                    <p class="san">Hi! I'm Santra. You are free to ask me anything.   </p>
+                    <p class="san">To train me, use this syntax - "train:question#answer#password".</p>
+                   <p class="san">The Password is: <b>password</b>. </p>
+                    <p class="san">Type help to begin with.</p>
             </div>
+                
           </div>  
-          <div class="clearfix"></div> 
-            <form class="input " id="bot-input">
-              <div class="input-group">
-                 <input class="form-control" id="txt-input" type="text" name="input" required="" placeholder="Chat me up..." />
-               <span class="input-group-btn">
-                  <button type="submit" class="btn btn-primary"><i class="fa fa-send"></i> </button>
-              </span>
-              </div>
-            </form>
+          <div class="clearfix"></div>
+                <div class="chat-input">
+                    <form action="" method="post" id="user-input-form">
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="chat me up...">
+                          <span class="input-group-addon"><button class="btn btn-primary" id="send"><i class="fa fa-send"></i></button></span>
+                      </div>
+                    </form>
+                </div>
         </div>
-
-    <!--end of modal-->
+     </div>
     </div>
+    
+    
+    
+    </div>  
+ </div>
 
-      <script>
-      var chatArea = $('#chat');
-      $("#bot-input").on("submit", function(e){
+
+
+
+    
+
+
+
+<script>
+    var outputArea = $("#chat");
+    $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
-        var message = $("txt-input").val();
-        chatArea.append(`<div class='bot-message'><div class=''>${message}</div></div>`);
+        var message = $("#user-input").val();
+        outputArea.append(`<p class='me'>${message}</p>`);
         $.ajax({
-          url:"epospiky.php",
-          type: 'POST',
-          data: '#txt-input='+message,
-          datatype: 'json'
-          success: function(response){
-            var output = $($.parseHTML(response)).find("#output").text();
-            setTimeout(function() {
-                    outputArea.append("<div class=''><div class=''>" + output + "</div></div>");
+            url: 'profile.php?id=epospiky',
+            type: 'POST',
+            data:  'user-input=' + message,
+            success: function(response) {
+                var result = $($.parseHTML(response)).find("#result").text();
+                setTimeout(function() {
+                    outputArea.append("<p class='san'>" + result + "</p>");
                     $('#chat').animate({
                         scrollTop: $('#chat').get(0).scrollHeight
                     }, 1500);
-                },, 10);
-          }
+                }, 250);
+            }
         });
-      
-      });
-        
-      </script>
-
-  </body>
+        $("#user-input").val("");
+    });
+</script>
+</div>
+</body>
 </html>
