@@ -122,7 +122,7 @@ function askQuestion($input)
                 return "The right format is train:yourquestion#youranswer#password";
         } else {
             if (preg_match('/\baboutbout\b/',$input)) {
-                return "Adokiye v1.0";
+                return "lexmill v1.0";
             } else if (preg_match("/\b($time)\b/",$input)) {
                 return gettTime();
             } else if (preg_match('/\bhelp\b/',$input)) {
