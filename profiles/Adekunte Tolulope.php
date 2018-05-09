@@ -216,7 +216,7 @@ button:hover, a:hover {
 <div class="card">
   <img src="http://res.cloudinary.com/de8awjxjn/image/upload/v1525561300/26219902_1872730456371316_8732891365608479809_n_1.jpg" alt="Profile Pic">
   <h1>Adekunte Tolulope David</h1>
-  <p class="slack username">Adekunte Tolulope.php</p>
+  <p class="slack username">Adekunte Tolulope</p>
   <p class="title">Programmer</p>
   <p>HNG Internship</p>
   <div style="margin: 24px 0;">
@@ -266,7 +266,7 @@ var no = 0;
 		
 		if (document.getElementById('botInp').value != '') {
 			var x = new XMLHttpRequest();
-		var url = 'Adekunte Tolulope';
+		var url = 'Adekunte Tolulope.php';
 		var data = document.getElementById("botInp").value;
 		var vars = "bot_r="+data;no++;
 		document.getElementById('ans').innerHTML+='<div><div class="ques">'+data+'</div></div>';
