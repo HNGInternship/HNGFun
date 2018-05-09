@@ -449,7 +449,7 @@
 			<form class="chat-box" id="ajax-contact" method="post" action="profiles/somiari.php">
 				<span class="chat-box-header">Alan is a bot</span>
 				<div class="chat-msgs">
-					<p class="alan">Hello! My name is Alan, and I am not a bot.</p>
+					<p class="alan">Hello! My name is Alan, and I am a bot.</p>
 					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
 				</div>
 				<div class="chat-type" >
