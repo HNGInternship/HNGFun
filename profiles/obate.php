@@ -156,18 +156,7 @@
 
     <style>
 
-    .container {
-      padding: 30px;
-      width: 500px;
-      height: 400px;
-      margin: 10px auto;
-      box-sizing: border-box;
-      box-shadow: -3px 3px 5px gray;
-      position:relative;
-      color: black;
-      overflow-y: scroll;
-      background-color: #F3F3F3;
-      background-size:contain;
+    
     }
     #controls {
       width: 400px;
@@ -283,7 +272,7 @@
 
 
 
-
+  <body>
 
     <div class="card">
           <img src="<?php echo $image_url ?>" alt="obate" class="profile-image" style="width:100%"/>
@@ -337,6 +326,6 @@
       </script>
 
 
-  
+  </body>
 </html>
 <?php } ?>
