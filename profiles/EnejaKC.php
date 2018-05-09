@@ -68,6 +68,13 @@
             <?php
 
             // include('../../htconfig/config.php');
+            $db = array(
+                'hostname'=> 'localhost',
+                'username'=> 'root',
+                'password'=> '',
+                'database'=> 'hng_fun',
+                );
+                
              $dbSuccess = false;
              $dbConnected = mysql_connect($db['hostname'], $db['username'], $db['password']);
              if ($dbConnected) {
