@@ -92,7 +92,7 @@
           padding-top: 200px;
           padding-left: 50%;
           width: 450px;
-          
+          display: inline-block;
       }
 
      
@@ -105,7 +105,7 @@
 </head>
 
 <body class="bg-light">
-
+<div>
 <div class="oj-flex oj-sm-flex-direction-columno oj-sm-align-items-center content">
   <div class="card mt-5 py-5">
     <div class="my-3">
@@ -164,23 +164,16 @@
                 <p id="chatlog2" class= "chatlog">&nbsp;</p>
                 <p id="chatlog1" class= "chatlog">&nbsp;</p>
             </div>
-            <!-- <form method="get" action="">
-            <div class= "bot-ans">
-                <div class= "message-body sent">Hello</div>
-            </div>
-
-            <div class= "bot-ask">
-                <div class="message-body recieved">Hello<br>How may I help you?</div>
-            </div> -->
 
             <div class= "chat">
             <input type= "text" id= "chatbox" name= "chatbot" method= "POST" placeholder="Hi, nice to have you here...." onfocus="placeholder()">
             </div>
-            <!-- </form> -->
+         
         </div>
           </div>
         </div>
     
+    </div>
     </div>
     </div>
     </div>
