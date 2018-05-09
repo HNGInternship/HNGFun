@@ -72,7 +72,7 @@
 			</div>
 			<br/>
 			<div class="flex">
-				<div class="label">Name :</div>
+				<div class="label">NameNew:</div>
 				<div class="value"><? echo $name; ?></div>
 			</div>
 			<div class="flex">
