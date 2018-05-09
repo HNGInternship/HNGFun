@@ -458,6 +458,19 @@ h4 {
                 
 }
 
+
+.first{
+        margin-top: 10px;
+        margin-right:20px;
+        padding:15px;
+        background:rgb(6, 65, 124);
+        position:relative;
+        float: left;
+        margin-left:20px;
+        min-height:10px;
+        border-radius:5px;
+}
+
 .first:before{
                 content: "";
                 position: absolute;
@@ -470,26 +483,17 @@ h4 {
                 border-color: transparent rgb(6, 65, 124) transparent transparent;
 }
 
-.first{
-        margin-top: 5px;
-        margin-right:10px;
-        padding:1px;
-        background:rgb(6, 65, 124);
-        position:relative;
-        float: left;
-        min-height:5px;
-        border-radius:2px;
-}
 
 
 .second{
 
-        margin-top: 10px;
+        margin-top: 20px;
         margin-right:20px;
         padding:15px;
         background:rgb(6, 65, 124);
         margin-left:20px;
         min-height:15px;
+        max-height: 20px;
         position:relative;
         border-radius:5px;
         color:#ffffff;
@@ -502,7 +506,7 @@ h4 {
                 width: 0px;
                 height: 0px;
                 right: -28px;
-                top: 7px;
+                top: 10px;
                 border-radius:5px;
                 border: 10px solid;
                 border-color: transparent  transparent transparent #6699ff;
