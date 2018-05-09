@@ -194,6 +194,23 @@ body{
 		 <img src="<?php echo $image_filename; ?>" width="320" height="331" alt="Author's Picture"></div>
          </p>
 	 </div>
+          <label>
+            <input name="input" type="text" class="tb5"  placeholder="Chat with me! Press Ask to send.">
+        </label><label>
+            <input name="button" type="submit"  class="btn btn-primary mb-2" id="button" value="ASK"><label>
+                <input name="restart" type="submit"  class="btn btn-primary mb-2"  id="button" value="Restart">
+            </label>
+        </label>
+        <br />
+
+    </p>
+    <p>&nbsp;</p>
+    </form>&nbsp;</p>
+    <p><?php echo $response;echo "<br/>"?>
+        <?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
+        <span style="color:greenyellow"><?=  "YOU : $soln <br/>";echo "</span>";echo "<span style=\"color:white\">";
+            echo "BOT : $asked<br/>" ?><br/></span></p>
+    <?php }?>
 	     
 	 </body>
 	 </html>
