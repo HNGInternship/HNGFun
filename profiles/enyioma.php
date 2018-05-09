@@ -19,7 +19,7 @@
   .content {
     display: block;
     padding-top: 100px;
-    padding-left: 15%;
+    padding-left: 10%;
     position: absolute;
   }
   .about {
@@ -90,7 +90,7 @@
       .yormabot {
           position: absolute;
           padding-top: 250px;
-          padding-left: 60%;
+          padding-left: 50%;
           width: 400px;
           display: inline-block;
       }
