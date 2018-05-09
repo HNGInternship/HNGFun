@@ -14,18 +14,18 @@ function gettTime(){
     return "The time is " . date("h:i:sa");
 }function getMyquote(){
     $random = rand(0,11);
-    $quote = array("Sly: I am in FCT can I get A BJ?",
+    $quote = array("The past is always TENSE, the future PERFECT",
         "I will JOS go first because you play too much",
         "Why do virgins not like low men? Because they have HYMEN",
-        "",
-        "Life is what happens when you’re busy making other plans. John Lennon",
-        "It is better to be hated for what you are than to be loved for what you are not. Andre Gide",
-        "Dost thou love life? Then do not squander time, for that is the stuff life is made of. Benjamin Franklin",
-        "Very little is needed to make a happy life; it is all within yourself, in your way of thinking. Marcus Aurelius",
-        "Life is like playing a violin in public and learning the instrument as one goes on. Samuel Butler",
-        "In the end, it’s not the years in your life that count. It’s the life in your years. Abraham Lincoln",
-        "You’ve gotta dance like there’s nobody watching. William W. Purkey",
-        "Believe that life is worth living and your belief will help create the fact. William James");
+        "What if an atom says he's positive he lost an electron",
+        "A criminals best asset is his LIE-ABILITY",
+        "To write with a broken pencil is POINTLESS",
+        "I'm a cannon on the drum line flick the high beams",
+        "The fattest knight at the dinner was Sir Cumference, he acquired his size from too much pi",
+        "A hole has been found in the nudist camp, the police are looking into it",
+        "If you jumped off the bridge in Paris, you will be in Seine",
+        "A backward pet writes inverse",
+        "The phone call interrupted my nap, I never did get the rest");
     return $quote[$random];
 }function getmyJoke(){
     $random = rand(0,6);
