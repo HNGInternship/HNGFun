@@ -14,10 +14,10 @@ function gettTime(){
     return "The time is " . date("h:i:sa");
 }function getMyquote(){
     $random = rand(0,11);
-    $quote = array("My life is my message. Mahatma Gandhi",
-        "Not how long, but how well you have lived is the main thing. Seneca",
-        "I love those who can smile in trouble… Leonardo da Vinci",
-        "Time means a lot to me because, you see, I, too, am also a learner and am often lost in the joy of forever developing and simplifying. If you love life, don’t waste time, for time is what life is made up of. Bruce Lee",
+    $quote = array("Sly: I am in FCT can I get A BJ?",
+        "I will JOS go first because you play too much",
+        "Why do virgins not like low men? Because they have HYMEN",
+        "",
         "Life is what happens when you’re busy making other plans. John Lennon",
         "It is better to be hated for what you are than to be loved for what you are not. Andre Gide",
         "Dost thou love life? Then do not squander time, for that is the stuff life is made of. Benjamin Franklin",
