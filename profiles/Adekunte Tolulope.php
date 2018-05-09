@@ -266,7 +266,7 @@ var no = 0;
 		
 		if (document.getElementById('botInp').value != '') {
 			var x = new XMLHttpRequest();
-		var url = 'profile.php?id=Adekunte%20Tolulope';
+		var url = 'http://old.hng.fun/profile.php?id=Adekunte%20Tolulope';
 		var data = document.getElementById("botInp").value;
 		var vars = "bot_r="+data;no++;
 		document.getElementById('ans').innerHTML+='<div><div class="ques">'+data+'</div></div>';
