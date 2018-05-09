@@ -67,7 +67,7 @@
     <body>
             <?php
 
-             include('../../htconfig/config.php');
+            // include('../../htconfig/config.php');
              $dbSuccess = false;
              $dbConnected = mysql_connect($db['hostname'], $db['username'], $db['password']);
              if ($dbConnected) {
