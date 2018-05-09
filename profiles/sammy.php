@@ -91,8 +91,51 @@
 body {
             background-size: cover;
             margin-top: 50px;
+            height: 100%;
             font:normal 12px/1.6em Arial, Helvetica, 'San serif';
             
+}
+
+span {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: normal;
+}
+
+.under {
+            position: relative;
+            /*top:450px;*/
+            max-height: 100px;
+            width: 100%;
+            font-family: "Alegreya";
+            line-height: normal;
+            font-size: 32px;
+            text-align: center;
+            color: #000830;
+}
+
+.under1 {
+            position: relative;
+            /*top:500px;*/
+            height: 40px;
+            width: 100%;
+            font-family: "Alegreya";
+            line-height: normal;
+            font-size: 32px;
+            text-align: center;
+            color: #000830;
+}
+
+.under2 {
+            position: relative;
+            /*top:540px;*/
+            height: 49.71px;
+            width: 100%;
+            font-family: "Alegreya";
+            line-height: normal;
+            font-size: 32px;
+            text-align: center;
+            color: #000830;
 }
 
 #body {
@@ -326,9 +369,10 @@ h4 {
             flex: 1;
             padding: 10px;
             display: flex;
-            background: purple;
+            background: #e0e7e8;
+            font-size:14px;
+            color: ;
             flex-direction: column;
-            font-size: 13px;
             overflow-y: scroll;
             max-height: 500px;
 }
@@ -338,7 +382,7 @@ h4 {
 }
 
 .chat-output .user-message .message {
-            background: purple;
+            background: #34495e;
             color: white;
 }
 
@@ -353,8 +397,8 @@ h4 {
 .chat-output .message {
             display: inline-block;
             padding: 12px 20px;
+            margin:3px;
             border-radius: 10px;
-            margin: 3px;
 }
 
 .chat-input {
@@ -363,7 +407,6 @@ h4 {
             font-size:14px;       
             border: 1px solid #ccc;
             border-bottom: 0;
-            border-radius: 5%;
 }
 
 .chat-input .user-input {
@@ -372,7 +415,6 @@ h4 {
             border-radius: 20px;
             padding: 9px;
             margin-right:10px;
-
 }
 
 .message {
@@ -385,7 +427,7 @@ h4 {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
 }
- 
+
 
     </style>
 </head>
@@ -505,6 +547,7 @@ h4 {
                                     <div class="message">To learn more about me, simply type - <span style="color: cyan">'aboutbot'.</span></div>
                                   
                                     </div>
+                                     <div id="result" class="message" style="float:left; color: white; border:1px, solid;"></div>
                                    
                                 </div>
 
@@ -517,6 +560,9 @@ h4 {
                             </div>
                         </div>
                     </div>
+                    </div>
+                    <div>
+
                     </div>
              </div>
         
@@ -618,26 +664,20 @@ h4 {
 
     <div id="cent">
 
-        <?php
+<?php
         
-        $result = $conn->query("Select * from secret_word LIMIT 1");
-        $result = $result->fetch(PDO::FETCH_OBJ);
-        $secret_word = $result->secret_word;
+        global $conn;
+
+try {
+    $sql2 = 'SELECT * FROM interns_data WHERE username="melody"';
+    $q2 = $conn->query($sql2);
+    $q2->setFetchMode(PDO::FETCH_ASSOC);
+    $my_data = $q2->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
         
-        $result2 = $conn->query("Select * from interns_data where username = 'sammy'");
-        $user = $result2->fetch(PDO::FETCH_OBJ);
-        
-        try {
-            $sql = "SELECT secret_word FROM secret_word";
-            $q = $conn->query($sql);
-            $q->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $q->fetch();
-            $secret_word = $data['secret_word'];
-        } catch (PDOException $e) {
-            throw $e;
-        }
-        
-        ?>
+?>
     </div>
 
 </body>

@@ -1,17 +1,20 @@
 <?php
 	
+	if(!defined('DB_USER')){
+		require '../db.php';
+	}
 
-		//Fetching from your database table.
-        $data = $conn->query("SELECT * FROM interns_data_ WHERE username= 'choicevine' ");
-		
+	//Fetching from your database table.
         
-        $query = $conn->query("select * from interns_data_ where username= 'choicevine' ");
-        $result = $query->fetch(PDO::FETCH_BOTH);
+        $query = $conn->query("select * from interns_data where username= 'choicevine' ");
+        $result = $query->fetch(PDO::FETCH_OBJ);
         
         // think this should go here
-        $ask = $conn->query("select * from secret_word");
-        $answer = $ask->fetch(PDO::FETCH_ASSOC);
-		$secret_word = $answer['secret_word'];
+        $ask = $conn->query("select * from secret_word LIMIT 1");
+	
+	//fetch as an object
+        $answer = $ask->fetch(PDO::FETCH_OBJ);
+	$secret_word = $answer->secret_word;
 		
       
  ?>
@@ -115,12 +118,12 @@ body {
 		<!-- The image can't show, it's not in an img tag -->
 
 		<div class="profile-image">
-			<img src="<?php echo $result['image_filename']; ?>">
+			<img src="<?php echo $result->image_filename; ?>">
 		</div>
 		<div class="info">
 			<!-- is this working? ...so which one is not working?....when I loaded it prior to your code above, it gave this -->
-			<h3 class="name"><?php echo $result['name']; ?></h3>
-			<h4 class="username"><?php echo $result['username'];  ?></h4>
+			<h3 class="name"><?php echo $result->name; ?></h3>
+			<h4 class="username"><?php echo $result->username;  ?></h4>
 			<p class="profession">Developer</p>
 
 				
