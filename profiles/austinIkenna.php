@@ -1,6 +1,6 @@
 <?php
 	require 'db.php';
-	$username = "austin_ikenna";
+	$username = "austinIkenna";
  
 	$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
 	$sql0 = "SELECT * FROM `secret_word` LIMIT 1";

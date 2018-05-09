@@ -36,6 +36,7 @@ try {
 	<meta charset="UTF-8" />
 	<title>Elekwa Solomon</title> 
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style type="text/css">
 
@@ -55,9 +56,6 @@ li {
 
 body {
   line-height: 1; }
-
- ul {
-  list-style: none; }
 
 img.alignright {
   float: right; }
@@ -79,24 +77,6 @@ body,
 p, a, a:hover {
   color: #000000; }
 
-a,
-a:hover {
-  text-decoration: none;
-  border: none;
-  border-style: none;
-  box-shadow: none; }
-
-
-@-webkit-keyframes fadein {
-  from {
-    opacity: 0; }
-  to {
-    opacity: 1; } }
-@keyframes fadein {
-  from {
-    opacity: 0; }
-  to {
-    opacity: 1; } }
 
 html {
   background-color: #061C30; }
@@ -130,7 +110,7 @@ body.fullsingle p {
 .fs-split .image {
     width: 50%;
     height: 100vh;
-    background-image: url(<?php echo $my_data['image_filename']; ?>);
+    background-image: url("https://res.cloudinary.com/cupidy28/image/upload/v1523799015/background.jpg");
     background-position: center center;
     background-size: cover; }
 
@@ -173,7 +153,7 @@ body.fullsingle p {
 	  font-size: 64px;
   	line-height: 80px;
   	letter-spacing: -2px; }
-.intro h1 {
+ h1 {
     font-weight: 400;
     text-transform: uppercase;
     font-size: 16px;
@@ -200,50 +180,42 @@ body.fullsingle p {
 .bio p {
     color: #848d96; }
 
-.bio a {
-    color: #848d96;
-    transition-duration: 0.5s;
-    border-bottom: 1px dotted #848d96; }
-
-.bio a:hover {
-    color: #CA486d;
-    transition-duration: 0.1s;
-    border-bottom: 1px dotted #CA486d; }
-
 .lists .list {
-  	width: 30%;
+  	width: 10%;
   	display: inline-block;
-  	margin-bottom: 40px; }
+  	margin-bottom: 20px; }
   @media (max-width: 500px) {
     .lists .list {
       	width: 90%; } }
-  	.lists .list h3 {
-    	font-weight: 400;
-    	text-transform: uppercase;
-    	font-size: 11px;
+  	.lists .list i {
     	line-height: 11px;
-    	margin-bottom: 31px;
+    	margin-bottom: 32px;
     	color: #848d96;
-    	letter-spacing: 2px;
-    	opacity: 0.5; }
-  	.lists .list ul li {
-    	font-size: 16px;
-    	line-height: 16px;
-    	margin-bottom: 12px; }
-    .lists .list ul li a {
-      color: #848d96;
-      transition-duration: 0.5s; }
-    .lists .list ul li a:hover {
-        color: #CA486d;
-        transition-duration: 0.1s; }
+      font-size: 26px
+    	opacity: 0.7; }
 
- 	  .credit {
-  		opacity: 0.4; }
-  	.credit p {
-    	font-size: 12px;
-    	line-height: 14px; }
-    .credit p a {
-      color: #848d96; }
+
+ *{
+  box-sizing:border-box
+}
+
+.container {
+    width: 100%;
+    height: wrap-content;
+    background-color: #ddd; 
+}
+
+.skills {
+    text-align: right; 
+    padding-right: 20px; 
+    line-height: 40px; 
+    color: white; 
+}
+
+.html {width: 90%; background-color: #4CAF50; height: 5px;} /* Green */
+.css {width: 80%; background-color: #2196F3; height: 5px;} /* Blue */
+.js {width: 75%; background-color: #f44336; height: 5px;} /* Red */
+.php {width: 30%; background-color: #808080; height: 5px;} /* Dark Grey */
 
 </style>
 
@@ -266,7 +238,7 @@ body.fullsingle p {
 		
 			<div class="intro">
 				
-				<h1><?php echo $my_data['name']; ?></h1>
+				<h1>Elekwa Solomon U.</h1>
 
 				<span class="tagline">Developer. Accountant. Nomad.</span>
 
@@ -274,65 +246,68 @@ body.fullsingle p {
 
 			<div class="bio">
 				
-				<p>I'm currently a Sofware Development fellow at <a href="https://nhub.ng">nHub</a>, a startup incubator in Jos Plateau state. 
-        <br>
-        I have a degree in Accounting from the University of Jos where i graduated with honors. 
-        <br> 
-        In 2017 i completed the Android Development Course under the Android Learning Community (ALC) run by <a href="https://andela.com">Andela</a> with support from Google and <a href="https://udacity.com">Udacity</a>. I have an undying passion for music, poetry and working with kids. 
-        <br> 
-        This inspired my pet project <a href="https://facebook.com/nerdsvilleinc">Nerdsville Code Club</a> where i introduce elementary school kids to the basics of programming, teamwork and innovative (divergent) thinking.
-        <br>
-        <br>
-        You can connect with me below <br>
-        and hey - thanks for checking out my page!</p>
+				<h1>My Skills</h1>
 
-			</div>
+        <p>HTML</p>
+        <div class="container">
+          <div class="skills html"></div>
+        </div>
 
-			<div class="lists">
+        <p>CSS</p>
+        <div class="container">
+          <div class="skills css"></div>
+        </div>
+
+        <p>JavaScript</p>
+        <div class="container">
+          <div class="skills js"></div>
+        </div>
+
+        <p>PHP</p>
+        <div class="container">
+          <div class="skills php"></div>
+        </div>
+
+			  </div>
+
+			  <div class="lists">
 				
 				<div class="list">
+					<h3><a href="https://web.facebook.com/jeddyel">
+          <i class="fa fa-facebook iconn"></i>
+          </a></h3>
+        </div>
 
-					<h3>Connect</h3>
+        <div class="list">
+          <h3> 
+          <a href="https://twitter.com/JeddyEl">
+          <i class="fa fa-twitter iconn"></i>
+          </a></h3>
+        </div>
 
-					<ul>
-						<li><a href="http://jeddyel.blogspot.com.ng">Blog</a></li>
-						<li><a href="mailto:jeddypatricks@gmail.com ?subject=Email%20Subject&body=Email%20Body%20Text">EMail</a></li>
-						<li><a href="https://medium.com/@jeddypatricks">Medium</a></li>
-					</ul>
+        <div class="list">
+          <h3>
+          <a href="https://github.com/JEDiTech/">
+          <i class="fa fa-github iconn"></i>
+          </a></h3>
+        </div>
 
-				</div>
+        <div class="list">
+          <h3>
+          <a href="https://slack.com/hnginternship4/@JEDi">
+          <i class="fa fa-slack iconn"></i>
+          </a> </h3>
+        </div>
 
-				<div class="list">
+        <div class="list">
+          <h3>
+          <a href="https://www.linkedin.com/in/solomon-u-elekwa-7667a5132/">
+          <i class="fa fa-linkedin iconn"></i>
+          </a></h3>
+        </div>
+						
 
-					<h3>Social</h3>
-
-					<ul>
-						<li><a href="https://twitter.com/JeddyEl">Twitter</a></li>
-						<li><a href="https://www.instagram.com/jeddy_el/">Instagram</a></li>
-						<li><a href="https://web.facebook.com/jeddyel">Facebook</a></li>
-					</ul>
-
-				</div>
-
-				<div class="list">
-
-					<h3>Network</h3>
-
-					<ul>
-						<li><a href="https://www.linkedin.com/in/solomon-u-elekwa-7667a5132/">LinkedIn</a></li>
-						<li><a href="https://plus.google.com/u/0/100983049215283226594">Google+</a></li>
-						<li><a href="https://github.com/JEDiTech/">Github</a></li>
-					</ul>
-
-				</div>
-				
-			</div>
-
-			<div class="credit">
-
-				<p>&copy; 2018 <a href="#">Elekwa Solomon U.</a> </p>
-
-			</div>		
+			</div>	
 
 		</div>
 

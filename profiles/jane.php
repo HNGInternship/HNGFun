@@ -1,6 +1,5 @@
 <?php
 	// Profile
-
 	try {
 
 
@@ -458,6 +457,7 @@
 
 			$send_btn.click(function(){
 				var a = $text_input.val();
+
 				if(a != ""){
 					add_user_text(a);
 
@@ -472,12 +472,11 @@
 						$.ajax({
 							type: "POST",
 							data: {chat: a},
-							success: function(data,status){
-								data = JSON.parse(data);
-								add_bot_text(data['data']);
+							success: function(data){
+								// var result = $($.parseHTML(data)).find(".container").text();
+								console.log(data);
 								// if(data != ""){
 								// 	if (data.indexOf("::def") >= 0) {
-										
 								// 		data = data.replace("::def","");
 								// 		add_bot_text(data);
 								// 		add_bot_default();
@@ -486,7 +485,7 @@
 								// 		add_bot_text(data);
 								// 	}
 									
-								// }										
+								// }					
 							}
 						});
 					}
@@ -555,7 +554,7 @@
 
 				var a = "Hi there! I'm jane...my friends call me dusty";
 				var b = "I can calculate your Body Mass Index(BMI) if you simply enter your weight(in kg) and your height(in metres). Kindly follow the format:";
-				var c1 = "calculate_bmi[weight,height]";
+				var c1 = "bmi[weight,height]";
 				var c2 = "";
 				var c3 = "";
 				var c4 = "";
@@ -661,9 +660,9 @@
 							"This is so embarrassing....and I thought I was the smart one"];
 
 			$bmi_result = ["You are underweight\nLooks like you need to put on some extra weight",
-							"You are within good range\nNice!!, you're on track",
+							"You are within good range\nNice!! you're on track",
 							"You are overweight\nLooks like you need a little work on your weight",
-							"You are obese\nOMG!! You need a complete transformation"];
+							"OMG!! You are obese\nYou need a complete transformation"];
 
 			$train_success = "Training successful!";
 
@@ -676,7 +675,7 @@
 					if(sizeof($arr) != 3){
 						$answer = $no_answer[rand(0,3)]."::def";
 						echo $answer;
-						exit;
+						
 					}
 					else{
 						$question = $arr[0];
@@ -691,16 +690,16 @@
 								
 							} catch (PDOException $e) {
 								echo $e->getMessage();
-								exit;
+								
 							}
 
-							print_r($train_success);
-							exit;
+							echo $train_success;
+							
 						}
 
 						else{
-							print_r($wrong_password[rand(0,2)]);
-							exit;
+							echo $wrong_password[rand(0,2)];
+							
 						}
 
 					}
@@ -709,7 +708,7 @@
 					
 				}
 			}
-			else if (substr($a,0,14) == "calculate_bmi[" && substr($a,strlen($a)-1,1) == "]") {
+			else if (substr($a,0,4) == "bmi[" && substr($a,strlen($a)-1,1) == "]") {
 				$array = explode('[', $a,2);
 				$stmt = substr($array[1],0,strlen($array[1])-1);
 				$array2 = explode(',', $stmt);
@@ -720,27 +719,22 @@
 
 					if ($result <= 18.5) {
 						echo "Your BMI is ".round($result,3)."\n".$bmi_result[0];
-						exit;
 					} 
 
 					else if($result > 18.5 && $result <= 24.9){
 						echo "Your BMI is ".round($result,3)."\n".$bmi_result[1];
-						exit;
 					}
 
 					else if ($result >= 25 && $result <= 29.9) {
 						echo "Your BMI is ".round($result,3)."\n".$bmi_result[2];
-						exit;
 					}
 
 					else{
 						echo "Your BMI is ".round($result,3)."\n".$bmi_result[3];
-						exit;
 					}
 				}
 				else{
 					echo "Enter a valid input";
-					exit;
 				}
 			}
 
@@ -753,27 +747,25 @@
 
 					if($stmt){
 						foreach($stmt as $row){
-							$answer = $row['answer'];
-							$stat = strlen($answer);
-							$myJSON = ['data'=>$answer,'stat'=>$stat];
-							echo json_encode($myJSON);
+							$response[] = $row['answer'];
+						}
+						if(is_array($response)){
+							$answer = $response[rand(0,sizeof($response))];
+						}
+						else{
+							$answer = $response;
 						}
 					}
 					
 				} catch (PDOException $e) {
 					echo $e->getMessage();
-					exit;	
+						
 				}
 
 				if($answer == ""){
 					$answer = $no_answer[rand(0,4)]."::def";
-					$stat = strlen($answer);
-					$myJSON = ['data'=>$answer,'stat'=>$stat];
-					echo json_encode($myJSON);
 				}
-
-				// echo $answer;
-				// exit;
+				echo $answer;
 			}
 		}
 ?>
