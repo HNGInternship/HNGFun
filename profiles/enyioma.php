@@ -105,7 +105,7 @@
 </head>
 
 <body class="bg-light">
-<div>
+<div class= "container">
 <div class="oj-flex oj-sm-flex-direction-columno oj-sm-align-items-center content">
   <div class="card mt-5 py-5">
     <div class="my-3">
