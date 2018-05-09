@@ -283,7 +283,7 @@
 
 
 
-  <body>
+
 
     <div class="card">
           <img src="<?php echo $image_url ?>" alt="obate" class="profile-image" style="width:100%"/>
@@ -337,6 +337,6 @@
       </script>
 
 
-  </body>
+  
 </html>
 <?php } ?>
