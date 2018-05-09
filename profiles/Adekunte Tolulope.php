@@ -20,15 +20,6 @@ try {
   $result2 = $conn->query("Select * from interns_data where username = 'Adekunte Tolulope'");
   $user = $result2->fetch(PDO::FETCH_OBJ);
 }
-
-
-
-
-
-
-
-
-
 ?>
 
 <!-- Add icon library -->
