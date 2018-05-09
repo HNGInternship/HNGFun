@@ -128,7 +128,7 @@ function askQuestion($input)
             } else if (preg_match('/\bhelp\b/',$input)) {
                 return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me<br/>Click on restart to clear our conversation and start again<br/>";
             }else if($input=="you are mad"||$input == "you're mad"){
-                return "YOUR FATHER";
+                return "YOU ARE NOT ETHICAL";
             }else if(preg_match("/\bquote\b/",$input)){
                 return getMyquote();
             }else if(preg_match("/\bjoke\b/",$input)){
