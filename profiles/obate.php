@@ -306,23 +306,7 @@
           <p><button>Contact: +2348188587683</button></p>
         </div>
 
-<h1 style="text-align: center; color: black; padding-top: 20px;">My Chatbot</h1>
-    <div class="container">
-      <div id="chat_showcase">
-        <div class="bot_chat">
-          <div class="message">Hello! My name is obabot.<br>You can ask me questions and get answers.<br>Type <span style="color: #90CAF9;"><strong> Aboutbot</strong></span> to know more about me.
-          </div>
-          <div class="message">You can also train me to be smarter by typing; <br><span style="color: #90CAF9;"><strong>train: question #answer #password</strong></span></div>
-        </div>
-      </div>
-    </div>
-    <div id="controls">
-      <div class="input-text-container" style="text-align: center;">
-        <form action="" method="post" id="chat-input-form">
-          <input type="text" name="input_text" id="input_text" required class="input_text" placeholder="Type your question here...">
-          <button type="submit" class="send_button" id="send">Send</button>
-        </form>
-      </div>
+
       <script>
           var chat_output = $("#chat_showcase");
             $("#chat-input-form").on("submit", function(e) {
@@ -355,3 +339,4 @@
 
   </body>
 </html>
+<?php } ?>
