@@ -18,8 +18,8 @@
   }
   .content {
     display: block;
-    padding-top: 100px;
-    padding-left: 10%;
+    padding-top: 50px;
+    padding-left: 5%;
     position: absolute;
   }
   .about {
@@ -89,8 +89,8 @@
       }
       .yormabot {
           position: absolute;
-          padding-top: 250px;
-          padding-left: 50%;
+          padding-top: 200px;
+          padding-left: 30%;
           width: 400px;
           display: inline-block;
       }
