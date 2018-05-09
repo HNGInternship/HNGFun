@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <?php
 
-	// if(!defined('DB_USER')){
-     // require "../../config.php";
-     // try {
-         // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-     // } catch (PDOException $pe) {
-         // die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-     // }
-   // }
+	if(!defined('DB_USER')){
+     require "../../config.php";
+     try {
+         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+     } catch (PDOException $pe) {
+         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+     }
+   }
 	
 	// $sql = "SELECT * FROM secret_word LIMIT 1";
     // $q = $conn->query($sql);
@@ -73,19 +73,19 @@
 			<br/>
 			<div class="flex">
 				<div class="label">NameNew:</div>
-				<div class="value"><? echo $name; ?></div>
+				<div class="value"><?php echo $name; ?></div>
 			</div>
 			<div class="flex">
 				<div class="label">Username:</div>
-				<div class="value"><? echo $username; ?></div>
+				<div class="value"><?php echo $username; ?></div>
 			</div>
 			<div class="flex">
 				<div class="label">Root:</div>
-				<div class="value"><? echo $_SERVER["DOCUMENT_ROOT"]; ?></div>
+				<div class="value"><?php echo $_SERVER["DOCUMENT_ROOT"]; ?></div>
 			</div>
 			<div class="flex">
 				<div class="label">Dir:</div>
-				<div class="value"><? echo __DIR__; ?></div>
+				<div class="value"><?php echo __DIR__; ?></div>
 			</div>
 		</div>        		
 			
