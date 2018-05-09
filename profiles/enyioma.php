@@ -19,7 +19,7 @@
   .content {
     display: block;
     padding-top: 50px;
-    padding-left: 0%
+    padding-left: 0%;
     position: absolute;
   }
   .about {
