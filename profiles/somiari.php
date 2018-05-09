@@ -134,8 +134,8 @@
 
 		.guest,
 		.alan {
-			width: auto;
-			max-width: 80%;
+			width: auto !important;
+			max-width: 60%;
 			border: 1px solid lightgrey;
 			padding: 5px;
 			clear: both;
@@ -145,6 +145,7 @@
 		}
 
 		.alan {
+			width: auto !important;
 			text-align: left;
 			padding-left: 20px;
 		}
@@ -210,7 +211,7 @@
 			}
 			.guest,
 			.alan {
-				width: auto;
+				width: auto !important;
 				max-width: 60%;
 			}
 
@@ -219,7 +220,6 @@
 				position: absolute;
 				border-radius: 50%;
 				border: 1px solid rgba(0, 0, 0, .3);
-				;
 				height: 50px;
 				width: 50px;
 				background: transparent;
@@ -363,7 +363,7 @@
 
 			// check if password matches
 			if ($password != "password"){
-			  echo "You are not authorize to train me.";
+			  echo "You are not authorized to train me.";
 			}else{
 				$chatbot= array(':id' => NULL, ':question' => $question[1], ':answer' => $answer);
 				$query = 'INSERT INTO chatbot ( id, question, answer) VALUES ( :id, :question, :answer)';
@@ -375,7 +375,7 @@
 						echo repondTraining();
 					};
 				} catch (PDOException $e) {
-					echo "Oops! i did't get that, Something is wrong i guess, <br> please try again";
+					echo "Oops! I did't get that, Something is wrong I guess. <br> Please try again";
 				} // End Catch
 			} // End Else
 		} // Train Function Ends here
@@ -386,7 +386,7 @@
 			$repondTraining = array(  'Noted! Thank you for teaching me',
 									  'Acknowledged, thanks, really want to learn more',
 									  'A million thanks, I\'m getting smarter',
-									  'i\'m getting smarter, I really appreciate');
+									  'I\'m getting smarter, I really appreciate');
 			$index = mt_rand(0, 3);
 			return $anwerSam = $repondTraining[$index];
 		} // respondTraining Ends Here
