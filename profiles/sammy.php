@@ -231,7 +231,7 @@
                     var answer = response.answer;
                     $(selector).html(''+message+'');
                     $(selector).removeClass(classname).addClass('sent');
-                    $('.chatBody').append(' <div class="first"><strong>SammyBot</strong><br><p>'+answer+'</p></div>');
+                    $('.chatBody').append(' <div class="first"><strong style="color: white;">SammyBot</strong><br><p>'+answer+'</p></div>');
                   
                                             
                   },
@@ -481,6 +481,21 @@ h4 {
         border-radius:2px;
 }
 
+
+.second{
+
+        margin-top: 10px;
+        margin-right:20px;
+        padding:15px;
+        background:rgb(6, 65, 124);
+        margin-left:20px;
+        min-height:15px;
+        position:relative;
+        border-radius:5px;
+        color:#ffffff;
+}
+
+
 .second:before{
                 content: "";
                 position: absolute;
@@ -493,17 +508,6 @@ h4 {
                 border-color: transparent  transparent transparent #6699ff;
 }
 
-.second{
-        margin-top: 10px;
-        margin-right:20px;
-        padding:10px;
-        background:rgb(6, 65, 124);
-        margin-left:20px;
-        min-height:15px;
-        position:relative;
-        border-radius:5px;
-        color:#ffffff;
-}
 #message{
             border: transparent;
             border-top:1px solid #bdc3c7;
