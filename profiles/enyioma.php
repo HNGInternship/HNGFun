@@ -19,7 +19,7 @@
   .content {
     display: block;
     padding-top: 50px;
-    padding-left: 0%
+    padding-left: 0%;
     position: absolute;
   }
   .about {
@@ -90,8 +90,8 @@
       .yormabot {
           position: absolute;
           padding-top: 200px;
-          padding-left: 50%;
-          width: 450px;
+          padding-left: 40%;
+          width: 400px;
           display: inline-block;
       }
 
@@ -105,7 +105,7 @@
 </head>
 
 <body class="bg-light">
-<div>
+<div class= "container">
 <div class="oj-flex oj-sm-flex-direction-columno oj-sm-align-items-center content">
   <div class="card mt-5 py-5">
     <div class="my-3">
