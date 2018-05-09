@@ -118,7 +118,7 @@
                 }
                 else{
                     $answer = "Oh waoh! i'm not familiar with this statement, but hey look on the bright side I was built to get smarter on the go!, so if you want to make me smarter type the following<br>
-                    <span>train: question #answer #password </span>Sammybot will learn 😎";
+                    train: question #answer #password SammyBot will learn 😎";
                     echo json_encode([
                         'status' => 0,
                         'answer' => $answer
@@ -130,6 +130,7 @@
         }
 }
 ?>
+
 
 
 
@@ -442,65 +443,61 @@ h4 {
             -webkit-text-fill-color: transparent;
 }
 
-.chatHead {
-    background: purple;
-    padding:10px;
-    color: #ffffff;
-    font-size: 15px;
-    border-radius: 10px 10px 5px 5px;
-}
-
-.chatBody{
-            height:300px;
-            font-size:12px;
-            overflow:auto;
-            overflow-x:hidden;
+        .chatBox{
+                cursor:pointer;
+                background:#ffffff;
+                bottom:-5px;
+                border-radius: 5px 5px 0px 0px;
+            }
+            .chatHead{
+                background:rgb(59, 2, 59);
+                padding:15px;
+                color: #ffffff;
+                border-radius: 5px 5px 0px 0px;
+            }
+        
+            .chatBody{
+                height:300px;
+                font-size:12px;
+                overflow:auto;
+                overflow-x:hidden;
                 
-}
-
-
-.first{
-        margin-top: 10px;
-        margin-right:20px;
-        padding:15px;
-        background:rgb(6, 65, 124);
-        position:relative;
-        float: left;
-        margin-left:20px;
-        min-height:10px;
-        border-radius:5px;
-}
-
-.first:before{
-                content: "";
-                position: absolute;
-                width: 0px;
-                height: 0px;
-                left: -28px;
-                top: 7px;
+            }
+            
+            .first{
+                margin-top: 10px;
+                margin-right:20px;
+                padding:15px;
+                background:rgb(59, 2, 59);
+                margin-left:20px;
+                position:relative;
+                min-height:10px;
                 border-radius:5px;
-                border: 10px solid;
-                border-color: transparent rgb(6, 65, 124) transparent transparent;
-}
-
-
-
-.second{
-
-        margin-top: 10px;
-        margin-right:20px;
-        padding:5px;
-        background:#6699ff;
-        margin-left:20px;
-        min-height:15px;
-        position:relative;
-        border-radius:5px;
-        color:#ffffff;
-}
-
-
-.second:before{
+            }
+            .first:before{
                   content: "";
+                  position: absolute;
+                  width: 0px;
+                  height: 0px;
+                  left: -28px;
+                  top: 7px;
+                  border-radius:5px;
+                  border: 15px solid;
+                  border-color: transparent #99ffcc transparent transparent;
+            }
+            .second{
+                margin-top: 10px;
+                margin-right:20px;
+                padding:15px;
+                background:rgb(18, 15, 68);
+                margin-left:20px;
+                min-height:15px;
+                position:relative;
+                border-radius:5px;
+                color:#ffffff;
+            }
+            .second:before{
+                 content: "";
                   position: absolute;
                   width: 0px;
                   height: 0px;
@@ -509,7 +506,7 @@ h4 {
                   border-radius:5px;
                   border: 15px solid;
                   border-color: transparent  transparent transparent #6699ff;
-}
+            }
 
 #message{
             border: transparent;
@@ -529,9 +526,10 @@ h4 {
 .con {
         transform: translateX(800px) translateY(-420%);
         clear: both;
-        height: 20px;
-        width: 300px;
+        height: 50px;
+        width: 90%;
         position: fixed;
+        margin-right: 10px;
         text-align: center;
 }
 
@@ -640,42 +638,46 @@ h4 {
                 
                         </div>
 
-                <div class="col-md-3">
-                    
-                    <div class="ycontainer-fluid">
+
                         <div class="con">
-                        <div class="chatHead">
-                            SammyBot
-                        </div>
-                    
-                        <div class="chatWrap">  
-                            <div class="chatBody">
-                                <!-- SammyBot's messages -->
-                                <div class="first">
-                                        <p>Hi... SammyBot here!<br> This is where you tell me what i can do for you...😎 </br> Let's get started amigo!</p>
-                                </div>
-                                
-                                <!-- You Questions -->
-                                <?php if (isset($question)) {?>
-                                <div class="first">
-                                        <p><?php echo $question; ?></p>
-                                </div>
-                                <?php } ?>
-
-                                <!-- SammyBot's message -->
-                                <?php if (isset($answer)) { ?>
-                                    <div class="second">
-                                            <p><?php echo $answer; ?></p>  
+                            <div class="col-md-3">
+                            
+                                <div class="chatBox">
+                                    <div class="chatHead">
+                                        SammyBot
                                     </div>
-                                <?php } ?>
-                            </div>
+                                
+                                    <div class="chatWrap">  
+                                        <div class="chatBody">
+                                            <!-- SammyBot's messages -->
+                                            <div class="first">
+                                                    <p>Hi... SammyBot here!<br> This is where you tell me what i can do for you...😎 </br> Let's get started amigo!</p>
+                                            </div>
+                                            
+                                            <!-- sammybot's messages -->
+                                            <?php if (isset($question)) {?>
+                                            <div class="first">
+                                                    <p><?php echo $question; ?></p>
+                                            </div>
+                                            <?php } ?>
 
-                            <div class="chatFooter">
-                                <label for="message" class="sr-only">Message</label>
-                                <textarea id="message" name="message"  placeholder="Say something here!" ></textarea>
+                                            <!-- your message -->
+                                            <?php if (isset($answer)) { ?>
+                                                <div class="second">
+                                                        <p><?php echo $answer; ?></p>  
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+
+                                        <div class="chatFooter">
+                                            <label for="message" class="sr-only">Message</label>
+                                            <textarea id="message" name="message"  placeholder="Say something here!" ></textarea>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            
                         </div>
-                    </div>
 
 
 
