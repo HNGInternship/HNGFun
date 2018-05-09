@@ -237,11 +237,12 @@
 	               {key: 'train', description: 'This command is to train the bot', format: '[question] [answer]'}, 
 	               {key: 'timeofday', description: 'This command is to get the current time of day in any of the world location', format: '[location]'},
 	               {key: 'chitchat', description: 'This command is get the current time of day in any of the world location', format: '[question]'},
-	               {key: 'dayOfWeek', description: 'This command is get the current time of day in any of the world location', format: '[dd-mm-yyyy]'},
+	               {key: 'dayofweek', description: 'This command is get the current time of day in any of the world location', format: '[dd-mm-yyyy]'},
 	               {key: 'aboutbot', description: 'This command is get the current time of day in any of the world location', format: ''}
 	              ],
         humanMessage: '',
-        choice: '',
+        zoneList: null,
+        choice: {command: '', message:''},
         messages: [
                     {
                     	human: false, 
@@ -273,20 +274,21 @@
 	  	  let c = this.commands.find(function(cmd){
 	  	  	        return cmd.key === item
 	  	          });
-	  	  this.choice = c.key;
+	  	  this.choice.command = c.key;
 	  	  this.humanMessage = '#' + c.key + ' ' + c.format;
 	  	},
 	  	handleSubmit: async function(){
-          this.messages.push({human: true, text: this.humanMessage});
+	  	  this.choice.message = this.humanMessage;
+	  	  this.humanMessage = '';
+          this.messages.push({human: true, text: this.choice.message});
           let answer = await this.getAnswer();
-          this.humanMessage = '';
           this.messages.push({human: false, text: answer});
 	  	},
 	  	getAnswer: function(){
-	  		switch(this.choice){
+	  		switch(this.choice.command){
 	  		  case 'aboutbot':
 	  		    return 'Bori Bot Version 1.0, I tell day of the week from date, and I can tell time in any location too.';
-	  		  case 'dayOfWeek':
+	  		  case 'dayofweek':
 	  		    return this.getDayOfWeek();
 	  		  case 'timeofday':
 	  		    return this.getTimeOfDay();
@@ -302,7 +304,22 @@
 	  	  return 'This is the day of the week';
 	  	},
 	  	getTimeOfDay: function(){
-	  	  return  'This is the time at soso';
+	  		var location;
+	  		try{
+              location = this.choice['message'].match(/\[(.*?)\]/)[1];
+	  		}catch(ex){
+	  		  return "Follow the correct syntax #timeofday [location]";
+	  		}
+	  	    let zones = this.zoneList.filter(function(zone){
+                          location = location.charAt(0).toUpperCase() + location.slice(1);
+                          return zone.zoneName.indexOf(location) != -1
+	  	                });
+	  	    if(zones.length < 1){
+	  	      return "Time can not be found for your location can you use a popular city around that location. For example for Nigeria use #timeofday [Lagos]";
+	  	    }
+
+	  	    return `Time in ${location} is 00:00`;
+
 	  	},
 	  	doChat: function(){
 	  	  return 'You want to chat';
@@ -310,6 +327,18 @@
 	  	doTrainBot: function(){
 	  	  return 'You can train me';
 	  	}
+	  },
+	  created: async function(){
+	  	const response = await fetch('http://api.timezonedb.com/v2/list-time-zone?key=DXHGYWUAFA3S&format=json');
+	  	const json = await response.json();
+        this.zoneList = json.zones;
+        console.log(this.zoneList);
+	  	  /*.then(function(response) {
+	  	    return response.json();
+	  	  })
+	  	  .then(function(myJson) {
+	  	    console.log(myJson);
+	  	  });*/
 	  }
 	})
 
