@@ -212,12 +212,12 @@
   	<div id="profile-box">
   		Profile
   	</div>
-  	<div id="chat-box">
+  	<div id="chat-box" >
   		<header>
   			<h4>HNG assist</h4>
   		</header>
-  		<main >
-  			<p v-for="msg in messages" :class="msg.human ? 'human-msg': 'bot-msg'">{{msg.text}}</p>
+  		<main ref="chat-msgs">
+  			<p v-for="msg in messages" :class="msg.human ? 'human-msg': 'bot-msg'" v-html="msg.text"></p>
   		</main>
   		<ul class="suggestion" v-show="suggestedCommands" ref="list">
   			<command-item v-for="(command, index) in suggestedCommands" :command="command" :key="command.key" :on-item-click="handleCommandClick"></command-item>
@@ -285,25 +285,25 @@
           this.messages.push({human: false, text: answer});
 	  	},
 	  	getAnswer: function(){
-	  		switch(this.choice.command){
-	  		  case 'aboutbot':
-	  		    return 'Bori Bot Version 1.0, I tell day of the week from date, and I can tell time in any location too.';
-	  		  case 'dayofweek':
-	  		    return this.getDayOfWeek();
-	  		  case 'timeofday':
-	  		    return this.getTimeOfDay();
-	  		  case 'chitchat':
-	  		    return this.doChat();
-	  		  case 'train':
-	  		    return this.doTrainBot();
-	  		  default:
-	  		    return "I can't help with that please, give me a correct command";
-	  		}
+			switch(this.choice.command){
+			  case 'aboutbot':
+			    return 'Bori Bot Version 1.0, I tell day of the week from date, and I can tell time in any location too.';
+			  case 'dayofweek':
+			    return this.getDayOfWeek();
+			  case 'timeofday':
+			    return this.getTimeOfDay();
+			  case 'chitchat':
+			    return this.doChat();
+			  case 'train':
+			    return this.doTrainBot();
+			  default:
+			    return "I can't help with that please, give me a correct command";
+			}
 	  	},
 	  	getDayOfWeek: function(){
 	  	  return 'This is the day of the week';
 	  	},
-	  	getTimeOfDay: function(){
+	  	getTimeOfDay: async function(){
 	  		var location;
 	  		try{
               location = this.choice['message'].match(/\[(.*?)\]/)[1];
@@ -317,8 +317,18 @@
 	  	    if(zones.length < 1){
 	  	      return "Time can not be found for your location can you use a popular city around that location. For example for Nigeria use #timeofday [Lagos]";
 	  	    }
+	  	    let output = '<h3>Time for ' + location + '</h3>';
+	  	    for (zone of zones) {
+	  	      const response = await fetch(`http://api.timezonedb.com/v2/get-time-zone?key=DXHGYWUAFA3S&format=json&by=zone&zone=${zone.zoneName}`);
+	  	      const json = await response.json();
 
-	  	    return `Time in ${location} is 00:00`;
+	  	      const formatted = json.formatted;
+	  	      
+	  	      const splitted = formatted.split(' ');
+        	  output += `${zone.zoneName}<ul><li>Time: ${splitted[1]}</li><li>Date: ${splitted[0]}</li></ul>`;
+	  	    }
+
+	  	    return output;
 
 	  	},
 	  	doChat: function(){
