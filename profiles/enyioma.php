@@ -91,7 +91,7 @@
           position: absolute;
           padding-top: 100px;
           padding-left: 40%;
-          width: 850px;
+          width: 1000px;
           display: inline-block;
           overflow: auto;
       }
