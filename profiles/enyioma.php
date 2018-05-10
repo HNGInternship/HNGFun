@@ -29,7 +29,7 @@
       }
   .card{
     box-shadow: 0px 0px 2px #2196f3;
-    width: 50%;
+    width: 40%;
   }
   .h2{
       color: #563d7c;
@@ -90,8 +90,8 @@
       .yormabot {
           position: relative;
           padding-top: 200px;
-          padding-left: 60%;
-          width: 900px;
+          padding-left: 50%;
+          width: 850px;
           display: inline-block;
       }
 
