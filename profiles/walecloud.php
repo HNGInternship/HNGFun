@@ -123,63 +123,18 @@
 <head>
 	<title>WaleCloud - Profile</title>
 	<style>
-		* {
-			font-family: OCR A std;
-			font-size: 30px;
-			padding: 2px;
-		}
-		.row {
-			margin-top:130px;
-		}
-		.card {
-			height: 600px;
-			width: 400px;
-			border: 1px groove #ccc;
-			border-radius: 3px;
-		}
-		.dp {
-			padding: 2px;
-			height: 300px;
-		}
-		span {
-			font-size: 18px;
-		}
-		.chart-box{
-			width: 300px;
-			height: 80vh;
-			border: 2px solid #000;
-			overflow:auto;
-			padding-top:30px;
-		}
-		.chart-input{
-			position: relative;
-		}
-		.chart-input-box{
-			position: absolute;
-			bottom: 0px
-		}
-		.chart-input-box input{
-			padding: 10px 0 10px 0;
-			width: 300px;
-			border: 2px solid #000;
-		}
-		.move-box{
-			position: relative;
-		}
-		.move{
-			position: absolute;
-			left: 10px;
-		}
-		button{
-			position: absolute;
-			left: 250px;
-			bottom: 10px;
-			height: 35px;
-			cursor: pointer;
-			border: 0;
-			margin-right: 10px;
-			overflow: auto;
-		}
+		* { font-family: OCR A std; font-size: 30px; }
+		body { display: flex; justify-content: center; }
+		.card {	height: 80vh; width: 300px; border: 1px groove #ccc; border-radius: 3px; }
+		.dp { padding: 2px;	height: 300px;	}
+		span { font-size: 18px;	}
+		.chart-box{ width: 300px; height: 80vh; border: 2px solid #000; overflow:auto; padding-top: 90px; }
+		.chart-input{ position: relative;}
+		.chart-input-box{ position: absolute; bottom: 0px; }
+		.chart-input-box input{ padding: 10px 0 10px 0; width: 300px; border: 2px solid #000; }
+		.move-box{ position: relative; }
+		.move{ position: absolute; left: 10px; }
+		button{ position: absolute; left: 250px; bottom: 10px; height: 35px; cursor: pointer; border: 0; margin-right: 10px; overflow: auto; }
 	</style>
 </head>
 <body>
