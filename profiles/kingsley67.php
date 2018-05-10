@@ -24,13 +24,7 @@ $secret_word=$result2['secret_word'];
 if($_POST['questions']){
     
     echo "<script>alert(\"la variable est nulle\")</script>";
-    echo json_encode([
-                  'question'=>"text here "
-                  'answers' => "zodiac here"
-                ]); 
- 
- 
-   return;
+
     
 $text=$_POST['questions'];
  $checktrain=strpos($text,'train:'); 
