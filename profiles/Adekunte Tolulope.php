@@ -7,7 +7,7 @@ try {
     } catch (PDOException $e) {
         throw $e;
     }
-    $secret_word = $data['secret_word'];
+    $secret_word = $data['sample_secret_word'];
 $localhost = 'localhost';
 $user = 'root';
 $pass = '';
