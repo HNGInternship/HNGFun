@@ -490,14 +490,14 @@ $question;
 			xhttp.onreadystatechange = function() {
 				console.log(this.status);
 	          	console.log(readyState);
-	          if(this.readyState == 4 && (this.status == 200||this.status == 500)) {
+	          if(this.readyState == 4 && this.status == 200) {
 	          	console.log(this.response);
 	          	 userChat(question.value, this.response);
      			e.preventDefault();
 	            question.value = '';
 	          }
       	    }
-        xhttp.open('POST', 'profiles/Abigail.php', true);
+        xhttp.open('POST', 'Abigail.php', true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send('question='+ question.value);
         e.preventDefault();
