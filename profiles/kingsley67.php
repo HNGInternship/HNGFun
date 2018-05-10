@@ -21,9 +21,16 @@ $secret_word=$result2['secret_word'];
 
     if($_POST){
    
-if($_POST['question']){
+if($_POST['questions']){
     
-    
+    echo "<script>alert(\"la variable est nulle\")</script>";
+    echo json_encode([
+                  'question'=>"text here "
+                  'answers' => "zodiac here"
+                ]); 
+ 
+ 
+   return;
     
 $text=$_POST['questions'];
  $checktrain=strpos($text,'train:'); 
@@ -36,9 +43,9 @@ $text=$_POST['questions'];
           
       
  
-if(isset($_POST['question'])){
+if(isset($_POST['questions'])){
     
-   $text=$_POST['question']; 
+   $text=$_POST['questions']; 
     
     $birthDate= substr($text, 10);
     zodiac($birthDate);
@@ -52,7 +59,7 @@ if(isset($_POST['question'])){
 } 
       
       
-      }else if($_POST['question']=="aboutbot"){
+      }else if($_POST['questions']=="aboutbot"){
           
           
           echo json_encode([
@@ -92,7 +99,7 @@ if(isset($_POST['question'])){
       }
    
 }else {
-       $tex=$_POST['question'];
+       $tex=$_POST['questions'];
   
       $rmtrain= substr($tex, 6);
         $rmspace = preg_replace('([\s]+)', ' ', trim($rmtrain));
