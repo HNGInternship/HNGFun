@@ -12,20 +12,86 @@
 ?>
 
 <?php
-$servername = "localhost";
-$username = "username";
-$password = "password";
 
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=myDB", $username, $password);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connected successfully"; 
-    }
-catch(PDOException $e)
-    {
-    echo "Connection failed: " . $e->getMessage();
-    }
+	$sql = 'SELECT * FROM secret_word';
+	$q = $conn->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$data = $q->fetch();
+} catch (PDOException $e) {
+	throw $e;
+}
+$secret_word = $data['secret_word'];
+
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+	$data = $_POST['user-input'];
+  //  $data = preg_replace('/\s+/', '', $data);
+	$temp = explode(':', $data);
+	$temp2 = preg_replace('/\s+/', '', $temp[0]);
+	
+	if($temp2 === 'train'){
+		train($temp[1]);
+	}elseif($temp2 === 'aboutbot') {
+		aboutbot();
+	}else{
+		getAnswer($temp[0]);
+	}
+}
+
+function aboutbot() {
+	echo "<div id='result'>MeloBot v1.0 - I am simply a bot that returns data from the database and I also can be taught new tricks!</div>";
+}
+function train($input) {
+	$input = explode('#', $input);
+	$question = trim($input[0]);
+	$answer = trim($input[1]);
+	$password = trim($input[2]);
+	if($password == 'password') {
+		$sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+		$q = $GLOBALS['conn']->query($sql);
+		$q->setFetchMode(PDO::FETCH_ASSOC);
+		$data = $q->fetch();
+
+		if(empty($data)) {
+			$training_data = array(':question' => $question,
+				':answer' => $answer);
+
+			$sql = 'INSERT INTO chatbot ( question, answer)
+		  VALUES (
+			  :question,
+			  :answer
+		  );';
+
+			try {
+				$q = $GLOBALS['conn']->prepare($sql);
+				if ($q->execute($training_data) == true) {
+					echo "<div id='result'>Training Successful!</div>";
+				};
+			} catch (PDOException $e) {
+				throw $e;
+			}
+		}else{
+			echo "<div id='result'>I already understand this. Teach me something new!</div>";
+		}
+	}else {
+		echo "<div id='result'>Invalid Password, Try Again!</div>";
+
+	}
+}
+
+function getAnswer($input) {
+	$question = $input;
+	$sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+	$q = $GLOBALS['conn']->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$data = $q->fetchAll();
+	if(empty($data)){
+		echo "<div id='result'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'</div>";
+	}else {
+		$rand_keys = array_rand($data);
+		echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
+	}
+}
 ?>
 
 <!DOCTYPE html>
@@ -243,7 +309,7 @@ a {
 			color: black;
 			box-shadow: 3px 3px 5px gray;
 		}
-		
+
 button{
       border:none;
       outline:0;
@@ -317,42 +383,36 @@ input[type=text] {
 			<p>&copy; 2017 Maniaweb.</p>
 		</footer>
 			<script type = text/javascript>
-				
-				document.queryselector("#input").addEventListener("keypress", function(e){
-					var key = e.which || e.keyCode;
-					if(key == 13){
-						var input = document.getElementById("input").value;
-						document.getElementById("user").innerHTML = input;
-						output(input);
-						}
-					});
+				var outputArea = $("#chat-output");
 
-					function output(input){
-						try{
-							var product = input + "=" + eval(input);
-						} catch(e){
-							var text = (input.toLowerCase()).replace(/[^\w\s\d]/gi, "");
-							if(compare(trigger, reply, text)){
-								var product = compare(trigger, reply, text);
-							} else {
-								var product = text;
-							}
-						}
-						document.getELementById("chatbot").innerHTML = input;
-						document.getElementById("input").value = "";
-					}
-					function compare(arr, array, string){
-						var item;
-						for(var x= 0; x<arr.length; x++){
-							for(var y = 0; y<array.length; y++){
-								if(arr[x][y] == string){
-									items = array[x];
-									item = items[Math.floor(Math.random()*items.length)];
-								}
-							}
-						}
-						return item
-					}
+$("#user-input-form").on("submit", function(e) {
+
+	e.preventDefault();
+
+	var message = $("#user-input").val();
+
+	outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
+
+
+	$.ajax({
+		url: 'profile.php?id=melody',
+		type: 'POST',
+		data:  'user-input=' + message,
+		success: function(response) {
+			var result = $($.parseHTML(response)).find("#result").text();
+			setTimeout(function() {
+				outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+				$('#chat-output').animate({
+					scrollTop: $('#chat-output').get(0).scrollHeight
+				}, 1500);
+			}, 250);
+		}
+	});
+
+
+	$("#user-input").val("");
+
+});
 			</script>
 		</div>
 	</body>
