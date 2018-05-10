@@ -228,7 +228,6 @@
     .card{
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
       max-width: 300px;
-      
       text-align: center;
     }
 
@@ -238,7 +237,7 @@
     }
 
     .profile-image {
-      height: 70%;
+      height: 30%;
       width: 100%;
 
     button{
