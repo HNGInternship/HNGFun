@@ -89,7 +89,7 @@ width: 30%;
  //charset=utf8', 'root', ''); 
 // $pdo->setAttribute(PDO::ATTR_ERRMODE, 
  PDO::ERRMODE_EXCEPTION); 
- $sql = "SELECT * FROM interns_data WHERE username = 'prince-curie' LIMIT 1"; 
+ $sql = "SELECT * FROM interns_data WHERE username = 'Prince-Curie' LIMIT 1"; 
  $result = $pdo->query($sql);
  foreach ($result as $row) {
  # code...
@@ -98,10 +98,11 @@ width: 30%;
  $image_filename = $row['image_filename'];
  }
  
- $sql = 'SELECT `*` FROM `secret_word` LIMIT 1'; 
- $secret_word = $pdo->query($sql);
- $secret_word->setFetchMode(PDO::FETCH_OBJ);
-   $secret_word = $secret_word->fetch();
+ $sql = 'SELECT * FROM secret_word LIMIT 1'; 
+ $result2 = $pdo->query($sql);
+foreach ($result2 as $row) { 			
+               # code... 			
+                $secret_word = $row['secret_word']; }
   
  $output = 'Database connection established.'; } 
  catch (PDOException $e) 

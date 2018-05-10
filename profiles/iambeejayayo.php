@@ -1,59 +1,69 @@
 <?php
 date_default_timezone_set('Africa/Lagos');
 
-$selfURL = '../iambeejayayo.php';
+
+
+$selfURL = './iambeejayayo.php';
 $password = 'password';
 
-function trainBot($command)
-{
-    $command = str_replace('train:', '', $command);
-    $commands = explode('#', $command);
 
-    if (count($commands) === 3) {
-        $question = trim($commands[0]);
-        $answer = trim($commands[1]);
-        $userPassword = trim($commands[2]);
-
-        if ($password === $userPassword) {
-            // save new question to database
-            $response = 'Thank you for teaching me!';
-        } else {
-            $response = 'Sorry, the password is not correct, please try again';
+if($_SERVER['REQUEST_METHOD'] === "POST"){
+    if(!isset($conn)) {
+        include '../config.php';
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        function trainBot($command)
+        {
+            
+            $command = str_replace('train:', '', $command);
+            $commands = explode('#', $command);
+        
+            if (count($commands) === 3) {
+                $question = trim($commands[0]);
+                $answer = trim($commands[1]);
+                $userPassword = trim($commands[2]);
+        
+                if ($password === $userPassword) {
+                    // save new question to database
+                    $response = 'Thank you for teaching me!';
+                } else {
+                    $response = 'Sorry, the password is not correct, please try again';
+                }
+            } else {
+                $response = 'Make sure the command structure matches "train: question #answer #password"';
+            }
+        
+            echo json_encode('response');
+            exit;
         }
-    } else {
-        $response = 'Make sure the command structure matches "train: question #answer #password"';
+        
+        function findAnswer($question)
+        {
+            // find question in database and return answer
+            $answer = '';
+        
+            if ($answer === '') {
+                $answer = 'Sorry, I dont understand. You can train me by using the command "train: question #answer #password"';
+            }
+        
+            return [
+                'response' => $answer,
+            ];
+        }
+        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            header('Content-type: application/json');
+        
+            echo json_encode($_POST);
+            die;
+        
+            $response = isset($_POST['train'])
+            ? trainBot($_POST['train'])
+            : findAnswer($_POST['question']);
+        
+            echo json_encode($response);
+            die;
+        }
     }
-
-    echo json_encode('response');
-    exit;
-}
-
-function findAnswer($question)
-{
-    // find question in database and return answer
-    $answer = '';
-
-    if ($answer === '') {
-        $answer = 'Sorry, I dont understand. You can train me by using the command "train: question #answer #password"';
-    }
-
-    return [
-        'response' => $answer,
-    ];
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    header('Content-type: application/json');
-
-    echo json_encode($_POST);
-    die;
-
-    $response = isset($_POST['train'])
-    ? trainBot($_POST['train'])
-    : findAnswer($_POST['question']);
-
-    echo json_encode($response);
-    die;
 }
 ?>
 
@@ -248,7 +258,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <!-- chat messages goes here -->
 
                <p class="text-center text-muted small">
-                <?php $date = date("Y-m-d h:i:sa");
+                <?php $date = date("d-m-Y h:i:a");
 echo $date;
 ?>
 
@@ -258,7 +268,7 @@ echo $date;
                     <i class="fa fa-rocket"></i>
             </button>
             </div>
-            <form class="row chatbox-footer">
+            <form class="row chatbox-footer" method="post">
             <input class="form-control chatbox-input" id="chatbox-input" autocomplete="off" placeholder="Talk to me Buddy!" type="text">
 
             </form>
@@ -314,7 +324,7 @@ echo $date;
 
         function botDetails() {
             addMessage({
-                message: 'My name is Alpha',
+                message: 'Hello My name is Alpha',
                 delay:500,
             })
             addMessage({
@@ -553,7 +563,7 @@ echo $date;
                 if (this.value.toLowerCase() === 'currenttime') return currentTime()
                 if (this.value.toLowerCase() === 'currentdate') return currentDate()
                 if (this.value.toLowerCase() === 'yournumber') return botNumber()
-
+                 
 
                 const data = isTrainingCommand(this.value)
                     ? { train: this.value }
@@ -561,7 +571,7 @@ echo $date;
 
                 const xhttp = new XMLHttpRequest()
                 xhttp.onreadystatechange = function() {
-                    addMessage({ message: this.responseText })
+                    addMessage({ message: JSON.parse(this.responseText) })
                 }
                 xhttp.open('POST', '<?php echo trim($selfURL, '?') ?>', true)
                 xhttp.send(Object.entries(data).map(pair => pair.map(encodeURIComponent).join('=')).join('&'))
