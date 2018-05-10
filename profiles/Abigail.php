@@ -528,7 +528,7 @@ $question;
 	            question.value = '';
 	          }
       	    }
-        xhttp.open('POST', 'profile.php?id=techHajiya', true);
+        xhttp.open('POST', 'profile.php?id=Abigail', true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send('question='+ question.value);
         e.preventDefault();
