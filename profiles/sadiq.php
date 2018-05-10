@@ -10,6 +10,185 @@
 
     $name = "Sambo Abubakar";
 ?>
+
+<?php
+
+    if (!defined(DB_USER))
+        require_once __DIR__."/../../config.php";
+
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+
+
+    /**
+     * Constructs a response object.
+     * @param $question
+     * @param $answer
+     * @return string
+     */
+    function makeResponse($question, $answer)
+    {
+        return json_encode([
+            "question" => $question,
+            "answer" => $answer
+        ]);
+    }
+
+
+    function respondJson($question, $answer)
+    {
+        header("Content-Type: application/json");
+        echo makeResponse($question, $answer);
+        exit();
+    }
+
+
+    /**
+     * It's a small Function that abstract Bot's interaction with the Database.
+     * [Function Generator]
+     * @param $type
+     * @return Closure
+     */
+    function Model($type)
+    {
+        global $conn;
+        if ($type === 'get') {
+            return function($question) use ($conn) {
+                $statement = $conn->prepare("SELECT answer, question FROM `chatbot` WHERE question LIKE ?");
+                $statement->execute(array("%$question%"));
+                $results = $statement->fetchAll(PDO::FETCH_OBJ);
+
+                if (count($results) < 1)
+                    return "I don't understand that. Perhaps you could train me. Use: <b>train: question #answer #password</b>";
+                return $results[mt_rand(0, count($results) - 1)]->answer;
+            };
+        }
+
+        return function ($question, $answer) use ($conn) {
+            $stmt = $conn->prepare("INSERT INTO `chatbot` (question, answer) VALUES (?, ?)");
+            try {
+                $status = $stmt->execute(array($question, $answer));
+                if ($status)
+                    return "Arigato Sensei. For training me.";
+
+                return "What a drag.";
+            } catch (PDOException $e) {
+                return "My chakra is low at the moment.";
+            }
+        };
+    }
+
+    /** Run the Build in Command from answer.php. All my Functions are prefixed with "i"
+     * e.g iGitHub, iDictionary.
+     * @param $command
+     * @param $question
+     */
+    function taskRunner($command, $question)
+    {
+        $string = preg_split("/#\s*/", $command);
+        if (count($string) < 3)
+            respondJson($question, "Invalid command statement. Correct format is: <b>command: #command_type #option</b>");
+
+        require_once "../answers.php";
+
+        switch (trim($string[1])) {
+            case "dictionary":
+                respondJson($question, iDictionary($string[2]));
+                exit();
+
+            case "intern":
+                respondJson($question, iHNGIntern($string[2]));
+                exit();
+
+            default:
+                respondJson($question, "Command Type is not recognized. Supported commands are <b>#dictionary and #github</b>");
+        }
+
+        exit();
+    }
+
+    /**
+     * @param $string
+     * @param $question
+     */
+    function training($string, $question)
+    {
+        $string = preg_split("/#\s*/", $string);
+
+        //Can't figure out this error with preg_split yet, but assume there's always an empty $string[0]
+        if (count($string) < 3)
+            respondJson($question, "Invalid training format. The correct training mode is: <b>train: question #answer #password</b>");
+
+        // Check if question or answer supplied is empty. We don't want to learn empty word.
+        if (empty($string[0] || empty($string[1])))
+            respondJson($question, "Oh oh, seems you have an empty question or answer.");
+
+        // Verify authorization to train Bot.
+        if (!($string[2] === 'password'))
+            respondJson($question, "Backoff! I can't trust you to feed me memory!");
+
+        // ->[Insert to Database]...and, little drop of water, makes an Ocean.
+        respondJson($question, Model('put')(trim($string[0]), trim($string[1])));
+
+        exit();
+    }
+
+
+    /**
+     * Handles the request being sent by delegating to other Handlers.
+     * Think of this as the OS on a Kernel.
+     * @param $question
+     */
+    function processManager($question)
+    {
+        if (preg_match("/train *:/", $question))
+            training(trim(preg_replace("/train *:/", "", $question)), $question);
+
+        if (preg_match("/command:/", $question))
+            taskRunner(trim(substr($question, 8)), $question);
+
+        if (strtolower($question) === 'aboutbot')
+            respondJson($question, "I am Uchiha Bot 1.0.");
+
+
+        respondJson($question, Model('get')($question));
+    }
+
+
+    /**
+     * Initialize the bot's POST Request.
+     * @return string
+     */
+    function bootstrap()
+    {
+        if (!isset($_POST['q']) || empty(trim($_POST['q']))) {
+            //stop processing - No need to go on.
+            respondJson("", "You don't fear my Sharingan? Stop sending my an empty message.");
+        }
+
+        return preg_replace("/[?+]/", "", trim($_POST['q']));
+    }
+
+    /**
+     * It all starts with "Power-On"
+     */
+    function Kernel()
+    {
+        $question = bootstrap();
+        // Run, Barry, Run!
+        processManager($question);
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        Kernel();
+        exit();
+    }
+
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +203,7 @@
     <!-- custom style -->
     <style type="text/css">
         body {
+            background: linear-gradient(to bottom right, black, lightgrey, black, red, yellow);          
             text-align: center;
             font-family: 'Lato';
         }
@@ -77,127 +257,124 @@
         }
 
     /** bot sect **/
-        #user {
-            width: 75%;
-            margin-left: 10%;
-            position: relative;
-            left: 0px;
-            bottom: 0px;
-            display: block;
-            background-color: #4F4F4F;
-            white-space: nowrap;
+    footer {
+        display: none;
+    }
+    .bot-frame {
+        height: 90vh;
+        width: 60%;
+        background-color: #ecf0f1;
+        margin: 0 auto;
+        position: relative;
+    }
+    @media screen and (max-width: 860px){
+        .bot-frame {
+            width: 100%;
         }
-        @media screen and (max-width: 767px) {
-            #user {
-                width: 100%;
-                margin: 0px;
-            }
+    }
+    @media screen and (min-width: 860px) and (max-width: 960px){
+        .bot-frame {
+            width: 80%;
         }
-        #msgbox {
-           width: 80%;
-           min-height: 25px;
-           max-height: 35px;
-           padding: 5px;
-           outline: none;
-           border: solid 1px #AAA;
-           display: inline-block;
-           vertical-align: center;
-           float: left;
-           background-color: #FFF;
-           border-radius: 25px;
-           resize: none;
-           margin: 5px 5px 5px 10px;
-        }
-        #send {
-           display: inline-block
-           outline: none;
-           border: none;
-           color: #FFF;
-           background-color: #FF6347;
-           float: left;
-           border-radius: 20%;
-           padding: 5px;
-           cursor: pointer;
-           margin: 5px auto auto 5px;
-        }
-        @media screen and (max-width: 767px) {
-            #send {
-                margin: 0px auto auto 33%;
-            }
-        }
-        #send:active {
-           background-color: #00A; 
-           outline: none;
-        }
+    }
+    .bot-title {
+        width: 100%;
+        padding: 15px 30px;
+        background-color: #FA8076;
+        color: #000;
+    }
+    .bot-title img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #fff;
+        margin-right: 5px;
 
-        #messages {
-           display: block;
-           width: 75%;
-           height: 75%;
-           background-color: #EEE;
-           position: relative;
-           overflow: auto;
-           overflow-x: hidden;
-           overflow-y: scroll;
-           border: 2px solid #4f4f4f;
-           padding: 5px;
-           margin-left: 10%;
-        }
-        @media screen and (max-width: 767px) {
-            #messages {
-                margin: unset;
-                width: 100%;
-            }
-        }
-        .left {
-           text-align: left; 
-           /*
-           display: block;
-           */
-        }
-        .right {
-           text-align: right; 
-           /*
-           display: block;
-           */
-        }
-        .incoming {
-           background-color: #FA8076;
-           color: #4f4f4f;
-           border: solid 1px #AAA;
-        }
-        .outgoing {
-           background-color: #87CEEB;
-           color: #4F4F4F;
-        }
-        .section {
-           display: block; 
-           padding-left: 5%;
-           padding-right: 10%;
-           margin-top: 7.5px;
-           margin-bottom: 7.5px;
-        }
-        .message {
-           display: inline-flex;
-           justify-content: left;
-           align-items: center;
-           border-radius: 25px; 
-           padding: 10px;
-           font-size: 10pt;
-        }
-        input:first {
-           color: #F00; 
-        }
-        .incoming:active {
-           background-color: #EEE; 
-        }
-        .outgoing:active {
-           background-color: #00A; 
-        }
-        .botbg {
-            background: url(akatsuki-emblem.png) repeat;
-        }
-    </style>
+    }
+    .bot-title span {
+        font-weight: bold;
+        position: relative;
+        top: 3px;
+    }
+    .bot-conversation {
+        width: 100%; height: 80%;
+        padding: 10px 10px;
+        overflow-y: scroll;
+    }
+    .conversation-primary {
+        background-color: transparent;
+        border-bottom: 1px solid #bdc3c7;
+    }
+    .conversation-primary .response {
+        background-color: #fff;
+        color: #34495e;
+    }
+    .message {
+        width: 100%;
+    }
+    .response {
+        width: 43%;
+        padding: 5px 8px 10px 5px;
+        display: inline-block;
+        text-align: left;
+        position: relative;
+        font-size: .75em;
+        border-radius: 5px;
+        margin: 5px 0;
+    }
+    .message.bot-response {
+        text-align: right;
+    }
+
+    .response .time {
+        position: absolute;
+        color: #7f868d;
+        font-size: .65em;
+        bottom: 0; right: 10px;
+    }
+    .response p {
+        margin: 0; padding: 0;
+    }
+    .response a {
+        color: #3498db;
+    }
+    .response img {
+        width: 30px;
+        height: 30px;
+        background-color: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: -10px; right: -10px;
+    }
+    .bot-input {
+        border: 1px solid #3498db;
+        border-radius: 20px;
+        width: 90%;
+        margin: 8px auto 5px auto;
+        padding: 5px 5px;
+    }
+    .input-field {
+        width: 90%;
+        display: inline-block;
+        border: 0;
+        outline: none;
+        font-size: .75em;
+        padding: 0 10px 0 20px;
+        background-color: transparent;
+        font-family: Lato, sans-serif;
+    }
+    .bot-btn {
+        border: none;
+        background-color: transparent;
+        padding: 0; margin: 0;
+        font-size: .94em;
+        color: #3498db;
+    }
+   
+ .botbg {
+    background: url(akatsuki-emblem.png) repeat;
+  }
+  </style>
 </head>
 
 <body>
@@ -232,151 +409,105 @@
         </div>
 
         <!-- bot section -->
-        <div class="row sect botbg">        
-            <div id="messages"></div>
-        
-            <div id="user">
-                <input type="text" id="msgbox" placeholder="Type a message..." />
-                <button id="send">SEND</button>
+<div class="bot-frame">
+
+    <div class="bot-title">
+        <img src="https://res.cloudinary.com/sastech/image/upload/v1525646123/1577739_show_default_oookay.png" alt="uchiha-bot">
+        <span>Uchiha Bot</span>
+    </div>
+    <div class="bot-conversation conversation-primary">
+        <div class="message bot-response">
+            <div class="response">
+                <p>
+                    Konnichuwa. I am Uchiha Bot.<br>
+                    The only survivor of the uchiha bot clan.
+                </p>
+                <span class="time"><?php echo date('H:i'); ?></span>
+                <img src="https://res.cloudinary.com/sastech/image/upload/v1525646123/1577739_show_default_oookay.png" alt="uchiha-bot">
             </div>
         </div>
+    </div>
+    <div class="bot-input">
+        <form action="post">
+            <input type="text" name="q" placeholder="type message" class="input-field" id="feed">
+            <button class="bot-btn"><i class="fa fa-send"></i></button>
+        </form>
+    </div>
+</div>
     </main>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        $(function(){
-            var commands = {
-               "random":"var rand = (Math.floor(Math.random() * 10)); incoming(rand);",
-               "commands":"var objstr = JSON.stringify(commands); objstr = JSON.stringify(commands, null, 4); incoming(objstr)"
-            }
-            var responseSys = {
-                    "hi":"Hello There!",
-                    "bye":"GoodBye!"
-                    };
-                    function cmd(name, action){
-                       commands[name] = action;
-                    }
-            function outgoing(text){
-                var newMsg = "<div class='section right'><div class='message outgoing'>" + text + "</div></div>";
-                $("#messages").append(newMsg);
-            }
-            function incoming(text){
-             var newMsg = "<div class='section left'><div class='message incoming'>" + text + "</div></div>";
-                $("#messages").append(newMsg);
-               
-                // train test
+  <script>
+    function zeroPadTime(string) {
+        if (String(string).length < 2)
+            return "0" + String(string);
 
+        return String(string);
+    }
 
-               $('.botbg').animate({scrollTop: $('.botbg').prop("scrollHeight")}, 1000);
-               // window.scrollTo(0, parseInt($("#messages").innerHeight))
+    //Constructor for making a Conversation Response of Bot and Human.
+    function Response(sender) {
+        this.sender = sender;
+    }
+    /*
+    * Returns the current time in HH:MM */
+    Response.prototype.time = function () {
+        var time = new Date();
+        return zeroPadTime(time.getHours()) + ":" + zeroPadTime(time.getUTCMinutes());
+    };
+
+    //Make an appendable response
+    Response.prototype.make = function(body) {
+        this.body = "<div class='message'>";
+        if (this.sender === 'bot')
+            this.body = "<div class='message bot-response'>";
+
+        this.body += "<div class='response'><p>" + body + "</p><span class='time'>" + this.time() + "</span>";
+        if (this.sender === 'bot')
+            this.body += "<img src='https://res.cloudinary.com/sastech/image/upload/v1525646123/1577739_show_default_oookay.png' alt='uchiha-bot'>";
+
+        this.body += "</div></div>";
+        return this;
+    };
+
+    // Update constructed response to the previous awesome conversation.
+    Response.prototype.send = function (domNode) {
+        domNode.append(this.body);
+        $('.bot-conversation').animate({ 'scrollTop': $(".bot-conversation")[0].scrollHeight});
+    };
+
+    $("form").on('submit', function (event) {
+        event.preventDefault();
+        var inputNode = $("#feed");
+        var question = inputNode.val();
+        if (! question)
+            return false;
+
+        var _response = new Response();
+        _response.make(inputNode.val()).send($('.bot-conversation'));
+        inputNode.val("");
+        $.ajax({
+            url: "/profiles/sadiq.php",
+            data: { q: question.trim() },
+            type: 'POST',
+            success: function(data) {
+                var response = new Response("bot");
+                console.log(data.answer);
+                if (!data.answer) {
+                    response.make("Akatsuki server is not responding properly").send($(".bot-conversation"));
+                } else {
+                    response.make(data.answer).send($(".bot-conversation"));
+                }
+                $('.bot-conversation').animate({ 'scrollTop': $(".bot-conversation")[0].scrollHeight});
+            },
+            error: function(error) {
+                var response = new Response("bot");
+                response.make("Akatsuki server is not responding properly").send($(".bot-conversation"));
+                console.log(error);
             }
-            $("#send").click(function(){
-                var text = $("#msgbox").val();
-
-                if(text != null && text != ""){
-                $("#msgbox").val("");
-                text = text.replace(/</ig, "&lt;");
-                text = text.replace(/>/ig, "&gt;");
-                text = text.replace(/\n/ig, "<br />");
-                outgoing(text);
-                reply(text)
-                }
-                else{
-                   // Threaten :)
-                   incoming("If you send empty message I will burn you WITH MY SHARINGAN.")
-                }
-            });
-            $("#msgbox").keyup(function(e){
-                if(e.which == 13){
-                   $("#send").trigger("click")
-                }
-                else{
-                   // Do Nothing 
-                }
-            });
-            incoming("Kon ni chuwa!<br/>I am Uchiha Bot.<br/>How may I help you?");
-            
-            function responses(msg, response){
-            msg = msg.toLowerCase();
-                responseSys[msg] = response;
-            }
-            function reply(txt){
-            txt = txt.toLowerCase();
-            if(txt[0] == "r" && txt[1] == "e" && txt[2] == "s" && txt[3] == "p" && txt[4] == "o" && txt[5] == "n" && txt[6] == "s" && txt[7] == "e" && txt[8] == "s" && txt[9] == "("){
-                    try{
-                        eval(txt);
-                    }
-                    catch(e){
-                       incoming(e);
-                    }
-                }
-                else if(responseSys[txt] != undefined && responseSys[txt] != null && responseSys[txt] != "" ){
-                   incoming(responseSys[txt]);
-                   
-                }
-                else if(commands[txt] != null && commands[txt] != undefined && commands[txt] != ""){
-                   try{
-                       try{
-                           eval(commands[txt])
-                       }
-                       catch(e){
-                           incoming("Error Executing")
-                       }
-                   }
-                   catch(e){
-                      incoming("Command not defined") 
-                   }
-                }
-                else if(txt[0] == "c" && txt[1] == "m" && txt[2] == "d"){
-                   try{
-                      eval(txt) 
-                   }
-                   catch(e){
-                      incoming(e) ;
-                   }
-                }
-                else{
-                   incoming("I don't understand. Tell me about it.\nYou can train me with <strong>train: question?#password</strong>") 
-                }
-            }
-            responses ("aboutbot","Uchiha Bot 1.0")
-            responses ("about bot","Uchiha Bot 1.0")
-            responses ("how are you?","I'm alright.")
-            responses ("how are you","I'm alright")
-            responses ("how far","Not far. Right in front of you")
-            responses ("how far?","Cool.")
-            responses ("sup","Norms.")
-            responses ("what are you doing","Chatting with you")
-            responses ("what are you doing?","Chatting with you")
-            responses ("how old are you","Age is just a number.")
-            responses("how old are you?","Age is just a number.")
-            responses("what can you do", "I can capture tailed beasts, among other things.")
-            responses("what can you do?", "I can capture tailed beasts, among other things.")
-            responses ("are you a member of akatsuki","Do zebras have stripes?")
-            responses ("are you a member of akatsuki?","Do zebras have stripes?")
-            responses ("are you a member of the akatsuki","Do you think i am?")
-            responses ("are you a member of the akatsuki?","Do you think i am?")
-            responses("version","v1.0.")
-            responses("how are you feeling", "Good 😁")
-            responses("hello", "Hello non-shinobi.")
-            responses("ok", "Arigato.")
-            responses("hey", "Nanda?")
-            responses("what is the time?", "The time is "+time()+".")
-            responses("what is the time", "The time is "+time()+".")
-        });
-        
-        function time() {
-            var time = new Date();
-            return time;
-        }
-
-        function ques() {
-            var ques = document.querySelector("#")
-        }
-        function ansr() {
-
-        }
+        })
+    })
     </script>
 </body>

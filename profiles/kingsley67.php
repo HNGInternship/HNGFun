@@ -20,24 +20,19 @@ $secret_word=$result2['secret_word'];
 
 
    
-if($_POST['question']){
+if($_POST['questions']){
     
-    
-    
-$text=$_POST['question'];
+$text=$_POST['questions'];
  $checktrain=strpos($text,'train:'); 
    if($checktrain ===false) {
        $checkBirthdate=strpos($text,"Birthdate:");
        
       if($checkBirthdate !==false){
 
+
+if(isset($_POST['questions'])){
     
-          
-      
- 
-if(isset($_POST['question'])){
-    
-   $text=$_POST['question']; 
+   $text=$_POST['questions']; 
     
     $birthDate= substr($text, 10);
     zodiac($birthDate);
@@ -49,26 +44,27 @@ if(isset($_POST['question'])){
  
    return;
 } 
+          
       
-      
-      }else if($_POST['question']=="aboutbot"){
+          
+      }else if($_POST['questions']=="aboutbot"){
           
           
           echo json_encode([
-                  'question'=>$text,
+                  'question'=>'aboutbot',
                   'answers' => "<strong>RIM67</strong><br>Version 1.0.0 <br>build 2<br>Platforms: Windows, Linux"
                 ]); 
  
  
    return;  
                
-      } else{
-
- $sql3="SELECT * FROM chatbot where question='$text ' LIMIT 1";
+      }else{
+     $text=$_POST['questions'];
+ $sql3="SELECT * FROM chatbot where question='$text '";
  $query = $conn->query($sql3);
     $query->setFetchMode(PDO::FETCH_ASSOC);  
     $result3 = $query->fetch(); 
- $ans=$result3['answers'];
+ $ans=$result3['answer'];
         
    
      if (isset($ans)) {
@@ -79,19 +75,22 @@ if(isset($_POST['question'])){
          return;
  
   }else
-     {$error="I couldn't find an answer to your question, please train me with that using the command <br>train:Your-Question#Your-Answer#Password";}
-          if ($error!=""){
+     {
+$error="I couldn't find an answer to your question, please train me with that using the command <br>train:Your-Question#Your-Answer#Password";
+          
         echo json_encode([
                   'question' => $text,
                   'answers' => $error
                 ]);
        return;       
-    }
-       
-      }
-   
-}else {
-       $tex=$_POST['question'];
+    
+     }
+                  
+          
+ }
+   }else{
+  
+   $tex=$_POST['questions'];
   
       $rmtrain= substr($tex, 6);
         $rmspace = preg_replace('([\s]+)', ' ', trim($rmtrain));
@@ -109,58 +108,41 @@ if(isset($_POST['question'])){
  
         if($password=="trainpwforhng"){
          
-            try {
+           
     $sql3 = "INSERT INTO  `chatbot` (`question`, `answer`) VALUES ('". $question ."','". $answer ."')";
     $query = $conn->query($sql3);
-} catch(PDOException $e) {
-    echo $e->getMessage();
-}
-     
-            echo json_encode([
-                  'question' => $answer,
+    echo json_encode([
+                  'question' => $question,
                   'answers'=>"<strong>Your data was saved successfully</strong>"
                 ]);
                 
              return;
-            }
-        else{
-             
+            }else{
+                   
        echo json_encode([
                   'question' => $tex,
-                  'answers'=>"<strong>You inserted a wrong password<br>Note</stong>The password is:<strong>trainpwforhng</strong>"
+                  'answers'=>"<strong>You inserted a wrong password<br>Note</strong>The password is:<strong>trainpwforhng</strong>"
                 ]);
                  
              return;
+        }     
        
+     
     
-       
-        }
-       
-       
-       
-    }else {
-        
-         echo json_encode([
+   }else{
+      echo json_encode([
                   'question' => $tex,
                   'answers'=>"Your training has not been considered,please verify your training is in the following format:<br><strong>train:Your_question#Your_Answer#Password<br>Note:</strong>The password is:<strong>trainpwforhng</strong>"
              
                 ]);
                  return;
-      
     }
        
-  
-    }
-    }
+   }
+}
+
     
-
-
 ?>
-
-
-    
-    
-  
 
 
 
@@ -199,7 +181,7 @@ if(isset($_POST['question'])){
     #chatOutput{
         height: 500px;
         border:black solid 1px;
-        width: 500px;
+        width: 530px;
         overflow: scroll;
          border-radius: 10px;
     }
@@ -424,10 +406,10 @@ $.ajax({
         cache: false,
      dataType: "json",
     data:{
-    question:input,
+    questions:input,
     
    }, 
-     beforeSend: function() { $('#results').append('please wait');},
+       beforeSend: function() { $('#results').append("please wait");},
         success: function(result) { 
          $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
        console.log(result);
@@ -447,3 +429,9 @@ setInterval(updateScroll,1000);
 
 
 </html>
+
+
+
+    
+    
+  

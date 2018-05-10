@@ -11,6 +11,122 @@
   $image_filename = $user['image_filename'];
 ?>
 
+<?php
+session_start();
+
+function getmenu()
+{
+    return 'Main Menu: <ul><li>AboutBot</li><li>Time</li></ul>';
+}
+
+function getTime()
+{
+    return date("h:i:s a");
+}
+
+try {
+    if($_SERVER['REQUEST_METHOD'] === "POST"){
+        if(!isset($conn)) {
+            include '../config.php';
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        }
+
+        if(isset($_POST['message']) && $_POST['message'] != '') {
+            $question = trim($_POST['message']);
+
+            switch (strtolower($question) ) {
+                case 'aboutbot':
+                    {
+                        echo json_encode(['message' => 'Basitomania. Version: 1.0']);
+                        break;
+
+                    }
+                case 'time':
+                    {
+                        echo json_encode(['message' => getTime()]);
+                        break;
+
+                    }
+                case 'menu':
+                    {
+                        echo json_encode(['message' => getmenu()]);
+                        break;
+
+                    }
+                case (explode(':',$question)[0] === 'train'):
+                    {
+                        $training_question = trim(explode('#',explode(':',$question)[1])[0]);
+                        $training_answer = trim(explode('#',explode(':',$question)[1])[1]);
+                        $training_password = trim(explode('#',explode(':',$question)[1])[2]);
+                        if ($training_question != "" && $training_answer != "" && $training_password!= "")
+                        {
+                            try {
+
+                                if($training_password === 'password')
+                                {
+                                    // do insert in the sql table
+                                    $sql = $conn->prepare("insert into chatbot (question, answer) values (:question, :answer)");
+                                    $sql->execute(array('question' => $training_question, 'answer' => $training_answer));
+                                    echo json_encode(['message'=> '<div class="alert alert-success" role="alert">Trained Successfully</div>']);
+                                }
+                                else
+                                {
+                                    echo json_encode(['message'=> '<div class="alert alert-danger" role="alert">Incorrect Password!</div>']);
+                                }
+                                break;
+                            }
+                            catch (Exception $ex) {
+                                var_dump($ex);
+                            }
+                        }
+                        else
+                        {
+                            echo json_encode(['message' => "I'm not as smart, you can train me using: <h3>train: question # answer # password</h3>" ]);
+                            break;
+                        }
+                    }
+                default:
+                    {
+                        try {
+                            $q_length = strlen($question);
+                            $question = ($question[$q_length - 1] == '?') ? substr($question, 0, $q_length - 1) : $question;
+
+                            $sql = "select * from chatbot where question like '$question%'";
+
+                            $query = $conn->prepare($sql);
+
+                            $res = $query->execute();
+
+
+                            $results = $query->fetchAll(PDO::FETCH_OBJ);
+                            $rowCount = $query->rowCount();
+                            if($rowCount == 1) { // if one answer
+                                echo json_encode(['message' => $results[0]->answer]);
+                            }
+                            else if($rowCount > 1) { // if multiple answers, select 1 randomly from the available
+                                echo json_encode(['message' => $results[rand(0, $rowCount - 1)]->answer]);
+                            }
+                            else
+                            {
+                                echo json_encode(['message' => "I can't understand it, you can train me using: <h3>train: question # answer # password</h3>" ]);
+                            }
+                        }
+                        catch (Exception $ex) {
+                            var_dump($ex);
+                        }
+                    }
+            }
+            exit;
+        }
+
+    }
+}
+catch (Exception $exception)
+{
+    var_dump($exception);
+}
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -249,29 +365,88 @@ nav a.selected, nav a:hover {
 			</nav>
 		</header>
 		<div id="wrapper">
-		<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
-			<section id = "primary">
-				<h3>About</h3>
-				<p>Hi I'm basitomania, this is my design portfolio where i share all my work when i'm not surfing the net and markerting online. To follow me on twitter my handle is <a href="http://www.twitter.com">@iamblack8</a>.</p>
-			</section>
-			
-			<section id="secondary">
-            <h3>Contact Details</h3>
-            <ul class="contact-info">
-                <li class="phone">
-                    <a href="tel:+2348166380172">+2348166380172</a>
-                </li>
-                <li class="mail">
-                    <a href="mailto:basitomania@gmail.com">basitomania@gmail.com</a>
-                </li>
-                <li class="twitter">
-                    <a href="http://twitter.com/intent/tweet?screen_name=iamblack8">@iamblack8</a>
-                </li>
-            </ul>
-        </section>
+			<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
+				<section id = "primary">
+					<h3>About</h3>
+					<p>Hi I'm basitomania, this is my design portfolio where i share all my work when i'm not surfing the net and markerting online. To follow me on twitter my handle is <a href="http://www.twitter.com">@iamblack8</a>.</p>
+				</section>
+				
+				<section id="secondary">
+					<h3>Contact Details</h3>
+					<ul class="contact-info">
+						<li class="phone">
+							<a href="tel:+2348166380172">+2348166380172</a>
+						</li>
+						<li class="mail">
+							<a href="mailto:basitomania@gmail.com">basitomania@gmail.com</a>
+						</li>
+						<li class="twitter">
+							<a href="http://twitter.com/intent/tweet?screen_name=iamblack8">@iamblack8</a>
+						</li>
+					</ul>
+				</section>
+
+				<div class="chatbot-container">
+					<div class="chat-header">
+						<span>Bas Chatbot</span>
+					</div>
+					<div id="chat-body">
+						<div class="bot_chat">
+								<div class="message">Hello! My name is Basbot.<br>You can ask me questions and get answers.<br>Type <span style="color: #90CAF9;/"><strong> Aboutbot</strong></span> to know more about me.
+								</div>
+								<div class="message">You can also train me to be smarter by typing; <br><span style="color: #90CAF9;"><strong>train: question #answer #password</strong></span><br></div>
+						</div>
+					</div>
+					<div class="chat-footer">
+						<div class="input-text-container">
+							<form action="" method="post" id="chat-input-form">
+								<input type="text" name="input_text" id="input" required class="input_text" placeholder="Type your question here...">
+								<button type="submit" class="send_button" id="send">Send</button>
+							</form>
+						</div>
+					</div>
+				</div>
 			<footer>
 				<p>&copy; 2017 Maniaweb.</p>
 			</footer>
+			<script type = text/javascript>
+				
+				document.queryselector("#input").addEventListener("keypress", function(e){
+					var key = e.which || e.keyCode;
+					if(key == 13){
+						var input = document.getElementById("input").value;
+						document.getElementById("user").innerHTML = input;
+						output(input);
+						}
+					});
+
+					function output(input){
+						try{
+							var product = input + "=" + eval(input);
+						} catch(e){
+							var text = (input.toLowerCase()).replace(/[^\w\s\d]/gi, "");
+							if(compare(trigger, reply, text)){
+								var product = compare(trigger, reply, text);
+							} else {
+								var product = text;
+							}
+						}
+						document.getELementById("chatbot").innerHTML = input;
+						document.getElementById("input").value = "";
+					}
+					function compare(arr, array, string){
+						var item;
+						for(var x= 0; x<arr.length; x++){
+							for(var y = 0; y<array.length; y++){
+								if(arr[x][y] == string){
+									items = array[x];
+									item = items[Math.floor(Math.random()*items.length)];
+								}
+							}
+						}
+						return item
+					}
+			</script>
 		</div>
 	</body>
 </html>
