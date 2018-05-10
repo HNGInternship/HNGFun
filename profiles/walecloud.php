@@ -47,12 +47,17 @@
 				return;
 			}
     		// query dbase for a similar questions and return a randomly selected single closest response attached to it.
-			$query = $conn->query("SELECT answer FROM chatbot WHERE question LIKE '$question' LIMIT 1");
-			$result = $query->fetch(PDO::FETCH_ASSOC);
+			$stmt = $conn->query("SELECT answer FROM chatbot WHERE question LIKE :question LIMIT 1");
+			$quest = "$question%";
+    		$stmt->bindParam(':question', $quest);
+    		$stmt->execute();
+    		$stmt->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $stmt->rowCount();
+			$result = $stmt->fetch();
 			
 			// there's a matching result return to user
-    		if(!empty($result)) {
-				$result = $stmt->fetchAll();		  
+    		if($row > 0) {
+				$result = $stmt->fetch();		  
 				echo json_encode([
 		        	'status' => 1,
 		       		'answer' => $result
