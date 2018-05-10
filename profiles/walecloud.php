@@ -47,19 +47,15 @@
 				return;
 			}
     		// query dbase for a similar questions and return a randomly selected single closest response attached to it.
-			$stmt = $conn->prepare("SELECT * FROM chatbot WHERE question LIKE :question LIMIT 1");
-			$quest = "$question%";
-    		$stmt->bindParam(':question', $quest);
-    		$stmt->execute();
-    		$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			$row = $stmt->rowCount();
+			$query = $conn->query("SELECT answer FROM chatbot WHERE question LIKE '$question' LIMIT 1");
+			$result = $query->fetch(PDO::FETCH_ASSOC);
 			
 			// there's a matching result return to user
-    		if($row > 0) {
+    		if(!empty($result)) {
 				$result = $stmt->fetchAll();		  
 				echo json_encode([
 		        	'status' => 1,
-		       		'answer' => $result['answer']
+		       		'answer' => $result
 	     		]);
 	           return;
     		}
@@ -128,7 +124,7 @@
 		.card {	height: 80vh; width: 300px; border: 1px groove #ccc; border-radius: 3px; }
 		.dp { padding: 2px;	height: 300px;	}
 		span { font-size: 18px;	}
-		.chart-box{ width: 300px; height: 80vh; border: 2px solid #000; overflow:auto; padding-top: 90px; }
+		.chart-box{ font-size:20px; width: 300px; height: 80vh; border: 2px solid #000; overflow:auto; padding-top: 90px; }
 		.chart-input{ position: relative;}
 		.chart-input-box{ position: absolute; bottom: 0px; }
 		.chart-input-box input{ padding: 10px 0 10px 0; width: 300px; border: 2px solid #000; }
@@ -172,7 +168,7 @@
 	function doChat() {
 		var text = $('#text').val();
 
-		$('#chat-area').append("<p style='text-align:right;'>"+text+"</p>");
+		$('#chat-area').append("<p style='text-align:right; font-size:20px;'>"+text+"</p>");
 		$('#text').val(' ');
 		//$('#chat-area').append("from db by bot");
 
