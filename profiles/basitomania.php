@@ -113,7 +113,7 @@ footer {
 PAGE: ABOUT
 *********************/
 .profile-photo {
-            border-radius:50px;
+            border-radius:50%;
         }
 
 
@@ -195,7 +195,7 @@ a {
 .chat-header{
 			width: 500px;
 			height: 50px;
-			background-color: #34495E;
+			background-color: #6ab47b;
 			color: white;
 			text-align: center;
 			padding: 10px;
@@ -219,6 +219,41 @@ a {
         	border-radius: 10px;
     		line-height: 18px;
 		}
+.bot-chat{
+			text-align: left;
+		}
+.bot-chat .message{
+			background-color: #34495E;
+			color: white;
+			opacity: 1.9;
+			box-shadow: 5px 5px 8px gray;
+		}
+#chat_showcase{
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+.user_chat{
+			text-align: right;
+		}
+.user_chat .message{
+			background-color: #E0E0E0;
+			color: black;
+			box-shadow: 3px 3px 5px gray;
+		}
+#send {
+      border: none;
+      color: white;
+      padding: 13px 28px;
+      text-align: center;
+      font-size: 15px;
+      margin: 5px 12px;
+      /*position: absolute;*/
+      float: right;
+      /*box-shadow: 4px 4px 2px #a8b2c1;*/
+      border-radius: 10px;
+    }
 
 </style>
 	</head>
