@@ -1,5 +1,6 @@
 
 	<?php
+	
 	require 'db.php';
 	$username = "ebuka1";
 	 
@@ -13,6 +14,9 @@
 	$query2->execute();
 	$data = $query2->fetch(PDO::FETCH_ASSOC);
 	$secret_word = $data['secret_word'];
+	?>
+	
+	<?php
 	
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST['user-input'];
@@ -82,6 +86,7 @@
             echo "<div id='results'>". $data[$rand_keys]['answer'] ."</div>";
         }
     }
+	
     ?>
 
 
