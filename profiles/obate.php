@@ -212,7 +212,6 @@
 		}
     #chat_showcase{
       list-style-type: none;
-      display: flex;
       flex-direction: column;
     }
 
@@ -226,7 +225,7 @@
 		}
     .card{
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-      max-width: 300px;
+      max-width: 200px;
       text-align: center;
     }
 
