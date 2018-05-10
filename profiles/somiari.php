@@ -285,7 +285,7 @@
 <body>
 
 	<?php
-		require_once 'db.php';
+		require 'db.php';
 		$result = $conn->query("Select * from secret_word LIMIT 1");
 		$result = $result->fetch(PDO::FETCH_OBJ);
 		$secret_word = $result->secret_word;
@@ -310,12 +310,12 @@
 		
 			//Analyse message to determine response
 			if (strtok($message, ":") == "train"){
-				trainAlan($message); // Call function to handle training
+				trainAlan($message, $conn); // Call function to handle training
 
 			}else if ($message != "" ){
 				// Check if question exist in database
 				// returns 1 if question does not exist in database
-				$tempVariable = checkDatabase($message); 
+				$tempVariable = checkDatabase($message, $conn); 
 
 				if ($tempVariable == 1){
 					if ($message == "what is the time"){
@@ -357,12 +357,8 @@
 
 		// function to train bot 
 		// pass message as arguement
-		function trainAlan($newmessage){
-			if(!isset($conn)) {
-				include '../../config.php';
-		
-				$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-			}
+		function trainAlan($newmessage, $conn){
+			// require 'db.php';
 			$message = explode('#', $newmessage);
 			$question = explode(':', $message[0]);
 			$answer = $message[1];
@@ -404,13 +400,9 @@
 
 		// Function to check if question is in database
 		// Returns 1 if question is not found in database
-		function checkDatabase($question){
+		function checkDatabase($question, $conn){
 			try{
-				if(!isset($conn)) {
-					include '../../config.php';
-			
-					$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-				}
+				// require 'db.php';
 				$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
 				$stmt->execute();
 
@@ -461,7 +453,7 @@
 			</section>
 
 			<form class="chat-box" id="ajax-contact" method="post" action="profiles/somiari.php">
-				<span class="chat-box-header">Alan is not a bot</span>
+				<span class="chat-box-header">Alan is a bot</span>
 				<div class="chat-msgs">
 					<p class="alan">Hello! My name is Alan, and I am not a bot.</p>
 					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
