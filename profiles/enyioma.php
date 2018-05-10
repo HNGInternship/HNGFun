@@ -89,7 +89,7 @@
       }
       .yormabot {
           position: relative;
-          padding-top: 200px;
+          padding-top: 50px;
           padding-left: 50%;
           width: 850px;
           display: inline-block;
