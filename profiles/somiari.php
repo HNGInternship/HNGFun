@@ -1,3 +1,10 @@
+<?php
+if (!defined('DB_USER')){      
+   require "../../config.php";
+ }
+?>
+	
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -452,8 +459,8 @@
 				</a>
 			</section>
 
-			<form class="chat-box" id="ajax-contact" method="post" action="profiles/somiari.php">
-				<span class="chat-box-header">Alan is not a bot</span>
+			<form class="chat-box" id="ajax-contact">
+				<span class="chat-box-header">Alan is a bot</span>
 				<div class="chat-msgs">
 					<p class="alan">Hello! My name is Alan, and I am not a bot.</p>
 					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
@@ -480,7 +487,7 @@
 			</footer>
 
 		</div>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
 	<script>
 		const chatMsgs = document.querySelector(".chat-msgs");
 		const chatMsg = document.querySelector(".chat-msg");
@@ -514,7 +521,7 @@
 				sendTheMessage(formData);
 
 				// Clearing text filled
-				chatMsg.value = "";		
+				// chatMsg.value = "";		
 			}); // End of form event handler
 		});
 
@@ -524,9 +531,10 @@
 		
 			$.ajax({
 					type: 'POST',
-					url: $(form).attr('action'),
+					url: 'profiles/somiari.php',
 					data: formData,
 				}).done(function(response) {
+					console.log(response);
 					chatMsgs.innerHTML += '<p class="alan">' + response + '</p>';
 					fixScroll(); // call function to fix scroll bottom
 			})// end ajax handler
