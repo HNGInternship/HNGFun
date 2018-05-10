@@ -168,8 +168,8 @@ $error="I couldn't find an answer to your question, please train me with that us
     }
    
     h3{background-color: #2A88AD;
-    width:220px;
-    margin: 20px 210px;
+    width:250px;
+    margin: 20px 185px;
   }
    
     p{color:black}
@@ -409,10 +409,8 @@ $.ajax({
     questions:input,
     
    }, 
-       
         success: function(result) { 
-         $("#results").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
-       console.log(result);
+         $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
         }
         });
 };
