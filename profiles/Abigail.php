@@ -1,6 +1,8 @@
 <?php
+
+
  if(!defined('DB_USER')){
-    require "../../config.php";		
+    require "db.php";		
     try {
         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
     } catch (PDOException $pe) {
@@ -490,7 +492,7 @@ $question;
 	            question.value = '';
 	          }
       	    }
-        xhttp.open('POST', 'profile.php?id=Abigail', true);
+        xhttp.open('POST', '/profile.php?id=Abigail', true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send('question='+ question.value);
         e.preventDefault();
