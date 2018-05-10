@@ -55,7 +55,7 @@
             <h3 style="">WELCOME TO HNG INTERNSHIP 4</h3>              
         </div>
 		<div id="middle">
-			<div id="image"  style="background-image: url(<? echo $imageUrl; ?>); background-size: cover; background-repeat:   no-repeat;
+			<div id="image"  style="background-image: url(<?php echo $imageUrl; ?>); background-size: cover; background-repeat:   no-repeat;
                      background-position: center center; -webkit-background-size: cover; -moz-background-size: cover;
                      -o-background-size: cover;"  >           
 			</div>
