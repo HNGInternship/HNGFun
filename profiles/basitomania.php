@@ -12,119 +12,20 @@
 ?>
 
 <?php
-session_start();
-
-function getmenu()
-{
-    return 'Main Menu: <ul><li>AboutBot</li><li>Time</li></ul>';
-}
-
-function getTime()
-{
-    return date("h:i:s a");
-}
+$servername = "localhost";
+$username = "username";
+$password = "password";
 
 try {
-    if($_SERVER['REQUEST_METHOD'] === "POST"){
-        if(!isset($conn)) {
-            include '../config.php';
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-        }
-
-        if(isset($_POST['message']) && $_POST['message'] != '') {
-            $question = trim($_POST['message']);
-
-            switch (strtolower($question) ) {
-                case 'aboutbot':
-                    {
-                        echo json_encode(['message' => 'Basitomania. Version: 1.0']);
-                        break;
-
-                    }
-                case 'time':
-                    {
-                        echo json_encode(['message' => getTime()]);
-                        break;
-
-                    }
-                case 'menu':
-                    {
-                        echo json_encode(['message' => getmenu()]);
-                        break;
-
-                    }
-                case (explode(':',$question)[0] === 'train'):
-                    {
-                        $training_question = trim(explode('#',explode(':',$question)[1])[0]);
-                        $training_answer = trim(explode('#',explode(':',$question)[1])[1]);
-                        $training_password = trim(explode('#',explode(':',$question)[1])[2]);
-                        if ($training_question != "" && $training_answer != "" && $training_password!= "")
-                        {
-                            try {
-
-                                if($training_password === 'password')
-                                {
-                                    // do insert in the sql table
-                                    $sql = $conn->prepare("insert into chatbot (question, answer) values (:question, :answer)");
-                                    $sql->execute(array('question' => $training_question, 'answer' => $training_answer));
-                                    echo json_encode(['message'=> '<div class="alert alert-success" role="alert">Trained Successfully</div>']);
-                                }
-                                else
-                                {
-                                    echo json_encode(['message'=> '<div class="alert alert-danger" role="alert">Incorrect Password!</div>']);
-                                }
-                                break;
-                            }
-                            catch (Exception $ex) {
-                                var_dump($ex);
-                            }
-                        }
-                        else
-                        {
-                            echo json_encode(['message' => "I'm not as smart, you can train me using: <h3>train: question # answer # password</h3>" ]);
-                            break;
-                        }
-                    }
-                default:
-                    {
-                        try {
-                            $q_length = strlen($question);
-                            $question = ($question[$q_length - 1] == '?') ? substr($question, 0, $q_length - 1) : $question;
-
-                            $sql = "select * from chatbot where question like '$question%'";
-
-                            $query = $conn->prepare($sql);
-
-                            $res = $query->execute();
-
-
-                            $results = $query->fetchAll(PDO::FETCH_OBJ);
-                            $rowCount = $query->rowCount();
-                            if($rowCount == 1) { // if one answer
-                                echo json_encode(['message' => $results[0]->answer]);
-                            }
-                            else if($rowCount > 1) { // if multiple answers, select 1 randomly from the available
-                                echo json_encode(['message' => $results[rand(0, $rowCount - 1)]->answer]);
-                            }
-                            else
-                            {
-                                echo json_encode(['message' => "I can't understand it, you can train me using: <h3>train: question # answer # password</h3>" ]);
-                            }
-                        }
-                        catch (Exception $ex) {
-                            var_dump($ex);
-                        }
-                    }
-            }
-            exit;
-        }
-
+    $conn = new PDO("mysql:host=$servername;dbname=myDB", $username, $password);
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Connected successfully"; 
     }
-}
-catch (Exception $exception)
-{
-    var_dump($exception);
-}
+catch(PDOException $e)
+    {
+    echo "Connection failed: " . $e->getMessage();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -211,7 +112,7 @@ PAGE: PORTFOLIO
 }
 
 #primary {
-		width: 40%;
+		width: 50%;
 		float: left;
 	}
 
@@ -219,6 +120,31 @@ PAGE: PORTFOLIO
 		width: 40%;
 		float: right;
 	}
+
+/********************
+NAVIGATION
+*********************/
+nav {
+	text-align: center;
+	padding: 10px 0;
+	margin: 20px 0 0;
+}
+
+nav ul{
+	list-style: none;
+	margin: 0 10px;
+	padding: 0;
+}
+
+nav li {
+	display: inline-block;
+}
+
+nav a {
+	font-weight: 800;
+	padding: 15px 10px;
+
+}
 
 /********************
 FOOTER
@@ -305,6 +231,18 @@ a {
 	color: #6ab47b;
 }
 
+<<<<<<< HEAD
+/* Nav link */
+nav a, nav a:visited {
+	color: #fff;
+}
+/* selected nav link */
+nav a.selected, nav a:hover {
+	color: #32673f;
+}
+
+        </style>
+=======
 /*chatbot*/
 .chatbot-container{
 		  background-color: #F3F3F3;
@@ -343,20 +281,38 @@ a {
 		}
 
 </style>
+>>>>>>> 6b5c92054a0a9d66eaa87d184cfb1d322c0a818d
 	</head>
 	<body>
 		<header>
-			<a id="logo">
+			<a href="index.html" id="logo">
 				<h1>Basitomania</h1>
 				<h2>Web Developer</h2>
 			</a>
+			<nav>
+				<ul>
+					<li><a href="index.html">Portfolio</a></li>
+					<li><a href="about.html" class="selected">About</a></li>
+					<li><a href="contact.html">Contact</a></li>
+				</ul>
+			</nav>
 		</header>
 		<div id="wrapper">
+			<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
 				<section id = "primary">
+<<<<<<< HEAD
 					<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
 					<h3 style = "padding-top:10px">About</h3>
 					<p>Hi I'm basitomania, this is my design portfolio where i share all my work when i'm not surfing the net and markerting online. To follow me on twitter my handle is <a href="http://www.twitter.com">@iamblack8</a>.</p>
 					<h3 style = "padding-top:10px">Contact Details</h3>
+=======
+					<h3>About</h3>
+					<p>Hi I'm basitomania, this is my design portfolio where i share all my work when i'm not surfing the net and markerting online. To follow me on twitter my handle is <a href="http://www.twitter.com">@iamblack8</a>.</p>
+				</section>
+				
+				<section id="secondary">
+					<h3>Contact Details</h3>
+>>>>>>> 6f3d588d244f843cb6390b699e2162766bcbb966
 					<ul class="contact-info">
 						<li class="phone">
 							<a href="tel:+2348166380172">+2348166380172</a>
@@ -367,6 +323,18 @@ a {
 						<li class="twitter">
 							<a href="http://twitter.com/intent/tweet?screen_name=iamblack8">@iamblack8</a>
 						</li>
+<<<<<<< HEAD
+					</ul>
+				</section>
+				<div>
+					<div>User: <span id="user"></span></div>
+					<div>Chatbot: <span id="chatbot"></span></div>
+					<div> <input id="input" type="text"> </div>
+				</div>
+			<footer>
+				<p>&copy; 2017 Maniaweb.</p>
+			</footer>
+=======
 					</ul>	
 				</section>		
 			<section id="secondary">
@@ -397,8 +365,14 @@ a {
 		<footer>
 			<p>&copy; 2017 Maniaweb.</p>
 		</footer>
+>>>>>>> 6b5c92054a0a9d66eaa87d184cfb1d322c0a818d
 			<script type = text/javascript>
-				
+				var trigger = [
+					["hi"]
+				];
+				var reply = [
+					["Hey"]
+				];
 				document.queryselector("#input").addEventListener("keypress", function(e){
 					var key = e.which || e.keyCode;
 					if(key == 13){
@@ -435,5 +409,6 @@ a {
 						return item
 					}
 			</script>
+		</div>
 	</body>
 </html>
