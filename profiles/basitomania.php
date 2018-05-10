@@ -168,10 +168,7 @@ footer {
 PAGE: ABOUT
 *********************/
 .profile-photo {
-            /*display: block;
-            max-width: 20%;
-            margin: 0 auto 50px;*/
-            border-radius: 50%;
+            
         }
 
 
@@ -240,6 +237,7 @@ a {
 	color: #6ab47b;
 }
 
+<<<<<<< HEAD
 /* Nav link */
 nav a, nav a:visited {
 	color: #fff;
@@ -250,6 +248,46 @@ nav a.selected, nav a:hover {
 }
 
         </style>
+=======
+/*chatbot*/
+.chatbot-container{
+		  background-color: #F3F3F3;
+		  width: 500px;
+		  height: 500px;
+		  margin: 10px;
+		  box-sizing: border-box;
+		  box-shadow: -3px 3px 5px gray;
+		}
+.chat-header{
+			width: 500px;
+			height: 50px;
+			background-color: #34495E;
+			color: white;
+			text-align: center;
+			padding: 10px;
+			font-size: 1.5em;
+		}
+#chat-body{
+		    display: flex;
+		    flex-direction: column;
+		    padding: 10px 20px 20px 20px;
+		    background: white;
+		    overflow-y: scroll;
+		    height: 395px;
+		    max-height: 395px;
+		}
+.message{
+			font-size: 0.8em;
+			width: 300px;
+			display: inline-block;
+          	padding: 10px;
+			margin: 5px;
+        	border-radius: 10px;
+    		line-height: 18px;
+		}
+
+</style>
+>>>>>>> 6b5c92054a0a9d66eaa87d184cfb1d322c0a818d
 	</head>
 	<body>
 		<header>
@@ -284,6 +322,7 @@ nav a.selected, nav a:hover {
 						<li class="twitter">
 							<a href="http://twitter.com/intent/tweet?screen_name=iamblack8">@iamblack8</a>
 						</li>
+<<<<<<< HEAD
 					</ul>
 				</section>
 				<div>
@@ -294,6 +333,38 @@ nav a.selected, nav a:hover {
 			<footer>
 				<p>&copy; 2017 Maniaweb.</p>
 			</footer>
+=======
+					</ul>	
+				</section>		
+			<section id="secondary">
+				<div class="chatbot-container">
+					<div class="chat-header">
+						<span>Bas Chatbot</span>
+					</div>
+					<div id="chat-body">
+						<div class="bot-chat">
+							<div class="message">Hello! My name is Basbot.<br>You can ask me questions and get answers.<br>Type <span style="color: #90CAF9;/"><strong> Aboutbot</strong></span> to know more about me.</div>
+							<div class="message">You can also train me to be smarter by typing; <br><span style="color: #90CAF9;"><strong>train: question #answer #password</strong></span><br></div>
+						</div>
+					</div>
+					<div class="chat-footer">
+						<div class="input-text-container">
+							<form action="" method="post" id="chat-input-form">
+								<input type="text" name="input_text" id="input" required class="input_text" placeholder="Type your question here...">
+								<button type="submit" class="send_button" id="send">Send</button>
+							</form>
+						</div>
+					</div>
+				</div>	
+			</section>		
+
+			
+		</div>
+
+		<footer>
+			<p>&copy; 2017 Maniaweb.</p>
+		</footer>
+>>>>>>> 6b5c92054a0a9d66eaa87d184cfb1d322c0a818d
 			<script type = text/javascript>
 				var trigger = [
 					["hi"]
