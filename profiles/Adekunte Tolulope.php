@@ -1,23 +1,3 @@
-
- <?php
-    if(!defined('DB_USER')){
-    require "../../config.php"; 
-    try {
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
-  }
-    try {
-        $sql2 = 'SELECT * FROM interns_data WHERE username="Legendary"';
-        $q2 = $conn->query($sql2);
-        $q2->setFetchMode(PDO::FETCH_ASSOC);
-        $my_data = $q2->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    ?>
-
 <?php
 $localhost = 'localhost';
 $user = 'root';
@@ -25,6 +5,16 @@ $pass = '';
 $dbs = 'hng_fun';
 $diffAns ='';
 $db=mysqli_connect($localhost, $user, $pass, $dbs);
+
+try {
+        $db = 'SELECT * FROM secret_word';
+        $q = $mysqli_connect->query($db);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word']
 
 
 if (isset($_POST['bot_r'])) {
