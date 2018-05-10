@@ -47,19 +47,15 @@
 				return;
 			}
     		// query dbase for a similar questions and return a randomly selected single closest response attached to it.
-			$stmt = $conn->prepare("SELECT * FROM chatbot WHERE question LIKE :question LIMIT 1");
-			$quest = "$question%";
-    		$stmt->bindParam(':question', $quest);
-    		$stmt->execute();
-    		$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			$row = $stmt->rowCount();
-			
+			$result = $conn->query("SELECT answer FROM chatbot WHERE question LIKE '%{$question}%' ORDER BY rand() LIMIT 1");
+			$result = $result->fetch(PDO::FETCH_ASSOC);
+			$respond = $result['answer'];
 			// there's a matching result return to user
-    		if($row > 0) {
-				$result = $stmt->fetchAll();		  
+    		if($respond !== " ") {
+				$result = $stmt->fetch();		  
 				echo json_encode([
 		        	'status' => 1,
-		       		'answer' => $result['answer']
+		       		'answer' => $respond
 	     		]);
 	           return;
     		}
@@ -104,17 +100,24 @@
 				return;
 			}
 			
-    		$sql = "INSERT INTO chat (question, answer) VALUES( :question, :answer)";
+    		$sql = "INSERT INTO chat (question, answer) VALUES( :question, :answer);";
     		$stmt = $conn->prepare($sql);
     		$stmt->bindParam(':question', $trainQuestion);
     		$stmt->bindParam(':answer', $trainAnswer);
-    		$stmt->execute();
-    		//$stmt->setFetchMode(PDO::FETCH_ASSOC);
-    		echo json_encode([
-		    	'status' => 1,
-		        'answer' => " I've learnt something new, you can test me now!"
-		    ]);
-		    return;
+    		if($stmt->execute() == true) {
+				//$stmt->setFetchMode(PDO::FETCH_ASSOC);
+				echo json_encode([
+					'status' => 1,
+					'answer' => " I've learnt something new, you can test me now!"
+				]);
+				return;
+			}
+			else {
+				echo json_encode([
+					'status' => 1,
+					'answer' => "couldn't insert into db"
+				]);
+			}
     	}
     }
 ?>
@@ -128,7 +131,7 @@
 		.card {	height: 80vh; width: 300px; border: 1px groove #ccc; border-radius: 3px; }
 		.dp { padding: 2px;	height: 300px;	}
 		span { font-size: 18px;	}
-		.chart-box{ width: 300px; height: 80vh; border: 2px solid #000; overflow:auto; padding-top: 90px; }
+		.chart-box{ font-size:20px; width: 300px; height: 80vh; border: 2px solid #000; overflow:auto; padding-top: 90px; }
 		.chart-input{ position: relative;}
 		.chart-input-box{ position: absolute; bottom: 0px; }
 		.chart-input-box input{ padding: 10px 0 10px 0; width: 300px; border: 2px solid #000; }
@@ -172,8 +175,8 @@
 	function doChat() {
 		var text = $('#text').val();
 
-		$('#chat-area').append("<p style='text-align:right;'>"+text+"</p>");
-		$('#text').val(' ');
+		$('#chat-area').append("<p style='text-align:right; font-size:20px;'>"+text+"</p>");
+		$('#text').val('');
 		//$('#chat-area').append("from db by bot");
 
 		$.ajax({

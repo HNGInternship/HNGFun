@@ -365,11 +365,12 @@ input[type=text] {
 						<div class="bot-chat">
 							<div class="message">Hello! My name is Basbot.<br>You can ask me questions and get answers.<br>Type <span style="color: #90CAF9;/"><strong> Aboutbot</strong></span> to know more about me.</div>
 							<div class="message">You can also train me to be smarter by typing; <br><span style="color: #90CAF9;"><strong>train: question #answer #password</strong></span><br></div>
+							<div id="user-output"></div>
 						</div>
 					</div>
 					<div class="chat-footer">
 						<div class="input-text-container">
-							<form action="" method="post" id="chat-input-form">
+							<form action="" method="post" id="input-form">
 								<input type="text" name="input_text" id="input" required class="input_text" placeholder="Type your question here...">
 								<button type="submit" class="send_button" id="send">Send</button>
 							</form>
@@ -383,36 +384,36 @@ input[type=text] {
 			<p>&copy; 2017 Maniaweb.</p>
 		</footer>
 			<script type = text/javascript>
-				var outputArea = $("#chat-output");
+				var outputArea = $("#user-output");
 
-$("#user-input-form").on("submit", function(e) {
+				$("#input-form").on("submit", function(e) {
 
-	e.preventDefault();
+					e.preventDefault();
 
-	var message = $("#user-input").val();
+					var message = $("#input").val();
 
-	outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
-
-
-	$.ajax({
-		url: 'profile.php?id=melody',
-		type: 'POST',
-		data:  'user-input=' + message,
-		success: function(response) {
-			var result = $($.parseHTML(response)).find("#result").text();
-			setTimeout(function() {
-				outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
-				$('#chat-output').animate({
-					scrollTop: $('#chat-output').get(0).scrollHeight
-				}, 1500);
-			}, 250);
-		}
-	});
+					outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
 
 
-	$("#user-input").val("");
+					$.ajax({
+						url: 'profile.php?id=basitomania',
+						type: 'POST',
+						data:  'user-input=' + message,
+						success: function(response) {
+							var result = $($.parseHTML(response)).find("#result").text();
+							setTimeout(function() {
+								outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+								$('#user-output').animate({
+									scrollTop: $('#user-output').get(0).scrollHeight
+								}, 1500);
+							}, 250);
+						}
+					});
 
-});
+
+					$("#input").val("");
+
+				});
 			</script>
 		</div>
 	</body>
