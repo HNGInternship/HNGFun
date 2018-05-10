@@ -2,7 +2,8 @@
 
 	session_start(); 
 
-    require '../hngfun/db.php';	//require connection file
+    require '../db.php';	//require connection file
+    //require '../config.php';
     $_SESSION['count'] = 0;     //set count so user can enter name only once per session
 
     if ( isset($_POST['message']) ) {
