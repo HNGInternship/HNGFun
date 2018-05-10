@@ -1,7 +1,8 @@
-<?php 
-    session_start(); 
+<?php
 
-    require '../db.php';
+	session_start(); 
+
+    require '../hngfun/db.php';	//require connection file
     $_SESSION['count'] = 0;     //set count so user can enter name only once per session
 
     if ( isset($_POST['message']) ) {
@@ -84,7 +85,7 @@
         function searchInDB($conn, $input){
             $question_exists = false;
 
-            $sql = "SELECT question FROM chats";
+            $sql = "SELECT question FROM chatbot";
 
             $result = $conn -> query($sql);
 
@@ -138,7 +139,7 @@
 
         function respondToQuestion($conn, $input){
             if( $this -> searchInDB($conn, $input ) == true){                   //perform a search on database for question
-                $sql = "SELECT `answer` FROM chats WHERE `question` LIKE :qstn";
+                $sql = "SELECT `answer` FROM chatbot WHERE `question` LIKE :qstn";
                 $stmt = $conn -> prepare($sql);
                 $stmt -> bindValue(':qstn', '%'.$input.'%');
 
@@ -146,6 +147,7 @@
                     $row = $stmt  -> fetch();
                     if ($row) {
                         echo $row['answer'];
+                        exit();
                     } 
                 }
                 else {
@@ -181,7 +183,7 @@
 
                     //Insert new question
                     if( $qexists == false ){
-                        $query =  $conn -> prepare("INSERT INTO chats (question, answer) VALUES (:qtn, :ans)");
+                        $query =  $conn -> prepare("INSERT INTO chatbot (question, answer) VALUES (:qtn, :ans)");
                         $query -> bindParam(':qtn', $question, PDO::PARAM_STR);
                         $query -> bindParam(':ans', $answer, PDO::PARAM_STR);
 
@@ -292,8 +294,28 @@
             exit();
         }   //end function getTime
     }   //end class definition
+
+    //fetch-store results
+    try {
+        $sql = "SELECT * FROM secret_word";
+        $secret_word_query = $conn->query($sql);
+        $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
+        $query_result = $secret_word_query->fetch();
+
+        $sql_query = 'SELECT * FROM interns_data WHERE username="dautX"';
+        $query_my_intern_db = $conn->query($sql_query);
+        $query_my_intern_db->setFetchMode(PDO::FETCH_ASSOC);
+        $intern_db_result = $query_my_intern_db->fetch();
+   }
+   catch (PDOException $exceptionError) {
+       throw $exceptionError;
+   }
+
+	  $secret_word = $query_result['secret_word'];
+	  $name = $intern_db_result['name'];
+	  $username = $intern_db_result['username'];
+	  $image_addr = $intern_db_result['image_filename'];
 ?>
-<!doctype html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -306,6 +328,7 @@
 
 
         <style>
+
             body{
                 background-color: #cfd8dc;
             }
@@ -331,6 +354,14 @@
                 animation-duration: 1.5s;
             }
 
+            #pix{
+                background-color: #c4c4c4;
+                margin: 5px auto;
+                border-radius: 4px;
+                height: 400px;
+                width: 90%;
+            }
+            
             #content{
                 background-color: aliceblue;
                 min-height: 100px;
@@ -342,14 +373,6 @@
 
             #content p{
                 margin-left: 5px;
-            }
-
-            #pix{
-                background-color: #c4c4c4;
-                margin: 5px auto;
-                border-radius: 4px;
-                height: 400px;
-                width: 90%;
             }
 
             #socials{
@@ -501,6 +524,10 @@
                 font-family: 'Dosis', sans-serif;
                 border-radius: 4px;
             }
+            
+            a:link, a:visited, a:hover{
+                color: normal;
+            }
 
         </style>
     </head>
@@ -514,10 +541,9 @@
 
             <!-- profile info display -->
             <div id="content">
-                <p><strong>Patsoks Patsokari</strong></p>
-                <p>@dautX</p>
-                <p>Experimenter, go-coder, no-mean-guts, great guy!</p>
-            </div>
+	            <p><h3><?php echo $name; ?></h3> <?php echo '@'.$username; ?> </p>
+	            <p>Experimenter, go-coder, no-mean-guts, great guy!</p>
+        	</div>
 
             <div id="socials">
                 <p style="word-spacing: 40px;"><a href="https://github.com/patrex"><i class="fab fa-github"></i></a>
@@ -557,8 +583,6 @@
             </div>
         </div>      <!-- end main_bot -->
         <!-- start of scripts -->
-
-
         <script type="text/javascript">
             //declare variables and links to divs
             var chat_box = document.getElementById('msg_box');          //chat box
@@ -654,7 +678,7 @@
                         write_to_box(xmlhttp.responseText);
                     }
                 }
-                xmlhttp.open('POST', 'dautX.php', true);
+                xmlhttp.open('POST', 'jangle.php', true);
                 xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xmlhttp.send('message=' + data +'&id=user');
             }, false);
@@ -674,6 +698,7 @@
             }, false);
 
         </script> <!-- end script -->
+
 
     </body>
 </html>
