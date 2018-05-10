@@ -243,32 +243,22 @@ a {
 			color: black;
 			box-shadow: 3px 3px 5px gray;
 		}
-#send {
-      border: none;
-      color: white;
-      padding: 13px 28px;
-      text-align: center;
-      font-size: 15px;
-      margin: 5px 12px;
-      /*position: absolute;*/
-      float: right;
-      /*box-shadow: 4px 4px 2px #a8b2c1;*/
-      border-radius: 10px;
-    }
+		
 button{
       border:none;
       outline:0;
       display: inline-block;
       padding:20px;
-      color:white;
+      color:#6ab47b;
       background-color: #000;
       text-align: center;
       cursor: pointer;
       width: 100%;
       font-size: 18px;
+	  border-radius: 10px;
     }
 input[type=text] {
-    width: 100%;
+    width: 50%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
