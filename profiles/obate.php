@@ -163,7 +163,6 @@
       margin: 10px auto;
       box-sizing: border-box;
       box-shadow: -3px 3px 5px gray;
-      position:relative;
       color: black;
       overflow-y: scroll;
       background-color: #F3F3F3;
