@@ -39,7 +39,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 function aboutbot() {
-	echo "<div id='result'>MeloBot v1.0 - I am simply a bot that returns data from the database and I also can be taught new tricks!</div>";
+	echo "<div id='result'>BasBot v1.0 - I am simply a bot that returns data from the database and I also can be taught new tricks!</div>";
 }
 function train($input) {
 	$input = explode('#', $input);
@@ -414,6 +414,7 @@ input[type=text] {
 					$("#input").val("");
 
 				});
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 			</script>
 		</div>
 	</body>

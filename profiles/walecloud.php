@@ -101,10 +101,10 @@
 			}
 			
     		$sql = "INSERT INTO chat (question, answer) VALUES( :question, :answer);";
-    		$stmt = $conn->prepare($sql);
-    		$stmt->bindParam(':question', $trainQuestion);
-    		$stmt->bindParam(':answer', $trainAnswer);
-    		if($stmt->execute() == true) {
+    		$tmt = $conn->prepare($sql);
+    		$tmt->bindParam(':question', $trainQuestion);
+    		$tmt->bindParam(':answer', $trainAnswer);
+    		if($tmt->execute() === true) {
 				//$stmt->setFetchMode(PDO::FETCH_ASSOC);
 				echo json_encode([
 					'status' => 1,
@@ -117,6 +117,7 @@
 					'status' => 1,
 					'answer' => "couldn't insert into db"
 				]);
+				return;
 			}
     	}
     }
@@ -134,7 +135,7 @@
 		.chart-box{ font-size:20px; width: 300px; height: 80vh; border: 2px solid #000; overflow:auto; padding-top: 90px; }
 		.chart-input{ position: relative;}
 		.chart-input-box{ position: absolute; bottom: 0px; }
-		.chart-input-box input{ padding: 10px 0 10px 0; width: 300px; border: 2px solid #000; }
+		.chart-input-box input{ font-size:18px; padding: 10px 0 10px 0; width: 300px; border: 2px solid #000; }
 		.move-box{ position: relative; }
 		.move{ position: absolute; left: 10px; }
 		button{ position: absolute; left: 250px; bottom: 10px; height: 35px; cursor: pointer; border: 0; margin-right: 10px; overflow: auto; }
