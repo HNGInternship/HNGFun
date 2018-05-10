@@ -1,8 +1,7 @@
 <?php
 
 
- include_once("../answers.php"); 
-
+   include_once("../answers.php"); 
 if (!defined('DB_USER')){
             
   require "../../config.php";
@@ -12,13 +11,12 @@ try {
 } catch (PDOException $pe) {
   die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
+ global $conn;
 
-$query = $conn->query("SELECT * FROM secret_word");
-$result = $query->fetch(PDO::FETCH_ASSOC);
-$secret_word = $result['secret_word'];
-$question;
+global $pass;
+	$pass = "password";
 
-
+if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 	
 	function botAnswer($message){
 		$botAnswer = '<div class="chat bot chat-message">
@@ -48,7 +46,7 @@ $question;
 		}
 		echo $bot;
 	}
-	if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
+	
 		
 	
 	 	$userInput = strtolower(trim($_POST['question']));
@@ -74,7 +72,7 @@ $question;
 	 		$bot = botAnswer("Version 1.0");
      		//array_push($_SESSION['chat-log'] , $bot);
 	 	}else{
-			 $userInputQuery = $conn->query("SELECT * FROM chatbot WHERE questions like '".$userInput."' ");
+			 $userInputQuery = $conn->query("SELECT * FROM chatbot WHERE question like '".$userInput."' ");
 		     $userInputs = $userInputQuery->fetchAll(PDO::FETCH_ASSOC);
 		    $userInputRows = $userInputQuery->rowCount();
 		     if($userInputRows == 0){
@@ -82,14 +80,14 @@ $question;
 		     //	array_push($_SESSION['chat-log'] , $bot);
 
 		     }else{
-		     	$botAnswer = $userInputs[rand(0, count($userInputs)-1)]['answers'];
+		     	$botAnswer = $userInputs[rand(0, count($userInputs)-1)]['answer'];
 		     	$bot = botAnswer($botAnswer);
 		     	//array_push($_SESSION['chat-log'] , botAnswer($botAnswer));
 		     }
      	}
      	echo $bot;
 
-     	exit;
+     	exit();
      }
 
 ?>
@@ -489,18 +487,19 @@ $question;
 		   
 			xhttp.onreadystatechange = function() {
 	          if(this.readyState == 4 && this.status == 200) {
-	          	 userChat(question.value, this.response);
+	          	console.log(this.response);
+	          	 userChat(question.value);
      			e.preventDefault();
 	            question.value = '';
 	          }
       	    }
-        xhttp.open('POST', 'profile.php?id=Abigail', true);
+        xhttp.open('POST', 'profiles/Abigail.php', true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send('question='+ question.value);
         e.preventDefault();
 		}
 
-		function userChat(chats, reply){
+		function userChat(chats){
 			if(question.value !== ''){
 				var chat = `<div class="chat user chat-message">
 					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
@@ -509,16 +508,10 @@ $question;
 						<span class="chat-time">` + new Date().toLocaleTimeString(); + `</span>
 					 </div>
 				</div>`;
-		    chatContent.innerHTML += chat;
-		     
-		    setTimeout(function() {
-			    chatContent.innerHTML += reply + `<span class="chat-time">`+ new Date().toLocaleTimeString(); +` </span>
-					</div> 
-				</div>`;
-				document.getElementById('chatlogs').scrollTop = document.getElementById('chatlogs').scrollHeight;	
-			}, 1000);
 			}
-			
+			chatContent.innerHTML += chat;
+		     
+		    
 		}
 	</script>
 	

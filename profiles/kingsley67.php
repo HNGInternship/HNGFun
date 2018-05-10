@@ -176,7 +176,7 @@ $error="I couldn't find an answer to your question, please train me with that us
    
     h3{background-color: #2A88AD;
     width:250px;
-    margin: 20px 210px;
+    margin: 20px 170px;
   }
    
     p{color:black}
@@ -364,12 +364,13 @@ https://res.cloudinary.com/dyngnvcre/image/upload/v1524083992/king.jpg" alt="kin
            <p>Welcome User, my name is <span style="color:#109177"><strong>Rim67</strong></span>,and I am a bot</p>
         <p>You can ask me any question and i'll do my best to suggest you answers</p>
             <div class="chat">
-                <div id="chatOutput">
                     <div id="chathead">
                         <p>You can train me with your personal questions using the keyword/format <span style="color:#109177"><strong>train:your-Question#your-Answer#password<br>N.B:</strong></span>the training password is<span style="color:#109177"><strong>trainpwforhng</strong> </span></p>
              <p>I also have the ability to tell you your zodiac sign. To know your zodiac sign, enter the following keyword followed by your birthday<span style="color:#109177"><strong>
                  Birthday:yyyy-mm-dd</strong></span></p>
         </div>
+                <div id="chatOutput">
+                
                     <div><h4></h4></div>
                     <div id="results">
                     <h4><span id='ques'> </span><br><span id='ans'> </span>
@@ -413,12 +414,12 @@ $.ajax({
         cache: false,
      dataType: "json",
     data:{
-    question:input
+    questions:input
     
    }, 
-
+beforeSend: function() { $('#results').append("please wait");},
   success: function(result) {
--        $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
+      $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
 
         }
         });
