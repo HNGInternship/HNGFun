@@ -1,10 +1,47 @@
 <?php 
 
 
-   if($_GET['question']){
+   if(isset($_GET['answer'])){
+
+		require_once '../../config.php';
+    
+       try {
+		    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		} catch (PDOException $pe) {
+		    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+		}
+		
+		
+
+		$question = safeInput($_GET['question']);
+		$answer = safeInput($_GET['answer']);
+
+		$params = array(':question' => $question, ':answer' => $answer);
+
+		$sql = 'INSERT INTO chatbot ( question, answer )
+		      VALUES (:question, :answer);';
+
+		try {
+		    $q = $conn->prepare($sql);
+		    if ($q->execute($params) == true) {
+		        echo json_encode([
+		        	'success' => true,
+		            'message' => "Thanks for training me, I can now respond to you better"
+		        ]);
+		    };
+		} catch (PDOException $e) {
+			echo json_encode([
+			    'success' => false,
+			    'message'    => "Error training me: "
+			]);
+		    throw $e;
+		}
+        return;
+
+	}else if($_GET['question']){
 	   require_once '../../config.php';
 
-	   	$question = $_GET['question'];
+	   	$question = safeInput($_GET['question']);
 		try {
 		    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		} catch (PDOException $pe) {
@@ -17,21 +54,37 @@
 		  $data = ['answer'=>null];
 		}else
 		  $data = ['answer'=>$answer];
+
+
 		
 		header('Content-Type: application/json');
 		echo json_encode($data);
 		return;
+	}else {
+		$result = $conn->query("Select * from secret_word LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+		$secret_word = $result->secret_word;
+
+		$result2 = $conn->query("Select * from interns_data where username = 'olubori'");
+		$user = $result2->fetch(PDO::FETCH_OBJ);
+
 	}
 
-	$result = $conn->query("Select * from secret_word LIMIT 1");
-	$result = $result->fetch(PDO::FETCH_OBJ);
-	$secret_word = $result->secret_word;
-	$result2 = $conn->query("Select * from interns_data where username = 'olubori'");
-	$user = $result2->fetch(PDO::FETCH_OBJ);
+
+	function safeInput($data){
+	  $data = trim($data);
+      $data = stripslashes($data);
+	  $data = htmlspecialchars($data);
+
+	  return $data;
+	}
+
+	
 
 	
 ?>
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300" rel="stylesheet" type="text/css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -156,6 +209,20 @@
 	  	background: #ff122d;
 	  }
 
+      #img-container {
+      	width: 90%;
+      }
+
+      #profile-box {
+      	display: flex;
+      	flex-direction: column;
+      	align-items: center;
+      }
+
+      #profile-box img {
+      	border-radius: 2rem;
+      }
+
 	  @media only screen and (min-width: 993px) {
 	  	#main > div {
 	  	  width: 50%;
@@ -164,6 +231,10 @@
 	    #menu {
 	      display: none;
 	    }
+
+	    #img-container {
+      	  width: 70%
+        }
 
 	  }
 		/*html, body{
@@ -235,21 +306,28 @@
 		<a href="#">Chat Bot</a>
 	</div>
   <div id="main">
-  	<div id="profile-box">
-  		Profile
+  	<div id="profile-box" >
+
+  	   <span class="px-4" id="img-container">
+  	   <img src="https://res.cloudinary.com/naera/image/upload/v1525932431/Photo_on_1-26-18_at_2.57_PM_2_xpnojm.jpg" class="img-fluid">
+  	</span>
+  		<h3 class="col-12 text-center"><?= $user->name ?></h3>
+
   	</div>
   	<div id="chat-box" >
   		<header>
-  			<h4>HNG assist</h4>
+  			<h4 class="text-center text-success">BORI BOT</h4>
   		</header>
-  		<main ref="chat-msgs">
+  		<main ref="chat-msgs" id="chat-msgs">
   			<p v-for="msg in messages" :class="msg.human ? 'human-msg': 'bot-msg'" v-html="msg.text"></p>
+
+  			<div class="mx-auto bg-info w-50 text-white rounded" v-show="zoneList == null" v-html="info"></div>
   		</main>
   		<ul class="suggestion" v-show="suggestedCommands" ref="list">
   			<p class="my-0">Available commands <small>Click on any to choose</small></p>
   			<command-item v-for="(command, index) in suggestedCommands" :command="command" :key="command.key" :on-item-click="handleCommandClick"></command-item>
   		</ul>
-  		<input type="text" v-model="humanMessage" placeholder="Type # followed by command you want to give e.g. #train" id="human-text" @keyup.enter="handleSubmit" />
+  		<input type="text" v-model="humanMessage" :disabled="zoneList == null" placeholder="Type # followed by command you want to give e.g. #train" id="human-text" @keyup.enter="handleSubmit" />
   	</div>
   </div>
   
@@ -265,7 +343,8 @@
 	               {key: 'timeofday', description: 'This command is to get the current time of day in any of the world location', format: '[location]'},
 	               {key: 'chitchat', description: 'This command is to chat with the bot', format: '[question]'},
 	               {key: 'dayofweek', description: 'This command is get the day of the weeks a date falls on', format: '[yyyy-mm-dd]'},
-	               {key: 'aboutbot', description: 'This command is tells you about me', format: ''}
+	               {key: 'aboutbot', description: 'This command is tells you about me', format: ''},
+	               {key: 'popularcities', description: 'Show all popular city that starts with an alphabet', format: '[a], or [b],... [z]'}
 	              ],
         humanMessage: '',
         zoneList: null,
@@ -275,7 +354,8 @@
                     	human: false, 
                     	text: `Hi, I am Bori Bot, I can do many things. To get list of commands you can use on me just type # in the textbox`
                     }
-                  ]
+                  ],
+        info: '<h4 class="text-center">Bot is currently preparing data</h4><p class="text-center">Please wait...</p>'
       },
 	  computed: {
 	  	suggestedCommands: function(){
@@ -311,9 +391,9 @@
           
           let answer = await this.getAnswer();
           this.messages.push({human: false, text: answer});
-          //chatBox.scrollTop = chatBox.scrollHeight;
-          let chatBox = this.$refs['chat-msgs'];
-		  chatBox.scrollTop = chatBox.scrollHeight + 60;
+          this.choice = {command: '', message:''};
+          
+		  $("#chat-msgs").animate({ scrollTop: $("#chat-msgs").height() }, "fast");
 	  	},
 	  	getAnswer: function(){
 			switch(this.choice.command){
@@ -327,6 +407,8 @@
 			    return this.doChat();
 			  case 'train':
 			    return this.doTrainBot();
+			  case 'popularcities':
+			    return this.getAllCities();
 			  default:
 			    return "I can't help with that please, give me a correct command";
 			}
@@ -362,7 +444,7 @@
 	  	    if(zones.length < 1){
 	  	      return "Time can not be found for your location can you use a popular city around that location. For example for Nigeria use #timeofday [Lagos]";
 	  	    }
-	  	    let output = '<h3>Time for ' + location + '</h3>';
+	  	    let output = '<h4>Time for ' + location + '</h4>';
 	  	    for (zone of zones) {
 	  	      const response = await fetch(`http://api.timezonedb.com/v2/get-time-zone?key=DXHGYWUAFA3S&format=json&by=zone&zone=${zone.zoneName}`);
 	  	      const json = await response.json();
@@ -370,15 +452,17 @@
 	  	      const formatted = json.formatted;
 	  	      
 	  	      const splitted = formatted.split(' ');
-        	  output += `${zone.zoneName}<ul><li>Time: ${splitted[1]}</li><li>Date: ${splitted[0]}</li></ul>`;
+        	  output += `${zone.zoneName} <strong>${zone.countryName}</strong><ul><li>Time: ${splitted[1]}</li><li>Date: ${splitted[0]}</li></ul>`;
 	  	    }
 
 	  	    return output;
 
 	  	},
 	  	doChat: function(){
+
+	  	  let question;
 	  	  try{
-            let question = this.choice['message'].match(/\[(.*?)\]/)[1];
+            question = this.choice['message'].match(/\[(.*?)\]/)[1];
 	  	  }catch(ex){
             return "Follow the correct syntax #chitchat [question]";
 	  	  }
@@ -405,27 +489,55 @@
 
 	  	  if(password != 'password')
 	  	  	  return 'You cannot train me, input correct password';
-	  	    
-	  	  return axios.post('profiles/olubori.php', {
-	  	          train_question: params[1],
-	  	          answer: params[2]
-	  	    }).then(function (response) {
-	  	      let chatResponse = response.data.answer || 'I cannot find you a valid answer, go ahead and train me. Use #train [question] [answer] [password]';
-	  	      return chatResponse;
-	  	    })
-	  	    .catch(function (error) {
-	  	      console.log(error);
-	  	      return 'Something went wrong, try again please';
-	  	    });
+	  	   console.log(params[1]); 
+	  	  return axios.get('profiles/olubori.php',
+	  	   {
+	  	   	 params: { question: params[1], answer: params[2] }
+	  	   })
+		  	  .then(function (response) {
+		  	        console.log(response);
+		  	        return response.data.message;
+		  	    })
+		  	    .catch(function (error) {
+		  	      console.log(error);
+		  	      return 'Something went wrong, try again please';
+		  	    });
 	  	  
 	  	  
+	  	},
+	  	getAllCities: function(){
+	  		let char;
+	  	  try{
+            char = this.choice['message'].match(/\[[a-zA-Z]{1}\]/)[0];
+            
+	  	  }catch(ex){
+            return "Follow the correct syntax #popularcities [a], or #popularcities [b], ... #popularcities [z]";
+	  	  }
+	  		char = char.charAt(1).toUpperCase();
+	  		let cities = [];
+            
+            val = `<p>Cities that starts with <strong>${char}</strong></p><ul>`;
+	  	    for (zone of this.zoneList) {
+	  	      const arr = zone.zoneName.split('/');
+	  		  city = arr[arr.length-1];
+              if(city.indexOf(char) === 0)
+              	val += `<li><strong>${city}</strong> - ${zone.countryName}</li>`;
+	  	    }
+
+	  		val += `</ul>`;
+
+	  		return val;
 	  	}
 	  },
 	  created: async function(){
-	  	const response = await fetch('http://api.timezonedb.com/v2/list-time-zone?key=DXHGYWUAFA3S&format=json');
-	  	const json = await response.json();
-        this.zoneList = json.zones;
-        console.log(this.zoneList);
+	  	try{
+	  	  const response = await fetch('http://api.timezonedb.com/v2/list-time-zone?key=DXHGYWUAFA3S&format=json');
+	  	  const json = await response.json();
+	  	  this.zoneList = json.zones;
+	  	}catch(ex){
+	  	  this.info = '<h4 class="text-center text-danger">OOPS!!! APOLOGY</h4><p class="text-center">Something went wrong while I was trying to get data, Please reload your page and check your internet connection and firewall.</p>'
+	  	}
+	  	
 	  }
 	})
 
