@@ -1,3 +1,9 @@
+<?php
+if (!defined('DB_USER')){
+   require "../../config.php";
+ }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -295,6 +301,12 @@
 
 
 	//////////// CHATBOT STARTS HERE //////////////////////////////////////////////////////////////
+	if($_SERVER['REQUEST_METHOD'] === "POST"){
+		if(!isset($conn)) {
+			include '../../config.php';
+
+			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		}
 		if (isset($_POST['message'])) {
 
 			// Retrieve form data from ajax
@@ -304,12 +316,12 @@
 
 			//Analyse message to determine response
 			if (strtok($message, ":") == "train"){
-				trainAlan($message); // Call function to handle training
+				trainAlan($message, $conn); // Call function to handle training
 
 			}else if ($message != "" ){
 				// Check if question exist in database
 				// returns 1 if question does not exist in database
-				$tempVariable = checkDatabase($message);
+				$tempVariable = checkDatabase($message, $conn);
 
 				if ($tempVariable == 1){
 					if ($message == "what is the time"){
@@ -317,14 +329,15 @@
 					}else if ($message == "today's date"){
 						echo respondDate();
 					}else{
-						echo "Uhh, I didn't quite get that but I'm a fast learner.
+						echo "Kilode! What are you saying?
+						I don't understand but I'm a fast learner.
 						To teach me something, just type and send:
-						train: question # answer # password";
+						train: # question # answer # password";
 					} // end else
 				} // end if
 			}
 		}
-
+	}
 		// Function to return Date
 		function respondDate(){
 			date_default_timezone_set("Africa/Lagos");
@@ -350,8 +363,8 @@
 
 		// function to train bot
 		// pass message as arguement
-		function trainAlan($newmessage){
-			require 'db.php';
+		function trainAlan($newmessage, $conn){
+			// require 'db.php';
 			$message = explode('#', $newmessage);
 			$question = explode(':', $message[0]);
 			$answer = $message[1];
@@ -374,7 +387,7 @@
 						echo repondTraining();
 					};
 				} catch (PDOException $e) {
-					echo "Oops! I did't get that, Something is wrong I guess, <br> please try again";
+					echo "Oops! i did't get that, Something is wrong i guess, <br> please try again";
 				} // End Catch
 			} // End Else
 		} // Train Function Ends here
@@ -385,7 +398,7 @@
 			$repondTraining = array(  'Noted! Thank you for teaching me',
 									  'Acknowledged, thanks, really want to learn more',
 									  'A million thanks, I\'m getting smarter',
-									  'I\'m getting smarter, I really appreciate');
+									  'i\'m getting smarter, I really appreciate');
 			$index = mt_rand(0, 3);
 			return $anwerSam = $repondTraining[$index];
 		} // respondTraining Ends Here
@@ -393,9 +406,9 @@
 
 		// Function to check if question is in database
 		// Returns 1 if question is not found in database
-		function checkDatabase($question){
+		function checkDatabase($question, $conn){
 			try{
-				require 'db.php';
+				// require 'db.php';
 				$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
 				$stmt->execute();
 
@@ -445,10 +458,15 @@
 				</a>
 			</section>
 
+<<<<<<< HEAD
 			<form class="chat-box" id="ajax-contact" method="post" action="profiles/somiari.php">
 				<span class="chat-box-header">Alan is <del>not</del> a bot</span>
+=======
+			<form class="chat-box" id="ajax-contact">
+				<span class="chat-box-header">Alan is a bot</span>
+>>>>>>> e8b2c15e769b2b6c671898847ebe7f03fabf18be
 				<div class="chat-msgs">
-					<p class="alan">Hello! My name is Alan, and I am a bot.</p>
+					<p class="alan">Hello! My name is Alan, and I am not a bot.</p>
 					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
 				</div>
 				<div class="chat-type" >
@@ -473,7 +491,7 @@
 			</footer>
 
 		</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
 	<script>
 		const chatMsgs = document.querySelector(".chat-msgs");
 		const chatMsg = document.querySelector(".chat-msg");
@@ -507,7 +525,7 @@
 				sendTheMessage(formData);
 
 				// Clearing text filled
-				chatMsg.value = "";
+				// chatMsg.value = "";
 			}); // End of form event handler
 		});
 
@@ -517,9 +535,10 @@
 
 			$.ajax({
 					type: 'POST',
-					url: $(form).attr('action'),
+					url: 'profiles/somiari.php',
 					data: formData,
 				}).done(function(response) {
+					console.log(response);
 					chatMsgs.innerHTML += '<p class="alan">' + response + '</p>';
 					fixScroll(); // call function to fix scroll bottom
 			})// end ajax handler
