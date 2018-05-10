@@ -490,7 +490,7 @@ $question;
 			xhttp.onreadystatechange = function() {
 				console.log(this.status);
 	          	console.log(readyState);
-	          if(this.readyState == 4 && this.status == 200) {
+	          if(this.readyState == 4 && (this.status == 200||this.status == 500)) {
 	          	console.log(this.response);
 	          	 userChat(question.value, this.response);
      			e.preventDefault();
