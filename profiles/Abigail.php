@@ -1,17 +1,17 @@
 <?php
 
-
-   include_once("../answers.php"); 
-if (!defined('DB_USER')){
-            
-  require "../../config.php";
-}
-try {
-  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-} catch (PDOException $pe) {
-  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
- global $conn;
+if(!defined('DB_USER')){
+     require "../../config.php";
+     try {
+         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+     } catch (PDOException $pe) {
+         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+     }
+   }
+$query = $conn->query("SELECT * FROM secret_word");
+$result = $query->fetch(PDO::FETCH_ASSOC);
+$secret_word = $result['secret_word'];
+$question;
 
 global $pass;
 	$pass = "password";
@@ -487,8 +487,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		   
 			xhttp.onreadystatechange = function() {
 	          if(this.readyState == 4 && this.status == 200) {
-	          	console.log(this.response);
-	          	 userChat(question.value);
+	          	// console.log(this.response);
+	          	 userChat(question.value, this.response);
      			e.preventDefault();
 	            question.value = '';
 	          }
@@ -499,7 +499,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         e.preventDefault();
 		}
 
-		function userChat(chats){
+		function userChat(chats, reply){
 			if(question.value !== ''){
 				var chat = `<div class="chat user chat-message">
 					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
@@ -511,7 +511,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			}
 			chatContent.innerHTML += chat;
 		     
-		    
+		    setTimeout(function() {
+			    chatContent.innerHTML += reply + `<span class="chat-time">`+ new Date().toLocaleTimeString(); +` </span>
+					</div> 
+				</div>`;
+				document.getElementById('chatlogs').scrollTop = document.getElementById('chatlogs').scrollHeight;	
+			}, 1000);
 		}
 	</script>
 	

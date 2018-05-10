@@ -270,7 +270,7 @@ function isAbout($question){
                 </ul>
                 </div>
     <!--chat bot area-->
-    <div class="col-md-5 chatbot" style="height:100%;">
+    <div class="col-md-5 chatbot" style="height: 100%;">
          <div class="">
             Hello, my name is Mikkybang what can i do for you?
          </div>
@@ -280,8 +280,8 @@ function isAbout($question){
                             <div class="">
                               <input id="txt_question" class="" type="text" name="chatbotmessage" placeholder="Type in your requests">
                             </div>
-                            <div class="md:w-1/3 m-2">
-                              <input type="submit" class="btn btn-large btn-primary" type="button" value="⬆">
+                            <div class="">
+                              <input type="submit" class="btn btn-large btn-primary" type="button" value="Send">
                             </div>
              </form>
 
