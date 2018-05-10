@@ -255,7 +255,24 @@ a {
       /*box-shadow: 4px 4px 2px #a8b2c1;*/
       border-radius: 10px;
     }
-
+button{
+      border:none;
+      outline:0;
+      display: inline-block;
+      padding:20px;
+      color:white;
+      background-color: #000;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+    }
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
 </style>
 	</head>
 	<body>
