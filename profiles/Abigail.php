@@ -406,7 +406,7 @@ $question;
                 </ul>
       </div>
     <p>I am a junior web developer with experience with HTML, CSS, JavaScript, Bootstrap and PHP. My love for words and solving problems brought me to the world of writing and coding(which I choose to acknowledge as writing). Want to chat, collaborate or hire me on a project, please feel free to contact me.</p>
-    <div id="contact" align="center"><a href="mailto:animashaunoluwatosin7@gmail.com">CONTACT</a></div>
+    <div id="contact" align="center"><a href="mailto:bogadeji@gmail.com">CONTACT</a></div>
 
       
 
