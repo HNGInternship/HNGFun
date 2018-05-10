@@ -214,10 +214,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     list-style-type: none;
   }
   #botresponse{
-    background-color: #030404;
+    background-color: #2E7CAF;
+    color: white;
+    width: 100%;
   }
   #sentmessage{
     background-color: gray;
+    color: white;
+    width: 100%;
   }
   #mchats{
     overflow-y: auto;
