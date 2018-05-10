@@ -127,7 +127,9 @@
 			font-size: 30px;
 			padding: 2px;
 		}
-
+		.row {
+			margin-top:30px;
+		}
 		.card {
 			height: 600px;
 			width: 400px;
