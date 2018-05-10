@@ -39,12 +39,12 @@
     	$question = $_POST['text'];
     	// check it is not a train question
     	$tQuest = isTrainQuestion($question);
-    	if($tQuest === false) {
+    	if($tQuest === false || $tQuest == false) {
 			// check if its about bot
-			if($question == 'aboutbot'){
+			if($question == 'about bot' || $question == 'aboutbot' ){
 				$version = "1.0";
 				echo json_encode(['status'=>1,"answer"=>"version ".$version]);
-				exit();
+				return;
 			}
     		// query dbase for a similar questions and return a randomly selected single closest response attached to it.
     		$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE ':question'");
@@ -90,7 +90,20 @@
     			]);
     			return;
     		}
+			$stmt = $conn->prepare("SELECT * FROM chatbot WHERE question = ':question'");
+    		$stmt->bindParam(':question', $question);
+    		$stmt->execute();
+    		$stmt->setFetchMode(PDO::FETCH_ASSOC);
+			$rows = $stmt->fetchAll();
 
+			if($rows > 0) {
+				echo json_encode( [
+					'status' => 1,
+					'answer' => 'Nice but i know this already. Thank you!'
+				]);
+				return;
+			}
+			
     		$sql = "INSERT INTO chat (question, answer) VALUES( :question, :answer)";
     		$stmt = $conn->prepare($sql);
     		$stmt->bindParam(':question', $trainQuestion);
@@ -114,7 +127,6 @@
 			font-family: OCR A std;
 			font-size: 30px;
 			padding: 2px;
-			text-align: center;
 		}
 
 		.card {
@@ -169,7 +181,7 @@
 		}
 	</style>
 </head>
-<body>
+<body style="display: flex;">
 
 <div class="card">
 	<div class="dp">
