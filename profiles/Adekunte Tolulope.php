@@ -1,134 +1,76 @@
 <?php
-require 'db.php';
-try {
-    $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'Adekunte Tolulope'");
-    $intern_data->execute();
-    $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
-    $result = $intern_data->fetch();
-  
-    $secret_code = $conn->prepare("SELECT * FROM secret_word");
-    $secret_code->execute();
-    $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
-    $code = $secret_code->fetch();
-    $secret_word = $code['secret_word'];
- } catch (PDOException $e) {
-     throw $e;
-    }
-  $result = $conn->query("SELECT * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
-  $result2 = $conn->query("Select * from interns_data where username = 'Adekunte Tolulope'");
-  $user = $result2->fetch(PDO::FETCH_OBJ);
+$localhost = 'localhost';
+$user = 'root';
+$pass = '';
+$dbs = 'hng_fun';
+$diffAns ='';
+$db=mysqli_connect($localhost, $user, $pass, $dbs);
 
- try {
-        $sql = 'SELECT * FROM secret_word';
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
+
+
+try {
+       $db = "SELECT secret_word FROM secret_word LIMIT 1";;
     } catch (PDOException $e) {
         throw $e;
     }
-    $secret_word = $data['secret_word'];
-    if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $data = $_POST['user-input'];
-      //  $data = preg_replace('/\s+/', '', $data);
-        $temp = explode(':', $data);
-        $temp2 = preg_replace('/\s+/', '', $temp[0]);
-        
-        if($temp2 === 'train'){
-            train($temp[1]);
-        }elseif($temp2 === 'aboutbot') {
-            aboutbot();
-        }else{
-            getAnswer($temp[0]);
-        }
-		
-    }
-    function aboutbot() {
-        echo "<div id='result'> I am a computer program designed to simulate conversation with human users.</div>";
+
+if (isset($_POST['bot_r'])) {
+	$data = $_POST['bot_r'];
+
+	if ($data == 'aboutbot') {
+		echo "V 1.0";
+		exit();
+	}else if(strstr($data, 'train:') && strstr($data, '#')){
+		$exp = explode(':', $data);
+		$exp = explode('#', $exp[1]);
+		if (count($exp) == 3) {
+			if ($exp[2] == 'password') {
+			if (mysqli_query($db, "INSERT INTO chatbot(question,answer)VALUES('$exp[0]','$exp[1]')")) {
+				echo "Training Successful. Now i know $exp[0]";
+				exit();
+			}else{
+				echo "I refused to be trained!";
+				exit();
+			}
+		}else{
+			echo "Your password is incorrect.<br>Try again later!";
 		}
-	
-    function train($input) {
-        $input = explode('#', $input);
-        $question = trim($input[0]);
-        $answer = trim($input[1]);
-        $password = trim($input[2]);
-        if($password == 'password') {
-            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
-            $q = $GLOBALS['conn']->query($sql);
-            $q->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $q->fetch();
-            if(empty($data)) {
-                $training_data = array(':question' => $question,
-                    ':answer' => $answer);
-                $sql = 'INSERT INTO chatbot ( question, answer)
-              VALUES (
-                  :question,
-                  :answer
-              );';
-                try {
-                    $q = $GLOBALS['conn']->prepare($sql);
-                    if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>Training Successful!</div>";
-                    };
-                } catch (PDOException $e) {
-                    throw $e;
-                }
-            }else{
-                echo "<div id='result'>I already understand this. Teach me something new!</div>";
-            }
-        }else {
-            echo "<div id='result'>Invalid Password, Try Again!</div>";
-        }
-    }
-    function getAnswer($input) {
-        $question = $input;
-        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
-        $q = $GLOBALS['conn']->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetchAll();
-        if(empty($data)){
-            echo "<div id='result'>Sorry, I am not able to process that command at the moment. You can train me simply by using the format - 'train: question # answer # password'</div>";
-        }else {
-            $rand_keys = array_rand($data);
-            echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
-        }
-    }
-    ?>
+		}else{
+			echo "Invalid strings!<br><br><b><i>train:question #answer #password</i></b>";
+			exit();
+		}
+	}
+	else{
+		$query = mysqli_query($db, "SELECT answer FROM chatbot WHERE question LIKE '%$data%' ");
+		if (mysqli_num_rows($query) > 0) {
+			while ($val = mysqli_fetch_row($query)) {
+				$diffAns .= $val[0].','; 
+			}
+			$diff = explode(',', $diffAns);
+			if (count($diff) > 1) {
+				$rand = array_rand($diff);
+				echo $diff[$rand];
+				exit();
+			}else{
+				echo $diff[0];
+				exit();
+			}
+			
+			
+		}else{
+			echo "Sorry I do not have that command  but you can train by entering the following <br><b><i>train:question #answer #password</i></b>";
+			exit();
+		}
+	}
 
-</div>
-
-</body>
-
-
-<script>
-    var outputArea = $("#chat-output");
-    $("#user-input-form").on("submit", function(e) {
-        e.preventDefault();
-        var message = $("#user-input").val();
-        outputArea.append(<div class='bot-message'><div class='message'>${message}</div></div>);
-        $.ajax({
-            url: 'profile.php?id=Tobey',
-            type: 'POST',
-            data:  'user-input=' + message,
-            success: function(response) {
-                var result = $($.parseHTML(response)).find("#result").text();
-                setTimeout(function() {
-                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
-                    $('#chat-output').animate({
-                        scrollTop: $('#chat-output').get(0).scrollHeight
-                    }, 1500);
-                }, 250);
-            }
-        });
-        $("#user-input").val("");
-    });
-</script>
-
-
+}
 ?>
 
-<!-- Add icon library -->
+
+<!Doctype html>
+<html>
+   <head>
+       <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
@@ -163,86 +105,118 @@ a {
 button:hover, a:hover {
   opacity: 0.7;
 }
-    .chat-box{
-    position: absolute;
-    bottom: 0;
-    right: 0;
-	
-	font-size:36px;
-	color:#CCC;
-}
-.box{
-    transition: height 1s ease-out;
-    width: 300px;
-    height: 0px;
-    background:#003;
-    z-index: 9999;
-	
-}
-.open:hover>.box{
-  height:400px;
-      transition: height 1s ease-out;
-	 
-}
-.open {
-    text-align: center;
-    font-size: 20px;
-    border: 2px solid #3F51B5;
-    background:#666;
-    color:#999;
-}
+#Chatbot-holder{
+		position: fixed;
+		right:5px;
+		bottom:-345px;
+		z-index: 4;
+		height:410px;
+		transition: 1s;
+		
+	}
+	#Chatbot-holder:hover{
+		bottom:5px;
+	}
+	#botImg{
+		border-radius:100%;
+		padding:6px;
+		width:50px;
+		height:50px;
+		text-align: center;
+		margin: auto;
+	}
+	#botImg > img{
+		width:inherit;
+		height: inherit;
+		border:solid 1px black;
+		border-radius: 100%;
+	}
 
-div {
-	font-size:24px;
-	font-style:oblique;
-}
-    .chat-output {
-            flex: 1;
-            padding: 10px;
-            display: flex;
-            background: #e0e7e8;
-            font-size:14px;
-            color: ;
-            flex-direction: column;
-            overflow-y: scroll;
-            max-height: 500px;
-        }
-        .chat-output > div {
-            margin: 0 0 20px 0;
-        }
-        .chat-output .user-message .message {
-            background: #34495e;
-            color: white;
-        }
-        .chat-output .bot-message {
-            text-align: right;
-        }
-        .chat-output .bot-message .message {
-            background: #eee;
-        }
-        .chat-output .message {
-            display: inline-block;
-            padding: 12px 20px;
-            margin:3px;
-            border-radius: 10px;
-        }
-        .chat-input {
-            padding: 14px;
-            background: #eee;
-            font-size:14px;       
-            border: 1px solid #ccc;
-            border-bottom: 0;
-        }
-        .chat-input .user-input {
-            width: 98%;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            padding: 9px;
-            margin-right:10px;
+	#content{
+		
+		padding:10px 8px;
+		margin-top: 2px;
 
-    
+	}
+	#content > #head {
+		background-color: #cccccc;
+		color:black;
+		text-align: center; 
+		padding:10px;
+	}
+	#content > #head > span{
+		text-shadow: 0px 0px 2px white;
+		font-size: 20px;
+		
+		
+	}
+	#content > #body{
+		background-color: #cccccc;
+		color:black;
+		text-align: center; 
+		padding:10px;
+	}
+	#body > div{
+		border:1px ridge gray;
+		padding:10px auto; 
+	}
+	#body div code{
+		text-shadow: 0px 1px 2px red;
+	}
+	#body #inpBut{
+		display: flex;
+	}
+	#body #ans{
+		padding: 10px 2px;
+		overflow-y: auto;
+		height:100px;
+	}
+	#body .ques{
+		width:50%;
+		background-color:rgba(50,70,200,0.8); 
+		padding: 4px 0px;
+		text-align: left;
+		border-radius: 8px;
+		text-indent: 3px;
+	} 
+	#body .ans{
+		width:50%;
+		background-color:rgba(50,200,70,0.8); 
+		padding: 4px 0px;
+		margin-left:50%;
+		text-align: right;
+		border-radius: 8px;
+		padding-right: 1px;
+
+	}
+	#body #inpBut input{
+		width:100%;
+		border:none;
+		padding:10px;
+		background-color: rgba(0,0,0,0.7);
+		color:white;
+		text-shadow: 0px 0px 1px navy;
+	}
+	#body #inpBut button {
+		padding:10px;
+		color:navy;
+		text-shadow: white;
+		background-color: rgba(200,200,200,0.8);
+		box-shadow: 0px 0px 4px 2px black;
+	}
+	#foot{
+		text-align: center;
+		letter-spacing: 3px;
+		font-weight:bolder;
+		background-color: #cccccc;
+		color:black;
+		text-shadow: 0px 0px 2px black;
+		padding:10px;
+	}
+	
+       
 </style>
-</head>
+    </head>
 <body>
 
 
@@ -264,46 +238,66 @@ div {
 </div>
 
 
+<div id="Chatbot-holder">
+	<div id="botImg">
+		
+		<img src="https://cdn3.iconfinder.com/data/icons/basic-mobile-part-3/512/robot_head-512.png">
+	</div>
+	<div id="content">
+		<div id="head">
+			<span>CHATBOT</span>
+		</div>
+		<div id="body">
+			<div>STRINGS TO TRAIN:<br>
+				<small>
+					<code>train:questions #answers #password</code>
+				</small>
+			</div>
+
+			<div id="ans">
+			
+				
+			</div>
+			<div id="inpBut">
+            <input type="text" id="botInp" placeholder="Enter Question">
+			  <button onclick="processR()">Submit</button>
+			</div>
+		</div>
+		<div id="foot">
+		<kbd>ADREX</kbd>
+		</div>
+	</div>
 </div>
-</div>
+<script type="text/javascript">
+var no = 0;
+	function processR(){
+		
+		if (document.getElementById('botInp').value != '') {
+			var x = new XMLHttpRequest();
+		var url = 'Adekunte Tolulope.php';
+		var data = document.getElementById("botInp").value;
+		var vars = "bot_r="+data;no++;
+		document.getElementById('ans').innerHTML+='<div><div class="ques">'+data+'</div></div>';
+		document.getElementById('ans').innerHTML+='<div><div class="ans" id="id'+no+'">Loading...</div></div>';
+		var cont = document.getElementById('body').offsetHeight;
+		var inn = document.getElementById('inpBut').offsetHeight;
+		var pos = cont - inn;
+		window.scroll(0,pos);
+		
+		x.open("POST", url, true);
+		x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		x.onreadystatechange = function(){
+			if (x.readyState == 4 && x.status == 200) {
+				var return_data = x.responseText;
+				document.getElementById("id"+no).innerHTML= return_data;
+				document.getElementById("botInp").value = '';
+			}
+		}
+			x.send(vars);
 
-<div class="chat-box">
-  <div class="open">ChatBot
-  <div class="box">
-    <br>
-    Adtrexbot
-    <div class="bot panel panel-default">
-            
-        <div class="panel-body">
-        <div class="oj-sm-12 oj-flex-item">
-            <div class="body1">
-                <div class="chat-output" id="chat-output">
-                    <div class="user-message">
-                        <div class="message">Hey there! Adtrexbot at your service. </div>
-                        <div class="message">To teach me new stuff, use this format - <span style="color: yellow">'train: question # answer # password'.</span> </div>
-                    
-                    <div class="message">To learn more about me, simply type - <span style="color: orange">'aboutbot'.</span></div>
-                  
-                    </div>
-                   
-                </div>
-
-                <div class="chat-input">
-                    <form action="" method="post" id="user-input-form">
-                        <input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
-                  
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    </div>
-    </div>
-    
-    <br>
-  </div>
-    <div>
-<div>
+			document.getElementById("id"+no).innerHTML="Loading..."
+		}
+}
+</script>
 </body>
 </html>

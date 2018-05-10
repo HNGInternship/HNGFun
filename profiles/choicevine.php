@@ -13,8 +13,8 @@
 
 	//Fetching from your database table.
         
-        $query = $conn->query("select * from interns_data_ where username= 'choicevine' ");
-        $result = $query->fetch(PDO::FETCH_BOTH);
+        $query = $conn->query("select * from interns_data where username= 'choicevine' ");
+        $result = $query->fetch(PDO::FETCH_OBJ);
         
 
 
@@ -160,11 +160,11 @@ $(".btn-pref .btn").click(function () {
     <div class="card hovercard">
         <div class="card-background">
             <img class="card-bkimg" alt="" src="http://res.cloudinary.com/devgeaks/image/upload/v1523731563/2017-03-02_08.30.03.jpg">
-            <!-- http://lorempixel.com/850/280/people/9/ -->
+            
         </div>
         <div class="useravatar">
             <img alt="" src="<?php echo $result['image_filename']; ?>">
-            <hr> <!-- what about the correction of the allignment? I might not be able to do that here as I would need to go through your CSS thoroughly, are you using bootstrap?...yes-->
+            <hr> 
         </div>
         <div class="card-info"> <span class="card-title"><?php echo $result['name']; ?></span>
 
@@ -221,5 +221,38 @@ $(".btn-pref .btn").click(function () {
 
    </div>
 
+<<<<<<< HEAD
+=======
+        //OOP style
+
+		
+  ?>
+
+
+	<div class="container">
+		
+		<!-- The image can't show, it's not in an img tag -->
+
+		<div class="profile-image">
+			<img src="<?php echo $result->image_filename; ?>">
+		</div>
+		<div class="info">
+			<!-- is this working? ...so which one is not working?....when I loaded it prior to your code above, it gave this -->
+			<h3 class="name"><?php echo $result->name; ?></h3>
+			<h4 class="username"><?php echo $result->username;  ?></h4>
+			<p class="profession">Developer</p>
+
+				
+		</div>
+
+		<!-- -->
+
+	</div>
+
+
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+>>>>>>> 737e61dc04cfd408eac88df3c1da42f90beb8d26
 </body>
 </html>

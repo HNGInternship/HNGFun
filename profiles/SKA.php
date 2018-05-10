@@ -1,30 +1,48 @@
 <!DOCTYPE html>
 <?php
 
-	if(!defined('DB_USER')){
-     require "../../config.php";
-     try {
-         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-     } catch (PDOException $pe) {
-         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-     }
+	// if(!defined('DB_USER')){
+     // require "../../config.php";
+     // try {
+         // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+     // } catch (PDOException $pe) {
+         // die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+     // }
+   // }
+	
+	// $sql = "SELECT * FROM secret_word LIMIT 1";
+    // $q = $conn->query($sql);
+    // $q->setFetchMode(PDO::FETCH_ASSOC);
+    // $data = $q->fetch();
+	// $secret_word = $data['secret_word'];
+	
+	// $sql2 = "SELECT * from interns_data WHERE username = 'SKA'";
+    // $q2 = $conn->query($sql2);
+    // $q2->setFetchMode(PDO::FETCH_ASSOC);
+    // $row = $q2->fetch();
+	
+	// $name = $row['name'];
+	// $username = $row['username'];
+	// $imageUrl = $row['image_filename'];
+	try {
+        $sql = "SELECT * FROM secret_word";
+        $secret_word_query = $conn->query($sql);
+        $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
+        $query_result = $secret_word_query->fetch();
+
+        $sql_queryname = 'SELECT * FROM interns_data WHERE username="Dan"';
+        $query_my_intern_db = $conn->query($sql_queryname);
+        $query_my_intern_db->setFetchMode(PDO::FETCH_ASSOC);
+        $intern_db_result = $query_my_intern_db->fetch();
+    }
+    catch (PDOException $exceptionError) {
+        throw $exceptionError;
    }
-	
-	$sql = "SELECT * FROM secret_word LIMIT 1";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-	$secret_word = $data['secret_word'];
-	
-	$sql2 = "SELECT * from interns_data WHERE username = 'SKA'";
-    $q2 = $conn->query($sql2);
-    $q2->setFetchMode(PDO::FETCH_ASSOC);
-    $row = $q2->fetch();
-	
-	$name = $row['name'];
-	$username = $row['username'];
-	$imageUrl = $row['image_filename'];
-	
+
+        $secret_word = $query_result['secret_word'];
+        $name = $intern_db_result['name'];
+        $username = $intern_db_result['username'];
+        $imageUrl = $intern_db_result['image_filename'];
 ?>
 <html>
     <head>
@@ -54,7 +72,7 @@
 			</div>
 			<br/>
 			<div class="flex">
-				<div class="label">Name :</div>
+				<div class="label">NameNew:</div>
 				<div class="value"><? echo $name; ?></div>
 			</div>
 			<div class="flex">
