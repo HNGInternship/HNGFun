@@ -63,7 +63,6 @@
       position:relative;
       color: black;
       overflow-y: scroll;
-      background-image:url('https://cdn.pixabay.com/photo/2018/02/18/20/29/computer-3163436_960_720.png');
       background-size:contain;
     }
     #controls {
@@ -308,7 +307,7 @@
       </div>
     </div>
     <div id="controls">
-      <div class="form-group" style="text-align: center;">
+      <div class="form-group" method="post" style="text-align: center;">
         <input type="text" class="form-control" name="question" id="question" placeholder="Type Here.........">
       </div>
       <button id="send" style="float:right;" class="btn btn-lg btn-primary btn-hover" name="send">Send</button>
