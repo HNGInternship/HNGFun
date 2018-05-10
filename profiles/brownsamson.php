@@ -41,7 +41,7 @@ function samsonjnrBot($qsam){
  
  
   function trainingSam($newmessage){
-    require '../db.php';
+    require 'db.php';
     $message = explode('#', $newmessage);
     $question = explode(':', $message[0]);
     $answer = $message[1];
@@ -152,7 +152,7 @@ function samsonjnrBot($qsam){
  
   function checkDatabaseToo($question){
     try{
-        require '../db.php';
+        require 'db.php';
  
         $stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
  
