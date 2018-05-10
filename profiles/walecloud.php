@@ -54,7 +54,7 @@
     		$rows = $stmt->fetchAll();
 
     		// if no result for query, then output i don't understand this please train me to know with train format.
-    		if($rows > 0) {
+    		if($rows < 0) {
     			echo json_encode([
         			'status' => 1,
        				'answer' =>  "I don't understand, Please train me by typing  train: your question # your answer # password"
@@ -147,6 +147,7 @@
 			height: 80vh;
 			border: 2px solid #000;
 			overflow:auto;
+			padding-top:30px;
 		}
 		.chart-input{
 			position: relative;
