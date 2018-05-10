@@ -52,7 +52,7 @@
     <body>
 		<br/>
         <div id="header">
-            <h3 style="top: 60">WELCOME TO HNG INTERNSHIP 4</h3>              
+            <h3 style="top: 60">HNG INTERNSHIP 4</h3>              
         </div>
 		<div id="middle">
 			<div id="image"  style="background-image: url(<?php echo $imageUrl; ?>); background-size: cover; background-repeat:   no-repeat;
