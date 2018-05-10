@@ -487,8 +487,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		   
 			xhttp.onreadystatechange = function() {
 	          if(this.readyState == 4 && this.status == 200) {
-	          	console.log(this.response);
-	          	 userChat(question.value);
+	          	// console.log(this.response);
+	          	 userChat(question.value, this.response);
      			e.preventDefault();
 	            question.value = '';
 	          }
@@ -499,7 +499,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         e.preventDefault();
 		}
 
-		function userChat(chats){
+		function userChat(chats, reply){
 			if(question.value !== ''){
 				var chat = `<div class="chat user chat-message">
 					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
