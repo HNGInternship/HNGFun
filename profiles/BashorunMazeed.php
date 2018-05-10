@@ -12,7 +12,7 @@
 	    throw $e;
 	}
 
-$sql = "SELECT * FROM interns_data ";
+$sql = "SELECT * FROM interns_data where name="Bashorun Mazeed";
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $my_data = $q->fetch();
