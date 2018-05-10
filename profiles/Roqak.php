@@ -210,6 +210,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     width: 100%;
     margin-bottom: 2%;
     float: left;
+    margin-left: 56px;
   }
   #sentmessage{
     background-color: gray;
@@ -217,11 +218,23 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     width: 100%;
     margin-bottom: 2%;
     float: right;
+    margin-left: 56px;
   }
   #mchats{
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
+    /*max-height: 50%;*/
+    /*height: 50%;*/
+    
+  }
+  #chats{
+    height: 50%;
     max-height: 50%;
+    overflow-y: scroll;
+
+  }
+  #bbb{
     border-radius: 5%;
+    height: 80%;
   }
   </style>
 </head>
@@ -248,17 +261,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 </a>
      </div>
    </div>
-   <div class="col-md-3 chat">
-     <form class="padedd" methood="post" id="formm">
-      <input type="text" placeholder="message" name="question"><button id="send" name="send">Send</button>
-      </form>
+   <div id="bbb" class="col-md-3 chat">
       <div><h1 class="text-center"> My ChatBot</h1></div>
         <div id="mchats">
           <div id="chats">
        
         </div>
 
-        </div>      
+        </div>  
+         <form class="padedd" methood="post" id="formm">
+      <input type="text" placeholder="message" name="question"><button id="send" name="send">Send</button>
+      </form>    
       </div>
 
   </div>
