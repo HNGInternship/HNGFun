@@ -352,7 +352,7 @@ https://res.cloudinary.com/dyngnvcre/image/upload/v1524083992/king.jpg" alt="kin
     <div class="col-md-6 but">
        
        
-        <button type="submit" id="appear" class="push_button blue" onclick = "appear()">Let's Chat</button>
+        <button type="submit" id="appear" class="push_button blue" >Let's Chat</button>
 
     
        <div class="chatbody" id="chatbot">
@@ -412,7 +412,7 @@ $.ajax({
     questions:input,
     
    }, 
-      beforeSend: function() { $('#results').append($("please wait");},
+      beforeSend: function() { $('#results').append($("please wait"));},
         success: function(result) { 
          $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
        console.log(result);
