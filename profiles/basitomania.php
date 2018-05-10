@@ -113,7 +113,7 @@ footer {
 PAGE: ABOUT
 *********************/
 .profile-photo {
-            
+            border-radius:50px;
         }
 
 
