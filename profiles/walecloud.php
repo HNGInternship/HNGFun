@@ -47,16 +47,17 @@
 				return;
 			}
     		// query dbase for a similar questions and return a randomly selected single closest response attached to it.
-			$stmt = $conn->prepare("SELECT * FROM chatbot WHERE question LIKE :question LIMIT 1");
+			$stmt = $conn->query("SELECT answer FROM chatbot WHERE question LIKE :question LIMIT 1");
 			$quest = "$question%";
     		$stmt->bindParam(':question', $quest);
     		$stmt->execute();
     		$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			$row = $stmt->fetch();
-			$result = $rows['answer'];
+			$row = $stmt->rowCount();
+			$result = $stmt->fetch();
 			
 			// there's a matching result return to user
-    		if($row !== '') {			  
+    		if($row > 0) {
+				$result = $stmt->fetch();		  
 				echo json_encode([
 		        	'status' => 1,
 		       		'answer' => $result
@@ -90,13 +91,13 @@
     			]);
     			return;
     		}
-			$stmt = $conn->prepare("SELECT * FROM chatbot WHERE question = ':question'");
+			$stmt = $conn->prepare("SELECT * FROM chatbot WHERE question = :question");
     		$stmt->bindParam(':question', $question);
     		$stmt->execute();
     		$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			$rows = $stmt->fetchAll();
+			$rows = $stmt->rowCount();
 
-			if($rows > 0) {
+			if($rows > 0) {				
 				echo json_encode( [
 					'status' => 1,
 					'answer' => 'Nice but i know this already. Thank you!'
@@ -109,10 +110,10 @@
     		$stmt->bindParam(':question', $trainQuestion);
     		$stmt->bindParam(':answer', $trainAnswer);
     		$stmt->execute();
-    		$stmt->setFetchMode(PDO::FETCH_ASSOC);
+    		//$stmt->setFetchMode(PDO::FETCH_ASSOC);
     		echo json_encode([
 		    	'status' => 1,
-		        'answer' => " I've learnt something new, you can test me now.!"
+		        'answer' => " I've learnt something new, you can test me now!"
 		    ]);
 		    return;
     	}
@@ -124,11 +125,11 @@
 	<title>WaleCloud - Profile</title>
 	<style>
 		* { font-family: OCR A std; font-size: 30px; }
-		body { display: flex; justify-content: center; }
+		body { justify-content: center; }
 		.card {	height: 80vh; width: 300px; border: 1px groove #ccc; border-radius: 3px; }
 		.dp { padding: 2px;	height: 300px;	}
 		span { font-size: 18px;	}
-		.chart-box{ width: 300px; height: 80vh; border: 2px solid #000; overflow:auto; padding-top: 90px; }
+		.chart-box{ font-size:20px; width: 300px; height: 80vh; border: 2px solid #000; overflow:auto; padding-top: 90px; }
 		.chart-input{ position: relative;}
 		.chart-input-box{ position: absolute; bottom: 0px; }
 		.chart-input-box input{ padding: 10px 0 10px 0; width: 300px; border: 2px solid #000; }
@@ -172,7 +173,7 @@
 	function doChat() {
 		var text = $('#text').val();
 
-		$('#chat-area').append("<p style='text-align:right;'>"+text+"</p>");
+		$('#chat-area').append("<p style='text-align:right; font-size:20px;'>"+text+"</p>");
 		$('#text').val(' ');
 		//$('#chat-area').append("from db by bot");
 

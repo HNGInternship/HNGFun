@@ -7,28 +7,27 @@
 font-family: Montserrat;
 </style>
 </head>
-<body>
-<nav>
-<a href="#Profile">Profile</a>
-    <a href="#ScarJobot">ScarJobot</a>
+<body style="background-color: #d3d3d3">
+<nav style="background-color: #18BC9C; border-radius: 5px">
+<a href="#Profile"><b>Profile</b></a>
+    <a href="#ScarJobot"><b>ScarJobot</b></a>
 </nav>
-<section id="Profile" align="center" style="background-color:#18BC9C; color: #fff">
+<section id="Profile" align="center" style="background-color:#18BC9C; color: #fff; border-radius: 5px">
 <img src="http://res.cloudinary.com/bl-de/image/upload/v1525350858/pikbl-de.png">
 <h1>MANNY EKANEM</h1>
 <h2>Coder - Graphic Artist - User Experience Designer</h2>
-<p><img src="https://res.cloudinary.com/bl-de/image/upload/v1525871730/map_marker.png"> Niger Delta, Nigeria</p>
-<a href="mailto: [maestr0nic@msn.com]" target="_blank" alt="Email" src="https://res.cloudinary.com/bl-de/image/upload/v1525871536/mail.png"></a>
-<a href="https://github.com/Bl-de" target="_blank" alt="Github" src="https://res.cloudinary.com/bl-de/image/upload/v1525871536/github.png"></a>
-<a href="https://slack.com/hnginternship4" target="_blank" alt="Slack" src="https://res.cloudinary.com/bl-de/image/upload/v1525871536/slack.png"></a>
-<a href="https://twitter.com/riggerus" target="_blank" alt="Twitter" src="https://res.cloudinary.com/bl-de/image/upload/v1525871536/twitter_black.png"></a>
+<p><img src="https://res.cloudinary.com/bl-de/image/upload/v1525982300/map_marker.png"> Niger Delta, Nigeria</p>
 </section>
-<section id="ScarJobot" style="background-color:#2C3E50; color: #fff">
-<h2>SCARjOBOT</h2>
-<img src="https://res.cloudinary.com/bl-de/image/upload/v1525528851/ScarJo.png">
+<section id="ScarJobot" style="background-color:#2C3E50; color: #fff; border-radius: 5px">
+<h2 style="margin-left: 5px">SCARjOBOT</h2>
+<img src="https://res.cloudinary.com/bl-de/image/upload/v1525528851/ScarJo.png" style="float: left; height: 60%; width: 350px; border-radius: 16px; text-align: center; margin-left: 5px; margin-right: 20px">
+<div id="Chatbox" style="float: center; margin-top: 100px">
 <h3>Hi, I'm ScarJo</h3>
 	<div>user: <span id="user"></span></div>
 	<div>ScarJo: <span id="chatbot"></span></div>
-	<div><input id="input" type="text" placeholder="Talk to me..." autocomplete="off"/></div>
+	<div><input id="input" type="text" placeholder="Talk to me..." autocomplete="off" style="margin-bottom: 50px"/></div>
+</div>
+</section>
 
 <script type="text/javascript">
 var trigger = [
@@ -113,7 +112,6 @@ function speak(string){
 	speechSynthesis.speak(utterance);
 }
 </script>
-</section>
 </body>
 
 
