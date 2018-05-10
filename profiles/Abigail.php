@@ -5,7 +5,7 @@
 
 if (!defined('DB_USER')){
             
-  require "../../config.php";
+  require "db.php";
 }
 try {
   $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
@@ -13,12 +13,9 @@ try {
   die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
 
-$query = $conn->query("SELECT * FROM secret_word");
-$result = $query->fetch(PDO::FETCH_ASSOC);
-$secret_word = $result['secret_word'];
-$question;
 
 
+if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 	
 	function botAnswer($message){
 		$botAnswer = '<div class="chat bot chat-message">
@@ -48,7 +45,7 @@ $question;
 		}
 		echo $bot;
 	}
-	if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
+	
 		
 	
 	 	$userInput = strtolower(trim($_POST['question']));
@@ -89,7 +86,7 @@ $question;
      	}
      	echo $bot;
 
-     	exit;
+     	exit();
      }
 
 ?>
@@ -406,7 +403,7 @@ $question;
                 </ul>
       </div>
     <p>I am a junior web developer with experience with HTML, CSS, JavaScript, Bootstrap and PHP. My love for words and solving problems brought me to the world of writing and coding(which I choose to acknowledge as writing). Want to chat, collaborate or hire me on a project, please feel free to contact me.</p>
-    <div id="contact" align="center"><a href="mailto:animashaunoluwatosin7@gmail.com">CONTACT</a></div>
+    <div id="contact" align="center"><a href="mailto:bogadeji@gmail.com">CONTACT</a></div>
 
       
 
@@ -494,7 +491,7 @@ $question;
 	            question.value = '';
 	          }
       	    }
-        xhttp.open('POST', 'profiles/Abigail.php', true);
+        xhttp.open('POST', 'profile.php?id=Abigail', true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send('question='+ question.value);
         e.preventDefault();
