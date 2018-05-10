@@ -410,7 +410,7 @@ $.ajax({
     questions:input,
     
    }, 
-      beforeSend: function() { $('#results').append("please wait");},
+      beforeSend: function() { $('#results').append(" wait");},
         success: function(result) { 
          $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
        console.log(result);
@@ -419,7 +419,7 @@ $.ajax({
 };
     
      function updateScroll(){
-    var element = document.getElementById("results");
+    var element = document.getElementById("chatOutput");
     element.scrollTop = element.scrollHeight;
 }
 
