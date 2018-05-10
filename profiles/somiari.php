@@ -458,13 +458,8 @@ if (!defined('DB_USER')){
 				</a>
 			</section>
 
-<<<<<<< HEAD
-			<form class="chat-box" id="ajax-contact" method="post" action="profiles/somiari.php">
-				<span class="chat-box-header">Alan is <del>not</del> a bot</span>
-=======
 			<form class="chat-box" id="ajax-contact">
 				<span class="chat-box-header">Alan is a bot</span>
->>>>>>> e8b2c15e769b2b6c671898847ebe7f03fabf18be
 				<div class="chat-msgs">
 					<p class="alan">Hello! My name is Alan, and I am not a bot.</p>
 					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
