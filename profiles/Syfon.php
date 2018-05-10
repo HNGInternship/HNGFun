@@ -248,13 +248,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
 
    $.ajax({
-            url: '/profile.php?id=Syfon',
+            url: 'profile.php?id=Syfon',
             type: 'POST',
-            data:  'chat=' + {sent_messages: message},
-            success: function(data) {
-                var result =    $('<div/>', {}).find('#message-input').text('');
+            data:  'user-input=' + message,
+            success: function(response) {
+               // var result =    $('<div/>', {}).find('#message-input').text('');
+               var result =  $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<div class='chatplace'><div class='chat-area'>" + message + "</div></div>");
+                    outputArea.append("<div class='chatplace'><div class='chat-area'>" + result + "</div></div>");
                     $('#chatbot').animate({
                         scrollTop: $('#chatbot').get(0).scrollHeight
                     }, 1500);
