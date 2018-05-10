@@ -1,11 +1,20 @@
 <?php
+try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
 $localhost = 'localhost';
 $user = 'root';
 $pass = '';
 $dbs = 'hng_fun';
 $diffAns ='';
 $db=mysqli_connect($localhost, $user, $pass, $dbs);
-$secret_word = $data['sample_secret_word'];
+
 
 
 if (isset($_POST['bot_r'])) {
