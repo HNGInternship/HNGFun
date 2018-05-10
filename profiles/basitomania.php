@@ -113,6 +113,7 @@ footer {
 PAGE: ABOUT
 *********************/
 .profile-photo {
+			width: 200px;
             border-radius:50%;
         }
 
@@ -223,10 +224,10 @@ a {
 			text-align: left;
 		}
 .bot-chat .message{
-			background-color: #34495E;
+			background-color: #6ab47b;
 			color: white;
 			opacity: 1.9;
-			box-shadow: 5px 5px 8px gray;
+			box-shadow: 3px 3px 5px gray;
 		}
 #chat_showcase{
       list-style-type: none;
