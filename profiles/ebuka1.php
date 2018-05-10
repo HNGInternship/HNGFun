@@ -17,7 +17,7 @@ $secret_word = $data['secret_word'];
 ?>
 	
 	<?php
-	
+	$secret_word = $data['secret_word'];
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST['user-input'];
         $temp = explode(':', $data);
