@@ -316,30 +316,30 @@
   	   <img src="https://res.cloudinary.com/naera/image/upload/v1525932431/Photo_on_1-26-18_at_2.57_PM_2_xpnojm.jpg" class="img-fluid">
   	</span>
   		<h3 class="mt-4"><?= $user->name ?></h3>
-  		<p class="mt-0 text-primary">Laravel and VueJS fanatic</p>
+  		<p class="mt-0 text-primary"><strong>Laravel and VueJS fanatic</strong></p>
   		<h4 style="align-self: flex-start;" class="mt-3">Links to some of my works</h4>
     <div class="w-100">
   		<ol>
   			<li>
 				<a href="http://old.fecolartow.edu.ng/">Federal College of Land And Resources' Portal</a> - College Portal that handles admission, course registration, result checking and many other tasks
-				Built with <span class="badge badge-success">Codeigniter (PHP)</span> and <span class="badge badge-success">Bootstrap CSS framework</span>.
+				Built with <span class="badge badge-warning">Codeigniter (PHP)</span> and <span class="badge badge-warning">Bootstrap CSS framework</span>.
   			</li>
   			<li>
 				<a href="http://www.fecolartow.edu.ng/">Newer FECOLART website</a> - with additional features and more security.
-				<span class="badge badge-success">Built with Laravel (PHP)</span>, <span class="badge badge-success">Vue.js (JavaScript)</span>, <span class="badge badge-success">Bootstrap CSS framework.</span>
+				Built with <span class="badge badge-warning">Laravel (PHP)</span>, <span class="badge badge-warning">Vue.js (JavaScript)</span>, <span class="badge badge-warning">Bootstrap CSS framework.</span>
   			</li>
   			<li>
 				<a href="http://bothofus.se/internal/ReimbursementForm/index.html#/">Reimbursement Form</a> - An app that aids employees to generate invoice of expenses made.
-				Built with <span class="badge badge-success">Vue.js (JavaScript).</span>
+				Built with <span class="badge badge-warning">Vue.js (JavaScript).</span>
   			</li>
   			<li>
-				<a href="http://zhillsystems.com/">Zhill Systems' company website</a> - Built with <span class="badge badge-success">Bootstrap 4.</span>
+				<a href="http://zhillsystems.com/">Zhill Systems' company website</a> - Built with <span class="badge badge-warning">Bootstrap 4.</span>
   			</li>
   			<li>
   				<a href="http://naera.zhillsystems.com/">An artisan recruitment system</a> - An ongoing project for recruiting artisans within Nigeria.
-  		<span class="badge badge-success">Built with Laravel (PHP)</span>, <span class="badge badge-success">Vue.js (JavaScript)</span>, and <span class="badge badge-success">Vuetify.</span></li>
+  		Built with <span class="badge badge-warning">Laravel (PHP)</span>, <span class="badge badge-warning">Vue.js (JavaScript)</span>, and <span class="badge badge-warning">Vuetify.</span></li>
   		    <li>
-  		       <a href="https://weconnect-ng.herokuapp.com/docs/">WeConnect</a> - An app that connects businesses and customers together. Built with <span class="badge badge-success">Node.js</span> and <span class="badge badge-success">REACT</span>.
+  		       <a href="https://weconnect-ng.herokuapp.com/docs/">WeConnect</a> - An app that connects businesses and customers together. Built with <span class="badge badge-warning">Node.js</span> and <span class="badge badge-warning">REACT</span>.
   		    </li>
   		</ol>
   	</div>
