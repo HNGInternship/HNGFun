@@ -47,7 +47,7 @@
 				return;
 			}
     		// query dbase for a similar questions and return a randomly selected single closest response attached to it.
-    		$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE ':question' LIMIT 1");
+    		$stmt = $conn->prepare("SELECT * FROM chatbot WHERE question LIKE '%:question%' LIMIT 1");
     		$stmt->bindParam(':question', $question);
     		$stmt->execute();
     		$stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -127,7 +127,9 @@
 			font-size: 30px;
 			padding: 2px;
 		}
-
+		.row {
+			margin-top:130px;
+		}
 		.card {
 			height: 600px;
 			width: 400px;
