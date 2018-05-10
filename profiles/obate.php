@@ -1,5 +1,5 @@
 <?php
-//PLEASE NOBODY SHOULD COPY MY CODES AGAIN! BY JEREMIAH RIGHTEOUS
+
 	if(!defined('DB_USER')){
     if (file_exists('../../config.php')) {
             require_once '../../config.php';
@@ -7,14 +7,14 @@
             require_once '../config.php';
         } elseif (file_exists('config.php')) {
             require_once 'config.php';
-        }		//change config details when pushing
+        }
 	  try {
 	      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 	  } catch (PDOException $pe) {
 	      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 	  }
 	}
-	//Fetch User Details
+
   try {
         $sql = "SELECT * FROM secret_word";
         $secret_word_query = $conn->query($sql);
@@ -42,23 +42,23 @@
 <?php
 //check if server method = post
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	//Get the input text from the user and store in a new vaariable called "question"
+
 	$question = $_POST['input_text'];
 	$question = preg_replace('([\s]+)', ' ', trim($question));
 	$question = preg_replace("([?.])", "", $question);
-	 // check if question is "aboutbot"
+
     if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'aboutbot'){
       echo json_encode([
         'status' => 1,
-        'answer' => "Hi dear! My name is Lolly. LollyBot is currently in version 1.0 and it's built by -Jeremiah Righteous-"
+        'answer' => "Obabot Version 1.0-"
       ]);
       return;
     };
     //Check if user want to train the bot or ask a normal question
 	$check_for_train = stripos($question, "train:");
-    if($check_for_train === false){ //then user is asking a question
+    if($check_for_train === false){
 
-	//remove extra white space, ? and . from question
+
 	$question = preg_replace('([\s]+)', ' ', trim($question));
 	$question = preg_replace("([?.])", "", $question);
 
@@ -90,15 +90,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		//remove extra white space, ? and . from question
 	    $train_string  = preg_replace('([\s]+)', ' ', trim($question));
 	    $train_string  = preg_replace("([?.])", "",  $train_string);
-	    //get the question and answer by removing the 'train'
+
 	    $train_string = substr( $train_string, 6);
 	    $train_string = explode("#", $train_string);
         //get the index of the user question
         $user_question = trim($train_string[0]);
-	        if(count($train_string) == 1){ //then the user only enter question and did'nt enter answer and password
+	        if(count($train_string) == 1){
 		        echo json_encode([
 		          'status' => 1,
-		          'answer' => "Oooh! sorry....you entered an invalid training format. Please the correct format is-->  train: question #answer #password"
+		          'answer' => "Invalid training format. Please the correct format is-->  train: question #answer #password"
 		        ]);
 	        return;
 	        };
@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		    $stmt->execute();
 		    $stmt->setFetchMode(PDO::FETCH_ASSOC);
 		 	$rows = $stmt->fetchAll();
-		    if(empty($rows)){// then it means the database could not fetch any existing question and answer, so	we can insect the query.
+		    if(empty($rows)){
 			    $sql = "insert into chatbot (question, answer) values (:question, :answer)";  //insert into database
 			    $stmt = $conn->prepare($sql);
 			    $stmt->bindParam(':question', $user_question);
@@ -140,14 +140,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 			    echo json_encode([
 			    	'status' => 1,
-			        'answer' => "WOW! I'm learning new things everyday. Thanks Buddy! for making me more smarter. You can ask me that same question right now and i will tell you the answer OR just keep training me more Buddy! "
+			        'answer' => " Thanks Man! for making me more smarter. You can ask me that same question right now and i will tell you the answer! "
 			      ]);
 	     	return;
 
-	     	}else{ //then it means the the question already in the database and no need to insert it again
+	     	}else{ 
 	     		 echo json_encode([
 			    	'status' => 1,
-			        'answer' => "Sorry! Answer already exist. Try train me again with the same question AND provide an altanative answer different from the previous one you entered OR just train me with a new question and a new answer."
+			        'answer' => "Sorry! Answer already exist. "
 			      ]);
 			return;
 	     	};
@@ -164,16 +164,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	<meta charset="UTF-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Jeremiah's Profile</title>
+	<title>Obasi Uchechukwu | Software developer</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato|Work+Sans:400,900&amp;subset=latin-ext" rel="stylesheet">
 	 <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
 
 	<style type="text/css">
 		body{
 			padding:0;
 			margin:0;
-			font-family: 'Roboto', sans-serif;
+			font-family: 'Lato', sans-serif;
 			font-size: 100%;
 			background-color:white;
 		}
@@ -194,10 +194,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		  text-align: center;
 		  box-sizing: border-box;
 		}
-		#hello {
-	      font-size: 50px;
-	      color: #34495E;
-	      font-family: 'Alfa Slab One';
+    #hello {
+	      font-size: 20px;
+        color:grey;
    		}
    		.about{
    			margin-top:  -20px;
@@ -283,15 +282,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			border:none;
 			border-radius: 5px;
 			background-color: #34495E;
-		}.myfooter{
-			margin: 100px 0px 50px 0px;
-			font-size: 0.9em;
-		}.footer_line{
-			padding: 0px;
-			margin-bottom: 20px;
-			border: 0.5px solid #34495E;
-			background-color: #34495E;
-			width: 100%;
 		}
 	</style>
 
@@ -304,13 +294,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			<img class="circle_img" src="<?php echo $image_url ?>" atl="obate Photo" style="/**border-radius:50%; border:6px solid black; **/width:200px">
 
 			<div>
-				<h1 id="hello">HELLO,</h1>
+				<h2 id="hello">CEO and Founder, software developer And Data Scientist</h2>
 			</div>
 			<div class="about"> <!--I may need to fetch my fullname from database-->
 				<p>I'm <strong> <?php
             echo $name;
-          ?></strong> From Lagos, NG. I'm a Software Engineer | UI/UX designer | Technology enthusiast | Barcelona FC Fan | I L♥️ve music...Always God first! 😉💯 <br></p>
-				<p style=" line-height: -100px;"> </p>
+          ?></strong> From Enugu, Nigeria. I'm a Software Engineer and also the CEO of obdesign technologies Ltd<br></p>
 			</div>
 
 		</div>
@@ -318,13 +307,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		<!--This section contains the chatbot container-->
 		<div class="chatbot-container">
 			<div class="chat-header">
-				<span>Lolly Chatbot</span>
+				<span>My Chatbot</span>
 			</div>
 			<div id="chat-body">
 				<div class="bot_chat">
-						<div class="message">Hello! My name is Lolly.<br>You can ask me questions and get answers.<br>Type <span style="color: #FABF4B;"><strong> Aboutbot</strong></span> to know more about me.
+						<div class="message">Hello! My name is Obabot.<br>You can ask me questions and get answers.<br>Type <span style="color: #90CAF9;/"><strong> Aboutbot</strong></span> to know more about me.
 						</div>
-						<div class="message">You can also train me to be smarter by typing; <br><span style="color: #FABF4B;"><strong>train: question #answer #password</strong></span><br><strong>NOTE: </strong></span> I don't accept functions. Keep it simple!</div>
+						<div class="message">You can also train me to be smarter by typing; <br><span style="color: #90CAF9;"><strong>train: question #answer #password</strong></span><br></div>
 				</div>
 			</div>
 			<div class="chat-footer">
