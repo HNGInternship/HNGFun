@@ -1,3 +1,10 @@
+<?php
+if (!defined('DB_USER')){      
+   require "../../config.php";
+ }
+?>
+	
+
 <!DOCTYPE html>
 <html lang="en">
 

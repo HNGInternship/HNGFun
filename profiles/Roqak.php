@@ -234,6 +234,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   }
   #bbb{
     border-radius: 5%;
+    min-height: 80%;
+    max-height: 80%;
     height: 80%;
   }
   </style>
