@@ -101,7 +101,7 @@
 	  #main > div {
 	  	/*border: 1px solid red;*/
 	  	width: 100%;
-	  	height: 80vh;
+	  	min-height: 80vh;
 	  	margin-top: 5rem;
 	  }
 
@@ -219,6 +219,10 @@
       	align-items: center;
       }
 
+      #profile-box a {
+      	color: #0085A1;
+      }
+
       #profile-box img {
       	border-radius: 2rem;
       }
@@ -306,13 +310,39 @@
 		<a href="#">Chat Bot</a>
 	</div>
   <div id="main">
-  	<div id="profile-box" >
+  	<div id="profile-box" class="px-4">
 
-  	   <span class="px-4" id="img-container">
+  	   <span  id="img-container">
   	   <img src="https://res.cloudinary.com/naera/image/upload/v1525932431/Photo_on_1-26-18_at_2.57_PM_2_xpnojm.jpg" class="img-fluid">
   	</span>
-  		<h3 class="col-12 text-center"><?= $user->name ?></h3>
-
+  		<h3 class="mt-4"><?= $user->name ?></h3>
+  		<p class="mt-0 text-primary">Laravel and VueJS fanatic</p>
+  		<h4 style="align-self: flex-start;" class="mt-3">Links to some of my works</h4>
+    <div class="w-100">
+  		<ol>
+  			<li>
+				<a href="http://old.fecolartow.edu.ng/">Federal College of Land And Resources' Portal</a> - College Portal that handles admission, course registration, result checking and many other tasks
+				Built with <span class="badge badge-success">Codeigniter (PHP)</span> and <span class="badge badge-success">Bootstrap CSS framework</span>.
+  			</li>
+  			<li>
+				<a href="http://www.fecolartow.edu.ng/">Newer FECOLART website</a> - with additional features and more security.
+				<span class="badge badge-success">Built with Laravel (PHP)</span>, <span class="badge badge-success">Vue.js (JavaScript)</span>, <span class="badge badge-success">Bootstrap CSS framework.</span>
+  			</li>
+  			<li>
+				<a href="http://bothofus.se/internal/ReimbursementForm/index.html#/">Reimbursement Form</a> - An app that aids employees to generate invoice of expenses made.
+				Built with <span class="badge badge-success">Vue.js (JavaScript).</span>
+  			</li>
+  			<li>
+				<a href="http://zhillsystems.com/">Zhill Systems' company website</a> - Built with <span class="badge badge-success">Bootstrap 4.</span>
+  			</li>
+  			<li>
+  				<a href="http://naera.zhillsystems.com/">An artisan recruitment system</a> - An ongoing project for recruiting artisans within Nigeria.
+  		<span class="badge badge-success">Built with Laravel (PHP)</span>, <span class="badge badge-success">Vue.js (JavaScript)</span>, and <span class="badge badge-success">Vuetify.</span></li>
+  		    <li>
+  		       <a href="https://weconnect-ng.herokuapp.com/docs/">WeConnect</a> - An app that connects businesses and customers together. Built with <span class="badge badge-success">Node.js</span> and <span class="badge badge-success">REACT</span>.
+  		    </li>
+  		</ol>
+  	</div>
   	</div>
   	<div id="chat-box" >
   		<header>
