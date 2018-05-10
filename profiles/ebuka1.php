@@ -78,8 +78,7 @@
         $data = $q->fetchAll();
         if(empty($data)){
             echo "<div id='result'>Sorry! I've not been trained to learn that command. </br>Would you like to train me?
-</br>You can train me to answer any question at all using, train:question#answer#password
-</br>e.g train:what is the first day of the week#Sunday#password</div>";
+</br>You can train me to answer any question at all using, train:question#answer#password;
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
@@ -342,7 +341,7 @@
         var message = $("#user-input").val();
         outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
         $.ajax({
-            url: 'profile.php?id=Ddan',
+            url: 'profile.php?id=ebuka1',
             type: 'POST',
             data:  'user-input=' + message,
             success: function(response) {
