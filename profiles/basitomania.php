@@ -218,7 +218,7 @@ PAGE: PORTFOLIO
 }
 
 #primary {
-		width: 50%;
+		width: 40%;
 		float: left;
 	}
 
@@ -226,31 +226,6 @@ PAGE: PORTFOLIO
 		width: 40%;
 		float: right;
 	}
-
-/********************
-NAVIGATION
-*********************/
-nav {
-	text-align: center;
-	padding: 10px 0;
-	margin: 20px 0 0;
-}
-
-nav ul{
-	list-style: none;
-	margin: 0 10px;
-	padding: 0;
-}
-
-nav li {
-	display: inline-block;
-}
-
-nav a {
-	font-weight: 800;
-	padding: 15px 10px;
-
-}
 
 /********************
 FOOTER
@@ -339,39 +314,22 @@ a {
 	color: #6ab47b;
 }
 
-/* Nav link */
-nav a, nav a:visited {
-	color: #fff;
-}
-/* selected nav link */
-nav a.selected, nav a:hover {
-	color: #32673f;
-}
 
-        </style>
+
+</style>
 	</head>
 	<body>
 		<header>
-			<a href="index.html" id="logo">
+			<a id="logo">
 				<h1>Basitomania</h1>
 				<h2>Web Developer</h2>
 			</a>
-			<nav>
-				<ul>
-					<li><a href="index.html">Portfolio</a></li>
-					<li><a href="about.html" class="selected">About</a></li>
-					<li><a href="contact.html">Contact</a></li>
-				</ul>
-			</nav>
 		</header>
 		<div id="wrapper">
-			<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
 				<section id = "primary">
+					<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
 					<h3>About</h3>
 					<p>Hi I'm basitomania, this is my design portfolio where i share all my work when i'm not surfing the net and markerting online. To follow me on twitter my handle is <a href="http://www.twitter.com">@iamblack8</a>.</p>
-				</section>
-				
-				<section id="secondary">
 					<h3>Contact Details</h3>
 					<ul class="contact-info">
 						<li class="phone">
@@ -383,18 +341,17 @@ nav a.selected, nav a:hover {
 						<li class="twitter">
 							<a href="http://twitter.com/intent/tweet?screen_name=iamblack8">@iamblack8</a>
 						</li>
-					</ul>
-				</section>
-
+					</ul>	
+				</section>		
+			<section id="secondary">
 				<div class="chatbot-container">
 					<div class="chat-header">
 						<span>Bas Chatbot</span>
 					</div>
 					<div id="chat-body">
 						<div class="bot_chat">
-								<div class="message">Hello! My name is Basbot.<br>You can ask me questions and get answers.<br>Type <span style="color: #90CAF9;/"><strong> Aboutbot</strong></span> to know more about me.
-								</div>
-								<div class="message">You can also train me to be smarter by typing; <br><span style="color: #90CAF9;"><strong>train: question #answer #password</strong></span><br></div>
+							<div class="message">Hello! My name is Basbot.<br>You can ask me questions and get answers.<br>Type <span style="color: #90CAF9;/"><strong> Aboutbot</strong></span> to know more about me.</div>
+							<div class="message">You can also train me to be smarter by typing; <br><span style="color: #90CAF9;"><strong>train: question #answer #password</strong></span><br></div>
 						</div>
 					</div>
 					<div class="chat-footer">
@@ -405,10 +362,15 @@ nav a.selected, nav a:hover {
 							</form>
 						</div>
 					</div>
-				</div>
-			<footer>
-				<p>&copy; 2017 Maniaweb.</p>
-			</footer>
+				</div>	
+			</section>		
+
+			
+		</div>
+
+		<footer>
+			<p>&copy; 2017 Maniaweb.</p>
+		</footer>
 			<script type = text/javascript>
 				
 				document.queryselector("#input").addEventListener("keypress", function(e){
@@ -447,6 +409,5 @@ nav a.selected, nav a:hover {
 						return item
 					}
 			</script>
-		</div>
 	</body>
 </html>
