@@ -182,7 +182,7 @@ $error="I couldn't find an answer to your question, please train me with that us
         height: 500px;
         border:black solid 1px;
         width: 530px;
-       
+       overflow: scroll;
          border-radius: 10px;
     }
     #chatInput{
@@ -302,9 +302,7 @@ $error="I couldn't find an answer to your question, please train me with that us
         border-radius: 10px;
       width: 100px;
     }
-    #results{
-         overflow: scroll;
-    }
+   
 </style> 
     
     
