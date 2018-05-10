@@ -58,14 +58,88 @@ if(isset($_POST['questions'])){
  
    return;  
                
-      }
+      }else{
+     $text=$_POST['questions'];
+ $sql3="SELECT * FROM chatbot where question='$text '";
+ $query = $conn->query($sql3);
+    $query->setFetchMode(PDO::FETCH_ASSOC);  
+    $result3 = $query->fetch(); 
+ $ans=$result3['answer'];
+        
+   
+     if (isset($ans)) {
+                echo json_encode([
+                  'question' => $text,
+                  'answers' => $ans
+                ]);
+         return;
+ 
+  }else
+     {
+$error="I couldn't find an answer to your question, please train me with that using the command <br>train:Your-Question#Your-Answer#Password";
+          
+        echo json_encode([
+                  'question' => $text,
+                  'answers' => $error
+                ]);
+       return;       
+    
+     }
+                  
+          
+ }
+   }else{
+  
+   $tex=$_POST['questions'];
+  
+      $rmtrain= substr($tex, 6);
+        $rmspace = preg_replace('([\s]+)', ' ', trim($rmtrain));
+      
+        $extrain = explode("#", $rmspace,3); 
+             
+     
+    
        
+    if(count($extrain)==3){
+         $question=trim($extrain[0]);
+     $answer=trim($extrain[1]);
+        $password=trim($extrain[2]);
+      
+ 
+        if($password=="trainpwforhng"){
+         
+           
+    $sql3 = "INSERT INTO  `chatbot` (`question`, `answer`) VALUES ('". $question ."','". $answer ."')";
+    $query = $conn->query($sql3);
+    echo json_encode([
+                  'question' => $question,
+                  'answers'=>"<strong>Your data was saved successfully</strong>"
+                ]);
+                
+             return;
+            }else{
+                   
+       echo json_encode([
+                  'question' => $tex,
+                  'answers'=>"<strong>You inserted a wrong password<br>Note</strong>The password is:<strong>trainpwforhng</strong>"
+                ]);
+                 
+             return;
+        }     
        
+     
+    
+   }else{
+      echo json_encode([
+                  'question' => $tex,
+                  'answers'=>"Your training has not been considered,please verify your training is in the following format:<br><strong>train:Your_question#Your_Answer#Password<br>Note:</strong>The password is:<strong>trainpwforhng</strong>"
+             
+                ]);
+                 return;
+    }
        
    }
-       
 }
-       
 
     
 ?>
@@ -95,7 +169,7 @@ if(isset($_POST['questions'])){
    
     h3{background-color: #2A88AD;
     width:250px;
-    margin: 20px 210px;
+    margin: 20px 180px;
   }
    
     p{color:black}
@@ -108,7 +182,7 @@ if(isset($_POST['questions'])){
         height: 500px;
         border:black solid 1px;
         width: 530px;
-        overflow: scroll;
+       
          border-radius: 10px;
     }
     #chatInput{
@@ -228,6 +302,9 @@ if(isset($_POST['questions'])){
         border-radius: 10px;
       width: 100px;
     }
+    #results{
+         overflow: scroll;
+    }
 </style> 
     
     
@@ -275,7 +352,7 @@ https://res.cloudinary.com/dyngnvcre/image/upload/v1524083992/king.jpg" alt="kin
     <div class="col-md-6 but">
        
        
-        <button type="submit" id="appear" class="push_button blue" onclick = "appear()">Let's Chat</button>
+        <button type="submit" id="appear" class="push_button blue" >Let's Chat</button>
 
     
        <div class="chatbody" id="chatbot">
@@ -335,7 +412,7 @@ $.ajax({
     questions:input,
     
    }, 
-       beforeSend: function() { $('#results').append("please wait");},
+      beforeSend: function() { $('#results').append($("please wait"));},
         success: function(result) { 
          $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
        console.log(result);
@@ -344,7 +421,7 @@ $.ajax({
 };
     
      function updateScroll(){
-    var element = document.getElementById("chatOutput");
+    var element = document.getElementById("results");
     element.scrollTop = element.scrollHeight;
 }
 
