@@ -412,7 +412,7 @@ $.ajax({
     questions:input,
     
    }, 
-      beforeSend: function() { $('#results').append($("please wait"));},
+      beforeSend: function() { $('#results').append("please wait");},
         success: function(result) { 
          $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
        console.log(result);
