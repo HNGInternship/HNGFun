@@ -18,7 +18,7 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
 $secret_word = $result['secret_word'];
 $question;
 
-
+if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 	
 	function botAnswer($message){
 		$botAnswer = '<div class="chat bot chat-message">
@@ -48,7 +48,7 @@ $question;
 		}
 		echo $bot;
 	}
-	if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
+	
 		
 	
 	 	$userInput = strtolower(trim($_POST['question']));
@@ -89,7 +89,7 @@ $question;
      	}
      	echo $bot;
 
-     	exit;
+     	exit();
      }
 
 ?>
