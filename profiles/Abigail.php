@@ -18,7 +18,7 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
 $secret_word = $result['secret_word'];
 $question;
 
-
+if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 	
 	function botAnswer($message){
 		$botAnswer = '<div class="chat bot chat-message">
@@ -48,7 +48,7 @@ $question;
 		}
 		echo $bot;
 	}
-	if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
+	
 		
 	
 	 	$userInput = strtolower(trim($_POST['question']));
@@ -89,7 +89,7 @@ $question;
      	}
      	echo $bot;
 
-     	exit;
+     	exit();
      }
 
 ?>
@@ -494,7 +494,7 @@ $question;
 	            question.value = '';
 	          }
       	    }
-        xhttp.open('POST', 'profiles/Abigail.php', true);
+        xhttp.open('POST', 'profile.php?id=Abigail', true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send('question='+ question.value);
         e.preventDefault();
