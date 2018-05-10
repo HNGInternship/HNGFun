@@ -31,7 +31,7 @@
     }
 	##About Bot
     function aboutbot() {
-        echo "<div id='results'><strong>Ebu Bot 1.1 </strong></br>
+        echo "<div id='result'><strong>Ebu Bot 1.1 </strong></br>
 		Hello! </br> I'm Ebu Bot 1.1 </br> Hope you are having a lovely Day.</br> I am trained to answer everything on the database. <div>";
     }
 	
@@ -57,17 +57,17 @@
                 try {
                     $q = $GLOBAL['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div id='results'>Thank you for training me. </br>
+                        echo "<div id='result'>Thank you for training me. </br>
 			Now you can ask me same question, and I will answer it correctly.</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
                 }
             }else{
-                echo "<div id='results'>I already understand this. Teach me something new!</div>";
+                echo "<div id='result'>I already understand this. Teach me something new!</div>";
             }
         }else {
-            echo "<div id='results'>You entered an invalid Password. </br>Try Again!</div>";
+            echo "<div id='result'>You entered an invalid Password. </br>Try Again!</div>";
         }
     }
     function getAnswer($input) {
@@ -77,12 +77,12 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='results'>Sorry! I've not been trained to learn that command. </br>Would you like to train me?
+            echo "<div id='result'>Sorry! I've not been trained to learn that command. </br>Would you like to train me?
 </br>You can train me to answer any question at all using, train:question#answer#password
 </br>e.g train:what is the first day of the week#Sunday#password</div>";
         }else {
             $rand_keys = array_rand($data);
-            echo "<div id='results'>". $data[$rand_keys]['answer'] ."</div>";
+            echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
         }
     }
     ?>
@@ -346,9 +346,9 @@
             type: 'POST',
             data:  'user-input=' + message,
             success: function(response) {
-                var result = $($.parseHTML(response)).find("#results").text();
+                var result = $($.parseHTML(response)).find("#result").text();
                 setTimeout(function() {
-                    outputArea.append("<div class='user-message'><div class='message'>" + results + "</div></div>");
+                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
                     $('#chat-result').animate({
                         scrollTop: $('#chat-result').get(0).scrollHeight
                     }, 1500);
