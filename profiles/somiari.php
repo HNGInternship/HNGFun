@@ -352,7 +352,7 @@
 		// function to train bot 
 		// pass message as arguement
 		function trainAlan($newmessage){
-			require '../db.php';
+			require 'db.php';
 			$message = explode('#', $newmessage);
 			$question = explode(':', $message[0]);
 			$answer = $message[1];
@@ -396,7 +396,7 @@
 		// Returns 1 if question is not found in database
 		function checkDatabase($question){
 			try{
-				require '../db.php';
+				require 'db.php';
 				$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
 				$stmt->execute();
 
@@ -447,7 +447,7 @@
 			</section>
 
 			<form class="chat-box" id="ajax-contact" method="post" action="profiles/somiari.php">
-				<span class="chat-box-header">Alan is not a bot</span>
+				<span class="chat-box-header">Alan is a bot</span>
 				<div class="chat-msgs">
 					<p class="alan">Hello! My name is Alan, and I am not a bot.</p>
 					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
