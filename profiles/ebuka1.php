@@ -35,7 +35,7 @@
 	##About Bot
     function aboutbot() {
         echo "<div id='result'><strong>Ebu Bot 1.1 </strong></br>
-		Hello! </br> I'm Ebu Bot 1.1 </br> Hope you are having a lovely Day.</br> I am trained to answer everything on the database. <div>";
+		Hello! </br> I'm Ebu Bot 1.1 </br> Hope you are having a lovely Day.</br> I am trained to answer everything on the database. </div>";
     }
 	
 	##Train Bot
