@@ -4,15 +4,9 @@
 	$username = "ebuka1";
 	 
 	$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
-	$sql2 = "SELECT * FROM `secret_word` LIMIT 1";
 	$query = $conn->prepare($sql);
 	$query->execute();
 	$result = $query->fetch(PDO::FETCH_ASSOC);
-
-	$query2 = $conn->prepare($sql2);
-	$query2->execute();
-	$data = $query2->fetch(PDO::FETCH_ASSOC);
-	$secret_word = $data['secret_word'];
 	
 	?>
 	<?php
@@ -52,7 +46,7 @@
         $password = trim($input[2]);
         if($password == 'password') {
             $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
-            $q = $GLOBAL['conn']->query($sql);
+            $q = $GLOBALS['conn']->query($sql);
             $q->setFetchMode(PDO::FETCH_ASSOC);
             $data = $q->fetch();
             if(empty($data)) {
@@ -64,7 +58,7 @@
                   :answer
               );';
                 try {
-                    $q = $GLOBAL['conn']->prepare($sql);
+                    $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
                         echo "<div id='result'>Thank you for training me. </br>
 			Now you can ask me same question, and I will answer it correctly.</div>";
@@ -82,7 +76,7 @@
     function getAnswer($input) {
         $question = $input;
         $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
-        $q = $GLOBAL['conn']->query($sql);
+        $q = $GLOBALS['conn']->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
