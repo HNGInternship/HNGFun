@@ -14,9 +14,7 @@ $query2->execute();
 $data = $query2->fetch(PDO::FETCH_ASSOC);
 $secret_word = $data['secret_word'];
 
-?>
-	
-	<?php
+
 	$secret_word = $data['secret_word'];
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST['user-input'];
