@@ -44,9 +44,29 @@ if(isset($_POST['questions'])){
  
    return;
 } 
+          
+      
+          
+      }else if($_POST['questions']=="aboutbot"){
+          
+          
+          echo json_encode([
+                  'question'=>'aboutbot',
+                  'answers' => "<strong>RIM67</strong><br>Version 1.0.0 <br>build 2<br>Platforms: Windows, Linux"
+                ]); 
+ 
+ 
+   return;  
+               
       }
-   }
-}
+       
+       
+       
+       
+       
+       
+       
+
     
 ?>
 
