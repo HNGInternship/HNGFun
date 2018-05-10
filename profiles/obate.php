@@ -237,7 +237,7 @@
     }
 
     .profile-image {
-      height: 30%;
+      height: 70%;
       width: 100%;
 
     button{
