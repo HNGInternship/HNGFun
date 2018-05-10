@@ -169,7 +169,7 @@ $error="I couldn't find an answer to your question, please train me with that us
    
     h3{background-color: #2A88AD;
     width:250px;
-    margin: 20px 185px;
+    margin: 20px 180px;
   }
    
     p{color:black}
@@ -182,7 +182,7 @@ $error="I couldn't find an answer to your question, please train me with that us
         height: 500px;
         border:black solid 1px;
         width: 530px;
-        overflow: scroll;
+       
          border-radius: 10px;
     }
     #chatInput{
@@ -302,6 +302,9 @@ $error="I couldn't find an answer to your question, please train me with that us
         border-radius: 10px;
       width: 100px;
     }
+    #results{
+         overflow: scroll;
+    }
 </style> 
     
     
@@ -409,8 +412,10 @@ $.ajax({
     questions:input,
     
    }, 
+      beforeSend: function() { $('#results').append($("please wait");},
         success: function(result) { 
          $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
+       console.log(result);
         }
         });
 };
