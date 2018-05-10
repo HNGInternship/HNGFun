@@ -10,20 +10,20 @@
      }
    }
 	
-	// $sql = "SELECT * FROM secret_word LIMIT 1";
-    // $q = $conn->query($sql);
-    // $q->setFetchMode(PDO::FETCH_ASSOC);
-    // $data = $q->fetch();
-	// $secret_word = $data['secret_word'];
 	
-	// $sql2 = "SELECT * from interns_data WHERE username = 'SKA'";
-    // $q2 = $conn->query($sql2);
-    // $q2->setFetchMode(PDO::FETCH_ASSOC);
-    // $row = $q2->fetch();
+	// https://res.cloudinary.com/omoamiroko/image/upload/v1525933654/SKA.jpg
+		
+		$sql = 'UPDATE interns_data set image_filename = "https://res.cloudinary.com/omoamiroko/image/upload/v1525933654/SKA.jpg" where username = "SKA";';          
+
+        try {
+            $q = $conn->prepare($sql);
+            if ($q->execute($intern_data) == true) {
+                $success = true;
+            };
+        } catch (PDOException $e) {
+            throw $e;
+        }
 	
-	// $name = $row['name'];
-	// $username = $row['username'];
-	// $imageUrl = $row['image_filename'];
 	try {
         $sql = "SELECT * FROM secret_word";
         $secret_word_query = $conn->query($sql);
@@ -72,7 +72,7 @@
 			</div>
 			<br/>
 			<div class="flex">
-				<div class="label">Name:</div>
+				<div class="label">Names:</div>
 				<div class="value"><?php echo $name; ?></div>
 			</div>
 			<div class="flex">
