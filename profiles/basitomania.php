@@ -242,10 +242,7 @@ footer {
 PAGE: ABOUT
 *********************/
 .profile-photo {
-            /*display: block;
-            max-width: 20%;
-            margin: 0 auto 50px;*/
-            border-radius: 50%;
+            
         }
 
 
@@ -314,7 +311,42 @@ a {
 	color: #6ab47b;
 }
 
-
+/*chatbot*/
+.chatbot-container{
+		  background-color: #F3F3F3;
+		  width: 500px;
+		  height: 500px;
+		  margin: 10px;
+		  box-sizing: border-box;
+		  box-shadow: -3px 3px 5px gray;
+		}
+.chat-header{
+			width: 500px;
+			height: 50px;
+			background-color: #34495E;
+			color: white;
+			text-align: center;
+			padding: 10px;
+			font-size: 1.5em;
+		}
+#chat-body{
+		    display: flex;
+		    flex-direction: column;
+		    padding: 10px 20px 20px 20px;
+		    background: white;
+		    overflow-y: scroll;
+		    height: 395px;
+		    max-height: 395px;
+		}
+.message{
+			font-size: 0.8em;
+			width: 300px;
+			display: inline-block;
+          	padding: 10px;
+			margin: 5px;
+        	border-radius: 10px;
+    		line-height: 18px;
+		}
 
 </style>
 	</head>
@@ -349,7 +381,7 @@ a {
 						<span>Bas Chatbot</span>
 					</div>
 					<div id="chat-body">
-						<div class="bot_chat">
+						<div class="bot-chat">
 							<div class="message">Hello! My name is Basbot.<br>You can ask me questions and get answers.<br>Type <span style="color: #90CAF9;/"><strong> Aboutbot</strong></span> to know more about me.</div>
 							<div class="message">You can also train me to be smarter by typing; <br><span style="color: #90CAF9;"><strong>train: question #answer #password</strong></span><br></div>
 						</div>
