@@ -492,7 +492,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	            question.value = '';
 	          }
       	    }
-        xhttp.open('POST', 'Abigail.php', true);
+        xhttp.open('POST', 'profiles/Abigail.php', true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send('question='+ question.value);
         e.preventDefault();
