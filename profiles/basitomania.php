@@ -153,17 +153,10 @@ a {
 	text-decoration: none;
 }
 
-img {
-	max-width: 50%;
-}
-
 
 h3 {
 	margin: 0 0 1em 0;
 }
-
-
-
 
 /********************
 HEADING
@@ -266,15 +259,15 @@ PAGE: CONTACT
 	margin: 0 0 10px;
 }
 
-.conntact-info li.phone a {
+.contact-info li.phone a {
 	background-image: url('../img/phone.png');
 }
 
-.conntact-info li.mail a {
+.contact-info li.mail a {
 	background-image: url('../img/mail.png');
 }
 
-.conntact-info li.twitter a {
+.contact-info li.twitter a {
 	background-image: url('../img/twitter.png');
 }
 
@@ -292,6 +285,7 @@ body {
 header {
 	background: #6ab47b;
 	border-color: #599a68;
+	padding-top: 30px;
 }
 
 /* Nav background on mobile devices */
@@ -360,9 +354,9 @@ a {
 		<div id="wrapper">
 				<section id = "primary">
 					<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
-					<h3>About</h3>
+					<h3 style = "padding-top:10px">About</h3>
 					<p>Hi I'm basitomania, this is my design portfolio where i share all my work when i'm not surfing the net and markerting online. To follow me on twitter my handle is <a href="http://www.twitter.com">@iamblack8</a>.</p>
-					<h3>Contact Details</h3>
+					<h3 style = "padding-top:10px">Contact Details</h3>
 					<ul class="contact-info">
 						<li class="phone">
 							<a href="tel:+2348166380172">+2348166380172</a>
