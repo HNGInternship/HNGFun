@@ -307,12 +307,10 @@
       </div>
     </div>
     <div id="controls">
-      <div class="form-group" method="post" style="text-align: center;">
-        <input type="text" class="form-control" name="question" id="question" placeholder="Type Here.........">
-      </div>
-      <button id="send" style="float:right;" class="btn btn-lg btn-primary btn-hover" name="send">Send</button>
-      </div>
-
+      <form action="" method="post" id="chat-input-form">
+          <input type="text" name="input_text" id="input_text" required class="input_text" placeholder="Type your question here...">
+          <button type="submit" class="send_button" id="send">Send</button>
+        </form>
 
 
   </body>
