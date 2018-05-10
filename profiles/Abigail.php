@@ -1,14 +1,17 @@
 <?php
 
 
- if(!defined('DB_USER')){
-    require "db.php";		
-    try {
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
-  }
+ include_once("../answers.php"); 
+
+if (!defined('DB_USER')){
+            
+  require "../../config.php";
+}
+try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
 
 $query = $conn->query("SELECT * FROM secret_word");
 $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -156,12 +159,11 @@ $question;
 				bottom: 7%;
 				right: 10%;
 			}
-			.view{
-				height: 1vh;
-			}
+			
+
 		#abt-me-div{
 			width: 60%;
-			/*height: auto;*/
+			height: auto;
 			margin:  70px auto;
 			margin-bottom: 70px;
 			padding: 100px 100px 0px 100px;
