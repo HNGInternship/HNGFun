@@ -89,8 +89,8 @@
       }
       .yormabot {
           position: absolute;
-          padding-top: 0px;
-          padding-left: 50%;
+          padding-top: 100px;
+          padding-left: 40%;
           width: 850px;
           display: inline-block;
           overflow: auto;
