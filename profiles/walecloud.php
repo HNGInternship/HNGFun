@@ -52,14 +52,14 @@
     		$stmt->bindParam(':question', $quest);
     		$stmt->execute();
     		$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			$row = $stmt->fetch();
-			$result = $rows['answer'];
+			$row = $stmt->rowCount();
 			
 			// there's a matching result return to user
-    		if($row !== '') {			  
+    		if($row > 0) {
+				$result = $stmt->fetchAll();		  
 				echo json_encode([
 		        	'status' => 1,
-		       		'answer' => $result
+		       		'answer' => $result['answer']
 	     		]);
 	           return;
     		}
@@ -90,13 +90,13 @@
     			]);
     			return;
     		}
-			$stmt = $conn->prepare("SELECT * FROM chatbot WHERE question = ':question'");
+			$stmt = $conn->prepare("SELECT * FROM chatbot WHERE question = :question");
     		$stmt->bindParam(':question', $question);
     		$stmt->execute();
     		$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			$rows = $stmt->fetchAll();
+			$rows = $stmt->rowCount();
 
-			if($rows > 0) {
+			if($rows > 0) {				
 				echo json_encode( [
 					'status' => 1,
 					'answer' => 'Nice but i know this already. Thank you!'
@@ -109,10 +109,10 @@
     		$stmt->bindParam(':question', $trainQuestion);
     		$stmt->bindParam(':answer', $trainAnswer);
     		$stmt->execute();
-    		$stmt->setFetchMode(PDO::FETCH_ASSOC);
+    		//$stmt->setFetchMode(PDO::FETCH_ASSOC);
     		echo json_encode([
 		    	'status' => 1,
-		        'answer' => " I've learnt something new, you can test me now.!"
+		        'answer' => " I've learnt something new, you can test me now!"
 		    ]);
 		    return;
     	}
@@ -124,7 +124,7 @@
 	<title>WaleCloud - Profile</title>
 	<style>
 		* { font-family: OCR A std; font-size: 30px; }
-		body { display: flex; justify-content: center; }
+		body { justify-content: center; }
 		.card {	height: 80vh; width: 300px; border: 1px groove #ccc; border-radius: 3px; }
 		.dp { padding: 2px;	height: 300px;	}
 		span { font-size: 18px;	}
