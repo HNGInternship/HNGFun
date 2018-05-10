@@ -361,7 +361,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 						</div>
 						<div class="chat bot">
 							<div class="bot-photo"></div>
-							<p class="chat-message">You can ask me any question.<br> To get my current version, type aboutbot <br> To train me, Enter in the following format: train:question#answer#password <br> where password = password</p>
+							<p class="chat-message">You can ask me any question.<br> To get my current version, type aboutbot <br> To train me, Enter in the following format: train:question#answer#password <br> where password is password</p>
 						</div>
 						
 				
