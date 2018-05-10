@@ -54,7 +54,7 @@
     		$rows = $stmt->fetchAll();
 
     		// if no result for query, then output i don't understand this please train me to know with train format.
-    		if(empty($rows)) {
+    		if(empty($rows) > 0) {
     			echo json_encode([
         			'status' => 1,
        				'answer' =>  "I don't understand, Please train me by typing  train: your question # your answer # password"
@@ -67,7 +67,7 @@
 	            $answer = $rows[$rand_keys];
 	            echo json_encode([
 		        	'status' => 1,
-		       		'response' => $answer
+		       		'answer' => $answer
 	     		]);
 	           return;
     		}
@@ -181,19 +181,20 @@
 		}
 	</style>
 </head>
-<body style="display: flex;">
+<body>
 
-<div class="card">
-	<div class="dp">
-		<img src="<?= $rsProfile->image_filename; ?>">
+<div class="row">
+	<div class="card col-md-6">
+		<div class="dp">
+			<img src="<?= $rsProfile->image_filename; ?>">
+		</div>
+		<div>
+			<h2><?= $rsProfile->name; ?><br>
+				<span><?= $rsProfile->username; ?><span></h2>
+			<p>Having fun at HNG4...</p>
+		</div>
 	</div>
-	<div>
-		<h2><?= $rsProfile->name; ?><br>
-			<span><?= $rsProfile->username; ?><span></h2>
-		<p>Having fun at HNG4...</p>
-	</div>
-</div>
-<div class="chart">
+	<div class="chart col-md-6">
 		<div class="chart-ui-box">
 			<div class="chart-ui-box-inner">
 				<div class="chart-box" id="chat-area">
@@ -208,6 +209,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script type="text/javascript">
