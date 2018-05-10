@@ -54,17 +54,10 @@ a {
 	text-decoration: none;
 }
 
-img {
-	max-width: 50%;
-}
-
 
 h3 {
 	margin: 0 0 1em 0;
 }
-
-
-
 
 /********************
 HEADING
@@ -94,30 +87,6 @@ h2 {
 	font-weight: normal;
 }
 
-/********************
-PAGE: PORTFOLIO
-*********************/
-#gallery {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-#gallery li {
-	float: left;
-	width: 45%;
-	margin: 2.5%;
-	background-color: #f5f5f5;
-	color: #bdc3cf;
-} 
-
-#gallery li a p {
-	margin: 0;
-	padding: 5%;
-	font-size: 0.75em;
-	color: #bdc3cf;
-}
-
 #primary {
 		width: 50%;
 		float: left;
@@ -128,30 +97,6 @@ PAGE: PORTFOLIO
 		float: right;
 	}
 
-/********************
-NAVIGATION
-*********************/
-nav {
-	text-align: center;
-	padding: 10px 0;
-	margin: 20px 0 0;
-}
-
-nav ul{
-	list-style: none;
-	margin: 0 10px;
-	padding: 0;
-}
-
-nav li {
-	display: inline-block;
-}
-
-nav a {
-	font-weight: 800;
-	padding: 15px 10px;
-
-}
 
 /********************
 FOOTER
@@ -168,10 +113,8 @@ footer {
 PAGE: ABOUT
 *********************/
 .profile-photo {
-            /*display: block;
-            max-width: 20%;
-            margin: 0 auto 50px;*/
-            border-radius: 50%;
+			width: 200px;
+            border-radius:50%;
         }
 
 
@@ -195,15 +138,15 @@ PAGE: CONTACT
 	margin: 0 0 10px;
 }
 
-.conntact-info li.phone a {
+.contact-info li.phone a {
 	background-image: url('../img/phone.png');
 }
 
-.conntact-info li.mail a {
+.contact-info li.mail a {
 	background-image: url('../img/mail.png');
 }
 
-.conntact-info li.twitter a {
+.contact-info li.twitter a {
 	background-image: url('../img/twitter.png');
 }
 
@@ -221,6 +164,7 @@ body {
 header {
 	background: #6ab47b;
 	border-color: #599a68;
+	padding-top: 30px;
 }
 
 /* Nav background on mobile devices */
@@ -240,16 +184,79 @@ a {
 	color: #6ab47b;
 }
 
-/* Nav link */
-nav a, nav a:visited {
-	color: #fff;
-}
-/* selected nav link */
-nav a.selected, nav a:hover {
-	color: #32673f;
-}
+/*chatbot*/
+.chatbot-container{
+		  background-color: #F3F3F3;
+		  width: 500px;
+		  height: 500px;
+		  margin: 10px;
+		  box-sizing: border-box;
+		  box-shadow: -3px 3px 5px gray;
+		}
+.chat-header{
+			width: 500px;
+			height: 50px;
+			background-color: #6ab47b;
+			color: white;
+			text-align: center;
+			padding: 10px;
+			font-size: 1.5em;
+		}
+#chat-body{
+		    display: flex;
+		    flex-direction: column;
+		    padding: 10px 20px 20px 20px;
+		    background: white;
+		    overflow-y: scroll;
+		    height: 395px;
+		    max-height: 395px;
+		}
+.message{
+			font-size: 0.8em;
+			width: 300px;
+			display: inline-block;
+          	padding: 10px;
+			margin: 5px;
+        	border-radius: 10px;
+    		line-height: 18px;
+		}
+.bot-chat{
+			text-align: left;
+		}
+.bot-chat .message{
+			background-color: #6ab47b;
+			color: white;
+			opacity: 1.9;
+			box-shadow: 3px 3px 5px gray;
+		}
+#chat_showcase{
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+    }
 
-        </style>
+.user_chat{
+			text-align: right;
+		}
+.user_chat .message{
+			background-color: #E0E0E0;
+			color: black;
+			box-shadow: 3px 3px 5px gray;
+		}
+#send {
+      border: none;
+      color: white;
+      padding: 13px 28px;
+      text-align: center;
+      font-size: 15px;
+      margin: 5px 12px;
+      /*position: absolute;*/
+      float: right;
+      /*box-shadow: 4px 4px 2px #a8b2c1;*/
+      border-radius: 10px;
+    }
+
+</style>
 	</head>
 	<body>
 		<header>
@@ -257,23 +264,13 @@ nav a.selected, nav a:hover {
 				<h1>Basitomania</h1>
 				<h2>Web Developer</h2>
 			</a>
-			<nav>
-				<ul>
-					<li><a href="index.html">Portfolio</a></li>
-					<li><a href="about.html" class="selected">About</a></li>
-					<li><a href="contact.html">Contact</a></li>
-				</ul>
-			</nav>
 		</header>
 		<div id="wrapper">
-			<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
 				<section id = "primary">
-					<h3>About</h3>
+					<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
+					<h3 style = "padding-top:10px">About</h3>
 					<p>Hi I'm basitomania, this is my design portfolio where i share all my work when i'm not surfing the net and markerting online. To follow me on twitter my handle is <a href="http://www.twitter.com">@iamblack8</a>.</p>
-				</section>
-				
-				<section id="secondary">
-					<h3>Contact Details</h3>
+					<h3 style = "padding-top:10px">Contact Details</h3>
 					<ul class="contact-info">
 						<li class="phone">
 							<a href="tel:+2348166380172">+2348166380172</a>
@@ -284,23 +281,36 @@ nav a.selected, nav a:hover {
 						<li class="twitter">
 							<a href="http://twitter.com/intent/tweet?screen_name=iamblack8">@iamblack8</a>
 						</li>
-					</ul>
-				</section>
-				<div>
-					<div>User: <span id="user"></span></div>
-					<div>Chatbot: <span id="chatbot"></span></div>
-					<div> <input id="input" type="text"> </div>
-				</div>
-			<footer>
-				<p>&copy; 2017 Maniaweb.</p>
-			</footer>
+					</ul>	
+				</section>		
+			<section id="secondary">
+				<div class="chatbot-container">
+					<div class="chat-header">
+						<span>Bas Chatbot</span>
+					</div>
+					<div id="chat-body">
+						<div class="bot-chat">
+							<div class="message">Hello! My name is Basbot.<br>You can ask me questions and get answers.<br>Type <span style="color: #90CAF9;/"><strong> Aboutbot</strong></span> to know more about me.</div>
+							<div class="message">You can also train me to be smarter by typing; <br><span style="color: #90CAF9;"><strong>train: question #answer #password</strong></span><br></div>
+						</div>
+					</div>
+					<div class="chat-footer">
+						<div class="input-text-container">
+							<form action="" method="post" id="chat-input-form">
+								<input type="text" name="input_text" id="input" required class="input_text" placeholder="Type your question here...">
+								<button type="submit" class="send_button" id="send">Send</button>
+							</form>
+						</div>
+					</div>
+				</div>	
+			</section>		
+		</div>
+
+		<footer>
+			<p>&copy; 2017 Maniaweb.</p>
+		</footer>
 			<script type = text/javascript>
-				var trigger = [
-					["hi"]
-				];
-				var reply = [
-					["Hey"]
-				];
+				
 				document.queryselector("#input").addEventListener("keypress", function(e){
 					var key = e.which || e.keyCode;
 					if(key == 13){

@@ -1,3 +1,9 @@
+<?php
+if (!defined('DB_USER')){
+   require "../../config.php";
+ }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -295,6 +301,12 @@
 
 
 	//////////// CHATBOT STARTS HERE //////////////////////////////////////////////////////////////
+	if($_SERVER['REQUEST_METHOD'] === "POST"){
+		if(!isset($conn)) {
+			include '../../config.php';
+
+			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		}
 		if (isset($_POST['message'])) {
 
 			// Retrieve form data from ajax
@@ -304,12 +316,12 @@
 
 			//Analyse message to determine response
 			if (strtok($message, ":") == "train"){
-				trainAlan($message); // Call function to handle training
+				trainAlan($message, $conn); // Call function to handle training
 
 			}else if ($message != "" ){
 				// Check if question exist in database
 				// returns 1 if question does not exist in database
-				$tempVariable = checkDatabase($message);
+				$tempVariable = checkDatabase($message, $conn);
 
 				if ($tempVariable == 1){
 					if ($message == "what is the time"){
@@ -320,12 +332,12 @@
 						echo "Kilode! What are you saying?
 						I don't understand but I'm a fast learner.
 						To teach me something, just type and send:
-						train: question # answer # password";
+						train: # question # answer # password";
 					} // end else
 				} // end if
 			}
 		}
-
+	}
 		// Function to return Date
 		function respondDate(){
 			date_default_timezone_set("Africa/Lagos");
@@ -351,8 +363,8 @@
 
 		// function to train bot
 		// pass message as arguement
-		function trainAlan($newmessage){
-			require 'db.php';
+		function trainAlan($newmessage, $conn){
+			// require 'db.php';
 			$message = explode('#', $newmessage);
 			$question = explode(':', $message[0]);
 			$answer = $message[1];
@@ -394,9 +406,9 @@
 
 		// Function to check if question is in database
 		// Returns 1 if question is not found in database
-		function checkDatabase($question){
+		function checkDatabase($question, $conn){
 			try{
-				require 'db.php';
+				// require 'db.php';
 				$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
 				$stmt->execute();
 
@@ -446,8 +458,8 @@
 				</a>
 			</section>
 
-			<form class="chat-box" id="ajax-contact" method="post" action="profiles/somiari.php">
-				<span class="chat-box-header">Alan is not a bot</span>
+			<form class="chat-box" id="ajax-contact">
+				<span class="chat-box-header">Alan is a bot</span>
 				<div class="chat-msgs">
 					<p class="alan">Hello! My name is Alan, and I am not a bot.</p>
 					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
@@ -474,7 +486,7 @@
 			</footer>
 
 		</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
 	<script>
 		const chatMsgs = document.querySelector(".chat-msgs");
 		const chatMsg = document.querySelector(".chat-msg");
@@ -508,7 +520,7 @@
 				sendTheMessage(formData);
 
 				// Clearing text filled
-				chatMsg.value = "";
+				// chatMsg.value = "";
 			}); // End of form event handler
 		});
 
@@ -518,9 +530,10 @@
 
 			$.ajax({
 					type: 'POST',
-					url: $(form).attr('action'),
+					url: 'profiles/somiari.php',
 					data: formData,
 				}).done(function(response) {
+					console.log(response);
 					chatMsgs.innerHTML += '<p class="alan">' + response + '</p>';
 					fixScroll(); // call function to fix scroll bottom
 			})// end ajax handler

@@ -98,10 +98,11 @@ width: 30%;
  $image_filename = $row['image_filename'];
  }
  
- $sql = 'SELECT `*` FROM `secret_word` LIMIT 1'; 
- $secret_word = $pdo->query($sql);
- $secret_word->setFetchMode(PDO::FETCH_OBJ);
-   $secret_word = $secret_word->fetch();
+ $sql = 'SELECT * FROM secret_word LIMIT 1'; 
+ $result2 = $pdo->query($sql);
+foreach ($result2 as $row) { 			
+               # code... 			
+                $secret_word = $row['secret_word']; }
   
  $output = 'Database connection established.'; } 
  catch (PDOException $e) 
