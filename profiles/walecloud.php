@@ -47,29 +47,27 @@
 				return;
 			}
     		// query dbase for a similar questions and return a randomly selected single closest response attached to it.
-    		$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE ':question'");
+    		$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE ':question' LIMIT 1");
     		$stmt->bindParam(':question', $question);
     		$stmt->execute();
     		$stmt->setFetchMode(PDO::FETCH_ASSOC);
     		$rows = $stmt->fetchAll();
 
     		// if no result for query, then output i don't understand this please train me to know with train format.
-    		if($rows <= 0) {
-    			echo json_encode([
-        			'status' => 1,
-       				'answer' =>  "I don't understand, Please train me by typing  train: your question # your answer # password"
-     		 	]);
-     		 	return;
+    		if($rows > 0) {			  
+				echo json_encode([
+		        	'status' => 1,
+		       		'answer' => $rows['answer']
+	     		]);
+	           return;
     		}
     		// there's a matching result return to user
     		else {
-    			$rand_keys = array_rand($rows);
-	            $answer = $rows[$rand_keys];
-	            echo json_encode([
-		        	'status' => 1,
-		       		'answer' => $answer
-	     		]);
-	           return;
+				echo json_encode([
+        			'status' => 1,
+       				'answer' =>  "I don't understand, Please train me by typing  train: your question # your answer # password"
+				]);
+	            return;
     		}
 
     	}
