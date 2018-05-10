@@ -22,7 +22,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 <?php
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    include '../answers.php';
+    // include '../answers.php';
       
       try{
 
