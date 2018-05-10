@@ -240,17 +240,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
    </div>
    <div class="col-md-3 chat">
       <div style="background-color: yellow"><h1 class="text-center"> My ChatBot</h1></div>
+      <footer>
+        <form class="padedd" methood="post" id="formm">
+      <input type="text" placeholder="message" name="question"><button id="send" name="send">Send</button>
+      </form>
+      </footer>
         chat
         <ul id="chats">
         <?php
 
         ?>
         </ul>
-      <footer>
-        <form class="padedd" methood="post" id="formm">
-      <input type="text" placeholder="message" name="question"><button id="send" name="send">Send</button>
-      </form>
-      </footer>
+      
       </div>
 
   </div>
