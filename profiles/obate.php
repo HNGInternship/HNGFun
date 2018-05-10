@@ -163,6 +163,113 @@
 
   <!-- the php code that works with the Chatbot -->
   	<?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $question = $_POST['question'];
+      $question = preg_replace('([\s]+)', ' ', trim($question));
+      $question = preg_replace("([?.])", "", $question);
+        if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'aboutbot'){
+          echo json_encode([
+            'status' => 1,
+            'answer' => "Hi dear! My name is obabot-"
+          ]);
+          return;
+        };
+        //Check if user want to train the bot or ask a normal question
+      $check_for_train = stripos($question, "train:");
+        if($check_for_train === false){
+
+      $question = preg_replace('([\s]+)', ' ', trim($question));
+      $question = preg_replace("([?.])", "", $question);
+
+      $question = $question;
+            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+            $q = $GLOBALS['conn']->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetchAll();
+            if(empty($data)){
+                echo json_encode([
+                'status' => 1,
+                 'answer' =>  "your question cannot be answered! Please train me by typing-->  train: question #answer #password"
+             ]);
+              return;
+            }else {
+                $rand_keys = array_rand($data);
+                $answer = $data[$rand_keys]['answer'];
+                echo json_encode([
+                'status' => 1,
+                 'answer' => $answer,
+             ]);
+               return;
+              };
+
+
+      }else{
+        //train the chatbot to be more smarter
+          $train_string  = preg_replace('([\s]+)', ' ', trim($question));
+          $train_string  = preg_replace("([?.])", "",  $train_string);
+          $train_string = substr( $train_string, 6);
+          $train_string = explode("#", $train_string);
+
+            $user_question = trim($train_string[0]);
+              if(count($train_string) == 1){
+                echo json_encode([
+                  'status' => 1,
+                  'answer' => "invalid training format. The correct format is-->  train: question #answer #password"
+                ]);
+              return;
+              };
+              $user_answer = trim($train_string[1]);
+              if(count($train_string) < 3){
+                echo json_encode([
+                  'status' => 1,
+                  'answer' => "Please enter training password to train me. The password is--> password"
+                ]);
+              return;
+              };
+
+            $user_password = trim($train_string[2]);
+              //verify if training password is correct
+              define('TRAINING_PASSWORD', 'password');
+              if($user_password !== TRAINING_PASSWORD){
+                echo json_encode([
+                  'status' => 1,
+                  'answer' => "password incorrect! Please enter the correct password which is-->  password "
+                ]);
+            return;
+            };
+            //check database if answer exist already
+            $user_answer = "$user_answer";
+            $sql = "select * from chatbot where answer like :user_answer";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':user_answer', $user_answer);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+          $rows = $stmt->fetchAll();
+            if(empty($rows)){
+              $sql = "insert into chatbot (question, answer) values (:question, :answer)";
+              $stmt = $conn->prepare($sql);
+              $stmt->bindParam(':question', $user_question);
+              $stmt->bindParam(':answer', $user_answer);
+              $stmt->execute();
+              $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+              echo json_encode([
+                'status' => 1,
+                  'answer' => " Thanks! for training me "
+                ]);
+            return;
+
+            }else{
+               echo json_encode([
+                'status' => 1,
+                  'answer' => "Sorry! Answer already exist. Try train me with a new question and a new answer."
+                ]);
+          return;
+            };
+          return;
+        };
+
+    } else {
 
   	 ?>
 
