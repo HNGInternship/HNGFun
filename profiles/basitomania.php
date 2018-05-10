@@ -87,30 +87,6 @@ h2 {
 	font-weight: normal;
 }
 
-/********************
-PAGE: PORTFOLIO
-*********************/
-#gallery {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-#gallery li {
-	float: left;
-	width: 45%;
-	margin: 2.5%;
-	background-color: #f5f5f5;
-	color: #bdc3cf;
-} 
-
-#gallery li a p {
-	margin: 0;
-	padding: 5%;
-	font-size: 0.75em;
-	color: #bdc3cf;
-}
-
 #primary {
 		width: 50%;
 		float: left;
@@ -121,30 +97,6 @@ PAGE: PORTFOLIO
 		float: right;
 	}
 
-/********************
-NAVIGATION
-*********************/
-nav {
-	text-align: center;
-	padding: 10px 0;
-	margin: 20px 0 0;
-}
-
-nav ul{
-	list-style: none;
-	margin: 0 10px;
-	padding: 0;
-}
-
-nav li {
-	display: inline-block;
-}
-
-nav a {
-	font-weight: 800;
-	padding: 15px 10px;
-
-}
 
 /********************
 FOOTER
@@ -231,18 +183,6 @@ a {
 	color: #6ab47b;
 }
 
-<<<<<<< HEAD
-/* Nav link */
-nav a, nav a:visited {
-	color: #fff;
-}
-/* selected nav link */
-nav a.selected, nav a:hover {
-	color: #32673f;
-}
-
-        </style>
-=======
 /*chatbot*/
 .chatbot-container{
 		  background-color: #F3F3F3;
@@ -281,7 +221,6 @@ nav a.selected, nav a:hover {
 		}
 
 </style>
->>>>>>> 6b5c92054a0a9d66eaa87d184cfb1d322c0a818d
 	</head>
 	<body>
 		<header>
@@ -289,30 +228,13 @@ nav a.selected, nav a:hover {
 				<h1>Basitomania</h1>
 				<h2>Web Developer</h2>
 			</a>
-			<nav>
-				<ul>
-					<li><a href="index.html">Portfolio</a></li>
-					<li><a href="about.html" class="selected">About</a></li>
-					<li><a href="contact.html">Contact</a></li>
-				</ul>
-			</nav>
 		</header>
 		<div id="wrapper">
-			<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
 				<section id = "primary">
-<<<<<<< HEAD
 					<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
 					<h3 style = "padding-top:10px">About</h3>
 					<p>Hi I'm basitomania, this is my design portfolio where i share all my work when i'm not surfing the net and markerting online. To follow me on twitter my handle is <a href="http://www.twitter.com">@iamblack8</a>.</p>
 					<h3 style = "padding-top:10px">Contact Details</h3>
-=======
-					<h3>About</h3>
-					<p>Hi I'm basitomania, this is my design portfolio where i share all my work when i'm not surfing the net and markerting online. To follow me on twitter my handle is <a href="http://www.twitter.com">@iamblack8</a>.</p>
-				</section>
-				
-				<section id="secondary">
-					<h3>Contact Details</h3>
->>>>>>> 6f3d588d244f843cb6390b699e2162766bcbb966
 					<ul class="contact-info">
 						<li class="phone">
 							<a href="tel:+2348166380172">+2348166380172</a>
@@ -323,18 +245,6 @@ nav a.selected, nav a:hover {
 						<li class="twitter">
 							<a href="http://twitter.com/intent/tweet?screen_name=iamblack8">@iamblack8</a>
 						</li>
-<<<<<<< HEAD
-					</ul>
-				</section>
-				<div>
-					<div>User: <span id="user"></span></div>
-					<div>Chatbot: <span id="chatbot"></span></div>
-					<div> <input id="input" type="text"> </div>
-				</div>
-			<footer>
-				<p>&copy; 2017 Maniaweb.</p>
-			</footer>
-=======
 					</ul>	
 				</section>		
 			<section id="secondary">
@@ -358,21 +268,13 @@ nav a.selected, nav a:hover {
 					</div>
 				</div>	
 			</section>		
-
-			
 		</div>
 
 		<footer>
 			<p>&copy; 2017 Maniaweb.</p>
 		</footer>
->>>>>>> 6b5c92054a0a9d66eaa87d184cfb1d322c0a818d
 			<script type = text/javascript>
-				var trigger = [
-					["hi"]
-				];
-				var reply = [
-					["Hey"]
-				];
+				
 				document.queryselector("#input").addEventListener("keypress", function(e){
 					var key = e.which || e.keyCode;
 					if(key == 13){
