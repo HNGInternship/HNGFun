@@ -222,13 +222,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   }
   #mchats{
     /*overflow-y: scroll;*/
-    /*max-height: 50%;*/
-    /*height: 50%;*/
+    max-height: 90%;
+    height: 90%;
     
   }
   #chats{
-    height: 50%;
-    max-height: 50%;
+    height: 90%;
+    max-height: 90%;
     overflow-y: scroll;
 
   }
