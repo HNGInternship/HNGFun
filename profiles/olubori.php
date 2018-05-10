@@ -47,7 +47,7 @@
 		} catch (PDOException $pe) {
 		    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 		}
-		$result = $conn->query("SELECT answer FROM chatbot WHERE question LIKE '%{$question}%' ORDER BY rand() LIMIT 1");
+		$result = $conn->query("SELECT answer FROM chatbot WHERE question COLLATE UTF8_GENERAL_CI LIKE '%{$question}%' ORDER BY rand() LIMIT 1");
 		$result = $result->fetch(PDO::FETCH_OBJ);
         $answer = $result->answer;//bot_answer($_GET['question']);
 		if($answer === false){
@@ -371,7 +371,6 @@
 	    commands: [
 	               {key: 'train', description: 'This command is to train the bot', format: '[question] [answer] [password]'}, 
 	               {key: 'currenttime', description: 'This command is to get the current time in any of the location of the world', format: '[location]'},
-	               {key: 'chitchat', description: 'This command is to chat with the bot', format: '[question]'},
 	               {key: 'dayofweek', description: 'This command is get the day of the weeks a date falls on', format: '[yyyy-mm-dd]'},
 	               {key: 'aboutbot', description: 'This command is tells you about me', format: ''},
 	               {key: 'popularcities', description: 'Show all popular city that starts with an alphabet', format: '[a], or [b],... [z]'}
@@ -414,18 +413,26 @@
 	  	  this.choice.command = c.key;
 	  	  this.humanMessage = '#' + c.key + ' ' + c.format;
 	  	},
-	  	handleSubmit: async function(){
+	  	handleSubmit: function(){
 	  	  this.choice.message = this.humanMessage;
 	  	  this.humanMessage = '';
           this.messages.push({human: true, text: this.choice.message});
-          
+          this.handleAnswer();
+	  	},
+	  	handleAnswer: async function(){
           let answer = await this.getAnswer();
           this.messages.push({human: false, text: answer});
-          this.choice = {command: '', message:''};
-          
-		  $("#chat-msgs").animate({ scrollTop: $("#chat-msgs").height() }, "fast");
+          this.choice = {command: '', message:''};          
+          $("#chat-msgs").animate({ scrollTop: $("#chat-msgs").height() }, "fast");
 	  	},
-	  	getAnswer: function(){
+	  	getAnswer: async function(){
+	  		if(!this.choice.command){
+	  		  this.processUnexpectedInput();
+	  		}
+
+	  		if(this.choice.message.indexOf('#') == 0 && !this.choice.command){
+              return "I can't help with that please, give me a correct command";
+	  		}
 			switch(this.choice.command){
 			  case 'aboutbot':
 			    return 'Bori Bot Version 1.0, I tell day of the week from date, and I can tell time in any location too.';
@@ -433,14 +440,12 @@
 			    return this.getDayOfWeek();
 			  case 'currenttime':
 			    return this.getCurrentTime();
-			  case 'chitchat':
-			    return this.doChat();
 			  case 'train':
 			    return this.doTrainBot();
 			  case 'popularcities':
 			    return this.getAllCities();
 			  default:
-			    return "I can't help with that please, give me a correct command";
+			    return this.doChat();
 			}
 
 
@@ -489,14 +494,12 @@
 
 	  	},
 	  	doChat: function(){
-
-	  	  let question;
-	  	  try{
-            question = this.choice['message'].match(/\[(.*?)\]/)[1];
+          let question = this.choice['message']; /*.match(/\[(.*?)\]/)[1];
 	  	  }catch(ex){
             return "Follow the correct syntax #chitchat [question]";
-	  	  }
+	  	  } */
 	  	  
+
 	  	  return axios.get('profiles/olubori.php?question='+ question)
 	  	    .then(function (response) {
 	  	      let chatResponse = response.data.answer || 'I cannot find you a valid answer, go ahead and train me. Use #train [question] [answer] [password]';
@@ -557,6 +560,16 @@
 	  		val += `</ul>`;
 
 	  		return val;
+	  	},
+	  	processUnexpectedInput: function(){
+	  		commands = ['aboutbot', 'currenttime', 'dayofweek', 'train', 'popularcities'];
+	  		mycommand = this.choice.message.split(' ')[0];
+	  		mycommand = mycommand.substring(1);
+	  		for(cmd of commands){
+	  		  if(cmd == mycommand){
+	  		  	this.choice.command = cmd;
+	  		  }
+	  		}
 	  	}
 	  },
 	  created: async function(){
