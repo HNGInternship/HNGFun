@@ -41,8 +41,8 @@
         <style type="text/css">
             html{height: 95%}
             body { height: 100%; display: flex; flex-flow: column nowrap;   }
-            #header, #footer{ height: 50px; flex:0 0 auto;  display: flex; flex-flow: row nowrap; justify-content: center; }
-            #middle{ width: 300px; height: auto; margin-right: auto; margin-left: auto; }
+            #header, #footer{ height: 110px; flex:0 0 auto;  display: flex; flex-flow: row nowrap; justify-content: center; }
+            #middle{ width: 400px; height: auto; margin-right: auto; margin-left: auto; padding-top: 60px }
             #image{ width: 300px; height: 250px; flex:1 1 auto; }
 			.flex{display: flex; flex-flow: row nowrap; justify-content: space-between; width: 100%}
 			.label{width: 40%;}
@@ -52,12 +52,12 @@
     <body>
 		<br/>
         <div id="header">
-            <h3 style="">WELCOME TO HNG INTERNSHIP 4</h3>              
+            <h3 style="top: 60">HNG INTERNSHIP 4</h3>              
         </div>
 		<div id="middle">
 			<div id="image"  style="background-image: url(<?php echo $imageUrl; ?>); background-size: cover; background-repeat:   no-repeat;
                      background-position: center center; -webkit-background-size: cover; -moz-background-size: cover;
-                     -o-background-size: cover;"  >           
+                     -o-background-size: cover; width: 250; margin-right: auto; margin-left: auto;"  >           
 			</div>
 			<br/>
 			<div class="flex">
