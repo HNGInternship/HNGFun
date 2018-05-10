@@ -436,7 +436,7 @@ function getPinkyCommands(){
 ///////////////// anything, don't touch //////////////////////////////// 
 /////////////////         this side    /////////////////////////////////
 
-functon getBotInfo() {
+function getBotInfo() {
     $bot_version = 1.01;
     return: "This is Vector, version " .$bot_version;
 }
