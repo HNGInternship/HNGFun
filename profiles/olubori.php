@@ -1,13 +1,39 @@
 <?php 
+
+
+   if($_GET['question']){
+	   require_once '../../config.php';
+
+	   	$question = $_GET['question'];
+		try {
+		    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		} catch (PDOException $pe) {
+		    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+		}
+		$result = $conn->query("SELECT answer FROM chatbot WHERE question LIKE '%{$question}%' ORDER BY rand() LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+        $answer = $result->answer;//bot_answer($_GET['question']);
+		if($answer === false){
+		  $data = ['answer'=>null];
+		}else
+		  $data = ['answer'=>$answer];
+		
+		header('Content-Type: application/json');
+		echo json_encode($data);
+		return;
+	}
+
 	$result = $conn->query("Select * from secret_word LIMIT 1");
 	$result = $result->fetch(PDO::FETCH_OBJ);
 	$secret_word = $result->secret_word;
-
 	$result2 = $conn->query("Select * from interns_data where username = 'olubori'");
 	$user = $result2->fetch(PDO::FETCH_OBJ);
+
+	
 ?>
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300" rel="stylesheet" type="text/css">
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 	<style type="text/css">
 	  #app{
@@ -346,9 +372,19 @@
 	  	    return output;
 
 	  	},
-	  	doChat: async function(){
-	  	  const answer = await fetch('profiles/olubori.php');
-	  	  console.log(answer);
+	  	doChat: function(){
+	  	  let question = this.choice['message'].match(/\[(.*?)\]/)[1];
+	  	  return axios.get('profiles/olubori.php?question='+ question)
+	  	    .then(function (response) {
+	  	      let chatResponse = response.data.answer || 'I cannot find you a valid answer, go ahead and train me. Use #train [question] [answer] [password]';
+	  	      console.log(chatResponse);
+	  	      return chatResponse;
+	  	    })
+	  	    .catch(function (error) {
+	  	      console.log(error);
+	  	      return 'Something went wrong, try again please';
+	  	    });
+
 	  	},
 	  	doTrainBot: function(){
 	  	  return 'You can train me';
@@ -359,12 +395,6 @@
 	  	const json = await response.json();
         this.zoneList = json.zones;
         console.log(this.zoneList);
-	  	  /*.then(function(response) {
-	  	    return response.json();
-	  	  })
-	  	  .then(function(myJson) {
-	  	    console.log(myJson);
-	  	  });*/
 	  }
 	})
 
