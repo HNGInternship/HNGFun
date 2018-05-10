@@ -514,7 +514,7 @@
 				sendTheMessage(formData);
 
 				// Clearing text filled
-				chatMsg.value = "";		
+				// chatMsg.value = "";		
 			}); // End of form event handler
 		});
 
@@ -527,6 +527,7 @@
 					url: 'profiles/somiari.php',
 					data: formData,
 				}).done(function(response) {
+					console.log(response);
 					chatMsgs.innerHTML += '<p class="alan">' + response + '</p>';
 					fixScroll(); // call function to fix scroll bottom
 			})// end ajax handler
