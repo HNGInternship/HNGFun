@@ -192,11 +192,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   }
   .mainn{
     height: 100%;
+    width: 60%;
   }
   .chat{
-    margin-top:9%;
+    /*margin-top:9%;*/
     background-color: #fff;
     /* margin-bottom: 9%; */
+    width: 100%;
+    height: 90%;
+    /*margin-top: 1%;*/
   }
   .padedd{
     margin-top: 5%;
@@ -211,7 +215,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     margin-bottom: 2%;
     float: left;
     margin-left: 56px;
-    width: 60%;
+    /*width: 60%;*/
   }
   #sentmessage{
     background-color: gray;
@@ -220,7 +224,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     margin-bottom: 2%;
     float: right;
     margin-left: 56px;
-    width: 60%;
+    /*width: 60%;*/
   }
   #mchats{
     /*overflow-y: scroll;*/
@@ -232,6 +236,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     height: 90%;
     max-height: 90%;
     overflow-y: scroll;
+    width: 40%;
 
   }
   #bbb{
@@ -240,6 +245,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     max-height: 80%;
     height: 80%;
   }
+  .row{
+    display: flex;
+  }
   </style>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -247,7 +255,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 <body>
 <div class="container">
 <div class="row">
- <div class="col-md-9 mainn">
+ <div class="mainn">
    <div class="white text-center">
     <h1 id="hello">HELLO</h1>
     <h3>I AM <?php echo $user->name ?>  HNG INTERN.</h3>
@@ -265,7 +273,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 </a>
      </div>
    </div>
-   <div id="bbb" class="col-md-3 chat">
+   <div id="bbb" class="chat">
       <div><h1 class="text-center"> My ChatBot</h1></div>
         <div id="mchats">
           <div id="chats">
