@@ -164,7 +164,7 @@
 			height: 400px;
 			border-radius: 5px;
 			background-color:white;
-			margin-top:20px;
+			margin-top:100px;
 			}	
 
         .oj-flex-item .oj-panel .demo-mypanel{
