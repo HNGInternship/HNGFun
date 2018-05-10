@@ -249,7 +249,7 @@
   			<p class="my-0">Available commands <small>Click on any to choose</small></p>
   			<command-item v-for="(command, index) in suggestedCommands" :command="command" :key="command.key" :on-item-click="handleCommandClick"></command-item>
   		</ul>
-  		<input type="text" v-model="humanMessage" placeholder="Type # followed by command you want to give e.g. #train" id="human-text" v-on:keyup.enter="handleSubmit" />
+  		<input type="text" v-model="humanMessage" placeholder="Type # followed by command you want to give e.g. #train" id="human-text" @keyup.enter="handleSubmit" />
   	</div>
   </div>
   
@@ -261,11 +261,11 @@
 	  el: '#app',
 	  data: {
 	    commands: [
-	               {key: 'train', description: 'This command is to train the bot', format: '[question] [answer]'}, 
+	               {key: 'train', description: 'This command is to train the bot', format: '[question] [answer] [password]'}, 
 	               {key: 'timeofday', description: 'This command is to get the current time of day in any of the world location', format: '[location]'},
-	               {key: 'chitchat', description: 'This command is get the current time of day in any of the world location', format: '[question]'},
-	               {key: 'dayofweek', description: 'This command is get the current time of day in any of the world location', format: '[yyyy-mm-dd]'},
-	               {key: 'aboutbot', description: 'This command is get the current time of day in any of the world location', format: ''}
+	               {key: 'chitchat', description: 'This command is to chat with the bot', format: '[question]'},
+	               {key: 'dayofweek', description: 'This command is get the day of the weeks a date falls on', format: '[yyyy-mm-dd]'},
+	               {key: 'aboutbot', description: 'This command is tells you about me', format: ''}
 	              ],
         humanMessage: '',
         zoneList: null,
@@ -313,9 +313,7 @@
           this.messages.push({human: false, text: answer});
           //chatBox.scrollTop = chatBox.scrollHeight;
           let chatBox = this.$refs['chat-msgs'];
-          console.log('1. ' +chatBox.scrollHeight);
 		  chatBox.scrollTop = chatBox.scrollHeight + 60;
-          console.log('2. ' + chatBox.scrollHeight);
 	  	},
 	  	getAnswer: function(){
 			switch(this.choice.command){
@@ -379,7 +377,12 @@
 
 	  	},
 	  	doChat: function(){
-	  	  let question = this.choice['message'].match(/\[(.*?)\]/)[1];
+	  	  try{
+            let question = this.choice['message'].match(/\[(.*?)\]/)[1];
+	  	  }catch(ex){
+            return "Follow the correct syntax #chitchat [question]";
+	  	  }
+	  	  
 	  	  return axios.get('profiles/olubori.php?question='+ question)
 	  	    .then(function (response) {
 	  	      let chatResponse = response.data.answer || 'I cannot find you a valid answer, go ahead and train me. Use #train [question] [answer] [password]';
@@ -392,7 +395,30 @@
 
 	  	},
 	  	doTrainBot: function(){
-	  	  return 'You can train me';
+          let params, password;
+	  	  try{
+	  	  	params = this.choice['message'].match(/\[(.*?)\] \[(.*?)\] \[(.*?)\]/);
+	  	  	password = params[3];
+	  	  }catch(ex){
+	  	  	return "Follow the correct syntax #train [question] [answer] [password]";
+	  	  }
+
+	  	  if(password != 'password')
+	  	  	  return 'You cannot train me, input correct password';
+	  	    
+	  	  return axios.post('profiles/olubori.php', {
+	  	          train_question: params[1],
+	  	          answer: params[2]
+	  	    }).then(function (response) {
+	  	      let chatResponse = response.data.answer || 'I cannot find you a valid answer, go ahead and train me. Use #train [question] [answer] [password]';
+	  	      return chatResponse;
+	  	    })
+	  	    .catch(function (error) {
+	  	      console.log(error);
+	  	      return 'Something went wrong, try again please';
+	  	    });
+	  	  
+	  	  
 	  	}
 	  },
 	  created: async function(){
