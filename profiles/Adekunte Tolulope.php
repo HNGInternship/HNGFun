@@ -6,16 +6,6 @@ $dbs = 'hng_fun';
 $diffAns ='';
 $db=mysqli_connect($localhost, $user, $pass, $dbs);
 
-try {
-        $db = 'SELECT * FROM secret_word';
-        $q = $mysqli_connect->query($db);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    $secret_word = $data['secret_word']
-
 
 if (isset($_POST['bot_r'])) {
 	$data = $_POST['bot_r'];

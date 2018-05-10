@@ -47,29 +47,28 @@
 				return;
 			}
     		// query dbase for a similar questions and return a randomly selected single closest response attached to it.
-    		$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE ':question'");
+    		$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE ':question' LIMIT 1");
     		$stmt->bindParam(':question', $question);
     		$stmt->execute();
     		$stmt->setFetchMode(PDO::FETCH_ASSOC);
-    		$rows = $stmt->fetchAll();
-
-    		// if no result for query, then output i don't understand this please train me to know with train format.
-    		if($rows > 0) {
-    			echo json_encode([
-        			'status' => 1,
-       				'answer' =>  "I don't understand, Please train me by typing  train: your question # your answer # password"
-     		 	]);
-     		 	return;
-    		}
-    		// there's a matching result return to user
-    		else {
-    			$rand_keys = array_rand($rows);
-	            $answer = $rows[$rand_keys];
-	            echo json_encode([
+			$row = $stmt->fetch();
+			$result = $rows['answer'];
+			
+			// there's a matching result return to user
+    		if($row !== '') {			  
+				echo json_encode([
 		        	'status' => 1,
-		       		'answer' => $answer
+		       		'answer' => $result
 	     		]);
 	           return;
+    		}
+    		// if no result for query, then output i don't understand this please train me to know with train format.			
+    		else {
+				echo json_encode([
+        			'status' => 1,
+       				'answer' =>  "I don't understand, Please train me by typing  train: your question # your answer # password"
+				]);
+	            return;
     		}
 
     	}
@@ -147,6 +146,7 @@
 			height: 80vh;
 			border: 2px solid #000;
 			overflow:auto;
+			padding-top:30px;
 		}
 		.chart-input{
 			position: relative;
