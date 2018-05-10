@@ -1,6 +1,6 @@
 <?php 
   if(!defined('DB_USER')){
-	  require "../config.php";	
+	  require "../../config.php";	
   }	
 	try {
 	    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
@@ -184,20 +184,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 			}
 		}
 */
-		@media only screen and (max-width: 992px){
-			.wrapper{
-				flex-direction: column;
-			}
-		}
-
-		@media only screen and (max-width: 542px){
-			.chatbox{
-				max-width: 350px;
-				
-			}
-		}
-		
-		.chatbox{
+		 .chatbox{
 			width: 500px;
 			/*min-width: 390px;*/
 			height: 600px;
@@ -220,7 +207,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 		
 		.chat-logs::-webkit-scrollbar-thumb{
 			border-radius: 10px;
-			background: rgba(0,0,0,0.1);
+			background: rgba(255,255,255,0.1);
 		}
 
 		.chat{
@@ -239,8 +226,8 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 		}
 
     .chat .user-photo{
-			width: 60px;
-			height: 60px;
+			width: 100px;
+			height: 100px;
 			/* background-color: #eee; */
 			background-image: url("http://res.cloudinary.com/dpuyyqxnl/image/upload/v1525909063/user.jpg");
       background-size: 100% 100%;
@@ -257,6 +244,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
 		.bot .chat-message{
 			background: #1ddced;
+    
 		}
 
 		.user .chat-message{
@@ -308,6 +296,43 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
 		.chat-form button:hover{
 			background: #13c8d9;
+		}
+    
+    @media only screen and (max-width: 992px){
+			.wrapper{
+				flex-direction: column;
+			}
+		}
+
+		@media only screen and (max-width: 542px){
+			.chatbox{
+				max-width: 350px;
+				
+			}
+      .chat .bot-photo{
+			width: 30px;
+			height: 30px;
+			/* background-color: #eee; */
+			background-image: url("http://res.cloudinary.com/dpuyyqxnl/image/upload/v1525909043/bot.jpg");
+      background-size: 100% 100%;
+			border-radius: 50%;
+		}
+		.chat .user-photo{
+			width: 30px;
+			height: 30px;
+			/* background-color: #eee; */
+			background-image: url("http://res.cloudinary.com/dpuyyqxnl/image/upload/v1525909063/user.jpg");
+      background-size: 100% 100%;
+			border-radius: 50%;
+		}
+      .chat .chat-message {
+			width: 85%;
+			padding: 5px;
+			margin: 5px 5px 0;
+			border-radius: 3px;
+			font-size:16px;
+			color: #fff;
+		}
 		}
 	</style>
 </head>
