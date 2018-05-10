@@ -100,17 +100,24 @@
 				return;
 			}
 			
-    		$sql = "INSERT INTO chat (question, answer) VALUES( :question, :answer)";
+    		$sql = "INSERT INTO chat (question, answer) VALUES( :question, :answer);";
     		$stmt = $conn->prepare($sql);
     		$stmt->bindParam(':question', $trainQuestion);
     		$stmt->bindParam(':answer', $trainAnswer);
-    		$stmt->execute();
-    		//$stmt->setFetchMode(PDO::FETCH_ASSOC);
-    		echo json_encode([
-		    	'status' => 1,
-		        'answer' => " I've learnt something new, you can test me now!"
-		    ]);
-		    return;
+    		if($stmt->execute() == true) {
+				//$stmt->setFetchMode(PDO::FETCH_ASSOC);
+				echo json_encode([
+					'status' => 1,
+					'answer' => " I've learnt something new, you can test me now!"
+				]);
+				return;
+			}
+			else {
+				echo json_encode([
+					'status' => 1,
+					'answer' => "couldn't insert into db"
+				]);
+			}
     	}
     }
 ?>
