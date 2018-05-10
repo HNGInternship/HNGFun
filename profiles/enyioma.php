@@ -29,7 +29,7 @@
       }
   .card{
     box-shadow: 0px 0px 2px #2196f3;
-    width: 50%;
+    width: 40%;
   }
   .h2{
       color: #563d7c;
@@ -89,10 +89,11 @@
       }
       .yormabot {
           position: absolute;
-          padding-top: 200px;
+          padding-top: 150px;
           padding-left: 40%;
-          width: 400px;
+          width: 1000px;
           display: inline-block;
+          overflow: auto;
       }
 
      
@@ -105,7 +106,7 @@
 </head>
 
 <body class="bg-light">
-<div class= "container">
+<div>
 <div class="oj-flex oj-sm-flex-direction-columno oj-sm-align-items-center content">
   <div class="card mt-5 py-5">
     <div class="my-3">
