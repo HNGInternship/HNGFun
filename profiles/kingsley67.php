@@ -168,7 +168,7 @@ $error="I couldn't find an answer to your question, please train me with that us
     }
    
     h3{background-color: #2A88AD;
-    width:250px;
+    width:220px;
     margin: 20px 210px;
   }
    
@@ -409,16 +409,16 @@ $.ajax({
     questions:input,
     
    }, 
-       beforeSend: function() { $('#results').append("please wait");},
+       
         success: function(result) { 
-         $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
+         $("#results").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
        console.log(result);
         }
         });
 };
     
      function updateScroll(){
-    var element = document.getElementById("chatOutput");
+    var element = document.getElementById("results");
     element.scrollTop = element.scrollHeight;
 }
 
