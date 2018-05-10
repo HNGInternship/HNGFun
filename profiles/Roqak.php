@@ -195,7 +195,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   }
   .chat{
     margin-top:9%;
-    background-color: white;
+    background-color: #fff;
     /* margin-bottom: 9%; */
   }
   .padedd{
@@ -245,18 +245,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
      </div>
    </div>
    <div class="col-md-3 chat">
-      <div style="background-color: yellow"><h1 class="text-center"> My ChatBot</h1></div>
-      <footer>
-        <form class="padedd" methood="post" id="formm">
+     <form class="padedd" methood="post" id="formm">
       <input type="text" placeholder="message" name="question"><button id="send" name="send">Send</button>
       </form>
-      </footer>
+      <div><h1 class="text-center"> My ChatBot</h1></div>
         <div id="mchats">
-          <ul id="chats">
-        <?php
-
-        ?>
-        </ul>
+          <div id="chats">
+       
+        </div>
 
         </div>      
       </div>
@@ -271,7 +267,7 @@ $(document).ready(function(){
     e.preventDefault();
     var MBox = $('input[name=question]');
     var question = MBox.val();
-    $("#chats").append("<li id='sentmessage'>YOU : " + question + "</li>");
+    $("#chats").append("<p id='sentmessage'>YOU : " + question + "</p>");
 
 
     // $.ajax({
@@ -294,7 +290,7 @@ $(document).ready(function(){
       data: {question: question},
       dataType: "json",
       success: function(response){
-        $("#chats").append("<li id ='botresponse'>VEER : " + response.answer + "</li>");
+        $("#chats").append("<p id ='botresponse'>VEER : " + response.answer + "</p>");
       },
       error: function(error){
         console.log(error);
