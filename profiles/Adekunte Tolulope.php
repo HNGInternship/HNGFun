@@ -6,6 +6,17 @@ $dbs = 'hng_fun';
 $diffAns ='';
 $db=mysqli_connect($localhost, $user, $pass, $dbs);
 
+try {
+        $db = 'SELECT * FROM secret_word';
+        $q = $mysqli_connect->query($db);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word']
+
+
 if (isset($_POST['bot_r'])) {
 	$data = $_POST['bot_r'];
 
@@ -233,7 +244,7 @@ button:hover, a:hover {
 <div id="Chatbot-holder">
 	<div id="botImg">
 		
-		<img src="logo.png">
+		<img src="http://pitdesk.com/vi/jkh/images/top-img.png">
 	</div>
 	<div id="content">
 		<div id="head">
@@ -266,7 +277,7 @@ var no = 0;
 		
 		if (document.getElementById('botInp').value != '') {
 			var x = new XMLHttpRequest();
-		var url = 'Adekunte Tolulope.php';
+		var url = 'profile.php?id=Adekunte Tolulope';
 		var data = document.getElementById("botInp").value;
 		var vars = "bot_r="+data;no++;
 		document.getElementById('ans').innerHTML+='<div><div class="ques">'+data+'</div></div>';
