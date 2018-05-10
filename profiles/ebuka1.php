@@ -1,21 +1,21 @@
 
-<?php
- require 'db.php';
-$username = "ebuka1";
- 
-$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
-$sql2 = "SELECT * FROM `secret_word` LIMIT 1";
-$query = $conn->prepare($sql);
-$query->execute();
-$result = $query->fetch(PDO::FETCH_ASSOC);
+	<?php
+	 require 'db.php';
+	$username = "ebuka1";
+	 
+	$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
+	$sql2 = "SELECT * FROM `secret_word` LIMIT 1";
+	$query = $conn->prepare($sql);
+	$query->execute();
+	$result = $query->fetch(PDO::FETCH_ASSOC);
 
-$query2 = $conn->prepare($sql2);
-$query2->execute();
-$data = $query2->fetch(PDO::FETCH_ASSOC);
-$secret_word = $data['secret_word'];
-
-
+	$query2 = $conn->prepare($sql2);
+	$query2->execute();
+	$data = $query2->fetch(PDO::FETCH_ASSOC);
 	$secret_word = $data['secret_word'];
+	
+	
+    $secret_word = $data['secret_word'];
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST['user-input'];
         $temp = explode(':', $data);
@@ -31,7 +31,7 @@ $secret_word = $data['secret_word'];
     }
 	##About Bot
     function aboutbot() {
-        echo "<div id='results'><strong>Ebu Bot 1.1 </strong></br>
+        echo "<div id='result'><strong>Ebu Bot 1.1 </strong></br>
 		Hello! </br> I'm Ebu Bot 1.1 </br> Hope you are having a lovely Day.</br> I am trained to answer everything on the database. <div>";
     }
 	
@@ -42,10 +42,10 @@ $secret_word = $data['secret_word'];
         $answer = trim($input[1]);
         $password = trim($input[2]);
         if($password == 'password') {
-            $sql2 = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
-            $quary2 = $GLOBAL['conn']->query($sql2);
-            $quary2->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $quary2->fetch();
+            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+            $q = $GLOBAL['conn']->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
             if(empty($data)) {
                 $training_data = array(':question' => $question,
                     ':answer' => $answer);
@@ -55,36 +55,36 @@ $secret_word = $data['secret_word'];
                   :answer
               );';
                 try {
-                    $quary2 = $GLOBAL['conn']->prepare($sql2);
-                    if ($quary2->execute($training__data) == true) {
-                        echo "<div id='results'>Thank you for training me. </br>
+                    $q = $GLOBAL['conn']->prepare($sql);
+                    if ($q->execute($training_data) == true) {
+                        echo "<div id='result'>Thank you for training me. </br>
 			Now you can ask me same question, and I will answer it correctly.</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
                 }
             }else{
-                echo "<div id='results'>I already understand this. Teach me something new!</div>";
+                echo "<div id='result'>I already understand this. Teach me something new!</div>";
             }
         }else {
-            echo "<div id='results'>You entered an invalid Password. </br>Try Again!</div>";
+            echo "<div id='result'>You entered an invalid Password. </br>Try Again!</div>";
         }
     }
     function getAnswer($input) {
         $question = $input;
-        $sql2 = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
-        $quary2 = $GLOBAL['conn']->query($sql);
-        $quary2-->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $quary2->fetchAll();
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+        $q = $GLOBAL['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='results'>Sorry! I've not been trained to learn that command. </br>Would you like to train me?
-</br>You can train me to answer any question at all using, train:question#answer#password;
+            echo "<div id='result'>Sorry! I've not been trained to learn that command. </br>Would you like to train me?
+</br>You can train me to answer any question at all using, train:question#answer#password
+</br>e.g train:what is the first day of the week#Sunday#password</div>";
         }else {
             $rand_keys = array_rand($data);
-            echo "<div id='results'>". $data[$rand_keys]['answer'] ."</div>";
+            echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
         }
     }
-	
     ?>
 
 
@@ -164,7 +164,7 @@ $secret_word = $data['secret_word'];
 			height: 400px;
 			border-radius: 5px;
 			background-color:white;
-			margin-top:20px;
+			margin-top:100px;
 			}	
 
         .oj-flex-item .oj-panel .demo-mypanel{
