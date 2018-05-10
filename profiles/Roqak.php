@@ -197,7 +197,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     /*margin-top:9%;*/
     background-color: #fff;
     /* margin-bottom: 9%; */
-    width: 100%;
+    /*width: 100%;*/
     height: 90%;
     /*margin-top: 1%;*/
   }
