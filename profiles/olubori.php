@@ -370,7 +370,7 @@
 	  data: {
 	    commands: [
 	               {key: 'train', description: 'This command is to train the bot', format: '[question] [answer] [password]'}, 
-	               {key: 'timeofday', description: 'This command is to get the current time of day in any of the world location', format: '[location]'},
+	               {key: 'currenttime', description: 'This command is to get the current time in any of the location of the world', format: '[location]'},
 	               {key: 'chitchat', description: 'This command is to chat with the bot', format: '[question]'},
 	               {key: 'dayofweek', description: 'This command is get the day of the weeks a date falls on', format: '[yyyy-mm-dd]'},
 	               {key: 'aboutbot', description: 'This command is tells you about me', format: ''},
@@ -431,8 +431,8 @@
 			    return 'Bori Bot Version 1.0, I tell day of the week from date, and I can tell time in any location too.';
 			  case 'dayofweek':
 			    return this.getDayOfWeek();
-			  case 'timeofday':
-			    return this.getTimeOfDay();
+			  case 'currenttime':
+			    return this.getCurrentTime();
 			  case 'chitchat':
 			    return this.doChat();
 			  case 'train':
@@ -460,7 +460,7 @@
 
 
 	  	},
-	  	getTimeOfDay: async function(){
+	  	getCurrentTime: async function(){
 	  		var location;
 	  		try{
               location = this.choice['message'].match(/\[(.*?)\]/)[1];
@@ -472,7 +472,7 @@
                           return zone.zoneName.indexOf(location) != -1
 	  	                });
 	  	    if(zones.length < 1){
-	  	      return "Time can not be found for your location can you use a popular city around that location. For example for Nigeria use #timeofday [Lagos]";
+	  	      return `Time can not be found for your location can you use a popular city around that location. For example for Nigeria use #timeofday [Lagos]<br /><span class="text-success">Tip: Use <strong>#popularcities [${location.charAt(0)}]</strong> to check correct spelling for ${location}</span>`;
 	  	    }
 	  	    let output = '<h4>Time for ' + location + '</h4>';
 	  	    for (zone of zones) {
