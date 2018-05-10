@@ -547,6 +547,7 @@ h4 {
                                     <div class="message">To learn more about me, simply type - <span style="color: cyan">'aboutbot'.</span></div>
                                   
                                     </div>
+                                     <div id="result" class="message" style="float:left; color: white; border:1px, solid;"></div>
                                    
                                 </div>
 
