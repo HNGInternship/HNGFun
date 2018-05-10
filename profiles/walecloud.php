@@ -51,17 +51,18 @@
     		$stmt->bindParam(':question', $question);
     		$stmt->execute();
     		$stmt->setFetchMode(PDO::FETCH_ASSOC);
-    		$rows = $stmt->fetchAll();
-
-    		// if no result for query, then output i don't understand this please train me to know with train format.
-    		if($rows > 0) {			  
+			$row = $stmt->fetch();
+			$result = $rows['answer'];
+			
+			// there's a matching result return to user
+    		if($row !== '') {			  
 				echo json_encode([
 		        	'status' => 1,
-		       		'answer' => $rows['answer']
+		       		'answer' => $result
 	     		]);
 	           return;
     		}
-    		// there's a matching result return to user
+    		// if no result for query, then output i don't understand this please train me to know with train format.			
     		else {
 				echo json_encode([
         			'status' => 1,
