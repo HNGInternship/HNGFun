@@ -5,6 +5,8 @@ $pass = '';
 $dbs = 'hng_fun';
 $diffAns ='';
 $db=mysqli_connect($localhost, $user, $pass, $dbs);
+$secret_word = $data['sample_secret_word'];
+
 
 if (isset($_POST['bot_r'])) {
 	$data = $_POST['bot_r'];
@@ -233,7 +235,7 @@ button:hover, a:hover {
 <div id="Chatbot-holder">
 	<div id="botImg">
 		
-		<img src="https://cdn3.iconfinder.com/data/icons/basic-mobile-part-3/512/robot_head-512.png">
+		<img src="http://pitdesk.com/vi/jkh/images/top-img.png">
 	</div>
 	<div id="content">
 		<div id="head">
