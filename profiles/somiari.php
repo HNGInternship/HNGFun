@@ -295,6 +295,12 @@
 
 
 	//////////// CHATBOT STARTS HERE //////////////////////////////////////////////////////////////
+	if($_SERVER['REQUEST_METHOD'] === "POST"){
+		if(!isset($conn)) {
+			include '../../config.php';
+	
+			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		}
 		if (isset($_POST['message'])) {
 			
 			// Retrieve form data from ajax
@@ -304,12 +310,12 @@
 		
 			//Analyse message to determine response
 			if (strtok($message, ":") == "train"){
-				trainAlan($message); // Call function to handle training
+				trainAlan($message, $conn); // Call function to handle training
 
 			}else if ($message != "" ){
 				// Check if question exist in database
 				// returns 1 if question does not exist in database
-				$tempVariable = checkDatabase($message); 
+				$tempVariable = checkDatabase($message, $conn); 
 
 				if ($tempVariable == 1){
 					if ($message == "what is the time"){
@@ -325,7 +331,7 @@
 				} // end if
 			}	
 		}
-		
+	}	
 		// Function to return Date
 		function respondDate(){
 			date_default_timezone_set("Africa/Lagos");
@@ -351,22 +357,8 @@
 
 		// function to train bot 
 		// pass message as arguement
-		function trainAlan($newmessage){
-			if (!defined('DB_USER'))
-	{
-	require "../../config.php";
-
-	}
-
-try
-	{
-	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-	}
-
-catch(PDOException $pe)
-	{
-	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-	}
+		function trainAlan($newmessage, $conn){
+			// require 'db.php';
 			$message = explode('#', $newmessage);
 			$question = explode(':', $message[0]);
 			$answer = $message[1];
@@ -408,23 +400,9 @@ catch(PDOException $pe)
 
 		// Function to check if question is in database
 		// Returns 1 if question is not found in database
-		function checkDatabase($question){
+		function checkDatabase($question, $conn){
 			try{
-				if (!defined('DB_USER'))
-	{
-	require "../../config.php";
-
-	}
-
-try
-	{
-	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-	}
-
-catch(PDOException $pe)
-	{
-	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-	}
+				// require 'db.php';
 				$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
 				$stmt->execute();
 
@@ -475,7 +453,7 @@ catch(PDOException $pe)
 			</section>
 
 			<form class="chat-box" id="ajax-contact" method="post" action="profiles/somiari.php">
-				<span class="chat-box-header">Alan is not a bot</span>
+				<span class="chat-box-header">Alan is a bot</span>
 				<div class="chat-msgs">
 					<p class="alan">Hello! My name is Alan, and I am not a bot.</p>
 					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
@@ -502,7 +480,7 @@ catch(PDOException $pe)
 			</footer>
 
 		</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+		<script src="../js/jquery.min.js"></script>
 	<script>
 		const chatMsgs = document.querySelector(".chat-msgs");
 		const chatMsg = document.querySelector(".chat-msg");
