@@ -348,7 +348,7 @@
             success: function(response) {
                 var result = $($.parseHTML(response)).find("#results").text();
                 setTimeout(function() {
-                    outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+                    outputArea.append("<div class='user-message'><div class='message'>" + results + "</div></div>");
                     $('#chat-result').animate({
                         scrollTop: $('#chat-result').get(0).scrollHeight
                     }, 1500);
