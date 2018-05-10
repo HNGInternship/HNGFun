@@ -12,20 +12,119 @@
 ?>
 
 <?php
-$servername = "localhost";
-$username = "username";
-$password = "password";
+session_start();
+
+function getmenu()
+{
+    return 'Main Menu: <ul><li>AboutBot</li><li>Time</li></ul>';
+}
+
+function getTime()
+{
+    return date("h:i:s a");
+}
 
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=myDB", $username, $password);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connected successfully"; 
+    if($_SERVER['REQUEST_METHOD'] === "POST"){
+        if(!isset($conn)) {
+            include '../config.php';
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        }
+
+        if(isset($_POST['message']) && $_POST['message'] != '') {
+            $question = trim($_POST['message']);
+
+            switch (strtolower($question) ) {
+                case 'aboutbot':
+                    {
+                        echo json_encode(['message' => 'Basitomania. Version: 1.0']);
+                        break;
+
+                    }
+                case 'time':
+                    {
+                        echo json_encode(['message' => getTime()]);
+                        break;
+
+                    }
+                case 'menu':
+                    {
+                        echo json_encode(['message' => getmenu()]);
+                        break;
+
+                    }
+                case (explode(':',$question)[0] === 'train'):
+                    {
+                        $training_question = trim(explode('#',explode(':',$question)[1])[0]);
+                        $training_answer = trim(explode('#',explode(':',$question)[1])[1]);
+                        $training_password = trim(explode('#',explode(':',$question)[1])[2]);
+                        if ($training_question != "" && $training_answer != "" && $training_password!= "")
+                        {
+                            try {
+
+                                if($training_password === 'password')
+                                {
+                                    // do insert in the sql table
+                                    $sql = $conn->prepare("insert into chatbot (question, answer) values (:question, :answer)");
+                                    $sql->execute(array('question' => $training_question, 'answer' => $training_answer));
+                                    echo json_encode(['message'=> '<div class="alert alert-success" role="alert">Trained Successfully</div>']);
+                                }
+                                else
+                                {
+                                    echo json_encode(['message'=> '<div class="alert alert-danger" role="alert">Incorrect Password!</div>']);
+                                }
+                                break;
+                            }
+                            catch (Exception $ex) {
+                                var_dump($ex);
+                            }
+                        }
+                        else
+                        {
+                            echo json_encode(['message' => "I'm not as smart, you can train me using: <h3>train: question # answer # password</h3>" ]);
+                            break;
+                        }
+                    }
+                default:
+                    {
+                        try {
+                            $q_length = strlen($question);
+                            $question = ($question[$q_length - 1] == '?') ? substr($question, 0, $q_length - 1) : $question;
+
+                            $sql = "select * from chatbot where question like '$question%'";
+
+                            $query = $conn->prepare($sql);
+
+                            $res = $query->execute();
+
+
+                            $results = $query->fetchAll(PDO::FETCH_OBJ);
+                            $rowCount = $query->rowCount();
+                            if($rowCount == 1) { // if one answer
+                                echo json_encode(['message' => $results[0]->answer]);
+                            }
+                            else if($rowCount > 1) { // if multiple answers, select 1 randomly from the available
+                                echo json_encode(['message' => $results[rand(0, $rowCount - 1)]->answer]);
+                            }
+                            else
+                            {
+                                echo json_encode(['message' => "I can't understand it, you can train me using: <h3>train: question # answer # password</h3>" ]);
+                            }
+                        }
+                        catch (Exception $ex) {
+                            var_dump($ex);
+                        }
+                    }
+            }
+            exit;
+        }
+
     }
-catch(PDOException $e)
-    {
-    echo "Connection failed: " . $e->getMessage();
-    }
+}
+catch (Exception $exception)
+{
+    var_dump($exception);
+}
 ?>
 
 <!DOCTYPE html>
@@ -286,21 +385,32 @@ nav a.selected, nav a:hover {
 						</li>
 					</ul>
 				</section>
-				<div>
-					<div>User: <span id="user"></span></div>
-					<div>Chatbot: <span id="chatbot"></span></div>
-					<div> <input id="input" type="text"> </div>
+
+				<div class="chatbot-container">
+					<div class="chat-header">
+						<span>Bas Chatbot</span>
+					</div>
+					<div id="chat-body">
+						<div class="bot_chat">
+								<div class="message">Hello! My name is Basbot.<br>You can ask me questions and get answers.<br>Type <span style="color: #90CAF9;/"><strong> Aboutbot</strong></span> to know more about me.
+								</div>
+								<div class="message">You can also train me to be smarter by typing; <br><span style="color: #90CAF9;"><strong>train: question #answer #password</strong></span><br></div>
+						</div>
+					</div>
+					<div class="chat-footer">
+						<div class="input-text-container">
+							<form action="" method="post" id="chat-input-form">
+								<input type="text" name="input_text" id="input" required class="input_text" placeholder="Type your question here...">
+								<button type="submit" class="send_button" id="send">Send</button>
+							</form>
+						</div>
+					</div>
 				</div>
 			<footer>
 				<p>&copy; 2017 Maniaweb.</p>
 			</footer>
 			<script type = text/javascript>
-				var trigger = [
-					["hi"]
-				];
-				var reply = [
-					["Hey"]
-				];
+				
 				document.queryselector("#input").addEventListener("keypress", function(e){
 					var key = e.which || e.keyCode;
 					if(key == 13){

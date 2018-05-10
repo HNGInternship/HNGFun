@@ -15,15 +15,6 @@ $question;
 
 
 	
-	
-
-	// session_start();
-	// if(!isset($_SESSION['chat-log'])){
-	// 	$_SESSION['chat-log'] = [];
-	// }
-	
-	//$chatLog = $_SESSION['chat-log'] ;
-
 	function botAnswer($message){
 		$botAnswer = '<div class="chat bot chat-message">
 					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
@@ -467,27 +458,7 @@ $question;
 	</div> <!-- end chat-box -->
 
 
-
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 	<script >
-// 		(function() {
-
-// 	$('#chat-box header').on('click', function() {
-
-// 		$('.chat').slideToggle(300, 'swing');
-// 		$('.chat-message-counter').fadeToggle(300, 'swing');
-
-// 	});
-
-// 	$('.chat-close').on('click', function(e) {
-
-// 		e.preventDefault();
-// 		$('#chat-box').fadeOut(300);
-
-// 	});
-
-// }) ();
 		
 		
 		function change(){
@@ -506,9 +477,6 @@ $question;
 
 
 		function chat(e){
-		    // var p = document.getElementById('user');
-		    // p.innerHTML = data;
-		    
 		    if (window.XMLHttpRequest) { // Mozilla, Safari, IE7+ ...
 			     var xhttp = new XMLHttpRequest();
 			} else if (window.ActiveXObject) { // IE 6 and older
@@ -518,25 +486,17 @@ $question;
 			xhttp.onreadystatechange = function() {
 	          if(this.readyState == 4 && this.status == 200) {
 	          	 userChat(question.value, this.response);
-	          	 //  var response = JSON.parse(this.responseText);
-	          	 //chatContent.innerHTML = this.responseText;
      			e.preventDefault();
-	          	 // console.log(response);
-	          	//var response = xhttp.responseText;
-           // messageArea.scrollTop = messageArea.scrollHeight;
-	            // question.value = xhttp.responseText;
 	            question.value = '';
 	          }
       	    }
-        xhttp.open('POST', 'profiles/Abigail.php', true);
+        xhttp.open('POST', 'profile.php?id=Abigail', true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send('question='+ question.value);
         e.preventDefault();
 		}
 
 		function userChat(chats, reply){
-			// if(chats === ''){
-			// 	var chat = '' ;
 			if(question.value !== ''){
 				var chat = `<div class="chat user chat-message">
 					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
