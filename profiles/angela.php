@@ -89,7 +89,7 @@
         echo 'you need to enter a password. contact my owner (email: angelabisibello@gmail.com or slack: @angela) if you do not know my password';
         return;
       }
-      if ($password != 'trainpwforhng') {
+      if ($password != 'password') {
         echo 'password is incorrect. contact my owner (email: angelabisibello@gmail.com or slack: @angela) if you do not know my password';
         return;
       }

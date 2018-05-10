@@ -165,7 +165,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<style>
+	<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<style type="text/css">
       body {
 			
 			background-size: cover;
@@ -180,6 +182,19 @@
 		h5{ color: white
 		
 		}
+		.container{
+            width: 100%;
+            min-height: 100%
+        }
+        .body0 {
+            height: 100%;
+        }
+
+        span {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: normal;
+        }
 		
 		.chat-frame {
 			border-color: #cccccc;
@@ -192,7 +207,7 @@
 		}
 
 		.chat-messages {
-			background-color: firebrick;
+			background-color: lightblue;
 			padding: 5px;
 			height: 300px;
 			overflow-y: auto;
@@ -246,20 +261,18 @@
   <body style = "background color: #FFFFFF">
 
 <!-- Main Content -->
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-6 offset-md-1 frame">
-			<div class="row">
-				<div class="col-md-12">
-				<br/><br/>
-					<div class="circle" align="center">
-						<img src="http://res.cloudinary.com/iamdharmy/image/upload/v1523622015/iam__dharmy.png" alt="Profile Picture" class="rounded-circle img-fluid" / >
-					</div>
-				</div>	
-			</div>
-
-			<div class="row info">
-				<div class="col-md-12">
+<div class="oj-flex oj-flex-items-pad oj-contrast-marker">
+        <div class="oj-sm-6 oj-md-6 oj-flex-item">
+            <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
+                <div role="img" class="oj-flex-item alignCenter">
+                    <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
+                    data-bind="attr:{'aria-label':'Soyombo Oluwadamilola'}">
+                    </oj-avatar>
+                    <img class="img-fluid " onerror="this.src='images/default.jpg'" src="http://res.cloudinary.com/iamdharmy/image/upload/v1523622015/iam__dharmy.png" >
+                </div>
+            </div>
+			<div class="body0">
+				<div class="oj-sm-align-self-center">
 					<h1 class="text-center">
 						Soyombo Oluwadamilola
 					</h1>
@@ -322,9 +335,10 @@
 		</div>
 	</div>
 </div>
-<script src="../vendor/jquery/jquery.min.js"></script>
+<!--<script src="../vendor/jquery/jquery.min.js"></script>
 <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>-->
+
 <script>
 	
 	$(document).ready(function(){

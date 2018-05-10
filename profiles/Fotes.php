@@ -136,6 +136,7 @@ h2{
 	font-family: forte ;
 font-size: 50px;
 text-align: center;	
+padding-top:40px;
 }
 
 h1{
@@ -188,10 +189,10 @@ img{
     background-color: darkmagenta;
     color: white;
     cursor: pointer;
-    padding: 18px;
     width:50%;
     text-align: left;
-    font-size:30px;
+    font-size:15px;
+	font-family:sans;	    
     border: none;
     outline: none;
     transition: 0.4s;
@@ -200,6 +201,8 @@ img{
             .panel{
                 overflow-x:hidden;
                 overflow-y:scroll;
+				
+				
             }
             .panel::-webkit:scrollbar{width:5px;
                 
@@ -225,9 +228,7 @@ img{
   transform: translateY(4px);
 }
             .panel{
-                width:50%;
-                
-            
+                width:70%;
             }
 
 </body>
@@ -244,8 +245,13 @@ img{
 <h2>Welcome to</h2>
 <h1>HNG Internship 4.0</h1>
   <img src="<?php echo $user->image_filename ?>" />
-         <section class= "col-md-6 offset-md-1 chat-frame" >
-             <div class="row" style="margin-top: 5px;">
+        
+
+		<section class= "col-md-6 chat-frame" >
+
+		
+
+             <div class="row">
                  <button class="accordion">HELLO WORLD!!!</button>
 <div class="panel">
     <p style= color:darkmagenta;> <h4> I'm Fotes_Bot:Ask me anything!!!</h4><br>
@@ -259,12 +265,10 @@ train: question # answer # password<br>
 </p>
     	<form id="form">
 
-             <p id="answer"></p>
+              <p id="answer"></p>
 			<input type="text" id="questionfield" placeholder="Chat Here">
 			<button class="button">CHAT</button><br>
-			<div class="single-panel">
-            
-            </div>
+			
             
 		</form>
  
@@ -272,9 +276,10 @@ train: question # answer # password<br>
 </div>
             
             
-             </div>			
+             </div>		
+          
             </section>	
-</div>
+
 		
 			</div>
 		</div>
@@ -292,7 +297,7 @@ train: question # answer # password<br>
 </div>
 
    </div>
-
+</div>
 		
 	
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -317,7 +322,7 @@ train: question # answer # password<br>
 				});
 			});
 		</script>
-     
+        
 	</body>
 	</html>
 	<?php

@@ -1,82 +1,44 @@
-  <?php 
+<?php 
+$sql = "SELECT * FROM interns_data WHERE username = 'worldclassdev'";
+$query = $conn->query($sql);
+$query->setFetchMode(PDO::FETCH_ASSOC);
+$data = $query->fetchAll();
+$worldclassdev = array_shift($data);
+
     try {
         $secrete = 'SELECT * FROM secret_word';
-        $sql = $conn->query($secrete);
+        $sql = $conn->query($secrete); 
         $sql->setFetchMode(PDO::FETCH_ASSOC);
         $result = $sql->fetch();
         $secret_word = $result["secret_word"];
     } catch (PDOException $error) {
         throw $error;
-    }?>
+    }
+
+?>
+
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<title>Justine Philip</title>
-	<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-	<style type="text/css">
-		body{
-            background-image: url(http://res.cloudinary.com/worldclassdev/image/upload/v1523643996/topography.svg),
-                    linear-gradient(110deg,  #F7DF1E, #FF9020);
-            background-size: 340px, auto;
-            background-position: fixed;
-			font-family: 'Poppins';
-            width: 100%;
-            height: 100vh;
-		}
-        ::selection {
-          background:  #ffc600; /* WebKit/Blink Browsers */
-         }
-         ::-moz-selection {
-         background:  #ffc600; /* Gecko Browsers */
-         }
-		.twcd-container{
-			width: 100%;
-			padding: 20px;
-		}
-		h1{
-			color: #828282;
-		}
-		.twcd-name{
-			text-align: center;
-		}
-		.twcd-profile{
-			width: 350px;
-			margin: 30px auto;
-			height: 340px;
-		}
-		.twcd-twitter{
-			width: 100%;
-			margin: 30px auto;
-		
-		}
-		.twcd-profile-img{
-			width: 50%;
-			border-radius: 50%;
-			height: 50%;
-		}
-		.twcd-about{
-            width: 100%;
-			text-align: center;
-			line-height: 1.5;
-		}
-	</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="profiles/worldclassdev/build/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <title>The World CLass Developer</title>
+    <link href="profiles/worldclassdev/build/static/css/main.3aff5c70.css" rel="stylesheet">
 </head>
+
 <body>
-	<div class="twcd-container">
-		<div class="twcd-name">
-			<h1>Justine Philip</h1>
-		</div>
-		<div class="twcd-profile">
-			<img class="twcd-profile-img" src="http://res.cloudinary.com/worldclassdev/image/upload/v1523643285/16845555.png" alt="my-profile">
-			
-		</div>
-		<div class="twcd-about">
-			<div class="twcd-twitter">
-			<a id="twitter-button" href="https://twitter.com/worldclassdev?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @worldclassdev</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-			</div>
-        I like to call myself a developer of all things JS. But basically i love to build stuff that solves a problem irrespective of the technology involved. I'm more about the impact than the money, but somehow i find both. When im not coding, i write, game and play the guitar.
-		</div>
-	</div>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script src="profiles/worldclassdev/build/vendor/jquery/jquery.min.js"></script>
+    <script src="profiles/worldclassdev/build/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>$("#menu-toggle").click(function (e) { e.preventDefault(), $("#wrapper").toggleClass("toggled") })</script>
+    <script type="text/javascript" src="profiles/worldclassdev/build/static/js/main.b0a309ef.js"></script>
 </body>
+
 </html>
