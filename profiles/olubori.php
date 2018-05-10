@@ -118,7 +118,7 @@
 	  .suggestion {
 	  	position: absolute;
 	  	bottom: 30px;
-	  	background: rgba(255, 255, 255, 0.5);
+	  	background: rgba(255,248,220, 0.9);
 	  	width: 100%;
 	  	margin-bottom: 0px;
 	  	list-style: none;
@@ -131,7 +131,7 @@
 	  }
 
 	  .suggestion li:hover{
-	  	background-color: #2d9ee0;
+	  	background-color: #435f7a;
 	  	cursor: pointer;
 	  	color: white !important;
 	  }
@@ -246,6 +246,7 @@
   			<p v-for="msg in messages" :class="msg.human ? 'human-msg': 'bot-msg'" v-html="msg.text"></p>
   		</main>
   		<ul class="suggestion" v-show="suggestedCommands" ref="list">
+  			<p class="my-0">Available commands <small>Click on any to choose</small></p>
   			<command-item v-for="(command, index) in suggestedCommands" :command="command" :key="command.key" :on-item-click="handleCommandClick"></command-item>
   		</ul>
   		<input type="text" v-model="humanMessage" placeholder="Type # followed by command you want to give e.g. #train" id="human-text" v-on:keyup.enter="handleSubmit" />
@@ -307,11 +308,14 @@
 	  	  this.choice.message = this.humanMessage;
 	  	  this.humanMessage = '';
           this.messages.push({human: true, text: this.choice.message});
-          let chatBox = this.$refs['chat-msgs'];
+          
           let answer = await this.getAnswer();
           this.messages.push({human: false, text: answer});
           //chatBox.scrollTop = chatBox.scrollHeight;
-          chatBox.scrollTop = chatBox.scrollHeight + 60;
+          let chatBox = this.$refs['chat-msgs'];
+          console.log('1. ' +chatBox.scrollHeight);
+		  chatBox.scrollTop = chatBox.scrollHeight + 60;
+          console.log('2. ' + chatBox.scrollHeight);
 	  	},
 	  	getAnswer: function(){
 			switch(this.choice.command){
@@ -328,6 +332,8 @@
 			  default:
 			    return "I can't help with that please, give me a correct command";
 			}
+
+
             
 	  	},
 	  	getDayOfWeek: function(){
@@ -377,7 +383,6 @@
 	  	  return axios.get('profiles/olubori.php?question='+ question)
 	  	    .then(function (response) {
 	  	      let chatResponse = response.data.answer || 'I cannot find you a valid answer, go ahead and train me. Use #train [question] [answer] [password]';
-	  	      console.log(chatResponse);
 	  	      return chatResponse;
 	  	    })
 	  	    .catch(function (error) {
