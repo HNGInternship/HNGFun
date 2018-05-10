@@ -79,14 +79,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         
         echo json_encode([
-          'status' => 1,
           'answer' => "Thanks for training me, you can now test my knowledge"
         ]);
         return;
       }
       elseif ($arr[0] == "help") {
         echo json_encode([
-          'status' => 1,
           'answer' => "You can train me by using this format ' train: This is a question # This is the answer # password '. You can also convert cryptocurrencies using this syntax.'convert btc to usd"
           
         ]);
@@ -100,7 +98,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $converted_price = GetCryptoPrice($from, $to);
         $price = "1 " . $from . " = " . $to . " " . $converted_price ;
         echo json_encode([
-          'status' => 1,
           'answer' => $price
         ]);
         return;
@@ -108,7 +105,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         elseif ($arr[0] == "aboutbot") {
           # code...
           echo json_encode([
-            'status'=> 1,
             'answer' => "I am VEER, Version 1.0 "
           ]);
           return;
@@ -126,7 +122,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $rows = $stat->fetchAll();
             if(empty($rows)){
               echo json_encode([
-              'status' => 0,
               'answer' => "I am sorry, I cannot answer your question now. Why don't you train me?"
             ]);
             return;
@@ -137,7 +132,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $index_of_parentheses = stripos($answer, "((");
               if($index_of_parentheses === false){// if answer is not to call a function
                 echo json_encode([
-                  'status' => 1,
                   'answer' => $answer
                 ]);
                 return;
@@ -148,19 +142,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                       $function_name = trim($function_name);
                       if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
                          echo json_encode([
-                          'status' => 0,
                           'answer' => "The function name should not contain white spaces"
                         ]);
                         return;
                       }
                     if(!function_exists($function_name)){
                       echo json_encode([
-                        'status' => 0,
                         'answer' => "I am sorry but I could not find that function"
                       ]);
                     }else{
                       echo json_encode([
-                        'status' => 1,
                         'answer' => str_replace("(($function_name))", $function_name(), $answer)
                       ]);
                     }
@@ -217,11 +208,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     background-color: #2E7CAF;
     color: white;
     width: 100%;
+    margin-bottom: 2%;
   }
   #sentmessage{
     background-color: gray;
     color: white;
     width: 100%;
+    margin-bottom: 2%;
   }
   #mchats{
     overflow-y: auto;
