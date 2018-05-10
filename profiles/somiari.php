@@ -295,6 +295,12 @@
 
 
 	//////////// CHATBOT STARTS HERE //////////////////////////////////////////////////////////////
+	if($_SERVER['REQUEST_METHOD'] === "POST"){
+		if(!isset($conn)) {
+			include '../../config.php';
+	
+			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		}
 		if (isset($_POST['message'])) {
 			
 			// Retrieve form data from ajax
@@ -325,7 +331,7 @@
 				} // end if
 			}	
 		}
-		
+	}	
 		// Function to return Date
 		function respondDate(){
 			date_default_timezone_set("Africa/Lagos");
@@ -352,21 +358,11 @@
 		// function to train bot 
 		// pass message as arguement
 		function trainAlan($newmessage){
-			if (!defined('DB_USER'))
-	{
-	require "../../config.php";
-
-	}
-
-try
-	{
-	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-	}
-
-catch(PDOException $pe)
-	{
-	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-	}
+			if(!isset($conn)) {
+				include '../../config.php';
+		
+				$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			}
 			$message = explode('#', $newmessage);
 			$question = explode(':', $message[0]);
 			$answer = $message[1];
@@ -410,21 +406,11 @@ catch(PDOException $pe)
 		// Returns 1 if question is not found in database
 		function checkDatabase($question){
 			try{
-				if (!defined('DB_USER'))
-	{
-	require "../../config.php";
-
-	}
-
-try
-	{
-	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-	}
-
-catch(PDOException $pe)
-	{
-	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-	}
+				if(!isset($conn)) {
+					include '../../config.php';
+			
+					$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+				}
 				$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
 				$stmt->execute();
 
