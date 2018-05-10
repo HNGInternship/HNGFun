@@ -9,9 +9,6 @@
   $username = $user['username'];
   $name = $user['name'];
   $image_filename = $user['image_filename'];
-?>
-
-<?php
 
 try {
 	$sql = 'SELECT * FROM secret_word';
@@ -357,7 +354,23 @@ input[type=text] {
 					</ul>	
 				</section>		
 			<section id="secondary">
-				<div class="chatbot-container">
+			<div class="oj-sm-12 oj-md-6 oj-flex-item">
+				<div class="body1">
+					<div class="chat-output" id="chat-output">
+						<div class="user-message">
+							<div class="message">Hi there! I'm BasBot! Say something and I'll try my possible best to answer you! </br>To train me, use this format - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
+						</div>
+					</div>
+
+					<div class="chat-input">
+						<form action="" method="post" id="user-input-form">
+							<input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
+						</form>
+					</div>
+
+				</div>
+			</div>
+				<!-- <div class="chatbot-container">
 					<div class="chat-header">
 						<span>Bas Chatbot</span>
 					</div>
@@ -376,7 +389,7 @@ input[type=text] {
 							</form>
 						</div>
 					</div>
-				</div>	
+				</div>-->	
 			</section>		
 		</div>
 
@@ -384,34 +397,33 @@ input[type=text] {
 			<p>&copy; 2017 Maniaweb.</p>
 		</footer>
 			<script type = text/javascript>
-				var outputArea = $("#user-output");
+				var outputArea = $("#chat-output");
 
-				$("#input-form").on("submit", function(e) {
+				$("#user-input-form").on("submit", function(e) {
 
 					e.preventDefault();
 
-					var message = $("#input").val();
+					var message = $("#user-input").val();
 
 					outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
 
 
 					$.ajax({
-						url: 'profile.php?id=basitomania',
+						url: 'profile.php?id=melody',
 						type: 'POST',
 						data:  'user-input=' + message,
 						success: function(response) {
 							var result = $($.parseHTML(response)).find("#result").text();
 							setTimeout(function() {
 								outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
-								$('#user-output').animate({
-									scrollTop: $('#user-output').get(0).scrollHeight
+								$('#chat-output').animate({
+									scrollTop: $('#chat-output').get(0).scrollHeight
 								}, 1500);
 							}, 250);
 						}
 					});
 
-
-					$("#input").val("");
+					$("#user-input").val("");
 
 				});
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
