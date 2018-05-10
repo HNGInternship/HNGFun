@@ -20,7 +20,7 @@
     display: block;
     padding-top: 50px;
     padding-left: 0%;
-    position: relative;
+    position: absolute;
   }
   .about {
           font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -88,7 +88,7 @@
           border-radius: 20%;
       }
       .yormabot {
-          position: relative;
+          position: absolute;
           padding-top: 0px;
           padding-left: 50%;
           width: 850px;
