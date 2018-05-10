@@ -134,8 +134,6 @@
 			width: 400px;
 			border: 1px groove #ccc;
 			border-radius: 3px;
-			margin-left: 38%;
-			margin-top: 7%;
 		}
 		.dp {
 			padding: 2px;
