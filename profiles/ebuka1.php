@@ -1,20 +1,20 @@
 
-	<?php
-	
-	require 'db.php';
-	$username = "ebuka1";
-	 
-	$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
-	$sql2 = "SELECT * FROM `secret_word` LIMIT 1";
-	$query = $conn->prepare($sql);
-	$query->execute();
-	$result = $query->fetch(PDO::FETCH_ASSOC);
+<?php
+ require 'db.php';
+$username = "ebuka1";
+ 
+$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
+$sql2 = "SELECT * FROM `secret_word` LIMIT 1";
+$query = $conn->prepare($sql);
+$query->execute();
+$result = $query->fetch(PDO::FETCH_ASSOC);
 
-	$query2 = $conn->prepare($sql2);
-	$query2->execute();
-	$data = $query2->fetch(PDO::FETCH_ASSOC);
-	$secret_word = $data['secret_word'];
-	?>
+$query2 = $conn->prepare($sql2);
+$query2->execute();
+$data = $query2->fetch(PDO::FETCH_ASSOC);
+$secret_word = $data['secret_word'];
+
+?>
 	
 	<?php
 	
