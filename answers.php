@@ -1106,7 +1106,7 @@ function getLatestNews() {
 /////// If you want to touch something, 
 ///////      don't touch this side  ///////////////// 
 function getBotInfo() {
-    $bot_version=1.0.1;
+    $bot_version = "1.0.1";
     return "Heyo! I'm Vectormike's smiggle. I'm version " .$bot_version;
 }
 function getBotManual() {
@@ -1120,11 +1120,10 @@ function getBotManual() {
 function getAge() {
     return "Vectormike is just 20 years old. As for me, I have got no idea of age. Still " .$bot_version;
 }
-function getTime() {
-    return date(h:i:sA);
-}
+// function getTime() {
+//     return date(h:i:sA);
+// }
 
-<<<<<<< HEAD
 function get_client_ip() {
     $ipaddress = '';
     if (isset($_SERVER['HTTP_CLIENT_IP']))
@@ -1151,7 +1150,6 @@ $region= $json['region_name'];
 $city = $json['city'];
 }
 
-=======
 /////////////////////// Conditions for checking input//////////////////////////////////////////////
 
 ///////////////////To check if the statement begins with train://///////////////////////

@@ -453,7 +453,7 @@
 			</section>
 
 			<form class="chat-box" id="ajax-contact">
-				<span class="chat-box-header">Alan is not a bot</span>
+				<span class="chat-box-header">Alan is a bot</span>
 				<div class="chat-msgs">
 					<p class="alan">Hello! My name is Alan, and I am not a bot.</p>
 					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
@@ -514,7 +514,7 @@
 				sendTheMessage(formData);
 
 				// Clearing text filled
-				chatMsg.value = "";		
+				// chatMsg.value = "";		
 			}); // End of form event handler
 		});
 
@@ -527,6 +527,7 @@
 					url: 'profiles/somiari.php',
 					data: formData,
 				}).done(function(response) {
+					console.log(response);
 					chatMsgs.innerHTML += '<p class="alan">' + response + '</p>';
 					fixScroll(); // call function to fix scroll bottom
 			})// end ajax handler
