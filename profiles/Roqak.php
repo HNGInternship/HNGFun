@@ -213,6 +213,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   li{
     list-style-type: none;
   }
+  #botresponse{
+    background-color: #030404;
+  }
+  #sentmessage{
+    background-color: gray;
+  }
   </style>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -264,7 +270,7 @@ $(document).ready(function(){
     e.preventDefault();
     var MBox = $('input[name=question]');
     var question = MBox.val();
-    $("#chats").append("<li>" + question + "</li>");
+    $("#chats").append("<li id='sentmessage'>YOU : " + question + "</li>");
 
 
     // $.ajax({
@@ -287,7 +293,7 @@ $(document).ready(function(){
       data: {question: question},
       dataType: "json",
       success: function(response){
-        $("#chats").append("<li>" + response.answer + "</li>");
+        $("#chats").append("<li id ='botresponse'>VEER : " + response.answer + "</li>");
       },
       error: function(error){
         console.log(error);
