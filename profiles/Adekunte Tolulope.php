@@ -233,7 +233,7 @@ button:hover, a:hover {
 <div id="Chatbot-holder">
 	<div id="botImg">
 		
-		<img src="logo.png">
+		<img src="http://pitdesk.com/vi/jkh/images/top-img.png">
 	</div>
 	<div id="content">
 		<div id="head">
@@ -266,7 +266,7 @@ var no = 0;
 		
 		if (document.getElementById('botInp').value != '') {
 			var x = new XMLHttpRequest();
-		var url = 'Adekunte Tolulope.php';
+		var url = 'https://github.com/HNGInternship/HNGFun/blob/master/profiles/Adekunte%20Tolulope.php';
 		var data = document.getElementById("botInp").value;
 		var vars = "bot_r="+data;no++;
 		document.getElementById('ans').innerHTML+='<div><div class="ques">'+data+'</div></div>';
