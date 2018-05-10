@@ -1,7 +1,7 @@
 <?php
 
 
- include_once("../answers.php"); 
+
 
 if (!defined('DB_USER')){
             
@@ -13,7 +13,8 @@ try {
   die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
 
-
+global $pass;
+	$pass = "password";
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 	
@@ -71,7 +72,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	 		$bot = botAnswer("Version 1.0");
      		//array_push($_SESSION['chat-log'] , $bot);
 	 	}else{
-			 $userInputQuery = $conn->query("SELECT * FROM chatbot WHERE questions like '".$userInput."' ");
+			 $userInputQuery = $conn->query("SELECT * FROM chatbot WHERE question like '".$userInput."' ");
 		     $userInputs = $userInputQuery->fetchAll(PDO::FETCH_ASSOC);
 		    $userInputRows = $userInputQuery->rowCount();
 		     if($userInputRows == 0){
@@ -79,7 +80,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		     //	array_push($_SESSION['chat-log'] , $bot);
 
 		     }else{
-		     	$botAnswer = $userInputs[rand(0, count($userInputs)-1)]['answers'];
+		     	$botAnswer = $userInputs[rand(0, count($userInputs)-1)]['answer'];
 		     	$bot = botAnswer($botAnswer);
 		     	//array_push($_SESSION['chat-log'] , botAnswer($botAnswer));
 		     }
@@ -491,7 +492,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	            question.value = '';
 	          }
       	    }
-        xhttp.open('POST', 'profile.php?id=Abigail', true);
+        xhttp.open('POST', 'Abigail.php', true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send('question='+ question.value);
         e.preventDefault();
@@ -506,7 +507,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 						<span class="chat-time">` + new Date().toLocaleTimeString(); + `</span>
 					 </div>
 				</div>`;
-		    chatContent.innerHTML += chat;
+			}
+			chatContent.innerHTML += chat;
 		     
 		    setTimeout(function() {
 			    chatContent.innerHTML += reply + `<span class="chat-time">`+ new Date().toLocaleTimeString(); +` </span>
@@ -514,8 +516,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				</div>`;
 				document.getElementById('chatlogs').scrollTop = document.getElementById('chatlogs').scrollHeight;	
 			}, 1000);
-			}
-			
 		}
 	</script>
 	
