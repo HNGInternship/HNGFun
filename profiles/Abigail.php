@@ -511,7 +511,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			}
 			chatContent.innerHTML += chat;
 		     
-		    
+		    setTimeout(function() {
+			    chatContent.innerHTML += reply + `<span class="chat-time">`+ new Date().toLocaleTimeString(); +` </span>
+					</div> 
+				</div>`;
+				document.getElementById('chatlogs').scrollTop = document.getElementById('chatlogs').scrollHeight;	
+			}, 1000);
 		}
 	</script>
 	
