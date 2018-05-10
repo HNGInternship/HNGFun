@@ -9,7 +9,7 @@
     }
   }
     try {
-        $sql2 = 'SELECT * FROM interns_data WHERE username="Legendary"';
+        $sql2 = 'SELECT * FROM interns_data WHERE username="Adekunte Tolulope"';
         $q2 = $conn->query($sql2);
         $q2->setFetchMode(PDO::FETCH_ASSOC);
         $my_data = $q2->fetch();
@@ -19,6 +19,17 @@
     ?>
 
 <?php
+
+try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word']
+
 $localhost = 'localhost';
 $user = 'root';
 $pass = '';
