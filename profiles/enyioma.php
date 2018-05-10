@@ -93,7 +93,7 @@
           padding-left: 50%;
           width: 1000px;
           display: inline-block;
-          overflow: scroll;
+          overflow: auto;
       }
 
      
