@@ -1,5 +1,162 @@
 
+<?php
+include '../db.php';
+include '../answers.php';
+$sql = 'SELECT * FROM interns_data WHERE username="kingsley67"';
+    $query = $conn->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);  
+    $result = $query->fetch();    
 
+    $name = $result['name'];
+    $user = $result['username'];
+    $image = $result['image_filename'];
+
+$sql2 = 'SELECT * FROM secret_word';
+    $query = $conn->query($sql2);
+    $query->setFetchMode(PDO::FETCH_ASSOC);  
+    $result2 = $query->fetch(); 
+$secret_word=$result2['secret_word'];
+
+
+
+    if($_POST){
+   
+if($_POST['question']){
+    
+    
+    
+$text=$_POST['questions'];
+ $checktrain=strpos($text,'train:'); 
+   if($checktrain ===false) {
+       $checkBirthdate=strpos($text,"Birthdate:");
+       
+      if($checkBirthdate !==false){
+
+    
+          
+      
+ 
+if(isset($_POST['question'])){
+    
+   $text=$_POST['question']; 
+    
+    $birthDate= substr($text, 10);
+    zodiac($birthDate);
+     echo json_encode([
+                  'question'=>$text,
+                  'answers' => zodiac($birthDate)
+                ]); 
+ 
+ 
+   return;
+} 
+      
+      
+      }else if($_POST['question']=="aboutbot"){
+          
+          
+          echo json_encode([
+                  'question'=>'aboutbot',
+                  'answers' => "<strong>RIM67</strong><br>Version 1.0.0 <br>build 2<br>Platforms: Windows, Linux"
+                ]); 
+ 
+ 
+   return;  
+               
+      } else{
+
+ $sql3="SELECT * FROM chatbot where question='$text '";
+ $query = $conn->query($sql3);
+    $query->setFetchMode(PDO::FETCH_ASSOC);  
+    $result3 = $query->fetch(); 
+ $ans=$result3['answer'];
+        
+   
+     if (isset($ans)) {
+                echo json_encode([
+                  'question' => $text,
+                  'answers' => $ans
+                ]);
+         return;
+ 
+  }else
+     {$error="I couldn't find an answer to your question, please train me with that using the command <br>train:Your-Question#Your-Answer#Password";}
+          if ($error!=""){
+        echo json_encode([
+                  'question' => $text,
+                  'answers' => $error
+                ]);
+       return;       
+    }
+       
+      }
+   
+}else {
+       $tex=$_POST['question'];
+  
+      $rmtrain= substr($tex, 6);
+        $rmspace = preg_replace('([\s]+)', ' ', trim($rmtrain));
+      
+        $extrain = explode("#", $rmspace,3); 
+             
+     
+    
+       
+    if(count($extrain)==3){
+         $question=trim($extrain[0]);
+     $answer=trim($extrain[1]);
+        $password=trim($extrain[2]);
+      
+ 
+        if($password=="trainpwforhng"){
+         
+            try {
+    $sql3 = "INSERT INTO  `chatbot` (`question`, `answer`) VALUES ('". $question ."','". $answer ."')";
+    $query = $conn->query($sql3);
+} catch(PDOException $e) {
+    echo $e->getMessage();
+}
+     
+            echo json_encode([
+                  'question' => $question,
+                  'answers'=>"<strong>Your data was saved successfully</strong>"
+                ]);
+                
+             return;
+            }
+        else{
+             
+       echo json_encode([
+                  'question' => $tex,
+                  'answers'=>"<strong>You inserted a wrong password<br>Note</stong>The password is:<strong>trainpwforhng</strong>"
+                ]);
+                 
+             return;
+       
+    
+       
+        }
+       
+       
+       
+    }else {
+        
+         echo json_encode([
+                  'question' => $tex,
+                  'answers'=>"Your training has not been considered,please verify your training is in the following format:<br><strong>train:Your_question#Your_Answer#Password<br>Note:</strong>The password is:<strong>trainpwforhng</strong>"
+             
+                ]);
+                 return;
+      
+    }
+       
+  
+    }
+    }
+    }
+
+
+?>
 
 
 
@@ -263,10 +420,10 @@ $.ajax({
         cache: false,
      dataType: "json",
     data:{
-    question:input,
+    questions:input,
     
    }, 
-       beforeSend: function() { $('#results').append($("#ques").append("<div class=\"you\"><strong>You:</strong><br></div><div class=\"bot\"><strong>BOT:</strong><br>"));},
+       beforeSend: function() { $('#results').append("please wait");},
         success: function(result) { 
          $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
        console.log(result);
@@ -286,164 +443,7 @@ setInterval(updateScroll,1000);
 
 
 </html>
-<?php
-include '../db.php';
-include '../answers.php';
-$sql = 'SELECT * FROM interns_data WHERE username="kingsley67"';
-    $query = $conn->query($sql);
-    $query->setFetchMode(PDO::FETCH_ASSOC);  
-    $result = $query->fetch();    
 
-    $name = $result['name'];
-    $user = $result['username'];
-    $image = $result['image_filename'];
-
-$sql2 = 'SELECT * FROM secret_word';
-    $query = $conn->query($sql2);
-    $query->setFetchMode(PDO::FETCH_ASSOC);  
-    $result2 = $query->fetch(); 
-$secret_word=$result2['secret_word'];
-
-
-
-    if($_POST){
-   
-if($_POST['question']){
-    
-    
-    
-$text=$_POST['question'];
- $checktrain=strpos($text,'train:'); 
-   if($checktrain ===false) {
-       $checkBirthdate=strpos($text,"Birthdate:");
-       
-      if($checkBirthdate !==false){
-
-    
-          
-      
- 
-if(isset($_POST['question'])){
-    
-   $text=$_POST['question']; 
-    
-    $birthDate= substr($text, 10);
-    zodiac($birthDate);
-     echo json_encode([
-                  'question'=>$text,
-                  'answers' => zodiac($birthDate)
-                ]); 
- 
- 
-   return;
-} 
-      
-      
-      }else if($_POST['question']=="aboutbot"){
-          
-          
-          echo json_encode([
-                  'question'=>'aboutbot',
-                  'answers' => "<strong>RIM67</strong><br>Version 1.0.0 <br>build 2<br>Platforms: Windows, Linux"
-                ]); 
- 
- 
-   return;  
-               
-      } else{
-
- $sql3="SELECT * FROM chatbot where question='$text '";
- $query = $conn->query($sql3);
-    $query->setFetchMode(PDO::FETCH_ASSOC);  
-    $result3 = $query->fetch(); 
- $ans=$result3['answer'];
-        
-   
-     if (isset($ans)) {
-                echo json_encode([
-                  'question' => $text,
-                  'answers' => $ans
-                ]);
-         return;
- 
-  }else
-     {$error="I couldn't find an answer to your question, please train me with that using the command <br>train:Your-Question#Your-Answer#Password";}
-          if ($error!=""){
-        echo json_encode([
-                  'question' => $text,
-                  'answers' => $error
-                ]);
-       return;       
-    }
-       
-      }
-   
-}else {
-       $tex=$_POST['question'];
-  
-      $rmtrain= substr($tex, 6);
-        $rmspace = preg_replace('([\s]+)', ' ', trim($rmtrain));
-      
-        $extrain = explode("#", $rmspace,3); 
-             
-     
-    
-       
-    if(count($extrain)==3){
-         $question=trim($extrain[0]);
-     $answer=trim($extrain[1]);
-        $password=trim($extrain[2]);
-      
- 
-        if($password=="trainpwforhng"){
-         
-            try {
-    $sql3 = "INSERT INTO  `chatbot` (`question`, `answer`) VALUES ('". $question ."','". $answer ."')";
-    $query = $conn->query($sql3);
-} catch(PDOException $e) {
-    echo $e->getMessage();
-}
-     
-            echo json_encode([
-                  'question' => $question,
-                  'answers'=>"<strong>Your data was saved successfully</strong>"
-                ]);
-                
-             return;
-            }
-        else{
-             
-       echo json_encode([
-                  'question' => $tex,
-                  'answers'=>"<strong>You inserted a wrong password<br>Note</stong>The password is:<strong>trainpwforhng</strong>"
-                ]);
-                 
-             return;
-       
-    
-       
-        }
-       
-       
-       
-    }else {
-        
-         echo json_encode([
-                  'question' => $tex,
-                  'answers'=>"Your training has not been considered,please verify your training is in the following format:<br><strong>train:Your_question#Your_Answer#Password<br>Note:</strong>The password is:<strong>trainpwforhng</strong>"
-             
-                ]);
-                 return;
-      
-    }
-       
-  
-    }
-    }
-    }
-
-
-?>
 
 
     
