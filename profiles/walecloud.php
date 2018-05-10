@@ -47,20 +47,15 @@
 				return;
 			}
     		// query dbase for a similar questions and return a randomly selected single closest response attached to it.
-			$stmt = $conn->query("SELECT answer FROM chatbot WHERE question LIKE :question LIMIT 1");
-			$quest = "$question%";
-    		$stmt->bindParam(':question', $quest);
-    		$stmt->execute();
-    		$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			$row = $stmt->rowCount();
-			$result = $stmt->fetch();
-			
+			$result = $conn->query("SELECT answer FROM chatbot WHERE question LIKE '%{$question}%' ORDER BY rand() LIMIT 1");
+			$result = $result->fetch(PDO::FETCH_ASSOC);
+			$respond = $result['answer'];
 			// there's a matching result return to user
-    		if($row > 0) {
+    		if($respond !== " ") {
 				$result = $stmt->fetch();		  
 				echo json_encode([
 		        	'status' => 1,
-		       		'answer' => $result
+		       		'answer' => $respond
 	     		]);
 	           return;
     		}
@@ -105,17 +100,24 @@
 				return;
 			}
 			
-    		$sql = "INSERT INTO chat (question, answer) VALUES( :question, :answer)";
+    		$sql = "INSERT INTO chat (question, answer) VALUES( :question, :answer);";
     		$stmt = $conn->prepare($sql);
     		$stmt->bindParam(':question', $trainQuestion);
     		$stmt->bindParam(':answer', $trainAnswer);
-    		$stmt->execute();
-    		//$stmt->setFetchMode(PDO::FETCH_ASSOC);
-    		echo json_encode([
-		    	'status' => 1,
-		        'answer' => " I've learnt something new, you can test me now!"
-		    ]);
-		    return;
+    		if($stmt->execute() == true) {
+				//$stmt->setFetchMode(PDO::FETCH_ASSOC);
+				echo json_encode([
+					'status' => 1,
+					'answer' => " I've learnt something new, you can test me now!"
+				]);
+				return;
+			}
+			else {
+				echo json_encode([
+					'status' => 1,
+					'answer' => "couldn't insert into db"
+				]);
+			}
     	}
     }
 ?>
@@ -174,7 +176,7 @@
 		var text = $('#text').val();
 
 		$('#chat-area').append("<p style='text-align:right; font-size:20px;'>"+text+"</p>");
-		$('#text').val(' ');
+		$('#text').val('');
 		//$('#chat-area').append("from db by bot");
 
 		$.ajax({

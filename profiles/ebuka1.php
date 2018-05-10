@@ -1,23 +1,21 @@
 
-<?php
- require 'db.php';
-$username = "ebuka1";
- 
-$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
-$sql2 = "SELECT * FROM `secret_word` LIMIT 1";
-$query = $conn->prepare($sql);
-$query->execute();
-$result = $query->fetch(PDO::FETCH_ASSOC);
-
-$query2 = $conn->prepare($sql2);
-$query2->execute();
-$data = $query2->fetch(PDO::FETCH_ASSOC);
-$secret_word = $data['secret_word'];
-
-?>
-	
 	<?php
+	 require 'db.php';
+	$username = "ebuka1";
+	 
+	$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
+	$sql2 = "SELECT * FROM `secret_word` LIMIT 1";
+	$query = $conn->prepare($sql);
+	$query->execute();
+	$result = $query->fetch(PDO::FETCH_ASSOC);
+
+	$query2 = $conn->prepare($sql2);
+	$query2->execute();
+	$data = $query2->fetch(PDO::FETCH_ASSOC);
+	$secret_word = $data['secret_word'];
 	
+	
+    $secret_word = $data['secret_word'];
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST['user-input'];
         $temp = explode(':', $data);
@@ -44,10 +42,10 @@ $secret_word = $data['secret_word'];
         $answer = trim($input[1]);
         $password = trim($input[2]);
         if($password == 'password') {
-            $sql2 = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
-            $quary2 = $GLOBAL['conn']->query($sql2);
-            $quary2->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $quary2->fetch();
+            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+            $q = $GLOBAL['conn']->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
             if(empty($data)) {
                 $training_data = array(':question' => $question,
                     ':answer' => $answer);
@@ -57,8 +55,8 @@ $secret_word = $data['secret_word'];
                   :answer
               );';
                 try {
-                    $quary2 = $GLOBAL['conn']->prepare($sql2);
-                    if ($quary2->execute($training__data) == true) {
+                    $q = $GLOBAL['conn']->prepare($sql);
+                    if ($q->execute($training_data) == true) {
                         echo "<div id='results'>Thank you for training me. </br>
 			Now you can ask me same question, and I will answer it correctly.</div>";
                     };
@@ -74,19 +72,19 @@ $secret_word = $data['secret_word'];
     }
     function getAnswer($input) {
         $question = $input;
-        $sql2 = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
-        $quary2 = $GLOBAL['conn']->query($sql);
-        $quary2-->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $quary2->fetchAll();
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+        $q = $GLOBAL['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
         if(empty($data)){
             echo "<div id='results'>Sorry! I've not been trained to learn that command. </br>Would you like to train me?
-</br>You can train me to answer any question at all using, train:question#answer#password;
+</br>You can train me to answer any question at all using, train:question#answer#password
+</br>e.g train:what is the first day of the week#Sunday#password</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='results'>". $data[$rand_keys]['answer'] ."</div>";
         }
     }
-	
     ?>
 
 
