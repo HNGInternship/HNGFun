@@ -269,7 +269,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       <div><h1 class="text-center"> My ChatBot</h1></div>
         <div id="mchats">
           <div id="chats">
-       
+       <p id ='botresponse'>VEER : Hello I'm VEER, to train me type: train: question#response#password </p>
         </div>
 
         </div>  
