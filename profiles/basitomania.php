@@ -1,5 +1,5 @@
 <?php
-  $result = $conn->query("Select * from secret_word LIMIT 1");
+  /*$result = $conn->query("Select * from secret_word LIMIT 1");
   $result = $result->fetch(PDO::FETCH_ASSOC);
   $secret_word = $result['secret_word'];
 
@@ -8,7 +8,17 @@
   
   $username = $user['username'];
   $name = $user['name'];
-  $image_filename = $user['image_filename'];
+  $image_filename = $user['image_filename'];*/
+    global $conn;
+
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="melody"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
 
 try {
 	$sql = 'SELECT * FROM secret_word';

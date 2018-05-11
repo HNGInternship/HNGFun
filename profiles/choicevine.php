@@ -1,20 +1,14 @@
 <?php
     
 
-        require '../db.php';
-
-        //$username = "dev_geeks";
-        //Fetching from your database table.
-        $data = $conn->query("SELECT * FROM interns_data_ WHERE username= 'choicevine' ");
-
     if(!defined('DB_USER')){
         require '../db.php';
     }
 
     //Fetching from your database table.
         
-        $query = $conn->query("select * from interns_data_ where username= 'choicevine' ");
-        $result = $query->fetch(PDO::FETCH_BOTH);
+        $query = $conn->query("select * from interns_data where username= 'choicevine' ");
+        $result = $query->fetch(PDO::FETCH_OBJ);
         
 
 
@@ -163,13 +157,13 @@ $(".btn-pref .btn").click(function () {
             
         </div>
         <div class="useravatar">
-            <img alt="" src="<?php echo $result['image_filename']; ?>">
+            <img alt="" src="<?php echo $result->image_filename; ?>">
             <hr> 
         </div>
-        <div class="card-info"> <span class="card-title"><?php echo $result['name']; ?></span>
+        <div class="card-info"> <span class="card-title"><?php echo $result->name; ?></span>
 
         </div>
-        <div class="card-info"> <span class="card-title"><?php echo $result['username'];  ?></span>
+        <div class="card-info"> <span class="card-title"><?php echo $result->username;  ?></span>
 
         </div>
         <div class="card-info"> <span class="card-title">Developer</span>

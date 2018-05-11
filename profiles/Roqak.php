@@ -245,8 +245,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     max-height: 80%;
     height: 80%;
   }
-  .row{
+  .roww{
     display: flex;
+    width: 100%;
   }
   </style>
 </head>
@@ -254,7 +255,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 <!-- <script src="jquery-3.3.1.min.js"></script> -->
 <body>
 <div class="container">
-<div class="row">
+<div class="roww">
  <div class="mainn">
    <div class="white text-center">
     <h1 id="hello">HELLO</h1>
