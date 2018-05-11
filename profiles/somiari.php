@@ -1,9 +1,3 @@
-<?php
-if (!defined('DB_USER')){
-   require "../../config.php";
- }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -329,10 +323,9 @@ if (!defined('DB_USER')){
 					}else if ($message == "today's date"){
 						echo respondDate();
 					}else{
-						echo "Kilode! What are you saying?
-						I don't understand but I'm a fast learner.
+						echo "I didn't quite get that but I'm a fast learner.
 						To teach me something, just type and send:
-						train: # question # answer # password";
+						train: question # answer # password";
 					} // end else
 				} // end if
 			}
@@ -375,7 +368,7 @@ if (!defined('DB_USER')){
 
 			// check if password matches
 			if ($password != "password"){
-			  echo "You are not authorize to train me.";
+			  echo "You are not authorized to train me.";
 			}else{
 				$chatbot= array(':id' => NULL, ':question' => $question[1], ':answer' => $answer);
 				$query = 'INSERT INTO chatbot ( id, question, answer) VALUES ( :id, :question, :answer)';
@@ -387,7 +380,7 @@ if (!defined('DB_USER')){
 						echo repondTraining();
 					};
 				} catch (PDOException $e) {
-					echo "Oops! i did't get that, Something is wrong i guess, <br> please try again";
+					echo "Oops! I did't get that, Something is wrong I guess, <br> please try again";
 				} // End Catch
 			} // End Else
 		} // Train Function Ends here
@@ -398,7 +391,7 @@ if (!defined('DB_USER')){
 			$repondTraining = array(  'Noted! Thank you for teaching me',
 									  'Acknowledged, thanks, really want to learn more',
 									  'A million thanks, I\'m getting smarter',
-									  'i\'m getting smarter, I really appreciate');
+									  'I\'m getting smarter, I really appreciate');
 			$index = mt_rand(0, 3);
 			return $anwerSam = $repondTraining[$index];
 		} // respondTraining Ends Here
@@ -486,7 +479,7 @@ if (!defined('DB_USER')){
 			</footer>
 
 		</div>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
+	<!- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script> ->
 	<script>
 		const chatMsgs = document.querySelector(".chat-msgs");
 		const chatMsg = document.querySelector(".chat-msg");
