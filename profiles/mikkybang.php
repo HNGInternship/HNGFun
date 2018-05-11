@@ -307,11 +307,11 @@ function isAbout($question){
                     <div class="botmsg">For help on how to use me type <br><strong>help</strong></div>
          </div>
 
-            <form class="" method="POST" action="">
+            <form id="input_form" method="POST" action="">
                             <div class="form-group">
                               <input id="txt_question" class="form-control" type="text" value="question" name="question" placeholder="Type in your requests">
                             </div>
-                            <div class="">
+                            <div class="form-group">
                               <input type="submit" class="btn btn-large btn-primary" type="button" value="Send">
                             </div>
              </form>
@@ -327,10 +327,10 @@ function isAbout($question){
 
 <script type="text/javascript">
       $(document).ready(function(){
-            $('form').on('submit', function(e){
+            $('#input_form').on('submit', function(e){
              e.preventDefault();
              $.ajax({
-                    url: "./profiles/mikkybang.php",
+                    url: "profile.php?id=mikkybang",
                     type: 'POST',
                     dataType: 'json',
                     data: {question: question},
