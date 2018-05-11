@@ -13,9 +13,7 @@ if (isset($_POST)){
 
 
 <?php
-$file = realpath(__DIR__ . '/..') . "/db.php" ;
-include $file;
-global $conn;
+
     
     try {
         $sql = "SELECT * FROM interns_data WHERE username='{$_GET['id']}'";
