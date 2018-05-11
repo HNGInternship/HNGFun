@@ -4,14 +4,12 @@ $localhost = 'localhost';
 $user = 'root';
 $pass = '';
 $dbs = 'hng_fun';
-
-
 try{
 	$conn = new PDO("mysql:host=$localhost; dbname=$dbs",$user,$pass);
 }
 catch(PDOException $pe)	
 {
-	die("Could not connect to the database ".hg$pe->getMessage());
+	die("Could not connect to the database ".$pe->getMessage());
 	}
 global $conn;
 $diffAns ='';
