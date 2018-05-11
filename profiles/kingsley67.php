@@ -63,14 +63,27 @@ if(isset($_POST['questions'])){
                
      }else{
      $text=$_POST['questions'];
- $sql3="SELECT * FROM chatbot where question='$text '";
- $query = $conn->query($sql3);
+ 
+$sql4="SELECT COUNT(answer) FROM chatbot WHERE question='$text '";
+ $querys = $conn->query($sql4);
+          
+       if($querys->fetchColumn()>1){
+           
+     $sql5=" SELECT answer FROM chatbot WHERE question='$text ' ORDER BY RAND() LIMIT 1 "; 
+           $querys = $conn->query($sql5);
     $query->setFetchMode(PDO::FETCH_ASSOC);
-    $result3 = $query->fetch();
- $ans=$result3['answer'];
-
-
-     if (isset($ans)) {
+    $result5 = $query->fetch();         
+    $ans=$result5['answer'];
+     }else {
+           
+       $sql3="SELECT answer FROM chatbot where question='$text '";
+    $querys = $conn->query($sql3);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $result3 = $query->fetch();         
+    $ans=$result3['answer'];    
+} 
+          
+ if (isset($ans)) {
                 echo json_encode([
                   'question' => $text,
                   'answers' => $ans
