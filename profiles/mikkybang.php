@@ -267,13 +267,13 @@ function isAbout($question){
             right: 20px;
             z-index: 99;
             width: 350px;
-            background: #ffffff;            
-            border: 1px solid #000080;
+            background: #84817a;            
+            border: 1px solid #f7f1e3;
             border-radius: 10px 10px 0 0;            
         }
         .chatbot-head{
-            background: #56CCF2;
-            color: #000080;
+            background: #34ace0;
+            color: #aaa69d;
             padding: 20px 30px;
             border-radius: 10px 10px 0 0;
             cursor: pointer;
@@ -290,7 +290,7 @@ function isAbout($question){
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
             background-color: #F5F5F5;
             border-radius: 10px; 
-            border: 1px solid #000080;
+            border: 1px solid #706fd3;
         }
 
         .scrollbar-blue::-webkit-scrollbar {
@@ -301,7 +301,7 @@ function isAbout($question){
         .scrollbar-blue::-webkit-scrollbar-thumb {
             border-radius: 10px;
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-            background-color: #000080; 
+            background-color: #706fd3; 
         }
 
         .user-input{
@@ -335,7 +335,7 @@ function isAbout($question){
         }
 
         .user-msg{
-            background: #56CCF2;
+            background: #34ace0;
             font-size: 12px;
             margin: 10px 10px 0 100px;
             border-radius: 10px;
@@ -344,13 +344,13 @@ function isAbout($question){
 
         #send{
             border: none;
-            background: #000080;
+            background: #34ace0;
             padding: 3px 10px;
             border-radius: 30px;
         }
 
         #send .fa-play{
-            color: #56CCF2;
+            color:#aaa69d;
         }
 
 
@@ -386,7 +386,7 @@ function isAbout($question){
     <!--chat bot area-->
     <div class="chatbot pull-right">
                     <div class="chatbot-head">
-                        <h3>geniusBot <i class="fa fa-chevron-up pull-right"></i></h3>
+                        <h3>mikkyBot <i class="fa fa-chevron-up pull-right"></i></h3>
                     </div>
                     <div class="chat-message">
                         <div class="messages scrollbar-blue"></div>
@@ -411,10 +411,10 @@ function isAbout($question){
             $('.chatbot-head').click(function(){
                 $('.chat-message').toggle('slow', function(){
                     var botVersion = '<div class="bot">Bot:</div>';
-                    botVersion += '<div class="bot-msg">I am geniusBot. <br>I am here to help you</div>';
+                    botVersion += '<div class="bot-msg">I am mikkybot. <br>I am here to help you</div>';
                     botVersion += '<div class="bot-msg">Ask me any question</div>';
                     botVersion += '<div class="bot-msg">To find out more about me type <strong>aboutbot</strong></div>';
-                    botVersion += '<div class="bot-msg">For help on how to use me type <br><strong>--help</strong></div>';
+                    botVersion += '<div class="bot-msg">For help on how to use me type <br><strong>help</strong></div>';
                     $('.messages').html(botVersion);
                                     
                 });
