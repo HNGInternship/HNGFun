@@ -105,6 +105,8 @@
 			//Analyse message to determine response
 			// if (strtok($message, ":") == "train"){
 				if (strpos($message, 'train') !== false) {
+
+					die("hello");
 					trainAlan($message); // Call function to handle training
 			}else if ($message != "" ){
 				// Check if question exist in database
