@@ -272,7 +272,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             <div class="input-group">
                <input type="text" class="form-control" id="message" type="text" placeholder="Message" name="newrequest" />
                <div class="input-group-btn">
-                  <button class="btn btn-success pull-right" id="send" type="button">Send 💬</button>
+                  <button class="btn btn-success pull-right" id="sen" type="button">Send 💬</button>
                </div>
             </div>
          </div>
@@ -283,7 +283,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
               <div>
                 <p style="overflow: scroll; height: 250px; width: 100%; margin: 0px;" id="chatarea"></p>
                 <input type="text" name="" style="width: 80%; height: 24px;" id="message">
-                <button style="position: absolute; width: 19%; height: 30px" id="send">Send4</button>
+                <button style="position: absolute; width: 19%; height: 30px" id="send">Send44</button>
               </div>
           </div>
           <p class="slide"><div class="pull-me" style="text-align: center">Chat with me</div></p>
