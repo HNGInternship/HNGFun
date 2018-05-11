@@ -452,10 +452,10 @@
 			</section>
 
 			<form class="chat-box" id="ajax-contact">
-				<span class="chat-box-header">Alan is a bot</span>
+				<span class="chat-box-header">Alan is <del>not</del> a bot</span>
 				<div class="chat-msgs">
 					<p class="alan">Hello! My name is Alan, and I am not a bot.</p>
-					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
+					<p class="alan">I'm a fast learner. To teach me something simply just type and send: train: question # answer # password</p>
 				</div>
 				<div class="chat-type" >
 					<textarea class="chat-msg" name="message" required></textarea>
@@ -479,7 +479,7 @@
 			</footer>
 
 		</div>
-	<!- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script> ->
+<!-- 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script> -->
 	<script>
 		const chatMsgs = document.querySelector(".chat-msgs");
 		const chatMsg = document.querySelector(".chat-msg");
