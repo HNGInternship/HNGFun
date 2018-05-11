@@ -236,7 +236,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     height: 90%;
     max-height: 90%;
     overflow-y: scroll;
-    width: 40%;
 
   }
   #bbb{
