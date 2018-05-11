@@ -42,7 +42,7 @@ if(isset($_POST['questions'])){
     zodiac($birthDate);
      echo json_encode([
                   'question'=>$text,
-                  'answers' => zodiac($birthDate)
+                  'answers' => "Your zodiac sign for ".$birthDate." is ".zodiac($birthDate)
                 ]); 
  
  
@@ -417,7 +417,7 @@ $.ajax({
     questions:input
     
    }, 
-beforeSend: function() { $('#results').append("please wait");},
+beforeSend: function() { $('#results').append(" ");},
   success: function(result) {
       $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
 
