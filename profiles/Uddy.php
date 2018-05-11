@@ -1,25 +1,25 @@
 <?php
-require 'conn.php';
+// require 'conn.php';
 
-try{
-   $sql = 'SELECT * FROM secret_word';
-   $q = $conn->query($sql);
-   $q->setFetchMode(PDO::FETCH_ASSOC);
-   $data = $q->fetch();
-   $secret_word= $data['secret_word'];
-} catch (PDOException $e){
-       throw $e;
-   }
+// try{
+//    $sql = 'SELECT * FROM secret_word';
+//    $q = $conn->query($sql);
+//    $q->setFetchMode(PDO::FETCH_ASSOC);
+//    $data = $q->fetch();
+//    $secret_word= $data['secret_word'];
+// } catch (PDOException $e){
+//        throw $e;
+//    }
 
 
-$result2 = $conn->query("Select * from interns_data where username = 'Uddy'");
-$user = $result2->fetch(PDO::FETCH_OBJ);
+// $result2 = $conn->query("Select * from interns_data where username = 'Uddy'");
+// $user = $result2->fetch(PDO::FETCH_OBJ);
 
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
             //die('Hi');
-            $conn = new mysqli('localhost', 'root', '', 'hng_fun');
+            $conn = new mysqli( DB_HOST, DB_USER , DB_PASSWORD, DB_DATABASE);
             
             if(!$conn){
                 die('Unable to connect');
@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $pos = strpos($question, 'train:');
     
             if($pos === false){
-                $sql = "SELECT answers FROM chatbot WHERE questions like '$question' ";
+                $sql = "SELECT answer FROM chatbot WHERE question like '$question' ";
                 $query = $conn->query($sql);
                 if($query){
                     echo json_encode([
@@ -45,7 +45,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
                 if($data[2] == 'password'){
     
-                    $sql = "INSERT INTO chatbot (questions, answers)
+                    $sql = "INSERT INTO chatbot (question, answer)
                     VALUES ('$data[0]', '$data[1]')";
     
     
@@ -72,7 +72,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             }
             
             echo json_encode([
-                'reply'=>  'working'
+                'result'=>  'working'
             ]);
             
         return ;
