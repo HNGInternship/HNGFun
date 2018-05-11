@@ -71,18 +71,16 @@ if (isset($_POST['bot_adekunte'])) {
 		}
 		
 	}
-$result = $conn->query("SELECT * FROM secret_word LIMIT 1");
- $res = $result->fetch(PDO::FETCH_OBJ);
- $secret_word = $res->secret_word;
+
 }
 ?>
 
 <?php
 
-/*$result = $conn->query("SELECT * FROM secret_word LIMIT 1");
+$result = $conn->query("SELECT * FROM secret_word LIMIT 1");
  $res = $result->fetch(PDO::FETCH_OBJ);
- $secret_word = $res->secret_word;
-*/
+echo $secret_word = $res->secret_word;
+
  $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'Adekunte Tolulope'");
  $user = $result2->fetch(PDO::FETCH_OBJ);
 $name = $user-> name;
