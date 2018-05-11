@@ -216,7 +216,7 @@ echo json_encode([
     .you{
         background-color:#E8EEEF;
         width:500px;
-        padding-left: 300px;
+        padding-left: 150px;
         border: 1px solid black;
        
         overflow-wrap: break-word;
