@@ -455,7 +455,7 @@ input[type=text] {
 
 
 					$.ajax({
-						url: 'profile.php?id=melody',
+						url: 'profile.php?id=basitomania',
 						type: 'POST',
 						data:  'user-input=' + message,
 						success: function(response) {
@@ -473,8 +473,8 @@ input[type=text] {
 					$("#user-input").val("");
 
 				});
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 			</script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 		</div>
 	</body>
 </html>
