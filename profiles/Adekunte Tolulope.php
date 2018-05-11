@@ -298,11 +298,11 @@ var no = 0;
 		
 		if (document.getElementById('botInp').value != '') {
 			var x = new XMLHttpRequest();
-		var url = 'Adekunte Tolulope.php';
+		var url = 'https://github.com/HNGInternship/HNGFun/blob/master/profiles/Adekunte%20Tolulope.php';
 		var data = document.getElementById("botInp").value;
 		var vars = "bot_r="+data;no++;
 		document.getElementById('ans').innerHTML+='<div><div class="ques">'+data+'</div></div>';
-		document.getElementById('ans').innerHTML+='<div><div class="ans" id="id'+no+'">loading...</div></div>';
+		document.getElementById('ans').innerHTML+='<div><div class="ans" id="id'+no+'"></div></div>';
 		x.open("POST", url, true);
 		x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		x.onreadystatechange = function(){
