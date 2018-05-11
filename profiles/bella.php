@@ -1,4 +1,4 @@
- <?php
+ <!-- <?php
 
 
 try {
@@ -17,7 +17,7 @@ try {
     throw $e;
 }
 $secret_word = $get['secret_word'];
-?>
+?> -->
 
 <!DOCTYPE html>
 <html>
