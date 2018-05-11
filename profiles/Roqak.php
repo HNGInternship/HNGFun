@@ -66,8 +66,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           ]);
           return;
         }
-        $quest = $queries[0];
-        $ans = $queries[1];
+        $quest = trim($queries[0]);
+        $ans = trim($queries[1]);
 
         $sql = "insert into chatbot (question, answer) values (:question, :answer)";
 
@@ -201,7 +201,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     height: 90%;
     width: 400px;
     float: right;
-    margin-top: 40%;
+    margin-top: 60%;
+    margin-left: 10%;
   }
   .padedd{
     margin-top: 5%;
