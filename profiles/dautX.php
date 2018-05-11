@@ -582,12 +582,10 @@
 
             function write_to_box(response){    //sanitize user command output
                 if (response.length > 0) {
-                    var text = '';
-                    var msg = document.createElement('li');
-                    msg.setAttribute('class', 'bot_msg');   //set message to class usr_cmd
-                    text = document.createTextNode(response);
-                    msg.appendChild(text);
-                    message_list.appendChild(msg);      //plant element on chat box
+                    const $list_item = $( '<li class="bot_msg"></li>' );
+                    $list_item.html(response);
+
+                    $('#message_list').append($list_item);
                     chat_box.scrollTop = chat_box.scrollHeight;
                 }
             }
