@@ -130,7 +130,7 @@ function train($question, $answer) {
 
 
 ?>
-<?php if ($_SERVER['REQUEST_METHOD'] == "GET") {?>
+<?php if ($_SERVER['REQUEST_METHOD'] == "GET") ?>
 
 
 
