@@ -42,21 +42,21 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         }elseif(isTraining($question) === false){
             if(isAbout($question)){
                 $response = getAbout();
-            }
-            elseif(isHelp($question) !== false){
+            }elseif(isHelp($question) !== false){
                 $response = isHelp($question);
             }else{
                 $response = getAnswer($conn, $question);
             }
-
+            
         }
-    }else{
-        $response =  json_encode([
-            'status' => 1,
-            'answer' => "You have not input anything in the input field."
-        ]);
-    }
 
+    }else{
+        $response =  json_encode([ 
+                        'status' => 1,
+                        'answer' => "You have not input anything in the input field."
+                    ]);
+    }
+    
     echo $response;
 
 }
@@ -82,9 +82,9 @@ function saveQuestion($conn, $data){
                 try{
                     $sql = "INSERT INTO chatbot (question, answer) VALUES ('" . $question . "', '" . $answer . "')";
                     $conn->exec($sql);
-                    $answer = "Training Successful!. Thanks for that";
+                    $answer = "Training Successful! I am now more intelligent now. Thanks for that";
                 }catch(PDOException $err){
-                    $answer = "Training Failed!. Try Again. type 'help' for more info";
+                    $answer = "Ooops Training Failed! Something went wrong. Try Again. type 'help' for more info";
                 }
             }else{
                 $answer = "Answer provided for the training already existed. You can provide an alternative answer";
@@ -92,8 +92,8 @@ function saveQuestion($conn, $data){
         }else{
             $answer = "Password Incorrect, try again";
         }
-    }else{
-        $answer = "You cannot train me. Include password to train me. For more info type 'help'";
+    }else{s
+        $answer = "You cannot train me. Add password to train. For more info type 'help'";
     }
 
     $status = 1;
@@ -137,26 +137,47 @@ function getAnswer($conn, $question){
             $answer = $answer_arr[$rand];
             $answer = $answer['answer'];
         }else{
-            $answer = "I do not have the answers to the question you are asking. You can train me to become more intelligent";
+            $answer = "I don't understand what you are asking. You can train me to become more intelligent";
             $answer .= "Train me by typing; 'train: your question # your answer # password'";
         }
-
+        
     }catch(PDOException $err){
         $answer = "Oops, Something went wrong. Try again";
     }
     $status = 1;
 
     return json_encode([
-        'status' => $status,
-        'answer' => $answer
-    ]);
+                'status' => $status,
+                'answer' => $answer
+            ]);
 
+}
+
+
+
+
+function isAbout($question){
+    if($question == 'aboutbot'){
+        return true;
+    }
+
+    return false;
+}
+
+function getAbout(){
+    $status = 1;
+    $answer = "I am geniusBot. Version 1.0";
+
+    return json_encode([
+                'status' => $status,
+                'answer' => $answer
+            ]);
 }
 
 function isHelp($question){
     if($question == 'help'){
         $status = 1;
-        $answer = "You can ask me any question. If i am unable to answer, there is an option to train me. ";
+        $answer = "You can ask me any question. If i am unable to respond, there is an option to train me. ";
         $answer .= "To train me use; 'train: your question # your answer # password'. ";
         $answer .= "Password = 'password'. ";
 
@@ -169,28 +190,6 @@ function isHelp($question){
     return false;
 }
 
-
-function isAbout($question){
-    if(strpos($question, 'aboutbot') !== false){
-        return true;
-    }
- 
-    return false;
- }
- 
- function getAbout(){
-    $status = 1;
-    $answer = "I am mikkybang's bot Version 1.0.0";
-    $answer .= " You can ask me any question.";
-    $answer .="you can also train me to answer more questions";
-    $answer .= "To train me use; 'train: your question # your answer # password";
-    $answer .= "My training password is: password";
- 
-    return json_encode([
-                'status' => $status,
-                'answer' => $answer
-            ]);
- }
 ?>
 
 
