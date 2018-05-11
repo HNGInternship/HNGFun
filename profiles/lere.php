@@ -5,15 +5,76 @@ global $conn;
 ?>
 
 <?php
-if (isset($_POST)){
 
+if ($_SERVER['REQUEST_METHOD']  === "POST"){
+	require_once("../answers.php");
+		if(preg_match("/^(help)/i",$_POST['req'])){
+			echo json_encode("available commands are: 'aboutbot',\n 'time',\n'train:[question]#[answer]#password");
+			return;
+		}
+		if($_POST['req'] == "aboutbot"){
+			echo json_encode("I am BOTGil. Current Version: 1.0");
+		}else if(preg_match("/time/i",$_POST['req'])){
+			echo get_time();
+		}
+		else if(preg_match("/^(hi|hello)/i",$_POST['req'])){
+			echo json_encode("Hi, how are you");
+		}
+		else if (preg_match("/How are you/i",$_POST['req'])){
+			echo json_encode("I am operational, you?");
+		}
+		else if(strpos(" ".$_POST['req'],'train')){
+			$te = str_replace(" ","",$_POST['req']);
+			
+			if(!preg_match("/^train:(\w){1,}#(\w){1,}#(\w){1,}$/",$te) ){
+				echo json_encode("the training format is 'train: question#answer#password'");
+				return;
+			}
+			$exploded =preg_split("/[:#]+/",$_POST['req']);
+			$question = trim($exploded[1]);
+
+			$answer = trim($exploded[2]);
+
+			$password = trim($exploded[3]);
+			if($password == "train me"){
+				$sql3 = "INSERT INTO chatbot (id, question, answer) VALUES ('', '$question', '$answer')";
+				$query = $conn->query($sql3);
+				echo json_encode("I am learning, thank you for training me ");
+					
+			}else{
+				echo json_encode("wrong password ".$password);
+			}
+
+		
+
+		}
+		else{
+			$text=$_POST['req'];
+			$sql3="SELECT * FROM chatbot WHERE question='$text ' ORDER BY RAND() LIMIT 1";
+			$query = $conn->query($sql3);
+			   $query->setFetchMode(PDO::FETCH_ASSOC);
+			   $result3 = $query->fetch();
+			$ans=$result3['answer'];
+
+			if(isset($ans)){
+				echo json_encode($ans);
+			}else{
+				echo json_encode("Good to know");
+			}
+
+		}
+
+		
+	   
+	
+exit();
 }
 
 ?>
 
 
 <?php
-
+if($_SERVER['REQUEST_METHOD'] === "GET"){
     
     try {
         $sql = "SELECT * FROM interns_data WHERE username='{$_GET['id']}'";
@@ -139,7 +200,8 @@ if (isset($_POST)){
 	</div>
 	
 
-    <!-- Compiled and minified JavaScript -->
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script>
@@ -152,7 +214,7 @@ if (isset($_POST)){
 			question:"",
 			chats: [
 				{sender:"bot",message:"hi, welcome to my interface"},
-				{sender:"bot", message:"reply help to get the list of commands available"}
+				{sender:"bot", message:"reply 'help' to get the list of commands available"}
 			],
 			
 		},
@@ -166,13 +228,26 @@ if (isset($_POST)){
 				this.bot = !this.bot
 			},
 			sendUserQuestion:function(){
-				if(this.question !== ""){chat = {sender:"you",
+				var vm = this
+				if(this.question !== ""){
+					chat = {sender:"you",
 					message:this.question
 					}
 					this.chats.push(chat)
+
+					$.ajax({
+						type: "POST",
+						url: "profiles/lere.php",
+						data: {"req":vm.question},
+						success: function(res){
+							chat2 = {
+							sender:"bot", message: res
+							}
+							vm.chats.push(chat2)
+						},
+						dataType: 'json'
+						});
 					this.question = ""
-					var elem = document.getElementById("targ")
-					elem.scrollTop = elem.scrollHeight + 50
 				}
 			}
 
@@ -186,3 +261,6 @@ if (isset($_POST)){
 </body>
 </html>
 
+<?php
+}
+?>
