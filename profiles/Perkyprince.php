@@ -1,27 +1,16 @@
+<?php
+    global $conn;
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="Perkyprince"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    ?>
+
  <?php
-        require 'db.php';
-
-      $select = $conn->query("SELECT * FROM secret_word LIMIT 1");
-          $select->setFetchMode(PDO::FETCH_ASSOC);
-          $result= $select->fetch();
-          $secret_word = $result['secret_word'];
-
-
-      $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'perkyprince'");
-          $result2->setFetchMode(PDO::FETCH_ASSOC);
-          $user = $result2->fetch();
-
-      // $query = "SELECT * FROM secret_word LIMIT 1";
-      // $result = mysqli_query($conn, $query);
-      // while($secret_word= mysqli_fetch_assoc($result))
-
-      // $query2= "SELECT * FROM interns_data WHERE username = 'perkyprince'";    
-      // $result2 = mysqli_query($conn, $query2);
-      // while ($user = mysqli_fetch_assoc($result2));
-      ?>
-
-
-      <?php
     try {
         $sql = 'SELECT * FROM secret_word';
         $q = $conn->query($sql);
@@ -118,10 +107,9 @@
         <meta name="keywords" content="HTML5, CSS, Javascript, PHP, Profile, HNG, About, Internship, Chat, Chatbot">
         <meta name="author" content="Princewill Iwuala">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
         <script src="https://use.fontawesome.com/dfb23fb58f.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <!-- link to main stylesheet -->
         <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/3.3.4/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="https://static.oracle.com/cdn/jet/v4.1.0/default/css/alta/oj-alta-min.css">
@@ -213,13 +201,15 @@
             font-size: 12px;
             padding: 20px;
             border-radius: 0px 20px 20px 20px;
-            background-color: black;
-            color: #efc940;
+            background-color: #61f60a;
+            color: black;
             max-width: 250px;
             clear: both;
             display: inline-block;
             margin-bottom: 0px !important;
             margin-top: 2px !important;
+
+
           }
           .chat p.me{
             float: right;
@@ -287,7 +277,7 @@
         <div class="card">
           <img class="smaller-image thick-green-border" src="http://res.cloudinary.com/perkyprince/image/upload/v1524546688/Camera1.jpg" alt="Perkyprince" style="width:80%">
           <div>
-            <h1 class="main"><?php echo $user["name"]?></h1>
+            <h1 class="main">Iwuala Princewill</h1>
             <p class="title">Intern at HNGInternship4</p>
           </div>
           <div>
