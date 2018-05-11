@@ -1,18 +1,273 @@
+<?php
+
+if (!defined('DB_USER')) {
+	require "../config.php";
+	try {
+		$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	} catch (PDOException $pe) {
+		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	}
+}
+global $conn;
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+	try {
+	//get secret_word	
+		$sql = 'SELECT * FROM secret_word';
+		$q = $conn->query($sql);
+		$q->setFetchMode(PDO::FETCH_ASSOC);
+		$data = $q->fetch();
+		$secret_word = $data['secret_word'];
+	
+	//get my details		
+		$sql = 'SELECT * FROM secret_word';
+		$sql = "SELECT * FROM `interns_data` WHERE username = 'hammedb' LIMIT 1";
+		$q = $conn->query($sql);
+		$q->setFetchMode(PDO::FETCH_ASSOC);
+		$data = $q->fetch();
+
+		$name = $data['name'];
+		$image_filename = $data['image_filename'];
+
+	} catch (PDOException $e) {
+
+		$secret_word = "sample_secret_word";
+		$name = "Hammed Busirah Olaitan";
+		$image_filename = 'http://res.cloudinary.com/hammedb/image/upload/v1523977229/PicsArt_02-08-02.22.04guuj.jpg';
+	}
+
+
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+	$response = getAction($_POST);
+
+	echo $response;
+
+	exit();
+
+
+}
+
+
+//bot
+
+function getAction($input)
+{
+	$data = [];
+
+	switch ($input['stage']) {
+		case 0: //bot intro
+			$data = greet();
+			break;
+		case 1: // chat or train
+
+			$human_response = preg_replace('([\s]+)', ' ', trim($input['human_response']));
+			$data = chat_or_train($human_response);
+			break;
+	}
+
+	return json_encode($data);
+}
+
+
+
+
+
+
+
+function RaniMenu()
+{
+	return '1. enter menu to show this help <br>
+            2. clear screen: clear. <br>
+            3. exit bot: exit. <br>
+            4. To know more about me:aboutbot.<br>';
+}
+
+function train($human_response)
+{
+
+	$human_response = trim($human_response);
+
+	if (!is_valid_training_format($human_response)) {
+		$data = ["data" => "In correct train syntax", "stage" => 1];
+	} else {
+
+		$inputs = get_question_answer_password($human_response);
+		if (strcmp($inputs['password'], 'password') !== 0) {
+			$data = ["data" => "You don't have the pass key", "stage" => 2];
+		} else {
+
+			$data = set_question($inputs['question'], $inputs['answer']);
+		}
+	}
+
+	return $data;
+}
+
+
+function chat($human_response)
+{
+
+	$data = [];
+
+	if (strcmp(strtolower(trim($human_response)), 'menu') == 0) {
+		$data = ["data" => RaniMenu(), "stage" => 2];
+	} elseif (strcmp(strtolower(trim($human_response)), 'aboutbot') == 0) {
+		$data = ['data' => 'Hello I am Rani', 'stage' => 1];
+	} else {
+		$data = get_answer($human_response);
+	}
+
+	return $data;
+}
+
+
+function chat_or_train($human_response)
+{
+
+
+	if (strpos(trim($human_response), 'train') !== false && strpos(trim($human_response), ':') !== false) {
+		return train($human_response);
+	} else {
+
+		return chat($human_response);
+	}
+
+}
+
+function get_answer($human_response)
+{
+	global $conn;
+
+	$question = prepare_question_chat($human_response);
+
+	$sql = "SELECT * FROM chatbot WHERE question = '{$question}' or question = '{$question}?'";
+	$q = $conn->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$results = $q->fetchAll();
+
+	if (count($results) > 0) {
+		$data = $results[rand(0, count($results) - 1)]['answer'];
+	} else {
+		$data = "So sorry but i don't understand your message.<br> But you could teach me.<br> To teach me use the format below train:your question #answer:your answer #password";
+	}
+
+	return ["data" => $data, "stage" => 1];
+}
+
+function set_question($question, $answer)
+{
+	global $conn;
+
+	$sql = "SELECT * FROM chatbot WHERE question = '{$question}'";
+
+	$q = $conn->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$results = $q->fetchAll();
+
+	if (count($results) > 0) {
+
+		$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+
+		try {
+			$query = $conn->prepare($sql);
+
+			if ($query->execute([':question' => $question, ':answer' => $answer]) == true) {
+				$data = 'Cool, I have learnt a new answer to that question. thanks';
+			};
+
+		} catch (PDOException $e) {
+			$data = "Something went wrong, please try again";
+		}
+
+	} else {
+
+		$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+
+		try {
+			$query = $conn->prepare($sql);
+
+			if ($query->execute([':question' => $question, ':answer' => $answer]) == true) {
+				$data = 'Cool, I have learnt a new question. thanks';
+			};
+
+		} catch (PDOException $e) {
+			$data = "Something went wrong, please try again";
+		}
+	}
+	return ["data" => $data, "stage" => 1];
+}
+
+function greet()
+{
+	$greetings = [
+		'Hi, I am Rani, type menu to check commands.<br>
+		To teach me use the format below train: your question # your answer # password'
+	];
+
+	return ["data" => $greetings[array_rand($greetings)], "stage" => 1];
+}
+
+function prepare_question_train($question)
+{
+
+	$question = trim($question);
+	$question = preg_replace('([\s]+)', ' ', $question);
+	return $question;
+}
+
+
+function prepare_question_chat($human_response)
+{
+	$human_response = trim($human_response);
+	$question = str_replace('?', '', $human_response);
+	$question = preg_replace('([\s]+)', ' ', $question);
+	return $question;
+}
+
+function is_valid_training_format($human_response)
+{
+
+	$human_response = trim($human_response);
+
+	$input_parts = explode('#', $human_response);
+
+	return count($input_parts) === 3;
+}
+
+function get_question_answer_password($human_response)
+{
+
+	$parts = explode('#', trim($human_response));
+
+	$password = array_pop($parts);
+	$password = trim($password);
+
+
+	$question_part = trim($parts[0]);
+
+	$question_part_split = explode(':', $question_part);
+
+	array_shift($question_part_split);
+
+	$question = array_shift($question_part_split);
+
+	$answer = trim($parts[1]);
+
+	return ['question' => trim($question), 'answer' => $answer, 'password' => $password];
+}
+
+
+
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<title></title>
-</head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
- --><link rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css" type="text/css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="vendor/jquery/jquery.min.js"></script>
-<style type="text/css">
-	.fb{color: #3b5998;}
+	<title>HNGInternship 4.0</title>
+	<link rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css">
+	<style type="text/css">
+		.fb{color: #3b5998;}
 	.tw{color: #1da1f2;}
 	.git{color: #333333;}
 	.ln{color: #0077b5}
@@ -44,9 +299,9 @@
 		position: fixed;
 		background: #D8D8D8;
 		z-index: 10;
-		top: 0;
+		top: 20px;
 		right: 0;
-		opacity: .9;
+		opacity: 1;
 		padding-bottom: 20px;
 		/*margin-left: 400px;*/
 		align-self: center;
@@ -108,276 +363,12 @@
 	.hide{
 		visibility: hidden;
 	}
-			
-</style>
-<body>
-	<?php
-/*		include 'db.php';
-				global $conn;
-		$query= $conn->query("Select * from secret_word LIMIT 1");
-		$result = $query->fetch(PDO::FETCH_OBJ);
-		$secret_word = $result->secret_word;
-
-		$result2 = $conn->query("Select * from interns_data where username = 'hammedb'");
-		$user = $result2->fetch(PDO::FETCH_OBJ);
-*/
-
-
-if (!defined('DB_USER')) {
-	require "../config.php";
-	try {
-		$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-	} catch (PDOException $pe) {
-		die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-	}
-}
-global $conn;
-
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-
-	try {
-	//get secret_word	
-		$sql = 'SELECT * FROM secret_word';
-		$q = $conn->query($sql);
-		$q->setFetchMode(PDO::FETCH_ASSOC);
-		$data = $q->fetch();
-		$secret_word = $data['secret_word'];
-	
-	//get my details		
-		$sql = 'SELECT * FROM secret_word';
-		$sql = "SELECT * FROM `interns_data` WHERE username = 'hammedb' LIMIT 1";
-		$q = $conn->query($sql);
-		$q->setFetchMode(PDO::FETCH_ASSOC);
-		$data = $q->fetch();
-
-		$name = $data['name'];
-		$image_filename = $data['image_filename'];
-
-	} catch (PDOException $e) {
-
-		$secret_word = "sample_secret_word";
-		$name = "Hammed Busirah Olaitan";
-		$image_filename = 'http://res.cloudinary.com/hammedb/image/upload/v1523977229/PicsArt_02-08-02.22.04guuj.jpg';
-	}
-
-
-} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-	$response = getAction($_POST);
-
-	echo $response;
-
-	exit();
-
-
-}
-
-
-
-		//bot
-
-function getAction($input)
-{
-	$data = [];
-
-	switch ($input['stage']) {
-		case 0: //bot intro
-			$data = greet();
-			break;
-		case 1: // chat or train
-
-			$human_response = preg_replace('([\s]+)', ' ', trim($input['human_response']));
-			$data = chat_or_train($human_response);
-			break;
-	}
-
-	return json_encode($data);
-}
-
-function RaniMenu()
-{
-	return '1. enter menu to show this help <br>
-            2. clear screen: clear. <br>
-            3. exit bot: exit. <br>';
-}
-
-function train($human_response)
-{
-
-	$human_response = trim($human_response);
-
-	if (!is_valid_training_format($human_response)) {
-		$data = ["data" => "In correct train syntax", "stage" => 1];
-	} else {
-
-		$inputs = get_question_answer_password($human_response);
-		if (strcmp($inputs['password'], 'password') !== 0) {
-			$data = ["data" => "You don't have the pass key", "stage" => 2];
-		} else {
-
-			$data = set_question($inputs['question'], $inputs['answer']);
-		}
-	}
-
-	return $data;
-}
-
-
-function chat($human_response)
-{
-
-	$data = [];
-
-	if (strcmp(strtolower(trim($human_response)), 'menu') == 0) {
-		$data = ["data" => RaniMenu(), "stage" => 2];
-	} elseif (strcmp(strtolower(trim($human_response)), 'aboutbot') == 0) {
-		$data = ['data' => 'Rani v1.0', 'stage' => 1];
-	} else {
-		$data = get_answer($human_response);
-	}
-
-	return $data;
-}
-
-
-function chat_or_train($human_response)
-{
-
-
-	if (strpos(trim($human_response), 'train') !== false && strpos(trim($human_response), ':') !== false) {
-		return train($human_response);
-	} else {
-
-		return chat($human_response);
-	}
-
-}
-
-function get_answer($human_response)
-{
-	global $conn;
-
-	$question = prepare_question_chat($human_response);
-
-	$sql = "SELECT * FROM chatbot WHERE question = '{$question}' or question = '{$question}?'";
-	$q = $conn->query($sql);
-	$q->setFetchMode(PDO::FETCH_ASSOC);
-	$results = $q->fetchAll();
-
-	if (count($results) > 0) {
-		$data = $results[rand(0, count($results) - 1)]['answer'];
-	} else {
-		$data = "So sorry but i don't understand your message. But you could teach me. train: this is a question # this is an answer # your password";
-	}
-
-	return ["data" => $data, "stage" => 1];
-}
-
-function set_question($question, $answer)
-{
-	global $conn;
-
-	$sql = "SELECT * FROM chatbot WHERE question = '{$question}'";
-
-	$q = $conn->query($sql);
-	$q->setFetchMode(PDO::FETCH_ASSOC);
-	$results = $q->fetchAll();
-
-	if (count($results) > 0) {
-
-		$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
-
-		try {
-			$query = $conn->prepare($sql);
-
-			if ($query->execute([':question' => $question, ':answer' => $answer]) == true) {
-				$data = 'Cool, I have learnt a new answer to that question. thanks';
-			};
-
-		} catch (PDOException $e) {
-			$data = "Something went wrong, please try again";
-		}
-
-	} else {
-
-		$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
-
-		try {
-			$query = $conn->prepare($sql);
-
-			if ($query->execute([':question' => $question, ':answer' => $answer]) == true) {
-				$data = 'Cool, I have learnt a new question. thanks';
-			};
-
-		} catch (PDOException $e) {
-			$data = "Something went wrong, please try again";
-		}
-	}
-	return ["data" => $data, "stage" => 1];
-}
-
-function greet()
-{
-	$greetings = [
-		'Hi, I am Rani, type menu to check commands',
-		'To teach me use the format below train: your question # your answer # password',
 		
-	];
+			
+	</style>
+</head>
+<body>
 
-	return ["data" => $greetings[array_rand($greetings)], "stage" => 1];
-}
-
-function prepare_question_train($question)
-{
-
-	$question = trim($question);
-	$question = preg_replace('([\s]+)', ' ', $question);
-	return $question;
-}
-
-
-function prepare_question_chat($human_response)
-{
-	$human_response = trim($human_response);
-	$question = str_replace('?', '', $human_response);
-	$question = preg_replace('([\s]+)', ' ', $question);
-	return $question;
-}
-
-function is_valid_training_format($human_response)
-{
-
-	$human_response = trim($human_response);
-
-	$input_parts = explode('#', $human_response);
-
-	return count($input_parts) === 3;
-}
-
-function get_question_answer_password($human_response)
-{
-
-	$parts = explode('#', trim($human_response));
-
-	$password = array_pop($parts);
-	$password = trim($password);
-
-
-	$question_part = trim($parts[0]);
-
-	$question_part_split = explode(':', $question_part);
-
-	array_shift($question_part_split);
-
-	$question = array_shift($question_part_split);
-
-	$answer = trim($parts[1]);
-
-	return ['question' => trim($question), 'answer' => $answer, 'password' => $password];
-}
-
-
-?>
 
 	<div role="main" class="oj-web-applayout-max-width oj-web-applayout-content">
 
@@ -392,7 +383,7 @@ function get_question_answer_password($human_response)
 				<div class="oj-panel oj-panel-alt1 oj-margin demo-mypanel">
 					<div class="demo-flex-display oj-flex-items-pad">
 						<div class="oj-flex oj-sm-align-items-center oj-sm-justify-content-space-around">
-							<h4 class="oj-lg-align-items-center name">Hello I'm <b><?= $name ?><!-- <?php echo $user->name; ?> --></b></h4>
+							<h4 class="oj-lg-align-items-center name">Hello I'm <b><?= $name ?></b></h4>
 						</div>
 					</div>
 					<div class="demo-flex-display oj-flex-items-pad">
@@ -423,6 +414,7 @@ function get_question_answer_password($human_response)
 		</div>
 
 
+
 		<div id="start-bot">
 			<a id="start-chat-bot">
 				<span class="fa-stack fa-lg">
@@ -446,6 +438,7 @@ function get_question_answer_password($human_response)
 
 
 
+	<script src="vendor/jquery/jquery.min.js"></script>
 	<script>
 		$(document).ready(function() {
 
@@ -472,7 +465,7 @@ function get_question_answer_password($human_response)
 						if($("input.human_input").val().trim().length < 1){
 						}else if($("input.human_input").val() == "clear"){
 							$("div.conversation").html('');
-							$("div.conversation").append(makeMessage("Clean slate, Check menu if needed"));
+							$("div.conversation").append(makeMessage("Type menu to get to command list"));
 							$('input.human_input').val('');
 						}else if($("input.human_input").val() == "exit"){
 							$("div.conversation").html('');
@@ -534,5 +527,5 @@ function get_question_answer_password($human_response)
 		
 		});
 	</script>
-	</body>
-	</html>
+</body>
+</html>
