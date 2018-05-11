@@ -26,15 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       }
    }
 
-   function findThisPerson($user) {
-      global $conn;
-      $statement = $conn->prepare("select * from interns_data where username like :user or name like :user limit 1");
-      $statement->bindValue(':user', "%$user%");
-      $statement->execute();
-      $statement->setFetchMode(PDO::FETCH_ASSOC);
-      $rows = $statement->fetchObject();
-      return $rows;
-   }
 
    function searchRequest($request) {
       global $conn;
@@ -102,18 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                $bot_response['response'] = "🤖 Training Access Denied!";
             } else {
                $bot_response['response'] = train($question, $answer);
-            }
-
-         } else if (preg_match('/(find:)/', $request)) {
-            $ex = explode("find:", $request);
-
-            if (!empty($users = findThisPerson($ex[1]))) {
-               $bot_response['response'] = array('resultType' => 'find', 'users' => $users);
             } else {
-               $bot_response['response'] = "🤖 I couldn't find a user by that username or name";
-            }
-
-         } else {
             $bot_response['response'] = "🤖 I  don't understand your request, I hope you wouldn't mind training me?";
          }
       }
@@ -125,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    $result = $conn->query("Select * from secret_word LIMIT 1");
    $result = $result->fetch(PDO::FETCH_OBJ);
    $secret_word = $result->secret_word;
-   $result2 = $conn->query("Select * from interns_data where username = 'eniayomi'");
+   $result2 = $conn->query("Select * from interns_data where username = 'pajimo'");
    $user = $result2->fetch(PDO::FETCH_OBJ);
 }?>
 <?php if ($_SERVER['REQUEST_METHOD'] == "GET") {?>
@@ -286,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         </style>
       <div class="bot round-corners">
          <div class="inner">
-            <h2>Eniayomi's Bot 🤖</h2>
+            <h2>Chat 🤖</h2>
             <div id="chatarea" style="overflow: auto; height:300px; border:1px solid whitesmoke; border-radius:5px"></div>
             <div class="input-group">
                <input type="text" class="form-control" id="message" type="text" placeholder="Message" name="newrequest" />
@@ -296,9 +276,16 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             </div>
          </div>
       </div>
-<footer style="margin-bottom:0px; text-align:center; padding-top:25px;" id="footer">
-   <p>Eniayomi @ 2018 HNG</p>
-</footer>
+         
+         <div class="panel bot round-corners">
+              <div>
+                <p style="overflow: scroll; height: 250px; width: 100%; margin: 0px;" id="textbox"></p>
+                <input type="text" name="" style="width: 80%; height: 24px;" id="text">
+                <button style="position: absolute; width: 19%; height: 30px" id="send">Send</button>
+              </div>
+          </div>
+          <p class="slide"><div class="pull-me" style="text-align: center">Chat with me</div></p>
+        </div>
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -329,7 +316,7 @@ function newElementsForBot(botResponse) {
 }
 
 $(document).ready(function() {
-   response = {"response" : "Hello there, I'm eniayomi Bot.<br/>Here's a couple of things i can do.<br/> 1. You can ask me anything<br/>2. You can find a friend who's in the dope HNGInternship<br/>syntax : find: username or find: name<br/>3. To train the bot(train: question # answer # password)"};
+   response = {"response" : "Hello..<br/> You can ask me few questions<br/> To train the bot(train: question # answer # password)"};
    newElementsForBot(response);
 });
 
