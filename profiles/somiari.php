@@ -449,7 +449,7 @@
 				</a>
 			</section>
 
-			<form class="chat-box" id="ajax-contact" method="post" action="profiles/somiari.php">
+			<form class="chat-box" id="ajax-contact" method="post" action="">
 				<span class="chat-box-header">Alan is not a bot</span>
 				<div class="chat-msgs">
 					<p class="alan">Hello! My name is Alan, and I am <del>not</del> a bot.</p>
@@ -522,7 +522,7 @@
 
 			$.ajax({
 					type: 'POST',
-					url: $(form).attr('action'),
+					url: "",
 					data: formData,
 				}).done(function(response) {
 					console.log(response);
