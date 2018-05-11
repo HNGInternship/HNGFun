@@ -165,7 +165,6 @@
           padding-left: 40%;
           width: 1000px;
           display: inline-block;
-          overflow: auto;
           max-height: 400px; 
           resize: none;
       }
