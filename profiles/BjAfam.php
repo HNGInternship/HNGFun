@@ -226,8 +226,8 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 		}
 
     .chat .user-photo{
-			width: 100px;
-			height: 100px;
+			width: 60px;
+			height: 60px;
 			/* background-color: #eee; */
 			background-image: url("http://res.cloudinary.com/dpuyyqxnl/image/upload/v1525909063/user.jpg");
       background-size: 100% 100%;
