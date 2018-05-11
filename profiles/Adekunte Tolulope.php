@@ -3,6 +3,11 @@
 
 $diffAns ='';
 
+$sql="SELECT secret_word FROM secret_word";
+$query = $conn-> query($sql);
+$secret = $query->fetch(PDO::FETCH_ASSOC);
+$secret_word = $secret['secret_word'];
+
 if (isset($_POST['bot_r'])) {
 	$data = $_POST['bot_r'];
 
