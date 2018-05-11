@@ -3,14 +3,18 @@
 
 $diffAns ='';
 
-$result = $conn->query("SELECT * from secret_word LIMIT 1");
+$result = $conn->query("SELECT secret_word FROM secret_word LIMIT 1");
  $result = $result->fetch(PDO::FETCH_OBJ);
  $secret_word = $result->secret_word;
- $result2 = $conn->query("Select * from interns_data where username = 'Adekunte Tolulope'");
- $user = $result2->fetch(PDO::FETCH_OBJ);
 
-if (isset($_POST['bot_r'])) {
-	$data = $_POST['bot_r'];
+ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'Adekunte Tolulope'");
+ $user = $result2->fetch(PDO::FETCH_OBJ);
+$name = $user-> name;
+$image = $user-> image_filename;
+$username = $user-> username;
+
+if (isset($_POST['bot_adekunte'])) {
+	$data = $_POST['bot_adekunte'];
 
 	if ($data == 'aboutbot') {
 		echo "V 1.0";
@@ -233,9 +237,9 @@ button:hover, a:hover {
 
 
 <div class="card">
-  <img src="http://res.cloudinary.com/de8awjxjn/image/upload/v1525561300/26219902_1872730456371316_8732891365608479809_n_1.jpg" alt="Profile Pic">
-  <h1>Adekunte Tolulope David</h1>
-  <p class="slack username">Adekunte Tolulope</p>
+  <img src="<?php echo $image; ?>" alt="Profile Pic">
+  <h1><?php echo $name; ?></h1>
+  <p class="slack username"><?php echo $username; ?></p>
   <p class="title">Programmer</p>
   <p>HNG Internship</p>
   <div style="margin: 24px 0;">
@@ -287,7 +291,7 @@ var no = 0;
 			var x = new XMLHttpRequest();
 		var url = 'profile.php?id=Adekunte Tolulope';
 		var data = document.getElementById("botInp").value;
-		var vars = "bot_r="+data;no++;
+		var vars = "bot_adekunte="+data;no++;
 		document.getElementById('ans').innerHTML+='<div><div class="ques">'+data+'</div></div>';
 		document.getElementById('ans').innerHTML+='<div><div class="ans" id="id'+no+'"></div></div>';
 		x.open("POST", url, true);
