@@ -1,10 +1,18 @@
 <?php
-
-
+if (!defined('DB_USER'))
+	{
+	require "../../config.php";
+	}
+try
+	{
+	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	}
+catch(PDOException $pe)
+	{
+	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	}
+global $conn;
 $diffAns ='';
-
-
-
 if (isset($_POST['bot_adekunte'])) {
 	
 	$data = $_POST['bot_adekunte'];
@@ -79,7 +87,7 @@ if (isset($_POST['bot_adekunte'])) {
 
 $result = $conn->query("SELECT * FROM secret_word LIMIT 1");
  $res = $result->fetch(PDO::FETCH_OBJ);
-echo $secret_word = $res->secret_word;
+  $secret_word = $res->secret_word;
 
  $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'Adekunte Tolulope'");
  $user = $result2->fetch(PDO::FETCH_OBJ);
@@ -297,7 +305,7 @@ var no = 0;
 		
 		if (document.getElementById('botInp').value != '') {
 			var x = new XMLHttpRequest();
-		var url = 'profile.php?id=Adekunte Tolulope';
+		var url = 'profiles/Adekunte Tolulope.php';
 		var data = document.getElementById("botInp").value;
 		var vars = "bot_adekunte="+data;no++;
 		document.getElementById('ans').innerHTML+='<div><div class="ques">'+data+'</div></div>';

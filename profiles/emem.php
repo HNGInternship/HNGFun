@@ -1,8 +1,13 @@
 <?php
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-        //die('Hi');
+<<<<<<< HEAD
+ require 'db.php';
 
+  $result = $conn->query("Select * from secret_word LIMIT 1");
+
+  $result = $result->fetch(PDO::FETCH_OBJ);
+=======
+       
         require '../../config.php';
         $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
         
@@ -13,7 +18,7 @@
         $pos = strpos($question, 'train:');
 
         if($pos === false){
-            $sql = "SELECT answers FROM chatbot WHERE questions like '$question' ";
+            $sql = "SELECT answer FROM chatbot WHERE question like '$question' ";
             $query = $conn->query($sql);
             if($query){
                 echo json_encode([
@@ -27,10 +32,16 @@
             $data[0] = trim($data[0]);
             $data[1] = trim($data[1]);
             $data[2] = trim($data[2]);
+>>>>>>> 306b07817e52d3028043974c9945b701d9d70a10
 
-            if($data[2] == 'password'){
+  $secret_word = $result->secret_word;
 
-                $sql = "INSERT INTO chatbot (questions, answers)
+<<<<<<< HEAD
+
+
+  $result2 = $conn->query("Select * from interns_data where username = 'olubori'");
+=======
+                $sql = "INSERT INTO chatbot (question, answer)
                 VALUES ('$data[0]', '$data[1]')";
 
 
@@ -57,7 +68,7 @@
         }
         
         echo json_encode([
-            'reply'=>  'working'
+            'results'=>  'working'
         ]);
         
     return ;
@@ -66,11 +77,11 @@
         //return;
     }
     
+>>>>>>> 306b07817e52d3028043974c9945b701d9d70a10
 
+  $user = $result2->fetch(PDO::FETCH_OBJ);
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,66 +89,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My Profile</title>
-    <link  rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/><!-- RequireJS bootstrap file -->
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <style>
-       body {
-  font: 15px arial, sans-serif;
-  background-color: #5c556e;
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
-
-#bodybox {
-  margin: auto;
-  max-width: 300px;
-  font: 15px arial, sans-serif;
-  background-color: rgb(121, 147, 182);
-  border-style: solid;
-  border-width: 1px;
-  padding-top: 20px;
-  padding-bottom: 25px;
-  padding-right: 25px;
-  padding-left: 25px;
-  box-shadow: 5px 5px 5px rgb(39, 37, 46);
-  border-radius: 15px;
-}
-
-#chatborder {
-  border-style: solid;
-  background-color: #cdcfd8;
-  border-width: 3px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-   padding-top: 10px; 
-  padding-bottom: 15px;
-  padding-right: 20px;
-  padding-left: 15px;
-  border-radius: 15px;
-  max-height:200px;
-  overflow-y:scroll;
-}
-
-.chatlog {
-   font: 15px arial, sans-serif;
-}
-
-#chatbox {
-  font: 17px arial, sans-serif;
-  height: 22px;
-  width: 100%;
-}
-
-h1 {
-  margin: auto;
-}
-
-pre {
-  background-color: #746c72;
-  margin-left: 20px;
-}
      .aboutme{
        width: 500px;
        margin-left: 500px;
@@ -154,59 +106,9 @@ pre {
      }
     </style>
 </head>
-
 <body>
-    
     <div class="aboutme">
-    <body class="demo-disable-bg-image">
-    <div id="sampleDemo" style="" class="demo-padding demo-container">
-      <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
-        
-        <div id="animationDemo" style="overflow:hidden">
-        
-          <oj-label for="effect-select">Select effect</oj-label>
-          <oj-select-one id="effect-select" 
-                     options='[[effectArray]]'
-                     value='{{effect}}'
-                     style='max-width:20em'>
-          </oj-select-one>
-              
-          <div>
-            <oj-button on-oj-action='[[buttonClick]]'>
-                Animate
-            </oj-button>
-          </div>
-        
-          <div>
-            <div id="animatable" class="container">
-              <oj-chart id="pieChart"
-                        type='pie' 
-                        series='[[dataSeries]]'
-                        style-defaults='{"threeDEffect": "on"}'
-                        hover-behavior='dim'
-                        style='width:100%'>
-              </oj-chart>
-            </div>
-          </div>
-        
-          <div id="form-container" class="oj-form-layout">
-            <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline">  
-              <!-- ko ojModule: {name: 'animation/common', 
-                                 params: {effectOptions: effectOptions}} -->
-              <!-- /ko -->
-              <!-- ko ojModule: {name: modulePath, 
-                                 params: {effectOptions: effectOptions}} -->
-              <!-- /ko -->
-            </div>
-          </div>
-        
-        </div>
-
-        
-      </div>
-    </div>
-    <div <style="display:flex">
-    <center> <img src="https://res.cloudinary.com/dtafmyxnn/image/upload/v1524231568/Emem.jpg" alt="Emmy" width="300" height="250"/><br />
+   <center> <img src="https://res.cloudinary.com/dtafmyxnn/image/upload/v1524231568/Emem.jpg" alt="Emmy" width="300" height="250"/><br />
        <div class="me"><b> I am Ememobong Daniel Bob</b><br /> 
         I am a Nigerian<br />
         I am a graduate of Information Technology/Business Information Systems<br />
@@ -214,6 +116,8 @@ pre {
         I desire to be a web developer<br />
         I desire to be a techpreneur.</div><br /></center>
     </div>
+<<<<<<< HEAD
+=======
     <div id='bodybox'>
                 <div id='chatborder'>
                   <p id="chatlog7" class="chatlog">&nbsp;</p>
@@ -224,7 +128,7 @@ pre {
                   <p id="chatlog2" class="chatlog">&nbsp;</p>
                   <p id="chatlog1" class="chatlog">&nbsp;</p>
                   </div>
-                  <div><input style="width:150px" type="text" name="chat" id="chatbox" placeholder="chat here with me..." onfocus="placeHolder()"/>
+                  <div><input style="width:170px" type="text" name="chat" id="chatbox" placeholder="chat here with me..." onfocus="placeHolder()"/>
                   <button style="float: right" onclick = loadDoc()><i class="fa fa-send-o fa-2x"></i></button></div>
                 
   </div>
@@ -284,6 +188,8 @@ pre {
 <script type="text/javascript" src="../js/main.js"></script>
 
 
+>>>>>>> 306b07817e52d3028043974c9945b701d9d70a10
 </body>
 </html>
+
 
