@@ -42,7 +42,7 @@ if(isset($_POST['questions'])){
     zodiac($birthDate);
      echo json_encode([
                   'question'=>$text,
-                  'answers' => zodiac($birthDate)
+                  'answers' => "Your zodiac sign for ".$birthDate." is ".zodiac($birthDate)
                 ]); 
  
  
@@ -366,8 +366,8 @@ https://res.cloudinary.com/dyngnvcre/image/upload/v1524083992/king.jpg" alt="kin
             <div class="chat">
                     <div id="chathead">
                         <p>You can train me with your personal questions using the keyword/format <span style="color:#109177"><strong>train:your-Question#your-Answer#password<br>N.B:</strong></span>the training password is<span style="color:#109177"><strong>trainpwforhng</strong> </span></p>
-             <p>I also have the ability to tell you your zodiac sign. To know your zodiac sign, enter the following keyword followed by your birthday<span style="color:#109177"><strong>
-                 Birthday:yyyy-mm-dd</strong></span></p>
+             <p>I also have the ability to tell you your zodiac sign. To know your zodiac sign, enter the following keyword followed by your birthdate<span style="color:#109177"><strong>
+                 Birthdate:yyyy-mm-dd</strong></span></p>
         </div>
                 <div id="chatOutput">
                 
@@ -417,7 +417,7 @@ $.ajax({
     questions:input
     
    }, 
-beforeSend: function() { $('#results').append("please wait");},
+beforeSend: function() { $('#results').append(" ");},
   success: function(result) {
       $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
 
