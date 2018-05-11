@@ -423,6 +423,7 @@ beforeSend: function() { $('#results').append(" ");},
 
         }
         });
+     $('#chatInput').val('');
 };
     
      function updateScroll(){
@@ -432,6 +433,7 @@ beforeSend: function() { $('#results').append(" ");},
 
 
 setInterval(updateScroll,1000);
+    
                     
 </script>
 
