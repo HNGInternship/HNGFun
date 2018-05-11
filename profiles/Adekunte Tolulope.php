@@ -242,7 +242,7 @@ button:hover, a:hover {
 
 <div id="Chatbot-holder">
 	<div id="botImg">
-		<img src="img/rob.png">
+		<img src="http://pitdesk.com/vi/jkh/images/top-img.png">
 	</div>
 	<div id="content">
 		<div id="head">
