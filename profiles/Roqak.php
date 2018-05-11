@@ -211,6 +211,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     margin-bottom: 2%;
     float: left;
     margin-left: 56px;
+    width: 60%;
   }
   #sentmessage{
     background-color: gray;
@@ -219,6 +220,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     margin-bottom: 2%;
     float: right;
     margin-left: 56px;
+    width: 60%;
   }
   #mchats{
     /*overflow-y: scroll;*/
