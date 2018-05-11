@@ -93,7 +93,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                $bot_response['response'] = "🤖 Training Access Denied!";
             } else {
                $bot_response['response'] = train($question, $answer);
-            } else {
+            } 
+         }else {
             $bot_response['response'] = "🤖 I  don't understand your request, I hope you wouldn't mind training me?";
          }
       }
@@ -276,6 +277,18 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             </div>
          </div>
       </div>
+         
+         <div style="width: 400px" id="child4">
+          <div class="panel">
+              <div>
+                <p style="overflow: scroll; height: 250px; width: 100%; margin: 0px;" id="textbox"></p>
+                <input type="checkbox" id="click"><label>Click to send using enter</label><br/>
+                <input type="text" name="" style="width: 80%; height: 24px;" id="text">
+                <button style="position: absolute; width: 19%; height: 30px" id="send">Send</button>
+              </div>
+          </div>
+          <p class="slide"><div class="pull-me" style="text-align: center">Chat with me</div></p>
+        </div>
   
 </body>
 
