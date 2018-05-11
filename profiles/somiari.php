@@ -295,27 +295,21 @@
 
 
 	//////////// CHATBOT STARTS HERE //////////////////////////////////////////////////////////////
-	if($_SERVER['REQUEST_METHOD'] === "POST"){
-		if(!isset($conn)) {
-			include '../../config.php';
-
-			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-		}
 		if (isset($_POST['message'])) {
-
+			
 			// Retrieve form data from ajax
 			// Change message to all lowercase
 			// trim off white spaces
-			$message = trim(strtolower($_POST['message']));
-
+			$message = trim(strtolower($_POST['message'])); 
+		
 			//Analyse message to determine response
 			if (strtok($message, ":") == "train"){
-				trainAlan($message, $conn); // Call function to handle training
+				trainAlan($message); // Call function to handle training
 
 			}else if ($message != "" ){
 				// Check if question exist in database
 				// returns 1 if question does not exist in database
-				$tempVariable = checkDatabase($message, $conn);
+				$tempVariable = checkDatabase($message); 
 
 				if ($tempVariable == 1){
 					if ($message == "what is the time"){
@@ -323,14 +317,14 @@
 					}else if ($message == "today's date"){
 						echo respondDate();
 					}else{
-						echo "I didn't quite get that but I'm a fast learner.
+						echo "I didn't quite get that but I'm a fast learner. 
 						To teach me something, just type and send:
 						train: question # answer # password";
-					} // end else
+					} // end else	
 				} // end if
-			}
+			}	
 		}
-	}
+		
 		// Function to return Date
 		function respondDate(){
 			date_default_timezone_set("Africa/Lagos");
@@ -354,15 +348,15 @@
 			return $anwerSam = $respondTime[$index];
 		} // Time function ends here
 
-		// function to train bot
+		// function to train bot 
 		// pass message as arguement
-		function trainAlan($newmessage, $conn){
-			// require 'db.php';
+		function trainAlan($newmessage){
+			require 'db.php';
 			$message = explode('#', $newmessage);
 			$question = explode(':', $message[0]);
 			$answer = $message[1];
 			$password = $message[2];
-
+		 
 			$question[1] = trim($question[1]); //triming off white spaces
 			$password = trim($password); //triming off white spaces
 
@@ -372,15 +366,15 @@
 			}else{
 				$chatbot= array(':id' => NULL, ':question' => $question[1], ':answer' => $answer);
 				$query = 'INSERT INTO chatbot ( id, question, answer) VALUES ( :id, :question, :answer)';
-
+		 
 				try {
 					$execQuery = $conn->prepare($query);
 					if ($execQuery ->execute($chatbot) == true) {
 						// call a function that handles successful training response
-						echo repondTraining();
+						echo repondTraining(); 
 					};
 				} catch (PDOException $e) {
-					echo "Oops! I did't get that, Something is wrong I guess, <br> please try again";
+					echo "Oops! i did't get that, Something is wrong i guess, <br> please try again";
 				} // End Catch
 			} // End Else
 		} // Train Function Ends here
@@ -391,7 +385,7 @@
 			$repondTraining = array(  'Noted! Thank you for teaching me',
 									  'Acknowledged, thanks, really want to learn more',
 									  'A million thanks, I\'m getting smarter',
-									  'I\'m getting smarter, I really appreciate');
+									  'i\'m getting smarter, I really appreciate');
 			$index = mt_rand(0, 3);
 			return $anwerSam = $repondTraining[$index];
 		} // respondTraining Ends Here
@@ -399,9 +393,9 @@
 
 		// Function to check if question is in database
 		// Returns 1 if question is not found in database
-		function checkDatabase($question, $conn){
+		function checkDatabase($question){
 			try{
-				// require 'db.php';
+				require 'db.php';
 				$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
 				$stmt->execute();
 
@@ -414,11 +408,11 @@
 			}catch (PDOException $e){
 			   echo "Error: " . $e->getMessage();
 			} // Catch Ends here
-
+			
 			$conn = null; // close database connection
 		}
 
-		if ($_SERVER["REQUEST_METHOD"] == "GET"){
+		if ($_SERVER["REQUEST_METHOD"] == "GET"){ 
 	?>
 		<div class="contained">
 			<figure class="profile-pic">
@@ -451,11 +445,11 @@
 				</a>
 			</section>
 
-			<form class="chat-box" id="ajax-contact">
-				<span class="chat-box-header">Alan is <del>not</del> a bot</span>
+			<form class="chat-box" id="ajax-contact" method="post" action="profiles/somiari.php">
+				<span class="chat-box-header">Alan is not a bot</span>
 				<div class="chat-msgs">
-					<p class="alan">Hello! My name is Alan, and I am not a bot.</p>
-					<p class="alan">I'm a fast learner. To teach me something simply just type and send: train: question # answer # password</p>
+					<p class="alan">Hello! My name is Alan, and I am <del>not</del> a bot.</p>
+					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
 				</div>
 				<div class="chat-type" >
 					<textarea class="chat-msg" name="message" required></textarea>
@@ -479,7 +473,8 @@
 			</footer>
 
 		</div>
-<!-- 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script> -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script> -->
 	<script>
 		const chatMsgs = document.querySelector(".chat-msgs");
 		const chatMsg = document.querySelector(".chat-msg");
@@ -492,12 +487,12 @@
 			fixScroll(); // call function to fix scroll bottom
 		});
 
-
+	
 
 		$(function() {
 			// Get the form.
 			var form = $('#ajax-contact');
-
+			
 			// Set up an event listener for the contact form.
 			$(form).submit(function(event) {
 				// Stop the browser from submitting the form.
@@ -505,7 +500,7 @@
 
 				// Serialize the form data.
 				var formData = $(form).serialize();
-
+				
 				// ignore question mark
 				formData = formData.replace("%3F", "");
 
@@ -513,25 +508,24 @@
 				sendTheMessage(formData);
 
 				// Clearing text filled
-				// chatMsg.value = "";
+				chatMsg.value = "";		
 			}); // End of form event handler
 		});
 
 		// function to handle ajax
 		function sendTheMessage(formData){
 			var form = $('#ajax-contact');
-
+		
 			$.ajax({
 					type: 'POST',
-					url: 'profiles/somiari.php',
+					url: $(form).attr('action'),
 					data: formData,
 				}).done(function(response) {
-					console.log(response);
 					chatMsgs.innerHTML += '<p class="alan">' + response + '</p>';
 					fixScroll(); // call function to fix scroll bottom
 			})// end ajax handler
 		} // end send message fuction
-
+		
 		// function to fix scroll bottom
 		function fixScroll() {
 			chatMsgs.scrollTop = chatMsgs.scrollHeight - chatMsgs.clientHeight;
