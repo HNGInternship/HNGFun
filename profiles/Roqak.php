@@ -192,7 +192,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   }
   .mainn{
     height: 100%;
-    width: 60%;
   }
   .chat{
     /*margin-top:9%;*/
