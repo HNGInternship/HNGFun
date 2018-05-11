@@ -248,7 +248,7 @@ a {
 }
 
 /*chatbot*/
-.chatbot-container{
+/* .chatbot-container{
 		  background-color: #F3F3F3;
 		  width: 500px;
 		  height: 500px;
@@ -325,7 +325,54 @@ input[type=text] {
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
-}
+}*/
+.body1 {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 75%;
+            display: flex;
+            flex-direction: column;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .chat-output {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            background: white;
+            flex-direction: column;
+            overflow-y: scroll;
+            max-height: 500px;
+        }
+        .chat-output > div {
+            margin: 0 0 20px 0;
+        }
+        .chat-output .user-message .message {
+            background: #0fb0df;
+            color: white;
+        }
+        .chat-output .bot-message {
+            text-align: right;
+        }
+        .chat-output .bot-message .message {
+            background: #eee;
+        }
+        .chat-output .message {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 10px;
+        }
+        .chat-input {
+            padding: 20px;
+            background: #eee;
+            border: 1px solid #ccc;
+            border-bottom: 0;
+        }
+        .chat-input .user-input {
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px;
+        }
 </style>
 	</head>
 	<body>
@@ -367,7 +414,6 @@ input[type=text] {
 							<input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
 						</form>
 					</div>
-
 				</div>
 			</div>
 				<!-- <div class="chatbot-container">
@@ -409,7 +455,7 @@ input[type=text] {
 
 
 					$.ajax({
-						url: 'profile.php?id=melody',
+						url: 'profile.php?id=basitomania',
 						type: 'POST',
 						data:  'user-input=' + message,
 						success: function(response) {
@@ -423,11 +469,12 @@ input[type=text] {
 						}
 					});
 
+
 					$("#user-input").val("");
 
 				});
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 			</script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 		</div>
 	</body>
 </html>
