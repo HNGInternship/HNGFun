@@ -85,8 +85,9 @@ if (isset($_POST['bot_r'])) {
 			echo "Error 002".$e->getMessage();
 			exit();
 		}
+		exit();
 	}
-
+exit();
 }
 ?>
 
