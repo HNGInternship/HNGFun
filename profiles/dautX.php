@@ -686,7 +686,7 @@
                         write_to_box(xmlhttp.responseText);
                     }
                 }
-                xmlhttp.open('POST', 'jangle.php', true);
+                xmlhttp.open('POST', 'dautX.php', true);
                 xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xmlhttp.send('message=' + data +'&id=user');
             }, false);

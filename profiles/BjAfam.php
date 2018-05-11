@@ -1,11 +1,11 @@
 <?php 
   if(!defined('DB_USER')){
-	  require "../../config.php";	
-  }	
-	try {
-	    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-	}catch (PDOException $pe) {
-	   die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+		require "../config.php";		
+		try {
+				$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		} catch (PDOException $pe) {
+				die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+		}
 	}
 
 	if ($_SERVER['REQUEST_METHOD']==="POST") {
@@ -361,7 +361,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 						</div>
 						<div class="chat bot">
 							<div class="bot-photo"></div>
-							<p class="chat-message">You can ask me any question.<br> To get my current version, type aboutbot <br> To train me, Enter in the following format: train:question#answer#password <br> where password = password</p>
+							<p class="chat-message">You can ask me any question.<br> To get my current version, type aboutbot <br> To train me, Enter in the following format: train:question#answer#password <br> where password is password</p>
 						</div>
 						
 				
