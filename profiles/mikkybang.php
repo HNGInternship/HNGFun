@@ -266,7 +266,8 @@ function isHelp($question){
             right: 20px;
             z-index: 99;
             width: 350px;
-            background: #84817a;            
+            background: #84817a; 
+            color: black;           
             border: 1px solid #f7f1e3;
             border-radius: 10px 10px 0 0;            
         }
