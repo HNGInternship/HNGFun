@@ -2,7 +2,7 @@
 
         $secret = $conn->query("SELECT * FROM secret_word   LIMIT 1");
         $secret->execute();
-        $intern = $conn->query("SELECT * FROM interns_data LIMIT 1");
+        $intern = $conn->query("SELECT * FROM interns_data WHERE username='bland' LIMIT 1");
         $intern->execute();
 
         $secret_word = $secret->fetch(PDO::FETCH_ASSOC);          
