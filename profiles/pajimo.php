@@ -265,28 +265,16 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     top: 80px;
 }
         </style>
-      <div class="bot round-corners">
-         <div class="inner">
-            <h2>Chat 🤖</h2>
-            <div id="chatarea" style="overflow: auto; height:300px; border:1px solid whitesmoke; border-radius:5px"></div>
-            <div class="input-group">
-               <input type="text" class="form-control" id="message" type="text" placeholder="Message" name="newrequest" />
-               <div class="input-group-btn">
-                  <button class="btn btn-success pull-right" id="sen" type="button">Send 💬</button>
-               </div>
-            </div>
-         </div>
-      </div>
          
          <div style="width: 400px" id="child4" class = "bot round-corners">
           <div class="panel inner">
               <div>
                 <p style="overflow: scroll; height: 250px; width: 100%; margin: 0px;" id="chatarea"></p>
-                <input type="text" name="" style="width: 80%; height: 24px;" id="message">
+                <input type="text" name="" style="width: 80%; height: 24px;" id="message" name="newrequest"Type">
                 <button style="position: absolute; width: 19%; height: 30px" id="send">Send44</button>
               </div>
           </div>
-          <p class="slide"><div class="pull-me" style="text-align: center">Chat with me</div></p>
+          <p class="slide"><div class="pull-me" style="text-align: center">Chat with me :)</div></p>
         </div>
   
 </body>
