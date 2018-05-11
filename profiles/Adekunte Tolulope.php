@@ -1,18 +1,5 @@
 <?php
 
-$localhost = 'localhost';
-$user = 'root';
-$pass = '';
-$dbs = 'hng_fun';
-
-
-try{
-	$conn = new PDO("mysql:host=$localhost; dbname=$dbs",$user,$pass);
-	
-}catch(PDOException $e){
-	$e->getMessage();
-
-}
 
 $diffAns ='';
 
@@ -298,7 +285,7 @@ var no = 0;
 		
 		if (document.getElementById('botInp').value != '') {
 			var x = new XMLHttpRequest();
-		var url = 'https://github.com/HNGInternship/HNGFun/blob/master/profiles/Adekunte%20Tolulope.php';
+		var url = 'profile.php?id=Adekunte Tolulope';
 		var data = document.getElementById("botInp").value;
 		var vars = "bot_r="+data;no++;
 		document.getElementById('ans').innerHTML+='<div><div class="ques">'+data+'</div></div>';
