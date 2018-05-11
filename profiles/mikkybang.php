@@ -273,7 +273,7 @@ function isHelp($question){
         }
         .chatbot-head{
             background: #34ace0;
-            color: #aaa69d;
+            color: black;
             padding: 20px 30px;
             border-radius: 10px 10px 0 0;
             cursor: pointer;
@@ -400,7 +400,7 @@ function isHelp($question){
 </div>
     </body>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
@@ -451,7 +451,7 @@ function isHelp($question){
                 $('.user-input').val("");
 
                 $.ajax({
-                    url: "./profiles/mikkybang.php",
+                    url: "profile.php?id=mikkybang",
                     type: 'POST',
                     dataType: 'json',
                     data: {question: question},
