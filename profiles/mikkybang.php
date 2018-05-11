@@ -447,7 +447,7 @@ function isHelp($question){
                     url: 'profile.php?id=mikkybang',
                     type: 'POST',
                     dataType: 'json',
-                    data: {question: question},
+                    data: {'question': question},
                     success: function(data){
                         console.log(data);
                         if(data['status'] == 1){
