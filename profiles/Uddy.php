@@ -19,7 +19,7 @@
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
             //die('Hi');
-            $conn = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+            $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
             
             if(!$conn){
                 die('Unable to connect');
@@ -211,7 +211,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 
                 } 
             };
-            xhttp.open("POST", "Uddy.php", true);
+            xhttp.open("POST", "/profiles/Uddy.php", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("message="+message.value);
         }
