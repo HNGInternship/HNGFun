@@ -1,18 +1,5 @@
 <?php
 
-$localhost = 'localhost';
-$user = 'root';
-$pass = '';
-$dbs = 'hng_fun';
-
-
-try{
-	$conn = new PDO("mysql:host=$localhost; dbname=$dbs",$user,$pass);
-	
-}catch(PDOException $e){
-	$e->getMessage();
-
-}
 
 $diffAns ='';
 
