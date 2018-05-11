@@ -1,8 +1,7 @@
 <?php
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-        //die('Hi');
-
+       
         require '../../config.php';
         $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
         
@@ -13,7 +12,7 @@
         $pos = strpos($question, 'train:');
 
         if($pos === false){
-            $sql = "SELECT answers FROM chatbot WHERE questions like '$question' ";
+            $sql = "SELECT answer FROM chatbot WHERE question like '$question' ";
             $query = $conn->query($sql);
             if($query){
                 echo json_encode([
@@ -30,7 +29,7 @@
 
             if($data[2] == 'password'){
 
-                $sql = "INSERT INTO chatbot (questions, answers)
+                $sql = "INSERT INTO chatbot (question, answer)
                 VALUES ('$data[0]', '$data[1]')";
 
 
@@ -57,7 +56,7 @@
         }
         
         echo json_encode([
-            'reply'=>  'working'
+            'results'=>  'working'
         ]);
         
     return ;
@@ -224,7 +223,7 @@ pre {
                   <p id="chatlog2" class="chatlog">&nbsp;</p>
                   <p id="chatlog1" class="chatlog">&nbsp;</p>
                   </div>
-                  <div><input style="width:150px" type="text" name="chat" id="chatbox" placeholder="chat here with me..." onfocus="placeHolder()"/>
+                  <div><input style="width:170px" type="text" name="chat" id="chatbox" placeholder="chat here with me..." onfocus="placeHolder()"/>
                   <button style="float: right" onclick = loadDoc()><i class="fa fa-send-o fa-2x"></i></button></div>
                 
   </div>
