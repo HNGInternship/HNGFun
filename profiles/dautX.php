@@ -561,6 +561,7 @@
             </div>
         </div>      <!-- end main_bot -->
         <!-- start of scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript">
             //declare variables and links to divs
             var chat_box = document.getElementById('msg_box');          //chat box
@@ -619,7 +620,22 @@
                 }
             }, false);
 
-            send_but.addEventListener('click', function(){  //do a little housekeeping then make ajax request
+            send_but.addEventListener('click', ajaxify, false);
+
+            //submit prevent reload
+            document.getElementById("input_").onkeypress = function(e) {
+                var key = e.charCode || e.keyCode || 0;     
+                if (key == 13) {
+                    //alert("Enter pressed");
+                    ajaxify();
+
+                    return false;
+                }
+            };
+
+            function ajaxify(){
+                //do a little housekeeping then make ajax request
+                
                 if (form_ctrl.value.length < 1){
                     document.getElementById('status').style.background = '#c62828';
                     document.getElementById('status').value = 'Status: you cannot submit an empty message!';
@@ -653,11 +669,12 @@
                     if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
                         write_to_box(xmlhttp.responseText);
                     }
-                }
+                }   //end function ajaxify
+
                 xmlhttp.open('POST', 'profiles/dautX.php', true);
                 xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xmlhttp.send('message=' + data);
-            }, false);
+            }
 
             //event handler for showing and hiding bot interface
             bot_toggle.addEventListener('click', function(){
