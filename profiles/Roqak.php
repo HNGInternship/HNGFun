@@ -194,12 +194,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     height: 100%;
   }
   .chat{
-    margin-top:9%;
+    /*margin-top:9%;*/
     background-color: #fff;
     /* margin-bottom: 9%; */
     width: 100%;
     height: 90%;
-    margin-top: 5%;
+    margin-top: 1%;
   }
   .padedd{
     margin-top: 5%;
