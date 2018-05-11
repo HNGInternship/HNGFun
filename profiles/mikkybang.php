@@ -1,23 +1,13 @@
 <?php
- require 'db.php';
-$username = "mikkybang";
- 
-$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
-$sql2 = "SELECT * FROM `secret_word` LIMIT 1";
-$query = $conn->prepare($sql);
-$query->execute();
-$result = $query->fetch(PDO::FETCH_ASSOC);
-
-$query2 = $conn->prepare($sql2);
-$query2->execute();
-$data = $query2->fetch(PDO::FETCH_ASSOC);
-$secret_word = $data['secret_word'];
-
-?>
-
-<?php
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    require_once "../../config.php";
+    global $conn;
     global $response;
+    try{
+        $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
+    }catch(PDOException $err){
+        die("could not connect to database " . DB_DATABASE . ":" . $err->getMessage());
+    }
 
     $question = $_POST['question'];
 
@@ -37,6 +27,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 $response = getAbout();
             }elseif(isHelp($question) !== false){
                 $response = isHelp($question);
+            }elseif(isCalculation($question) !== false){
+                $response = calculate($question);
             }else{
                 $response = getAnswer($conn, $question);
             }
@@ -76,8 +68,8 @@ function saveQuestion($conn, $data){
                     $sql = "INSERT INTO chatbot (question, answer) VALUES ('" . $question . "', '" . $answer . "')";
                     $conn->exec($sql);
                     $answer = "Training Successful! I am now more intelligent now. Thanks for that";
-                }catch(PDOException $pe){
-                    $answer = "Ooops Training Failed! Something went wrong. Try Again. type 'help' for more info";
+                }catch(PDOException $err){
+                    $answer = "Ooops Training Failed! Something went wrong. Try Again. type '--help' for more info";
                 }
             }else{
                 $answer = "Answer provided for the training already existed. You can provide an alternative answer";
@@ -86,7 +78,7 @@ function saveQuestion($conn, $data){
             $answer = "Password Incorrect, try again";
         }
     }else{
-        $answer = "You cannot train me. Add password to train. For more info type 'help'";
+        $answer = "You do not have permission to train me. Include password to train. For more info type '--help'";
     }
 
     $status = 1;
@@ -109,8 +101,8 @@ function isAnswerExisting($conn, $question, $answer){
             return false;
         }
 
-    }catch(PDOException $pe){
-        throw $pe;
+    }catch(PDOException $err){
+        throw $err;
     }
 }
 
@@ -130,11 +122,11 @@ function getAnswer($conn, $question){
             $answer = $answer_arr[$rand];
             $answer = $answer['answer'];
         }else{
-            $answer = "I don't understand what you are asking. You can train me to become more better";
+            $answer = "I don't understand what you are asking. You can train me to become more intelligent";
             $answer .= "Train me by typing; 'train: your question # your answer # password'";
         }
         
-    }catch(PDOException $pe){
+    }catch(PDOException $err){
         $answer = "Oops, Something went wrong. Try again";
     }
     $status = 1;
@@ -146,8 +138,101 @@ function getAnswer($conn, $question){
 
 }
 
+function isCalculation($question){
+
+    if(strpos($question, 'sum:') !== false || strpos($question, 'sum(') !== false){
+        return true;
+    }elseif(strpos($question, 'subtract:') !== false || strpos($question, 'subtract(') !== false){
+        return true;
+    }elseif(strpos($question, 'multiply:') !== false || strpos($question, 'multiply(') !== false){
+        return true;
+    }elseif(strpos($question, 'divide:') !== false || strpos($question, 'divide(') !== false){
+        return true;
+    }
+
+    return false;
+}
+
+function calculate($question){
+    $func = getCalcFunction($question);
+    $num_arr = getNumbersArray($func, $question);
+    $total = 0;
+    switch($func){
+        case 'sum':
+            for($i = 0; $i < count($num_arr); $i++){
+                $total += $num_arr[$i];
+            }
+            break;
+        case 'subtract':
+            for($i = 0; $i < count($num_arr); $i++){
+                if($i == 0){
+                    $total = $num_arr[0];
+                }else{
+                    $total -= $num_arr[$i];
+                }
+                
+            }
+            break;
+        case 'multiply':
+            for($i = 0; $i < count($num_arr); $i++){
+                if($i == 0){
+                    $total = $num_arr[0];
+                }else{
+                    $total *= $num_arr[$i];
+                }
+                
+            }
+            break;
+        case 'divide':
+            for($i = 0; $i < count($num_arr); $i++){
+                if($i == 0){
+                    $total = $num_arr[0];
+                }else{
+                    $total /= $num_arr[$i];
+                }
+                
+            }
+            break;
+             
+    }
+
+    $status = 1;
+
+    return json_encode([
+                'status' => $status,
+                'answer' => 'The result is ' . $total
+            ]);
+}
+
+function getCalcFunction($question){
+    if(strpos($question, 'sum:') !== false || strpos($question, 'sum(') !== false){
+        $func = 'sum';
+    }elseif(strpos($question, 'subtract:') !== false || strpos($question, 'subtract(') !== false){
+        $func = 'subtract';
+    }elseif(strpos($question, 'multiply:') !== false || strpos($question, 'multiply(') !== false){
+        $func = 'multiply';
+    }elseif(strpos($question, 'divide:') !== false || strpos($question, 'divide(') !== false){
+        $func = 'divide';
+    }
+
+    return $func;
+
+}
 
 
+function getNumbersArray($func, $question){
+    $num_arr = [];
+    if(strpos($question, $func . ':') !== false){
+        $question_arr = explode(':', $question);
+        $num_arr = explode(',', $question_arr[1]);
+    }elseif(strpos($question, $func . '(') !== false){
+        $question_arr = explode('(', $question);
+        $num_arr_init = trim($question_arr[1], ')');
+        $num_arr = explode(',', $num_arr_init);
+    }
+
+    return $num_arr;
+}
 
 function isAbout($question){
     if($question == 'aboutbot'){
@@ -159,7 +244,7 @@ function isAbout($question){
 
 function getAbout(){
     $status = 1;
-    $answer = "I am mikkyBot. Version 1.0";
+    $answer = "I am geniusBot. Version 1.0";
 
     return json_encode([
                 'status' => $status,
@@ -168,11 +253,16 @@ function getAbout(){
 }
 
 function isHelp($question){
-    if($question == 'help'){
+    if($question == '--help'){
         $status = 1;
         $answer = "You can ask me any question. If i am unable to respond, there is an option to train me. ";
         $answer .= "To train me use; 'train: your question # your answer # password'. ";
         $answer .= "Password = 'password'. ";
+        $answer .= "Also, I can do basic arithmetic such as addition, subtraction, multiplication and division. ";
+        $answer .= "For Addition use; 'sum: 1,2,3,..'  or  'sum(1,2,3,..)'. ";
+        $answer .= "For Subtraction use; 'subtract: 1,2,3,..'  or  'subtract(1,2,3,..)'. ";
+        $answer .= "For Multiplication use; 'multiply: 1,2,3,..'  or  'multiply(1,2,3,..)'. ";
+        $answer .= "For Division use; 'divide: 1,2,3,..'  or  'divide(1,2,3,..)'.";
 
         return json_encode([
             'status' => $status,
@@ -182,6 +272,32 @@ function isHelp($question){
 
     return false;
 }
+
+
+if($_SERVER['REQUEST_METHOD'] === 'GET'){
+    try{
+        $sql = "SELECT * FROM secret_word LIMIT 1" ;
+        $query = $conn->query($sql);
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $query->fetch();
+        $secret_word = $data['secret_word'];
+
+    }catch(PDOException $err){
+        throw $err;
+    }
+
+    try{
+        $sql = "SELECT * FROM interns_data WHERE username = 'mikkybang'";
+        $query = $conn->query($sql);
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $query->fetch();
+        $name = $data['name'];
+        $image_url = $data['image_filename'];
+    
+
+    }catch(PDOException $err){
+        throw $err;
+    }
 
 ?>
 
@@ -391,7 +507,7 @@ function isHelp($question){
                 </div>            
 
 </div>
-    </body>
+    
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -404,10 +520,10 @@ function isHelp($question){
             $('.chatbot-head').click(function(){
                 $('.chat-message').toggle('slow', function(){
                     var botVersion = '<div class="bot">Bot:</div>';
-                    botVersion += '<div class="bot-msg">I am mikkybot. <br>I am here to help you</div>';
+                    botVersion += '<div class="bot-msg">I am geniusBot. <br>I am here to help you</div>';
                     botVersion += '<div class="bot-msg">Ask me any question</div>';
                     botVersion += '<div class="bot-msg">To find out more about me type <strong>aboutbot</strong></div>';
-                    botVersion += '<div class="bot-msg">For help on how to use me type <br><strong>help</strong></div>';
+                    botVersion += '<div class="bot-msg">For help on how to use me type <br><strong>--help</strong></div>';
                     $('.messages').html(botVersion);
                                     
                 });
@@ -444,10 +560,10 @@ function isHelp($question){
                 $('.user-input').val("");
 
                 $.ajax({
-                    url: 'profile.php?id=mikkybang',
+                    url: "./profiles/mikkybang.php",
                     type: 'POST',
                     dataType: 'json',
-                    data: {'question': question},
+                    data: {question: question},
                     success: function(data){
                         console.log(data);
                         if(data['status'] == 1){
@@ -476,5 +592,8 @@ function isHelp($question){
             });
         });
     </script>
-
+    </body>
    </html>
+<?php
+}
+?>
