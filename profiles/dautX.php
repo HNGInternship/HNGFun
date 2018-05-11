@@ -74,10 +74,10 @@
         }
 
         function showHelp(){
-            echo 'Here\'s a few stuff I could do for you right now: '.'<br>'
-                 '\'aboutbot\' gives you a bit about me. '.'<br>'
-                 'I could tell you the time if you do \'what is the time\' '.'<br>'
-                 'I could tell you the time in a few cities too. Just do `what is the time in ``your city`` '.'<br>'
+            echo 'Here\'s a few stuff I could do for you right now:'.'<br>'.
+                 '\'aboutbot\' gives you a bit about me. '.'<br>'.
+                 'I could tell you the time if you do \'what is the time\' '.'<br>'.
+                 'I could tell you the time in a few cities too. Just do `what is the time in ``your city`` '.'<br>'.
                  'Don\'t forget to leave out the quotes.';
 
             exit();           
