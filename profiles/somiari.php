@@ -95,7 +95,8 @@
 	}
 
 	//////////// CHATBOT STARTS HERE //////////////////////////////////////////////////////////////
-		if (isset($_POST['message'])) {
+		// if (isset($_POST['message'])) {
+			if ($_SERVER["REQUEST_METHOD"] == "POST"){
 			// Retrieve form data from ajax
 			// Change message to all lowercase
 			// trim off white spaces
@@ -122,7 +123,7 @@
 					} // end else
 				} // end if
 			}
-			die();
+			exit();
 		}
 
 		// if ($_SERVER["REQUEST_METHOD"] == "GET"){
@@ -448,7 +449,7 @@
 			</section>
 
 			<form class="chat-box" id="ajax-contact" method="post" action="">
-				<span class="chat-box-header">Alan is <del>not</del> a bot</span>
+				<span class="chat-box-header">Alan is not a bot</span>
 				<div class="chat-msgs">
 					<p class="alan">Hello! I am Alan, and I am <del>not</del> a bot.</p>
 					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
@@ -520,7 +521,7 @@
 
 			$.ajax({
 					type: 'POST',
-					url: "",
+					url: "profiles/somiari.php",
 					data: formData,
 				}).done(function(response) {
 					console.log(response);
