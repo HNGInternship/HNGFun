@@ -22,7 +22,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 <?php
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    include '../answers.php';
+    // include '../answers.php';
       
       try{
 
@@ -66,8 +66,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           ]);
           return;
         }
-        $quest = $queries[0];
-        $ans = $queries[1];
+        $quest = trim($queries[0]);
+        $ans = trim($queries[1]);
 
         $sql = "insert into chatbot (question, answer) values (:question, :answer)";
 
@@ -194,9 +194,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     height: 100%;
   }
   .chat{
-    margin-top:9%;
+    /*margin-top:9%;*/
     background-color: #fff;
     /* margin-bottom: 9%; */
+    /*width: 100%;*/
+    height: 90%;
+    width: 400px;
+    float: right;
+    margin-top: 20%;
+    margin-left: 5%;
   }
   .padedd{
     margin-top: 5%;
@@ -211,6 +217,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     margin-bottom: 2%;
     float: left;
     margin-left: 56px;
+    /*width: 60%;*/
   }
   #sentmessage{
     background-color: gray;
@@ -219,22 +226,30 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     margin-bottom: 2%;
     float: right;
     margin-left: 56px;
+    /*width: 60%;*/
   }
   #mchats{
     /*overflow-y: scroll;*/
-    /*max-height: 50%;*/
-    /*height: 50%;*/
+    max-height: 90%;
+    height: 90%;
     
   }
   #chats{
-    height: 50%;
-    max-height: 50%;
+    height: 90%;
+    max-height: 90%;
     overflow-y: scroll;
 
   }
   #bbb{
     border-radius: 5%;
+    min-height: 80%;
+    max-height: 80%;
     height: 80%;
+  }
+  .roww{
+    display: flex;
+    width: 100%;
+    margin-top: 20%;
   }
   </style>
 </head>
@@ -242,8 +257,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 <!-- <script src="jquery-3.3.1.min.js"></script> -->
 <body>
 <div class="container">
-<div class="row">
- <div class="col-md-9 mainn">
+<div class="roww">
+ <div class="mainn">
    <div class="white text-center">
     <h1 id="hello">HELLO</h1>
     <h3>I AM <?php echo $user->name ?>  HNG INTERN.</h3>
@@ -261,11 +276,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 </a>
      </div>
    </div>
-   <div id="bbb" class="col-md-3 chat">
+   <div id="bbb" class="chat" height="500px;">
       <div><h1 class="text-center"> My ChatBot</h1></div>
         <div id="mchats">
           <div id="chats">
-       
+       <p id ='botresponse'>VEER : Hello I'm VEER, to train me type: train: question#response#password </p>
         </div>
 
         </div>  

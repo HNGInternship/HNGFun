@@ -1,5 +1,5 @@
 <?php
-  $result = $conn->query("Select * from secret_word LIMIT 1");
+  /*$result = $conn->query("Select * from secret_word LIMIT 1");
   $result = $result->fetch(PDO::FETCH_ASSOC);
   $secret_word = $result['secret_word'];
 
@@ -8,122 +8,96 @@
   
   $username = $user['username'];
   $name = $user['name'];
-  $image_filename = $user['image_filename'];
-?>
+  $image_filename = $user['image_filename'];*/
+    global $conn;
 
-<?php
-session_start();
-
-function getmenu()
-{
-    return 'Main Menu: <ul><li>AboutBot</li><li>Time</li></ul>';
-}
-
-function getTime()
-{
-    return date("h:i:s a");
-}
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="melody"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
 
 try {
-    if($_SERVER['REQUEST_METHOD'] === "POST"){
-        if(!isset($conn)) {
-            include '../config.php';
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-        }
-
-        if(isset($_POST['message']) && $_POST['message'] != '') {
-            $question = trim($_POST['message']);
-
-            switch (strtolower($question) ) {
-                case 'aboutbot':
-                    {
-                        echo json_encode(['message' => 'Basitomania. Version: 1.0']);
-                        break;
-
-                    }
-                case 'time':
-                    {
-                        echo json_encode(['message' => getTime()]);
-                        break;
-
-                    }
-                case 'menu':
-                    {
-                        echo json_encode(['message' => getmenu()]);
-                        break;
-
-                    }
-                case (explode(':',$question)[0] === 'train'):
-                    {
-                        $training_question = trim(explode('#',explode(':',$question)[1])[0]);
-                        $training_answer = trim(explode('#',explode(':',$question)[1])[1]);
-                        $training_password = trim(explode('#',explode(':',$question)[1])[2]);
-                        if ($training_question != "" && $training_answer != "" && $training_password!= "")
-                        {
-                            try {
-
-                                if($training_password === 'password')
-                                {
-                                    // do insert in the sql table
-                                    $sql = $conn->prepare("insert into chatbot (question, answer) values (:question, :answer)");
-                                    $sql->execute(array('question' => $training_question, 'answer' => $training_answer));
-                                    echo json_encode(['message'=> '<div class="alert alert-success" role="alert">Trained Successfully</div>']);
-                                }
-                                else
-                                {
-                                    echo json_encode(['message'=> '<div class="alert alert-danger" role="alert">Incorrect Password!</div>']);
-                                }
-                                break;
-                            }
-                            catch (Exception $ex) {
-                                var_dump($ex);
-                            }
-                        }
-                        else
-                        {
-                            echo json_encode(['message' => "I'm not as smart, you can train me using: <h3>train: question # answer # password</h3>" ]);
-                            break;
-                        }
-                    }
-                default:
-                    {
-                        try {
-                            $q_length = strlen($question);
-                            $question = ($question[$q_length - 1] == '?') ? substr($question, 0, $q_length - 1) : $question;
-
-                            $sql = "select * from chatbot where question like '$question%'";
-
-                            $query = $conn->prepare($sql);
-
-                            $res = $query->execute();
-
-
-                            $results = $query->fetchAll(PDO::FETCH_OBJ);
-                            $rowCount = $query->rowCount();
-                            if($rowCount == 1) { // if one answer
-                                echo json_encode(['message' => $results[0]->answer]);
-                            }
-                            else if($rowCount > 1) { // if multiple answers, select 1 randomly from the available
-                                echo json_encode(['message' => $results[rand(0, $rowCount - 1)]->answer]);
-                            }
-                            else
-                            {
-                                echo json_encode(['message' => "I can't understand it, you can train me using: <h3>train: question # answer # password</h3>" ]);
-                            }
-                        }
-                        catch (Exception $ex) {
-                            var_dump($ex);
-                        }
-                    }
-            }
-            exit;
-        }
-
-    }
+	$sql = 'SELECT * FROM secret_word';
+	$q = $conn->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$data = $q->fetch();
+} catch (PDOException $e) {
+	throw $e;
 }
-catch (Exception $exception)
-{
-    var_dump($exception);
+$secret_word = $data['secret_word'];
+
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+	$data = $_POST['user-input'];
+  //  $data = preg_replace('/\s+/', '', $data);
+	$temp = explode(':', $data);
+	$temp2 = preg_replace('/\s+/', '', $temp[0]);
+	
+	if($temp2 === 'train'){
+		train($temp[1]);
+	}elseif($temp2 === 'aboutbot') {
+		aboutbot();
+	}else{
+		getAnswer($temp[0]);
+	}
+}
+
+function aboutbot() {
+	echo "<div id='result'>BasBot v1.0 - I am simply a bot that returns data from the database and I also can be taught new tricks!</div>";
+}
+function train($input) {
+	$input = explode('#', $input);
+	$question = trim($input[0]);
+	$answer = trim($input[1]);
+	$password = trim($input[2]);
+	if($password == 'password') {
+		$sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+		$q = $GLOBALS['conn']->query($sql);
+		$q->setFetchMode(PDO::FETCH_ASSOC);
+		$data = $q->fetch();
+
+		if(empty($data)) {
+			$training_data = array(':question' => $question,
+				':answer' => $answer);
+
+			$sql = 'INSERT INTO chatbot ( question, answer)
+		  VALUES (
+			  :question,
+			  :answer
+		  );';
+
+			try {
+				$q = $GLOBALS['conn']->prepare($sql);
+				if ($q->execute($training_data) == true) {
+					echo "<div id='result'>Training Successful!</div>";
+				};
+			} catch (PDOException $e) {
+				throw $e;
+			}
+		}else{
+			echo "<div id='result'>I already understand this. Teach me something new!</div>";
+		}
+	}else {
+		echo "<div id='result'>Invalid Password, Try Again!</div>";
+
+	}
+}
+
+function getAnswer($input) {
+	$question = $input;
+	$sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+	$q = $GLOBALS['conn']->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$data = $q->fetchAll();
+	if(empty($data)){
+		echo "<div id='result'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'</div>";
+	}else {
+		$rand_keys = array_rand($data);
+		echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
+	}
 }
 ?>
 
@@ -153,17 +127,10 @@ a {
 	text-decoration: none;
 }
 
-img {
-	max-width: 50%;
-}
-
 
 h3 {
 	margin: 0 0 1em 0;
 }
-
-
-
 
 /********************
 HEADING
@@ -193,30 +160,6 @@ h2 {
 	font-weight: normal;
 }
 
-/********************
-PAGE: PORTFOLIO
-*********************/
-#gallery {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-#gallery li {
-	float: left;
-	width: 45%;
-	margin: 2.5%;
-	background-color: #f5f5f5;
-	color: #bdc3cf;
-} 
-
-#gallery li a p {
-	margin: 0;
-	padding: 5%;
-	font-size: 0.75em;
-	color: #bdc3cf;
-}
-
 #primary {
 		width: 50%;
 		float: left;
@@ -227,30 +170,6 @@ PAGE: PORTFOLIO
 		float: right;
 	}
 
-/********************
-NAVIGATION
-*********************/
-nav {
-	text-align: center;
-	padding: 10px 0;
-	margin: 20px 0 0;
-}
-
-nav ul{
-	list-style: none;
-	margin: 0 10px;
-	padding: 0;
-}
-
-nav li {
-	display: inline-block;
-}
-
-nav a {
-	font-weight: 800;
-	padding: 15px 10px;
-
-}
 
 /********************
 FOOTER
@@ -267,10 +186,8 @@ footer {
 PAGE: ABOUT
 *********************/
 .profile-photo {
-            /*display: block;
-            max-width: 20%;
-            margin: 0 auto 50px;*/
-            border-radius: 50%;
+			width: 200px;
+            border-radius:50%;
         }
 
 
@@ -294,15 +211,15 @@ PAGE: CONTACT
 	margin: 0 0 10px;
 }
 
-.conntact-info li.phone a {
+.contact-info li.phone a {
 	background-image: url('../img/phone.png');
 }
 
-.conntact-info li.mail a {
+.contact-info li.mail a {
 	background-image: url('../img/mail.png');
 }
 
-.conntact-info li.twitter a {
+.contact-info li.twitter a {
 	background-image: url('../img/twitter.png');
 }
 
@@ -320,6 +237,7 @@ body {
 header {
 	background: #6ab47b;
 	border-color: #599a68;
+	padding-top: 30px;
 }
 
 /* Nav background on mobile devices */
@@ -339,16 +257,133 @@ a {
 	color: #6ab47b;
 }
 
-/* Nav link */
-nav a, nav a:visited {
-	color: #fff;
-}
-/* selected nav link */
-nav a.selected, nav a:hover {
-	color: #32673f;
-}
+/*chatbot*/
+/* .chatbot-container{
+		  background-color: #F3F3F3;
+		  width: 500px;
+		  height: 500px;
+		  margin: 10px;
+		  box-sizing: border-box;
+		  box-shadow: -3px 3px 5px gray;
+		}
+.chat-header{
+			width: 500px;
+			height: 50px;
+			background-color: #6ab47b;
+			color: white;
+			text-align: center;
+			padding: 10px;
+			font-size: 1.5em;
+		}
+#chat-body{
+		    display: flex;
+		    flex-direction: column;
+		    padding: 10px 20px 20px 20px;
+		    background: white;
+		    overflow-y: scroll;
+		    height: 395px;
+		    max-height: 395px;
+		}
+.message{
+			font-size: 0.8em;
+			width: 300px;
+			display: inline-block;
+          	padding: 10px;
+			margin: 5px;
+        	border-radius: 10px;
+    		line-height: 18px;
+		}
+.bot-chat{
+			text-align: left;
+		}
+.bot-chat .message{
+			background-color: #6ab47b;
+			color: white;
+			opacity: 1.9;
+			box-shadow: 3px 3px 5px gray;
+		}
+#chat_showcase{
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+    }
 
-        </style>
+.user_chat{
+			text-align: right;
+		}
+.user_chat .message{
+			background-color: #E0E0E0;
+			color: black;
+			box-shadow: 3px 3px 5px gray;
+		}
+
+button{
+      border:none;
+      outline:0;
+      display: inline-block;
+      padding:20px;
+      color:#6ab47b;
+      background-color: #000;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+	  border-radius: 10px;
+    }
+input[type=text] {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}*/
+.body1 {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 75%;
+            display: flex;
+            flex-direction: column;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .chat-output {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            background: white;
+            flex-direction: column;
+            overflow-y: scroll;
+            max-height: 500px;
+        }
+        .chat-output > div {
+            margin: 0 0 20px 0;
+        }
+        .chat-output .user-message .message {
+            background: #0fb0df;
+            color: white;
+        }
+        .chat-output .bot-message {
+            text-align: right;
+        }
+        .chat-output .bot-message .message {
+            background: #eee;
+        }
+        .chat-output .message {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 10px;
+        }
+        .chat-input {
+            padding: 20px;
+            background: #eee;
+            border: 1px solid #ccc;
+            border-bottom: 0;
+        }
+        .chat-input .user-input {
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px;
+        }
+</style>
 	</head>
 	<body>
 		<header>
@@ -356,23 +391,13 @@ nav a.selected, nav a:hover {
 				<h1>Basitomania</h1>
 				<h2>Web Developer</h2>
 			</a>
-			<nav>
-				<ul>
-					<li><a href="index.html">Portfolio</a></li>
-					<li><a href="about.html" class="selected">About</a></li>
-					<li><a href="contact.html">Contact</a></li>
-				</ul>
-			</nav>
 		</header>
 		<div id="wrapper">
-			<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
 				<section id = "primary">
-					<h3>About</h3>
+					<img src="https://res.cloudinary.com/envision-media/image/upload/v1524776569/IMG_20180211_193710.jpg" alt="photo" class="profile-photo">
+					<h3 style = "padding-top:10px">About</h3>
 					<p>Hi I'm basitomania, this is my design portfolio where i share all my work when i'm not surfing the net and markerting online. To follow me on twitter my handle is <a href="http://www.twitter.com">@iamblack8</a>.</p>
-				</section>
-				
-				<section id="secondary">
-					<h3>Contact Details</h3>
+					<h3 style = "padding-top:10px">Contact Details</h3>
 					<ul class="contact-info">
 						<li class="phone">
 							<a href="tel:+2348166380172">+2348166380172</a>
@@ -383,70 +408,83 @@ nav a.selected, nav a:hover {
 						<li class="twitter">
 							<a href="http://twitter.com/intent/tweet?screen_name=iamblack8">@iamblack8</a>
 						</li>
-					</ul>
-				</section>
+					</ul>	
+				</section>		
+			<section id="secondary">
+			<div class="oj-sm-12 oj-md-6 oj-flex-item">
+				<div class="body1">
+					<div class="chat-output" id="chat-output">
+						<div class="user-message">
+							<div class="message">Hi there! I'm BasBot! Say something and I'll try my possible best to answer you! </br>To train me, use this format - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
+						</div>
+					</div>
 
-				<div class="chatbot-container">
+					<div class="chat-input">
+						<form action="" method="post" id="user-input-form">
+							<input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
+						</form>
+					</div>
+				</div>
+			</div>
+				<!-- <div class="chatbot-container">
 					<div class="chat-header">
 						<span>Bas Chatbot</span>
 					</div>
 					<div id="chat-body">
-						<div class="bot_chat">
-								<div class="message">Hello! My name is Basbot.<br>You can ask me questions and get answers.<br>Type <span style="color: #90CAF9;/"><strong> Aboutbot</strong></span> to know more about me.
-								</div>
-								<div class="message">You can also train me to be smarter by typing; <br><span style="color: #90CAF9;"><strong>train: question #answer #password</strong></span><br></div>
+						<div class="bot-chat">
+							<div class="message">Hello! My name is Basbot.<br>You can ask me questions and get answers.<br>Type <span style="color: #90CAF9;/"><strong> Aboutbot</strong></span> to know more about me.</div>
+							<div class="message">You can also train me to be smarter by typing; <br><span style="color: #90CAF9;"><strong>train: question #answer #password</strong></span><br></div>
+							<div id="user-output"></div>
 						</div>
 					</div>
 					<div class="chat-footer">
 						<div class="input-text-container">
-							<form action="" method="post" id="chat-input-form">
+							<form action="" method="post" id="input-form">
 								<input type="text" name="input_text" id="input" required class="input_text" placeholder="Type your question here...">
 								<button type="submit" class="send_button" id="send">Send</button>
 							</form>
 						</div>
 					</div>
-				</div>
-			<footer>
-				<p>&copy; 2017 Maniaweb.</p>
-			</footer>
+				</div>-->	
+			</section>		
+		</div>
+
+		<footer>
+			<p>&copy; 2017 Maniaweb.</p>
+		</footer>
 			<script type = text/javascript>
-				
-				document.queryselector("#input").addEventListener("keypress", function(e){
-					var key = e.which || e.keyCode;
-					if(key == 13){
-						var input = document.getElementById("input").value;
-						document.getElementById("user").innerHTML = input;
-						output(input);
+				var outputArea = $("#chat-output");
+
+				$("#user-input-form").on("submit", function(e) {
+
+					e.preventDefault();
+
+					var message = $("#user-input").val();
+
+					outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
+
+
+					$.ajax({
+						url: 'profile.php?id=basitomania',
+						type: 'POST',
+						data:  'user-input=' + message,
+						success: function(response) {
+							var result = $($.parseHTML(response)).find("#result").text();
+							setTimeout(function() {
+								outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+								$('#chat-output').animate({
+									scrollTop: $('#chat-output').get(0).scrollHeight
+								}, 1500);
+							}, 250);
 						}
 					});
 
-					function output(input){
-						try{
-							var product = input + "=" + eval(input);
-						} catch(e){
-							var text = (input.toLowerCase()).replace(/[^\w\s\d]/gi, "");
-							if(compare(trigger, reply, text)){
-								var product = compare(trigger, reply, text);
-							} else {
-								var product = text;
-							}
-						}
-						document.getELementById("chatbot").innerHTML = input;
-						document.getElementById("input").value = "";
-					}
-					function compare(arr, array, string){
-						var item;
-						for(var x= 0; x<arr.length; x++){
-							for(var y = 0; y<array.length; y++){
-								if(arr[x][y] == string){
-									items = array[x];
-									item = items[Math.floor(Math.random()*items.length)];
-								}
-							}
-						}
-						return item
-					}
+
+					$("#user-input").val("");
+
+				});
 			</script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 		</div>
 	</body>
 </html>

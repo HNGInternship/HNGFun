@@ -5,6 +5,7 @@
 
 // }
 
+<<<<<<< HEAD
 // try
 // {
 // $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
@@ -14,6 +15,14 @@
 // {
 // die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 // }
+=======
+// $result = $conn->query("Select * from secret_word");
+// $result = $result->fetch(PDO::FETCH_OBJ);
+// $secret_word = $result['secret_word'];
+
+// $result2 = $conn->query("Select * from interns_data where username = 'Syfon'");
+// $user = $result2->fetch(PDO::FETCH_OBJ);
+>>>>>>> 04aca8b09c0ed45a68683dab137d091fe6ac4f10
 
 // global $conn;
 
@@ -27,6 +36,7 @@
 // ?>
 
 
+<<<<<<< HEAD
 
 <?php
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -106,6 +116,16 @@ return ;
 
 
 ?>
+=======
+$result2 = $conn->query("Select * from interns_data where username = 'Syfon'");
+$user = $result2->fetch(PDO::FETCH_OBJ);
+
+
+?>
+
+
+
+>>>>>>> 04aca8b09c0ed45a68683dab137d091fe6ac4f10
 <!doctype html>
 <html lang="en">
   <head>
@@ -115,33 +135,32 @@ return ;
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="c:\Users\Jnr\Desktop\bootstrap4beta\css\bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    
     <title>My portfolio</title>
     <style>
 .card-img-top{
-    height:30rem;
-
+    height:38rem;
 }
+
 .card-body{
     background-color: rgb(1, 1, 41);
 }
 .rounded-circle{
     border-radius:50%;
-    height: 20rem;
-    width:20rem;
+    height: 300px;
+    width:300px;
     position: absolute;
     top:40px;
-    left: 30em;
+    left: 40%;
 }
 .fa {
-    padding:20px ;
-    font-size: 50px;
-    /* width: 50px; */
+    padding: 50px;
+    font-size: 40px;
+    width: 50px;
     text-decoration: none;
+<<<<<<< HEAD
 }
 #chatbot{
     background-color:rgb(1, 1, 53);
@@ -166,30 +185,35 @@ return ;
     background-color: rgba(14, 12, 12, 0.89);
 }
 
+=======
+ 
+}
+>>>>>>> 04aca8b09c0ed45a68683dab137d091fe6ac4f10
 
-</style>
-
+    </style>
     
 </head>
   <body>
-
-
-    <section id="profile">
-        <div id="container">
+    <div id="container">
+                <div class="card" style="width: ; height: 44rem;">
                         <img class="card-img-top" src="https://res.cloudinary.com/syfon/image/upload/v1523631972/pic.jpg" alt="Card image cap">
                             <img src="https://res.cloudinary.com/syfon/image/upload/v1523630065/syfon.jpg" class="rounded-circle">
-                        </div>     
-    <section id="About" >                   
-        <div class="container">
-            <div class="content">
-                <div class="row">
-                    <div class="col-md-6">     
-                        <div class="details">     
-                            <h3>Sifon Isaac</h3><br>
+                        
+                          <center> 
+                            <h5>Sifon Isaac</h5><br>
                             <p>Sifon Isaac is a Nigerian from Akwa Ibom State.<br> A web developer and an intern of the HNG program.<br> A graduate of Biochemistry but has a burning desire toward web and digital technology  </p> 
-                           
+                        </center>
+                            <div class="card-body">
+                                <div class="row">
+                                  <a href="https://www.facebook.com/sifon.isaac.3" class="fa fa-facebook"></a>
+                                    <a href="https://twitter.com/syfonisaac" class="fa fa-twitter"></a>
+                                    <a href="https://www.linkedin.com/in/sifon-isaac-5a107a79/" class="fa fa-linkedin-square"></a>
+                                  <a href="https://github.com/Syfon01" class="fa fa-github"></a>
+                                  <a href="" class="fa fa-slack"></a>
+                                    
+                              </div>
                     </div>
-                    </div>
+<<<<<<< HEAD
     <div class="col-md-6">
          <div id="chatbot">
             <h1>Syfon's Bot</h1>              
@@ -278,3 +302,6 @@ $('#chatbot').animate({
 </script>
 
 
+=======
+    </div>
+>>>>>>> 04aca8b09c0ed45a68683dab137d091fe6ac4f10

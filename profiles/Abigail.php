@@ -1,24 +1,22 @@
 <?php
 
-
- include_once("../answers.php"); 
-
-if (!defined('DB_USER')){
-            
-  require "../../config.php";
-}
-try {
-  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-} catch (PDOException $pe) {
-  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
-
+if(!defined('DB_USER')){
+     require "../../config.php";
+     try {
+         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+     } catch (PDOException $pe) {
+         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+     }
+   }
 $query = $conn->query("SELECT * FROM secret_word");
 $result = $query->fetch(PDO::FETCH_ASSOC);
 $secret_word = $result['secret_word'];
 $question;
 
+global $pass;
+	$pass = "password";
 
+if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 	
 	function botAnswer($message){
 		$botAnswer = '<div class="chat bot chat-message">
@@ -48,7 +46,7 @@ $question;
 		}
 		echo $bot;
 	}
-	if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
+	
 		
 	
 	 	$userInput = strtolower(trim($_POST['question']));
@@ -74,7 +72,7 @@ $question;
 	 		$bot = botAnswer("Version 1.0");
      		//array_push($_SESSION['chat-log'] , $bot);
 	 	}else{
-			 $userInputQuery = $conn->query("SELECT * FROM chatbot WHERE questions like '".$userInput."' ");
+			 $userInputQuery = $conn->query("SELECT * FROM chatbot WHERE question like '".$userInput."' ");
 		     $userInputs = $userInputQuery->fetchAll(PDO::FETCH_ASSOC);
 		    $userInputRows = $userInputQuery->rowCount();
 		     if($userInputRows == 0){
@@ -82,14 +80,14 @@ $question;
 		     //	array_push($_SESSION['chat-log'] , $bot);
 
 		     }else{
-		     	$botAnswer = $userInputs[rand(0, count($userInputs)-1)]['answers'];
+		     	$botAnswer = $userInputs[rand(0, count($userInputs)-1)]['answer'];
 		     	$bot = botAnswer($botAnswer);
 		     	//array_push($_SESSION['chat-log'] , botAnswer($botAnswer));
 		     }
      	}
      	echo $bot;
 
-     	exit;
+     	exit();
      }
 
 ?>
@@ -406,7 +404,7 @@ $question;
                 </ul>
       </div>
     <p>I am a junior web developer with experience with HTML, CSS, JavaScript, Bootstrap and PHP. My love for words and solving problems brought me to the world of writing and coding(which I choose to acknowledge as writing). Want to chat, collaborate or hire me on a project, please feel free to contact me.</p>
-    <div id="contact" align="center"><a href="mailto:animashaunoluwatosin7@gmail.com">CONTACT</a></div>
+    <div id="contact" align="center"><a href="mailto:bogadeji@gmail.com">CONTACT</a></div>
 
       
 
@@ -489,6 +487,7 @@ $question;
 		   
 			xhttp.onreadystatechange = function() {
 	          if(this.readyState == 4 && this.status == 200) {
+	          	// console.log(this.response);
 	          	 userChat(question.value, this.response);
      			e.preventDefault();
 	            question.value = '';
@@ -509,7 +508,8 @@ $question;
 						<span class="chat-time">` + new Date().toLocaleTimeString(); + `</span>
 					 </div>
 				</div>`;
-		    chatContent.innerHTML += chat;
+			}
+			chatContent.innerHTML += chat;
 		     
 		    setTimeout(function() {
 			    chatContent.innerHTML += reply + `<span class="chat-time">`+ new Date().toLocaleTimeString(); +` </span>
@@ -517,8 +517,6 @@ $question;
 				</div>`;
 				document.getElementById('chatlogs').scrollTop = document.getElementById('chatlogs').scrollHeight;	
 			}, 1000);
-			}
-			
 		}
 	</script>
 	
