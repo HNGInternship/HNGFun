@@ -3,7 +3,7 @@
 
 if (!defined('DB_USER')){
             
-  require "../../config.php";
+  require "../config.php";
 }
 try {
   $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
@@ -31,9 +31,114 @@ try {
   throw $e;
 }
 
+function train($question, $answer) {
+      $question = trim($question);
+      $answer = trim($answer);
+      if (store($question, $answer)) {
+         return "🤖 I just learnt something new, thanks to you 😎";
+      } else {
+         return "🤖 I'm sorry, An error occured while trying to store what i learnt 😔";
+      }
+   }
+   function findThisPerson($user) {
+      global $conn;
+      $statement = $conn->prepare("select * from interns_data where username like :user or name like :user limit 1");
+      $statement->bindValue(':user', "%$user%");
+      $statement->execute();
+      $statement->setFetchMode(PDO::FETCH_ASSOC);
+      $rows = $statement->fetchObject();
+      return $rows;
+   }
+   function searchRequest($request) {
+      global $conn;
+      $statement = $conn->prepare("select answer from chatbot where question like :request order by rand()");
+      $statement->bindValue(':request', "%$request%");
+      $statement->execute();
+      $statement->setFetchMode(PDO::FETCH_ASSOC);
+      $rows = $statement->fetch();
+      $response = $rows['answer'];
+      if (!empty($response)):
+         $response = "🤖 " . $response;
+      endif;
+      //check for function
+      try {
+         if (preg_match('/(\(+[a-zA-Z_]+\))/', $response, $match)) {
+            $functionName = $match[0];
+            $functionName = str_replace('(', '', $functionName);
+            $functionName = str_replace(')', '', $functionName);
+            if (function_exists($functionName)) {
+               $response = str_replace($functionName, $functionName(), $response);
+               $response = str_replace('(', '', $response);
+               $response = str_replace(')', '', $response);
+            } else {
+               $response = "🤖 I'm sorry, The function doesn't exist";
+            }
+         }
+      } catch (Exception $ex) {
+         echo $ex->getMessage();
+      }
+      return $response;
+   }
+   function store($request, $response)
+   {
+      global $conn;
+      $statement = $conn->prepare("insert into chatbot (question, answer) values (:request, :response)");
+      $statement->bindValue(':request', $request);
+      $statement->bindValue(':response', $response);
+      $statement->execute();
+      if ($statement->execute()) {
+         return true;
+      } else {
+         return false;
+      }
+   }
+   if (isset($_POST['new_request'])) {
+      $bot_response['response'] = [];
+      $user_request = "";
+      $bot_response['response'] = "";
+      $request = $_POST['new_request'];
+      $user_request = trim($request);
+      if (empty($user_request)) {
+         $bot_response['response'] = "🤖 You haven't made any request";
+      } else {
+         if (!empty(searchRequest($user_request))) {
+            $bot_response['response'] = searchRequest($user_request);
+         } else if (preg_match("/(train:)/", $user_request)) {
+            $power_split = explode("#", $request);
+            $question = trim(preg_replace("/(train:)/", "", $power_split[0]));
+            $answer = trim($power_split[1]);
+            $password = trim($power_split[2]);
+            if ($password != "password") {
+               $bot_response['response'] = "🤖 Training Access Denied!";
+            } else {
+               $bot_response['response'] = train($question, $answer);
+            }
+         } else if (preg_match('/(find:)/', $request)) {
+            $ex = explode("find:", $request);
+            if (!empty($users = findThisPerson($ex[1]))) {
+               $bot_response['response'] = array('resultType' => 'find', 'users' => $users);
+            } else {
+               $bot_response['response'] = "🤖 I couldn't find a user by that username or name";
+            }
+         } else {
+            $bot_response['response'] = "🤖 I  don't understand your request, I hope you wouldn't mind training me?";
+         }
+      }
+      send:
+      echo json_encode($bot_response);
+   }
 
+if ($_SERVER['REQUEST_METHOD'] == "GET") {
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+   $result2 = $conn->query("Select * from interns_data where username = 'eniayomi'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+}
 
 ?>
+<?php if ($_SERVER['REQUEST_METHOD'] == "GET") {?>
+
 
 
 
@@ -225,26 +330,72 @@ var username = "You: "
 
     $(".panel").slideToggle('slow')
   });
+});
 
-
-  $("#send").click(function(){
-    var txt = $("#text").val();
-
-    $("#textbox").append("<p> " + username + txt + "</p>");
-    $("#text").val(" ");
-  })
-
-  $("#text").keypress(function(e) {
-
-    if (e.which == 13){
-      if ($("#click").prop("checked") ) {
-        var txt = $("#text").val();
-        $("#textbox").append("<p> " + username + txt + "</p>");
-        $("#textbox").scrollTop($("#textbox").prop("scrollHeight"));
-        $("#text").val(" ");
+          function newElementsForUser(userRequest) {
+   var chatArea = $("#textbox");
+   var messageElement = "<div class='form-control form-control2 text-right'>" + userRequest + "</div>";
+   chatArea.html(chatArea.html() + messageElement);
+   var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
+   var timeElement = "<p class='timeEl text-right'>" + time + "</p>";
+   chatArea.html(chatArea.html() + timeElement);
+   chatArea.scrollTop($("#chatarea")[0].scrollHeight);
+}
+function newElementsForBot(botResponse) {
+   var chatArea = $("#textbox");
+   if (botResponse.response.resultType == "find") {
+      var messageElement = "<div class='form-control form-control2 text-left'>Intern ID => " + botResponse.response.users.intern_id + "<br/>Name => " + botResponse.response.users.name + "<br/>Intern Username => " + botResponse.response.users.username + "<br/>Intern Profile Picture => " + botResponse.response.users.image_filename + "</div>";
+   } else { 
+      var messageElement = "<div class='form-control form-control2 text-left'>" + botResponse.response + "</div>";
+   }
+   chatArea.html(chatArea.html() + messageElement);
+   var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true , milliseconds: true});
+   var timeElement = "<p class='timeEl text-left'>" + time + "</p>";
+   chatArea.html(chatArea.html() + timeElement);
+   chatArea.scrollTop($("#chatarea")[0].scrollHeight);
+}
+$(document).ready(function() {
+   response = {"response" : "Hello there, I'm eniayomi Bot.<br/>Here's a couple of things i can do.<br/> 1. You can ask me anything<br/>2. You can find a friend who's in the dope HNGInternship<br/>syntax : find: username or find: name<br/>3. To train the bot(train: question # answer # password)"};
+   newElementsForBot(response);
+});
+$(document).ready(function chargeBot() {
+   $("#send").click(function () {
+      var message = $("#text").val();
+      newElementsForUser(message);
+      if (message == "" || message == null) {
+         response = { 'response': 'Please type something' };
+         newElementsForBot(response);
+      }else if (message.includes('open:')) {
+         url = message.split('open:');
+         window.open('http://' + url[1]);
+      } else if (message.includes("randomquote:") || message.includes("random quotes:")) {
+         $.getJSON("https://talaikis.com/api/quotes/random/", function (json) {
+            response = json['quote'] + '<br/> Author : ' + json['author'];
+            botResponse = { 'response': response };
+            newElementsForBot(botResponse);
+         });
+         $("#textbox").scrollTop($("#textbox")[0].scrollHeight);
+      } else if (message.includes("aboutbot") || message.includes("about bot") || message.includes("aboutbot:")) {
+         response = { 'response': 'Version 4.0' };
+         newElementsForBot(response);
+      } else {
+         $.ajax({
+            url: "profiles/pajimo.php",
+            type: "POST",
+            data: { new_request: message },
+            dataType: "json",
+            success: function (botResponse) {
+               newElementsForBot(botResponse);
+            }
+         });
       }
-    }
-  })
+      $("#text").val("");
+   });
+});
+document.body.addEventListener('keyup', function (e) {
+   if (e.keyCode == "13") {
+      $("#send").click();
+   }
 });
         </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.js"></script>
@@ -329,4 +480,3 @@ require(['ojs/ojcore', 'knockout', 'appController', 'ojs/ojknockout', 'ojs/ojbut
 
   </body>
 
-</html>
