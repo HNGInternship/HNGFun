@@ -17,12 +17,6 @@ if ($_SERVER['REQUEST_METHOD']  === "POST"){
 		}else if(preg_match("/time/i",$_POST['req'])){
 			echo json_encode(get_time());
 		}
-		else if(preg_match("/^(hi|hello)/i",$_POST['req'])){
-			echo json_encode("Hi, how are you");
-		}
-		else if (preg_match("/How are you/i",$_POST['req'])){
-			echo json_encode("I am operational, you?");
-		}
 		else if(strpos(" ".$_POST['req'],'train')){
 			$te = str_replace(" ","",$_POST['req']);
 			
