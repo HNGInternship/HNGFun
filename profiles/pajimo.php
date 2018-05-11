@@ -128,13 +128,6 @@ function train($question, $answer) {
       echo json_encode($bot_response);
    }
 
-if ($_SERVER['REQUEST_METHOD'] == "GET") {
-   $result = $conn->query("Select * from secret_word LIMIT 1");
-   $result = $result->fetch(PDO::FETCH_OBJ);
-   $secret_word = $result->secret_word;
-   $result2 = $conn->query("Select * from interns_data where username = 'eniayomi'");
-   $user = $result2->fetch(PDO::FETCH_OBJ);
-}
 
 ?>
 <?php if ($_SERVER['REQUEST_METHOD'] == "GET") {?>
