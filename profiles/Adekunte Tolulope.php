@@ -1,13 +1,7 @@
 <?php
-$localhost = 'old.hng.fun';
-$user = 'root';
-$pass = '';
-$dbs = 'hng_fun';
+ require 'db.php';
+
 $diffAns ='';
-$db=mysqli_connect($localhost, $user, $pass, $dbs);
-require 'db.php';
-
-
 
 if (isset($_POST['bot_r'])) {
 	$data = $_POST['bot_r'];
@@ -20,13 +14,18 @@ if (isset($_POST['bot_r'])) {
 		$exp = explode('#', $exp[1]);
 		if (count($exp) == 3) {
 			if ($exp[2] == 'password') {
-			if (mysqli_query($db, "INSERT INTO chatbot(question,answer)VALUES('$exp[0]','$exp[1]')")) {
-				echo "Training Successful. Now i know $exp[0]";
-				exit();
-			}else{
-				echo "I refused to be trained!";
-				exit();
-			}
+				//PDO INSERT
+				try{
+					$sql = "INSERT INTO chatbot(question,answer)VALUES('$exp[0]','$exp[1]')";
+					$conn -> query($sql);
+					echo "Training Successful. Now i know $exp[0]";
+					exit();
+
+				}catch(PDOException $e){
+					echo "I refused to be trained!".$e->getMessage();
+					exit();
+				}
+			
 		}else{
 			echo "Your password is incorrect.<br>Try again later!";
 		}
@@ -36,31 +35,39 @@ if (isset($_POST['bot_r'])) {
 		}
 	}
 	else{
-		$query = mysqli_query($db, "SELECT answer FROM chatbot WHERE question LIKE '%$data%' ");
-		if (mysqli_num_rows($query) > 0) {
-			while ($val = mysqli_fetch_row($query)) {
-				$diffAns .= $val[0].','; 
+		try{
+			$sql = "SELECT answer FROM chatbot WHERE question LIKE '%$data%' ";
+
+			$query = $conn -> query($sql);
+
+			if (count($query -> fetchAll()) > 0) {
+				$query2 = $conn -> query($sql);
+				while ($val = $query2 -> fetch()) {
+					$diffAns .= $val[0].',';
+
 			}
 			$diff = explode(',', $diffAns);
 			if (count($diff) > 1) {
-				$rand = array_rand($diff);
-				echo $diff[$rand];
+				//$rand = array_rand($diff);
+				$rand = rand(0, count($diff)-1);
+				$shwval =$diff[$rand];
+				echo $shwval;
 				exit();
 			}else{
 				echo $diff[0];
 				exit();
-			}
-			
-			
+			}			
 		}else{
 			echo "Sorry I do not have that command  but you can train by entering the following <br><b><i>train:question #answer #password</i></b>";
 			exit();
+		}			
+		}catch(PDOException $e){
+			echo "Error 002".$e->getMessage();
 		}
 	}
 
 }
 ?>
-
 
 <!Doctype html>
 <html>
@@ -103,7 +110,7 @@ button:hover, a:hover {
 #Chatbot-holder{
 		position: fixed;
 		right:5px;
-		bottom:-345px;
+		bottom:-330px;
 		z-index: 4;
 		height:410px;
 		transition: 1s;
@@ -115,6 +122,7 @@ button:hover, a:hover {
 	#botImg{
 		border-radius:100%;
 		padding:6px;
+		border:ridge 1px gray;
 		width:50px;
 		height:50px;
 		text-align: center;
@@ -235,8 +243,7 @@ button:hover, a:hover {
 
 <div id="Chatbot-holder">
 	<div id="botImg">
-		
-		<img src="http://pitdesk.com/vi/jkh/images/top-img.png">
+		<img src="img/rob.png">
 	</div>
 	<div id="content">
 		<div id="head">
@@ -254,8 +261,8 @@ button:hover, a:hover {
 				
 			</div>
 			<div id="inpBut">
-            <input type="text" id="botInp" placeholder="Enter Question">
-			  <button onclick="processR()">Submit</button>
+				<input type="text" id="botInp" placeholder="Enter Question">
+				<button onclick="processR()">Submit</button>
 			</div>
 		</div>
 		<div id="foot">
@@ -263,6 +270,7 @@ button:hover, a:hover {
 		</div>
 	</div>
 </div>
+
 <script type="text/javascript">
 var no = 0;
 	function processR(){
@@ -273,26 +281,24 @@ var no = 0;
 		var data = document.getElementById("botInp").value;
 		var vars = "bot_r="+data;no++;
 		document.getElementById('ans').innerHTML+='<div><div class="ques">'+data+'</div></div>';
-		document.getElementById('ans').innerHTML+='<div><div class="ans" id="id'+no+'">Loading...</div></div>';
-		var cont = document.getElementById('body').offsetHeight;
-		var inn = document.getElementById('inpBut').offsetHeight;
-		var pos = cont - inn;
-		window.scroll(0,pos);
-		
+		document.getElementById('ans').innerHTML+='<div><div class="ans" id="id'+no+'">loading...</div></div>';
 		x.open("POST", url, true);
 		x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		x.onreadystatechange = function(){
 			if (x.readyState == 4 && x.status == 200) {
 				var return_data = x.responseText;
-				document.getElementById("id"+no).innerHTML= return_data;
+				setTimeout(function(){
+					document.getElementById("id"+no).innerHTML= return_data;
 				document.getElementById("botInp").value = '';
+				},1000);
+				
 			}
 		}
 			x.send(vars);
 
-			document.getElementById("id"+no).innerHTML="Loading..."
+			document.getElementById("id"+no).innerHTML="loading..."
 		}
 }
-</script>
+</script>	
 </body>
 </html>
