@@ -309,7 +309,7 @@ function isAbout($question){
 
             <form class="" method="POST" action="">
                             <div class="form-group">
-                              <input id="txt_question" class="form-control" type="text" name="question" placeholder="Type in your requests">
+                              <input id="txt_question" class="form-control" type="text" value="question" name="question" placeholder="Type in your requests">
                             </div>
                             <div class="">
                               <input type="submit" class="btn btn-large btn-primary" type="button" value="Send">
