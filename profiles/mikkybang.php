@@ -130,7 +130,7 @@ function getAnswer($conn, $question){
             $answer = $answer_arr[$rand];
             $answer = $answer['answer'];
         }else{
-            $answer = "I don't understand what you are asking. You can train me to become more intelligent";
+            $answer = "I don't understand what you are asking. You can train me to become more better";
             $answer .= "Train me by typing; 'train: your question # your answer # password'";
         }
         
@@ -444,7 +444,7 @@ function isHelp($question){
                 $('.user-input').val("");
 
                 $.ajax({
-                    url: 'profile.php?id=mikkybang',
+                    url: "./profiles/mikkybang.php",
                     type: 'POST',
                     dataType: 'json',
                     data: {question: question},
