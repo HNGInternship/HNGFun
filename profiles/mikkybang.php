@@ -230,9 +230,7 @@ function isAbout($question){
   .msg{
       color: white;
       background-color: cyan;
-      border-radius: 20%;
-
-  }
+      }
 
   /* start social icon */
 .social-icon
@@ -303,15 +301,15 @@ function isAbout($question){
     <!--chat bot area-->
     <div class="col-md-5 chatbot pull-right" style="height: 100%; padding-top: 40px;">
          <div class="msg">
-                   <div class="msg">I am mikky's_bot. <br>I am here to help you</div>
-                    <div class="msg">Ask me any question</div>
-                   <div class="msg">To find out more about me type <strong>aboutbot</strong></div>
-                    <div class="msg">For help on how to use me type <br><strong>help</strong></div>
+                   <div class="botmsg">I am mikky's_bot. <br>I am here to help you</div>
+                    <div class="botmsg">Ask me any question</div>
+                   <div class="botmsg">To find out more about me type <strong>aboutbot</strong></div>
+                    <div class="botmsg">For help on how to use me type <br><strong>help</strong></div>
          </div>
 
             <form class="" method="POST" action="">
                             <div class="form-group">
-                              <input id="txt_question" class="form-control" type="text" name="chatbotmessage" placeholder="Type in your requests">
+                              <input id="txt_question" class="form-control" type="text" name="question" placeholder="Type in your requests">
                             </div>
                             <div class="">
                               <input type="submit" class="btn btn-large btn-primary" type="button" value="Send">
@@ -342,11 +340,11 @@ function isAbout($question){
                             var message_con = document.querySelector('.msg');
                             var bot = document.createElement('div');
                             bot.className = 'bot';
-                            bot_text = document.createTextNode("mikky's bot:");
+                            bot_text = document.createTextNode("mikky's_bot:");
                             bot.appendChild(bot_text);
 
                             var bot_msg = document.createElement('div');
-                            bot_msg.className = 'bot-msg';
+                            bot_msg.className = 'botmsg';
                             bot_msg_text = document.createTextNode(data['answer']);
                             bot_msg.appendChild(bot_msg_text);
 
