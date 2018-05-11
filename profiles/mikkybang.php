@@ -223,10 +223,13 @@ function isAbout($question){
       background-color: #4b4b4b;
       background-size: cover;
       height: 100%;
+      border: 5px;
   }
 
-  .botmessage{
-
+  .msg{
+      color: white;
+      background-color: cyan;
+      border-radius: 20%;
 
   }
 
@@ -297,17 +300,17 @@ function isAbout($question){
                 </ul>
                 </div>
     <!--chat bot area-->
-    <div class="col-md-5 chatbot pull-right" style="height: 100%; padding-top: 20px;">
-         <div class="">
-                   <div class="botmessage">I am mikky's_bot. <br>I am here to help you</div>
-                    <div class="botmessage">Ask me any question</div>
-                   <div class="botmessage">To find out more about me type <strong>aboutbot</strong></div>
-                    <div class="botmessage">For help on how to use me type <br><strong>help</strong></div>
+    <div class="col-md-5 chatbot pull-right" style="height: 100%; padding-top: 40px;">
+         <div class="msg">
+                   <div class="msg">I am mikky's_bot. <br>I am here to help you</div>
+                    <div class="msg">Ask me any question</div>
+                   <div class="msg">To find out more about me type <strong>aboutbot</strong></div>
+                    <div class="msg">For help on how to use me type <br><strong>help</strong></div>
          </div>
 
             <form class="" method="POST" action="">
-                            <div class="">
-                              <input id="txt_question" class="" type="text" name="chatbotmessage" placeholder="Type in your requests">
+                            <div class="form-group">
+                              <input id="txt_question" class="form-control" type="text" name="chatbotmessage" placeholder="Type in your requests">
                             </div>
                             <div class="">
                               <input type="submit" class="btn btn-large btn-primary" type="button" value="Send">
@@ -335,10 +338,10 @@ function isAbout($question){
                     success: function(data){
                         console.log(data);
                         if(data['status'] == 1){
-                            var message_con = document.querySelector('.messages');
+                            var message_con = document.querySelector('.msg');
                             var bot = document.createElement('div');
                             bot.className = 'bot';
-                            bot_text = document.createTextNode('Bot:');
+                            bot_text = document.createTextNode("mikky's bot:");
                             bot.appendChild(bot_text);
 
                             var bot_msg = document.createElement('div');
@@ -348,7 +351,7 @@ function isAbout($question){
 
                             message_con.appendChild(bot);
                             message_con.appendChild(bot_msg);
-                            $('.messages').scrollTop($('.messages')[0].scrollHeight);
+                            $('.msg').scrollTop($('.msg')[0].scrollHeight);
                         }
 
                     }
