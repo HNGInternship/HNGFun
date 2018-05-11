@@ -33,6 +33,7 @@ if (isset($_POST['bot_r'])) {
 			
 		}else{
 			echo "Your password is incorrect.<br>Try again later!";
+				exit();
 		}
 		}else{
 			echo "Invalid strings!<br><br><b><i>train:question #answer #password</i></b>";
@@ -68,6 +69,7 @@ if (isset($_POST['bot_r'])) {
 		}			
 		}catch(PDOException $e){
 			echo "Error 002".$e->getMessage();
+			exit();
 		}
 	}
 
