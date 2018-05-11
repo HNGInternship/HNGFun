@@ -67,14 +67,36 @@ if(count($result3)>1){
                  $row=$result3[$numb]; 
                  $ans=$row['answer'];
 
+         echo json_encode([
+                          'question'=>$text,
+                          'answers' =>  $ans
+                        ]); 
 
+
+             return;
 }else if(count($result3)==1) {
              
                 $ans=$result3['answer'];
+    
+         echo json_encode([
+                          'question'=>$text,
+                          'answers' =>  $ans
+                        ]); 
+
+
+             return;
         
 } else
      {
               $ans="I couldn't find an answer to your question, please train me with that using the command <br>train:Your-Question#Your-Answer#Password";
+    
+         echo json_encode([
+                          'question'=>$text,
+                          'answers' =>  $ans
+                        ]); 
+
+
+             return;
 
      
      }
