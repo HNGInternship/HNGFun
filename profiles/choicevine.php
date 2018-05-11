@@ -160,11 +160,11 @@ $(".btn-pref .btn").click(function () {
     <div class="card hovercard">
         <div class="card-background">
             <img class="card-bkimg" alt="" src="http://res.cloudinary.com/devgeaks/image/upload/v1523731563/2017-03-02_08.30.03.jpg">
-            <!-- http://lorempixel.com/850/280/people/9/ -->
+            
         </div>
         <div class="useravatar">
             <img alt="" src="<?php echo $result['image_filename']; ?>">
-            <hr> <!-- what about the correction of the allignment? I might not be able to do that here as I would need to go through your CSS thoroughly, are you using bootstrap?...yes-->
+            <hr> 
         </div>
         <div class="card-info"> <span class="card-title"><?php echo $result['name']; ?></span>
 
