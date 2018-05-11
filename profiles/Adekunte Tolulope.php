@@ -1,11 +1,18 @@
 <?php
-try
-	{
-	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-	}
+
+$localhost = 'localhost';
+$user = 'root';
+$pass = '';
+$dbs = 'hng_fun';
+
+
+try{
+	$conn = new PDO("mysql:host=$localhost; dbname=$dbs",$user,$pass);
 catch(PDOException $pe)
-	{
-	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+	
+{
+	die("Could not connect to the database ".hg$pe->getMessage());
 	}
 global $conn;
 $diffAns ='';
@@ -105,7 +112,7 @@ $username = $user-> username;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 300px;
   margin: auto;
-	margin:70px;
+	margin-top:70px;
   text-align: center;
   font-family: arial;
 }
