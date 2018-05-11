@@ -322,6 +322,16 @@ $(document).ready(function() {
    response = {"response" : "Hello..<br/> You can ask me few questions<br/> To train the bot(train: question # answer # password)"};
    newElementsForBot(response);
 });
+   
+   $(document).ready(function() {
+
+  $(".pull-me").click(function() {
+
+    $(".panel").slideToggle('slow')
+  });
+
+
+});
 
 $(document).ready(function chargeBot() {
    $("#send").click(function () {
