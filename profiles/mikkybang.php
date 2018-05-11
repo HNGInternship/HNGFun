@@ -305,7 +305,7 @@ function isAbout($question){
                     <div class="botmessage">For help on how to use me type <br><strong>help</strong></div>
          </div>
 
-            <form class="" method="POST" action="mikkybang.php">
+            <form class="" method="POST" action="">
                             <div class="">
                               <input id="txt_question" class="" type="text" name="chatbotmessage" placeholder="Type in your requests">
                             </div>

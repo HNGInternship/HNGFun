@@ -44,7 +44,7 @@
 		position: fixed;
 		background: #D8D8D8;
 		z-index: 10;
-		top: 20px;
+		top: 0;
 		right: 0;
 		opacity: .9;
 		padding-bottom: 20px;
