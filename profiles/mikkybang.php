@@ -297,7 +297,7 @@ function isAbout($question){
                 </ul>
                 </div>
     <!--chat bot area-->
-    <div class="col-md-5 chatbot pull-right" style="height: 100%;">
+    <div class="col-md-5 chatbot pull-right" style="height: 100%; padding-top: 20px;">
          <div class="">
                    <div class="botmessage">I am mikky's_bot. <br>I am here to help you</div>
                     <div class="botmessage">Ask me any question</div>
