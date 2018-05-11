@@ -28,7 +28,7 @@ function test_input($data) {
         $question =test_input($_POST["displayMessage"]);
         //bot version
         if($question == "aboutbot"){
-            $reply = "Pearlbot v1.0";
+            $reply = "Tom bot v1.0";
                        $response = array('status'=>3,'answer'=> $reply);
                        echo json_encode($response); 
         }else{
@@ -57,7 +57,7 @@ function test_input($data) {
                         $insert = "Insert into chatbot (question, answer) values ('$dataQuestion', '$dataAnswer')";
                         
                         if($conn->query($insert)){
-                            $reply = "Thanks for your help, I appreciate";
+                            $reply = "Yipee! I got trained";
                             $response = array('status'=>4, 'answer'=>$reply);
                             echo json_encode($response);
                         }else{
@@ -74,7 +74,7 @@ function test_input($data) {
                             echo json_encode($response);
                 }
             }else{
-                    $reply = "Seems you don't follow instructions.<br> Training Format: train:question#answer#password";
+                    $reply = "Thats not how to train buddy.<br> Training Format: train:question#answer#password";
                             $response = array('status'=>5, 'answer'=>$reply);
                             echo json_encode($response);
                 }
@@ -550,13 +550,13 @@ button{
             <div class="oj-panel oj-panel-shadow-md" id="displayHidden" style="width:120px;height:50px;text-align:center;position:relative;margin:10px 20px;float:right;">Let's Chat</div>
             <div id="chatbot" style="margin:-100px 20px;">
                 <div id="chat" style="">
-                    <span>Meet Pearlbot</span>
+                    <span>Tom Bot</span>
                     <button id="button" style="float:right; margin-right:10px;"><span>-</span></button>
-                    <span><?php echo "" . date("h:i:a"); ?></span>
+                    
                 </div>
                 <div id="main_chat">
                     <div id="chatMessages">
-                        <div id="message" style="background-color:#dedede;">Hi I am Pearlbot</div>
+                        <div id="message" style="background-color:#dedede;">Hi I am Essietom</div>
 
                     </div>
                 </div>
@@ -564,7 +564,7 @@ button{
 
                 <form action="" id="pearlbot_form" method="post">
                      <div class="input-group">
-                       <input class="form-control chat_input" id="chat_message" name="entered_message" placeholder="Start Typing...">
+                       <input class="form-control chat_input" id="chat_message" name="entered_message" placeholder="Type message here...">
                         
                      </div>
                </form>

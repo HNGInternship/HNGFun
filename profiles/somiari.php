@@ -317,8 +317,7 @@
 					}else if ($message == "today's date"){
 						echo respondDate();
 					}else{
-						echo "Kilode! What are you saying?
-						I don't understand but I'm a fast learner.
+						echo "Uhh, I didn't quite get that but I'm a fast learner.
 						To teach me something, just type and send:
 						train: question # answer # password";
 					} // end else
@@ -375,7 +374,7 @@
 						echo repondTraining();
 					};
 				} catch (PDOException $e) {
-					echo "Oops! i did't get that, Something is wrong i guess, <br> please try again";
+					echo "Oops! I did't get that, Something is wrong I guess, <br> please try again";
 				} // End Catch
 			} // End Else
 		} // Train Function Ends here
@@ -386,7 +385,7 @@
 			$repondTraining = array(  'Noted! Thank you for teaching me',
 									  'Acknowledged, thanks, really want to learn more',
 									  'A million thanks, I\'m getting smarter',
-									  'i\'m getting smarter, I really appreciate');
+									  'I\'m getting smarter, I really appreciate');
 			$index = mt_rand(0, 3);
 			return $anwerSam = $repondTraining[$index];
 		} // respondTraining Ends Here
@@ -447,9 +446,9 @@
 			</section>
 
 			<form class="chat-box" id="ajax-contact" method="post" action="profiles/somiari.php">
-				<span class="chat-box-header">Alan is not a bot</span>
+				<span class="chat-box-header">Alan is a bot</span>
 				<div class="chat-msgs">
-					<p class="alan">Hello! My name is Alan, and I am not a bot.</p>
+					<p class="alan">Hello! My name is Alan, and I am a bot.</p>
 					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
 				</div>
 				<div class="chat-type" >
