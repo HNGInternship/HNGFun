@@ -1106,7 +1106,7 @@ function getLatestNews() {
 /////// If you want to touch something, 
 ///////      don't touch this side  ///////////////// 
 function getBotInfo() {
-    $bot_version="1.0.1";
+    $bot_version = "1.0.1";
     return "Heyo! I'm Vectormike's smiggle. I'm version " .$bot_version;
 }
 function getBotManual() {
