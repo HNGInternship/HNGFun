@@ -1,7 +1,5 @@
 <?php
 
-	session_start(); 
-
     if(!defined('DB_USER')){
         require "../../config.php";     
         try {
@@ -10,8 +8,6 @@
             die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
         }
     }
-
-    $_SESSION['count'] = 0;     //set count so user can enter name only once per session
 
     if ( isset($_POST['message']) ) {
         $input = strtolower($_POST['message']);
@@ -124,14 +120,8 @@
         }
 
         function setName($name){ 
-            if ($_SESSION['count'] < 1) {
-                $_SESSION['count']++;
-
-                $this -> user = substr($name, 1, strlen($name));
-                $this -> welcomeUser( $this-> getUser() );
-            }
-            else echo "You already told me your name". ', '. $this ->  getUser();
-            exit();
+            $this -> user = substr($name, 1, strlen($name));
+            $this -> welcomeUser( $this-> getUser() );
         }   //end function set_name
 
         function welcomeUser($user_name){
