@@ -77,7 +77,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My Profile</title>
     <link  rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/><!-- RequireJS bootstrap file -->
-
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <style>
        body {
   font: 15px arial, sans-serif;
@@ -223,7 +223,7 @@ pre {
                   <p id="chatlog1" class="chatlog">&nbsp;</p>
                   </div>
                   <div><center><input style="width:170px" type="text" name="chat" id="chatbox" placeholder="chat here with me..." onfocus="placeHolder()"/></center>
-                  <button style="float: right" onclick = loadDoc()><i class="fas fa-paper-plane"></i></button></div>
+                  <button style="float: right" onclick = loadDoc()><i class="fa fa-send-o fa-2x"></i></button></div>
                 
   </div>
     
@@ -266,7 +266,7 @@ pre {
             
             }
         };
-        xhttp.open("POST", "emem.php", true);
+        xhttp.open("POST", "/profiles/emem.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("message="+message.value);
     }
