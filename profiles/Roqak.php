@@ -199,6 +199,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     /* margin-bottom: 9%; */
     /*width: 100%;*/
     height: 90%;
+    width: 400px;
+    float: right;
     /*margin-top: 1%;*/
   }
   .padedd{
