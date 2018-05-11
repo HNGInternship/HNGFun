@@ -1,5 +1,5 @@
 <?php
-  $result = $conn->query("Select * from secret_word LIMIT 1");
+  /*$result = $conn->query("Select * from secret_word LIMIT 1");
   $result = $result->fetch(PDO::FETCH_ASSOC);
   $secret_word = $result['secret_word'];
 
@@ -8,10 +8,17 @@
   
   $username = $user['username'];
   $name = $user['name'];
-  $image_filename = $user['image_filename'];
-?>
+  $image_filename = $user['image_filename'];*/
+    global $conn;
 
-<?php
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="melody"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
 
 try {
 	$sql = 'SELECT * FROM secret_word';
@@ -251,7 +258,7 @@ a {
 }
 
 /*chatbot*/
-.chatbot-container{
+/* .chatbot-container{
 		  background-color: #F3F3F3;
 		  width: 500px;
 		  height: 500px;
@@ -328,7 +335,54 @@ input[type=text] {
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
-}
+}*/
+.body1 {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 75%;
+            display: flex;
+            flex-direction: column;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .chat-output {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            background: white;
+            flex-direction: column;
+            overflow-y: scroll;
+            max-height: 500px;
+        }
+        .chat-output > div {
+            margin: 0 0 20px 0;
+        }
+        .chat-output .user-message .message {
+            background: #0fb0df;
+            color: white;
+        }
+        .chat-output .bot-message {
+            text-align: right;
+        }
+        .chat-output .bot-message .message {
+            background: #eee;
+        }
+        .chat-output .message {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 10px;
+        }
+        .chat-input {
+            padding: 20px;
+            background: #eee;
+            border: 1px solid #ccc;
+            border-bottom: 0;
+        }
+        .chat-input .user-input {
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px;
+        }
 </style>
 	</head>
 	<body>
@@ -357,7 +411,22 @@ input[type=text] {
 					</ul>	
 				</section>		
 			<section id="secondary">
-				<div class="chatbot-container">
+			<div class="oj-sm-12 oj-md-6 oj-flex-item">
+				<div class="body1">
+					<div class="chat-output" id="chat-output">
+						<div class="user-message">
+							<div class="message">Hi there! I'm BasBot! Say something and I'll try my possible best to answer you! </br>To train me, use this format - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
+						</div>
+					</div>
+
+					<div class="chat-input">
+						<form action="" method="post" id="user-input-form">
+							<input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
+						</form>
+					</div>
+				</div>
+			</div>
+				<!-- <div class="chatbot-container">
 					<div class="chat-header">
 						<span>Bas Chatbot</span>
 					</div>
@@ -376,7 +445,7 @@ input[type=text] {
 							</form>
 						</div>
 					</div>
-				</div>	
+				</div>-->	
 			</section>		
 		</div>
 
@@ -384,13 +453,13 @@ input[type=text] {
 			<p>&copy; 2017 Maniaweb.</p>
 		</footer>
 			<script type = text/javascript>
-				var outputArea = $("#user-output");
+				var outputArea = $("#chat-output");
 
-				$("#input-form").on("submit", function(e) {
+				$("#user-input-form").on("submit", function(e) {
 
 					e.preventDefault();
 
-					var message = $("#input").val();
+					var message = $("#user-input").val();
 
 					outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
 
@@ -403,19 +472,19 @@ input[type=text] {
 							var result = $($.parseHTML(response)).find("#result").text();
 							setTimeout(function() {
 								outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
-								$('#user-output').animate({
-									scrollTop: $('#user-output').get(0).scrollHeight
+								$('#chat-output').animate({
+									scrollTop: $('#chat-output').get(0).scrollHeight
 								}, 1500);
 							}, 250);
 						}
 					});
 
 
-					$("#input").val("");
+					$("#user-input").val("");
 
 				});
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 			</script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 		</div>
 	</body>
 </html>

@@ -4,17 +4,20 @@
 	$username = "ebuka1";
 	 
 	$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
-	$sql2 = "SELECT * FROM `secret_word` LIMIT 1";
 	$query = $conn->prepare($sql);
 	$query->execute();
 	$result = $query->fetch(PDO::FETCH_ASSOC);
-
-	$query2 = $conn->prepare($sql2);
-	$query2->execute();
-	$data = $query2->fetch(PDO::FETCH_ASSOC);
-	$secret_word = $data['secret_word'];
 	
-	
+	?>
+	<?php
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }	
     $secret_word = $data['secret_word'];
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = $_POST['user-input'];
@@ -32,7 +35,7 @@
 	##About Bot
     function aboutbot() {
         echo "<div id='result'><strong>Ebu Bot 1.1 </strong></br>
-		Hello! </br> I'm Ebu Bot 1.1 </br> Hope you are having a lovely Day.</br> I am trained to answer everything on the database. <div>";
+		Hello! </br> I'm Ebu Bot 1.1 </br> Hope you are having a lovely Day.</br> I am trained to answer everything on the database. </div>";
     }
 	
 	##Train Bot
@@ -43,7 +46,7 @@
         $password = trim($input[2]);
         if($password == 'password') {
             $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
-            $q = $GLOBAL['conn']->query($sql);
+            $q = $GLOBALS['conn']->query($sql);
             $q->setFetchMode(PDO::FETCH_ASSOC);
             $data = $q->fetch();
             if(empty($data)) {
@@ -55,7 +58,7 @@
                   :answer
               );';
                 try {
-                    $q = $GLOBAL['conn']->prepare($sql);
+                    $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
                         echo "<div id='result'>Thank you for training me. </br>
 			Now you can ask me same question, and I will answer it correctly.</div>";
@@ -73,7 +76,7 @@
     function getAnswer($input) {
         $question = $input;
         $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
-        $q = $GLOBAL['conn']->query($sql);
+        $q = $GLOBALS['conn']->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
@@ -165,6 +168,7 @@
 			border-radius: 5px;
 			background-color:white;
 			margin-top:100px;
+			padding-top:100px;
 			}	
 
         .oj-flex-item .oj-panel .demo-mypanel{
@@ -295,11 +299,11 @@
                     <li><h3>Constantly learning and improving</h1></li>
                     <li><h3>keeping up to date with the industry</h1></li>
                     <li><h3>Being able to manage time and prioritize</h3></li>
-                    <li><h3>Proper mmunication</h3></li>
+                    <li><h3>Proper communication</h3></li>
                     <li><h3>Efficient in some programming languages</h3></li>
                 </ul>
                 <ul class="social-icon">
-                    <li><a href="https://web.facebook.com/ebuka.arinze" class="fa fa-facebook"></a></li>
+                    <li><a href="https://web.facebook.com/ebuka.arinze.5?ref=br_rs" class="fa fa-facebook"></a></li>
                     <li><a href="https://twitter.com/ebuka_arinze" class="fa fa-twitter"></a></li>
                     <li><a href="https://github.com/ebukaarinze" class="fa fa-github"></a></li>
                     <li><a href="https://www.instagram.com/ebuka_arinze/" class="fa fa-instagram"></a></li>
