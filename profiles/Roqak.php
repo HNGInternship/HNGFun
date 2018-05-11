@@ -253,7 +253,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 <body>
 <div class="container">
 <div class="row">
- <div class="col-md-8 mainn">
+ <div class="mainn">
    <div class="white text-center">
     <h1 id="hello">HELLO</h1>
     <h3>I AM <?php echo $user->name ?>  HNG INTERN.</h3>
@@ -271,7 +271,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 </a>
      </div>
    </div>
-   <div id="bbb" class="col-md-4 chat">
+   <div id="bbb" class="chat">
       <div><h1 class="text-center"> My ChatBot</h1></div>
         <div id="mchats">
           <div id="chats">
