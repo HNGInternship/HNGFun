@@ -63,7 +63,7 @@ if(isset($_POST['questions'])){
                 $result3 = $query->fetchAll();
 
 if(count($result3)>1){ 
-                 $numb = rand(0, count($rows)-1);    
+                 $numb = rand(0, count($result3)-1);    
                  $row=$result3[$numb]; 
                  $ans=$row['answer'];
 
@@ -76,11 +76,11 @@ if(count($result3)>1){
              return;
 }else if(count($result3)==1) {
              
-                $ans=$result3['answer'];
+                $an=$result3['answer'];
     
          echo json_encode([
                           'question'=>$text,
-                          'answers' =>  $ans
+                          'answers' =>  $an
                         ]); 
 
 
@@ -216,7 +216,7 @@ echo json_encode([
     .you{
         background-color:#E8EEEF;
         width:500px;
-        padding-left: 390px;
+        padding-left: 150px;
         border: 1px solid black;
        
         overflow-wrap: break-word;
