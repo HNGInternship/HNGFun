@@ -451,7 +451,7 @@ function isHelp($question){
                 $('.user-input').val("");
 
                 $.ajax({
-                    url: "./profiles/mikkybang.php",
+                    url: "profile.php?id=mikkybang",
                     type: 'POST',
                     dataType: 'json',
                     data: {question: question},
