@@ -2,6 +2,8 @@
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         //die('Hi');
+
+        require '../../config.php';
         $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
         
         if(!$conn){
@@ -222,7 +224,7 @@ pre {
                   <p id="chatlog2" class="chatlog">&nbsp;</p>
                   <p id="chatlog1" class="chatlog">&nbsp;</p>
                   </div>
-                  <div><center><input style="width:170px" type="text" name="chat" id="chatbox" placeholder="chat here with me..." onfocus="placeHolder()"/></center>
+                  <div><input style="width:150px" type="text" name="chat" id="chatbox" placeholder="chat here with me..." onfocus="placeHolder()"/>
                   <button style="float: right" onclick = loadDoc()><i class="fa fa-send-o fa-2x"></i></button></div>
                 
   </div>
