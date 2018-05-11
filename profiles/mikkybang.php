@@ -17,14 +17,7 @@ $secret_word = $data['secret_word'];
 
 <?php
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    require_once "../../config.php";
-    global $conn;
     global $response;
-    try{
-        $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
-    }catch(PDOException $err){
-        die("could not connect to database " . DB_DATABASE . ":" . $err->getMessage());
-    }
 
     $question = $_POST['question'];
 
@@ -83,7 +76,7 @@ function saveQuestion($conn, $data){
                     $sql = "INSERT INTO chatbot (question, answer) VALUES ('" . $question . "', '" . $answer . "')";
                     $conn->exec($sql);
                     $answer = "Training Successful! I am now more intelligent now. Thanks for that";
-                }catch(PDOException $err){
+                }catch(PDOException $pe){
                     $answer = "Ooops Training Failed! Something went wrong. Try Again. type 'help' for more info";
                 }
             }else{
@@ -116,8 +109,8 @@ function isAnswerExisting($conn, $question, $answer){
             return false;
         }
 
-    }catch(PDOException $err){
-        throw $err;
+    }catch(PDOException $pe){
+        throw $pe;
     }
 }
 
@@ -137,11 +130,11 @@ function getAnswer($conn, $question){
             $answer = $answer_arr[$rand];
             $answer = $answer['answer'];
         }else{
-            $answer = "I don't understand what you are asking. You can train me to become more intelligent";
+            $answer = "I don't understand what you are asking. You can train me to become more better";
             $answer .= "Train me by typing; 'train: your question # your answer # password'";
         }
         
-    }catch(PDOException $err){
+    }catch(PDOException $pe){
         $answer = "Oops, Something went wrong. Try again";
     }
     $status = 1;
