@@ -103,9 +103,8 @@
 			$message = trim(strtolower($_POST['message']));
 
 			//Analyse message to determine response
-			// if (strtok($message, ":") == "train"){
-				if ($message == "ok") {
-				trainAlan($message);} // Call function to handle training
+			if (strtok($message, ":") == "train"){
+				trainAlan($message); // Call function to handle training
 
 			}else if ($message != "" ){
 				// Check if question exist in database
