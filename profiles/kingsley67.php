@@ -66,10 +66,10 @@ if(isset($_POST['questions'])){
  
 $sql4="SELECT COUNT(answer) FROM chatbot WHERE question='$text '";
  $querys = $conn->query($sql4);
+ $querys->setFetchMode(PDO::FETCH_ASSOC); 
           
-       if($querys->fetchColumn()==1){
-                 
-       $sql3="SELECT answer FROM chatbot WHERE question='$text '";
+       if($querys->fetch()==1){
+    $sql3="SELECT answer FROM chatbot WHERE question='$text '";
     $querys = $conn->query($sql3);
     $query->setFetchMode(PDO::FETCH_ASSOC);
     $result3 = $query->fetch();         
