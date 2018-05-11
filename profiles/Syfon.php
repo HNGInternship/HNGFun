@@ -1,124 +1,111 @@
 <?php
+// if (!defined('DB_USER'))
+// {
+// require "../../config.php";
 
-if(!isset($_GET['id'])){
-   require '../db.php';
- }else{
-    require 'db.php';
- }
+// }
+
+// try
+// {
+// $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+// }
+
+// catch(PDOException $pe)
+// {
+// die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+// }
+
+// global $conn;
+
+// function checkQuestionExistence($question, $conn) {
+// $sql = "SELECT * FROM chatbot WHERE question='$question'";
+// $stm = $conn->query($sql);
+// $stm->setFetchMode(PDO::FETCH_ASSOC);
+// $result = $stm->fetchAll();
+// return $result;
+// }
+// ?>
 
 
 
-try{
-   $sql = 'SELECT * FROM secret_word';
-   $q = $conn->query($sql);
-   $q->setFetchMode(PDO::FETCH_ASSOC);
-   $data = $q->fetch();
-   $secret_word= $data['secret_word'];
-} catch (PDOException $e){
-       throw $e;
-   }
-
-
-$result2 = $conn->query("Select * from interns_data where username = 'Syfon'");
-$user = $result2->fetch(PDO::FETCH_OBJ);
-?>
-
-<!-- chatbot -->
 <?php
-if(isset($_POST['send'])){
-if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $data = $_POST['message-input'];
-      //  $data = preg_replace('/\s+/', '', $data);
-        $temp = explode(':', $data);
-        $temp2 = preg_replace('/\s+/', '', $temp[0]);
-        
-        if($temp2 === 'train'){
-            train($temp[1]);
-        }elseif($temp2 === 'aboutbot') {
-            aboutbot();
-        }else{
-            getAnswer($temp[0]);
-        }
-    } return $data;
-
-   
-    function aboutbot() {
-        echo "<div id='result'>Syfon Bot - I am a bot that returns data from the database and I can do anything you ask me to do if only you train me</div>";
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        $data = preg_replace("([?.!])", "", $data);
+        $data = preg_replace("(['])", "\'", $data);
+        return $data;
     }
+    require '../../config.php';
+    
+  $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+// $conn = new mysqli('localhost', 'root', '', 'hng_fun');
 
-    function chatMode($ques){
-        require '../../config.php';
-        $ques = test_input($ques);
-        $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
-        if(!$conn){
+    
+    if(!$conn){
+        die('Unable to connect');
+    }
+    $question = $_POST['message'];
+
+    $pos = strpos($question, 'train:');
+
+    if($pos === false){
+        $sql = "SELECT answers FROM chatbot WHERE questions like '$question' ";
+        $query = $conn->query($sql);
+        if($query){
             echo json_encode([
-                'status'    => 1,
-                'answer'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                'results'=> $query->fetch_all()
             ]);
             return;
         }
-        $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
-        $result = $conn->query($query)->fetch_all();
-        echo json_encode([
-            'status' => 1,
-            'answer' => $result
-        ]);
-        return;
-    }
+    }else{
+        $trainer = substr($question,6 );
+        $data = explode('#', $trainer);
+        $data[0] = trim($data[0]);
+        $data[1] = trim($data[1]);
+        $data[2] = trim($data[2]);
 
-    function train($input) {
-        $input = explode('#', $input);
-        $question = trim($input[0]);
-        $answer = trim($input[1]);
-        $password = trim($input[2]);
-        if($password == 'password') {
-            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
-            $q = $GLOBALS['conn']->query($sql);
-            $q->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $q->fetch();
+        if($data[2] == 'password'){
 
-            if(empty($data)) {
-                $training_data = array(':question' => $question,
-                    ':answer' => $answer);
+            $sql = "INSERT INTO chatbot (questions, answers)
+            VALUES ('$data[0]', '$data[1]')";
 
-                $sql = 'INSERT INTO chatbot ( question, answer)
-              VALUES (
-                  :question,
-                  :answer
-              );';
 
-                try {
-                    $q = $GLOBALS['conn']->prepare($sql);
-                    if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>Training Successful!</div>";
-                    };
-                } catch (PDOException $e) {
-                    throw $e;
-                }
+            $query = $conn->query($sql);
+            if($query){
+                echo json_encode([
+                    'results'=> 'Successfully trained'
+                ]);
+                return;
             }else{
-                echo "<div id='result'>I already understand this. Teach me something new!</div>";
+                echo json_encode([
+                    'results'=> 'Training error'
+                ]);
+                return;
             }
-        }else {
-            echo "<div id='result'>Invalid Password, Try Again!</div>";
+            
+        }else{
+            echo json_encode([
+                'results'=> 'Wrong Password'
+            ]);
+            return;
+        }
+        
+    }
+    
+    echo json_encode([
+        'reply'=>  'Good to go'
+    ]);
+    
+return ;
 
-        }
-    }
-  
-    function getAnswer($input) {
-        $question = $input;
-        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
-        $q = $GLOBALS['conn']->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetchAll();
-        if(empty($data)){
-            echo "<div id='result'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'</div>";
-        }else {
-            $rand_keys = array_rand($data);
-            echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
-        }
-    }
 }
-    ?>
+
+
+
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -163,8 +150,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 }
 #chat-area{
-    min-height: 15vh;
+    height: 50vh;
     background-color:white;
+    overflow-y:auto;
 }
 .details, h1{
     color: white;
@@ -177,10 +165,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 #foot{
     background-color: rgba(14, 12, 12, 0.89);
 }
-#chatbox {
-  height: 30px;
-  width: 100%;
-}
+
 
 </style>
 
@@ -207,21 +192,23 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
     <div class="col-md-6">
          <div id="chatbot">
-         <div class="chatplace">
             <h1>Syfon's Bot</h1>              
             <div id="chat-area" class="chat-area">
-            <form action="" method="post" name="message" id="message-input">
             <p id="chatlog" class="chatlog"><p>To teach me use the format below</p>
-            <p>train: your question # your answer # password</p>
-            <div class="input-group mb-3">
-            <input class="form-control message chat_input " value="" autocorrection="off" name="chat" id="chat" class="chat" placeholder="Hi there! Type here to talk to me." focus="placeHolder()">            
+           <p>train: your question # your answer # password</p>
+            <p id="chatlog3" class="chatlog"><p>&nbsp;</p>
+            <p id="chatlog2" class="chatlog"><p>&nbsp;</p>
+            <p id="chatlog1" class="chatlog"><p>&nbsp;</p>
+            
             </div>
-            </form>
+            <div class="input-group mb-3">
+            <input class="form-control chat " name="chat" id="chat" class="chat" placeholder="Hi there! Type here to talk to me.">            
+            <button type= "button" onclick= loadDoc()> send</button>
+            </div>
          </div>    
     </div>
     </div>
-  </div>
-</section>
+  </section>
  <section id="foot" >                   
         <div class="container">
                 <a href="https://www.facebook.com/sifon.isaac.3" class="fa fa-facebook"></a>
@@ -236,43 +223,58 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 </section>
 
 <script>
-    var outputArea = $("#chat-area");
-
-    $("#message-input").on("submit", function(e) {
-
-        e.preventDefault();
-
-        var message = $('.message').val();
+ function loadDoc() {
+        // alert('Hello');
+        var message = document.querySelector('#chat');
+        // alert(message.value);
+        var p = document.createElement('p');
+        p.id = 'user';
+        var chatarea = document.querySelector('#chatlog1');
+        p.innerHTML = message.value;
+        chatarea.append(p);
+        
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+            console.log(xhttp.responseText);
+            var result = JSON.parse(xhttp.responseText);
+            message.value = '';
+            var pp = document.createElement('p');
+            pp.id = 'bot';
+            console.log(result.results.length);
+            
+            if(result.results.length === 0){
+                //alert('hello');
+                pp.innerHTML = 'Not in database. please train me';
+                chatarea.append(pp)
+                return;
+            }
+            console.log(typeof(result.results))
+            if(typeof(result.results) == 'object' ){
+                var res = Math.floor(Math.random() * result.results.length);
+                
+                pp.innerHTML = result.results[res];
+                chatarea.append(pp)
+            }else{
+                var res = Math.floor(Math.random() * result.results.length);
+                pp.innerHTML = result.results;
+                chatarea.append(pp)
+            }
+            
+            }
+        };
         
 
-        outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
-
-   $.ajax({
-            url: 'profile.php?id=Syfon',
-            type: 'POST',
-            data:  'user-input=' + message,
-            success: function(response) {
-               // var result =    $('<div/>', {}).find('#message-input').text('');
-               var result =  $($.parseHTML(response)).find("#result").text();
-                setTimeout(function() {
-                    outputArea.append("<div class='chatplace'><div class='chat-area'>" + result + "</div></div>");
-                    $('#chatbot').animate({
-                        scrollTop: $('#chatbot').get(0).scrollHeight
-                    }, 1500);
-                }, 250);
-            }
-        });
-
- 
-        $("#message-input").val("");
-
-    });
+        
+        xhttp.open("POST", "Syfon.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("message="+message.value);
+}
+$('#chatbot').animate({
+                scrollTop: chatbot.scrollHeight,
+                scrollLeft: 0
+            }, 100);
 
 </script>
 
-<?php
 
-
-$db_conn = null;
-
-?>
