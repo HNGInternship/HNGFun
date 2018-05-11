@@ -96,7 +96,6 @@
 
 	//////////// CHATBOT STARTS HERE //////////////////////////////////////////////////////////////
 		if (isset($_POST['message'])) {
-			die("hello");
 			// Retrieve form data from ajax
 			// Change message to all lowercase
 			// trim off white spaces
@@ -105,7 +104,6 @@
 			//Analyse message to determine response
 			// if (strtok($message, ":") == "train"){
 				if (strpos($message, 'train') !== false) {
-
 					trainAlan($message); // Call function to handle training
 			}else if ($message != "" ){
 				// Check if question exist in database
@@ -452,7 +450,7 @@
 			<form class="chat-box" id="ajax-contact" method="post" action="">
 				<span class="chat-box-header">Alan is <del>not</del> a bot</span>
 				<div class="chat-msgs">
-					<p class="alan">Hello! My name is Alan, and I am <del>not</del> a bot.</p>
+					<p class="alan">Hello! I am Alan, and I am <del>not</del> a bot.</p>
 					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
 				</div>
 				<div class="chat-type" >
