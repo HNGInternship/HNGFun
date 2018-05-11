@@ -243,6 +243,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     max-height: 80%;
     height: 80%;
   }
+  .row{
+    display: flex;
+  }
   </style>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
