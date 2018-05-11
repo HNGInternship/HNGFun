@@ -1,11 +1,10 @@
 <?php
     
- require 'db.php';
- include_once("../answers.php");
+ //require 'db.php';
     
  if (!defined('DB_USER')){
             
-   require "../config.php";
+   require "../../config.php";
  }
 //define('DB_HOST', "localhost");
 //define('DB_DATABASE', "hng_fun");
@@ -392,31 +391,8 @@ button{
 </head>
 <body cz-shortcut-listen="true">
 
-<<<<<<< HEAD
 	<div class="oj-flex oj-flex-item">
 	<div class=" container">
-=======
-<<<<<<< HEAD
-<?php
-    
-		require 'db.php';
-
-		$result = $conn->query("Select * from secret_word LIMIT 1");
-		$result = $result->fetch(PDO::FETCH_OBJ);
-		$secret_word = $result->secret_word;
- 
-$result2 = $conn->query("Select * from interns_data where username = 'pearl'");
-  
-$user = $result2->fetch(PDO::FETCH_OBJ);
-?>
-
-<div class="oj-flex oj-flex-item">
-	<div class="container">
-=======
-	<div class="oj-flex oj-flex-item">
-	<div class=" container">
->>>>>>> 7f54a6dcb2ee3e5cc4aef6128fcc4f011449b379
->>>>>>> afc512fff69c3973afaccba3c50463c00568edfa
 		<header>
 			<div class="header">
                 <span class="oj-text-xm"><?php echo $user->name ?></span>
@@ -446,7 +422,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
                 </div>
                 <div id="main_chat">
                     <div id="chatMessages">
-                        <div id="message" style="background-color:#dedede;">Hi I am Pearlbot, I have been created to read user location, read user ip address</div>
+                        <div id="message" style="background-color:#dedede;">Hi I am Pearlbot</div>
 
                     </div>
                 </div>
@@ -463,29 +439,6 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		
         
         
-        <section class="main">
-			<div class="get-started">
-                <h1 class="oj-text-xm">Meet <?php echo $user->username ?></h1>
-                <div>
-                    <img class="img"  src="<?php echo $user->image_filename ?>" alt="She Codes" /></div>
-                <p class="oj-panel oj-panel-shadow-md" id="caption"><b>My mission for HNG Internship:</b> Be a world class developer, initiate and complete innovative projects, and have a voice in the technology ecosystem. </p>
-                
-                <p>Anyway, this is the “About” page, so I should probably tell you my story.
-                </p>
-                <p>
-                    <em><\Insert Flashback Sequence></\Insert></em>
-                </p>
-                <p>In my younger days, I was on the track towards medical school(Medcine and Surgery), but was detoured on the way by the quest for Admission. As years passed I settled for an alternative course (Computer Science), then did I realized humanity can be helped or even saved through software development.</p>
-                <h3 class="inLove">She Fell in Love</h3>
-                <p class="school">I found the love of my life few months before Industrial Training, a friend of mine one afternoon came to my room so excited, she wanted to demonstrate something to me but I was watching movie(that’s what majority of students do with their PC, I was no different). Her excitement was overwhelming that I gave her an opportunity. Guess what! she wrote some foreign characters, opened my browser and boom!!! the miracle happened; <span id="g">G</span><span id="o1">o</span><span id="o2">o</span><span id="g">g</span><span id="l">l</span><span id="o1">e</span> written bodily with its 4 different colours appeared on the screen, immediately I fell in love.
-My love grew into passion that I gave up my little savings to learn web development using java for back end. The journey have not been easy but I have this inner peace that am doing what I love the most.</p>
-                
-                <h2 style="text-align:left;" class="oj-listview-card-layout">Skills</h2>
-                <p>Web Development <span style="font-weight:bold;">60%</span>(HTML, CSS. JAVASCRIPT, JQUERY, JAVA EE)</p>
-	
-                <p>Mobile Development <span style="font-weight:bold;">40%</span>(JAVA)</p>
-            </div>
-        </section>
         
 		<footer>
 				<p class="meta">
@@ -495,14 +448,8 @@ My love grew into passion that I gave up my little savings to learn web developm
                 </p>
 		</footer>
     </div>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-	<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.0.0/3rdparty/require/require.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-=======
->>>>>>> afc512fff69c3973afaccba3c50463c00568edfa
-    <script type="text/javascript" src="../../bootcamp-v1/js/jquery.min.js"></script>
+           
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script>
         
         var chatting = document.querySelector("#chatbot");
@@ -533,14 +480,10 @@ My love grew into passion that I gave up my little savings to learn web developm
             $("#chatMessages").append('<div id="messageSent">' + message + '</div>');
 
             $.ajax({
-<<<<<<< HEAD
-                url: './profiles/pearl.php',
-=======
-                url: '/profiles/pearl.php',
->>>>>>> afc512fff69c3973afaccba3c50463c00568edfa
-                type: 'POST',
+                url: "/profiles/pearl.php",
+                type: "POST",
                 data: {displayMessage: message},
-                dataType: 'json'
+                dataType: "json"
             }).done(function(resp) {
                 if(resp.status == 5){
                     messageContainer.append('<div id="messageReceived">' + resp.answer + '</div>');
@@ -580,13 +523,7 @@ My love grew into passion that I gave up my little savings to learn web developm
 
 
 
-    </script>
-    <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.0.0/3rdparty/require/require.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<<<<<<< HEAD
-=======
->>>>>>> 7f54a6dcb2ee3e5cc4aef6128fcc4f011449b379
->>>>>>> afc512fff69c3973afaccba3c50463c00568edfa
+    </script> 
 </div>
 </body>
 </html>
