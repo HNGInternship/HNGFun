@@ -130,7 +130,7 @@ function train($question, $answer) {
 
 
 ?>
-<?php if ($_SERVER['REQUEST_METHOD'] == "GET") ?>
+<?php if ($_SERVER['REQUEST_METHOD'] == "GET") {?>
 
 
 
@@ -472,4 +472,5 @@ require(['ojs/ojcore', 'knockout', 'appController', 'ojs/ojknockout', 'ojs/ojbut
 );</script>
 
   </body>
-
+</html>
+<?php }?>
