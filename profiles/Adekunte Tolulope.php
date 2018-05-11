@@ -3,17 +3,10 @@
 
 $diffAns ='';
 
-$result = $conn->query("SELECT secret_word FROM secret_word LIMIT 1");
- $result = $result->fetch(PDO::FETCH_OBJ);
- $secret_word = $result->secret_word;
 
- $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'Adekunte Tolulope'");
- $user = $result2->fetch(PDO::FETCH_OBJ);
-$name = $user-> name;
-$image = $user-> image_filename;
-$username = $user-> username;
 
 if (isset($_POST['bot_adekunte'])) {
+	
 	$data = $_POST['bot_adekunte'];
 
 	if ($data == 'aboutbot') {
@@ -76,11 +69,28 @@ if (isset($_POST['bot_adekunte'])) {
 			echo "Error 002".$e->getMessage();
 			exit();
 		}
-		exit();
+		
 	}
-exit();
+$result = $conn->query("SELECT * FROM secret_word LIMIT 1");
+ $res = $result->fetch(PDO::FETCH_OBJ);
+ $secret_word = $res->secret_word;
 }
 ?>
+
+<?php
+
+/*$result = $conn->query("SELECT * FROM secret_word LIMIT 1");
+ $res = $result->fetch(PDO::FETCH_OBJ);
+ $secret_word = $res->secret_word;
+*/
+ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'Adekunte Tolulope'");
+ $user = $result2->fetch(PDO::FETCH_OBJ);
+$name = $user-> name;
+$image = $user-> image_filename;
+$username = $user-> username;
+
+?>
+
 
 <!Doctype html>
 <html>
