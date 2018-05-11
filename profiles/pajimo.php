@@ -278,13 +278,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
          </div>
       </div>
          
-         <div style="width: 400px" id="child4">
-          <div class="panel">
+         <div style="width: 400px" id="child4" class = "bot round-corners">
+          <div class="panel inner">
               <div>
-                <p style="overflow: scroll; height: 250px; width: 100%; margin: 0px;" id="textbox"></p>
-                <input type="checkbox" id="click"><label>Click to send using enter</label><br/>
-                <input type="text" name="" style="width: 80%; height: 24px;" id="text">
-                <button style="position: absolute; width: 19%; height: 30px" id="send">Send</button>
+                <p style="overflow: scroll; height: 250px; width: 100%; margin: 0px;" id="chatarea"></p>
+                <input type="text" name="" style="width: 80%; height: 24px;" id="message">
+                <button style="position: absolute; width: 19%; height: 30px" id="send">Send4</button>
               </div>
           </div>
           <p class="slide"><div class="pull-me" style="text-align: center">Chat with me</div></p>
