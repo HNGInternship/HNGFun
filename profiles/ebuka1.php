@@ -168,6 +168,7 @@
 			border-radius: 5px;
 			background-color:white;
 			margin-top:100px;
+			padding-top:100px;
 			}	
 
         .oj-flex-item .oj-panel .demo-mypanel{
@@ -298,11 +299,11 @@
                     <li><h3>Constantly learning and improving</h1></li>
                     <li><h3>keeping up to date with the industry</h1></li>
                     <li><h3>Being able to manage time and prioritize</h3></li>
-                    <li><h3>Proper mmunication</h3></li>
+                    <li><h3>Proper communication</h3></li>
                     <li><h3>Efficient in some programming languages</h3></li>
                 </ul>
                 <ul class="social-icon">
-                    <li><a href="https://web.facebook.com/ebuka.arinze" class="fa fa-facebook"></a></li>
+                    <li><a href="https://web.facebook.com/ebuka.arinze.5?ref=br_rs" class="fa fa-facebook"></a></li>
                     <li><a href="https://twitter.com/ebuka_arinze" class="fa fa-twitter"></a></li>
                     <li><a href="https://github.com/ebukaarinze" class="fa fa-github"></a></li>
                     <li><a href="https://www.instagram.com/ebuka_arinze/" class="fa fa-instagram"></a></li>
