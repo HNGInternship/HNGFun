@@ -450,7 +450,7 @@
 			</section>
 
 			<form class="chat-box" id="ajax-contact" method="post" action="">
-				<span class="chat-box-header">Alan is not a bot</span>
+				<span class="chat-box-header">Alan is <del>not</del> a bot</span>
 				<div class="chat-msgs">
 					<p class="alan">Hello! My name is Alan, and I am <del>not</del> a bot.</p>
 					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
