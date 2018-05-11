@@ -118,7 +118,7 @@
                     </div>
                     <div class='col-md-6'>
                       <center>
-                         <p>This is Esther Ekereuke.<br><br>
+                         <p>This is Esther Ekereuke.<br>
                     
                                 Three things about her you must know and perhaps she is good at;
                                  Coming to a friends defense, getting the last word, being adventurous and creating fun ideas. 
