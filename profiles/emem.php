@@ -1,7 +1,8 @@
 <?php
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-        //die('Hi');
+       
+        require '../../config.php';
         $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
         
         if(!$conn){
@@ -11,7 +12,7 @@
         $pos = strpos($question, 'train:');
 
         if($pos === false){
-            $sql = "SELECT answers FROM chatbot WHERE questions like '$question' ";
+            $sql = "SELECT answer FROM chatbot WHERE question like '$question' ";
             $query = $conn->query($sql);
             if($query){
                 echo json_encode([
@@ -28,7 +29,7 @@
 
             if($data[2] == 'password'){
 
-                $sql = "INSERT INTO chatbot (questions, answers)
+                $sql = "INSERT INTO chatbot (question, answer)
                 VALUES ('$data[0]', '$data[1]')";
 
 
@@ -55,7 +56,7 @@
         }
         
         echo json_encode([
-            'reply'=>  'working'
+            'results'=>  'working'
         ]);
         
     return ;
@@ -77,7 +78,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My Profile</title>
     <link  rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/><!-- RequireJS bootstrap file -->
-
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <style>
        body {
   font: 15px arial, sans-serif;
@@ -222,8 +223,8 @@ pre {
                   <p id="chatlog2" class="chatlog">&nbsp;</p>
                   <p id="chatlog1" class="chatlog">&nbsp;</p>
                   </div>
-                  <div><center><input style="width:170px" type="text" name="chat" id="chatbox" placeholder="chat here with me..." onfocus="placeHolder()"/></center>
-                  <button style="float: right" onclick = loadDoc()><i class="fas fa-paper-plane"></i></button></div>
+                  <div><input style="width:170px" type="text" name="chat" id="chatbox" placeholder="chat here with me..." onfocus="placeHolder()"/>
+                  <button style="float: right" onclick = loadDoc()><i class="fa fa-send-o fa-2x"></i></button></div>
                 
   </div>
     
@@ -266,7 +267,7 @@ pre {
             
             }
         };
-        xhttp.open("POST", "emem.php", true);
+        xhttp.open("POST", "/profiles/emem.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("message="+message.value);
     }
