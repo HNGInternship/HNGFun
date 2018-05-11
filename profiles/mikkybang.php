@@ -208,6 +208,7 @@ function isAbout($question){
     body {
         color: floralwhite;
         height: 100%;
+        padding-top: 10px;
     }
 
   img{
