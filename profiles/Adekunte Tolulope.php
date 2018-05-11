@@ -1,26 +1,13 @@
 <?php
-$localhost = 'localhost';
+$localhost = 'old.hng.fun';
 $user = 'root';
 $pass = '';
 $dbs = 'hng_fun';
 $diffAns ='';
 $db=mysqli_connect($localhost, $user, $pass, $dbs);
+require 'db.php';
 
-$result = $conn->query("SELECT * from secret_word LIMIT 1");
- $result = $result->fetch(PDO::FETCH_OBJ);
- $secret_word = $result->secret_word;
- $result2 = $conn->query("Select * from interns_data where username = 'Adekunte Tolulope'");
- $user = $result2->fetch(PDO::FETCH_OBJ);
 
-try {
-        $sql = 'SELECT * FROM secret_word';
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $data = $q->fetch();
-    } catch (PDOException $e) {
-        throw $e;
-    }
-    $secret_word = $data['secret_word'];
 
 if (isset($_POST['bot_r'])) {
 	$data = $_POST['bot_r'];
@@ -116,7 +103,7 @@ button:hover, a:hover {
 #Chatbot-holder{
 		position: fixed;
 		right:5px;
-		bottom:-340px;
+		bottom:-345px;
 		z-index: 4;
 		height:410px;
 		transition: 1s;
@@ -249,7 +236,7 @@ button:hover, a:hover {
 <div id="Chatbot-holder">
 	<div id="botImg">
 		
-		<img src="https://cdn3.iconfinder.com/data/icons/basic-mobile-part-3/512/robot_head-512.png">
+		<img src="http://pitdesk.com/vi/jkh/images/top-img.png">
 	</div>
 	<div id="content">
 		<div id="head">
