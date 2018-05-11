@@ -7,13 +7,6 @@ $diffAns ='';
 $db=mysqli_connect($localhost, $user, $pass, $dbs);
 
 
-
-try {
-       $db = "SELECT secret_word FROM secret_word LIMIT 1";;
-    } catch (PDOException $e) {
-        throw $e;
-    }
-
 if (isset($_POST['bot_r'])) {
 	$data = $_POST['bot_r'];
 
