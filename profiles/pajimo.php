@@ -1,44 +1,116 @@
 <?php
+// ob_start();
+session_start();
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+   if (!defined('DB_USER')) {
+      //live server
+      require "../../config.php";
+      //   localhost
+      // require "../config.example.php";
+      try {
+         $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+      } catch (PDOException $pe) {
+         echo ("🤖I couldn't connect to knowledge base : " . $pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
+      }
+   }
+   // require '../answers.php';
+   global $conn;
+
+   function train($question, $answer) {
+      $question = trim($question);
+      $answer = trim($answer);
+      if (store($question, $answer)) {
+         return "🤖 I just learnt something new, thanks to you 😎";
+      } else {
+         return "🤖 I'm sorry, An error occured while trying to store what i learnt 😔";
+      }
+   }
 
 
-if (!defined('DB_USER')){
-            
-  require "../../config.php";
+   function searchRequest($request) {
+      global $conn;
+      $statement = $conn->prepare("select answer from chatbot where question like :request order by rand()");
+      $statement->bindValue(':request', "%$request%");
+      $statement->execute();
+      $statement->setFetchMode(PDO::FETCH_ASSOC);
+      $rows = $statement->fetch();
+      $response = $rows['answer'];
+      if (!empty($response)):
+         $response = "🤖 " . $response;
+      endif;
+      //check for function
+      try {
+         if (preg_match('/(\(+[a-zA-Z_]+\))/', $response, $match)) {
+            $functionName = $match[0];
+            $functionName = str_replace('(', '', $functionName);
+            $functionName = str_replace(')', '', $functionName);
+            if (function_exists($functionName)) {
+               $response = str_replace($functionName, $functionName(), $response);
+               $response = str_replace('(', '', $response);
+               $response = str_replace(')', '', $response);
+            } else {
+               $response = "🤖 I'm sorry, The function doesn't exist";
+            }
+         }
+      } catch (Exception $ex) {
+         echo $ex->getMessage();
+      }
+      return $response;
+   }
+
+   function store($request, $response)
+   {
+      global $conn;
+      $statement = $conn->prepare("insert into chatbot (question, answer) values (:request, :response)");
+      $statement->bindValue(':request', $request);
+      $statement->bindValue(':response', $response);
+      $statement->execute();
+      if ($statement->execute()) {
+         return true;
+      } else {
+         return false;
+      }
+   }
+
+   if (isset($_POST['new_request'])) {
+      $bot_response['response'] = [];
+      $user_request = "";
+      $bot_response['response'] = "";
+      $request = $_POST['new_request'];
+      $user_request = trim($request);
+      if (empty($user_request)) {
+         $bot_response['response'] = "🤖 You haven't made any request";
+      } else {
+         if (!empty(searchRequest($user_request))) {
+            $bot_response['response'] = searchRequest($user_request);
+         } else if (preg_match("/(train:)/", $user_request)) {
+            $power_split = explode("#", $request);
+            $question = trim(preg_replace("/(train:)/", "", $power_split[0]));
+            $answer = trim($power_split[1]);
+            $password = trim($power_split[2]);
+
+            if ($password != "password") {
+               $bot_response['response'] = "🤖 Training Access Denied!";
+            } else {
+               $bot_response['response'] = train($question, $answer);
+            } 
+         }else {
+            $bot_response['response'] = "🤖 I  don't understand your request, I hope you wouldn't mind training me?";
+         }
+      }
+      send:
+      echo json_encode($bot_response);
+   }
 }
-try {
-  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-} catch (PDOException $pe) {
-  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
-
- global $conn;
-
- try {
-  $sql = 'SELECT * FROM secret_word LIMIT 1';
-  $q = $conn->query($sql);
-  $q->setFetchMode(PDO::FETCH_ASSOC);
-  $data = $q->fetch();
-  $secret_word = $data['secret_word'];
-} catch (PDOException $e) {
-  throw $e;
-}    
-try {
-  $sql = "SELECT * FROM interns_data WHERE `username` = 'pajimo' LIMIT 1";
-  $q = $conn->query($sql);
-  $q->setFetchMode(PDO::FETCH_ASSOC);
-  $my_data = $q->fetch();
-} catch (PDOException $e) {
-  throw $e;
-}
-
-
-
-?>
-
-
-
-
-
+if ($_SERVER['REQUEST_METHOD'] == "GET") {
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+   $result2 = $conn->query("Select * from interns_data where username = 'pajimo'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+}?>
+<?php if ($_SERVER['REQUEST_METHOD'] == "GET") {?>
+   
 <!DOCTYPE html>
 
   <style type="text/css">
@@ -193,33 +265,65 @@ try {
     top: 80px;
 }
         </style>
-<div style="width: 400px" id="child4">
-          <div class="panel">
+      <div class="bot round-corners">
+         <div class="inner">
+            <h2>Chat 🤖</h2>
+            <div id="chatarea" style="overflow: auto; height:300px; border:1px solid whitesmoke; border-radius:5px"></div>
+            <div class="input-group">
+               <input type="text" class="form-control" id="message" type="text" placeholder="Message" name="newrequest" />
+               <div class="input-group-btn">
+                  <button class="btn btn-success pull-right" id="send" type="button">Send 💬</button>
+               </div>
+            </div>
+         </div>
+      </div>
+         
+         <div style="width: 400px" id="child4" class = "bot round-corners">
+          <div class="panel inner">
               <div>
-                <p style="overflow: scroll; height: 250px; width: 100%; margin: 0px;" id="textbox"></p>
-                <input type="checkbox" id="click"><label>Click to send using enter</label><br/>
-                <input type="text" name="" style="width: 80%; height: 24px;" id="text">
-                <button style="position: absolute; width: 19%; height: 30px" id="send">Send</button>
+                <p style="overflow: scroll; height: 250px; width: 100%; margin: 0px;" id="chatarea"></p>
+                <input type="text" name="" style="width: 80%; height: 24px;" id="message">
+                <button style="position: absolute; width: 19%; height: 30px" id="send">Send4</button>
               </div>
           </div>
           <p class="slide"><div class="pull-me" style="text-align: center">Chat with me</div></p>
         </div>
-        
-      </div>
-    </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script type="text/javascript">
+  
+</body>
 
-          function chatbot() {
-            $("#textbox").append("<p> Chatbot: Hello what can i do for you?" );
-          }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
 
+function newElementsForUser(userRequest) {
+   var chatArea = $("#chatarea");
+   var messageElement = "<div class='form-control form-control2 text-right'>" + userRequest + "</div>";
+   chatArea.html(chatArea.html() + messageElement);
+   var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
+   var timeElement = "<p class='timeEl text-right'>" + time + "</p>";
+   chatArea.html(chatArea.html() + timeElement);
+   chatArea.scrollTop($("#chatarea")[0].scrollHeight);
+}
 
-          $(document).ready(function() {
+function newElementsForBot(botResponse) {
+   var chatArea = $("#chatarea");
+   if (botResponse.response.resultType == "find") {
+      var messageElement = "<div class='form-control form-control2 text-left'>Intern ID => " + botResponse.response.users.intern_id + "<br/>Name => " + botResponse.response.users.name + "<br/>Intern Username => " + botResponse.response.users.username + "<br/>Intern Profile Picture => " + botResponse.response.users.image_filename + "</div>";
+   } else { 
+      var messageElement = "<div class='form-control form-control2 text-left'>" + botResponse.response + "</div>";
+   }
+   chatArea.html(chatArea.html() + messageElement);
+   var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true , milliseconds: true});
+   var timeElement = "<p class='timeEl text-left'>" + time + "</p>";
+   chatArea.html(chatArea.html() + timeElement);
+   chatArea.scrollTop($("#chatarea")[0].scrollHeight);
+}
 
-chatbot();
-
-var username = "You: "
+$(document).ready(function() {
+   response = {"response" : "Hello..<br/> You can ask me few questions<br/> To train the bot(train: question # answer # password)"};
+   newElementsForBot(response);
+});
+   
+   $(document).ready(function() {
 
   $(".pull-me").click(function() {
 
@@ -227,106 +331,52 @@ var username = "You: "
   });
 
 
-  $("#send").click(function(){
-    var txt = $("#text").val();
-
-    $("#textbox").append("<p> " + username + txt + "</p>");
-    $("#text").val(" ");
-  })
-
-  $("#text").keypress(function(e) {
-
-    if (e.which == 13){
-      if ($("#click").prop("checked") ) {
-        var txt = $("#text").val();
-        $("#textbox").append("<p> " + username + txt + "</p>");
-        $("#textbox").scrollTop($("#textbox").prop("scrollHeight"));
-        $("#text").val(" ");
-      }
-    }
-  })
 });
-        </script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.js"></script>
-    <script type="text/javascript">/**
- * @license
- * Copyright (c) 2014, 2018, Oracle and/or its affiliates.
- * The Universal Permissive License (UPL), Version 1.0
- */
-'use strict';
 
-/**
- * Example of Require.js boostrap javascript
- */
-
-requirejs.config(
-{
-  baseUrl: 'js',
-
-  // Path mappings for the logical module names
-  // Update the main-release-paths.json for release mode when updating the mappings
-  paths:
-  //injector:mainReleasePaths
-  {
-    'knockout': 'libs/knockout/knockout-3.4.2.debug',
-    'jquery': 'libs/jquery/jquery-3.3.1',
-    'jqueryui-amd': 'libs/jquery/jqueryui-amd-1.12.1',
-    'promise': 'libs/es6-promise/es6-promise',
-    'hammerjs': 'libs/hammer/hammer-2.0.8',
-    'ojdnd': 'libs/dnd-polyfill/dnd-polyfill-1.0.0',
-    'ojs': 'libs/oj/v5.0.0/debug',
-    'ojL10n': 'libs/oj/v5.0.0/ojL10n',
-    'ojtranslations': 'libs/oj/v5.0.0/resources',
-    'text': 'libs/require/text',
-    'signals': 'libs/js-signals/signals',
-    'customElements': 'libs/webcomponents/custom-elements.min',
-    'proj4': 'libs/proj4js/dist/proj4-src',
-    'css': 'libs/require-css/css',
-  }
-  //endinjector
-  ,
-  // Shim configurations for modules that do not expose AMD
-  shim:
-  {
-    'jquery':
-    {
-      exports: ['jQuery', '$']
-    }
-  }
-}
-);
-
-/**
- * A top-level require call executed by the Application.
- * Although 'ojcore' and 'knockout' would be loaded in any case (they are specified as dependencies
- * by the modules themselves), we are listing them explicitly to get the references to the 'oj' and 'ko'
- * objects in the callback
- */
-require(['ojs/ojcore', 'knockout', 'appController', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtoolbar', 'ojs/ojmenu'],
-  function (oj, ko, app) { // this callback gets executed when all required modules are loaded
-    
-    $(function() {
-      
-      function init() {
-        // Bind your ViewModel for the content of the whole page body.
-        ko.applyBindings(app, document.getElementById('globalBody'));
-      }
-
-      // If running in a hybrid (e.g. Cordova) environment, we need to wait for the deviceready 
-      // event before executing any code that might interact with Cordova APIs or plugins.
-      if ($(document.body).hasClass('oj-hybrid')) {
-        document.addEventListener("deviceready", init);
+$(document).ready(function chargeBot() {
+   $("#send").click(function () {
+      var message = $("#message").val();
+      newElementsForUser(message);
+      if (message == "" || message == null) {
+         response = { 'response': 'Please type something' };
+         newElementsForBot(response);
+      }else if (message.includes('open:')) {
+         url = message.split('open:');
+         window.open('http://' + url[1]);
+      } else if (message.includes("randomquote:") || message.includes("random quotes:")) {
+         $.getJSON("https://talaikis.com/api/quotes/random/", function (json) {
+            response = json['quote'] + '<br/> Author : ' + json['author'];
+            botResponse = { 'response': response };
+            newElementsForBot(botResponse);
+         });
+         $("#chatarea").scrollTop($("#chatarea")[0].scrollHeight);
+      } else if (message.includes("aboutbot") || message.includes("about bot") || message.includes("aboutbot:")) {
+         response = { 'response': 'Version 4.0' };
+         newElementsForBot(response);
       } else {
-        init();
+         $.ajax({
+            url: "profiles/eniayomi.php",
+            type: "POST",
+            data: { new_request: message },
+            dataType: "json",
+            success: function (botResponse) {
+               newElementsForBot(botResponse);
+            }
+         });
       }
+      $("#message").val("");
+   });
+});
 
-    });
+document.body.addEventListener('keyup', function (e) {
+   if (e.keyCode == "13") {
+      $("#send").click();
+   }
+});
 
-    
-
-  }
-);</script>
-
-  </body>
+</script>
 
 </html>
+
+<?php }?>
+
