@@ -5,30 +5,10 @@ $pass = '';
 $dbs = 'hng_fun';
 $diffAns ='';
 $db=mysqli_connect($localhost, $user, $pass, $dbs);
-if (!$db){
-echo 'old bad';
-	mysqli_error($db);
-}
+require 'db.php';
 
-$localhost2 = 'localhost';
-$user2 = 'root';
-$pass2 = '';
-$dbs2 = 'hng_fun';
-$db2=mysqli_connect($localhost2, $user2, $pass2, $dbs2);
-if (!$db2){
-echo 'local bad';
-	mysqli_error($db2);
-}
 
-$localhost3 = 'hng.fun';
-$user3 = 'root';
-$pass3 = '';
-$dbs3 = 'hng_fun';
-$db3=mysqli_connect($localhost3, $user3, $pass3, $dbs3);
-if (!$db3){
-echo 'hng bad';
-	mysqli_error($db3);
-}
+
 if (isset($_POST['bot_r'])) {
 	$data = $_POST['bot_r'];
 
