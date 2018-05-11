@@ -201,7 +201,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     height: 90%;
     width: 400px;
     float: right;
-    margin-top: 20%;
+    margin-top: 10%;
     margin-left: 5%;
   }
   .padedd{
@@ -278,11 +278,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
    </div>
    <div id="bbb" class="chat" height="500px;">
       <div><h1 class="text-center"> My ChatBot</h1></div>
-        <div id="mchats">
           <div id="chats">
        <p id ='botresponse'>VEER : Hello I'm VEER, to train me type: train: question#response#password </p>
-        </div>
-
         </div>  
          <form class="padedd" methood="post" id="formm">
       <input type="text" placeholder="message" name="question"><button id="send" name="send">Send</button>
