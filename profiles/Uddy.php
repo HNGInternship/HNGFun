@@ -19,7 +19,7 @@
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
             //die('Hi');
-            $conn = new mysqli( DB_HOST, DB_USER , DB_PASSWORD, DB_DATABASE);
+            $conn = new mysqli('localhost', 'root', '', 'hng_fun');
             
             if(!$conn){
                 die('Unable to connect');
@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $pos = strpos($question, 'train:');
     
             if($pos === false){
-                $sql = "SELECT answer FROM chatbot WHERE question like '$question' ";
+                $sql = "SELECT answers FROM chatbot WHERE questions like '$question' ";
                 $query = $conn->query($sql);
                 if($query){
                     echo json_encode([
@@ -45,7 +45,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
                 if($data[2] == 'password'){
     
-                    $sql = "INSERT INTO chatbot (question, answer)
+                    $sql = "INSERT INTO chatbot (questions, answers)
                     VALUES ('$data[0]', '$data[1]')";
     
     
@@ -72,7 +72,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             }
             
             echo json_encode([
-                'result'=>  'working'
+                'reply'=>  'working'
             ]);
             
         return ;
@@ -114,7 +114,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
     .butty{
         background-color:#464d91;
-        color:white;
+        color:#fff;
         border-color:#464d91;
         font-size:20px;
     }
@@ -209,7 +209,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     chatarea.append(pp)
                 }
                 
-                }
+                } 
             };
             xhttp.open("POST", "Uddy.php", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
