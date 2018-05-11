@@ -27,8 +27,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 $response = getAbout();
             }elseif(isHelp($question) !== false){
                 $response = isHelp($question);
-            }elseif(isCalculation($question) !== false){
-                $response = calculate($question);
             }else{
                 $response = getAnswer($conn, $question);
             }
@@ -67,9 +65,9 @@ function saveQuestion($conn, $data){
                 try{
                     $sql = "INSERT INTO chatbot (question, answer) VALUES ('" . $question . "', '" . $answer . "')";
                     $conn->exec($sql);
-                    $answer = "Training Successful! I am now more intelligent now. Thanks for that";
+                    $answer = "Training Successful!. Thanks for that";
                 }catch(PDOException $err){
-                    $answer = "Ooops Training Failed! Something went wrong. Try Again. type '--help' for more info";
+                    $answer = "Training Failed! Something went wrong. Try Again. type 'help' for more info";
                 }
             }else{
                 $answer = "Answer provided for the training already existed. You can provide an alternative answer";
@@ -78,7 +76,7 @@ function saveQuestion($conn, $data){
             $answer = "Password Incorrect, try again";
         }
     }else{
-        $answer = "You do not have permission to train me. Include password to train. For more info type '--help'";
+        $answer = "You cannot train me. Include password to train. For more info type '--help'";
     }
 
     $status = 1;
@@ -122,7 +120,7 @@ function getAnswer($conn, $question){
             $answer = $answer_arr[$rand];
             $answer = $answer['answer'];
         }else{
-            $answer = "I don't understand what you are asking. You can train me to become more intelligent";
+            $answer = "I don't have the answers to what you are asking. You can train me to become better";
             $answer .= "Train me by typing; 'train: your question # your answer # password'";
         }
         
@@ -138,104 +136,10 @@ function getAnswer($conn, $question){
 
 }
 
-function isCalculation($question){
 
-    if(strpos($question, 'sum:') !== false || strpos($question, 'sum(') !== false){
-        return true;
-    }elseif(strpos($question, 'subtract:') !== false || strpos($question, 'subtract(') !== false){
-        return true;
-    }elseif(strpos($question, 'multiply:') !== false || strpos($question, 'multiply(') !== false){
-        return true;
-    }elseif(strpos($question, 'divide:') !== false || strpos($question, 'divide(') !== false){
-        return true;
-    }
-
-    return false;
-}
-
-function calculate($question){
-    $func = getCalcFunction($question);
-    $num_arr = getNumbersArray($func, $question);
-    $total = 0;
-    switch($func){
-        case 'sum':
-            for($i = 0; $i < count($num_arr); $i++){
-                $total += $num_arr[$i];
-            }
-            break;
-        case 'subtract':
-            for($i = 0; $i < count($num_arr); $i++){
-                if($i == 0){
-                    $total = $num_arr[0];
-                }else{
-                    $total -= $num_arr[$i];
-                }
-                
-            }
-            break;
-        case 'multiply':
-            for($i = 0; $i < count($num_arr); $i++){
-                if($i == 0){
-                    $total = $num_arr[0];
-                }else{
-                    $total *= $num_arr[$i];
-                }
-                
-            }
-            break;
-        case 'divide':
-            for($i = 0; $i < count($num_arr); $i++){
-                if($i == 0){
-                    $total = $num_arr[0];
-                }else{
-                    $total /= $num_arr[$i];
-                }
-                
-            }
-            break;
-             
-    }
-
-    $status = 1;
-
-    return json_encode([
-                'status' => $status,
-                'answer' => 'The result is ' . $total
-            ]);
-}
-
-function getCalcFunction($question){
-    if(strpos($question, 'sum:') !== false || strpos($question, 'sum(') !== false){
-        $func = 'sum';
-    }elseif(strpos($question, 'subtract:') !== false || strpos($question, 'subtract(') !== false){
-        $func = 'subtract';
-    }elseif(strpos($question, 'multiply:') !== false || strpos($question, 'multiply(') !== false){
-        $func = 'multiply';
-    }elseif(strpos($question, 'divide:') !== false || strpos($question, 'divide(') !== false){
-        $func = 'divide';
-    }
-
-    return $func;
-
-}
-
-
-function getNumbersArray($func, $question){
-    $num_arr = [];
-    if(strpos($question, $func . ':') !== false){
-        $question_arr = explode(':', $question);
-        $num_arr = explode(',', $question_arr[1]);
-    }elseif(strpos($question, $func . '(') !== false){
-        $question_arr = explode('(', $question);
-        $num_arr_init = trim($question_arr[1], ')');
-        $num_arr = explode(',', $num_arr_init);
-    }
-
-    return $num_arr;
-}
 
 function isAbout($question){
-    if($question == 'aboutbot'){
+    if($question == 'about'){
         return true;
     }
 
@@ -244,7 +148,7 @@ function isAbout($question){
 
 function getAbout(){
     $status = 1;
-    $answer = "I am geniusBot. Version 1.0";
+    $answer = "I am mikkyBot. Version 1.0.0";
 
     return json_encode([
                 'status' => $status,
@@ -253,16 +157,11 @@ function getAbout(){
 }
 
 function isHelp($question){
-    if($question == '--help'){
+    if($question == 'help'){
         $status = 1;
         $answer = "You can ask me any question. If i am unable to respond, there is an option to train me. ";
         $answer .= "To train me use; 'train: your question # your answer # password'. ";
         $answer .= "Password = 'password'. ";
-        $answer .= "Also, I can do basic arithmetic such as addition, subtraction, multiplication and division. ";
-        $answer .= "For Addition use; 'sum: 1,2,3,..'  or  'sum(1,2,3,..)'. ";
-        $answer .= "For Subtraction use; 'subtract: 1,2,3,..'  or  'subtract(1,2,3,..)'. ";
-        $answer .= "For Multiplication use; 'multiply: 1,2,3,..'  or  'multiply(1,2,3,..)'. ";
-        $answer .= "For Division use; 'divide: 1,2,3,..'  or  'divide(1,2,3,..)'.";
 
         return json_encode([
             'status' => $status,
@@ -479,7 +378,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
          
             <h2>Hi welcome to my page </br></br>
-                I am <?php echo $result["name"]; ?> </h2>
+                I am <?php echo $data["name"]; ?> </h2>
         </br>
         <h3>I am a Technology Enthusiast and a Computer Engineering student...</h3>
 
@@ -520,10 +419,10 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
             $('.chatbot-head').click(function(){
                 $('.chat-message').toggle('slow', function(){
                     var botVersion = '<div class="bot">Bot:</div>';
-                    botVersion += '<div class="bot-msg">I am geniusBot. <br>I am here to help you</div>';
-                    botVersion += '<div class="bot-msg">Ask me any question</div>';
-                    botVersion += '<div class="bot-msg">To find out more about me type <strong>aboutbot</strong></div>';
-                    botVersion += '<div class="bot-msg">For help on how to use me type <br><strong>--help</strong></div>';
+                    botVersion += '<div class="bot-msg">I am mikkyBot. <br>I am here to help you</div>';
+                    botVersion += '<div class="bot-msg">Ask me anything</div>';
+                    botVersion += '<div class="bot-msg">To find out more about me type <strong>about</strong></div>';
+                    botVersion += '<div class="bot-msg">For help on how to use me type <br><strong>help</strong></div>';
                     $('.messages').html(botVersion);
                                     
                 });
