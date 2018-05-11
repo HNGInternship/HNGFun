@@ -1,37 +1,22 @@
 <?php
+// ob_start();
+session_start();
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+   if (!defined('DB_USER')) {
+      //live server
+      require "../../config.php";
+      //   localhost
+      // require "../config.example.php";
+      try {
+         $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+      } catch (PDOException $pe) {
+         echo ("🤖I couldn't connect to knowledge base : " . $pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
+      }
+   }
+   // require '../answers.php';
+   global $conn;
 
-
-if (!defined('DB_USER')){
-            
-  require "../../config.php";
-}
-try {
-  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-} catch (PDOException $pe) {
-  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
-
- global $conn;
-
- try {
-  $sql = 'SELECT * FROM secret_word LIMIT 1';
-  $q = $conn->query($sql);
-  $q->setFetchMode(PDO::FETCH_ASSOC);
-  $data = $q->fetch();
-  $secret_word = $data['secret_word'];
-} catch (PDOException $e) {
-  throw $e;
-}    
-try {
-  $sql = "SELECT * FROM interns_data WHERE `username` = 'pajimo' LIMIT 1";
-  $q = $conn->query($sql);
-  $q->setFetchMode(PDO::FETCH_ASSOC);
-  $my_data = $q->fetch();
-} catch (PDOException $e) {
-  throw $e;
-}
-
-function train($question, $answer) {
+   function train($question, $answer) {
       $question = trim($question);
       $answer = trim($answer);
       if (store($question, $answer)) {
@@ -40,6 +25,7 @@ function train($question, $answer) {
          return "🤖 I'm sorry, An error occured while trying to store what i learnt 😔";
       }
    }
+
    function findThisPerson($user) {
       global $conn;
       $statement = $conn->prepare("select * from interns_data where username like :user or name like :user limit 1");
@@ -49,6 +35,7 @@ function train($question, $answer) {
       $rows = $statement->fetchObject();
       return $rows;
    }
+
    function searchRequest($request) {
       global $conn;
       $statement = $conn->prepare("select answer from chatbot where question like :request order by rand()");
@@ -79,6 +66,7 @@ function train($question, $answer) {
       }
       return $response;
    }
+
    function store($request, $response)
    {
       global $conn;
@@ -92,6 +80,7 @@ function train($question, $answer) {
          return false;
       }
    }
+
    if (isset($_POST['new_request'])) {
       $bot_response['response'] = [];
       $user_request = "";
@@ -108,18 +97,22 @@ function train($question, $answer) {
             $question = trim(preg_replace("/(train:)/", "", $power_split[0]));
             $answer = trim($power_split[1]);
             $password = trim($power_split[2]);
+
             if ($password != "password") {
                $bot_response['response'] = "🤖 Training Access Denied!";
             } else {
                $bot_response['response'] = train($question, $answer);
             }
+
          } else if (preg_match('/(find:)/', $request)) {
             $ex = explode("find:", $request);
+
             if (!empty($users = findThisPerson($ex[1]))) {
                $bot_response['response'] = array('resultType' => 'find', 'users' => $users);
             } else {
                $bot_response['response'] = "🤖 I couldn't find a user by that username or name";
             }
+
          } else {
             $bot_response['response'] = "🤖 I  don't understand your request, I hope you wouldn't mind training me?";
          }
@@ -127,206 +120,143 @@ function train($question, $answer) {
       send:
       echo json_encode($bot_response);
    }
-
-
-?>
+}
+if ($_SERVER['REQUEST_METHOD'] == "GET") {
+   $result = $conn->query("Select * from secret_word LIMIT 1");
+   $result = $result->fetch(PDO::FETCH_OBJ);
+   $secret_word = $result->secret_word;
+   $result2 = $conn->query("Select * from interns_data where username = 'eniayomi'");
+   $user = $result2->fetch(PDO::FETCH_OBJ);
+}?>
 <?php if ($_SERVER['REQUEST_METHOD'] == "GET") {?>
-
-
-
-
-
-
-<!DOCTYPE html>
-
-  <style type="text/css">
-    #globalBody{
-      width: 70%;
-      margin: 0 auto;
-    }
-    #begin{
-      background-image:url(https://images.unsplash.com/photo-1499428665502-503f6c608263);
-  background-size: cover;
-  background-position: center;
-    }
-    #first_lare{
-      padding-top: 15%;
-  padding-left: 25%;
-  padding-right: 25%;
-  padding-bottom: 10%;
-  text-align: center;
-  font-size: 24px;
-  text-transform: uppercase;
-  font-weight: 700;
-    }
-    .oj-flex-item{
-      font-size: 20px;
-      color: grey
-    }
-    .oj-flex-items-pad{
+   <style>
+   body {
+      background: #DAE3E7;
+      padding: 10px;
+      /* border: 25px solid; */
+      font-family: 'Lato', arial, sans-serif;
+      margin: 20px;
+   }
+   a{
+      color: #434343;
+   }
+   #top {
+      background-color: #DAE3E7;
+      background: white;
+      height: 35%;
+      margin: 20px;
+      border-radius: 20px;
+   }
+   #intro{
+      margin: 29px;
+      display: block;
+      font-size: 16px;
+      padding: 20px;
+   }
+   h1{
+      color: #434343;
+      font-size: 38px;
+      margin-bottom: 5px;
+      margin-top: 30px;
+      padding-top: 10px;
+      font-family: 'Montserrat', sans-serif;
+   }
+   h2{
+      color: #778492;
+      font-size: 26px
+   }
+   img {
+      border-radius: 50%;
+      float: left;
+      width: 15%;
+      margin: 15px;
+   }
+   li{
+      padding-right: 25px;
+      margin-right: 9px;
+      list-style: none;
+      display: inline;
+      font-size: 30px;
+      padding-top: 10px;
+      border-radius: 50%;
+      color: #fff;
       text-align: center;
-    }
-  </style>
-<html lang="en-us">
-  <head>
-    <title>Olamide</title>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
-    <meta http-equiv="x-ua-compatible" content="IE=edge">
-    <meta name="apple-mobile-web-app-title" content="Oracle JET">
-    
-
-    <!-- This is the main css file for the default Alta theme -->
-    <!-- injector:theme -->
-    
-    <!-- endinjector -->
-    <!-- This contains icon fonts used by the starter template -->
-    <link rel="stylesheet" href="css/demo-alta-site-min.css" type="text/css"/>
-
-    <!-- This is where you would add any app specific styling -->
-    <link rel="stylesheet" href="css/app.css" type="text/css"/>
-
-  </head>
-  <body class="oj-web-applayout-body">
-    <div id="globalBody" class="oj-web-applayout-page">
-      <!--
-         ** Oracle JET V5.0.0 web application header pattern.
-         ** Please see the demos under Cookbook/Patterns/App Shell: Web
-         ** and the CSS documentation under Support/API Docs/Non-Component Styling
-         ** on the JET website for more information on how to use this pattern.
-      -->
-      <header role="banner" class="oj-web-applayout-header" style="background-color: darkblue">
-        <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
-          <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
-            
-            <h1 class="oj-sm-only-hide oj-web-applayout-header-title" title="Application Name" style="font-weight: bold; font-size: 25px">Olamide's Portfoilio</h1>
-          </div>
-          <div class="oj-flex-bar-end">
-            <!-- Responsive Toolbar -->
-            <oj-toolbar>
-              <oj-menu-button id="userMenu" display="[[smScreen() ? 'icons' : 'all']]" chroming="half">
-                <span style="font-weight: bold">Contact</span>
-                <span slot="endIcon" :class="[[{'oj-icon demo-appheader-avatar': smScreen(), 'oj-component-icon oj-button-menu-dropdown-icon': !smScreen()}]]"></span>
-                <oj-menu id="menu1" slot="menu" style="display:none">
-                  <oj-option id="pref" value="pref"><a href="https://medium.com/olamidefaniyan" target ="_blank">Medium</a></oj-option>
-                  <oj-option id="help" value="help"><a href="https://twitter.com/Farry_ola" style="padding-top: 0px;" target ="_blank">Twitter</a></oj-option>
-                  <oj-option id="about" value="about"><a href="https://instagram.com/olamidefaniyan_" target ="_blank">Instagram</a></oj-option>
-                  <oj-option id="out" value="out"><a href="https://github.com/Pajimo" target ="_blank">Github</a></oj-option>
-                </oj-menu>
-              </oj-menu-button>
-            </oj-toolbar>
-          </div>
-        </div>
-      </header>
-      <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content" style="padding-top: 0">
-        <div id="begin">
-          <div id="first_lare">
-            <span role="img" title="Olamide" alt="Olamide"><img class="img-responsive" id="bobo" src="https://avatars3.githubusercontent.com/u/20623732?s=460&v=4" style="width: 300px; height: 300px; border-radius: 100px;"/></span>
-            <h1 style="color: blue; font-weight: bold">HI, I'M Olamide Faniyan<br/> A Software Developer/ Designer</h1>
-          </div>
-          <h4 align="center" style="color: grey; font-weight: bold; font-size: 25px">My Skills</h4>
-          <div class="demo-flex-display oj-flex-items-pad">
-            <div class="oj-flex">
-              <div class="oj-flex-item">Html/Css</div>
-              <div class="oj-flex-item">PHP</div>
-              <div class="oj-flex-item">Javascript/jquery</div>
-              <div class="oj-flex-item">Bootstrap</div>
-            </div>
-            
-            <div class="oj-flex"
-                 data-bind="css: {'oj-sm-flex-wrap-nowrap': nowrap()}">
-              <div class="oj-flex-item">Figma</div>
-              <div class="oj-flex-item">Git</div>
-              <div class="oj-flex-item">Oraclejet</div>
-              <div class="oj-flex-item">Node.js</div>
-            </div>
-          </div>
-        
-        </div>
-        <style type="text/css">
-          .pull-me{
-    -webkit-box-shadow: 0 0 8px #FFD700;
-    -moz-box-shadow: 0 0 8px #FFD700;
-    box-shadow: 0 0 8px #FFD700;
-    cursor:pointer;
-}
-.panel {
-  background: #ffffbd;
-    background-size:90% 90%;
-    height:300px;
-  display:none;
-    font-family:garamond,times-new-roman,serif;
-}
-.panel p{
-    
-}
-.slide {
-  margin:0;
-  padding:0;
-  border-top:solid 2px #cc0000;
-  text-align: center
-}
-.pull-me {
-  display:block;
-    position:relative;
-    right:-25px;
-    width:150px;
-    height:20px;
-  font-family:arial,sans-serif;
-    font-size:14px;
-  color:#ffffff;
-    background:#cc0000;
-  text-decoration:none;
-    -moz-border-bottom-left-radius:5px;
-    -moz-border-bottom-right-radius:5px;
-    border-bottom-left-radius:5px;
-    border-bottom-right-radius:5px;
-}
-.pull-me p {
-    text-align:center;
-}
-#child4 {
-    position: absolute;
-    top: 80px;
-}
-        </style>
-<div style="width: 400px" id="child4">
-          <div class="panel">
-              <div>
-                <p style="overflow: scroll; height: 250px; width: 100%; margin: 0px;" id="textbox"></p>
-                <input type="checkbox" id="click"><label>Click to send using enter</label><br/>
-                <input type="text" name="" style="width: 80%; height: 24px;" id="text">
-                <button style="position: absolute; width: 19%; height: 30px" id="send">Send</button>
-              </div>
-          </div>
-          <p class="slide"><div class="pull-me" style="text-align: center">Chat with me</div></p>
-        </div>
-        
+   }
+   .round-corners{
+      border-radius: 20px;
+      /* background-color: #DAE3E7; */
+      background: white;
+      margin: 20px;
+   }
+   .inner{
+      padding: 20px;
+   }
+   #id{
+      border:2px black;
+   }
+   p,i,li{
+      font-family:'Lato', arial, sans-serif;
+   }
+   #all_content{
+      padding-top:21px
+   }
+   .form-control2{
+      margin-bottom:20px;
+   }
+   .timeEl{color:#495057;font-size:12px}
+</style>
+<!DOCTYPE HTML5>
+<head>
+   <link href='https://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic' rel='stylesheet' type='text/css' />
+   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+   <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css' />
+</head>
+<html>
+<body>
+   <div id="all_content">
+      <div id="top">
+         <img src="http://res.cloudinary.com/eniayomi/image/upload/v1524007065/pe.png" alt="Oluwaseyi Oluwapelumi">
+         <div id="intro">
+            <h1><?php echo $user->name; ?></h1>
+            <h2 style="text-align:left">Backend Developer</h2>
+            <ul class="list-inline">
+               <li><a target="_blank" title="Twitter" href="https://twitter.com/techteel"><i class="fa fa-twitter"></i></a></li>
+               <li><a target="_blank" title="Github/eniayomi" href="https://github.com/eniayomi"><i class="fa fa-github-alt"></i></a></li>
+               <li><a style="font-size:20px;" class="btn btn-cta-primary pull-right" href="mailto:nathanoluwaseyi@gmail.com" target="_blank"><i class="fa fa-paper-plane"></i> Contact Me</a></li>
+            </ul>
+         </div>
       </div>
-    </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script type="text/javascript">
+      <div class="round-corners">
+         <div style="font-size: 17px" class="inner">
+            <h2>About Me</h2>
+            <p>Frontend Developer, Java && MySQL. Currently learning core JavaScript.</p>
+            <p>The things i like aren't so much: #peace #solitude #mylaptop</p>
+         </div>
+      </div>
+      <div class="bot round-corners">
+         <div class="inner">
+            <h2>Eniayomi's Bot 🤖</h2>
+            <div id="chatarea" style="overflow: auto; height:300px; border:1px solid whitesmoke; border-radius:5px"></div>
+            <div class="input-group">
+               <input type="text" class="form-control" id="message" type="text" placeholder="Message" name="newrequest" />
+               <div class="input-group-btn">
+                  <button class="btn btn-success pull-right" id="send" type="button">Send 💬</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<footer style="margin-bottom:0px; text-align:center; padding-top:25px;" id="footer">
+   <p>Eniayomi @ 2018 HNG</p>
+</footer>
+</body>
 
-          function chatbot() {
-            $("#textbox").append("<p> Chatbot: Hello what can i do for you?" );
-          }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
 
-
-          $(document).ready(function() {
-
-chatbot();
-
-var username = "You: "
-
-  $(".pull-me").click(function() {
-
-    $(".panel").slideToggle('slow')
-  });
-});
-
-          function newElementsForUser(userRequest) {
-   var chatArea = $("#textbox");
+function newElementsForUser(userRequest) {
+   var chatArea = $("#chatarea");
    var messageElement = "<div class='form-control form-control2 text-right'>" + userRequest + "</div>";
    chatArea.html(chatArea.html() + messageElement);
    var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
@@ -334,8 +264,9 @@ var username = "You: "
    chatArea.html(chatArea.html() + timeElement);
    chatArea.scrollTop($("#chatarea")[0].scrollHeight);
 }
+
 function newElementsForBot(botResponse) {
-   var chatArea = $("#textbox");
+   var chatArea = $("#chatarea");
    if (botResponse.response.resultType == "find") {
       var messageElement = "<div class='form-control form-control2 text-left'>Intern ID => " + botResponse.response.users.intern_id + "<br/>Name => " + botResponse.response.users.name + "<br/>Intern Username => " + botResponse.response.users.username + "<br/>Intern Profile Picture => " + botResponse.response.users.image_filename + "</div>";
    } else { 
@@ -347,13 +278,15 @@ function newElementsForBot(botResponse) {
    chatArea.html(chatArea.html() + timeElement);
    chatArea.scrollTop($("#chatarea")[0].scrollHeight);
 }
+
 $(document).ready(function() {
    response = {"response" : "Hello there, I'm eniayomi Bot.<br/>Here's a couple of things i can do.<br/> 1. You can ask me anything<br/>2. You can find a friend who's in the dope HNGInternship<br/>syntax : find: username or find: name<br/>3. To train the bot(train: question # answer # password)"};
    newElementsForBot(response);
 });
+
 $(document).ready(function chargeBot() {
    $("#send").click(function () {
-      var message = $("#text").val();
+      var message = $("#message").val();
       newElementsForUser(message);
       if (message == "" || message == null) {
          response = { 'response': 'Please type something' };
@@ -367,13 +300,13 @@ $(document).ready(function chargeBot() {
             botResponse = { 'response': response };
             newElementsForBot(botResponse);
          });
-         $("#textbox").scrollTop($("#textbox")[0].scrollHeight);
+         $("#chatarea").scrollTop($("#chatarea")[0].scrollHeight);
       } else if (message.includes("aboutbot") || message.includes("about bot") || message.includes("aboutbot:")) {
          response = { 'response': 'Version 4.0' };
          newElementsForBot(response);
       } else {
          $.ajax({
-            url: "profiles/pajimo.php",
+            url: "profiles/eniayomi.php",
             type: "POST",
             data: { new_request: message },
             dataType: "json",
@@ -382,94 +315,19 @@ $(document).ready(function chargeBot() {
             }
          });
       }
-      $("#text").val("");
+      $("#message").val("");
    });
 });
+
 document.body.addEventListener('keyup', function (e) {
    if (e.keyCode == "13") {
       $("#send").click();
    }
 });
-        </script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.js"></script>
-    <script type="text/javascript">/**
- * @license
- * Copyright (c) 2014, 2018, Oracle and/or its affiliates.
- * The Universal Permissive License (UPL), Version 1.0
- */
-'use strict';
 
-/**
- * Example of Require.js boostrap javascript
- */
+</script>
 
-requirejs.config(
-{
-  baseUrl: 'js',
+</html>
 
-  // Path mappings for the logical module names
-  // Update the main-release-paths.json for release mode when updating the mappings
-  paths:
-  //injector:mainReleasePaths
-  {
-    'knockout': 'libs/knockout/knockout-3.4.2.debug',
-    'jquery': 'libs/jquery/jquery-3.3.1',
-    'jqueryui-amd': 'libs/jquery/jqueryui-amd-1.12.1',
-    'promise': 'libs/es6-promise/es6-promise',
-    'hammerjs': 'libs/hammer/hammer-2.0.8',
-    'ojdnd': 'libs/dnd-polyfill/dnd-polyfill-1.0.0',
-    'ojs': 'libs/oj/v5.0.0/debug',
-    'ojL10n': 'libs/oj/v5.0.0/ojL10n',
-    'ojtranslations': 'libs/oj/v5.0.0/resources',
-    'text': 'libs/require/text',
-    'signals': 'libs/js-signals/signals',
-    'customElements': 'libs/webcomponents/custom-elements.min',
-    'proj4': 'libs/proj4js/dist/proj4-src',
-    'css': 'libs/require-css/css',
-  }
-  //endinjector
-  ,
-  // Shim configurations for modules that do not expose AMD
-  shim:
-  {
-    'jquery':
-    {
-      exports: ['jQuery', '$']
-    }
-  }
-}
-);
-
-/**
- * A top-level require call executed by the Application.
- * Although 'ojcore' and 'knockout' would be loaded in any case (they are specified as dependencies
- * by the modules themselves), we are listing them explicitly to get the references to the 'oj' and 'ko'
- * objects in the callback
- */
-require(['ojs/ojcore', 'knockout', 'appController', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtoolbar', 'ojs/ojmenu'],
-  function (oj, ko, app) { // this callback gets executed when all required modules are loaded
-    
-    $(function() {
-      
-      function init() {
-        // Bind your ViewModel for the content of the whole page body.
-        ko.applyBindings(app, document.getElementById('globalBody'));
-      }
-
-      // If running in a hybrid (e.g. Cordova) environment, we need to wait for the deviceready 
-      // event before executing any code that might interact with Cordova APIs or plugins.
-      if ($(document.body).hasClass('oj-hybrid')) {
-        document.addEventListener("deviceready", init);
-      } else {
-        init();
-      }
-
-    });
-
-    
-
-  }
-);</script>
-
-  </body>
+<?php }?>
 
