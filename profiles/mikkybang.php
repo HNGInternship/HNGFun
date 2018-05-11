@@ -208,6 +208,7 @@ function isAbout($question){
     body {
         color: floralwhite;
         height: 100%;
+        padding-top: 10px;
     }
 
   img{
@@ -223,12 +224,13 @@ function isAbout($question){
       background-color: #4b4b4b;
       background-size: cover;
       height: 100%;
+      border: 5px;
   }
 
-  .botmessage{
-
-
-  }
+  .msg{
+      color: white;
+      background-color: cyan;
+      }
 
   /* start social icon */
 .social-icon
@@ -297,17 +299,17 @@ function isAbout($question){
                 </ul>
                 </div>
     <!--chat bot area-->
-    <div class="col-md-5 chatbot pull-right" style="height: 100%; padding-top: 20px;">
-         <div class="">
-                   <div class="botmessage">I am mikky's_bot. <br>I am here to help you</div>
-                    <div class="botmessage">Ask me any question</div>
-                   <div class="botmessage">To find out more about me type <strong>aboutbot</strong></div>
-                    <div class="botmessage">For help on how to use me type <br><strong>help</strong></div>
+    <div class="col-md-5 chatbot pull-right" style="height: 100%; padding-top: 40px;">
+         <div class="msg">
+                   <div class="botmsg">I am mikky's_bot. <br>I am here to help you</div>
+                    <div class="botmsg">Ask me any question</div>
+                   <div class="botmsg">To find out more about me type <strong>aboutbot</strong></div>
+                    <div class="botmsg">For help on how to use me type <br><strong>help</strong></div>
          </div>
 
             <form class="" method="POST" action="">
-                            <div class="">
-                              <input id="txt_question" class="" type="text" name="chatbotmessage" placeholder="Type in your requests">
+                            <div class="form-group">
+                              <input id="txt_question" class="form-control" type="text" value="question" name="question" placeholder="Type in your requests">
                             </div>
                             <div class="">
                               <input type="submit" class="btn btn-large btn-primary" type="button" value="Send">
@@ -335,20 +337,20 @@ function isAbout($question){
                     success: function(data){
                         console.log(data);
                         if(data['status'] == 1){
-                            var message_con = document.querySelector('.messages');
+                            var message_con = document.querySelector('.msg');
                             var bot = document.createElement('div');
                             bot.className = 'bot';
-                            bot_text = document.createTextNode('Bot:');
+                            bot_text = document.createTextNode("mikky's_bot:");
                             bot.appendChild(bot_text);
 
                             var bot_msg = document.createElement('div');
-                            bot_msg.className = 'bot-msg';
+                            bot_msg.className = 'botmsg';
                             bot_msg_text = document.createTextNode(data['answer']);
                             bot_msg.appendChild(bot_msg_text);
 
                             message_con.appendChild(bot);
                             message_con.appendChild(bot_msg);
-                            $('.messages').scrollTop($('.messages')[0].scrollHeight);
+                            $('.msg').scrollTop($('.msg')[0].scrollHeight);
                         }
 
                     }
