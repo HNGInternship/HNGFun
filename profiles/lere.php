@@ -153,8 +153,8 @@ global $conn;
 			bot:false,
 			question:"",
 			chats: [
-				{sender:"bot",message:"hi, welcome tomy interface"},
-				{sender:"you", message:"thankyou"}
+				{sender:"bot",message:"hi, welcome to my interface"},
+				{sender:"bot", message:"reply help to get the list of commands available"}
 			],
 			
 		},
@@ -180,6 +180,10 @@ global $conn;
 
 		}
 		})
+		setInterval(function(){
+			elem = document.getElementById("targ")
+			elem.scrollTop = elem.scrollHeight
+		},1000);
 	</script>
 </body>
 </html>
