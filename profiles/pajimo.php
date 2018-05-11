@@ -276,16 +276,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             </div>
          </div>
       </div>
-         
-         <div class="panel bot round-corners">
-              <div>
-                <p style="overflow: scroll; height: 250px; width: 100%; margin: 0px;" id="textbox"></p>
-                <input type="text" name="" style="width: 80%; height: 24px;" id="text">
-                <button style="position: absolute; width: 19%; height: 30px" id="send">Send</button>
-              </div>
-          </div>
-          <p class="slide"><div class="pull-me" style="text-align: center">Chat with me</div></p>
-        </div>
+  
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
