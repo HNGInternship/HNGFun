@@ -201,7 +201,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     height: 90%;
     width: 400px;
     float: right;
-    /*margin-top: 1%;*/
+    margin-top: 10%;
   }
   .padedd{
     margin-top: 5%;
@@ -248,6 +248,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   .roww{
     display: flex;
     width: 100%;
+    margin-top: 20%;
   }
   </style>
 </head>
