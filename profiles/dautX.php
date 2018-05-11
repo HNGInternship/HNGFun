@@ -15,7 +15,6 @@
 
     if ( isset($_POST['message']) ) {
         $input = strtolower($_POST['message']);
-        $user = $_POST['id'];
 
         $bot = new tokrBot('tokr-Bot');    //make a new class
 
@@ -352,14 +351,11 @@
             }
 
             #main{
-                width: 30%;
+                width: 40%;
                 border: 1px solid white;
                 min-height: 450px;
                 border-radius: 4px;
                 margin: 5px auto;
-
-                animation-name: fadeIn;
-                animation-duration: 1.5s;
             }
 
             #pix{
@@ -401,15 +397,12 @@
 
             /*chat-bot section*/
             #main_bot{
-                width: 30%;
+                width: 40%;
                 min-height: 500px;
                 margin: 5px auto;
                 border-radius: 4px;
                 border: 1px solid white;
                 background-color: #cfd8dc;
-
-                animation-name: fadeIn;
-                animation-duration: 1.5s;
             }
 
             header{
@@ -464,11 +457,7 @@
                 margin-top: 5px;
                 display: block;
                 clear: both;
-                line-height: 95%;
-
-                
-                animation-name: fadeIn;
-                animation-duration: 1s; 
+                line-height: 95%; 
             }
 
             .usr_cmd{
@@ -485,15 +474,6 @@
                 font-family: 'Junge', sans-serif;
                 display: block;
                 clear: both;
-
-                animation-name: fadeIn;
-                animation-duration: 0.5s;
-
-            }
-
-            @keyframes fadeIn{
-                25%{opacity: 0.5;} 
-                100%{opacity: 1;}
             }
 
             #ms_bx{
@@ -688,7 +668,7 @@
                 }
                 xmlhttp.open('POST', 'dautX.php', true);
                 xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xmlhttp.send('message=' + data +'&id=user');
+                xmlhttp.send('message=' + data);
             }, false);
 
             //event handler for showing and hiding bot interface
