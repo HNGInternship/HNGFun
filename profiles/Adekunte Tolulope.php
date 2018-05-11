@@ -16,10 +16,11 @@ try{
 
 $diffAns ='';
 
-$sql="SELECT secret_word FROM secret_word";
-$query = $conn-> query($sql);
-$secret = $query->fetch(PDO::FETCH_ASSOC);
-$secret_word = $secret['secret_word'];
+$result = $conn->query("SELECT * from secret_word LIMIT 1");
+ $result = $result->fetch(PDO::FETCH_OBJ);
+ $secret_word = $result->secret_word;
+ $result2 = $conn->query("Select * from interns_data where username = 'Adekunte Tolulope'");
+ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 if (isset($_POST['bot_r'])) {
 	$data = $_POST['bot_r'];
@@ -84,8 +85,9 @@ if (isset($_POST['bot_r'])) {
 			echo "Error 002".$e->getMessage();
 			exit();
 		}
+		exit();
 	}
-
+exit();
 }
 ?>
 

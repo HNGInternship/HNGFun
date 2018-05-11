@@ -129,110 +129,161 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
    $user = $result2->fetch(PDO::FETCH_OBJ);
 }?>
 <?php if ($_SERVER['REQUEST_METHOD'] == "GET") {?>
-   <style>
-   body {
-      background: #DAE3E7;
-      padding: 10px;
-      /* border: 25px solid; */
-      font-family: 'Lato', arial, sans-serif;
-      margin: 20px;
-   }
-   a{
-      color: #434343;
-   }
-   #top {
-      background-color: #DAE3E7;
-      background: white;
-      height: 35%;
-      margin: 20px;
-      border-radius: 20px;
-   }
-   #intro{
-      margin: 29px;
-      display: block;
-      font-size: 16px;
-      padding: 20px;
-   }
-   h1{
-      color: #434343;
-      font-size: 38px;
-      margin-bottom: 5px;
-      margin-top: 30px;
-      padding-top: 10px;
-      font-family: 'Montserrat', sans-serif;
-   }
-   h2{
-      color: #778492;
-      font-size: 26px
-   }
-   img {
-      border-radius: 50%;
-      float: left;
-      width: 15%;
-      margin: 15px;
-   }
-   li{
-      padding-right: 25px;
-      margin-right: 9px;
-      list-style: none;
-      display: inline;
-      font-size: 30px;
-      padding-top: 10px;
-      border-radius: 50%;
-      color: #fff;
+   
+<!DOCTYPE html>
+
+  <style type="text/css">
+    #globalBody{
+      width: 70%;
+      margin: 0 auto;
+    }
+    #begin{
+      background-image:url(https://images.unsplash.com/photo-1499428665502-503f6c608263);
+  background-size: cover;
+  background-position: center;
+    }
+    #first_lare{
+      padding-top: 15%;
+  padding-left: 25%;
+  padding-right: 25%;
+  padding-bottom: 10%;
+  text-align: center;
+  font-size: 24px;
+  text-transform: uppercase;
+  font-weight: 700;
+    }
+    .oj-flex-item{
+      font-size: 20px;
+      color: grey
+    }
+    .oj-flex-items-pad{
       text-align: center;
-   }
-   .round-corners{
-      border-radius: 20px;
-      /* background-color: #DAE3E7; */
-      background: white;
-      margin: 20px;
-   }
-   .inner{
-      padding: 20px;
-   }
-   #id{
-      border:2px black;
-   }
-   p,i,li{
-      font-family:'Lato', arial, sans-serif;
-   }
-   #all_content{
-      padding-top:21px
-   }
-   .form-control2{
-      margin-bottom:20px;
-   }
-   .timeEl{color:#495057;font-size:12px}
-</style>
-<!DOCTYPE HTML5>
-<head>
-   <link href='https://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic' rel='stylesheet' type='text/css' />
-   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-   <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css' />
-</head>
-<html>
-<body>
-   <div id="all_content">
-      <div id="top">
-         <img src="http://res.cloudinary.com/eniayomi/image/upload/v1524007065/pe.png" alt="Oluwaseyi Oluwapelumi">
-         <div id="intro">
-            <h1><?php echo $user->name; ?></h1>
-            <h2 style="text-align:left">Backend Developer</h2>
-            <ul class="list-inline">
-               <li><a target="_blank" title="Twitter" href="https://twitter.com/techteel"><i class="fa fa-twitter"></i></a></li>
-               <li><a target="_blank" title="Github/eniayomi" href="https://github.com/eniayomi"><i class="fa fa-github-alt"></i></a></li>
-               <li><a style="font-size:20px;" class="btn btn-cta-primary pull-right" href="mailto:nathanoluwaseyi@gmail.com" target="_blank"><i class="fa fa-paper-plane"></i> Contact Me</a></li>
-            </ul>
-         </div>
-      </div>
-      <div class="round-corners">
-         <div style="font-size: 17px" class="inner">
-            <h2>About Me</h2>
-            <p>Frontend Developer, Java && MySQL. Currently learning core JavaScript.</p>
-            <p>The things i like aren't so much: #peace #solitude #mylaptop</p>
-         </div>
-      </div>
+    }
+  </style>
+<html lang="en-us">
+  <head>
+    <title>Olamide</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="apple-mobile-web-app-title" content="Oracle JET">
+    
+
+    <!-- This is the main css file for the default Alta theme -->
+    <!-- injector:theme -->
+    
+    <!-- endinjector -->
+    <!-- This contains icon fonts used by the starter template -->
+    <link rel="stylesheet" href="css/demo-alta-site-min.css" type="text/css"/>
+
+    <!-- This is where you would add any app specific styling -->
+    <link rel="stylesheet" href="css/app.css" type="text/css"/>
+
+  </head>
+  <body class="oj-web-applayout-body">
+    <div id="globalBody" class="oj-web-applayout-page">
+      <!--
+         ** Oracle JET V5.0.0 web application header pattern.
+         ** Please see the demos under Cookbook/Patterns/App Shell: Web
+         ** and the CSS documentation under Support/API Docs/Non-Component Styling
+         ** on the JET website for more information on how to use this pattern.
+      -->
+      <header role="banner" class="oj-web-applayout-header" style="background-color: darkblue">
+        <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+          <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
+            
+            <h1 class="oj-sm-only-hide oj-web-applayout-header-title" title="Application Name" style="font-weight: bold; font-size: 25px">Olamide's Portfoilio</h1>
+          </div>
+          <div class="oj-flex-bar-end">
+            <!-- Responsive Toolbar -->
+            <oj-toolbar>
+              <oj-menu-button id="userMenu" display="[[smScreen() ? 'icons' : 'all']]" chroming="half">
+                <span style="font-weight: bold">Contact</span>
+                <span slot="endIcon" :class="[[{'oj-icon demo-appheader-avatar': smScreen(), 'oj-component-icon oj-button-menu-dropdown-icon': !smScreen()}]]"></span>
+                <oj-menu id="menu1" slot="menu" style="display:none">
+                  <oj-option id="pref" value="pref"><a href="https://medium.com/olamidefaniyan" target ="_blank">Medium</a></oj-option>
+                  <oj-option id="help" value="help"><a href="https://twitter.com/Farry_ola" style="padding-top: 0px;" target ="_blank">Twitter</a></oj-option>
+                  <oj-option id="about" value="about"><a href="https://instagram.com/olamidefaniyan_" target ="_blank">Instagram</a></oj-option>
+                  <oj-option id="out" value="out"><a href="https://github.com/Pajimo" target ="_blank">Github</a></oj-option>
+                </oj-menu>
+              </oj-menu-button>
+            </oj-toolbar>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content" style="padding-top: 0">
+        <div id="begin">
+          <div id="first_lare">
+            <span role="img" title="Olamide" alt="Olamide"><img class="img-responsive" id="bobo" src="https://avatars3.githubusercontent.com/u/20623732?s=460&v=4" style="width: 300px; height: 300px; border-radius: 100px;"/></span>
+            <h1 style="color: blue; font-weight: bold">HI, I'M Olamide Faniyan<br/> A Software Developer/ Designer</h1>
+          </div>
+          <h4 align="center" style="color: grey; font-weight: bold; font-size: 25px">My Skills</h4>
+          <div class="demo-flex-display oj-flex-items-pad">
+            <div class="oj-flex">
+              <div class="oj-flex-item">Html/Css</div>
+              <div class="oj-flex-item">PHP</div>
+              <div class="oj-flex-item">Javascript/jquery</div>
+              <div class="oj-flex-item">Bootstrap</div>
+            </div>
+            
+            <div class="oj-flex"
+                 data-bind="css: {'oj-sm-flex-wrap-nowrap': nowrap()}">
+              <div class="oj-flex-item">Figma</div>
+              <div class="oj-flex-item">Git</div>
+              <div class="oj-flex-item">Oraclejet</div>
+              <div class="oj-flex-item">Node.js</div>
+            </div>
+          </div>
+        
+        </div>
+        <style type="text/css">
+          .pull-me{
+    -webkit-box-shadow: 0 0 8px #FFD700;
+    -moz-box-shadow: 0 0 8px #FFD700;
+    box-shadow: 0 0 8px #FFD700;
+    cursor:pointer;
+}
+.panel {
+  background: #ffffbd;
+    background-size:90% 90%;
+    height:300px;
+  display:none;
+    font-family:garamond,times-new-roman,serif;
+}
+.panel p{
+    
+}
+.slide {
+  margin:0;
+  padding:0;
+  border-top:solid 2px #cc0000;
+  text-align: center
+}
+.pull-me {
+  display:block;
+    position:relative;
+    right:-25px;
+    width:150px;
+    height:20px;
+  font-family:arial,sans-serif;
+    font-size:14px;
+  color:#ffffff;
+    background:#cc0000;
+  text-decoration:none;
+    -moz-border-bottom-left-radius:5px;
+    -moz-border-bottom-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+}
+.pull-me p {
+    text-align:center;
+}
+#child4 {
+    position: absolute;
+    top: 80px;
+}
+        </style>
       <div class="bot round-corners">
          <div class="inner">
             <h2>Eniayomi's Bot 🤖</h2>
@@ -245,8 +296,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             </div>
          </div>
       </div>
-   </div>
-</div>
 <footer style="margin-bottom:0px; text-align:center; padding-top:25px;" id="footer">
    <p>Eniayomi @ 2018 HNG</p>
 </footer>
