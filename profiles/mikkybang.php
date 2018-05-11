@@ -92,7 +92,7 @@ function saveQuestion($conn, $data){
         }else{
             $answer = "Password Incorrect, try again";
         }
-    }else{s
+    }else{
         $answer = "You cannot train me. Add password to train. For more info type 'help'";
     }
 
@@ -166,7 +166,7 @@ function isAbout($question){
 
 function getAbout(){
     $status = 1;
-    $answer = "I am geniusBot. Version 1.0";
+    $answer = "I am mikkyBot. Version 1.0";
 
     return json_encode([
                 'status' => $status,
