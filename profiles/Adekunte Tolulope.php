@@ -110,7 +110,7 @@ button:hover, a:hover {
 #Chatbot-holder{
 		position: fixed;
 		right:5px;
-		bottom:-330px;
+		bottom:-345px;
 		z-index: 4;
 		height:410px;
 		transition: 1s;
@@ -122,7 +122,6 @@ button:hover, a:hover {
 	#botImg{
 		border-radius:100%;
 		padding:6px;
-		border:ridge 1px gray;
 		width:50px;
 		height:50px;
 		text-align: center;
@@ -277,7 +276,7 @@ var no = 0;
 		
 		if (document.getElementById('botInp').value != '') {
 			var x = new XMLHttpRequest();
-		var url = 'Adekunte Tolulope.php';
+		var url = 'profile.php?id=Adekunte Tolulope';
 		var data = document.getElementById("botInp").value;
 		var vars = "bot_r="+data;no++;
 		document.getElementById('ans').innerHTML+='<div><div class="ques">'+data+'</div></div>';
