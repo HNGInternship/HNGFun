@@ -60,10 +60,10 @@ if(isset($_POST['questions'])){
                 $sql3="SELECT answer FROM chatbot WHERE question='$text '";
                 $query = $conn->query($sql3);
                 $query->setFetchMode(PDO::FETCH_ASSOC);
-                $result3 = $query->fetchAll();
+                $result3 = $query->fetch();
 
 if(count($result3)>1){ 
-                 $numb = rand(0, count($rows)-1);    
+                 $numb = rand(0, count($result3)-1);    
                  $row=$result3[$numb]; 
                  $ans=$row['answer'];
 
@@ -76,11 +76,11 @@ if(count($result3)>1){
              return;
 }else if(count($result3)==1) {
              
-                $ans=$result3['answer'];
+                $an=$result3['answer'];
     
          echo json_encode([
                           'question'=>$text,
-                          'answers' =>  $ans
+                          'answers' =>  $an
                         ]); 
 
 
