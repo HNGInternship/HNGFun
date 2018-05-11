@@ -1124,7 +1124,6 @@ function getTime() {
     return date(h:i:sA);
 }
 
-<<<<<<< HEAD
 function get_client_ip() {
     $ipaddress = '';
     if (isset($_SERVER['HTTP_CLIENT_IP']))
@@ -1151,7 +1150,6 @@ $region= $json['region_name'];
 $city = $json['city'];
 }
 
-=======
 /////////////////////// Conditions for checking input//////////////////////////////////////////////
 
 ///////////////////To check if the statement begins with train://///////////////////////
