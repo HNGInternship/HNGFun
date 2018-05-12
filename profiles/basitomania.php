@@ -1,5 +1,5 @@
 <?php
-  /*$result = $conn->query("Select * from secret_word LIMIT 1");
+  $result = $conn->query("Select * from secret_word LIMIT 1");
   $result = $result->fetch(PDO::FETCH_ASSOC);
   $secret_word = $result['secret_word'];
 
@@ -8,7 +8,7 @@
   
   $username = $user['username'];
   $name = $user['name'];
-  $image_filename = $user['image_filename'];*/
+  $image_filename = $user['image_filename'];
 ?>   
 
 <!DOCTYPE html>
@@ -20,6 +20,7 @@
 		<link rel="stylesheet" type="text/css" href="css/responsive.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="https://fonts.googleapis.com/css?family=Changa+One|Open+Sans" rel="stylesheet">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
         <style>
         /********************
 GENERAL
@@ -339,7 +340,6 @@ input[type=text] {
 
 				});
 			</script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 		</div>
 	</body>
 </html>
