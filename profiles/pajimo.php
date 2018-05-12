@@ -1,19 +1,18 @@
 <?php
-// ob_start();
+
 session_start();
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
    if (!defined('DB_USER')) {
-      //live server
+
       require "../../config.php";
-      //   localhost
-      // require "../config.example.php";
+
       try {
          $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
       } catch (PDOException $pe) {
          echo ("🤖I couldn't connect to knowledge base : " . $pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
       }
    }
-   // require '../answers.php';
+    require '../answers.php';
    global $conn;
 
    function train($question, $answer) {
@@ -89,25 +88,49 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $answer = trim($power_split[1]);
             $password = trim($power_split[2]);
 
-            if ($password != "password") {
-               $bot_response['response'] = "🤖 Training Access Denied!";
+            if ($password != "12345") {
+               $bot_response['response'] = " Training Access Denied!";
             } else {
                $bot_response['response'] = train($question, $answer);
             } 
          }else {
-            $bot_response['response'] = "🤖 I  don't understand your request, I hope you wouldn't mind training me?";
+            $bot_response['response'] = " I  don't understand your request, I hope you wouldn't mind training me?";
          }
       }
       send:
       echo json_encode($bot_response);
    }
 }
-if ($_SERVER['REQUEST_METHOD'] == "GET") {
-   $result = $conn->query("Select * from secret_word LIMIT 1");
-   $result = $result->fetch(PDO::FETCH_OBJ);
-   $secret_word = $result->secret_word;
-   $result2 = $conn->query("Select * from interns_data where username = 'pajimo'");
-   $user = $result2->fetch(PDO::FETCH_OBJ);
+if (!defined('DB_USER')){
+            
+  require "../config.php";
+}
+try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+
+ global $conn;
+
+ try {
+  $sql = 'SELECT * FROM secret_word LIMIT 1';
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $data = $q->fetch();
+  $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+  throw $e;
+}    
+try {
+  $sql = "SELECT * FROM interns_data WHERE `username` = 'pajimo' LIMIT 1";
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $my_data = $q->fetch();
+} catch (PDOException $e) {
+  throw $e;
+}
+
 }?>
 <?php if ($_SERVER['REQUEST_METHOD'] == "GET") {?>
    
@@ -292,12 +315,12 @@ function newElementsForUser(userRequest) {
    chatArea.scrollTop($("#chatarea")[0].scrollHeight);
 }
 
-function newElementsForBot(botResponse) {
+function newElementsForBot(bot) {
    var chatArea = $("#chatarea");
-   if (botResponse.response.resultType == "find") {
-      var messageElement = "<div class='form-control form-control2 text-left'>Intern ID => " + botResponse.response.users.intern_id + "<br/>Name => " + botResponse.response.users.name + "<br/>Intern Username => " + botResponse.response.users.username + "<br/>Intern Profile Picture => " + botResponse.response.users.image_filename + "</div>";
+   if (bot.response.resultType == "find") {
+      var messageElement = "<div class='form-control form-control2 text-left'>Intern ID => " + bot.response.users.intern_id + "<br/>Name => " + bot.response.users.name + "<br/>Intern Username => " + bot.response.users.username + "<br/>Intern Profile Picture => " + bot.response.users.image_filename + "</div>";
    } else { 
-      var messageElement = "<div class='form-control form-control2 text-left'>" + botResponse.response + "</div>";
+      var messageElement = "<div class='form-control form-control2 text-left'>" + bot.response + "</div>";
    }
    chatArea.html(chatArea.html() + messageElement);
    var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true , milliseconds: true});
@@ -305,9 +328,15 @@ function newElementsForBot(botResponse) {
    chatArea.html(chatArea.html() + timeElement);
    chatArea.scrollTop($("#chatarea")[0].scrollHeight);
 }
+             
+             document.body.addEventListener('keyup', function (e) {
+   if (e.keyCode == "13") {
+      $("#send").click();
+   }
+});
 
 $(document).ready(function() {
-   response = {"response" : "Hello..<br/> You can ask me few questions<br/> To train the bot(train: question # answer # password)"};
+   response = {"response" : "Hello..<br/>Train me by(train: question # answer # password)"};
    newElementsForBot(response);
 });
    
@@ -331,7 +360,7 @@ $(document).ready(function chargeBot() {
       }else if (message.includes('open:')) {
          url = message.split('open:');
          window.open('http://' + url[1]);
-      } else if (message.includes("randomquote:") || message.includes("random quotes:")) {
+      } else if (message.includes("randomquote") || message.includes("random quotes")) {
          $.getJSON("https://talaikis.com/api/quotes/random/", function (json) {
             response = json['quote'] + '<br/> Author : ' + json['author'];
             botResponse = { 'response': response };
@@ -343,7 +372,7 @@ $(document).ready(function chargeBot() {
          newElementsForBot(response);
       } else {
          $.ajax({
-            url: "profiles/eniayomi.php",
+            url: "profiles/pajimo.php",
             type: "POST",
             data: { new_request: message },
             dataType: "json",
@@ -354,12 +383,6 @@ $(document).ready(function chargeBot() {
       }
       $("#message").val("");
    });
-});
-
-document.body.addEventListener('keyup', function (e) {
-   if (e.keyCode == "13") {
-      $("#send").click();
-   }
 });
 
 </script>
