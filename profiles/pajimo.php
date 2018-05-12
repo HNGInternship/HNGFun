@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $question = trim(preg_replace("/(train:)/", "", $power_split[0]));
             $answer = trim($power_split[1]);
             $password = trim($power_split[2]);
-            if ($password != "123456") {
+            if ($password != "password) {
                $bot_response['response'] = " Training Access Denied!";
             } else {
                $bot_response['response'] = train($question, $answer);
