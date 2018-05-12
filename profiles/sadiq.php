@@ -191,7 +191,7 @@
     /** bot sect **/
         .container11 {
             border: 2px solid #dedede;
-            background-color: #a38cfd;
+            background-color: #fa8072;
             color: #111111;
             font-size: 14px;
             border-radius: 25px;
@@ -267,7 +267,7 @@
           sasBot <br>
         <div class="container11">
             <img src="http://res.cloudinary.com/sastech/image/upload/v1523628995/caesarapp_20175292858459_wpfxlo.jpg" alt="Avatar" style="width:100%;">
-            <p>Hello I am SasBot    To train me use the format: below <br> <i style="color: #fff;">train: question#answer#password
+            <p>Hello I am SasBot. To train me use the format: <i style="color: #fff;">train: question#answer#password
             </i></p>
         </div>
     
@@ -275,7 +275,7 @@
         </div>
         <form id="myform" method="POST">
 
-        <textarea  sid="text" name="question" id="ter" rows="0" cols="0" class="textarea" style=" padding:2px; border-radius: 12px;width: 80%;background-color:rgba(155, 22, 195, 0.32);  font-size: 16px;" placeholder="enter your message"></textarea> <br>
+        <textarea  sid="text" name="question" id="ter" rows="0" cols="0" class="textarea" style=" padding:2px; border-radius: 12px;width: 80%;background-color:rgba(155, 22, 195, 0.32); color: #fff; font-size: 16px;" placeholder="enter your message"></textarea> <br>
 
        <button id="btn1" type="submit" class="button" >send</button>
                                <br><br>
@@ -287,7 +287,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 
   <script>
-        $(document).ready(function(){
+    $(document).ready(function(){
+    
     $('#myform').submit(function(e){
       e.preventDefault();
     var valnext2 = $("#ter").val();
@@ -295,7 +296,7 @@
     var resusr='</center><div class="container11 darker" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524285838/960_720.png" alt="Avatar" class="right" style="width:60%;"><p> ';
     $("#async").append(resusr+" "+valnext2+" </p></div>");
       $.ajax({
-        url: 'profiles/kingpin.php',
+        url: 'profiles/sadiq.php',
         type: 'POST',
         data: {question: question},
         dataType: 'json',
@@ -313,5 +314,14 @@
 
     })
   });
+	
+	$("#ter").keyup(function(e){
+		if(e.which == 13){
+		   $("#send").trigger("submit")
+		}
+		else{
+		   // Do Nothing 
+		}
+	});
   </script>
 </body>
