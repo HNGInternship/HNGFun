@@ -26,7 +26,7 @@
                 background-color: #2773ae;
                 height: 150px;
                 padding-top: 10px;
-                
+                width:100%;
             }
 
             .image{
@@ -101,41 +101,14 @@
 
   <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand" href="index.php">HNG FUN</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          Menu
-          <i class="fa fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="../index.php">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../learn.php">Learn</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../listing.php">Interns</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../admin.php">Register</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../testimonies.php">Testimonies</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+   
         
     <div class="heading">
         <img src="http://res.cloudinary.com/dikethelma/image/upload/a_0/v1503494405/profile_rpbema.jpg" alt="profile-image" class="image">
     </div>
     
-    <div class="details">
+    
+   <div class="details">
         <p class="big"> Dike, Thelma Kelechi</p>
         <p class="small"> UI/UX Designer | Web Developer</p>
         <p class="small"> @dikethelmak</p>
@@ -144,10 +117,11 @@
     <div class="links">
         <a href="#" class="warning" onclick="sayHi()">Say Hi</a>
     </div>
+    
 
     <script>
         function sayHi() {
-            alert('Hi,Hope to see you in the next meet up.');
+            alert('Hi,Hope to see you next time.');
         }
     </script>
     

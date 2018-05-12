@@ -12,13 +12,13 @@ if(!defined('DB_USER')){
   try {
       $query = "SELECT * FROM interns_data WHERE username ='iamdevmm'";
       $resultSet = $conn->query($query);
-      $resultData = $resultSet->fetch(PDO::FETCH_ASSOC);
+      $profileData = $resultSet->fetch(PDO::FETCH_ASSOC);
   } catch (PDOException $e){
       throw $e;
   }
-  $username = $resultData['username'];
-  $fullName = $resultData['name'];
-  $picture = $resultData['image_filename'];
+  $username = $profileData['username'];
+  $fullName = $profileData['name'];
+  $picture = $profileData['image_filename'];
   //Fetch Secret Word
   try{
       $querySecret =  "SELECT * FROM secret_word LIMIT 1";
@@ -47,18 +47,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     };
   $check_for_train = stripos($question, "train:");
     if($check_for_train === false){ 
-  $question = preg_replace('([\s]+)', ' ', trim($question));
-  $question = preg_replace("([?.])", "", $question); 
+      $question = preg_replace('([\s]+)', ' ', trim($question));
+      $question = preg_replace("([?.])", "", $question); 
   
   $question = $question;
         $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
         $q = $GLOBALS['conn']->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
-        if(empty($data)){ //That means your answer was not found on the database
+        if(empty($data)){ 
             echo json_encode([
             'status' => 1,
-             'answer' =>  "I can't provide answer to your question, train me to be productive."
+             'answer' =>  "I can't provide answer to your question, train me to be productive, using this format  train: question #answer #password"
          ]);
           return;
         }else {
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           if(count($train_string) == 1){ //then the user only enter question and did'nt enter answer and password
             echo json_encode([
               'status' => 1,
-              'answer' => "Oooh! sorry....you entered an invalid training format. Please the correct format is-->  train: question #answer #password"
+              'answer' => "Ooop! invalid training format. Please use the correct format --> train: question #answer #password"
             ]);
           return; 
           };
@@ -127,14 +127,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           
           echo json_encode([
             'status' => 1,
-              'answer' => "WOW! I'm learning new things everyday. Thanks Buddy! for making me more smarter. You can ask me that same question right now and i will tell you the answer OR just keep training me more Buddy! "
+              'answer' => "Thanks so much for making me productive! "
             ]);     
         return;
         
         }else{ //then it means the the question already in the database and no need to insert it again
            echo json_encode([
             'status' => 1,
-              'answer' => "Sorry! Answer already exist. Try train me again with the same question AND provide an altanative answer different from the previous one you entered OR just train me with a new question and a new answer."
+              'answer' => "I already learnt this, kindly teach me new things"
             ]);
       return;   
         };
@@ -171,6 +171,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         box-shadow: #2a3132 0px 4px 7px; 
         background: #fff;   
         }
+        .bot-img{
+        height: 30px;
+        width: 30px;
+        margin: auto;
+        border: 3px solid rgb(115, 169, 219);
+        border-radius: 50%;
+        -moz-box-shadow: #2a3132 0px 4px 7px; 
+        -webkit-box-shadow: #2a3132 0px 4px 7px; 
+        box-shadow: #2a3132 0px 4px 7px; 
+        background: #fff;   
+        }
       .chatbot-main{
       background-color: #F3F3F3;
       width: 400px;
@@ -199,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     .message{
       font-size: 0.8em;
-      width: 300px;
+      width: 200px;
       display: inline-block;
       padding: 10px;
       margin: 5px;
@@ -309,7 +320,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
       <div id="chat-body">
         <div class="bot_chat">
-            <div class="message">Hello! My name is Lolly.<br>You can ask me questions and get answers.<br>Type <span style="color: #FABF4B;"><strong> Aboutbot</strong></span> to know more about me.
+            <div class="message">Hey! My name is MM bot.<br>Do you have some questions for me drop them here!<br>Type <span style="color: #34495E;"><strong> Aboutbot</strong></span> to know more about me.
             </div>
         </div>
       </div>
@@ -358,7 +369,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $("#chat-input-form").on("submit", function(e) {
           e.preventDefault();
           var input_text = $("#input_text").val();
-          chat_output.append("<div class='user_chat'><div class='message'>"+input_text+"</div></div>");
+          chat_output.append("<div class='user_chat'><div class='message'>"+input_text+"</div><img class='bot-img' src='http://res.cloudinary.com/devplus-devmm/image/upload/v1526106999/user-dummy_pynep7.png'></div>");
           chat_output.scrollTop(chat_output[0].scrollHeight);
       //send question to server
       $.ajax({
@@ -369,7 +380,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         success: (response) => {
               response.answer = response.answer.replace(/(?:\r\n|\r|\n)/g, '<br />'); 
               let response_answer = response.answer;
-              chat_output.append("<div class='bot_chat'><div class='message'>" +response_answer+ "</div></div>");      
+              chat_output.append("<div class='bot_chat'><img class='bot-img' src='<?php echo $picture ?>'><div class='message'>" +response_answer+ "</div></div>");      
               $('#chat-body').animate({scrollTop: $('#chat-body').get(0).scrollHeight}, 1100);     
         },
         error: (error) => {

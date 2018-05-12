@@ -33,7 +33,7 @@
 	// function to train bot
 	// pass message as arguement
 	function trainAlan($newmessage){
-		require 'db.php';
+		require '../db.php';
 		$message = explode('#', $newmessage);
 		$question = explode(':', $message[0]);
 		$answer = $message[1];
@@ -77,7 +77,7 @@
 	// Returns 1 if question is not found in database
 	function checkDatabase($question){
 		try{
-			require 'db.php';
+			require '../db.php';
 			$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
 			$stmt->execute();
 
@@ -123,7 +123,7 @@
 					} // end else
 				} // end if
 			}
-			exit();
+			die();
 		}
 
 		// if ($_SERVER["REQUEST_METHOD"] == "GET"){
@@ -449,9 +449,9 @@
 			</section>
 
 			<form class="chat-box" id="ajax-contact" method="post" action="">
-				<span class="chat-box-header">Alan is not a bot</span>
+				<span class="chat-box-header">Alan is <del>not</del> a bot</span>
 				<div class="chat-msgs">
-					<p class="alan">Hello! I am Alan, and I am <del>not</del> a bot.</p>
+					<p class="alan">Hello! I am Alan, and I am not a bot.</p>
 					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
 				</div>
 				<div class="chat-type" >
@@ -462,7 +462,7 @@
 				</div>
 			</form>
 
-			<footer class=".footer">
+			<footer class=".footer" style="display: none;">
 				<?php
 				date_default_timezone_set('Africa/Lagos');
 			?>
