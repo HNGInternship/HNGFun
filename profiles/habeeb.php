@@ -1,8 +1,8 @@
-<?php 
+<?php
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "fun";
+$dbname = "hng_fun";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -10,11 +10,11 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if($conn->connect_error){
     die("Connection failed: " . $conn->connect_error);
 }
+$secret_word = "";
+$secret_query = "SELECT * FROM secret_word WHERE id = 1";
+$data = "SELECT * FROM interns_data WHERE intern_id = 15";
 
-$secret_query = "SELECT * FROM secret_word WHERE id = 2";
-$data = "SELECT * FROM interns_data_ WHERE intern_id = 400";
-
-$query1 = mysqli_query($conn, "SELECT * FROM interns_data_ WHERE intern_id = 400");
+$query1 = mysqli_query($conn, "SELECT * FROM interns_data WHERE intern_id = 15");
 
 while($res = mysqli_fetch_array($query1)){
 $name = $res['name'];
@@ -22,7 +22,7 @@ $username = $res['username'];
 $image_filename = $res['image_filename'];
 }
 
-$query2 = mysqli_query($conn, "SELECT * FROM secret_word WHERE id = 2");
+$query2 = mysqli_query($conn, "SELECT * FROM secret_word WHERE id = 1");
 
 while($res = mysqli_fetch_array($query2)){
     $secret_word = $res['secret_word'];
@@ -68,7 +68,7 @@ while($res = mysqli_fetch_array($query2)){
                         <div class="w3-display-bottomleft w3-container w3-text-black">
                             <h2 style="color:teal;"><?php echo $name; ?></h2>
                             <h4 style="color:teal;">Username: <?php echo $username; ?></h4>
-                            
+
                         </div>
                     </div>
                     <div class="w3-container">
@@ -200,8 +200,8 @@ while($res = mysqli_fetch_array($query2)){
                         <p>Hobby</p><br>
                     </div>
                 </div>
-                
-                
+
+
 
                 <!-- End Right Column -->
             </div>
