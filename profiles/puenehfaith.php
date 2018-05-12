@@ -5,7 +5,6 @@ try {
     $intern_data->execute();
     $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
     $result = $intern_data->fetch();
-  
     $secret_code = $conn->prepare("SELECT * FROM secret_word");
     $secret_code->execute();
     $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
@@ -45,7 +44,7 @@ if (isset($_POST['bot_r'])) {
 				exit();
 			}
 		}else{
-			echo "Your password is incorrect.<br>Try again later!";
+			echo "Your password is incorrect.<br>Hi!";
 		}
 		}else{
 			echo "Invalid strings!<br><br><b><i>train:question #answer #password</i></b>";
@@ -70,11 +69,10 @@ if (isset($_POST['bot_r'])) {
 			
 			
 		}else{
-			echo "Thank you for wanting to help';<br><b><i>train:question #answer #password</i></b>";
+	echo "Thank you for wanting to help';<br><b><i>train:question #answer #password</i></b>";
 			exit();
-		}
+			}
 	}
-
 }
  ?
 <!DOCTYPE html>
