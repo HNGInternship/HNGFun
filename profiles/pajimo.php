@@ -292,7 +292,7 @@ try {
               <div>
                 <p style="overflow: scroll; height: 250px; width: 100%; margin: 0px;" id="chatarea"></p>
                 <input type="text" name="" style="width: 80%; height: 24px;" id="message" name="newrequest"Type">
-                <button style="position: absolute; width: 19%; height: 28px" id="send">Send</button>
+                <button style="position: absolute; width: 19%; height: 26px" id="send">Send</button>
               </div>
           </div>
           <p class="slide"><div class="pull-me" style="text-align: center">Chat with me :)</div></p>
@@ -307,9 +307,6 @@ function newElementsForUser(userRequest) {
    var chatArea = $("#chatarea");
    var messageElement = "<div class='form-control form-control2 text-right'>" + userRequest + "</div>";
    chatArea.html(chatArea.html() + messageElement);
-   var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
-   var timeElement = "<p class='timeEl text-right'>" + time + "</p>";
-   chatArea.html(chatArea.html() + timeElement);
    chatArea.scrollTop($("#chatarea")[0].scrollHeight);
 }
 
@@ -321,9 +318,6 @@ function newElementsForBot(bot) {
       var messageElement = "<div class='form-control form-control2 text-left'>" + bot.response + "</div>";
    }
    chatArea.html(chatArea.html() + messageElement);
-   var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true , milliseconds: true});
-   var timeElement = "<p class='timeEl text-left'>" + time + "</p>";
-   chatArea.html(chatArea.html() + timeElement);
    chatArea.scrollTop($("#chatarea")[0].scrollHeight);
 }
              
@@ -334,7 +328,7 @@ function newElementsForBot(bot) {
 });
 
 $(document).ready(function() {
-   response = {"response" : "Hello..<br/>Train me by(train: question # answer # password)"};
+   response = {"response" : "Hello. am a bot and you can chat with me a little.<br/>Train me by(train: question # answer # password)"};
    newElementsForBot(response);
 });
    
