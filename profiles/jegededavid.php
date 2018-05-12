@@ -1,73 +1,112 @@
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<title>JEGEDE DAVID- Hng Intern</title>
-		<script type="text/javascript">
-				var i = 0;
-        var text = "Jegede David, i am a Web Developer";
-        var speed = 50;
-        var j = text.length;
-        
-        function textType() {
-          if (i < text.length) {
-            document.getElementById("typingEffect").innerHTML += text.charAt(i);
-            i++;
-            setTimeout(textType, speed);
-          }
+<!DOCTYPE>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://use.fontawesome.com/d1341f9b7a.js"></script>
+    
+    </head>
+    
+    
+    <style>
+        body{
+            margin:0;
+            padding:0;
+            background-color: lightgrey;
+            background-size:cover;
         }
-		</script>
-		<style type="text/css">
-			body{
-				background-color: #FF0000;
-				background: linear-gradient(to bottom right, #87ceeb, #ffffff);
-			}
-			footer {
-				padding-top: 200px;
-				text-align: center;
-				font-size: 30px;
-			}
-			#typingEffect {
-				padding-top: 70px;
-				font-size: 70px;
-			}
-			#socialMedia {
-				padding-top: 40px;
-				font-size: 30px;
-				text-align: center;
-			}
-			#socialicons {
-				padding-top: 20px;
-			}
-           
-
+        
+        
+        .box{
+            width: 450px;
+            background: rgba(0,0,0,0.4);
+            padding: 40px;
+            text-align:center;
+            margin:auto;
+            margin-top: 5%;
+            color:white;
+        }
+        
+        .box-img{
+            border-radius: 50%;
+            width: 200px;
+            height:200px;
             
-            body {
+        }
+        .box h1{
+            font-size: 40px;
+            letter-spacing: 4px;
+            font-weight: 100;
+        }
+        
+        .box h5{
+            font-size: 25px;
+            letter-spacing: 3px;
+            font-weight: 100;
+        }
+        
+        ul{
+            margin: 0;
+            padding: 0;
+            
+        }
+        
+        .box li{
+            display: inline-block;
+            margin: 6px;
+            list-style: none;
+        }
+        
+        .box li a{
+            color: white;
+            text-decoration:none;
+            font-size: 60px;
+            transition: all ease-in-out 250ms;
+            
+        }
+        
+        .box li a:hover{
+            color:cornflowerblue;
+            
+        }
+    </style>
+        
+        <style>
+        
+       body {
   font: 15px arial, sans-serif;
   background-color: #d9d9d9;
   padding-top: 15px;
   padding-bottom: 15px;
 }
 
-
+#bodybox {
+  margin: auto;
+  max-width: 550px;
+  font: 15px arial, sans-serif;
+  background-color: white;
+  border-style: solid;
+  border-width: 1px;
+  padding-top: 20px;
+  padding-bottom: 25px;
+  padding-right: 25px;
+  padding-left: 25px;
+  box-shadow: 5px 5px 5px grey;
+  border-radius: 15px;
+}
 
 #chatborder {
   border-style: solid;
   background-color: #f6f9f6;
-  border-width:20px ;
-  margin-top:40px ;
-  margin-bottom: 40px;
-  margin-left: 80px;
-  margin-right:50px ;
-  padding-top:80px ;
-  padding-bottom: 80px ;
-  padding-right: 80px;
-  padding-left:50px ;
-  border-radius:80px ;
+  border-width: 3px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  padding-right: 20px;
+  padding-left: 15px;
+  border-radius: 15px;
 }
 
 .chatlog {
@@ -76,8 +115,8 @@
 
 #chatbox {
   font: 17px arial, sans-serif;
-  height: 22 px;
-  width: 400px ;
+  height: 22px;
+  width: 100%;
 }
 
 h1 {
@@ -88,55 +127,47 @@ pre {
   background-color: #f0f0f0;
   margin-left: 20px;
 }
-            
-            
-            
-		</style>
-
-
-	</head>
-	<body class="container" onload="textType()">
-
-		<main >
-			<section id="typingEffect"></section>
-			
-			<section id="socialMedia">
-				<div>Social Media</div>
-				<div id="socialicons">
-                    <a href="https://facebook.com/david_jegede91@yahoo.com"><i class="fa fa-facebook"></i></a>
-				</div>
-                
-                <div class ="col-md-6" id="imgblock">
-                    <img class = "img img-circle" src="http://res.cloudinary.com/hng4-0/image/upload/v1523637470/dav.jpg">
-                </div>
-			</section>
-            
-            	</main>
-      
-		
+        
+        
+    </style>
+    
+    
+    
+    
+    
+    <body>
+        <div class="box">
+            <img src="http://res.cloudinary.com/hng4-0/image/upload/v1523637470/dav.jpg" class="box-img">
+            <h1>JEGEDE DAVID</h1>
+            <h5>Web Developer-Web Designer</h5>
+            <ul>
+                <li><a href=""><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+                <li><a href=""><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+                <li><a href=""><i class="fa fa-google-plus-square" aria-hidden="true"></i></a></li>
+            </ul>
+        </div>
         
         <div id='bodybox'>
-        <div id='chatborder'>
-    <p id="chatlog7" class="chatlog">&nbsp;</p>
-    <p id="chatlog6" class="chatlog">&nbsp;</p>
-    <p id="chatlog5" class="chatlog">&nbsp;</p>
-    <p id="chatlog4" class="chatlog">&nbsp;</p>
-    <p id="chatlog3" class="chatlog">&nbsp;</p>
+  <div id='chatborder'>
+    <p id="chatlog7" class="chatlog">Hello! this is David's Bot</p>
+    <p id="chatlog6" class="chatlog">Happy meeting you to chat with you</p>
+    <p id="chatlog5" class="chatlog">You can teach me by using</p>
+    <p id="chatlog4" class="chatlog">type:#train:Question|Answer.</p>
+    <p id="chatlog3" class="chatlog"></p>
     <p id="chatlog2" class="chatlog">&nbsp;</p>
     <p id="chatlog1" class="chatlog">&nbsp;</p>
-    <input type="text" name="chat" id="chatbox" placeholder="Hi there! David'bot Type here to talk to me." onfocus="placeHolder()">
-  </div>
-
-     <footer> Jegede David @ 2018</footer>
-
-        
-        
-	</body>
-</html>
+    <input type="text" name="chat" id="chatbox" placeholder="Hi there! Type here to talk to me." onfocus="placeHolder()">
     
-    <script>
-           
-            //links
+  </div>
+        </div>
+    </body>
+    
+   
+</html>
+
+
+<script>
+//links
 //http://eloquentjavascript.net/09_regexp.html
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 nlp = window.nlp_compromise;
@@ -144,7 +175,7 @@ nlp = window.nlp_compromise;
 var messages = [], //array that hold the record of each string in chat
   lastUserMessage = "", //keeps track of the most recent input string from the user
   botMessage = "", //var keeps track of what the chatbot is going to say
-  botName = 'chatbot', //name of the chatbot
+  botName = 'Chatbot', //name of the chatbot
   talking = true; //when false the speach function doesn't work
 //
 //
@@ -158,17 +189,26 @@ var messages = [], //array that hold the record of each string in chat
 //edit this function to change what the chatbot says
 function chatbotResponse() {
   talking = true;
-  botMessage = "I'm confused train: this is a question # this is an answer # your password"; //the default message
+  botMessage = "I'm confused you can train me when you do #train:Question|Answer"; //the default message
 
   if (lastUserMessage === 'hi' || lastUserMessage =='hello') {
-    const hi = ['hi am david','howdy','hello']
+    const hi = ['how are you doing today?','how are you doing today?','how are you doing today?']
     botMessage = hi[Math.floor(Math.random()*(hi.length))];;
   }
+    
+    if (lastUserMessage === 'fine' || lastUserMessage =='cool' || lastUserMessage == 'great' || lastUserMessage == 'splendid' || lastUserMessage == 'awesome' || lastUserMessage == '#train:Question|Answer') {
+    const hi = ['awesome','awesome','awesome']
+    botMessage = hi[Math.floor(Math.random()*(hi.length))];;
+  }
+    
+    
 
-  if (lastUserMessage === 'name') {
-    botMessage = 'My name is ' + botName;
+  if (lastUserMessage === 'name' || lastUserMessage == '#train:Question|Answer') {
+    botMessage = 'Awesome ';
   }
 }
+    
+  
 //****************************************************************
 //****************************************************************
 //****************************************************************
@@ -242,4 +282,4 @@ function keyPress(e) {
 function placeHolder() {
   document.getElementById("chatbox").placeholder = "";
 }
-    </script>
+</script>
