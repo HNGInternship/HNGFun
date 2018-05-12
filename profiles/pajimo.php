@@ -315,7 +315,7 @@ function newElementsForUser(userRequest) {
    chatArea.scrollTop($("#chatarea")[0].scrollHeight);
 }
 
-function newElementsForBot(bot) {
+function newElementsForBot(botResponse) {
    var chatArea = $("#chatarea");
    if (bot.response.resultType == "find") {
       var messageElement = "<div class='form-control form-control2 text-left'>Intern ID => " + bot.response.users.intern_id + "<br/>Name => " + bot.response.users.name + "<br/>Intern Username => " + bot.response.users.username + "<br/>Intern Profile Picture => " + bot.response.users.image_filename + "</div>";
