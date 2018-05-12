@@ -315,7 +315,7 @@ function newElementsForBot(bot) {
 });
 
 $(document).ready(function() {
-   response = {"response" : "<p style="color:red"></p> " + "Hello. am a bot and you can chat with me a little.<br/>Train me by(train: question # answer # password)"};
+   response = {"response" : "<p style='color:red'>bot</p> " + "Hello. am a bot and you can chat with me a little.<br/>Train me by(train: question # answer # password)"};
    newElementsForBot(response);
 });
    
@@ -334,7 +334,7 @@ $(document).ready(function chargeBot() {
       var message = $("#message").val();
       newElementsForUser(message);
       if (message == "" || message == null) {
-         response = { 'response': 'Please type something' };
+         response = { 'response':  "<p style='color:red'>bot</p> " + ' Please type something' };
          newElementsForBot(response);
       }else if (message.includes('open:')) {
          url = message.split('open:');
