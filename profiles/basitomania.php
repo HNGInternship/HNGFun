@@ -226,6 +226,12 @@ a {
 			color: black;
 			box-shadow: 3px 3px 5px gray;
 		}
+.chat-output .bot-message {
+            text-align: right;
+        }
+.chat-output .bot-message .message {
+            background: #eee;
+        }
 
 button{
       border:none;
@@ -304,7 +310,7 @@ input[type=text] {
 			<script type = text/javascript>
 				var outputArea = $("#user-output");
 
-				$("input-form").on("submit", function(e) {
+				$("#input-form").on("submit", function(e) {
 
 					e.preventDefault();
 
