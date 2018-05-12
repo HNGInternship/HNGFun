@@ -26,7 +26,7 @@
                 background-color: #2773ae;
                 height: 150px;
                 padding-top: 10px;
-                
+                width:100%;
             }
 
             .image{
