@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         //die('Hi');
@@ -69,19 +68,6 @@
 
 ?>
 
-=======
-require ('db.php');
-?>
-
-<?php
- $result = $conn->query("Select * from secret_word LIMIT 1");
- $result = $result->fetch(PDO::FETCH_OBJ);
- $secret_word = $result->secret_word;
-
- $result2 = $conn->query("Select * from interns_data where username = 'etibless'");
- $user = $result2->fetch(PDO::FETCH_OBJ);
-?>
->>>>>>> 0666a979f477c620f8719af8ba7c8704aef96707
 <!DOCTYPE html>
 <html lang="en">
 
@@ -90,7 +76,6 @@ require ('db.php');
 <title>HNG Profile For etibless</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
-<<<<<<< HEAD
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <style>
   body {
@@ -105,24 +90,6 @@ require ('db.php');
   .h2{
       color: #563d7c;
       padding:0 0 0 90px;
-=======
-<link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
-<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
-<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/default/js"></script>
-<script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/3rdparty"></script>
-<script type="text/javascript" src="../js/main.js"></script>
-
-<style>
-  body {
-    font-family: 'Rationale', sans-serif;
-    background-color:gray;
-  }
-
-
-
-  .h2{
-      color: #563d7c;
->>>>>>> 0666a979f477c620f8719af8ba7c8704aef96707
   }
 
   .h3{
@@ -133,7 +100,6 @@ require ('db.php');
   }
   p{
       color: #93f990;
-<<<<<<< HEAD
       text-align: justify;
   }
   .ChatBot{
@@ -198,46 +164,16 @@ input{
       <br>  
       <p class="h4">My name is PRINCEWILL EDWARD</p>    
       <p class="h4">This is my USERNAME: <i>etibless</i></p>
-=======
-  }
-  .my{
-    padding-left:30%;
-  }
-
-</style>
-</head>
-
-<body>
-
-
-<div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
-  <div class="oj-flex">
-    <div class="my">
-            <p class="h2"><b>Hello Friend!</b></p>
-            <div class="oj-sm-align-items-center">
-                <img src="http://res.cloudinary.com/dxv1e5ph1/image/upload/v1524143885/profile.jpg" class="img-thumbnail img-fluid rounded-circle w-10 h-10"  alt="etibless">
-                  </div>
-                  </div>
-
-                  <div style="padding:0 0 0 220px; text-shadow:1px 1px 3px #353435;"> 
-    
-      <p class="h4">My name is PRINCEWILL UDO EDWARD</p>    
-      <p class="h4">This is my USERNAME: <b><i>etibless</b></p>
->>>>>>> 0666a979f477c620f8719af8ba7c8704aef96707
       <p >Thank you for stoping by</p>
       <p class="h4"><b>I am an intermediate web Developer.
           <br>A 400 Level Computer Engineering Student
           <br>of University of Uyo, Uyo.</b></p>
         </div>
-<<<<<<< HEAD
       </div>
-=======
->>>>>>> 0666a979f477c620f8719af8ba7c8704aef96707
     </div>
   </div>
 </div>
 
-<<<<<<< HEAD
 <div class="ChatBot">
    
     <h3 style="padding:5px; color:rgb(181, 247, 224);text-shadow:1px 2px 1px #080808;">Etibless Chat!</h3><hr><br>
@@ -295,7 +231,7 @@ input{
             
             }
         };
-        xhttp.open("POST", "profile1.php", true);
+        xhttp.open("POST", "etibless.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("message="+message.value);
     }
@@ -305,7 +241,4 @@ input{
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js""></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" ></script>
-=======
-</body>
->>>>>>> 0666a979f477c620f8719af8ba7c8704aef96707
 </html>
