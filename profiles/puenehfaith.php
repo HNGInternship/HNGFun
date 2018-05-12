@@ -1,10 +1,90 @@
+<?php
+require 'db.php';
+try {
+    $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'puenehfaith'");
+    $intern_data->execute();
+    $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $intern_data->fetch();
+  
+    $secret_code = $conn->prepare("SELECT * FROM secret_word");
+    $secret_code->execute();
+    $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+    $code = $secret_code->fetch();
+    $secret_word = $code['secret_word'];
+ } catch (PDOException $e) {
+     throw $e;
+    }
+  $result = $conn->query("SELECT * from secret_word LIMIT 1");
+  $result = $result->fetch(PDO::FETCH_OBJ);
+  $secret_word = $result->secret_word;
+  $result2 = $conn->query("Select * from interns_data where username = 'puenehfaith'");
+  $user = $result2->fetch(PDO::FETCH_OBJ);
+$localhost = 'localhost';
+$user = 'root';
+$pass = '';
+$dbs = 'hng_fun';
+$diffAns ='';
+$db=mysqli_connect($localhost, $user, $pass, $dbs);
+
+if (isset($_POST['bot_r'])) {
+	$data = $_POST['bot_r'];
+
+	if ($data == 'aboutbot') {
+		echo "V 1.0";
+		exit();
+	}else if(strstr($data, 'train:') && strstr($data, '#')){
+		$exp = explode(':', $data);
+		$exp = explode('#', $exp[1]);
+		if (count($exp) == 3) {
+			if ($exp[2] == 'password') {
+			if (mysqli_query($db, "INSERT INTO chatbot(question,answer)VALUES('$exp[0]','$exp[1]')")) {
+				echo "i love making beads but i don't know alot about making one can you teach me how to make a beautiful neck piece? to train me use the keyword "train" your question #your answer #password".$exp[0]";
+				exit();
+			}else{
+				echo "My name is ' jayo!";
+				exit();
+			}
+		}else{
+			echo "Your password is incorrect.<br>Try again later!";
+		}
+		}else{
+			echo "Invalid strings!<br><br><b><i>train:question #answer #password</i></b>";
+			exit();
+		}
+	}
+	else{
+		$query = mysqli_query($db, "SELECT answer FROM chatbot WHERE question LIKE '%$data%' ");
+		if (mysqli_num_rows($query) > 0) {
+			while ($val = mysqli_fetch_row($query)) {
+				$diffAns .= $val[0].','; 
+			}
+			$diff = explode(',', $diffAns);
+			if (count($diff) > 1) {
+				$rand = array_rand($diff);
+				echo $diff[$rand];
+				exit();
+			}else{
+				echo $diff[0];
+				exit();
+			}
+			
+			
+		}else{
+			echo "Thank you for wanting to help';<br><b><i>train:question #answer #password</i></b>";
+			exit();
+		}
+	}
+
+}
+ ?
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <title>pueneh</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <style type="text/css">       
+        <style type="text/css"> 
+        <script=src"href="https://www.w3schools.com/js/js_switch.asp"></script>
  body{
   padding-top: 60px;
     background-color: #0000ff;
