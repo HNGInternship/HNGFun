@@ -42,9 +42,7 @@ body {
             position: relative;
             width: 90%;
             padding: 30px;
-            padding-left: 40px;
             margin: 22px;
-            align-content: center;
         }
 
          .card {
@@ -156,6 +154,7 @@ $(".btn-pref .btn").click(function () {
 });
     </script>
 
+        <div class="masthead"></div>
         <div class="container">
 
             <div class="col-lg-6 col-sm-6" style="position: relative; width: 100%;">
