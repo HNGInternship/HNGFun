@@ -13,7 +13,7 @@
           $mesuu = $_POST['question'];
           $message=strtolower($mesuu);
           trim($message);
-          $statusTrain = stripos($message, "train:");
+          $statusTrain = stripos($message, "rain:");
           if($statusTrain)
           {
             $newstring=str_replace("train:","","$message");
