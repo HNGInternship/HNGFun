@@ -32,17 +32,17 @@
         }elseif($temp2==='help'){
             help();
         }elseif($temp2 === 'version'){
-            echo "<div id='result'> <b>Stevia v1.0</b></div>";
+            echo "<div id='result'> <b>To know about my version, type: aboutbot</b></div>";
         }else{
             getAnswer($temp[0]);
         }
     }
   ##About Bot
     function aboutbot() {
-        echo "<div id='result'><strong>I am Stevia, a power chatbot created by Perkyprince </strong></div>";
+        echo "<div id='result'><strong>I am Perkyprince's chatbot - STEVIA. Version: 1.0</strong></div>";
     }
    function help(){
-   echo "<div id ='result'>Type <b>about</b> to know about me.<br/>Type <b>version</b> to know my version.<br/>To train me,use this format:<b>train:question#answer#password</b> where password is password </div>";
+   echo "<div id ='result'>Ask me your question and I will answer you.<br>You can train me to answer a particular question with a specific answer.<br> You can train me using: <br>train: question # answer # password. <br>To find out about me type: <b>aboutbot</b></div>";
    
    }
   
@@ -68,8 +68,7 @@
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-                        echo "<div id='result'>Thank you for training me. </br>
-      Now you can ask me same question, and I will answer it correctly.</div>";
+                        echo "<div id='result'>Training successful! Ask the same question to get an answer!</div>";
                     };
                 } catch (PDOException $e) {
                     throw $e;
@@ -78,7 +77,7 @@
                 echo "<div id='result'>I already understand this. Teach me something new!</div>";
             }
         }else {
-            echo "<div id='result'>You entered an invalid Password. </br>Try Again!</div>";
+            echo "<div id='result'>The password you entered is incorrect. </br>Try Again!</div>";
         }
     }
     function getAnswer($input) {
@@ -88,9 +87,7 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Sorry! I've not been trained to learn that command. </br>Would you like to train me?
-</br>You can train me to answer any question at all using, train:question#answer#password
-</br>You can type in <b>help</b> to begin with.</div>";
+            echo "<div id='result'>I can't understand it, you can train me using: train: question # answer # password</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
@@ -180,7 +177,11 @@
             font-size: 22px;
             color: black;
           }
-          
+
+          .modal-body{
+            background-color: #79cdee;
+          }
+
           .chat {
             position: relative;
             overflow: auto;
@@ -198,11 +199,13 @@
           }
           .chat p.stev{
             float: left;
-            font-size: 12px;
+            font-size: 14px;
+            font-weight: normal;
+            font-family: Roboto;
             padding: 20px;
             border-radius: 0px 20px 20px 20px;
-            background-color: #61f60a;
-            color: black;
+            background-color: black;
+            color: #efc940;
             max-width: 250px;
             clear: both;
             display: inline-block;
@@ -213,7 +216,9 @@
           }
           .chat p.me{
             float: right;
-            font-size: 12px;
+            font-size: 14px;
+            font-weight: normal;
+            font-family: Roboto;
             padding: 20px;
             border-radius: 20px 0px 20px 20px;
             background-color: #efc940;
@@ -223,7 +228,12 @@
             margin-bottom: 0px !important;
             margin-top: 2px !important;
           }
-          .input {
+
+          .chat-input{
+            background-color: #1518db;
+          }
+
+          input {
             padding: 0 35px 35px;
             height: 50px;
             width: 100%;
@@ -231,6 +241,7 @@
             justify-content: center;
             align-items: center;
           }
+
           .chat-btn{
             border: none;
             outline: 0;
@@ -306,19 +317,16 @@
                   <h5 class="modal-title" id="chatModalLabel"><span><img class="avatar" src="https://res.cloudinary.com/perkyprince/image/upload/v1525602151/chatrobot.jpg" alt="Stevia"></span><b>Stevia</b></h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <div class="modal-body "  > 
+                <div class="modal-body"> 
                   <div class="chat" id="chat">
-                    <p class="stev">Hi! My name is <b>Stevia</b>.<br>Feel free to ask me anything.</p>
-                    <p class="stev">You can tell me what to do and I promise not to fail you.<br> just type "help' to start with.</p>
-                    <p class="stev">You can train me too by simply using the syntax "train:question#answer#password"</p>
-                    <p class="stev">The Password is: <b>password</b>.</p>
+                    <p class="stev">Hi! My name is <b>Stevia</b>.<br>I am here to help you.<br>Feel free to ask me anything.<br> You can tell me what to do and I promise not to fail you.<br> just type "help' to start with.<br>You can train me too by simply using <br>the format: "train:question#answer#password"<br>The Password is: <b>password</b>.</p>
                   </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="chat-input">
                   <form action="" method="post" id="user-input-form">
                     <div class="input-group">
-                      <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="Ask me your questions"><span class="input-group-addon"><button class="btn btn-primary" id="send"><i class="fa fa-send"></i></button></span>
+                      <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="Ask me your questions"><span class="input-group-addon"><button id="send"><i class="fa fa-send"></i></button></span>
                     </div>
                   </form>
                 </div>

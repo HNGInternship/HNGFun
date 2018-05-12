@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       try {
          $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
       } catch (PDOException $pe) {
-         echo ("<p style='color:red'></p> " + " I couldn't connect to knowledge base : " . $pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
+         echo ("<p style='color:red'>bot</p> " + " I couldn't connect to knowledge base : " . $pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
       }
    }
     require '../answers.php';
@@ -15,9 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $question = trim($question);
       $answer = trim($answer);
       if (store($question, $answer)) {
-         return ("<p style='color:red'></p> " + " I just learnt something new, thanks to you ");
+         return (  "<p style='color:red'>bot:</p> I just learnt something new, thanks to you ");
       } else {
-         return ("<p style='color:red'></p> " +": I'm sorry, An error occured while trying to store what i learnt ");
+         return ("<p style='color:red'>bot:</p> I'm sorry, An error occured while trying to store what i learnt ");
       }
    }
    function searchRequest($request) {
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $rows = $statement->fetch();
       $response = $rows['answer'];
       if (!empty($response)):
-         $response = "<p style='color:red'></p> " . $response;
+         $response = "<p style='color:red'>bot</p> " . $response;
       endif;
       //check for function
       try {
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                $response = str_replace('(', '', $response);
                $response = str_replace(')', '', $response);
             } else {
-               $response = ("<p style='color:red'></p> " + " I'm sorry, The function doesn't exist");
+               $response = ("<p style='color:red'>bot</p> " + " I'm sorry, The function doesn't exist");
             }
          }
       } catch (Exception $ex) {
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $request = $_POST['new_request'];
       $user_request = trim($request);
       if (empty($user_request)) {
-         $bot_response['response'] = ("<p style='color:red'></p> " + " You didnt write anything");
+         $bot_response['response'] = ("<p style='color:red'>bot</p> " + " You didnt write anything");
       } else {
          if (!empty(searchRequest($user_request))) {
             $bot_response['response'] = searchRequest($user_request);
@@ -79,13 +79,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $question = trim(preg_replace("/(train:)/", "", $power_split[0]));
             $answer = trim($power_split[1]);
             $password = trim($power_split[2]);
-            if ($password != "123456") {
+            if ($password != "password") {
                $bot_response['response'] = " Training Access Denied!";
             } else {
                $bot_response['response'] = train($question, $answer);
             } 
          }else {
-            $bot_response['response'] =("<p style='color:red'></p> " + " I  am lost! Can you train me please?");
+            $bot_response['response'] =("<p style='color:red'>bot</p> " + " I  am lost! Can you train me please?");
          }
       }
       send:
@@ -297,12 +297,13 @@ function newElementsForUser(userRequest) {
    chatArea.scrollTop($("#chatarea")[0].scrollHeight);
 }
 
-function newElementsForBot(bot) {
+
+function newElementsForBot(botResponse) {
    var chatArea = $("#chatarea");
-   if (bot.response.resultType == "find") {
-      var messageElement = "<div class='form-control form-control2 text-left'>Intern ID => " + bot.response.users.intern_id + "<br/>Name => " + bot.response.users.name + "<br/>Intern Username => " + bot.response.users.username + "<br/>Intern Profile Picture => " + bot.response.users.image_filename + "</div>";
+   if (botResponse.response.resultType == "find") {
+      var messageElement = "<div class='form-control form-control2 text-left'>Intern ID => " + botResponse.response.users.intern_id + "<br/>Name => " + botResponse.response.users.name + "<br/>Intern Username => " + botResponse.response.users.username + "<br/>Intern Profile Picture => " + botResponse.response.users.image_filename + "</div>";
    } else { 
-      var messageElement = "<div class='form-control form-control2 text-left'>" + bot.response + "</div>";
+      var messageElement = "<div class='form-control form-control2 text-left'>" + botResponse.response + "</div>";
    }
    chatArea.html(chatArea.html() + messageElement);
    chatArea.scrollTop($("#chatarea")[0].scrollHeight);
@@ -342,12 +343,12 @@ $(document).ready(function chargeBot() {
       } else if (message.includes("randomquote") || message.includes("random quotes")) {
          $.getJSON("https://talaikis.com/api/quotes/random/", function (json) {
             response = json['quote'] + '<br/> Author : ' + json['author'];
-            botResponse = { 'response': response };
+            botResponse = { 'response': "<p style='color:red'>bot</p> " + response };
             newElementsForBot(botResponse);
          });
          $("#chatarea").scrollTop($("#chatarea")[0].scrollHeight);
       } else if (message.includes("aboutbot") || message.includes("about bot") || message.includes("aboutbot:")) {
-         response = { 'response': 'Version 4.0' };
+         response = { 'response': "<p style='color:red'>bot</p> " + 'Version 4.0' };
          newElementsForBot(response);
       } else {
          $.ajax({
