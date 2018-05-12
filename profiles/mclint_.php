@@ -413,7 +413,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               params.append('password', 'trainpwforhng');
               params.append('question', query);
 
-              axios.post('profiles/mclint_.php', params)
+              axios.post('https://old.hng.fun/profiles/mclint_.php', params)
                 .then(response => {
                   console.log(response);
                   this.messages.pop();
