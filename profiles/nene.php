@@ -34,7 +34,7 @@
         
                     if($data[2] == 'password'){
         
-                        $sql = "INSERT INTO chatbot (questions, answers)   
+                        $sql = "INSERT INTO chatbot (questions, answers)
                         VALUES ('$data[0]', '$data[1]')";
         
         
@@ -118,7 +118,7 @@
                     </div>
                     <div class='col-md-6'>
                       <center>
-                         <p>This is Esther Ekereuke.<br>
+                         <p>This is Esther Ekereuke.<br><br>
                     
                                 Three things about her you must know and perhaps she is good at;
                                  Coming to a friends defense, getting the last word, being adventurous and creating fun ideas. 
@@ -179,7 +179,7 @@
             
             }
         };
-        xhttp.open("POST", "index.php", true);
+        xhttp.open("POST", "/profiles/nene.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("message="+message.value);
     }
