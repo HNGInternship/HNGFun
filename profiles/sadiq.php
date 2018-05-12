@@ -109,32 +109,23 @@
 ?>
 
 <?php
-  if(!defined('DB_USER')){
-    require "../../config.php";		
-    try {
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
-  }
-  global $conn;
+	//require "../db.php";
+	if (!defined('DB_USER')){
+            require "../../config.php";
+        }
+        try {
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+          } catch (PDOException $pe) {
+            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+          }  $result = $conn->query("Select * from secret_word LIMIT 1");
+	$result = $result->fetch(PDO::FETCH_OBJ);
+	$secret_word = $result->secret_word;
+ 	$result2 = $conn->query("Select * from interns_data where username = 'sadiq'");
+ 	$user = $result2->fetch(PDO::FETCH_OBJ);
 
-  if($_SERVER['REQUEST_METHOD'] === 'GET'){
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    $sql = "SELECT * FROM secret_word";
-    $query = $conn->query($sql);
-    $query->setFetchMode(PDO::FETCH_ASSOC);
-
-    $result = $query->fetch();
-    $secret_word = $result['secret_word'];
-
-    $sql = "SELECT * FROM interns_data WHERE username = 'sadiq'";
-    $query = $conn->query($sql);
-    $query->setFetchMode(PDO::FETCH_ASSOC);
-    $me = $query->fetch();
-  }
+ 	$name = 'Sambo Abubakar'
 ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -311,7 +302,7 @@
     var resusr='</center><div class="container11 darker" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524285838/960_720.png" alt="Avatar" class="right" style="width:60%;"><p> ';
     $("#async").append(resusr+" "+valnext2+" </p></div>");
       $.ajax({
-        url: "profiles/sadiq.php",
+        url: "profiles/kingpin.php",
         type: 'POST',
         data: {question: question},
         dataType: 'json',
