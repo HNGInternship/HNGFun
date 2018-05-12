@@ -134,15 +134,11 @@ body {
 .btn-pref .btn {
     -webkit-border-radius:0 !important;
 }
-    .well {
-        position: relative;
-        width: 90%;
 
-    }
 
     </style>
 </head>
-<body>
+<body class="no-go area">
 
     <script type="text/javascript">
         $(document).ready(function() {
