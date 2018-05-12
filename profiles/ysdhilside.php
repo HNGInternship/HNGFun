@@ -28,6 +28,31 @@
     <title>HNG FUN | ysdhilside</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style type="text/css">
+    .box{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.box-inner{
+    transition: height 1s ease-out;
+    width: 300px;
+    height: 0px;
+    background: aliceblue;
+    z-index: 9999;
+}
+.open:hover>.box-inner{
+  height:400px;
+      transition: height 1s ease-out;
+}
+.open {
+    text-align: center;
+    font-size: 20px;
+    border: 2px solid #3F51B5;
+    background: #673AB7;
+    color: #eaeaea;
+}
+  </style>
   
  </head>
 
@@ -58,6 +83,16 @@
         </div>
         <div class="col-lg-4"></div>
         </div>
+
+        <div class="box">
+  <div class="open">Open
+  <div class="box-inner">
+    <br>
+    Test
+    <br>
+  </div>
+    <div>
+<div>
 
     
 </div>
