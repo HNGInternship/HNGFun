@@ -1,16 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <?php
+<?php
+  error_reporting(E_ALL);
+  ini_set('display_errors', 'On');
 
+  // define ('DB_USER', "root");
+  // define ('DB_PASSWORD', "");
+  // define ('DB_DATABASE', "hng_fun");
+  // define ('DB_HOST', "localhost");
+  // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  if(!isset($_POST['question_sent'])){
     $result = $conn->query("Select * from secret_word LIMIT 1");
     $result = $result->fetch(PDO::FETCH_OBJ);
     $secret_word = $result->secret_word;
 
     $result2 = $conn->query("Select * from interns_data where username = 'vewere'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
+  }
 
-  ?>
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if(isset($_POST['question'],$_POST['question_sent'])){
+      include "../db.php";
+      $question = $_POST['question'];
+      $result3 = $conn->query("Select * from chatbot where question = '$question'");
+      $answer = $result3->fetchAll(PDO::FETCH_OBJ);
+
+      
+      // var_dump($answer);
+      if (empty($answer)){
+        $response = "Sorry";
+      } else {
+        $index = rand(0, count($answer)-1);
+        $response = $answer[$index]->answer;
+      }
+
+      echo $response;
+      exit();
+    }
+  }
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -145,7 +178,7 @@
       float: left;
       margin-top: 5px;
       margin-bottom: 5px;
-      margin-right: 150px;
+      margin-right: 200px;
     }
 
     #user-bubble {
@@ -156,7 +189,7 @@
       float: right;
       margin-top: 5px;
       margin-bottom: 5px;
-      margin-left: 150px;
+      margin-left: 200px;
     }
 
     p {
@@ -191,10 +224,33 @@
         var input = $("#request").val();        
         if ($.trim(input)) {
           $("#chat-area").append("<div id='user-bubble'><p>"+input+"</p></div>");
+          
           $("#request").val("");
+
+          formdata = new FormData();
+          formdata.append("question", input);
+          formdata.append("question_sent",1);
+
+          $.ajax({
+            type: "POST",
+            url: "/PHP/HNGFun/profiles/vewere.php",
+            data: formdata,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function(data){
+              console.log(data);
+              $("#chat-area").append("<div id='bot-bubble'><p>"+data+"</p></div>");
+              $("#chat-area").scrollTop($("#chat-area")[0].scrollHeight);
+
+            }
+          });
+
+
         }
         $("#chat-area").scrollTop($("#chat-area")[0].scrollHeight);
       });
+
       $('#request').keypress(function (e) {
         if (e.which == 13) {
           $("#send").click(); 
@@ -252,8 +308,8 @@
       <div id="input-area"> 
         <div class="oj-flex">
           <!-- <form class="oj-flex"> -->
-            <input id="request" placeholder="Ask a question" class="oj-padding-horizontal oj-flex-item oj-sm-9 oj-md-9 oj-lg-9"  type="text" >
-            <button id="send" class="oj-flex-item oj-sm-2 oj-md-2 oj-lg-2" ><i class="fa fa-paper-plane"></i></button> 
+            <input name="question" id="request" placeholder="Ask a question" class="oj-padding-horizontal oj-flex-item oj-sm-9 oj-md-9 oj-lg-9"  type="text" >
+            <button name="submit" id="send" class="oj-flex-item oj-sm-2 oj-md-2 oj-lg-2" ><i class="fa fa-paper-plane"></i></button> 
           <!-- </form> -->
         </div>
       </div>

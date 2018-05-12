@@ -1,15 +1,22 @@
 <?php
- require 'db.php';
+if (!defined('DB_USER'))
+	{
+	require "../../config.php";
+	}
+try
+	{
+	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	}
+catch(PDOException $pe)
+	{
+	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	}
+global $conn;
 
 $diffAns ='';
-
-$sql="SELECT secret_word FROM secret_word";
-$query = $conn-> query($sql);
-$secret = $query->fetch(PDO::FETCH_ASSOC);
-$secret_word = $secret['secret_word'];
-
-if (isset($_POST['bot_r'])) {
-	$data = $_POST['bot_r'];
+if (isset($_POST['bot_adekunte'])) {
+	
+	$data = $_POST['bot_adekunte'];
 
 	if ($data == 'aboutbot') {
 		echo "V 1.0";
@@ -71,10 +78,26 @@ if (isset($_POST['bot_r'])) {
 			echo "Error 002".$e->getMessage();
 			exit();
 		}
+		
 	}
 
 }
 ?>
+
+<?php
+
+$result = $conn->query("SELECT * FROM secret_word LIMIT 1");
+ $res = $result->fetch(PDO::FETCH_OBJ);
+  $secret_word = $res->secret_word;
+
+ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'Adekunte Tolulope'");
+ $user = $result2->fetch(PDO::FETCH_OBJ);
+$name = $user-> name;
+$image = $user-> image_filename;
+$username = $user-> username;
+
+?>
+
 
 <!Doctype html>
 <html>
@@ -87,6 +110,7 @@ if (isset($_POST['bot_r'])) {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 300px;
   margin: auto;
+	margin-top:70px;
   text-align: center;
   font-family: arial;
 }
@@ -231,9 +255,9 @@ button:hover, a:hover {
 
 
 <div class="card">
-  <img src="http://res.cloudinary.com/de8awjxjn/image/upload/v1525561300/26219902_1872730456371316_8732891365608479809_n_1.jpg" alt="Profile Pic">
-  <h1>Adekunte Tolulope David</h1>
-  <p class="slack username">Adekunte Tolulope</p>
+  <img src="<?php echo $image; ?>" alt="Profile Pic">
+  <h1><?php echo $name; ?></h1>
+  <p class="slack username"><?php echo $username; ?></p>
   <p class="title">Programmer</p>
   <p>HNG Internship</p>
   <div style="margin: 24px 0;">
@@ -283,11 +307,11 @@ var no = 0;
 		
 		if (document.getElementById('botInp').value != '') {
 			var x = new XMLHttpRequest();
-		var url = 'profile.php?id=Adekunte Tolulope';
+		var url = 'profiles/Adekunte Tolulope.php';
 		var data = document.getElementById("botInp").value;
-		var vars = "bot_r="+data;no++;
+		var vars = "bot_adekunte="+data;no++;
 		document.getElementById('ans').innerHTML+='<div><div class="ques">'+data+'</div></div>';
-		document.getElementById('ans').innerHTML+='<div><div class="ans" id="id'+no+'">loading...</div></div>';
+		document.getElementById('ans').innerHTML+='<div><div class="ans" id="id'+no+'"></div></div>';
 		x.open("POST", url, true);
 		x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		x.onreadystatechange = function(){

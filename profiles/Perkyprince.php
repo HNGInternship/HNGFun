@@ -275,7 +275,7 @@
       
 
         <div class="card">
-          <img class="smaller-image thick-green-border" src="http://res.cloudinary.com/perkyprince/image/upload/v1524546688/Camera1.jpg" alt="Perkyprince" style="width:80%">
+          <img class="smaller-image thick-green-border img-responsive" src="http://res.cloudinary.com/perkyprince/image/upload/v1524546688/Camera1.jpg" alt="Perkyprince's Picture" style="width:80%">
           <div>
             <h1 class="main">Iwuala Princewill</h1>
             <p class="title">Intern at HNGInternship4</p>
@@ -325,32 +325,29 @@
               </div>
             </div>
           </div>
-
-
-            <script>
-    var outputArea = $("#chat");
-    $("#user-input-form").on("submit", function(e) {
-        e.preventDefault();
-        var message = $("#user-input").val();
-        outputArea.append(`<p class='me'>${message}</p>`);
-        $.ajax({
-            url: 'profile.php?id=perkyprince',
-            type: 'POST',
-            data:  'user-input=' + message,
-            success: function(response) {
-                var result = $($.parseHTML(response)).find("#result").text();
-                setTimeout(function() {
+          <script>
+            var outputArea = $("#chat");
+            $("#user-input-form").on("submit", function(e) {
+              e.preventDefault();
+              var message = $("#user-input").val();
+              outputArea.append(`<p class='me'>${message}</p>`);
+              $.ajax({
+                url: 'profile.php?id=perkyprince',
+                type: 'POST',
+                data:  'user-input=' + message,
+                success: function(response) {
+                  var result = $($.parseHTML(response)).find("#result").text();
+                  setTimeout(function() {
                     outputArea.append("<p class='stev'>" + result + "</p>");
                     $('#chat').animate({
-                        scrollTop: $('#chat').get(0).scrollHeight
+                      scrollTop: $('#chat').get(0).scrollHeight
                     }, 1500);
-                }, 250);
-            }
-        });
-        $("#user-input").val("");
-    });
-</script> 
+                  }, 250);
+                }
+              });
+              $("#user-input").val("");
+            });
+          </script> 
         </div> 
-        
     </body>
 </html>
