@@ -34,7 +34,7 @@
         
                     if($data[2] == 'password'){
         
-                        $sql = "INSERT INTO chatbot (questions, answers)
+                        $sql = "INSERT INTO chatbot (question, answer)
                         VALUES ('$data[0]', '$data[1]')";
         
         
@@ -179,7 +179,7 @@
             
             }
         };
-        xhttp.open("POST", "index.php", true);
+        xhttp.open("POST", "/profiles/nene.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("message="+message.value);
     }

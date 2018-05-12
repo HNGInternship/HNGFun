@@ -17,12 +17,15 @@
 
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    
+            require '../../config.php';
             //die('Hi');
-            $conn = new mysqli( DB_HOST, DB_USER , DB_PASSWORD, DB_DATABASE);
+            $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
             
             if(!$conn){
-                die('Unable to connect');
+                echo json_encode([
+                'results'=> $query->fetch_all()
+                ]);
+                return;
             }
             $question = $_POST['message'];
             $pos = strpos($question, 'train:');
@@ -72,7 +75,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             }
             
             echo json_encode([
-                'result'=>  'working'
+                'results'=>  'working'
             ]);
             
         return ;
@@ -114,7 +117,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
     .butty{
         background-color:#464d91;
-        color:white;
+        color:#fff;
         border-color:#464d91;
         font-size:20px;
     }
@@ -209,9 +212,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     chatarea.append(pp)
                 }
                 
-                }
+                } 
             };
-            xhttp.open("POST", "Uddy.php", true);
+            xhttp.open("POST", "/profiles/Uddy.php", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("message="+message.value);
         }
