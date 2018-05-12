@@ -1,3 +1,103 @@
+<?php
+    global $conn;
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="puenehfaith"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    ?>
+
+
+<?php
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $data = $_POST['user-input'];
+        $temp = explode(':', $data);
+        $temp2 = preg_replace('/\s+/','', $temp[0]);
+        
+        if($temp2 === 'train'){
+            train($temp[1]);
+        }elseif($temp2 === 'aboutbot') {
+            aboutbot();
+        }elseif($temp2==='help'){
+            help();
+        }elseif($temp2 === 'version'){
+            echo "<div id='result'> <b>Jayo v1.0</b></div>";
+        }else{
+            getAnswer($temp[0]);
+        }
+    }
+  ##About Bot
+    function aboutbot() {
+        echo "<div id='result'><strong>hi my name is Jayo</strong></div>";
+    }
+   function help(){
+   echo "<div id ='result'>Type <b>about</b> i am a cool bot.<br/>Type <b>version</b> i love to learn.<br/>To train me,you can input:<b>train:question#answer#password</b> the password is password </div>";
+   
+   }
+  
+  ##Train Bot
+    function train($input) {
+        $input = explode('#', $input);
+        $question = trim($input[0]);
+        $answer = trim($input[1]);
+        $password = trim($input[2]);
+        if($password == 'password') {
+            $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+            $q = $GLOBALS['conn']->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $q->fetch();
+            if(empty($data)) {
+                $training_data = array(':question' => $question,
+                    ':answer' => $answer);
+                $sql = 'INSERT INTO chatbot ( question, answer)
+              VALUES (
+                  :question,
+                  :answer
+              );';
+                try {
+                    $q = $GLOBALS['conn']->prepare($sql);
+                    if ($q->execute($training_data) == true) {
+                        echo "<div id='result'>bravo!!1. </br>
+      Now you can ask me same question, and I will answer it correctly.</div>";
+                    };
+                } catch (PDOException $e) {
+                    throw $e;
+                }
+            }else{
+                echo "<div id='result'> i love to learn please train me!</div>";
+            }
+        }else {
+            echo "<div id='result'>your password is wrong. </br>Try Again!</div>";
+        }
+    }
+    function getAnswer($input) {
+        $question = $input;
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+        $q = $GLOBALS['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll();
+        if(empty($data)){
+            echo "<div id='result'>Sorry! I've not been trained to learn that command. </br>Would you like to train me?
+</br>You can train me to answer any question at all using, train:question#answer#password
+</br>You can type in <b>help</b> to begin with.</div>";
+        }else {
+            $rand_keys = array_rand($data);
+            echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
+        }
+    }
+    ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -116,12 +216,7 @@ h3{
   height: 15px;
   width: 100%;
 
-
-h2 {
-  margin: auto;
-}
-
-pre {
+h5{
   background-color: #ffffff;
   margin-left: 15px;
 }     
@@ -191,81 +286,64 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
   </div>
 </div>
     <div id='bodybox'>
-  <div id='chatborder'>
-      <h2>JAYO</h2>
-    <h1 id="chatlog7" class="chatlog">HELLO AM JAYO can you train me?</h1>
-<pre><code>if (lastUserMessage === 'hi'){
-  JAYO = 'hello!';
- }</pre></code
- 
-  <pre><code>if (lastUserMessage === 'what is your name'){
-  Jayo = 'My name is' Jayo;
-}</pre></code
-
- <pre><code>if (lastUserMessage === 'how may i help you'){
-  Jayo = 'i love making beads but i don't know alot about making one can you teach me how to make a beautiful neck piece? to train me use the keyword "train" your question #your answer #password.</p>
- }</pre></code
-      
-  <pre><code>if (lastUserMessage === 'okay i will help you'){
-  Jayo = 'Thank you for wanting to help;
-}</pre></code>
-        
-  <input type="hello" name="Jayo" id="chatbox" placeholder="" onfocus="placeHolder()">
-   </div>
-  
-</body>
+  <div id='chatborder'
+    <h1 id="chatlog7" class="chatlog">HELLO AM JAYO can you train me?</h1> </div>
+  <button class="btn col-sm-offset-5 chat-btn" data-toggle='modal' data-target='#chatModal'><i class="fa fa-comment-alt">Chat</i></button>
+        <!--modal-->
+   <div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="chatModalLabel"><i class="fa fa-user"></i><b>Santra</b></h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body "  > 
+            <div class="chat" id="chat">
+                
+                  
+                    <p class="jayo">Hi! am jayo.   </p>
+                    <p class="jayo">To train me, use - "train:question#answer#password".</p>
+                   <p class="jayo">The Password is: <b>password</b>. </p>
+                    <p class="jayo">type in here.</p>
+            </div>                
+          </div>  
+          <div class="clearfix"></div>
+                <div class="chat-input">
+                    <form action="" method="post" id="user-input-form">
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="chat me up...">
+                        <span class="input-group-addon"><button class="btn btn-primary" id="send"><i class="fa fa-send"></i></button></span>
+                      </di  </div>
+                    </form>
+                </div>
+        </div>
+   
 <script>
-  function chatbotResponse(Hi) {
-  talking = true;
-  botMessage = "I'm confused"; //the default message
+    var outputArea = $("#chat");
+    $("#user-input-form").on("submit", function(e) {
+        e.preventDefault();
+        var message = $("#user-input").val();
+        outputArea.append(`<p class='me'>${message}</p>`);
+        $.ajax({
+            url: 'profile.php?id=puenehfaith',
+            type: 'POST',
+            data:  'user-input=' + message,
+            success: function(response) {
+                var result = $($.parseHTML(response)).find("#result").text();
+                setTimeout(function() {
+                    outputArea.append("<p class='san'>" + result + "</p>");
+                    $('#chat').animate({
+                        scrollTop: $('#chat').get(0).scrollHeight
+                    }, 1500);
+                }, 250);
+            }
+        });
+        $("#user-input").val("");
+    });
+</script>
+</div>
 
-  if (lastUserMessage === 'hi' || lastUserMessage =='hello') {
-    const hi = ['hi','hello']
-    Jayo = hello[" ?"];;
-  }
-
-  if (lastUserMessage === 'what is your name') {
-    Jayo = 'My name is ' jayo;
-  }
-  if (lastUserMessage === 'how may i help you') {
-    Jayo = 'i love making beads but i don't know alot about making one can you teach me how to make a beautiful neck piece? to train me use the keyword "train" your question #your answer #password'.);;
-  }
-  if (lastUserMessage === 'okay i will help you') {
-    Jayo = 'Thank you for wanting to help';
-  }
-}
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//
-//
-//
-function newEntry() {
-  //if the message from the user isn't empty then run 
-  if (document.getElementById("chatbox").value != "hi ") {
-    //pulls the value from the chatbox ands sets it to lastUserMessage
-    lastUserMessage = document.getElementById("chatbox").value;
-    //sets the chat box to be clear
-    document.getElementById("chatbox").value = "";
-    //adds the value of the chatbox to the array messages
-    messages.push(lastUserMessage);
-    //Speech(lastUserMessage);  //says what the user typed outloud
-    //sets the variable botMessage in response to lastUserMessage
-    chatbotResponse();
-    //add the chatbot's name and message to the array messages
-    messages.push("<b>" + Jayo + ":</b> "i love making beads but i don't know alot about making one can you teach me how to make a beautiful neck piece? to train me use the keyword "train" your question #your answer #password.);
-    // says the message using the text to speech function written below
-    Speech(botMessage);
-    //outputs the last few array elements of messages to html
-    for (var i = 1; i < 8; i++) {
-      if (messages[messages.length - i])
-        document.getElementById("chatlog" + i).innerHTML = messages[messages.length - i];
-    }
-  }
-}
-</script>  
+</body> 
 </html>
