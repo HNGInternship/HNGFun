@@ -307,7 +307,7 @@ var no = 0;
 		
 		if (document.getElementById('botInp').value != '') {
 			var x = new XMLHttpRequest();
-		var url = 'profiles/Adekunte Tolulope.php rel=canonical';
+		var url = 'profile?id=Adekunte Tolulope';
 		var data = document.getElementById("botInp").value;
 		var vars = "bot_adekunte="+data;no++;
 		document.getElementById('ans').innerHTML+='<div><div class="ques">'+data+'</div></div>';
