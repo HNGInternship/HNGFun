@@ -90,7 +90,7 @@
     {
       echo json_encode([
          'status' => 1,
-         'answer' =>"sorry i have no answer to that yet .......but you an train me how to annswer questions "
+         'answer' =>"sorry i have no answer to that yet, but you an train me how to annswer questions "
        ]);
     return;
     }
@@ -301,7 +301,7 @@
     var resusr='</center><div class="container11 darker" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524285838/960_720.png" alt="Avatar" class="right" style="width:60%;"><p> ';
     $("#async").append(resusr+" "+valnext2+" </p></div>");
       $.ajax({
-        url: 'profiles/sadiq.php',
+        url: 'http://old.hng.fun/profile.php?id=sadiq',
         type: 'POST',
         data: {question: question},
         dataType: 'json',
