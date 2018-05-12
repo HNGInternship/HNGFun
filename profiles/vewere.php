@@ -68,7 +68,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Victor's Profile</title>
   <link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	
@@ -222,7 +222,7 @@
   </style>
   <script>
     var outer_profile = true;
-    var version = "Bot v1.0.14";
+    var version = "Bot v1.0.15";
     $(function (){    
       
       // Switch between Profile and Chat screens
