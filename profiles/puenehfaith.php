@@ -33,7 +33,7 @@
         }elseif($temp2==='help'){
             help();
         }elseif($temp2 === 'version'){
-            echo "<div id='result'> <b>Santra v1.0</b></div>";
+            echo "<div id='result'> <b>Jayo v1.0</b></div>";
         }else{
             getAnswer($temp[0]);
         }
@@ -216,12 +216,7 @@ h3{
   height: 15px;
   width: 100%;
 
-
-h2 {
-  margin: auto;
-}
-
-pre {
+h5{
   background-color: #ffffff;
   margin-left: 15px;
 }     
@@ -291,8 +286,7 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
   </div>
 </div>
     <div id='bodybox'>
-  <div id='chatborder'>
-      <h2>JAYO</h2>
+  <div id='chatborder'
     <h1 id="chatlog7" class="chatlog">HELLO AM JAYO can you train me?</h1> </div>
   <button class="btn col-sm-offset-5 chat-btn" data-toggle='modal' data-target='#chatModal'><i class="fa fa-comment-alt">Chat</i></button>
         <!--modal-->
@@ -309,20 +303,19 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
             <div class="chat" id="chat">
                 
                   
-                    <p class="san">Hi! am jayo.   </p>
-                    <p class="san">To train me, use - "train:question#answer#password".</p>
-                   <p class="san">The Password is: <b>password</b>. </p>
-                    <p class="san">type in here.</p>
-            </div>
-                
+                    <p class="jayo">Hi! am jayo.   </p>
+                    <p class="jayo">To train me, use - "train:question#answer#password".</p>
+                   <p class="jayo">The Password is: <b>password</b>. </p>
+                    <p class="jayo">type in here.</p>
+            </div>                
           </div>  
           <div class="clearfix"></div>
                 <div class="chat-input">
                     <form action="" method="post" id="user-input-form">
                       <div class="input-group">
                         <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="chat me up...">
-                          <span class="input-group-addon"><button class="btn btn-primary" id="send"><i class="fa fa-send"></i></button></span>
-                      </div>
+                        <span class="input-group-addon"><button class="btn btn-primary" id="send"><i class="fa fa-send"></i></button></span>
+                      </di  </div>
                     </form>
                 </div>
         </div>
