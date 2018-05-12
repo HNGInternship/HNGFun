@@ -23,9 +23,25 @@
 ?>
 <html>
 <style>
-.card {
+.column {
   margin-top: 50px;
     text-align: center;
+   float: left;
+  
+}
+
+.left {
+    width: 75%;
+}
+
+.right {
+    width: 25%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
 }
 .title {
     color: grey;
@@ -56,19 +72,37 @@ button:hover, a:hover {
   <title>My Profile</title>
  </head>
 <body>
- <div class="card">
-  <?php
-  echo "<h1>" .$name. "</h1>";
-  ?>
-  <div class="title">Web and Mobile Developer</div>
-  <div>Hotels.ng Internship</div>
-  <div align="center"> <img width="200px" height="200px" src="https://res.cloudinary.com/danuluma/image/upload/v1525636698/hng.jpg"></div>
-  <?php
-  echo "<div> Username :" .$username. "<div>";
-  ?>
-  <div>Slack: @Dan</div>
-  <div>Github: <a href="https://github.com/danuluma" target="_blank">danuluma</a></div>
-  <div><a class="button" href="mailto:anericod@gmail.com" target="_blank"><button>Contact</button> </a></div>
+ 
+
+ <div id="mypage" class="row">
+    <div class="column left">
+      <div>
+      <?php
+      echo "<h1>" .$name. "</h1>";
+      ?>
+      </div>
+      <div class="title">Web and Mobile Developer</div>
+      <div>Hotels.ng Internship</div>
+      <div align="center"> <img width="200px" height="200px" src="https://res.cloudinary.com/danuluma/image/upload/v1525636698/hng.jpg"></div>
+      <?php
+      echo " Username :" .$username. "";
+      ?>
+      <div>Slack: @Dan</div>
+      <div>Github: <a href="https://github.com/danuluma" target="_blank">danuluma</a></div>
+      
+      <div><a class="button" href="mailto:anericod@gmail.com" target="_blank"><button>Contact</button> </a></div>
+    </div>
+
+   <div class="column right" align="center" >
+
+      <form action="testt.php" method="post">
+      Name:<br> <input type="text" name="name"><br><br>
+      E-mail:<br> <input type="text" name="email"><br><br>
+      <input type="submit">
+      </form>
+
+   </div>
 </div>
+
 </body>
 </html>
