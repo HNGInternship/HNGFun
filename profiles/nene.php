@@ -46,7 +46,7 @@
                             return;
                         }else{
                             echo json_encode([
-                                'results'=> 'Couldn\'t train bot '. $conn->error();
+                                'results'=> 'Couldn\'t train bot '. $conn->error()
                             ]);
                             return;
                         }
