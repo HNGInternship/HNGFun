@@ -1,20 +1,18 @@
 <?php
-
-$localhost = 'localhost';
-$user = 'root';
-$pass = '';
-$dbs = 'hng_fun';
-
-
-try{
-	$conn = new PDO("mysql:host=$localhost; dbname=$dbs",$user,$pass);
+if (!defined('DB_USER'))
+	{
+	require "../../config.php";
+	}
+try
+	{
+	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	}
 catch(PDOException $pe)
-}
-	
-{
-	die("Could not connect to the database ".hg$pe->getMessage());
+	{
+	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 	}
 global $conn;
+
 $diffAns ='';
 if (isset($_POST['bot_adekunte'])) {
 	

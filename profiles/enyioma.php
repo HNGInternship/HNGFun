@@ -253,7 +253,7 @@
             class="oj-avatar-image" width="30px" height="30px"  style="margin-right: 5%">Yorma's Bot</h3><br>
         <div class= "chat-bot">
         <div>Hello, <span id = "greeting"> </span> (Yea I know what time it is). My name is YormaBot. I'm very much open to learn more. You can teach me using the format: 
-            "train: question #answer #passpord."</div>
+            "train: question #answer #password."</div>
             <div class= "text-box" id="textbox">
                 <p id="chatlog8" class= "chatlog">&nbsp;</p>
                 <p id="chatlog7" class= "chatlog">&nbsp;</p>
