@@ -42,7 +42,6 @@ body {
             position: relative;
             width: 90%;
             padding: 30px;
-            padding-left: 40px;
             margin: 22px;
             align-content: center;
         }
