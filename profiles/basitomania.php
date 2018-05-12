@@ -1,5 +1,5 @@
 <?php
-  $result = $conn->query("Select * from secret_word LIMIT 1");
+  /*$result = $conn->query("Select * from secret_word LIMIT 1");
   $result = $result->fetch(PDO::FETCH_ASSOC);
   $secret_word = $result['secret_word'];
 
@@ -8,25 +8,8 @@
   
   $username = $user['username'];
   $name = $user['name'];
-  $image_filename = $user['image_filename'];
-?>
-
-<?php
-$servername = "localhost";
-$username = "username";
-$password = "password";
-
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=myDB", $username, $password);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connected successfully"; 
-    }
-catch(PDOException $e)
-    {
-    echo "Connection failed: " . $e->getMessage();
-    }
-?>
+  $image_filename = $user['image_filename'];*/
+?>   
 
 <!DOCTYPE html>
 <html>
@@ -243,19 +226,26 @@ a {
 			color: black;
 			box-shadow: 3px 3px 5px gray;
 		}
-#send {
-      border: none;
-      color: white;
-      padding: 13px 28px;
-      text-align: center;
-      font-size: 15px;
-      margin: 5px 12px;
-      /*position: absolute;*/
-      float: right;
-      /*box-shadow: 4px 4px 2px #a8b2c1;*/
-      border-radius: 10px;
-    }
 
+button{
+      border:none;
+      outline:0;
+      display: inline-block;
+      padding:20px;
+      color:#6ab47b;
+      background-color: #000;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+	  border-radius: 10px;
+    }
+input[type=text] {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
 </style>
 	</head>
 	<body>
@@ -290,19 +280,21 @@ a {
 					</div>
 					<div id="chat-body">
 						<div class="bot-chat">
-							<div class="message">Hello! My name is Basbot.<br>You can ask me questions and get answers.<br>Type <span style="color: #90CAF9;/"><strong> Aboutbot</strong></span> to know more about me.</div>
-							<div class="message">You can also train me to be smarter by typing; <br><span style="color: #90CAF9;"><strong>train: question #answer #password</strong></span><br></div>
+							<div id="user-output">
+								<div class="message">Hello! My name is Basbot.<br>You can ask me questions and get answers.<br>Type <span style="color: #90CAF9;/"><strong> Aboutbot</strong></span> to know more about me.</div>
+								<div class="message">You can also train me to be smarter by typing; <br><span style="color: #90CAF9;"><strong>train: question #answer #password</strong></span><br></div>
+							</div>
 						</div>
 					</div>
 					<div class="chat-footer">
 						<div class="input-text-container">
-							<form action="" method="post" id="chat-input-form">
-								<input type="text" name="input_text" id="input" required class="input_text" placeholder="Type your question here...">
-								<button type="submit" class="send_button" id="send">Send</button>
+							<form action="" method="post" id="input-form">
+								<input type="text" name="input-text" id="input" required class="input-text" placeholder="Type your question here...">
+								<!-- <button type="submit" class="send_button" id="send">Send</button>-->
 							</form>
 						</div>
 					</div>
-				</div>	
+				</div>
 			</section>		
 		</div>
 
@@ -310,43 +302,38 @@ a {
 			<p>&copy; 2017 Maniaweb.</p>
 		</footer>
 			<script type = text/javascript>
-				
-				document.queryselector("#input").addEventListener("keypress", function(e){
-					var key = e.which || e.keyCode;
-					if(key == 13){
-						var input = document.getElementById("input").value;
-						document.getElementById("user").innerHTML = input;
-						output(input);
+				var outputArea = $("#user-output");
+
+				$("input-form").on("submit", function(e) {
+
+					e.preventDefault();
+
+					var message = $("#input").val();
+
+					outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
+
+
+					$.ajax({
+						url: 'profile.php?id=basitomania',
+						type: 'POST',
+						data:  'input-text=' + message,
+						success: function(response) {
+							var result = $($.parseHTML(response)).find("#result").text();
+							setTimeout(function() {
+								outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
+								$('#user-output').animate({
+									scrollTop: $('#user-output').get(0).scrollHeight
+								}, 1500);
+							}, 250);
 						}
 					});
 
-					function output(input){
-						try{
-							var product = input + "=" + eval(input);
-						} catch(e){
-							var text = (input.toLowerCase()).replace(/[^\w\s\d]/gi, "");
-							if(compare(trigger, reply, text)){
-								var product = compare(trigger, reply, text);
-							} else {
-								var product = text;
-							}
-						}
-						document.getELementById("chatbot").innerHTML = input;
-						document.getElementById("input").value = "";
-					}
-					function compare(arr, array, string){
-						var item;
-						for(var x= 0; x<arr.length; x++){
-							for(var y = 0; y<array.length; y++){
-								if(arr[x][y] == string){
-									items = array[x];
-									item = items[Math.floor(Math.random()*items.length)];
-								}
-							}
-						}
-						return item
-					}
+
+					$("#input").val("");
+
+				});
 			</script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 		</div>
 	</body>
 </html>

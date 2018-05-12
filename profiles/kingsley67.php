@@ -23,133 +23,139 @@ if($_POST['questions']){
     
     
     
-$text=$_POST['questions'];
- $checktrain=strpos($text,'train:'); 
-   if($checktrain ===false) {
-       $checkBirthdate=strpos($text,"Birthdate:");
-       
-      if($checkBirthdate !==false){
+        $text=$_POST['questions'];
+        $checktrain=strpos($text,'train:'); 
+        if($checktrain ===false) {
+        $checkBirthdate=strpos($text,"Birthdate:");
 
-    
-          
-      
- 
+        if($checkBirthdate !==false){
+
 if(isset($_POST['questions'])){
     
-   $text=$_POST['questions']; 
+        $text=$_POST['questions']; 
+
+        $birthDate= substr($text, 10);
+        zodiac($birthDate);
     
-    $birthDate= substr($text, 10);
-    zodiac($birthDate);
-     echo json_encode([
-                  'question'=>$text,
-                  'answers' => zodiac($birthDate)
-                ]); 
- 
- 
-   return;
+             echo json_encode([
+                          'question'=>$text,
+                          'answers' => "Your zodiac sign for ".$birthDate." is ".zodiac($birthDate)
+                        ]); 
+
+
+             return;
 } 
       
-      
-      }else if($_POST['questions']=="aboutbot"){
+}else if($_POST['questions']=="aboutbot"){
           
           
-          echo json_encode([
-                  'question'=>'aboutbot',
-                  'answers' => "<strong>RIM67</strong><br>Version 1.0.0 <br>build 2<br>Platforms: Windows, Linux"
-                ]); 
- 
- 
-   return;  
-               
-     }else{
-     $text=$_POST['questions'];
- $sql3="SELECT * FROM chatbot where question='$text '";
- $query = $conn->query($sql3);
-    $query->setFetchMode(PDO::FETCH_ASSOC);
-    $result3 = $query->fetch();
- $ans=$result3['answer'];
+              echo json_encode([
+                      'question'=>'aboutbot',
+                      'answers' => "<strong>RIM67</strong><br>Version 1.0.0 <br>build 2<br>Platforms: Windows, Linux"
+                    ]); 
+              return;  
+}else{
+                 $text=$_POST['questions'];
+
+                $sql3="SELECT answer FROM chatbot WHERE question='$text '";
+                $query = $conn->query($sql3);
+                $query->setFetchMode(PDO::FETCH_ASSOC);
+                $result3 = $query->fetchAll();
+
+if(count($result3)>1){ 
+                 $numb = rand(0, count($result3)-1);    
+                 $row=$result3[$numb]; 
+                 $ans=$row['answer'];
+
+         echo json_encode([
+                          'question'=>$text,
+                          'answers' =>  $ans
+                        ]); 
 
 
-     if (isset($ans)) {
-                echo json_encode([
-                  'question' => $text,
-                  'answers' => $ans
-               ]);
-         return;
+             return;
+}else if(count($result3)==1) {
+             
+                $an=$result3['answer'];
+    
+         echo json_encode([
+                          'question'=>$text,
+                          'answers' =>  $an
+                        ]); 
 
-  }else
+
+             return;
+        
+} else
      {
-$error="I couldn't find an answer to your question, please train me with that using the command <br>train:Your-Question#Your-Answer#Password";
+              $ans="I couldn't find an answer to your question, please train me with that using the command <br>train:Your-Question#Your-Answer#Password";
+    
+         echo json_encode([
+                          'question'=>$text,
+                          'answers' =>  $ans
+                        ]); 
 
-        echo json_encode([
-                'question' => $text,
-                  'answers' => $error
-                ]);
-       return;
 
+             return;
+
+     
      }
 
  }
   }else{
 
-   $tex=$_POST['questions'];
+                       $tex=$_POST['questions'];
 
-      $rmtrain= substr($tex, 6);
-       $rmspace = preg_replace('([\s]+)', ' ', trim($rmtrain));
+                       $rmtrain= substr($tex, 6);
+                       $rmspace = preg_replace('([\s]+)', ' ', trim($rmtrain));
 
-       $extrain = explode("#", $rmspace,3);
-
-
-    if(count($extrain)==3){
-         $question=trim($extrain[0]);
-     $answer=trim($extrain[1]);
-        $password=trim($extrain[2]);
+                       $extrain = explode("#", $rmspace,3);
 
 
-        if($password=="trainpwforhng"){
+if(count($extrain)==3){
+          $question=trim($extrain[0]);
+          $answer=trim($extrain[1]);
+          $password=trim($extrain[2]);
 
 
-    $sql3 = "INSERT INTO  `chatbot` (`question`, `answer`) VALUES ('". $question ."','". $answer ."')";
-    $query = $conn->query($sql3);
-    echo json_encode([
+if($password=="trainpwforhng"){
+
+
+        $sql3 = "INSERT INTO  `chatbot` (`question`, `answer`) VALUES ('". $question ."','". $answer ."')";
+        $query = $conn->query($sql3);
+echo json_encode([
                   'question' => $question,
                   'answers'=>"<strong>Your data was saved successfully</strong>"
                 ]);
 
-             return;
-            }else{
+              return;
+}else{
 
-       echo json_encode([
+          echo json_encode([
                   'question' => $tex,
                   'answers'=>"<strong>You inserted a wrong password<br>Note</strong>The password is:<strong>trainpwforhng</strong>"
                 ]);
 
              return;
-        }
+}
 
 
 
-   }else{
-      echo json_encode([
+}else{
+             echo json_encode([
                  'question' => $tex,
                  'answers'=>"Your training has not been considered,please verify your training is in the following format:<br><strong>train:Your_question#Your_Answer#Password<br>Note:</strong>The password is:<strong>trainpwforhng</strong>"
 
                 ]);
                  return;
-    }
-
-    }
+ }
+ }
 
  }
 
 
 
  ?>
-
-
-
-
-
 
 
 
@@ -210,7 +216,7 @@ $error="I couldn't find an answer to your question, please train me with that us
     .you{
         background-color:#E8EEEF;
         width:500px;
-        padding-left: 390px;
+        text-align: right;
         border: 1px solid black;
        
         overflow-wrap: break-word;
@@ -366,8 +372,8 @@ https://res.cloudinary.com/dyngnvcre/image/upload/v1524083992/king.jpg" alt="kin
             <div class="chat">
                     <div id="chathead">
                         <p>You can train me with your personal questions using the keyword/format <span style="color:#109177"><strong>train:your-Question#your-Answer#password<br>N.B:</strong></span>the training password is<span style="color:#109177"><strong>trainpwforhng</strong> </span></p>
-             <p>I also have the ability to tell you your zodiac sign. To know your zodiac sign, enter the following keyword followed by your birthday<span style="color:#109177"><strong>
-                 Birthday:yyyy-mm-dd</strong></span></p>
+             <p>I also have the ability to tell you your zodiac sign. To know your zodiac sign, enter the following keyword followed by your birthdate<span style="color:#109177"><strong>
+                 Birthdate:yyyy-mm-dd</strong></span></p>
         </div>
                 <div id="chatOutput">
                 
@@ -417,12 +423,13 @@ $.ajax({
     questions:input
     
    }, 
-beforeSend: function() { $('#results').append("please wait");},
+beforeSend: function() { $('#results').append(" ");},
   success: function(result) {
       $("#chatOutput").append($("#ques").append("<div class=\"you\"><strong>You:</strong><br>"+result['question']+"</div><div class=\"bot\"><strong>BOT:</strong><br>"+result['answers']+"</div><br>"));
 
         }
         });
+     $('#chatInput').val('');
 };
     
      function updateScroll(){
@@ -432,6 +439,7 @@ beforeSend: function() { $('#results').append("please wait");},
 
 
 setInterval(updateScroll,1000);
+    
                     
 </script>
 

@@ -1,16 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <?php
+<?php
+  error_reporting(E_ALL);
+  ini_set('display_errors', 'On');
 
+
+  if(!isset($_POST['question_sent'])){
     $result = $conn->query("Select * from secret_word LIMIT 1");
     $result = $result->fetch(PDO::FETCH_OBJ);
     $secret_word = $result->secret_word;
 
     $result2 = $conn->query("Select * from interns_data where username = 'vewere'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
+  }
 
-  ?>
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (substr($_POST['question'], 0, 5) == 'train'){
+      // echo "<script>console.log('training mode');</script>";
+      include "../db.php";
+      $input = preg_replace('/\s+#\s+/', '#', $_POST['question']);
+
+      $indexof1 = strpos($input, '#');
+      $indexof2 = strpos($input, '#', 6);
+
+      $new_question = substr($input, $indexof1+1, $indexof2-$indexof1-1);
+      $new_answer = substr($input, $indexof2+1);
+
+      $sql = "INSERT INTO chatbot (question, answer) VALUES ('$new_question', '$new_answer')";
+      $conn->exec($sql);
+
+
+
+
+
+      $response = "Training Successful";
+      echo $response;
+      exit();
+    } 
+    
+    else if (isset($_POST['question'],$_POST['question_sent'])){
+      include "../db.php";
+      $question = $_POST['question'];
+      $result3 = $conn->query("Select * from chatbot where question = '$question'");
+      $answer = $result3->fetchAll(PDO::FETCH_OBJ);
+
+      
+      // var_dump($answer);
+      if (empty($answer)){
+        $response = "Well, this is embarrassing. I don't know what to say. You can teach me by entering the question and answer in this format: train#your-question#your-answer";
+      } else {
+        $index = rand(0, count($answer)-1);
+        $response = $answer[$index]->answer;
+      }
+
+      echo $response;
+      exit();
+    }
+  }
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -69,7 +121,7 @@
 
 		#profile {
       background-color: #513e3e;
-      margin-top: 3%;
+      margin-top: 70px;
       margin-left: auto;
       margin-right: auto;
       height: 480px;
@@ -92,7 +144,7 @@
     #chat {
       margin-left: auto;
       margin-right: auto;
-      margin-top: 3%;
+      margin-top: 70px;
       height: 480px;
       margin-bottom: 3%;
       box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
@@ -105,6 +157,7 @@
       scroll-behaviour: auto;
       box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
       padding: 15px;
+      
     }
 
     #input-area {
@@ -137,26 +190,26 @@
       padding-bottom: 5px;
     }
 
-    #bot-bubble {
+    .bot-bubble {
       background-color: #fffff0;
       border-radius: 10px;
       word-wrap: break-word;
+      width: fit-content;
       max-width: 80%;
-      float: left;
-      margin-top: 5px;
-      margin-bottom: 5px;
-      margin-right: 150px;
+      margin-bottom: 10px;
+      display: block;
     }
 
-    #user-bubble {
+    .user-bubble {
       background: #809595;
       border-radius: 10px;
       word-wrap: break-word;
+      width: fit-content;
       max-width: 80%;
       float: right;
-      margin-top: 5px;
-      margin-bottom: 5px;
-      margin-left: 150px;
+      margin-bottom: 10px;
+      display: block;
+      /* margin-left: 200px; */
     }
 
     p {
@@ -169,6 +222,7 @@
   </style>
   <script>
     var outer_profile = true;
+    var version = "Bot v1.0.14";
     $(function (){    
       
       // Switch between Profile and Chat screens
@@ -186,15 +240,43 @@
         }
       });
 
-      // Add user's request to chat interface
+      // Add user's request and bot's response to chat interface
       $("#send").click(function() {
         var input = $("#request").val();        
         if ($.trim(input)) {
-          $("#chat-area").append("<div id='user-bubble'><p>"+input+"</p></div>");
+          $("#chat-area table").append("<tr><td><div class='user-bubble'><p>"+input+"</p></div></td></tr>");
+          
           $("#request").val("");
+
+          if (input == 'aboutbot'){
+            $("#chat-area table").append("<tr><td><div class='bot-bubble'><p>"+version+"</p></div></td></tr>");
+          } else {
+            formdata = new FormData();
+            formdata.append("question", input);
+            formdata.append("question_sent", 1);
+
+            $.ajax({
+              type: "POST",
+              url: "/PHP/HNGFun/profiles/vewere.php",
+              data: formdata,
+              processData: false,
+              contentType: false,
+              cache: false,
+              success: function(data){
+                console.log(data);
+                $("#chat-area table").append("<tr><td><div class='bot-bubble'><p>"+data+"</p></div></td></tr>");
+                $("#chat-area").scrollTop($("#chat-area")[0].scrollHeight);
+
+              }
+            });
+          }
+          
+
+
         }
         $("#chat-area").scrollTop($("#chat-area")[0].scrollHeight);
       });
+
       $('#request').keypress(function (e) {
         if (e.which == 13) {
           $("#send").click(); 
@@ -239,22 +321,23 @@
   <div class="oj-flex hidden" id="outer-chat">
     <div id="chat" class="oj-flex-item oj-sm-10 oj-md-6 oj-lg-4"> 
       <div id="chat-area">
-        <div id="bot-bubble">
-          <p>Hi there!</p>
-        </div>
-        <div id="bot-bubble">
-          <p>My name is Bot :p</p>
-        </div>
-        <div id="bot-bubble">
-          <p>Ask me a question</p>
-        </div>
+        <table>
+          <tr><td>
+            <div class="bot-bubble">
+              <p>Hi there!</p>
+            </div>
+          </tr></td>
+          <tr><td>
+            <div class="bot-bubble">
+              <p>My name is Bot :p</p>
+            </div>
+          </tr></td>
+        </table>
       </div>
       <div id="input-area"> 
         <div class="oj-flex">
-          <!-- <form class="oj-flex"> -->
-            <input id="request" placeholder="Ask a question" class="oj-padding-horizontal oj-flex-item oj-sm-9 oj-md-9 oj-lg-9"  type="text" >
-            <button id="send" class="oj-flex-item oj-sm-2 oj-md-2 oj-lg-2" ><i class="fa fa-paper-plane"></i></button> 
-          <!-- </form> -->
+            <input name="question" id="request" placeholder="Ask a question" class="oj-padding-horizontal oj-flex-item oj-sm-9 oj-md-9 oj-lg-9"  type="text" autofocus>
+            <button name="submit" id="send" class="oj-flex-item oj-sm-2 oj-md-2 oj-lg-2" ><i class="fa fa-paper-plane"></i></button> 
         </div>
       </div>
     </div>
