@@ -75,7 +75,7 @@
                 <li class="list-group-item">HNG - Intern, Web developer.</li>
                 <li class="list-group-item">Username: @<?php echo $username ?></li>
                 <li class="list-group-item" style="padding:30px;"><a href="https://facebook.com/yusufsd" class="btn btn-primary">Facebook</a>
-                    <a href="mailto:ysdhilside@gmail.com" class="btn btn-danger">Email</a></li>
+                    <a href="mailto:ysdhilside@gmail.com" class="btn btn-danger">Email Me!</a></li>
               </ul>
                 </div>
             
