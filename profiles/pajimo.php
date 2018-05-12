@@ -1,31 +1,25 @@
 <?php
-
 session_start();
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
    if (!defined('DB_USER')) {
-
       require "../../config.php";
-
       try {
          $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
       } catch (PDOException $pe) {
-         echo ("<p style="color:red"></p> " + " I couldn't connect to knowledge base : " . $pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
+         echo ("<p style='color:red'></p> " + " I couldn't connect to knowledge base : " . $pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
       }
    }
     require '../answers.php';
    global $conn;
-
    function train($question, $answer) {
       $question = trim($question);
       $answer = trim($answer);
       if (store($question, $answer)) {
-         return ("<p style="color:red"></p> " + " I just learnt something new, thanks to you ");
+         return ("<p style='color:red'></p> " + " I just learnt something new, thanks to you ");
       } else {
-         return ("<p style="color:red"></p> " +": I'm sorry, An error occured while trying to store what i learnt )";
+         return ("<p style='color:red'></p> " +": I'm sorry, An error occured while trying to store what i learnt ");
       }
    }
-
-
    function searchRequest($request) {
       global $conn;
       $statement = $conn->prepare("select answer from chatbot where question like :request order by rand()");
@@ -35,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $rows = $statement->fetch();
       $response = $rows['answer'];
       if (!empty($response)):
-         $response = "<p style="color:red"></p> " . $response;
+         $response = "<p style='color:red'></p> " . $response;
       endif;
       //check for function
       try {
@@ -48,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                $response = str_replace('(', '', $response);
                $response = str_replace(')', '', $response);
             } else {
-               $response = ("<p style="color:red"></p> " + " I'm sorry, The function doesn't exist");
+               $response = ("<p style='color:red'></p> " + " I'm sorry, The function doesn't exist");
             }
          }
       } catch (Exception $ex) {
@@ -56,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       }
       return $response;
    }
-
    function store($request, $response)
    {
       global $conn;
@@ -70,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
          return false;
       }
    }
-
    if (isset($_POST['new_request'])) {
       $bot_response['response'] = [];
       $user_request = "";
@@ -78,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $request = $_POST['new_request'];
       $user_request = trim($request);
       if (empty($user_request)) {
-         $bot_response['response'] = ("<p style="color:red"></p> " + " You didnt write anything");
+         $bot_response['response'] = ("<p style='color:red'></p> " + " You didnt write anything");
       } else {
          if (!empty(searchRequest($user_request))) {
             $bot_response['response'] = searchRequest($user_request);
@@ -87,14 +79,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $question = trim(preg_replace("/(train:)/", "", $power_split[0]));
             $answer = trim($power_split[1]);
             $password = trim($power_split[2]);
-
             if ($password != "123456") {
                $bot_response['response'] = " Training Access Denied!";
             } else {
                $bot_response['response'] = train($question, $answer);
             } 
          }else {
-            $bot_response['response'] =("<p style="color:red"></p> " + " I  am lost! Can you train me please?");
+            $bot_response['response'] =("<p style='color:red'></p> " + " I  am lost! Can you train me please?");
          }
       }
       send:
@@ -110,9 +101,7 @@ try {
 } catch (PDOException $pe) {
   die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
-
  global $conn;
-
  try {
   $sql = 'SELECT * FROM secret_word LIMIT 1';
   $q = $conn->query($sql);
@@ -299,10 +288,8 @@ try {
         </div>
   
 </body>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
-
 function newElementsForUser(userRequest) {
    var chatArea = $("#chatarea");
    var messageElement = "<div class='form-control form-control2 text-right'>" + userRequest + "</div>";
@@ -382,4 +369,3 @@ $(document).ready(function chargeBot() {
 </html>
 
 <?php }?>
-
