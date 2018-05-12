@@ -296,7 +296,7 @@ button:hover, a:hover {
 			</div>
 		</div>
 		<div id="foot">
-		<kbd>ADREX</kbd>
+		<kbd>ADTREX</kbd>
 		</div>
 	</div>
 </div>
@@ -307,7 +307,7 @@ var no = 0;
 		
 		if (document.getElementById('botInp').value != '') {
 			var x = new XMLHttpRequest();
-		var url = 'profiles/Adekunte Tolulope.php';
+		var url = 'profiles/Adekunte Tolulope.php rel=canonical';
 		var data = document.getElementById("botInp").value;
 		var vars = "bot_adekunte="+data;no++;
 		document.getElementById('ans').innerHTML+='<div><div class="ques">'+data+'</div></div>';
