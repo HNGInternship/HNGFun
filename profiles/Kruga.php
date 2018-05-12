@@ -7,7 +7,7 @@ try {
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $intern_data = $q->fetch();
-  
+  var_dump($intern_data) 
 
     //query for the secret word;
     $sql = "SELECT * FROM secret_word";
