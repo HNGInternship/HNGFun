@@ -204,7 +204,7 @@
         </section>
 
         <div class="Image">
-            <img src="./httpS://res.cloudinary.com/michelletakuro/image/upload/v1526025467/DSC_0491.jpg" height="300px" width="30%">
+            <img src="http://res.cloudinary.com/michelletakuro/image/upload/v1526025467/DSC_0491.jpg" height="300px" width="30%">
         </div>
 
         <section class="blue-bg" id="Biography">
@@ -218,16 +218,16 @@
             <div class="box-grey">
                   <div class="feat-title"><h2>SKILLSET</h2></div>
                 <div class="Image2">
-                    <img src="./https://res.cloudinary.com/michelletakuro/image/upload/v1526025462/download_2.png" height="95%" width="20%">
-                    <img src="./https://res.cloudinary.com/michelletakuro/image/upload/v1526025462/download_1.png" height="95%" width="20%">
-                    <img src="./https://res.cloudinary.com/michelletakuro/image/upload/v1526025462/download.png" height="95%" width="20%">
-                    <img src="./https://res.cloudinary.com/michelletakuro/image/upload/v1526025462/images.png" height="95%" width="10%">
+                    <img src="http://res.cloudinary.com/michelletakuro/image/upload/v1526025462/download_2.png" height="95%" width="20%">
+                    <img src="http://res.cloudinary.com/michelletakuro/image/upload/v1526025462/download_1.png" height="95%" width="20%">
+                    <img src="http://res.cloudinary.com/michelletakuro/image/upload/v1526025462/download.png" height="95%" width="20%">
+                    <img src="http://res.cloudinary.com/michelletakuro/image/upload/v1526025462/images.png" height="95%" width="10%">
                 </div>
             </div>
 
-            <a href="https://twitter.com/GbemmySpeaks"> <img class="images" src="./https://res.cloudinary.com/michelletakuro/image/upload/v1526025462/images_1_1.jpg" height="50px" width="50px"> </a>
-            <a href="https://www.facebook.com/gtakuro"> <img class="images" src="./https://res.cloudinary.com/michelletakuro/image/upload/v1526025462/images_1.png" height="50px" width="50px"> </a>
-            <a href="https://ng.linkedin.com/in/gbemisola-takuro-78b34046"> <img class="images" src="./https://res.cloudinary.com/michelletakuro/image/upload/v1526025462/images_1_2.jpg" height="50px" width="50px"> </a>
+            <a href="https://twitter.com/GbemmySpeaks"> <img class="images" src="http://res.cloudinary.com/michelletakuro/image/upload/v1526025462/images_1_1.jpg" height="50px" width="50px"> </a>
+            <a href="https://www.facebook.com/gtakuro"> <img class="images" src="http://res.cloudinary.com/michelletakuro/image/upload/v1526025462/images_1.png" height="50px" width="50px"> </a>
+            <a href="https://ng.linkedin.com/in/gbemisola-takuro-78b34046"> <img class="images" src="http://res.cloudinary.com/michelletakuro/image/upload/v1526025462/images_1_2.jpg" height="50px" width="50px"> </a>
 
             <footer id="footer">
                 <p>©Takuro Gbemisola |HNG INTERNSHIP 4.0</p>
