@@ -292,7 +292,7 @@ try {
               <div>
                 <p style="overflow: scroll; height: 250px; width: 100%; margin: 0px;" id="chatarea"></p>
                 <input type="text" name="" style="width: 80%; height: 24px;" id="message" name="newrequest"Type">
-                <button style="position: absolute; width: 19%; height: 30px" id="send">Send44</button>
+                <button style="position: absolute; width: 19%; height: 28px" id="send">Send</button>
               </div>
           </div>
           <p class="slide"><div class="pull-me" style="text-align: center">Chat with me :)</div></p>
@@ -313,7 +313,7 @@ function newElementsForUser(userRequest) {
    chatArea.scrollTop($("#chatarea")[0].scrollHeight);
 }
 
-function newElementsForBot(botResponse) {
+function newElementsForBot(bot) {
    var chatArea = $("#chatarea");
    if (bot.response.resultType == "find") {
       var messageElement = "<div class='form-control form-control2 text-left'>Intern ID => " + bot.response.users.intern_id + "<br/>Name => " + bot.response.users.name + "<br/>Intern Username => " + bot.response.users.username + "<br/>Intern Profile Picture => " + bot.response.users.image_filename + "</div>";
