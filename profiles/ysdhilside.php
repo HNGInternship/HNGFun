@@ -81,10 +81,9 @@
             
             </div>
         </div>
-        <div class="col-lg-4"></div>
-        </div>
-
-        <div class="box">
+        <div class="col-lg-4">
+          
+          <div class="box">
   <div class="open">Open
   <div class="box-inner">
     <br>
@@ -93,6 +92,10 @@
   </div>
     <div>
 <div>
+        </div>
+        </div>
+
+
 
     
 </div>
