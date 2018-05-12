@@ -15,13 +15,7 @@ if ($_SERVER['REQUEST_METHOD']  === "POST"){
 		if($_POST['req'] == "aboutbot"){
 			echo json_encode("I am BOTGil. Current Version: 1.0");
 		}else if(preg_match("/time/i",$_POST['req'])){
-			echo get_time();
-		}
-		else if(preg_match("/^(hi|hello)/i",$_POST['req'])){
-			echo json_encode("Hi, how are you");
-		}
-		else if (preg_match("/How are you/i",$_POST['req'])){
-			echo json_encode("I am operational, you?");
+			echo json_encode(get_time());
 		}
 		else if(strpos(" ".$_POST['req'],'train')){
 			$te = str_replace(" ","",$_POST['req']);
@@ -36,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD']  === "POST"){
 			$answer = trim($exploded[2]);
 
 			$password = trim($exploded[3]);
-			if($password == "train me"){
-				$sql3 = "INSERT INTO chatbot (id, question, answer) VALUES ('', '$question', '$answer')";
+			if($password == "password"){
+				$sql3 = "INSERT INTO  `chatbot` (`question`, `answer`) VALUES ('". $question ."','". $answer ."')";
 				$query = $conn->query($sql3);
 				echo json_encode("I am learning, thank you for training me ");
 					
@@ -184,8 +178,8 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
 				<div style="overflow-y:scroll; height:80%;position : relative; bottom:0;" id="targ">
 						<ul class="collection" v-for="chat in chats"> 
 								<li class="collection-item avatar">
-									<img v-if="chat.sender == 'bot'" src="http://pluspng.com/img-png/png-you-iu-500.png" alt="You" class="circle">
-									<img v-if="chat.sender =='you'" src="https://botlist.co/system/BotList/Bot/logos/000/003/817/medium/Quriobot-chatbot.jpg" alt="Bot" class="circle">
+									<img v-if="chat.sender == 'bot'" src="https://botlist.co/system/BotList/Bot/logos/000/003/817/medium/Quriobot-chatbot.jpg" alt="You" class="circle">
+									<img v-if="chat.sender =='you'" src="http://pluspng.com/img-png/png-you-iu-500.png" alt="Bot" class="circle">
 								  <span class="title">{{chat.sender}}</span>
 								  <p>{{chat.message}}</p>
 							

@@ -1,23 +1,13 @@
 <?php
- require 'db.php';
-$username = "mikkybang";
- 
-$sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
-$sql2 = "SELECT * FROM `secret_word` LIMIT 1";
-$query = $conn->prepare($sql);
-$query->execute();
-$result = $query->fetch(PDO::FETCH_ASSOC);
-
-$query2 = $conn->prepare($sql2);
-$query2->execute();
-$data = $query2->fetch(PDO::FETCH_ASSOC);
-$secret_word = $data['secret_word'];
-
-?>
-
-<?php
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    require_once "../../config.php";
+    global $conn;
     global $response;
+    try{
+        $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);
+    }catch(PDOException $err){
+        die("could not connect to database " . DB_DATABASE . ":" . $err->getMessage());
+    }
 
     $question = $_POST['question'];
 
@@ -75,9 +65,9 @@ function saveQuestion($conn, $data){
                 try{
                     $sql = "INSERT INTO chatbot (question, answer) VALUES ('" . $question . "', '" . $answer . "')";
                     $conn->exec($sql);
-                    $answer = "Training Successful! I am now more intelligent now. Thanks for that";
-                }catch(PDOException $pe){
-                    $answer = "Ooops Training Failed! Something went wrong. Try Again. type 'help' for more info";
+                    $answer = "Training Successful!. Thanks for that";
+                }catch(PDOException $err){
+                    $answer = "Training Failed! Something went wrong. Try Again. type 'help' for more info";
                 }
             }else{
                 $answer = "Answer provided for the training already existed. You can provide an alternative answer";
@@ -86,7 +76,7 @@ function saveQuestion($conn, $data){
             $answer = "Password Incorrect, try again";
         }
     }else{
-        $answer = "You cannot train me. Add password to train. For more info type 'help'";
+        $answer = "You cannot train me. Include password to train. For more info type '--help'";
     }
 
     $status = 1;
@@ -109,8 +99,8 @@ function isAnswerExisting($conn, $question, $answer){
             return false;
         }
 
-    }catch(PDOException $pe){
-        throw $pe;
+    }catch(PDOException $err){
+        throw $err;
     }
 }
 
@@ -130,11 +120,11 @@ function getAnswer($conn, $question){
             $answer = $answer_arr[$rand];
             $answer = $answer['answer'];
         }else{
-            $answer = "I don't understand what you are asking. You can train me to become more better";
+            $answer = "I don't have the answers to what you are asking. You can train me to become better";
             $answer .= "Train me by typing; 'train: your question # your answer # password'";
         }
         
-    }catch(PDOException $pe){
+    }catch(PDOException $err){
         $answer = "Oops, Something went wrong. Try again";
     }
     $status = 1;
@@ -148,9 +138,8 @@ function getAnswer($conn, $question){
 
 
 
-
 function isAbout($question){
-    if($question == 'aboutbot'){
+    if($question == 'about'){
         return true;
     }
 
@@ -159,7 +148,7 @@ function isAbout($question){
 
 function getAbout(){
     $status = 1;
-    $answer = "I am mikkyBot. Version 1.0";
+    $answer = "I am mikkyBot. Version 1.0.0";
 
     return json_encode([
                 'status' => $status,
@@ -182,6 +171,32 @@ function isHelp($question){
 
     return false;
 }
+
+
+if($_SERVER['REQUEST_METHOD'] === 'GET'){
+    try{
+        $sql = "SELECT * FROM secret_word LIMIT 1" ;
+        $query = $conn->query($sql);
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $query->fetch();
+        $secret_word = $data['secret_word'];
+
+    }catch(PDOException $err){
+        throw $err;
+    }
+
+    try{
+        $sql = "SELECT * FROM interns_data WHERE username = 'mikkybang'";
+        $query = $conn->query($sql);
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $query->fetch();
+        $name = $data['name'];
+        $image_url = $data['image_filename'];
+    
+
+    }catch(PDOException $err){
+        throw $err;
+    }
 
 ?>
 
@@ -363,7 +378,7 @@ function isHelp($question){
 
          
             <h2>Hi welcome to my page </br></br>
-                I am <?php echo $result["name"]; ?> </h2>
+                I am <?php echo $data["name"]; ?> </h2>
         </br>
         <h3>I am a Technology Enthusiast and a Computer Engineering student...</h3>
 
@@ -391,7 +406,7 @@ function isHelp($question){
                 </div>            
 
 </div>
-    </body>
+    
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -404,9 +419,9 @@ function isHelp($question){
             $('.chatbot-head').click(function(){
                 $('.chat-message').toggle('slow', function(){
                     var botVersion = '<div class="bot">Bot:</div>';
-                    botVersion += '<div class="bot-msg">I am mikkybot. <br>I am here to help you</div>';
-                    botVersion += '<div class="bot-msg">Ask me any question</div>';
-                    botVersion += '<div class="bot-msg">To find out more about me type <strong>aboutbot</strong></div>';
+                    botVersion += '<div class="bot-msg">I am mikkyBot. <br>I am here to help you</div>';
+                    botVersion += '<div class="bot-msg">Ask me anything</div>';
+                    botVersion += '<div class="bot-msg">To find out more about me type <strong>about</strong></div>';
                     botVersion += '<div class="bot-msg">For help on how to use me type <br><strong>help</strong></div>';
                     $('.messages').html(botVersion);
                                     
@@ -476,5 +491,8 @@ function isHelp($question){
             });
         });
     </script>
-
+    </body>
    </html>
+<?php
+}
+?>
