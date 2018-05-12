@@ -129,8 +129,6 @@ try {
   $my_data = $q->fetch();
 } catch (PDOException $e) {
   throw $e;
-}
-
 }?>
 <?php if ($_SERVER['REQUEST_METHOD'] == "GET") {?>
    
@@ -294,7 +292,7 @@ try {
               <div>
                 <p style="overflow: scroll; height: 250px; width: 100%; margin: 0px;" id="chatarea"></p>
                 <input type="text" name="" style="width: 80%; height: 24px;" id="message" name="newrequest"Type">
-                <button style="position: absolute; width: 19%; height: 30px" id="send">Send44</button>
+                <button style="position: absolute; width: 19%; height: 28px" id="send">Send</button>
               </div>
           </div>
           <p class="slide"><div class="pull-me" style="text-align: center">Chat with me :)</div></p>
