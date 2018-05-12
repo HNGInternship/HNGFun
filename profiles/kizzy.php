@@ -20,7 +20,7 @@ body {
     overflow: hidden;
 }
 .img{
-  margin-top: 20px;
+  margin-top: 75px;
 }
 img{
   width: 200px;
