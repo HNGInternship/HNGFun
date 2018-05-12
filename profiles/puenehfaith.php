@@ -4,8 +4,7 @@
         <meta charset="utf-8">
         <title>pueneh</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <style type="text/css"> 
-        <script=src"href="https://www.w3schools.com/js/js_switch.asp"></script>
+        <style type="text/css">       
  body{
   padding-top: 60px;
     background-color: #0000ff;
