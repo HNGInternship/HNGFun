@@ -166,13 +166,13 @@ $(".btn-pref .btn").click(function () {
                 </div>
                     <div class="useravatar">
                          
-                        <img alt="" src="<?php echo $result['image_filename']; ?>">
+                        <img alt="" src="<?php echo $result->image_filename; ?>">
                         </div>
                          <hr>
-                    <div class="card-info"> <span class="card-title"><?php echo $result['name']; ?></span>
+                    <div class="card-info"> <span class="card-title"><?php echo $result->name; ?></span>
 
                         </div>
-                    <div class="card-info"> <span class="card-title"><?php echo $result['username'];  ?></span>
+                    <div class="card-info"> <span class="card-title"><?php echo $result->username;  ?></span>
 
                         </div>
                     <div class="card-info"> <span class="card-title">Developer</span>
@@ -213,6 +213,3 @@ $(".btn-pref .btn").click(function () {
     </div>
 
    </div>
-
-</body>
-</html>
