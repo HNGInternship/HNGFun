@@ -33,7 +33,7 @@
 	// function to train bot
 	// pass message as arguement
 	function trainAlan($newmessage){
-		require '../db.php';
+		require 'db.php';
 		$message = explode('#', $newmessage);
 		$question = explode(':', $message[0]);
 		$answer = $message[1];
@@ -77,7 +77,7 @@
 	// Returns 1 if question is not found in database
 	function checkDatabase($question){
 		try{
-			require '../db.php';
+			require 'db.php';
 			$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
 			$stmt->execute();
 
