@@ -667,9 +667,6 @@ try {
     <div id="botresponse"> </div>
     <br />
     <input type="text" name="botchat" placeholder="Chat with me! Press enter to send." onkeypress="return runScript(event)" onkeyDown="recall(event)" class="form-control">
-    
-    
-   
     </div>
     </section>
 

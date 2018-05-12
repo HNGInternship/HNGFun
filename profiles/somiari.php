@@ -1,3 +1,134 @@
+<?php
+		require_once '../db.php';
+		$result = $conn->query("Select * from secret_word LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+		$secret_word = $result->secret_word;
+
+		$result2 = $conn->query("Select * from interns_data where username = 'somiari'");
+		$user = $result2->fetch(PDO::FETCH_OBJ);
+
+	// Function to return Date
+	function respondDate(){
+		date_default_timezone_set("Africa/Lagos");
+		$time = date("Y/m/d");
+		$respondTime = array( 'Today\'s date is '.$time,
+								'it\'s '. $time,
+								'Today is '. $time,
+								$time);
+		$index = mt_rand(0, 3);
+		return $anwerSam = $respondTime[$index];
+	}// Date function ends here
+
+	// Function to return Time
+	function respondTime(){
+		date_default_timezone_set("Africa/Lagos");
+		$time = date("h:i A");
+		$respondTime = array( 'The time is '.$time,
+								'it\'s '. $time,
+								$time);
+		$index = mt_rand(0, 2);
+		return $anwerSam = $respondTime[$index];
+	} // Time function ends here
+
+	// function to train bot
+	// pass message as arguement
+	function trainAlan($newmessage){
+		require '../db.php';
+		$message = explode('#', $newmessage);
+		$question = explode(':', $message[0]);
+		$answer = $message[1];
+		$password = $message[2];
+
+		$question[1] = trim($question[1]); //triming off white spaces
+		$password = trim($password); //triming off white spaces
+
+		// check if password matches
+		if ($password != "password"){
+			echo "You are not authorized to train me.";
+		}else{
+			$chatbot= array(':id' => NULL, ':question' => $question[1], ':answer' => $answer);
+			$query = 'INSERT INTO chatbot ( id, question, answer) VALUES ( :id, :question, :answer)';
+
+			try {
+				$execQuery = $conn->prepare($query);
+				if ($execQuery ->execute($chatbot) == true) {
+					// call a function that handles successful training response
+					echo repondTraining();
+				};
+			} catch (PDOException $e) {
+				echo "Oops! i did't get that, Something is wrong i guess, <br> please try again";
+			} // End Catch
+		} // End Else
+	} // Train Function Ends here
+
+	// Returns random respond to training
+	// called if training is successful
+	function repondTraining(){
+		$repondTraining = array(  'Noted! Thank you for teaching me',
+									'Acknowledged, thanks, really want to learn more',
+									'A million thanks, I\'m getting smarter',
+									'i\'m getting smarter, I really appreciate');
+		$index = mt_rand(0, 3);
+		return $anwerSam = $repondTraining[$index];
+	} // respondTraining Ends Here
+
+
+	// Function to check if question is in database
+	// Returns 1 if question is not found in database
+	function checkDatabase($question){
+		try{
+			require '../db.php';
+			$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
+			$stmt->execute();
+
+			// checking if query retrieves data
+			if($stmt->rowCount() > 0){
+				while($row = $stmt->fetch(PDO::FETCH_ASSOC)){ echo $row["answer"];}
+			}else{
+				return 1; // returns 1 is no data was retrieved
+			}
+		}catch (PDOException $e){
+			 echo "Error: " . $e->getMessage();
+		} // Catch Ends here
+
+		$conn = null; // close database connection
+	}
+
+	//////////// CHATBOT STARTS HERE //////////////////////////////////////////////////////////////
+		// if (isset($_POST['message'])) {
+			if ($_SERVER["REQUEST_METHOD"] == "POST"){
+			// Retrieve form data from ajax
+			// Change message to all lowercase
+			// trim off white spaces
+			$message = trim(strtolower($_POST['message']));
+
+			//Analyse message to determine response
+			// if (strtok($message, ":") == "train"){
+				if (strpos($message, 'train') !== false) {
+					trainAlan($message); // Call function to handle training
+			}else if ($message != "" ){
+				// Check if question exist in database
+				// returns 1 if question does not exist in database
+				$tempVariable = checkDatabase($message);
+
+				if ($tempVariable == 1){
+					if ($message == "what is the time"){
+						echo respondTime();
+					}else if ($message == "today's date"){
+						echo respondDate();
+					}else{
+						echo "I didn't quite get that but I'm a fast learner.
+						To teach me something, just type and send:
+						train: question # answer # password";
+					} // end else
+				} // end if
+			}
+			die();
+		}
+
+		// if ($_SERVER["REQUEST_METHOD"] == "GET"){
+	?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,6 +235,7 @@
 		}
 
 		.profile-pic img {
+			margin-top: 50px;
 			width: 90%;
 		}
 
@@ -284,15 +416,7 @@
 
 <body>
 
-	<?php
 
-   $result = $conn->query("Select * from secret_word LIMIT 1");
-   $result = $result->fetch(PDO::FETCH_OBJ);
-   $secret_word = $result->secret_word;
-
-   $result2 = $conn->query("Select * from interns_data where username = 'somiari'");
-   $user = $result2->fetch(PDO::FETCH_OBJ);
-	?>
 		<div class="contained">
 			<figure class="profile-pic">
 				<img src="https://res.cloudinary.com/somiari/image/upload/v1523656656/somiariblended_feuybj.png" alt="An overtly serious pic of Somiari. Lol.">
@@ -324,21 +448,21 @@
 				</a>
 			</section>
 
-			<form class="chat-box">
-				<span class="chat-box-header">Alan is not a bot</span>
+			<form class="chat-box" id="ajax-contact" method="post" action="">
+				<span class="chat-box-header">Alan is <del>not</del> a bot</span>
 				<div class="chat-msgs">
-					<p class="alan">Hello! My name is Alan, and I am not a bot.</p>
-					<p class="alan">I'm a fast learner. To teach me something, just type and send: train # question # answer # password</p>
+					<p class="alan">Hello! I am Alan, and I am not a bot.</p>
+					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
 				</div>
-				<div class="chat-type">
-					<textarea class="chat-msg" required></textarea>
-					<div class="chat-send">
+				<div class="chat-type" >
+					<textarea class="chat-msg" name="message" required></textarea>
+					<button class="chat-send" type="submit">
 						<i class="icon fa fa-fw fa-paper-plane"></i>
-					</div>
+					</button>
 				</div>
 			</form>
 
-			<footer class=".footer">
+			<footer class=".footer" style="display: none;">
 				<?php
 				date_default_timezone_set('Africa/Lagos');
 			?>
@@ -352,50 +476,65 @@
 			</footer>
 
 		</div>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
-		<script>
-			const chatMsgs = document.querySelector(".chat-msgs");
-			const chatMsg = document.querySelector(".chat-msg");
-			const callAJAX = document.querySelector(".chat-send");
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script> -->
+	<script>
+		const chatMsgs = document.querySelector(".chat-msgs");
+		const chatMsg = document.querySelector(".chat-msg");
+		const callAJAX = document.querySelector(".chat-send");
 
-			callAJAX.addEventListener("click", function () {
-				if (chatMsg.value != "") {
-					chatMsgs.innerHTML += '<p class="guest">' + chatMsg.value + '</p>';
-				}
-				fixScroll();
-				getAlan(chatMsg.value);
+		callAJAX.addEventListener("click", function () {
+			if (chatMsg.value != "") {
+				chatMsgs.innerHTML += '<p class="guest">' + chatMsg.value + '</p>';
+			}
+			fixScroll(); // call function to fix scroll bottom
+		});
+
+
+
+		$(function() {
+			// Get the form.
+			var form = $('#ajax-contact');
+
+			// Set up an event listener for the contact form.
+			$(form).submit(function(event) {
+				// Stop the browser from submitting the form.
+				event.preventDefault();
+
+				// Serialize the form data.
+				var formData = $(form).serialize();
+
+				// ignore question mark
+				formData = formData.replace("%3F", "");
+
+				// Submit the form using AJAX.
+				sendTheMessage(formData);
+
+				// Clearing text filled
 				chatMsg.value = "";
-			});
+			}); // End of form event handler
+		});
 
-			function getAlan(messageAlan) {
-				if (messageAlan.length == 0) {
-					return;
-				} else {
-					var xmlReq = new XMLHttpRequest();
-					xmlReq.onreadystatechange = function () {
-						if (this.readyState == 4 && this.status == 200) {
-							var message = this.responseText;
-							fixScroll();
-							if (message != "") {
-								chatMsgs.innerHTML += '<p class="alan">' + message + '</p>';
-							}
-						}
-					}
-				};
+		// function to handle ajax
+		function sendTheMessage(formData){
+			var form = $('#ajax-contact');
 
-				$.ajax({
-					type: "POST",
-					url: 'profiles/somiari.php',
-					data: {
-						alan: messageAlan}
-				});
-				// xmlReq.open("GET", "answers.php?alan=" + messageAlan, true);
-				// xmlReq.send();
-			}
+			$.ajax({
+					type: 'POST',
+					url: "profiles/somiari.php",
+					data: formData,
+				}).done(function(response) {
+					console.log(response);
+					chatMsgs.innerHTML += '<p class="alan">' + response + '</p>';
+					fixScroll(); // call function to fix scroll bottom
+			})// end ajax handler
+		} // end send message fuction
 
-			function fixScroll() {
-				chatMsgs.scrollTop = chatMsgs.scrollHeight - chatMsgs.clientHeight;
-			}
-		</script>
+		// function to fix scroll bottom
+		function fixScroll() {
+			chatMsgs.scrollTop = chatMsgs.scrollHeight - chatMsgs.clientHeight;
+		}
+	</script>
 </body>
 </html>
+<?php // } ?>
