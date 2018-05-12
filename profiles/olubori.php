@@ -1,6 +1,4 @@
 <?php 
-
-
    if(isset($_GET['answer'])){
 
 		require_once '../../config.php';
@@ -67,242 +65,146 @@
 
 		$result2 = $conn->query("Select * from interns_data where username = 'olubori'");
 		$user = $result2->fetch(PDO::FETCH_OBJ);
-
 	}
 
 
-	function safeInput($data){
-	  $data = trim($data);
-      $data = stripslashes($data);
-	  $data = htmlspecialchars($data);
-
-	  return $data;
-	}
-
-	
-
-	
-?>
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300" rel="stylesheet" type="text/css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-	<style type="text/css">
-	  #app{
-	  	font-family: "Source Sans Pro", sans-serif;
-	  }
-	  #main {
-	  	width: 100%;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
-	  }
-	  #main > div {
-	  	/*border: 1px solid red;*/
-	  	width: 100%;
-	  	min-height: 80vh;
-	  	margin-top: 5rem;
-	  }
-
-	  #chat-box {
-	  	position: relative;
-	  	background: url('../img/banner-image-1.png');
-	  	background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center;
-        background-size: cover;
-
-
-	  }
-
-	  #chat-box > #human-text {
-	  	position: absolute;
-	  	bottom: 0;
-	  	width: 100%;
-	  }
-
-	  #chat-box > header {
-	  	position: absolute;
-	  	top: 0;
-	  	background: #F5F5F5; /* rgba(184, 196, 196, 0.5); */
-	  	width: 100%;
-	  }
-
-
-	  #chat-box > main {
-	  	overflow-y: scroll;
-	  	display: flex;
-	  	flex-direction: column;
-	  	margin-top: 35px;
-	  	position: absolute;
-	  	bottom: 30px;
-	  	height: 90%;
-	  	width: 100%;
-	
-	  }
-
-	  #chat-box > main > p{
-	  	border-radius: 20px;
-	  	padding: 10px;
-	  	margin-top: 0.5rem;
-	  	margin-bottom: 0.5rem;
-	  	font-size: 15px;
-	  	
-	  }
-
-	  #chat-box .human-msg {
-	  	max-width: 65%;
-	  	align-self: flex-end;
-	  	background: #F5F5F5;
-	  	margin-right: 1rem;
-	  	color: #32465a;
-
-
-	  }
-
-	  #chat-box .bot-msg {
-	  	background: #435f7a;
-	  	color: #F5F5F5;
-	  	max-width: 65%;
-	  	margin-left: 1rem;
-	  }
-
-	  .suggestion {
-	  	position: absolute;
-	  	bottom: 30px;
-	  	background: rgba(255,248,220, 0.9);
-	  	width: 100%;
-	  	margin-bottom: 0px;
-	  	list-style: none;
-	  	padding: 1rem 0 1rem 0;
-	  }
-
-	  .suggestion li {
-	  	font-size: 18px;
-
-	  }
-
-	  .suggestion li:hover{
-	  	background-color: #435f7a;
-	  	cursor: pointer;
-	  	color: white !important;
-	  }
-
-	  .suggestion li:hover .description {
-	  	color: white;
-	  }
-
-	  .suggestion .title {
-	  	font-weight: bold;
-
-	  }
-
-	  .suggestion .description {
-	  	display: block;
-   		overflow: hidden;
-    	color: #717274;
-    	text-overflow: ellipsis;
-	  }
-
-	  ul:focus {
-	  	background: #ff122d;
-	  }
-
-      #img-container {
-      	width: 90%;
-      }
-
-      #profile-box {
-      	display: flex;
-      	flex-direction: column;
-      	align-items: center;
-      }
-
-      #profile-box a {
-      	color: #0085A1;
-      }
-
-      #profile-box img {
-      	border-radius: 2rem;
-      }
-
-	  @media only screen and (min-width: 993px) {
-	  	#main > div {
-	  	  width: 50%;
-	    }
-
-	    #menu {
-	      display: none;
-	    }
-
-	    #img-container {
-      	  width: 70%
-        }
-
-	  }
-		/*html, body{
-			height: 100%;
-			margin: 0px;
+		function safeInput($data){
+		  $data = trim($data);
+	      $data = stripslashes($data);
+		  $data = htmlspecialchars($data);
+		  return $data;
 		}
+	?>
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300" rel="stylesheet" type="text/css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-		
-		header > h3, footer > p {
-			margin: auto;
-		}
-
-		footer > p {
-          font-size: 18px;
-          font-weight: bold;
-		}
-		header {
-			flex-grow: 2;
-			margin-top: 3rem;
-		}
-		header > h3 {
-			font-size: 32px;
-			
-		}
-		main {
-			flex-grow: 3;
-			flex-direction: column;
-			align-items: center;
-			padding-top: 4rem;
-		}
-		main > h4 {
-			color: #B02A2A;
-			font-size: 18px;
-			font-weight: bold;
-		}
-		.flex {
+		<style type="text/css">
+		  #app{
+		  	font-family: "Source Sans Pro", sans-serif;
+		  }
+		  #main {
+		  	width: 100%;
 			display: flex;
-		}
-		.bg-grey{
-		 background: #EEEEEE;
-		}
-
-		.time-box {
+			flex-wrap: wrap;
 			justify-content: space-between;
-			margin-top: 3rem;
-		}
-		.time-element {
-			background-color: #C4C4C4;
-		}
-
-		.time-box div > p {
-			font-size: 54px;
-			font-weight: bolder;
-			margin: 2rem;
-		}
-
-		img{
-			width: 30rem;
-			height: 30rem;
-			border-radius: 50%;
-		 }
-
-		*/
-	</style>
+		  }
+		  #main > div {
+		  	/*border: 1px solid red;*/
+		  	width: 100%;
+		  	min-height: 80vh;
+		  	margin-top: 5rem;
+		  }
+		  #chat-box {
+		  	position: relative;
+		  	background: url('../img/banner-image-1.png');
+		  	background-repeat: no-repeat;
+	        background-attachment: fixed;
+	        background-position: center;
+	        background-size: cover;
+		  }
+		  #chat-box > #human-text {
+		  	position: absolute;
+		  	bottom: 0;
+		  	width: 100%;
+		  }
+		  #chat-box > header {
+		  	position: absolute;
+		  	top: 0;
+		  	background: #F5F5F5; /* rgba(184, 196, 196, 0.5); */
+		  	width: 100%;
+		  }
+		  #chat-box > main {
+		  	overflow-y: scroll;
+		  	display: flex;
+		  	flex-direction: column;
+		  	margin-top: 35px;
+		  	position: absolute;
+		  	bottom: 30px;
+		  	height: 90%;
+		  	width: 100%;
+		
+		  }
+		  #chat-box > main > p{
+		  	border-radius: 20px;
+		  	padding: 10px;
+		  	margin-top: 0.5rem;
+		  	margin-bottom: 0.5rem;
+		  	font-size: 15px;
+		  	
+		  }
+		  #chat-box .human-msg {
+		  	max-width: 65%;
+		  	align-self: flex-end;
+		  	background: #F5F5F5;
+		  	margin-right: 1rem;
+		  	color: #32465a;
+		  }
+		  #chat-box .bot-msg {
+		  	background: #435f7a;
+		  	color: #F5F5F5;
+		  	max-width: 65%;
+		  	margin-left: 1rem;
+		  }
+		  .suggestion {
+		  	position: absolute;
+		  	bottom: 30px;
+		  	background: rgba(255,248,220, 0.9);
+		  	width: 100%;
+		  	margin-bottom: 0px;
+		  	list-style: none;
+		  	padding: 1rem 0 1rem 0;
+		  }
+		  .suggestion li {
+		  	font-size: 18px;
+		  }
+		  .suggestion li:hover{
+		  	background-color: #435f7a;
+		  	cursor: pointer;
+		  	color: white !important;
+		  }
+		  .suggestion li:hover .description {
+		  	color: white;
+		  }
+		  .suggestion .title {
+		  	font-weight: bold;
+		  }
+		  .suggestion .description {
+		  	display: block;
+	   		overflow: hidden;
+	    	color: #717274;
+	    	text-overflow: ellipsis;
+		  }
+		  ul:focus {
+		  	background: #ff122d;
+		  }
+	      #img-container {
+	      	width: 90%;
+	      }
+	      #profile-box {
+	      	display: flex;
+	      	flex-direction: column;
+	      	align-items: center;
+	      }
+	      #profile-box a {
+	      	color: #0085A1;
+	      }
+	      #profile-box img {
+	      	border-radius: 2rem;
+	      }
+		  @media only screen and (min-width: 993px) {
+		  	#main > div {
+		  	  width: 50%;
+		    }
+		    #menu {
+		      display: none;
+		    }
+		    #img-container {
+	      	  width: 70%
+	        }
+		  }
+		</style>
 
 <section id="app" class="mt-4">
 	<div id="menu">
@@ -371,7 +273,6 @@
 	    commands: [
 	               {key: 'train', description: 'This command is to train the bot', format: '[question] [answer] [password]'}, 
 	               {key: 'currenttime', description: 'This command is to get the current time in any of the location of the world', format: '[location]'},
-	               {key: 'chitchat', description: 'This command is to chat with the bot', format: '[question]'},
 	               {key: 'dayofweek', description: 'This command is get the day of the weeks a date falls on', format: '[yyyy-mm-dd]'},
 	               {key: 'aboutbot', description: 'This command is tells you about me', format: ''},
 	               {key: 'popularcities', description: 'Show all popular city that starts with an alphabet', format: '[a], or [b],... [z]'}
@@ -414,18 +315,26 @@
 	  	  this.choice.command = c.key;
 	  	  this.humanMessage = '#' + c.key + ' ' + c.format;
 	  	},
-	  	handleSubmit: async function(){
+	  	handleSubmit: function(){
 	  	  this.choice.message = this.humanMessage;
 	  	  this.humanMessage = '';
           this.messages.push({human: true, text: this.choice.message});
-          
+          this.handleAnswer();
+	  	},
+	  	handleAnswer: async function(){
           let answer = await this.getAnswer();
           this.messages.push({human: false, text: answer});
-          this.choice = {command: '', message:''};
-          
-		  $("#chat-msgs").animate({ scrollTop: $("#chat-msgs").height() }, "fast");
+          this.choice = {command: '', message:''};          
+          $("#chat-msgs").animate({ scrollTop: $("#chat-msgs").height() }, "fast");
 	  	},
-	  	getAnswer: function(){
+	  	getAnswer: async function(){
+	  		if(!this.choice.command){
+	  		  this.processUnexpectedInput();
+	  		}
+
+	  		if(this.choice.message.indexOf('#') == 0 && !this.choice.command){
+              return "I can't help with that please, give me a correct command";
+	  		}
 			switch(this.choice.command){
 			  case 'aboutbot':
 			    return 'Bori Bot Version 1.0, I tell day of the week from date, and I can tell time in any location too.';
@@ -433,14 +342,12 @@
 			    return this.getDayOfWeek();
 			  case 'currenttime':
 			    return this.getCurrentTime();
-			  case 'chitchat':
-			    return this.doChat();
 			  case 'train':
 			    return this.doTrainBot();
 			  case 'popularcities':
 			    return this.getAllCities();
 			  default:
-			    return "I can't help with that please, give me a correct command";
+			    return this.doChat();
 			}
 
 
@@ -489,16 +396,15 @@
 
 	  	},
 	  	doChat: function(){
-
-	  	  let question;
-	  	  try{
-            question = this.choice['message'].match(/\[(.*?)\]/)[1];
+          let question = this.choice['message']; /*.match(/\[(.*?)\]/)[1];
 	  	  }catch(ex){
             return "Follow the correct syntax #chitchat [question]";
-	  	  }
+	  	  } */
 	  	  
+
 	  	  return axios.get('profiles/olubori.php?question='+ question)
 	  	    .then(function (response) {
+
 	  	      let chatResponse = response.data.answer || 'I cannot find you a valid answer, go ahead and train me. Use #train [question] [answer] [password]';
 	  	      return chatResponse;
 	  	    })
@@ -519,13 +425,11 @@
 
 	  	  if(password != 'password')
 	  	  	  return 'You cannot train me, input correct password';
-	  	   console.log(params[1]); 
 	  	  return axios.get('profiles/olubori.php',
 	  	   {
 	  	   	 params: { question: params[1], answer: params[2] }
 	  	   })
 		  	  .then(function (response) {
-		  	        console.log(response);
 		  	        return response.data.message;
 		  	    })
 		  	    .catch(function (error) {
@@ -557,6 +461,16 @@
 	  		val += `</ul>`;
 
 	  		return val;
+	  	},
+	  	processUnexpectedInput: function(){
+	  		commands = ['aboutbot', 'currenttime', 'dayofweek', 'train', 'popularcities'];
+	  		mycommand = this.choice.message.split(' ')[0];
+	  		mycommand = mycommand.substring(1);
+	  		for(cmd of commands){
+	  		  if(cmd == mycommand){
+	  		  	this.choice.command = cmd;
+	  		  }
+	  		}
 	  	}
 	  },
 	  created: async function(){
@@ -584,14 +498,5 @@
 		        </li>`
 	})
 </script>
-	<!--<header class="bg-grey flex">
-		<h3><?php echo $user->name ?> <small>(@<?php echo $user->username ?>)</small></h3>
-	</header>
-	<main class="flex">
-	  <h4>Full stack Developer</h4>
-	  <div class="flex time-box">
-	  	<img src="<?php echo $user->image_filename ?>" />
-	  </div>		
-	</main>-->
-
+</section>
 

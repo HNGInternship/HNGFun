@@ -1,29 +1,23 @@
 <?php
- if(!defined('DB_USER')){
-    require "../../config.php";		
-    try {
-        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
-  }
 
+if(!defined('DB_USER')){
+     require "../../config.php";
+     try {
+         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+     } catch (PDOException $pe) {
+         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+     }
+   }
 $query = $conn->query("SELECT * FROM secret_word");
 $result = $query->fetch(PDO::FETCH_ASSOC);
 $secret_word = $result['secret_word'];
 $question;
 
+global $pass;
+	$pass = "password";
 
+if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 	
-	
-
-	// session_start();
-	// if(!isset($_SESSION['chat-log'])){
-	// 	$_SESSION['chat-log'] = [];
-	// }
-	
-	//$chatLog = $_SESSION['chat-log'] ;
-
 	function botAnswer($message){
 		$botAnswer = '<div class="chat bot chat-message">
 					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
@@ -52,7 +46,7 @@ $question;
 		}
 		echo $bot;
 	}
-	if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
+	
 		
 	
 	 	$userInput = strtolower(trim($_POST['question']));
@@ -78,7 +72,7 @@ $question;
 	 		$bot = botAnswer("Version 1.0");
      		//array_push($_SESSION['chat-log'] , $bot);
 	 	}else{
-			 $userInputQuery = $conn->query("SELECT * FROM chatbot WHERE questions like '".$userInput."' ");
+			 $userInputQuery = $conn->query("SELECT * FROM chatbot WHERE question like '".$userInput."' ");
 		     $userInputs = $userInputQuery->fetchAll(PDO::FETCH_ASSOC);
 		    $userInputRows = $userInputQuery->rowCount();
 		     if($userInputRows == 0){
@@ -86,14 +80,14 @@ $question;
 		     //	array_push($_SESSION['chat-log'] , $bot);
 
 		     }else{
-		     	$botAnswer = $userInputs[rand(0, count($userInputs)-1)]['answers'];
+		     	$botAnswer = $userInputs[rand(0, count($userInputs)-1)]['answer'];
 		     	$bot = botAnswer($botAnswer);
 		     	//array_push($_SESSION['chat-log'] , botAnswer($botAnswer));
 		     }
      	}
      	echo $bot;
 
-     	exit;
+     	exit();
      }
 
 ?>
@@ -163,12 +157,11 @@ $question;
 				bottom: 7%;
 				right: 10%;
 			}
-			.view{
-				height: 1vh;
-			}
+			
+
 		#abt-me-div{
 			width: 60%;
-			/*height: auto;*/
+			height: auto;
 			margin:  70px auto;
 			margin-bottom: 70px;
 			padding: 100px 100px 0px 100px;
@@ -411,7 +404,7 @@ $question;
                 </ul>
       </div>
     <p>I am a junior web developer with experience with HTML, CSS, JavaScript, Bootstrap and PHP. My love for words and solving problems brought me to the world of writing and coding(which I choose to acknowledge as writing). Want to chat, collaborate or hire me on a project, please feel free to contact me.</p>
-    <div id="contact" align="center"><a href="mailto:animashaunoluwatosin7@gmail.com">CONTACT</a></div>
+    <div id="contact" align="center"><a href="mailto:bogadeji@gmail.com">CONTACT</a></div>
 
       
 
@@ -467,27 +460,7 @@ $question;
 	</div> <!-- end chat-box -->
 
 
-
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 	<script >
-// 		(function() {
-
-// 	$('#chat-box header').on('click', function() {
-
-// 		$('.chat').slideToggle(300, 'swing');
-// 		$('.chat-message-counter').fadeToggle(300, 'swing');
-
-// 	});
-
-// 	$('.chat-close').on('click', function(e) {
-
-// 		e.preventDefault();
-// 		$('#chat-box').fadeOut(300);
-
-// 	});
-
-// }) ();
 		
 		
 		function change(){
@@ -506,9 +479,6 @@ $question;
 
 
 		function chat(e){
-		    // var p = document.getElementById('user');
-		    // p.innerHTML = data;
-		    
 		    if (window.XMLHttpRequest) { // Mozilla, Safari, IE7+ ...
 			     var xhttp = new XMLHttpRequest();
 			} else if (window.ActiveXObject) { // IE 6 and older
@@ -517,14 +487,9 @@ $question;
 		   
 			xhttp.onreadystatechange = function() {
 	          if(this.readyState == 4 && this.status == 200) {
+	          	// console.log(this.response);
 	          	 userChat(question.value, this.response);
-	          	 //  var response = JSON.parse(this.responseText);
-	          	 //chatContent.innerHTML = this.responseText;
      			e.preventDefault();
-	          	 // console.log(response);
-	          	//var response = xhttp.responseText;
-           // messageArea.scrollTop = messageArea.scrollHeight;
-	            // question.value = xhttp.responseText;
 	            question.value = '';
 	          }
       	    }
@@ -535,8 +500,6 @@ $question;
 		}
 
 		function userChat(chats, reply){
-			// if(chats === ''){
-			// 	var chat = '' ;
 			if(question.value !== ''){
 				var chat = `<div class="chat user chat-message">
 					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
@@ -545,7 +508,8 @@ $question;
 						<span class="chat-time">` + new Date().toLocaleTimeString(); + `</span>
 					 </div>
 				</div>`;
-		    chatContent.innerHTML += chat;
+			}
+			chatContent.innerHTML += chat;
 		     
 		    setTimeout(function() {
 			    chatContent.innerHTML += reply + `<span class="chat-time">`+ new Date().toLocaleTimeString(); +` </span>
@@ -553,8 +517,6 @@ $question;
 				</div>`;
 				document.getElementById('chatlogs').scrollTop = document.getElementById('chatlogs').scrollHeight;	
 			}, 1000);
-			}
-			
 		}
 	</script>
 	
