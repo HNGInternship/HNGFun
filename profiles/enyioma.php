@@ -1,3 +1,75 @@
+<?php
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+      require '../../config.php';
+      $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+        
+        if(!$conn){
+            die('Unable to connect');
+        }
+        $question = $_POST['message'];
+        $pos = strpos($question, 'train:');
+
+        if($pos === false){
+            $sql = "SELECT answer FROM chatbot WHERE question like '$question' ";
+            $query = $conn->query($sql);
+            if($query){
+                echo json_encode([
+                    'results'=> $query->fetch_all()
+                ]);
+                return;
+            }
+        }else{
+            $trainer = substr($question,6 );
+            $data = explode('#', $trainer);
+            $data[0] = trim($data[0]);
+            $data[1] = trim($data[1]);
+            $data[2] = trim($data[2]);
+
+            if($data[2] == 'password'){
+
+                $sql = "INSERT INTO chatbot (question, answer)
+                VALUES ('$data[0]', '$data[1]')";
+
+
+                $query = $conn->query($sql);
+                if($query){
+                    echo json_encode([
+                        'results'=> 'Trained Successfully'
+                    ]);
+                    return;
+                }else{
+                    echo json_encode([
+                        'results'=> 'Error training '. $conn->error
+                    ]);
+                    return;
+                }
+                
+            }else{
+                echo json_encode([
+                    'results'=> 'Wrong Password'
+                ]);
+                return;
+            }
+            
+        }
+        
+        echo json_encode([
+            'results'=>  'working'
+        ]);
+        
+    return ;
+    }else{
+        //echo 'HI';
+        //return;
+    }
+    
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,15 +165,40 @@
           padding-left: 40%;
           width: 1000px;
           display: inline-block;
-          overflow: auto;
+          max-height: 400px; 
+          resize: none;
       }
+      .text-box {
+          overflow-y: scroll;
+          resize: none;
+          max-height: 200px;
+      }
+      .button {
+            background-color: #4CAF50; 
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            -webkit-transition-duration: 0.4s; 
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: white; 
+            color: black; 
+            border: 2px solid #008CBA;
+    }
+        .button:hover {
+            background-color: #008CBA;
+            color: white;
+}
 
      
 
 
-      /* .contacts {
-          float: right;
-      } */
+
 </style>
 </head>
 
@@ -155,6 +252,8 @@
            <h3 class="oj-header-border"><img src="https://res.cloudinary.com/dwkzixuca/image/upload/v1524141051/eyo3.jpg" alt="Enyioma photo"  
             class="oj-avatar-image" width="30px" height="30px"  style="margin-right: 5%">Yorma's Bot</h3><br>
         <div class= "chat-bot">
+        <div>Hello, <span id = "greeting"> </span> (Yea I know what time it is). My name is YormaBot. I'm very much open to learn more. You can teach me using the format: 
+            "train: question #answer #password."</div>
             <div class= "text-box" id="textbox">
                 <p id="chatlog8" class= "chatlog">&nbsp;</p>
                 <p id="chatlog7" class= "chatlog">&nbsp;</p>
@@ -166,8 +265,9 @@
                 <p id="chatlog1" class= "chatlog">&nbsp;</p>
             </div>
 
-            <div class= "chat">
-            <input type= "text" id= "chatbox" name= "chatbot" method= "POST" placeholder="Hi, nice to have you here...." onfocus="placeholder()">
+            <div class= "input-group mb-3 chat">
+            <input type= "text" class= "form-control" id= "chatbox" name= "chatbot" method= "POST" placeholder="Hi, nice to have you here....">
+            <button class="button" style="float: right" onclick = loadDoc()>Send</button>
             </div>
          
         </div>
@@ -181,88 +281,56 @@
     <script type="text/javascript">
     nlp = window.nlp_compromise;
 
-    var messages = [], //array that hold the record of each string in chat
-      lastUserMessage = "", //keeps track of the most recent input string from the user
-      botMessage = "", //var keeps track of what the chatbot is going to say
-      botName = 'Yorma Bot', //name of the chatbot
-      talking = true; //when false the speach function doesn't work
-    //
-    //
-    //****************************************************************
-    //****************************************************************
-    //****************************************************************
-    //****************************************************************
-    //****************************************************************
-    //****************************************************************
-    //****************************************************************
-    //edit this function to change what the chatbot says
-    function chatbotResponse() {
-      talking = true;
-      botMessage = "You can train me more"; //the default message
+    currentTime=new Date();
+    //getHour() function will retrieve the hour from current time
+    if(currentTime.getHours()<12)
+    document.getElementById("greeting").innerHTML = "<b>Good Morning!! </b>";
+    //document.write("<b>Good Morning!! </b>");
+    else if(currentTime.getHours()<17)
+    document.getElementById("greeting").innerHTML = "<b>Good Afternoon!! </b>";
+    //document.write("<b>Good Afternoon!! </b>");
+    else 
+    //document.write("<b>Good Evening!! </b>");
+    document.getElementById("greeting").innerHTML = "<b>Good Evening!! </b>";
     
-      if (lastUserMessage === 'hi' || lastUserMessage =='hello') {
-        const hi = ['hi','howdy','hello']
-        botMessage = hi[Math.floor(Math.random()*(hi.length))];;
-      }
-    
-      if (lastUserMessage === 'name') {
-        botMessage = 'My name is ' + botName;
-      }
-    }
-    //****************************************************************
-    //****************************************************************
-    //****************************************************************
-    //****************************************************************
-    //****************************************************************
-    //****************************************************************
-    //****************************************************************
-    //
-    //
-    //
-    //this runs each time enter is pressed.
-    //It controls the overall input and output
-    function newEntry() {
-      //if the message from the user isn't empty then run 
-      if (document.getElementById("chatbox").value != "") {
-        //pulls the value from the chatbox ands sets it to lastUserMessage
-        lastUserMessage = document.getElementById("chatbox").value;
-        //sets the chat box to be clear
-        document.getElementById("chatbox").value = "";
-        //adds the value of the chatbox to the array messages
-        messages.push(lastUserMessage);
-        //Speech(lastUserMessage);  //says what the user typed outloud
-        //sets the variable botMessage in response to lastUserMessage
-        chatbotResponse();
-        //add the chatbot's name and message to the array messages
-        messages.push("<b>" + botName + ":</b> " + botMessage);
-        // says the message using the text to speech function written below
-        Speech(botMessage);
-        //outputs the last few array elements of messages to html
-        for (var i = 1; i < 8; i++) {
-          if (messages[messages.length - i])
-            document.getElementById("chatlog" + i).innerHTML = messages[messages.length - i];
-        }
-      }
-    }
-    
-    //text to Speech
-    //https://developers.google.com/web/updates/2014/01/Web-apps-that-talk-Introduction-to-the-Speech-Synthesis-API
-    function Speech(say) {
-      if ('speechSynthesis' in window && talking) {
-        var utterance = new SpeechSynthesisUtterance(say);
-        //msg.voice = voices[10]; // Note: some voices don't support altering params
-        //msg.voiceURI = 'native';
-        //utterance.volume = 1; // 0 to 1
-        //utterance.rate = 0.1; // 0.1 to 10
-        //utterance.pitch = 1; //0 to 2
-        //utterance.text = 'Hello World';
-        //utterance.lang = 'en-US';
-        speechSynthesis.speak(utterance);
-      }
-    }
-    
-    //runs the keypress() function when a key is pressed
-    document.onkeypress = keyPress;
+
+    function loadDoc() {
+        //alert('Hello');
+        var message = document.querySelector('#chatbox');
+        //alert(message.value);
+        var p = document.createElement('p');
+        p.id = 'user';
+        var chatarea = document.querySelector('#chatlog1');
+        p.innerHTML = message.value;
+        chatarea.appendChild(p);
+        
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+            console.log(xhttp.responseText);
+            var result = JSON.parse(xhttp.responseText);
+            message.value = '';
+            var pp = document.createElement('p');
+            pp.id = 'bot';
+            if(result.results == ''){
+                pp.innerHTML = 'You can train me more. Not in database.';
+                chatarea.append(pp)
+                return;
+            }
+            console.log(typeof(result.results))
+            if(typeof(result.results) == 'object' ){
+                var res = Math.floor(Math.random() * result.results.length);
+                pp.innerHTML = result.results[res];
+                chatarea.append(pp)
+            }else{
+                var res = Math.floor(Math.random() * result.results.length);
+                pp.innerHTML = result.results;
+                chatarea.append(pp)
+            }
+            
+            }
+        };
+        document.onkeypress = keyPress;
     //if the key pressed is 'enter' runs the function newEntry()
     function keyPress(e) {
       var x = e || window.event;
@@ -276,11 +344,15 @@
           //document.getElementById("chatbox").value = lastUserMessage;
       }
     }
-    
     //clears the placeholder text ion the chatbox
     //this function is set to run when the users brings focus to the chatbox, by clicking on it
     function placeHolder() {
       document.getElementById("chatbox").placeholder = "";
+    }
+
+        xhttp.open("POST", "/profiles/enyioma.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("message="+message.value);
     }
 </script>
 

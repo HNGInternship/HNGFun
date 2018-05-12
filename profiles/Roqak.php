@@ -66,8 +66,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           ]);
           return;
         }
-        $quest = $queries[0];
-        $ans = $queries[1];
+        $quest = trim($queries[0]);
+        $ans = trim($queries[1]);
 
         $sql = "insert into chatbot (question, answer) values (:question, :answer)";
 
@@ -201,7 +201,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     height: 90%;
     width: 400px;
     float: right;
-    /*margin-top: 1%;*/
+    margin-top: 10%;
+    margin-left: 5%;
   }
   .padedd{
     margin-top: 5%;
@@ -245,8 +246,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     max-height: 80%;
     height: 80%;
   }
-  .row{
+  .roww{
     display: flex;
+    width: 100%;
+    margin-top: 20%;
   }
   </style>
 </head>
@@ -254,7 +257,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 <!-- <script src="jquery-3.3.1.min.js"></script> -->
 <body>
 <div class="container">
-<div class="row">
+<div class="roww">
  <div class="mainn">
    <div class="white text-center">
     <h1 id="hello">HELLO</h1>
@@ -273,13 +276,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 </a>
      </div>
    </div>
-   <div id="bbb" class="chat">
+   <div id="bbb" class="chat" height="500px;">
       <div><h1 class="text-center"> My ChatBot</h1></div>
-        <div id="mchats">
           <div id="chats">
        <p id ='botresponse'>VEER : Hello I'm VEER, to train me type: train: question#response#password </p>
-        </div>
-
         </div>  
          <form class="padedd" methood="post" id="formm">
       <input type="text" placeholder="message" name="question"><button id="send" name="send">Send</button>

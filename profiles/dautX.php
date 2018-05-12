@@ -74,10 +74,10 @@
         }
 
         function showHelp(){
-            echo 'Here\'s a few stuff I could do for you right now: '.
-                 '\'aboutbot\' gives you a bit about me. '.
-                 'I could tell you the time if you do \'what is the time\' '.
-                 'I could tell you the time in a few cities too. Just do `what is the time in ``your city`` '.
+            echo 'Here\'s a few stuff I could do for you right now:'.'<br>'.
+                 '\'aboutbot\' gives you a bit about me. '.'<br>'.
+                 'I could tell you the time if you do \'what is the time\' '.'<br>'.
+                 'I could tell you the time in a few cities too. Just do `what is the time in ``your city`` '.'<br>'.
                  'Don\'t forget to leave out the quotes.';
 
             exit();           
@@ -561,6 +561,7 @@
             </div>
         </div>      <!-- end main_bot -->
         <!-- start of scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript">
             //declare variables and links to divs
             var chat_box = document.getElementById('msg_box');          //chat box
@@ -582,12 +583,10 @@
 
             function write_to_box(response){    //sanitize user command output
                 if (response.length > 0) {
-                    var text = '';
-                    var msg = document.createElement('li');
-                    msg.setAttribute('class', 'bot_msg');   //set message to class usr_cmd
-                    text = document.createTextNode(response);
-                    msg.appendChild(text);
-                    message_list.appendChild(msg);      //plant element on chat box
+                    const $list_item = $( '<li class="bot_msg"></li>' );
+                    $list_item.html(response);
+
+                    $('#message_list').append($list_item);
                     chat_box.scrollTop = chat_box.scrollHeight;
                 }
             }
@@ -621,7 +620,22 @@
                 }
             }, false);
 
-            send_but.addEventListener('click', function(){  //do a little housekeeping then make ajax request
+            send_but.addEventListener('click', ajaxify, false);
+
+            //submit prevent reload
+            document.getElementById("input_").onkeypress = function(e) {
+                var key = e.charCode || e.keyCode || 0;     
+                if (key == 13) {
+                    //alert("Enter pressed");
+                    ajaxify();
+
+                    return false;
+                }
+            };
+
+            function ajaxify(){
+                //do a little housekeeping then make ajax request
+                
                 if (form_ctrl.value.length < 1){
                     document.getElementById('status').style.background = '#c62828';
                     document.getElementById('status').value = 'Status: you cannot submit an empty message!';
@@ -655,11 +669,12 @@
                     if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
                         write_to_box(xmlhttp.responseText);
                     }
-                }
-                xmlhttp.open('POST', 'dautX.php', true);
+                }   //end function ajaxify
+
+                xmlhttp.open('POST', 'profiles/dautX.php', true);
                 xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xmlhttp.send('message=' + data);
-            }, false);
+            }
 
             //event handler for showing and hiding bot interface
             bot_toggle.addEventListener('click', function(){
