@@ -1,16 +1,3 @@
-<?php 
-    require 'db.php';
-
-    $result = $conn->query("Select * from secret_word LIMIT 1");
-    $result = $result->fetch(PDO::FETCH_OBJ);
-    $secret_word = $result->secret_word;
-
-    $result2 = $conn->query("Select * from interns_data where username = 'sadiq'");
-    $user = $result2->fetch(PDO::FETCH_OBJ);
-
-    $name = "Sambo Abubakar";
-?>
-
 <?php
 
     if($_SERVER['REQUEST_METHOD'] === 'POST')
@@ -232,6 +219,18 @@
 </head>
 
 <body>
+<?php 
+    require 'db.php';
+
+    $result = $conn->query("Select * from secret_word LIMIT 1");
+    $result = $result->fetch(PDO::FETCH_OBJ);
+    $secret_word = $result->secret_word;
+
+    $result2 = $conn->query("Select * from interns_data where username = 'sadiq'");
+    $user = $result2->fetch(PDO::FETCH_OBJ);
+
+    $name = "Sambo Abubakar";
+?>
     <main>
 <!-- section starts -->
 
@@ -267,7 +266,7 @@
           sasBot <br>
         <div class="container11">
             <img src="http://res.cloudinary.com/sastech/image/upload/v1523628995/caesarapp_20175292858459_wpfxlo.jpg" alt="Avatar" style="width:100%;">
-            <p>Hello I am SasBot. To train me use the format: <i style="color: #fff;">train: question#answer#password
+            <p>Hello, I am SasBot.<i style="color: #fff;">train: question#answer#password
             </i></p>
         </div>
     
@@ -317,7 +316,7 @@
 	
 	$("#ter").keyup(function(e){
 		if(e.which == 13){
-		   $("#send").trigger("submit")
+		   $("#myform").trigger("submit")
 		}
 		else{
 		   // Do Nothing 
