@@ -34,7 +34,7 @@
         
                     if($data[2] == 'password'){
         
-                        $sql = "INSERT INTO chatbot (questions, answers)
+                        $sql = "INSERT INTO chatbot (question, answer)
                         VALUES ('$data[0]', '$data[1]')";
         
         
@@ -46,7 +46,7 @@
                             return;
                         }else{
                             echo json_encode([
-                                'results'=> 'Error training'
+                                'results'=> 'Couldn\'t train bot '. $conn->error();
                             ]);
                             return;
                         }
