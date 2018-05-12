@@ -1,15 +1,18 @@
-<?php  require "db.php";
+<?php  
+if (!defined('DB_USER'))
+	{
+	require "../../config.php";
+	}
+try
+	{
+	$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+	}
+catch(PDOException $e)
+	{
+	die("Could not connect to the database " . DB_DATABASE . ": " . $e->getMessage());
+	}
 
-
-try {
-	$sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = "segunemma2003"';
-	$q = $conn->query($sql);
-	$q->setFetchMode(PDO::FETCH_ASSOC);
-	$data = $q->fetch();
-	$secret_word = $data['secret_word'];
-} catch (PDOException $e) {
-	throw $e;
-}
+global $conn;
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
 	$message = trim(htmlspecialchars($_POST['message']));
@@ -49,16 +52,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 			{
 
                     		echo json_encode(['status'=>1, 'data'=>'Alright gonna put it in mind']);
+				return;
 				
 			}
 			else
 			{
 				echo json_encode(['status'=>0, 'data'=>'Aw, I don\'t get']);
+				return;
 			}
           	}
             	else
 		{
                 	echo json_encode(['status'=>0, 'data'=>'You\'re not authorized to teach me']);
+			return;
 		}
 	}
 	else
@@ -75,24 +81,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 				$index = rand(0, count($result)-1);
 				$response = $result[$index]['answer'];
 				echo json_encode(['status'=>1, 'data'=>$response]);
+				return;
 			}
 			else
 			{
 				echo json_encode(['status'=>0, 'data'=>'sorry I can\'t give you an answer at the moment but you can as well teach me <br>just use the following pattern train: what is the time? # The time is#password']);
+				return;
 			}
 	}
 }
-	else
-	{ 
+	 
 		
 		?>
+
+
+<?php 
+if ($_SERVER['REQUEST_METHOD'] === "GET") {
+try {
+	$sql = 'SELECT name, username, image_filename, secret_word FROM secret_word, interns_data WHERE username = "segunemma2003"';
+	$q = $conn->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$data = $q->fetch();
+	$secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+	throw $e;
+}
+}
+?>	
 <!DOCTYPE html>
 
 <html>
 <head>
 	<title><?php echo $data['username'];?> 'profile</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
 <style>
 *{
 	border:0px;
@@ -299,6 +322,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 		</div>
 	</div>
 </div>
+	<div style="margin:auto;">
+		<div><h6>Contact me </h6> </div>
+		<a href="https://github.com/segunemma2003"><i class="fa fa-github"></i>Github</a> |
+		<a href="https://www.linkedin.com/in/segun-bamidele-028160154"><i class="fa fa-linkedin"></i>LinkedIn</a> |
+		<a href="https://www.instagram.com/youngpresidooo"><i class="fa fa-instagram"></i>Instagram</a> |
+		<a href="https://www.facebook.com/youngpresido"><i class="fa fa-facebook"></i>Facebook</a> |
+		<a href="https://twitter.com/idibia59"><i class="fa fa-twitter"></i>Twitter</a>
+	</div>
 		
 	
 <!-- 		
@@ -335,7 +366,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                 e.preventDefault();
 		let chat = $('textarea');
                 let message = chat.val().trim();
-		alert(message);
+		//alert(message);
                 //document.write(message);
                 let container = $('.chatlogs');
                 if (message != ''){
@@ -368,17 +399,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                      success: function(res){
 
                          console.log(res);
+			 //console.log(res==true);
 
                          if (res){
 
                              if (res.status ===0){
                                 chat.val('');
+				     console.log(res.data);
                                 container.append(responseMessage(res.data));
                                 $('.chatlogs').scrollTop($('.chatlogs')[0].scrollHeight);
 								//alert($('.chatlogs').scrollTop($('.chatlogs')[0].scrollHeight));
                              }
                             if (res.status ===1){
                                 chat.val('');
+				    console.log(res.data);
                                container.append(responseMessage(res.data));
 							   $('.chatlogs').scrollTop($('.chatlogs')[0].scrollHeight);
                             }
@@ -393,14 +427,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 				
                 function responseMessage(query){
 
-                     return   `<div class="chat friend"><div class="user-photo"></div><p class="chat-message">${query}</p></div>`;
+                     return   '<div class="chat friend"><div class="user-photo"></div><p class="chat-message">'+ query + '</p></div>';
                 }
 
                 function sentMessage(response){
-                    return   '<div class="chat self">'+
-									'<div class="user-photo"></div>'+
-									'<p class="chat-message">'+ response + '</p>'+	
-										'</div>';
+                    return   '<div class="chat self"><div class="user-photo"></div><p class="chat-message">' +  response + '</p></div>';
 							
 							
                 }
@@ -413,5 +444,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 	</div>
 </body>
 </html>
-<?php } ?>
-	     
+

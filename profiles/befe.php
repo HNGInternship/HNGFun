@@ -1,16 +1,15 @@
 <?php 
-//   if(!defined('DB_USER')){
-//     require "../config.php";
-//   }
-//   try {
-//     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-//   } catch (PDOException $pe) {
-//     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-//   }
-
+  if(!defined('DB_USER')){
+    require "../../config.php";
+  }
+  try {
+    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
 try {
       $user = 'befe';
-      $sql = "SELECT * FROM interns_data WHERE username = $user"; 
+      $sql = "SELECT * FROM interns_data WHERE username = '$user' "; 
       $q = $conn->query($sql);
       $q->setFetchMode(PDO::FETCH_ASSOC);
       $data = $q->fetch();
@@ -185,6 +184,7 @@ function fetchAnswer($msgss){
                 #chatbox {
                     position: absolute;
                     bottom: 20px;
+                    margin-top: 20px;
                 }
                 input[type=text] {
                     box-sizing: border-box;
@@ -308,8 +308,8 @@ function fetchAnswer($msgss){
             <section class='row'>
                 <article class='col-md-8' id='main'>
                     <div class='row'>
-                        <div class='contain-pic'>
-                            <img class='col-md-3' src="<?= $image ?>" alt ='befe sitted and giving a pose'>
+                        <div class='contain-pic col-md-3'>
+                            <img class='' src="<?php echo $image; ?>" alt ='befe sitted and giving a pose'>
                         </div>
                         <div class='details col-md-7'>
                             <h1>Deekor Baribefe</h1>
@@ -354,8 +354,8 @@ function fetchAnswer($msgss){
                });
 
                function bot_chat(reply){
-                    $('#chatlog').delay(500).append('<p>Bot Xperience: ' + reply + '</p>');
-                    $('#chatlog').scrollTop($('#bot-ui').height());
+                    $('#chatlog').append('<p>Bot Xperience: ' + reply + '</p>');
+                    $('#chatlog').scrollTop($('#chatlog').height());
                }
 
                $('input[type=submit]').click(function(){
@@ -363,17 +363,17 @@ function fetchAnswer($msgss){
                   var reset = $('.msgbox').val("");   
                     if(msg){
                         $('#chatlog').append('<p> You: ' + msg + '</p>');
-                        $('#chatlog').scrollTop($('#bot-ui').height());
+                        $('#chatlog').scrollTop($('#chatlog').height());
                     }
                   
 
                   if(msg==''){
-                    $('#chatlog').delay(500).append('<p>Bot Xperience: You have not typed anything</p>');
-                    $('.bot-box').scrollTop($('.bot-box').height());
+                    $('#chatlog').append('<p>Bot Xperience: You have not typed anything</p>');
+                    $('#chatlog').scrollTop($('#chatlog').height());
                     return false;
                     } else {
                         $.ajax({
-                        url: 'profiles/befe',
+                        url: 'profiles/befe.php',
                         type: 'post',
                         cache: 'false',
                         data: {
