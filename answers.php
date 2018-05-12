@@ -1,5 +1,31 @@
 <?php
-
+// functions by @mclint_. DO NOT MODIFY
+function getAJoke(){
+    $jokes = ["My dog used to chase people on a bike a lot. It got so bad, finally I had to take his bike away.", "What is the difference between a snowman and a snowwoman? Snowballs.",
+        "I invented a new word. Plagiarism.", "Helvetica and Times New Roman walk into a bar. 'Get out of here!' shouts the bartender. 'We don't serve your type.'",
+        "Why don’t scientists trust atoms? Because they make up everything.", "Where are average things manufactured? The satisfactory.", "How do you drown a hipster? Throw him in the mainstream",
+        "How does Moses make tea? He brews!", "Why can’t you explain puns to kleptomaniacs? They always take things literally.", "I got called pretty yesterday and it felt good! Actually, the full sentence was 'You're pretty annoying.' but I'm choosing to focus on the positive.",
+        "Two cannibals eating a clown. 'Does this taste funny to you?'", "Why can’t you hear a pterodactyl in the bathroom? Because it has a silent pee.", "Where does a sheep go for a haircut? To the baaaaa baaaaa shop!"];
+    return $jokes[rand(0, count($jokes) - 1)];
+}
+function emojifyText($text){
+    $url = "http://torpid-needle.glitch.me/emojify/{$text}";
+    return file_get_contents($url);
+}
+function rollADice(){
+    return rand(1, 6);
+}
+function flipACoin(){
+    return rand(0,1) === 1 ? "Heads" : "Tails";
+}
+function predictOutcome($battle){
+    $players = explode('vs', $battle);
+    if(count($players) >= 2){
+        return $players[rand(0, count($players) - 1)];
+    }
+    return "Uhh.. nope. You've provided invalid prediction data.";
+}
+// End of functions by @mclint_
 function get_time(){
     //instantiate date-time object
     $datetime = new DateTime();
@@ -167,33 +193,6 @@ function aboutHNGStage($stage)
     }
 }
 //End of functions by melas
-// functions by @mclint_. DO NOT MODIFY
-function getAJoke(){
-    $jokes = ["My dog used to chase people on a bike a lot. It got so bad, finally I had to take his bike away.", "What is the difference between a snowman and a snowwoman? Snowballs.",
-        "I invented a new word. Plagiarism.", "Helvetica and Times New Roman walk into a bar. 'Get out of here!' shouts the bartender. 'We don't serve your type.'",
-        "Why don’t scientists trust atoms? Because they make up everything.", "Where are average things manufactured? The satisfactory.", "How do you drown a hipster? Throw him in the mainstream",
-        "How does Moses make tea? He brews!", "Why can’t you explain puns to kleptomaniacs? They always take things literally.", "I got called pretty yesterday and it felt good! Actually, the full sentence was 'You're pretty annoying.' but I'm choosing to focus on the positive.",
-        "Two cannibals eating a clown. 'Does this taste funny to you?'", "Why can’t you hear a pterodactyl in the bathroom? Because it has a silent pee.", "Where does a sheep go for a haircut? To the baaaaa baaaaa shop!"];
-    return $jokes[rand(0, count($jokes) - 1)];
-}
-function emojifyText($text){
-    $url = "http://torpid-needle.glitch.me/emojify/{$text}";
-    return file_get_contents($url);
-}
-function rollADice(){
-    return rand(1, 6);
-}
-function flipACoin(){
-    return rand(0,1) === 1 ? "Heads" : "Tails";
-}
-function predictOutcome($battle){
-    $players = explode('vs', $battle);
-    if(count($players) >= 2){
-        return $players[rand(0, count($players) - 1)];
-    }
-    return "Uhh.. nope. You've provided invalid prediction data.";
-}
-// End of functions by @mclint_
 //functions defined by @chigozie. DO NOT MODIFY!!!
 function getDayOfWeek(){
     return date("l");
