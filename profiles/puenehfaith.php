@@ -215,6 +215,19 @@ h3{
   font: 10px arial, sans-serif;
   height: 15px;
   width: 100%;
+.chat p.san{
+      float: left;
+      font-size: 14px;
+      padding: 20px;
+      border-radius: 0px 50px 50px 50px;
+      background-color: #b0bfff;
+     max-width: 250px;
+     clear: both;
+      display: inline-block;
+      margin-bottom: 0px !important;
+      margin-top: 2px !important;
+    }
+    
 
 h5{
   background-color: #ffffff;
@@ -294,7 +307,7 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="chatModalLabel"><i class="fa fa-user"></i><b>Santra</b></h5>
+            <h5 class="modal-title" id="chatModalLabel"><i class="fa fa-user"></i><b>Jayo</b></h5>
            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -303,10 +316,10 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
             <div class="chat" id="chat">
                 
                   
-                    <p class="jayo">Hi! am jayo.   </p>
-                    <p class="jayo">To train me, use - "train:question#answer#password".</p>
-                   <p class="jayo">The Password is: <b>password</b>. </p>
-                    <p class="jayo">type in here.</p>
+                    <p class="san">Hi! am jayo.   </p>
+                    <p class="san">To train me, use - "train:question#answer#password".</p>
+                   <p class="san">The Password is: <b>password</b>. </p>
+                    <p class="san">type in here.</p>
             </div>                
           </div>  
           <div class="clearfix"></div>
