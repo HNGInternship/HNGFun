@@ -178,8 +178,11 @@
             color: black;
           }
 
-          .chat {
+          .modal-body{
             background-color: #79cdee;
+          }
+
+          .chat {
             position: relative;
             overflow: auto;
             overflow-x: hidden;
@@ -196,7 +199,7 @@
           }
           .chat p.stev{
             float: left;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: normal;
             font-family: Roboto;
             padding: 20px;
@@ -213,7 +216,7 @@
           }
           .chat p.me{
             float: right;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: normal;
             font-family: Roboto;
             padding: 20px;
@@ -316,7 +319,7 @@
                 </div>
                 <div class="modal-body"> 
                   <div class="chat" id="chat">
-                    <p class="stev">Hi! My name is <b>Stevia</b>.<br>I am here to help you.<br>Feel free to ask me anything.<br> You can tell me what to do and I promise not to fail you.<br> just type "help' to start with. You can train me too by simply using the syntax "train:question#answer#password" The Password is: <b>password</b>.</p>
+                    <p class="stev">Hi! My name is <b>Stevia</b>.<br>I am here to help you.<br>Feel free to ask me anything.<br> You can tell me what to do and I promise not to fail you.<br> just type "help' to start with.<br>You can train me too by simply using <br>the format: "train:question#answer#password"<br>The Password is: <b>password</b>.</p>
                   </div>
                 </div>
                 <div class="clearfix"></div>
