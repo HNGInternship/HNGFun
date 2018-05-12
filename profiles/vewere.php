@@ -1,6 +1,7 @@
 <?php
   error_reporting(E_ALL);
   ini_set('display_errors', 'On');
+  var_dump($_POST);
 
 
   if(!isset($_POST['question_sent'])){
@@ -10,9 +11,7 @@
 
     $result2 = $conn->query("Select * from interns_data where username = 'vewere'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
-  }
 
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (substr($_POST['question'], 0, 5) == 'train'){
       // echo "<script>console.log('training mode');</script>";
       include "../db.php";
@@ -34,9 +33,13 @@
       $response = "Training Successful";
       echo $response;
       exit();
-    } 
+    }
+  }
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+     
     
-    else if (isset($_POST['question'],$_POST['question_sent'])){
+    if (isset($_POST['question'], $_POST['question_sent'])){
       include "../db.php";
       $question = $_POST['question'];
       $result3 = $conn->query("Select * from chatbot where question = '$question'");
@@ -222,7 +225,7 @@
   </style>
   <script>
     var outer_profile = true;
-    var version = "Bot v1.0.15";
+    var version = "Bot v1.0.16";
     $(function (){    
       
       // Switch between Profile and Chat screens
@@ -242,6 +245,7 @@
 
       // Add user's request and bot's response to chat interface
       $("#send").click(function() {
+        alert("it got here");
         var input = $("#request").val();        
         if ($.trim(input)) {
           $("#chat-area table").append("<tr><td><div class='user-bubble'><p>"+input+"</p></div></td></tr>");
