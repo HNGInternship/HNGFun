@@ -6,8 +6,7 @@ try {
     $sql ="SELECT * FROM interns_data WHERE username = 'Kruga' LIMIT 1";
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
-    $intern_data = $q->fetch();
-  var_dump($intern_data); 
+    $intern_data = $q->fetch(); 
 
     //query for the secret word;
     $sql = "SELECT * FROM secret_word";
