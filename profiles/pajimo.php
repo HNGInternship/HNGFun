@@ -129,8 +129,6 @@ try {
   $my_data = $q->fetch();
 } catch (PDOException $e) {
   throw $e;
-}
-
 }?>
 <?php if ($_SERVER['REQUEST_METHOD'] == "GET") {?>
    
