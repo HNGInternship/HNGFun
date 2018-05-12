@@ -35,6 +35,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     "Ugh. If only my creator trained me better I'd know what to say in reply to what you just said. Please train me?");
 
     function sendResponse($status, $answer){
+      header('Content-Type: application/json');
       echo json_encode([
         'status' => $status,
       'answer' => $answer]);
@@ -412,7 +413,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               params.append('password', 'trainpwforhng');
               params.append('question', query);
 
-              axios.post('/profiles/mclint_.php', params)
+              axios.post('profiles/mclint_.php', params)
                 .then(response => {
                   console.log(response);
                   this.messages.pop();

@@ -462,7 +462,7 @@
 				</div>
 			</form>
 
-			<footer class=".footer">
+			<footer class=".footer" style="display: none;">
 				<?php
 				date_default_timezone_set('Africa/Lagos');
 			?>

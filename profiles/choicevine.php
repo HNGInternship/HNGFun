@@ -42,9 +42,7 @@ body {
             position: relative;
             width: 90%;
             padding: 30px;
-            padding-left: 40px;
             margin: 22px;
-            align-content: center;
         }
 
          .card {
@@ -136,15 +134,11 @@ body {
 .btn-pref .btn {
     -webkit-border-radius:0 !important;
 }
-    .well {
-        position: relative;
-        width: 90%;
 
-    }
 
     </style>
 </head>
-<body>
+<body class="no-go area">
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -156,6 +150,7 @@ $(".btn-pref .btn").click(function () {
 });
     </script>
 
+        <div class="masthead"></div>
         <div class="container">
 
             <div class="col-lg-6 col-sm-6" style="position: relative; width: 100%;">
