@@ -46,7 +46,7 @@
                             return;
                         }else{
                             echo json_encode([
-                                'results'=> 'Couldn\'t train bot '. $conn->error()
+                                'results'=> 'Error training'
                             ]);
                             return;
                         }
@@ -179,7 +179,7 @@
             
             }
         };
-        xhttp.open("POST",  "/profiles/nene.php", true);
+        xhttp.open("POST", "/profiles/nene.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("message="+message.value);
     }
