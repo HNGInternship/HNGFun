@@ -1,0 +1,87 @@
+
+alldots@TosinOtuseso MINGW32 ~
+$ cd /c/xampp/projects
+
+alldots@TosinOtuseso MINGW32 /c/xampp/projects (master)
+$ add /c/xampp/projects/tosin.php
+bash: add: command not found
+
+alldots@TosinOtuseso MINGW32 /c/xampp/projects (master)
+$ git add/c/xampp/projects/tosin.php
+warning: failed to restrict file handles (2)
+
+handle #0: 00000274 (type 3, handle info (1) 6cf3c0
+handle #1: 00000278 (type 3, handle info (1) 1
+
+This is a bug; please report it at
+https://github.com/git-for-windows/git/issues/new
+
+To suppress this warning, please set the environment variable
+
+        SUPPRESS_HANDLE_INHERITANCE_WARNING=1
+
+git: 'add/c/xampp/projects/tosin.php' is not a git command. See 'git --help'.
+
+alldots@TosinOtuseso MINGW32 /c/xampp/projects (master)
+$ git add /c/xampp/projects/tosin.php
+
+alldots@TosinOtuseso MINGW32 /c/xampp/projects (master)
+$ git commit -m "My profile "
+[master 189c8f1] My profile
+ 7 files changed, 41 insertions(+), 11 deletions(-)
+ create mode 160000 hngfun
+ delete mode 160000 hnginternship4
+ delete mode 100644 teest.php
+ delete mode 100644 test.php
+ delete mode 100644 testing.html
+ delete mode 100644 testt.php
+ create mode 100644 tosin.php
+
+alldots@TosinOtuseso MINGW32 /c/xampp/projects (master)
+$ git pull
+fatal: unable to access 'https://github.com/Tosin210/Tosin2/': Could not resolve host: github.com
+
+alldots@TosinOtuseso MINGW32 /c/xampp/projects (master)
+$ git pull
+fatal: unable to access 'https://github.com/Tosin210/Tosin2/': Could not resolve host: github.com
+
+alldots@TosinOtuseso MINGW32 /c/xampp/projects (master)
+$ git pull
+fatal: unable to access 'https://github.com/Tosin210/Tosin2/': Could not resolve host: github.com
+
+alldots@TosinOtuseso MINGW32 /c/xampp/projects (master)
+$ git pull
+fatal: unable to access 'https://github.com/Tosin210/Tosin2/': Empty reply from server
+
+alldots@TosinOtuseso MINGW32 /c/xampp/projects (master)
+$ git pull
+fatal: unable to access 'https://github.com/Tosin210/Tosin2/': Could not resolve host: github.com
+
+alldots@TosinOtuseso MINGW32 /c/xampp/projects (master)
+$ git pull
+fatal: unable to access 'https://github.com/Tosin210/Tosin2/': Could not resolve host: github.com
+
+alldots@TosinOtuseso MINGW32 /c/xampp/projects (master)
+$ git reset --hard HEAD
+HEAD is now at 189c8f1 My profile
+
+alldots@TosinOtuseso MINGW32 /c/xampp/projects (master)
+$ git pull
+Already up to date.
+
+alldots@TosinOtuseso MINGW32 /c/xampp/projects (master)
+$ git push
+Username for 'https://github.com': Tosin210
+Counting objects: 3, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 851 bytes | 29.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/Tosin210/Tosin2
+   5e22279..189c8f1  master -> master
+
+alldots@TosinOtuseso MINGW32 /c/xampp/projects (master)
+$ ^C
+
+alldots@TosinOtuseso MINGW32 /c/xampp/projects (master)
+$

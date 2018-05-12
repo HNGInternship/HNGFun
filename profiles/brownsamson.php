@@ -1,13 +1,219 @@
 <!DOCTYPE html>
 <?php
-    require_once 'db.php';
-    $result = $conn->query("Select * from secret_word LIMIT 1");
-    $result = $result->fetch(PDO::FETCH_OBJ);
-    $secret_word = $result->secret_word;
+// chdir(dirname(__FILE__));
 
-    $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'brownsamson'");
-    $user = $result2->fetch(PDO::FETCH_OBJ);
-?>
+  require_once 'db.php';
+
+    
+$result = $conn->query("Select * from secret_word LIMIT 1");
+$result = $result->fetch(PDO::FETCH_OBJ);
+$secret_word = $result->secret_word;
+$result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'brownsamson'");
+$user = $result2->fetch(PDO::FETCH_OBJ);
+        
+if (isset($_POST['message'])) {
+  $message = $_POST['message'];
+  samsonjnrBot($message);
+}
+
+function samsonjnrBot($qsam){
+  $qsam = strtolower($qsam);
+  $anwerSam = "";
+  $guestName = "";
+ 
+ 
+  $keyword = array('newschool', 'how are you','what are you you?', 'what your do name ur name? call you your\'s', 'my name name?', 'i\'m am fine okay doing great ok all good', 'today today\'s date', 'version version? aboutbot', 'what do time? time', 'still here you there codmax jnr samson');
+ 
+  $decisionArray = array();
+  $usrKeywords = $qsam; //$_POST['keywords']
+  $arr1 = explode(' ', $usrKeywords);
+  foreach ($keyword as $s){
+    $arr2 = explode(' ', $s);
+    $aint = array_intersect($arr2, $arr1);
+    $percentage = (count($aint) * 100 / count($arr2));
+    array_push($decisionArray, $percentage);
+  }
+  if ($qsam != 'how' && $qsam != "you" && $qsam != "your" && $qsam != "are" && $qsam != "my" && $qsam != "still" && $qsam != "here" && $qsam != "there" && $qsam != "call"){
+  $decisionValue = array_keys($decisionArray, max($decisionArray));
+  }else{
+    $decisionValue = [0];
+  }
+ 
+ 
+  function trainingSam($newmessage){
+    require 'db.php';
+    $message = explode('#', $newmessage);
+    $question = explode(':', $message[0]);
+    $answer = $message[1];
+    $password = $message[2];
+ 
+    $question[1] = trim($question[1]);
+    $password = trim($password);
+    if ($password != "password"){
+      echo "You are not authorize to train me.";
+ 
+    }else{
+    $chatbot= array(':id' => NULL, ':question' => $question[1], ':answer' => $answer);
+    $query = 'INSERT INTO chatbot ( id, question, answer) VALUES ( :id, :question, :answer)';
+ 
+    try {
+        $execQuery = $conn->prepare($query);
+        if ($execQuery ->execute($chatbot) == true) {
+            echo repondTraining();
+ 
+        };
+    } catch (PDOException $e) {
+        echo "Oops! i did't get that, Something is wrong i guess, <br> please try again";
+      }
+    }
+  }
+ 
+  function greetingSam(){
+    $greeting = array('Hi! Good to have you here. My name is Samson Jnr, but you can call me Codmax' ,
+                      'Hello there, my name is Codmax, how Can i be of help?' ,
+                      'Good day, You are chatting with Codmax, ask me something',
+                      'Hi! My name is Samson whats up?',
+                      'It\'s Codmax, Welcome on board',
+                      'I\'m Codmax, let\'s get started');
+      $index = mt_rand(0, 5);
+      return $anwerSam = $greeting[$index];
+  }
+ 
+  function requestName(){
+      $requestName = array( 'Sorry I did\'t catch your name',
+                            'What can I call you?',
+                            'What\'s that lovely name of yours?');
+      $index = mt_rand(0, 2);
+      return $anwerSam = $requestName[$index];
+  }
+ 
+  function repondTraining(){
+      $repondTraining = array(  'Noted! Thank you for teaching me',
+                                'Acknowledged, thanks, really want to learn more',
+                                'A million thanks, I\'m getting smarter',
+                                'i\'m getting smarter, I really appreciate');
+      $index = mt_rand(0, 3);
+      return $anwerSam = $repondTraining[$index];
+  }
+ 
+  function repondName(){
+      $repondName = array( 'Yeah! i\'m still here',
+                            'I\'m with you',
+                            'go ahead I\'m still here');
+      $index = mt_rand(0, 2);
+      return $anwerSam = $repondName[$index];
+  }
+ 
+  function respondDate(){
+    date_default_timezone_set("Africa/Lagos");
+    $time = date("Y/m/d");
+    $respondTime = array( 'Today\'s date is '.$time,
+                          'it\'s '. $time,
+                          'Today is '. $time,
+                          $time);
+    $index = mt_rand(0, 3);
+    return $anwerSam = $respondTime[$index];
+  }
+ 
+  function respondTime(){
+    date_default_timezone_set("Africa/Lagos");
+    $time = date("h:i A");
+    $respondTime = array( 'The time is '.$time,
+                          'it\'s '. $time,
+                          $time);
+    $index = mt_rand(0, 2);
+    return $anwerSam = $respondTime[$index];
+  }
+ 
+  function respondName(){
+    $respondName = array( 'Codmax, you can still call me Samson Jnr.',
+                          'Samson Jnr, I\'m still called Codmax.',
+                          'Samson Jnr. or Codmax');
+    $index = mt_rand(0, 2);
+    return $anwerSam = $respondName[$index];
+  }
+ 
+  function respondOkay(){
+    $respondOkay = array( 'That\'s Great, we should keep chatting I\'m having fun',
+                          'So Lovely, let\'s keep chatting',
+                          'That\'s good news, so how can I help you?');
+    $index = mt_rand(0, 2);
+    return $anwerSam = $respondOkay[$index];
+  }
+ 
+  function respondGreeting (){
+    $respondGreeting = array( 'Oh, I\'m doing quite well. You?',
+                          'Am fine and thanks What about you?',
+                          'Am all good. and how are you too?');
+    $index = mt_rand(0, 2);
+    return $anwerSam = $respondGreeting[$index];
+  }
+ 
+ 
+  function checkDatabaseToo($question){
+    try{
+        require 'db.php';
+ 
+        $stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
+ 
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+          while($row = $stmt->fetch(PDO::FETCH_ASSOC)){ echo $row["answer"];}
+        }else{
+          return 1;
+        }
+      }
+        catch (PDOException $e){
+           echo "Error: " . $e->getMessage();
+        }
+        $conn = null;
+      }
+ 
+ 
+  if ($qsam == "intro"){
+      echo greetingSam();
+  } else if($qsam == "request name"){
+      echo requestName();
+  }else if (strtok($qsam, ":") == "train"){
+              trainingSam($qsam);
+  }else if ( $keyword[$decisionValue[0]] == "what do time? time"){
+              echo respondTime();
+  }else if ( $keyword[$decisionValue[0]] == "what your do name ur name? call you your's" || $qsam == "your name" || $qsam == "name" || $qsam == "ur name" || $qsam == "ur name?"){
+              echo respondName();
+  } else if ( $keyword[$decisionValue[0]] == "my name name?"){
+              echo "givename";
+  }else if ( $keyword[$decisionValue[0]] == "version version? aboutbot"){
+              echo "Version: 1.0";
+  }else if ( $keyword[$decisionValue[0]] == "what are you you?"){
+              echo "I'm a ChatBot";
+  }else if ( $keyword[$decisionValue[0]] == "today today's date"){
+              echo respondDate();
+  }else if($qsam != "intro" && $qsam != "request name" && strtok($qsam, ":") != "train"){
+    $te = checkDatabaseToo($qsam);
+    if ($te == 1){
+      if ( $keyword[$decisionValue[0]] == "i'm am fine okay doing great ok all good"){
+                  echo respondOkay();
+      }else if ( $keyword[$decisionValue[0]] == "how are you"){
+                  echo respondGreeting();
+      }else if (strtok($qsam, ":") == "name"){
+            echo "nice name, also nice to meet you ";
+            $nameGuest = explode (":", $qsam);
+            $guestName = $nameGuest [1];
+            echo "$guestName" . ". How are you today?";
+ 
+      }else if ( $keyword[$decisionValue[0]] == "still here you there codmax jnr samson"){
+        echo repondName();
+      }else if ( $keyword[$decisionValue[0]] == "newschool"){
+        echo "oop! Sorry i don't understand you. But I'm a fast learner,
+              you can train me in this format 'train: question # answer #password'";
+      }
+    }
+  }
+  }
+ 
+
+if ($_SERVER["REQUEST_METHOD"] == "GET"){ ?>
+
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -27,7 +233,6 @@
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
             }
-
             img{
                 user-drag: none;
             user-select: none;
@@ -36,17 +241,13 @@
             -webkit-user-select: none;
             -ms-user-select: none;
             }
-
             p{
                 margin: 20px 0;
                 line-height: 30px;
             }
-
-
             a{
                 text-decoration: none;
             }
-
             .dark{ background-color: #33648B; color: #ffffff;}
             .darker{ background-color: #212939;  color: #ffffff;}
             .darkest{ background-color: #212129;  color: #ffffff;}
@@ -54,87 +255,66 @@
             .fullwidth{width: 100%; display:block;}
             .float-right{float: right;}
             .float-left{float: left;}
-
             .container{
                 width: 100%;
-                padding: 0 8.33%;
+                /*padding: 0 8.33%;*/
                 display: table;
             }
-
             .body{
                 padding-top: 30px;
                 padding-bottom: 30px;
             }
-
-            .stop-scrolling{
-                height: 100%;
-                overflow: hidden;
-            }
-
             .body{
                 font-family: 'Roboto', 'Rubik', sans-serif;
                 font-size: 12pt;
                 width: 100%;
                 background-color: #212939;
             }
-
             #footer{
                 height: 60px;
                 padding: 15px 0;
                 text-align: center;
             }
-
             .socials-container{
                 max-width: 200px;
                 text-align: center;
                 margin-top: 0px;
                 display: inline-block;
             }
-
             .socials{
                 margin: 0 10px;
             }
-
-
             .banner{
               margin-top: 50px;
                 /*height: 10px;*/
             }
-
             /*============== BANNER ANIMATION ======================*/
             .banner-item-container{
                 max-width: 350px;
-                padding-left: 15px;
+                padding-left: 8%;
                 padding-right: 15px;
                 padding-top: 20px;
                 background: rgba(33,41,57, 0.6);
             }
-
             .banner-item{
                 border-left: 2px solid #8CDEF7;
                 padding-left: 15px;
                 padding-top: 10px;
             }
-
             .banner-item>h4{
                 display: inline;
             }
-
-
             .banner-item>h3{
                 margin-bottom: 5px;
             }
-
             .hello{
                 margin-bottom: 5px;
                 font-weight: 100 !important;
             }
-
             .banner-item>p{
                 margin-bottom: 25px;
                 font-weight: 100 !important;
             }
-
             .banner {
               margin:0px;
               text-align:left;
@@ -148,33 +328,41 @@
               background: url(http://res.cloudinary.com/samsondappa/image/upload/v1523983445/samsonnewautonew.png) no-repeat bottom right;
                 background-color: #212939;
             }
-
             #dropping-texts {
               display: inline-block;
               max-width: 350px;
               text-align: left;
-              height: 36px;
+              height: 30px;
               margin-top: -10px;
               position:absolute;
               font-weight:300;
-              padding: 0 3px 0 0 ;
+              padding: 0 5px 0 0 ;
             /*  border-right: 2px solid rgba(225, 204, 41, 1);*/
-              height: 25px;
-
+              /* height: 25px; */
             }
-
             #aboutme{
                 max-width: 650px;
                 margin: auto;
             }
-
             button{
                 border: none;
                 margin: 5px;
                 padding: 2px 10px;
                 text-align: center;
             }
-
+            .send-button{
+              background-color: #FFCC29;
+              border: none;
+              color: #000000 !important;
+              padding: 5px 15px;
+              margin: 0;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              /* border-radius: 7px; */
+              width: 100%;
+            }
             .button{
                 background-color: #FFCC29;
                 border: none;
@@ -187,24 +375,153 @@
                 font-size: 16px;
                 border-radius: 7px;
             }
-
-            .button:hover{
+            .send-button:hover, .button:hover{
                 color: #ffffff !important;
                 background-color: #33648B;
                 cursor: pointer;
                 transition: .5s;
             }
-
             #personal-body{
-              margin-top: 70px;
+              margin-top: 90px;
               padding: 30px 0;
             }
-
             .space{
               width: 100%;
               height: 30px;
             }
+            #chat-icon-con{
+              padding: 5px;
+              height: 60px;
+              width: 60px;
+              border-radius: 50%;
+              background-color: #749E40;
+              position: fixed;
+              right: 4%;
+              bottom: 40px;
+              transition: 1s;
+            }
+            #chat-icon-con:hover{
+              background-color: #FFC916;
+              cursor: pointer;
+              transition: 1s;
+            }
+              #icon-img{
+                width: 100%;
+              }
+              #chatcon{
+                width: 350px;
+                height: 85vh;
+                background: #F2F2F3;
+                position: fixed;
+                bottom:30px;
+                right:-100%;
+                padding: 15px 15px 10px 15px;
+                border-radius: 5px;
+                /*display: none;*/
+                transition: right 1s ease-in-out 0.05s;
+                /*transition: right 1s ease-in-out 0.05s;*/
+              }
+              .message-con{
+                width: 100%;
+                height: 55vh;
+                background-color: #FFFFFF;
+                padding: 20px 10px 10px 10px;
+                overflow-y: scroll;
+                /*display:flex;
+                flex-direction: column-reverse;*/
+              }
+              #conversation{
+              }
+              .form-group{
+                margin: 10px 0;
+                /*padding-right: 15px;*/
+              }
+              #message{
+                height: 100%;
+                width: 100%;
+                border-radius: 0;
+              }
+              .textarea-con{
+                /*padding: 10px;*/
+                width: 100%;
+                height: 14vh;
+              }
+              textarea{
+                resize: none;
+              }
+              .bot{
+                width: 65%;
+                background-color: #0D2147;
+                color: #ffffff;
+                float:left;
+                padding: 6px;
+                margin: 0 0 20px 10px;
+                border-radius: 5px;
+                font-size: .8em;
+                position: relative;
+              }
+              .arrow-left{
+                width: 0;
+                height: 0;
+                border-top:  10px solid transparent;
+                border-bottom:  10px solid transparent;
+                border-right:  10px solid #0D2147;
+                position: absolute;
+                left: -2.5%;
+                bottom: 20%;
+              }
+              .guest{
+                width: 65%;
+                background-color: #FFC916;
+                float: right;
+                padding:6px;
+                margin: 0 10px 20px 0;
+                border-radius: 5px;
+                font-size: .8em;
+                position: relative;
+              }
+              .arrow-right{
+                width: 0;
+                height: 0;
+                border-top:  10px solid transparent;
+                border-bottom:  10px solid transparent;
+                border-left:  10px solid #FFC916;
+                position: absolute;
+                right: -2.5%;
+                bottom: 20%;
+              }
+              @media only screen and (max-width: 572px){
+                #chatcon{
+                  width: 100%;
+                  display: table;
+                  height: 550px;
+                  position: static;
+                  bottom:30px;
+                  padding: 15px 15px 10px 15px;
+                  margin: 20px 0 20px 0;
+                  border-radius: 5px;
+                  display: none;
+                  transition: right 1s ease-in-out 0.05s;
+                }
+                .message-con{
+                  width: 100%;
+                  height: 70%;
+                  background-color: #FFFFFF;
+                  padding: 20px 10px 10px 10px;
+                  overflow-y: scroll;
+                  display: static;
 
+                }
+                .textarea-con{
+                  padding: 0px;
+                  width: 100%;
+                  height: 14vh;
+                }
+                .form-group{
+                  margin: 10px 0;
+                  padding-right: 0px;
+                }
+              }
         </style>
 
     </head>
@@ -216,7 +533,6 @@
                     <h3 class="light hello">Hi! I'm </h3>
                     <h3>BROWN SAMSON DAPPA</h3>
 
-<!--                    <h4>I </h4>-->
                       <div class="space"></div>
                     <div id="dropping-texts">
                     </div>
@@ -227,9 +543,27 @@
                 <div class="space"></div>
                 <div class="space"></div>
             </div>
+        </div>
+
+        <div id="chatcon">
+          <div class="message-con" id="messageCon">
+              <div id="conversation">
+            <!-- <div class="bot"><div class="arrow-left"></div>Hi! Good to have you here. My name is Samson Jnr, but you can call me Codmax</div>
+            <div class="bot"><div class="arrow-left"></div>Sorry i did't catch your name</div> -->
+
+          </div>
+          </div>
+          <form id="ajax-contact" method="post" action="profiles/brownsamson.php">
+            <div class="form-group">
+					    <div class="textarea-con"><textarea type="text" class="form-control" name="message" id="message" placeholder="Ask Me Something"></textarea></div>
+					  </div>
+
+            <div class="form-group"><button type="submit" class="send-button" id="guest-send">Send</button></div>
+          </form>
 
         </div>
 
+        <div id="chat-icon-con"><img src="http://res.cloudinary.com/samsondappa/image/upload/v1524134592/chatIcon.png" id="icon-img"></div>
         <footer class="darkest " id ="footer">
             <div class="socials-container">
                 <a href="https://facebook.com/brownsamson.dappa" target="_blank" class="socials">
@@ -283,22 +617,20 @@
         </footer>
 
     </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
     <script>
         typer ();
-
         function typer (){
             var y = 0;
+            var m = "#749E40"
             var skill = ["I Design   ", "I Code   ", "And I Write too   "];
             var x = 0;
-
-
             function printSentence(id, sentence, speed) {
               var index = 0;
                   timer = setInterval(function() {
                     var char= sentence.charAt(index);
                     if(char === '<') index= sentence.indexOf('>',index);
                     document.getElementById(id).innerHTML= sentence.substr(0,index);
-
                     if(index++ === sentence.length){
                         clearInterval(timer);
                         removeSentence('dropping-texts', skill[x], 50);
@@ -308,14 +640,12 @@
                     }
                   }, speed);
             } //printSentence
-
             function removeSentence(id, sentence, speed) {
               var index = sentence.length;
                   timer = setInterval(function() {
                     var char= sentence.charAt(index);
                     if(char === '<') index= sentence.indexOf('>',index);
                     document.getElementById(id).innerHTML= sentence.substr(0,index);
-
                     if(index-- === 0){
                         clearInterval(timer);
                         x++;
@@ -323,19 +653,138 @@
                     }
                   }, speed);
             } //removeSentence
-
         //    printSentence('intro', intro, 30);
             printSentence('dropping-texts', skill[x], 150);
-
             blink = setInterval(function(){
             document.getElementById('dropping-texts').style.borderRight = "2px solid rgba(225, 204, 41, " + y + ")";
-
                 if (y == 1){
                     y = 0;
                 } else if (y == 0){
                     y = 1;
                 }
             }, 150);
+            var scrollingElement = (document.scrollingElement || document.body);
+            function scrollToBottom () {
+               scrollingElement.scrollTop = scrollingElement.scrollHeight;
+            }
+            var messageBottonBlink = setInterval(function(){
+              var chatIco = document.getElementById('chat-icon-con');
+              chatIco.style.backgroundColor = m;
+                if (m == "#FFC916"){
+                    m = "#749E40";
+                } else if (m == "#749E40"){
+                    m = "#FFC916";
+                }
+            }, 800);
         }
+
+        function scrollToBottom(id){
+           var div = document.getElementById(id);
+           div.scrollTop = div.scrollHeight - div.clientHeight;
+        }
+  // ------------.....-------......------ AJAX ---------..........---------------------------
+        var guestSend = document.getElementById('guest-send');
+        var conversation = document.getElementById('conversation');
+        var textarea = document.getElementById('message');
+        var message = "";
+        var chatIcon = document.getElementById('chat-icon-con');
+        var realMessageIcon = '<img src="http://res.cloudinary.com/samsondappa/image/upload/v1524134592/chatIcon.png" id="icon-img">'
+        var realMessageCancel = '<img src="http://res.cloudinary.com/samsondappa/image/upload/v1524444837/cancelmessage.png" id="icon-img">'
+        var firstMessage = 0;
+        var senderName = "";
+        chatIcon.addEventListener("click", function(){
+          if (this.innerHTML == realMessageCancel){
+            this.innerHTML = realMessageIcon;
+            document.getElementById('chatcon').style.display = "none";
+            document.getElementById('chatcon').style.right = "-100%";
+            scrollingElement.scrollTop = 0;
+          } else {
+            this.innerHTML = realMessageCancel;
+            document.getElementById('chatcon').style.display = "table";
+            document.getElementById('chatcon').style.right = "10%";
+            scrollingElement = (document.scrollingElement || document.body)
+            scrollingElement.scrollTop = 600;
+            if (firstMessage == 0){
+              sendTheMessage('message=intro');
+              sendTheMessage('message=request name');
+              firstMessage++;
+            }
+          }
+        });
+        
+        $(function() {
+    // Get the form.
+    var form = $('#ajax-contact');
+
+    // Set up an event listener for the contact form.
+    $(form).submit(function(event) {
+        // Stop the browser from submitting the form.
+        event.preventDefault();
+
+       // Serialize the form data.
+      var formData = $(form).serialize();
+      message = textarea.value;
+      // Submit the form using AJAX.
+      if (firstMessage == 1){
+                sendTheMessage("message=name:" + message);
+                textarea.value = "";
+                firstMessage++;
+                senderName = message;
+              }else{
+                sendTheMessage(formData);
+                textarea.value = "";
+              }
+    });
+});
+
+function sendTheMessage(formData){
+  var form = $('#ajax-contact');
+ 
+  $.ajax({
+          type: 'POST',
+          url: $(form).attr('action'),
+          data: formData,
+      }).done(function(response) {
+            var last8 = response.substr(response.length - 8);
+            if (last8 == 'givename'){
+              response = senderName;
+            }
+            conversation.innerHTML += '<div class="bot"><div class="arrow-left"></div>' + response + '</div>';
+            scrollToBottom('messageCon');
+      })
+}
+
+        guestSend.addEventListener('click', function(){
+          message = textarea.value;
+          if (message != ""){
+            conversation.innerHTML += '<div class="guest"><div class="arrow-right"></div>' + message + '</div>';
+            scrollToBottom('messageCon');
+          }   
+        });
+// var res = str.replace("Microsoft", "W3Schools"); trainpwforhng
+      //   function getMessageSam(messageSam) {
+      //     if (messageSam.length == 0) {
+      //         textarea.value = "";
+      //         return;
+      //     } else {
+      //         var xmlReq = new XMLHttpRequest();
+      //         xmlReq.onreadystatechange = function() {
+      //             if (this.readyState == 4 && this.status == 200) {
+      //                 message = this.responseText;
+      //                 var last8 = message.substr(message.length - 8);
+      //                 if (last8 == 'givename'){
+      //                   message = senderName;
+      //                 }
+      //                 conversation.innerHTML += '<div class="bot"><div class="arrow-left"></div>' + message + '</div>';
+      //                 scrollToBottom('messageCon');
+      //             }
+      //         };
+      //         messageSam = messageSam.replace("#", "%23");
+      //         messageSam = messageSam.replace("#", "%23");
+      //         xmlReq.open("GET", "profile/brownsamson.php?qsam=" + messageSam, true);
+      //         xmlReq.send();
+      //     }
+      // }
 </script>
 </html>
+<?php } ?>

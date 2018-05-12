@@ -11,13 +11,19 @@
     if(isset($_POST['message']))
     {
         array_push($_SESSION['chat_history'], trim($_POST['message']));
-        if(stripos(trim($_POST['message']), "train") === 0)
+        if(strtolower(trim($_POST['message'])) == "aboutbot")
+        {
+            $answer = "Version 1.1";
+            array_push($_SESSION['chat_history'] , $answer);
+        }
+        else if(stripos(trim($_POST['message']), "train") === 0)
         {
           // Training
-          $args = explode("#", trim($_POST['message']));
-          $question = trim($args[1]);
-          $answer = trim($args[2]);
-          $password = trim($args[3]);
+          $args = explode(":", trim($_POST['message']), 2);
+          $args1 = explode("#", trim($args[1]));
+          $question = trim($args1[0]);
+          $answer = trim($args1[1]);
+          $password = trim($args1[2]);
 
           if($password == "password")
           {
@@ -63,6 +69,21 @@
 
 
             }
+
+            $bracket1Index = 0;
+            while(stripos($answer, "((", $bracket1Index) !== false)
+            {
+              $bracket1Index = stripos($answer, "((", $bracketIndex);
+              $endIndex = stripos($answer, "))", $bracketIndex);
+              $bracket1Index++;
+              $function_name = substr($answer, $bracket1Index + 1, $endIndex - $bracket1Index -1);
+              $answer = str_replace("{{".$function_name."}}", call_user_func($function_name), $answer);
+
+
+
+            }
+
+
           }
 
 
