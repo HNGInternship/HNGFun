@@ -12,6 +12,9 @@
     $result2 = $conn->query("Select * from interns_data where username = 'vewere'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
 
+  }
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (substr($_POST['question'], 0, 5) == 'train'){
       // echo "<script>console.log('training mode');</script>";
       include "../db.php";
@@ -26,18 +29,10 @@
       $sql = "INSERT INTO chatbot (question, answer) VALUES ('$new_question', '$new_answer')";
       $conn->exec($sql);
 
-
-
-
-
       $response = "Training Successful";
       echo $response;
       exit();
     }
-  }
-
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-     
     
     if (isset($_POST['question'], $_POST['question_sent'])){
       include "../db.php";
@@ -198,6 +193,7 @@
       border-radius: 10px;
       word-wrap: break-word;
       width: fit-content;
+      padding: 1px;
       max-width: 80%;
       margin-bottom: 10px;
       display: block;
@@ -212,7 +208,6 @@
       float: right;
       margin-bottom: 10px;
       display: block;
-      /* margin-left: 200px; */
     }
 
     p {
@@ -340,7 +335,7 @@
       </div>
       <div id="input-area"> 
         <div class="oj-flex">
-            <input name="question" id="request" placeholder="Ask a question" class="oj-padding-horizontal oj-flex-item oj-sm-9 oj-md-9 oj-lg-9"  type="text" autofocus>
+            <input name="question" id="request" placeholder="Ask a question" class="oj-padding-horizontal oj-flex-item oj-sm-9 oj-md-9 oj-lg-9"  type="text" style="background: white;" autofocus>
             <button name="submit" id="send" class="oj-flex-item oj-sm-2 oj-md-2 oj-lg-2" ><i class="fa fa-paper-plane"></i></button> 
         </div>
       </div>
