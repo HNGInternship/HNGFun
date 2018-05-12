@@ -201,7 +201,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     height: 90%;
     width: 400px;
     float: right;
-    margin-top: 20%;
+    margin-top: 10%;
     margin-left: 5%;
   }
   .padedd{
