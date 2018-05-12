@@ -284,6 +284,9 @@ a {
         	border-radius: 10px;
     		line-height: 18px;
 		}
+.bot-chat .bot-message {
+            text-align: right;
+        }
 .bot-chat{
 			text-align: left;
 		}
