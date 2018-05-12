@@ -27,7 +27,7 @@
                   {
                     echo json_encode([
                      'status' => 1,
-                            'answer' => "thanks for enlarging my knowledge base"
+                            'answer' => "thanks and noted."
                             ]);
     return;
 
@@ -90,7 +90,7 @@
     {
       echo json_encode([
          'status' => 1,
-         'answer' =>"sorry i have no answer to that yet, but you an train me how to annswer questions "
+         'answer' =>"sorry i have no answer to that yet, but you can train me how to annswer questions "
        ]);
     return;
     }
@@ -106,24 +106,6 @@
         return;
      }
 
-?>
-
-<?php
-	//require "../db.php";
-	if (!defined('DB_USER')){
-            require "../../config.php";
-        }
-        try {
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-          } catch (PDOException $pe) {
-            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-          }  $result = $conn->query("Select * from secret_word LIMIT 1");
-	$result = $result->fetch(PDO::FETCH_OBJ);
-	$secret_word = $result->secret_word;
- 	$result2 = $conn->query("Select * from interns_data where username = 'sadiq'");
- 	$user = $result2->fetch(PDO::FETCH_OBJ);
-
- 	$name = 'Sambo Abubakar'
 ?>
 
 <head>
@@ -194,7 +176,7 @@
         }
 
     /** bot sect **/
-        .container11 {
+        .container1 {
             border: 2px solid #dedede;
             background-color: #fa8072;
             color: #111111;
@@ -211,13 +193,13 @@
             background-color: #ddd;
         }
 
-        .container11::after {
+        .container1::after {
             content: "";
             clear: both;
             display: table;
         }
 
-        .container11 img {
+        .container1 img {
             float: left;
             max-width: 60px;
             width: 100%;
@@ -225,7 +207,7 @@
             border-radius: 50%;
         }
 
-        .container11 img.right {
+        .container1 img.right {
             float: right;
             margin-left: 20px;
             margin-right:0;
@@ -237,7 +219,23 @@
 </head>
 
 <body>
+<?php
+	//require "../db.php";
+	if (!defined('DB_USER')){
+            require "../../config.php";
+        }
+        try {
+            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+          } catch (PDOException $pe) {
+            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+          }  $result = $conn->query("Select * from secret_word LIMIT 1");
+	$result = $result->fetch(PDO::FETCH_OBJ);
+	$secret_word = $result->secret_word;
+ 	$result2 = $conn->query("Select * from interns_data where username = 'sadiq'");
+ 	$user = $result2->fetch(PDO::FETCH_OBJ);
 
+ 	$name = 'Sambo Abubakar'
+?>
     <main>
 <!-- section starts -->
 
@@ -271,21 +269,19 @@
         <!-- bot section -->
      <div id="data2"><center>
           sasBot <br>
-        <div class="container11">
+        <div class="container1">
             <img src="http://res.cloudinary.com/sastech/image/upload/v1523628995/caesarapp_20175292858459_wpfxlo.jpg" alt="Avatar" style="width:100%;">
-            <p>Hello, I am SasBot. Ask me a question. To train me, use>> <i style="color: #fff;">train: question#answer#password
+            <p>Hello, I am SasBot. Ask me a question. To train me, use--> <i style="color: #fff;">train: question#answer#password
             </i></p>
         </div>
     
-        <div id="async">
-        </div>
+        <div id="async"></div>
+
         <form id="myform" method="POST">
-
-        <textarea  sid="text" name="question" id="ter" rows="0" cols="0" class="textarea" style=" padding:2px; border-radius: 12px;width: 80%;background-color:rgba(220, 20, 60, 0.5); color: #fff; font-size: 16px;" placeholder="enter your message"></textarea> <br>
-
-       <button id="btn1" type="submit" class="button" >send</button>
-                               <br><br>
-    </form></center></div>
+	        <textarea  sid="text" name="question" id="ter" rows="0" cols="0" class="textarea" style=" padding:2px; border-radius: 12px;width: 80%;background-color:rgba(220, 20, 60, 0.5); color: #fff; font-size: 16px;" placeholder="enter your message"></textarea> <br>
+	       <button id="btn1" type="submit" class="button" >send</button>
+           <br><br>
+	    </form></center></div>
 
     </main>
 
@@ -293,22 +289,21 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    $(document).ready(function(){
-    
+  $(document).ready(function(){
     $('#myform').submit(function(e){
       e.preventDefault();
     var valnext2 = $("#ter").val();
     var question = $("#ter").val();
-    var resusr='</center><div class="container11 darker" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524285838/960_720.png" alt="Avatar" class="right" style="width:60%;"><p> ';
+    var resusr='</center><div class="container1 darker" ><img src="https://res.cloudinary.com/dttpnfzul/image/upload/v1524285838/960_720.png" alt="Avatar" class="right" style="width:60%;"><p> ';
     $("#async").append(resusr+" "+valnext2+" </p></div>");
       $.ajax({
-        url: "profiles/sadiq.php",
+        url: 'profiles/sadiq.php',
         type: 'POST',
         data: {question: question},
         dataType: 'json',
         success: function(response){
            console.log(response);
-            var resbot='<div class="container11" ><img src="http://res.cloudinary.com/sastech/image/upload/v1523628995/caesarapp_20175292858459_wpfxlo.jpg" alt="Avatar" class="left" style="width:60%;"><p> ';
+            var resbot='<div class="container1" ><img src="http://res.cloudinary.com/sastech/image/upload/v1523628995/caesarapp_20175292858459_wpfxlo.jpg" alt="Avatar" class="left" style="width:60%;"><p> ';
              $("#async").append(resbot+" "+response.answer+" </p></div>");
               $("#ter").val('');
 
@@ -319,7 +314,6 @@
       })
 
     })
-  });
 	
 	$("#ter").keyup(function(e){
 		if(e.which == 13){
@@ -328,6 +322,8 @@
 		else{
 		   // Do Nothing 
 		}
-	});
+	});	  
+	
+   });
   </script>
 </body>
