@@ -1,5 +1,37 @@
 <?php
 
+<<<<<<< HEAD
+  if($_SERVER['REQUEST_METHOD'] === 'POST')
+ {
+           if (!defined('DB_USER')){
+               require "../../config.php";
+           }
+           try {
+               $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+             } catch (PDOException $pe) {
+               die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+             }
+      $mesuu = $_POST['question'];
+      $message=strtolower($mesuu);
+      trim($message);
+      $statusTrain = stripos($message, "rain:");
+      if($statusTrain)
+      {
+        $newstring=str_replace("train:","","$message");
+         $sets = explode("#", $newstring);
+              $mQuestion= $sets[0];
+              $mAns= $sets[1];
+              $mPwd= $sets[2];
+              if($mPwd=='password'){
+              $resultIns = $conn->query("insert into chatbot (`question`, `answer`) values ('$mQuestion','$mAns')" );
+              if($resultIns)
+              {
+                echo json_encode([
+                 'status' => 1,
+                        'answer' => "thanks sensei"
+                        ]);
+return;
+=======
     if($_SERVER['REQUEST_METHOD'] === 'POST')
      {
                if (!defined('DB_USER')){
@@ -30,83 +62,84 @@
                             'answer' => "thanks and noted."
                             ]);
     return;
+>>>>>>> bf9dc1acee51db585ac213306ec52339c6faee29
 
-    }
-    else {
+}
+else {
 
-    echo json_encode([
-       'status' => 1,
-       'answer' => "sorry something went wrong"
-     ]);
-    return;
-      // code...
-    }
-                  }
-                  else {
+echo json_encode([
+   'status' => 1,
+   'answer' => "sorry something went wrong"
+ ]);
+return;
+  // code...
+}
+              }
+              else {
 
-                    echo json_encode([
-                       'status' => 1,
-                       'answer' => "sorry wrong password"
-                     ]);
-                    // code...
-                  }
-    return;
-          }if ($message==""){
-      echo json_encode([
-         'status' => 1,
-         'answer' => "enter a question  you can also train me "
-       ]);
-    return;
-    }
-    if ($message==""){
-    echo json_encode([
-    'status' => 1,
-    'answer' => "enter a question  you can also train me "
-    ]);
-    return;
-    }
+                echo json_encode([
+                   'status' => 1,
+                   'answer' => "sorry wrong password"
+                 ]);
+                // code...
+              }
+return;
+      }if ($message==""){
+  echo json_encode([
+     'status' => 1,
+     'answer' => "enter a question  you can also   remember train me "
+   ]);
+return;
+}
+if ($message==""){
+echo json_encode([
+'status' => 1,
+'answer' => "enter a question  you can also   remember train me "
+]);
+return;
+}
 
-          if($message=='aboutbot'){
-            echo json_encode([
-               'status' => 1,
-               'answer' => "sasbot 1.0"
-             ]);
-    return;
-          }
-         if ($message!=''){
-    $result2 = $conn->query("select * from chatbot where question = '$message' order by rand()");
-    $user = $result2->fetch(PDO::FETCH_OBJ);
+      if($message=='aboutbot'){
+        echo json_encode([
+           'status' => 1,
+           'answer' => "sasbot version 1.0"
+         ]);
+return;
+      }
+     if ($message!=''){
+$result2 = $conn->query("select * from chatbot where question = '$message' order by rand()");
+$user = $result2->fetch(PDO::FETCH_OBJ);
 
-    if($user){
-    $rows=$user->answer;
+if($user){
+$rows=$user->answer;
 
-    echo json_encode([
-       'status' => 1,
-       'answer' => $rows
-     ]);
-    return;
-    }
-    else
-    {
-      echo json_encode([
-         'status' => 1,
-         'answer' =>"sorry i have no answer to that yet, but you can train me how to annswer questions "
-       ]);
-    return;
-    }
+echo json_encode([
+   'status' => 1,
+   'answer' => $rows
+ ]);
+return;
+}
+else
+{
+  echo json_encode([
+     'status' => 1,
+     'answer' =>"sorry i have no answer to that yet but you an train me how to answer questions "
+   ]);
+return;
+}
 
-    if ($message==""){
-      echo json_encode([
-         'status' => 1,
-         'answer' => "enter a question  you can also   train me "
-       ]);
-    return;
-    }
-    }
-        return;
-     }
+if ($message==""){
+  echo json_encode([
+     'status' => 1,
+     'answer' => "enter a question  you can also   train me "
+   ]);
+return;
+}
+}
+  return;
+ }
 
-?>
+  ?>
 
 <head>
     <meta charset="UTF-8">

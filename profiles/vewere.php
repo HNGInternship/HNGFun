@@ -1,10 +1,11 @@
 <?php
-  error_reporting(E_ALL);
-  ini_set('display_errors', 'On');
-  var_dump($_POST);
+  // error_reporting(E_ALL);
+  // ini_set('display_errors', 'On');
+  // var_dump($_POST);
 
 
   if(!isset($_POST['question_sent'])){
+    include "../db.php";
     $result = $conn->query("Select * from secret_word LIMIT 1");
     $result = $result->fetch(PDO::FETCH_OBJ);
     $secret_word = $result->secret_word;
@@ -18,7 +19,7 @@
     if (substr($_POST['question'], 0, 5) == 'train'){
       // echo "<script>console.log('training mode');</script>";
       include "../db.php";
-      $input = preg_replace('/\s+#\s+/', '#', $_POST['question']);
+      $input = preg_replace('/\s*#\s*/', '#', $_POST['question']);
 
       $indexof1 = strpos($input, '#');
       $indexof2 = strpos($input, '#', 6);
@@ -188,6 +189,10 @@
       padding-bottom: 5px;
     }
 
+    table { 
+      width: 100%;
+    }
+
     .bot-bubble {
       background-color: #fffff0;
       border-radius: 10px;
@@ -220,7 +225,7 @@
   </style>
   <script>
     var outer_profile = true;
-    var version = "Bot v1.0.16";
+    var version = "Bot v1.0.18";
     $(function (){    
       
       // Switch between Profile and Chat screens
@@ -240,7 +245,7 @@
 
       // Add user's request and bot's response to chat interface
       $("#send").click(function() {
-        alert("it got here");
+        // alert("it got here");
         var input = $("#request").val();        
         if ($.trim(input)) {
           $("#chat-area table").append("<tr><td><div class='user-bubble'><p>"+input+"</p></div></td></tr>");
@@ -335,7 +340,7 @@
       </div>
       <div id="input-area"> 
         <div class="oj-flex">
-            <input name="question" id="request" placeholder="Ask a question" class="oj-padding-horizontal oj-flex-item oj-sm-9 oj-md-9 oj-lg-9"  type="text" style="background: white;" autofocus>
+            <input name="question" id="request" placeholder="Ask a question" class="oj-padding-horizontal oj-flex-item oj-sm-9 oj-md-9 oj-lg-9"  type="text" style="background: white;" autocomplete="off" autofocus>
             <button name="submit" id="send" class="oj-flex-item oj-sm-2 oj-md-2 oj-lg-2" ><i class="fa fa-paper-plane"></i></button> 
         </div>
       </div>
@@ -344,7 +349,7 @@
 
   <div class="oj-flex">
     <div class="oj-flex-item oj-sm-6 oj-md-4 oj-lg-2" id="toggle-visibility">
-      <h4 class="text white" id="toggle-text">TEST MY BOT</h4>
+      <h4 class="text white" id="toggle-text">TEST BOT</h4>
     </div>
   </div>
 
