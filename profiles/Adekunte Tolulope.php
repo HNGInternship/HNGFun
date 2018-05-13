@@ -12,6 +12,7 @@ catch(PDOException $pe)
 	die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 	}
 global $conn;
+
 $diffAns ='';
 if (isset($_POST['bot_adekunte'])) {
 	
@@ -109,6 +110,7 @@ $username = $user-> username;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 300px;
   margin: auto;
+	margin-top:70px;
   text-align: center;
   font-family: arial;
 }
@@ -294,7 +296,7 @@ button:hover, a:hover {
 			</div>
 		</div>
 		<div id="foot">
-		<kbd>ADREX</kbd>
+		<kbd>ADTREX</kbd>
 		</div>
 	</div>
 </div>

@@ -1,5 +1,5 @@
 <?php
-  /*$result = $conn->query("Select * from secret_word LIMIT 1");
+  $result = $conn->query("Select * from secret_word LIMIT 1");
   $result = $result->fetch(PDO::FETCH_ASSOC);
   $secret_word = $result['secret_word'];
 
@@ -8,7 +8,87 @@
   
   $username = $user['username'];
   $name = $user['name'];
-  $image_filename = $user['image_filename'];*/
+  $image_filename = $user['image_filename'];
+
+  try {
+	$sql = 'SELECT * FROM secret_word';
+	$q = $conn->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$data = $q->fetch();
+} catch (PDOException $e) {
+	throw $e;
+}
+$secret_word = $data['secret_word'];
+
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+	$data = $_POST['input-input'];
+  //  $data = preg_replace('/\s+/', '', $data);
+	$temp = explode(':', $data);
+	$temp2 = preg_replace('/\s+/', '', $temp[0]);
+	
+	if($temp2 === 'train'){
+		train($temp[1]);
+	}elseif($temp2 === 'aboutbot') {
+		aboutbot();
+	}else{
+		getAnswer($temp[0]);
+	}
+}
+
+function aboutbot() {
+	echo "<div id='result'>BasBot v1.0 - I am simply a bot that returns data from the database and I also can be taught new tricks!</div>";
+}
+function train($input) {
+	$input = explode('#', $input);
+	$question = trim($input[0]);
+	$answer = trim($input[1]);
+	$password = trim($input[2]);
+	if($password == 'password') {
+		$sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+		$q = $GLOBALS['conn']->query($sql);
+		$q->setFetchMode(PDO::FETCH_ASSOC);
+		$data = $q->fetch();
+
+		if(empty($data)) {
+			$training_data = array(':question' => $question,
+				':answer' => $answer);
+
+			$sql = 'INSERT INTO chatbot ( question, answer)
+		  VALUES (
+			  :question,
+			  :answer
+		  );';
+
+			try {
+				$q = $GLOBALS['conn']->prepare($sql);
+				if ($q->execute($training_data) == true) {
+					echo "<div id='result'>Training Successful!</div>";
+				};
+			} catch (PDOException $e) {
+				throw $e;
+			}
+		}else{
+			echo "<div id='result'>I already understand this. Teach me something new!</div>";
+		}
+	}else {
+		echo "<div id='result'>Invalid Password, Try Again!</div>";
+
+	}
+}
+
+function getAnswer($input) {
+	$question = $input;
+	$sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+	$q = $GLOBALS['conn']->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$data = $q->fetchAll();
+	if(empty($data)){
+		echo "<div id='result'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'</div>";
+	}else {
+		$rand_keys = array_rand($data);
+		echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
+	}
+}
 ?>   
 
 <!DOCTYPE html>
@@ -20,6 +100,7 @@
 		<link rel="stylesheet" type="text/css" href="css/responsive.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="https://fonts.googleapis.com/css?family=Changa+One|Open+Sans" rel="stylesheet">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
         <style>
         /********************
 GENERAL
@@ -168,7 +249,7 @@ a {
 }
 
 /*chatbot*/
-/* .chatbot-container{
+.chatbot-container{
 		  background-color: #F3F3F3;
 		  width: 500px;
 		  height: 500px;
@@ -203,6 +284,9 @@ a {
         	border-radius: 10px;
     		line-height: 18px;
 		}
+.bot-chat .bot-message {
+            text-align: right;
+        }
 .bot-chat{
 			text-align: left;
 		}
@@ -226,6 +310,12 @@ a {
 			color: black;
 			box-shadow: 3px 3px 5px gray;
 		}
+.chat-output .bot-message {
+            text-align: right;
+        }
+.chat-output .bot-message .message {
+            background: #eee;
+        }
 
 button{
       border:none;
@@ -245,54 +335,7 @@ input[type=text] {
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
-}*/
-.body1 {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 75%;
-            display: flex;
-            flex-direction: column;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        .chat-output {
-            flex: 1;
-            padding: 20px;
-            display: flex;
-            background: white;
-            flex-direction: column;
-            overflow-y: scroll;
-            max-height: 500px;
-        }
-        .chat-output > div {
-            margin: 0 0 20px 0;
-        }
-        .chat-output .user-message .message {
-            background: #0fb0df;
-            color: white;
-        }
-        .chat-output .bot-message {
-            text-align: right;
-        }
-        .chat-output .bot-message .message {
-            background: #eee;
-        }
-        .chat-output .message {
-            display: inline-block;
-            padding: 12px 20px;
-            border-radius: 10px;
-        }
-        .chat-input {
-            padding: 20px;
-            background: #eee;
-            border: 1px solid #ccc;
-            border-bottom: 0;
-        }
-        .chat-input .user-input {
-            width: 100%;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 8px;
-        }
+}
 </style>
 	</head>
 	<body>
@@ -321,41 +364,27 @@ input[type=text] {
 					</ul>	
 				</section>		
 			<section id="secondary">
-			<div class="oj-sm-12 oj-md-6 oj-flex-item">
-				<div class="body1">
-					<div class="chat-output" id="chat-output">
-						<div class="user-message">
-							<div class="message">Hi there! I'm BasBot! Say something and I'll try my possible best to answer you! </br>To train me, use this format - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
-						</div>
-					</div>
-
-					<div class="chat-input">
-						<form action="" method="post" id="user-input-form">
-							<input type="text" name="user-input" id="user-input" class="user-input" placeholder="Say something here">
-						</form>
-					</div>
-				</div>
-			</div>
-				<!-- <div class="chatbot-container">
+				<div class="chatbot-container">
 					<div class="chat-header">
 						<span>Bas Chatbot</span>
 					</div>
 					<div id="chat-body">
 						<div class="bot-chat">
-							<div class="message">Hello! My name is Basbot.<br>You can ask me questions and get answers.<br>Type <span style="color: #90CAF9;/"><strong> Aboutbot</strong></span> to know more about me.</div>
-							<div class="message">You can also train me to be smarter by typing; <br><span style="color: #90CAF9;"><strong>train: question #answer #password</strong></span><br></div>
-							<div id="user-output"></div>
+							<div id="user-output">
+								<div class="message">Hello! My name is Basbot.<br>You can ask me questions and get answers.<br>Type <span style="color: #90CAF9;/"><strong> Aboutbot</strong></span> to know more about me.</div>
+								<div class="message">You can also train me to be smarter by typing; <br><span style="color: #90CAF9;"><strong>train: question #answer #password</strong></span><br></div>
+							</div>
 						</div>
 					</div>
 					<div class="chat-footer">
 						<div class="input-text-container">
 							<form action="" method="post" id="input-form">
-								<input type="text" name="input_text" id="input" required class="input_text" placeholder="Type your question here...">
-								<button type="submit" class="send_button" id="send">Send</button>
+								<input type="text" name="input-text" id="input" required class="input-text" placeholder="Type your question here...">
+								<!-- <button type="submit" class="send_button" id="send">Send</button>-->
 							</form>
 						</div>
 					</div>
-				</div>-->	
+				</div>
 			</section>		
 		</div>
 
@@ -363,13 +392,13 @@ input[type=text] {
 			<p>&copy; 2017 Maniaweb.</p>
 		</footer>
 			<script type = text/javascript>
-				var outputArea = $("#chat-output");
+				var outputArea = $("#user-output");
 
-				$("user-input-form").on("submit", function(e) {
+				$("#input-form").on("submit", function(e) {
 
 					e.preventDefault();
 
-					var message = $("#user-input").val();
+					var message = $("#input").val();
 
 					outputArea.append(`<div class='bot-message'><div class='message'>${message}</div></div>`);
 
@@ -377,24 +406,23 @@ input[type=text] {
 					$.ajax({
 						url: 'profile.php?id=basitomania',
 						type: 'POST',
-						data:  'user-input=' + message,
+						data:  'input-text=' + message,
 						success: function(response) {
 							var result = $($.parseHTML(response)).find("#result").text();
 							setTimeout(function() {
 								outputArea.append("<div class='user-message'><div class='message'>" + result + "</div></div>");
-								$('#chat-output').animate({
-									scrollTop: $('#chat-output').get(0).scrollHeight
+								$('#user-output').animate({
+									scrollTop: $('#user-output').get(0).scrollHeight
 								}, 1500);
 							}, 250);
 						}
 					});
 
 
-					$("#user-input").val("");
+					$("#input").val("");
 
 				});
 			</script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 		</div>
 	</body>
 </html>
