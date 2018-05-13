@@ -32,10 +32,7 @@
 <head>
 
 	<!-- Bootstrap core CSS -->
-	     <!-- <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
-
-	<!-- import bootstrap -->
-	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+	     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
 	<!-- import font awesome -->
@@ -173,8 +170,7 @@
 		</div>
 
 		    <!-- Bootstrap core JavaScript -->
-    <script src="jquery.min.js"></script>
-    <script src="bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
     <script type="text/javascript">
 
     	$("#button").click( function(){
