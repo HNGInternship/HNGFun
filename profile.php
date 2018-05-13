@@ -3,6 +3,7 @@
    include_once("header.php");
 
    $profile_name = $_GET['id'];
+   echo 'profiles/'. $profile_name. '.php';
     $secret_word = "sample_secret_word";
 
     require 'db.php';
