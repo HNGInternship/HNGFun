@@ -1,3 +1,4 @@
+
 db.php
 docker-compose.yml
 phpmyadmin/
@@ -10,3 +11,4 @@ config.php
 .travis.yml
 push.sh
 /vendor/
+disruption.png
