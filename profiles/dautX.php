@@ -248,7 +248,10 @@
                         if ($stmt -> execute()) {
                             echo "You added a new answer to: '".$question."'";
                             exit();                         
-                        } else echo {"New answer could not be added"; exit();}  
+                        } else  {
+                            echo "New answer could not be added"; 
+                            exit();
+                        }  
                     }
                 }   //end outer if
             }   //end outer else
