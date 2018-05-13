@@ -133,7 +133,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     </style>
 </head>
-<body>
+<body onload="typeWriter()">
 
 <div class="mycard"> 
         
@@ -171,7 +171,6 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 var i = 0;
 var txt = 'Adebayo Modupe A.';
 var speed = 150;
-var button = document.getElementById("btn");
 function typeWriter() {
   if (i < txt.length) {
     document.getElementById("name").innerHTML += txt.charAt(i);
