@@ -106,7 +106,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
             cursor: pointer;
         }
         
-        .ulListl li .text {
+        .ulList li .text {
             position: absolute;
             width: 0;
             left: 50%;
@@ -144,7 +144,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
     ability to work independently and in mixed teams . 
  </p>
 <div class="container">
-        <ul>
+        <ul class="ulList">
             <li><a href="https://www.facebook.com/dupsy.dby"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
                 <div class="text">facebook</div>
             </li>
