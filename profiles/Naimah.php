@@ -43,7 +43,7 @@ function test_input($data) {
         $question =test_input($_POST["displayMessage"]);
         //bot version
         if($question == "aboutbot"){
-            $reply = "Pearlbot v1.0";
+            $reply = "Naimahbot v1.0";
                        $response = array('status'=>3,'answer'=> $reply);
                        echo json_encode($response); 
         }else{
