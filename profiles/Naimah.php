@@ -1,3 +1,123 @@
+<?php
+    
+ //require 'db.php';
+    
+ if (!defined('DB_USER')){
+            
+   require "../../config.php";
+ }
+//define('DB_HOST', "localhost");
+//define('DB_DATABASE', "hng_fun");
+//define('DB_USER', "root");
+//define('DB_PASSWORD', "");
+
+    try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+ global $conn;
+    
+
+        $result = $conn->query("Select * from secret_word LIMIT 1");
+        $result = $result->fetch(PDO::FETCH_OBJ);
+        $secret_word = $result->secret_word;
+ 
+$result2 = $conn->query("Select * from interns_data where username = 'Naimah'");
+  
+$user = $result2->fetch(PDO::FETCH_OBJ);
+    
+    
+    //checking for post request
+    
+function test_input($data) {
+  $data = trim($data);
+  $data = chop($data);
+  $data = trim($data, "?");
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+    if ($_SERVER['REQUEST_METHOD'] === "POST") {
+       
+        $question =test_input($_POST["displayMessage"]);
+        //bot version
+        if($question == "aboutbot"){
+            $reply = "Pearlbot v1.0";
+                       $response = array('status'=>3,'answer'=> $reply);
+                       echo json_encode($response); 
+        }else{
+        
+        //check if pearbot is to be trained
+        $train = explode(':', $question);
+        if($train[0] == 'train'){
+            $inputQuestion = explode('#', $train[1]);
+            $password = 'password';
+            if(!count($inputQuestion)<3 && test_input($password) === test_input($inputQuestion[2])){
+                if (test_input($inputQuestion[0]) && test_input($inputQuestion[1]) != " "){
+                    $dataQuestion = test_input($inputQuestion[0]);
+                    $dataAnswer = test_input($inputQuestion[1]);
+                    
+                    //is the question or answer already in the database
+                    $select = $conn->query("Select * from chatbot where question LIKE '%$dataQuestion%'");
+                    $select ->setFetchMode(PDO::FETCH_ASSOC);
+                    $fetch = $select->fetchAll();
+                    if($fetch){
+                        $reply = "Sorry, i dont still understand.";
+                       $response = array('status'=>3,'answer'=> $reply);
+                       echo json_encode($response); 
+                    }
+                    else{
+                        //save into the database as a new question
+                        $insert = "Insert into chatbot (question, answer) values ('$dataQuestion', '$dataAnswer')";
+                        
+                        if($conn->query($insert)){
+                            $reply = "Thanks for your help, I appreciate";
+                            $response = array('status'=>4, 'answer'=>$reply);
+                            echo json_encode($response);
+                        }else{
+                            $reply = "Something went wrong please try again";
+                            $response = array('status'=>5, 'answer'=>$reply);
+                            echo json_encode($response);
+                        }
+                    }
+                    //saving to database ends here
+                    
+                }else{
+                    $reply = "Follow the training format.<br> Training Format: train:question#answer#password";
+                            $response = array('status'=>5, 'answer'=>$reply);
+                            echo json_encode($response);
+                }
+            }else{
+                    $reply = "follow the training format.<br> Training Format: train:question#answer#password";
+                            $response = array('status'=>5, 'answer'=>$reply);
+                            echo json_encode($response);
+                }
+        }else{
+      //retrieving answers to questions from the database 
+        $question = test_input($_POST["displayMessage"]);
+        $answer = $conn->query("Select * from chatbot where question LIKE '%$question%'");
+        
+        $answer ->setFetchMode(PDO::FETCH_ASSOC);
+        $ans = $answer->fetchAll();
+        if (count($ans) > 0) {
+    
+          $choseRandom = rand(0, count($ans)-1);
+          $response = $ans[$choseRandom]['answer'];
+          $response = array('status'=>1,'answer'=> $response);
+          echo json_encode($response);
+    
+        }
+        else{
+            $error = "I don't seem to understand you <br> You can train me on that.";
+            $response = array('status'=>2, 'answer'=> $error);
+            echo json_encode($response); 
+        }
+     
+    }
+  }
+}else{
+?>
 <!DOCTYPE HTML>
 
 <html>
@@ -12,16 +132,6 @@
       <script src="bootstrap.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-       <?php
-  include 'db.php';
-        global $conn;
-$result = $conn->query("Select * from secret_word LIMIT 1");
-$result = $result->fetch(PDO::FETCH_OBJ);
-$secret_word = $result->secret_word;
-
-$result2 = $conn->query("Select * from interns_data_ where username = 'Naimah'");
-$user = $result2->fetch(PDO::FETCH_OBJ);
-?>
 
       <style type="text/css">
 
@@ -96,47 +206,6 @@ hr {
   font-size: 30px;
 }
 
-#bodybox {
-  margin: auto;
-  max-width: 550px;
-  font: 15px arial, sans-serif;
-  background-color: white;
-  border-style: solid;
-  border-color: #5563DE;
-  border-width: 4px;
-  padding-top: 20px;
-  padding-bottom: 25px;
-  padding-right: 25px;
-  padding-left: 25px;
-  box-shadow: 5px 5px 5px grey;
-  border-radius: 15px;
-}
-
-#chatborder {
-  border-style: solid;
-  background-color: #f6f9f6;
-  border-width: 4px;
-  border-color: #5563DE;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-right: 20px;
-  padding-left: 10px;
-  border-radius: 10px;
-}
-
-.chatlog {
-   font: 15px arial, sans-serif;
-}
-
-#chatbox {
-  font: 17px arial, sans-serif;
-  height: 22px;
-  width: 100%;
-}
 
 h1 {
   margin: auto;
@@ -144,10 +213,70 @@ h1 {
   font: 20px arial, sans-serif;
   text-align: center;
 }
-
-
+#chatbot{ 
+    float: right;
+    width: 320px;
+    max-height: 320px;
+    background-color: #fff;
+    text-align: center;
+    margin-top: 0px;
+    margin-left: 20px; 
+    margin-bottom: 100px;
+    margin-right: 20px;
+    position: absolute;
+    display: none;
+}
+#chat, #displayHidden{
+  height: 60px;
+    background-color:  #5563DE;
+    width: 100%;
+    padding-top: 10px;
+    color: #e5e5e5;
+    font-size: 20px;
+    font-weight:bold;
+}
+#displayHidden:hover{
+    color: #7a8690;
+    background-color: #fff;
+}#button:hover{
+    color: #7a8690;
+    background-color: #fff;
+}
+#chatMessages{ 
+    width: 100%;
+    overflow-x: hidden;
+    max-height: 250px;
+}
+button{
+    font-size: 20px;
+    font-weight:bold;
+}
+#messageReceived, #messageSent, #message{
+    margin: 10px;
+    padding: 15px;
+    text-align: center;
+}
+#messageReceived{
+    background-color: #dedede;
+    width: 50%;
+    float: left;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border: #fff 2px solid;
+}#messageSent{
+    background-color: #fff;
+    float: right;
+    width: 50%;
+    border: #dedede 2px solid;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+#chat_message{
+    height: 40px;
+}
       </style>
-
   </head>
 
  
@@ -195,19 +324,30 @@ h1 {
           
           
             <!--chatbot-->
-   <div id='bodybox'>
-  <h1>NaimahBot</h1>
-  <div id='chatborder'>
-    <p id="chatlog7" class="chatlog">&nbsp;</p>
-    <p id="chatlog6" class="chatlog">&nbsp;</p>
-    <p id="chatlog5" class="chatlog">&nbsp;</p>
-    <p id="chatlog4" class="chatlog">&nbsp;</p>
-    <p id="chatlog3" class="chatlog">&nbsp;</p>
-    <p id="chatlog2" class="chatlog">&nbsp;</p>
-    <p id="chatlog1" class="chatlog">&nbsp;</p>
-    <input type="text" name="chat" id="chatbox" placeholder="Hi there! Type here to talk to me." onfocus="placeHolder()">
-  </div>
-</div>
+   <div class="oj-panel oj-panel-shadow-md" id="displayHidden" style="width:120px;height:50px;text-align:center;position:relative;margin:10px 20px;float:right;">Let's Chat</div>
+            <div id="chatbot" style="margin:-100px 20px;">
+                <div id="chat" style="">
+                    <span>Welcome, Meet Naimahbot</span>
+                    <button id="button" style="float:right; margin-right:10px;"><span>-</span></button>
+                    <span><?php echo "" . date("h:i:a"); ?></span>
+                </div>
+                <div id="main_chat">
+                    <div id="chatMessages">
+                        <div id="message" style="background-color:#dedede;">Hi I am Naimahbot</div>
+
+                    </div>
+                </div>
+          
+
+                <form action="" id="pearlbot_form" method="post">
+                     <div class="input-group">
+                       <input class="form-control chat_input" id="chat_message" name="entered_message" placeholder="Start Typing...">
+                        
+                     </div>
+               </form>
+            </div>
+        </div>
+		
 
        <div class="container" id="contact" style="margin-top: 0px;">
             <hr>
@@ -222,7 +362,84 @@ h1 {
 
      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
      <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-     <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.js"></script>
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>
+        
+        var chatting = document.querySelector("#chatbot");
+        var chat = document.querySelector("#displayHidden");
+        chat.addEventListener("click", function(){
+            chat.style.display="none";
+            chatting.style.display="block";
+        });
+        var button = document.querySelector("#button");
+        button.addEventListener("click", function(){
+        chatbot.style.display="none";
+            chat.style.display="block";
+        });
+
+      
+    </script>
+    <script>
+        $(document).ready(function() {
+    $("#pearlbot_form").on("submit", function (event) {
+        event.preventDefault();
+        
+        var message = $("#chat_message").val();
+        var messageContainer = $("#chatMessages");
+
+        if (message == "") {
+            $("#chat_message").focus();
+        } else {
+            $("#chatMessages").append('<div id="messageSent">' + message + '</div>');
+
+            $.ajax({
+                url: "/profiles/Naimah.php",
+                type: "POST",
+                data: {displayMessage: message},
+                dataType: "json"
+            }).done(function(resp) {
+                if(resp.status == 5){
+                    messageContainer.append('<div id="messageReceived">' + resp.answer + '</div>');
+                    messageContainer.scrollTop(messageContainer[0].scrollHeight);
+                    $("#chat_message").val("")
+                }
+                else if(resp.status == 4){
+                    messageContainer.append('<div id="messageReceived">' + resp.answer + '</div>');
+                    messageContainer.scrollTop(messageContainer[0].scrollHeight);
+                    $("#chat_message").val("")
+                }
+                else if(resp.status == 3){
+                    messageContainer.append('<div id="messageReceived">' + resp.answer + '</div>');
+                    messageContainer.scrollTop(messageContainer[0].scrollHeight);
+                    $("#chat_message").val("")
+                }
+                else if (resp.status == 2) {
+                    messageContainer.append('<div id="messageReceived">' + resp.answer + '</div>');
+                    messageContainer.scrollTop(messageContainer[0].scrollHeight);
+                    $("#chat_message").val("")
+                } else if (resp.status == 1) {
+                    messageContainer.append('<div id="messageReceived">' + resp.answer + '</div>');
+                    messageContainer.scrollTop(messageContainer[0].scrollHeight);
+                    $("#chat_message").val("")
+                }
+                else {
+                    alert(resp.answer);
+                }
+            }).fail(function(error) {
+                console.log("Request failed: " + error.statusText)
+                console.log(error)
+            })
+        }
+    });
+    
+});
+
+
+
+    </script> 
   </body>
 </html>
-    
+  <?php
+                }
+            ?>
+  
