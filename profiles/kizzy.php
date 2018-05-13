@@ -42,7 +42,7 @@ img{
    
 
 <div class="main">
-  <p>My name is Kizito Okafor, I am a Mechanical Engineer. I love the fascinating world of computers and programming.. So am learning how to code.
+  <p>My name is Kizito .U. Okafor, I am a Mechanical Engineer. I love the fascinating world of computers and programming.. So am learning how to code.
   Hope to be really good at it.</p>
   <?php
   echo $user->name . "<br>";
