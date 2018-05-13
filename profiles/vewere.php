@@ -5,6 +5,7 @@
 
 
   if(!isset($_POST['question_sent'])){
+    include "../db.php";
     $result = $conn->query("Select * from secret_word LIMIT 1");
     $result = $result->fetch(PDO::FETCH_OBJ);
     $secret_word = $result->secret_word;
@@ -339,7 +340,7 @@
       </div>
       <div id="input-area"> 
         <div class="oj-flex">
-            <input name="question" id="request" placeholder="Ask a question" class="oj-padding-horizontal oj-flex-item oj-sm-9 oj-md-9 oj-lg-9"  type="text" style="background: white;" autofocus>
+            <input name="question" id="request" placeholder="Ask a question" class="oj-padding-horizontal oj-flex-item oj-sm-9 oj-md-9 oj-lg-9"  type="text" style="background: white;" autocomplete="off" autofocus>
             <button name="submit" id="send" class="oj-flex-item oj-sm-2 oj-md-2 oj-lg-2" ><i class="fa fa-paper-plane"></i></button> 
         </div>
       </div>
@@ -348,7 +349,7 @@
 
   <div class="oj-flex">
     <div class="oj-flex-item oj-sm-6 oj-md-4 oj-lg-2" id="toggle-visibility">
-      <h4 class="text white" id="toggle-text">TEST MY BOT</h4>
+      <h4 class="text white" id="toggle-text">TEST BOT</h4>
     </div>
   </div>
 
