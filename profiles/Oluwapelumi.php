@@ -168,9 +168,9 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
             'status' => 0,
             'response' => "Here are my default features that will be useful to you <br>
  help: shows you how to use this bot efficiently<br>
-  aboutbot: know more about me.<br> 
-  where am i: get your location at your finger tip<br>
-  town-townname Shows you the weather of that town"
+  aboutbot: know more about me.<br>
+  train: question #answer #password {to train me}<br>
+  You can also type in your question and I'll give you the answer if I know it"
         ]);
         return;
     }
@@ -413,7 +413,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 
 			displayFrame.html(displayFrame.html()+displayChat);
 
-			//Process your qestion with ajax.
+			//Process your question with ajax.
 			$.ajax({
 				url: "profiles/Oluwapelumi.php",
 				type: "POST",
