@@ -22,7 +22,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 <?php
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    include '../answers.php';
+    // include '../answers.php';
       
       try{
 
@@ -66,8 +66,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           ]);
           return;
         }
-        $quest = $queries[0];
-        $ans = $queries[1];
+        $quest = trim($queries[0]);
+        $ans = trim($queries[1]);
 
         $sql = "insert into chatbot (question, answer) values (:question, :answer)";
 
@@ -79,14 +79,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         
         echo json_encode([
-          'status' => 1,
           'answer' => "Thanks for training me, you can now test my knowledge"
         ]);
         return;
       }
       elseif ($arr[0] == "help") {
         echo json_encode([
-          'status' => 1,
           'answer' => "You can train me by using this format ' train: This is a question # This is the answer # password '. You can also convert cryptocurrencies using this syntax.'convert btc to usd"
           
         ]);
@@ -100,7 +98,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $converted_price = GetCryptoPrice($from, $to);
         $price = "1 " . $from . " = " . $to . " " . $converted_price ;
         echo json_encode([
-          'status' => 1,
           'answer' => $price
         ]);
         return;
@@ -108,7 +105,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         elseif ($arr[0] == "aboutbot") {
           # code...
           echo json_encode([
-            'status'=> 1,
             'answer' => "I am VEER, Version 1.0 "
           ]);
           return;
@@ -126,8 +122,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $rows = $stat->fetchAll();
             if(empty($rows)){
               echo json_encode([
-              'status' => 0,
-              'answer' => "I am sorry, I cannot answer your question now. You could train me to answer the question."
+              'answer' => "I am sorry, I cannot answer your question now. Why don't you train me?"
             ]);
             return;
           }else{
@@ -137,7 +132,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $index_of_parentheses = stripos($answer, "((");
               if($index_of_parentheses === false){// if answer is not to call a function
                 echo json_encode([
-                  'status' => 1,
                   'answer' => $answer
                 ]);
                 return;
@@ -148,19 +142,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                       $function_name = trim($function_name);
                       if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
                          echo json_encode([
-                          'status' => 0,
                           'answer' => "The function name should not contain white spaces"
                         ]);
                         return;
                       }
                     if(!function_exists($function_name)){
                       echo json_encode([
-                        'status' => 0,
                         'answer' => "I am sorry but I could not find that function"
                       ]);
                     }else{
                       echo json_encode([
-                        'status' => 1,
                         'answer' => str_replace("(($function_name))", $function_name(), $answer)
                       ]);
                     }
@@ -203,9 +194,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     height: 100%;
   }
   .chat{
-    margin-top:9%;
-    background-color: white;
+    /*margin-top:9%;*/
+    background-color: #fff;
     /* margin-bottom: 9%; */
+    /*width: 100%;*/
+    height: 90%;
+    width: 400px;
+    float: right;
+    margin-top: 10%;
+    margin-left: 5%;
   }
   .padedd{
     margin-top: 5%;
@@ -213,14 +210,55 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   li{
     list-style-type: none;
   }
+  #botresponse{
+    background-color: #2E7CAF;
+    color: white;
+    width: 100%;
+    margin-bottom: 2%;
+    float: left;
+    margin-left: 56px;
+    /*width: 60%;*/
+  }
+  #sentmessage{
+    background-color: gray;
+    color: white;
+    width: 100%;
+    margin-bottom: 2%;
+    float: right;
+    margin-left: 56px;
+    /*width: 60%;*/
+  }
+  #mchats{
+    /*overflow-y: scroll;*/
+    max-height: 90%;
+    height: 90%;
+    
+  }
+  #chats{
+    height: 90%;
+    max-height: 90%;
+    overflow-y: scroll;
+
+  }
+  #bbb{
+    border-radius: 5%;
+    min-height: 80%;
+    max-height: 80%;
+    height: 80%;
+  }
+  .roww{
+    display: flex;
+    width: 100%;
+    margin-top: 20%;
+  }
   </style>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- <script src="jquery-3.3.1.min.js"></script> -->
 <body>
 <div class="container">
-<div class="row">
- <div class="col-md-9 mainn">
+<div class="roww">
+ <div class="mainn">
    <div class="white text-center">
     <h1 id="hello">HELLO</h1>
     <h3>I AM <?php echo $user->name ?>  HNG INTERN.</h3>
@@ -238,20 +276,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 </a>
      </div>
    </div>
-   <div class="col-md-3 chat">
-      <div style="background-color: yellow"><h1 class="text-center"> My ChatBot</h1></div>
-      <footer>
-        <form class="padedd" methood="post" id="formm">
+   <div id="bbb" class="chat" height="500px;">
+      <div><h1 class="text-center"> My ChatBot</h1></div>
+          <div id="chats">
+       <p id ='botresponse'>VEER : Hello I'm VEER, to train me type: train: question#response#password </p>
+        </div>  
+         <form class="padedd" methood="post" id="formm">
       <input type="text" placeholder="message" name="question"><button id="send" name="send">Send</button>
-      </form>
-      </footer>
-        chat
-        <ul id="chats">
-        <?php
-
-        ?>
-        </ul>
-      
+      </form>    
       </div>
 
   </div>
@@ -264,7 +296,7 @@ $(document).ready(function(){
     e.preventDefault();
     var MBox = $('input[name=question]');
     var question = MBox.val();
-    $("#chats").append("<li>" + question + "</li>");
+    $("#chats").append("<p id='sentmessage'>YOU : " + question + "</p>");
 
 
     // $.ajax({
@@ -287,7 +319,7 @@ $(document).ready(function(){
       data: {question: question},
       dataType: "json",
       success: function(response){
-        $("#chats").append("<li>" + response.answer + "</li>");
+        $("#chats").append("<p id ='botresponse'>VEER : " + response.answer + "</p>");
       },
       error: function(error){
         console.log(error);
