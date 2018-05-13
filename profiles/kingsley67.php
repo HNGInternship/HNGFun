@@ -23,133 +23,139 @@ if($_POST['questions']){
     
     
     
-$text=$_POST['questions'];
- $checktrain=strpos($text,'train:'); 
-   if($checktrain ===false) {
-       $checkBirthdate=strpos($text,"Birthdate:");
-       
-      if($checkBirthdate !==false){
+        $text=$_POST['questions'];
+        $checktrain=strpos($text,'train:'); 
+        if($checktrain ===false) {
+        $checkBirthdate=strpos($text,"Birthdate:");
 
-    
-          
-      
- 
+        if($checkBirthdate !==false){
+
 if(isset($_POST['questions'])){
     
-   $text=$_POST['questions']; 
+        $text=$_POST['questions']; 
+
+        $birthDate= substr($text, 10);
+        zodiac($birthDate);
     
-    $birthDate= substr($text, 10);
-    zodiac($birthDate);
-     echo json_encode([
-                  'question'=>$text,
-                  'answers' => "Your zodiac sign for ".$birthDate." is ".zodiac($birthDate)
-                ]); 
- 
- 
-   return;
+             echo json_encode([
+                          'question'=>$text,
+                          'answers' => "Your zodiac sign for ".$birthDate." is ".zodiac($birthDate)
+                        ]); 
+
+
+             return;
 } 
       
-      
-      }else if($_POST['questions']=="aboutbot"){
+}else if($_POST['questions']=="aboutbot"){
           
           
-          echo json_encode([
-                  'question'=>'aboutbot',
-                  'answers' => "<strong>RIM67</strong><br>Version 1.0.0 <br>build 2<br>Platforms: Windows, Linux"
-                ]); 
- 
- 
-   return;  
-               
-     }else{
-     $text=$_POST['questions'];
- $sql3="SELECT * FROM chatbot where question='$text '";
- $query = $conn->query($sql3);
-    $query->setFetchMode(PDO::FETCH_ASSOC);
-    $result3 = $query->fetch();
- $ans=$result3['answer'];
+              echo json_encode([
+                      'question'=>'aboutbot',
+                      'answers' => "<strong>RIM67</strong><br>Version 1.0.0 <br>build 2<br>Platforms: Windows, Linux"
+                    ]); 
+              return;  
+}else{
+                 $text=$_POST['questions'];
+
+                $sql3="SELECT answer FROM chatbot WHERE question='$text '";
+                $query = $conn->query($sql3);
+                $query->setFetchMode(PDO::FETCH_ASSOC);
+                $result3 = $query->fetchAll();
+
+if(count($result3)>1){ 
+                 $numb = rand(0, count($result3)-1);    
+                 $row=$result3[$numb]; 
+                 $ans=$row['answer'];
+
+         echo json_encode([
+                          'question'=>$text,
+                          'answers' =>  $ans
+                        ]); 
 
 
-     if (isset($ans)) {
-                echo json_encode([
-                  'question' => $text,
-                  'answers' => $ans
-               ]);
-         return;
+             return;
+}else if(count($result3)==1) {
+             
+                $an=$result3['answer'];
+    
+         echo json_encode([
+                          'question'=>$text,
+                          'answers' =>  $an
+                        ]); 
 
-  }else
+
+             return;
+        
+} else
      {
-$error="I couldn't find an answer to your question, please train me with that using the command <br>train:Your-Question#Your-Answer#Password";
+              $ans="I couldn't find an answer to your question, please train me with that using the command <br>train:Your-Question#Your-Answer#Password";
+    
+         echo json_encode([
+                          'question'=>$text,
+                          'answers' =>  $ans
+                        ]); 
 
-        echo json_encode([
-                'question' => $text,
-                  'answers' => $error
-                ]);
-       return;
 
+             return;
+
+     
      }
 
  }
   }else{
 
-   $tex=$_POST['questions'];
+                       $tex=$_POST['questions'];
 
-      $rmtrain= substr($tex, 6);
-       $rmspace = preg_replace('([\s]+)', ' ', trim($rmtrain));
+                       $rmtrain= substr($tex, 6);
+                       $rmspace = preg_replace('([\s]+)', ' ', trim($rmtrain));
 
-       $extrain = explode("#", $rmspace,3);
-
-
-    if(count($extrain)==3){
-         $question=trim($extrain[0]);
-     $answer=trim($extrain[1]);
-        $password=trim($extrain[2]);
+                       $extrain = explode("#", $rmspace,3);
 
 
-        if($password=="trainpwforhng"){
+if(count($extrain)==3){
+          $question=trim($extrain[0]);
+          $answer=trim($extrain[1]);
+          $password=trim($extrain[2]);
 
 
-    $sql3 = "INSERT INTO  `chatbot` (`question`, `answer`) VALUES ('". $question ."','". $answer ."')";
-    $query = $conn->query($sql3);
-    echo json_encode([
+if($password=="trainpwforhng"){
+
+
+        $sql3 = "INSERT INTO  `chatbot` (`question`, `answer`) VALUES ('". $question ."','". $answer ."')";
+        $query = $conn->query($sql3);
+echo json_encode([
                   'question' => $question,
                   'answers'=>"<strong>Your data was saved successfully</strong>"
                 ]);
 
-             return;
-            }else{
+              return;
+}else{
 
-       echo json_encode([
+          echo json_encode([
                   'question' => $tex,
                   'answers'=>"<strong>You inserted a wrong password<br>Note</strong>The password is:<strong>trainpwforhng</strong>"
                 ]);
 
              return;
-        }
+}
 
 
 
-   }else{
-      echo json_encode([
+}else{
+             echo json_encode([
                  'question' => $tex,
                  'answers'=>"Your training has not been considered,please verify your training is in the following format:<br><strong>train:Your_question#Your_Answer#Password<br>Note:</strong>The password is:<strong>trainpwforhng</strong>"
 
                 ]);
                  return;
-    }
-
-    }
+ }
+ }
 
  }
 
 
 
  ?>
-
-
-
-
-
 
 
 
@@ -210,7 +216,7 @@ $error="I couldn't find an answer to your question, please train me with that us
     .you{
         background-color:#E8EEEF;
         width:500px;
-        padding-left: 390px;
+        text-align: right;
         border: 1px solid black;
        
         overflow-wrap: break-word;
