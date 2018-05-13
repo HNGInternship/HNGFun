@@ -11,7 +11,7 @@
     
     function askQuestion($que){
 		// include "config.php";
-		// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		$sql = "SELECT answer FROM chatbot where question = '".$que."';";
 		// $que_query = $conn->query($sql);
         // $que_query->setFetchMode(PDO::FETCH_ASSOC);
@@ -35,7 +35,7 @@
 	}
 
 	function saveTraining($question, $answer){
-		// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		$sql = "INSERT into chatbot (question, answer) VALUES (:question, :answer);";
 		$stmt = $conn->prepare($sql);
 		$stmt->bindParam(':question', $question);
