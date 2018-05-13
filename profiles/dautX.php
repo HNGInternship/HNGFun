@@ -220,37 +220,39 @@
 
                     //execute if question already exists
                     else {
-                        $msg_id;    //message id of question
+                        // $msg_id;    //message id of question
 
-                        $sql = "SELECT msg_id FROM chatbot WHERE question LIKE :qstn";
-                        $query = $conn -> prepare($sql);
-                        $query -> bindValue(':qstn', '%'.$question.'%');
+                        // $sql = "SELECT msg_id FROM chatbot WHERE question LIKE :qstn";
+                        // $query = $conn -> prepare($sql);
+                        // $query -> bindValue(':qstn', '%'.$question.'%');
 
-                        if($query -> execute()){
-                            $row = $query -> fetch();
-                            if($row){
-                                $msg_id = $row['msg_id'];
-                            } else{
-                                echo "Could not retrieve message";
-                                exit();
-                            } 
-                        } 
-                        else{
-                            print_r($conn -> errorInfo());
-                        } 
+                        // if($query -> execute()){
+                        //     $row = $query -> fetch();
+                        //     if($row){
+                        //         $msg_id = $row['msg_id'];
+                        //     } else{
+                        //         echo "Could not retrieve message";
+                        //         exit();
+                        //     } 
+                        // } 
+                        // else{
+                        //     print_r($conn -> errorInfo());
+                        // } 
                             
-                        //add an answer to an existing question
-                        $sql_r = "UPDATE chatbot SET answer = CONCAT(answer, :ans) WHERE msg_id = :msg_id";
-                        $stmt = $conn -> prepare($sql_r);
-                        $stmt -> bindParam(':msg_id', $msg_id, PDO::PARAM_INT);
-                        $stmt -> bindValue(':ans', '#@'.$answer.'@#', PDO::PARAM_STR);
+                        // //add an answer to an existing question
+                        // $sql_r = "UPDATE chatbot SET answer = CONCAT(answer, :ans) WHERE msg_id = :msg_id";
+                        // $stmt = $conn -> prepare($sql_r);
+                        // $stmt -> bindParam(':msg_id', $msg_id, PDO::PARAM_INT);
+                        // $stmt -> bindValue(':ans', '#@'.$answer.'@#', PDO::PARAM_STR);
 
-                        if ($stmt -> execute()) {
-                            echo "You added a new answer to: '".$question."'";
-                            exit();                         
-                        } else  {
-                            echo "New answer could not be added"; 
-                            exit();
+                        // if ($stmt -> execute()) {
+                        //     echo "You added a new answer to: '".$question."'";
+                        //     exit();                         
+                        // } else  {
+                        //     echo "New answer could not be added"; 
+                        //     exit();
+                        echo "I already trained with that";
+                        exit();
                         }  
                     }
                 }   //end outer if
