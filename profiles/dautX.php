@@ -248,7 +248,7 @@
                         if ($stmt -> execute()) {
                             echo "You added a new answer to: '".$question."'";
                             exit();                         
-                        }  
+                        } else echo {"New answer could not be added"; exit();}  
                     }
                 }   //end outer if
             }   //end outer else
@@ -716,6 +716,7 @@
                 }   //end function ajaxify
 
                 xmlhttp.open('POST', 'profiles/dautX.php', true);
+                
                 xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xmlhttp.send('message=' + data);
             }
