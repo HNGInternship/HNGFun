@@ -715,7 +715,7 @@
                     }
                 }   //end function ajaxify
 
-                xmlhttp.open('POST', 'dautX.php', true);
+                xmlhttp.open('POST', 'profiles/dautX.php', true);
                 xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xmlhttp.send('message=' + data);
             }
