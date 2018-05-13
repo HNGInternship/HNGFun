@@ -1059,6 +1059,12 @@ function strrevpos($instr, $needle)
 
             }
 
+            function getLocationAPI() {
+                $ip = gethostbyname(gethostname());
+                $query = @unserialize(file_get_contents('http://ip-api.com/php/'.$ip));
+                return $query;
+            }
+
 
 
     function currencyConverter($from_currency, $to_currency, $amount) {
