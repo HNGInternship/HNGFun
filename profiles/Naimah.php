@@ -48,7 +48,7 @@ function test_input($data) {
                        echo json_encode($response); 
         }else{
         
-        //check if pearbot is to be trained
+        //check if Naimahbot is to be trained
         $train = explode(':', $question);
         if($train[0] == 'train'){
             $inputQuestion = explode('#', $train[1]);
@@ -63,7 +63,7 @@ function test_input($data) {
                     $select ->setFetchMode(PDO::FETCH_ASSOC);
                     $fetch = $select->fetchAll();
                     if($fetch){
-                        $reply = "Sorry, i dont still understand.";
+                        $reply = "i have already been trained to do this. you can train me with a different answer";
                        $response = array('status'=>3,'answer'=> $reply);
                        echo json_encode($response); 
                     }
