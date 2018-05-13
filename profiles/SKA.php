@@ -254,7 +254,7 @@
 					<div class="value"><?php echo $username; ?></div>
 				</div>
 			</div>
-			<div class="chatbot" style="width: 300px; min-width: 300px; border: 1px solid green; padding: 1px;">
+			<div class="chatbot" style="width: 400px; min-width: 400px; border: 1px solid green; padding: 1px;">
 				<div id="chatArea" style="width: 100%; background-color: cream; height: 270px;  overflow: auto" >
 					
 				</div>
