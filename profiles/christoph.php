@@ -557,9 +557,9 @@ $(document).on('click', '.chatbot-send', function(e){
         $('.chatbot-menu-content').append('<div class="chatbot-message-sender" id="last-message"><p>'+payload.message+'</p></div>');
     }
 
-    if (message_string.trim().slice(0, 6) === 'train:') {
+    if (message_string.split(':')[0].trim() === 'train') {
         bot_query = 'bot_train';
-        if (!message_string.includes('# password')) {
+        if (!message_string.includes('# password') && !message_string.includes('#password')) {
             password = false;
             $('.chatbot-menu-content').append('<div class="chatbot-message-bot" id="last-message">Sorry, you need to input a password</p></div>');
         }
@@ -568,7 +568,12 @@ $(document).on('click', '.chatbot-send', function(e){
             $('.chatbot-menu-content').append('<div class="chatbot-message-bot" id="last-message">Sorry, I do not recognize this password, try again.</p></div>');
         }
         else {
-            payload.message = message_string.trim().slice(0, -11);
+            array_words = message_string.trim().split(':');
+            parse_colon_delimiter = array_words[0].trim() + ': ' + array_words[1].trim();
+            parse_hash_delimiter = parse_colon_delimiter.split('#');
+            payload.message = parse_hash_delimiter[0].trim() + ' # ' + parse_hash_delimiter[1].trim();
+
+            console.log(payload.message);
         }
     }
     else if (message_string.trim() === 'help') {
@@ -731,7 +736,7 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
         // Regular expression to check if the training command is correct
         // Retrieve Questions, Location and Function Name
         $simple_mode_pattern = '/train: (.+[^{}]) \# (.+[^{}])/';
-        $complex_mode_pattern = '/train: (.+) (between|from) {{(.+)}} .+ {{(.+)}} \# (.+) {{.+}} (and|to) {{.+}} \(\(([A-z_]+)\)\)/';
+        $complex_mode_pattern = '/train: ?(.+) ?(between|from) ?{{(.+)}} ?(and|to) ?{{(.+)}} ?\# ?(.+) ?(between|from) ?{{(.+)}} ?(and|to) ?{{(.+)}} ?\(\((.+)\)\)/';
         $train_command = $_POST['bot_train'];
         $match_simple_mode = preg_match($simple_mode_pattern, $train_command, $match_simple);
         $match_complex_mode = preg_match($complex_mode_pattern, $train_command, $matches);
@@ -757,10 +762,10 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
                 $question       = $matches[1];
                 $preposition    = $matches[2];
                 $location1      = parseLocation($matches[3]);
-                $location2      = parseLocation($matches[4]);
-                $answer         = $matches[5];
-                $delimiter      = $matches[6];
-                $function_name  = $matches[7];
+                $delimiter      = $matches[4];
+                $location2      = parseLocation($matches[5]);
+                $answer         = $matches[6];
+                $function_name  = $matches[11];
                 $_SESSION['location1'] = $location1;
                 $_SESSION['location2'] = $location2;
 

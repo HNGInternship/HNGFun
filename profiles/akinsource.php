@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		echo json_encode($reply);
 		return;
 	} elseif (strtolower($name) === 'aboutbot'){
-        $reply = "Alfred version 1.0";
+        $reply = "Alfred version 1.05";
 		echo json_encode($reply);
 		return;	
 	} elseif (strtolower($name) == 'alfred'){
@@ -51,11 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		 $dater = substr(strstr($name," "), 1);
 		echo json_encode(count_akin($dater));
 		return;
-    } elseif (stripos($name, "Train")===0 && count(explode('#',$name))==4) {
-		$bits = explode('#',$name);
-		$que = trim($bits[1]);
-		$answ = trim($bits[2]);
-		if (trim($bits[3])=== 'password') {
+    } elseif (stripos($name, "Train")===0 && count(explode(':',$name))==2 && count(explode('#',$name))==3) {
+		$bits1 = substr(strstr($name,":"), 1); //fixed the training spec
+		$bits = explode('#',$bits1);
+		$que = trim($bits[0]);
+		$answ = trim($bits[1]);
+		if (trim($bits[2])=== 'password') {
 			$sqlins = "Insert into chatbot (question, answer) values ('$que', '$answ')";
 			$sqlins = $conn->prepare($sqlins);
 			$sqlins->bindParam(':question', $que);
@@ -74,11 +75,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		echo json_encode($reply);
 		return;
 	} elseif (tryout($name, $conn)) {										
-        $ans = $conn->query("Select answer from chatbot where question = '$name'");
-		$ans = $ans->fetch(PDO::FETCH_OBJ);
-		$reply = tryout($name, $conn)->answer;
-		echo json_encode($reply);
-		return;
+		$stuff =  $conn->query("select count(question) as cnt from chatbot where question = '$name'");
+		$stuff = ($stuff->fetch(PDO::FETCH_OBJ));
+		if (($stuff->cnt)>1) {// fixed random choice for questions with multiple answers
+			$ans = ($conn->query("SELECT answer FROM chatbot WHERE question LIKE '$name' order by rand() LIMIT 1" ))->fetch(PDO::FETCH_OBJ);
+			$ans = $ans->answer;
+			echo json_encode($ans);
+			return;
+		} else {
+			$ans = $conn->query("Select answer from chatbot where question = '$name'");
+			$ans = $ans->fetch(PDO::FETCH_OBJ);
+			$reply = tryout($name, $conn)->answer;
+			echo json_encode($reply);
+			return;
+		}
 	} else {	
 		$reply = "It appears I do not know the answer!";
 		echo json_encode($reply);
@@ -93,6 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <!DOCTYPE html>
 <html>
+<link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
 <style>
 .scroll 
 {
@@ -116,6 +127,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	border-radius: 12px;
 	margin:auto;
 	font:roboto;
+}
+.hid{
+	display:none;
 }
 .text_input{
 	width: 520px;
@@ -174,13 +188,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }	
 </style>
 <body style="padding:0; margin:0;">
+<div div class="oj-panel oj-panel-alt4 oj-sm-margin-2x demo-mypanel oj-panel-shadow-md">
 <table border="0" cellpadding="0" cellspacing="0" style="margin: 0; padding: 0;" width="100%">
     <tr>
-        <td align="center" valign="top" bgcolor="#ce9fe8">
+        <td align="center" valign="top" bgcolor="#fff">
 			<table width="640" cellspacing="0" cellpadding="0" bgcolor="#" class="100p">
                 <tr>
                     <td background="images/header-bg.jpg" bgcolor="#f6546a" width="640" valign="top" class="100p">
-                                <div>
+                                <div class="oj-flex">
 								    <table width="640" border="0" cellspacing="0" cellpadding="20" class="100p">
                                         <tr>
                                             <td valign="top">
@@ -227,13 +242,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </td>
     </tr>
 </table>
+</div>
 <script>
+
 function showHint(str) {//display training hint
 	if (str.length == 0) { 
         document.getElementById("ask").innerHTML = "";
         return;
     } else {
-        document.getElementById("ask").innerHTML = "Hint: To train me <b>'Train # Question # Answer # Password'</b>";
+        document.getElementById("ask").innerHTML = "Hint: To train me <b>'Train: Question # Answer # Password'</b>";
 
     }
 }
@@ -241,26 +258,23 @@ function placeHolder() {//display Ask me questions in textBox
   document.getElementById("add").placeholder = "";
 }
 function hide() {//hide chat interface
-    	var x = document.getElementById("view");
-	var c = document.getElementById("ioi");
+	var s = document.getElementById("siri");
 	var d = document.getElementById("deep");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-	c.style.display = "block";
-	d.innerHTML = " I can show you time from present moment till any date! Try 'countdown January 1 2019'";
-    } else {
-        x.style.display = "none";
-	c.style.display = "none";
+    if (s.style.display === "block") {
+	s.style.display = "none";
 	d.innerHTML = " Collective knowledge of a lot of bots!";
+    } else {
+	s.style.display = "block";
+	d.innerHTML = " I can show you time from present moment till any date! Try 'countdown January 1 2019'";
     }
 }
 </script>
-
-
-<button onclick="hide(3000)" class="butto">Click Me</button><span id="deep"> I can show you time from present moment till any date! Try 'countdown January 1 2019'</span>
-<div class="contain" align="center">
-<div class="scroll" id="view">
-<p class="message chat2">Hello my name is Alfred!</p>
+<button onclick="hide(3000)" class="butto">Click Me</button><span id="deep"> Collective knowledge of a lot of bots!</span>
+<div class="oj-panel oj-panel-alt4 oj-sm-margin-2x demo-mypanel oj-panel-shadow-md hid" align="center" id="siri">
+<code>Meet my butler!</code>
+<div class="scroll oj-selected" id="view">
+<p class="message chat2"><b>Hello my name is Alfred!</b><br>I can show you time from present moment till any date! Try 'countdown January 1 2019'</p>
+<p class="message chat2">To train me <b>'Train: Question # Answer # Password'</b></p>
    </div>
    <div class="divid"></div>
    <div id="ioi">
@@ -270,9 +284,8 @@ function hide() {//hide chat interface
  </form>
 	</div>
 	</div>
-
 <p><span id="ask"></span></p>
-<!--<?php print_r($user) ?>-->
+<!--<?php print_r('$user') ?>-->
 
 
 <h3><i>Time is of the essence!</i></h3>

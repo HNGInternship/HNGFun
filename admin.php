@@ -46,8 +46,9 @@ if(isset($_POST['submit']) ){
         $sql = 'SELECT * FROM interns_data WHERE username = "'. $_POST['username'] .'"';
         $q = $conn->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
+        $userData = $q->fetchAll();
 
-        if(!empty($q->fetchAll())) {
+        if(!empty($userData)) {
             $usernameError = "<span class='invalid'>Username already taken, please choose another!</span>";
         }else if (!file_exists( 'profiles/' . $_POST['username'] . '.php')) {
             //$eror = file_exists( 'profiles/' . $_POST['username'] . '.php');

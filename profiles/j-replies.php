@@ -74,6 +74,7 @@ if (mysqli_num_rows($r) > 0)
 
 
 else{
+   
 
     $answer = "WOAH! I'll get there...just train me using the format; train : yourquestion # your answer # password";
     echo $answer;
@@ -121,7 +122,7 @@ function trainJobot($question, $conn){
 
     $pass = trim($pass);
 
-    if ($pass === "trainpwforhng")
+    if ($pass === "password")
     {
     $train_query = "INSERT INTO chatbot (question, answer)
                     VALUES ('$ques', '$ans')";
@@ -130,7 +131,7 @@ function trainJobot($question, $conn){
 
     }
     else{
-        echo "You Are Not Allowed To Train Me".$pass;
+        echo "You Are Not Allowed To Train Me";
     }
 }
 

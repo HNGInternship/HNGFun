@@ -1,8 +1,15 @@
 <?php
-
+if(!defined('DB_USER')){
+	if (file_exists('../../config.php')) {
 		require_once '../../config.php';
-/**
- * Class Db
+	} else if (file_exists('../config.php')) {
+		require_once '../config.php';
+	} elseif (file_exists('config.php')) {
+		require_once 'config.php';
+	}
+}
+ /*
+ Class Db
  */
 class Db{
     // a singleton pattern implementation
@@ -121,7 +128,7 @@ class DBHelper{
 	public function PairExists($question, $answer){
 	$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		try {
-			// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 			$sql = $conn->prepare("SELECT * FROM chatbot WHERE question = :question AND answer = :answer");
 			$sql->execute([':question' => $question, ':answer' => $answer]);
 			$result = $sql->fetch(PDO::FETCH_ASSOC);
@@ -140,7 +147,6 @@ class DBHelper{
 	public function trainMyBot($question, $answer){
 		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		try {
-			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 			$stmt = $conn->prepare("INSERT INTO chatbot (question, answer) VALUES (:question, :answer)");
 			$stmt->execute(array(
 				":question" => $question,
@@ -212,7 +218,6 @@ class DBHelper{
  * @return string
  */
 	function botMessage($message, $status = 'success'){
-		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		$myResponse = new Response();
 		$myResponse->status = $status;
 		$myResponse->message = $message;
@@ -307,6 +312,8 @@ class DBHelper{
 	$name = (new DBHelper())->getMyProfile();
 
 ?>
+<?php if($_SERVER['REQUEST_METHOD'] === "GET"){ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -370,7 +377,7 @@ class DBHelper{
 	 	cursor: pointer; 
 	}
 	.open-more{
-	 	bottom:0px; transition:2s; 
+	 	bottom:0px; transition:2; 
 	}
 	.chat-border{
 		 border:1px solid green;
@@ -528,7 +535,7 @@ class DBHelper{
 	<div class="container"> 
 		<div class="row">
 		  	<div class="col-sm-5 "><span class="flow-text"><img class ="myPics" src="http://res.cloudinary.com/gconnect/image/upload/v1523730900/glory.jpg" width="300px" height="400px"></span>
-		    <h6 class="name"><a href="www.medium.com/@agatevureglory"><?php echo $name->name; ?></a></h6>
+		    <h6 class="name"><a href="www.medium.com/@agatevureglory">Agatevure Glory</a></h6>
 		  	</div>
 		     <div class="col-sm-7 ">
 		            <h4 class="heading">Love to keep it simple</h4>
@@ -648,7 +655,7 @@ class DBHelper{
                     '' + response.message + '</p></li><div class="clearfix"></div> ';
                 $('#message-outlet').append(strMessages);
                 $(".messages").scrollTop($("#message-outlet").outerHeight());
-
+                responsiveVoice.speak(response.message, 'UK English Female');
 
             });
         };
@@ -727,3 +734,4 @@ class DBHelper{
     });
 </script>
 
+<?php } ?>

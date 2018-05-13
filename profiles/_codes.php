@@ -28,23 +28,25 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
    background-color: #96deda;
    margin: auto;
    width: 55em;
-   height: 40em;
-   border-style: ridge;
+   height: 35em;
    border-color: grey;
    border-radius: 1.27em;
    position: relative;
-   display: inline;
 }
 .d{
-   width: 200px;
+   width: 195px;
    background-color: white;
    color: #625be7;
    margin-top: 1em;
-   font-size: 3em;
+   font-size: 2.1em;
    margin-bottom: 0em;
    border-top-right-radius: 30px;
    border-bottom-style : solid black;
    text-shadow: 0 0 3px #FF0000;
+}
+#me{
+    font-size: 2.09em;
+   text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
 }
 hr{
    margin: 0px;
@@ -73,7 +75,7 @@ img{
    background-color: #625be7;
 }
 #details{
-   height: 20em;
+   height: 18em;
    width: 55em;
    position: absolute;
    bottom: 0px;
@@ -85,9 +87,9 @@ img{
 }
 #span{
    font-style: italic;
-   font-size: 2.85em;
+   font-size: 2em;
    text-align: center;
-   text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
+   text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }</style>
 </head>
 <body>
@@ -98,7 +100,7 @@ img{
             <div id="details">
                 <span>
                     <p class="d">Details<hr></p>
-                    <div id="span">I am a Developer</div>
+                    <div id="span"> Hi, there! My name is <span id="me">Andikan</span><br> and I am a Developer</div>
                 </span>
                
             </div>
