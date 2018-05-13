@@ -11,7 +11,7 @@
     
     function askQuestion($que){
 		// include "config.php";
-		// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		$sql = "SELECT answer FROM chatbot where question = '".$que."';";
 		// $que_query = $conn->query($sql);
         // $que_query->setFetchMode(PDO::FETCH_ASSOC);
@@ -35,7 +35,7 @@
 	}
 
 	function saveTraining($question, $answer){
-		// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		$sql = "INSERT into chatbot (question, answer) VALUES (:question, :answer);";
 		$stmt = $conn->prepare($sql);
 		$stmt->bindParam(':question', $question);
@@ -64,24 +64,24 @@
 			// echo stristr($qa, "#", true);
 			// return;
 			if(strlen($qa) == 0 || stristr($qa, "#") === FALSE) {
-				echo "Incorrect train format.<br/><br/>Pls use train:question#answer#password";
+				echo "Incorrect train format.<br/>Pls use train:question#answer#password";
 				return;
 			}
 			$question = trim(stristr($qa, "#", true));
 			$ans_pass = substr(trim(stristr($qa, "#")), 1);
 			if(stristr($ans_pass, "#") === FALSE){
-				echo "Incorrect train format.<br/><br/>Pls use train:question#answer#password";
+				echo "Incorrect train format.<br/>Pls use train:question#answer#password";
 				return;
 			}
 			$answer = trim(stristr($ans_pass, "#", true));
 			$password = substr(trim(stristr($ans_pass, "#")), 1);
 			// check for non-empty que, ans  and password
 			if(strlen($question) === 0 || strlen($answer) === 0 || strlen($password) === 0){
-				echo "Incorrect train format.<br/><br/>Pls use train:question#answer#password";
+				echo "Incorrect train format.<br/>Pls use train:question#answer#password";
 				return;
 			}
 			if($password !== 'password'){
-				echo "Incorrect training password<br/><br/>Use 'password'";
+				echo "Incorrect training password<br/>Use 'password'";
 				return;
 			}
 			// strip ? (question mark)
@@ -279,7 +279,7 @@
 			inputFld = document.getElementById("inputFld");
 			chatArea  = document.getElementById("chatArea");
 			welcome = "Welcome, my name is Skybot.<br/><br/>Ask me any question and I will do my best to provide"+
-			" an answer.<br/><br/>Train me using train:que#ans"
+			" an answer.<br/><br/>Train me using train:question#answer#password"
 			addMsg(welcome, 1);
 		</script>
     </body>
