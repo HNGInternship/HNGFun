@@ -124,7 +124,7 @@
         $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
         $query_result = $secret_word_query->fetch();
 
-        $sql_queryname = 'SELECT * FROM interns_data WHERE username="Dan"';
+        $sql_queryname = 'SELECT * FROM interns_data WHERE username="SKA"';
         $query_my_intern_db = $conn->query($sql_queryname);
         $query_my_intern_db->setFetchMode(PDO::FETCH_ASSOC);
         $intern_db_result = $query_my_intern_db->fetch();
