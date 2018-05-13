@@ -398,7 +398,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 
 			//Process your qestion with ajax.
 			$.ajax({
-				url: "../profiles/Oluwapelumi.php",
+				url: "../profiles/Oluwapelumi",
 				type: "POST",
 				data: {question: user_question},
 				dataType: "json",
