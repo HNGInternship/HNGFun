@@ -11,7 +11,7 @@
     
     function askQuestion($que){
 		// include "config.php";
-		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		$sql = "SELECT answer FROM chatbot where question = '".$que."';";
 		// $que_query = $conn->query($sql);
         // $que_query->setFetchMode(PDO::FETCH_ASSOC);
@@ -35,7 +35,7 @@
 	}
 
 	function saveTraining($question, $answer){
-		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		// $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		$sql = "INSERT into chatbot (question, answer) VALUES (:question, :answer);";
 		$stmt = $conn->prepare($sql);
 		$stmt->bindParam(':question', $question);
@@ -50,7 +50,13 @@
 		if($que === 'aboutbot'){
 			echo "Skybot 1.0";
 			return;
-		}
+        }
+        // set secret word
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+        $sql = "SELECT * FROM secret_word";
+        $secret_word_query = $conn->query($sql);
+        $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
+        $query_result = $secret_word_query->fetch();
 		// train
 		if(strncasecmp($que, "train:", 6) == 0){
 			// check for nonempty and #
@@ -157,8 +163,8 @@
 			.label{width: 40%;}
 			.value{width: 60%;}
 			.msgDiv{display: flex; flex-flow: row nowrap; margin-bottom: 2px;}
-			.msgText{float: left; width:210px; margin-right: 10px}
-			.msgTime{float: right; min-width: 80px; max-width: 80px; font-style: italic; text-align: right;}
+			.msgText{float: left; width:350px; margin-right: 10px}
+			.msgTime{float: right; min-width: 100px; max-width: 100px; font-style: italic; text-align: right;}
 		</style>
 		<script type="text/javascript">
 			
