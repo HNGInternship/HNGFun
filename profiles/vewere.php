@@ -1,7 +1,7 @@
 <?php
-  error_reporting(E_ALL);
-  ini_set('display_errors', 'On');
-  var_dump($_POST);
+  // error_reporting(E_ALL);
+  // ini_set('display_errors', 'On');
+  // var_dump($_POST);
 
 
   if(!isset($_POST['question_sent'])){
@@ -18,7 +18,7 @@
     if (substr($_POST['question'], 0, 5) == 'train'){
       // echo "<script>console.log('training mode');</script>";
       include "../db.php";
-      $input = preg_replace('/\s+#\s+/', '#', $_POST['question']);
+      $input = preg_replace('/\s*#\s*/', '#', $_POST['question']);
 
       $indexof1 = strpos($input, '#');
       $indexof2 = strpos($input, '#', 6);
@@ -188,6 +188,10 @@
       padding-bottom: 5px;
     }
 
+    table { 
+      width: 100%;
+    }
+
     .bot-bubble {
       background-color: #fffff0;
       border-radius: 10px;
@@ -220,7 +224,7 @@
   </style>
   <script>
     var outer_profile = true;
-    var version = "Bot v1.0.16";
+    var version = "Bot v1.0.18";
     $(function (){    
       
       // Switch between Profile and Chat screens
@@ -240,7 +244,7 @@
 
       // Add user's request and bot's response to chat interface
       $("#send").click(function() {
-        alert("it got here");
+        // alert("it got here");
         var input = $("#request").val();        
         if ($.trim(input)) {
           $("#chat-area table").append("<tr><td><div class='user-bubble'><p>"+input+"</p></div></td></tr>");
