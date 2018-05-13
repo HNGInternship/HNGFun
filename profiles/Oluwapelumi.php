@@ -1,5 +1,4 @@
 <?php
-require '../db.php';
 require '../answers.php';
 
 
