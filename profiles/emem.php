@@ -1,12 +1,12 @@
 <?php
 
-<<<<<<< HEAD
+
  require 'db.php';
 
   $result = $conn->query("Select * from secret_word LIMIT 1");
 
   $result = $result->fetch(PDO::FETCH_OBJ);
-=======
+
        
         require '../../config.php';
         $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
@@ -32,15 +32,15 @@
             $data[0] = trim($data[0]);
             $data[1] = trim($data[1]);
             $data[2] = trim($data[2]);
->>>>>>> 306b07817e52d3028043974c9945b701d9d70a10
+
 
   $secret_word = $result->secret_word;
 
-<<<<<<< HEAD
+
 
 
   $result2 = $conn->query("Select * from interns_data where username = 'olubori'");
-=======
+
                 $sql = "INSERT INTO chatbot (question, answer)
                 VALUES ('$data[0]', '$data[1]')";
 
@@ -77,7 +77,7 @@
         //return;
     }
     
->>>>>>> 306b07817e52d3028043974c9945b701d9d70a10
+
 
   $user = $result2->fetch(PDO::FETCH_OBJ);
 
@@ -116,8 +116,7 @@
         I desire to be a web developer<br />
         I desire to be a techpreneur.</div><br /></center>
     </div>
-<<<<<<< HEAD
-=======
+
     <div id='bodybox'>
                 <div id='chatborder'>
                   <p id="chatlog7" class="chatlog">&nbsp;</p>
@@ -188,7 +187,7 @@
 <script type="text/javascript" src="../js/main.js"></script>
 
 
->>>>>>> 306b07817e52d3028043974c9945b701d9d70a10
+
 </body>
 </html>
 
