@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
   if($_SERVER['REQUEST_METHOD'] === 'POST')
  {
            if (!defined('DB_USER')){
@@ -30,6 +31,38 @@
                         'answer' => "thanks sensei"
                         ]);
 return;
+=======
+    if($_SERVER['REQUEST_METHOD'] === 'POST')
+     {
+               if (!defined('DB_USER')){
+                   require "../../config.php";
+               }
+               try {
+                   $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+                 } catch (PDOException $pe) {
+                   die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+                 }
+          $mesuu = $_POST['question'];
+          $message=strtolower($mesuu);
+          trim($message);
+          $statusTrain = stripos($message, "rain:");
+          if($statusTrain)
+          {
+            $newstring=str_replace("train:","","$message");
+             $sets = explode("#", $newstring);
+                  $mQuestion= $sets[0];
+                  $mAns= $sets[1];
+                  $mPwd= $sets[2];
+                  if($mPwd=='passcode'){
+                  $resultIns = $conn->query("insert into chatbot (`question`, `answer`) values ('$mQuestion','$mAns')" );
+                  if($resultIns)
+                  {
+                    echo json_encode([
+                     'status' => 1,
+                            'answer' => "thanks and noted."
+                            ]);
+    return;
+>>>>>>> bf9dc1acee51db585ac213306ec52339c6faee29
 
 }
 else {
