@@ -16,6 +16,9 @@
     /* background-image: linear-gradient(to right, #7ed56f, #28b485); */
     background-image: url('http://www.artchiz.com/wp-content/uploads/2013/08/parallax-background.png');
     background-repeat: no-repeat;
+    background-size:100%;
+	width: 100%;
+	height: 100vh;
     font-style: normal;
     font-weight: 300;
     font-family: Montserrat;
@@ -58,7 +61,7 @@
                          }
 
                          .btn {
-                           background: white;
+                           background: #dee1e4;
                            border: 2px solid #ffffff;
                            border-radius: 100px;
                            color: #444;
@@ -195,20 +198,19 @@
                           font-size: 3rem;
                           color: #e6ffe7;
                           font-weight:100 bold;
-                          text-align: left;
+                          text-align: left
                         }
                         .image{
                           width: 50px;
                           height: 20px;
                           border-radius: 2000px;
-                          padding-left: 80px;
-                          text-align:left;
-                          float:left;
+                          padding-left: 100px;
                         }
+
                       </style>
                     </head>
                     <body>
-                      <header id="header">
+                     <!--  <header id="header">
                         <div class="row">
                           <div class="navbar-left">
                            <ul class="nav">
@@ -216,19 +218,19 @@
                           </ul>
                         </div>
                         <div class="navbar-right">
-<!--                          <ul class="nav">
+                         <ul class="nav">
                           <li><a href="https://hng.fun/index.php">Home</a></li>
                           <li><a href="https://hng.fun/learn.php">learn</a></li>
                           <li><a href="https://hng.fun/listing.php">interns</a></li>
                           <li><a href="https://hng.fun/admin.php">registers</a></li>
                           <li><a href="https://hng.fun/testimonies.php">testimonies</a></li>
-                        </ul> -->
+                        </ul>
                       </div>
                       <div style="clear: both;">
 
                       </div>
                     </div>
-                  </header>
+                  </header> -->
                   <div class="container">
                     <div class="top_head">
                           <!--  <div class="img">
@@ -238,14 +240,14 @@
                                <img src="http://res.cloudinary.com/annyhiss/image/upload/b_rgb:aeb3ba,c_scale,h_213,r_29,z_1.5/v1524441531/26864051_2033385723571357_8957167605911650304_n.jpg" alt="">
                              </div>
                              <div>
-                               <h1 class="display">Welcome.</h1>
-                               <p class="sub_display">Animashaun Oluwatosin</p>
-                               <p class= "sub_display2">A front-end web developer.<br>a problem solver.</p>
-                               <div class="button">
-                                 <a class="btn btn-primary " href="mailto:animashaunoluwatosin7@gmail.com" role="button">contact <i class="fa fa-envelope fa-0.5x icon-5"></i></a>
-                               </div>
+                                 <h1 class="display">Welcome.</h1>
+                             <p class="sub_display">Animashaun Oluwatosin</p>
+                             <p class= "sub_display2">A front-end web developer.<br>a problem solver.</p>
+                             <div class="button">
+                               <a class="btn btn-primary " href="mailto:animashaunoluwatosin7@gmail.com" role="button">contact <i class="fa fa-envelope fa-0.5x icon-5"></i></a>
                              </div>
-                             
+                             </div>
+                           
                              <div class="footer">
 
                                <div class="col-md-12 col-sm-12">
