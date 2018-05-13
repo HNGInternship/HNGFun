@@ -1,9 +1,11 @@
 <?php
 
     if(!defined('DB_USER')){
-        require "../../config.php";     
+        require "../../config.php"; 
+            
         try {
             $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+            $conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $pe) {
             die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
         }
@@ -135,37 +137,56 @@
         }
 
         function respondToQuestion($conn, $input){
-            if( $this -> searchInDB($conn, $input ) == true){                   //perform a search on database for question
-                $sql = "SELECT `answer` FROM chatbot WHERE `question` LIKE :qstn";
-                $stmt = $conn -> prepare($sql);
-                $stmt -> bindValue(':qstn', '%'.$input.'%');
+        if( $this -> searchInDB($conn, $input ) == true){                   //perform a search on database for question
+            $sql = "SELECT `answer` FROM chatbot WHERE `question` LIKE :qstn";
+            $stmt = $conn -> prepare($sql);
+            
+            $stmt -> bindValue(':qstn', '%'.$input.'%');
 
-                if( $stmt -> execute() ){
-                    $row = $stmt  -> fetch();
-                    if ($row) {
-                        echo $row['answer'];
+            if( $stmt -> execute() ){   //
+                $row = $stmt  -> fetch(PDO::FETCH_ASSOC);
+                if ($row) {         //row is returned?
+                    $str = implode('', $row);
+
+                    if(strpos($str, '#', 0) !== false ){
+                        $split = explode('#', $str);
+                        array_pop($split);
+
+                        for ($i=0; $i < sizeof($split) ; $i++) { 
+                            $split[$i] = preg_replace("/[^a-zA-Z0-9\s]/", "", $split[$i]);
+                        }
+
+                        $split = array_filter($split);  //remove empty positions
+                        $split = array_slice($split, 0);    //remove gaps
+                        
+                        echo $split[mt_rand(0, sizeof($split) - 1)];    //print a random answer
                         exit();
-                    } 
-                }
-                else {
-                    echo 'Oops! Something seems to have gone wrong';
-                    exit();
-                }
-            }
-            else{
-                echo "Sorry, I've got no idea what that's about. Mind training me on it?";
+                    }
+                    else{   //# not found in string
+                        echo $row['answer'];    //give any found answer
+                        exit();
+                    }   //end inner-most else        
+                }   //end if row 
+            }       //end if stmt -> execute
+            else {  //statement did not execute
+                echo 'Oops! Something seems to have gone wrong'.'<br />'. $conn -> errorInfo();
                 exit();
-            }
+            }   //
+        }   //end if searchIndb
+        else{   //question was not found
+            echo "Sorry, I've got no idea what that's about. Mind training me on it?".'<br />'.'Use \'train: question # answer # password\'';
+            exit();
         }
+    }
 
         //training area
-        function trainBot($conn, $command){
+       function trainBot($conn, $command){
             $trainingString = substr($command, 7, strlen($command));
             $str_ex = explode('#', trim($trainingString));
 
-            $question = $str_ex[0];
-            $answer = $str_ex[1];
-            $password = $str_ex[2];
+            $question = trim($str_ex[0]);
+            $answer = trim($str_ex[1]);
+            $password = trim($str_ex[2]);
 
             if ($password != 'password') {
                 echo "The password you entered is not correct.".'<br>'. ' Use \'password\' without the quotes';
@@ -182,16 +203,16 @@
                     if( $qexists == false ){
                         $query =  $conn -> prepare("INSERT INTO chatbot (question, answer) VALUES (:qtn, :ans)");
                         $query -> bindParam(':qtn', $question, PDO::PARAM_STR);
-                        $query -> bindParam(':ans', $answer, PDO::PARAM_STR);
+                        $query -> bindValue(':ans', '#@'.$answer.'@#', PDO::PARAM_STR);
 
                         if($query -> execute()){
-                        	$replies = array( 'Training successful!', 'Dat one enter. U try!', 'Got it! Thanks', 'Oboy ee! Book too sweet' );
+                            $replies = array( 'Training successful!', 'Dat one enter. U try!', 'Got it! Thanks', 'Oboy ee! Book too sweet' );
                             echo $replies[mt_rand(0, sizeof($replies) - 1)];
                             exit();
                         }
                         else {
-                        	$replies = array( 'Oops! Something went wrong!', 'E no enter o. I no sabi why', 'Didn\'t work pal. Can\'t help ya. Try again', 
-                        		              'Di thing no work o. Just try another time.' );
+                            $replies = array( 'Oops! Something went wrong!', 'E no enter o. I no sabi why', 'Didn\'t work pal. Can\'t help ya. Try again', 
+                                              'Di thing no work o. Just try another time.' );
                             echo $replies[mt_rand(0, sizeof($replies) - 1)];
                             exit();
                         }   //end inner else
@@ -199,11 +220,35 @@
 
                     //execute if question already exists
                     else {
-                    	$replies = array('Question already exists. Try something different', 'Already got that. Gimme something new',
-                    					 'Dat one dey my head already. Teach me another thing', 'I sabi that one. Tell me another one');
+                        $msg_id;    //message id of question
 
-                        echo $replies[mt_rand(0, sizeof($replies) - 1)];
-                        exit();
+                        $sql = "SELECT msg_id FROM chatbot WHERE question LIKE :qstn";
+                        $query = $conn -> prepare($sql);
+                        $query -> bindValue(':qstn', '%'.$question.'%');
+
+                        if($query -> execute()){
+                            $row = $query -> fetch();
+                            if($row){
+                                $msg_id = $row['msg_id'];
+                            } else{
+                                echo "Could not retrieve message";
+                                exit();
+                            } 
+                        } 
+                        else{
+                            print_r($conn -> errorInfo());
+                        } 
+                            
+                        //add an answer to an existing question
+                        $sql_r = "UPDATE chatbot SET answer = CONCAT(answer, :ans) WHERE msg_id = :msg_id";
+                        $stmt = $conn -> prepare($sql_r);
+                        $stmt -> bindParam(':msg_id', $msg_id, PDO::PARAM_INT);
+                        $stmt -> bindValue(':ans', '#@'.$answer.'@#', PDO::PARAM_STR);
+
+                        if ($stmt -> execute()) {
+                            echo "You added a new answer to: '".$question."'";
+                            exit();                         
+                        }  
                     }
                 }   //end outer if
             }   //end outer else
@@ -318,7 +363,6 @@
         <meta charset="utf-8">
         <title>dautX | Profile</title>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-        <link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Junge' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'>
@@ -461,7 +505,7 @@
                 margin-top: 5px;
                 margin-bottom: 5px;
                 float: right;
-                font-family: 'Junge', sans-serif;
+                font-family: 'Andika', sans-serif;
                 display: block;
                 clear: both;
             }
@@ -671,7 +715,7 @@
                     }
                 }   //end function ajaxify
 
-                xmlhttp.open('POST', 'profiles/dautX.php', true);
+                xmlhttp.open('POST', 'dautX.php', true);
                 xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xmlhttp.send('message=' + data);
             }
