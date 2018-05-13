@@ -20,36 +20,6 @@
         $name = $intern_db_result['name'];
         $username = $intern_db_result['username'];
         $image_addr = $intern_db_result['image_filename'];
-
-function botTraining($newmessage){
-    require 'db.php';
-    $message = explode('#', $newmessage);
-    $question = explode(':', $message[0]);
-    $answer = $message[1];
-    $password = $message[2];
-
-    $question[1] = trim($question[1]); //triming off white spaces
-    $password = trim($password); //triming off white spaces
-
-    // check if password matches
-    if ($password != "password"){
-      echo "Wrong password";
-    }else{
-      $chatbot= array(':id' => NULL, ':question' => $question[1], ':answer' => $answer);
-      $query = 'INSERT INTO chatbot ( id, question, answer) VALUES ( :id, :question, :answer)';
-
-      try {
-        $execQuery = $conn->prepare($query);
-        if ($execQuery ->execute($chatbot) == true) {
-          echo "Thanks, training successful!"
-        };
-      } catch (PDOException $e) {
-        echo "Oops! i did't get that, Something is wrong i guess, please try again";
-      } // End Catch
-    } // End Else
-  }
-
-
 ?>
 <html>
 <style>
