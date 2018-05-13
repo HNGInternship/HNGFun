@@ -54,14 +54,10 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-12">
-
-                                This is a nice message inside the card
-                            
+                        This is a nice message inside the card         
                     </div>
                     <div class="col-12" style="align-items: end;">
-                       
-                                This is a nice message inside the card
-                            
+                        This is a nice message inside the card    
                     </div>
                 </div>
             </div>
