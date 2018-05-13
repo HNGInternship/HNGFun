@@ -58,7 +58,7 @@
                          }
 
                          .btn {
-                           background: #dee1e4;
+                           background: white;
                            border: 2px solid #ffffff;
                            border-radius: 100px;
                            color: #444;
@@ -201,15 +201,10 @@
                           width: 50px;
                           height: 20px;
                           border-radius: 2000px;
-                          padding-left: 100px;
+                          padding-left: 80px;
+                          text-align:left;
+                          float:left;
                         }
-                        .image{
-                          width: 50px;
-                          height: 20px;
-                          border-radius: 2000px;
-                          padding-left: 100px;
-                        }
-
                       </style>
                     </head>
                     <body>
@@ -221,13 +216,13 @@
                           </ul>
                         </div>
                         <div class="navbar-right">
-                         <ul class="nav">
+<!--                          <ul class="nav">
                           <li><a href="https://hng.fun/index.php">Home</a></li>
                           <li><a href="https://hng.fun/learn.php">learn</a></li>
                           <li><a href="https://hng.fun/listing.php">interns</a></li>
                           <li><a href="https://hng.fun/admin.php">registers</a></li>
                           <li><a href="https://hng.fun/testimonies.php">testimonies</a></li>
-                        </ul>
+                        </ul> -->
                       </div>
                       <div style="clear: both;">
 
