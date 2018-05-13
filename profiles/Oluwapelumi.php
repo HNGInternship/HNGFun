@@ -1,14 +1,6 @@
 <?php
-
-if (!defined('DB_USER')) {
-    include_once("../answers.php");
-    require '../../config.php';
-    try {
-        $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
-        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
-}
+require '../db.php';
+require '../answers.php';
 
 
 $sql = "Select * from secret_word LIMIT 1";
@@ -23,34 +15,30 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 function chatWithMe($question, $conn){
     $question = sanitize_input($question);
     $fetchAnswerToQuestion = "SELECT * FROM chatbot WHERE question =:question";
-    try {
-        $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
-        if($conn) {
-            $query = $conn->prepare($fetchAnswerToQuestion);
-            $query->bindParam(":question",$question);
-            $query->execute();
-            $query->setFetchMode(PDO::FETCH_ASSOC);
-            $rows = $query->fetchAll();
-            if(count($rows)>0){
-                $index = rand(0, count($rows)-1); //choose random answer
-                $row = $rows[$index];
-                $answer = $row['answer'];
-                echo json_encode([
-                    'status' => 1,
-                    'response' => $answer,
-                ]);
-                return;
-            }
-
+    if($conn) {
+        $query = $conn->prepare($fetchAnswerToQuestion);
+        $query->bindParam(":question",$question);
+        $query->execute();
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $rows = $query->fetchAll();
+        if(count($rows)>0){
+            $index = rand(0, count($rows)-1); //choose random answer
+            $row = $rows[$index];
+            $answer = $row['answer'];
             echo json_encode([
                 'status' => 1,
-                'response' => "Sorry, I don't know this question but you can teach me: <br> Train pattern <br>train: question #answer #password"
+                'response' => $answer,
             ]);
             return;
         }
-    } catch (PDOException $e) {
-        return "Error: " . $e->getMessage();
+
+        echo json_encode([
+            'status' => 1,
+            'response' => "Sorry, I don't know this question but you can teach me: <br> Train pattern <br>train: question #answer #password"
+        ]);
+        return;
     }
+
     return;
 }
 
@@ -61,70 +49,65 @@ function sanitize_input($user_input) {
     return $user_input;
 }
 
-function trainMeBoss($queAndAns, $conn)
-{
+function trainMeBoss($queAndAns, $conn){
     $queAndAns = substr($queAndAns, 6); //cut out train word
-    $queAndAns = sanitize_input($queAndAns);
-    $queAndAns = explode("#", $queAndAns);
+    $queAndAns =sanitize_input($queAndAns);
+    $queAndAns = explode("#",$queAndAns);
 
-    if ((count($queAndAns) >= 2)) {
+    if((count($queAndAns) >= 2)) {
         $question = sanitize_input($queAndAns[0]);
         $answer = sanitize_input($queAndAns[1]);
         $password = sanitize_input($queAndAns[2]);
     }
 
-    if (!(isset($password)) || $password !== 'password') {
+    if(!(isset($password))|| $password !== 'password') {
         echo json_encode([
-            'status' => 1,
-            'response' => "Sorry, you entered and incorrect password. You mind trying again?"
+            'status'    => 1,
+            'response'    => "Sorry, you entered and incorrect password. You mind trying again?"
         ]);
         return;
     }
 
-    if (isset($question) && isset($answer)) {
+    if(isset($question) && isset($answer)) {
         //input validation
-        if ($question == "" || $answer == "") {
+        if($question == "" ||$answer =="") {
             echo json_encode([
-                'status' => 1,
-                'response' => "Please check, you seem to have no question or answer defined"
+                'status'    => 1,
+                'response'    => "Please check, you seem to have no question or answer defined"
             ]);
             return;
         }
 
         $doIKnowThisQuery = "SELECT * FROM chatbot WHERE question LIKE '$question'";
 
-        try {
-            if ($conn) {
-                if ($conn->query($doIKnowThisQuery)->fetch(PDO::FETCH_OBJ)) {
-                    if ($conn->query($doIKnowThisQuery)->fetch(PDO::FETCH_OBJ)->answer === $answer) {
-                        echo json_encode([
-                            'status' => 1,
-                            'response' => "I know this already."
-                        ]);
-                    }
-                    return;
-                };
-
-                $trainQuery = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
-
-                if ($conn->query($trainQuery)->execute() === true) {
+        if($conn) {
+            if($conn->query($doIKnowThisQuery)->fetch(PDO::FETCH_OBJ)) {
+                if ($conn->query($doIKnowThisQuery)->fetch(PDO::FETCH_OBJ)->answer === $answer) {
                     echo json_encode([
                         'status' => 1,
-                        'response' => "I'm getting better, all thanks to you"
+                        'response' => "I know this already."
                     ]);
-                    return;
                 }
+                return;
+            };
+
+            $trainQuery = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
+
+            if($conn->query($trainQuery)->execute() ===true){
+                echo json_encode([
+                    'status'    => 1,
+                    'response'    => "I'm getting better, all thanks to you"
+                ]);
+                return;
             }
-        } catch (PDOException $e) {
-            return "Error: " . $e->getMessage();
         }
     } else {
         echo json_encode([
-            'status' => 0,
-            'response' => "Sorry, you didn't follow my train pattern.<br> You might wanna check this<br>train: question #answer #password"
+            'status'    => 0,
+            'response'    => "Sorry, you didn't follow my train pattern.<br> You might wanna check this<br>train: question #answer #password"
         ]);
+        return;
     }
-    return;
 }
 
 if($_SERVER['REQUEST_METHOD']==='POST'){
