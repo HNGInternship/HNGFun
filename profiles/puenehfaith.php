@@ -7,10 +7,9 @@
         $my_data = $q2->fetch();
     } catch (PDOException $e) {
         throw $e;
-    }
-    ?>
-
-
+    }  
+?>
+ 
 <?php
     try {
         $sql = 'SELECT * FROM secret_word';
@@ -102,8 +101,18 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <title>pueneh</title><link rel="stylesheet" type="text/css" href="https://static.oracle.com/cdn/jet/v4.1.0/default/css/alta/oj-alta-min.css">
-            <style type="text/css">> 
+        <title>pueneh</title>
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="stylesheet" type="text/css" href="../vendor/bootstrap/3.3.4/css/bootstrap.css">
+       <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+
+       <link rel="stylesheet" type="text/css" href="https://static.oracle.com/cdn/jet/v4.1.0/default/css/alta/oj-alta-min.css">
+       <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/require/require.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"> </script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
+      <script src="../js/jquery.min.js"></script>
+      <script src="../js/bootstrap.min.js"></script>
+        
+        <style type="text/css"> 
  body{
   padding-top: 60px;
     background-color: #0000ff;
@@ -327,13 +336,13 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
                       <div class="input-group">
                         <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="chat me up...">
                         <span class="input-group-addon"><button class="btn btn-primary" id="send"><i class="fa fa-send"></i></button></span>
-                      </di  </div>
+                        </div>
                     </form>
                 </div>
         </div>
    
 <script>
-    var outputArea = $("#chat");
+    var outputArea = $("#chat me up");
     $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
         var message = $("#user-input").val();
@@ -347,7 +356,7 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
                 setTimeout(function() {
                     outputArea.append("<p class='san'>" + result + "</p>");
                     $('#chat').animate({
-                        scrollTop: $('#chat').get(0).scrollHeight
+                        scrollTop: $('#chat me up').get(0).scrollHeight
                     }, 1500);
                 }, 250);
             }
