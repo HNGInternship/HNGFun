@@ -1,40 +1,23 @@
-<?php
-
-
-if (!defined('DB_USER')){
-            
-  require "../../config.php";
-}
+<?php 
 try {
-  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-} catch (PDOException $pe) {
-  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
-
- global $conn;
+       global $conn;
 
 
-    //fetch-store results
-    try {
+    $sql ="SELECT * FROM interns_data WHERE username = 'mustaphee' LIMIT 1";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $intern_data = $q->fetch(); 
 
-        $sql = "SELECT * FROM sample_secret_word";
-        $secret_word_query = $conn->query($sql);
-        $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
-        $query_result = $secret_word_query->fetch();
-
-        $sql_queryname = 'SELECT * FROM interns_data WHERE username="mustapha"';
-        $query_my_intern_db = $conn->query($sql_queryname);
-        $query_my_intern_db->setFetchMode(PDO::FETCH_ASSOC);
-        $intern_db_result = $query_my_intern_db->fetch();
+    //query for the secret word;
+    $sql = "SELECT * FROM secret_word";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+    // Set the secret word
+    $secret_word = $data['secret_word'];
+    } catch (PDOException $e) {
+         throw $e;
     }
-    catch (PDOException $exceptionError) {
-        throw $exceptionError;
-   }
-
-        $secret_word = $query_result['sample_secret_word'];
-        $name = $intern_db_result['name'];
-        $username = $intern_db_result['username'];
-        $image_addr = $intern_db_result['image_filename'];
 ?>
 
 <!DOCTYPE html>
@@ -100,7 +83,7 @@ try {
         <h1 style="text-align:center; color: springgreen; " >Who is this?</h1>
         <div class="card">
                 <img src="<?php echo $image_addr; ?>" alt="Yusuff Mustapha" style="width:98%">
-                <h1><?php echo $name; ?></h1>
+                <h1><?php echo $name; ?>Mustapha Yusuff</h1>
                 <p class="title">Mediocre Developer & Python Evangelist</p>
                 <p>Of course, I'm Social!</p>
                 <a href="https://www.facebook.com/mustaphee94"><i class="fa fa-facebook"></i></a>
