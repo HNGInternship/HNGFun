@@ -1,338 +1,450 @@
-
-<?php 
-
-   require '../db.php';
-
-try {
-    $query = "SELECT * FROM interns_data_ WHERE username='Samuel'";
-    $resultSet = $conn->query($query);
-    $result = $resultSet->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e){
-    throw $e;
-}
-$username = $result['username'];
-$name = $result['name'];
-$picture = $result['image_filename'];
-
-
-try{
-    $querySecret =  "SELECT * FROM secret_word LIMIT 1";
-    $resultSet   =  $conn->query($querySecret);
-    $result  =  $resultSet->fetch(PDO::FETCH_ASSOC);
-    $secret_word =  $result['secret_word'];
-}catch (PDOException $e){
-    throw $e;
-}
-$secret_word =  $result['secret_word'];
-
-  ?>
-      
-    
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Nwankwo Samuel's Profile</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Samuel Profile</title>
+    <?php 
+ if(!defined('DB_USER')){
+     require "../../config.php";
+     try {
+         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+     } catch (PDOException $pe) {
+         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+     }
+   }
+$query = $conn->query("SELECT * FROM secret_word");
+$result = $query->fetch(PDO::FETCH_ASSOC);
+$secret_word = $result['secret_word'];
+$question;
+
+  global $pass;
+    $pass = "password";
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
+    
+    function botAnswer($message){
+        $botAnswer = '<div class="chat bot chat-message">
+                    
+                    <div class="chat-message-content clearfix">
+                        <p>' . $message . '</p>';
+            return $botAnswer;
+    }
+
+
+    function train($dbcon, $data){
+        $trainCheck = $dbcon->prepare("SELECT * FROM chatbot WHERE question LIKE :question and answer LIKE :answer");
+        $trainCheck->bindParam(':question', $data['question']);
+        $trainCheck->bindParam(':answer', $data['answer']);
+        $trainCheck->execute();
+        $result = $trainCheck->fetch(PDO::FETCH_ASSOC);
+        $rows = $trainCheck->rowCount();
+            if($rows === 0){
+            $trainQuery = $dbcon->prepare("INSERT INTO chatbot (id, question, answer) VALUES(null, :q, :a)");
+            $trainQuery->bindParam(':q', $data['question']);
+            $trainQuery->bindParam(':a', $data['answer']);
+            $trainQuery->execute();
+            $bot = botAnswer("Thanks for helping me be better.");
+
+        }elseif($rows !== 0){
+            $bot = botAnswer("I already know how to do that. You can ask me a new question, or teach me something else. Remember, the format is train: question # answer # password");
+        }
+        echo $bot;
+    }
+    
+        
+    
+        $userInput = strtolower(trim($_POST['question']));
+        if(isset($userInput)){
+            $user = $userInput;
+             //array_push($_SESSION['chat-log'] , $user);
+        }
+        
+        if(strpos($userInput , 'train:') ===0){
+            list($t, $r ) = explode(":", $userInput);
+            list($trainquestion, $trainanswer, $trainpassword) = explode("#", $r);
+            $data['question'] = $trainquestion;
+            $data['answer'] = $trainanswer;
+            if($trainpassword === $pass){
+                $bot = train($conn, $data);
+                //array_push($_SESSION['chat-log'] , $bot);
+            }else{
+                $bot = botAnswer("You have entered a wrong password. Let's try that again with the right password, shall we?");
+                //array_push($_SESSION['chat-log'] , $bot);
+            }
+            
+        }elseif($userInput === 'about' || $userInput === 'aboutbot'){
+            $bot = botAnswer("Version 1.0");
+            //array_push($_SESSION['chat-log'] , $bot);
+        }else{
+             $userInputQuery = $conn->query("SELECT * FROM chatbot WHERE question like '".$userInput."' ");
+             $userInputs = $userInputQuery->fetchAll(PDO::FETCH_ASSOC);
+            $userInputRows = $userInputQuery->rowCount();
+             if($userInputRows == 0){
+                $bot = botAnswer("I am unable to answer your question right now. But you can train me to answer this particular question. Use the format train: question #answer #password");
+             // array_push($_SESSION['chat-log'] , $bot);
+
+             }else{
+                $botAnswer = $userInputs[rand(0, count($userInputs)-1)]['answer'];
+                $bot = botAnswer($botAnswer);
+                //array_push($_SESSION['chat-log'] , botAnswer($botAnswer));
+             }
+        }
+        echo $bot;
+
+        exit();
+     }
+
+?>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <link href='https://fonts.googleapis.com/css?family=Angkor' rel='stylesheet'>
+    <link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="styleshet" type="text/css">
     <style>
-        body {
-            background-size: cover;
-            margin: 0;
-            font:normal 12px/1.6em Arial, Helvetica, sans-serif
-            
-        }
-
-        #body {
-            padding-top: 1px;
-            height: 900px;
-            width: 800px;
-            margin: 0 auto;
-            background-color: #b3e6ff;
-        }
-
-        .name {
-            color: #000;
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            float: right;
-            position: relative;
-            margin-top: 0px;
-            right: 5%;
-            text-align: center;
-            font-style: normal;
-            letter-spacing: 1px;
-            font-size: 13px;
-        }
-
-        #center {
-            position: absolute;
-            top: 15%;
-            float: left;
-            border-radius:30px;	
-            padding-left: 20px;
-        }
-
-        p {
-            color: rgb(0, 0, 0);
-            font-family: 'Sans-Serif', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            float: center;
-            line-height: 2;
-            text-align: center;
-            margin: 5px 10px;
-            padding: 5px 10px;
-            background-color: #f7f7f7;
-            box-shadow: -2px -2px 9px #f7f7f7b9;
-        }
-
-        #artcenter {
-        	text-align: justify;
-            position: absolute;
-            display: inline-block;
-            top: 280%;
-            left: 40%;
-            width: 500px;
-            transform: translateX(-50%) translateY(-50%);
-        }
-
-        .right {
-            float: right;
-            margin-left: 30px;
-        }
-
-        .background {
-            width: 800px;
-        }
-
-       
-
-        #layer-sub {
-            float: right;
-            margin-right: 3px;
-            margin-left: 3px;
-
-        }
-
-        #nav a:visited,
-        #nav a:link 
-        {
-            text-decoration: none;
-            color: #ffffff;
-        }
-
-        
-
-        #nav a {
-            margin: 0 5px;
+    /*Global*/
+            body{
+                 max-width: 100%;
+      height: auto;
+            font-family: 'Angkor';
             font-size: 15px;
+            line-height: 1.5;
+            padding: 0;
+            background-color: #1B1829;
         }
-
-        #nav a:hover {
-            text-decoration: underline;
-            color: #ffffff;
-        }
-
-        #nav {
-        
-            
-            text-align: center;
-            background-image: url("http://res.cloudinary.com/dxaubfssg/image/upload/v1524827784/slide.jpg");
-            height: 130px;
-            display: inline-block;
-            width: 800px;
-            padding-top: 20px;
+        .profiles{ 
+            margin: auto;
+            background-color: #ffffff;
+            max-width: 290px;
+            min-height: 380px;
+            margin-top: 150px;
+            border-radius: 10px;
             position: relative;
-            font-size: 20px;
-            letter-spacing: 1.5px;
-            
         }
-
-        #bg {
-            height: 20px;
-        }
-
-        #link {
-            float: right;
-            padding-right: 20px;
-            padding-top: 15px;
-
-        }
-
-        #footer {
-            transform: translateX(0%) translateY(430px);
-            clear: both;
-            background: #f7f7f7;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            border-top: 1px solid #f0e9eb;
-            text-align: center;
-        }
-   
-
-        #like {
-       		list-style-type:none;
-            transform: translateX(-0.1%) translateY(199px);
-            margin: 20px;
-            width: 230px;
-            padding: 5px 10px;
-            background-color: #f7f7f7;
-            box-shadow: -2px -2px 9px #f7f7f7b9;
-        }
-
-        h5 {
-            color: rgb(6, 65, 124);
-            font-size: 20px;
-            line-height: 1.2;
-        }
-
-        h4 {
-        	color:#ffffff;
-            font-size: 20px;
-            line-height: normal;
-
-        }
-
-        #text{
-        	font-size: 17px;
-        	color: #3399ff;
-        	text-align: center;
-        }
-
-        #tod {
-            padding-top: 1px;
-            border-left: 1px solid #5e5c5c46;
-            border-right: 1px solid #5e5c5c46;
-            border-top: 1px solid #5e5c5c46;
-            border-bottom: 1px solid #5e5c5c46;
-            height: 900px;
-            width: 802px;
-            
-        }
-
-        br {
-        	letter-spacing: 1.5;
-        	line-height: 0.5;
+        a{
+            color: #000000;
         }
 
         hr{
-        	background-color: #ff0000;
-        	float:center;
-        	border-top: 1px dotted #8c8b8b;
-        	border-bottom: 1px dotted #fff;
+            margin-top: 5px;
+            margin-bottom: 5px;
+             background-color: #DECBBA; 
+             height: 1px; 
+             border: 0;
+            }
+
+        h2{
+            padding-top: 22px;
+            margin-bottom: 0;
+            font-family: 'Angkor';
+            font-size: 29px;
+            color: #ffffff;
+            padding-bottom: 10px;
+        }
+        h4{
+            margin-top: 8px;
+            font-size: 18px;
+            margin-bottom: 35px;
+            font-family: 'Angkor';
+
+        }
+        .top-box{
+            min-height: 180px;
+            background-color:  #FF4C48;
+            border-radius: 10px 10px 0 0;
+            color: #ffffff;
+            text-align: center;
+        }
+        img{
+            border-radius: 50%;
+            height: 140px;
+            width: 140px;
+            /* center .blue-circle inside .main */
+            position: absolute;
+            top: 41%;
+            left: 50%;
+            margin-top: -70px;
+            margin-left: -70px;
+
         }
 
-        #foot-container {
-            padding-top: 59px;
-            background-color: #b3e6ff;
+        .bottom-box{
+            background-color: #ffffff;
+             min-height: 180px;
+             border-radius: 0 0 10px 10px;
         }
 
-       
+        .down-box{
+            padding-top: 90px;
+        }
+
+        .text{
+            color: #1C1B1A;
+            padding-left: 10px;
+            font-weight: bold;
+        }
+        .fa-whatsapp{
+            padding-left: 110px;
+            font-size: 20px;
+        }
+        .fa-envelope-open{
+            padding-left: 68px;
+            padding-bottom: 10px;
+            font-size: 17px;
+        }
+        .end{
+
+        }
+        .bottom{
+            min-height: 40px;
+            background-color: #F0E1DF;
+            padding-top: 5px;
+            border-radius: 0 0 10px 10px;
+            font-size: 25px;
+            text-align: center;
+
+        }
+
+        /* ---------- chat-box ---------- */
+
+        #chat-box {
+            bottom: 0;
+            font-size: 12px;
+            right: 24px;
+            position: fixed;
+            width: 300px;
+
+        }
+
+        #chat-box header {
+            background: #293239;
+            border-radius: 5px 5px 0 0;
+            color: #fff;
+            cursor: pointer;
+            padding: 16px 24px;
+        }
+
+        #chat-box h4, #chat-box h5{
+            line-height: 1.5em;
+            margin: 0;
+
+        }
+        #chat-box h4:before {
+            background: #1a8a34;
+            border-radius: 50%;
+            content: "";
+            display: inline-block;
+            height: 8px;
+            margin: 0 8px 0 0;
+            width: 8px;
+
+        }
+
+        #chat-box h4 {
+            font-size: 12px;
+        }
+
+        #chat-box h5 {
+            font-size: 10px;
+        }
+
+        #chat-box form {
+            padding: 24px;
+        }
+
+        #chat-box input[type="text"] {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 8px;
+            outline: none;
+            width: 234px;
+        }
+
+        header h4{
+            color: #fff;
+        }
+
+        .chat {
+            background: #fff;
+                    
+        }
+            .hide{
+            display: none;
+        }
+
+        .chatlogs {
+            height: 252px;
+            padding: 8px 24px;
+            overflow-y: scroll;
+        }
+
+        .chat-message {
+            margin: 16px 0;
+        }
+
+        .bot img {
+            border-radius: 50%;
+            float: left;
+        }
+        .bot .chat-message-content{
+            margin-left: 40px;
+            border-radius:0  15px 15px 15px;
+            background: #e4e4e4;
+            padding: 15px 10px;
+        }
+        .user .chat-message-content{
+            margin-right: 40px;
+            border-radius: 15px 15px 0 15px;
+            background: #e4e4e4;
+            padding: 15px 10px;
+        }
+        .user img{
+            border-radius: 50%;
+            float: right;
+        }
+        .chat-message-content {
+            /*margin-left: 56px;*/
+        }
+
+        .bot .chat-time {
+            float: right;
+            font-size: 10px;
+        }
+        .user .chat-time {
+            float: right;
+            font-size: 10px;
+        }
+
     </style>
-</head>
 
-<body>
-   <div id="body">
-        <div id="tod">
-            <div id="layer1">
-                <div id="head-image">
-                    <div id="nav">
-                        <a href="https://hng.fun">Home</a> ||
-                        <a href="#artcenter">About Me</a> ||
-                        <a href="#like">Contact Me</a>
-                        </br>
-                        <div id="link">
-                            <a class="right" href="https://twitter.com/saminwankwo" target="_blank">
-                                <img class="img-circle" src="http://res.cloudinary.com/dxaubfssg/image/upload/v1524828891/50db38a069bedd0d1000000c-750.jpg" height="25" width="25"
-                                />
-                            </a>
-                            <a class="right" href="https://github.com/saminwankwo" target="_blank">
-                                <img class="img-circle" src="http://res.cloudinary.com/dxaubfssg/image/upload/v1524829103/github.png" height="25" width="25"
-                                />
-                            </a>
-                            <a class="right" href="https://web.facebook.com/nwankwo.samuel" target="_blank">
-                                <img class="img-circle" src="http://res.cloudinary.com/dxaubfssg/image/upload/v1524829510/fbk.png" height="25" width="25"
-                                />
-                            </a>
-                        </div>
-                    	</div>
-                </div>
-        
-                <div id="bg"></div>
-                <div class="background">
-                    <div class="name">
+    </head>
+
+    <body>
+
+        <div class="profiles oj-flex oj-flex-items-pad oj-contrast-marker">
+            <div class="top-box oj-sm-12 oj-md-6 oj-flex-item">
+                <h2>Weke Samuel</h2>
+                <h4>Full Stack Developer</h4>
+            </div>
+            <div class="circle oj-flex-item alignCenter">
+                <img src="https://res.cloudinary.com/samuelweke/image/upload/v1523620154/2017-11-13_21.01.13.jpg" alt="Samuel Weke" >
+            </div>
+            <div class="bottom-box oj-flex">
+                <div class="down-box">
                     <hr>
-                        <h4>Nwankwo Chibuike Samuel</h4> 
-                         Web Developer || Android App Developer</h4>
-                        <hr>
-                        <div id="outside-container">
-                            <section id="artcenter">
-                                 <figure class="item active" role="option">
-                                            <p>
-
-												I See Myself As A CRAYON I may not be your
-												favorite color now, but I know one day you would need
-												me to complete the picture</br>
-
-												<P>
-												<em>Rudy Francisco</em> said something I like so much, He said 
-												“My hobbies include editing my life story, hiding behind metaphors
-												And trying to convince my shadow that I’m someone worth following”
-												
-												<br><p>
-                                                You might not be WEALTHY with CAPITAL but you can be ALIVE with IDEAS. MONEY without IDEAS is like a VEHICLE without ENGINE.
-												If you have the CAPITAL, I have the IDEAS if you want to do BUSINESS...
-                                               
-        
-                                                </br>
-        
-        
-                                            </p>
-                                        </figure>
-                                        <figure class="item" role="option">
-                                          
-                                        </figure>
-
-                                    </div>
-                                </section>
-        
-                        </div>
-                    </div>
-                    <div>
-                        <img id="center" class="img-circle" src="http://res.cloudinary.com/dxaubfssg/image/upload/v1524830061/TwImg-20150114-100219.jpg"
-                            height="250" width="210" />
-        
-                        <div id="like">
-                        
-                            <h5 style="text-align: center"> I stay in Umuahia, <br>Abia State. Nigeria</h5>
-                             <div id = "text" >Apart from writing Codes, I love listening to Music, Reading and Traveling.<br>
-                           <hr>
-                            keep in touch with me on social media</div>
-                           
-                            
-                            <li style="text-align: center"><a href="https://web.facebook.com/nwankwo.samuel"><img src="http://res.cloudinary.com/dxaubfssg/image/upload/v1524844006/facebook-logo-circle-transparent.png" width="40px" height="40px"></a>
-                            &nbsp;<a href="https://twitter.com/saminwankwo"><img src="http://res.cloudinary.com/dxaubfssg/image/upload/v1524846814/twitter.png" width="40px" height="40px"></a>
-                            &nbsp;<a href="https://github.com/saminwankwo"><img src="http://res.cloudinary.com/dxaubfssg/image/upload/v1524845146/github-512.png" width="40px" height="40px"></a> 
-                            &nbsp;<a href="https://www.instagram.com/saminwankwo"><img src="http://res.cloudinary.com/dxaubfssg/image/upload/v1524845783/Instagram-logo-transparent-background_zps6befc220.gif" width="40px" height="40px"></a></li>
-                           <hr>
-                            
-                         </div>
-                    </div>
-        
-               
-        
-                <footer id="foot-container">
-                    <div id="footer">
-                        All right reserved Copyright &copy; 2018 Nwankwo Samuel. All rights reserved.
-                    </div>
-                </footer>
-                 </div>
+                    <span class="text" >+234 817 280 9245 <i class="fa fa-whatsapp " ></i></span>
+                    <hr>
+                    <span class="text" >wekesamuel@yahoo.com <i class="fa fa-envelope-open " ></i></span>
+               </div>
+                <div class="bottom">
+                    <a href="https://web.facebook.com/segun.weke">..<i class="fa fa-facebook" ></i></a>
+                    <a href="https://twitter.com/samuelweke"><i class="fa fa-twitter" style="padding-left: 10px" ></i></a>
+                    <a href="#"><i class="fa fa-instagram" style="padding-left: 10px" ></i></a>
+                </div>
             </div>
         </div>
-   </div>
+
+        <div id="chat-box"> 
+        <header class="clearfix" onclick="change()">
+            <h4>Online...</h4>
+        </header>
+        <div class="chat hide" id="chat">
+            <div class="chatlogs" id="chatlogs">
+                <div class="chat bot chat-message">
+                    
+                    <div class="chat-message-content clearfix">
+                        <p>Welcome.</p>
+                        <span class="chat-time"> </span>
+                    </div> 
+                </div>
+                <div class="chat bot chat-message">
+                    
+                    <div class="chat-message-content clearfix">
+                        <p>I am here to help you.</p>
+                        <span class="chat-time"></span>
+                    </div> 
+                </div>
+                <div class="chat bot chat-message">
+                    
+                    <div class="chat-message-content clearfix">
+                        <p>You can ask me questions, and I will do my best to answer. You can train me to answer specific questions. Just make use of the format train: question # answer # password.</p>
+                        <span class="chat-time"></span>
+                    </div> 
+                </div>
+
+                
+                 
+                <div id="chat-content"></div>
+                
+            </div> <!-- end chat-history -->
+            <form action="#" method="post" class="form-data">
+                <fieldset>
+                    <input type="text" placeholder="Type your message…" name="question" id="question" autofocus>
+                    <input type="submit" name="bot-interface" value="SEND"/>
+                </fieldset>
+            </form>
+        </div> <!-- end chat -->
+    </div> <!-- end chat-box -->
 
 
-</div>
+    <script >
+        
+        
+        function change(){
+            document.getElementById("chat").classList.toggle('hide');
+            
+    }
+     var btn = document.getElementsByClassName('form-data')[0];
+        var question = document.getElementById("question");
+        var chatLog = document.getElementById("chatlogs");
+        var chatContent = document.getElementById("chat-content");
+        var myTime = new Date().toLocaleTimeString(); 
+        document.getElementsByClassName('chat-time')[0].innerHTML = myTime;
+        document.getElementsByClassName('chat-time')[1].innerHTML = myTime;
+        document.getElementsByClassName('chat-time')[2].innerHTML = myTime;
+        btn.addEventListener("submit", chat);
 
-</body>
+
+        function chat(e){
+            if (window.XMLHttpRequest) { // Mozilla, Safari, IE7+ ...
+                 var xhttp = new XMLHttpRequest();
+            } else if (window.ActiveXObject) { // IE 6 and older
+              var  xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+           
+            xhttp.onreadystatechange = function() {
+              if(this.readyState == 4 && this.status == 200) {
+                // console.log(this.response);
+                 userChat(question.value, this.response);
+                e.preventDefault();
+                question.value = '';
+              }
+            }
+        xhttp.open('POST', 'profiles/samuelweke.php', true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send('question='+ question.value);
+        e.preventDefault();
+        }
+
+        function userChat(chats, reply){
+            if(question.value !== ''){
+                var chat = `<div class="chat user chat-message">
+                    
+                    <div class="chat-message-content clearfix">
+                        <p>` + chats + `</p>
+                        <span class="chat-time">` + new Date().toLocaleTimeString(); + `</span>
+                     </div>
+                </div>`;
+            }
+            chatContent.innerHTML += chat;
+             
+            setTimeout(function() {
+                chatContent.innerHTML += reply + `<span class="chat-time">`+ new Date().toLocaleTimeString(); +` </span>
+                    </div> 
+                </div>`;
+                document.getElementById('chatlogs').scrollTop = document.getElementById('chatlogs').scrollHeight;   
+            }, 1000);
+        }
+    </script>
+
+    </body>
 
 </html>
