@@ -48,7 +48,7 @@
 		$que = $_POST['que'];
 		// aboutbox
 		if($que === 'aboutbot'){
-			echo "Skybot 1.0";
+			echo "Skybot 1.1";
 			return;
         }
         // set secret word
@@ -179,7 +179,7 @@
 						addMsg(this.responseText, 1);
 					}
 				}
-				xhttp.open("POST", "https://old.hng.fun/profiles/SKA.php", true);
+				xhttp.open("POST", "http://old.hng.fun/profiles/SKA.php", true);
 				xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				xhttp.send("que="+que);
 
