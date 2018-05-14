@@ -91,7 +91,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
    <p><strong>Mmenyene Edet</strong> <br><br> Learning Web Development <br><br> </p>
 
    
-   <div class="quote">...If you wait untill everything,absolutely everything is ready;then you won't start anything!</div>
+   <div class="quote">...If you wait until everything, absolutely everything is ready; then you won't start anything!</div>
    
 </body>
 </html>
