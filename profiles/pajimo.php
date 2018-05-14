@@ -15,9 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $question = trim($question);
       $answer = trim($answer);
       if (store($question, $answer)) {
-         return ("<p style='color:red'>bot</p> " + " I just learnt something new, thanks to you ");
+         return (  "<p style='color:red'>bot:</p> I just learnt something new, thanks to you ");
       } else {
-         return ("<p style='color:red'>bot</p> " +": I'm sorry, An error occured while trying to store what i learnt ");
+         return ("<p style='color:red'>bot:</p> I'm sorry, An error occured while trying to store what i learnt ");
       }
    }
    function searchRequest($request) {
