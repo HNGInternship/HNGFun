@@ -1,32 +1,25 @@
 <?php
-// ob_start();
 session_start();
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
    if (!defined('DB_USER')) {
-      //live server
       require "../../config.php";
-      //   localhost
-      // require "../config.example.php";
       try {
          $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
       } catch (PDOException $pe) {
-         echo ("🤖I couldn't connect to knowledge base : " . $pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
+         echo ("<p style='color:red'>bot</p> " + " I couldn't connect to knowledge base : " . $pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
       }
    }
-   // require '../answers.php';
+    require '../answers.php';
    global $conn;
-
    function train($question, $answer) {
       $question = trim($question);
       $answer = trim($answer);
       if (store($question, $answer)) {
-         return "🤖 I just learnt something new, thanks to you 😎";
+         return (  "<p style='color:red'>bot:</p> I just learnt something new, thanks to you ");
       } else {
-         return "🤖 I'm sorry, An error occured while trying to store what i learnt 😔";
+         return ("<p style='color:red'>bot:</p> I'm sorry, An error occured while trying to store what i learnt ");
       }
    }
-
-
    function searchRequest($request) {
       global $conn;
       $statement = $conn->prepare("select answer from chatbot where question like :request order by rand()");
@@ -36,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $rows = $statement->fetch();
       $response = $rows['answer'];
       if (!empty($response)):
-         $response = "🤖 " . $response;
+         $response = "<p style='color:red'>bot</p> " . $response;
       endif;
       //check for function
       try {
@@ -49,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                $response = str_replace('(', '', $response);
                $response = str_replace(')', '', $response);
             } else {
-               $response = "🤖 I'm sorry, The function doesn't exist";
+               $response = ("<p style='color:red'>bot</p> " + " I'm sorry, The function doesn't exist");
             }
          }
       } catch (Exception $ex) {
@@ -57,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       }
       return $response;
    }
-
    function store($request, $response)
    {
       global $conn;
@@ -71,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
          return false;
       }
    }
-
    if (isset($_POST['new_request'])) {
       $bot_response['response'] = [];
       $user_request = "";
@@ -79,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       $request = $_POST['new_request'];
       $user_request = trim($request);
       if (empty($user_request)) {
-         $bot_response['response'] = "🤖 You haven't made any request";
+         $bot_response['response'] = ("<p style='color:red'>bot</p> " + " You didnt write anything");
       } else {
          if (!empty(searchRequest($user_request))) {
             $bot_response['response'] = searchRequest($user_request);
@@ -88,26 +79,45 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $question = trim(preg_replace("/(train:)/", "", $power_split[0]));
             $answer = trim($power_split[1]);
             $password = trim($power_split[2]);
-
             if ($password != "password") {
-               $bot_response['response'] = "🤖 Training Access Denied!";
+               $bot_response['response'] = " Training Access Denied!";
             } else {
                $bot_response['response'] = train($question, $answer);
             } 
          }else {
-            $bot_response['response'] = "🤖 I  don't understand your request, I hope you wouldn't mind training me?";
+            $bot_response['response'] =("<p style='color:red'>bot</p> " + " I  am lost! Can you train me please?");
          }
       }
       send:
       echo json_encode($bot_response);
    }
 }
-if ($_SERVER['REQUEST_METHOD'] == "GET") {
-   $result = $conn->query("Select * from secret_word LIMIT 1");
-   $result = $result->fetch(PDO::FETCH_OBJ);
-   $secret_word = $result->secret_word;
-   $result2 = $conn->query("Select * from interns_data where username = 'pajimo'");
-   $user = $result2->fetch(PDO::FETCH_OBJ);
+if (!defined('DB_USER')){
+            
+  require "../config.php";
+}
+try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+ global $conn;
+ try {
+  $sql = 'SELECT * FROM secret_word LIMIT 1';
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $data = $q->fetch();
+  $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+  throw $e;
+}    
+try {
+  $sql = "SELECT * FROM interns_data WHERE `username` = 'pajimo' LIMIT 1";
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $my_data = $q->fetch();
+} catch (PDOException $e) {
+  throw $e;
 }?>
 <?php if ($_SERVER['REQUEST_METHOD'] == "GET") {?>
    
@@ -265,44 +275,28 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     top: 80px;
 }
         </style>
-      <div class="bot round-corners">
-         <div class="inner">
-            <h2>Chat 🤖</h2>
-            <div id="chatarea" style="overflow: auto; height:300px; border:1px solid whitesmoke; border-radius:5px"></div>
-            <div class="input-group">
-               <input type="text" class="form-control" id="message" type="text" placeholder="Message" name="newrequest" />
-               <div class="input-group-btn">
-                  <button class="btn btn-success pull-right" id="sen" type="button">Send 💬</button>
-               </div>
-            </div>
-         </div>
-      </div>
          
          <div style="width: 400px" id="child4" class = "bot round-corners">
           <div class="panel inner">
               <div>
                 <p style="overflow: scroll; height: 250px; width: 100%; margin: 0px;" id="chatarea"></p>
-                <input type="text" name="" style="width: 80%; height: 24px;" id="message">
-                <button style="position: absolute; width: 19%; height: 30px" id="send">Send44</button>
+                <input type="text" name="" style="width: 80%; height: 24px;" id="message" name="newrequest"Type">
+                <button style="position: absolute; width: 19%; height: 26px" id="send">Send</button>
               </div>
           </div>
-          <p class="slide"><div class="pull-me" style="text-align: center">Chat with me</div></p>
+          <p class="slide"><div class="pull-me" style="text-align: center">Chat with me :)</div></p>
         </div>
   
 </body>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
-
 function newElementsForUser(userRequest) {
    var chatArea = $("#chatarea");
    var messageElement = "<div class='form-control form-control2 text-right'>" + userRequest + "</div>";
    chatArea.html(chatArea.html() + messageElement);
-   var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
-   var timeElement = "<p class='timeEl text-right'>" + time + "</p>";
-   chatArea.html(chatArea.html() + timeElement);
    chatArea.scrollTop($("#chatarea")[0].scrollHeight);
 }
+
 
 function newElementsForBot(botResponse) {
    var chatArea = $("#chatarea");
@@ -312,14 +306,17 @@ function newElementsForBot(botResponse) {
       var messageElement = "<div class='form-control form-control2 text-left'>" + botResponse.response + "</div>";
    }
    chatArea.html(chatArea.html() + messageElement);
-   var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true , milliseconds: true});
-   var timeElement = "<p class='timeEl text-left'>" + time + "</p>";
-   chatArea.html(chatArea.html() + timeElement);
    chatArea.scrollTop($("#chatarea")[0].scrollHeight);
 }
+             
+             document.body.addEventListener('keyup', function (e) {
+   if (e.keyCode == "13") {
+      $("#send").click();
+   }
+});
 
 $(document).ready(function() {
-   response = {"response" : "Hello..<br/> You can ask me few questions<br/> To train the bot(train: question # answer # password)"};
+   response = {"response" : "<p style='color:red'>bot</p> " + "Hello. am a bot and you can chat with me a little.<br/>Train me by(train: question # answer # password)"};
    newElementsForBot(response);
 });
    
@@ -338,24 +335,24 @@ $(document).ready(function chargeBot() {
       var message = $("#message").val();
       newElementsForUser(message);
       if (message == "" || message == null) {
-         response = { 'response': 'Please type something' };
+         response = { 'response':  "<p style='color:red'>bot</p> " + ' Please type something' };
          newElementsForBot(response);
       }else if (message.includes('open:')) {
          url = message.split('open:');
          window.open('http://' + url[1]);
-      } else if (message.includes("randomquote:") || message.includes("random quotes:")) {
+      } else if (message.includes("randomquote") || message.includes("random quotes")) {
          $.getJSON("https://talaikis.com/api/quotes/random/", function (json) {
             response = json['quote'] + '<br/> Author : ' + json['author'];
-            botResponse = { 'response': response };
+            botResponse = { 'response': "<p style='color:red'>bot</p> " + response };
             newElementsForBot(botResponse);
          });
          $("#chatarea").scrollTop($("#chatarea")[0].scrollHeight);
       } else if (message.includes("aboutbot") || message.includes("about bot") || message.includes("aboutbot:")) {
-         response = { 'response': 'Version 4.0' };
+         response = { 'response': "<p style='color:red'>bot</p> " + 'Version 4.0' };
          newElementsForBot(response);
       } else {
          $.ajax({
-            url: "profiles/eniayomi.php",
+            url: "profiles/pajimo.php",
             type: "POST",
             data: { new_request: message },
             dataType: "json",
@@ -368,15 +365,8 @@ $(document).ready(function chargeBot() {
    });
 });
 
-document.body.addEventListener('keyup', function (e) {
-   if (e.keyCode == "13") {
-      $("#send").click();
-   }
-});
-
 </script>
 
 </html>
 
 <?php }?>
-
