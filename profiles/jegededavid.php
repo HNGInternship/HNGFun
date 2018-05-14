@@ -250,3 +250,5 @@ $('#chatbot').animate({
 
 
 
+
+
