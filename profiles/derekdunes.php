@@ -1,6 +1,5 @@
 <?php
-	require_once '../db.php';
-
+	
 	$user_name = "derekdunes";
 
 	try{
@@ -8,6 +7,7 @@
 		//secret key query
 		$query = $conn->query("SELECT * FROM secret_word");
 		$result = $query->fetch(PDO::FETCH_ASSOC);
+
 
 		//user data query
 		$stmt = $conn->query("SELECT * FROM interns_data_ WHERE username = '$user_name'");
@@ -26,13 +26,8 @@
 
 
 ?>
-
-<html>
-
-<head>
-
 	<!-- Bootstrap core CSS -->
-	     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
 	<!-- import font awesome -->
@@ -41,15 +36,11 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 	<link href="https://fonts.googleapis.com/css?family=Work+Sans:Regular|Lato:regular" rel="stylesheet"> 
-</head>
 
-<body>	
-		<!-- body style -->
-		<style type="text/css">
+	<!-- body style -->
+	<style type="text/css">
 			
-			body {
-				background-color: #fff;
-			}
+		
 
 			.container {
 				margin-top: 15px; 
@@ -157,7 +148,7 @@
 				<div class="col-sm-2"></div>
 				<div class="col-sm-2"></div>
 				<!-- Contact button -->
-				<div class="col-sm-4 text-center" id="button">
+				<div class="col-sm-4 text-center" onclick="mailHim()" id="button">
 					Contact
 				</div>
 				<div class="col-sm-2"></div>
@@ -170,15 +161,10 @@
 		</div>
 
 		    <!-- Bootstrap core JavaScript -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
     <script type="text/javascript">
 
-    	$("#button").click( function(){
+    	function mailHim(){
     		window.open('malito:mbahderek@gmail.com');
-    	});
+    	};
 
     </script>
-
-</body>
-
-</html>
