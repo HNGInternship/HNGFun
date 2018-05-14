@@ -27,7 +27,7 @@
             $bot -> setName($input);
 
         //get the time for user
-        else if(strpos($input, 'time') || $input == 'time')
+        else if(strpos($input, 'time') !== false )
             $bot -> getTime($input);
 
         //train the bot
@@ -39,7 +39,7 @@
         else if($input == 'aboutbot')
             $bot -> getBotData();
 
-        else if( strpos($input, 'date') || $input == 'date'){
+        else if( strpos($input, 'date') !== false){
             echo 'Today is '.date('D.').' the '.date('jS M, ').date('Y');
             exit();
         }
@@ -76,10 +76,12 @@
         }
 
         function showHelp(){
-            echo 'Here\'s a few stuff I could do for you right now:'.'<br>'.
-                 '\'aboutbot\' gives you a bit about me. '.'<br>'.
-                 'I could tell you the time if you do \'what is the time\' '.'<br>'.
-                 'I could tell you the time in a few cities too. Just do `what is the time in ``your city`` '.'<br>'.
+            echo 'Here\'s a few stuff I could do for you right now:'.'<br><br />'.
+                 '<strong>aboutbot: </strong> gives you a bit about me. '.'<br>'.
+                 '<strong>what is the date | date: </strong> gives the current date'.'<br />'.
+                 '<strong>what is the time | time: </strong> gives the current time  '.'<br>'.
+                 '<strong>what is the time in `city` | time `city`: </strong> gives time in select cities '.'<br>'.
+                 'You could train me using the format: '.'<span><h4>train: question # answer # password</h4></span>'.'<br />'.
                  'Don\'t forget to leave out the quotes.';
 
             exit();           
@@ -128,7 +130,7 @@
 
         function welcomeUser($user_name){
             $this -> greetUser($user_name);
-            echo "Now we are great friends. See?";
+            echo '<br />'."Now we are great friends. See?";
             exit();
         }   //end function welcome_user
 
@@ -144,7 +146,7 @@
             $stmt -> bindValue(':qstn', '%'.$input.'%');
 
             if( $stmt -> execute() ){   //
-                $row = $stmt  -> fetch(PDO::FETCH_ASSOC);
+                $row = $stmt -> fetch(PDO::FETCH_ASSOC);
                 if ($row) {         //row is returned?
                     $str = implode('', $row);
 
@@ -220,39 +222,37 @@
 
                     //execute if question already exists
                     else {
-                        // $msg_id;    //message id of question
+                        $msg_id;    //message id of question
 
-                        // $sql = "SELECT msg_id FROM chatbot WHERE question LIKE :qstn";
-                        // $query = $conn -> prepare($sql);
-                        // $query -> bindValue(':qstn', '%'.$question.'%');
+                        $sql = "SELECT msg_id FROM chatbot WHERE question LIKE :qstn";
+                        $query = $conn -> prepare($sql);
+                        $query -> bindValue(':qstn', '%'.$question.'%');
 
-                        // if($query -> execute()){
-                        //     $row = $query -> fetch();
-                        //     if($row){
-                        //         $msg_id = $row['msg_id'];
-                        //     } else{
-                        //         echo "Could not retrieve message";
-                        //         exit();
-                        //     } 
-                        // } 
-                        // else{
-                        //     print_r($conn -> errorInfo());
-                        // } 
+                        if($query -> execute()){
+                            $row = $query -> fetch();
+                            if($row){
+                                $msg_id = $row['msg_id'];
+                            } else{
+                                echo "Could not retrieve message";
+                                exit();
+                            } 
+                        } 
+                        else{
+                            print_r($conn -> errorInfo());
+                        } 
                             
-                        // //add an answer to an existing question
-                        // $sql_r = "UPDATE chatbot SET answer = CONCAT(answer, :ans) WHERE msg_id = :msg_id";
-                        // $stmt = $conn -> prepare($sql_r);
-                        // $stmt -> bindParam(':msg_id', $msg_id, PDO::PARAM_INT);
-                        // $stmt -> bindValue(':ans', '#@'.$answer.'@#', PDO::PARAM_STR);
+                        //add an answer to an existing question
+                        $sql_r = "UPDATE chatbot SET answer = CONCAT(answer, :ans) WHERE msg_id = :msg_id";
+                        $stmt = $conn -> prepare($sql_r);
+                        $stmt -> bindParam(':msg_id', $msg_id, PDO::PARAM_INT);
+                        $stmt -> bindValue(':ans', '#@'.$answer.'@#', PDO::PARAM_STR);
 
-                        // if ($stmt -> execute()) {
-                        //     echo "You added a new answer to: '".$question."'";
-                        //     exit();                         
-                        // } else  {
-                        //     echo "New answer could not be added"; 
-                        //     exit();
-                        echo "I already trained with that";
-                        exit();
+                        if ($stmt -> execute()) {
+                            echo "You added a new answer to: '".$question."'";
+                            exit();                         
+                        } else  {
+                            echo "New answer could not be added"; 
+                            exit();
                         }  
                     }
                 }   //end outer if
@@ -594,8 +594,8 @@
 
             <div id="msg_box">
                 <ul id="message_list">
-                    <li class="bot_msg">Hi, I'm tokr-Bot<br>You can say your name if you preceed it with '!'<br>'Help' shows commands I can process.
-                                        <br>Wanna make me smarter? Train me using the format;<br>train: question#answer#password<br>
+                    <li class="bot_msg">Hi, I'm tokr-Bot<br />You can say your name if you preceed it with '!'<br />'Help' shows commands I can process.
+                                        <br>Wanna make me smarter? Train me using the format;<br /><span><strong>train: question#answer#password</span></strong><br />
                                         The password is 'password'. No quotes ofcourse.<br>Or just ask me something...I might just know it.</li>
                 </ul>
             </div>
