@@ -8,9 +8,15 @@
 			 die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 		}
     }
+
+    function get_location($ip_address){
+        $arr = var_export(unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$_SERVER['REMOTE_ADDR'])));
+        return isset($arr) ? $arr['geoplugin_city']. " " . $arr["geoplugin_countryName"] : Null;
+    }
     
     function askQuestion($que){
-		// include "config.php";
+        // include "config.php";
+        $que = str_replace("'", " ", $que);
 		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		$sql = "SELECT answer FROM chatbot where question = '".$que."';";
 		// $que_query = $conn->query($sql);
@@ -31,7 +37,9 @@
 			}
 			else $ans = $result[0]['answer'];			
         }else $ans = "No answer found. Please train me.";
-        if($ans == "((get_current_time))")return get_current_time();
+        if(stristr($ans,"((get_current_time))")return str_replace("((get_current_time))", get_current_time(), $ans);
+        else if(stristr($ans,"((get_time))")return str_replace("((get_time))", get_current_time(), $ans);
+        else if(stristr($ans,"((get_location))")return str_replace("((get_location))", get_location(), $ans);
 		return $ans;
 	}
 
@@ -56,6 +64,11 @@
 			echo "Skybot 1.1";
 			return;
         }
+        // find location
+		// if($que === 'aboutbot'){
+		// 	echo "Skybot 1.1";
+		// 	return;
+        // }
         // set secret word
         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
         $sql = "SELECT * FROM secret_word";
@@ -107,7 +120,18 @@
 		if(array_search($que, $myname)){
 			echo "My name is Skybot.<br/><br/>What is yours?";
 			return;
-		}
+        }
+        // find vivitor location
+        if($que == "where am i"){
+            $location = get_location($_SERVER['REMOTE_ADDR']);
+            if(isset($location))echo "You are in ". $location;
+            else echo "Sorry, I couldn't get that...";
+            return 
+        }
+        // find location of ip
+        if(stristr($que, "where is")){
+            return get_location(trim(stristr($que, "where is")));
+        }
 		
 		// check from db
 		echo askQuestion($que);
