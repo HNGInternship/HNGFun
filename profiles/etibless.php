@@ -109,12 +109,32 @@
     background: cornflowerblue;
     width: 25rem;
     height: 30rem;
+    box-shadow: 1px  1px 4px black;
+
 
   }
   #user{
-      margin-left:20rem;
+      margin-left:13rem;
+      margin-right:1rem;
+      border-radius: 5%;
+      background-color:white;
+      text-align:center;
 }
-.all{
+#bot{
+      margin-left:0.5rem;
+      margin-right:13rem;
+      border-radius: 5%;
+      background-color:black;
+      color:white;
+      text-align:center;
+}
+#msg{
+    background-color:black;
+    text-align:center;
+    background-color:black;
+    
+}
+ll{
   position:absolute;
   background-color: rgb(1, 1, 7)
 }
@@ -177,7 +197,7 @@ input{
 <div class="ChatBot">
    
     <h3 style="padding:5px; color:rgb(181, 247, 224);text-shadow:1px 2px 1px #080808;">Etibless Chat!</h3><hr><br>
-    <p>Hi There welcome, To Train me, Type: <br>Train: question#Answer#password</p>
+    <p id="msg">Hi There welcome, To Train me, Type: <br>Train: question#Answer#password</p>
     
 
             <div id='sh'>
