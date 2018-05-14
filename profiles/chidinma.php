@@ -35,8 +35,8 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		<Title> Chidinma </Title>
 		<style> 
 		.container{
-			height: 800px;
-			width: 1200px;
+			height: auto;
+			width: auto;
 			background-color: #A394CD;
 		}
 		img  {width: 200px;
