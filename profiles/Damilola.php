@@ -1,6 +1,6 @@
 <?php
 //error_reporting(E_ALL);
-  require '../db.php';
+  //require '../db.php';
   $res = $conn->query("SELECT * FROM  interns_data WHERE username = 'Damilola' ");
   $row = $res->fetch(PDO::FETCH_BOTH);
   $name = $row['name'];
@@ -364,7 +364,7 @@ h5{
                     return false;
                     } else{
                         $.ajax({
-                        url: 'profiles/Damilola.php',
+                        url: '/profiles/Damilola.php',
                         type: 'POST',
                         cache: 'false',
                         data: {
