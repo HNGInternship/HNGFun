@@ -1,5 +1,5 @@
 <?php
-	
+
 	$user_name = "derekdunes";
 
 	try{
@@ -8,9 +8,8 @@
 		$query = $conn->query("SELECT * FROM secret_word");
 		$result = $query->fetch(PDO::FETCH_ASSOC);
 
-
 		//user data query
-		$stmt = $conn->query("SELECT * FROM interns_data_ WHERE username = '$user_name'");
+		$stmt = $conn->query("SELECT * FROM interns_data WHERE username = '$user_name'");
 
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -26,7 +25,8 @@
 
 
 ?>
-	<!-- Bootstrap core CSS -->
+
+<!-- Bootstrap core CSS -->
 	<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
