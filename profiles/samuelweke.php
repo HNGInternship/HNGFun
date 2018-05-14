@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Samuel's Profile</title>
+	<title>Samuel Profile</title>
 	<?php 
-  try {
-      $sql = "SELECT secret_word FROM secret_word";
-      $q = $conn->query($sql);
-      $q->setFetchMode(PDO::FETCH_ASSOC);
-      $data = $q->fetch();
-      $secret_word = $data['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
+ if(!defined('DB_USER')){
+     require "../../config.php";
+     try {
+         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+     } catch (PDOException $pe) {
+         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+     }
+   }
+$query = $conn->query("SELECT * FROM secret_word");
+$result = $query->fetch(PDO::FETCH_ASSOC);
+$secret_word = $result['secret_word'];
+$question;
 
   global $pass;
 	$pass = "password";
@@ -20,7 +23,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	
 	function botAnswer($message){
 		$botAnswer = '<div class="chat bot chat-message">
-					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
+					
 					<div class="chat-message-content clearfix">
 						<p>' . $message . '</p>';
 			return $botAnswer;
@@ -42,7 +45,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			$bot = botAnswer("Thanks for helping me be better.");
 
 		}elseif($rows !== 0){
-			$bot = botAnswer("I already know how to do that. You can ask me a new question, or teach me something else. Remember, the format is train: question # answer # password");
+			$bot = botAnswer("I can answer that. You can ask me a new question, or teach me something else.");
 		}
 		echo $bot;
 	}
@@ -64,13 +67,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	 			$bot = train($conn, $data);
 	 			//array_push($_SESSION['chat-log'] , $bot);
 	 		}else{
-	 			$bot = botAnswer("You have entered a wrong password. Let's try that again with the right password, shall we?");
+	 			$bot = botAnswer("You have entered a wrong password. Input the correct password");
 	 			//array_push($_SESSION['chat-log'] , $bot);
 	 		}
 	 		
 	 	}elseif($userInput === 'about' || $userInput === 'aboutbot'){
 	 		$bot = botAnswer("Version 1.0");
      		//array_push($_SESSION['chat-log'] , $bot);
+	 	}elseif($userInput === 'hey' || $userInput === 'hi' || $userInput === 'wassup'){
+	 		$bot = botAnswer("Hi, How are you doing?");
+	 	}elseif($userInput === 'name' || $userInput === 'What is your name'){
+	 		$bot = botAnswer("Samuel's Bot");
 	 	}else{
 			 $userInputQuery = $conn->query("SELECT * FROM chatbot WHERE question like '".$userInput."' ");
 		     $userInputs = $userInputQuery->fetchAll(PDO::FETCH_ASSOC);
@@ -210,11 +217,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			width: 300px;
 
 		}
-
 		#chat-box header {
-			background: #293239;
-			border-radius: 5px 5px 0 0;
-			color: #fff;
+			background: #075e54;
+			border-radius: 7px 7px 0 0;
+			color: #ffffff;
 			cursor: pointer;
 			padding: 16px 24px;
 		}
@@ -236,7 +242,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 
 		#chat-box h4 {
-			font-size: 12px;
+			font-size: 20px;
 		}
 
 		#chat-box h5 {
@@ -244,16 +250,25 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 
 		#chat-box form {
-			padding: 24px;
+			padding-left: 15px;
+			padding-top: 10px;
+			background-color: #ece5dd;
+			height: 57px;
 		}
 
 		#chat-box input[type="text"] {
 			border: 1px solid #ccc;
-			border-radius: 3px;
-			padding: 8px;
+			border-radius: 30px;
+			padding-top:4px;
+			padding-bottom: 4px;
+			padding-left: 10px;
 			outline: none;
-			width: 234px;
+			width: 258px;
+			height: 38px;
+			font-size: 18px;
+
 		}
+
 
 		header h4{
 			color: #fff;
@@ -261,16 +276,24 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 		.chat {
 			background: #fff;
+			min-height: 20px;
 					
+		}
+
+		.chat p{
+			margin: 0;
+			padding-top: 7px;
 		}
 			.hide{
 			display: none;
 		}
 
 		.chatlogs {
-			height: 252px;
+			background-color:#ece5dd;
+			height: 260px;
 			padding: 8px 24px;
 			overflow-y: scroll;
+
 		}
 
 		.chat-message {
@@ -282,17 +305,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			float: left;
 		}
 		.bot .chat-message-content{
-			margin-left: 40px;
-			border-radius:0  15px 15px 15px;
-			background: #e4e4e4;
-			padding: 15px 10px;
+			margin-left: 10px;
+			padding: 3px 10px;
 		}
 		.user .chat-message-content{
-			margin-right: 40px;
-			border-radius: 15px 15px 0 15px;
-			background: #e4e4e4;
-			padding: 15px 10px;
+			margin-right: -20px;
+			background: #dcf8c6;
+			padding: 3px 10px;
 		}
+		.user .chat-message-content.chat{
+			background: #dcf8c6;
+		}
+
+
 		.user img{
 			border-radius: 50%;
 			float: right;
@@ -332,7 +357,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					<span class="text" >wekesamuel@yahoo.com <i class="fa fa-envelope-open " ></i></span>
 			   </div>
 				<div class="bottom">
-					<a href="https://web.facebook.com/segun.weke"><i class="fa fa-facebook" ></i></a>
+					<a href="https://web.facebook.com/segun.weke">..<i class="fa fa-facebook" ></i></a>
 					<a href="https://twitter.com/samuelweke"><i class="fa fa-twitter" style="padding-left: 10px" ></i></a>
 					<a href="#"><i class="fa fa-instagram" style="padding-left: 10px" ></i></a>
 				</div>
@@ -341,28 +366,28 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 		<div id="chat-box">	
 		<header class="clearfix" onclick="change()">
-			<h4>Online...</h4>
+			<h4>Chat with Bot</h4>
 		</header>
 		<div class="chat hide" id="chat">
 			<div class="chatlogs" id="chatlogs">
 				<div class="chat bot chat-message">
-					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
+					
 					<div class="chat-message-content clearfix">
-						<p>Welcome.</p>
+						<p>Welcome, I am a chatbot<br>To know my version enter "aboutbot".</p>
 						<span class="chat-time"> </span>
 					</div> 
 				</div>
 				<div class="chat bot chat-message">
-					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
+					
 					<div class="chat-message-content clearfix">
-						<p>I am here to help you.</p>
+						<p>I was created by Samuel</p>
 						<span class="chat-time"></span>
 					</div> 
 				</div>
 				<div class="chat bot chat-message">
-					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
+					
 					<div class="chat-message-content clearfix">
-						<p>You can ask me questions, and I will do my best to answer. You can train me to answer specific questions. Just make use of the format train: question # answer # password.</p>
+						<p>Ask me questions and I will try to answer. You can train me to answer some questions. Just make use of the format (train: question # answer # password).</p>
 						<span class="chat-time"></span>
 					</div> 
 				</div>
@@ -374,8 +399,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			</div> <!-- end chat-history -->
 			<form action="#" method="post" class="form-data">
 				<fieldset>
-					<input type="text" placeholder="Type your message…" name="question" id="question" autofocus>
-					<input type="submit" name="bot-interface" value="SEND"/>
+					<input type="text" placeholder="Type a message" name="question" id="question" autofocus>
 				</fieldset>
 			</form>
 		</div> <!-- end chat -->
@@ -424,7 +448,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		function userChat(chats, reply){
 			if(question.value !== ''){
 				var chat = `<div class="chat user chat-message">
-					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
+					
 					<div class="chat-message-content clearfix">
 						<p>` + chats + `</p>
 						<span class="chat-time">` + new Date().toLocaleTimeString(); + `</span>
