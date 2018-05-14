@@ -1,25 +1,99 @@
-<?php 
-try {
-       global $conn;
-
-
-    $sql ="SELECT * FROM interns_data WHERE username = 'mustaphee' LIMIT 1";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $intern_data = $q->fetch(); 
-
-    //query for the secret word;
-    $sql = "SELECT * FROM secret_word";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
-    // Set the secret word
-    $secret_word = $data['secret_word'];
-    } catch (PDOException $e) {
-         throw $e;
-    }
+<?php
+$file = realpath(__DIR__ . '/..') . "/db.php" ;
+include $file;
+global $conn;
 ?>
 
+<?php
+
+if ($_SERVER['REQUEST_METHOD']  === "POST"){
+	require_once("../answers.php");
+		if(preg_match("/^(help)/i",$_POST['req'])){
+			echo json_encode("available commands are: 'aboutbot',\n 'time',\n'train:[question]#[answer]#password");
+			return;
+		}
+		if($_POST['req'] == "aboutbot"){
+			echo json_encode("I am BOTGil. Current Version: 1.0");
+		}else if(preg_match("/time/i",$_POST['req'])){
+			echo json_encode(get_time());
+		}
+		else if(strpos(" ".$_POST['req'],'train')){
+			$te = str_replace(" ","",$_POST['req']);
+			
+			if(!preg_match("/^train:(\w){1,}#(\w){1,}#(\w){1,}$/",$te) ){
+				echo json_encode("the training format is 'train: question#answer#password'");
+				return;
+			}
+			$exploded =preg_split("/[:#]+/",$_POST['req']);
+			$question = trim($exploded[1]);
+
+			$answer = trim($exploded[2]);
+
+			$password = trim($exploded[3]);
+			if($password == "password"){
+				$sql3 = "INSERT INTO  `chatbot` (`question`, `answer`) VALUES ('". $question ."','". $answer ."')";
+				$query = $conn->query($sql3);
+				echo json_encode("I am learning, thank you for training me ");
+					
+			}else{
+				echo json_encode("wrong password ".$password);
+			}
+
+		
+
+		}
+		else{
+			$text=$_POST['req'];
+			$sql3="SELECT * FROM chatbot WHERE question='$text ' ORDER BY RAND() LIMIT 1";
+			$query = $conn->query($sql3);
+			   $query->setFetchMode(PDO::FETCH_ASSOC);
+			   $result3 = $query->fetch();
+			$ans=$result3['answer'];
+
+			if(isset($ans)){
+				echo json_encode($ans);
+			}else{
+				echo json_encode("Good to know");
+			}
+
+		}
+
+		
+	   
+	
+exit();
+}
+
+?>
+
+
+<?php
+if($_SERVER['REQUEST_METHOD'] === "GET"){
+    
+    try {
+        $sql = "SELECT * FROM interns_data WHERE username='{$_GET['id']}'";
+    
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+
+    $name = $data['name'];
+    $username = $data['username'];
+    $image = $data['image_filename'];
+
+    try {
+        $sql = 'SELECT * FROM secret_word';
+        $q= $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    $secret_word = $data['secret_word'];
+?>
 <!DOCTYPE html>
 <html>
 <head>
