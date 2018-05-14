@@ -63,8 +63,8 @@ button:hover, a:hover {
 <body>
 
 <div class="card">
-  <img src="<?php echo $image_filename; ?>" alt="Michael Ebuka" style="width:100%">
-   <h1><?php echo $name?></p></h1>
+  <img src="http://res.cloudinary.com/nwakristi/image/upload/v1526298391/nwakristi.jpg" alt="Michael Ebuka" style="width:100%">
+   <h1>Michael Ebuka</h1>
   <p class="title">Full Stack Developer</p>
   <p>hotels.ng</p>
   <div style="margin: 24px 0;">
