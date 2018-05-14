@@ -35,36 +35,38 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		<Title> Chidinma </Title>
 		<style> 
 		.container{
-			height: 300px;
-			width: 300px;
+			height: 400px;
+			width: 500px;
 			background-color: #A394CD;
 		}
-		img  {width: 50px;
-			height: 50px;
+		img  {width: 100px;
+			height: 100px;
 			border-radius: 40%;
 			margin-top: 30px;
 			margin-left:10px;
 		}
 		.aboutme{
-			width: 250px;
+			width: 500px;
 			height: 150px;
 			background-color: #D1CBCF;
 			align-self: center;
-			margin-top: 10px;
+			margin-top: 70px;
+			margin-bottom: -20px;
 
 		}
 		.email{
-			width: 150px;
-			height: 50px;
+			width: 250px;
+			height: 40px;
 			background-color: #F2F2F2;
 			border-radius: 20px;
 			padding-top: 5px;
 			margin-left: 20px;
 			border-bottom: 2px;
+			margin-top: 20px;
 		}
 		.phone {
-			width: 150px;
-			height: 50px;
+			width: 250px;
+			height: 40px;
 			background-color: #F2F2F2;
 			border-radius: 20px;
 			margin-left: 20px;
@@ -107,10 +109,8 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 			<p>
 				<h2> ORJI CHIDINMA N. </h2>
 			</p>
-			<p><h4>Intern @HNGInternship </h4> <p>
+			<p><h4>Tech enthusiast, Intern @HNGInternship, <br/> web development student. </h4> <p>
 			<div class = "aboutme">
-				<p><h3> Orji Chidinma is tech enthusiast and currently an intern at <br/>
- 					HNGInternship. She is working towards being a "bad" developer.</h3> <p>
 				<div class = "email"> <p> email: <u>chypearlnel@gmail.com</u></p>
 				</div>
 				<div class = "phone"> <p> Phone no: 09022181787 </p>
