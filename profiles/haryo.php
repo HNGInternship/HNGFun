@@ -1,24 +1,11 @@
 
 <?php
 // Connect to Database 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "hng_fun";
-// Create connection
-$conn = new mysqli($servername,$username,$password, $dbname);
-
-// Check connection
-if ($conn->connect_error)
-  {
-  die ("Failed to connect to MySQL: " . $conn->connect_error);
-  }
-
-
+require '../config.php';
 
 // Begin query 
 $query = "SELECT *";
-$query .= "FROM interns_data";
+$query .= "FROM interns_data ";
 $query .= "WHERE username = 'haryo' ";
 $result = mysqli_query($conn, $query);
 
