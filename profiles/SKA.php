@@ -11,7 +11,7 @@
 
     function get_location($ip_address){
         $arr = var_export(unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$_SERVER['REMOTE_ADDR'])));
-        return isset($arr) ? $arr['geoplugin_city']. " " . $arr["geoplugin_countryName"] : Null;
+        return isset($arr) ? $arr['geoplugin_city']. " " . $arr['geoplugin_countryName'] : Null;
     }
     
     function askQuestion($que){
@@ -61,7 +61,7 @@
 		$que = $_POST['que'];
 		// aboutbox
 		if($que === 'aboutbot'){
-			echo "Skybot 1.1";
+			echo "Skybot 1.2";
 			return;
         }
         // find location
