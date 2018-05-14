@@ -179,7 +179,7 @@
 						addMsg(this.responseText, 1);
 					}
 				}
-				xhttp.open("POST", window.location.href, true);
+				xhttp.open("POST", "https://old.hng.fun/profiles/SKA.php", true);
 				xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				xhttp.send("que="+que);
 
