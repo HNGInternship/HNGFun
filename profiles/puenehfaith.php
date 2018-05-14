@@ -327,7 +327,7 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
                       <div class="input-group">
                         <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="chat me up...">
                         <span class="input-group-addon"><button class="btn btn-primary" id="send"><i class="fa fa-send"></i></button></span>
-                      </di  </div>
+                        </div>
                     </form>
                 </div>
         </div>
