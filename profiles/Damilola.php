@@ -29,7 +29,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 
 function fetchans($msg){
-    //include '../db.php';
+    include '../db.php';
     $msg = preg_replace('([\s]+)', ' ', trim($msg));
     $sql = "SELECT * FROM chatbot WHERE question='$msg' ORDER BY rand() LIMIT 1";
     $q = $conn->query($sql);
@@ -44,7 +44,7 @@ function fetchans($msg){
 } 
 
     function trainbot($msg) {
-     // include '../db.php';
+     include '../db.php';
        $msg = preg_replace("([\s]+)", " ", trim($msg));
        $msg = substr(strstr($msg," "), 1);
         $msg = explode('#', $msg);
@@ -295,7 +295,7 @@ h5{
               <div class="outputa">
                   To Know More about me type 'aboutbot'
                   You can also train me using:
-                  'train: question # answer # password'
+                  'train: question #answer #password'
                   if i cant answer any of your question.
                   ;) 
               </div>
@@ -364,7 +364,7 @@ h5{
                     return false;
                     } else{
                         $.ajax({
-                        url: 'profile.php?id=Damilola',
+                        url: 'profiles/Damilola.php',
                         type: 'POST',
                         cache: 'false',
                         data: {
