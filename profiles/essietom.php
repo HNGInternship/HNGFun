@@ -28,7 +28,7 @@ function test_input($data) {
         $question =test_input($_POST["displayMessage"]);
         //bot version
         if($question == "aboutbot"){
-            $reply = "Tom Bot v1.1";
+            $reply = "Tom bot v1.0";
                        $response = array('status'=>3,'answer'=> $reply);
                        echo json_encode($response); 
         }else{
@@ -57,7 +57,7 @@ function test_input($data) {
                         $insert = "Insert into chatbot (question, answer) values ('$dataQuestion', '$dataAnswer')";
                         
                         if($conn->query($insert)){
-                            $reply = "Thanks for your help, I appreciate";
+                            $reply = "Yipee! I got trained";
                             $response = array('status'=>4, 'answer'=>$reply);
                             echo json_encode($response);
                         }else{
@@ -74,7 +74,7 @@ function test_input($data) {
                             echo json_encode($response);
                 }
             }else{
-                    $reply = "Seems you don't follow instructions.<br> Training Format: train:question#answer#password";
+                    $reply = "Thats not how to train buddy.<br> Training Format: train:question#answer#password";
                             $response = array('status'=>5, 'answer'=>$reply);
                             echo json_encode($response);
                 }
@@ -94,7 +94,7 @@ function test_input($data) {
     
         }
         else{
-            $error = "Well i dont know what that is but<br> You can train me on that.";
+            $error = "I don't seem to understand you <br> You can train me on that.";
             $response = array('status'=>2, 'answer'=> $error);
             echo json_encode($response); 
         }
@@ -529,7 +529,7 @@ button{
 
 <div class="banner-main">
 	
-	<img src="http://res.cloudinary.com/essietom/image/upload/v1523719246/<?php echo $user->image_filename; ?>" width="100px" height="110px" class="round-border roll-image">
+	<img src="<?php echo $user->image_filename; ?>" width="100px" height="110px" class="round-border roll-image">
 	<h2><?php echo $user->name; ?></h2>
 	<h4>Web developer and designer</h4>
 	<p style="text-align: justify; padding-right:10px;margin-left: 10px;">
@@ -546,17 +546,17 @@ button{
 
 </div><!--inner ends here -->
 
-    <!--Chat Bot-->
+     <!--Chat Bot-->
             <div class="oj-panel oj-panel-shadow-md" id="displayHidden" style="width:120px;height:50px;text-align:center;position:relative;margin:10px 20px;float:right;">Let's Chat</div>
             <div id="chatbot" style="margin:-100px 20px;">
                 <div id="chat" style="">
                     <span>Tom Bot</span>
                     <button id="button" style="float:right; margin-right:10px;"><span>-</span></button>
-                   
+                    
                 </div>
                 <div id="main_chat">
                     <div id="chatMessages">
-                        <div id="message" style="background-color:#dedede;">Hello, I am tom bot</div>
+                        <div id="message" style="background-color:#dedede;">Hi I am Essietom</div>
 
                     </div>
                 </div>
@@ -564,13 +564,13 @@ button{
 
                 <form action="" id="pearlbot_form" method="post">
                      <div class="input-group">
-                       <input class="form-control chat_input" id="chat_message" name="entered_message" placeholder="Start Typing...">
+                       <input class="form-control chat_input" id="chat_message" name="entered_message" placeholder="Type message here...">
                         
                      </div>
                </form>
             </div>
         </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script>
         
         var chatting = document.querySelector("#chatbot");
@@ -584,6 +584,7 @@ button{
         chatbot.style.display="none";
             chat.style.display="block";
         });
+
       
     </script>
     <script>
@@ -593,12 +594,14 @@ button{
         
         var message = $("#chat_message").val();
         var messageContainer = $("#chatMessages");
+
         if (message == "") {
             $("#chat_message").focus();
         } else {
             $("#chatMessages").append('<div id="messageSent">' + message + '</div>');
+
             $.ajax({
-                url: "/profiles/essietom.php",
+                url: "/profiles/pearl.php",
                 type: "POST",
                 data: {displayMessage: message},
                 dataType: "json"
@@ -638,7 +641,10 @@ button{
     });
     
 });
-    </script>
+
+
+
+    </script> 
 </body>
 </html>
 <?php } ?>
