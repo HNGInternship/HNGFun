@@ -1,6 +1,15 @@
 <?php
-define ('DB_USER', "root");
-define ('DB_PASSWORD', "");
-define ('DB_DATABASE', "hng_fun");
-define ('DB_HOST', "localhost");
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "hng_fun";
+// Create connection
+$conn = new mysqli($servername,$username,$password, $dbname);
+
+// Check connection
+if ($conn->connect_error)
+  {
+  die ("Failed to connect to MySQL: " . $conn->connect_error);
+  }
+
 ?>
